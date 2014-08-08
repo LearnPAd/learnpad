@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+# Trace what's being executed (useful for debug)
+# set -o xtrace
+# Exit on error
+set -o errexit
+# Exit on unset variables
+set -o nounset
+# Catch the error code of the program who crashed in piping commands
+set -o pipefail
+
+declare -r __ROOT_PATH__="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+declare -r __BASE__="$(basename "${BASH_SOURCE[0]}")"
+declare -r __FILE__="${__ROOT_PATH__}/${__BASE__}"
+declare -r __BUILD_SYSTEM_PATH__="${__ROOT_PATH__}/build-system"
+declare __LOG_LEVEL__="ERROR"
+
+declare -r COMPONENTS_LIST_FILE="${__ROOT_PATH__}/.components"
+
+### Libraries
+source ${__BUILD_SYSTEM_PATH__}/utils.sh
+source ${__BUILD_SYSTEM_PATH__}/prebuild.sh
+source ${__BUILD_SYSTEM_PATH__}/build.sh
+source ${__BUILD_SYSTEM_PATH__}/postbuild.sh
+
+for ARG in $*
+do
+	case ${ARG} in
+		"-v"|"--verbose")
+			declare __LOG_LEVEL__="INFO"
+			;;
+		"-d"|"--debug")
+			declare __LOG_LEVEL__="DEBUG"
+			;;
+		*)
+			customlog "ERROR" "\`${ARG}' is not a valid argument." ${ERROR_ARGS}
+	esac
+done
+
+cat ${COMPONENTS_LIST_FILE} | while read COMPONENT_NAME
+do
+	if iscomponent ${COMPONENT_NAME}
+	then
+		prebuild "${COMPONENT_NAME}"
+		build "${COMPONENT_NAME}"
+		postbuild "${COMPONENT_NAME}"
+	else
+		customlog "ERROR" "The list in \`.components' contains at least one non-existing component." ${ERROR_COMPONENTS}
+	fi
+done
+exit ${SUCCESS}
