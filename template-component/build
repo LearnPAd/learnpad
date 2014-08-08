@@ -34,6 +34,7 @@ make all
 # This is where you can run tests of your component
 function component_test() {
 # There is no test in this template component
+echo "Nothing to test"
 }
 
 ### INSTALL ###
