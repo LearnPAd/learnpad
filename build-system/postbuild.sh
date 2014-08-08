@@ -23,10 +23,30 @@ fi
 customlog "INFO" "[${COMPONENT_NAME}] Start postbuild."
 declare -r COMPONENT_PATH="${__ROOT_PATH__}/${COMPONENT_NAME}"
 declare -r OUT_PATH="${COMPONENT_PATH}/out"
+declare -r RUNDEPS_FILE="${OUT_PATH}/rundeps.txt"
+if [ -f "${RUNDEPS_FILE}" ]
+then
+	customlog "INFO" "[${COMPONENT_NAME}] Installing build dependencies."
+	postbuild_installdependencies "$( cat ${RUNDEPS_FILE} )"
+fi
 declare -r START_FILE="${OUT_PATH}/start"
 customlog "INFO" "[${COMPONENT_NAME}] Start the component"
 bash "${START_FILE}"
 declare -r STOP_FILE="${OUT_PATH}/stop"
 customlog "INFO" "[${COMPONENT_NAME}] Stop the component"
 bash "${STOP_FILE}"
+}
+
+function postbuild_installdependencies() {
+declare -a DEPS_LIST=("$*")
+if [ ${__LOG_LEVEL__} = "DEBUG" ]
+then
+	for DEP in ${DEPS_LIST}
+	do
+		customlog "DEBUG" "Installing ${DEP}"
+		sudo apt-get install ${DEP}
+	done
+else
+	sudo apt-get install ${DEPS_LIST[@]}
+fi
 }
