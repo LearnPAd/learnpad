@@ -2,7 +2,7 @@ Learn PAd project
 =================
 
 Learn PAd is a European financed project
-(http://ec.europa.eu/programmes/horizon2020/(Horizon 2020))for helping Public
+([Horizon 2020](http://ec.europa.eu/programmes/horizon2020/ "European project")) for helping Public
 Administrations in managing and learning the internal business processes.
 
 # The platform
