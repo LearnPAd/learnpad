@@ -36,9 +36,9 @@ then
 	for DEP in ${DEPS_LIST}
 	do
 		customlog "DEBUG" "Installing ${DEP}"
-		apt-get install ${DEP}
+		sudo apt-get install ${DEP}
 	done
 else
-	apt-get install ${DEPS_LIST[@]}
+	sudo apt-get install ${DEPS_LIST[@]}
 fi
 }
