@@ -1,3 +1,2 @@
 gcc
-node
-libpng
+make
