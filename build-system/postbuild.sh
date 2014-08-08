@@ -21,4 +21,11 @@ then
 fi
 
 customlog "INFO" "[${COMPONENT_NAME}] Start postbuild."
+declare -r COMPONENT_PATH="${__ROOT_PATH__}/${COMPONENT_NAME}"
+declare -r START_FILE="${COMPONENT_PATH}/start"
+customlog "INFO" "[${COMPONENT_NAME}] Start the component"
+bash "${START_FILE}"
+declare -r STOP_FILE="${COMPONENT_PATH}/stop"
+customlog "INFO" "[${COMPONENT_NAME}] Stop the component"
+bash "${STOP_FILE}"
 }
