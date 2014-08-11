@@ -35,17 +35,17 @@ related modeling standards.
 
 ## Partners
 
-    No | Name                               | Short name    | Country     | Project entry month | Project exit month
-    -- | ---------------------------------- | ------------- | ----------- | ------------------- | ------------------
-    1  | CONSIGLIO NAZIONALE DELLE RICERCHE | CNR           | Italy       | 1                   | 30                
-    2  | BOC ASSET MANAGEMENT GMBH          | BOC           | Austria     | 1                   | 30                
-    3  | Linagora Grand Sud Ouest SA        | LINAGORA GSO  | France      | 1                   | 30                
-    4  | NO MAGIC EUROPE UAB                | NME           | Lithuania   | 1                   | 30                
-    5  | REGIONE MARCHE                     | MARCHE REGION | Italy       | 1                   | 30                
-    6  | FACHHOCHSCHULE NORDWESTSCHWEIZ     | FHNW          | Switzerland | 1                   | 30                
-    7  | UNIVERSITA DEGLI STUDI DI CAMERINO | UNICAM        | Italy       | 1                   | 30                
-    8  | UNIVERSITA DEGLI STUDI DELL'AQUILA | UNIVAQ        | Italy       | 1                   | 30                
-    9  | XWIKI SAS                          | XWIKI SAS     | France      | 1                   | 30                
+No | Name | Short name | Country | Project entry month | Project exit month
+-- | ---- | ---------- | ------- | ------------------- | ------------------
+1 | CONSIGLIO NAZIONALE DELLE RICERCHE | CNR | Italy | 1 | 30 
+2 | BOC ASSET MANAGEMENT GMBH | BOC | Austria | 1 | 30 
+3 | Linagora Grand Sud Ouest SA | LINAGORA GSO | France | 1 | 30 
+4 | NO MAGIC EUROPE UAB | NME | Lithuania | 1 | 30 
+5 | REGIONE MARCHE | MARCHE REGION | Italy | 1 | 30 
+6 | FACHHOCHSCHULE NORDWESTSCHWEIZ | FHNW | Switzerland | 1 | 30 
+7 | UNIVERSITA DEGLI STUDI DI CAMERINO | UNICAM | Italy | 1 | 30 
+8 | UNIVERSITA DEGLI STUDI DELL'AQUILA | UNIVAQ | Italy | 1 | 30 
+9 | XWIKI SAS | XWIKI SAS | France | 1 | 30 
 
 # The platform
 To build the platform, run the `build` script at the root directory.
