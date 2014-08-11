@@ -34,8 +34,9 @@ Finally Learn PAd will contribute to dissemination and evolution of BPMN and
 related modeling standards.
 
 ## Partners
+
 | No | Name                               | Short name    | Country     | Project entry month | Project exit month |
-| -- | ---------------------------------- | ------------- | ----------- | ------------------- | ------------------ |
+| -: | ---------------------------------- | ------------- | ----------- | ------------------- | ------------------ |
 | 1  | CONSIGLIO NAZIONALE DELLE RICERCHE | CNR           | Italy       | 1                   | 30                 |
 | 2  | BOC ASSET MANAGEMENT GMBH          | BOC           | Austria     | 1                   | 30                 |
 | 3  | Linagora Grand Sud Ouest SA        | LINAGORA GSO  | France      | 1                   | 30                 |
