@@ -51,7 +51,7 @@ related modeling standards.
 To build the platform, run the `build` script at the root directory.
 
 ## Components
-Learn PAd platform is a set of components, each one is in a independent
+Learn PAd platform is a set of components, each one is in an independent
 directory.  To know the exact list of components of the platform, you can look
 into the `.components` file.
 
