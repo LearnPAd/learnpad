@@ -27,7 +27,7 @@ on simulation and monitoring (learning by doing). Formal verification and
 natural language processing techniques will ensure quality of content and
 documentation. Specialized ontologies and KPIs will be defined to keep learners
 engaged, while automatically derived tests will challenge their acquired
-knowledge.  Learn PAd is inspired by open-source communities principles and
+knowledge. Learn PAd is inspired by open-source communities principles and
 cooperation spirit: contents are produced by the community, and meritocracy is
 naturally promoted, with leaders emerging because of their skill and expertise.
 Finally Learn PAd will contribute to dissemination and evolution of BPMN and
@@ -52,6 +52,6 @@ To build the platform, run the `build` script at the root directory.
 
 ## Components
 Learn PAd platform is a set of components, each one is in an independent
-directory.  To know the exact list of components of the platform, you can look
+directory.  To know the exact list of components in the platform, you can look
 into the `.components` file.
 
