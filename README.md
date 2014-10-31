@@ -1,5 +1,5 @@
 Learn PAd project - Model-Based Social Learning for Public Administrations
-==========================================================================
+===================================================================
 
 Learn PAd is a European financed project ([FP7](http://cordis.europa.eu/fp7/)).
 
