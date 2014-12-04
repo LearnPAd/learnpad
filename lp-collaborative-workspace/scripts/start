@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 declare -r PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd ${PATH} &&
-	/usr/bin/java -jar lp-collaborative-workspace-bridge-1.0-SNAPSHOT.jar
+	# Nothing to start at this time
