@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+kill $( ps u | grep "java -jar lp-collaborative-workspace-bridge.*jar$" | awk '{print $2}' )

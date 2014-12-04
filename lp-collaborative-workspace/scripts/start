@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+declare -r PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd ${PATH} && java lp-collaborative-workspace-bridge-1.0-SNAPSHOT.jar
