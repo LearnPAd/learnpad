@@ -1,1 +1,6 @@
 */out
+
+# Eclipse
+.project
+.settings/
+.classpath

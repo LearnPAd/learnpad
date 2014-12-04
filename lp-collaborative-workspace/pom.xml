@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.xwikisas</groupId>
+  <artifactId>lp-collaborative-workspace</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>lp-collaborative-workspace</name>
+  <description>Learn PAd - Collaborative Workspace</description>
+  <developers>
+    <developer>
+      <id>woshilapin</id>
+      <name>Jean Simard</name>
+    </developer>
+    <developer>
+      <name>Daniele Gagliardi</name>
+    </developer>
+  </developers>
+  <scm>
+    <url>https://github.com/LearnPAd/learnpad.git</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <modules>
+    <module>lp-collaborative-workspace-bridge</module>
+  </modules>
+</project>
