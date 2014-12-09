@@ -10,11 +10,22 @@ fi
 source ${__BUILD_SYSTEM_PATH__}/utils.sh
 
 function build() {
-if [ $# -ne 1 ]
+if [ $# -lt 1 ]
 then
-	customlog "ERROR" "\`build' takes only 1 argument (the name of the component)" ${ERROR_BUILD_ARGS}
+	customlog "ERROR" "\`build' takes at least 1 argument (the name of the component)" ${ERROR_BUILD_ARGS}
 fi
-declare -r COMPONENT_NAME="${1}"
+for ARG in $*
+do
+	if [[ ${ARG} == --* ]]
+	then
+		case ${ARG} in
+			*)
+				;;
+		esac
+	else
+		declare -r COMPONENT_NAME="${ARG}"
+	fi
+done
 if isnotcomponent ${COMPONENT_NAME}
 then
 	customlog "ERROR" "\`build' takes a component's name as an argument" ${ERROR_BUILD_ARGS}

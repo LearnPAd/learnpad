@@ -13,6 +13,7 @@ declare -r __ROOT_PATH__="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 declare -r __BASE__="$(basename "${BASH_SOURCE[0]}")"
 declare -r __FILE__="${__ROOT_PATH__}/${__BASE__}"
 declare -r __BUILD_SYSTEM_PATH__="${__ROOT_PATH__}/build-system"
+declare -r __OPTIONS__=$*
 declare __LOG_LEVEL__="ERROR"
 
 declare -r COMPONENTS_LIST_FILE="${__ROOT_PATH__}/.components"
@@ -41,9 +42,9 @@ cat ${COMPONENTS_LIST_FILE} | while read COMPONENT_NAME
 do
 	if iscomponent ${COMPONENT_NAME}
 	then
-		prebuild "${COMPONENT_NAME}"
-		build "${COMPONENT_NAME}"
-		postbuild "${COMPONENT_NAME}"
+		prebuild "${COMPONENT_NAME}" ${__OPTIONS__}
+		build "${COMPONENT_NAME}" ${__OPTIONS__}
+		postbuild "${COMPONENT_NAME}" ${__OPTIONS__}
 	else
 		customlog "ERROR" "The list in \`.components' contains at least one non-existing component." ${ERROR_COMPONENTS}
 	fi

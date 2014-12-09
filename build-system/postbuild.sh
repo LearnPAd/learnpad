@@ -10,11 +10,29 @@ fi
 source ${__BUILD_SYSTEM_PATH__}/utils.sh
 
 function postbuild() {
-if [ $# -ne 1 ]
+if [ $# -lt 1 ]
 then
-	customlog "ERROR" "\`postbuild' takes only 1 argument (the name of the component)" ${ERROR_POSTBUILD_ARGS}
+	customlog "ERROR" "\`postbuild' takes at least 1 argument (the name of the component)" ${ERROR_POSTBUILD_ARGS}
 fi
-declare -r COMPONENT_NAME="${1}"
+declare INSTALL_DEPS=false
+for ARG in $*
+do
+	if [[ ${ARG} == --* ]]
+	then
+		case ${ARG} in
+			"-d" | "--install-deps" )
+				declare INSTALL_DEPS=true
+				;;
+			"-nd" | "--noinstall-deps" )
+				declare INSTALL_DEPS=false
+				;;
+			*)
+				;;
+		esac
+	else
+		declare -r COMPONENT_NAME="${ARG}"
+	fi
+done
 if isnotcomponent ${COMPONENT_NAME}
 then
 	customlog "ERROR" "\`postbuild' takes a component's name as an argument" ${ERROR_POSTBUILD_ARGS}
@@ -44,9 +62,19 @@ then
 	for DEP in ${DEPS_LIST}
 	do
 		customlog "DEBUG" "Installing ${DEP}"
-		sudo apt-get install ${DEP}
+		if $INSTALL_DEPS
+		then
+			sudo apt-get install ${DEP}
+		else
+			customlog "INFO" "Dependency \`${DEP}' will not be installed."
+		fi
 	done
 else
-	sudo apt-get install ${DEPS_LIST[@]}
+	if $INSTALL_DEPS
+	then
+		sudo apt-get install ${DEPS_LIST[@]}
+	else
+		customlog "INFO" "Dependencies \`${DEPS_LIST[@]}' will not be installed."
+	fi
 fi
 }

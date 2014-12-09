@@ -1,2 +1,2 @@
 language: java
-script: bash build --debug
+script: bash build --install-deps --debug
