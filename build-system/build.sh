@@ -20,6 +20,7 @@ do
 	then
 		case ${ARG} in
 			*)
+				customlog "INFO" "\`${ARG}' is not parsed by \`build' script."
 				;;
 		esac
 	else

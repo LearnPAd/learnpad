@@ -34,7 +34,8 @@ do
 			declare __LOG_LEVEL__="DEBUG"
 			;;
 		*)
-			customlog "ERROR" "\`${ARG}' is not a valid argument." ${ERROR_ARGS}
+			customlog "INFO" "\`${ARG}' is not parsed by \`${__BASE__}' script."
+			;;
 	esac
 done
 

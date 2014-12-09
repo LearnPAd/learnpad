@@ -27,6 +27,7 @@ do
 				declare INSTALL_DEPS=false
 				;;
 			*)
+				customlog "INFO" "\`${ARG}' is not parsed by \`prebuild' script."
 				;;
 		esac
 	else
