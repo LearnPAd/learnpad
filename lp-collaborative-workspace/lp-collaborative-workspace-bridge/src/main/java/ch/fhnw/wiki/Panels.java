@@ -235,7 +235,7 @@ public class Panels {
 		object.appendChild(className);
 
 		Element guid = newDocument.createElement("guid");
-		guid.setTextContent("132f9db7-d133-4a1e-837b-0a4506931b32");
+	//	guid.setTextContent("132f9db7-d133-4a1e-837b-0a4506931b32");
 		object.appendChild(guid);
 
 		Element classObject = newDocument.createElement("class");
