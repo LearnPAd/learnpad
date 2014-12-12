@@ -149,6 +149,7 @@ public class UserCreator {
 				xwikidoc.appendChild(language);
 
 				Element defaultLanguage = newDocument.createElement("defaultLanguage");
+				defaultLanguage.setTextContent("en");
 				xwikidoc.appendChild(defaultLanguage);
 
 				Element translation = newDocument.createElement("translation");
@@ -184,18 +185,18 @@ public class UserCreator {
 				xwikidoc.appendChild(contentUpdateDate);
 
 				Element version = newDocument.createElement("version");
-				version.setTextContent("1.3");
+				version.setTextContent("1.1");
 				xwikidoc.appendChild(version);
 
 				Element title = newDocument.createElement("title");
 				xwikidoc.appendChild(title);
 
 				Element updateWatchlist = newDocument.createElement("comment");
-				updateWatchlist.setTextContent("Updated WatchList");
+				//updateWatchlist.setTextContent("Updated WatchList");
 				xwikidoc.appendChild(updateWatchlist);
 
 				Element minorEdit = newDocument.createElement("minorEdit");
-				minorEdit.setTextContent("true");
+				minorEdit.setTextContent("false");
 				xwikidoc.appendChild(minorEdit);
 
 				Element syntaxId = newDocument.createElement("syntaxId");
@@ -222,11 +223,11 @@ public class UserCreator {
 				object.appendChild(number);
 
 				Element className = newDocument.createElement("className");
-				className.setTextContent("XWiki.WatchListClass");
+				className.setTextContent("Dashboard.UserDashboardPreferencesClass");
 				object.appendChild(className);
 
 				Element guid = newDocument.createElement("guid");
-				guid.setTextContent("4dc9a532-7f9d-45da-9b6b-4fb17e5502e8");
+				//guid.setTextContent("06c98e97-2c58-4929-853e-fbbfde460e53");
 				object.appendChild(guid);
 
 				Element classObject = newDocument.createElement("class");
@@ -234,7 +235,7 @@ public class UserCreator {
 				///////////////////object.appendChild(classObject);
 
 				Element nameClass = newDocument.createElement("name");
-				nameClass.setTextContent("XWiki.WatchListClass");
+				nameClass.setTextContent("Dashboard.UserDashboardPreferencesClass");
 				classObject.appendChild(nameClass);
 
 				Element customClassObject = newDocument.createElement("customClass");
@@ -259,6 +260,118 @@ public class UserCreator {
 				classObject.appendChild(validationScriptObject);
 
 
+				Element displayOnMainPage = newDocument.createElement("displayOnMainPage");
+				////////////////
+
+				Element customDisplay = newDocument.createElement("customDisplay");
+				displayOnMainPage.appendChild(customDisplay);
+
+				Element defaultValue = newDocument.createElement("defaultValue");
+				defaultValue.setTextContent("0");
+				displayOnMainPage.appendChild(defaultValue);
+
+				Element disabled = newDocument.createElement("disabled");
+				disabled.setTextContent("0");
+				displayOnMainPage.appendChild(disabled);
+
+				Element displayFormType = newDocument.createElement("displayFormType");
+				displayFormType.setTextContent("select");
+				displayOnMainPage.appendChild(displayFormType);
+
+				Element displayType = newDocument.createElement("displayType");
+				displayOnMainPage.appendChild(displayType);
+
+				Element nameWatch = newDocument.createElement("name");
+				nameWatch.setTextContent("displayOnMainPage");
+				displayOnMainPage.appendChild(nameWatch);
+
+				Element numberWatch = newDocument.createElement("number");
+				numberWatch.setTextContent("1");
+				displayOnMainPage.appendChild(numberWatch);
+
+				Element prettyName = newDocument.createElement("prettyName");
+				prettyName.setTextContent("displayOnMainPage");
+				displayOnMainPage.appendChild(prettyName);
+
+				Element unmodifiable = newDocument.createElement("unmodifiable");
+				unmodifiable.setTextContent("0");
+				displayOnMainPage.appendChild(unmodifiable);
+
+				Element validationMessage = newDocument.createElement("validationMessage");
+				displayOnMainPage.appendChild(validationMessage);
+
+				Element validationRegExp = newDocument.createElement("validationRegExp");
+				displayOnMainPage.appendChild(validationRegExp);				
+
+				Element classType = newDocument.createElement("classType");
+				classType.setTextContent("com.xpn.xwiki.objects.classes.BooleanClass");
+				displayOnMainPage.appendChild(classType);
+
+				classObject.appendChild(displayOnMainPage);
+
+				object.appendChild(classObject);
+
+				Element property = newDocument.createElement("property");
+
+				Element displayProperty = newDocument.createElement("displayOnMainPage");
+				displayProperty.setTextContent("0");
+				property.appendChild(displayProperty);
+
+				object.appendChild(property);
+
+				xwikidoc.appendChild(object);
+
+
+
+				Element object2 = newDocument.createElement("object");
+				////////////////////////////////////////xwikidoc.appendChild(object);
+
+				Element nameObject2 = newDocument.createElement("name");
+				nameObject2.setTextContent("XWiki." + employeeName);
+				object2.appendChild(nameObject2);
+
+				Element number2 = newDocument.createElement("number");
+				number2.setTextContent("0");
+				object2.appendChild(number2);
+
+				Element className2 = newDocument.createElement("className");
+				className2.setTextContent("XWiki.WatchListClass");
+				object2.appendChild(className2);
+
+				Element guid2 = newDocument.createElement("guid");
+				//guid2.setTextContent("153168be-5d86-4f13-9e8b-f06ea1118ec7");
+				object2.appendChild(guid2);
+
+				Element classObject2 = newDocument.createElement("class");
+
+				///////////////////object.appendChild(classObject);
+
+				Element nameClass2 = newDocument.createElement("name");
+				nameClass2.setTextContent("XWiki.WatchListClass");
+				classObject2.appendChild(nameClass2);
+
+				Element customClassObject2 = newDocument.createElement("customClass");
+				classObject2.appendChild(customClassObject2);
+
+				Element customMapping2 = newDocument.createElement("customMapping");
+				classObject2.appendChild(customMapping2);
+
+				Element defaultViewSheet2 = newDocument.createElement("defaultViewSheet");
+				classObject2.appendChild(defaultViewSheet2);
+
+				Element defaultEditSheet2 = newDocument.createElement("defaultEditSheet");
+				classObject2.appendChild(defaultEditSheet2);
+
+				Element defaultWeb2 = newDocument.createElement("defaultWeb");
+				classObject2.appendChild(defaultWeb2);
+
+				Element nameField2 = newDocument.createElement("nameField");
+				classObject2.appendChild(nameField2);
+
+				Element validationScriptObject2 = newDocument.createElement("validationScript");
+				classObject2.appendChild(validationScriptObject2);
+
+
 				Element automaticwatch = newDocument.createElement("automaticwatch");
 				////////////////
 
@@ -266,29 +379,30 @@ public class UserCreator {
 				cache.setTextContent("0");
 				automaticwatch.appendChild(cache);
 
-				Element disabled = newDocument.createElement("disabled");
-				disabled.setTextContent("0");
-				automaticwatch.appendChild(disabled);
+				Element disabled2 = newDocument.createElement("disabled");
+				disabled2.setTextContent("0");
+				automaticwatch.appendChild(disabled2);
 
-				Element displayType = newDocument.createElement("displayType");
-				displayType.setTextContent("select");
-				automaticwatch.appendChild(displayType);
+				Element displayType2 = newDocument.createElement("displayType");
+				displayType2.setTextContent("select");
+				automaticwatch.appendChild(displayType2);
 
 				Element multiSelect = newDocument.createElement("multiSelect");
 				multiSelect.setTextContent("0");
 				automaticwatch.appendChild(multiSelect);
 
-				Element nameWatch = newDocument.createElement("name");
-				nameWatch.setTextContent("automaticwatch");
-				automaticwatch.appendChild(nameWatch);
 
-				Element numberWatch = newDocument.createElement("number");
-				numberWatch.setTextContent("6");
-				automaticwatch.appendChild(numberWatch);
+				Element nameAutomaticwatch = newDocument.createElement("name");
+				nameAutomaticwatch.setTextContent("automaticwatch");
+				automaticwatch.appendChild(nameAutomaticwatch);
 
-				Element prettyName = newDocument.createElement("prettyName");
-				prettyName.setTextContent("Automatic watching");
-				automaticwatch.appendChild(prettyName);
+				Element numberAutomaticwatch = newDocument.createElement("number");
+				numberAutomaticwatch.setTextContent("6");
+				automaticwatch.appendChild(numberAutomaticwatch);
+
+				Element prettyName2 = newDocument.createElement("prettyName");
+				prettyName2.setTextContent("Automatic watching");
+				automaticwatch.appendChild(prettyName2);
 
 				Element relationalStorage = newDocument.createElement("relationalStorage");
 				relationalStorage.setTextContent("0");
@@ -306,26 +420,25 @@ public class UserCreator {
 				size.setTextContent("1");
 				automaticwatch.appendChild(size);
 
-				Element unmodifiable = newDocument.createElement("unmodifiable");
-				unmodifiable.setTextContent("0");
-				automaticwatch.appendChild(unmodifiable);
+				Element unmodifiable2 = newDocument.createElement("unmodifiable");
+				unmodifiable2.setTextContent("0");
+				automaticwatch.appendChild(unmodifiable2);
 
 				Element values = newDocument.createElement("values");
 				values.setTextContent("default|NONE|ALL|MAJOR|NEW");
 				automaticwatch.appendChild(values);
 
-				Element classType = newDocument.createElement("classType");
-				classType.setTextContent("com.xpn.xwiki.objects.classes.StaticListClass");
-				automaticwatch.appendChild(classType);
+				Element classType2 = newDocument.createElement("classType");
+				classType2.setTextContent("com.xpn.xwiki.objects.classes.StaticListClass");
+				automaticwatch.appendChild(classType2);
 
-				classObject.appendChild(automaticwatch);
+				classObject2.appendChild(automaticwatch);
 
 				Element documents = newDocument.createElement("documents");
-				/////////////
 
-				Element disabledDocuments = newDocument.createElement("disabled");
-				disabledDocuments.setTextContent("0");
-				documents.appendChild(disabledDocuments);
+				Element disabledDocuments2 = newDocument.createElement("disabled");
+				disabledDocuments2.setTextContent("0");
+				documents.appendChild(disabledDocuments2);
 
 				Element nameDocuments = newDocument.createElement("name");
 				nameDocuments.setTextContent("documents");
@@ -339,23 +452,25 @@ public class UserCreator {
 				prettyNameDocuments.setTextContent("Document list");
 				documents.appendChild(prettyNameDocuments);
 
-				Element rows = newDocument.createElement("rows");
-				rows.setTextContent("5");
-				documents.appendChild(rows);
 
-				Element sizeDocument = newDocument.createElement("size");
-				sizeDocument.setTextContent("80");
-				documents.appendChild(sizeDocument);
+				Element rowsDocuments = newDocument.createElement("rows");
+				rowsDocuments.setTextContent("5");
+				documents.appendChild(rowsDocuments);
 
-				Element unmodifiableDocument = newDocument.createElement("unmodifiable");
-				unmodifiableDocument.setTextContent("0");
-				documents.appendChild(unmodifiableDocument);
+				Element sizeDocuments = newDocument.createElement("size");
+				sizeDocuments.setTextContent("80");
+				documents.appendChild(sizeDocuments);
 
-				Element classTypeDocument = newDocument.createElement("classType");
-				classTypeDocument.setTextContent("com.xpn.xwiki.objects.classes.TextAreaClass");
-				documents.appendChild(classTypeDocument);
+				Element unmodifiable3 = newDocument.createElement("unmodifiable");
+				unmodifiable3.setTextContent("0");
+				documents.appendChild(unmodifiable3);
 
-				classObject.appendChild(documents);
+				Element classType3 = newDocument.createElement("classType");
+				classType3.setTextContent("com.xpn.xwiki.objects.classes.TextAreaClass");
+				documents.appendChild(classType3);
+
+				classObject2.appendChild(documents);
+
 
 				Element interval = newDocument.createElement("interval");
 
@@ -409,13 +524,13 @@ public class UserCreator {
 
 				Element valuesInterval = newDocument.createElement("values");
 				valuesInterval.setTextContent("Scheduler.WatchListDailyNotifier|Scheduler.WatchListHourlyNotifier|Scheduler.WatchListWeeklyNotifier");
-				interval.appendChild(valuesInterval);
+				interval.appendChild(valuesInterval);				
 
 				Element classTypeInterval = newDocument.createElement("classType");
 				classTypeInterval.setTextContent("com.xpn.xwiki.objects.classes.StaticListClass");
 				interval.appendChild(classTypeInterval);
 
-				classObject.appendChild(interval);
+				classObject2.appendChild(interval);
 
 				Element spaces = newDocument.createElement("spaces");
 
@@ -439,9 +554,9 @@ public class UserCreator {
 				rowsSpaces.setTextContent("5");
 				spaces.appendChild(rowsSpaces);
 
-				Element sizeSpaces = newDocument.createElement("size");
-				sizeSpaces.setTextContent("80");
-				spaces.appendChild(sizeSpaces);
+				Element separatorSpaces = newDocument.createElement("size");
+				separatorSpaces.setTextContent("80");
+				spaces.appendChild(separatorSpaces);
 
 				Element unmodifiableSpaces = newDocument.createElement("unmodifiable");
 				unmodifiableSpaces.setTextContent("0");
@@ -451,7 +566,7 @@ public class UserCreator {
 				classTypeSpaces.setTextContent("com.xpn.xwiki.objects.classes.TextAreaClass");
 				spaces.appendChild(classTypeSpaces);
 
-				classObject.appendChild(spaces);
+				classObject2.appendChild(spaces);
 
 				Element users = newDocument.createElement("users");
 
@@ -475,9 +590,9 @@ public class UserCreator {
 				rowsUsers.setTextContent("5");
 				users.appendChild(rowsUsers);
 
-				Element sizeUsers = newDocument.createElement("size");
-				sizeUsers.setTextContent("80");
-				users.appendChild(sizeUsers);
+				Element separatorUsers = newDocument.createElement("size");
+				separatorUsers.setTextContent("80");
+				users.appendChild(separatorUsers);
 
 				Element unmodifiableUsers = newDocument.createElement("unmodifiable");
 				unmodifiableUsers.setTextContent("0");
@@ -487,7 +602,7 @@ public class UserCreator {
 				classTypeUsers.setTextContent("com.xpn.xwiki.objects.classes.TextAreaClass");
 				users.appendChild(classTypeUsers);
 
-				classObject.appendChild(users);
+				classObject2.appendChild(users);
 
 				Element wikis = newDocument.createElement("wikis");
 
@@ -511,9 +626,9 @@ public class UserCreator {
 				rowsWikis.setTextContent("5");
 				wikis.appendChild(rowsWikis);
 
-				Element sizeWikis = newDocument.createElement("size");
-				sizeWikis.setTextContent("80");
-				wikis.appendChild(sizeWikis);
+				Element separatorWikis = newDocument.createElement("size");
+				separatorWikis.setTextContent("80");
+				wikis.appendChild(separatorWikis);
 
 				Element unmodifiableWikis = newDocument.createElement("unmodifiable");
 				unmodifiableWikis.setTextContent("0");
@@ -523,89 +638,88 @@ public class UserCreator {
 				classTypeWikis.setTextContent("com.xpn.xwiki.objects.classes.TextAreaClass");
 				wikis.appendChild(classTypeWikis);
 
-				classObject.appendChild(wikis);
-
-				object.appendChild(classObject);
-
-				Element property = newDocument.createElement("property");
-
-				Element documentsProperty = newDocument.createElement("documents");
-				documentsProperty.setTextContent("xwiki:XWiki." + employeeName);
-				property.appendChild(documentsProperty);
-
-				object.appendChild(property);
-
-				xwikidoc.appendChild(object);
+				classObject2.appendChild(wikis);
 
 
+				object2.appendChild(classObject2);
 
-				Element object2 = newDocument.createElement("object");
-				////////////////////////////////////////xwikidoc.appendChild(object);
+				Element property2 = newDocument.createElement("property");
 
-				Element nameObject2 = newDocument.createElement("name");
-				nameObject2.setTextContent("XWiki." + employeeName);
-				object2.appendChild(nameObject2);
+				Element allowProperty = newDocument.createElement("documents");
+				allowProperty.setTextContent("xwiki:XWiki." + employeeName);
+				property2.appendChild(allowProperty);
 
-				Element number2 = newDocument.createElement("number");
-				number2.setTextContent("0");
-				object2.appendChild(number2);
+				object2.appendChild(property2);
 
-				Element className2 = newDocument.createElement("className");
-				className2.setTextContent("XWiki.XWikiRights");
-				object2.appendChild(className2);
+				xwikidoc.appendChild(object2);
 
-				Element guid2 = newDocument.createElement("guid");
-				guid2.setTextContent("cea8996b-f8b4-4e80-a49a-2f8d94bcf632");
-				object2.appendChild(guid2);
 
-				Element classObject2 = newDocument.createElement("class");
+				Element object3 = newDocument.createElement("object");
+
+				Element nameObject3 = newDocument.createElement("name");
+				nameObject3.setTextContent("XWiki." + employeeName);
+				object3.appendChild(nameObject3);
+
+				Element number3 = newDocument.createElement("number");
+				number3.setTextContent("0");
+				object3.appendChild(number3);
+
+				Element className3 = newDocument.createElement("className");
+				className3.setTextContent("XWiki.XWikiRights");
+				object3.appendChild(className3);
+
+				Element guid3 = newDocument.createElement("guid");
+				//guid3.setTextContent("4da634b9-3be0-4d00-bc66-e491785b1ec4");
+				object3.appendChild(guid3);
+
+				Element classObject3 = newDocument.createElement("class");
 
 				///////////////////object.appendChild(classObject);
 
-				Element nameClass2 = newDocument.createElement("name");
-				nameClass2.setTextContent("XWiki.XWikiRights");
-				classObject2.appendChild(nameClass2);
+				Element nameClass3 = newDocument.createElement("name");
+				nameClass3.setTextContent("XWiki.XWikiRights");
+				classObject3.appendChild(nameClass3);
 
-				Element customClassObject2 = newDocument.createElement("customClass");
-				classObject2.appendChild(customClassObject2);
+				Element customClassObject3 = newDocument.createElement("customClass");
+				classObject3.appendChild(customClassObject3);
 
-				Element customMapping2 = newDocument.createElement("customMapping");
-				classObject2.appendChild(customMapping2);
+				Element customMapping3 = newDocument.createElement("customMapping");
+				classObject3.appendChild(customMapping3);
 
-				Element defaultViewSheet2 = newDocument.createElement("defaultViewSheet");
-				classObject2.appendChild(defaultViewSheet2);
+				Element defaultViewSheet3 = newDocument.createElement("defaultViewSheet");
+				classObject3.appendChild(defaultViewSheet3);
 
-				Element defaultEditSheet2 = newDocument.createElement("defaultEditSheet");
-				classObject2.appendChild(defaultEditSheet2);
+				Element defaultEditSheet3 = newDocument.createElement("defaultEditSheet");
+				classObject3.appendChild(defaultEditSheet3);
 
-				Element defaultWeb2 = newDocument.createElement("defaultWeb");
-				classObject2.appendChild(defaultWeb2);
+				Element defaultWeb3 = newDocument.createElement("defaultWeb");
+				classObject3.appendChild(defaultWeb3);
 
-				Element nameField2 = newDocument.createElement("nameField");
-				classObject2.appendChild(nameField2);
+				Element nameField3 = newDocument.createElement("nameField");
+				classObject3.appendChild(nameField3);
 
-				Element validationScriptObject2 = newDocument.createElement("validationScript");
-				classObject2.appendChild(validationScriptObject2);
+				Element validationScriptObject3 = newDocument.createElement("validationScript");
+				classObject3.appendChild(validationScriptObject3);
 
 
 				Element allow = newDocument.createElement("allow");
 				////////////////
 
-				Element defaultValue = newDocument.createElement("defaultValue");
-				defaultValue.setTextContent("1");
-				allow.appendChild(defaultValue);
+				Element defaultValueAllow = newDocument.createElement("defaultValue");
+				defaultValueAllow.setTextContent("1");
+				allow.appendChild(defaultValueAllow);
 
-				Element disabled2 = newDocument.createElement("disabled");
-				disabled2.setTextContent("0");
-				allow.appendChild(disabled2);
+				Element disabledAllow = newDocument.createElement("disabled");
+				disabledAllow.setTextContent("0");
+				allow.appendChild(disabledAllow);
 
-				Element displayFormType = newDocument.createElement("displayFormType");
-				displayFormType.setTextContent("select");
-				allow.appendChild(displayFormType);
+				Element displayFormTypeAllow = newDocument.createElement("displayFormType");
+				displayFormTypeAllow.setTextContent("select");
+				allow.appendChild(displayFormTypeAllow);
 
-				Element displayType2 = newDocument.createElement("displayType");
-				displayType2.setTextContent("allow");
-				allow.appendChild(displayType2);
+				Element displayTypeAllow = newDocument.createElement("displayType");
+				displayTypeAllow.setTextContent("allow");
+				allow.appendChild(displayTypeAllow);
 
 				Element nameAllow = newDocument.createElement("name");
 				nameAllow.setTextContent("allow");
@@ -615,39 +729,38 @@ public class UserCreator {
 				numberAllow.setTextContent("4");
 				allow.appendChild(numberAllow);
 
-				Element prettyName2 = newDocument.createElement("prettyName");
-				prettyName2.setTextContent("Allow/Deny");
-				allow.appendChild(prettyName2);
+				Element prettyNameAllow = newDocument.createElement("prettyName");
+				prettyNameAllow.setTextContent("Allow/Deny");
+				allow.appendChild(prettyNameAllow);
 
-				Element unmodifiable2 = newDocument.createElement("unmodifiable");
-				unmodifiable2.setTextContent("0");
-				allow.appendChild(unmodifiable2);
+				Element unmodifiableAllow = newDocument.createElement("unmodifiable");
+				unmodifiableAllow.setTextContent("0");
+				allow.appendChild(unmodifiableAllow);
 
-				Element classType2 = newDocument.createElement("classType");
-				classType2.setTextContent("com.xpn.xwiki.objects.classes.BooleanClass");
-				allow.appendChild(classType2);
+				Element classTypeAllow = newDocument.createElement("classType");
+				classTypeAllow.setTextContent("com.xpn.xwiki.objects.classes.BooleanClass");
+				allow.appendChild(classTypeAllow);
 
-				classObject2.appendChild(allow);
+				classObject3.appendChild(allow);
 
 				Element groups = newDocument.createElement("groups");
 				/////////////xwikidoc.appendChild(documents);
 
+				Element cacheGroups = newDocument.createElement("cache");
+				cacheGroups.setTextContent("0");
+				groups.appendChild(cacheGroups);
 
-				Element cache2 = newDocument.createElement("cache");
-				cache2.setTextContent("0");
-				groups.appendChild(cache2);
+				Element disabledGroups = newDocument.createElement("disabled");
+				disabledGroups.setTextContent("0");
+				groups.appendChild(disabledGroups);
 
-				Element disabledDocuments2 = newDocument.createElement("disabled");
-				disabledDocuments2.setTextContent("0");
-				groups.appendChild(disabledDocuments2);
+				Element displayTypeGroups = newDocument.createElement("displayType");
+				displayTypeGroups.setTextContent("input");
+				groups.appendChild(displayTypeGroups);
 
-				Element displayType3 = newDocument.createElement("displayType");
-				displayType3.setTextContent("input");
-				groups.appendChild(displayType3);
-
-				Element multiSelect2 = newDocument.createElement("multiSelect");
-				multiSelect2.setTextContent("1");
-				groups.appendChild(multiSelect2);
+				Element multiSelectGroups = newDocument.createElement("multiSelect");
+				multiSelectGroups.setTextContent("1");
+				groups.appendChild(multiSelectGroups);
 
 				Element nameGroups = newDocument.createElement("name");
 				nameGroups.setTextContent("groups");
@@ -657,17 +770,17 @@ public class UserCreator {
 				numberGroups.setTextContent("1");
 				groups.appendChild(numberGroups);
 
-				Element picker = newDocument.createElement("picker");
-				picker.setTextContent("1");
-				groups.appendChild(picker);
+				Element pickerGroups = newDocument.createElement("picker");
+				pickerGroups.setTextContent("1");
+				groups.appendChild(pickerGroups);
 
 				Element prettyNameGroups = newDocument.createElement("prettyName");
 				prettyNameGroups.setTextContent("Groups");
 				groups.appendChild(prettyNameGroups);
 
-				Element relationalStorage2 = newDocument.createElement("relationalStorage");
-				relationalStorage2.setTextContent("0");
-				groups.appendChild(relationalStorage2);
+				Element relationalStorageGroups = newDocument.createElement("relationalStorage");
+				relationalStorageGroups.setTextContent("0");
+				groups.appendChild(relationalStorageGroups);
 
 				Element separatorGroups = newDocument.createElement("separator");
 				separatorGroups.setTextContent(" ");
@@ -677,18 +790,19 @@ public class UserCreator {
 				sizeGroups.setTextContent("5");
 				groups.appendChild(sizeGroups);
 
-				Element unmodifiable3 = newDocument.createElement("unmodifiable");
-				unmodifiable3.setTextContent("0");
-				groups.appendChild(unmodifiable3);
+				Element unmodifiableGroups = newDocument.createElement("unmodifiable");
+				unmodifiableGroups.setTextContent("0");
+				groups.appendChild(unmodifiableGroups);
 
-				Element classType3 = newDocument.createElement("classType");
-				classType3.setTextContent("com.xpn.xwiki.objects.classes.GroupsClass");
-				groups.appendChild(classType3);
+				Element classTypeGroups = newDocument.createElement("classType");
+				classTypeGroups.setTextContent("com.xpn.xwiki.objects.classes.GroupsClass");
+				groups.appendChild(classTypeGroups);
 
-				classObject2.appendChild(groups);
+				classObject3.appendChild(groups);
 
 
 				Element levels = newDocument.createElement("levels");
+				/////////////xwikidoc.appendChild(documents);
 
 				Element cacheLevels = newDocument.createElement("cache");
 				cacheLevels.setTextContent("0");
@@ -738,25 +852,27 @@ public class UserCreator {
 				classTypeLevels.setTextContent("com.xpn.xwiki.objects.classes.LevelsClass");
 				levels.appendChild(classTypeLevels);
 
-				classObject2.appendChild(levels);
+				classObject3.appendChild(levels);
+
 
 				Element users2 = newDocument.createElement("users");
+				/////////////xwikidoc.appendChild(documents);
 
-				Element cacheUsers = newDocument.createElement("cache");
-				cacheUsers.setTextContent("0");
-				users2.appendChild(cacheUsers);
+				Element cacheUsers2 = newDocument.createElement("cache");
+				cacheUsers2.setTextContent("0");
+				users2.appendChild(cacheUsers2);
 
 				Element disabledUsers2 = newDocument.createElement("disabled");
 				disabledUsers2.setTextContent("0");
 				users2.appendChild(disabledUsers2);
 
-				Element displayTypeUsers = newDocument.createElement("displayType");
-				displayTypeUsers.setTextContent("input");
-				users2.appendChild(displayTypeUsers);
+				Element displayTypeUsers2 = newDocument.createElement("displayType");
+				displayTypeUsers2.setTextContent("input");
+				users2.appendChild(displayTypeUsers2);
 
-				Element multiSelectUsers = newDocument.createElement("multiSelect");
-				multiSelectUsers.setTextContent("1");
-				users2.appendChild(multiSelectUsers);
+				Element multiSelectUsers2 = newDocument.createElement("multiSelect");
+				multiSelectUsers2.setTextContent("1");
+				users2.appendChild(multiSelectUsers2);
 
 				Element nameUsers2 = newDocument.createElement("name");
 				nameUsers2.setTextContent("users");
@@ -774,13 +890,13 @@ public class UserCreator {
 				prettyNameUsers2.setTextContent("Users");
 				users2.appendChild(prettyNameUsers2);
 
-				Element relationalStorage3 = newDocument.createElement("relationalStorage");
-				relationalStorage3.setTextContent("0");
-				users2.appendChild(relationalStorage3);
+				Element relationalStorageUsers2 = newDocument.createElement("relationalStorage");
+				relationalStorageUsers2.setTextContent("0");
+				users2.appendChild(relationalStorageUsers2);
 
-				Element separatorUsers = newDocument.createElement("separator");
-				separatorUsers.setTextContent(" ");
-				users2.appendChild(separatorUsers);
+				Element separatorUsers2 = newDocument.createElement("separator");
+				separatorUsers2.setTextContent(" ");
+				users2.appendChild(separatorUsers2);
 
 				Element sizeUsers2 = newDocument.createElement("size");
 				sizeUsers2.setTextContent("5");
@@ -794,140 +910,135 @@ public class UserCreator {
 				classTypeUsers2.setTextContent("com.xpn.xwiki.objects.classes.UsersClass");
 				users2.appendChild(classTypeUsers2);
 
-				classObject2.appendChild(users2);
+				classObject3.appendChild(users2);
 
-				object2.appendChild(classObject2);
+				object3.appendChild(classObject3);
 
-				Element property2 = newDocument.createElement("property");
-
-				Element allowProperty = newDocument.createElement("allow");
-				allowProperty.setTextContent("1");
-				property2.appendChild(allowProperty);
-
-				object2.appendChild(property2);
 
 				Element property3 = newDocument.createElement("property");
 
-				Element levelsProperty = newDocument.createElement("levels");
-				levelsProperty.setTextContent("edit");
-				property3.appendChild(levelsProperty);
+				Element allowProperty2 = newDocument.createElement("allow");
+				allowProperty2.setTextContent("1");
+				property3.appendChild(allowProperty2);
 
-				object2.appendChild(property3);
+				object3.appendChild(property3);
 
 				Element property4 = newDocument.createElement("property");
 
+				Element levelsProperty = newDocument.createElement("levels");
+				levelsProperty.setTextContent("edit");
+				property4.appendChild(levelsProperty);
+
+				object3.appendChild(property4);
+
+				Element property5 = newDocument.createElement("property");
+
 				Element usersProperty = newDocument.createElement("users");
 				usersProperty.setTextContent("XWiki." + employeeName);
-				property4.appendChild(usersProperty);
+				property5.appendChild(usersProperty);
 
-				object2.appendChild(property4);
+				object3.appendChild(property5);
 
-				xwikidoc.appendChild(object2);
-
-
+				xwikidoc.appendChild(object3);
 
 
-				Element object3 = newDocument.createElement("object");
-				////////////////////////////////////////xwikidoc.appendChild(object);
+				Element object4 = newDocument.createElement("object");
 
-				Element nameObject3 = newDocument.createElement("name");
-				nameObject3.setTextContent("XWiki." + employeeName);
-				object3.appendChild(nameObject3);
+				Element nameObject4 = newDocument.createElement("name");
+				nameObject4.setTextContent("XWiki." + employeeName);
+				object4.appendChild(nameObject4);
 
-				Element number3 = newDocument.createElement("number");
-				number3.setTextContent("0");
-				object3.appendChild(number3);
+				Element number4 = newDocument.createElement("number");
+				number4.setTextContent("0");
+				object4.appendChild(number4);
 
-				Element className3 = newDocument.createElement("className");
-				className3.setTextContent("XWiki.XWikiUsers");
-				object3.appendChild(className3);
+				Element className4 = newDocument.createElement("className");
+				className4.setTextContent("XWiki.XWikiUsers");
+				object4.appendChild(className4);
 
-				Element guid3 = newDocument.createElement("guid");
-				guid3.setTextContent("4da634b9-3be0-4d00-bc66-e491785b1ec4");
-				object3.appendChild(guid3);
+				Element guid4 = newDocument.createElement("guid");
+				//guid4.setTextContent("a3aca5eb-c28a-49c5-81b9-5146ea247a5b");
+				object4.appendChild(guid4);
 
-				Element classObject3 = newDocument.createElement("class");
+				Element classObject4 = newDocument.createElement("class");
 
-				///////////////////object.appendChild(classObject);
-
-				Element nameClass3 = newDocument.createElement("name");
-				nameClass3.setTextContent("XWiki.XWikiUsers");
-				classObject3.appendChild(nameClass3);
-
-				Element customClassObject3 = newDocument.createElement("customClass");
-				classObject3.appendChild(customClassObject3);
-
-				Element customMapping3 = newDocument.createElement("customMapping");
-				classObject3.appendChild(customMapping3);
-
-				Element defaultViewSheet3 = newDocument.createElement("defaultViewSheet");
-				classObject3.appendChild(defaultViewSheet3);
-
-				Element defaultEditSheet3 = newDocument.createElement("defaultEditSheet");
-				classObject3.appendChild(defaultEditSheet3);
-
-				Element defaultWeb3 = newDocument.createElement("defaultWeb");
-				classObject3.appendChild(defaultWeb3);
-
-				Element nameField3 = newDocument.createElement("nameField");
-				classObject3.appendChild(nameField3);
-
-				Element validationScriptObject3 = newDocument.createElement("validationScript");
-				classObject3.appendChild(validationScriptObject3);
-
-
+				Element nameClass4 = newDocument.createElement("name");
+				nameClass4.setTextContent("XWiki.XWikiUsers");
+				classObject4.appendChild(nameClass4);				
+				
+				Element customClass = newDocument.createElement("customClass");
+				classObject4.appendChild(customClass);				
+				
+				Element customMappingClass4 = newDocument.createElement("customMapping");
+				classObject4.appendChild(customMappingClass4);				
+				
+				Element defaultViewSheetClass4 = newDocument.createElement("defaultViewSheet");
+				classObject4.appendChild(defaultViewSheetClass4);				
+				
+				Element defaultEditSheetClass4 = newDocument.createElement("defaultEditSheet");
+				classObject4.appendChild(defaultEditSheetClass4);				
+				
+				Element defaultWebClass4 = newDocument.createElement("defaultWeb");
+				classObject4.appendChild(defaultWebClass4);				
+				
+				Element nameFieldClass4 = newDocument.createElement("nameField");
+				classObject4.appendChild(nameFieldClass4);				
+				
+				Element validationScriptClass4 = newDocument.createElement("validationScript");
+				classObject4.appendChild(validationScriptClass4);				
+				
+				
 				Element accessibility = newDocument.createElement("accessibility");
-				////////////////
 
-				Element disabled3 = newDocument.createElement("disabled");
-				disabled3.setTextContent("0");
-				accessibility.appendChild(disabled3);
+				Element disabledAcc = newDocument.createElement("disabled");
+				disabledAcc.setTextContent("0");
+				accessibility.appendChild(disabledAcc);
+				
+				Element displayFormTypeAcc = newDocument.createElement("displayFormType");
+				displayFormTypeAcc.setTextContent("select");
+				accessibility.appendChild(displayFormTypeAcc);
 
-				Element displayFormType2 = newDocument.createElement("displayFormType");
-				displayFormType2.setTextContent("select");
-				accessibility.appendChild(displayFormType2);
+				Element displayTypeAcc = newDocument.createElement("displayType");
+				displayTypeAcc.setTextContent("yesno");
+				accessibility.appendChild(displayTypeAcc);
+				
+				Element nameAcc = newDocument.createElement("name");
+				nameAcc.setTextContent("accessibility");
+				accessibility.appendChild(nameAcc);
 
-				Element displayType4 = newDocument.createElement("displayType");
-				displayType4.setTextContent("yesno");
-				accessibility.appendChild(displayType4);
+				Element numberAcc = newDocument.createElement("number");
+				numberAcc.setTextContent("16");
+				accessibility.appendChild(numberAcc);
 
-				Element nameAccessibility = newDocument.createElement("name");
-				nameAccessibility.setTextContent("accessibility");
-				accessibility.appendChild(nameAccessibility);
+				Element prettyNameAcc = newDocument.createElement("prettyName");
+				prettyNameAcc.setTextContent("Enable extra accessibility features");
+				accessibility.appendChild(prettyNameAcc);
 
-				Element numberAccessibility = newDocument.createElement("number");
-				numberAccessibility.setTextContent("16");
-				accessibility.appendChild(numberAccessibility);
+				Element unmodifiableAcc = newDocument.createElement("unmodifiable");
+				unmodifiableAcc.setTextContent("0");
+				accessibility.appendChild(unmodifiableAcc);
 
-				Element prettyName3 = newDocument.createElement("prettyName");
-				prettyName3.setTextContent("Enable extra accessibility features");
-				accessibility.appendChild(prettyName3);
-
-				Element unmodifiable4 = newDocument.createElement("unmodifiable");
-				unmodifiable4.setTextContent("0");
-				accessibility.appendChild(unmodifiable4);
-
-				Element classType4 = newDocument.createElement("classType");
-				classType4.setTextContent("com.xpn.xwiki.objects.classes.BooleanClass");
-				accessibility.appendChild(classType4);
-
-				classObject3.appendChild(accessibility);
-
+				Element classTypeAcc = newDocument.createElement("classType");
+				classTypeAcc.setTextContent("com.xpn.xwiki.objects.classes.BooleanClass");
+				accessibility.appendChild(classTypeAcc);
+				
+				classObject4.appendChild(accessibility);
+				
+				
 				Element active = newDocument.createElement("active");
-				/////////////xwikidoc.appendChild(documents);
 
-				Element disabledDocuments4 = newDocument.createElement("disabled");
-				disabledDocuments4.setTextContent("0");
-				active.appendChild(disabledDocuments4);
+				Element disabledActive = newDocument.createElement("disabled");
+				disabledActive.setTextContent("0");
+				active.appendChild(disabledActive);
+				
+				Element displayFormTypeActive = newDocument.createElement("displayFormType");
+				displayFormTypeActive.setTextContent("select");
+				active.appendChild(displayFormTypeActive);
 
-				Element displayFormType3 = newDocument.createElement("displayFormType");
-				displayFormType3.setTextContent("select");
-				active.appendChild(displayFormType3);
-
-				Element displayType5 = newDocument.createElement("displayType");
-				displayType5.setTextContent("active");
-				active.appendChild(displayType5);
-
+				Element displayTypeActive = newDocument.createElement("displayType");
+				displayTypeActive.setTextContent("active");
+				active.appendChild(displayTypeActive);
+				
 				Element nameActive = newDocument.createElement("name");
 				nameActive.setTextContent("active");
 				active.appendChild(nameActive);
@@ -940,52 +1051,52 @@ public class UserCreator {
 				prettyNameActive.setTextContent("Active");
 				active.appendChild(prettyNameActive);
 
-				Element unmodifiable5 = newDocument.createElement("unmodifiable");
-				unmodifiable5.setTextContent("0");
-				active.appendChild(unmodifiable5);
+				Element unmodifiableActive = newDocument.createElement("unmodifiable");
+				unmodifiableActive.setTextContent("0");
+				active.appendChild(unmodifiableActive);
 
-				Element classType5 = newDocument.createElement("classType");
-				classType5.setTextContent("com.xpn.xwiki.objects.classes.BooleanClass");
-				active.appendChild(classType5);
-
-				classObject3.appendChild(active);
-
+				Element classTypeActive = newDocument.createElement("classType");
+				classTypeActive.setTextContent("com.xpn.xwiki.objects.classes.BooleanClass");
+				active.appendChild(classTypeActive);				
+				
+				classObject4.appendChild(active);
 
 				Element address = newDocument.createElement("address");
 
-				Element disabledAddress = newDocument.createElement("disabled");
-				disabledAddress.setTextContent("0");
-				address.appendChild(disabledAddress);
+				Element disabledAdd = newDocument.createElement("disabled");
+				disabledAdd.setTextContent("0");
+				address.appendChild(disabledAdd);
 
-				Element nameAddress = newDocument.createElement("name");
-				nameAddress.setTextContent("address");
-				address.appendChild(nameAddress);
+				Element nameAdd = newDocument.createElement("name");
+				nameAdd.setTextContent("address");
+				address.appendChild(nameAdd);
 
-				Element numberAddress = newDocument.createElement("number");
-				numberAddress.setTextContent("22");
-				address.appendChild(numberAddress);
+				Element numberAdd = newDocument.createElement("number");
+				numberAdd.setTextContent("22");
+				address.appendChild(numberAdd);
 
-				Element prettyNameAddress = newDocument.createElement("prettyName");
-				prettyNameAddress.setTextContent("Address");
-				address.appendChild(prettyNameAddress);
+				Element prettyNameAdd = newDocument.createElement("prettyName");
+				prettyNameAdd.setTextContent("Address");
+				address.appendChild(prettyNameAdd);
 
-				Element rowsAddress = newDocument.createElement("rows");
-				rowsAddress.setTextContent("3");
-				address.appendChild(rowsAddress);
+				Element rowsAdd = newDocument.createElement("rows");
+				rowsAdd.setTextContent("3");
+				address.appendChild(rowsAdd);
+				
+				Element sizeAdd = newDocument.createElement("size");
+				sizeAdd.setTextContent("40");
+				address.appendChild(sizeAdd);
 
-				Element sizeAddress = newDocument.createElement("size");
-				sizeAddress.setTextContent("40");
-				address.appendChild(sizeAddress);
+				Element unmodifiableAdd = newDocument.createElement("unmodifiable");
+				unmodifiableAdd.setTextContent("0");
+				address.appendChild(unmodifiableAdd);
 
-				Element unmodifiableAddress = newDocument.createElement("unmodifiable");
-				unmodifiableAddress.setTextContent("0");
-				address.appendChild(unmodifiableAddress);
+				Element classTypeAdd = newDocument.createElement("classType");
+				classTypeAdd.setTextContent("com.xpn.xwiki.objects.classes.TextAreaClass");
+				address.appendChild(classTypeAdd);
 
-				Element classTypeAddress = newDocument.createElement("classType");
-				classTypeAddress.setTextContent("com.xpn.xwiki.objects.classes.TextAreaClass");
-				address.appendChild(classTypeAddress);
+				classObject4.appendChild(address);
 
-				classObject3.appendChild(address);
 
 				Element avatar = newDocument.createElement("avatar");
 
@@ -993,31 +1104,31 @@ public class UserCreator {
 				disabled4.setTextContent("0");
 				avatar.appendChild(disabled4);
 
-				Element name2 = newDocument.createElement("name");
-				name2.setTextContent("avatar");
-				avatar.appendChild(name2);
+				Element nameAvatar = newDocument.createElement("name");
+				nameAvatar.setTextContent("avatar");
+				avatar.appendChild(nameAvatar);
 
-				Element number4 = newDocument.createElement("number");
-				number4.setTextContent("20");
-				avatar.appendChild(number4);
+				Element numberAvatar = newDocument.createElement("number");
+				numberAvatar.setTextContent("20");
+				avatar.appendChild(numberAvatar);
 
-				Element prettyName4 = newDocument.createElement("prettyName");
-				prettyName4.setTextContent("Avatar");
-				avatar.appendChild(prettyName4);
+				Element prettyNameAvatar = newDocument.createElement("prettyName");
+				prettyNameAvatar.setTextContent("Avatar");
+				avatar.appendChild(prettyNameAvatar);
 
-				Element size2 = newDocument.createElement("size");
-				size2.setTextContent("30");
-				avatar.appendChild(size2);
+				Element sizeAvatar = newDocument.createElement("size");
+				sizeAvatar.setTextContent("30");
+				avatar.appendChild(sizeAvatar);
 
-				Element unmodifiable6 = newDocument.createElement("unmodifiable");
-				unmodifiable6.setTextContent("0");
-				avatar.appendChild(unmodifiable6);
+				Element unmodifiableAvatar = newDocument.createElement("unmodifiable");
+				unmodifiableAvatar.setTextContent("0");
+				avatar.appendChild(unmodifiableAvatar);
 
-				Element classType6 = newDocument.createElement("classType");
-				classType6.setTextContent("com.xpn.xwiki.objects.classes.StringClass");
-				avatar.appendChild(classType6);
+				Element classTypeAvatar = newDocument.createElement("classType");
+				classTypeAvatar.setTextContent("com.xpn.xwiki.objects.classes.StringClass");
+				avatar.appendChild(classTypeAvatar);
 
-				classObject3.appendChild(avatar);
+				classObject4.appendChild(avatar);
 
 
 				Element blog = newDocument.createElement("blog");
@@ -1050,7 +1161,7 @@ public class UserCreator {
 				classTypeBlog.setTextContent("com.xpn.xwiki.objects.classes.StringClass");
 				blog.appendChild(classTypeBlog);
 
-				classObject3.appendChild(blog);
+				classObject4.appendChild(blog);
 
 
 				Element blogfeed = newDocument.createElement("blogfeed");
@@ -1084,7 +1195,7 @@ public class UserCreator {
 				classTypeBlogfeed.setTextContent("com.xpn.xwiki.objects.classes.StringClass");
 				blogfeed.appendChild(classTypeBlogfeed);
 
-				classObject3.appendChild(blogfeed);
+				classObject4.appendChild(blogfeed);
 
 				Element comment2 = newDocument.createElement("comment");
 
@@ -1120,7 +1231,7 @@ public class UserCreator {
 				classTypeComment2.setTextContent("com.xpn.xwiki.objects.classes.TextAreaClass");
 				comment2.appendChild(classTypeComment2);
 
-				classObject3.appendChild(comment2);
+				classObject4.appendChild(comment2);
 
 				Element company = newDocument.createElement("company");
 
@@ -1152,7 +1263,7 @@ public class UserCreator {
 				classTypecompany.setTextContent("com.xpn.xwiki.objects.classes.StringClass");
 				company.appendChild(classTypecompany);
 
-				classObject3.appendChild(company);
+				classObject4.appendChild(company);
 
 				Element default_language = newDocument.createElement("default_language");
 
@@ -1184,7 +1295,7 @@ public class UserCreator {
 				classTypedefault_language.setTextContent("com.xpn.xwiki.objects.classes.StringClass");
 				default_language.appendChild(classTypedefault_language);
 
-				classObject3.appendChild(default_language);
+				classObject4.appendChild(default_language);
 
 				Element displayHiddenDocuments = newDocument.createElement("displayHiddenDocuments");
 
@@ -1220,7 +1331,7 @@ public class UserCreator {
 				classTypehidden.setTextContent("com.xpn.xwiki.objects.classes.BooleanClass");
 				displayHiddenDocuments.appendChild(classTypehidden);
 
-				classObject3.appendChild(displayHiddenDocuments);
+				classObject4.appendChild(displayHiddenDocuments);
 
 				Element editor = newDocument.createElement("editor");
 
@@ -1280,7 +1391,7 @@ public class UserCreator {
 				classTypeEditor.setTextContent("com.xpn.xwiki.objects.classes.StaticListClass");
 				editor.appendChild(classTypeEditor);
 
-				classObject3.appendChild(editor);
+				classObject4.appendChild(editor);
 
 				Element email = newDocument.createElement("email");
 
@@ -1297,7 +1408,7 @@ public class UserCreator {
 				email.appendChild(numberemail);
 
 				Element prettyNameemail = newDocument.createElement("prettyName");
-				prettyNameemail.setTextContent("e-mail");
+				prettyNameemail.setTextContent("e-Mail");
 				email.appendChild(prettyNameemail);
 
 				Element sizeemail = newDocument.createElement("size");
@@ -1308,15 +1419,15 @@ public class UserCreator {
 				unmodifiableemail.setTextContent("0");
 				email.appendChild(unmodifiableemail);
 
-				Element validationRegExp = newDocument.createElement("validationRegExp");
-				///////////////////////validationRegExp.setTextContent("/^(([^@\s]+)@((?:[-a-zA-Z0-9]+\.)+[a-zA-Z]{2,}))?$/");
-				email.appendChild(validationRegExp);
+				Element validationRegExp2 = newDocument.createElement("validationRegExp");
+				validationRegExp2.setTextContent("/^(([^@\\s]+)@((?:[-a-zA-Z0-9]+\\.)+[a-zA-Z]{2,}))?$/");
+				email.appendChild(validationRegExp2);
 
 				Element classTypeemail = newDocument.createElement("classType");
 				classTypeemail.setTextContent("com.xpn.xwiki.objects.classes.EmailClass");
 				email.appendChild(classTypeemail);
 
-				classObject3.appendChild(email);
+				classObject4.appendChild(email);
 
 				Element first_name = newDocument.createElement("first_name");
 
@@ -1348,7 +1459,7 @@ public class UserCreator {
 				classTypefirst_name.setTextContent("com.xpn.xwiki.objects.classes.StringClass");
 				first_name.appendChild(classTypefirst_name);
 
-				classObject3.appendChild(first_name);
+				classObject4.appendChild(first_name);
 
 				Element imaccount = newDocument.createElement("imaccount");
 
@@ -1380,7 +1491,7 @@ public class UserCreator {
 				classTypeimaccount.setTextContent("com.xpn.xwiki.objects.classes.StringClass");
 				imaccount.appendChild(classTypeimaccount);
 
-				classObject3.appendChild(imaccount);
+				classObject4.appendChild(imaccount);
 
 				Element imtype = newDocument.createElement("imtype");
 
@@ -1440,7 +1551,7 @@ public class UserCreator {
 				classTypeimtype.setTextContent("com.xpn.xwiki.objects.classes.StaticListClass");
 				imtype.appendChild(classTypeimtype);
 
-				classObject3.appendChild(imtype);
+				classObject4.appendChild(imtype);
 
 				Element last_name = newDocument.createElement("last_name");
 
@@ -1472,7 +1583,7 @@ public class UserCreator {
 				classTypelast_name.setTextContent("com.xpn.xwiki.objects.classes.StringClass");
 				last_name.appendChild(classTypelast_name);
 
-				classObject3.appendChild(last_name);
+				classObject4.appendChild(last_name);
 
 				Element password = newDocument.createElement("password");
 
@@ -1504,7 +1615,7 @@ public class UserCreator {
 				classTypepassword.setTextContent("com.xpn.xwiki.objects.classes.PasswordClass");
 				password.appendChild(classTypepassword);
 
-				classObject3.appendChild(password);
+				classObject4.appendChild(password);
 
 				Element phone = newDocument.createElement("phone");
 
@@ -1536,7 +1647,7 @@ public class UserCreator {
 				classTypephone.setTextContent("com.xpn.xwiki.objects.classes.StringClass");
 				phone.appendChild(classTypephone);
 
-				classObject3.appendChild(phone);
+				classObject4.appendChild(phone);
 
 				Element skin = newDocument.createElement("skin");
 
@@ -1568,12 +1679,12 @@ public class UserCreator {
 				classTypeskin.setTextContent("com.xpn.xwiki.objects.classes.StringClass");
 				skin.appendChild(classTypeskin);
 
-				classObject3.appendChild(skin);
+				classObject4.appendChild(skin);
 
 				Element timezone = newDocument.createElement("timezone");
 
-				Element customDisplay = newDocument.createElement("customDisplay");
-				customDisplay.setTextContent("{{velocity}}"
+				Element customDisplay2 = newDocument.createElement("customDisplay");
+				customDisplay2.setTextContent("{{velocity}}"
 						+"\n#if ($xcontext.action == 'inline' || $xcontext.action == 'edit')"
 						+"\n{{html}}"
 						+"\n#if($xwiki.jodatime)"
@@ -1591,7 +1702,7 @@ public class UserCreator {
 						+"\n$!value"
 						+"\n#end"
 						+"\n{{/velocity}}\n" );		
-				timezone.appendChild(customDisplay);
+				timezone.appendChild(customDisplay2);
 
 				Element disabledtimezone = newDocument.createElement("disabled");
 				disabledtimezone.setTextContent("0");
@@ -1621,7 +1732,7 @@ public class UserCreator {
 				classTypetimezone.setTextContent("com.xpn.xwiki.objects.classes.StringClass");
 				timezone.appendChild(classTypetimezone);
 
-				classObject3.appendChild(timezone);
+				classObject4.appendChild(timezone);
 
 				Element usertype = newDocument.createElement("usertype");
 
@@ -1681,7 +1792,7 @@ public class UserCreator {
 				classTypevaluesusertype.setTextContent("com.xpn.xwiki.objects.classes.StaticListClass");
 				usertype.appendChild(classTypevaluesusertype);
 
-				classObject3.appendChild(usertype);
+				classObject4.appendChild(usertype);
 
 				Element validkey = newDocument.createElement("validkey");
 
@@ -1713,19 +1824,19 @@ public class UserCreator {
 				classTypevalidkey.setTextContent("com.xpn.xwiki.objects.classes.PasswordClass");
 				validkey.appendChild(classTypevalidkey);
 
-				classObject3.appendChild(validkey);
+				classObject4.appendChild(validkey);
 
-				object3.appendChild(classObject3);
+				object4.appendChild(classObject4);
 
 
 
-				Element property5 = newDocument.createElement("property");
+				Element propertyn = newDocument.createElement("property");
 
 				Element activeProperty = newDocument.createElement("active");
 				activeProperty.setTextContent("1");
-				property5.appendChild(activeProperty);
+				propertyn.appendChild(activeProperty);
 
-				object3.appendChild(property5);
+				object4.appendChild(propertyn);
 
 				Element property6 = newDocument.createElement("property");
 
@@ -1734,7 +1845,7 @@ public class UserCreator {
 				emailProperty.setTextContent(emailEmployee);
 				property6.appendChild(emailProperty);
 
-				object3.appendChild(property6);
+				object4.appendChild(property6);
 
 				Element property7 = newDocument.createElement("property");
 
@@ -1742,7 +1853,7 @@ public class UserCreator {
 				first_nameProperty.setTextContent(employeeName);
 				property7.appendChild(first_nameProperty);
 
-				object3.appendChild(property7);
+				object4.appendChild(property7);
 
 
 				Element property8 = newDocument.createElement("property");
@@ -1751,7 +1862,7 @@ public class UserCreator {
 				last_nameProperty.setTextContent(employeeName);
 				property8.appendChild(last_nameProperty);
 
-				object3.appendChild(property8);
+				object4.appendChild(property8);
 
 
 				/**
@@ -1793,11 +1904,11 @@ public class UserCreator {
 				passwordProperty.setTextContent("hash:SHA-512:" + passwordEncrypted);
 				property9.appendChild(passwordProperty);
 
-				object3.appendChild(property9);
+				object4.appendChild(property9);
 
 
 				// chiusura del file
-				xwikidoc.appendChild(object3);
+				xwikidoc.appendChild(object4);
 
 
 				Transformer tf = TransformerFactory.newInstance().newTransformer();
@@ -1855,7 +1966,7 @@ public class UserCreator {
 
 		//prettyPrint(newDocument, directory, "user");
 		//}else{
-		//	System.out.println("Procedura gia effettuata");
+		//	System.out.println("Procedura già effettuata");
 		//}
 
 
