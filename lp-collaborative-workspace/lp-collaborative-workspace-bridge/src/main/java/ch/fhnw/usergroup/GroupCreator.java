@@ -222,7 +222,7 @@ public class GroupCreator {
 			object.appendChild(className);
 
 			Element guid = newDocument.createElement("guid");
-			guid.setTextContent("d2304211-9748-4287-a5ca-5db6114bbadd");
+			//guid.setTextContent("d2304211-9748-4287-a5ca-5db6114bbadd");
 			object.appendChild(guid);
 
 			Element classObject = newDocument.createElement("class");
@@ -605,7 +605,7 @@ public class GroupCreator {
 					object2.appendChild(classNameObj);
 
 					Element guidObj = newDocument.createElement("guid");
-					guidObj.setTextContent("1d986218-665a-4653-b4f6-e7b856991e3b");
+		//			guidObj.setTextContent("1d986218-665a-4653-b4f6-e7b856991e3b");
 					object2.appendChild(guidObj);
 
 					Element classObj = newDocument.createElement("class");
@@ -701,7 +701,7 @@ public class GroupCreator {
 				object3.appendChild(classNameObj3);
 
 				Element guidObj3 = newDocument.createElement("guid");
-				guidObj3.setTextContent("521793dd-e071-4d6e-bc68-779d4d315beb");
+		//		guidObj3.setTextContent("521793dd-e071-4d6e-bc68-779d4d315beb");
 				object3.appendChild(guidObj3);
 
 				Element classObj2 = newDocument.createElement("class");
@@ -817,7 +817,7 @@ public class GroupCreator {
 
 		//prettyPrint(newDocument, directory, "user");
 		//}else{
-		//	System.out.println("Procedura gia effettuata");
+		//	System.out.println("Procedura già effettuata");
 		//}
 	}
 }
