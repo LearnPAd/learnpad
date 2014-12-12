@@ -219,7 +219,7 @@ public class Documents {
 						object.appendChild(classNameObj);
 
 						Element guidObj = docFinale.createElement("guid");
-						guidObj.setTextContent("ea383b6e-4b93-49e7-9c1e-849cfc7d11c5");
+					//	guidObj.setTextContent("ea383b6e-4b93-49e7-9c1e-849cfc7d11c5");
 						object.appendChild(guidObj);
 
 						//
@@ -520,7 +520,7 @@ public class Documents {
 						object2.appendChild(classNameObj);
 
 						Element guidObj = docFinale.createElement("guid");
-						guidObj.setTextContent("ea383b6e-4b93-49e7-9c1e-849cfc7d11c5");
+				//		guidObj.setTextContent("ea383b6e-4b93-49e7-9c1e-849cfc7d11c5");
 						object2.appendChild(guidObj);
 
 						//
@@ -808,7 +808,7 @@ public class Documents {
 				object3.appendChild(classNameObj);
 
 				Element guidObj = docFinale.createElement("guid");
-				guidObj.setTextContent("ea383b6e-4b93-49e7-9c1e-849cfc7d11c5");
+		//		guidObj.setTextContent("ea383b6e-4b93-49e7-9c1e-849cfc7d11c5");
 				object3.appendChild(guidObj);
 
 				//
