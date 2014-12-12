@@ -48,7 +48,7 @@ public class StartEvent {
 
 			if (connectorName.equals("class=\"Subsequent\""))
 			{
-				//the element #1 of the NodeList is the link to the next object of the process
+				//the element n°1 of the NodeList is the link to the next object of the process
 				from = (Element) connector.getChildNodes().item(1);
 
 				if (from.getAttributes().getNamedItem("class").toString().replaceFirst("class=\"", "").replaceAll("\"", "").equals("Start Event")){
@@ -221,10 +221,15 @@ public class StartEvent {
 			//String contenuto = new String();
 			String adoXmlFile = StartEvent.startEventSearcher(doc);
 
-			content.setTextContent("**Generic Description of the Process:**\n\n"
-					+ "__Link to the First Step:__\n\n" + "{{html wiki=true}}<button type=\"button\"><a href=\"" + adoXmlFile + "\">First Activity ></a></button>{{/html}}" 
+			content.setTextContent("**Generic Description of the Process:**\n\n\n"
+					+ "__Link to the First Step:__" + "{{html wiki=true}}<br/><br/>"
+					+ "\n<form action=\"" + adoXmlFile + "\">"+
+					"\n<input type=\"submit\" value=\"First Activity\">" +
+					"\n</form>"+
+					"\n{{/html}}"
+						//	+ "<button type=\"button\"><a href=\"" + adoXmlFile + "\">First Activity --></a></button>" 
 					//+ contenuto
-					+ "");
+					);
 
 			// Write the content into xml file
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
