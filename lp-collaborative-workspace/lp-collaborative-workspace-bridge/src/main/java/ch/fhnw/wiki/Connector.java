@@ -29,6 +29,7 @@ public class Connector {
 		String nameFromFile;
 		//String test ="";
 		//boolean bool = true;
+		int check=0;
 		for (int i=0; i<arrayLength;i++){
 
 
@@ -45,11 +46,11 @@ public class Connector {
 				//for(int h=1; h<connector.getChildNodes().getLength(); h++){
 				//if (h==1){
 
-				// item #1 represent the FROM tag name, item #3 represents the TO tag name
+				// item n° 1 represent the FROM tag name, item n°3 represents the TO tag name
 				from = (Element) elementConnector.getChildNodes().item(1);
 				to = (Element) elementConnector.getChildNodes().item(3);
 				nameFromFile = from.getAttributes().getNamedItem("instance").toString().replaceFirst("instance=\"", "").replaceAll("\"", "").replaceAll("\\?", "").replaceAll("|","").replaceAll(":","").replaceAll("<", "").replaceAll(">", "").replaceAll("/", " ");
-				// item #35 represents the denomination of the arrow
+				// item n°35 represents the denomination of the arrow
 				Element textAnswer = (Element) elementConnector.getChildNodes().item(35);
 
 				String linkMail="";
@@ -58,10 +59,10 @@ public class Connector {
 
 					// if we are in a gateway the possible choices will be shown here
 					if(textAnswer.getAttributes().getNamedItem("name").toString().equals("name=\"Denomination\"") && from.getAttributes().getNamedItem("class").toString().equals("class=\"Exclusive Gateway\"")){
-
-						nextLink= nextLink + ""
-								+ "" //this was the missing |
-								+ "<br/>" ;
+						if(check==1){
+							nextLink= nextLink + "<br/>" ;
+						}
+						check = 1;
 					}
 					pagina = to.getAttributes().getNamedItem("instance").toString().replaceFirst("instance=\"", "").replaceAll("\"", "").replaceAll("\\?", "").replaceAll("|","").replaceAll(":","").replaceAll("<", "").replaceAll(">", "").replaceAll("/", " ");
 
@@ -72,7 +73,10 @@ public class Connector {
 						nextLink = nextLink + linkMail + ""
 								+ "" //this was the missing |
 								//	+ textAnswer.getTextContent() + " : [[" + pagina + ">>doc:" + pagina + "||title=\"Next Step\"]]" + "<br/>"; //TODO change in \n
-								+ textAnswer.getTextContent().toString() + ": <button type=\"button\"><a href=\"" + pagina + "\">Next Activity ></a></button><br/>";
+								
+								+ "\n<form action=\"" + pagina + "\">"+
+								"\n" + textAnswer.getTextContent().toString() + ": <input type=\"submit\" value=\"Next Activity \">" +
+								"\n</form>";
 						// <button type="button"><a href="Details to be checked">Next Activity ></a></button>
 
 

@@ -1,6 +1,13 @@
 package ch.fhnw.gui;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
+import java.awt.Font;
+import java.io.File;
+import java.io.PrintStream;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -11,13 +18,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.SwingWorker;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
-import java.awt.Font;
-import java.io.PrintStream;
 import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -26,10 +29,11 @@ import javax.swing.UIManager;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
+
 import ch.fhnw.support.FileChooser;
 import ch.fhnw.support.TextAreaOutputStream;
 import ch.fhnw.wiki.XWikiGenerator;
-import java.awt.Toolkit;
+
 
 public class MainWindow extends JFrame {
 
@@ -60,8 +64,25 @@ public class MainWindow extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainWindow frame = new MainWindow();
-					frame.setVisible(true);
+
+
+					File file = new File("C:\\Users\\Daniele\\Desktop\\LearnPAd.xml"); 
+					JFileChooser directory = new JFileChooser();
+					directory.setSelectedFile(file);
+
+					//CHANGE TO 1 TO START THE GUI, THIS IS TEST MODE
+					int test = 1;
+
+					if (test == 0){
+
+						XWikiGenerator.xWikiGenerator(directory, "Admin", "IMPORTED");
+
+					}else{
+
+
+						MainWindow frame = new MainWindow();
+						frame.setVisible(true);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -75,6 +96,7 @@ public class MainWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public MainWindow() {
+		
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Daniele\\Google Drive\\TESI\\ECLIPSE\\BPMN to XML\\BPMN to WIki.png"));
 		setResizable(false);
 		setTitle("BPMN to XWIKI translator");
@@ -285,74 +307,74 @@ public class MainWindow extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 				gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(32)
-							.addComponent(chckbxSpaceName)
-							.addGap(18)
-							.addComponent(txtSpace, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(txtpnModifyThisParameter, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(33)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(separator, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+										.addGap(32)
+										.addComponent(chckbxSpaceName)
+										.addGap(18)
+										.addComponent(txtSpace, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
+										.addGap(18)
+										.addComponent(txtpnModifyThisParameter, GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
 										.addGroup(gl_contentPane.createSequentialGroup()
-											.addComponent(txtFldDirectory, GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
-											.addGap(18)
-											.addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 274, GroupLayout.PREFERRED_SIZE))
-										.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)
-										.addComponent(lblResult, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)
-										.addComponent(btnTranslator, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(chckbxUserAdmin, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(txtUser, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-									.addGap(21)
-									.addComponent(txtpnChangeThisParameter, GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)))))
-									.addGap(24))
-									);
+												.addGap(33)
+												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+														.addGroup(gl_contentPane.createSequentialGroup()
+																.addComponent(separator, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
+																.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+																		.addGroup(gl_contentPane.createSequentialGroup()
+																				.addComponent(txtFldDirectory, GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+																				.addGap(18)
+																				.addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 274, GroupLayout.PREFERRED_SIZE))
+																				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)
+																				.addComponent(lblResult, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)
+																				.addComponent(btnTranslator, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)))
+																				.addGroup(gl_contentPane.createSequentialGroup()
+																						.addComponent(chckbxUserAdmin, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+																						.addGap(18)
+																						.addComponent(txtUser, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+																						.addGap(21)
+																						.addComponent(txtpnChangeThisParameter, GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)))))
+																						.addGap(24))
+				);
 		gl_contentPane.setVerticalGroup(
 				gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtFldDirectory, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnSearch))
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(26)
-							.addComponent(txtpnChangeThisParameter, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txtUser, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-								.addComponent(chckbxUserAdmin, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-					.addGap(35)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, 375, Short.MAX_VALUE)
-							.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(88))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(40)
-							.addComponent(btnTranslator)
-							.addGap(18)
-							.addComponent(lblResult, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
-					.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-							.addGap(104)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(txtpnModifyThisParameter, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-									.addComponent(txtSpace, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-									.addComponent(chckbxSpaceName)))
-							.addContainerGap(497, Short.MAX_VALUE))
-					);
+						.addContainerGap()
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtFldDirectory, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnSearch))
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_contentPane.createSequentialGroup()
+												.addGap(26)
+												.addComponent(txtpnChangeThisParameter, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+												.addGroup(gl_contentPane.createSequentialGroup()
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+																.addComponent(txtUser, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+																.addComponent(chckbxUserAdmin, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+																.addGap(35)
+																.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+																		.addGroup(gl_contentPane.createSequentialGroup()
+																				.addPreferredGap(ComponentPlacement.RELATED, 375, Short.MAX_VALUE)
+																				.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+																				.addGap(88))
+																				.addGroup(gl_contentPane.createSequentialGroup()
+																						.addGap(40)
+																						.addComponent(btnTranslator)
+																						.addGap(18)
+																						.addComponent(lblResult, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+																						.addGap(18)
+																						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE)))
+																						.addContainerGap())
+																						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+																								.addGap(104)
+																								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+																										.addComponent(txtpnModifyThisParameter, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+																										.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+																												.addComponent(txtSpace, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+																												.addComponent(chckbxSpaceName)))
+																												.addContainerGap(497, Short.MAX_VALUE))
+				);
 
 		textArea = new JTextArea();
 		textArea.setEditable(false);

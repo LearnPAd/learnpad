@@ -161,7 +161,7 @@ public class BPMN {
 					xwikidoc.appendChild(title);
 
 					Element comment = docFinale.createElement("comment");
-					comment.setTextContent("deny delete right for XWiki.XWikiGuest");
+					//comment.setTextContent("deny delete right for XWiki.XWikiGuest");
 					xwikidoc.appendChild(comment);
 
 					//Element validationScript = docFinale.createElement("validationScript");
@@ -238,7 +238,7 @@ public class BPMN {
 							object.appendChild(classNameObj);
 
 							Element guidObj = docFinale.createElement("guid");
-							guidObj.setTextContent("ea383b6e-4b93-49e7-9c1e-849cfc7d11c5");
+							//	guidObj.setTextContent("ea383b6e-4b93-49e7-9c1e-849cfc7d11c5");
 							object.appendChild(guidObj);
 
 							//
@@ -507,12 +507,21 @@ public class BPMN {
 
 						}
 					}
+
+					String currentLane = "";
 					for (int h=0; h<lunghezza; h++){
 
 						Element elementConnector =(Element) connector.item(h);
 
 						from = (Element) elementConnector.getChildNodes().item(1);
 						to = (Element) elementConnector.getChildNodes().item(3);
+
+						if(oldName.equals(from.getAttributes().getNamedItem("instance").toString().replaceAll("instance=\"", "").replaceAll("\"", "")) &&
+								elementConnector.getAttributes().getNamedItem("class").toString().equals("class=\"Is inside\"") ){
+
+							currentLane = to.getAttributes().getNamedItem("instance").toString().replaceAll("instance=\"", "").replaceAll("\"", "");
+							comment.setTextContent("deny delete right for XWiki." + currentLane);
+						}
 
 						if(elementConnector.getAttributes().getNamedItem("class").toString().equals("class=\"Is inside\"") 
 								&& to.getAttributes().getNamedItem("class").toString().equals("class=\"Lane\"")
@@ -525,8 +534,6 @@ public class BPMN {
 
 							laneName=to.getAttributes().getNamedItem("instance").toString().replaceAll("instance=\"", "").replaceAll("\"", "");
 							lanes.add(laneName);
-
-							//System.out.println("PUo ESSE KE ADESSO CI CAPIAMO QUALCOSA task :" + from.getAttributes().getNamedItem("instance").toString().replaceAll("instance=\"", "").replaceAll("\"", "") + " lane: " + to.getAttributes().getNamedItem("instance").toString().replaceAll("instance=\"", "").replaceAll("\"", ""));
 
 							Element object2 = docFinale.createElement("object");
 
@@ -543,7 +550,7 @@ public class BPMN {
 							object2.appendChild(classNameObj);
 
 							Element guidObj = docFinale.createElement("guid");
-							guidObj.setTextContent("ea383b6e-4b93-49e7-9c1e-849cfc7d11c5");
+							//	guidObj.setTextContent("ea383b6e-4b93-49e7-9c1e-849cfc7d11c5");
 							object2.appendChild(guidObj);
 
 							//
@@ -793,17 +800,17 @@ public class BPMN {
 
 							Element propertyG2 = docFinale.createElement("property");
 
-							Element levelsP2 = docFinale.createElement("levels");
-							levelsP2.setTextContent("view,comment,edit,delete");
-							propertyG2.appendChild(levelsP2);
+							Element groupsP2 = docFinale.createElement("groups");
+							groupsP2.setTextContent("XWiki." + laneName);
+							propertyG2.appendChild(groupsP2);
 
 							object2.appendChild(propertyG2);
 
 							Element propertyL2 = docFinale.createElement("property");
 
-							Element groupsP2 = docFinale.createElement("groups");
-							groupsP2.setTextContent("XWiki." + laneName);
-							propertyL2.appendChild(groupsP2);
+							Element levelsP2 = docFinale.createElement("levels");
+							levelsP2.setTextContent("view,comment,edit,delete");
+							propertyL2.appendChild(levelsP2);
 
 							object2.appendChild(propertyL2);
 
@@ -833,7 +840,7 @@ public class BPMN {
 					object3.appendChild(classNameObj);
 
 					Element guidObj = docFinale.createElement("guid");
-					guidObj.setTextContent("ea383b6e-4b93-49e7-9c1e-849cfc7d11c5");
+					//	guidObj.setTextContent("ea383b6e-4b93-49e7-9c1e-849cfc7d11c5");
 					object3.appendChild(guidObj);
 
 					//
@@ -1100,6 +1107,291 @@ public class BPMN {
 					xwikidoc.appendChild(object3);
 
 
+					//deny rights 
+					Element objectEnd = docFinale.createElement("object");
+
+					Element nameObjEnd = docFinale.createElement("name");
+					nameObjEnd.setTextContent(spaceName + "." + nameClean);
+					objectEnd.appendChild(nameObjEnd);
+
+					Element numberObjEnd = docFinale.createElement("number");
+					numberObjEnd.setTextContent((r+2) + "");
+					objectEnd.appendChild(numberObjEnd);
+
+					Element classNameObjEnd = docFinale.createElement("className");
+					classNameObjEnd.setTextContent("XWiki.XWikiRights");
+					objectEnd.appendChild(classNameObjEnd);
+
+					Element guidObjEnd = docFinale.createElement("guid");
+					//	guidObj.setTextContent("ea383b6e-4b93-49e7-9c1e-849cfc7d11c5");
+					objectEnd.appendChild(guidObjEnd);
+
+					//
+					Element classObjEnd = docFinale.createElement("class");
+
+					Element nameClassEnd = docFinale.createElement("name");
+					nameClassEnd.setTextContent("XWiki.XWikiRights");
+					classObjEnd.appendChild(nameClassEnd);
+
+					Element customClassClassEnd = docFinale.createElement("customClass");
+					classObjEnd.appendChild(customClassClassEnd);
+
+					Element customMappingClassEnd = docFinale.createElement("customMapping");
+					classObjEnd.appendChild(customMappingClassEnd);
+
+					Element defaultViewSheetClassEnd = docFinale.createElement("defaultViewSheet");
+					classObjEnd.appendChild(defaultViewSheetClassEnd);
+
+					Element defaultEditSheetClassEnd = docFinale.createElement("defaultEditSheet");
+					classObjEnd.appendChild(defaultEditSheetClassEnd);
+
+					Element defaultWebClassEnd = docFinale.createElement("defaultWeb");
+					classObjEnd.appendChild(defaultWebClassEnd);
+
+					Element nameFieldClassEnd = docFinale.createElement("nameField");
+					classObjEnd.appendChild(nameFieldClassEnd);
+
+					Element validationScriptClassEnd = docFinale.createElement("validationScript");
+					classObjEnd.appendChild(validationScriptClassEnd);
+
+					Element allowClassEnd = docFinale.createElement("allow");
+
+					Element defaultValueAEnd = docFinale.createElement("defaultValue");
+					defaultValueAEnd.setTextContent("1");
+					allowClassEnd.appendChild(defaultValueAEnd);
+
+					Element disabledAEnd = docFinale.createElement("disabled");
+					disabledAEnd.setTextContent("0");
+					allowClassEnd.appendChild(disabledAEnd);
+
+					Element displayFormTypeAEnd = docFinale.createElement("displayFormType");
+					displayFormTypeAEnd.setTextContent("select");
+					allowClassEnd.appendChild(displayFormTypeAEnd);
+
+					Element displayTypeAEnd = docFinale.createElement("displayType");
+					displayTypeAEnd.setTextContent("allow");
+					allowClassEnd.appendChild(displayTypeAEnd);
+
+					Element nameAEnd = docFinale.createElement("name");
+					nameAEnd.setTextContent("allow");
+					allowClassEnd.appendChild(nameAEnd);
+
+					Element numberAEnd = docFinale.createElement("number");
+					numberAEnd.setTextContent("4");
+					allowClassEnd.appendChild(numberAEnd);
+
+					Element prettyNameAEnd = docFinale.createElement("prettyName");
+					prettyNameAEnd.setTextContent("Allow/Deny");
+					allowClassEnd.appendChild(prettyNameAEnd);
+
+					Element unmodifiableAEnd = docFinale.createElement("unmodifiable");
+					unmodifiableAEnd.setTextContent("0");
+					allowClassEnd.appendChild(unmodifiableAEnd);
+
+					Element classTypeAEnd = docFinale.createElement("classType");
+					classTypeAEnd.setTextContent("com.xpn.xwiki.objects.classes.BooleanClass");
+					allowClassEnd.appendChild(classTypeAEnd);
+
+					classObjEnd.appendChild(allowClassEnd);
+
+					Element groupsEnd = docFinale.createElement("groups");
+
+					Element cacheGEnd = docFinale.createElement("cache");
+					cacheGEnd.setTextContent("0");
+					groupsEnd.appendChild(cacheGEnd);
+
+					Element disabledGEnd = docFinale.createElement("disabled");
+					disabledGEnd.setTextContent("0");
+					groupsEnd.appendChild(disabledGEnd);
+
+					Element displayTypeGEnd = docFinale.createElement("displayType");
+					displayTypeGEnd.setTextContent("input");
+					groupsEnd.appendChild(displayTypeGEnd);
+
+					Element multiSelectGEnd = docFinale.createElement("multiSelect");
+					multiSelectGEnd.setTextContent("1");
+					groupsEnd.appendChild(multiSelectGEnd);
+
+					Element nameGEnd = docFinale.createElement("name");
+					nameGEnd.setTextContent("groups");
+					groupsEnd.appendChild(nameGEnd);
+
+					Element numberGEnd = docFinale.createElement("number");
+					numberGEnd.setTextContent("1");
+					groupsEnd.appendChild(numberGEnd);
+
+					Element pickerGEnd = docFinale.createElement("picker");
+					pickerGEnd.setTextContent("1");
+					groupsEnd.appendChild(pickerGEnd);
+
+					Element prettyNameGEnd = docFinale.createElement("prettyName");
+					prettyNameGEnd.setTextContent("Groups");
+					groupsEnd.appendChild(prettyNameGEnd);
+
+					Element relationalStorageGEnd = docFinale.createElement("relationalStorage");
+					relationalStorageGEnd.setTextContent("0");
+					groupsEnd.appendChild(relationalStorageGEnd);
+
+					Element separatorGEnd = docFinale.createElement("separator");
+					separatorGEnd.setTextContent(" ");
+					groupsEnd.appendChild(separatorGEnd);
+
+					Element sizeGEnd = docFinale.createElement("size");
+					sizeGEnd.setTextContent("5");
+					groupsEnd.appendChild(sizeGEnd);
+
+					Element unmodifiableGEnd = docFinale.createElement("unmodifiable");
+					unmodifiableGEnd.setTextContent("0");
+					groupsEnd.appendChild(unmodifiableGEnd);
+
+					Element classTypeGEnd = docFinale.createElement("classType");
+					classTypeGEnd.setTextContent("com.xpn.xwiki.objects.classes.GroupsClass");
+					groupsEnd.appendChild(classTypeGEnd);
+
+					classObjEnd.appendChild(groupsEnd);
+
+					Element levelsEnd = docFinale.createElement("levels");
+
+					Element cacheLEnd = docFinale.createElement("cache");
+					cacheLEnd.setTextContent("0");
+					levelsEnd.appendChild(cacheLEnd);
+
+					Element disabledLEnd = docFinale.createElement("disabled");
+					disabledLEnd.setTextContent("0");
+					levelsEnd.appendChild(disabledLEnd);
+
+					Element displayTypeLEnd = docFinale.createElement("displayType");
+					displayTypeLEnd.setTextContent("select");
+					levelsEnd.appendChild(displayTypeLEnd);
+
+					Element multiSelectLEnd = docFinale.createElement("multiSelect");
+					multiSelectLEnd.setTextContent("1");
+					levelsEnd.appendChild(multiSelectLEnd);
+
+					Element nameLEnd = docFinale.createElement("name");
+					nameLEnd.setTextContent("levels");
+					levelsEnd.appendChild(nameLEnd);
+
+					Element numberLEnd = docFinale.createElement("number");
+					numberLEnd.setTextContent("2");
+					levelsEnd.appendChild(numberLEnd);
+
+					Element prettyNameLEnd = docFinale.createElement("prettyName");
+					prettyNameLEnd.setTextContent("Levels");
+					levelsEnd.appendChild(prettyNameLEnd);
+
+					Element relationalStorageLEnd = docFinale.createElement("relationalStorage");
+					relationalStorageLEnd.setTextContent("0");
+					levelsEnd.appendChild(relationalStorageLEnd);
+
+					Element separatorLEnd = docFinale.createElement("separator");
+					separatorLEnd.setTextContent(" ");
+					levelsEnd.appendChild(separatorLEnd);
+
+					Element sizeLEnd = docFinale.createElement("size");
+					sizeLEnd.setTextContent("3");
+					levelsEnd.appendChild(sizeLEnd);
+
+					Element unmodifiableLEnd = docFinale.createElement("unmodifiable");
+					unmodifiableLEnd.setTextContent("0");
+					levelsEnd.appendChild(unmodifiableLEnd);
+
+					Element classTypeLEnd = docFinale.createElement("classType");
+					classTypeLEnd.setTextContent("com.xpn.xwiki.objects.classes.LevelsClass");
+					levelsEnd.appendChild(classTypeLEnd);
+
+					classObjEnd.appendChild(levelsEnd);
+
+					Element usersEnd = docFinale.createElement("users");
+
+					Element cacheUEnd = docFinale.createElement("cache");
+					cacheUEnd.setTextContent("0");
+					usersEnd.appendChild(cacheUEnd);
+
+					Element disabledUEnd = docFinale.createElement("disabled");
+					disabledUEnd.setTextContent("0");
+					usersEnd.appendChild(disabledUEnd);
+
+					Element displayTypeUEnd = docFinale.createElement("displayType");
+					displayTypeUEnd.setTextContent("input");
+					usersEnd.appendChild(displayTypeUEnd);
+
+					Element multiSelectUEnd = docFinale.createElement("multiSelect");
+					multiSelectUEnd.setTextContent("1");
+					usersEnd.appendChild(multiSelectUEnd);
+
+					Element nameUEnd = docFinale.createElement("name");
+					nameUEnd.setTextContent("users");
+					usersEnd.appendChild(nameUEnd);
+
+					Element numberUEnd = docFinale.createElement("number");
+					numberUEnd.setTextContent("3");
+					usersEnd.appendChild(numberUEnd);
+
+					Element pickerUEnd = docFinale.createElement("picker");
+					pickerUEnd.setTextContent("1");
+					usersEnd.appendChild(pickerUEnd);
+
+					Element prettyNameUEnd = docFinale.createElement("prettyName");
+					prettyNameUEnd.setTextContent("Users");
+					usersEnd.appendChild(prettyNameUEnd);
+
+					Element relationalStorageUEnd = docFinale.createElement("relationalStorage");
+					relationalStorageUEnd.setTextContent("0");
+					usersEnd.appendChild(relationalStorageUEnd);
+
+					Element separatorUEnd = docFinale.createElement("separator");
+					separatorUEnd.setTextContent(" ");
+					usersEnd.appendChild(separatorUEnd);
+
+					Element sizeUEnd = docFinale.createElement("size");
+					sizeUEnd.setTextContent("5");
+					usersEnd.appendChild(sizeUEnd);
+
+					Element unmodifiableUEnd = docFinale.createElement("unmodifiable");
+					unmodifiableUEnd.setTextContent("0");
+					usersEnd.appendChild(unmodifiableUEnd);
+
+					Element classTypeUEnd = docFinale.createElement("classType");
+					classTypeUEnd.setTextContent("com.xpn.xwiki.objects.classes.UsersClass");
+					usersEnd.appendChild(classTypeUEnd);
+
+					classObjEnd.appendChild(usersEnd);
+
+					objectEnd.appendChild(classObjEnd);
+
+
+					Element propertyAEnd = docFinale.createElement("property");
+
+					Element allowPEnd = docFinale.createElement("allow");
+					allowPEnd.setTextContent("0");
+					propertyAEnd.appendChild(allowPEnd);
+
+					objectEnd.appendChild(propertyAEnd);
+
+					Element propertyG2End = docFinale.createElement("property");
+
+					Element groupsP2End = docFinale.createElement("groups");
+					groupsP2End.setTextContent("XWiki." + currentLane);
+					propertyG2End.appendChild(groupsP2End);
+
+					objectEnd.appendChild(propertyG2End);
+
+					Element propertyL2End = docFinale.createElement("property");
+
+					Element levelsP2End = docFinale.createElement("levels");
+					levelsP2End.setTextContent("edit,delete");
+					propertyL2End.appendChild(levelsP2End);
+
+					objectEnd.appendChild(propertyL2End);
+
+					xwikidoc.appendChild(objectEnd);
+
+
+
+
+
+
 					// ATTACHMENT
 					/*
 	Element attachment = docFinale.createElement("attachment");
@@ -1159,7 +1451,7 @@ public class BPMN {
 							}else if(instances.item(i).getAttributes().getNamedItem("class").toString().equals("class=\"End Event\"")){
 								content.setTextContent(testContent + "<br/>=//**__Process Completed!__**// =" );
 							}else if(!instances.item(i).getAttributes().getNamedItem("class").toString().equals("class=\"End Event\"")){
-								content.setTextContent(testContent + "<br/>__Link to the Next Activity:__<br/>"  + Connector.nextLinkCreator(connector, oldName, spaceName) + "{{/velocity}}" );
+								content.setTextContent(testContent + "<br/>__Link to the Next Activity:__<br/><br/>"  + Connector.nextLinkCreator(connector, oldName, spaceName) + "{{/velocity}}" );
 							}else{
 								content.setTextContent(testContent);
 							}
