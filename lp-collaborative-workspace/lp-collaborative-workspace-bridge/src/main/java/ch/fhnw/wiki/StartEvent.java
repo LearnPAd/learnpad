@@ -221,8 +221,8 @@ public class StartEvent {
 			//String contenuto = new String();
 			String adoXmlFile = StartEvent.startEventSearcher(doc);
 
-			content.setTextContent("**Generic Description of the Process:**\n\n\n"
-					+ "__Link to the First Step:__" + "{{html wiki=true}}<br/><br/>"
+			content.setTextContent("{{html wiki=true}}**Generic Description of the Process:**<br/><br/><br/>"
+					+ "	\n__Link to the First Step:__" + "<br/><br/>"
 					+ "\n<form action=\"" + adoXmlFile + "\">"+
 					"\n<input type=\"submit\" value=\"First Activity\">" +
 					"\n</form>"+
