@@ -109,6 +109,11 @@ public class XWikiGenerator {
 
 				System.out.println( "SENTRY MODEL:" );
 				System.out.println("\n");
+				
+			}else if(model.getAttributes().getNamedItem("modeltype").toString().equals("modeltype=\"BPMN + CMMN model\"")){
+				
+				System.out.println("BPMN + CMMN model are not currently being translated.");
+				
 			}
 			
 			
