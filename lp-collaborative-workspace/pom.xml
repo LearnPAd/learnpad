@@ -31,10 +31,11 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<lp.version>1.0-SNAPSHOT</lp.version>
 	</properties>
 
 	<modules>
-		<module>lp-collaborative-workspace-application</module>
+		<module>lp-collaborative-workspace-ui</module>
 		<module>lp-collaborative-workspace-web</module>
 		<module>lp-collaborative-workspace-bridge</module>
 		<!--module>lp-collaborative-workspace-service</module-->

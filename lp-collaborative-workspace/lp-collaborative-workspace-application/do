@@ -1,0 +1,2 @@
+#!/usr/bin/env nodejs
+require('xwiki-tools').Console.main(process.argv);

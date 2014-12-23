@@ -26,21 +26,24 @@ declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
 ### BUILD ###
 # This is where you compile and build each part of your component
 function component_build() {
-mvn clean
-mvn compile
+cd lp-collaborative-workspace-application/ &&
+	npm install xwiki-tools &&
+	node do &&
+	cd ${__COMPONENT_PATH__}
+mvn clean compile
 }
 
 ### TEST ###
 # This is where you can run tests of your component
 function component_test() {
-mvn test
+mvn clean test
 }
 
 ### INSTALL ###
 # This is where you need to publish material into the `out' directory
 function component_install() {
 mkdir -p ${__OUT_PATH__}
-mvn install
+mvn clean install
 cp "lp-collaborative-workspace-bridge/target/lp-collaborative-workspace-bridge-1.0-SNAPSHOT.jar" "${__OUT_PATH__}/"
 cp "scripts/start" "${__OUT_START_FILE__}"
 cp "scripts/stop" "${__OUT_STOP_FILE__}"

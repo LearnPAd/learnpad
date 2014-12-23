@@ -1,0 +1,229 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xwikidoc version="1.1">
+  <web>LearnPAdCode</web>
+  <name>BPMNTemplate</name>
+  <language/>
+  <defaultLanguage>en</defaultLanguage>
+  <translation>0</translation>
+  <creator>XWiki.Admin</creator>
+  <creationDate>1409494034000</creationDate>
+  <parent>LearnPAdCode.BPMNClass</parent>
+  <author>XWiki.Admin</author>
+  <contentAuthor>XWiki.Admin</contentAuthor>
+  <date>1410103939000</date>
+  <contentUpdateDate>1410103939000</contentUpdateDate>
+  <version>17.1</version>
+  <title>BPMN Template</title>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>false</hidden>
+  <content>{{html wiki="true"}}&#xd;
+&lt;input type="submit" class="button" value="Start/Join simulation"/> | [[Back to BPMN list>>LearnPAdBPMNs.WebHome]]&#xd;
+{{/html}}&#xd;
+----&#xd;
+&#xd;
+{{velocity}}&#xd;
+$xwiki.jsx.use($doc.fullName)&#xd;
+{{/velocity}}&#xd;
+&#xd;
+{{html wiki="true"}}&#xd;
+&lt;div id="canvas">&lt;/div>&#xd;
+&#xd;
+= Elements&#xd;
+&#xd;
+&lt;ul id="elements">&lt;/ul>&#xd;
+&#xd;
+&#xd;
+{{/html}}</content>
+  <object>
+    <name>LearnPAdCode.BPMNTemplate</name>
+    <number>0</number>
+    <className>LearnPAdCode.BPMNClass</className>
+    <guid>e4291674-8967-42aa-b47b-220ce3d07cc9</guid>
+    <class>
+      <name>LearnPAdCode.BPMNClass</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <name>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <picker>0</picker>
+        <prettyName>name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+    </class>
+    <property>
+      <name></name>
+    </property>
+  </object>
+  <object>
+    <name>LearnPAdCode.BPMNTemplate</name>
+    <number>0</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>2ad240d9-808a-45cb-97e1-c1b384e8931f</guid>
+    <class>
+      <name>XWiki.JavaScriptExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators> ,|</separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators> ,|</separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>forbid</cache>
+    </property>
+    <property>
+      <code>require.config({&#xd;
+  paths: {&#xd;
+    jqueryMousewheel: 'http://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.11/jquery.mousewheel.min',&#xd;
+    lodash: 'http://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min',&#xd;
+    sax: '$xwiki.getDocument("LearnPAdCode.BPMNJS").getAttachmentURL("sax")',&#xd;
+    snap: '$xwiki.getDocument("LearnPAdCode.BPMNJS").getAttachmentURL("snap.svg")',&#xd;
+    bpmnViewer: '$xwiki.getDocument("LearnPAdCode.BPMNJS").getAttachmentURL("bpmn-viewer")'&#xd;
+  },&#xd;
+  shim: {   &#xd;
+    bpmnViewer: {&#xd;
+      deps: ['jquery']&#xd;
+    }&#xd;
+  }&#xd;
+});&#xd;
+&#xd;
+var XWiki = (function(XWiki) {    &#xd;
+  function init() {&#xd;
+    console.log("XWiki Document loaded $doc");&#xd;
+    &#xd;
+    require(['jquery', 'jqueryMousewheel', 'lodash', 'sax', 'snap', 'bpmnViewer'], function($, jqueryMousewheel, lodash, sax, snap, bpmnViewer) {&#xd;
+      var diagramXML = $jsontool.serialize($doc.getAttachment('data.bpmn2').getContentAsString());&#xd;
+  &#xd;
+      var elementList = $('#elements');      &#xd;
+  &#xd;
+      // create viewer&#xd;
+      var viewer = new bpmnViewer({&#xd;
+        container: '#canvas',&#xd;
+        width: '100%',&#xd;
+        height: '100%'&#xd;
+      });&#xd;
+  &#xd;
+      viewer.on('import.success', function(e) {&#xd;
+        console.log('Diagram imported successfully');&#xd;
+      })&#xd;
+      &#xd;
+      viewer.on('bpmnElement.added', function(e) {&#xd;
+        var name = e.element.businessObject.name;&#xd;
+        if(name) {&#xd;
+          elementList.append('&lt;li>&lt;a href=' + $jsontool.serialize($xwiki.getDocument("LearnPAdDocuments", "WebHome").getExternalURL()) + e.element.id +"'>" + name + '&lt;/a>&lt;/li>');                    &#xd;
+        }&#xd;
+        &#xd;
+      });&#xd;
+      &#xd;
+      viewer.on('shape.click', function(e) {&#xd;
+        window.location = $jsontool.serialize($xwiki.getDocument("LearnPAdDocuments", "WebHome").getExternalURL()) + e.element.id;&#xd;
+        console.log()&#xd;
+      });&#xd;
+    &#xd;
+      // import diagram&#xd;
+      viewer.importXML(diagramXML, function(err) {&#xd;
+        if(err) {&#xd;
+          return console.error('could not import BPMN 2.0 diagram', err);&#xd;
+        }&#xd;
+&#xd;
+        var canvas = viewer.get('canvas');&#xd;
+  &#xd;
+        // zoom to fit full viewport&#xd;
+        canvas.zoom('fit-viewport');&#xd;
+      });&#xd;
+    });&#xd;
+  }&#xd;
+  &#xd;
+  (XWiki.domIsLoaded &amp;&amp; init()) || document.observe("xwiki:dom:loaded", init);&#xd;
+      &#xd;
+  //End XWiki augmentation&#xd;
+  return XWiki;&#xd;
+}(XWiki || {}));</code>
+    </property>
+    <property>
+      <name></name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>onDemand</use>
+    </property>
+  </object>
+</xwikidoc>
