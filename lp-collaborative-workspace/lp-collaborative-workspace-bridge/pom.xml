@@ -58,7 +58,7 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>ch.fhnw.gui.MainWindow.java</mainClass>
+					<mainClass>ch.fhnw.gui.MainWindow</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>

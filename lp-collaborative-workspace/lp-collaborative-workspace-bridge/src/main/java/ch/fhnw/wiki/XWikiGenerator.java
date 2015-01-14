@@ -96,7 +96,7 @@ public class XWikiGenerator {
 				arrayName = BPMN.BPMNGenerator(instances, spaceName, xwikiUser, directoryBPMN, createDirectory, doc, docFactory);
 				//PANELS GENERATOR
 				//NodeList connector = instances.getElementsByTagName("CONNECTOR");
-				System.out.println(Panels.PanelsGenerator(connector, directoryBPMN, xwikiUser) );
+				System.out.println(Panels.PanelsGenerator(connector, directoryBPMN, xwikiUser, spaceName) );
 
 
 			}
