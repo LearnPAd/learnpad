@@ -1,147 +1,149 @@
 <html>
 <head>
-<title>LearnPAd WebUI</title>
-<script type="text/javascript">
-	if (!window.WebSocket)
-		alert("WebSocket not supported by this browser");
+	<title>LearnPAd WebUI</title>
+	<script type="text/javascript">
+if (!window.WebSocket)
+	alert("WebSocket not supported by this browser");
 
 	function $() {
 		return document.getElementById(arguments[0]);
 	}
-	function $F() {
-		return document.getElementById(arguments[0]).value;
-	}
-	
+function $F() {
+	return document.getElementById(arguments[0]).value;
+}
+
+function TasksReceiver(address) {
+
 	var finishOnError = false;
-	
-	var activeTasks = [];
-	
-	var tasksreceiversocket = {
-		
-		init : function(uiid) {
-			var location = "ws://127.0.1.1:8081/ui/" + uiid;
-			this._ws = new WebSocket(location);
-			this._ws.onopen = this._onopen;
-			this._ws.onmessage = this._onmessage;
-			this._ws.onclose = this._onclose;
-			this._ws.onerror = this._onerror;
-		},
-		
-		finish : function() {
-			$('finished').className = '';
-		},
-		
-		_onopen : function() {
-			$('connect').remove();
-		},
 
-		_onmessage : function(m) {
-			var msg = JSON.parse(m.data);
-			switch(msg.type) {
-			
-   			 case "FINISHED":
-     		 	tasksreceiversocket.finish();
-      			break;
-      			
-      		 case "ADDTASK":
-      		 	var newTask = new Task(msg.taskid)
-      		 	newTask.join();
-      		 	activeTasks[msg.taskid] = newTask;
-      		  	break;
-      		  	
-      		 case "DELTASK":
-      		 	activeTasks[msg.taskid].end();
-      		  	break;
-      		}
-		},
+	TasksReceiver.prototype.init = function(uiid) {
 
-		_onclose : function(m) {
-			this._ws = null;		
-			if(finishOnError){
-				alert("The following error occurred: " + m.reason + " (" + m.code +")");
-			}
-		},
-
-		_onerror : function(e) {
-			finishOnError = true;
-		},
+		var location = "ws://" + address + "/ui/" + uiid;
+		taskReceiver._ws = new WebSocket(location);
+		taskReceiver._ws.onopen = this._onopen;
+		taskReceiver._ws.onmessage = this._onmessage;
+		taskReceiver._ws.onclose = this._onclose;
+		taskReceiver._ws.onerror = this._onerror;
 	}
-	
-	
-	function Task(taskid) {
-		var closeOnError = false;
-		
-		Task.prototype.join = function() {
-			var location = "ws://127.0.1.1:8081/tasks/" + taskid
-			this._ws = new WebSocket(location);
-			this._ws.onopen = this._onopen;
-			this._ws.onmessage = this._onmessage;
-			this._ws.onclose = this._onclose;
-			this._ws.onerror = this._onerror;
-		}
-		
-		Task.prototype.end = function() {
-			this._onclose('');
-		}
-		
-		Task.prototype.send = function(data) {
-			this._ws.send(data);
-		}
 
-		Task.prototype._onopen = function(){	
-		
-			var tasksDiv = $('tasks');
-			
-			var taskDiv = document.createElement('div');
-			taskDiv.id = 'taskcontainer'+taskid;
-			taskDiv.innerHTML = '<div id="task' + taskid + '">\
-					<p id="taskdata' + taskid + '"></p>\
-					<input id="complete' + taskid + '"\
-					class="button" \
-					type="submit" \
-					name="complete" \
-					value="complete task" />\
-					<hr>\
-				</div>'
-				
-			tasksDiv.appendChild(taskDiv);
-		
-			$('complete'+taskid).onclick = function(event) {
-				activeTasks[taskid].send("complete");
-				return false;
-			};
-		}
+	TasksReceiver.prototype.finish = function() {
+		$('finished').className = '';
+	}
 
-		Task.prototype._onmessage = function(m) {
-			$('taskdata' + taskid).innerHTML = m.data;
-		}
+	TasksReceiver.prototype._onopen = function() {
+		$('connect').remove();
+	}
 
-		Task.prototype._onclose = function(m) {
-			this._ws = null;
-			$('complete' + taskid).remove();
-			$('taskcontainer' + taskid).className = 'disabled';
-					
-			if(closeOnError){
-				alert("The following error occurred: " + m.reason + " (" + m.code +")");
-			}
-		}
+	TasksReceiver.prototype._onmessage = function(m) {
+		var msg = JSON.parse(m.data);
+		switch(msg.type) {
 
-		Task.prototype._onerror = function(e) {
-			closeOnError = true;
+			case "FINISHED":
+				taskReceiver.finish();
+				break;
+
+			case "ADDTASK":
+				var newTask = new Task(address, msg.taskid);
+				activeTasks[msg.taskid] = newTask;
+				newTask.join();
+				break;
+
+			case "DELTASK":
+				activeTasks[msg.taskid].end();
+				break;
 		}
 	}
-	
-	
-</script>
 
-<style type='text/css'>
+	TasksReceiver.prototype._onclose = function(m) {
+		taskReceiver._ws = null;
+		if(finishOnError){
+			alert("The following error occurred: " + m.reason + " (" + m.code +")");
+		}
+	}
+
+	TasksReceiver.prototype._onerror = function(e) {
+		finishOnError = true;
+	}
+}
+
+
+function Task(address, taskid) {
+	var closeOnError = false;
+
+	Task.prototype.join = function() {
+		var location = "ws://" + address + "/tasks/" + taskid
+			activeTasks[taskid]._ws = new WebSocket(location);
+		activeTasks[taskid]._ws.onopen = this._onopen;
+		activeTasks[taskid]._ws.onmessage = this._onmessage;
+		activeTasks[taskid]._ws.onclose = this._onclose;
+		activeTasks[taskid]._ws.onerror = this._onerror;
+	}
+
+	Task.prototype.end = function() {
+		activeTasks[taskid]._onclose('');
+	}
+
+	Task.prototype.send = function(data) {
+		activeTasks[taskid]._ws.send(data);
+	}
+
+	Task.prototype._onopen = function(){
+
+		var tasksDiv = $('tasks');
+
+		var taskDiv = document.createElement('div');
+		taskDiv.id = 'taskcontainer'+taskid;
+		taskDiv.innerHTML = '<div id="task' + taskid + '">\
+				    <p id="taskdata' + taskid + '"></p>\
+				    <input id="complete' + taskid + '"\
+				    class="button" \
+				    type="submit" \
+				    name="complete" \
+				    value="complete task" />\
+				    <hr>\
+				    </div>'
+
+				    tasksDiv.appendChild(taskDiv);
+
+		$('complete'+taskid).onclick = function(event) {
+			activeTasks[taskid].send("complete");
+			return false;
+		};
+	}
+
+	Task.prototype._onmessage = function(m) {
+		$('taskdata' + taskid).innerHTML = m.data;
+	}
+
+	Task.prototype._onclose = function(m) {
+		activeTasks[taskid]._ws = null;
+		activeTasks.splice(activeTasks.indexOf(activeTasks[taskid]), 1);
+		$('complete' + taskid).remove();
+		$('taskcontainer' + taskid).className = 'disabled';
+
+		if(closeOnError){
+			alert("The following error occurred: " + m.reason + " (" + m.code +")");
+		}
+	}
+
+	Task.prototype._onerror = function(e) {
+		closeOnError = true;
+	}
+}
+
+var activeTasks = [];
+var taskReceiver = new TasksReceiver(#serveripaddress#);
+
+	</script>
+
+	<style type='text/css'>
 .hidden {
 	display: none;
 }
 .disabled {
 	opacity: 0.5;
 }
-</style>
+	</style>
 
 </head>
 <body>
@@ -150,17 +152,17 @@
 		UI Id:&nbsp;
 		<input id="uiid" type="text"/>
 		<input id="connectBn"
-			class="button" 
-			type="submit"
-			name="connectBn"
-			value="connect" />
+	 class="button"
+  type="submit"
+  name="connectBn"
+  value="connect" />
 	</div>
-	
-	<script type="text/javascript">	
-		$('connectBn').onclick = function(event) {
-			tasksreceiversocket.init($F('uiid'));
-			return false;
-		};
+
+	<script type="text/javascript">
+$('connectBn').onclick = function(event) {
+	taskReceiver.init($F('uiid'));
+	return false;
+};
 	</script>
 
 	<div id="tasks"></div>

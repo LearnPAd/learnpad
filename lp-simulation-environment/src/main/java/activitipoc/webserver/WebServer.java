@@ -3,10 +3,23 @@
  */
 package activitipoc.webserver;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
@@ -23,15 +36,17 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 public class WebServer {
 
 	public static final long TIMEOUT = Long.MAX_VALUE;
+	public static final String UI_PATH = "src/main/resources/ui.html";
 
 	final Server server;
 	final ServletContextHandler context;
 	private final String uiPath;
 	private final String tasksPath;
 
-	public WebServer(int port, String uiPath, String tasksPath) {
+	public WebServer(final int port, String uiPath, String tasksPath) {
 		this.server = new Server();
-		ServerConnector connector = new ServerConnector(server);
+		final ServerConnector connector = new ServerConnector(server);
+
 		connector.setPort(port);
 		this.server.addConnector(connector);
 		this.uiPath = uiPath;
@@ -41,8 +56,36 @@ public class WebServer {
 		// This is also known as the handler tree (in jetty speak)
 		this.context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 		this.context.setContextPath("/");
-		this.server.setHandler(this.context);
 
+		// serve UI webpage (after dynamically setting server ip)
+		HttpServlet ui_servlet = new HttpServlet() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void doGet(HttpServletRequest request,
+					HttpServletResponse response) throws ServletException,
+					IOException {
+				Scanner scan = new Scanner(new File(UI_PATH));
+				String uiPage = scan.useDelimiter("\\Z").next();
+				scan.close();
+
+				System.out.println();
+
+				// set server ip
+				uiPage = uiPage.replace("#serveripaddress#", "\""
+						+ getIPAdress() + ":" + port + "\"");
+
+				response.setContentType("text/html; charset=utf-8");
+				response.setStatus(HttpServletResponse.SC_OK);
+				response.getWriter().println(uiPage);
+			}
+		};
+		this.context.addServlet(new ServletHolder(ui_servlet), "/");
+
+		server.setHandler(context);
+
+		// start server
 		try {
 			this.server.start();
 		} catch (Throwable t) {
@@ -60,7 +103,7 @@ public class WebServer {
 
 		System.out.println("new UI servlet launched at "
 				+ server.getURI().toString()
-				.substring(0, server.getURI().toString().length() - 1)
+						.substring(0, server.getURI().toString().length() - 1)
 				+ fullPath);
 
 		return holderEvents;
@@ -76,7 +119,7 @@ public class WebServer {
 
 		System.out.println("new task servlet launched at "
 				+ server.getURI().toString()
-				.substring(0, server.getURI().toString().length() - 1)
+						.substring(0, server.getURI().toString().length() - 1)
 				+ fullPath);
 
 		return holderEvents;
@@ -126,6 +169,26 @@ public class WebServer {
 		handler.setServletMappings(mappings.toArray(new ServletMapping[0]));
 		handler.setServlets(servlets.toArray(new ServletHolder[0]));
 
+	}
+
+	private String getIPAdress() throws UnknownHostException, SocketException {
+
+		Enumeration<NetworkInterface> e = NetworkInterface
+				.getNetworkInterfaces();
+		while (e.hasMoreElements()) {
+			NetworkInterface n = e.nextElement();
+			Enumeration<InetAddress> ee = n.getInetAddresses();
+			while (ee.hasMoreElements()) {
+				InetAddress i = ee.nextElement();
+				if (!i.getHostAddress().startsWith("127")
+						&& !i.getHostAddress().startsWith("fe")) {
+					return i.getHostAddress();
+				}
+
+			}
+		}
+
+		throw new RuntimeException("No valid IP adress");
 	}
 
 }
