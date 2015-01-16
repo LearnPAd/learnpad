@@ -5,6 +5,7 @@ package activitipoc;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +53,7 @@ public class Main {
 				.getRepositoryService();
 
 		repositoryService.createDeployment()
-				.addClasspathResource(DEMO_PROCESS_FILE).deploy();
+		.addClasspathResource(DEMO_PROCESS_FILE).deploy();
 
 		System.out.println("Number of process definitions: "
 				+ repositoryService.createProcessDefinitionQuery().count());
@@ -86,27 +87,36 @@ public class Main {
 		new ProcessDispatcher(webserver, process, taskService,
 				processEngine.getRuntimeService(), new ITaskRouter() {
 
-					public UIServlet route(Task task, List<UIServlet> candidates) {
+			public List<UIServlet> route(Task task,
+					List<UIServlet> candidates) {
 
-						if (!taskService.createTaskQuery()
-								.taskCandidateOrAssigned("Tom")
+				List<UIServlet> result = new ArrayList<UIServlet>();
+
+				if (!taskService.createTaskQuery()
+						.taskCandidateOrAssigned("Tom")
 						.taskId(task.getId()).list().isEmpty()) {
 
-							return candidates.get(0);
+					result.add(candidates.get(0));
 
-						} else if (!taskService.createTaskQuery()
-								.taskCandidateGroup("management")
-								.taskId(task.getId()).list().isEmpty()) {
+				}
 
-							return candidates.get(1);
+				if (!taskService.createTaskQuery()
+						.taskCandidateGroup("management")
+						.taskId(task.getId()).list().isEmpty()) {
 
-						} else {
-							throw new RuntimeException("Could not route task "
-									+ task + " to any user");
-						}
+					result.add(candidates.get(1));
 
-					}
+				}
 
-				}, Arrays.asList(ui1, ui2));
+				if (result.isEmpty()) {
+					throw new RuntimeException("Could not route task "
+							+ task + " to any user");
+				} else {
+					return result;
+				}
+
+			}
+
+		}, Arrays.asList(ui1, ui2));
 	}
 }

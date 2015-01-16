@@ -34,7 +34,7 @@ public class ProcessDispatcher implements ActivitiEventListener {
 	private final List<UIServlet> users;
 
 	private final Map<Task, ServletHolder> waitingTasksHolders = new HashMap<Task, ServletHolder>();
-	private final Map<Task, UIServlet> taskToUIroute = new HashMap<Task, UIServlet>();
+	private final Map<Task, List<UIServlet>> taskToUIroute = new HashMap<Task, List<UIServlet>>();
 
 	/**
 	 * @param webserver
@@ -75,15 +75,16 @@ public class ProcessDispatcher implements ActivitiEventListener {
 							task.getId()));
 
 			// route task to correct ui
-			UIServlet ui = router.route(task, users);
-			taskToUIroute.put(task, ui);
-			ui.addTask(task.getId());
+			List<UIServlet> uiList = router.route(task, users);
+			taskToUIroute.put(task, uiList);
+			for (UIServlet ui : uiList) {
+				ui.addTask(task.getId());
+			}
 		}
 	}
 
 	void completeProcess() {
 		System.out.println("Process " + process.getId() + " finished");
-		// TODO: do what ?
 		for (UIServlet ui : users) {
 			ui.completeProcess();
 		}
@@ -94,7 +95,9 @@ public class ProcessDispatcher implements ActivitiEventListener {
 		webserver.removeServletHolder(waitingTasksHolders.get(task));
 		waitingTasksHolders.remove(task);
 
-		taskToUIroute.get(task).removeTask(task.getId());
+		for (UIServlet ui : taskToUIroute.get(task)) {
+			ui.removeTask(task.getId());
+		}
 		taskToUIroute.remove(task);
 
 		taskService.complete(task.getId(), parseTaskVariables(data));

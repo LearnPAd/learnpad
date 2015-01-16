@@ -15,6 +15,6 @@ import activitipoc.webserver.UIServlet;
  */
 public interface ITaskRouter {
 
-	public UIServlet route(Task task, List<UIServlet> candidates);
+	public List<UIServlet> route(Task task, List<UIServlet> candidates);
 
 }
