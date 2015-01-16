@@ -19,8 +19,8 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 
 import activitipoc.taskrouter.ITaskRouter;
-import activitipoc.webserver.WebServer;
 import activitipoc.webserver.UIServlet;
+import activitipoc.webserver.WebServer;
 
 /**
  * @author jorquera
@@ -72,22 +72,41 @@ public class Main {
 		System.out.println("Number of process instances: "
 				+ runtimeService.createProcessInstanceQuery().count());
 
-		TaskService taskService = processEngine.getTaskService();
+		final TaskService taskService = processEngine.getTaskService();
 
 		// create users
 
-		UIServlet ui = new UIServlet("user1");
-		webserver.addUIServlet(ui, "user1");
+		UIServlet ui1 = new UIServlet("user1");
+		webserver.addUIServlet(ui1, "user1");
+
+		UIServlet ui2 = new UIServlet("user2");
+		webserver.addUIServlet(ui2, "user2");
 
 		// launch process dispatcher
 		new ProcessDispatcher(webserver, process, taskService,
 				processEngine.getRuntimeService(), new ITaskRouter() {
 
 					public UIServlet route(Task task, List<UIServlet> candidates) {
-						// route everything to first user
-						return candidates.get(0);
+
+						if (!taskService.createTaskQuery()
+								.taskCandidateOrAssigned("Tom")
+						.taskId(task.getId()).list().isEmpty()) {
+
+							return candidates.get(0);
+
+						} else if (!taskService.createTaskQuery()
+								.taskCandidateGroup("management")
+								.taskId(task.getId()).list().isEmpty()) {
+
+							return candidates.get(1);
+
+						} else {
+							throw new RuntimeException("Could not route task "
+									+ task + " to any user");
+						}
+
 					}
 
-				}, Arrays.asList(ui));
+				}, Arrays.asList(ui1, ui2));
 	}
 }
