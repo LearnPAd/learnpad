@@ -28,7 +28,7 @@ public class UIServlet extends WebSocketServlet {
 	public final String uiid;
 
 	private final Set<String> currentTasks = new HashSet<String>();
-	private final Set<Session> activeSessions = new HashSet<Session>();
+	private final Set<UISocket> activeSockets = new HashSet<UISocket>();
 
 	/**
 	 * @param dispatcher
@@ -45,13 +45,13 @@ public class UIServlet extends WebSocketServlet {
 		factory.setCreator(new UISocketCreator(uiid, this));
 	}
 
-	void addSession(Session sess) {
-		this.activeSessions.add(sess);
+	private void addSocket(UISocket sock) {
+		this.activeSockets.add(sock);
 
 		for (String taskid : currentTasks) {
 			try {
-				System.out.println("sending task " + taskid + " to " + sess);
-				sess.getRemote().sendString(
+				System.out.println("sending task " + taskid + " to " + sock);
+				sock.getRemote().sendString(
 						"{\"type\": \"ADDTASK\", \"taskid\":\"" + taskid
 								+ "\"}");
 			} catch (IOException e) {
@@ -60,15 +60,15 @@ public class UIServlet extends WebSocketServlet {
 		}
 	}
 
-	void removeSession(Session sess) {
-		this.activeSessions.remove(sess);
+	private void removeSocket(UISocket sock) {
+		this.activeSockets.remove(sock);
 	}
 
 	public void addTask(String id) {
 		currentTasks.add(id);
-		for (Session session : activeSessions) {
+		for (UISocket socket : activeSockets) {
 			try {
-				session.getRemote().sendString(
+				socket.getRemote().sendString(
 						"{\"type\": \"ADDTASK\", \"taskid\":\"" + id + "\"}");
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -78,9 +78,9 @@ public class UIServlet extends WebSocketServlet {
 
 	public void removeTask(String id) {
 		currentTasks.remove(id);
-		for (Session session : activeSessions) {
+		for (UISocket socket : activeSockets) {
 			try {
-				session.getRemote().sendString(
+				socket.getRemote().sendString(
 						"{\"type\": \"DELTASK\", \"taskid\":\"" + id + "\"}");
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -89,7 +89,7 @@ public class UIServlet extends WebSocketServlet {
 	}
 
 	public void completeProcess() {
-		for (Session session : activeSessions) {
+		for (UISocket session : activeSockets) {
 			try {
 				session.getRemote().sendString("{\"type\": \"FINISHED\"}");
 			} catch (IOException e) {
@@ -156,7 +156,7 @@ public class UIServlet extends WebSocketServlet {
 			super.onWebSocketConnect(sess);
 			System.out.println("UI Socket " + uiid + " connected: " + sess);
 
-			container.addSession(sess);
+			container.addSocket(this);
 		}
 
 		@Override
@@ -172,7 +172,7 @@ public class UIServlet extends WebSocketServlet {
 			System.out.println("UI Socket " + uiid + " closed: [" + statusCode
 					+ "] " + reason);
 
-			container.removeSession(this.getSession());
+			container.removeSocket(this);
 		}
 
 		@Override
