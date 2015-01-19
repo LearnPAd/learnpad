@@ -4,6 +4,7 @@
 package activitipoc.webserver;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.activiti.engine.task.Task;
 import org.eclipse.jetty.websocket.api.Session;
@@ -28,21 +29,35 @@ public class TaskServlet extends WebSocketServlet {
 
 	private final ProcessDispatcher dispatcher;
 	private final Task task;
+	private final List<UIServlet> users;
 
 	/**
 	 * @param dispatcher
 	 * @param task
 	 */
-	public TaskServlet(ProcessDispatcher dispatcher, Task task) {
+	public TaskServlet(ProcessDispatcher dispatcher, Task task,
+			List<UIServlet> users) {
 		super();
 		this.dispatcher = dispatcher;
 		this.task = task;
+		this.users = users;
+
+		for (UIServlet ui : this.users) {
+			ui.addTask(task.getId());
+		}
 	}
 
 	@Override
 	public void configure(WebSocketServletFactory factory) {
 		factory.getPolicy().setIdleTimeout(TIMEOUT);
-		factory.setCreator(new TaskSocketCreator(dispatcher, task));
+		factory.setCreator(new TaskSocketCreator(task, this));
+	}
+
+	void completeTask(String data) {
+		for (UIServlet ui : users) {
+			ui.removeTask(task.getId());
+		}
+		dispatcher.completeTask(task, data);
 	}
 
 	/**
@@ -51,17 +66,17 @@ public class TaskServlet extends WebSocketServlet {
 	 */
 	private static class TaskSocketCreator implements WebSocketCreator {
 
-		private final ProcessDispatcher dispatcher;
 		private final Task task;
+		private final TaskServlet container;
 
 		/**
 		 * @param dispatcher
 		 * @param task
 		 */
-		public TaskSocketCreator(ProcessDispatcher dispatcher, Task task) {
+		public TaskSocketCreator(Task task, TaskServlet container) {
 			super();
-			this.dispatcher = dispatcher;
 			this.task = task;
+			this.container = container;
 		}
 
 		/*
@@ -74,7 +89,7 @@ public class TaskServlet extends WebSocketServlet {
 		 */
 		public Object createWebSocket(ServletUpgradeRequest req,
 				ServletUpgradeResponse resp) {
-			return new TaskSocket(dispatcher, task);
+			return new TaskSocket(task, container);
 		}
 
 	}
@@ -85,17 +100,17 @@ public class TaskServlet extends WebSocketServlet {
 	 */
 	private static class TaskSocket extends WebSocketAdapter {
 
-		private final ProcessDispatcher dispatcher;
 		private final Task task;
+		private final TaskServlet container;
 
 		/**
 		 * @param dispatcher
 		 * @param task
 		 */
-		public TaskSocket(ProcessDispatcher dispatcher, Task task) {
+		public TaskSocket(Task task, TaskServlet container) {
 			super();
-			this.dispatcher = dispatcher;
 			this.task = task;
+			this.container = container;
 		}
 
 		@Override
@@ -120,7 +135,8 @@ public class TaskServlet extends WebSocketServlet {
 					+ " received TEXT message: " + message);
 
 			this.getSession().close();
-			dispatcher.completeTask(task, message);
+
+			container.completeTask(message);
 
 		}
 

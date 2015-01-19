@@ -34,7 +34,6 @@ public class ProcessDispatcher implements ActivitiEventListener {
 	private final List<UIServlet> users;
 
 	private final Map<Task, ServletHolder> waitingTasksHolders = new HashMap<Task, ServletHolder>();
-	private final Map<Task, List<UIServlet>> taskToUIroute = new HashMap<Task, List<UIServlet>>();
 
 	/**
 	 * @param webserver
@@ -69,17 +68,9 @@ public class ProcessDispatcher implements ActivitiEventListener {
 
 	void processNewTasks(List<Task> tasks) {
 		for (Task task : tasks) {
-			waitingTasksHolders.put(
-					task,
-					webserver.addTaskServlet(new TaskServlet(this, task),
-							task.getId()));
-
-			// route task to correct ui
-			List<UIServlet> uiList = router.route(task, users);
-			taskToUIroute.put(task, uiList);
-			for (UIServlet ui : uiList) {
-				ui.addTask(task.getId());
-			}
+			waitingTasksHolders.put(task, webserver.addTaskServlet(
+					new TaskServlet(this, task, router.route(task, users)),
+					task.getId()));
 		}
 	}
 
@@ -95,22 +86,17 @@ public class ProcessDispatcher implements ActivitiEventListener {
 		webserver.removeServletHolder(waitingTasksHolders.get(task));
 		waitingTasksHolders.remove(task);
 
-		for (UIServlet ui : taskToUIroute.get(task)) {
-			ui.removeTask(task.getId());
-		}
-		taskToUIroute.remove(task);
-
 		taskService.complete(task.getId(), parseTaskVariables(data));
 
 		// check for newly triggered tasks
-		List<Task> tasks = taskService.createTaskQuery()
+		List<Task> waitingTasks = taskService.createTaskQuery()
 				.processInstanceId(process.getId()).list();
 
 		// ignore already processed tasks
-		tasks.removeAll(waitingTasksHolders.keySet());
+		waitingTasks.removeAll(waitingTasksHolders.keySet());
 
-		if (!tasks.isEmpty()) {
-			processNewTasks(tasks);
+		if (!waitingTasks.isEmpty()) {
+			processNewTasks(waitingTasks);
 		}
 	}
 
@@ -131,7 +117,7 @@ public class ProcessDispatcher implements ActivitiEventListener {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#onEvent(org.
 	 * activiti.engine.delegate.event.ActivitiEvent)
@@ -145,7 +131,7 @@ public class ProcessDispatcher implements ActivitiEventListener {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#isFailOnException
 	 * ()
