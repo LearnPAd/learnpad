@@ -34,8 +34,10 @@ function component_build() {
 mkdir -p ${MVN_CONFIGURATION_PATH}
 if [ \! -f "${MVN_SETTINGS_CONFIGURATION_PATH}" ]
 then
-	echo "build: info: ${MVN_SETTINGS_CONFIGURATION_PATH} doesn't exist and will be created."
+	echo "build: INFO: \`${MVN_SETTINGS_CONFIGURATION_PATH}' does not exist and will be created."
 	cp ${MVN_SETTINGS_COMPONENT_PATH} ${MVN_SETTINGS_CONFIGURATION_PATH}
+else
+	echo "build: INFO: \`${MVN_SETTINGS_CONFIGURATION_PATH}' exists."
 fi
 mvn clean compile
 }
