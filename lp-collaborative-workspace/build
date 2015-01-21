@@ -23,10 +23,14 @@ declare -r __OUT_RUNDEPS_FILE__="${__OUT_PATH__}/rundeps.txt"
 # This is the path to the directory where you can optionally put some configuration files
 declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
 
-declare -r MVN_CONFIGURATION_PATH=~/.m2 # Don't put quotes to expand the '~'
+declare -r MVN_CONFIGURATION_PATH=~/.m2 # Don't put quotes because we want to expand the '~'
 declare -r MVN_SETTINGS_FILENAME="settings.xml"
 declare -r MVN_SETTINGS_CONFIGURATION_PATH="${MVN_CONFIGURATION_PATH}/${MVN_SETTINGS_FILENAME}"
 declare -r MVN_SETTINGS_COMPONENT_PATH="${__COMPONENT_PATH__}/${MVN_SETTINGS_FILENAME}"
+
+function add_xwiki_settings() {
+echo "NOTHING"
+}
 
 ### BUILD ###
 # This is where you compile and build each part of your component
@@ -37,7 +41,8 @@ then
 	echo "build: INFO: \`${MVN_SETTINGS_CONFIGURATION_PATH}' does not exist and will be created."
 	cp ${MVN_SETTINGS_COMPONENT_PATH} ${MVN_SETTINGS_CONFIGURATION_PATH}
 else
-	echo "build: INFO: \`${MVN_SETTINGS_CONFIGURATION_PATH}' exists."
+	echo "build: INFO: \`${MVN_SETTINGS_CONFIGURATION_PATH}' exists, settings will be completed."
+	cat settings.xml
 fi
 mvn clean compile
 }
