@@ -29,7 +29,7 @@ declare -r MVN_SETTINGS_CONFIGURATION_PATH="${MVN_CONFIGURATION_PATH}/${MVN_SETT
 declare -r MVN_SETTINGS_COMPONENT_PATH="${__COMPONENT_PATH__}/${MVN_SETTINGS_FILENAME}"
 
 function add_xwiki_settings() {
-echo "NOTHING"
+cat ${MVN_SETTINGS_COMPONENT_PATH} | sed -n 
 }
 
 ### BUILD ###
@@ -42,9 +42,9 @@ then
 	cp ${MVN_SETTINGS_COMPONENT_PATH} ${MVN_SETTINGS_CONFIGURATION_PATH}
 else
 	echo "build: INFO: \`${MVN_SETTINGS_CONFIGURATION_PATH}' exists, settings will be completed."
-	cat settings.xml
+	#add_xwiki_settings
 fi
-mvn clean compile
+mvn --settings settings.xml clean compile
 }
 
 ### TEST ###
