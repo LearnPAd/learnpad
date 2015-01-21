@@ -23,25 +23,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<parent>
 		<groupId>com.xwikisas</groupId>
-		<artifactId>lp-collaborative-workspace</artifactId>
+		<artifactId>lp-collaborative-workspace-bridge-importer</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-
-	<groupId>com.xwikisas</groupId>
-	<artifactId>lp-collaborative-workspace-bridge</artifactId>
-	<packaging>pom</packaging>
+	<groupId>ch.fhnw</groupId>
+	<artifactId>lp-collaborative-workspace-bridge-importer-generic</artifactId>
+	<packaging>jar</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>Learn PAd - Collaborative Workspace - Bridge</name>
-
-	<properties>
-		<lp.version>1.0-SNAPSHOT</lp.version>
-	</properties>
-
-	<modules>
-		<module>lp-collaborative-workspace-bridge-importer</module>
-		<module>lp-collaborative-workspace-bridge-rest</module>
-	</modules>
+	<name>Learn PAd - Collaborative Workspace - Bridge - Importer - Generic</name>
+	<developers>
+		<developer>
+			<id>woshilapin</id>
+			<name>Jean SIMARD</name>
+		</developer>
+	</developers>
 </project>

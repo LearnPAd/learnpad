@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  *
+  * See the NOTICE file distributed with this work for additional
+  * information regarding copyright ownership.
+  *
+  * This is free software; you can redistribute it and/or modify it
+  * under the terms of the GNU Lesser General Public License as
+  * published by the Free Software Foundation; either version 2.1 of
+  * the License, or (at your option) any later version.
+  *
+  * This software is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  * Lesser General Public License for more details.
+  *
+  * You should have received a copy of the GNU Lesser General Public
+  * License along with this software; if not, write to the Free
+  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  *
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -13,15 +34,11 @@
 	<artifactId>lp-collaborative-workspace</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>lp-collaborative-workspace</name>
-	<description>Learn PAd - Collaborative Workspace</description>
+	<name>Learn PAd - Collaborative Workspace</name>
 	<developers>
 		<developer>
 			<id>woshilapin</id>
 			<name>Jean Simard</name>
-		</developer>
-		<developer>
-			<name>Daniele Gagliardi</name>
 		</developer>
 	</developers>
 	<scm>
@@ -35,10 +52,8 @@
 	</properties>
 
 	<modules>
-		<module>lp-collaborative-workspace-ui</module>
-		<module>lp-collaborative-workspace-web</module>
+		<module>lp-collaborative-workspace-component</module>
 		<module>lp-collaborative-workspace-bridge</module>
-		<!--module>lp-collaborative-workspace-service</module-->
 	</modules>
 
 	<build>
@@ -56,48 +71,48 @@
 				<artifactId>maven-enforcer-plugin</artifactId>
 				<executions>
 					<!-- Verify that all org.xwiki.commons dependencies have a version specified either as:
-		  - ${commons.version}
-		  - a value not starting with $ (we want to allow supporting ranges)
-		  Also verifies that all org.xwiki.rendering dependencies have a version specified either as:
-		  - ${rendering.version}
-		  - a value not starting with $ (we want to allow supporting ranges)
-		  Also verifies that all org.xwiki.platform dependencies have a version specified either as:
-		  - ${platform.version}
-		  - a value not starting with $ (we want to allow supporting ranges)
-		  Also verifies that all org.xwiki.enterprise dependencies have a version specified either as:
-		  - ${project.version}
-		  - a value not starting with $ (we want to allow supporting ranges)
-		-->
-		<execution>
-			<id>check-dependency-version</id>
-			<goals>
-				<goal>enforce</goal>
-			</goals>
-			<configuration>
-				<rules>
-					<validateDependencyVersion implementation="org.xwiki.tool.enforcer.ValidateDependencyVersion">
-						<versionCheck>
-							<groupIdPrefix>org.xwiki.commons</groupIdPrefix>
-							<allowedVersionRegex>\$\{commons.version\}|[^$].*</allowedVersionRegex>
-						</versionCheck>
-						<versionCheck>
-							<groupIdPrefix>org.xwiki.rendering</groupIdPrefix>
-							<allowedVersionRegex>\$\{rendering.version\}|[^$].*</allowedVersionRegex>
-						</versionCheck>
-						<versionCheck>
-							<groupIdPrefix>org.xwiki.platform</groupIdPrefix>
-							<allowedVersionRegex>\$\{platform.version\}|[^$].*</allowedVersionRegex>
-						</versionCheck>
-						<versionCheck>
-							<groupIdPrefix>org.xwiki.enterprise</groupIdPrefix>
-							<allowedVersionRegex>\$\{enterprise.version\}|[^$].*</allowedVersionRegex>
-						</versionCheck>
-					</validateDependencyVersion>
-				</rules>
-			</configuration>
-		</execution>
-	</executions>
-</plugin>
+					- ${commons.version}
+					- a value not starting with $ (we want to allow supporting ranges)
+					Also verifies that all org.xwiki.rendering dependencies have a version specified either as:
+					- ${rendering.version}
+					- a value not starting with $ (we want to allow supporting ranges)
+					Also verifies that all org.xwiki.platform dependencies have a version specified either as:
+					- ${platform.version}
+					- a value not starting with $ (we want to allow supporting ranges)
+					Also verifies that all org.xwiki.enterprise dependencies have a version specified either as:
+					- ${project.version}
+					- a value not starting with $ (we want to allow supporting ranges)
+					-->
+					<execution>
+						<id>check-dependency-version</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<validateDependencyVersion implementation="org.xwiki.tool.enforcer.ValidateDependencyVersion">
+									<versionCheck>
+										<groupIdPrefix>org.xwiki.commons</groupIdPrefix>
+										<allowedVersionRegex>\$\{commons.version\}|[^$].*</allowedVersionRegex>
+									</versionCheck>
+									<versionCheck>
+										<groupIdPrefix>org.xwiki.rendering</groupIdPrefix>
+										<allowedVersionRegex>\$\{rendering.version\}|[^$].*</allowedVersionRegex>
+									</versionCheck>
+									<versionCheck>
+										<groupIdPrefix>org.xwiki.platform</groupIdPrefix>
+										<allowedVersionRegex>\$\{platform.version\}|[^$].*</allowedVersionRegex>
+									</versionCheck>
+									<versionCheck>
+										<groupIdPrefix>org.xwiki.enterprise</groupIdPrefix>
+										<allowedVersionRegex>\$\{enterprise.version\}|[^$].*</allowedVersionRegex>
+									</versionCheck>
+								</validateDependencyVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>
