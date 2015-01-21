@@ -23,9 +23,20 @@ declare -r __OUT_RUNDEPS_FILE__="${__OUT_PATH__}/rundeps.txt"
 # This is the path to the directory where you can optionally put some configuration files
 declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
 
+declare -r MVN_CONFIGURATION_PATH=~/.m2 # Don't put quotes to expand the '~'
+declare -r MVN_SETTINGS_FILENAME="settings.xml"
+declare -r MVN_SETTINGS_CONFIGURATION_PATH="${MVN_CONFIGURATION_PATH}/${MVN_SETTINGS_FILENAME}"
+declare -r MVN_SETTINGS_COMPONENT_PATH="${__COMPONENT_PATH__}/${MVN_SETTINGS_FILENAME}"
+
 ### BUILD ###
 # This is where you compile and build each part of your component
 function component_build() {
+mkdir -p ${MVN_CONFIGURATION_PATH}
+if [ \! -f "${MVN_SETTINGS_CONFIGURATION_PATH}" ]
+then
+	echo "build: info: ${MVN_SETTINGS_CONFIGURATION_PATH} doesn't exist and will be created."
+	cp ${MVN_SETTINGS_COMPONENT_PATH} ${MVN_SETTINGS_CONFIGURATION_PATH}
+fi
 mvn clean compile
 }
 
