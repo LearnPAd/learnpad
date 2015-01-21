@@ -23,41 +23,23 @@ declare -r __OUT_RUNDEPS_FILE__="${__OUT_PATH__}/rundeps.txt"
 # This is the path to the directory where you can optionally put some configuration files
 declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
 
-declare -r MVN_CONFIGURATION_PATH=~/.m2 # Don't put quotes because we want to expand the '~'
-declare -r MVN_SETTINGS_FILENAME="settings.xml"
-declare -r MVN_SETTINGS_CONFIGURATION_PATH="${MVN_CONFIGURATION_PATH}/${MVN_SETTINGS_FILENAME}"
-declare -r MVN_SETTINGS_COMPONENT_PATH="${__COMPONENT_PATH__}/${MVN_SETTINGS_FILENAME}"
-
-function add_xwiki_settings() {
-cat ${MVN_SETTINGS_COMPONENT_PATH} | sed -n 
-}
-
 ### BUILD ###
 # This is where you compile and build each part of your component
 function component_build() {
-mkdir -p ${MVN_CONFIGURATION_PATH}
-if [ \! -f "${MVN_SETTINGS_CONFIGURATION_PATH}" ]
-then
-	echo "build: INFO: \`${MVN_SETTINGS_CONFIGURATION_PATH}' does not exist and will be created."
-	cp ${MVN_SETTINGS_COMPONENT_PATH} ${MVN_SETTINGS_CONFIGURATION_PATH}
-else
-	echo "build: INFO: \`${MVN_SETTINGS_CONFIGURATION_PATH}' exists, settings will be completed."
-	#add_xwiki_settings
-fi
 mvn --settings settings.xml clean compile
 }
 
 ### TEST ###
 # This is where you can run tests of your component
 function component_test() {
-mvn clean test
+mvn --settings settings.xml clean test
 }
 
 ### INSTALL ###
 # This is where you need to publish material into the `out' directory
 function component_install() {
 mkdir -p ${__OUT_PATH__}
-mvn clean install
+mvn --settings settings.xml clean install
 cp "scripts/start" "${__OUT_START_FILE__}"
 cp "scripts/stop" "${__OUT_STOP_FILE__}"
 echo "openjdk-7-jre" > "${__OUT_RUNDEPS_FILE__}"
