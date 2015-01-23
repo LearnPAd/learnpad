@@ -1,6 +1,13 @@
 */out
 
+# Vim
+*.swp
+
+# Maven
+target/
+
 # Eclipse
 .project
 .settings/
 .classpath
+target-eclipse/
