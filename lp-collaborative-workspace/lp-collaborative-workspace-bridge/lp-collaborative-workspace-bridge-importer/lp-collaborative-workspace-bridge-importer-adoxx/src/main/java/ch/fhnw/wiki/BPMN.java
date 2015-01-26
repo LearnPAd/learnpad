@@ -65,19 +65,20 @@ public class BPMN {
 
 
 				if(type.equals("Lane")){
+					//lane are roles so that every lane will be translated into a Group into the class usergroup.Group 
 
 					//UserGroupCreator.groupCreator(directoryBPMN, listModel, oldName);
 					System.out.println((i+1) + ": Name: " + nameClean + "\n    Type: " + type);
 
 
 				}else if(type.equals("Pool")){
-
+					//pool are not generated into wiki page as there is no need in the current situation
 					System.out.println((i+1) + ": Name: " + nameClean + "\n    Type: " + type);
 
 
 
 				}else if(type.equals("Data Object")){
-
+					//data object are not generated here but in their class that is called Documents.java
 					System.out.println((i+1) + ": Name: " + nameClean + "\n    Type: " + type);
 
 				}else {

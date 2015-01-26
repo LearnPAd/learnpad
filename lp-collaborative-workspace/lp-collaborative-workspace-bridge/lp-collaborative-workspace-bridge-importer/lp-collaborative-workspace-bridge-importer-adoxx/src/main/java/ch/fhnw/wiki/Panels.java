@@ -32,7 +32,7 @@ public class Panels {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String PanelsGenerator(NodeList connector, JFileChooser directoryBPMN, String xwikiUser) throws Exception{
+	public static String PanelsGenerator(NodeList connector, JFileChooser directoryBPMN, String xwikiUser, String spaceName) throws Exception{
 
 
 		DocumentBuilderFactory docFactoryCompany = DocumentBuilderFactory.newInstance();
@@ -64,7 +64,7 @@ public class Panels {
 
 		String contentFunction ="{{velocity}}"+
 				"\n{{html wiki=\"true\"}}" +
-				"\n#panelheader('RESOURCES FOR YOUR CONTEXT')";
+				"\n#panelheader('" + spaceName + " RESOURCES FOR YOUR CONTEXT')";
 		for(int i=0; i<arrayLength;i++){
 
 			//i++;
@@ -150,7 +150,7 @@ public class Panels {
 
 
 		Element name = newDocument.createElement("name");
-		name.setTextContent("Context Resources");
+		name.setTextContent(spaceName + " Context Resources");
 		xwikidoc.appendChild(name);
 
 		Element language = newDocument.createElement("language");
@@ -223,7 +223,7 @@ public class Panels {
 		////////////////////////////////////////xwikidoc.appendChild(object);
 
 		Element nameObject = newDocument.createElement("name");
-		nameObject.setTextContent("Panels." + "Context Resources");
+		nameObject.setTextContent("Panels." + spaceName + " Context Resources");
 		object.appendChild(nameObject);
 
 		Element number = newDocument.createElement("number");
@@ -533,7 +533,7 @@ public class Panels {
 		Element property4 = newDocument.createElement("property");
 
 		Element nameProperty = newDocument.createElement("name");
-		nameProperty.setTextContent("Context Resources");
+		nameProperty.setTextContent(spaceName + " Context Resources");
 		property4.appendChild(nameProperty);
 
 		object.appendChild(property4);
@@ -567,7 +567,7 @@ public class Panels {
 		DOMSource source = new DOMSource(newDocument);
 		File dir = new File(directoryBPMN.getCurrentDirectory().toString() + "\\xml\\panels\\");
 		dir.mkdir();
-		StreamResult result = new StreamResult(new File(directoryBPMN.getCurrentDirectory().toString() + "\\xml\\panels\\"+ "Context Resources" + ".xml"));
+		StreamResult result = new StreamResult(new File(directoryBPMN.getCurrentDirectory().toString() + "\\xml\\panels\\" + spaceName + " Context Resources" + ".xml"));
 		transformer.transform(source, result);
 
 
