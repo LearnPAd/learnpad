@@ -3,23 +3,13 @@
  */
 package activitipoc.form;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 import org.activiti.engine.FormService;
-import org.activiti.engine.ProcessEngine;
-import org.activiti.engine.ProcessEngineConfiguration;
-import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.impl.util.json.JSONObject;
-import org.activiti.engine.runtime.ProcessInstance;
-
-import activitipoc.Main;
 
 /**
  *
@@ -172,49 +162,4 @@ public class FormHandler {
 		return res;
 	}
 
-	/**
-	 * @param args
-	 * @throws FileNotFoundException
-	 */
-	public static void main(String[] args) throws FileNotFoundException {
-		// launch activiti process engine
-		ProcessEngineConfiguration config = ProcessEngineConfiguration
-				.createProcessEngineConfigurationFromInputStream(new FileInputStream(
-						Main.ACTIVITY_CONFIG_PATH));
-
-		ProcessEngine processEngine = config.buildProcessEngine();
-
-		// load new process
-		RepositoryService repositoryService = processEngine
-				.getRepositoryService();
-
-		repositoryService.createDeployment()
-		.addClasspathResource(Main.DEMO_PROCESS_FILE).deploy();
-
-		System.out.println("Number of process definitions: "
-				+ repositoryService.createProcessDefinitionQuery().count());
-
-		// Instantiate process
-		RuntimeService runtimeService = processEngine.getRuntimeService();
-
-		Map<String, Object> variables = new HashMap<String, Object>();
-		variables.put("employeeName", "Tom");
-		variables.put("numberOfDays", new Integer(7));
-		variables.put("vacationMotivation", "I'm really tired!");
-
-		ProcessInstance process = runtimeService.startProcessInstanceByKey(
-				"vacationRequest", variables);
-
-		// Verify that we started a new process instance
-		System.out.println("Number of process instances: "
-				+ runtimeService.createProcessInstanceQuery().count());
-
-		final TaskService taskService = processEngine.getTaskService();
-
-		System.out.println(createFormString(processEngine.getFormService(),
-				taskService.createTaskQuery()
-				.processInstanceId(process.getId()).singleResult()
-				.getId()));
-
-	}
 }
