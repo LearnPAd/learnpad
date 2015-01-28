@@ -5,8 +5,6 @@ package activitipoc;
 
 import java.util.Collection;
 
-import activitipoc.activiti.ActivitiProcessDispatcher;
-
 /**
  * Defines the functions required to handle UI
  *
@@ -41,7 +39,7 @@ public interface IUIHandler {
 	 *            the process dispatcher
 	 */
 	public void addProcess(String process, Collection<String> users,
-			ActivitiProcessDispatcher dispatcher);
+			IProcessDispatcher dispatcher);
 
 	/**
 	 * Send a task to a set of users

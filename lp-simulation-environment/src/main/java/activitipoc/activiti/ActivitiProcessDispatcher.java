@@ -16,6 +16,7 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.eclipse.jetty.servlet.ServletHolder;
 
+import activitipoc.IProcessDispatcher;
 import activitipoc.IUIHandler;
 import activitipoc.taskrouter.ITaskRouter;
 
@@ -23,7 +24,8 @@ import activitipoc.taskrouter.ITaskRouter;
  * @author jorquera
  *
  */
-public class ActivitiProcessDispatcher implements ActivitiEventListener {
+public class ActivitiProcessDispatcher implements IProcessDispatcher,
+		ActivitiEventListener {
 
 	private final ProcessInstance process;
 	private final TaskService taskService;
@@ -65,9 +67,9 @@ public class ActivitiProcessDispatcher implements ActivitiEventListener {
 	 * @param process
 	 * @param taskService
 	 */
-	public ActivitiProcessDispatcher(ProcessInstance process, TaskService taskService,
-			RuntimeService runtimeService, ITaskRouter router,
-			List<String> users, IUIHandler uiHandler) {
+	public ActivitiProcessDispatcher(ProcessInstance process,
+			TaskService taskService, RuntimeService runtimeService,
+			ITaskRouter router, List<String> users, IUIHandler uiHandler) {
 		super();
 		this.process = process;
 		this.taskService = taskService;
@@ -137,7 +139,7 @@ public class ActivitiProcessDispatcher implements ActivitiEventListener {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#onEvent(org.
 	 * activiti.engine.delegate.event.ActivitiEvent)
@@ -153,7 +155,7 @@ public class ActivitiProcessDispatcher implements ActivitiEventListener {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#isFailOnException
 	 * ()
