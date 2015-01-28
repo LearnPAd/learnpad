@@ -25,19 +25,17 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.xwikisas.learnpad</groupId>
-		<artifactId>lp-collaborative-workspace-component-service</artifactId>
+		<artifactId>lp-collaborative-workspace-component-service-bpmn</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>lp-collaborative-workspace-component-service-bpmn</artifactId>
+	<artifactId>lp-collaborative-workspace-component-service-bpmn-link</artifactId>
 	<packaging>pom</packaging>
-	<name>Learn PAd - Collaborative Workspace - Component - Service - BPMN</name>
+	<name>Learn PAd - Collaborative Workspace - Component - Service - BPMN - Link</name>
 
 	<modules>
-		<module>lp-collaborative-workspace-component-service-bpmn-api</module>
-		<module>lp-collaborative-workspace-component-service-bpmn-default</module>
-		<module>lp-collaborative-workspace-component-service-bpmn-flownode</module>
-		<module>lp-collaborative-workspace-component-service-bpmn-link</module>
-		<module>lp-collaborative-workspace-component-service-bpmn-script</module>
+		<module>lp-collaborative-workspace-component-service-bpmn-link-api</module>
+		<module>lp-collaborative-workspace-component-service-bpmn-link-default</module>
+		<module>lp-collaborative-workspace-component-service-bpmn-link-script</module>
 	</modules>
 </project>
