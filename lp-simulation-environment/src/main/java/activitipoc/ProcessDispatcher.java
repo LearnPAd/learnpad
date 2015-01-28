@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.activiti.engine.FormService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.event.ActivitiEvent;
@@ -18,9 +17,6 @@ import org.activiti.engine.task.Task;
 import org.eclipse.jetty.servlet.ServletHolder;
 
 import activitipoc.taskrouter.ITaskRouter;
-import activitipoc.webserver.TaskServlet;
-import activitipoc.webserver.UIServlet;
-import activitipoc.webserver.WebServer;
 
 /**
  * @author jorquera
@@ -28,31 +24,58 @@ import activitipoc.webserver.WebServer;
  */
 public class ProcessDispatcher implements ActivitiEventListener {
 
-	private final WebServer webserver;
 	private final ProcessInstance process;
 	private final TaskService taskService;
-	private final FormService formService;
 	private final ITaskRouter router;
-	private final List<UIServlet> users;
+	private final List<String> users;
+	private final RuntimeService runtimeService;
+
+	private final IUIHandler uiHandler;
 
 	private final Map<Task, ServletHolder> waitingTasksHolders = new HashMap<Task, ServletHolder>();
+
+	// Ok... due to some weirdness in the way activiti fire end process signals
+	// we have to do some weird things here. The activiti workflow when
+	// processing the last task seems to be the following:
+	// 1. Start processing task
+	// 2. Notice process is finished, fire PROCESS_FINISHED signal
+	// 3. Finish processing task
+	//
+	// If we are not careful and try to terminate the process too soon, the last
+	// task is not completely processed and activiti may freak out (concurrent
+	// modification exception)
+	// So we set a boolean when we notice a process is finished
+	// (during onEvent). When completing tasks (completeTask) we terminate by
+	// checking if the boolean is set to true. In this case we know that we can
+	// safely end the process.
+	//
+	// NOTE: the two mentioned methods are set to synchronized. This does not
+	// seems to be currently necessary as activiti seems to handle all of this
+	// into a single thread, but better save than sorry.
+	//
+	// NOTE: If this does not work anymore, it may be due to a change in the way
+	// activiti process the last task. In this case removing this boolean (and
+	// the synchronized) and simply calling completeProcess() during onEvent()
+	// could be sufficient (if things are sane on activiti side).
+	private boolean processFinished = false;
 
 	/**
 	 * @param webserver
 	 * @param process
 	 * @param taskService
 	 */
-	public ProcessDispatcher(WebServer webserver, ProcessInstance process,
-			TaskService taskService, FormService formService,
+	public ProcessDispatcher(ProcessInstance process, TaskService taskService,
 			RuntimeService runtimeService, ITaskRouter router,
-			List<UIServlet> users) {
+			List<String> users, IUIHandler uiHandler) {
 		super();
-		this.webserver = webserver;
 		this.process = process;
 		this.taskService = taskService;
-		this.formService = formService;
 		this.router = router;
 		this.users = users;
+		this.runtimeService = runtimeService;
+		this.uiHandler = uiHandler;
+
+		uiHandler.addProcess(process.getId(), users, this);
 
 		List<Task> tasks = taskService.createTaskQuery()
 				.processInstanceId(process.getId()).list();
@@ -70,27 +93,29 @@ public class ProcessDispatcher implements ActivitiEventListener {
 
 	}
 
-	void processNewTasks(List<Task> tasks) {
+	private void processNewTasks(List<Task> tasks) {
 		for (Task task : tasks) {
-			waitingTasksHolders.put(task, webserver.addTaskServlet(
-					new TaskServlet(this, task, router.route(task, users),
-							formService), task.getId()));
+			uiHandler.sendTask(task.getId(), task.getDescription(),
+					router.route(task, users));
 		}
+
 	}
 
-	void completeProcess() {
+	private void completeProcess() {
+
+		// signal process end to users
+		uiHandler.signalProcessEnd(process.getId(), users);
+
+		// unsubscribe to events
+		runtimeService.removeEventListener(this);
+
 		System.out.println("Process " + process.getId() + " finished");
-		for (UIServlet ui : users) {
-			ui.completeProcess();
-		}
 	}
 
-	public void completeTask(Task task, Map<String, Object> data) {
+	public synchronized void completeTask(String taskId,
+			Map<String, Object> data) {
 
-		webserver.removeServletHolder(waitingTasksHolders.get(task));
-		waitingTasksHolders.remove(task);
-
-		taskService.complete(task.getId(), data);
+		taskService.complete(taskId, data);
 
 		// check for newly triggered tasks
 		List<Task> waitingTasks = taskService.createTaskQuery()
@@ -102,6 +127,11 @@ public class ProcessDispatcher implements ActivitiEventListener {
 		if (!waitingTasks.isEmpty()) {
 			processNewTasks(waitingTasks);
 		}
+
+		// see comment on processFinished declaration
+		if (processFinished) {
+			completeProcess();
+		}
 	}
 
 	/*
@@ -111,10 +141,12 @@ public class ProcessDispatcher implements ActivitiEventListener {
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#onEvent(org.
 	 * activiti.engine.delegate.event.ActivitiEvent)
 	 */
-	public void onEvent(ActivitiEvent event) {
+	public synchronized void onEvent(ActivitiEvent event) {
 		if (event.getProcessInstanceId().equals(process.getId())
 				&& event.getType().equals(ActivitiEventType.PROCESS_COMPLETED)) {
-			completeProcess();
+
+			// see comment on processFinished declaration
+			processFinished = true;
 		}
 	}
 

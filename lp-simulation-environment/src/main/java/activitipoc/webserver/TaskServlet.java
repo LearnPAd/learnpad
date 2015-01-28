@@ -4,10 +4,7 @@
 package activitipoc.webserver;
 
 import java.io.IOException;
-import java.util.List;
 
-import org.activiti.engine.FormService;
-import org.activiti.engine.task.Task;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
 import org.eclipse.jetty.websocket.servlet.ServletUpgradeRequest;
@@ -16,8 +13,7 @@ import org.eclipse.jetty.websocket.servlet.WebSocketCreator;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 
-import activitipoc.ProcessDispatcher;
-import activitipoc.form.FormHandler;
+import activitipoc.IFormHandler;
 
 /**
  * @author jorquera
@@ -29,39 +25,34 @@ public class TaskServlet extends WebSocketServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private final ProcessDispatcher dispatcher;
-	private final Task task;
-	private final List<UIServlet> users;
-	private final FormService formService;
+	private final UIHandlerWebImpl uiHandler;
+	private final String taskId;
+	private final String taskDesc;
+	private final IFormHandler formHandler;
 
 	/**
 	 * @param dispatcher
 	 * @param task
 	 */
-	public TaskServlet(ProcessDispatcher dispatcher, Task task,
-			List<UIServlet> users, FormService formService) {
+	public TaskServlet(UIHandlerWebImpl uiHandler, String taskId,
+			String taskDesc, IFormHandler formHandler) {
 		super();
-		this.dispatcher = dispatcher;
-		this.task = task;
-		this.users = users;
-		this.formService = formService;
+		this.uiHandler = uiHandler;
+		this.taskId = taskId;
+		this.taskDesc = taskDesc;
+		this.formHandler = formHandler;
 
-		for (UIServlet ui : this.users) {
-			ui.addTask(task.getId());
-		}
 	}
 
 	@Override
 	public void configure(WebSocketServletFactory factory) {
 		factory.getPolicy().setIdleTimeout(TIMEOUT);
-		factory.setCreator(new TaskSocketCreator(task, this));
+		factory.setCreator(new TaskSocketCreator(taskId, taskDesc, this));
 	}
 
 	void completeTask(String data) {
-		for (UIServlet ui : users) {
-			ui.removeTask(task.getId());
-		}
-		dispatcher.completeTask(task, FormHandler.parseResult(data));
+		System.out.println("completed task " + taskId + " with data " + data);
+		uiHandler.completeTask(taskId, data);
 	}
 
 	/**
@@ -70,16 +61,19 @@ public class TaskServlet extends WebSocketServlet {
 	 */
 	private static class TaskSocketCreator implements WebSocketCreator {
 
-		private final Task task;
+		private final String taskId;
+		private final String taskDescr;
 		private final TaskServlet container;
 
 		/**
-		 * @param dispatcher
+		 * @param uiHandler
 		 * @param task
 		 */
-		public TaskSocketCreator(Task task, TaskServlet container) {
+		public TaskSocketCreator(String taskId, String taskDescr,
+				TaskServlet container) {
 			super();
-			this.task = task;
+			this.taskId = taskId;
+			this.taskDescr = taskDescr;
 			this.container = container;
 		}
 
@@ -93,7 +87,7 @@ public class TaskServlet extends WebSocketServlet {
 		 */
 		public Object createWebSocket(ServletUpgradeRequest req,
 				ServletUpgradeResponse resp) {
-			return new TaskSocket(task, container);
+			return new TaskSocket(taskId, taskDescr, container);
 		}
 
 	}
@@ -104,34 +98,33 @@ public class TaskServlet extends WebSocketServlet {
 	 */
 	private static class TaskSocket extends WebSocketAdapter {
 
-		private final Task task;
+		private final String taskId;
+		private final String taskDescr;
 		private final TaskServlet container;
 
 		/**
-		 * @param dispatcher
+		 * @param uiHandler
 		 * @param task
 		 */
-		public TaskSocket(Task task, TaskServlet container) {
+		public TaskSocket(String taskId, String taskDescr, TaskServlet container) {
 			super();
-			this.task = task;
+			this.taskId = taskId;
+			this.taskDescr = taskDescr;
 			this.container = container;
 		}
 
 		@Override
 		public void onWebSocketConnect(Session sess) {
 			super.onWebSocketConnect(sess);
-			System.out
-			.println("Socket " + task.getId() + " connected: " + sess);
+			System.out.println("Socket " + taskId + " connected: " + sess);
 
 			try {
 				sess.getRemote().sendString(
 						"{\"description\":\""
-								+ task.getDescription()
-								.replaceAll("\n", "<p/>")
+								+ taskDescr.replaceAll("\n", "<p/>")
 								+ "\", \"form\":"
-								+ FormHandler.createFormString(
-										container.formService, task.getId())
-								+ "}");
+								+ container.formHandler
+										.createFormString(taskId) + "}");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -141,8 +134,8 @@ public class TaskServlet extends WebSocketServlet {
 		@Override
 		public void onWebSocketText(String message) {
 			super.onWebSocketText(message);
-			System.out.println("Socket " + task.getId()
-					+ " received TEXT message: " + message);
+			System.out.println("Socket " + taskId + " received TEXT message: "
+					+ message);
 
 			container.completeTask(message);
 
@@ -151,8 +144,8 @@ public class TaskServlet extends WebSocketServlet {
 		@Override
 		public void onWebSocketClose(int statusCode, String reason) {
 			super.onWebSocketClose(statusCode, reason);
-			System.out.println("Socket " + task.getId() + " closed: ["
-					+ statusCode + "] " + reason);
+			System.out.println("Socket " + taskId + " closed: [" + statusCode
+					+ "] " + reason);
 		}
 
 		@Override

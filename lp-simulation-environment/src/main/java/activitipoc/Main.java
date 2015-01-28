@@ -5,11 +5,12 @@ package activitipoc;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
@@ -19,15 +20,11 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 
+import activitipoc.form.ActivitiToJsonFormFormHandler;
 import activitipoc.taskrouter.ITaskRouter;
-import activitipoc.webserver.UIServlet;
-import activitipoc.webserver.WebServer;
+import activitipoc.webserver.UIHandlerWebImpl;
 
-/**
- * @author jorquera
- *
- */
-public class Main {
+class Main {
 
 	public static final String ACTIVITY_CONFIG_PATH = "src/main/resources/activiti.cfg.xml";
 	public static final String DEMO_PROCESS_FILE = "VacationRequest.bpmn20.xml";
@@ -37,9 +34,6 @@ public class Main {
 	 * @throws FileNotFoundException
 	 */
 	public static void main(String[] args) throws FileNotFoundException {
-
-		// launch task webserver
-		WebServer webserver = new WebServer(8081, "ui", "tasks");
 
 		// launch activiti process engine
 		ProcessEngineConfiguration config = ProcessEngineConfiguration
@@ -53,7 +47,7 @@ public class Main {
 				.getRepositoryService();
 
 		repositoryService.createDeployment()
-		.addClasspathResource(DEMO_PROCESS_FILE).deploy();
+				.addClasspathResource(DEMO_PROCESS_FILE).deploy();
 
 		System.out.println("Number of process definitions: "
 				+ repositoryService.createProcessDefinitionQuery().count());
@@ -75,23 +69,17 @@ public class Main {
 
 		final TaskService taskService = processEngine.getTaskService();
 
-		// create users
-
-		UIServlet ui1 = new UIServlet("user1");
-		webserver.addUIServlet(ui1, "user1");
-
-		UIServlet ui2 = new UIServlet("user2");
-		webserver.addUIServlet(ui2, "user2");
+		// create users ui handler
+		IUIHandler uiHandler = new UIHandlerWebImpl(Arrays.asList("user1",
+				"user2"), new ActivitiToJsonFormFormHandler(processEngine.getFormService()));
 
 		// launch process dispatcher
-		new ProcessDispatcher(webserver, process, taskService,
-				processEngine.getFormService(),
+		new ProcessDispatcher(process, taskService,
 				processEngine.getRuntimeService(), new ITaskRouter() {
 
-			public List<UIServlet> route(Task task,
-					List<UIServlet> candidates) {
+			public Set<String> route(Task task, List<String> candidates) {
 
-				List<UIServlet> result = new ArrayList<UIServlet>();
+				Set<String> result = new HashSet<String>();
 
 				if (!taskService.createTaskQuery()
 						.taskCandidateOrAssigned("Tom")
@@ -118,6 +106,6 @@ public class Main {
 
 			}
 
-		}, Arrays.asList(ui1, ui2));
+		}, Arrays.asList("user1", "user2"), uiHandler);
 	}
 }

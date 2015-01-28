@@ -58,10 +58,7 @@ public class WebServer {
 		this.uiPath = uiPath;
 		this.tasksPath = tasksPath;
 
-		// Setup the basic application "context" for this application at "/"
-		// This is also known as the handler tree (in jetty speak)
 		this.context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		// this.context.setContextPath("/");
 
 		// serve UI webpage (after dynamically setting server ip)
 		HttpServlet ui_servlet = new HttpServlet() {
@@ -72,11 +69,12 @@ public class WebServer {
 			protected void doGet(HttpServletRequest request,
 					HttpServletResponse response) throws ServletException,
 					IOException {
+
+				// here we load the page html source in order to dynamically set
+				// the server ip (required for websockets)
 				Scanner scan = new Scanner(new File(UI_PATH));
 				String uiPage = scan.useDelimiter("\\Z").next();
 				scan.close();
-
-				System.out.println();
 
 				// set server ip
 				uiPage = uiPage.replace("#serveripaddress#", "\""
@@ -120,7 +118,7 @@ public class WebServer {
 
 		System.out.println("new UI servlet launched at "
 				+ server.getURI().toString()
-						.substring(0, server.getURI().toString().length() - 1)
+				.substring(0, server.getURI().toString().length() - 1)
 				+ fullPath);
 
 		return holderEvents;
@@ -136,7 +134,7 @@ public class WebServer {
 
 		System.out.println("new task servlet launched at "
 				+ server.getURI().toString()
-						.substring(0, server.getURI().toString().length() - 1)
+				.substring(0, server.getURI().toString().length() - 1)
 				+ fullPath);
 
 		return holderEvents;
@@ -189,6 +187,7 @@ public class WebServer {
 	}
 
 	private String getIPAdress() throws UnknownHostException, SocketException {
+		// TODO: ip should be read in a config file
 
 		Enumeration<NetworkInterface> e = NetworkInterface
 				.getNetworkInterfaces();

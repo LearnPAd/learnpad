@@ -11,25 +11,27 @@ import org.activiti.engine.FormService;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.impl.util.json.JSONObject;
 
+import activitipoc.IFormHandler;
+
 /**
- *
- * This class provides transformations between tasks IO and form data
+ * Implements transformation between activiti tasks and JsonForm forms
  *
  * @author jorquera
  *
  */
-public class FormHandler {
+public class ActivitiToJsonFormFormHandler implements IFormHandler {
+
+	private final FormService activitiFormService;
 
 	/**
-	 * Generate the JSON String required to instantiate a form corresponding to
-	 * the given task
-	 *
 	 * @param activitiFormService
-	 * @param taskId
-	 * @return
 	 */
-	public static String createFormString(FormService activitiFormService,
-			String taskId) {
+	public ActivitiToJsonFormFormHandler(FormService activitiFormService) {
+		super();
+		this.activitiFormService = activitiFormService;
+	}
+
+	public String createFormString(String taskId) {
 
 		String schema = "\"schema\": {";
 
@@ -64,13 +66,7 @@ public class FormHandler {
 		return res;
 	}
 
-	/**
-	 * Transform a given form result data string into a map of key-values pairs
-	 *
-	 * @param data
-	 * @return
-	 */
-	public static Map<String, Object> parseResult(String data) {
+	public Map<String, Object> parseResult(String data) {
 		Map<String, Object> result = new HashMap<String, Object>();
 
 		JSONObject jObject = new JSONObject(data);

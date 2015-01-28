@@ -4,10 +4,9 @@
 package activitipoc.taskrouter;
 
 import java.util.List;
+import java.util.Set;
 
 import org.activiti.engine.task.Task;
-
-import activitipoc.webserver.UIServlet;
 
 /**
  * Interface for the routing function.
@@ -25,9 +24,9 @@ public interface ITaskRouter {
 	 * @param task
 	 *            the task to be routed
 	 * @param candidates
-	 *            a list of candidate users
-	 * @return the list of users to which the task must be routed
+	 *            a list of candidate users id (order may matter)
+	 * @return the set of users id to which the task must be routed
 	 */
-	public List<UIServlet> route(Task task, List<UIServlet> candidates);
+	public Set<String> route(Task task, List<String> candidates);
 
 }
