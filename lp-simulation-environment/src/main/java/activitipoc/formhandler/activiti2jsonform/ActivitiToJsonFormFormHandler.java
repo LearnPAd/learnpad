@@ -14,7 +14,8 @@ import org.activiti.engine.impl.util.json.JSONObject;
 import activitipoc.IFormHandler;
 
 /**
- * Implements transformation between activiti tasks and JsonForm forms
+ * Implements transformation between activiti tasks and <a
+ * href="https://github.com/joshfire/jsonform">JsonForm</a> forms
  *
  * @author jorquera
  *
@@ -53,11 +54,11 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 
 		for (FormProperty prop : activitiFormService.getTaskFormData(taskId)
 				.getFormProperties()) {
-			form += getSchema(prop);
+			form += getForm(prop);
 			form += ",";
 		}
 
-		// add sumit button
+		// add submit button
 		form += "{\"type\": \"submit\",\"title\": \"Submit Task\"}";
 
 		form += " ]";
@@ -125,7 +126,7 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 		}
 	}
 
-	private static String getSchema(FormProperty prop) {
+	private static String getForm(FormProperty prop) {
 		String res = "";
 
 		String type = prop.getType().getName();
@@ -135,6 +136,10 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 		} else if (type.equals("long")) {
 			res += "\"" + prop.getId() + "\"";
 		} else if (type.equals("enum")) {
+			// in the case of enum, we need to set a specific schema in order
+			// for the correct name to be displayed on the form but still get in
+			// return valid data
+			// see https://github.com/joshfire/jsonform/wiki#fields-selection
 			res += "{ \"key\": \"" + prop.getId() + "\"";
 			res += ",\"titleMap\":{";
 			String values = prop.getType().getInformation("values").toString();
