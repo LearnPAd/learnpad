@@ -20,6 +20,7 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 
+import activitipoc.activiti.ActivitiProcessDispatcher;
 import activitipoc.form.ActivitiToJsonFormFormHandler;
 import activitipoc.taskrouter.ITaskRouter;
 import activitipoc.webserver.UIHandlerWebImpl;
@@ -74,7 +75,7 @@ class Main {
 				"user2"), new ActivitiToJsonFormFormHandler(processEngine.getFormService()));
 
 		// launch process dispatcher
-		new ProcessDispatcher(process, taskService,
+		new ActivitiProcessDispatcher(process, taskService,
 				processEngine.getRuntimeService(), new ITaskRouter() {
 
 			public Set<String> route(Task task, List<String> candidates) {

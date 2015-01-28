@@ -11,7 +11,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 import activitipoc.IFormHandler;
 import activitipoc.IUIHandler;
-import activitipoc.ProcessDispatcher;
+import activitipoc.activiti.ActivitiProcessDispatcher;
 
 /**
  * @author jorquera
@@ -20,7 +20,7 @@ import activitipoc.ProcessDispatcher;
 public class UIHandlerWebImpl implements IUIHandler {
 
 	private final IFormHandler formHandler;
-	private ProcessDispatcher processDispatcher;
+	private ActivitiProcessDispatcher processDispatcher;
 	private final WebServer webserver;
 	private final Map<String, UIServlet> usersMap;
 	private final Map<String, Collection<String>> tasksToUsers = new HashMap<String, Collection<String>>();
@@ -76,7 +76,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 	 * Collection<String>, ProcessDispatcher)
 	 */
 	public void addProcess(String process, Collection<String> users,
-			ProcessDispatcher dispatcher) {
+			ActivitiProcessDispatcher dispatcher) {
 		processDispatcher = dispatcher;
 	}
 

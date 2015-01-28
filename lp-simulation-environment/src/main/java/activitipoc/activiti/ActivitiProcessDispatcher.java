@@ -1,7 +1,7 @@
 /**
  *
  */
-package activitipoc;
+package activitipoc.activiti;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,13 +16,14 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.eclipse.jetty.servlet.ServletHolder;
 
+import activitipoc.IUIHandler;
 import activitipoc.taskrouter.ITaskRouter;
 
 /**
  * @author jorquera
  *
  */
-public class ProcessDispatcher implements ActivitiEventListener {
+public class ActivitiProcessDispatcher implements ActivitiEventListener {
 
 	private final ProcessInstance process;
 	private final TaskService taskService;
@@ -64,7 +65,7 @@ public class ProcessDispatcher implements ActivitiEventListener {
 	 * @param process
 	 * @param taskService
 	 */
-	public ProcessDispatcher(ProcessInstance process, TaskService taskService,
+	public ActivitiProcessDispatcher(ProcessInstance process, TaskService taskService,
 			RuntimeService runtimeService, ITaskRouter router,
 			List<String> users, IUIHandler uiHandler) {
 		super();
