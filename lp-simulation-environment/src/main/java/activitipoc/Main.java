@@ -85,6 +85,7 @@ public class Main {
 
 		// launch process dispatcher
 		new ProcessDispatcher(webserver, process, taskService,
+				processEngine.getFormService(),
 				processEngine.getRuntimeService(), new ITaskRouter() {
 
 			public List<UIServlet> route(Task task,

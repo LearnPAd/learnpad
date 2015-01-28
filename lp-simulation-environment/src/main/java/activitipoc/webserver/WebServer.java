@@ -21,12 +21,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.server.handler.ContextHandler;
+import org.eclipse.jetty.server.handler.ContextHandlerCollection;
+import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.servlet.ServletMapping;
+import org.eclipse.jetty.util.resource.ResourceCollection;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 
 /**
@@ -37,6 +42,7 @@ public class WebServer {
 
 	public static final long TIMEOUT = Long.MAX_VALUE;
 	public static final String UI_PATH = "src/main/resources/ui.html";
+	public static final String RESOURCES_PATH = "src/main/resources";
 
 	final Server server;
 	final ServletContextHandler context;
@@ -55,7 +61,7 @@ public class WebServer {
 		// Setup the basic application "context" for this application at "/"
 		// This is also known as the handler tree (in jetty speak)
 		this.context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		this.context.setContextPath("/");
+		// this.context.setContextPath("/");
 
 		// serve UI webpage (after dynamically setting server ip)
 		HttpServlet ui_servlet = new HttpServlet() {
@@ -83,7 +89,18 @@ public class WebServer {
 		};
 		this.context.addServlet(new ServletHolder(ui_servlet), "/");
 
-		server.setHandler(context);
+		// related static resources
+		ContextHandler resourcesContext = new ContextHandler();
+		resourcesContext.setContextPath("/resources");
+		ResourceHandler rh = new ResourceHandler();
+		ResourceCollection resources = new ResourceCollection(
+				new String[] { RESOURCES_PATH });
+		rh.setBaseResource(resources);
+		resourcesContext.setHandler(rh);
+
+		ContextHandlerCollection contexts = new ContextHandlerCollection();
+		contexts.setHandlers(new Handler[] { resourcesContext, context });
+		server.setHandler(contexts);
 
 		// start server
 		try {

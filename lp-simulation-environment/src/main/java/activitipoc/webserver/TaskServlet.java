@@ -6,6 +6,7 @@ package activitipoc.webserver;
 import java.io.IOException;
 import java.util.List;
 
+import org.activiti.engine.FormService;
 import org.activiti.engine.task.Task;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
@@ -16,6 +17,7 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 
 import activitipoc.ProcessDispatcher;
+import activitipoc.form.FormGenerator;
 
 /**
  * @author jorquera
@@ -30,17 +32,19 @@ public class TaskServlet extends WebSocketServlet {
 	private final ProcessDispatcher dispatcher;
 	private final Task task;
 	private final List<UIServlet> users;
+	private final FormService formService;
 
 	/**
 	 * @param dispatcher
 	 * @param task
 	 */
 	public TaskServlet(ProcessDispatcher dispatcher, Task task,
-			List<UIServlet> users) {
+			List<UIServlet> users, FormService formService) {
 		super();
 		this.dispatcher = dispatcher;
 		this.task = task;
 		this.users = users;
+		this.formService = formService;
 
 		for (UIServlet ui : this.users) {
 			ui.addTask(task.getId());
@@ -117,12 +121,18 @@ public class TaskServlet extends WebSocketServlet {
 		public void onWebSocketConnect(Session sess) {
 			super.onWebSocketConnect(sess);
 			System.out
-					.println("Socket " + task.getId() + " connected: " + sess);
+			.println("Socket " + task.getId() + " connected: " + sess);
 
 			try {
-				sess.getRemote().sendString(task.getDescription());
+				sess.getRemote().sendString(
+						"{\"description\":\""
+								+ task.getDescription()
+								.replaceAll("\n", "<p/>")
+								+ "\", \"form\":"
+								+ FormGenerator.createFormString(
+										container.formService, task.getId())
+								+ "}");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -133,8 +143,6 @@ public class TaskServlet extends WebSocketServlet {
 			super.onWebSocketText(message);
 			System.out.println("Socket " + task.getId()
 					+ " received TEXT message: " + message);
-
-			this.getSession().close();
 
 			container.completeTask(message);
 

@@ -4,14 +4,17 @@
 package activitipoc;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.activiti.engine.FormService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.delegate.event.ActivitiEventType;
+import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -30,6 +33,7 @@ public class ProcessDispatcher implements ActivitiEventListener {
 	private final WebServer webserver;
 	private final ProcessInstance process;
 	private final TaskService taskService;
+	private final FormService formService;
 	private final ITaskRouter router;
 	private final List<UIServlet> users;
 
@@ -41,12 +45,14 @@ public class ProcessDispatcher implements ActivitiEventListener {
 	 * @param taskService
 	 */
 	public ProcessDispatcher(WebServer webserver, ProcessInstance process,
-			TaskService taskService, RuntimeService runtimeService,
-			ITaskRouter router, List<UIServlet> users) {
+			TaskService taskService, FormService formService,
+			RuntimeService runtimeService, ITaskRouter router,
+			List<UIServlet> users) {
 		super();
 		this.webserver = webserver;
 		this.process = process;
 		this.taskService = taskService;
+		this.formService = formService;
 		this.router = router;
 		this.users = users;
 
@@ -69,8 +75,8 @@ public class ProcessDispatcher implements ActivitiEventListener {
 	void processNewTasks(List<Task> tasks) {
 		for (Task task : tasks) {
 			waitingTasksHolders.put(task, webserver.addTaskServlet(
-					new TaskServlet(this, task, router.route(task, users)),
-					task.getId()));
+					new TaskServlet(this, task, router.route(task, users),
+							formService), task.getId()));
 		}
 	}
 
@@ -100,24 +106,32 @@ public class ProcessDispatcher implements ActivitiEventListener {
 		}
 	}
 
-	private int iteration = 0;
-
+	/**
+	 * Transform the given data string into a map of key-values corresponding to
+	 * the data for a task
+	 *
+	 * @param data
+	 * @return
+	 */
 	private Map<String, Object> parseTaskVariables(String data) {
 		Map<String, Object> result = new HashMap<String, Object>();
 
-		// TODO: really parse data and remove this
-		result.put("vacationApproved", iteration < 2 ? "false" : "true");
-		result.put("managerMotivation", "More work to do on LearnPAd!");
-		result.put("resendRequest", iteration < 2 ? "true" : "false");
+		JSONObject jObject = new JSONObject(data);
+		Iterator<?> keys = jObject.keys();
 
-		iteration++;
+		while (keys.hasNext()) {
+
+			String key = (String) keys.next();
+			Object value = jObject.get(key);
+			result.put(key, value);
+		}
 
 		return result;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#onEvent(org.
 	 * activiti.engine.delegate.event.ActivitiEvent)
@@ -131,7 +145,7 @@ public class ProcessDispatcher implements ActivitiEventListener {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#isFailOnException
 	 * ()
