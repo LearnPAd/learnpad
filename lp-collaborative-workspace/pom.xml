@@ -80,6 +80,7 @@
 			</snapshots>
 		</repository>
 	</repositories>
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>xwiki-plugins-snapshots</id>

@@ -39,5 +39,4 @@
 		<module>lp-collaborative-workspace-component-service</module>
 		<module>lp-collaborative-workspace-component-web</module>
 	</modules>
-
 </project>
