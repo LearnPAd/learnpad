@@ -33,10 +33,6 @@
 	<packaging>pom</packaging>
 	<name>Learn PAd - Collaborative Workspace - Bridge</name>
 
-	<properties>
-		<lp.version>1.0-SNAPSHOT</lp.version>
-	</properties>
-
 	<modules>
 		<module>lp-collaborative-workspace-bridge-importer</module>
 		<module>lp-collaborative-workspace-bridge-rest</module>
