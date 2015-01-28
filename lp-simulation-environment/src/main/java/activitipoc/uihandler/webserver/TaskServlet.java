@@ -1,7 +1,7 @@
 /**
  *
  */
-package activitipoc.webserver;
+package activitipoc.uihandler.webserver;
 
 import java.io.IOException;
 

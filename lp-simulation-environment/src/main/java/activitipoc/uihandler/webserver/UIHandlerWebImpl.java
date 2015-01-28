@@ -1,7 +1,7 @@
 /**
  *
  */
-package activitipoc.webserver;
+package activitipoc.uihandler.webserver;
 
 import java.util.Collection;
 import java.util.HashMap;

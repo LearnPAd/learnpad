@@ -1,7 +1,7 @@
 /**
  *
  */
-package activitipoc.form;
+package activitipoc.formhandler.activiti2jsonform;
 
 import java.util.HashMap;
 import java.util.Iterator;

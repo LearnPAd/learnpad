@@ -1,7 +1,7 @@
 /**
  *
  */
-package activitipoc.activiti;
+package activitipoc.processdispatcher.activiti;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,8 +17,8 @@ import org.activiti.engine.task.Task;
 import org.eclipse.jetty.servlet.ServletHolder;
 
 import activitipoc.IProcessDispatcher;
+import activitipoc.ITaskRouter;
 import activitipoc.IUIHandler;
-import activitipoc.taskrouter.ITaskRouter;
 
 /**
  * @author jorquera

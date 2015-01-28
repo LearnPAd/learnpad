@@ -20,10 +20,9 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 
-import activitipoc.activiti.ActivitiProcessDispatcher;
-import activitipoc.form.ActivitiToJsonFormFormHandler;
-import activitipoc.taskrouter.ITaskRouter;
-import activitipoc.webserver.UIHandlerWebImpl;
+import activitipoc.formhandler.activiti2jsonform.ActivitiToJsonFormFormHandler;
+import activitipoc.processdispatcher.activiti.ActivitiProcessDispatcher;
+import activitipoc.uihandler.webserver.UIHandlerWebImpl;
 
 class Main {
 

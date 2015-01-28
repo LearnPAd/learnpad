@@ -1,7 +1,7 @@
 /**
  *
  */
-package activitipoc.taskrouter;
+package activitipoc;
 
 import java.util.List;
 import java.util.Set;
