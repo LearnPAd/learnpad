@@ -28,10 +28,8 @@
 		<artifactId>lp-collaborative-workspace-bridge-importer</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<groupId>ch.fhnw</groupId>
 	<artifactId>lp-collaborative-workspace-bridge-importer-generic</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
 	<name>Learn PAd - Collaborative Workspace - Bridge - Importer - Generic</name>
 	<developers>
 		<developer>

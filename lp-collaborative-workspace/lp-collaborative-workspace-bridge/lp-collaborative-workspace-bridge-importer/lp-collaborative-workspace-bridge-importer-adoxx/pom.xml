@@ -10,7 +10,6 @@
 	<groupId>ch.fhnw</groupId>
 	<artifactId>lp-collaborative-workspace-bridge-importer-adoxx</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
 	<name>Learn PAd - Collaborative Workspace - Bridge - Importer - ADOxx</name>
 	<developers>
 		<developer>
