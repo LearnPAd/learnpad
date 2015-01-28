@@ -17,7 +17,7 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 
 import activitipoc.ProcessDispatcher;
-import activitipoc.form.FormGenerator;
+import activitipoc.form.FormHandler;
 
 /**
  * @author jorquera
@@ -61,7 +61,7 @@ public class TaskServlet extends WebSocketServlet {
 		for (UIServlet ui : users) {
 			ui.removeTask(task.getId());
 		}
-		dispatcher.completeTask(task, data);
+		dispatcher.completeTask(task, FormHandler.parseResult(data));
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class TaskServlet extends WebSocketServlet {
 								+ task.getDescription()
 								.replaceAll("\n", "<p/>")
 								+ "\", \"form\":"
-								+ FormGenerator.createFormString(
+								+ FormHandler.createFormString(
 										container.formService, task.getId())
 								+ "}");
 			} catch (IOException e) {

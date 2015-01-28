@@ -6,6 +6,7 @@ package activitipoc.form;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.activiti.engine.FormService;
@@ -15,19 +16,19 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.runtime.ProcessInstance;
 
 import activitipoc.Main;
 
 /**
  *
- * This class is used to generate the JSON format to instantiate a form
- * corresponding to a given task
+ * This class provides transformations between tasks IO and form data
  *
  * @author jorquera
  *
  */
-public class FormGenerator {
+public class FormHandler {
 
 	/**
 	 * Generate the JSON String required to instantiate a form corresponding to
@@ -71,6 +72,29 @@ public class FormGenerator {
 
 		String res = "{ " + schema + ", " + form + "}";
 		return res;
+	}
+
+	/**
+	 * Transform a given form result data string into a map of key-values pairs
+	 *
+	 * @param data
+	 * @return
+	 */
+	public static Map<String, Object> parseResult(String data) {
+		Map<String, Object> result = new HashMap<String, Object>();
+
+		JSONObject jObject = new JSONObject(data);
+		Iterator<?> keys = jObject.keys();
+
+		while (keys.hasNext()) {
+
+			// TODO dangerous cast
+			String key = (String) keys.next();
+			Object value = jObject.get(key);
+			result.put(key, value);
+		}
+
+		return result;
 	}
 
 	private static String getType(FormProperty prop) {

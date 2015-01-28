@@ -4,7 +4,6 @@
 package activitipoc;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +13,6 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.delegate.event.ActivitiEventType;
-import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -87,12 +85,12 @@ public class ProcessDispatcher implements ActivitiEventListener {
 		}
 	}
 
-	public void completeTask(Task task, String data) {
+	public void completeTask(Task task, Map<String, Object> data) {
 
 		webserver.removeServletHolder(waitingTasksHolders.get(task));
 		waitingTasksHolders.remove(task);
 
-		taskService.complete(task.getId(), parseTaskVariables(data));
+		taskService.complete(task.getId(), data);
 
 		// check for newly triggered tasks
 		List<Task> waitingTasks = taskService.createTaskQuery()
@@ -106,32 +104,9 @@ public class ProcessDispatcher implements ActivitiEventListener {
 		}
 	}
 
-	/**
-	 * Transform the given data string into a map of key-values corresponding to
-	 * the data for a task
-	 *
-	 * @param data
-	 * @return
-	 */
-	private Map<String, Object> parseTaskVariables(String data) {
-		Map<String, Object> result = new HashMap<String, Object>();
-
-		JSONObject jObject = new JSONObject(data);
-		Iterator<?> keys = jObject.keys();
-
-		while (keys.hasNext()) {
-
-			String key = (String) keys.next();
-			Object value = jObject.get(key);
-			result.put(key, value);
-		}
-
-		return result;
-	}
-
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#onEvent(org.
 	 * activiti.engine.delegate.event.ActivitiEvent)
@@ -145,7 +120,7 @@ public class ProcessDispatcher implements ActivitiEventListener {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#isFailOnException
 	 * ()
