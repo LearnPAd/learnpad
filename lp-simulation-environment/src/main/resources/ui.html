@@ -3,10 +3,29 @@
 	<title>LearnPAd WebUI</title>
 
 	<link rel="stylesheet" style="text/css" href="resources/deps/opt/bootstrap.css" />
+	<link rel="stylesheet" style="text/css" href="resources/deps/opt/spectrum.css" />
+	<link rel="stylesheet" style="text/css" href="resources/deps/opt/jquery.ui.custom.css" />
+	<link rel="stylesheet" style="text/css" href="resources/deps/opt/jquery.ui.theme.css" />
+	<link rel="stylesheet" style="text/css" href="resources/deps/opt/bootstrap-tagsinput.css" />
 
 	<script type="text/javascript" src="resources/deps/jquery.min.js"></script>
 	<script type="text/javascript" src="resources/deps/underscore.js"></script>
-	<script type="text/javascript" src="resources/lib/jsonform.js"></script>
+    <script type="text/javascript" src="resources/deps/opt/ZSchema-browser.js"></script>
+	<script type="text/javascript" src="resources/deps/opt/jquery.ui.custom.js"></script>
+    <script type="text/javascript" src="resources/deps/opt/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="resources/deps/opt/bootstrap-typeahead.js"></script>
+    <script type="text/javascript" src="resources/deps/opt/bootstrap-tagsinput.min.js"></script>
+    <script type="text/javascript" src="resources/deps/opt/spectrum.js"></script>
+    <script type="text/javascript" src="resources/deps/opt/ace/ace.js"></script>
+    <script type="text/javascript" src="resources/deps/opt/ace/mode-json.js"></script>
+    <script type="text/javascript" src="resources/deps/opt/ace/mode-html.js"></script>
+    <script type="text/javascript" src="resources/deps/opt/ace/mode-css.js"></script>
+    <script type="text/javascript" src="resources/deps/opt/ace/mode-javascript.js"></script>
+    <script type="text/javascript" src="resources/deps/opt/ace/mode-less.js"></script>
+    <script type="text/javascript" src="resources/deps/opt/ace/mode-markdown.js"></script>
+    <script type="text/javascript" src="resources/deps/opt/jquery.transloadit2.js"></script>
+
+    <script type="text/javascript" src="resources/lib/jsonform.js"></script>
 
 	<script type="text/javascript">
 	 if (!window.WebSocket){
@@ -95,7 +114,7 @@
 		 var taskDiv = document.createElement('div');
 		 taskDiv.id = 'taskcontainer'+taskid;
 		 taskDiv.innerHTML = '<p id="taskdata' + taskid + '"></p>\
-	<form id="taskform'+ taskid + '"></form>\
+	<form id="taskform'+ taskid + '"  class="well"></form>\
 	<hr>';
 
 		 tasksDiv.append(taskDiv);
@@ -147,6 +166,51 @@
 	 .disabled {
 	     opacity: 0.5;
 	 }
+	 
+	
+      #form select { width: auto; }
+      #form .add-on {
+        border: none;
+        background-color: inherit;
+      }
+
+     .expandable > legend:before {
+        content: '\25B8';
+        padding-right: 5px;
+      }
+      .expanded > legend:before {
+        content: '\25BE';
+      }
+
+      ._jsonform-array-buttons {
+        margin-left: 25px;
+      }
+
+      .jsonform-required > label:after {
+        content: ' *';
+        color: red;
+      }
+
+      form.jsonform-hasrequired:after {
+        content: '* Required field';
+        display: block;
+        color: red;
+        padding-top: 1em;
+      }
+      .inline-other-field > .other-field-content,
+      .inline-other-field > label > .other-field-content {
+        display: inline-block;
+        margin: 0;
+      }
+      .inline-other-field > input[type=checkbox],
+      .inline-other-field > label > input[type=checkbox] {
+        margin-top: 8px;
+      }
+      .other-field-content > .control-group,
+      .other-field-content > .control-group > .controls > input[type=text] {
+        margin: 0;
+      }
+	 
 	</style>
 
     </head>
