@@ -8,7 +8,9 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.activiti.engine.FormService;
+import org.activiti.engine.form.FormData;
 import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.impl.util.json.JSONObject;
 
 import activitipoc.IFormHandler;
@@ -32,41 +34,31 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 		this.activitiFormService = activitiFormService;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see activitipoc.IFormHandler#createFormString(java.lang.String)
+	 */
 	public String createFormString(String taskId) {
-
-		String schema = "\"schema\": {";
-
-		for (FormProperty prop : activitiFormService.getTaskFormData(taskId)
-				.getFormProperties()) {
-
-			schema += "\"" + prop.getId() + "\": {";
-
-			schema += getTitle(prop) + ", ";
-			schema += getType(prop) + ", ";
-			schema += getRequired(prop) + "},";
-		}
-		// remove last comma
-		schema = schema.substring(0, schema.length() - 1);
-
-		schema += " }";
-
-		String form = "\"form\": [ ";
-
-		for (FormProperty prop : activitiFormService.getTaskFormData(taskId)
-				.getFormProperties()) {
-			form += getForm(prop);
-			form += ",";
-		}
-
-		// add submit button
-		form += "{\"type\": \"submit\",\"title\": \"Submit Task\"}";
-
-		form += " ]";
-
-		String res = "{ " + schema + ", " + form + "}";
-		return res;
+		FormData data = activitiFormService.getTaskFormData(taskId);
+		return formDataToJSON(data);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see activitipoc.IFormHandler#createStartingFormString(java.lang.String)
+	 */
+	public String createStartingFormString(String processId) {
+		StartFormData data = activitiFormService.getStartFormData(processId);
+		return formDataToJSON(data);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see activitipoc.IFormHandler#parseResult(java.lang.String)
+	 */
 	public Map<String, Object> parseResult(String data) {
 		Map<String, Object> result = new HashMap<String, Object>();
 
@@ -82,6 +74,34 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 		}
 
 		return result;
+	}
+
+	private String formDataToJSON(FormData data) {
+		String schema = "\"schema\": {";
+		String form = "\"form\": [ ";
+
+		for (FormProperty prop : data.getFormProperties()) {
+
+			schema += "\"" + prop.getId() + "\": {";
+			schema += getTitle(prop) + ", ";
+			schema += getType(prop) + ", ";
+			schema += getRequired(prop) + "},";
+
+			form += getForm(prop);
+			form += ",";
+		}
+		// remove last comma from schemas
+		schema = schema.substring(0, schema.length() - 1);
+
+		schema += " }";
+
+		// add submit button to form
+		form += "{\"type\": \"submit\",\"title\": \"Submit Task\"}";
+
+		form += " ]";
+
+		String res = "{ " + schema + ", " + form + "}";
+		return res;
 	}
 
 	private static String getType(FormProperty prop) {
@@ -153,7 +173,7 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 
 		} else if (type.equals("date")) {
 			res += "{ \"key\": \"" + prop.getId() + "\"";
-			res += ",\"format\": \"date\"";
+			res += ",\"type\": \"date\"";
 			res += "}";
 
 		} else if (type.equals("boolean")) {

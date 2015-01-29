@@ -15,14 +15,23 @@ import java.util.Map;
 public interface IFormHandler {
 
 	/**
-	 * Generate the JSON String required to instantiate a form corresponding to
-	 * the given task
+	 * Generate the String required to instantiate a form corresponding to the
+	 * given task
 	 *
 	 * @param activitiFormService
 	 * @param taskId
 	 * @return
 	 */
 	public String createFormString(String taskId);
+
+	/**
+	 * Generate the String required to instantiate a form corresponding to the
+	 * starting activity of a process
+	 *
+	 * @param processId
+	 * @return
+	 */
+	public String createStartingFormString(String processId);
 
 	/**
 	 * Transform a given form result data string into a map of key-values pairs
