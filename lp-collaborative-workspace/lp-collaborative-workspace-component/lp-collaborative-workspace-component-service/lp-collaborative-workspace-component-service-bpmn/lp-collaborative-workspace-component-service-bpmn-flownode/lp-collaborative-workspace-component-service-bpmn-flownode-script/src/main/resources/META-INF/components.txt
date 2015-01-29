@@ -1,1 +1,1 @@
-com.xwikisas.learnpad.cw.component.service.bpmn.flownode.script.BPMNFlowNodeScriptService
+com.xwikisas.learnpad.cw.component.service.bpmn.flownode.script.BPMNFlowNodeManagerScriptService

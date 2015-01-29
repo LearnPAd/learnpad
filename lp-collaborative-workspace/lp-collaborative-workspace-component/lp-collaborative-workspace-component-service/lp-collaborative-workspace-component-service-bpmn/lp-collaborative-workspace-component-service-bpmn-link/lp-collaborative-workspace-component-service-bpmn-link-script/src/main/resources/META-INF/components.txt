@@ -1,1 +1,1 @@
-com.xwikisas.learnpad.cw.component.service.bpmn.link.script.BPMNLinkScriptService
+com.xwikisas.learnpad.cw.component.service.bpmn.link.script.BPMNLinkManagerScriptService

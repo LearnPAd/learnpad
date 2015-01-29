@@ -17,11 +17,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package com.xwikisas.learnpad.cw.component.service.bpmn.flownode;
+package com.xwikisas.learnpad.cw.component.service;
 
 import org.xwiki.component.annotation.Role;
 
 @Role
-public interface BPMNFlowNodeManager {
-	String getName(String id);
+public interface LearnPAdManager {
 }

@@ -10,4 +10,10 @@ import com.xwikisas.learnpad.cw.component.service.bpmn.flownode.BPMNFlowNodeMana
 @Singleton
 public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 
+	@Override
+	public String getName(String id) {
+		// TODO Auto-generated method stub
+		return "NameOfFlowNode";
+	}
+
 }

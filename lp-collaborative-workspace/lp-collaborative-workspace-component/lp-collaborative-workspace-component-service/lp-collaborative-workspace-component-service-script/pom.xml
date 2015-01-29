@@ -25,18 +25,19 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.xwikisas.learnpad</groupId>
-		<artifactId>lp-collaborative-workspace-component</artifactId>
+		<artifactId>lp-collaborative-workspace-component-service</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>lp-collaborative-workspace-component-service</artifactId>
-	<packaging>pom</packaging>
-	<name>Learn PAd - Collaborative Workspace - Component - Service</name>
+	<artifactId>lp-collaborative-workspace-component-service-script</artifactId>
+	<packaging>jar</packaging>
+	<name>Learn PAd - Collaborative Workspace - Component - Service - Script</name>
 
-	<modules>
-		<module>lp-collaborative-workspace-component-service-api</module>
-		<module>lp-collaborative-workspace-component-service-bpmn</module>
-		<module>lp-collaborative-workspace-component-service-default</module>
-		<module>lp-collaborative-workspace-component-service-script</module>
-	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>com.xwikisas.learnpad</groupId>
+			<artifactId>lp-collaborative-workspace-component-service-api</artifactId>
+			<version>${learnpad.version}</version>
+		</dependency>
+	</dependencies>
 </project>

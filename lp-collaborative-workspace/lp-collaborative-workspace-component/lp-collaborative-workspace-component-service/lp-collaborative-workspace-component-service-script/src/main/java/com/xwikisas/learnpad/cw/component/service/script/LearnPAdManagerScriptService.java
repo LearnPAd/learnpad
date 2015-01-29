@@ -17,7 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package com.xwikisas.learnpad.cw.component.service.bpmn.flownode.script;
+package com.xwikisas.learnpad.cw.component.service.script;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -26,21 +26,30 @@ import javax.inject.Singleton;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.context.Execution;
 import org.xwiki.script.service.ScriptService;
+import org.xwiki.script.service.ScriptServiceManager;
 
-import com.xwikisas.learnpad.cw.component.service.bpmn.flownode.BPMNFlowNodeManager;
+import com.xwikisas.learnpad.cw.component.service.LearnPAdManager;
 
 @Component
-@Named("learnpad.bpmn.flownode")
+@Named("learnpad")
 @Singleton
-public class BPMNFlowNodeManagerScriptService implements ScriptService {
+public class LearnPAdManagerScriptService implements ScriptService {
+	/**
+	 * Hint of the component.
+	 */
+	public static final String ROLEHINT = "learnpad";
+
 	/**
 	 * The key under which the last encountered error is stored in the current
 	 * execution context.
 	 */
-	private static final String LEARNPADBPMNFLOWNODEERROR_KEY = "scriptservice.learnpad.bpmn.flownode.error";
+	private static final String LEARNPADERROR_KEY = "scriptservice.learnpad.error";
 
 	@Inject
-	private BPMNFlowNodeManager bpmnFlowNodeManager;
+	private LearnPAdManager learnPAdManager;
+
+	@Inject
+	private ScriptServiceManager scriptServiceManager;
 
 	/**
 	 * Provides access to the current context.
@@ -49,13 +58,29 @@ public class BPMNFlowNodeManagerScriptService implements ScriptService {
 	private Execution execution;
 
 	/**
+	 * Get a sub script service related to wiki. (Note that we're voluntarily
+	 * using an API name of "get" to make it extra easy to access Script
+	 * Services from Velocity (since in Velocity writing
+	 * <code>$services.wiki.name</code> is equivalent to writing
+	 * <code>$services.wiki.get("name")</code>). It also makes it a short and
+	 * easy API name for other scripting languages.
+	 *
+	 * @param serviceName
+	 *            id of the script service
+	 * @return the service asked or null if none could be found
+	 */
+	public ScriptService get(String serviceName) {
+		return scriptServiceManager.get(ROLEHINT + '.' + serviceName);
+	}
+
+	/**
 	 * Get the error generated while performing the previously called action.
 	 *
 	 * @return an eventual exception or {@code null} if no exception was thrown
 	 */
 	public Exception getLastError() {
 		return (Exception) this.execution.getContext().getProperty(
-				LEARNPADBPMNFLOWNODEERROR_KEY);
+				LEARNPADERROR_KEY);
 	}
 
 	/**
@@ -68,11 +93,6 @@ public class BPMNFlowNodeManagerScriptService implements ScriptService {
 	 * @see #getLastError()
 	 */
 	private void setLastError(Exception e) {
-		this.execution.getContext().setProperty(LEARNPADBPMNFLOWNODEERROR_KEY, e);
-	}
-	
-	public String getName(String id) {
-		String name = bpmnFlowNodeManager.getName(id);
-		return name;
+		this.execution.getContext().setProperty(LEARNPADERROR_KEY, e);
 	}
 }
