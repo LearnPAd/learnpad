@@ -28,6 +28,7 @@ import org.xwiki.context.Execution;
 import org.xwiki.script.service.ScriptService;
 
 import com.xwikisas.learnpad.cw.component.service.bpmn.flownode.BPMNFlowNodeManager;
+import com.xwikisas.learnpad.cw.component.service.bpmn.flownode.BPMNFlowNodeManagerException;
 
 @Component
 @Named("learnpad.bpmn.flownode")
@@ -68,11 +69,40 @@ public class BPMNFlowNodeManagerScriptService implements ScriptService {
 	 * @see #getLastError()
 	 */
 	private void setLastError(Exception e) {
-		this.execution.getContext().setProperty(LEARNPADBPMNFLOWNODEERROR_KEY, e);
+		this.execution.getContext().setProperty(LEARNPADBPMNFLOWNODEERROR_KEY,
+				e);
 	}
-	
-	public String getName(String id) {
-		String name = bpmnFlowNodeManager.getName(id);
-		return name;
+
+	public String getId() {
+		String id;
+		try {
+			id = bpmnFlowNodeManager.getId();
+			return id;
+		} catch (BPMNFlowNodeManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String getId(String documentName) {
+		String id = "";
+		try {
+			id = bpmnFlowNodeManager.getId(documentName);
+			return id;
+		} catch (BPMNFlowNodeManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String getName() {
+		String name;
+		try {
+			name = bpmnFlowNodeManager.getName();
+			return name;
+		} catch (BPMNFlowNodeManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
 	}
 }

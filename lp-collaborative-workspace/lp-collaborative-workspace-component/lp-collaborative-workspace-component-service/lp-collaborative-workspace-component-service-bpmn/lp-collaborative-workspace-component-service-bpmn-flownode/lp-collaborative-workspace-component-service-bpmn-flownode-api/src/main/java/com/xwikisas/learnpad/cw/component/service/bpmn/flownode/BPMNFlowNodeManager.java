@@ -23,5 +23,7 @@ import org.xwiki.component.annotation.Role;
 
 @Role
 public interface BPMNFlowNodeManager {
-	String getName(String id);
+	String getId() throws BPMNFlowNodeManagerException;
+	String getId(String documentName) throws BPMNFlowNodeManagerException;
+	String getName() throws BPMNFlowNodeManagerException;
 }
