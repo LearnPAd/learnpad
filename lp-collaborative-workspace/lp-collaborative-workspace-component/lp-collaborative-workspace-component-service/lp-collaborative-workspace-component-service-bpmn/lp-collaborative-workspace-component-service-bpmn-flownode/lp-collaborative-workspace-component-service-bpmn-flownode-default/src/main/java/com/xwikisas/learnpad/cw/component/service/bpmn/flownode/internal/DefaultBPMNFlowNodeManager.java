@@ -19,6 +19,7 @@
  */
 package com.xwikisas.learnpad.cw.component.service.bpmn.flownode.internal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,9 +30,7 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.model.reference.DocumentReference;
 import org.xwiki.model.reference.DocumentReferenceResolver;
 
-import com.xpn.xwiki.XWiki;
 import com.xpn.xwiki.XWikiContext;
-import com.xpn.xwiki.XWikiException;
 import com.xpn.xwiki.doc.XWikiDocument;
 import com.xpn.xwiki.objects.BaseObject;
 import com.xwikisas.learnpad.cw.component.service.bpmn.flownode.BPMNFlowNodeManager;
@@ -40,16 +39,20 @@ import com.xwikisas.learnpad.cw.component.service.bpmn.flownode.BPMNFlowNodeMana
 @Component
 @Singleton
 public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
-	private String FLOWNODE_CLASSNAME = "LearnPAdCode.FlowNodeClass";
-	private String FLOWNODE_PROPERTYNAME_ID = "id";
-	private String FLOWNODE_PROPERTYNAME_NAME = "name";
+	private static final String FLOWNODE_CLASSNAME = "LearnPAdCode.FlowNodeClass";
+	private static final String FLOWNODE_PROPERTYNAME_ID = "id";
+	private static final String FLOWNODE_PROPERTYNAME_NAME = "name";
+	private static final String LINK_CLASSNAME = "LearnPAdCode.LinkClass";
+	private static final String LINK_PROPERTYNAME_URI = "uri";
+	private static final String LINK_PROPERTYNAME_TYPE = "type";
+	private static final String LINK_PROPERTYNAME_TYPE_INCOMING = "incoming";
+	private static final String LINK_PROPERTYNAME_TYPE_OUTGOING = "outgoing";
+
 	@Inject
 	private Provider<XWikiContext> xcontextProvider;
 
 	@Inject
 	private DocumentReferenceResolver<String> documentReferenceResolver;
-
-
 
 	private BaseObject getCurrentObject() {
 		return this.getObject(this.xcontextProvider.get().getDoc());
@@ -57,13 +60,13 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 
 	private BaseObject getObject(XWikiDocument document) {
 		DocumentReference flowNodeClassReference = documentReferenceResolver
-				.resolve(this.FLOWNODE_CLASSNAME);
+				.resolve(FLOWNODE_CLASSNAME);
 		BaseObject flowNodeObject = document.getXObject(flowNodeClassReference);
 		return flowNodeObject;
 	}
 
 	@Override
-	public String getId() throws BPMNFlowNodeManagerException  {
+	public String getId() throws BPMNFlowNodeManagerException {
 		XWikiDocument currentDocument = this.xcontextProvider.get().getDoc();
 		BaseObject flowNodeObject = this.getObject(currentDocument);
 		String id = flowNodeObject.getStringValue(FLOWNODE_PROPERTYNAME_ID);
@@ -71,21 +74,41 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 	}
 
 	@Override
-	public String getName() throws BPMNFlowNodeManagerException  {
+	public String getName() throws BPMNFlowNodeManagerException {
 		XWikiDocument currentDocument = this.xcontextProvider.get().getDoc();
 		BaseObject flowNodeObject = this.getObject(currentDocument);
 		return flowNodeObject.getStringValue(FLOWNODE_PROPERTYNAME_NAME);
 	}
 
+	private List<BaseObject> getLinks() {
+		XWikiDocument currentDocument = this.xcontextProvider.get().getDoc();
+		DocumentReference LinkClassReference = documentReferenceResolver
+				.resolve(LINK_CLASSNAME);
+		List<BaseObject> linkObjects = currentDocument
+				.getXObjects(LinkClassReference);
+		return linkObjects;
+	}
+
+	public List<String> getLinks(String type)
+			throws BPMNFlowNodeManagerException {
+		List<String> incomings = new ArrayList<String>();
+		List<BaseObject> linkObjects = this.getLinks();
+		for (BaseObject linkObject : linkObjects) {
+			String linkType = linkObject.getStringValue(LINK_PROPERTYNAME_TYPE);
+			if (linkType.equals(type)) {
+				incomings.add(linkObject.getStringValue(LINK_PROPERTYNAME_URI));
+			}
+		}
+		return incomings;
+	}
+
 	@Override
 	public List<String> getIncoming() throws BPMNFlowNodeManagerException {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getLinks(LINK_PROPERTYNAME_TYPE_INCOMING);
 	}
 
 	@Override
 	public List<String> getOutgoing() throws BPMNFlowNodeManagerException {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getLinks(LINK_PROPERTYNAME_TYPE_OUTGOING);
 	}
 }

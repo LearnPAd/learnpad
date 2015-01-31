@@ -76,10 +76,8 @@ public class BPMNFlowNodeManagerScriptService implements ScriptService {
 	}
 
 	public String getId() {
-		String id;
 		try {
-			id = bpmnFlowNodeManager.getId();
-			return id;
+			return bpmnFlowNodeManager.getId();
 		} catch (BPMNFlowNodeManagerException e) {
 			this.setLastError(e);
 			return null;
@@ -87,10 +85,8 @@ public class BPMNFlowNodeManagerScriptService implements ScriptService {
 	}
 
 	public String getName() {
-		String name;
 		try {
-			name = bpmnFlowNodeManager.getName();
-			return name;
+			return bpmnFlowNodeManager.getName();
 		} catch (BPMNFlowNodeManagerException e) {
 			this.setLastError(e);
 			return null;
@@ -98,12 +94,20 @@ public class BPMNFlowNodeManagerScriptService implements ScriptService {
 	}
 
 	public List<String> getIncoming() {
-		// TODO
-		return null;
+		try {
+			return bpmnFlowNodeManager.getIncoming();
+		} catch (BPMNFlowNodeManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
 	}
 
 	public List<String> getOutgoing() {
-		// TODO
-		return null;
+		try {
+			return bpmnFlowNodeManager.getOutgoing();
+		} catch (BPMNFlowNodeManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
 	}
 }
