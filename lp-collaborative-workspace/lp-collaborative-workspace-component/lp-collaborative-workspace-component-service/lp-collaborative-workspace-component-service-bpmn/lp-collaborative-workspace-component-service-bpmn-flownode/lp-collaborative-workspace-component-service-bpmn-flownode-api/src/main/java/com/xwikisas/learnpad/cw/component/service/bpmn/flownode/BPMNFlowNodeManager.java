@@ -19,11 +19,17 @@
  */
 package com.xwikisas.learnpad.cw.component.service.bpmn.flownode;
 
+import java.util.List;
+
 import org.xwiki.component.annotation.Role;
 
 @Role
 public interface BPMNFlowNodeManager {
 	String getId() throws BPMNFlowNodeManagerException;
-	String getId(String documentName) throws BPMNFlowNodeManagerException;
+
 	String getName() throws BPMNFlowNodeManagerException;
+
+	List<String> getIncoming() throws BPMNFlowNodeManagerException;
+
+	List<String> getOutgoing() throws BPMNFlowNodeManagerException;
 }

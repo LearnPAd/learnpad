@@ -19,6 +19,8 @@
  */
 package com.xwikisas.learnpad.cw.component.service.bpmn.flownode.internal;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
@@ -63,27 +65,7 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 	@Override
 	public String getId() throws BPMNFlowNodeManagerException  {
 		XWikiDocument currentDocument = this.xcontextProvider.get().getDoc();
-		String id = this.getId(currentDocument);
-		return id;
-	}
-
-	@Override
-	public String getId(String documentName) throws BPMNFlowNodeManagerException {
-		DocumentReference documentReference = documentReferenceResolver
-				.resolve(documentName);
-		XWikiDocument document;
-		try {
-			document = this.xcontextProvider.get().getWiki().getDocument(documentReference,
-					this.xcontextProvider.get());
-		} catch (XWikiException e) {
-			throw new BPMNFlowNodeManagerException("Failed to retrieve the document.", e);
-		}
-		String id = this.getId(document);
-		return id;
-	}
-
-	private String getId(XWikiDocument document) {
-		BaseObject flowNodeObject = this.getObject(document);
+		BaseObject flowNodeObject = this.getObject(currentDocument);
 		String id = flowNodeObject.getStringValue(FLOWNODE_PROPERTYNAME_ID);
 		return id;
 	}
@@ -93,5 +75,17 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 		XWikiDocument currentDocument = this.xcontextProvider.get().getDoc();
 		BaseObject flowNodeObject = this.getObject(currentDocument);
 		return flowNodeObject.getStringValue(FLOWNODE_PROPERTYNAME_NAME);
+	}
+
+	@Override
+	public List<String> getIncoming() throws BPMNFlowNodeManagerException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getOutgoing() throws BPMNFlowNodeManagerException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

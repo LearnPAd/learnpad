@@ -19,6 +19,8 @@
  */
 package com.xwikisas.learnpad.cw.component.service.bpmn.flownode.script;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -84,17 +86,6 @@ public class BPMNFlowNodeManagerScriptService implements ScriptService {
 		}
 	}
 
-	public String getId(String documentName) {
-		String id = "";
-		try {
-			id = bpmnFlowNodeManager.getId(documentName);
-			return id;
-		} catch (BPMNFlowNodeManagerException e) {
-			this.setLastError(e);
-			return null;
-		}
-	}
-
 	public String getName() {
 		String name;
 		try {
@@ -104,5 +95,15 @@ public class BPMNFlowNodeManagerScriptService implements ScriptService {
 			this.setLastError(e);
 			return null;
 		}
+	}
+
+	public List<String> getIncoming() {
+		// TODO
+		return null;
+	}
+
+	public List<String> getOutgoing() {
+		// TODO
+		return null;
 	}
 }
