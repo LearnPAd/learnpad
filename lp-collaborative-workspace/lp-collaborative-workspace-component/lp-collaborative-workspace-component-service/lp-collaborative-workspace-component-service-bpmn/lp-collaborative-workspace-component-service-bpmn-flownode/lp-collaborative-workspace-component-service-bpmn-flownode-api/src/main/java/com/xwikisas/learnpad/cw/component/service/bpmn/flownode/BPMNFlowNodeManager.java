@@ -22,14 +22,24 @@ package com.xwikisas.learnpad.cw.component.service.bpmn.flownode;
 import java.util.List;
 
 import org.xwiki.component.annotation.Role;
+import org.xwiki.model.reference.DocumentReference;
 
 @Role
 public interface BPMNFlowNodeManager {
-	String getId() throws BPMNFlowNodeManagerException;
+	DocumentReference getFlowNodeReference(String id)
+			throws BPMNFlowNodeManagerException;
+
+	String getCurrent() throws BPMNFlowNodeManagerException;
 
 	String getName() throws BPMNFlowNodeManagerException;
 
-	List<String> getIncoming() throws BPMNFlowNodeManagerException;
+	String getName(String id) throws BPMNFlowNodeManagerException;
 
-	List<String> getOutgoing() throws BPMNFlowNodeManagerException;
+	List<String> getIncomings() throws BPMNFlowNodeManagerException;
+
+	List<String> getIncomings(String id) throws BPMNFlowNodeManagerException;
+	
+	List<String> getOutgoings() throws BPMNFlowNodeManagerException;
+	
+	List<String> getOutgoings(String id) throws BPMNFlowNodeManagerException;
 }
