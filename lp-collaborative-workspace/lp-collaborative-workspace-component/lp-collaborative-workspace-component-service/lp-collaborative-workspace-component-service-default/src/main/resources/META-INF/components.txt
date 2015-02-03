@@ -1,0 +1,1 @@
+com.xwikisas.learnpad.cw.component.service.internal.DefaultLearnPAdManager

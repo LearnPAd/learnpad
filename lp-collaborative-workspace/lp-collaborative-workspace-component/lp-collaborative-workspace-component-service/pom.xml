@@ -24,35 +24,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.xwikisas</groupId>
+		<groupId>com.xwikisas.learnpad</groupId>
 		<artifactId>lp-collaborative-workspace-component</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>lp-collaborative-workspace-component-service</artifactId>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 	<name>Learn PAd - Collaborative Workspace - Component - Service</name>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.xwiki.commons</groupId>
-			<artifactId>xwiki-commons-script</artifactId>
-			<version>${commons.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.xwiki.commons</groupId>
-			<artifactId>xwiki-commons-component-api</artifactId>
-			<version>${commons.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.xwiki.commons</groupId>
-			<artifactId>xwiki-commons-configuration-api</artifactId>
-			<version>${commons.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.xwiki.commons</groupId>
-			<artifactId>xwiki-commons-environment-api</artifactId>
-			<version>${commons.version}</version>
-		</dependency>
-	</dependencies>
+	<modules>
+		<module>lp-collaborative-workspace-component-service-api</module>
+		<module>lp-collaborative-workspace-component-service-bpmn</module>
+		<module>lp-collaborative-workspace-component-service-default</module>
+		<module>lp-collaborative-workspace-component-service-script</module>
+	</modules>
 </project>
