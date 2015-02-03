@@ -28,6 +28,7 @@ import org.xwiki.context.Execution;
 import org.xwiki.script.service.ScriptService;
 
 import com.xwikisas.learnpad.cw.component.service.bpmn.sequenceflow.BPMNSequenceFlowManager;
+import com.xwikisas.learnpad.cw.component.service.bpmn.sequenceflow.BPMNSequenceFlowManagerException;
 
 @Component
 @Named("learnpad.bpmn.sequenceflow")
@@ -40,7 +41,7 @@ public class BPMNSequenceFlowManagerScriptService implements ScriptService {
 	private static final String LEARNPADBPMNSEQUENCEFLOWERROR_KEY = "scriptservice.learnpad.bpmn.sequenceflow.error";
 
 	@Inject
-	private BPMNSequenceFlowManager bpmn;
+	private BPMNSequenceFlowManager bpmnSequenceFlowManager;
 
 	/**
 	 * Provides access to the current context.
@@ -68,6 +69,67 @@ public class BPMNSequenceFlowManagerScriptService implements ScriptService {
 	 * @see #getLastError()
 	 */
 	private void setLastError(Exception e) {
-		this.execution.getContext().setProperty(LEARNPADBPMNSEQUENCEFLOWERROR_KEY, e);
+		this.execution.getContext().setProperty(
+				LEARNPADBPMNSEQUENCEFLOWERROR_KEY, e);
+	}
+
+	public String getCurrent() {
+		try {
+			return bpmnSequenceFlowManager.getCurrent();
+		} catch (BPMNSequenceFlowManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String getName() {
+		try {
+			return bpmnSequenceFlowManager.getName();
+		} catch (BPMNSequenceFlowManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+	public String getName(String id) {
+		try {
+			return bpmnSequenceFlowManager.getName(id);
+		} catch (BPMNSequenceFlowManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String getSourceRef() {
+		try {
+			return bpmnSequenceFlowManager.getSourceRef();
+		} catch (BPMNSequenceFlowManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+	public String getSourceRef(String id) {
+		try {
+			return bpmnSequenceFlowManager.getSourceRef(id);
+		} catch (BPMNSequenceFlowManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String getTargetRef() {
+		try {
+			return bpmnSequenceFlowManager.getTargetRef();
+		} catch (BPMNSequenceFlowManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+	public String getTargetRef(String id) {
+		try {
+			return bpmnSequenceFlowManager.getTargetRef(id);
+		} catch (BPMNSequenceFlowManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
 	}
 }

@@ -20,24 +20,20 @@
 package com.xwikisas.learnpad.cw.component.service.bpmn.sequenceflow;
 
 import org.xwiki.component.annotation.Role;
-import org.xwiki.model.reference.DocumentReference;
 
 @Role
 public interface BPMNSequenceFlowManager {
-	DocumentReference getSequenceFlowReference(String id)
-			throws BPMNSequenceFlowManagerException;
-
 	String getCurrent() throws BPMNSequenceFlowManagerException;
 
 	String getName() throws BPMNSequenceFlowManagerException;
 
 	String getName(String id) throws BPMNSequenceFlowManagerException;
 
-	String getSourceURL() throws BPMNSequenceFlowManagerException;
+	String getSourceRef() throws BPMNSequenceFlowManagerException;
 
-	String getSourceURL(String id) throws BPMNSequenceFlowManagerException;
+	String getSourceRef(String id) throws BPMNSequenceFlowManagerException;
 
-	String getTargetURL() throws BPMNSequenceFlowManagerException;
+	String getTargetRef() throws BPMNSequenceFlowManagerException;
 
-	String getTargetURL(String id) throws BPMNSequenceFlowManagerException;
+	String getTargetRef(String id) throws BPMNSequenceFlowManagerException;
 }

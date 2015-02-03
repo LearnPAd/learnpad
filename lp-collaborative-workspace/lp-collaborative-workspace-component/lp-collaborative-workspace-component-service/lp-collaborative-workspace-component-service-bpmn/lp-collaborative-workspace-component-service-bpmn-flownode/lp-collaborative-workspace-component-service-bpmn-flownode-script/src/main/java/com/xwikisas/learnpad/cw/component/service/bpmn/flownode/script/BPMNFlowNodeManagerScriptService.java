@@ -75,9 +75,9 @@ public class BPMNFlowNodeManagerScriptService implements ScriptService {
 				e);
 	}
 
-	public String getId() {
+	public String getCurrent() {
 		try {
-			return bpmnFlowNodeManager.getId();
+			return bpmnFlowNodeManager.getCurrent();
 		} catch (BPMNFlowNodeManagerException e) {
 			this.setLastError(e);
 			return null;
@@ -93,18 +93,81 @@ public class BPMNFlowNodeManagerScriptService implements ScriptService {
 		}
 	}
 
-	public List<String> getIncoming() {
+	public String getName(String id) {
 		try {
-			return bpmnFlowNodeManager.getIncoming();
+			return bpmnFlowNodeManager.getName(id);
 		} catch (BPMNFlowNodeManagerException e) {
 			this.setLastError(e);
 			return null;
 		}
 	}
 
-	public List<String> getOutgoing() {
+	public String getDocumentation() {
 		try {
-			return bpmnFlowNodeManager.getOutgoing();
+			return bpmnFlowNodeManager.getDocumentation();
+		} catch (BPMNFlowNodeManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+	
+	public String getDocumentation(String id) {
+		try {
+			return bpmnFlowNodeManager.getDocumentation(id);
+		} catch (BPMNFlowNodeManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String getURL() {
+		try {
+			return bpmnFlowNodeManager.getURL();
+		} catch (BPMNFlowNodeManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String getURL(String id) {
+		try {
+			return bpmnFlowNodeManager.getURL(id);
+		} catch (BPMNFlowNodeManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public List<String> getIncomings() {
+		try {
+			return bpmnFlowNodeManager.getIncomings();
+		} catch (BPMNFlowNodeManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public List<String> getIncomings(String id) {
+		try {
+			return bpmnFlowNodeManager.getIncomings(id);
+		} catch (BPMNFlowNodeManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public List<String> getOutgoings() {
+		try {
+			return bpmnFlowNodeManager.getOutgoings();
+		} catch (BPMNFlowNodeManagerException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public List<String> getOutgoings(String id) {
+		try {
+			return bpmnFlowNodeManager.getOutgoings(id);
 		} catch (BPMNFlowNodeManagerException e) {
 			this.setLastError(e);
 			return null;

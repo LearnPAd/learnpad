@@ -39,5 +39,15 @@
 			<artifactId>lp-collaborative-workspace-component-service-bpmn-sequenceflow-api</artifactId>
 			<version>${learnpad.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.xwiki.platform</groupId>
+			<artifactId>xwiki-platform-oldcore</artifactId>
+			<version>${platform.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xwikisas.learnpad</groupId>
+			<artifactId>lp-collaborative-workspace-component-service-bpmn-api</artifactId>
+			<version>${learnpad.version}</version>
+		</dependency>
 	</dependencies>
 </project>

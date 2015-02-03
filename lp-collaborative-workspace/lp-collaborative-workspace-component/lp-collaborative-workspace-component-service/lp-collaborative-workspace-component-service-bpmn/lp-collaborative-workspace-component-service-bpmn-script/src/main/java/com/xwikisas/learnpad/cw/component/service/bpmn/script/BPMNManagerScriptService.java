@@ -28,8 +28,6 @@ import org.xwiki.context.Execution;
 import org.xwiki.script.service.ScriptService;
 import org.xwiki.script.service.ScriptServiceManager;
 
-import com.xwikisas.learnpad.cw.component.service.bpmn.BPMNManager;
-
 @Component
 @Named("learnpad.bpmn")
 @Singleton
@@ -44,9 +42,6 @@ public class BPMNManagerScriptService implements ScriptService {
 	 * execution context.
 	 */
 	private static final String LEARNPADBPMNERROR_KEY = "scriptservice.learnpad.bpmn.error";
-
-	@Inject
-	private BPMNManager bpmnManager;
 
 	@Inject
 	private ScriptServiceManager scriptServiceManager;
