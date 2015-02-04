@@ -71,12 +71,13 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IUIHandler#addProcess(java.lang.String,
 	 * Collection<String>, ProcessDispatcher)
 	 */
 	public void addProcess(String process, Collection<String> users,
 			IProcessDispatcher dispatcher) {
+		// TODO handle multiple simultaneous processes
 		processDispatcher = dispatcher;
 	}
 
