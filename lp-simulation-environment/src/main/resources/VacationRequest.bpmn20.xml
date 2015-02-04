@@ -55,7 +55,7 @@
       </documentation>
       <extensionElements>
         <activiti:formProperty id="numberOfDays" name="Number of days" value="${numberOfDays}" type="long" required="true"/>
-        <activiti:formProperty id="startDate" name="First day of holiday (dd-MM-yyy)" value="${startDate}" datePattern="dd-MM-yyyy hh:mm" type="date" required="true" />
+        <activiti:formProperty id="startDate" name="First day of holiday (yyyy-MM-dd)" value="${startDate}" datePattern="yyyy-MM-dd hh:mm" type="date" required="true" />
         <activiti:formProperty id="vacationMotivation" name="Motivation" value="${vacationMotivation}" type="string" />
         <activiti:formProperty id="resendRequest" name="Resend vacation request to manager?" type="enum" required="true">
           <activiti:value id="true" name="Yes" />
