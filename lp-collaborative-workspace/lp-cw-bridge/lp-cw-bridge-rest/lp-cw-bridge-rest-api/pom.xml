@@ -48,5 +48,11 @@
 			<artifactId>xwiki-platform-rest-model</artifactId>
 			<version>${platform.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>eu.learnpad</groupId>
+			<artifactId>bpmn2-emf</artifactId>
+			<classifier>standalone</classifier>
+			<version>1.1.0</version>
+		</dependency>
 	</dependencies>
 </project>
