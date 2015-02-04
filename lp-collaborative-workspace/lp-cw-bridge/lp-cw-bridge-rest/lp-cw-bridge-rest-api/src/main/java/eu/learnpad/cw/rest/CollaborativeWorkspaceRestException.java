@@ -26,7 +26,9 @@ package eu.learnpad.cw.rest;
  */
 public class CollaborativeWorkspaceRestException extends Exception
 {
-    /**
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Default constructor.
      */
     public CollaborativeWorkspaceRestException()
