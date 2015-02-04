@@ -28,6 +28,13 @@ public interface IProcessManager {
 	public Collection<String> getAvailableProcessDefintion();
 
 	/**
+	 * 
+	 * @param processDefinitionId
+	 * @return the description of the process
+	 */
+	public String getProcessDefinitionDescription(String processDefinitionId);
+
+	/**
 	 *
 	 * @param projectDefinitionId
 	 *            the process definition id of the process to instantiate
