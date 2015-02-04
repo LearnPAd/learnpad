@@ -35,6 +35,7 @@
 	<name>Learn PAd - Collaborative Workspace - Bridge</name>
 
 	<modules>
+		<module>bpmn2-emf</module>
 		<module>lp-cw-bridge-importer</module>
 		<module>lp-cw-bridge-rest</module>
 	</modules>
