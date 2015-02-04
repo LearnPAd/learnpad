@@ -52,8 +52,8 @@
 	</properties>
 
 	<modules>
-		<module>lp-collaborative-workspace-component</module>
-		<module>lp-collaborative-workspace-bridge</module>
+		<module>lp-cw-component</module>
+		<module>lp-cw-bridge</module>
 	</modules>
 
 	<repositories>

@@ -1,1 +1,0 @@
-com.xwikisas.learnpad.cw.component.service.script.LearnPAdManagerScriptService

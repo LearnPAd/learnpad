@@ -1,1 +1,0 @@
-com.xwikisas.learnpad.cw.component.service.bpmn.sequenceflow.internal.DefaultBPMNSequenceFlowManager
