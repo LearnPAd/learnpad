@@ -25,10 +25,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.xwikisas.learnpad</groupId>
-		<artifactId>lp-collaborative-workspace-bridge-importer</artifactId>
+		<artifactId>lp-cw-bridge-importer</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>lp-collaborative-workspace-bridge-importer-generic</artifactId>
+	<artifactId>lp-cw-bridge-importer-generic</artifactId>
 	<packaging>jar</packaging>
 	<name>Learn PAd - Collaborative Workspace - Bridge - Importer - Generic</name>
 	<developers>
