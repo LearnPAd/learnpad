@@ -3,9 +3,11 @@
  */
 package activitipoc.processdispatcher.activiti;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -14,7 +16,6 @@ import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
-import org.eclipse.jetty.servlet.ServletHolder;
 
 import activitipoc.IProcessDispatcher;
 import activitipoc.ITaskRouter;
@@ -35,7 +36,7 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 
 	private final IUIHandler uiHandler;
 
-	private final Map<Task, ServletHolder> waitingTasksHolders = new HashMap<Task, ServletHolder>();
+	private final Set<String> registeredWaitingTasks = new HashSet<String>();
 
 	// Ok... due to some weirdness in the way activiti fire end process signals
 	// we have to do some weird things here. The activiti workflow when
@@ -98,6 +99,7 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 
 	private void processNewTasks(List<Task> tasks) {
 		for (Task task : tasks) {
+			registeredWaitingTasks.add(task.getId());
 			uiHandler.sendTask(task.getId(), task.getDescription(),
 					router.route(task, users));
 		}
@@ -120,15 +122,22 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 
 		taskService.complete(taskId, data);
 
+		registeredWaitingTasks.remove(taskId);
+
 		// check for newly triggered tasks
 		List<Task> waitingTasks = taskService.createTaskQuery()
 				.processInstanceId(process.getId()).list();
 
 		// ignore already processed tasks
-		waitingTasks.removeAll(waitingTasksHolders.keySet());
+		List<Task> newTasks = new ArrayList<Task>();
+		for (Task t : waitingTasks) {
+			if (!registeredWaitingTasks.contains(t.getId())) {
+				newTasks.add(t);
+			}
+		}
 
-		if (!waitingTasks.isEmpty()) {
-			processNewTasks(waitingTasks);
+		if (!newTasks.isEmpty()) {
+			processNewTasks(newTasks);
 		}
 
 		// see comment on processFinished declaration
@@ -139,7 +148,7 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#onEvent(org.
 	 * activiti.engine.delegate.event.ActivitiEvent)
@@ -155,7 +164,7 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#isFailOnException
 	 * ()
