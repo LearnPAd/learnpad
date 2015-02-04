@@ -6,7 +6,7 @@ package activitipoc;
 import java.util.Map;
 
 /**
- * This interface define transformations between tasks IO and form data
+ * This interface defines transformations between tasks IO and form data
  *
  *
  * @author jorquera
