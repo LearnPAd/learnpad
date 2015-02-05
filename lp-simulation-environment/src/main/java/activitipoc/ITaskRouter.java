@@ -3,7 +3,6 @@
  */
 package activitipoc;
 
-import java.util.List;
 import java.util.Set;
 
 import org.activiti.engine.task.Task;
@@ -23,10 +22,8 @@ public interface ITaskRouter {
 	 *
 	 * @param task
 	 *            the task to be routed
-	 * @param candidates
-	 *            a list of candidate users id (order may matter)
 	 * @return the set of users id to which the task must be routed
 	 */
-	public Set<String> route(Task task, List<String> candidates);
+	public Set<String> route(Task task);
 
 }

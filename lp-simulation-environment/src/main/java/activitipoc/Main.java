@@ -62,8 +62,9 @@ class Main {
 
 		// launch process dispatcher
 		ITaskRouter router = new ITaskRouter() {
+			List<String> candidates = Arrays.asList("user1", "user2");
 
-			public Set<String> route(Task task, List<String> candidates) {
+			public Set<String> route(Task task) {
 
 				Set<String> result = new HashSet<String>();
 

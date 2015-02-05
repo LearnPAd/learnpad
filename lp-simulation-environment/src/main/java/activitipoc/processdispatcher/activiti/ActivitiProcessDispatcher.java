@@ -101,7 +101,7 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 		for (Task task : tasks) {
 			registeredWaitingTasks.add(task.getId());
 			uiHandler.sendTask(task.getId(), task.getDescription(),
-					router.route(task, users));
+					router.route(task));
 		}
 
 	}
