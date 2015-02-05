@@ -41,7 +41,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IProcessManager#addProjectDefininition(java.lang.String)
 	 */
 	public Collection<String> addProjectDefinitions(String resource) {
@@ -61,7 +61,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IProcessManager#getAvailableProcessDefintion()
 	 */
 	public Collection<String> getAvailableProcessDefintion() {
@@ -85,14 +85,20 @@ public class ActivitiProcessManager implements IProcessManager {
 	 * .String)
 	 */
 	public String getProcessDefinitionDescription(String processDefinitionId) {
-		return repositoryService.createProcessDefinitionQuery()
+		String res = repositoryService.createProcessDefinitionQuery()
 				.processDefinitionId(processDefinitionId).singleResult()
 				.getDescription();
+
+		if (res == null) {
+			res = "";
+		}
+
+		return res;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IProcessManager#startProjectInstance(java.lang.String,
 	 * java.util.Map, activitipoc.ITaskRouter)
 	 */
@@ -111,7 +117,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IProcessManager#getCurrentProcessInstances()
 	 */
 	public Collection<String> getCurrentProcessInstances() {
