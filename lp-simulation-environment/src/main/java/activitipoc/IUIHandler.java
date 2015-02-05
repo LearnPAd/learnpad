@@ -29,6 +29,12 @@ public interface IUIHandler {
 	public void removeUser(String userId);
 
 	/**
+	 *
+	 * @return a collection containing all the user IDs
+	 */
+	public Collection<String> getUsers();
+
+	/**
 	 * Register a new process
 	 *
 	 * @param process

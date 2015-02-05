@@ -40,7 +40,8 @@ public interface IProcessManager {
 	 * @param parameters
 	 *            the parameter list for the process
 	 * @param router
-	 *            a router between process users and actual users
+	 *            a router between process roles and actual users (a role can be
+	 *            associated with several users)
 	 * @param users
 	 *            the users involved in the process instance
 	 * @param uiHandler
@@ -48,8 +49,8 @@ public interface IProcessManager {
 	 * @return the ID of the created process instance
 	 */
 	public String startProjectInstance(String projectDefinitionId,
-			Map<String, Object> parameters, ITaskRouter router,
-			IUIHandler uiHandler);
+			Map<String, Object> parameters,
+			Map<String, Collection<String>> route, IUIHandler uiHandler);
 
 	/**
 	 *

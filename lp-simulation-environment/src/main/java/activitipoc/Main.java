@@ -12,11 +12,9 @@ import java.util.Map;
 
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
-import org.activiti.engine.TaskService;
 
 import activitipoc.formhandler.activiti2jsonform.ActivitiToJsonFormFormHandler;
 import activitipoc.processmanager.activiti.ActivitiProcessManager;
-import activitipoc.taskrouter.activiti.ActivitiTaskRouter;
 import activitipoc.uihandler.webserver.UIHandlerWebImpl;
 
 class Main {
@@ -51,8 +49,6 @@ class Main {
 		parameters.put("numberOfDays", new Integer(7));
 		parameters.put("vacationMotivation", "I'm really tired!");
 
-		final TaskService taskService = processEngine.getTaskService();
-
 		// create users ui handler
 		IUIHandler uiHandler = new UIHandlerWebImpl(Arrays.asList("user1",
 				"user2"), new ActivitiToJsonFormFormHandler(
@@ -63,9 +59,7 @@ class Main {
 		routes.put("Tom", Arrays.asList("user1"));
 		routes.put("management", Arrays.asList("user2"));
 
-		ITaskRouter router = new ActivitiTaskRouter(taskService, routes);
-
-		processManager.startProjectInstance(processId, parameters, router,
-				Arrays.asList("user1", "user2"), uiHandler);
+		processManager.startProjectInstance(processId, parameters, routes,
+				uiHandler);
 	}
 }

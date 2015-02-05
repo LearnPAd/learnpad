@@ -5,6 +5,7 @@ package activitipoc.uihandler.webserver;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -49,7 +50,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IUIHandler#addUser(java.lang.String)
 	 */
 	public void addUser(String userId) {
@@ -60,7 +61,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IUIHandler#removeUser(java.lang.String)
 	 */
 	public void removeUser(String userId) {
@@ -71,7 +72,16 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
+	 * @see activitipoc.IUIHandler#getUsers()
+	 */
+	public Collection<String> getUsers() {
+		return new HashSet<String>(usersMap.keySet());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see activitipoc.IUIHandler#addProcess(java.lang.String,
 	 * Collection<String>, ProcessDispatcher)
 	 */
@@ -82,7 +92,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IUIHandler#sendTask(java.lang.String, java.util.Set)
 	 */
 	public void sendTask(String taskId, String taskDescr,
@@ -99,7 +109,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IUIHandler#signalProcessEnd(java.lang.String,
 	 * java.util.Set)
 	 */
@@ -127,4 +137,5 @@ public class UIHandlerWebImpl implements IUIHandler {
 		// signal task completion to dispatcher
 		processDispatcher.completeTask(taskId, formHandler.parseResult(data));
 	}
+
 }
