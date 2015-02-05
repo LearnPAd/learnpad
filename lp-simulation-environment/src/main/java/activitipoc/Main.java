@@ -20,7 +20,7 @@ import activitipoc.uihandler.webserver.UIHandlerWebImpl;
 class Main {
 
 	public static final String ACTIVITY_CONFIG_PATH = "src/main/resources/activiti.cfg.xml";
-	public static final String DEMO_PROCESS_FILE = "VacationRequest.bpmn20.xml";
+	public static final String DEMO_PROCESS_FILE = "process/VacationRequest.bpmn20.xml";
 
 	/**
 	 * @param args
