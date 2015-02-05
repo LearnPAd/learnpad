@@ -6,19 +6,17 @@ package activitipoc;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.task.Task;
 
 import activitipoc.formhandler.activiti2jsonform.ActivitiToJsonFormFormHandler;
 import activitipoc.processmanager.activiti.ActivitiProcessManager;
+import activitipoc.taskrouter.activiti.ActivitiTaskRouter;
 import activitipoc.uihandler.webserver.UIHandlerWebImpl;
 
 class Main {
@@ -61,39 +59,11 @@ class Main {
 				processEngine.getFormService()));
 
 		// launch process dispatcher
-		ITaskRouter router = new ITaskRouter() {
-			List<String> candidates = Arrays.asList("user1", "user2");
+		Map<String, Collection<String>> routes = new HashMap<String, Collection<String>>();
+		routes.put("Tom", Arrays.asList("user1"));
+		routes.put("management", Arrays.asList("user2"));
 
-			public Set<String> route(Task task) {
-
-				Set<String> result = new HashSet<String>();
-
-				if (!taskService.createTaskQuery()
-						.taskCandidateOrAssigned("Tom").taskId(task.getId())
-						.list().isEmpty()) {
-
-					result.add(candidates.get(0));
-
-				}
-
-				if (!taskService.createTaskQuery()
-						.taskCandidateGroup("management").taskId(task.getId())
-						.list().isEmpty()) {
-
-					result.add(candidates.get(1));
-
-				}
-
-				if (result.isEmpty()) {
-					throw new RuntimeException("Could not route task " + task
-							+ " to any user");
-				} else {
-					return result;
-				}
-
-			}
-
-		};
+		ITaskRouter router = new ActivitiTaskRouter(taskService, routes);
 
 		processManager.startProjectInstance(processId, parameters, router,
 				Arrays.asList("user1", "user2"), uiHandler);
