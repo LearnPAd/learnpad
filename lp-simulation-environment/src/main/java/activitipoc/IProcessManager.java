@@ -29,6 +29,13 @@ public interface IProcessManager {
 	/**
 	 *
 	 * @param processDefinitionId
+	 * @return the name of the process
+	 */
+	public String getProcessDefinitionName(String processDefinitionId);
+
+	/**
+	 *
+	 * @param processDefinitionId
 	 * @return the description of the process
 	 */
 	public String getProcessDefinitionDescription(String processDefinitionId);

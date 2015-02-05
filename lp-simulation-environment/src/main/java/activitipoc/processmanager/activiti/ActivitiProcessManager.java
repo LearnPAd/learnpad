@@ -81,6 +81,24 @@ public class ActivitiProcessManager implements IProcessManager {
 	 * (non-Javadoc)
 	 *
 	 * @see
+	 * activitipoc.IProcessManager#getProcessDefinitionName(java.lang.String)
+	 */
+	public String getProcessDefinitionName(String processDefinitionId) {
+		String res = repositoryService.createProcessDefinitionQuery()
+				.processDefinitionId(processDefinitionId).singleResult()
+				.getName();
+
+		if (res == null) {
+			res = "";
+		}
+
+		return res;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
 	 * activitipoc.IProcessManager#getProcessDefinitionDescription(java.lang
 	 * .String)
 	 */
