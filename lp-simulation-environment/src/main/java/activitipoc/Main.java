@@ -6,9 +6,6 @@ package activitipoc;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
@@ -20,7 +17,7 @@ import activitipoc.uihandler.webserver.UIHandlerWebImpl;
 class Main {
 
 	public static final String ACTIVITY_CONFIG_PATH = "src/main/resources/activiti.cfg.xml";
-	public static final String DEMO_PROCESS_FILE = "process/VacationRequest.bpmn20.xml";
+	public static final String DEMO_PROCESS_FOLDER = "process";
 
 	/**
 	 * @param args
@@ -38,28 +35,16 @@ class Main {
 		IProcessManager processManager = new ActivitiProcessManager(
 				processEngine);
 
-		// load process definition
-		String processId = processManager
-				.addProjectDefinitions(DEMO_PROCESS_FILE).iterator().next();
+		// load process definitions
+		processManager.addProjectDefinitions(DEMO_PROCESS_FOLDER
+				+ "/VacationRequest.bpmn20.xml");
+		processManager.addProjectDefinitions(DEMO_PROCESS_FOLDER
+				+ "/demo.bpmn20.xml");
 
-		// instantiate process
+		// create users ui handler and add users
+		new UIHandlerWebImpl(Arrays.asList("user1", "user2"), processManager,
+				new ActivitiToJsonFormFormHandler(
+						processEngine.getFormService()));
 
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("employeeName", "Tom");
-		parameters.put("numberOfDays", new Integer(7));
-		parameters.put("vacationMotivation", "I'm really tired!");
-
-		// create users ui handler
-		IUIHandler uiHandler = new UIHandlerWebImpl(Arrays.asList("user1",
-				"user2"), new ActivitiToJsonFormFormHandler(
-				processEngine.getFormService()));
-
-		// launch process dispatcher
-		Map<String, Collection<String>> routes = new HashMap<String, Collection<String>>();
-		routes.put("Tom", Arrays.asList("user1"));
-		routes.put("management", Arrays.asList("user2"));
-
-		processManager.startProjectInstance(processId, parameters, routes,
-				uiHandler);
 	}
 }
