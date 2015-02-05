@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions id="definitions-demo"
+	     targetNamespace="http://activiti.org/bpmn20"
+	     xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	     xmlns:activiti="http://activiti.org/bpmn">
+
+  <process id="SCIArequestDemo" name="SCIA request demo">
+
+    <startEvent id="request">
+      <extensionElements>
+		<activiti:formProperty id="entrepreneur" name="Entrepreneur" type="string" required="true"/>
+      </extensionElements>
+    </startEvent>
+
+    <sequenceFlow id="flow1" sourceRef="request" targetRef="processIntegration-fork" />
+
+    <parallelGateway id="processIntegration-fork"/>
+    <sequenceFlow id="flow2" sourceRef="processIntegration-fork" targetRef="sendIntegrationToAdministrationInCharge" />
+    <sequenceFlow id="flow3" sourceRef="processIntegration-fork" targetRef="doChecks" />
+
+    <userTask id="sendIntegrationToAdministrationInCharge" name="Send Integration to Administration in charge" >
+      <documentation>
+        ${entrepreneur} sent requested integration documents.
+        [[Here the civil servant should have access to the integration documents]]
+      </documentation>
+      <extensionElements>
+	<activiti:formProperty id="integrationApproved" name="Have the integration receipt been validated by competent offices?" type="enum" required="true">
+	  <activiti:value id="true" name="Validated" />
+	  <activiti:value id="false" name="Rejected" />
+	</activiti:formProperty>
+      </extensionElements>
+      <potentialOwner>
+	<resourceAssignmentExpression>
+	  <formalExpression>SUAP</formalExpression>
+	</resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <sequenceFlow id="flow4" sourceRef="sendIntegrationToAdministrationInCharge" targetRef="processIntegration-join"/>
+
+    <userTask id="doChecks" name="Do Checks" >
+      <documentation>
+        ${entrepreneur} sent requested integration documents.
+        [[Here the civil servant should have access to the integration documents]]
+      </documentation>
+      <extensionElements>
+	<activiti:formProperty id="integrationChecked" name="Do you confirm the integration documents are correct?"  type="enum" required="true">
+	  <activiti:value id="true" name="Confirm" />
+	  <activiti:value id="false" name="Reject" />
+	</activiti:formProperty>
+      </extensionElements>
+      <potentialOwner>
+	<resourceAssignmentExpression>
+	  <formalExpression>otherOffice</formalExpression>
+	</resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <sequenceFlow id="flow5" sourceRef="doChecks" targetRef="processIntegration-join"/>
+
+    <parallelGateway id="processIntegration-join"/>
+    <sequenceFlow id="flow6" sourceRef="processIntegration-join" targetRef="integrationValidated"/>
+    <exclusiveGateway id="integrationValidated" name="Request approved?" />
+
+    <sequenceFlow id="flow7" sourceRef="integrationValidated" targetRef="sendAuthorizationDocuments">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${integrationApproved == 'true' && integrationChecked == 'true'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="integrationValidated" targetRef="sendInhibition">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${integrationApproved == 'false' || integrationChecked == 'false'}]]></conditionExpression>
+    </sequenceFlow>
+
+    <userTask id="sendAuthorizationDocuments" name="Send Authorization Documents">
+      <documentation>
+        The integration documents for ${entrepreneur} have been validated.
+      </documentation>
+      <extensionElements>
+	<activiti:formProperty id="authorizationDocuments" name="Authorization Document" type="string" required="true"/>
+      </extensionElements>
+      <potentialOwner>
+	<resourceAssignmentExpression>
+	  <formalExpression>SUAP</formalExpression>
+	</resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <sequenceFlow id="flow9" sourceRef="sendAuthorizationDocuments" targetRef="validatedEnd" />
+    <endEvent id="validatedEnd" />
+
+    <userTask id="sendInhibition" name="Send Inhibition">
+      <documentation>
+        The integration documents for ${entrepreneur} have been invalidated.
+        Integration approved : ${integrationApproved}
+        Integration checked : ${integrationChecked}
+      </documentation>
+      <extensionElements>
+	<activiti:formProperty id="inhibitionReason" name="Inhibition Reason" type="string" required="true"/>
+      </extensionElements>
+      <potentialOwner>
+	<resourceAssignmentExpression>
+	  <formalExpression>SUAP</formalExpression>
+	</resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <sequenceFlow id="flow10" sourceRef="sendInhibition" targetRef="replyToComment" />
+
+    <userTask id="replyToComment" name="Reply to comment">
+      <documentation>
+        ${entrepreneur} commented on the case invalidation:
+        Could you provide more details about why my case was invalidated?
+      </documentation>
+      <extensionElements>
+	    <activiti:formProperty id="answer" name="Comment Answer" type="string" required="true"/>
+      </extensionElements>
+      <potentialOwner>
+	    <resourceAssignmentExpression>
+	      <formalExpression>SUAP</formalExpression>
+	    </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <sequenceFlow id="flow11" sourceRef="replyToComment" targetRef="invalidatedEnd" />
+    <endEvent id="invalidatedEnd" />
+  </process>
+
+</definitions>
