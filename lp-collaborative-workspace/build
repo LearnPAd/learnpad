@@ -32,6 +32,7 @@ mvn clean install
 ### TEST ###
 # This is where you can run tests of your component
 function component_test() {
+echo "[INFO] Nothing to test"
 }
 
 ### INSTALL ###
