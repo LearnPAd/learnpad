@@ -12,6 +12,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 import activitipoc.IFormHandler;
 import activitipoc.IProcessDispatcher;
+import activitipoc.IProcessManager;
 import activitipoc.IUIHandler;
 
 /**
@@ -32,13 +33,15 @@ public class UIHandlerWebImpl implements IUIHandler {
 	 * @param users
 	 * @param taskService
 	 */
-	public UIHandlerWebImpl(Collection<String> users, IFormHandler formHandler) {
+	public UIHandlerWebImpl(Collection<String> users,
+			IProcessManager processManager, IFormHandler formHandler) {
 		super();
 		this.formHandler = formHandler;
 		this.usersMap = new HashMap<String, UIServlet>();
 
 		// launch task webserver
-		this.webserver = new WebServer(8081, "ui", "tasks");
+		this.webserver = new WebServer(8081, "ui", "tasks", "process",
+				new UIProcessServlet(processManager, this, formHandler));
 
 		// instanciate users UI
 		for (String user : users) {
@@ -46,6 +49,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 			this.webserver.addUIServlet(ui, user);
 			usersMap.put(user, ui);
 		}
+
 	}
 
 	/*

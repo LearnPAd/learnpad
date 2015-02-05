@@ -42,14 +42,17 @@ public class WebServer {
 
 	public static final long TIMEOUT = Long.MAX_VALUE;
 	public static final String UI_PATH = "src/main/resources/ui.html";
+	public static final String UI_PROCESS_PATH = "src/main/resources/ui-process.html";
 	public static final String RESOURCES_PATH = "src/main/resources";
 
 	final Server server;
 	final ServletContextHandler context;
 	private final String uiPath;
 	private final String tasksPath;
+	private final String uiProcessPath;
 
-	public WebServer(final int port, String uiPath, String tasksPath) {
+	public WebServer(final int port, String uiPath, String tasksPath,
+			String uiProcessPath, UIProcessServlet uiProcessServlet) {
 		this.server = new Server();
 		final ServerConnector connector = new ServerConnector(server);
 
@@ -57,6 +60,7 @@ public class WebServer {
 		this.server.addConnector(connector);
 		this.uiPath = uiPath;
 		this.tasksPath = tasksPath;
+		this.uiProcessPath = uiProcessPath;
 
 		this.context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
@@ -87,6 +91,33 @@ public class WebServer {
 		};
 		this.context.addServlet(new ServletHolder(ui_servlet), "/");
 
+		// serve UI Process webpage (after dynamically setting server ip)
+		HttpServlet ui_process_servlet = new HttpServlet() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void doGet(HttpServletRequest request,
+					HttpServletResponse response) throws ServletException,
+					IOException {
+
+				// here we load the page html source in order to dynamically set
+				// the server ip (required for websockets)
+				Scanner scan = new Scanner(new File(UI_PROCESS_PATH));
+				String uiPage = scan.useDelimiter("\\Z").next();
+				scan.close();
+
+				// set server ip
+				uiPage = uiPage.replace("#serveripaddress#", "\""
+						+ getIPAdress() + ":" + port + "\"");
+
+				response.setContentType("text/html; charset=utf-8");
+				response.setStatus(HttpServletResponse.SC_OK);
+				response.getWriter().println(uiPage);
+			}
+		};
+		this.context.addServlet(new ServletHolder(ui_process_servlet), "/uiprocess");
+
 		// related static resources
 		ContextHandler resourcesContext = new ContextHandler();
 		resourcesContext.setContextPath("/resources");
@@ -107,6 +138,16 @@ public class WebServer {
 			t.printStackTrace(System.err);
 		}
 
+		// set ui process servlet
+		ServletHolder holder = new ServletHolder(uiProcessServlet);
+		String fullPath = "/" + this.uiProcessPath + "/*";
+
+		this.context.addServlet(holder, fullPath);
+
+		System.out.println("UI Process servlet launched at "
+				+ server.getURI().toString()
+				.substring(0, server.getURI().toString().length() - 1)
+				+ fullPath);
 	}
 
 	public ServletHolder addUIServlet(WebSocketServlet servlet, String subpath) {
