@@ -33,13 +33,10 @@ public interface IUIHandler {
 	 *
 	 * @param process
 	 *            the process id
-	 * @param users
-	 *            the users involved in the process
 	 * @param dispatcher
 	 *            the process dispatcher
 	 */
-	public void addProcess(String process, Collection<String> users,
-			IProcessDispatcher dispatcher);
+	public void addProcess(String process, IProcessDispatcher dispatcher);
 
 	/**
 	 * Send a task to a set of users
@@ -55,11 +52,10 @@ public interface IUIHandler {
 			Collection<String> users);
 
 	/**
-	 * Signal the end of a process to a group of users
+	 * Signal the end of a process to concerned users
 	 *
 	 * @param processId
-	 * @param users
 	 */
-	public void signalProcessEnd(String processId, Collection<String> users);
+	public void signalProcessEnd(String processId);
 
 }

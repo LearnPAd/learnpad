@@ -49,7 +49,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#addUser(java.lang.String)
 	 */
 	public void addUser(String userId) {
@@ -60,7 +60,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#removeUser(java.lang.String)
 	 */
 	public void removeUser(String userId) {
@@ -71,19 +71,18 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#addProcess(java.lang.String,
 	 * Collection<String>, ProcessDispatcher)
 	 */
-	public void addProcess(String process, Collection<String> users,
-			IProcessDispatcher dispatcher) {
+	public void addProcess(String process, IProcessDispatcher dispatcher) {
 		// TODO handle multiple simultaneous processes
 		processDispatcher = dispatcher;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#sendTask(java.lang.String, java.util.Set)
 	 */
 	public void sendTask(String taskId, String taskDescr,
@@ -100,14 +99,14 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#signalProcessEnd(java.lang.String,
 	 * java.util.Set)
 	 */
-	public void signalProcessEnd(String processId, Collection<String> users) {
-		for (String user : users) {
+	public void signalProcessEnd(String processId) {
+		for (UIServlet user : usersMap.values()) {
 			// TODO allow several processes and check if process Id is correct
-			usersMap.get(user).completeProcess();
+			user.completeProcess();
 		}
 
 	}

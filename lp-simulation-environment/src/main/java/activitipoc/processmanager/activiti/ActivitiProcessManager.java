@@ -98,13 +98,13 @@ public class ActivitiProcessManager implements IProcessManager {
 	 */
 	public String startProjectInstance(String projectDefinitionId,
 			Map<String, Object> parameters, ITaskRouter router,
-			List<String> users, IUIHandler uiHandler) {
+			IUIHandler uiHandler) {
 
 		ProcessInstance process = runtimeService.startProcessInstanceById(
 				projectDefinitionId, parameters);
 
 		new ActivitiProcessDispatcher(process, taskService, runtimeService,
-				router, users, uiHandler);
+				router, uiHandler);
 
 		return process.getId();
 	}

@@ -26,12 +26,11 @@ import activitipoc.IUIHandler;
  *
  */
 public class ActivitiProcessDispatcher implements IProcessDispatcher,
-		ActivitiEventListener {
+ActivitiEventListener {
 
 	private final ProcessInstance process;
 	private final TaskService taskService;
 	private final ITaskRouter router;
-	private final List<String> users;
 	private final RuntimeService runtimeService;
 
 	private final IUIHandler uiHandler;
@@ -70,16 +69,15 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 	 */
 	public ActivitiProcessDispatcher(ProcessInstance process,
 			TaskService taskService, RuntimeService runtimeService,
-			ITaskRouter router, List<String> users, IUIHandler uiHandler) {
+			ITaskRouter router, IUIHandler uiHandler) {
 		super();
 		this.process = process;
 		this.taskService = taskService;
 		this.router = router;
-		this.users = users;
 		this.runtimeService = runtimeService;
 		this.uiHandler = uiHandler;
 
-		uiHandler.addProcess(process.getId(), users, this);
+		uiHandler.addProcess(process.getId(), this);
 
 		List<Task> tasks = taskService.createTaskQuery()
 				.processInstanceId(process.getId()).list();
@@ -109,7 +107,7 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 	private void completeProcess() {
 
 		// signal process end to users
-		uiHandler.signalProcessEnd(process.getId(), users);
+		uiHandler.signalProcessEnd(process.getId());
 
 		// unsubscribe to events
 		runtimeService.removeEventListener(this);
@@ -148,7 +146,7 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#onEvent(org.
 	 * activiti.engine.delegate.event.ActivitiEvent)
@@ -164,7 +162,7 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#isFailOnException
 	 * ()

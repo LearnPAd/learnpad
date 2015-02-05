@@ -1,7 +1,6 @@
 package activitipoc;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,7 +27,7 @@ public interface IProcessManager {
 	public Collection<String> getAvailableProcessDefintion();
 
 	/**
-	 * 
+	 *
 	 * @param processDefinitionId
 	 * @return the description of the process
 	 */
@@ -50,7 +49,7 @@ public interface IProcessManager {
 	 */
 	public String startProjectInstance(String projectDefinitionId,
 			Map<String, Object> parameters, ITaskRouter router,
-			List<String> users, IUIHandler uiHandler);
+			IUIHandler uiHandler);
 
 	/**
 	 *
