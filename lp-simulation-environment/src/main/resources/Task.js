@@ -1,21 +1,22 @@
 function Task(address, taskid) {
     var closeOnError = false;
+    var ws;
 
     Task.prototype.join = function() {
 	var location = "ws://" + address + "/tasks/" + taskid
-	activeTasks[taskid]._ws = new WebSocket(location);
-	activeTasks[taskid]._ws.onopen = this._onopen;
-	activeTasks[taskid]._ws.onmessage = this._onmessage;
-	activeTasks[taskid]._ws.onclose = this._onclose;
-	activeTasks[taskid]._ws.onerror = this._onerror;
+	ws = new WebSocket(location);
+	ws.onopen = this._onopen;
+	ws.onmessage = this._onmessage;
+	ws.onclose = this._onclose;
+	ws.onerror = this._onerror;
     }
 
     Task.prototype.end = function() {
-	activeTasks[taskid]._onclose('');
+	ws.onclose('');
     }
 
     Task.prototype.send = function(data) {
-	activeTasks[taskid]._ws.send(data);
+	ws.send(data);
     }
 
     Task.prototype._onopen = function(){
@@ -40,15 +41,13 @@ function Task(address, taskid) {
 	    form: data.form.form,
 	    onSubmit: function (errors, values) {
 		if (!errors) {
-		    activeTasks[taskid].send(JSON.stringify(values));
+		    ws.send(JSON.stringify(values));
 		    return false;
 		}
 	    }});
     }
 
     Task.prototype._onclose = function(m) {
-	activeTasks.splice(activeTasks.indexOf(activeTasks[taskid]), 1);
-
 	$('#taskform' + taskid).remove();
 	$('#taskcontainer' + taskid).addClass('disabled');
 
@@ -62,4 +61,3 @@ function Task(address, taskid) {
     }
 }
 
-var activeTasks = [];

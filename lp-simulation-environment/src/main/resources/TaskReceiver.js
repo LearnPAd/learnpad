@@ -1,6 +1,7 @@
 function TasksReceiver(address) {
 
     var finishOnError = false;
+    var activeTasks = {};
 
     TasksReceiver.prototype.init = function(uiid) {
 
@@ -37,12 +38,13 @@ function TasksReceiver(address) {
 	    case "DELTASK":
 		// may be undefined if task was closed from another ui
 		activeTasks[msg.taskid].end();
+                delete activeTasks[msg.taskid];
 		break;
 	}
     }
 
     TasksReceiver.prototype._onclose = function(m) {
-	taskReceiver._ws = null;
+	delete taskReceiver._ws;
 	if(finishOnError){
 	    alert("The following error occurred: " + m.reason + " (" + m.code +")");
 	}
