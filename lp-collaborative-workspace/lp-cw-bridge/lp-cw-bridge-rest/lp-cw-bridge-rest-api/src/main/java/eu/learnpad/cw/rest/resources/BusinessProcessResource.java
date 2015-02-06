@@ -17,31 +17,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.cw.rest.internal.resources;
+package eu.learnpad.cw.rest.resources;
+
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 
 import org.eclipse.bpmn2.DocumentRoot;
 
 import eu.learnpad.cw.rest.CollaborativeWorkspaceRestException;
-import eu.learnpad.cw.rest.resources.BusinessModelResource;
 
-public class DefaultBusinessModelResource implements BusinessModelResource {
+@Path("/learnpad/{bpid}")
+public interface BusinessProcessResource {
+	@GET
+	DocumentRoot getBusinessProcess(@PathParam("bpid") String bpId)
+			throws CollaborativeWorkspaceRestException;
 
-	@Override
-	public DocumentRoot getBusinessModel(String bpId)
-			throws CollaborativeWorkspaceRestException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	@PUT
+	void putBusinessProcess(@PathParam("bpid") String bpId,
+			DocumentRoot documentRoot) throws CollaborativeWorkspaceRestException;
 
-	@Override
-	public void putBusinessModel(String bpId, DocumentRoot documentRoot)
-			throws CollaborativeWorkspaceRestException {
-		// TODO Auto-generated method stub
-	}
+	@DELETE
+	void deleteBusinessProcess(@PathParam("bpid") String bpId)
+			throws CollaborativeWorkspaceRestException;
 
-	@Override
-	public void deleteBusinessModel(String bpId)
-			throws CollaborativeWorkspaceRestException {
-		// TODO Auto-generated method stub
-	}
 }
