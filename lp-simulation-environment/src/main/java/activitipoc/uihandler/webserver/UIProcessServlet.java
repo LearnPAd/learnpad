@@ -179,21 +179,17 @@ public class UIProcessServlet extends WebSocketServlet {
 			// expect a JSON message in the following format:
 			// {
 			// id: <processDef id>,
-			// parameters: { key1: value1, ...},
+			// parameters: "<>",
 			// routes: { role1: [ user1, ...], ...}
 			// }
 
 			String projectDefinitionId = msg.getString("id");
 
-			Map<String, Object> parameters = new HashMap<String, Object>();
-			Iterator<?> keys = msg.getJSONObject("parameters").keys();
-			while (keys.hasNext()) {
-				String key = keys.next().toString();
-				parameters.put(key, msg.getJSONObject("parameters").get(key));
-			}
+			Map<String, Object> parameters = formHandler.parseResult(msg
+					.getString("parameters"));
 
 			Map<String, Collection<String>> router = new HashMap<String, Collection<String>>();
-			keys = msg.getJSONObject("routes").keys();
+			Iterator<?> keys = msg.getJSONObject("routes").keys();
 			while (keys.hasNext()) {
 				String role = keys.next().toString();
 				JSONArray usersJSON = msg.getJSONObject("routes").getJSONArray(
