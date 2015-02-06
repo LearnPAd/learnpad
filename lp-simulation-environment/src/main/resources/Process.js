@@ -49,21 +49,18 @@ function ProcessReceiver(address) {
             return e.id == processId;
         })[0];
 
-        $('#formPosition').html('');
-        $('#formPosition').html('<form></form>');
-        $('#formPosition > form').jsonForm({
-            schema: process.form.schema,
-            form: process.form.form,
-            onSubmit: function(errors, values) {
-                if (!errors) {
-                    processReceiver.submitProcessData(processId, values);
-                    $('#formPosition').html('');
-                    $('#processInfo').html('Process ' +
-                                           process.name +
-                                           ' instanciated');
-                    return false;
-                }
-            }});
+        processFormGenerate(process,
+                            '#formPosition',
+                            function(values) {
+                                processReceiver.submitProcessData(
+                                    processId,
+                                    values
+                                );
+                                $('#formPosition').html('');
+                                $('#processInfo').html('Process ' +
+                                                       process.name +
+                                                       ' instanciated');
+                            });
     };
 
     ProcessReceiver.prototype.submitProcessData = function(id, values) {
