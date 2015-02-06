@@ -22,16 +22,7 @@ function task(address, taskid) {
     };
 
     newTask._onopen = function() {
-
-        var tasksDiv = $('#tasks');
-
-        var taskDiv = document.createElement('div');
-        taskDiv.id = 'taskcontainer' + taskid;
-        taskDiv.innerHTML = '<p id="taskdata' +
-            taskid + '"></p><form id="taskform' +
-            taskid + '"  class="well"></form><hr>';
-
-        tasksDiv.append(taskDiv);
+        // nothing to do
     };
 
     newTask._onmessage = function(m) {
@@ -39,23 +30,14 @@ function task(address, taskid) {
 
         // yes `this` is the websocket in this context... js FTW!
         var ws = this;
-
-        $('#taskdata' + taskid).html(data.description);
-        $('#taskform' + taskid).jsonForm({
-            schema: data.form.schema,
-            form: data.form.form,
-            onSubmit: function(errors, values) {
-                if (!errors) {
-                    ws.send(JSON.stringify(values));
-                    return false;
-                }
-            }});
+        taskFormGenerate(taskid, data, '#tasks', function(values) {
+            ws.send(JSON.stringify(values));
+        });
     };
 
     newTask._onclose = function(m) {
         $('#taskform' + taskid).remove();
         $('#taskcontainer' + taskid).addClass('disabled');
-
         if (this.closeOnError) {
             alert('The following error occurred: ' +
                   m.reason +
