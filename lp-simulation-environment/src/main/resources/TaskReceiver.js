@@ -30,7 +30,7 @@ function TasksReceiver(address) {
             break;
 
         case 'ADDTASK':
-            var newTask = new Task(address, msg.taskid);
+            var newTask = task(address, msg.taskid);
             activeTasks[msg.taskid] = newTask;
             newTask.join();
             break;

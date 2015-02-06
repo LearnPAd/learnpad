@@ -1,25 +1,27 @@
-function Task(address, taskid) {
-    var closeOnError = false;
-    var ws;
+function task(address, taskid) {
 
-    Task.prototype.join = function() {
+    var newTask = {};
+    newTask.closeOnError = false;
+    newTask.ws = {};
+
+    newTask.join = function() {
         var location = 'ws://' + address + '/tasks/' + taskid
-        ws = new WebSocket(location);
-        ws.onopen = this._onopen;
-        ws.onmessage = this._onmessage;
-        ws.onclose = this._onclose;
-        ws.onerror = this._onerror;
+        this.ws = new WebSocket(location);
+        this.ws.onopen = newTask._onopen;
+        this.ws.onmessage = newTask._onmessage;
+        this.ws.onclose = newTask._onclose;
+        this.ws.onerror = newTask._onerror;
     };
 
-    Task.prototype.end = function() {
-        ws.onclose('');
+    newTask.end = function() {
+        this.ws.onclose('');
     };
 
-    Task.prototype.send = function(data) {
-        ws.send(data);
+    newTask.send = function(data) {
+        this.ws.send(data);
     };
 
-    Task.prototype._onopen = function() {
+    newTask._onopen = function() {
 
         var tasksDiv = $('#tasks');
 
@@ -32,8 +34,11 @@ function Task(address, taskid) {
         tasksDiv.append(taskDiv);
     };
 
-    Task.prototype._onmessage = function(m) {
+    newTask._onmessage = function(m) {
         var data = JSON.parse(m.data);
+
+        // yes `this` is the websocket in this context... js FTW!
+        var ws = this;
 
         $('#taskdata' + taskid).html(data.description);
         $('#taskform' + taskid).jsonForm({
@@ -47,11 +52,11 @@ function Task(address, taskid) {
             }});
     };
 
-    Task.prototype._onclose = function(m) {
+    newTask._onclose = function(m) {
         $('#taskform' + taskid).remove();
         $('#taskcontainer' + taskid).addClass('disabled');
 
-        if (closeOnError) {
+        if (this.closeOnError) {
             alert('The following error occurred: ' +
                   m.reason +
                   ' (' + m.code + ')'
@@ -59,8 +64,10 @@ function Task(address, taskid) {
         }
     };
 
-    Task.prototype._onerror = function(e) {
+    newTask._onerror = function(e) {
         closeOnError = true;
     };
+
+    return newTask;
 }
 
