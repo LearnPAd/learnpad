@@ -39,14 +39,19 @@ public interface IUIHandler {
 	 *
 	 * @param process
 	 *            the process id
+	 * @param users
+	 *            the users concerned by the process
 	 * @param dispatcher
 	 *            the process dispatcher
 	 */
-	public void addProcess(String process, IProcessDispatcher dispatcher);
+	public void addProcess(String process, Collection<String> users,
+			IProcessDispatcher dispatcher);
 
 	/**
 	 * Send a task to a set of users
 	 *
+	 * @param processId
+	 *            the id of the process
 	 * @param taskId
 	 *            the id of the task
 	 * @param taskDescr
@@ -54,7 +59,7 @@ public interface IUIHandler {
 	 * @param users
 	 *            the users concerned by the task
 	 */
-	public void sendTask(String taskId, String taskDescr,
+	public void sendTask(String processId, String taskId, String taskDescr,
 			Collection<String> users);
 
 	/**

@@ -26,6 +26,7 @@ public class TaskServlet extends WebSocketServlet {
 	private static final long serialVersionUID = 1L;
 
 	private final UIHandlerWebImpl uiHandler;
+	private final String processId;
 	private final String taskId;
 	private final String taskDesc;
 	private final IFormHandler formHandler;
@@ -34,10 +35,11 @@ public class TaskServlet extends WebSocketServlet {
 	 * @param dispatcher
 	 * @param task
 	 */
-	public TaskServlet(UIHandlerWebImpl uiHandler, String taskId,
-			String taskDesc, IFormHandler formHandler) {
+	public TaskServlet(UIHandlerWebImpl uiHandler, String processId,
+			String taskId, String taskDesc, IFormHandler formHandler) {
 		super();
 		this.uiHandler = uiHandler;
+		this.processId = processId;
 		this.taskId = taskId;
 		this.taskDesc = taskDesc;
 		this.formHandler = formHandler;
@@ -52,7 +54,7 @@ public class TaskServlet extends WebSocketServlet {
 
 	void completeTask(String data) {
 		System.out.println("completed task " + taskId + " with data " + data);
-		uiHandler.completeTask(taskId, data);
+		uiHandler.completeTask(processId, taskId, data);
 	}
 
 	/**

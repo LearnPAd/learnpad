@@ -46,17 +46,17 @@ public interface IProcessManager {
 	 *            the process definition id of the process to instantiate
 	 * @param parameters
 	 *            the parameter list for the process
+	 * @param users
+	 *            the users involved in the process instance
 	 * @param router
 	 *            a router between process roles and actual users (a role can be
 	 *            associated with several users)
-	 * @param users
-	 *            the users involved in the process instance
 	 * @param uiHandler
 	 *            the UI handler
 	 * @return the ID of the created process instance
 	 */
 	public String startProjectInstance(String projectDefinitionId,
-			Map<String, Object> parameters,
+			Map<String, Object> parameters, Collection<String> users,
 			Map<String, Collection<String>> route, IUIHandler uiHandler);
 
 	/**

@@ -22,7 +22,8 @@ import activitipoc.IUIHandler;
 public class UIHandlerWebImpl implements IUIHandler {
 
 	private final IFormHandler formHandler;
-	private IProcessDispatcher processDispatcher;
+	private final Map<String, IProcessDispatcher> processDispatchers = new HashMap<String, IProcessDispatcher>();
+	private final Map<String, Collection<String>> processToUsers = new HashMap<String, Collection<String>>();
 	private final WebServer webserver;
 	private final Map<String, UIServlet> usersMap;
 	private final Map<String, Collection<String>> tasksToUsers = new HashMap<String, Collection<String>>();
@@ -89,9 +90,10 @@ public class UIHandlerWebImpl implements IUIHandler {
 	 * @see activitipoc.IUIHandler#addProcess(java.lang.String,
 	 * Collection<String>, ProcessDispatcher)
 	 */
-	public void addProcess(String process, IProcessDispatcher dispatcher) {
-		// TODO handle multiple simultaneous processes
-		processDispatcher = dispatcher;
+	public void addProcess(String process, Collection<String> users,
+			IProcessDispatcher dispatcher) {
+		processDispatchers.put(process, dispatcher);
+		processToUsers.put(process, users);
 	}
 
 	/*
@@ -99,16 +101,19 @@ public class UIHandlerWebImpl implements IUIHandler {
 	 * 
 	 * @see activitipoc.IUIHandler#sendTask(java.lang.String, java.util.Set)
 	 */
-	public void sendTask(String taskId, String taskDescr,
+	public void sendTask(String processId, String taskId, String taskDescr,
 			Collection<String> users) {
 
+		tasksMap.put(taskId, webserver.addTaskServlet(new TaskServlet(this,
+				processId, taskId, taskDescr, formHandler), taskId));
+		tasksToUsers.put(taskId, users);
+
+		// note: it is important to signal new tasks to users *after* having
+		// created the corresponding servlet otherwise the user may try to
+		// connect to the task before it is available
 		for (String user : users) {
 			usersMap.get(user).addTask(taskId);
 		}
-
-		tasksMap.put(taskId, webserver.addTaskServlet(new TaskServlet(this,
-				taskId, taskDescr, formHandler), taskId));
-		tasksToUsers.put(taskId, users);
 	}
 
 	/*
@@ -118,14 +123,15 @@ public class UIHandlerWebImpl implements IUIHandler {
 	 * java.util.Set)
 	 */
 	public void signalProcessEnd(String processId) {
-		for (UIServlet user : usersMap.values()) {
-			// TODO allow several processes and check if process Id is correct
-			user.completeProcess();
+		for (String userId : processToUsers.get(processId)) {
+			usersMap.get(userId).completeProcess(processId);
 		}
+		processDispatchers.remove(processId);
+		processToUsers.remove(processId);
 
 	}
 
-	public void completeTask(String taskId, String data) {
+	public void completeTask(String processId, String taskId, String data) {
 
 		// signal task completion to users
 		for (String userId : tasksToUsers.get(taskId)) {
@@ -139,7 +145,9 @@ public class UIHandlerWebImpl implements IUIHandler {
 		tasksMap.remove(taskId);
 
 		// signal task completion to dispatcher
-		processDispatcher.completeTask(taskId, formHandler.parseResult(data));
+		processDispatchers.get(processId).completeTask(taskId,
+				formHandler.parseResult(data));
+
 	}
 
 }

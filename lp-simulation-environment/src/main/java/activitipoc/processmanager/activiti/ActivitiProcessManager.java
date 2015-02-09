@@ -16,6 +16,7 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 
+import activitipoc.IProcessDispatcher;
 import activitipoc.IProcessManager;
 import activitipoc.IUIHandler;
 import activitipoc.processdispatcher.activiti.ActivitiProcessDispatcher;
@@ -121,14 +122,17 @@ public class ActivitiProcessManager implements IProcessManager {
 	 * java.util.Map, activitipoc.ITaskRouter)
 	 */
 	public String startProjectInstance(String projectDefinitionId,
-			Map<String, Object> parameters,
+			Map<String, Object> parameters, Collection<String> users,
 			Map<String, Collection<String>> router, IUIHandler uiHandler) {
 
 		ProcessInstance process = runtimeService.startProcessInstanceById(
 				projectDefinitionId, parameters);
 
-		new ActivitiProcessDispatcher(process, taskService, runtimeService,
-				new ActivitiTaskRouter(taskService, router), uiHandler);
+		IProcessDispatcher dispatcher = new ActivitiProcessDispatcher(process,
+				taskService, runtimeService, new ActivitiTaskRouter(
+						taskService, router), uiHandler);
+
+		uiHandler.addProcess(process.getId(), users, dispatcher);
 
 		return process.getId();
 	}

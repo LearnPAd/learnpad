@@ -53,7 +53,7 @@ public class UIServlet extends WebSocketServlet {
 				System.out.println("sending task " + taskid + " to " + sock);
 				sock.getRemote().sendString(
 						"{\"type\": \"ADDTASK\", \"taskid\":\"" + taskid
-								+ "\"}");
+						+ "\"}");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -88,10 +88,12 @@ public class UIServlet extends WebSocketServlet {
 		}
 	}
 
-	public void completeProcess() {
+	public void completeProcess(String processId) {
 		for (UISocket session : activeSockets) {
 			try {
-				session.getRemote().sendString("{\"type\": \"FINISHED\"}");
+				session.getRemote().sendString(
+						"{\"type\": \"FINISHED\", \"processid\": \""
+								+ processId + "\" }");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

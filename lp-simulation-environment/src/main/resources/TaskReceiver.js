@@ -15,10 +15,6 @@ function TasksReceiver(address) {
         taskReceiver._ws.onerror = this._onerror;
     };
 
-    TasksReceiver.prototype.finish = function() {
-        $('#finished').removeClass('hidden');
-    };
-
     TasksReceiver.prototype._onopen = function() {
         $('#connect').remove();
     };
@@ -28,7 +24,11 @@ function TasksReceiver(address) {
         switch (msg.type) {
 
         case 'FINISHED':
-            taskReceiver.finish();
+            var tasksDiv = $('#tasks');
+            var processFinished = document.createElement('p');
+            processFinished.innerHTML = '<p>Process ' +
+                msg.processid + ' finished.</p><hr>'
+            tasksDiv.append(processFinished);
             break;
 
         case 'ADDTASK':

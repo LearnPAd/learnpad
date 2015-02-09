@@ -26,7 +26,7 @@ import activitipoc.IUIHandler;
  *
  */
 public class ActivitiProcessDispatcher implements IProcessDispatcher,
-ActivitiEventListener {
+		ActivitiEventListener {
 
 	private final ProcessInstance process;
 	private final TaskService taskService;
@@ -77,8 +77,6 @@ ActivitiEventListener {
 		this.runtimeService = runtimeService;
 		this.uiHandler = uiHandler;
 
-		uiHandler.addProcess(process.getId(), this);
-
 		List<Task> tasks = taskService.createTaskQuery()
 				.processInstanceId(process.getId()).list();
 
@@ -98,8 +96,8 @@ ActivitiEventListener {
 	private void processNewTasks(List<Task> tasks) {
 		for (Task task : tasks) {
 			registeredWaitingTasks.add(task.getId());
-			uiHandler.sendTask(task.getId(), task.getDescription(),
-					router.route(task));
+			uiHandler.sendTask(task.getProcessInstanceId(), task.getId(),
+					task.getDescription(), router.route(task));
 		}
 
 	}
@@ -146,7 +144,7 @@ ActivitiEventListener {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#onEvent(org.
 	 * activiti.engine.delegate.event.ActivitiEvent)
@@ -162,7 +160,7 @@ ActivitiEventListener {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#isFailOnException
 	 * ()

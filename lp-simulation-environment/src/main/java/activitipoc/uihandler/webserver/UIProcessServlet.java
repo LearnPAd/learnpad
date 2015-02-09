@@ -82,7 +82,7 @@ public class UIProcessServlet extends WebSocketServlet {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
 		 * org.eclipse.jetty.websocket.servlet.WebSocketCreator#createWebSocket
 		 * (org.eclipse.jetty.websocket.servlet.ServletUpgradeRequest,
@@ -142,7 +142,7 @@ public class UIProcessServlet extends WebSocketServlet {
 						+ processManager.getProcessDefinitionName(processDefId)
 						+ "\", \"description\": \""
 						+ processManager
-								.getProcessDefinitionDescription(processDefId)
+						.getProcessDefinitionDescription(processDefId)
 						+ "\", \"form\": "
 						+ formHandler.createStartingFormString(processDefId)
 						+ "},";
@@ -188,7 +188,9 @@ public class UIProcessServlet extends WebSocketServlet {
 			Map<String, Object> parameters = formHandler.parseResult(msg
 					.getString("parameters"));
 
+			Set<String> involvedUsers = new HashSet<String>();
 			Map<String, Collection<String>> router = new HashMap<String, Collection<String>>();
+
 			Iterator<?> keys = msg.getJSONObject("routes").keys();
 			while (keys.hasNext()) {
 				String role = keys.next().toString();
@@ -199,10 +201,13 @@ public class UIProcessServlet extends WebSocketServlet {
 					users.add(usersJSON.getString(i));
 				}
 				router.put(role, users);
+
+				// add these users to list of concerned users
+				involvedUsers.addAll(users);
 			}
 
 			processManager.startProjectInstance(projectDefinitionId,
-					parameters, router, uiHandler);
+					parameters, involvedUsers, router, uiHandler);
 		}
 
 		@Override
