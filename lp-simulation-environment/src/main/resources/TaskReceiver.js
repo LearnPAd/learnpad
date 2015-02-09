@@ -1,3 +1,5 @@
+'use strict';
+
 function TasksReceiver(address) {
 
     var finishOnError = false;

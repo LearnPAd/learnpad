@@ -1,3 +1,5 @@
+'use strict';
+
 function processFormGenerate(process, formElement, callback) {
     $(formElement).html('');
     $(formElement).html('<form></form>');

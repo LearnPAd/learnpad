@@ -79,10 +79,10 @@
 	<script type="text/javascript" src="resources/Process.js"></script>
 
 	<script type="text/javascript">
+         'use strict';
 	 if (!window.WebSocket){
 	     alert("WebSocket not supported by this browser");
 	 }
-
 	 var processReceiver = new ProcessReceiver(#serveripaddress#);
 	 processReceiver.init();
 	</script>

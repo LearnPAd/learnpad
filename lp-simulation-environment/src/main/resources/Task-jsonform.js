@@ -1,3 +1,5 @@
+'use strict';
+
 function taskFormGenerate(taskid, data, formElement, callback) {
     var tasksDiv = $(formElement);
     var taskDiv = document.createElement('div');
