@@ -29,6 +29,10 @@ function ProcessReceiver(address) {
     };
 
     ProcessReceiver.prototype._onclose = function(m) {
+        $('#formPosition').html('');
+        $('#processTable').html('');
+        $('#processInfo').html('Lost connection with server');
+
         processReceiver._ws = null;
         if (processFinishOnError) {
             alert('The following error occurred: ' +

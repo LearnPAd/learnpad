@@ -46,6 +46,10 @@ function TasksReceiver(address) {
     };
 
     TasksReceiver.prototype._onclose = function(m) {
+        Object.keys(activeTasks).forEach(function(taskid) {
+            activeTasks[taskid].end();
+            delete activeTasks[taskid];
+        });
         delete taskReceiver._ws;
         if (finishOnError) {
             alert(
