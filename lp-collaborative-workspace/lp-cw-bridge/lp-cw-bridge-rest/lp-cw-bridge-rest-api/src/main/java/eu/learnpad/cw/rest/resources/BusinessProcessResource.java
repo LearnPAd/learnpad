@@ -19,11 +19,13 @@
  */
 package eu.learnpad.cw.rest.resources;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 
 import org.eclipse.bpmn2.DocumentRoot;
 
@@ -37,7 +39,8 @@ public interface BusinessProcessResource {
 
 	@PUT
 	void putBusinessProcess(@PathParam("bpid") String bpId,
-			DocumentRoot documentRoot) throws CollaborativeWorkspaceRestException;
+			DocumentRoot documentRoot)
+			throws CollaborativeWorkspaceRestException;
 
 	@DELETE
 	void deleteBusinessProcess(@PathParam("bpid") String bpId)

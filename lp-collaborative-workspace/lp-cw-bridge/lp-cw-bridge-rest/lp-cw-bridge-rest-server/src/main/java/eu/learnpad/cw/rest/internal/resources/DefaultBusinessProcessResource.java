@@ -21,17 +21,19 @@ package eu.learnpad.cw.rest.internal.resources;
 
 import org.eclipse.bpmn2.DocumentRoot;
 import org.xwiki.component.annotation.Component;
+import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.cw.rest.CollaborativeWorkspaceRestException;
 import eu.learnpad.cw.rest.resources.BusinessProcessResource;
 
 @Component("eu.learnpad.cw.rest.internal.resources.DefaultBusinessProcessResource")
-public class DefaultBusinessProcessResource implements BusinessProcessResource {
+public class DefaultBusinessProcessResource implements XWikiRestComponent,
+		BusinessProcessResource {
 
 	@Override
 	public DocumentRoot getBusinessProcess(String bpId)
 			throws CollaborativeWorkspaceRestException {
-		// TODO Auto-generated method stub
+		System.out.println("[INFO] getBusinessProcess");
 		return null;
 	}
 
@@ -44,6 +46,6 @@ public class DefaultBusinessProcessResource implements BusinessProcessResource {
 	@Override
 	public void deleteBusinessProcess(String bpId)
 			throws CollaborativeWorkspaceRestException {
-		// TODO Auto-generated method stub
+		System.out.println("[INFO] deleteBusinessProcess");
 	}
 }
