@@ -19,6 +19,8 @@
  */
 package eu.learnpad.cw.rest.internal.resources;
 
+import javax.ws.rs.Produces;
+
 import org.eclipse.bpmn2.DocumentRoot;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;

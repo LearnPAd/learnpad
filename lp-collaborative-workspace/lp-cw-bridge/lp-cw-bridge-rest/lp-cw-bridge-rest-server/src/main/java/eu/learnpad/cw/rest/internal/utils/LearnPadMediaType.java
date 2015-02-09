@@ -17,31 +17,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.cw.rest.resources;
+package eu.learnpad.cw.rest.internal.utils;
 
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.core.MediaType;
 
-import org.eclipse.bpmn2.DocumentRoot;
-
-import eu.learnpad.cw.rest.CollaborativeWorkspaceRestException;
-
-@Path("/learnpad/{bpid}")
-public interface BusinessProcessResource {
-	@GET
-	DocumentRoot getBusinessProcess(@PathParam("bpid") String bpId)
-			throws CollaborativeWorkspaceRestException;
-
-	@PUT
-	void putBusinessProcess(@PathParam("bpid") String bpId,
-			DocumentRoot documentRoot)
-			throws CollaborativeWorkspaceRestException;
-
-	@DELETE
-	void deleteBusinessProcess(@PathParam("bpid") String bpId)
-			throws CollaborativeWorkspaceRestException;
-
+public class LearnPadMediaType extends MediaType {
+    /** "application/vnd.learnpad.bpmn" */
+    public final static String APPLICATION_VND_LEARNPAD_BPMN = "application/vnd.learnpad.bpmn";
+    /** "application/vnd.learnpad.bpmn" */
+    public final static MediaType APPLICATION_VND_LEARNPAD_BPMN_TYPE = new MediaType("application","vnd.learnpad.bpmn");
 }
