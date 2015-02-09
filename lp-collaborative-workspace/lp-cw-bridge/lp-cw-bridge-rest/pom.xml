@@ -40,7 +40,6 @@
 
 	<modules>
 		<module>lp-cw-bridge-rest-api</module>
-		<module>lp-cw-bridge-rest-model</module>
 		<module>lp-cw-bridge-rest-server</module>
 	</modules>
 </project>
