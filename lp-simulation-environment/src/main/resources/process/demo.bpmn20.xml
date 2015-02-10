@@ -26,7 +26,7 @@
       </documentation>
       <extensionElements>
 	<activiti:formProperty id="integrationApproved" name="Have the integration receipt been validated by competent offices?" type="enum" required="true">
-	  <activiti:value id="true" name="Validated" />
+	  <activiti:value id="true" name="Approved" />
 	  <activiti:value id="false" name="Rejected" />
 	</activiti:formProperty>
       </extensionElements>
@@ -58,14 +58,32 @@
     <sequenceFlow id="flow5" sourceRef="doChecks" targetRef="processIntegration-join"/>
 
     <parallelGateway id="processIntegration-join"/>
-    <sequenceFlow id="flow6" sourceRef="processIntegration-join" targetRef="integrationValidated"/>
-    <exclusiveGateway id="integrationValidated" name="Request approved?" />
+    <sequenceFlow id="flow6" sourceRef="processIntegration-join" targetRef="validateIntegration"/>
 
-    <sequenceFlow id="flow7" sourceRef="integrationValidated" targetRef="sendAuthorizationDocuments">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${integrationApproved == 'true' && integrationChecked == 'true'}]]></conditionExpression>
+    <userTask id="validateIntegration" name="Decide whether the integration is valid or not">
+      <documentation>
+        Here are the results for the integration documents of ${entrepreneur}.
+        Integration approved : ${integrationApproved}
+        Integration checked : ${integrationChecked}
+      </documentation>
+      <extensionElements>
+		<activiti:formProperty id="integrationValidated" name="Do you validate the integration?"  type="enum" required="true">
+	  <activiti:value id="true" name="Validate" />
+	  <activiti:value id="false" name="Reject" />
+	</activiti:formProperty>
+      </extensionElements>
+      <potentialOwner>
+	<resourceAssignmentExpression>
+	  <formalExpression>SUAP</formalExpression>
+	</resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <sequenceFlow id="flow7" sourceRef="validateIntegration" targetRef="sendAuthorizationDocuments">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${integrationValidated == 'true'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow8" sourceRef="integrationValidated" targetRef="sendInhibition">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${integrationApproved == 'false' || integrationChecked == 'false'}]]></conditionExpression>
+    <sequenceFlow id="flow8" sourceRef="validateIntegration" targetRef="sendInhibition">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${integrationValidated == 'false'}]]></conditionExpression>
     </sequenceFlow>
 
     <userTask id="sendAuthorizationDocuments" name="Send Authorization Documents">
@@ -88,8 +106,6 @@
     <userTask id="sendInhibition" name="Send Inhibition">
       <documentation>
         The integration documents for ${entrepreneur} have been invalidated.
-        Integration approved : ${integrationApproved}
-        Integration checked : ${integrationChecked}
       </documentation>
       <extensionElements>
 	<activiti:formProperty id="inhibitionReason" name="Inhibition Reason" type="string" required="true"/>
