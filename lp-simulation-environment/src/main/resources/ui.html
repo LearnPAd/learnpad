@@ -1,120 +1,120 @@
 <html>
     <head>
-	<title>LearnPAd WebUI</title>
+        <title>LearnPAd WebUI</title>
 
-	<style>
-	 @import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css");
-	 @import url("resources/deps/opt/spectrum.css");
-	 @import url("resources/deps/opt/jquery.ui.custom.css");
-	 @import url("resources/deps/opt/jquery.ui.theme.css");
-	 @import url("resources/deps/opt/bootstrap-tagsinput.css");
+        <style>
+         @import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css");
+         @import url("resources/deps/opt/spectrum.css");
+         @import url("resources/deps/opt/jquery.ui.custom.css");
+         @import url("resources/deps/opt/jquery.ui.theme.css");
+         @import url("resources/deps/opt/bootstrap-tagsinput.css");
 
-	 #form select { width: auto; }
-	 #form .add-on {
-	     border: none;
-	     background-color: inherit;
-	 }
+         #form select { width: auto; }
+         #form .add-on {
+             border: none;
+             background-color: inherit;
+         }
 
-	 .expandable > legend:before {
-	     content: '\25B8';
-	     padding-right: 5px;
-	 }
-	 .expanded > legend:before {
-	     content: '\25BE';
-	 }
+         .expandable > legend:before {
+             content: '\25B8';
+             padding-right: 5px;
+         }
+         .expanded > legend:before {
+             content: '\25BE';
+         }
 
-	 ._jsonform-array-buttons {
-	     margin-left: 25px;
-	 }
+         ._jsonform-array-buttons {
+             margin-left: 25px;
+         }
 
-	 .jsonform-required > label:after {
-	     content: ' *';
-	     color: red;
-	 }
+         .jsonform-required > label:after {
+             content: ' *';
+             color: red;
+         }
 
-	 form.jsonform-hasrequired:after {
-	     content: '* Required field';
-	     display: block;
-	     color: red;
-	     padding-top: 1em;
-	 }
-	 .inline-other-field > .other-field-content,
-	 .inline-other-field > label > .other-field-content {
-	     display: inline-block;
-	     margin: 0;
-	 }
-	 .inline-other-field > input[type=checkbox],
-	 .inline-other-field > label > input[type=checkbox] {
-	     margin-top: 8px;
-	 }
-	 .other-field-content > .control-group,
-	 .other-field-content > .control-group > .controls > input[type=text] {
-	     margin: 0;
-	 }
+         form.jsonform-hasrequired:after {
+             content: '* Required field';
+             display: block;
+             color: red;
+             padding-top: 1em;
+         }
+         .inline-other-field > .other-field-content,
+         .inline-other-field > label > .other-field-content {
+             display: inline-block;
+             margin: 0;
+         }
+         .inline-other-field > input[type=checkbox],
+         .inline-other-field > label > input[type=checkbox] {
+             margin-top: 8px;
+         }
+         .other-field-content > .control-group,
+         .other-field-content > .control-group > .controls > input[type=text] {
+             margin: 0;
+         }
 
-	 .hidden {
-	     display: none;
-	 }
-	 .disabled {
-	     opacity: 0.5;
-	 }
+         .hidden {
+             display: none;
+         }
+         .disabled {
+             opacity: 0.5;
+         }
 
-	</style>
+        </style>
 
     </head>
     <body>
 
-      <div class="container">
+        <div class="container">
 
-	<form id="connect" class="form-inline">
-	  <div class="form-group">
-	    <label for="uiid">UI Id:&nbsp;</label>
-	    <input id="uiid" type="text" class="form-control"/>
-	    <button id="connectBn"
-		    type="submit" class="btn btn-default">connect</button>
-	  </div>
-	</form>
+            <form id="connect" class="form-inline">
+	        <div class="form-group">
+	            <label for="uiid">UI Id:&nbsp;</label>
+	            <input id="uiid" type="text" class="form-control"/>
+	            <button id="connectBn"
+		            type="submit" class="btn btn-default">connect</button>
+	        </div>
+            </form>
 
-        <ul id="taskstable" class="nav nav-tabs" role="tablist">
-        </ul>
+            <ul id="taskstable" class="nav nav-tabs" role="tablist">
+            </ul>
 
-        <div id="tasks" class="content tab-content">
+            <div id="tasks" class="content tab-content">
+            </div>
+
         </div>
 
-      </div>
+        <script type="text/javascript" src="resources/deps/jquery.min.js"></script>
+        <script type="text/javascript" src="resources/deps/underscore.js"></script>
+        <script type="text/javascript" src="resources/deps/tab.js"></script>
+        <script type="text/javascript" src="resources/deps/opt/ZSchema-browser.js"></script>
+        <script type="text/javascript" src="resources/deps/opt/jquery.ui.custom.js"></script>
+        <script type="text/javascript" src="resources/deps/opt/bootstrap-dropdown.js"></script>
+        <script type="text/javascript" src="resources/deps/opt/bootstrap-typeahead.js"></script>
+        <script type="text/javascript" src="resources/deps/opt/bootstrap-tagsinput.min.js"></script>
+        <script type="text/javascript" src="resources/deps/opt/spectrum.js"></script>
 
-      <script type="text/javascript" src="resources/deps/jquery.min.js"></script>
-      <script type="text/javascript" src="resources/deps/underscore.js"></script>
-      <script type="text/javascript" src="resources/deps/tab.js"></script>
-      <script type="text/javascript" src="resources/deps/opt/ZSchema-browser.js"></script>
-      <script type="text/javascript" src="resources/deps/opt/jquery.ui.custom.js"></script>
-      <script type="text/javascript" src="resources/deps/opt/bootstrap-dropdown.js"></script>
-      <script type="text/javascript" src="resources/deps/opt/bootstrap-typeahead.js"></script>
-      <script type="text/javascript" src="resources/deps/opt/bootstrap-tagsinput.min.js"></script>
-      <script type="text/javascript" src="resources/deps/opt/spectrum.js"></script>
+        <script type="text/javascript" src="resources/lib/jsonform.js"></script>
 
-      <script type="text/javascript" src="resources/lib/jsonform.js"></script>
+        <script type="text/javascript" src="resources/Task-jsonform.js"></script>
+        <script type="text/javascript" src="resources/Task.js"></script>
+        <script type="text/javascript" src="resources/TaskReceiver.js"></script>
 
-      <script type="text/javascript" src="resources/Task-jsonform.js"></script>
-      <script type="text/javascript" src="resources/Task.js"></script>
-      <script type="text/javascript" src="resources/TaskReceiver.js"></script>
-
-      <script type="text/javascript">
-        'use strict';
-	if (!window.WebSocket){
-	alert("WebSocket not supported by this browser");
-	}
-	var taskReceiver = new TasksReceiver(#serveripaddress#);
-      </script>
+        <script type="text/javascript">
+         'use strict';
+         if (!window.WebSocket){
+             alert("WebSocket not supported by this browser");
+         }
+         var taskReceiver = new TasksReceiver(#serveripaddress#);
+        </script>
 
 
-      <script type="text/javascript">
-        'use strict';
-	$('#connectBn').click(function(event) {
-	taskReceiver.init($('#uiid').val());
-	return false;
-	});
-      </script>
+        <script type="text/javascript">
+         'use strict';
+         $('#connectBn').click(function(event) {
+             taskReceiver.init($('#uiid').val());
+             return false;
+         });
+        </script>
 
     </body>
 </html>
