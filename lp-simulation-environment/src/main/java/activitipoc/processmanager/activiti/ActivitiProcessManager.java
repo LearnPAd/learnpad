@@ -18,9 +18,11 @@ import org.activiti.engine.runtime.ProcessInstance;
 
 import activitipoc.IProcessDispatcher;
 import activitipoc.IProcessManager;
+import activitipoc.ITaskValidator;
 import activitipoc.IUIHandler;
 import activitipoc.processdispatcher.activiti.ActivitiProcessDispatcher;
 import activitipoc.taskrouter.activiti.ActivitiTaskRouter;
+import activitipoc.taskvalidator.activiti.ActivitiDemoTaskValidator;
 
 /**
  *
@@ -34,15 +36,19 @@ public class ActivitiProcessManager implements IProcessManager {
 	private final RuntimeService runtimeService;
 	private final TaskService taskService;
 
+	private final ITaskValidator<String, Map<String, Object>> taskValidator;
+
 	public ActivitiProcessManager(ProcessEngine processEngine) {
 		repositoryService = processEngine.getRepositoryService();
 		runtimeService = processEngine.getRuntimeService();
 		taskService = processEngine.getTaskService();
+
+		taskValidator = new ActivitiDemoTaskValidator(taskService);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IProcessManager#addProjectDefininition(java.lang.String)
 	 */
 	public Collection<String> addProjectDefinitions(String resource) {
@@ -62,7 +68,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IProcessManager#getAvailableProcessDefintion()
 	 */
 	public Collection<String> getAvailableProcessDefintion() {
@@ -80,7 +86,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * activitipoc.IProcessManager#getProcessDefinitionName(java.lang.String)
 	 */
@@ -98,7 +104,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * activitipoc.IProcessManager#getProcessDefinitionDescription(java.lang
 	 * .String)
@@ -117,7 +123,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IProcessManager#startProjectInstance(java.lang.String,
 	 * java.util.Map, activitipoc.ITaskRouter)
 	 */
@@ -130,7 +136,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 		IProcessDispatcher dispatcher = new ActivitiProcessDispatcher(process,
 				taskService, runtimeService, new ActivitiTaskRouter(
-						taskService, router), uiHandler);
+						taskService, router), taskValidator, uiHandler);
 
 		uiHandler.addProcess(process.getId(), users, dispatcher);
 
@@ -139,7 +145,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IProcessManager#getCurrentProcessInstances()
 	 */
 	public Collection<String> getCurrentProcessInstances() {

@@ -20,12 +20,14 @@ import java.util.Map;
 public interface IProcessDispatcher {
 
 	/**
-	 * Signal the completion of a given task, along with the corresponding data
+	 * Signal the completion of a given task, along with the corresponding
+	 * proposed data
 	 *
 	 * @param taskId
 	 *            the id of the completed task
 	 * @param data
 	 *            the data corresponding to the task completion
+	 * @return true if the task result is validated, false otherwise
 	 */
-	public void completeTask(String taskId, Map<String, Object> data);
+	public boolean submitTaskCompletion(String taskId, Map<String, Object> data);
 }

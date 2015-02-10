@@ -1,17 +1,10 @@
 'use strict';
 
-function taskFormGenerate(taskid, data, formElement, callback) {
-    var tasksDiv = $(formElement);
-    var taskDiv = document.createElement('div');
-    taskDiv.id = 'taskcontainer' + taskid;
-    taskDiv.innerHTML = '<p id="taskdata' +
-        taskid + '"></p><form id="taskform' +
-        taskid + '"  class="well"></form><hr>';
+function taskFormGenerate(taskid, data, formContainer, formId, callback) {
+    $('#' + formContainer).html('<form id="' +
+                        formId + '"  class="well"></form>');
 
-    tasksDiv.append(taskDiv);
-
-    $('#taskdata' + taskid).html(data.description);
-    $('#taskform' + taskid).jsonForm({
+    $('#' + formId).jsonForm({
         schema: data.form.schema,
         form: data.form.form,
         onSubmit: function(errors, values) {

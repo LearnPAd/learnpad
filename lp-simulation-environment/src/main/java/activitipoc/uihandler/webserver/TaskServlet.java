@@ -4,6 +4,8 @@
 package activitipoc.uihandler.webserver;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
@@ -31,6 +33,8 @@ public class TaskServlet extends WebSocketServlet {
 	private final String taskDesc;
 	private final IFormHandler formHandler;
 
+	private final Set<TaskSocket> activeSockets = new HashSet<TaskSocket>();
+
 	/**
 	 * @param dispatcher
 	 * @param task
@@ -57,6 +61,38 @@ public class TaskServlet extends WebSocketServlet {
 		uiHandler.completeTask(processId, taskId, data);
 	}
 
+	void validateTask() {
+		synchronized (activeSockets) {
+			for (TaskSocket socket : activeSockets) {
+				try {
+					socket.getRemote()
+							.sendString("{ \"type\": \"VALIDATED\" }");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		System.out.println("task " + taskId + " has been validated");
+	}
+
+	void resubmitTask() {
+		synchronized (activeSockets) {
+			for (TaskSocket socket : activeSockets) {
+				try {
+					socket.getRemote().sendString(
+							"{ \"type\": \"RESUBMIT\", \"description\":\""
+									+ taskDesc.replaceAll("\n", "<p/>")
+									+ "\", \"form\":"
+									+ formHandler.createFormString(taskId)
+									+ "}");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		System.out.println("task " + taskId + " has been resubmitted");
+	}
+
 	/**
 	 * @author jorquera
 	 *
@@ -81,7 +117,7 @@ public class TaskServlet extends WebSocketServlet {
 
 		/*
 		 * (non-Javadoc)
-		 *
+		 * 
 		 * @see
 		 * org.eclipse.jetty.websocket.servlet.WebSocketCreator#createWebSocket
 		 * (org.eclipse.jetty.websocket.servlet.ServletUpgradeRequest,
@@ -120,13 +156,17 @@ public class TaskServlet extends WebSocketServlet {
 			super.onWebSocketConnect(sess);
 			System.out.println("Socket " + taskId + " connected: " + sess);
 
+			synchronized (container.activeSockets) {
+				container.activeSockets.add(this);
+			}
+
 			try {
 				sess.getRemote().sendString(
-						"{\"description\":\""
+						"{ \"type\": \"TASKDESC\", \"description\":\""
 								+ taskDescr.replaceAll("\n", "<p/>")
 								+ "\", \"form\":"
 								+ container.formHandler
-										.createFormString(taskId) + "}");
+								.createFormString(taskId) + "}");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -146,6 +186,9 @@ public class TaskServlet extends WebSocketServlet {
 		@Override
 		public void onWebSocketClose(int statusCode, String reason) {
 			super.onWebSocketClose(statusCode, reason);
+			synchronized (container.activeSockets) {
+				container.activeSockets.remove(this);
+			}
 			System.out.println("Socket " + taskId + " closed: [" + statusCode
 					+ "] " + reason);
 		}

@@ -19,6 +19,7 @@ import org.activiti.engine.task.Task;
 
 import activitipoc.IProcessDispatcher;
 import activitipoc.ITaskRouter;
+import activitipoc.ITaskValidator;
 import activitipoc.IUIHandler;
 
 /**
@@ -32,6 +33,8 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 	private final TaskService taskService;
 	private final ITaskRouter router;
 	private final RuntimeService runtimeService;
+
+	private final ITaskValidator<String, Map<String, Object>> taskValidator;
 
 	private final IUIHandler uiHandler;
 
@@ -69,12 +72,15 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 	 */
 	public ActivitiProcessDispatcher(ProcessInstance process,
 			TaskService taskService, RuntimeService runtimeService,
-			ITaskRouter router, IUIHandler uiHandler) {
+			ITaskRouter router,
+			ITaskValidator<String, Map<String, Object>> taskValidator,
+			IUIHandler uiHandler) {
 		super();
 		this.process = process;
 		this.taskService = taskService;
 		this.router = router;
 		this.runtimeService = runtimeService;
+		this.taskValidator = taskValidator;
 		this.uiHandler = uiHandler;
 
 		List<Task> tasks = taskService.createTaskQuery()
@@ -113,32 +119,42 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 		System.out.println("Process " + process.getId() + " finished");
 	}
 
-	public synchronized void completeTask(String taskId,
+	public synchronized boolean submitTaskCompletion(String taskId,
 			Map<String, Object> data) {
 
-		taskService.complete(taskId, data);
+		if (!taskValidator.taskResultIsValid(process.getId(), taskId,
+				taskService.createTaskQuery().taskId(taskId).singleResult()
+						.getDescription(), data)) {
+			// task result is invalid and must be resubmitted
+			return false;
+		} else {
 
-		registeredWaitingTasks.remove(taskId);
+			taskService.complete(taskId, data);
 
-		// check for newly triggered tasks
-		List<Task> waitingTasks = taskService.createTaskQuery()
-				.processInstanceId(process.getId()).list();
+			registeredWaitingTasks.remove(taskId);
 
-		// ignore already processed tasks
-		List<Task> newTasks = new ArrayList<Task>();
-		for (Task t : waitingTasks) {
-			if (!registeredWaitingTasks.contains(t.getId())) {
-				newTasks.add(t);
+			// check for newly triggered tasks
+			List<Task> waitingTasks = taskService.createTaskQuery()
+					.processInstanceId(process.getId()).list();
+
+			// ignore already processed tasks
+			List<Task> newTasks = new ArrayList<Task>();
+			for (Task t : waitingTasks) {
+				if (!registeredWaitingTasks.contains(t.getId())) {
+					newTasks.add(t);
+				}
 			}
-		}
 
-		if (!newTasks.isEmpty()) {
-			processNewTasks(newTasks);
-		}
+			if (!newTasks.isEmpty()) {
+				processNewTasks(newTasks);
+			}
 
-		// see comment on processFinished declaration
-		if (processFinished) {
-			completeProcess();
+			// see comment on processFinished declaration
+			if (processFinished) {
+				completeProcess();
+			}
+
+			return true;
 		}
 	}
 

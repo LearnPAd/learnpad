@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import javax.servlet.ServletException;
+
 import org.eclipse.jetty.servlet.ServletHolder;
 
 import activitipoc.IFormHandler;
@@ -55,7 +57,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#addUser(java.lang.String)
 	 */
 	public void addUser(String userId) {
@@ -66,7 +68,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#removeUser(java.lang.String)
 	 */
 	public void removeUser(String userId) {
@@ -77,7 +79,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#getUsers()
 	 */
 	public Collection<String> getUsers() {
@@ -86,7 +88,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#addProcess(java.lang.String,
 	 * Collection<String>, ProcessDispatcher)
 	 */
@@ -98,7 +100,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#sendTask(java.lang.String, java.util.Set)
 	 */
 	public void sendTask(String processId, String taskId, String taskDescr,
@@ -118,7 +120,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#signalProcessEnd(java.lang.String,
 	 * java.util.Set)
 	 */
@@ -133,21 +135,36 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	public void completeTask(String processId, String taskId, String data) {
 
-		// signal task completion to users
-		for (String userId : tasksToUsers.get(taskId)) {
-			usersMap.get(userId).removeTask(taskId);
+		// signal task completion to dispatcher and check validation
+		boolean validated = processDispatchers.get(processId)
+				.submitTaskCompletion(taskId, formHandler.parseResult(data));
+
+		if (validated) {
+			// signal task completion to users
+			try {
+				((TaskServlet) tasksMap.get(taskId).getServlet())
+						.validateTask();
+			} catch (ServletException e) {
+				e.printStackTrace();
+			}
+
+			for (String userId : tasksToUsers.get(taskId)) {
+				usersMap.get(userId).removeTask(taskId);
+			}
+
+			// remove task ui from webserver
+			webserver.removeServletHolder(tasksMap.get(taskId));
+
+			tasksToUsers.remove(taskId);
+			tasksMap.remove(taskId);
+		} else {
+			try {
+				((TaskServlet) tasksMap.get(taskId).getServlet())
+						.resubmitTask();
+			} catch (ServletException e) {
+				e.printStackTrace();
+			}
 		}
 
-		// remove task ui from webserver
-		webserver.removeServletHolder(tasksMap.get(taskId));
-
-		tasksToUsers.remove(taskId);
-		tasksMap.remove(taskId);
-
-		// signal task completion to dispatcher
-		processDispatchers.get(processId).completeTask(taskId,
-				formHandler.parseResult(data));
-
 	}
-
 }

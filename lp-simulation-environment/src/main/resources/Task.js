@@ -28,15 +28,67 @@ function task(address, taskid) {
     newTask._onmessage = function(m) {
         var data = JSON.parse(m.data);
 
-        // yes `this` is the websocket in this context... js FTW!
-        var ws = this;
-        taskFormGenerate(taskid, data, '#tasks', function(values) {
-            ws.send(JSON.stringify(values));
-        });
+        switch (data.type) {
+
+        case 'TASKDESC':
+
+            var tasksDiv = $('#tasks');
+            var taskDiv = document.createElement('div');
+            taskDiv.id = 'taskcontainer' + taskid;
+            taskDiv.innerHTML = '<p id="taskdata' + taskid +
+                '"></p><div id="taskFormDiv' + taskid + '"></div><hr>';
+            tasksDiv.append(taskDiv);
+
+            $('#taskdata' + taskid).html(data.description);
+
+            // yes `this` is the websocket in this context... js FTW!
+            var ws = this;
+            taskFormGenerate(
+                taskid,
+                data,
+                'taskFormDiv' + taskid,
+                'taskForm' + taskid,
+                function(values) {
+                    ws.send(JSON.stringify(values));
+                    $('#taskForm' + taskid).html('');
+                }
+            );
+            break;
+
+        case 'VALIDATED':
+            $('#tasknotif' + taskid).remove();
+            taskDiv = $('#taskdata' + taskid).after(
+                '<div id="tasknotif' +
+                    taskid +
+                    '" class="alert alert-success" role="alert">Great, your submission matched an expected answer.</div>'
+            );
+            break;
+
+        case 'RESUBMIT':
+            $('#tasknotif' + taskid).remove();
+            taskDiv = $('#taskdata' + taskid).after(
+                '<div id="tasknotif' +
+                    taskid +
+                    '" class="alert alert-danger" role="alert">Sorry, your submission did not match expected answer(s). Please try again.</div>'
+            );
+
+            var ws = this;
+            taskFormGenerate(
+                taskid,
+                data,
+                'taskFormDiv' + taskid,
+                'taskForm' + taskid,
+                function(values) {
+                    ws.send(JSON.stringify(values));
+                    $('#taskFormDiv' + taskid).html('');
+                }
+            );
+            break;
+        }
     };
 
     newTask._onclose = function(m) {
-        $('#taskform' + taskid).remove();
+        $('#taskFormDiv' + taskid).remove();
         $('#taskcontainer' + taskid).addClass('disabled');
         if (this.closeOnError) {
             alert('The following error occurred: ' +
