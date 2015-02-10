@@ -37,7 +37,7 @@ public class ActivitiTaskRouter implements ITaskRouter {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.ITaskRouter#route(org.activiti.engine.task.Task,
 	 * java.util.List)
 	 */
@@ -54,8 +54,14 @@ public class ActivitiTaskRouter implements ITaskRouter {
 		}
 
 		if (result.isEmpty()) {
-			throw new RuntimeException("Could not route task " + task
-					+ " to any user");
+			// We should throw the following exception here. But since at this
+			// point the demo does not allow to define routes, we provide a
+			// default route to the first user associated with the first role
+			// throw new RuntimeException("Could not route task " + task
+			// + " to any user");
+			result.add(processRoleToUser.values().iterator().next().iterator()
+					.next());
+			return result;
 		} else {
 			return result;
 		}
