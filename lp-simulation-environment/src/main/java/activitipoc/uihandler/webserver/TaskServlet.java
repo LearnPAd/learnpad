@@ -66,7 +66,7 @@ public class TaskServlet extends WebSocketServlet {
 			for (TaskSocket socket : activeSockets) {
 				try {
 					socket.getRemote()
-							.sendString("{ \"type\": \"VALIDATED\" }");
+					.sendString("{ \"type\": \"VALIDATED\" }");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -82,6 +82,7 @@ public class TaskServlet extends WebSocketServlet {
 					socket.getRemote().sendString(
 							"{ \"type\": \"RESUBMIT\", \"description\":\""
 									+ taskDesc.replaceAll("\n", "<p/>")
+									+ "\", \"processid\": \"" + processId
 									+ "\", \"form\":"
 									+ formHandler.createFormString(taskId)
 									+ "}");
@@ -117,7 +118,7 @@ public class TaskServlet extends WebSocketServlet {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
 		 * org.eclipse.jetty.websocket.servlet.WebSocketCreator#createWebSocket
 		 * (org.eclipse.jetty.websocket.servlet.ServletUpgradeRequest,
@@ -164,9 +165,11 @@ public class TaskServlet extends WebSocketServlet {
 				sess.getRemote().sendString(
 						"{ \"type\": \"TASKDESC\", \"description\":\""
 								+ taskDescr.replaceAll("\n", "<p/>")
+								+ "\", \"processid\": \""
+								+ container.processId
 								+ "\", \"form\":"
 								+ container.formHandler
-								.createFormString(taskId) + "}");
+										.createFormString(taskId) + "}");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

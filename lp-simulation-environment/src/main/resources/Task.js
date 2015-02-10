@@ -32,12 +32,28 @@ function task(address, taskid) {
 
         case 'TASKDESC':
 
-            var tasksDiv = $('#tasks');
+            if (!$('#processcontainer' + data.processid).length) {
+                // create new tab for new process
+                $('#taskstable').append(
+                    '<li role="presentation"><a data-toggle="tab" href="#processcontainer' +
+                        data.processid + '">Process ' +
+                        data.processid +
+                        '</a></li>'
+                );
+                var tasksDiv = $('#tasks');
+                var processDiv = document.createElement('div');
+                processDiv.id = 'processcontainer' + data.processid;
+                processDiv.className = 'tab-pane';
+                tasksDiv.append(processDiv);
+
+            }
+
+            var processDiv = $('#processcontainer' + data.processid);
             var taskDiv = document.createElement('div');
             taskDiv.id = 'taskcontainer' + taskid;
             taskDiv.innerHTML = '<p id="taskdata' + taskid +
                 '"></p><div id="taskFormDiv' + taskid + '"></div><hr>';
-            tasksDiv.append(taskDiv);
+            processDiv.append(taskDiv);
 
             $('#taskdata' + taskid).html(data.description);
 

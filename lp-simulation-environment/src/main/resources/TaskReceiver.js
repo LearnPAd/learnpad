@@ -24,11 +24,11 @@ function TasksReceiver(address) {
         switch (msg.type) {
 
         case 'FINISHED':
-            var tasksDiv = $('#tasks');
+            var containerDiv = $('#processcontainer' + msg.processid);
             var processFinished = document.createElement('p');
             processFinished.innerHTML = '<p>Process ' +
                 msg.processid + ' finished.</p><hr>'
-            tasksDiv.append(processFinished);
+            containerDiv.append(processFinished);
             break;
 
         case 'ADDTASK':

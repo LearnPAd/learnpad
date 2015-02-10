@@ -64,48 +64,57 @@
     </head>
     <body>
 
+      <div class="container">
+
 	<form id="connect" class="form-inline">
-	    <div class="form-group">
-		<label for="uiid">UI Id:&nbsp;</label>
-		<input id="uiid" type="text" class="form-control"/>
-		<button id="connectBn"
-			type="submit" class="btn btn-default">connect</button>
-	    </div>
+	  <div class="form-group">
+	    <label for="uiid">UI Id:&nbsp;</label>
+	    <input id="uiid" type="text" class="form-control"/>
+	    <button id="connectBn"
+		    type="submit" class="btn btn-default">connect</button>
+	  </div>
 	</form>
 
-	<div id="tasks"></div>
+        <ul id="taskstable" class="nav nav-tabs" role="tablist">
+        </ul>
 
-	<script type="text/javascript" src="resources/deps/jquery.min.js"></script>
-	<script type="text/javascript" src="resources/deps/underscore.js"></script>
-	<script type="text/javascript" src="resources/deps/opt/ZSchema-browser.js"></script>
-	<script type="text/javascript" src="resources/deps/opt/jquery.ui.custom.js"></script>
-	<script type="text/javascript" src="resources/deps/opt/bootstrap-dropdown.js"></script>
-	<script type="text/javascript" src="resources/deps/opt/bootstrap-typeahead.js"></script>
-	<script type="text/javascript" src="resources/deps/opt/bootstrap-tagsinput.min.js"></script>
-	<script type="text/javascript" src="resources/deps/opt/spectrum.js"></script>
+        <div id="tasks" class="content tab-content">
+        </div>
 
-	<script type="text/javascript" src="resources/lib/jsonform.js"></script>
+      </div>
 
-	<script type="text/javascript" src="resources/Task-jsonform.js"></script>
-	<script type="text/javascript" src="resources/Task.js"></script>
-	<script type="text/javascript" src="resources/TaskReceiver.js"></script>
+      <script type="text/javascript" src="resources/deps/jquery.min.js"></script>
+      <script type="text/javascript" src="resources/deps/underscore.js"></script>
+      <script type="text/javascript" src="resources/deps/tab.js"></script>
+      <script type="text/javascript" src="resources/deps/opt/ZSchema-browser.js"></script>
+      <script type="text/javascript" src="resources/deps/opt/jquery.ui.custom.js"></script>
+      <script type="text/javascript" src="resources/deps/opt/bootstrap-dropdown.js"></script>
+      <script type="text/javascript" src="resources/deps/opt/bootstrap-typeahead.js"></script>
+      <script type="text/javascript" src="resources/deps/opt/bootstrap-tagsinput.min.js"></script>
+      <script type="text/javascript" src="resources/deps/opt/spectrum.js"></script>
 
-	<script type="text/javascript">
-         'use strict';
-	 if (!window.WebSocket){
-	     alert("WebSocket not supported by this browser");
-	 }
-	 var taskReceiver = new TasksReceiver(#serveripaddress#);
-	</script>
+      <script type="text/javascript" src="resources/lib/jsonform.js"></script>
+
+      <script type="text/javascript" src="resources/Task-jsonform.js"></script>
+      <script type="text/javascript" src="resources/Task.js"></script>
+      <script type="text/javascript" src="resources/TaskReceiver.js"></script>
+
+      <script type="text/javascript">
+        'use strict';
+	if (!window.WebSocket){
+	alert("WebSocket not supported by this browser");
+	}
+	var taskReceiver = new TasksReceiver(#serveripaddress#);
+      </script>
 
 
-	<script type="text/javascript">
-         'use strict';
-	 $('#connectBn').click(function(event) {
-	     taskReceiver.init($('#uiid').val());
-	     return false;
-	 });
-	</script>
+      <script type="text/javascript">
+        'use strict';
+	$('#connectBn').click(function(event) {
+	taskReceiver.init($('#uiid').val());
+	return false;
+	});
+      </script>
 
     </body>
 </html>

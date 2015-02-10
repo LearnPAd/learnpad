@@ -64,36 +64,39 @@
     </head>
     <body>
 
-	<script type="text/javascript" src="resources/deps/jquery.min.js"></script>
-	<script type="text/javascript" src="resources/deps/underscore.js"></script>
-	<script type="text/javascript" src="resources/deps/opt/ZSchema-browser.js"></script>
-	<script type="text/javascript" src="resources/deps/opt/jquery.ui.custom.js"></script>
-	<script type="text/javascript" src="resources/deps/opt/bootstrap-dropdown.js"></script>
-	<script type="text/javascript" src="resources/deps/opt/bootstrap-typeahead.js"></script>
-	<script type="text/javascript" src="resources/deps/opt/bootstrap-tagsinput.min.js"></script>
-	<script type="text/javascript" src="resources/deps/opt/spectrum.js"></script>
-
-	<script type="text/javascript" src="resources/lib/jsonform.js"></script>
-	
-	<script type="text/javascript" src="resources/Process-jsonform.js"></script>
-	<script type="text/javascript" src="resources/Process.js"></script>
-
-	<script type="text/javascript">
-         'use strict';
-	 if (!window.WebSocket){
-	     alert("WebSocket not supported by this browser");
-	 }
-	 var processReceiver = new ProcessReceiver(#serveripaddress#);
-	 processReceiver.init();
-	</script>
+      <div class="container">
 
 	<table id="processTable" class="table table-hover">
-	    <thead><tr><th>Process name</th><th>Process Description</th></tr></thead>
-	    <tbody></tbody>
+	  <thead><tr><th>Process name</th><th>Process Description</th></tr></thead>
+	  <tbody></tbody>
 	</table>
 	<hr>	
 	<div id="formPosition"></div>
 	<div id="processInfo"></div>
+      </div>
+
+      <script type="text/javascript" src="resources/deps/jquery.min.js"></script>
+      <script type="text/javascript" src="resources/deps/underscore.js"></script>
+      <script type="text/javascript" src="resources/deps/opt/ZSchema-browser.js"></script>
+      <script type="text/javascript" src="resources/deps/opt/jquery.ui.custom.js"></script>
+      <script type="text/javascript" src="resources/deps/opt/bootstrap-dropdown.js"></script>
+      <script type="text/javascript" src="resources/deps/opt/bootstrap-typeahead.js"></script>
+      <script type="text/javascript" src="resources/deps/opt/bootstrap-tagsinput.min.js"></script>
+      <script type="text/javascript" src="resources/deps/opt/spectrum.js"></script>
+
+      <script type="text/javascript" src="resources/lib/jsonform.js"></script>
+
+      <script type="text/javascript" src="resources/Process-jsonform.js"></script>
+      <script type="text/javascript" src="resources/Process.js"></script>
+
+      <script type="text/javascript">
+        'use strict';
+	if (!window.WebSocket){
+	alert("WebSocket not supported by this browser");
+	}
+	var processReceiver = new ProcessReceiver(#serveripaddress#);
+	processReceiver.init();
+      </script>
 
     </body>
 </html>
