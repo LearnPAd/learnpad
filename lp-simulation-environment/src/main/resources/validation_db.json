@@ -25,5 +25,25 @@
 				"integrationValidated" : true
 			}
 		}
+	],
+	"doChecks" : [
+		{
+
+			"input" : {
+				"document" : "example_document_valid"
+			},
+			"output" : {
+				"integrationChecked" : true
+			}
+		},
+		{
+
+			"input" : {
+				"document" : "example_document_invalid"
+			},
+			"output" : {
+				"integrationChecked" : false
+			}
+		}
 	]
 }

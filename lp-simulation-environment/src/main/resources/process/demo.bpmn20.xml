@@ -10,7 +10,11 @@
     <startEvent id="request">
       <extensionElements>
 		<activiti:formProperty id="entrepreneur" name="Entrepreneur" type="string" required="true"/>
-      </extensionElements>
+		<activiti:formProperty id="document" name="Entrepreneur document" type="enum" required="true">
+			<activiti:value id="example_document_valid" name="Valid document" />
+			<activiti:value id="example_document_invalid" name="Invalid document" />
+		</activiti:formProperty>
+     </extensionElements>
     </startEvent>
 
     <sequenceFlow id="flow1" sourceRef="request" targetRef="processIntegration-fork" />
@@ -22,7 +26,7 @@
     <userTask id="sendIntegrationToAdministrationInCharge" name="Send Integration to Administration in charge" >
       <documentation>
         ${entrepreneur} sent requested integration documents.
-        [[Here the civil servant should have access to the integration documents]]
+        attached document: <![CDATA[<a href='resources/files/${document}.pdf'>Entrepreneur document</a>]]>
       </documentation>
       <extensionElements>
 	<activiti:formProperty id="integrationApproved" name="Have the integration receipt been validated by competent offices?" type="enum" required="true">
@@ -41,7 +45,7 @@
     <userTask id="doChecks" name="Do Checks" >
       <documentation>
         ${entrepreneur} sent requested integration documents.
-        [[Here the civil servant should have access to the integration documents]]
+        attached document: <![CDATA[<a href='resources/files/${document}.pdf'>Entrepreneur document</a>]]>
       </documentation>
       <extensionElements>
 	<activiti:formProperty id="integrationChecked" name="Do you confirm the integration documents are correct?"  type="enum" required="true">
