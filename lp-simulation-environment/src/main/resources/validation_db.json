@@ -1,0 +1,29 @@
+{
+	"validateIntegration" : [
+		{
+			"input" : {
+				"integrationApproved" : false
+			},
+			"output" : {
+				"integrationValidated" : false
+			}
+		},
+		{
+			"input" : {
+				"integrationChecked" : false
+			},
+			"output" : {
+				"integrationValidated" : false
+			}
+		},
+		{
+			"input" : {
+				"integrationApproved" : true,
+				"integrationChecked" : true
+			},
+			"output" : {
+				"integrationValidated" : true
+			}
+		}
+	]
+}

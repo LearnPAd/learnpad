@@ -34,7 +34,7 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 	private final ITaskRouter router;
 	private final RuntimeService runtimeService;
 
-	private final ITaskValidator<String, Map<String, Object>> taskValidator;
+	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
 
 	private final IUIHandler uiHandler;
 
@@ -70,10 +70,12 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 	 * @param process
 	 * @param taskService
 	 */
-	public ActivitiProcessDispatcher(ProcessInstance process,
-			TaskService taskService, RuntimeService runtimeService,
+	public ActivitiProcessDispatcher(
+			ProcessInstance process,
+			TaskService taskService,
+			RuntimeService runtimeService,
 			ITaskRouter router,
-			ITaskValidator<String, Map<String, Object>> taskValidator,
+			ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator,
 			IUIHandler uiHandler) {
 		super();
 		this.process = process;
@@ -122,9 +124,12 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 	public synchronized boolean submitTaskCompletion(String taskId,
 			Map<String, Object> data) {
 
+		Map<String, Object> processVariables = taskService.createTaskQuery()
+				.includeProcessVariables().taskId(taskId).singleResult()
+				.getProcessVariables();
+
 		if (!taskValidator.taskResultIsValid(process.getId(), taskId,
-				taskService.createTaskQuery().taskId(taskId).singleResult()
-						.getDescription(), data)) {
+				processVariables, data)) {
 			// task result is invalid and must be resubmitted
 			return false;
 		} else {
