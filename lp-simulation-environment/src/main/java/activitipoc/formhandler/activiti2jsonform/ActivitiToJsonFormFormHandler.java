@@ -6,6 +6,7 @@ package activitipoc.formhandler.activiti2jsonform;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.activiti.engine.FormService;
 import org.activiti.engine.form.FormData;
@@ -107,6 +108,8 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 	private static String getType(FormProperty prop) {
 		String res = "\"type\": ";
 
+		System.out.println(prop.getName() + " " + prop.getType());
+
 		String type = prop.getType().getName();
 
 		if (type.equals("string")) {
@@ -114,14 +117,22 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 		} else if (type.equals("long")) {
 			res += "\"number\"";
 		} else if (type.equals("enum")) {
+
+			System.out.println(prop.getType().getInformation("values")
+					.toString());
+
 			res += "\"string\"";
 			res += ",\"enum\":[";
-			String values = prop.getType().getInformation("values").toString();
-			values = values.substring(1, values.length() - 1);
-			values = values.replaceAll("=\\w+", "");
-			values = values.replaceAll(", ", "\", \"");
-			values = "\"" + values + "\"";
-			res += values;
+
+			@SuppressWarnings("unchecked")
+			Map<String, String> values = (Map<String, String>) prop.getType()
+			.getInformation("values");
+
+			for (String key : values.keySet()) {
+				res += "\"" + key + "\",";
+			}
+			// remove last comma
+			res = res.substring(0, res.length() - 1);
 			res += "]";
 
 		} else if (type.equals("date")) {
@@ -162,13 +173,16 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 			// see https://github.com/joshfire/jsonform/wiki#fields-selection
 			res += "{ \"key\": \"" + prop.getId() + "\"";
 			res += ",\"titleMap\":{";
-			String values = prop.getType().getInformation("values").toString();
-			values = values.substring(1, values.length() - 1);
-			values = values.replaceAll(", ", "\", \"");
-			values = values.replaceAll("=", "\":\"");
 
-			values = "\"" + values + "\"";
-			res += values;
+			@SuppressWarnings("unchecked")
+			Map<String, String> values = (Map<String, String>) prop.getType()
+			.getInformation("values");
+			for (Entry<String, String> entry : values.entrySet()) {
+				res += "\"" + entry.getKey() + "\" : " + "\""
+						+ entry.getValue() + "\",";
+			}
+			// remove last comma
+			res = res.substring(0, res.length() - 1);
 			res += "}}";
 
 		} else if (type.equals("date")) {
