@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>LearnPAd WebUI</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <style>
          @import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css");
@@ -58,25 +59,57 @@
          .disabled {
              opacity: 0.5;
          }
-
+         body { padding-top: 70px; }
         </style>
 
     </head>
     <body>
 
-        <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a href="ui">
+                        <img height="45px" alt="LeanrPAd" src="resources/img/logo-pic.svg">
+                        <img height="35px" alt="LearnPAd" src="resources/img/logo-text.svg">
+                    </a>
+                    <button type="button" class="navbar-toggle collapsed"
+                            data-toggle="collapse" data-target="#nav-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="nav-collapse" class="navbar-right collapse navbar-collapse">
+                    <p class="navbar-text">
+                        <a href="uiprocess" class ="navbar-link">
+                            Launch a Process
+                        </a>
+                    </p>
+                    <p class="navbar-text">
+                        <a href="ui" class ="navbar-link">
+                            Take a Role
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </nav>
 
-            <table id="processTable" class="table table-hover">
-	        <thead><tr><th>Process name</th><th>Process Description</th></tr></thead>
-	        <tbody></tbody>
-            </table>
-            <hr>
-            <div id="formPosition"></div>
-            <div id="processInfo"></div>
+        <div class="container-fluid">
+            <div class="row">
+                <table id="processTable" class="table table-hover">
+	            <thead><tr><th>Process name</th><th>Process Description</th></tr></thead>
+	            <tbody></tbody>
+                </table>
+                <hr>
+                <div id="formPosition"></div>
+                <div id="processInfo"></div>
+            </div>
         </div>
 
         <script type="text/javascript" src="resources/deps/jquery.min.js"></script>
         <script type="text/javascript" src="resources/deps/underscore.js"></script>
+        <script type="text/javascript" src="resources/deps/collapse.js"></script>
         <script type="text/javascript" src="resources/deps/opt/ZSchema-browser.js"></script>
         <script type="text/javascript" src="resources/deps/opt/jquery.ui.custom.js"></script>
         <script type="text/javascript" src="resources/deps/opt/bootstrap-dropdown.js"></script>
