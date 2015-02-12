@@ -1,0 +1,2 @@
+eu.learnpad.rest.internal.resources.DefaultBusinessProcessResource
+eu.learnpad.rest.internal.representations.BusinessProcessReader
