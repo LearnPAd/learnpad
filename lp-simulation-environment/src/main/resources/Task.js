@@ -69,6 +69,9 @@ function task(address, taskid) {
                     $('#taskForm' + taskid).html('');
                 }
             );
+            $('html, body').animate({
+                scrollTop: ($('#taskdata' + taskid).offset().top - 70)
+            }, 'fast');
             break;
 
         case 'VALIDATED':
@@ -99,6 +102,7 @@ function task(address, taskid) {
                     $('#taskFormDiv' + taskid).html('');
                 }
             );
+            $('html, body').scrollTop($('#tasknotif' + taskid).offset().top - 70);
             break;
         }
     };
