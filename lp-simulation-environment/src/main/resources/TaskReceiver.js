@@ -17,6 +17,7 @@ function TasksReceiver(address) {
 
     TasksReceiver.prototype._onopen = function() {
         $('#connect').remove();
+        $('#userui').removeClass('hidden');
     };
 
     TasksReceiver.prototype._onmessage = function(m) {

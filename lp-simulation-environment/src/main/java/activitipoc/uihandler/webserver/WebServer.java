@@ -43,6 +43,7 @@ public class WebServer {
 	public static final long TIMEOUT = Long.MAX_VALUE;
 	public static final String UI_PATH = "src/main/resources/ui.html";
 	public static final String UI_PROCESS_PATH = "src/main/resources/ui-process.html";
+	public static final String CHAT_PATH = "src/main/resources/webchat.html";
 	public static final String RESOURCES_PATH = "src/main/resources";
 
 	final Server server;
@@ -65,58 +66,18 @@ public class WebServer {
 		this.context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
 		// serve UI webpage (after dynamically setting server ip)
-		HttpServlet ui_servlet = new HttpServlet() {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			protected void doGet(HttpServletRequest request,
-					HttpServletResponse response) throws ServletException,
-					IOException {
-
-				// here we load the page html source in order to dynamically set
-				// the server ip (required for websockets)
-				Scanner scan = new Scanner(new File(UI_PATH));
-				String uiPage = scan.useDelimiter("\\Z").next();
-				scan.close();
-
-				// set server ip
-				uiPage = uiPage.replace("#serveripaddress#", "\""
-						+ getIPAdress() + ":" + port + "\"");
-
-				response.setContentType("text/html; charset=utf-8");
-				response.setStatus(HttpServletResponse.SC_OK);
-				response.getWriter().println(uiPage);
-			}
-		};
+		HttpServlet ui_servlet = new IPTokenHTTPServlet(port, UI_PATH);
 		this.context.addServlet(new ServletHolder(ui_servlet), "/");
 
 		// serve UI Process webpage (after dynamically setting server ip)
-		HttpServlet ui_process_servlet = new HttpServlet() {
+		HttpServlet ui_process_servlet = new IPTokenHTTPServlet(port,
+				UI_PROCESS_PATH);
+		this.context.addServlet(new ServletHolder(ui_process_servlet),
+				"/uiprocess");
 
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			protected void doGet(HttpServletRequest request,
-					HttpServletResponse response) throws ServletException,
-					IOException {
-
-				// here we load the page html source in order to dynamically set
-				// the server ip (required for websockets)
-				Scanner scan = new Scanner(new File(UI_PROCESS_PATH));
-				String uiPage = scan.useDelimiter("\\Z").next();
-				scan.close();
-
-				// set server ip
-				uiPage = uiPage.replace("#serveripaddress#", "\""
-						+ getIPAdress() + ":" + port + "\"");
-
-				response.setContentType("text/html; charset=utf-8");
-				response.setStatus(HttpServletResponse.SC_OK);
-				response.getWriter().println(uiPage);
-			}
-		};
-		this.context.addServlet(new ServletHolder(ui_process_servlet), "/uiprocess");
+		// serve chat webpage (after dynamically setting server ip)
+		HttpServlet chat_servlet = new IPTokenHTTPServlet(port, CHAT_PATH);
+		this.context.addServlet(new ServletHolder(chat_servlet), "/uichat");
 
 		// related static resources
 		ContextHandler resourcesContext = new ContextHandler();
@@ -148,6 +109,17 @@ public class WebServer {
 				+ server.getURI().toString()
 				.substring(0, server.getURI().toString().length() - 1)
 				+ fullPath);
+
+		holder = new ServletHolder(new DummyChatServlet());
+		fullPath = "/chat/*";
+
+		this.context.addServlet(holder, fullPath);
+
+		System.out.println("chat servlet launched at "
+				+ server.getURI().toString()
+				.substring(0, server.getURI().toString().length() - 1)
+				+ fullPath);
+
 	}
 
 	public ServletHolder addUIServlet(WebSocketServlet servlet, String subpath) {
@@ -227,7 +199,8 @@ public class WebServer {
 
 	}
 
-	private String getIPAdress() throws UnknownHostException, SocketException {
+	private static String getIPAdress() throws UnknownHostException,
+	SocketException {
 		// TODO: ip should be read in a config file
 
 		Enumeration<NetworkInterface> e = NetworkInterface
@@ -248,4 +221,40 @@ public class WebServer {
 		throw new RuntimeException("No valid IP adress");
 	}
 
+	private static class IPTokenHTTPServlet extends HttpServlet {
+		private static final long serialVersionUID = 1L;
+
+		private final int port;
+		private final String filePath;
+
+		/**
+		 * @param port
+		 * @param filePath
+		 */
+		public IPTokenHTTPServlet(int port, String filePath) {
+			super();
+			this.port = port;
+			this.filePath = filePath;
+		}
+
+		@Override
+		protected void doGet(HttpServletRequest request,
+				HttpServletResponse response) throws ServletException,
+				IOException {
+
+			// here we load the page html source in order to dynamically set
+			// the server ip (required for websockets)
+			Scanner scan = new Scanner(new File(filePath));
+			String uiPage = scan.useDelimiter("\\Z").next();
+			scan.close();
+
+			// set server ip
+			uiPage = uiPage.replace("#serveripaddress#", "\"" + getIPAdress()
+					+ ":" + port + "\"");
+
+			response.setContentType("text/html; charset=utf-8");
+			response.setStatus(HttpServletResponse.SC_OK);
+			response.getWriter().println(uiPage);
+		}
+	}
 }
