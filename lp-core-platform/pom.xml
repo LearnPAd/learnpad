@@ -57,6 +57,7 @@
 
 	<modules>
 		<module>lp-cp-controllers</module>
+		<module>bpmn2-emf</module>
 	</modules>
 
 	<repositories>
