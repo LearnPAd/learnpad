@@ -35,15 +35,17 @@ public class UIHandlerWebImpl implements IUIHandler {
 	 * @param webserver
 	 * @param users
 	 * @param taskService
+	 * @throws Exception
 	 */
-	public UIHandlerWebImpl(Collection<String> users,
-			IProcessManager processManager, IFormHandler formHandler) {
+	public UIHandlerWebImpl(int port, Collection<String> users,
+			IProcessManager processManager, IFormHandler formHandler)
+			throws Exception {
 		super();
 		this.formHandler = formHandler;
 		this.usersMap = new HashMap<String, UIServlet>();
 
 		// launch task webserver
-		this.webserver = new WebServer(8081, "ui", "tasks", "process",
+		this.webserver = new WebServer(port, "ui", "tasks", "process",
 				new UIProcessServlet(processManager, this, formHandler));
 
 		// instanciate users UI

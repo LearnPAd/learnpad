@@ -51,7 +51,8 @@ public class WebServer {
 	private final String uiProcessPath;
 
 	public WebServer(final int port, String uiPath, String tasksPath,
-			String uiProcessPath, UIProcessServlet uiProcessServlet) {
+			String uiProcessPath, UIProcessServlet uiProcessServlet)
+			throws Exception {
 		this.server = new Server();
 		final ServerConnector connector = new ServerConnector(server);
 
@@ -85,11 +86,7 @@ public class WebServer {
 		server.setHandler(contexts);
 
 		// start server
-		try {
-			this.server.start();
-		} catch (Throwable t) {
-			t.printStackTrace(System.err);
-		}
+		this.server.start();
 
 		// set ui process servlet
 		ServletHolder holder = new ServletHolder(uiProcessServlet);
@@ -191,7 +188,7 @@ public class WebServer {
 
 	}
 
-	private static String getIPAdress() throws UnknownHostException,
+	public static String getIPAdress() throws UnknownHostException,
 	SocketException {
 		// TODO: ip should be read in a config file
 
