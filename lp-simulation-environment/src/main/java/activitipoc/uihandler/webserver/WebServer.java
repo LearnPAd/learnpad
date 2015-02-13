@@ -3,7 +3,6 @@
  */
 package activitipoc.uihandler.webserver;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -31,7 +30,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.servlet.ServletMapping;
-import org.eclipse.jetty.util.resource.ResourceCollection;
+import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 
 /**
@@ -41,10 +40,10 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 public class WebServer {
 
 	public static final long TIMEOUT = Long.MAX_VALUE;
-	public static final String UI_PATH = "src/main/resources/ui.html";
-	public static final String UI_PROCESS_PATH = "src/main/resources/ui-process.html";
-	public static final String CHAT_PATH = "src/main/resources/webchat.html";
-	public static final String RESOURCES_PATH = "src/main/resources";
+	public static final String UI_PATH = "ui.html";
+	public static final String UI_PROCESS_PATH = "ui-process.html";
+	public static final String CHAT_PATH = "webchat.html";
+	public static final String STATIC_RESOURCES_PATH = "static";
 
 	final Server server;
 	final ServletContextHandler context;
@@ -83,9 +82,7 @@ public class WebServer {
 		ContextHandler resourcesContext = new ContextHandler();
 		resourcesContext.setContextPath("/resources");
 		ResourceHandler rh = new ResourceHandler();
-		ResourceCollection resources = new ResourceCollection(
-				new String[] { RESOURCES_PATH });
-		rh.setBaseResource(resources);
+		rh.setBaseResource(Resource.newClassPathResource(STATIC_RESOURCES_PATH));
 		resourcesContext.setHandler(rh);
 
 		ContextHandlerCollection contexts = new ContextHandlerCollection();
@@ -244,7 +241,8 @@ public class WebServer {
 
 			// here we load the page html source in order to dynamically set
 			// the server ip (required for websockets)
-			Scanner scan = new Scanner(new File(filePath));
+			Scanner scan = new Scanner(WebServer.class.getClassLoader()
+					.getResourceAsStream(filePath));
 			String uiPage = scan.useDelimiter("\\Z").next();
 			scan.close();
 
@@ -255,6 +253,7 @@ public class WebServer {
 			response.setContentType("text/html; charset=utf-8");
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.getWriter().println(uiPage);
+
 		}
 	}
 }

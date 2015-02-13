@@ -4,7 +4,6 @@
 package activitipoc.taskvalidator.activiti;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
@@ -35,8 +34,8 @@ public class ActivitiDemoTaskValidator implements
 		super();
 		this.taskService = taskService;
 
-		Scanner in = new Scanner(new FileReader(
-				"src/main/resources/validation_db.json"));
+		Scanner in = new Scanner(getClass().getClassLoader()
+				.getResourceAsStream("validation_db.json"));
 		String jsonText = "";
 		while (in.hasNextLine()) {
 			jsonText = jsonText + in.nextLine();

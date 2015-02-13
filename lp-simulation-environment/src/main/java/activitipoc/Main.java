@@ -3,7 +3,6 @@
  */
 package activitipoc;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -16,7 +15,7 @@ import activitipoc.uihandler.webserver.UIHandlerWebImpl;
 
 class Main {
 
-	public static final String ACTIVITY_CONFIG_PATH = "src/main/resources/activiti.cfg.xml";
+	public static final String ACTIVITY_CONFIG_PATH = "activiti.cfg.xml";
 	public static final String DEMO_PROCESS_FOLDER = "process";
 
 	/**
@@ -27,8 +26,9 @@ class Main {
 
 		// launch activiti process engine
 		ProcessEngineConfiguration config = ProcessEngineConfiguration
-				.createProcessEngineConfigurationFromInputStream(new FileInputStream(
-						ACTIVITY_CONFIG_PATH));
+				.createProcessEngineConfigurationFromInputStream(Main.class
+						.getClassLoader().getResourceAsStream(
+								ACTIVITY_CONFIG_PATH));
 
 		ProcessEngine processEngine = config.buildProcessEngine();
 
