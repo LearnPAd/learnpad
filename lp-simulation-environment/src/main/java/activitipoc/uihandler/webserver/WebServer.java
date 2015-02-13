@@ -42,7 +42,6 @@ public class WebServer {
 	public static final long TIMEOUT = Long.MAX_VALUE;
 	public static final String UI_PATH = "ui.html";
 	public static final String UI_PROCESS_PATH = "ui-process.html";
-	public static final String CHAT_PATH = "webchat.html";
 	public static final String STATIC_RESOURCES_PATH = "static";
 
 	final Server server;
@@ -73,10 +72,6 @@ public class WebServer {
 				UI_PROCESS_PATH);
 		this.context.addServlet(new ServletHolder(ui_process_servlet),
 				"/uiprocess");
-
-		// serve chat webpage (after dynamically setting server ip)
-		HttpServlet chat_servlet = new IPTokenHTTPServlet(port, CHAT_PATH);
-		this.context.addServlet(new ServletHolder(chat_servlet), "/uichat");
 
 		// related static resources
 		ContextHandler resourcesContext = new ContextHandler();
