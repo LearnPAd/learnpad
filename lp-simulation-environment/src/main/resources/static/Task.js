@@ -14,6 +14,8 @@ function task(address, taskid) {
     };
 
     newTask.end = function() {
+        $('#taskFormDiv' + taskid).remove();
+        $('#taskcontainer' + taskid).addClass('disabled');
         this.ws.onclose('');
     };
 
@@ -108,8 +110,6 @@ function task(address, taskid) {
     };
 
     newTask._onclose = function(m) {
-        $('#taskFormDiv' + taskid).remove();
-        $('#taskcontainer' + taskid).addClass('disabled');
         if (this.closeOnError) {
             alert('The following error occurred: ' +
                   m.reason +
