@@ -48,6 +48,12 @@ function task(address, taskid) {
                 processDiv.className = 'tab-pane';
                 tasksDiv.append(processDiv);
 
+                // check if it is the first tab
+                // (in this case we make it open by default)
+                if ($('#taskstable li').length == 1) {
+                    $('#taskstable li a:first').tab('show');
+                }
+
             }
 
             var processDiv = $('#processcontainer' + data.processid);
@@ -71,6 +77,7 @@ function task(address, taskid) {
                     $('#taskForm' + taskid).html('');
                 }
             );
+
             $('html, body').animate({
                 scrollTop: ($('#taskdata' + taskid).offset().top - 70)
             }, 'fast');
