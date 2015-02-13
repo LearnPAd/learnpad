@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  *
+  * See the NOTICE file distributed with this work for additional
+  * information regarding copyright ownership.
+  *
+  * This is free software; you can redistribute it and/or modify it
+  * under the terms of the GNU Lesser General Public License as
+  * published by the Free Software Foundation; either version 2.1 of
+  * the License, or (at your option) any later version.
+  *
+  * This software is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  * Lesser General Public License for more details.
+  *
+  * You should have received a copy of the GNU Lesser General Public
+  * License along with this software; if not, write to the Free
+  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  *
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.xwiki.enterprise</groupId>
+		<artifactId>xwiki-enterprise</artifactId>
+		<version>6.4</version>
+	</parent>
+
+	<groupId>eu.learnpad</groupId>
+	<artifactId>lp-core-platform</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>Learn PAd - Core Platform</name>
+	<developers>
+		<developer>
+			<id>woshilapin</id>
+			<name>Jean Simard</name>
+		</developer>
+		<developer>
+			<id>Gulyx</id>
+			<name>Guglielmo de Angelis</name>
+		</developer>
+	</developers>
+	<scm>
+		<url>https://github.com/LearnPAd/learnpad.git</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<learnpad.version>1.0-SNAPSHOT</learnpad.version>
+	</properties>
+
+	<modules>
+		<module>lp-cp-controllers</module>
+		<module>bpmn2-emf</module>
+	</modules>
+
+	<repositories>
+		<repository>
+			<id>xwiki-snapshots</id>
+			<name>XWiki Nexus Snapshot Repository Proxy</name>
+			<url>http://nexus.xwiki.org/nexus/content/groups/public-snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>xwiki-releases</id>
+			<name>XWiki Nexus Releases Repository Proxy</name>
+			<url>http://nexus.xwiki.org/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>xwiki-plugins-snapshots</id>
+			<name>XWiki Nexus Plugin Snapshot Repository Proxy</name>
+			<url>http://nexus.xwiki.org/nexus/content/groups/public-snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>xwiki-plugins-releases</id>
+			<name>XWiki Nexus Plugin Releases Repository Proxy</name>
+			<url>http://nexus.xwiki.org/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<build>
+		<pluginManagement>
+    		<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-enforcer-plugin</artifactId>
+										<versionRange>[1.0.0,)</versionRange>
+										<goals>
+                    						<goal>enforce</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-remote-resources-plugin</artifactId>
+										<versionRange>[1.0.0,)</versionRange>
+										<goals>
+                    						<goal>enforce</goal>
+                    						<goal>process</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<executions>
+					<!-- Verify that all org.xwiki.commons dependencies have a version specified either as:
+					- ${commons.version}
+					- a value not starting with $ (we want to allow supporting ranges)
+					Also verifies that all org.xwiki.rendering dependencies have a version specified either as:
+					- ${rendering.version}
+					- a value not starting with $ (we want to allow supporting ranges)
+					Also verifies that all org.xwiki.platform dependencies have a version specified either as:
+					- ${platform.version}
+					- a value not starting with $ (we want to allow supporting ranges)
+					Also verifies that all org.xwiki.enterprise dependencies have a version specified either as:
+					- ${project.version}
+					- a value not starting with $ (we want to allow supporting ranges)
+					-->
+					<execution>
+						<id>check-dependency-version</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<validateDependencyVersion implementation="org.xwiki.tool.enforcer.ValidateDependencyVersion">
+									<versionCheck>
+										<groupIdPrefix>org.xwiki.commons</groupIdPrefix>
+										<allowedVersionRegex>\$\{commons.version\}|[^$].*</allowedVersionRegex>
+									</versionCheck>
+									<versionCheck>
+										<groupIdPrefix>org.xwiki.rendering</groupIdPrefix>
+										<allowedVersionRegex>\$\{rendering.version\}|[^$].*</allowedVersionRegex>
+									</versionCheck>
+									<versionCheck>
+										<groupIdPrefix>org.xwiki.platform</groupIdPrefix>
+										<allowedVersionRegex>\$\{platform.version\}|[^$].*</allowedVersionRegex>
+									</versionCheck>
+									<versionCheck>
+										<groupIdPrefix>org.xwiki.enterprise</groupIdPrefix>
+										<allowedVersionRegex>\$\{enterprise.version\}|[^$].*</allowedVersionRegex>
+									</versionCheck>
+								</validateDependencyVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

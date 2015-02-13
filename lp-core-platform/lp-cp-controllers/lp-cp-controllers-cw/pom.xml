@@ -26,16 +26,20 @@
 
 	<parent>
 		<groupId>eu.learnpad</groupId>
-		<artifactId>lp-collaborative-workspace</artifactId>
+		<artifactId>lp-cp-controllers</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>lp-cw-bridge</artifactId>
+	<artifactId>lp-cp-controllers-cw</artifactId>
 	<packaging>pom</packaging>
-	<name>Learn PAd - Collaborative Workspace - Bridge</name>
+	<name>Learn PAd - Core Platform - Controllers - Collaborative Workspace</name>
+
+	<properties>
+		<lp.version>1.0-SNAPSHOT</lp.version>
+	</properties>
 
 	<modules>
-		<module>lp-cw-bridge-importer</module>
-		<module>lp-cw-bridge-rest</module>
+		<module>lp-cp-controllers-cw-api</module>
+		<module>lp-cp-controllers-cw-server</module>
 	</modules>
 </project>
