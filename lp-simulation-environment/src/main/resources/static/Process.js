@@ -73,10 +73,10 @@ function ProcessReceiver(address) {
         data.id = id;
         data.parameters = values;
         data.routes = {
-            'Tom' : ['user1'],
-            'management' : ['user2'],
-            'SUAP' : ['user1'],
-            'otherOffice' : ['user2']
+            'Tom' : ['sarah'], // wait... wat?
+            'management' : ['tom'],
+            'SUAP' : ['sarah'],
+            'otherOffice' : ['tom']
         };
         processReceiver.send(JSON.stringify(data));
     };

@@ -59,7 +59,21 @@
          .disabled {
              opacity: 0.5;
          }
-         body { padding-top: 70px; }
+         body {
+             padding-top: 70px;
+             padding-bottom: 70;
+         }
+
+         .userlist-parent {
+             white-space:nowrap;
+             overflow-x:scroll;
+         }
+         .userlist-user {
+             display:inline-block;
+         }
+         .dropdown-menu {
+             width: 160%;
+         }
         </style>
 
     </head>
@@ -82,6 +96,13 @@
                 </div>
                 <div id="nav-collapse" class="navbar-right collapse navbar-collapse">
                     <ul class="nav navbar-nav">
+                        <li>
+                            <form class="navbar-form navbar-left" role="search">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search" disabled="true">
+                                </div>
+                            </form>
+                        </li>
                         <li>
                             <a href="uiprocess" class ="navbar-link">
                                 Launch a Process
@@ -107,28 +128,67 @@
 		            type="submit" class="btn btn-default">connect</button>
 	        </div>
             </form>
+            <div class="userui row hidden">
 
-            <div id="userui" class="row hidden">
-                <div class="col-sm-9">
+                <div class="col-sm-2 list-group">
+                    <a href="#" class="list-group-item disabled active">Simulation </a>
+                    <a href="#" class="list-group-item disabled">
+                        <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                         Play
+                    </a>
+                    <a href="#" class="list-group-item disabled">
+                        <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+                         Pause
+                    </a>
+                    <a href="#" class="list-group-item disabled">
+                        <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                         Stop
+                    </a>
+                    <a href="#" class="list-group-item disabled">
+                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                         Save
+                    </a>
+                    <a href="#" class="list-group-item disabled">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                         Coordinator: Sarah
+                    </a>
+                </div>
+
+                <div class="col-sm-7">
                     <ul id="taskstable" class="nav nav-tabs" role="tablist">
                     </ul>
                     <div id="tasks" class="content tab-content">
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    <button id="connectchat" type="button" class="btn btn-default btn-lg">
-                        Chat with an expert <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    </button>
-                        <div id="chatcontainer" class="panel-body">
-                        </div>
+                <div id="userlist-container" class="col-sm-3">
+                    <div class="panel panel-default userui-parent">
+                        <div id="user-sarah" class="userlist-user"><img src="resources/img/szr.png" alt="Sarah" class="img-circle"><p align="center">Sarah</p></div>
+                        <div id="user-tom" class="userlist-user"><img src="resources/img/tjo.png" alt="Tom" class="img-circle"><p align="center">Tom</p></div>
+                    </div>
                 </div>
             </div>
 
         </div>
 
+        <nav class="userui navbar navbar-inverse navbar-fixed-bottom hidden">
+            <div class="container ">
+                <button type="button" class="btn btn-default navbar-btn" disabled="true">Chat with group</button>
+                <div class="btn-group dropup">
+                    <button id="connectchat" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        Chat with an expert <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    </button>
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        <li><div id="chatcontainer" class="panel-body" onclick=" event.stopPropagation();"></div></li>
+                    </ul>
+                </div>
+                <span class="navbar-text navbar-right"> Notifications <span class="badge">0</span></span>
+            </div>
+        </nav>
+
         <script type="text/javascript" src="resources/deps/jquery.min.js"></script>
         <script type="text/javascript" src="resources/deps/underscore.js"></script>
         <script type="text/javascript" src="resources/deps/tab.js"></script>
+        <script type="text/javascript" src="resources/deps/dropdown.js"></script>
         <script type="text/javascript" src="resources/deps/collapse.js"></script>
         <script type="text/javascript" src="resources/deps/opt/ZSchema-browser.js"></script>
         <script type="text/javascript" src="resources/deps/opt/jquery.ui.custom.js"></script>
@@ -157,13 +217,13 @@
          'use strict';
          var userid;
          $('#connectBn').click(function(event) {
-             userid = $('#uiid').val();
+             userid = $('#uiid').val().toLowerCase();
              taskReceiver.init(userid);
-             return false;
-         });
-         $('#connectchat').click(function(event) {
-             $('#connectchat').remove();
              chat('chatcontainer', #serveripaddress#, userid);
+             var content = $('#user-' + userid + ' > p').html();
+            $('#user-' + userid + ' > img').attr('style', 'border:1px solid black');
+            $('#user-' + userid + ' > p').html('<b>' + content + '</b>')
+             return false;
          });
         </script>
 

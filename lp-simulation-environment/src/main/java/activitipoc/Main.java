@@ -47,7 +47,7 @@ class Main {
 					+ "/demo.bpmn20.xml");
 
 			// create users ui handler and add users
-			new UIHandlerWebImpl(PORT, Arrays.asList("user1", "user2"),
+			new UIHandlerWebImpl(PORT, Arrays.asList("sarah", "tom"),
 					processManager, new ActivitiToJsonFormFormHandler(
 							processEngine.getFormService()));
 
