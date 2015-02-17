@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.FlowElement;
+import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -50,7 +53,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IProcessManager#addProjectDefininition(java.lang.String)
 	 */
 	public Collection<String> addProjectDefinitions(String resource) {
@@ -70,7 +73,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IProcessManager#getAvailableProcessDefintion()
 	 */
 	public Collection<String> getAvailableProcessDefintion() {
@@ -88,7 +91,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * activitipoc.IProcessManager#getProcessDefinitionName(java.lang.String)
 	 */
@@ -106,7 +109,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * activitipoc.IProcessManager#getProcessDefinitionDescription(java.lang
 	 * .String)
@@ -126,6 +129,50 @@ public class ActivitiProcessManager implements IProcessManager {
 	/*
 	 * (non-Javadoc)
 	 *
+	 * @see
+	 * activitipoc.IProcessManager#getProcessDefinitionRoles(java.lang.String)
+	 */
+	public Collection<String> getProcessDefinitionSingleRoles(
+			String processDefinitionId) {
+		Set<String> result = new HashSet<String>();
+
+		// open the BPMN model of the process
+		BpmnModel model = repositoryService.getBpmnModel(processDefinitionId);
+		for (FlowElement element : model.getMainProcess().getFlowElements()) {
+			// filter to keep only user tasks
+			if (element instanceof UserTask) {
+				UserTask task = (UserTask) element;
+				result.addAll(task.getCandidateUsers());
+			}
+		}
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * activitipoc.IProcessManager#getProcessDefinitionRoles(java.lang.String)
+	 */
+	public Collection<String> getProcessDefinitionGroupRoles(
+			String processDefinitionId) {
+		Set<String> result = new HashSet<String>();
+
+		// open the BPMN model of the process
+		BpmnModel model = repositoryService.getBpmnModel(processDefinitionId);
+		for (FlowElement element : model.getMainProcess().getFlowElements()) {
+			// filter to keep only user tasks
+			if (element instanceof UserTask) {
+				UserTask task = (UserTask) element;
+				result.addAll(task.getCandidateGroups());
+			}
+		}
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see activitipoc.IProcessManager#startProjectInstance(java.lang.String,
 	 * java.util.Map, activitipoc.ITaskRouter)
 	 */
@@ -147,7 +194,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IProcessManager#getCurrentProcessInstances()
 	 */
 	public Collection<String> getCurrentProcessInstances() {

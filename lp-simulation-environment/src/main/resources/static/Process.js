@@ -68,12 +68,6 @@ function processReceiver(address) {
         var data = {};
         data.id = id;
         data.parameters = values;
-        data.routes = {
-            'Tom' : ['sarah'], // wait... wat?
-            'management' : ['tom'],
-            'SUAP' : ['sarah'],
-            'otherOffice' : ['tom']
-        };
         newProcessReceiver.send(JSON.stringify(data));
     };
 

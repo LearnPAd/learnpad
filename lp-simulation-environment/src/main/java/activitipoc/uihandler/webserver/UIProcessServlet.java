@@ -5,13 +5,10 @@ package activitipoc.uihandler.webserver;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import org.activiti.engine.impl.util.json.JSONArray;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
@@ -82,7 +79,7 @@ public class UIProcessServlet extends WebSocketServlet {
 
 		/*
 		 * (non-Javadoc)
-		 *
+		 * 
 		 * @see
 		 * org.eclipse.jetty.websocket.servlet.WebSocketCreator#createWebSocket
 		 * (org.eclipse.jetty.websocket.servlet.ServletUpgradeRequest,
@@ -122,6 +119,8 @@ public class UIProcessServlet extends WebSocketServlet {
 			super.onWebSocketConnect(sess);
 			System.out.println("UI Process Socket connected: " + sess);
 
+			Collection<String> users = uiHandler.getUsers();
+
 			// set message type
 			String msg = "{ \"type\" : \"DATA\",";
 
@@ -144,8 +143,16 @@ public class UIProcessServlet extends WebSocketServlet {
 						+ processManager
 						.getProcessDefinitionDescription(processDefId)
 						+ "\", \"form\": "
-						+ formHandler.createStartingFormString(processDefId)
-						+ "},";
+						+ formHandler
+								.createStartingFormString(
+										processDefId,
+										processManager
+												.getProcessDefinitionSingleRoles(processDefId),
+										processManager
+												.getProcessDefinitionGroupRoles(processDefId),
+										users);
+
+				msg += " },";
 			}
 
 			// remove last ,
@@ -179,29 +186,21 @@ public class UIProcessServlet extends WebSocketServlet {
 			// expect a JSON message in the following format:
 			// {
 			// id: <processDef id>,
-			// parameters: "<>",
-			// routes: { role1: [ user1, ...], ...}
+			// parameters: "[...]",
 			// }
 
 			String projectDefinitionId = msg.getString("id");
 
-			Map<String, Object> parameters = formHandler.parseResult(msg
+			IFormHandler.FormResult result = formHandler.parseResult(msg
 					.getString("parameters"));
 
+			Map<String, Object> parameters = result.getProperties();
+
 			Set<String> involvedUsers = new HashSet<String>();
-			Map<String, Collection<String>> router = new HashMap<String, Collection<String>>();
+			Map<String, Collection<String>> router = result
+					.getRolesToUsersMapping();
 
-			Iterator<?> keys = msg.getJSONObject("routes").keys();
-			while (keys.hasNext()) {
-				String role = keys.next().toString();
-				JSONArray usersJSON = msg.getJSONObject("routes").getJSONArray(
-						role);
-				Set<String> users = new HashSet<String>();
-				for (int i = 0; i < usersJSON.length(); i++) {
-					users.add(usersJSON.getString(i));
-				}
-				router.put(role, users);
-
+			for (Collection<String> users : router.values()) {
 				// add these users to list of concerned users
 				involvedUsers.addAll(users);
 			}

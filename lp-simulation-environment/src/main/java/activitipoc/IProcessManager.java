@@ -42,6 +42,24 @@ public interface IProcessManager {
 
 	/**
 	 *
+	 * @param processDefinitionid
+	 * @return a list containing all the single-user roles potentially involved
+	 *         in the process
+	 */
+	public Collection<String> getProcessDefinitionSingleRoles(
+			String processDefinitionId);
+
+	/**
+	 *
+	 * @param processDefinitionid
+	 * @return a list containing all the group roles potentially involved in the
+	 *         process
+	 */
+	public Collection<String> getProcessDefinitionGroupRoles(
+			String processDefinitionId);
+
+	/**
+	 *
 	 * @param projectDefinitionId
 	 *            the process definition id of the process to instantiate
 	 * @param parameters

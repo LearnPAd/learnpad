@@ -139,7 +139,8 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 		// signal task completion to dispatcher and check validation
 		boolean validated = processDispatchers.get(processId)
-				.submitTaskCompletion(taskId, formHandler.parseResult(data));
+				.submitTaskCompletion(taskId,
+						formHandler.parseResult(data).getProperties());
 
 		if (validated) {
 			// signal task completion to users

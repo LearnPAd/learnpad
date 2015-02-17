@@ -3,15 +3,20 @@
  */
 package activitipoc.formhandler.activiti2jsonform;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.activiti.engine.FormService;
 import org.activiti.engine.form.FormData;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.StartFormData;
+import org.activiti.engine.impl.util.json.JSONArray;
 import org.activiti.engine.impl.util.json.JSONObject;
 
 import activitipoc.IFormHandler;
@@ -24,6 +29,12 @@ import activitipoc.IFormHandler;
  *
  */
 public class ActivitiToJsonFormFormHandler implements IFormHandler {
+
+	// these properties are used to prefix special form properties used to map
+	// roles to users. Hopefully no process will use properties with these
+	// keys....
+	private static final String SINGLE_USER_KEY_PREFIX = "#_learnpad_route_singlerole_#";
+	private static final String GROUP_USER_KEY_PREFIX = "#_learnpad_route_grouprole_#";
 
 	private final FormService activitiFormService;
 
@@ -50,9 +61,67 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 	 *
 	 * @see activitipoc.IFormHandler#createStartingFormString(java.lang.String)
 	 */
-	public String createStartingFormString(String processId) {
+	public String createStartingFormString(String processId,
+			Collection<String> singleRoles, Collection<String> groupRoles,
+			Collection<String> users) {
 		StartFormData data = activitiFormService.getStartFormData(processId);
-		return formDataToJSON(data);
+
+		String res = formDataToJSON(data);
+
+		// insert roles to users mapping
+		JSONObject tmp = new JSONObject(res);
+
+		JSONArray userArray = new JSONArray(users);
+
+		for (String role : singleRoles) {
+			JSONObject o = new JSONObject();
+			o.put("title", "Role: " + role);
+			o.put("type", "string");
+			o.put("enum", userArray);
+			o.put("required", true);
+			tmp.getJSONObject("schema").put(SINGLE_USER_KEY_PREFIX + role, o);
+		}
+
+		for (String role : groupRoles) {
+			JSONObject items = new JSONObject();
+			items.put("type", "string");
+			items.put("enum", userArray);
+
+			JSONObject o = new JSONObject();
+			o.put("title", "Group Role: " + role);
+			o.put("type", "array");
+			o.put("items", items);
+			o.put("minItems", 1);
+			o.put("required", true);
+			tmp.getJSONObject("schema").put(GROUP_USER_KEY_PREFIX + role, o);
+		}
+
+		JSONObject rolesForm = new JSONObject();
+		rolesForm.put("type", "fieldset");
+		rolesForm.put("title", "Roles Assignment");
+
+		JSONArray items = new JSONArray();
+		for (String role : singleRoles) {
+			JSONObject o = new JSONObject();
+			o.put("key", SINGLE_USER_KEY_PREFIX + role);
+			items.put(o);
+		}
+		for (String role : groupRoles) {
+			JSONObject o = new JSONObject();
+			o.put("key", GROUP_USER_KEY_PREFIX + role);
+			o.put("type", "checkboxes");
+			items.put(o);
+		}
+
+		rolesForm.put("items", items);
+
+		JSONArray form = tmp.getJSONArray("form");
+		// remove this object and insert it back at the end
+		Object submitButton = form.remove(form.length() - 1);
+		form.put(rolesForm);
+		form.put(submitButton);
+
+		return tmp.toString();
 	}
 
 	/*
@@ -60,8 +129,9 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 	 *
 	 * @see activitipoc.IFormHandler#parseResult(java.lang.String)
 	 */
-	public Map<String, Object> parseResult(String data) {
-		Map<String, Object> result = new HashMap<String, Object>();
+	public FormResult parseResult(String data) {
+		final Map<String, Object> parameters = new HashMap<String, Object>();
+		final Map<String, Collection<String>> routes = new HashMap<String, Collection<String>>();
 
 		JSONObject jObject = new JSONObject(data);
 		Iterator<?> keys = jObject.keys();
@@ -70,11 +140,34 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 
 			// TODO dangerous cast
 			String key = (String) keys.next();
-			Object value = jObject.get(key);
-			result.put(key, value);
+
+			// separate properties from roles
+			if (key.startsWith(SINGLE_USER_KEY_PREFIX)) {
+				routes.put(key.replaceFirst(SINGLE_USER_KEY_PREFIX, ""),
+						Arrays.asList(jObject.getString(key)));
+			} else if (key.startsWith(GROUP_USER_KEY_PREFIX)) {
+				Set<String> users = new HashSet<String>();
+				JSONArray usersJ = jObject.getJSONArray(key);
+				for (int i = 0; i < usersJ.length(); i++) {
+					users.add(usersJ.getString(i));
+				}
+				routes.put(key.replaceFirst(GROUP_USER_KEY_PREFIX, ""), users);
+			} else {
+				Object value = jObject.get(key);
+				parameters.put(key, value);
+			}
 		}
 
-		return result;
+		return new FormResult() {
+
+			public Map<String, Collection<String>> getRolesToUsersMapping() {
+				return routes;
+			}
+
+			public Map<String, Object> getProperties() {
+				return parameters;
+			}
+		};
 	}
 
 	private String formDataToJSON(FormData data) {
@@ -97,7 +190,7 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 		schema += " }";
 
 		// add submit button to form
-		form += "{\"type\": \"submit\",\"title\": \"Submit Task\"}";
+		form += "{\"type\": \"submit\",\"title\": \"Submit\"}";
 
 		form += " ]";
 
