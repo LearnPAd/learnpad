@@ -11,7 +11,7 @@
       <extensionElements>
         <activiti:formProperty id="employeeName" name="Employee Name" type="string" required="true"/>
         <activiti:formProperty id="numberOfDays" name="Number of days" type="long" value="1" required="true"/>
-        <activiti:formProperty id="startDate" name="First day of holiday (dd-MM-yyy)" datePattern="dd-MM-yyyy hh:mm" type="date" required="true" />
+        <activiti:formProperty id="startDate" name="First day of holiday (yyyy-MM-dd)" type="date" required="true" />
         <activiti:formProperty id="vacationMotivation" name="Motivation" type="string" />
       </extensionElements>
     </startEvent>

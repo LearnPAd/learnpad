@@ -44,8 +44,8 @@
 
     <userTask id="doChecks" name="Do Checks" >
       <documentation>
-        ${entrepreneur} sent requested integration documents.
-        attached document: <![CDATA[<a href='resources/files/${document}.pdf' target='_blank'>Entrepreneur document</a>]]>
+        We need to check the following integration documents:
+        <![CDATA[<a href='resources/files/${document}.pdf' target='_blank'>Entrepreneur document</a>]]>
       </documentation>
       <extensionElements>
 	<activiti:formProperty id="integrationChecked" name="Do you confirm the integration documents are correct?"  type="enum" required="true">
