@@ -138,8 +138,7 @@
          if (!window.WebSocket){
              alert("WebSocket not supported by this browser");
          }
-         var processReceiver = new ProcessReceiver(#serveripaddress#);
-         processReceiver.init();
+         var processReceiver = processReceiver(#serveripaddress#);
         </script>
 
     </body>

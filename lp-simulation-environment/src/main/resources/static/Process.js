@@ -1,63 +1,59 @@
 'use strict';
 
-var processFinishOnError = false;
+function processReceiver(address) {
 
-var data = {};
+    var newProcessReceiver = {};
 
-function ProcessReceiver(address) {
-    ProcessReceiver.prototype.init = function() {
-        var location = 'ws://' + address + '/process';
-        processReceiver._ws = new WebSocket(location);
-        processReceiver._ws.onopen = this._onopen;
-        processReceiver._ws.onmessage = this._onmessage;
-        processReceiver._ws.onclose = this._onclose;
-        processReceiver._ws.onerror = this._onerror;
-    };
+    newProcessReceiver.processFinishOnError = false;
+    newProcessReceiver.processData = {};
 
-    ProcessReceiver.prototype._onopen = function() {
+    var location = 'ws://' + address + '/process';
+
+    newProcessReceiver._onopen = function() {
         // nothing to do
     };
 
-    ProcessReceiver.prototype._onmessage = function(m) {
+    newProcessReceiver._onmessage = function(m) {
         var msg = JSON.parse(m.data);
         switch (msg.type) {
         case 'DATA':
-            data = msg;
-            processReceiver.updateProcessList(msg);
+            newProcessReceiver.processData = msg;
+            newProcessReceiver.updateProcessList(msg);
             break;
         }
     };
 
-    ProcessReceiver.prototype._onclose = function(m) {
+    newProcessReceiver._onclose = function(m) {
         $('#formPosition').html('');
         $('#processTable').html('');
         $('#processInfo').html('Lost connection with server');
 
-        processReceiver._ws = null;
-        if (processFinishOnError) {
+        newProcessReceiver.ws = null;
+        if (newProcessReceiver.processFinishOnError) {
             alert('The following error occurred: ' +
                   m.reason +
                   ' (' + m.code + ')');
         }
     };
 
-    ProcessReceiver.prototype._onerror = function(e) {
-        processFinishOnError = true;
+    newProcessReceiver._onerror = function(e) {
+        newProcessReceiver.processFinishOnError = true;
     };
 
-    ProcessReceiver.prototype.send = function(data) {
-        processReceiver._ws.send(data);
+    newProcessReceiver.send = function(data) {
+        newProcessReceiver.ws.send(data);
     };
 
-    ProcessReceiver.prototype.instanciate = function(processId) {
-        var process = data.processes.filter(function(e) {
-            return e.id == processId;
-        })[0];
+    newProcessReceiver.instanciate = function(processId) {
+        var process = newProcessReceiver.processData.processes.filter(
+            function(e) {
+                return e.id == processId;
+            })[0];
 
         processFormGenerate(process,
                             '#formPosition',
                             function(values) {
-                                processReceiver.submitProcessData(
+                                newProcessReceiver.submitProcessData(
                                     processId,
                                     values
                                 );
@@ -68,7 +64,7 @@ function ProcessReceiver(address) {
                             });
     };
 
-    ProcessReceiver.prototype.submitProcessData = function(id, values) {
+    newProcessReceiver.submitProcessData = function(id, values) {
         var data = {};
         data.id = id;
         data.parameters = values;
@@ -78,10 +74,10 @@ function ProcessReceiver(address) {
             'SUAP' : ['sarah'],
             'otherOffice' : ['tom']
         };
-        processReceiver.send(JSON.stringify(data));
+        newProcessReceiver.send(JSON.stringify(data));
     };
 
-    ProcessReceiver.prototype.updateProcessList = function(msg) {
+    newProcessReceiver.updateProcessList = function(msg) {
         for (var i = 0; i < msg.processes.length; i++) {
             var process = msg.processes[i];
             var content = '';
@@ -97,9 +93,16 @@ function ProcessReceiver(address) {
             // each time and explicitely pass the process)
             document.getElementById('process' + process.id).
                 onclick = function(p) {
-                    return function() {processReceiver.instanciate(p.id);};
+                    return function() {
+                        newProcessReceiver.instanciate(p.id);
+                    };
                 }(process);
         }
     };
 
+    newProcessReceiver.ws = new WebSocket(location);
+    newProcessReceiver.ws.onopen = newProcessReceiver._onopen;
+    newProcessReceiver.ws.onmessage = newProcessReceiver._onmessage;
+    newProcessReceiver.ws.onclose = newProcessReceiver._onclose;
+    newProcessReceiver.ws.onerror = newProcessReceiver._onerror;
 }
