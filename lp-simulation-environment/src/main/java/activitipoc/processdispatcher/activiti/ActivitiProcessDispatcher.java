@@ -4,11 +4,13 @@
 package activitipoc.processdispatcher.activiti;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.event.ActivitiEvent;
@@ -33,6 +35,7 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 	private final TaskService taskService;
 	private final ITaskRouter router;
 	private final RuntimeService runtimeService;
+	private final HistoryService historyService;
 
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
 
@@ -74,16 +77,20 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 			ProcessInstance process,
 			TaskService taskService,
 			RuntimeService runtimeService,
+			HistoryService historyService,
 			ITaskRouter router,
 			ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator,
-			IUIHandler uiHandler) {
+			IUIHandler uiHandler, Collection<String> involvedUsers) {
 		super();
 		this.process = process;
 		this.taskService = taskService;
 		this.router = router;
 		this.runtimeService = runtimeService;
 		this.taskValidator = taskValidator;
+		this.historyService = historyService;
 		this.uiHandler = uiHandler;
+
+		uiHandler.addProcess(process.getId(), involvedUsers, this);
 
 		List<Task> tasks = taskService.createTaskQuery()
 				.processInstanceId(process.getId()).list();

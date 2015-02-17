@@ -20,7 +20,6 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 
-import activitipoc.IProcessDispatcher;
 import activitipoc.IProcessManager;
 import activitipoc.ITaskValidator;
 import activitipoc.IUIHandler;
@@ -183,11 +182,11 @@ public class ActivitiProcessManager implements IProcessManager {
 		ProcessInstance process = runtimeService.startProcessInstanceById(
 				projectDefinitionId, parameters);
 
-		IProcessDispatcher dispatcher = new ActivitiProcessDispatcher(process,
-				taskService, runtimeService, new ActivitiTaskRouter(
-						taskService, router), taskValidator, uiHandler);
-
-		uiHandler.addProcess(process.getId(), users, dispatcher);
+		// the process dispatcher will register itself to the uiHandler
+		// so we do not need to do anything here (except creating it)
+		new ActivitiProcessDispatcher(process, taskService, runtimeService,
+				historyService, new ActivitiTaskRouter(taskService, router),
+				taskValidator, uiHandler, uiHandler.getUsers());
 
 		return process.getId();
 	}
