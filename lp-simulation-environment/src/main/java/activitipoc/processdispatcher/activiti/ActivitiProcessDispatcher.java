@@ -29,7 +29,7 @@ import activitipoc.IUIHandler;
  *
  */
 public class ActivitiProcessDispatcher implements IProcessDispatcher,
-		ActivitiEventListener {
+ActivitiEventListener {
 
 	private final ProcessInstance process;
 	private final TaskService taskService;
@@ -128,51 +128,74 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 		System.out.println("Process " + process.getId() + " finished");
 	}
 
-	public synchronized boolean submitTaskCompletion(String taskId,
-			Map<String, Object> data) {
+	// synchronized because several users can try to submit results for the same
+	// task simultaneously
+	public synchronized IProcessDispatcher.TaskSubmissionStatus submitTaskCompletion(
+			String taskId, Map<String, Object> data) {
+		try {
+			if (historyService.createHistoricTaskInstanceQuery().finished()
+					.taskId(taskId).singleResult() != null) {
+				return TaskSubmissionStatus.ALREADY_COMPLETED;
+			} else {
 
-		Map<String, Object> processVariables = taskService.createTaskQuery()
-				.includeProcessVariables().taskId(taskId).singleResult()
-				.getProcessVariables();
+				Task task = taskService.createTaskQuery()
+						.includeProcessVariables().taskId(taskId)
+						.singleResult();
 
-		if (!taskValidator.taskResultIsValid(process.getId(), taskId,
-				processVariables, data)) {
-			// task result is invalid and must be resubmitted
-			return false;
-		} else {
+				if (task == null) {
+					return TaskSubmissionStatus.UNKOWN_TASK;
+				} else {
 
-			taskService.complete(taskId, data);
+					Map<String, Object> processVariables = taskService
+							.createTaskQuery().includeProcessVariables()
+							.taskId(taskId).singleResult()
+							.getProcessVariables();
 
-			registeredWaitingTasks.remove(taskId);
+					if (!taskValidator.taskResultIsValid(process.getId(),
+							taskId, processVariables, data)) {
+						// task result is invalid and must be resubmitted
+						return TaskSubmissionStatus.REJECTED;
+					} else {
 
-			// check for newly triggered tasks
-			List<Task> waitingTasks = taskService.createTaskQuery()
-					.processInstanceId(process.getId()).list();
+						taskService.complete(taskId, data);
 
-			// ignore already processed tasks
-			List<Task> newTasks = new ArrayList<Task>();
-			for (Task t : waitingTasks) {
-				if (!registeredWaitingTasks.contains(t.getId())) {
-					newTasks.add(t);
+						registeredWaitingTasks.remove(taskId);
+
+						// check for newly triggered tasks
+						List<Task> waitingTasks = taskService.createTaskQuery()
+								.processInstanceId(process.getId()).list();
+
+						// ignore already processed tasks
+						List<Task> newTasks = new ArrayList<Task>();
+						for (Task t : waitingTasks) {
+							if (!registeredWaitingTasks.contains(t.getId())) {
+								newTasks.add(t);
+							}
+						}
+
+						if (!newTasks.isEmpty()) {
+							processNewTasks(newTasks);
+						}
+
+						// see comment on processFinished declaration
+						if (processFinished) {
+							completeProcess();
+						}
+
+						return TaskSubmissionStatus.VALIDATED;
+					}
+
 				}
 			}
-
-			if (!newTasks.isEmpty()) {
-				processNewTasks(newTasks);
-			}
-
-			// see comment on processFinished declaration
-			if (processFinished) {
-				completeProcess();
-			}
-
-			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TaskSubmissionStatus.UNKOWN_ERROR;
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#onEvent(org.
 	 * activiti.engine.delegate.event.ActivitiEvent)
@@ -188,7 +211,7 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#isFailOnException
 	 * ()

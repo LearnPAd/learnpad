@@ -19,6 +19,10 @@ import java.util.Map;
  */
 public interface IProcessDispatcher {
 
+	static enum TaskSubmissionStatus {
+		VALIDATED, REJECTED, ALREADY_COMPLETED, UNKOWN_TASK, UNKOWN_ERROR
+	}
+
 	/**
 	 * Signal the completion of a given task, along with the corresponding
 	 * proposed data
@@ -27,7 +31,8 @@ public interface IProcessDispatcher {
 	 *            the id of the completed task
 	 * @param data
 	 *            the data corresponding to the task completion
-	 * @return true if the task result is validated, false otherwise
+	 * @return the state of the task submission
 	 */
-	public boolean submitTaskCompletion(String taskId, Map<String, Object> data);
+	public TaskSubmissionStatus submitTaskCompletion(String taskId,
+			Map<String, Object> data);
 }

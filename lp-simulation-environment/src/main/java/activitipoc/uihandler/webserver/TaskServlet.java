@@ -16,6 +16,7 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 
 import activitipoc.IFormHandler;
+import activitipoc.IProcessDispatcher;
 
 /**
  * @author jorquera
@@ -28,6 +29,7 @@ public class TaskServlet extends WebSocketServlet {
 	private static final long serialVersionUID = 1L;
 
 	private final UIHandlerWebImpl uiHandler;
+	private final IProcessDispatcher dispatcher;
 	private final String processId;
 	private final String taskId;
 	private final String taskDesc;
@@ -39,10 +41,12 @@ public class TaskServlet extends WebSocketServlet {
 	 * @param dispatcher
 	 * @param task
 	 */
-	public TaskServlet(UIHandlerWebImpl uiHandler, String processId,
-			String taskId, String taskDesc, IFormHandler formHandler) {
+	public TaskServlet(UIHandlerWebImpl uiHandler,
+			IProcessDispatcher dispatcher, String processId, String taskId,
+			String taskDesc, IFormHandler formHandler) {
 		super();
 		this.uiHandler = uiHandler;
+		this.dispatcher = dispatcher;
 		this.processId = processId;
 		this.taskId = taskId;
 		this.taskDesc = taskDesc;
@@ -53,72 +57,63 @@ public class TaskServlet extends WebSocketServlet {
 	@Override
 	public void configure(WebSocketServletFactory factory) {
 		factory.getPolicy().setIdleTimeout(TIMEOUT);
-		factory.setCreator(new TaskSocketCreator(taskId, taskDesc, this));
+		factory.setCreator(new TaskSocketCreator(this));
 	}
 
-	void completeTask(String data) {
-		System.out.println("completed task " + taskId + " with data " + data);
-		uiHandler.completeTask(processId, taskId, data);
-	}
+	void submitTask(TaskSocket socket, String data) {
+		System.out.println("submitted task " + taskId + " with data " + data);
 
-	void validateTask() {
-		synchronized (activeSockets) {
-			for (TaskSocket socket : activeSockets) {
-				try {
-					socket.getRemote()
-					.sendString("{ \"type\": \"VALIDATED\" }");
-				} catch (IOException e) {
-					e.printStackTrace();
+		// signal task submission to dispatcher and check validation
+		IProcessDispatcher.TaskSubmissionStatus status = dispatcher
+				.submitTaskCompletion(taskId, formHandler.parseResult(data)
+						.getProperties());
+
+		switch (status) {
+		case VALIDATED:
+			// signal task completion to users
+			synchronized (activeSockets) {
+				for (TaskSocket s : activeSockets) {
+					s.sendValidated();
 				}
 			}
-		}
-		System.out.println("task " + taskId + " has been validated");
-	}
 
-	void resubmitTask() {
-		synchronized (activeSockets) {
-			for (TaskSocket socket : activeSockets) {
-				try {
-					socket.getRemote().sendString(
-							"{ \"type\": \"RESUBMIT\", \"description\":\""
-									+ taskDesc.replaceAll("\n", "<p/>")
-									+ "\", \"processid\": \"" + processId
-									+ "\", \"form\":"
-									+ formHandler.createFormString(taskId)
-									+ "}");
-				} catch (IOException e) {
-					e.printStackTrace();
+			uiHandler.completeTask(processId, taskId, data);
+
+			System.out.println("task " + taskId + " has been validated");
+			break;
+		case REJECTED:
+			synchronized (activeSockets) {
+				for (TaskSocket s : activeSockets) {
+					s.sendResubmit();
 				}
 			}
+			System.out.println("task " + taskId + " has been resubmitted");
+			break;
+		default:
+			throw new RuntimeException("should not happen");
 		}
-		System.out.println("task " + taskId + " has been resubmitted");
 	}
 
 	/**
 	 * @author jorquera
 	 *
 	 */
-	private static class TaskSocketCreator implements WebSocketCreator {
+	private class TaskSocketCreator implements WebSocketCreator {
 
-		private final String taskId;
-		private final String taskDescr;
 		private final TaskServlet container;
 
 		/**
 		 * @param uiHandler
 		 * @param task
 		 */
-		public TaskSocketCreator(String taskId, String taskDescr,
-				TaskServlet container) {
+		public TaskSocketCreator(TaskServlet container) {
 			super();
-			this.taskId = taskId;
-			this.taskDescr = taskDescr;
 			this.container = container;
 		}
 
 		/*
 		 * (non-Javadoc)
-		 *
+		 * 
 		 * @see
 		 * org.eclipse.jetty.websocket.servlet.WebSocketCreator#createWebSocket
 		 * (org.eclipse.jetty.websocket.servlet.ServletUpgradeRequest,
@@ -126,7 +121,7 @@ public class TaskServlet extends WebSocketServlet {
 		 */
 		public Object createWebSocket(ServletUpgradeRequest req,
 				ServletUpgradeResponse resp) {
-			return new TaskSocket(taskId, taskDescr, container);
+			return new TaskSocket(container);
 		}
 
 	}
@@ -135,21 +130,38 @@ public class TaskServlet extends WebSocketServlet {
 	 * @author jorquera
 	 *
 	 */
-	private static class TaskSocket extends WebSocketAdapter {
+	private class TaskSocket extends WebSocketAdapter {
 
-		private final String taskId;
-		private final String taskDescr;
 		private final TaskServlet container;
 
 		/**
 		 * @param uiHandler
 		 * @param task
 		 */
-		public TaskSocket(String taskId, String taskDescr, TaskServlet container) {
+		public TaskSocket(TaskServlet container) {
 			super();
-			this.taskId = taskId;
-			this.taskDescr = taskDescr;
 			this.container = container;
+		}
+
+		void sendValidated() {
+			try {
+				getRemote().sendString("{ \"type\": \"VALIDATED\" }");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		void sendResubmit() {
+			try {
+				getRemote().sendString(
+						"{ \"type\": \"RESUBMIT\", \"description\":\""
+								+ taskDesc.replaceAll("\n", "<p/>")
+								+ "\", \"processid\": \"" + processId
+								+ "\", \"form\":"
+								+ formHandler.createFormString(taskId) + "}");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 		@Override
@@ -164,12 +176,12 @@ public class TaskServlet extends WebSocketServlet {
 			try {
 				sess.getRemote().sendString(
 						"{ \"type\": \"TASKDESC\", \"description\":\""
-								+ taskDescr.replaceAll("\n", "<p/>")
+								+ taskDesc.replaceAll("\n", "<p/>")
 								+ "\", \"processid\": \""
 								+ container.processId
 								+ "\", \"form\":"
 								+ container.formHandler
-										.createFormString(taskId) + "}");
+								.createFormString(taskId) + "}");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -182,8 +194,7 @@ public class TaskServlet extends WebSocketServlet {
 			System.out.println("Socket " + taskId + " received TEXT message: "
 					+ message);
 
-			container.completeTask(message);
-
+			container.submitTask(this, message);
 		}
 
 		@Override

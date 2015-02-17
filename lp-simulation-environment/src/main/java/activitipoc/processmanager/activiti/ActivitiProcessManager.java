@@ -13,6 +13,7 @@ import java.util.Set;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -38,6 +39,7 @@ public class ActivitiProcessManager implements IProcessManager {
 	private final RepositoryService repositoryService;
 	private final RuntimeService runtimeService;
 	private final TaskService taskService;
+	private final HistoryService historyService;
 
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
 
@@ -46,6 +48,7 @@ public class ActivitiProcessManager implements IProcessManager {
 		repositoryService = processEngine.getRepositoryService();
 		runtimeService = processEngine.getRuntimeService();
 		taskService = processEngine.getTaskService();
+		historyService = processEngine.getHistoryService();
 
 		taskValidator = new ActivitiDemoTaskValidator(taskService);
 	}

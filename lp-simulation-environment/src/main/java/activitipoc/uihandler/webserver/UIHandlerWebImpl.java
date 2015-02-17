@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import javax.servlet.ServletException;
-
 import org.eclipse.jetty.servlet.ServletHolder;
 
 import activitipoc.IFormHandler;
@@ -109,7 +107,8 @@ public class UIHandlerWebImpl implements IUIHandler {
 			Collection<String> users) {
 
 		tasksMap.put(taskId, webserver.addTaskServlet(new TaskServlet(this,
-				processId, taskId, taskDescr, formHandler), taskId));
+				processDispatchers.get(processId), processId, taskId,
+				taskDescr, formHandler), taskId));
 		tasksToUsers.put(taskId, users);
 
 		// note: it is important to signal new tasks to users *after* having
@@ -136,38 +135,14 @@ public class UIHandlerWebImpl implements IUIHandler {
 	}
 
 	public void completeTask(String processId, String taskId, String data) {
-
-		// signal task completion to dispatcher and check validation
-		boolean validated = processDispatchers.get(processId)
-				.submitTaskCompletion(taskId,
-						formHandler.parseResult(data).getProperties());
-
-		if (validated) {
-			// signal task completion to users
-			try {
-				((TaskServlet) tasksMap.get(taskId).getServlet())
-						.validateTask();
-			} catch (ServletException e) {
-				e.printStackTrace();
-			}
-
-			for (String userId : tasksToUsers.get(taskId)) {
-				usersMap.get(userId).removeTask(taskId);
-			}
-
-			// remove task ui from webserver
-			webserver.removeServletHolder(tasksMap.get(taskId));
-
-			tasksToUsers.remove(taskId);
-			tasksMap.remove(taskId);
-		} else {
-			try {
-				((TaskServlet) tasksMap.get(taskId).getServlet())
-						.resubmitTask();
-			} catch (ServletException e) {
-				e.printStackTrace();
-			}
+		for (String userId : tasksToUsers.get(taskId)) {
+			usersMap.get(userId).removeTask(taskId);
 		}
 
+		// remove task ui from webserver
+		webserver.removeServletHolder(tasksMap.get(taskId));
+
+		tasksToUsers.remove(taskId);
+		tasksMap.remove(taskId);
 	}
 }
