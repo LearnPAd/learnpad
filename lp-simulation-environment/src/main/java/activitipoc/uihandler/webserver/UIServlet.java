@@ -15,6 +15,12 @@ import org.eclipse.jetty.websocket.servlet.WebSocketCreator;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 
+import activitipoc.uihandler.webserver.msg.user.send.AddTask;
+import activitipoc.uihandler.webserver.msg.user.send.DeleteTask;
+import activitipoc.uihandler.webserver.msg.user.send.ProcessFinished;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * @author jorquera
  *
@@ -29,6 +35,8 @@ public class UIServlet extends WebSocketServlet {
 
 	private final Set<String> currentTasks = new HashSet<String>();
 	private final Set<UISocket> activeSockets = new HashSet<UISocket>();
+
+	private final ObjectMapper mapper = new ObjectMapper();
 
 	/**
 	 * @param dispatcher
@@ -52,8 +60,7 @@ public class UIServlet extends WebSocketServlet {
 			try {
 				System.out.println("sending task " + taskid + " to " + sock);
 				sock.getRemote().sendString(
-						"{\"type\": \"ADDTASK\", \"taskid\":\"" + taskid
-						+ "\"}");
+						mapper.writeValueAsString(new AddTask(taskid)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -69,7 +76,7 @@ public class UIServlet extends WebSocketServlet {
 		for (UISocket socket : activeSockets) {
 			try {
 				socket.getRemote().sendString(
-						"{\"type\": \"ADDTASK\", \"taskid\":\"" + id + "\"}");
+						mapper.writeValueAsString(new AddTask(id)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -81,7 +88,7 @@ public class UIServlet extends WebSocketServlet {
 		for (UISocket socket : activeSockets) {
 			try {
 				socket.getRemote().sendString(
-						"{\"type\": \"DELTASK\", \"taskid\":\"" + id + "\"}");
+						mapper.writeValueAsString(new DeleteTask(id)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -91,9 +98,10 @@ public class UIServlet extends WebSocketServlet {
 	public void completeProcess(String processId) {
 		for (UISocket session : activeSockets) {
 			try {
-				session.getRemote().sendString(
-						"{\"type\": \"FINISHED\", \"processid\": \""
-								+ processId + "\" }");
+				session.getRemote()
+				.sendString(
+						mapper.writeValueAsString(new ProcessFinished(
+								processId)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

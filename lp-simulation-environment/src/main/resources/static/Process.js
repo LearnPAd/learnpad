@@ -65,10 +65,13 @@ function processReceiver(address) {
     };
 
     newProcessReceiver.submitProcessData = function(id, values) {
-        var data = {};
-        data.id = id;
-        data.parameters = values;
-        newProcessReceiver.send(JSON.stringify(data));
+        newProcessReceiver.send(JSON.stringify(
+            {
+                type: 'INSTANCIATE',
+                id: id,
+                parameters: values
+            }
+        ));
     };
 
     newProcessReceiver.updateProcessList = function(msg) {

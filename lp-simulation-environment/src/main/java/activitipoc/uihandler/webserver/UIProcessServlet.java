@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.activiti.engine.impl.util.json.JSONObject;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
 import org.eclipse.jetty.websocket.servlet.ServletUpgradeRequest;
@@ -21,6 +20,11 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 import activitipoc.IFormHandler;
 import activitipoc.IProcessManager;
 import activitipoc.IUIHandler;
+import activitipoc.uihandler.webserver.msg.process.receive.BaseReceiveMessage;
+import activitipoc.uihandler.webserver.msg.process.receive.InstanciateProcess;
+import activitipoc.uihandler.webserver.msg.process.send.ProcessData;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author jorquera
@@ -102,6 +106,8 @@ public class UIProcessServlet extends WebSocketServlet {
 		private final IUIHandler uiHandler;
 		private final IFormHandler formHandler;
 
+		private final ObjectMapper mapper = new ObjectMapper();
+
 		/**
 		 * @param processManager
 		 * @param uiHandler
@@ -121,57 +127,10 @@ public class UIProcessServlet extends WebSocketServlet {
 
 			Collection<String> users = uiHandler.getUsers();
 
-			// set message type
-			String msg = "{ \"type\" : \"DATA\",";
-
-			// list processes
-			// (schema {
-			// processes: [
-			// {
-			// id: <>, name:<>, description: <>, form : {<>}
-			// },...]
-			// })
-			msg += "\"processes\": [";
-
-			for (String processDefId : processManager
-					.getAvailableProcessDefintion()) {
-				msg += "{ \"id\": \""
-						+ processDefId
-						+ "\", \"name\": \""
-						+ processManager.getProcessDefinitionName(processDefId)
-						+ "\", \"description\": \""
-						+ processManager
-						.getProcessDefinitionDescription(processDefId)
-						+ "\", \"form\": "
-						+ formHandler
-								.createStartingFormString(
-										processDefId,
-										processManager
-												.getProcessDefinitionSingleRoles(processDefId),
-										processManager
-												.getProcessDefinitionGroupRoles(processDefId),
-										users);
-
-				msg += " },";
-			}
-
-			// remove last ,
-			msg = msg.substring(0, msg.length() - 1);
-			msg += " ],";
-
-			// list users
-			// (schema {users: [ id, ...]})
-			msg += "\"users\": [ ";
-			for (String user : uiHandler.getUsers()) {
-				msg += "\"" + user + "\",";
-			}
-			// remove last ,"
-			msg = msg.substring(0, msg.length() - 1);
-
-			msg += " ]}";
-
 			try {
-				this.getRemote().sendString(msg);
+				this.getRemote().sendString(
+						mapper.writeValueAsString(new ProcessData(
+								processManager, formHandler, users)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -181,32 +140,47 @@ public class UIProcessServlet extends WebSocketServlet {
 		public void onWebSocketText(String message) {
 			super.onWebSocketText(message);
 
-			JSONObject msg = new JSONObject(message);
+			try {
 
-			// expect a JSON message in the following format:
-			// {
-			// id: <processDef id>,
-			// parameters: "[...]",
-			// }
+				BaseReceiveMessage m = mapper.readValue(message,
+						BaseReceiveMessage.class);
 
-			String projectDefinitionId = msg.getString("id");
+				switch (m.getType()) {
 
-			IFormHandler.FormResult result = formHandler.parseResult(msg
-					.getString("parameters"));
+				case INSTANCIATE:
+					InstanciateProcess msg = mapper.readValue(message,
+							InstanciateProcess.class);
 
-			Map<String, Object> parameters = result.getProperties();
+					String projectDefinitionId = msg.id;
+					IFormHandler.FormResult result = formHandler
+							.parseResult(msg.parameters);
 
-			Set<String> involvedUsers = new HashSet<String>();
-			Map<String, Collection<String>> router = result
-					.getRolesToUsersMapping();
+					Map<String, Object> parameters = result.getProperties();
 
-			for (Collection<String> users : router.values()) {
-				// add these users to list of concerned users
-				involvedUsers.addAll(users);
+					Set<String> involvedUsers = new HashSet<String>();
+					Map<String, Collection<String>> router = result
+							.getRolesToUsersMapping();
+
+					for (Collection<String> users : router.values()) {
+						// add these users to list of concerned users
+						involvedUsers.addAll(users);
+					}
+
+					processManager.startProjectInstance(projectDefinitionId,
+							parameters, involvedUsers, router, uiHandler);
+
+					break;
+
+				default:
+					System.err
+							.println("received unexpected message " + message);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.err.println("received unexpected message " + message);
 			}
 
-			processManager.startProjectInstance(projectDefinitionId,
-					parameters, involvedUsers, router, uiHandler);
 		}
 
 		@Override

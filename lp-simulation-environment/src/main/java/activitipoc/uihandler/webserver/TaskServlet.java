@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.activiti.engine.impl.util.json.JSONObject;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
 import org.eclipse.jetty.websocket.servlet.ServletUpgradeRequest;
@@ -19,6 +18,16 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 
 import activitipoc.IFormHandler;
 import activitipoc.IProcessDispatcher;
+import activitipoc.uihandler.webserver.msg.task.receive.BaseReceiveMessage;
+import activitipoc.uihandler.webserver.msg.task.receive.Submit;
+import activitipoc.uihandler.webserver.msg.task.receive.Subscribe;
+import activitipoc.uihandler.webserver.msg.task.send.OtherValidated;
+import activitipoc.uihandler.webserver.msg.task.send.Resubmit;
+import activitipoc.uihandler.webserver.msg.task.send.TaskDesc;
+import activitipoc.uihandler.webserver.msg.task.send.TaskError;
+import activitipoc.uihandler.webserver.msg.task.send.Validated;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author jorquera
@@ -130,7 +139,7 @@ public class TaskServlet extends WebSocketServlet {
 
 		/*
 		 * (non-Javadoc)
-		 *
+		 * 
 		 * @see
 		 * org.eclipse.jetty.websocket.servlet.WebSocketCreator#createWebSocket
 		 * (org.eclipse.jetty.websocket.servlet.ServletUpgradeRequest,
@@ -151,6 +160,8 @@ public class TaskServlet extends WebSocketServlet {
 
 		private final TaskServlet container;
 
+		private final ObjectMapper mapper = new ObjectMapper();
+
 		/**
 		 * @param uiHandler
 		 * @param task
@@ -162,7 +173,8 @@ public class TaskServlet extends WebSocketServlet {
 
 		void sendValidated() {
 			try {
-				getRemote().sendString("{ \"type\": \"VALIDATED\" }");
+				getRemote().sendString(
+						mapper.writeValueAsString(new Validated()));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -171,11 +183,9 @@ public class TaskServlet extends WebSocketServlet {
 		void sendResubmit() {
 			try {
 				getRemote().sendString(
-						"{ \"type\": \"RESUBMIT\", \"description\":\""
-								+ taskDesc.replaceAll("\n", "<p/>")
-								+ "\", \"processid\": \"" + processId
-								+ "\", \"form\":"
-								+ formHandler.createFormString(taskId) + "}");
+						mapper.writeValueAsString(new Resubmit(taskDesc
+								.replaceAll("\n", "<p/>"), processId,
+								formHandler.createFormString(taskId))));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -183,7 +193,8 @@ public class TaskServlet extends WebSocketServlet {
 
 		void sendOtherValidated() {
 			try {
-				getRemote().sendString("{ \"type\": \"OTHER_VALIDATED\" }");
+				getRemote().sendString(
+						mapper.writeValueAsString(new OtherValidated()));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -191,7 +202,8 @@ public class TaskServlet extends WebSocketServlet {
 
 		void sendError() {
 			try {
-				getRemote().sendString("{ \"type\": \"ERROR\" }");
+				getRemote().sendString(
+						mapper.writeValueAsString(new TaskError()));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -204,13 +216,9 @@ public class TaskServlet extends WebSocketServlet {
 
 			try {
 				sess.getRemote().sendString(
-						"{ \"type\": \"TASKDESC\", \"description\":\""
-								+ taskDesc.replaceAll("\n", "<p/>")
-								+ "\", \"processid\": \""
-								+ container.processId
-								+ "\", \"form\":"
-								+ container.formHandler
-										.createFormString(taskId) + "}");
+						mapper.writeValueAsString(new TaskDesc(taskDesc
+								.replaceAll("\n", "<p/>"), processId,
+								formHandler.createFormString(taskId))));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -223,17 +231,33 @@ public class TaskServlet extends WebSocketServlet {
 			System.out.println("Socket " + taskId + " received TEXT message: "
 					+ message);
 
-			JSONObject msg = new JSONObject(message);
+			try {
+				BaseReceiveMessage m = mapper.readValue(message,
+						BaseReceiveMessage.class);
 
-			if (msg.getString("type").equals("SUBSCRIBE")) {
-				synchronized (container.activeSockets) {
-					container.activeSockets.put(this, msg.getString("user"));
+				switch (m.getType()) {
+
+				case SUBSCRIBE:
+					Subscribe subscMsg = mapper.readValue(message,
+							Subscribe.class);
+					synchronized (container.activeSockets) {
+						container.activeSockets.put(this, subscMsg.user);
+					}
+					break;
+
+				case SUBMIT:
+					Submit submitMsg = mapper.readValue(message, Submit.class);
+					container.submitTask(this, submitMsg.values);
+					break;
+
+				default:
+					System.err
+					.println("received unexpected message " + message);
 				}
-			} else if (msg.getString("type").equals("SUBMIT")) {
-				container.submitTask(this, msg.getString("values"));
-			} else {
-				System.err.println("Socket " + taskId
-						+ " received unexpected message " + message);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.err.println("received unexpected message " + message);
 			}
 
 		}

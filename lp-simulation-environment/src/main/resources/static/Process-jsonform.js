@@ -4,11 +4,11 @@ function processFormGenerate(process, formElement, callback) {
     $(formElement).html('');
     $(formElement).html('<form></form>');
     $(formElement + ' > form').jsonForm({
-        schema: process.form.schema,
-        form: process.form.form,
+        schema: JSON.parse(process.form).schema,
+        form: JSON.parse(process.form).form,
         onSubmit: function(errors, values) {
             if (!errors) {
-                callback(values);
+                callback(JSON.stringify(values));
             }
         }});
 }

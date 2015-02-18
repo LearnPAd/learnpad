@@ -15,6 +15,7 @@
 		<slf4j.version>1.7.10</slf4j.version>
 		<activiti.version>5.16.4</activiti.version>
 		<jettyVersion>9.2.2.v20140723</jettyVersion>
+		<jackson.version>2.4.4</jackson.version>
 	</properties>
 
 	<repositories>
@@ -64,6 +65,12 @@
 			<groupId>org.eclipse.jetty.websocket</groupId>
 			<artifactId>websocket-server</artifactId>
 			<version>9.2.2.v20140723</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
 
 		<dependency>

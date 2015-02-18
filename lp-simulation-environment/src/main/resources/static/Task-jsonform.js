@@ -5,11 +5,11 @@ function taskFormGenerate(taskid, data, formContainer, formId, callback) {
                         formId + '"  class="well"></form>');
 
     $('#' + formId).jsonForm({
-        schema: data.form.schema,
-        form: data.form.form,
+        schema: JSON.parse(data.form).schema,
+        form: JSON.parse(data.form).form,
         onSubmit: function(errors, values) {
             if (!errors) {
-                callback(values);
+                callback(JSON.stringify(values));
             }
         }});
 }
