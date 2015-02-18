@@ -37,7 +37,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 	 */
 	public UIHandlerWebImpl(int port, Collection<String> users,
 			IProcessManager processManager, IFormHandler formHandler)
-			throws Exception {
+					throws Exception {
 		super();
 		this.formHandler = formHandler;
 		this.usersMap = new HashMap<String, UIServlet>();
@@ -57,7 +57,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IUIHandler#addUser(java.lang.String)
 	 */
 	public void addUser(String userId) {
@@ -68,7 +68,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IUIHandler#removeUser(java.lang.String)
 	 */
 	public void removeUser(String userId) {
@@ -79,7 +79,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IUIHandler#getUsers()
 	 */
 	public Collection<String> getUsers() {
@@ -88,7 +88,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IUIHandler#addProcess(java.lang.String,
 	 * Collection<String>, ProcessDispatcher)
 	 */
@@ -100,7 +100,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IUIHandler#sendTask(java.lang.String, java.util.Set)
 	 */
 	public void sendTask(String processId, String taskId, String taskDescr,
@@ -121,7 +121,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IUIHandler#signalProcessEnd(java.lang.String,
 	 * java.util.Set)
 	 */
@@ -144,5 +144,12 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 		tasksToUsers.remove(taskId);
 		tasksMap.remove(taskId);
+	}
+
+	/**
+	 * stop the webserver
+	 */
+	public void stop() {
+		webserver.stop();
 	}
 }
