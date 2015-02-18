@@ -16,6 +16,8 @@
 		<activiti.version>5.16.4</activiti.version>
 		<jettyVersion>9.2.2.v20140723</jettyVersion>
 		<jackson.version>2.4.4</jackson.version>
+		<junit.version>4.12</junit.version>
+		<mockito.version>2.0.4-beta</mockito.version>
 	</properties>
 
 	<repositories>
@@ -76,7 +78,13 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
