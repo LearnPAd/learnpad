@@ -1,30 +1,20 @@
 'use strict';
 
-function TasksReceiver(address) {
+function taskReceiver(address, user) {
 
-    var finishOnError = false;
-    var activeTasks = {};
+    var newTaskReceiver = {}
 
-    var user;
+    newTaskReceiver.finishOnError = false;
+    newTaskReceiver.activeTasks = {};
+    newTaskReceiver.user = user;
 
-    TasksReceiver.prototype.init = function(uiid) {
 
-        var location = 'ws://' + address + '/ui/' + uiid;
-        taskReceiver._ws = new WebSocket(location);
-        taskReceiver._ws.onopen = this._onopen;
-        taskReceiver._ws.onmessage = this._onmessage;
-        taskReceiver._ws.onclose = this._onclose;
-        taskReceiver._ws.onerror = this._onerror;
-
-        user = uiid;
-    };
-
-    TasksReceiver.prototype._onopen = function() {
+    newTaskReceiver._onopen = function() {
         $('#connect').remove();
         $('.userui').removeClass('hidden');
     };
 
-    TasksReceiver.prototype._onmessage = function(m) {
+    newTaskReceiver._onmessage = function(m) {
         var msg = JSON.parse(m.data);
         switch (msg.type) {
 
@@ -38,25 +28,26 @@ function TasksReceiver(address) {
 
         case 'ADDTASK':
             var newTask = task(address, msg.taskid, user);
-            activeTasks[msg.taskid] = newTask;
+            newTaskReceiver.activeTasks[msg.taskid] = newTask;
             newTask.join();
             break;
 
         case 'DELTASK':
             // may be undefined if task was closed from another ui
-            activeTasks[msg.taskid].end();
-            delete activeTasks[msg.taskid];
+            newTaskReceiver.activeTasks[msg.taskid].end();
+            delete newTaskReceiver.activeTasks[msg.taskid];
             break;
         }
     };
 
-    TasksReceiver.prototype._onclose = function(m) {
-        Object.keys(activeTasks).forEach(function(taskid) {
-            activeTasks[taskid].end();
-            delete activeTasks[taskid];
+    newTaskReceiver._onclose = function(m) {
+        Object.keys(newTaskReceiver.activeTasks).forEach(
+            function(taskid) {
+                newTaskReceiver.activeTasks[taskid].end();
+                delete newTaskReceiver.activeTasks[taskid];
         });
         delete taskReceiver._ws;
-        if (finishOnError) {
+        if (newTaskReceiver.finishOnError) {
             alert(
                 'The following error occurred: ' +
                     m.reason +
@@ -65,7 +56,16 @@ function TasksReceiver(address) {
         }
     };
 
-    TasksReceiver.prototype._onerror = function(e) {
-        finishOnError = true;
+    newTaskReceiver._onerror = function(e) {
+        newTaskReceiver.finishOnError = true;
     };
+
+    var location = 'ws://' + address + '/ui/' + user;
+    newTaskReceiver._ws = new WebSocket(location);
+    newTaskReceiver._ws.onopen = newTaskReceiver._onopen;
+    newTaskReceiver._ws.onmessage = newTaskReceiver._onmessage;
+    newTaskReceiver._ws.onclose = newTaskReceiver._onclose;
+    newTaskReceiver._ws.onerror = newTaskReceiver._onerror;
+
+    return newTaskReceiver;
 }

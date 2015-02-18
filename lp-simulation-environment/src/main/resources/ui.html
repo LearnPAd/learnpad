@@ -209,7 +209,6 @@
          if (!window.WebSocket){
              alert("WebSocket not supported by this browser");
          }
-         var taskReceiver = new TasksReceiver(#serveripaddress#);
         </script>
 
 
@@ -218,7 +217,7 @@
          var userid;
          $('#connectBn').click(function(event) {
              userid = $('#uiid').val().toLowerCase();
-             taskReceiver.init(userid);
+             var receiver = taskReceiver(#serveripaddress#, userid);
              chat('chatcontainer', #serveripaddress#, userid);
              var content = $('#user-' + userid + ' > p').html();
             $('#user-' + userid + ' > img').attr('style', 'border:1px solid black');
