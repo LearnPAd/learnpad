@@ -111,6 +111,14 @@ public class WebServer {
 
 	}
 
+	public void stop() {
+		try {
+			server.stop();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public ServletHolder addUIServlet(WebSocketServlet servlet, String subpath) {
 		ServletHolder holderEvents = new ServletHolder(servlet);
 

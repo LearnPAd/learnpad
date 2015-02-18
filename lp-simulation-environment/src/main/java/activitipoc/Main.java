@@ -14,12 +14,12 @@ import activitipoc.processmanager.activiti.ActivitiProcessManager;
 import activitipoc.uihandler.webserver.UIHandlerWebImpl;
 import activitipoc.uihandler.webserver.WebServer;
 
-class Main {
+public class Main {
 
 	public static final String ACTIVITY_CONFIG_PATH = "activiti.cfg.xml";
 	public static final String DEMO_PROCESS_FOLDER = "process";
 
-	private static final int PORT = 8081;
+	public static final int PORT = 8081;
 
 	/**
 	 * @param args
