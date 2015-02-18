@@ -99,4 +99,6 @@ function processReceiver(address) {
     newProcessReceiver.ws.onmessage = newProcessReceiver._onmessage;
     newProcessReceiver.ws.onclose = newProcessReceiver._onclose;
     newProcessReceiver.ws.onerror = newProcessReceiver._onerror;
-}
+
+    return newProcessReceiver;
+ }
