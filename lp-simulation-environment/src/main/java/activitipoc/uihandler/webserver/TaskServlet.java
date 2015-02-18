@@ -4,9 +4,11 @@
 package activitipoc.uihandler.webserver;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import org.activiti.engine.impl.util.json.JSONObject;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
 import org.eclipse.jetty.websocket.servlet.ServletUpgradeRequest;
@@ -35,7 +37,7 @@ public class TaskServlet extends WebSocketServlet {
 	private final String taskDesc;
 	private final IFormHandler formHandler;
 
-	private final Set<TaskSocket> activeSockets = new HashSet<TaskSocket>();
+	private final Map<TaskSocket, String> activeSockets = new HashMap<TaskSocket, String>();
 
 	/**
 	 * @param dispatcher
@@ -72,25 +74,40 @@ public class TaskServlet extends WebSocketServlet {
 		case VALIDATED:
 			// signal task completion to users
 			synchronized (activeSockets) {
-				for (TaskSocket s : activeSockets) {
-					s.sendValidated();
+				for (Entry<TaskSocket, String> e : activeSockets.entrySet()) {
+					if (e.getValue().equals(activeSockets.get(socket))) {
+						e.getKey().sendValidated();
+					} else {
+						e.getKey().sendOtherValidated();
+					}
 				}
 			}
-
 			uiHandler.completeTask(processId, taskId, data);
-
 			System.out.println("task " + taskId + " has been validated");
 			break;
+
 		case REJECTED:
+			// signal rejection to all interfaces of the same user
 			synchronized (activeSockets) {
-				for (TaskSocket s : activeSockets) {
-					s.sendResubmit();
+				for (Entry<TaskSocket, String> e : activeSockets.entrySet()) {
+					if (e.getValue().equals(activeSockets.get(socket))) {
+						e.getKey().sendResubmit();
+					}
 				}
 			}
-			System.out.println("task " + taskId + " has been resubmitted");
+			System.out.println("task " + taskId + " has been resubmitted to "
+					+ socket);
 			break;
-		default:
-			throw new RuntimeException("should not happen");
+
+		case ALREADY_COMPLETED:
+			// dismiss, the socket should already have transmitted the info
+			break;
+
+		case UNKOWN_TASK:
+		case UNKOWN_ERROR:
+			// weird error...
+			socket.sendError();
+			break;
 		}
 	}
 
@@ -113,7 +130,7 @@ public class TaskServlet extends WebSocketServlet {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
 		 * org.eclipse.jetty.websocket.servlet.WebSocketCreator#createWebSocket
 		 * (org.eclipse.jetty.websocket.servlet.ServletUpgradeRequest,
@@ -164,14 +181,26 @@ public class TaskServlet extends WebSocketServlet {
 			}
 		}
 
+		void sendOtherValidated() {
+			try {
+				getRemote().sendString("{ \"type\": \"OTHER_VALIDATED\" }");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		void sendError() {
+			try {
+				getRemote().sendString("{ \"type\": \"ERROR\" }");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 		@Override
 		public void onWebSocketConnect(Session sess) {
 			super.onWebSocketConnect(sess);
 			System.out.println("Socket " + taskId + " connected: " + sess);
-
-			synchronized (container.activeSockets) {
-				container.activeSockets.add(this);
-			}
 
 			try {
 				sess.getRemote().sendString(
@@ -181,7 +210,7 @@ public class TaskServlet extends WebSocketServlet {
 								+ container.processId
 								+ "\", \"form\":"
 								+ container.formHandler
-								.createFormString(taskId) + "}");
+										.createFormString(taskId) + "}");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -194,7 +223,19 @@ public class TaskServlet extends WebSocketServlet {
 			System.out.println("Socket " + taskId + " received TEXT message: "
 					+ message);
 
-			container.submitTask(this, message);
+			JSONObject msg = new JSONObject(message);
+
+			if (msg.getString("type").equals("SUBSCRIBE")) {
+				synchronized (container.activeSockets) {
+					container.activeSockets.put(this, msg.getString("user"));
+				}
+			} else if (msg.getString("type").equals("SUBMIT")) {
+				container.submitTask(this, msg.getString("values"));
+			} else {
+				System.err.println("Socket " + taskId
+						+ " received unexpected message " + message);
+			}
+
 		}
 
 		@Override

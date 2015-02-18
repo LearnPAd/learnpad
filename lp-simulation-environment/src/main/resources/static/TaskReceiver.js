@@ -5,6 +5,8 @@ function TasksReceiver(address) {
     var finishOnError = false;
     var activeTasks = {};
 
+    var user;
+
     TasksReceiver.prototype.init = function(uiid) {
 
         var location = 'ws://' + address + '/ui/' + uiid;
@@ -13,6 +15,8 @@ function TasksReceiver(address) {
         taskReceiver._ws.onmessage = this._onmessage;
         taskReceiver._ws.onclose = this._onclose;
         taskReceiver._ws.onerror = this._onerror;
+
+        user = uiid;
     };
 
     TasksReceiver.prototype._onopen = function() {
@@ -33,7 +37,7 @@ function TasksReceiver(address) {
             break;
 
         case 'ADDTASK':
-            var newTask = task(address, msg.taskid);
+            var newTask = task(address, msg.taskid, user);
             activeTasks[msg.taskid] = newTask;
             newTask.join();
             break;

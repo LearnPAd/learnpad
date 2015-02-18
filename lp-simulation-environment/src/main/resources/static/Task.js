@@ -1,4 +1,4 @@
-function task(address, taskid) {
+function task(address, taskid, user) {
 
     var newTask = {};
     newTask.closeOnError = false;
@@ -20,11 +20,12 @@ function task(address, taskid) {
     };
 
     newTask.send = function(data) {
-        this.ws.send(data);
+        this.ws.send(JSON.stringify(data));
     };
 
     newTask._onopen = function() {
-        // nothing to do
+        // send subscription msg indicating user
+        newTask.send({ 'type' : 'SUBSCRIBE', 'user' : user})
     };
 
     newTask._onmessage = function(m) {
@@ -73,7 +74,7 @@ function task(address, taskid) {
                 'taskFormDiv' + taskid,
                 'taskForm' + taskid,
                 function(values) {
-                    ws.send(JSON.stringify(values));
+                    newTask.send({'type': 'SUBMIT', 'values': values});
                     $('#taskForm' + taskid).html('');
                 }
             );
@@ -92,6 +93,15 @@ function task(address, taskid) {
             );
             break;
 
+        case 'OTHER_VALIDATED':
+            $('#tasknotif' + taskid).remove();
+            taskDiv = $('#taskdata' + taskid).after(
+                '<div id="tasknotif' +
+                    taskid +
+                    '" class="alert alert-info" role="alert">Another user completed the task</div>'
+            );
+            break;
+
         case 'RESUBMIT':
             $('#tasknotif' + taskid).remove();
             taskDiv = $('#taskdata' + taskid).after(
@@ -107,12 +117,22 @@ function task(address, taskid) {
                 'taskFormDiv' + taskid,
                 'taskForm' + taskid,
                 function(values) {
-                    ws.send(JSON.stringify(values));
+                    newTask.send({'type': 'SUBMIT', 'values': values});
                     $('#taskFormDiv' + taskid).html('');
                 }
             );
             $('html, body').scrollTop($('#tasknotif' + taskid).offset().top - 70);
             break;
+
+        case 'ERROR':
+            $('#tasknotif' + taskid).remove();
+            taskDiv = $('#taskdata' + taskid).after(
+                '<div id="tasknotif' +
+                    taskid +
+                    '" class="alert alert-warning" role="alert">Hum... something weird happened, sorry about that</div>'
+            );
+            break;
+
         }
     };
 
