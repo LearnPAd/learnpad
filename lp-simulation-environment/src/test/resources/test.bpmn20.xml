@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions id="definitions-demo" targetNamespace="http://activiti.org/bpmn20"
+	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:activiti="http://activiti.org/bpmn">
+
+	<process id="test" name="Test process">
+
+		<startEvent id="start" />
+
+		<sequenceFlow id="f1" sourceRef="start" targetRef="t1" />
+
+		<userTask id="t1" name="Task1">
+			<documentation>Task 1</documentation>
+			<potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression>user(user0),user1</formalExpression>
+				</resourceAssignmentExpression>
+			</potentialOwner>
+		</userTask>
+
+		<sequenceFlow id="f2" sourceRef="t1" targetRef="fork" />
+
+		<parallelGateway id="fork" />
+		<sequenceFlow id="f3" sourceRef="fork" targetRef="t2" />
+		<sequenceFlow id="f4" sourceRef="fork" targetRef="t3" />
+
+		<userTask id="t2" name="Task2">
+			<documentation>Task 2</documentation>
+			<potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression>user2</formalExpression>
+				</resourceAssignmentExpression>
+			</potentialOwner>
+		</userTask>
+
+		<sequenceFlow id="f5" sourceRef="t2" targetRef="join" />
+
+		<userTask id="t3" name="Task3">
+			<documentation>Task 3</documentation>
+			<potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression>user3</formalExpression>
+				</resourceAssignmentExpression>
+			</potentialOwner>
+		</userTask>
+
+		<sequenceFlow id="f6" sourceRef="t3" targetRef="join" />
+
+		<parallelGateway id="join" />
+
+		<sequenceFlow id="f7" sourceRef="join" targetRef="t4" />
+
+		<userTask id="t4" name="Task4">
+			<documentation>Task 4</documentation>
+			<potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression>user3</formalExpression>
+				</resourceAssignmentExpression>
+			</potentialOwner>
+		</userTask>
+
+		<sequenceFlow id="f8" sourceRef="t4" targetRef="t5" />
+
+		<userTask id="t5" name="Task5">
+			<documentation>Task 5</documentation>
+			<potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression>user2</formalExpression>
+				</resourceAssignmentExpression>
+			</potentialOwner>
+		</userTask>
+
+		<sequenceFlow id="f9" sourceRef="t5" targetRef="t6" />
+
+		<userTask id="t6" name="Task6">
+			<documentation>Task 6</documentation>
+			<potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression>user1</formalExpression>
+				</resourceAssignmentExpression>
+			</potentialOwner>
+		</userTask>
+
+		<sequenceFlow id="f10" sourceRef="t6" targetRef="end" />
+
+		<endEvent id="end" />
+
+	</process>
+
+</definitions>
