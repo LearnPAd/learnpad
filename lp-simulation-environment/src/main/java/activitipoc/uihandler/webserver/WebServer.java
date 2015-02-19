@@ -119,7 +119,8 @@ public class WebServer {
 		}
 	}
 
-	public ServletHolder addUIServlet(WebSocketServlet servlet, String subpath) {
+	public synchronized ServletHolder addUIServlet(WebSocketServlet servlet,
+			String subpath) {
 		ServletHolder holderEvents = new ServletHolder(servlet);
 
 		String fullPath = "/" + this.uiPath + "/" + subpath + "/*";
@@ -134,10 +135,10 @@ public class WebServer {
 		return holderEvents;
 	}
 
-	public ServletHolder addTaskServlet(WebSocketServlet servlet, String subpath) {
+	public synchronized ServletHolder addTaskServlet(WebSocketServlet servlet,
+			String subpath) {
 
 		ServletHolder holderEvents = new ServletHolder(servlet);
-
 		String fullPath = "/" + this.tasksPath + "/" + subpath + "/*";
 
 		this.context.addServlet(holderEvents, fullPath);

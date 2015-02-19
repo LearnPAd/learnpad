@@ -4,6 +4,7 @@
 package activitipoc.uihandler.webserver;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -22,12 +23,16 @@ import activitipoc.IUIHandler;
 public class UIHandlerWebImpl implements IUIHandler {
 
 	private final IFormHandler formHandler;
-	private final Map<String, IProcessDispatcher> processDispatchers = new HashMap<String, IProcessDispatcher>();
-	private final Map<String, Collection<String>> processToUsers = new HashMap<String, Collection<String>>();
+	private final Map<String, IProcessDispatcher> processDispatchers = Collections
+			.synchronizedMap(new HashMap<String, IProcessDispatcher>());
+	private final Map<String, Collection<String>> processToUsers = Collections
+			.synchronizedMap(new HashMap<String, Collection<String>>());
 	private final WebServer webserver;
 	private final Map<String, UIServlet> usersMap;
-	private final Map<String, Collection<String>> tasksToUsers = new HashMap<String, Collection<String>>();
-	private final Map<String, ServletHolder> tasksMap = new HashMap<String, ServletHolder>();
+	private final Map<String, Collection<String>> tasksToUsers = Collections
+			.synchronizedMap(new HashMap<String, Collection<String>>());
+	private final Map<String, ServletHolder> tasksMap = Collections
+			.synchronizedMap(new HashMap<String, ServletHolder>());
 
 	/**
 	 * @param webserver
@@ -40,7 +45,8 @@ public class UIHandlerWebImpl implements IUIHandler {
 					throws Exception {
 		super();
 		this.formHandler = formHandler;
-		this.usersMap = new HashMap<String, UIServlet>();
+		this.usersMap = Collections
+				.synchronizedMap(new HashMap<String, UIServlet>());
 
 		// launch task webserver
 		this.webserver = new WebServer(port, "ui", "tasks", "process",

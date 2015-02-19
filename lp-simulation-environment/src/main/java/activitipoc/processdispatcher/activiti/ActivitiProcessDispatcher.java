@@ -29,7 +29,7 @@ import activitipoc.IUIHandler;
  *
  */
 public class ActivitiProcessDispatcher implements IProcessDispatcher,
-ActivitiEventListener {
+		ActivitiEventListener {
 
 	private final ProcessInstance process;
 	private final TaskService taskService;
@@ -109,12 +109,19 @@ ActivitiEventListener {
 	}
 
 	private void processNewTasks(List<Task> tasks) {
-		for (Task task : tasks) {
+		for (final Task task : tasks) {
 			registeredWaitingTasks.add(task.getId());
-			uiHandler.sendTask(task.getProcessInstanceId(), task.getId(),
-					task.getDescription(), router.route(task));
-		}
 
+			// process new tasks in a new thread to avoid blocking
+			// current completion
+			new Thread(new Runnable() {
+				public void run() {
+					uiHandler.sendTask(task.getProcessInstanceId(),
+							task.getId(), task.getDescription(),
+							router.route(task));
+				}
+			}).start();
+		}
 	}
 
 	private void completeProcess() {
@@ -161,25 +168,28 @@ ActivitiEventListener {
 
 						registeredWaitingTasks.remove(taskId);
 
-						// check for newly triggered tasks
-						List<Task> waitingTasks = taskService.createTaskQuery()
-								.processInstanceId(process.getId()).list();
-
-						// ignore already processed tasks
-						List<Task> newTasks = new ArrayList<Task>();
-						for (Task t : waitingTasks) {
-							if (!registeredWaitingTasks.contains(t.getId())) {
-								newTasks.add(t);
-							}
-						}
-
-						if (!newTasks.isEmpty()) {
-							processNewTasks(newTasks);
-						}
-
 						// see comment on processFinished declaration
 						if (processFinished) {
 							completeProcess();
+						} else {
+
+							// check for newly triggered tasks
+							List<Task> waitingTasks = taskService
+									.createTaskQuery()
+									.processInstanceId(process.getId()).list();
+
+							// ignore already processed tasks
+							List<Task> newTasks = new ArrayList<Task>();
+							for (Task t : waitingTasks) {
+								if (!registeredWaitingTasks.contains(t.getId())) {
+									newTasks.add(t);
+								}
+							}
+
+							if (!newTasks.isEmpty()) {
+								processNewTasks(newTasks);
+							}
+
 						}
 
 						return TaskSubmissionStatus.VALIDATED;
@@ -195,7 +205,7 @@ ActivitiEventListener {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#onEvent(org.
 	 * activiti.engine.delegate.event.ActivitiEvent)
@@ -211,7 +221,7 @@ ActivitiEventListener {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#isFailOnException
 	 * ()
