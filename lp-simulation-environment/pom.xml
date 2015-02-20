@@ -2,13 +2,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>activitipoc</groupId>
-	<artifactId>ActivitiPoC</artifactId>
+	<groupId>eu.learnpad</groupId>
+	<artifactId>simulator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>ActivitiPoC</name>
-	<url>http://maven.apache.org</url>
+	<name>LearnPAd Simulator</name>
+	<url>http://learnpad.eu</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -98,7 +98,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>activitipoc.Main</mainClass>
+							<mainClass>eu.learnpad.simulator.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -109,7 +109,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>activitipoc.Main</mainClass>
+							<mainClass>eu.learnpad.simulator.Main</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
