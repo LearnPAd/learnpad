@@ -189,7 +189,7 @@ public class ActivitiProcessManager implements IProcessManager {
 		// so we do not need to do anything here (except creating it)
 		new ActivitiProcessDispatcher(process, taskService, runtimeService,
 				historyService, new ActivitiTaskRouter(taskService, router),
-				taskValidator, uiHandler, uiHandler.getUsers());
+				taskValidator, uiHandler, users);
 
 		return process.getId();
 	}
