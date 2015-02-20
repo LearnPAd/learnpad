@@ -41,8 +41,8 @@ public class UIHandlerWebImpl implements IUIHandler {
 	 * @throws Exception
 	 */
 	public UIHandlerWebImpl(int port, Collection<String> users,
-			IProcessManager processManager, IFormHandler formHandler)
-					throws Exception {
+			IProcessManager.IProcessManagerProvider processManagerProvider,
+			IFormHandler formHandler) throws Exception {
 		super();
 		this.formHandler = formHandler;
 		this.usersMap = Collections
@@ -50,7 +50,8 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 		// launch task webserver
 		this.webserver = new WebServer(port, "ui", "tasks", "process",
-				new UIProcessServlet(processManager, this, formHandler));
+				new UIProcessServlet(processManagerProvider.processManager(),
+						this, formHandler));
 
 		// instanciate users UI
 		for (String user : users) {
@@ -63,7 +64,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#addUser(java.lang.String)
 	 */
 	public void addUser(String userId) {
@@ -74,7 +75,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#removeUser(java.lang.String)
 	 */
 	public void removeUser(String userId) {
@@ -85,7 +86,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#getUsers()
 	 */
 	public Collection<String> getUsers() {
@@ -94,7 +95,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#addProcess(java.lang.String,
 	 * Collection<String>, ProcessDispatcher)
 	 */
@@ -106,7 +107,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#sendTask(java.lang.String, java.util.Set)
 	 */
 	public void sendTask(String processId, String taskId, String taskDescr,
@@ -127,7 +128,7 @@ public class UIHandlerWebImpl implements IUIHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IUIHandler#signalProcessEnd(java.lang.String,
 	 * java.util.Set)
 	 */

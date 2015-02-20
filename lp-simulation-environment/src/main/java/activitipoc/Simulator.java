@@ -40,7 +40,7 @@ IProcessManager.IProcessManagerProvider {
 
 		// create users ui handler
 		uiHandler = new UIHandlerWebImpl(webserverPort,
-				new ArrayList<String>(), processManager,
+				new ArrayList<String>(), this,
 				new ActivitiToJsonFormFormHandler(
 						processEngine.getFormService()));
 	}
