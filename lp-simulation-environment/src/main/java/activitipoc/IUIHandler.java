@@ -13,6 +13,10 @@ import java.util.Collection;
  */
 public interface IUIHandler {
 
+	static interface IUIHandlerProvider {
+		public IUIHandler uiHandler();
+	}
+
 	/**
 	 * Add a new user to the user list
 	 *

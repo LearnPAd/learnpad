@@ -11,6 +11,10 @@ import java.util.Map;
  */
 public interface IProcessManager {
 
+	static interface IProcessManagerProvider {
+		public IProcessManager processManager();
+	}
+
 	/**
 	 *
 	 * @param resource
