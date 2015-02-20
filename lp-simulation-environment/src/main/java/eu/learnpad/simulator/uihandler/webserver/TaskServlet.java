@@ -18,7 +18,7 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import eu.learnpad.simulator.processmanager.IProcessDispatcher;
+import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.uihandler.IFormHandler;
 import eu.learnpad.simulator.uihandler.webserver.msg.task.receive.BaseReceiveMessage;
 import eu.learnpad.simulator.uihandler.webserver.msg.task.receive.Submit;
@@ -40,7 +40,7 @@ public class TaskServlet extends WebSocketServlet {
 	private static final long serialVersionUID = 1L;
 
 	private final UIHandlerWebImpl uiHandler;
-	private final IProcessDispatcher dispatcher;
+	private final IProcessManager processManager;
 	private final String processId;
 	private final String taskId;
 	private final String taskDesc;
@@ -53,11 +53,11 @@ public class TaskServlet extends WebSocketServlet {
 	 * @param task
 	 */
 	public TaskServlet(UIHandlerWebImpl uiHandler,
-			IProcessDispatcher dispatcher, String processId, String taskId,
+			IProcessManager processManager, String processId, String taskId,
 			String taskDesc, IFormHandler formHandler) {
 		super();
 		this.uiHandler = uiHandler;
-		this.dispatcher = dispatcher;
+		this.processManager = processManager;
 		this.processId = processId;
 		this.taskId = taskId;
 		this.taskDesc = taskDesc;
@@ -75,9 +75,9 @@ public class TaskServlet extends WebSocketServlet {
 		System.out.println("submitted task " + taskId + " with data " + data);
 
 		// signal task submission to dispatcher and check validation
-		IProcessDispatcher.TaskSubmissionStatus status = dispatcher
-				.submitTaskCompletion(taskId, formHandler.parseResult(data)
-						.getProperties());
+		IProcessManager.TaskSubmissionStatus status = processManager
+				.submitTaskCompletion(processId, taskId, formHandler
+						.parseResult(data).getProperties());
 
 		switch (status) {
 		case VALIDATED:
@@ -252,7 +252,7 @@ public class TaskServlet extends WebSocketServlet {
 
 				default:
 					System.err
-					.println("received unexpected message " + message);
+							.println("received unexpected message " + message);
 				}
 
 			} catch (Exception e) {

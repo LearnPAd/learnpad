@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import eu.learnpad.simulator.processmanager.IProcessManager;
+import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.uihandler.IFormHandler;
 import eu.learnpad.simulator.uihandler.webserver.msg.process.IProcessMsg;
 
@@ -35,20 +35,20 @@ public class ProcessData implements IProcessMsg {
 		for (String processDefId : processManager
 				.getAvailableProcessDefintion()) {
 			processes
-					.add(new ProcessDescr(
+			.add(new ProcessDescr(
+					processDefId,
+					processManager
+					.getProcessDefinitionName(processDefId),
+					processManager
+					.getProcessDefinitionDescription(processDefId),
+					formHandler
+					.createStartingFormString(
 							processDefId,
 							processManager
-									.getProcessDefinitionName(processDefId),
-							processManager
-									.getProcessDefinitionDescription(processDefId),
-					formHandler
-									.createStartingFormString(
-											processDefId,
+							.getProcessDefinitionSingleRoles(processDefId),
 											processManager
-													.getProcessDefinitionSingleRoles(processDefId),
-											processManager
-													.getProcessDefinitionGroupRoles(processDefId),
-											users)));
+							.getProcessDefinitionGroupRoles(processDefId),
+									users)));
 		}
 	}
 

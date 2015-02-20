@@ -5,6 +5,8 @@ package eu.learnpad.simulator.processmanager;
 
 import java.util.Map;
 
+import eu.learnpad.simulator.IProcessManager.TaskSubmissionStatus;
+
 /**
  * This interface indicate the functionalities which must be exposed by a
  * process dispatcher. The role of a process dispatcher is, in the context of a
@@ -18,10 +20,6 @@ import java.util.Map;
  *
  */
 public interface IProcessDispatcher {
-
-	static enum TaskSubmissionStatus {
-		VALIDATED, REJECTED, ALREADY_COMPLETED, UNKOWN_TASK, UNKOWN_ERROR
-	}
 
 	/**
 	 * Signal the completion of a given task, along with the corresponding

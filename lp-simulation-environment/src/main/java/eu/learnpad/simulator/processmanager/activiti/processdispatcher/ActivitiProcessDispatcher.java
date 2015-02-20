@@ -19,10 +19,13 @@ import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 
+import eu.learnpad.simulator.IProcessEventReceiver;
+import eu.learnpad.simulator.IProcessManager;
+import eu.learnpad.simulator.IProcessManager.TaskSubmissionStatus;
 import eu.learnpad.simulator.processmanager.IProcessDispatcher;
 import eu.learnpad.simulator.processmanager.ITaskRouter;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
-import eu.learnpad.simulator.uihandler.IUIHandler;
+import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
 
 /**
  * @author Tom Jorquera - Linagora
@@ -31,6 +34,8 @@ import eu.learnpad.simulator.uihandler.IUIHandler;
 public class ActivitiProcessDispatcher implements IProcessDispatcher,
 		ActivitiEventListener {
 
+	private final ActivitiProcessManager processManager;
+	private final IProcessEventReceiver processEventReceiver;
 	private final ProcessInstance process;
 	private final TaskService taskService;
 	private final ITaskRouter router;
@@ -38,8 +43,6 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 	private final HistoryService historyService;
 
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
-
-	private final IUIHandler uiHandler;
 
 	private final Set<String> registeredWaitingTasks = new HashSet<String>();
 
@@ -74,23 +77,24 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 	 * @param taskService
 	 */
 	public ActivitiProcessDispatcher(
+			ActivitiProcessManager processManager,
+			IProcessEventReceiver processEventReceiver,
 			ProcessInstance process,
 			TaskService taskService,
 			RuntimeService runtimeService,
 			HistoryService historyService,
 			ITaskRouter router,
 			ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator,
-			IUIHandler uiHandler, Collection<String> involvedUsers) {
+			Collection<String> involvedUsers) {
 		super();
+		this.processManager = processManager;
+		this.processEventReceiver = processEventReceiver;
 		this.process = process;
 		this.taskService = taskService;
 		this.router = router;
 		this.runtimeService = runtimeService;
 		this.taskValidator = taskValidator;
 		this.historyService = historyService;
-		this.uiHandler = uiHandler;
-
-		uiHandler.addProcess(process.getId(), involvedUsers, this);
 
 		List<Task> tasks = taskService.createTaskQuery()
 				.processInstanceId(process.getId()).list();
@@ -116,7 +120,7 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 			// current completion
 			new Thread(new Runnable() {
 				public void run() {
-					uiHandler.sendTask(task.getProcessInstanceId(),
+					processEventReceiver.sendTask(task.getProcessInstanceId(),
 							task.getId(), task.getDescription(),
 							router.route(task));
 				}
@@ -127,17 +131,22 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 	private void completeProcess() {
 
 		// signal process end to users
-		uiHandler.signalProcessEnd(process.getId());
+		processEventReceiver
+		.signalProcessEnd(process.getId(), processManager
+				.getProcessInstanceInvolvedUsers(process.getId()));
 
 		// unsubscribe to events
 		runtimeService.removeEventListener(this);
+
+		// remove itself from the process manager
+		processManager.removeDispatcher(process.getId());
 
 		System.out.println("Process " + process.getId() + " finished");
 	}
 
 	// synchronized because several users can try to submit results for the same
 	// task simultaneously
-	public synchronized IProcessDispatcher.TaskSubmissionStatus submitTaskCompletion(
+	public synchronized IProcessManager.TaskSubmissionStatus submitTaskCompletion(
 			String taskId, Map<String, Object> data) {
 		try {
 			if (historyService.createHistoricTaskInstanceQuery().finished()
@@ -205,7 +214,7 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#onEvent(org.
 	 * activiti.engine.delegate.event.ActivitiEvent)
@@ -221,7 +230,7 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#isFailOnException
 	 * ()

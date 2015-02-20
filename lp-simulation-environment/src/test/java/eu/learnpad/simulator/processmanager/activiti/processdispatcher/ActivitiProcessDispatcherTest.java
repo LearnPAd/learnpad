@@ -37,12 +37,12 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.Main;
 import eu.learnpad.simulator.processmanager.ITaskRouter;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
-import eu.learnpad.simulator.processmanager.activiti.processdispatcher.ActivitiProcessDispatcher;
+import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
 import eu.learnpad.simulator.processmanager.activiti.taskrouter.ActivitiTaskRouter;
-import eu.learnpad.simulator.uihandler.IUIHandler;
 
 /**
  *
@@ -96,31 +96,30 @@ public class ActivitiProcessDispatcherTest {
 	@Test
 	public void testProcessDispatcherInit() {
 
-		IUIHandler uiHandler = mock(IUIHandler.class);
+		ActivitiProcessManager processManger = mock(ActivitiProcessManager.class);
+		IProcessEventReceiver processEventReceiver = mock(IProcessEventReceiver.class);
 
-		ActivitiProcessDispatcher dispatcher = new ActivitiProcessDispatcher(
+		new ActivitiProcessDispatcher(processManger, processEventReceiver,
 				processInstance, processEngine.getTaskService(),
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), mock(ITaskRouter.class),
-				mock(ITaskValidator.class), uiHandler, TEST_PROCESS_USES);
-
-		// dispatcher should have registered itself to uiHandler
-		verify(uiHandler).addProcess(processInstance.getId(),
-				TEST_PROCESS_USES, dispatcher);
+				mock(ITaskValidator.class), TEST_PROCESS_USES);
 
 		// dispatcher should have dispatched first task
 		// (since task processing is multithreaded to avoid blocking,
 		// we may need to wait a little. 5 sec should be *far* more than
 		// enough)
-		verify(uiHandler, timeout(5000)).sendTask(eq(processInstance.getId()),
-				anyString(), anyString(), any(Collection.class));
+		verify(processEventReceiver, timeout(5000)).sendTask(
+				eq(processInstance.getId()), anyString(), anyString(),
+				any(Collection.class));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testProcessDispatcherDispatch() throws InterruptedException {
 
-		IUIHandler uiHandler = mock(IUIHandler.class);
+		ActivitiProcessManager processManger = mock(ActivitiProcessManager.class);
+		IProcessEventReceiver processEventReceiver = mock(IProcessEventReceiver.class);
 		ITaskRouter taskRouter = mock(ITaskRouter.class);
 		ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator = mock(ITaskValidator.class);
 
@@ -133,39 +132,18 @@ public class ActivitiProcessDispatcherTest {
 						any(Map.class), any(Map.class))).thenReturn(true);
 
 		final ActivitiProcessDispatcher dispatcher = new ActivitiProcessDispatcher(
-				processInstance, processEngine.getTaskService(),
+				processManger, processEventReceiver, processInstance,
+				processEngine.getTaskService(),
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
-				uiHandler, TEST_PROCESS_USES);
+				TEST_PROCESS_USES);
 
-		// we capture the task id to respond to task
-		ArgumentCaptor<String> taskId = ArgumentCaptor.forClass(String.class);
-		verify(uiHandler, timeout(5000).times(1)).sendTask(
-				eq(processInstance.getId()), taskId.capture(), anyString(),
-				any(Collection.class));
-
-		// automatically respond to next tasks dispatch
-		doAnswer(new Answer<Void>() {
-			public Void answer(InvocationOnMock invocation) throws Throwable {
-				dispatcher.submitTaskCompletion(
-						invocation.getArgumentAt(1, String.class), null);
-				return null;
-			}
-		}).when(uiHandler).sendTask(anyString(), anyString(), anyString(),
-				any(Collection.class));
-
-		// respond to first task dispatch
-		dispatcher.submitTaskCompletion(taskId.getValue(), null);
-
-		// wait for all tasks to be processed
-		// (again, since task processing is multithreaded to avoid blocking,
-		// we may need to wait a little)
-		verify(uiHandler, timeout(5000)).signalProcessEnd(
-				eq(processInstance.getId()));
+		validateAllTasks(dispatcher, processEventReceiver);
 
 		// should have processed 6 tasks in total
-		verify(uiHandler, times(6)).sendTask(eq(processInstance.getId()),
-				anyString(), anyString(), any(Collection.class));
+		verify(processEventReceiver, times(6)).sendTask(
+				eq(processInstance.getId()), anyString(), anyString(),
+				any(Collection.class));
 
 	}
 
@@ -190,7 +168,8 @@ public class ActivitiProcessDispatcherTest {
 		final ArgumentCaptor<Collection> userRoute = ArgumentCaptor
 		.forClass(Collection.class);
 
-		IUIHandler uiHandler = mock(IUIHandler.class);
+		ActivitiProcessManager processManger = mock(ActivitiProcessManager.class);
+		IProcessEventReceiver processEventReceiver = mock(IProcessEventReceiver.class);
 
 		// automatically validate tasks
 		ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator = mock(ITaskValidator.class);
@@ -199,15 +178,16 @@ public class ActivitiProcessDispatcherTest {
 						any(Map.class), any(Map.class))).thenReturn(true);
 
 		final ActivitiProcessDispatcher dispatcher = new ActivitiProcessDispatcher(
-				processInstance, processEngine.getTaskService(),
+				processManger, processEventReceiver, processInstance,
+				processEngine.getTaskService(),
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
-				uiHandler, TEST_PROCESS_USES);
+				TEST_PROCESS_USES);
 
 		// dispatcher should have dispatched first task
 		final ArgumentCaptor<String> taskId = ArgumentCaptor
 				.forClass(String.class);
-		verify(uiHandler, timeout(5000).times(1)).sendTask(
+		verify(processEventReceiver, timeout(5000).times(1)).sendTask(
 				eq(processInstance.getId()), taskId.capture(), anyString(),
 				userRoute.capture());
 
@@ -243,8 +223,8 @@ public class ActivitiProcessDispatcherTest {
 						invocation.getArgumentAt(1, String.class), null);
 				return null;
 			}
-		}).when(uiHandler).sendTask(anyString(), anyString(), anyString(),
-				any(Collection.class));
+		}).when(processEventReceiver).sendTask(anyString(), anyString(),
+				anyString(), any(Collection.class));
 
 		// respond to first task dispatch
 		dispatcher.submitTaskCompletion(taskId.getValue(), null);
@@ -252,8 +232,82 @@ public class ActivitiProcessDispatcherTest {
 		// wait for all tasks to be processed
 		// (again, since task processing is multithreaded to avoid blocking,
 		// we may need to wait a little)
-		verify(uiHandler, timeout(5000)).signalProcessEnd(
-				eq(processInstance.getId()));
+		verify(processEventReceiver, timeout(5000)).signalProcessEnd(
+				eq(processInstance.getId()), any(Collection.class));
+
+	}
+
+	@SuppressWarnings("unchecked")
+	public void testProcessDispatcherSignalProcessEndToUsers()
+			throws InterruptedException {
+
+		ActivitiProcessManager processManager = mock(ActivitiProcessManager.class);
+		ITaskRouter taskRouter = mock(ITaskRouter.class);
+		IProcessEventReceiver processEventReceiver = mock(IProcessEventReceiver.class);
+
+		when(taskRouter.route(any(Task.class))).thenReturn(
+				new HashSet<String>(Arrays.asList("user1")));
+
+		// automatically validate tasks
+		ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator = mock(ITaskValidator.class);
+		when(
+				taskValidator.taskResultIsValid(anyString(), anyString(),
+						any(Map.class), any(Map.class))).thenReturn(true);
+
+		final ActivitiProcessDispatcher dispatcher = new ActivitiProcessDispatcher(
+				processManager, processEventReceiver, processInstance,
+				processEngine.getTaskService(),
+				processEngine.getRuntimeService(),
+				processEngine.getHistoryService(), taskRouter, taskValidator,
+				TEST_PROCESS_USES);
+
+		validateAllTasks(dispatcher, processEventReceiver);
+
+		// check that the signal for process end is send to all the required
+		// users
+
+		@SuppressWarnings("rawtypes")
+		final ArgumentCaptor<Collection> notifiedUsers = ArgumentCaptor
+				.forClass(Collection.class);
+
+		verify(processEventReceiver, timeout(5000)).signalProcessEnd(
+				eq(processInstance.getId()), notifiedUsers.capture());
+
+		assertTrue(notifiedUsers.getValue().size() == TEST_PROCESS_USES.size());
+		assertTrue(notifiedUsers.getValue().containsAll(TEST_PROCESS_USES));
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testProcessDispatcherUnregister() throws InterruptedException {
+
+		ActivitiProcessManager processManager = mock(ActivitiProcessManager.class);
+		IProcessEventReceiver processEventReceiver = mock(IProcessEventReceiver.class);
+		ITaskRouter taskRouter = mock(ITaskRouter.class);
+		ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator = mock(ITaskValidator.class);
+
+		when(taskRouter.route(any(Task.class))).thenReturn(
+				new HashSet<String>(Arrays.asList("user1")));
+
+		// automatically validate tasks
+		when(
+				taskValidator.taskResultIsValid(anyString(), anyString(),
+						any(Map.class), any(Map.class))).thenReturn(true);
+
+		final ActivitiProcessDispatcher dispatcher = new ActivitiProcessDispatcher(
+				processManager, processEventReceiver, processInstance,
+				processEngine.getTaskService(),
+				processEngine.getRuntimeService(),
+				processEngine.getHistoryService(), taskRouter, taskValidator,
+				TEST_PROCESS_USES);
+
+		// reach end of process
+		validateAllTasks(dispatcher, processEventReceiver);
+
+		// should have unregistered itself from process manager at the end of
+		// the process
+		verify(processManager).removeDispatcher(eq(processInstance.getId()));
 
 	}
 
@@ -293,5 +347,40 @@ public class ActivitiProcessDispatcherTest {
 		}
 
 		return result;
+	}
+
+	/**
+	 * Helper method to complete a process by validating all tasks
+	 *
+	 * @param dispatcher
+	 * @param processEventReceiver
+	 */
+	@SuppressWarnings("unchecked")
+	private void validateAllTasks(final ActivitiProcessDispatcher dispatcher,
+			IProcessEventReceiver processEventReceiver) {
+		// we capture the task id to respond to task
+		ArgumentCaptor<String> taskId = ArgumentCaptor.forClass(String.class);
+		verify(processEventReceiver, timeout(5000).times(1)).sendTask(
+				eq(processInstance.getId()), taskId.capture(), anyString(),
+				any(Collection.class));
+
+		// automatically respond to next tasks dispatch
+		doAnswer(new Answer<Void>() {
+			public Void answer(InvocationOnMock invocation) throws Throwable {
+				dispatcher.submitTaskCompletion(
+						invocation.getArgumentAt(1, String.class), null);
+				return null;
+			}
+		}).when(processEventReceiver).sendTask(anyString(), anyString(),
+				anyString(), any(Collection.class));
+
+		// respond to first task dispatch
+		dispatcher.submitTaskCompletion(taskId.getValue(), null);
+
+		// wait for all tasks to be processed
+		// (again, since task processing is multithreaded to avoid blocking,
+		// we may need to wait a little)
+		verify(processEventReceiver, timeout(5000)).signalProcessEnd(
+				eq(processInstance.getId()), any(Collection.class));
 	}
 }

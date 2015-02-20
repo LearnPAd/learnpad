@@ -1,12 +1,13 @@
-package eu.learnpad.simulator.processmanager;
+/**
+ *
+ */
+package eu.learnpad.simulator;
 
 import java.util.Collection;
 import java.util.Map;
 
-import eu.learnpad.simulator.uihandler.IUIHandler;
-
 /**
- * This interface defines the functionalities of process management.
+ * Define the functions required to manage processes
  *
  * @author Tom Jorquera - Linagora
  *
@@ -15,6 +16,10 @@ public interface IProcessManager {
 
 	static interface IProcessManagerProvider {
 		public IProcessManager processManager();
+	}
+
+	public static enum TaskSubmissionStatus {
+		VALIDATED, REJECTED, ALREADY_COMPLETED, UNKOWN_TASK, UNKOWN_ERROR
 	}
 
 	/**
@@ -66,6 +71,12 @@ public interface IProcessManager {
 
 	/**
 	 *
+	 * @return a collection containing the currently running process instances
+	 */
+	public Collection<String> getCurrentProcessInstances();
+
+	/**
+	 *
 	 * @param projectDefinitionId
 	 *            the process definition id of the process to instantiate
 	 * @param parameters
@@ -75,18 +86,34 @@ public interface IProcessManager {
 	 * @param router
 	 *            a router between process roles and actual users (a role can be
 	 *            associated with several users)
-	 * @param uiHandler
-	 *            the UI handler
 	 * @return the ID of the created process instance
 	 */
 	public String startProjectInstance(String projectDefinitionId,
 			Map<String, Object> parameters, Collection<String> users,
-			Map<String, Collection<String>> route, IUIHandler uiHandler);
+			Map<String, Collection<String>> route);
 
 	/**
 	 *
-	 * @return a collection containing the currently running process instances
+	 * @param processInstanceId
+	 *            the ID of the process instance
+	 * @return a collection of the IDs of the involved users
 	 */
-	public Collection<String> getCurrentProcessInstances();
+	public Collection<String> getProcessInstanceInvolvedUsers(
+			String processInstanceId);
+
+	/**
+	 * Signal the completion of a given task for a given process, along with the
+	 * corresponding proposed data
+	 *
+	 * @param processId
+	 *            the id of the process involved
+	 * @param taskId
+	 *            the id of the completed task
+	 * @param data
+	 *            the data corresponding to the task completion
+	 * @return the state of the task submission
+	 */
+	public TaskSubmissionStatus submitTaskCompletion(String processId,
+			String taskId, Map<String, Object> data);
 
 }

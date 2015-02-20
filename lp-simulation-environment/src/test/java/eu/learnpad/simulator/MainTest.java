@@ -9,9 +9,6 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import eu.learnpad.simulator.Main;
-import eu.learnpad.simulator.Simulator;
-
 /**
  *
  * @author Tom Jorquera - Linagora
@@ -28,7 +25,7 @@ public class MainTest {
 
 			// add users
 			for (String user : Arrays.asList("sarah", "tom")) {
-				simulator.uiHandler().addUser(user);
+				simulator.userHandler().addUser(user);
 			}
 
 			// load process definitions

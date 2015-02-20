@@ -32,7 +32,7 @@ public class Main {
 
 			// add users
 			for (String user : Arrays.asList("sarah", "tom")) {
-				simulator.uiHandler().addUser(user);
+				simulator.userHandler().addUser(user);
 			}
 
 			// load process definitions
@@ -48,7 +48,7 @@ public class Main {
 		} catch (Exception e) {
 			System.err.println("---\n");
 			System.err
-			.println("Sorry, cannot launch the demo (maybe it is already running?)");
+					.println("Sorry, cannot launch the demo (maybe it is already running?)");
 			System.exit(-1);
 		}
 	}

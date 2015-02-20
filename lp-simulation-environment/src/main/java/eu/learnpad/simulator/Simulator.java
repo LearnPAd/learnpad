@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
 
-import eu.learnpad.simulator.processmanager.IProcessManager;
+import eu.learnpad.simulator.IProcessEventReceiver.IProcessEventReceiverProvider;
+import eu.learnpad.simulator.IProcessManager.IProcessManagerProvider;
 import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
-import eu.learnpad.simulator.uihandler.IUIHandler;
 import eu.learnpad.simulator.uihandler.formhandler.activiti2jsonform.ActivitiToJsonFormFormHandler;
 import eu.learnpad.simulator.uihandler.webserver.UIHandlerWebImpl;
 
@@ -19,8 +19,8 @@ import eu.learnpad.simulator.uihandler.webserver.UIHandlerWebImpl;
  * @author Tom Jorquera - Linagora
  *
  */
-public class Simulator implements IUIHandler.IUIHandlerProvider,
-IProcessManager.IProcessManagerProvider {
+public class Simulator implements IProcessManagerProvider,
+		IProcessEventReceiverProvider {
 
 	private final IProcessManager processManager;
 	private final UIHandlerWebImpl uiHandler;
@@ -38,7 +38,7 @@ IProcessManager.IProcessManagerProvider {
 		processEngine = config.buildProcessEngine();
 
 		// create process manager
-		processManager = new ActivitiProcessManager(processEngine);
+		processManager = new ActivitiProcessManager(processEngine, this);
 
 		// create users ui handler
 		uiHandler = new UIHandlerWebImpl(webserverPort,
@@ -47,26 +47,34 @@ IProcessManager.IProcessManagerProvider {
 						processEngine.getFormService()));
 	}
 
+	public void stop() {
+		processEngine.close();
+		uiHandler.stop();
+	}
+
+	public IUserHandler userHandler() {
+		return uiHandler;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see activitipoc.IProcessManager.IProcessManagerProvider#processManager()
+	 * @see
+	 * eu.learnpad.simulator.IProcessEventReceiver.IProcessEventReceiverProvider
+	 * #processEventReceiver()
+	 */
+	public IProcessEventReceiver processEventReceiver() {
+		return uiHandler;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see eu.learnpad.simulator.IUserEventReceiver.IUserEventReceiverProvider#
+	 * userEventReceiver()
 	 */
 	public IProcessManager processManager() {
 		return processManager;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see activitipoc.IUIHandler.IUIHandlerProvider#uiHandler()
-	 */
-	public IUIHandler uiHandler() {
-		return uiHandler;
-	}
-
-	public void stop() {
-		processEngine.close();
-		uiHandler.stop();
-	}
 }

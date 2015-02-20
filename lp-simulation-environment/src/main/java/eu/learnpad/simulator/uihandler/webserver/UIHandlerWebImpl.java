@@ -11,22 +11,19 @@ import java.util.Map;
 
 import org.eclipse.jetty.servlet.ServletHolder;
 
-import eu.learnpad.simulator.processmanager.IProcessDispatcher;
-import eu.learnpad.simulator.processmanager.IProcessManager;
+import eu.learnpad.simulator.IProcessEventReceiver;
+import eu.learnpad.simulator.IProcessManager;
+import eu.learnpad.simulator.IUserHandler;
 import eu.learnpad.simulator.uihandler.IFormHandler;
-import eu.learnpad.simulator.uihandler.IUIHandler;
 
 /**
  * @author Tom Jorquera - Linagora
  *
  */
-public class UIHandlerWebImpl implements IUIHandler {
+public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 
+	private final IProcessManager.IProcessManagerProvider userEventReceiverProvider;
 	private final IFormHandler formHandler;
-	private final Map<String, IProcessDispatcher> processDispatchers = Collections
-			.synchronizedMap(new HashMap<String, IProcessDispatcher>());
-	private final Map<String, Collection<String>> processToUsers = Collections
-			.synchronizedMap(new HashMap<String, Collection<String>>());
 	private final WebServer webserver;
 	private final Map<String, UIServlet> usersMap;
 	private final Map<String, Collection<String>> tasksToUsers = Collections
@@ -41,17 +38,19 @@ public class UIHandlerWebImpl implements IUIHandler {
 	 * @throws Exception
 	 */
 	public UIHandlerWebImpl(int port, Collection<String> users,
-			IProcessManager.IProcessManagerProvider processManagerProvider,
+			IProcessManager.IProcessManagerProvider userEventReceiverProvider,
 			IFormHandler formHandler) throws Exception {
 		super();
+		this.userEventReceiverProvider = userEventReceiverProvider;
 		this.formHandler = formHandler;
 		this.usersMap = Collections
 				.synchronizedMap(new HashMap<String, UIServlet>());
 
 		// launch task webserver
 		this.webserver = new WebServer(port, "ui", "tasks", "process",
-				new UIProcessServlet(processManagerProvider.processManager(),
-						this, formHandler));
+				new UIProcessServlet(
+						userEventReceiverProvider.processManager(), this,
+						formHandler));
 
 		// instanciate users UI
 		for (String user : users) {
@@ -96,25 +95,13 @@ public class UIHandlerWebImpl implements IUIHandler {
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see activitipoc.IUIHandler#addProcess(java.lang.String,
-	 * Collection<String>, ProcessDispatcher)
-	 */
-	public void addProcess(String process, Collection<String> users,
-			IProcessDispatcher dispatcher) {
-		processDispatchers.put(process, dispatcher);
-		processToUsers.put(process, users);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
 	 * @see activitipoc.IUIHandler#sendTask(java.lang.String, java.util.Set)
 	 */
 	public void sendTask(String processId, String taskId, String taskDescr,
 			Collection<String> users) {
 
 		tasksMap.put(taskId, webserver.addTaskServlet(new TaskServlet(this,
-				processDispatchers.get(processId), processId, taskId,
+				userEventReceiverProvider.processManager(), processId, taskId,
 				taskDescr, formHandler), taskId));
 		tasksToUsers.put(taskId, users);
 
@@ -132,12 +119,10 @@ public class UIHandlerWebImpl implements IUIHandler {
 	 * @see activitipoc.IUIHandler#signalProcessEnd(java.lang.String,
 	 * java.util.Set)
 	 */
-	public void signalProcessEnd(String processId) {
-		for (String userId : processToUsers.get(processId)) {
+	public void signalProcessEnd(String processId, Collection<String> users) {
+		for (String userId : users) {
 			usersMap.get(userId).completeProcess(processId);
 		}
-		processDispatchers.remove(processId);
-		processToUsers.remove(processId);
 
 	}
 
@@ -159,4 +144,5 @@ public class UIHandlerWebImpl implements IUIHandler {
 	public void stop() {
 		webserver.stop();
 	}
+
 }

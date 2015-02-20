@@ -19,9 +19,9 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import eu.learnpad.simulator.processmanager.IProcessManager;
+import eu.learnpad.simulator.IProcessManager;
+import eu.learnpad.simulator.IUserHandler;
 import eu.learnpad.simulator.uihandler.IFormHandler;
-import eu.learnpad.simulator.uihandler.IUIHandler;
 import eu.learnpad.simulator.uihandler.webserver.msg.process.receive.BaseReceiveMessage;
 import eu.learnpad.simulator.uihandler.webserver.msg.process.receive.InstanciateProcess;
 import eu.learnpad.simulator.uihandler.webserver.msg.process.send.ProcessData;
@@ -36,18 +36,18 @@ public class UIProcessServlet extends WebSocketServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private final IProcessManager processManager;
-	private final IUIHandler uiHandler;
+	private final IProcessManager userEventReceiver;
+	private final IUserHandler uiHandler;
 	private final IFormHandler formHandler;
 
 	/**
 	 * @param processManager
 	 * @param uiHandler
 	 */
-	public UIProcessServlet(IProcessManager processManager,
-			IUIHandler uiHandler, IFormHandler formHandler) {
+	public UIProcessServlet(IProcessManager userEventReceiver,
+			IUserHandler uiHandler, IFormHandler formHandler) {
 		super();
-		this.processManager = processManager;
+		this.userEventReceiver = userEventReceiver;
 		this.uiHandler = uiHandler;
 		this.formHandler = formHandler;
 	}
@@ -55,7 +55,7 @@ public class UIProcessServlet extends WebSocketServlet {
 	@Override
 	public void configure(WebSocketServletFactory factory) {
 		factory.getPolicy().setIdleTimeout(TIMEOUT);
-		factory.setCreator(new UISocketCreator(processManager, uiHandler,
+		factory.setCreator(new UISocketCreator(userEventReceiver, uiHandler,
 				formHandler));
 	}
 
@@ -65,25 +65,25 @@ public class UIProcessServlet extends WebSocketServlet {
 	 */
 	private static class UISocketCreator implements WebSocketCreator {
 
-		private final IProcessManager processManager;
-		private final IUIHandler uiHandler;
+		private final IProcessManager userEventReceiver;
+		private final IUserHandler uiHandler;
 		private final IFormHandler formHandler;
 
 		/**
 		 * @param processManager
 		 * @param uiHandler
 		 */
-		public UISocketCreator(IProcessManager processManager,
-				IUIHandler uiHandler, IFormHandler formHandler) {
+		public UISocketCreator(IProcessManager userEventReceiver,
+				IUserHandler uiHandler, IFormHandler formHandler) {
 			super();
-			this.processManager = processManager;
+			this.userEventReceiver = userEventReceiver;
 			this.uiHandler = uiHandler;
 			this.formHandler = formHandler;
 		}
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see
 		 * org.eclipse.jetty.websocket.servlet.WebSocketCreator#createWebSocket
 		 * (org.eclipse.jetty.websocket.servlet.ServletUpgradeRequest,
@@ -91,7 +91,8 @@ public class UIProcessServlet extends WebSocketServlet {
 		 */
 		public Object createWebSocket(ServletUpgradeRequest req,
 				ServletUpgradeResponse resp) {
-			return new UIProcessSocket(processManager, uiHandler, formHandler);
+			return new UIProcessSocket(userEventReceiver, uiHandler,
+					formHandler);
 		}
 
 	}
@@ -102,8 +103,8 @@ public class UIProcessServlet extends WebSocketServlet {
 	 */
 	private static class UIProcessSocket extends WebSocketAdapter {
 
-		private final IProcessManager processManager;
-		private final IUIHandler uiHandler;
+		private final IProcessManager userEventReceiver;
+		private final IUserHandler uiHandler;
 		private final IFormHandler formHandler;
 
 		private final ObjectMapper mapper = new ObjectMapper();
@@ -112,10 +113,10 @@ public class UIProcessServlet extends WebSocketServlet {
 		 * @param processManager
 		 * @param uiHandler
 		 */
-		public UIProcessSocket(IProcessManager processManager,
-				IUIHandler uiHandler, IFormHandler formHandler) {
+		public UIProcessSocket(IProcessManager userEventReceiver,
+				IUserHandler uiHandler, IFormHandler formHandler) {
 			super();
-			this.processManager = processManager;
+			this.userEventReceiver = userEventReceiver;
 			this.uiHandler = uiHandler;
 			this.formHandler = formHandler;
 		}
@@ -130,7 +131,7 @@ public class UIProcessServlet extends WebSocketServlet {
 			try {
 				this.getRemote().sendString(
 						mapper.writeValueAsString(new ProcessData(
-								processManager, formHandler, users)));
+								userEventReceiver, formHandler, users)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -166,14 +167,14 @@ public class UIProcessServlet extends WebSocketServlet {
 						involvedUsers.addAll(users);
 					}
 
-					processManager.startProjectInstance(projectDefinitionId,
-							parameters, involvedUsers, router, uiHandler);
+					userEventReceiver.startProjectInstance(projectDefinitionId,
+							parameters, involvedUsers, router);
 
 					break;
 
 				default:
 					System.err
-							.println("received unexpected message " + message);
+					.println("received unexpected message " + message);
 				}
 
 			} catch (Exception e) {

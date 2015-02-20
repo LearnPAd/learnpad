@@ -22,9 +22,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.Main;
-import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
-import eu.learnpad.simulator.uihandler.IUIHandler;
 
 /**
  * @author Tom Jorquera - Linagora
@@ -58,7 +57,8 @@ public class ActivitiProcessManagerTest {
 	@Test
 	public void testProcessDefinition() throws FileNotFoundException {
 		ActivitiProcessManager manager = new ActivitiProcessManager(
-				processEngine);
+				processEngine,
+				mock(IProcessEventReceiver.IProcessEventReceiverProvider.class));
 
 		assertTrue(manager.getAvailableProcessDefintion().size() == 0);
 
@@ -76,7 +76,8 @@ public class ActivitiProcessManagerTest {
 	@Test
 	public void testProcessDefinitionRoles() throws FileNotFoundException {
 		ActivitiProcessManager manager = new ActivitiProcessManager(
-				processEngine);
+				processEngine,
+				mock(IProcessEventReceiver.IProcessEventReceiverProvider.class));
 
 		String processDefinitionId = manager
 				.addProjectDefinitions(TEST_PROCESS).iterator().next();
@@ -84,7 +85,7 @@ public class ActivitiProcessManagerTest {
 		assertTrue(manager.getProcessDefinitionGroupRoles(processDefinitionId)
 				.containsAll(Arrays.asList("user1", "user2", "user3"))
 				&& manager.getProcessDefinitionGroupRoles(processDefinitionId)
-						.size() == 3);
+				.size() == 3);
 
 		assertTrue(manager.getProcessDefinitionSingleRoles(processDefinitionId)
 				.contains("user0"));
@@ -94,10 +95,17 @@ public class ActivitiProcessManagerTest {
 	@Test
 	public void testProcessInstantation() throws FileNotFoundException {
 
-		IUIHandler uiHandler = mock(IUIHandler.class);
+		final IProcessEventReceiver processEventReceiver = mock(IProcessEventReceiver.class);
+
+		IProcessEventReceiver.IProcessEventReceiverProvider provider = new IProcessEventReceiver.IProcessEventReceiverProvider() {
+
+			public IProcessEventReceiver processEventReceiver() {
+				return processEventReceiver;
+			}
+		};
 
 		ActivitiProcessManager manager = new ActivitiProcessManager(
-				processEngine);
+				processEngine, provider);
 
 		String processDefinitionId = manager
 				.addProjectDefinitions(TEST_PROCESS).iterator().next();
@@ -114,7 +122,7 @@ public class ActivitiProcessManagerTest {
 						put("user3", Arrays.asList("user3"));
 
 					}
-				}, uiHandler);
+				});
 
 		// if we stop right now, this will cause an exception during
 		// shutdownEngine (the test still pass). This is because the code to
@@ -122,8 +130,9 @@ public class ActivitiProcessManagerTest {
 		// activiti database *after* it has shutdown. The verify allows us to
 		// "block" until the task submission thread has done its job.
 		// 5 seconds should be *far more* than enough for this.
-		verify(uiHandler, timeout(5000)).sendTask(eq(processInstanceId),
-				any(String.class), any(String.class), any(Collection.class));
+		verify(processEventReceiver, timeout(5000)).sendTask(
+				eq(processInstanceId), any(String.class), any(String.class),
+				any(Collection.class));
 		;
 
 	}

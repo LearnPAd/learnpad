@@ -5,6 +5,8 @@ package eu.learnpad.simulator.processmanager.activiti;
 
 import java.io.FileNotFoundException;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -21,12 +23,13 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 
-import eu.learnpad.simulator.processmanager.IProcessManager;
+import eu.learnpad.simulator.IProcessEventReceiver;
+import eu.learnpad.simulator.IProcessManager;
+import eu.learnpad.simulator.processmanager.IProcessDispatcher;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.processdispatcher.ActivitiProcessDispatcher;
 import eu.learnpad.simulator.processmanager.activiti.taskrouter.ActivitiTaskRouter;
 import eu.learnpad.simulator.processmanager.activiti.taskvalidator.ActivitiDemoTaskValidator;
-import eu.learnpad.simulator.uihandler.IUIHandler;
 
 /**
  *
@@ -41,21 +44,33 @@ public class ActivitiProcessManager implements IProcessManager {
 	private final TaskService taskService;
 	private final HistoryService historyService;
 
+	private final IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider;
+
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
 
-	public ActivitiProcessManager(ProcessEngine processEngine)
-			throws FileNotFoundException {
+	private final Map<String, IProcessDispatcher> processDispatchers = Collections
+			.synchronizedMap(new HashMap<String, IProcessDispatcher>());
+
+	private final Map<String, Collection<String>> processInstanceToUsers = Collections
+			.synchronizedMap(new HashMap<String, Collection<String>>());
+
+	public ActivitiProcessManager(
+			ProcessEngine processEngine,
+			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider)
+					throws FileNotFoundException {
 		repositoryService = processEngine.getRepositoryService();
 		runtimeService = processEngine.getRuntimeService();
 		taskService = processEngine.getTaskService();
 		historyService = processEngine.getHistoryService();
 
 		taskValidator = new ActivitiDemoTaskValidator(taskService);
+
+		this.processEventReceiverProvider = processEventReceiverProvider;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IProcessManager#addProjectDefininition(java.lang.String)
 	 */
 	public Collection<String> addProjectDefinitions(String resource) {
@@ -75,7 +90,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IProcessManager#getAvailableProcessDefintion()
 	 */
 	public Collection<String> getAvailableProcessDefintion() {
@@ -93,7 +108,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * activitipoc.IProcessManager#getProcessDefinitionName(java.lang.String)
 	 */
@@ -111,7 +126,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * activitipoc.IProcessManager#getProcessDefinitionDescription(java.lang
 	 * .String)
@@ -130,7 +145,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * activitipoc.IProcessManager#getProcessDefinitionRoles(java.lang.String)
 	 */
@@ -152,7 +167,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * activitipoc.IProcessManager#getProcessDefinitionRoles(java.lang.String)
 	 */
@@ -174,29 +189,31 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IProcessManager#startProjectInstance(java.lang.String,
 	 * java.util.Map, activitipoc.ITaskRouter)
 	 */
 	public String startProjectInstance(String projectDefinitionId,
 			Map<String, Object> parameters, Collection<String> users,
-			Map<String, Collection<String>> router, IUIHandler uiHandler) {
+			Map<String, Collection<String>> router) {
 
 		ProcessInstance process = runtimeService.startProcessInstanceById(
 				projectDefinitionId, parameters);
 
-		// the process dispatcher will register itself to the uiHandler
-		// so we do not need to do anything here (except creating it)
-		new ActivitiProcessDispatcher(process, taskService, runtimeService,
-				historyService, new ActivitiTaskRouter(taskService, router),
-				taskValidator, uiHandler, users);
+		processInstanceToUsers.put(process.getId(), new HashSet<String>(users));
+
+		processDispatchers.put(process.getId(), new ActivitiProcessDispatcher(
+				this, this.processEventReceiverProvider.processEventReceiver(),
+				process, taskService, runtimeService, historyService,
+				new ActivitiTaskRouter(taskService, router), taskValidator,
+				users));
 
 		return process.getId();
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see activitipoc.IProcessManager#getCurrentProcessInstances()
 	 */
 	public Collection<String> getCurrentProcessInstances() {
@@ -210,6 +227,40 @@ public class ActivitiProcessManager implements IProcessManager {
 		}
 
 		return res;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * eu.learnpad.simulator.IProcessManager#getProcessInstanceInvolvedUsers
+	 * (java.lang.String)
+	 */
+	public Collection<String> getProcessInstanceInvolvedUsers(
+			String processInstanceId) {
+		return processInstanceToUsers.get(processInstanceId);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * eu.learnpad.simulator.processmanager.IProcessManager#submitTaskCompletion
+	 * (java.lang.String, java.lang.String, java.util.Map)
+	 */
+	public TaskSubmissionStatus submitTaskCompletion(String processId,
+			String taskId, Map<String, Object> data) {
+		return processDispatchers.get(processId).submitTaskCompletion(taskId,
+				data);
+	}
+
+	/**
+	 * Remove the dispatcher associated with a given processId
+	 *
+	 * @param processId
+	 */
+	public void removeDispatcher(String processId) {
+		processDispatchers.remove(processId);
 	}
 
 }
