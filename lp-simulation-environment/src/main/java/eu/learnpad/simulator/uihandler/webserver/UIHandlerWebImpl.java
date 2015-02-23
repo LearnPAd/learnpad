@@ -25,7 +25,8 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 	private final IProcessManager.IProcessManagerProvider userEventReceiverProvider;
 	private final IFormHandler formHandler;
 	private final WebServer webserver;
-	private final Map<String, UIServlet> usersMap;
+	private final Map<String, ServletHolder> usersMap = Collections
+			.synchronizedMap(new HashMap<String, ServletHolder>());
 	private final Map<String, Collection<String>> tasksToUsers = Collections
 			.synchronizedMap(new HashMap<String, Collection<String>>());
 	private final Map<String, ServletHolder> tasksMap = Collections
@@ -43,8 +44,6 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 		super();
 		this.userEventReceiverProvider = userEventReceiverProvider;
 		this.formHandler = formHandler;
-		this.usersMap = Collections
-				.synchronizedMap(new HashMap<String, UIServlet>());
 
 		// launch task webserver
 		this.webserver = webserver;
@@ -56,38 +55,35 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 
 		// instanciate users UI
 		for (String user : users) {
-			UIServlet ui = new UIServlet(user);
-			this.webserver.addUIServlet(ui, user);
-			usersMap.put(user, ui);
+			usersMap.put(user,
+					this.webserver.addUIServlet(new UIServlet(user), user));
 		}
 
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IUIHandler#addUser(java.lang.String)
 	 */
 	public void addUser(String userId) {
-		UIServlet ui = new UIServlet(userId);
-		webserver.addUIServlet(ui, userId);
-		usersMap.put(userId, ui);
+		usersMap.put(userId,
+				webserver.addUIServlet(new UIServlet(userId), userId));
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IUIHandler#removeUser(java.lang.String)
 	 */
 	public void removeUser(String userId) {
-
-		// TODO
-		// webserver.removeServletHolder(usersMap.get(userId));
+		webserver.removeServletHolder(usersMap.get(userId));
+		usersMap.remove(userId);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IUIHandler#getUsers()
 	 */
 	public Collection<String> getUsers() {
@@ -96,7 +92,7 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IUIHandler#sendTask(java.lang.String, java.util.Set)
 	 */
 	public void sendTask(String processId, String taskId, String taskDescr,
@@ -111,26 +107,29 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 		// created the corresponding servlet otherwise the user may try to
 		// connect to the task before it is available
 		for (String user : users) {
-			usersMap.get(user).addTask(taskId);
+			((UIServlet) usersMap.get(user).getServletInstance())
+			.addTask(taskId);
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IUIHandler#signalProcessEnd(java.lang.String,
 	 * java.util.Set)
 	 */
 	public void signalProcessEnd(String processId, Collection<String> users) {
 		for (String userId : users) {
-			usersMap.get(userId).completeProcess(processId);
+			((UIServlet) usersMap.get(userId).getServletInstance())
+					.completeProcess(processId);
 		}
 
 	}
 
 	public void completeTask(String processId, String taskId, String data) {
 		for (String userId : tasksToUsers.get(taskId)) {
-			usersMap.get(userId).removeTask(taskId);
+			((UIServlet) usersMap.get(userId).getServletInstance())
+					.removeTask(taskId);
 		}
 
 		// remove task ui from webserver
