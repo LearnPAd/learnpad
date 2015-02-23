@@ -48,10 +48,8 @@ public class WebServer {
 	final ServletContextHandler context;
 	private final String uiPath;
 	private final String tasksPath;
-	private final String uiProcessPath;
 
-	public WebServer(final int port, String uiPath, String tasksPath,
-			String uiProcessPath, UIProcessServlet uiProcessServlet)
+	public WebServer(final int port, String uiPath, String tasksPath)
 			throws Exception {
 		this.server = new Server();
 		final ServerConnector connector = new ServerConnector(server);
@@ -60,7 +58,6 @@ public class WebServer {
 		this.server.addConnector(connector);
 		this.uiPath = uiPath;
 		this.tasksPath = tasksPath;
-		this.uiProcessPath = uiProcessPath;
 
 		this.context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
@@ -88,19 +85,9 @@ public class WebServer {
 		// start server
 		this.server.start();
 
-		// set ui process servlet
-		ServletHolder holder = new ServletHolder(uiProcessServlet);
-		String fullPath = "/" + this.uiProcessPath + "/*";
-
-		this.context.addServlet(holder, fullPath);
-
-		System.out.println("UI Process servlet launched at "
-				+ server.getURI().toString()
-				.substring(0, server.getURI().toString().length() - 1)
-				+ fullPath);
-
-		holder = new ServletHolder(new DummyChatServlet());
-		fullPath = "/chat/*";
+		// set chat servlet
+		ServletHolder holder = new ServletHolder(new DummyChatServlet());
+		String fullPath = "/chat/*";
 
 		this.context.addServlet(holder, fullPath);
 
@@ -144,6 +131,21 @@ public class WebServer {
 		this.context.addServlet(holderEvents, fullPath);
 
 		System.out.println("new task servlet launched at "
+				+ server.getURI().toString()
+				.substring(0, server.getURI().toString().length() - 1)
+				+ fullPath);
+
+		return holderEvents;
+	}
+
+	public synchronized ServletHolder addProcessUIServlet(
+			WebSocketServlet servlet, String subpath) {
+		ServletHolder holderEvents = new ServletHolder(servlet);
+		String fullPath = "/" + subpath + "/*";
+
+		this.context.addServlet(holderEvents, fullPath);
+
+		System.out.println("new process UI servlet launched at "
 				+ server.getURI().toString()
 				.substring(0, server.getURI().toString().length() - 1)
 				+ fullPath);

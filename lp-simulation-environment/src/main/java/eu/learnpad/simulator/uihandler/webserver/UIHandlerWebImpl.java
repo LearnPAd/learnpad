@@ -47,10 +47,11 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 				.synchronizedMap(new HashMap<String, UIServlet>());
 
 		// launch task webserver
-		this.webserver = new WebServer(port, "ui", "tasks", "process",
-				new UIProcessServlet(
-						userEventReceiverProvider.processManager(), this,
-						formHandler));
+		this.webserver = new WebServer(port, "ui", "tasks");
+
+		webserver.addProcessUIServlet(new UIProcessServlet(
+				userEventReceiverProvider.processManager(), this, formHandler),
+				"process");
 
 		// instanciate users UI
 		for (String user : users) {

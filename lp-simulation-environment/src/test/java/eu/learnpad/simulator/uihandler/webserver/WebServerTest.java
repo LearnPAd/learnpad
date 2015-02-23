@@ -5,7 +5,6 @@ package eu.learnpad.simulator.uihandler.webserver;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.mockito.Mockito.mock;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -29,8 +28,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import eu.learnpad.simulator.Main;
-import eu.learnpad.simulator.uihandler.webserver.UIProcessServlet;
-import eu.learnpad.simulator.uihandler.webserver.WebServer;
 
 /**
  *
@@ -48,8 +45,7 @@ public class WebServerTest {
 	public void init() {
 		try {
 
-			server = new WebServer(Main.PORT, "ui", "tasks", "process",
-					mock(UIProcessServlet.class));
+			server = new WebServer(Main.PORT, "ui", "tasks");
 		} catch (Exception e) {
 			System.err.println(e);
 			fail("got exception during setup");
@@ -102,7 +98,7 @@ public class WebServerTest {
 				// pages served by the server)
 				localPageContent = localPageContent.replace(
 						"#serveripaddress#", "\"" + WebServer.getIPAdress()
-								+ ":" + Main.PORT + "\"");
+						+ ":" + Main.PORT + "\"");
 
 				byte[] fetchedFileDigest = checksum(new ByteArrayInputStream(
 						fetchedPageContent.getBytes()),
