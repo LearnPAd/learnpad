@@ -37,9 +37,9 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 	 * @param taskService
 	 * @throws Exception
 	 */
-	public UIHandlerWebImpl(int port, Collection<String> users,
+	public UIHandlerWebImpl(WebServer webserver, Collection<String> users,
 			IProcessManager.IProcessManagerProvider userEventReceiverProvider,
-			IFormHandler formHandler) throws Exception {
+			IFormHandler formHandler) {
 		super();
 		this.userEventReceiverProvider = userEventReceiverProvider;
 		this.formHandler = formHandler;
@@ -47,8 +47,9 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 				.synchronizedMap(new HashMap<String, UIServlet>());
 
 		// launch task webserver
-		this.webserver = new WebServer(port, "ui", "tasks");
+		this.webserver = webserver;
 
+		// create process ui servlet
 		webserver.addProcessUIServlet(new UIProcessServlet(
 				userEventReceiverProvider.processManager(), this, formHandler),
 				"process");

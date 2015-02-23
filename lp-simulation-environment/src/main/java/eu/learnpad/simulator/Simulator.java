@@ -10,6 +10,7 @@ import eu.learnpad.simulator.IProcessManager.IProcessManagerProvider;
 import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
 import eu.learnpad.simulator.uihandler.formhandler.activiti2jsonform.ActivitiToJsonFormFormHandler;
 import eu.learnpad.simulator.uihandler.webserver.UIHandlerWebImpl;
+import eu.learnpad.simulator.uihandler.webserver.WebServer;
 
 /**
  *
@@ -41,10 +42,10 @@ public class Simulator implements IProcessManagerProvider,
 		processManager = new ActivitiProcessManager(processEngine, this);
 
 		// create users ui handler
-		uiHandler = new UIHandlerWebImpl(webserverPort,
-				new ArrayList<String>(), this,
-				new ActivitiToJsonFormFormHandler(
-						processEngine.getFormService()));
+		uiHandler = new UIHandlerWebImpl(new WebServer(webserverPort, "ui",
+				"tasks"), new ArrayList<String>(), this,
+				new ActivitiToJsonFormFormHandler(processEngine
+						.getFormService()));
 	}
 
 	public void stop() {
