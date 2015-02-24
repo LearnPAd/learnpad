@@ -201,8 +201,6 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 	private static String getType(FormProperty prop) {
 		String res = "\"type\": ";
 
-		System.out.println(prop.getName() + " " + prop.getType());
-
 		String type = prop.getType().getName();
 
 		if (type.equals("string")) {
@@ -210,9 +208,6 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 		} else if (type.equals("long")) {
 			res += "\"number\"";
 		} else if (type.equals("enum")) {
-
-			System.out.println(prop.getType().getInformation("values")
-					.toString());
 
 			res += "\"string\"";
 			res += ",\"enum\":[";
