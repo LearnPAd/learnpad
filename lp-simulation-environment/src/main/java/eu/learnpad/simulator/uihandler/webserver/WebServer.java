@@ -5,6 +5,7 @@ package eu.learnpad.simulator.uihandler.webserver;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -43,6 +44,7 @@ public class WebServer {
 	public static final String UI_PATH = "ui.html";
 	public static final String UI_PROCESS_PATH = "ui-process.html";
 	public static final String STATIC_RESOURCES_PATH = "static";
+	public static final String WEBJARS_RESOURCES_PATH = "META-INF/resources/webjars";
 
 	final Server server;
 	final ServletContextHandler context;
@@ -78,8 +80,25 @@ public class WebServer {
 		rh.setBaseResource(Resource.newClassPathResource(STATIC_RESOURCES_PATH));
 		resourcesContext.setHandler(rh);
 
+		ContextHandler webjarsContext = new ContextHandler();
+		webjarsContext.setContextPath("/webjars/");
+		rh = new ResourceHandler() {
+			@Override
+			public Resource getResource(String path)
+					throws MalformedURLException {
+				Resource resource = Resource.newClassPathResource(path);
+				if (resource == null || !resource.exists()) {
+					resource = Resource
+							.newClassPathResource(WEBJARS_RESOURCES_PATH + path);
+				}
+				return resource;
+			}
+		};
+		webjarsContext.setHandler(rh);
+
 		ContextHandlerCollection contexts = new ContextHandlerCollection();
-		contexts.setHandlers(new Handler[] { resourcesContext, context });
+		contexts.setHandlers(new Handler[] { webjarsContext, resourcesContext,
+				context });
 		server.setHandler(contexts);
 
 		// start server
