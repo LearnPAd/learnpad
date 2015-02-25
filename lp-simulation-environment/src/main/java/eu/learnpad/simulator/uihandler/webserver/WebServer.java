@@ -147,13 +147,14 @@ public class WebServer {
 		}
 	}
 
-	public synchronized ServletHolder addUIServlet(WebSocketServlet servlet,
-			String subpath) {
+	public ServletHolder addUIServlet(WebSocketServlet servlet, String subpath) {
 		ServletHolder holderEvents = new ServletHolder(servlet);
 
 		String fullPath = "/" + this.uiPath + "/" + subpath + "/*";
 
-		this.context.addServlet(holderEvents, fullPath);
+		synchronized (this.context) {
+			this.context.addServlet(holderEvents, fullPath);
+		}
 
 		System.out.println("new UI servlet launched at "
 				+ server.getURI().toString()
@@ -163,13 +164,14 @@ public class WebServer {
 		return holderEvents;
 	}
 
-	public synchronized ServletHolder addTaskServlet(WebSocketServlet servlet,
-			String subpath) {
+	public ServletHolder addTaskServlet(WebSocketServlet servlet, String subpath) {
 
 		ServletHolder holderEvents = new ServletHolder(servlet);
 		String fullPath = "/" + this.tasksPath + "/" + subpath + "/*";
 
-		this.context.addServlet(holderEvents, fullPath);
+		synchronized (this.context) {
+			this.context.addServlet(holderEvents, fullPath);
+		}
 
 		System.out.println("new task servlet launched at "
 				+ server.getURI().toString()
@@ -179,11 +181,13 @@ public class WebServer {
 		return holderEvents;
 	}
 
-	public synchronized ServletHolder addServlet(Servlet servlet, String subpath) {
+	public ServletHolder addServlet(Servlet servlet, String subpath) {
 		ServletHolder holderEvents = new ServletHolder(servlet);
 		String fullPath = "/" + subpath + "/*";
 
-		this.context.addServlet(holderEvents, fullPath);
+		synchronized (this.context) {
+			this.context.addServlet(holderEvents, fullPath);
+		}
 
 		System.out.println("new servlet launched at "
 				+ server.getURI().toString()
@@ -194,49 +198,52 @@ public class WebServer {
 	}
 
 	public void removeServletHolder(ServletHolder servletHolder) {
-		ServletHandler handler = context.getServletHandler();
 
-		/*
-		 * A list of all the servlets that don't implement the class 'servlet',
-		 * (i.e. They should be kept in the context
-		 */
-		List<ServletHolder> servlets = new ArrayList<ServletHolder>();
+		synchronized (this.context) {
 
-		/*
-		 * The names all the servlets that we remove so we can drop the mappings
-		 * too
-		 */
-		Set<String> names = new HashSet<String>();
+			ServletHandler handler = context.getServletHandler();
 
-		for (ServletHolder holder : handler.getServlets()) {
 			/*
-			 * If it is the class we want to remove, then just keep track of its
-			 * name
+			 * A list of all the servlets that don't implement the class
+			 * 'servlet', (i.e. They should be kept in the context
 			 */
-			if (servletHolder.equals(holder)) {
-				names.add(holder.getName());
-			} else /* We keep it */
-			{
-				servlets.add(holder);
-			}
-		}
+			List<ServletHolder> servlets = new ArrayList<ServletHolder>();
 
-		List<ServletMapping> mappings = new ArrayList<ServletMapping>();
-
-		for (ServletMapping mapping : handler.getServletMappings()) {
 			/*
-			 * Only keep the mappings that didn't point to one of the servlets
-			 * we removed
+			 * The names all the servlets that we remove so we can drop the
+			 * mappings too
 			 */
-			if (!names.contains(mapping.getServletName())) {
-				mappings.add(mapping);
+			Set<String> names = new HashSet<String>();
+
+			for (ServletHolder holder : handler.getServlets()) {
+				/*
+				 * If it is the class we want to remove, then just keep track of
+				 * its name
+				 */
+				if (servletHolder.equals(holder)) {
+					names.add(holder.getName());
+				} else /* We keep it */
+				{
+					servlets.add(holder);
+				}
 			}
+
+			List<ServletMapping> mappings = new ArrayList<ServletMapping>();
+
+			for (ServletMapping mapping : handler.getServletMappings()) {
+				/*
+				 * Only keep the mappings that didn't point to one of the
+				 * servlets we removed
+				 */
+				if (!names.contains(mapping.getServletName())) {
+					mappings.add(mapping);
+				}
+			}
+
+			/* Set the new configuration for the mappings and the servlets */
+			handler.setServletMappings(mappings.toArray(new ServletMapping[0]));
+			handler.setServlets(servlets.toArray(new ServletHolder[0]));
 		}
-
-		/* Set the new configuration for the mappings and the servlets */
-		handler.setServletMappings(mappings.toArray(new ServletMapping[0]));
-		handler.setServlets(servlets.toArray(new ServletHolder[0]));
-
 	}
 
 	public static String getIPAdress() throws UnknownHostException,
