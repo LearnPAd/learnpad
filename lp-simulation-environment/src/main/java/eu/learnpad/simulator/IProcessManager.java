@@ -24,6 +24,7 @@ package eu.learnpad.simulator;
  * #L%
  */
 
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.Map;
 
@@ -137,4 +138,25 @@ public interface IProcessManager {
 	public TaskSubmissionStatus submitTaskCompletion(String processId,
 			String taskId, Map<String, Object> data);
 
+	/**
+	 * @param processDefinitionId
+	 *            the definition ID of the process for which we want the
+	 *            diagram.
+	 * @return the input stream of the image containing the diagram of the given
+	 *         process, or null if no diagram is available
+	 */
+	public InputStream getProcessDiagram(String processDefinitionId);
+
+	/**
+	 *
+	 * @param processInstanceId
+	 *            the involved process instance
+	 * @param taskId
+	 *            the task we want to highlight
+	 * @return the input stream of the image containing the diagram of the given
+	 *         process instance with the specified task highlighted, or null if
+	 *         no diagram is available
+	 */
+	public InputStream getCurrentTaskDiagram(String processInstanceId,
+			String taskId);
 }

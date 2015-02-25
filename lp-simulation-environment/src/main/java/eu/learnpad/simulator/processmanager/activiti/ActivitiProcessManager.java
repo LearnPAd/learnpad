@@ -25,6 +25,8 @@ package eu.learnpad.simulator.processmanager.activiti;
  */
 
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,6 +45,8 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.image.ProcessDiagramGenerator;
+import org.activiti.image.impl.DefaultProcessDiagramGenerator;
 
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
@@ -65,6 +69,8 @@ public class ActivitiProcessManager implements IProcessManager {
 	private final TaskService taskService;
 	private final HistoryService historyService;
 
+	private final ProcessDiagramGenerator generator;
+
 	private final IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider;
 
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
@@ -83,6 +89,8 @@ public class ActivitiProcessManager implements IProcessManager {
 		runtimeService = processEngine.getRuntimeService();
 		taskService = processEngine.getTaskService();
 		historyService = processEngine.getHistoryService();
+
+		this.generator = new DefaultProcessDiagramGenerator();
 
 		taskValidator = new ActivitiDemoTaskValidator(taskService);
 
@@ -282,6 +290,93 @@ public class ActivitiProcessManager implements IProcessManager {
 	 */
 	public void removeDispatcher(String processId) {
 		processDispatchers.remove(processId);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * eu.learnpad.simulator.processmanager.IDiagramGenerator#getProcessDiagram
+	 * (java.lang.String)
+	 */
+	public InputStream getProcessDiagram(String processDefinitionId) {
+
+		ProcessDefinition processDefinition = repositoryService
+				.createProcessDefinitionQuery()
+				.processDefinitionId(processDefinitionId).singleResult();
+
+		if (processDefinition == null) {
+			return null;
+		} else {
+			String diagramResourceName = processDefinition
+					.getDiagramResourceName();
+
+			if (diagramResourceName == null) {
+				return null;
+			} else {
+				return repositoryService.getResourceAsStream(
+						processDefinition.getDeploymentId(),
+						diagramResourceName);
+			}
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * eu.learnpad.simulator.processmanager.IDiagramGenerator#getCurrentTaskDiagram
+	 * (java.lang.String, java.lang.String)
+	 */
+	public InputStream getCurrentTaskDiagram(String processInstanceId,
+			String taskId) {
+
+		ProcessInstance instance = runtimeService.createProcessInstanceQuery()
+				.processInstanceId(processInstanceId).singleResult();
+
+		if (instance == null) {
+			return null;
+		} else {
+
+			ProcessDefinition processDefinition = repositoryService
+					.createProcessDefinitionQuery()
+					.processDefinitionId(instance.getProcessDefinitionId())
+					.singleResult();
+
+			if (processDefinition == null
+					|| processDefinition.getDiagramResourceName() == null) {
+				return null;
+			} else {
+
+				BpmnModel model = repositoryService.getBpmnModel(instance
+						.getProcessDefinitionId());
+
+				// Iterate over all active activities for the process instance,
+				// and
+				// filter to select only the one which correspond to the task
+				// TODO:this is not very efficient :( Possible to do it directly
+				// with a
+				// query?
+				List<String> res = new ArrayList<String>();
+				for (String activityId : runtimeService
+						.getActiveActivityIds(processInstanceId)) {
+					if (this.historyService
+							.createHistoricActivityInstanceQuery()
+							.processInstanceId(processInstanceId)
+							.activityId(activityId).unfinished().singleResult()
+							.getTaskId().equals(taskId)) {
+						res.add(activityId);
+					}
+				}
+
+				if (res.isEmpty()) {
+					return null;
+				} else {
+					return generator.generateDiagram(model, "png", res);
+				}
+
+			}
+		}
 	}
 
 }
