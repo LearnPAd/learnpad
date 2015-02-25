@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -178,14 +179,13 @@ public class WebServer {
 		return holderEvents;
 	}
 
-	public synchronized ServletHolder addProcessUIServlet(
-			WebSocketServlet servlet, String subpath) {
+	public synchronized ServletHolder addServlet(Servlet servlet, String subpath) {
 		ServletHolder holderEvents = new ServletHolder(servlet);
 		String fullPath = "/" + subpath + "/*";
 
 		this.context.addServlet(holderEvents, fullPath);
 
-		System.out.println("new process UI servlet launched at "
+		System.out.println("new servlet launched at "
 				+ server.getURI().toString()
 				.substring(0, server.getURI().toString().length() - 1)
 				+ fullPath);

@@ -70,9 +70,14 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 		this.webserver = webserver;
 
 		// create process ui servlet
-		webserver.addProcessUIServlet(new UIProcessServlet(
-				userEventReceiverProvider.processManager(), this, formHandler),
-				"process");
+		webserver.addServlet(
+				new UIProcessServlet(
+						userEventReceiverProvider.processManager(), this,
+						formHandler), "process");
+
+		// create diagram servlet
+		webserver.addServlet(new DiagramServlet(userEventReceiverProvider),
+				"diagram");
 
 		// instanciate users UI
 		for (String user : users) {
