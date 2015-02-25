@@ -10,6 +10,13 @@
 	<name>LearnPAd Simulator</name>
 	<url>http://learnpad.eu</url>
 
+	<organization>
+		<name>Linagora</name>
+		<url>http://linagora.com</url>
+	</organization>
+
+	<inceptionYear>2014</inceptionYear>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<slf4j.version>1.7.10</slf4j.version>
@@ -25,6 +32,7 @@
 		<jquery-ui.version>1.11.3</jquery-ui.version>
 		<underscorejs.version>1.7.0-1</underscorejs.version>
 		<spectrum.version>1.6.0</spectrum.version>
+		<license-maven-plugin.version>1.8</license-maven-plugin.version>
 	</properties>
 
 	<repositories>
@@ -138,6 +146,7 @@
 
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -174,6 +183,151 @@
 				</executions>
 			</plugin>
 
+			<plugin>
+				<!-- handle license files -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<configuration>
+					<licenseName>agpl_v3</licenseName>
+					<roots>
+						<root>src</root>
+					</roots>
+					<excludes>
+						<exclude>main/resources/process/VacationRequest.bpmn20.xml</exclude>
+						<exclude>main/resources/static/deps/**</exclude>
+						<exclude>main/resources/static/lib/**</exclude>
+						<exclude>main/resources/license/**</exclude>
+						<exclude>main/resources/validation_db.json</exclude>
+					</excludes>
+					<licenseMerges>
+						<licenseMerge>
+							Apache License, Version 2.0
+							| The Apache Software License, Version 2.0
+							| Apache Public License 2.0
+							| Apache v2
+							| Apache Software License - Version 2.0
+							| Apache 2
+							| Apache 2.0
+						</licenseMerge>
+						<licenseMerge>
+							MIT License
+							| The MIT License
+							| MIT
+						</licenseMerge>
+						<licenseMerge>
+							Eclipse Public License 1.0
+							| Eclipse Public License - Version 1.0
+						</licenseMerge>
+					</licenseMerges>
+				</configuration>
+				<executions>
+					<!-- NOTE: this seems to create some errors with the maven eclipse plugin, 
+						but work well from the command line, add ignore in eclipse to remove errors. 
+						If you need to re-generate the license file, remember to do it from the command 
+						line -->
+					<execution>
+						<!-- add license header to files -->
+						<id>add-headers</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>update-file-header</goal>
+						</goals>
+					</execution>
+					<execution>
+						<!-- update project license -->
+						<id>update-license</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>update-project-license</goal>
+						</goals>
+					</execution>
+					<execution>
+						<!-- add third-party licenses -->
+						<id>add-third-party</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>add-third-party</goal>
+						</goals>
+					</execution>
+					<execution>
+						<!-- download license files -->
+						<id>download-licenses</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>download-licenses</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<!-- Add third-party licenses to generated builds 
+							NOTE: the order is important! This must be done *after* license 
+							files have been generated -->
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>add-resource</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>${project.build.directory}/generated-sources/license</directory>
+									<targetPath>license</targetPath>
+								</resource>
+								<resource>
+									<directory>${project.build.directory}/generated-resources/licenses</directory>
+									<targetPath>license/third-party-licenses</targetPath>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											license-maven-plugin
+										</artifactId>
+										<versionRange>
+											[${license-maven-plugin.version},)
+										</versionRange>
+										<goals>
+											<goal>
+												update-project-license
+											</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 	</build>
 </project>
