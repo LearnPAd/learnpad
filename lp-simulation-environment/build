@@ -16,16 +16,19 @@ declare -r __OUT_RUNDEPS_FILE__="${__OUT_PATH__}/rundeps.txt"
 # This is the path to the directory where you can optionally put some configuration files
 declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
 
+# avoid deleting/re-downloading license files
+declare -r __MVN_PROFILE__="-Pkeep-license-files"
+
 ### BUILD ###
 function component_build() {
-    mvn clean
+    mvn $__MVN_PROFILE__ clean
     # skip tests as we will do them in the component_test stage
-    mvn package -Dmaven.test.skip=true
+    mvn $__MVN_PROFILE__ package -Dmaven.test.skip=true
 }
 
 ### TEST ###
 function component_test() {
-    mvn test
+    mvn $__MVN_PROFILE__ test
 }
 
 ### INSTALL ###

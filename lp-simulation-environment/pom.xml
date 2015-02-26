@@ -323,4 +323,40 @@
 		</pluginManagement>
 
 	</build>
+
+	<profiles>
+		<profile>
+			<id>keep-license-files</id>
+			<!-- this profile can be used to avoid deleting/re-downloading license files
+				 after an mvn clean package.
+				 This will speed up build, which can be especially useful for an
+				 integration server.
+
+				 NOTE: Licenses for new dependencies will be added, but sadly licenses
+				 associated with removed dependencies will not be automatically removed... -->
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-clean-plugin</artifactId>
+						<configuration>
+							<excludeDefaultDirectories>true</excludeDefaultDirectories>
+							<filesets>
+								<fileset>
+									<directory>target</directory>
+									<excludes>
+										<exclude>generated-resources/licenses/*</exclude>
+										<exclude>generated-resources/licenses.xml</exclude>
+										<exclude>generated-sources/license/*</exclude>
+									</excludes>
+									<followSymlinks>false</followSymlinks>
+								</fileset>
+							</filesets>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+
+		</profile>
+	</profiles>
+
 </project>
