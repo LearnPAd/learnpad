@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+### VARIABLES ###
+
+# This is the directory path to your component
+declare -r __COMPONENT_PATH__="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# This is the name of your component (must be the last part of ${__COMPONENT_PATH__}
+declare -r __COMPONENT_NAME__="$( basename "${__COMPONENT_PATH__}" )"
+# This is the path to your `out' directory
+declare -r __OUT_PATH__="${__COMPONENT_PATH__}/out"
+# These are path for the `start' and `stop' script that must be provided
+declare -r __OUT_START_FILE__="${__OUT_PATH__}/start"
+declare -r __OUT_STOP_FILE__="${__OUT_PATH__}/stop"
+# This is a path to the optional file which list the needed dependencies to run the component
+declare -r __OUT_RUNDEPS_FILE__="${__OUT_PATH__}/rundeps.txt"
+# This is the path to the directory where you can optionally put some configuration files
+declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
+
+### BUILD ###
+function component_build() {
+    mvn clean
+    # skip tests as we will do them in the component_test stage
+    mvn package -Dmaven.test.skip=true
+}
+
+### TEST ###
+function component_test() {
+    mvn test
+}
+
+### INSTALL ###
+# This is where you need to publish material into the `out' directory
+function component_install() {
+    mkdir -p ${__OUT_PATH__}
+    cp "scripts/start" "${__OUT_START_FILE__}"
+    cp "scripts/stop" "${__OUT_STOP_FILE__}"
+    cp "target/simulator-"*"-jar-with-dependencies.jar" "${__OUT_PATH__}/"
+    # There is no run dependencies for this component
+    #cp <path_to>/rundeps.txt ${__OUT_RUNDEPS_FILE__}
+    # These is no configuration file to copy
+    #cp <path_to>/file.cfg ${__OUT_CONF_PATH__}/
+}
+
+component_build && component_test && component_install
