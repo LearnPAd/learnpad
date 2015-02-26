@@ -221,26 +221,6 @@
 					</licenseMerges>
 				</configuration>
 				<executions>
-					<!-- NOTE: this seems to create some errors with the maven eclipse plugin, 
-						but work well from the command line, add ignore in eclipse to remove errors. 
-						If you need to re-generate the license file, remember to do it from the command 
-						line -->
-					<execution>
-						<!-- add license header to files -->
-						<id>add-headers</id>
-						<phase>process-sources</phase>
-						<goals>
-							<goal>update-file-header</goal>
-						</goals>
-					</execution>
-					<execution>
-						<!-- update project license -->
-						<id>update-license</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>update-project-license</goal>
-						</goals>
-					</execution>
 					<execution>
 						<!-- add third-party licenses -->
 						<id>add-third-party</id>
@@ -257,6 +237,20 @@
 							<goal>download-licenses</goal>
 						</goals>
 					</execution>
+					<execution>
+						<!-- check that license files are ok, if not fail the build If the 
+							build fail due to missing or incorrect license headers, this should be fixed 
+							easily with mvn license:update-file-header -->
+						<id>check-license</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>check-file-header</goal>
+						</goals>
+						<configuration>
+							<failOnMissingHeader>true</failOnMissingHeader>
+							<failOnNotUptodateHeader>true</failOnNotUptodateHeader>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 
@@ -265,9 +259,8 @@
 				<artifactId>build-helper-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<!-- Add third-party licenses to generated builds 
-							NOTE: the order is important! This must be done *after* license 
-							files have been generated -->
+						<!-- Add third-party licenses to generated builds NOTE: the order is 
+							important! This must be done *after* license files have been generated -->
 						<phase>generate-resources</phase>
 						<goals>
 							<goal>add-resource</goal>
