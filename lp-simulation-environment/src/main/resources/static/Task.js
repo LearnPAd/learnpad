@@ -34,6 +34,8 @@ function task(address, taskid, user) {
     };
 
     newTask.end = function() {
+        $('#taskcontainer' + taskid + ' .collapse').
+            filter('.in').collapse('hide');
         $('#taskFormDiv' + taskid).remove();
         $('#taskcontainer' + taskid).addClass('disabled');
         this.ws.onclose('');
@@ -86,6 +88,27 @@ function task(address, taskid, user) {
 
             $('#taskdata' + taskid).html(data.description);
 
+            $('#taskdata' + taskid).after(
+                '<div class="panel-group diagram" id="accordion' + taskid +
+                    '" role="tablist" aria-multiselectable="true">' +
+                    '<div class="panel panel-default">' +
+                    '<div class="panel-heading" role="tab" id="diagramHeading' + taskid +
+                    '"><h4 class="panel-title">' +
+                    '<a class="collapsed" data-toggle="collapse" data-parent="#accordion' + taskid +
+                    '" href="#diagramCollapse' + taskid +
+                    '" aria-expanded="false" aria-controls="diagramCollapse' + taskid +
+                    '">See Process Diagram' + '</a>' + '</h4>' + '</div>' +
+                    '<div id="diagramCollapse' + taskid +
+                    '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="diagramHeading' + taskid +
+                    '"><div class="panel-body" style="overflow: scroll;width: 100%;">' +
+                    '<img class="diagram" src="diagram/processinstance/' +
+                    data.processid + '/' + taskid + '"></img>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>'
+            );
+
             // yes `this` is the websocket in this context... js FTW!
             var ws = this;
             taskFormGenerate(
@@ -106,7 +129,7 @@ function task(address, taskid, user) {
 
         case 'VALIDATED':
             $('#tasknotif' + taskid).remove();
-            taskDiv = $('#taskdata' + taskid).after(
+            taskDiv = $('#taskFormDiv' + taskid).before(
                 '<div id="tasknotif' +
                     taskid +
                     '" class="alert alert-success" role="alert">Great, your submission matched an expected answer.</div>'
@@ -115,7 +138,7 @@ function task(address, taskid, user) {
 
         case 'OTHER_VALIDATED':
             $('#tasknotif' + taskid).remove();
-            taskDiv = $('#taskdata' + taskid).after(
+            taskDiv = $('#taskFormDiv' + taskid).before(
                 '<div id="tasknotif' +
                     taskid +
                     '" class="alert alert-info" role="alert">Another user completed the task</div>'
@@ -124,7 +147,7 @@ function task(address, taskid, user) {
 
         case 'RESUBMIT':
             $('#tasknotif' + taskid).remove();
-            taskDiv = $('#taskdata' + taskid).after(
+            taskDiv = $('#taskFormDiv' + taskid).before(
                 '<div id="tasknotif' +
                     taskid +
                     '" class="alert alert-danger" role="alert">Sorry, your submission did not match expected answer(s). Please try again.</div>'
@@ -146,7 +169,7 @@ function task(address, taskid, user) {
 
         case 'ERROR':
             $('#tasknotif' + taskid).remove();
-            taskDiv = $('#taskdata' + taskid).after(
+            taskDiv = $('#taskFormDiv' + taskid).before(
                 '<div id="tasknotif' +
                     taskid +
                     '" class="alert alert-warning" role="alert">Hum... something weird happened, sorry about that</div>'
