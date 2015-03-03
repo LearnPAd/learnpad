@@ -52,7 +52,7 @@ public class Main {
 			Simulator simulator = new Simulator(ACTIVITY_CONFIG_PATH, PORT);
 
 			// add users
-			for (String user : Arrays.asList("sarah", "tom")) {
+			for (String user : Arrays.asList("sally", "barnaby")) {
 				simulator.userHandler().addUser(user);
 			}
 
