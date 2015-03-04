@@ -13,12 +13,12 @@ package eu.learnpad.simulator.uihandler.formhandler.activiti2jsonform;
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * #L%
@@ -192,7 +192,7 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 	}
 
 	private String formDataToJSON(FormData data) {
-		String schema = "\"schema\": {";
+		String schema = "\"schema\": { ";
 		String form = "\"form\": [ ";
 
 		for (FormProperty prop : data.getFormProperties()) {
@@ -205,7 +205,7 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 			form += getForm(prop);
 			form += ",";
 		}
-		// remove last comma from schemas
+		// remove last comma from schemas (or space if object is empty)
 		schema = schema.substring(0, schema.length() - 1);
 
 		schema += " }";
@@ -231,7 +231,7 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 		} else if (type.equals("enum")) {
 
 			res += "\"string\"";
-			res += ",\"enum\":[";
+			res += ",\"enum\":[ ";
 
 			@SuppressWarnings("unchecked")
 			Map<String, String> values = (Map<String, String>) prop.getType()
@@ -240,9 +240,9 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 			for (String key : values.keySet()) {
 				res += "\"" + key + "\",";
 			}
-			// remove last comma
+			// remove last comma (or space if list is empty)
 			res = res.substring(0, res.length() - 1);
-			res += "]";
+			res += " ]";
 
 		} else if (type.equals("date")) {
 			res += "\"string\"";
@@ -281,7 +281,7 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 			// return valid data
 			// see https://github.com/joshfire/jsonform/wiki#fields-selection
 			res += "{ \"key\": \"" + prop.getId() + "\"";
-			res += ",\"titleMap\":{";
+			res += ",\"titleMap\":{ ";
 
 			@SuppressWarnings("unchecked")
 			Map<String, String> values = (Map<String, String>) prop.getType()
@@ -290,9 +290,9 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 				res += "\"" + entry.getKey() + "\" : " + "\""
 						+ entry.getValue() + "\",";
 			}
-			// remove last comma
+			// remove last comma (or space if object is empty)
 			res = res.substring(0, res.length() - 1);
-			res += "}}";
+			res += " }}";
 
 		} else if (type.equals("date")) {
 			res += "{ \"key\": \"" + prop.getId() + "\"";
