@@ -58,9 +58,7 @@ public class Main {
 
 			// load process definitions
 			simulator.processManager().addProjectDefinitions(
-					DEMO_PROCESS_FOLDER + "/VacationRequest.bpmn20.xml");
-			simulator.processManager().addProjectDefinitions(
-					DEMO_PROCESS_FOLDER + "/demo.bpmn20.xml");
+					DEMO_PROCESS_FOLDER + "/demo-suap-1.bpmn20.xml");
 
 			System.out.println("---\n");
 			System.out.println("Demo is ready and can be accessed at http://"

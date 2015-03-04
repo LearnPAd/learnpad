@@ -45,5 +45,63 @@
 				"integrationChecked" : false
 			}
 		}
+	],
+	"usertask2" : [
+		{
+
+			"input" : {
+				"document" : "example_document_valid"
+			},
+			"output" : {
+				"applicationAdmissible" : true
+			}
+		},
+		{
+
+			"input" : {
+				"document" : "example_document_invalid"
+			},
+			"output" : {
+				"applicationAdmissible" : false
+			}
+		}
+	],
+	"usertask5" : [
+		{
+
+			"input" : {
+				"document" : "example_document_valid"
+			},
+			"output" : {
+				"documentValid" : true
+			}
+		},
+		{
+
+			"input" : {
+				"document" : "example_document_invalid"
+			},
+			"output" : {
+				"documentValid" : false
+			}
+		}
+	],
+	"usertask8" : [
+		{
+			"input" : {
+				"documentValid" : false
+			},
+			"output" : {
+				"applicationValid" : false
+			}
+		},
+		{
+			"input" : {
+				"documentValid" : true
+			},
+			"output" : {
+				"applicationValid" : true
+			}
+		}
 	]
 }
