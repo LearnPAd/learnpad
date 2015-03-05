@@ -96,10 +96,10 @@ function task(address, taskid, user) {
                     '"><h4 class="panel-title">' +
                     '<a class="collapsed" data-toggle="collapse" data-parent="#accordion' + taskid +
                     '" href="#diagramCollapse' + taskid +
-                    '" aria-expanded="false" aria-controls="diagramCollapse' + taskid +
+                    '" aria-expanded="true" aria-controls="diagramCollapse' + taskid +
                     '">See Process Diagram' + '</a>' + '</h4>' + '</div>' +
                     '<div id="diagramCollapse' + taskid +
-                    '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="diagramHeading' + taskid +
+                    '" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="diagramHeading' + taskid +
                     '"><div class="panel-body" style="overflow: scroll;width: 100%;">' +
                     '<img class="diagram" src="diagram/processinstance/' +
                     data.processid + '/' + taskid + '"></img>' +
