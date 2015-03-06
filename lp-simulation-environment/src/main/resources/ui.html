@@ -181,10 +181,6 @@
                     </div>
                 </div>
                 <div id="userlist-container" class="col-sm-3">
-                    <div class="panel panel-default userui-parent">
-                        <div id="user-sally" class="userlist-user"><a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="<ul><li>Sally Shugar works for the Monti Azzurri Consortium since five years. Since three years she is head of the SUAP office.</li><li>She speaks fluently French, Spanish and English; her mother tongue is Italien. She also has profound knowledge in legislation.</li><li> She is responsible for the SUAP process and familiar with process modelling.</li><li>She set up the goals for the organisational unit and for the process and defined the KPIs to be met. She further defined the roles and competencies needed to perform the process, respectively its tasks.</li></ul>"><img src="resources/img/SallyShugar.jpg" alt="Sally" class="img-circle" /><p align="center">Sally</p></a></div>
-                        <div id="user-barnaby" class="userlist-user"><a tabindex="0" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="<ul><li>Barnaby joins the Monti Azzurri Consortium recently. His professional background is as a legal assistant.</li><li>The daily activity of Barnaby are:<ul><li> Provide some information to the entrepreneurs that aim to open an activity;</li><li>He receives the SCIA COMMERCIALE BP request from the entrepreneur, this can be done by mail or by web form. He checks if the requests instance is admissible. He ask for integration to the entrepreneur. He forwards the request to the involved municipality offices and to third parties. He communicate the final decision about the instance to the entrepreneurs.</li><li>He cares about all the other BPs involved in the SUAP office.</li><li>He is use to do inspection to check if declaration are fitting with the reality.</li></ul></ul>"><img src="resources/img/BarnabyBarnes.jpg" alt="Barnaby" class="img-circle"><p align="center">Barnaby</p></a></div>
-                    </div>
                 </div>
             </div>
 
@@ -224,6 +220,7 @@
 
         <script type="text/javascript" src="resources/Task-jsonform.js"></script>
         <script type="text/javascript" src="resources/Task.js"></script>
+        <script type="text/javascript" src="resources/Users.js"></script>
         <script type="text/javascript" src="resources/Webchat.js"></script>
         <script type="text/javascript" src="resources/TaskReceiver.js"></script>
 
@@ -232,9 +229,6 @@
          if (!window.WebSocket){
              alert("WebSocket not supported by this browser");
          }
-
-         // initialize popovers
-         $('[data-toggle="popover"]').popover( { 'html':true } )
         </script>
 
 
@@ -245,9 +239,7 @@
              userid = $('#uiid').val().toLowerCase();
              var receiver = taskReceiver(#serveripaddress#, userid);
              chat('chatcontainer', #serveripaddress#, userid);
-             var content = $('#user-' + userid + ' p').html();
-            $('#user-' + userid + ' img').attr('style', 'border:1px solid black');
-            $('#user-' + userid + ' p').html('<b>' + content + '</b>')
+             users(userid).setUserList('userlist-container');
              return false;
          });
         </script>
