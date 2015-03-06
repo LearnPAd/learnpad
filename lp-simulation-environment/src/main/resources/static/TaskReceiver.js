@@ -44,6 +44,10 @@ function taskReceiver(address, user) {
             processFinished.innerHTML = '<p>Process ' +
                 msg.processid + ' finished.</p><hr>'
             containerDiv.append(processFinished);
+
+            // remove process diagram
+            $('#accordion' + msg.processid).remove();
+
             break;
 
         case 'ADDTASK':

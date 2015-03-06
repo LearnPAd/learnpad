@@ -77,19 +77,10 @@ function task(address, taskid, user) {
                     $('#taskstable li a:first').tab('show');
                 }
 
-            }
-
-            var processDiv = $('#processcontainer' + data.processid);
-            var taskDiv = document.createElement('div');
-            taskDiv.id = 'taskcontainer' + taskid;
-            taskDiv.innerHTML = '<p id="taskdata' + taskid +
-                '"></p><div id="taskFormDiv' + taskid + '"></div><hr>';
-            processDiv.append(taskDiv);
-
-            $('#taskdata' + taskid).html(data.description);
-
-            $('#taskdata' + taskid).after(
-                '<div class="panel-group diagram" id="accordion' + taskid +
+                // add the process diagram
+                $(processDiv).append(
+                '<div class="panel-group diagram" id="accordion' +
+                    data.processid +
                     '" role="tablist" aria-multiselectable="true">' +
                     '<div class="panel panel-default">' +
                     '<div class="panel-heading" role="tab" id="diagramHeading' + taskid +
@@ -101,12 +92,26 @@ function task(address, taskid, user) {
                     '<div id="diagramCollapse' + taskid +
                     '" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="diagramHeading' + taskid +
                     '"><div class="panel-body" style="overflow: scroll;width: 100%;">' +
-                    '<img class="diagram" src="diagram/processinstance/' +
+                    '<img class="diagramImg" src="diagram/processinstance/' +
                     data.processid + '/' + taskid + '"></img>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
                     '</div>'
+                );
+            }
+
+            var taskDiv = document.createElement('div');
+            taskDiv.id = 'taskcontainer' + taskid;
+            taskDiv.innerHTML = '<p id="taskdata' + taskid +
+                '"></p><div id="taskFormDiv' + taskid + '"></div><hr>';
+            $('#accordion' + data.processid).before(taskDiv);
+
+            $('#taskdata' + taskid).html(data.description);
+
+            $('#processcontainer' + data.processid + ' .diagramImg').attr(
+                'src',
+                'diagram/processinstance/' + data.processid + '/' + taskid
             );
 
             // yes `this` is the websocket in this context... js FTW!
