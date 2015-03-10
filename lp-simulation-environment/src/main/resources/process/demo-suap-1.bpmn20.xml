@@ -36,7 +36,6 @@
         <flowNodeRef>exclusivegateway2</flowNodeRef>
         <flowNodeRef>usertask6</flowNodeRef>
         <flowNodeRef>endevent2</flowNodeRef>
-        <flowNodeRef>usertask7</flowNodeRef>
         <flowNodeRef>endevent3</flowNodeRef>
         <flowNodeRef>usertask8</flowNodeRef>
         <flowNodeRef>applicationAdmissibleGateway</flowNodeRef>
@@ -55,12 +54,13 @@
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Deep Data Check" activiti:candidateGroups="SUAP">
-      <documentation>${entrepreneur} has sent the following Application:
-&lt;a href='resources/files/${document}.pdf' target='_blank'&gt;Entrepreneur document&lt;/a&gt;</documentation>
+      <documentation>${entrepreneur} has sent the following application for a business start-up certified notification:
+&lt;a href='resources/files/${document}.pdf' target='_blank'&gt;Entrepreneur document&lt;/a&gt;
+Please review the application carefully, then press 'Submit'.</documentation>
     </userTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
     <userTask id="usertask2" name="SCIA Application Verification" activiti:candidateGroups="SUAP">
-      <documentation>You need to confirm that the application is admissible.</documentation>
+      <documentation>Do you confirm that the business start-up application is admissible?</documentation>
       <extensionElements>
         <activiti:formProperty id="applicationAdmissible" name="Is the application admissible?" type="enum" required="true">
           <activiti:value id="true" name="Admissible"></activiti:value>
@@ -71,27 +71,27 @@
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="usertask2"></sequenceFlow>
     <exclusiveGateway id="applicationAdmissibleGateway" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow3" sourceRef="usertask2" targetRef="applicationAdmissibleGateway"></sequenceFlow>
-    <userTask id="usertask3" name="Send Communication of non-admissibility" activiti:candidateGroups="SUAP">
-      <documentation>Inform ${entrepreneur} of the application non-admissibility.</documentation>
+    <userTask id="usertask3" name="Send Communication of Non-Admissibility" activiti:candidateGroups="SUAP">
+      <documentation>Inform ${entrepreneur} of the reason(s) of the application non-admissibility.</documentation>
       <extensionElements>
         <activiti:formProperty id="applicationRejectionMsg" name="Application Rejection Message" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow4" name="application non admissible" sourceRef="applicationAdmissibleGateway" targetRef="usertask3">
+    <sequenceFlow id="flow4" sourceRef="applicationAdmissibleGateway" targetRef="usertask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationAdmissible == 'false'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask4" name="Send Communication Starting Check" activiti:candidateGroups="SUAP">
-      <documentation>Inform ${entrepreneur} of the beginning of application check.</documentation>
+    <userTask id="usertask4" name="Send Check Request" activiti:candidateGroups="SUAP">
+      <documentation>You need to request a check from another office regarding the validity for the application documents.</documentation>
       <extensionElements>
-        <activiti:formProperty id="applicationCheckBeginMsg" name="Application Check Begin Message" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="applicationCheckBeginMsg" name="Application Check Request Message" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow5" name="application admissible" sourceRef="applicationAdmissibleGateway" targetRef="usertask4">
+    <sequenceFlow id="flow5" sourceRef="applicationAdmissibleGateway" targetRef="usertask4">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationAdmissible == 'true'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow6" sourceRef="usertask4" targetRef="usertask5"></sequenceFlow>
     <userTask id="usertask5" name="Do Check" activiti:candidateGroups="otherOffice">
-      <documentation>The following document need to be checked for validation:
+      <documentation>A request has been made to check the validity of the following document:
 &lt;a href='resources/files/${document}.pdf' target='_blank'&gt;Entrepreneur document&lt;/a&gt;</documentation>
       <extensionElements>
         <activiti:formProperty id="documentValid" name="Is the document valid?" type="enum" required="true">
@@ -103,40 +103,34 @@
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow7" sourceRef="usertask3" targetRef="endevent1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="usertask6" name="Send inhibition" activiti:candidateGroups="SUAP">
-      <documentation>Inform ${entrepreneur} of the application rejection.</documentation>
+    <userTask id="usertask6" name="Send Prohibition to Continue Activity" activiti:candidateGroups="SUAP">
+      <documentation>Inform ${entrepreneur} of the reason(s) for the application rejection.</documentation>
       <extensionElements>
         <activiti:formProperty id="applicationRejectionMsg" name="Application Rejection Message" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow9" name="application not validated" sourceRef="exclusivegateway2" targetRef="usertask6">
+    <sequenceFlow id="flow9" sourceRef="exclusivegateway2" targetRef="usertask6">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationValid == 'false'}]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow10" sourceRef="usertask6" targetRef="endevent2"></sequenceFlow>
-    <userTask id="usertask7" name="Send Authorization Documents" activiti:candidateGroups="SUAP">
-      <documentation>Send the authorization to ${entrepreneur}.</documentation>
-      <extensionElements>
-        <activiti:formProperty id="authorizationMsg" name="Application Authorization Document" type="string" required="true"></activiti:formProperty>
-      </extensionElements>
-    </userTask>
-    <sequenceFlow id="flow11" name="application validated" sourceRef="exclusivegateway2" targetRef="usertask7">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationValid == 'true'}]]></conditionExpression>
-    </sequenceFlow>
     <endEvent id="endevent3" name="End"></endEvent>
-    <sequenceFlow id="flow12" sourceRef="usertask7" targetRef="endevent3"></sequenceFlow>
     <sequenceFlow id="flow13" sourceRef="usertask5" targetRef="usertask8"></sequenceFlow>
     <userTask id="usertask8" name="Validate Application" activiti:candidateGroups="SUAP">
-      <documentation>Here are the result of the documents check for the application of ${entrepreneur}:
-			Documents are valid: ${documentValid}</documentation>
+      <documentation>Here are the result of the requested documents check for the application of ${entrepreneur}:
+Are the documents valid?
+Other office answered: ${documentValid}</documentation>
       <extensionElements>
         <activiti:formProperty id="applicationValid" name="Do you validate the application?" type="enum" required="true">
-          <activiti:value id="true" name="Valid"></activiti:value>
-          <activiti:value id="false" name="Invalid"></activiti:value>
+          <activiti:value id="true" name="Validate application"></activiti:value>
+          <activiti:value id="false" name="Invalidate application"></activiti:value>
         </activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow14" sourceRef="usertask8" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow15" sourceRef="exclusivegateway2" targetRef="endevent3">
+       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationValid == 'true'}]]></conditionExpression>
+    </sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
     <bpmndi:BPMNPlane bpmnElement="Collaboration" id="BPMNPlane_Collaboration">
@@ -165,7 +159,7 @@
         <omgdc:Bounds height="91.0" width="105.0" x="545.0" y="50.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
-        <omgdc:Bounds height="101.0" width="105.0" x="545.0" y="150.0"></omgdc:Bounds>
+        <omgdc:Bounds height="91.0" width="105.0" x="545.0" y="155.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
         <omgdc:Bounds height="81.0" width="105.0" x="660.0" y="275.0"></omgdc:Bounds>
@@ -182,14 +176,11 @@
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="1190.0" y="78.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask7" id="BPMNShape_usertask7">
-        <omgdc:Bounds height="101.0" width="105.0" x="1020.0" y="150.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
-        <omgdc:Bounds height="35.0" width="35.0" x="1190.0" y="183.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="1055.0" y="183.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask8" id="BPMNShape_usertask8">
-        <omgdc:Bounds height="101.0" width="105.0" x="760.0" y="150.0"></omgdc:Bounds>
+        <omgdc:Bounds height="91.0" width="105.0" x="760.0" y="155.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="115.0" y="145.0"></omgdi:waypoint>
@@ -206,19 +197,13 @@
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
         <omgdi:waypoint x="500.0" y="145.0"></omgdi:waypoint>
         <omgdi:waypoint x="545.0" y="95.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="36.0" width="100.0" x="490.0" y="90.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="500.0" y="145.0"></omgdi:waypoint>
         <omgdi:waypoint x="545.0" y="200.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="36.0" width="100.0" x="490.0" y="183.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
-        <omgdi:waypoint x="597.0" y="251.0"></omgdi:waypoint>
+        <omgdi:waypoint x="597.0" y="246.0"></omgdi:waypoint>
         <omgdi:waypoint x="712.0" y="275.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
@@ -228,32 +213,22 @@
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
         <omgdi:waypoint x="930.0" y="180.0"></omgdi:waypoint>
         <omgdi:waypoint x="1072.0" y="141.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="36.0" width="100.0" x="920.0" y="120.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
         <omgdi:waypoint x="1125.0" y="95.0"></omgdi:waypoint>
         <omgdi:waypoint x="1190.0" y="95.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
-        <omgdi:waypoint x="950.0" y="200.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1020.0" y="200.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="12.0" width="97.0" x="940.0" y="245.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="1125.0" y="200.0"></omgdi:waypoint>
-        <omgdi:waypoint x="1190.0" y="200.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
         <omgdi:waypoint x="712.0" y="275.0"></omgdi:waypoint>
-        <omgdi:waypoint x="812.0" y="251.0"></omgdi:waypoint>
+        <omgdi:waypoint x="812.0" y="246.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
         <omgdi:waypoint x="865.0" y="200.0"></omgdi:waypoint>
         <omgdi:waypoint x="910.0" y="200.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="950.0" y="200.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1055.0" y="200.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
