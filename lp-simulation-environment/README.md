@@ -22,7 +22,7 @@ The simulator is currently a self-contained demo application including a BPMN 2.
 
 - you can then launch the jar by running
 
-        java -jar simulator-<version>-jar-with-dependencies.jar
+        java -jar target/simulator-<version>-jar-with-dependencies.jar
 
   (replace <version> with the current version of the simulator)
 
