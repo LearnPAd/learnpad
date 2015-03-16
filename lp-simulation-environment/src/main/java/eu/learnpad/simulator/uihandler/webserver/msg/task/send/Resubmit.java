@@ -34,11 +34,13 @@ public class Resubmit extends TaskDesc implements ITaskMsg {
 
 	/**
 	 * @param description
-	 * @param processd
+	 * @param process
+	 * @param processname
 	 * @param form
 	 */
-	public Resubmit(String description, String process, String form) {
-		super(description, process, form);
+	public Resubmit(String description, String process, String processname,
+			String form) {
+		super(description, process, processname, form);
 	}
 
 	/*

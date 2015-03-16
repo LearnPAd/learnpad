@@ -34,6 +34,7 @@ public class TaskDesc implements ITaskMsg {
 
 	public String description;
 	public String processid;
+	public String processname;
 	public String form;
 
 	/**
@@ -41,10 +42,12 @@ public class TaskDesc implements ITaskMsg {
 	 * @param processd
 	 * @param form
 	 */
-	public TaskDesc(String description, String processid, String form) {
+	public TaskDesc(String description, String processid, String processname,
+			String form) {
 		super();
 		this.description = description;
 		this.processid = processid;
+		this.processname = processname;
 		this.form = form;
 	}
 

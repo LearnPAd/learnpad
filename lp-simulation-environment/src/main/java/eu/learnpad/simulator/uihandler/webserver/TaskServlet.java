@@ -203,10 +203,15 @@ public class TaskServlet extends WebSocketServlet {
 
 		void sendResubmit() {
 			try {
-				getRemote().sendString(
-						mapper.writeValueAsString(new Resubmit(taskDesc
-								.replaceAll("\n", "<p/>"), processId,
-								formHandler.createFormString(taskId))));
+				getRemote()
+				.sendString(
+						mapper.writeValueAsString(new Resubmit(
+								taskDesc.replaceAll("\n", "<p/>"),
+								processId,
+								processManager
+								.getProcessDefinitionName(processManager
+										.getProcessDefinitionId(processId)),
+										formHandler.createFormString(taskId))));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -236,10 +241,15 @@ public class TaskServlet extends WebSocketServlet {
 			System.out.println("Socket " + taskId + " connected: " + sess);
 
 			try {
-				sess.getRemote().sendString(
-						mapper.writeValueAsString(new TaskDesc(taskDesc
-								.replaceAll("\n", "<p/>"), processId,
-								formHandler.createFormString(taskId))));
+				sess.getRemote()
+						.sendString(
+								mapper.writeValueAsString(new TaskDesc(
+										taskDesc.replaceAll("\n", "<p/>"),
+										processId,
+								processManager
+												.getProcessDefinitionName(processManager
+										.getProcessDefinitionId(processId)),
+										formHandler.createFormString(taskId))));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
