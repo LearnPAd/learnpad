@@ -262,6 +262,19 @@ public class ActivitiProcessManager implements IProcessManager {
 	 * (non-Javadoc)
 	 *
 	 * @see
+	 * eu.learnpad.simulator.IProcessManager#getProcessDefinitionId(java.lang
+	 * .String)
+	 */
+	public String getProcessDefinitionId(String processId) {
+		return runtimeService.createProcessInstanceQuery()
+				.processInstanceId(processId).singleResult()
+				.getProcessDefinitionId();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
 	 * eu.learnpad.simulator.IProcessManager#getProcessInstanceInvolvedUsers
 	 * (java.lang.String)
 	 */

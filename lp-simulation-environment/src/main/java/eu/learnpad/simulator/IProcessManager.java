@@ -99,6 +99,13 @@ public interface IProcessManager {
 
 	/**
 	 *
+	 * @param processId
+	 * @return the process definition id associated with the process
+	 */
+	public String getProcessDefinitionId(String processId);
+
+	/**
+	 *
 	 * @param projectDefinitionId
 	 *            the process definition id of the process to instantiate
 	 * @param parameters
