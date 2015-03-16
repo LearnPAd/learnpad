@@ -24,7 +24,7 @@
   <collaboration id="Collaboration">
     <participant id="pool1" processRef="SUAPdemo"></participant>
   </collaboration>
-  <process id="SUAPdemo" name="SCUAP Demo" isExecutable="true">
+  <process id="SUAPdemo" name="SUAP Demo" isExecutable="true">
     <laneSet id="laneSet_SUAPdemo">
       <lane id="lane1" name="SUAP Office">
         <flowNodeRef>startevent1</flowNodeRef>
@@ -53,13 +53,13 @@
         </activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask1" name="Deep Data Check" activiti:candidateGroups="SUAP">
+    <userTask id="usertask1" name="Deep Data Check" activiti:candidateUsers="SUAP">
       <documentation>${entrepreneur} has sent the following application for a business start-up certified notification:
 &lt;a href='resources/files/${document}.pdf' target='_blank'&gt;Entrepreneur document&lt;/a&gt;
 Please review the application carefully, then press 'Submit'.</documentation>
     </userTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
-    <userTask id="usertask2" name="SCIA Application Verification" activiti:candidateGroups="SUAP">
+    <userTask id="usertask2" name="SCIA Application Verification" activiti:candidateUsers="SUAP">
       <documentation>Do you confirm that the business start-up application is admissible?</documentation>
       <extensionElements>
         <activiti:formProperty id="applicationAdmissible" name="Is the application admissible?" type="enum" required="true">
@@ -71,7 +71,7 @@ Please review the application carefully, then press 'Submit'.</documentation>
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="usertask2"></sequenceFlow>
     <exclusiveGateway id="applicationAdmissibleGateway" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow3" sourceRef="usertask2" targetRef="applicationAdmissibleGateway"></sequenceFlow>
-    <userTask id="usertask3" name="Send Communication of Non-Admissibility" activiti:candidateGroups="SUAP">
+    <userTask id="usertask3" name="Send Communication of Non-Admissibility" activiti:candidateUsers="SUAP">
       <documentation>Inform ${entrepreneur} of the reason(s) of the application non-admissibility.</documentation>
       <extensionElements>
         <activiti:formProperty id="applicationRejectionMsg" name="Application Rejection Message" type="string" required="true"></activiti:formProperty>
@@ -80,7 +80,7 @@ Please review the application carefully, then press 'Submit'.</documentation>
     <sequenceFlow id="flow4" sourceRef="applicationAdmissibleGateway" targetRef="usertask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationAdmissible == 'false'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask4" name="Send Check Request" activiti:candidateGroups="SUAP">
+    <userTask id="usertask4" name="Send Check Request" activiti:candidateUsers="SUAP">
       <documentation>You need to request a check from another office regarding the validity for the application documents.</documentation>
       <extensionElements>
         <activiti:formProperty id="applicationCheckBeginMsg" name="Application Check Request Message" type="string" required="true"></activiti:formProperty>
@@ -90,7 +90,7 @@ Please review the application carefully, then press 'Submit'.</documentation>
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationAdmissible == 'true'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow6" sourceRef="usertask4" targetRef="usertask5"></sequenceFlow>
-    <userTask id="usertask5" name="Do Check" activiti:candidateGroups="otherOffice">
+    <userTask id="usertask5" name="Do Check" activiti:candidateUsers="otherOffice">
       <documentation>A request has been made to check the validity of the following document:
 &lt;a href='resources/files/${document}.pdf' target='_blank'&gt;Entrepreneur document&lt;/a&gt;</documentation>
       <extensionElements>
@@ -103,7 +103,7 @@ Please review the application carefully, then press 'Submit'.</documentation>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow7" sourceRef="usertask3" targetRef="endevent1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="usertask6" name="Send Prohibition to Continue Activity" activiti:candidateGroups="SUAP">
+    <userTask id="usertask6" name="Send Prohibition to Continue Activity" activiti:candidateUsers="SUAP">
       <documentation>Inform ${entrepreneur} of the reason(s) for the application rejection.</documentation>
       <extensionElements>
         <activiti:formProperty id="applicationRejectionMsg" name="Application Rejection Message" type="string" required="true"></activiti:formProperty>
@@ -116,7 +116,7 @@ Please review the application carefully, then press 'Submit'.</documentation>
     <sequenceFlow id="flow10" sourceRef="usertask6" targetRef="endevent2"></sequenceFlow>
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow13" sourceRef="usertask5" targetRef="usertask8"></sequenceFlow>
-    <userTask id="usertask8" name="Validate Application" activiti:candidateGroups="SUAP">
+    <userTask id="usertask8" name="Validate Application" activiti:candidateUsers="SUAP">
       <documentation>Here are the result of the requested documents check for the application of ${entrepreneur}:
 Are the documents valid?
 Other office answered: ${documentValid}</documentation>
