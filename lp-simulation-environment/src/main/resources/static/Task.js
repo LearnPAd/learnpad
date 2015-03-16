@@ -61,8 +61,7 @@ function task(address, taskid, user) {
                 // create new tab for new process
                 $('#taskstable').append(
                     '<li role="presentation"><a data-toggle="tab" href="#processcontainer' +
-                        data.processid + '">Process ' +
-                        data.processid +
+                        data.processid + '">' + data.processname +
                         '</a></li>'
                 );
                 var tasksDiv = $('#tasks');
