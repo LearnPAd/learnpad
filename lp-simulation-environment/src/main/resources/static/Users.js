@@ -20,23 +20,70 @@
  */
 function users(userid) {
 
+    // TODO: this should be dynamic
+    var userInfos = {
+        'sally': {
+            'name': 'Sally',
+            'description': 'Sally Shugar works for the Monti Azzurri Consortium since five years. Since three years she is head of the SUAP office.<p/>She speaks fluently French, Spanish and English; her mother tongue is Italien. She also has profound knowledge in legislation.',
+            'img': 'resources/img/SallyShugar.jpg'
+        },
+        'barnaby': {
+            'name': 'Barnaby',
+            'description': 'Barnaby joins the Monti Azzurri Consortium recently. His professional background is as a legal assistant.',
+            'img': 'resources/img/BarnabyBarnes.jpg'
+        }
+    };
+
     var res = {};
 
     res.setUserList = function(container) {
 
-        // add user list to container
-        $('#' + container).html(
-            '<div class="panel panel-default userui-parent">' +
-                '<div id="user-sally" class="userlist-user">' +
-                '<a tabindex="0" data-toggle="popover" ' +
-                'data-trigger="focus" data-placement="bottom" ' +
-                'data-content="<ul><li>Sally Shugar works for the Monti Azzurri Consortium since five years. Since three years she is head of the SUAP office.</li><li>She speaks fluently French, Spanish and English; her mother tongue is Italien. She also has profound knowledge in legislation.</li><li> She is responsible for the SUAP process and familiar with process modelling.</li><li>She set up the goals for the organisational unit and for the process and defined the KPIs to be met. She further defined the roles and competencies needed to perform the process, respectively its tasks.</li></ul>"><img src="resources/img/SallyShugar.jpg" alt="Sally" class="img-circle" /><p align="center">Sally</p></a></div>' +
-                '<div id="user-barnaby" class="userlist-user">' +
-                '<a tabindex="0" data-toggle="popover" ' +
-                'data-trigger="focus" data-placement="bottom" ' +
-                'data-content="<ul><li>Barnaby joins the Monti Azzurri Consortium recently. His professional background is as a legal assistant.</li><li>The daily activity of Barnaby are:<ul><li> Provide some information to the entrepreneurs that aim to open an activity;</li><li>He receives the SCIA COMMERCIALE BP request from the entrepreneur, this can be done by mail or by web form. He checks if the requests instance is admissible. He ask for integration to the entrepreneur. He forwards the request to the involved municipality offices and to third parties. He communicate the final decision about the instance to the entrepreneurs.</li><li>He cares about all the other BPs involved in the SUAP office.</li><li>He is use to do inspection to check if declaration are fitting with the reality.</li></ul></ul>"><img src="resources/img/BarnabyBarnes.jpg" alt="Barnaby" class="img-circle"><p align="center">Barnaby</p></a></div>'+
-                '</div>'
+        // create user subcontainer
+        $('#' + container).append(
+            '<div class="userui-userinfo"></div>'
         );
+
+        // add user
+        $('.userui-userinfo').html(
+            '<div id="user-' + userid + '" class="userui-user">' +
+                '<a tabindex="0" data-toggle="popover" ' +
+                'data-trigger="focus" data-placement="bottom" ' +
+                'data-content="' + userInfos[userid].description + '">' +
+                '<img src="' + userInfos[userid].img +
+                '" alt="' + userInfos[userid].name +
+                '" class="img-circle">' +
+                '<p>' + userInfos[userid].name + '</p></a></div>'
+        );
+
+        // create other users subcontainer
+        $('#' + container).append(
+            '<div class="panel panel-default">' +
+                '<div class="panel-heading">' +
+                '<h3 class="panel-title">Other Participants</h3></div>' +
+                '<div class="panel-body userui-otherinfo"></div></div>'
+        );
+
+        // add other users
+        var userInfosKeys = Object.keys(userInfos);
+        console.log(userInfosKeys);
+        for (var i = 0; i < userInfosKeys.length; i++) {
+            var oid = userInfosKeys[i];
+            if (oid != userid) {
+                $('.userui-otherinfo').append(
+                    '<div id="user-' + oid + '" class="userui-user">' +
+                        '<a tabindex="0" data-toggle="popover" ' +
+                        'data-trigger="focus" data-placement="bottom" ' +
+                        'data-content="' + userInfos[oid].description + '">' +
+                        '<img src="' + userInfos[oid].img +
+                        '" alt="' + userInfos[oid].name +
+                        '" class="img-circle">' +
+                        '<p>' + userInfos[oid].name +
+                        '</p></a></div>'
+                );
+                // append space to separate users names
+                $('.userui-otherinfo').append(' ');
+            }
+        }
 
         // outline current user
         var content = $('#user-' + userid + ' p').html();
