@@ -255,7 +255,11 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 	}
 
 	private static String getTitle(FormProperty prop) {
-		return "\"title\": \"" + prop.getName() + "\"";
+		if (prop.getType().getName().equals("boolean")) {
+			return "\"title\": \"\"";
+		} else {
+			return "\"title\": \"" + prop.getName() + "\"";
+		}
 	}
 
 	private static String getRequired(FormProperty prop) {
@@ -300,7 +304,9 @@ public class ActivitiToJsonFormFormHandler implements IFormHandler {
 			res += "}";
 
 		} else if (type.equals("boolean")) {
-			res += "\"" + prop.getId() + "\"";
+			res += "{ \"key\": \"" + prop.getId() + "\"";
+			res += ",\"inlinetitle\": \"" + prop.getName() + "\"";
+			res += "}";
 		}
 
 		return res;
