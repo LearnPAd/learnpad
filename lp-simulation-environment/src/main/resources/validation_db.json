@@ -82,41 +82,21 @@
 			}
 		}
 	],
-	"usertask5" : [
+	"usertask8" : [
 		{
-
 			"input" : {
 				"document" : "example_document_valid"
 			},
 			"output" : {
-				"documentValid" : true
+				"applicationValid" : true
 			}
 		},
 		{
-
 			"input" : {
 				"document" : "example_document_invalid"
 			},
 			"output" : {
-				"documentValid" : false
-			}
-		}
-	],
-	"usertask8" : [
-		{
-			"input" : {
-				"documentValid" : false
-			},
-			"output" : {
 				"applicationValid" : false
-			}
-		},
-		{
-			"input" : {
-				"documentValid" : true
-			},
-			"output" : {
-				"applicationValid" : true
 			}
 		}
 	]

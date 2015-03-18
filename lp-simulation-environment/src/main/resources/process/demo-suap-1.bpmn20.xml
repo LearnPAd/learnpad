@@ -106,12 +106,9 @@
     <sequenceFlow id="flow6" sourceRef="usertask4" targetRef="usertask5"></sequenceFlow>
     <userTask id="usertask5" name="Do Check" activiti:candidateUsers="otherOffice">
       <documentation>A request has been made to check the validity of the following document:
-&lt;a href='resources/files/SCIAForm.pdf' target='_blank'&gt;Entrepreneur document&lt;/a&gt;</documentation>
+&lt;a href='resources/files/SCIAForm.pdf' target='_blank'&gt;${entrepreneur} document&lt;/a&gt;</documentation>
       <extensionElements>
-        <activiti:formProperty id="documentValid" name="Is the document valid?" type="enum" required="true">
-          <activiti:value id="true" name="Valid"></activiti:value>
-          <activiti:value id="false" name="Invalid"></activiti:value>
-        </activiti:formProperty>
+        <activiti:formProperty id="otheroffice_opinion" name="Your Opinion" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <endEvent id="endevent1" name="End"></endEvent>
@@ -132,8 +129,7 @@
     <sequenceFlow id="flow13" sourceRef="usertask5" targetRef="usertask8"></sequenceFlow>
     <userTask id="usertask8" name="Validate Application" activiti:candidateUsers="SUAP">
       <documentation>Here are the result of the requested documents check for the application of ${entrepreneur}:
-Are the documents valid?
-Other office answered: &lt;b&gt;${documentValid}&lt;/b&gt;</documentation>
+Other office answered: &lt;b&gt;${otheroffice_opinion}&lt;/b&gt;</documentation>
       <extensionElements>
         <activiti:formProperty id="applicationValid" name="Do you validate the application?" type="enum" required="true">
           <activiti:value id="true" name="Validate application"></activiti:value>
