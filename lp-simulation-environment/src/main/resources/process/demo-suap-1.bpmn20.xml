@@ -119,7 +119,7 @@ Please review the application carefully, then press 'Submit'.</documentation>
     <userTask id="usertask8" name="Validate Application" activiti:candidateUsers="SUAP">
       <documentation>Here are the result of the requested documents check for the application of ${entrepreneur}:
 Are the documents valid?
-Other office answered: ${documentValid}</documentation>
+Other office answered: &lt;b&gt;${documentValid}&lt;/b&gt;</documentation>
       <extensionElements>
         <activiti:formProperty id="applicationValid" name="Do you validate the application?" type="enum" required="true">
           <activiti:value id="true" name="Validate application"></activiti:value>
