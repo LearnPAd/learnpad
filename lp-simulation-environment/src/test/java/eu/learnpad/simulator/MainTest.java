@@ -37,12 +37,13 @@ import org.junit.Test;
  */
 public class MainTest {
 
+	public static final int PORT = Main.PORT + 1;
+
 	@Test
 	public void testCorrectBoot() {
 
 		try {
-			Simulator simulator = new Simulator(Main.ACTIVITY_CONFIG_PATH,
-					Main.PORT);
+			Simulator simulator = new Simulator(Main.ACTIVITY_CONFIG_PATH, PORT);
 
 			// add users
 			for (String user : Arrays.asList("sarah", "tom")) {

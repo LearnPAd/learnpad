@@ -48,7 +48,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import eu.learnpad.simulator.Main;
+import eu.learnpad.simulator.MainTest;
 
 /**
  *
@@ -66,7 +66,7 @@ public class WebServerTest {
 	public void init() {
 		try {
 
-			server = new WebServer(Main.PORT, "ui", "tasks");
+			server = new WebServer(MainTest.PORT, "ui", "tasks");
 		} catch (Exception e) {
 			System.err.println(e);
 			fail("got exception during setup");
@@ -83,9 +83,9 @@ public class WebServerTest {
 
 		// check port listening
 		try {
-			new Socket("localhost", Main.PORT).close();
+			new Socket("localhost", MainTest.PORT).close();
 		} catch (Exception e) {
-			fail("could not verify listening port on " + Main.PORT);
+			fail("could not verify listening port on " + MainTest.PORT);
 		}
 
 	}
@@ -98,7 +98,7 @@ public class WebServerTest {
 				Arrays.asList("uiprocess", "ui-process.html"))) {
 
 			try {
-				URL url = new URL("http://localhost:" + Main.PORT + "/"
+				URL url = new URL("http://localhost:" + MainTest.PORT + "/"
 						+ page.get(0));
 
 				// sadly, since we currently dynamically modify the served pages
@@ -119,7 +119,7 @@ public class WebServerTest {
 				// pages served by the server)
 				localPageContent = localPageContent.replace(
 						"#serveripaddress#", "\"" + WebServer.getIPAdress()
-						+ ":" + Main.PORT + "\"");
+						+ ":" + MainTest.PORT + "\"");
 
 				byte[] fetchedFileDigest = checksum(new ByteArrayInputStream(
 						fetchedPageContent.getBytes()),
@@ -157,7 +157,7 @@ public class WebServerTest {
 
 				if (!new File(localFileURL.toURI()).isDirectory()) {
 
-					URL url = new URL("http://localhost:" + Main.PORT
+					URL url = new URL("http://localhost:" + MainTest.PORT
 							+ "/resources/" + fileName);
 
 					byte[] fetchedFileDigest = checksum(url.openStream(),
