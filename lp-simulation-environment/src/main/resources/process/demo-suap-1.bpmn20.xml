@@ -55,8 +55,8 @@
     </startEvent>
     <userTask id="usertask1" name="Deep Data Check" activiti:candidateUsers="SUAP">
       <documentation>${entrepreneur} has sent the following application for a business start-up certified notification:
-&lt;a href='resources/files/${document}.pdf' target='_blank'&gt;Entrepreneur document&lt;/a&gt;
-Please review the application carefully, then press 'Submit'.</documentation>
+&lt;a href='resources/files/SCIAForm.pdf' target='_blank'&gt;SCIA Form&lt;/a&gt;
+&lt;a href='resources/files/Autodichiarazione%20di%20Requisiti%20Morali%20e%20Professionali.pdf' target='_blank'&gt;Self-Declaration of moral and professional requirements&lt;/a&gt;</documentation>
     </userTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
     <userTask id="usertask2" name="SCIA Application Verification" activiti:candidateUsers="SUAP">
@@ -92,7 +92,7 @@ Please review the application carefully, then press 'Submit'.</documentation>
     <sequenceFlow id="flow6" sourceRef="usertask4" targetRef="usertask5"></sequenceFlow>
     <userTask id="usertask5" name="Do Check" activiti:candidateUsers="otherOffice">
       <documentation>A request has been made to check the validity of the following document:
-&lt;a href='resources/files/${document}.pdf' target='_blank'&gt;Entrepreneur document&lt;/a&gt;</documentation>
+&lt;a href='resources/files/SCIAForm.pdf' target='_blank'&gt;Entrepreneur document&lt;/a&gt;</documentation>
       <extensionElements>
         <activiti:formProperty id="documentValid" name="Is the document valid?" type="enum" required="true">
           <activiti:value id="true" name="Valid"></activiti:value>
