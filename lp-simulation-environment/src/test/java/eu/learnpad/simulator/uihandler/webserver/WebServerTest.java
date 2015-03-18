@@ -146,6 +146,10 @@ public class WebServerTest {
 		for (String file : getFilesRecursively("static")) {
 
 			String fileName = file.substring(file.indexOf("/") + 1);
+
+			// replace spaces in file name
+			fileName = fileName.replace(" ", "%20");
+
 			try {
 
 				URL localFileURL = WebServerTest.class.getClassLoader()
