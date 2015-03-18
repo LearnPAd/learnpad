@@ -46,6 +46,22 @@
 			}
 		}
 	],
+	"usertask1" : [
+		{
+
+			"input" : {
+
+			},
+			"output" : {
+				"food_sector" : true,
+				"driving_school_sector" : true,
+				"is_foreigner" : true,
+				"moral_professional_requirement" : true,
+				"fuel_sector" : true,
+				"fixed_location" : true
+			}
+		}
+	],
 	"usertask2" : [
 		{
 

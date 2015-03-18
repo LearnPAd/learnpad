@@ -57,6 +57,20 @@
       <documentation>${entrepreneur} has sent the following application for a business start-up certified notification:
 &lt;a href='resources/files/SCIAForm.pdf' target='_blank'&gt;SCIA Form&lt;/a&gt;
 &lt;a href='resources/files/Autodichiarazione%20di%20Requisiti%20Morali%20e%20Professionali.pdf' target='_blank'&gt;Self-Declaration of moral and professional requirements&lt;/a&gt;</documentation>
+	<extensionElements>
+		<activiti:formProperty id="food_sector"
+			name="Food sector related checks done?" type="boolean" required="true"></activiti:formProperty>
+		<activiti:formProperty id="driving_school_sector"
+			name="Driving school sector related checks done?" type="boolean" required="true"></activiti:formProperty>
+		<activiti:formProperty id="is_foreigner"
+			name="Foreigner related checks done?" type="boolean" required="true"></activiti:formProperty>
+		<activiti:formProperty id="moral_professional_requirement"
+			name="Self-Declaration of moral and professional requirements checks done?" type="boolean" required="true"></activiti:formProperty>
+		<activiti:formProperty id="fuel_sector"
+			name="Fuel sector related checks done?" type="boolean" required="true"></activiti:formProperty>
+		<activiti:formProperty id="fixed_location"
+			name="Fixed location activity related checks done?" type="boolean" required="true"></activiti:formProperty>
+	</extensionElements>
     </userTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
     <userTask id="usertask2" name="SCIA Application Verification" activiti:candidateUsers="SUAP">
