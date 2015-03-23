@@ -121,12 +121,12 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 	 * 
 	 * @see activitipoc.IUIHandler#sendTask(java.lang.String, java.util.Set)
 	 */
-	public void sendTask(String processId, String taskId, String taskDescr,
-			Collection<String> users) {
+	public void sendTask(String processId, String taskId, String taskName,
+			String taskDescr, Collection<String> users) {
 
 		tasksMap.put(taskId, webserver.addTaskServlet(new TaskServlet(this,
 				userEventReceiverProvider.processManager(), processId, taskId,
-				taskDescr, formHandler), taskId));
+				taskName, taskDescr, formHandler), taskId));
 		tasksToUsers.put(taskId, users);
 
 		// note: it is important to signal new tasks to users *after* having

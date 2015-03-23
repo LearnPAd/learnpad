@@ -33,19 +33,20 @@ import eu.learnpad.simulator.uihandler.webserver.msg.task.ITaskMsg;
 public class Resubmit extends TaskDesc implements ITaskMsg {
 
 	/**
+	 * @param name
 	 * @param description
 	 * @param process
 	 * @param processname
 	 * @param form
 	 */
-	public Resubmit(String description, String process, String processname,
-			String form) {
-		super(description, process, processname, form);
+	public Resubmit(String name, String description, String process,
+			String processname, String form) {
+		super(name, description, process, processname, form);
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.uihandler.webserver.msg.task.ITaskMsg#getType()
 	 */
 	@Override

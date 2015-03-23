@@ -153,7 +153,7 @@ public class ActivitiProcessManagerTest {
 		// 5 seconds should be *far more* than enough for this.
 		verify(processEventReceiver, timeout(5000)).sendTask(
 				eq(processInstanceId), any(String.class), any(String.class),
-				any(Collection.class));
+				any(String.class), any(Collection.class));
 		;
 
 	}
