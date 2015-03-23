@@ -142,8 +142,8 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 			new Thread(new Runnable() {
 				public void run() {
 					processEventReceiver.sendTask(task.getProcessInstanceId(),
-							task.getId(), task.getDescription(),
-							router.route(task));
+							task.getId(), task.getName(),
+							task.getDescription(), router.route(task));
 				}
 			}).start();
 		}

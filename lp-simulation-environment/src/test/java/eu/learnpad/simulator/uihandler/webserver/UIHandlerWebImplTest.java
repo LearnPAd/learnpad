@@ -221,18 +221,18 @@ public class UIHandlerWebImplTest {
 
 		// send some tasks
 
-		uiHandler.sendTask("process1", "task1", "", Arrays.asList("user1"));
+		uiHandler.sendTask("process1", "task1", "", "", Arrays.asList("user1"));
 
-		uiHandler.sendTask("process1", "task2", "",
+		uiHandler.sendTask("process1", "task2", "", "",
 				Arrays.asList("user1", "user2"));
 
-		uiHandler.sendTask("process1", "task3", "",
+		uiHandler.sendTask("process1", "task3", "", "",
 				Arrays.asList("user1", "user2", "user3"));
 
-		uiHandler.sendTask("process1", "task4", "",
+		uiHandler.sendTask("process1", "task4", "", "",
 				Arrays.asList("user2", "user3"));
 
-		uiHandler.sendTask("process1", "task5", "", Arrays.asList("user3"));
+		uiHandler.sendTask("process1", "task5", "", "", Arrays.asList("user3"));
 
 		// check all user has been notified of its tasks
 

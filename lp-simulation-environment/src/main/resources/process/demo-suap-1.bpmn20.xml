@@ -55,8 +55,8 @@
     </startEvent>
     <userTask id="usertask1" name="Deep Data Check" activiti:candidateUsers="SUAP">
       <documentation>${entrepreneur} has sent the following application for a business start-up certified notification:
-&lt;a href='resources/files/SCIAForm.pdf' target='_blank'&gt;SCIA Form&lt;/a&gt;
-&lt;a href='resources/files/Autodichiarazione%20di%20Requisiti%20Morali%20e%20Professionali.pdf' target='_blank'&gt;Self-Declaration of moral and professional requirements&lt;/a&gt;</documentation>
+&lt;a href='resources/files/SCIAForm.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;SCIA Form&lt;/a&gt;
+&lt;span&gt;&lt;a href='resources/files/Autodichiarazione%20di%20Requisiti%20Morali%20e%20Professionali.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;Self-Declaration of moral and professional requirements&lt;/a&gt;</documentation>
 	<extensionElements>
 		<activiti:formProperty id="food_sector"
 			name="Food sector related checks done?" type="boolean" required="true"></activiti:formProperty>
@@ -105,8 +105,9 @@
     </sequenceFlow>
     <sequenceFlow id="flow6" sourceRef="usertask4" targetRef="usertask5"></sequenceFlow>
     <userTask id="usertask5" name="Do Check" activiti:candidateUsers="otherOffice">
-      <documentation>A request has been made to check the validity of the following document:
-&lt;a href='resources/files/SCIAForm.pdf' target='_blank'&gt;${entrepreneur} document&lt;/a&gt;</documentation>
+      <documentation>SUAP office send you the following message:
+&lt;b&gt;${applicationCheckBeginMsg}&lt;/b&gt;
+Related documents: &lt;span&gt;&lt;a href='resources/files/SCIAForm.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;${entrepreneur} application document&lt;/a&gt;</documentation>
       <extensionElements>
         <activiti:formProperty id="otheroffice_opinion" name="Your Opinion" type="string" required="true"></activiti:formProperty>
       </extensionElements>

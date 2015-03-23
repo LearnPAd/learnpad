@@ -132,7 +132,7 @@ public class ActivitiProcessDispatcherTest {
 		// enough)
 		verify(processEventReceiver, timeout(5000)).sendTask(
 				eq(processInstance.getId()), anyString(), anyString(),
-				any(Collection.class));
+				anyString(), any(Collection.class));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -164,7 +164,7 @@ public class ActivitiProcessDispatcherTest {
 		// should have processed 6 tasks in total
 		verify(processEventReceiver, times(6)).sendTask(
 				eq(processInstance.getId()), anyString(), anyString(),
-				any(Collection.class));
+				anyString(), any(Collection.class));
 
 	}
 
@@ -210,7 +210,7 @@ public class ActivitiProcessDispatcherTest {
 				.forClass(String.class);
 		verify(processEventReceiver, timeout(5000).times(1)).sendTask(
 				eq(processInstance.getId()), taskId.capture(), anyString(),
-				userRoute.capture());
+				anyString(), userRoute.capture());
 
 		// check task is correctly routed to users
 		Set<String> expectedUserRoutes = new HashSet<String>();
@@ -226,7 +226,7 @@ public class ActivitiProcessDispatcherTest {
 		doAnswer(new Answer<Void>() {
 			public Void answer(InvocationOnMock invocation) throws Throwable {
 
-				Collection<String> receivedRoutes = invocation.getArgumentAt(3,
+				Collection<String> receivedRoutes = invocation.getArgumentAt(4,
 						Collection.class);
 
 				// check task is correctly routed to users
@@ -245,7 +245,7 @@ public class ActivitiProcessDispatcherTest {
 				return null;
 			}
 		}).when(processEventReceiver).sendTask(anyString(), anyString(),
-				anyString(), any(Collection.class));
+				anyString(), anyString(), any(Collection.class));
 
 		// respond to first task dispatch
 		dispatcher.submitTaskCompletion(taskId.getValue(), null);
@@ -383,7 +383,7 @@ public class ActivitiProcessDispatcherTest {
 		ArgumentCaptor<String> taskId = ArgumentCaptor.forClass(String.class);
 		verify(processEventReceiver, timeout(5000).times(1)).sendTask(
 				eq(processInstance.getId()), taskId.capture(), anyString(),
-				any(Collection.class));
+				anyString(), any(Collection.class));
 
 		// automatically respond to next tasks dispatch
 		doAnswer(new Answer<Void>() {
@@ -393,7 +393,7 @@ public class ActivitiProcessDispatcherTest {
 				return null;
 			}
 		}).when(processEventReceiver).sendTask(anyString(), anyString(),
-				anyString(), any(Collection.class));
+				anyString(), anyString(), any(Collection.class));
 
 		// respond to first task dispatch
 		dispatcher.submitTaskCompletion(taskId.getValue(), null);

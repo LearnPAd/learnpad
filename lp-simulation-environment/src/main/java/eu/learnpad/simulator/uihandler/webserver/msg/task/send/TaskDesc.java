@@ -32,6 +32,7 @@ import eu.learnpad.simulator.uihandler.webserver.msg.task.ITaskMsg;
  */
 public class TaskDesc implements ITaskMsg {
 
+	public String name;
 	public String description;
 	public String processid;
 	public String processname;
@@ -42,9 +43,10 @@ public class TaskDesc implements ITaskMsg {
 	 * @param processd
 	 * @param form
 	 */
-	public TaskDesc(String description, String processid, String processname,
-			String form) {
+	public TaskDesc(String name, String description, String processid,
+			String processname, String form) {
 		super();
+		this.name = name;
 		this.description = description;
 		this.processid = processid;
 		this.processname = processname;

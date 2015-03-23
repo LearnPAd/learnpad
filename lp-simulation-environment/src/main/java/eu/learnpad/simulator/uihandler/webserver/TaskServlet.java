@@ -64,6 +64,7 @@ public class TaskServlet extends WebSocketServlet {
 	private final IProcessManager processManager;
 	private final String processId;
 	private final String taskId;
+	private final String taskName;
 	private final String taskDesc;
 	private final IFormHandler formHandler;
 
@@ -75,12 +76,13 @@ public class TaskServlet extends WebSocketServlet {
 	 */
 	public TaskServlet(UIHandlerWebImpl uiHandler,
 			IProcessManager processManager, String processId, String taskId,
-			String taskDesc, IFormHandler formHandler) {
+			String taskName, String taskDesc, IFormHandler formHandler) {
 		super();
 		this.uiHandler = uiHandler;
 		this.processManager = processManager;
 		this.processId = processId;
 		this.taskId = taskId;
+		this.taskName = taskName;
 		this.taskDesc = taskDesc;
 		this.formHandler = formHandler;
 
@@ -206,6 +208,7 @@ public class TaskServlet extends WebSocketServlet {
 				getRemote()
 				.sendString(
 						mapper.writeValueAsString(new Resubmit(
+								taskName,
 								taskDesc.replaceAll("\n", "<p/>"),
 								processId,
 								processManager
@@ -244,6 +247,7 @@ public class TaskServlet extends WebSocketServlet {
 				sess.getRemote()
 						.sendString(
 								mapper.writeValueAsString(new TaskDesc(
+										taskName,
 										taskDesc.replaceAll("\n", "<p/>"),
 										processId,
 								processManager

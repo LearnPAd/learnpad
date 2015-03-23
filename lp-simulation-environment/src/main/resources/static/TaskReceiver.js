@@ -41,7 +41,7 @@ function taskReceiver(address, user) {
         case 'FINISHED':
             var containerDiv = $('#processcontainer' + msg.processid);
             var processFinished = document.createElement('p');
-            processFinished.innerHTML = '<p>Congratulations, you successfully completed the simulation.</p><hr>'
+            processFinished.innerHTML = '<h4>Congratulations, you successfully completed the simulation</h4>'
             containerDiv.append(processFinished);
 
             // remove process diagram

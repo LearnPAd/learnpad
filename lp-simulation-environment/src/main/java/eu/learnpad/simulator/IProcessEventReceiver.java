@@ -46,13 +46,15 @@ public interface IProcessEventReceiver {
 	 *            the id of the process
 	 * @param taskId
 	 *            the id of the task
+	 * @param taskName
+	 *            the name of the task
 	 * @param taskDescr
 	 *            the description of the task
 	 * @param users
 	 *            the users concerned by the task
 	 */
-	public void sendTask(String processId, String taskId, String taskDescr,
-			Collection<String> users);
+	public void sendTask(String processId, String taskId, String taskName,
+			String taskDescr, Collection<String> users);
 
 	/**
 	 * Signal the end of a process instance to a list of users
