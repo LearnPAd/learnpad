@@ -106,7 +106,10 @@ function task(address, taskid, user) {
                 '"></p><div id="taskFormDiv' + taskid + '"></div><hr>';
             $('#accordion' + data.processid).before(taskDiv);
 
-            $('#taskdata' + taskid).html('<h4>' + data.description + '</h4>');
+            $('#taskdata' + taskid).html(
+                '<h4>' + '<em>' + data.name + '</em></h4>' +
+                    '<h4>' + data.description + '</h4>'
+            );
 
             $('#processcontainer' + data.processid + ' .diagramImg').attr(
                 'src',
