@@ -22,11 +22,12 @@
 
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <collaboration id="Collaboration">
-    <participant id="pool1" processRef="SUAPdemo"></participant>
+    <participant id="pool1" name="SUAP Office" processRef="SUAPdemo"></participant>
+    <participant id="pool2" name="Other Office" processRef="process_pool2"></participant>
   </collaboration>
   <process id="SUAPdemo" name="SUAP Demo" isExecutable="true">
     <laneSet id="laneSet_SUAPdemo">
-      <lane id="lane1" name="SUAP Office">
+      <lane id="lane1">
         <flowNodeRef>startevent1</flowNodeRef>
         <flowNodeRef>usertask1</flowNodeRef>
         <flowNodeRef>usertask2</flowNodeRef>
@@ -40,7 +41,9 @@
         <flowNodeRef>usertask8</flowNodeRef>
         <flowNodeRef>applicationAdmissibleGateway</flowNodeRef>
       </lane>
-      <lane id="lane2" name="Other Office">
+    </laneSet>
+    <laneSet id="laneSet_process_pool2">
+      <lane id="lane3">
         <flowNodeRef>usertask5</flowNodeRef>
       </lane>
     </laneSet>
@@ -57,20 +60,14 @@
       <documentation>${entrepreneur} has sent the following application for a business start-up certified notification:
 &lt;a href='resources/files/SCIAForm.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;SCIA Form&lt;/a&gt;
 &lt;span&gt;&lt;a href='resources/files/Autodichiarazione%20di%20Requisiti%20Morali%20e%20Professionali.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;Self-Declaration of moral and professional requirements&lt;/a&gt;</documentation>
-	<extensionElements>
-		<activiti:formProperty id="food_sector"
-			name="Food sector related checks done?" type="boolean" required="true"></activiti:formProperty>
-		<activiti:formProperty id="driving_school_sector"
-			name="Driving school sector related checks done?" type="boolean" required="true"></activiti:formProperty>
-		<activiti:formProperty id="is_foreigner"
-			name="Foreigner related checks done?" type="boolean" required="true"></activiti:formProperty>
-		<activiti:formProperty id="moral_professional_requirement"
-			name="Self-Declaration of moral and professional requirements checks done?" type="boolean" required="true"></activiti:formProperty>
-		<activiti:formProperty id="fuel_sector"
-			name="Fuel sector related checks done?" type="boolean" required="true"></activiti:formProperty>
-		<activiti:formProperty id="fixed_location"
-			name="Fixed location activity related checks done?" type="boolean" required="true"></activiti:formProperty>
-	</extensionElements>
+      <extensionElements>
+        <activiti:formProperty id="food_sector" name="Food sector related checks done?" type="boolean" required="true"></activiti:formProperty>
+        <activiti:formProperty id="driving_school_sector" name="Driving school sector related checks done?" type="boolean" required="true"></activiti:formProperty>
+        <activiti:formProperty id="is_foreigner" name="Foreigner related checks done?" type="boolean" required="true"></activiti:formProperty>
+        <activiti:formProperty id="moral_professional_requirement" name="Self-Declaration of moral and professional requirements checks done?" type="boolean" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fuel_sector" name="Fuel sector related checks done?" type="boolean" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fixed_location" name="Fixed location activity related checks done?" type="boolean" required="true"></activiti:formProperty>
+      </extensionElements>
     </userTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
     <userTask id="usertask2" name="SCIA Application Verification" activiti:candidateUsers="SUAP">
@@ -104,14 +101,6 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationAdmissible == 'true'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow6" sourceRef="usertask4" targetRef="usertask5"></sequenceFlow>
-    <userTask id="usertask5" name="Do Check" activiti:candidateUsers="otherOffice">
-      <documentation>SUAP office send you the following message:
-&lt;b&gt;${applicationCheckBeginMsg}&lt;/b&gt;
-Related documents: &lt;span&gt;&lt;a href='resources/files/SCIAForm.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;${entrepreneur} application document&lt;/a&gt;</documentation>
-      <extensionElements>
-        <activiti:formProperty id="otheroffice_opinion" name="Your Opinion" type="string" required="true"></activiti:formProperty>
-      </extensionElements>
-    </userTask>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow7" sourceRef="usertask3" targetRef="endevent1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
@@ -127,7 +116,6 @@ Related documents: &lt;span&gt;&lt;a href='resources/files/SCIAForm.pdf' target=
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow10" sourceRef="usertask6" targetRef="endevent2"></sequenceFlow>
     <endEvent id="endevent3" name="End"></endEvent>
-    <sequenceFlow id="flow13" sourceRef="usertask5" targetRef="usertask8"></sequenceFlow>
     <userTask id="usertask8" name="Validate Application" activiti:candidateUsers="SUAP">
       <documentation>Here are the result of the requested documents check for the application of ${entrepreneur}:
 Other office answered: &lt;b&gt;${otheroffice_opinion}&lt;/b&gt;</documentation>
@@ -140,19 +128,31 @@ Other office answered: &lt;b&gt;${otheroffice_opinion}&lt;/b&gt;</documentation>
     </userTask>
     <sequenceFlow id="flow14" sourceRef="usertask8" targetRef="exclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow15" sourceRef="exclusivegateway2" targetRef="endevent3">
-       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationValid == 'true'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationValid == 'true'}]]></conditionExpression>
     </sequenceFlow>
+    <userTask id="usertask5" name="Do Check" activiti:candidateUsers="otherOffice">
+      <documentation>SUAP office send you the following message:
+&lt;b&gt;${applicationCheckBeginMsg}&lt;/b&gt;
+Related documents: &lt;span&gt;&lt;a href='resources/files/SCIAForm.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;${entrepreneur} application document&lt;/a&gt;</documentation>
+      <extensionElements>
+        <activiti:formProperty id="otheroffice_opinion" name="Your Opinion" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow13" sourceRef="usertask5" targetRef="usertask8"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
     <bpmndi:BPMNPlane bpmnElement="Collaboration" id="BPMNPlane_Collaboration">
       <bpmndi:BPMNShape bpmnElement="pool1" id="BPMNShape_pool1">
-        <omgdc:Bounds height="361.0" width="1241.0" x="10.0" y="10.0"></omgdc:Bounds>
+        <omgdc:Bounds height="250.0" width="1241.0" x="10.0" y="10.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="lane1" id="BPMNShape_lane1">
         <omgdc:Bounds height="250.0" width="1221.0" x="30.0" y="10.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="lane2" id="BPMNShape_lane2">
-        <omgdc:Bounds height="111.0" width="1221.0" x="30.0" y="260.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="pool2" id="BPMNShape_pool2">
+        <omgdc:Bounds height="150.0" width="1241.0" x="10.0" y="290.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="lane3" id="BPMNShape_lane3">
+        <omgdc:Bounds height="150.0" width="1221.0" x="30.0" y="290.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="80.0" y="128.0"></omgdc:Bounds>
@@ -172,9 +172,6 @@ Other office answered: &lt;b&gt;${otheroffice_opinion}&lt;/b&gt;</documentation>
       <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
         <omgdc:Bounds height="91.0" width="105.0" x="545.0" y="155.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
-        <omgdc:Bounds height="81.0" width="105.0" x="660.0" y="275.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="700.0" y="78.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -192,6 +189,9 @@ Other office answered: &lt;b&gt;${otheroffice_opinion}&lt;/b&gt;</documentation>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask8" id="BPMNShape_usertask8">
         <omgdc:Bounds height="91.0" width="105.0" x="760.0" y="155.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
+        <omgdc:Bounds height="81.0" width="105.0" x="660.0" y="330.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="115.0" y="145.0"></omgdi:waypoint>
@@ -215,7 +215,7 @@ Other office answered: &lt;b&gt;${otheroffice_opinion}&lt;/b&gt;</documentation>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
         <omgdi:waypoint x="597.0" y="246.0"></omgdi:waypoint>
-        <omgdi:waypoint x="712.0" y="275.0"></omgdi:waypoint>
+        <omgdi:waypoint x="712.0" y="330.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="650.0" y="95.0"></omgdi:waypoint>
@@ -229,10 +229,6 @@ Other office answered: &lt;b&gt;${otheroffice_opinion}&lt;/b&gt;</documentation>
         <omgdi:waypoint x="1125.0" y="95.0"></omgdi:waypoint>
         <omgdi:waypoint x="1190.0" y="95.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
-        <omgdi:waypoint x="712.0" y="275.0"></omgdi:waypoint>
-        <omgdi:waypoint x="812.0" y="246.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
         <omgdi:waypoint x="865.0" y="200.0"></omgdi:waypoint>
         <omgdi:waypoint x="910.0" y="200.0"></omgdi:waypoint>
@@ -240,6 +236,10 @@ Other office answered: &lt;b&gt;${otheroffice_opinion}&lt;/b&gt;</documentation>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
         <omgdi:waypoint x="950.0" y="200.0"></omgdi:waypoint>
         <omgdi:waypoint x="1055.0" y="200.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="712.0" y="330.0"></omgdi:waypoint>
+        <omgdi:waypoint x="812.0" y="246.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
