@@ -26,20 +26,20 @@
 
 	<parent>
 		<groupId>eu.learnpad</groupId>
-		<artifactId>lp-core-platform</artifactId>
+		<artifactId>lp-cp-controllers</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>lp-cp-controllers</artifactId>
+	<artifactId>lp-cp-controllers-me</artifactId>
 	<packaging>pom</packaging>
-	<name>Learn PAd - Core Platform - Controllers</name>
+	<name>Learn PAd - Core Platform - Controllers - Modeling Environments</name>
 
 	<properties>
 		<lp.version>1.0-SNAPSHOT</lp.version>
 	</properties>
 
 	<modules>
-		<module>lp-cp-controllers-cw</module>
-		<module>lp-cp-controllers-me</module>
+		<module>lp-cp-controllers-me-api</module>
+		<module>lp-cp-controllers-me-server</module>
 	</modules>
 </project>
