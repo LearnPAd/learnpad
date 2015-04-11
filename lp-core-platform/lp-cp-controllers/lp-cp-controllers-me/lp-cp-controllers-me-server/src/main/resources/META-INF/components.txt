@@ -1,1 +1,1 @@
-eu.learnpad.rest.internal.DefaultModelingEnvironment
+eu.learnpad.rest.internal.DefaultRestModelingEnvironment

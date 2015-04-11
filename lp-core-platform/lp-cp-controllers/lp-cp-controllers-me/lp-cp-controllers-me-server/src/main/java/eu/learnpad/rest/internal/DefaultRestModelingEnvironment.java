@@ -19,9 +19,18 @@
  */
 package eu.learnpad.rest.internal;
 
-import javax.ws.rs.Produces;
+import java.io.IOException;
+
 import javax.inject.Named;
 
+import org.apache.commons.httpclient.Credentials;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.UsernamePasswordCredentials;
+import org.apache.commons.httpclient.auth.AuthScope;
+import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
+import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.httpclient.methods.RequestEntity;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 import org.xwiki.rest.XWikiRestException;
@@ -35,6 +44,31 @@ public class DefaultRestModelingEnvironment implements XWikiRestComponent,
 	@Override
 	public void putAdoxxFile(String modelId, byte[] adoxxFile)
 			throws XWikiRestException {
-		System.out.println("[INFO] put adoxx file");
+		HttpClient httpClient = new HttpClient();
+		httpClient.getParams().setAuthenticationPreemptive(true);
+		Credentials defaultcreds = new UsernamePasswordCredentials("Admin",
+				"admin");
+		httpClient.getState().setCredentials(
+				new AuthScope("localhost", 8080, AuthScope.ANY_REALM),
+				defaultcreds);
+
+		PutMethod putMethod = new PutMethod(
+				"http://localhost:8080/xwiki/rest/wikis/xwiki/spaces/"
+						+ modelId + "/pages/WebHome/attachments/" + modelId
+						+ ".adoxx");
+		putMethod.addRequestHeader("Accept", "application/xml");
+		putMethod.addRequestHeader("Accept-Ranges", "bytes");
+		RequestEntity fileRequestEntity = new ByteArrayRequestEntity(adoxxFile,
+				"application/xml");
+		putMethod.setRequestEntity(fileRequestEntity);
+		try {
+			httpClient.executeMethod(putMethod);
+		} catch (HttpException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
