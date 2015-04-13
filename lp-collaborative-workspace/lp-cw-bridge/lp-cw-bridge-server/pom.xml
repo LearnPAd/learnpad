@@ -20,22 +20,34 @@
   * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   *
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>eu.learnpad</groupId>
-		<artifactId>lp-collaborative-workspace</artifactId>
+		<artifactId>lp-cw-bridge</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>lp-cw-bridge</artifactId>
-	<packaging>pom</packaging>
-	<name>Learn PAd - Collaborative Workspace - Bridge</name>
+	<artifactId>lp-cw-bridge-server</artifactId>
+	<packaging>jar</packaging>
+	<name>Learn PAd - Collaborative Workspace - Bridge - Server</name>
 
-	<modules>
-		<module>lp-cw-bridge-api</module>
-		<module>lp-cw-bridge-server</module>
-	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>eu.learnpad</groupId>
+			<artifactId>lp-cw-bridge-api</artifactId>
+			<version>${learnpad.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.xwiki.platform</groupId>
+			<artifactId>xwiki-platform-rest-server</artifactId>
+			<version>${platform.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+			<version>9.6.0-5</version>
+		</dependency>
+	</dependencies>
 </project>
