@@ -42,12 +42,12 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 import org.xwiki.rest.XWikiRestException;
 
-import eu.learnpad.rest.RestAdoxxModels;
+import eu.learnpad.rest.AdoxxModel;
 
 @Component
-@Named("eu.learnpad.rest.internal.DefaultRestAdoxxModels")
-public class DefaultRestAdoxxModels implements XWikiRestComponent,
-		RestAdoxxModels {
+@Named("eu.learnpad.rest.internal.DefaultAdoxxModel")
+public class DefaultAdoxxModel implements XWikiRestComponent,
+		AdoxxModel {
 	@Override
 	public byte[] getAdoxxFile(String modelId) throws XWikiRestException {
 		HttpClient httpClient = new HttpClient();

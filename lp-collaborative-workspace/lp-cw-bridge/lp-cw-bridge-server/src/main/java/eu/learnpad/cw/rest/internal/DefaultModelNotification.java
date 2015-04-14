@@ -17,7 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.rest.internal;
+package eu.learnpad.cw.rest.internal;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,12 +44,12 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 import org.xwiki.rest.XWikiRestException;
 
-import eu.learnpad.rest.RestCWNotifyModel;
+import eu.learnpad.cw.rest.ModelNotification;
 
 @Component
-@Named("eu.learnpad.rest.internal.DefaultRestCWNotifyModel")
-public class DefaultRestCWNotifyModel implements XWikiRestComponent,
-		RestCWNotifyModel {
+@Named("eu.learnpad.cw.rest.internal.DefaultModelNotification")
+public class DefaultModelNotification implements XWikiRestComponent,
+		ModelNotification {
 
 	@Override
 	public void postNotifyModel(String modelId, String type)
@@ -115,7 +115,7 @@ public class DefaultRestCWNotifyModel implements XWikiRestComponent,
 	private String generateXWikiPackage(InputStream modelStream, String type) {
 		UUID uuid = UUID.randomUUID();
 		String stylesheetFileName = "/stylesheet/" + type + "2xwiki.xsl";
-		InputStream stylesheetStream = DefaultRestCWNotifyModel.class
+		InputStream stylesheetStream = DefaultModelNotification.class
 				.getResourceAsStream(stylesheetFileName);
 		File packageFolder = new File("/tmp/learnpad/" + uuid);
 		packageFolder.mkdirs();

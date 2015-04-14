@@ -1,1 +1,1 @@
-eu.learnpad.rest.internal.DefaultRestCWNotifyModel
+eu.learnpad.cw.rest.internal.DefaultModelNotification
