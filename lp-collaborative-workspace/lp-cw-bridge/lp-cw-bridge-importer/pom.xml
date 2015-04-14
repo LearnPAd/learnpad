@@ -26,17 +26,16 @@
 
 	<parent>
 		<groupId>eu.learnpad</groupId>
-		<artifactId>lp-collaborative-workspace</artifactId>
+		<artifactId>lp-cw-bridge</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>lp-cw-bridge</artifactId>
+	<artifactId>lp-cw-bridge-importer</artifactId>
 	<packaging>pom</packaging>
-	<name>Learn PAd - Collaborative Workspace - Bridge</name>
+	<name>Learn PAd - Collaborative Workspace - Bridge - Importer</name>
 
 	<modules>
-		<module>lp-cw-bridge-api</module>
-		<module>lp-cw-bridge-server</module>
-		<module>lp-cw-bridge-importer</module>
+		<module>lp-cw-bridge-importer-api</module>
+		<module>lp-cw-bridge-importer-server</module>
 	</modules>
 </project>

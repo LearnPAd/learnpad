@@ -35,9 +35,11 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 import org.xwiki.rest.XWikiRestException;
@@ -77,6 +79,33 @@ public class DefaultRestCWNotifyModel implements XWikiRestComponent,
 		try {
 			InputStream modelStream = getMethod.getResponseBodyAsStream();
 			String packagePath = generateXWikiPackage(modelStream, type);
+			putImportXWiki(packagePath);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private void putImportXWiki(String packagePath) {
+		HttpClient httpClient = new HttpClient();
+		httpClient.getParams().setAuthenticationPreemptive(true);
+		Credentials defaultcreds = new UsernamePasswordCredentials("Admin",
+				"admin");
+		httpClient.getState().setCredentials(
+				new AuthScope("localhost", 8080, AuthScope.ANY_REALM),
+				defaultcreds);
+
+		PutMethod putMethod = new PutMethod(
+				"http://localhost:8080/xwiki/rest/learnpad/cw/package");
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("path", packagePath);
+		putMethod.setQueryString(queryString);
+		putMethod.addRequestHeader("Accept", "application/xml");
+		putMethod.addRequestHeader("Accept-Ranges", "bytes");
+		try {
+			httpClient.executeMethod(putMethod);
+		} catch (HttpException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,6 +143,6 @@ public class DefaultRestCWNotifyModel implements XWikiRestComponent,
 		 * File(packageFolder.getPath() + "/" + modelFileName);
 		 * FileUtils.copyInputStreamToFile(modelStream, modelFile);
 		 */
-		return packageFolder.getPath();
+		return packageFolder.getPath() + "/xwiki";
 	}
 }
