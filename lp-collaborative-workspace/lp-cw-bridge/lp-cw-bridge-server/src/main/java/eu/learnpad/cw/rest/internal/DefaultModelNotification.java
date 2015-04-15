@@ -36,9 +36,9 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 import org.xwiki.rest.XWikiRestException;
 
-import eu.learnpad.cw.rest.CWRestUtils;
 import eu.learnpad.cw.rest.ModelNotification;
-import eu.learnpad.rest.CPRestUtils;
+import eu.learnpad.rest.utils.CPRestUtils;
+import eu.learnpad.rest.utils.CWRestUtils;
 
 @Component
 @Named("eu.learnpad.cw.rest.internal.DefaultModelNotification")

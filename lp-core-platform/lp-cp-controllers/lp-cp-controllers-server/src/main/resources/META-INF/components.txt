@@ -1,2 +1,3 @@
-eu.learnpad.rest.internal.DefaultCPRestUtils
+eu.learnpad.rest.utils.internal.DefaultCPRestUtils
+eu.learnpad.rest.utils.internal.DefaultCWRestUtils
 eu.learnpad.rest.internal.DefaultModel

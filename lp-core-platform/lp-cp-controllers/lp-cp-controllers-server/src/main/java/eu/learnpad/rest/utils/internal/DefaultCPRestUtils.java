@@ -17,7 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.rest.internal;
+package eu.learnpad.rest.utils.internal;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,8 +31,8 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
 
-import eu.learnpad.rest.CPRestUtils;
-import eu.learnpad.rest.RestUtils;
+import eu.learnpad.rest.utils.CPRestUtils;
+import eu.learnpad.rest.utils.RestUtils;
 
 @Component
 public class DefaultCPRestUtils extends RestUtils implements CPRestUtils {

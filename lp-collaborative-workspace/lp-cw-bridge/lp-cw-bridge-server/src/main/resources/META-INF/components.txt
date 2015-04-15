@@ -1,2 +1,1 @@
 eu.learnpad.cw.rest.internal.DefaultModelNotification
-eu.learnpad.cw.rest.internal.DefaultCWRestUtils

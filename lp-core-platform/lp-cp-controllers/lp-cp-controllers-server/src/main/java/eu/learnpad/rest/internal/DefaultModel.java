@@ -41,8 +41,8 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 import org.xwiki.rest.XWikiRestException;
 
-import eu.learnpad.cw.rest.CWRestUtils;
 import eu.learnpad.rest.Model;
+import eu.learnpad.rest.utils.CWRestUtils;
 
 @Component
 @Named("eu.learnpad.rest.internal.DefaultModel")

@@ -1,4 +1,4 @@
-package eu.learnpad.rest;
+package eu.learnpad.rest.utils;
 
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
