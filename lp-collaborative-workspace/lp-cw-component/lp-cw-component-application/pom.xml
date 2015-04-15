@@ -32,25 +32,4 @@
 	<artifactId>lp-cw-component-application</artifactId>
 	<packaging>xar</packaging>
 	<name>Learn PAd - Collaborative Workspace - Component - Application</name>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.xwiki.enterprise</groupId>
-			<artifactId>xwiki-enterprise-ui-mainwiki-all</artifactId>
-			<version>${enterprise.version}</version>
-			<type>xar</type>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.xwiki.commons</groupId>
-				<artifactId>xwiki-commons-tool-xar-plugin</artifactId>
-				<configuration>
-					<includeDependencies>true</includeDependencies>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
