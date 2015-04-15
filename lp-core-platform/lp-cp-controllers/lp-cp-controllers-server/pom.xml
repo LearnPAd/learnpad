@@ -44,5 +44,10 @@
 			<artifactId>xwiki-platform-rest-server</artifactId>
 			<version>${platform.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>eu.learnpad</groupId>
+			<artifactId>lp-cw-bridge-api</artifactId>
+			<version>${learnpad.version}</version>
+		</dependency>
 	</dependencies>
 </project>

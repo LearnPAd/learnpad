@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -38,53 +39,30 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 import org.xwiki.rest.XWikiRestException;
 
 import eu.learnpad.cw.rest.ModelNotification;
+import eu.learnpad.rest.CPRestUtils;
 
 @Component
 @Named("eu.learnpad.cw.rest.internal.DefaultModelNotification")
 public class DefaultModelNotification implements XWikiRestComponent,
 		ModelNotification {
 
+	@Inject
+	CPRestUtils cpRestUtils;
+
 	@Override
 	public void postNotifyModel(String modelId, String type)
 			throws XWikiRestException {
-		HttpClient httpClient = new HttpClient();
-		httpClient.getParams().setAuthenticationPreemptive(true);
-		Credentials defaultcreds = new UsernamePasswordCredentials("Admin",
-				"admin");
-		httpClient.getState().setCredentials(
-				new AuthScope("localhost", 8080, AuthScope.ANY_REALM),
-				defaultcreds);
-
-		GetMethod getMethod = new GetMethod(
-				"http://localhost:8080/xwiki/rest/learnpad/model/" + modelId
-						+ "/" + type);
-		getMethod.addRequestHeader("Accept", "application/xml");
-		getMethod.addRequestHeader("Accept-Ranges", "bytes");
-		try {
-			httpClient.executeMethod(getMethod);
-		} catch (HttpException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			InputStream modelStream = getMethod.getResponseBodyAsStream();
-			String packagePath = generateXWikiPackage(modelStream, type);
-			putImportXWiki(packagePath);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		InputStream modelStream = cpRestUtils.getModel(modelId, type);
+		String packagePath = generateXWikiPackage(modelStream, type);
+		putImportXWiki(packagePath);
 	}
+
 	private void putImportXWiki(String packagePath) {
 		HttpClient httpClient = new HttpClient();
 		httpClient.getParams().setAuthenticationPreemptive(true);

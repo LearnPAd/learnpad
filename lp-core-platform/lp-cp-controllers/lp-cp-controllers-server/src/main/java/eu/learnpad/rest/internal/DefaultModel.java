@@ -23,17 +23,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
@@ -42,14 +41,19 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 import org.xwiki.rest.XWikiRestException;
 
-import eu.learnpad.rest.AdoxxModel;
+import eu.learnpad.cw.rest.CWRestUtils;
+import eu.learnpad.rest.Model;
 
 @Component
-@Named("eu.learnpad.rest.internal.DefaultAdoxxModel")
-public class DefaultAdoxxModel implements XWikiRestComponent,
-		AdoxxModel {
+@Named("eu.learnpad.rest.internal.DefaultModel")
+public class DefaultModel implements XWikiRestComponent, Model {
+
+	@Inject
+	CWRestUtils cwRestUtils;
+
 	@Override
-	public byte[] getAdoxxFile(String modelId) throws XWikiRestException {
+	public byte[] getModel(String modelId, String type)
+			throws XWikiRestException {
 		HttpClient httpClient = new HttpClient();
 		httpClient.getParams().setAuthenticationPreemptive(true);
 		Credentials defaultcreds = new UsernamePasswordCredentials("Admin",
@@ -59,8 +63,9 @@ public class DefaultAdoxxModel implements XWikiRestComponent,
 				defaultcreds);
 
 		GetMethod getMethod = new GetMethod(
-				"http://localhost:8080/xwiki/rest/wikis/xwiki/spaces/" + modelId
-						+ "/pages/WebHome/attachments/" + modelId + ".adoxx");
+				"http://localhost:8080/xwiki/rest/wikis/xwiki/spaces/"
+						+ modelId + "/pages/WebHome/attachments/" + modelId
+						+ "." + type);
 		getMethod.addRequestHeader("Accept", "application/xml");
 		getMethod.addRequestHeader("Accept-Ranges", "bytes");
 		try {
@@ -81,7 +86,7 @@ public class DefaultAdoxxModel implements XWikiRestComponent,
 		}
 		return null;
 	}
-	
+
 	private boolean isPage(String spaceName, String pageName) {
 		HttpClient httpClient = new HttpClient();
 		httpClient.getParams().setAuthenticationPreemptive(true);
@@ -98,7 +103,7 @@ public class DefaultAdoxxModel implements XWikiRestComponent,
 		getMethod.addRequestHeader("Accept-Ranges", "bytes");
 		try {
 			int statusCode = httpClient.executeMethod(getMethod);
-			if(statusCode == 200) {
+			if (statusCode == 200) {
 				return true;
 			}
 		} catch (HttpException e) {
@@ -110,7 +115,7 @@ public class DefaultAdoxxModel implements XWikiRestComponent,
 		}
 		return false;
 	}
-	
+
 	private boolean putPage(String spaceName, String pageName) {
 		HttpClient httpClient = new HttpClient();
 		httpClient.getParams().setAuthenticationPreemptive(true);
@@ -128,7 +133,8 @@ public class DefaultAdoxxModel implements XWikiRestComponent,
 		String pageXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><page xmlns=\"http://www.xwiki.org\"><content/></page>";
 		RequestEntity pageRequestEntity = null;
 		try {
-			pageRequestEntity = new StringRequestEntity(pageXML, "application/xml", "UTF-8");
+			pageRequestEntity = new StringRequestEntity(pageXML,
+					"application/xml", "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -136,7 +142,7 @@ public class DefaultAdoxxModel implements XWikiRestComponent,
 		putMethod.setRequestEntity(pageRequestEntity);
 		try {
 			int statusCode = httpClient.executeMethod(putMethod);
-			if(statusCode == 200) {
+			if (statusCode == 200) {
 				return true;
 			}
 		} catch (HttpException e) {
@@ -148,39 +154,11 @@ public class DefaultAdoxxModel implements XWikiRestComponent,
 		}
 		return false;
 	}
-	
-	private void postNotifyCollaborativeWorkspace(String modelId, String type) {
-		HttpClient httpClient = new HttpClient();
-		httpClient.getParams().setAuthenticationPreemptive(true);
-		Credentials defaultcreds = new UsernamePasswordCredentials("Admin",
-				"admin");
-		httpClient.getState().setCredentials(
-				new AuthScope("localhost", 8080, AuthScope.ANY_REALM),
-				defaultcreds);
 
-		PostMethod postMethod = new PostMethod(
-				"http://localhost:8080/xwiki/rest/learnpad/cw/notify/model");
-		postMethod.addRequestHeader("Accept", "application/xml");
-		postMethod.addRequestHeader("Accept-Ranges", "bytes");
-		NameValuePair[] queryString = new NameValuePair[2];
-		queryString[0] = new NameValuePair("modelid", modelId);
-		queryString[1] = new NameValuePair("type", type);
-		postMethod.setQueryString(queryString);
-		try {
-			httpClient.executeMethod(postMethod);
-		} catch (HttpException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	@Override
-	public void putAdoxxFile(String modelId, byte[] adoxxFile)
+	public void putModel(String modelId, String type, byte[] adoxxFile)
 			throws XWikiRestException {
-		if(!isPage(modelId, "webHome")) {
+		if (!isPage(modelId, "webHome")) {
 			putPage(modelId, "WebHome");
 		}
 		HttpClient httpClient = new HttpClient();
@@ -194,7 +172,7 @@ public class DefaultAdoxxModel implements XWikiRestComponent,
 		PutMethod putMethod = new PutMethod(
 				"http://localhost:8080/xwiki/rest/wikis/xwiki/spaces/"
 						+ modelId + "/pages/WebHome/attachments/" + modelId
-						+ ".adoxx");
+						+ "." + type);
 		putMethod.addRequestHeader("Accept", "application/xml");
 		putMethod.addRequestHeader("Accept-Ranges", "bytes");
 		RequestEntity fileRequestEntity = new ByteArrayRequestEntity(adoxxFile,
@@ -209,6 +187,6 @@ public class DefaultAdoxxModel implements XWikiRestComponent,
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		postNotifyCollaborativeWorkspace(modelId, "adoxx");
+		cwRestUtils.postNotifyModel(modelId, type);
 	}
 }

@@ -17,23 +17,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.rest;
+package eu.learnpad.cw.rest;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import org.xwiki.component.annotation.Role;
 
-import org.xwiki.rest.XWikiRestException;
-
-@Path("/learnpad/model/{modelid}/adoxx")
-public interface AdoxxModel {
-	@GET
-	byte[] getAdoxxFile(@PathParam("modelid") String modelId)
-			throws XWikiRestException;
-	
-	@PUT
-	void putAdoxxFile(@PathParam("modelid") String modelId,
-			byte[] adoxxFile)
-			throws XWikiRestException;
+@Role
+public interface CWRestUtils {
+	public int postNotifyModel(String modelId, String type);
 }

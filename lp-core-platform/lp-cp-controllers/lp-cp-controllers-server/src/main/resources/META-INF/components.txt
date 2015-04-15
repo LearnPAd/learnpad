@@ -1,1 +1,2 @@
-eu.learnpad.rest.internal.DefaultAdoxxModel
+eu.learnpad.rest.internal.DefaultCPRestUtils
+eu.learnpad.rest.internal.DefaultModel

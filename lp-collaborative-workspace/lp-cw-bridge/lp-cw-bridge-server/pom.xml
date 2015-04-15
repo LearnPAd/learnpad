@@ -36,6 +36,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>eu.learnpad</groupId>
+			<artifactId>lp-cp-controllers-api</artifactId>
+			<version>${learnpad.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>eu.learnpad</groupId>
 			<artifactId>lp-cw-bridge-api</artifactId>
 			<version>${learnpad.version}</version>
 		</dependency>
