@@ -20,7 +20,6 @@
 package eu.learnpad.cw.rest.internal;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
@@ -33,17 +32,11 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.commons.httpclient.Credentials;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.methods.PutMethod;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 import org.xwiki.rest.XWikiRestException;
 
+import eu.learnpad.cw.rest.CWRestUtils;
 import eu.learnpad.cw.rest.ModelNotification;
 import eu.learnpad.rest.CPRestUtils;
 
@@ -55,42 +48,10 @@ public class DefaultModelNotification implements XWikiRestComponent,
 	@Inject
 	CPRestUtils cpRestUtils;
 
-	@Override
-	public void postNotifyModel(String modelId, String type)
-			throws XWikiRestException {
-		InputStream modelStream = cpRestUtils.getModel(modelId, type);
-		String packagePath = generateXWikiPackage(modelStream, type);
-		putImportXWiki(packagePath);
-	}
+	@Inject
+	CWRestUtils cwRestUtils;
 
-	private void putImportXWiki(String packagePath) {
-		HttpClient httpClient = new HttpClient();
-		httpClient.getParams().setAuthenticationPreemptive(true);
-		Credentials defaultcreds = new UsernamePasswordCredentials("Admin",
-				"admin");
-		httpClient.getState().setCredentials(
-				new AuthScope("localhost", 8080, AuthScope.ANY_REALM),
-				defaultcreds);
-
-		PutMethod putMethod = new PutMethod(
-				"http://localhost:8080/xwiki/rest/learnpad/cw/package");
-		NameValuePair[] queryString = new NameValuePair[1];
-		queryString[0] = new NameValuePair("path", packagePath);
-		putMethod.setQueryString(queryString);
-		putMethod.addRequestHeader("Accept", "application/xml");
-		putMethod.addRequestHeader("Accept-Ranges", "bytes");
-		try {
-			httpClient.executeMethod(putMethod);
-		} catch (HttpException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	private String generateXWikiPackage(InputStream modelStream, String type) {
+	private String buildXWikiPackage(InputStream modelStream, String type) {
 		UUID uuid = UUID.randomUUID();
 		String stylesheetFileName = "/stylesheet/" + type + "2xwiki.xsl";
 		InputStream stylesheetStream = DefaultModelNotification.class
@@ -115,12 +76,14 @@ public class DefaultModelNotification implements XWikiRestComponent,
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		/*
-		 * String modelFileName = "model." + type; File modelFile = new
-		 * File(packageFolder.getPath() + "/" + modelFileName);
-		 * FileUtils.copyInputStreamToFile(modelStream, modelFile);
-		 */
 		return packageFolder.getPath() + "/xwiki";
+	}
+
+	@Override
+	public void postNotifyModel(String modelId, String type)
+			throws XWikiRestException {
+		InputStream modelStream = cpRestUtils.getModel(modelId, type);
+		String packagePath = buildXWikiPackage(modelStream, type);
+		cwRestUtils.putXWikiPackage(packagePath);
 	}
 }

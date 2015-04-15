@@ -27,6 +27,7 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
 
@@ -40,28 +41,60 @@ public class DefaultCWRestUtils extends RestUtils implements CWRestUtils {
 	private Logger logger;
 
 	@Override
-	public int postNotifyModel(String modelId, String type) {
+	public boolean postNotifyModel(String modelId, String type) {
 		HttpClient httpClient = getClient();
 
 		String uri = REST_URI + "/learnpad/cw/notify/model";
 		PostMethod postMethod = new PostMethod(uri);
 		postMethod.addRequestHeader("Accept", "application/xml");
 		postMethod.addRequestHeader("Accept-Ranges", "bytes");
+		
 		NameValuePair[] queryString = new NameValuePair[2];
 		queryString[0] = new NameValuePair("modelid", modelId);
 		queryString[1] = new NameValuePair("type", type);
 		postMethod.setQueryString(queryString);
+		
 		try {
-			return httpClient.executeMethod(postMethod);
+			httpClient.executeMethod(postMethod);
+			return true;
 		} catch (HttpException e) {
 			logger.error(
 					"Unable to process the notification request to Collaborative Workspace for the '"
 							+ modelId + "' model (" + type + ").", e);
-			return 404;
+			return false;
 		} catch (IOException e) {
 			logger.error("Unable to notify Collaborative Workspace of the '"
 					+ modelId + "' model (" + type + ").", e);
-			return 404;
+			return false;
+		}
+	}
+
+	@Override
+	public boolean putXWikiPackage(String packagePath) {
+		HttpClient httpClient = getClient();
+
+		String uri = REST_URI + "/learnpad/cw/package";
+		PutMethod putMethod = new PutMethod(uri);
+		putMethod.addRequestHeader("Accept", "application/xml");
+		putMethod.addRequestHeader("Accept-Ranges", "bytes");
+		
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("path", packagePath);
+		putMethod.setQueryString(queryString);
+		
+		try {
+			httpClient.executeMethod(putMethod);
+			return true;
+		} catch (HttpException e) {
+			logger.error(
+					"Unable to process the PUT request for XWiki package '"
+							+ packagePath
+							+ "' onto the Collaborative Workspace.", e);
+			return false;
+		} catch (IOException e) {
+			logger.error("Unable to PUT XWiki package '" + packagePath
+					+ "' to the Collaborative Workspace.", e);
+			return false;
 		}
 	}
 }
