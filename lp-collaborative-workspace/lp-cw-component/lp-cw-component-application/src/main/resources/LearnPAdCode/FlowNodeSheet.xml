@@ -60,13 +60,14 @@
       &lt;div class="panel-body"&gt;
 #set($incomings = $apiBPMN.flownode.getIncomings())
 #foreach($incoming in $incomings)
-      #set($sourceFlowNode = $apiBPMN.sequenceflow.getSourceRef($incoming))
-      &lt;a href="${apiBPMN.flownode.getURL($sourceFlowNode)}"&gt;
+  #set($sourceRef = $services.model.createDocumentReference("xwiki", $doc.space, $incoming))
+  #set($sourceDoc = $xwiki.getDocument($sourceRef))
+  #set($sourceTitle = $sourceDoc.title)
+      &lt;a href="${xwiki.getURL($sourceRef)}"&gt;
         &lt;button type="button" class="btn btn-default btn-block"&gt;
           &lt;div class="text-left"&gt;
             &lt;i class="fa fa-arrow-circle-left"&gt;&lt;/i&gt;
-            ${apiBPMN.sequenceflow.getName($incoming)}
-            [${apiBPMN.flownode.getName($sourceFlowNode)}]
+            ${sourceTitle}
           &lt;/div&gt;
         &lt;/button&gt;
       &lt;/a&gt;
@@ -80,12 +81,13 @@
     &lt;div class="panel-body"&gt;
 #set($outgoings = $apiBPMN.flownode.getOutgoings())
 #foreach($outgoing in $outgoings)
-      #set($targetFlowNode = $apiBPMN.sequenceflow.getTargetRef($outgoing))
-      &lt;a href="${apiBPMN.flownode.getURL($targetFlowNode)}"&gt;
+  #set($targetRef = $services.model.createDocumentReference("xwiki", $doc.space, $outgoing))
+  #set($targetDoc = $xwiki.getDocument($targetRef))
+  #set($targetTitle = $targetDoc.title)
+      &lt;a href="${xwiki.getURL($targetRef)}"&gt;
         &lt;button type="button" class="btn btn-default btn-block"&gt;
           &lt;div class="text-right"&gt;
-            ${apiBPMN.sequenceflow.getName($outgoing)}
-            [${apiBPMN.flownode.getName($targetFlowNode)}]
+            ${targetTitle}
             &lt;i class="fa fa-arrow-circle-right"&gt;&lt;/i&gt;
           &lt;/div&gt;
         &lt;/button&gt;

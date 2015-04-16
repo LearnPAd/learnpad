@@ -34,12 +34,8 @@
 	<packaging>pom</packaging>
 	<name>Learn PAd - Collaborative Workspace - Bridge - Importer</name>
 
-	<properties>
-		<lp.version>1.0-SNAPSHOT</lp.version>
-	</properties>
-
 	<modules>
-		<module>lp-cw-bridge-importer-adoxx</module>
-		<module>lp-cw-bridge-importer-generic</module>
+		<module>lp-cw-bridge-importer-api</module>
+		<module>lp-cw-bridge-importer-server</module>
 	</modules>
 </project>
