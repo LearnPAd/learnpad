@@ -22,6 +22,7 @@ package eu.learnpad.rest.utils.internal;
 import java.io.IOException;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -32,10 +33,11 @@ import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
 
 import eu.learnpad.rest.utils.CWRestUtils;
-import eu.learnpad.rest.utils.RestUtils;
+import eu.learnpad.rest.utils.RestResource;
 
 @Component
-public class DefaultCWRestUtils extends RestUtils implements CWRestUtils {
+@Singleton
+public class DefaultCWRestUtils extends RestResource implements CWRestUtils {
 
 	@Inject
 	private Logger logger;

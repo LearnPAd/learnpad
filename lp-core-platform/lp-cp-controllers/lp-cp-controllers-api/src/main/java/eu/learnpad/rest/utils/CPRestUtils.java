@@ -25,5 +25,5 @@ import org.xwiki.component.annotation.Role;
 
 @Role
 public interface CPRestUtils {
-	public InputStream getModel(String modelId, String type);
+	InputStream getModel(String modelId, String type);
 }

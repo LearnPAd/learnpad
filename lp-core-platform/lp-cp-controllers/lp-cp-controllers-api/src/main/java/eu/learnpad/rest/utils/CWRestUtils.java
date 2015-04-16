@@ -23,7 +23,7 @@ import org.xwiki.component.annotation.Role;
 
 @Role
 public interface CWRestUtils {
-	public boolean postNotifyModel(String modelId, String type);
+	boolean postNotifyModel(String modelId, String type);
 
 	boolean putXWikiPackage(String packagePath);
 }

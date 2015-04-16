@@ -19,34 +19,31 @@
  */
 package eu.learnpad.rest.internal;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.httpclient.Credentials;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PutMethod;
-import org.apache.commons.httpclient.methods.RequestEntity;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 import org.xwiki.rest.XWikiRestException;
 
 import eu.learnpad.rest.Model;
+import eu.learnpad.rest.utils.CPRestUtils;
 import eu.learnpad.rest.utils.CWRestUtils;
+import eu.learnpad.rest.utils.RestUtils;
 
 @Component
 @Named("eu.learnpad.rest.internal.DefaultModel")
 public class DefaultModel implements XWikiRestComponent, Model {
+
+	@Inject
+	Logger logger;
+
+	@Inject
+	RestUtils restUtils;
+
+	@Inject
+	CPRestUtils cpRestUtils;
 
 	@Inject
 	CWRestUtils cwRestUtils;
@@ -54,139 +51,18 @@ public class DefaultModel implements XWikiRestComponent, Model {
 	@Override
 	public byte[] getModel(String modelId, String type)
 			throws XWikiRestException {
-		HttpClient httpClient = new HttpClient();
-		httpClient.getParams().setAuthenticationPreemptive(true);
-		Credentials defaultcreds = new UsernamePasswordCredentials("Admin",
-				"admin");
-		httpClient.getState().setCredentials(
-				new AuthScope("localhost", 8080, AuthScope.ANY_REALM),
-				defaultcreds);
-
-		GetMethod getMethod = new GetMethod(
-				"http://localhost:8080/xwiki/rest/wikis/xwiki/spaces/"
-						+ modelId + "/pages/WebHome/attachments/" + modelId
-						+ "." + type);
-		getMethod.addRequestHeader("Accept", "application/xml");
-		getMethod.addRequestHeader("Accept-Ranges", "bytes");
-		try {
-			httpClient.executeMethod(getMethod);
-		} catch (HttpException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			InputStream adoxxStream = getMethod.getResponseBodyAsStream();
-			return IOUtils.toByteArray(adoxxStream);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	private boolean isPage(String spaceName, String pageName) {
-		HttpClient httpClient = new HttpClient();
-		httpClient.getParams().setAuthenticationPreemptive(true);
-		Credentials defaultcreds = new UsernamePasswordCredentials("Admin",
-				"admin");
-		httpClient.getState().setCredentials(
-				new AuthScope("localhost", 8080, AuthScope.ANY_REALM),
-				defaultcreds);
-
-		GetMethod getMethod = new GetMethod(
-				"http://localhost:8080/xwiki/rest/wikis/xwiki/spaces/"
-						+ spaceName + "/pages/" + pageName);
-		getMethod.addRequestHeader("Accept", "application/xml");
-		getMethod.addRequestHeader("Accept-Ranges", "bytes");
-		try {
-			int statusCode = httpClient.executeMethod(getMethod);
-			if (statusCode == 200) {
-				return true;
-			}
-		} catch (HttpException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	private boolean putPage(String spaceName, String pageName) {
-		HttpClient httpClient = new HttpClient();
-		httpClient.getParams().setAuthenticationPreemptive(true);
-		Credentials defaultcreds = new UsernamePasswordCredentials("Admin",
-				"admin");
-		httpClient.getState().setCredentials(
-				new AuthScope("localhost", 8080, AuthScope.ANY_REALM),
-				defaultcreds);
-
-		PutMethod putMethod = new PutMethod(
-				"http://localhost:8080/xwiki/rest/wikis/xwiki/spaces/"
-						+ spaceName + "/pages/" + pageName);
-		putMethod.addRequestHeader("Accept", "application/xml");
-		putMethod.addRequestHeader("Accept-Ranges", "bytes");
-		String pageXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><page xmlns=\"http://www.xwiki.org\"><content/></page>";
-		RequestEntity pageRequestEntity = null;
-		try {
-			pageRequestEntity = new StringRequestEntity(pageXML,
-					"application/xml", "UTF-8");
-		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		putMethod.setRequestEntity(pageRequestEntity);
-		try {
-			int statusCode = httpClient.executeMethod(putMethod);
-			if (statusCode == 200) {
-				return true;
-			}
-		} catch (HttpException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
+		String attachmentName = modelId + "." + type;
+		return restUtils.getAttachment(modelId, "WebHome", attachmentName);
 	}
 
 	@Override
-	public void putModel(String modelId, String type, byte[] adoxxFile)
+	public void putModel(String modelId, String type, byte[] file)
 			throws XWikiRestException {
-		if (!isPage(modelId, "webHome")) {
-			putPage(modelId, "WebHome");
+		if (!restUtils.isPage(modelId, "WebHome")) {
+			restUtils.createEmptyPage(modelId, "WebHome");
 		}
-		HttpClient httpClient = new HttpClient();
-		httpClient.getParams().setAuthenticationPreemptive(true);
-		Credentials defaultcreds = new UsernamePasswordCredentials("Admin",
-				"admin");
-		httpClient.getState().setCredentials(
-				new AuthScope("localhost", 8080, AuthScope.ANY_REALM),
-				defaultcreds);
-
-		PutMethod putMethod = new PutMethod(
-				"http://localhost:8080/xwiki/rest/wikis/xwiki/spaces/"
-						+ modelId + "/pages/WebHome/attachments/" + modelId
-						+ "." + type);
-		putMethod.addRequestHeader("Accept", "application/xml");
-		putMethod.addRequestHeader("Accept-Ranges", "bytes");
-		RequestEntity fileRequestEntity = new ByteArrayRequestEntity(adoxxFile,
-				"application/xml");
-		putMethod.setRequestEntity(fileRequestEntity);
-		try {
-			httpClient.executeMethod(putMethod);
-		} catch (HttpException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String attachmentName = modelId + "." + type;
+		restUtils.putAttachment(modelId, "WebHome", attachmentName, file);
 		cwRestUtils.postNotifyModel(modelId, type);
 	}
 }

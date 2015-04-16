@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -32,18 +33,19 @@ import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
 
 import eu.learnpad.rest.utils.CPRestUtils;
-import eu.learnpad.rest.utils.RestUtils;
+import eu.learnpad.rest.utils.RestResource;
 
 @Component
-public class DefaultCPRestUtils extends RestUtils implements CPRestUtils {
+@Singleton
+public class DefaultCPRestUtils extends RestResource implements CPRestUtils {
 
 	@Inject
 	private Logger logger;
 
 	public InputStream getModel(String modelId, String type) {
-		HttpClient httpClient = getClient("Admin", "admin");
+		HttpClient httpClient = getClient();
+
 		String uri = REST_URI + "/learnpad/model/" + modelId;
-		
 		GetMethod getMethod = new GetMethod(uri);
 		NameValuePair[] queryString = new NameValuePair[1];
 		queryString[0] = new NameValuePair("type", type);
