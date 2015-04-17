@@ -1,3 +1,6 @@
+[![Build
+Status](https://travis-ci.org/LearnPAd/learnpad.svg?branch=master)](https://travis-ci.org/LearnPAd/learnpad)
+
 Learn PAd project - Model-Based Social Learning for Public Administrations
 ==========================================================================
 
