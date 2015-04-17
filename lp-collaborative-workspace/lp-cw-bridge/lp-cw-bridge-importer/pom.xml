@@ -25,7 +25,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.xwikisas.learnpad</groupId>
+		<groupId>eu.learnpad</groupId>
 		<artifactId>lp-cw-bridge</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
@@ -34,12 +34,8 @@
 	<packaging>pom</packaging>
 	<name>Learn PAd - Collaborative Workspace - Bridge - Importer</name>
 
-	<properties>
-		<lp.version>1.0-SNAPSHOT</lp.version>
-	</properties>
-
 	<modules>
-		<module>lp-cw-bridge-importer-adoxx</module>
-		<module>lp-cw-bridge-importer-generic</module>
+		<module>lp-cw-bridge-importer-api</module>
+		<module>lp-cw-bridge-importer-server</module>
 	</modules>
 </project>

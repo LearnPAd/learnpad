@@ -24,7 +24,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.xwikisas.learnpad</groupId>
+		<groupId>eu.learnpad</groupId>
 		<artifactId>lp-cw-component</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
@@ -32,25 +32,4 @@
 	<artifactId>lp-cw-component-application</artifactId>
 	<packaging>xar</packaging>
 	<name>Learn PAd - Collaborative Workspace - Component - Application</name>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.xwiki.enterprise</groupId>
-			<artifactId>xwiki-enterprise-ui-mainwiki-all</artifactId>
-			<version>${enterprise.version}</version>
-			<type>xar</type>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.xwiki.commons</groupId>
-				<artifactId>xwiki-commons-tool-xar-plugin</artifactId>
-				<configuration>
-					<includeDependencies>true</includeDependencies>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
