@@ -26,27 +26,16 @@
 
 	<parent>
 		<groupId>eu.learnpad</groupId>
-		<artifactId>lp-core-platform</artifactId>
+		<artifactId>lp-platform</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<groupId>eu.learnpad</groupId>
-	<artifactId>lp-platform</artifactId>
+	<artifactId>lp-platform-distributions</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>Learn PAd - Platform</name>
-	<developers>
-		<developer>
-			<id>woshilapin</id>
-			<name>Jean Simard</name>
-		</developer>
-	</developers>
-	<scm>
-		<url>https://github.com/LearnPAd/learnpad.git</url>
-		<tag>HEAD</tag>
-	</scm>
+	<name>Learn PAd - Platform - Distributions</name>
 
 	<modules>
-		<module>lp-platform-distributions</module>
+		<module>lp-platform-jetty-hsqldb</module>
 	</modules>
 </project>
