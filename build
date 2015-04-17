@@ -50,4 +50,15 @@ do
 		customlog "ERROR" "The list in \`.components' contains at least one non-existing component." ${ERROR_COMPONENTS}
 	fi
 done
+
+# Report builds to labs.xwiki.com
+set +o nounset
+if [[ -z "$TRAVIS" ]]
+then
+	curl -X POST "https://labs.xwiki.com/xwiki/bin/view/BuildCounters/?xpage=plain&project=learnpad"
+else
+	curl -X POST "https://labs.xwiki.com/xwiki/bin/view/BuildCounters/?xpage=plain&project=learnpad&travis_ci=1"
+fi
+set -o nounset
+
 exit ${SUCCESS}
