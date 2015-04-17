@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+declare -r __PATH__="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+declare -r __XWIKI_PATH__="${__PATH__}/xwiki"
+
+cd ${__XWIKI_PATH__} &&
+	bash start_xwiki_debug.sh &
+sleep 20s
