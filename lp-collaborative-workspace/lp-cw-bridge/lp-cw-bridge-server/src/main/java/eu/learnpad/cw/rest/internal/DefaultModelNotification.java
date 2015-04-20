@@ -27,6 +27,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
@@ -68,7 +69,7 @@ public class DefaultModelNotification implements XWikiRestComponent,
 		TransformerFactory transFact = TransformerFactory.newInstance();
 
 		try {
-			javax.xml.transform.Transformer trans = transFact
+			Transformer trans = transFact
 					.newTransformer(stylesheetSource);
 			trans.setParameter("packageFolder", packageFolder.getPath());
 			trans.transform(modelSource, result);
