@@ -42,7 +42,7 @@ mkdir -p ${__OUT_PATH__}
 cp "scripts/start" "${__OUT_START_FILE__}"
 cp "scripts/stop" "${__OUT_STOP_FILE__}"
 echo "openjdk-7-jre" > "${__OUT_RUNDEPS_FILE__}"
-cp -r lp-platform-distributions/lp-platform-jetty-hsqldb/target/xwiki ${__OUT_PATH__}/xwiki
+cp -r lp-platform-distributions/lp-platform-jetty-hsqldb/target/xwiki ${__OUT_PATH__}/
 # These is no configuration file to copy
 #cp <path_to>/file.cfg ${__OUT_CONF_PATH__}/
 }
