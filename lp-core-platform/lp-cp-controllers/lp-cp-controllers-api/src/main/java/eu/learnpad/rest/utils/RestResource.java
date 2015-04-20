@@ -30,8 +30,8 @@ public class RestResource {
 	public int PORT = 8080;
 	public String HOST = PROTOCOL + "://" + HOSTNAME + ":" + PORT;
 	public String REST_URI = HOST + "/xwiki/rest";
-	private String DEFAULT_USER = "Admin";
-	private String DEFAULT_PASSWORD = "admin";
+	private String DEFAULT_USER = "superadmin";
+	private String DEFAULT_PASSWORD = "LearnPAss";
 
 	public HttpClient getClient() {
 		return getClient(DEFAULT_USER, DEFAULT_PASSWORD);
