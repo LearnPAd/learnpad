@@ -35,6 +35,10 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>Learn PAd - Platform - Distributions</name>
 
+	<properties>
+		<xwikiCfgSuperadminPassword>LearnPAss</xwikiCfgSuperadminPassword>
+	</properties>
+
 	<modules>
 		<module>lp-platform-jetty-hsqldb</module>
 	</modules>
