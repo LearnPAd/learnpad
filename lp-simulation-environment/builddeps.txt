@@ -1,2 +1,2 @@
-java-runtime
+default-jre
 maven
