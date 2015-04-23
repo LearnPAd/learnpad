@@ -66,7 +66,7 @@ public class DefaultModelNotification implements XWikiRestComponent,
 		Result result = new StreamResult(rdfFile);
 
 		// create an instance of TransformerFactory
-		TransformerFactory transFact = TransformerFactory.newInstance();
+		TransformerFactory transFact = new net.sf.saxon.TransformerFactoryImpl();
 
 		try {
 			Transformer trans = transFact
