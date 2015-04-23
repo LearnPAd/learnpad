@@ -69,8 +69,7 @@ public class DefaultModelNotification implements XWikiRestComponent,
 		TransformerFactory transFact = new net.sf.saxon.TransformerFactoryImpl();
 
 		try {
-			Transformer trans = transFact
-					.newTransformer(stylesheetSource);
+			Transformer trans = transFact.newTransformer(stylesheetSource);
 			trans.setParameter("packageFolder", packageFolder.getPath());
 			trans.transform(modelSource, result);
 		} catch (TransformerException e) {

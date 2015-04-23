@@ -26,41 +26,35 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.xml.bind.JAXBException;
 
-import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.FileRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
+import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 import org.xwiki.rest.XWikiRestException;
 
 import eu.learnpad.cw.rest.XWikiPackage;
+import eu.learnpad.rest.utils.RestResource;
 
 @Component
 @Named("eu.learnpad.cw.rest.internal.DefaultXWikiPackage")
-public class DefaultXWikiPackage implements XWikiPackage, XWikiRestComponent {
+public class DefaultXWikiPackage extends RestResource implements XWikiPackage,
+		XWikiRestComponent {
+
 	@Inject
-	@Named("org.xwiki.rest.internal.resources.pages.PageResourceImpl")
-	private XWikiRestComponent pageResource;
+	Logger logger;
 
 	private void putPage(File indexFile, String spaceName, String pageName)
 			throws XWikiRestException, JAXBException {
-		HttpClient httpClient = new HttpClient();
-		httpClient.getParams().setAuthenticationPreemptive(true);
-		Credentials defaultcreds = new UsernamePasswordCredentials("Admin",
-				"admin");
-		httpClient.getState().setCredentials(
-				new AuthScope("localhost", 8080, AuthScope.ANY_REALM),
-				defaultcreds);
+		HttpClient httpClient = getClient();
 
-		PutMethod putMethod = new PutMethod(
-				"http://localhost:8080/xwiki/rest/wikis/xwiki/spaces/"
-						+ spaceName + "/pages/" + pageName);
+		String uri = REST_URI + "/wikis/xwiki/spaces/" + spaceName + "/pages/"
+				+ pageName;
+		PutMethod putMethod = new PutMethod(uri);
 		putMethod.addRequestHeader("Accept", "application/xml");
 		putMethod.addRequestHeader("Accept-Ranges", "bytes");
 		RequestEntity fileRequestEntity = new FileRequestEntity(indexFile,
@@ -69,27 +63,23 @@ public class DefaultXWikiPackage implements XWikiPackage, XWikiRestComponent {
 		try {
 			httpClient.executeMethod(putMethod);
 		} catch (HttpException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Unable to process the PUT request on page '"
+					+ spaceName + "." + pageName + "'.", e);
+			return;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Unable to PUT the page '" + spaceName + "."
+					+ pageName + "'.", e);
+			return;
 		}
 	}
 
 	private void postObject(File objectFile, String spaceName, String pageName,
 			String className) throws XWikiRestException {
-		HttpClient httpClient = new HttpClient();
-		httpClient.getParams().setAuthenticationPreemptive(true);
-		Credentials defaultcreds = new UsernamePasswordCredentials("Admin",
-				"admin");
-		httpClient.getState().setCredentials(
-				new AuthScope("localhost", 8080, AuthScope.ANY_REALM),
-				defaultcreds);
+		HttpClient httpClient = getClient();
 
-		PostMethod postMethod = new PostMethod(
-				"http://localhost:8080/xwiki/rest/wikis/xwiki/spaces/"
-						+ spaceName + "/pages/" + pageName + "/objects");
+		String uri = REST_URI + "/wikis/xwiki/spaces/" + spaceName + "/pages/"
+				+ pageName + "/objects";
+		PostMethod postMethod = new PostMethod(uri);
 		postMethod.addRequestHeader("Accept", "application/xml");
 		postMethod.addRequestHeader("Accept-Ranges", "bytes");
 		RequestEntity fileRequestEntity = new FileRequestEntity(objectFile,
@@ -98,11 +88,13 @@ public class DefaultXWikiPackage implements XWikiPackage, XWikiRestComponent {
 		try {
 			httpClient.executeMethod(postMethod);
 		} catch (HttpException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Unable to process the POST request on object '"
+					+ spaceName + "." + pageName + "." + className + "'.", e);
+			return;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Unable to POST the object '" + spaceName + "."
+					+ pageName + "." + className + "'.", e);
+			return;
 		}
 	}
 
