@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+declare -r __PATH__="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+declare -r __XWIKI_PATH__="${__PATH__}/xwiki"
+
+cd ${__XWIKI_PATH__} &&
+	bash start_xwiki_debug.sh > ${__PATH__}/xwiki.log 2>&1 &
+ERROR_CODE=1
+while [ $ERROR_CODE -ne 0 ]
+do
+	echo "[INFO] Checking if XWiki is started"
+	sleep 1
+	curl http://localhost:8080/xwiki/bin/view/Main/WebHome > /dev/null 2>&1
+	ERROR_CODE=$?
+done
+echo "[INFO] XWiki is started"

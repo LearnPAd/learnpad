@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-declare -r PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd ${PATH} &&
+declare -r __PATH__="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd ${__PATH__} &&
 	echo "[INFO] Nothing to start"

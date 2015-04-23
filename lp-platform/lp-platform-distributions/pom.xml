@@ -26,16 +26,20 @@
 
 	<parent>
 		<groupId>eu.learnpad</groupId>
-		<artifactId>lp-collaborative-workspace</artifactId>
+		<artifactId>lp-platform</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>lp-cw-component</artifactId>
+	<artifactId>lp-platform-distributions</artifactId>
 	<packaging>pom</packaging>
-	<name>Learn PAd - Collaborative Workspace - Component</name>
+	<version>1.0-SNAPSHOT</version>
+	<name>Learn PAd - Platform - Distributions</name>
+
+	<properties>
+		<xwikiCfgSuperadminPassword>LearnPAss</xwikiCfgSuperadminPassword>
+	</properties>
 
 	<modules>
-		<module>lp-cw-component-application</module>
-		<module>lp-cw-component-service</module>
+		<module>lp-platform-jetty-hsqldb</module>
 	</modules>
 </project>

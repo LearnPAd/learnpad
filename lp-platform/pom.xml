@@ -23,22 +23,30 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>eu.learnpad</groupId>
-		<artifactId>lp-cw-component</artifactId>
+		<artifactId>lp-core-platform</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>lp-cw-component-web</artifactId>
-	<packaging>war</packaging>
-	<name>Learn PAd - Collaborative Workspace - Component - Web</name>
+	<groupId>eu.learnpad</groupId>
+	<artifactId>lp-platform</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>Learn PAd - Platform</name>
+	<developers>
+		<developer>
+			<id>woshilapin</id>
+			<name>Jean Simard</name>
+		</developer>
+	</developers>
+	<scm>
+		<url>https://github.com/LearnPAd/learnpad.git</url>
+		<tag>HEAD</tag>
+	</scm>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.xwiki.enterprise</groupId>
-			<artifactId>xwiki-enterprise-web</artifactId>
-			<version>${enterprise.version}</version>
-			<type>war</type>
-		</dependency>
-	</dependencies>
+	<modules>
+		<module>lp-platform-distributions</module>
+	</modules>
 </project>

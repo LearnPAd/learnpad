@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+kill $( ps aux | grep '[j]ava.*jetty' | awk '{print $2}' )
+ERROR_CODE=0
+while [ $ERROR_CODE -eq 0 ]
+do
+	echo "[INFO] Checking if XWiki is stopped"
+	sleep 1
+	ps aux | grep "[j]ava.*jetty" > /dev/null 2>&1
+	ERROR_CODE=$?
+done
+echo "[INFO] XWiki is stopped"
