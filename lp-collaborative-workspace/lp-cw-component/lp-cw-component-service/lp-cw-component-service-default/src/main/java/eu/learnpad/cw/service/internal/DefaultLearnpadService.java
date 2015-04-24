@@ -17,7 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.cw.service.bpmn.flownode.internal;
+package eu.learnpad.cw.service.internal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +39,13 @@ import com.xpn.xwiki.XWikiException;
 import com.xpn.xwiki.doc.XWikiDocument;
 import com.xpn.xwiki.objects.BaseObject;
 import com.xpn.xwiki.web.ViewAction;
-import eu.learnpad.cw.service.bpmn.flownode.BPMNFlowNodeManager;
-import eu.learnpad.cw.service.bpmn.flownode.BPMNFlowNodeManagerException;
+
+import eu.learnpad.cw.service.LearnpadService;
+import eu.learnpad.cw.service.LearnpadServiceException;
 
 @Component
 @Singleton
-public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
+public class DefaultLearnpadService implements LearnpadService {
 	public static final String FLOWNODE_CLASSNAME = "LearnPAdCode.FlowNodeClass";
 	public static final String FLOWNODE_PROPERTYNAME_ID = "id";
 	public static final String FLOWNODE_PROPERTYNAME_NAME = "name";
@@ -65,7 +66,7 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 	private QueryManager queryManager;
 
 	private DocumentReference getFlowNodeReference(String id)
-			throws BPMNFlowNodeManagerException {
+			throws LearnpadServiceException {
 		String queryString = String.format("where doc.object(%s).id = '%s'",
 				FLOWNODE_CLASSNAME, id);
 		Query query;
@@ -74,7 +75,7 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 			query = queryManager.createQuery(queryString, Query.XWQL);
 			results = query.execute();
 		} catch (QueryException e) {
-			throw new BPMNFlowNodeManagerException(
+			throw new LearnpadServiceException(
 					"Error in querying the source document.", e);
 		}
 		DocumentReference documentReference = null;
@@ -82,7 +83,7 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 		switch (results.size()) {
 		case 0:
 			message = String.format("Can not find FlowNode with id='%s'.", id);
-			throw new BPMNFlowNodeManagerException(message);
+			throw new LearnpadServiceException(message);
 		case 1:
 			documentReference = documentReferenceResolver.resolve(results
 					.get(0));
@@ -90,13 +91,13 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 		default:
 			message = String.format(
 					"Multiple FlowNode with id='%s' has been found.", id);
-			throw new BPMNFlowNodeManagerException(message);
+			throw new LearnpadServiceException(message);
 		}
 		return documentReference;
 	}
 
 	private XWikiDocument getFlowNodeDocument(String id)
-			throws BPMNFlowNodeManagerException {
+			throws LearnpadServiceException {
 		DocumentReference documentReference = this.getFlowNodeReference(id);
 		XWikiContext xcontext = xcontextProvider.get();
 		XWiki xwiki = xcontext.getWiki();
@@ -107,13 +108,13 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 			String message = String.format(
 					"Cannot retrieve the document '%s'.",
 					documentReference.toString());
-			throw new BPMNFlowNodeManagerException(message, e);
+			throw new LearnpadServiceException(message, e);
 		}
 		return document;
 	}
 
 	private BaseObject getFlowNodeObject(XWikiDocument document)
-			throws BPMNFlowNodeManagerException {
+			throws LearnpadServiceException {
 		DocumentReference flowNodeClassReference = documentReferenceResolver
 				.resolve(FLOWNODE_CLASSNAME);
 		BaseObject flowNodeObject = document.getXObject(flowNodeClassReference);
@@ -121,7 +122,7 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 	}
 
 	@Override
-	public String getCurrent() throws BPMNFlowNodeManagerException {
+	public String getCurrent() throws LearnpadServiceException {
 		XWikiDocument currentDocument = this.xcontextProvider.get().getDoc();
 		BaseObject flowNodeObject = this.getFlowNodeObject(currentDocument);
 		String id = flowNodeObject.getStringValue(FLOWNODE_PROPERTYNAME_ID);
@@ -129,7 +130,7 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 	}
 
 	private String getName(XWikiDocument document)
-			throws BPMNFlowNodeManagerException {
+			throws LearnpadServiceException {
 		String name = null;
 		BaseObject flowNodeObject = this.getFlowNodeObject(document);
 		if (flowNodeObject != null) {
@@ -139,21 +140,21 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 	}
 
 	@Override
-	public String getName() throws BPMNFlowNodeManagerException {
+	public String getName() throws LearnpadServiceException {
 		XWikiDocument document = this.xcontextProvider.get().getDoc();
 		String name = this.getName(document);
 		return name;
 	}
 
 	@Override
-	public String getName(String id) throws BPMNFlowNodeManagerException {
+	public String getName(String id) throws LearnpadServiceException {
 		XWikiDocument document = this.getFlowNodeDocument(id);
 		String name = this.getName(document);
 		return name;
 	}
 
 	private String getDocumentation(XWikiDocument document)
-			throws BPMNFlowNodeManagerException {
+			throws LearnpadServiceException {
 		String documentation = null;
 		BaseObject flowNodeObject = this.getFlowNodeObject(document);
 		if (flowNodeObject != null) {
@@ -164,7 +165,7 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 	}
 
 	@Override
-	public String getDocumentation() throws BPMNFlowNodeManagerException {
+	public String getDocumentation() throws LearnpadServiceException {
 		XWikiDocument document = this.xcontextProvider.get().getDoc();
 		String documentation = this.getDocumentation(document);
 		return documentation;
@@ -172,14 +173,14 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 
 	@Override
 	public String getDocumentation(String id)
-			throws BPMNFlowNodeManagerException {
+			throws LearnpadServiceException {
 		XWikiDocument document = this.getFlowNodeDocument(id);
 		String documentation = this.getDocumentation(document);
 		return documentation;
 	}
 
 	@Override
-	public String getURL() throws BPMNFlowNodeManagerException {
+	public String getURL() throws LearnpadServiceException {
 		XWikiContext xcontext = xcontextProvider.get();
 		XWikiDocument document = xcontext.getDoc();
 		String url = document.getURL(ViewAction.VIEW_ACTION, xcontext);
@@ -187,7 +188,7 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 	}
 
 	@Override
-	public String getURL(String id) throws BPMNFlowNodeManagerException {
+	public String getURL(String id) throws LearnpadServiceException {
 		XWikiContext xcontext = xcontextProvider.get();
 		XWikiDocument document = this.getFlowNodeDocument(id);
 		String url = document.getURL(ViewAction.VIEW_ACTION, xcontext);
@@ -202,7 +203,7 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 	}
 
 	private List<String> getLinks(XWikiDocument document, String type)
-			throws BPMNFlowNodeManagerException {
+			throws LearnpadServiceException {
 		List<String> incomings = new ArrayList<String>();
 		List<BaseObject> linkObjects = this.getLinks(document);
 		for (BaseObject linkObject : linkObjects) {
@@ -215,27 +216,27 @@ public class DefaultBPMNFlowNodeManager implements BPMNFlowNodeManager {
 	}
 
 	@Override
-	public List<String> getIncomings() throws BPMNFlowNodeManagerException {
+	public List<String> getIncomings() throws LearnpadServiceException {
 		XWikiDocument document = this.xcontextProvider.get().getDoc();
 		return this.getLinks(document, LINK_PROPERTYNAME_TYPE_INCOMING);
 	}
 
 	@Override
 	public List<String> getIncomings(String id)
-			throws BPMNFlowNodeManagerException {
+			throws LearnpadServiceException {
 		XWikiDocument document = this.getFlowNodeDocument(id);
 		return this.getLinks(document, LINK_PROPERTYNAME_TYPE_INCOMING);
 	}
 
 	@Override
-	public List<String> getOutgoings() throws BPMNFlowNodeManagerException {
+	public List<String> getOutgoings() throws LearnpadServiceException {
 		XWikiDocument document = this.xcontextProvider.get().getDoc();
 		return this.getLinks(document, LINK_PROPERTYNAME_TYPE_OUTGOING);
 	}
 
 	@Override
 	public List<String> getOutgoings(String id)
-			throws BPMNFlowNodeManagerException {
+			throws LearnpadServiceException {
 		XWikiDocument document = this.getFlowNodeDocument(id);
 		return this.getLinks(document, LINK_PROPERTYNAME_TYPE_OUTGOING);
 	}

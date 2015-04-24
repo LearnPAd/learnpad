@@ -17,16 +17,33 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.cw.service.internal;
+package eu.learnpad.cw.service;
 
-import javax.inject.Singleton;
+import java.util.List;
 
-import org.xwiki.component.annotation.Component;
+import org.xwiki.component.annotation.Role;
 
-import eu.learnpad.cw.service.LearnPAdManager;
+@Role
+public interface LearnpadService {
+	String getCurrent() throws LearnpadServiceException;
 
-@Component
-@Singleton
-public class DefaultLearnPAdManager implements LearnPAdManager {
+	String getName() throws LearnpadServiceException;
 
+	String getName(String id) throws LearnpadServiceException;
+
+	String getDocumentation() throws LearnpadServiceException;
+
+	String getDocumentation(String id) throws LearnpadServiceException;
+
+	String getURL() throws LearnpadServiceException;
+
+	String getURL(String id) throws LearnpadServiceException;
+
+	List<String> getIncomings() throws LearnpadServiceException;
+
+	List<String> getIncomings(String id) throws LearnpadServiceException;
+
+	List<String> getOutgoings() throws LearnpadServiceException;
+
+	List<String> getOutgoings(String id) throws LearnpadServiceException;
 }

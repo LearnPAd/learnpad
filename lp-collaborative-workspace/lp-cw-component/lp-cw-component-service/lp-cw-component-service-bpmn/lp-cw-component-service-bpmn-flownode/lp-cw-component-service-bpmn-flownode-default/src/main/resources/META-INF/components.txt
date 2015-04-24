@@ -1,1 +1,0 @@
-eu.learnpad.cw.service.bpmn.flownode.internal.DefaultBPMNFlowNodeManager

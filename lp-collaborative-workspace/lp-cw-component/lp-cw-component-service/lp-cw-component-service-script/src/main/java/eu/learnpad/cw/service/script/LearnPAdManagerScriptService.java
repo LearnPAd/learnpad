@@ -19,6 +19,8 @@
  */
 package eu.learnpad.cw.service.script;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -27,6 +29,9 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.context.Execution;
 import org.xwiki.script.service.ScriptService;
 import org.xwiki.script.service.ScriptServiceManager;
+
+import eu.learnpad.cw.service.LearnpadService;
+import eu.learnpad.cw.service.LearnpadServiceException;
 
 @Component
 @Named("learnpad")
@@ -45,6 +50,9 @@ public class LearnPAdManagerScriptService implements ScriptService {
 
 	@Inject
 	private ScriptServiceManager scriptServiceManager;
+
+	@Inject
+	private LearnpadService learnpadService;
 
 	/**
 	 * Provides access to the current context.
@@ -89,5 +97,104 @@ public class LearnPAdManagerScriptService implements ScriptService {
 	 */
 	private void setLastError(Exception e) {
 		this.execution.getContext().setProperty(LEARNPADERROR_KEY, e);
+	}
+
+	public String getCurrent() {
+		try {
+			return learnpadService.getCurrent();
+		} catch (LearnpadServiceException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String getName() {
+		try {
+			return learnpadService.getName();
+		} catch (LearnpadServiceException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String getName(String id) {
+		try {
+			return learnpadService.getName(id);
+		} catch (LearnpadServiceException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String getDocumentation() {
+		try {
+			return learnpadService.getDocumentation();
+		} catch (LearnpadServiceException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String getDocumentation(String id) {
+		try {
+			return learnpadService.getDocumentation(id);
+		} catch (LearnpadServiceException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String getURL() {
+		try {
+			return learnpadService.getURL();
+		} catch (LearnpadServiceException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String getURL(String id) {
+		try {
+			return learnpadService.getURL(id);
+		} catch (LearnpadServiceException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public List<String> getIncomings() {
+		try {
+			return learnpadService.getIncomings();
+		} catch (LearnpadServiceException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public List<String> getIncomings(String id) {
+		try {
+			return learnpadService.getIncomings(id);
+		} catch (LearnpadServiceException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public List<String> getOutgoings() {
+		try {
+			return learnpadService.getOutgoings();
+		} catch (LearnpadServiceException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public List<String> getOutgoings(String id) {
+		try {
+			return learnpadService.getOutgoings(id);
+		} catch (LearnpadServiceException e) {
+			this.setLastError(e);
+			return null;
+		}
 	}
 }

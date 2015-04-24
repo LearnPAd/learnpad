@@ -17,9 +17,9 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.cw.service.bpmn.sequenceflow;
+package eu.learnpad.cw.service;
 
-public class BPMNSequenceFlowManagerException extends Exception
+public class LearnpadServiceException extends Exception
 {
     /**
      * Class ID for serialization.
@@ -31,7 +31,7 @@ public class BPMNSequenceFlowManagerException extends Exception
      *
      * @param message The detailed message. This can later be retrieved by the Throwable.getMessage() method.
      */
-    public BPMNSequenceFlowManagerException(String message)
+    public LearnpadServiceException(String message)
     {
         super(message);
     }
@@ -43,7 +43,7 @@ public class BPMNSequenceFlowManagerException extends Exception
      * @param throwable the cause. This can be retrieved later by the Throwable.getCause() method. (A null value is
      * permitted, and indicates that the cause is nonexistent or unknown)
      */
-    public BPMNSequenceFlowManagerException(String message, Throwable throwable)
+    public LearnpadServiceException(String message, Throwable throwable)
     {
         super(message, throwable);
     }
