@@ -22,7 +22,7 @@
 
 <xwikidoc>
   <web>LearnPAdCode</web>
-  <name>FlowNodeClass</name>
+  <name>BaseElementClass</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
@@ -43,7 +43,7 @@
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
   <class>
-    <name>LearnPAdCode.FlowNodeClass</name>
+    <name>LearnPAdCode.BaseElementClass</name>
     <customClass/>
     <customMapping/>
     <defaultViewSheet/>
@@ -138,7 +138,7 @@
         <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
       </sheet>
     </class>
-    <name>LearnPAdCode.FlowNodeClass</name>
+    <name>LearnPAdCode.BaseElementClass</name>
     <number>0</number>
     <className>XWiki.DocumentSheetBinding</className>
     <guid>0e077026-a1b0-4156-b481-7b2ee69d9cbf</guid>

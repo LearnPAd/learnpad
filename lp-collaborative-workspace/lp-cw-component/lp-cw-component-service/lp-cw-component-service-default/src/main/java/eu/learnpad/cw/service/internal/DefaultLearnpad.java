@@ -46,10 +46,10 @@ import eu.learnpad.cw.service.LearnpadException;
 @Component
 @Singleton
 public class DefaultLearnpad implements Learnpad {
-	public static final String FLOWNODE_CLASSNAME = "LearnPAdCode.FlowNodeClass";
-	public static final String FLOWNODE_PROPERTYNAME_ID = "id";
-	public static final String FLOWNODE_PROPERTYNAME_NAME = "name";
-	public static final String FLOWNODE_PROPERTYNAME_DOCUMENTATION = "documentation";
+	public static final String BASEELEMENT_CLASSNAME = "LearnPAdCode.BaseElementClass";
+	public static final String BASEELEMENT_PROPERTYNAME_ID = "id";
+	public static final String BASEELEMENT_PROPERTYNAME_NAME = "name";
+	public static final String BASEELEMENT_PROPERTYNAME_DOCUMENTATION = "documentation";
 	public static final String LINK_CLASSNAME = "LearnPAdCode.LinkClass";
 	public static final String LINK_PROPERTYNAME_URI = "uri";
 	public static final String LINK_PROPERTYNAME_TYPE = "type";
@@ -68,7 +68,7 @@ public class DefaultLearnpad implements Learnpad {
 	private DocumentReference getFlowNodeReference(String id)
 			throws LearnpadException {
 		String queryString = String.format("where doc.object(%s).id = '%s'",
-				FLOWNODE_CLASSNAME, id);
+				BASEELEMENT_CLASSNAME, id);
 		Query query;
 		List<String> results;
 		try {
@@ -116,7 +116,7 @@ public class DefaultLearnpad implements Learnpad {
 	private BaseObject getFlowNodeObject(XWikiDocument document)
 			throws LearnpadException {
 		DocumentReference flowNodeClassReference = documentReferenceResolver
-				.resolve(FLOWNODE_CLASSNAME);
+				.resolve(BASEELEMENT_CLASSNAME);
 		BaseObject flowNodeObject = document.getXObject(flowNodeClassReference);
 		return flowNodeObject;
 	}
@@ -125,7 +125,7 @@ public class DefaultLearnpad implements Learnpad {
 	public String getCurrent() throws LearnpadException {
 		XWikiDocument currentDocument = this.xcontextProvider.get().getDoc();
 		BaseObject flowNodeObject = this.getFlowNodeObject(currentDocument);
-		String id = flowNodeObject.getStringValue(FLOWNODE_PROPERTYNAME_ID);
+		String id = flowNodeObject.getStringValue(BASEELEMENT_PROPERTYNAME_ID);
 		return id;
 	}
 
@@ -134,7 +134,7 @@ public class DefaultLearnpad implements Learnpad {
 		String name = null;
 		BaseObject flowNodeObject = this.getFlowNodeObject(document);
 		if (flowNodeObject != null) {
-			name = flowNodeObject.getStringValue(FLOWNODE_PROPERTYNAME_NAME);
+			name = flowNodeObject.getStringValue(BASEELEMENT_PROPERTYNAME_NAME);
 		}
 		return name;
 	}
@@ -159,7 +159,7 @@ public class DefaultLearnpad implements Learnpad {
 		BaseObject flowNodeObject = this.getFlowNodeObject(document);
 		if (flowNodeObject != null) {
 			documentation = flowNodeObject
-					.getStringValue(FLOWNODE_PROPERTYNAME_DOCUMENTATION);
+					.getStringValue(BASEELEMENT_PROPERTYNAME_DOCUMENTATION);
 		}
 		return documentation;
 	}
