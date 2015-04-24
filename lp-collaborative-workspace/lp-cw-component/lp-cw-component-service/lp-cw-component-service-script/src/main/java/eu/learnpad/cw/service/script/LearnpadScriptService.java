@@ -30,13 +30,13 @@ import org.xwiki.context.Execution;
 import org.xwiki.script.service.ScriptService;
 import org.xwiki.script.service.ScriptServiceManager;
 
-import eu.learnpad.cw.service.LearnpadService;
-import eu.learnpad.cw.service.LearnpadServiceException;
+import eu.learnpad.cw.service.Learnpad;
+import eu.learnpad.cw.service.LearnpadException;
 
 @Component
 @Named("learnpad")
 @Singleton
-public class LearnPAdManagerScriptService implements ScriptService {
+public class LearnpadScriptService implements ScriptService {
 	/**
 	 * Hint of the component.
 	 */
@@ -52,7 +52,7 @@ public class LearnPAdManagerScriptService implements ScriptService {
 	private ScriptServiceManager scriptServiceManager;
 
 	@Inject
-	private LearnpadService learnpadService;
+	private Learnpad learnpadService;
 
 	/**
 	 * Provides access to the current context.
@@ -102,7 +102,7 @@ public class LearnPAdManagerScriptService implements ScriptService {
 	public String getCurrent() {
 		try {
 			return learnpadService.getCurrent();
-		} catch (LearnpadServiceException e) {
+		} catch (LearnpadException e) {
 			this.setLastError(e);
 			return null;
 		}
@@ -111,7 +111,7 @@ public class LearnPAdManagerScriptService implements ScriptService {
 	public String getName() {
 		try {
 			return learnpadService.getName();
-		} catch (LearnpadServiceException e) {
+		} catch (LearnpadException e) {
 			this.setLastError(e);
 			return null;
 		}
@@ -120,7 +120,7 @@ public class LearnPAdManagerScriptService implements ScriptService {
 	public String getName(String id) {
 		try {
 			return learnpadService.getName(id);
-		} catch (LearnpadServiceException e) {
+		} catch (LearnpadException e) {
 			this.setLastError(e);
 			return null;
 		}
@@ -129,7 +129,7 @@ public class LearnPAdManagerScriptService implements ScriptService {
 	public String getDocumentation() {
 		try {
 			return learnpadService.getDocumentation();
-		} catch (LearnpadServiceException e) {
+		} catch (LearnpadException e) {
 			this.setLastError(e);
 			return null;
 		}
@@ -138,7 +138,7 @@ public class LearnPAdManagerScriptService implements ScriptService {
 	public String getDocumentation(String id) {
 		try {
 			return learnpadService.getDocumentation(id);
-		} catch (LearnpadServiceException e) {
+		} catch (LearnpadException e) {
 			this.setLastError(e);
 			return null;
 		}
@@ -147,7 +147,7 @@ public class LearnPAdManagerScriptService implements ScriptService {
 	public String getURL() {
 		try {
 			return learnpadService.getURL();
-		} catch (LearnpadServiceException e) {
+		} catch (LearnpadException e) {
 			this.setLastError(e);
 			return null;
 		}
@@ -156,7 +156,7 @@ public class LearnPAdManagerScriptService implements ScriptService {
 	public String getURL(String id) {
 		try {
 			return learnpadService.getURL(id);
-		} catch (LearnpadServiceException e) {
+		} catch (LearnpadException e) {
 			this.setLastError(e);
 			return null;
 		}
@@ -165,7 +165,7 @@ public class LearnPAdManagerScriptService implements ScriptService {
 	public List<String> getIncomings() {
 		try {
 			return learnpadService.getIncomings();
-		} catch (LearnpadServiceException e) {
+		} catch (LearnpadException e) {
 			this.setLastError(e);
 			return null;
 		}
@@ -174,7 +174,7 @@ public class LearnPAdManagerScriptService implements ScriptService {
 	public List<String> getIncomings(String id) {
 		try {
 			return learnpadService.getIncomings(id);
-		} catch (LearnpadServiceException e) {
+		} catch (LearnpadException e) {
 			this.setLastError(e);
 			return null;
 		}
@@ -183,7 +183,7 @@ public class LearnPAdManagerScriptService implements ScriptService {
 	public List<String> getOutgoings() {
 		try {
 			return learnpadService.getOutgoings();
-		} catch (LearnpadServiceException e) {
+		} catch (LearnpadException e) {
 			this.setLastError(e);
 			return null;
 		}
@@ -192,7 +192,7 @@ public class LearnPAdManagerScriptService implements ScriptService {
 	public List<String> getOutgoings(String id) {
 		try {
 			return learnpadService.getOutgoings(id);
-		} catch (LearnpadServiceException e) {
+		} catch (LearnpadException e) {
 			this.setLastError(e);
 			return null;
 		}

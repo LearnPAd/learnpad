@@ -24,26 +24,26 @@ import java.util.List;
 import org.xwiki.component.annotation.Role;
 
 @Role
-public interface LearnpadService {
-	String getCurrent() throws LearnpadServiceException;
+public interface Learnpad {
+	String getCurrent() throws LearnpadException;
 
-	String getName() throws LearnpadServiceException;
+	String getName() throws LearnpadException;
 
-	String getName(String id) throws LearnpadServiceException;
+	String getName(String id) throws LearnpadException;
 
-	String getDocumentation() throws LearnpadServiceException;
+	String getDocumentation() throws LearnpadException;
 
-	String getDocumentation(String id) throws LearnpadServiceException;
+	String getDocumentation(String id) throws LearnpadException;
 
-	String getURL() throws LearnpadServiceException;
+	String getURL() throws LearnpadException;
 
-	String getURL(String id) throws LearnpadServiceException;
+	String getURL(String id) throws LearnpadException;
 
-	List<String> getIncomings() throws LearnpadServiceException;
+	List<String> getIncomings() throws LearnpadException;
 
-	List<String> getIncomings(String id) throws LearnpadServiceException;
+	List<String> getIncomings(String id) throws LearnpadException;
 
-	List<String> getOutgoings() throws LearnpadServiceException;
+	List<String> getOutgoings() throws LearnpadException;
 
-	List<String> getOutgoings(String id) throws LearnpadServiceException;
+	List<String> getOutgoings(String id) throws LearnpadException;
 }
