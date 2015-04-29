@@ -38,9 +38,21 @@
 	<dependencies>
 		<dependency>
 			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-component-application</artifactId>
-			<version>${learnpad.version}</version>
+			<artifactId>lp-platform-ui</artifactId>
+			<version>${project.version}</version>
 			<type>xar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.xwiki.platform</groupId>
+			<artifactId>xwiki-platform-rendering-macro-velocity</artifactId>
+			<version>${platform.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.xwiki.rendering</groupId>
+			<artifactId>xwiki-rendering-macro-html</artifactId>
+			<version>${rendering.version}</version>
+			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>eu.learnpad</groupId>
@@ -78,24 +90,29 @@
 			<version>${learnpad.version}</version>
 			<type>jar</type>
 		</dependency>
+		<dependency>
+			<groupId>eu.learnpad</groupId>
+			<artifactId>lp-cw-component-service-api</artifactId>
+			<version>${learnpad.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>eu.learnpad</groupId>
+			<artifactId>lp-cw-component-service-default</artifactId>
+			<version>${learnpad.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>eu.learnpad</groupId>
+			<artifactId>lp-cw-component-service-script</artifactId>
+			<version>${learnpad.version}</version>
+			<type>jar</type>
+		</dependency>
 	</dependencies>
 
 	<build>
-		<extensions>
-			<!-- Needed to add support for the "xar" packaging -->
-			<extension>
-				<groupId>org.xwiki.commons</groupId>
-				<artifactId>xwiki-commons-tool-xar-handlers</artifactId>
-				<version>${commons.version}</version>
-			</extension>
-		</extensions>
 		<!-- TODO: Remove once http://jira.codehaus.org/browse/MENFORCER-133 is fixed. -->
 		<plugins>
-			<plugin>
-				<groupId>org.xwiki.commons</groupId>
-				<artifactId>xwiki-commons-tool-xar-plugin</artifactId>
-				<version>${commons.version}</version>
-			</plugin>
 			<!-- Generate XWiki packaging -->
 			<plugin>
 				<groupId>org.xwiki.platform</groupId>

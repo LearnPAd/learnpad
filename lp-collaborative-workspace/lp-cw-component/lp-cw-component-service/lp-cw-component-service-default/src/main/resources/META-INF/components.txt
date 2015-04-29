@@ -1,1 +1,1 @@
-eu.learnpad.cw.service.internal.DefaultLearnPAdManager
+eu.learnpad.cw.service.internal.DefaultLearnpad
