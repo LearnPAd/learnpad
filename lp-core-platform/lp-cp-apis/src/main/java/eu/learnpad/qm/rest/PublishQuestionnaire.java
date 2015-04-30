@@ -17,7 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.cw.rest;
+package eu.learnpad.qm.rest;
 
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -26,10 +26,14 @@ import javax.ws.rs.QueryParam;
 
 import org.xwiki.rest.XWikiRestException;
 
-@Path("/learnpad/cw/modelimported/{modelid}")
-public interface ModelImported {
+@Path("/learnpad/qm/publish/{questionnaireuri}")
+public interface PublishQuestionnaire {
+
+	/*
+	 * the signature of this method has to be reconsidered.
+	 */
 	@PUT
-	void putModel(@PathParam("modelid") String modelId,
-			@QueryParam("type") String type, byte[] adoxxFile)
+	void putQuestionnaire(@PathParam("questionnaireuri") String modelId,
+			@QueryParam("type") String type, byte[] bpmnFile)
 			throws XWikiRestException;
 }
