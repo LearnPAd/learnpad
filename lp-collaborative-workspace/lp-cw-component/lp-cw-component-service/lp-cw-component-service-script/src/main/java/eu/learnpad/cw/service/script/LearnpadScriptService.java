@@ -108,6 +108,15 @@ public class LearnpadScriptService implements ScriptService {
 		}
 	}
 
+	public String getType(String id) {
+		try {
+			return learnpadService.getType(id);
+		} catch (LearnpadException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
 	public String getDocumentation(String id) {
 		try {
 			return learnpadService.getDocumentation(id);

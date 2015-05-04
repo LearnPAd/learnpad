@@ -26,6 +26,8 @@ import org.xwiki.component.annotation.Role;
 @Role
 public interface Learnpad {
 	String getName(String id) throws LearnpadException;
+	
+	String getType(String id) throws LearnpadException;
 
 	String getDocumentation(String id) throws LearnpadException;
 

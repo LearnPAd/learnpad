@@ -49,6 +49,7 @@ public class DefaultLearnpad implements Learnpad {
 	public static final String BASEELEMENT_CLASSNAME = "LearnPAdCode.BaseElementClass";
 	public static final String BASEELEMENT_PROPERTYNAME_ID = "id";
 	public static final String BASEELEMENT_PROPERTYNAME_NAME = "name";
+	public static final String BASEELEMENT_PROPERTYNAME_TYPE = "type";
 	public static final String BASEELEMENT_PROPERTYNAME_DOCUMENTATION = "documentation";
 	public static final String LINK_CLASSNAME = "LearnPAdCode.LinkClass";
 	public static final String LINK_PROPERTYNAME_URI = "uri";
@@ -135,6 +136,23 @@ public class DefaultLearnpad implements Learnpad {
 	public String getName(String id) throws LearnpadException {
 		XWikiDocument document = this.getBaseElementDocument(id);
 		String name = this.getName(document);
+		return name;
+	}
+
+	private String getType(XWikiDocument document)
+			throws LearnpadException {
+		String name = null;
+		BaseObject flowNodeObject = this.getBaseElementObject(document);
+		if (flowNodeObject != null) {
+			name = flowNodeObject.getStringValue(BASEELEMENT_PROPERTYNAME_TYPE);
+		}
+		return name;
+	}
+
+	@Override
+	public String getType(String id) throws LearnpadException {
+		XWikiDocument document = this.getBaseElementDocument(id);
+		String name = this.getType(document);
 		return name;
 	}
 
