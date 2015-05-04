@@ -65,7 +65,7 @@ public class DefaultLearnpad implements Learnpad {
 	@Inject
 	private QueryManager queryManager;
 
-	private DocumentReference getFlowNodeReference(String id)
+	private DocumentReference getBaseElementReference(String id)
 			throws LearnpadException {
 		String queryString = String.format("where doc.object(%s).id = '%s'",
 				BASEELEMENT_CLASSNAME, id);
@@ -96,9 +96,9 @@ public class DefaultLearnpad implements Learnpad {
 		return documentReference;
 	}
 
-	private XWikiDocument getFlowNodeDocument(String id)
+	private XWikiDocument getBaseElementDocument(String id)
 			throws LearnpadException {
-		DocumentReference documentReference = this.getFlowNodeReference(id);
+		DocumentReference documentReference = this.getBaseElementReference(id);
 		XWikiContext xcontext = xcontextProvider.get();
 		XWiki xwiki = xcontext.getWiki();
 		XWikiDocument document;
@@ -113,7 +113,7 @@ public class DefaultLearnpad implements Learnpad {
 		return document;
 	}
 
-	private BaseObject getFlowNodeObject(XWikiDocument document)
+	private BaseObject getBaseElementObject(XWikiDocument document)
 			throws LearnpadException {
 		DocumentReference flowNodeClassReference = documentReferenceResolver
 				.resolve(BASEELEMENT_CLASSNAME);
@@ -121,18 +121,10 @@ public class DefaultLearnpad implements Learnpad {
 		return flowNodeObject;
 	}
 
-	@Override
-	public String getCurrent() throws LearnpadException {
-		XWikiDocument currentDocument = this.xcontextProvider.get().getDoc();
-		BaseObject flowNodeObject = this.getFlowNodeObject(currentDocument);
-		String id = flowNodeObject.getStringValue(BASEELEMENT_PROPERTYNAME_ID);
-		return id;
-	}
-
 	private String getName(XWikiDocument document)
 			throws LearnpadException {
 		String name = null;
-		BaseObject flowNodeObject = this.getFlowNodeObject(document);
+		BaseObject flowNodeObject = this.getBaseElementObject(document);
 		if (flowNodeObject != null) {
 			name = flowNodeObject.getStringValue(BASEELEMENT_PROPERTYNAME_NAME);
 		}
@@ -140,15 +132,8 @@ public class DefaultLearnpad implements Learnpad {
 	}
 
 	@Override
-	public String getName() throws LearnpadException {
-		XWikiDocument document = this.xcontextProvider.get().getDoc();
-		String name = this.getName(document);
-		return name;
-	}
-
-	@Override
 	public String getName(String id) throws LearnpadException {
-		XWikiDocument document = this.getFlowNodeDocument(id);
+		XWikiDocument document = this.getBaseElementDocument(id);
 		String name = this.getName(document);
 		return name;
 	}
@@ -156,7 +141,7 @@ public class DefaultLearnpad implements Learnpad {
 	private String getDocumentation(XWikiDocument document)
 			throws LearnpadException {
 		String documentation = null;
-		BaseObject flowNodeObject = this.getFlowNodeObject(document);
+		BaseObject flowNodeObject = this.getBaseElementObject(document);
 		if (flowNodeObject != null) {
 			documentation = flowNodeObject
 					.getStringValue(BASEELEMENT_PROPERTYNAME_DOCUMENTATION);
@@ -165,31 +150,16 @@ public class DefaultLearnpad implements Learnpad {
 	}
 
 	@Override
-	public String getDocumentation() throws LearnpadException {
-		XWikiDocument document = this.xcontextProvider.get().getDoc();
-		String documentation = this.getDocumentation(document);
-		return documentation;
-	}
-
-	@Override
 	public String getDocumentation(String id) throws LearnpadException {
-		XWikiDocument document = this.getFlowNodeDocument(id);
+		XWikiDocument document = this.getBaseElementDocument(id);
 		String documentation = this.getDocumentation(document);
 		return documentation;
-	}
-
-	@Override
-	public String getURL() throws LearnpadException {
-		XWikiContext xcontext = xcontextProvider.get();
-		XWikiDocument document = xcontext.getDoc();
-		String url = document.getURL(ViewAction.VIEW_ACTION, xcontext);
-		return url;
 	}
 
 	@Override
 	public String getURL(String id) throws LearnpadException {
 		XWikiContext xcontext = xcontextProvider.get();
-		XWikiDocument document = this.getFlowNodeDocument(id);
+		XWikiDocument document = this.getBaseElementDocument(id);
 		String url = document.getURL(ViewAction.VIEW_ACTION, xcontext);
 		return url;
 	}
@@ -215,26 +185,14 @@ public class DefaultLearnpad implements Learnpad {
 	}
 
 	@Override
-	public List<String> getIncomings() throws LearnpadException {
-		XWikiDocument document = this.xcontextProvider.get().getDoc();
-		return this.getLinks(document, LINK_PROPERTYNAME_TYPE_INCOMING);
-	}
-
-	@Override
 	public List<String> getIncomings(String id) throws LearnpadException {
-		XWikiDocument document = this.getFlowNodeDocument(id);
+		XWikiDocument document = this.getBaseElementDocument(id);
 		return this.getLinks(document, LINK_PROPERTYNAME_TYPE_INCOMING);
-	}
-
-	@Override
-	public List<String> getOutgoings() throws LearnpadException {
-		XWikiDocument document = this.xcontextProvider.get().getDoc();
-		return this.getLinks(document, LINK_PROPERTYNAME_TYPE_OUTGOING);
 	}
 
 	@Override
 	public List<String> getOutgoings(String id) throws LearnpadException {
-		XWikiDocument document = this.getFlowNodeDocument(id);
+		XWikiDocument document = this.getBaseElementDocument(id);
 		return this.getLinks(document, LINK_PROPERTYNAME_TYPE_OUTGOING);
 	}
 }
