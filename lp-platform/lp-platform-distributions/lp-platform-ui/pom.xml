@@ -141,6 +141,12 @@
 			<type>xar</type>
 		</dependency>
 		<dependency>
+			<groupId>org.xwiki.platform</groupId>
+			<artifactId>xwiki-platform-xclass-ui</artifactId>
+			<version>${platform.version}</version>
+			<type>xar</type>
+		</dependency>
+		<dependency>
 			<groupId>eu.learnpad</groupId>
 			<artifactId>lp-cw-component-application</artifactId>
 			<version>${learnpad.version}</version>
