@@ -116,18 +116,18 @@ public class DefaultLearnpad implements Learnpad {
 
 	private BaseObject getBaseElementObject(XWikiDocument document)
 			throws LearnpadException {
-		DocumentReference flowNodeClassReference = documentReferenceResolver
+		DocumentReference baseElementClassReference = documentReferenceResolver
 				.resolve(BASEELEMENT_CLASSNAME);
-		BaseObject flowNodeObject = document.getXObject(flowNodeClassReference);
-		return flowNodeObject;
+		BaseObject BaseElementObject = document.getXObject(baseElementClassReference);
+		return BaseElementObject;
 	}
 
 	private String getName(XWikiDocument document)
 			throws LearnpadException {
 		String name = null;
-		BaseObject flowNodeObject = this.getBaseElementObject(document);
-		if (flowNodeObject != null) {
-			name = flowNodeObject.getStringValue(BASEELEMENT_PROPERTYNAME_NAME);
+		BaseObject BaseElementObject = this.getBaseElementObject(document);
+		if (BaseElementObject != null) {
+			name = BaseElementObject.getStringValue(BASEELEMENT_PROPERTYNAME_NAME);
 		}
 		return name;
 	}
@@ -142,9 +142,9 @@ public class DefaultLearnpad implements Learnpad {
 	private String getType(XWikiDocument document)
 			throws LearnpadException {
 		String name = null;
-		BaseObject flowNodeObject = this.getBaseElementObject(document);
-		if (flowNodeObject != null) {
-			name = flowNodeObject.getStringValue(BASEELEMENT_PROPERTYNAME_TYPE);
+		BaseObject BaseElementObject = this.getBaseElementObject(document);
+		if (BaseElementObject != null) {
+			name = BaseElementObject.getStringValue(BASEELEMENT_PROPERTYNAME_TYPE);
 		}
 		return name;
 	}
@@ -159,9 +159,9 @@ public class DefaultLearnpad implements Learnpad {
 	private String getDocumentation(XWikiDocument document)
 			throws LearnpadException {
 		String documentation = null;
-		BaseObject flowNodeObject = this.getBaseElementObject(document);
-		if (flowNodeObject != null) {
-			documentation = flowNodeObject
+		BaseObject BaseElementObject = this.getBaseElementObject(document);
+		if (BaseElementObject != null) {
+			documentation = BaseElementObject
 					.getStringValue(BASEELEMENT_PROPERTYNAME_DOCUMENTATION);
 		}
 		return documentation;
