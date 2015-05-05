@@ -30,8 +30,8 @@
   <parent>WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1430834841000</date>
-  <contentUpdateDate>1430834288000</contentUpdateDate>
+  <date>1430835488000</date>
+  <contentUpdateDate>1430835396000</contentUpdateDate>
   <version>1.1</version>
   <title>$doc.title</title>
   <comment/>
@@ -57,8 +57,8 @@ $documentation
     #if($elementId != 'WebHome' &amp;&amp; $elementId != $id)
       #set($elementTitle = $services.learnpad.getName($elementId))
       #set($elementType = $services.learnpad.getType($elementId))
-      #set($elementUrl = $services.learnpad.getURL("$modelElement"))
-      #set($elementLink = "[[$services.icon.render('home')&gt;&gt;${elementUrl}]]")
+      #set($elementReference = $services.model.createDocumentReference('xwiki',$id,${elementId}))
+      #set($elementLink = "[[$services.icon.render('home')&gt;&gt;${elementReference}]]")
 | ${elementId} | ${elementTitle} | ${elementType} | ${elementLink}
     #end
   #end
