@@ -30,8 +30,8 @@
   <parent>WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1430835488000</date>
-  <contentUpdateDate>1430835396000</contentUpdateDate>
+  <date>1430836658000</date>
+  <contentUpdateDate>1430836649000</contentUpdateDate>
   <version>1.1</version>
   <title>$doc.title</title>
   <comment/>
@@ -44,6 +44,21 @@
 #if($documentation)
 == Documentation ==
 $documentation
+#end
+#set($query = "from doc.object(LearnPAdCode.BaseElementClass) as be where doc.space = '$id' and be.type = 'event-start'")
+#set($startEvents = $services.query.xwql($query).execute())
+#if($startEvents.size() == 1)
+  #set($startEvent = $startEvents.get(0))
+  {{html clean='false'}}
+    &lt;a href="${xwiki.getURL($startEvent)}"&gt;
+      &lt;button type="button" class="btn btn-primary"&gt;
+        &lt;div class="text-left"&gt;
+          Start to browse
+          &lt;i class="fa fa-arrow-circle-right"&gt;&lt;/i&gt;
+        &lt;/div&gt;
+      &lt;/button&gt;
+    &lt;/a&gt;
+  {{/html}}
 #end
 #set($query = "where doc.space = '$id'")
 #set($modelElements = $services.query.xwql($query).execute())
