@@ -260,7 +260,7 @@ ________________________________________________________________________________
 					<value><xsl:value-of select="@name" /></value>
 				</property>
 				<property name="type" type="StaticList">
-					<value>event-end</value>
+					<value>task</value>
 				</property>
 				<xsl:apply-templates select=".//ATTRIBUTE[@name='Documentation']" mode="Documentation"/>
 			</object>
