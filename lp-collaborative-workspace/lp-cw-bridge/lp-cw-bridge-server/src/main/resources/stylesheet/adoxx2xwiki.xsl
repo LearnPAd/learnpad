@@ -62,11 +62,32 @@ ________________________________________________________________________________
 		<xsl:result-document method="xml" href="{$packageFolder}/xwiki/{@id}/WebHome/index.xml">
 			<page xmlns="http://www.xwiki.org">
 				<title><xsl:value-of select="@name"/></title>
+				<content>
+					<xsl:text>{{include reference="${services.model.createDocumentReference('xwiki','</xsl:text>
+					<xsl:value-of select="@id"/>
+					<xsl:text>','</xsl:text>
+					<xsl:value-of select="@id"/>
+					<xsl:text>')}" /}}</xsl:text>
+				</content>
+			</page>
+		</xsl:result-document>
+		<xsl:result-document method="xml"
+			href="{$packageFolder}/xwiki/{@id}/WebHome/objects/XWiki/DocumentSheetBinding/bind.xml">
+			<object xmlns="http://www.xwiki.org">
+				<className>XWiki.DocumentSheetBinding</className>
+				<property name="sheet" type="String">
+					<value>LearnPAdCode.ModelSheet</value>
+				</property>
+			</object>
+		</xsl:result-document>
+		<xsl:result-document method="xml" href="{$packageFolder}/xwiki/{@id}/{@id}/index.xml">
+			<page xmlns="http://www.xwiki.org">
+				<title><xsl:value-of select="@name"/></title>
 				<content />
 			</page>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{@id}/WebHome/objects/{$learnpadCodeSpace}/{$modelClassName}/0.xml">
+			href="{$packageFolder}/xwiki/{@id}/{@id}/objects/{$learnpadCodeSpace}/{$modelClassName}/0.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className><xsl:copy-of select="$modelClass" /></className>
 				<property name="id" type="String">
