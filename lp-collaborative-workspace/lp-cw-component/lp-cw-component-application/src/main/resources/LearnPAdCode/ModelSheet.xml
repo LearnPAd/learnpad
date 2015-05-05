@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -23,16 +22,16 @@
 <xwikidoc version="1.1">
   <web>LearnPAdCode</web>
   <name>ModelSheet</name>
-  <parent>WebHome</parent>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
   <creationDate>1430745479000</creationDate>
+  <parent>WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1430748623000</date>
-  <contentUpdateDate>1430746629000</contentUpdateDate>
+  <date>1430834841000</date>
+  <contentUpdateDate>1430834288000</contentUpdateDate>
   <version>1.1</version>
   <title>$doc.title</title>
   <comment/>
@@ -40,17 +39,29 @@
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
   <content>{{velocity}}
-#set($modelId = $doc.space)
-#set($query = "where doc.space = '$modelId'")
+#set($id = $doc.space)
+#set($documentation = $services.learnpad.getDocumentation($id))
+#if($documentation)
+== Documentation ==
+$documentation
+#end
+#set($query = "where doc.space = '$id'")
 #set($modelElements = $services.query.xwql($query).execute())
-|= Id |= Title of element |= Type of element
-#foreach($modelElement in $modelElements)
-  #set($elementDocument = $xwiki.getDocument($modelElement))
-  #set($elementId = $elementDocument.name)
-  #set($elementTitle = $services.learnpad.getName($elementId))
-  #set($elementType = '')
-  ##set($elementType = $services.learnpad.getType($elementId))
-| ${elementId} | ${elementTitle} | ${elementType}
+#if($modelElements.size() &gt; 0)
+== List of elements of the model ==
+|= Id |= Title of element |= Type of element |= Go to the element
+  #foreach($modelElement in $modelElements)
+    #set($elementDocument = $xwiki.getDocument($modelElement))
+    #set($elementId = $elementDocument.name)
+    ## Don't display the model itself in the list
+    #if($elementId != 'WebHome' &amp;&amp; $elementId != $id)
+      #set($elementTitle = $services.learnpad.getName($elementId))
+      #set($elementType = $services.learnpad.getType($elementId))
+      #set($elementUrl = $services.learnpad.getURL("$modelElement"))
+      #set($elementLink = "[[$services.icon.render('home')&gt;&gt;${elementUrl}]]")
+| ${elementId} | ${elementTitle} | ${elementType} | ${elementLink}
+    #end
+  #end
 #end
 {{/velocity}}</content>
 </xwikidoc>
