@@ -41,5 +41,6 @@
 
 	<modules>
 		<module>lp-platform-jetty-hsqldb</module>
+		<module>lp-platform-ui</module>
 	</modules>
 </project>

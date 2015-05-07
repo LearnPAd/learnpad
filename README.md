@@ -51,7 +51,41 @@ related modeling standards.
 |  9  | XWIKI SAS                          | XWIKI SAS     | France      | 1                   | 30                 |
 
 # The platform
-To build the platform, run the `build` script at the root directory.
+## Build
+First of all, clone the repository.
+
+```
+git clone https://github.com/LearnPAd/learnpad.git
+```
+
+Then, once cloned, you'll need to import submodules.
+```
+cd learnpad
+git submodule init
+git submodule update
+```
+
+Finally, you can trigger a build with the `build` script in the root directory.
+
+```
+./build
+```
+
+## Run it!
+After the build, a complete wiki instance will exists in the directory `lp-platform` and it will
+be the core of the platform.  You should be able to run the platform with the
+following command
+
+```
+lp-platform/out/start
+```
+
+You can also stop it with the following command.
+```
+lp-platform/out/stop
+```
+
+Once the platform is started, access it on `localhost:8080` in your webbrowser.
 
 ## Components
 Learn PAd platform is a set of components, each one is in an independent

@@ -9,17 +9,17 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:variable name="learnpadCodeSpace">LearnPAdCode</xsl:variable>
 	<xsl:variable name="modelClassName">ModelClass</xsl:variable>
-	<xsl:variable name="flowNodeClassName">FlowNodeClass</xsl:variable>
+	<xsl:variable name="baseElementClassName">BaseElementClass</xsl:variable>
 	<xsl:variable name="linkClassName">LinkClass</xsl:variable>
 	<xsl:variable name="modelClass">
 		<xsl:value-of select="$learnpadCodeSpace" />
 		<xsl:text>.</xsl:text>
 		<xsl:value-of select="$modelClassName" />
 	</xsl:variable>
-	<xsl:variable name="flowNodeClass">
+	<xsl:variable name="baseElementClass">
 		<xsl:value-of select="$learnpadCodeSpace" />
 		<xsl:text>.</xsl:text>
-		<xsl:value-of select="$flowNodeClassName" />
+		<xsl:value-of select="$baseElementClassName" />
 	</xsl:variable>
 	<xsl:variable name="linkClass">
 		<xsl:value-of select="$learnpadCodeSpace" />
@@ -149,9 +149,9 @@ ________________________________________________________________________________
 			</page>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$flowNodeClassName}/{@id}.xml">
+			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
 			<object xmlns="http://www.xwiki.org">
-				<className><xsl:copy-of select="$flowNodeClass" /></className>
+				<className><xsl:copy-of select="$baseElementClass" /></className>
 				<property name="id" type="String">
 					<value><xsl:value-of select="@id" /></value>
 				</property>
@@ -169,7 +169,7 @@ ________________________________________________________________________________
 			<object xmlns="http://www.xwiki.org">
 				<className>XWiki.DocumentSheetBinding</className>
 				<property name="sheet" type="String">
-					<value>LearnPAdCode.FlowNodeSheet</value>
+					<value>LearnPAdCode.BaseElementSheet</value>
 				</property>
 			</object>
 		</xsl:result-document>
@@ -189,9 +189,9 @@ ________________________________________________________________________________
 			</page>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$flowNodeClassName}/{@id}.xml">
+			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
 			<object xmlns="http://www.xwiki.org">
-				<className><xsl:copy-of select="$flowNodeClass" /></className>
+				<className><xsl:copy-of select="$baseElementClass" /></className>
 				<property name="id" type="String">
 					<value><xsl:value-of select="@id" /></value>
 				</property>
@@ -209,7 +209,7 @@ ________________________________________________________________________________
 			<object xmlns="http://www.xwiki.org">
 				<className>XWiki.DocumentSheetBinding</className>
 				<property name="sheet" type="String">
-					<value>LearnPAdCode.FlowNodeSheet</value>
+					<value>LearnPAdCode.BaseElementSheet</value>
 				</property>
 			</object>
 		</xsl:result-document>
@@ -229,9 +229,9 @@ ________________________________________________________________________________
 			</page>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$flowNodeClassName}/{@id}.xml">
+			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
 			<object xmlns="http://www.xwiki.org">
-				<className><xsl:copy-of select="$flowNodeClass" /></className>
+				<className><xsl:copy-of select="$baseElementClass" /></className>
 				<property name="id" type="String">
 					<value><xsl:value-of select="@id" /></value>
 				</property>
@@ -249,7 +249,7 @@ ________________________________________________________________________________
 			<object xmlns="http://www.xwiki.org">
 				<className>XWiki.DocumentSheetBinding</className>
 				<property name="sheet" type="String">
-					<value>LearnPAdCode.FlowNodeSheet</value>
+					<value>LearnPAdCode.BaseElementSheet</value>
 				</property>
 			</object>
 		</xsl:result-document>
@@ -269,9 +269,9 @@ ________________________________________________________________________________
 			</page>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$flowNodeClassName}/{@id}.xml">
+			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
 			<object xmlns="http://www.xwiki.org">
-				<className><xsl:copy-of select="$flowNodeClass" /></className>
+				<className><xsl:copy-of select="$baseElementClass" /></className>
 				<property name="id" type="String">
 					<value><xsl:value-of select="@id" /></value>
 				</property>
@@ -289,7 +289,7 @@ ________________________________________________________________________________
 			<object xmlns="http://www.xwiki.org">
 				<className>XWiki.DocumentSheetBinding</className>
 				<property name="sheet" type="String">
-					<value>LearnPAdCode.FlowNodeSheet</value>
+					<value>LearnPAdCode.BaseElementSheet</value>
 				</property>
 			</object>
 		</xsl:result-document>
@@ -341,9 +341,9 @@ ________________________________________________________________________________
 			</page>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$flowNodeClassName}/{@id}.xml">
+			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
 			<object xmlns="http://www.xwiki.org">
-				<className><xsl:copy-of select="$flowNodeClass" /></className>
+				<className><xsl:copy-of select="$baseElementClass" /></className>
 				<property name="id" type="String">
 					<value><xsl:value-of select="@id" /></value>
 				</property>
@@ -361,7 +361,7 @@ ________________________________________________________________________________
 			<object xmlns="http://www.xwiki.org">
 				<className>XWiki.DocumentSheetBinding</className>
 				<property name="sheet" type="String">
-					<value>LearnPAdCode.FlowNodeSheet</value>
+					<value>LearnPAdCode.BaseElementSheet</value>
 				</property>
 			</object>
 		</xsl:result-document>
@@ -382,9 +382,9 @@ ________________________________________________________________________________
 			</page>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$flowNodeClassName}/{@id}.xml">
+			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
 			<object xmlns="http://www.xwiki.org">
-				<className><xsl:copy-of select="$flowNodeClass" /></className>
+				<className><xsl:copy-of select="$baseElementClass" /></className>
 				<property name="id" type="String">
 					<value><xsl:value-of select="@id" /></value>
 				</property>
@@ -402,7 +402,7 @@ ________________________________________________________________________________
 			<object xmlns="http://www.xwiki.org">
 				<className>XWiki.DocumentSheetBinding</className>
 				<property name="sheet" type="String">
-					<value>LearnPAdCode.FlowNodeSheet</value>
+					<value>LearnPAdCode.BaseElementSheet</value>
 				</property>
 			</object>
 		</xsl:result-document>

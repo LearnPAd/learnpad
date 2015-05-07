@@ -77,6 +77,6 @@
       <scope>WIKI</scope>
     </property>
   </object>
-  <content>LearnPAdCode.FlowNodeSheet.goback=Go back to the previous step
-LearnPAdCode.FlowNodeSheet.gonext=Go to the next step</content>
+  <content>LearnPAdCode.BaseElementSheet.goback=Go back to the previous step
+LearnPAdCode.BaseElementSheet.gonext=Go to the next step</content>
 </xwikidoc>
