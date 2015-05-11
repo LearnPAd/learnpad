@@ -81,7 +81,8 @@ public class ActivitiProcessManagerTest {
 	public void testProcessDefinition() throws FileNotFoundException {
 		ActivitiProcessManager manager = new ActivitiProcessManager(
 				processEngine,
-				mock(IProcessEventReceiver.IProcessEventReceiverProvider.class));
+				mock(IProcessEventReceiver.IProcessEventReceiverProvider.class),
+				false);
 
 		assertTrue(manager.getAvailableProcessDefintion().size() == 0);
 
@@ -100,7 +101,8 @@ public class ActivitiProcessManagerTest {
 	public void testProcessDefinitionRoles() throws FileNotFoundException {
 		ActivitiProcessManager manager = new ActivitiProcessManager(
 				processEngine,
-				mock(IProcessEventReceiver.IProcessEventReceiverProvider.class));
+				mock(IProcessEventReceiver.IProcessEventReceiverProvider.class),
+				false);
 
 		String processDefinitionId = manager
 				.addProjectDefinitions(TEST_PROCESS).iterator().next();
@@ -128,7 +130,7 @@ public class ActivitiProcessManagerTest {
 		};
 
 		ActivitiProcessManager manager = new ActivitiProcessManager(
-				processEngine, provider);
+				processEngine, provider, false);
 
 		String processDefinitionId = manager
 				.addProjectDefinitions(TEST_PROCESS).iterator().next();

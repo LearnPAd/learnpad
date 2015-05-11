@@ -85,8 +85,8 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	public ActivitiProcessManager(
 			ProcessEngine processEngine,
-			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider)
-					throws FileNotFoundException {
+			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider,
+			boolean monitoringEnabled) throws FileNotFoundException {
 		repositoryService = processEngine.getRepositoryService();
 		runtimeService = processEngine.getRuntimeService();
 		taskService = processEngine.getTaskService();
@@ -99,8 +99,17 @@ public class ActivitiProcessManager implements IProcessManager {
 
 		this.processEventReceiverProvider = processEventReceiverProvider;
 
-		// register a probe to monitor events
-		runtimeService.addEventListener(new ActivitiProbe());
+		if (monitoringEnabled) {
+			// register a probe to monitor events
+			runtimeService.addEventListener(new ActivitiProbe());
+		}
+	}
+
+	public ActivitiProcessManager(
+			ProcessEngine processEngine,
+			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider)
+			throws FileNotFoundException {
+		this(processEngine, processEventReceiverProvider, true);
 	}
 
 	/*
