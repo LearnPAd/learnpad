@@ -39,6 +39,9 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 
 /**
+ * Monitor Activiti in order to notify Glimpse server of various process-related
+ * events
+ *
  * @author Tom Jorquera - Linagora
  *
  */
@@ -81,18 +84,14 @@ public class ActivitiProbe extends GlimpseAbstractProbe implements
 
 		GlimpseBaseEventBPMN<String> monitoringEvent = null;
 
-		// System.out.println("event.getType() " + event.getType());
-		// System.out.println("event.getProcessInstanceId() "
-		// + event.getProcessInstanceId());
-		// System.out.println("processInstanceId " + processInstanceId);
+		ActivitiEntityEventImpl entity;
 
-		ActivitiEntityEventImpl e;
 		switch (event.getType()) {
 
 		case ENTITY_CREATED:
 			// for process instances creation
-			e = (ActivitiEntityEventImpl) event;
-			if (e.getEntity() instanceof ProcessInstance) {
+			entity = (ActivitiEntityEventImpl) event;
+			if (entity.getEntity() instanceof ProcessInstance) {
 				monitoringEvent = new GlimpseBaseEventBPMN<String>(null,
 						event.getProcessInstanceId(),
 						System.currentTimeMillis(), "PROCESS_CREATED", false,
@@ -110,8 +109,8 @@ public class ActivitiProbe extends GlimpseAbstractProbe implements
 
 		case TASK_CREATED:
 		case TASK_COMPLETED:
-			e = (ActivitiEntityEventImpl) event;
-			Task t = (Task) e.getEntity();
+			entity = (ActivitiEntityEventImpl) event;
+			Task t = (Task) entity.getEntity();
 
 			monitoringEvent = new GlimpseBaseEventBPMN<String>("Activity_"
 					+ System.currentTimeMillis(), event.getProcessInstanceId(),
