@@ -177,6 +177,26 @@
 			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Monitoring local jar and dependencies -->
+		<dependency>
+			<groupId>it.cnr.isti.labsedc</groupId>
+			<artifactId>glimpse</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/jar/GlimpseAPI-Learn_PAd.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>javax.jms</groupId>
+			<artifactId>jms</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-core</artifactId>
+			<version>5.3.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -231,7 +251,9 @@
 							<classpathLayoutType>custom</classpathLayoutType>
 							<customClasspathLayout>lib/${artifact.groupId}.${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</customClasspathLayout>
 						</manifest>
-
+						<manifestEntries>
+							<Class-Path>lib/it.cnr.isti.labsedc.glimpse-1.0.jar</Class-Path>
+						</manifestEntries>
 					</archive>
 				</configuration>
 			</plugin>
