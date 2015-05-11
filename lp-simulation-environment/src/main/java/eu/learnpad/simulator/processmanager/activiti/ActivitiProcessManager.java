@@ -51,6 +51,7 @@ import org.activiti.image.impl.DefaultProcessDiagramGenerator;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.monitoring.activiti.ActivitiProbe;
 import eu.learnpad.simulator.processmanager.AbstractProcessDispatcher;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.processdispatcher.ActivitiProcessDispatcher;
@@ -97,6 +98,9 @@ public class ActivitiProcessManager implements IProcessManager {
 				taskService);
 
 		this.processEventReceiverProvider = processEventReceiverProvider;
+
+		// register a probe to monitor events
+		runtimeService.addEventListener(new ActivitiProbe());
 	}
 
 	/*
