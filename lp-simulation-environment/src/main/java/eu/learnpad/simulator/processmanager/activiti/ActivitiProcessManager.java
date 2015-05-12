@@ -101,7 +101,8 @@ public class ActivitiProcessManager implements IProcessManager {
 
 		if (monitoringEnabled) {
 			// register a probe to monitor events
-			runtimeService.addEventListener(new ActivitiProbe());
+			runtimeService
+			.addEventListener(new ActivitiProbe(repositoryService));
 		}
 	}
 

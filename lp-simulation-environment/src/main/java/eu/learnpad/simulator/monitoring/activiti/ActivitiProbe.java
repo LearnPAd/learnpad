@@ -29,14 +29,22 @@ import it.cnr.isti.labsedc.glimpse.event.GlimpseBaseEventBPMN;
 import it.cnr.isti.labsedc.glimpse.probe.GlimpseAbstractProbe;
 import it.cnr.isti.labsedc.glimpse.utils.Manager;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 
+import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+
+import eu.learnpad.simulator.utils.BPMNExplorer;
 
 /**
  * Monitor Activiti in order to notify Glimpse server of various process-related
@@ -46,16 +54,29 @@ import org.activiti.engine.task.Task;
  *
  */
 public class ActivitiProbe extends GlimpseAbstractProbe implements
-		ActivitiEventListener {
+ActivitiEventListener {
+
+	/**
+	 * We will use them to get the subprocess associated with a task. Since
+	 * several process instances share the same BPMN file, and all tasks from an
+	 * instance will need it, we should keep them in memory to avoid constantly
+	 * opening and closing files.
+	 */
+	private final Map<String, BPMNExplorer> explorerMap = Collections
+			.synchronizedMap(new HashMap<String, BPMNExplorer>());
+
+	private final RepositoryService repositoryService;
 
 	/**
 	 * @param settings
 	 */
-	public ActivitiProbe() {
+	public ActivitiProbe(RepositoryService repositoryService) {
 		super(Manager.createProbeSettingsPropertiesObject(
 				"org.apache.activemq.jndi.ActiveMQInitialContextFactory",
 				"tcp://atlantis.isti.cnr.it:61616", "system", "manager",
 				"TopicCF", "jms.probeTopic", false, "probeName", "probeTopic"));
+
+		this.repositoryService = repositoryService;
 	}
 
 	/**
@@ -75,7 +96,7 @@ public class ActivitiProbe extends GlimpseAbstractProbe implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#onEvent(org.
 	 * activiti.engine.delegate.event.ActivitiEvent)
@@ -112,11 +133,26 @@ public class ActivitiProbe extends GlimpseAbstractProbe implements
 			entity = (ActivitiEntityEventImpl) event;
 			Task t = (Task) entity.getEntity();
 
+			if (!explorerMap.containsKey(t.getProcessDefinitionId())) {
+				// create a BPMN explorer and put it in cache
+				BpmnModel model = repositoryService.getBpmnModel(t
+						.getProcessDefinitionId());
+				try {
+					explorerMap.put(t.getProcessDefinitionId(),
+							new BPMNExplorer(model));
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+
+			String subprocessId = explorerMap.get(t.getProcessDefinitionId())
+					.getSubprocess(t.getTaskDefinitionKey());
+
 			monitoringEvent = new GlimpseBaseEventBPMN<String>("Activity_"
 					+ System.currentTimeMillis(), event.getProcessInstanceId(),
 					System.currentTimeMillis(), event.getType().toString(),
 					false, "", event.getProcessInstanceId(), t.getAssignee(),
-					null, t.getTaskDefinitionKey(), null, null);
+					null, t.getTaskDefinitionKey(), subprocessId, null);
 			break;
 
 		default:
@@ -131,7 +167,7 @@ public class ActivitiProbe extends GlimpseAbstractProbe implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.activiti.engine.delegate.event.ActivitiEventListener#isFailOnException
 	 * ()
@@ -142,7 +178,7 @@ public class ActivitiProbe extends GlimpseAbstractProbe implements
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * it.cnr.isti.labsedc.glimpse.probe.GlimpseAbstractProbe#sendMessage(it
 	 * .cnr.isti.labsedc.glimpse.event.GlimpseBaseEvent, boolean)
