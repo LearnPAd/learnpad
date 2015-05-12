@@ -106,6 +106,7 @@ ActivitiEventListener {
 		GlimpseBaseEventBPMN<String> monitoringEvent = null;
 
 		ActivitiEntityEventImpl entity;
+		ProcessInstance p;
 
 		switch (event.getType()) {
 
@@ -113,19 +114,46 @@ ActivitiEventListener {
 			// for process instances creation
 			entity = (ActivitiEntityEventImpl) event;
 			if (entity.getEntity() instanceof ProcessInstance) {
+				p = (ProcessInstance) entity.getEntity();
+
+				String subprocessId;
+				if (p.getId().equals(p.getProcessInstanceId())) {
+					// main process
+					subprocessId = null;
+				} else {
+					// subprocess
+					subprocessId = p.getActivityId();
+				}
+
 				monitoringEvent = new GlimpseBaseEventBPMN<String>(null,
 						event.getProcessInstanceId(),
 						System.currentTimeMillis(), "PROCESS_CREATED", false,
 						"", event.getProcessInstanceId(), null, null, null,
-						null, null);
+						subprocessId, null);
 			}
 			break;
 
-		case PROCESS_COMPLETED:
-			monitoringEvent = new GlimpseBaseEventBPMN<String>(null,
-					event.getProcessInstanceId(), System.currentTimeMillis(),
-					event.getType().toString(), false, "",
-					event.getProcessInstanceId(), null, null, null, null, null);
+		case ENTITY_DELETED:
+			// for subprocess instances deletion
+			entity = (ActivitiEntityEventImpl) event;
+			if (entity.getEntity() instanceof ProcessInstance) {
+				p = (ProcessInstance) entity.getEntity();
+
+				String subprocessId;
+				if (p.getId().equals(p.getProcessInstanceId())) {
+					// main process
+					subprocessId = null;
+				} else {
+					// subprocess
+					subprocessId = p.getActivityId();
+				}
+
+				monitoringEvent = new GlimpseBaseEventBPMN<String>(null,
+						event.getProcessInstanceId(),
+						System.currentTimeMillis(), "PROCESS_COMPLETED", false,
+						"", event.getProcessInstanceId(), null, null, null,
+						subprocessId, null);
+			}
 			break;
 
 		case TASK_CREATED:
