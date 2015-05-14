@@ -24,12 +24,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
-import org.xwiki.rest.XWikiRestException;
+import eu.learnpad.exception.LpRestException;
 
 @Path("/learnpad/qm/generate/{modelid}")
 public interface GenerateQuestionnaires {
 	@GET
 	byte[] getQuestionnaires(@PathParam("modelid") String modelId,
 			@QueryParam("type") String type, byte[] bpmnFile)
-			throws XWikiRestException;
+			throws LpRestException;
 }

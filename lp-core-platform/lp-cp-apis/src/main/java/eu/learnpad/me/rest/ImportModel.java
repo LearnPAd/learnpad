@@ -24,11 +24,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
-import org.xwiki.rest.XWikiRestException;
+import eu.learnpad.exception.LpRestException;
 
 @Path("/learnpad/me/importmodel/{modelid}")
 public interface ImportModel {
 	@PUT
 	void putModel(@PathParam("modelid") String modelId,
-			@QueryParam("type") String type) throws XWikiRestException;
+			@QueryParam("type") String type) throws LpRestException;
 }

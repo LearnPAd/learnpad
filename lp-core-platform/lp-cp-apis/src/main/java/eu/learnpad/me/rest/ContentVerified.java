@@ -24,7 +24,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
-import org.xwiki.rest.XWikiRestException;
+import eu.learnpad.exception.LpRestException;
 
 @Path("/learnpad/me/contentverified/{modelid}")
 public interface ContentVerified {
@@ -33,5 +33,5 @@ public interface ContentVerified {
  */
 	@GET
 	byte[] getContentVerified(@PathParam("modelid") String modelId,
-			@QueryParam("type") String type) throws XWikiRestException;
+			@QueryParam("type") String type) throws LpRestException;
 }

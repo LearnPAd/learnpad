@@ -19,14 +19,10 @@
  */
 package eu.learnpad.qm;
 
-import org.xwiki.component.annotation.Component;
-import org.xwiki.rest.XWikiRestComponent;
-
 import eu.learnpad.qm.rest.GenerateQuestionnaires;
 import eu.learnpad.qm.rest.ModelImported;
 import eu.learnpad.qm.rest.ModelUpdated;
 
-@Component
-public abstract class BridgeInterface implements XWikiRestComponent, ModelImported, ModelUpdated, GenerateQuestionnaires {
+public abstract class BridgeInterface implements ModelImported, ModelUpdated, GenerateQuestionnaires {
 
 }

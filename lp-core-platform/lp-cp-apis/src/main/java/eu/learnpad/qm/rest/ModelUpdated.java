@@ -24,12 +24,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
-import org.xwiki.rest.XWikiRestException;
+import eu.learnpad.exception.LpRestException;
 
 @Path("/learnpad/qm/modelupated/{modelid}")
 public interface ModelUpdated {
 	@PUT
-	void putModel(@PathParam("modelid") String modelId,
+	void putModelUpdated(@PathParam("modelid") String modelId,
 			@QueryParam("type") String type, byte[] bpmnFile)
-			throws XWikiRestException;
+			throws LpRestException;
 }
