@@ -24,12 +24,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
-import org.xwiki.rest.XWikiRestException;
+import eu.learnpad.exception.LpRestException;
 
 @Path("/learnpad/me/retrievefeedbacks/{modelid}")
 public interface RetrieveFeedbacks {
 	@GET
 	byte[] getFeedbacks(@PathParam("modelid") String modelId,
 			@QueryParam("type") String type, byte[] adoxxFile)
-			throws XWikiRestException;
+			throws LpRestException;
 }
