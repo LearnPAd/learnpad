@@ -23,6 +23,6 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
 @Component
-public class CoreFacade extends eu.learnpad.cw.CoreFacade implements XWikiRestComponent {
+public class XwikiCoreFacade extends eu.learnpad.cw.CoreFacade implements XWikiRestComponent {
 
 }
