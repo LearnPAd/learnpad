@@ -23,9 +23,10 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.me.BridgeInterface;
 
 @Component
-public class XwikiBridgeInterface extends eu.learnpad.me.BridgeInterface implements XWikiRestComponent{
+public class XwikiBridgeInterface extends BridgeInterface implements XWikiRestComponent{
 
 	@Override
 	public byte[] getContentVerified(String modelId, String type)

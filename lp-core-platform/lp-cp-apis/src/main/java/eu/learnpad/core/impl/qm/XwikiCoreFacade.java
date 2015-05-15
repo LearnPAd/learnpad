@@ -4,9 +4,10 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.qm.CoreFacade;
 
 @Component
-public class XwikiCoreFacade extends eu.learnpad.qm.CoreFacade implements XWikiRestComponent{
+public class XwikiCoreFacade extends CoreFacade implements XWikiRestComponent{
 
 	@Override
 	public void putQuestionnaire(String modelId, String type, byte[] bpmnFile)
