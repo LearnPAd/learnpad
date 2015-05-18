@@ -26,7 +26,7 @@ import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.BridgeInterface;
 
 @Component
-public class XwikiBridgeInterface extends BridgeInterface implements XWikiRestComponent{
+public class XwikiBridgeInterface implements XWikiRestComponent, BridgeInterface{
 
 	@Override
 	public byte[] getContentVerified(String modelId, String type)

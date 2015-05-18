@@ -26,7 +26,7 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
 @Component
-public class XwikiCoreFacade extends CoreFacade implements XWikiRestComponent{
+public class XwikiCoreFacade implements XWikiRestComponent, CoreFacade{
 
 	@Override
 	public byte[] getFeedbacks(String modelId, String type, byte[] adoxxFile)

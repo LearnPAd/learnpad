@@ -21,6 +21,6 @@ package eu.learnpad.cw;
 
 import eu.learnpad.cw.rest.ModelImported;
 
-public abstract class BridgeInterface implements ModelImported{
+public interface BridgeInterface extends ModelImported{
 
 }

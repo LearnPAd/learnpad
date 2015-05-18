@@ -7,7 +7,7 @@ import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.qm.CoreFacade;
 
 @Component
-public class XwikiCoreFacade extends CoreFacade implements XWikiRestComponent{
+public class XwikiCoreFacade implements XWikiRestComponent, CoreFacade{
 
 	@Override
 	public void putQuestionnaire(String modelId, String type, byte[] bpmnFile)

@@ -26,7 +26,7 @@ import eu.learnpad.cw.BridgeInterface;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 
 @Component
-public class XwikiBridgeInterface extends BridgeInterface implements XWikiRestComponent{
+public class XwikiBridgeInterface implements XWikiRestComponent, BridgeInterface{
 
 	@Override
 	public void putModel(String modelId, String type, byte[] adoxxFile)

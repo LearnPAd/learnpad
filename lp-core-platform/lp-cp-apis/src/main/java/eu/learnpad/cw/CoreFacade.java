@@ -19,6 +19,6 @@
  */
 package eu.learnpad.cw;
 
-public abstract class CoreFacade {
+public interface CoreFacade {
 
 }

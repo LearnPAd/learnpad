@@ -22,6 +22,6 @@ package eu.learnpad.me;
 import eu.learnpad.me.rest.ImportModel;
 import eu.learnpad.me.rest.RetrieveFeedbacks;
 
-public abstract class CoreFacade implements RetrieveFeedbacks, ImportModel{
+public interface CoreFacade extends RetrieveFeedbacks, ImportModel{
 	
 }

@@ -25,6 +25,6 @@ import org.xwiki.rest.XWikiRestComponent;
 import eu.learnpad.cw.CoreFacade;
 
 @Component
-public class XwikiCoreFacade extends CoreFacade implements XWikiRestComponent {
+public class XwikiCoreFacade implements XWikiRestComponent, CoreFacade {
 
 }

@@ -21,6 +21,6 @@ package eu.learnpad.me;
 
 import eu.learnpad.me.rest.ContentVerified;
 
-public abstract class BridgeInterface implements ContentVerified {
+public interface BridgeInterface extends ContentVerified {
 
 }

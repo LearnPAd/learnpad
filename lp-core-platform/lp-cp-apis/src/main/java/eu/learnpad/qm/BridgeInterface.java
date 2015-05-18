@@ -23,6 +23,6 @@ import eu.learnpad.qm.rest.GenerateQuestionnaires;
 import eu.learnpad.qm.rest.ModelImported;
 import eu.learnpad.qm.rest.ModelUpdated;
 
-public abstract class BridgeInterface implements ModelImported, ModelUpdated, GenerateQuestionnaires {
+public interface BridgeInterface extends ModelImported, ModelUpdated, GenerateQuestionnaires {
 
 }
