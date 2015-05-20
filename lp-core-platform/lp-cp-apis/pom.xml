@@ -27,7 +27,12 @@
 			<groupId>org.xwiki.platform</groupId>
 			<artifactId>xwiki-platform-rest-server</artifactId>
 			<version>${platform.version}</version>
-		</dependency>		
+		</dependency>
+		<dependency>
+			<groupId>eu.learnpad</groupId>
+			<artifactId>lp-cp-controllers-api</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 </project>
