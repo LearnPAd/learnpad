@@ -7,7 +7,7 @@ Component     | Core Platform
 Partner       | XWIKI, CNR
 WP            | 2
 Responsible   | Jean Simard <jean.simard@xwiki.com>
-Collaborators | Guglielmo de Angelis <guglielmo.deangelis@isti.cnr.it>
+Collaborators | Guglielmo De Angelis <guglielmo.deangelis@isti.cnr.it>
 Roadmap       | wiki.learnpad.eu/LearnPAdWiki/bin/view/Components/Template
 
 # Summary
