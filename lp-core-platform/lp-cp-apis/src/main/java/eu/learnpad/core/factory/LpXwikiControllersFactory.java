@@ -19,7 +19,7 @@
  */
 package eu.learnpad.core.factory;
 
-public class LpXwikiFactory extends LpCoreFactory {
+public class LpXwikiControllersFactory extends LpControllersFactory {
 
 	@Override
 	public eu.learnpad.cw.Controller createControllerCW() {

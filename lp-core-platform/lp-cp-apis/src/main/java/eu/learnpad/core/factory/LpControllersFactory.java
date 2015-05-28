@@ -19,23 +19,23 @@
  */
 package eu.learnpad.core.factory;
 
-public abstract class LpCoreFactory {
+public abstract class LpControllersFactory {
 
-		private static LpCoreFactory concreteFactory = null;
+		private static LpControllersFactory concreteFactory = null;
 		
-		protected LpCoreFactory(){		
+		protected LpControllersFactory(){		
 		}
 		
-		public static synchronized LpCoreFactory getLpCoreFactory(){
+		public static synchronized LpControllersFactory getLpControllersFactory(){
 			if ( concreteFactory == null ){
 				String factoryLabel = System.getProperty("lp-core.factory");
 
 				switch (SupportedConcreteFactories.valueOf(factoryLabel)) {
 					case XWIKI :
-						concreteFactory = new LpXwikiFactory();
+						concreteFactory = new LpXwikiControllersFactory();
 					break;
 					default : 
-						concreteFactory = new LpXwikiFactory();
+						concreteFactory = new LpXwikiControllersFactory();
 					break;
 					
 				}			
