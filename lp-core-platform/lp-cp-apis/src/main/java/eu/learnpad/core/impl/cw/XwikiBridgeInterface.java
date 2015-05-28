@@ -26,13 +26,14 @@ import eu.learnpad.cw.BridgeInterface;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 
 @Component
-public class XwikiBridgeInterface implements XWikiRestComponent, BridgeInterface{
+public class XwikiBridgeInterface implements XWikiRestComponent,
+		BridgeInterface {
 
 	@Override
-	public void putModel(String modelId, String type, byte[] adoxxFile)
+	public void putModel(String modelSetId, String type)
 			throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

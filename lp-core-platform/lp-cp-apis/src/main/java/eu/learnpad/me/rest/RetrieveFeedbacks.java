@@ -22,14 +22,24 @@ package eu.learnpad.me.rest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/me/retrievefeedbacks/{modelid}")
+//"/learnpad/me/retrievefeedbacks/{modelsetid}"
+@Path("/learnpad/me/retrievefeedbacks/{modelsetid}")
 public interface RetrieveFeedbacks {
+	/*
+	 * <feedbacks>
+	 *   <feedback>
+	 *     <modelIdAsInTheModelingEnvironment>
+	 *     <objectIdAsInTheModelingEnvironment>
+	 *     <contents>
+	 *     		<content/>
+	 *     </contents>
+	 *   </feedback>
+	 * </feedbacks>
+	 */
 	@GET
-	byte[] getFeedbacks(@PathParam("modelid") String modelId,
-			@QueryParam("type") String type, byte[] adoxxFile)
+	byte[] getFeedbacks(@PathParam("modelsetid") String modelSetId)
 			throws LpRestException;
 }

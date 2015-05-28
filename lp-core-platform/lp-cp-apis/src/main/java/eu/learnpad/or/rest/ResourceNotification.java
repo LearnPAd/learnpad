@@ -17,10 +17,25 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.cw;
+package eu.learnpad.or.rest;
 
-import eu.learnpad.cw.rest.ModelSetImported;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 
-public interface BridgeInterface extends ModelSetImported{
+import eu.learnpad.exception.LpRestException;
 
+@Path("/learnpad/or/resourcenotification/{modelsetid}")
+public interface ResourceNotification {
+
+	// action could be "ADDED, DELETED, MODIFIED"
+	//	linkedto is a comma separated IDs of artifacts
+	
+	@POST
+	void sendResourceNotification(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("resourceid") String resourceId,
+			@QueryParam("linkedto") String elementIds,
+			@QueryParam("action") String action )
+			throws LpRestException;
 }

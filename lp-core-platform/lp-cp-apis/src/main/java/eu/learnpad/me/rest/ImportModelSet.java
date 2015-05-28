@@ -17,10 +17,20 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.cw;
+package eu.learnpad.me.rest;
 
-import eu.learnpad.cw.rest.ModelSetImported;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 
-public interface BridgeInterface extends ModelSetImported{
+import eu.learnpad.exception.LpRestException;
 
+//"/learnpad/me/importmodelset/{modelsetid}?type={adoxx,md,lpz}"
+@Path("/learnpad/me/importmodelset/{modelsetid}")
+public interface ImportModelSet {
+	@PUT
+	void putModelSet(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("type") String type, byte [] modelSetFile)
+					throws LpRestException;
 }
