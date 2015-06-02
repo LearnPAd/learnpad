@@ -71,6 +71,22 @@ Finally, you can trigger a build with the `build` script in the root directory.
 ./build
 ```
 
+## Run it!
+After the build, a complete wiki instance will exists in the directory `lp-platform` and it will
+be the core of the platform.  You should be able to run the platform with the
+following command
+
+```
+lp-platform/out/start
+```
+
+You can also stop it with the following command.
+```
+lp-platform/out/stop
+```
+
+Once the platform is started, access it on `localhost:8080` in your webbrowser.
+
 ## Components
 Learn PAd platform is a set of components, each one is in an independent
 directory.  To know the exact list of components in the platform, you can look

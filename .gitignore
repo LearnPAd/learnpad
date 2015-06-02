@@ -12,3 +12,6 @@ target/
 .classpath
 target/
 target-eclipse/
+/gulyxout/
+/pom.xml
+/.apt_generated/
