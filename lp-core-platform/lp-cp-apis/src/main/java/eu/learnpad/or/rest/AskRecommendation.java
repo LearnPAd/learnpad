@@ -27,14 +27,15 @@ import javax.ws.rs.QueryParam;
 import eu.learnpad.exception.LpRestException;
 
 // 
-@Path("/learnpad/or/recommendation/{modelsetid}")
+@Path("/learnpad/or/{modelsetid}/{artifactid}/recommendation")
 public interface AskRecommendation {
 	/**
 	 * 
 	 * The file returned could be XML or JSON (below is shown as XML to explain the structure)
 	 * The different types of recommendations are based on the Ölten's workshop discussions
 	 * http://wiki.learnpad.eu/LearnPAdWiki/bin/view/WP5/MinutesOltenWorkshop#HContextpanel 
-	 * 
+	 * <p>
+	 * <code>
 	 * <recommendations>
 	 *   <recommendation type="role">
 	 *     content
@@ -44,12 +45,15 @@ public interface AskRecommendation {
 	 *   </recommendation>
 	 *   ...
 	 * </recommendations>
-	 * 
+	 * </code>
+	 * <p>
 	 * The different type of recommendations could be:
-	 * - role: about the role concerned by the current artifact (what people?, what organisation unit?)
-	 * - context: mainly in execution mode, what are the contextual information from previous steps that could be needed here
-	 * - expert: recommend some other people that may help on the current artifact
-	 * - resource: other document that can complete the information on the current artifact
+	 * <ul>
+	 * <li>role: about the role concerned by the current artifact (what people?, what organisation unit?)
+	 * <li>context: mainly in execution mode, what are the contextual information from previous steps that could be needed here
+	 * <li>expert: recommend some other people that may help on the current artifact
+	 * <li>resource: other document that can complete the information on the current artifact
+	 * </ul>
 	 * 
 	 * @param modelSetId is the uniq ID of the model set
 	 * @param artifactId is the ID of the artifact in the model (event, gateway, unit, etc.)
@@ -58,5 +62,5 @@ public interface AskRecommendation {
 	 */
 	@GET
 	byte[] askRecommendation(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("artifactId") String artifactId) throws LpRestException;
+			@PathParam("artifactId") String artifactId) throws LpRestException;
 }
