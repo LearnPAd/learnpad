@@ -19,6 +19,8 @@
  */
 package eu.learnpad.or;
 
-public interface CoreFacade {
-	
+import eu.learnpad.or.rest.GetComments;
+
+public interface CoreFacade extends GetComments {
+
 }
