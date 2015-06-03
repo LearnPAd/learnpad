@@ -30,7 +30,7 @@ import eu.learnpad.exception.LpRestException;
 public interface ResourceNotification {
 
 	// action could be "ADDED, DELETED, MODIFIED"
-	//	linkedto is a comma separated IDs of artifacts
+	//	linkedto is a comma separated IDs of artifacts (task, events, units, etc.)
 	
 	@POST
 	void sendResourceNotification(@PathParam("modelsetid") String modelSetId,

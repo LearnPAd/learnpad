@@ -19,9 +19,10 @@
  */
 package eu.learnpad.or;
 
+import eu.learnpad.or.rest.AskRecommendation;
 import eu.learnpad.or.rest.ModelSetImported;
 import eu.learnpad.or.rest.ResourceNotification;
 
-public interface BridgeInterface extends ModelSetImported, ResourceNotification{
+public interface BridgeInterface extends ModelSetImported, ResourceNotification, AskRecommendation {
 
 }
