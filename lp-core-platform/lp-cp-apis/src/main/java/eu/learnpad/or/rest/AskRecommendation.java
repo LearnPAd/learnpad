@@ -27,40 +27,50 @@ import javax.ws.rs.QueryParam;
 import eu.learnpad.exception.LpRestException;
 
 // 
-@Path("/learnpad/or/{modelsetid}/{artifactid}/recommendation")
+@Path("/learnpad/or/{modelsetid}/recommendation")
 public interface AskRecommendation {
 	/**
 	 * 
-	 * The file returned could be XML or JSON (below is shown as XML to explain the structure)
-	 * The different types of recommendations are based on the Ölten's workshop discussions
-	 * http://wiki.learnpad.eu/LearnPAdWiki/bin/view/WP5/MinutesOltenWorkshop#HContextpanel 
+	 * The file returned could be XML or JSON (below is shown as XML to explain
+	 * the structure) The different types of recommendations are based on the
+	 * Ölten's workshop discussions
+	 * http://wiki.learnpad.eu/LearnPAdWiki/bin/view
+	 * /WP5/MinutesOltenWorkshop#HContextpanel
 	 * <p>
+	 * A specific format for each kind of recommendation.  For example, the following one is about experts.
 	 * <code>
-	 * <recommendations>
-	 *   <recommendation type="role">
-	 *     content
-	 *   </recommendation>
-	 *   <recommendation type="context">
-	 *     content
-	 *   </recommendation>
-	 *   ...
-	 * </recommendations>
+	 * <experts>
+	 *   <expert>
+	 *     <id>useridfromthemodel</id>
+	 *     <user>Jean Simard</user>
+	 *     <email>jean.simard@...</email>
+	 *     <phone>2132321</phone>
+	 *   </expert>
+	 * </experts>
 	 * </code>
 	 * <p>
 	 * The different type of recommendations could be:
 	 * <ul>
-	 * <li>role: about the role concerned by the current artifact (what people?, what organisation unit?)
-	 * <li>context: mainly in execution mode, what are the contextual information from previous steps that could be needed here
-	 * <li>expert: recommend some other people that may help on the current artifact
-	 * <li>resource: other document that can complete the information on the current artifact
+	 * <li>role: about the role concerned by the current artifact (what people?,
+	 * what organisation unit?)
+	 * <li>context: mainly in execution mode, what are the contextual
+	 * information from previous steps that could be needed here
+	 * <li>expert: recommend some other people that may help on the current
+	 * artifact
+	 * <li>resource: other document that can complete the information on the
+	 * current artifact
 	 * </ul>
 	 * 
-	 * @param modelSetId is the uniq ID of the model set
-	 * @param artifactId is the ID of the artifact in the model (event, gateway, unit, etc.)
+	 * @param modelSetId
+	 *            is the uniq ID of the model set
+	 * @param artifactId
+	 *            is the ID of the artifact in the model (event, gateway, unit,
+	 *            etc.)
 	 * @return is the list of recommendations (see above for the format)
 	 * @throws LpRestException
 	 */
 	@GET
 	byte[] askRecommendation(@PathParam("modelsetid") String modelSetId,
-			@PathParam("artifactId") String artifactId) throws LpRestException;
+			@QueryParam("artifactId") String artifactId,
+			@QueryParam("userid") String userId, @QueryParam("type") String type) throws LpRestException;
 }

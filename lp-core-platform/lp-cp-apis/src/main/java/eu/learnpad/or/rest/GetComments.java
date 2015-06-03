@@ -40,6 +40,9 @@ public interface GetComments {
 	 *     <content/>
 	 *   </comment>
 	 *   <comment>
+	 *     <modelIdAsInTheModelingEnvironment/>
+	 *     <artifactIdAsInTheModelingEnvironment/>
+	 *     <artifactwikiUrlId/>
 	 *     <user/>
 	 *     <date/>
 	 *     <content/>
