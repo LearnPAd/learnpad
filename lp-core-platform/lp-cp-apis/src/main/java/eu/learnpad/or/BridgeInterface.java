@@ -22,7 +22,8 @@ package eu.learnpad.or;
 import eu.learnpad.or.rest.AskRecommendation;
 import eu.learnpad.or.rest.ModelSetImported;
 import eu.learnpad.or.rest.ResourceNotification;
+import eu.learnpad.or.rest.SimulationNotification;
 
-public interface BridgeInterface extends ModelSetImported, ResourceNotification, AskRecommendation {
+public interface BridgeInterface extends ModelSetImported, ResourceNotification, AskRecommendation, SimulationNotification {
 
 }
