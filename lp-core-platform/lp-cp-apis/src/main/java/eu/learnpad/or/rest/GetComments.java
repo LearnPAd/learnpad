@@ -31,13 +31,18 @@ public interface GetComments {
 	/**
 	 * <code>
 	 * <comments>
-	 *   <modelIdAsInTheModelingEnvironment/>
-	 *   <objectIdAsInTheModelingEnvironment/>
 	 *   <comment>
-	 *       <content/>
+	 *     <modelIdAsInTheModelingEnvironment/>
+	 *     <artifactIdAsInTheModelingEnvironment/>
+	 *     <artifactwikiUrlId/>
+	 *     <user/>
+	 *     <date/>
+	 *     <content/>
 	 *   </comment>
 	 *   <comment>
-	 *       <content/>
+	 *     <user/>
+	 *     <date/>
+	 *     <content/>
 	 *   </comment>
 	 * </comments>
 	 * </code>
@@ -45,8 +50,9 @@ public interface GetComments {
 	 * @param modelSetId
 	 *            is the modelset on which we want comments
 	 * @param artifactId
-	 *            is the artifact (event, task, unit, etc.) on which we want
-	 *            comments
+	 *            is the artifact (event, task, unit, etc.) on which we want;
+	 *            optional, if not present, all the comments from the modelset
+	 *            will be returned comments
 	 * @return is a file (see above for the format)
 	 * @throws LpRestException
 	 */
