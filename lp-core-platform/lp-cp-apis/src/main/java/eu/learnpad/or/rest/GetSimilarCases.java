@@ -25,34 +25,43 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-// 
+// <host>/learnpad/or/similarcases?artifactName=A name,artifactDescription=Some description,artifactType={event-start|gateway-exclusive|task|event-end|...},modelType={bpmn|cmmn|...},freeDescription=Some text,existingArtifactId=id,existingArtifactStructureDepth=2
 @Path("/learnpad/or/similarcases")
 public interface GetSimilarCases {
 
-    /**
-     * Searchs for similar cases with the given case descriptions. 
-     * Each parameter is optional. 
-     * 
-     * !!This feature list and case description structure is a probosal and not final.
-     *
-     * @param artifactName the name or titel of an artefact
-     * @param artifactDescription a free text description of a single artefact
-     * @param artifactType might be further classify
-     * @param modelType the model type, ex. business process (BPMN, ...)
-     * @param freeDescription 
-     * @param existingArtifactId allows to search for similar cases according the properties 
-     *                           of an existing or selected artefact. 
-     * @param existingArtifactStructureDepth considers connected artefacts of a 
-     *                                       selected artefact reference by the parameter <code>existingArtifactId</code>
-     *                                       until the defined depth.
-     * @throws LpRestException
-     */
-    @GET
-    void addExecutionState(@QueryParam("artifactName") String artifactName,
-            @QueryParam("artifactDescription") String artifactDescription,
-            @QueryParam("artifactType") String artifactType,
-            @QueryParam("modelType") String modelType,
-            @QueryParam("freeDescription") String freeDescription,
-            @QueryParam("existingArtifactId") String existingArtifactId,
-            @QueryParam("existingArtifactStructureDepth") String existingArtifactStructureDepth) throws LpRestException;
+	/**
+	 * Search for similar cases with the given case descriptions. Each parameter
+	 * is optional.
+	 * 
+	 * !!This feature list and case description structure is a proposal and not
+	 * final.
+	 *
+	 * @param artifactName
+	 *            the name or title of an artifact
+	 * @param artifactDescription
+	 *            a free text description of a single artifact
+	 * @param artifactType
+	 *            might be further classify
+	 * @param modelType
+	 *            the model type, ex. business process (BPMN, ...)
+	 * @param freeDescription
+	 * @param existingArtifactId
+	 *            allows to search for similar cases according the properties of
+	 *            an existing or selected artifact.
+	 * @param existingArtifactStructureDepth
+	 *            considers connected artifacts of a selected artifact reference
+	 *            by the parameter <code>existingArtifactId</code> until the
+	 *            defined depth.
+	 * @throws LpRestException
+	 */
+	@GET
+	void addExecutionState(
+			@QueryParam("artifactName") String artifactName,
+			@QueryParam("artifactDescription") String artifactDescription,
+			@QueryParam("artifactType") String artifactType,
+			@QueryParam("modelType") String modelType,
+			@QueryParam("freeDescription") String freeDescription,
+			@QueryParam("existingArtifactId") String existingArtifactId,
+			@QueryParam("existingArtifactStructureDepth") String existingArtifactStructureDepth)
+			throws LpRestException;
 }

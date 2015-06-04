@@ -26,7 +26,7 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-// 
+// <host>/learnpad/or/{modelsetid}/recommendation?artifactid=userid=id,type={role|context|expert|resource|...}
 @Path("/learnpad/or/{modelsetid}/recommendation")
 public interface AskRecommendation {
 	/**
@@ -71,6 +71,6 @@ public interface AskRecommendation {
 	 */
 	@GET
 	byte[] askRecommendation(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("artifactId") String artifactId,
+			@QueryParam("artifactid") String artifactId,
 			@QueryParam("userid") String userId, @QueryParam("type") String type) throws LpRestException;
 }

@@ -25,37 +25,39 @@ import javax.ws.rs.PathParam;
 
 import eu.learnpad.exception.LpRestException;
 
-// 
-@Path("/learnpad/or/exectution/{userId}/")
+// <host>/learnpad/or/execution/{userId}
+@Path("/learnpad/or/execution/{userId}")
 public interface ListExecutionStates {
 
-    /**
-     * Returns list of execution states belonging to the given user. This list
-     * is resolved via the users role, the assigned tasks and the latest states
-     * on all open paths (threads) belonging to the tasks.
-     *
-     * The returned list of states contain the properties given when the states
-     * were stored.
-     *
-     * Ex.
-     *
-     * <code>
-     * <states>
-     *     <state>
-     *         <modelSetId>123</modelSetId>
-     *         <executionId>343423</executionId>
-     *         <userId>2132321</userId>
-     *         <threadId>1.2</threadId>
-     *         <pageId>2132321</pageId>
-     *         <artifactId>2132321</artifactId>
-     *     </state>
-     * </states>
-     * </code>
-     *
-     * @param userId the users unique id
-     * @return list of states resp. tasks user is in charge of
-     * @throws LpRestException
-     */
-    @GET
-    byte[] listExecutionStates(@PathParam("userId") String userId) throws LpRestException;
+	/**
+	 * Returns list of execution states belonging to the given user. This list
+	 * is resolved via the users role, the assigned tasks and the latest states
+	 * on all open paths (threads) belonging to the tasks.
+	 *
+	 * The returned list of states contain the properties given when the states
+	 * were stored.
+	 *
+	 * Ex.
+	 *
+	 * <code>
+	 * <states>
+	 *     <state>
+	 *         <modelSetId>123</modelSetId>
+	 *         <executionId>343423</executionId>
+	 *         <userId>2132321</userId>
+	 *         <threadId>1.2</threadId>
+	 *         <pageId>2132321</pageId>
+	 *         <artifactId>2132321</artifactId>
+	 *     </state>
+	 * </states>
+	 * </code>
+	 *
+	 * @param userId
+	 *            the users unique id
+	 * @return list of states resp. tasks user is in charge of
+	 * @throws LpRestException
+	 */
+	@GET
+	byte[] listExecutionStates(@PathParam("userId") String userId)
+			throws LpRestException;
 }

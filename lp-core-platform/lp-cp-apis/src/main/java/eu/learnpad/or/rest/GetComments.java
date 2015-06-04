@@ -25,7 +25,7 @@ import javax.ws.rs.PathParam;
 
 import eu.learnpad.exception.LpRestException;
 
-// 
+// <host>/learnpad/cp/{modelsetid}/{artifactid}/comments
 @Path("/learnpad/cp/{modelsetid}/{artifactid}/comments")
 public interface GetComments {
 	/**

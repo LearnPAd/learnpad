@@ -26,16 +26,20 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
+// <host>/learnpad/or/resourcenotification/{modelsetid}?resourceid=id,linkedto=(id1,id2,id3),action={added|modified|deleted}
 @Path("/learnpad/or/resourcenotification/{modelsetid}")
 public interface ResourceNotification {
-
-	// action could be "ADDED, DELETED, MODIFIED"
-	//	linkedto is a comma separated IDs of artifacts (task, events, units, etc.)
-	
+	/**
+	 * @param modelSetId is the ID of the model set that is concerned
+	 * @param resourceId is the ID that designate the resource
+	 * @param artifactIds is a list of ID to other artifacts from the model, linked to this resource
+	 * @param action will precise the kind of notification (added, deleted, modified)
+	 * @throws LpRestException
+	 */
 	@POST
 	void sendResourceNotification(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("resourceid") String resourceId,
-			@QueryParam("linkedto") String elementIds,
+			@QueryParam("linkedto") String artifactIds,
 			@QueryParam("action") String action )
 			throws LpRestException;
 }
