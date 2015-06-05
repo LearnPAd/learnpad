@@ -1,4 +1,5 @@
 {
+  "SCIArequestDemo" : {
 	"validateIntegration" : [
 		{
 			"input" : {
@@ -45,7 +46,8 @@
 				"integrationChecked" : false
 			}
 		}
-	],
+	]},
+  "SUAPdemo" : {
 	"usertask1" : [
 		{
 
@@ -100,4 +102,5 @@
 			}
 		}
 	]
+  }
 }

@@ -188,8 +188,8 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 							.taskId(taskId).singleResult()
 							.getProcessVariables();
 
-					if (!taskValidator.taskResultIsValid(process.getId(),
-							taskId, processVariables, data)) {
+					if (!taskValidator.taskResultIsValid(taskId,
+							processVariables, data)) {
 						// task result is invalid and must be resubmitted
 						return TaskSubmissionStatus.REJECTED;
 					} else {

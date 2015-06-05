@@ -47,6 +47,6 @@ public interface ITaskValidator<Input, Output> {
 	 *            the proposed result for the task
 	 * @return whether or not the proposed result is valid
 	 */
-	public boolean taskResultIsValid(String processId, String taskId,
-			Input inData, Output proposedResult);
+	public boolean taskResultIsValid(String taskId, Input inData,
+			Output proposedResult);
 }

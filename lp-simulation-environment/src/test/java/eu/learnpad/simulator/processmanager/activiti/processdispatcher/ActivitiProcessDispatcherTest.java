@@ -149,8 +149,8 @@ public class ActivitiProcessDispatcherTest {
 
 		// automatically validate tasks
 		when(
-				taskValidator.taskResultIsValid(anyString(), anyString(),
-						any(Map.class), any(Map.class))).thenReturn(true);
+				taskValidator.taskResultIsValid(anyString(), any(Map.class),
+						any(Map.class))).thenReturn(true);
 
 		final ActivitiProcessDispatcher dispatcher = new ActivitiProcessDispatcher(
 				processManger, processEventReceiver, processInstance,
@@ -195,8 +195,8 @@ public class ActivitiProcessDispatcherTest {
 		// automatically validate tasks
 		ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator = mock(ITaskValidator.class);
 		when(
-				taskValidator.taskResultIsValid(anyString(), anyString(),
-						any(Map.class), any(Map.class))).thenReturn(true);
+				taskValidator.taskResultIsValid(anyString(), any(Map.class),
+						any(Map.class))).thenReturn(true);
 
 		final ActivitiProcessDispatcher dispatcher = new ActivitiProcessDispatcher(
 				processManger, processEventReceiver, processInstance,
@@ -272,8 +272,8 @@ public class ActivitiProcessDispatcherTest {
 		// automatically validate tasks
 		ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator = mock(ITaskValidator.class);
 		when(
-				taskValidator.taskResultIsValid(anyString(), anyString(),
-						any(Map.class), any(Map.class))).thenReturn(true);
+				taskValidator.taskResultIsValid(anyString(), any(Map.class),
+						any(Map.class))).thenReturn(true);
 
 		final ActivitiProcessDispatcher dispatcher = new ActivitiProcessDispatcher(
 				processManager, processEventReceiver, processInstance,
@@ -313,8 +313,8 @@ public class ActivitiProcessDispatcherTest {
 
 		// automatically validate tasks
 		when(
-				taskValidator.taskResultIsValid(anyString(), anyString(),
-						any(Map.class), any(Map.class))).thenReturn(true);
+				taskValidator.taskResultIsValid(anyString(), any(Map.class),
+						any(Map.class))).thenReturn(true);
 
 		final ActivitiProcessDispatcher dispatcher = new ActivitiProcessDispatcher(
 				processManager, processEventReceiver, processInstance,

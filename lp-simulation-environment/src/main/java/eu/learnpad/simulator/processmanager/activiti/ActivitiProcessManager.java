@@ -92,14 +92,15 @@ public class ActivitiProcessManager implements IProcessManager {
 
 		this.generator = new DefaultProcessDiagramGenerator();
 
-		taskValidator = new ActivitiDemoTaskValidator(taskService);
+		taskValidator = new ActivitiDemoTaskValidator(repositoryService,
+				taskService);
 
 		this.processEventReceiverProvider = processEventReceiverProvider;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see activitipoc.IProcessManager#addProjectDefininition(java.lang.String)
 	 */
 	public Collection<String> addProjectDefinitions(String resource) {

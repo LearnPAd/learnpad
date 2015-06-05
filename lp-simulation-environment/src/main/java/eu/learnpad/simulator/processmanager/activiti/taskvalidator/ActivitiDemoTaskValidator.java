@@ -29,6 +29,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.impl.util.json.JSONArray;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -43,6 +44,7 @@ import eu.learnpad.simulator.processmanager.ITaskValidator;
 public class ActivitiDemoTaskValidator implements
 		ITaskValidator<Map<String, Object>, Map<String, Object>> {
 
+	private final RepositoryService repositoryService;
 	private final TaskService taskService;
 	private final JSONObject jsonDB;
 
@@ -50,9 +52,10 @@ public class ActivitiDemoTaskValidator implements
 	 * @param taskService
 	 * @throws FileNotFoundException
 	 */
-	public ActivitiDemoTaskValidator(TaskService taskService)
-			throws FileNotFoundException {
+	public ActivitiDemoTaskValidator(RepositoryService repositoryService,
+			TaskService taskService) throws FileNotFoundException {
 		super();
+		this.repositoryService = repositoryService;
 		this.taskService = taskService;
 
 		Scanner in = new Scanner(getClass().getClassLoader()
@@ -70,49 +73,60 @@ public class ActivitiDemoTaskValidator implements
 	 * (non-Javadoc)
 	 * 
 	 * @see activitipoc.ITaskValidator#taskResultIsValid(java.lang.String,
-	 * java.lang.String, java.lang.Object, java.lang.Object)
+	 * java.lang.Object, java.lang.Object)
 	 */
-	public boolean taskResultIsValid(String processId, String taskId,
-			Map<String, Object> inData, Map<String, Object> proposedResult) {
+	public boolean taskResultIsValid(String taskId, Map<String, Object> inData,
+			Map<String, Object> proposedResult) {
 
 		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
 
 		System.out.println("validating " + taskId + " ("
 				+ task.getTaskDefinitionKey() + ") with " + proposedResult);
 
-		JSONArray tests = jsonDB.optJSONArray(task.getTaskDefinitionKey());
-		if (tests != null) {
+		String processKey = repositoryService.createProcessDefinitionQuery()
+				.processDefinitionId(task.getProcessDefinitionId())
+				.singleResult().getKey();
 
-			for (int i = 0; i < tests.length(); i++) {
-				JSONObject test = tests.getJSONObject(i);
-				boolean isRelevant = true;
-				Iterator<String> propIter = test.getJSONObject("input").keys();
-				while (propIter.hasNext() && isRelevant) {
-					String prop = propIter.next();
-					isRelevant = inData.containsKey(prop)
-							&& inData
-							.get(prop)
-							.toString()
-									.equals(test.getJSONObject("input")
-									.get(prop).toString());
-				}
+		JSONObject process = jsonDB.optJSONObject(processKey);
+		if (process != null) {
 
-				if (isRelevant) {
-					boolean isOk = true;
-					propIter = test.getJSONObject("output").keys();
-					while (propIter.hasNext() && isOk) {
+			JSONArray tests = process.optJSONArray(task.getTaskDefinitionKey());
+			if (tests != null) {
+
+				for (int i = 0; i < tests.length(); i++) {
+					JSONObject test = tests.getJSONObject(i);
+					boolean isRelevant = true;
+					Iterator<String> propIter = test.getJSONObject("input")
+							.keys();
+					while (propIter.hasNext() && isRelevant) {
 						String prop = propIter.next();
-						isOk = proposedResult.containsKey(prop)
-								&& proposedResult
+						isRelevant = inData.containsKey(prop)
+								&& inData
 										.get(prop)
 										.toString()
-										.equals(test.getJSONObject("output")
+										.equals(test.getJSONObject("input")
 												.get(prop).toString());
 					}
 
-					if (!isOk) {
-						// we can stop right now, one of the tests is incorrect
-						return false;
+					if (isRelevant) {
+						boolean isOk = true;
+						propIter = test.getJSONObject("output").keys();
+						while (propIter.hasNext() && isOk) {
+							String prop = propIter.next();
+							isOk = proposedResult.containsKey(prop)
+									&& proposedResult
+											.get(prop)
+											.toString()
+											.equals(test
+													.getJSONObject("output")
+													.get(prop).toString());
+						}
+
+						if (!isOk) {
+							// we can stop right now, one of the tests is
+							// incorrect
+							return false;
+						}
 					}
 				}
 			}
