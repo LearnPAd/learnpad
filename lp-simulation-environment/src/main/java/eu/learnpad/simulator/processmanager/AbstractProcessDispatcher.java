@@ -131,12 +131,16 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 
 					completeTask(task, data);
 
-					// TODO calculate actual task score
-					usersScores.put(
-							userId,
-							usersScores.get(userId)
-									+ (int) (taskScorers.get(task.id)
-											.userComplete(userId) * 100));
+					// Can be false if a robot is submitting the result
+					// in this case there is no point in calculating a user
+					// score
+					if (usersScores.containsKey(userId)) {
+						// TODO calculate actual task score
+						usersScores.put(userId,
+								usersScores.get(userId)
+								+ (int) (taskScorers.get(task.id)
+										.userComplete(userId) * 100));
+					}
 
 					if (isProcessFinished()) {
 						completeProcess();
@@ -166,7 +170,7 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 
 	public LearnPadTaskGameInfos getGameInfos(LearnPadTask task, String userId) {
 		// TODO: set correct time parameters
-                return new LearnPadTaskGameInfos(30000, taskScorers.get(task.id)
+		return new LearnPadTaskGameInfos(30000, taskScorers.get(task.id)
 				.getNbAttemps(userId));
 	}
 

@@ -22,13 +22,19 @@ package eu.learnpad.simulator;
  */
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
 
 import eu.learnpad.simulator.IProcessEventReceiver.IProcessEventReceiverProvider;
 import eu.learnpad.simulator.IProcessManager.IProcessManagerProvider;
+import eu.learnpad.simulator.IRobotHandler.IRobotHandlerProvider;
 import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
+import eu.learnpad.simulator.robot.IRobotFactory;
+import eu.learnpad.simulator.robot.RobotUserEventReceiverWrapper;
+import eu.learnpad.simulator.robot.activiti.ActivitiRobotInputExtractor;
+import eu.learnpad.simulator.robot.activiti.simplerobot.SimpleRobotFactory;
 import eu.learnpad.simulator.uihandler.formhandler.multi2jsonform.Multi2JsonFormFormHandler;
 import eu.learnpad.simulator.uihandler.webserver.UIHandlerWebImpl;
 import eu.learnpad.simulator.uihandler.webserver.WebServer;
@@ -43,11 +49,14 @@ import eu.learnpad.simulator.utils.BPMNExplorerRepository;
  *
  */
 public class Simulator implements IProcessManagerProvider,
-		IProcessEventReceiverProvider {
+		IProcessEventReceiverProvider, IRobotHandlerProvider {
 
 	private final IProcessManager processManager;
 	private final UIHandlerWebImpl uiHandler;
 	private final ProcessEngine processEngine;
+
+	private final RobotUserEventReceiverWrapper<Map<String, Object>> robotEventReceiver;
+	private final IRobotFactory<Map<String, Object>, Map<String, Object>> robotFactory;
 
 	public Simulator(String activitiConfigPath, int webserverPort)
 			throws Exception {
@@ -73,6 +82,15 @@ public class Simulator implements IProcessManagerProvider,
 				"tasks", this), new ArrayList<String>(), this,
 				new Multi2JsonFormFormHandler(explorerRepo, processEngine
 						.getTaskService(), processEngine.getFormService()));
+
+		// handle robots
+		robotFactory = new SimpleRobotFactory(
+				processEngine.getRepositoryService(),
+				processEngine.getTaskService(), processEngine.getFormService());
+
+		robotEventReceiver = new RobotUserEventReceiverWrapper<Map<String, Object>>(
+				uiHandler, robotFactory, new ActivitiRobotInputExtractor(
+						processEngine.getTaskService()), processManager);
 	}
 
 	public void stop() {
@@ -92,7 +110,7 @@ public class Simulator implements IProcessManagerProvider,
 	 * #processEventReceiver()
 	 */
 	public IProcessEventReceiver processEventReceiver() {
-		return uiHandler;
+		return robotEventReceiver;
 	}
 
 	/*
@@ -103,6 +121,17 @@ public class Simulator implements IProcessManagerProvider,
 	 */
 	public IProcessManager processManager() {
 		return processManager;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
+	 * eu.learnpad.simulator.IRobotHandler.IRobotHandlerProvider#robotHandler()
+	 */
+	@Override
+	public IRobotHandler robotHandler() {
+		return robotEventReceiver;
 	}
 
 }
