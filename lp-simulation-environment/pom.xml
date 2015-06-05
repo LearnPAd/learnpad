@@ -187,9 +187,9 @@
 			<systemPath>${project.basedir}/src/main/resources/jar/GlimpseAPI-Learn_PAd.jar</systemPath>
 		</dependency>
 		<dependency>
-			<groupId>javax.jms</groupId>
-			<artifactId>jms</artifactId>
-			<version>1.1</version>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jms_1.1_spec</artifactId>
+			<version>1.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
