@@ -139,6 +139,19 @@ public class ActivitiProcessManager implements IProcessManager {
 	 * (non-Javadoc)
 	 *
 	 * @see
+	 * eu.learnpad.simulator.IProcessManager#getProcessDefinitionKey(java.lang
+	 * .String)
+	 */
+	public String getProcessDefinitionKey(String processDefinitionId) {
+		return repositoryService.createProcessDefinitionQuery()
+				.processDefinitionId(processDefinitionId).singleResult()
+				.getKey();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see
 	 * activitipoc.IProcessManager#getProcessDefinitionName(java.lang.String)
 	 */
 	public String getProcessDefinitionName(String processDefinitionId) {

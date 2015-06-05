@@ -60,6 +60,16 @@ public interface IProcessManager {
 	public Collection<String> getAvailableProcessDefintion();
 
 	/**
+	 * This method returns the key associated with a process definition. The key
+	 * correspond to the id of the process declared into the bpmn file. However
+	 * it may not be unique (in case of versioning for example).
+	 *
+	 * @param processDefinitionId
+	 * @return the key associated with this process definition
+	 */
+	public String getProcessDefinitionKey(String processDefinitionId);
+
+	/**
 	 *
 	 * @param processDefinitionId
 	 * @return the name of the process
