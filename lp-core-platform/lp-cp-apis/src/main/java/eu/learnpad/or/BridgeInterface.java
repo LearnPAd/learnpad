@@ -19,9 +19,16 @@
  */
 package eu.learnpad.or;
 
+import eu.learnpad.or.rest.AddExecutionState;
+import eu.learnpad.or.rest.AskRecommendation;
+import eu.learnpad.or.rest.GetSimilarCases;
+import eu.learnpad.or.rest.ListExecutionStates;
 import eu.learnpad.or.rest.ModelSetImported;
 import eu.learnpad.or.rest.ResourceNotification;
+import eu.learnpad.or.rest.SimulationNotification;
 
-public interface BridgeInterface extends ModelSetImported, ResourceNotification{
+public interface BridgeInterface extends ModelSetImported,
+		ResourceNotification, AskRecommendation, SimulationNotification,
+		GetSimilarCases, AddExecutionState, ListExecutionStates {
 
 }

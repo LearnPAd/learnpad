@@ -19,27 +19,45 @@
  */
 package eu.learnpad.or.rest;
 
-import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-// <host>/learnpad/or/resourcenotification/{modelsetid}?resourceid=id,linkedto=(id1,id2,id3),action={added|modified|deleted}
-@Path("/learnpad/or/resourcenotification/{modelsetid}")
-public interface ResourceNotification {
+// <host>/learnpad/or/execution/{userId}
+@Path("/learnpad/or/execution/{userId}")
+public interface ListExecutionStates {
+
 	/**
-	 * @param modelSetId is the ID of the model set that is concerned
-	 * @param resourceId is the ID that designate the resource
-	 * @param artifactIds is a list of ID to other artifacts from the model, linked to this resource
-	 * @param action will precise the kind of notification (added, deleted, modified)
+	 * Returns list of execution states belonging to the given user. This list
+	 * is resolved via the users role, the assigned tasks and the latest states
+	 * on all open paths (threads) belonging to the tasks.
+	 *
+	 * The returned list of states contain the properties given when the states
+	 * were stored.
+	 *
+	 * Ex.
+	 *
+	 * <code>
+	 * <states>
+	 *     <state>
+	 *         <modelSetId>123</modelSetId>
+	 *         <executionId>343423</executionId>
+	 *         <userId>2132321</userId>
+	 *         <threadId>1.2</threadId>
+	 *         <pageId>2132321</pageId>
+	 *         <artifactId>2132321</artifactId>
+	 *     </state>
+	 * </states>
+	 * </code>
+	 *
+	 * @param userId
+	 *            the users unique id
+	 * @return list of states resp. tasks user is in charge of
 	 * @throws LpRestException
 	 */
-	@POST
-	void sendResourceNotification(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("resourceid") String resourceId,
-			@QueryParam("linkedto") String artifactIds,
-			@QueryParam("action") String action )
+	@GET
+	byte[] listExecutionStates(@PathParam("userId") String userId)
 			throws LpRestException;
 }

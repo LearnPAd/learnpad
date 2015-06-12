@@ -26,20 +26,25 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-// <host>/learnpad/or/resourcenotification/{modelsetid}?resourceid=id,linkedto=(id1,id2,id3),action={added|modified|deleted}
-@Path("/learnpad/or/resourcenotification/{modelsetid}")
-public interface ResourceNotification {
+// <host>/learnpad/or/{modelsetid}/{modelid}/simulationnotification?action={started|stopped},simulationid=id
+@Path("/learnpad/or/{modelsetid}/{modelid}/simulationnotification")
+public interface SimulationNotification {
 	/**
-	 * @param modelSetId is the ID of the model set that is concerned
-	 * @param resourceId is the ID that designate the resource
-	 * @param artifactIds is a list of ID to other artifacts from the model, linked to this resource
-	 * @param action will precise the kind of notification (added, deleted, modified)
+	 * @param modelSetId
+	 *            is the modelset ID concerned by the simulation
+	 * @param modelId
+	 *            is the model ID concerned by the simulation
+	 * @param action
+	 *            is one of the following values: started, stopped
+	 * @param simulationId
+	 *            is the ID of the concerned simulation
+	 * @return
 	 * @throws LpRestException
 	 */
 	@POST
-	void sendResourceNotification(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("resourceid") String resourceId,
-			@QueryParam("linkedto") String artifactIds,
-			@QueryParam("action") String action )
+	byte[] simulationNotification(@PathParam("modelsetid") String modelSetId,
+			@PathParam("modelid") String modelId,
+			@QueryParam("action") String action,
+			@QueryParam("simulationid") String simulationId)
 			throws LpRestException;
 }
