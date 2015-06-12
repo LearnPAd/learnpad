@@ -41,32 +41,33 @@ public interface ISimulationMonitoringAPI {
 	/**
 	 * Get the result file associated with a specific simulation
 	 *
-	 * @param simulation
+	 * @param simulationid
 	 * @return the String to the result file
 	 */
 	@GET
-	@Path("/learnpad/sim/results/simulations/{simulation:.*}")
+	@Path("/learnpad/sim/results/simulations/{simulationid:.*}")
 	public String getSimulationResults(
-			@PathParam("simulation") String simulation);
+			@PathParam("simulationid") String simulationid);
 
 	/**
 	 * Get the trace file associated with a learner
 	 *
-	 * @param user
+	 * @param userid
 	 * @return the String to the trace file
 	 */
 	@GET
-	@Path("/learnpad/sim/traces/users/{user:.*}")
-	public String getSimulationTraceForLearner(@PathParam("user") String user);
+	@Path("/learnpad/sim/traces/users/{userid:.*}")
+	public String getSimulationTraceForLearner(
+			@PathParam("userid") String userid);
 
 	/**
 	 * Get the trace file associated with a model
 	 *
-	 * @param model
+	 * @param modelid
 	 * @return the String to the trace file
 	 */
 	@GET
-	@Path("/learnpad/sim/traces/models/{model:.*}")
-	public String getSimulationTraceForBP(@PathParam("model") String model);
+	@Path("/learnpad/sim/traces/models/{modelid:.*}")
+	public String getSimulationTraceForBP(@PathParam("modelid") String modelid);
 
 }
