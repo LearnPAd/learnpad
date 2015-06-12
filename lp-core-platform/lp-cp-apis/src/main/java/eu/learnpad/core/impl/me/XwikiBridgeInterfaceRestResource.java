@@ -29,11 +29,4 @@ import eu.learnpad.rest.utils.RestResource;
 @Component
 public class XwikiBridgeInterfaceRestResource extends RestResource implements XWikiRestComponent, BridgeInterface{
 
-	@Override
-	public byte[] getContentVerified(String modelId, String type)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

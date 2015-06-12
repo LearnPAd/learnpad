@@ -20,6 +20,7 @@
 package eu.learnpad.core.impl.me;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.Controller;
 
 public class XwikiController extends Controller{
@@ -29,15 +30,23 @@ public class XwikiController extends Controller{
 	}
 
 	@Override
-	public byte[] getFeedbacks(String modelId, String type, byte[] adoxxFile)
-			throws LpRestException {
+	public byte[] getFeedbacks(String modelSetId) throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void putModel(String modelId, String type) throws LpRestException {
+	public void putModelSet(String modelSetId, String type, byte[] modelSetFile)
+			throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void checkModelSet(String modelSetId, String type, String value)
+			throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
