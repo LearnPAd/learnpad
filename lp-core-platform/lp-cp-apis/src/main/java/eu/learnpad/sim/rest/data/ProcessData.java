@@ -48,7 +48,6 @@ public class ProcessData {
 			@JsonProperty("description") String description,
 			@JsonProperty("singleRoles") Collection<String> singleRoles,
 			@JsonProperty("groupRoles") Collection<String> groupRoles) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
