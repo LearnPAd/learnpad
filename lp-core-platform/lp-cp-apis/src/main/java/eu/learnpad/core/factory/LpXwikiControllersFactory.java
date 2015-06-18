@@ -24,23 +24,23 @@ import eu.learnpad.or.Controller;
 public class LpXwikiControllersFactory extends LpControllersFactory {
 
 	@Override
-	public eu.learnpad.cw.Controller createControllerCW() {
-		return new eu.learnpad.core.impl.cw.XwikiController();
+	public eu.learnpad.cw.Controller createControllerCW(boolean isBridgeInterfaceLocal) {
+		return new eu.learnpad.core.impl.cw.XwikiController(isBridgeInterfaceLocal);
 	}
 
 	@Override
-	public eu.learnpad.me.Controller createControllerME() {
-		return new eu.learnpad.core.impl.me.XwikiController();
+	public eu.learnpad.me.Controller createControllerME(boolean isBridgeInterfaceLocal) {
+		return new eu.learnpad.core.impl.me.XwikiController(isBridgeInterfaceLocal);
 	}
 
 	@Override
-	public eu.learnpad.qm.Controller createControllerQM() {
-		return new eu.learnpad.core.impl.qm.XwikiController();
+	public eu.learnpad.qm.Controller createControllerQM(boolean isBridgeInterfaceLocal) {
+		return new eu.learnpad.core.impl.qm.XwikiController(isBridgeInterfaceLocal);
 	}
 
 	@Override
-	public Controller createControllerOR() {
-		return new eu.learnpad.core.impl.or.XwikiController();
+	public Controller createControllerOR(boolean isBridgeInterfaceLocal) {
+		return new eu.learnpad.core.impl.or.XwikiController(isBridgeInterfaceLocal);
 	}
 
 }

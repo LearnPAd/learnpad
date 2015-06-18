@@ -23,12 +23,13 @@ import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.qm.Controller;
 
 public class XwikiController extends Controller{
+
 	public XwikiController (){
 		this(false);
 	}
 
-	public XwikiController (boolean isLocalBridgeInterface){
-		if (isLocalBridgeInterface)
+	public XwikiController (boolean isBridgeInterfaceLocal){
+		if (isBridgeInterfaceLocal)
 			this.bridge = new XwikiBridgeInterface();
 		else
 			this.bridge = new XwikiBridgeInterfaceRestResource();			

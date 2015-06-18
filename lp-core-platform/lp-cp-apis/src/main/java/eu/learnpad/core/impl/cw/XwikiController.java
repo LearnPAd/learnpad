@@ -24,6 +24,13 @@ import eu.learnpad.cw.Controller;
 public class XwikiController extends Controller{
 
 	public XwikiController (){
-		this.bridge = new XwikiBridgeInterfaceRestResource();
+		this(false);
+	}
+
+	public XwikiController (boolean isBridgeInterfaceLocal){
+		if (isBridgeInterfaceLocal)
+			this.bridge = new XwikiBridgeInterface();
+		else
+			this.bridge = new XwikiBridgeInterfaceRestResource();			
 	}
 }

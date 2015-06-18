@@ -27,8 +27,8 @@ public abstract class XwikiBridge extends Bridge{
 		this(false);
 	}
 
-	public XwikiBridge (boolean isLocalCoreFacade){
-		if (isLocalCoreFacade)
+	public XwikiBridge (boolean isCoreFacadeLocal){
+		if (isCoreFacadeLocal)
 			this.corefacade = new XwikiCoreFacade();
 		else
 			this.corefacade = new XwikiCoreFacadeRestResource();
