@@ -19,8 +19,6 @@
  */
 package eu.learnpad.core.factory;
 
-import eu.learnpad.or.Controller;
-
 public class LpXwikiControllersFactory extends LpControllersFactory {
 
 	@Override
@@ -39,8 +37,13 @@ public class LpXwikiControllersFactory extends LpControllersFactory {
 	}
 
 	@Override
-	public Controller createControllerOR(boolean isBridgeInterfaceLocal) {
+	public eu.learnpad.or.Controller createControllerOR(boolean isBridgeInterfaceLocal) {
 		return new eu.learnpad.core.impl.or.XwikiController(isBridgeInterfaceLocal);
+	}
+
+	@Override
+	public eu.learnpad.sim.Controller createControllerSIM(boolean isBridgeInterfaceLocal) {
+		return new eu.learnpad.core.impl.sim.XwikiController(isBridgeInterfaceLocal);
 	}
 
 }
