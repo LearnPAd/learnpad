@@ -46,5 +46,6 @@ public abstract class LpControllersFactory {
 		public abstract eu.learnpad.cw.Controller createControllerCW();
 		public abstract eu.learnpad.me.Controller createControllerME();
 		public abstract eu.learnpad.qm.Controller createControllerQM();
+		public abstract eu.learnpad.or.Controller createControllerOR();
 	
 }

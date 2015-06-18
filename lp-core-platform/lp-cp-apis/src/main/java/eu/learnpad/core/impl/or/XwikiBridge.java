@@ -17,30 +17,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.core.factory;
+package eu.learnpad.core.impl.or;
 
-import eu.learnpad.or.Controller;
+import eu.learnpad.or.Bridge;
 
-public class LpXwikiControllersFactory extends LpControllersFactory {
+public abstract class XwikiBridge extends Bridge{
 
-	@Override
-	public eu.learnpad.cw.Controller createControllerCW() {
-		return new eu.learnpad.core.impl.cw.XwikiController();
-	}
-
-	@Override
-	public eu.learnpad.me.Controller createControllerME() {
-		return new eu.learnpad.core.impl.me.XwikiController();
-	}
-
-	@Override
-	public eu.learnpad.qm.Controller createControllerQM() {
-		return new eu.learnpad.core.impl.qm.XwikiController();
-	}
-
-	@Override
-	public Controller createControllerOR() {
-		return new eu.learnpad.core.impl.or.XwikiController();
+	public XwikiBridge (){
+		this.corefacade = new XwikiCoreFacadeRestResource();
 	}
 
 }
