@@ -49,7 +49,7 @@ public interface IProcessHandlingAPI {
 	 * @return current process definitions IDs
 	 */
 	@GET
-	@Path("/learnpad/sim/processes")
+	@Path("/processes")
 	public Collection<String> getProcessDefinitions();
 
 	/**
@@ -59,7 +59,7 @@ public interface IProcessHandlingAPI {
 	 * @return the IDs of all the added process definitions
 	 */
 	@POST
-	@Path("/learnpad/sim/processes")
+	@Path("/processes")
 	public Collection<String> addProcessDefinition(
 			String processDefinitionFilePath);
 
@@ -70,7 +70,7 @@ public interface IProcessHandlingAPI {
 	 * @return the info associated with this process definition
 	 */
 	@GET
-	@Path("/learnpad/sim/processes/{id:.*}")
+	@Path("/processes/{id:.*}")
 	public ProcessData getProcessInfos(@PathParam("id") String processId);
 
 	/**
@@ -78,7 +78,7 @@ public interface IProcessHandlingAPI {
 	 * @return a collection of the current process instances IDs
 	 */
 	@GET
-	@Path("/learnpad/sim/instances")
+	@Path("/instances")
 	public Collection<String> getProcessInstances();
 
 	/**
@@ -88,7 +88,7 @@ public interface IProcessHandlingAPI {
 	 * @return the created process instance data
 	 */
 	@POST
-	@Path("/learnpad/sim/instances")
+	@Path("/instances")
 	public ProcessInstanceData addProcessInstance(ProcessInstanceData data);
 
 	/**
@@ -98,7 +98,7 @@ public interface IProcessHandlingAPI {
 	 * @return the info associated with this process instance
 	 */
 	@GET
-	@Path("/learnpad/sim/instances/{id:.*}")
+	@Path("/instances/{id:.*}")
 	public ProcessInstanceData getProcessInstanceInfos(
 			@PathParam("id") String processInstanceId);
 }

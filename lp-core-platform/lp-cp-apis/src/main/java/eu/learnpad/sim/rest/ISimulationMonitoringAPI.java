@@ -34,6 +34,7 @@ import javax.ws.rs.core.MediaType;
  * @author Tom Jorquera - Linagora
  *
  */
+@Path("/results")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface ISimulationMonitoringAPI {
@@ -45,7 +46,7 @@ public interface ISimulationMonitoringAPI {
 	 * @return the String to the result file
 	 */
 	@GET
-	@Path("/learnpad/sim/results/simulations/{simulationid:.*}")
+	@Path("/simulations/{simulationid:.*}")
 	public String getSimulationResults(
 			@PathParam("simulationid") String simulationid);
 
@@ -56,7 +57,7 @@ public interface ISimulationMonitoringAPI {
 	 * @return the String to the trace file
 	 */
 	@GET
-	@Path("/learnpad/sim/traces/users/{userid:.*}")
+	@Path("/traces/users/{userid:.*}")
 	public String getSimulationTraceForLearner(
 			@PathParam("userid") String userid);
 
@@ -67,7 +68,7 @@ public interface ISimulationMonitoringAPI {
 	 * @return the String to the trace file
 	 */
 	@GET
-	@Path("/learnpad/sim/traces/models/{modelid:.*}")
+	@Path("/traces/models/{modelid:.*}")
 	public String getSimulationTraceForBP(@PathParam("modelid") String modelid);
 
 }

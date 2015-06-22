@@ -19,6 +19,8 @@
  */
 package eu.learnpad.sim;
 
+import javax.ws.rs.Path;
+
 import eu.learnpad.sim.rest.IProcessHandlingAPI;
 import eu.learnpad.sim.rest.ISimulationMonitoringAPI;
 
@@ -26,6 +28,7 @@ import eu.learnpad.sim.rest.ISimulationMonitoringAPI;
  * @author Tom Jorquera - Linagora
  *
  */
+@Path("/learnpad/sim/")
 public interface BridgeInterface extends IProcessHandlingAPI,
 		ISimulationMonitoringAPI {
 
