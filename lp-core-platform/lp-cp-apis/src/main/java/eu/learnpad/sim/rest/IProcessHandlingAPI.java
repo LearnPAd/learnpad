@@ -21,8 +21,6 @@ package eu.learnpad.sim.rest;
 
 import java.util.Collection;
 
-import javassist.NotFoundException;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -73,8 +71,7 @@ public interface IProcessHandlingAPI {
 	 */
 	@GET
 	@Path("/learnpad/sim/processes/{id:.*}")
-	public ProcessData getProcessInfos(@PathParam("id") String processId)
-			throws NotFoundException;
+	public ProcessData getProcessInfos(@PathParam("id") String processId);
 
 	/**
 	 *
@@ -103,5 +100,5 @@ public interface IProcessHandlingAPI {
 	@GET
 	@Path("/learnpad/sim/instances/{id:.*}")
 	public ProcessInstanceData getProcessInstanceInfos(
-			@PathParam("id") String processInstanceId) throws NotFoundException;
+			@PathParam("id") String processInstanceId);
 }
