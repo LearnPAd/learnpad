@@ -19,8 +19,13 @@
  */
 package eu.learnpad.cw;
 
-import eu.learnpad.cw.rest.ModelImported;
+import eu.learnpad.cw.rest.ContentVerified;
+import eu.learnpad.cw.rest.GetComments;
+import eu.learnpad.cw.rest.GetResource;
+import eu.learnpad.cw.rest.ModelSetImported;
+import eu.learnpad.cw.rest.ModelVerified;
 
-public interface BridgeInterface extends ModelImported{
+public interface BridgeInterface extends GetComments, GetResource,
+		ModelSetImported, ContentVerified, ModelVerified {
 
 }

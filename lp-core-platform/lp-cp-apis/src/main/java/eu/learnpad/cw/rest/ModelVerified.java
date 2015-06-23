@@ -26,10 +26,17 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/cw/modelimported/{modelid}")
-public interface ModelImported {
+@Path("/learnpad/cw/modelverification/{modelsetid}")
+public interface ModelVerified {
+	/**
+	 * @param modelSetId
+	 *            is the ID of the model set that is concerned
+	 * @param result
+	 *            contain the feedback about the verification for the specified
+	 *            model
+	 * @throws LpRestException
+	 */
 	@PUT
-	void putModel(@PathParam("modelid") String modelId,
-			@QueryParam("type") String type, byte[] adoxxFile)
-			throws LpRestException;
+	void contentVerified(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("result") String result) throws LpRestException;
 }
