@@ -23,16 +23,43 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.cw.BridgeInterface;
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 
 @Component
 public class XwikiBridgeInterface implements XWikiRestComponent, BridgeInterface{
 
 	@Override
-	public void putModel(String modelId, String type, byte[] adoxxFile)
-			throws LpRestExceptionImpl {
+	public byte[] getComments(String modelSetId, String artifactId)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte[] getResource(String modelSetId, String resourceId,
+			String artifactIds, String action) throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void putModel(String modelSetId, String type) throws LpRestException {
 		// TODO Auto-generated method stub
 		
 	}
 
+	@Override
+	public void contentVerified(String modelSetId, String artifactId,
+			String result) throws LpRestException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void contentVerified(String modelSetId, String result)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		
+	}
 }
