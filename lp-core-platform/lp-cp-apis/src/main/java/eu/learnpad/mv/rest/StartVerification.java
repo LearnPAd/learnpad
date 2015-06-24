@@ -19,27 +19,17 @@
  */
 package eu.learnpad.mv.rest;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
-import eu.learnpad.mv.rest.data.MVResults;
 
 @Path("/learnpad/mv")
-public interface MVRestBridgeInterface {
+public interface StartVerification {
 	@PUT
-	@Path("/modelimported/{modelsetid}")
-	void modelImported(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type") String type) throws LpRestException;
-	
-	@GET
-	@Path("/getmodelverificationstatus/{modelsetid}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	MVResults getModelVerificationStatus(@PathParam("modelsetid") String modelSetId,
+	@Path("/startverification/{modelsetid}")
+	void startVerification(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type") String type) throws LpRestException;
 }

@@ -17,11 +17,19 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.mv;
+package eu.learnpad.mv.rest;
 
-import eu.learnpad.mv.rest.ModelImporter;
-import eu.learnpad.mv.rest.StartVerification;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 
-public interface CoreFacade extends ModelImporter{
-	
+import eu.learnpad.exception.LpRestException;
+
+@Path("/learnpad/mv")
+public interface ModelImported {
+	@PUT
+	@Path("/modelimported/{modelsetid}")
+	void modelImported(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("type") String type) throws LpRestException;
 }
