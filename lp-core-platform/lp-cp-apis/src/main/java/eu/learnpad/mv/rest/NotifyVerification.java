@@ -19,27 +19,17 @@
  */
 package eu.learnpad.mv.rest;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
+
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
+
 
 import eu.learnpad.exception.LpRestException;
-import eu.learnpad.mv.rest.data.MVResults;
 
 @Path("/learnpad/mv")
-public interface DeadlockVerification {
+public interface NotifyVerification {
 	@PUT
-	@Path("/startdeadlockverification/{modelsetid}")
-	String startDeadlockVerification(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type")@DefaultValue("lpzip") String type) throws LpRestException;
-	
-	@GET
-	@Path("/getdeadlockverificationstatus/{verificationprocessid}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	MVResults getDeadlockVerificationStatus(@PathParam("verificationprocessid") String verificationProcessId) throws LpRestException;
+	@Path("/notifyverification/{verificationprocessid}")
+	void notifyVerification(@PathParam("verificationprocessid") String verificationProcessId) throws LpRestException;
 }

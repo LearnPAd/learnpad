@@ -20,7 +20,8 @@
 package eu.learnpad.mv;
 
 import eu.learnpad.mv.rest.ModelImporter;
+import eu.learnpad.mv.rest.NotifyVerification;
 
-public interface CoreFacade extends ModelImporter{
+public interface CoreFacade extends ModelImporter, NotifyVerification{
 	
 }
