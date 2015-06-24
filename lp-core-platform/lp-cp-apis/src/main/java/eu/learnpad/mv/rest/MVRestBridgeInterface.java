@@ -33,13 +33,13 @@ import eu.learnpad.mv.rest.data.MVResults;
 @Path("/learnpad/mv")
 public interface MVRestBridgeInterface {
 	@PUT
-	@Path("/modelimported/{modelid}")
-	void modelImported(@PathParam("modelid") String modelId,
+	@Path("/modelimported/{modelsetid}")
+	void modelImported(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type") String type) throws LpRestException;
 	
 	@GET
 	@Path("/getmodelverificationstatus/{modelsetid}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	MVResults getModelVerificationStatus(@PathParam("modelsetid") String modelsetId,
+	MVResults getModelVerificationStatus(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type") String type) throws LpRestException;
 }

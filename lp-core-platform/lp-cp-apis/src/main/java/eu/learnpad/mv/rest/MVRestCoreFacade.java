@@ -31,11 +31,11 @@ import eu.learnpad.exception.LpRestException;
 public interface MVRestCoreFacade {
 	@GET
 	@Path("/getmodel/{modelsetid}")
-	byte[] getModel(@PathParam("modelsetid") String modelsetId,
+	byte[] getModel(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type") String type) throws LpRestException;
 	
 	@PUT
 	@Path("/notifyverificationstatus/{modelsetid}")
-	void notifyVerificationStatus(@PathParam("modelid") String modelId,
+	void notifyVerificationStatus(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type") String type) throws LpRestException;
 }
