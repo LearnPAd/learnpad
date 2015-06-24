@@ -19,6 +19,7 @@
  */
 package eu.learnpad.mv.rest;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -31,5 +32,5 @@ public interface ModelImporter {
 	@GET
 	@Path("/getmodel/{modelsetid}")
 	byte[] getModel(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type") String type) throws LpRestException;
+			@QueryParam("type")@DefaultValue("lpzip") String type) throws LpRestException;
 }

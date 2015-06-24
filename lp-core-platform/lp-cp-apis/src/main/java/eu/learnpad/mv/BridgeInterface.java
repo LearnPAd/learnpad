@@ -19,9 +19,8 @@
  */
 package eu.learnpad.mv;
 
-import eu.learnpad.mv.rest.GetVerification;
-import eu.learnpad.mv.rest.StartVerification;
+import eu.learnpad.mv.rest.DeadlockVerification;
 
-public interface BridgeInterface extends GetVerification, StartVerification  {
+public interface BridgeInterface extends DeadlockVerification  {
 
 }

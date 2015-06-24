@@ -20,7 +20,6 @@
 package eu.learnpad.mv;
 
 import eu.learnpad.mv.rest.ModelImporter;
-import eu.learnpad.mv.rest.StartVerification;
 
 public interface CoreFacade extends ModelImporter{
 	
