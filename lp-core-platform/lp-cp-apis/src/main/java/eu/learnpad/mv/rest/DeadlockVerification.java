@@ -36,7 +36,7 @@ public interface DeadlockVerification {
 	@PUT
 	@Path("/startdeadlockverification/{modelsetid}")
 	String startDeadlockVerification(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type")@DefaultValue("lpzip") String type) throws LpRestException;
+			@QueryParam("type")@DefaultValue("lpzip") String type, byte[] modelContent) throws LpRestException;
 	
 	@GET
 	@Path("/getdeadlockverificationstatus/{verificationprocessid}")
