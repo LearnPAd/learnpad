@@ -33,6 +33,13 @@ import eu.learnpad.mv.rest.data.MVResults;
 
 @Path("/learnpad/mv")
 public interface DeadlockVerification {
+	/**
+	 * @param modelSetId
+	 * @param type
+	 * @param modelContent
+	 * @return a verification process id
+	 * @throws LpRestException
+	 */
 	@PUT
 	@Path("/startdeadlockverification/{modelsetid}")
 	String startDeadlockVerification(@PathParam("modelsetid") String modelSetId,
