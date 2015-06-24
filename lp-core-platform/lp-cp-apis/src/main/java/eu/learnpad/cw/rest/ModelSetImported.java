@@ -27,8 +27,9 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/cw/modelsetimported/{modelsetid}")
+//<host>/learnpad/cw/modelsetimported/{modelsetid}?type={adoxx|md|lpzip}
 public interface ModelSetImported {
+	@Path("/modelsetimported/{modelsetid}")
 	@PUT
 	void putModel(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type") @DefaultValue("lpzip") String type)

@@ -19,9 +19,12 @@
  */
 package eu.learnpad.cw;
 
+import javax.ws.rs.Path;
+
 import eu.learnpad.cw.rest.CommentNotification;
 import eu.learnpad.cw.rest.ResourceNotification;
 
+@Path("/learnpad/cw")
 public interface CoreFacade extends CommentNotification, ResourceNotification {
 
 }

@@ -26,7 +26,7 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/cw/resources/{modelsetid}")
+//<host>/learnpad/cw/resources/{modelsetid}?resourceid=123&linkedto=123,456,789&action={added|deleted|modified}
 public interface GetResource {
 	/**
 	 * @param modelSetId
@@ -42,6 +42,7 @@ public interface GetResource {
 	 * @return a structured file that contains the content/metadata of the resource (to be defined)
 	 * @throws LpRestException
 	 */
+	@Path("/resources/{modelsetid}")
 	@GET
 	byte[] getResource(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("resourceid") String resourceId,

@@ -26,7 +26,7 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/cw/comments/{modelsetid}")
+//<host>/learnpad/cw/comments/{modelsetid}?commentid=123&action={added|deleted|modified}
 public interface CommentNotification {
 	/**
 	 * @param modelSetId
@@ -38,6 +38,7 @@ public interface CommentNotification {
 	 *            modified)
 	 * @throws LpRestException
 	 */
+	@Path("/comments/{modelsetid}")
 	@PUT
 	void commentNotification(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("commentid") String commentId,

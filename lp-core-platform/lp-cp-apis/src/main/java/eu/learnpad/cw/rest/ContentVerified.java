@@ -26,7 +26,7 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/cw/contentverification/{modelsetid}")
+// <host>/learnpad/cw/contentverification/{modelsetid}?artifactid=123&resourceid=123&result={will be a Java class but waiting for a PR first}
 public interface ContentVerified {
 	/**
 	 * @param modelSetId
@@ -40,6 +40,7 @@ public interface ContentVerified {
 	 *            content
 	 * @throws LpRestException
 	 */
+	@Path("/contentverification/{modelsetid}")
 	@PUT
 	void contentVerified(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("artifactid") String artifactId,

@@ -26,7 +26,7 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/cw/resourcenotification/{modelsetid}")
+//<host>/learnpad/cw/resourcenotification/{modelsetid}?resourceid=123&linkedto=123,456,789&action={added|deleted|modified}
 public interface ResourceNotification {
 	/**
 	 * @param modelSetId
@@ -41,6 +41,7 @@ public interface ResourceNotification {
 	 *            modified)
 	 * @throws LpRestException
 	 */
+	@Path("/resourcenotification/{modelsetid}")
 	@PUT
 	void resourceNotification(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("resourceid") String resourceId,

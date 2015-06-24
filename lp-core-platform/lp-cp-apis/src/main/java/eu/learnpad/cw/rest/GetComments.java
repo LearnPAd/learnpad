@@ -26,7 +26,6 @@ import javax.ws.rs.PathParam;
 import eu.learnpad.exception.LpRestException;
 
 // <host>/learnpad/cw/{modelsetid}/{artifactid}/comments
-@Path("/learnpad/cw/{modelsetid}/{artifactid}/comments")
 public interface GetComments {
 	/**
 	 * <code>
@@ -59,6 +58,7 @@ public interface GetComments {
 	 * @return is a file (see above for the format)
 	 * @throws LpRestException
 	 */
+	@Path("/{modelsetid}/{artifactid}/comments")
 	@GET
 	byte[] getComments(@PathParam("modelsetid") String modelSetId,
 			@PathParam("artifactId") String artifactId) throws LpRestException;
