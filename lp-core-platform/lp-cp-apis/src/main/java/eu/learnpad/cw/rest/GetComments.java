@@ -32,16 +32,16 @@ public interface GetComments {
 	 * <code>
 	 * <comments>
 	 *   <comment>
-	 *     <modelIdAsInTheModelingEnvironment/>
-	 *     <artifactIdAsInTheModelingEnvironment/>
+	 *     <ModelUniqueNameAsInTheModelingEnvironment/>
+	 *     <ArtifactUniqueNameAsInTheModelingEnvironment/>
 	 *     <artifactwikiUrlId/>
 	 *     <user/>
 	 *     <date/>
 	 *     <content/>
 	 *   </comment>
 	 *   <comment>
-	 *     <modelIdAsInTheModelingEnvironment/>
-	 *     <artifactIdAsInTheModelingEnvironment/>
+	 *     <ModelUniqueNameAsInTheModelingEnvironment/>
+	 *     <ArtifactUniqueNameAsInTheModelingEnvironment/>
 	 *     <artifactwikiUrlId/>
 	 *     <user/>
 	 *     <date/>

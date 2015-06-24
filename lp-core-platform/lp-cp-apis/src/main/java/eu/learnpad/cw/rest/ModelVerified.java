@@ -26,7 +26,7 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/cw/modelverification/{modelsetid}")
+@Path("/learnpad/cw/modelverified/{modelsetid}")
 public interface ModelVerified {
 	/**
 	 * @param modelSetId
@@ -37,6 +37,6 @@ public interface ModelVerified {
 	 * @throws LpRestException
 	 */
 	@PUT
-	void contentVerified(@PathParam("modelsetid") String modelSetId,
+	void modelVerified(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("result") String result) throws LpRestException;
 }

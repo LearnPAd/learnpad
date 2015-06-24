@@ -33,8 +33,8 @@ public interface GetResource {
 	 *            is the ID of the model set that is concerned
 	 * @param resourceId
 	 *            is the ID that designate the resource
-	 * @param artifactIds
-	 *            is a list of ID to other artifacts from the model, linked to
+	 * @param linkedto
+	 *            is a list of unique name to other artifacts from the model, linked to
 	 *            this resource
 	 * @param action
 	 *            will precise the kind of notification (added, deleted,
@@ -45,6 +45,6 @@ public interface GetResource {
 	@GET
 	byte[] getResource(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("resourceid") String resourceId,
-			@QueryParam("linkedto") String artifactIds,
+			@QueryParam("linkedto") String linkedTo,
 			@QueryParam("action") String action) throws LpRestException;
 }

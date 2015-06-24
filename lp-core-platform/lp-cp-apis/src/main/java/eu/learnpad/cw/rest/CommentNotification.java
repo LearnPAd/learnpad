@@ -26,7 +26,7 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/cp/comments/{modelsetid}")
+@Path("/learnpad/cw/comments/{modelsetid}")
 public interface CommentNotification {
 	/**
 	 * @param modelSetId

@@ -27,7 +27,8 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 
 @Component
-public class XwikiBridgeInterface implements XWikiRestComponent, BridgeInterface{
+public class XwikiBridgeInterface implements XWikiRestComponent,
+		BridgeInterface {
 
 	@Override
 	public byte[] getComments(String modelSetId, String artifactId)
@@ -46,20 +47,20 @@ public class XwikiBridgeInterface implements XWikiRestComponent, BridgeInterface
 	@Override
 	public void putModel(String modelSetId, String type) throws LpRestException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void contentVerified(String modelSetId, String artifactId,
-			String result) throws LpRestException {
+			String resourceId, String result) throws LpRestException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void contentVerified(String modelSetId, String result)
+	public void modelVerified(String modelSetId, String result)
 			throws LpRestException {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

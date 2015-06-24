@@ -26,7 +26,7 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/cp/resources/{modelsetid}")
+@Path("/learnpad/cw/resourcenotification/{modelsetid}")
 public interface ResourceNotification {
 	/**
 	 * @param modelSetId

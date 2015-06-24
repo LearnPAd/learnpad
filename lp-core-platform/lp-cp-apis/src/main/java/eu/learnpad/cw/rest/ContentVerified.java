@@ -33,13 +33,16 @@ public interface ContentVerified {
 	 *            is the ID of the model set that is concerned
 	 * @param artifactId
 	 *            is an ID of artifacts from the model
+	 * @param resourceId
+	 *            is an ID for the resource that has been verified
 	 * @param result
-	 *            contain the feedback about the verification for the specified
+	 *            contain the response about the verification for the specified
 	 *            content
 	 * @throws LpRestException
 	 */
 	@PUT
 	void contentVerified(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("artifactid") String artifactId,
+			@QueryParam("resourceid") String resourceId,
 			@QueryParam("result") String result) throws LpRestException;
 }
