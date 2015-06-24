@@ -1,6 +1,7 @@
 language: java
 script: bash build --debug
-# We need sudo to install dependencies (apt-get)
+# We need to avoid sudo for caching on Travis
+# http://docs.travis-ci.com/user/caching/
 sudo: false
 
 addons:
@@ -13,6 +14,7 @@ addons:
             - nodejs
             - openjdk-7-jdk
             - openjdk-7-jre
+
 cache:
     directories:
         - $HOME/.m2
