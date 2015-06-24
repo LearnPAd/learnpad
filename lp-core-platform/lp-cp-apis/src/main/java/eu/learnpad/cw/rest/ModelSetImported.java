@@ -19,6 +19,7 @@
  */
 package eu.learnpad.cw.rest;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -30,6 +31,6 @@ import eu.learnpad.exception.LpRestException;
 public interface ModelSetImported {
 	@PUT
 	void putModel(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type") String type)
+			@QueryParam("type") @DefaultValue("lpzip") String type)
 			throws LpRestException;
 }
