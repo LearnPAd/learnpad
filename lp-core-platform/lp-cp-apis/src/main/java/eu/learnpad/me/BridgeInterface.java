@@ -19,8 +19,6 @@
  */
 package eu.learnpad.me;
 
-import eu.learnpad.me.rest.ContentVerified;
-
-public interface BridgeInterface extends ContentVerified {
+public interface BridgeInterface {
 
 }

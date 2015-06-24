@@ -19,9 +19,10 @@
  */
 package eu.learnpad.me;
 
-import eu.learnpad.me.rest.ImportModel;
+import eu.learnpad.me.rest.ImportModelSet;
+import eu.learnpad.me.rest.CheckModelSet;
 import eu.learnpad.me.rest.RetrieveFeedbacks;
 
-public interface CoreFacade extends RetrieveFeedbacks, ImportModel{
+public interface CoreFacade extends RetrieveFeedbacks, ImportModelSet, CheckModelSet {
 	
 }
