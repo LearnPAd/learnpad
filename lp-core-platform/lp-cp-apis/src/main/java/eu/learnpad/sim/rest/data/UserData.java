@@ -25,6 +25,7 @@ package eu.learnpad.sim.rest.data;
  */
 public class UserData {
 
+	public String id;
 	public String firstName;
 	public String lastName;
 	public String bio;
