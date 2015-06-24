@@ -19,6 +19,9 @@
  */
 package eu.learnpad.sim.rest.data;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author Tom Jorquera - Linagora
  *
@@ -30,5 +33,22 @@ public class UserData {
 	public String lastName;
 	public String bio;
 	public String pictureURL;
+
+	public UserData() {
+	}
+
+	@JsonCreator
+	public UserData(@JsonProperty("id") String id,
+			@JsonProperty("firstName") String firstName,
+			@JsonProperty("lastName") String lastName,
+			@JsonProperty("bio") String bio,
+			@JsonProperty("pictureURL") String pictureURL) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.bio = bio;
+		this.pictureURL = pictureURL;
+	}
 
 }
