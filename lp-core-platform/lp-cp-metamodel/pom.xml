@@ -26,18 +26,11 @@
 
 	<parent>
 		<groupId>eu.learnpad</groupId>
-		<artifactId>lp-collaborative-workspace</artifactId>
+		<artifactId>lp-core-platform</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>lp-cw-bridge</artifactId>
+	<artifactId>lp-cp-metamodel</artifactId>
 	<packaging>pom</packaging>
-	<name>Learn PAd - Collaborative Workspace - Bridge</name>
-
-	<modules>
-		<module>lp-cw-bridge-api</module>
-		<module>lp-cw-bridge-server</module>
-		<module>lp-cw-bridge-importer</module>
-		<module>lp-cw-bridge-transformer</module>
-	</modules>
+	<name>Learn PAd - Core Platform - Meta-model</name>
 </project>
