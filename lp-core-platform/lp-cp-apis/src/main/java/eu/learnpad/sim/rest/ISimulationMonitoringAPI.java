@@ -44,9 +44,9 @@ public interface ISimulationMonitoringAPI {
 	 * @return the result file
 	 */
 	@GET
-	@Path("/results/simulations/{processinstanceartifactid:.*}")
+	@Path("/results/instances/{processinstanceartifactid:.*}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	public InputStream getSimulationResults(
+	public InputStream getProcessInstanceResults(
 			@PathParam("processinstanceartifactid") String processinstanceartifactid);
 
 	/**
@@ -58,19 +58,19 @@ public interface ISimulationMonitoringAPI {
 	@GET
 	@Path("/results/users/{userartifactid:.*}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	public InputStream getSimulationTraceForLearner(
+	public InputStream getUserResults(
 			@PathParam("userartifactid") String userartifactid);
 
 	/**
-	 * Get the logs file associated with a process
+	 * Get the results file associated with a process
 	 *
 	 * @param processartifactid
 	 * @return the result file
 	 */
 	@GET
-	@Path("/results/models/{modelartifactid:.*}")
+	@Path("/results/processes/{processartifactid:.*}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	public InputStream getSimulationTraceForBP(
-			@PathParam("modelartifactid") String processartifactid);
+	public InputStream getProcessResults(
+			@PathParam("processartifactid") String processartifactid);
 
 }
