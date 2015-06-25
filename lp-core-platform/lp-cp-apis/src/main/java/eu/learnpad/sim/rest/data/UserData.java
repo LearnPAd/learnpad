@@ -28,7 +28,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class UserData {
 
-	public String artifactid;
 	public String firstName;
 	public String lastName;
 	public String bio;
@@ -38,13 +37,11 @@ public class UserData {
 	}
 
 	@JsonCreator
-	public UserData(@JsonProperty("artifactid") String artifactid,
-			@JsonProperty("firstName") String firstName,
+	public UserData(@JsonProperty("firstName") String firstName,
 			@JsonProperty("lastName") String lastName,
 			@JsonProperty("bio") String bio,
 			@JsonProperty("pictureURL") String pictureURL) {
 		super();
-		this.artifactid = artifactid;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.bio = bio;

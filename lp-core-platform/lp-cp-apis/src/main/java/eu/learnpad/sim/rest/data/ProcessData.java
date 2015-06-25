@@ -33,7 +33,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class ProcessData {
 
-	public String artifactid;
 	public String name;
 	public String description;
 	public Collection<String> singleRoles;
@@ -43,12 +42,10 @@ public class ProcessData {
 	};
 
 	@JsonCreator
-	public ProcessData(@JsonProperty("artifactid") String artifactid,
-			@JsonProperty("name") String name,
+	public ProcessData(@JsonProperty("name") String name,
 			@JsonProperty("description") String description,
 			@JsonProperty("singleRoles") Collection<String> singleRoles,
 			@JsonProperty("groupRoles") Collection<String> groupRoles) {
-		this.artifactid = artifactid;
 		this.name = name;
 		this.description = description;
 		this.singleRoles = singleRoles;
