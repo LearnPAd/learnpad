@@ -41,7 +41,7 @@ public interface IProcessHandlingAPI {
 
 	/**
 	 *
-	 * @return current process definitions IDs
+	 * @return current process definitions artifact IDs
 	 */
 	@GET
 	@Path("/processes")
@@ -49,28 +49,29 @@ public interface IProcessHandlingAPI {
 
 	/**
 	 *
-	 * @param processDefinitionFilePath
-	 *            the processes definition file
-	 * @return the IDs of all the added process definitions
+	 * @param processDefinitionFileURL
+	 *            an exact URL to get the processes definition file
+	 * @return the artifact IDs of all the added process definitions
 	 */
 	@POST
 	@Path("/processes")
 	public Collection<String> addProcessDefinition(
-			String processDefinitionFilePath);
+			String processDefinitionFileURL);
 
 	/**
 	 *
-	 * @param processId
-	 *            the id of a process definition
+	 * @param processArtifactId
+	 *            the artifact id of a process definition
 	 * @return the info associated with this process definition
 	 */
 	@GET
-	@Path("/processes/{id:.*}")
-	public ProcessData getProcessInfos(@PathParam("id") String processId);
+	@Path("/processes/{artifactid:.*}")
+	public ProcessData getProcessInfos(
+			@PathParam("artifactid") String processArtifactId);
 
 	/**
 	 *
-	 * @return a collection of the current process instances IDs
+	 * @return a collection of the current process instances artifact IDs
 	 */
 	@GET
 	@Path("/instances")
@@ -80,7 +81,7 @@ public interface IProcessHandlingAPI {
 	 *
 	 * @param data
 	 *            the process instance data
-	 * @return the created process instance data
+	 * @return the created process instance artifact id
 	 */
 	@POST
 	@Path("/instances")
@@ -88,12 +89,12 @@ public interface IProcessHandlingAPI {
 
 	/**
 	 *
-	 * @param processInstanceId
+	 * @param processInstanceArtifactId
 	 *            the id of a process instance
 	 * @return the info associated with this process instance
 	 */
 	@GET
-	@Path("/instances/{id:.*}")
+	@Path("/instances/{artifactid:.*}")
 	public ProcessInstanceData getProcessInstanceInfos(
-			@PathParam("id") String processInstanceId);
+			@PathParam("artifactid") String processInstanceArtifactId);
 }

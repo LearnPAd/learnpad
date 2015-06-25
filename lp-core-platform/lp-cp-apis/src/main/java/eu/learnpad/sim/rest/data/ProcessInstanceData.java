@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class ProcessInstanceData {
 
-	public String process;
+	public String processartifactid;
 	public Map<String, Object> parameters;
 	public Collection<String> users;
 	public Map<String, Collection<String>> routes;
@@ -43,11 +43,12 @@ public class ProcessInstanceData {
 	};
 
 	@JsonCreator
-	public ProcessInstanceData(@JsonProperty("process") String process,
+	public ProcessInstanceData(
+			@JsonProperty("processartifactid") String processartifactid,
 			@JsonProperty("parameters") Map<String, Object> parameters,
 			@JsonProperty("users") Collection<String> users,
 			@JsonProperty("routes") Map<String, Collection<String>> routes) {
-		this.process = process;
+		this.processartifactid = processartifactid;
 		this.parameters = parameters;
 		this.users = users;
 		this.routes = routes;

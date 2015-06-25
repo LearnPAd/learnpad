@@ -44,6 +44,7 @@ public interface IUserInfosAPI {
 	public List<String> getUsers();
 
 	@GET
-	@Path("/{userid:.*}")
-	public UserData getUserData(@PathParam("userid") String userId);
+	@Path("/{userartifactid:.*}")
+	public UserData getUserData(
+			@PathParam("userartifactid") String userartifactid);
 }

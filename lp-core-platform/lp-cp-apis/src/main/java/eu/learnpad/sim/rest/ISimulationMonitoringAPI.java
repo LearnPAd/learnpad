@@ -34,35 +34,36 @@ import javax.ws.rs.PathParam;
 public interface ISimulationMonitoringAPI {
 
 	/**
-	 * Get the result file associated with a specific simulation
+	 * Get the result file associated with a specific process instance
 	 *
-	 * @param simulationid
-	 * @return the String to the result file
+	 * @param processinstanceartifactid
+	 * @return the result file
 	 */
 	@GET
-	@Path("/results/simulations/{simulationid:.*}")
+	@Path("/results/simulations/{processinstanceartifactid:.*}")
 	public String getSimulationResults(
-			@PathParam("simulationid") String simulationid);
+			@PathParam("processinstanceartifactid") String processinstanceartifactid);
 
 	/**
-	 * Get the trace file associated with a learner
+	 * Get the results file associated with a learner
 	 *
-	 * @param userid
-	 * @return the String to the trace file
+	 * @param userartifactid
+	 * @return the result file
 	 */
 	@GET
-	@Path("/results/users/{userid:.*}")
+	@Path("/results/users/{userartifactid:.*}")
 	public String getSimulationTraceForLearner(
-			@PathParam("userid") String userid);
+			@PathParam("userartifactid") String userartifactid);
 
 	/**
-	 * Get the trace file associated with a model
+	 * Get the logs file associated with a process
 	 *
-	 * @param modelid
-	 * @return the String to the trace file
+	 * @param processartifactid
+	 * @return the result file
 	 */
 	@GET
-	@Path("/results/models/{modelid:.*}")
-	public String getSimulationTraceForBP(@PathParam("modelid") String modelid);
+	@Path("/results/models/{modelartifactid:.*}")
+	public String getSimulationTraceForBP(
+			@PathParam("modelartifactid") String processartifactid);
 
 }
