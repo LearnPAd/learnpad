@@ -34,7 +34,7 @@ import eu.learnpad.sim.rest.data.UserData;
  * @author Tom Jorquera - Linagora
  *
  */
-@Path("/users")
+@Path("/learnpad/sim/users")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface IUserInfosAPI {
