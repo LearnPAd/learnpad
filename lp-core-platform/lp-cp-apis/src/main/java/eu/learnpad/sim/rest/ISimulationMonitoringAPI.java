@@ -19,9 +19,13 @@
  */
 package eu.learnpad.sim.rest;
 
+import java.io.InputStream;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -41,7 +45,8 @@ public interface ISimulationMonitoringAPI {
 	 */
 	@GET
 	@Path("/results/simulations/{processinstanceartifactid:.*}")
-	public String getSimulationResults(
+	@Produces(MediaType.APPLICATION_OCTET_STREAM)
+	public InputStream getSimulationResults(
 			@PathParam("processinstanceartifactid") String processinstanceartifactid);
 
 	/**
@@ -52,7 +57,8 @@ public interface ISimulationMonitoringAPI {
 	 */
 	@GET
 	@Path("/results/users/{userartifactid:.*}")
-	public String getSimulationTraceForLearner(
+	@Produces(MediaType.APPLICATION_OCTET_STREAM)
+	public InputStream getSimulationTraceForLearner(
 			@PathParam("userartifactid") String userartifactid);
 
 	/**
@@ -63,7 +69,8 @@ public interface ISimulationMonitoringAPI {
 	 */
 	@GET
 	@Path("/results/models/{modelartifactid:.*}")
-	public String getSimulationTraceForBP(
+	@Produces(MediaType.APPLICATION_OCTET_STREAM)
+	public InputStream getSimulationTraceForBP(
 			@PathParam("modelartifactid") String processartifactid);
 
 }
