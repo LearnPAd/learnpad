@@ -28,11 +28,4 @@ import eu.learnpad.me.BridgeInterface;
 @Component
 public class XwikiBridgeInterface implements XWikiRestComponent, BridgeInterface{
 
-	@Override
-	public byte[] getContentVerified(String modelId, String type)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

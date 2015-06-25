@@ -29,14 +29,21 @@ public class XwikiController extends Controller{
 	}
 
 	@Override
-	public byte[] getFeedbacks(String modelId, String type, byte[] adoxxFile)
-			throws LpRestException {
+	public byte[] getFeedbacks(String modelSetId) throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void putModel(String modelId, String type) throws LpRestException {
+	public void putModelSet(String modelSetId, String type, byte[] modelSetFile)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void checkModelSet(String modelSetId, String type, String value)
+			throws LpRestException {
 		// TODO Auto-generated method stub
 		
 	}

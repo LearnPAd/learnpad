@@ -26,12 +26,11 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/me/contentverified/{modelid}")
-public interface ContentVerified {
-/*
- * the signature should be fixed, probably it is not correct 
- */
-	@GET
-	byte[] getContentVerified(@PathParam("modelid") String modelId,
-			@QueryParam("type") String type) throws LpRestException;
+@Path("/learnpad/me/checkmodelset/{modelsetid}")
+public interface CheckModelSet {
+
+	@GET	
+	void checkModelSet(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("key") String type, @QueryParam("value") String value)
+			throws LpRestException;
 }
