@@ -17,14 +17,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.cw;
+package eu.learnpad.cw.rest;
 
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 
-import eu.learnpad.cw.rest.CommentNotification;
-import eu.learnpad.cw.rest.ResourceNotification;
+import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/cw")
-public interface CoreFacade extends CommentNotification, ResourceNotification {
-
+//<host>/learnpad/cw/comments/{modelsetid}?commentid=123&action={added|deleted|modified}
+public interface CommentNotification {
+	/**
+	 * @param modelSetId
+	 *            is the ID of the model set that is concerned
+	 * @param commentId
+	 *            is the ID that designate the comment
+	 * @param action
+	 *            will precise the kind of notification (added, deleted,
+	 *            modified)
+	 * @throws LpRestException
+	 */
+	@Path("/comments/{modelsetid}")
+	@PUT
+	void commentNotification(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("commentid") String commentId,
+			@QueryParam("action") String action) throws LpRestException;
 }

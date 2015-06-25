@@ -19,17 +19,33 @@
  */
 package eu.learnpad.cw.rest;
 
-import javax.ws.rs.PUT;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/cw/modelimported/{modelid}")
-public interface ModelImported {
-	@PUT
-	void putModel(@PathParam("modelid") String modelId,
-			@QueryParam("type") String type, byte[] adoxxFile)
-			throws LpRestException;
+//<host>/learnpad/cw/resources/{modelsetid}?resourceid=123&linkedto=123,456,789&action={added|deleted|modified}
+public interface GetResource {
+	/**
+	 * @param modelSetId
+	 *            is the ID of the model set that is concerned
+	 * @param resourceId
+	 *            is the ID that designate the resource
+	 * @param linkedto
+	 *            is a list of unique name to other artifacts from the model, linked to
+	 *            this resource
+	 * @param action
+	 *            will precise the kind of notification (added, deleted,
+	 *            modified)
+	 * @return a structured file that contains the content/metadata of the resource (to be defined)
+	 * @throws LpRestException
+	 */
+	@Path("/resources/{modelsetid}")
+	@GET
+	byte[] getResource(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("resourceid") String resourceId,
+			@QueryParam("linkedto") String linkedTo,
+			@QueryParam("action") String action) throws LpRestException;
 }
