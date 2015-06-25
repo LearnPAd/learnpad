@@ -85,7 +85,7 @@ public interface IProcessHandlingAPI {
 	 */
 	@POST
 	@Path("/instances")
-	public ProcessInstanceData addProcessInstance(ProcessInstanceData data);
+	public String addProcessInstance(ProcessInstanceData data);
 
 	/**
 	 *
