@@ -39,5 +39,19 @@
 			<artifactId>lp-cw-component-service-api</artifactId>
 			<version>${learnpad.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.xwiki.platform</groupId>
+			<artifactId>xwiki-platform-oldcore</artifactId>
+			<version>${platform.version}</version>
+		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>

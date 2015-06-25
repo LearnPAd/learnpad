@@ -35,7 +35,6 @@
 
 	<modules>
 		<module>lp-cw-component-service-api</module>
-		<module>lp-cw-component-service-bpmn</module>
 		<module>lp-cw-component-service-default</module>
 		<module>lp-cw-component-service-script</module>
 	</modules>
