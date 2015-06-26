@@ -19,6 +19,7 @@
  */
 package eu.learnpad.qm.rest;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -26,14 +27,12 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/qm/publish/{questionnaireuri}")
+//"/learnpad/qm/publish/{questionnairesid}?type={mothia-out}"
+@Path("/learnpad/qm/publish/{questionnairesid}")
 public interface PublishQuestionnaire {
 
-	/*
-	 * the signature of this method has to be reconsidered.
-	 */
 	@PUT
-	void putQuestionnaire(@PathParam("questionnaireuri") String modelId,
-			@QueryParam("type") String type, byte[] bpmnFile)
-			throws LpRestException;
+	void publish(@PathParam("questionnairesid") String questionnairesId,
+			@QueryParam("type") @DefaultValue("mothia-out") String type, byte [] questionnairesFile)
+					throws LpRestException;
 }

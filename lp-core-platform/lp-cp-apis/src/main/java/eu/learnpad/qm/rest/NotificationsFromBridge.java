@@ -22,14 +22,13 @@ package eu.learnpad.qm.rest;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/qm/modelupated/{modelid}")
-public interface ModelUpdated {
+public interface NotificationsFromBridge {
+
+	@Path("/learnpad/qm/genrationcompleted/{questionnairesid}")
 	@PUT
-	void putModelUpdated(@PathParam("modelid") String modelId,
-			@QueryParam("type") String type, byte[] bpmnFile)
-			throws LpRestException;
+	void genrationCompleted(@PathParam("questionnairesid") String questionnairesId)
+					throws LpRestException;
 }

@@ -19,6 +19,7 @@
  */
 package eu.learnpad.qm.rest;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -26,10 +27,12 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/qm/modelimported/{modelid}")
-public interface ModelImported {
+public interface ModelSetImported {
+
+	//<host>/learnpad/qm/importmodelset/{modelsetid}?type={adoxx|md|lpzip}
 	@PUT
-	void putModel(@PathParam("modelid") String modelId,
-			@QueryParam("type") String type, byte[] bpmnFile)
-			throws LpRestException;
+	@Path("/learnpad/qm/importmodel/{modelsetid}")
+	void importModelSet(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("type")@DefaultValue("lpzip") String type, byte[] modelContent) throws LpRestException;
+	
 }
