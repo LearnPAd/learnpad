@@ -36,7 +36,14 @@ public class XwikiController extends Controller{
 	}
 
 	@Override
-	public void putQuestionnaire(String modelId, String type, byte[] bpmnFile)
+	public void publish(String questionnairesId, String type,
+			byte[] questionnairesFile) throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void genrationCompleted(String questionnairesId)
 			throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 		
