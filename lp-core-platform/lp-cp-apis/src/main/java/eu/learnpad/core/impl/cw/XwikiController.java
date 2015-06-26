@@ -20,6 +20,7 @@
 package eu.learnpad.core.impl.cw;
 
 import eu.learnpad.cw.Controller;
+import eu.learnpad.exception.LpRestException;
 
 public class XwikiController extends Controller{
 
@@ -32,5 +33,19 @@ public class XwikiController extends Controller{
 			this.bridge = new XwikiBridgeInterface();
 		else
 			this.bridge = new XwikiBridgeInterfaceRestResource();			
+	}
+
+	@Override
+	public void commentNotification(String modelSetId, String commentId,
+			String action) throws LpRestException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resourceNotification(String modelSetId, String resourceId,
+			String artifactIds, String action) throws LpRestException {
+		// TODO Auto-generated method stub
+		
 	}
 }

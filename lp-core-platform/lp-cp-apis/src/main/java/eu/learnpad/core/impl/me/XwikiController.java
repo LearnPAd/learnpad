@@ -19,7 +19,6 @@
  */
 package eu.learnpad.core.impl.me;
 
-import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.Controller;
 
@@ -37,7 +36,7 @@ public class XwikiController extends Controller{
 	}
 
 	@Override
-	public byte[] getFeedbacks(String modelSetId) throws LpRestException {
+	public byte[] getFeedbacks(String modelSetId) throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}

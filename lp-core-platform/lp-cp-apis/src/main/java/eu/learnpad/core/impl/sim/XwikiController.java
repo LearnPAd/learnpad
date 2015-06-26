@@ -19,8 +19,11 @@
  */
 package eu.learnpad.core.impl.sim;
 
+import java.util.List;
+
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.sim.Controller;
+import eu.learnpad.sim.rest.data.UserData;
 
 public class XwikiController extends Controller{
 
@@ -33,6 +36,18 @@ public class XwikiController extends Controller{
 			this.bridge = new XwikiBridgeInterface();
 		else
 			this.bridge = new XwikiBridgeInterfaceRestResource();			
+	}
+
+	@Override
+	public List<String> getUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserData getUserData(String userartifactid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

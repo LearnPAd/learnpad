@@ -19,8 +19,16 @@
  */
 package eu.learnpad.cw;
 
-import eu.learnpad.cw.rest.ModelSetImported;
+import javax.ws.rs.Path;
 
-public interface BridgeInterface extends ModelSetImported{
+import eu.learnpad.cw.rest.ContentVerified;
+import eu.learnpad.cw.rest.GetComments;
+import eu.learnpad.cw.rest.GetResource;
+import eu.learnpad.cw.rest.ModelSetImported;
+import eu.learnpad.cw.rest.ModelVerified;
+
+@Path("/learnpad/cw")
+public interface BridgeInterface extends GetComments, GetResource,
+		ModelSetImported, ContentVerified, ModelVerified {
 
 }

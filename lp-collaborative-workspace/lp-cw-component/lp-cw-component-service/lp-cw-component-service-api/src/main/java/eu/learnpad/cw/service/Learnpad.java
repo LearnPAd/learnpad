@@ -25,25 +25,15 @@ import org.xwiki.component.annotation.Role;
 
 @Role
 public interface Learnpad {
-	String getCurrent() throws LearnpadException;
-
-	String getName() throws LearnpadException;
-
 	String getName(String id) throws LearnpadException;
-
-	String getDocumentation() throws LearnpadException;
+	
+	String getType(String id) throws LearnpadException;
 
 	String getDocumentation(String id) throws LearnpadException;
 
-	String getURL() throws LearnpadException;
-
 	String getURL(String id) throws LearnpadException;
 
-	List<String> getIncomings() throws LearnpadException;
-
 	List<String> getIncomings(String id) throws LearnpadException;
-
-	List<String> getOutgoings() throws LearnpadException;
 
 	List<String> getOutgoings(String id) throws LearnpadException;
 }

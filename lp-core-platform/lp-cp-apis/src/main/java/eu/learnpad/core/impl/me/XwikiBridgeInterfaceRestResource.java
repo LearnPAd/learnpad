@@ -22,9 +22,8 @@ package eu.learnpad.core.impl.me;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.BridgeInterface;
-import eu.learnpad.rest.utils.RestResource;
+import eu.learnpad.core.rest.RestResource;
 
 @Component
 public class XwikiBridgeInterfaceRestResource extends RestResource implements XWikiRestComponent, BridgeInterface{

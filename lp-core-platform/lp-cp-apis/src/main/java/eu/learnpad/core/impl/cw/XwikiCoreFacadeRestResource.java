@@ -22,11 +22,26 @@ package eu.learnpad.core.impl.cw;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.cw.CoreFacade;
-import eu.learnpad.rest.utils.RestResource;
+import eu.learnpad.core.rest.RestResource;
 
 @Component
 public class XwikiCoreFacadeRestResource extends RestResource implements XWikiRestComponent, CoreFacade{
+
+	@Override
+	public void commentNotification(String modelSetId, String commentId,
+			String action) throws LpRestException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resourceNotification(String modelSetId, String resourceId,
+			String artifactIds, String action) throws LpRestException {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -19,13 +19,74 @@
  */
 package eu.learnpad.core.impl.sim;
 
+import java.io.InputStream;
+import java.util.Collection;
+
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.sim.BridgeInterface;
+import eu.learnpad.sim.rest.data.ProcessData;
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 
 @Component
 public class XwikiBridgeInterface implements XWikiRestComponent, BridgeInterface{
+
+	@Override
+	public Collection<String> getProcessDefinitions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<String> addProcessDefinition(
+			String processDefinitionFileURL) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ProcessData getProcessInfos(String processArtifactId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<String> getProcessInstances() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String addProcessInstance(ProcessInstanceData data) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ProcessInstanceData getProcessInstanceInfos(
+			String processInstanceArtifactId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InputStream getProcessInstanceResults(
+			String processinstanceartifactid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InputStream getUserResults(String userartifactid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InputStream getProcessResults(String processartifactid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

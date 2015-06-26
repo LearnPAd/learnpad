@@ -24,7 +24,7 @@ import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.CoreFacade;
-import eu.learnpad.rest.utils.RestResource;
+import eu.learnpad.core.rest.RestResource;
 
 @Component
 public class XwikiCoreFacadeRestResource extends RestResource implements XWikiRestComponent, CoreFacade{
@@ -48,6 +48,5 @@ public class XwikiCoreFacadeRestResource extends RestResource implements XWikiRe
 		// TODO Auto-generated method stub
 		
 	}
-
 
 }

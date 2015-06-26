@@ -30,10 +30,36 @@ public class XwikiBridgeInterface implements XWikiRestComponent,
 		BridgeInterface {
 
 	@Override
-	public void putModel(String modelSetId, String type)
+	public byte[] getComments(String modelSetId, String artifactId)
 			throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte[] getResource(String modelSetId, String resourceId,
+			String artifactIds, String action) throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void putModel(String modelSetId, String type) throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 
 	}
 
+	@Override
+	public void contentVerified(String modelSetId, String artifactId,
+			String resourceId, String result) throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void modelVerified(String modelSetId, String result)
+			throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+
+	}
 }

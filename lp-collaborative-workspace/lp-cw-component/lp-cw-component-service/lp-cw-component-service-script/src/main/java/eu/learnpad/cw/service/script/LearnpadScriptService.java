@@ -99,24 +99,6 @@ public class LearnpadScriptService implements ScriptService {
 		this.execution.getContext().setProperty(LEARNPADERROR_KEY, e);
 	}
 
-	public String getCurrent() {
-		try {
-			return learnpadService.getCurrent();
-		} catch (LearnpadException e) {
-			this.setLastError(e);
-			return null;
-		}
-	}
-
-	public String getName() {
-		try {
-			return learnpadService.getName();
-		} catch (LearnpadException e) {
-			this.setLastError(e);
-			return null;
-		}
-	}
-
 	public String getName(String id) {
 		try {
 			return learnpadService.getName(id);
@@ -126,9 +108,9 @@ public class LearnpadScriptService implements ScriptService {
 		}
 	}
 
-	public String getDocumentation() {
+	public String getType(String id) {
 		try {
-			return learnpadService.getDocumentation();
+			return learnpadService.getType(id);
 		} catch (LearnpadException e) {
 			this.setLastError(e);
 			return null;
@@ -144,15 +126,6 @@ public class LearnpadScriptService implements ScriptService {
 		}
 	}
 
-	public String getURL() {
-		try {
-			return learnpadService.getURL();
-		} catch (LearnpadException e) {
-			this.setLastError(e);
-			return null;
-		}
-	}
-
 	public String getURL(String id) {
 		try {
 			return learnpadService.getURL(id);
@@ -162,27 +135,9 @@ public class LearnpadScriptService implements ScriptService {
 		}
 	}
 
-	public List<String> getIncomings() {
-		try {
-			return learnpadService.getIncomings();
-		} catch (LearnpadException e) {
-			this.setLastError(e);
-			return null;
-		}
-	}
-
 	public List<String> getIncomings(String id) {
 		try {
 			return learnpadService.getIncomings(id);
-		} catch (LearnpadException e) {
-			this.setLastError(e);
-			return null;
-		}
-	}
-
-	public List<String> getOutgoings() {
-		try {
-			return learnpadService.getOutgoings();
 		} catch (LearnpadException e) {
 			this.setLastError(e);
 			return null;

@@ -19,6 +19,22 @@
  */
 package eu.learnpad.sim;
 
-public interface BridgeInterface {
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import eu.learnpad.sim.rest.IProcessHandlingAPI;
+import eu.learnpad.sim.rest.ISimulationMonitoringAPI;
+
+/**
+ * @author Tom Jorquera - Linagora
+ *
+ */
+@Path("/learnpad/sim/")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+public interface BridgeInterface extends IProcessHandlingAPI,
+		ISimulationMonitoringAPI {
 
 }

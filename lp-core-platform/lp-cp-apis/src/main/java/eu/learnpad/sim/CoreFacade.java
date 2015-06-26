@@ -19,6 +19,12 @@
  */
 package eu.learnpad.sim;
 
-public interface CoreFacade {
-	
+import eu.learnpad.sim.rest.IUserInfosAPI;
+
+/**
+ * @author Tom Jorquera - Linagora
+ *
+ */
+public interface CoreFacade extends IUserInfosAPI {
+
 }
