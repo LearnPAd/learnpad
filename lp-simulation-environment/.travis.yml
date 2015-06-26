@@ -1,2 +1,8 @@
 language: java
 script: bash build
+
+sudo: false
+
+cache:
+        directories:
+                - $HOME/.m2
