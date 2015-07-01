@@ -10,8 +10,6 @@ checkout:
 dependencies:
     cache_directories:
         - "~/.m2"
-    pre:
-        - sudo apt-get update; sudo apt-get install -y curl gcc make maven nodejs openjdk-7-jdk openjdk-7-jre
 
 test:
     override:
