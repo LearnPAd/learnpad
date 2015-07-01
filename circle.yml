@@ -1,0 +1,18 @@
+machine:
+    java:
+        version: openjdk7
+
+checkout:
+    post:
+        - git submodule sync
+        - git submodule update --init
+
+dependencies:
+    pre:
+        - sudo apt-get update; sudo apt-get install curl gcc make maven nodejs openjdk-7-jdk openjdk-7-jre
+      cache_directories:
+              - "~/.m2"
+
+test:
+    override:
+        - bash build --install-deps --debug
