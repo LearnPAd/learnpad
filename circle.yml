@@ -8,10 +8,10 @@ checkout:
         - git submodule update --init
 
 dependencies:
+    cache_directories:
+        - "~/.m2"
     pre:
-        - sudo apt-get update; sudo apt-get install curl gcc make maven nodejs openjdk-7-jdk openjdk-7-jre
-      cache_directories:
-              - "~/.m2"
+        - sudo apt-get update; sudo apt-get install -ycurl gcc make maven nodejs openjdk-7-jdk openjdk-7-jre
 
 test:
     override:
