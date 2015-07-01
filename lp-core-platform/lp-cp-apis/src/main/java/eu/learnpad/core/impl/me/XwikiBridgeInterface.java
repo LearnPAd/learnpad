@@ -22,7 +22,6 @@ package eu.learnpad.core.impl.me;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.BridgeInterface;
 
 @Component

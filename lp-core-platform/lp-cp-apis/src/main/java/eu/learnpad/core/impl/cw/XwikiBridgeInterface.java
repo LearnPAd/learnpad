@@ -23,7 +23,6 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.cw.BridgeInterface;
-import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 
 @Component
@@ -32,34 +31,34 @@ public class XwikiBridgeInterface implements XWikiRestComponent,
 
 	@Override
 	public byte[] getComments(String modelSetId, String artifactId)
-			throws LpRestException {
+			throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public byte[] getResource(String modelSetId, String resourceId,
-			String artifactIds, String action) throws LpRestException {
+			String artifactIds, String action) throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void putModel(String modelSetId, String type) throws LpRestException {
+	public void putModel(String modelSetId, String type) throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void contentVerified(String modelSetId, String artifactId,
-			String resourceId, String result) throws LpRestException {
+			String resourceId, String result) throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void modelVerified(String modelSetId, String result)
-			throws LpRestException {
+			throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 
 	}

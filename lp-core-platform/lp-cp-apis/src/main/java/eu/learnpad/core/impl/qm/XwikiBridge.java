@@ -24,7 +24,14 @@ import eu.learnpad.qm.Bridge;
 public abstract class XwikiBridge extends Bridge{
 
 	public XwikiBridge (){
-		this.corefacade = new XwikiCoreFacadeRestResource();
+		this(false);
+	}
+
+	public XwikiBridge (boolean isCoreFacadeLocal){
+		if (isCoreFacadeLocal)
+			this.corefacade = new XwikiCoreFacade();
+		else
+			this.corefacade = new XwikiCoreFacadeRestResource();
 	}
 
 }

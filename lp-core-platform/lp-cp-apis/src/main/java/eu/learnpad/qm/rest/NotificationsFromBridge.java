@@ -19,36 +19,16 @@
  */
 package eu.learnpad.qm.rest;
 
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-public interface GenerateQuestionnaires {
-//	@GET
-//	byte[] getQuestionnaires(@PathParam("modelid") String modelId,
-//			@QueryParam("type") String type, byte[] bpmnFile)
-//			throws LpRestException;
-//	
+public interface NotificationsFromBridge {
 
-	/** modelSet is supposed to the loaded already into the component
-	 * @param modelSetId
-	 * @param type
-	 * @param configurationFile : if null, default configurations will be used
-	 * @return a generation process id
-	 * @throws LpRestException
-	 */
-	@GET
-	@Path("/learnpad/qm/generate/{modelsetid}")
-	String generateQuestionnaires(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type")@DefaultValue("mothia-out") String type, byte[] configurationFile) throws LpRestException;
-	
-	@Path("/learnpad/qm/generate/{generationprocessid}/status")
-	@GET
-	String getGenerationStatus(@PathParam("generationprocessid") String generationProcessId)
-			throws LpRestException;
-	
+	@Path("/learnpad/qm/genrationcompleted/{questionnairesid}")
+	@PUT
+	void genrationCompleted(@PathParam("questionnairesid") String questionnairesId)
+					throws LpRestException;
 }

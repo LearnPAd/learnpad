@@ -27,28 +27,28 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-public interface GenerateQuestionnaires {
-//	@GET
-//	byte[] getQuestionnaires(@PathParam("modelid") String modelId,
-//			@QueryParam("type") String type, byte[] bpmnFile)
-//			throws LpRestException;
-//	
+public interface CompileQuestionnaire {
 
-	/** modelSet is supposed to the loaded already into the component
-	 * @param modelSetId
-	 * @param type
-	 * @param configurationFile : if null, default configurations will be used
-	 * @return a generation process id
+	/** 
+	 * @return a creation process id
 	 * @throws LpRestException
 	 */
 	@GET
-	@Path("/learnpad/qm/generate/{modelsetid}")
-	String generateQuestionnaires(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type")@DefaultValue("mothia-out") String type, byte[] configurationFile) throws LpRestException;
+	@Path("/learnpad/qm/create")
+	String createQuestionnaire() throws LpRestException;
 	
-	@Path("/learnpad/qm/generate/{generationprocessid}/status")
+	@Path("/learnpad/qm/add/{creationprocessid}")
 	@GET
-	String getGenerationStatus(@PathParam("generationprocessid") String generationProcessId)
+	void addQuestionToQuestionnaire(@PathParam("creationprocessid") String creationProcessId,
+			@QueryParam("question") String question, @QueryParam("expectedanswer") String expectedAnswer)
 			throws LpRestException;
 	
+/*
+ * It should cause the invocation of eu.learnpad.qm.rest.PublishQuestionnaire:publish
+ */
+	@Path("/learnpad/qm/finalize/{creationprocessid}")
+	@GET
+	void finalizeQuestionnaire(@PathParam("creationprocessid") String creationProcessId,
+			@QueryParam("type") @DefaultValue("mothia-out") String type)
+			throws LpRestException;
 }

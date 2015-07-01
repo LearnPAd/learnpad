@@ -17,11 +17,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.qm;
+package eu.learnpad.core.impl.or;
 
-import eu.learnpad.qm.rest.GenerateQuestionnaires;
-import eu.learnpad.qm.rest.ModelSetImported;
+import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.or.Controller;
 
-public interface BridgeInterface extends ModelSetImported, GenerateQuestionnaires {
+public class XwikiController extends Controller{
+	
+	public XwikiController (){
+		this(false);
+	}
+
+	public XwikiController (boolean isBridgeInterfaceLocal){
+		if (isBridgeInterfaceLocal)
+			this.bridge = new XwikiBridgeInterface();
+		else
+			this.bridge = new XwikiBridgeInterfaceRestResource();			
+	}
+
+	@Override
+	public byte[] getComments(String modelSetId, String artifactId)
+			throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
