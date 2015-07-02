@@ -12,6 +12,8 @@ Code](http://www.quantifiedcode.com/api/v1/project/c786bdc34886440ea2f80a54a87aa
 [![Circle
 CI](https://circleci.com/gh/LearnPAd/learnpad.svg?style=svg)](https://circleci.com/gh/LearnPAd/learnpad)
 
+[![XWiki labs logo](https://labs.xwiki.com/xwiki/bin/download/Developments/Xlabs/xwiki-labs-project.png "XWiki labs")](https://labs.xwiki.com/xwiki/bin/view/Main/WebHome)
+
 Learn PAd project - Model-Based Social Learning for Public Administrations
 ==========================================================================
 
