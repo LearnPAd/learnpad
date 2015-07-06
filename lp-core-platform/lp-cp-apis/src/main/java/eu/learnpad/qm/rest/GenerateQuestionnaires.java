@@ -37,7 +37,7 @@ public interface GenerateQuestionnaires {
 	/** modelSet is supposed to the loaded already into the component
 	 * @param modelSetId
 	 * @param type
-	 * @param configurationFile : if null, default configurations will be used
+	 * @param configurationFile : if null, default configurations will be used (may be a java class in the future)
 	 * @return a generation process id
 	 * @throws LpRestException
 	 */

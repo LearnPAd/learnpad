@@ -19,9 +19,10 @@
  */
 package eu.learnpad.qm;
 
+import eu.learnpad.qm.rest.CompileQuestionnaire;
 import eu.learnpad.qm.rest.GenerateQuestionnaires;
 import eu.learnpad.qm.rest.ModelSetImported;
 
-public interface BridgeInterface extends ModelSetImported, GenerateQuestionnaires {
+public interface BridgeInterface extends ModelSetImported, CompileQuestionnaire, GenerateQuestionnaires {
 
 }
