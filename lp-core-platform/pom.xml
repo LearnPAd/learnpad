@@ -58,6 +58,7 @@
 	<modules>
 		<module>lp-cp-controllers</module>
 		<module>lp-cp-apis</module>
+		<module>lp-cp-metamodel</module>
 	</modules>
 
 	<repositories>

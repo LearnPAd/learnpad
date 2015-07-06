@@ -43,8 +43,10 @@ public abstract class LpControllersFactory {
 			return concreteFactory;
 		}
 		
-		public abstract eu.learnpad.cw.Controller createControllerCW();
-		public abstract eu.learnpad.me.Controller createControllerME();
-		public abstract eu.learnpad.qm.Controller createControllerQM();
+		public abstract eu.learnpad.cw.Controller createControllerCW(boolean isBridgeInterfaceLocal);
+		public abstract eu.learnpad.me.Controller createControllerME(boolean isBridgeInterfaceLocal);
+		public abstract eu.learnpad.qm.Controller createControllerQM(boolean isBridgeInterfaceLocal);
+		public abstract eu.learnpad.or.Controller createControllerOR(boolean isBridgeInterfaceLocal);
+		public abstract eu.learnpad.sim.Controller createControllerSIM(boolean isBridgeInterfaceLocal);
 	
 }

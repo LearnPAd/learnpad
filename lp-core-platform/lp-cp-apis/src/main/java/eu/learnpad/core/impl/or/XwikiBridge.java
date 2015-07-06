@@ -17,21 +17,21 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.me.rest;
+package eu.learnpad.core.impl.or;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
+import eu.learnpad.or.Bridge;
 
-import eu.learnpad.exception.LpRestException;
+public abstract class XwikiBridge extends Bridge{
 
-@Path("/learnpad/me/contentverified/{modelid}")
-public interface ContentVerified {
-/*
- * the signature should be fixed, probably it is not correct 
- */
-	@GET
-	byte[] getContentVerified(@PathParam("modelid") String modelId,
-			@QueryParam("type") String type) throws LpRestException;
+	public XwikiBridge (){
+		this(false);
+	}
+
+	public XwikiBridge (boolean isCoreFacadeLocal){
+		if (isCoreFacadeLocal)
+			this.corefacade = new XwikiCoreFacade();
+		else
+			this.corefacade = new XwikiCoreFacadeRestResource();
+	}
+
 }

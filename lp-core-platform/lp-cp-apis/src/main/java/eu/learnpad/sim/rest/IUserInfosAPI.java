@@ -17,19 +17,34 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.qm.rest;
+package eu.learnpad.sim.rest;
 
-import javax.ws.rs.PUT;
+import java.util.List;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
-import eu.learnpad.exception.LpRestException;
+import eu.learnpad.sim.rest.data.UserData;
 
-@Path("/learnpad/qm/modelupated/{modelid}")
-public interface ModelUpdated {
-	@PUT
-	void putModelUpdated(@PathParam("modelid") String modelId,
-			@QueryParam("type") String type, byte[] bpmnFile)
-			throws LpRestException;
+/**
+ * @author Tom Jorquera - Linagora
+ *
+ */
+@Path("/learnpad/sim/users")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+public interface IUserInfosAPI {
+
+	@GET
+	@Path("/")
+	public List<String> getUsers();
+
+	@GET
+	@Path("/{userartifactid:.*}")
+	public UserData getUserData(
+			@PathParam("userartifactid") String userartifactid);
 }
