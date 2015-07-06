@@ -19,6 +19,7 @@
  */
 package eu.learnpad.qm.rest;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -26,10 +27,28 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/qm/generate/{modelid}")
 public interface GenerateQuestionnaires {
+//	@GET
+//	byte[] getQuestionnaires(@PathParam("modelid") String modelId,
+//			@QueryParam("type") String type, byte[] bpmnFile)
+//			throws LpRestException;
+//	
+
+	/** modelSet is supposed to the loaded already into the component
+	 * @param modelSetId
+	 * @param type
+	 * @param configurationFile : if null, default configurations will be used (may be a java class in the future)
+	 * @return a generation process id
+	 * @throws LpRestException
+	 */
 	@GET
-	byte[] getQuestionnaires(@PathParam("modelid") String modelId,
-			@QueryParam("type") String type, byte[] bpmnFile)
+	@Path("/learnpad/qm/generate/{modelsetid}")
+	String generateQuestionnaires(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("type")@DefaultValue("mothia-out") String type, byte[] configurationFile) throws LpRestException;
+	
+	@Path("/learnpad/qm/generate/{generationprocessid}/status")
+	@GET
+	String getGenerationStatus(@PathParam("generationprocessid") String generationProcessId)
 			throws LpRestException;
+	
 }

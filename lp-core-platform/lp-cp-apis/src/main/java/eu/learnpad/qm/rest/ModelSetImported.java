@@ -17,36 +17,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.core.impl.qm;
+package eu.learnpad.qm.rest;
 
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
-import eu.learnpad.qm.Controller;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 
-public class XwikiController extends Controller{
+import eu.learnpad.exception.LpRestException;
 
-	public XwikiController (){
-		this(false);
-	}
+public interface ModelSetImported {
 
-	public XwikiController (boolean isBridgeInterfaceLocal){
-		if (isBridgeInterfaceLocal)
-			this.bridge = new XwikiBridgeInterface();
-		else
-			this.bridge = new XwikiBridgeInterfaceRestResource();			
-	}
-
-	@Override
-	public void publish(String questionnairesId, String type,
-			byte[] questionnairesFile) throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void genrationCompleted(String questionnairesId)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		
-	}
-
+	//<host>/learnpad/qm/importmodelset/{modelsetid}?type={adoxx|md|lpzip}
+	@PUT
+	@Path("/learnpad/qm/importmodel/{modelsetid}")
+	void importModelSet(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("type")@DefaultValue("lpzip") String type, byte[] modelContent) throws LpRestException;
+	
 }

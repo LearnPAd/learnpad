@@ -17,50 +17,76 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.core.impl.cw;
+package eu.learnpad.core.impl.sim;
+
+import java.io.InputStream;
+import java.util.Collection;
 
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
-import eu.learnpad.cw.BridgeInterface;
-import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.sim.BridgeInterface;
+import eu.learnpad.sim.rest.data.ProcessData;
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 
 @Component
-public class XwikiBridgeInterfaceRestResource extends RestResource implements
-		XWikiRestComponent, BridgeInterface {
+public class XwikiBridgeInterface implements XWikiRestComponent, BridgeInterface{
 
 	@Override
-	public byte[] getComments(String modelSetId, String artifactId)
-			throws LpRestExceptionImpl {
+	public Collection<String> getProcessDefinitions() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public byte[] getResource(String modelSetId, String resourceId,
-			String artifactIds, String action) throws LpRestExceptionImpl {
+	public Collection<String> addProcessDefinition(
+			String processDefinitionFileURL) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void putModel(String modelSetId, String type) throws LpRestExceptionImpl {
+	public ProcessData getProcessInfos(String processArtifactId) {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 	@Override
-	public void contentVerified(String modelSetId, String artifactId,
-			String resourceId, String result) throws LpRestExceptionImpl {
+	public Collection<String> getProcessInstances() {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 	@Override
-	public void modelVerified(String modelSetId, String result)
-			throws LpRestExceptionImpl {
+	public String addProcessInstance(ProcessInstanceData data) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ProcessInstanceData getProcessInstanceInfos(
+			String processInstanceArtifactId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InputStream getProcessInstanceResults(
+			String processinstanceartifactid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InputStream getUserResults(String userartifactid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InputStream getProcessResults(String processartifactid) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

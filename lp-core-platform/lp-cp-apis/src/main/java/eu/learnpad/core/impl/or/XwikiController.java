@@ -17,13 +17,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.core.impl.qm;
+package eu.learnpad.core.impl.or;
 
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
-import eu.learnpad.qm.Controller;
+import eu.learnpad.or.Controller;
 
 public class XwikiController extends Controller{
-
+	
 	public XwikiController (){
 		this(false);
 	}
@@ -36,17 +36,11 @@ public class XwikiController extends Controller{
 	}
 
 	@Override
-	public void publish(String questionnairesId, String type,
-			byte[] questionnairesFile) throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void genrationCompleted(String questionnairesId)
+	public byte[] getComments(String modelSetId, String artifactId)
 			throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
+
 
 }

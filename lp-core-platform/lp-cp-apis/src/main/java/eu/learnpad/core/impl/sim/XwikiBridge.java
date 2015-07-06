@@ -17,36 +17,21 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.core.impl.qm;
+package eu.learnpad.core.impl.sim;
 
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
-import eu.learnpad.qm.Controller;
+import eu.learnpad.sim.Bridge;
 
-public class XwikiController extends Controller{
+public abstract class XwikiBridge extends Bridge{
 
-	public XwikiController (){
+	public XwikiBridge (){
 		this(false);
 	}
 
-	public XwikiController (boolean isBridgeInterfaceLocal){
-		if (isBridgeInterfaceLocal)
-			this.bridge = new XwikiBridgeInterface();
+	public XwikiBridge (boolean isCoreFacadeLocal){
+		if (isCoreFacadeLocal)
+			this.corefacade = new XwikiCoreFacade();
 		else
-			this.bridge = new XwikiBridgeInterfaceRestResource();			
-	}
-
-	@Override
-	public void publish(String questionnairesId, String type,
-			byte[] questionnairesFile) throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void genrationCompleted(String questionnairesId)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		
+			this.corefacade = new XwikiCoreFacadeRestResource();
 	}
 
 }

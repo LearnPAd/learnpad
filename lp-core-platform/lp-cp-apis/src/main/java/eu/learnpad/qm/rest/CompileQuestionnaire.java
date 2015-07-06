@@ -20,19 +20,35 @@
 package eu.learnpad.qm.rest;
 
 import javax.ws.rs.DefaultValue;
-import javax.ws.rs.PUT;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-//"/learnpad/qm/publish/{questionnairesid}?type={mothia-out}"
-@Path("/learnpad/qm/publish/{questionnairesid}")
-public interface PublishQuestionnaire {
+public interface CompileQuestionnaire {
 
-	@PUT
-	void publish(@PathParam("questionnairesid") String questionnairesId,
-			@QueryParam("type") @DefaultValue("mothia-out") String type, byte [] questionnairesFile)
-					throws LpRestException;
+	/** 
+	 * @return a creation process id
+	 * @throws LpRestException
+	 */
+	@GET
+	@Path("/learnpad/qm/create")
+	String createQuestionnaire() throws LpRestException;
+	
+	@Path("/learnpad/qm/add/{creationprocessid}")
+	@GET
+	void addQuestionToQuestionnaire(@PathParam("creationprocessid") String creationProcessId,
+			@QueryParam("question") String question, @QueryParam("expectedanswer") String expectedAnswer)
+			throws LpRestException;
+	
+/*
+ * It should cause the invocation of eu.learnpad.qm.rest.PublishQuestionnaire:publish
+ */
+	@Path("/learnpad/qm/finalize/{creationprocessid}")
+	@GET
+	void finalizeQuestionnaire(@PathParam("creationprocessid") String creationProcessId,
+			@QueryParam("type") @DefaultValue("mothia-out") String type)
+			throws LpRestException;
 }
