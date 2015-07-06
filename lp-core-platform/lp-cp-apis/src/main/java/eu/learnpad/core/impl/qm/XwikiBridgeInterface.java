@@ -22,6 +22,7 @@ package eu.learnpad.core.impl.qm;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.qm.BridgeInterface;
 
@@ -47,6 +48,26 @@ public class XwikiBridgeInterface implements XWikiRestComponent, BridgeInterface
 			throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public String createQuestionnaire() throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addQuestionToQuestionnaire(String creationProcessId,
+			String question, String expectedAnswer) throws LpRestException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void finalizeQuestionnaire(String creationProcessId, String type)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
