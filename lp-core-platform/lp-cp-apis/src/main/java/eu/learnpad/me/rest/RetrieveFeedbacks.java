@@ -25,8 +25,6 @@ import javax.ws.rs.PathParam;
 
 import eu.learnpad.exception.LpRestException;
 
-//"/learnpad/me/retrievefeedbacks/{modelsetid}"
-@Path("/learnpad/me/retrievefeedbacks/{modelsetid}")
 public interface RetrieveFeedbacks {
 	/*
 	 * <feedbacks>
@@ -39,6 +37,8 @@ public interface RetrieveFeedbacks {
 	 *   </feedback>
 	 * </feedbacks>
 	 */
+	//"/learnpad/me/retrievefeedbacks/{modelsetid}"
+	@Path("/retrievefeedbacks/{modelsetid}")
 	@GET
 	byte[] getFeedbacks(@PathParam("modelsetid") String modelSetId)
 			throws LpRestException;

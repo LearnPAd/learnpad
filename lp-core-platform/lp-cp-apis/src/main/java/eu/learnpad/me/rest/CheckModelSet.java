@@ -26,11 +26,11 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/me/checkmodelset/{modelsetid}")
 public interface CheckModelSet {
-
-	@GET	
+	//"/learnpad/me/checkmodelset/{modelsetid}"
+	@Path("/checkmodelset/{modelsetid}")
+	@GET
 	void checkModelSet(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("key") String type, @QueryParam("value") String value)
+			@QueryParam("key") String key, @QueryParam("value") String value)
 			throws LpRestException;
 }
