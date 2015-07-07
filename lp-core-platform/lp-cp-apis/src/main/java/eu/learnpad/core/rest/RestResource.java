@@ -25,26 +25,30 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 
 public class RestResource {
-	public String PROTOCOL = "http";
-	public String HOSTNAME = "localhost";
-	public int PORT = 8080;
-	public String HOST = PROTOCOL + "://" + HOSTNAME + ":" + PORT;
-	public String REST_URI = HOST + "/xwiki/rest";
-	private String DEFAULT_USER = "superadmin";
-	private String DEFAULT_PASSWORD = "LearnPAss";
+	private static String PROTOCOL = "http";
+	private static String HOSTNAME = "localhost";
+	private static int PORT = 8080;
+	private static String HOST = PROTOCOL + "://" + HOSTNAME + ":" + PORT;
+	private static String REST_URI = HOST + "/xwiki/rest";
+	private static String DEFAULT_USER = "superadmin";
+	private static String DEFAULT_PASSWORD = "LearnPAss";
 
-	public HttpClient getClient() {
-		return getClient(DEFAULT_USER, DEFAULT_PASSWORD);
+	public static HttpClient getClient() {
+		return getClient(RestResource.DEFAULT_USER, RestResource.DEFAULT_PASSWORD);
 	}
 
-	public HttpClient getClient(String userName, String password) {
+	public static HttpClient getClient(String userName, String password) {
 		HttpClient httpClient = new HttpClient();
 		httpClient.getParams().setAuthenticationPreemptive(true);
 		Credentials credentials = new UsernamePasswordCredentials(userName,
 				password);
-		AuthScope authentication = new AuthScope(this.HOSTNAME, this.PORT,
+		AuthScope authentication = new AuthScope(RestResource.HOSTNAME, RestResource.PORT,
 				AuthScope.ANY_REALM);
 		httpClient.getState().setCredentials(authentication, credentials);
 		return httpClient;
+	}
+	
+	public static String getRestUri() {
+		return RestResource.REST_URI;
 	}
 }
