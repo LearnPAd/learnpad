@@ -31,6 +31,7 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.core.rest.XWikiRestUtils;
+import eu.learnpad.cw.rest.data.Feedbacks;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.Controller;
@@ -59,12 +60,6 @@ public class XwikiController extends Controller implements XWikiRestComponent {
 			this.bridge = new XwikiBridgeInterfaceRestResource();
 		
 		this.mvResults = new HashMap<String, MVResults>();
-	}
-
-	@Override
-	public byte[] getFeedbacks(String modelSetId) throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -99,5 +94,12 @@ public class XwikiController extends Controller implements XWikiRestComponent {
 			mvResults.remove(verificationProcessId);
 		}
 		return toReturn;
+	}
+
+
+	@Override
+	public Feedbacks getFeedbacks(String modelSetId) throws LpRestExceptionImpl {
+		Feedbacks feedbacks = new Feedbacks();
+		return null;
 	}
 }

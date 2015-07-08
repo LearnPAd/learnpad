@@ -23,6 +23,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
+import eu.learnpad.cw.rest.data.Feedbacks;
 import eu.learnpad.exception.LpRestException;
 
 public interface RetrieveFeedbacks {
@@ -31,15 +32,15 @@ public interface RetrieveFeedbacks {
 	 *   <feedback>
 	 *     <modelIdAsInTheModelingEnvironment>
 	 *     <objectIdAsInTheModelingEnvironment>
-	 *     <contents>
-	 *     		<content/>
-	 *     </contents>
+	 *     <content/>
+	 *     <content/>
+	 *     ...
 	 *   </feedback>
 	 * </feedbacks>
 	 */
 	//"/learnpad/me/retrievefeedbacks/{modelsetid}"
 	@Path("/retrievefeedbacks/{modelsetid}")
 	@GET
-	byte[] getFeedbacks(@PathParam("modelsetid") String modelSetId)
+	Feedbacks getFeedbacks(@PathParam("modelsetid") String modelSetId)
 			throws LpRestException;
 }

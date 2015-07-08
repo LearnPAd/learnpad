@@ -27,16 +27,11 @@ import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.CoreFacade;
 import eu.learnpad.mv.rest.data.MVResults;
 import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.cw.rest.data.Feedbacks;
 
 @Component
 public class XwikiCoreFacadeRestResource extends RestResource implements
 		XWikiRestComponent, CoreFacade {
-
-	@Override
-	public byte[] getFeedbacks(String modelSetId) throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void putModelSet(String modelSetId, String type, byte[] modelSetFile)
@@ -58,6 +53,12 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 		// TODO Auto-generated method stub
 		return null;
 
+	}
+
+	@Override
+	public Feedbacks getFeedbacks(String modelSetId) throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
