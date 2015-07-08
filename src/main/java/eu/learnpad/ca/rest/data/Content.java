@@ -38,7 +38,7 @@ public  class Content {
 			Content = new ArrayList<Object>();
 		}
 		if(obj instanceof String | obj instanceof Node){
-			this.setContent(obj);
+			this.Content.add(obj);
 		}
 
 	}
