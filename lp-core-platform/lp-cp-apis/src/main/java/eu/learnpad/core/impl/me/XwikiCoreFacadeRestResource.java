@@ -22,12 +22,15 @@ package eu.learnpad.core.impl.me;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.CoreFacade;
+import eu.learnpad.mv.rest.data.MVResults;
 import eu.learnpad.core.rest.RestResource;
 
 @Component
-public class XwikiCoreFacadeRestResource extends RestResource implements XWikiRestComponent, CoreFacade{
+public class XwikiCoreFacadeRestResource extends RestResource implements
+		XWikiRestComponent, CoreFacade {
 
 	@Override
 	public byte[] getFeedbacks(String modelSetId) throws LpRestExceptionImpl {
@@ -39,14 +42,22 @@ public class XwikiCoreFacadeRestResource extends RestResource implements XWikiRe
 	public void putModelSet(String modelSetId, String type, byte[] modelSetFile)
 			throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void checkModelSet(String modelSetId, String type, String value)
+	public String startModelSetVerification(String modelSetId, String type,
+			String verification) throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MVResults checkModelSetVerification(String verificationProcessId)
 			throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
-		
+		return null;
+
 	}
 
 }

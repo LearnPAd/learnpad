@@ -19,8 +19,10 @@
  */
 package eu.learnpad.core.impl.me;
 
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.CoreFacade;
+import eu.learnpad.mv.rest.data.MVResults;
 
 public class XwikiCoreFacade implements CoreFacade{
 	@Override
@@ -36,8 +38,16 @@ public class XwikiCoreFacade implements CoreFacade{
 	}
 
 	@Override
-	public void checkModelSet(String modelSetId, String type, String value)
+	public String startModelSetVerification(String modelSetId, String type,
+			String verification) throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MVResults checkModelSetVerification(String verificationProcessId)
 			throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
+		return null;
 	}
 }

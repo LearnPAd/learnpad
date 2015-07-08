@@ -19,6 +19,9 @@
  */
 package eu.learnpad.core.impl.me;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.Path;
@@ -28,8 +31,10 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.core.rest.XWikiRestUtils;
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.Controller;
+import eu.learnpad.mv.rest.data.MVResults;
 
 @Component
 @Named("eu.learnpad.core.impl.me.XwikiController")
@@ -37,6 +42,8 @@ import eu.learnpad.me.Controller;
 public class XwikiController extends Controller implements XWikiRestComponent {
 	private String CORE_REPOSITORY_WIKI = "xwiki";
 	private String CORE_REPOSITORY_SPACE = "CoreRepository";
+
+	private Map<String, MVResults> mvResults;
 
 	@Inject
 	Logger logger;
@@ -50,6 +57,8 @@ public class XwikiController extends Controller implements XWikiRestComponent {
 			this.bridge = new XwikiBridgeInterface();
 		else
 			this.bridge = new XwikiBridgeInterfaceRestResource();
+		
+		this.mvResults = new HashMap<String, MVResults>();
 	}
 
 	@Override
@@ -73,9 +82,22 @@ public class XwikiController extends Controller implements XWikiRestComponent {
 	}
 
 	@Override
-	public void checkModelSet(String modelSetId, String type, String value)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
+	public String startModelSetVerification(String modelSetId, String type,
+			String verification) throws LpRestExceptionImpl {
+		mvResults.put(modelSetId, new MVResults(modelSetId));
+		return modelSetId;
+	}
 
+	@Override
+	public MVResults checkModelSetVerification(String verificationProcessId)
+			throws LpRestExceptionImpl {
+		MVResults result = mvResults.get(verificationProcessId);
+		MVResults toReturn = new MVResults(result);
+		if(result.getStatus().equals("inprogress")) {
+		mvResults.get(verificationProcessId).terminate();
+		} else {
+			mvResults.remove(verificationProcessId);
+		}
+		return toReturn;
 	}
 }

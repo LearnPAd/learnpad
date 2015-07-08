@@ -19,18 +19,53 @@
  */
 package eu.learnpad.me.rest;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.mv.rest.data.MVResults;
 
 public interface CheckModelSet {
-	//"/learnpad/me/checkmodelset/{modelsetid}"
-	@Path("/checkmodelset/{modelsetid}")
+
+	/**
+	 * @param modelSetId
+	 *            is the ID of the model set to check
+	 * @param type
+	 *            of file that you uploaded and that you want to check
+	 *            {adoxx|md|lpzip}
+	 * @param verification
+	 *            is the kind of verification you want to realize (only
+	 *            'deadlock' at the moment)
+	 * @return a process verification ID that you can use to check the progress
+	 *         of the verification
+	 * @throws LpRestException
+	 */
+	// "/learnpad/me/checkmodelset/start/{modelsetid}"
+	@Path("/checkmodelset/start/{modelsetid}")
+	@PUT
+	String startModelSetVerification(
+			@PathParam("modelsetid") String modelSetId,
+			@QueryParam("type") @DefaultValue("lpzip") String type,
+			@QueryParam("verification") @DefaultValue("deadlock") String verification)
+			throws LpRestException;
+
+	/**
+	 * @param verificationProcessId
+	 *            is the ID returned by startModelSetVerification
+	 * @return the results if finished and the progression status if not
+	 *         finished
+	 * @throws LpRestException
+	 */
+	// "/learnpad/me/checkmodelset/check/{verificationprocessid}"
+	@Path("/checkmodelset/check/{verificationprocessid}")
 	@GET
-	void checkModelSet(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("key") String key, @QueryParam("value") String value)
+	MVResults checkModelSetVerification(
+			@PathParam("verificationprocessid") String verificationProcessId)
 			throws LpRestException;
 }
