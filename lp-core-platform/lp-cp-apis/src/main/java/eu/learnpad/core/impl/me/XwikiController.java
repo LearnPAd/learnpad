@@ -21,6 +21,7 @@ package eu.learnpad.core.impl.me;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -57,7 +58,7 @@ public class XwikiController extends Controller implements XWikiRestComponent {
 			this.bridge = new XwikiBridgeInterface();
 		else
 			this.bridge = new XwikiBridgeInterfaceRestResource();
-		
+
 		this.mvResults = new HashMap<String, MVResults>();
 	}
 
@@ -84,20 +85,25 @@ public class XwikiController extends Controller implements XWikiRestComponent {
 	@Override
 	public String startModelSetVerification(String modelSetId, String type,
 			String verification) throws LpRestExceptionImpl {
-		mvResults.put(modelSetId, new MVResults(modelSetId));
-		return modelSetId;
+		String verificationProcessId = UUID.randomUUID().toString();
+		mvResults.put(verificationProcessId, new MVResults(modelSetId));
+		return verificationProcessId;
 	}
 
 	@Override
 	public MVResults checkModelSetVerification(String verificationProcessId)
 			throws LpRestExceptionImpl {
 		MVResults result = mvResults.get(verificationProcessId);
-		MVResults toReturn = new MVResults(result);
-		if(result.getStatus().equals("inprogress")) {
-		mvResults.get(verificationProcessId).terminate();
+		if (result != null) {
+			MVResults toReturn = new MVResults(result);
+			if (result.getStatus().equals("inprogress")) {
+				mvResults.get(verificationProcessId).terminate();
+			} else {
+				mvResults.remove(verificationProcessId);
+			}
+			return toReturn;
 		} else {
-			mvResults.remove(verificationProcessId);
+			return null;
 		}
-		return toReturn;
 	}
 }
