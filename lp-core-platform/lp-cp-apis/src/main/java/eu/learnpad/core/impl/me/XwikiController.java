@@ -19,7 +19,9 @@
  */
 package eu.learnpad.core.impl.me;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -31,8 +33,8 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.core.rest.XWikiRestUtils;
+import eu.learnpad.cw.rest.data.Feedback;
 import eu.learnpad.cw.rest.data.Feedbacks;
-import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.Controller;
 import eu.learnpad.mv.rest.data.MVResults;
@@ -58,7 +60,7 @@ public class XwikiController extends Controller implements XWikiRestComponent {
 			this.bridge = new XwikiBridgeInterface();
 		else
 			this.bridge = new XwikiBridgeInterfaceRestResource();
-		
+
 		this.mvResults = new HashMap<String, MVResults>();
 	}
 
@@ -88,18 +90,30 @@ public class XwikiController extends Controller implements XWikiRestComponent {
 			throws LpRestExceptionImpl {
 		MVResults result = mvResults.get(verificationProcessId);
 		MVResults toReturn = new MVResults(result);
-		if(result.getStatus().equals("inprogress")) {
-		mvResults.get(verificationProcessId).terminate();
+		if (result.getStatus().equals("inprogress")) {
+			mvResults.get(verificationProcessId).terminate();
 		} else {
 			mvResults.remove(verificationProcessId);
 		}
 		return toReturn;
 	}
 
-
 	@Override
 	public Feedbacks getFeedbacks(String modelSetId) throws LpRestExceptionImpl {
-		Feedbacks feedbacks = new Feedbacks();
-		return null;
+		List<String> contents1 = new ArrayList<String>();
+		List<String> contents2 = new ArrayList<String>();
+		contents1.add("This task is not exactly done this way in our office");
+		contents1
+				.add("We're missing a use case in this process in case the person has not a computer at home");
+		contents2.add("This office doesn't exists anymore in our organisation");
+		Feedback feedback1 = new Feedback("modelsetid123", "modelid123",
+				"artifactid123", contents1);
+		Feedback feedback2 = new Feedback("modelsetid123", "modelid456",
+				"artifactid456", contents2);
+		List<Feedback> feedbacklist = new ArrayList<Feedback>();
+		feedbacklist.add(feedback1);
+		feedbacklist.add(feedback2);
+		Feedbacks feedbacks = new Feedbacks(feedbacklist);
+		return feedbacks;
 	}
 }

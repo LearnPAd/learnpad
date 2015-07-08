@@ -10,16 +10,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Feedbacks", propOrder = {
-		"feedbacks"})
+@XmlType(name = "Feedbacks", propOrder = { "feedbacks" })
 @XmlRootElement(name = "feedbacks")
 public class Feedbacks {
 	// TODO: class to store verification results; to define
 
 	@XmlElement(name = "feedback", required = true)
 	protected List<Feedback> feedbacks;
-	
+
 	public Feedbacks() {
 		this.feedbacks = new ArrayList<Feedback>();
+	}
+
+	public Feedbacks(List<Feedback> feedbacks) {
+		this.feedbacks = new ArrayList<Feedback>(feedbacks);
 	}
 }

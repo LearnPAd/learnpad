@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Feedback", propOrder = { "feedback" })
+@XmlType(name = "Feedback", propOrder = { "modelSetId", "modelId", "artifactId", "contents" })
 @XmlRootElement(name = "feedback")
 public class Feedback {
 	// TODO: class to store verification results; to define
@@ -29,5 +29,13 @@ public class Feedback {
 
 	public Feedback() {
 		this.contents = new ArrayList<String>();
+	}
+
+	public Feedback(String modelSetId, String modelId, String artifactId,
+			List<String> contents) {
+		this.modelSetId = modelSetId;
+		this.modelId = modelId;
+		this.artifactId = artifactId;
+		this.contents = new ArrayList<String>(contents);
 	}
 }
