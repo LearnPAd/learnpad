@@ -15,7 +15,7 @@ import eu.learnpad.ca.rest.data.Content;
 
 /**
  * This class contains the data structure with all the informations returned by
- * the API about a given Annotate Collaborative Content Analysis.
+ * the API about a given Annotated Collaborative Content Analysis.
  *
  * @author ISTI CNR
  *
@@ -32,8 +32,8 @@ import eu.learnpad.ca.rest.data.Content;
     "overallQualityMeasure",
     "overallRecommendations"
 })
-@XmlRootElement(name = "annotateCollaborativeContentAnalysis")
-public class AnnotateCollaborativeContentAnalysis {
+@XmlRootElement(name = "annotatedCollaborativeContentAnalysis")
+public class AnnotatedCollaborativeContentAnalysis {
 
 	@XmlElement(name = "CollaborativeContent", required = true)
     protected CollaborativeContent collaborativeContent;
@@ -51,14 +51,26 @@ public class AnnotateCollaborativeContentAnalysis {
     @XmlAttribute(name = "type", required = true)
     protected String type;
 
-   
+    public AnnotatedCollaborativeContentAnalysis(){
+    	
+    }
 
-    /**
+    
+    
+    public AnnotatedCollaborativeContentAnalysis(Integer id, String type) {
+		super();
+		this.id = id;
+		this.type = type;
+	}
+
+
+
+	/**
      * get the value of CollaborativeContent.
      * 
      * @return
      *     possible object is
-     *     {@link AnnotateStaticContentAnalysis.Content }
+     *     {@link AnnotatedStaticContentAnalysis.Content }
      *     
      */
     public CollaborativeContent getCollaborativeContent() {
@@ -70,7 +82,7 @@ public class AnnotateCollaborativeContentAnalysis {
      * 
      * @param value
      *     allowed object is
-     *     {@link AnnotateStaticContentAnalysis.Content }
+     *     {@link AnnotatedStaticContentAnalysis.Content }
      *     
      */
     public void setCollaborativeContent(CollaborativeContent value) {
@@ -82,7 +94,7 @@ public class AnnotateCollaborativeContentAnalysis {
      * 
      * @return
      *     possible object is
-     *     {@link AnnotateStaticContentAnalysis.Annotations }
+     *     {@link AnnotatedStaticContentAnalysis.Annotations }
      *     
      */
     public List<Annotation> getAnnotations() {
@@ -97,7 +109,7 @@ public class AnnotateCollaborativeContentAnalysis {
      * 
      * @param value
      *     allowed object is
-     *     {@link AnnotateStaticContentAnalysis.Annotations }
+     *     {@link AnnotatedStaticContentAnalysis.Annotations }
      *     
      */
     public void setAnnotations(Annotation value) {
