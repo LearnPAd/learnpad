@@ -15,7 +15,7 @@ import eu.learnpad.ca.rest.data.Content;
 
 /**
  * This class contains the data structure with all the informations returned by
- * the API about a given Annotate Collaborative Content Analysis.
+ * the API about a given Annotated Collaborative Content Analysis.
  *
  * @author ISTI CNR
  *
@@ -32,8 +32,8 @@ import eu.learnpad.ca.rest.data.Content;
     "overallQualityMeasure",
     "overallRecommendations"
 })
-@XmlRootElement(name = "annotateStaticContentAnalysis")
-public class AnnotateStaticContentAnalysis {
+@XmlRootElement(name = "annotatedStaticContentAnalysis")
+public class AnnotatedStaticContentAnalysis {
 
 	@XmlElement(name = "StaticContent", required = true)
     protected StaticContent staticContent;
@@ -51,14 +51,23 @@ public class AnnotateStaticContentAnalysis {
     @XmlAttribute(name = "type", required = true)
     protected String type;
 
+    public AnnotatedStaticContentAnalysis(){
+    	
+    }
    
+    
+    public AnnotatedStaticContentAnalysis(Integer id, String type) {
+		this.id = id;
+		this.type = type;
+	}
 
-    /**
+
+	/**
      * get the value of StaticContent.
      * 
      * @return
      *     possible object is
-     *     {@link AnnotateStaticContentAnalysis.Content }
+     *     {@link AnnotatedStaticContentAnalysis.Content }
      *     
      */
     public StaticContent getStaticContent() {
@@ -70,7 +79,7 @@ public class AnnotateStaticContentAnalysis {
      * 
      * @param value
      *     allowed object is
-     *     {@link AnnotateStaticContentAnalysis.Content }
+     *     {@link AnnotatedStaticContentAnalysis.Content }
      *     
      */
     public void setStaticContent(StaticContent value) {
@@ -82,7 +91,7 @@ public class AnnotateStaticContentAnalysis {
      * 
      * @return
      *     possible object is
-     *     {@link AnnotateStaticContentAnalysis.Annotations }
+     *     {@link AnnotatedStaticContentAnalysis.Annotations }
      *     
      */
     public List<Annotation> getAnnotations() {
@@ -97,7 +106,7 @@ public class AnnotateStaticContentAnalysis {
      * 
      * @param value
      *     allowed object is
-     *     {@link AnnotateStaticContentAnalysis.Annotations }
+     *     {@link AnnotatedStaticContentAnalysis.Annotations }
      *     
      */
     public void setAnnotations(Annotation value) {

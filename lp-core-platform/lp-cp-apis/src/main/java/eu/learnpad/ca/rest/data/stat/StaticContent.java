@@ -22,7 +22,18 @@ public class StaticContent {
     @XmlAttribute(name = "id")
     protected String id;
 
-    /**
+    public StaticContent(){
+    	
+    }
+    
+    
+    public StaticContent(String id, String title) {
+		this.id = id;
+		this.title = title;
+	}
+
+
+	/**
      * Get the value of title.
      * 
      * @return
