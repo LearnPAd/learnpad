@@ -21,9 +21,11 @@ package eu.learnpad.core.impl.cw;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.Path;
 import javax.xml.transform.Result;
@@ -34,9 +36,15 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.PutMethod;
+import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
+import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.Bridge;
 import eu.learnpad.exception.LpRestException;
 
@@ -45,6 +53,9 @@ import eu.learnpad.exception.LpRestException;
 @Path("/learnpad/cw/bridge")
 public class XwikiBridge extends Bridge implements XWikiRestComponent {
 
+	@Inject
+	private Logger logger;
+	
 	private XwikiController cwController;
 
 	public XwikiBridge() {
@@ -103,9 +114,36 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 	@Override
 	public void modelSetImported(String modelSetId, String type)
 			throws LpRestException {
+		// Get the model file from Core Platform
 		InputStream modelStream = new ByteArrayInputStream(
 				this.cwController.getModel(modelSetId, type));
+		
+		// Make the XSL transformation and get the package's path
 		String packagePath = buildXWikiPackage(modelStream, type);
+		
+		// Now send the package's path to the importer for XWiki
+		HttpClient httpClient = RestResource.getClient();
+
+		String uri = RestResource.REST_URI + "/learnpad/cw/package";
+		PutMethod putMethod = new PutMethod(uri);
+		putMethod.addRequestHeader("Accept", "application/xml");
+		putMethod.addRequestHeader("Accept-Ranges", "bytes");
+		
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("path", packagePath);
+		putMethod.setQueryString(queryString);
+		
+		try {
+			httpClient.executeMethod(putMethod);
+		} catch (HttpException e) {
+			logger.error(
+					"Unable to process the PUT request for XWiki package '"
+							+ packagePath
+							+ "' onto the Collaborative Workspace.", e);
+		} catch (IOException e) {
+			logger.error("Unable to PUT XWiki package '" + packagePath
+					+ "' to the Collaborative Workspace.", e);
+		}
 	}
 
 	@Override
