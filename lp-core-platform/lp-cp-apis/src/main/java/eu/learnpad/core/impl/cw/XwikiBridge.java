@@ -34,6 +34,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.xwiki.component.annotation.Component;
+import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.cw.Bridge;
 import eu.learnpad.exception.LpRestException;
@@ -41,13 +42,13 @@ import eu.learnpad.exception.LpRestException;
 @Component
 @Named("eu.learnpad.core.impl.cw.XwikiBridge")
 @Path("/learnpad/cw")
-public class XwikiBridge extends Bridge{
+public class XwikiBridge extends Bridge implements XWikiRestComponent {
 
-	public XwikiBridge (){
+	public XwikiBridge() {
 		this(false);
 	}
 
-	public XwikiBridge (boolean isCoreFacadeLocal){
+	public XwikiBridge(boolean isCoreFacadeLocal) {
 		if (isCoreFacadeLocal)
 			this.corefacade = new XwikiCoreFacade();
 		else
@@ -67,6 +68,7 @@ public class XwikiBridge extends Bridge{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	private String buildXWikiPackage(InputStream modelStream, String type) {
 		UUID uuid = UUID.randomUUID();
 		String stylesheetFileName = "/stylesheet/" + type + "2xwiki.xsl";
@@ -95,22 +97,23 @@ public class XwikiBridge extends Bridge{
 	}
 
 	@Override
-	public void modelSetImported(String modelSetId, String type) throws LpRestException {
-		this.corefacade.getModel(modelSetId, type);		
+	public void modelSetImported(String modelSetId, String type)
+			throws LpRestException {
+		this.corefacade.getModel(modelSetId, type);
 	}
 
 	@Override
 	public void contentVerified(String modelSetId, String artifactId,
 			String resourceId, String result) throws LpRestException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void modelVerified(String modelSetId, String result)
 			throws LpRestException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

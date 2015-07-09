@@ -23,14 +23,17 @@ import javax.inject.Named;
 import javax.ws.rs.Path;
 
 import org.xwiki.component.annotation.Component;
+import org.xwiki.rest.XWikiRestComponent;
 
+import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.cw.Controller;
 import eu.learnpad.exception.LpRestException;
 
 @Component
 @Named("eu.learnpad.core.impl.cw.XwikiController")
 @Path("/learnpad/cw")
-public class XwikiController extends Controller {
+public class XwikiController extends Controller implements XWikiRestComponent {
 
 	public XwikiController() {
 		this(false);
@@ -60,7 +63,8 @@ public class XwikiController extends Controller {
 	@Override
 	public byte[] getModel(String modelSetId, String type)
 			throws LpRestException {
-		// TODO Auto-generated method stub
-		return null;
+		String attachmentName = String.format("%s.%s", modelSetId, type);
+		return XWikiRestUtils.getAttachment(RestResource.CORE_REPOSITORY_WIKI,
+				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName);
 	}
 }
