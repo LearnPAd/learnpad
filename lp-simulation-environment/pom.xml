@@ -1,0 +1,374 @@
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>eu.learnpad</groupId>
+	<artifactId>simulator</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>LearnPAd Simulator</name>
+	<url>http://learnpad.eu</url>
+
+	<organization>
+		<name>Linagora</name>
+		<url>http://linagora.com</url>
+	</organization>
+
+	<inceptionYear>2014</inceptionYear>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<slf4j.version>1.7.10</slf4j.version>
+		<activiti.version>5.16.4</activiti.version>
+		<jettyVersion>9.2.2.v20140723</jettyVersion>
+		<jackson.version>2.4.4</jackson.version>
+		<junit.version>4.12</junit.version>
+		<mockito.version>2.0.4-beta</mockito.version>
+		<bootstrap.version>3.3.2-1</bootstrap.version>
+		<bootstrap-tagsinput.version>0.3.9-1</bootstrap-tagsinput.version>
+		<bootstrap-typeahead.version>3.1.0</bootstrap-typeahead.version>
+		<jquery.version>2.1.3</jquery.version>
+		<jquery-ui.version>1.11.3</jquery-ui.version>
+		<underscorejs.version>1.7.0-1</underscorejs.version>
+		<spectrum.version>1.6.0</spectrum.version>
+		<license-maven-plugin.version>1.8</license-maven-plugin.version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>Alfresco Maven Repository</id>
+			<url>https://maven.alfresco.com/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-engine</artifactId>
+			<version>${activiti.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.178</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>${jettyVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty.websocket</groupId>
+			<artifactId>websocket-api</artifactId>
+			<version>${jettyVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.jetty.websocket</groupId>
+			<artifactId>websocket-server</artifactId>
+			<version>9.2.2.v20140723</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+		<!-- Web dependencies (yes that's a thing) -->
+
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>${bootstrap.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap-tagsinput</artifactId>
+			<version>${bootstrap-tagsinput.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>Bootstrap-3-Typeahead</artifactId>
+			<version>${bootstrap-typeahead.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>${jquery.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery-ui</artifactId>
+			<version>${jquery-ui.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>underscorejs</artifactId>
+			<version>${underscorejs.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>spectrum</artifactId>
+			<version>${spectrum.version}</version>
+		</dependency>
+
+		<!-- Testing -->
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>eu.learnpad.simulator.Main</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>eu.learnpad.simulator.Main</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id> <!-- this is used for inheritance merges -->
+						<phase>package</phase> <!-- bind to the packaging phase -->
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<!-- handle license files -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<configuration>
+					<licenseName>agpl_v3</licenseName>
+					<roots>
+						<root>src</root>
+					</roots>
+					<excludes>
+						<exclude>main/resources/process/VacationRequest.bpmn20.xml</exclude>
+						<exclude>main/resources/static/deps/**</exclude>
+						<exclude>main/resources/static/lib/**</exclude>
+						<exclude>main/resources/license/**</exclude>
+						<exclude>main/resources/validation_db.json</exclude>
+					</excludes>
+					<licenseMerges>
+						<licenseMerge>
+							Apache License, Version 2.0
+							| The Apache Software License, Version 2.0
+							| Apache Public License 2.0
+							| Apache v2
+							| Apache Software License - Version 2.0
+							| Apache 2
+							| Apache 2.0
+						</licenseMerge>
+						<licenseMerge>
+							MIT License
+							| The MIT License
+							| MIT
+						</licenseMerge>
+						<licenseMerge>
+							Eclipse Public License 1.0
+							| Eclipse Public License - Version 1.0
+						</licenseMerge>
+					</licenseMerges>
+				</configuration>
+				<executions>
+					<execution>
+						<!-- add third-party licenses -->
+						<id>add-third-party</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>add-third-party</goal>
+						</goals>
+					</execution>
+					<execution>
+						<!-- download license files -->
+						<id>download-licenses</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>download-licenses</goal>
+						</goals>
+					</execution>
+					<execution>
+						<!-- check that license files are ok, if not fail the build If the 
+							build fail due to missing or incorrect license headers, this should be fixed 
+							easily with mvn license:update-file-header -->
+						<id>check-license</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>check-file-header</goal>
+						</goals>
+						<configuration>
+							<failOnMissingHeader>true</failOnMissingHeader>
+							<failOnNotUptodateHeader>true</failOnNotUptodateHeader>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<!-- Add third-party licenses to generated builds NOTE: the order is 
+							important! This must be done *after* license files have been generated -->
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>add-resource</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>${project.build.directory}/generated-sources/license</directory>
+									<targetPath>license</targetPath>
+								</resource>
+								<resource>
+									<directory>${project.build.directory}/generated-resources/licenses</directory>
+									<targetPath>license/third-party-licenses</targetPath>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											license-maven-plugin
+										</artifactId>
+										<versionRange>
+											[${license-maven-plugin.version},)
+										</versionRange>
+										<goals>
+											<goal>
+												update-project-license
+											</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+	</build>
+
+	<profiles>
+		<profile>
+			<id>keep-license-files</id>
+			<!-- this profile can be used to avoid deleting/re-downloading license files
+				 after an mvn clean package.
+				 This will speed up build, which can be especially useful for an
+				 integration server.
+
+				 NOTE: Licenses for new dependencies will be added, but sadly licenses
+				 associated with removed dependencies will not be automatically removed... -->
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-clean-plugin</artifactId>
+						<configuration>
+							<excludeDefaultDirectories>true</excludeDefaultDirectories>
+							<filesets>
+								<fileset>
+									<directory>target</directory>
+									<excludes>
+										<exclude>generated-resources/licenses/*</exclude>
+										<exclude>generated-resources/licenses.xml</exclude>
+										<exclude>generated-sources/license/*</exclude>
+									</excludes>
+									<followSymlinks>false</followSymlinks>
+								</fileset>
+							</filesets>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+
+		</profile>
+	</profiles>
+
+</project>

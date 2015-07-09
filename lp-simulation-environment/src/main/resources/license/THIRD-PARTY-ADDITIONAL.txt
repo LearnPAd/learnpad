@@ -1,0 +1,14 @@
+In addition to the resources listed in the automatically generated
+THIRD-PARTY.txt file, this project depends on the following resources:
+
+* jsonform (fork by ulion), Copyright (c) 2012 Joshfire
+	license: MIT license
+	url: https://github.com/ulion/jsonform
+
+* jquery-slimScroll, Copyright (c) 2011 Piotr Rochala
+	license: dual MIT-GPL license
+	url: https://github.com/rochal/jQuery-slimScroll
+
+* z-schema, Copyright (c) 2014 Martin Zagora and other contributors
+	license: MIT license
+	url: https://github.com/zaggino/z-schema
