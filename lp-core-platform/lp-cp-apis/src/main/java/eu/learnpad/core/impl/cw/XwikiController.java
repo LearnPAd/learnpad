@@ -19,34 +19,42 @@
  */
 package eu.learnpad.core.impl.cw;
 
+import javax.inject.Named;
+import javax.ws.rs.Path;
+
+import org.xwiki.component.annotation.Component;
+
 import eu.learnpad.cw.Controller;
 import eu.learnpad.exception.LpRestException;
 
-public class XwikiController extends Controller{
+@Component
+@Named("eu.learnpad.core.impl.cw.XwikiController")
+@Path("/learnpad/cw")
+public class XwikiController extends Controller {
 
-	public XwikiController (){
+	public XwikiController() {
 		this(false);
 	}
 
-	public XwikiController (boolean isBridgeInterfaceLocal){
+	public XwikiController(boolean isBridgeInterfaceLocal) {
 		if (isBridgeInterfaceLocal)
 			this.bridge = new XwikiBridgeInterface();
 		else
-			this.bridge = new XwikiBridgeInterfaceRestResource();			
+			this.bridge = new XwikiBridgeInterfaceRestResource();
 	}
 
 	@Override
 	public void commentNotification(String modelSetId, String commentId,
 			String action) throws LpRestException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void resourceNotification(String modelSetId, String resourceId,
 			String artifactIds, String action) throws LpRestException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

@@ -1,4 +1,5 @@
 eu.learnpad.core.impl.me.XwikiController
 eu.learnpad.core.impl.mv.XwikiController
 eu.learnpad.core.impl.mv.XwikiBridge
+eu.learnpad.core.impl.cw.XwikiController
 eu.learnpad.core.impl.cw.XwikiBridge
