@@ -42,14 +42,17 @@ import eu.learnpad.exception.LpRestException;
 
 @Component
 @Named("eu.learnpad.core.impl.cw.XwikiBridge")
-@Path("/learnpad/cw")
+@Path("/learnpad/cw/bridge")
 public class XwikiBridge extends Bridge implements XWikiRestComponent {
+
+	private XwikiController cwController;
 
 	public XwikiBridge() {
 		this(false);
 	}
 
 	public XwikiBridge(boolean isCoreFacadeLocal) {
+		cwController = new XwikiController(true);
 		if (isCoreFacadeLocal)
 			this.corefacade = new XwikiCoreFacade();
 		else
@@ -100,7 +103,8 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 	@Override
 	public void modelSetImported(String modelSetId, String type)
 			throws LpRestException {
-		InputStream modelStream = new ByteArrayInputStream(this.corefacade.getModel(modelSetId, type));
+		InputStream modelStream = new ByteArrayInputStream(
+				this.cwController.getModel(modelSetId, type));
 		String packagePath = buildXWikiPackage(modelStream, type);
 	}
 

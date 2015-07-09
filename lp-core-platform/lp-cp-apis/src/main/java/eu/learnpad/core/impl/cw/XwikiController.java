@@ -32,7 +32,7 @@ import eu.learnpad.exception.LpRestException;
 
 @Component
 @Named("eu.learnpad.core.impl.cw.XwikiController")
-@Path("/learnpad/cw")
+@Path("/learnpad/cw/corefacade")
 public class XwikiController extends Controller implements XWikiRestComponent {
 
 	public XwikiController() {

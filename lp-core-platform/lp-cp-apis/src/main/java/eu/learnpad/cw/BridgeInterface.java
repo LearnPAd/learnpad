@@ -27,7 +27,7 @@ import eu.learnpad.cw.rest.GetResource;
 import eu.learnpad.cw.rest.ModelSetImported;
 import eu.learnpad.cw.rest.ModelVerified;
 
-@Path("/learnpad/cw")
+@Path("/learnpad/cw/bridge")
 public interface BridgeInterface extends GetComments, GetResource,
 		ModelSetImported, ContentVerified, ModelVerified {
 
