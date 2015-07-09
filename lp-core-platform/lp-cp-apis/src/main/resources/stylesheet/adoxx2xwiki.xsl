@@ -2,6 +2,7 @@
 <xsl:stylesheet version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:param name="packageFolder" />
+	<xsl:param name="modelSetId" />
 	<xsl:output method="text" />
 <!--
 ___________________________________________________________________________________________________
@@ -59,7 +60,7 @@ ________________________________________________________________________________
  Business process diagram (BPMN 2.0)
 ___________________________________________________________________________________________________-->
 	<xsl:template match="MODEL" mode="BPMN">
-		<xsl:result-document method="xml" href="{$packageFolder}/xwiki/{@id}/WebHome/index.xml">
+		<xsl:result-document method="xml" href="{$packageFolder}/xwiki/{$modelSetId}/WebHome/index.xml">
 			<page xmlns="http://www.xwiki.org">
 				<title><xsl:value-of select="@name"/></title>
 				<content>
@@ -72,7 +73,7 @@ ________________________________________________________________________________
 			</page>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{@id}/WebHome/objects/XWiki/DocumentSheetBinding/bind.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/WebHome/objects/XWiki/DocumentSheetBinding/bind.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className>XWiki.DocumentSheetBinding</className>
 				<property name="sheet" type="String">
@@ -80,14 +81,14 @@ ________________________________________________________________________________
 				</property>
 			</object>
 		</xsl:result-document>
-		<xsl:result-document method="xml" href="{$packageFolder}/xwiki/{@id}/{@id}/index.xml">
+		<xsl:result-document method="xml" href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/index.xml">
 			<page xmlns="http://www.xwiki.org">
 				<title><xsl:value-of select="@name"/></title>
 				<content />
 			</page>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{@id}/{@id}/objects/{$learnpadCodeSpace}/{$modelClassName}/0.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/objects/{$learnpadCodeSpace}/{$modelClassName}/0.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className><xsl:copy-of select="$modelClass" /></className>
 				<property name="id" type="String">
@@ -126,7 +127,7 @@ ________________________________________________________________________________
 		<xsl:variable name="toId" select="ancestor::MODEL[1]/INSTANCE[@name=$toName]/@id" />
 		
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$modelId}/{$fromId}/objects/{$learnpadCodeSpace}/{$linkClassName}/{@id}.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{$fromId}/objects/{$learnpadCodeSpace}/{$linkClassName}/{@id}.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className><xsl:copy-of select="$linkClass" /></className>
 				<property name="id" type="String">
@@ -141,7 +142,7 @@ ________________________________________________________________________________
 			</object>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$modelId}/{$toId}/objects/{$learnpadCodeSpace}/{$linkClassName}/{@id}.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{$toId}/objects/{$learnpadCodeSpace}/{$linkClassName}/{@id}.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className><xsl:copy-of select="$linkClass" /></className>
 				<property name="id" type="String">
@@ -163,14 +164,14 @@ ________________________________________________________________________________
 	<xsl:template match="INSTANCE" mode="StartEvent">
 		<xsl:variable name="bpId" select="ancestor::MODEL[1]/@id" />
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/index.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/index.xml">
 			<page xmlns="http://www.xwiki.org">
 				<title><xsl:value-of select="@name"/></title>
 				<content />
 			</page>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className><xsl:copy-of select="$baseElementClass" /></className>
 				<property name="id" type="String">
@@ -186,7 +187,7 @@ ________________________________________________________________________________
 			</object>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/XWiki/DocumentSheetBinding/bind.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/objects/XWiki/DocumentSheetBinding/bind.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className>XWiki.DocumentSheetBinding</className>
 				<property name="sheet" type="String">
@@ -203,14 +204,14 @@ ________________________________________________________________________________
 	<xsl:template match="INSTANCE" mode="EndEvent">
 		<xsl:variable name="bpId" select="ancestor::MODEL[1]/@id" />
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/index.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/index.xml">
 			<page xmlns="http://www.xwiki.org">
 				<title><xsl:value-of select="@name"/></title>
 				<content />
 			</page>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className><xsl:copy-of select="$baseElementClass" /></className>
 				<property name="id" type="String">
@@ -226,7 +227,7 @@ ________________________________________________________________________________
 			</object>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/XWiki/DocumentSheetBinding/bind.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/objects/XWiki/DocumentSheetBinding/bind.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className>XWiki.DocumentSheetBinding</className>
 				<property name="sheet" type="String">
@@ -243,14 +244,14 @@ ________________________________________________________________________________
 	<xsl:template match="INSTANCE" mode="Task">
 		<xsl:variable name="bpId" select="ancestor::MODEL[1]/@id" />
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/index.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/index.xml">
 			<page xmlns="http://www.xwiki.org">
 				<title><xsl:value-of select="@name"/></title>
 				<content />
 			</page>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className><xsl:copy-of select="$baseElementClass" /></className>
 				<property name="id" type="String">
@@ -266,7 +267,7 @@ ________________________________________________________________________________
 			</object>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/XWiki/DocumentSheetBinding/bind.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/objects/XWiki/DocumentSheetBinding/bind.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className>XWiki.DocumentSheetBinding</className>
 				<property name="sheet" type="String">
@@ -283,14 +284,14 @@ ________________________________________________________________________________
 	<xsl:template match="INSTANCE" mode="ExclusiveGateway">
 		<xsl:variable name="bpId" select="ancestor::MODEL[1]/@id" />
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/index.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/index.xml">
 			<page xmlns="http://www.xwiki.org">
 				<title><xsl:value-of select="@name"/></title>
 				<content />
 			</page>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className><xsl:copy-of select="$baseElementClass" /></className>
 				<property name="id" type="String">
@@ -306,7 +307,7 @@ ________________________________________________________________________________
 			</object>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/XWiki/DocumentSheetBinding/bind.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/objects/XWiki/DocumentSheetBinding/bind.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className>XWiki.DocumentSheetBinding</className>
 				<property name="sheet" type="String">
@@ -355,14 +356,14 @@ ________________________________________________________________________________
 	<xsl:template match="INSTANCE" mode="Pool">
 		<xsl:variable name="bpId" select="ancestor::MODEL[1]/@id" />
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/index.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/index.xml">
 			<page xmlns="http://www.xwiki.org">
 				<title><xsl:value-of select="@name"/></title>
 				<content />
 			</page>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className><xsl:copy-of select="$baseElementClass" /></className>
 				<property name="id" type="String">
@@ -378,7 +379,7 @@ ________________________________________________________________________________
 			</object>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/XWiki/DocumentSheetBinding/bind.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/objects/XWiki/DocumentSheetBinding/bind.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className>XWiki.DocumentSheetBinding</className>
 				<property name="sheet" type="String">
@@ -396,14 +397,14 @@ ________________________________________________________________________________
 	<xsl:template match="INSTANCE" mode="Lane">
 		<xsl:variable name="bpId" select="ancestor::MODEL[1]/@id" />
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/index.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/index.xml">
 			<page xmlns="http://www.xwiki.org">
 				<title><xsl:value-of select="@name"/></title>
 				<content />
 			</page>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/objects/{$learnpadCodeSpace}/{$baseElementClassName}/{@id}.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className><xsl:copy-of select="$baseElementClass" /></className>
 				<property name="id" type="String">
@@ -419,7 +420,7 @@ ________________________________________________________________________________
 			</object>
 		</xsl:result-document>
 		<xsl:result-document method="xml"
-			href="{$packageFolder}/xwiki/{$bpId}/{@id}/objects/XWiki/DocumentSheetBinding/bind.xml">
+			href="{$packageFolder}/xwiki/{$modelSetId}/{@id}/objects/XWiki/DocumentSheetBinding/bind.xml">
 			<object xmlns="http://www.xwiki.org">
 				<className>XWiki.DocumentSheetBinding</className>
 				<property name="sheet" type="String">
