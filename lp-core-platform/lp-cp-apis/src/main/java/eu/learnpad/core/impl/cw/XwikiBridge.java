@@ -84,7 +84,7 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 		return null;
 	}
 
-	private String buildXWikiPackage(InputStream modelStream, String type) {
+	private String buildXWikiPackage(String modelSetId, InputStream modelStream, String type) {
 		UUID uuid = UUID.randomUUID();
 		String stylesheetFileName = "/stylesheet/" + type + "2xwiki.xsl";
 		InputStream stylesheetStream = XwikiBridge.class
@@ -103,6 +103,7 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 		try {
 			Transformer trans = transFact.newTransformer(stylesheetSource);
 			trans.setParameter("packageFolder", packageFolder.getPath());
+			trans.setParameter("modelSetId", modelSetId);
 			trans.transform(modelSource, result);
 		} catch (TransformerException e) {
 			// TODO Auto-generated catch block
@@ -119,7 +120,7 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 				this.cwController.getModel(modelSetId, type));
 		
 		// Make the XSL transformation and get the package's path
-		String packagePath = buildXWikiPackage(modelStream, type);
+		String packagePath = buildXWikiPackage(modelSetId, modelStream, type);
 		
 		// Now send the package's path to the importer for XWiki
 		HttpClient httpClient = RestResource.getClient();
