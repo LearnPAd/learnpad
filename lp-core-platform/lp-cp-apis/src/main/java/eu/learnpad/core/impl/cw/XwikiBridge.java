@@ -87,7 +87,7 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 	private String buildXWikiPackage(String modelSetId, InputStream modelStream, String type) {
 		UUID uuid = UUID.randomUUID();
 		String stylesheetFileName = "/stylesheet/" + type + "2xwiki.xsl";
-		InputStream stylesheetStream = XwikiBridge.class
+		InputStream stylesheetStream = getClass().getClassLoader()
 				.getResourceAsStream(stylesheetFileName);
 		File packageFolder = new File("/tmp/learnpad/" + uuid);
 		packageFolder.mkdirs();
