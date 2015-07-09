@@ -44,4 +44,11 @@ public class XwikiCoreFacadeRestResource extends RestResource implements XWikiRe
 		
 	}
 
+	@Override
+	public byte[] getModel(String modelSetId, String type)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

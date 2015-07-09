@@ -48,4 +48,11 @@ public class XwikiController extends Controller{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public byte[] getModel(String modelSetId, String type)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
