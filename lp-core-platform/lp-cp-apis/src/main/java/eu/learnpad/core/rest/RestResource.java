@@ -25,13 +25,15 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 
 public class RestResource {
-	private static String PROTOCOL = "http";
-	private static String HOSTNAME = "localhost";
-	private static int PORT = 8080;
-	private static String HOST = PROTOCOL + "://" + HOSTNAME + ":" + PORT;
-	private static String REST_URI = HOST + "/xwiki/rest";
-	private static String DEFAULT_USER = "superadmin";
-	private static String DEFAULT_PASSWORD = "LearnPAss";
+	final private static String PROTOCOL = "http";
+	final private static String HOSTNAME = "localhost";
+	final private static int PORT = 8080;
+	final private static String HOST = PROTOCOL + "://" + HOSTNAME + ":" + PORT;
+	final private static String DEFAULT_USER = "superadmin";
+	final private static String DEFAULT_PASSWORD = "LearnPAss";
+	final public static String REST_URI = HOST + "/xwiki/rest";
+	final public static String CORE_REPOSITORY_WIKI = "xwiki";
+	final public static String CORE_REPOSITORY_SPACE = "CoreRepository";
 
 	public static HttpClient getClient() {
 		return getClient(RestResource.DEFAULT_USER, RestResource.DEFAULT_PASSWORD);
@@ -46,9 +48,5 @@ public class RestResource {
 				AuthScope.ANY_REALM);
 		httpClient.getState().setCredentials(authentication, credentials);
 		return httpClient;
-	}
-	
-	public static String getRestUri() {
-		return RestResource.REST_URI;
 	}
 }

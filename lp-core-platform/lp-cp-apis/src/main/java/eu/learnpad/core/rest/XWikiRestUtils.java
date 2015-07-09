@@ -48,7 +48,7 @@ public class XWikiRestUtils {
 		HttpClient httpClient = RestResource.getClient();
 
 		String uri = String.format("%s/wikis/%s/spaces/%s/pages/%s",
-				RestResource.getRestUri(), wikiName, spaceName, pageName);
+				RestResource.REST_URI, wikiName, spaceName, pageName);
 		PutMethod putMethod = new PutMethod(uri);
 		putMethod.addRequestHeader("Accept", "application/xml");
 		putMethod.addRequestHeader("Accept-Ranges", "bytes");
@@ -79,7 +79,7 @@ public class XWikiRestUtils {
 		HttpClient httpClient = RestResource.getClient();
 
 		String uri = String.format("%s/wikis/%s/spaces/%s/pages/%s",
-				RestResource.getRestUri(), wikiName, spaceName, pageName);
+				RestResource.REST_URI, wikiName, spaceName, pageName);
 		GetMethod getMethod = new GetMethod(uri);
 		getMethod.addRequestHeader("Accept", "application/xml");
 		getMethod.addRequestHeader("Accept-Ranges", "bytes");
@@ -117,7 +117,7 @@ public class XWikiRestUtils {
 
 		String uri = String.format(
 				"%s/wikis/%s/spaces/%s/pages/%s/attachments/%s",
-				RestResource.getRestUri(), wikiName, spaceName, pageName,
+				RestResource.REST_URI, wikiName, spaceName, pageName,
 				attachmentName);
 		GetMethod getMethod = new GetMethod(uri);
 		getMethod.addRequestHeader("Accept", "application/xml");
@@ -147,7 +147,7 @@ public class XWikiRestUtils {
 
 		String uri = String.format(
 				"%s/wikis/%s/spaces/%s/pages/%s/attachments/%s",
-				RestResource.getRestUri(), wikiName, spaceName, pageName,
+				RestResource.REST_URI, wikiName, spaceName, pageName,
 				attachmentName);
 		PutMethod putMethod = new PutMethod(uri);
 		putMethod.addRequestHeader("Accept", "application/xml");

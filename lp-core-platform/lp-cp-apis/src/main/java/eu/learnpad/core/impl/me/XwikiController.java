@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
+import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.cw.rest.data.Feedback;
 import eu.learnpad.cw.rest.data.Feedbacks;
@@ -44,8 +45,6 @@ import eu.learnpad.mv.rest.data.MVResults;
 @Named("eu.learnpad.core.impl.me.XwikiController")
 @Path("/learnpad/me")
 public class XwikiController extends Controller implements XWikiRestComponent {
-	private String CORE_REPOSITORY_WIKI = "xwiki";
-	private String CORE_REPOSITORY_SPACE = "CoreRepository";
 
 	private Map<String, MVResults> mvResults;
 
@@ -68,14 +67,14 @@ public class XwikiController extends Controller implements XWikiRestComponent {
 	@Override
 	public void putModelSet(String modelSetId, String type, byte[] modelSetFile)
 			throws LpRestExceptionImpl {
-		if (XWikiRestUtils.isPage(CORE_REPOSITORY_WIKI, CORE_REPOSITORY_SPACE,
+		if (XWikiRestUtils.isPage(RestResource.CORE_REPOSITORY_WIKI, RestResource.CORE_REPOSITORY_SPACE,
 				modelSetId) == false) {
-			XWikiRestUtils.createEmptyPage(CORE_REPOSITORY_WIKI,
-					CORE_REPOSITORY_SPACE, modelSetId);
+			XWikiRestUtils.createEmptyPage(RestResource.CORE_REPOSITORY_WIKI,
+					RestResource.CORE_REPOSITORY_SPACE, modelSetId);
 		}
 		String attachmentName = String.format("%s.%s", modelSetId, type);
 		XWikiRestUtils
-				.putAttachment(CORE_REPOSITORY_WIKI, CORE_REPOSITORY_SPACE,
+				.putAttachment(RestResource.CORE_REPOSITORY_WIKI, RestResource.CORE_REPOSITORY_SPACE,
 						modelSetId, attachmentName, modelSetFile);
 	}
 
