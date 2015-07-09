@@ -9,7 +9,8 @@ Partner       | CNR
 WP            | 4
 Responsible   | Alessio Ferrari <alessio.ferrari at isti.cnr.it>
 Collaborators | Giorgio O. Spagnolo <spagnolo at isti.cnr.it>
-Roadmap       | [http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Content+Analysis](http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Content+Analysis)
+Roadmap       | [wiki](https://github.com/ISTI-FMT-LearnPAd/ContentAnalysisComponent/wiki)
+LearnPAd Wiki | [http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Content+Analysis](http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Content+Analysis)
 
 # Summary
 This is the Content Analysis component of the LearnPAd platform. 
