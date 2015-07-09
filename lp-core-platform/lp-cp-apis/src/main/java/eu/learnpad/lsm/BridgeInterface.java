@@ -22,8 +22,8 @@ package eu.learnpad.lsm;
 import eu.learnpad.lsm.rest.CRUDLearners;
 import eu.learnpad.lsm.rest.CRUDQuestionnaires;
 import eu.learnpad.lsm.rest.ExportStatistics;
-import eu.learnpad.lsm.rest.ManageLeanringSessions;
+import eu.learnpad.lsm.rest.ManageLearningSessions;
 
-public interface BridgeInterface extends CRUDLearners, CRUDQuestionnaires, ManageLeanringSessions, ExportStatistics {
+public interface BridgeInterface extends CRUDLearners, CRUDQuestionnaires, ManageLearningSessions, ExportStatistics {
 
 }

@@ -27,7 +27,7 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-public interface ManageLeanringSessions {
+public interface ManageLearningSessions {
 
 	/** 
 	 * @param learneremail
