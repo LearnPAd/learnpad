@@ -19,6 +19,7 @@
  */
 package eu.learnpad.core.impl.cw;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.util.UUID;
@@ -99,7 +100,8 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 	@Override
 	public void modelSetImported(String modelSetId, String type)
 			throws LpRestException {
-		this.corefacade.getModel(modelSetId, type);
+		InputStream modelStream = new ByteArrayInputStream(this.corefacade.getModel(modelSetId, type));
+		String packagePath = buildXWikiPackage(modelStream, type);
 	}
 
 	@Override
