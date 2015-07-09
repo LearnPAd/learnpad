@@ -31,7 +31,7 @@ import eu.learnpad.exception.LpRestException;
 public interface ModelSetImported {
 	@Path("/modelsetimported/{modelsetid}")
 	@PUT
-	void putModel(@PathParam("modelsetid") String modelSetId,
+	void modelSetImported(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type") @DefaultValue("lpzip") String type)
 			throws LpRestException;
 }

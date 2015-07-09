@@ -42,4 +42,11 @@ public class XwikiCoreFacade implements XWikiRestComponent, CoreFacade {
 		
 	}
 
+	@Override
+	public byte[] getModel(String modelSetId, String type)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

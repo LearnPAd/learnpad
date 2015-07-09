@@ -19,33 +19,52 @@
  */
 package eu.learnpad.core.impl.cw;
 
+import javax.inject.Named;
+import javax.ws.rs.Path;
+
+import org.xwiki.component.annotation.Component;
+import org.xwiki.rest.XWikiRestComponent;
+
+import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.cw.Controller;
 import eu.learnpad.exception.LpRestException;
 
-public class XwikiController extends Controller{
+@Component
+@Named("eu.learnpad.core.impl.cw.XwikiController")
+@Path("/learnpad/cw/corefacade")
+public class XwikiController extends Controller implements XWikiRestComponent {
 
-	public XwikiController (){
+	public XwikiController() {
 		this(false);
 	}
 
-	public XwikiController (boolean isBridgeInterfaceLocal){
+	public XwikiController(boolean isBridgeInterfaceLocal) {
 		if (isBridgeInterfaceLocal)
 			this.bridge = new XwikiBridgeInterface();
 		else
-			this.bridge = new XwikiBridgeInterfaceRestResource();			
+			this.bridge = new XwikiBridgeInterfaceRestResource();
 	}
 
 	@Override
 	public void commentNotification(String modelSetId, String commentId,
 			String action) throws LpRestException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void resourceNotification(String modelSetId, String resourceId,
 			String artifactIds, String action) throws LpRestException {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public byte[] getModel(String modelSetId, String type)
+			throws LpRestException {
+		String attachmentName = String.format("%s.%s", modelSetId, type);
+		return XWikiRestUtils.getAttachment(RestResource.CORE_REPOSITORY_WIKI,
+				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName);
 	}
 }

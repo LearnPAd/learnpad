@@ -45,7 +45,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements
 	}
 
 	@Override
-	public void putModel(String modelSetId, String type) throws LpRestExceptionImpl {
+	public void modelSetImported(String modelSetId, String type) throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 
 	}
