@@ -7,8 +7,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "Node")
 public class Node {
 
-
 	protected Integer id=-1;
+	
+	public Node(){
+		
+	}
+	
+	public Node(Integer id){
+		this.id=id;
+	}
+
+	
 	
 	/**
 	 * Get the value of id.

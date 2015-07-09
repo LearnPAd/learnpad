@@ -20,6 +20,18 @@ public  class Annotation {
 	@XmlAttribute(name = "recommendation", required = true)
 	protected String recommendation;
 
+	public Annotation(){
+		
+	}
+	
+	public Annotation(int id, String type, int snode, int enode, String recom){
+		this.id=id;
+		this.type=type;
+		this.startNode=snode;
+		this.endNode=enode;
+		this.recommendation=recom;
+	}
+	
 	/**
 	 * get the value of id.
 	 * 

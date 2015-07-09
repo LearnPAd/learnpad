@@ -33,7 +33,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import eu.learnpad.ca.rest.data.stat.AnnotateStaticContentAnalysis;
+import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import eu.learnpad.exception.LpRestException;
 
@@ -52,14 +52,14 @@ public interface StaticContentVerifications {
 	String updateValidateStaticContent(@QueryParam("staticcontent") byte[] contentFile)
 				throws LpRestException;
 
-	@Path("/learnpad/ca/staticcontentverifications/{idAnnotateStaticContentAnalysis:.*}")
+	@Path("/learnpad/ca/staticcontentverifications/{idAnnotatedStaticContentAnalysis:.*}")
 	@GET
-	Collection<AnnotateStaticContentAnalysis> getStaticContentVerifications(@PathParam("idAnnotateStaticContentAnalysis") String contentID)
+	Collection<AnnotatedStaticContentAnalysis> getStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
 			throws LpRestException;
 	
-	@Path("/learnpad/ca/staticcontentverifications/{idAnnotateStaticContentAnalysis:.*}/status")
+	@Path("/learnpad/ca/staticcontentverifications/{idAnnotatedStaticContentAnalysis:.*}/status")
 	@GET
-	String getStatusStaticContentVerifications(@PathParam("idAnnotateStaticContentAnalysis") String contentID)
+	String getStatusStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
 			throws LpRestException;
 }
 /**
@@ -68,25 +68,25 @@ public interface StaticContentVerifications {
 LPCorePlatform -> ContentAnalysis:putValidateStaticContent(contentXML) HTTP Req @POST /learnpad/ca/validatestaticcontent 
 activate ContentAnalysis #FFBBBB 
 
-ContentAnalysis-->LPCorePlatform: Http Response OK (idAnnotateStaticContentAnalysis)
+ContentAnalysis-->LPCorePlatform: Http Response OK (idAnnotatedStaticContentAnalysis)
 
 ContentAnalysis->ContentAnalysis: Perform verifications
 
-LPCorePlatform -> ContentAnalysis: getStatusStaticContentVerifications(idAnnotateStaticContentAnalysis) @GET /learnpad/ca/staticcontentverifications/{idAnnotateStaticContentAnalysis}/status
+LPCorePlatform -> ContentAnalysis: getStatusStaticContentVerifications(idAnnotatedStaticContentAnalysis) @GET /learnpad/ca/staticcontentverifications/{idAnnotatedStaticContentAnalysis}/status
 
 ContentAnalysis-->LPCorePlatform: Http Response OK (Status:Processing)
 
 
 
-LPCorePlatform -> ContentAnalysis: getStatusStaticContentVerifications(idAnnotateStaticContentAnalysis) @GET /learnpad/ca/staticcontentverifications/{idAnnotateStaticContentAnalysis}/status
+LPCorePlatform -> ContentAnalysis: getStatusStaticContentVerifications(idAnnotatedStaticContentAnalysis) @GET /learnpad/ca/staticcontentverifications/{idAnnotatedStaticContentAnalysis}/status
 
 ContentAnalysis-->LPCorePlatform: Http Response OK (Status:OK)
 
 deactivate ContentAnalysis #FFBBBB 
 
-LPCorePlatform -> ContentAnalysis: getStaticContentVerifications(idAnnotateStaticContentAnalysis) @GET  /learnpad/ca/staticcontentverifications/{idAnnotateStaticContentAnalysis}
+LPCorePlatform -> ContentAnalysis: getStaticContentVerifications(idAnnotatedStaticContentAnalysis) @GET  /learnpad/ca/staticcontentverifications/{idAnnotatedStaticContentAnalysis}
 
-ContentAnalysis-->LPCorePlatform: Http Response OK (Collection<annotateStaticContentAnalysis>)
+ContentAnalysis-->LPCorePlatform: Http Response OK (Collection<AnnotatedStaticContentAnalysis>)
 
 
 
