@@ -23,6 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -41,7 +42,17 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.slf4j.Logger;
+import org.xwiki.bridge.DocumentAccessBridge;
+import org.xwiki.bridge.DocumentModelBridge;
 import org.xwiki.component.annotation.Component;
+import org.xwiki.model.EntityType;
+import org.xwiki.model.reference.DocumentReference;
+import org.xwiki.model.reference.DocumentReferenceResolver;
+import org.xwiki.model.reference.EntityReference;
+import org.xwiki.query.Query;
+import org.xwiki.query.QueryException;
+import org.xwiki.query.QueryFilter;
+import org.xwiki.query.QueryManager;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.core.rest.RestResource;
@@ -54,10 +65,30 @@ import eu.learnpad.exception.LpRestException;
 @Path("/learnpad/cw/bridge")
 public class XwikiBridge extends Bridge implements XWikiRestComponent {
 
+	private final String FEEDBACK_CLASS_SPACE = "LearnPAdCode";
+	private final String FEEDBACK_CLASS_PAGE = "FeedbackClass";
+	private final String FEEDBACK_CLASS = String.format("%s.%s",
+			FEEDBACK_CLASS_SPACE, FEEDBACK_CLASS_PAGE);
+
 	@Inject
 	private Logger logger;
+
+	@Inject
+	@Named("secure")
+	private QueryManager queryManager;
+
+	@Inject
+	@Named("unique")
+	QueryFilter uniqueDocumentFilter;
 	
+	@Inject
+	@Named("current")
+	DocumentReferenceResolver<String> documentReferenceResolver;
+
 	private XwikiController cwController;
+
+	@Inject
+	private DocumentAccessBridge documentAccessBridge;
 
 	public XwikiBridge() {
 		this(false);
@@ -85,7 +116,8 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 		return null;
 	}
 
-	private String buildXWikiPackage(String modelSetId, InputStream modelStream, String type) {
+	private String buildXWikiPackage(String modelSetId,
+			InputStream modelStream, String type) {
 		UUID uuid = UUID.randomUUID();
 		String stylesheetFileName = "/stylesheet/" + type + "2xwiki.xsl";
 		InputStream stylesheetStream = getClass().getClassLoader()
@@ -119,10 +151,10 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 		// Get the model file from Core Platform
 		InputStream modelStream = new ByteArrayInputStream(
 				this.cwController.getModel(modelSetId, type));
-		
+
 		// Make the XSL transformation and get the package's path
 		String packagePath = buildXWikiPackage(modelSetId, modelStream, type);
-		
+
 		// Now send the package's path to the importer for XWiki
 		HttpClient httpClient = RestResource.getClient();
 
@@ -130,11 +162,11 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 		PutMethod putMethod = new PutMethod(uri);
 		putMethod.addRequestHeader("Accept", "application/xml");
 		putMethod.addRequestHeader("Accept-Ranges", "bytes");
-		
+
 		NameValuePair[] queryString = new NameValuePair[1];
 		queryString[0] = new NameValuePair("path", packagePath);
 		putMethod.setQueryString(queryString);
-		
+
 		try {
 			httpClient.executeMethod(putMethod);
 		} catch (HttpException e) {
@@ -164,7 +196,44 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 
 	@Override
 	public Feedbacks getFeedbacks(String modelSetId) throws LpRestException {
-		// TODO Auto-generated method stub
+		String queryXWQL = String.format(
+				"from doc.object(%s) as feedback where doc.space = '%s'",
+				FEEDBACK_CLASS, modelSetId);
+		Query query = null;
+		try {
+			query = queryManager.createQuery(queryXWQL, Query.XWQL);
+		} catch (QueryException e) {
+			String message = String
+					.format("Error in building the query to gather Feedbacks in '%s' model set.",
+							modelSetId);
+			logger.error(message, e);
+			return null;
+		}
+		List<Object> documentNames = null;
+		try {
+			documentNames = query.addFilter(uniqueDocumentFilter).execute();
+		} catch (QueryException e) {
+			String message = String
+					.format("Error in executing the query to gather Feedbacks in '%s' model set.",
+							modelSetId);
+			logger.error(message, e);
+			return null;
+		}
+		Feedbacks feedbacks = new Feedbacks();
+		for (Object documentName : documentNames) {
+			DocumentReference documentReference = documentReferenceResolver.resolve((String) documentName);
+			DocumentModelBridge document = null;
+			try {
+				document = documentAccessBridge.getDocument(documentReference);
+			} catch (Exception e) {
+				String message = String
+						.format("Error while trying to get document '%s' to gather feedbacks on '%' model.",
+								documentReference.toString(), modelSetId);
+				logger.error(message, e);
+				return null;
+			}
+			System.out.println(document.getDocumentReference().toString());
+		}
 		return null;
 	}
 
