@@ -44,7 +44,6 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.slf4j.Logger;
-import org.xwiki.bridge.DocumentModelBridge;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.model.reference.DocumentReference;
 import org.xwiki.model.reference.DocumentReferenceResolver;
@@ -56,6 +55,7 @@ import org.xwiki.rest.XWikiRestComponent;
 
 import com.xpn.xwiki.XWiki;
 import com.xpn.xwiki.XWikiContext;
+import com.xpn.xwiki.XWikiException;
 import com.xpn.xwiki.doc.XWikiDocument;
 import com.xpn.xwiki.objects.BaseObject;
 
@@ -70,10 +70,13 @@ import eu.learnpad.exception.LpRestException;
 @Path("/learnpad/cw/bridge")
 public class XwikiBridge extends Bridge implements XWikiRestComponent {
 
-	private final String FEEDBACK_CLASS_SPACE = "LearnPAdCode";
+	private final String LEARNPAD_SPACE = "LearnPAdCode";
 	private final String FEEDBACK_CLASS_PAGE = "FeedbackClass";
 	private final String FEEDBACK_CLASS = String.format("%s.%s",
-			FEEDBACK_CLASS_SPACE, FEEDBACK_CLASS_PAGE);
+			LEARNPAD_SPACE, FEEDBACK_CLASS_PAGE);
+	private final String BASEELEMENT_CLASS_PAGE = "BaseElementClass";
+	private final String BASEELEMENT_CLASS = String.format("%s.%s",
+			LEARNPAD_SPACE, BASEELEMENT_CLASS_PAGE);
 
 	@Inject
 	private Logger logger;
@@ -85,10 +88,10 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 	@Inject
 	@Named("unique")
 	private QueryFilter uniqueDocumentFilter;
-	
+
 	@Inject
 	private Provider<XWikiContext> xcontextProvider;
-	
+
 	@Inject
 	@Named("current")
 	private DocumentReferenceResolver<String> documentReferenceResolver;
@@ -199,11 +202,7 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 
 	}
 
-	@Override
-	public Feedbacks getFeedbacks(String modelSetId) throws LpRestException {
-		XWikiContext xcontext = xcontextProvider.get();
-		XWiki xwiki = xcontext.getWiki();
-		DocumentReference classReference = documentReferenceResolver.resolve(FEEDBACK_CLASS);
+	private List<Object> getFeedbacksDocuments(String modelSetId) {
 		String queryXWQL = String.format(
 				"from doc.object(%s) as feedback where doc.space = '%s'",
 				FEEDBACK_CLASS, modelSetId);
@@ -217,9 +216,8 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 			logger.error(message, e);
 			return null;
 		}
-		List<Object> documentNames = null;
 		try {
-			documentNames = query.addFilter(uniqueDocumentFilter).execute();
+			return query.addFilter(uniqueDocumentFilter).execute();
 		} catch (QueryException e) {
 			String message = String
 					.format("Error in executing the query to gather Feedbacks in '%s' model set.",
@@ -227,10 +225,39 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 			logger.error(message, e);
 			return null;
 		}
+	}
+
+	private String getParentArtifactId(DocumentReference parentReference) {
+		XWikiContext xcontext = xcontextProvider.get();
+		XWiki xwiki = xcontext.getWiki();
+		DocumentReference classReference = documentReferenceResolver
+				.resolve(BASEELEMENT_CLASS);
+		XWikiDocument parentDocument = null;
+		try {
+			parentDocument = xwiki.getDocument(parentReference, xcontext);
+		} catch (XWikiException e) {
+			String message = String
+					.format("Error while trying to get a parent document '%s' to gather feedbacks.",
+							parentReference.toString());
+			logger.error(message, e);
+			return null;
+		}
+		BaseObject artifactObject = parentDocument.getXObject(classReference);
+		return artifactObject.getStringValue("id");
+	}
+
+	@Override
+	public Feedbacks getFeedbacks(String modelSetId) throws LpRestException {
+		XWikiContext xcontext = xcontextProvider.get();
+		XWiki xwiki = xcontext.getWiki();
+		DocumentReference classReference = documentReferenceResolver
+				.resolve(FEEDBACK_CLASS);
+		List<Object> documentNames = getFeedbacksDocuments(modelSetId);
 		Feedbacks feedbacks = new Feedbacks();
 		for (Object documentName : documentNames) {
-			DocumentReference documentReference = documentReferenceResolver.resolve((String) documentName);
-			
+			DocumentReference documentReference = documentReferenceResolver
+					.resolve((String) documentName);
+
 			XWikiDocument document;
 			try {
 				document = xwiki.getDocument(documentReference, xcontext);
@@ -243,10 +270,12 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 			}
 			BaseObject feedbackObject = document.getXObject(classReference);
 			String modelId = "undefined";
-			String artifactId = "undefined";
+			String artifactId = getParentArtifactId(document
+					.getParentReference());
 			List<String> contents = new ArrayList<String>();
 			contents.add(feedbackObject.getStringValue("description"));
-			Feedback feedback = new Feedback(modelSetId, modelId, artifactId, contents);
+			Feedback feedback = new Feedback(modelSetId, modelId, artifactId,
+					contents);
 			feedbacks.add(feedback);
 		}
 		return feedbacks;
