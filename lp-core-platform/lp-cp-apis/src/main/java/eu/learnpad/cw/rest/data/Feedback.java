@@ -9,11 +9,29 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.commons.lang.ArrayUtils;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Feedback", propOrder = { "modelSetId", "modelId", "artifactId", "contents" })
 @XmlRootElement(name = "feedback")
 public class Feedback {
 	// TODO: class to store verification results; to define
+
+	public String getModelSetId() {
+		return modelSetId;
+	}
+
+	public String getModelId() {
+		return modelId;
+	}
+
+	public String getArtifactId() {
+		return artifactId;
+	}
+
+	public List<String> getContents() {
+		return contents;
+	}
 
 	@XmlElement(name = "modelsetid", required = true)
 	protected String modelSetId;
@@ -37,5 +55,9 @@ public class Feedback {
 		this.modelId = modelId;
 		this.artifactId = artifactId;
 		this.contents = new ArrayList<String>(contents);
+	}
+
+	public void add(List<String> newcontents) {
+		contents.addAll(newcontents);
 	}
 }

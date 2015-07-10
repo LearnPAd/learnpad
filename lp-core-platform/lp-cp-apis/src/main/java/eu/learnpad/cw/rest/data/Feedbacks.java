@@ -25,4 +25,20 @@ public class Feedbacks {
 	public Feedbacks(List<Feedback> feedbacks) {
 		this.feedbacks = new ArrayList<Feedback>(feedbacks);
 	}
+
+	public void add(Feedback feedback) {
+		if (feedbacks.isEmpty()) {
+			feedbacks.add(feedback);
+		} else {
+			for (Feedback fb : feedbacks) {
+				if (feedback.getModelSetId().equals(fb.getModelSetId())
+						&& feedback.getModelId().equals(fb.getModelId())
+						&& feedback.getArtifactId().equals(fb.getArtifactId())) {
+					fb.add(feedback.getContents());
+				} else {
+					feedbacks.add(feedback);
+				}
+			}
+		}
+	}
 }
