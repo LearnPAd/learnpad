@@ -23,12 +23,13 @@ import javax.ws.rs.Path;
 
 import eu.learnpad.cw.rest.ContentVerified;
 import eu.learnpad.cw.rest.GetComments;
+import eu.learnpad.cw.rest.GetFeedbacks;
 import eu.learnpad.cw.rest.GetResource;
 import eu.learnpad.cw.rest.ModelSetImported;
 import eu.learnpad.cw.rest.ModelVerified;
 
 @Path("/learnpad/cw/bridge")
-public interface BridgeInterface extends GetComments, GetResource,
-		ModelSetImported, ContentVerified, ModelVerified {
+public interface BridgeInterface extends GetComments, GetFeedbacks,
+		GetResource, ModelSetImported, ContentVerified, ModelVerified {
 
 }

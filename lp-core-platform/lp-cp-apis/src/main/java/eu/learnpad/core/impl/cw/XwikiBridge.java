@@ -46,6 +46,7 @@ import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.Bridge;
+import eu.learnpad.cw.rest.data.Feedbacks;
 import eu.learnpad.exception.LpRestException;
 
 @Component
@@ -159,6 +160,12 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 			throws LpRestException {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Feedbacks getFeedbacks(String modelSetId) throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

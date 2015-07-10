@@ -17,16 +17,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.cw;
+package eu.learnpad.cw.rest;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 
-import eu.learnpad.cw.rest.CommentNotification;
-import eu.learnpad.cw.rest.ModelImporter;
-import eu.learnpad.cw.rest.ResourceNotification;
+import eu.learnpad.cw.rest.data.Feedbacks;
+import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/cw/corefacade")
-public interface CoreFacade extends CommentNotification, ModelImporter,
-		ResourceNotification {
-
+public interface GetFeedbacks {
+	/*
+	 * <feedbacks>
+	 *   <feedback>
+	 *     <modelIdAsInTheModelingEnvironment>
+	 *     <objectIdAsInTheModelingEnvironment>
+	 *     <content/>
+	 *     <content/>
+	 *     ...
+	 *   </feedback>
+	 * </feedbacks>
+	 */
+	//"/learnpad/cw/{modelsetid}/feedbacks"
+	@Path("/{modelsetid}/feedbacks")
+	@GET
+	Feedbacks getFeedbacks(@PathParam("modelsetid") String modelSetId)
+			throws LpRestException;
 }
