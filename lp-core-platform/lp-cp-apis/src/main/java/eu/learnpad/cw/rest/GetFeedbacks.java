@@ -38,7 +38,7 @@ public interface GetFeedbacks {
 	 *   </feedback>
 	 * </feedbacks>
 	 */
-	//"/learnpad/cw/{modelsetid}/feedbacks"
+	//"/learnpad/cw/bridge/{modelsetid}/feedbacks"
 	@Path("/{modelsetid}/feedbacks")
 	@GET
 	Feedbacks getFeedbacks(@PathParam("modelsetid") String modelSetId)
