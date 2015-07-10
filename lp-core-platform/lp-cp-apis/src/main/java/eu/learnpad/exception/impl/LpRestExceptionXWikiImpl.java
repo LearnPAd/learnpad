@@ -59,15 +59,16 @@ public class LpRestExceptionXWikiImpl extends LpRestException {
      * into the original XWikiRestException.
      * 
      * @param e the exception cause.
-     * @return the original XWikiRestException if the conversion succeeded, null otherwise 
+     * @return the original XWikiRestException
+     * @throws  RuntimeException if the conversion fails
      */
-    public static XWikiRestException convertToXWikiRestException (LpRestException e){
+    public static XWikiRestException convertToXWikiRestException (LpRestException e) throws RuntimeException{
     	if (e instanceof LpRestExceptionXWikiImpl) {
     		LpRestExceptionXWikiImpl e1 = (LpRestExceptionXWikiImpl) e;
     		if (e1.isXWikiRestException)
     	    	return (XWikiRestException) e1.getCause();    				
 		}
-		return null;
+		throw new RuntimeException("Cannot convert LpRestException into XWikiRestException");
     }
     
 }
