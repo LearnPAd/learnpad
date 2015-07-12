@@ -21,6 +21,7 @@ import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 import org.languagetool.rules.RuleMatch;
 
+import eu.learnpad.ca.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
@@ -42,9 +43,23 @@ public class Main {
 			Unmarshaller jaxbUnmarshaller1 = jaxbContexti.createUnmarshaller();
 			CollaborativeContentAnalysis result = (CollaborativeContentAnalysis) jaxbUnmarshaller1.unmarshal(is);
 
+			CorrectnessAnalysis corrana = new CorrectnessAnalysis( new BritishEnglish());
+			AnnotatedCollaborativeContentAnalysis acca = corrana.check(result);
+			JAXBContext jaxbCtx;
+			try {
+				jaxbCtx = javax.xml.bind.JAXBContext.newInstance(AnnotatedCollaborativeContentAnalysis.class);
 
-
-
+				Marshaller marshaller = jaxbCtx.createMarshaller();
+				marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8"); //NOI18N
+				marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+				marshaller.marshal(acca, System.out);
+				OutputStream os = new FileOutputStream( "nosferatu.xml" );
+				marshaller.marshal( acca, os );
+			} catch (JAXBException | FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+/*
 
 			System.out.println(result);
 
@@ -85,7 +100,7 @@ public class Main {
 			testwrite();
 
 			testlanguagetoolEN();
-
+*/
 			//testlanguagetoolIT();
 
 		} catch (Exception e) {

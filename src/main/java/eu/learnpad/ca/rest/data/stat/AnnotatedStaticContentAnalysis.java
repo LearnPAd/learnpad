@@ -247,6 +247,16 @@ public class AnnotatedStaticContentAnalysis {
 				+  "]\n";
 	}
 
+
+	public void setAnnotations(List<Annotation> value) {
+		if (annotations == null) {
+            annotations = new ArrayList<Annotation>();
+            
+        }
+        annotations.addAll(value);
+		
+	}
+
     
 
 }
