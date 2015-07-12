@@ -71,7 +71,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	public Collection<AnnotatedCollaborativeContentAnalysis> getCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException{
 		if(map.containsKey(Integer.valueOf(contentID))){
-			CollaborativeContentAnalysis caa = map.get(contentID);
+			CollaborativeContentAnalysis caa = map.get(Integer.valueOf(contentID));
 
 			CorrectnessAnalysis corrana = new CorrectnessAnalysis( new BritishEnglish());
 			AnnotatedCollaborativeContentAnalysis acca = corrana.check(caa);
