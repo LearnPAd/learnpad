@@ -21,8 +21,22 @@ public class CollaborativeContent {
     protected Content content;
     @XmlAttribute(name = "id")
     protected String id;
+    
+    public CollaborativeContent(){
+    	
+    }
+    
+    
 
-    /**
+    public CollaborativeContent(String id, String title) {
+		super();
+		this.id = id;
+		this.title = title;
+	}
+
+
+
+	/**
      * Get the value of title.
      * 
      * @return

@@ -51,9 +51,18 @@ public class AnnotatedStaticContentAnalysis {
     @XmlAttribute(name = "type", required = true)
     protected String type;
 
+    public AnnotatedStaticContentAnalysis(){
+    	
+    }
    
+    
+    public AnnotatedStaticContentAnalysis(Integer id, String type) {
+		this.id = id;
+		this.type = type;
+	}
 
-    /**
+
+	/**
      * get the value of StaticContent.
      * 
      * @return

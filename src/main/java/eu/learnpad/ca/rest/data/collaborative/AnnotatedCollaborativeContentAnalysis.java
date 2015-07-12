@@ -51,9 +51,21 @@ public class AnnotatedCollaborativeContentAnalysis {
     @XmlAttribute(name = "type", required = true)
     protected String type;
 
-   
+    public AnnotatedCollaborativeContentAnalysis(){
+    	
+    }
 
-    /**
+    
+    
+    public AnnotatedCollaborativeContentAnalysis(Integer id, String type) {
+		super();
+		this.id = id;
+		this.type = type;
+	}
+
+
+
+	/**
      * get the value of CollaborativeContent.
      * 
      * @return
