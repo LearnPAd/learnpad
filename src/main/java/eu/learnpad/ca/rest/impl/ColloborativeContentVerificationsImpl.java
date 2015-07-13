@@ -1,5 +1,6 @@
 package eu.learnpad.ca.rest.impl;
 
+import java.lang.Thread.State;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -34,7 +35,7 @@ import eu.learnpad.exception.LpRestException;
 public class ColloborativeContentVerificationsImpl implements ColloborativeContentVerifications {
 
 
-	private static Map<Integer,CollaborativeContentAnalysis> map = new HashMap<Integer, CollaborativeContentAnalysis>();
+	private static Map<Integer,CorrectnessAnalysis> map = new HashMap<Integer, CorrectnessAnalysis>();
 	private Integer id =0;
 
 
@@ -53,7 +54,9 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	public String putValidateCollaborativeContent(@FormParam("collaborativecontent") CollaborativeContentAnalysis contentFile)
 			throws LpRestException{
 		id++;
-		map.put(id, contentFile);
+		CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(new BritishEnglish(), contentFile);
+		threadcorre.start();
+		map.put(id, threadcorre);
 		return id.toString();
 
 	}
@@ -65,10 +68,10 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	public Collection<AnnotatedCollaborativeContentAnalysis> getCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException{
 		if(map.containsKey(Integer.valueOf(contentID))){
-			CollaborativeContentAnalysis caa = map.get(Integer.valueOf(contentID));
+			CorrectnessAnalysis caa = map.get(Integer.valueOf(contentID));
 
-			CorrectnessAnalysis corrana = new CorrectnessAnalysis( new BritishEnglish());
-			AnnotatedCollaborativeContentAnalysis acca = corrana.check(caa);
+			
+			AnnotatedCollaborativeContentAnalysis acca = caa.getAnnotatedCollaborativeContentAnalysis();
 
 
 
@@ -83,7 +86,11 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	@GET
 	public String getStatusCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException{
-		// TODO Auto-generated method stub
+		if(map.containsKey(Integer.valueOf(contentID))){
+			CorrectnessAnalysis caa = map.get(Integer.valueOf(contentID));
+			State state = caa.getState();
+			return state.toString();
+		}
 		return contentID;
 	}
 

@@ -21,12 +21,14 @@ import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 
 
-public class CorrectnessAnalysis {
+public class CorrectnessAnalysis extends Thread {
 
 
 
 	private Language language;
 	private Integer numDefectiveSentences = 0;
+	private CollaborativeContentAnalysis cca;
+	private AnnotatedCollaborativeContentAnalysis accar;
 
 	public CorrectnessAnalysis( Language lang){
 
@@ -239,5 +241,22 @@ public class CorrectnessAnalysis {
 		return recommendations;
 	}
 
+	public CorrectnessAnalysis( Language lang, CollaborativeContentAnalysis collaborativeContentInput){
+
+		this.language=lang;
+		cca =collaborativeContentInput;
+	}
+	
+	
+	
+	public AnnotatedCollaborativeContentAnalysis getAnnotatedCollaborativeContentAnalysis() {
+		return accar;
+	}
+
+	public void run() {
+		
+		accar = this.check(cca);
+		
+	}
 
 }
