@@ -24,6 +24,7 @@ package eu.learnpad.ca.rest;
 import java.util.Collection;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -44,14 +45,10 @@ public interface StaticContentVerifications {
 	
 	@Path("/learnpad/ca/validatestaticcontent")
 	@POST
-	String putValidateStaticContent(@QueryParam("staticcontent") StaticContentAnalysis contentFile)
+	String putValidateStaticContent(StaticContentAnalysis contentFile)
 				throws LpRestException;
 	
-	@Path("/learnpad/ca/validatestaticcontent")
-	@PUT
-	String updateValidateStaticContent(@QueryParam("staticcontent") byte[] contentFile)
-				throws LpRestException;
-
+	
 	@Path("/learnpad/ca/staticcontentverifications/{idAnnotatedStaticContentAnalysis:.*}")
 	@GET
 	Collection<AnnotatedStaticContentAnalysis> getStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
