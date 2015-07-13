@@ -27,10 +27,12 @@ public class CorrectnessAnalysis extends Thread {
 
 	private Language language;
 	private Integer numDefectiveSentences = 0;
-	private CollaborativeContentAnalysis cca;
-	private AnnotatedCollaborativeContentAnalysis accar;
+	private CollaborativeContentAnalysis collaborativeContentAnalysis;
+	private StaticContentAnalysis staticContentAnalysis;
+	private AnnotatedCollaborativeContentAnalysis annotateCollaborativeContentAnalysis;
+	private AnnotatedStaticContentAnalysis annotateStaticContentAnalysis;
 
-	public CorrectnessAnalysis( Language lang){
+	public CorrectnessAnalysis(Language lang){
 
 		this.language=lang;
 
@@ -244,18 +246,31 @@ public class CorrectnessAnalysis extends Thread {
 	public CorrectnessAnalysis( Language lang, CollaborativeContentAnalysis collaborativeContentInput){
 
 		this.language=lang;
-		cca =collaborativeContentInput;
+		collaborativeContentAnalysis =collaborativeContentInput;
 	}
 	
+	public CorrectnessAnalysis( Language lang, StaticContentAnalysis staticContentInput){
+
+		this.language=lang;
+		staticContentAnalysis =staticContentInput;
+	}
 	
+	public AnnotatedStaticContentAnalysis getAnnotatedStaticContentAnalysis() {
+		return annotateStaticContentAnalysis;
+	}
 	
 	public AnnotatedCollaborativeContentAnalysis getAnnotatedCollaborativeContentAnalysis() {
-		return accar;
+		return annotateCollaborativeContentAnalysis;
 	}
 
 	public void run() {
+		if(collaborativeContentAnalysis!=null){
+			annotateCollaborativeContentAnalysis = this.check(collaborativeContentAnalysis);	
+		}
 		
-		accar = this.check(cca);
+		if(staticContentAnalysis!=null){
+			annotateStaticContentAnalysis = this.check(staticContentAnalysis);	
+		}
 		
 	}
 

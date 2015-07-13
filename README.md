@@ -1,6 +1,6 @@
 LearnPAd Content Analysis Component
 ==================
-Status project [![Build Status](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent.svg?branch=master)](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent)
+Status project [![Build Status](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent.svg?branch=RESTinterface)](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent)
 
 Information   | Value
 ------------- | --------

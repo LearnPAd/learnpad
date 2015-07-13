@@ -89,9 +89,15 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		if(map.containsKey(Integer.valueOf(contentID))){
 			CorrectnessAnalysis caa = map.get(Integer.valueOf(contentID));
 			State state = caa.getState();
-			return state.toString();
+			switch (state) {
+			case TERMINATED:
+				return "OK";
+
+			default:
+				return "IN PROGRESS";
+			}
 		}
-		return contentID;
+		return "ERROR";
 	}
 
 }
