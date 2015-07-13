@@ -28,7 +28,7 @@ import eu.learnpad.exception.LpRestException;
 public class StaticContentVerificationsImpl implements StaticContentVerifications {
 	
 	private static Map<Integer,CorrectnessAnalysis> map = new HashMap<Integer, CorrectnessAnalysis>();
-	private Integer id =0;
+	private static Integer id =0;
 
 
 	@Path("/")
