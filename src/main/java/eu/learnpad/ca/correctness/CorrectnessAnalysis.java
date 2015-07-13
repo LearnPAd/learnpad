@@ -1,9 +1,11 @@
 package eu.learnpad.ca.correctness;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.languagetool.AnalyzedSentence;
 import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
 import org.languagetool.rules.RuleMatch;
@@ -24,6 +26,7 @@ public class CorrectnessAnalysis {
 
 
 	private Language language;
+	private Integer numDefectiveSentences = 0;
 	
 	public CorrectnessAnalysis( Language lang){
 		
@@ -42,6 +45,11 @@ public class CorrectnessAnalysis {
 		try {
 			
 			matches = langTool.check(content);
+			
+			List<String> listsentence = langTool.sentenceTokenize(content);
+			List<Integer> possepa = posSentenceSeparator(listsentence);
+			
+			
 			System.out.println(content);
 			AnnotatedCollaborativeContentAnalysis acca = new AnnotatedCollaborativeContentAnalysis();
 			CollaborativeContent sc = new CollaborativeContent();
@@ -51,15 +59,20 @@ public class CorrectnessAnalysis {
 			Content c = new Content();
 			sc.setContent(c);
 			
-			List<Annotation> annotations = calculateAnnotations(content, matches, c);
+			List<Annotation> annotations = calculateAnnotations(content, matches, c, possepa);
 			acca.setAnnotations(annotations);
 			
 			
 			acca.setId(1234);
-			acca.setOverallQuality("overallquality");
-			acca.setOverallQualityMeasure("OverallQualityMeasure");
-			acca.setOverallRecommendations("Recommendation");
+			
+			
+			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
+			acca.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
+			acca.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
+			acca.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 			acca.setType("Correctness");
+			
+			
 			
 			
 
@@ -89,6 +102,10 @@ public class CorrectnessAnalysis {
 		try {
 			
 			matches = langTool.check(content);
+			
+			List<String> listsentence = langTool.sentenceTokenize(content);
+			List<Integer> possepa = posSentenceSeparator(listsentence);
+			
 			System.out.println(content);
 			AnnotatedStaticContentAnalysis asca = new AnnotatedStaticContentAnalysis();
 			StaticContent sc = new StaticContent();
@@ -98,14 +115,17 @@ public class CorrectnessAnalysis {
 			Content c = new Content();
 			sc.setContent(c);
 			
-			List<Annotation> annotations = calculateAnnotations(content, matches, c);
+			
+			
+			List<Annotation> annotations = calculateAnnotations(content, matches, c,possepa);
 			asca.setAnnotations(annotations);
 			
 			
 			asca.setId(1234);
-			asca.setOverallQuality("overallquality");
-			asca.setOverallQualityMeasure("OverallQualityMeasure");
-			asca.setOverallRecommendations("Recommendation");
+			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
+			asca.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
+			asca.setOverallQualityMeasure(qualitymmeasure+"%");
+			asca.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 			asca.setType("Correctness");
 			
 			
@@ -127,23 +147,18 @@ public class CorrectnessAnalysis {
 	
 	
 	
-	private List<Annotation> calculateAnnotations(String content,List<RuleMatch> matches, Content c){
+	private List<Annotation> calculateAnnotations(String content,List<RuleMatch> matches, Content c, List<Integer> possepa){
 		int precedentposition=0;
 		int id = 1;
 		List<Annotation> annotations=new ArrayList<Annotation>();
+		numDefectiveSentences = 0;
 		for (RuleMatch match : matches) {
-		//for(int i=matches.size();i>=0;i--){
-			//RuleMatch match = matches.get(i);
-			/*System.out.println("Potential error at line " +
-					match.getLine() + ", column " +
-					match.getColumn() + ": " + match.getMessage());
-			System.out.println("Suggested correction: " +
-					match.getSuggestedReplacements());
-			System.out.println("getToPos: " +	 match.getToPos());
-			System.out.println("EndColumn: " +	 match.getEndColumn());
-			System.out.println("EndLine: " +	 match.getEndLine());
-			System.out.println("FromPos: " +	 match.getFromPos());
-			System.out.println("ShortMessage: " +	 match.getShortMessage());*/
+			for(Integer in : possepa){
+				if(match.getFromPos()<in){
+					numDefectiveSentences++;
+					break;
+				}
+			}
 			String stringap = content.substring(precedentposition, match.getFromPos());
 			c.setContent(stringap);
 			Node init= new Node(id);
@@ -166,5 +181,57 @@ public class CorrectnessAnalysis {
 		return annotations;
 		
 	}
+	
+	private List<Integer> posSentenceSeparator(List<String> sentences){
+		List<Integer> listpos = new ArrayList<Integer>();
+		int offsett=0;
+		for(String sentence : sentences){
+			listpos.add(sentence.length()+offsett);
+			offsett=sentence.length();
+		}
+		return listpos;
+	}
+
+	public int getNumSentenceDiffected() {
+		return numDefectiveSentences;
+	}
+	
+	private double calculateOverallQualityMeasure(Integer numsentence){
+		double qualityMeasure = 1-(numDefectiveSentences.doubleValue()/numsentence.doubleValue());
+		return qualityMeasure;
+	}
+	
+	private String calculateOverallQuality(double qualityMeasure){
+		String quality="";
+		if(qualityMeasure<=25){
+			quality="VERY BAD";
+		}else if(qualityMeasure<=50){
+			quality="BAD";
+		}else if(qualityMeasure<=75){
+			quality="GOOD";
+		}else if(qualityMeasure<100){
+			quality="VERY GOOD";
+		}else if(qualityMeasure==100){
+			quality="EXCELLENT";
+		}
+		return quality;
+	}
+	
+	private String calculateOverallRecommendations(double qualityMeasure){
+		String recommendations="";
+		if(qualityMeasure<=25){
+			recommendations="Quality is very poor, correct the errors";
+		}else if(qualityMeasure<=50){
+			recommendations="Quality is poor, correct the errors";
+		}else if(qualityMeasure<=75){
+			recommendations="Quality is acceptable, but there are still some errors";
+		}else if(qualityMeasure<100){
+			recommendations="Well done, still few errors remaining";
+		}else if(qualityMeasure==100){
+			recommendations="Well done, no errors found!";
+		}
+		return recommendations;
+	}
+	
 	
 }
