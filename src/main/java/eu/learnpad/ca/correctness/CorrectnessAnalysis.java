@@ -207,7 +207,8 @@ public class CorrectnessAnalysis extends Thread {
 	}
 
 	private double calculateOverallQualityMeasure(Integer numsentence){
-		double qualityMeasure = Math.abs(1-(numDefectiveSentences.doubleValue()/numsentence.doubleValue())*100);
+		double qm = (1-(numDefectiveSentences.doubleValue()/numsentence.doubleValue()))*100;
+		double qualityMeasure = Math.abs(qm);
 		return qualityMeasure;
 	}
 
