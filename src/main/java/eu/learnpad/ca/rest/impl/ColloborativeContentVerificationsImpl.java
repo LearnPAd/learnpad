@@ -49,7 +49,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 	@Path("/")
 	@POST
-	@Consumes(MediaType.APPLICATION_XML)//({"text/plain", MediaType.APPLICATION_XML})//("text/plain")//(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_XML)
 	public String putValidateCollaborativeContent(@FormParam("collaborativecontent") CollaborativeContentAnalysis contentFile)
 			throws LpRestException{
 		id++;
@@ -58,13 +58,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 	}
 
-	//	@Path("/{edf}")
-	//	@PUT
-	//	public String updateValidateCollaborativeContent(@QueryParam("collaborativecontent") CollaborativeContentAnalysis contentFile)
-	//				throws LpRestException{
-	//					// TODO Auto-generated method stub
-	//					return null;
-	//				}
+
 
 	@Path("/{idAnnotatedCollaborativeContentAnalysis:.*}")
 	@GET
