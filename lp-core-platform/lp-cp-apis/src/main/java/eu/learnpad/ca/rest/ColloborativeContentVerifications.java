@@ -45,7 +45,7 @@ public interface ColloborativeContentVerifications {
 	
 	@Path("/learnpad/ca/validatecollaborativecontent")
 	@POST
-	String putValidateCollaborativeContent(@FormParam("collaborativecontent") CollaborativeContentAnalysis contentFile)
+	String putValidateCollaborativeContent(CollaborativeContentAnalysis contentFile)
 				throws LpRestException;
 	
 	
