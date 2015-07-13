@@ -32,8 +32,19 @@ public class LpXwikiControllersFactory extends LpControllersFactory {
 	}
 
 	@Override
-	public eu.learnpad.qm.Controller createControllerQM(boolean isBridgeInterfaceLocal) {
-		return new eu.learnpad.core.impl.qm.XwikiController(isBridgeInterfaceLocal);
+	public eu.learnpad.qm.Controller createControllerQM() {
+		return new eu.learnpad.core.impl.qm.XwikiController();
+	}
+
+	@Override
+	public eu.learnpad.qm.Controller createControllerQM(eu.learnpad.qm.BridgeInterface bi) {
+		return new eu.learnpad.core.impl.qm.XwikiController(bi);
+	}
+
+	@Override
+	public eu.learnpad.qm.Controller createControllerQM(String bridgeInterfaceHostname,
+			int bridgeInterfaceHostPort) {
+		return new eu.learnpad.core.impl.qm.XwikiController(bridgeInterfaceHostname, bridgeInterfaceHostPort);
 	}
 
 	@Override
@@ -45,5 +56,6 @@ public class LpXwikiControllersFactory extends LpControllersFactory {
 	public eu.learnpad.sim.Controller createControllerSIM(boolean isBridgeInterfaceLocal) {
 		return new eu.learnpad.core.impl.sim.XwikiController(isBridgeInterfaceLocal);
 	}
+
 
 }

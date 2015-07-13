@@ -26,8 +26,19 @@ import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.qm.CoreFacade;
 import eu.learnpad.core.rest.RestResource;
 
+/*
+ * The methods inherited form the CoreFacade in this
+ * class should be implemented as a REST invocation
+ * toward the CoreFacade binded at the provided URL
+ */
 @Component
 public class XwikiCoreFacadeRestResource extends RestResource implements XWikiRestComponent, CoreFacade{
+
+	public XwikiCoreFacadeRestResource(String coreFacadeHostname,
+			int coreFacadeHostPort) {
+		// This constructor has to be fixed, since it requires changes on the class
+//		eu.learnpad.core.rest.RestResource
+	}
 
 	@Override
 	public void publish(String questionnairesId, String type,

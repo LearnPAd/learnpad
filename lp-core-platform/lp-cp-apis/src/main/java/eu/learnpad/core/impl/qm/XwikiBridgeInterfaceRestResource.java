@@ -22,51 +22,61 @@ package eu.learnpad.core.impl.qm;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.exception.LpRestException;
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.qm.BridgeInterface;
 import eu.learnpad.core.rest.RestResource;
 
+/*
+ * The methods inherited form the BridgeInterface in this
+ * class should be implemented as a REST invocation
+ * toward the BridgeInterface binded at the provided URL
+ */
 @Component
 public class XwikiBridgeInterfaceRestResource extends RestResource implements XWikiRestComponent, BridgeInterface{
 
+	public XwikiBridgeInterfaceRestResource(String bridgeInterfaceHostname,
+			int bridgeInterfaceHostPort) {
+// This constructor has to be fixed, since it requires changes on the class
+//		eu.learnpad.core.rest.RestResource
+	}
+
 	@Override
 	public void importModelSet(String modelSetId, String type,
-			byte[] modelContent) throws LpRestExceptionImpl {
+			byte[] modelContent) throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public String generateQuestionnaires(String modelSetId, String type,
-			byte[] configurationFile) throws LpRestExceptionImpl {
+			byte[] configurationFile) throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String getGenerationStatus(String generationProcessId)
-			throws LpRestExceptionImpl {
+			throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String createQuestionnaire() throws LpRestException {
+	public String createQuestionnaire() throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void addQuestionToQuestionnaire(String creationProcessId,
-			String question, String expectedAnswer) throws LpRestException {
+			String question, String expectedAnswer) throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void finalizeQuestionnaire(String creationProcessId, String type)
-			throws LpRestException {
+			throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		
 	}

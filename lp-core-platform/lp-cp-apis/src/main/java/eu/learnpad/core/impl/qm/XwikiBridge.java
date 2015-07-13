@@ -19,19 +19,30 @@
  */
 package eu.learnpad.core.impl.qm;
 
-import eu.learnpad.qm.Bridge;
+import org.xwiki.component.annotation.Component;
+import org.xwiki.rest.XWikiRestComponent;
 
-public abstract class XwikiBridge extends Bridge{
+import eu.learnpad.qm.Bridge;
+import eu.learnpad.qm.CoreFacade;
+
+@Component
+public abstract class XwikiBridge extends Bridge implements XWikiRestComponent{
 
 	public XwikiBridge (){
-		this(false);
+		this.corefacade = null;
 	}
 
-	public XwikiBridge (boolean isCoreFacadeLocal){
-		if (isCoreFacadeLocal)
-			this.corefacade = new XwikiCoreFacade();
-		else
-			this.corefacade = new XwikiCoreFacadeRestResource();
+	public XwikiBridge (CoreFacade cf){
+		this.updateCoreFacade(cf);
 	}
+
+	public XwikiBridge (String coreFacadeHostname,
+			int coreFacadeHostPort){
+		this.corefacade = new XwikiCoreFacadeRestResource(coreFacadeHostname, coreFacadeHostPort);
+	}
+	
+    public synchronized void updateCoreFacade (CoreFacade cf){
+		this.corefacade = cf;    	
+    }
 
 }

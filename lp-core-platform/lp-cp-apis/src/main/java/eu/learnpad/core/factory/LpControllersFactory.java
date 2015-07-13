@@ -19,6 +19,8 @@
  */
 package eu.learnpad.core.factory;
 
+import eu.learnpad.qm.BridgeInterface;
+
 public abstract class LpControllersFactory {
 
 		private static LpControllersFactory concreteFactory = null;
@@ -44,9 +46,15 @@ public abstract class LpControllersFactory {
 		}
 		
 		public abstract eu.learnpad.cw.Controller createControllerCW(boolean isBridgeInterfaceLocal);
+
 		public abstract eu.learnpad.me.Controller createControllerME(boolean isBridgeInterfaceLocal);
-		public abstract eu.learnpad.qm.Controller createControllerQM(boolean isBridgeInterfaceLocal);
+		
+		public abstract eu.learnpad.qm.Controller createControllerQM();
+		public abstract eu.learnpad.qm.Controller createControllerQM(BridgeInterface bi);
+		public abstract eu.learnpad.qm.Controller createControllerQM(String bridgeInterfaceHostname, int bridgeInterfaceHostPort);
+		
 		public abstract eu.learnpad.or.Controller createControllerOR(boolean isBridgeInterfaceLocal);
+		
 		public abstract eu.learnpad.sim.Controller createControllerSIM(boolean isBridgeInterfaceLocal);
 	
 }

@@ -19,22 +19,33 @@
  */
 package eu.learnpad.core.impl.qm;
 
+import org.xwiki.component.annotation.Component;
+import org.xwiki.rest.XWikiRestComponent;
+
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.qm.BridgeInterface;
 import eu.learnpad.qm.Controller;
 
-public class XwikiController extends Controller{
+@Component
+public class XwikiController extends Controller implements XWikiRestComponent{
 
 	public XwikiController (){
-		this(false);
+		this.bridge = null;
 	}
 
-	public XwikiController (boolean isBridgeInterfaceLocal){
-		if (isBridgeInterfaceLocal)
-			this.bridge = new XwikiBridgeInterface();
-		else
-			this.bridge = new XwikiBridgeInterfaceRestResource();			
+	public XwikiController (BridgeInterface bi){
+		this.updateBridgeInterface(bi);
 	}
 
+	public XwikiController (String bridgeInterfaceHostname,
+			int bridgeInterfaceHostPort){
+		this.bridge = new XwikiBridgeInterfaceRestResource(bridgeInterfaceHostname, bridgeInterfaceHostPort);
+	}
+	
+    public synchronized void updateBridgeInterface (BridgeInterface bi){
+		this.bridge = bi;    	
+    }
+	
 	@Override
 	public void publish(String questionnairesId, String type,
 			byte[] questionnairesFile) throws LpRestExceptionImpl {
