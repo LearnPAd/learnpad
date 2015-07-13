@@ -51,7 +51,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	@Path("/")
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
-	public String putValidateCollaborativeContent(@FormParam("collaborativecontent") CollaborativeContentAnalysis contentFile)
+	public String putValidateCollaborativeContent(CollaborativeContentAnalysis contentFile)
 			throws LpRestException{
 		id++;
 		CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(new BritishEnglish(), contentFile);

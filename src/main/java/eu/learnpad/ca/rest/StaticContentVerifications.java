@@ -45,7 +45,7 @@ public interface StaticContentVerifications {
 	
 	@Path("/learnpad/ca/validatestaticcontent")
 	@POST
-	String putValidateStaticContent(@FormParam("staticcontent") StaticContentAnalysis contentFile)
+	String putValidateStaticContent(StaticContentAnalysis contentFile)
 				throws LpRestException;
 	
 	
