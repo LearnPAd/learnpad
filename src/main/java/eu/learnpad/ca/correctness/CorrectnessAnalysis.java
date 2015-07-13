@@ -22,34 +22,34 @@ import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 
 
 public class CorrectnessAnalysis {
-	
+
 
 
 	private Language language;
 	private Integer numDefectiveSentences = 0;
-	
+
 	public CorrectnessAnalysis( Language lang){
-		
+
 		this.language=lang;
-		
+
 	}
-	
+
 	public AnnotatedCollaborativeContentAnalysis check(CollaborativeContentAnalysis collaborativeContentInput){
 		String title = collaborativeContentInput.getCollaborativeContent().getTitle();
 		String idc = collaborativeContentInput.getCollaborativeContent().getId();
 		String content = collaborativeContentInput.getCollaborativeContent().getContent().toString();
-		
+
 		JLanguageTool langTool = new JLanguageTool(language);
-		
+
 		List<RuleMatch> matches;
 		try {
-			
+
 			matches = langTool.check(content);
-			
+
 			List<String> listsentence = langTool.sentenceTokenize(content);
 			List<Integer> possepa = posSentenceSeparator(listsentence);
-			
-			
+
+
 			System.out.println(content);
 			AnnotatedCollaborativeContentAnalysis acca = new AnnotatedCollaborativeContentAnalysis();
 			CollaborativeContent sc = new CollaborativeContent();
@@ -58,54 +58,54 @@ public class CorrectnessAnalysis {
 			sc.setId(idc);
 			Content c = new Content();
 			sc.setContent(c);
-			
+
 			List<Annotation> annotations = calculateAnnotations(content, matches, c, possepa);
 			acca.setAnnotations(annotations);
-			
-			
+
+
 			acca.setId(1234);
-			
-			
+
+
 			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 			acca.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 			acca.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 			acca.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 			acca.setType("Correctness");
-			
-			
-			
-			
 
-			
-			
+
+
+
+
+
+
 			return acca;
-			
-			
+
+
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
-		
-		
+
+
 	}
-	
+
 	public AnnotatedStaticContentAnalysis check(StaticContentAnalysis staticContentInput){
 		String title = staticContentInput.getStaticContent().getTitle();
 		String idc = staticContentInput.getStaticContent().getId();
 		String content = staticContentInput.getStaticContent().getContent().toString();
-		
+
 		JLanguageTool langTool = new JLanguageTool(language);
-		
+
 		List<RuleMatch> matches;
 		try {
-			
+
 			matches = langTool.check(content);
-			
+
 			List<String> listsentence = langTool.sentenceTokenize(content);
 			List<Integer> possepa = posSentenceSeparator(listsentence);
-			
+
 			System.out.println(content);
 			AnnotatedStaticContentAnalysis asca = new AnnotatedStaticContentAnalysis();
 			StaticContent sc = new StaticContent();
@@ -114,49 +114,55 @@ public class CorrectnessAnalysis {
 			sc.setId(idc);
 			Content c = new Content();
 			sc.setContent(c);
-			
-			
-			
+
+
+
 			List<Annotation> annotations = calculateAnnotations(content, matches, c,possepa);
 			asca.setAnnotations(annotations);
-			
-			
+
+
 			asca.setId(1234);
 			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 			asca.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 			asca.setOverallQualityMeasure(qualitymmeasure+"%");
 			asca.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 			asca.setType("Correctness");
-			
-			
 
-			
-			
+
+
+
+
 			return asca;
-			
-			
+
+
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
-		
-		
+
+
 	}
-	
-	
-	
+
+
+
 	private List<Annotation> calculateAnnotations(String content,List<RuleMatch> matches, Content c, List<Integer> possepa){
 		int precedentposition=0;
 		int id = 1;
 		List<Annotation> annotations=new ArrayList<Annotation>();
 		numDefectiveSentences = 0;
+		boolean flag = true;
+		int i=0;
 		for (RuleMatch match : matches) {
-			for(Integer in : possepa){
-				if(match.getFromPos()<in){
+			
+			if(match.getFromPos()>possepa.get(i)){
+				i++;
+				flag=true;
+			}else{
+				if(match.getFromPos()<possepa.get(i) & flag){
 					numDefectiveSentences++;
-					break;
+					flag=false;				
 				}
 			}
 			String stringap = content.substring(precedentposition, match.getFromPos());
@@ -179,9 +185,9 @@ public class CorrectnessAnalysis {
 			id++;
 		}
 		return annotations;
-		
+
 	}
-	
+
 	private List<Integer> posSentenceSeparator(List<String> sentences){
 		List<Integer> listpos = new ArrayList<Integer>();
 		int offsett=0;
@@ -195,12 +201,12 @@ public class CorrectnessAnalysis {
 	public int getNumSentenceDiffected() {
 		return numDefectiveSentences;
 	}
-	
+
 	private double calculateOverallQualityMeasure(Integer numsentence){
 		double qualityMeasure = 1-(numDefectiveSentences.doubleValue()/numsentence.doubleValue());
 		return qualityMeasure;
 	}
-	
+
 	private String calculateOverallQuality(double qualityMeasure){
 		String quality="";
 		if(qualityMeasure<=25){
@@ -216,7 +222,7 @@ public class CorrectnessAnalysis {
 		}
 		return quality;
 	}
-	
+
 	private String calculateOverallRecommendations(double qualityMeasure){
 		String recommendations="";
 		if(qualityMeasure<=25){
@@ -232,6 +238,6 @@ public class CorrectnessAnalysis {
 		}
 		return recommendations;
 	}
-	
-	
+
+
 }
