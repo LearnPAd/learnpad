@@ -55,12 +55,12 @@ public final class LpRestExceptionXWikiImpl extends LpRestException {
     }
     
     /**
-     * It converts back an LpRestExceptionXWikiImpl caused by an XWikiRestException
+     * It extracts back an LpRestExceptionXWikiImpl caused by an XWikiRestException
      * into the original XWikiRestException.
      * 
      * @param e the exception cause.
      * @return the original XWikiRestException
-     * @throws  RuntimeException if the conversion fails
+     * @throws  RuntimeException if the extraction fails
      */
     public static XWikiRestException extractXWikiRestException (LpRestException e) throws RuntimeException{
     	if (e instanceof LpRestExceptionXWikiImpl) {
