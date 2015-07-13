@@ -33,7 +33,9 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
@@ -86,7 +88,7 @@ public class XwikiController extends Controller implements XWikiRestComponent {
 	public String startModelSetVerification(String modelSetId, String type,
 			String verification) throws LpRestExceptionImpl {
 		String verificationProcessId = UUID.randomUUID().toString();
-		mvResults.put(verificationProcessId, new MVResults(modelSetId));
+		mvResults.put(verificationProcessId, new MVResults(modelSetId, type));
 		return verificationProcessId;
 	}
 
@@ -101,6 +103,24 @@ public class XwikiController extends Controller implements XWikiRestComponent {
 			} else {
 				mvResults.remove(verificationProcessId);
 			}
+			if (toReturn.getStatus().equals("finished")) {
+				// Notify CW about a new model set imported
+				HttpClient httpClient = RestResource.getClient();
+				String uri = String.format(
+						"%s/learnpad/cw/bridge/modelsetimported/%s",
+						RestResource.REST_URI, toReturn.getModelSetId());
+				PutMethod putMethod = new PutMethod(uri);
+				putMethod.addRequestHeader("Accept", "application/xml");
+				NameValuePair[] queryString = new NameValuePair[1];
+				queryString[0] = new NameValuePair("type", toReturn.getType());
+				putMethod.setQueryString(queryString);
+				try {
+					httpClient.executeMethod(putMethod);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			return toReturn;
 		} else {
 			return null;
@@ -109,22 +129,6 @@ public class XwikiController extends Controller implements XWikiRestComponent {
 
 	@Override
 	public Feedbacks getFeedbacks(String modelSetId) throws LpRestExceptionImpl {
-		/*
-		 * List<String> contents1 = new ArrayList<String>(); List<String>
-		 * contents2 = new ArrayList<String>();
-		 * contents1.add("This task is not exactly done this way in our office"
-		 * ); contents1 .add(
-		 * "We're missing a use case in this process in case the person has not a computer at home"
-		 * );
-		 * contents2.add("This office doesn't exists anymore in our organisation"
-		 * ); Feedback feedback1 = new Feedback("modelsetid123", "modelid123",
-		 * "artifactid123", contents1); Feedback feedback2 = new
-		 * Feedback("modelsetid123", "modelid456", "artifactid456", contents2);
-		 * List<Feedback> feedbacklist = new ArrayList<Feedback>();
-		 * feedbacklist.add(feedback1); feedbacklist.add(feedback2); Feedbacks
-		 * feedbacks = new Feedbacks(feedbacklist);
-		 */
-
 		// Now send the package's path to the importer for XWiki
 		HttpClient httpClient = RestResource.getClient();
 		String uri = String.format("%s/learnpad/cw/bridge/%s/feedbacks",
