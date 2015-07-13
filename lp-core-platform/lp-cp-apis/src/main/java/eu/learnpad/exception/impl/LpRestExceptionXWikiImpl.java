@@ -4,7 +4,7 @@ import eu.learnpad.exception.LpRestException;
 
 import org.xwiki.rest.XWikiRestException;
 
-public class LpRestExceptionXWikiImpl extends LpRestException {
+public final class LpRestExceptionXWikiImpl extends LpRestException {
 
 	boolean isXWikiRestException;
 	
@@ -62,13 +62,13 @@ public class LpRestExceptionXWikiImpl extends LpRestException {
      * @return the original XWikiRestException
      * @throws  RuntimeException if the conversion fails
      */
-    public static XWikiRestException convertToXWikiRestException (LpRestException e) throws RuntimeException{
+    public static XWikiRestException extractXWikiRestException (LpRestException e) throws RuntimeException{
     	if (e instanceof LpRestExceptionXWikiImpl) {
     		LpRestExceptionXWikiImpl e1 = (LpRestExceptionXWikiImpl) e;
     		if (e1.isXWikiRestException)
     	    	return (XWikiRestException) e1.getCause();    				
 		}
-		throw new RuntimeException("Cannot convert LpRestException into XWikiRestException");
+		throw new RuntimeException("Cannot extract LpRestException into XWikiRestException");
     }
     
 }
