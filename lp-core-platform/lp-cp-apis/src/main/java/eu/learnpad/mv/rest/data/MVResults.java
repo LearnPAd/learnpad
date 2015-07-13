@@ -12,13 +12,16 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "MVResults", propOrder = {
 		"modelSetId",
+		"type",
 		"status",
-		"deadlockPathList"})
+		"deadlockPathList" })
 @XmlRootElement(name = "modelverification")
 public class MVResults {
 	// TODO: class to store verification results; to define
 	@XmlElement(name = "modelsetid", required = true)
 	protected String modelSetId;
+	@XmlElement(name = "type", required = true)
+	protected String type;
 	@XmlElement(name = "status")
 	protected String status;
 	@XmlElement(name = "deadlockpath")
@@ -26,18 +29,21 @@ public class MVResults {
 
 	public MVResults() {
 		this.modelSetId = "";
+		this.type = "lpzip";
 		this.status = "";
 		this.deadlockPathList = new ArrayList<String>();
 	}
 
-	public MVResults(String modelSetId) {
+	public MVResults(String modelSetId, String type) {
 		this.modelSetId = modelSetId;
+		this.type = type;
 		this.status = "inprogress";
 		this.deadlockPathList = new ArrayList<String>();
 	}
 
 	public MVResults(MVResults result) {
 		this.modelSetId = result.modelSetId;
+		this.type = result.type;
 		this.deadlockPathList = new ArrayList<String>(result.deadlockPathList);
 		this.status = result.status;
 	}
@@ -52,7 +58,11 @@ public class MVResults {
 	public String getModelSetId() {
 		return this.modelSetId;
 	}
-	
+
+	public String getType() {
+		return this.type;
+	}
+
 	public String getStatus() {
 		return this.status;
 	}
