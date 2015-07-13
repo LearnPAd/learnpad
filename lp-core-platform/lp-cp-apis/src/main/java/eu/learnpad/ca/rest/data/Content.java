@@ -45,7 +45,11 @@ public  class Content {
 
 	@Override
 	public String toString() {
-		return   Content.toString();
+		String string = "";
+		for(Object obj: Content){
+			string+=obj.toString();
+		}
+		return   string;
 	}
 
 
