@@ -1,5 +1,6 @@
 LearnPAd Content Analysis Component
 ==================
+[![License](https://img.shields.io/badge/License-GPL-blue.svg)](https://github.com/ISTI-FMT-LearnPAd/ContentAnalysisComponent/blob/master/LICENSE)
 Status project [![Build Status](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent.svg?branch=RESTinterface)](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent)
 
 Information   | Value
