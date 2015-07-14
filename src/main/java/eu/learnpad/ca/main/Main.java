@@ -36,12 +36,12 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try{
-
-			InputStream is = Main.class.getClassLoader().getResourceAsStream("CollaborativeContentXML.xml");
+			String fileinput = args[0];
+		//	InputStream is = Main.class.getClassLoader().getResourceAsStream("");
 			JAXBContext jaxbContexti = JAXBContext.newInstance(CollaborativeContentAnalysis.class);
 
 			Unmarshaller jaxbUnmarshaller1 = jaxbContexti.createUnmarshaller();
-			CollaborativeContentAnalysis result = (CollaborativeContentAnalysis) jaxbUnmarshaller1.unmarshal(is);
+			CollaborativeContentAnalysis result = (CollaborativeContentAnalysis) jaxbUnmarshaller1.unmarshal(new File(fileinput));
 
 			CorrectnessAnalysis corrana = new CorrectnessAnalysis( new BritishEnglish());
 			AnnotatedCollaborativeContentAnalysis acca = corrana.check(result);

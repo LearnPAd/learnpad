@@ -80,7 +80,7 @@ public class CorrectnessAnalysis extends Thread {
 
 
 
-
+			annotateCollaborativeContentAnalysis=acca;
 
 			return acca;
 
@@ -134,7 +134,7 @@ public class CorrectnessAnalysis extends Thread {
 
 
 
-
+			annotateStaticContentAnalysis = asca;
 
 			return asca;
 

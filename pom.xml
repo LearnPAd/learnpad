@@ -1,10 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>eu.learnpad</groupId>
-  <artifactId>contentanalysis</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  
- <packaging>war</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>eu.learnpad</groupId>
+	<artifactId>contentanalysis</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<packaging>war</packaging>
 
 	<name>LearnPAd Content Analysis Component</name>
 	<url>http://learnpad.eu</url>
@@ -13,34 +14,40 @@
 		<name>FMT-ISTI-CNR</name>
 		<url>http://fmt.isti.cnr.it</url>
 	</organization>
-		<developers>
+	<developers>
 		<developer>
 			<id>imatesiu</id>
 			<name>Giorgio Spagnolo</name>
 		</developer>
 	</developers>
-	
-	
+
+
 	<repositories>
-		
+
 	</repositories>
 
 	<dependencies>
-	<dependency>
-  <groupId>org.languagetool</groupId>
-  <artifactId>language-all</artifactId>
-  <version>3.0</version>
-  
-  
-  
-</dependency>
-<dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.languagetool</groupId>
+			<artifactId>language-all</artifactId>
+			<version>3.0</version>
+
+
+
+		</dependency>
+		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-server</artifactId>
 			<version>1.8</version>
 		</dependency>
 	</dependencies>
-  <build>
+	<build>
 		<plugins>
 
 			<plugin>
@@ -88,8 +95,8 @@
 					</execution>
 				</executions>
 			</plugin>
-			</plugins>
-		
+		</plugins>
+
 
 	</build>
 </project>
