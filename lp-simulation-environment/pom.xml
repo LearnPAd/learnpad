@@ -35,6 +35,7 @@
 		<underscorejs.version>1.7.0-1</underscorejs.version>
 		<spectrum.version>1.6.0</spectrum.version>
 		<license-maven-plugin.version>1.8</license-maven-plugin.version>
+		<resteasy.version>3.0.11.Final</resteasy.version>
 	</properties>
 
 	<repositories>
@@ -45,6 +46,26 @@
 	</repositories>
 
 	<dependencies>
+		<dependency>
+			<groupId>eu.learnpad</groupId>
+			<artifactId>lp-cp-apis</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.ws.rs</groupId>
+					<artifactId>jsr311-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.xwiki.commons</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.xwiki.platform</groupId>
+					<artifactId>*</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-engine</artifactId>
@@ -91,6 +112,18 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-client</artifactId>
+			<version>${resteasy.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson-provider</artifactId>
+			<version>${resteasy.version}</version>
+		</dependency>
+
 
 		<!-- Web dependencies (yes that's a thing) -->
 
