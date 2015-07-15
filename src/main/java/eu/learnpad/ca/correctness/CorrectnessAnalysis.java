@@ -110,7 +110,7 @@ public class CorrectnessAnalysis extends Thread {
 			List<String> listsentence = langTool.sentenceTokenize(content);
 			List<Integer> posSentSeparator = posSentenceSeparator(listsentence);
 
-			System.out.println(content);
+			//System.out.println(content);
 			AnnotatedStaticContentAnalysis annotatedStaticContent = new AnnotatedStaticContentAnalysis();
 			StaticContent sc = new StaticContent();
 			annotatedStaticContent.setStaticContent(sc);

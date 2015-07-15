@@ -53,11 +53,14 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	@Consumes(MediaType.APPLICATION_XML)
 	public String putValidateCollaborativeContent(CollaborativeContentAnalysis contentFile)
 			throws LpRestException{
-		id++;
-		CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(new BritishEnglish(), contentFile);
-		threadcorre.start();
-		map.put(id, threadcorre);
-		return id.toString();
+		if(contentFile.getQualityCriteria().isCorrectness()){
+			id++;
+			CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(new BritishEnglish(), contentFile);
+			threadcorre.start();
+			map.put(id, threadcorre);
+			return id.toString();
+		}else
+			return "Analysis not implemented";
 
 	}
 
@@ -70,10 +73,10 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		if(map.containsKey(Integer.valueOf(contentID))){
 			CorrectnessAnalysis correctnessAnalysis = map.get(Integer.valueOf(contentID));
 
-			
+
 			AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent = correctnessAnalysis.getAnnotatedCollaborativeContentAnalysis();
 
-			 annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
+			annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
 
 			ArrayList<AnnotatedCollaborativeContentAnalysis> ar = new ArrayList<AnnotatedCollaborativeContentAnalysis>();
 			ar.add(annotatedCollaborativeContent);
@@ -89,7 +92,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		if(map.containsKey(Integer.valueOf(contentID))){
 			CorrectnessAnalysis correctnessAnalysis = map.get(Integer.valueOf(contentID));
 			return correctnessAnalysis.getStatus();
-			
+
 		}
 		return "ERROR";
 	}

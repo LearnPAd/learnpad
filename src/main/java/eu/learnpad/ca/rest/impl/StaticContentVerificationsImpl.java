@@ -26,7 +26,7 @@ import eu.learnpad.exception.LpRestException;
 @Consumes(MediaType.APPLICATION_XML)
 @Produces(MediaType.APPLICATION_XML)
 public class StaticContentVerificationsImpl implements StaticContentVerifications {
-	
+
 	private static Map<Integer,CorrectnessAnalysis> map = new HashMap<Integer, CorrectnessAnalysis>();
 	private static Integer id =0;
 
@@ -35,11 +35,14 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 	@POST
 	public String putValidateStaticContent(StaticContentAnalysis contentFile)
 			throws LpRestException {
-		id++;
-		CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(new BritishEnglish(), contentFile);
-		threadcorre.start();
-		map.put(id, threadcorre);
-		return id.toString();
+		if(contentFile.getQualityCriteria().isCorrectness()){
+			id++;
+			CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(new BritishEnglish(), contentFile);
+			threadcorre.start();
+			map.put(id, threadcorre);
+			return id.toString();
+		}else
+			return "Analysis not implemented";
 	}
 
 	@Path("/{idAnnotatedStaticContentAnalysis:\\d+}")
@@ -49,7 +52,7 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 		if(map.containsKey(Integer.valueOf(contentID))){
 			CorrectnessAnalysis correctnessAnalysis = map.get(Integer.valueOf(contentID));
 
-			
+
 			AnnotatedStaticContentAnalysis annotatedStaticContent = correctnessAnalysis.getAnnotatedStaticContentAnalysis();
 
 			annotatedStaticContent.setId(Integer.valueOf(contentID));
