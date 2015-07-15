@@ -159,41 +159,72 @@
 				</configuration>
 			</plugin>
 
+			<!-- This set of plugins is used to create an uber jar
+				see http://stackoverflow.com/questions/13021423/invalid-or-corrupt-jar-file-built-by-maven-shade-plugin
+				and https://ath3nd.wordpress.com/2013/12/25/packaging-a-multimodule-maven-spring-app-in-a-standalone-jar/
+			-->
+
+			<!-- Copy jar dependencies into build folder -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.10</version>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<overWriteReleases>true</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<prependGroupId>true</prependGroupId>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Add dependencies into MANIFEST.MF as Class-Path -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
 				<configuration>
 					<archive>
 						<manifest>
+							<addClasspath>true</addClasspath>
 							<mainClass>eu.learnpad.simulator.Main</mainClass>
+							<classpathLayoutType>custom</classpathLayoutType>
+							<customClasspathLayout>lib/${artifact.groupId}.${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</customClasspathLayout>
 						</manifest>
+
 					</archive>
 				</configuration>
 			</plugin>
 
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>eu.learnpad.simulator.Main</mainClass>
-						</manifest>
-					</archive>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				</configuration>
 				<executions>
 					<execution>
-						<id>make-assembly</id> <!-- this is used for inheritance merges -->
-						<phase>package</phase> <!-- bind to the packaging phase -->
+						<id>assembly:package</id>
+						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
 						</goals>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<descriptor>src/main/resources/assembly.xml</descriptor>
+							</descriptors>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
+
+			<!--
+			End of uber jar creation
+			 -->
 
 			<plugin>
 				<!-- handle license files -->
@@ -210,6 +241,7 @@
 						<exclude>main/resources/static/lib/**</exclude>
 						<exclude>main/resources/license/**</exclude>
 						<exclude>main/resources/validation_db.json</exclude>
+						<exclude>main/resources/assembly.xml</exclude>
 					</excludes>
 					<licenseMerges>
 						<licenseMerge>
