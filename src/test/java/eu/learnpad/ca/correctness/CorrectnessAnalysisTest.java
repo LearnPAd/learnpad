@@ -83,6 +83,7 @@ public class CorrectnessAnalysisTest {
 
 			Unmarshaller jaxbUnmarshaller1 = jaxbContexti.createUnmarshaller();
 			CollaborativeContentAnalysis collaborativeContentInput = (CollaborativeContentAnalysis) jaxbUnmarshaller1.unmarshal(is);
+			assertNotNull(collaborativeContentInput.toString());
 			CorrectnessAnalysis ca = new CorrectnessAnalysis(new BritishEnglish(),collaborativeContentInput);
 			assertNotNull("Ok",ca);
 		}catch(JAXBException e){
@@ -99,6 +100,7 @@ public class CorrectnessAnalysisTest {
 
 			Unmarshaller jaxbUnmarshaller1 = jaxbContexti.createUnmarshaller();
 			StaticContentAnalysis staticContentInput = (StaticContentAnalysis) jaxbUnmarshaller1.unmarshal(is);
+			assertNotNull(staticContentInput.toString());
 			CorrectnessAnalysis ca = new CorrectnessAnalysis(new BritishEnglish(),staticContentInput);
 			assertNotNull("Ok",ca);
 		}catch(JAXBException e){
