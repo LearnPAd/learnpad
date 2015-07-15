@@ -42,39 +42,32 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 		return id.toString();
 	}
 
-	@Path("/{idAnnotatedStaticContentAnalysis:.*}")
+	@Path("/{idAnnotatedStaticContentAnalysis:\\d+}")
 	@GET
 	public Collection<AnnotatedStaticContentAnalysis> getStaticContentVerifications(
 			@PathParam("idAnnotatedStaticContentAnalysis") String contentID) throws LpRestException {
 		if(map.containsKey(Integer.valueOf(contentID))){
-			CorrectnessAnalysis caa = map.get(Integer.valueOf(contentID));
+			CorrectnessAnalysis correctnessAnalysis = map.get(Integer.valueOf(contentID));
 
 			
-			AnnotatedStaticContentAnalysis asca = caa.getAnnotatedStaticContentAnalysis();
+			AnnotatedStaticContentAnalysis annotatedStaticContent = correctnessAnalysis.getAnnotatedStaticContentAnalysis();
 
-
+			annotatedStaticContent.setId(Integer.valueOf(contentID));
 
 			ArrayList<AnnotatedStaticContentAnalysis> ar = new ArrayList<AnnotatedStaticContentAnalysis>();
-			ar.add(asca);
+			ar.add(annotatedStaticContent);
 			return ar;
 		}else
 			return null;
 	}
 
-	@Path("/{idAnnotatedStaticContentAnalysis:.*}/status")
+	@Path("/{idAnnotatedStaticContentAnalysis:\\d+}/status")
 	@GET
 	public String getStatusStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
 			throws LpRestException {
 		if(map.containsKey(Integer.valueOf(contentID))){
-			CorrectnessAnalysis caa = map.get(Integer.valueOf(contentID));
-			State state = caa.getState();
-			switch (state) {
-			case TERMINATED:
-				return "OK";
-
-			default:
-				return "IN PROGRESS";
-			}
+			CorrectnessAnalysis correctnessAnalysis = map.get(Integer.valueOf(contentID));
+			return correctnessAnalysis.getStatus();
 		}
 		return "ERROR";
 	}

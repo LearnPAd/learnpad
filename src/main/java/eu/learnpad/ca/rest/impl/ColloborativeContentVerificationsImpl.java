@@ -63,39 +63,33 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 
 
-	@Path("/{idAnnotatedCollaborativeContentAnalysis:.*}")
+	@Path("/{idAnnotatedCollaborativeContentAnalysis:\\d+}")
 	@GET
 	public Collection<AnnotatedCollaborativeContentAnalysis> getCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException{
 		if(map.containsKey(Integer.valueOf(contentID))){
-			CorrectnessAnalysis caa = map.get(Integer.valueOf(contentID));
+			CorrectnessAnalysis correctnessAnalysis = map.get(Integer.valueOf(contentID));
 
 			
-			AnnotatedCollaborativeContentAnalysis acca = caa.getAnnotatedCollaborativeContentAnalysis();
+			AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent = correctnessAnalysis.getAnnotatedCollaborativeContentAnalysis();
 
-
+			 annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
 
 			ArrayList<AnnotatedCollaborativeContentAnalysis> ar = new ArrayList<AnnotatedCollaborativeContentAnalysis>();
-			ar.add(acca);
+			ar.add(annotatedCollaborativeContent);
 			return ar;
 		}else
 			return null;
 	}
 
-	@Path("/{idAnnotatedCollaborativeContentAnalysis:.*}/status")
+	@Path("/{idAnnotatedCollaborativeContentAnalysis:\\d+}/status")
 	@GET
 	public String getStatusCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException{
 		if(map.containsKey(Integer.valueOf(contentID))){
-			CorrectnessAnalysis caa = map.get(Integer.valueOf(contentID));
-			State state = caa.getState();
-			switch (state) {
-			case TERMINATED:
-				return "OK";
-
-			default:
-				return "IN PROGRESS";
-			}
+			CorrectnessAnalysis correctnessAnalysis = map.get(Integer.valueOf(contentID));
+			return correctnessAnalysis.getStatus();
+			
 		}
 		return "ERROR";
 	}

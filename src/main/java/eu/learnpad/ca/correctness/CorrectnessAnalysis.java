@@ -29,8 +29,8 @@ public class CorrectnessAnalysis extends Thread {
 	private Integer numDefectiveSentences = 0;
 	private CollaborativeContentAnalysis collaborativeContentAnalysis;
 	private StaticContentAnalysis staticContentAnalysis;
-	private AnnotatedCollaborativeContentAnalysis annotateCollaborativeContentAnalysis;
-	private AnnotatedStaticContentAnalysis annotateStaticContentAnalysis;
+	private AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContentAnalysis;
+	private AnnotatedStaticContentAnalysis annotatedStaticContentAnalysis;
 
 	public CorrectnessAnalysis(Language lang){
 
@@ -51,38 +51,38 @@ public class CorrectnessAnalysis extends Thread {
 			matches = langTool.check(content);
 
 			List<String> listsentence = langTool.sentenceTokenize(content);
-			List<Integer> possepa = posSentenceSeparator(listsentence);
+			List<Integer> posSentSeparator = posSentenceSeparator(listsentence);
 
 
-			System.out.println(content);
-			AnnotatedCollaborativeContentAnalysis acca = new AnnotatedCollaborativeContentAnalysis();
+			
+			AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent = new AnnotatedCollaborativeContentAnalysis();
 			CollaborativeContent sc = new CollaborativeContent();
-			acca.setCollaborativeContent(sc);
+			annotatedCollaborativeContent.setCollaborativeContent(sc);
 			sc.setTitle(title);
 			sc.setId(idc);
 			Content c = new Content();
 			sc.setContent(c);
 
-			List<Annotation> annotations = calculateAnnotations(content, matches, c, possepa);
-			acca.setAnnotations(annotations);
+			List<Annotation> annotations = calculateAnnotations(content, matches, c, posSentSeparator);
+			annotatedCollaborativeContent.setAnnotations(annotations);
 
 
-			acca.setId(1234);
+			
 
 
 			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
-			acca.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
-			acca.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
-			acca.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-			acca.setType("Correctness");
+			annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
+			annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
+			annotatedCollaborativeContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
+			annotatedCollaborativeContent.setType("Correctness");
 
 
 
 
 
-			annotateCollaborativeContentAnalysis=acca;
+			annotatedCollaborativeContentAnalysis=annotatedCollaborativeContent;
 
-			return acca;
+			return annotatedCollaborativeContent;
 
 
 
@@ -108,12 +108,12 @@ public class CorrectnessAnalysis extends Thread {
 			matches = langTool.check(content);
 
 			List<String> listsentence = langTool.sentenceTokenize(content);
-			List<Integer> possepa = posSentenceSeparator(listsentence);
+			List<Integer> posSentSeparator = posSentenceSeparator(listsentence);
 
 			System.out.println(content);
-			AnnotatedStaticContentAnalysis asca = new AnnotatedStaticContentAnalysis();
+			AnnotatedStaticContentAnalysis annotatedStaticContent = new AnnotatedStaticContentAnalysis();
 			StaticContent sc = new StaticContent();
-			asca.setStaticContent(sc);
+			annotatedStaticContent.setStaticContent(sc);
 			sc.setTitle(title);
 			sc.setId(idc);
 			Content c = new Content();
@@ -121,22 +121,22 @@ public class CorrectnessAnalysis extends Thread {
 
 
 
-			List<Annotation> annotations = calculateAnnotations(content, matches, c,possepa);
-			asca.setAnnotations(annotations);
+			List<Annotation> annotations = calculateAnnotations(content, matches, c,posSentSeparator);
+			annotatedStaticContent.setAnnotations(annotations);
 
 
-			asca.setId(1234);
+			
 			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
-			asca.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
-			asca.setOverallQualityMeasure(qualitymmeasure+"%");
-			asca.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-			asca.setType("Correctness");
+			annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
+			annotatedStaticContent.setOverallQualityMeasure(qualitymmeasure+"%");
+			annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
+			annotatedStaticContent.setType("Correctness");
 
 
 
-			annotateStaticContentAnalysis = asca;
+			annotatedStaticContentAnalysis = annotatedStaticContent;
 
-			return asca;
+			return annotatedStaticContent;
 
 
 
@@ -159,7 +159,7 @@ public class CorrectnessAnalysis extends Thread {
 		boolean flag = true;
 		int i=0;
 		for (RuleMatch match : matches) {
-			
+
 			if(match.getFromPos()>possepa.get(i)){
 				i++;
 				flag=true;
@@ -249,28 +249,39 @@ public class CorrectnessAnalysis extends Thread {
 		this.language=lang;
 		collaborativeContentAnalysis =collaborativeContentInput;
 	}
-	
+
 	public CorrectnessAnalysis( Language lang, StaticContentAnalysis staticContentInput){
 
 		this.language=lang;
 		staticContentAnalysis =staticContentInput;
 	}
-	
+
 	public AnnotatedStaticContentAnalysis getAnnotatedStaticContentAnalysis() {
-		return annotateStaticContentAnalysis;
+		return annotatedStaticContentAnalysis;
 	}
-	
+
 	public AnnotatedCollaborativeContentAnalysis getAnnotatedCollaborativeContentAnalysis() {
-		return annotateCollaborativeContentAnalysis;
+		return annotatedCollaborativeContentAnalysis;
 	}
 
 	public void run() {
 		if(collaborativeContentAnalysis!=null){
-			annotateCollaborativeContentAnalysis = this.check(collaborativeContentAnalysis);	
+			annotatedCollaborativeContentAnalysis = this.check(collaborativeContentAnalysis);	
 		}
-		
+
 		if(staticContentAnalysis!=null){
-			annotateStaticContentAnalysis = this.check(staticContentAnalysis);	
+			annotatedStaticContentAnalysis = this.check(staticContentAnalysis);	
+		}
+
+	}
+	
+	public String getStatus(){
+		switch (this.getState()) {
+		case TERMINATED:
+			return "OK";
+
+		default:
+			return "IN PROGRESS";
 		}
 		
 	}
