@@ -96,6 +96,16 @@ public  class Juridicaljargon {
 		return "Juridicaljargon=" + jj + ", description=" + description
 				+ ", ref=" + ref + "\n";
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof String){
+		 return	this.getJj().equals(obj.toString());
+		}
+		return super.equals(obj);
+	}
+	
+	
     
     
 
