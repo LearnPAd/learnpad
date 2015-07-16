@@ -32,5 +32,13 @@ public class AnnotatedStaticContentAnalysisTest {
 		assertNotNull(asca);
 		assertNotNull(asca.toString());
 	}
+	
+	@Test
+	public void testNode() {
+		Node node = new Node(1234);
+		Node node2 = new Node(123);
+		assertNotEquals(node, node2);
+		assertEquals(node, new Node(1234));
+	}
 
 }

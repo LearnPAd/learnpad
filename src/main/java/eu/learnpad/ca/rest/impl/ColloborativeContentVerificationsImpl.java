@@ -53,14 +53,18 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	@Consumes(MediaType.APPLICATION_XML)
 	public String putValidateCollaborativeContent(CollaborativeContentAnalysis contentFile)
 			throws LpRestException{
-		if(contentFile.getQualityCriteria().isCorrectness()){
-			id++;
-			CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(new BritishEnglish(), contentFile);
-			threadcorre.start();
-			map.put(id, threadcorre);
-			return id.toString();
+		if(contentFile!=null){
+			if(contentFile.getQualityCriteria().isCorrectness()){
+				id++;
+				CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(new BritishEnglish(), contentFile);
+				threadcorre.start();
+				map.put(id, threadcorre);
+				return id.toString();
+			}else
+				return "Analysis not implemented";
 		}else
-			return "Analysis not implemented";
+			return "Null Element send";
+		
 
 	}
 
