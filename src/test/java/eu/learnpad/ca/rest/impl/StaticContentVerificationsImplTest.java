@@ -18,7 +18,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
 
-import eu.learnpad.ca.correctness.CorrectnessAnalysisTest;
+import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysisTest;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 

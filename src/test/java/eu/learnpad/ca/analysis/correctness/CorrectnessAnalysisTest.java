@@ -1,4 +1,4 @@
-package eu.learnpad.ca.correctness;
+package eu.learnpad.ca.analysis.correctness;
 
 import static org.junit.Assert.*;
 

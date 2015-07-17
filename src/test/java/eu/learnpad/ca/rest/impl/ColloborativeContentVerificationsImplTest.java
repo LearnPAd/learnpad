@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.GenericType;
@@ -19,7 +18,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
 
-import eu.learnpad.ca.correctness.CorrectnessAnalysisTest;
+import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysisTest;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 
