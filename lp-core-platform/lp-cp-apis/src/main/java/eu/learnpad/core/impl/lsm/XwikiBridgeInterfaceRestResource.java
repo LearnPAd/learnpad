@@ -17,14 +17,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.core.impl.qm;
+package eu.learnpad.core.impl.lsm;
 
 import javax.inject.Named;
 
 import org.xwiki.component.annotation.Component;
 
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
-import eu.learnpad.qm.BridgeInterface;
+import eu.learnpad.lsm.BridgeInterface;
 import eu.learnpad.core.rest.RestResource;
 
 /*
@@ -33,7 +33,7 @@ import eu.learnpad.core.rest.RestResource;
  * toward the BridgeInterface binded at the provided URL
  */
 @Component
-@Named("eu.learnpad.core.impl.qm.XwikiBridgeInterfaceRestResource") 
+@Named("eu.learnpad.core.impl.lsm.XwikiBridgeInterfaceRestResource") 
 public class XwikiBridgeInterfaceRestResource extends RestResource implements BridgeInterface{
 
 	public XwikiBridgeInterfaceRestResource() {
@@ -51,46 +51,73 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 //		eu.learnpad.core.rest.RestResource
 		
 	}
-		
+
 	@Override
-	public void importModelSet(String modelSetId, String type,
-			byte[] modelContent) throws LpRestExceptionXWikiImpl {
+	public void subscribeLearner(String learnerEmail) throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public String generateQuestionnaires(String modelSetId, String type,
-			byte[] configurationFile) throws LpRestExceptionXWikiImpl {
+	public void dropLearner(String learnerEmail) throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override
-	public String getGenerationStatus(String generationProcessId)
+	public void publishQuestionnaire(String questionnaireId,
+			byte[] questionnaireFile) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dropQuestionnaire(String questionnaireId)
+			throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void subscribeLearnerToQuestionnaire(String learnerEmail,
+			String questionnaireId) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void revokeLearnerFromQuestionnaire(String learnerEmail,
+			String questionnaireId) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String[] listLearnersFromQuestionnaire(String questionnaireId)
 			throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String createQuestionnaire() throws LpRestExceptionXWikiImpl {
+	public String[] listQuestionnaireFromLearner(String learnerEmail)
+			throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void addQuestionToQuestionnaire(String creationProcessId,
-			String question, String expectedAnswer) throws LpRestExceptionXWikiImpl {
+	public byte[] exportStatisticsByLearner(String learnerEmail)
+			throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void finalizeQuestionnaire(String creationProcessId, String type)
+	public byte[] exportStatisticsByQuestionnaire(String questionnaireId)
 			throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }

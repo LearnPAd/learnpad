@@ -17,18 +17,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.core.impl.qm;
+package eu.learnpad.core.impl.lsm;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
-import eu.learnpad.qm.BridgeInterface;
-import eu.learnpad.qm.Controller;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.lsm.BridgeInterface;
+import eu.learnpad.lsm.Controller;
 
 /*
  * It is not clear yet who is responsible for the instantiation
@@ -41,24 +39,11 @@ import eu.learnpad.qm.Controller;
 @Component
 @Singleton
 public class XwikiController extends Controller implements XWikiRestComponent{
-
-/*
- * Note that in this solution the Controllers do not interact
- * each-others, but each controller directly invokes the BridgesInterfaces
- * (from the other controllers) it needs. This is not actually what was
- * originally planned, thus in the future it may change.
- */
- 
-/* Not sure if this is the correct way to proceed.
- * I would like to decide in a configuration file
- * the implementation to bind, and not into the source
- * code. In fact, this second case implies to rebuild the
- * whole platform at each change.	
- */
-	@Inject
-	@Named("eu.learnpad.core.impl.lsm.XwikiBridgeInterfaceRestResource")
-	private eu.learnpad.lsm.Bridge lsm;
-	
+	/*
+	 * Note that in this Controller are still missing the references
+	 * with the others
+	 */
+	 
 	public XwikiController (){
 		this.bridge = null;
 	}
@@ -66,28 +51,36 @@ public class XwikiController extends Controller implements XWikiRestComponent{
 	public XwikiController (BridgeInterface bi){
 		this.updateBridgeInterface(bi);
 	}
-	
+
 	public XwikiController (String bridgeInterfaceHostname,
 			int bridgeInterfaceHostPort){
 		this.bridge = new XwikiBridgeInterfaceRestResource(bridgeInterfaceHostname, bridgeInterfaceHostPort);
 	}
 	
     public synchronized void updateBridgeInterface (BridgeInterface bi){
-		this.bridge = bi;    
+		this.bridge = bi;    	
     }
-	
+
 	@Override
-	public void publish(String questionnairesId, String type,
-			byte[] questionnairesFile) throws LpRestExceptionImpl {
+	public void notifyLearningSessionStarted(String questionnaireId,
+			String[] emailList) throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void genrationCompleted(String questionnairesId)
-			throws LpRestExceptionImpl {
+	public void notifyLearningSessionCompleted(String questionnaireId,
+			String[] emailList) throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void importModelSet(String questionnaireId, String[] emailList)
+			throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		
+	}
+	
 
 }
