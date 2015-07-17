@@ -148,6 +148,9 @@ public class Simplicity {
 
 
 			List<Annotation> annotations = checkdefect(sentence,c, id);
+			if(annotations.size()>0){
+				numDefectiveSentences++;
+			}
 			annotatedCollaborativeContent.setAnnotations(annotations);
 			id++;
 		}
@@ -168,13 +171,11 @@ public class Simplicity {
 		StringTokenizer tokenizer = new StringTokenizer(sentence);
 		List<Annotation> annotations=new ArrayList<Annotation>();
 		int precedentposition=0;
-		int i=0;
+
 		while (tokenizer.hasMoreTokens()) {
 			String token = tokenizer.nextToken();
 			if(Listjj.contains(new Juridicaljargon(token))){
-				if(i==0){
-					numDefectiveSentences++;
-				}
+				
 				int initialpos = sentence.indexOf(token);
 				int finalpos = initialpos+token.length();
 
@@ -196,10 +197,10 @@ public class Simplicity {
 				a.setType("Simplicity");
 				a.setRecommendation("juridical jargon, use simpler terms");
 				annotations.add(a);
-				i++;
+
 			}
 		}
-		if(i==0){
+		if(annotations.size()==0){
 			c.setContent(sentence);
 		}
 		return annotations;
