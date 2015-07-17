@@ -4,6 +4,7 @@ import java.lang.Thread.State;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.Consumes;
@@ -37,7 +38,7 @@ import eu.learnpad.exception.LpRestException;
 public class ColloborativeContentVerificationsImpl implements ColloborativeContentVerifications {
 
 
-	private static Map<Integer,AnalysisInterface> map = new HashMap<Integer, AnalysisInterface>();
+	private static Map<Integer,List<AnalysisInterface>> map = new HashMap<Integer,List<AnalysisInterface>>();
 	private static Integer id =0;
 
 
@@ -56,43 +57,57 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	public String putValidateCollaborativeContent(CollaborativeContentAnalysis contentFile)
 			throws LpRestException{
 		if(contentFile!=null){
+			id++;
+			String result = "";
 			if(contentFile.getQualityCriteria().isCorrectness()){
-				
+
 				CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(new BritishEnglish(), contentFile);
 				threadcorre.start();
-				map.put(id, threadcorre);
-				return id.toString();
-			}else
-				if(contentFile.getQualityCriteria().isSimplicity()){
-					id++;
-					Simplicity threadsimply = new Simplicity (contentFile, new BritishEnglish());
-					threadsimply.start();
-					map.put(id, threadsimply);
-					return id.toString();
-				}
-				return "Analysis not implemented";
+				putAndCreate(id, threadcorre);
+
+			}
+			if(contentFile.getQualityCriteria().isSimplicity()){
+
+				Simplicity threadsimply = new Simplicity (contentFile, new BritishEnglish());
+				threadsimply.start();
+				putAndCreate(id, threadsimply);
+
+			}
+			return id.toString();
 		}else
 			return "Null Element send";
-		
+
 
 	}
 
-
+	private void putAndCreate(int id, AnalysisInterface ai){
+		if(!map.containsKey(id)){
+			List<AnalysisInterface> lai = new ArrayList<AnalysisInterface>();
+			lai.add(ai);
+			map.put(id, lai);
+		}else{
+			List<AnalysisInterface> lai = map.get(id);
+			lai.add(ai);
+		}
+	}
 
 	@Path("/{idAnnotatedCollaborativeContentAnalysis:\\d+}")
 	@GET
 	public Collection<AnnotatedCollaborativeContentAnalysis> getCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException{
 		if(map.containsKey(Integer.valueOf(contentID))){
-			AnalysisInterface analysisInterface = map.get(Integer.valueOf(contentID));
-
-
-			AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent = analysisInterface.getAnnotatedCollaborativeContentAnalysis();
-
-			annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
-
 			ArrayList<AnnotatedCollaborativeContentAnalysis> ar = new ArrayList<AnnotatedCollaborativeContentAnalysis>();
-			ar.add(annotatedCollaborativeContent);
+			List<AnalysisInterface> listanalysisInterface = map.get(Integer.valueOf(contentID));
+
+			for(AnalysisInterface analysisInterface :listanalysisInterface){
+				AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent = analysisInterface.getAnnotatedCollaborativeContentAnalysis();
+
+				annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
+				ar.add(annotatedCollaborativeContent);
+			}
+
+
+
 			return ar;
 		}else
 			return null;
@@ -103,9 +118,13 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	public String getStatusCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException{
 		if(map.containsKey(Integer.valueOf(contentID))){
-			AnalysisInterface analysisInterface = map.get(Integer.valueOf(contentID));
-			return analysisInterface.getStatus();
-
+			List<AnalysisInterface> listanalysisInterface  = map.get(Integer.valueOf(contentID));
+			for(AnalysisInterface analysisInterface :listanalysisInterface){
+				if(analysisInterface.getStatus()!="OK"){
+					return "IN PROGRESS";
+				}
+			}
+			return "OK";
 		}
 		return "ERROR";
 	}
