@@ -1,4 +1,4 @@
-package eu.learnpad.ca.correctness;
+package eu.learnpad.ca.analysis.correctness;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -10,6 +10,7 @@ import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
 import org.languagetool.rules.RuleMatch;
 
+import eu.learnpad.ca.analysis.AnalysisInterface;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
@@ -21,7 +22,7 @@ import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 
 
-public class CorrectnessAnalysis extends Thread {
+public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 
 
 

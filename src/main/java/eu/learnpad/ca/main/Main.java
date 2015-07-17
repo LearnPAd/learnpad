@@ -21,7 +21,8 @@ import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 import org.languagetool.rules.RuleMatch;
 
-import eu.learnpad.ca.correctness.CorrectnessAnalysis;
+import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
+import eu.learnpad.ca.analysis.simplicity.Simplicity;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
@@ -30,21 +31,40 @@ import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
+import eu.learnpad.ca.simplicity.juridicaljargon.JuridaljargonSet;
 
 public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try{
-			String fileinput = args[0];
+		/*	String fileinput = "/Users/isiu/github/learnpadworkspace/ContentAnalysisComponent/script/jj.xml";
 		//	InputStream is = Main.class.getClassLoader().getResourceAsStream("");
-			JAXBContext jaxbContexti = JAXBContext.newInstance(CollaborativeContentAnalysis.class);
+			
+			JAXBContext jaxbContexti = JAXBContext.newInstance(JuridaljargonSet.class);
 
 			Unmarshaller jaxbUnmarshaller1 = jaxbContexti.createUnmarshaller();
-			CollaborativeContentAnalysis result = (CollaborativeContentAnalysis) jaxbUnmarshaller1.unmarshal(new File(fileinput));
+			JuridaljargonSet result = (JuridaljargonSet) jaxbUnmarshaller1.unmarshal(new File(fileinput));
 
+			*/
+			
+			
+			
+			InputStream is = Main.class.getClassLoader().getResourceAsStream("CollaborativeContentXML.xml");
+			JAXBContext  jaxbContexti = JAXBContext.newInstance(CollaborativeContentAnalysis.class);
+
+			Unmarshaller jaxbUnmarshaller1 = jaxbContexti.createUnmarshaller();
+			CollaborativeContentAnalysis cca = (CollaborativeContentAnalysis) jaxbUnmarshaller1.unmarshal(is);
+
+			Simplicity sim = new Simplicity(cca, new  BritishEnglish());
+			
+		
+			AnnotatedCollaborativeContentAnalysis acca = sim.getAnnotatedCollaborativeContentAnalysis();
+			
 			CorrectnessAnalysis corrana = new CorrectnessAnalysis( new BritishEnglish());
-			AnnotatedCollaborativeContentAnalysis acca = corrana.check(result);
+			 acca = corrana.check(cca);
+			
+			
 			JAXBContext jaxbCtx;
 			try {
 				jaxbCtx = javax.xml.bind.JAXBContext.newInstance(AnnotatedCollaborativeContentAnalysis.class);
@@ -55,7 +75,7 @@ public class Main {
 				marshaller.marshal(acca, System.out);
 				OutputStream os = new FileOutputStream( "nosferatu.xml" );
 				marshaller.marshal( acca, os );
-			} catch (JAXBException | FileNotFoundException e) {
+			} catch (JAXBException  e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -100,9 +120,9 @@ public class Main {
 			testwrite();
 
 			testlanguagetoolEN();
-*/
-			//testlanguagetoolIT();
 
+			//testlanguagetoolIT();
+*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

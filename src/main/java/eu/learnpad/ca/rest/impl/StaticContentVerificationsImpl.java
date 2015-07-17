@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.languagetool.language.BritishEnglish;
 
-import eu.learnpad.ca.correctness.CorrectnessAnalysis;
+import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.rest.StaticContentVerifications;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;

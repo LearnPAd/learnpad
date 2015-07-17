@@ -1,4 +1,4 @@
-package eu.learnpad.ca.simplicity;
+package eu.learnpad.ca.analysis.simplicity;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -18,6 +18,7 @@ import org.languagetool.language.AmericanEnglish;
 import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
+import eu.learnpad.ca.analysis.AnalysisInterface;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
@@ -30,7 +31,7 @@ import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import eu.learnpad.ca.simplicity.juridicaljargon.JuridaljargonSet;
 import eu.learnpad.ca.simplicity.juridicaljargon.Juridicaljargon;
 
-public class Simplicity {
+public class Simplicity extends Thread implements AnalysisInterface{
 
 	private Language language;
 	private JuridaljargonSet juridaljargonSet;
@@ -48,7 +49,7 @@ public class Simplicity {
 		this.language=lang;
 		juridaljargonSet = readJJ(lang);
 		collaborativeContentInput = cca;
-		checkJJ(collaborativeContentInput);
+		
 	}
 	
 	
@@ -56,7 +57,7 @@ public class Simplicity {
 		this.language=lang;
 		juridaljargonSet = readJJ(lang);
 		staticContentInput = cca;
-		checkJJ(staticContentInput);
+		
 	}
 	
 	private void checkJJ(StaticContentAnalysis cca){
@@ -245,8 +246,37 @@ public class Simplicity {
 		return recommendations;
 	}
 
-	public AnnotatedCollaborativeContentAnalysis getCollaborativeContentAnalysis(){
+	public AnnotatedCollaborativeContentAnalysis getAnnotatedCollaborativeContentAnalysis(){
 		return annotatedCollaborativeContent;
 	}
 
+	
+	public void run() {
+		if(collaborativeContentInput!=null){
+			checkJJ(collaborativeContentInput);	
+		}
+
+		if(staticContentInput!=null){
+			checkJJ(staticContentInput);	
+		}
+
+	}
+	
+	
+	public String getStatus(){
+		switch (this.getState()) {
+		case TERMINATED:
+			return "OK";
+
+		default:
+			return "IN PROGRESS";
+		}
+		
+	}
+
+
+	
+	public AnnotatedStaticContentAnalysis getAnnotatedStaticContentAnalysis() {
+		return annotatedStaticContent;
+	}
 }

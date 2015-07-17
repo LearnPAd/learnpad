@@ -19,7 +19,9 @@ import javax.ws.rs.core.MediaType;
 
 import org.languagetool.language.BritishEnglish;
 
-import eu.learnpad.ca.correctness.CorrectnessAnalysis;
+import eu.learnpad.ca.analysis.AnalysisInterface;
+import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
+import eu.learnpad.ca.analysis.simplicity.Simplicity;
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
@@ -35,7 +37,7 @@ import eu.learnpad.exception.LpRestException;
 public class ColloborativeContentVerificationsImpl implements ColloborativeContentVerifications {
 
 
-	private static Map<Integer,CorrectnessAnalysis> map = new HashMap<Integer, CorrectnessAnalysis>();
+	private static Map<Integer,AnalysisInterface> map = new HashMap<Integer, AnalysisInterface>();
 	private static Integer id =0;
 
 
@@ -55,12 +57,19 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 			throws LpRestException{
 		if(contentFile!=null){
 			if(contentFile.getQualityCriteria().isCorrectness()){
-				id++;
+				
 				CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(new BritishEnglish(), contentFile);
 				threadcorre.start();
 				map.put(id, threadcorre);
 				return id.toString();
 			}else
+				if(contentFile.getQualityCriteria().isSimplicity()){
+					id++;
+					Simplicity threadsimply = new Simplicity (contentFile, new BritishEnglish());
+					threadsimply.start();
+					map.put(id, threadsimply);
+					return id.toString();
+				}
 				return "Analysis not implemented";
 		}else
 			return "Null Element send";
@@ -75,10 +84,10 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	public Collection<AnnotatedCollaborativeContentAnalysis> getCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException{
 		if(map.containsKey(Integer.valueOf(contentID))){
-			CorrectnessAnalysis correctnessAnalysis = map.get(Integer.valueOf(contentID));
+			AnalysisInterface analysisInterface = map.get(Integer.valueOf(contentID));
 
 
-			AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent = correctnessAnalysis.getAnnotatedCollaborativeContentAnalysis();
+			AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent = analysisInterface.getAnnotatedCollaborativeContentAnalysis();
 
 			annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
 
@@ -94,8 +103,8 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	public String getStatusCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException{
 		if(map.containsKey(Integer.valueOf(contentID))){
-			CorrectnessAnalysis correctnessAnalysis = map.get(Integer.valueOf(contentID));
-			return correctnessAnalysis.getStatus();
+			AnalysisInterface analysisInterface = map.get(Integer.valueOf(contentID));
+			return analysisInterface.getStatus();
 
 		}
 		return "ERROR";
