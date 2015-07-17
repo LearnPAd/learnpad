@@ -3,30 +3,111 @@ package eu.learnpad.ca.simplicity;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.InputStream;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import eu.learnpad.ca.correctness.CorrectnessAnalysisTest;
+import org.languagetool.JLanguageTool;
+import org.languagetool.Language;
+import org.languagetool.language.AmericanEnglish;
+import org.languagetool.language.BritishEnglish;
+import org.languagetool.language.Italian;
+
+import eu.learnpad.ca.rest.data.Annotation;
+import eu.learnpad.ca.rest.data.Content;
+import eu.learnpad.ca.rest.data.Node;
+import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
+import eu.learnpad.ca.rest.data.collaborative.CollaborativeContent;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
+import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
+import eu.learnpad.ca.rest.data.stat.StaticContent;
+import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import eu.learnpad.ca.simplicity.juridicaljargon.JuridaljargonSet;
 import eu.learnpad.ca.simplicity.juridicaljargon.Juridicaljargon;
 
 public class Simplicity {
 
-
+	private Language language;
 	private JuridaljargonSet juridaljargonSet;
-	private CollaborativeContentAnalysis collaborativeContentInput;
+	private Integer numDefectiveSentences = 0;
 	
-	public Simplicity(CollaborativeContentAnalysis cca){
-		juridaljargonSet = readJJ();
-		collaborativeContentInput = cca;
-	}
+	private CollaborativeContentAnalysis collaborativeContentInput;
+	private AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent;
+	
+	private StaticContentAnalysis staticContentInput;
+	private AnnotatedStaticContentAnalysis annotatedStaticContent;
+	
+	
 
-	private JuridaljargonSet readJJ(){
-		InputStream is = CorrectnessAnalysisTest.class.getClassLoader().getResourceAsStream("JuridicalJargon_EnglishLatin.xml");
+	public Simplicity(CollaborativeContentAnalysis cca, Language lang){
+		this.language=lang;
+		juridaljargonSet = readJJ(lang);
+		collaborativeContentInput = cca;
+		checkJJ(collaborativeContentInput);
+	}
+	
+	
+	public Simplicity(StaticContentAnalysis cca, Language lang){
+		this.language=lang;
+		juridaljargonSet = readJJ(lang);
+		staticContentInput = cca;
+		checkJJ(staticContentInput);
+	}
+	
+	private void checkJJ(StaticContentAnalysis cca){
+		String title = staticContentInput.getStaticContent().getTitle();
+		String idc = staticContentInput.getStaticContent().getId();
+		String content = staticContentInput.getStaticContent().getContent().toString();
+
+		annotatedStaticContent = new AnnotatedStaticContentAnalysis();
+		StaticContent sc = new StaticContent();
+		annotatedStaticContent.setStaticContent(sc);
+		sc.setTitle(title);
+		sc.setId(idc);
+		Content c = new Content();
+		sc.setContent(c);
+
+		//String sResult = "This is a test. This is a T.L.A. test.";
+		//String[] sSentence = content.split("(?<=[a-z])\\.\\s+");
+		JLanguageTool langTool = new JLanguageTool(language);
+		List<String> listsentence = langTool.sentenceTokenize(content);
+		int id=0;
+		for (String sentence : listsentence) {
+
+
+			List<Annotation> annotations = checkdefect(sentence,c, id);
+			annotatedStaticContent.setAnnotations(annotations);
+			id++;
+		}
+
+		System.out.println(content);
+
+		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
+		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
+		annotatedStaticContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
+		annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
+		annotatedStaticContent.setType("Simplicity");
+
+
+	}
+	
+
+	private JuridaljargonSet readJJ(Language lang){
+		InputStream is = null;
+		if(lang instanceof BritishEnglish | lang instanceof AmericanEnglish){
+			is = Simplicity.class.getClassLoader().getResourceAsStream("JuridicalJargon_EnglishLatin.xml");
+
+		}else
+			if(lang instanceof Italian){
+				is = Simplicity.class.getClassLoader().getResourceAsStream("JuridicalJargon_EnglishLatin.xml");
+
+			}
+
 		assertNotNull(is);
 
 		try {
@@ -44,17 +125,127 @@ public class Simplicity {
 
 
 	}
-	
+
 	private void checkJJ(CollaborativeContentAnalysis cca){
 		String title = collaborativeContentInput.getCollaborativeContent().getTitle();
 		String idc = collaborativeContentInput.getCollaborativeContent().getId();
 		String content = collaborativeContentInput.getCollaborativeContent().getContent().toString();
-		
-		List<Juridicaljargon> Listjj = juridaljargonSet.getJuridicaljargon();
 
-		
+		annotatedCollaborativeContent = new AnnotatedCollaborativeContentAnalysis();
+		CollaborativeContent sc = new CollaborativeContent();
+		annotatedCollaborativeContent.setCollaborativeContent(sc);
+		sc.setTitle(title);
+		sc.setId(idc);
+		Content c = new Content();
+		sc.setContent(c);
+
+		//String sResult = "This is a test. This is a T.L.A. test.";
+		//String[] sSentence = content.split("(?<=[a-z])\\.\\s+");
+		JLanguageTool langTool = new JLanguageTool(language);
+		List<String> listsentence = langTool.sentenceTokenize(content);
+		int id=0;
+		for (String sentence : listsentence) {
+
+
+			List<Annotation> annotations = checkdefect(sentence,c, id);
+			annotatedCollaborativeContent.setAnnotations(annotations);
+			id++;
+		}
+
+		System.out.println(content);
+
+		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
+		annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
+		annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
+		annotatedCollaborativeContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
+		annotatedCollaborativeContent.setType("Simplicity");
+
+
 	}
 
+	private List<Annotation> checkdefect(String sentence,Content c,int nodeid){
+		List<Juridicaljargon> Listjj = juridaljargonSet.getJuridicaljargon();
+		StringTokenizer tokenizer = new StringTokenizer(sentence);
+		List<Annotation> annotations=new ArrayList<Annotation>();
+		int precedentposition=0;
+		int i=0;
+		while (tokenizer.hasMoreTokens()) {
+			String token = tokenizer.nextToken();
+			if(Listjj.contains(new Juridicaljargon(token))){
+				if(i==0){
+					numDefectiveSentences++;
+				}
+				int initialpos = sentence.indexOf(token);
+				int finalpos = initialpos+token.length();
 
+				String stringap = sentence.substring(precedentposition, initialpos);
+				c.setContent(stringap);
+				precedentposition=finalpos;
+				nodeid++;
+				Node init= new Node(nodeid);
+				nodeid++;
+				Node end= new Node(nodeid);
+				c.setContent(init);
+				c.setContent(token);
+				c.setContent(end);
+
+				Annotation a = new Annotation();
+				a.setId(nodeid);
+				a.setEndNode(end.getId());
+				a.setStartNode(init.getId());
+				a.setType("Simplicity");
+				a.setRecommendation("juridical jargon, use simpler terms");
+				annotations.add(a);
+				i++;
+			}
+		}
+		if(i==0){
+			c.setContent(sentence);
+		}
+		return annotations;
+
+	}
+
+	private double calculateOverallQualityMeasure(Integer numsentence){
+		double qm = (1-(numDefectiveSentences.doubleValue()/numsentence.doubleValue()))*100;
+		double qualityMeasure = Math.abs(qm);
+		return qualityMeasure;
+	}
+
+	private String calculateOverallQuality(double qualityMeasure){
+		String quality="";
+		if(qualityMeasure<=25){
+			quality="VERY BAD";
+		}else if(qualityMeasure<=50){
+			quality="BAD";
+		}else if(qualityMeasure<=75){
+			quality="GOOD";
+		}else if(qualityMeasure<100){
+			quality="VERY GOOD";
+		}else if(qualityMeasure==100){
+			quality="EXCELLENT";
+		}
+		return quality;
+	}
+
+	private String calculateOverallRecommendations(double qualityMeasure){
+		String recommendations="";
+		if(qualityMeasure<=25){
+			recommendations="Quality is very poor, correct the errors";
+		}else if(qualityMeasure<=50){
+			recommendations="Quality is poor, correct the errors";
+		}else if(qualityMeasure<=75){
+			recommendations="Quality is acceptable, but there are still some errors";
+		}else if(qualityMeasure<100){
+			recommendations="Well done, still few errors remaining";
+		}else if(qualityMeasure==100){
+			recommendations="Well done, no errors found!";
+		}
+		return recommendations;
+	}
+
+	public AnnotatedCollaborativeContentAnalysis getCollaborativeContentAnalysis(){
+		return annotatedCollaborativeContent;
+	}
 
 }
