@@ -18,7 +18,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.languagetool.Language;
 import org.languagetool.language.BritishEnglish;
+import org.languagetool.language.Italian;
 
 import eu.learnpad.ca.analysis.AnalysisInterface;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
@@ -58,17 +60,25 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 			throws LpRestException{
 		if(contentFile!=null){
 			id++;
-			String result = "";
+			Language lang = null;
+			if(contentFile.getLanguage()=="english"){
+				lang = new BritishEnglish();
+			}else{
+				if(contentFile.getLanguage()=="italian"){
+					lang = new Italian();
+				}else
+					lang = new BritishEnglish();
+			}
 			if(contentFile.getQualityCriteria().isCorrectness()){
 
-				CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(new BritishEnglish(), contentFile);
+				CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(lang, contentFile);
 				threadcorre.start();
 				putAndCreate(id, threadcorre);
 
 			}
 			if(contentFile.getQualityCriteria().isSimplicity()){
 
-				Simplicity threadsimply = new Simplicity (contentFile, new BritishEnglish());
+				Simplicity threadsimply = new Simplicity (contentFile, lang);
 				threadsimply.start();
 				putAndCreate(id, threadsimply);
 

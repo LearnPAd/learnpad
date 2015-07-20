@@ -3,6 +3,7 @@ package eu.learnpad.ca.rest.data.stat;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -14,17 +15,44 @@ import eu.learnpad.ca.rest.data.collaborative.CollaborativeContent;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+		"language",
     "staticContent",
     "qualityCriteria"
 })
 @XmlRootElement(name = "StaticContentAnalysis")
 public class StaticContentAnalysis {
 
+	@XmlAttribute(name = "language", required = true)
+	protected String language;
     @XmlElement(name = "StaticContent", required = true)
     protected StaticContent staticContent;
     @XmlElement(name = "QualityCriteria", required = true)
     protected QualityCriteria qualityCriteria;
+    
+    /**
+     * Get the value of language.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getLanguage() {
+        return language;
+    }
 
+    /**
+     * Set the value of language.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setLanguage(String value) {
+        this.language = value;
+    }
+    
     /**
      * Get the value of staticContent.
      * 
