@@ -1,8 +1,8 @@
 
 
 import java.io.Serializable;
-
 import java.util.Collection;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -30,7 +30,7 @@ public class ContentAnalysisBean implements Serializable {
 
 	private String Title;
 	private String Content;
-	private Annotation Annot;
+	private List<Annotation> Annot;
 	private String quality;
 	private String measure;
 	private String Reccomandation;
@@ -39,10 +39,7 @@ public class ContentAnalysisBean implements Serializable {
 
 	public ContentAnalysisBean(){
 
-		FacesContext context = FacesContext.getCurrentInstance();
-
-
-		id =  (String) context.getExternalContext().getRequestMap().get("rest");
+		
 
 
 
@@ -52,13 +49,13 @@ public class ContentAnalysisBean implements Serializable {
 
 
 
-	public Annotation getAnnot() {
+	public List<Annotation> getAnnot() {
 		return Annot;
 	}
 
 
 
-	public void setAnnot(Annotation annot) {
+	public void setAnnot(List<Annotation> annot) {
 		Annot = annot;
 	}
 
@@ -127,8 +124,14 @@ public class ContentAnalysisBean implements Serializable {
 
 
 	public String executeListener(){
+		FacesContext context = FacesContext.getCurrentInstance();
+
+
+		id =  (String) context.getExternalContext().getRequestMap().get("rest");
 		Client client = ClientBuilder.newClient();
-		if(id==null)id="1";
+		if(id==null){
+			id="1";
+		}
 		WebTarget target = client.target("http://localhost:8080").path("contentanalysis/learnpad/ca/validatecollaborativecontent/"+id+"/status");
 		String status =  target.request().get(String.class);
 		System.out.println("Status: "+status);
@@ -136,13 +139,27 @@ public class ContentAnalysisBean implements Serializable {
 	}
 	
 	public void actionDownloadAnalysis(ActionEvent event){
+		FacesContext context = FacesContext.getCurrentInstance();
+
+
+		id =  (String) context.getExternalContext().getRequestMap().get("rest");
 		Client client = ClientBuilder.newClient();
-		if(id==null)id="1";
+		if(id==null){
+			id="1";
+		}
 		WebTarget target = client.target("http://localhost:8080").path("contentanalysis/learnpad/ca/validatecollaborativecontent/"+id);
 		Response annotatecontent =  target.request().get();
 
 		Collection<AnnotatedCollaborativeContentAnalysis> res =	annotatecontent.readEntity(new GenericType<Collection<AnnotatedCollaborativeContentAnalysis>>() {});
 	
+		AnnotatedCollaborativeContentAnalysis prma = res.iterator().next();
+		this.setAnnot(prma.getAnnotations());
+		this.setContent(prma.getCollaborativeContent().getContent().toString());
+		this.setId(prma.getId().toString());
+		this.setTitle(prma.getCollaborativeContent().getTitle());
+		this.setMeasure(prma.getOverallQualityMeasure());
+		this.setQuality(prma.getOverallQuality());
+		this.setReccomandation(prma.getOverallRecommendations());;
 		System.out.println("Status: "+res);
 	}
 

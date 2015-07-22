@@ -24,7 +24,7 @@
                                     	<h:commandButton value="Redirect to Page 2" action="#{pageController.navigatePage2}"/>
 			<h:commandButton value="Redirect to Page CF" action="#{pageController.navigatePageCF}"/>
 </h:form>
-<!-- 
+
 	<h:panelGrid columns="2" border="1">
 		<f:facet name="header">
 			Content Analysis Information
@@ -51,13 +51,16 @@
 		<h:outputText id="recOut" value="#{ContentAnalysisBean.reccomandation}"/>
 		
 		<h:outputLabel for="recOut1" value="ContentBean.restid:"/>
-		<h:outputText id="recOut1" value="#{ContentBean.restid}">
+		<h:outputText id="recOut1" value="#{ContentBean.restid}"/>
+		
+		<h:outputLabel for="recOut12" value="ContentAnalysisBean.id:"/>
+		<h:outputText id="recOut12" value="#{ContentAnalysisBean.id}">
 		
 		</h:outputText>
 		
 	</h:panelGrid>
 
-	<br/> -->
+	<br/>
 
 	
 </h:body>
