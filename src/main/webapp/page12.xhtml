@@ -4,6 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
+
+       xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:ace="http://www.icefaces.org/icefaces/components"
       xmlns:icecore="http://www.icefaces.org/icefaces/core"
      >
@@ -19,7 +21,7 @@
 			<h:commandButton value="get annotateanalysis" 
                                          actionListener="#{ContentAnalysisBean.actionDownloadAnalysis}"/>
                                          
-                                       
+                                   
                                          
                                     <h:commandButton value="page1 " action="#{pageController.navigatePage1}"/>
                                     	<h:commandButton value="Redirect to Page 2" action="#{pageController.navigatePage2}"/>
@@ -39,8 +41,13 @@
 
 	
 
-		<h:outputLabel for="AnnotationOut" value="Annotation:"/>
+		<h:outputLabel for="AnnotationOut" value="Annotations:"/>
 		<h:outputText id="AnnotationOut" value="#{ContentAnalysisBean.annot}"/>
+		
+		<h:outputLabel for="AnnotationOut1" value="Annotation:"/>
+		<ui:repeat value="#{ContentAnalysisBean.annot}" var="tag">
+  <h:outputText id="AnnotationOut1" value="#{tag} #{tag.id}"/>
+</ui:repeat>
 		
 		<h:outputLabel for="qualOut" value="OverAllQuality:"/>
 		<h:outputText id="qualOut" value="#{ContentAnalysisBean.quality}"/>
@@ -62,7 +69,13 @@
 	</h:panelGrid>
 
 	<br/>
-
+		<h:outputLabel for="AnnotationOut12" value="Annotation:"/>
+		<br/>
+		<ui:repeat  value="#{ContentAnalysisBean.annot}" var="tag" varStatus="status">
+  <h:outputText id="AnnotationOut12" value="#{tag} "/> <br/>
+</ui:repeat>
+<br/>
+	
 	
 </h:body>
 </html>

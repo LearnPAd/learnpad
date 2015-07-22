@@ -1,9 +1,11 @@
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
@@ -39,13 +41,24 @@ public class ContentAnalysisBean implements Serializable {
 
 	public ContentAnalysisBean(){
 
-
-
-
-
+		
+		
 
 		System.out.println(id);
 	}
+
+	
+
+	@PostConstruct
+	   public void init(){
+		Annot = new ArrayList<Annotation>();
+		Annotation a = new Annotation(1,"correctness",3,4,"f2");
+		Annot.add(a);
+	   }
+
+
+
+	
 
 
 
