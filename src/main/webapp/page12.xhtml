@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+     >
+<h:head>
+	<title>Result - Analysis</title>
+</h:head>
+<h:body>
+<h:form>
+	 <h:commandButton 
+                                    value="Status"
+                                    action="#{ContentAnalysisBean.executeListener}"/>
+			<h:commandButton value="get annotateanalysis" 
+                                         actionListener="#{ContentAnalysisBean.actionDownloadAnalysis}"/>
+                                         
+                                       
+                                         
+                                    <h:commandButton value="page1 " action="#{pageController.navigatePage1}"/>
+                                    	<h:commandButton value="Redirect to Page 2" action="#{pageController.navigatePage2}"/>
+			<h:commandButton value="Redirect to Page CF" action="#{pageController.navigatePageCF}"/>
+</h:form>
+<!-- 
+	<h:panelGrid columns="2" border="1">
+		<f:facet name="header">
+			Content Analysis Information
+		</f:facet>
+
+		<h:outputLabel for="nameOut" value="Title:"/>
+		<h:outputText id="nameOut" value="#{ContentAnalysisBean.title}"/>
+
+		<h:outputLabel for="ContentOut" value="Content:"/>
+		<h:outputText id="ContentOut" value="#{ContentAnalysisBean.content}"/>
+
+	
+
+		<h:outputLabel for="AnnotationOut" value="Annotation:"/>
+		<h:outputText id="AnnotationOut" value="#{ContentAnalysisBean.annot}"/>
+		
+		<h:outputLabel for="qualOut" value="OverAllQuality:"/>
+		<h:outputText id="qualOut" value="#{ContentAnalysisBean.quality}"/>
+		
+		<h:outputLabel for="measOut" value="OverAllQuality Measures:"/>
+		<h:outputText id="measOut" value="#{ContentAnalysisBean.measure}"/>
+		
+		<h:outputLabel for="recOut" value="OverAllQuality Rec:"/>
+		<h:outputText id="recOut" value="#{ContentAnalysisBean.reccomandation}"/>
+		
+		<h:outputLabel for="recOut1" value="ContentBean.restid:"/>
+		<h:outputText id="recOut1" value="#{ContentBean.restid}">
+		
+		</h:outputText>
+		
+	</h:panelGrid>
+
+	<br/> -->
+
+	
+</h:body>
+</html>

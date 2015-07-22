@@ -21,6 +21,18 @@ public class PageController implements Serializable {
 		return "page2";
 	}
 	
+	public String navigatePage12() {
+		System.out.println("Redirect to Page 2");
+		
+		return "page12";
+	}
+	
+	public String navigatePageCF() {
+		System.out.println("Redirect to Page 2");
+		
+		return "contentform";
+	}
+	
 	public String action() {
 		System.out.println("Action Fired");
 		
