@@ -39,7 +39,7 @@ public class ContentAnalysisBean implements Serializable {
 
 	public ContentAnalysisBean(){
 
-		
+
 
 
 
@@ -127,7 +127,7 @@ public class ContentAnalysisBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 
 
-		id =  (String) context.getExternalContext().getRequestMap().get("rest");
+		id =  (String) context.getApplication().evaluateExpressionGet(context, "#{ContentBean.restid}", String.class);
 		Client client = ClientBuilder.newClient();
 		if(id==null){
 			id="1";
@@ -137,12 +137,13 @@ public class ContentAnalysisBean implements Serializable {
 		System.out.println("Status: "+status);
 		return status;
 	}
-	
+
 	public void actionDownloadAnalysis(ActionEvent event){
 		FacesContext context = FacesContext.getCurrentInstance();
 
+		id =  (String) context.getApplication().evaluateExpressionGet(context, "#{ContentBean.restid}", String.class);
 
-		id =  (String) context.getExternalContext().getRequestMap().get("rest");
+		//		id =  (String) context.getELContext().getELResolver().getValue(context.getELContext(),String.class , "rest");
 		Client client = ClientBuilder.newClient();
 		if(id==null){
 			id="1";
@@ -151,7 +152,7 @@ public class ContentAnalysisBean implements Serializable {
 		Response annotatecontent =  target.request().get();
 
 		Collection<AnnotatedCollaborativeContentAnalysis> res =	annotatecontent.readEntity(new GenericType<Collection<AnnotatedCollaborativeContentAnalysis>>() {});
-	
+
 		AnnotatedCollaborativeContentAnalysis prma = res.iterator().next();
 		this.setAnnot(prma.getAnnotations());
 		this.setContent(prma.getCollaborativeContent().getContent().toString());

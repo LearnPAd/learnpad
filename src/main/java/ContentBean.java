@@ -130,6 +130,8 @@ public class ContentBean implements Serializable{
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 	      context.getExternalContext().getRequestMap().put("rest", id);
+	      
+	     
 		
 		this.setRestid(id);
 		
