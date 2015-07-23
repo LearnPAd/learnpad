@@ -56,19 +56,21 @@ public class DataContentAnalysis implements Serializable{
 		this.element = element;
 	}
 
+	
+	
 	private void createData(){
 		Content c = acca.getCollaborativeContent().getContent();
 		List<Annotation> lannot =  acca.getAnnotations();
-		boolean bandiera = true;
+		
 		int inode=0;
 		Node temp= null;
 		String tempString = null;
 		for (Object obj : c.getContent()) {
-			if(obj instanceof String && bandiera ){
+			if(obj instanceof String && inode==0 ){
 				listdata.add(new DataContent(obj.toString()));
-				bandiera=false;
+				continue;
 			}
-			if(obj instanceof String && !bandiera ){
+			if(obj instanceof String && inode==1 ){
 				tempString = obj.toString();
 			}
 			if(obj instanceof Node){
@@ -76,7 +78,6 @@ public class DataContentAnalysis implements Serializable{
 					temp = (Node) obj;
 				}
 				if(inode==1){
-					bandiera= true;
 					inode=0;
 					listdata.add(search(temp, (Node) obj, lannot, tempString));
 				}else{
