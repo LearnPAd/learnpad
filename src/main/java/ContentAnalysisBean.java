@@ -37,7 +37,7 @@ public class ContentAnalysisBean implements Serializable {
 	private String measure;
 	private String Reccomandation;
 	private String id;
-
+	private List<Object> Contents;
 
 	public ContentAnalysisBean(){
 
@@ -59,6 +59,18 @@ public class ContentAnalysisBean implements Serializable {
 
 
 	
+
+	
+
+	public List<Object> getContents() {
+		return Contents;
+	}
+
+
+
+	public void setContents(List<Object> contens) {
+		Contents = contens;
+	}
 
 
 
@@ -167,14 +179,17 @@ public class ContentAnalysisBean implements Serializable {
 		Collection<AnnotatedCollaborativeContentAnalysis> res =	annotatecontent.readEntity(new GenericType<Collection<AnnotatedCollaborativeContentAnalysis>>() {});
 
 		AnnotatedCollaborativeContentAnalysis prma = res.iterator().next();
+		this.setContents(prma.getCollaborativeContent().getContent().getContent());
 		this.setAnnot(prma.getAnnotations());
 		this.setContent(prma.getCollaborativeContent().getContent().toString());
 		this.setId(prma.getId().toString());
 		this.setTitle(prma.getCollaborativeContent().getTitle());
 		this.setMeasure(prma.getOverallQualityMeasure());
 		this.setQuality(prma.getOverallQuality());
-		this.setReccomandation(prma.getOverallRecommendations());;
+		this.setReccomandation(prma.getOverallRecommendations());
+		
 		System.out.println("Status: "+res);
+		
 	}
 
 

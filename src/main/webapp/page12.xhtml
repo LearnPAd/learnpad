@@ -2,80 +2,110 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-
-       xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:ace="http://www.icefaces.org/icefaces/components"
-      xmlns:icecore="http://www.icefaces.org/icefaces/core"
-     >
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core">
 <h:head>
 	<title>Result - Analysis</title>
 </h:head>
 <h:body>
-<h:form>
+	<h:form>
 
-	 <h:commandButton 
-                                    value="Status"
-                                    action="#{ContentAnalysisBean.executeListener}"/>
-			<h:commandButton value="get annotateanalysis" 
-                                         actionListener="#{ContentAnalysisBean.actionDownloadAnalysis}"/>
-                                         
-                                   
-                                         
-                                    <h:commandButton value="page1 " action="#{pageController.navigatePage1}"/>
-                                    	<h:commandButton value="Redirect to Page 2" action="#{pageController.navigatePage2}"/>
-			<h:commandButton value="Redirect to Page CF" action="#{pageController.navigatePageCF}"/>
-</h:form>
+		<h:commandButton value="Status"
+			action="#{ContentAnalysisBean.executeListener}" />
+		<h:commandButton value="get annotateanalysis"
+			actionListener="#{ContentAnalysisBean.actionDownloadAnalysis}" />
+
+
+
+		<h:commandButton value="page1 "
+			action="#{pageController.navigatePage1}" />
+		<h:commandButton value="Redirect to Page 2"
+			action="#{pageController.navigatePage2}" />
+		<h:commandButton value="Redirect to Page CF"
+			action="#{pageController.navigatePageCF}" />
+	</h:form>
 
 	<h:panelGrid columns="2" border="1">
 		<f:facet name="header">
 			Content Analysis Information
 		</f:facet>
 
-		<h:outputLabel for="nameOut" value="Title:"/>
-		<h:outputText id="nameOut" value="#{ContentAnalysisBean.title}"/>
+		<h:outputLabel for="nameOut" value="Title:" />
+		<h:outputText id="nameOut" value="#{ContentAnalysisBean.title}" />
 
-		<h:outputLabel for="ContentOut" value="Content:"/>
-		<h:outputText id="ContentOut" value="#{ContentAnalysisBean.content}"/>
+		<h:outputLabel for="ContentOut" value="Content:" />
+		<h:outputText id="ContentOut" value="#{ContentAnalysisBean.content}" />
 
-	
 
-		<h:outputLabel for="AnnotationOut" value="Annotations:"/>
-		<h:outputText id="AnnotationOut" value="#{ContentAnalysisBean.annot}"/>
-		
-		<h:outputLabel for="AnnotationOut1" value="Annotation:"/>
+
+		<h:outputLabel for="AnnotationOut" value="Annotations:" />
+		<h:outputText id="AnnotationOut" value="#{ContentAnalysisBean.annot}" />
+
+		<h:outputLabel for="AnnotationOut1" value="Annotation:" />
 		<ui:repeat value="#{ContentAnalysisBean.annot}" var="tag">
-  <h:outputText id="AnnotationOut1" value="#{tag} #{tag.id}"/>
-</ui:repeat>
-		
-		<h:outputLabel for="qualOut" value="OverAllQuality:"/>
-		<h:outputText id="qualOut" value="#{ContentAnalysisBean.quality}"/>
-		
-		<h:outputLabel for="measOut" value="OverAllQuality Measures:"/>
-		<h:outputText id="measOut" value="#{ContentAnalysisBean.measure}"/>
-		
-		<h:outputLabel for="recOut" value="OverAllQuality Rec:"/>
-		<h:outputText id="recOut" value="#{ContentAnalysisBean.reccomandation}"/>
-		
-		<h:outputLabel for="recOut1" value="ContentBean.restid:"/>
-		<h:outputText id="recOut1" value="#{ContentBean.restid}"/>
-		
-		<h:outputLabel for="recOut12" value="ContentAnalysisBean.id:"/>
+			<h:outputText id="AnnotationOut1" value="#{tag} #{tag.id}" />
+		</ui:repeat>
+
+		<h:outputLabel for="qualOut" value="OverAllQuality:" />
+		<h:outputText id="qualOut" value="#{ContentAnalysisBean.quality}" />
+
+		<h:outputLabel for="measOut" value="OverAllQuality Measures:" />
+		<h:outputText id="measOut" value="#{ContentAnalysisBean.measure}" />
+
+		<h:outputLabel for="recOut" value="OverAllQuality Rec:" />
+		<h:outputText id="recOut"
+			value="#{ContentAnalysisBean.reccomandation}" />
+
+		<h:outputLabel for="recOut1" value="ContentBean.restid:" />
+		<h:outputText id="recOut1" value="#{ContentBean.restid}" />
+
+		<h:outputLabel for="recOut12" value="ContentAnalysisBean.id:" />
 		<h:outputText id="recOut12" value="#{ContentAnalysisBean.id}">
-		
+
 		</h:outputText>
-		
+
 	</h:panelGrid>
 
-	<br/>
-		<h:outputLabel for="AnnotationOut12" value="Annotation:"/>
-		<br/>
-		<ui:repeat  value="#{ContentAnalysisBean.annot}" var="tag" varStatus="status">
-  <h:outputText id="AnnotationOut12" value="#{tag} "/> <br/>
-</ui:repeat>
-<br/>
+	<br />
+
+	<br />
+<!-- 	<h:panelGrid columns="5" border="0">
+		<ui:repeat value="#{ContentAnalysisBean.contents}" var="tag"
+			varStatus="status">
+
+			<h:outputText
+				rendered="#{tag.getClass().getSimpleName() eq 'String'}"
+				id="AnnotationOut12" value="#{tag}" />
+		</ui:repeat>
+
+	</h:panelGrid> -->
+
+
+
+
+
+	<br />
 	
 	
+	
+		<c:forEach items="#{ContentAnalysisBean.contents}" var="tag"
+			varStatus="status">
+
+			<h:outputText
+				rendered="#{tag.getClass().getSimpleName() eq 'String'}"
+				id="ciao_#{status.index}" value="#{tag}"  />
+			 <ace:tooltip id="s_#{status.index}" for="ciao_#{status.index}" forElement="ciao_#{status.index}" >
+			 <h:outputText  value="ciao"/>
+			</ace:tooltip>  
+		</c:forEach>
+		
+	
+
+	<br />
+
 </h:body>
 </html>

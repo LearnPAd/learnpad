@@ -22,7 +22,7 @@ public class PageController implements Serializable {
 	}
 	
 	public String navigatePage12() {
-		System.out.println("Redirect to Page 2");
+		System.out.println("Redirect to Page 12");
 		
 		return "page12";
 	}
