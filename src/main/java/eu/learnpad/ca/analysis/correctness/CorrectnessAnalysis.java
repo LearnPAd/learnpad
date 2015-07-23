@@ -65,7 +65,7 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 				//List<Annotation> annotations = checkdefect(sentence,c, id);
 				
 				List<Annotation> annotations = calculateAnnotations(content, matches, c, id);
-				annotatedCollaborativeContentAnalysis.setAnnotations(annotations);
+				
 				
 				if(annotations.size()>0){
 					numDefectiveSentences++;
@@ -181,10 +181,12 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 		List<Annotation> annotations=new ArrayList<Annotation>();
 
 		boolean flag = true;
-		
+		int finalpos = 0;
 		for (RuleMatch match : matches) {
 
-			
+			if(precedentposition>match.getFromPos()){
+				precedentposition =  match.getFromPos();
+			}
 			String stringap = sentence.substring(precedentposition, match.getFromPos());
 			c.setContent(stringap);
 			id++;
@@ -204,6 +206,10 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 			a.setRecommendation(match.getMessage()+" Suggested correction: " +match.getSuggestedReplacements());
 			annotations.add(a);
 			id++;
+			finalpos = match.getToPos();
+		}
+		if(finalpos< sentence.length()){
+			c.setContent(sentence.substring(finalpos, sentence.length()));
 		}
 		if(annotations.size()==0){
 			c.setContent(sentence);

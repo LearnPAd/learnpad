@@ -61,10 +61,10 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		if(contentFile!=null){
 			id++;
 			Language lang = null;
-			if(contentFile.getLanguage()=="english"){
+			if(contentFile.getLanguage().toLowerCase()=="english"){
 				lang = new BritishEnglish();
 			}else{
-				if(contentFile.getLanguage()=="italian"){
+				if(contentFile.getLanguage().toLowerCase()=="italian"){
 					lang = new Italian();
 				}else
 					lang = new BritishEnglish();
