@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -44,6 +45,7 @@ import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.cw.rest.data.Feedbacks;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.gm.rest.certif.data.CertificateDefinitionData;
 import eu.learnpad.me.Controller;
 import eu.learnpad.mv.rest.data.MVResults;
 
@@ -159,5 +161,23 @@ public class XwikiController extends Controller implements XWikiRestComponent {
 			e.printStackTrace();
 		}
 		return feedbacks;
+	}
+
+	@Override
+	public String storeCertificateDefinition(CertificateDefinitionData data) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<CertificateDefinitionData> getCertificateDefinitions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CertificateDefinitionData getCertificate(String certificateId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

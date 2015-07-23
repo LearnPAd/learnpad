@@ -19,9 +19,12 @@
  */
 package eu.learnpad.core.impl.me;
 
+import java.util.Set;
+
 import eu.learnpad.cw.rest.data.Feedbacks;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.gm.rest.certif.data.CertificateDefinitionData;
 import eu.learnpad.me.CoreFacade;
 import eu.learnpad.mv.rest.data.MVResults;
 
@@ -49,6 +52,24 @@ public class XwikiCoreFacade implements CoreFacade {
 
 	@Override
 	public Feedbacks getFeedbacks(String modelSetId) throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String storeCertificateDefinition(CertificateDefinitionData data) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<CertificateDefinitionData> getCertificateDefinitions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CertificateDefinitionData getCertificate(String certificateId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

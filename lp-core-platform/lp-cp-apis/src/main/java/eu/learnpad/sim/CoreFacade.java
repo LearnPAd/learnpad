@@ -19,12 +19,13 @@
  */
 package eu.learnpad.sim;
 
+import eu.learnpad.gm.rest.score.IScoreStorage;
 import eu.learnpad.sim.rest.IUserInfosAPI;
 
 /**
  * @author Tom Jorquera - Linagora
  *
  */
-public interface CoreFacade extends IUserInfosAPI {
+public interface CoreFacade extends IUserInfosAPI, IScoreStorage {
 
 }

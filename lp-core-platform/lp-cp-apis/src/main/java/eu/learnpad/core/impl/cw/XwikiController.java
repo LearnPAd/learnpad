@@ -19,6 +19,9 @@
  */
 package eu.learnpad.core.impl.cw;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.inject.Named;
 import javax.ws.rs.Path;
 
@@ -29,6 +32,8 @@ import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.cw.Controller;
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.gm.rest.certif.data.CertificateDefinitionData;
+import eu.learnpad.gm.rest.score.data.SessionScoreData;
 
 @Component
 @Named("eu.learnpad.core.impl.cw.XwikiController")
@@ -66,5 +71,49 @@ public class XwikiController extends Controller implements XWikiRestComponent {
 		String attachmentName = String.format("%s.%s", modelSetId, type);
 		return XWikiRestUtils.getAttachment(RestResource.CORE_REPOSITORY_WIKI,
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName);
+	}
+
+	@Override
+	public void addToEditCount(String userId, Integer nbEdits) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Integer getEditCount(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void storeSessionScore(SessionScoreData data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<SessionScoreData> getSessionScores(String userId,
+			String processId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double getGlobalScore(String userId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void storeUserCertificate(String userId,
+			String certificatedDefinitionId) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Set<CertificateDefinitionData> getCertificates(String userId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
