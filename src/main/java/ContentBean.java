@@ -119,7 +119,7 @@ public class ContentBean implements Serializable{
 		cca.getQualityCriteria().setSimplicity(true);
 		cca.getQualityCriteria().setContentClarity(false);
 		cca.getQualityCriteria().setNonAmbiguity(false);
-		cca.getQualityCriteria().setSimplicity(false);
+		cca.getQualityCriteria().setCompleteness(false);
 		cca.getQualityCriteria().setPresentationClarity(false);
 		
 		Entity<CollaborativeContentAnalysis> entity = Entity.entity(cca,MediaType.APPLICATION_XML);
