@@ -64,7 +64,7 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 				matches = langTool.check(sentence);
 				//List<Annotation> annotations = checkdefect(sentence,c, id);
 				
-				List<Annotation> annotations = calculateAnnotations(content, matches, c, id);
+				List<Annotation> annotations = calculateAnnotations(sentence, matches, c, id);
 				
 				
 				if(annotations.size()>0){
@@ -136,7 +136,7 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 				matches = langTool.check(sentence);
 		
 				
-				List<Annotation> annotations = calculateAnnotations(content, matches, c, id);
+				List<Annotation> annotations = calculateAnnotations( sentence, matches, c, id);
 				annotatedStaticContentAnalysis.setAnnotations(annotations);
 				
 				if(annotations.size()>0){
@@ -175,7 +175,7 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 
 
 
-	private List<Annotation> calculateAnnotations(String sentence,List<RuleMatch> matches, Content c, int id){
+	private List<Annotation> calculateAnnotations( String sentence,List<RuleMatch> matches, Content c, int id){
 		int precedentposition=0;
 
 		List<Annotation> annotations=new ArrayList<Annotation>();
@@ -208,11 +208,13 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 			id++;
 			finalpos = match.getToPos();
 		}
-		if(finalpos< sentence.length()){
-			c.setContent(sentence.substring(finalpos, sentence.length()));
-		}
+		
 		if(annotations.size()==0){
 			c.setContent(sentence);
+		}else{
+			if(finalpos< sentence.length()){
+				c.setContent(sentence.substring(finalpos, sentence.length()));
+			}
 		}
 		return annotations;
 

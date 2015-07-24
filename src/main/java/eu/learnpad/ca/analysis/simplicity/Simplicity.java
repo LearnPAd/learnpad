@@ -86,7 +86,7 @@ public class Simplicity extends Thread implements AnalysisInterface{
 			id++;
 		}
 
-		System.out.println(content);
+		//System.out.println(content);
 
 		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
@@ -156,7 +156,7 @@ public class Simplicity extends Thread implements AnalysisInterface{
 			id++;
 		}
 
-		System.out.println(content);
+		//System.out.println(content);
 
 		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 		annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
@@ -179,7 +179,9 @@ public class Simplicity extends Thread implements AnalysisInterface{
 				
 				int initialpos = sentence.indexOf(token);
 				int finalpos = initialpos+token.length();
-
+				if(precedentposition>initialpos){
+					 initialpos = sentence.lastIndexOf(token);
+				}
 				String stringap = sentence.substring(precedentposition, initialpos);
 				c.setContent(stringap);
 				precedentposition=finalpos;
