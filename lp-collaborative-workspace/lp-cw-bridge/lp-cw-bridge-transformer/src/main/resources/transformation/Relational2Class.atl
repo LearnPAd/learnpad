@@ -1,0 +1,25 @@
+module Relational2Class;
+
+create OUT : Class from IN : Relational;
+
+rule RelationalModel2ClassModel{
+	from s: Relational!RelationalModel
+	to t: Class!ClassModel(
+		name<-s.name	
+	)
+}
+
+rule Table2Class{
+	from s: Relational!Table
+	to t: Class!Class(
+		name<-s.name	
+	)
+}
+
+rule Column2Attribute{
+	from s: Relational!Column
+	to t: Class!Attribute(
+		name<-s.name,	
+		type<-s.type
+	)
+}

@@ -1,0 +1,46 @@
+-- @nsURI BPMN2=http://www.omg.org/spec/BPMN/20100524/MODEL-XMI;
+-- @nsURI XWIKI=http://www.xwiki.org
+
+module bpmn2xwiki;
+create OUT : XWIKI from IN : BPMN2;
+
+helper context String def : name : String = self.substring(self.lastIndexOf('!')+2, self.size());
+
+helper def :getDocumentRoot : XWIKI!DocumentRoot = OclUndefined;
+
+entrypoint rule DocumentRoot() {
+	to t: XWIKI!DocumentRoot ()
+	do {
+		thisModule.getDocumentRoot <- t;		
+	}
+}
+
+rule StartEvent2Page {
+	from s: BPMN2!StartEvent
+	to t : XWIKI!Page(
+		name <- s.oclType().name
+	)
+	do {
+		thisModule.getDocumentRoot.page<-t;
+	}
+}
+
+rule EndEvent2Page {
+	from s: BPMN2!EndEvent
+	to t : XWIKI!Page(
+		name <- s.oclType().name
+	)
+	do {
+		thisModule.getDocumentRoot.page<-t;
+	}
+}
+
+rule Task2Page {
+	from s: BPMN2!Task
+	to t : XWIKI!Page(
+		name <- s.oclType().name
+	)
+	do {
+		thisModule.getDocumentRoot.page<-t;
+	}
+}

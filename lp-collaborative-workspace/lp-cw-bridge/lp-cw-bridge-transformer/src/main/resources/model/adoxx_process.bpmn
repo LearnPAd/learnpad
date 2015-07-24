@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:signavio="http://www.signavio.com"
+             xmlns:inspire="http://bpminspire.com/bpmn2/extension/inspire"
+             xmlns:activiti="http://activiti.org/bpmn"
+             xmlns:adonis="http://www.boc-group.com"
+             xmlns:semantic="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             exporter="ADONIS CE 3.0"
+             exporterVersion="3.0.0.0"
+             expressionLanguage="http://www.w3.org/1999/XPath"
+             targetNamespace="http://www.omg.org/bpmn20"
+             typeLanguage="http://www.w3.org/2001/XMLSchema"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd"
+             name="New model">
+   <message id="messageEventDefinition_obj.13004"
+            name="messageEventDefinition_obj.13004"/>
+   <message id="messageEventDefinition_obj.13013"
+            name="messageEventDefinition_obj.13013"/>
+   <process id="mod.13002" name="New model" isExecutable="false">
+      <extensionElements>
+         <adonis:modelstate>In process</adonis:modelstate>
+         <adonis:modelversion/>
+         <adonis:ATTRIBUTE name="Comment" type="STRING"/>
+         <adonis:ATTRIBUTE name="Comment" type="LONGSTRING"/>
+      </extensionElements>
+      <laneSet id="mod.13002_LaneSet"/>
+      <startEvent id="obj.13004" name="Start Event-13004">
+         <extensionElements>
+            <adonis:ATTRIBUTE name="Comment" type="STRING"/>
+            <adonis:ATTRIBUTE name="Open questions" type="STRING"/>
+         </extensionElements>
+      </startEvent>
+      <task id="obj.13007" name="Task-13007" isForCompensation="false">
+         <extensionElements>
+            <adonis:ATTRIBUTE name="Comment" type="STRING"/>
+            <adonis:ATTRIBUTE name="Open questions" type="STRING"/>
+         </extensionElements>
+      </task>
+      <task id="obj.13010" name="Task-13010" isForCompensation="false">
+         <extensionElements>
+            <adonis:ATTRIBUTE name="Comment" type="STRING"/>
+            <adonis:ATTRIBUTE name="Open questions" type="STRING"/>
+         </extensionElements>
+      </task>
+      <endEvent id="obj.13013" name="End Event-13013">
+         <extensionElements>
+            <adonis:ATTRIBUTE name="Comment" type="STRING"/>
+            <adonis:ATTRIBUTE name="Open questions" type="STRING"/>
+         </extensionElements>
+      </endEvent>
+      <sequenceFlow id="con.13016"
+                    name=""
+                    sourceRef="obj.13004"
+                    targetRef="obj.13007">
+         <extensionElements>
+            <adonis:ATTRIBUTE name="Comment" type="STRING"/>
+         </extensionElements>
+      </sequenceFlow>
+      <sequenceFlow id="con.13017"
+                    name=""
+                    sourceRef="obj.13007"
+                    targetRef="obj.13010">
+         <extensionElements>
+            <adonis:ATTRIBUTE name="Comment" type="STRING"/>
+         </extensionElements>
+      </sequenceFlow>
+      <sequenceFlow id="con.13018"
+                    name=""
+                    sourceRef="obj.13010"
+                    targetRef="obj.13013">
+         <extensionElements>
+            <adonis:ATTRIBUTE name="Comment" type="STRING"/>
+         </extensionElements>
+      </sequenceFlow>
+   </process>
+   <bpmndi:BPMNDiagram id="Diagram_mod.13002">
+      <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="mod.13002">
+         <bpmndi:BPMNShape bpmnElement="obj.13004" id="BPMN_Shape_obj.13004">
+            <omgdc:Bounds width="53" height="53" x="49" y="106"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="obj.13007" id="BPMN_Shape_obj.13007">
+            <omgdc:Bounds height="68" width="127" x="144" y="98"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="obj.13010" id="BPMN_Shape_obj.13010">
+            <omgdc:Bounds height="68" width="127" x="333" y="98"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNShape bpmnElement="obj.13013" id="BPMN_Shape_obj.13013">
+            <omgdc:Bounds width="53" height="53" x="503" y="106"/>
+         </bpmndi:BPMNShape>
+         <bpmndi:BPMNEdge id="BPMN_Edge_con.13016"
+                          bpmnElement="con.13016"
+                          sourceElement="BPMN_Shape_obj.13004"
+                          targetElement="BPMN_Shape_obj.13007">
+            <omgdi:waypoint x="76" y="132"/>
+            <omgdi:waypoint x="208" y="132"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge id="BPMN_Edge_con.13017"
+                          bpmnElement="con.13017"
+                          sourceElement="BPMN_Shape_obj.13007"
+                          targetElement="BPMN_Shape_obj.13010">
+            <omgdi:waypoint x="208" y="132"/>
+            <omgdi:waypoint x="397" y="132"/>
+         </bpmndi:BPMNEdge>
+         <bpmndi:BPMNEdge id="BPMN_Edge_con.13018"
+                          bpmnElement="con.13018"
+                          sourceElement="BPMN_Shape_obj.13010"
+                          targetElement="BPMN_Shape_obj.13013">
+            <omgdi:waypoint x="397" y="132"/>
+            <omgdi:waypoint x="529" y="132"/>
+         </bpmndi:BPMNEdge>
+      </bpmndi:BPMNPlane>
+   </bpmndi:BPMNDiagram>
+</definitions>

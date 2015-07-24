@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmlns:xmi="http://schema.omg.org/spec/XMI" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:bpmndixmi="http://www.omg.org/spec/BPMN/20100524/DI-XMI" xmlns:bpmnxmi="http://www.omg.org/spec/BPMN/20100524/MODEL-XMI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:dcxmi="http://www.omg.org/spec/DD/20100524/DC-XMI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dixmi="http://www.omg.org/spec/DD/20100524/DI-XMI" xmi:version="2.0">
+   <bpmnxmi:Definitions name="New model" targetNamespace="http://www.omg.org/bpmn20" expressionLanguage="http://www.w3.org/1999/XPath" typeLanguage="http://www.w3.org/2001/XMLSchema" exporter="ADONIS CE 3.0" exporterVersion="3.0.0.0">
+      <rootElements xmi:type="bpmnxmi:Message" id="messageEventDefinition_obj.13004" name="messageEventDefinition_obj.13004" />
+      <rootElements xmi:type="bpmnxmi:Message" id="messageEventDefinition_obj.13013" name="messageEventDefinition_obj.13013" />
+      <rootElements xmi:type="bpmnxmi:Process" id="mod.13002" extensionDefinitions="&#xA;         In process&#xA;         &#xA;         &#xA;         &#xA;       " name="New model">
+         <flowElements xmi:type="bpmnxmi:EndEvent" id="obj.13013" extensionDefinitions="&#xA;            &#xA;            &#xA;          " name="End Event-13013" />
+         <flowElements xmi:type="bpmnxmi:SequenceFlow" id="con.13016" extensionDefinitions="&#xA;            &#xA;          " name="" targetRef="obj.13007 " sourceRef="obj.13004 " />
+         <flowElements xmi:type="bpmnxmi:SequenceFlow" id="con.13017" extensionDefinitions="&#xA;            &#xA;          " name="" targetRef="obj.13010 " sourceRef="obj.13007 " />
+         <flowElements xmi:type="bpmnxmi:SequenceFlow" id="con.13018" extensionDefinitions="&#xA;            &#xA;          " name="" targetRef="obj.13013 " sourceRef="obj.13010 " />
+         <flowElements xmi:type="bpmnxmi:StartEvent" id="obj.13004" extensionDefinitions="&#xA;            &#xA;            &#xA;          " name="Start Event-13004" />
+         <flowElements xmi:type="bpmnxmi:Task" id="obj.13007" extensionDefinitions="&#xA;            &#xA;            &#xA;          " name="Task-13007" isForCompensation="false" />
+         <flowElements xmi:type="bpmnxmi:Task" id="obj.13010" extensionDefinitions="&#xA;            &#xA;            &#xA;          " name="Task-13010" isForCompensation="false" />
+         <laneSets xmi:type="bpmnxmi:LaneSet" id="mod.13002_LaneSet" />
+      </rootElements>
+      <diagrams xmi:type="bpmndixmi:BPMNDiagram">
+         <plane xmi:type="bpmndixmi:BPMNPlane">
+            <planeElement xmi:type="bpmndixmi:BPMNEdge">
+               <waypoint xmi:type="dixmi:Point" x="76" y="132" />
+               <waypoint xmi:type="dixmi:Point" x="208" y="132" />
+            </planeElement>
+            <planeElement xmi:type="bpmndixmi:BPMNEdge">
+               <waypoint xmi:type="dixmi:Point" x="208" y="132" />
+               <waypoint xmi:type="dixmi:Point" x="397" y="132" />
+            </planeElement>
+            <planeElement xmi:type="bpmndixmi:BPMNEdge">
+               <waypoint xmi:type="dixmi:Point" x="397" y="132" />
+               <waypoint xmi:type="dixmi:Point" x="529" y="132" />
+            </planeElement>
+            <planeElement xmi:type="bpmndixmi:BPMNShape">
+               <bounds xmi:type="dcxmi:Bounds" x="49" y="106" width="53" height="53" />
+            </planeElement>
+            <planeElement xmi:type="bpmndixmi:BPMNShape">
+               <bounds xmi:type="dcxmi:Bounds" x="144" y="98" width="127" height="68" />
+            </planeElement>
+            <planeElement xmi:type="bpmndixmi:BPMNShape">
+               <bounds xmi:type="dcxmi:Bounds" x="333" y="98" width="127" height="68" />
+            </planeElement>
+            <planeElement xmi:type="bpmndixmi:BPMNShape">
+               <bounds xmi:type="dcxmi:Bounds" x="503" y="106" width="53" height="53" />
+            </planeElement>
+         </plane>
+      </diagrams>
+   </bpmnxmi:Definitions>
+</xmi:XMI>

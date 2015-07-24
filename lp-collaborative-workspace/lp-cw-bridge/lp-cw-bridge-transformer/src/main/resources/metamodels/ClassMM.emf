@@ -1,0 +1,27 @@
+@namespace(uri="http://www.di.univaq.it/ClassMM", prefix="class")
+package ClassMM;
+
+class ClassModel extends NamedElement {
+  val Class[*]#model classes;
+  val DataType[*]#model types;
+}
+
+class Class extends NamedElement{
+  ref ClassModel[1]#classes model;
+  val Attribute[*]#container attributes;
+  ref Class[*] superclasses;
+}
+
+class Attribute extends NamedElement{
+  ref Class[1]#attributes container;
+  ref DataType[1]#attributes type;
+}
+
+class NamedElement {
+  attr String name;
+}
+
+
+class DataType extends NamedElement{
+ ref ClassModel[1]#types model;
+}
