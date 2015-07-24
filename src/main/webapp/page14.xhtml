@@ -24,7 +24,7 @@
 			varStatus="status">
 
 			<h:outputText
-				id="ciao1_#{status.index}" value="#{data.element}"   />
+				id="ciao1_#{status.index}" value="#{data.element}" style="background-color: #{data.color}"  />
 				
 			 <ace:tooltip rendered="#{data.type ne null}"  id="d_#{status.index}" for="ciao1_#{status.index}" forElement="ciao1_#{status.index}" >
 			 <h:outputText  value="#{data.recommendation}"/>

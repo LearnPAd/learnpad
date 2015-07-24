@@ -9,24 +9,39 @@ public class DataContent implements Serializable{
 	private String element;
 	private String recommendation;
 	private String type;
+	private String color = "#FFFFFF";
+	
 	public DataContent(String element, String recommendation, String type) {
 		this.element = element;
 		this.recommendation = recommendation;
 		this.type = type;
+		this.color = "#FF0000";
 	}
 	
 	public DataContent(String recommendation, String type) {
 		
 		this.recommendation = recommendation;
 		this.type = type;
+		this.color = "#FF0000";
 	}
 	
 	public DataContent(String element){
 		this.element = element;
 		this.recommendation = null;
 		this.type = null;
+		this.color = "#FFFFFF";
 	}
 	
+	
+	
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	public String getElement() {
 		return element;
 	}
