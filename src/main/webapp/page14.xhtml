@@ -23,11 +23,11 @@
 	
 <c:forEach items="#{DataContentAnalysisbean.listdata}" var="data"
 			varStatus="status">
-			
+			<c:if test="#{status.first}"> <h:outputText style="font-weight: bold;font-size:200%;" value="#{data.type}:" /> <br/><br/> </c:if>
 			<h:outputText
 				id="ciao1_#{status.index}" value="#{data.element}" style="background-color: #{data.color};white-space: pre-wrap;"  />
 				
-			 <ace:tooltip rendered="#{data.type ne null}"  id="d_#{status.index}" for="ciao1_#{status.index}" forElement="ciao1_#{status.index}" >
+			 <ace:tooltip rendered="#{data.recommendation ne null}"  id="d_#{status.index}" for="ciao1_#{status.index}" forElement="ciao1_#{status.index}" >
 			 <h:outputText  value="#{data.recommendation}"/>
 			</ace:tooltip>  
 		</c:forEach>

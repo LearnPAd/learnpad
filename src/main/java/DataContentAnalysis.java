@@ -67,7 +67,7 @@ public class DataContentAnalysis implements Serializable{
 		String tempString = null;
 		for (Object obj : c.getContent()) {
 			if(obj instanceof String && inode==0 ){
-				listdata.add(new DataContent(obj.toString()));
+				listdata.add(new DataContent(obj.toString(), acca.getType()));
 				continue;
 			}
 			if(obj instanceof String && inode==1 ){

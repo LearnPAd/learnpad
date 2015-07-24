@@ -18,17 +18,12 @@ public class DataContent implements Serializable{
 		this.color = "#FF0000";
 	}
 	
-	public DataContent(String recommendation, String type) {
-		
-		this.recommendation = recommendation;
-		this.type = type;
-		this.color = "#FF0000";
-	}
 	
-	public DataContent(String element){
+	
+	public DataContent(String element, String type){
 		this.element = element;
 		this.recommendation = null;
-		this.type = null;
+		this.type = type;
 		this.color = "#FFFFFF";
 	}
 	
