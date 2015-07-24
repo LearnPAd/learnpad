@@ -11,7 +11,7 @@
 </h:head>
 <h:body>
 	<h:form>
-		<h:panelGrid columns="3">
+		<h:panelGrid columns="3" border="0">
 			<h:outputLabel for="Title" value="Title:" />
 			<h:inputText id="Title" value="#{ContentBean.title}" required="true"
 				maxlength="150" />
@@ -34,14 +34,16 @@
 			</h:selectOneMenu>
 			<h:message for="language" />
 
+
 			<h:outputLabel for="Content" value="Content:" />
-			<h:inputText id="Content" value="#{ContentBean.content}" required="true"
-				maxlength="150" />
-			<!-- <ace:textAreaEntry id="Content" value="#{ContentBean.content}"
-				label="Content" labelPosition="inField" required="true"
-				requiredIndicator=" (*)" indicatorPosition="labelRight">
-			</ace:textAreaEntry> -->
+			<h:inputTextarea id="Content" value="#{ContentBean.content}" required="false"
+				style="width:250px;height:100px" />
 			<h:message for="Content" />
+			
+
+			<h:outputLabel for="inputfile" value="or Input txt File:" />
+			<ace:fileEntry id="inputfile"  fileEntryListener="#{ContentBean.sampleListener}" immediate="true" maxFileCount="1" />
+			<h:message for="inputfile" />
 		</h:panelGrid>
 
 		<h:commandButton value="Submit"
