@@ -240,7 +240,7 @@ public class ContentBean implements Serializable{
 		WebTarget target = client.target("http://localhost:8080").path("contentanalysis/learnpad/ca/validatecollaborativecontent");
 
 		CollaborativeContentAnalysis cca = new CollaborativeContentAnalysis();
-		cca.setLanguage("english");
+		cca.setLanguage(this.getLanguage());
 		cca.setCollaborativeContent(new CollaborativeContent(String.valueOf(this.getId()), this.getTitle()));
 		cca.getCollaborativeContent().setContent(new eu.learnpad.ca.rest.data.Content());
 		if(filecontent!=null){

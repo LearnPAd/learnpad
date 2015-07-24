@@ -56,6 +56,7 @@ public class ContentAnalysisBean implements Serializable {
 		Annot = new ArrayList<Annotation>();
 		Annotation a = new Annotation(1,"correctness",3,4,"f2");
 		Annot.add(a);
+		
 	   }
 
 
@@ -179,53 +180,40 @@ public class ContentAnalysisBean implements Serializable {
 	}
 
 	
-	public String selectDefect(AnnotatedCollaborativeContentAnalysis acca){
-		
-		
-		
-		return null;
-	}
-
-	public String executeListener(){
-		FacesContext context = FacesContext.getCurrentInstance();
-
-
-		id =  (String) context.getApplication().evaluateExpressionGet(context, "#{ContentBean.restid}", String.class);
-		Client client = ClientBuilder.newClient();
-		if(id==null){
-			id="1";
-		}
-		WebTarget target = client.target("http://localhost:8080").path("contentanalysis/learnpad/ca/validatecollaborativecontent/"+id+"/status");
-		String status =  target.request().get(String.class);
-		this.setStatus(status);
-		System.out.println("Status: "+status);
-		return status;
-	}
-
+	
+	
 	public void actionDownloadAnalysis(ActionEvent event){
+		try {
+            Thread.currentThread().sleep(2500);
+        } catch(Exception e) {}
 		FacesContext context = FacesContext.getCurrentInstance();
 
-		id =  (String) context.getApplication().evaluateExpressionGet(context, "#{ContentBean.restid}", String.class);
 
-		//		id =  (String) context.getELContext().getELResolver().getValue(context.getELContext(),String.class , "rest");
+		id =  (String) context.getApplication().evaluateExpressionGet(context, "#{ContentBean.restid}", String.class);
 		Client client = ClientBuilder.newClient();
 		if(id==null){
 			id="1";
 		}
-		WebTarget target = client.target("http://localhost:8080").path("contentanalysis/learnpad/ca/validatecollaborativecontent/"+id);
+		 
+		WebTarget target = client.target("http://localhost:8080").path("contentanalysis/learnpad/ca/validatecollaborativecontent/"+id+"/status");
+		String 	status ="";
+		while (!status.equals("OK")) {
+			
+		
+		status = target.request().get(String.class);
+		
+		this.setStatus(status);
+		}
+		System.out.println("Status: "+status);
+		
+		
+		target = client.target("http://localhost:8080").path("contentanalysis/learnpad/ca/validatecollaborativecontent/"+id);
 		Response annotatecontent =  target.request().get();
 
 		this.setCollectionannotatedcontent(annotatecontent.readEntity(new GenericType<Collection<AnnotatedCollaborativeContentAnalysis>>() {}));
 
 		
 		
-		/*DataContentAnalysis dca  = new DataContentAnalysis(prma);
-		
-		this.setListdc(dca.getListdata());*/
-		
-		
-		
-		System.out.println("Status: "+this.getCollectionannotatedcontent());
 		
 	}
 

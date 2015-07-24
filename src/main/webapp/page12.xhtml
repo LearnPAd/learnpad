@@ -12,11 +12,12 @@
 	<title>Result - Analysis</title>
 </h:head>
 <h:body>
-	<h:form>
+	<ace:submitMonitor blockUI="@all" idleLabel="Not currently submitting"
+    activeLabel="Busy submitting to server..." for="Form" />
+	<h:form id="Form">
 
-		<h:commandButton value="Status"
-			action="#{ContentAnalysisBean.executeListener}" />
-		<h:commandButton value="get annotateanalysis"
+		
+		<h:commandButton value="Get Analysis"
 			actionListener="#{ContentAnalysisBean.actionDownloadAnalysis}" />
 
 
