@@ -47,9 +47,98 @@ public class ContentBean implements Serializable{
 	private String Language;
 	private String restid;
 	private String filecontent;
+	
+	private boolean Correctness;
+	private boolean Simplicity;
+	private boolean ContentClarity;
+	private boolean NonAmbiguity;
+	private boolean Completeness;
+	private boolean PresentationClarity;
+	
+	
+	
+	
 	public ContentBean(){
-
+		Correctness = true;
+		Simplicity= true;
+		ContentClarity= false;
+		NonAmbiguity= false;
+		Completeness= false;
+		PresentationClarity= false;
 	}
+
+	
+
+	public boolean isCorrectness() {
+		return Correctness;
+	}
+
+
+
+	public void setCorrectness(boolean correctness) {
+		Correctness = correctness;
+	}
+
+
+
+	public boolean isSimplicity() {
+		return Simplicity;
+	}
+
+
+
+	public void setSimplicity(boolean simplicity) {
+		Simplicity = simplicity;
+	}
+
+
+
+	public boolean isContentClarity() {
+		return ContentClarity;
+	}
+
+
+
+	public void setContentClarity(boolean contentClarity) {
+		ContentClarity = contentClarity;
+	}
+
+
+
+	public boolean isNonAmbiguity() {
+		return NonAmbiguity;
+	}
+
+
+
+	public void setNonAmbiguity(boolean nonAmbiguity) {
+		NonAmbiguity = nonAmbiguity;
+	}
+
+
+
+	public boolean isCompleteness() {
+		return Completeness;
+	}
+
+
+
+	public void setCompleteness(boolean completeness) {
+		Completeness = completeness;
+	}
+
+
+
+	public boolean isPresentationClarity() {
+		return PresentationClarity;
+	}
+
+
+
+	public void setPresentationClarity(boolean presentationClarity) {
+		PresentationClarity = presentationClarity;
+	}
+
 
 
 	public String getFilecontent() {
@@ -160,12 +249,12 @@ public class ContentBean implements Serializable{
 			cca.getCollaborativeContent().getContent().setContent(getContent());
 		}
 		cca.setQualityCriteria(new QualityCriteria());
-		cca.getQualityCriteria().setCorrectness(true);
-		cca.getQualityCriteria().setSimplicity(true);
-		cca.getQualityCriteria().setContentClarity(false);
-		cca.getQualityCriteria().setNonAmbiguity(false);
-		cca.getQualityCriteria().setCompleteness(false);
-		cca.getQualityCriteria().setPresentationClarity(false);
+		cca.getQualityCriteria().setCorrectness(this.isCorrectness());
+		cca.getQualityCriteria().setSimplicity(this.isSimplicity());
+		cca.getQualityCriteria().setContentClarity(this.isContentClarity());
+		cca.getQualityCriteria().setNonAmbiguity(this.isNonAmbiguity());
+		cca.getQualityCriteria().setCompleteness(this.isCompleteness());
+		cca.getQualityCriteria().setPresentationClarity(this.isPresentationClarity());
 
 		Entity<CollaborativeContentAnalysis> entity = Entity.entity(cca,MediaType.APPLICATION_XML);
 		//GenericEntity<JAXBElement<CollaborativeContentAnalysis>> gw = new GenericEntity<JAXBElement<CollaborativeContentAnalysis>>(cca){};

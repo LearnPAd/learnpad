@@ -8,6 +8,7 @@
       xmlns:icecore="http://www.icefaces.org/icefaces/core"
       xmlns:ui="http://java.sun.com/jsf/facelets" 
       xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
      >
      
   
@@ -22,9 +23,9 @@
 	
 <c:forEach items="#{DataContentAnalysisbean.listdata}" var="data"
 			varStatus="status">
-
+			
 			<h:outputText
-				id="ciao1_#{status.index}" value="#{data.element}" style="background-color: #{data.color}"  />
+				id="ciao1_#{status.index}" value="#{data.element}" style="background-color: #{data.color};white-space: pre-wrap;"  />
 				
 			 <ace:tooltip rendered="#{data.type ne null}"  id="d_#{status.index}" for="ciao1_#{status.index}" forElement="ciao1_#{status.index}" >
 			 <h:outputText  value="#{data.recommendation}"/>
