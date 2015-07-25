@@ -23,7 +23,7 @@
 	
 <c:forEach items="#{DataContentAnalysisbean.listdata}" var="data"
 			varStatus="status">
-			<c:if test="#{status.first}"> <h:outputText style="font-weight: bold;font-size:200%;" value="#{data.type}:" /> <br/><br/> </c:if>
+			<c:if test="#{status.first}"> <br/><br/> <h:outputText style="font-weight: bold;font-size:200%;" value="#{data.type}:" /> <br/><br/> </c:if>
 			<h:outputText
 				id="ciao1_#{status.index}" value="#{data.element}" style="background-color: #{data.color};white-space: pre-wrap;"  />
 				

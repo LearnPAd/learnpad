@@ -13,7 +13,9 @@
 </h:head>
 <h:body>
 	<ace:submitMonitor blockUI="@all" idleLabel="Not currently submitting"
-    activeLabel="Busy submitting to server..." for="Form" />
+    activeLabel="Busy submitting to server..." for="Form" serverErrorLabel="Server error"
+                                       networkErrorLabel="Network error"
+                                       sessionExpiredLabel="Session expired" />
 	<h:form id="Form">
 
 		

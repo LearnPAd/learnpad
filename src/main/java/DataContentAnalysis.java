@@ -48,6 +48,7 @@ public class DataContentAnalysis implements Serializable{
 
 	public void setAcca(AnnotatedCollaborativeContentAnalysis acca) {
 		this.acca = acca;
+		listdata = new ArrayList<DataContent>();
 		createData();
 		System.out.println(listdata);
 	}

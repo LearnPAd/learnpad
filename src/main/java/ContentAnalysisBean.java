@@ -189,7 +189,7 @@ public class ContentAnalysisBean implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 
 
-		id =  (String) context.getApplication().evaluateExpressionGet(context, "#{ContentBean.restid}", String.class);
+		//id =  (String) context.getApplication().evaluateExpressionGet(context, "#{ContentBean.restid}", String.class);
 		Client client = ClientBuilder.newClient();
 		if(id==null){
 			id="1";

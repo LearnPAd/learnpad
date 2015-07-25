@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -33,7 +34,7 @@ import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 
 
 @ManagedBean(name="ContentBean")
-@SessionScoped
+@RequestScoped
 public class ContentBean implements Serializable{
 
 
@@ -265,7 +266,7 @@ public class ContentBean implements Serializable{
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.getExternalContext().getRequestMap().put("rest", id);
 
-
+		//context.getApplication().evaluateExpressionGet(context, "#{ContentAnalysisBean.setId("+id+")}", String.class);
 
 		this.setRestid(id);
 

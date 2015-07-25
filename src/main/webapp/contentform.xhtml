@@ -14,25 +14,25 @@
 		<h:panelGrid columns="3" border="0">
 			<h:outputLabel for="Title" value="Title:" />
 			<h:inputText id="Title" value="#{ContentBean.title}" required="true"
-				maxlength="150" ><f:ajax execute="@all" render=":titleout"/></h:inputText>
+				maxlength="150" ><f:ajax execute="Title" render=":titleout" immediate="true"/></h:inputText>
 			<h:message for="Title" />
 
 			<h:outputLabel for="id" value="ID:" />
 			<h:inputText id="id" value="#{ContentBean.id}" required="true"
 				size="4" maxlength="4">
 				<f:validateLongRange minimum="1" maximum="9999" />
-				<f:ajax execute="@all" render=":idout"/>
+				<f:ajax execute="id" render=":idout"/>
 			</h:inputText>
 			<h:message for="id" />
 
 			<h:outputLabel for="language" value="Language:" />
-			<h:selectOneMenu id="gender" value="#{ContentBean.language}"
+			<h:selectOneMenu id="language" value="#{ContentBean.language}"
 				required="true">
 				<f:selectItem noSelectionOption="true" itemValue=""
 					itemLabel="--Select--" />
 				<f:selectItem itemValue="English" />
 				<f:selectItem itemValue="Italian" />
-				<f:ajax execute="@all" render=":idlang"/>
+				<f:ajax execute="language" render=":idlang"/>
 			</h:selectOneMenu>
 			<h:message for="language" />
 
@@ -40,7 +40,7 @@
 			<h:outputLabel for="Content" value="Content:" />
 			<h:inputTextarea id="Content" value="#{ContentBean.content}"
 				required="false" style="width:250px;height:100px" >
-				<f:ajax execute="@all" render=":contentout"/></h:inputTextarea>
+				<f:ajax execute="Content" render=":contentout"/></h:inputTextarea>
 			<h:message for="Content" />
 
 
@@ -88,7 +88,9 @@
 		<h:commandButton value="Submit"
 			action="#{pageController.navigatePage12}"
 			actionListener="#{ContentBean.submitButton}" >
+			
 <f:ajax execute="@all" render="@all"/>
+ <f:setPropertyActionListener target="#{ContentAnalysisBean.id}"  value="#{ContentBean.restid}" />
 </h:commandButton>
 
 
