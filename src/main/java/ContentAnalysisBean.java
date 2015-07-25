@@ -32,14 +32,14 @@ public class ContentAnalysisBean implements Serializable {
 
 	private String Title;
 	private String Content;
-	private List<Annotation> Annot;
+
 	private String quality;
 	private String measure;
 	private String Reccomandation;
 	private String id;
 	private String status;
 	private Collection<AnnotatedCollaborativeContentAnalysis> collectionannotatedcontent;
-	private List<DataContent> listdc;
+
 
 	public ContentAnalysisBean(){
 
@@ -53,17 +53,11 @@ public class ContentAnalysisBean implements Serializable {
 
 	@PostConstruct
 	   public void init(){
-		Annot = new ArrayList<Annotation>();
-		Annotation a = new Annotation(1,"correctness",3,4,"f2");
-		Annot.add(a);
+		
 		
 	   }
 
 
-
-	
-
-	
 
 	public String getStatus() {
 		return status;
@@ -88,33 +82,6 @@ public class ContentAnalysisBean implements Serializable {
 		this.collectionannotatedcontent = collectionannotatedcontent;
 	}
 
-
-
-	public List<DataContent> getListdc() {
-		return listdc;
-	}
-
-
-
-	public void setListdc(List<DataContent> listdc) {
-		this.listdc = listdc;
-	}
-
-
-
-	
-
-
-
-	public List<Annotation> getAnnot() {
-		return Annot;
-	}
-
-
-
-	public void setAnnot(List<Annotation> annot) {
-		Annot = annot;
-	}
 
 
 

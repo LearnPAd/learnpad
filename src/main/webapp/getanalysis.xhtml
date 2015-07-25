@@ -31,7 +31,7 @@
 		<h:commandButton value="Redirect to Page CF"
 			action="#{pageController.navigatePageCF}" />
 		<h:commandButton value="Refresh"
-			action="#{pageController.navigatePage12}" />
+			action="#{pageController.navigatePageGetAnalysis}" />
 
 		<h:commandButton value="go to 13" action="page13?faces-redirect=true" />
 
@@ -44,8 +44,7 @@
 
 
 
-		<h:outputLabel for="recOut1" value="ContentBean.restid:" />
-		<h:outputText id="recOut1" value="#{ContentBean.restid}" />
+	
 
 		<h:outputLabel for="recOut12" value="ContentAnalysisBean.id:" />
 		<h:outputText id="recOut12" value="#{ContentAnalysisBean.id}" />
@@ -53,8 +52,7 @@
 		<h:outputLabel for="recOut123" value="ContentAnalysisBean.status:" />
 		<h:outputText id="recOut123" value="#{ContentAnalysisBean.status}" />
 
-		<h:outputLabel for="recOut1234" value="ContentAnalysisBean.listdata:" />
-		<h:outputText id="recOut1234" value="#{ContentAnalysisBean.listdc}" />
+	
 
 
 
