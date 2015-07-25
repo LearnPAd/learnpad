@@ -9,13 +9,12 @@ public class DataContent implements Serializable{
 	private String element;
 	private String recommendation;
 	private String type;
-	private String color = "#FFFFFF";
-	
+	private String css = "err";
 	public DataContent(String element, String recommendation, String type) {
 		this.element = element;
 		this.recommendation = recommendation;
 		this.type = type;
-		this.color = "#FF0000";
+		this.css = "err";
 	}
 	
 	
@@ -24,17 +23,17 @@ public class DataContent implements Serializable{
 		this.element = element;
 		this.recommendation = null;
 		this.type = type;
-		this.color = "#FFFFFF";
+		this.css = "";
 	}
 	
 	
 	
-	public String getColor() {
-		return color;
+	public String getCss() {
+		return css;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
+	public void setCss(String css) {
+		this.css = css;
 	}
 
 	public String getElement() {

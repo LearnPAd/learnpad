@@ -2,55 +2,62 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ace="http://www.icefaces.org/icefaces/components"
-      xmlns:icecore="http://www.icefaces.org/icefaces/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets" 
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-     >
-     
-  
-     
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ace="http://www.icefaces.org/icefaces/components"
+	xmlns:icecore="http://www.icefaces.org/icefaces/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+
+
 <h:head>
 	<title>Result - Analysis</title>
+	<h:outputStylesheet library="css" name="style.css" />
 </h:head>
 <h:body>
 
-<h:panelGrid columns="2" border="1">
-				<f:facet name="header">
+	<h:panelGrid columns="2" border="1">
+		<f:facet name="header">
 			Content Analysis Information of #{DataContentAnalysisbean.acca.type}
 		</f:facet>
 
-				<h:outputLabel for="label_oq" value="Overall Quality" />
-				<h:outputText id="label_oq"
-					value="#{DataContentAnalysisbean.acca.overallQuality}" />
+		<h:outputLabel for="label_oq" value="Overall Quality" />
+		<h:outputText id="label_oq"
+			value="#{DataContentAnalysisbean.acca.overallQuality}" />
 
-				<h:outputLabel for="label1_oqm"
-					value="Overall Quality Measure" />
-				<h:outputText id="label1_oqm"
-					value="#{DataContentAnalysisbean.acca.overallQualityMeasure}" />
+		<h:outputLabel for="label1_oqm" value="Overall Quality Measure" />
+		<h:outputText id="label1_oqm"
+			value="#{DataContentAnalysisbean.acca.overallQualityMeasure}" />
 
-				<h:outputLabel for="label2_or"
-					value="Overall Recommendations" />
-				<h:outputText id="label2_or"
-					value="#{DataContentAnalysisbean.acca.overallRecommendations}" />
-					</h:panelGrid>
-	
-	 <br/>
-	
-<c:forEach items="#{DataContentAnalysisbean.listdata}" var="data"
-			varStatus="status">
-			<c:if test="#{status.first}"> <br/><br/> <h:outputText style="font-weight: bold;font-size:200%;" value="#{data.type}:" /> <br/><br/> </c:if>
-			<h:outputText
-				id="ciao1_#{status.index}" value="#{data.element}" style="background-color: #{data.color};white-space: pre-wrap;"  />
-				
-			 <ace:tooltip rendered="#{data.recommendation ne null}"  id="d_#{status.index}" for="ciao1_#{status.index}" forElement="ciao1_#{status.index}" >
-			 <h:outputText  value="#{data.recommendation}"/>
-			</ace:tooltip>  
-		</c:forEach>
- <br/>
-	
+		<h:outputLabel for="label2_or" value="Overall Recommendations" />
+		<h:outputText id="label2_or"
+			value="#{DataContentAnalysisbean.acca.overallRecommendations}" />
+	</h:panelGrid>
+
+	<br />
+
+	<c:forEach items="#{DataContentAnalysisbean.listdata}" var="data"
+		varStatus="status">
+		<c:if test="#{status.first}">
+			<br />
+			<br />
+			<h:outputText style="font-weight: bold;font-size:200%;"
+				value="#{data.type}:" />
+			<br />
+			<br />
+		</c:if>
+		<h:outputText id="ciao1_#{status.index}" value="#{data.element}"
+			style="white-space: pre-wrap;" styleClass="#{data.css}" />
+
+		<ace:tooltip rendered="#{data.recommendation ne null}"
+			id="d_#{status.index}" for="ciao1_#{status.index}"
+			forElement="ciao1_#{status.index}">
+			<h:outputText value="#{data.recommendation}" />
+		</ace:tooltip>
+	</c:forEach>
+	<br />
+
 </h:body>
 </html>
