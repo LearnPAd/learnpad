@@ -1,14 +1,11 @@
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.ws.rs.client.Client;
@@ -17,7 +14,6 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
-import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 
 
