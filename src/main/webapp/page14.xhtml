@@ -18,6 +18,25 @@
 </h:head>
 <h:body>
 
+<h:panelGrid columns="2" border="1">
+				<f:facet name="header">
+			Content Analysis Information of #{DataContentAnalysisbean.acca.type}
+		</f:facet>
+
+				<h:outputLabel for="label_oq" value="Overall Quality" />
+				<h:outputText id="label_oq"
+					value="#{DataContentAnalysisbean.acca.overallQuality}" />
+
+				<h:outputLabel for="label1_oqm"
+					value="Overall Quality Measure" />
+				<h:outputText id="label1_oqm"
+					value="#{DataContentAnalysisbean.acca.overallQualityMeasure}" />
+
+				<h:outputLabel for="label2_or}"
+					value="Overall Recommendations" />
+				<h:outputText id="label2_or"
+					value="#{DataContentAnalysisbean.acca.overallRecommendations}" />
+					</h:panelGrid>
 	
 	 <br/>
 	
