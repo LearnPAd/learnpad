@@ -9,13 +9,12 @@ public class DataContent implements Serializable{
 	private String element;
 	private String recommendation;
 	private String type;
-	private String color = "#FFFFFF";
-	
+	private String color = "display: inline-block;position:relative;background: url(http://www.phpied.com/images/underline.gif) bottom repeat-x;";
 	public DataContent(String element, String recommendation, String type) {
 		this.element = element;
 		this.recommendation = recommendation;
 		this.type = type;
-		this.color = "#FF0000";
+		this.color = "display: inline-block;position:relative;background: url(http://www.phpied.com/images/underline.gif) bottom repeat-x;";
 	}
 	
 	
@@ -24,7 +23,7 @@ public class DataContent implements Serializable{
 		this.element = element;
 		this.recommendation = null;
 		this.type = type;
-		this.color = "#FFFFFF";
+		this.color = "";
 	}
 	
 	
