@@ -21,10 +21,15 @@ public class PageController implements Serializable {
 		return "page2?faces-redirect=true";
 	}
 	
-	public String navigatePage12() {
-		System.out.println("Redirect to Page 12");
+	public String navigatePageGetAnalysis() {
+		System.out.println("Redirect to Page getanalysis");
 		
-		return "page12?faces-redirect=true";
+		return "getanalysis?faces-redirect=true";
+	}
+	
+	public String navigatepageAnalysis(){
+		System.out.println("Redirect to Page Analysis");
+		return "pageAnalysis?faces-redirect=true";
 	}
 	
 	public String navigatePageCF() {

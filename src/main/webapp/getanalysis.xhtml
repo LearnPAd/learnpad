@@ -99,7 +99,7 @@
 				<f:facet name="footer">
 					<h:panelGroup style="display:block; text-align:center">
 						<h:commandButton id="button_#{status.index}" value="#{data.type}"
-							action="page14?faces-redirect=true"
+							action="#{pageController.navigatepageAnalysis}"
 							actionListener="#{DataContentAnalysisbean.setAcca(data)}" />
 					</h:panelGroup>
 				</f:facet>
