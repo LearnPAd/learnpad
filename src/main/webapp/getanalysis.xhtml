@@ -82,7 +82,7 @@
 
 				<h:outputLabel for="label_#{status.index}" value="Overall Quality" />
 				<h:outputText id="label_#{status.index}"
-					value="#{data.overallQuality}" />
+					value="#{data.overallQuality}"  />
 
 				<h:outputLabel for="label1_#{status.index}"
 					value="Overall Quality Measure" />
@@ -98,7 +98,9 @@
 					<h:panelGroup style="display:block; text-align:center">
 						<h:commandButton id="button_#{status.index}" value="#{data.type}"
 							action="#{pageController.navigatepageAnalysis}"
-							actionListener="#{DataContentAnalysisbean.setAcca(data)}" />
+							actionListener="#{DataContentAnalysisbean.listener}" >
+							 <f:attribute name="valdata" value="#{data}" />  
+							</h:commandButton>
 					</h:panelGroup>
 				</f:facet>
 			</h:panelGrid>
