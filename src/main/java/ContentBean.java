@@ -48,7 +48,7 @@ public class ContentBean implements Serializable{
 	private String Language;
 	private String restid;
 	private String filecontent;
-	
+	private String filename;
 	private boolean Correctness;
 	private boolean Simplicity;
 	private boolean ContentClarity;
@@ -224,6 +224,7 @@ public class ContentBean implements Serializable{
 				Path path = Paths.get(fileInfo.getFile().getAbsolutePath());
 				try {
 					filecontent = 	new String(Files.readAllBytes(path));
+					filename = fileInfo.getFileName();
 					System.out.println(filecontent);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
@@ -242,11 +243,14 @@ public class ContentBean implements Serializable{
 
 		CollaborativeContentAnalysis cca = new CollaborativeContentAnalysis();
 		cca.setLanguage(this.getLanguage());
-		cca.setCollaborativeContent(new CollaborativeContent(String.valueOf(this.getId()), this.getTitle()));
-		cca.getCollaborativeContent().setContent(new eu.learnpad.ca.rest.data.Content());
+		
 		if(filecontent!=null){
+			cca.setCollaborativeContent(new CollaborativeContent(String.valueOf(this.getId()), this.filename));
+			cca.getCollaborativeContent().setContent(new eu.learnpad.ca.rest.data.Content());
 			cca.getCollaborativeContent().getContent().setContent(filecontent);
 		}else{
+			cca.setCollaborativeContent(new CollaborativeContent(String.valueOf(this.getId()), this.getTitle()));
+			cca.getCollaborativeContent().setContent(new eu.learnpad.ca.rest.data.Content());
 			cca.getCollaborativeContent().getContent().setContent(getContent());
 		}
 		cca.setQualityCriteria(new QualityCriteria());

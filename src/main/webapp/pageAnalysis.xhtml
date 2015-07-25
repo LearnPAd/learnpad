@@ -20,7 +20,8 @@
 
 	<h:panelGrid columns="2" border="1">
 		<f:facet name="header">
-			Content Analysis Information of #{DataContentAnalysisbean.acca.type}
+			Content Analysis Information of #{DataContentAnalysisbean.acca.type} <br/>
+		Title:	#{DataContentAnalysisbean.acca.collaborativeContent.title}
 		</f:facet>
 
 		<h:outputLabel for="label_oq" value="Overall Quality" />
@@ -58,6 +59,7 @@
 		</ace:tooltip>
 	</c:forEach>
 	<br />
-
+<br />
+<br />
 </h:body>
 </html>
