@@ -1,6 +1,6 @@
 http://www.nycourts.gov/lawlibraries/glossary.shtml
 
-acknowledgment: the act of going before a qualified officer (e.g., Clerk) and declaring the validity of the document. The officer certifies same, whose certification is known as the acknowledgment
+#acknowledgment: the act of going before a qualified officer (e.g., Clerk) and declaring the validity of the document. The officer certifies same, whose certification is known as the acknowledgment
 acquit: the act of freeing a person from the charge of an offense by means of a decision, verdict or other legal process; to discharge
 action: a civil judicial proceeding whereby one party prosecutes another for a wrong done or for protection of a right or prevention of a wrong; requires service of process on adversary party or potentially adversary party
 actual place of business: Any location that the defendant, through regular solicitation or advertisement, has held out as its place of business (sec. 308.6 CPLR).
@@ -13,24 +13,24 @@ affiant: one who swears to an affidavit; deponent
 affidavit: a sworn or affirmed statement made in writing and signed; if sworn, it is notarized
 affinity: Related by marriage; family relation from one's spouse's family.
 affidavit of service: an affidavit intended to certify the service of a writ, notice, or other document
-affirm: an act of declaring something to be true under the penalty of perjury by a person who conscientiously declines to take an oath for religious or other pertinent reasons
-affirmation: A solemn and formal declaration under penalties of perjury that a statement is true, without an oath.
-affirmed: Upheld, agreed with (e.g.,The Appellate Court affirmed the judgment of the City Court).
-allegation: the assertion, declaration, or statement of a party to an action, made in a pleading, setting out what the party expects to prove
+#affirm: an act of declaring something to be true under the penalty of perjury by a person who conscientiously declines to take an oath for religious or other pertinent reasons
+#affirmation: A solemn and formal declaration under penalties of perjury that a statement is true, without an oath.
+#affirmed: Upheld, agreed with (e.g.,The Appellate Court affirmed the judgment of the City Court).
+#allegation: the assertion, declaration, or statement of a party to an action, made in a pleading, setting out what the party expects to prove
 allege: To assert a fact in a pleading.
 alternate juror: a juror selected as substitute in case another juror must leave the jury panel
 amend: To change.
 amicus curiae: A Friend of the Court. A non-party to a proceeding that the Court permits to present its views.
-annul: to make void, as to dissolve the bonds of marriage
-answer: a paper submitted by a defendant in which he/she responds to and/or denies the allegations of the plaintiff
-appeal: a proceeding to have a case examined by an appropriate higher court to see if a lower court's decision was made correctly according to law
+#annul: to make void, as to dissolve the bonds of marriage
+#answer: a paper submitted by a defendant in which he/she responds to and/or denies the allegations of the plaintiff
+#appeal: a proceeding to have a case examined by an appropriate higher court to see if a lower court's decision was made correctly according to law
 appearance: the participation in the proceedings by a party summoned in an action, either in person or through an attorney
 appellant: the party who takes an appeal to a higher court
 appellee: the party against whom an appeal is taken
 arbitration: the submission voluntarily or involuntarily of a disputed matter to selected persons and the substitution of their award or decision for the judgment of a court or its confirmation by the court as a judgment of the court
-argument: a reason given in proof or rebuttal
-at issue: whenever the parties to a suit come to a point in the pleadings which is affirmed on one side and denied on the other, they are said to be "at issue"
-attachment: The taking of property into legal custody by an enforcement officer (see specialty section: Recovery of Chattel).
+#argument: a reason given in proof or rebuttal
+#at issue: whenever the parties to a suit come to a point in the pleadings which is affirmed on one side and denied on the other, they are said to be "at issue"
+#attachment: The taking of property into legal custody by an enforcement officer (see specialty section: Recovery of Chattel).
 attestation: the act of witnessing an instrument in writing at the request of the party making the same, and subscribing it as a witness
 attorney of record: attorney whose name appears in the permanent records or files of a case
 award: A decision of an Arbitrator.
@@ -43,10 +43,10 @@ bill of costs: A written statement of the itemized taxable costs and disbursemen
 bill of particulars: factual detail submitted by a claimant after a request by the adverse party which details, clarifies or explains further the charges and/or facts alleged in a pleading
 brief: a written or printed document prepared by the lawyers on each side of a dispute and submitted to the court in support of their arguments - a brief includes the points of law which the lawyer wished to establish, the arguments the lawyer uses, and the legal authorities on which the lawyer rests his/her conclusions.
 
-calendar: a schedule of matters to be heard in court
+#calendar: a schedule of matters to be heard in court
 calendar call: the calling of matters requiring parties, or their attorneys, to appear and be heard, usually done at the beginning of each court day
 caption: in a pleading, deposition or other paper connected with a case in court, it is the heading or introductory clause which shows the names of the parties, name of the court, number of the case on the docket or calendar, etc.
-case file: the court file containing papers submitted in a case
+#case file: the court file containing papers submitted in a case
 cause of action: grounds on which a legal action may be brought (e.g., property damage, personal injury, goods sold and delivered, work labor and services).
 certified copy: Copy of a document signed and certified as a true copy of an original by the Clerk of the Court or other authorized persons (e.g., lawyer).
 certificate of readiness: a document attesting that the parties in a lawsuit are ready to go to trial
@@ -62,30 +62,30 @@ commissioner of jurors: a person in charge of summoning citizens for jury duty
 commitment: an order to commit a person to the custody of a sheriff, commissioner of corrections, or mental health facility
 common law: the body of law which originated in England and upon which present day U.S. law is based
 compensatory damages: reimbursement for actual loss or injury, as distinguished from exemplary or punitive damages
-complaint: the initial pleading in an action formally setting forth the facts and reasons on which the demand for relief is based
+#complaint: the initial pleading in an action formally setting forth the facts and reasons on which the demand for relief is based
 condemnation: see eminent domain
 consanguinity: Related by blood.
-conservator: one who is appointed by a court to manage the affairs of a protected person
+#conservator: one who is appointed by a court to manage the affairs of a protected person
 consolidated action: two or more actions involving a common question of law or fact may be consolidated by the court; the actions then are merged, becoming one action with one title, and they result in one verdict and one judgment
 contempt of court: an act or omission tending to obstruct or interfere with the orderly administration of justice or to impair the dignity of the court or respect for its authority
-consolidate: A joining of two or more actions to be tried together.
+#consolidate: A joining of two or more actions to be tried together.
 contested action: an action which involves disputed issue(s) of fact or law
-contract: a legally enforceable agreement between two or more persons or parties (oral or written)
+#contract: a legally enforceable agreement between two or more persons or parties (oral or written)
 corroborate: to strengthen; to add weight by additional evidence
 costs: The statutory sum awarded to the successful party when a judgment is entered. (Section 1901 all Court Acts.)
 counsel: Lawyer or attorney.
-counterclaim: 1. In civil actions, a claim brought by a defendant against the plaintiff for an unlimited amount of money. 2. In small claims/commercial claims, a claim brought by a defendant against the plaintiff for an amount not to exceed the maximum monetary jurisdiction allowed in the small claims/commercial claims court.
+counter claim: 1. In civil actions, a claim brought by a defendant against the plaintiff for an unlimited amount of money. 2. In small claims/commercial claims, a claim brought by a defendant against the plaintiff for an amount not to exceed the maximum monetary jurisdiction allowed in the small claims/commercial claims court.
 court of limited jurisdiction: A City Court, District Court or other court that has jurisdiction only over actions authorized by law.
 court reporter: a person who transcribes by shorthand or stenographically takes down testimony during court proceedings
-crossclaim: claim litigated by co-defendants or co-plaintiffs against each other and not against a party on the opposite side of the litigation
+cross claim: claim litigated by co-defendants or co-plaintiffs against each other and not against a party on the opposite side of the litigation
 cross- examination: questioning by a party or his attorney of an adverse party or a witness called by an adverse party
 
-damages: Monetary compensation or indemnity for wrong or injury caused by the violation of a legal right. 1. Compensatory damages - Reimbursement for actual loss or injury. 2. Exemplary damages - Monetary award by way of punishment for injury caused by aggravated circumstances or malice, in addition to compensation for the injury. 3. Punitive damages - Monetary compensation awarded in excess of ordinary damages, as punishment for a gross wrong.
-date-stamp: the stamping on a document of the date it is received
-decision: the determination reached by a court in any judicial proceeding, which is the basis of the judgment
+#damages: Monetary compensation or indemnity for wrong or injury caused by the violation of a legal right. 1. Compensatory damages - Reimbursement for actual loss or injury. 2. Exemplary damages - Monetary award by way of punishment for injury caused by aggravated circumstances or malice, in addition to compensation for the injury. 3. Punitive damages - Monetary compensation awarded in excess of ordinary damages, as punishment for a gross wrong.
+#date-stamp: the stamping on a document of the date it is received
+#decision: the determination reached by a court in any judicial proceeding, which is the basis of the judgment
 declaratory judgment: one fixing rights of parties without ordering anything to be done
-decree: a decision or order of the court - a final decree is one which fully and finally disposes of the litigation; an interlocutory decree is a provisional or preliminary decree which is not final
-default: a "default" in an action of law occurs when a defendant omits to plead or otherwise defend within the time allowed, or fails to appear at the trial
+#decree: a decision or order of the court - a final decree is one which fully and finally disposes of the litigation; an interlocutory decree is a provisional or preliminary decree which is not final
+#default: a "default" in an action of law occurs when a defendant omits to plead or otherwise defend within the time allowed, or fails to appear at the trial
 defendant: the party being sued or the party accused of committing the offense charged
 deliberation: the process by which a panel of jurors comes to a decision on a verdict
 de novo: From the beginning, a new trial.
@@ -97,11 +97,11 @@ discovery (or disclosure): a proceeding whereby one party to an action may be in
 dismissal: termination of a proceeding for a procedurally prescribed reason
 dismissal with prejudice: Action dismissed on the merits which prevents renewal of the same claim or cause of action.
 dismissal without prejudice: Action dismissed, not on the merits, which may be re-instituted.
-dispose: the act of terminating a judicial proceeding
-disposition: the result of a judicial proceeding by withdrawal, settlement, order, judgment or sentence
+#dispose: the act of terminating a judicial proceeding
+#disposition: the result of a judicial proceeding by withdrawal, settlement, order, judgment or sentence
 dissolution of marriage: the effect of a judgment of dissolution of marriage is to restore the parties to the state of unmarried persons
 docket: a document which summarizes a case
-domicile: that place where a person has a true and permanent home - a person may have several residences, but only one domicile
+#domicile: that place where a person has a true and permanent home - a person may have several residences, but only one domicile
 
 easement: right held by one person to use the land of another for a special purpose
 eminent domain: the power to take private property for public use by condemnation, i.e., the legal process by which real estate of a private owner is taken for public use without the owner's consent, but upon the award and payment of just compensation
@@ -112,24 +112,24 @@ estop: to stop, bar, or impede
 estoppel: a rule of law which prevents a person from alleging or denying a fact, because of his/her own previous act
 et al: an abbreviation of et alia meaning "and others"
 et ano: And another.
-evidence: a form of proof or probative matter legally presented at the trial of an issue by the acts of the parties and through witnesses, records, documents, concrete objects, etc., for the purpose of inducing belief in the minds of the court or the jury
+#evidence: a form of proof or probative matter legally presented at the trial of an issue by the acts of the parties and through witnesses, records, documents, concrete objects, etc., for the purpose of inducing belief in the minds of the court or the jury
 eviction, warrant of: Legal mandate authorizing an enforcement officer to remove persons and their personal property from their premises.
 examination before trial (EBT): a formal interrogation of parties and witnesses before trial
-execution: (1) the performance of all acts necessary to render a written instrument complete, such as signing, sealing, acknowledging, and delivering the instruments (2) supplementary proceedings to enforce a judgment, which, if monetary, involves a direction to the sheriff to take the necessary steps to collect the judgment
-exemplification: An official transcript of a document from public records, made in a form to be used as evidence and authenticated or certified as a true copy, (e.g. exemplification of a judgment).
+#execution: (1) the performance of all acts necessary to render a written instrument complete, such as signing, sealing, acknowledging, and delivering the instruments (2) supplementary proceedings to enforce a judgment, which, if monetary, involves a direction to the sheriff to take the necessary steps to collect the judgment
+#exemplification: An official transcript of a document from public records, made in a form to be used as evidence and authenticated or certified as a true copy, (e.g. exemplification of a judgment).
 exhibit: a paper, document or other article produced and exhibited to a court during a trial or hearing and, on being accepted, is marked for identification or admitted in evidence
 ex parte: a proceeding, order, motion, application, request, submission etc., made by or granted for the benefit of one party only; done for, in behalf of, or on application of one party only
 expunge: the authorized act of physically destroying information, in files, computers or other depositories
 
 fair preponderance: Level of proof in a civil action; more than half; more convincing.
 fee: a fixed charge for service rendered on behalf of court
-fiduciary: a person or institution who manages money or property for another, and who must exercise a standard of care in such management activity imposed by law or contract
-finding: the court's or jury's decision on issues of fact
-fine: a sum imposed as punishment for an offense
+#fiduciary: a person or institution who manages money or property for another, and who must exercise a standard of care in such management activity imposed by law or contract
+#finding: the court's or jury's decision on issues of fact
+#fine: a sum imposed as punishment for an offense
 first paper: Paper instituting the action (e.g., Summons, Motion, Infants's Compromise).
 foreclosure: a legal proceeding that bars or extinguishes right
 foreperson: a member of a jury, usually the first juror called and sworn, or a juror elected by fellow jurors, who delivers the verdict to the court
-forum: A judicial tribunal or a place of jurisdiction. A meeting for discussion.
+#forum: A judicial tribunal or a place of jurisdiction. A meeting for discussion.
 full faith and credit: A requirement of the U.S. Constitution that the records and judicial proceedings of one state shall have the same effect in courts of other states with the same jurisdiction.
 
 garnish: to attach a portion of the wages or other property of a debtor to secure repayment of the debt
@@ -146,7 +146,7 @@ impleader: An addition of a third party to an action by the defendant.
 in camera: in the judge's chamber out of the presence of the jury and the public
 incompetency: lack of legal qualification or fitness (physical, intellectual or moral fitness) to discharge a legally required duty or to handle one's own affairs; also relates to matters not admissible in evidence
 indemnity: Security against loss or damages, exemption from penalty or liability, amount paid as compensation under an indemnity agreement.
-index number: a number issued by the county clerk, which is used to identify a case - in civil matters there is usually a charge
+#index number: a number issued by the county clerk, which is used to identify a case - in civil matters there is usually a charge
 individual assignment system (IAS): a system, established for all civil actions and proceedings heard in Supreme and County Court, which provides for the continuous supervision of each action and proceeding by a single judge (NYS)
 indorsed complaint: A statement of the nature and substance of the cause of action, for money only, which indicates the amount of the claim. It may be set forth upon the summons or attached to it. INFANT An individual who has not attained the age of eighteen (18).
 infant's compromise: a civil proceeding or motion for obtaining court approval of the settlement of an infant's claim
@@ -179,28 +179,16 @@ lien: a claim upon the property of another as security for some debt
 litigant: Party to a legal action
 long form order: an order prepared by counsel for signature of the court (usually based on a memorandum decision)
 
-maintenance: the furnishing by one person to another the means of living, or food, clothing, shelter, etc., particularly where the legal relations of the parties is such that one is bound to support the other, as between parent and child or between spouses
+#maintenance: the furnishing by one person to another the means of living, or food, clothing, shelter, etc., particularly where the legal relations of the parties is such that one is bound to support the other, as between parent and child or between spouses
 material witness: person whose testimony on some issue has been judicially determined as relevant and substantial
 memorandum decision: a written opinion or decision of a court on a litigated question, giving the court's conclusion on factual and legal issues (this may constitute the order of the court if so stated)
 memorandum opinion: memorandum in writing, which is a very brief statement of the reasons for a decision, without detailed explanation
 military calendar: To hold in suspense an action that cannot reasonably be tried because a party or witness is in the military service.
 minute book: A Court Clerk's Journal of Courtroom proceedings.
-minutes: a record of court proceedings kept by noting significant events
+#minutes: a record of court proceedings kept by noting significant events
 mistrial: a trial which has been terminated and declared void prior to the reaching of verdict due to extraordinary circumstance, serious prejudicial misconduct or hung jury - it does not result in a judgment for any party but merely indicates a failure of trial
 moot: (adj.) unsettled, undecided, not necessary to be decided
-motion: an oral or written request to the court made by a party for a ruling or order
-movant: the party who initiates the motion
-
-maintenance: the furnishing by one person to another the means of living, or food, clothing, shelter, etc., particularly where the legal relations of the parties is such that one is bound to support the other, as between parent and child or between spouses
-material witness: person whose testimony on some issue has been judicially determined as relevant and substantial
-memorandum decision: a written opinion or decision of a court on a litigated question, giving the court's conclusion on factual and legal issues (this may constitute the order of the court if so stated)
-memorandum opinion: memorandum in writing, which is a very brief statement of the reasons for a decision, without detailed explanation
-military calendar: To hold in suspense an action that cannot reasonably be tried because a party or witness is in the military service.
-minute book: A Court Clerk's Journal of Courtroom proceedings.
-minutes: a record of court proceedings kept by noting significant events
-mistrial: a trial which has been terminated and declared void prior to the reaching of verdict due to extraordinary circumstance, serious prejudicial misconduct or hung jury - it does not result in a judgment for any party but merely indicates a failure of trial
-moot: (adj.) unsettled, undecided, not necessary to be decided
-motion: an oral or written request to the court made by a party for a ruling or order
+#motion: an oral or written request to the court made by a party for a ruling or order
 movant: the party who initiates the motion
 
 natural person: Individual (does not include corporate entities)
@@ -214,12 +202,12 @@ nunc pro tunc: (now for then) presently considered as if occurring at an earlier
 oath: a swearing to the truth of a statement which, if made by one who knows it to be false, may subject one to a prosecution for perjury or other legal proceedings
 opening statement: the first address of counsel prior to offering of evidence
 oral proof: evidence given by word of mouth; the oral testimony of a witness
-order: an oral or written direction of a court or judge
+#order: an oral or written direction of a court or judge
 
-natural person: Individual (does not include corporate entities)
+#natural person: Individual (does not include corporate entities)
 negligence: conduct which falls below the standard established by law for the protection of others against unreasonable risk of harm
 non seq. (Non sequitur): It does not follow
-note of issue: a document filed with the court placing a cause on the trial calendar
+#note of issue: a document filed with the court placing a cause on the trial calendar
 notice of entry: A notice with an affidavit of service stating that the attached copy of an entered order or judgment has been served by a party on another party.
 notice of petition: Written notice of a petitioner that a hearing will be held in a court to determine the relief requested in an annexed petition.
 nunc pro tunc: (now for then) presently considered as if occurring at an earlier date; effective retroactively
@@ -227,12 +215,12 @@ nunc pro tunc: (now for then) presently considered as if occurring at an earlier
 oath: a swearing to the truth of a statement which, if made by one who knows it to be false, may subject one to a prosecution for perjury or other legal proceedings
 opening statement: the first address of counsel prior to offering of evidence
 oral proof: evidence given by word of mouth; the oral testimony of a witness
-order: an oral or written direction of a court or judge
+#order: an oral or written direction of a court or judge
 
 palimony: term has meaning similar to `alimony' except that award, settlement or agreement arises out of non-marital relationship of parties (i.e., non-marital partners)
 parcel: a tract or a plot of land
-part: a court room where specified business of a court is to be conducted by a judicial officer
-party: Person having a direct interest in a legal matter, transaction or proceeding.
+#part: a court room where specified business of a court is to be conducted by a judicial officer
+#party: Person having a direct interest in a legal matter, transaction or proceeding.
 peremptory challenge: the challenge which may be used to reject a certain number of prospective jurors without assigning any reason
 perjury: the act of lying or stating falsely under oath
 petition: a formal written request to a court, which initiates a special proceeding
@@ -245,7 +233,7 @@ power of attorney: instrument authorizing one to act legally for another either 
 precedent: previously adjudged action or decision on same or similar point, serving as a rule or example for present guidance
 proceeding: the succession of events constituting the process by which judicial action is invoked and utilized pursuant to procedure
 preclude: To prevent or stop
-process: a legal means, such as a summons, used to subject a defendant in a lawsuit to the jurisdiction of the court; broadly, refers to all writs issued in the course of a legal proceeding
+#process: a legal means, such as a summons, used to subject a defendant in a lawsuit to the jurisdiction of the court; broadly, refers to all writs issued in the course of a legal proceeding
 pro se: for oneself; in one's own behalf; in person; a pro se party is one who, without representation, acts as his/her own attorney
 purge: To atone for an offense, to submit to a court's mandate (i.e., to purge oneself of contempt of court)
 
@@ -257,18 +245,18 @@ remand: to send a case back from an appellate court to the lower court from whic
 remittitur: legal process by which an appellate court transmits to the court below the proceedings before it, together with its decision, for such further action and entry of judgment as is required by the decision of the appellate court
 replevin: an action brought for the owner of items to recover possession of those items when those items were wrongfully taken or are being wrongfully kept
 reply: a plaintiff's response to a defendant's answer when the answer contains a counterclaim
-res: Subject matter
+#res: Subject matter
 res judicata: a thing judicially acted upon or decided
 respondent: One who formally answers the allegations stated in a petition which has been filed with the court. Also known as a defendant in a civil action
 restore/ reinstate to calendar: to reinstate the action to active inventory
 
 sanction: a penalty or punishment provided as a means of enforcing obedience to a law, rule or code; also, an authorization
-satisfaction: Discharge of a legal obligation, as in a "Satisfaction of Judgment."
+#satisfaction: Discharge of a legal obligation, as in a "Satisfaction of Judgment."
 seal: to close a case file from public scrutiny - in instances of youthful offenders and acquittal, sealing orders are issued by the court to prevent the public from obtaining information on the cases
 security for costs: An undertaking required by a court to cover the payment of costs if the judgment is against the depositor.
-separation: in matrimonial law, a cessation of cohabitation of husband and wife by mutual agreement, or in the case of "judicial separation," under the decree of a court
+#separation: in matrimonial law, a cessation of cohabitation of husband and wife by mutual agreement, or in the case of "judicial separation," under the decree of a court
 sequester: to separate, set apart, hold aside for safekeeping or awaiting some determination; jurors are sequestered when not permitted to return home until the case is closed
-service: the exhibition or delivery of a writ, notice, etc., officially notifying a person of some action or proceeding in which that person is concerned
+#service: the exhibition or delivery of a writ, notice, etc., officially notifying a person of some action or proceeding in which that person is concerned
 short form order: an order prepared by the court
 show cause: an order, decree, execution, etc., to appear as directed, and present to the court such reasons and considerations as one has to offer why it should not be confirmed, take effect, be executed, or as the case may be
 sine die: Without a date, as in an action being adjourned sine die. Legal process which commands a witness to appear and testify.
@@ -279,16 +267,16 @@ special referee (or referee): the special referee has the authority to exercise 
 special term: a court part set aside to hear specific types of cases
 special verdict: a special finding of the facts of a case by a jury leaving to the court the application of the law to the facts thus found
 statute of limitations: a statute that declares that no actions of a specified kind be commenced after a specified period of time after the cause of action arose
-stay: a stopping or suspension of procedure or execution by judicial or executive order
+#stay: a stopping or suspension of procedure or execution by judicial or executive order
 stipulation: an agreement by attorneys on opposite sides of a case as to any matter pertaining to the proceedings or trial - most stipulations must be in writing
-stpulation of settlement: A formal agreement between litigants and/or their attorneys resolving their dispute.
+stipulation of settlement: A formal agreement between litigants and/or their attorneys resolving their dispute.
 sua sponte: upon its own motion, initiation or will; without a prior request
 subpoena: Legal process which commands a witness to appear and testify.
 subpoena duces tecum: a subpoena requiring a person to produce specified documents or records in a trial
 subpoena (judicial): an order issued by the court to a person to attend court and give testimony
 subpoena duces tecum (judicial): an order issued by the court requiring a person to produce specified documents or records in a trial
 subsequent proceedings: Any proceeding or action taken with respect to a specific case after it has been filed with the court.
-suit: A legal action or proceeding.
+#suit: A legal action or proceeding.
 sum certain: Liquidated damages pursuant to contract, promissory note, law, etc.
 summary judgment: a determination in an action on the grounds that there is no genuine issue of fact
 summons: A form used to commence a civil action and acquire jurisdiction over a party
@@ -308,9 +296,9 @@ undertaking: Deposit of a sum of money or filing of a bond in court.
 
 vacate: to set aside a previous action
 venire: technically, a writ summoning persons to court to act as jurors; popularly used as meaning the body of names thus summoned
-venue:1. Geographical place where some legal matter occurs or may be determined. 2. The geographical area within which a court has jurisdiction. It relates only to a place or territory within which either party may require a case to be tried. A defect in venue may be waived by the parties.
+#venue:1. Geographical place where some legal matter occurs or may be determined. 2. The geographical area within which a court has jurisdiction. It relates only to a place or territory within which either party may require a case to be tried. A defect in venue may be waived by the parties.
 verdict: the determination of a jury on the facts
-verification: confirmation of the correctness, truth or authenticity of pleading, account or other paper by an affidavit or oath
+#verification: confirmation of the correctness, truth or authenticity of pleading, account or other paper by an affidavit or oath
 voir dire: a questioning of prospective jurors by the attorneys, and, on application of any party, by the judge, to see if any of them should be disqualified or removed by challenge or examination
 
 waiver: an intentional and voluntary relinquishment of some known right

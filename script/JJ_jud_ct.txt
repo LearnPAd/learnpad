@@ -4,9 +4,9 @@ AKA: "Also known as". Used to list aliases or another name, or another spelling 
 
 Accelerated Rehabilitation: Also called AR. A program that gives persons charged with a crime or motor vehicle violation for the first time a second chance. The person is placed on probation for up to two years. If probation is completed satisfactorily, the charges are dismissed.
 
-Acknowledgement: The signature of a clerk or attorney certifying that the person filing the document has sworn that the contents are true, and/or that the document is signed by his or her free act and deed.
+#Acknowledgement: The signature of a clerk or attorney certifying that the person filing the document has sworn that the contents are true, and/or that the document is signed by his or her free act and deed.
 
-Action: Also called a case or lawsuit. A civil judicial proceeding where one party sues another for a wrong done, or to protect a right or to prevent a wrong.
+#Action: Also called a case or lawsuit. A civil judicial proceeding where one party sues another for a wrong done, or to protect a right or to prevent a wrong.
 
 Adjournment: Postponement of a court session until another time or place.
 
@@ -42,25 +42,25 @@ Alternative Sanctions: Criminal punishment that is less restrictive than incarce
 
 Amicus Curiae brief: A Latin term meaning “friend of the court.” An Amicus Curiae brief is filed by someone who is not a party to a case but has an interest in its outcome. A person who wants to file an amicus curiae brief usually has to get the court’s permission to do so.
 
-Annulment: A court order declaring that a marriage is invalid.
+#Annulment: A court order declaring that a marriage is invalid.
 
-Answer: A court document, or pleading, in a civil case, by which the defendant responds to the plaintiff's complaint.
+#Answer: A court document, or pleading, in a civil case, by which the defendant responds to the plaintiff's complaint.
 
-Appeal: Asking a higher court to review the decision or sentence of a trial court because the lower court made an error.
+#Appeal: Asking a higher court to review the decision or sentence of a trial court because the lower court made an error.
 
 Appeal Bond: Money paid to the court while taking an appeal to cover costs and damages to the other party, if the appeal is not successful.
 
-Appearance: The official court form filed with the court clerk which tells the court that you are representing yourself in a lawsuit or criminal case or that an attorney is representing you. All court notices and calendars will be mailed to the address listed on the form. When a defendant in a civil case files an appearance, the person is submitting to the court’s jurisdiction.
+#Appearance: The official court form filed with the court clerk which tells the court that you are representing yourself in a lawsuit or criminal case or that an attorney is representing you. All court notices and calendars will be mailed to the address listed on the form. When a defendant in a civil case files an appearance, the person is submitting to the court’s jurisdiction.
 
-Appellant: The party appealing a decision or judgment to a higher court.
+#Appellant: The party appealing a decision or judgment to a higher court.
 
-Appellee: The party against whom an appeal is taken.
+#Appellee: The party against whom an appeal is taken.
 
 Arbitration: Submitting a case or dispute to designated parties for a decision, instead of using a judge.
 
 Arraignment: The first court appearance of a person accused of a crime. The person is advised of his or her rights by a judge and may respond to the criminal charges by entering a plea. Usually happens the morning after a person is arrested.
 
-Arrest: When a person is taken into custody by a police officer and charged with a crime.
+#Arrest: When a person is taken into custody by a police officer and charged with a crime.
 
 Arrearages: Money for alimony and/or child support, which is overdue and unpaid.
 
@@ -68,7 +68,7 @@ Assignment List: A printed list of cases to be presented to the court for hearin
 
 Assistant Attorney General: An attorney who represents a state agency in civil cases.
 
-Attachment: A lien on property or assets to hold it to pay or satisfy any final judgment.
+#Attachment: A lien on property or assets to hold it to pay or satisfy any final judgment.
 
 Attorney of Record: Attorney whose name appears in the permanent records or files of a case.
 
@@ -82,7 +82,7 @@ Bail Bondsperson: A person who lends money to a defendant to pay for bail.
 
 Bail Commissioner: A state-appointed person who may set the amount of bond for persons detained at a police station prior to arraignment in court, and who recommends to the court the amount of bond that should be set for the defendant on each criminal case.
 
-Bar: Refers to attorneys as a group.
+#Bar: Refers to attorneys as a group.
 
 Best Interest of the Child: The standard a judge uses to decide custody and visitation issues.
 
@@ -104,7 +104,7 @@ Brief: A written document prepared by a lawyer or party on each side of a disput
 Broken Down Irretrievably: The most common reason for granting a divorce. It means there is no hope of the husband and wife getting back together again. Also known as "no-fault" divorce.
 
 
-Calendar: A list of court cases scheduled for a specific date and time; the civil and family court docket.
+#Calendar: A list of court cases scheduled for a specific date and time; the civil and family court docket.
 
 Calendar Call: The calling of cases scheduled for the day, usually done at the beginning of each court day.
 
@@ -122,21 +122,21 @@ Case Flow Coordinator: A person who keeps track of your case and supervises the 
 
 Central Transportation Unit: Persons in the Division of Juvenile Detention Services who provide safe and secure transportation services for juveniles detained at Juvenile Detention Centers, Alternative Detention Program and Girls’ Detention Program.
 
-Certify: To testify in writing; to make known or establish as a fact.
+#Certify: To testify in writing; to make known or establish as a fact.
 
 CGS: Abbreviation for Connecticut General Statutes  External Link - You are leaving the CT Judicial Branch website
 
-Challenge: Rejecting a potential juror.
+#Challenge: Rejecting a potential juror.
 
-Charge: Formal accusation of a crime.
+#Charge: Formal accusation of a crime.
 
 Charge to Jury: In trial practice, an address delivered by the court to the jury at the close of the case instructing the jury as to what principles of law they are to apply in reaching a decision. Civil | Criminal
 
 Chattels: All property except real property; personal property. For example: jewelry, clothing, furniture, and appliances.
 
-Child: Any person under the age of sixteen (16) years of age.
+#Child: Any person under the age of sixteen (16) years of age.
 
-Child Support: Money paid by a parent to help meet the financial needs of a child. 
+#Child Support: Money paid by a parent to help meet the financial needs of a child. 
 
 Chip Smith Charge: is an instruction to deadlocked jurors in civil and criminal cases, urging those jurors who disagree with the majority vote to reexamine the majority views in an effort to reach a unanimous verdict.
 
@@ -156,7 +156,7 @@ Community Services Coordinator: The person who refers a defendant to community s
 
 Community Service Labor Program: Also called CSLP. A community service program for persons charged with drug offenses. Upon successful completion of the community service sentence, the criminal case is dismissed.
 
-Complaint: A legal document that tells the court what you want, and is served with a summons on the defendant to begin the case.
+#Complaint: A legal document that tells the court what you want, and is served with a summons on the defendant to begin the case.
 
 Complex Litigation: A specialized docket designed for complex civil cases, where one judge hears the case from beginning to end. Criteria includes: multiple parties, large amounts of money, lengthy trial or complex legal issues.
 
@@ -164,17 +164,17 @@ Conditional Discharge: A disposition, in criminal cases, where the defendant mus
 
 Contempt of Court: A finding that someone disobeyed a court order. Can also  mean disrupting court, for example, by being loud or disrespectful in court.
 
-Continuance: The adjournment or postponement of a court case to another day.
+#Continuance: The adjournment or postponement of a court case to another day.
 
-Continuance Date: Date on which the case will next be heard in court.
+#Continuance Date: Date on which the case will next be heard in court.
 
-Contract: A legally enforceable agreement between two or more persons or parties.
+#Contract: A legally enforceable agreement between two or more persons or parties.
 
-Conviction: To be found guilty of committing a crime.
+#Conviction: To be found guilty of committing a crime.
 
-Costs: Expenses in prosecuting or defending a case in court. Usually does not include attorney’s fees.
+#Costs: Expenses in prosecuting or defending a case in court. Usually does not include attorney’s fees.
 
-Count: The different parts of a complaint, which could each be a basis or grounds for the lawsuit.
+#Count: The different parts of a complaint, which could each be a basis or grounds for the lawsuit.
 
 Counter Claim: A claim by the defendant in a civil action that the defendant is entitled to damages or other relief from the plaintiff.
 
@@ -201,13 +201,13 @@ Custody: A court order deciding where a child will live and how decisions about 
 Custody Affidavit: A sworn statement containing facts about a child involved in a case, including full name of the child, date of birth, current and past residences and other information as may be required by law.
 
 
-Damages: Money a party receives as compensation for a legal wrong.
+#Damages: Money a party receives as compensation for a legal wrong.
 
 Day Incarceration Center: Also called DIC. A community based program that provides monitoring, supervision and services to people who would otherwise be incarcerated. Day Incarceration Center clients are supervised during the daytime hours, seven days per week.
 
 Declaration: An unsworn statement of facts made by a party to the transaction, or by one who has an interest in the facts recounted.
 
-Default: To fail to respond or answer to the plaintiff’s claims by filing the required court document; usually an Appearance or an Answer.
+#Default: To fail to respond or answer to the plaintiff’s claims by filing the required court document; usually an Appearance or an Answer.
 
 Defendant: In civil cases, the person who is given court papers, also called a respondent. In criminal cases, the person who is arrested and charged with a crime.
 
@@ -217,17 +217,17 @@ Deposition: Testimony of a witness taken, under oath, in response to another par
 
 Detention Hearing or Detention Release Hearing: A hearing on the first business day after a juvenile is admitted to juvenile detention concerning the legality and appropriateness of continued detention of the juvenile. The detention decision must be reviewed at least every fifteen days.
 
-Discovery: A formal request by one party in a lawsuit to disclose information or facts known by other parties or witnesses.
+#Discovery: A formal request by one party in a lawsuit to disclose information or facts known by other parties or witnesses.
 
-Dismissal: A judge's decision to end the case.
+#Dismissal: A judge's decision to end the case.
 
 Dismissal Without Prejudice: A judges decision to end the case which permits the complainant or prosecutor to renew the case later. In contrast, dismissal "with prejudice" prevents the complainant or prosecutor to bring or maintain the same claim or action again.
 
-Dispose: Ending a legal case or a judicial proceeding.
+#Dispose: Ending a legal case or a judicial proceeding.
 
-Disposition: The manner in which a case is settled or resolved.
+#Disposition: The manner in which a case is settled or resolved.
 
-Dissolution: The legal end of a marriage, also called a divorce.
+#Dissolution: The legal end of a marriage, also called a divorce.
 
 Diversionary Programs: Community based programs that are used to keep eligible, convicted criminal offenders out of prison.
 
@@ -282,7 +282,7 @@ Filing: Giving the court clerk legal papers which become part of the case file.
 
 Financial Affidavit: Short | Long - A sworn statement of income, expenses, property (called assets) and debts (called liabilities).
 
-Finding: The court’s or jury’s decision on issues of fact.
+#Finding: The court’s or jury’s decision on issues of fact.
 
 Foreclosure: A court order ending the legal ownership of property.
 
@@ -291,11 +291,11 @@ Foreman: An elected member of a jury who delivers the verdict to the court.
 
 Garnishment: A court order to collect money or property. For example, a garnishment may be issued to an employer to pay part of an employee’s wages to someone else to pay a debt or judgment.
 
-GA - Geographical Area: Geographical Area. The court location where motor vehicle and most criminal cases are heard. There are 22 Geographical Areas in Connecticut.
+#GA - Geographical Area: Geographical Area. The court location where motor vehicle and most criminal cases are heard. There are 22 Geographical Areas in Connecticut.
 
 Grievance: A complaint filed against an attorney or judge, claiming an ethics violation.
 
-Guardian: A person who has the power and duty to take care of another person and/or to manage the property and rights of another person who is considered incapable of taking care of his or her personal affairs.
+#Guardian: A person who has the power and duty to take care of another person and/or to manage the property and rights of another person who is considered incapable of taking care of his or her personal affairs.
 
 Guardian Ad Litem: A person, usually a parent, appointed by the court to represent a child or unborn person in a court case. If a family member is not available, a judge may appoint an attorney.
 
@@ -313,19 +313,19 @@ Hung Jury: A jury whose members cannot reconcile their differences of opinion an
 
 
 
-Incarceration: Confinement to a state correctional institute or prison.
+#Incarceration: Confinement to a state correctional institute or prison.
 
 Income Withholding Order: A court order to deduct child support or alimony payments from someone's wages. All child support court orders must include an income withholding order unless both parents ask the judge not to.
 
 Indigent: Someone without enough money to either support himself or herself or his or her family. Someone who cannot afford to pay certain fees required by the court. (Civil, Family, Housing | Juvenile)
 
-Information (the): In a criminal case, the formal court document in the clerk's file, which contains the charges, dates of offenses, bond status, continuance dates and disposition.
+#Information (the): In a criminal case, the formal court document in the clerk's file, which contains the charges, dates of offenses, bond status, continuance dates and disposition.
 
-Infraction: A case where the fine may be paid by mail and usually the person does not have to appear or come to court. For example, a speeding ticket. (Infractions Schedule)
+#Infraction: A case where the fine may be paid by mail and usually the person does not have to appear or come to court. For example, a speeding ticket. (Infractions Schedule)
 
 Injunction: A court order to s doing or to start doing a specific act.
 
-Interpreter: The person who correctly translates court hearings from a second language to English.  An interpreter is provided at no cost to the person who needs the interpreter in all cases where the person's life, freedom, children or housing are at risk of being taken away.  Interpreters are also provided for criminal and child support cases. 
+#Interpreter: The person who correctly translates court hearings from a second language to English.  An interpreter is provided at no cost to the person who needs the interpreter in all cases where the person's life, freedom, children or housing are at risk of being taken away.  Interpreters are also provided for criminal and child support cases. 
 
 Interrogatory: Formal, written questions used to get information from another party in a lawsuit.
 
@@ -333,7 +333,7 @@ Investigatory Grand Jury: A judge, constitutional state referee or any three jud
 
 
 
-Judge: A person who hears and decides cases for the courts. Appointed by the governor for a term of eight years and confirmed by the General Assembly.
+#Judge: A person who hears and decides cases for the courts. Appointed by the governor for a term of eight years and confirmed by the General Assembly.
 
 Judgment: A court decision. Also called a decree or an order.
 
@@ -492,7 +492,7 @@ Probable Cause Hearing: A hearing held before a judge in criminal cases to deter
 
 Probate/Probate Court: A court with limited authority to hear certain kinds of cases, such as adoption, guardianship, mental health commitments. Not a part of the Superior Court system.
 
-Probation: When a convicted offender receives a suspended term of incarceration and is then supervised by a probation officer for a period of time set by a judge.
+#Probation: When a convicted offender receives a suspended term of incarceration and is then supervised by a probation officer for a period of time set by a judge.
 
 Probation Absconder: A person under probation supervision whose location is unknown, in violation of the conditions of their probation.
 
@@ -544,7 +544,7 @@ Seal: A court order closing a case file from public review, usually in cases of 
 
 Senior Judge: A judge who reaches the age of 65, or who meets certain other requirements and chooses senior status. Senior judges hear cases on a part time basis until they reach the mandatory retirement age of 70.
 
-Sentences: The penalty imposed by a judge after the defendant is convicted of a crime. Sentences can be: Concurrent - Multiple sentences will be served at the same time (i.e., sentences of 10 years, 8 years and 2 years - to be served concurrently - equal a total effective sentence of 10 years.) Consecutive - The sentences are served back-to-back. The same example above would equal a total effective sentence of 20 years.
+#Sentences: The penalty imposed by a judge after the defendant is convicted of a crime. Sentences can be: Concurrent - Multiple sentences will be served at the same time (i.e., sentences of 10 years, 8 years and 2 years - to be served concurrently - equal a total effective sentence of 10 years.) Consecutive - The sentences are served back-to-back. The same example above would equal a total effective sentence of 20 years.
 
 Sentencing: When a criminal defendant is brought before a judge after conviction for ordering the terms of the punishment.
 
@@ -556,7 +556,7 @@ Serious Juvenile Offender: A child who has been adjudicated by the juvenile cour
 
 Serious Juvenile Offense: Certain criminal offenses listed in the Connecticut General Statutes, which are crimes against persons, serious property crimes and certain drug offenses. A juvenile charged with a Serious Juvenile Offense by police may be admitted to a Juvenile Detention Center with a prior court order and may be released only by order of a judge of the Superior Court.
 
-Service: The legal method for giving a copy of the court papers being filed to other parties in a case.
+#Service: The legal method for giving a copy of the court papers being filed to other parties in a case.
 
 Short Calendar: A list of cases in which hearing by the judge or magistrate is requested or required.
 
@@ -596,11 +596,11 @@ Support Enforcement Officer: A person who supervises child support payments and 
 
 
 
-Testimony: Statements made by a witness or party under oath.
+#Testimony: Statements made by a witness or party under oath.
 
 Time Served: A sentence of incarceration equal to the amount of time a defendant has already spent in state custody waiting for disposition of the case.
 
-Title: Legal recognition of the ownership of property, usually proven by a document.
+#Title: Legal recognition of the ownership of property, usually proven by a document.
 
 Tort: A civil injury or wrong to someone else, or their property.
 
@@ -629,9 +629,9 @@ Victim Services Advocate: A person who assesses a victim’s needs and helps the
 
 Visitation: A court order deciding the amount of time a non-custodial parent may spend with his or her child, also called parenting time or access.
 
-Violation: An offense for which the only sentence authorized is a fine.
+#Violation: An offense for which the only sentence authorized is a fine.
 
-Violation of Probation: Action or inaction that disobeys a condition of probation.
+#Violation of Probation: Action or inaction that disobeys a condition of probation.
 
 Voir Dire: "To speak the truth." The process of questioning prospective jurors or witnesses about their qualifications.
 
@@ -645,6 +645,6 @@ Witness: A person who testifies to what they saw, heard, observed or did.
 Writ: Legal paper filed to start various types of civil lawsuits.
 
 
-Youth: Any person sixteen (16) to eighteen (18) years of age.
+#Youth: Any person sixteen (16) to eighteen (18) years of age.
 
 Youthful Offender: The legal status of persons who have been arrested for a crime committed when they were between the ages of 16 and 18 and who meet other requirements. All 16- and 17- year-old defendants are treated as youthful offenders, except those who have been charged with certain felonies, have already been convicted of a felony on the adult docket, or have been adjudicated as a serious juvenile offender. For defendants treated as Youthful Offenders, the information and proceedings are confidential and do not become a part of the person’s criminal record.

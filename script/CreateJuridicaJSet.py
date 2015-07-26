@@ -80,12 +80,19 @@ print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\r"
 print "<juridaljargonSet>\n\r"
 
 for element in dict1:
-	print "<juridicaljargon jj=\"%s\" ref=\"%s\">" %(element,dict1[element][1])
-	print "<description>%s</description>\n\r</juridicaljargon>" %dict1[element][0]
-	
+	if (not "#" in element):
+		print "<juridicaljargon jj=\"%s\" ref=\"%s\">" %(element,dict1[element][1])
+		print "<description>%s</description>\n\r</juridicaljargon>" %dict1[element][0]
+	else:
+		print "<!--<juridicaljargon jj=\"%s\" ref=\"%s\">" %(element[1:],dict1[element][1])
+		print "<description>%s</description>\n\r</juridicaljargon>-->" %dict1[element][0]
 for element in dict3:
-	print "<juridicaljargon jj=\"%s\" ref=\"%s\">" %(element,dict3[element][1])
-	print "<description>%s</description>\n\r</juridicaljargon>" %dict3[element][0]
+	if (not "#" in element):
+		print "<juridicaljargon jj=\"%s\" ref=\"%s\">" %(element,dict3[element][1])
+		print "<description>%s</description>\n\r</juridicaljargon>" %dict3[element][0]
+	else:
+		print "<!-- <juridicaljargon jj=\"%s\" ref=\"%s\">" %(element[1:],dict3[element][1])
+		print "<description>%s</description>\n\r</juridicaljargon>-->" %dict3[element][0]
 
 print "</juridaljargonSet>\n\r"
 
