@@ -104,7 +104,7 @@ public class DataContentAnalysis implements Serializable{
 				continue;
 			}
 			if(obj instanceof String && inode==1 ){
-				tempString = obj.toString();
+				tempString = obj.toString()+" ";
 			}
 			if(obj instanceof Node){
 				if(inode==0){

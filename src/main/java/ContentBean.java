@@ -218,7 +218,7 @@ public class ContentBean implements Serializable{
 
 				Path path = Paths.get(fileInfo.getFile().getAbsolutePath());
 				try {
-					filecontent = 	new String(Files.readAllBytes(path));
+					filecontent = 	new String(Files.readAllBytes(path), "UTF8");
 					filename = fileInfo.getFileName();
 					System.out.println(filecontent);
 				} catch (IOException e1) {
