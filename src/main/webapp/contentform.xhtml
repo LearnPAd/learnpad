@@ -47,7 +47,7 @@
 			<h:outputLabel for="inputfile" value="or Input txt File:" />
 			<ace:fileEntry id="inputfile"
 				fileEntryListener="#{ContentBean.sampleListener}" immediate="true"
-				maxFileCount="1" />
+				maxFileCount="1" maxFileSizeMessage="File size cannot exceed 1 MB" maxFileSize="1024000" />
 			<h:message for="inputfile" />
 		</h:panelGrid>
 
