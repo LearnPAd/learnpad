@@ -16,3 +16,9 @@
 	left: -1px;
 	overflow: hidden;
 }
+
+.xerr {
+    display: inline-block;
+    position: relative;
+    background: url(http://www.phpied.com/images/underline.gif) bottom repeat-x;
+}

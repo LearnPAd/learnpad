@@ -9,12 +9,12 @@ public class DataContent implements Serializable{
 	private String element;
 	private String recommendation;
 	private String type;
-	private String css = "err";
+	private String css = "xerr";
 	public DataContent(String element, String recommendation, String type) {
 		this.element = element;
 		this.recommendation = recommendation;
 		this.type = type;
-		this.css = "err";
+		this.css = "xerr";
 	}
 	
 	
