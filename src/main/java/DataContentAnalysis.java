@@ -26,7 +26,7 @@ public class DataContentAnalysis implements Serializable{
 
 
 	public DataContentAnalysis(){
-		
+
 		System.out.println("DataContentAnalysisbean");
 		listdata = new ArrayList<DataContent>();
 	}
@@ -37,7 +37,7 @@ public class DataContentAnalysis implements Serializable{
 		createData();
 	}*/
 
-	
+
 
 	public String getElement() {
 		return element;
@@ -63,30 +63,32 @@ public class DataContentAnalysis implements Serializable{
 	}
 
 	public String getColor(){
-		String color;
-		switch (acca.getOverallQuality()) {
-		case "VERY BAD":
-			color ="#FF0000";
-			break;
+		String color ="";
+		if(acca!=null){
+			switch (acca.getOverallQuality()) {
+			case "VERY BAD":
+				color ="#FF0000";
+				break;
 
-		case "BAD":
-			color ="#FFFF00";
-			break;
+			case "BAD":
+				color ="#FFFF00";
+				break;
 
-		case "GOOD":
-			color ="#00FF00";
-			break;
-		case "VERY GOOD":
-			color ="#00FF00";
-			break;
-		case "EXCELLENT":
-			color ="#00FF7F";
-			break;
+			case "GOOD":
+				color ="#00FF00";
+				break;
+			case "VERY GOOD":
+				color ="#00FF00";
+				break;
+			case "EXCELLENT":
+				color ="#00FF7F";
+				break;
 
 
-		default:
-			color ="";
-			break;
+			default:
+				color ="";
+				break;
+			}
 		}
 		return color;
 	}
