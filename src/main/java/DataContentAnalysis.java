@@ -1,10 +1,16 @@
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
@@ -22,6 +28,7 @@ public class DataContentAnalysis implements Serializable{
 	private AnnotatedCollaborativeContentAnalysis acca;
 	private List<DataContent> listdata;
 	private String color;
+	private String xml;
 	private String element = "ele";
 
 
@@ -31,11 +38,44 @@ public class DataContentAnalysis implements Serializable{
 		listdata = new ArrayList<DataContent>();
 	}
 
+
+
 	/*public DataContentAnalysis(AnnotatedCollaborativeContentAnalysis acca) {
 		this.acca = acca;
 		listdata = new ArrayList<DataContent>();
 		createData();
 	}*/
+
+
+
+	public String getXml() {
+
+		JAXBContext jaxbCtx;
+		StringWriter sw = new StringWriter();
+		if(acca!=null){
+			try {
+				jaxbCtx = javax.xml.bind.JAXBContext.newInstance(AnnotatedCollaborativeContentAnalysis.class);
+
+				Marshaller marshaller = jaxbCtx.createMarshaller();
+				marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8"); //NOI18N
+				marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+				marshaller.marshal(acca, sw);
+
+
+			} catch (JAXBException  e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		return sw.toString();
+	}
+
+
+
+	public void setXml(String xml) {
+		this.xml = xml;
+	}
 
 
 
@@ -63,7 +103,7 @@ public class DataContentAnalysis implements Serializable{
 	}
 
 	public String getColor(){
-		String color ="";
+		color ="";
 		if(acca!=null){
 			switch (acca.getOverallQuality()) {
 			case "VERY BAD":

@@ -18,6 +18,9 @@
 </h:head>
 <h:body>
 
+
+
+
 	<h:panelGrid columns="2" border="1">
 		<f:facet name="header">
 			Content Analysis Information of #{DataContentAnalysisbean.acca.type} <br/>
@@ -61,5 +64,12 @@
 	<br />
 <br />
 <br />
+
+
+<h:outputText style="font-weight: bold;font-size:200%;"
+				value="XML Version:" /><br /><br />
+<h:outputText value="#{DataContentAnalysisbean.xml}" style="white-space: pre-wrap;" styleClass="sxml"/>
+
+
 </h:body>
 </html>

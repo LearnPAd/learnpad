@@ -22,3 +22,16 @@
     position: relative;
     background: url(http://www.phpied.com/images/underline.gif) bottom repeat-x;
 }
+
+.sxml {
+	font-family: 'Courier New';
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+
+.sc13 {
+	color: #FF0000;
+	background: #FFFF00;
+}
+
