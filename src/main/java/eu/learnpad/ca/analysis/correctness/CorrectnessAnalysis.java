@@ -204,7 +204,7 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 			a.setEndNode(end.getId());
 			a.setStartNode(init.getId());
 			a.setType("Correctness");
-			a.setRecommendation(match.getMessage()+" Suggested correction: " +match.getSuggestedReplacements());
+			a.setRecommendation(match.getMessage()+"\n Suggested correction: " +match.getSuggestedReplacements());
 			annotations.add(a);
 			id++;
 			finalpos = match.getToPos();
