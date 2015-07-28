@@ -8,6 +8,7 @@ import java.util.List;
 import org.languagetool.AnalyzedSentence;
 import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
+import org.languagetool.language.AmericanEnglish;
 import org.languagetool.rules.RuleMatch;
 
 import eu.learnpad.ca.analysis.AnalysisInterface;
@@ -58,13 +59,13 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 
 			
 			List<String> listsentence = langTool.sentenceTokenize(content);
-			int id=0;
+			Integer id=0;
 			for (String sentence : listsentence) {
 
 				matches = langTool.check(sentence);
 				//List<Annotation> annotations = checkdefect(sentence,c, id);
-				
-				List<Annotation> annotations = calculateAnnotations(sentence, matches, c, id);
+				List<Annotation> annotations =new ArrayList<Annotation>();
+				id = calculateAnnotations(sentence, matches, c, id,annotations);
 				
 				
 				if(annotations.size()>0){
@@ -130,13 +131,13 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 			sc.setId(idc);
 			Content c = new Content();
 			sc.setContent(c);
-			int id=0;
+			Integer id=0;
 			for (String sentence : listsentence) {
 
 				matches = langTool.check(sentence);
 		
-				
-				List<Annotation> annotations = calculateAnnotations( sentence, matches, c, id);
+				List<Annotation> annotations =new ArrayList<Annotation>();
+				id  = calculateAnnotations( sentence, matches, c, id,annotations);
 				annotatedStaticContentAnalysis.setAnnotations(annotations);
 				
 				if(annotations.size()>0){
@@ -175,10 +176,10 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 
 
 
-	private List<Annotation> calculateAnnotations( String sentence,List<RuleMatch> matches, Content c, int id){
+	private int calculateAnnotations( String sentence,List<RuleMatch> matches, Content c, Integer id, List<Annotation> annotations){
 		int precedentposition=0;
 
-		List<Annotation> annotations=new ArrayList<Annotation>();
+		
 
 		boolean flag = true;
 		int finalpos = 0;
@@ -216,7 +217,7 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 				c.setContent(sentence.substring(finalpos, sentence.length()));
 			}
 		}
-		return annotations;
+		return id;
 
 	}
 

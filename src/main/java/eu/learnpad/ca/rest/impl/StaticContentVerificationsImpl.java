@@ -16,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.languagetool.Language;
+import org.languagetool.language.AmericanEnglish;
 import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
@@ -46,10 +47,16 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 			if(contentFile.getLanguage()=="english"){
 				lang = new BritishEnglish();
 			}else{
-				if(contentFile.getLanguage()=="italian"){
+				if(contentFile.getLanguage().toLowerCase().equals("italian")){
 					lang = new Italian();
 				}else
-					lang = new BritishEnglish();
+					if(contentFile.getLanguage().toLowerCase().equals("english uk")){
+						lang = new BritishEnglish();
+					}else
+						if(contentFile.getLanguage().toLowerCase().equals("english us")){
+							lang = new AmericanEnglish();
+						}else
+							lang = new BritishEnglish();
 			}
 			if(contentFile.getQualityCriteria().isCorrectness()){
 

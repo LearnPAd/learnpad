@@ -81,7 +81,8 @@ public class Simplicity extends Thread implements AnalysisInterface{
 		for (String sentence : listsentence) {
 
 
-			List<Annotation> annotations = checkdefect(sentence,c, id);
+			List<Annotation> annotations =new ArrayList<Annotation>();
+			id = checkdefect(sentence,c, id, annotations);
 			annotatedStaticContent.setAnnotations(annotations);
 			id++;
 		}
@@ -148,7 +149,8 @@ public class Simplicity extends Thread implements AnalysisInterface{
 		for (String sentence : listsentence) {
 
 
-			List<Annotation> annotations = checkdefect(sentence,c, id);
+			List<Annotation> annotations =new ArrayList<Annotation>();
+			id = checkdefect(sentence,c, id,annotations);
 			if(annotations.size()>0){
 				numDefectiveSentences++;
 			}
@@ -167,10 +169,10 @@ public class Simplicity extends Thread implements AnalysisInterface{
 
 	}
 
-	private List<Annotation> checkdefect(String sentence,Content c,int nodeid){
+	private int checkdefect(String sentence,Content c,int nodeid,List<Annotation> annotations){
 		List<Juridicaljargon> Listjj = juridaljargonSet.getJuridicaljargon();
 		StringTokenizer tokenizer = new StringTokenizer(sentence);
-		List<Annotation> annotations=new ArrayList<Annotation>();
+		
 		int precedentposition=0;
 
 		while (tokenizer.hasMoreTokens()) {
@@ -206,7 +208,7 @@ public class Simplicity extends Thread implements AnalysisInterface{
 		if(annotations.size()==0){
 			c.setContent(sentence);
 		}
-		return annotations;
+		return nodeid;
 
 	}
 
