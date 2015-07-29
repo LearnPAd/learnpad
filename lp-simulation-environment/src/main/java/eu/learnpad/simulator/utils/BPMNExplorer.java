@@ -26,14 +26,24 @@ package eu.learnpad.simulator.utils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.DataAssociation;
+import org.activiti.bpmn.model.DataObject;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.SubProcess;
 import org.activiti.bpmn.model.UserTask;
@@ -47,53 +57,148 @@ import org.xml.sax.SAXException;
  */
 public class BPMNExplorer {
 
-	private final Map<String, String> taskIDToSubProcess = new HashMap<String, String>();
+	private static final String DATA_OBJECTS_FOLDER = "dataobjects";
+
+	private final Map<String, String> taskIDToSubProcess;
+
+	private final Map<String, Set<String>> taskIDToDataInputs;
+	private final Map<String, Set<String>> taskIDToDataOutputs;
+
+	private final Set<String> standaloneDataObjects;
+
+	private final Map<String, String> dataObjectsIdtoName;
+
+	private final Map<String, List<String>> dataObjectContent;
 
 	public BPMNExplorer(BpmnModel process) throws FileNotFoundException,
 	SAXException, IOException, ParserConfigurationException {
 
+		final Map<String, String> mutTaskIDToSubProcess = new HashMap<String, String>();
+
+		final Map<String, Set<String>> mutTaskIDToDataInputs = new HashMap<String, Set<String>>();
+		final Map<String, Set<String>> mutTaskIDToDataOutputs = new HashMap<String, Set<String>>();
+
+		final Set<String> mutDataObjects = new HashSet<String>();
+		final Set<String> mutNotStandaloneDataObjects = new HashSet<String>();
+
+		final Map<String, String> mutDataObjectsIdtoName = new HashMap<String, String>();
+
+		final Map<String, List<String>> mutDataObjectContent = new HashMap<String, List<String>>();
+
 		// parse the BPMN file and extract useful infos
-		for (FlowElement element : process.getMainProcess().getFlowElements()) {
-			// filter to keep only user tasks
-			if (element instanceof UserTask) {
-				UserTask task = (UserTask) element;
+		initializeWithElements(null,
+				process.getMainProcess().getFlowElements(),
+				mutTaskIDToSubProcess, mutTaskIDToDataInputs,
+				mutTaskIDToDataOutputs, mutDataObjects,
+				mutNotStandaloneDataObjects, mutDataObjectsIdtoName);
 
-				// yes we put a null value to have the task ID as a key in the
-				// map(will allow to get the set of tasks IDs)
-				taskIDToSubProcess.put(task.getId(), null);
-			}
+		// for all data objects, read its attributes
+		for (String dataObject : mutDataObjects) {
 
-			if (element instanceof SubProcess) {
-				getUserTasksOfSubprocess((SubProcess) element);
+			Path path;
+			try {
+				path = Paths.get(this
+						.getClass()
+						.getClassLoader()
+						.getResource(
+								DATA_OBJECTS_FOLDER
+								+ "/"
+								+ mutDataObjectsIdtoName
+								.get(dataObject)).toURI());
+
+				List<String> elements = Files.readAllLines(path,
+						Charset.defaultCharset());
+
+				mutDataObjectContent.put(dataObject, elements);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (URISyntaxException e1) {
+				e1.printStackTrace();
 			}
 		}
+
+		// remove all the data objects which have been produced by a task
+		mutDataObjects.removeAll(mutNotStandaloneDataObjects);
+
+		// create read-only versions of the internal maps
+		taskIDToSubProcess = Collections.unmodifiableMap(mutTaskIDToSubProcess);
+		taskIDToDataInputs = Collections.unmodifiableMap(mutTaskIDToDataInputs);
+		taskIDToDataOutputs = Collections
+				.unmodifiableMap(mutTaskIDToDataOutputs);
+		standaloneDataObjects = Collections.unmodifiableSet(mutDataObjects);
+
+		dataObjectsIdtoName = Collections
+				.unmodifiableMap(mutDataObjectsIdtoName);
+
+		dataObjectContent = Collections.unmodifiableMap(mutDataObjectContent);
 	}
 
 	/**
-	 * Helper method to recurse over tasks of subprocesses
+	 * Helper method to recursively initialize informations of process and
+	 * subprocesses.
 	 *
-	 * @param p
-	 * @return a Set with all the user task IDs in the subprocess
+	 * @param elements
+	 * @param mutTaskIDToSubProcess
+	 * @param mutTaskIDToDataInputs
+	 * @param mutTaskIDToDataOutputs
+	 * @param mutDataObjects
+	 * @param mutNotStandaloneDataObjects
+	 * @param mutDataObjectsIdtoName
 	 */
-	private Set<String> getUserTasksOfSubprocess(SubProcess p) {
-		final Set<String> res = new HashSet<String>();
+	private void initializeWithElements(String subprocess,
+			Collection<FlowElement> elements,
+			Map<String, String> mutTaskIDToSubProcess,
+			Map<String, Set<String>> mutTaskIDToDataInputs,
+			Map<String, Set<String>> mutTaskIDToDataOutputs,
+			Set<String> mutDataObjects,
+			Set<String> mutNotStandaloneDataObjects,
+			Map<String, String> mutDataObjectsIdtoName) {
 
-		for (FlowElement element : p.getFlowElements()) {
-			// filter to keep only user tasks
+		for (FlowElement element : elements) {
+
 			if (element instanceof UserTask) {
 				UserTask task = (UserTask) element;
-				res.add(task.getId());
 
 				// register the subprocess to which the task belongs
-				taskIDToSubProcess.put(task.getId(), p.getId());
+				mutTaskIDToSubProcess.put(task.getId(), subprocess);
+
+				// store data I/O associations
+
+				mutTaskIDToDataInputs.put(task.getId(), new HashSet<String>());
+				for (DataAssociation in : task.getDataInputAssociations()) {
+					mutTaskIDToDataInputs.get(task.getId()).add(
+							in.getSourceRef());
+				}
+
+				mutTaskIDToDataOutputs.put(task.getId(), new HashSet<String>());
+				for (DataAssociation out : task.getDataOutputAssociations()) {
+					mutTaskIDToDataOutputs.get(task.getId()).add(
+							out.getTargetRef());
+
+					// also add output data objects to the set of *not*
+					// standalone data objects
+					mutNotStandaloneDataObjects.add(out.getTargetRef());
+				}
+
+			}
+
+			if (element instanceof DataObject) {
+
+				mutDataObjectsIdtoName.put(element.getId(),
+						((DataObject) element).getName());
+				mutDataObjects.add(element.getId());
 			}
 
 			if (element instanceof SubProcess) {
-				res.addAll(getUserTasksOfSubprocess((SubProcess) element));
+				// recurse
+				initializeWithElements(element.getId(),
+						((SubProcess) element).getFlowElements(),
+						mutTaskIDToSubProcess, mutTaskIDToDataInputs,
+						mutTaskIDToDataOutputs, mutDataObjects,
+						mutNotStandaloneDataObjects, mutDataObjectsIdtoName);
 			}
-		}
 
-		return res;
+		}
 	}
 
 	/**
@@ -113,6 +218,50 @@ public class BPMNExplorer {
 	 */
 	public String getSubprocess(String taskId) {
 		return taskIDToSubProcess.get(taskId);
+	}
+
+	/**
+	 *
+	 * @param taskId
+	 * @return the IDs of all the data objects in input of the task
+	 */
+	public Set<String> getDataInputs(String taskId) {
+		return taskIDToDataInputs.get(taskId);
+	}
+
+	/**
+	 *
+	 * @param taskId
+	 * @return the IDs of all the data objects in output of the task
+	 */
+	public Set<String> getDataOutputs(String taskId) {
+		return taskIDToDataOutputs.get(taskId);
+	}
+
+	/**
+	 *
+	 * @return the IDs of all the data objects which are not produced by a task
+	 */
+	public Set<String> getStandaloneDataObjects() {
+		return standaloneDataObjects;
+	}
+
+	/**
+	 *
+	 * @param id
+	 * @return the name of the data object
+	 */
+	public String getDataObjectName(String id) {
+		return dataObjectsIdtoName.get(id);
+	}
+
+	/**
+	 *
+	 * @param dataObject
+	 * @return the content of the data object
+	 */
+	public List<String> getDataObjectContent(String dataObject) {
+		return dataObjectContent.get(dataObject);
 	}
 
 }
