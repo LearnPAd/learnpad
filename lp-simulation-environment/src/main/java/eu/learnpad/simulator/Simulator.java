@@ -32,6 +32,7 @@ import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
 import eu.learnpad.simulator.uihandler.formhandler.activiti2jsonform.ActivitiToJsonFormFormHandler;
 import eu.learnpad.simulator.uihandler.webserver.UIHandlerWebImpl;
 import eu.learnpad.simulator.uihandler.webserver.WebServer;
+import eu.learnpad.simulator.utils.BPMNExplorerRepository;
 
 /**
  *
@@ -59,8 +60,13 @@ public class Simulator implements IProcessManagerProvider,
 
 		processEngine = config.buildProcessEngine();
 
+		// create BPMN Explorer
+		BPMNExplorerRepository explorerRepo = new BPMNExplorerRepository(
+				processEngine.getRepositoryService());
+
 		// create process manager
-		processManager = new ActivitiProcessManager(processEngine, this);
+		processManager = new ActivitiProcessManager(processEngine, this,
+				explorerRepo);
 
 		// create users ui handler
 		uiHandler = new UIHandlerWebImpl(new WebServer(webserverPort, "ui",

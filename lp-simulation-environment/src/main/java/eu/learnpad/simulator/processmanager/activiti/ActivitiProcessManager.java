@@ -57,6 +57,7 @@ import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.processdispatcher.ActivitiProcessDispatcher;
 import eu.learnpad.simulator.processmanager.activiti.taskrouter.ActivitiTaskRouter;
 import eu.learnpad.simulator.processmanager.activiti.taskvalidator.ActivitiDemoTaskValidator;
+import eu.learnpad.simulator.utils.BPMNExplorerRepository;
 
 /**
  *
@@ -86,7 +87,8 @@ public class ActivitiProcessManager implements IProcessManager {
 	public ActivitiProcessManager(
 			ProcessEngine processEngine,
 			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider,
-			boolean monitoringEnabled) throws FileNotFoundException {
+			BPMNExplorerRepository explorerRepo, boolean monitoringEnabled)
+					throws FileNotFoundException {
 		repositoryService = processEngine.getRepositoryService();
 		runtimeService = processEngine.getRuntimeService();
 		taskService = processEngine.getTaskService();
@@ -101,16 +103,15 @@ public class ActivitiProcessManager implements IProcessManager {
 
 		if (monitoringEnabled) {
 			// register a probe to monitor events
-			runtimeService
-			.addEventListener(new ActivitiProbe(repositoryService));
+			runtimeService.addEventListener(new ActivitiProbe(explorerRepo));
 		}
 	}
 
 	public ActivitiProcessManager(
 			ProcessEngine processEngine,
-			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider)
-			throws FileNotFoundException {
-		this(processEngine, processEventReceiverProvider, true);
+			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider,
+			BPMNExplorerRepository explorerRepo) throws FileNotFoundException {
+		this(processEngine, processEventReceiverProvider, explorerRepo, true);
 	}
 
 	/*
