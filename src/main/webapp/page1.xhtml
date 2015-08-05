@@ -14,12 +14,22 @@
 	<h:form>
 		<h:panelGrid columns="4">
 			<h:commandButton value="Redirect to Page 2" action="#{pageController.navigatePage2}"/>
-			<h:commandButton value="Redirect to Page 12" action="#{pageController.navigatePage12}"/>
+			<h:commandButton value="Redirect to Page GA" action="#{pageController.navigatePageGetAnalysis}"/>
 			<h:commandButton value="Redirect to Page CF" action="#{pageController.navigatePageCF}"/>
 			<h:commandButton value="Refresh Page" action="#{pageController.navigatePage1}"/>
 			<h:commandButton value="Use an Action" action="#{pageController.action}"/>
+			<h:commandButton value="Use for Test jsf2.2" action="test?faces-redirect=true"/>
 			<h:commandButton value="Use an Action Listener" actionListener="#{pageController.actionListener}"/>
 		</h:panelGrid>
 	</h:form>
+	
+	<xmp>
+	<html>
+	</html>
+	
+	
+	</xmp>
+	
+	
 </h:body>
 </html>
