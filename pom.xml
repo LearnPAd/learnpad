@@ -24,6 +24,12 @@
 	</repositories>
 
 	<dependencies>
+	<dependency>
+	<groupId>javax.servlet.jsp</groupId>
+	<artifactId>jsp-api</artifactId>
+	<version>2.2</version>
+</dependency>
+	
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-rs-client</artifactId>
