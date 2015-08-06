@@ -9,7 +9,7 @@
 	<properties>
 		<ice.version>3.3.0</ice.version>
 		<compiler.plugins.version>2.0.2</compiler.plugins.version>
-		<jsf.version>2.2.12</jsf.version>
+		<jsf.version>2.2.7</jsf.version>
 	</properties>
 	<repositories>
 		<repository>
