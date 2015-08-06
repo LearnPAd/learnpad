@@ -42,7 +42,15 @@
         <url-pattern>*.iface</url-pattern>
         <url-pattern>/icefaces/*</url-pattern>
     </servlet-mapping>
+<error-page>
+    <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+    <location>/sessionExpiredPage.jsf</location>
+</error-page>
 
+<context-param>
+        <param-name>org.icefaces.sessionExpiredRedirectURI</param-name>
+        <param-value>/sessionExpiredPage.jsf</param-value>
+    </context-param>
     <servlet>
       <servlet-name>Resource Servlet</servlet-name>
       <servlet-class>com.icesoft.faces.webapp.CompatResourceServlet</servlet-class>

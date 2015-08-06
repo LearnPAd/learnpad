@@ -21,7 +21,7 @@
 
 		
 		<h:commandButton value="Get Analysis"
-			actionListener="#{ContentAnalysisBean.actionDownloadAnalysis}" immediate="true" />
+			actionListener="#{ContentAnalysisBean.actionDownloadAnalysis}" action="#{pageController.navigatePageGetAnalysis}"  immediate="true" />
 
 
 
@@ -72,13 +72,14 @@
 
 
 
-	<h:form>
+	<h:form id="forea">
 
 		<c:forEach items="#{ContentAnalysisBean.collectionannotatedcontent}"
 			var="data" varStatus="status">
 			<h:panelGrid columns="2" border="1">
 				<f:facet name="header">
-			Content Analysis Information of #{data.type}
+			Content Analysis Information of #{data.type}<br/>
+			Title: #{data.collaborativeContent.title}
 		</f:facet>
 
 				<h:outputLabel for="label_#{status.index}" value="Overall Quality" />
@@ -97,7 +98,7 @@
 
 				<f:facet name="footer">
 					<h:panelGroup style="display:block; text-align:center">
-						<h:commandButton id="button_#{status.index}" value="#{data.type}"
+						<h:commandButton  value="#{data.type}"
 							action="#{pageController.navigatepageAnalysis}"
 							actionListener="#{DataContentAnalysisbean.listener}" >
 							 <f:attribute name="valdata" value="#{data}" />  
@@ -108,6 +109,12 @@
 			<br />
 			<br />
 		</c:forEach>
+
+
+
+
+
+
 
 	</h:form>
 </h:body>
