@@ -2,6 +2,11 @@
 
 ### VARIABLES ###
 
+# export M2_HOME=/Users/isiu/Downloads/apache-maven-3.3.3/
+# export M2=$M2_HOME/bin
+# export PATH=$M2:$PATH
+# export CATALINA_BASE=/Users/isiu/Downloads/apache-tomcat-7.0.63
+
 declare -r __CATALINA__BASE__="${CATALINA_BASE}"
 
 declare -r __CATALINA__WEB__="${__CATALINA__BASE__}/webapps"
