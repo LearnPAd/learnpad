@@ -1,0 +1,86 @@
+# baseURI: http://ikm-group.ch/archimeo
+# imports: http://ikm-group.ch/archiMEO/BMM
+# imports: http://ikm-group.ch/archiMEO/BPMN
+# imports: http://ikm-group.ch/archiMEO/archimate
+# imports: http://ikm-group.ch/archiMEO/emo
+# imports: http://ikm-group.ch/archiMEO/eo
+# imports: http://ikm-group.ch/archiMEO/nco
+# imports: http://ikm-group.ch/archiMEO/top
+# imports: http://ikm-group.ch/archiMEO/CMM
+# imports: http://ikm-group.ch/archiMEO/CMMN
+# imports: http://ikm-group.ch/archiMEO/omm
+# imports: http://ikm-group.ch/archiMEO/dkm
+# imports: http://ikm-group.ch/archiMEO/kpi
+# imports: http://ikm-group.ch/archiMEO/pmmm
+
+@prefix archi: <http://ikm-group.ch/archiMEO/archimate#> .
+@prefix archimeo: <http://ikm-group.ch/archiMEO#> .
+@prefix bmm: <http://ikm-group.ch/archiMEO/BMM#> .
+@prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix cmm: <http://ikm-group.ch/archiMEO/CMM#> .
+@prefix cmmn: <http://ikm-group.ch/archiMEO/CMMN#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcmi-type-vocabulary: <http://dublincore.org/documents/2000/07/11/dcmi-type-vocabulary#> .
+@prefix dcterms: <http://purl.org/dcterms#> .
+@prefix dkm: <http://ikm-group.ch/archiMEO/dkm#> .
+@prefix elements: <http://purl.org/dc/elements/1.1#> .
+@prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
+@prefix eo: <http://ikm-group.ch/archiMEO/eo#> .
+@prefix foaf: <http://xmlns.com/foaf/spec#> .
+@prefix kpi: <http://ikm-group.ch/archiMEO/kpi#> .
+@prefix media-types: <http://www.iana.org/assignments/media-types#> .
+@prefix nco: <http://ikm-group.ch/archiMEO/nco#> .
+@prefix ontogov: <http://ch.fhnw.ontogov#> .
+@prefix omm: <http://ikm-group.ch/archiMEO/omm#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmmm: <http://ikm-group.ch/archiMEO/pmmm#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdfsplus: <http://topbraid.org/spin/rdfsplus#> .
+@prefix top: <http://ikm-group.ch/archiMEO/top#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ikm-group.ch/archimeo>
+  rdf:type owl:Ontology ;
+  cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+  cc:license "This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License."@en ;
+  dc:contributor "Knut Hinkelmann"^^xsd:string ;
+  dc:contributor "Roman Brun"^^xsd:string ;
+  dc:contributor "Sandro Emmenegger"^^xsd:string ;
+  dc:creator "Andreas Martin"^^xsd:string ;
+  dc:creator "Barbara Thönssen"^^xsd:string ;
+  dc:creator "Simon Nikles"^^xsd:string ;
+  dc:description "The ArchiMEO Ontology."@en ;
+  dc:issued "2012-01-01"^^xsd:date ;
+  dc:modified "2013-05-24"^^xsd:date ;
+  dc:publisher <http://de.dbpedia.org/resource/Fachhochschule_Nordwestschweiz> ;
+  dc:publisher <http://www.fhnw.ch/business> ;
+  dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
+  dc:rights "Copyright 2012 FHNW"^^xsd:string ;
+  dc:title "The ArchiMEO Ontology"@en ;
+  rdfs:comment "Version 1.1: Initial import"@en ;
+  owl:imports <http://ikm-group.ch/archiMEO/BMM> ;
+  owl:imports <http://ikm-group.ch/archiMEO/BPMN> ;
+  owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
+  owl:imports <http://ikm-group.ch/archiMEO/emo> ;
+  owl:imports <http://ikm-group.ch/archiMEO/eo> ;
+  owl:imports <http://ikm-group.ch/archiMEO/nco> ;
+  owl:imports <http://ikm-group.ch/archiMEO/top> ;
+  owl:imports <http://ikm-group.ch/archiMEO/CMM> ;
+  owl:imports <http://ikm-group.ch/archiMEO/CMMN> ;
+  owl:imports <http://ikm-group.ch/archiMEO/omm> ;
+  owl:imports <http://ikm-group.ch/archiMEO/dkm> ;
+  owl:imports <http://ikm-group.ch/archiMEO/kpi> ;
+  owl:imports <http://ikm-group.ch/archiMEO/pmmm> ;  
+  owl:versionInfo 1.1 ;
+.
+rdf:Property
+  rdf:type owl:Class ;
+.
+owl:Class
+  rdf:type owl:Class ;
+.
+owl:Thing
+  rdf:type owl:Class ;
+.

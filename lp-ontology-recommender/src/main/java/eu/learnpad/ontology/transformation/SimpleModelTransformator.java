@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eu.learnpad.ontology;
+package eu.learnpad.ontology.transformation;
 
+import eu.learnpad.ontology.config.APP;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -30,23 +31,25 @@ import javax.xml.transform.stream.StreamSource;
  */
 public class SimpleModelTransformator {
 
-    private final String type;
+    private static final SimpleModelTransformator instance = new SimpleModelTransformator();
     
     static{
         System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
     }
     
-    public SimpleModelTransformator(String type) {
-        this.type = type;
+    private SimpleModelTransformator() {}
+    
+    public static SimpleModelTransformator getInstance(){
+        return instance;
     }
 
-    public File transform(String modelSetId, byte[] model) {
+    public File transform(String modelSetId, byte[] model, ModellingEnvironmentType type) {
 
         TransformerFactory tFactory = TransformerFactory.newInstance();
         File latestOutFile = null;
 
         try {
-            InputStream xsltIn = getClass().getResourceAsStream(APP.CONF.getString("import.transformation.xslt.path") + "adoxx2ontology.xsl");
+            InputStream xsltIn = getClass().getResourceAsStream(APP.CONF.getString("import.transformation.xslt.path") + type.name().toLowerCase()+"2ontology.xsl");
             Transformer transformer = tFactory.newTransformer(new StreamSource(xsltIn));
 
             File previousVersionOfOutFile = getPreviousVersionOfOutputFile(modelSetId);
@@ -69,6 +72,20 @@ public class SimpleModelTransformator {
         }
         return latestOutFile;
     }
+    
+    public File getLatestVersionFile(String modelSetId){
+        Path modelSetFolderPath = getModelSetFolderPath(modelSetId);
+        Integer latestVersionNumber = getLatestVersionNumber(modelSetFolderPath);
+        if(!modelSetFolderPath.toFile().exists() || latestVersionNumber == null){
+            return null;
+        }
+        String filename = modelSetId + APP.CONF.getString("ontology.learnpad.model.instances.filetype");
+        Path latestVersionFile = Paths.get(APP.CONF.getString("ontology.learnpad.model.instances"), modelSetId, latestVersionNumber.toString(), filename);
+        if(!latestVersionFile.toFile().exists()){
+            return null;
+        }
+        return latestVersionFile.toFile();
+    }
 
     /**
      * Returns a new empty output file. Follows a folder structure with
@@ -79,23 +96,27 @@ public class SimpleModelTransformator {
      * @return
      * @throws java.io.IOException
      */
-    public File createNewVersionOfOutputFile(String modelSetId) throws IOException {
+    private File createNewVersionOfOutputFile(String modelSetId) throws IOException {
 
-        Path modelSetFolderPath = Paths.get(APP.CONF.getString("ontology.learnpad.model.instances"), modelSetId, this.type);
-        File modelSetFolder = modelSetFolderPath.toFile();
-        if (!modelSetFolder.exists()) {
-            Files.createDirectories(modelSetFolder.toPath());
+        Path modelSetFolderPath = getModelSetFolderPath(modelSetId);
+        if (!modelSetFolderPath.toFile().exists()) {
+            Files.createDirectories(modelSetFolderPath);
         }
 
-        Integer latestVersionNumber = getLatestVersionNumber(modelSetFolder);
+        Integer latestVersionNumber = getLatestVersionNumber(modelSetFolderPath);
         latestVersionNumber = latestVersionNumber == null ? 1 : latestVersionNumber++;
-        Path versionPath = Paths.get(modelSetFolder.getPath(), latestVersionNumber.toString());
+        Path versionPath = Paths.get(modelSetFolderPath.toString(), latestVersionNumber.toString());
         Files.createDirectories(versionPath);
         String filename = modelSetId + APP.CONF.getString("ontology.learnpad.model.instances.filetype");
         File outputFile = new File(versionPath.toString(), filename);
 
         return outputFile;
 
+    }
+
+    private Path getModelSetFolderPath(String modelSetId) {
+        Path modelSetFolderPath = Paths.get(APP.CONF.getString("ontology.learnpad.model.instances"), modelSetId);
+        return modelSetFolderPath;
     }
 
     /**
@@ -105,9 +126,12 @@ public class SimpleModelTransformator {
      * @return
      * @throws NumberFormatException 
      */
-    private Integer getLatestVersionNumber(File modelSetFolder) throws NumberFormatException {
+    private Integer getLatestVersionNumber(Path modelSetFolderPath) throws NumberFormatException {
+        if(!modelSetFolderPath.toFile().exists()){
+            return null;
+        }
         Integer latestVersionNumber = null;
-        for (File versionDir : modelSetFolder.listFiles()) {
+        for (File versionDir : modelSetFolderPath.toFile().listFiles()) {
             Integer v = Integer.valueOf(versionDir.getName());
             if (latestVersionNumber == null || latestVersionNumber < v) {
                 latestVersionNumber = v;
@@ -125,12 +149,12 @@ public class SimpleModelTransformator {
      * @throws IOException 
      */
     private File getPreviousVersionOfOutputFile(String modelSetId) throws IOException {
-        Path modelSetPath = Paths.get(APP.CONF.getString("ontology.learnpad.model.instances"), modelSetId, this.type);
+        Path modelSetPath = getModelSetFolderPath(modelSetId);
         if (!Files.isDirectory(modelSetPath)) {
             return null;
         }
 
-        Integer latestVersionNumber = getLatestVersionNumber(modelSetPath.toFile());
+        Integer latestVersionNumber = getLatestVersionNumber(modelSetPath);
         if(latestVersionNumber == null || latestVersionNumber < 2){
             return null;
         }

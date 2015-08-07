@@ -1,0 +1,67 @@
+# baseURI: http://ikm-group.ch/archiMEO/kpi
+# imports: http://ikm-group.ch/archiMEO/archimate
+# imports: http://ikm-group.ch/archiMEO/emo
+# imports: http://ikm-group.ch/archiMEO/eo
+
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix kpi: <http://ikm-group.ch/archiMEO/kpi#> .
+@prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ikm-group.ch/archiMEO/kpi>
+  rdf:type owl:Ontology ;
+  cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+  cc:license "This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License."@en ;
+  dc:contributor "Andreas Martin"^^xsd:string ;
+  dc:contributor "Knut Hinkelmann"^^xsd:string ;
+  dc:contributor "Sandro Emmenegger"^^xsd:string ;
+  dc:creator "Barbara Thönssen"^^xsd:string ;
+  dc:description "The KPI Ontology"@en ;
+  dc:issued "2015-03-04"^^xsd:date ;
+  dc:publisher <http://de.dbpedia.org/resource/Fachhochschule_Nordwestschweiz> ;
+  dc:publisher <http://www.fhnw.ch/business> ;
+  dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
+  dc:rights "Copyright 2015 FHNW "^^xsd:string ;
+  dc:title "The KPI Ontology"@en ;
+  owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
+  owl:imports <http://ikm-group.ch/archiMEO/emo> ;
+  owl:imports <http://ikm-group.ch/archiMEO/eo> ;  
+  owl:versionInfo "1.0"^^xsd:string ;
+. 
+kpi:Criterion
+  rdf:type owl:Class ;
+  rdfs:comment "A KPI is a measurement which evaluates how a company executes its strategic vision. Source: http://www.atinternet.com/wp-content/uploads/2012/02/AT_WP_KPI_EN.pdf"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "KPI"^^xsd:string ;
+  rdfs:subClassOf emo:KPI_MetaModel ;
+.
+kpi:Metrics
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "metrics provides the measurement for a criterion"^^xsd:string ;
+  rdfs:subClassOf emo:KPI_MetaModel ;
+.
+kpi:Perspective
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "perspective relates to the balanced scorecard which suggests that we view the organization from four perspectives, and to develop metrics, collect data and analyze it relative to each of these perspectives. Source: Balance Scorecard Institute URL: http://balancedscorecard.org/"^^xsd:string ;
+  rdfs:subClassOf emo:KPI_MetaModel ;
+.
+kpi:criterionIsConsideredFromPerspective
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "a criterion is considered from one or more perspective"^^xsd:string ;
+  rdfs:domain kpi:Criterion ;
+  rdfs:range kpi:Perspective ;
+.
+kpi:metricIsAppliedToCriterion
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "metric indicates how a criterion is measured"^^xsd:string ;
+  rdfs:domain kpi:Metrics ;
+  rdfs:range kpi:Criterion ;
+.
