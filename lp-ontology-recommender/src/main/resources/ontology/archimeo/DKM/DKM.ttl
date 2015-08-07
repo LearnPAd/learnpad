@@ -1,0 +1,128 @@
+# baseURI: http://ikm-group.ch/archiMEO/dkm
+# imports: http://ikm-group.ch/archiMEO/archimate
+# imports: http://ikm-group.ch/archiMEO/emo
+# imports: http://ikm-group.ch/archiMEO/eo
+
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dkm: <http://ikm-group.ch/archiMEO/dkm#> .
+@prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ikm-group.ch/archiMEO/dkm>
+  rdf:type owl:Ontology ;
+  cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+  cc:license "This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License."@en ;
+  dc:contributor "Andreas Martin"^^xsd:string ;
+  dc:contributor "Knut Hinkelmann"^^xsd:string ;
+  dc:contributor "Sandro Emmenegger"^^xsd:string ;
+  dc:creator "Barbara Thönssen"^^xsd:string ;
+  dc:description "The DKM Ontology"@en ;
+  dc:issued "2015-03-04"^^xsd:date ;
+  dc:publisher <http://de.dbpedia.org/resource/Fachhochschule_Nordwestschweiz> ;
+  dc:publisher <http://www.fhnw.ch/business> ;
+  dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
+  dc:rights "Copyright 2015 FHNW "^^xsd:string ;
+  dc:title "The DKM Ontology"@en ;
+  owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
+  owl:imports <http://ikm-group.ch/archiMEO/emo> ;
+  owl:imports <http://ikm-group.ch/archiMEO/eo> ;  
+  owl:versionInfo "1.0"^^xsd:string ;
+.
+dkm:Aggregation
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf dkm:D_Container ;
+.
+dkm:D_Construct
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:DocumentAndKnowledgeMetaModel ;
+.
+dkm:D_Container
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf dkm:D_Construct ;
+.
+dkm:Document
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf dkm:Resource ;
+.
+dkm:KnowledgeProduct
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:DocumentAndKnowledgeMetaModel ;
+.
+dkm:KnowledgeResource
+  rdf:type owl:Class ;
+  rdfs:comment "\"Knowledge resource is the highst abstraction of knowledge collection. It encapsulates explicit and implicit knowledge and hence answers differently to same questions. Typically such resources are \"communities\", \"experts\" complex and complicated \"knowlege systems\" or organisations. The nature of different answeres to same question is not because of a willingful or incompetent act, but based on the complex and complicated, explicit and implicit knowledge interpretation that may include negotation will necessarily lead to different answers\" (BOC Document&Knowledge Metamodel, LearnPAd)"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf dkm:Resource ;
+.
+dkm:KnowledgeSource
+  rdf:type owl:Class ;
+  rdfs:comment """\"The knowledge source is an explicit entity that collects a set of documents, and can be accessed - even in different manners - but will reply with the same answeres to the same questions. 
+Typical samples are databases, content management systems, portals and the like.\" (BOC Document&Knowledge Metamodel, LearnPAd)"""^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Knowledge Source"^^xsd:string ;
+  rdfs:subClassOf dkm:Resource ;
+.
+dkm:Lane
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf dkm:D_Container ;
+.
+dkm:Note
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf dkm:D_Construct ;
+.
+dkm:Resource
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf dkm:D_Construct ;
+.
+dkm:d_ConstructHasNote
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain dkm:D_Construct ;
+  rdfs:range dkm:Note ;
+.
+dkm:d_ConstructIsInsideD_Container
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain dkm:D_Construct ;
+  rdfs:range dkm:D_Container ;
+.
+dkm:documentHasSubDocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain dkm:Document ;
+  rdfs:range dkm:Document ;
+.
+dkm:documentHasSubdocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain dkm:Document ;
+  rdfs:range dkm:Document ;
+.
+dkm:documentIsAggregatedToDocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain dkm:Document ;
+  rdfs:range dkm:Document ;
+.
+dkm:knowledgeProductBelongsToResource
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain dkm:KnowledgeProduct ;
+  rdfs:range dkm:Resource ;
+.
+dkm:knowledgeProductIsRelatedToKnowledgeProduct
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain dkm:KnowledgeProduct ;
+  rdfs:range dkm:KnowledgeProduct ;
+.

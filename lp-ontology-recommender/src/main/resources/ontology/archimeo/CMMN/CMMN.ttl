@@ -1,0 +1,214 @@
+# baseURI: http://ikm-group.ch/archiMEO/CMMN
+# imports: http://ikm-group.ch/archiMEO/archimate
+# imports: http://ikm-group.ch/archiMEO/emo
+# imports: http://ikm-group.ch/archiMEO/eo
+# imports: http://ikm-group.ch/archiMEO/cmm
+
+@prefix archi: <http://ikm-group.ch/archiMEO/archimate#> .
+@prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#> .
+@prefix cmm: <http://ikm-group.ch/archiMEO/CMM#> .
+@prefix cmmn: <http://ikm-group.ch/archiMEO/CMMN#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
+@prefix eo: <http://ikm-group.ch/archiMEO/eo#> .
+@prefix omm: <http://ikm-group.ch/archiMEO/omm#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ikm-group.ch/archiMEO/CMMN>
+  rdf:type owl:Ontology ;
+  cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+  cc:license "This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License."@en ;
+  dc:contributor "Andreas Martin"^^xsd:string ;
+  dc:contributor "Knut Hinkelmann"^^xsd:string ;
+  dc:contributor "Sandro Emmenegger"^^xsd:string ;
+  dc:creator "Barbara Thönssen"^^xsd:string ;
+  dc:description "The CMMN Ontology based on http://www.omg.org/spec/CMMN/"@en ;
+  dc:issued "2015-03-04"^^xsd:date ;
+  dc:publisher <http://de.dbpedia.org/resource/Fachhochschule_Nordwestschweiz> ;
+  dc:publisher <http://www.fhnw.ch/business> ;
+  dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
+  dc:rights "Copyright 2015 FHNW "^^xsd:string ;
+  dc:title "The CMMN Ontology"@en ;
+  owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
+  owl:imports <http://ikm-group.ch/archiMEO/emo> ;
+  owl:imports <http://ikm-group.ch/archiMEO/eo> ;  
+  owl:versionInfo "1.0"^^xsd:string ;
+.
+cmmn:ApplicabilityRule
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf cmmn:Rule ;
+.
+cmmn:Case
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "in Knut's version it was called CasePlanModel"^^xsd:string ;
+  rdfs:subClassOf emo:CaseManagementMetaModel ;
+.
+cmmn:CaseActivity
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "concept not in CMMN standard"^^xsd:string ;
+  rdfs:subClassOf cmmn:PlanElement ;
+.
+cmmn:CaseFile
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:CaseManagementMetaModel ;
+.
+cmmn:CaseTask
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf cmmn:Task ;
+.
+cmmn:EventListener
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf cmmn:PlanItem ;
+.
+cmmn:HumanTask
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf cmmn:Task ;
+.
+cmmn:Milestone
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf cmmn:PlanElement ;
+.
+cmmn:PlanElement
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "concept not in CMMN standard"^^xsd:string ;
+  rdfs:subClassOf cmmn:PlanItem ;
+.
+cmmn:PlanItem
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:CaseManagementMetaModel ;
+.
+cmmn:PlanningTable
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:CaseManagementMetaModel ;
+.
+cmmn:ProcessTask
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf cmmn:Task ;
+.
+cmmn:Rule
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Rule"^^xsd:string ;
+  rdfs:subClassOf emo:CaseManagementMetaModel ;
+.
+cmmn:Sentry
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf cmmn:Rule ;
+.
+cmmn:Stage
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf cmmn:CaseActivity ;
+.
+cmmn:Task
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf cmmn:CaseActivity ;
+.
+cmmn:caseContainsCaseData
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmmn:Case ;
+  rdfs:range cmmn:CaseFile ;
+.
+cmmn:caseContainsPlanItem
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmmn:Case ;
+  rdfs:range cmmn:PlanItem ;
+.
+cmmn:caseFileConsistsOfCaseFileItem
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmmn:CaseFile ;
+  rdfs:range cmm:CaseFileItem ;
+.
+cmmn:caseIsDefinedByCaseTask
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmmn:Case ;
+  rdfs:range cmmn:Task ;
+.
+cmmn:planElementHasEntyCriteria
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmmn:PlanElement ;
+  rdfs:range cmmn:Sentry ;
+.
+cmmn:planElementHasExitCriteria
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmmn:CaseActivity ;
+  rdfs:range cmmn:Sentry ;
+.
+cmmn:planningTableContainsApplicabilityRule
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmmn:PlanningTable ;
+  rdfs:range cmmn:ApplicabilityRule ;
+.
+cmmn:planningTableIsAssociatedWithCaseActivity
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmmn:PlanningTable ;
+  rdfs:range cmmn:CaseActivity ;
+.
+cmmn:planningTableContainsApplicabilityRule
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmmn:PlanningTable ;
+  rdfs:range cmmn:ApplicabilityRule ;
+.
+cmmn:planningTableIsAssociatedToCaseActivity
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmmn:PlanningTable ;
+  rdfs:range cmmn:CaseActivity ;
+.
+cmmn:sentryDefinesEntryCriteriaForPlanElement
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmmn:Sentry ;
+  rdfs:range cmmn:PlanElement ;
+.
+cmmn:sentryDefinesExitCriteriaForCaseActivity
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmmn:Sentry ;
+  rdfs:range cmmn:CaseActivity ;
+.
+cmmn:caseContainsCaseData
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmmn:Case ;
+  rdfs:range cmmn:CaseFile ;
+.
+cmmn:caseIsDefinedByCaseTask
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmmn:Case ;
+  rdfs:range cmmn:CaseTask ;
+.
+cmmn:processTaskCallsProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmmn:ProcessTask ;
+  rdfs:range bpmn:Activity ;
+.

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eu.learnpad.ontology;
+package eu.learnpad.ontology.config;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
