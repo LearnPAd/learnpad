@@ -3,27 +3,21 @@ Template's component
 
 Information   | Value
 ------------- | --------
-Component     | Template
-Partner       | XWIKI
-WP            | 2, 7
-Responsible   | Jean Simard <jean.simard@xwiki.com>
-Collaborators | Fabio Mancinelli <fabio.mancinelli@xwiki.com>, Caleb J. DeLisle <cjd@cjdns.fr>
-Roadmap       | wiki.learnpad.eu/LearnPAdWiki/bin/view/Components/Template
+Component     | Verification
+Partner       | Unicam
+WP            | 4
+Responsible   | Andrea Polini <andrea.polini@unicam.it>
+Collaborators | Damiano Falcioni <damiano.falcioni@unicam.it>
+Roadmap       | http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Model+Verification
 
 # Summary
-This component is a template that you can use to start your own new component.
-It's not intended to be a part of the builded system.  You'll find more
-information and documentation about this component
-http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Components/Template(here).
+This component provide verification capabilities over a LearnPAd model.
 
 # How it works?
-You may want to describe how the component is working.  It will make it easier
-for other to collaborate to this component.
+
 
 # Configuration
-You must describe the different possible configurations of your component.  It
-can be documentation in this file or a link to a wiki page.
+No configuration needed
 
 # Interfaces
-You must define and detail all communications with external components or
-systems.
+

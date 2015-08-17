@@ -1,0 +1,2 @@
+pluginsFolderPath=
+resultsFolderPath=
