@@ -60,7 +60,7 @@ public class VerificationComponent {
 		File resultsFolderPathFile = new File(resultsFolderPath);
 		if(!resultsFolderPathFile.exists())
 			resultsFolderPathFile.mkdirs();
-		for(File resultFile: resultsFolderPathFile.listFiles()) //FIXME: aggiungere filtro su nome del file
+		for(File resultFile: resultsFolderPathFile.listFiles())
 			if(resultFile.getName().equals(verificationId))
 				return "COMPLETED";
 		
@@ -88,7 +88,7 @@ public class VerificationComponent {
 		resultsFolderPath = checkResultsFolder(resultsFolderPath);
 		
 		File resultsFolderPathFile = new File(resultsFolderPath);
-		for(File resultFile: resultsFolderPathFile.listFiles()) //FIXME: aggiungere filtro su nome del file
+		for(File resultFile: resultsFolderPathFile.listFiles())
 			if(resultFile.getName().equals(verificationId))
 				return new String(IOUtils.readFile(resultFile));
 		throw new Exception("ERROR: Can not retrive results of the verification with id " + verificationId);

@@ -30,7 +30,6 @@ public class Engine {
 			}
 		} else {
 			if(!new File(tmpFolder + "lola").exists()){
-				//FIXME: controllare la versione per linux se è a 32 bit
 				IOUtils.writeFile(IOUtils.toByteArray(this.getClass().getResourceAsStream("exeLola/lola")), tmpFolder+"lola", false);
 			}
 		}
@@ -39,13 +38,13 @@ public class Engine {
 	}
 	
 	public String verifyDeadlockBPMN(String bpmnModel) throws Exception{
-		//FIXME: validare il bpmn
+		//TODO: validare il bpmn ?
 		PetriNet pn = PNImport.generateFromBPMN(XMLUtils.getXmlDocFromString(bpmnModel));
 		return verifyDeadlock(pn);
 	}
 	
 	public String verifyDeadlockAdoxxBPMN(String adoxxBPModel) throws Exception{
-		//FIXME: validare il modello adoxx
+		//TODO: validare il modello adoxx ?
 		PetriNet[] pnList = PNImport.generateFromAdoxxBPMN(XMLUtils.getXmlDocFromString(adoxxBPModel));
 		if(pnList.length==0)
 			throw new Exception("ERROR: No BPMN2.0 model provided.");

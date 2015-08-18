@@ -167,8 +167,11 @@ public class PNExport {
 			if(!endList.contains(pl))
 				if(!pl.excludeFromDeadlockCheck)
 					finalConfig += pl.name + " > 0 | ";
-		finalConfig = finalConfig.substring(0, finalConfig.length()-2) + ")\n)"; //FIXME: gestire il caso in cui tutti i place non finali siano esclusi
-
+		if(finalConfig.endsWith("| "))
+			finalConfig = finalConfig.substring(0, finalConfig.length()-2) + ")\n)";
+		else
+			finalConfig = finalConfig.substring(0, finalConfig.length()-5) + ")";
+		
 		return finalConfig;
 	}
 	/*
@@ -258,7 +261,10 @@ public class PNExport {
 			if(!endList.contains(pl))
 				if(!pl.excludeFromDeadlockCheck)
 					finalConfig += pl.name + " > 0 OR ";
-		finalConfig = finalConfig.substring(0, finalConfig.length()-3) + "))"; //FIXME: gestire il caso in cui tutti i place non finali siano esclusi
+		if(finalConfig.endsWith("OR "))
+			finalConfig = finalConfig.substring(0, finalConfig.length()-3) + "))";
+		else
+			finalConfig = "EF DEADLOCK";
 		return finalConfig;
 	}
 	
