@@ -15,6 +15,8 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
+import eu.learnpad.verification.utils.Utils;
+
 @Path("/LPVerificationComponent")
 public class JAXRSService {
 	@GET
@@ -63,6 +65,6 @@ public class JAXRSService {
 			final ResourceConfig resourceConfig = new ResourceConfig(JAXRSService.class);
 			HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri,resourceConfig, false);
             server.start();
-		}catch(Exception ex){ex.printStackTrace();}
+		}catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
 	}
 }

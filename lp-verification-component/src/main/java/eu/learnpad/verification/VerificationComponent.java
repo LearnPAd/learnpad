@@ -122,7 +122,7 @@ public class VerificationComponent {
     		
             IOUtils.writeFile(resultXml.getBytes(), resultsFolderPath + File.separator + vid, false);
             notifyVerificationEnd(vid);
-		}catch(Exception ex){ex.printStackTrace();/*FIXME: log*/}
+		}catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
 		
 		verificationRunningList.remove(vid);
 	}

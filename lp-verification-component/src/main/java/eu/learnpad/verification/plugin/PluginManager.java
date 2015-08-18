@@ -9,6 +9,7 @@ import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
 import eu.learnpad.verification.plugin.interfaces.Plugin;
+import eu.learnpad.verification.utils.Utils;
 
 public class PluginManager {
 
@@ -45,7 +46,7 @@ public class PluginManager {
 				String className = manifest.getMainAttributes().getValue(manifestEntry);
 				Plugin plugin = (Plugin) pluginCL.loadClass(className).newInstance();
 				puginsInterfaceList.add(plugin);
-			}catch(Exception ex){ex.printStackTrace();/*FIXME: log*/}
+			}catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
 		}
 		
 		Plugin[] ret = new Plugin[puginsInterfaceList.size()];

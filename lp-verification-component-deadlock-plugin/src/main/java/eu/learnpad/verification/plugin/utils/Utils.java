@@ -1,4 +1,4 @@
-package eu.learnpad.verification.utils;
+package eu.learnpad.verification.plugin.utils;
 
 import java.io.File;
 import java.io.PrintWriter;

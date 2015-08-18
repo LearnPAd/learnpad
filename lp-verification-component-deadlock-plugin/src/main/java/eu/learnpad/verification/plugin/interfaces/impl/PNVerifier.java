@@ -2,6 +2,7 @@ package eu.learnpad.verification.plugin.interfaces.impl;
 
 import eu.learnpad.verification.plugin.bpmn.verifier.Engine;
 import eu.learnpad.verification.plugin.interfaces.Plugin;
+import eu.learnpad.verification.plugin.utils.Utils;
 
 public class PNVerifier implements Plugin {
 
@@ -24,9 +25,15 @@ public class PNVerifier implements Plugin {
 				throw new Exception("ERROR: Verification type " + type + " not supported.");
 		}catch(Exception ex){
 			ex.printStackTrace();
-			//FIXME: log
+			Utils.log(ex);
 			ret = "<Result><Status>ERROR</Status><Description>"+ex.getMessage()+"</Description></Result>";
 		}
 		return ret;
+	}
+	
+	public static void main(String[] args) {
+		try{
+			throw new Exception("prova");
+		}catch(Exception ex){Utils.log(ex);}
 	}
 }
