@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-
+pkill -f "java -cp LPVerificationComponent" || exit 0
