@@ -4,10 +4,6 @@ import eu.learnpad.verification.plugin.bpmn.verifier.Engine;
 import eu.learnpad.verification.plugin.interfaces.Plugin;
 
 public class PNVerifier implements Plugin {
-	
-	public static void main(String[] args) {	
-		
-	}
 
 	@Override
 	public String[] getVerificationTypeProvided() {
@@ -33,6 +29,4 @@ public class PNVerifier implements Plugin {
 		}
 		return ret;
 	}
-	
-	
 }

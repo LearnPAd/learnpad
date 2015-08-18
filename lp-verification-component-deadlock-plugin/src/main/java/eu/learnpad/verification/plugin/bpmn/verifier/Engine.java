@@ -39,13 +39,13 @@ public class Engine {
 	}
 	
 	public String verifyDeadlockBPMN(String bpmnModel) throws Exception{
-		//TODO: validare il bpmn
+		//FIXME: validare il bpmn
 		PetriNet pn = PNImport.generateFromBPMN(XMLUtils.getXmlDocFromString(bpmnModel));
 		return verifyDeadlock(pn);
 	}
 	
 	public String verifyDeadlockAdoxxBPMN(String adoxxBPModel) throws Exception{
-		//TODO: validare il modello adoxx
+		//FIXME: validare il modello adoxx
 		PetriNet[] pnList = PNImport.generateFromAdoxxBPMN(XMLUtils.getXmlDocFromString(adoxxBPModel));
 		if(pnList.length==0)
 			throw new Exception("ERROR: No BPMN2.0 model provided.");

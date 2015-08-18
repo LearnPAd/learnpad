@@ -60,7 +60,7 @@ public class VerificationComponent {
 		File resultsFolderPathFile = new File(resultsFolderPath);
 		if(!resultsFolderPathFile.exists())
 			resultsFolderPathFile.mkdirs();
-		for(File resultFile: resultsFolderPathFile.listFiles()) //TODO: aggiungere filtro su nome del file
+		for(File resultFile: resultsFolderPathFile.listFiles()) //FIXME: aggiungere filtro su nome del file
 			if(resultFile.getName().equals(verificationId))
 				return "COMPLETED";
 		
@@ -88,7 +88,7 @@ public class VerificationComponent {
 		resultsFolderPath = checkResultsFolder(resultsFolderPath);
 		
 		File resultsFolderPathFile = new File(resultsFolderPath);
-		for(File resultFile: resultsFolderPathFile.listFiles()) //TODO: aggiungere filtro su nome del file
+		for(File resultFile: resultsFolderPathFile.listFiles()) //FIXME: aggiungere filtro su nome del file
 			if(resultFile.getName().equals(verificationId))
 				return new String(IOUtils.readFile(resultFile));
 		throw new Exception("ERROR: Can not retrive results of the verification with id " + verificationId);
@@ -122,7 +122,7 @@ public class VerificationComponent {
     		
             IOUtils.writeFile(resultXml.getBytes(), resultsFolderPath + File.separator + vid, false);
             notifyVerificationEnd(vid);
-		}catch(Exception ex){ex.printStackTrace();/*TODO: write log*/}
+		}catch(Exception ex){ex.printStackTrace();/*FIXME: log*/}
 		
 		verificationRunningList.remove(vid);
 	}

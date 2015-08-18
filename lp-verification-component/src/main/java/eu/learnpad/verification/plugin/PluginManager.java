@@ -45,7 +45,7 @@ public class PluginManager {
 				String className = manifest.getMainAttributes().getValue(manifestEntry);
 				Plugin plugin = (Plugin) pluginCL.loadClass(className).newInstance();
 				puginsInterfaceList.add(plugin);
-			}catch(Exception ex){ex.printStackTrace();/*TODO:implementare log*/}
+			}catch(Exception ex){ex.printStackTrace();/*FIXME: log*/}
 		}
 		
 		Plugin[] ret = new Plugin[puginsInterfaceList.size()];

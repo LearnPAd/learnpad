@@ -95,7 +95,7 @@ public class LOLA {
 	/*
 	public static void main(String[] args) {
 		try{
-			//TODO: con test_1 e 7 lola esplode in stati! Fare piu test con il parametro --search=cover 
+			//FIXME: con test_1 e 7 lola esplode in stati! Fare piu test con il parametro --search=cover 
 			String bpmnUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_9.bpmn";
 			PetriNet pn = PNImport.generateFromBPMN(XMLUtils.getXmlDocFromURI(bpmnUrl));
 			//pn.getPlace("pTask1").excludeFromDeadlockCheck=true;
