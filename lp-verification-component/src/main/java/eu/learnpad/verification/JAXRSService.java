@@ -22,11 +22,13 @@ public class JAXRSService {
 	@GET
     @Path("/getSupportedVerifications")
     @Produces(MediaType.TEXT_PLAIN)
-	public static String getSupportedVerifications() throws Exception{
-		String[] verificationList = VerificationComponent.getSupportedVerifications();
+	public static String getSupportedVerifications(){
 		String ret = "";
-		for(String verification:verificationList)
-			ret += verification + "\n";
+		try{
+			String[] verificationList = VerificationComponent.getSupportedVerifications();
+			for(String verification:verificationList)
+				ret += verification + "\n";
+		}catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
 		return ret;
 	}
 	
@@ -41,22 +43,34 @@ public class JAXRSService {
 	@GET
     @Path("/startVerification")
     @Produces(MediaType.TEXT_PLAIN)
-	public static String startVerification(@QueryParam("modelId") String modelId, @QueryParam("verificationType") String verificationType) throws Exception{
-		return VerificationComponent.startVerification(modelId, verificationType);
+	public static String startVerification(@QueryParam("modelId") String modelId, @QueryParam("verificationType") String verificationType){
+		String ret = "";
+		try{
+			ret = VerificationComponent.startVerification(modelId, verificationType);
+		}catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
+		return ret;
 	}
 	
 	@GET
     @Path("/getVerificationStatus")
     @Produces(MediaType.TEXT_PLAIN)
-	public static String getVerificationStatus(@QueryParam("verificationId") String verificationId) throws Exception{
-		return VerificationComponent.getVerificationStatus(verificationId);
+	public static String getVerificationStatus(@QueryParam("verificationId") String verificationId){
+		String ret = "";
+		try{
+			ret = VerificationComponent.getVerificationStatus(verificationId);
+		}catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
+		return ret;
 	}
 	
 	@GET
     @Path("/getVerificationResult")
     @Produces(MediaType.TEXT_PLAIN)
-	public static String getVerificationResult(@QueryParam("verificationId") String verificationId) throws Exception{
-		return VerificationComponent.getVerificationResult(verificationId);
+	public static String getVerificationResult(@QueryParam("verificationId") String verificationId){
+		String ret = "";
+		try{
+			ret = VerificationComponent.getVerificationResult(verificationId);
+		}catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
+		return ret;
 	}
 	
 	public static void main(String[] args) {

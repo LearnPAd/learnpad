@@ -44,7 +44,7 @@
   		<groupId>eu.learnpad</groupId>
   		<artifactId>LPVerificationComponentDeadlockPlugin</artifactId>
   		<version>1.0</version>
-  		<scope>runtime</scope>
+  		<scope>provided</scope>
   		<optional>true</optional>
   	</dependency>
   	<dependency>
@@ -74,6 +74,29 @@
         <artifactId>maven-jar-plugin</artifactId>
       </plugin>
       
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>eu.learnpad.verification.JAXRSService</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id> <!-- this is used for inheritance merges -->
+            <phase>package</phase> <!-- bind to the packaging phase -->
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
       <!--
       <plugin> 
         <artifactId>maven-dependency-plugin</artifactId> 
@@ -98,6 +121,7 @@
             <phase>package</phase>
             <goals>
               <goal>copy</goal>
+              <goal>copy-dependencies</goal>
             </goals>
             <configuration>
               <artifactItems>
@@ -110,6 +134,8 @@
                   <outputDirectory>${project.build.directory}/LPVerificationComponentPlugins</outputDirectory>
                 </artifactItem>
               </artifactItems>
+              <outputDirectory>${project.build.directory}/lib</outputDirectory>
+              <excludeArtifactIds>LPVerificationComponentDeadlockPlugin</excludeArtifactIds>
             </configuration>
           </execution>
         </executions>

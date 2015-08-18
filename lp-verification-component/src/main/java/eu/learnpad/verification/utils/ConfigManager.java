@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class ConfigManager {
 	
-	public String defaultConfigFile = "../config.txt";
+	public String defaultConfigFile = "config.txt";
 	private java.util.HashMap<String,String> elementList = null;
 	
 
