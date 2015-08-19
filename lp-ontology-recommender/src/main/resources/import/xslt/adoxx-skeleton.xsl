@@ -26,16 +26,22 @@ ________________________________________________________________________________
 			<xsl:with-param name="class" select="@modeltype" tunnel="yes"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>
-		
 		<xsl:apply-templates select=".//INSTANCE[@class='Start Event']" mode="StartEvent"/>
+		<xsl:apply-templates select=".//INSTANCE[@class='Start Event'][./ATTRIBUTE[@name='Message']='Yes']" mode="MessageStartEvent"/>
+		<xsl:apply-templates select=".//INSTANCE[@class='Intermediate Event (sequence flow)'][./ATTRIBUTE[@name='Type']='catching'][./ATTRIBUTE[@name='Message']='Yes']" mode="MessageCatchingSequenceIntermediateEvent"/>
+		<xsl:apply-templates select=".//INSTANCE[@class='Intermediate Event (boundary)'][./ATTRIBUTE[@name='Type']='interrupting'][./ATTRIBUTE[@name='Message']='Yes']" mode="MessageInterruptingBoundaryIntermediateEvent"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='End Event']" mode="EndEvent"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Task']" mode="Task"/>
+		<xsl:apply-templates select=".//INSTANCE[@class='Task'][./ATTRIBUTE[@name='Task type']='Send']" mode="SendTask"/>
+		<xsl:apply-templates select=".//INSTANCE[@class='Task'][./ATTRIBUTE[@name='Task type']='Receive']" mode="ReceiveTask"/>
+		<xsl:apply-templates select=".//INSTANCE[@class='Sub-Process']" mode="SubProcess"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Exclusive Gateway']" mode="ExclusiveGateway"/>
+		<xsl:apply-templates select=".//INSTANCE[@class='Non-exclusive Gateway']" mode="ParallelGateway"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Pool']" mode="Pool"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Lane']" mode="Lane"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Data Object'][./ATTRIBUTE[@name='Data type']='Data Input']" mode="DataInput"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Data Object'][./ATTRIBUTE[@name='Data type']='Data Output']" mode="DataOutput"/>
-		<xsl:apply-templates select=".//CONNECTOR[./FROM/@class='Start Event' or ./FROM/@class='End Event' or ./FROM/@class='Task' or ./FROM/@class='Exclusive Gateway'][./TO/@class='Start Event' or ./TO/@class='End Event' or ./TO/@class='Task' or ./TO/@class='Exclusive Gateway']" mode="FlowElementConnector"/>
+		<xsl:apply-templates select=".//CONNECTOR[./FROM/@class='Start Event' or ./FROM/@class='End Event' or ./FROM/@class='Task' or ./FROM/@class='Sub-Process' or ./FROM/@class='Exclusive Gateway' or ./FROM/@class='Non-exclusive Gateway'][./TO/@class='Start Event' or ./TO/@class='End Event' or ./TO/@class='Task' or ./FROM/@class='Sub-Process' or ./TO/@class='Exclusive Gateway' or ./TO/@class='Non-exclusive Gateway']" mode="FlowElementConnector"/>
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -52,6 +58,46 @@ ________________________________________________________________________________
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
 <!--...............................................................................................-->	
+<!--
+___________________________________________________________________________________________________
+ Message Start Event
+___________________________________________________________________________________________________-->
+	<xsl:template match="INSTANCE" mode="MessageStartEvent">
+		<xsl:call-template name="MessageStartEvent">
+			<xsl:with-param name="id" select="@id" tunnel="yes"/>
+			<xsl:with-param name="name" select="@name" tunnel="yes"/>
+			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+		</xsl:call-template>
+		<xsl:call-template name="elementPostProcessing"/>
+	</xsl:template>
+<!--...............................................................................................-->	
+<!--
+___________________________________________________________________________________________________
+ Message Catching Sequence Intermediate Event
+___________________________________________________________________________________________________-->
+	<xsl:template match="INSTANCE" mode="MessageCatchingSequenceIntermediateEvent">
+		<xsl:call-template name="MessageCatchingSequenceIntermediateEvent">
+			<xsl:with-param name="id" select="@id" tunnel="yes"/>
+			<xsl:with-param name="name" select="@name" tunnel="yes"/>
+			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+		</xsl:call-template>
+		<xsl:call-template name="elementPostProcessing"/>
+	</xsl:template>
+<!--...............................................................................................-->
+<!--
+___________________________________________________________________________________________________
+ Message Interrupting Boundary Intermediate Event
+___________________________________________________________________________________________________-->
+	<xsl:template match="INSTANCE" mode="MessageInterruptingBoundaryIntermediateEvent">
+		<xsl:call-template name="MessageInterruptingBoundaryIntermediateEvent">
+			<xsl:with-param name="id" select="@id" tunnel="yes"/>
+			<xsl:with-param name="name" select="@name" tunnel="yes"/>
+			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+		</xsl:call-template>
+<!-- TODO Ref to Activity resp. Sub-Process -->		
+		<xsl:call-template name="elementPostProcessing"/>
+	</xsl:template>
+<!--...............................................................................................-->
 <!--
 ___________________________________________________________________________________________________
  End Event
@@ -80,10 +126,69 @@ ________________________________________________________________________________
 <!--...............................................................................................-->
 <!--
 ___________________________________________________________________________________________________
+ Send Task
+___________________________________________________________________________________________________-->
+	<xsl:template match="INSTANCE" mode="SendTask">
+		<xsl:call-template name="SendTask">
+			<xsl:with-param name="id" select="@id" tunnel="yes"/>
+			<xsl:with-param name="name" select="@name" tunnel="yes"/>
+			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+		</xsl:call-template>
+    		<xsl:call-template name="elementPostProcessing"/>
+	</xsl:template>
+<!--...............................................................................................-->
+<!--
+___________________________________________________________________________________________________
+ Receive Task
+___________________________________________________________________________________________________-->
+	<xsl:template match="INSTANCE" mode="ReceiveTask">
+		<xsl:call-template name="ReceiveTask">
+			<xsl:with-param name="id" select="@id" tunnel="yes"/>
+			<xsl:with-param name="name" select="@name" tunnel="yes"/>
+			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+		</xsl:call-template>
+    		<xsl:call-template name="elementPostProcessing"/>
+	</xsl:template>
+<!--...............................................................................................-->
+<!--
+___________________________________________________________________________________________________
+ Sub-Process
+___________________________________________________________________________________________________-->
+	<xsl:template match="INSTANCE" mode="SubProcess">
+		<xsl:call-template name="SubProcess">
+			<xsl:with-param name="id" select="@id" tunnel="yes"/>
+			<xsl:with-param name="name" select="@name" tunnel="yes"/>
+			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+		</xsl:call-template>
+		<xsl:apply-templates select="./INTERREF/IREF[@type='modelreference'][@tmodeltype='Business process diagram (BPMN 2.0)']" mode="referencedSubProcess"/>
+		<xsl:call-template name="elementPostProcessing"/>
+	</xsl:template>
+	 
+	<xsl:template match="IREF" mode="referencedSubProcess">
+		<xsl:call-template name="addReferencedSubProcessConnection">
+			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype][@name=current()/@tmodelname]/@id"/>
+		</xsl:call-template>
+	</xsl:template>
+<!--...............................................................................................-->
+<!--
+___________________________________________________________________________________________________
  Gateway
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="ExclusiveGateway">
 		<xsl:call-template name="ExclusiveGateway">
+			<xsl:with-param name="id" select="@id" tunnel="yes"/>
+			<xsl:with-param name="name" select="@name" tunnel="yes"/>
+			<xsl:with-param name="class" select="@class" tunnel="yes"/>			
+		</xsl:call-template>
+		<xsl:call-template name="elementPostProcessing"/>
+	</xsl:template>
+<!--...............................................................................................-->
+<!--
+___________________________________________________________________________________________________
+ Parallel Gateway (Non-Exclusive Gateway)
+___________________________________________________________________________________________________-->
+	<xsl:template match="INSTANCE" mode="ParallelGateway">
+		<xsl:call-template name="ParallelGateway">
 			<xsl:with-param name="id" select="@id" tunnel="yes"/>
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>			
@@ -166,12 +271,12 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="CONNECTOR" mode="FlowElementConnector">
 		<xsl:call-template name="FlowElementConnector">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="class" select="@class"/>
 			<xsl:with-param name="fromInstance" select="./FROM/@instance"/>
-	  		<xsl:with-param name="fromId" select="//INSTANCE[@name=current()/FROM/@instance and @class=current()/FROM/@class]/@id"/>
+	  		<xsl:with-param name="fromId" select="..//INSTANCE[@name=current()/FROM/@instance and @class=current()/FROM/@class]/@id"/>
 	  		<xsl:with-param name="toInstance" select="./TO/@instance"/>
-	  		<xsl:with-param name="toId" select="//INSTANCE[@name=current()/TO/@instance and @class=current()/TO/@class]/@id"/>
+	  		<xsl:with-param name="toId" select="..//INSTANCE[@name=current()/TO/@instance and @class=current()/TO/@class]/@id"/>
 		</xsl:call-template>	
 	</xsl:template>
 <!--...............................................................................................-->	

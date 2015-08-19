@@ -83,6 +83,44 @@ ________________________________________________________________________________
 <!--...............................................................................................-->	
 <!--
 ___________________________________________________________________________________________________
+ Message Start Event
+___________________________________________________________________________________________________-->
+	<xsl:template name="MessageStartEvent">
+		<xsl:param name="id" tunnel="yes"/>
+		<xsl:param name="name" tunnel="yes"/>
+		<xsl:call-template name="basicInstanceProperties">
+			<xsl:with-param name="rdfType">bpmn:MessageStartEvent</xsl:with-param>
+		</xsl:call-template>
+  lpd:bpmnStartEventHasId "<xsl:value-of select="$id"/>"^^xsd:string ;
+  lpd:bpmnStartEventHasName "<xsl:value-of select="$name"/>"^^xsd:string ;
+	</xsl:template>
+<!--...............................................................................................-->	
+<!--
+___________________________________________________________________________________________________
+ Message Catching Intermediate Event
+___________________________________________________________________________________________________-->
+	<xsl:template name="MessageCatchingSequenceIntermediateEvent">
+		<xsl:param name="id" tunnel="yes"/>
+		<xsl:param name="name" tunnel="yes"/>
+		<xsl:call-template name="basicInstanceProperties">
+			<xsl:with-param name="rdfType">bpmn:MessageCatchingSequenceIntermediateEvent</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+<!--
+___________________________________________________________________________________________________
+ Message Interrupting Boundary Intermediate Event
+___________________________________________________________________________________________________-->	
+<!--...............................................................................................-->
+	<xsl:template name="MessageInterruptingBoundaryIntermediateEvent">
+		<xsl:param name="id" tunnel="yes"/>
+		<xsl:param name="name" tunnel="yes"/>
+		<xsl:call-template name="basicInstanceProperties">
+			<xsl:with-param name="rdfType">bpmn:MessageInterruptingBoundaryIntermediateEvent</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+<!--...............................................................................................-->	
+<!--
+___________________________________________________________________________________________________
  End Event
 ___________________________________________________________________________________________________-->
 	<xsl:template name="EndEvent">
@@ -97,7 +135,7 @@ ________________________________________________________________________________
 <!--...............................................................................................-->
 <!--
 ___________________________________________________________________________________________________
- Task rdf:type bpmn:Task ;
+ Task
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Task">
 		<xsl:call-template name="basicInstanceProperties">
@@ -111,11 +149,55 @@ ________________________________________________________________________________
 <!--...............................................................................................-->
 <!--
 ___________________________________________________________________________________________________
+ Send Task
+___________________________________________________________________________________________________-->
+	<xsl:template name="SendTask">
+		<xsl:call-template name="basicInstanceProperties">
+			<xsl:with-param name="rdfType">bpmn:SendTask</xsl:with-param>
+		</xsl:call-template>
+  	</xsl:template>
+<!--...............................................................................................-->
+<!--
+___________________________________________________________________________________________________
+ Receive Task
+___________________________________________________________________________________________________-->
+	<xsl:template name="ReceiveTask">
+		<xsl:call-template name="basicInstanceProperties">
+			<xsl:with-param name="rdfType">bpmn:ReceiveTask</xsl:with-param>
+		</xsl:call-template>
+  	</xsl:template>
+<!--...............................................................................................-->
+<!--
+___________________________________________________________________________________________________
+ Task bpmn:SubProcess ;
+___________________________________________________________________________________________________-->
+	<xsl:template name="SubProcess">
+		<xsl:call-template name="basicInstanceProperties">
+			<xsl:with-param name="rdfType">bpmn:SubProcess</xsl:with-param>
+		</xsl:call-template>
+  	</xsl:template>
+  	<xsl:template name="addReferencedSubProcessConnection">
+		<xsl:param name="targetId"/>
+   lpd:bpmnSubProcessRepresentsBProcess transfer:<xsl:value-of select="$targetId"/> ;<xsl:text>&#10;</xsl:text>
+	</xsl:template>
+<!--...............................................................................................-->
+<!--
+___________________________________________________________________________________________________
  Gateway
 ___________________________________________________________________________________________________-->
 	<xsl:template name="ExclusiveGateway">
 		<xsl:call-template name="basicInstanceProperties">
 			<xsl:with-param name="rdfType">bpmn:ExclusiveGateway</xsl:with-param>
+		</xsl:call-template>
+	</xsl:template>
+<!--...............................................................................................-->
+<!--
+___________________________________________________________________________________________________
+  Parallel Gateway (Non-Exclusive Gateway)
+___________________________________________________________________________________________________-->
+	<xsl:template name="ParallelGateway">
+		<xsl:call-template name="basicInstanceProperties">
+			<xsl:with-param name="rdfType">bpmn:ParallelGateway</xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
 <!--...............................................................................................-->
