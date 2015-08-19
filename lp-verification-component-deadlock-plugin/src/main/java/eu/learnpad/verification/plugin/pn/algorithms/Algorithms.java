@@ -18,6 +18,9 @@ public class Algorithms {
 		 poi ripetere
 		 */
 		
+		if(pn.isEmpty())
+			throw new Exception("ERROR: The provided petri net is empty");
+		
 		PetriNet pnReduced = pn.clonePN();
 		while(true){
 			boolean noMoreReductions = true;
@@ -170,6 +173,9 @@ public class Algorithms {
 		 poi ripetere
 		 */
 		
+		if(pn.isEmpty())
+			throw new Exception("ERROR: The provided petri net is empty");
+		
 		PetriNet pnReduced = pn.clonePN();
 		while(true){
 			boolean noMoreReductions = true;
@@ -284,9 +290,12 @@ public class Algorithms {
 	
 	
 	
-	public static PetriNet generateUnfoldedNet(PetriNet pn){
+	public static PetriNet generateUnfoldedNet(PetriNet pn) throws Exception{
 		//TODO
-		return null;
+		if(pn.isEmpty())
+			throw new Exception("ERROR: The provided petri net is empty");
+		
+		throw new Exception("TO BE IMPLEMENTED");
 	}
 	
 	

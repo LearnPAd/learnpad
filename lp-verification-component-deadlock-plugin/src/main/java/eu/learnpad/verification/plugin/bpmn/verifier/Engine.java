@@ -38,13 +38,11 @@ public class Engine {
 	}
 	
 	public String verifyDeadlockBPMN(String bpmnModel) throws Exception{
-		//TODO: validare il bpmn ?
 		PetriNet pn = PNImport.generateFromBPMN(XMLUtils.getXmlDocFromString(bpmnModel));
 		return verifyDeadlock(pn);
 	}
 	
 	public String verifyDeadlockAdoxxBPMN(String adoxxBPModel) throws Exception{
-		//TODO: validare il modello adoxx ?
 		PetriNet[] pnList = PNImport.generateFromAdoxxBPMN(XMLUtils.getXmlDocFromString(adoxxBPModel));
 		if(pnList.length==0)
 			throw new Exception("ERROR: No BPMN2.0 model provided.");
@@ -55,6 +53,8 @@ public class Engine {
 	}
 	
 	private String verifyDeadlock(PetriNet pn) throws Exception{
+		if(pn.isEmpty())
+			throw new Exception("ERROR: The provided petri net is empty");
 		
 		String modelToVerify = PNExport.exportTo_LOLA(pn);
 		String propertyToVerify = PNExport.exportTo_LOLA_property_DeadlockPresence(pn);
@@ -76,6 +76,8 @@ public class Engine {
 	
 	public String verifyAllDeadlocksAdoxxBPMN(String adoxxBPModel) throws Exception{
 		PetriNet[] pnList = PNImport.generateFromAdoxxBPMN(XMLUtils.getXmlDocFromString(adoxxBPModel));
+		if(pnList.length==0)
+			throw new Exception("ERROR: No BPMN2.0 model provided.");
 		String ret = "";
 		for(PetriNet pn: pnList)
 			ret += verifyAllDeadlocks(pn);
@@ -83,6 +85,8 @@ public class Engine {
 	}
 	
 	private String verifyAllDeadlocks(PetriNet pn) throws Exception{
+		if(pn.isEmpty())
+			throw new Exception("ERROR: The provided petri net is empty");
 		
 		ArrayList<PL> endPLList = pn.getEndList_safe();
 		
@@ -127,6 +131,8 @@ public class Engine {
 	 		<CounterExampleTrace></CounterExampleTrace>
 	 	</Result>
 		 */
+		
+		
 		String status = (counterExampleTraceList.size()==0)?"OK":"KO";
 		String description = (counterExampleTraceList.size()==0)?"No deadlock found!":"The model has deadlock!";
 		String ret = "<Result><PNName>"+pn.name+"</PNName><Status>"+status+"</Status><Description>"+description+"</Description>";
@@ -138,6 +144,8 @@ public class Engine {
 				String[] objList = counterExampleTrace[i].split(" ");
 				ArrayList<String> objProcessed = new ArrayList<String>();
 				for(String obj: objList){
+					if(pn.getPlace(obj)==null)
+						throw new Exception("ERROR: place " + obj + " not found");
 					String objDesc = pn.getPlace(obj).desciption;
 					if(objProcessed.contains(objDesc))
 						continue;

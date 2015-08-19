@@ -13,7 +13,8 @@ import eu.learnpad.verification.plugin.utils.XMLUtils;
 public class PNImport {
 	
 	public static PetriNet generateFromBPMN(Document bpmnXml) throws Exception{
-
+		//TODO: effettuare validazione modello ?
+		
 		PNMapping pnm = new PNMapping();
 		/*
 		pnm.addMapping("task|userTask|serviceTask|manualTask|businessRuleTask|receiveTask|sendTask|scriptTask|choreographyTask|intermediateCatchEvent|intermediateThrowEvent : p>t ; in:sequence=p, message=t ; out:sequence=t, message=t");
@@ -160,7 +161,7 @@ public class PNImport {
 	}
 		
 	public static PetriNet[] generateFromAdoxxBPMN(Document adoxxXml) throws Exception{
-		
+		//TODO: effettuare validazione modello ?
 		PNMapping pnm = new PNMapping();
 		
 		pnm.addMapping("task : p>t ; in:sequence=p, message=t ; out:sequence=t, message=t, bound=p");

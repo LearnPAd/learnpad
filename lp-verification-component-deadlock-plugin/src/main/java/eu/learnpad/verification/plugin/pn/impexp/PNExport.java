@@ -15,6 +15,8 @@ import eu.learnpad.verification.plugin.utils.XMLUtils;
 public class PNExport {
 	
 	public static String exportTo_PNML(PetriNet pn) throws Exception{
+		if(pn.isEmpty())
+			throw new Exception("ERROR: The provided petri net is empty");
 		
 		Document xmlDoc = XMLUtils.createNewDocument();
 		
@@ -123,7 +125,10 @@ public class PNExport {
 	}
 
 	
-	public static String exportTo_EldaricaP(PetriNet pn){
+	public static String exportTo_EldaricaP(PetriNet pn) throws Exception{
+		if(pn.isEmpty())
+			throw new Exception("ERROR: The provided petri net is empty");
+		
 		String ret = "net {\""+pn.name+"\"}\n";
 		
 		for(TR tr:pn.getTransitionList_safe()){
@@ -142,15 +147,21 @@ public class PNExport {
 		return ret;
 	}
 	
-	public static String exportTo_EldaricaP_property_EndReachability(PetriNet pn){
+	public static String exportTo_EldaricaP_property_EndReachability(PetriNet pn) throws Exception{
+		if(pn.isEmpty())
+			throw new Exception("ERROR: The provided petri net is empty");
+		
 		String finalConfig = "";
 		for(PL pl:pn.getEndList_safe())
 			finalConfig += "\nfinal " + pl.name + " (1)";
 		return finalConfig;
 	}
 	
-	public static String exportTo_EldaricaP_property_DeadlockPresence(PetriNet pn){
+	public static String exportTo_EldaricaP_property_DeadlockPresence(PetriNet pn) throws Exception{
 		//C'è deadlock se tutte le transizioni non sono attivabili e c'è almeno un place non finale che contiene uno o piu token
+		
+		if(pn.isEmpty())
+			throw new Exception("ERROR: The provided petri net is empty");
 		
 		String finalConfig = "finalConfiguration (";
 		
@@ -174,29 +185,11 @@ public class PNExport {
 		
 		return finalConfig;
 	}
-	/*
-	public static String exportTo_EldaricaP_property_DeadlockPresence(PetriNet pn){
-		//NON c'è deadlock se almeno una transizione è attivabile o (qualora tutte siano bloccate) tutti i places finali hanno almeno un token. (non penso sia corretta..ha molte limitazioni e non copre tutti i casi)
-		String finalConfig = "finalConfiguration !(";
-		
-		for(TR tr:pn.getTransitionList_safe()){
-			finalConfig += "\n (";
-			for(PL pl:tr.previousList)
-				finalConfig += pl.name + " >= 1 & ";
-			finalConfig = finalConfig.substring(0, finalConfig.length()-2) + ")|";
-		}
-		
-		finalConfig += "\n\n (";
-		for(PL pl:pn.getEndList_safe())
-			finalConfig += pl.name + " >= 1 & ";
-		finalConfig = finalConfig.substring(0, finalConfig.length()-2) + ")\n)";
-
-		return finalConfig;
-	}
-	*/
 	
-	public static String exportTo_PROMELA(PetriNet pn){
+	public static String exportTo_PROMELA(PetriNet pn) throws Exception{
 		
+		if(pn.isEmpty())
+			throw new Exception("ERROR: The provided petri net is empty");
 		/* Mapping Suggested by SPIN
  #define Place	byte    // assume < 256 tokens per place                             
  Place p1, p2, p3;
@@ -219,15 +212,21 @@ public class PNExport {
 		 * 
 		 * 
 		 * */
-		return null;
+		throw new Exception("TO BE IMPLEMENTED");
 	}
 	
 	//Cunf & PEP
-	public static String exportTo_ll_net(PetriNet pn){
-		return null;
+	public static String exportTo_ll_net(PetriNet pn) throws Exception{
+		if(pn.isEmpty())
+			throw new Exception("ERROR: The provided petri net is empty");
+		
+		throw new Exception("TO BE IMPLEMENTED");
 	}
 	
-	public static String exportTo_LOLA(PetriNet pn){
+	public static String exportTo_LOLA(PetriNet pn) throws Exception{
+		if(pn.isEmpty())
+			throw new Exception("ERROR: The provided petri net is empty");
+		
 		String ret = "PLACE ";
 		for(PL place:pn.getPlaceList_safe())
 			ret += place.name + ", ";
@@ -252,8 +251,11 @@ public class PNExport {
 	}
 	
 	
-	public static String exportTo_LOLA_property_DeadlockPresence(PetriNet pn){
+	public static String exportTo_LOLA_property_DeadlockPresence(PetriNet pn) throws Exception{
 		// C'è deadlock se tutte le transizioni non sono attivabili (DEADLOCK) e c'è almeno un place non finale che contiene uno o piu token
+		
+		if(pn.isEmpty())
+			throw new Exception("ERROR: The provided petri net is empty");
 		
 		String finalConfig = "EF (DEADLOCK AND ( ";
 		ArrayList<PL> endList = pn.getEndList_safe();

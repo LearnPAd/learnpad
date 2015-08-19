@@ -3,12 +3,15 @@ package eu.learnpad.verification.utils;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -18,6 +21,9 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 public class XMLUtils {
 	
@@ -25,7 +31,15 @@ public class XMLUtils {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setNamespaceAware(true);
 		dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-		return dbf.newDocumentBuilder().parse(new ByteArrayInputStream(xml.getBytes()));
+		DocumentBuilder builder = dbf.newDocumentBuilder();
+		builder.setEntityResolver(new EntityResolver() {
+	            @Override
+	            public InputSource resolveEntity(String publicId, String systemId)
+	                    throws SAXException, IOException {
+	                return new InputSource(new StringReader(""));
+	            }
+	        });
+		return builder.parse(new ByteArrayInputStream(xml.getBytes()));
 	}
 	
 	public static Document getXmlDocFromURI(String xmlFile) throws Exception{
@@ -39,7 +53,15 @@ public class XMLUtils {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setNamespaceAware(true);
 		dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-		return dbf.newDocumentBuilder().parse(is);
+		DocumentBuilder builder = dbf.newDocumentBuilder();
+		builder.setEntityResolver(new EntityResolver() {
+	            @Override
+	            public InputSource resolveEntity(String publicId, String systemId)
+	                    throws SAXException, IOException {
+	                return new InputSource(new StringReader(""));
+	            }
+	        });
+		return builder.parse(is);
 	}
 	
 	public static String getStringFromXmlDoc(org.w3c.dom.Node node) throws Exception{

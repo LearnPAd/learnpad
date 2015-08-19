@@ -113,6 +113,10 @@ public class PetriNet implements java.io.Serializable{
     @SuppressWarnings("unchecked")
 	public ArrayList<TP> getConnectionTPList_safe(){ return (ArrayList<TP>) connectionTPList.clone(); }
     
+    public boolean isEmpty(){
+    	return placeList.isEmpty() && transitionList.isEmpty();
+    }
+    
 	public PL addPlace(String name) throws Exception{
 		return addPlace(name, 0);
 	}

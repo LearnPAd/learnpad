@@ -30,10 +30,4 @@ public class PNVerifier implements Plugin {
 		}
 		return ret;
 	}
-	
-	public static void main(String[] args) {
-		try{
-			throw new Exception("prova");
-		}catch(Exception ex){Utils.log(ex);}
-	}
 }
