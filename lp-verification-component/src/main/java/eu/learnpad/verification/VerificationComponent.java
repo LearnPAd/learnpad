@@ -1,3 +1,23 @@
+/**
+ * LearnPAd - Verification Component
+ * 
+ *  Copyright (C) 2015 Unicam
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *   
+ * @author Damiano Falcioni - Unicam <damiano.falcioni@gmail.com>
+ */
+
 package eu.learnpad.verification;
 
 import java.io.File;
@@ -10,7 +30,10 @@ import eu.learnpad.verification.utils.IOUtils;
 import eu.learnpad.verification.utils.ConfigManager;
 import eu.learnpad.verification.utils.Utils;
 
-
+/**
+ * This class expose all the API you may need in order to verify a model
+ * 
+ */
 public class VerificationComponent {
 
 	private static ArrayList<String> verificationRunningList = new ArrayList<String>();
@@ -18,9 +41,20 @@ public class VerificationComponent {
 
 	private static LPGetModel _lpGetModel = null;
 	private static LPNotify _lpNotify = null;
+	
+	/**
+	 * This interface have to be implemented if you want to use your own method of model retrieval from a given model id.
+	 */
 	public interface LPGetModel{ public String getModel(String modelId) throws Exception; }
+	/**
+	 * This interface have to be implemented if you want to be notified about the end of a verification identified by the given verification id.
+	 */
 	public interface LPNotify{ public String notifyVerificationEnd(String verificationId) throws Exception; }
 	
+	/**
+	 * This method return an array of string identifying all the available verification types provided by all the plugins
+	 * @return String[] array of string identifying all the available verification types
+	 */
 	public static String[] getSupportedVerifications() throws Exception{
 		String pluginsFolderPath = new ConfigManager().getElement("pluginsFolderPath");
 		HashMap<String, Plugin> verificationMap = PluginManager.getAvailableVerifications(pluginsFolderPath);
@@ -29,12 +63,23 @@ public class VerificationComponent {
 		return ret;
 	}
 	
+	/**
+	 * This method load a model in the component and return an id specific for the model that have to be used for the verification
+	 * @param model The model to load. It accepts any kind of model formats.
+	 * @return String an unique id associated to the model
+	 */
 	public static String loadModel(String model){
 		String mid = java.util.UUID.randomUUID() + "";
 		loadedModelList.put(mid, model);
 		return mid;
 	}
 	
+	/**
+	 * This method start a specific verification of a model.
+	 * @param modelId The model id associated to the model to verify. The model is first searched on the loaded models. If it is not found and a custom getModel function have been provided (through the method setGetModelFunctionFromLP) it will be searched on the custom method.
+	 * @param verificationType The type of verification to perform (s one of the type returned by the function getSupportedVerifications )
+	 * @return String an unique id associated to the verification
+	 */
 	public static String startVerification(final String modelId, final String verificationType) throws Exception{
 		
 		final String vid = java.util.UUID.randomUUID() + "";
@@ -50,6 +95,11 @@ public class VerificationComponent {
 		return vid;
 	}
 	
+	/**
+	 * This method return the status of a model verification
+	 * @param verificationId The verification id as returned by the startVerification method
+	 * @return String The status of the verification. It can be: "IN PROGRESS", "COMPLETED" or "NEVER STARTED"
+	 */
 	public static String getVerificationStatus(String verificationId) throws Exception{
 		if(verificationRunningList.contains(verificationId))
 			return "IN PROGRESS";
@@ -67,18 +117,25 @@ public class VerificationComponent {
 		return "NEVER STARTED";
 	}
 	
+	/**
+	 * This method return the result of a completed verification
+	 * @param verificationId The verification id as returned by the startVerification method
+	 * @return String The result of the verification. It is an xml in the following format:
+	 * <pre>
+	 * {@code
+ <VerificationResult>
+   <VerificationType>...</VerificationType>
+   <VerificationID>...</VerificationID>
+   <ModelID>...</ModelID>
+   <Time> ...UTC Time...</Time>
+   <Results>
+     ...plugin output...
+   </Results>
+ </VerificationResult>
+		 }
+	 * </pre>
+	 */
 	public static String getVerificationResult(String verificationId) throws Exception{
-		/*
-		 <VerificationResult>
-		 	<VerificationType>...</VerificationType>
-		 	<VerificationID>...</VerificationID>
-		 	<ModelID>...</ModelID>
-		 	<Time> ...UTC Time...</Time>
-		 	<Results>
-		 		...plugin output...
-		 	</Results>
-		 </VerificationResult>
-		 */
 		
 		String status = getVerificationStatus(verificationId);
 		if(!status.equals("COMPLETED"))
@@ -94,10 +151,18 @@ public class VerificationComponent {
 		throw new Exception("ERROR: Can not retrive results of the verification with id " + verificationId);
 	}
 	
+	/**
+	 * This method set the custom class defined to retrieve a model from a given id
+	 * @param lpGetModel The custom class implementing the LPGetModel interface
+	 */
 	public static void setGetModelFunctionFromLP(LPGetModel lpGetModel){
 		_lpGetModel = lpGetModel;
 	}
 	
+	/**
+	 * This method set the custom class defined to notify the end of a verification
+	 * @param lpNotify The custom class implementing the LPNotify interface
+	 */
 	public static void setNotifyVerificationEndFunctionToLP(LPNotify lpNotify){
 		_lpNotify = lpNotify;
 	}
@@ -164,8 +229,8 @@ public class VerificationComponent {
 			try {
 				Thread.sleep(1000*3);
 			} catch (InterruptedException e) {}
-			System.out.println(getVerificationStatus(vid));
-			System.out.println(getVerificationResult(vid));
+			System.out.println(VerificationComponent.getVerificationStatus(vid));
+			System.out.println(VerificationComponent.getVerificationResult(vid));
 		}catch(Exception ex){ex.printStackTrace();}
 	}
 	*/
