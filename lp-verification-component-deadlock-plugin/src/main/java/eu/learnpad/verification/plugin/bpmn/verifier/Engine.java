@@ -134,24 +134,30 @@ public class Engine {
 	private String formatResult(ArrayList<String[]> counterExampleTraceList, PetriNet pn) throws Exception{
 		/*
 	 	<Result>
-	 		<PNName></PNName>
-	 		<Status></Status>
-	 		<Description></Description>
+	 		<PNName>..petri net name..</PNName>
+	 		<Status>..OK or KO..</Status>
+	 		<Description>..detailed description of the result..</Description>
 	 		<CounterExampleTrace>
-	 			<Step num=1>
-	 				<ObjectID></ObjectID>
-	 				<ObjectID></ObjectID>
-	 				<ObjectID></ObjectID>
+	 			<Step num="1">
+	 				<ObjectID>..bpmn object id..</ObjectID>
+	 				<ObjectID>..bpmn object id..</ObjectID>
+	 				<ObjectID>..bpmn object id..</ObjectID>
 	 			</Step>
-	 			<Step num=2>
-	 				<ObjectID></ObjectID>
-	 				<ObjectID></ObjectID>
+	 			<Step num="2">
+	 				<ObjectID>..bpmn object id..</ObjectID>
+	 				<ObjectID>..bpmn object id..</ObjectID>
 	 			</Step>
+	 			...
 	 		</CounterExampleTrace>
-	 		<CounterExampleTrace></CounterExampleTrace>
+	 		<CounterExampleTrace>
+	 			<Step num="1">
+	 				<ObjectID>..bpmn object id..</ObjectID>
+	 			</Step>
+	 			...
+	 		</CounterExampleTrace>
+	 		...
 	 	</Result>
 		 */
-		
 		
 		String status = (counterExampleTraceList.size()==0)?"OK":"KO";
 		String description = (counterExampleTraceList.size()==0)?"No deadlock found!":"The model has deadlock!";
@@ -160,7 +166,7 @@ public class Engine {
 			ret += "<CounterExampleTrace>";
 			
 			for(int i=0; i<counterExampleTrace.length;i++){
-				ret += "<Step num="+i+">";
+				ret += "<Step num=\""+i+"\">";
 				String[] objList = counterExampleTrace[i].split(" ");
 				ArrayList<String> objProcessed = new ArrayList<String>();
 				for(String obj: objList){

@@ -24,3 +24,29 @@ No configuration needed
 In order to be recognized by the Verification Component, this plugin expose the following interface https://github.com/damianofalcioni/learnpad/blob/master/lp-verification-component-deadlock-plugin/src/main/java/eu/learnpad/verification/plugin/interfaces/Plugin.java 
 and define this MANIFEST.MF https://github.com/damianofalcioni/learnpad/blob/master/lp-verification-component-deadlock-plugin/src/main/resources/custom/MANIFEST.MF
 
+The output of the verification of this plugin have the following structure:
+
+		<Result>
+			<PNName>..petri net name..</PNName>
+			<Status>..OK or KO..</Status>
+			<Description>..detailed description of the result..</Description>
+			<CounterExampleTrace>
+				<Step num="1">
+					<ObjectID>..bpmn object id..</ObjectID>
+					<ObjectID>..bpmn object id..</ObjectID>
+					<ObjectID>..bpmn object id..</ObjectID>
+				</Step>
+				<Step num="2">
+					<ObjectID>..bpmn object id..</ObjectID>
+					<ObjectID>..bpmn object id..</ObjectID>
+				</Step>
+				...
+			</CounterExampleTrace>
+			<CounterExampleTrace>
+				<Step num="1">
+					<ObjectID>..bpmn object id..</ObjectID>
+				</Step>
+				...
+			</CounterExampleTrace>
+			...
+		</Result>
