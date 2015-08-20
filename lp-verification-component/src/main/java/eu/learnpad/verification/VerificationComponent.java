@@ -39,17 +39,17 @@ public class VerificationComponent {
 	private static ArrayList<String> verificationRunningList = new ArrayList<String>();
 	private static HashMap<String, String> loadedModelList = new HashMap<String, String>();
 
-	private static LPGetModel _lpGetModel = null;
-	private static LPNotify _lpNotify = null;
+	private static CustomGetModel _customGetModel = null;
+	private static CustomNotify _customNotify = null;
 	
 	/**
 	 * This interface have to be implemented if you want to use your own method of model retrieval from a given model id.
 	 */
-	public interface LPGetModel{ public String getModel(String modelId) throws Exception; }
+	public interface CustomGetModel{ public String getModel(String modelId) throws Exception; }
 	/**
 	 * This interface have to be implemented if you want to be notified about the end of a verification identified by the given verification id.
 	 */
-	public interface LPNotify{ public String notifyVerificationEnd(String verificationId) throws Exception; }
+	public interface CustomNotify{ public void notifyVerificationEnd(String verificationId) throws Exception; }
 	
 	/**
 	 * This method return an array of string identifying all the available verification types provided by all the plugins
@@ -77,10 +77,10 @@ public class VerificationComponent {
 	/**
 	 * This method start a specific verification of a model.
 	 * @param modelId The model id associated to the model to verify. The model is first searched on the loaded models. If it is not found and a custom getModel function have been provided (through the method setGetModelFunctionFromLP) it will be searched on the custom method.
-	 * @param verificationType The type of verification to perform (s one of the type returned by the function getSupportedVerifications )
-	 * @return String an unique id associated to the verification
+	 * @param verificationType The type of verification to perform (is one of the type returned by the function getSupportedVerifications )
+	 * @return String An unique id associated to the verification
 	 */
-	public static String startVerification(final String modelId, final String verificationType) throws Exception{
+	public static String startVerification(final String modelId, final String verificationType){
 		
 		final String vid = java.util.UUID.randomUUID() + "";
 		verificationRunningList.add(vid);
@@ -92,6 +92,19 @@ public class VerificationComponent {
 	    };
 	    verificationThread.start();
 		
+		return vid;
+	}
+	
+	/**
+	 * This method perform a specific verification of a model in a synchronous way, waiting for its termination
+	 * @param modelId The model id associated to the model to verify. The model is first searched on the loaded models. If it is not found and a custom getModel function have been provided (through the method setGetModelFunctionFromLP) it will be searched on the custom method.
+	 * @param verificationType The type of verification to perform (is one of the type returned by the function getSupportedVerifications )
+	 * @return String An unique id associated to the verification
+	 */
+	public static String startSyncVerification(String modelId, String verificationType){
+		String vid = java.util.UUID.randomUUID() + "";
+		verificationRunningList.add(vid);
+		verificationThread(vid, modelId, verificationType);
 		return vid;
 	}
 	
@@ -153,18 +166,18 @@ public class VerificationComponent {
 	
 	/**
 	 * This method set the custom class defined to retrieve a model from a given id
-	 * @param lpGetModel The custom class implementing the LPGetModel interface
+	 * @param customGetModel The custom class implementing the CustomGetModel interface
 	 */
-	public static void setGetModelFunctionFromLP(LPGetModel lpGetModel){
-		_lpGetModel = lpGetModel;
+	public static void setCustomGetModelFunction(CustomGetModel customGetModel){
+		_customGetModel = customGetModel;
 	}
 	
 	/**
 	 * This method set the custom class defined to notify the end of a verification
-	 * @param lpNotify The custom class implementing the LPNotify interface
+	 * @param customNotify The custom class implementing the CustomNotify interface
 	 */
-	public static void setNotifyVerificationEndFunctionToLP(LPNotify lpNotify){
-		_lpNotify = lpNotify;
+	public static void setCustomNotifyVerificationEndFunction(CustomNotify customNotify){
+		_customNotify = customNotify;
 	}
 	
 	private static void verificationThread(String vid, String modelId, String verificationType){
@@ -193,16 +206,16 @@ public class VerificationComponent {
 	}
 	
 	private static void notifyVerificationEnd(String verificationId) throws Exception{
-		if(_lpNotify!=null)
-			_lpNotify.notifyVerificationEnd(verificationId);
+		if(_customNotify!=null)
+			_customNotify.notifyVerificationEnd(verificationId);
 	}
 	
 	private static String getModel(String modelId) throws Exception{
 		String model = loadedModelList.get(modelId);
 		if(model==null) {
-			if(_lpGetModel==null)
-				throw new Exception("ERROR: lpGetModel not defined. Please use the setGetModelFunctionFromLP function first");
-			model = _lpGetModel.getModel(modelId);
+			if(_customGetModel==null)
+				throw new Exception("ERROR: customGetModel not defined. Please use the setCustomGetModelFunction function first");
+			model = _customGetModel.getModel(modelId);
 			if(model==null)
 				throw new Exception("ERROR: can not retrive model with id " + modelId);
 		}
@@ -214,7 +227,7 @@ public class VerificationComponent {
 			String folderPath = VerificationComponent.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
 			if(new File(folderPath).isDirectory())
 				folderPath = folderPath.substring(0, folderPath.length()-1);
-			folder = folderPath.substring(0, folderPath.lastIndexOf("/")+1) + "LPVerificationComponentResults/";
+			folder = folderPath.substring(0, folderPath.lastIndexOf("/")+1) + "VerificationComponentResults/";
 		}
 		return folder;
 	}

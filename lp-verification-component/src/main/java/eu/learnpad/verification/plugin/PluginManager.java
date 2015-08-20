@@ -33,7 +33,7 @@ import eu.learnpad.verification.utils.Utils;
 
 public class PluginManager {
 
-	private static String defaultPluginFolder = "LPVerificationComponentPlugins/";
+	private static String defaultPluginFolder = "VerificationComponentPlugins/";
 	
 	private static String checkFolder(String folder) throws Exception{
 		if(folder == null || folder.equals("")){
@@ -58,6 +58,8 @@ public class PluginManager {
 		
 		
 		for(File pluginFile: pluginsPath.listFiles()){
+			if(!pluginFile.getPath().endsWith(".jar"))
+				continue;
 			ClassLoader pluginCL = URLClassLoader.newInstance(new URL[] { pluginFile.toURI().toURL() });
 			try{
 				JarFile jar = new JarFile(pluginFile);

@@ -15,7 +15,7 @@ This component provide verification capabilities over a LearnPAd model relying o
 
 # How it works?
 This component expose API Java and REST to the LearnPAd platform in order to perform several kind of verifications on a LearnPAd model. The different types of verifications are provided by plugins.
-The component automatically recognize all the plugins present inside a specific folder (the default one is ./LPVerificationComponentPlugins where . is the directory containing the verification component jar) and execute the right one on each request, in an asynchronous way. Results are stored in a folder (the default one is ./LPVerificationComponentResults where . is the directory containing the verification component jar) and available for future analysis.
+The component automatically recognize all the plugins present inside a specific folder (the default one is ./VerificationComponentPlugins where . is the directory containing the verification component jar) and execute the right one on each request, in an asynchronous way. Results are stored in a folder (the default one is ./VerificationComponentResults where . is the directory containing the verification component jar) and available for future analysis.
 The component expose the Java API described in the next section but can also be executed stand alone. In this way it will initiate an internal Grizzly Web Server providing REST API.
 The component is also ready to be packaged as a WAR to be deployed on an Application Server like Tomcat.
 

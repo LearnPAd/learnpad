@@ -40,22 +40,24 @@
   </pluginRepositories> 
   
   <dependencies>
+  
   	<dependency>
   		<groupId>eu.learnpad</groupId>
   		<artifactId>LPVerificationComponentDeadlockPlugin</artifactId>
   		<version>1.0</version>
-  		<scope>provided</scope>
+  		<scope>test</scope>
   		<optional>true</optional>
   	</dependency>
+  	  
   	<dependency>
   		<groupId>org.glassfish.jersey.core</groupId>
   		<artifactId>jersey-common</artifactId>
-  		<version>2.19</version>
+  		<version>2.21</version>
   	</dependency>
   	<dependency>
   		<groupId>org.glassfish.jersey.containers</groupId>
   		<artifactId>jersey-container-grizzly2-http</artifactId>
-  		<version>2.19</version>
+  		<version>2.21</version>
   	</dependency>
   </dependencies>
   <build> 
@@ -88,31 +90,15 @@
         </configuration>
         <executions>
           <execution>
-            <id>make-assembly</id> <!-- this is used for inheritance merges -->
-            <phase>package</phase> <!-- bind to the packaging phase -->
+            <id>make-assembly</id>
+            <phase>package</phase>
             <goals>
               <goal>single</goal>
             </goals>
           </execution>
         </executions>
       </plugin>
-      
-      <!--
-      <plugin> 
-        <artifactId>maven-dependency-plugin</artifactId> 
-        <executions> 
-          <execution> 
-            <phase>package</phase> 
-            <goals> 
-              <goal>copy-dependencies</goal> 
-            </goals> 
-            <configuration> 
-              <outputDirectory>${project.build.directory}/LPVerificationComponentPlugins</outputDirectory> 
-            </configuration> 
-          </execution> 
-        </executions> 
-      </plugin>
-      -->
+ 
       
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -131,7 +117,7 @@
                   <version>1.0</version>
                   <type>jar</type>
                   <overWrite>true</overWrite>
-                  <outputDirectory>${project.build.directory}/LPVerificationComponentPlugins</outputDirectory>
+                  <outputDirectory>${project.build.directory}/VerificationComponentPlugins</outputDirectory>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>${project.build.directory}/lib</outputDirectory>
@@ -140,7 +126,6 @@
           </execution>
         </executions>
       </plugin>
-      
       
       <plugin>            
         <groupId>org.apache.maven.plugins</groupId>

@@ -37,7 +37,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 import eu.learnpad.verification.utils.Utils;
 
-@Path("/LPVerificationComponent")
+@Path("/VerificationComponent")
 public class JAXRSService {
 	@GET
     @Path("/getSupportedVerifications")
@@ -72,6 +72,17 @@ public class JAXRSService {
 	}
 	
 	@GET
+    @Path("/startSyncVerification")
+    @Produces(MediaType.TEXT_PLAIN)
+	public static synchronized String startSyncVerification(@QueryParam("modelId") String modelId, @QueryParam("verificationType") String verificationType){
+		String ret = "";
+		try{
+			ret = VerificationComponent.startSyncVerification(modelId, verificationType);
+		}catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
+		return ret;
+	}
+	
+	@GET
     @Path("/getVerificationStatus")
     @Produces(MediaType.TEXT_PLAIN)
 	public static String getVerificationStatus(@QueryParam("verificationId") String verificationId){
@@ -95,7 +106,7 @@ public class JAXRSService {
 	
 	public static void main(String[] args) {
 		try{
-			URI baseUri = UriBuilder.fromUri("http://127.0.0.1/rest").port(8080).build();
+			URI baseUri = UriBuilder.fromUri("http://127.0.0.1/rest").port(9998).build();
 			final ResourceConfig resourceConfig = new ResourceConfig(JAXRSService.class);
 			HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri,resourceConfig, false);
             server.start();
