@@ -24,7 +24,7 @@ No configuration needed
 In order to be recognized by the Verification Component, this plugin expose the following interface https://github.com/damianofalcioni/learnpad/blob/master/lp-verification-component-deadlock-plugin/src/main/java/eu/learnpad/verification/plugin/interfaces/Plugin.java 
 and define this MANIFEST.MF https://github.com/damianofalcioni/learnpad/blob/master/lp-verification-component-deadlock-plugin/src/main/resources/custom/MANIFEST.MF
 
-The output of the verification of this plugin have the following structure:
+The output structure of the verification provided by this plugin is reported in the following:
 
 		<Result>
 			<PNName>..petri net name..</PNName>
