@@ -235,9 +235,10 @@ public class VerificationComponent {
 	/*
 	public static void main(String[] args) {
 		try{
-			String model = new String(IOUtils.readFile("D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_adoxx_1.xml"));
+			//String model = new String(IOUtils.readFile("D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_adoxx_1.xml"));
+			String model = new String(IOUtils.readFile("D:\\TOOLS\\curlData.xml"));
 			String mid = VerificationComponent.loadModel(model);
-			String vid = VerificationComponent.startVerification(mid, VerificationComponent.getSupportedVerifications()[0]);
+			String vid = VerificationComponent.startSyncVerification(mid, VerificationComponent.getSupportedVerifications()[0]);
 			System.out.println(VerificationComponent.getVerificationStatus(vid));
 			try {
 				Thread.sleep(1000*3);

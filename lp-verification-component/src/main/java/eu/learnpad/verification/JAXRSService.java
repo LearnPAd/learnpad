@@ -55,9 +55,9 @@ public class JAXRSService {
 	@PUT
 	@Path("/loadModel")
     @Produces(MediaType.TEXT_PLAIN)
-	@Consumes(MediaType.APPLICATION_XML)
-	public static String loadModel(String model){
-		return VerificationComponent.loadModel(model);
+	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
+	public static String loadModel(byte[] model){
+		return VerificationComponent.loadModel(new String(model));
 	}
 	
 	@GET
