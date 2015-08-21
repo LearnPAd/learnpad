@@ -235,7 +235,7 @@ public class VerificationComponent {
 		return folder;
 	}
 	
-	
+	/*
 	public static void main(String[] args) {
 		try{
 			//String model = new String(IOUtils.readFile("D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_adoxx_1.xml"));
@@ -250,5 +250,5 @@ public class VerificationComponent {
 			System.out.println(VerificationComponent.getVerificationResult(vid));
 		}catch(Exception ex){ex.printStackTrace();}
 	}
-	
+	*/
 }
