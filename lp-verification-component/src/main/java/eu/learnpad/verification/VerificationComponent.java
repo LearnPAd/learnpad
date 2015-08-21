@@ -29,6 +29,7 @@ import eu.learnpad.verification.plugin.interfaces.Plugin;
 import eu.learnpad.verification.utils.IOUtils;
 import eu.learnpad.verification.utils.ConfigManager;
 import eu.learnpad.verification.utils.Utils;
+import eu.learnpad.verification.utils.XMLUtils;
 
 /**
  * This class expose all the API you may need in order to verify a model
@@ -197,7 +198,9 @@ public class VerificationComponent {
 			String model = getModel(modelId);
     		String result = verificationEngine.performVerification(model, verificationType);
     		String resultXml = "<VerificationResult><VerificationType>"+verificationType+"</VerificationType><VerificationID>"+vid+"</VerificationID><ModelID>"+modelId+"</ModelID><Time>"+Utils.getUTCTime()+"</Time><Results>"+result+"</Results></VerificationResult>";
-    		
+    		try{
+    			XMLUtils.getXmlDocFromString(resultXml);
+    		}catch(Exception e){ throw new Exception("ERROR: The result is not a valid XML:\n"+resultXml);}
             IOUtils.writeFile(resultXml.getBytes(), resultsFolderPath + File.separator + vid, false);
             notifyVerificationEnd(vid);
 		}catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
@@ -232,7 +235,7 @@ public class VerificationComponent {
 		return folder;
 	}
 	
-	/*
+	
 	public static void main(String[] args) {
 		try{
 			//String model = new String(IOUtils.readFile("D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_adoxx_1.xml"));
@@ -247,5 +250,5 @@ public class VerificationComponent {
 			System.out.println(VerificationComponent.getVerificationResult(vid));
 		}catch(Exception ex){ex.printStackTrace();}
 	}
-	*/
+	
 }
