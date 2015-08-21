@@ -51,6 +51,7 @@ import org.mockito.stubbing.Answer;
 
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.datastructures.document.LearnPadDocument;
 import eu.learnpad.simulator.uihandler.IFormHandler;
 
 /**
@@ -222,20 +223,23 @@ public class UIHandlerWebImplTest {
 
 		// send some tasks
 
-		uiHandler.sendTask(new LearnPadTask("process1", "task1", "", ""),
-				Arrays.asList("user1"));
+		uiHandler.sendTask(new LearnPadTask("process1", "task1", "", "",
+				new ArrayList<LearnPadDocument>()), Arrays.asList("user1"));
 
-		uiHandler.sendTask(new LearnPadTask("process1", "task2", "", ""),
-				Arrays.asList("user1", "user2"));
+		uiHandler.sendTask(new LearnPadTask("process1", "task2", "", "",
+				new ArrayList<LearnPadDocument>()), Arrays.asList("user1",
+				"user2"));
 
-		uiHandler.sendTask(new LearnPadTask("process1", "task3", "", ""),
-				Arrays.asList("user1", "user2", "user3"));
+		uiHandler.sendTask(new LearnPadTask("process1", "task3", "", "",
+				new ArrayList<LearnPadDocument>()), Arrays.asList("user1",
+				"user2", "user3"));
 
-		uiHandler.sendTask(new LearnPadTask("process1", "task4", "", ""),
-				Arrays.asList("user2", "user3"));
+		uiHandler.sendTask(new LearnPadTask("process1", "task4", "", "",
+				new ArrayList<LearnPadDocument>()), Arrays.asList("user2",
+				"user3"));
 
-		uiHandler.sendTask(new LearnPadTask("process1", "task5", "", ""),
-				Arrays.asList("user3"));
+		uiHandler.sendTask(new LearnPadTask("process1", "task5", "", "",
+				new ArrayList<LearnPadDocument>()), Arrays.asList("user3"));
 
 		// check all user has been notified of its tasks
 

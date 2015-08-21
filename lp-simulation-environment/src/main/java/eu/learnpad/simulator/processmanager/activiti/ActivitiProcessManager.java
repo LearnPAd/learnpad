@@ -74,6 +74,8 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	private final ProcessDiagramGenerator generator;
 
+	private final BPMNExplorerRepository explorerRepo;
+
 	private final IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider;
 
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
@@ -95,6 +97,7 @@ public class ActivitiProcessManager implements IProcessManager {
 		historyService = processEngine.getHistoryService();
 
 		this.generator = new DefaultProcessDiagramGenerator();
+		this.explorerRepo = explorerRepo;
 
 		taskValidator = new ActivitiDemoTaskValidator(repositoryService,
 				taskService);
@@ -265,7 +268,7 @@ public class ActivitiProcessManager implements IProcessManager {
 				this, this.processEventReceiverProvider.processEventReceiver(),
 				process, taskService, runtimeService, historyService,
 				new ActivitiTaskRouter(taskService, router), taskValidator,
-				users));
+				users, explorerRepo.getExplorer(projectDefinitionId)));
 
 		// we are ready, so we can start the dispatcher
 		processDispatchers.get(process.getId()).start();

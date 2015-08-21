@@ -1,8 +1,4 @@
-package eu.learnpad.simulator.datastructures;
-
-import java.util.Collection;
-
-import eu.learnpad.simulator.datastructures.document.LearnPadDocument;
+package eu.learnpad.simulator.datastructures.document;
 
 /*
  * #%L
@@ -25,32 +21,36 @@ import eu.learnpad.simulator.datastructures.document.LearnPadDocument;
  * #L%
  */
 
+import java.util.Collection;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
- * This data structure holds the common information about a task
+ * This data structure represents a document used in a process. Among others, a
+ * document contains several document fields. These fields are used to generate
+ * forms to be filled by the users.
  *
  * @author Tom Jorquera - Linagora
  *
  */
-public class LearnPadTask {
+public class LearnPadDocument {
 
-	public final String processId;
+	@JsonProperty("id")
 	public final String id;
+	@JsonProperty("name")
 	public final String name;
+	@JsonProperty("desc")
 	public final String desc;
-	public final Collection<LearnPadDocument> documents;
+	@JsonProperty("fields")
+	public final Collection<LearnPadDocumentField> fields;
 
-	public LearnPadTask(String processId, String taskId, String taskName,
-			String taskDesc, Collection<LearnPadDocument> documents) {
+	public LearnPadDocument(String id, String name, String desc,
+			Collection<LearnPadDocumentField> fields) {
 		super();
-		this.processId = processId;
-		this.id = taskId;
-		this.name = taskName;
-		this.desc = taskDesc;
-		this.documents = documents;
+		this.id = id;
+		this.name = name;
+		this.desc = desc;
+		this.fields = fields;
 	}
 
-	@Override
-	public String toString() {
-		return "LPTask: {" + processId + ", " + id + ", " + name + "}";
-	}
 }

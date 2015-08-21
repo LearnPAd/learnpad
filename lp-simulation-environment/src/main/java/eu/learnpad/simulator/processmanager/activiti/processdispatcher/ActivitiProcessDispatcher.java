@@ -42,10 +42,13 @@ import org.activiti.engine.task.Task;
 
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.datastructures.document.LearnPadDocument;
+import eu.learnpad.simulator.datastructures.document.LearnPadDocumentField;
 import eu.learnpad.simulator.processmanager.AbstractProcessDispatcher;
 import eu.learnpad.simulator.processmanager.ITaskRouter;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
+import eu.learnpad.simulator.utils.BPMNExplorer;
 
 /**
  *
@@ -58,6 +61,7 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher
 	private final TaskService taskService;
 	private final RuntimeService runtimeService;
 	private final HistoryService historyService;
+	private final BPMNExplorer explorer;
 
 	private final Set<String> registeredWaitingTasks = new HashSet<String>();
 
@@ -99,7 +103,7 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher
 			HistoryService historyService,
 			ITaskRouter router,
 			ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator,
-			Collection<String> involvedUsers
+			Collection<String> involvedUsers, BPMNExplorer explorer
 
 	) {
 		super(processManager, processEventReceiver, process.getId(),
@@ -107,6 +111,7 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher
 		this.taskService = taskService;
 		this.runtimeService = runtimeService;
 		this.historyService = historyService;
+		this.explorer = explorer;
 
 		runtimeService.addEventListener(this,
 				ActivitiEventType.PROCESS_COMPLETED);
@@ -134,11 +139,40 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher
 		List<Task> waitingTasks = taskService.createTaskQuery()
 				.processInstanceId(processId).list();
 
+		final ProcessInstance processWithVars = runtimeService
+				.createProcessInstanceQuery().includeProcessVariables()
+				.processInstanceId(processId).singleResult();
+
 		// ... ignoring already processed tasks
 		for (Task t : waitingTasks) {
 			if (!registeredWaitingTasks.contains(t.getId())) {
+
+				Collection<LearnPadDocument> documents = new ArrayList<LearnPadDocument>();
+
+				// add input data objects to task
+				if (explorer != null) {
+					Set<String> dataInputs = explorer.getDataInputs(t
+							.getTaskDefinitionKey());
+
+					for (String dataInput : dataInputs) {
+
+						Collection<LearnPadDocumentField> fields = new ArrayList<LearnPadDocumentField>();
+
+						for (String element : explorer
+								.getDataObjectContent(dataInput)) {
+							fields.add(new LearnPadDocumentField(element,
+									element, "string", "", processWithVars
+											.getProcessVariables().get(element)
+									.toString()));
+						}
+
+						documents.add(new LearnPadDocument(dataInput, explorer
+								.getDataObjectName(dataInput), "", fields));
+					}
+				}
+
 				newTasks.add(new LearnPadTask(t.getProcessInstanceId(), t
-						.getId(), t.getName(), t.getDescription()));
+						.getId(), t.getName(), t.getDescription(), documents));
 			}
 		}
 

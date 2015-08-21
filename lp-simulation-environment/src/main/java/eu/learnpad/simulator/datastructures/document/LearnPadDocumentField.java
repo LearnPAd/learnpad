@@ -1,8 +1,6 @@
-package eu.learnpad.simulator.datastructures;
+package eu.learnpad.simulator.datastructures.document;
 
-import java.util.Collection;
-
-import eu.learnpad.simulator.datastructures.document.LearnPadDocument;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /*
  * #%L
@@ -26,31 +24,31 @@ import eu.learnpad.simulator.datastructures.document.LearnPadDocument;
  */
 
 /**
- * This data structure holds the common information about a task
  *
  * @author Tom Jorquera - Linagora
  *
  */
-public class LearnPadTask {
+public class LearnPadDocumentField {
 
-	public final String processId;
-	public final String id;
-	public final String name;
-	public final String desc;
-	public final Collection<LearnPadDocument> documents;
+	@JsonProperty("id")
+	String id;
+	@JsonProperty("name")
+	String name;
+	@JsonProperty("type")
+	String type;
+	@JsonProperty("desc")
+	String desc;
+	@JsonProperty("value")
+	String value;
 
-	public LearnPadTask(String processId, String taskId, String taskName,
-			String taskDesc, Collection<LearnPadDocument> documents) {
+	public LearnPadDocumentField(String id, String name, String type,
+			String desc, String value) {
 		super();
-		this.processId = processId;
-		this.id = taskId;
-		this.name = taskName;
-		this.desc = taskDesc;
-		this.documents = documents;
+		this.id = id;
+		this.name = name;
+		this.type = type;
+		this.desc = desc;
+		this.value = value;
 	}
 
-	@Override
-	public String toString() {
-		return "LPTask: {" + processId + ", " + id + ", " + name + "}";
-	}
 }
