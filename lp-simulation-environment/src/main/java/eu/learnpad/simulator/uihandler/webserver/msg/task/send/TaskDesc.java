@@ -24,6 +24,9 @@ package eu.learnpad.simulator.uihandler.webserver.msg.task.send;
  * #L%
  */
 
+import java.util.Collection;
+
+import eu.learnpad.simulator.datastructures.document.LearnPadDocument;
 import eu.learnpad.simulator.uihandler.webserver.msg.task.ITaskMsg;
 
 /**
@@ -37,6 +40,7 @@ public class TaskDesc implements ITaskMsg {
 	public String processid;
 	public String processname;
 	public String form;
+	public Collection<LearnPadDocument> documents;
 
 	/**
 	 * @param description
@@ -44,13 +48,15 @@ public class TaskDesc implements ITaskMsg {
 	 * @param form
 	 */
 	public TaskDesc(String name, String description, String processid,
-			String processname, String form) {
+			String processname, String form,
+			Collection<LearnPadDocument> documents) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.processid = processid;
 		this.processname = processname;
 		this.form = form;
+		this.documents = documents;
 	}
 
 	/*

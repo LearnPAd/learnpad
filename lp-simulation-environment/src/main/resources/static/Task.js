@@ -102,14 +102,52 @@ function task(address, taskid, user) {
 
             var taskDiv = document.createElement('div');
             taskDiv.id = 'taskcontainer' + taskid;
-            taskDiv.innerHTML = '<p id="taskdata' + taskid +
-                '"></p><div id="taskFormDiv' + taskid + '"></div><hr>';
+            taskDiv.innerHTML = '<p id="taskdata' + taskid + '"></p>' +
+                '<div id="taskDocsDiv' + taskid +
+                '"></div><div id="taskFormDiv' + taskid +
+                '"></div><hr>';
             $('#accordion' + data.processid).before(taskDiv);
 
             $('#taskdata' + taskid).html(
                 '<h4>' + '<em>' + data.name + '</em></h4>' +
                     '<h4>' + data.description + '</h4>'
             );
+
+            // add documents after the description
+            var content =
+                    '<div class="panel-group" id="documentsaccordion" role="tablist" aria-multiselectable="true">';
+            for (var i = 0; i < data.documents.length; i++) {
+                var doc = data.documents[i];
+
+                content += '<div class="panel panel-default"><div class="panel-heading" role="tab" id="' +
+                    'heading_' + taskid + '_' + doc.id +
+                    '"><h4 class="panel-title">' +
+                    '<a role="button" data-toggle="collapse" data-parent="#accordion" href="#' +
+                    'collapse_' + taskid + '_' + doc.id +
+                    '" aria-expanded="true" aria-controls="' +
+                    'collapse_' + taskid + '_' + doc.id +
+                    '"><span class="glyphicon glyphicon-file"></span>' +
+                    doc.name + '</a></h4></div>';
+
+                content += '<div id="' +
+                    'collapse_' + taskid + '_' + doc.id +
+                    '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="' +
+                    'heading_' + taskid + '_' + doc.id +
+                    '"><div class="panel-body">';
+
+                content += '<table class="table">';
+
+                for (var j = 0; j < doc.fields.length; j++) {
+                    content += '<tr><td>' + doc.fields[j].name + '</td><td>' +
+                        doc.fields[j].value + '</td></tr>';
+                }
+
+                content += '</table>';
+
+                content += '</div></div></div>';
+            }
+            content += '</div>';
+            $('#taskDocsDiv' + taskid).html(content);
 
             $('#processcontainer' + data.processid + ' .diagramImg').attr(
                 'src',

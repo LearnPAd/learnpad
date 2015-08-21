@@ -24,6 +24,9 @@ package eu.learnpad.simulator.uihandler.webserver.msg.task.send;
  * #L%
  */
 
+import java.util.Collection;
+
+import eu.learnpad.simulator.datastructures.document.LearnPadDocument;
 import eu.learnpad.simulator.uihandler.webserver.msg.task.ITaskMsg;
 
 /**
@@ -38,10 +41,12 @@ public class Resubmit extends TaskDesc implements ITaskMsg {
 	 * @param process
 	 * @param processname
 	 * @param form
+	 * @param documents
 	 */
 	public Resubmit(String name, String description, String process,
-			String processname, String form) {
-		super(name, description, process, processname, form);
+			String processname, String form,
+			Collection<LearnPadDocument> documents) {
+		super(name, description, process, processname, form, documents);
 	}
 
 	/*
