@@ -35,6 +35,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.IUserHandler;
+import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.uihandler.IFormHandler;
 
 /**
@@ -121,20 +122,19 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 	 * 
 	 * @see activitipoc.IUIHandler#sendTask(java.lang.String, java.util.Set)
 	 */
-	public void sendTask(String processId, String taskId, String taskName,
-			String taskDescr, Collection<String> users) {
+	public void sendTask(LearnPadTask task, Collection<String> users) {
 
-		tasksMap.put(taskId, webserver.addTaskServlet(new TaskServlet(this,
-				userEventReceiverProvider.processManager(), processId, taskId,
-				taskName, taskDescr, formHandler), taskId));
-		tasksToUsers.put(taskId, users);
+		tasksMap.put(task.id, webserver.addTaskServlet(new TaskServlet(this,
+				userEventReceiverProvider.processManager(), task, formHandler),
+				task.id));
+		tasksToUsers.put(task.id, users);
 
 		// note: it is important to signal new tasks to users *after* having
 		// created the corresponding servlet otherwise the user may try to
 		// connect to the task before it is available
 		for (String user : users) {
 			((UIServlet) usersMap.get(user).getServletInstance())
-			.addTask(taskId);
+			.addTask(task.id);
 		}
 	}
 

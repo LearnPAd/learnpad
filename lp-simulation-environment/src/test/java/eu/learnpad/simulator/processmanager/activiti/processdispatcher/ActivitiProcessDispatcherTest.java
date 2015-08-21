@@ -24,6 +24,7 @@ package eu.learnpad.simulator.processmanager.activiti.processdispatcher;
  * #L%
  */
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -60,6 +61,7 @@ import org.mockito.stubbing.Answer;
 
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.Main;
+import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.processmanager.ITaskRouter;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
@@ -130,9 +132,11 @@ public class ActivitiProcessDispatcherTest {
 		// (since task processing is multithreaded to avoid blocking,
 		// we may need to wait a little. 5 sec should be *far* more than
 		// enough)
-		verify(processEventReceiver, timeout(5000)).sendTask(
-				eq(processInstance.getId()), anyString(), anyString(),
-				anyString(), any(Collection.class));
+		ArgumentCaptor<LearnPadTask> task = ArgumentCaptor
+				.forClass(LearnPadTask.class);
+		verify(processEventReceiver, timeout(5000)).sendTask(task.capture(),
+				any(Collection.class));
+		assertEquals(task.getValue().processId, processInstance.getId());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -162,9 +166,13 @@ public class ActivitiProcessDispatcherTest {
 		validateAllTasks(dispatcher, processEventReceiver);
 
 		// should have processed 6 tasks in total
-		verify(processEventReceiver, times(6)).sendTask(
-				eq(processInstance.getId()), anyString(), anyString(),
-				anyString(), any(Collection.class));
+		ArgumentCaptor<LearnPadTask> task = ArgumentCaptor
+				.forClass(LearnPadTask.class);
+		verify(processEventReceiver, times(6)).sendTask(task.capture(),
+				any(Collection.class));
+		for (LearnPadTask t : task.getAllValues()) {
+			assertEquals(t.processId, processInstance.getId());
+		}
 
 	}
 
@@ -206,15 +214,16 @@ public class ActivitiProcessDispatcherTest {
 				TEST_PROCESS_USES);
 
 		// dispatcher should have dispatched first task
-		final ArgumentCaptor<String> taskId = ArgumentCaptor
-				.forClass(String.class);
+		ArgumentCaptor<LearnPadTask> task = ArgumentCaptor
+				.forClass(LearnPadTask.class);
 		verify(processEventReceiver, timeout(5000).times(1)).sendTask(
-				eq(processInstance.getId()), taskId.capture(), anyString(),
-				anyString(), userRoute.capture());
+				task.capture(), userRoute.capture());
+
+		assertEquals(task.getValue().processId, processInstance.getId());
 
 		// check task is correctly routed to users
 		Set<String> expectedUserRoutes = new HashSet<String>();
-		for (String role : getTaskRolesHelper(taskId.getValue())) {
+		for (String role : getTaskRolesHelper(task.getValue().id)) {
 			expectedUserRoutes.addAll(routes.get(role));
 		}
 
@@ -226,13 +235,14 @@ public class ActivitiProcessDispatcherTest {
 		doAnswer(new Answer<Void>() {
 			public Void answer(InvocationOnMock invocation) throws Throwable {
 
-				Collection<String> receivedRoutes = invocation.getArgumentAt(4,
+				LearnPadTask task = invocation.getArgumentAt(0,
+						LearnPadTask.class);
+				Collection<String> receivedRoutes = invocation.getArgumentAt(1,
 						Collection.class);
 
 				// check task is correctly routed to users
 				Set<String> expectedRoutes = new HashSet<String>();
-				for (String role : getTaskRolesHelper(invocation.getArgumentAt(
-						1, String.class))) {
+				for (String role : getTaskRolesHelper(task.id)) {
 					expectedRoutes.addAll(routes.get(role));
 				}
 
@@ -240,15 +250,14 @@ public class ActivitiProcessDispatcherTest {
 				assertTrue(receivedRoutes.containsAll(expectedRoutes)
 						&& expectedRoutes.containsAll(receivedRoutes));
 
-				dispatcher.submitTaskCompletion(
-						invocation.getArgumentAt(1, String.class), null);
+				dispatcher.submitTaskCompletion(task.id, null);
 				return null;
 			}
-		}).when(processEventReceiver).sendTask(anyString(), anyString(),
-				anyString(), anyString(), any(Collection.class));
+		}).when(processEventReceiver).sendTask(any(LearnPadTask.class),
+				any(Collection.class));
 
 		// respond to first task dispatch
-		dispatcher.submitTaskCompletion(taskId.getValue(), null);
+		dispatcher.submitTaskCompletion(task.getValue().id, null);
 
 		// wait for all tasks to be processed
 		// (again, since task processing is multithreaded to avoid blocking,
@@ -335,10 +344,10 @@ public class ActivitiProcessDispatcherTest {
 	/**
 	 * Helper method which create the set of roles involved in a task
 	 *
-	 * @param taskId
+	 * @param id
 	 * @return the set of roles involved in a task
 	 */
-	private Set<String> getTaskRolesHelper(String taskId) {
+	private Set<String> getTaskRolesHelper(String id) {
 		Set<String> roles = new HashSet<String>();
 
 		// open the BPMN model of the process
@@ -357,11 +366,10 @@ public class ActivitiProcessDispatcherTest {
 		Set<String> result = new HashSet<String>();
 
 		for (String role : roles) {
-			if (!processEngine.getTaskService().createTaskQuery()
-					.taskId(taskId).taskCandidateOrAssigned(role).list()
-					.isEmpty()
+			if (!processEngine.getTaskService().createTaskQuery().taskId(id)
+					.taskCandidateOrAssigned(role).list().isEmpty()
 					|| !processEngine.getTaskService().createTaskQuery()
-							.taskId(taskId).taskCandidateGroup(role).list()
+							.taskId(id).taskCandidateGroup(role).list()
 							.isEmpty()) {
 				result.add(role);
 			}
@@ -379,24 +387,26 @@ public class ActivitiProcessDispatcherTest {
 	@SuppressWarnings("unchecked")
 	private void validateAllTasks(final ActivitiProcessDispatcher dispatcher,
 			IProcessEventReceiver processEventReceiver) {
-		// we capture the task id to respond to task
-		ArgumentCaptor<String> taskId = ArgumentCaptor.forClass(String.class);
+		// we capture the task to respond
+		ArgumentCaptor<LearnPadTask> task = ArgumentCaptor
+				.forClass(LearnPadTask.class);
 		verify(processEventReceiver, timeout(5000).times(1)).sendTask(
-				eq(processInstance.getId()), taskId.capture(), anyString(),
-				anyString(), any(Collection.class));
+				task.capture(), any(Collection.class));
+		assertEquals(task.getValue().processId, processInstance.getId());
 
 		// automatically respond to next tasks dispatch
 		doAnswer(new Answer<Void>() {
 			public Void answer(InvocationOnMock invocation) throws Throwable {
 				dispatcher.submitTaskCompletion(
-						invocation.getArgumentAt(1, String.class), null);
+						invocation.getArgumentAt(0, LearnPadTask.class).id,
+						null);
 				return null;
 			}
-		}).when(processEventReceiver).sendTask(anyString(), anyString(),
-				anyString(), anyString(), any(Collection.class));
+		}).when(processEventReceiver).sendTask(any(LearnPadTask.class),
+				any(Collection.class));
 
 		// respond to first task dispatch
-		dispatcher.submitTaskCompletion(taskId.getValue(), null);
+		dispatcher.submitTaskCompletion(task.getValue().id, null);
 
 		// wait for all tasks to be processed
 		// (again, since task processing is multithreaded to avoid blocking,

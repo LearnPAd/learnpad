@@ -26,6 +26,8 @@ package eu.learnpad.simulator;
 
 import java.util.Collection;
 
+import eu.learnpad.simulator.datastructures.LearnPadTask;
+
 /**
  *
  * Define the interface required to subscribe to process events
@@ -42,19 +44,12 @@ public interface IProcessEventReceiver {
 	/**
 	 * Send a task to a set of users
 	 *
-	 * @param processId
-	 *            the id of the process
-	 * @param taskId
-	 *            the id of the task
-	 * @param taskName
-	 *            the name of the task
-	 * @param taskDescr
-	 *            the description of the task
+	 * @param task
+	 *            task to send
 	 * @param users
 	 *            the users concerned by the task
 	 */
-	public void sendTask(String processId, String taskId, String taskName,
-			String taskDescr, Collection<String> users);
+	public void sendTask(LearnPadTask task, Collection<String> users);
 
 	/**
 	 * Signal the end of a process instance to a list of users
