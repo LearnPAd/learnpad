@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:relational="http://www.di.univaq.it/RelationalMM">
+  <relational:RelationalModel name="Container"/>
+  <relational:Table name="Person"/>
+  <relational:Column name="name"/>
+</xmi:XMI>

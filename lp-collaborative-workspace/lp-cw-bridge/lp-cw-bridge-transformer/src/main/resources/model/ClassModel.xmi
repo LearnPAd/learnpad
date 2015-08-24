@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ASCII"?>
+<class:ClassModel
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:class="http://www.di.univaq.it/ClassMM"
+    xsi:schemaLocation="http://www.di.univaq.it/ClassMM /resources/metamodels/ClassMM.ecore"
+    name="Container">
+  <classes name="Person">
+    <attributes
+        name="name"
+        type="//@types.0"/>
+  </classes>
+  <types name="String"/>
+</class:ClassModel>

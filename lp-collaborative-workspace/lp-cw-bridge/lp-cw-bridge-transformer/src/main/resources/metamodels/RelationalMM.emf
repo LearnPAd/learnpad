@@ -1,0 +1,24 @@
+@namespace(uri="http://www.di.univaq.it/RelationalMM", prefix="relational")
+package RelationalMM;
+
+class RelationalModel extends NamedElement {
+  val Table[*]#model tables;
+}
+
+class Table extends NamedElement {
+  ref RelationalModel[1]#tables model;
+  val Column[*]#container columns;
+}
+
+class Column extends NamedElement {
+  ref Table[1]#columns container;
+  ref Type[1] type;
+}
+
+class Type extends NamedElement {
+}
+
+class NamedElement {
+  attr String name;
+}
+

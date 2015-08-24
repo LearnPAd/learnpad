@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ASCII"?>
+<bpmn2:Definitions xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL-XMI" 
+xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI-XMI" 
+id="model22603" 
+targetNamespace="http://org.eclipse.bpmn2/default/process">
+  <rootElements xsi:type="bpmn2:Process" id="No_Pool" name="Default Process">
+    <flowElements xsi:type="bpmn2:StartEvent" id="obj.22608" name="Start Event-22608" outgoing="con.22620"/>
+    <flowElements xsi:type="bpmn2:Task" id="obj.22611" name="Task-22611" incoming="con.22620" outgoing="con.22621"/>
+    <flowElements xsi:type="bpmn2:Task" id="obj.22614" name="Task-22614" incoming="con.22621" outgoing="con.22622"/>
+    <flowElements xsi:type="bpmn2:EndEvent" id="obj.22617" name="End Event-22617" incoming="con.22622"/>
+    <flowElements xsi:type="bpmn2:SequenceFlow" id="con.22620" sourceRef="obj.22608" targetRef="obj.22611"/>
+    <flowElements xsi:type="bpmn2:SequenceFlow" id="con.22621" sourceRef="obj.22611" targetRef="obj.22614"/>
+    <flowElements xsi:type="bpmn2:SequenceFlow" id="con.22622" sourceRef="obj.22614" targetRef="obj.22617"/>
+  </rootElements>
+  <diagrams id="BPMNDiagram_1" name="Default Collaboration Diagram">
+    <plane id="BPMNPlane_1">
+      <planeElement xsi:type="bpmndi:BPMNShape" id="BPMNShape_obj.22608" bpmnElement="obj.22608">
+        <bounds height="36.0" width="36.0" x="72.5" y="130.5"/>
+        <label id="BPMNLabel_obj.22608">
+          <bounds height="15.0" width="68.0" x="72.5" y="130.5"/>
+          <labelStyle href="bp1_simpleModelByXSLT.bpmn#BPMNLabelStyle_1"/>
+        </label>
+      </planeElement>
+      <planeElement xsi:type="bpmndi:BPMNShape" id="BPMNShape_obj.22611" bpmnElement="obj.22611">
+        <bounds height="52.2" width="97.44" x="203.0" y="130.5"/>
+        <label id="BPMNLabel_obj.22611">
+          <bounds height="15.0" width="68.0" x="203.0" y="130.5"/>
+          <labelStyle href="bp1_simpleModelByXSLT.bpmn#BPMNLabelStyle_1"/>
+        </label>
+      </planeElement>
+      <planeElement xsi:type="bpmndi:BPMNShape" id="BPMNShape_obj.22614" bpmnElement="obj.22614">
+        <bounds height="52.2" width="97.44" x="348.0" y="130.5"/>
+        <label id="BPMNLabel_obj.22614">
+          <bounds height="15.0" width="68.0" x="348.0" y="130.5"/>
+          <labelStyle href="bp1_simpleModelByXSLT.bpmn#BPMNLabelStyle_1"/>
+        </label>
+      </planeElement>
+      <planeElement xsi:type="bpmndi:BPMNShape" id="BPMNShape_obj.22617" bpmnElement="obj.22617">
+        <bounds height="36.0" width="36.0" x="493.0" y="130.5"/>
+        <label id="BPMNLabel_obj.22617">
+          <bounds height="15.0" width="68.0" x="493.0" y="130.5"/>
+          <labelStyle href="bp1_simpleModelByXSLT.bpmn#BPMNLabelStyle_1"/>
+        </label>
+      </planeElement>
+      <planeElement xsi:type="bpmndi:BPMNEdge" id="BPMNEdge_con.22620" bpmnElement="con.22620" sourceElement="BPMNShape_obj.22608" targetElement="BPMNShape_obj.22611">
+        <waypoint x="108.5" y="148.5"/>
+        <waypoint x="203.0" y="156.6"/>
+        <label id="BPMNLabel_con.22620">
+          <labelStyle href="bp1_simpleModelByXSLT.bpmn#BPMNLabelStyle_1"/>
+        </label>
+      </planeElement>
+      <planeElement xsi:type="bpmndi:BPMNEdge" id="BPMNEdge_con.22621" bpmnElement="con.22621" sourceElement="BPMNShape_obj.22611" targetElement="BPMNShape_obj.22614">
+        <waypoint x="300.44" y="156.6"/>
+        <waypoint x="348.0" y="156.6"/>
+        <label id="BPMNLabel_con.22621">
+          <labelStyle href="bp1_simpleModelByXSLT.bpmn#BPMNLabelStyle_1"/>
+        </label>
+      </planeElement>
+      <planeElement xsi:type="bpmndi:BPMNEdge" id="BPMNEdge_con.22622" bpmnElement="con.22622" sourceElement="BPMNShape_obj.22614" targetElement="BPMNShape_obj.22617">
+        <waypoint x="445.44" y="156.6"/>
+        <waypoint x="493.0" y="148.5"/>
+        <label id="BPMNLabel_con.22622">
+          <labelStyle href="bp1_simpleModelByXSLT.bpmn#BPMNLabelStyle_1"/>
+        </label>
+      </planeElement>
+      <bpmnElement href="bp1_simpleModelByXSLT.bpmn#No_Pool"/>
+    </plane>
+    <labelStyle id="BPMNLabelStyle_1">
+      <font name="arial" size="9.0"/>
+    </labelStyle>
+  </diagrams>
+</bpmn2:Definitions>
