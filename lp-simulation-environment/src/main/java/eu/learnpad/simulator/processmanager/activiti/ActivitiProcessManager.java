@@ -339,6 +339,11 @@ public class ActivitiProcessManager implements IProcessManager {
 		processDispatchers.remove(processId);
 	}
 
+	@Override
+	public Integer getInstanceScore(String processId, String userId) {
+		return processDispatchers.get(processId).getInstanceScore(userId);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 *

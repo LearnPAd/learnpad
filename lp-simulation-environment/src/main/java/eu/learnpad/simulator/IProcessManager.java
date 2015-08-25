@@ -166,6 +166,15 @@ public interface IProcessManager {
 	public void signalProcessCompletion(String processId);
 
 	/**
+	 *
+	 * @param processInstanceId
+	 * @param userId
+	 * @return the score of a user for a given process instance, or null if the
+	 *         user has no associated score in that process instance yet.
+	 */
+	public Integer getInstanceScore(String processInstanceId, String userId);
+
+	/**
 	 * @param processDefinitionId
 	 *            the definition ID of the process for which we want the
 	 *            diagram.

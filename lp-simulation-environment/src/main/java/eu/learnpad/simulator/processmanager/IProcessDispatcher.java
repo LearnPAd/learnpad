@@ -62,4 +62,12 @@ public interface IProcessDispatcher {
 	 */
 	public TaskSubmissionStatus submitTaskCompletion(LearnPadTask task,
 			String userId, Map<String, Object> data);
+
+	/**
+	 *
+	 * @param task
+	 * @return the score associated with the given user in the handled process,
+	 *         or null if no score have been assigned yet.
+	 */
+	public Integer getInstanceScore(String userId);
 }

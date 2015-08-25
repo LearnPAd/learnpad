@@ -22,6 +22,7 @@ package eu.learnpad.simulator.processmanager;
  */
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import eu.learnpad.simulator.IProcessEventReceiver;
@@ -43,6 +44,8 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 	private final ITaskRouter router;
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
 
+	private final Map<String, Integer> usersScores = new HashMap<String, Integer>();
+
 	public AbstractProcessDispatcher(
 			IProcessManager manager,
 			IProcessEventReceiver processEventReceiver,
@@ -57,6 +60,10 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 		this.processEventReceiver = processEventReceiver;
 		this.router = router;
 		this.taskValidator = taskValidator;
+
+		for (String user : involvedUsers) {
+			usersScores.put(user, 0);
+		}
 
 		System.out.println("Created dispatcher for process " + processId);
 	}
@@ -109,6 +116,9 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 
 					completeTask(task, data);
 
+					// TODO calculate actual task score
+					usersScores.put(userId, usersScores.get(userId) + 100);
+
 					if (isProcessFinished()) {
 						completeProcess();
 					} else {
@@ -127,6 +137,11 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 				}
 			}
 		}
+	}
+
+	@Override
+	public Integer getInstanceScore(String userId) {
+		return usersScores.get(userId);
 	}
 
 	/**
