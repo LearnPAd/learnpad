@@ -93,8 +93,8 @@ public class TaskServlet extends WebSocketServlet {
 
 		// signal task submission to dispatcher and check validation
 		IProcessManager.TaskSubmissionStatus status = processManager
-				.submitTaskCompletion(task.processId, task.id, formHandler
-						.parseResult(data).getProperties());
+				.submitTaskCompletion(task, formHandler.parseResult(data)
+						.getProperties());
 
 		switch (status) {
 		case VALIDATED:

@@ -28,6 +28,8 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.Map;
 
+import eu.learnpad.simulator.datastructures.LearnPadTask;
+
 /**
  * Define the functions required to manage processes
  *
@@ -144,16 +146,15 @@ public interface IProcessManager {
 	 * Signal the completion of a given task for a given process, along with the
 	 * corresponding proposed data
 	 *
-	 * @param processId
-	 *            the id of the process involved
-	 * @param taskId
-	 *            the id of the completed task
+	 * @param task
+	 *            the completed task
 	 * @param data
 	 *            the data corresponding to the task completion
 	 * @return the state of the task submission
 	 */
-	public TaskSubmissionStatus submitTaskCompletion(String processId,
-			String taskId, Map<String, Object> data);
+	public TaskSubmissionStatus submitTaskCompletion(LearnPadTask task,
+			Map<String, Object> data);
+
 
 	/**
 	 * @param processDefinitionId

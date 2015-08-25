@@ -50,6 +50,7 @@ import org.activiti.image.impl.DefaultProcessDiagramGenerator;
 
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
+import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.processmanager.IProcessDispatcher;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.processdispatcher.ActivitiProcessDispatcher;
@@ -302,12 +303,12 @@ public class ActivitiProcessManager implements IProcessManager {
 	 * 
 	 * @see
 	 * eu.learnpad.simulator.processmanager.IProcessManager#submitTaskCompletion
-	 * (java.lang.String, java.lang.String, java.util.Map)
+	 * (eu.learnpad.simulator.datastructures.LearnPadTask, java.util.Map)
 	 */
-	public TaskSubmissionStatus submitTaskCompletion(String processId,
-			String taskId, Map<String, Object> data) {
-		return processDispatchers.get(processId).submitTaskCompletion(taskId,
-				data);
+	public TaskSubmissionStatus submitTaskCompletion(LearnPadTask task,
+			Map<String, Object> data) {
+		return processDispatchers.get(task.processId).submitTaskCompletion(
+				task, data);
 	}
 
 	/**

@@ -250,14 +250,14 @@ public class ActivitiProcessDispatcherTest {
 				assertTrue(receivedRoutes.containsAll(expectedRoutes)
 						&& expectedRoutes.containsAll(receivedRoutes));
 
-				dispatcher.submitTaskCompletion(task.id, null);
+				dispatcher.submitTaskCompletion(task, null);
 				return null;
 			}
 		}).when(processEventReceiver).sendTask(any(LearnPadTask.class),
 				any(Collection.class));
 
 		// respond to first task dispatch
-		dispatcher.submitTaskCompletion(task.getValue().id, null);
+		dispatcher.submitTaskCompletion(task.getValue(), null);
 
 		// wait for all tasks to be processed
 		// (again, since task processing is multithreaded to avoid blocking,
@@ -398,15 +398,14 @@ public class ActivitiProcessDispatcherTest {
 		doAnswer(new Answer<Void>() {
 			public Void answer(InvocationOnMock invocation) throws Throwable {
 				dispatcher.submitTaskCompletion(
-						invocation.getArgumentAt(0, LearnPadTask.class).id,
-						null);
+						invocation.getArgumentAt(0, LearnPadTask.class), null);
 				return null;
 			}
 		}).when(processEventReceiver).sendTask(any(LearnPadTask.class),
 				any(Collection.class));
 
 		// respond to first task dispatch
-		dispatcher.submitTaskCompletion(task.getValue().id, null);
+		dispatcher.submitTaskCompletion(task.getValue(), null);
 
 		// wait for all tasks to be processed
 		// (again, since task processing is multithreaded to avoid blocking,

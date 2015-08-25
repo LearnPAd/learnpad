@@ -170,35 +170,35 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 	// synchronized because several users can try to submit results for the same
 	// task simultaneously
 	public synchronized IProcessManager.TaskSubmissionStatus submitTaskCompletion(
-			String taskId, Map<String, Object> data) {
+			LearnPadTask task, Map<String, Object> data) {
 		try {
 			if (historyService.createHistoricTaskInstanceQuery().finished()
-					.taskId(taskId).singleResult() != null) {
+					.taskId(task.id).singleResult() != null) {
 				return TaskSubmissionStatus.ALREADY_COMPLETED;
 			} else {
 
-				Task task = taskService.createTaskQuery()
-						.includeProcessVariables().taskId(taskId)
+				Task activitiTask = taskService.createTaskQuery()
+						.includeProcessVariables().taskId(task.id)
 						.singleResult();
 
-				if (task == null) {
+				if (activitiTask == null) {
 					return TaskSubmissionStatus.UNKOWN_TASK;
 				} else {
 
 					Map<String, Object> processVariables = taskService
 							.createTaskQuery().includeProcessVariables()
-							.taskId(taskId).singleResult()
+							.taskId(task.id).singleResult()
 							.getProcessVariables();
 
-					if (!taskValidator.taskResultIsValid(taskId,
+					if (!taskValidator.taskResultIsValid(task.id,
 							processVariables, data)) {
 						// task result is invalid and must be resubmitted
 						return TaskSubmissionStatus.REJECTED;
 					} else {
 
-						taskService.complete(taskId, data);
+						taskService.complete(task.id, data);
 
-						registeredWaitingTasks.remove(taskId);
+						registeredWaitingTasks.remove(task.id);
 
 						// see comment on processFinished declaration
 						if (processFinished) {
