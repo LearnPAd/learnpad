@@ -313,6 +313,7 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	@Override
 	public void signalProcessCompletion(String processId) {
+		processInstanceToUsers.remove(processId);
 		processDispatchers.remove(processId);
 	}
 
