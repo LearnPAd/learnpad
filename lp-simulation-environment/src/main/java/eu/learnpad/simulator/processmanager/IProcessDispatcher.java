@@ -54,10 +54,12 @@ public interface IProcessDispatcher {
 	 *
 	 * @param task
 	 *            the completed task
+	 * @param users
+	 *            the users involved in the process instance
 	 * @param data
 	 *            the data corresponding to the task completion
 	 * @return the state of the task submission
 	 */
 	public TaskSubmissionStatus submitTaskCompletion(LearnPadTask task,
-			Map<String, Object> data);
+			String userId, Map<String, Object> data);
 }

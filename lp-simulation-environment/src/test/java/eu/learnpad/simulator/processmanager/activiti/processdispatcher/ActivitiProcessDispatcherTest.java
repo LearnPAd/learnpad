@@ -162,7 +162,7 @@ public class ActivitiProcessDispatcherTest {
 				processEngine.getHistoryService(), taskRouter, taskValidator,
 				TEST_PROCESS_USES);
 
-		validateAllTasks(dispatcher, processEventReceiver);
+		validateAllTasks(dispatcher, taskRouter, processEventReceiver);
 
 		// should have processed 6 tasks in total
 		ArgumentCaptor<LearnPadTask> task = ArgumentCaptor
@@ -189,7 +189,7 @@ public class ActivitiProcessDispatcherTest {
 			}
 		};
 
-		ITaskRouter taskRouter = new ActivitiTaskRouter(
+		final ITaskRouter taskRouter = new ActivitiTaskRouter(
 				processEngine.getTaskService(), routes);
 
 		@SuppressWarnings("rawtypes")
@@ -249,14 +249,16 @@ public class ActivitiProcessDispatcherTest {
 				assertTrue(receivedRoutes.containsAll(expectedRoutes)
 						&& expectedRoutes.containsAll(receivedRoutes));
 
-				dispatcher.submitTaskCompletion(task, null);
+				dispatcher.submitTaskCompletion(task, taskRouter.route(task.id)
+						.iterator().next(), null);
 				return null;
 			}
 		}).when(processEventReceiver).sendTask(any(LearnPadTask.class),
 				any(Collection.class));
 
 		// respond to first task dispatch
-		dispatcher.submitTaskCompletion(task.getValue(), null);
+		dispatcher.submitTaskCompletion(task.getValue(),
+				taskRouter.route(task.getValue().id).iterator().next(), null);
 
 		// wait for all tasks to be processed
 		// (again, since task processing is multithreaded to avoid blocking,
@@ -290,7 +292,7 @@ public class ActivitiProcessDispatcherTest {
 				processEngine.getHistoryService(), taskRouter, taskValidator,
 				TEST_PROCESS_USES);
 
-		validateAllTasks(dispatcher, processEventReceiver);
+		validateAllTasks(dispatcher, taskRouter, processEventReceiver);
 
 		// check that the signal for process end is send to all the required
 		// users
@@ -332,7 +334,7 @@ public class ActivitiProcessDispatcherTest {
 				TEST_PROCESS_USES);
 
 		// reach end of process
-		validateAllTasks(dispatcher, processEventReceiver);
+		validateAllTasks(dispatcher, taskRouter, processEventReceiver);
 
 		// should have unregistered itself from process manager at the end of
 		// the process
@@ -386,9 +388,10 @@ public class ActivitiProcessDispatcherTest {
 	 */
 	@SuppressWarnings("unchecked")
 	private void validateAllTasks(final ActivitiProcessDispatcher dispatcher,
+			final ITaskRouter taskRouter,
 			IProcessEventReceiver processEventReceiver) {
 		// we capture the task to respond
-		ArgumentCaptor<LearnPadTask> task = ArgumentCaptor
+		final ArgumentCaptor<LearnPadTask> task = ArgumentCaptor
 				.forClass(LearnPadTask.class);
 		verify(processEventReceiver, timeout(5000).times(1)).sendTask(
 				task.capture(), any(Collection.class));
@@ -398,14 +401,17 @@ public class ActivitiProcessDispatcherTest {
 		doAnswer(new Answer<Void>() {
 			public Void answer(InvocationOnMock invocation) throws Throwable {
 				dispatcher.submitTaskCompletion(
-						invocation.getArgumentAt(0, LearnPadTask.class), null);
+						invocation.getArgumentAt(0, LearnPadTask.class),
+						taskRouter.route(task.getValue().id).iterator().next(),
+						null);
 				return null;
 			}
 		}).when(processEventReceiver).sendTask(any(LearnPadTask.class),
 				any(Collection.class));
 
 		// respond to first task dispatch
-		dispatcher.submitTaskCompletion(task.getValue(), null);
+		dispatcher.submitTaskCompletion(task.getValue(),
+				taskRouter.route(task.getValue().id).iterator().next(), null);
 
 		// wait for all tasks to be processed
 		// (again, since task processing is multithreaded to avoid blocking,

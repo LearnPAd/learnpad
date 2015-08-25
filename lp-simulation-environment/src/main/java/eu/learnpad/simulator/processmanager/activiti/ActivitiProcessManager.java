@@ -303,12 +303,13 @@ public class ActivitiProcessManager implements IProcessManager {
 	 * 
 	 * @see
 	 * eu.learnpad.simulator.processmanager.IProcessManager#submitTaskCompletion
-	 * (eu.learnpad.simulator.datastructures.LearnPadTask, java.util.Map)
+	 * (eu.learnpad.simulator.datastructures.LearnPadTask, java.lang.String,
+	 * java.util.Map)
 	 */
 	public TaskSubmissionStatus submitTaskCompletion(LearnPadTask task,
-			Map<String, Object> data) {
+			String userId, Map<String, Object> data) {
 		return processDispatchers.get(task.processId).submitTaskCompletion(
-				task, data);
+				task, userId, data);
 	}
 
 	@Override

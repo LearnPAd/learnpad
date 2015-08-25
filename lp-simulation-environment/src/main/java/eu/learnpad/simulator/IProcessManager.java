@@ -148,12 +148,14 @@ public interface IProcessManager {
 	 *
 	 * @param task
 	 *            the completed task
+	 * @param userId
+	 *            the id of the user that submit the task completion
 	 * @param data
 	 *            the data corresponding to the task completion
 	 * @return the state of the task submission
 	 */
 	public TaskSubmissionStatus submitTaskCompletion(LearnPadTask task,
-			Map<String, Object> data);
+			String userId, Map<String, Object> data);
 
 	/**
 	 * Signal the completion of a given process

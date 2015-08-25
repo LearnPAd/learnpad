@@ -91,13 +91,14 @@ public class TaskServlet extends WebSocketServlet {
 
 	// Note: this method does not need to be synchronized as concurrent
 	// validation check is made at the lowest level (process dispatcher)
-	void submitTask(TaskSocket socket, String data) {
-		System.out.println("submitted task " + task.id + " with data " + data);
+	void submitTask(TaskSocket socket, String userId, String data) {
+		System.out.println("User " + userId + "submitted task " + task.id
+				+ " with data " + data);
 
 		// signal task submission to dispatcher and check validation
 		IProcessManager.TaskSubmissionStatus status = processManager
-				.submitTaskCompletion(task, formHandler.parseResult(data)
-						.getProperties());
+				.submitTaskCompletion(task, userId,
+						formHandler.parseResult(data).getProperties());
 
 		switch (status) {
 		case VALIDATED:
@@ -274,7 +275,10 @@ public class TaskServlet extends WebSocketServlet {
 
 				case SUBMIT:
 					Submit submitMsg = mapper.readValue(message, Submit.class);
-					container.submitTask(this, submitMsg.values);
+					container
+							.submitTask(this,
+									container.activeSockets.get(this),
+									submitMsg.values);
 					break;
 
 				default:

@@ -66,7 +66,7 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 	// synchronized because several users can try to submit results for the same
 	// task simultaneously
 	public synchronized TaskSubmissionStatus submitTaskCompletion(
-			LearnPadTask task, Map<String, Object> data) {
+			LearnPadTask task, String userId, Map<String, Object> data) {
 
 		if (isTaskAlreadyCompleted(task.id)) {
 			return TaskSubmissionStatus.ALREADY_COMPLETED;
