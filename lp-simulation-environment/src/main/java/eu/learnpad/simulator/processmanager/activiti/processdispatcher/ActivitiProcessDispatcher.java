@@ -145,7 +145,8 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 					processEventReceiver.sendTask(
 							new LearnPadTask(task.getProcessInstanceId(), task
 									.getId(), task.getName(), task
-									.getDescription()), router.route(task));
+									.getDescription()), router.route(task
+									.getId()));
 				}
 			}).start();
 		}

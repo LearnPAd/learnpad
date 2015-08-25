@@ -30,7 +30,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.activiti.engine.TaskService;
-import org.activiti.engine.task.Task;
 
 import eu.learnpad.simulator.processmanager.ITaskRouter;
 
@@ -59,16 +58,15 @@ public class ActivitiTaskRouter implements ITaskRouter {
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see activitipoc.ITaskRouter#route(org.activiti.engine.task.Task,
-	 * java.util.List)
+	 * @see activitipoc.ITaskRouter#route(String taskId)
 	 */
-	public Set<String> route(Task task) {
+	public Set<String> route(String taskId) {
 		Set<String> result = new HashSet<String>();
 
 		for (String role : processRoleToUser.keySet()) {
-			if (!taskService.createTaskQuery().taskId(task.getId())
+			if (!taskService.createTaskQuery().taskId(taskId)
 					.taskCandidateOrAssigned(role).list().isEmpty()
-					|| !taskService.createTaskQuery().taskId(task.getId())
+					|| !taskService.createTaskQuery().taskId(taskId)
 					.taskCandidateGroup(role).list().isEmpty()) {
 				result.addAll(processRoleToUser.get(role));
 			}

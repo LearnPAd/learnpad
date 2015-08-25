@@ -50,7 +50,6 @@ import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.task.Task;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -148,7 +147,7 @@ public class ActivitiProcessDispatcherTest {
 		ITaskRouter taskRouter = mock(ITaskRouter.class);
 		ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator = mock(ITaskValidator.class);
 
-		when(taskRouter.route(any(Task.class))).thenReturn(
+		when(taskRouter.route(any(String.class))).thenReturn(
 				new HashSet<String>(Arrays.asList("user1")));
 
 		// automatically validate tasks
@@ -275,7 +274,7 @@ public class ActivitiProcessDispatcherTest {
 		ITaskRouter taskRouter = mock(ITaskRouter.class);
 		IProcessEventReceiver processEventReceiver = mock(IProcessEventReceiver.class);
 
-		when(taskRouter.route(any(Task.class))).thenReturn(
+		when(taskRouter.route(any(String.class))).thenReturn(
 				new HashSet<String>(Arrays.asList("user1")));
 
 		// automatically validate tasks
@@ -317,7 +316,7 @@ public class ActivitiProcessDispatcherTest {
 		ITaskRouter taskRouter = mock(ITaskRouter.class);
 		ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator = mock(ITaskValidator.class);
 
-		when(taskRouter.route(any(Task.class))).thenReturn(
+		when(taskRouter.route(any(String.class))).thenReturn(
 				new HashSet<String>(Arrays.asList("user1")));
 
 		// automatically validate tasks
