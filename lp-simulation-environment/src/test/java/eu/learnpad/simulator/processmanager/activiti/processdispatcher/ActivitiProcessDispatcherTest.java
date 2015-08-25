@@ -336,7 +336,8 @@ public class ActivitiProcessDispatcherTest {
 
 		// should have unregistered itself from process manager at the end of
 		// the process
-		verify(processManager).removeDispatcher(eq(processInstance.getId()));
+		verify(processManager).signalProcessCompletion(
+				eq(processInstance.getId()));
 
 	}
 

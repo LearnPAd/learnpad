@@ -163,7 +163,7 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 		runtimeService.removeEventListener(this);
 
 		// remove itself from the process manager
-		processManager.removeDispatcher(process.getId());
+		processManager.signalProcessCompletion(process.getId());
 
 		System.out.println("Process " + process.getId() + " finished");
 	}

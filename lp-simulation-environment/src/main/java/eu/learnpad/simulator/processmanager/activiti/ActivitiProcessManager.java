@@ -311,12 +311,8 @@ public class ActivitiProcessManager implements IProcessManager {
 				task, data);
 	}
 
-	/**
-	 * Remove the dispatcher associated with a given processId
-	 *
-	 * @param processId
-	 */
-	public void removeDispatcher(String processId) {
+	@Override
+	public void signalProcessCompletion(String processId) {
 		processDispatchers.remove(processId);
 	}
 
