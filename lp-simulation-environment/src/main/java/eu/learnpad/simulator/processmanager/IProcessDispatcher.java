@@ -47,6 +47,11 @@ public interface IProcessDispatcher {
 	 * Signal the completion of a given task, along with the corresponding
 	 * proposed data
 	 *
+	 * Note that implementations of this method should take care of enforcing
+	 * concurrent access to handle cases when users (possibly accessing the
+	 * dispatcher from different threads) try to complete the same task
+	 * simultaneously.
+	 *
 	 * @param task
 	 *            the completed task
 	 * @param data
