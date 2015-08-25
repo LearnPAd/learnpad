@@ -33,20 +33,25 @@ import eu.learnpad.simulator.uihandler.webserver.msg.task.ITaskMsg;
  * @author Tom Jorquera - Linagora
  *
  */
-public class Resubmit extends TaskDesc implements ITaskMsg {
+public class Resubmit implements ITaskMsg {
 
-	/**
-	 * @param name
-	 * @param description
-	 * @param process
-	 * @param processname
-	 * @param form
-	 * @param documents
-	 */
-	public Resubmit(String name, String description, String process,
+	public String name;
+	public String description;
+	public String processid;
+	public String processname;
+	public String form;
+	public Collection<LearnPadDocument> documents;
+
+	public Resubmit(String name, String description, String processid,
 			String processname, String form,
 			Collection<LearnPadDocument> documents) {
-		super(name, description, process, processname, form, documents);
+		super();
+		this.name = name;
+		this.description = description;
+		this.processid = processid;
+		this.processname = processname;
+		this.form = form;
+		this.documents = documents;
 	}
 
 	/*

@@ -238,23 +238,6 @@ public class TaskServlet extends WebSocketServlet {
 		public void onWebSocketConnect(Session sess) {
 			super.onWebSocketConnect(sess);
 			System.out.println("Socket " + task.id + " connected: " + sess);
-
-			try {
-				sess.getRemote()
-						.sendString(
-								mapper.writeValueAsString(new TaskDesc(
-										task.name,
-										task.desc.replaceAll("\n", "<p/>"),
-										task.processId,
-								processManager
-												.getProcessDefinitionName(processManager
-										.getProcessDefinitionId(task.processId)),
-										formHandler.createFormString(task.id),
-										task.documents)));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
 		}
 
 		@Override
@@ -273,6 +256,29 @@ public class TaskServlet extends WebSocketServlet {
 					Subscribe subscMsg = mapper.readValue(message,
 							Subscribe.class);
 					container.activeSockets.put(this, subscMsg.user);
+
+					// send task description to new subscriber
+					try {
+						this.getRemote()
+								.sendString(
+										mapper.writeValueAsString(new TaskDesc(
+												task.name,
+												task.desc.replaceAll("\n",
+												"<p/>"),
+												task.processId,
+												processManager
+														.getProcessDefinitionName(processManager
+																.getProcessDefinitionId(task.processId)),
+														formHandler
+														.createFormString(task.id),
+												task.documents, processManager
+														.getInstanceScore(
+																task.processId,
+																subscMsg.user))));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
 					break;
 
 				case SUBMIT:

@@ -33,30 +33,17 @@ import eu.learnpad.simulator.uihandler.webserver.msg.task.ITaskMsg;
  * @author Tom Jorquera - Linagora
  *
  */
-public class TaskDesc implements ITaskMsg {
+public class TaskDesc extends Resubmit implements ITaskMsg {
 
-	public String name;
-	public String description;
-	public String processid;
-	public String processname;
-	public String form;
-	public Collection<LearnPadDocument> documents;
+	// include total score in order for interface refresh the
+	// user score during process resolution
+	public Integer totalscore;
 
-	/**
-	 * @param description
-	 * @param processd
-	 * @param form
-	 */
-	public TaskDesc(String name, String description, String processid,
+	public TaskDesc(String name, String description, String process,
 			String processname, String form,
-			Collection<LearnPadDocument> documents) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.processid = processid;
-		this.processname = processname;
-		this.form = form;
-		this.documents = documents;
+			Collection<LearnPadDocument> documents, Integer totalscore) {
+		super(name, description, process, processname, form, documents);
+		this.totalscore = totalscore;
 	}
 
 	/*
