@@ -110,9 +110,6 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher
 
 		runtimeService.addEventListener(this,
 				ActivitiEventType.PROCESS_COMPLETED);
-
-		// we are ready to process waiting tasks
-		super.start();
 	}
 
 	@Override

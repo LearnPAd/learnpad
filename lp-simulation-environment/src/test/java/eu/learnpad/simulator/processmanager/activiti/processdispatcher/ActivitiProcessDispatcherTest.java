@@ -125,7 +125,7 @@ public class ActivitiProcessDispatcherTest {
 				processInstance, processEngine.getTaskService(),
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), mock(ITaskRouter.class),
-				mock(ITaskValidator.class), TEST_PROCESS_USES);
+				mock(ITaskValidator.class), TEST_PROCESS_USES).start();
 
 		// dispatcher should have dispatched first task
 		// (since task processing is multithreaded to avoid blocking,
@@ -161,6 +161,7 @@ public class ActivitiProcessDispatcherTest {
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
 				TEST_PROCESS_USES);
+		dispatcher.start();
 
 		validateAllTasks(dispatcher, taskRouter, processEventReceiver);
 
@@ -211,6 +212,7 @@ public class ActivitiProcessDispatcherTest {
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
 				TEST_PROCESS_USES);
+		dispatcher.start();
 
 		// dispatcher should have dispatched first task
 		ArgumentCaptor<LearnPadTask> task = ArgumentCaptor
@@ -291,6 +293,7 @@ public class ActivitiProcessDispatcherTest {
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
 				TEST_PROCESS_USES);
+		dispatcher.start();
 
 		validateAllTasks(dispatcher, taskRouter, processEventReceiver);
 
@@ -332,6 +335,7 @@ public class ActivitiProcessDispatcherTest {
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
 				TEST_PROCESS_USES);
+		dispatcher.start();
 
 		// reach end of process
 		validateAllTasks(dispatcher, taskRouter, processEventReceiver);

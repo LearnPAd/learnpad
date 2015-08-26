@@ -51,7 +51,7 @@ import org.activiti.image.impl.DefaultProcessDiagramGenerator;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
-import eu.learnpad.simulator.processmanager.IProcessDispatcher;
+import eu.learnpad.simulator.processmanager.AbstractProcessDispatcher;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.processdispatcher.ActivitiProcessDispatcher;
 import eu.learnpad.simulator.processmanager.activiti.taskrouter.ActivitiTaskRouter;
@@ -76,8 +76,8 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
 
-	private final Map<String, IProcessDispatcher> processDispatchers = Collections
-			.synchronizedMap(new HashMap<String, IProcessDispatcher>());
+	private final Map<String, AbstractProcessDispatcher> processDispatchers = Collections
+			.synchronizedMap(new HashMap<String, AbstractProcessDispatcher>());
 
 	private final Map<String, Collection<String>> processInstanceToUsers = Collections
 			.synchronizedMap(new HashMap<String, Collection<String>>());
@@ -251,6 +251,9 @@ public class ActivitiProcessManager implements IProcessManager {
 				process, taskService, runtimeService, historyService,
 				new ActivitiTaskRouter(taskService, router), taskValidator,
 				users));
+
+		// we are ready, so we can start the dispatcher
+		processDispatchers.get(process.getId()).start();
 
 		return process.getId();
 	}

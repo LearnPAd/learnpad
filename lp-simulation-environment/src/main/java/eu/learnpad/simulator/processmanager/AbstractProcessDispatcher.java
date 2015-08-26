@@ -61,14 +61,22 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 		System.out.println("Created dispatcher for process " + processId);
 	}
 
-	/*
+	/**
+	 * Start the ProcessDispatcher
+	 *
 	 * We need to check initial waiting tasks at the beginning. However fetching
 	 * new tasks is implementation dependent, so it cannot be done in the
 	 * abstract constructor since all the required attributes of the
-	 * implementation may not have been implemented yet. The start method is
-	 * provided for the implementation to call start when it is ready.
+	 * implementation may not have been implemented yet.
+	 *
+	 * Also, as soon as the dispatcher is started, it will begin to send tasks
+	 * to be completed. So the manager needs to be ready to receive results and
+	 * route them to the dispatcher. So the manager need some time after
+	 * creating the dispatcher to register it and all...
+	 *
+	 * The start method is provided to launch the dispatcher.
 	 */
-	protected void start() {
+	public void start() {
 
 		// process initial waiting tasks
 		final Collection<LearnPadTask> newTasks = fetchNewTasks();
