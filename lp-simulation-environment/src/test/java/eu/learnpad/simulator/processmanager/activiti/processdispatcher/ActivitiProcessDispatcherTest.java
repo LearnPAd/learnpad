@@ -182,8 +182,8 @@ public class ActivitiProcessDispatcherTest {
 		@SuppressWarnings("serial")
 		final Map<String, Collection<String>> routes = new HashMap<String, Collection<String>>() {
 			{
-				put("user1", Arrays.asList("user1, user2, user3"));
-				put("user2", Arrays.asList("user2, user3"));
+				put("user1", Arrays.asList("user1", "user2", "user3"));
+				put("user2", Arrays.asList("user2", "user3"));
 				put("user3", Arrays.asList("user3"));
 				put("user0", Arrays.asList("user3"));
 			}
