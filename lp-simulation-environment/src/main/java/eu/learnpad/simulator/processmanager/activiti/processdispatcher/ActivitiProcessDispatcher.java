@@ -70,20 +70,24 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher
 	//
 	// If we are not careful and try to terminate the process too soon, the last
 	// task is not completely processed and activiti may freak out (concurrent
-	// modification exception)
+	// modification exception).
 	// So we set a boolean when we notice a process is finished
-	// (during onEvent). When completing tasks (completeTask) we terminate by
-	// checking if the boolean is set to true. In this case we know that we can
-	// safely end the process.
+	// (during onEvent).
 	//
-	// NOTE: the two mentioned methods are set to synchronized. This does not
-	// seems to be currently necessary as activiti seems to handle all of this
-	// into a single thread, but better save than sorry.
+	// This is less an issue now, as we now have abstracted most of the
+	// treatment in the AbstractProcessDispatcher. Things work out ok
+	// "by default" because completeTask() is called and returns before we try
+	// to check if the process is terminated using isProcessFinished().
+	// So no issue arises as we will never try to terminate the process before
+	// the last task is completed.
+	// This comment is left here in case a change in the way things work either
+	// in the project or activiti requires some changes that could stumble upon
+	// this problem.
 	//
-	// NOTE: If this does not work anymore, it may be due to a change in the way
-	// activiti process the last task. In this case removing this boolean (and
-	// the synchronized) and simply calling completeProcess() during onEvent()
-	// could be sufficient (if things are sane on activiti side).
+	// NOTE: the isProcessFinished method and the activiti listener method are
+	// set to synchronized. This does not seems to be currently necessary as
+	// activiti seems to handle all of this into a single thread, but better
+	// safe than sorry.
 	private boolean processFinished = false;
 
 	public ActivitiProcessDispatcher(
@@ -107,25 +111,14 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher
 		runtimeService.addEventListener(this,
 				ActivitiEventType.PROCESS_COMPLETED);
 
-		List<Task> tasks = taskService.createTaskQuery()
-				.processInstanceId(processId).list();
-
-		if (tasks.isEmpty()) {
-			throw new RuntimeException("Process without waiting task");
-		} else {
-			for (Task task : tasks) {
-				processNewTask(new LearnPadTask(task.getProcessInstanceId(),
-						task.getId(), task.getName(), task.getDescription()));
-			}
-		}
-
+		// we are ready to process waiting tasks
+		super.start();
 	}
 
 	@Override
 	protected void completeProcess() {
 		// unsubscribe to events
 		runtimeService.removeEventListener(this);
-
 		super.completeProcess();
 	}
 
@@ -136,43 +129,37 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher
 	}
 
 	@Override
-	// note that we added the `synchronized` modifier (see comment on
-	// processFinished declaration for why)
-	protected synchronized void completeTask(LearnPadTask task,
-			Map<String, Object> data) {
-		{
-			taskService.complete(task.id, data);
+	protected Collection<LearnPadTask> fetchNewTasks() {
+		List<LearnPadTask> newTasks = new ArrayList<LearnPadTask>();
 
-			registeredWaitingTasks.remove(task.id);
+		// check for newly triggered tasks by getting the list of waiting
+		// tasks...
+		List<Task> waitingTasks = taskService.createTaskQuery()
+				.processInstanceId(processId).list();
 
-			// see comment on processFinished declaration
-			if (processFinished) {
-				completeProcess();
-			} else {
-
-				// check for newly triggered tasks
-				List<Task> waitingTasks = taskService.createTaskQuery()
-						.processInstanceId(processId).list();
-
-				// ignore already processed tasks
-				List<Task> newTasks = new ArrayList<Task>();
-				for (Task t : waitingTasks) {
-					if (!registeredWaitingTasks.contains(t.getId())) {
-						newTasks.add(t);
-					}
-				}
-
-				if (!newTasks.isEmpty()) {
-					for (Task newTask : newTasks) {
-						processNewTask(new LearnPadTask(
-								newTask.getProcessInstanceId(),
-								newTask.getId(), newTask.getName(),
-								newTask.getDescription()));
-					}
-				}
+		// ... ignoring already processed tasks
+		for (Task t : waitingTasks) {
+			if (!registeredWaitingTasks.contains(t.getId())) {
+				newTasks.add(new LearnPadTask(t.getProcessInstanceId(), t
+						.getId(), t.getName(), t.getDescription()));
 			}
 		}
 
+		return newTasks;
+	};
+
+	@Override
+	protected void completeTask(LearnPadTask task, Map<String, Object> data) {
+		// complete task and de-register it
+		taskService.complete(task.id, data);
+		registeredWaitingTasks.remove(task.id);
+	}
+
+	@Override
+	// note that we added the `synchronized` modifier (see comment on
+	// processFinished declaration for why)
+	protected synchronized boolean isProcessFinished() {
+		return processFinished;
 	}
 
 	@Override

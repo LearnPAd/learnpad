@@ -59,7 +59,26 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 		this.taskValidator = taskValidator;
 
 		System.out.println("Created dispatcher for process " + processId);
+	}
 
+	/*
+	 * We need to check initial waiting tasks at the beginning. However fetching
+	 * new tasks is implementation dependent, so it cannot be done in the
+	 * abstract constructor since all the required attributes of the
+	 * implementation may not have been implemented yet. The start method is
+	 * provided for the implementation to call start when it is ready.
+	 */
+	protected void start() {
+
+		// process initial waiting tasks
+		final Collection<LearnPadTask> newTasks = fetchNewTasks();
+		if (newTasks.isEmpty()) {
+			throw new RuntimeException("Process without waiting task");
+		} else {
+			for (LearnPadTask newTask : newTasks) {
+				processNewTask(newTask);
+			}
+		}
 	}
 
 	@Override
@@ -79,7 +98,23 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 					// task result is invalid and must be resubmitted
 					return TaskSubmissionStatus.REJECTED;
 				} else {
+
 					completeTask(task, data);
+
+					if (isProcessFinished()) {
+						completeProcess();
+					} else {
+						// process new tasks in a new thread to avoid
+						// blocking current completion
+						new Thread(new Runnable() {
+							public void run() {
+								for (LearnPadTask newTask : fetchNewTasks()) {
+									processNewTask(newTask);
+								}
+							}
+						}).start();
+					}
+
 					return TaskSubmissionStatus.VALIDATED;
 				}
 			}
@@ -101,21 +136,20 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 	}
 
 	/**
-	 * This method should be called to process new tasks.
+	 * This method is called to process new tasks.
 	 *
 	 * @param task
 	 *            a new task
 	 */
 	protected void processNewTask(final LearnPadTask task) {
-		// process new tasks in a new thread to avoid blocking
-		// current completion
-		new Thread(new Runnable() {
-			public void run() {
-				processEventReceiver.sendTask(task, router.route(task.id));
-
-			}
-		}).start();
+		processEventReceiver.sendTask(task, router.route(task.id));
 	}
+
+	/**
+	 *
+	 * @return a collection of new tasks to be processed
+	 */
+	protected abstract Collection<LearnPadTask> fetchNewTasks();
 
 	/**
 	 * This method should be implemented to complete a given task
@@ -125,6 +159,12 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 	 */
 	protected abstract void completeTask(LearnPadTask task,
 			Map<String, Object> data);
+
+	/**
+	 *
+	 * @return true if the process is finished
+	 */
+	protected abstract boolean isProcessFinished();
 
 	/**
 	 * This method should be implemented to check if a task exists or not.
