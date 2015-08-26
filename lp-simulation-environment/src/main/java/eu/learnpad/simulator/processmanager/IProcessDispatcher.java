@@ -26,8 +26,8 @@ package eu.learnpad.simulator.processmanager;
 
 import java.util.Map;
 
-import eu.learnpad.simulator.IProcessManager.TaskSubmissionStatus;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
 
 /**
  * This interface indicate the functionalities which must be exposed by a
@@ -58,9 +58,9 @@ public interface IProcessDispatcher {
 	 *            the users involved in the process instance
 	 * @param data
 	 *            the data corresponding to the task completion
-	 * @return the state of the task submission
+	 * @return the result of the task submission
 	 */
-	public TaskSubmissionStatus submitTaskCompletion(LearnPadTask task,
+	public LearnPadTaskSubmissionResult submitTaskCompletion(LearnPadTask task,
 			String userId, Map<String, Object> data);
 
 	/**

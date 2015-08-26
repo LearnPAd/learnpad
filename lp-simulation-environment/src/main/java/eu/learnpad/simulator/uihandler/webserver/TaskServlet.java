@@ -40,6 +40,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
 import eu.learnpad.simulator.uihandler.IFormHandler;
 import eu.learnpad.simulator.uihandler.webserver.msg.task.receive.BaseReceiveMessage;
 import eu.learnpad.simulator.uihandler.webserver.msg.task.receive.Submit;
@@ -96,9 +97,11 @@ public class TaskServlet extends WebSocketServlet {
 				+ " with data " + data);
 
 		// signal task submission to dispatcher and check validation
-		IProcessManager.TaskSubmissionStatus status = processManager
+		LearnPadTaskSubmissionResult result = processManager
 				.submitTaskCompletion(task, userId,
 						formHandler.parseResult(data).getProperties());
+
+		LearnPadTaskSubmissionResult.TaskSubmissionStatus status = result.status;
 
 		switch (status) {
 		case VALIDATED:

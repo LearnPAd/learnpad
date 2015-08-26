@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
 
 /**
  * Define the functions required to manage processes
@@ -152,9 +153,9 @@ public interface IProcessManager {
 	 *            the id of the user that submit the task completion
 	 * @param data
 	 *            the data corresponding to the task completion
-	 * @return the state of the task submission
+	 * @return the result of the task submission
 	 */
-	public TaskSubmissionStatus submitTaskCompletion(LearnPadTask task,
+	public LearnPadTaskSubmissionResult submitTaskCompletion(LearnPadTask task,
 			String userId, Map<String, Object> data);
 
 	/**

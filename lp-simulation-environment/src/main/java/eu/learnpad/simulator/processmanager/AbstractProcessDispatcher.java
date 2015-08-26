@@ -27,8 +27,8 @@ import java.util.Map;
 
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
-import eu.learnpad.simulator.IProcessManager.TaskSubmissionStatus;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
 
 /**
  *
@@ -99,19 +99,19 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 	@Override
 	// synchronized because several users can try to submit results for the same
 	// task simultaneously
-	public synchronized TaskSubmissionStatus submitTaskCompletion(
+	public synchronized LearnPadTaskSubmissionResult submitTaskCompletion(
 			LearnPadTask task, String userId, Map<String, Object> data) {
 
 		if (isTaskAlreadyCompleted(task.id)) {
-			return TaskSubmissionStatus.ALREADY_COMPLETED;
+			return LearnPadTaskSubmissionResult.alreadyCompleted();
 		} else {
 			if (!(doesTaskExist(task.id))) {
-				return TaskSubmissionStatus.UNKOWN_TASK;
+				return LearnPadTaskSubmissionResult.unknownTask();
 			} else {
 				if (!taskValidator.taskResultIsValid(task.id,
 						getTaskInputs(task.id), data)) {
 					// task result is invalid and must be resubmitted
-					return TaskSubmissionStatus.REJECTED;
+					return LearnPadTaskSubmissionResult.rejected();
 				} else {
 
 					completeTask(task, data);
@@ -133,7 +133,8 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 						}).start();
 					}
 
-					return TaskSubmissionStatus.VALIDATED;
+					return LearnPadTaskSubmissionResult.validated(usersScores
+							.get(userId));
 				}
 			}
 		}
