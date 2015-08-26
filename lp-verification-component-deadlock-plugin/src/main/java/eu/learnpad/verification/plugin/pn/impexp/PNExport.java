@@ -250,21 +250,33 @@ public class PNExport {
 		String ret = "PLACE ";
 		for(PL place:pn.getPlaceList_safe())
 			ret += place.name + ", ";
-		ret = ret.substring(0, ret.length()-2) + ";";
+		if(ret.endsWith(", "))
+			ret = ret.substring(0, ret.length()-2) + ";";
+		else
+			ret = ret + ";";
 		ret += "\nMARKING ";
 		for(PL place:pn.getStartList_safe())
 			ret += place.name + ": " + place.numToken + ", ";
-		ret = ret.substring(0, ret.length()-2) + ";";
+		if(ret.endsWith(", "))
+			ret = ret.substring(0, ret.length()-2) + ";";
+		else
+			ret = ret + ";";
 		for(TR transition:pn.getTransitionList_safe()){
 			ret += "\nTRANSITION " + transition.name;
 			ret += " CONSUME ";
 			for(PL pl:transition.getPreviousList_safe())
 				ret += pl.name + ": 1, ";
-			ret = ret.substring(0, ret.length()-2) + ";";
+			if(ret.endsWith(", "))
+				ret = ret.substring(0, ret.length()-2) + ";";
+			else
+				ret = ret + ";";
 			ret += " PRODUCE ";
 			for(PL pl:transition.getNextList_safe())
 				ret += pl.name + ": 1, ";
-			ret = ret.substring(0, ret.length()-2) + ";";
+			if(ret.endsWith(", "))
+				ret = ret.substring(0, ret.length()-2) + ";";
+			else
+				ret = ret + ";";
 		}
 
 		return ret;
