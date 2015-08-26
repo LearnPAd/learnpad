@@ -50,3 +50,10 @@ The output structure of the verification provided by this plugin is reported in 
 			</CounterExampleTrace>
 			...
 		</Result>
+
+In case of any error in the verification phase, the plugin output will look like in the following:
+
+		<Result>
+			<Status>ERROR</Status>
+			<Description>..error message..</Description>
+		</Result>
