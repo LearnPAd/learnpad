@@ -56,8 +56,11 @@ function task(address, taskid, user) {
         switch (data.type) {
 
         case 'TASKDESC':
+            // memorize process id
+            this.processid = data.processid;
 
             if (!$('#processcontainer' + data.processid).length) {
+
                 // create new tab for new process
                 $('#taskstable').append(
                     '<li role="presentation"><a data-toggle="tab" href="#processcontainer' +
@@ -75,6 +78,12 @@ function task(address, taskid, user) {
                 if ($('#taskstable li').length == 1) {
                     $('#taskstable li a:first').tab('show');
                 }
+
+                // add the score panel
+                $(processDiv).append(
+                    '<blockquote id="score' +
+                        data.processid + '"></blockquote>'
+                );
 
                 // add the process diagram
                 $(processDiv).append(
@@ -104,9 +113,8 @@ function task(address, taskid, user) {
             taskDiv.id = 'taskcontainer' + taskid;
             taskDiv.innerHTML = '<p id="taskdata' + taskid + '"></p>' +
                 '<div id="taskDocsDiv' + taskid +
-                '"></div><div id="taskFormDiv' + taskid +
-                '"></div><hr>';
-            $('#accordion' + data.processid).before(taskDiv);
+                '"></div><div id="taskFormDiv' + taskid + '"></div><hr>';
+            $('#score' + data.processid).before(taskDiv);
 
             $('#taskdata' + taskid).html(
                 '<h4>' + '<em>' + data.name + '</em></h4>' +
@@ -149,6 +157,11 @@ function task(address, taskid, user) {
             content += '</div>';
             $('#taskDocsDiv' + taskid).html(content);
 
+            // update score
+            $('#score' + data.processid).html(
+                'Score: ' + data.totalscore
+            );
+
             $('#processcontainer' + data.processid + ' .diagramImg').attr(
                 'src',
                 'diagram/processinstance/' + data.processid + '/' + taskid
@@ -179,6 +192,12 @@ function task(address, taskid, user) {
                     taskid +
                     '" class="alert alert-success" role="alert">Great, your submission matched an expected answer.</div>'
             );
+
+            // update score
+            $('#score' + this.processid).html(
+                'Score: ' + data.totalscore
+            );
+
             break;
 
         case 'OTHER_VALIDATED':
