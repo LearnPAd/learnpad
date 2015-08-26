@@ -234,7 +234,7 @@ function task(address, taskid, user) {
     };
 
     newTask._onerror = function(e) {
-        closeOnError = true;
+        this.closeOnError = true;
     };
 
     return newTask;
