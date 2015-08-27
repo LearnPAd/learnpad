@@ -32,8 +32,31 @@ import eu.learnpad.verification.plugin.utils.XMLUtils;
 
 public class PNImport {
 	
-	public static PetriNet generateFromBPMN(Document bpmnXml) throws Exception{
+	public static boolean isOMGBPMN2(Document model){
 		//TODO: effettuare validazione modello ?
+		try{
+			String queryRoot = "/*[namespace-uri()='http://www.omg.org/spec/BPMN/20100524/MODEL' and local-name()='definitions']";
+			Node bpmnRootNode =  (Node) XMLUtils.execXPath(model.getDocumentElement(), queryRoot, XPathConstants.NODE);
+			if(bpmnRootNode!=null)
+				return true;
+		}catch(Exception e){}
+		return false;
+	}
+	
+	public static boolean isADOXXBPMN2(Document model){
+		//TODO: effettuare validazione modello ?
+		try{
+			String queryRoot = "/*[local-name()='ADOXML' or local-name()='adoxml']";
+			Node bpmnRootNode =  (Node) XMLUtils.execXPath(model.getDocumentElement(), queryRoot, XPathConstants.NODE);
+			if(bpmnRootNode!=null)
+				return true;
+		}catch(Exception e){}
+		return false;
+	}
+	
+	public static PetriNet generateFromBPMN(Document bpmnXml) throws Exception{
+		if(!isOMGBPMN2(bpmnXml))
+			throw new Exception("ERROR: The provided model is not a valid OMG standard BPMN2.0 model");
 		
 		PNMapping pnm = new PNMapping();
 		/*
@@ -181,7 +204,10 @@ public class PNImport {
 	}
 		
 	public static PetriNet[] generateFromAdoxxBPMN(Document adoxxXml) throws Exception{
-		//TODO: effettuare validazione modello ?
+		
+		if(!isADOXXBPMN2(adoxxXml))
+			throw new Exception("ERROR: The provided model is not a valid ADOXX model");
+		
 		PNMapping pnm = new PNMapping();
 		
 		pnm.addMapping("task : p>t ; in:sequence=p, message=t ; out:sequence=t, message=t, bound=p");
@@ -344,6 +370,7 @@ public class PNImport {
 	public static void main(String[] args) {
 		try {
 			String bpmnUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_adoxx_x.xml";
+			//PetriNet[] pnList = new PetriNet[]{generateFromBPMN(XMLUtils.getXmlDocFromURI(bpmnUrl))};
 			PetriNet[] pnList = generateFromAdoxxBPMN(XMLUtils.getXmlDocFromURI(bpmnUrl));
 			//System.out.println(PNExport.exportToEldaricaP(pn));
 			//System.out.println(PNExport.exportToEldaricaP_propertyDeadlockPresence(pn));

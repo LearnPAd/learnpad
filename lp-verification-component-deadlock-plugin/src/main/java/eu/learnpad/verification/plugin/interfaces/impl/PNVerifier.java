@@ -32,15 +32,15 @@ public class PNVerifier implements Plugin {
 	}
 
 	@Override
-	public String performVerification(String adoxxBPModel, String type) {
+	public String performVerification(String model, String type) {
 
 		String ret = "";
 		try{
 			Engine engine = new Engine();
 			if(type.equals("SINGLE DEADLOCK")){
-				ret = engine.verifyDeadlockAdoxxBPMN(adoxxBPModel);
+				ret = engine.verifyDeadlock(model, false);
 			} else if(type.equals("ALL DEADLOCKS")){
-				ret = engine.verifyAllDeadlocksAdoxxBPMN(adoxxBPModel);
+				ret = engine.verifyDeadlock(model, true);
 			} else 
 				throw new Exception("ERROR: Verification type " + type + " not supported.");
 		}catch(Exception ex){

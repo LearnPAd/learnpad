@@ -23,6 +23,8 @@ package eu.learnpad.verification.plugin.bpmn.verifier;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.w3c.dom.Document;
+
 import eu.learnpad.verification.plugin.pn.PetriNet;
 import eu.learnpad.verification.plugin.pn.PetriNet.PL;
 import eu.learnpad.verification.plugin.pn.impexp.PNExport;
@@ -57,22 +59,30 @@ public class Engine {
 		modelCheckerExePath = tmpFolder + ((isWindowsOS)?"lola-2.0-cygwin.exe":"lola");
 	}
 	
-	public String verifyDeadlockBPMN(String bpmnModel) throws Exception{
-		PetriNet pn = PNImport.generateFromBPMN(XMLUtils.getXmlDocFromString(bpmnModel));
-		return verifyDeadlock(pn);
-	}
-	
-	public String verifyDeadlockAdoxxBPMN(String adoxxBPModel) throws Exception{
-		PetriNet[] pnList = PNImport.generateFromAdoxxBPMN(XMLUtils.getXmlDocFromString(adoxxBPModel));
+	public String verifyDeadlock(String model, boolean checkAllDeadlock) throws Exception{
+		PetriNet[] pnList = new PetriNet[0];
+		Document xmlModel = XMLUtils.getXmlDocFromString(model);
+		
+		if(PNImport.isOMGBPMN2(xmlModel))
+			pnList = new PetriNet[]{PNImport.generateFromBPMN(xmlModel)};
+		else if(PNImport.isADOXXBPMN2(xmlModel))
+			pnList = PNImport.generateFromAdoxxBPMN(xmlModel);
+		else
+			throw new Exception("ERROR: The format of BPMN model provided can not be recognized.");
+		
 		if(pnList.length==0)
 			throw new Exception("ERROR: No BPMN2.0 model provided.");
 		String ret = "";
 		for(PetriNet pn: pnList)
-			ret += verifyDeadlock(pn);
+			if(checkAllDeadlock)
+				ret += verifyAllDeadlocks(pn);
+			else
+				ret += verifySingleDeadlock(pn);
+		
 		return ret;
 	}
-	
-	private String verifyDeadlock(PetriNet pn) throws Exception{
+
+	private String verifySingleDeadlock(PetriNet pn) throws Exception{
 		if(pn.isEmpty())
 			throw new Exception("ERROR: The provided petri net is empty");
 		
@@ -87,21 +97,6 @@ public class Engine {
 			counterExampleTraceList.add(LOLA.getCounterExample(out, pn));
 		
 		return formatResult(counterExampleTraceList, pn);
-	}
-	
-	public String verifyAllDeadlocksBPMN(String bpmnModel) throws Exception{
-		PetriNet pn = PNImport.generateFromBPMN(XMLUtils.getXmlDocFromString(bpmnModel));
-		return verifyAllDeadlocks(pn);
-	}
-	
-	public String verifyAllDeadlocksAdoxxBPMN(String adoxxBPModel) throws Exception{
-		PetriNet[] pnList = PNImport.generateFromAdoxxBPMN(XMLUtils.getXmlDocFromString(adoxxBPModel));
-		if(pnList.length==0)
-			throw new Exception("ERROR: No BPMN2.0 model provided.");
-		String ret = "";
-		for(PetriNet pn: pnList)
-			ret += verifyAllDeadlocks(pn);
-		return ret;
 	}
 	
 	private String verifyAllDeadlocks(PetriNet pn) throws Exception{
@@ -190,12 +185,12 @@ public class Engine {
 	/*
 	public static void main(String[] args) {	
 		try {
-			String bpmnUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_adoxx_2.xml";
+			String bpmnUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\incorrect.xml";
 			String bpmnModel = new String(IOUtils.readFile(bpmnUrl));
 			
 			Engine engine = new Engine();
 			//System.out.println(engine.verifyDeadlock(bpmnModel));
-			System.out.println(engine.verifyAllDeadlocksAdoxxBPMN(bpmnModel));
+			System.out.println(engine.verifyDeadlock(bpmnModel, false));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
