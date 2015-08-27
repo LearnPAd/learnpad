@@ -40,11 +40,11 @@ function users(userid) {
 
         // create user subcontainer
         $('#' + container).append(
-            '<div class="userui-userinfo"></div>'
+            '<div id="' + container + 'userinfo" class="userui-userinfo"></div>'
         );
 
         // add user
-        $('.userui-userinfo').html(
+        $('#' + container + 'userinfo').html(
             '<div id="user-' + userid + '" class="userui-user">' +
                 '<a tabindex="0" data-toggle="popover" ' +
                 'data-trigger="focus" data-placement="bottom" ' +
@@ -60,7 +60,8 @@ function users(userid) {
             '<div class="panel panel-default">' +
                 '<div class="panel-heading">' +
                 '<h3 class="panel-title">Other Participants</h3></div>' +
-                '<div class="panel-body userui-otherinfo"></div></div>'
+                '<div id="' +
+                container + 'otherinfo" class="panel-body userui-otherinfo"></div></div>'
         );
 
         // add other users
@@ -69,7 +70,7 @@ function users(userid) {
         for (var i = 0; i < userInfosKeys.length; i++) {
             var oid = userInfosKeys[i];
             if (oid != userid) {
-                $('.userui-otherinfo').append(
+                $('#' + container + 'otherinfo').append(
                     '<div id="user-' + oid + '" class="userui-user">' +
                         '<a tabindex="0" data-toggle="popover" ' +
                         'data-trigger="focus" data-placement="bottom" ' +
@@ -81,7 +82,7 @@ function users(userid) {
                         '</p></a></div>'
                 );
                 // append space to separate users names
-                $('.userui-otherinfo').append(' ');
+                $('#' + container + 'otherinfo').append(' ');
             }
         }
 

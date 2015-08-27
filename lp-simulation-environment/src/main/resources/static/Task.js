@@ -73,6 +73,18 @@ function task(address, taskid, user) {
                 processDiv.className = 'tab-pane';
                 tasksDiv.append(processDiv);
 
+                var processMainDiv = document.createElement('div');
+                processMainDiv.id = 'processmain' + data.processid;
+                processMainDiv.className = 'col-sm-8';
+                processDiv.appendChild(processMainDiv);
+
+                var processSideDiv = document.createElement('div');
+                processSideDiv.id = 'processside' + data.processid;
+                processSideDiv.className = 'col-sm-4';
+                processDiv.appendChild(processSideDiv);
+
+                users(user).setUserList('processside' + data.processid);
+
                 // check if it is the first tab
                 // (in this case we make it open by default)
                 if ($('#taskstable li').length == 1) {
@@ -80,13 +92,13 @@ function task(address, taskid, user) {
                 }
 
                 // add the score panel
-                $(processDiv).append(
-                    '<blockquote id="score' +
-                        data.processid + '"></blockquote>'
+                $('#processmain' + data.processid).append(
+                    '<div><blockquote id="score' +
+                        data.processid + '"></blockquote></div>'
                 );
 
                 // add the process diagram
-                $(processDiv).append(
+                $('#processmain' + data.processid).append(
                 '<div class="panel-group diagram" id="accordion' +
                     data.processid +
                     '" role="tablist" aria-multiselectable="true">' +
@@ -114,6 +126,7 @@ function task(address, taskid, user) {
             taskDiv.innerHTML = '<p id="taskdata' + taskid + '"></p>' +
                 '<div id="taskDocsDiv' + taskid +
                 '"></div><div id="taskFormDiv' + taskid + '"></div><hr>';
+
             $('#score' + data.processid).before(taskDiv);
 
             $('#taskdata' + taskid).html(

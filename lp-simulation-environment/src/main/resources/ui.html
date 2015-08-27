@@ -175,13 +175,11 @@
                     </a>
                 </div>
 
-                <div class="col-sm-7">
+                <div class="col-sm-10">
                     <ul id="taskstable" class="nav nav-tabs" role="tablist">
                     </ul>
-                    <div id="tasks" class="content tab-content">
+                    <div id="tasks" class="content tab-content container">
                     </div>
-                </div>
-                <div id="userlist-container" class="col-sm-3">
                 </div>
             </div>
 
@@ -236,7 +234,6 @@
              userid = $('#uiid').val().toLowerCase();
              taskReceiver(#serveripaddress#, userid);
              chat('chatcontainer', #serveripaddress#, userid);
-             users(userid).setUserList('userlist-container');
              return false;
          });
         </script>
