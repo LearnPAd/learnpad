@@ -22,6 +22,7 @@ package eu.learnpad.simulator.processmanager;
  */
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
+import eu.learnpad.simulator.processmanager.gamification.TaskScorer;
 
 /**
  *
@@ -45,6 +47,8 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
 
 	private final Map<String, Integer> usersScores = new HashMap<String, Integer>();
+
+	private final Map<String, TaskScorer> taskScorers = new HashMap<String, TaskScorer>();
 
 	public AbstractProcessDispatcher(
 			IProcessManager manager,
@@ -110,6 +114,10 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 			} else {
 				if (!taskValidator.taskResultIsValid(task.id,
 						getTaskInputs(task.id), data)) {
+
+					// add attempt to user failed count
+					taskScorers.get(task.id).addUserAttemptFail(userId);
+
 					// task result is invalid and must be resubmitted
 					return LearnPadTaskSubmissionResult.rejected();
 				} else {
@@ -117,7 +125,11 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 					completeTask(task, data);
 
 					// TODO calculate actual task score
-					usersScores.put(userId, usersScores.get(userId) + 100);
+					usersScores.put(
+							userId,
+							usersScores.get(userId)
+									+ (int) (taskScorers.get(task.id)
+											.userComplete(userId) * 100));
 
 					if (isProcessFinished()) {
 						completeProcess();
@@ -166,6 +178,9 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 	 *            a new task
 	 */
 	protected void processNewTask(final LearnPadTask task) {
+		// TODO: correct init parameters
+		taskScorers.put(task.id, new TaskScorer(new Date(), 30000));
+
 		processEventReceiver.sendTask(task, router.route(task.id));
 	}
 
