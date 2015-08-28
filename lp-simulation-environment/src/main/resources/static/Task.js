@@ -127,8 +127,10 @@ function task(address, taskid, user) {
             var taskDiv = document.createElement('div');
             taskDiv.id = 'taskcontainer' + taskid;
             taskDiv.innerHTML = '<p id="taskdata' + taskid + '"></p>' +
-                '<div id="taskDocsDiv' + taskid +
-                '"></div><div id="taskFormDiv' + taskid + '"></div><hr>';
+                '<div id="taskDocsDiv' + taskid + '"></div>' +
+                '<div><h4><em id="time' + taskid +
+                '">Time on task: 00:00:00</div>' +
+                '<div id="taskFormDiv' + taskid + '"></div><hr>';
 
             $('#accordion' + data.processid).before(taskDiv);
 
@@ -173,6 +175,22 @@ function task(address, taskid, user) {
             content += '</div>';
             $('#taskDocsDiv' + taskid).html(content);
 
+            // add timer
+            newTask.timer = setInterval(function() {
+                var now = new Date();
+                var duration = new Date(now.getTime() - data.startingtime);
+
+                var hh = duration.getUTCHours();
+                var mm = duration.getUTCMinutes();
+                var ss = duration.getSeconds();
+                if (hh < 10) {hh = '0' + hh;}
+                if (mm < 10) {mm = '0' + mm;}
+                if (ss < 10) {ss = '0' + ss;}
+
+                $('#time' + taskid).html(
+                    'Time on task: ' + hh + ':' + mm + ':' + ss);
+            }, 1000);
+
             // update score
             $('#score' + data.processid).html(
                 'Score: ' + data.totalscore
@@ -214,6 +232,8 @@ function task(address, taskid, user) {
                 'Score: ' + data.totalscore
             );
 
+            // stop timer
+            clearInterval(newTask.timer);
             break;
 
         case 'OTHER_VALIDATED':
@@ -223,6 +243,9 @@ function task(address, taskid, user) {
                     taskid +
                     '" class="alert alert-info" role="alert">Another user completed the task</div>'
             );
+
+            // stop timer
+            clearInterval(newTask.timer);
             break;
 
         case 'RESUBMIT':
@@ -254,6 +277,9 @@ function task(address, taskid, user) {
                     taskid +
                     '" class="alert alert-warning" role="alert">Hum... something weird happened, sorry about that</div>'
             );
+
+            // stop timer
+            clearInterval(newTask.timer);
             break;
 
         }
