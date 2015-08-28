@@ -212,7 +212,8 @@ public class TaskServlet extends WebSocketServlet {
 								processManager
 								.getProcessDefinitionName(processManager
 										.getProcessDefinitionId(task.processId)),
-										formHandler.createFormString(task.id),
+										task.startingTime, formHandler
+										.createFormString(task.id),
 										task.documents)));
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -272,7 +273,8 @@ public class TaskServlet extends WebSocketServlet {
 												processManager
 														.getProcessDefinitionName(processManager
 																.getProcessDefinitionId(task.processId)),
-														formHandler
+												task.startingTime,
+												formHandler
 														.createFormString(task.id),
 												task.documents, processManager
 														.getInstanceScore(

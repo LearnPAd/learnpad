@@ -36,6 +36,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -224,22 +225,24 @@ public class UIHandlerWebImplTest {
 		// send some tasks
 
 		uiHandler.sendTask(new LearnPadTask("process1", "task1", "", "",
-				new ArrayList<LearnPadDocument>()), Arrays.asList("user1"));
+				new ArrayList<LearnPadDocument>(), new Date().getTime()),
+				Arrays.asList("user1"));
 
 		uiHandler.sendTask(new LearnPadTask("process1", "task2", "", "",
-				new ArrayList<LearnPadDocument>()), Arrays.asList("user1",
-				"user2"));
+				new ArrayList<LearnPadDocument>(), new Date().getTime()),
+				Arrays.asList("user1", "user2"));
 
 		uiHandler.sendTask(new LearnPadTask("process1", "task3", "", "",
-				new ArrayList<LearnPadDocument>()), Arrays.asList("user1",
-				"user2", "user3"));
+				new ArrayList<LearnPadDocument>(), new Date().getTime()),
+				Arrays.asList("user1", "user2", "user3"));
 
 		uiHandler.sendTask(new LearnPadTask("process1", "task4", "", "",
-				new ArrayList<LearnPadDocument>()), Arrays.asList("user2",
-				"user3"));
+				new ArrayList<LearnPadDocument>(), new Date().getTime()),
+				Arrays.asList("user2", "user3"));
 
 		uiHandler.sendTask(new LearnPadTask("process1", "task5", "", "",
-				new ArrayList<LearnPadDocument>()), Arrays.asList("user3"));
+				new ArrayList<LearnPadDocument>(), new Date().getTime()),
+				Arrays.asList("user3"));
 
 		// check all user has been notified of its tasks
 

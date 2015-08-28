@@ -26,6 +26,7 @@ package eu.learnpad.simulator.processmanager.activiti.processdispatcher;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -172,7 +173,8 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher
 				}
 
 				newTasks.add(new LearnPadTask(t.getProcessInstanceId(), t
-						.getId(), t.getName(), t.getDescription(), documents));
+						.getId(), t.getName(), t.getDescription(), documents,
+						new Date().getTime()));
 			}
 		}
 

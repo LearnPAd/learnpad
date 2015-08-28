@@ -38,15 +38,18 @@ public class LearnPadTask {
 	public final String name;
 	public final String desc;
 	public final Collection<LearnPadDocument> documents;
+	public final long startingTime;
 
 	public LearnPadTask(String processId, String taskId, String taskName,
-			String taskDesc, Collection<LearnPadDocument> documents) {
+			String taskDesc, Collection<LearnPadDocument> documents,
+			long startingTime) {
 		super();
 		this.processId = processId;
 		this.id = taskId;
 		this.name = taskName;
 		this.desc = taskDesc;
 		this.documents = documents;
+		this.startingTime = startingTime;
 	}
 
 	@Override

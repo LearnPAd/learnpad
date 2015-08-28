@@ -39,17 +39,19 @@ public class Resubmit implements ITaskMsg {
 	public String description;
 	public String processid;
 	public String processname;
+	public long startingtime;
 	public String form;
 	public Collection<LearnPadDocument> documents;
 
 	public Resubmit(String name, String description, String processid,
-			String processname, String form,
+			String processname, long startingtime, String form,
 			Collection<LearnPadDocument> documents) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.processid = processid;
 		this.processname = processname;
+		this.startingtime = startingtime;
 		this.form = form;
 		this.documents = documents;
 	}
