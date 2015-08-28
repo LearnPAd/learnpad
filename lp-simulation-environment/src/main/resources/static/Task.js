@@ -85,17 +85,20 @@ function task(address, taskid, user) {
 
                 users(user).setUserList('processside' + data.processid);
 
+                // add gamification panel to side div
+                $('#processside' + data.processid).append(
+                    '<div id="gamification' + data.processid +
+                        '" class="game-panel panel panel-default">' +
+                        '<div class="panel-body">' +
+                        '<div><h4><em id="score' + data.processid +
+                        '"></em></h4></div></div></div>'
+                );
+
                 // check if it is the first tab
                 // (in this case we make it open by default)
                 if ($('#taskstable li').length == 1) {
                     $('#taskstable li a:first').tab('show');
                 }
-
-                // add the score panel
-                $('#processmain' + data.processid).append(
-                    '<div><blockquote id="score' +
-                        data.processid + '"></blockquote></div>'
-                );
 
                 // add the process diagram
                 $('#processmain' + data.processid).append(
@@ -127,7 +130,7 @@ function task(address, taskid, user) {
                 '<div id="taskDocsDiv' + taskid +
                 '"></div><div id="taskFormDiv' + taskid + '"></div><hr>';
 
-            $('#score' + data.processid).before(taskDiv);
+            $('#accordion' + data.processid).before(taskDiv);
 
             $('#taskdata' + taskid).html(
                 '<h4>' + '<em>' + data.name + '</em></h4>' +
