@@ -29,7 +29,7 @@ public class PNVerifier implements Plugin {
 
 	@Override
 	public String[] getVerificationTypeProvided() {
-		return new String[]{"SINGLE DEADLOCK", "ALL DEADLOCKS"};
+		return new String[]{"SINGLE DEADLOCK", "ALL DEADLOCKS", "UNBOUNDEDNESS"};
 	}
 
 	@Override
@@ -42,7 +42,9 @@ public class PNVerifier implements Plugin {
 				ret = engine.verifyDeadlock(model, false);
 			} else if(type.equals("ALL DEADLOCKS")){
 				ret = engine.verifyDeadlock(model, true);
-			} else 
+			} else if(type.equals("UNBOUNDEDNESS")){
+				ret = engine.verifyUnboundedness(model);
+			} else
 				throw new Exception("ERROR: Verification type " + type + " not supported.");
 		}catch(Exception ex){
 			ex.printStackTrace();

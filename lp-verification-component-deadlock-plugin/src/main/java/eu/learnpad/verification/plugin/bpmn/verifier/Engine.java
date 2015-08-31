@@ -60,6 +60,26 @@ public class Engine {
 	}
 	
 	public String verifyDeadlock(String model, boolean checkAllDeadlock) throws Exception{
+		PetriNet[] pnList = generatePN(model);
+		String ret = "";
+		for(PetriNet pn: pnList)
+			if(checkAllDeadlock)
+				ret += verifyAllDeadlocks(pn);
+			else
+				ret += verifySingleDeadlock(pn);
+		
+		return ret;
+	}
+	
+	public String verifyUnboundedness(String model) throws Exception{
+		PetriNet[] pnList = generatePN(model);
+		String ret = "";
+		for(PetriNet pn: pnList)
+			ret += verifyUnboundedness(pn);
+		return ret;
+	}
+	
+	private PetriNet[] generatePN(String model) throws Exception{
 		PetriNet[] pnList = new PetriNet[0];
 		Document xmlModel = XMLUtils.getXmlDocFromString(model);
 		
@@ -72,14 +92,8 @@ public class Engine {
 		
 		if(pnList.length==0)
 			throw new Exception("ERROR: No BPMN2.0 model provided.");
-		String ret = "";
-		for(PetriNet pn: pnList)
-			if(checkAllDeadlock)
-				ret += verifyAllDeadlocks(pn);
-			else
-				ret += verifySingleDeadlock(pn);
 		
-		return ret;
+		return pnList;
 	}
 
 	private String verifySingleDeadlock(PetriNet pn) throws Exception{
@@ -96,7 +110,7 @@ public class Engine {
 		if(resultOK)
 			counterExampleTraceList.add(LOLA.getCounterExample(out, pn));
 		
-		return formatResult(counterExampleTraceList, pn);
+		return formatResult(counterExampleTraceList, pn, "Deadlock");
 	}
 	
 	private String verifyAllDeadlocks(PetriNet pn) throws Exception{
@@ -123,10 +137,27 @@ public class Engine {
 					pn.getPlace(counterExampleObj).excludeFromDeadlockCheck=true;
 		}
 		
-		return formatResult(counterExampleTraceList, pn);
+		return formatResult(counterExampleTraceList, pn, "Deadlock");
 	}
 	
-	private String formatResult(ArrayList<String[]> counterExampleTraceList, PetriNet pn) throws Exception{
+	private String verifyUnboundedness(PetriNet pn) throws Exception{
+		if(pn.isEmpty())
+			throw new Exception("ERROR: The provided petri net is empty");
+		
+		String modelToVerify = PNExport.exportTo_LOLA(pn);
+		String propertyToVerify = PNExport.exportTo_LOLA_property_UnboundednessPresence(pn);
+		
+		ArrayList<String[]> counterExampleTraceList = new ArrayList<String[]>();
+		String out = LOLA.sync_getVerificationOutput(modelCheckerExePath, modelToVerify, propertyToVerify);
+		
+		boolean resultOK = LOLA.isPropertyVerified(out);
+		if(resultOK)
+			counterExampleTraceList.add(LOLA.getCounterExample(out, pn));
+		
+		return formatResult(counterExampleTraceList, pn, "Unboundedness");
+	}
+	
+	private String formatResult(ArrayList<String[]> counterExampleTraceList, PetriNet pn, String verificationName) throws Exception{
 		/*
 	 	<Result>
 	 		<PNName>..petri net name..</PNName>
@@ -155,7 +186,7 @@ public class Engine {
 		 */
 		
 		String status = (counterExampleTraceList.size()==0)?"OK":"KO";
-		String description = (counterExampleTraceList.size()==0)?"No deadlock found!":"The model has deadlock!";
+		String description = (counterExampleTraceList.size()==0)?verificationName+" not found!":verificationName+" found!";
 		String ret = "<Result><PNName>"+pn.name+"</PNName><Status>"+status+"</Status><Description>"+description+"</Description>";
 		for(String[] counterExampleTrace: counterExampleTraceList){
 			ret += "<CounterExampleTrace>";
