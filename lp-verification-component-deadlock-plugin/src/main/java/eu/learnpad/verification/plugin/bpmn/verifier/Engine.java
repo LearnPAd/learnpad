@@ -185,7 +185,13 @@ public class Engine {
 	/*
 	public static void main(String[] args) {	
 		try {
-			String bpmnUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\incorrect.xml";
+			
+			//Document t = XMLUtils.getXmlDocFromString("<test a=\"Analisi &amp; dell Istanza\"></test>");
+			//String a = (String)XMLUtils.execXPath(t.getDocumentElement(), "/test/@a", XPathConstants.STRING);
+			//a = XMLUtils.escapeXPathField(a);
+			//Node b = (Node)XMLUtils.execXPath(t.getDocumentElement(), "//*[@a="+a+"]", XPathConstants.NODE);
+			
+			String bpmnUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\big.xml";
 			String bpmnModel = new String(IOUtils.readFile(bpmnUrl));
 			
 			Engine engine = new Engine();

@@ -52,11 +52,14 @@ public class LOLA {
 		proc.waitFor();
 		timerThread.interrupt();
 		new File(filePath).delete();
-		return baos.toString();
+		String output = baos.toString();
+		if(output.contains("syntax error"))
+			throw new Exception("ERROR: LOLA internal error: " + output);
+		return output;
 	}
 
 	public static boolean isPropertyVerified(String lolaOutput){
-		if(lolaOutput.isEmpty())
+		if(lolaOutput==null || lolaOutput.isEmpty())
 			return false;
 		
 		if(lolaOutput.contains("NOSTATE"))
@@ -69,7 +72,7 @@ public class LOLA {
 		if(!isPropertyVerified(lolaOutput))
 			throw new Exception("ERROR: The property is not verified so a counter example can not exist.");
 		
-		if(lolaOutput.isEmpty())
+		if(lolaOutput==null || lolaOutput.isEmpty())
 			return new String[0];
 		
 		String newLineChar = "\r\n";
@@ -79,7 +82,7 @@ public class LOLA {
 		ArrayList<String> transitionTraceList = new ArrayList<String>();
 		String[] traceRowList = lolaOutput.split(newLineChar);
 		for(String traceRow:traceRowList)
-			if(!traceRow.contains(":"))
+			if(!(traceRow.contains(":") || traceRow.startsWith("===")))
 				transitionTraceList.add(traceRow);
 		
 		ArrayList<String> placeTraceList = new ArrayList<String>();
@@ -104,9 +107,7 @@ public class LOLA {
 					places += placeList.get(i).name+" ";
 			placeTraceList.add(places);
 		}
-		
-		//pn = originalNet;
-		
+				
 		String[] ret = new String[placeTraceList.size()];
 		placeTraceList.toArray(ret);
 		return ret;

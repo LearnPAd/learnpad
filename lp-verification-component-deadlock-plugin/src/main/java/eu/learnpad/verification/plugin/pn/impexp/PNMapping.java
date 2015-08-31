@@ -41,13 +41,19 @@ public class PNMapping {
 			for(RelationElement relationElement: inRelationElementList)
 				if(relationElement.relationType.equals(relationType))
 					return relationElement.element;
-			throw new Exception("ERROR: input relation of type " + relationType + " not defined for element of type " + typeList[0] + "...");
+			throw new Exception("ERROR: input relation of type " + relationType + " not defined for element of type " + getTypes());
 		}
 		public String getOutRelationElement(String relationType) throws Exception{
 			for(RelationElement relationElement: outRelationElementList)
 				if(relationElement.relationType.equals(relationType))
 					return relationElement.element;
-			throw new Exception("ERROR: output relation of type " + relationType + " not defined for element of type " + typeList[0] + "...");
+			throw new Exception("ERROR: output relation of type " + relationType + " not defined for element of type " + getTypes());
+		}
+		public String getTypes(){
+			String ret = "";
+			for(String type:typeList)
+				ret += type+"|";
+			return ret;
 		}
 	}
 	
@@ -75,6 +81,8 @@ public class PNMapping {
 	}
 	
 	public MapElement getMapElement(String type) throws Exception{
+		if(type==null || type.isEmpty())
+			throw new Exception("ERROR: parameter type is empty");
 		for(MapElement element:mapElementList)
 			for(String typeEl: element.typeList)
 				if(typeEl.equals(type))
@@ -83,12 +91,16 @@ public class PNMapping {
 	}
 	
 	public boolean existMapElement(String[] typeList) throws Exception{
+		if(typeList==null)
+			throw new Exception("ERROR: parameter typeList is null");
 		for(String type: typeList)
 			if(existMapElement(type))
 				return true;
 		return false;
 	}
 	public boolean existMapElement(String type) throws Exception{
+		if(type==null || type.isEmpty())
+			throw new Exception("ERROR: parameter type is empty");
 		for(MapElement element:mapElementList)
 			for(String typeEl: element.typeList)
 				if(typeEl.equals(type))
@@ -120,6 +132,10 @@ public class PNMapping {
 		 *  End: p ; in: sequence=p ; out:
 		 *  msgEnd: p>t,t>p1 ; in: sequence=p ; out: message=t
 		 * */
+		
+		if(mappingFormula==null)
+			throw new Exception("ERROR: Formula is null");
+		
 		MapElement element = new MapElement();
 		mappingFormula = mappingFormula.replaceAll("( |-)+", "");
 		
@@ -189,16 +205,22 @@ public class PNMapping {
 	}
 	
 	public void addMapping(MapElement element) throws Exception{
+		if(element==null)
+			throw new Exception("ERROR: parameter element is null");
 		if(existMapElement(element.typeList))
-			throw new Exception("ERROR: At least one type present in this element is already defined.");
+			throw new Exception("ERROR: At least one type present in this element is already defined. Please remove it");
 		mapElementList.add(element);
 	}
 	
 	public GeneratedElements processElement(String elementId, String elementType, String elementDescription, float x, float y) throws Exception{
+		if(elementId==null || elementId.isEmpty() || elementType==null || elementType.isEmpty())
+			throw new Exception("ERROR: incorrect data provided for processing element:\nelementId: "+elementId+"\nelementType: "+elementType+"\nelementDescription: "+elementDescription);
 		return processElement(new ProcessedElement(elementId, elementType, elementDescription, x, y));
 	}
 	
 	public GeneratedElements processElement(ProcessedElement element) throws Exception{
+		if(element==null)
+			throw new Exception("ERROR: parameter element is null");
 		GeneratedElements ret = new GeneratedElements();
 		
 		MapElement map = getMapElement(element.elementType);
@@ -275,6 +297,8 @@ public class PNMapping {
 	}
 	
 	private ProcessedElement getProcessedElement(String elementId) throws Exception{
+		if(elementId==null || elementId.isEmpty())
+			throw new Exception("ERROR: parameter elementId is empty");
 		for(ProcessedElement processedElement:processedElementList)
 			if(processedElement.elementId.equals(elementId))
 				return processedElement;
@@ -282,6 +306,9 @@ public class PNMapping {
 	}
 	
 	public GeneratedElements processRelation(String relationId, String relationType, String elementFromId, String elementToId) throws Exception{
+		if(relationId==null || relationId.isEmpty() || relationType==null || relationType.isEmpty() || elementFromId==null || elementFromId.isEmpty() || elementToId==null || elementToId.isEmpty())
+			throw new Exception("ERROR: incorrect data provided for processing relation:\nrelationId: "+relationId+"\nrelationType: " +relationType+"\nelementFromId: "+elementFromId+"\nelementToId: "+elementToId);
+		
 		GeneratedElements ret = new GeneratedElements();
 		ArrayList<PL> retPLListA = new ArrayList<PetriNet.PL>();
 		ArrayList<TR> retTRListA = new ArrayList<PetriNet.TR>();
