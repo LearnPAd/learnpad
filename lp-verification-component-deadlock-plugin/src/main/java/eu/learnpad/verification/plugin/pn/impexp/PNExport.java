@@ -302,7 +302,7 @@ public class PNExport {
 		return finalConfig;
 	}
 	
-	public static String exportTo_LOLA_property_UnboundednessPresence(PetriNet pn) throws Exception{
+	public static String exportTo_LOLA_property_EndUnboundednessPresence(PetriNet pn) throws Exception{
 		// La rete è unbounded se almeno un place è unbounded. In questo caso alleggeriamo la definizione controllando che almeno un end place sia unbounded
 		if(pn.isEmpty())
 			throw new Exception("ERROR: The provided petri net is empty");
@@ -318,6 +318,18 @@ public class PNExport {
 		else
 			throw new Exception("ERROR: impossible to verify Unboundedness Presence. The Petri Net must have at least one ending place.");
 		return finalConfig;
+	}
+	
+	public static String[] exportTo_LOLA_property_AllUnboundednessPresence(PetriNet pn) throws Exception{
+		// La rete è unbounded se almeno un place è unbounded. LOLA consiglia di controllare tutti i places separatamente
+		if(pn.isEmpty())
+			throw new Exception("ERROR: The provided petri net is empty");
+		
+		ArrayList<PL> placeList = pn.getPlaceList_safe();
+		String[] ret = new String[placeList.size()];
+		for(int i=0;i<placeList.size();i++)
+			ret[i] = "EF( "+placeList.get(i).name+" >= oo )";
+		return ret;
 	}
 	
 	/*

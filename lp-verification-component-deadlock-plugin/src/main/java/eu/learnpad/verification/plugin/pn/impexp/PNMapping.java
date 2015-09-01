@@ -90,6 +90,14 @@ public class PNMapping {
 		throw new Exception("ERROR: element " + type + " not defined.");
 	}
 	
+	public String getFirstExistentMapElement(String[] typeList) throws Exception{
+		if(typeList==null)
+			throw new Exception("ERROR: parameter typeList is null");
+		for(String type: typeList)
+			if(existMapElement(type))
+				return type;
+		return null;
+	}
 	public boolean existMapElement(String[] typeList) throws Exception{
 		if(typeList==null)
 			throw new Exception("ERROR: parameter typeList is null");
@@ -208,7 +216,7 @@ public class PNMapping {
 		if(element==null)
 			throw new Exception("ERROR: parameter element is null");
 		if(existMapElement(element.typeList))
-			throw new Exception("ERROR: At least one type present in this element is already defined. Please remove it");
+			throw new Exception("ERROR: Type " + getFirstExistentMapElement(element.typeList) + " defined more than once.");
 		mapElementList.add(element);
 	}
 	
@@ -376,7 +384,7 @@ public class PNMapping {
 			PNMapping pnm = new PNMapping();
 
 			pnm.addMapping("task|intermediate: p>t ; in:sequence=p, message=t ; out:sequence=t, message=t");
-			pnm.addMapping("start: p(1)>t ; in:sequence=p, message=p ; out:sequence=t");
+			pnm.addMapping("start|: p(1)>t ; in:sequence=p, message=p ; out:sequence=t");
 			pnm.addMapping("end: p>t,t>p1 ; in: sequence=p ; out: message=t");
 			pnm.addMapping("loop: p>t0,t0>p0,p0>t,p0>t1,t1>p ; in:sequence=p, message=t0 ; out:sequence=t, message=t0");
 			pnm.addMapping("xor: p ; in: sequence=p ; out: sequence=p");

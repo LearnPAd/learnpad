@@ -57,13 +57,17 @@ public class VerificationComponent {
 	 * @return String[] array of string identifying all the available verification types
 	 */
 	public static String[] getSupportedVerifications() throws Exception{
+		String[] ret = _getSupportedVerifications();
+		System.gc();
+		return ret;
+	}
+	private static String[] _getSupportedVerifications() throws Exception{
 		String pluginsFolderPath = new ConfigManager().getElement("pluginsFolderPath");
 		HashMap<String, Plugin> verificationMap = PluginManager.getAvailableVerifications(pluginsFolderPath);
 		String[] ret = new String[verificationMap.keySet().size()];
 		verificationMap.keySet().toArray(ret);
 		return ret;
 	}
-	
 	/**
 	 * This method load a model in the component and return an id specific for the model that have to be used for the verification
 	 * @param model The model to load. It accepts any kind of model formats.
@@ -155,6 +159,8 @@ public class VerificationComponent {
 		if(!status.equals("COMPLETED"))
 			throw new Exception("ERROR: The status of the verification with id " + verificationId + " is " + status);
 		
+		System.gc();
+		
 		String resultsFolderPath = new ConfigManager().getElement("resultsFolderPath");
 		resultsFolderPath = checkResultsFolder(resultsFolderPath);
 		
@@ -182,6 +188,10 @@ public class VerificationComponent {
 	}
 	
 	private static void verificationThread(String vid, String modelId, String verificationType){
+		_verificationThread(vid, modelId, verificationType);
+		System.gc();
+	}
+	private static void _verificationThread(String vid, String modelId, String verificationType){
 		try{
 			String pluginsFolderPath = new ConfigManager().getElement("pluginsFolderPath");
 			String resultsFolderPath = new ConfigManager().getElement("resultsFolderPath");
@@ -197,6 +207,8 @@ public class VerificationComponent {
 			
 			String model = getModel(modelId);
     		String result = verificationEngine.performVerification(model, verificationType);
+    		verificationEngine = null;
+    		verificationMap = null;
     		String resultXml = "<VerificationResult><VerificationType>"+verificationType+"</VerificationType><VerificationID>"+vid+"</VerificationID><ModelID>"+modelId+"</ModelID><Time>"+Utils.getUTCTime()+"</Time><Results>"+result+"</Results></VerificationResult>";
     		try{
     			XMLUtils.getXmlDocFromString(resultXml);
@@ -204,7 +216,6 @@ public class VerificationComponent {
             IOUtils.writeFile(resultXml.getBytes(), resultsFolderPath + File.separator + vid, false);
             notifyVerificationEnd(vid);
 		}catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
-		
 		verificationRunningList.remove(vid);
 	}
 	

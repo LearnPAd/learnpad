@@ -71,11 +71,14 @@ public class Engine {
 		return ret;
 	}
 	
-	public String verifyUnboundedness(String model) throws Exception{
+	public String verifyUnboundedness(String model, boolean checkAllUnboundedness) throws Exception{
 		PetriNet[] pnList = generatePN(model);
 		String ret = "";
 		for(PetriNet pn: pnList)
-			ret += verifyUnboundedness(pn);
+			if(checkAllUnboundedness)
+				ret += verifyAllUnboundedness(pn);
+			else
+				ret += verifyEndUnboundedness(pn);
 		return ret;
 	}
 	
@@ -106,8 +109,7 @@ public class Engine {
 		ArrayList<String[]> counterExampleTraceList = new ArrayList<String[]>();
 		String out = LOLA.sync_getVerificationOutput(modelCheckerExePath, modelToVerify, propertyToVerify);
 		
-		boolean resultOK = LOLA.isPropertyVerified(out);
-		if(resultOK)
+		if(LOLA.isPropertyVerified(out))
 			counterExampleTraceList.add(LOLA.getCounterExample(out, pn));
 		
 		return formatResult(counterExampleTraceList, pn, "Deadlock");
@@ -131,29 +133,44 @@ public class Engine {
 				break;
 			String[] counterExample = LOLA.getCounterExample(out, pn);
 			counterExampleTraceList.add(counterExample);
-			String[] counterExampleObjList = counterExample[counterExample.length-1].split(" ");
-			for(String counterExampleObj: counterExampleObjList)
-				if(!endPLList.contains(pn.getPlace(counterExampleObj)))
-					pn.getPlace(counterExampleObj).excludeFromDeadlockCheck=true;
+			String[] lastCounterExampleObjList = counterExample[counterExample.length-1].split(" ");
+			for(String lastCounterExampleObj: lastCounterExampleObjList)
+				if(!endPLList.contains(pn.getPlace(lastCounterExampleObj)))
+					pn.getPlace(lastCounterExampleObj).excludeFromDeadlockCheck=true;
 		}
 		
 		return formatResult(counterExampleTraceList, pn, "Deadlock");
 	}
 	
-	private String verifyUnboundedness(PetriNet pn) throws Exception{
+	private String verifyEndUnboundedness(PetriNet pn) throws Exception{
 		if(pn.isEmpty())
 			throw new Exception("ERROR: The provided petri net is empty");
 		
 		String modelToVerify = PNExport.exportTo_LOLA(pn);
-		String propertyToVerify = PNExport.exportTo_LOLA_property_UnboundednessPresence(pn);
+		String propertyToVerify = PNExport.exportTo_LOLA_property_EndUnboundednessPresence(pn);
 		
 		ArrayList<String[]> counterExampleTraceList = new ArrayList<String[]>();
 		String out = LOLA.sync_getVerificationOutput(modelCheckerExePath, modelToVerify, propertyToVerify);
 		
-		boolean resultOK = LOLA.isPropertyVerified(out);
-		if(resultOK)
+		if(LOLA.isPropertyVerified(out))
 			counterExampleTraceList.add(LOLA.getCounterExample(out, pn));
 		
+		return formatResult(counterExampleTraceList, pn, "Unboundedness");
+	}
+	
+	private String verifyAllUnboundedness(PetriNet pn) throws Exception{
+		if(pn.isEmpty())
+			throw new Exception("ERROR: The provided petri net is empty");
+		
+		String modelToVerify = PNExport.exportTo_LOLA(pn);
+		String[] propertyToVerifyList = PNExport.exportTo_LOLA_property_AllUnboundednessPresence(pn);
+		
+		ArrayList<String[]> counterExampleTraceList = new ArrayList<String[]>();
+		for(String propertyToVerify:propertyToVerifyList){
+			String out = LOLA.sync_getVerificationOutput(modelCheckerExePath, modelToVerify, propertyToVerify);
+			if(LOLA.isPropertyVerified(out))
+				counterExampleTraceList.add(LOLA.getCounterExample(out, pn));
+		}
 		return formatResult(counterExampleTraceList, pn, "Unboundedness");
 	}
 	

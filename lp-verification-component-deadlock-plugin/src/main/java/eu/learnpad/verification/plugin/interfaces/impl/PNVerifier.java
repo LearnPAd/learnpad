@@ -29,7 +29,7 @@ public class PNVerifier implements Plugin {
 
 	@Override
 	public String[] getVerificationTypeProvided() {
-		return new String[]{"SINGLE DEADLOCK", "ALL DEADLOCKS", "UNBOUNDEDNESS"};
+		return new String[]{"ONE DEADLOCK", "ALL DEADLOCKS", "END PLACES UNBOUNDEDNESS", "ALL PLACES UNBOUNDEDNESS"};
 	}
 
 	@Override
@@ -38,12 +38,14 @@ public class PNVerifier implements Plugin {
 		String ret = "";
 		try{
 			Engine engine = new Engine();
-			if(type.equals("SINGLE DEADLOCK")){
+			if(type.equals("ONE DEADLOCK")){
 				ret = engine.verifyDeadlock(model, false);
 			} else if(type.equals("ALL DEADLOCKS")){
 				ret = engine.verifyDeadlock(model, true);
-			} else if(type.equals("UNBOUNDEDNESS")){
-				ret = engine.verifyUnboundedness(model);
+			} else if(type.equals("END PLACES UNBOUNDEDNESS")){
+				ret = engine.verifyUnboundedness(model, false);
+			} else if(type.equals("ALL PLACES UNBOUNDEDNESS")){
+				ret = engine.verifyUnboundedness(model, true);
 			} else
 				throw new Exception("ERROR: Verification type " + type + " not supported.");
 		}catch(Exception ex){
