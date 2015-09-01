@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 cd $( dirname "${BASH_SOURCE[0]}")
 {
-	java -cp LPVerificationComponent-1.0-jar-with-dependencies.jar eu.learnpad.verification.JAXRSService > /dev/null
+	java -jar ../target/LPVerificationComponent-1.0-jar-with-dependencies.jar
 }&
