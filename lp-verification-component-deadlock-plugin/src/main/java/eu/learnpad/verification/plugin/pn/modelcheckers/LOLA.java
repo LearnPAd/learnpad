@@ -53,7 +53,7 @@ public class LOLA {
 		timerThread.interrupt();
 		new File(filePath).delete();
 		String output = baos.toString();
-		if(output.contains("syntax error"))
+		if(output.contains("aborting [#"))
 			throw new Exception("ERROR: LOLA internal error: " + output);
 		return output;
 	}
