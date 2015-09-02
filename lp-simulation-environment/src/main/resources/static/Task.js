@@ -50,6 +50,17 @@ function task(address, taskid, user) {
         newTask.send({ 'type' : 'SUBSCRIBE', 'user' : user})
     };
 
+    function prettyDateFormat(time) {
+        var duration = new Date(time);
+        var hh = duration.getUTCHours();
+        var mm = duration.getUTCMinutes();
+        var ss = duration.getSeconds();
+        if (hh < 10) {hh = '0' + hh;}
+        if (mm < 10) {mm = '0' + mm;}
+        if (ss < 10) {ss = '0' + ss;}
+        return hh + ':' + mm + ':' + ss;
+    }
+
     newTask._onmessage = function(m) {
         var data = JSON.parse(m.data);
 
@@ -129,8 +140,9 @@ function task(address, taskid, user) {
             taskDiv.innerHTML = '<p id="taskdata' + taskid + '"></p>' +
                 '<div id="taskDocsDiv' + taskid + '"></div>' +
                 '<div><h4><em id="time' + taskid +
-                '">Time on task: 00:00:00</div>' +
-                '<div id="taskFormDiv' + taskid + '"></div><hr>';
+                '">Time on task: 00:00:00</em><p><em id="attempts' + taskid +
+                '">Attempts: ' + data.nbattempts + '</em></h4></div>' +
+                '</p><div id="taskFormDiv' + taskid + '"></div><hr>';
 
             $('#accordion' + data.processid).before(taskDiv);
 
@@ -177,18 +189,10 @@ function task(address, taskid, user) {
 
             // add timer
             newTask.timer = setInterval(function() {
-                var now = new Date();
-                var duration = new Date(now.getTime() - data.startingtime);
-
-                var hh = duration.getUTCHours();
-                var mm = duration.getUTCMinutes();
-                var ss = duration.getSeconds();
-                if (hh < 10) {hh = '0' + hh;}
-                if (mm < 10) {mm = '0' + mm;}
-                if (ss < 10) {ss = '0' + ss;}
-
                 $('#time' + taskid).html(
-                    'Time on task: ' + hh + ':' + mm + ':' + ss);
+                    'Time on task: ' +
+                        prettyDateFormat(new Date().getTime() - data.startingtime) +
+                        ' / ' + prettyDateFormat(data.expectedtime));
             }, 1000);
 
             // update score
@@ -267,7 +271,10 @@ function task(address, taskid, user) {
                     $('#taskFormDiv' + taskid).html('');
                 }
             );
-            $('html, body').scrollTop($('#tasknotif' + taskid).offset().top - 70);
+            $('html, body').scrollTop($('#taskdata' + taskid).offset().top - 70);
+
+            // update nb attempts infos
+            $('#attempts' + taskid).html('Attempts: ' + data.nbattempts);
             break;
 
         case 'ERROR':
