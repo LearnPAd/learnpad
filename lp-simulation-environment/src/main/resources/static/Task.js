@@ -140,7 +140,7 @@ function task(address, taskid, user) {
             taskDiv.innerHTML = '<p id="taskdata' + taskid + '"></p>' +
                 '<div id="taskDocsDiv' + taskid + '"></div>' +
                 '<div><h4><em id="time' + taskid +
-                '">Time on task: 00:00:00</em><p><em id="attempts' + taskid +
+                '">Time on task:</em><p><em id="attempts' + taskid +
                 '">Attempts: ' + data.nbattempts + '</em></h4></div>' +
                 '</p><div id="taskFormDiv' + taskid + '"></div><hr>';
 
@@ -189,10 +189,15 @@ function task(address, taskid, user) {
 
             // add timer
             newTask.timer = setInterval(function() {
+                var currentTime = new Date().getTime() - data.startingtime;
+                var style = '';
+                if (currentTime > data.expectedtime) {
+                   style = ' style="color:red"';
+                }
                 $('#time' + taskid).html(
-                    'Time on task: ' +
-                        prettyDateFormat(new Date().getTime() - data.startingtime) +
-                        ' / ' + prettyDateFormat(data.expectedtime));
+                    'Time on task: <span' + style + '>' +
+                        prettyDateFormat(currentTime) +
+                        '</span> / ' + prettyDateFormat(data.expectedtime));
             }, 1000);
 
             // update score
