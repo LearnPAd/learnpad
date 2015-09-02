@@ -22,8 +22,13 @@ package eu.learnpad.core.impl.qm;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import javax.ws.rs.Path;
 
 import org.xwiki.component.annotation.Component;
+import org.xwiki.component.manager.ComponentLookupException;
+import org.xwiki.component.manager.ComponentManager;
+import org.xwiki.component.phase.Initializable;
+import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
@@ -40,16 +45,24 @@ import eu.learnpad.qm.Controller;
  */
 @Component
 @Singleton
-public class XwikiController extends Controller implements XWikiRestComponent{
+@Named("eu.learnpad.core.impl.qm.XwikiController")
+@Path("/learnpad/qm")
+public class XwikiController extends Controller implements XWikiRestComponent, Initializable{
 
+	 /** A means of instantiating the inherited BridgeInterface. */
+    @Inject
+    private ComponentManager manager;
+
+    /** Set to true once the inherited BridgeInterface has been initialized. */
+    private boolean initialized = false;	
+    
 /*
  * Note that in this solution the Controllers do not interact
  * each-others, but each controller directly invokes the BridgesInterfaces
  * (from the other controllers) it needs. This is not actually what was
  * originally planned, thus in the future it may change.
- */
- 
-/* Not sure if this is the correct way to proceed.
+ *
+ * Also, not sure if this is the correct way to proceed.
  * I would like to decide in a configuration file
  * the implementation to bind, and not into the source
  * code. In fact, this second case implies to rebuild the
@@ -58,19 +71,6 @@ public class XwikiController extends Controller implements XWikiRestComponent{
 	@Inject
 	@Named("eu.learnpad.core.impl.lsm.XwikiBridgeInterfaceRestResource")
 	private eu.learnpad.lsm.Bridge lsm;
-	
-	public XwikiController (){
-		this.bridge = null;
-	}
-
-	public XwikiController (BridgeInterface bi){
-		this.updateBridgeInterface(bi);
-	}
-	
-	public XwikiController (String bridgeInterfaceHostname,
-			int bridgeInterfaceHostPort){
-		this.bridge = new XwikiBridgeInterfaceRestResource(bridgeInterfaceHostname, bridgeInterfaceHostPort);
-	}
 	
     public synchronized void updateBridgeInterface (BridgeInterface bi){
 		this.bridge = bi;    
@@ -86,8 +86,26 @@ public class XwikiController extends Controller implements XWikiRestComponent{
 	@Override
 	public void genrationCompleted(String questionnairesId)
 			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		
+System.err.println("Test");		
+	}
+
+	
+	 /** A means of instantiating the inherited BridgeInterface according
+	  * to XWIKI (see  http://extensions.xwiki.org/xwiki/bin/view/Extension/Component+Module#HComponentInitialization).
+	  * Actually in this implementation we currently support only 
+	  * the class XwikiBridgeInterfaceRestResource, but other classes (such as XwikiBridgeInterface)
+	  * should be supported in the future*/
+	
+	@Override
+	public synchronized void initialize() throws InitializationException {
+		if (!this.initialized){
+			try {
+					this.bridge= this.manager.getInstance(XwikiBridgeInterfaceRestResource.class);
+	        	} catch (ComponentLookupException e) {
+	        		throw new InitializationException(e.getMessage(), e);
+	        }
+			this.initialized=true;
+		}
 	}
 
 }
