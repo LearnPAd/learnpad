@@ -379,12 +379,89 @@ public class PNImport {
 		return new float[]{Float.valueOf(x)*29, Float.valueOf(y)*29};
 	}
 
+	
+	public static PetriNet[] generateFromAdoxxPetriNet(Document adoxxXml) throws Exception{
+		
+		if(!isADOXX(adoxxXml))
+			throw new Exception("ERROR: The provided model is not a valid ADOXX model");
+		
+		PNMapping pnm = new PNMapping();
+		pnm.addMapping("p : p ; in:connection=p ; out:connection=p");
+		pnm.addMapping("t : t ; in:connection=t ; out:connection=t");		
+		
+		String placeQuery = ".//*[@id!='' and @class='Place']";
+		String transitionQuery = ".//*[@id!='' and @class='Transition']";
+		String relationQuery = ".//*[@id!='' and (@class='P2TRelation' or @class='T2PRelation')]";
+		
+		NodeList pnModelElList =  (NodeList) XMLUtils.execXPath(adoxxXml.getDocumentElement(), "//*[@modeltype='Petri Net']", XPathConstants.NODESET);
+		PetriNet[] ret = new PetriNet[pnModelElList.getLength()];
+		
+		for(int modelIndex=0;modelIndex<pnModelElList.getLength();modelIndex++) {
+			
+			pnm.resetProcessed();
+			Node pnModelEl = pnModelElList.item(modelIndex);
+			String modelId = pnModelEl.getAttributes().getNamedItem("id").getNodeValue();
+			
+			
+			NodeList placeNodeList =  (NodeList) XMLUtils.execXPath(pnModelEl, placeQuery, XPathConstants.NODESET);
+			for(int i=0;i<placeNodeList.getLength();i++){
+				String id = placeNodeList.item(i).getAttributes().getNamedItem("id").getNodeValue();
+				float[] xy = getAdoxxElementCoordinatesXY(adoxxXml, id);
+				String nTokenS = (String) XMLUtils.execXPath(placeNodeList.item(i), "./*[@name='NumOfTokens']", XPathConstants.STRING);
+				int nToken = 0;
+				try{
+					nToken = Integer.parseInt(nTokenS);
+				}catch(Exception ex){}
+				GeneratedElements genList = pnm.processElement(id, "p", id, xy[0], xy[1]);
+				
+				if(genList.placeList.length>0)
+					genList.placeList[0].numToken = nToken;
+			}
+			
+			NodeList transitionNodeList =  (NodeList) XMLUtils.execXPath(pnModelEl, transitionQuery, XPathConstants.NODESET);
+			for(int i=0;i<transitionNodeList.getLength();i++){
+				String id = transitionNodeList.item(i).getAttributes().getNamedItem("id").getNodeValue();
+				float[] xy = getAdoxxElementCoordinatesXY(adoxxXml, id);
+				pnm.processElement(id, "t", id, xy[0], xy[1]);
+			}
+			
+			NodeList relationNodeList =  (NodeList) XMLUtils.execXPath(pnModelEl, relationQuery, XPathConstants.NODESET);
+			for(int i=0;i<relationNodeList.getLength();i++){
+				String id = relationNodeList.item(i).getAttributes().getNamedItem("id").getNodeValue();
+				
+				String sourceName = (String) XMLUtils.execXPath(relationNodeList.item(i), "./*[local-name()='FROM' or local-name()='from']/@instance", XPathConstants.STRING);
+				String targetName = (String) XMLUtils.execXPath(relationNodeList.item(i), "./*[local-name()='TO' or local-name()='to']/@instance", XPathConstants.STRING);
+				String sourceId = (String) XMLUtils.execXPath(pnModelEl, "//*[@id!='' and @name="+XMLUtils.escapeXPathField(sourceName)+"]/@id", XPathConstants.STRING);
+				String targetId = (String) XMLUtils.execXPath(pnModelEl, "//*[@id!='' and @name="+XMLUtils.escapeXPathField(targetName)+"]/@id", XPathConstants.STRING);
+
+				String weight = (String) XMLUtils.execXPath(relationNodeList.item(i), "./*[@name='Weight']", XPathConstants.STRING);
+				int weightN = 1;
+				try{
+					weightN = Integer.parseInt(weight);
+				}catch(Exception ex){}
+				if(sourceId.isEmpty()) throw new Exception("ERROR: Can not identify the element with name " + sourceName + " for the relation " + id);
+				if(targetId.isEmpty()) throw new Exception("ERROR: Can not identify the element with name " + targetName + " for the relation " + id);
+				
+				GeneratedElements elList = pnm.processRelation(id, "connection", sourceId, targetId);
+				if(elList.ptList.length>0)
+					elList.ptList[0].weight = weightN;
+				if(elList.tpList.length>0)
+					elList.tpList[0].weight = weightN;
+			}
+		
+			ret[modelIndex] = pnm.generatePN(modelId);
+		}
+		
+		return ret;
+	}
+	
 	/*
 	public static void main(String[] args) {
 		try {
-			String bpmnUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_adoxx_x.xml";
+			String modelUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\petrinet.xml";
 			//PetriNet[] pnList = new PetriNet[]{generateFromBPMN(XMLUtils.getXmlDocFromURI(bpmnUrl))};
-			PetriNet[] pnList = generateFromAdoxxBPMN(XMLUtils.getXmlDocFromURI(bpmnUrl));
+			//PetriNet[] pnList = generateFromAdoxxBPMN(XMLUtils.getXmlDocFromURI(bpmnUrl));
+			PetriNet[] pnList = generateFromAdoxxPetriNet(XMLUtils.getXmlDocFromURI(modelUrl));
 			//System.out.println(PNExport.exportToEldaricaP(pn));
 			//System.out.println(PNExport.exportToEldaricaP_propertyDeadlockPresence(pn));
 			//System.out.println(PNExport.exportToEldaricaP_propertyEndReachability(pn));

@@ -62,6 +62,7 @@ public class PetriNet implements java.io.Serializable{
 		private static final long serialVersionUID = 5691467102614286878L;
 		public TR source;
 		public PL target;
+		public int weight=1;
 		public TP(TR transition, PL place){
 			this.source = transition;
 			this.target = place;
@@ -69,11 +70,12 @@ public class PetriNet implements java.io.Serializable{
 	}
 	public class PT implements java.io.Serializable{
 		private static final long serialVersionUID = -33230958480957514L;
-		public TR target;
 		public PL source;
+		public TR target;
+		public int weight=1;
 		public PT(PL place, TR transition){
-			this.target = transition;
 			this.source = place;
+			this.target = transition;
 		}
 	}
 	
@@ -244,27 +246,37 @@ public class PetriNet implements java.io.Serializable{
 			delConnection(transition, pl0);
 	}
 	
-	public void connect(PL place, TR transition) throws Exception{
+	public PT connect(PL place, TR transition) throws Exception{
 		PT conn = null;
 		try {
-			conn = getConnectionPT(place, transition);
+			conn = getConnection(place, transition);
 		} catch (Exception e) {}
-		if(conn != null)
+		if(conn != null) {
+			//conn.weight += 1;
+			//return conn;
 			throw new Exception("ERROR: A connection already exist between " + transition.name + " and " + place.name);
+		}
 		place.nextList.add(transition);
 		transition.previousList.add(place);
-		connectionPTList.add(new PT(place, transition));
+		conn = new PT(place, transition);
+		connectionPTList.add(conn);
+		return conn;
 	}
-	public void connect(TR transition, PL place) throws Exception{
+	public TP connect(TR transition, PL place) throws Exception{
 		TP conn = null;
 		try {
-			conn = getConnectionTP(transition, place);
+			conn = getConnection(transition, place);
 		} catch (Exception e) {}
-		if(conn != null)
+		if(conn != null) {
+			//conn.weight += 1;
+			//return conn;
 			throw new Exception("ERROR: A connection already exist between " + transition.name + " and " + place.name);
+		}
 		transition.nextList.add(place);
 		place.previousList.add(transition);
-		connectionTPList.add(new TP(transition, place));
+		conn = new TP(transition, place);
+		connectionTPList.add(conn);
+		return conn;
 	}
 	
 	public boolean existConnection(PL place, TR transition){
@@ -282,14 +294,14 @@ public class PetriNet implements java.io.Serializable{
 	}
 	
 	public void delConnection(PL place, TR transition) throws Exception{
-		PT conn = getConnectionPT(place, transition);
+		PT conn = getConnection(place, transition);
 		connectionPTList.remove(conn);
 		place.nextList.remove(transition);
 		transition.previousList.remove(place);
 		
 	}
 	public void delConnection(TR transition, PL place) throws Exception{
-		TP conn = getConnectionTP(transition, place);
+		TP conn = getConnection(transition, place);
 		connectionTPList.remove(conn);
 		transition.nextList.remove(place);
 		place.previousList.remove(transition);
@@ -335,13 +347,13 @@ public class PetriNet implements java.io.Serializable{
 		return false;
 	}
 	
-	public TP getConnectionTP(TR transition, PL place) throws Exception{
+	public TP getConnection(TR transition, PL place) throws Exception{
 		for(TP tp:connectionTPList)
 			if(tp.source == transition && tp.target == place)
 				return tp;
 		throw new Exception("ERROR: Can not find a connection between " + transition.name + " and " + place.name);
 	}
-	public PT getConnectionPT(PL place, TR transition) throws Exception{
+	public PT getConnection(PL place, TR transition) throws Exception{
 		for(PT pt:connectionPTList)
 			if(pt.source == place && pt.target == transition)
 				return pt;

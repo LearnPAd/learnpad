@@ -31,6 +31,7 @@ import eu.learnpad.verification.plugin.pn.impexp.PNExport;
 import eu.learnpad.verification.plugin.pn.impexp.PNImport;
 import eu.learnpad.verification.plugin.pn.modelcheckers.LOLA;
 import eu.learnpad.verification.plugin.utils.IOUtils;
+import eu.learnpad.verification.plugin.utils.Utils;
 import eu.learnpad.verification.plugin.utils.XMLUtils;
 
 public class Engine {
@@ -88,9 +89,11 @@ public class Engine {
 		
 		if(PNImport.isOMGBPMN2(xmlModel))
 			pnList = new PetriNet[]{PNImport.generateFromBPMN(xmlModel)};
-		else if(PNImport.isADOXX(xmlModel))
-			pnList = PNImport.generateFromAdoxxBPMN(xmlModel);
-		else
+		else if(PNImport.isADOXX(xmlModel)) {
+			PetriNet[] pnList1 = PNImport.generateFromAdoxxBPMN(xmlModel);
+			PetriNet[] pnList2 = PNImport.generateFromAdoxxPetriNet(xmlModel);
+			pnList = Utils.concatenate(pnList1, pnList2);
+		} else
 			throw new Exception("ERROR: The model file format can not be recognized.");
 		
 		if(pnList.length==0)
@@ -233,13 +236,12 @@ public class Engine {
 	/*
 	public static void main(String[] args) {	
 		try {
-			
 			//Document t = XMLUtils.getXmlDocFromString("<test a=\"Analisi &amp; dell Istanza\"></test>");
 			//String a = (String)XMLUtils.execXPath(t.getDocumentElement(), "/test/@a", XPathConstants.STRING);
 			//a = XMLUtils.escapeXPathField(a);
 			//Node b = (Node)XMLUtils.execXPath(t.getDocumentElement(), "//*[@a="+a+"]", XPathConstants.NODE);
 			
-			String bpmnUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\big.xml";
+			String bpmnUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_adoxx_2.xml";
 			String bpmnModel = new String(IOUtils.readFile(bpmnUrl));
 			
 			Engine engine = new Engine();

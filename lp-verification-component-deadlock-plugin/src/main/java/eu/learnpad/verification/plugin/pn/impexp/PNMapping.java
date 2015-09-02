@@ -24,6 +24,8 @@ import java.util.ArrayList;
 
 import eu.learnpad.verification.plugin.pn.PetriNet;
 import eu.learnpad.verification.plugin.pn.PetriNet.PL;
+import eu.learnpad.verification.plugin.pn.PetriNet.PT;
+import eu.learnpad.verification.plugin.pn.PetriNet.TP;
 import eu.learnpad.verification.plugin.pn.PetriNet.TR;
 import eu.learnpad.verification.plugin.pn.impexp.PNMapping.MapElement.FromTo;
 import eu.learnpad.verification.plugin.pn.impexp.PNMapping.MapElement.RelationElement;
@@ -60,6 +62,8 @@ public class PNMapping {
 	static class GeneratedElements{
 		PL[] placeList=new PL[0];
 		TR[] transitionList=new TR[0];
+		PT[] ptList=new PT[0];
+		TP[] tpList=new TP[0];
 	}
 	static class ProcessedElement{
 		String elementId="";
@@ -235,6 +239,8 @@ public class PNMapping {
 		
 		ArrayList<PL> retPLListA = new ArrayList<PetriNet.PL>();
 		ArrayList<TR> retTRListA = new ArrayList<PetriNet.TR>();
+		ArrayList<PT> retPTListA = new ArrayList<PetriNet.PT>();
+		ArrayList<TP> retTPListA = new ArrayList<PetriNet.TP>();
 		int index = 0;
 		for(FromTo rule:map.mappingFromToList){
 
@@ -267,7 +273,8 @@ public class PNMapping {
 					}else
 						to = petriNet.getTransition(toName);
 					retTRListA.add(to);
-					petriNet.connect(from, to);
+					PT conn = petriNet.connect(from, to);
+					retPTListA.add(conn);
 				}
 			} else {
 				TR from = null;
@@ -292,7 +299,8 @@ public class PNMapping {
 					}else
 						to = petriNet.getPlace(toName);
 					retPLListA.add(to);
-					petriNet.connect(from, to);
+					TP conn = petriNet.connect(from, to);
+					retTPListA.add(conn);
 				}
 			}
 		}
@@ -300,6 +308,10 @@ public class PNMapping {
 		retPLListA.toArray(ret.placeList);
 		ret.transitionList = new TR[retTRListA.size()];
 		retTRListA.toArray(ret.transitionList);
+		ret.ptList = new PT[retPTListA.size()];
+		retPTListA.toArray(ret.ptList);
+		ret.tpList = new TP[retTPListA.size()];
+		retTPListA.toArray(ret.tpList);
 		processedElementList.add(element);
 		return ret;
 	}
@@ -320,6 +332,8 @@ public class PNMapping {
 		GeneratedElements ret = new GeneratedElements();
 		ArrayList<PL> retPLListA = new ArrayList<PetriNet.PL>();
 		ArrayList<TR> retTRListA = new ArrayList<PetriNet.TR>();
+		ArrayList<PT> retPTListA = new ArrayList<PetriNet.PT>();
+		ArrayList<TP> retTPListA = new ArrayList<PetriNet.TP>();
 		
 		MapElement mapFrom = getMapElement(getProcessedElement(elementFromId).elementType);
 		MapElement mapTo = getMapElement(getProcessedElement(elementToId).elementType);
@@ -335,32 +349,38 @@ public class PNMapping {
 				PL from = petriNet.getPlace(mapFromElementName);
 				PL to = petriNet.getPlace(mapToElementName);
 				TR intermediate = petriNet.addTransition("t" + relationId);
-				petriNet.connect(from, intermediate);
-				petriNet.connect(intermediate, to);
+				PT conn1 = petriNet.connect(from, intermediate);
+				TP conn2 = petriNet.connect(intermediate, to);
 				intermediate.x = from.x;
 				intermediate.y = (Float.valueOf(from.y) + Float.valueOf(from.h) + 20) + "";
 				intermediate.desciption = from.desciption;
 				retTRListA.add(intermediate);
+				retPTListA.add(conn1);
+				retTPListA.add(conn2);
 			} else {
 				PL from = petriNet.getPlace(mapFromElementName);
 				TR to = petriNet.getTransition(mapToElementName);
-				petriNet.connect(from, to);
+				PT conn = petriNet.connect(from, to);
+				retPTListA.add(conn);
 			}
 		} else {
 			if(mapToElementName.toLowerCase().startsWith("p")){
 				TR from = petriNet.getTransition(mapFromElementName);
 				PL to = petriNet.getPlace(mapToElementName);
-				petriNet.connect(from, to);
+				TP conn = petriNet.connect(from, to);
+				retTPListA.add(conn);
 			} else {
 				TR from = petriNet.getTransition(mapFromElementName);
 				TR to = petriNet.getTransition(mapToElementName);
 				PL intermediate = petriNet.addPlace("p" + relationId);
-				petriNet.connect(from, intermediate);
-				petriNet.connect(intermediate, to);
+				TP conn1 = petriNet.connect(from, intermediate);
+				PT conn2 = petriNet.connect(intermediate, to);
 				intermediate.x = from.x;
 				intermediate.y = (Float.valueOf(from.y) + Float.valueOf(from.h) + 20) + "";
 				intermediate.desciption = from.desciption;
 				retPLListA.add(intermediate);
+				retTPListA.add(conn1);
+				retPTListA.add(conn2);
 			}
 		}
 		
@@ -368,6 +388,10 @@ public class PNMapping {
 		retPLListA.toArray(ret.placeList);
 		ret.transitionList = new TR[retTRListA.size()];
 		retTRListA.toArray(ret.transitionList);
+		ret.ptList = new PT[retPTListA.size()];
+		retPTListA.toArray(ret.ptList);
+		ret.tpList = new TP[retTPListA.size()];
+		retTPListA.toArray(ret.tpList);
 		
 		return ret;
 	}

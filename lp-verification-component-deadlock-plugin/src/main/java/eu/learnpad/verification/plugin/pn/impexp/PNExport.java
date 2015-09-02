@@ -112,14 +112,14 @@ public class PNExport {
 			TP arc = connTP.get(i);
 			Element arcEl = xmlDoc.createElement("arc");
 			netEl.appendChild(arcEl);
-			arcEl.setAttribute("id", "arc"+i);
+			arcEl.setAttribute("id", "arctp"+i);
 			arcEl.setAttribute("source", arc.source.name);
 			arcEl.setAttribute("target", arc.target.name);
 			Element inscriptionEl = xmlDoc.createElement("inscription");
 			arcEl.appendChild(inscriptionEl);
 			Element textEl = xmlDoc.createElement("text");
 			inscriptionEl.appendChild(textEl);
-			textEl.setTextContent("1");
+			textEl.setTextContent(arc.weight+"");
 			Element graphEl = xmlDoc.createElement("graphics");
 			arcEl.appendChild(graphEl);
 		}
@@ -129,14 +129,14 @@ public class PNExport {
 			PT arc = connPT.get(i);
 			Element arcEl = xmlDoc.createElement("arc");
 			netEl.appendChild(arcEl);
-			arcEl.setAttribute("id", "arc"+i);
+			arcEl.setAttribute("id", "arcpt"+i);
 			arcEl.setAttribute("source", arc.source.name);
 			arcEl.setAttribute("target", arc.target.name);
 			Element inscriptionEl = xmlDoc.createElement("inscription");
 			arcEl.appendChild(inscriptionEl);
 			Element textEl = xmlDoc.createElement("text");
 			inscriptionEl.appendChild(textEl);
-			textEl.setTextContent("1");
+			textEl.setTextContent(arc.weight+"");
 			Element graphEl = xmlDoc.createElement("graphics");
 			arcEl.appendChild(graphEl);
 		}
@@ -265,14 +265,14 @@ public class PNExport {
 			ret += "\nTRANSITION " + transition.name;
 			ret += " CONSUME ";
 			for(PL pl:transition.getPreviousList_safe())
-				ret += pl.name + ": 1, ";
+				ret += pl.name + ": " + pn.getConnection(pl, transition).weight + ", ";
 			if(ret.endsWith(", "))
 				ret = ret.substring(0, ret.length()-2) + ";";
 			else
 				ret = ret + ";";
 			ret += " PRODUCE ";
 			for(PL pl:transition.getNextList_safe())
-				ret += pl.name + ": 1, ";
+				ret += pl.name + ": " + pn.getConnection(transition, pl).weight + ", ";
 			if(ret.endsWith(", "))
 				ret = ret.substring(0, ret.length()-2) + ";";
 			else
