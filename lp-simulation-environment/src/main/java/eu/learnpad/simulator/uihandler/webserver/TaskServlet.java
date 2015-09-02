@@ -122,7 +122,7 @@ public class TaskServlet extends WebSocketServlet {
 
 			for (Entry<TaskSocket, String> e : activeSockets.entrySet()) {
 				if (e.getValue().equals(activeSockets.get(socket))) {
-					e.getKey().sendResubmit();
+					e.getKey().sendResubmit(userId);
 				}
 			}
 			System.out.println("task " + task.id + " has been resubmitted to "
@@ -201,7 +201,7 @@ public class TaskServlet extends WebSocketServlet {
 			}
 		}
 
-		void sendResubmit() {
+		void sendResubmit(String userId) {
 			try {
 				getRemote()
 				.sendString(
@@ -214,7 +214,11 @@ public class TaskServlet extends WebSocketServlet {
 										.getProcessDefinitionId(task.processId)),
 										task.startingTime, formHandler
 										.createFormString(task.id),
-										task.documents)));
+										task.documents,
+										processManager.getGameInfos(task,
+												userId).nbAttempts,
+										processManager.getGameInfos(task,
+												userId).expectedTime)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -276,10 +280,15 @@ public class TaskServlet extends WebSocketServlet {
 												task.startingTime,
 												formHandler
 														.createFormString(task.id),
-												task.documents, processManager
+												task.documents,
+														processManager
 														.getInstanceScore(
 																task.processId,
-																subscMsg.user))));
+																subscMsg.user),
+																processManager.getGameInfos(
+																		task, subscMsg.user).nbAttempts,
+																		+processManager.getGameInfos(
+																				task, subscMsg.user).expectedTime)));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

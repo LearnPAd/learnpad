@@ -43,9 +43,14 @@ public class Resubmit implements ITaskMsg {
 	public String form;
 	public Collection<LearnPadDocument> documents;
 
+	// for game-related display
+	public int nbattempts;
+	public long expectedtime;
+
 	public Resubmit(String name, String description, String processid,
 			String processname, long startingtime, String form,
-			Collection<LearnPadDocument> documents) {
+			Collection<LearnPadDocument> documents, int nbattempts,
+			long expectedtime) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -54,6 +59,8 @@ public class Resubmit implements ITaskMsg {
 		this.startingtime = startingtime;
 		this.form = form;
 		this.documents = documents;
+		this.nbattempts = nbattempts;
+		this.expectedtime = expectedtime;
 	}
 
 	/*

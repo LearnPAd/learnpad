@@ -39,11 +39,14 @@ public class TaskDesc extends Resubmit implements ITaskMsg {
 	// user score during process resolution
 	public Integer totalscore;
 
+	public long expectedTime;
+
 	public TaskDesc(String name, String description, String process,
 			String processname, long startingtime, String form,
-			Collection<LearnPadDocument> documents, Integer totalscore) {
+			Collection<LearnPadDocument> documents, Integer totalscore,
+			int nbAttempts, long expectedTime) {
 		super(name, description, process, processname, startingtime, form,
-				documents);
+				documents, nbAttempts, expectedTime);
 		this.totalscore = totalscore;
 	}
 
