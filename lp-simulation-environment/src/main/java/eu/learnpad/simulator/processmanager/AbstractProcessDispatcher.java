@@ -29,6 +29,7 @@ import java.util.Map;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
 import eu.learnpad.simulator.processmanager.gamification.TaskScorer;
 
@@ -155,6 +156,12 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 	@Override
 	public Integer getInstanceScore(String userId) {
 		return usersScores.get(userId);
+	}
+
+	public LearnPadTaskGameInfos getGameInfos(LearnPadTask task, String userId) {
+		// TODO: set correct time parameters
+                return new LearnPadTaskGameInfos(30000, taskScorers.get(task.id)
+				.getNbAttemps(userId));
 	}
 
 	/**

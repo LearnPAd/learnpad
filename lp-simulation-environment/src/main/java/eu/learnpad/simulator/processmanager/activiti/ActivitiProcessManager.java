@@ -52,6 +52,7 @@ import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
+import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
 import eu.learnpad.simulator.monitoring.activiti.ActivitiProbe;
 import eu.learnpad.simulator.processmanager.AbstractProcessDispatcher;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
@@ -430,6 +431,12 @@ public class ActivitiProcessManager implements IProcessManager {
 
 			}
 		}
+	}
+
+	@Override
+	public LearnPadTaskGameInfos getGameInfos(LearnPadTask task, String userId) {
+		return processDispatchers.get(task.processId)
+				.getGameInfos(task, userId);
 	}
 
 }

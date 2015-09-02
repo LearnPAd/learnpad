@@ -27,6 +27,7 @@ package eu.learnpad.simulator.processmanager;
 import java.util.Map;
 
 import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
 
 /**
@@ -70,4 +71,13 @@ public interface IProcessDispatcher {
 	 *         or null if no score have been assigned yet.
 	 */
 	public Integer getInstanceScore(String userId);
+
+	/**
+	 *
+	 * @param task
+	 * @param userId
+	 * @return the game-related information associated with the given task for
+	 *         the given user
+	 */
+	public LearnPadTaskGameInfos getGameInfos(LearnPadTask task, String userId);
 }
