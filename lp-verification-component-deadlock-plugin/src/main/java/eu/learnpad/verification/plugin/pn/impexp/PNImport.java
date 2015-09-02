@@ -43,7 +43,7 @@ public class PNImport {
 		return false;
 	}
 	
-	public static boolean isADOXXBPMN2(Document model){
+	public static boolean isADOXX(Document model){
 		//TODO: effettuare validazione modello ?
 		try{
 			String queryRoot = "/*[local-name()='ADOXML' or local-name()='adoxml']";
@@ -156,6 +156,8 @@ public class PNImport {
 			float[] xy = getBPMNElementCoordinatesXY(bpmnXml, id);
 			pnm.processElement(id, "bound", id, xy[0], xy[1]);
 			String sourceId = boundaryTaskNodeList.item(i).getAttributes().getNamedItem("attachedToRef").getNodeValue();
+			if(sourceId.isEmpty())
+				throw new Exception("ERROR: Attribute 'attachedToRef' not defined for the object " + id);
 			pnm.processRelation(id, "bound", sourceId, id);	
 		}
 		
@@ -166,6 +168,11 @@ public class PNImport {
 			String targetId = sequenceFlowNodeList.item(i).getAttributes().getNamedItem("targetRef").getNodeValue();	
 			String sourceType =  ((Node) XMLUtils.execXPath(bpmnXml.getDocumentElement(), "//*[@id="+XMLUtils.escapeXPathField(sourceId)+"]", XPathConstants.NODE)).getLocalName();
 			String targetType =  ((Node) XMLUtils.execXPath(bpmnXml.getDocumentElement(), "//*[@id="+XMLUtils.escapeXPathField(targetId)+"]", XPathConstants.NODE)).getLocalName();
+			
+			if(sourceId.isEmpty()) throw new Exception("ERROR: Attribute 'sourceRef' missing for the relation " + id);
+			if(targetId.isEmpty()) throw new Exception("ERROR: Attribute 'targetRef' missing for the relation " + id);
+			if(sourceType.isEmpty()) throw new Exception("ERROR: Can not identify the element " + sourceId);
+			if(targetType.isEmpty()) throw new Exception("ERROR: Can not identify the element " + targetId);
 			
 			if(sequenceFlowExcludeFromToElemList.contains(sourceType) || sequenceFlowExcludeFromToElemList.contains(targetType))
 				continue;
@@ -181,6 +188,11 @@ public class PNImport {
 			String sourceType =  ((Node) XMLUtils.execXPath(bpmnXml.getDocumentElement(), "//*[@id="+XMLUtils.escapeXPathField(sourceId)+"]", XPathConstants.NODE)).getLocalName();
 			String targetType =  ((Node) XMLUtils.execXPath(bpmnXml.getDocumentElement(), "//*[@id="+XMLUtils.escapeXPathField(targetId)+"]", XPathConstants.NODE)).getLocalName();
 
+			if(sourceId.isEmpty()) throw new Exception("ERROR: Attribute 'sourceRef' missing for the relation " + id);
+			if(targetId.isEmpty()) throw new Exception("ERROR: Attribute 'targetRef' missing for the relation " + id);
+			if(sourceType.isEmpty()) throw new Exception("ERROR: Can not identify the element " + sourceId);
+			if(targetType.isEmpty()) throw new Exception("ERROR: Can not identify the element " + targetId);
+			
 			if(messageFlowExcludeFromToElemList.contains(sourceType) || messageFlowExcludeFromToElemList.contains(targetType))
 				continue;
 			
@@ -205,7 +217,7 @@ public class PNImport {
 		
 	public static PetriNet[] generateFromAdoxxBPMN(Document adoxxXml) throws Exception{
 		
-		if(!isADOXXBPMN2(adoxxXml))
+		if(!isADOXX(adoxxXml))
 			throw new Exception("ERROR: The provided model is not a valid ADOXX model");
 		
 		PNMapping pnm = new PNMapping();
@@ -302,10 +314,11 @@ public class PNImport {
 				float[] xy = getAdoxxElementCoordinatesXY(adoxxXml, id);
 				pnm.processElement(id, "bound", id, xy[0], xy[1]);
 				String sourceName = (String) XMLUtils.execXPath(boundaryTaskNodeList.item(i), "./*[@name='Attached to']//@tobjname", XPathConstants.STRING);
+				if(sourceName.isEmpty()) throw new Exception("ERROR: Attribute 'Attached to' not defined for the object " + id);
 				String sourceId = (String) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @name="+XMLUtils.escapeXPathField(sourceName)+"]/@id", XPathConstants.STRING);
+				if(sourceId.isEmpty()) throw new Exception("ERROR: Can not find the object with name " + sourceName);
 				pnm.processRelation(id, "bound", sourceId, id);	
 			}
-			
 			
 			NodeList sequenceFlowNodeList =  (NodeList) XMLUtils.execXPath(bpmnModelEl, sequenceFlowQuery, XPathConstants.NODESET);
 			for(int i=0;i<sequenceFlowNodeList.getLength();i++){
@@ -313,34 +326,34 @@ public class PNImport {
 				
 				String sourceName = (String) XMLUtils.execXPath(sequenceFlowNodeList.item(i), "./*[local-name()='FROM' or local-name()='from']/@instance", XPathConstants.STRING);
 				String sourceType = (String) XMLUtils.execXPath(sequenceFlowNodeList.item(i), "./*[local-name()='FROM' or local-name()='from']/@class", XPathConstants.STRING);
-	
 				String targetName = (String) XMLUtils.execXPath(sequenceFlowNodeList.item(i), "./*[local-name()='TO' or local-name()='to']/@instance", XPathConstants.STRING);
 				String targetType = (String) XMLUtils.execXPath(sequenceFlowNodeList.item(i), "./*[local-name()='TO' or local-name()='to']/@class", XPathConstants.STRING);
-				
 				String sourceId = (String) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @name="+XMLUtils.escapeXPathField(sourceName)+"]/@id", XPathConstants.STRING);
 				String targetId = (String) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @name="+XMLUtils.escapeXPathField(targetName)+"]/@id", XPathConstants.STRING);
-	
+
+				if(sourceId.isEmpty()) throw new Exception("ERROR: Can not identify the element with name " + sourceName + " for the relation " + id);
+				if(targetId.isEmpty()) throw new Exception("ERROR: Can not identify the element with name " + targetName + " for the relation " + id);
+				
 				if(sequenceFlowExcludeFromToElemList.contains(sourceType) || sequenceFlowExcludeFromToElemList.contains(targetType))
 					continue;
 				
 				pnm.processRelation(id, "sequence", sourceId, targetId);
 			}
 			
-			
 			NodeList messageFlowNodeList =  (NodeList) XMLUtils.execXPath(bpmnModelEl, messageFlowQuery, XPathConstants.NODESET);
 			for(int i=0;i<messageFlowNodeList.getLength();i++){
-				
 				String id = messageFlowNodeList.item(i).getAttributes().getNamedItem("id").getNodeValue();
 				
 				String sourceName = (String) XMLUtils.execXPath(messageFlowNodeList.item(i), "./*[local-name()='FROM' or local-name()='from']/@instance", XPathConstants.STRING);
 				String sourceType = (String) XMLUtils.execXPath(messageFlowNodeList.item(i), "./*[local-name()='FROM' or local-name()='from']/@class", XPathConstants.STRING);
-	
 				String targetName = (String) XMLUtils.execXPath(messageFlowNodeList.item(i), "./*[local-name()='TO' or local-name()='to']/@instance", XPathConstants.STRING);
 				String targetType = (String) XMLUtils.execXPath(messageFlowNodeList.item(i), "./*[local-name()='TO' or local-name()='to']/@class", XPathConstants.STRING);
-				
 				String sourceId = (String) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @name="+XMLUtils.escapeXPathField(sourceName)+"]/@id", XPathConstants.STRING);
 				String targetId = (String) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @name="+XMLUtils.escapeXPathField(targetName)+"]/@id", XPathConstants.STRING);
-	
+
+				if(sourceId.isEmpty()) throw new Exception("ERROR: Can not identify the element with name " + sourceName + " for the relation " + id);
+				if(targetId.isEmpty()) throw new Exception("ERROR: Can not identify the element with name " + targetName + " for the relation " + id);
+				
 				if(messageFlowExcludeFromToElemList.contains(sourceType) || messageFlowExcludeFromToElemList.contains(targetType))
 					continue;
 				

@@ -88,10 +88,10 @@ public class Engine {
 		
 		if(PNImport.isOMGBPMN2(xmlModel))
 			pnList = new PetriNet[]{PNImport.generateFromBPMN(xmlModel)};
-		else if(PNImport.isADOXXBPMN2(xmlModel))
+		else if(PNImport.isADOXX(xmlModel))
 			pnList = PNImport.generateFromAdoxxBPMN(xmlModel);
 		else
-			throw new Exception("ERROR: The format of BPMN model provided can not be recognized.");
+			throw new Exception("ERROR: The model file format can not be recognized.");
 		
 		if(pnList.length==0)
 			throw new Exception("ERROR: No BPMN2.0 model provided.");
