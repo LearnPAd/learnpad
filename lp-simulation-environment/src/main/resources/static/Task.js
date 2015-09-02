@@ -97,13 +97,19 @@ function task(address, taskid, user) {
                 users(user).setUserList('processside' + data.processid);
 
                 // add gamification panel to side div
+                var scoreHelpText = "Your score is calculated based on how well you perform each task.<p>Each successfully completed task gives you points based of your number of attempts and how long did you take regarding the expected time.<p>Faster completion and less mistakes will award more points.";
                 $('#processside' + data.processid).append(
                     '<div id="gamification' + data.processid +
                         '" class="game-panel panel panel-default">' +
                         '<div class="panel-body">' +
                         '<div><h4><em id="score' + data.processid +
-                        '"></em></h4></div></div></div>'
+                        '"></em> <span style="float:right" class="glyphicon glyphicon-question-sign"' +
+                        ' data-toggle="popover" data-trigger="focus" tabindex="0" ' +
+                        'data-placement="bottom" data-content="' + scoreHelpText +
+                        '"></span></h4></div></div></div>'
                 );
+                // initialize help popover
+                $('#gamification' + data.processid + ' [data-toggle="popover"]').popover({'html': true});
 
                 // check if it is the first tab
                 // (in this case we make it open by default)
