@@ -59,7 +59,7 @@ public class Utils {
 			if(new File(folderPath).isDirectory())
 				folderPath = folderPath.substring(0, folderPath.length()-1);
 			String logFile = folderPath.substring(0, folderPath.lastIndexOf("/")+1) + "verification.log";
-			System.err.println("INFO: updated log file " + logFile);
+			//System.err.println("INFO: updated log file " + logFile);
 			String callerClassName = new Exception().getStackTrace()[1].getClassName();
 			IOUtils.writeFile(("\n"+logType.toString()+" "+getUTCTime()+" "+callerClassName+" \n"+message).getBytes(), logFile, true);
 		}catch(Exception ex){ex.printStackTrace();}
