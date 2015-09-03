@@ -17,15 +17,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import javax.inject.Inject;
+import org.jglue.cdiunit.CdiRunner;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  *
  * @author sandro.emmenegger
  */
+@RunWith(CdiRunner.class)
 public class SimpleModelTransformatorTest extends AbstractUnitTest{
+    
+    @Inject
+    SimpleModelTransformator transformator;
 
     private final Path transformedModelsRoot = Paths.get(APP.CONF.getString("ontology.learnpad.model.instances"));
 
@@ -57,10 +65,20 @@ public class SimpleModelTransformatorTest extends AbstractUnitTest{
         outputFile2 = transform(testModelsFilePath, TEST_MODEL_SET_ID_2, ModellingEnvironmentType.ADOxx);
         assertFalse(outputFile.getPath().equals(outputFile2.getPath()));
 
-        File latestTransformation = SimpleModelTransformator.getInstance().getLatestVersionFile(TEST_MODEL_SET_ID_2);
+        File latestTransformation = transformator.getLatestVersionFile(TEST_MODEL_SET_ID_2);
         assertNotNull(latestTransformation);
         assertEquals(latestTransformation.getPath(), outputFile2.getPath());
 
+    }
+    
+    @Test
+    public void testTitoloUnico() throws IOException{
+        String testModelsFilePath = "/models/TitoloUnicoV3/TitoloUnico_v3.xml";
+
+        File outputFile = transform(testModelsFilePath, TEST_MODEL_SET_ID_TITOLO_UNICO, ModellingEnvironmentType.ADOxx);
+        assertNotNull(outputFile);
+        assertTrue(outputFile.exists());
+        assertTrue(outputFile.length() > 0);
     }
 
     private File transform(String testModelsFilePath, String modelSetId, ModellingEnvironmentType type) throws IOException {
@@ -74,7 +92,7 @@ public class SimpleModelTransformatorTest extends AbstractUnitTest{
         bos.flush();
         byte[] testModelFile = bos.toByteArray();
 
-        File outputFile = SimpleModelTransformator.getInstance().transform(modelSetId, testModelFile, type);
+        File outputFile = transformator.transform(modelSetId, testModelFile, type);
         return outputFile;
     }
 

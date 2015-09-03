@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.inject.Singleton;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -29,20 +30,15 @@ import javax.xml.transform.stream.StreamSource;
  *
  * @author sandro.emmenegger
  */
+@Singleton
 public class SimpleModelTransformator {
-
-    private static final SimpleModelTransformator instance = new SimpleModelTransformator();
     
+    private static String latestModelSetId;
+
     static{
         System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
     }
     
-    private SimpleModelTransformator() {}
-    
-    public static SimpleModelTransformator getInstance(){
-        return instance;
-    }
-
     public File transform(String modelSetId, byte[] model, ModellingEnvironmentType type) {
 
         TransformerFactory tFactory = TransformerFactory.newInstance();
@@ -64,6 +60,7 @@ public class SimpleModelTransformator {
                 parent.delete();
                 latestOutFile = previousVersionOfOutFile;
             }
+            latestModelSetId = modelSetId;
 
         } catch (TransformerConfigurationException ex) {
             Logger.getLogger(SimpleModelTransformator.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,6 +68,10 @@ public class SimpleModelTransformator {
             Logger.getLogger(SimpleModelTransformator.class.getName()).log(Level.SEVERE, null, ex);
         }
         return latestOutFile;
+    }
+
+    public static String getLatestModelSetId() {
+        return latestModelSetId;
     }
     
     public File getLatestVersionFile(String modelSetId){

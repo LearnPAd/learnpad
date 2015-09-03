@@ -14,7 +14,6 @@
 <!--========================================================================================
  Common templates
 ===========================================================================================-->
-
 <!--========================================================================================-->
 <!--___________________________________________________________________________________________________
  Business process diagram (BPMN 2.0)
@@ -41,7 +40,7 @@ ________________________________________________________________________________
 		<xsl:apply-templates select=".//INSTANCE[@class='Lane']" mode="Lane"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Data Object'][./ATTRIBUTE[@name='Data type']='Data Input']" mode="DataInput"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Data Object'][./ATTRIBUTE[@name='Data type']='Data Output']" mode="DataOutput"/>
-		<xsl:apply-templates select=".//CONNECTOR[./FROM/@class='Start Event' or ./FROM/@class='End Event' or ./FROM/@class='Task' or ./FROM/@class='Sub-Process' or ./FROM/@class='Exclusive Gateway' or ./FROM/@class='Non-exclusive Gateway'][./TO/@class='Start Event' or ./TO/@class='End Event' or ./TO/@class='Task' or ./FROM/@class='Sub-Process' or ./TO/@class='Exclusive Gateway' or ./TO/@class='Non-exclusive Gateway']" mode="FlowElementConnector"/>
+		<xsl:apply-templates select=".//CONNECOR[./FROM/@class='Start Event' or ./FROM/@class='End Event' or ./FROM/@class='Task' or ./FROM/@class='Sub-Process' or ./FROM/@class='Exclusive Gateway' or ./FROM/@class='Non-exclusive Gateway'][./TO/@class='Start Event' or ./TO/@class='End Event' or ./TO/@class='Task' or ./FROM/@class='Sub-Process' or ./TO/@class='Exclusive Gateway' or ./TO/@class='Non-exclusive Gateway']" mode="FlowElementConnector"/>
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -55,6 +54,7 @@ ________________________________________________________________________________
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>
 		</xsl:call-template>
+		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
 <!--...............................................................................................-->	
@@ -68,6 +68,7 @@ ________________________________________________________________________________
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>
 		</xsl:call-template>
+		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
 <!--...............................................................................................-->	
@@ -81,6 +82,7 @@ ________________________________________________________________________________
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>
 		</xsl:call-template>
+		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
 <!--...............................................................................................-->
@@ -94,6 +96,7 @@ ________________________________________________________________________________
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>
 		</xsl:call-template>
+		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
 <!-- TODO Ref to Activity resp. Sub-Process -->		
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
@@ -108,6 +111,7 @@ ________________________________________________________________________________
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>			
 		</xsl:call-template>
+		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
 <!--...............................................................................................-->
@@ -121,6 +125,7 @@ ________________________________________________________________________________
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>
 		</xsl:call-template>
+		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
     		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
 <!--...............................................................................................-->
@@ -134,6 +139,7 @@ ________________________________________________________________________________
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>
 		</xsl:call-template>
+		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
     		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
 <!--...............................................................................................-->
@@ -147,6 +153,7 @@ ________________________________________________________________________________
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>
 		</xsl:call-template>
+		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
     		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
 <!--...............................................................................................-->
@@ -160,6 +167,7 @@ ________________________________________________________________________________
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>
 		</xsl:call-template>
+		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
 		<xsl:apply-templates select="./INTERREF/IREF[@type='modelreference'][@tmodeltype='Business process diagram (BPMN 2.0)']" mode="referencedSubProcess"/>
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
@@ -180,6 +188,7 @@ ________________________________________________________________________________
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>			
 		</xsl:call-template>
+		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
 <!--...............................................................................................-->
@@ -193,6 +202,7 @@ ________________________________________________________________________________
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>			
 		</xsl:call-template>
+		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
 <!--...............................................................................................-->
@@ -247,7 +257,14 @@ ________________________________________________________________________________
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>
 		</xsl:call-template>	
+          <xsl:apply-templates select="./INTERREF/IREF[@type='objectreference'][@tmodeltype='Organizational structure'][@tclassname='Organizational unit']" mode="poolRefToOrganisationalUnit"/>
 		<xsl:call-template name="elementPostProcessing"/>
+	</xsl:template>
+	 
+	<xsl:template match="IREF" mode="poolRefToOrganisationalUnit">
+		<xsl:call-template name="addPoolRefToOrganisationalUnit">
+			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
+		</xsl:call-template>
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -261,8 +278,15 @@ ________________________________________________________________________________
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>
 		</xsl:call-template>
+		<xsl:apply-templates select="./INTERREF/IREF[@type='objectreference'][@tmodeltype='Organizational structure'][@tclassname='Organizational unit']" mode="swimlaneRefToOrganisationalUnit"/>
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
+	
+	<xsl:template match="IREF" mode="swimlaneRefToOrganisationalUnit">
+		<xsl:call-template name="addSwimlaneRefToOrganisationalUnit">
+			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
+		</xsl:call-template>
+	</xsl:template>	
 <!--...............................................................................................-->	
 
 <!--
@@ -276,6 +300,18 @@ ________________________________________________________________________________
 			<xsl:with-param name="fromInstance" select="./FROM/@instance"/>
 	  		<xsl:with-param name="fromId" select="..//INSTANCE[@name=current()/FROM/@instance and @class=current()/FROM/@class]/@id"/>
 	  		<xsl:with-param name="toInstance" select="./TO/@instance"/>
+	  		<xsl:with-param name="toId" select="..//INSTANCE[@name=current()/TO/@instance and @class=current()/TO/@class]/@id"/>
+		</xsl:call-template>	
+	</xsl:template>
+<!--...............................................................................................-->	
+
+<!--
+___________________________________________________________________________________________________
+ Connections to Pool and Lanes (in class)
+___________________________________________________________________________________________________-->
+	<xsl:template match="CONNECTOR" mode="PoolLaneConnector">
+		<xsl:call-template name="PoolLaneConnector">
+	  		<xsl:with-param name="fromId" select="..//INSTANCE[@name=current()/FROM/@instance and @class=current()/FROM/@class]/@id"/>
 	  		<xsl:with-param name="toId" select="..//INSTANCE[@name=current()/TO/@instance and @class=current()/TO/@class]/@id"/>
 		</xsl:call-template>	
 	</xsl:template>
@@ -295,7 +331,6 @@ ________________________________________________________________________________
 			<xsl:with-param name="class" select="@modeltype" tunnel="yes"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>	  
-	  
 		<xsl:apply-templates select=".//INSTANCE[@class='Goal']" mode="Goal"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Learning Goal']" mode="LearningGoal"/>
 	</xsl:template>

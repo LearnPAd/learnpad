@@ -28,7 +28,7 @@ public class OntologyFileLoader extends SimpleFileVisitor<Path> {
     
     public static OntModel loadModel(String[] rootDirectories, Lang format) throws IOException{
         OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        model.getDocumentManager().setProcessImports(false);
+        model.getDocumentManager().setProcessImports(true);
         for (String rootDirectory : rootDirectories) {
             OntologyFileLoaderVisitor visitor = new OntologyFileLoaderVisitor(format, model);
             Files.walkFileTree(Paths.get(rootDirectory), visitor);

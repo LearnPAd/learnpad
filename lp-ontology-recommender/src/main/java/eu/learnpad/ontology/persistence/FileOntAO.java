@@ -15,13 +15,19 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import org.apache.jena.riot.Lang;
 
 /**
  *
  * @author sandro.emmenegger
  */
-class FileOntAO extends OntAO {
+@Singleton
+public class FileOntAO extends OntAO {
+    
+    @Inject
+    SimpleModelTransformator transformator;
 
     @Override
     protected OntModel loadMetaModel() {
@@ -36,7 +42,7 @@ class FileOntAO extends OntAO {
 
     @Override
     protected OntModel loadModelSet(String modelSetId) {
-        File modelSetFile = SimpleModelTransformator.getInstance().getLatestVersionFile(modelSetId);
+        File modelSetFile = transformator.getLatestVersionFile(modelSetId);
         if(modelSetFile == null){
             return null;
         }
@@ -44,6 +50,17 @@ class FileOntAO extends OntAO {
         OntModel modelSet = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         modelSet.read(modelSetFile.toURI().toString(), "TTL");
         return modelSet;
+    }
+
+    @Override
+    protected OntModel loadExecutionData(String modelSetId) {
+        OntModel model = null;
+        try {
+            model = OntologyFileLoader.loadModel(APP.CONF.getStringArray("execution.data.path"), Lang.TTL);
+        } catch (IOException ex) {
+            Logger.getLogger(FileOntAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return model;
     }
     
 }

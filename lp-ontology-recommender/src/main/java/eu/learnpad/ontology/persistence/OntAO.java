@@ -5,11 +5,10 @@
  */
 package eu.learnpad.ontology.persistence;
 
-import eu.learnpad.ontology.persistence.util.OntUtil;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
-import eu.learnpad.ontology.config.APP;
+import eu.learnpad.ontology.recommender.Inferencer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,31 +19,16 @@ import java.util.Map;
  */
 public abstract class OntAO {
     
-    private static OntAO instance = null;
-    
     private OntModel metaModel;
     private Map<String, OntModel> modelSets;
-    
-    static{
-        String source = APP.CONF.getString("ontology.persistence.source");
-            switch (SOURCE.valueOf(source)) {
-            case FILE:
-                instance = new FileOntAO();
-                break;
-            case TDB: //TODO;
-                break;
-            case SDB: //TODO;
-                break;
-        }
-    }
+    private Map<String, Inferencer> modelSetsInferencer;
+    private Map<String, OntModel> modelsSetsExecutionData;
     
     protected OntAO(){
         modelSets = new HashMap<>();
+        modelSetsInferencer = new HashMap<>();
+        modelsSetsExecutionData = new HashMap<>();
         metaModel = loadMetaModel();
-    }
-    
-    public static OntAO getInstance(){
-        return instance;
     }
 
     /**
@@ -78,13 +62,38 @@ public abstract class OntAO {
         return modelSets.get(modelSetId);
     }
     
+    /**
+     * Returns model set inclusive inferenced instances.
+     * 
+     * @param modelSetId
+     * @return 
+     */
+    public Inferencer getInferencer(String modelSetId){
+        if(!modelSets.containsKey(modelSetId)){
+            Inferencer inferencer = new Inferencer(getModelSet(modelSetId));
+            modelSetsInferencer.put(modelSetId, inferencer);
+        }
+        return modelSetsInferencer.get(modelSetId);
+    }
+    
+    /**
+     * Returns the modelset inclusive inferenced instances and execution data.
+     * @param modelSetId
+     * @return 
+     */
+    public OntModel getExecutionData(String modelSetId){
+        if(!modelsSetsExecutionData.containsKey(modelSetId)){
+            OntModel executionData = loadExecutionData(modelSetId);
+            executionData.add(getInferencer(modelSetId).getModel());
+            modelsSetsExecutionData.put(modelSetId, executionData);
+        }
+        return modelsSetsExecutionData.get(modelSetId);
+    }
+    
     protected abstract OntModel loadMetaModel();
     
     protected abstract OntModel loadModelSet(String modelSetId);
     
-    private enum SOURCE {
+    protected abstract OntModel loadExecutionData(String modelSetId);
 
-        TDB, SDB, FILE
-    }
-            
 }

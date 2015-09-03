@@ -13,5 +13,7 @@ public abstract class AbstractUnitTest {
     
     public static final String TEST_MODEL_SET_ID_1 = "modelset-222"; 
     public static final String TEST_MODEL_SET_ID_2 = "modelset-224";
+    public static final String TEST_MODEL_SET_ID_TITOLO_UNICO = "modelset-titolo-unico-v3";
+    public static final String TEST_USER_ID_1 = "Barneby Barnes";
 
 }
