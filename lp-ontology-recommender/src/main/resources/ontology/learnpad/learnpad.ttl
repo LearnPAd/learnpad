@@ -190,6 +190,21 @@ lpd:businessActivityIsPerformedByNode
 lpd:compoundDocumentConsistsOfDocumentPart
   rdf:type owl:ObjectProperty ;
 .
+lpd:executedFlowElementBelongsToExecutedProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:FlowElement ;
+  rdfs:range bpmn:Process ;
+.
+lpd:executedFlowElementEndingTime
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain bpmn:FlowElement ;
+  rdfs:range xsd:dateTime ;
+.
+lpd:executedFlowElementStartTime
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain bpmn:FlowElement ;
+  rdfs:range xsd:dateTime ;
+.
 lpd:informationIsInputForActivity
   rdf:type owl:ObjectProperty ;
   rdfs:range eo:BusinessActivity ;

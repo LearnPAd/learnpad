@@ -25,4 +25,20 @@ public class APP {
             Logger.getLogger(APP.class.getName()).log(Level.SEVERE, "Cannot load application properties for ontology component.", ex);
         }
     }
+    
+    public static enum NS{
+        EMO("http://ikm-group.ch/archiMEO/emo#"),
+        ARCHI("http://ikm-group.ch/archiMEO/archimate");
+        
+        private String namespace;
+        
+        private NS(String ns){
+            this.namespace = ns;
+        }
+        
+        @Override
+        public String toString(){
+            return namespace;
+        }
+    }
 }

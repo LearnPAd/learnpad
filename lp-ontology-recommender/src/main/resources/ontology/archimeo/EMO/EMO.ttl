@@ -1771,6 +1771,11 @@ emo:poolRepresentsBActor
   rdfs:domain bpmn:Pool ;
   rdfs:range archi:BusinessActor ;
 .
+emo:poolRepresentsOrganisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:Pool ;
+  rdfs:range omm:OrganisationalUnit ;
+.
 emo:positionReferencesToDocument
   rdf:type rdf:Property ;
   rdfs:comment "PIMM"^^xsd:string ;

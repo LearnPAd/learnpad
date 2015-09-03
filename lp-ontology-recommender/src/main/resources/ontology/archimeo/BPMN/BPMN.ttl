@@ -357,6 +357,11 @@ bpmn:bpmnProcessRepresentsBusinessProcess
   rdfs:domain bpmn:Process ;
   rdfs:range archi:BusinessProcess ;
 .
+bpmn:flowNodeBelongsToParticipant
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:FlowNode ;
+  rdfs:range bpmn:Participant ;
+.
 bpmn:fromFlowElement
   rdf:type owl:ObjectProperty ;
   rdfs:domain bpmn:SequenceFlow ;

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <!--To be set as parameter in transformation engine -->
+  <xsl:param name="modelSetVersion">titolo-unico-v3</xsl:param>
 <!--___________________________________________________________________________________________________
 HEADER 
 ___________________________________________________________________________________________________-->
@@ -28,13 +30,18 @@ ________________________________________________________________________________
   owl:versionInfo "1.0"^^xsd:string ;
 .	
 </xsl:text>
+transfer:<xsl:value-of select="$modelSetVersion"/>
+  rdf:type owl:Class;
+  rdf:type emo:ModelSetVersion ;
+  rdfs:subClassOf emo:ModelSetVersion ;
+  emo:majorModelSetVersion "<xsl:value-of select="$modelSetVersion"/>"^^xsd:string ;
+.
 </xsl:template>
 
 
 <!--========================================================================================
  Common templates
 ===========================================================================================-->
-
 <!--___________________________________________________________________________________________________
 Writes basic instance properties like the URI, type, label and name
 ___________________________________________________________________________________________________-->
@@ -44,17 +51,31 @@ ________________________________________________________________________________
 	<xsl:param name="name" tunnel="yes"/>
 	<xsl:param name="class" tunnel="yes"/>
 transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
   rdf:type <xsl:value-of select="$rdfType"/> ;
+  rdfs:subClassOf <xsl:value-of select="$rdfType"/> ;
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;
 </xsl:template>
 
 <!--___________________________________________________________________________________________________
-Simply adds a "DOT" to finish ontology TTL format entry
+  Add version and last . ("DOT") to finish ontology TTL format entry
 ___________________________________________________________________________________________________-->
 <xsl:template name="elementPostProcessing">
+  <xsl:param name="id"/>emo:belongsToVersion transfer:<xsl:value-of select="$modelSetVersion"/> ;
 .</xsl:template>
 
+
+<!--
+___________________________________________________________________________________________________
+ Property to connect flow elements with a Pool and Lane
+___________________________________________________________________________________________________-->
+	<xsl:template name="PoolLaneConnector">
+  		<xsl:param name="fromId"/>
+  		<xsl:param name="toId"/>
+  bpmn:flowNodeBelongsToParticipant transfer:<xsl:value-of select="$toId"/>;
+	</xsl:template>
+<!--...............................................................................................-->
 <!--======================================================================================== -->
 <!--
 ___________________________________________________________________________________________________
@@ -63,7 +84,8 @@ ________________________________________________________________________________
 	<xsl:template name="BPMN_MODEL">
 		<xsl:call-template name="basicInstanceProperties">
 			<xsl:with-param name="rdfType">emo:BPMN_MetaModel</xsl:with-param>
-		</xsl:call-template>
+		</xsl:call-template>  rdf:type bpmn:Process ;
+  rdf:subClassOf bpmn:Process ;
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -244,6 +266,10 @@ ________________________________________________________________________________
   lpd:bpmnPoolHasId "<xsl:value-of select="$id"/>"^^xsd:string ;
   lpd:bpmnPoolHasName "<xsl:value-of select="$name"/>"^^xsd:string ;
 	</xsl:template>
+    <xsl:template name="addPoolRefToOrganisationalUnit">
+		<xsl:param name="targetId"/>
+   emo:poolRepresentsOrganisationalUnit transfer:<xsl:value-of select="$targetId"/> ;<xsl:text>&#10;</xsl:text>
+	</xsl:template>
 <!--...............................................................................................-->	
 
 <!--
@@ -255,6 +281,10 @@ ________________________________________________________________________________
 			<xsl:with-param name="rdfType">bpmn:Lane</xsl:with-param>
 		</xsl:call-template>  
 	</xsl:template>
+    <xsl:template name="addSwimlaneRefToOrganisationalUnit">
+		<xsl:param name="targetId"/>
+   emo:swimlaneRepresentsOrganisationalUnit transfer:<xsl:value-of select="$targetId"/> ;<xsl:text>&#10;</xsl:text>
+	</xsl:template>	
 <!--...............................................................................................-->	
 
 <!--

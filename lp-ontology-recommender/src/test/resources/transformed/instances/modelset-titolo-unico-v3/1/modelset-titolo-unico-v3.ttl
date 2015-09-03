@@ -1,0 +1,842 @@
+# baseURI: http://learnpad.eu/transfer
+# imports: http://learnpad.eu
+
+@prefix bmm: <http://ikm-group.ch/archiMEO/BMM#> .
+@prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#> .
+@prefix cmm: <http://ikm-group.ch/archiMEO/CMM#> .
+@prefix cmmn: <http://ikm-group.ch/archiMEO/CMMN#> .
+@prefix dkm: <http://ikm-group.ch/archiMEO/dkm#> .
+@prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
+@prefix kpi: <http://ikm-group.ch/archiMEO/kpi#> .
+@prefix lpd: <http://learnpad.eu#> .
+@prefix omm: <http://ikm-group.ch/archiMEO/omm#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix transfer: <http://learnpad.eu/transfer#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://learnpad.eu/transfer>
+  rdf:type owl:Ontology ;
+  owl:imports <http://learnpad.eu> ;
+  owl:versionInfo "1.0"^^xsd:string ;
+.	
+
+transfer:titolo-unico-v3
+  rdf:type owl:Class;
+  rdf:type emo:ModelSetVersion ;
+  rdfs:subClassOf emo:ModelSetVersion ;
+  emo:majorModelSetVersion "titolo-unico-v3"^^xsd:string ;
+.
+
+transfer:mod.86612
+  rdf:type owl:Class;
+  rdf:type emo:BPMN_MetaModel ;
+  rdfs:subClassOf emo:BPMN_MetaModel ;
+  rdfs:label "TitoloUnico_MonitAzzurrSUB_4"^^xsd:string ;
+  emo:objectTypeHasName "Business process diagram (BPMN 2.0)"^^xsd:string ;
+  rdf:type bpmn:Process ;
+  rdf:subClassOf bpmn:Process ;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86616
+  rdf:type owl:Class;
+  rdf:type bpmn:StartEvent ;
+  rdfs:subClassOf bpmn:StartEvent ;
+  rdfs:label "Start Event-83232"^^xsd:string ;
+  emo:objectTypeHasName "Start Event"^^xsd:string ;
+
+  lpd:bpmnStartEventHasId "obj.86616"^^xsd:string ;
+  lpd:bpmnStartEventHasName "Start Event-83232"^^xsd:string ;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86613;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86625
+  rdf:type owl:Class;
+  rdf:type bpmn:MessageCatchingSequenceIntermediateEvent ;
+  rdfs:subClassOf bpmn:MessageCatchingSequenceIntermediateEvent ;
+  rdfs:label "Receive Confirmation"^^xsd:string ;
+  emo:objectTypeHasName "Intermediate Event (sequence flow)"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86613;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86628
+  rdf:type owl:Class;
+  rdf:type bpmn:EndEvent ;
+  rdfs:subClassOf bpmn:EndEvent ;
+  rdfs:label "End Event-83248"^^xsd:string ;
+  emo:objectTypeHasName "End Event"^^xsd:string ;
+
+  lpd:bpmnEndEventHasId "obj.86628"^^xsd:string ;
+  lpd:bpmnEndEventHasName "End Event-83248"^^xsd:string ;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86613;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86619
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Manage Service Conference"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86613;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86622
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Confirm Decision"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86613;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86622
+  rdf:type owl:Class;
+  rdf:type bpmn:SendTask ;
+  rdfs:subClassOf bpmn:SendTask ;
+  rdfs:label "Confirm Decision"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86613;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86613
+  rdf:type owl:Class;
+  rdf:type bpmn:Pool ;
+  rdfs:subClassOf bpmn:Pool ;
+  rdfs:label "Monti Azzurri Consorsium"^^xsd:string ;
+  emo:objectTypeHasName "Pool"^^xsd:string ;
+  
+  lpd:bpmnPoolHasId "obj.86613"^^xsd:string ;
+  lpd:bpmnPoolHasName "Monti Azzurri Consorsium"^^xsd:string ;
+	
+   emo:poolRepresentsOrganisationalUnit transfer:obj.93401 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:mod.86524
+  rdf:type owl:Class;
+  rdf:type emo:BPMN_MetaModel ;
+  rdfs:subClassOf emo:BPMN_MetaModel ;
+  rdfs:label "TitoloUnico_MontiAzzurrSUB_3"^^xsd:string ;
+  emo:objectTypeHasName "Business process diagram (BPMN 2.0)"^^xsd:string ;
+  rdf:type bpmn:Process ;
+  rdf:subClassOf bpmn:Process ;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86540
+  rdf:type owl:Class;
+  rdf:type bpmn:StartEvent ;
+  rdfs:subClassOf bpmn:StartEvent ;
+  rdfs:label "Start Event-83148"^^xsd:string ;
+  emo:objectTypeHasName "Start Event"^^xsd:string ;
+
+  lpd:bpmnStartEventHasId "obj.86540"^^xsd:string ;
+  lpd:bpmnStartEventHasName "Start Event-83148"^^xsd:string ;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86528;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86531;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86561
+  rdf:type owl:Class;
+  rdf:type bpmn:EndEvent ;
+  rdfs:subClassOf bpmn:EndEvent ;
+  rdfs:label "End Event-83205"^^xsd:string ;
+  emo:objectTypeHasName "End Event"^^xsd:string ;
+
+  lpd:bpmnEndEventHasId "obj.86561"^^xsd:string ;
+  lpd:bpmnEndEventHasName "End Event-83205"^^xsd:string ;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86528;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86531;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86543
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Send Instance to Third Party"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86528;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86531;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86546
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Receive check of 3rd Party"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86528;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86531;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86549
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Do Check"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86528;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86534;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86567
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Check Involvement"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86528;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86534;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86543
+  rdf:type owl:Class;
+  rdf:type bpmn:SendTask ;
+  rdfs:subClassOf bpmn:SendTask ;
+  rdfs:label "Send Instance to Third Party"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86528;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86531;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86546
+  rdf:type owl:Class;
+  rdf:type bpmn:ReceiveTask ;
+  rdfs:subClassOf bpmn:ReceiveTask ;
+  rdfs:label "Receive check of 3rd Party"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86528;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86531;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86567
+  rdf:type owl:Class;
+  rdf:type bpmn:ReceiveTask ;
+  rdfs:subClassOf bpmn:ReceiveTask ;
+  rdfs:label "Check Involvement"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86528;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86534;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86552
+  rdf:type owl:Class;
+  rdf:type bpmn:ExclusiveGateway ;
+  rdfs:subClassOf bpmn:ExclusiveGateway ;
+  rdfs:label "is check necessary?"^^xsd:string ;
+  emo:objectTypeHasName "Exclusive Gateway"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86528;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86534;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86558
+  rdf:type owl:Class;
+  rdf:type bpmn:ParallelGateway ;
+  rdfs:subClassOf bpmn:ParallelGateway ;
+  rdfs:label "Non-exclusive Gateway-83191"^^xsd:string ;
+  emo:objectTypeHasName "Non-exclusive Gateway"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86528;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86531;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86528
+  rdf:type owl:Class;
+  rdf:type bpmn:Pool ;
+  rdfs:subClassOf bpmn:Pool ;
+  rdfs:label "Monti Azzurri Consorsium"^^xsd:string ;
+  emo:objectTypeHasName "Pool"^^xsd:string ;
+  
+  lpd:bpmnPoolHasId "obj.86528"^^xsd:string ;
+  lpd:bpmnPoolHasName "Monti Azzurri Consorsium"^^xsd:string ;
+	
+   emo:poolRepresentsOrganisationalUnit transfer:obj.93401 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86531
+  rdf:type owl:Class;
+  rdf:type bpmn:Lane ;
+  rdfs:subClassOf bpmn:Lane ;
+  rdfs:label "SUAP Office"^^xsd:string ;
+  emo:objectTypeHasName "Lane"^^xsd:string ;
+
+   emo:swimlaneRepresentsOrganisationalUnit transfer:obj.90414 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86534
+  rdf:type owl:Class;
+  rdf:type bpmn:Lane ;
+  rdfs:subClassOf bpmn:Lane ;
+  rdfs:label "Agriculture Office"^^xsd:string ;
+  emo:objectTypeHasName "Lane"^^xsd:string ;
+
+   emo:swimlaneRepresentsOrganisationalUnit transfer:obj.90411 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86555
+  rdf:type owl:Class;
+  rdf:type bpmn:DataInput ;
+  rdfs:subClassOf bpmn:DataInput ;
+  rdfs:label "Instance SCIA (update)"^^xsd:string ;
+  emo:objectTypeHasName "Data Object"^^xsd:string ;
+
+   emo:dataInputReferencesDocument transfer:obj.90003 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86564
+  rdf:type owl:Class;
+  rdf:type bpmn:DataInput ;
+  rdfs:subClassOf bpmn:DataInput ;
+  rdfs:label "3rd Party Opinion"^^xsd:string ;
+  emo:objectTypeHasName "Data Object"^^xsd:string ;
+
+   emo:dataInputReferencesDocument transfer:obj.90400 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:mod.86405
+  rdf:type owl:Class;
+  rdf:type emo:BPMN_MetaModel ;
+  rdfs:subClassOf emo:BPMN_MetaModel ;
+  rdfs:label "TitoloUnico_MontiAzzurrSUB"^^xsd:string ;
+  emo:objectTypeHasName "Business process diagram (BPMN 2.0)"^^xsd:string ;
+  rdf:type bpmn:Process ;
+  rdf:subClassOf bpmn:Process ;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86415
+  rdf:type owl:Class;
+  rdf:type bpmn:StartEvent ;
+  rdfs:subClassOf bpmn:StartEvent ;
+  rdfs:label "Start Event-83017"^^xsd:string ;
+  emo:objectTypeHasName "Start Event"^^xsd:string ;
+
+  lpd:bpmnStartEventHasId "obj.86415"^^xsd:string ;
+  lpd:bpmnStartEventHasName "Start Event-83017"^^xsd:string ;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86415
+  rdf:type owl:Class;
+  rdf:type bpmn:MessageStartEvent ;
+  rdfs:subClassOf bpmn:MessageStartEvent ;
+  rdfs:label "Start Event-83017"^^xsd:string ;
+  emo:objectTypeHasName "Start Event"^^xsd:string ;
+
+  lpd:bpmnStartEventHasId "obj.86415"^^xsd:string ;
+  lpd:bpmnStartEventHasName "Start Event-83017"^^xsd:string ;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86442
+  rdf:type owl:Class;
+  rdf:type bpmn:MessageInterruptingBoundaryIntermediateEvent ;
+  rdfs:subClassOf bpmn:MessageInterruptingBoundaryIntermediateEvent ;
+  rdfs:label "Intermediate Event (boundary)-83066"^^xsd:string ;
+  emo:objectTypeHasName "Intermediate Event (boundary)"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86445
+  rdf:type owl:Class;
+  rdf:type bpmn:MessageInterruptingBoundaryIntermediateEvent ;
+  rdfs:subClassOf bpmn:MessageInterruptingBoundaryIntermediateEvent ;
+  rdfs:label "Intermediate Event (boundary)-83071"^^xsd:string ;
+  emo:objectTypeHasName "Intermediate Event (boundary)"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86451
+  rdf:type owl:Class;
+  rdf:type bpmn:EndEvent ;
+  rdfs:subClassOf bpmn:EndEvent ;
+  rdfs:label "End Event-83081"^^xsd:string ;
+  emo:objectTypeHasName "End Event"^^xsd:string ;
+
+  lpd:bpmnEndEventHasId "obj.86451"^^xsd:string ;
+  lpd:bpmnEndEventHasName "End Event-83081"^^xsd:string ;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86436
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Send Authorization Document"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86436
+  rdf:type owl:Class;
+  rdf:type bpmn:SendTask ;
+  rdfs:subClassOf bpmn:SendTask ;
+  rdfs:label "Send Authorization Document"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86418
+  rdf:type owl:Class;
+  rdf:type bpmn:SubProcess ;
+  rdfs:subClassOf bpmn:SubProcess ;
+  rdfs:label "Receive Instance"^^xsd:string ;
+  emo:objectTypeHasName "Sub-Process"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86421
+  rdf:type owl:Class;
+  rdf:type bpmn:SubProcess ;
+  rdfs:subClassOf bpmn:SubProcess ;
+  rdfs:label "Assess Application"^^xsd:string ;
+  emo:objectTypeHasName "Sub-Process"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86424
+  rdf:type owl:Class;
+  rdf:type bpmn:SubProcess ;
+  rdfs:subClassOf bpmn:SubProcess ;
+  rdfs:label "Manage of 3rd Party Admin"^^xsd:string ;
+  emo:objectTypeHasName "Sub-Process"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	
+   lpd:bpmnSubProcessRepresentsBProcess transfer:mod.86524 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86427
+  rdf:type owl:Class;
+  rdf:type bpmn:SubProcess ;
+  rdfs:subClassOf bpmn:SubProcess ;
+  rdfs:label "Manage Service Conference"^^xsd:string ;
+  emo:objectTypeHasName "Sub-Process"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	
+   lpd:bpmnSubProcessRepresentsBProcess transfer:mod.86612 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86430
+  rdf:type owl:Class;
+  rdf:type bpmn:SubProcess ;
+  rdfs:subClassOf bpmn:SubProcess ;
+  rdfs:label "Check Integration"^^xsd:string ;
+  emo:objectTypeHasName "Sub-Process"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86433
+  rdf:type owl:Class;
+  rdf:type bpmn:SubProcess ;
+  rdfs:subClassOf bpmn:SubProcess ;
+  rdfs:label "Manage Inhibition"^^xsd:string ;
+  emo:objectTypeHasName "Sub-Process"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86439
+  rdf:type owl:Class;
+  rdf:type bpmn:ExclusiveGateway ;
+  rdfs:subClassOf bpmn:ExclusiveGateway ;
+  rdfs:label "reject application?"^^xsd:string ;
+  emo:objectTypeHasName "Exclusive Gateway"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86448
+  rdf:type owl:Class;
+  rdf:type bpmn:ExclusiveGateway ;
+  rdfs:subClassOf bpmn:ExclusiveGateway ;
+  rdfs:label "integration necessary?"^^xsd:string ;
+  emo:objectTypeHasName "Exclusive Gateway"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86454
+  rdf:type owl:Class;
+  rdf:type bpmn:ExclusiveGateway ;
+  rdfs:subClassOf bpmn:ExclusiveGateway ;
+  rdfs:label "manage conf directly?"^^xsd:string ;
+  emo:objectTypeHasName "Exclusive Gateway"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86457
+  rdf:type owl:Class;
+  rdf:type bpmn:ExclusiveGateway ;
+  rdfs:subClassOf bpmn:ExclusiveGateway ;
+  rdfs:label "Exclusive Gateway-83095"^^xsd:string ;
+  emo:objectTypeHasName "Exclusive Gateway"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86460
+  rdf:type owl:Class;
+  rdf:type bpmn:ExclusiveGateway ;
+  rdfs:subClassOf bpmn:ExclusiveGateway ;
+  rdfs:label "is decision taken?"^^xsd:string ;
+  emo:objectTypeHasName "Exclusive Gateway"^^xsd:string ;
+
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86409;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.86412;
+	emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86409
+  rdf:type owl:Class;
+  rdf:type bpmn:Pool ;
+  rdfs:subClassOf bpmn:Pool ;
+  rdfs:label "Monti Azzurri Consorsium"^^xsd:string ;
+  emo:objectTypeHasName "Pool"^^xsd:string ;
+  
+  lpd:bpmnPoolHasId "obj.86409"^^xsd:string ;
+  lpd:bpmnPoolHasName "Monti Azzurri Consorsium"^^xsd:string ;
+	
+   emo:poolRepresentsOrganisationalUnit transfer:obj.93401 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86412
+  rdf:type owl:Class;
+  rdf:type bpmn:Lane ;
+  rdfs:subClassOf bpmn:Lane ;
+  rdfs:label "Office SUAP"^^xsd:string ;
+  emo:objectTypeHasName "Lane"^^xsd:string ;
+
+   emo:swimlaneRepresentsOrganisationalUnit transfer:obj.90414 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.86463
+  rdf:type owl:Class;
+  rdf:type bpmn:DataOutput ;
+  rdfs:subClassOf bpmn:DataOutput ;
+  rdfs:label "Titolo Unico"^^xsd:string ;
+  emo:objectTypeHasName "Data Object"^^xsd:string ;
+
+   emo:dataOutputReferencesDocument transfer:obj.90404 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:mod.87007
+  rdf:type owl:Class;
+  rdf:type emo:BusinessMotivationMetaModel ;
+  rdfs:subClassOf emo:BusinessMotivationMetaModel ;
+  rdfs:label "BMM TitoloUnico"^^xsd:string ;
+  emo:objectTypeHasName "BMM"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.87009
+  rdf:type owl:Class;
+  rdf:type emo:LearningGoal ;
+  rdfs:subClassOf emo:LearningGoal ;
+  rdfs:label "Proper management of user requests"^^xsd:string ;
+  emo:objectTypeHasName "Learning Goal"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.91600
+  rdf:type owl:Class;
+  rdf:type emo:LearningGoal ;
+  rdfs:subClassOf emo:LearningGoal ;
+  rdfs:label "Confident check of regularity"^^xsd:string ;
+  emo:objectTypeHasName "Learning Goal"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.92000
+  rdf:type owl:Class;
+  rdf:type emo:LearningGoal ;
+  rdfs:subClassOf emo:LearningGoal ;
+  rdfs:label "Properly coordination of admin procedure"^^xsd:string ;
+  emo:objectTypeHasName "Learning Goal"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.92010
+  rdf:type owl:Class;
+  rdf:type emo:LearningGoal ;
+  rdfs:subClassOf emo:LearningGoal ;
+  rdfs:label "Properly check of regularity"^^xsd:string ;
+  emo:objectTypeHasName "Learning Goal"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.93003
+  rdf:type owl:Class;
+  rdf:type emo:LearningGoal ;
+  rdfs:subClassOf emo:LearningGoal ;
+  rdfs:label "Check regularity/irregularity of the requests"^^xsd:string ;
+  emo:objectTypeHasName "Learning Goal"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.93006
+  rdf:type owl:Class;
+  rdf:type emo:LearningGoal ;
+  rdfs:subClassOf emo:LearningGoal ;
+  rdfs:label "Coordination of the administrative procedure in respect of timeing and modality provided by the norms"^^xsd:string ;
+  emo:objectTypeHasName "Learning Goal"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.93009
+  rdf:type owl:Class;
+  rdf:type emo:LearningGoal ;
+  rdfs:subClassOf emo:LearningGoal ;
+  rdfs:label "Check regularity of data and declarations"^^xsd:string ;
+  emo:objectTypeHasName "Learning Goal"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.93012
+  rdf:type owl:Class;
+  rdf:type emo:LearningGoal ;
+  rdfs:subClassOf emo:LearningGoal ;
+  rdfs:label "Draw up an administrative act"^^xsd:string ;
+  emo:objectTypeHasName "Learning Goal"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:mod.87801
+  rdf:type owl:Class;
+  rdf:type emo:DocumentAndKnowledgeMetaModel ;
+  rdfs:subClassOf emo:DocumentAndKnowledgeMetaModel ;
+  rdfs:label "Document and Knowledge model TitoloUnico"^^xsd:string ;
+  emo:objectTypeHasName "Document and Knowledge model"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.87803
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "CC Barnaby Barnes"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  dkm:d_ConstructIsInsideD_Container transfer:obj.89600 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.89607
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "Delivering Information Appropriately"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  dkm:d_ConstructIsInsideD_Container transfer:obj.89604 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.90003
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "SCIA Instance"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  dkm:d_ConstructIsInsideD_Container transfer:obj.90000 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.90400
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "Third Party Opinion"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  dkm:d_ConstructIsInsideD_Container transfer:obj.90000 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.90404
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "Titolo Unico Authorization Document"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  dkm:d_ConstructIsInsideD_Container transfer:obj.90000 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.89600
+  rdf:type owl:Class;
+  rdf:type dkm:D_Container ;
+  rdfs:subClassOf dkm:D_Container ;
+  rdfs:label "Competency Profiles"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.89604
+  rdf:type owl:Class;
+  rdf:type dkm:D_Container ;
+  rdfs:subClassOf dkm:D_Container ;
+  rdfs:label "Learning Objects"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.90000
+  rdf:type owl:Class;
+  rdf:type dkm:D_Container ;
+  rdfs:subClassOf dkm:D_Container ;
+  rdfs:label "Business Relevant Documents"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:mod.90409
+  rdf:type owl:Class;
+  rdf:type emo:OrganisationMetaModel ;
+  rdfs:subClassOf emo:OrganisationMetaModel ;
+  rdfs:label "Org Model Monti Azzurri"^^xsd:string ;
+  emo:objectTypeHasName "Organizational structure"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.90411
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Agriculture Office"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.93401 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.90414
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "SUAP Office"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.93401 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.93401
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Monti Azzurri"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.90417
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "SUAP Officer"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  lpd:roleIsCastedByOrgUnit transfer:obj.90414 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.90420
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Barnaby Barnes"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  omm:performerHasRole transfer:obj.90417 ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:mod.87001
+  rdf:type owl:Class;
+  rdf:type emo:CompetencyMetaModel ;
+  rdfs:subClassOf emo:CompetencyMetaModel ;
+  rdfs:label "Competency model TitoloUnico"^^xsd:string ;
+  emo:objectTypeHasName "Competency model"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.87003
+  rdf:type owl:Class;
+  rdf:type cmm:Competency ;
+  rdfs:subClassOf cmm:Competency ;
+  rdfs:label "Managing front-office & external services"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.91000
+  rdf:type owl:Class;
+  rdf:type cmm:Competency ;
+  rdfs:subClassOf cmm:Competency ;
+  rdfs:label "Assessing administrative & procedural regularity"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.92003
+  rdf:type owl:Class;
+  rdf:type cmm:Competency ;
+  rdfs:subClassOf cmm:Competency ;
+  rdfs:label "Manage specific admin procedure"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.92007
+  rdf:type owl:Class;
+  rdf:type cmm:Competency ;
+  rdfs:subClassOf cmm:Competency ;
+  rdfs:label "Competent verification of congruency and pertinency"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+transfer:obj.93000
+  rdf:type owl:Class;
+  rdf:type cmm:Competency ;
+  rdfs:subClassOf cmm:Competency ;
+  rdfs:label "Ability to draw up formal documents"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;
+emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
