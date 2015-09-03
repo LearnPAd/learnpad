@@ -33,11 +33,12 @@ public class LOLA {
 	
 	public static String sync_getVerificationOutput(String lolaBinPath, String modelToVerify, String propertyToVerify) throws Exception{
 		final int timeoutInMinutes = 5;
+		int cores = Runtime.getRuntime().availableProcessors();
 		String filePath = System.getProperty("java.io.tmpdir") + java.util.UUID.randomUUID() + ".lola";
 		IOUtils.writeFile(modelToVerify.getBytes(), filePath, false);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		PrintStream ps = new PrintStream(baos);
-		final Process proc = Runtime.getRuntime().exec(lolaBinPath + " --formula=\""+propertyToVerify+"\" -p -s -q --threads=4 --search=cover " + filePath); // params: -p -s -q --json --threads=2 --search=cover
+		final Process proc = Runtime.getRuntime().exec(lolaBinPath + " --formula=\"" + propertyToVerify + "\" -p -s -q --threads=" + cores + " --search=cover " + filePath); // params: -p -s -q --json --threads=2 --search=cover
 		IOUtils.inheritIO(proc.getInputStream(), ps);
 		IOUtils.inheritIO(proc.getErrorStream(), ps);
 		Thread timerThread = new Thread() {
