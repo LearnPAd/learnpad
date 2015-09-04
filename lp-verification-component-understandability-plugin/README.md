@@ -27,22 +27,30 @@ and define this MANIFEST.MF /src/main/resources/custom/MANIFEST.MF
 The output structure of the verification provided by this plugin is reported in the following:
 
 		<Result>
-			<Status>..OK or KO..</Status>
-			<Description>..detailed description of the result..</Description>
-			<Problems>
-				<Problem>
-					<ObjectID>..bpmn object id..</ObjectID>
-					<DescriptionProblem>..detailed description of the specific problem..</DescriptionProblem>
-				</Problem>
-				<Problem>
-					<ObjectID>..bpmn object id..</ObjectID>
-					<DescriptionProblem>..detailed description of the specific problem..</DescriptionProblem>
-				</Problem>
-				...
-				
-			</Problems>
+			<Status>Ok or not</Status>
+			<Description>Summary Description</Description>
+			<Guidelines>
 
-			...
+
+				<Guideline id="" name="">
+					<Description>..detailed description of the specific problem..</Description>
+					<Suggestion></Suggestion>
+					<Elements>
+						<ElementID>..bpmn object id..</ElementID>
+					</Elements>
+				</Guideline>
+
+				<Guideline id="" name="">
+					<Description>..detailed description of the specific problem..</Description>
+					<Suggestion></Suggestion>
+					<Elements>
+						<ElementID>..bpmn object id..</ElementID>
+					</Elements>
+				</Guideline>
+
+				
+						
+			</Guidelines>
 		</Result>
 
 In case of any error in the verification phase, the plugin output will look like in the following:
