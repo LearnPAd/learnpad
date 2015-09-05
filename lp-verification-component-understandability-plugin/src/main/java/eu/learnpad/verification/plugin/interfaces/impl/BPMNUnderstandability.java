@@ -20,30 +20,53 @@
 
 package eu.learnpad.verification.plugin.interfaces.impl;
 
+
+
+
+
 import java.io.File;
+import java.io.StringWriter;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.factory.GuidelinesFactory;
+import eu.learnpad.verification.plugin.bpmn.reader.MyBPMN2ModelReader;
 import eu.learnpad.verification.plugin.interfaces.Plugin;
-import eu.learnpad.verification.plugin.utils.IOUtils;
 import eu.learnpad.verification.plugin.utils.Utils;
 import eu.learnpad.verification.plugin.utils.Utils.LogType;
-import eu.learnpad.verification.plugin.utils.XMLUtils;
+
 
 public class BPMNUnderstandability implements Plugin {
 
 	@Override
 	public String[] getVerificationTypeProvided() {
-		return new String[]{""};
+		return new String[]{"UNDERSTANDABILITY"};
 	}
 
 	@Override
 	public String performVerification(String model, String type) {
-
 		String ret = "";
 		try{
 			
-			if(type.equals("")){
-				ret =  "";
+			if(type.equals("UNDERSTANDABILITY")){
+				
+				MyBPMN2ModelReader readerBPMN = new MyBPMN2ModelReader();
+		
+				GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readStringModel(model));
+				System.out.println(eg);
+				
+				JAXBContext jaxbContext = JAXBContext.newInstance(GuidelinesFactory.class);
+				Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+				// output pretty printed
+				jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+				StringWriter w = new StringWriter();
+				jaxbMarshaller.marshal(eg, System.out);
+				jaxbMarshaller.marshal(eg, w);
+				
+				ret =  w.toString();
 			} else
 				throw new Exception("ERROR: Verification type " + type + " not supported.");
 		}catch(Exception ex){
@@ -57,40 +80,24 @@ public class BPMNUnderstandability implements Plugin {
 	
 	public static void main(String[] args) {
 		try{
-			/*String fileName = PNVerifier.class.getName();
-			String filePath = PNVerifier.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-			if(!new File(filePath).isDirectory())
-				fileName = filePath.substring(filePath.lastIndexOf("/")+1, filePath.length());
-			if(args.length==0) {
-				System.out.println("Usage:\njava -jar " + fileName + " command\n\ncommand:\n\t--showAvailableVerifications\n\t--performVerification verificationType modelPath");
-				return;
+			if(args[0]!= null){
+				MyBPMN2ModelReader readerBPMN = new MyBPMN2ModelReader();
+				File file = new File(args[0]);
+				GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readFileModel(file.getAbsolutePath()));
+				System.out.println(eg);
+				
+				JAXBContext jaxbContext = JAXBContext.newInstance(GuidelinesFactory.class);
+				Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+				// output pretty printed
+				jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+				
+				jaxbMarshaller.marshal(eg, System.out);
 			}
 			
-			if(args[0].equals("--showAvailableVerifications")) {
-				String[] retList = new PNVerifier().getVerificationTypeProvided();
-				for(String ret:retList)
-					System.out.println(ret);
-				return;
-			}
-			if(args[0].equals("--performVerification")) {
-				if(args.length!=3){
-					System.out.println("ERROR: expected --performVerification verificationType modelPath");
-					return;
-				}
-				String verificationType = args[1];
-				String modelPath = args[2];
-				String model = new String(IOUtils.readFile(modelPath));
-				String result = new PNVerifier().performVerification(model, verificationType);
-				String resultXml = "<VerificationResult><VerificationType>"+verificationType+"</VerificationType><VerificationID></VerificationID><ModelID>"+modelPath+"</ModelID><Time>"+Utils.getUTCTime()+"</Time><Results>"+result+"</Results></VerificationResult>";
-	    		try{
-	    			XMLUtils.getXmlDocFromString(resultXml);
-	    		}catch(Exception e){
-	    			resultXml = "<VerificationResult><VerificationType>"+verificationType+"</VerificationType><VerificationID></VerificationID><ModelID>"+modelPath+"</ModelID><Time>"+Utils.getUTCTime()+"</Time><Results><Result><Status>ERROR</Status><Description>ERROR: The result is not a valid XML</Description></Result></Results></VerificationResult>";
-	    			Utils.log("ERROR: The result is not a valid XML:\n"+resultXml, LogType.ERROR);
-	    		}
-				*/
 				System.out.println("");
-				return;
+				
 			
 		}catch(Exception ex){Utils.log(ex);}
 	}

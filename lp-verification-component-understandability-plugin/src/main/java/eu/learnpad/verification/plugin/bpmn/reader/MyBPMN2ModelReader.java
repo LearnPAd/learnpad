@@ -1,6 +1,9 @@
 package eu.learnpad.verification.plugin.bpmn.reader;
 
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -26,48 +29,84 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 
 
 public class MyBPMN2ModelReader {
-	
+
 	public MyBPMN2ModelReader(){
-		
+
 	}
-	
-	public List<RootElement> readModel(String theBPMNFile) throws IOException{
-		
-		URI uri = URI.createFileURI(theBPMNFile);
-		
+	public List<RootElement> readStringModel(String theBPMNString) throws IOException{
+
+		//create a temp file
+		File temp = File.createTempFile("tempfile", ".tmp"); 
+
+		//write it
+		BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
+		bw.write(theBPMNString);
+		bw.close();
+
+		URI uri = URI.createFileURI(temp.getAbsolutePath());
+
 		//URI uri = URI.createURI("SampleProcess.bpmn");
 		Bpmn2ResourceFactoryImpl resFactory = new Bpmn2ResourceFactoryImpl();
 		Resource resource = resFactory.createResource(uri);
-		
+
 		// We need this option because all object references in the file are "by ID"
 		// instead of the document reference "URI#fragment" form.
 		HashMap<Object, Object> options = new HashMap<Object, Object>();
 		options.put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, true);
 
 		// Load the resource
-		
-			resource.load(options);
-		
+
+		resource.load(options);
+
 
 		// This is the root element of the XML document
 		Definitions d = getDefinitions(resource);
 
 		// return all elements contained in all Processes found
 		List<RootElement> rootElements = d.getRootElements();
-		
+
 		return rootElements;
-		
-		
+
+
 	}
-	
-	
+
+	public List<RootElement> readFileModel(String theBPMNFile) throws IOException{
+
+		URI uri = URI.createFileURI(theBPMNFile);
+
+		//URI uri = URI.createURI("SampleProcess.bpmn");
+		Bpmn2ResourceFactoryImpl resFactory = new Bpmn2ResourceFactoryImpl();
+		Resource resource = resFactory.createResource(uri);
+
+		// We need this option because all object references in the file are "by ID"
+		// instead of the document reference "URI#fragment" form.
+		HashMap<Object, Object> options = new HashMap<Object, Object>();
+		options.put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, true);
+
+		// Load the resource
+
+		resource.load(options);
+
+
+		// This is the root element of the XML document
+		Definitions d = getDefinitions(resource);
+
+		// return all elements contained in all Processes found
+		List<RootElement> rootElements = d.getRootElements();
+
+		return rootElements;
+
+
+	}
+
+
 	public void ReadThisModel(String theBPMNFile) throws IOException {
 		URI uri = URI.createFileURI(theBPMNFile);
 		System.out.println(uri);
 		//URI uri = URI.createURI("SampleProcess.bpmn");
 		Bpmn2ResourceFactoryImpl resFactory = new Bpmn2ResourceFactoryImpl();
 		Resource resource = resFactory.createResource(uri);
-		
+
 		// We need this option because all object references in the file are "by ID"
 		// instead of the document reference "URI#fragment" form.
 		HashMap<Object, Object> options = new HashMap<Object, Object>();
