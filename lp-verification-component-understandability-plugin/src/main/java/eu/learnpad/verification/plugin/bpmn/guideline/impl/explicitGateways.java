@@ -27,7 +27,7 @@ public class explicitGateways extends abstractGuideline {
 		this.id = 20;
 		this.Description = "The modeler should not split or join flows using activities or events; the modeler should split or join sequence flows always using gateways. Moreover the modeler should not start conditional sequence flows from an activity; he should always make explicit use of gateways and start conditional sequence flows from them. This includes that an activity can have only one incoming sequence flow and only one outgoing sequence flow.";
 		this.Name = "Explicit usage of gateways";
-		this.Suggestion = "Well done!";
+		
 
 	}
 
@@ -47,7 +47,7 @@ public class explicitGateways extends abstractGuideline {
 
 						if (act.getOutgoing().size() > 1
 								| act.getIncoming().size() > 1) {
-							elements.add(fe);
+							elementsBPMN.add(fe);
 							setElements(fe.getId());
 							ret += i++ +") name=" + fe.getName() + " ID=" + fe.getId()
 									+ "\n";
@@ -60,7 +60,7 @@ public class explicitGateways extends abstractGuideline {
 
 						if (event.getOutgoing().size() > 1
 								| event.getIncoming().size() > 1) {
-							elements.add(fe);
+							elementsBPMN.add(fe);
 							setElements(fe.getId());
 							ret += i++ +") name=" + fe.getName() + " ID=" + fe.getId()
 									+ "\n";
@@ -71,7 +71,7 @@ public class explicitGateways extends abstractGuideline {
 								+ fe.getName() + " ID=" + fe.getId());
 
 						if (event.getOutgoing().size() > 1) {
-							elements.add(fe);
+							elementsBPMN.add(fe);
 							setElements(fe.getId());
 							ret +=i++ +") name=" + fe.getName() + " ID=" + fe.getId()
 									+ "\n";
@@ -82,7 +82,7 @@ public class explicitGateways extends abstractGuideline {
 								+ fe.getName() + " ID=" + fe.getId());
 
 						if (event.getIncoming().size() > 1) {
-							elements.add(fe);
+							elementsBPMN.add(fe);
 							setElements(fe.getId());
 							ret +=i++ +") name=" + fe.getName() + " ID=" + fe.getId()
 									+ "\n";
@@ -92,11 +92,13 @@ public class explicitGateways extends abstractGuideline {
 
 			}
 		}
-		if (!elements.isEmpty()) {
+		if (!elementsBPMN.isEmpty()) {
 			this.Suggestion = "Add Gateway before or/and after of the elements: " + ret;
 			this.status = false;
-		}else
+		}else{
 			this.status = true;
+			this.Suggestion = "Well done!";
+		}
 	}
 
 }

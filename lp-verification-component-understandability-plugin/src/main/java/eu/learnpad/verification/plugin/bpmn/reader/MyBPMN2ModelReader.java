@@ -37,7 +37,7 @@ public class MyBPMN2ModelReader {
 
 		//create a temp file
 		File temp = File.createTempFile("tempfile", ".tmp"); 
-
+		temp.deleteOnExit();
 		//write it
 		BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
 		bw.write(theBPMNString);

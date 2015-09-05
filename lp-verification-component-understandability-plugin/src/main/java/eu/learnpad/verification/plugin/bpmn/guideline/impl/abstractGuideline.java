@@ -25,7 +25,7 @@ import org.eclipse.bpmn2.RootElement;
 public abstract class abstractGuideline {
 
 	@XmlTransient
-	protected Collection<FlowElement> elements;
+	protected Collection<FlowElement> elementsBPMN;
 	
 	@XmlTransient
 	protected boolean status;
@@ -49,7 +49,7 @@ public abstract class abstractGuideline {
 	}
 	
 	abstractGuideline(List<RootElement> diagram){
-		elements = new ArrayList<FlowElement>();
+		elementsBPMN = new ArrayList<FlowElement>();
 		
 		status = false;
 		findGL(diagram);
