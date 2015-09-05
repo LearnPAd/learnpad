@@ -52,20 +52,7 @@ public class explicitGateways extends abstractGuideline {
 							ret += i++ +") name=" + fe.getName() + " ID=" + fe.getId()
 									+ "\n";
 						}
-					} else if (fe instanceof CatchEvent
-							| fe instanceof ThrowEvent) {
-						Event event = (Event) fe;
-						System.out.println(fe.eClass().getName() + ": name="
-								+ fe.getName() + " ID=" + fe.getId());
-
-						if (event.getOutgoing().size() > 1
-								| event.getIncoming().size() > 1) {
-							elementsBPMN.add(fe);
-							setElements(fe.getId());
-							ret += i++ +") name=" + fe.getName() + " ID=" + fe.getId()
-									+ "\n";
-						}
-					} else if (fe instanceof StartEvent) {
+					}  else if (fe instanceof StartEvent) {
 						Event event = (Event) fe;
 						System.out.println(fe.eClass().getName() + ": name="
 								+ fe.getName() + " ID=" + fe.getId());
@@ -85,6 +72,19 @@ public class explicitGateways extends abstractGuideline {
 							elementsBPMN.add(fe);
 							setElements(fe.getId());
 							ret +=i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+									+ "\n";
+						}
+					}else if (fe instanceof CatchEvent
+							| fe instanceof ThrowEvent) {
+						Event event = (Event) fe;
+						System.out.println(fe.eClass().getName() + ": name="
+								+ fe.getName() + " ID=" + fe.getId());
+
+						if (event.getOutgoing().size() > 1
+								| event.getIncoming().size() > 1) {
+							elementsBPMN.add(fe);
+							setElements(fe.getId());
+							ret += i++ +") name=" + fe.getName() + " ID=" + fe.getId()
 									+ "\n";
 						}
 					}

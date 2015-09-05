@@ -43,6 +43,9 @@ public class GuidelinesFactory {
 	}
 
 
+	public String getStatus(){
+		return Status;
+	}
 
 	private void setStatus() {
 		Status = "OK";
