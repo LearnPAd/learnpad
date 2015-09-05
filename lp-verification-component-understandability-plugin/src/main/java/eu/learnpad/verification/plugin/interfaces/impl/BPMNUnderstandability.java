@@ -70,7 +70,7 @@ public class BPMNUnderstandability implements Plugin {
 			} else
 				throw new Exception("ERROR: Verification type " + type + " not supported.");
 		}catch(Exception ex){
-			ex.printStackTrace();
+			//ex.printStackTrace();
 			Utils.log(ex);
 			Utils.log("\nModel involved in the exception:\n"+model, LogType.ERROR);
 			ret = "<Result><Status>ERROR</Status><Description>"+ex.getMessage()+"</Description></Result>";

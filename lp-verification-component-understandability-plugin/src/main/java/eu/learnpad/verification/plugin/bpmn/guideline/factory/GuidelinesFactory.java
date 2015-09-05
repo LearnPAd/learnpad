@@ -6,6 +6,7 @@ import java.util.List;
 
 
 
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -13,12 +14,17 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.eclipse.bpmn2.RootElement;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.ExplicitStartEndEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.explicitGateways;
 
 @XmlRootElement(name = "Result")
 public class GuidelinesFactory {
-
+	
+	@XmlElement(name = "NameProcess", required = true)
+	private String NameProcess;
+	@XmlElement(name = "ProcessID", required = true)
+	private String ProcessID;
 	@XmlElement(name = "Status", required = true)
 	private String Status;
 	@XmlElement(name = "Description", required = true)
@@ -37,6 +43,7 @@ public class GuidelinesFactory {
 	public GuidelinesFactory(List<RootElement> graph){
 		diagram = graph;
 		GLcollection = new ArrayList<abstractGuideline>();
+		GLcollection.add(new ExplicitStartEndEvents(diagram));
 		GLcollection.add(new explicitGateways(diagram));
 		setStatus();
 

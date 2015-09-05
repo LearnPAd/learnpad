@@ -19,6 +19,19 @@ public class BPMNUnderstandabilityTest {
 		String[]  type = understandability.getVerificationTypeProvided();
 		String model= new Scanner(is).useDelimiter("\\A").next();
 		String result = understandability.performVerification(model, type[0]);
+		System.out.println(result);
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void testError() {
+		InputStream is = GuidelinesFactoryTest.class.getClassLoader().getResourceAsStream("error.bpmn");
+		assertNotNull(is);
+		BPMNUnderstandability understandability = new BPMNUnderstandability();
+		String[]  type = understandability.getVerificationTypeProvided();
+		String model= new Scanner(is).useDelimiter("\\A").next();
+		String result = understandability.performVerification(model, type[0]);
+		System.out.println(result);
 		assertNotNull(result);
 	}
 

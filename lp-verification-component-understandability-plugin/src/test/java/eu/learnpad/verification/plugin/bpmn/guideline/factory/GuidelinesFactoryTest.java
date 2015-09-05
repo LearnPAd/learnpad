@@ -21,8 +21,14 @@ public class GuidelinesFactoryTest {
 
 	@Test
 	public void testGuidelinesFactoryListOfRootElement() {
+		genarateTestforFile("ExplicitStartEndEvents.bpmn");
+		genarateTestforFile("annidategateway.bpmn");
+	}
+	
+	private void genarateTestforFile(String NameFile){
+		
 		try {
-			InputStream is = GuidelinesFactoryTest.class.getClassLoader().getResourceAsStream("annidategateway.bpmn");
+			InputStream is = GuidelinesFactoryTest.class.getClassLoader().getResourceAsStream(NameFile);
 			assertNotNull(is);
 			File temp = File.createTempFile("tempfiletest", ".tmp"); 
 			temp.deleteOnExit();
@@ -54,9 +60,7 @@ public class GuidelinesFactoryTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
-	
 	
 	@Test
 	public void testGuidelinesFactoryListOfRootElementGood() {
