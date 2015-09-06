@@ -103,3 +103,88 @@ public class BPMNUnderstandability implements Plugin {
 	}
 	
 }
+
+/*
+ * 
+ * @startuml
+abstract class abstractGuideline {
+	#Collection<FlowElement> elementsBPMN
+	#boolean status
+	#String NameProcess
+	#String IDProcess
+	#String id
+	#String Name
+	#String Description
+	#String Suggestion
+	#Collection<String> Elements
+	~abstractGuideline()
+	~abstractGuideline(List<RootElement> diagram)
+	#{abstract}void findGL(List<RootElement> diagram)
+	+boolean getStatus()
+	+String toString()
+	+String getid()
+	+void setElements(String element)
+	+String getDescription()
+	+String getName()
+	+String getProcessName()
+	+String getProcessID()
+	+String getSuggestion()
+	#{abstract}int searchSubProcess(SubProcess sub, String ret, int i)
+}
+class explicitGateways {
+	~explicitGateways()
+	+explicitGateways(List<RootElement> diagram)
+	+void findGL(List<RootElement> diagram)
+	#int searchSubProcess(SubProcess sub, String ret, int i)
+}
+
+class ExplicitStartEndEvents {
+	+ExplicitStartEndEvents(List<RootElement> diagram)
+	#void findGL(List<RootElement> diagram)
+	#int searchSubProcess(SubProcess sub, String ret, int i)
+}
+class GuidelinesFactory {
+	-String processName
+	-String processID
+	-String status
+	-String description
+	-List<RootElement> diagram
+	-Collection<abstractGuideline> guidelines
+	~GuidelinesFactory()
+	+GuidelinesFactory(List<RootElement> graph)
+	+Collection<abstractGuideline> getGuidelines()
+	+String getProcessName()
+	+void setProcessName(String nameProcess)
+	+String getProcessID()
+	+void setProcessID(String processID)
+	+String getStatus()
+	-void setStatus()
+	+String toString()
+}
+abstractGuideline <|-- ExplicitStartEndEvents
+abstractGuideline <|-- explicitGateways
+GuidelinesFactory --> abstractGuideline
+
+class MyBPMN2ModelReader {
+	+MyBPMN2ModelReader()
+	+List<RootElement> readStringModel(String theBPMNString)
+	+List<RootElement> readFileModel(String theBPMNFile)
+	+void ReadThisModel(String theBPMNFile)
+	-{static}Definitions getDefinitions(Resource resource)
+}
+
+class BPMNUnderstandability {
+	+String[] getVerificationTypeProvided()
+	+String performVerification(String model, String type)
+	+{static}void main(String[] args)
+}
+interface Plugin {
+}
+Plugin <|.. BPMNUnderstandability
+BPMNUnderstandability --> MyBPMN2ModelReader 
+BPMNUnderstandability --> GuidelinesFactory
+
+@enduml
+ * 
+ */
+
