@@ -22,7 +22,7 @@ public class SplitAndJoinFlows extends abstractGuideline {
 	}
 	@Override
 	protected void findGL(List<RootElement> diagram) {
-		String ret = "";
+		StringBuilder ret = new StringBuilder("");
 		int i = 1;
 		for (RootElement rootElement : diagram) {
 			if (rootElement instanceof Process) {
@@ -46,8 +46,8 @@ public class SplitAndJoinFlows extends abstractGuideline {
 							if (!bool) {
 								elementsBPMN.add(fe);
 								setElements(fe.getId());
-								ret +=i++ +") name=" + fe.getName() + " ID=" + fe.getId()
-										+ "\n";
+								ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+										+ "\n");
 							}
 						}
 				}
@@ -63,9 +63,29 @@ public class SplitAndJoinFlows extends abstractGuideline {
 	}
 
 	@Override
-	protected int searchSubProcess(SubProcess sub, String ret, int i) {
-		// TODO Auto-generated method stub
-		return 0;
+	protected int searchSubProcess(SubProcess sub, StringBuilder ret, int i) {
+		for ( FlowElement fe : sub.getFlowElements()) {
+			if(fe instanceof SubProcess){
+				SubProcess ssub = (SubProcess) fe;
+				System.out.format("Found a SubProcess: %s\n", ssub.getName());
+				i = this.searchSubProcess(ssub, ret, i);
+			}else
+				if (fe instanceof Gateway) {
+					Gateway gateway = (Gateway) fe;
+					
+					System.out.println(fe.eClass().getName() + ": name="
+							+ fe.getName() + " ID=" + fe.getId());
+
+					boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() > 1) | (gateway.getIncoming().size() > 1 & gateway.getOutgoing().size() == 1));
+					if (!bool) {
+						elementsBPMN.add(fe);
+						setElements(fe.getId());
+						ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+								+ "\n");
+					}
+				}
+		}
+		return i;
 	}
 
 }

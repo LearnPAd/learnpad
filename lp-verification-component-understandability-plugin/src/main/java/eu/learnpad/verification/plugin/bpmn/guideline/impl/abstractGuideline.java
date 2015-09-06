@@ -123,6 +123,6 @@ public abstract class abstractGuideline {
 		return Suggestion;
 	}
 
-	protected abstract int searchSubProcess(SubProcess sub, String ret, int i);
+	protected abstract int searchSubProcess(SubProcess sub, StringBuilder ret, int i);
 
 }
