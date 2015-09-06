@@ -9,7 +9,7 @@
       <participantMultiplicity maximum="1" minimum="0"/>
     </participant>
   </collaboration>
-  <process id="processo_1" isClosed="false" isExecutable="true" processType="None">
+  <process id="processo_1" name="TITOLO UNICO" isClosed="false" isExecutable="true" processType="None"  definitionalCollaborationRef="COLLABORATION_1" >
     <startEvent id="n0__n0" isInterrupting="true" parallelMultiple="false">
       <outgoing>n0__e0</outgoing>
     </startEvent>

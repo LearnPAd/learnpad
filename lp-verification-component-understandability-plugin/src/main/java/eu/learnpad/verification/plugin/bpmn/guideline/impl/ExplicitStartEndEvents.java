@@ -15,7 +15,7 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 
 	public ExplicitStartEndEvents(List<RootElement> diagram) {
 		super(diagram);
-		this.id = 16;
+		this.id = "16";
 		this.Description = "The modeler should explicitly make use of start and end events. The use of start and end events is necessary to represent the different states that begin and complete the modeled process. Processes with implicit start and end events are undesirable and could lead to misinterpretations.";
 		this.Name = "Explicit usage of start and end events";
 
@@ -31,10 +31,12 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 			if (rootElement instanceof Process) {
 				Process process = (Process) rootElement;
 				System.out.format("Found a process: %s\n", process.getName());
-
+				NameProcess = process.getName();
+				IDProcess = process.getId();
 				for (FlowElement fe : process.getFlowElements()) {
 					if(fe instanceof SubProcess){
 						SubProcess sub = (SubProcess) fe;
+						System.out.format("Found a SubProcess: %s\n", sub.getName());
 						i = this.searchSubProcess(sub, ret, i);
 					}else
 						if (fe instanceof StartEvent) {

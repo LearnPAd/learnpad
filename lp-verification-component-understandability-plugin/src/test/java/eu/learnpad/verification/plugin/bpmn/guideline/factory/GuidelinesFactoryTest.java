@@ -7,25 +7,24 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
-
 import org.junit.Test;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 import eu.learnpad.verification.plugin.bpmn.reader.MyBPMN2ModelReader;
 
 public class GuidelinesFactoryTest {
 
 	@Test
 	public void testGuidelinesFactoryListOfRootElement() {
-		genarateTestforFile("ExplicitStartEndEvents.bpmn");
-		genarateTestforFile("annidategateway.bpmn");
+		genarateTestforFile("ExplicitStartEndEvents.bpmn","16");
+		genarateTestforFile("annidategateway.bpmn","20");
 	}
 	
-	private void genarateTestforFile(String NameFile){
+	private void genarateTestforFile(String NameFile,String id){
 		
 		try {
 			InputStream is = GuidelinesFactoryTest.class.getClassLoader().getResourceAsStream(NameFile);
@@ -42,7 +41,14 @@ public class GuidelinesFactoryTest {
 
 			GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readFileModel(temp.getAbsolutePath()));
 			System.out.println(eg);
-
+			
+			for ( abstractGuideline iterable_element : eg.getGuidelines()) {
+				if(iterable_element.getid().equals(id)){
+					if(iterable_element.getStatus()){
+						fail();
+					}
+				}
+			}
 			JAXBContext jaxbContext = JAXBContext.newInstance(GuidelinesFactory.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 

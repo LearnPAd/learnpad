@@ -27,6 +27,8 @@ and define this MANIFEST.MF /src/main/resources/custom/MANIFEST.MF
 The output structure of the verification provided by this plugin is reported in the following:
 
 		<Result>
+			<ProcessName>Empty</ProcessName>
+   			<ProcessID>PROCESS_1</ProcessID>
 			<Status>Ok or not</Status>
 			<Description>Summary Description</Description>
 			<Guidelines>

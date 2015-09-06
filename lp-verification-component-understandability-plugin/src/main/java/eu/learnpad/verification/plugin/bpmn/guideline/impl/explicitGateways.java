@@ -2,7 +2,6 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.eclipse.bpmn2.Activity;
 import org.eclipse.bpmn2.CatchEvent;
@@ -22,9 +21,10 @@ public class explicitGateways extends abstractGuideline {
 
 	}
 
+
 	public explicitGateways(List<RootElement> diagram) {
 		super(diagram);
-		this.id = 20;
+		this.id = "20";
 		this.Description = "The modeler should not split or join flows using activities or events; the modeler should split or join sequence flows always using gateways. Moreover the modeler should not start conditional sequence flows from an activity; he should always make explicit use of gateways and start conditional sequence flows from them. This includes that an activity can have only one incoming sequence flow and only one outgoing sequence flow.";
 		this.Name = "Explicit usage of gateways";
 
@@ -38,6 +38,8 @@ public class explicitGateways extends abstractGuideline {
 			if (rootElement instanceof Process) {
 				Process process = (Process) rootElement;
 				System.out.format("Found a process: %s\n", process.getName());
+				NameProcess = process.getName();
+				IDProcess = process.getId();
 				for (FlowElement fe : process.getFlowElements()) {
 					if (fe instanceof Activity) {
 
@@ -54,6 +56,7 @@ public class explicitGateways extends abstractGuideline {
 						}
 						if(fe instanceof SubProcess){
 							SubProcess sub = (SubProcess) fe;
+							System.out.format("Found a SubProcess: %s\n", sub.getName());
 							i = this.searchSubProcess(sub, ret, i);
 						}
 

@@ -9,6 +9,8 @@ import java.util.List;
 
 
 
+
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -31,9 +33,13 @@ public abstract class abstractGuideline {
 
 	@XmlTransient
 	protected boolean status;
+	@XmlTransient
+	protected String NameProcess;
+	@XmlTransient
+	protected String IDProcess;
 
 	@XmlAttribute(name = "id", required = true)
-	protected int id;
+	protected String id;
 	@XmlAttribute(name = "Name", required = true)
 	protected String Name;
 
@@ -80,7 +86,7 @@ public abstract class abstractGuideline {
 		return ret;
 	}
 
-	public int getid() {
+	public String getid() {
 		return id;
 	}
 
@@ -105,6 +111,13 @@ public abstract class abstractGuideline {
 		return Name;
 	}
 
+	public String getProcessName() {
+		return NameProcess;
+	}
+
+	public String getProcessID() {
+		return IDProcess;
+	}
 
 	public String getSuggestion() {
 		return Suggestion;
