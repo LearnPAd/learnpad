@@ -9,6 +9,7 @@ import java.util.List;
 
 
 
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
 import org.eclipse.bpmn2.RootElement;
 
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.ExplicitStartEndEvents;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.SplitAndJoinFlows;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.explicitGateways;
 
@@ -33,7 +35,7 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.explicitGateways;
 })
 @XmlRootElement(name = "Result")
 public class GuidelinesFactory {
-
+	
 	@XmlElement(name = "ProcessName", required = true)
 	private String processName;
 	@XmlElement(name = "ProcessID", required = true)
@@ -59,6 +61,7 @@ public class GuidelinesFactory {
 		ExplicitStartEndEvents  explicitSEevent=new ExplicitStartEndEvents(diagram);
 		guidelines.add(explicitSEevent);
 		guidelines.add(new explicitGateways(diagram));
+		guidelines.add(new SplitAndJoinFlows(diagram));
 		setStatus();
 		if(explicitSEevent.getProcessName()!=null){
 			setProcessName(explicitSEevent.getProcessName());}

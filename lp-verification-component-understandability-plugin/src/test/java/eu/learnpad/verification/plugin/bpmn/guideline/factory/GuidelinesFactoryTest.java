@@ -22,6 +22,7 @@ public class GuidelinesFactoryTest {
 	public void testGuidelinesFactoryListOfRootElement() {
 		genarateTestforFile("ExplicitStartEndEvents.bpmn","16");
 		genarateTestforFile("annidategateway.bpmn","20");
+		genarateTestforFile("SplitAndJoinFlows.bpmn","21");
 	}
 	
 	private void genarateTestforFile(String NameFile,String id){
