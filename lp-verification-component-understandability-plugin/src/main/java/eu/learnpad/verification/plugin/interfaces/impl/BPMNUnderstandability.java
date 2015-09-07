@@ -61,6 +61,7 @@ public class BPMNUnderstandability implements Plugin {
 
 				// output pretty printed
 				jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+				jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
 
 				StringWriter w = new StringWriter();
 				jaxbMarshaller.marshal(eg, System.out);
