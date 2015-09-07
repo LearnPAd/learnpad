@@ -1,13 +1,13 @@
-Verification component plugin
+Verification understandability component plugin
 ====================
 
 Information   | Value
 ------------- | --------
-Component     | Verification Plugin
-Partner       | Unicam,ISTI-CNR
+Component     | Verification Understandability Plugin
+Partner       | Unicam, ISTI-CNR
 WP            | 4
 Responsible   | Andrea Polini <andrea.polini@unicam.it>
-Collaborators | Damiano Falcioni <damiano.falcioni@unicam.it>, Giorgio Spagnolo <spagnolo at isti.cnr.it>
+Collaborators | Giorgio Spagnolo [spagnolo at isti.cnr.it],  Damiano Falcioni <damiano.falcioni@unicam.it> 
 Roadmap       | http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Model+Verification
 
 # Summary
@@ -26,38 +26,34 @@ and define this MANIFEST.MF /src/main/resources/custom/MANIFEST.MF
 
 The output structure of the verification provided by this plugin is reported in the following:
 
-		<Result>
-			<ProcessName>Empty</ProcessName>
-   			<ProcessID>PROCESS_1</ProcessID>
-			<Status>Ok or not</Status>
-			<Description>Summary Description</Description>
+	<Result>
+			<ProcessName>Empty</ProcessName> ..name of process..
+   			<ProcessID>PROCESS_1</ProcessID> ..id of process..
+			<Status>Ok or not</Status> ..status of the verification..
+			<Description>Summary Description of result</Description>
 			<Guidelines>
-
-
-				<Guideline id="" name="">
-					<Description>..detailed description of the specific problem..</Description>
-					<Suggestion></Suggestion>
-					<Elements>
+				<Guideline id="" name=""> ..id and name of the guideline..
+					<Description>..detailed description of guideline..</Description>
+					<Suggestion>..suggestion of the specific problem..</Suggestion>
+					<Elements>..elements of the specific problem..
 						<ElementID>..bpmn object id..</ElementID>
 					</Elements>
 				</Guideline>
-
+				...
 				<Guideline id="" name="">
-					<Description>..detailed description of the specific problem..</Description>
-					<Suggestion></Suggestion>
-					<Elements>
+					<Description>..detailed description of guideline..</Description>
+					<Suggestion>..suggestion of the specific problem..</Suggestion>
+					<Elements>..elements of the specific problem..
 						<ElementID>..bpmn object id..</ElementID>
 					</Elements>
-				</Guideline>
-
-				
-						
+				</Guideline>	
+				...		
 			</Guidelines>
-		</Result>
+	</Result>
 
 In case of any error in the verification phase, the plugin output will look like in the following:
 
-		<Result>
+	<Result>
 			<Status>ERROR</Status>
 			<Description>..error message..</Description>
-		</Result>
+	</Result>
