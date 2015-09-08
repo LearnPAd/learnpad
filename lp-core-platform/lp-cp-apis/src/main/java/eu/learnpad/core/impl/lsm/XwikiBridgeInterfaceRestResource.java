@@ -22,6 +22,7 @@ package eu.learnpad.core.impl.lsm;
 import javax.inject.Named;
 
 import org.xwiki.component.annotation.Component;
+import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.lsm.BridgeInterface;
@@ -32,9 +33,8 @@ import eu.learnpad.core.rest.RestResource;
  * class should be implemented as a REST invocation
  * toward the BridgeInterface binded at the provided URL
  */
-@Component
-@Named("eu.learnpad.core.impl.lsm.XwikiBridgeInterfaceRestResource") 
-public class XwikiBridgeInterfaceRestResource extends RestResource implements BridgeInterface{
+ 
+public class XwikiBridgeInterfaceRestResource extends RestResource implements BridgeInterface {
 
 	public XwikiBridgeInterfaceRestResource() {
 		this("localhost",8080);
