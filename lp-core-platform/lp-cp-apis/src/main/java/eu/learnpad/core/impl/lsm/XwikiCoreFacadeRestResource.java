@@ -17,15 +17,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.core.impl.qm;
+package eu.learnpad.core.impl.lsm;
 
 import javax.inject.Named;
 
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
-import eu.learnpad.qm.CoreFacade;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.lsm.CoreFacade;
 import eu.learnpad.core.rest.RestResource;
 
 /*
@@ -51,17 +51,24 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 //		eu.learnpad.core.rest.RestResource
 		
 	}
-	
+
 	@Override
-	public void publish(String questionnairesId, String type,
-			byte[] questionnairesFile) throws LpRestExceptionImpl {
+	public void notifyLearningSessionStarted(String questionnaireId,
+			String[] emailList) throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void genrationCompleted(String questionnairesId)
-			throws LpRestExceptionImpl {
+	public void notifyLearningSessionCompleted(String questionnaireId,
+			String[] emailList) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void importModelSet(String questionnaireId, String[] emailList)
+			throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		
 	}

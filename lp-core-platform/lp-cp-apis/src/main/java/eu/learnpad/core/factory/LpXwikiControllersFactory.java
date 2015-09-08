@@ -19,6 +19,15 @@
  */
 package eu.learnpad.core.factory;
 
+
+/*
+ * Note probably this Factory in useless, In fact the XWIKI
+ * implementations for controllers will rely on the XWIKI architectural style
+ * described in : 
+ * @see http://extensions.xwiki.org/xwiki/bin/view/Extension/Component+Module
+ * 
+ * This factory (i.e. LpXwikiControllersFactory) will probably be dropped.
+*/
 public class LpXwikiControllersFactory extends LpControllersFactory {
 
 	@Override
@@ -31,9 +40,18 @@ public class LpXwikiControllersFactory extends LpControllersFactory {
 		return new eu.learnpad.core.impl.me.XwikiController(isBridgeInterfaceLocal);
 	}
 
+/*
+ * note that the parameter"isBridgeInterfaceLocal" is actually discarded by
+ * this method as the XWIKI implementations of the controllers will not
+ * rely on the constructors, but rather on the initialization features
+ * foreseen by the XWIKI architectural style about components. 
+ * @see http://extensions.xwiki.org/xwiki/bin/view/Extension/Component+Module#HComponentInitialization
+ * 
+ * @see eu.learnpad.core.factory.LpControllersFactory#createControllerQM(boolean)
+ */
 	@Override
 	public eu.learnpad.qm.Controller createControllerQM(boolean isBridgeInterfaceLocal) {
-		return new eu.learnpad.core.impl.qm.XwikiController(isBridgeInterfaceLocal);
+		return new eu.learnpad.core.impl.qm.XwikiController();
 	}
 
 	@Override
@@ -45,5 +63,6 @@ public class LpXwikiControllersFactory extends LpControllersFactory {
 	public eu.learnpad.sim.Controller createControllerSIM(boolean isBridgeInterfaceLocal) {
 		return new eu.learnpad.core.impl.sim.XwikiController(isBridgeInterfaceLocal);
 	}
+
 
 }

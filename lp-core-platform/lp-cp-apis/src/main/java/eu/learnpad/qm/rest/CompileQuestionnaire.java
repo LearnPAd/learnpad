@@ -34,10 +34,10 @@ public interface CompileQuestionnaire {
 	 * @throws LpRestException
 	 */
 	@GET
-	@Path("/learnpad/qm/create")
+	@Path("/create")
 	String createQuestionnaire() throws LpRestException;
 	
-	@Path("/learnpad/qm/add/{creationprocessid}")
+	@Path("/add/{creationprocessid}")
 	@GET
 	void addQuestionToQuestionnaire(@PathParam("creationprocessid") String creationProcessId,
 			@QueryParam("question") String question, @QueryParam("expectedanswer") String expectedAnswer)
@@ -46,7 +46,7 @@ public interface CompileQuestionnaire {
 /*
  * It should cause the invocation of eu.learnpad.qm.rest.PublishQuestionnaire:publish
  */
-	@Path("/learnpad/qm/finalize/{creationprocessid}")
+	@Path("/finalize/{creationprocessid}")
 	@GET
 	void finalizeQuestionnaire(@PathParam("creationprocessid") String creationProcessId,
 			@QueryParam("type") @DefaultValue("mothia-out") String type)
