@@ -19,7 +19,9 @@
  */
 package eu.learnpad.core.impl.lsm;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
+import javax.ws.rs.Path;
 
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
@@ -37,7 +39,9 @@ import eu.learnpad.lsm.Controller;
  *  
  */
 @Component
+@Named("eu.learnpad.core.impl.lsm.XwikiController")
 @Singleton
+@Path("/learnpad/lsm/corefacade")
 public class XwikiController extends Controller implements XWikiRestComponent{
 	/*
 	 * Note that in this Controller are still missing the references

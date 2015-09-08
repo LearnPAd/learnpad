@@ -4,4 +4,4 @@ eu.learnpad.core.impl.mv.XwikiBridge
 eu.learnpad.core.impl.cw.XwikiController
 eu.learnpad.core.impl.cw.XwikiBridge
 eu.learnpad.core.impl.qm.XwikiController
-eu.learnpad.core.impl.lsm.XwikiBridgeInterfaceRestResource
+eu.learnpad.core.impl.lsm.XwikiController

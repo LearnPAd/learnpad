@@ -31,7 +31,7 @@ public interface ModelSetImported {
 
 	//<host>/learnpad/qm/importmodelset/{modelsetid}?type={adoxx|md|lpzip}
 	@PUT
-	@Path("/learnpad/qm/importmodel/{modelsetid}")
+	@Path("/importmodel/{modelsetid}")
 	void importModelSet(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type")@DefaultValue("lpzip") String type, byte[] modelContent) throws LpRestException;
 	

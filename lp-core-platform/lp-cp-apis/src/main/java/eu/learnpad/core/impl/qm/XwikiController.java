@@ -46,7 +46,7 @@ import eu.learnpad.qm.Controller;
 @Component
 @Singleton
 @Named("eu.learnpad.core.impl.qm.XwikiController")
-@Path("/learnpad/qm")
+@Path("/learnpad/qm/corefacade")
 public class XwikiController extends Controller implements XWikiRestComponent, Initializable{
 
 	 /** A means of instantiating the inherited BridgeInterface. */
@@ -68,9 +68,9 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
  * code. In fact, this second case implies to rebuild the
  * whole platform at each change.	
  */
-	@Inject
-	@Named("eu.learnpad.core.impl.lsm.XwikiBridgeInterfaceRestResource")
-	private eu.learnpad.lsm.Bridge lsm;
+//	@Inject
+//	@Named("eu.learnpad.core.impl.lsm.XwikiBridgeInterfaceRestResource")
+	private eu.learnpad.lsm.BridgeInterface lsm;
 	
     public synchronized void updateBridgeInterface (BridgeInterface bi){
 		this.bridge = bi;    
@@ -94,16 +94,21 @@ System.err.println("Test");
 	  * to XWIKI (see  http://extensions.xwiki.org/xwiki/bin/view/Extension/Component+Module#HComponentInitialization).
 	  * Actually in this implementation we currently support only 
 	  * the class XwikiBridgeInterfaceRestResource, but other classes (such as XwikiBridgeInterface)
-	  * should be supported in the future*/
+	  * should be supported in the future
+	  * 
+	  * Not sure if we can consider the default constructor.*/
 	
 	@Override
 	public synchronized void initialize() throws InitializationException {
 		if (!this.initialized){
-			try {
-					this.bridge= this.manager.getInstance(XwikiBridgeInterfaceRestResource.class);
-	        	} catch (ComponentLookupException e) {
-	        		throw new InitializationException(e.getMessage(), e);
-	        }
+			this.bridge = new XwikiBridgeInterfaceRestResource();
+			this.lsm = new eu.learnpad.core.impl.lsm.XwikiBridgeInterfaceRestResource();
+//			try {
+//				this.bridge= this.manager.getInstance(XWikiRestComponent.class, "eu.learnpad.core.impl.qm.XwikiBridgeInterfaceRestResource");
+//				this.lsm = this.manager.getInstance(eu.learnpad.core.impl.lsm.XwikiBridgeInterfaceRestResource.class);
+//	        	} catch (ComponentLookupException e) {
+//	        		throw new InitializationException(e.getMessage(), e);
+//	        }
 			this.initialized=true;
 		}
 	}

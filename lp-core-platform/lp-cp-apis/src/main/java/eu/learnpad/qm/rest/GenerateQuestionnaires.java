@@ -42,11 +42,11 @@ public interface GenerateQuestionnaires {
 	 * @throws LpRestException
 	 */
 	@GET
-	@Path("/learnpad/qm/generate/{modelsetid}")
+	@Path("/generate/{modelsetid}")
 	String generateQuestionnaires(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type")@DefaultValue("mothia-out") String type, byte[] configurationFile) throws LpRestException;
 	
-	@Path("/learnpad/qm/generate/{generationprocessid}/status")
+	@Path("/generate/{generationprocessid}/status")
 	@GET
 	String getGenerationStatus(@PathParam("generationprocessid") String generationProcessId)
 			throws LpRestException;
