@@ -21,6 +21,7 @@
 package eu.learnpad.verification.plugin.pn;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PetriNet implements java.io.Serializable{
 
@@ -35,13 +36,15 @@ public class PetriNet implements java.io.Serializable{
 		public String x="0",y="0",w="40.0",h="40.0";
 		public ArrayList<TR> previousList = new ArrayList<TR>();
 		public ArrayList<TR> nextList = new ArrayList<TR>();
+		public HashMap<String, String> additionalInfoList = new HashMap<String, String>();
 		public PL(String name){
 			this.name = name.replaceAll("(\\W|_)+", "");
 		}
 		@SuppressWarnings("unchecked")
-		public ArrayList<TR> getPreviousList_safe(){ return (ArrayList<TR>) previousList.clone();}
+		public ArrayList<TR> getPreviousList_safe(){ return (ArrayList<TR>) previousList.clone(); }
 		@SuppressWarnings("unchecked")
-		public ArrayList<TR> getNextList_safe(){ return (ArrayList<TR>) nextList.clone();}
+		public ArrayList<TR> getNextList_safe(){ return (ArrayList<TR>) nextList.clone(); }
+		public void addInfo(String name, String value){ additionalInfoList.put(name, value); }
 	}
 	public class TR implements java.io.Serializable{
 		private static final long serialVersionUID = 6525281606058042758L;
@@ -50,33 +53,39 @@ public class PetriNet implements java.io.Serializable{
 		public String x="0",y="0",w="40.0",h="40.0";
 		public ArrayList<PL> previousList = new ArrayList<PL>();
 		public ArrayList<PL> nextList = new ArrayList<PL>();
+		public HashMap<String, String> additionalInfoList = new HashMap<String, String>();
 		public TR(String name){
 			this.name = name.replaceAll("(\\W|_)+", "");
 		}
 		@SuppressWarnings("unchecked")
-		public ArrayList<PL> getPreviousList_safe(){ return (ArrayList<PL>) previousList.clone();}
+		public ArrayList<PL> getPreviousList_safe(){ return (ArrayList<PL>) previousList.clone(); }
 		@SuppressWarnings("unchecked")
-		public ArrayList<PL> getNextList_safe(){ return (ArrayList<PL>) nextList.clone();}
+		public ArrayList<PL> getNextList_safe(){ return (ArrayList<PL>) nextList.clone(); }
+		public void addInfo(String name, String value){ additionalInfoList.put(name, value); }
 	}
 	public class TP implements java.io.Serializable{
 		private static final long serialVersionUID = 5691467102614286878L;
 		public TR source;
 		public PL target;
 		public int weight=1;
+		public HashMap<String, String> additionalInfoList = new HashMap<String, String>();
 		public TP(TR transition, PL place){
 			this.source = transition;
 			this.target = place;
 		}
+		public void addInfo(String name, String value){ additionalInfoList.put(name, value); }
 	}
 	public class PT implements java.io.Serializable{
 		private static final long serialVersionUID = -33230958480957514L;
 		public PL source;
 		public TR target;
 		public int weight=1;
+		public HashMap<String, String> additionalInfoList = new HashMap<String, String>();
 		public PT(PL place, TR transition){
 			this.source = place;
 			this.target = transition;
 		}
+		public void addInfo(String name, String value){ additionalInfoList.put(name, value); }
 	}
 	
 	public String name;
