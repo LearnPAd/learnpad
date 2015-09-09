@@ -13,8 +13,8 @@ function component_uninstall() {
     if [[ -z "${CATALINA_BASE+1}"  ]]; then
         echo please set CATALINA_BASE
     else
-    	rm -rf "${__CATALINA__WEB__}/lpcontentanalysiscomponent"*".war"
-    	rm -rf "${__CATALINA__WEB__}/lpcontentanalysiscomponent"
+    	rm -rf "${__CATALINA__WEB__}/lp-contentanalysis-component"*".war"
+    	rm -rf "${__CATALINA__WEB__}/lp-contentanalysis-component"
     	echo component deleted
     	
     fi
