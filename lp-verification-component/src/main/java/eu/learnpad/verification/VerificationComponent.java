@@ -228,7 +228,7 @@ public class VerificationComponent {
 		String model = loadedModelList.get(modelId);
 		if(model==null) {
 			if(_customGetModel==null)
-				throw new Exception("ERROR: customGetModel not defined. Please use the setCustomGetModelFunction function first");
+				throw new Exception("ERROR: can not retrive model with id " + modelId + "; customGetModel not defined. Please use the setCustomGetModelFunction function first");
 			model = _customGetModel.getModel(modelId);
 			if(model==null)
 				throw new Exception("ERROR: can not retrive model with id " + modelId);
@@ -249,10 +249,11 @@ public class VerificationComponent {
 	/*
 	public static void main(String[] args) {
 		try{
-			//String model = new String(IOUtils.readFile("D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_adoxx_1.xml"));
-			String model = new String(IOUtils.readFile("D:\\TOOLS\\curlData.xml"));
+			System.out.println(VerificationComponent.getSupportedVerifications()[1]);
+			String model = new String(IOUtils.readFile("D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_3.bpmn"));
+			//String model = new String(IOUtils.readFile("D:\\TOOLS\\curlData.xml"));
 			String mid = VerificationComponent.loadModel(model);
-			String vid = VerificationComponent.startSyncVerification(mid, VerificationComponent.getSupportedVerifications()[0]);
+			String vid = VerificationComponent.startSyncVerification(mid, VerificationComponent.getSupportedVerifications()[1]);
 			System.out.println(VerificationComponent.getVerificationStatus(vid));
 			try {
 				Thread.sleep(1000*3);

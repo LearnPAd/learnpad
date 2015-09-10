@@ -45,6 +45,7 @@
   		<groupId>eu.learnpad</groupId>
   		<artifactId>LPVerificationComponentDeadlockPlugin</artifactId>
   		<version>1.0</version>
+  		<classifier>jar-with-dependencies</classifier>
   		<scope>test</scope>
   		<optional>true</optional>
   	</dependency>
@@ -125,6 +126,7 @@
                   <artifactId>LPVerificationComponentDeadlockPlugin</artifactId>
                   <version>1.0</version>
                   <type>jar</type>
+                  <classifier>jar-with-dependencies</classifier>
                   <overWrite>true</overWrite>
                   <outputDirectory>${project.build.directory}/VerificationComponentPlugins</outputDirectory>
                 </artifactItem>

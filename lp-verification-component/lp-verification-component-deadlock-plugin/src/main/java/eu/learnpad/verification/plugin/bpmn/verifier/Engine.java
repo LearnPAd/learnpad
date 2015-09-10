@@ -43,7 +43,7 @@ public class Engine {
 	}
 	private void initializeLOLAEngine() throws Exception{
 		boolean isWindowsOS = System.getProperty("os.name").toLowerCase().contains("windows");
-		String tmpFolder = System.getProperty("java.io.tmpdir");
+		String tmpFolder = System.getProperty("java.io.tmpdir")+"/";
 		if(isWindowsOS){
 			if(!new File(tmpFolder + "lola-2.0-cygwin.exe").exists()){
 				IOUtils.writeFile(IOUtils.toByteArray(this.getClass().getResourceAsStream("exeLola/lola-2.0-cygwin.exe")), tmpFolder+"lola-2.0-cygwin.exe", false);
@@ -54,6 +54,7 @@ public class Engine {
 		} else {
 			if(!new File(tmpFolder + "lola").exists()){
 				IOUtils.writeFile(IOUtils.toByteArray(this.getClass().getResourceAsStream("exeLola/lola")), tmpFolder+"lola", false);
+				new File(tmpFolder + "lola").setExecutable(true);
 			}
 		}
 		
@@ -241,7 +242,7 @@ public class Engine {
 			//a = XMLUtils.escapeXPathField(a);
 			//Node b = (Node)XMLUtils.execXPath(t.getDocumentElement(), "//*[@a="+a+"]", XPathConstants.NODE);
 			
-			String bpmnUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_adoxx_2.xml";
+			String bpmnUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_3.bpmn";
 			String bpmnModel = new String(IOUtils.readFile(bpmnUrl));
 			
 			Engine engine = new Engine();

@@ -22,8 +22,12 @@ package eu.learnpad.verification.plugin.pn.modelcheckers;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.PrintStream;
 import java.util.ArrayList;
+
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.ExecuteWatchdog;
+import org.apache.commons.exec.PumpStreamHandler;
 
 import eu.learnpad.verification.plugin.pn.PetriNet;
 import eu.learnpad.verification.plugin.pn.PetriNet.PL;
@@ -32,13 +36,51 @@ import eu.learnpad.verification.plugin.utils.IOUtils;
 public class LOLA {
 	
 	public static String sync_getVerificationOutput(String lolaBinPath, String modelToVerify, String propertyToVerify) throws Exception{
+		
 		final int timeoutInMinutes = 5;
 		int cores = Runtime.getRuntime().availableProcessors();
-		String filePath = System.getProperty("java.io.tmpdir") + java.util.UUID.randomUUID() + ".lola";
+		String filePath = System.getProperty("java.io.tmpdir") + "/" + java.util.UUID.randomUUID() + ".lola";
+		IOUtils.writeFile(modelToVerify.getBytes(), filePath, false);
+		//IOUtils.writeFile(propertyToVerify.getBytes(), filePath+".ctl", false);
+
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	    CommandLine cmdLine = new CommandLine(lolaBinPath);
+	    //cmdLine.addArgument("--formula="+filePath+".ctl", false);
+	    cmdLine.addArgument("--formula="+propertyToVerify, false);
+	    cmdLine.addArgument("--threads=" + cores);
+	    cmdLine.addArgument("--search=cover");
+	    cmdLine.addArgument("-p");
+	    cmdLine.addArgument("-s");
+	    cmdLine.addArgument("-q");
+	    //cmdLine.addArgument("--path=\""+filePath+".out\"", false);
+	    //cmdLine.addArgument("--state=\""+filePath+".out\"", false);
+	    cmdLine.addArgument(filePath, false);
+	    //System.out.println(cmdLine.toString());
+	    
+	    DefaultExecutor exec = new DefaultExecutor();
+	    PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
+	    ExecuteWatchdog watchdog = new ExecuteWatchdog(1000*60*timeoutInMinutes);
+	    exec.setWatchdog(watchdog);
+	    exec.setStreamHandler(streamHandler);
+	    exec.setExitValue(0);
+	    exec.execute(cmdLine);
+	    
+	    String output = outputStream.toString();
+
+		if(output.equals("") || output.contains("aborting [#"))
+			throw new Exception("ERROR: LOLA internal error\nExec: " +cmdLine.toString() + "\nOutput:\n" + output);
+		new File(filePath).delete();
+		return output;
+		
+		/*
+		final int timeoutInMinutes = 5;
+		int cores = Runtime.getRuntime().availableProcessors();
+		String filePath = System.getProperty("java.io.tmpdir") + "/" + java.util.UUID.randomUUID() + ".lola";
 		IOUtils.writeFile(modelToVerify.getBytes(), filePath, false);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		PrintStream ps = new PrintStream(baos);
-		final Process proc = Runtime.getRuntime().exec(lolaBinPath + " --formula=\"" + propertyToVerify + "\" -p -s -q --threads=" + cores + " --search=cover " + filePath); // params: -p -s -q --json --threads=2 --search=cover
+		String runParams = lolaBinPath + " --formula=\"" + propertyToVerify + "\" -p -s -q --threads=" + cores + " --search=cover \"" + filePath + "\"";
+		final Process proc = Runtime.getRuntime().exec(runParams); // params: -p -s -q --json --threads=2 --search=cover
 		IOUtils.inheritIO(proc.getInputStream(), ps);
 		IOUtils.inheritIO(proc.getErrorStream(), ps);
 		Thread timerThread = new Thread() {
@@ -52,11 +94,13 @@ public class LOLA {
 	    timerThread.start();
 		proc.waitFor();
 		timerThread.interrupt();
-		new File(filePath).delete();
+
 		String output = baos.toString();
-		if(output.contains("aborting [#"))
-			throw new Exception("ERROR: LOLA internal error: " + output);
+		if(output.equals("") || output.contains("aborting [#"))
+			throw new Exception("ERROR: LOLA internal error\nExec: " +runParams + "\nOutput:\n" + output);
+		new File(filePath).delete();
 		return output;
+		*/
 	}
 
 	public static boolean isPropertyVerified(String lolaOutput){
