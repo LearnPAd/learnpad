@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?><object xmlns="http://www.xwiki.org">
+<className>XWiki.DocumentSheetBinding</className>
+	<property name="sheet" type="String"><value>LearnPAdCode.BaseElementSheet</value></property>
+</object>
