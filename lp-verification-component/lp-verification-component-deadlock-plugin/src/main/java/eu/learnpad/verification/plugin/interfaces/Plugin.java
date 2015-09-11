@@ -1,5 +1,5 @@
 /**
- * LearnPAd - Verification Component
+ * LearnPAd - Verification Component - Deadlock Check Plugin
  * 
  *  Copyright (C) 2015 Unicam
  *  This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@ public interface Plugin {
     
     /**
      * The method perform the verification specified over the provided model. The verification have to be done in a synchronous way. Asynchronous support is provided by the verification component that manage the plugins.
-     * @param    model   The model to verify (currently the model passed is the full ADOxx LearnPAd xml)
+     * @param    model   The model to verify as(currently the model passed is the full ADOxx LearnPAd xml)
      * @param    type    The type of verification to perform; one provided by the method getVerificationTypeProvided
      * @return   The verification result in XML format. The root element have to be <Result></Result> 
      */

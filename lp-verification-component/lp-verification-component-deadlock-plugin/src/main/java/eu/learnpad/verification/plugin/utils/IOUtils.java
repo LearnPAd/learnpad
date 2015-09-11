@@ -1,5 +1,5 @@
 /**
- * LearnPAd - Verification Component
+ * LearnPAd - Verification Component - Deadlock Check Plugin
  * 
  *  Copyright (C) 2015 Unicam
  *  This program is free software: you can redistribute it and/or modify
@@ -18,14 +18,16 @@
  * @author Damiano Falcioni - Unicam <damiano.falcioni@gmail.com>
  */
 
-package eu.learnpad.verification.utils;
+package eu.learnpad.verification.plugin.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.io.RandomAccessFile;
+import java.util.Scanner;
 
 public class IOUtils {
 
@@ -46,6 +48,18 @@ public class IOUtils {
         raf.read(ret);
         raf.close();
         return ret;
+    }
+    
+    public static void inheritIO(final InputStream src, final PrintStream dest) {
+        new Thread(new Runnable() {
+            public void run() {
+                Scanner sc = new Scanner(src);
+                while (sc.hasNextLine()) {
+                    dest.println(sc.nextLine());
+                }
+                sc.close();
+            }
+        }).start();
     }
     
     public static void copyInputStreamToOutputStream(InputStream input, OutputStream output) throws Exception{

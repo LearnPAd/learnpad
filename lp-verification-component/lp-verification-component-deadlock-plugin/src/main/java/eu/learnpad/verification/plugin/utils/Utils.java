@@ -1,5 +1,5 @@
 /**
- * LearnPAd - Verification Component
+ * LearnPAd - Verification Component - Deadlock Check Plugin
  * 
  *  Copyright (C) 2015 Unicam
  *  This program is free software: you can redistribute it and/or modify
@@ -18,11 +18,12 @@
  * @author Damiano Falcioni - Unicam <damiano.falcioni@gmail.com>
  */
 
-package eu.learnpad.verification.utils;
+package eu.learnpad.verification.plugin.utils;
 
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -38,6 +39,18 @@ public class Utils {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         return sdf.parse(dateTime);
+    }
+    
+    public static <T> T[] concatenate (T[] a, T[] b) {
+        int aLen = a.length;
+        int bLen = b.length;
+
+        @SuppressWarnings("unchecked")
+        T[] c = (T[]) Array.newInstance(a.getClass().getComponentType(), aLen+bLen);
+        System.arraycopy(a, 0, c, 0, aLen);
+        System.arraycopy(b, 0, c, aLen, bLen);
+
+        return c;
     }
     
     public enum LogType{

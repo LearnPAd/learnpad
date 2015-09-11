@@ -1,5 +1,5 @@
 /**
- * LearnPAd - Verification Component
+ * LearnPAd - Verification Component - Deadlock Check Plugin
  * 
  *  Copyright (C) 2015 Unicam
  *  This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
  * @author Damiano Falcioni - Unicam <damiano.falcioni@gmail.com>
  */
 
-package eu.learnpad.verification.utils;
+package eu.learnpad.verification.plugin.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -28,6 +28,8 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
@@ -114,6 +116,20 @@ public class XMLUtils {
         }
         field = field.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;").replaceAll("'", "&apos;");
         return field;
+    }
+    
+    public static String escapeXPathField(String field) {
+        Matcher matcher = Pattern.compile("['\"]").matcher(field);
+        StringBuilder buffer = new StringBuilder("concat(");
+        int start = 0;
+        while (matcher.find()) {
+            buffer.append("'").append(field.substring(start, matcher.start())).append("',");
+            buffer.append("'".equals(matcher.group()) ? "\"'\"," : "'\"',");
+            start = matcher.end();
+        }
+        if (start == 0)
+            return "'" + field + "'";
+        return buffer.append("'").append(field.substring(start)).append("'").append(")").toString();
     }
     
     public static Object execXPath(org.w3c.dom.Node node, String pattern, QName xPathConstantsType) throws Exception{
