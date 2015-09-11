@@ -1,0 +1,10 @@
+curl -X GET http://localhost:8080/contentanalysis/learnpad/ca/validatecollaborativecontent/test/ciao
+
+curl -X GET http://localhost:8080/contentanalysis/learnpad/ca/validatecollaborativecontent/
+
+curl -X POST -H "Content-Type: application/XML" --data @CollaborativeContentXML.xml http://localhost:8080/contentanalysis/learnpad/ca/validatecollaborativecontent/
+
+curl -X POST -H "Content-Type: application/XML" --data @StaticContentXML.xml http://localhost:8080/contentanalysis/learnpad/ca/validatestaticcontent/
+
+
+

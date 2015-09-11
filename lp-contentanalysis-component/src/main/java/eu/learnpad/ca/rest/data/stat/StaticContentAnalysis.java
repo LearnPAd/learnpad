@@ -1,4 +1,4 @@
-package eu.learnpad.ca.rest.data.collaborative;
+package eu.learnpad.ca.rest.data.stat;
 
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -9,25 +9,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import eu.learnpad.ca.rest.data.QualityCriteria;
+import eu.learnpad.ca.rest.data.collaborative.CollaborativeContent;
 
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
 		"language",
-    "collaborativeContent",
+    "staticContent",
     "qualityCriteria"
 })
-@XmlRootElement(name = "CollaborativeContentAnalysis")
-public class CollaborativeContentAnalysis {
+@XmlRootElement(name = "StaticContentAnalysis")
+public class StaticContentAnalysis {
 
 	@XmlAttribute(name = "language", required = true)
 	protected String language;
-    @XmlElement(name = "CollaborativeContent", required = true)
-    protected CollaborativeContent collaborativeContent;
+    @XmlElement(name = "StaticContent", required = true)
+    protected StaticContent staticContent;
     @XmlElement(name = "QualityCriteria", required = true)
     protected QualityCriteria qualityCriteria;
-
     
     /**
      * Get the value of language.
@@ -54,27 +54,27 @@ public class CollaborativeContentAnalysis {
     }
     
     /**
-     * Get the value of collaborativeContent.
+     * Get the value of staticContent.
      * 
      * @return
      *     possible object is
      *     {@link CollaborativeContent }
      *     
      */
-    public CollaborativeContent getCollaborativeContent() {
-        return collaborativeContent;
+    public StaticContent getStaticContent() {
+        return staticContent;
     }
 
     /**
-     * Set the value of collaborativeContent.
+     * Set the value of staticContent.
      * 
      * @param value
      *     allowed object is
      *     {@link CollaborativeContent }
      *     
      */
-    public void setCollaborativeContent(CollaborativeContent value) {
-        this.collaborativeContent = value;
+    public void setStaticContent(StaticContent value) {
+        this.staticContent = value;
     }
 
     /**
@@ -103,8 +103,8 @@ public class CollaborativeContentAnalysis {
 
 	@Override
 	public String toString() {
-		return "CollaborativeContentAnalysis [collaborativeContent="
-				+ collaborativeContent + ", qualityCriteria=" + qualityCriteria
+		return "StaticContentAnalysis [staticContent="
+				+ staticContent + ", qualityCriteria=" + qualityCriteria
 				+ "]";
 	}
 
