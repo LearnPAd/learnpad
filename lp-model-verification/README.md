@@ -26,5 +26,5 @@ No configuration needed but inside the jar (in eu/learnpad/verification/utils/) 
 The main class that expose verification API is eu.learnpad.verification.VerificationComponent described here: https://github.com/damianofalcioni/learnpad/blob/master/lp-verification-component/src/main/java/eu/learnpad/verification/VerificationComponent.java
 The class the implement REST interface and execute the Grizzly internal web server is eu.learnpad.verification.JAXRSService described here: https://github.com/damianofalcioni/learnpad/blob/master/lp-verification-component/src/main/java/eu/learnpad/verification/JAXRSService.java
 
-
+The service is available at `localhost:9998/rest`.
 
