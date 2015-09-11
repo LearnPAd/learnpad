@@ -31,74 +31,74 @@ import eu.learnpad.verification.plugin.utils.XMLUtils;
 
 public class PNVerifier implements Plugin {
 
-	@Override
-	public String[] getVerificationTypeProvided() {
-		return new String[]{"ONE DEADLOCK", "ALL DEADLOCKS", "END PLACES UNBOUNDEDNESS", "ALL PLACES UNBOUNDEDNESS"};
-	}
+    @Override
+    public String[] getVerificationTypeProvided() {
+        return new String[]{"ONE DEADLOCK", "ALL DEADLOCKS", "END PLACES UNBOUNDEDNESS", "ALL PLACES UNBOUNDEDNESS"};
+    }
 
-	@Override
-	public String performVerification(String model, String type) {
+    @Override
+    public String performVerification(String model, String type) {
 
-		String ret = "";
-		try{
-			Engine engine = new Engine();
-			if(type.equals("ONE DEADLOCK")){
-				ret = engine.verifyDeadlock(model, false);
-			} else if(type.equals("ALL DEADLOCKS")){
-				ret = engine.verifyDeadlock(model, true);
-			} else if(type.equals("END PLACES UNBOUNDEDNESS")){
-				ret = engine.verifyUnboundedness(model, false);
-			} else if(type.equals("ALL PLACES UNBOUNDEDNESS")){
-				ret = engine.verifyUnboundedness(model, true);
-			} else
-				throw new Exception("ERROR: Verification type " + type + " not supported.");
-		}catch(Exception ex){
-			ex.printStackTrace();
-			Utils.log(ex);
-			Utils.log("\nModel involved in the exception:\n"+model, LogType.ERROR);
-			ret = "<Result><Status>ERROR</Status><Description>"+ex.getMessage()+"</Description></Result>";
-		}
-		return ret;
-	}
-	
-	public static void main(String[] args) {
-		try{
-			String fileName = PNVerifier.class.getName();
-			String filePath = PNVerifier.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-			if(!new File(filePath).isDirectory())
-				fileName = filePath.substring(filePath.lastIndexOf("/")+1, filePath.length());
-			if(args.length==0) {
-				System.out.println("Usage:\njava -jar " + fileName + " command\n\ncommand:\n\t--showAvailableVerifications\n\t--performVerification verificationType modelPath");
-				return;
-			}
-			
-			if(args[0].equals("--showAvailableVerifications")) {
-				String[] retList = new PNVerifier().getVerificationTypeProvided();
-				for(String ret:retList)
-					System.out.println(ret);
-				return;
-			}
-			if(args[0].equals("--performVerification")) {
-				if(args.length!=3){
-					System.out.println("ERROR: expected --performVerification verificationType modelPath");
-					return;
-				}
-				String verificationType = args[1];
-				String modelPath = args[2];
-				String model = new String(IOUtils.readFile(modelPath));
-				String result = new PNVerifier().performVerification(model, verificationType);
-				String resultXml = "<VerificationResult><VerificationType>"+verificationType+"</VerificationType><VerificationID></VerificationID><ModelID>"+modelPath+"</ModelID><Time>"+Utils.getUTCTime()+"</Time><Results>"+result+"</Results></VerificationResult>";
-	    		try{
-	    			XMLUtils.getXmlDocFromString(resultXml);
-	    		}catch(Exception e){
-	    			resultXml = "<VerificationResult><VerificationType>"+verificationType+"</VerificationType><VerificationID></VerificationID><ModelID>"+modelPath+"</ModelID><Time>"+Utils.getUTCTime()+"</Time><Results><Result><Status>ERROR</Status><Description>ERROR: The result is not a valid XML</Description></Result></Results></VerificationResult>";
-	    			Utils.log("ERROR: The result is not a valid XML:\n"+resultXml, LogType.ERROR);
-	    		}
-				
-				System.out.println(resultXml);
-				return;
-			}
-		}catch(Exception ex){Utils.log(ex);}
-	}
-	
+        String ret = "";
+        try{
+            Engine engine = new Engine();
+            if(type.equals("ONE DEADLOCK")){
+                ret = engine.verifyDeadlock(model, false);
+            } else if(type.equals("ALL DEADLOCKS")){
+                ret = engine.verifyDeadlock(model, true);
+            } else if(type.equals("END PLACES UNBOUNDEDNESS")){
+                ret = engine.verifyUnboundedness(model, false);
+            } else if(type.equals("ALL PLACES UNBOUNDEDNESS")){
+                ret = engine.verifyUnboundedness(model, true);
+            } else
+                throw new Exception("ERROR: Verification type " + type + " not supported.");
+        }catch(Exception ex){
+            ex.printStackTrace();
+            Utils.log(ex);
+            Utils.log("\nModel involved in the exception:\n"+model, LogType.ERROR);
+            ret = "<Result><Status>ERROR</Status><Description>"+ex.getMessage()+"</Description></Result>";
+        }
+        return ret;
+    }
+    
+    public static void main(String[] args) {
+        try{
+            String fileName = PNVerifier.class.getName();
+            String filePath = PNVerifier.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+            if(!new File(filePath).isDirectory())
+                fileName = filePath.substring(filePath.lastIndexOf("/")+1, filePath.length());
+            if(args.length==0) {
+                System.out.println("Usage:\njava -jar " + fileName + " command\n\ncommand:\n\t--showAvailableVerifications\n\t--performVerification verificationType modelPath");
+                return;
+            }
+            
+            if(args[0].equals("--showAvailableVerifications")) {
+                String[] retList = new PNVerifier().getVerificationTypeProvided();
+                for(String ret:retList)
+                    System.out.println(ret);
+                return;
+            }
+            if(args[0].equals("--performVerification")) {
+                if(args.length!=3){
+                    System.out.println("ERROR: expected --performVerification verificationType modelPath");
+                    return;
+                }
+                String verificationType = args[1];
+                String modelPath = args[2];
+                String model = new String(IOUtils.readFile(modelPath));
+                String result = new PNVerifier().performVerification(model, verificationType);
+                String resultXml = "<VerificationResult><VerificationType>"+verificationType+"</VerificationType><VerificationID></VerificationID><ModelID>"+modelPath+"</ModelID><Time>"+Utils.getUTCTime()+"</Time><Results>"+result+"</Results></VerificationResult>";
+                try{
+                    XMLUtils.getXmlDocFromString(resultXml);
+                }catch(Exception e){
+                    resultXml = "<VerificationResult><VerificationType>"+verificationType+"</VerificationType><VerificationID></VerificationID><ModelID>"+modelPath+"</ModelID><Time>"+Utils.getUTCTime()+"</Time><Results><Result><Status>ERROR</Status><Description>ERROR: The result is not a valid XML</Description></Result></Results></VerificationResult>";
+                    Utils.log("ERROR: The result is not a valid XML:\n"+resultXml, LogType.ERROR);
+                }
+                
+                System.out.println(resultXml);
+                return;
+            }
+        }catch(Exception ex){Utils.log(ex);}
+    }
+    
 }
