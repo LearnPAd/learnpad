@@ -1,7 +1,7 @@
-[![Build
+* *Builds* [![Build
 Status](https://travis-ci.org/LearnPAd/learnpad.svg?branch=master)](https://travis-ci.org/LearnPAd/learnpad)
-[![Coveralls](https://coveralls.io/repos/LearnPAd/learnpad/badge.svg)](https://coveralls.io/r/LearnPAd/learnpad)
-[![Code
+* *Coverage* [![Coveralls](https://coveralls.io/repos/LearnPAd/learnpad/badge.svg)](https://coveralls.io/r/LearnPAd/learnpad)
+* *Quality (only Javascript)* [![Code
 Climate](https://codeclimate.com/github/LearnPAd/learnpad/badges/gpa.svg)](https://codeclimate.com/github/LearnPAd/learnpad)
 [![Codacy
 Badge](https://www.codacy.com/project/badge/614d864cf4d44c5ba52b5df40f9812c6)](https://www.codacy.com/app/woshilapin/learnpad)
