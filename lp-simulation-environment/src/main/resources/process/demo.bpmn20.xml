@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  #%L
+  LearnPAd Simulator
+  %%
+  Copyright (C) 2014 - 2015 Linagora
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  #L%
+  -->
+
+<definitions id="definitions-demo"
+	     targetNamespace="http://activiti.org/bpmn20"
+	     xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	     xmlns:activiti="http://activiti.org/bpmn"
+	     xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+	     xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+	     xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI">
+
+  <process id="SCIArequestDemo" name="SCIA request demo">
+
+    <startEvent id="request">
+      <extensionElements>
+		<activiti:formProperty id="entrepreneur" name="Entrepreneur" type="string" required="true"/>
+		<activiti:formProperty id="document" name="Entrepreneur document" type="enum" required="true">
+			<activiti:value id="example_document_valid" name="Valid document" />
+			<activiti:value id="example_document_invalid" name="Invalid document" />
+		</activiti:formProperty>
+     </extensionElements>
+    </startEvent>
+
+    <sequenceFlow id="flow1" sourceRef="request" targetRef="processIntegration-fork" />
+
+    <parallelGateway id="processIntegration-fork"/>
+    <sequenceFlow id="flow2" sourceRef="processIntegration-fork" targetRef="sendIntegrationToAdministrationInCharge" />
+    <sequenceFlow id="flow3" sourceRef="processIntegration-fork" targetRef="doChecks" />
+
+    <userTask id="sendIntegrationToAdministrationInCharge" name="Send Integration to Administration in charge" >
+      <documentation>
+        ${entrepreneur} sent requested integration documents.
+        attached document: <![CDATA[<a href='resources/files/${document}.pdf' target='_blank'>Entrepreneur document</a>]]>
+      </documentation>
+      <extensionElements>
+	<activiti:formProperty id="integrationApproved" name="Have the integration receipt been validated by competent offices?" type="enum" required="true">
+	  <activiti:value id="true" name="Approved" />
+	  <activiti:value id="false" name="Rejected" />
+	</activiti:formProperty>
+      </extensionElements>
+      <potentialOwner>
+	<resourceAssignmentExpression>
+	  <formalExpression>SUAP</formalExpression>
+	</resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <sequenceFlow id="flow4" sourceRef="sendIntegrationToAdministrationInCharge" targetRef="processIntegration-join"/>
+
+    <userTask id="doChecks" name="Do Checks" >
+      <documentation>
+        We need to check the following integration documents:
+        <![CDATA[<a href='resources/files/${document}.pdf' target='_blank'>Entrepreneur document</a>]]>
+      </documentation>
+      <extensionElements>
+	<activiti:formProperty id="integrationChecked" name="Do you confirm the integration documents are correct?"  type="enum" required="true">
+	  <activiti:value id="true" name="Confirm" />
+	  <activiti:value id="false" name="Reject" />
+	</activiti:formProperty>
+      </extensionElements>
+      <potentialOwner>
+	<resourceAssignmentExpression>
+	  <formalExpression>otherOffice</formalExpression>
+	</resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <sequenceFlow id="flow5" sourceRef="doChecks" targetRef="processIntegration-join"/>
+
+    <parallelGateway id="processIntegration-join"/>
+    <sequenceFlow id="flow6" sourceRef="processIntegration-join" targetRef="validateIntegration"/>
+
+    <userTask id="validateIntegration" name="Decide whether the integration is valid or not">
+      <documentation>
+        Here are the results for the integration documents of ${entrepreneur}.
+        Integration approved : ${integrationApproved}
+        Integration checked : ${integrationChecked}
+      </documentation>
+      <extensionElements>
+		<activiti:formProperty id="integrationValidated" name="Do you validate the integration?"  type="enum" required="true">
+	  <activiti:value id="true" name="Validate" />
+	  <activiti:value id="false" name="Reject" />
+	</activiti:formProperty>
+      </extensionElements>
+      <potentialOwner>
+	<resourceAssignmentExpression>
+	  <formalExpression>SUAP</formalExpression>
+	</resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <sequenceFlow id="flow7" sourceRef="validateIntegration" targetRef="sendAuthorizationDocuments">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${integrationValidated == 'true'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="validateIntegration" targetRef="sendInhibition">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${integrationValidated == 'false'}]]></conditionExpression>
+    </sequenceFlow>
+
+    <userTask id="sendAuthorizationDocuments" name="Send Authorization Documents">
+      <documentation>
+        The integration documents for ${entrepreneur} have been validated.
+      </documentation>
+      <extensionElements>
+	<activiti:formProperty id="authorizationDocuments" name="Authorization Document" type="string" required="true"/>
+      </extensionElements>
+      <potentialOwner>
+	<resourceAssignmentExpression>
+	  <formalExpression>SUAP</formalExpression>
+	</resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <sequenceFlow id="flow9" sourceRef="sendAuthorizationDocuments" targetRef="validatedEnd" />
+    <endEvent id="validatedEnd" />
+
+    <userTask id="sendInhibition" name="Send Inhibition">
+      <documentation>
+        The integration documents for ${entrepreneur} have been invalidated.
+      </documentation>
+      <extensionElements>
+	<activiti:formProperty id="inhibitionReason" name="Inhibition Reason" type="string" required="true"/>
+      </extensionElements>
+      <potentialOwner>
+	<resourceAssignmentExpression>
+	  <formalExpression>SUAP</formalExpression>
+	</resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <sequenceFlow id="flow10" sourceRef="sendInhibition" targetRef="replyToComment" />
+
+    <userTask id="replyToComment" name="Reply to comment">
+      <documentation>
+        ${entrepreneur} commented on the case invalidation:
+        Could you provide more details about why my case was invalidated?
+      </documentation>
+      <extensionElements>
+	    <activiti:formProperty id="answer" name="Comment Answer" type="string" required="true"/>
+      </extensionElements>
+      <potentialOwner>
+	    <resourceAssignmentExpression>
+	      <formalExpression>SUAP</formalExpression>
+	    </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <sequenceFlow id="flow11" sourceRef="replyToComment" targetRef="invalidatedEnd" />
+    <endEvent id="invalidatedEnd" />
+  </process>
+
+  <bpmndi:BPMNDiagram id="BPMNDiagram_SCIArequestDemo">
+    <bpmndi:BPMNPlane bpmnElement="SCIArequestDemo" id="BPMNPlane_SCIArequestDemo">
+      <bpmndi:BPMNShape bpmnElement="request" id="BPMNShape_request">
+        <omgdc:Bounds height="35.0" width="35.0" x="0.0" y="92.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="processIntegration-fork" id="BPMNShape_processIntegration-fork">
+        <omgdc:Bounds height="40.0" width="40.0" x="80.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sendIntegrationToAdministrationInCharge" id="BPMNShape_sendIntegrationToAdministrationInCharge">
+        <omgdc:Bounds height="71.0" width="105.0" x="167.0" y="155.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="doChecks" id="BPMNShape_doChecks">
+        <omgdc:Bounds height="60.0" width="100.0" x="170.0" y="0.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="processIntegration-join" id="BPMNShape_processIntegration-join">
+        <omgdc:Bounds height="40.0" width="40.0" x="320.0" y="90.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="validateIntegration" id="BPMNShape_validateIntegration">
+        <omgdc:Bounds height="73.0" width="105.0" x="410.0" y="74.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sendAuthorizationDocuments" id="BPMNShape_sendAuthorizationDocuments">
+        <omgdc:Bounds height="60.0" width="100.0" x="560.0" y="0.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="validatedEnd" id="BPMNShape_validatedEnd">
+        <omgdc:Bounds height="35.0" width="35.0" x="742.0" y="13.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sendInhibition" id="BPMNShape_sendInhibition">
+        <omgdc:Bounds height="60.0" width="100.0" x="560.0" y="161.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="replyToComment" id="BPMNShape_replyToComment">
+        <omgdc:Bounds height="60.0" width="100.0" x="710.0" y="161.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="invalidatedEnd" id="BPMNShape_invalidatedEnd">
+        <omgdc:Bounds height="35.0" width="35.0" x="860.0" y="173.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="35.0" y="109.0"></omgdi:waypoint>
+        <omgdi:waypoint x="80.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="120.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="132.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="132.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="167.0" y="190.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="120.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="132.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="132.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="170.0" y="30.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="272.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="282.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="282.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="270.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="282.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="282.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="360.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="410.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="515.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="97.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="30.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="515.0" y="110.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="122.0"></omgdi:waypoint>
+        <omgdi:waypoint x="522.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="191.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="660.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="672.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="672.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="742.0" y="30.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="660.0" y="191.0"></omgdi:waypoint>
+        <omgdi:waypoint x="672.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="710.0" y="191.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="810.0" y="191.0"></omgdi:waypoint>
+        <omgdi:waypoint x="860.0" y="190.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

@@ -67,19 +67,7 @@
 		</dependency>
 		<dependency>
 			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cp-controllers-server</artifactId>
-			<version>${learnpad.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-bridge-api</artifactId>
-			<version>${learnpad.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-bridge-server</artifactId>
+			<artifactId>lp-cp-apis</artifactId>
 			<version>${learnpad.version}</version>
 			<type>jar</type>
 		</dependency>

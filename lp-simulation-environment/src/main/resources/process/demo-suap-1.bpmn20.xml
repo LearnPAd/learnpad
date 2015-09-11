@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  LearnPAd Simulator
+  %%
+  Copyright (C) 2014 - 2015 Linagora
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  #L%
+  -->
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <collaboration id="Collaboration">
+    <participant id="pool1" name="SUAP Office" processRef="SUAPdemo"></participant>
+    <participant id="pool2" name="Other Office" processRef="process_pool2"></participant>
+  </collaboration>
+  <process id="SUAPdemo" name="SUAP Demo" isExecutable="true">
+    <laneSet id="laneSet_SUAPdemo">
+      <lane id="lane1">
+        <flowNodeRef>startevent1</flowNodeRef>
+        <flowNodeRef>usertask1</flowNodeRef>
+        <flowNodeRef>usertask2</flowNodeRef>
+        <flowNodeRef>usertask3</flowNodeRef>
+        <flowNodeRef>usertask4</flowNodeRef>
+        <flowNodeRef>endevent1</flowNodeRef>
+        <flowNodeRef>exclusivegateway2</flowNodeRef>
+        <flowNodeRef>usertask6</flowNodeRef>
+        <flowNodeRef>endevent2</flowNodeRef>
+        <flowNodeRef>endevent3</flowNodeRef>
+        <flowNodeRef>usertask8</flowNodeRef>
+        <flowNodeRef>applicationAdmissibleGateway</flowNodeRef>
+      </lane>
+    </laneSet>
+    <laneSet id="laneSet_process_pool2">
+      <lane id="lane3">
+        <flowNodeRef>usertask5</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="entrepreneur" name="Entrepreneur" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="document" name="Entrepreneur document" type="enum" required="true">
+          <activiti:value id="example_document_valid" name="Valid document"></activiti:value>
+          <activiti:value id="example_document_invalid" name="Invalid document"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <userTask id="usertask1" name="Deep Data Check" activiti:candidateUsers="SUAP">
+      <documentation>${entrepreneur} has sent the following application for a business start-up certified notification:
+&lt;a href='resources/files/SCIAForm.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;SCIA Form&lt;/a&gt;
+&lt;span&gt;&lt;a href='resources/files/Autodichiarazione%20di%20Requisiti%20Morali%20e%20Professionali.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;Self-Declaration of moral and professional requirements&lt;/a&gt;</documentation>
+      <extensionElements>
+        <activiti:formProperty id="food_sector" name="Food sector related checks done?" type="boolean" required="true"></activiti:formProperty>
+        <activiti:formProperty id="driving_school_sector" name="Driving school sector related checks done?" type="boolean" required="true"></activiti:formProperty>
+        <activiti:formProperty id="is_foreigner" name="Foreigner related checks done?" type="boolean" required="true"></activiti:formProperty>
+        <activiti:formProperty id="moral_professional_requirement" name="Self-Declaration of moral and professional requirements checks done?" type="boolean" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fuel_sector" name="Fuel sector related checks done?" type="boolean" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fixed_location" name="Fixed location activity related checks done?" type="boolean" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
+    <userTask id="usertask2" name="SCIA Application Verification" activiti:candidateUsers="SUAP">
+      <documentation>Do you confirm that the business start-up application is admissible?</documentation>
+      <extensionElements>
+        <activiti:formProperty id="applicationAdmissible" name="Is the application admissible?" type="enum" required="true">
+          <activiti:value id="true" name="Admissible"></activiti:value>
+          <activiti:value id="false" name="Not admissible"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="usertask2"></sequenceFlow>
+    <exclusiveGateway id="applicationAdmissibleGateway" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow3" sourceRef="usertask2" targetRef="applicationAdmissibleGateway"></sequenceFlow>
+    <userTask id="usertask3" name="Send Communication of Non-Admissibility" activiti:candidateUsers="SUAP">
+      <documentation>Inform ${entrepreneur} of the reason(s) of the application non-admissibility.</documentation>
+      <extensionElements>
+        <activiti:formProperty id="applicationRejectionMsg" name="Application Rejection Message" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow4" sourceRef="applicationAdmissibleGateway" targetRef="usertask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationAdmissible == 'false'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="usertask4" name="Send Check Request" activiti:candidateUsers="SUAP">
+      <documentation>You need to request a check from another office regarding the validity for the application documents.</documentation>
+      <extensionElements>
+        <activiti:formProperty id="applicationCheckBeginMsg" name="Application Check Request Message" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow5" sourceRef="applicationAdmissibleGateway" targetRef="usertask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationAdmissible == 'true'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="usertask4" targetRef="usertask5"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow7" sourceRef="usertask3" targetRef="endevent1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <userTask id="usertask6" name="Send Prohibition to Continue Activity" activiti:candidateUsers="SUAP">
+      <documentation>Inform ${entrepreneur} of the reason(s) for the application rejection.</documentation>
+      <extensionElements>
+        <activiti:formProperty id="applicationRejectionMsg" name="Application Rejection Message" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow9" sourceRef="exclusivegateway2" targetRef="usertask6">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationValid == 'false'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow10" sourceRef="usertask6" targetRef="endevent2"></sequenceFlow>
+    <endEvent id="endevent3" name="End"></endEvent>
+    <userTask id="usertask8" name="Validate Application" activiti:candidateUsers="SUAP">
+      <documentation>Here are the result of the requested documents check for the application of ${entrepreneur}:
+Other office answered: &lt;b&gt;${otheroffice_opinion}&lt;/b&gt;</documentation>
+      <extensionElements>
+        <activiti:formProperty id="applicationValid" name="Do you validate the application?" type="enum" required="true">
+          <activiti:value id="true" name="Validate application"></activiti:value>
+          <activiti:value id="false" name="Invalidate application"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow14" sourceRef="usertask8" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow15" sourceRef="exclusivegateway2" targetRef="endevent3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationValid == 'true'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="usertask5" name="Do Check" activiti:candidateUsers="otherOffice">
+      <documentation>SUAP office send you the following message:
+&lt;b&gt;${applicationCheckBeginMsg}&lt;/b&gt;
+Related documents: &lt;span&gt;&lt;a href='resources/files/SCIAForm.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;${entrepreneur} application document&lt;/a&gt;</documentation>
+      <extensionElements>
+        <activiti:formProperty id="otheroffice_opinion" name="Your Opinion" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow13" sourceRef="usertask5" targetRef="usertask8"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
+    <bpmndi:BPMNPlane bpmnElement="Collaboration" id="BPMNPlane_Collaboration">
+      <bpmndi:BPMNShape bpmnElement="pool1" id="BPMNShape_pool1">
+        <omgdc:Bounds height="250.0" width="1241.0" x="10.0" y="10.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="lane1" id="BPMNShape_lane1">
+        <omgdc:Bounds height="250.0" width="1221.0" x="30.0" y="10.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="pool2" id="BPMNShape_pool2">
+        <omgdc:Bounds height="150.0" width="1241.0" x="10.0" y="290.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="lane3" id="BPMNShape_lane3">
+        <omgdc:Bounds height="150.0" width="1221.0" x="30.0" y="290.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="80.0" y="128.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="91.0" width="105.0" x="160.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="91.0" width="105.0" x="310.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="applicationAdmissibleGateway" id="BPMNShape_applicationAdmissibleGateway">
+        <omgdc:Bounds height="40.0" width="40.0" x="460.0" y="125.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+        <omgdc:Bounds height="91.0" width="105.0" x="545.0" y="50.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
+        <omgdc:Bounds height="91.0" width="105.0" x="545.0" y="155.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="700.0" y="78.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="910.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask6" id="BPMNShape_usertask6">
+        <omgdc:Bounds height="91.0" width="105.0" x="1020.0" y="50.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="1190.0" y="78.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="1055.0" y="183.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask8" id="BPMNShape_usertask8">
+        <omgdc:Bounds height="91.0" width="105.0" x="760.0" y="155.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
+        <omgdc:Bounds height="81.0" width="105.0" x="660.0" y="330.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="115.0" y="145.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="145.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="265.0" y="145.0"></omgdi:waypoint>
+        <omgdi:waypoint x="310.0" y="145.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="415.0" y="145.0"></omgdi:waypoint>
+        <omgdi:waypoint x="460.0" y="145.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="500.0" y="145.0"></omgdi:waypoint>
+        <omgdi:waypoint x="545.0" y="95.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="500.0" y="145.0"></omgdi:waypoint>
+        <omgdi:waypoint x="545.0" y="200.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="597.0" y="246.0"></omgdi:waypoint>
+        <omgdi:waypoint x="712.0" y="330.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="650.0" y="95.0"></omgdi:waypoint>
+        <omgdi:waypoint x="700.0" y="95.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="930.0" y="180.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1072.0" y="141.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="1125.0" y="95.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1190.0" y="95.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="865.0" y="200.0"></omgdi:waypoint>
+        <omgdi:waypoint x="910.0" y="200.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="950.0" y="200.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1055.0" y="200.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="712.0" y="330.0"></omgdi:waypoint>
+        <omgdi:waypoint x="812.0" y="246.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

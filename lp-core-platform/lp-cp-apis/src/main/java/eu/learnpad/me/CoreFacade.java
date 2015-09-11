@@ -19,9 +19,13 @@
  */
 package eu.learnpad.me;
 
-import eu.learnpad.me.rest.ImportModel;
+import javax.ws.rs.Path;
+
+import eu.learnpad.me.rest.ImportModelSet;
+import eu.learnpad.me.rest.CheckModelSet;
 import eu.learnpad.me.rest.RetrieveFeedbacks;
 
-public interface CoreFacade extends RetrieveFeedbacks, ImportModel{
+@Path("/learnpad/me")
+public interface CoreFacade extends RetrieveFeedbacks, ImportModelSet, CheckModelSet {
 	
 }

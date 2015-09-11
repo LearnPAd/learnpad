@@ -22,25 +22,43 @@ package eu.learnpad.core.impl.me;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.CoreFacade;
-import eu.learnpad.rest.utils.RestResource;
+import eu.learnpad.mv.rest.data.MVResults;
+import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.cw.rest.data.Feedbacks;
 
 @Component
-public class XwikiCoreFacadeRestResource extends RestResource implements XWikiRestComponent, CoreFacade{
+public class XwikiCoreFacadeRestResource extends RestResource implements
+		XWikiRestComponent, CoreFacade {
 
 	@Override
-	public byte[] getFeedbacks(String modelId, String type, byte[] adoxxFile)
+	public void putModelSet(String modelSetId, String type, byte[] modelSetFile)
 			throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public String startModelSetVerification(String modelSetId, String type,
+			String verification) throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void putModel(String modelId, String type) throws LpRestExceptionImpl {
+	public MVResults checkModelSetVerification(String verificationProcessId)
+			throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
-		
+		return null;
+
 	}
 
+	@Override
+	public Feedbacks getFeedbacks(String modelSetId) throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

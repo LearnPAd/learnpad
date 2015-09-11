@@ -19,17 +19,32 @@
  */
 package eu.learnpad.core.impl.qm;
 
-import eu.learnpad.exception.LpRestException;
+import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.qm.Controller;
 
 public class XwikiController extends Controller{
+
 	public XwikiController (){
-		this.bridge = new XwikiBridgeInterfaceRestResource();
+		this(false);
+	}
+
+	public XwikiController (boolean isBridgeInterfaceLocal){
+		if (isBridgeInterfaceLocal)
+			this.bridge = new XwikiBridgeInterface();
+		else
+			this.bridge = new XwikiBridgeInterfaceRestResource();			
 	}
 
 	@Override
-	public void putQuestionnaire(String modelId, String type, byte[] bpmnFile)
-			throws LpRestException {
+	public void publish(String questionnairesId, String type,
+			byte[] questionnairesFile) throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void genrationCompleted(String questionnairesId)
+			throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 		
 	}

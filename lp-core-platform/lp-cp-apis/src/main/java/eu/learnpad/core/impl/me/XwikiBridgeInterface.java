@@ -22,17 +22,9 @@ package eu.learnpad.core.impl.me;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.BridgeInterface;
 
 @Component
 public class XwikiBridgeInterface implements XWikiRestComponent, BridgeInterface{
-
-	@Override
-	public byte[] getContentVerified(String modelId, String type)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

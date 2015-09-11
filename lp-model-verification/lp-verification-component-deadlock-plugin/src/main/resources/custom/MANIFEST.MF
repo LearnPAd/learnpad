@@ -1,0 +1,2 @@
+Verification-Class: eu.learnpad.verification.plugin.interfaces.impl.PNVerifier
+Main-Class: eu.learnpad.verification.plugin.interfaces.impl.PNVerifier

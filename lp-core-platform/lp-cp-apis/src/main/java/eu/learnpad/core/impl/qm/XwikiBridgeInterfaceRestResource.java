@@ -22,33 +22,53 @@ package eu.learnpad.core.impl.qm;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.qm.BridgeInterface;
-import eu.learnpad.rest.utils.RestResource;
+import eu.learnpad.core.rest.RestResource;
 
 @Component
 public class XwikiBridgeInterfaceRestResource extends RestResource implements XWikiRestComponent, BridgeInterface{
 
 	@Override
-	public void putModel(String modelId, String type, byte[] bpmnFile)
-			throws LpRestExceptionImpl {
+	public void importModelSet(String modelSetId, String type,
+			byte[] modelContent) throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void putModelUpdated(String modelId, String type, byte[] bpmnFile)
-			throws LpRestExceptionImpl {
+	public String generateQuestionnaires(String modelSetId, String type,
+			byte[] configurationFile) throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public byte[] getQuestionnaires(String modelId, String type, byte[] bpmnFile)
+	public String getGenerationStatus(String generationProcessId)
 			throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public String createQuestionnaire() throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addQuestionToQuestionnaire(String creationProcessId,
+			String question, String expectedAnswer) throws LpRestException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void finalizeQuestionnaire(String creationProcessId, String type)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
