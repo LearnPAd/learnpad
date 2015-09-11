@@ -1,7 +1,5 @@
 [![Build
 Status](https://travis-ci.org/LearnPAd/learnpad.svg?branch=master)](https://travis-ci.org/LearnPAd/learnpad)
-[![Circle
-CI](https://circleci.com/gh/LearnPAd/learnpad.svg?style=svg)](https://circleci.com/gh/LearnPAd/learnpad)
 [![Coveralls](https://coveralls.io/repos/LearnPAd/learnpad/badge.svg)](https://coveralls.io/r/LearnPAd/learnpad)
 [![Code
 Climate](https://codeclimate.com/github/LearnPAd/learnpad/badges/gpa.svg)](https://codeclimate.com/github/LearnPAd/learnpad)
