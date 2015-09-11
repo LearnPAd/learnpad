@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><object xmlns="http://www.xwiki.org">
+<className>LearnPAdCode.ModelClass</className>
+	<property name="id" type="String"><value>mod.13512</value></property>
+	<property name="name" type="String"><value>PATestCityApplicationProcessModel</value></property>
+	<property name="type" type="StaticList"><value>Business process diagram (BPMN 2.0)</value></property>
+</object>

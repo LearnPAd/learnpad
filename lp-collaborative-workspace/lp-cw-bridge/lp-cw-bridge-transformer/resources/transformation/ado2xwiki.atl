@@ -1,0 +1,196 @@
+-- @nsURI ADOXX=http://www.ado.org
+-- @nsURI XWIKI=http://www.xwiki.org
+
+module ado2xwiki;
+
+create OUT : XWIKI from IN : ADOXX;
+
+helper context String def : name : String = self.substring(self.lastIndexOf('!')+2, self.size());
+
+helper context ADOXX!INSTANCEType def : relatedIncomingConnector : Sequence(ADOXX!COLLECTORType) =
+	self.refImmediateComposite().cONNECTOR->select(e | ((e.tO.class = self.class) and (e.tO.instance = self.name))).flatten().debug('CONNECTOR');
+	--ADOXX!CONNECTORType.allInstances()->select(e | ((e.tO.class = self.class) and (e.tO.instance = self.name))).flatten().debug('ALLINSTANCE');
+
+--helper def :getInstance(class: String, instance : String):ADOXX!INSTANCEType = ADOXX!INSTANCEType.allInstances()->any(e | e.class=class and e.name=instance);
+
+
+helper def : instances : Map(OclAny, ADOXX!INSTANCEType) = Map{};
+helper def : loadInstances : Map(OclAny, ADOXX!INSTANCEType) =
+   ADOXX!INSTANCEType.allInstances()->iterate(e; acc : Map(OclAny, ADOXX!INSTANCEType) = Map{} |
+     acc.including(e.refImmediateComposite().name+'-'+e.class+'-'+e.name, e)
+   );
+helper def :getInstance(model: String, class: String, instance : String):ADOXX!INSTANCEType = 
+	if (thisModule.instances.get(model+'-'+class+'-'+instance).oclIsUndefined()) then
+		OclUndefined.debug('undef: '+model+'-'+class+'-'+instance)
+	else
+		thisModule.instances.get(model+'-'+class+'-'+instance)
+	endif;
+		
+helper def :documentRoot : XWIKI!DocumentRoot = OclUndefined;
+
+entrypoint rule DocumentRoot() {
+	to t: XWIKI!DocumentRoot ()
+	do {
+		thisModule.documentRoot <- t;
+		--thisModule.all;
+		--indexing all instances in a HashMap (serves for optimize operations on connector)
+		--key model: String, class: String, instance : String
+		thisModule.instances <- thisModule.loadInstances;
+	}
+}
+
+-----------------------  MODELType  -----------------------
+rule MODELType2WebHome {
+	from s:ADOXX!MODELType(s.name='PATestCityApplicationProcessModel')
+	-----------------------  WebHome  -----------------------
+	to t1_p: XWIKI!Page (
+	   	title <- s.name,
+		content <- '{{include reference="${services.model.createDocumentReference(\'xwiki\',\''+s.id+'\',\''+s.id+'\')}" /}}',
+		comment <- 'WebHome'
+	),
+	t1_xwiki:XWIKI!Object (
+		className <- 'XWiki.DocumentSheetBinding',
+		property <- Sequence{t1_xwiki_p1, t1_xwiki_p2}
+	),
+	t1_xwiki_p1:XWIKI!Property (
+		name <- 'sheet',
+		type <- 'string',
+		value <- 'LearnPAdCode.ModelSheet'	
+	),
+	t1_xwiki_p2:XWIKI!Property (
+		name <- 'folder_id',
+		type <- 'String',
+		value <- 'WebHome'	
+	),
+	-----------------------  mod.XXXXX  ----------------------- 
+	t2_p: XWIKI!Page (
+	   	title <- s.name,
+		comment <- s.id
+	),
+	t2_xwiki:XWIKI!Object (
+		className <- 'LearnPAdCode.ModelClass',
+		property <- Sequence{t2_xwiki_p1, t2_xwiki_p2, t2_xwiki_p3, t2_xwiki_p4}
+	),
+	t2_xwiki_p1:XWIKI!Property (
+		name <- 'id',
+		type <- 'String',
+		value <- s.id	
+	),
+	t2_xwiki_p2:XWIKI!Property (
+		name <- 'name',
+		type <- 'String',
+		value <- s.name	
+	),
+	t2_xwiki_p3:XWIKI!Property (
+		name <- 'type',
+		type <- 'StaticList',
+		value <- s.modeltype
+	),
+	t2_xwiki_p4:XWIKI!Property (
+		name <- 'folder_id',
+		type <- 'String',
+		value <- s.id
+	)
+	do {
+		thisModule.documentRoot.page<-t1_p;
+		thisModule.documentRoot.page<-t2_p;
+	}
+}
+
+-----------------------  INSTANCEType  -----------------------
+rule INSTANCEType2Page {
+	from s:ADOXX!INSTANCEType(s.refImmediateComposite().name='PATestCityApplicationProcessModel')
+	-----------------------  obj.XXXXX  ----------------------- 
+	to t_p: XWIKI!Page (
+	   	title <- s.name,
+		comment <- s.id
+	),
+	------------------  objects\LearnPAdCode\BaseElementClass  ------------------
+	t_bec:XWIKI!Object (
+		className <- 'LearnPAdCode.BaseElementClass',
+		property <- Sequence{t_bec_p1, t_bec_p2, t_bec_p3, t_bec_p4, t_bec_p5}->asSequence()
+	), 
+	t_bec_p1:XWIKI!Property (
+		name <- 'id',
+		type <- 'String',
+		value <- s.id
+	),
+	t_bec_p2:XWIKI!Property (
+		name <- 'name',
+		type <- 'String',
+		value <- s.name
+	),
+	t_bec_p3:XWIKI!Property (
+		name <- 'type',
+		type <- 'StaticList',
+		value <- s.class
+	),
+	t_bec_p4:XWIKI!Property (
+		name <- 'documentation',
+		type <- 'TextArea',
+		value <- ''
+	),
+	t_bec_p5:XWIKI!Property (
+		name <- 'folder_id',
+		type <- 'String',
+		value <- s.id
+	),
+	----------------  objects\XWiki\DocumentSheetBinding  ----------------
+	t_xwiki:XWIKI!Object (
+		className <- 'XWiki.DocumentSheetBinding',
+		property <- Sequence{t_xwiki_p1, t_xwiki_p2}
+	), 
+	t_xwiki_p1:XWIKI!Property (
+		name <- 'sheet',
+		type <- 'String',
+		value <- 'LearnPAdCode.BaseElementSheet'	
+	),
+	t_xwiki_p2:XWIKI!Property (
+		name <- 'folder_id',
+		type <- 'String',
+		value <- s.id
+	)
+	do {
+		thisModule.documentRoot.page<-t_p;
+		
+		-- Relazioni --
+		for (e in s.relatedIncomingConnector) {
+			thisModule.CONNECTORType2Page(s, e);
+		}
+	}
+}
+
+----------------------  CONNECTORType  ----------------------
+rule CONNECTORType2Page(i: ADOXX!INSTANCEType, c:ADOXX!CONNECTORType) {
+	
+	----------------  objects\LearnPAdCode\LinkClass  ----------------
+	to t_xwiki:XWIKI!Object (
+		className <- 'LearnPAdCode.LinkClass',
+		property <- Sequence{t_link_p1, t_link_p2, t_link_p3, t_link_p4}
+	), 
+	t_link_p1:XWIKI!Property (
+		name <- 'id',
+		type <- 'String',
+		value <- c.id	
+	),
+	t_link_p2:XWIKI!Property (
+		name <- 'type',
+		type <- 'StaticList',
+		value <- 'incoming'
+	),
+	t_link_p3:XWIKI!Property (
+		name <- 'uri',
+		type <- 'String',
+		value <- thisModule.getInstance(c.refImmediateComposite().name, c.fROM.class, c.fROM.instance).id
+	),
+	-- serve per ricreare la struttura a directory con il parent id--
+	t_link_p4:XWIKI!Property (
+		name <- 'folder_id',
+		type <- 'String',
+		value <- i.id.regexReplaceAll('obj.', 'lnk.')
+	)
+}
+
+
+
+

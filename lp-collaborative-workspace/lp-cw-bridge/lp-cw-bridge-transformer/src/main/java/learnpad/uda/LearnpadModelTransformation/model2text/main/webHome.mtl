@@ -1,0 +1,81 @@
+[comment encoding = UTF-8 /]
+[module webHome('http://www.xwiki.org')]
+
+[template public webHome(doc : DocumentRoot)]
+[comment @main/]
+
+[for (p : Page | doc.page)]
+	[if (p.comment='WebHome')]
+		[file ('xwiki/modelid/WebHome/index.xml',  false, 'UTF-8')]
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://www.xwiki.org">
+	<title>[p.title/]</title>
+	<content>[p.content/]</content>
+</page>
+		[/file]]
+	[else] --mod, obj
+		[file ('xwiki/modelid/'+p.comment+'/index.xml',  false, 'UTF-8')]
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://www.xwiki.org">
+	<title>[p.title/]</title>
+	<content/>
+</page>
+		[/file]
+	[/if]
+[/for]
+
+[for (p : Property | Property.allInstances())]
+	[if (p.name='folder_id')]
+		[let object : Object = p.eContainer(Object)]
+			[if (p.value='WebHome')] --webhome
+				[file ('xwiki/modelid/WebHome/objects/XWiki/DocumentSheetBinding/bind.xml',  false, 'UTF-8')]
+[getPropertyContent(object)/]
+				[/file]
+			[elseif (p.value.contains('mod.'))]  --mod.
+				[file ('xwiki/modelid/'+p.value+'/objects/LearnPAdCode/ModelClass/0.xml',  false, 'UTF-8')]
+[getPropertyContent(object)/]
+				[/file]
+			[elseif (p.value.contains('obj.'))]  --obj.
+				[if object.className.equalsIgnoreCase('XWiki.DocumentSheetBinding')]   --XWiki.DocumentSheetBinding
+					[file ('xwiki/modelid/'+p.value+'/objects/XWiki/DocumentSheetBinding/bind.xml',  false, 'UTF-8')]
+[getPropertyContent(object)/]
+					[/file]
+				[elseif object.className.equalsIgnoreCase('LearnPAdCode.BaseElementClass')]  --LearnPAdCode.BaseElementClass
+					[file ('xwiki/modelid/'+p.value+'/objects/LearnPAdCode/BaseElementClass/'+p.value+'.xml',  false, 'UTF-8')]
+[getPropertyContent(object)/]
+					[/file]
+				[/if]	
+			[elseif (p.value.contains('lnk.'))]  --lnk.
+				[let obj_id : String = p.value.replaceAll('lnk', 'obj')]
+					[let pppppp:String = 'LinkClass/_'+getLinkId(object)+'.xml']
+					[file ('xwiki/modelid/'+obj_id+'/objects/LearnPAdCode/LinkClass/_'+getLinkId(object)+'.xml',  false, 'UTF-8')]
+[getPropertyContent(object)/]
+					[/file]
+					[/let]	
+				[/let]		
+			[/if]
+		[/let]  --object
+	[/if]  --folder_id
+[/for]
+
+[/template]
+
+
+[template private getPropertyContent(obj:Object)]
+<?xml version="1.0" encoding="UTF-8"?><object xmlns="http://www.xwiki.org">
+<className>[obj.className/]</className>
+[for (s : Property | obj.property)]
+	[if (not s.name.equalsIgnoreCase('folder_id'))]
+	<property name="[s.name/]" type="[s.type/]"><value>[s.value/]</value></property>
+	[/if]
+[/for]
+</object>
+[/template]
+
+[template private getLinkId(obj:Object) post(replaceAll('\n', '').trim())]
+[for (pid : Property | obj.property)]
+	[if (pid.name.equalsIgnoreCase('id'))]
+[pid.value/]
+	[/if]
+[/for]
+[/template]

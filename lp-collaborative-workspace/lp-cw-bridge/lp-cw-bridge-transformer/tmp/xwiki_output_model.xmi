@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xwiki="http://www.xwiki.org">
+  <xwiki:DocumentRoot>
+    <page title="PATestCityApplicationProcessModel" comment="WebHome" content="{{include reference=&quot;${services.model.createDocumentReference('xwiki','mod.13512','mod.13512')}&quot; /}}"/>
+    <page title="PATestCityApplicationProcessModel" comment="mod.13512"/>
+    <page title="PA TestCity" comment="obj.13514"/>
+    <page title="Client" comment="obj.13517"/>
+    <page title="TestCity Frontoffice" comment="obj.13520"/>
+    <page title="Manager" comment="obj.13523"/>
+    <page title="GetApplication" comment="obj.13526"/>
+    <page title="CheckApplication" comment="obj.13529"/>
+    <page title="DecideOnApplication" comment="obj.13532"/>
+    <page title="CheckDetails" comment="obj.13535"/>
+    <page title="SendAnswer" comment="obj.13538"/>
+    <page title="Details2Proof?" comment="obj.13541"/>
+    <page title="ApplicationForm" comment="obj.13544"/>
+    <page title="Reply2Application" comment="obj.13547"/>
+  </xwiki:DocumentRoot>
+  <xwiki:Object className="XWiki.DocumentSheetBinding">
+    <property value="LearnPAdCode.ModelSheet" name="sheet" type="string"/>
+    <property value="WebHome" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.ModelClass">
+    <property value="mod.13512" name="id" type="String"/>
+    <property value="PATestCityApplicationProcessModel" name="name" type="String"/>
+    <property value="Business process diagram (BPMN 2.0)" name="type" type="StaticList"/>
+    <property value="mod.13512" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.BaseElementClass">
+    <property value="obj.13514" name="id" type="String"/>
+    <property value="PA TestCity" name="name" type="String"/>
+    <property value="Pool" name="type" type="StaticList"/>
+    <property value="" name="documentation" type="TextArea"/>
+    <property value="obj.13514" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="XWiki.DocumentSheetBinding">
+    <property value="LearnPAdCode.BaseElementSheet" name="sheet" type="String"/>
+    <property value="obj.13514" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.BaseElementClass">
+    <property value="obj.13517" name="id" type="String"/>
+    <property value="Client" name="name" type="String"/>
+    <property value="Pool (collapsed)" name="type" type="StaticList"/>
+    <property value="" name="documentation" type="TextArea"/>
+    <property value="obj.13517" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="XWiki.DocumentSheetBinding">
+    <property value="LearnPAdCode.BaseElementSheet" name="sheet" type="String"/>
+    <property value="obj.13517" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.BaseElementClass">
+    <property value="obj.13520" name="id" type="String"/>
+    <property value="TestCity Frontoffice" name="name" type="String"/>
+    <property value="Lane" name="type" type="StaticList"/>
+    <property value="" name="documentation" type="TextArea"/>
+    <property value="obj.13520" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="XWiki.DocumentSheetBinding">
+    <property value="LearnPAdCode.BaseElementSheet" name="sheet" type="String"/>
+    <property value="obj.13520" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.BaseElementClass">
+    <property value="obj.13523" name="id" type="String"/>
+    <property value="Manager" name="name" type="String"/>
+    <property value="Lane" name="type" type="StaticList"/>
+    <property value="" name="documentation" type="TextArea"/>
+    <property value="obj.13523" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="XWiki.DocumentSheetBinding">
+    <property value="LearnPAdCode.BaseElementSheet" name="sheet" type="String"/>
+    <property value="obj.13523" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.BaseElementClass">
+    <property value="obj.13526" name="id" type="String"/>
+    <property value="GetApplication" name="name" type="String"/>
+    <property value="Start Event" name="type" type="StaticList"/>
+    <property value="" name="documentation" type="TextArea"/>
+    <property value="obj.13526" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="XWiki.DocumentSheetBinding">
+    <property value="LearnPAdCode.BaseElementSheet" name="sheet" type="String"/>
+    <property value="obj.13526" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.BaseElementClass">
+    <property value="obj.13529" name="id" type="String"/>
+    <property value="CheckApplication" name="name" type="String"/>
+    <property value="Task" name="type" type="StaticList"/>
+    <property value="" name="documentation" type="TextArea"/>
+    <property value="obj.13529" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="XWiki.DocumentSheetBinding">
+    <property value="LearnPAdCode.BaseElementSheet" name="sheet" type="String"/>
+    <property value="obj.13529" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.BaseElementClass">
+    <property value="obj.13532" name="id" type="String"/>
+    <property value="DecideOnApplication" name="name" type="String"/>
+    <property value="Task" name="type" type="StaticList"/>
+    <property value="" name="documentation" type="TextArea"/>
+    <property value="obj.13532" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="XWiki.DocumentSheetBinding">
+    <property value="LearnPAdCode.BaseElementSheet" name="sheet" type="String"/>
+    <property value="obj.13532" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.BaseElementClass">
+    <property value="obj.13535" name="id" type="String"/>
+    <property value="CheckDetails" name="name" type="String"/>
+    <property value="Sub-Process" name="type" type="StaticList"/>
+    <property value="" name="documentation" type="TextArea"/>
+    <property value="obj.13535" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="XWiki.DocumentSheetBinding">
+    <property value="LearnPAdCode.BaseElementSheet" name="sheet" type="String"/>
+    <property value="obj.13535" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.BaseElementClass">
+    <property value="obj.13538" name="id" type="String"/>
+    <property value="SendAnswer" name="name" type="String"/>
+    <property value="End Event" name="type" type="StaticList"/>
+    <property value="" name="documentation" type="TextArea"/>
+    <property value="obj.13538" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="XWiki.DocumentSheetBinding">
+    <property value="LearnPAdCode.BaseElementSheet" name="sheet" type="String"/>
+    <property value="obj.13538" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.BaseElementClass">
+    <property value="obj.13541" name="id" type="String"/>
+    <property value="Details2Proof?" name="name" type="String"/>
+    <property value="Exclusive Gateway" name="type" type="StaticList"/>
+    <property value="" name="documentation" type="TextArea"/>
+    <property value="obj.13541" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="XWiki.DocumentSheetBinding">
+    <property value="LearnPAdCode.BaseElementSheet" name="sheet" type="String"/>
+    <property value="obj.13541" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.BaseElementClass">
+    <property value="obj.13544" name="id" type="String"/>
+    <property value="ApplicationForm" name="name" type="String"/>
+    <property value="Data Object" name="type" type="StaticList"/>
+    <property value="" name="documentation" type="TextArea"/>
+    <property value="obj.13544" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="XWiki.DocumentSheetBinding">
+    <property value="LearnPAdCode.BaseElementSheet" name="sheet" type="String"/>
+    <property value="obj.13544" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.BaseElementClass">
+    <property value="obj.13547" name="id" type="String"/>
+    <property value="Reply2Application" name="name" type="String"/>
+    <property value="Data Object" name="type" type="StaticList"/>
+    <property value="" name="documentation" type="TextArea"/>
+    <property value="obj.13547" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="XWiki.DocumentSheetBinding">
+    <property value="LearnPAdCode.BaseElementSheet" name="sheet" type="String"/>
+    <property value="obj.13547" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.LinkClass">
+    <property value="con.13562" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13520" name="uri" type="String"/>
+    <property value="lnk.13514" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.LinkClass">
+    <property value="con.13563" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13523" name="uri" type="String"/>
+    <property value="lnk.13514" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.LinkClass">
+    <property value="con.13564" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13526" name="uri" type="String"/>
+    <property value="lnk.13514" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.LinkClass">
+    <property value="con.13565" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13529" name="uri" type="String"/>
+    <property value="lnk.13514" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.LinkClass">
+    <property value="con.13566" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13532" name="uri" type="String"/>
+    <property value="lnk.13514" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.LinkClass">
+    <property value="con.13567" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13535" name="uri" type="String"/>
+    <property value="lnk.13514" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.LinkClass">
+    <property value="con.13568" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13538" name="uri" type="String"/>
+    <property value="lnk.13514" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.LinkClass">
+    <property value="con.13569" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13541" name="uri" type="String"/>
+    <property value="lnk.13514" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.LinkClass">
+    <property value="con.13570" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13523" name="uri" type="String"/>
+    <property value="lnk.13520" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.LinkClass">
+    <property value="con.13571" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13526" name="uri" type="String"/>
+    <property value="lnk.13520" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.LinkClass">
+    <property value="con.13572" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13529" name="uri" type="String"/>
+    <property value="lnk.13520" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.LinkClass">
+    <property value="con.13573" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13532" name="uri" type="String"/>
+    <property value="lnk.13520" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.LinkClass">
+    <property value="con.13574" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13538" name="uri" type="String"/>
+    <property value="lnk.13520" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.LinkClass">
+    <property value="con.13575" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13541" name="uri" type="String"/>
+    <property value="lnk.13520" name="folder_id" type="String"/>
+  </xwiki:Object>
+  <xwiki:Object className="LearnPAdCode.LinkClass">
+    <property value="con.13576" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13535" name="uri" type="String"/>
+    <property value="lnk.13523" name="folder_id" type="String"/>
+  </xwiki:Object>
+</xmi:XMI>
