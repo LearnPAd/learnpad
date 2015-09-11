@@ -43,6 +43,7 @@ import org.activiti.engine.task.Task;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.IProcessManager.TaskSubmissionStatus;
+import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.processmanager.IProcessDispatcher;
 import eu.learnpad.simulator.processmanager.ITaskRouter;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
@@ -141,9 +142,10 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 			// current completion
 			new Thread(new Runnable() {
 				public void run() {
-					processEventReceiver.sendTask(task.getProcessInstanceId(),
-							task.getId(), task.getName(),
-							task.getDescription(), router.route(task));
+					processEventReceiver.sendTask(
+							new LearnPadTask(task.getProcessInstanceId(), task
+									.getId(), task.getName(), task
+									.getDescription()), router.route(task));
 				}
 			}).start();
 		}
