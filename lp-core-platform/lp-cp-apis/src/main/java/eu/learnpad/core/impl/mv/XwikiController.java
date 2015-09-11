@@ -19,36 +19,57 @@
  */
 package eu.learnpad.core.impl.mv;
 
-import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
 import javax.ws.rs.Path;
 
-import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
+import org.xwiki.component.phase.Initializable;
+import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
 
+import eu.learnpad.core.impl.mv.XwikiBridgeInterfaceRestResource;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.mv.Controller;
+import eu.learnpad.mv.BridgeInterface;
 
 @Component
+@Singleton
 @Named("eu.learnpad.core.impl.mv.XwikiController")
-@Path("/learnpad/mv")
-public class XwikiController extends Controller implements XWikiRestComponent {
+@Path("/learnpad/mv/corefacade")
+public class XwikiController extends Controller implements XWikiRestComponent, Initializable{
 
-	@Inject
-	Logger logger;
+//	@Inject
+//	Logger logger;
 
-	public XwikiController() {
-		this(false);
-	}
+    /** Set to true once the inherited BridgeInterface has been initialized. */
+    private boolean initialized = false;	
 
-	public XwikiController(boolean isBridgeInterfaceLocal) {
-		if (isBridgeInterfaceLocal)
-			this.bridge = new XwikiBridgeInterface();
-		else
+	 /** A means of instantiating the inherited BridgeInterface according
+	  * to XWIKI (see  http://extensions.xwiki.org/xwiki/bin/view/Extension/Component+Module#HComponentInitialization).
+	  * Actually in this implementation we currently support only 
+	  * the class XwikiBridgeInterfaceRestResource, but other classes (such as XwikiBridgeInterface)
+	  * should be supported in the future
+	  * 
+	  * Not sure if we can consider the default constructor.*/
+	
+	@Override
+	public synchronized void initialize() throws InitializationException {
+		if (!this.initialized){
 			this.bridge = new XwikiBridgeInterfaceRestResource();
+//			try {
+//				this.bridge= this.manager.getInstance(XWikiRestComponent.class, "eu.learnpad.core.impl.qm.XwikiBridgeInterfaceRestResource");
+//	        	} catch (ComponentLookupException e) {
+//	        		throw new InitializationException(e.getMessage(), e);
+//	        }
+			this.initialized=true;
+		}
 	}
-
+		
+	public synchronized void updateBridgeInterface (BridgeInterface bi){
+		this.bridge = bi;    
+    }
+	
 	@Override
 	public byte[] getModel(String modelSetId, String type)
 			throws LpRestExceptionImpl {

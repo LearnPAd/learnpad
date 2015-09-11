@@ -25,6 +25,7 @@ import eu.learnpad.lsm.rest.CRUDLearners;
 import eu.learnpad.lsm.rest.CRUDQuestionnaires;
 import eu.learnpad.lsm.rest.ExportStatistics;
 import eu.learnpad.lsm.rest.ManageLearningSessions;
+
 @Path("/learnpad/lsm/bridge")
 public interface BridgeInterface extends CRUDLearners, CRUDQuestionnaires, ManageLearningSessions, ExportStatistics {
 

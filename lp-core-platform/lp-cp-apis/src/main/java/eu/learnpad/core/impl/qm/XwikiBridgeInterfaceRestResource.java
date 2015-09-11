@@ -19,11 +19,6 @@
  */
 package eu.learnpad.core.impl.qm;
 
-import javax.inject.Named;
-
-import org.xwiki.component.annotation.Component;
-import org.xwiki.rest.XWikiRestComponent;
-
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.qm.BridgeInterface;
 import eu.learnpad.core.rest.RestResource;

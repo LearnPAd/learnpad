@@ -25,8 +25,6 @@ import javax.inject.Singleton;
 import javax.ws.rs.Path;
 
 import org.xwiki.component.annotation.Component;
-import org.xwiki.component.manager.ComponentLookupException;
-import org.xwiki.component.manager.ComponentManager;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
@@ -49,9 +47,9 @@ import eu.learnpad.qm.Controller;
 @Path("/learnpad/qm/corefacade")
 public class XwikiController extends Controller implements XWikiRestComponent, Initializable{
 
-	 /** A means of instantiating the inherited BridgeInterface. */
-    @Inject
-    private ComponentManager manager;
+//	 /** A means of instantiating the inherited BridgeInterface. */
+//    @Inject
+//    private ComponentManager manager;
 
     /** Set to true once the inherited BridgeInterface has been initialized. */
     private boolean initialized = false;	

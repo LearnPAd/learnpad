@@ -19,11 +19,6 @@
  */
 package eu.learnpad.core.impl.qm;
 
-import javax.inject.Named;
-
-import org.xwiki.component.annotation.Component;
-import org.xwiki.rest.XWikiRestComponent;
-
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.qm.CoreFacade;
 import eu.learnpad.core.rest.RestResource;
@@ -33,7 +28,6 @@ import eu.learnpad.core.rest.RestResource;
  * class should be implemented as a REST invocation
  * toward the CoreFacade binded at the provided URL
  */
-
 public class XwikiCoreFacadeRestResource extends RestResource implements CoreFacade {
 
 	public XwikiCoreFacadeRestResource() {
