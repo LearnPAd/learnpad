@@ -28,10 +28,10 @@ call shutdown.bat
 cd %originalcd%
 call PING -n 3 127.0.0.1>nul
 )
-if exist %__CATALINA__WEB__%\contentanalysis.war (	del /S /F /A %__CATALINA__WEB__%\contentanalysis.war)
-if exist %__CATALINA__WEB__%\contentanalysis	    ( 
+if exist %__CATALINA__WEB__%\lp-content-analysis.war (	del /S /F /A %__CATALINA__WEB__%\lp-content-analysis.war)
+if exist %__CATALINA__WEB__%\lp-content-analysis	    ( 
 
-rmdir  %__CATALINA__WEB__%\contentanalysis /s /q
+rmdir  %__CATALINA__WEB__%\lp-content-analysis /s /q
 )
 call mvn clean
 if exist %cd%\target		(rmdir target /s /q)
@@ -42,7 +42,7 @@ if exist %cd%\target		(rmdir target /s /q)
 
 @REM skip tests as we will do them in the component_test stage
 call mvn  package -Dmaven.test.skip=true
-xcopy /y target\contentanalysis.war %__CATALINA__WEB__%
+xcopy /y target\lp-content-analysis.war %__CATALINA__WEB__%
 set originalcd=%cd%
 cd %CATALINA_BASE%\bin\
 call startup.bat
