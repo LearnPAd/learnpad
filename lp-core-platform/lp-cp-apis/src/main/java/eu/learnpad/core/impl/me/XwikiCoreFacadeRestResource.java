@@ -19,9 +19,6 @@
  */
 package eu.learnpad.core.impl.me;
 
-import org.xwiki.component.annotation.Component;
-import org.xwiki.rest.XWikiRestComponent;
-
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.CoreFacade;
@@ -29,10 +26,29 @@ import eu.learnpad.mv.rest.data.MVResults;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.rest.data.Feedbacks;
 
-@Component
-public class XwikiCoreFacadeRestResource extends RestResource implements
-		XWikiRestComponent, CoreFacade {
+/*
+ * The methods inherited form the CoreFacade in this
+ * class should be implemented as a REST invocation
+ * toward the CoreFacade binded at the provided URL
+ */
+public class XwikiCoreFacadeRestResource extends RestResource implements CoreFacade {
 
+	public XwikiCoreFacadeRestResource() {
+		this("localhost",8080);
+	}
+
+	public XwikiCoreFacadeRestResource(String coreFacadeHostname,
+			int coreFacadeHostPort) {
+		// This constructor could change in the future
+		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
+	}
+	
+	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort){
+// This constructor has to be fixed, since it requires changes on the class
+//		eu.learnpad.core.rest.RestResource
+		
+	}
+	
 	@Override
 	public void putModelSet(String modelSetId, String type, byte[] modelSetFile)
 			throws LpRestExceptionImpl {
