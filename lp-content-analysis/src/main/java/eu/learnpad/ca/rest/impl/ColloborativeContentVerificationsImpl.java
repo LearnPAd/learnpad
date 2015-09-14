@@ -46,13 +46,6 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 
 
-	@Path("/test/{idAnnotatedCollaborativeContentAnalysis}")
-	@GET
-	public String getC(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)throws LpRestException{
-		return contentID+"\n";
-	}
-
-
 
 	@Path("/")
 	@POST

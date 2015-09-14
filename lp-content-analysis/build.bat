@@ -41,7 +41,7 @@ if exist %cd%\target		(rmdir target /s /q)
 
 
 @REM skip tests as we will do them in the component_test stage
-call mvn  package -Dmaven.test.skip=true
+call mvn  package -Dmaven.test.skip=trues
 xcopy /y target\lp-content-analysis.war %__CATALINA__WEB__%
 set originalcd=%cd%
 cd %CATALINA_BASE%\bin\
