@@ -1,6 +1,9 @@
 LearnPAd Content Analysis Component
 ==================
-[![License](https://img.shields.io/badge/License-GPL-blue.svg)](https://github.com/ISTI-FMT-LearnPAd/ContentAnalysisComponent/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/License-GPL-blue.svg)](https://github.com/ISTI-FMT-LearnPAd/ContentAnalysisComponent/blob/master/LICENSE) 
+
+
+
 Status project [![Build Status](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent.svg?branch=RESTinterface)](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent)
 
 Information   | Value
@@ -25,9 +28,9 @@ This component expose REST API to the LearnPAd platform
 in order to perform several kind of content analysis on a Collaborative and Static Content. 
 The different types of content analysis are provided by the component es. simplicity, non ambiguity, content clarity, presentation clarity, completeness and correctness.
 
-In this page on [Collaborative](http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Collaborative+Content+Analysis) content is present the XML input and output of component
+In this page [Collaborative](http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Collaborative+Content+Analysis) content is present the XML input and output of component.
 
-In this page on [Static](http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Static+Content+Analysis) content is present the XML input and output of component
+In this page [Static](http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Static+Content+Analysis) content is present the XML input and output of component.
 
 The component is ready to be packaged as a WAR to be deployed on an Application Server like Tomcat.
 
@@ -36,21 +39,21 @@ The service is available at `localhost:8080/lp-content-analysis/`.
 
 
 #CURL Test
- * To send CollaborativeContent XML to component, reply is a ID
+ * To send CollaborativeContent XML to component, the reply is a ID:  
 `curl -X POST -H "Content-Type: application/XML" --data @CollaborativeContentXML.xml http://localhost:8080/lp-content-analysis/learnpad/ca/validatecollaborativecontent/`
 
-* To send StaticContent XML to component, reply is a ID
+* To send StaticContent XML to component, the reply is a ID:  
 `curl -X POST -H "Content-Type: application/XML" --data @StaticContentXML.xml http://localhost:8080/lp-content-analysis/learnpad/ca/validatestaticcontent/`
 
-* To get Status of analysis of Collaborative Content referred by id
+* To get Status of analysis of Collaborative Content referred by ID:  
 `curl -X GET http://localhost:8080/lp-content-analysis/learnpad/ca/validatecollaborativecontent/{id}/status`
 
-* To get Status of analysis of Static Content referred by id
+* To get Status of analysis of Static Content referred by ID:  
 `curl -X GET http://localhost:8080/lp-content-analysis/learnpad/ca/validatestaticcontent/{id}/status`
 
-* To get Collaborative Content referred by id
+* To get Collaborative Content referred by ID:  
 `curl -X GET http://localhost:8080/lp-content-analysis/learnpad/ca/validatecollaborativecontent/{id}`
-* To get Static Content referred by id
+* To get Static Content referred by ID:  
 `curl -X GET http://localhost:8080/lp-content-analysis/learnpad/ca/validatestaticcontent/{id}`
 
 
