@@ -22,13 +22,11 @@ package eu.learnpad.core.impl.ca;
 import java.util.Collection;
 
 import eu.learnpad.exception.LpRestException;
-
 import eu.learnpad.ca.BridgeInterface;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
-
 import eu.learnpad.core.rest.RestResource;
 
 /*
@@ -63,13 +61,6 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	}
 
 	@Override
-	public String updateValidateCollaborativeContent(
-			CollaborativeContentAnalysis contentFile) throws LpRestException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Collection<AnnotatedCollaborativeContentAnalysis> getCollaborativeContentVerifications(
 			String contentID) throws LpRestException {
 		// TODO Auto-generated method stub
@@ -91,13 +82,6 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	}
 
 	@Override
-	public String updateValidateStaticContent(byte[] contentFile)
-			throws LpRestException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Collection<AnnotatedStaticContentAnalysis> getStaticContentVerifications(
 			String contentID) throws LpRestException {
 		// TODO Auto-generated method stub
@@ -110,5 +94,6 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 		
 }
