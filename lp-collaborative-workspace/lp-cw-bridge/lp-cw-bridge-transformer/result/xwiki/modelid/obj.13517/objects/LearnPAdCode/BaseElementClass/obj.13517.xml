@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><object xmlns="http://www.xwiki.org">
-<className>LearnPAdCode.BaseElementClass</className>
-	<property name="id" type="String"><value>obj.13517</value></property>
-	<property name="name" type="String"><value>Client</value></property>
-	<property name="type" type="StaticList"><value>Pool (collapsed)</value></property>
-	<property name="documentation" type="TextArea"><value></value></property>
-</object>

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><object xmlns="http://www.xwiki.org">
-<className>LearnPAdCode.LinkClass</className>
-	<property name="id" type="String"><value>con.13563</value></property>
-	<property name="type" type="StaticList"><value>incoming</value></property>
-	<property name="uri" type="String"><value>obj.13523</value></property>
-</object>
