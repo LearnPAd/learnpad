@@ -188,12 +188,12 @@ public class SyntacticAmbiguity extends Thread implements AnalysisInterface{
 		StringTokenizer tokenizer = new StringTokenizer(sentence);
 
 		int precedentposition=0;
-
+		
 		while (tokenizer.hasMoreTokens()) {
 			String token = tokenizer.nextToken();
 			if(Listallp.contains(token)){
-
-				int initialpos = sentence.indexOf(token);
+				
+				int initialpos = indexofElement(sentence,token);
 				int finalpos = initialpos+token.length();
 				if(precedentposition>initialpos){
 					initialpos = sentence.lastIndexOf(token);
@@ -225,7 +225,20 @@ public class SyntacticAmbiguity extends Thread implements AnalysisInterface{
 		return nodeid;
 
 	}
-
+	
+	private int indexofElement(String sentence, String word){
+		StringTokenizer tokenizer = new StringTokenizer(sentence);
+		int position = 0;
+		while (tokenizer.hasMoreTokens()) {
+			String token = tokenizer.nextToken();
+			if(token.equals(word)){
+				return position;
+			}else{
+				position+=token.length();
+			}
+		}
+		return position;
+	}
 	
 
 	public String getStatus(){
