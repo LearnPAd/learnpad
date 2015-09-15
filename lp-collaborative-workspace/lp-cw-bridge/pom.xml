@@ -36,5 +36,6 @@
 
 	<modules>
 		<module>lp-cw-bridge-importer</module>
+		<module>lp-cw-bridge-transformer</module>
 	</modules>
 </project>

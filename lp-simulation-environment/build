@@ -21,6 +21,7 @@ declare -r __MVN_PROFILE__="-Pkeep-license-files"
 
 ### BUILD ###
 function component_build() {
+    rm -rf $__OUT_PATH__
     mvn $__MVN_PROFILE__ clean
     # skip tests as we will do them in the component_test stage
     mvn $__MVN_PROFILE__ package -Dmaven.test.skip=true
@@ -37,7 +38,7 @@ function component_install() {
     mkdir -p ${__OUT_PATH__}
     cp "scripts/start" "${__OUT_START_FILE__}"
     cp "scripts/stop" "${__OUT_STOP_FILE__}"
-    cp "target/simulator-"*"-jar-with-dependencies.jar" "${__OUT_PATH__}/"
+    unzip "target/simulator-"*".zip" -d "${__OUT_PATH__}/"
     # There is no run dependencies for this component
     #cp <path_to>/rundeps.txt ${__OUT_RUNDEPS_FILE__}
     # These is no configuration file to copy

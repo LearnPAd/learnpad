@@ -64,7 +64,7 @@ public class Simulator implements IProcessManagerProvider,
 
 		// create users ui handler
 		uiHandler = new UIHandlerWebImpl(new WebServer(webserverPort, "ui",
-				"tasks"), new ArrayList<String>(), this,
+				"tasks", this), new ArrayList<String>(), this,
 				new ActivitiToJsonFormFormHandler(processEngine
 						.getFormService()));
 	}

@@ -26,6 +26,7 @@ package eu.learnpad.simulator.uihandler.webserver;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -49,6 +50,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import eu.learnpad.simulator.MainTest;
+import eu.learnpad.simulator.Simulator;
 
 /**
  *
@@ -66,7 +68,7 @@ public class WebServerTest {
 	public void init() {
 		try {
 
-			server = new WebServer(MainTest.PORT, "ui", "tasks");
+			server = new WebServer(MainTest.PORT, "ui", "tasks", mock(Simulator.class));
 		} catch (Exception e) {
 			System.err.println(e);
 			fail("got exception during setup");

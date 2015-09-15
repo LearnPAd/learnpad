@@ -42,6 +42,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Path;
 
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -55,6 +56,9 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.servlet.ServletMapping;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
+
+import eu.learnpad.simulator.Simulator;
+import eu.learnpad.simulator.api.impl.SimulatorBridgeServletHolder;
 
 /**
  * @author Tom Jorquera - Linagora
@@ -73,8 +77,8 @@ public class WebServer {
 	private final String uiPath;
 	private final String tasksPath;
 
-	public WebServer(final int port, String uiPath, String tasksPath)
-			throws Exception {
+	public WebServer(final int port, String uiPath, String tasksPath,
+			final Simulator simulator) throws Exception {
 		this.server = new Server();
 		final ServerConnector connector = new ServerConnector(server);
 
@@ -122,6 +126,14 @@ public class WebServer {
 		contexts.setHandlers(new Handler[] { webjarsContext, resourcesContext,
 				context });
 		server.setHandler(contexts);
+
+		context.setContextPath("/");
+
+		// add REST bridge servlet
+		String apiBasePath = eu.learnpad.sim.BridgeInterface.class
+				.getAnnotation(Path.class).value();
+		context.addServlet(new SimulatorBridgeServletHolder(simulator, context,
+				apiBasePath), apiBasePath + "*");
 
 		// start server
 		this.server.start();

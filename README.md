@@ -1,18 +1,10 @@
-[![Build
+* *Builds* [![Build
 Status](https://travis-ci.org/LearnPAd/learnpad.svg?branch=master)](https://travis-ci.org/LearnPAd/learnpad)
-[![Coveralls](https://coveralls.io/repos/LearnPAd/learnpad/badge.svg)](https://coveralls.io/r/LearnPAd/learnpad)
-[![Code
+* *Coverage* [![Coveralls](https://coveralls.io/repos/LearnPAd/learnpad/badge.svg)](https://coveralls.io/r/LearnPAd/learnpad)
+* *Quality (only Javascript)* [![Code
 Climate](https://codeclimate.com/github/LearnPAd/learnpad/badges/gpa.svg)](https://codeclimate.com/github/LearnPAd/learnpad)
-[![Code Climate
-Coverage](https://codeclimate.com/github/LearnPAd/learnpad/badges/coverage.svg)](https://codeclimate.com/github/LearnPAd/learnpad/coverage)
 [![Codacy
 Badge](https://www.codacy.com/project/badge/614d864cf4d44c5ba52b5df40f9812c6)](https://www.codacy.com/app/woshilapin/learnpad)
-[![Quantified
-Code](http://www.quantifiedcode.com/api/v1/project/c786bdc34886440ea2f80a54a87aa99b/badge.svg)](http://www.quantifiedcode.com/app/project/c786bdc34886440ea2f80a54a87aa99b)
-[![Circle
-CI](https://circleci.com/gh/LearnPAd/learnpad.svg?style=svg)](https://circleci.com/gh/LearnPAd/learnpad)
-
-[![XWiki labs logo](https://raw.githubusercontent.com/xwiki-labs/xwiki-labs-logo/master/projects/xwikilabs/xlabs-project.png "XWiki labs")](https://labs.xwiki.com/xwiki/bin/view/Main/WebHome)
 
 Learn PAd project - Model-Based Social Learning for Public Administrations
 ==========================================================================
