@@ -1,6 +1,5 @@
 package eu.learnpad.ca.analysis.simplicity;
 
-import static org.junit.Assert.assertNotNull;
 
 import java.io.InputStream;
 import java.text.DecimalFormat;
@@ -83,6 +82,9 @@ public class Simplicity extends Thread implements AnalysisInterface{
 
 			List<Annotation> annotations =new ArrayList<Annotation>();
 			id = checkdefect(sentence,c, id, annotations);
+			if(annotations.size()>0){
+				numDefectiveSentences++;
+			}
 			annotatedStaticContent.setAnnotations(annotations);
 			id++;
 		}
@@ -110,7 +112,7 @@ public class Simplicity extends Thread implements AnalysisInterface{
 
 			}
 
-		assertNotNull(is);
+		assert is!=null;
 
 		try {
 			JAXBContext jaxbContexti = JAXBContext.newInstance(JuridaljargonSet.class);

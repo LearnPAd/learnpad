@@ -26,6 +26,7 @@ import org.languagetool.language.Italian;
 import eu.learnpad.ca.analysis.AnalysisInterface;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
+import eu.learnpad.ca.analysis.syntacticambiguity.SyntacticAmbiguity;
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
@@ -83,6 +84,13 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				putAndCreate(id, threadsimply);
 
 			}
+			if(contentFile.getQualityCriteria().isNonAmbiguity()){
+
+				SyntacticAmbiguity threadSyntacticAmbiguity = new SyntacticAmbiguity (contentFile, lang);
+				threadSyntacticAmbiguity.start();
+				putAndCreate(id, threadSyntacticAmbiguity);
+
+			}
 			return id.toString();
 		}else
 			return "Null Element send";
@@ -111,9 +119,10 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 			for(AnalysisInterface analysisInterface :listanalysisInterface){
 				AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent = analysisInterface.getAnnotatedCollaborativeContentAnalysis();
-
-				annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
-				ar.add(annotatedCollaborativeContent);
+				if(annotatedCollaborativeContent!=null){
+					annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
+					ar.add(annotatedCollaborativeContent);
+				}
 			}
 
 

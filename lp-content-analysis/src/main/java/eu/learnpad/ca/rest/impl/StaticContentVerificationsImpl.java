@@ -23,6 +23,7 @@ import org.languagetool.language.Italian;
 import eu.learnpad.ca.analysis.AnalysisInterface;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
+import eu.learnpad.ca.analysis.syntacticambiguity.SyntacticAmbiguity;
 import eu.learnpad.ca.rest.StaticContentVerifications;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
@@ -72,6 +73,13 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 				putAndCreate(id, threadsimply);
 
 			}
+			if(contentFile.getQualityCriteria().isNonAmbiguity()){
+
+				SyntacticAmbiguity threadSyntacticAmbiguity = new SyntacticAmbiguity (contentFile, lang);
+				threadSyntacticAmbiguity.start();
+				putAndCreate(id, threadSyntacticAmbiguity);
+
+			}
 			return id.toString();
 		}else
 			return "Null Element send";
@@ -101,9 +109,10 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 
 			for(AnalysisInterface analysisInterface :listanalysisInterface){
 				AnnotatedStaticContentAnalysis annotatedStaticContent = analysisInterface.getAnnotatedStaticContentAnalysis();
-
-				annotatedStaticContent.setId(Integer.valueOf(contentID));
-				ar.add(annotatedStaticContent);
+				if(annotatedStaticContent!=null){
+					annotatedStaticContent.setId(Integer.valueOf(contentID));
+					ar.add(annotatedStaticContent);
+				}
 			}
 
 			return ar;
