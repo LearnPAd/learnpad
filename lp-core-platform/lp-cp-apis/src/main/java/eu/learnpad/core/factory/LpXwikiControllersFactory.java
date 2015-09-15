@@ -32,7 +32,7 @@ public class LpXwikiControllersFactory extends LpControllersFactory {
 
 	@Override
 	public eu.learnpad.cw.Controller createControllerCW(boolean isBridgeInterfaceLocal) {
-		return new eu.learnpad.core.impl.cw.XwikiController(isBridgeInterfaceLocal);
+		return new eu.learnpad.core.impl.cw.XwikiController();
 	}
 
 	@Override
