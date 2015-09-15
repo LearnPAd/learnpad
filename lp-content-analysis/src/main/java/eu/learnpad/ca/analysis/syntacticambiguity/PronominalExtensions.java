@@ -25,7 +25,7 @@ public class PronominalExtensions {
 		allPronouns.addAll(pronouns_male);
 		allPronouns.addAll(pronouns_female);
 		allPronouns.addAll(pronouns_neuter);
-		allPronouns.addAll(pronouns_demonstratives);
+		//allPronouns.addAll(pronouns_demonstratives);
 		return allPronouns;
 	}
 	

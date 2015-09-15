@@ -1,39 +1,15 @@
 package eu.learnpad.ca.analysis.syntacticambiguity;
 
-import java.io.StringReader;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import org.apache.commons.lang.StringUtils;
 import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
 
-import edu.stanford.nlp.dcoref.CorefChain;
-import edu.stanford.nlp.dcoref.CorefCoreAnnotations.CorefChainAnnotation;
-import edu.stanford.nlp.hcoref.CorefCoreAnnotations.CorefGraphAnnotation;
-import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.ling.Sentence;
-import edu.stanford.nlp.parser.lexparser.LexicalizedParser;
-import edu.stanford.nlp.parser.lexparser.LexicalizedParserQuery;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.process.CoreLabelTokenFactory;
-import edu.stanford.nlp.process.PTBTokenizer;
-import edu.stanford.nlp.process.TokenizerFactory;
-import edu.stanford.nlp.trees.GrammaticalStructure;
-import edu.stanford.nlp.trees.GrammaticalStructureFactory;
-import edu.stanford.nlp.trees.PennTreebankLanguagePack;
-import edu.stanford.nlp.trees.Tree;
-import edu.stanford.nlp.trees.TreebankLanguagePack;
-import edu.stanford.nlp.trees.TypedDependency;
-import edu.stanford.nlp.util.IntTuple;
-import edu.stanford.nlp.util.Pair;
-import edu.stanford.nlp.util.ScoredObject;
 import eu.learnpad.ca.analysis.AnalysisInterface;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
@@ -44,7 +20,7 @@ import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
-import eu.learnpad.ca.simplicity.juridicaljargon.Juridicaljargon;
+
 
 
 public class SyntacticAmbiguity extends Thread implements AnalysisInterface{ 
@@ -143,26 +119,28 @@ public class SyntacticAmbiguity extends Thread implements AnalysisInterface{
 		sc.setId(idc);
 		Content c = new Content();
 		sc.setContent(c);
+		JLanguageTool langTool = new JLanguageTool(language);
+		List<String> listsentence = langTool.sentenceTokenize(content);
+		int id=0;
+		for (String sentence : listsentence) {
 
 
-		/*LexicalizedParser lp = LexicalizedParser.loadModel("edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz",
-				"-maxLength", "80", "-retainTmpSubcategories");
-		TreebankLanguagePack tlp = new PennTreebankLanguagePack();
-		tlp.setGenerateOriginalDependencies(true);
-		GrammaticalStructureFactory gsf = tlp.grammaticalStructureFactory();
+			List<Annotation> annotations =new ArrayList<Annotation>();
+			id = checkdefect(sentence,c, id, annotations);
+			if(annotations.size()>0){
+				numDefectiveSentences++;
+			}
+			annotatedStaticContent.setAnnotations(annotations);
+			id++;
+		}
 
-		String[] sent = {"This", "is", "an", "easy", "sentence", "." };
-		Tree parse = lp.apply(Sentence.toWordList(sent));
-		GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
-		Collection<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
-		System.out.println(tdl);
 
 
 		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 		annotatedStaticContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 		annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-		annotatedStaticContent.setType("non_ambiguity");*/
+		annotatedStaticContent.setType("non_ambiguity");
 
 	}
 
@@ -194,47 +172,7 @@ public class SyntacticAmbiguity extends Thread implements AnalysisInterface{
 			}
 			annotatedCollaborativeContent.setAnnotations(annotations);
 			id++;
-			/*LexicalizedParser lp = LexicalizedParser.loadModel(
-					"edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz",
-					"-maxLength", "80", "-retainTmpSubcategories");
-
-			LexicalizedParserQuery lpq = lp.lexicalizedParserQuery();
-			lpq.parse(tokenize(sentence));
-			Tree t = lpq.getBestPCFGParse();
-			System.out.println(sentence);
-			System.out.println(t);
-			System.out.println(lpq.getPCFGScore());
-			System.out.println();
-			int i = 1;
-			List<ScoredObject<Tree>> kBest = lpq.getKBestPCFGParses(2);*/
-
-			/*edu.stanford.nlp.pipeline.Annotation document = new edu.stanford.nlp.pipeline.Annotation(sentence);
-			Properties props = new Properties();
-			props.put("annotators", "tokenize, ssplit, pos, parse, lemma, ner, dcoref");
-		    StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-
-		    pipeline.annotate(document);
-
-
-            Map<Integer, CorefChain> graph = document.get(CorefChainAnnotation.class);
-			 */
-
-			/*double tmp = 0;
-			for (ScoredObject<Tree> scoredObject : kBest) {
-				if(tmp==0){
-					tmp = scoredObject.score();
-				}else
-				if((tmp>=scoredObject.score()+1) | (tmp<=scoredObject.score()+1)){
-					System.out.println("frase numero:"+i);
-					System.out.println(scoredObject.score());
-					System.out.println(scoredObject);
-				}
-
-				i++;
-			}*/
-			//System.out.println(graph);
-			//System.out.println(coref);
-
+		}
 			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 			annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 			annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
@@ -242,7 +180,7 @@ public class SyntacticAmbiguity extends Thread implements AnalysisInterface{
 			annotatedCollaborativeContent.setType("non_ambiguity");
 			System.out.println(annotatedCollaborativeContent);
 
-		}
+		
 	}
 
 	private int checkdefect(String sentence,Content c,int nodeid,List<Annotation> annotations){
@@ -288,20 +226,7 @@ public class SyntacticAmbiguity extends Thread implements AnalysisInterface{
 
 	}
 
-	private List<CoreLabel> tokenize(String input) {
-		List<CoreLabel> list = new ArrayList<CoreLabel>();
-
-		TokenizerFactory<CoreLabel> tokenizerFactory = 
-				PTBTokenizer.factory(new CoreLabelTokenFactory(), "");
-
-		List<CoreLabel> tokens = 
-				tokenizerFactory.getTokenizer(
-						new StringReader(input)).tokenize();
-
-
-
-		return tokens;
-	}
+	
 
 	public String getStatus(){
 		switch (this.getState()) {
