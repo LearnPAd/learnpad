@@ -203,14 +203,15 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 		while (m.find()){
 			String tmpcandidateAcronym = m.group();
 			String candidateAcronym = tmpcandidateAcronym;
-			if(candidateAcronym.length()<=1){
+			if(candidateAcronym.length()<=1 | (candidateAcronym.contains(".")&candidateAcronym.length()==2 )){
+				System.out.println("candidato scartato "+candidateAcronym);
 				break;
 			}
 			if(candidateAcronym.contains(".")){
 				candidateAcronym = candidateAcronym.replace(".", "");
 			}
 			int lencandidateAcronym = candidateAcronym.length();
-			String regex2 = "([A-Z]+\\w+\\s*){"+lencandidateAcronym+"}";
+			String regex2 = "([A-Z]+\\w+([ ]|)){"+lencandidateAcronym+"}";
 
 			// Create a Pattern object
 			Pattern r2 = Pattern.compile(regex2);
@@ -352,7 +353,7 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 				if(elementfinded.get(token).intValue()==numwordfinded){
 					Integer I = elementfinded.get(token);
 					int y  = I.intValue()+1;
-					elementfinded.replace(token, y);
+					elementfinded.put(token, y);
 					return position;
 				}else{
 					position+=token.length()+1+offset;
