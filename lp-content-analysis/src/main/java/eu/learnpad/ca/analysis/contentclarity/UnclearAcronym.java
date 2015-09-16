@@ -147,7 +147,7 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 		annotatedStaticContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 		annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 		annotatedStaticContent.setType("Content Clarity");
-		
+
 	}
 
 	private void checkUnclearAcronym(CollaborativeContentAnalysis collaborativeContentInput) {
@@ -191,7 +191,7 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 
 		listOfStrings.removeAll(stopw.getStopwords());
 		String ContentCleaned = StringUtils.join(listOfStrings, " ");
-		System.out.println(ContentCleaned); 
+		//System.out.println(ContentCleaned); 
 		String regex = "[A-Z|\\.]{2,}";
 
 		// Create a Pattern object
@@ -203,7 +203,9 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 		while (m.find()){
 			String tmpcandidateAcronym = m.group();
 			String candidateAcronym = tmpcandidateAcronym;
-
+			if(candidateAcronym.length()<=1){
+				break;
+			}
 			if(candidateAcronym.contains(".")){
 				candidateAcronym = candidateAcronym.replace(".", "");
 			}
@@ -221,18 +223,21 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 				//ok trovato  acronimi estesi
 
 				String candidateexAcr = m2.group();
-				System.out.println(candidateexAcr);
+				//System.out.println(candidateexAcr);
 
 				String [] splited = candidateexAcr.split("\\s");
-				for (int i = 0; i < splited.length; i++) {
-					if(!splited[i].startsWith(String.valueOf(candidateAcronym.charAt(i)))){
-						flag = true;
-						break;
-					}else{
-						flag = false;
+				if(candidateAcronym.length()==splited.length){
+					for (int i = 0; i < splited.length; i++) {
+						if(!splited[i].startsWith(String.valueOf(candidateAcronym.charAt(i)))){
+							flag = true;
+							break;
+						}else{
+							flag = false;					
+						}
 					}
 				}
 				if(!flag){
+					System.out.println("Acronym "+candidateAcronym+" "+candidateexAcr);
 					break;
 				}
 			}
@@ -249,6 +254,7 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 
 
 		insertdefectannotation(content, c ,  acronymdefected, listsentence );
+
 	}
 
 
@@ -284,10 +290,10 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 
 				int initialpos = indexofElement(sentence,token,elementfinded);
 				int finalpos = initialpos+token.length();
-				if(precedentposition>initialpos){
+				/*if(precedentposition>initialpos){
 					initialpos = sentence.lastIndexOf(token);
 					finalpos = initialpos+token.length();
-				}
+				}*/
 				String stringap = sentence.substring(precedentposition, initialpos);
 				c.setContent(stringap);
 				precedentposition=finalpos;
@@ -340,17 +346,19 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 			if(token.equals(word)){
 				numwordfinded++;
 				if(!elementfinded.containsKey(token)){
-					elementfinded.put(token, 1);
-				}
-				if(elementfinded.get(token).intValue()==numwordfinded){
+					elementfinded.put(token, 2);
 					return position;
 				}
-				if(elementfinded.containsKey(token)){
+				if(elementfinded.get(token).intValue()==numwordfinded){
 					Integer I = elementfinded.get(token);
 					int y  = I.intValue()+1;
 					elementfinded.replace(token, y);
+					return position;
+				}else{
+					position+=token.length()+1+offset;
 				}
-				
+				//if(elementfinded.containsKey(token))
+
 			}else{
 				position+=token.length()+1+offset;
 			}
