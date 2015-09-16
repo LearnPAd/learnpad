@@ -219,8 +219,9 @@ public class SyntacticAmbiguity extends Thread implements AnalysisInterface{
 
 			}
 		}
-		if(annotations.size()==0){
-			c.setContent(sentence);
+		if(precedentposition<sentence.length()){
+			String stringap = sentence.substring(precedentposition, sentence.length());
+			c.setContent(stringap);
 		}
 		return nodeid;
 
@@ -234,7 +235,7 @@ public class SyntacticAmbiguity extends Thread implements AnalysisInterface{
 			if(token.equals(word)){
 				return position;
 			}else{
-				position+=token.length();
+				position+=token.length()+1;
 			}
 		}
 		return position;

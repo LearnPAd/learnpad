@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<annotatedCollaborativeContentAnalysis id="1" type="Content Clarity">
+    <CollaborativeContent id="1213">
+        <Title>Title of Documents</Title>
+        <Content>
+            <Node id="1"/>BP<Node id="2"/>: Entrepreneur : The first activity of the entrepreneur is to fill the documents and certificated needed for the request.  Next, he can send it via Web Form or via Certified Electronic Mail.  In case more documents or certificated are needed he has to integrate the request.  It can be done for two times.  At the end the entrepreneur can receive the permission to start the activity or not depending on the request.  More in deep, the activities executed by the entrepreneur are followed listed.
+ “Fill data about request” (Task).  In this activity the entrepreneur has to fill the application form, attach requested documents and digitally sign all the data.  The data object “Instanza” is generated in this activity.
+ “Send via <Node id="12"/>PEC<Node id="13"/>” (Send Task).  In this activity the entrepreneur has to send to the <Node id="15"/>SUAP<Node id="16"/> office the request via certificated e-mail.  The data object “Instanza” is requested to perform this activity.
+ “Send via Web Form” (Send Task).  In this activity the entrepreneur has to sendto the <Node id="20"/>SUAP<Node id="21"/> office the request via Web Form to the <Node id="22"/>SUAP<Node id="23"/> office.  The data object “Instanza” is requested to perform this activity.
+ “Send Instance integration” (Send Task).  In this activity the entrepreneur has to send to the <Node id="27"/>SUAP<Node id="28"/> office the documentation to integrate the request.
+ “Send Instance integration according to request” (Send Task).  In this activity the entrepreneur has to send to the <Node id="31"/>SUAP<Node id="32"/> office the documentation requested by Municipality offices or third party institutions to integrate the request.  The data object “Integrazione Instanza” is requested to perform this activity.
+ “Receive inhibition” (Receive Task).  In this activity the entrepreneur received a communication that he cannot start his manufacturing activity.
+ “Send comment on inhibition”(Send Task).  In this activity the entrepreneur sends remarks about the instance to the <Node id="38"/>SUAP<Node id="39"/> office.
+ “Receive authorization Document” (Receive Task).  In this activity the entrepreneur received the permission to start his manufacturing activity.  The data object “Titolo Unico” is generated in this activity.
+ 
+<Node id="44"/>BP<Node id="45"/>: Municipality : Municipality is involved in the <Node id="46"/>BP<Node id="47"/> when the <Node id="48"/>SUAP<Node id="49"/> office receives the <Node id="50"/>SCIA<Node id="51"/> request from the entrepreneur.  In case <Node id="53"/>SUAP<Node id="54"/> office receives the request via Web Form it has to quickly check documents and certificates since the software installed in the Web Form does most of the checks, otherwise it has to check manually the request.  If the request is ok an automatic communication of reception is sent.  Then, the <Node id="57"/>SUAP<Node id="58"/> office checks if the request is admissible, in case it is not admissible the request can be archived, or in some cases the entrepreneur can integrate it.  At this point, <Node id="60"/>SUAP<Node id="61"/> office forwards the request to the involved municipality offices and to third parties.  If someone finds some lack of documentation, integration can be requested to the entrepreneur.  Anytime the “Conferenza dei Servizi” may be organized in order to discuss about the case.  At the end if the request is acceptable the permission to start the activity is sent to the entrepreneur, otherwise a communication of stop of the business activity is sent.  More in deep, the activities executed by the entrepreneur are followed listed.
+ “Deep Check Data” (Manual Task).  In this activity the <Node id="68"/>SUAP<Node id="69"/> office has to check carefully the documentation and certificates sent by the entrepreneur since they are sent via <Node id="70"/>PEC<Node id="71"/>.  The data object “Instanza” is requested to perform this activity.  In all the cases in which the entrepreneur apply for a request of Standard Request to start an Activity, some checks have to be done by the <Node id="74"/>SUAP<Node id="75"/> Office (even if it can be placed inside the municipality or offered by a consortium of municipalities), and they change case by case even if there is a basic check that has to be done in all the case (Figure 4.15).  Three mandatory data objects compose all the requests, they are the “Instanza”, the “Ricevuta di Pagamento” and one specific form depending on the request.  In all the cases the three mandatory data objects can be checked independently.  Another data objects can be involved in each case, it is the “Dichiarazione altri Proprietari”.  It is an attachment that has to be provided by the entrepreneur only in case the activity refers to a build that is owned by more than one person.
+ “General Check Data” (Manual Task).  In this activity the <Node id="82"/>SUAP<Node id="83"/> office has to brief the documentation and certificates sent by the entrepreneur since the software installed in the Web Form site already checks them.  The data object “Instanza” is requested to perform this activity.
+ “<Node id="86"/>SCIA<Node id="87"/> Instance Verification” (Task).  In this activity the <Node id="89"/>SUAP<Node id="90"/> office has to check the admissibility of the request.  The data object “Instanza” is requested to perform this activity.
+ “Communication of instance not authorized ” (Send Task).  In this activity the <Node id="94"/>SUAP<Node id="95"/> office has to communicate to the entrepreneur that some integrations are needed to make the request admissible.
+ “Send Communication of instance now authorized” (Send Task). In this activity the <Node id="98"/>SUAP<Node id="99"/> office has to communicate to the entrepreneur the inadmissibility of the request.
+ “Send Communication starting check” (Send Task).  In this activity the <Node id="102"/>SUAP<Node id="103"/> office sends a message to the entrepreneur to inform the applicant that his procedure is started.
+ “Send instance to third party administration” (Send Task Multi).  In this activity the <Node id="106"/>SUAP<Node id="107"/> office has to send to PAs documentation and certificates for the checking.  It is a multi-instance activity since more than one PAs can be involved in the process.  The data object “Instanza” is requested to perform this activity.
+ “Receive check from third party administration” (Receive Task Loop).  In this activity the <Node id="112"/>SUAP<Node id="113"/> office receive results of the checks performed by other PAs.  It is a loop activity since more than one PAs can send its results.  The data object “Parere” is generated in this activity.
+ “Do check” (Task Multi).  In this activity involved municipality offices checks documentation and certificates sent by the entrepreneur.  It is a multi-instance activity since more than one offices can be involved in the process.  The data object “Instanza” is requested to perform this activity.
+ “Ask for integration” (Send Task).  In this activity the <Node id="122"/>SUAP<Node id="123"/> office has to send to the entrepreneur a request for integrations.
+ “Receive Integration” (Receive Task).  In this activity the <Node id="126"/>SUAP<Node id="127"/> office receive integrations from the citizen.  The data object “Integrazione Instanza” is generated in this activity.
+ “Send integration to Administration in charge” (Send Task Multi).  In this activity the <Node id="131"/>SUAP<Node id="132"/> has to send to PAs integrations to integrate the request.  It is a multi-instance activity since more than one PAs can be involved in the process.  The data object “Integrazione Instanza” is requested to perform this activity.
+ “Receive Confirmation” (Receive Task Loop).  In this activity the <Node id="137"/>SUAP<Node id="138"/> office receives from PAs confirmations of receipt of integration.  It is a loop activity since more than one PAs can send its results.
+ “Do check” (Task Multi).  In this activity involved municipality offices checks integrations sent by the Citizen Applicant.  It is a multi-instance activity since more than one offices can be involved in the process.  The data object “Integrazione Instanza” is requested to perform this activity.
+ “Activate Service Conference” (Task).  In this activity the <Node id="146"/>SUAP<Node id="147"/> office announces the Service Conference.  The data object “Instanza” is requested to perform this activity.
+ “Ask Service Conference opinion” (Send Task).  In this activity the <Node id="151"/>SUAP<Node id="152"/> office requests the opinion of the Service Conference.
+ “Send inhibition” (Send Task).  In this activity the <Node id="155"/>SUAP<Node id="156"/> office has to send a communication to the entrepreneur in order to inform that he cannot start his manufacturing activity.
+ “Reply to comment” (Send Task).  In this activity the <Node id="159"/>SUAP<Node id="160"/> office responds to the entrepreneur about his remarks about the case.
+ “Send authorization document” (Send Task).  In this activity the <Node id="163"/>SUAP<Node id="164"/> office sends to the entrepreneur the permission to start the manufacturing activity.  The data object “Titolo Unico” is requested to perform this activity.
+ 
+
+
+
+ <Node id="168"/>BP<Node id="169"/>: Third party <Node id="170"/>PA<Node id="171"/> : A third party is involved in the <Node id="172"/>BP<Node id="173"/> when the <Node id="174"/>SUAP<Node id="175"/> office request some checks.  It just sends the results of its checks and, in case some integration is needed, it also receives the integration and send a communication of reception.  More in deep, the activities executed by the entrepreneur are followed listed.
+ “Do check” (Task).  In this activity involved <Node id="180"/>PA<Node id="181"/> checks documents and certificates sent by the <Node id="182"/>SUAP<Node id="183"/> office.  The data object “Parere” is generated in this activity.
+ “Send Opinion” (Send Task).  In this activity involved <Node id="187"/>PA<Node id="188"/> sends the result of the check to the <Node id="189"/>SUAP<Node id="190"/> office.  The data object “Parere” is requested to perform this activity.
+ “Send Integration confirmation” (Send Task).  In this activity involved <Node id="194"/>PA<Node id="195"/> sends the confirmation that the integrations are sent.
+ 
+<Node id="197"/>BP<Node id="198"/>: Service Conference : The Service Conference can be involved in the <Node id="199"/>BP<Node id="200"/> in the case the request is complex to manage.  During the meeting the request is analysed in deep and a decision about it is taken.  More in deep, the activities executed by the entrepreneur are followed listed.
+ “Check request” (Task).  In this activity the “The Service Conference” analyse the case.  The data object “Verbare CdS” is generated in this activity.
+ “Send final decision” (Send Task).  In this activity the “The Service Conference” communicates the sentence to the <Node id="208"/>SUAP<Node id="209"/> office.  The data object “Verbale CdS” is requested to perform this activity.
+ 
+
+
+
+</Content>
+    </CollaborativeContent>
+    <Annotations>
+        <Annotation id="2" type="Content Clarity" StartNode="1" EndNode="2" recommendation="Explicit Acronym BP"/>
+        <Annotation id="13" type="Content Clarity" StartNode="12" EndNode="13" recommendation="Explicit Acronym PEC"/>
+        <Annotation id="16" type="Content Clarity" StartNode="15" EndNode="16" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="21" type="Content Clarity" StartNode="20" EndNode="21" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="23" type="Content Clarity" StartNode="22" EndNode="23" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="28" type="Content Clarity" StartNode="27" EndNode="28" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="32" type="Content Clarity" StartNode="31" EndNode="32" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="39" type="Content Clarity" StartNode="38" EndNode="39" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="45" type="Content Clarity" StartNode="44" EndNode="45" recommendation="Explicit Acronym BP"/>
+        <Annotation id="47" type="Content Clarity" StartNode="46" EndNode="47" recommendation="Explicit Acronym BP"/>
+        <Annotation id="49" type="Content Clarity" StartNode="48" EndNode="49" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="51" type="Content Clarity" StartNode="50" EndNode="51" recommendation="Explicit Acronym SCIA"/>
+        <Annotation id="54" type="Content Clarity" StartNode="53" EndNode="54" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="58" type="Content Clarity" StartNode="57" EndNode="58" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="61" type="Content Clarity" StartNode="60" EndNode="61" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="69" type="Content Clarity" StartNode="68" EndNode="69" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="71" type="Content Clarity" StartNode="70" EndNode="71" recommendation="Explicit Acronym PEC"/>
+        <Annotation id="75" type="Content Clarity" StartNode="74" EndNode="75" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="83" type="Content Clarity" StartNode="82" EndNode="83" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="87" type="Content Clarity" StartNode="86" EndNode="87" recommendation="Explicit Acronym SCIA"/>
+        <Annotation id="90" type="Content Clarity" StartNode="89" EndNode="90" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="95" type="Content Clarity" StartNode="94" EndNode="95" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="99" type="Content Clarity" StartNode="98" EndNode="99" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="103" type="Content Clarity" StartNode="102" EndNode="103" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="107" type="Content Clarity" StartNode="106" EndNode="107" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="113" type="Content Clarity" StartNode="112" EndNode="113" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="123" type="Content Clarity" StartNode="122" EndNode="123" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="127" type="Content Clarity" StartNode="126" EndNode="127" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="132" type="Content Clarity" StartNode="131" EndNode="132" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="138" type="Content Clarity" StartNode="137" EndNode="138" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="147" type="Content Clarity" StartNode="146" EndNode="147" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="152" type="Content Clarity" StartNode="151" EndNode="152" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="156" type="Content Clarity" StartNode="155" EndNode="156" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="160" type="Content Clarity" StartNode="159" EndNode="160" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="164" type="Content Clarity" StartNode="163" EndNode="164" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="169" type="Content Clarity" StartNode="168" EndNode="169" recommendation="Explicit Acronym BP"/>
+        <Annotation id="171" type="Content Clarity" StartNode="170" EndNode="171" recommendation="Explicit Acronym PA"/>
+        <Annotation id="173" type="Content Clarity" StartNode="172" EndNode="173" recommendation="Explicit Acronym BP"/>
+        <Annotation id="175" type="Content Clarity" StartNode="174" EndNode="175" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="181" type="Content Clarity" StartNode="180" EndNode="181" recommendation="Explicit Acronym PA"/>
+        <Annotation id="183" type="Content Clarity" StartNode="182" EndNode="183" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="188" type="Content Clarity" StartNode="187" EndNode="188" recommendation="Explicit Acronym PA"/>
+        <Annotation id="190" type="Content Clarity" StartNode="189" EndNode="190" recommendation="Explicit Acronym SUAP"/>
+        <Annotation id="195" type="Content Clarity" StartNode="194" EndNode="195" recommendation="Explicit Acronym PA"/>
+        <Annotation id="198" type="Content Clarity" StartNode="197" EndNode="198" recommendation="Explicit Acronym BP"/>
+        <Annotation id="200" type="Content Clarity" StartNode="199" EndNode="200" recommendation="Explicit Acronym BP"/>
+        <Annotation id="209" type="Content Clarity" StartNode="208" EndNode="209" recommendation="Explicit Acronym SUAP"/>
+    </Annotations>
+    <OverallQuality>GOOD</OverallQuality>
+    <OverallQualityMeasure>69,49%</OverallQualityMeasure>
+    <OverallRecommendations>Quality is acceptable, but there are still some errors</OverallRecommendations>
+</annotatedCollaborativeContentAnalysis>

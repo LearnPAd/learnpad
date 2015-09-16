@@ -24,6 +24,7 @@ import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
 import eu.learnpad.ca.analysis.AnalysisInterface;
+import eu.learnpad.ca.analysis.contentclarity.UnclearAcronym;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
 import eu.learnpad.ca.analysis.syntacticambiguity.SyntacticAmbiguity;
@@ -91,6 +92,15 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				putAndCreate(id, threadSyntacticAmbiguity);
 
 			}
+			if(contentFile.getQualityCriteria().isContentClarity()){
+
+				UnclearAcronym threadUnclearAcronym = new UnclearAcronym (contentFile, lang);
+				threadUnclearAcronym.start();
+				putAndCreate(id, threadUnclearAcronym);
+
+			}
+			
+			
 			return id.toString();
 		}else
 			return "Null Element send";

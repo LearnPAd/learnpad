@@ -207,8 +207,9 @@ public class Simplicity extends Thread implements AnalysisInterface{
 
 			}
 		}
-		if(annotations.size()==0){
-			c.setContent(sentence);
+		if(precedentposition<sentence.length()){
+			String stringap = sentence.substring(precedentposition, sentence.length());
+			c.setContent(stringap);
 		}
 		return nodeid;
 
