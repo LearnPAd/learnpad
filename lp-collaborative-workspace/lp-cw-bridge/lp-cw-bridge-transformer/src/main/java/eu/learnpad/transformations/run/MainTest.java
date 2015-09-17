@@ -1,4 +1,4 @@
-package eu.learnpad.transformations.model2text.run;
+package eu.learnpad.transformations.run;
 
 
 
