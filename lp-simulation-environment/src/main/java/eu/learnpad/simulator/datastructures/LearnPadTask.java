@@ -1,5 +1,9 @@
 package eu.learnpad.simulator.datastructures;
 
+import java.util.Collection;
+
+import eu.learnpad.simulator.datastructures.document.LearnPadDocument;
+
 /*
  * #%L
  * LearnPAd Simulator
@@ -22,7 +26,7 @@ package eu.learnpad.simulator.datastructures;
  */
 
 /**
- * This data structure hold the common information about a task
+ * This data structure holds the common information about a task
  *
  * @author Tom Jorquera - Linagora
  *
@@ -33,14 +37,19 @@ public class LearnPadTask {
 	public final String id;
 	public final String name;
 	public final String desc;
+	public final Collection<LearnPadDocument> documents;
+	public final long startingTime;
 
 	public LearnPadTask(String processId, String taskId, String taskName,
-			String taskDesc) {
+			String taskDesc, Collection<LearnPadDocument> documents,
+			long startingTime) {
 		super();
 		this.processId = processId;
 		this.id = taskId;
 		this.name = taskName;
 		this.desc = taskDesc;
+		this.documents = documents;
+		this.startingTime = startingTime;
 	}
 
 	@Override

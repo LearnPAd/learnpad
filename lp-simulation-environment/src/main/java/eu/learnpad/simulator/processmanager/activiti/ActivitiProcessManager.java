@@ -50,11 +50,16 @@ import org.activiti.image.impl.DefaultProcessDiagramGenerator;
 
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
-import eu.learnpad.simulator.processmanager.IProcessDispatcher;
+import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
+import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
+import eu.learnpad.simulator.monitoring.activiti.ActivitiProbe;
+import eu.learnpad.simulator.processmanager.AbstractProcessDispatcher;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.processdispatcher.ActivitiProcessDispatcher;
 import eu.learnpad.simulator.processmanager.activiti.taskrouter.ActivitiTaskRouter;
 import eu.learnpad.simulator.processmanager.activiti.taskvalidator.ActivitiDemoTaskValidator;
+import eu.learnpad.simulator.utils.BPMNExplorerRepository;
 
 /**
  *
@@ -71,19 +76,22 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	private final ProcessDiagramGenerator generator;
 
+	private final BPMNExplorerRepository explorerRepo;
+
 	private final IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider;
 
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
 
-	private final Map<String, IProcessDispatcher> processDispatchers = Collections
-			.synchronizedMap(new HashMap<String, IProcessDispatcher>());
+	private final Map<String, AbstractProcessDispatcher> processDispatchers = Collections
+			.synchronizedMap(new HashMap<String, AbstractProcessDispatcher>());
 
 	private final Map<String, Collection<String>> processInstanceToUsers = Collections
 			.synchronizedMap(new HashMap<String, Collection<String>>());
 
 	public ActivitiProcessManager(
 			ProcessEngine processEngine,
-			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider)
+			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider,
+			BPMNExplorerRepository explorerRepo, boolean monitoringEnabled)
 					throws FileNotFoundException {
 		repositoryService = processEngine.getRepositoryService();
 		runtimeService = processEngine.getRuntimeService();
@@ -91,11 +99,24 @@ public class ActivitiProcessManager implements IProcessManager {
 		historyService = processEngine.getHistoryService();
 
 		this.generator = new DefaultProcessDiagramGenerator();
+		this.explorerRepo = explorerRepo;
 
 		taskValidator = new ActivitiDemoTaskValidator(repositoryService,
 				taskService);
 
 		this.processEventReceiverProvider = processEventReceiverProvider;
+
+		if (monitoringEnabled) {
+			// register a probe to monitor events
+			runtimeService.addEventListener(new ActivitiProbe(explorerRepo));
+		}
+	}
+
+	public ActivitiProcessManager(
+			ProcessEngine processEngine,
+			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider,
+			BPMNExplorerRepository explorerRepo) throws FileNotFoundException {
+		this(processEngine, processEventReceiverProvider, explorerRepo, true);
 	}
 
 	/*
@@ -249,7 +270,10 @@ public class ActivitiProcessManager implements IProcessManager {
 				this, this.processEventReceiverProvider.processEventReceiver(),
 				process, taskService, runtimeService, historyService,
 				new ActivitiTaskRouter(taskService, router), taskValidator,
-				users));
+				users, explorerRepo.getExplorer(projectDefinitionId)));
+
+		// we are ready, so we can start the dispatcher
+		processDispatchers.get(process.getId()).start();
 
 		return process.getId();
 	}
@@ -302,21 +326,24 @@ public class ActivitiProcessManager implements IProcessManager {
 	 * 
 	 * @see
 	 * eu.learnpad.simulator.processmanager.IProcessManager#submitTaskCompletion
-	 * (java.lang.String, java.lang.String, java.util.Map)
+	 * (eu.learnpad.simulator.datastructures.LearnPadTask, java.lang.String,
+	 * java.util.Map)
 	 */
-	public TaskSubmissionStatus submitTaskCompletion(String processId,
-			String taskId, Map<String, Object> data) {
-		return processDispatchers.get(processId).submitTaskCompletion(taskId,
-				data);
+	public LearnPadTaskSubmissionResult submitTaskCompletion(LearnPadTask task,
+			String userId, Map<String, Object> data) {
+		return processDispatchers.get(task.processId).submitTaskCompletion(
+				task, userId, data);
 	}
 
-	/**
-	 * Remove the dispatcher associated with a given processId
-	 *
-	 * @param processId
-	 */
-	public void removeDispatcher(String processId) {
+	@Override
+	public void signalProcessCompletion(String processId) {
+		processInstanceToUsers.remove(processId);
 		processDispatchers.remove(processId);
+	}
+
+	@Override
+	public Integer getInstanceScore(String processId, String userId) {
+		return processDispatchers.get(processId).getInstanceScore(userId);
 	}
 
 	/*
@@ -404,6 +431,12 @@ public class ActivitiProcessManager implements IProcessManager {
 
 			}
 		}
+	}
+
+	@Override
+	public LearnPadTaskGameInfos getGameInfos(LearnPadTask task, String userId) {
+		return processDispatchers.get(task.processId)
+				.getGameInfos(task, userId);
 	}
 
 }

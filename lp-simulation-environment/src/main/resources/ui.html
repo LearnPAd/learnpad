@@ -175,13 +175,11 @@
                     </a>
                 </div>
 
-                <div class="col-sm-7">
+                <div class="col-sm-10">
                     <ul id="taskstable" class="nav nav-tabs" role="tablist">
                     </ul>
-                    <div id="tasks" class="content tab-content">
+                    <div id="tasks" class="content tab-content container">
                     </div>
-                </div>
-                <div id="userlist-container" class="col-sm-3">
                 </div>
             </div>
 
@@ -231,14 +229,27 @@
              alert("WebSocket not supported by this browser");
          }
 
-         var userid;
-         $('#connectBn').click(function(event) {
-             userid = $('#uiid').val().toLowerCase();
-             taskReceiver(#serveripaddress#, userid);
-             chat('chatcontainer', #serveripaddress#, userid);
-             users(userid).setUserList('userlist-container');
-             return false;
-         });
+         // helper function to get the parameters from the URL
+         //
+         // see http://stackoverflow.com/questions/831030/how-to-get-get-request-parameters-in-javascript
+         function get(name) {
+             if (name = (new RegExp('[?&]' + encodeURIComponent(name) +
+                                    '=([^&]*)')).exec(location.search))
+                 return decodeURIComponent(name[1]);
+         }
+
+         var userid = get("userid");
+         if(userid != null) {
+                 taskReceiver(#serveripaddress#, userid);
+                 chat('chatcontainer', #serveripaddress#, userid);
+         } else {
+             $('#connectBn').click(function(event) {
+                 userid = $('#uiid').val().toLowerCase();
+                 taskReceiver(#serveripaddress#, userid);
+                 chat('chatcontainer', #serveripaddress#, userid);
+                 return false;
+             });
+         }
         </script>
 
     </body>
