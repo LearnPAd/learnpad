@@ -70,8 +70,22 @@ public class BPMNExplorer {
 
 	private final Map<String, List<String>> dataObjectContent;
 
-	public BPMNExplorer(BpmnModel process) throws FileNotFoundException,
-	SAXException, IOException, ParserConfigurationException {
+	public BPMNExplorer(String processDefinitionKey, BpmnModel processDef)
+			throws FileNotFoundException, SAXException, IOException,
+			ParserConfigurationException {
+
+		// get Process definition corresponding to the given ID
+		// (note that some BPMN files may contain several process definitions)
+		org.activiti.bpmn.model.Process process = null;
+		for (org.activiti.bpmn.model.Process p : processDef.getProcesses()) {
+			if (p.getId().equals(processDefinitionKey)) {
+				process = p;
+			}
+		}
+		if (process == null) {
+			throw new RuntimeException("Cannot find process with key "
+					+ processDefinitionKey + " in BPMN model");
+		}
 
 		final Map<String, String> mutTaskIDToSubProcess = new HashMap<String, String>();
 
@@ -86,8 +100,7 @@ public class BPMNExplorer {
 		final Map<String, List<String>> mutDataObjectContent = new HashMap<String, List<String>>();
 
 		// parse the BPMN file and extract useful infos
-		initializeWithElements(null,
-				process.getMainProcess().getFlowElements(),
+		initializeWithElements(null, process.getFlowElements(),
 				mutTaskIDToSubProcess, mutTaskIDToDataInputs,
 				mutTaskIDToDataOutputs, mutDataObjects,
 				mutNotStandaloneDataObjects, mutDataObjectsIdtoName);

@@ -59,9 +59,13 @@ public class BPMNExplorerRepository {
 				// create a BPMN explorer and put it in cache
 				BpmnModel model = repositoryService
 						.getBpmnModel(processDefinitionId);
+				String processDefinitionKey = repositoryService
+						.createProcessDefinitionQuery()
+						.processDefinitionId(processDefinitionId)
+						.singleResult().getKey();
 				try {
-					explorerMap.put(processDefinitionId,
-							new BPMNExplorer(model));
+					explorerMap.put(processDefinitionId, new BPMNExplorer(
+							processDefinitionKey, model));
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}

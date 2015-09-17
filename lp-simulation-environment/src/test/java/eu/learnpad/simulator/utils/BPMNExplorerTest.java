@@ -71,9 +71,12 @@ public class BPMNExplorerTest {
 		String processId = processEngine.getRepositoryService()
 				.createProcessDefinitionQuery().deploymentId(deploymentId)
 				.list().iterator().next().getId();
+		String processKey = processEngine.getRepositoryService()
+				.createProcessDefinitionQuery().processDefinitionId(processId)
+				.singleResult().getKey();
 
-		explorer = new BPMNExplorer(processEngine.getRepositoryService()
-				.getBpmnModel(processId));
+		explorer = new BPMNExplorer(processKey, processEngine
+				.getRepositoryService().getBpmnModel(processId));
 	}
 
 	@After
