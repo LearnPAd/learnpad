@@ -17,17 +17,41 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.me;
+package eu.learnpad.gm.rest.certif.data;
 
-import javax.ws.rs.Path;
+import java.util.Map;
+import java.util.Set;
 
-import eu.learnpad.gm.rest.certif.ICertificateDefinitionStorage;
-import eu.learnpad.me.rest.CheckModelSet;
-import eu.learnpad.me.rest.ImportModelSet;
-import eu.learnpad.me.rest.RetrieveFeedbacks;
+/**
+ *
+ * @author Tom Jorquera - Linagora
+ *
+ */
+public class CertificateDefinitionData {
 
-@Path("/learnpad/me")
-public interface CoreFacade extends RetrieveFeedbacks, ImportModelSet,
-		CheckModelSet, ICertificateDefinitionStorage {
+	/**
+	 * The ID associated with this certificate definition
+	 */
+	String id;
 
+	/**
+	 * The title of the certificate
+	 */
+	String title;
+
+	/**
+	 * The set of roles IDs attributed by the certificate
+	 */
+	Set<String> roles;
+
+	/**
+	 * The minimum number of contributions required to obtain the certificate
+	 */
+	int nbContribRequired;
+
+	/**
+	 * The processes IDs associated with the minimum score required to obtain
+	 * the certificate
+	 */
+	Map<String, Integer> minScoreByProcessRequired;
 }

@@ -21,21 +21,21 @@ package eu.learnpad.core.impl.sim;
 
 import java.util.List;
 
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.gm.rest.score.data.SessionScoreData;
 import eu.learnpad.sim.Controller;
 import eu.learnpad.sim.rest.data.UserData;
 
-public class XwikiController extends Controller{
+public class XwikiController extends Controller {
 
-	public XwikiController (){
+	public XwikiController() {
 		this(false);
 	}
 
-	public XwikiController (boolean isBridgeInterfaceLocal){
+	public XwikiController(boolean isBridgeInterfaceLocal) {
 		if (isBridgeInterfaceLocal)
 			this.bridge = new XwikiBridgeInterface();
 		else
-			this.bridge = new XwikiBridgeInterfaceRestResource();			
+			this.bridge = new XwikiBridgeInterfaceRestResource();
 	}
 
 	@Override
@@ -50,5 +50,23 @@ public class XwikiController extends Controller{
 		return null;
 	}
 
+	@Override
+	public void storeSessionScore(SessionScoreData data) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public List<SessionScoreData> getSessionScores(String userId,
+			String processId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double getGlobalScore(String userId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

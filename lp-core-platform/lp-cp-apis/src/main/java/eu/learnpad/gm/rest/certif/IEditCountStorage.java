@@ -17,17 +17,41 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.me;
+package eu.learnpad.gm.rest.certif;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
-import eu.learnpad.gm.rest.certif.ICertificateDefinitionStorage;
-import eu.learnpad.me.rest.CheckModelSet;
-import eu.learnpad.me.rest.ImportModelSet;
-import eu.learnpad.me.rest.RetrieveFeedbacks;
+/**
+ *
+ * @author Tom Jorquera - Linagora
+ *
+ */
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+@Path("/gamification")
+public interface IEditCountStorage {
 
-@Path("/learnpad/me")
-public interface CoreFacade extends RetrieveFeedbacks, ImportModelSet,
-		CheckModelSet, ICertificateDefinitionStorage {
+	/**
+	 * Add some edits to the edit count of a given user
+	 *
+	 * @param userId
+	 * @param nbEdits
+	 */
+	@GET
+	@Path("/editscounts/{userid:.*}")
+	public void addToEditCount(@PathParam("userid") String userId,
+			Integer nbEdits);
 
+	/**
+	 * @param userId
+	 * @return the current total number of edits of a user
+	 */
+	@GET
+	@Path("/editscounts/{userid:.*}")
+	public Integer getEditCount(@PathParam("userid") String userId);
 }

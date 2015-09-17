@@ -19,19 +19,22 @@
  */
 package eu.learnpad.core.impl.me;
 
+import java.util.Set;
+
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.exception.LpRestException;
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
-import eu.learnpad.me.CoreFacade;
-import eu.learnpad.mv.rest.data.MVResults;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.rest.data.Feedbacks;
+import eu.learnpad.exception.LpRestException;
+import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.gm.rest.certif.data.CertificateDefinitionData;
+import eu.learnpad.me.CoreFacade;
+import eu.learnpad.mv.rest.data.MVResults;
 
 @Component
 public class XwikiCoreFacadeRestResource extends RestResource implements
-		XWikiRestComponent, CoreFacade {
+XWikiRestComponent, CoreFacade {
 
 	@Override
 	public void putModelSet(String modelSetId, String type, byte[] modelSetFile)
@@ -57,6 +60,24 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 
 	@Override
 	public Feedbacks getFeedbacks(String modelSetId) throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String storeCertificateDefinition(CertificateDefinitionData data) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<CertificateDefinitionData> getCertificateDefinitions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CertificateDefinitionData getCertificate(String certificateId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
