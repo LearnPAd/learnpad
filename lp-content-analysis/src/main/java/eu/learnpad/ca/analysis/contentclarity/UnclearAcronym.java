@@ -191,8 +191,10 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 
 		listOfStrings.removeAll(stopw.getStopwords());
 		String ContentCleaned = StringUtils.join(listOfStrings, " ");
+		Map<String,String> acronym = new HashMap<String, String>();
+		
 		//System.out.println(ContentCleaned); 
-		String regex = "[A-Z|\\.]{2,}";
+		String regex = "[A-Z]\\.|[A-Z]{2,}";
 
 		// Create a Pattern object
 		Pattern r = Pattern.compile(regex);
@@ -204,8 +206,8 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 			String tmpcandidateAcronym = m.group();
 			String candidateAcronym = tmpcandidateAcronym;
 			if(candidateAcronym.length()<=1 | (candidateAcronym.contains(".")&candidateAcronym.length()==2 )){
-				System.out.println("candidato scartato "+candidateAcronym);
-				break;
+				//System.out.println("candidato scartato "+candidateAcronym);
+				continue;
 			}
 			if(candidateAcronym.contains(".")){
 				candidateAcronym = candidateAcronym.replace(".", "");
@@ -236,10 +238,13 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 							flag = false;					
 						}
 					}
-				}
-				if(!flag){
-					System.out.println("Acronym "+candidateAcronym+" "+candidateexAcr);
-					break;
+
+					if(!flag){
+						//System.out.println("Acronym "+candidateAcronym+" "+candidateexAcr);
+						//Acronym trovato
+						acronym.put(candidateAcronym,candidateexAcr);
+						break;
+					}
 				}
 			}
 			if(flag){
@@ -253,7 +258,7 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 
 
 
-
+		System.out.println(acronym);
 		insertdefectannotation(content, c ,  acronymdefected, listsentence );
 
 	}
