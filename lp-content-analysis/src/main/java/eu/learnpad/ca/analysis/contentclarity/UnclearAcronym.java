@@ -42,7 +42,11 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 	private AnnotatedStaticContentAnalysis annotatedStaticContent;
 
 
+	public UnclearAcronym(StaticContentAnalysis cca, Language lang){
+		this.language=lang;
+		staticContentInput = cca;
 
+	}
 
 
 	public UnclearAcronym(CollaborativeContentAnalysis cca,
@@ -167,14 +171,9 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 		JLanguageTool langTool = new JLanguageTool(language);
 		List<String> listsentence = langTool.sentenceTokenize(content);
 
-		//	for (String sentence : listsentence) {
-
-
 		checkdefect(content,c,listsentence);
 
 
-
-		//}
 		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 		annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 		annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
@@ -192,73 +191,87 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 		listOfStrings.removeAll(stopw.getStopwords());
 		String ContentCleaned = StringUtils.join(listOfStrings, " ");
 		Map<String,String> acronym = new HashMap<String, String>();
-		
+
+		JLanguageTool langTool = new JLanguageTool(language);
+		List<String> listsentenceofContentCleaned = langTool.sentenceTokenize(ContentCleaned);
+
 		//System.out.println(ContentCleaned); 
-		String regex = "[A-Z]\\.|[A-Z]{2,}";
+		String regex = "[A-Z|\\.]{2,}";
 
 		// Create a Pattern object
 		Pattern r = Pattern.compile(regex);
-
-		// Now create matcher object.
-		Matcher m = r.matcher(ContentCleaned);
-
-		while (m.find()){
-			String tmpcandidateAcronym = m.group();
-			String candidateAcronym = tmpcandidateAcronym;
-			if(candidateAcronym.length()<=1 | (candidateAcronym.contains(".")&candidateAcronym.length()==2 )){
-				//System.out.println("candidato scartato "+candidateAcronym);
-				continue;
+		for (String sentencecleanend : listsentenceofContentCleaned) {
+			if(sentencecleanend.contains("bill originating")){
+				System.out.println();
 			}
-			if(candidateAcronym.contains(".")){
-				candidateAcronym = candidateAcronym.replace(".", "");
-			}
-			int lencandidateAcronym = candidateAcronym.length();
-			String regex2 = "([A-Z]+\\w+([ ]|)){"+lencandidateAcronym+"}";
-
-			// Create a Pattern object
-			Pattern r2 = Pattern.compile(regex2);
 
 			// Now create matcher object.
-			Matcher m2 = r2.matcher(ContentCleaned);
-			boolean flag = false;
-			while(m2.find()){
+			Matcher m = r.matcher(sentencecleanend);
 
-				//ok trovato  acronimi estesi
+			while (m.find()){
+				String tmpcandidateAcronym = m.group();
+				String candidateAcronym = tmpcandidateAcronym;
+				if(candidateAcronym.length()<=1 | (candidateAcronym.contains(".")&candidateAcronym.length()==2 )){
+					System.out.println("candidato scartato "+candidateAcronym);
+					continue;
+				}
+				if(candidateAcronym.contains(".") ){
+					candidateAcronym = candidateAcronym.replaceAll("\\.", "");
+					
+				}
+				int lencandidateAcronym = candidateAcronym.length();
+				String regex2 = "([A-Z]+\\w+([ ]|)){"+lencandidateAcronym+"}";
 
-				String candidateexAcr = m2.group();
-				//System.out.println(candidateexAcr);
+				// Create a Pattern object
+				Pattern r2 = Pattern.compile(regex2);
 
-				String [] splited = candidateexAcr.split("\\s");
-				if(candidateAcronym.length()==splited.length){
-					for (int i = 0; i < splited.length; i++) {
-						if(!splited[i].startsWith(String.valueOf(candidateAcronym.charAt(i)))){
-							flag = true;
+				// Now create matcher object.
+				Matcher m2 = r2.matcher(sentencecleanend);
+				boolean flag = true;
+				while(m2.find()){
+
+					//ok trovato  acronimi estesi
+
+					String candidateexAcr = m2.group();
+					//System.out.println(candidateexAcr);
+
+					String [] splited = candidateexAcr.split("\\s");
+					if(candidateAcronym.length()==splited.length){
+						for (int i = 0; i < splited.length; i++) {
+							if(!splited[i].startsWith(String.valueOf(candidateAcronym.charAt(i)))){
+								flag = true;
+								break;
+							}else{
+								flag = false;					
+							}
+						}
+
+						if(!flag){
+							//System.out.println("Acronym "+candidateAcronym+" "+candidateexAcr);
+							//Acronym trovato
+							acronym.put(candidateAcronym,candidateexAcr);
 							break;
-						}else{
-							flag = false;					
 						}
 					}
-
-					if(!flag){
-						//System.out.println("Acronym "+candidateAcronym+" "+candidateexAcr);
-						//Acronym trovato
-						acronym.put(candidateAcronym,candidateexAcr);
-						break;
+				}
+				if(flag){
+					//new defect
+					if(!acronym.containsKey(candidateAcronym)){
+						if(tmpcandidateAcronym.indexOf(".")==tmpcandidateAcronym.lastIndexOf(".") & tmpcandidateAcronym.contains(".")){
+							tmpcandidateAcronym = tmpcandidateAcronym.replaceAll("\\.", "");
+						}
+						if(!acronymdefected.contains(tmpcandidateAcronym)){
+							acronymdefected.add(tmpcandidateAcronym);
+						}
 					}
 				}
-			}
-			if(flag){
-				//new defect
-				if(!acronymdefected.contains(tmpcandidateAcronym)){
-					acronymdefected.add(tmpcandidateAcronym);
-				}
-			}
 
+			}
 		}
 
 
-
 		System.out.println(acronym);
+		System.out.println(acronymdefected);
 		insertdefectannotation(content, c ,  acronymdefected, listsentence );
 
 	}
@@ -285,21 +298,25 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 	private int insertdefectannotationsentence(String sentence, Content c,
 			int nodeid, List<Annotation> annotations,
 			List<String> acronymdefected) {
-		StringTokenizer tokenizer = new StringTokenizer(sentence," \u201c\u201d.,?!:;()<>[]\b\t\n\f\r\"\'\"");
+		//StringTokenizer tokenizer = new StringTokenizer(sentence," \u201c\u201d.,?!:;()<>[]\b\t\n\f\r\"\'\"");
+		String [] spliter = sentence.split("[\\W]");
 		Map<String, Integer> elementfinded = new HashMap<String, Integer>();
 		int precedentposition=0;
 
-		while (tokenizer.hasMoreTokens()) {
-			String token = tokenizer.nextToken();
+		//while (tokenizer.hasMoreTokens()) {
+			//String token = tokenizer.nextToken();
 			//token =	token.trim().replace(".", "").replace(":", "").replace(";", "").replace("\"","");
+		for (int i = 0; i < spliter.length; i++) {
+			
+			String token = spliter[i];
 			if(acronymdefected.contains(token)){
-
 				int initialpos = indexofElement(sentence,token,elementfinded);
 				int finalpos = initialpos+token.length();
-				/*if(precedentposition>initialpos){
-					initialpos = sentence.lastIndexOf(token);
-					finalpos = initialpos+token.length();
-				}*/
+				if(precedentposition>initialpos){
+					//initialpos = sentence.lastIndexOf(token);
+					//finalpos = initialpos+token.length();
+					System.out.println();
+				}
 				String stringap = sentence.substring(precedentposition, initialpos);
 				c.setContent(stringap);
 				precedentposition=finalpos;
@@ -334,26 +351,16 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 	}
 
 	private int indexofElement(String sentence, String word, Map<String, Integer> elementfinded){
-		//StringTokenizer tokenizer = new StringTokenizer(sentence);
 		String [] spliter = sentence.split("[\\W]");
 		int position = 0;
 		int numwordfinded = 0;
 		for (int i = 0; i < spliter.length; i++) {
 			int offset = 0;
 			String token = spliter[i];
-			/*if(token.contains(":")|token.contains(".") |  token.contains(String.valueOf('\u201d'))){
-				offset = 1;
-				token = token.substring(0, token.length()-1);
-			}else
-				if( token.contains(String.valueOf('\u201c'))){
-					offset = 1;
-					token = token.substring(1, token.length());
-				}*/
 			if(token.equals(word)){
 				numwordfinded++;
 				if(!elementfinded.containsKey(token)){
-					elementfinded.put(token, 2);
-					return position;
+					elementfinded.put(token, 1);
 				}
 				if(elementfinded.get(token).intValue()==numwordfinded){
 					Integer I = elementfinded.get(token);
@@ -363,8 +370,6 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 				}else{
 					position+=token.length()+1+offset;
 				}
-				//if(elementfinded.containsKey(token))
-
 			}else{
 				position+=token.length()+1+offset;
 			}
