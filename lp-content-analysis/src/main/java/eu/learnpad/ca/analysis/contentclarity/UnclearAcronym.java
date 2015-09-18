@@ -211,7 +211,7 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 			while (m.find()){
 				String tmpcandidateAcronym = m.group();
 				String candidateAcronym = tmpcandidateAcronym;
-				if(candidateAcronym.length()<=1 | (candidateAcronym.contains(".")&candidateAcronym.length()==2 )){
+				if(candidateAcronym.length()<=1 | (candidateAcronym.contains(".")&candidateAcronym.length()==2 ) | (!candidateAcronym.contains(".")&candidateAcronym.length()>4 )){
 					System.out.println("candidato scartato "+candidateAcronym);
 					continue;
 				}
@@ -257,9 +257,9 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 				if(flag){
 					//new defect
 					if(!acronym.containsKey(candidateAcronym)){
-						if(tmpcandidateAcronym.indexOf(".")==tmpcandidateAcronym.lastIndexOf(".") & tmpcandidateAcronym.contains(".")){
+						/*if(tmpcandidateAcronym.indexOf(".")==tmpcandidateAcronym.lastIndexOf(".") & tmpcandidateAcronym.contains(".")){
 							tmpcandidateAcronym = tmpcandidateAcronym.replaceAll("\\.", "");
-						}
+						}*/
 						if(!acronymdefected.contains(tmpcandidateAcronym)){
 							acronymdefected.add(tmpcandidateAcronym);
 						}
@@ -270,8 +270,8 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 		}
 
 
-		System.out.println(acronym);
-		System.out.println(acronymdefected);
+		System.out.println(acronym+"\nsize: "+acronym.size());
+		System.out.println(acronymdefected+"\nsize: "+acronymdefected.size());
 		insertdefectannotation(content, c ,  acronymdefected, listsentence );
 
 	}
@@ -291,7 +291,8 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 
 		}
 
-
+		System.out.println("\nnumDefectiveSentences: "+numDefectiveSentences);
+		
 	}
 
 
@@ -299,7 +300,7 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 			int nodeid, List<Annotation> annotations,
 			List<String> acronymdefected) {
 		//StringTokenizer tokenizer = new StringTokenizer(sentence," \u201c\u201d.,?!:;()<>[]\b\t\n\f\r\"\'\"");
-		String [] spliter = sentence.split("[\\W]");
+		String [] spliter = sentence.split("[\\s]");
 		Map<String, Integer> elementfinded = new HashMap<String, Integer>();
 		int precedentposition=0;
 
@@ -351,7 +352,7 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 	}
 
 	private int indexofElement(String sentence, String word, Map<String, Integer> elementfinded){
-		String [] spliter = sentence.split("[\\W]");
+		String [] spliter = sentence.split("[\\s]");
 		int position = 0;
 		int numwordfinded = 0;
 		for (int i = 0; i < spliter.length; i++) {
