@@ -28,20 +28,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class UserData {
 
+	public String id;
 	public String firstName;
 	public String lastName;
 	public String bio;
 	public String pictureURL;
+	public String profileURL;
 
 	public UserData() {
 	}
 
 	@JsonCreator
-	public UserData(@JsonProperty("firstName") String firstName,
+	public UserData(@JsonProperty("id") String id,
+			@JsonProperty("firstName") String firstName,
 			@JsonProperty("lastName") String lastName,
 			@JsonProperty("bio") String bio,
-			@JsonProperty("pictureURL") String pictureURL) {
+			@JsonProperty("pictureURL") String pictureURL,
+			@JsonProperty("profileURL") String profileURL) {
 		super();
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.bio = bio;
