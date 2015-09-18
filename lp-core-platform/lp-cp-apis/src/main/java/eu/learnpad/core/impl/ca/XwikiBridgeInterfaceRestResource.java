@@ -17,24 +17,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.core.impl.cw;
+package eu.learnpad.core.impl.ca;
+
+import java.util.Collection;
 
 import eu.learnpad.exception.LpRestException;
-import eu.learnpad.cw.CoreFacade;
+import eu.learnpad.ca.BridgeInterface;
+import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
+import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
+import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
+import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import eu.learnpad.core.rest.RestResource;
 
 /*
- * The methods inherited form the CoreFacade in this
+ * The methods inherited form the BridgeInterface in this
  * class should be implemented as a REST invocation
- * toward the CoreFacade binded at the provided URL
+ * toward the BridgeInterface binded at the provided URL
  */
-public class XwikiCoreFacadeRestResource extends RestResource implements CoreFacade{
+ 
+public class XwikiBridgeInterfaceRestResource extends RestResource implements BridgeInterface {
 
-	public XwikiCoreFacadeRestResource() {
+	public XwikiBridgeInterfaceRestResource() {
 		this("localhost",8080);
 	}
 
-	public XwikiCoreFacadeRestResource(String coreFacadeHostname,
+	public XwikiBridgeInterfaceRestResource(String coreFacadeHostname,
 			int coreFacadeHostPort) {
 		// This constructor could change in the future
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
@@ -47,24 +54,46 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 	}
 
 	@Override
-	public void commentNotification(String modelSetId, String commentId,
-			String action) throws LpRestException {
+	public String putValidateCollaborativeContent(
+			CollaborativeContentAnalysis contentFile) throws LpRestException {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void resourceNotification(String modelSetId, String resourceId,
-			String artifactIds, String action) throws LpRestException {
+	public Collection<AnnotatedCollaborativeContentAnalysis> getCollaborativeContentVerifications(
+			String contentID) throws LpRestException {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public byte[] getModel(String modelSetId, String type)
+	public String getStatusCollaborativeContentVerifications(String contentID)
 			throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public String putValidateStaticContent(StaticContentAnalysis contentFile)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<AnnotatedStaticContentAnalysis> getStaticContentVerifications(
+			String contentID) throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getStatusStaticContentVerifications(String contentID)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+		
 }

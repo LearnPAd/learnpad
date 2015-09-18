@@ -17,14 +17,37 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.core.impl.me;
+package eu.learnpad.core.impl.ca;
+
+import javax.inject.Named;
+import javax.ws.rs.Path;
 
 import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.me.BridgeInterface;
+import eu.learnpad.ca.Bridge;
+import eu.learnpad.ca.CoreFacade;
 
 @Component
-public class XwikiBridgeInterface implements XWikiRestComponent, BridgeInterface{
+@Named("eu.learnpad.core.impl.ca.XwikiBridge")
+@Path("/learnpad/ca/bridge")
+public abstract class XwikiBridge extends Bridge implements XWikiRestComponent{
+
+	public XwikiBridge (){
+		this.corefacade = null;
+	}
+
+	public XwikiBridge (CoreFacade cf){
+		this.updateCoreFacade(cf);
+	}
+
+	public XwikiBridge (String coreFacadeHostname,
+			int coreFacadeHostPort){
+		this.corefacade = new XwikiCoreFacadeRestResource(coreFacadeHostname, coreFacadeHostPort);
+	}
+	
+    public synchronized void updateCoreFacade (CoreFacade cf){
+		this.corefacade = cf;    	
+    }
 
 }

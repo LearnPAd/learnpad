@@ -19,10 +19,13 @@
  */
 package eu.learnpad.qm;
 
+import javax.ws.rs.Path;
+
 import eu.learnpad.qm.rest.CompileQuestionnaire;
 import eu.learnpad.qm.rest.GenerateQuestionnaires;
 import eu.learnpad.qm.rest.ModelSetImported;
 
+@Path("/learnpad/qm/bridge")
 public interface BridgeInterface extends ModelSetImported, CompileQuestionnaire, GenerateQuestionnaires {
 
 }

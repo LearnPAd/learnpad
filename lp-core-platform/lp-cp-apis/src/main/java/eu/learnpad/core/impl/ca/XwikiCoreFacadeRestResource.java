@@ -17,36 +17,32 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.core.impl.cw;
+package eu.learnpad.core.impl.ca;
 
-import org.xwiki.component.annotation.Component;
-import org.xwiki.rest.XWikiRestComponent;
+import eu.learnpad.ca.CoreFacade;
+import eu.learnpad.core.rest.RestResource;
 
-import eu.learnpad.cw.CoreFacade;
-import eu.learnpad.exception.LpRestException;
+/*
+ * The methods inherited form the CoreFacade in this
+ * class should be implemented as a REST invocation
+ * toward the CoreFacade binded at the provided URL
+ */
+public class XwikiCoreFacadeRestResource extends RestResource implements CoreFacade {
 
-@Component
-public class XwikiCoreFacade implements XWikiRestComponent, CoreFacade {
+	public XwikiCoreFacadeRestResource() {
+		this("localhost",8080);
+	}
 
-	@Override
-	public void commentNotification(String modelSetId, String commentId,
-			String action) throws LpRestException {
-		// TODO Auto-generated method stub
+	public XwikiCoreFacadeRestResource(String coreFacadeHostname,
+			int coreFacadeHostPort) {
+		// This constructor could change in the future
+		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
+	}
+	
+	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort){
+// This constructor has to be fixed, since it requires changes on the class
+//		eu.learnpad.core.rest.RestResource
 		
 	}
-
-	@Override
-	public void resourceNotification(String modelSetId, String resourceId,
-			String artifactIds, String action) throws LpRestException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public byte[] getModel(String modelSetId, String type)
-			throws LpRestException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 }

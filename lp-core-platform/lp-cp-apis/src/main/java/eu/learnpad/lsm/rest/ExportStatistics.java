@@ -34,7 +34,7 @@ public interface ExportStatistics {
 	 * @throws LpRestException
 	 */
 	@GET
-	@Path("/learnpad/lsm/getlearnerstat")
+	@Path("/getlearnerstat")
 	byte [] exportStatisticsByLearner(@QueryParam("learneremail") String learnerEmail) throws LpRestException;
 
 	/** 
@@ -44,6 +44,6 @@ public interface ExportStatistics {
 	 * @throws LpRestException
 	 */
 	@GET
-	@Path("/learnpad/lsm/getquestionnairestat")
+	@Path("/getquestionnairestat")
 	byte [] exportStatisticsByQuestionnaire(@QueryParam("questionnaireid") String questionnaireId) throws LpRestException;
 }

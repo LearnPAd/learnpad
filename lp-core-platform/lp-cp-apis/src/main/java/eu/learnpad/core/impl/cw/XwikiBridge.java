@@ -59,11 +59,13 @@ import com.xpn.xwiki.XWikiException;
 import com.xpn.xwiki.doc.XWikiDocument;
 import com.xpn.xwiki.objects.BaseObject;
 
+import eu.learnpad.core.impl.cw.XwikiCoreFacadeRestResource;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.Bridge;
 import eu.learnpad.cw.rest.data.Feedback;
 import eu.learnpad.cw.rest.data.Feedbacks;
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.cw.CoreFacade;
 
 @Component
 @Named("eu.learnpad.core.impl.cw.XwikiBridge")
@@ -95,20 +97,38 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 	@Inject
 	@Named("current")
 	private DocumentReferenceResolver<String> documentReferenceResolver;
-
+/*
+ * Why we have this attribute here? 
+ * A controller in the XwikiBridge is inherited by the Bridge class
+ * by means of its CoreFacade 
+ * 
+ * I suggest to remove it, and using the reference "this.corefacade" instead.
+ */
 	private XwikiController cwController;
 
-	public XwikiBridge() {
-		this(false);
+	public XwikiBridge (){
+		this.corefacade = null;
 	}
 
-	public XwikiBridge(boolean isCoreFacadeLocal) {
-		cwController = new XwikiController(true);
-		if (isCoreFacadeLocal)
-			this.corefacade = new XwikiCoreFacade();
-		else
-			this.corefacade = new XwikiCoreFacadeRestResource();
+	public XwikiBridge (CoreFacade cf){
+		this.updateCoreFacade(cf);
 	}
+
+/*
+ * Differently from the others, the XwikiBridge of the CW is
+ * a concrete class. In fact, in this implementation the controller and the bridge
+ * of the CW are supposed to be implemented with XWIKI technologies and to run
+ * on the same instance of the LeanrPAd Core Platform. Thus this constructor
+ * should be suppressed.
+ */ 			
+	public XwikiBridge (String coreFacadeHostname,
+			int coreFacadeHostPort){
+		this.corefacade = new XwikiCoreFacadeRestResource(coreFacadeHostname, coreFacadeHostPort);
+	}
+	
+    public synchronized void updateCoreFacade (CoreFacade cf){
+		this.corefacade = cf;  
+    }
 
 	@Override
 	public byte[] getComments(String modelSetId, String artifactId)

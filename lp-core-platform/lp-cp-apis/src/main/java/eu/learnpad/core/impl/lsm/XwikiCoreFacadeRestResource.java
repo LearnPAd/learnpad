@@ -17,10 +17,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.core.impl.cw;
+package eu.learnpad.core.impl.lsm;
 
-import eu.learnpad.exception.LpRestException;
-import eu.learnpad.cw.CoreFacade;
+import javax.inject.Named;
+
+import org.xwiki.component.annotation.Component;
+import org.xwiki.rest.XWikiRestComponent;
+
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.lsm.CoreFacade;
 import eu.learnpad.core.rest.RestResource;
 
 /*
@@ -28,7 +33,8 @@ import eu.learnpad.core.rest.RestResource;
  * class should be implemented as a REST invocation
  * toward the CoreFacade binded at the provided URL
  */
-public class XwikiCoreFacadeRestResource extends RestResource implements CoreFacade{
+
+public class XwikiCoreFacadeRestResource extends RestResource implements CoreFacade {
 
 	public XwikiCoreFacadeRestResource() {
 		this("localhost",8080);
@@ -47,24 +53,25 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 	}
 
 	@Override
-	public void commentNotification(String modelSetId, String commentId,
-			String action) throws LpRestException {
+	public void notifyLearningSessionStarted(String questionnaireId,
+			String[] emailList) throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void resourceNotification(String modelSetId, String resourceId,
-			String artifactIds, String action) throws LpRestException {
+	public void notifyLearningSessionCompleted(String questionnaireId,
+			String[] emailList) throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public byte[] getModel(String modelSetId, String type)
-			throws LpRestException {
+	public void importModelSet(String questionnaireId, String[] emailList)
+			throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
+
 
 }

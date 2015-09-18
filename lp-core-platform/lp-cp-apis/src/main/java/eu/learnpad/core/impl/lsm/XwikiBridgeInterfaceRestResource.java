@@ -17,18 +17,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.core.impl.mv;
+package eu.learnpad.core.impl.lsm;
 
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.lsm.BridgeInterface;
 import eu.learnpad.core.rest.RestResource;
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
-import eu.learnpad.mv.BridgeInterface;
-import eu.learnpad.mv.rest.data.MVResults;
 
 /*
  * The methods inherited form the BridgeInterface in this
  * class should be implemented as a REST invocation
  * toward the BridgeInterface binded at the provided URL
  */
+ 
 public class XwikiBridgeInterfaceRestResource extends RestResource implements BridgeInterface {
 
 	public XwikiBridgeInterfaceRestResource() {
@@ -48,15 +48,69 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	}
 
 	@Override
-	public String startDeadlockVerification(String modelSetId, String type,
-			byte[] modelContent) throws LpRestExceptionImpl {
+	public void subscribeLearner(String learnerEmail) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dropLearner(String learnerEmail) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void publishQuestionnaire(String questionnaireId,
+			byte[] questionnaireFile) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dropQuestionnaire(String questionnaireId)
+			throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void subscribeLearnerToQuestionnaire(String learnerEmail,
+			String questionnaireId) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void revokeLearnerFromQuestionnaire(String learnerEmail,
+			String questionnaireId) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String[] listLearnersFromQuestionnaire(String questionnaireId)
+			throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public MVResults getDeadlockVerificationStatus(String verificationProcessId)
-			throws LpRestExceptionImpl {
+	public String[] listQuestionnaireFromLearner(String learnerEmail)
+			throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte[] exportStatisticsByLearner(String learnerEmail)
+			throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte[] exportStatisticsByQuestionnaire(String questionnaireId)
+			throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}

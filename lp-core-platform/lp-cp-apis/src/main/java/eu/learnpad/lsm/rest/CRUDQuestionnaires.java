@@ -36,7 +36,7 @@ public interface CRUDQuestionnaires {
 	 * @throws LpRestException
 	 */
 	@POST
-	@Path("/learnpad/lsm/{questionnaireid}/publish")
+	@Path("/{questionnaireid}/publish")
 	void publishQuestionnaire(@PathParam("questionnaireid") String questionnaireId, @QueryParam("questionnairefile") byte [] questionnaireFile) throws LpRestException;
 
 	/** 
@@ -45,7 +45,7 @@ public interface CRUDQuestionnaires {
 	 * @throws LpRestException
 	 */
 	@POST
-	@Path("/learnpad/lsm/{questionnaireid}")
+	@Path("/{questionnaireid}")
 	void dropQuestionnaire(@PathParam("questionnaireid") String questionnaireId) throws LpRestException;
 
 }

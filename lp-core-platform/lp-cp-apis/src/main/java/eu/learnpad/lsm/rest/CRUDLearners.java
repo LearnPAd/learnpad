@@ -33,7 +33,7 @@ public interface CRUDLearners {
 	 * @throws LpRestException
 	 */
 	@POST
-	@Path("/learnpad/lsm/subscribelearner")
+	@Path("/subscribelearner")
 	void subscribeLearner(@QueryParam("learneremail") String learnerEmail) throws LpRestException;
 
 	/** 
@@ -42,6 +42,6 @@ public interface CRUDLearners {
 	 * @throws LpRestException
 	 */
 	@POST
-	@Path("/learnpad/lsm/droplearner")
+	@Path("/droplearner")
 	void dropLearner(@QueryParam("learneremail") String learnerEmail) throws LpRestException;
 }
