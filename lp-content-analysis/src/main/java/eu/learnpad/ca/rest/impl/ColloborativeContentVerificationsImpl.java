@@ -26,7 +26,8 @@ import org.languagetool.language.Italian;
 import eu.learnpad.ca.analysis.AnalysisInterface;
 import eu.learnpad.ca.analysis.contentclarity.UnclearAcronym;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
-import eu.learnpad.ca.analysis.simplicity.Simplicity;
+import eu.learnpad.ca.analysis.simplicity.DifficultJargon;
+import eu.learnpad.ca.analysis.simplicity.JuridicalJargon;
 import eu.learnpad.ca.analysis.syntacticambiguity.SyntacticAmbiguity;
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
 import eu.learnpad.ca.rest.data.Annotation;
@@ -80,9 +81,14 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 			}
 			if(contentFile.getQualityCriteria().isSimplicity()){
 
-				Simplicity threadsimply = new Simplicity (contentFile, lang);
+				JuridicalJargon threadsimply = new JuridicalJargon (contentFile, lang);
 				threadsimply.start();
 				putAndCreate(id, threadsimply);
+				
+				DifficultJargon threadDF = new DifficultJargon (contentFile, lang);
+				threadDF.start();
+				putAndCreate(id, threadDF);
+				
 
 			}
 			if(contentFile.getQualityCriteria().isNonAmbiguity()){

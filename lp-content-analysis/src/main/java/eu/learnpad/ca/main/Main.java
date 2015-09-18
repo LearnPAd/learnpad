@@ -22,7 +22,7 @@ import org.languagetool.language.Italian;
 import org.languagetool.rules.RuleMatch;
 
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
-import eu.learnpad.ca.analysis.simplicity.Simplicity;
+import eu.learnpad.ca.analysis.simplicity.JuridicalJargon;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
@@ -56,7 +56,7 @@ public class Main {
 			Unmarshaller jaxbUnmarshaller1 = jaxbContexti.createUnmarshaller();
 			CollaborativeContentAnalysis cca = (CollaborativeContentAnalysis) jaxbUnmarshaller1.unmarshal(is);
 
-			Simplicity sim = new Simplicity(cca, new  BritishEnglish());
+			JuridicalJargon sim = new JuridicalJargon(cca, new  BritishEnglish());
 			
 		
 			AnnotatedCollaborativeContentAnalysis acca = sim.getAnnotatedCollaborativeContentAnalysis();

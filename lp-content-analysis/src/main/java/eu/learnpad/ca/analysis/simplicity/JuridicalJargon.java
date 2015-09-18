@@ -30,7 +30,7 @@ import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import eu.learnpad.ca.simplicity.juridicaljargon.JuridaljargonSet;
 import eu.learnpad.ca.simplicity.juridicaljargon.Juridicaljargon;
 
-public class Simplicity extends Thread implements AnalysisInterface{
+public class JuridicalJargon extends Thread implements AnalysisInterface{
 
 	private Language language;
 	private JuridaljargonSet juridaljargonSet;
@@ -44,7 +44,7 @@ public class Simplicity extends Thread implements AnalysisInterface{
 	
 	
 
-	public Simplicity(CollaborativeContentAnalysis cca, Language lang){
+	public JuridicalJargon(CollaborativeContentAnalysis cca, Language lang){
 		this.language=lang;
 		juridaljargonSet = readJJ(lang);
 		collaborativeContentInput = cca;
@@ -52,7 +52,7 @@ public class Simplicity extends Thread implements AnalysisInterface{
 	}
 	
 	
-	public Simplicity(StaticContentAnalysis cca, Language lang){
+	public JuridicalJargon(StaticContentAnalysis cca, Language lang){
 		this.language=lang;
 		juridaljargonSet = readJJ(lang);
 		staticContentInput = cca;
@@ -104,11 +104,11 @@ public class Simplicity extends Thread implements AnalysisInterface{
 	private JuridaljargonSet readJJ(Language lang){
 		InputStream is = null;
 		if(lang instanceof BritishEnglish | lang instanceof AmericanEnglish){
-			is = Simplicity.class.getClassLoader().getResourceAsStream("JuridicalJargon_EnglishLatin.xml");
+			is = JuridicalJargon.class.getClassLoader().getResourceAsStream("JuridicalJargon_EnglishLatin.xml");
 
 		}else
 			if(lang instanceof Italian){
-				is = Simplicity.class.getClassLoader().getResourceAsStream("JuridicalJargon_EnglishLatin.xml");
+				is = JuridicalJargon.class.getClassLoader().getResourceAsStream("JuridicalJargon_EnglishLatin.xml");
 
 			}
 

@@ -22,7 +22,7 @@ import org.languagetool.language.Italian;
 
 import eu.learnpad.ca.analysis.AnalysisInterface;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
-import eu.learnpad.ca.analysis.simplicity.Simplicity;
+import eu.learnpad.ca.analysis.simplicity.JuridicalJargon;
 import eu.learnpad.ca.analysis.syntacticambiguity.SyntacticAmbiguity;
 import eu.learnpad.ca.rest.StaticContentVerifications;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
@@ -68,7 +68,7 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 			}
 			if(contentFile.getQualityCriteria().isSimplicity()){
 
-				Simplicity threadsimply = new Simplicity (contentFile, lang);
+				JuridicalJargon threadsimply = new JuridicalJargon (contentFile, lang);
 				threadsimply.start();
 				putAndCreate(id, threadsimply);
 
