@@ -27,6 +27,7 @@ import eu.learnpad.ca.analysis.AnalysisInterface;
 import eu.learnpad.ca.analysis.contentclarity.UnclearAcronym;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.simplicity.DifficultJargon;
+import eu.learnpad.ca.analysis.simplicity.DifficultJargonAlternative;
 import eu.learnpad.ca.analysis.simplicity.JuridicalJargon;
 import eu.learnpad.ca.analysis.syntacticambiguity.SyntacticAmbiguity;
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
@@ -88,6 +89,10 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				DifficultJargon threadDF = new DifficultJargon (contentFile, lang);
 				threadDF.start();
 				putAndCreate(id, threadDF);
+				
+				DifficultJargonAlternative threadDFA = new DifficultJargonAlternative (contentFile, lang);
+				threadDFA.start();
+				putAndCreate(id, threadDFA);
 				
 
 			}
