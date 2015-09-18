@@ -214,7 +214,7 @@ public class SyntacticAmbiguity extends Thread implements AnalysisInterface{
 				a.setEndNode(end.getId());
 				a.setStartNode(init.getId());
 				a.setType("non_ambiguity");
-				a.setRecommendation("non_ambiguity");
+				a.setRecommendation("non_ambiguity into"+token);
 				annotations.add(a);
 
 			}
