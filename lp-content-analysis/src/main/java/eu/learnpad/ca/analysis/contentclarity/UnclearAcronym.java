@@ -201,9 +201,6 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 		// Create a Pattern object
 		Pattern r = Pattern.compile(regex);
 		for (String sentencecleanend : listsentenceofContentCleaned) {
-			if(sentencecleanend.contains("bill originating")){
-				System.out.println();
-			}
 
 			// Now create matcher object.
 			Matcher m = r.matcher(sentencecleanend);
@@ -212,7 +209,7 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 				String tmpcandidateAcronym = m.group();
 				String candidateAcronym = tmpcandidateAcronym;
 				if(candidateAcronym.length()<=1 | (candidateAcronym.contains(".")&candidateAcronym.length()==2 ) | (!candidateAcronym.contains(".")&candidateAcronym.length()>4 )){
-					System.out.println("candidato scartato "+candidateAcronym);
+					//System.out.println("candidato scartato "+candidateAcronym);
 					continue;
 				}
 				if(candidateAcronym.contains(".") ){
@@ -291,7 +288,7 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 
 		}
 
-		System.out.println("\nnumDefectiveSentences: "+numDefectiveSentences);
+		System.out.println("\nnumDefectiveSentences UnclearAcronym: "+numDefectiveSentences);
 		
 	}
 

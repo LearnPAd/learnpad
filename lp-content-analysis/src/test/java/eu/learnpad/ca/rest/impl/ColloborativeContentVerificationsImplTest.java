@@ -74,7 +74,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 				Marshaller marshaller = jaxbCtx.createMarshaller();
 				marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8"); //NOI18N
 				marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-				marshaller.marshal(annotatedCollaborativeContentAnalysis, System.out);
+				//marshaller.marshal(annotatedCollaborativeContentAnalysis, System.out);
 				String type = annotatedCollaborativeContentAnalysis.getType();
 				OutputStream os = new FileOutputStream( "nosferatu"+type+".xml" );
 				marshaller.marshal( annotatedCollaborativeContentAnalysis, os );

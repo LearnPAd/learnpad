@@ -234,7 +234,7 @@ public class DifficultJargonAlternative  extends Thread implements AnalysisInter
 
 		}
 
-		System.out.println("\nnumDefectiveSentences: "+numDefectiveSentences);
+		System.out.println("\nnumDefectiveSentences AlternativeTerm: "+numDefectiveSentences);
 		
 	}
 
@@ -280,7 +280,7 @@ public class DifficultJargonAlternative  extends Thread implements AnalysisInter
 				a.setType("Simplicity DifficultJargon Alternative");
 				
 				String suggestion = listAltTermSet.get(listAltTermSet.indexOf(tmptoken)).getSuggestion();
-				a.setRecommendation("Please replace with "+suggestion);
+				a.setRecommendation("Please replace with: "+suggestion);
 				annotations.add(a);
 
 			}
