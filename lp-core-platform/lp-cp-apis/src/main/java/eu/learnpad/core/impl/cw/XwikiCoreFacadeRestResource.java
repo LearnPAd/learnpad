@@ -19,19 +19,27 @@
  */
 package eu.learnpad.core.impl.cw;
 
-import eu.learnpad.exception.LpRestException;
-import eu.learnpad.cw.CoreFacade;
+import java.io.IOException;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.io.IOUtils;
+
 import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.cw.CoreFacade;
+import eu.learnpad.exception.LpRestException;
 
 /*
  * The methods inherited form the CoreFacade in this
  * class should be implemented as a REST invocation
  * toward the CoreFacade binded at the provided URL
  */
-public class XwikiCoreFacadeRestResource extends RestResource implements CoreFacade{
+public class XwikiCoreFacadeRestResource extends RestResource implements
+		CoreFacade {
 
 	public XwikiCoreFacadeRestResource() {
-		this("localhost",8080);
+		this("localhost", 8080);
 	}
 
 	public XwikiCoreFacadeRestResource(String coreFacadeHostname,
@@ -39,32 +47,57 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 		// This constructor could change in the future
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
 	}
-	
-	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort){
-// This constructor has to be fixed, since it requires changes on the class
-//		eu.learnpad.core.rest.RestResource
-		
+
+	public void updateConfiguration(String coreFacadeHostname,
+			int coreFacadeHostPort) {
+		// This constructor has to be fixed, since it requires changes on the
+		// class
+		// eu.learnpad.core.rest.RestResource
+
 	}
 
 	@Override
 	public void commentNotification(String modelSetId, String commentId,
 			String action) throws LpRestException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void resourceNotification(String modelSetId, String resourceId,
 			String artifactIds, String action) throws LpRestException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public byte[] getModel(String modelSetId, String type)
 			throws LpRestException {
-		// TODO Auto-generated method stub
-		return null;
+		// Now send the package's path to the importer for XWiki
+		HttpClient httpClient = RestResource.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/getmodel/%s",
+				RestResource.REST_URI, modelSetId);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Accept", "application/xml");
+
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("type", type);
+		getMethod.setQueryString(queryString);
+
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		byte[] model = null;
+		try {
+			model = IOUtils.toByteArray(getMethod.getResponseBodyAsStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return model;
 	}
 
 }

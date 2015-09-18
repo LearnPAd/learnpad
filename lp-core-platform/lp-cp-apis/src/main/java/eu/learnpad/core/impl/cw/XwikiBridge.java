@@ -45,6 +45,8 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
+import org.xwiki.component.phase.Initializable;
+import org.xwiki.component.phase.InitializationException;
 import org.xwiki.model.reference.DocumentReference;
 import org.xwiki.model.reference.DocumentReferenceResolver;
 import org.xwiki.query.Query;
@@ -59,18 +61,17 @@ import com.xpn.xwiki.XWikiException;
 import com.xpn.xwiki.doc.XWikiDocument;
 import com.xpn.xwiki.objects.BaseObject;
 
-import eu.learnpad.core.impl.cw.XwikiCoreFacadeRestResource;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.Bridge;
 import eu.learnpad.cw.rest.data.Feedback;
 import eu.learnpad.cw.rest.data.Feedbacks;
 import eu.learnpad.exception.LpRestException;
-import eu.learnpad.cw.CoreFacade;
 
 @Component
 @Named("eu.learnpad.core.impl.cw.XwikiBridge")
 @Path("/learnpad/cw/bridge")
-public class XwikiBridge extends Bridge implements XWikiRestComponent {
+public class XwikiBridge extends Bridge implements XWikiRestComponent,
+		Initializable {
 
 	private final String LEARNPAD_SPACE = "LearnPAdCode";
 	private final String FEEDBACK_CLASS_PAGE = "FeedbackClass";
@@ -97,38 +98,11 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 	@Inject
 	@Named("current")
 	private DocumentReferenceResolver<String> documentReferenceResolver;
-/*
- * Why we have this attribute here? 
- * A controller in the XwikiBridge is inherited by the Bridge class
- * by means of its CoreFacade 
- * 
- * I suggest to remove it, and using the reference "this.corefacade" instead.
- */
-	private XwikiController cwController;
 
-	public XwikiBridge (){
-		this.corefacade = null;
+	@Override
+	public void initialize() throws InitializationException {
+		this.corefacade = new XwikiCoreFacadeRestResource();
 	}
-
-	public XwikiBridge (CoreFacade cf){
-		this.updateCoreFacade(cf);
-	}
-
-/*
- * Differently from the others, the XwikiBridge of the CW is
- * a concrete class. In fact, in this implementation the controller and the bridge
- * of the CW are supposed to be implemented with XWIKI technologies and to run
- * on the same instance of the LeanrPAd Core Platform. Thus this constructor
- * should be suppressed.
- */ 			
-	public XwikiBridge (String coreFacadeHostname,
-			int coreFacadeHostPort){
-		this.corefacade = new XwikiCoreFacadeRestResource(coreFacadeHostname, coreFacadeHostPort);
-	}
-	
-    public synchronized void updateCoreFacade (CoreFacade cf){
-		this.corefacade = cf;  
-    }
 
 	@Override
 	public byte[] getComments(String modelSetId, String artifactId)
@@ -178,7 +152,7 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 			throws LpRestException {
 		// Get the model file from Core Platform
 		InputStream modelStream = new ByteArrayInputStream(
-				this.cwController.getModel(modelSetId, type));
+				this.corefacade.getModel(modelSetId, type));
 
 		// Make the XSL transformation and get the package's path
 		String packagePath = buildXWikiPackage(modelSetId, modelStream, type);
@@ -300,5 +274,4 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 		}
 		return feedbacks;
 	}
-
 }
