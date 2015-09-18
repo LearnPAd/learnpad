@@ -22,7 +22,6 @@ package eu.learnpad.core.impl.sim;
 import java.io.InputStream;
 import java.util.Collection;
 
-import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.sim.BridgeInterface;
@@ -30,8 +29,28 @@ import eu.learnpad.sim.rest.data.ProcessData;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.rest.utils.RestResource;
 
-@Component
-public class XwikiBridgeInterfaceRestResource extends RestResource implements XWikiRestComponent, BridgeInterface{
+/*
+ * The methods inherited form the BridgeInterface in this
+ * class should be implemented as a REST invocation
+ * toward the BridgeInterface binded at the provided URL
+ */
+ public class XwikiBridgeInterfaceRestResource extends RestResource implements BridgeInterface{
+
+		public XwikiBridgeInterfaceRestResource() {
+			this("localhost",8080);
+		}
+
+		public XwikiBridgeInterfaceRestResource(String coreFacadeHostname,
+				int coreFacadeHostPort) {
+			// This constructor could change in the future
+			this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
+		}
+		
+		public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort){
+	// This constructor has to be fixed, since it requires changes on the class
+//			eu.learnpad.core.rest.RestResource
+			
+		}
 
 	@Override
 	public Collection<String> getProcessDefinitions() {

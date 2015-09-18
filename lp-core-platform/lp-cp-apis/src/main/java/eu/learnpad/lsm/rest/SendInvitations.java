@@ -36,7 +36,7 @@ public interface SendInvitations {
 	 * @throws LpRestException
 	 */
 	@PUT
-	@Path("/learnpad/lsm/{questionnaireid}/invite")
+	@Path("/{questionnaireid}/invite")
 	void importModelSet(@PathParam("questionnaireid") String questionnaireId,
 			@QueryParam("list") String [] emailList) throws LpRestException;
 	

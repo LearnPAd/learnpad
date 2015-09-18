@@ -28,7 +28,7 @@ import javax.ws.rs.QueryParam;
 import eu.learnpad.exception.LpRestException;
 
 //"/learnpad/qm/publish/{questionnairesid}?type={mothia-out}"
-@Path("/learnpad/qm/publish/{questionnairesid}")
+@Path("/publish/{questionnairesid}")
 public interface PublishQuestionnaire {
 
 	@PUT

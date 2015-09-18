@@ -19,19 +19,36 @@
  */
 package eu.learnpad.core.impl.sim;
 
+import javax.inject.Named;
+import javax.ws.rs.Path;
+
+import org.xwiki.component.annotation.Component;
+import org.xwiki.rest.XWikiRestComponent;
+
+import eu.learnpad.core.impl.sim.XwikiCoreFacadeRestResource;
+import eu.learnpad.sim.CoreFacade;
 import eu.learnpad.sim.Bridge;
 
-public abstract class XwikiBridge extends Bridge{
+@Component
+@Named("eu.learnpad.core.impl.sim.XwikiBridge")
+@Path("/learnpad/sim/bridge")
+public abstract class XwikiBridge extends Bridge implements XWikiRestComponent {
 
 	public XwikiBridge (){
-		this(false);
+		this.corefacade = null;
 	}
 
-	public XwikiBridge (boolean isCoreFacadeLocal){
-		if (isCoreFacadeLocal)
-			this.corefacade = new XwikiCoreFacade();
-		else
-			this.corefacade = new XwikiCoreFacadeRestResource();
+	public XwikiBridge (CoreFacade cf){
+		this.updateCoreFacade(cf);
 	}
+
+	public XwikiBridge (String coreFacadeHostname,
+			int coreFacadeHostPort){
+		this.corefacade = new XwikiCoreFacadeRestResource(coreFacadeHostname, coreFacadeHostPort);
+	}
+	
+    public synchronized void updateCoreFacade (CoreFacade cf){
+		this.corefacade = cf;    	
+    }
 
 }

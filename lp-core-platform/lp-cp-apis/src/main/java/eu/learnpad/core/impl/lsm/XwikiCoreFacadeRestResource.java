@@ -17,23 +17,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.core.impl.me;
+package eu.learnpad.core.impl.lsm;
 
-import eu.learnpad.me.BridgeInterface;
+import javax.inject.Named;
+
+import org.xwiki.component.annotation.Component;
+import org.xwiki.rest.XWikiRestComponent;
+
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.lsm.CoreFacade;
 import eu.learnpad.core.rest.RestResource;
 
 /*
- * The methods inherited form the BridgeInterface in this
+ * The methods inherited form the CoreFacade in this
  * class should be implemented as a REST invocation
- * toward the BridgeInterface binded at the provided URL
+ * toward the CoreFacade binded at the provided URL
  */
-public class XwikiBridgeInterfaceRestResource extends RestResource implements BridgeInterface{
 
-	public XwikiBridgeInterfaceRestResource() {
+public class XwikiCoreFacadeRestResource extends RestResource implements CoreFacade {
+
+	public XwikiCoreFacadeRestResource() {
 		this("localhost",8080);
 	}
 
-	public XwikiBridgeInterfaceRestResource(String coreFacadeHostname,
+	public XwikiCoreFacadeRestResource(String coreFacadeHostname,
 			int coreFacadeHostPort) {
 		// This constructor could change in the future
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
@@ -44,5 +51,27 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 //		eu.learnpad.core.rest.RestResource
 		
 	}
+
+	@Override
+	public void notifyLearningSessionStarted(String questionnaireId,
+			String[] emailList) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyLearningSessionCompleted(String questionnaireId,
+			String[] emailList) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void importModelSet(String questionnaireId, String[] emailList)
+			throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

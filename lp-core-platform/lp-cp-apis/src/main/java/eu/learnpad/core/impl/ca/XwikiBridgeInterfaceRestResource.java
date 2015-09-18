@@ -17,12 +17,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.core.impl.cw;
+package eu.learnpad.core.impl.ca;
+
+import java.util.Collection;
 
 import eu.learnpad.exception.LpRestException;
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
-import eu.learnpad.cw.BridgeInterface;
-import eu.learnpad.cw.rest.data.Feedbacks;
+import eu.learnpad.ca.BridgeInterface;
+import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
+import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
+import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
+import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import eu.learnpad.core.rest.RestResource;
 
 /*
@@ -30,60 +34,66 @@ import eu.learnpad.core.rest.RestResource;
  * class should be implemented as a REST invocation
  * toward the BridgeInterface binded at the provided URL
  */
- public class XwikiBridgeInterfaceRestResource extends RestResource implements BridgeInterface {
+ 
+public class XwikiBridgeInterfaceRestResource extends RestResource implements BridgeInterface {
 
 	public XwikiBridgeInterfaceRestResource() {
-		this("localhost", 8080);
+		this("localhost",8080);
 	}
 
-	public XwikiBridgeInterfaceRestResource(String coreFacadeHostname, int coreFacadeHostPort) {
+	public XwikiBridgeInterfaceRestResource(String coreFacadeHostname,
+			int coreFacadeHostPort) {
 		// This constructor could change in the future
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
 	}
-
-	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort) {
-		// This constructor has to be fixed, since it requires changes on the
-		// class
-		// eu.learnpad.core.rest.RestResource
+	
+	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort){
+// This constructor has to be fixed, since it requires changes on the class
+//		eu.learnpad.core.rest.RestResource
+		
 	}
 
 	@Override
-	public byte[] getComments(String modelSetId, String artifactId)
-			throws LpRestExceptionImpl {
+	public String putValidateCollaborativeContent(
+			CollaborativeContentAnalysis contentFile) throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public byte[] getResource(String modelSetId, String resourceId,
-			String artifactIds, String action) throws LpRestExceptionImpl {
+	public Collection<AnnotatedCollaborativeContentAnalysis> getCollaborativeContentVerifications(
+			String contentID) throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void modelSetImported(String modelSetId, String type) throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void contentVerified(String modelSetId, String artifactId,
-			String resourceId, String result) throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void modelVerified(String modelSetId, String result)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public Feedbacks getFeedbacks(String modelSetId) throws LpRestException {
+	public String getStatusCollaborativeContentVerifications(String contentID)
+			throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public String putValidateStaticContent(StaticContentAnalysis contentFile)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<AnnotatedStaticContentAnalysis> getStaticContentVerifications(
+			String contentID) throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getStatusStaticContentVerifications(String contentID)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+		
 }

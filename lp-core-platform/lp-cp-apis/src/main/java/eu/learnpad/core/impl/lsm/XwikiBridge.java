@@ -17,25 +17,37 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.core.impl.mv;
+package eu.learnpad.core.impl.lsm;
 
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
-import eu.learnpad.mv.CoreFacade;
+import javax.inject.Named;
+import javax.ws.rs.Path;
 
-public class XwikiCoreFacade implements CoreFacade{
+import org.xwiki.component.annotation.Component;
+import org.xwiki.rest.XWikiRestComponent;
 
-	@Override
-	public byte[] getModel(String modelSetId, String type)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		return null;
+import eu.learnpad.lsm.Bridge;
+import eu.learnpad.lsm.CoreFacade;
+
+@Component
+@Named("eu.learnpad.core.impl.lsm.XwikiBridge")
+@Path("/learnpad/lsm/bridge")
+public abstract class XwikiBridge extends Bridge implements XWikiRestComponent{
+
+	public XwikiBridge (){
+		this.corefacade = null;
 	}
 
-	@Override
-	public void notifyVerification(String verificationProcessId)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		
+	public XwikiBridge (CoreFacade cf){
+		this.updateCoreFacade(cf);
 	}
+
+	public XwikiBridge (String coreFacadeHostname,
+			int coreFacadeHostPort){
+		this.corefacade = new XwikiCoreFacadeRestResource(coreFacadeHostname, coreFacadeHostPort);
+	}
+	
+    public synchronized void updateCoreFacade (CoreFacade cf){
+		this.corefacade = cf;    	
+    }
 
 }
