@@ -24,10 +24,11 @@ import java.util.Collection;
 
 import org.xwiki.rest.XWikiRestComponent;
 
+import eu.learnpad.rest.utils.RestResource;
 import eu.learnpad.sim.BridgeInterface;
 import eu.learnpad.sim.rest.data.ProcessData;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
-import eu.learnpad.rest.utils.RestResource;
+import eu.learnpad.sim.rest.data.UserData;
 
 /*
  * The methods inherited form the BridgeInterface in this
@@ -109,5 +110,11 @@ import eu.learnpad.rest.utils.RestResource;
 		return null;
 	}
 
+	@Override
+	public String addProcessInstance(String processId,
+			Collection<UserData> potentialUsers, String currentUser) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

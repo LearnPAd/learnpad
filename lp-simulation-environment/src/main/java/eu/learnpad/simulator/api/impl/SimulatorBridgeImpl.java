@@ -17,6 +17,7 @@ import javax.ws.rs.core.UriInfo;
 import eu.learnpad.sim.BridgeInterface;
 import eu.learnpad.sim.rest.data.ProcessData;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
+import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.simulator.Simulator;
 
 /*
@@ -152,6 +153,23 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 				data.routes);
 		setResponseToCreated(id);
 		return id;
+	}
+
+	@Override
+	public String addProcessInstance(String processId,
+			Collection<UserData> potentialUsers, String currentUser) {
+
+		Collection<String> users = simulator.userHandler().getUsers();
+		for (String user : users) {
+			simulator.userHandler().removeUser(user);
+		}
+
+		for (UserData user : potentialUsers) {
+			simulator.userHandler().addUser(user.id);
+		}
+
+		return "uisingleprocess?processid=" + processId + "&" + "userid="
+		+ currentUser;
 	}
 
 	/*
