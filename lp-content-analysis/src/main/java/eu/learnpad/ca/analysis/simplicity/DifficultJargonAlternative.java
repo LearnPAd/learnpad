@@ -253,7 +253,8 @@ public class DifficultJargonAlternative  extends Thread implements AnalysisInter
 		for (int i = 0; i < spliter.length; i++) {
 			
 			String token = spliter[i];
-			if(listAltTermSet.contains(new AlternativeTerm(token))){
+			AlternativeTerm tmptoken = new AlternativeTerm(token);
+			if(listAltTermSet.contains(tmptoken)){
 				int initialpos = indexofElement(sentence,token,elementfinded);
 				int finalpos = initialpos+token.length();
 				if(precedentposition>initialpos){
@@ -277,7 +278,9 @@ public class DifficultJargonAlternative  extends Thread implements AnalysisInter
 				a.setEndNode(end.getId());
 				a.setStartNode(init.getId());
 				a.setType("Simplicity DifficultJargon Alternative");
-				a.setRecommendation("Please replace with "+token);
+				
+				String suggestion = listAltTermSet.get(listAltTermSet.indexOf(tmptoken)).getSuggestion();
+				a.setRecommendation("Please replace with "+suggestion);
 				annotations.add(a);
 
 			}
