@@ -4,8 +4,13 @@ package eu.learnpad.transformations.run;
 
 import java.io.IOException;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import eu.learnpad.transformations.model2model.ATLTransformation;
 import eu.learnpad.transformations.model2text.generator.AcceleoStandaloneStarter;
+import eu.learnpad.transformations.preprocessing.Alignment;
 
 
 	public class MainTest {
@@ -64,18 +69,30 @@ import eu.learnpad.transformations.model2text.generator.AcceleoStandaloneStarter
 		
 		
 		
-		public static void main(String[] args) {
+		public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
 			/*
 			 * We have to provide the XMI model to the system
 			 */
-			String model_in = "resources/model/PATestCityApplication.xmi";
+			
+//			String model_in = "resources/model/PATestCityApplication.xmi";
+			String model_in = "resources/model/PATestCityApplication.xml";
+			
+			
+			/*
+			 * Metamodel alignment
+			 */
+			Alignment al = new Alignment();
+			String sanitazedFilePath = al.sanitizer(model_in);
+			System.out.println(sanitazedFilePath);
+			
+			System.out.println("Alignment Done!");
 			
 			/*
 			 * Start the execution of the overall transformation
 			 */
 			MainTest mt = new MainTest();
 			System.out.println("*******STARTING THE OVERALL TRANSFORMATION*******");
-			mt.executeTransformation(model_in);
+			mt.executeTransformation(sanitazedFilePath);
 			System.out.println("*******FINISHED THE OVERALL TRANSFORMATION*******");
 		}
 
