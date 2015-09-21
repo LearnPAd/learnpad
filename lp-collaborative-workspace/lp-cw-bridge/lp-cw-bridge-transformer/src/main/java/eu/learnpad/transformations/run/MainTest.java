@@ -2,6 +2,7 @@ package eu.learnpad.transformations.run;
 
 
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -14,6 +15,9 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 
 
 	public class MainTest {
+		
+		private String tmpModelFolder = "tmp/";
+		private String tmpXwikiModelName = "xwiki_output_model.xmi";
 		
 		/*
 		 * The main method to execute all the transformations
@@ -29,8 +33,8 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 			String inTag = 	"ADOXX";
 			String outTag = "XWIKI";
 			
-			String tmpXwikiModelName = "xwiki_output_model.xmi";
-			String tmpModelPath = "tmp/" + tmpXwikiModelName;
+//			String tmpXwikiModelName = "xwiki_output_model.xmi";
+			String tmpModelPath = tmpModelFolder + tmpXwikiModelName;
 
 			String resultFolderPath = "result";
 			
@@ -64,7 +68,15 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 		}
 
 
-		
+		public String getModelSetId() {
+			
+			String tmpModelPath = tmpModelFolder + tmpXwikiModelName;
+			
+			File f = new File(tmpModelPath);
+			String modelName = f.getAbsolutePath().substring(f.getAbsolutePath().lastIndexOf("\\")+1); 
+			modelName = modelName.substring(0, modelName.length()-4);
+			return modelName;
+		}
 		
 		
 		

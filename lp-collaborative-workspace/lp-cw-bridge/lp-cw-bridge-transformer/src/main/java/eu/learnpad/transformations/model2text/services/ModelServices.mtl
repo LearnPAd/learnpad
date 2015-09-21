@@ -1,0 +1,7 @@
+[comment encoding = Cp1252 /]
+[module ModelServices('http://www.xwiki.org')/]
+
+[query public getModelSetId(anOclAny: OclAny) : String
+	= invoke('lp-cw-bridge-transformer.eu.learnpad.transformations.run.MainTest', 'getModelSetId()', Sequence{})
+/]
+
