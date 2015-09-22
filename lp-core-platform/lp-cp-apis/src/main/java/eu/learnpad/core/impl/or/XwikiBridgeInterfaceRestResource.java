@@ -24,6 +24,8 @@ import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.or.BridgeInterface;
+import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.States;
 import eu.learnpad.rest.utils.RestResource;
 
 @Component
@@ -44,7 +46,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements XW
 	}
 
 	@Override
-	public byte[] askRecommendation(String modelSetId, String artifactId,
+	public Recommendations askRecommendation(String modelSetId, String artifactId,
 			String userId, String type) throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 		return null;
@@ -75,7 +77,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements XW
 	}
 
 	@Override
-	public byte[] listExecutionStates(String userId) throws LpRestExceptionImpl {
+	public States listExecutionStates(String userId) throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}

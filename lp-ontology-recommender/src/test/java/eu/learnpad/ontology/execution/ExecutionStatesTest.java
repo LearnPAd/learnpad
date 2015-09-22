@@ -6,14 +6,16 @@
 package eu.learnpad.ontology.execution;
 
 import eu.learnpad.ontology.AbstractUnitTest;
-import eu.learnpad.ontology.execution.domain.States;
+import eu.learnpad.or.rest.data.States;
 import eu.learnpad.ontology.persistence.FileOntAO;
+import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import javax.inject.Inject;
 import javax.xml.bind.JAXB;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.Test;
 
@@ -28,6 +30,14 @@ public class ExecutionStatesTest extends AbstractUnitTest {
     @Inject
     ExecutionStates exec;
     
+    @Inject
+    SimpleModelTransformator transformator;
+
+    @Before
+    public void init(){
+        transformator.setLatestModelSetId(TEST_MODEL_SET_ID_TITOLO_UNICO);
+    }
+    
     public ExecutionStatesTest() {
     }
 
@@ -36,7 +46,7 @@ public class ExecutionStatesTest extends AbstractUnitTest {
      */
     @Test
     public void testGetStates() {
-        States states = exec.getStates(TEST_USER_ID_1, TEST_MODEL_SET_ID_TITOLO_UNICO);
+        States states = exec.getStates(TEST_USER_1_NAME, TEST_MODEL_SET_ID_TITOLO_UNICO);
         JAXB.marshal(states, System.out);
     }
     

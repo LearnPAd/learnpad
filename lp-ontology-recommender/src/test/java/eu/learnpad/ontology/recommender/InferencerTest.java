@@ -85,8 +85,6 @@ public class InferencerTest extends AbstractUnitTest {
 
         // Run all inferences
         SPINInferences.run(ontModel, newTriples, null, null, false, null);
-        System.out.println("Inferred triples: " + newTriples.size()); //prints zero inferred triples
-
     }
 
 }

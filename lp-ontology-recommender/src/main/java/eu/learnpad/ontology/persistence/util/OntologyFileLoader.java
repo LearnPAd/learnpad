@@ -10,12 +10,15 @@ import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.jena.riot.Lang;
 
@@ -31,7 +34,15 @@ public class OntologyFileLoader extends SimpleFileVisitor<Path> {
         model.getDocumentManager().setProcessImports(true);
         for (String rootDirectory : rootDirectories) {
             OntologyFileLoaderVisitor visitor = new OntologyFileLoaderVisitor(format, model);
-            Files.walkFileTree(Paths.get(rootDirectory), visitor);
+            Path path = Paths.get(rootDirectory);
+            if(!path.isAbsolute()){
+                try {
+                    path = Paths.get(OntologyFileLoader.class.getResource(rootDirectory).toURI());
+                } catch (URISyntaxException ex) {
+                    Logger.getLogger(OntologyFileLoader.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            Files.walkFileTree(path, visitor);
         }
         return model;
     }
@@ -57,7 +68,10 @@ public class OntologyFileLoader extends SimpleFileVisitor<Path> {
         }
         
         private boolean checkFileEnding(String filename){
-            return (format.getFileExtensions().stream().anyMatch((fileExtension) -> (filename.endsWith(fileExtension))));
+            for(String ext : format.getFileExtensions()){
+                if(filename.endsWith(ext)) return true;
+            }
+            return false;
         }
 
     }
