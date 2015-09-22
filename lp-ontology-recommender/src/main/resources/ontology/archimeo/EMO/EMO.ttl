@@ -981,6 +981,12 @@ emo:LearningGoal
   rdf:type owl:Class ;
   rdfs:subClassOf bmm:Goal ;
 .
+emo:ModelSetVersion
+  rdf:type owl:Class ;
+  rdfs:comment "Version for a set of models"^^xsd:string ;
+  rdfs:label "Model Set Version"^^xsd:string ;
+  rdfs:subClassOf emo:Version ;
+.
 emo:OrganisationMetaModel
   rdf:type owl:Class ;
   rdfs:comment "PIMM"^^xsd:string ;
@@ -989,6 +995,12 @@ emo:OrganisationMetaModel
 emo:ProcessMapMetaModel
   rdf:type owl:Class ;
   rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:LearnPAdPlatformIndependentMetaModel ;
+.
+emo:Version
+  rdf:type owl:Class ;
+  rdfs:comment "A common model version based on the major -, minor - and patch - version pattern."^^xsd:string ;
+  rdfs:label "Model Version"^^xsd:string ;
   rdfs:subClassOf emo:LearnPAdPlatformIndependentMetaModel ;
 .
 emo:XWIKIMetaModel
@@ -1096,6 +1108,11 @@ emo:assessmentRepresentsAssessment
   rdfs:comment "CMM"^^xsd:string ;
   rdfs:domain bmm:Assessment ;
   rdfs:range eo:Assessment ;
+.
+emo:belongsToVersion
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain emo:LearnPAdPlatformIndependentMetaModel ;
+  rdfs:range emo:Version ;
 .
 emo:businessGoalsModelBelongsToAspectLeo
   rdf:type owl:ObjectProperty ;
@@ -1583,6 +1600,16 @@ emo:logicalDataModelBelongsToPerspectiveN
   rdfs:label "logicalDataModelBelongsToPerspectiveN"^^xsd:string ;
   rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
 .
+emo:majorModelSetVersion
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain emo:ModelSetVersion ;
+  rdfs:subPropertyOf emo:majorModelVersion ;
+.
+emo:majorModelVersion
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain emo:Version ;
+  rdfs:range xsd:string ;
+.
 emo:meansEstablishedByOrganisationalUnit
   rdf:type owl:ObjectProperty ;
   rdfs:comment "PIMM"^^xsd:string ;
@@ -1606,6 +1633,17 @@ emo:metricsRepresentsMetrics
   rdfs:comment "CMM"^^xsd:string ;
   rdfs:domain kpi:Metrics ;
   rdfs:range eo:Metrics ;
+.
+emo:minorModelSetVersion
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain emo:ModelSetVersion ;
+  rdfs:range xsd:string ;
+  rdfs:subPropertyOf emo:minorModelVersion ;
+.
+emo:minorModelVersion
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain emo:Version ;
+  rdfs:range xsd:string ;
 .
 emo:modelTypeBelongsToAspect
   rdf:type owl:ObjectProperty ;
@@ -1707,6 +1745,22 @@ emo:pageRepresentsKnowledgeObject
   rdfs:comment "CQ22"^^xsd:string ;
   rdfs:domain xwiki:Page ;
   rdfs:range dkm:Resource ;
+.
+emo:patchModelSetVersion
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain emo:ModelSetVersion ;
+  rdfs:range xsd:string ;
+  rdfs:subPropertyOf emo:patchModelVersion ;
+.
+emo:patchModelVersion
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain emo:Version ;
+  rdfs:range xsd:string ;
+.
+emo:performerHasEmailAddress
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain omm:Performer ;
+  rdfs:range xsd:string ;
 .
 emo:performerRepresentsPerson
   rdf:type owl:ObjectProperty ;
@@ -2151,7 +2205,106 @@ omm:Performer
             sp:subject spin:_this ;
           ]
         ) ;
-      sp:where () ;
+      sp:where (
+          [
+            rdf:type sp:Filter ;
+            sp:expression [
+                rdf:type sp:notExists ;
+                sp:elements (
+                    [
+                      sp:object [
+                          sp:varName "email"^^xsd:string ;
+                        ] ;
+                      sp:predicate emo:performerHasEmailAddress ;
+                      sp:subject spin:_this ;
+                    ]
+                    [
+                      sp:object [
+                          sp:varName "email"^^xsd:string ;
+                        ] ;
+                      sp:predicate <http://xmlns.com/foaf/spec#mbox> ;
+                      sp:subject [
+                          sp:varName "person"^^xsd:string ;
+                        ] ;
+                    ]
+                    [
+                      rdf:type sp:TriplePath ;
+                      sp:object archi:BusinessActor ;
+                      sp:path [
+                          rdf:type sp:ModPath ;
+                          sp:modMax -2 ;
+                          sp:modMin 0 ;
+                          sp:subPath rdfs:subClassOf ;
+                        ] ;
+                      sp:subject [
+                          sp:varName "businessActorType"^^xsd:string ;
+                        ] ;
+                    ]
+                    [
+                      sp:object [
+                          sp:varName "businessActorType"^^xsd:string ;
+                        ] ;
+                      sp:predicate rdf:type ;
+                      sp:subject [
+                          sp:varName "person"^^xsd:string ;
+                        ] ;
+                    ]
+                  ) ;
+              ] ;
+          ]
+        ) ;
+    ] ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "person"^^xsd:string ;
+              ] ;
+            sp:predicate emo:performerRepresentsPerson ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object [
+                sp:varName "email"^^xsd:string ;
+              ] ;
+            sp:predicate emo:performerHasEmailAddress ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "email"^^xsd:string ;
+              ] ;
+            sp:predicate <http://xmlns.com/foaf/spec#mbox> ;
+            sp:subject [
+                sp:varName "person"^^xsd:string ;
+              ] ;
+          ]
+          [
+            rdf:type sp:TriplePath ;
+            sp:object archi:BusinessActor ;
+            sp:path [
+                rdf:type sp:ModPath ;
+                sp:modMax -2 ;
+                sp:modMin 0 ;
+                sp:subPath rdfs:subClassOf ;
+              ] ;
+            sp:subject [
+                sp:varName "businessActorType"^^xsd:string ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "businessActorType"^^xsd:string ;
+              ] ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "person"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
     ] ;
 .
 omm:Role

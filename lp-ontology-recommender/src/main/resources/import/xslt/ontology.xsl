@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <!--To be set as parameter in transformation engine -->
-  <xsl:param name="modelSetVersion">titolo-unico-v3</xsl:param>
+  <xsl:param name="modelSetVersion">titolo-unico-v4</xsl:param>
 <!--___________________________________________________________________________________________________
 HEADER 
 ___________________________________________________________________________________________________-->
@@ -428,9 +428,13 @@ ________________________________________________________________________________
  Performer
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Performer">
+	     <xsl:param name="email" tunnel="yes"/>
 		<xsl:call-template name="basicInstanceProperties">
 			<xsl:with-param name="rdfType">omm:Performer</xsl:with-param>
-		</xsl:call-template>				
+		</xsl:call-template>
+		  <xsl:if test="$email != ''">
+		emo:performerHasEmailAddress "<xsl:value-of select="$email"/>"^^xsd:string ;
+		  </xsl:if>
 	</xsl:template>
 	
 	<xsl:template name="addInModelConnectionForPerformer">

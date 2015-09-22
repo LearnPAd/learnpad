@@ -39,6 +39,10 @@ public class SimpleModelTransformator {
         System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
     }
     
+    public SimpleModelTransformator(){
+        latestModelSetId = APP.CONF.getString("ontology.learnpad.model.latestVersion");
+    }
+    
     public File transform(String modelSetId, byte[] model, ModellingEnvironmentType type) {
 
         TransformerFactory tFactory = TransformerFactory.newInstance();
@@ -72,6 +76,10 @@ public class SimpleModelTransformator {
 
     public static String getLatestModelSetId() {
         return latestModelSetId;
+    }
+    
+    public static void setLatestModelSetId(String id) {
+        latestModelSetId = id;
     }
     
     public File getLatestVersionFile(String modelSetId){

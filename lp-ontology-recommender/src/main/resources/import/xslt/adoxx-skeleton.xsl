@@ -174,7 +174,7 @@ ________________________________________________________________________________
 	 
 	<xsl:template match="IREF" mode="referencedSubProcess">
 		<xsl:call-template name="addReferencedSubProcessConnection">
-			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype][@name=current()/@tmodelname]/@id"/>
+			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype][@name=current()/@tmodelname][@name=current()/@tmodelname][@name=current()/@tmodelname]/@id"/>
 		</xsl:call-template>
 	</xsl:template>
 <!--...............................................................................................-->
@@ -222,7 +222,7 @@ ________________________________________________________________________________
 	 
 	<xsl:template match="IREF" mode="dataInputReferencesDocument">
 		<xsl:call-template name="addDataInputConnection">
-			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
+			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype][@name=current()/@tmodelname][@name=current()/@tmodelname]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
 		</xsl:call-template>
 	</xsl:template>
 <!--...............................................................................................-->
@@ -242,7 +242,7 @@ ________________________________________________________________________________
 
 	<xsl:template match="IREF" mode="dataOutputReferencesDocument">
 		<xsl:call-template name="addDataOutputConnection">
-			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
+			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype][@name=current()/@tmodelname]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
 		</xsl:call-template>
 	</xsl:template>		
 <!--...............................................................................................-->
@@ -263,7 +263,7 @@ ________________________________________________________________________________
 	 
 	<xsl:template match="IREF" mode="poolRefToOrganisationalUnit">
 		<xsl:call-template name="addPoolRefToOrganisationalUnit">
-			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
+			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype][@name=current()/@tmodelname]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
 		</xsl:call-template>
 	</xsl:template>
 <!--...............................................................................................-->	
@@ -284,7 +284,7 @@ ________________________________________________________________________________
 	
 	<xsl:template match="IREF" mode="swimlaneRefToOrganisationalUnit">
 		<xsl:call-template name="addSwimlaneRefToOrganisationalUnit">
-			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
+			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype][@name=current()/@tmodelname]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
 		</xsl:call-template>
 	</xsl:template>	
 <!--...............................................................................................-->	
@@ -390,8 +390,8 @@ ________________________________________________________________________________
 			<xsl:with-param name="id" select="@id" tunnel="yes"/>
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 		</xsl:call-template>
-		<xsl:for-each select="..//CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
-		  <xsl:for-each select="//INSTANCE[@name=current()/../TO/@instance and @class='Group']/@id">
+		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
+		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Group']/@id">
   		     <xsl:call-template name="addInModelConnectionForDocument">
 			  <xsl:with-param name="toId" select="."/>
 		     </xsl:call-template>
@@ -441,8 +441,8 @@ ________________________________________________________________________________
 			<xsl:with-param name="id" select="@id" tunnel="yes"/>
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 		</xsl:call-template>
-		<xsl:for-each select="..//CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
-		  <xsl:for-each select="//INSTANCE[@name=current()/../TO/@instance and @class='Organizational unit']/@id">
+		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
+		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Organizational unit']/@id">
   		     <xsl:call-template name="addInModelConnectionForOrganizationalUnit">
 			  <xsl:with-param name="toId" select="."/>
 		     </xsl:call-template>
@@ -460,8 +460,8 @@ ________________________________________________________________________________
 			<xsl:with-param name="id" select="@id" tunnel="yes"/>
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 		</xsl:call-template>
-		<xsl:for-each select="..//CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
-		  <xsl:for-each select="//INSTANCE[@name=current()/../TO/@instance and @class='Organizational unit']/@id">
+		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
+		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Organizational unit']/@id">
   		     <xsl:call-template name="addInModelConnectionForRole">
 			  <xsl:with-param name="toId" select="."/>
 		     </xsl:call-template>
@@ -475,12 +475,13 @@ ________________________________________________________________________________
  Performer
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="Performer">
-				<xsl:call-template name="Performer">
+		<xsl:call-template name="Performer">
 			<xsl:with-param name="id" select="@id" tunnel="yes"/>
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
+			<xsl:with-param name="email" select="./ATTRIBUTE[@name='E-Mail']" tunnel="yes"/>
 		</xsl:call-template>
-		<xsl:for-each select="..//CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
-		  <xsl:for-each select="//INSTANCE[@name=current()/../TO/@instance and @class='Role']/@id">
+		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
+		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Role']/@id">
   		     <xsl:call-template name="addInModelConnectionForPerformer">
 			  <xsl:with-param name="toId" select="."/>
 		     </xsl:call-template>
@@ -665,8 +666,8 @@ ________________________________________________________________________________
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>
 		</xsl:call-template>
-		<xsl:for-each select="..//CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
-		  <xsl:for-each select="//INSTANCE[@name=current()/../TO/@instance and @class='Role']/@id">
+		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
+		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Role']/@id">
   		     <xsl:call-template name="addInModelConnectionForCompetency">
 			  <xsl:with-param name="toId" select="."/>
 		     </xsl:call-template>

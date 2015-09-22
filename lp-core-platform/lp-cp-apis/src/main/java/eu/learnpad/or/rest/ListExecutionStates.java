@@ -24,6 +24,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.or.rest.data.States;
 
 // <host>/learnpad/or/execution/{userId}
 @Path("/learnpad/or/execution/{userId}")
@@ -58,6 +59,6 @@ public interface ListExecutionStates {
 	 * @throws LpRestException
 	 */
 	@GET
-	byte[] listExecutionStates(@PathParam("userId") String userId)
+	States listExecutionStates(@PathParam("userId") String userId)
 			throws LpRestException;
 }

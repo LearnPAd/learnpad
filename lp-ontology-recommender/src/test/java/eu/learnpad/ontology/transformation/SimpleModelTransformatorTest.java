@@ -47,6 +47,7 @@ public class SimpleModelTransformatorTest extends AbstractUnitTest{
      *
      * @throws java.io.IOException
      */
+    @Ignore
     @Test
     public void testTransform() throws IOException {
 
@@ -73,7 +74,7 @@ public class SimpleModelTransformatorTest extends AbstractUnitTest{
     
     @Test
     public void testTitoloUnico() throws IOException{
-        String testModelsFilePath = "/models/TitoloUnicoV3/TitoloUnico_v3.xml";
+        String testModelsFilePath = "/models/TitoloUnicoV4/TitoloUnico_v4.xml";
 
         File outputFile = transform(testModelsFilePath, TEST_MODEL_SET_ID_TITOLO_UNICO, ModellingEnvironmentType.ADOxx);
         assertNotNull(outputFile);

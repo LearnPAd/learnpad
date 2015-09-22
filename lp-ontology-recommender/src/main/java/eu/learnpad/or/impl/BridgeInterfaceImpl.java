@@ -7,7 +7,9 @@ package eu.learnpad.or.impl;
 
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.ontology.execution.ExecutionStates;
-import eu.learnpad.ontology.execution.domain.States;
+import eu.learnpad.or.rest.data.States;
+import eu.learnpad.ontology.recommender.Recommender;
+import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.BridgeInterface;
 import java.io.ByteArrayOutputStream;
 import javax.inject.Inject;
@@ -21,6 +23,9 @@ public class BridgeInterfaceImpl implements BridgeInterface{
     
     @Inject
     ExecutionStates executionStates;
+    
+    @Inject
+    Recommender recommender;
 
     @Override
     public void putModelSet(String modelSetId, String type) throws LpRestException {
@@ -33,8 +38,9 @@ public class BridgeInterfaceImpl implements BridgeInterface{
     }
 
     @Override
-    public byte[] askRecommendation(String modelSetId, String artifactId, String userId, String type) throws LpRestException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Recommendations askRecommendation(String modelSetId, String artifactId, String userId, String type) throws LpRestException {
+        Recommendations recomms = recommender.getRecommendations(modelSetId, artifactId, userId);
+        return recomms;
     }
 
     @Override
@@ -53,11 +59,9 @@ public class BridgeInterfaceImpl implements BridgeInterface{
     }
 
     @Override
-    public byte[] listExecutionStates(String userId) throws LpRestException {
+    public States listExecutionStates(String userId) throws LpRestException {
         States states = executionStates.getStatesOfLatestAddedModelSet(userId);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        JAXB.marshal(states, bos);
-        return bos.toByteArray();
+        return states;
     }
     
 }
