@@ -27,6 +27,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.sim.rest.data.ProcessData;
@@ -105,9 +106,10 @@ public interface IProcessHandlingAPI {
 	 *         the base url to access the simulator)
 	 */
 	@POST
-	@Path("/instances")
-	public String addProcessInstance(String processId,
-			Collection<UserData> potentialUsers, String currentUser);
+	@Path("/instances/{artifactid:.*}")
+	public String addProcessInstance(@PathParam("artifactid") String processId,
+			Collection<UserData> potentialUsers,
+			@QueryParam("currentuser") String currentUser);
 
 	/**
 	 *
