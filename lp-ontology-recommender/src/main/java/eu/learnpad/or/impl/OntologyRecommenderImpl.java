@@ -11,7 +11,6 @@ import eu.learnpad.ontology.execution.ExecutionStates;
 import eu.learnpad.or.rest.data.States;
 import eu.learnpad.ontology.recommender.Recommender;
 import eu.learnpad.or.rest.data.Recommendations;
-import eu.learnpad.or.BridgeInterface;
 import javax.inject.Inject;
 
 /**
