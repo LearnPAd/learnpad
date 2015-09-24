@@ -124,7 +124,12 @@ rule INSTANCEType2Page {
 		className <- 'LPCode.BaseElementClass',
 		number <- thisModule.curObj,
 		pageName <- s.id,
-		property <- Sequence{bec_p1, bec_p2, bec_p3, bec_p4}->asSequence()
+		property <- Sequence{bec_p0, bec_p1, bec_p2, bec_p3, bec_p4}->asSequence()
+	),
+	bec_p0:XWIKI!Property (
+		name <- 'modelid',
+		type <- 'String',
+		value <- s.refImmediateComposite().id
 	),
 	bec_p1:XWIKI!Property (
 		name <- 'id',
