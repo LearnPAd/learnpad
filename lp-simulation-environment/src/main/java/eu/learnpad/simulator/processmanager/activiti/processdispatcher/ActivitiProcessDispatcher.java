@@ -125,14 +125,11 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher
 		super.completeProcess();
 	}
 
+	// synchronized since in some case is it possible for several tasks to
+	// complete at the same time, joining on the same next task. This can cause
+	// a race condition where the next task is processed several times.
 	@Override
-	protected void processNewTask(final LearnPadTask task) {
-		registeredWaitingTasks.add(task.id);
-		super.processNewTask(task);
-	}
-
-	@Override
-	protected Collection<LearnPadTask> fetchNewTasks() {
+	synchronized protected Collection<LearnPadTask> fetchNewTasks() {
 		List<LearnPadTask> newTasks = new ArrayList<LearnPadTask>();
 
 		// check for newly triggered tasks by getting the list of waiting
@@ -175,6 +172,8 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher
 				newTasks.add(new LearnPadTask(t.getProcessInstanceId(), t
 						.getId(), t.getName(), t.getDescription(), documents,
 						new Date().getTime()));
+
+				registeredWaitingTasks.add(t.getId());
 			}
 		}
 
