@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-pkill hello || exit 0
+#pkill hello || exit 0
