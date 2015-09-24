@@ -40,9 +40,10 @@ entrypoint rule RootWebHome() {
 	to t: XWIKI!DocumentRoot (),
 	-----------------------  Static WebHome  -----------------------
 	p: XWIKI!Page (
-	   	title <- 'WebHome',
-		content <- '{{include reference="LPCode.ModelSetWebHome" /}}',
-		comment <- 'WebHome'
+	   	title <- 'Home',
+		parent <- 'Main.WebHome',
+		name <- 'WebHome',
+		content <- '{{include reference="LPCode.ModelSetWebHome" /}}'
 	),
 	msc:XWIKI!Object {
 		className <- 'LPCode.ModelSetClass',
@@ -70,8 +71,9 @@ rule MODELType2WebHome {
 	from s:ADOXX!MODELType(s.modeltype='Business process diagram (BPMN 2.0)')  --actually filter by BusinessProcess
 	-----------------------  mod.XXXXX  -----------------------
 	to p: XWIKI!Page (
-	   	title <- s.name,
-		comment <- s.id
+		title <- s.name,
+		parent <- 'WebHome',
+		name <- s.id
 	),
 	mc:XWIKI!Object (
 		className <- 'LPCode.ModelClass',
@@ -116,8 +118,8 @@ rule INSTANCEType2Page {
 	-----------------------  obj.XXXXX  -----------------------
 	to t_p: XWIKI!Page (
 	   	title <- s.name,
-		parent <- s.refImmediateComposite().id, --modelid
-		comment <- s.id
+		name <- s.id,
+		parent <- s.refImmediateComposite().id, --modelid 
 	),
 	------------------  objects\LPCode\BaseElementClass  ------------------
 	bec:XWIKI!Object (
