@@ -5,21 +5,20 @@
  */
 package eu.learnpad.or.impl;
 
+import eu.learnpad.core.impl.or.XwikiBridge;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.ontology.execution.ExecutionStates;
 import eu.learnpad.or.rest.data.States;
 import eu.learnpad.ontology.recommender.Recommender;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.BridgeInterface;
-import java.io.ByteArrayOutputStream;
 import javax.inject.Inject;
-import javax.xml.bind.JAXB;
 
 /**
  *
  * @author sandro.emmenegger
  */
-public class BridgeInterfaceImpl implements BridgeInterface{
+public class BridgeInterfaceImpl extends XwikiBridge implements BridgeInterface{
     
     @Inject
     ExecutionStates executionStates;
