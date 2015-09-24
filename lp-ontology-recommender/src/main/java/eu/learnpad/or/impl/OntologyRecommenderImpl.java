@@ -18,7 +18,7 @@ import javax.inject.Inject;
  *
  * @author sandro.emmenegger
  */
-public class BridgeInterfaceImpl extends XwikiBridge implements BridgeInterface{
+public class OntologyRecommenderImpl extends XwikiBridge{
     
     @Inject
     ExecutionStates executionStates;
