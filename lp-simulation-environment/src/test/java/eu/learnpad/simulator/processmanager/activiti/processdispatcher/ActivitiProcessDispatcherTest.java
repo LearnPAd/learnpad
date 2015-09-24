@@ -273,6 +273,7 @@ public class ActivitiProcessDispatcherTest {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Test
 	public void testProcessDispatcherSignalProcessEndToUsers()
 			throws InterruptedException {
 
