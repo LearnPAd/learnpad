@@ -14,26 +14,30 @@ Roadmap       | [http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Simulat
 This is the simulator component of the Learn PAd platform. It provides means to run a simulation of a process.
 
 # How it works?
-The simulator is currently a self-contained demo application including a BPMN 2.0 engine and an embedded webserver. To run it:
+The simulator is currently a self-contained demo application including a BPMN 2.0 engine and an embedded webserver. To run it (from the simulator project root):
 
-- first create the executable jar by running
-    mvn package
-  This should create the `target/simulator-<version>-jar-with-dependencies.jar` file.
+- first build the project by running
 
-- you can then launch the jar by running
+        ./build
 
-        java -jar target/simulator-<version>-jar-with-dependencies.jar
+  This should create the `out` folder with the simulator and start/stop scripts.
 
-  (replace <version> with the current version of the simulator)
+- you can then launch the simulator by running
+
+        ./out/start
 
 As indicated on the command-line, the demo should then be available at [http://localhost:8081](http://localhost:8081).
+
+- to stop the simulator, run
+
+        ./out/stop
 
 # Configuration
 There is no possible configuration at the moment.
 
 # Interfaces
-This component does not yet implements the interface specification defined in the Roadmap (but this is worked on :wink:).
 
+## Java API
 Currently, the main entry point of the Simulator is the `Simulator` class, which provides 3 methods to get the various interfaces:
 
 - `userHandler()`: to manage users
@@ -44,4 +48,5 @@ To get more info regarding the different interfaces, please refer to the associa
 
 You can also refer to the `Main` to see an example of how the simulator API can be used.
 
-NOTE: the current API is in a strong flux state and is subject to heavy changes (especially to conform to the Simulation Environment interface specification aforementioned)
+## REST API
+The Simulator implements the Simulator Bridge REST API specification defined in the [LearnPAd Core Platform APIs project](https://github.com/tomjorquera/learnpad/tree/master/lp-core-platform/lp-cp-apis/src/main/java/eu/learnpad/sim). Refer to this API to see the how to interact with the Simulator using REST.
