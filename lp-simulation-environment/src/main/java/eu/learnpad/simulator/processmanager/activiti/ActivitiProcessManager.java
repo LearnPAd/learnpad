@@ -139,6 +139,23 @@ public class ActivitiProcessManager implements IProcessManager {
 		return res;
 	}
 
+	@Override
+	public Collection<String> addProjectDefinitions(InputStream resource) {
+		Set<String> res = new HashSet<String>();
+
+		String deploymentId = repositoryService.createDeployment()
+				.addInputStream(Double.toString(Math.random()), resource)
+				.deploy().getId();
+
+		for (ProcessDefinition processDef : repositoryService
+				.createProcessDefinitionQuery().deploymentId(deploymentId)
+				.list()) {
+			res.add(processDef.getId());
+		}
+
+		return res;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 *

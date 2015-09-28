@@ -58,6 +58,14 @@ public interface IProcessManager {
 
 	/**
 	 *
+	 * @param resource
+	 *            the input stream corresponding to a valid BPMN 2.0 file
+	 * @return a collection containing the ID of the created process definitions
+	 */
+	public Collection<String> addProjectDefinitions(InputStream resource);
+
+	/**
+	 *
 	 * @return a collection containing the process definition id of the
 	 *         available process definitions
 	 */
