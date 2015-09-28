@@ -19,8 +19,11 @@
  */
 package eu.learnpad.mv;
 
+import javax.ws.rs.Path;
+
 import eu.learnpad.mv.rest.DeadlockVerification;
 
+@Path("/learnpad/mv/bridge")
 public interface BridgeInterface extends DeadlockVerification  {
 
 }

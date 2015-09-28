@@ -40,18 +40,18 @@ import eu.learnpad.exception.LpRestException;
 public interface ColloborativeContentVerifications {
 
 	
-	@Path("/learnpad/ca/validatecollaborativecontent")
+	@Path("/validatecollaborativecontent")
 	@POST
 	String putValidateCollaborativeContent(CollaborativeContentAnalysis contentFile)
 				throws LpRestException;
 	
 	
-	@Path("/learnpad/ca/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:.*}")
+	@Path("/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:.*}")
 	@GET
 	Collection<AnnotatedCollaborativeContentAnalysis> getCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException;
 	
-	@Path("/learnpad/ca/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:.*}/status")
+	@Path("/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:.*}/status")
 	@GET
 	String getStatusCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException;
