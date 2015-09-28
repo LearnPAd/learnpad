@@ -114,5 +114,5 @@
       <type>xwql</type>
     </property>
   </object>
-  <content>where doc.space = 'LearnPAdCode' or doc.fullName = 'Collections.LearnPAdCode'</content>
+  <content>where doc.space = 'LPCode' or doc.space = 'LPUI' or doc.fullName = 'Main.WebHome' or doc.fullName = 'WebIDE.LearnPAd' or doc.fullName = 'Collections.LearnPAdCode'</content>
 </xwikidoc>

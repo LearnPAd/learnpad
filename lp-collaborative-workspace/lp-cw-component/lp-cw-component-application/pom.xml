@@ -39,5 +39,11 @@
 			<artifactId>xwiki-platform-display-macro</artifactId>
 			<version>${platform.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.xwiki.platform</groupId>
+			<artifactId>xwiki-platform-livetable-ui</artifactId>
+			<version>${platform.version}</version>
+			<type>xar</type>
+		</dependency>
 	</dependencies>
 </project>
