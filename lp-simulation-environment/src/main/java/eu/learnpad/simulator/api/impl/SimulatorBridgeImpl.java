@@ -5,7 +5,9 @@ package eu.learnpad.simulator.api.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.NotFoundException;
@@ -105,8 +107,13 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 		// the location of a specific one.
 		setResponseToCreated("");
 
-		return simulator.processManager().addProjectDefinitions(
-				processDefinitionFilePath);
+		try {
+			return simulator.processManager().addProjectDefinitions(
+					new URL(processDefinitionFilePath).openStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+			return new HashSet<String>();
+		}
 	}
 
 	/*
