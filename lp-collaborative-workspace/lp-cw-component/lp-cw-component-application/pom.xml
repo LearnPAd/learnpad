@@ -32,4 +32,12 @@
 	<artifactId>lp-cw-component-application</artifactId>
 	<packaging>xar</packaging>
 	<name>Learn PAd - Collaborative Workspace - Component - Application</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.xwiki.platform</groupId>
+			<artifactId>xwiki-platform-display-macro</artifactId>
+			<version>${platform.version}</version>
+		</dependency>
+	</dependencies>
 </project>
