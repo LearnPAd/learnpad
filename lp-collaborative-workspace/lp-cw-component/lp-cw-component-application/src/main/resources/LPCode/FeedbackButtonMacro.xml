@@ -160,9 +160,9 @@
       <code>{{velocity}}
 #set ($feedbackPageName = $xwiki.parseGroovyFromPage('LPCode.RandomUUID').getRandomUUID())
 #set ($feedbackReference = $services.model.createDocumentReference($xcontext.database, $doc.space, $feedbackPageName))
-#set ($parameters = "template=xwiki:LearnPAdCode.FeedbackTemplate")
+#set ($parameters = "template=xwiki:LPCode.FeedbackTemplate")
 #set ($parameters = "${parameters}&amp;parent=$escapetool.url(${doc.getFullName()})")
-#set ($parameters = "${parameters}&amp;LearnPAdCode.FeedbackClass_0_id=$escapetool.url(${feedbackPageName})")
+#set ($parameters = "${parameters}&amp;LPCode.FeedbackClass_0_id=$escapetool.url(${feedbackPageName})")
 #set ($feedbackURL = ${xwiki.getURL($feedbackReference, 'edit', $parameters)})
 [[Feedback $services.icon.render('flag')&gt;&gt;path:${feedbackURL}||class="button btn-danger btn-block"]]
 {{/velocity}}</code>
