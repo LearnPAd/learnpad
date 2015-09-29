@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<xwikidoc>
+  <web>LPCode</web>
+  <name>CPAPI</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <parent>LPUI.SimulationEnvironment</parent>
+  <creator>xwiki:XWiki.Admin</creator>
+  <author>xwiki:XWiki.Admin</author>
+  <customClass/>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <creationDate>1443624090000</creationDate>
+  <date>1443626698000</date>
+  <contentUpdateDate>1443626698000</contentUpdateDate>
+  <version>1.1</version>
+  <title>CPAPI</title>
+  <defaultTemplate/>
+  <validationScript/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>false</hidden>
+  <content>// {{groovy}}
+import org.apache.commons.httpclient.Credentials;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.UsernamePasswordCredentials;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.auth.AuthScope;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.commons.io.IOUtils;
+
+class CorePlatformAPI {
+  String startSimulation(modelId, currentUser, potentialUsers) {
+    HttpClient httpClient = new HttpClient();
+    httpClient.getParams().setAuthenticationPreemptive(true);
+    AuthScope authentication = new AuthScope('localhost', 8080, AuthScope.ANY_REALM);
+    Credentials credentials = new UsernamePasswordCredentials('superadmin', 'LearnPAss');
+    httpClient.getState().setCredentials(authentication, credentials);
+    String uri = String.format("http://localhost:8080/xwiki/rest/learnpad/cw/corefacade/simulation/start/%s", modelId);
+    PostMethod postMethod = new PostMethod(uri);
+    postMethod.addRequestHeader("Content-Type", "application/json");
+    NameValuePair[] queryString = new NameValuePair[1];
+    queryString[0] = new NameValuePair("currentuser", "superadmin");
+    postMethod.setQueryString(queryString);
+    StringRequestEntity requestEntity = new StringRequestEntity("[]", "application/json", "UTF-8");
+    postMethod.setRequestEntity(requestEntity);
+    httpClient.executeMethod(postMethod);
+    return IOUtils.toString(postMethod.getResponseBodyAsStream());
+  }
+}
+// {{/groovy}}</content>
+</xwikidoc>
