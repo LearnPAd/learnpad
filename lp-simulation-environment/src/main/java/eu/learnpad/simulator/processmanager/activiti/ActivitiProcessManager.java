@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import org.activiti.bpmn.model.BpmnModel;
@@ -143,9 +144,11 @@ public class ActivitiProcessManager implements IProcessManager {
 	public Collection<String> addProjectDefinitions(InputStream resource) {
 		Set<String> res = new HashSet<String>();
 
-		String deploymentId = repositoryService.createDeployment()
-				.addInputStream(Double.toString(Math.random()), resource)
-				.deploy().getId();
+		String deploymentId = repositoryService
+				.createDeployment()
+				.addInputStream(
+						Long.toString(new Random().nextLong()) + ".bpmn20.xml",
+						resource).deploy().getId();
 
 		for (ProcessDefinition processDef : repositoryService
 				.createProcessDefinitionQuery().deploymentId(deploymentId)
