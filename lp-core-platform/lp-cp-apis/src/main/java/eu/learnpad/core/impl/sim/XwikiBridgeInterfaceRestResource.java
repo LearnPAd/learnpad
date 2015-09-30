@@ -19,12 +19,20 @@
  */
 package eu.learnpad.core.impl.sim;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.io.IOUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.rest.utils.RestResource;
+import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.sim.BridgeInterface;
 import eu.learnpad.sim.rest.data.ProcessData;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
@@ -113,8 +121,41 @@ import eu.learnpad.sim.rest.data.UserData;
 	@Override
 	public String addProcessInstance(String processId,
 			Collection<UserData> potentialUsers, String currentUser) {
-		// TODO Auto-generated method stub
-		return null;
+		HttpClient httpClient = RestResource.getClient();
+		String uri = String.format("%s/learnpad/sim/instances/%s",
+				RestResource.SIM_REST_URI, processId);
+		PostMethod postMethod = new PostMethod(uri);
+		postMethod.addRequestHeader("Content-Type", "application/json");
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("currentuser", currentUser);
+		postMethod.setQueryString(queryString);
+		StringRequestEntity requestEntity = null;
+		ObjectMapper om = new ObjectMapper();
+		String potentialUsersJson = "[]";
+		try {
+			potentialUsersJson = om.writeValueAsString(potentialUsers);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			requestEntity = new StringRequestEntity(potentialUsersJson,
+					"application/json", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		postMethod.setRequestEntity(requestEntity);
+		try {
+			httpClient.executeMethod(postMethod);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			return IOUtils.toString(postMethod.getResponseBodyAsStream());
+		} catch (IOException e) {
+			return null;
+		}
 	}
-
 }

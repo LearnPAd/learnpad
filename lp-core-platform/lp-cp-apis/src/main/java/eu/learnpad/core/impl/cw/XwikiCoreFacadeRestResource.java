@@ -20,15 +20,21 @@
 package eu.learnpad.core.impl.cw;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.Collection;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.io.IOUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.CoreFacade;
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.sim.rest.data.UserData;
 
 /*
  * The methods inherited form the CoreFacade in this
@@ -37,6 +43,8 @@ import eu.learnpad.exception.LpRestException;
  */
 public class XwikiCoreFacadeRestResource extends RestResource implements
 		CoreFacade {
+	
+	eu.learnpad.sim.BridgeInterface sim;
 
 	public XwikiCoreFacadeRestResource() {
 		this("localhost", 8080);
@@ -46,6 +54,7 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 			int coreFacadeHostPort) {
 		// This constructor could change in the future
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
+		this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
 	}
 
 	public void updateConfiguration(String coreFacadeHostname,
@@ -100,4 +109,9 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 		return model;
 	}
 
+	@Override
+	public String startSimulation(String modelId, String currentUser,
+			Collection<UserData> potentialUsers) throws LpRestException {
+		return this.sim.addProcessInstance(modelId, potentialUsers, currentUser);
+	}
 }
