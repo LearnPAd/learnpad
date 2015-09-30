@@ -81,7 +81,7 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 		
 		
 		
-		public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
+		public static void main(String[] args) throws Exception {
 			/*
 			 * We have to provide the XMI model to the system
 			 */

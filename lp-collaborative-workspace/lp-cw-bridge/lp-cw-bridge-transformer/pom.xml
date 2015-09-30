@@ -177,6 +177,32 @@
                                         <target>1.7</target>
                                 </configuration>
                         </plugin>
+                        
+          <!--  <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.6</version>
+            <executions>
+                <execution>
+                    <id>copy-resources01</id>
+                    <phase>process-classes</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${basedir}/target/classes</outputDirectory>
+                        <encoding>UTF-8</encoding>
+                        <resources>
+                            <resource>
+                                <directory>${basedir}/src/main/java/eu/learnpad/transformations/model2text/main</directory>
+                                <includes>
+                                    <include>webHome.emtl</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin> -->
                 </plugins>
         </build>
   
