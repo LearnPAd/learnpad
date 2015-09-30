@@ -111,7 +111,7 @@ ActivitiEventListener {
 				}
 
 				monitoringEvent = new GlimpseBaseEventBPMN<String>(null,
-						event.getProcessInstanceId(),
+						p.getProcessDefinitionKey(),
 						System.currentTimeMillis(), "PROCESS_CREATED", false,
 						"", event.getProcessInstanceId(), null, null, null,
 						subprocessId, null);
@@ -134,7 +134,7 @@ ActivitiEventListener {
 				}
 
 				monitoringEvent = new GlimpseBaseEventBPMN<String>(null,
-						event.getProcessInstanceId(),
+						p.getProcessDefinitionKey(),
 						System.currentTimeMillis(), "PROCESS_COMPLETED", false,
 						"", event.getProcessInstanceId(), null, null, null,
 						subprocessId, null);
