@@ -26,6 +26,7 @@ package eu.learnpad.simulator.processmanager;
 
 import java.util.Map;
 
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
@@ -43,6 +44,12 @@ import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
  *
  */
 public interface IProcessDispatcher {
+
+	/**
+	 *
+	 * @return the process instance data info of the associated process instance
+	 */
+	public ProcessInstanceData getProcessInstanceInfos();
 
 	/**
 	 * Signal the completion of a given task, along with the corresponding

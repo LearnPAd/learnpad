@@ -57,7 +57,8 @@ public class ProcessData implements IProcessMsg {
 				.getAvailableProcessDefintion()) {
 			processes
 			.add(new ProcessDescr(
-					processDefId,
+					processManager
+					.getProcessDefinitionKey(processDefId),
 					processManager
 					.getProcessDefinitionName(processDefId),
 					processManager

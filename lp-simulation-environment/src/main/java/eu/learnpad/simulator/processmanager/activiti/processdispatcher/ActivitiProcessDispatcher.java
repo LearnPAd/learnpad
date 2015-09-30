@@ -41,6 +41,7 @@ import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.document.LearnPadDocument;
@@ -96,19 +97,17 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher
 	private boolean processFinished = false;
 
 	public ActivitiProcessDispatcher(
+			ProcessInstanceData processInstanceData,
 			ActivitiProcessManager processManager,
 			IProcessEventReceiver processEventReceiver,
-			ProcessInstance process,
 			TaskService taskService,
 			RuntimeService runtimeService,
 			HistoryService historyService,
 			ITaskRouter router,
 			ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator,
-			Collection<String> involvedUsers, BPMNExplorer explorer
-
-	) {
-		super(processManager, processEventReceiver, process.getId(),
-				involvedUsers, router, taskValidator);
+			BPMNExplorer explorer) {
+		super(processInstanceData, processManager, processEventReceiver,
+				router, taskValidator);
 		this.taskService = taskService;
 		this.runtimeService = runtimeService;
 		this.historyService = historyService;

@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.Map;
 
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
@@ -47,6 +48,13 @@ public interface IProcessManager {
 	public static enum TaskSubmissionStatus {
 		VALIDATED, REJECTED, ALREADY_COMPLETED, UNKOWN_TASK, UNKOWN_ERROR
 	}
+
+	/**
+	 *
+	 * @param processDefinitionKey
+	 * @return the process definition Id associated to the definition key
+	 */
+	public String getProcessDefIdFromDefKey(String processDefinitionKey);
 
 	/**
 	 *
@@ -128,8 +136,8 @@ public interface IProcessManager {
 
 	/**
 	 *
-	 * @param projectDefinitionId
-	 *            the process definition id of the process to instantiate
+	 * @param projectDefinitionKey
+	 *            the process definition key of the process to instantiate
 	 * @param parameters
 	 *            the parameter list for the process
 	 * @param users
@@ -139,7 +147,7 @@ public interface IProcessManager {
 	 *            associated with several users)
 	 * @return the ID of the created process instance
 	 */
-	public String startProjectInstance(String projectDefinitionId,
+	public String startProjectInstance(String projectDefinitionKey,
 			Map<String, Object> parameters, Collection<String> users,
 			Map<String, Collection<String>> route);
 
@@ -147,10 +155,9 @@ public interface IProcessManager {
 	 *
 	 * @param processInstanceId
 	 *            the ID of the process instance
-	 * @return a collection of the IDs of the involved users
+	 * @return the data associated with this process instance
 	 */
-	public Collection<String> getProcessInstanceInvolvedUsers(
-			String processInstanceId);
+	public ProcessInstanceData getProcessInstanceInfos(String processInstanceId);
 
 	/**
 	 * Signal the completion of a given task for a given process, along with the

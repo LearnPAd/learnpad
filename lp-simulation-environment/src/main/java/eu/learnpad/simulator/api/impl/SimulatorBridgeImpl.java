@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.NotFoundException;
@@ -15,6 +16,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
+
+import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
 import eu.learnpad.sim.BridgeInterface;
 import eu.learnpad.sim.rest.data.ProcessData;
@@ -52,7 +55,6 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 
 	// this will allow us to return specific response codes (specifically for
 	// POST methods)
-	@Context
 	private HttpServletResponse response;
 	@Context
 	private UriInfo infos;
@@ -70,13 +72,23 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 	 * @param relativePath
 	 */
 	private void setResponseToCreated(String relativePath) {
-		response.setStatus(Status.CREATED.getStatusCode());
-		response.setHeader("Location", infos.getAbsolutePath() + relativePath);
 
-		try {
-			response.flushBuffer();
-		} catch (IOException e) {
-			e.printStackTrace();
+		response = ResteasyProviderFactory
+				.getContextData(HttpServletResponse.class);
+
+		// in some cases (as when calling the API programmatically), no response
+		// will be captured (response == null), not really sure why. But since
+		// this is not really critical setting the response on a best-effort
+		// basis should be enough.
+		if (response != null) {
+			response.setStatus(Status.CREATED.getStatusCode());
+			response.setHeader("Location", infos.getAbsolutePath()
+					+ relativePath);
+			try {
+				response.flushBuffer();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -91,7 +103,17 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 	 */
 	public Collection<String> getProcessDefinitions() {
 
-		return simulator.processManager().getAvailableProcessDefintion();
+		Collection<String> processDefIds = simulator.processManager()
+				.getAvailableProcessDefintion();
+
+		// translate from process IDs to process keys
+		Set<String> processDefKeys = new HashSet<String>();
+		for (String id : processDefIds) {
+			processDefKeys.add(simulator.processManager()
+					.getProcessDefinitionKey(id));
+		}
+		return processDefKeys;
+
 	}
 
 	/*
@@ -108,8 +130,17 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 		setResponseToCreated("");
 
 		try {
-			return simulator.processManager().addProjectDefinitions(
-					new URL(processDefinitionFilePath).openStream());
+			Collection<String> processDefIds = simulator.processManager()
+					.addProjectDefinitions(
+							new URL(processDefinitionFilePath).openStream());
+
+			// translate from process IDs to process keys
+			Set<String> processDefKeys = new HashSet<String>();
+			for (String id : processDefIds) {
+				processDefKeys.add(simulator.processManager()
+						.getProcessDefinitionKey(id));
+			}
+			return processDefKeys;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return new HashSet<String>();
@@ -122,17 +153,22 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 	 * @see eu.learnpad.simulator.api.functionalities.IProcessesHandlingBridge#
 	 * getProcessInfos(java.lang.String)
 	 */
-	public ProcessData getProcessInfos(String processId) {
-		if (simulator.processManager().getAvailableProcessDefintion()
-				.contains(processId)) {
+	public ProcessData getProcessInfos(String processDefinitionKey) {
+
+		String processDefId = simulator.processManager()
+				.getProcessDefIdFromDefKey(processDefinitionKey);
+
+		if (processDefId == null
+				|| simulator.processManager().getAvailableProcessDefintion()
+				.contains(processDefId)) {
 
 			return new ProcessData(simulator.processManager()
-					.getProcessDefinitionName(processId), simulator
+					.getProcessDefinitionName(processDefId), simulator
 					.processManager()
-					.getProcessDefinitionDescription(processId), simulator
+					.getProcessDefinitionDescription(processDefId), simulator
 					.processManager()
-					.getProcessDefinitionSingleRoles(processId), simulator
-					.processManager().getProcessDefinitionGroupRoles(processId));
+					.getProcessDefinitionSingleRoles(processDefId), simulator
+					.processManager().getProcessDefinitionGroupRoles(processDefId));
 		} else {
 			throw new NotFoundException();
 		}
@@ -156,26 +192,25 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 	 */
 	public String addProcessInstance(ProcessInstanceData data) {
 		String id = simulator.processManager().startProjectInstance(
-				data.processartifactid, data.parameters, data.users,
+				data.processartifactkey, data.parameters, data.users,
 				data.routes);
 		setResponseToCreated(id);
 		return id;
 	}
 
 	@Override
-	public String addProcessInstance(String processId,
+	public String addProcessInstance(String processKey,
 			Collection<UserData> potentialUsers, String currentUser) {
 
+		// add users that were not yet present in the platform
 		Collection<String> users = simulator.userHandler().getUsers();
-		for (String user : users) {
-			simulator.userHandler().removeUser(user);
-		}
-
 		for (UserData user : potentialUsers) {
-			simulator.userHandler().addUser(user.id);
+			if (!users.contains(user)) {
+				simulator.userHandler().addUser(user.id);
+			}
 		}
 
-		return "uisingleprocess?processid=" + processId + "&" + "userid="
+		return "uisingleprocess?processid=" + processKey + "&" + "userid="
 		+ currentUser;
 	}
 
@@ -188,8 +223,8 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 	public ProcessInstanceData getProcessInstanceInfos(String processInstanceId) {
 		if (simulator.processManager().getCurrentProcessInstances()
 				.contains(processInstanceId)) {
-			return new ProcessInstanceData("", null, simulator.processManager()
-					.getProcessInstanceInvolvedUsers(processInstanceId), null);
+			return simulator.processManager().getProcessInstanceInfos(
+					processInstanceId);
 		} else {
 			throw new NotFoundException();
 		}
