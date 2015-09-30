@@ -237,13 +237,19 @@ public class ActivitiProcessManager implements IProcessManager {
 
 		// open the BPMN model of the process
 		BpmnModel model = repositoryService.getBpmnModel(processDefinitionId);
-		for (FlowElement element : model.getMainProcess().getFlowElements()) {
-			// filter to keep only user tasks
-			if (element instanceof UserTask) {
-				UserTask task = (UserTask) element;
-				result.addAll(task.getCandidateUsers());
+
+		// in order to handle collaboration diagrams, we need to get the users
+		// of *all* the processes
+		for (org.activiti.bpmn.model.Process process : model.getProcesses()) {
+			for (FlowElement element : process.getFlowElements()) {
+				// filter to keep only user tasks
+				if (element instanceof UserTask) {
+					UserTask task = (UserTask) element;
+					result.addAll(task.getCandidateUsers());
+				}
 			}
 		}
+
 		return result;
 	}
 
@@ -259,11 +265,16 @@ public class ActivitiProcessManager implements IProcessManager {
 
 		// open the BPMN model of the process
 		BpmnModel model = repositoryService.getBpmnModel(processDefinitionId);
-		for (FlowElement element : model.getMainProcess().getFlowElements()) {
-			// filter to keep only user tasks
-			if (element instanceof UserTask) {
-				UserTask task = (UserTask) element;
-				result.addAll(task.getCandidateGroups());
+
+		// in order to handle collaboration diagrams, we need to get the users
+		// of *all* the processes
+		for (org.activiti.bpmn.model.Process process : model.getProcesses()) {
+			for (FlowElement element : process.getFlowElements()) {
+				// filter to keep only user tasks
+				if (element instanceof UserTask) {
+					UserTask task = (UserTask) element;
+					result.addAll(task.getCandidateGroups());
+				}
 			}
 		}
 		return result;
