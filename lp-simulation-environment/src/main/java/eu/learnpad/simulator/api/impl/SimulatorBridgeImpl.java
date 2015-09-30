@@ -16,6 +16,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
+import org.jboss.resteasy.spi.ResteasyProviderFactory;
+
 import eu.learnpad.sim.BridgeInterface;
 import eu.learnpad.sim.rest.data.ProcessData;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
@@ -52,7 +54,6 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 
 	// this will allow us to return specific response codes (specifically for
 	// POST methods)
-	@Context
 	private HttpServletResponse response;
 	@Context
 	private UriInfo infos;
@@ -70,13 +71,23 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 	 * @param relativePath
 	 */
 	private void setResponseToCreated(String relativePath) {
-		response.setStatus(Status.CREATED.getStatusCode());
-		response.setHeader("Location", infos.getAbsolutePath() + relativePath);
 
-		try {
-			response.flushBuffer();
-		} catch (IOException e) {
-			e.printStackTrace();
+		response = ResteasyProviderFactory
+				.getContextData(HttpServletResponse.class);
+
+		// in some cases (as when calling the API programmatically), no response
+		// will be captured (response == null), not really sure why. But since
+		// this is not really critical setting the response on a best-effort
+		// basis should be enough.
+		if (response != null) {
+			response.setStatus(Status.CREATED.getStatusCode());
+			response.setHeader("Location", infos.getAbsolutePath()
+					+ relativePath);
+			try {
+				response.flushBuffer();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
