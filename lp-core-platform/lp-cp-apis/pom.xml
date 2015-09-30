@@ -38,6 +38,11 @@
 			<artifactId>Saxon-HE</artifactId>
 			<version>9.6.0-5</version>
 		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
 	</dependencies>
 
 	<!--build>
