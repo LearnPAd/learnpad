@@ -118,6 +118,13 @@ public class ActivitiProcessManager implements IProcessManager {
 		this(processEngine, processEventReceiverProvider, explorerRepo, true);
 	}
 
+	@Override
+	public String getProcessDefIdFromDefKey(String processDefinitionKey) {
+		return repositoryService.createProcessDefinitionQuery()
+				.processDefinitionKey(processDefinitionKey).singleResult()
+				.getId();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -286,24 +293,25 @@ public class ActivitiProcessManager implements IProcessManager {
 	 * @see activitipoc.IProcessManager#startProjectInstance(java.lang.String,
 	 * java.util.Map, activitipoc.ITaskRouter)
 	 */
-	public String startProjectInstance(String projectDefinitionId,
+	public String startProjectInstance(String projectDefinitionKey,
 			Map<String, Object> parameters, Collection<String> users,
 			Map<String, Collection<String>> router) {
 
-		ProcessInstance process = runtimeService.startProcessInstanceById(
-				projectDefinitionId, parameters);
+		ProcessInstance process = runtimeService.startProcessInstanceByKey(
+				projectDefinitionKey, parameters);
 
 		ProcessInstanceData data = new ProcessInstanceData(process.getId(),
-				parameters, users, router);
+				projectDefinitionKey, parameters, users, router);
 
 		processDispatchers.put(
 				process.getId(),
 				new ActivitiProcessDispatcher(data, this,
 						this.processEventReceiverProvider
-						.processEventReceiver(), taskService,
+								.processEventReceiver(), taskService,
 						runtimeService, historyService, new ActivitiTaskRouter(
 								taskService, router), taskValidator,
-								explorerRepo.getExplorer(projectDefinitionId)));
+						explorerRepo.getExplorer(process
+								.getProcessDefinitionId())));
 
 		// we are ready, so we can start the dispatcher
 		processDispatchers.get(process.getId()).start();

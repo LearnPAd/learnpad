@@ -117,6 +117,7 @@ public class ActivitiProcessDispatcherTest {
 				.startProcessInstanceByKey(TEST_PROCESS_KEY);
 
 		processInstanceData = new ProcessInstanceData(processInstance.getId(),
+				processInstance.getProcessDefinitionKey(),
 				new HashMap<String, Object>(), TEST_PROCESS_USES,
 				new HashMap<String, Collection<String>>());
 	}

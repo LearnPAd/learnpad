@@ -51,6 +51,13 @@ public interface IProcessManager {
 
 	/**
 	 *
+	 * @param processDefinitionKey
+	 * @return the process definition Id associated to the definition key
+	 */
+	public String getProcessDefIdFromDefKey(String processDefinitionKey);
+
+	/**
+	 *
 	 * @param resource
 	 *            the path to a valid BPMN 2.0 file
 	 * @return a collection containing the ID of the created process definitions
@@ -129,8 +136,8 @@ public interface IProcessManager {
 
 	/**
 	 *
-	 * @param projectDefinitionId
-	 *            the process definition id of the process to instantiate
+	 * @param projectDefinitionKey
+	 *            the process definition key of the process to instantiate
 	 * @param parameters
 	 *            the parameter list for the process
 	 * @param users
@@ -140,7 +147,7 @@ public interface IProcessManager {
 	 *            associated with several users)
 	 * @return the ID of the created process instance
 	 */
-	public String startProjectInstance(String projectDefinitionId,
+	public String startProjectInstance(String projectDefinitionKey,
 			Map<String, Object> parameters, Collection<String> users,
 			Map<String, Collection<String>> route);
 

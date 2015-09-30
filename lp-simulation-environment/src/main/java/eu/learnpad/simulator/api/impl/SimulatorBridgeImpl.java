@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.NotFoundException;
@@ -102,7 +103,17 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 	 */
 	public Collection<String> getProcessDefinitions() {
 
-		return simulator.processManager().getAvailableProcessDefintion();
+		Collection<String> processDefIds = simulator.processManager()
+				.getAvailableProcessDefintion();
+
+		// translate from process IDs to process keys
+		Set<String> processDefKeys = new HashSet<String>();
+		for (String id : processDefIds) {
+			processDefKeys.add(simulator.processManager()
+					.getProcessDefinitionKey(id));
+		}
+		return processDefKeys;
+
 	}
 
 	/*
@@ -119,8 +130,17 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 		setResponseToCreated("");
 
 		try {
-			return simulator.processManager().addProjectDefinitions(
-					new URL(processDefinitionFilePath).openStream());
+			Collection<String> processDefIds = simulator.processManager()
+					.addProjectDefinitions(
+							new URL(processDefinitionFilePath).openStream());
+
+			// translate from process IDs to process keys
+			Set<String> processDefKeys = new HashSet<String>();
+			for (String id : processDefIds) {
+				processDefKeys.add(simulator.processManager()
+						.getProcessDefinitionKey(id));
+			}
+			return processDefKeys;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return new HashSet<String>();
@@ -133,17 +153,22 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 	 * @see eu.learnpad.simulator.api.functionalities.IProcessesHandlingBridge#
 	 * getProcessInfos(java.lang.String)
 	 */
-	public ProcessData getProcessInfos(String processId) {
-		if (simulator.processManager().getAvailableProcessDefintion()
-				.contains(processId)) {
+	public ProcessData getProcessInfos(String processDefinitionKey) {
+
+		String processDefId = simulator.processManager()
+				.getProcessDefIdFromDefKey(processDefinitionKey);
+
+		if (processDefId == null
+				|| simulator.processManager().getAvailableProcessDefintion()
+				.contains(processDefId)) {
 
 			return new ProcessData(simulator.processManager()
-					.getProcessDefinitionName(processId), simulator
+					.getProcessDefinitionName(processDefId), simulator
 					.processManager()
-					.getProcessDefinitionDescription(processId), simulator
+					.getProcessDefinitionDescription(processDefId), simulator
 					.processManager()
-					.getProcessDefinitionSingleRoles(processId), simulator
-					.processManager().getProcessDefinitionGroupRoles(processId));
+					.getProcessDefinitionSingleRoles(processDefId), simulator
+					.processManager().getProcessDefinitionGroupRoles(processDefId));
 		} else {
 			throw new NotFoundException();
 		}
@@ -167,14 +192,14 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 	 */
 	public String addProcessInstance(ProcessInstanceData data) {
 		String id = simulator.processManager().startProjectInstance(
-				data.processartifactid, data.parameters, data.users,
+				data.processartifactkey, data.parameters, data.users,
 				data.routes);
 		setResponseToCreated(id);
 		return id;
 	}
 
 	@Override
-	public String addProcessInstance(String processId,
+	public String addProcessInstance(String processKey,
 			Collection<UserData> potentialUsers, String currentUser) {
 
 		// add users that were not yet present in the platform
@@ -185,7 +210,7 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 			}
 		}
 
-		return "uisingleprocess?processid=" + processId + "&" + "userid="
+		return "uisingleprocess?processid=" + processKey + "&" + "userid="
 		+ currentUser;
 	}
 

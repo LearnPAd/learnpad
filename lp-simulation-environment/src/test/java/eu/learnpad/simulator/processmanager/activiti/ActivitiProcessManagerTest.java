@@ -140,9 +140,11 @@ public class ActivitiProcessManagerTest {
 
 		assertTrue(manager.getCurrentProcessInstances().size() == 0);
 
-		String processInstanceId = manager.startProjectInstance(
-				processDefinitionId, null,
-				Arrays.asList("user1", "user2", "user3"),
+		String processDefKey = manager
+				.getProcessDefinitionKey(processDefinitionId);
+
+		String processInstanceId = manager.startProjectInstance(processDefKey,
+				null, Arrays.asList("user1", "user2", "user3"),
 				new HashMap<String, Collection<String>>() {
 					{
 						put("user1", Arrays.asList("user1"));
