@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE ADOXML SYSTEM "adoxml31.dtd">
-<ADOXML version="3.1" date="31.07.2015" time="17:29" database="lpad" username="Admin" adoversion="Version 1.0 4.0">
+<Ado:ADOXMLType xmi:version="2.0"  xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ado="http://www.ado.org" xsi:schemaLocation="http://www.ado.org /Adoxx2XWiki/models/Ado.ecore">
 <MODELS>
 <MODEL id="mod.13512" name="PATestCityApplicationProcessModel" version="" modeltype="Business process diagram (BPMN 2.0)" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.21">
 <MODELATTRIBUTES>
@@ -5978,4 +5977,4 @@ cond
 </CONNECTOR>
 </MODEL>
 </MODELS>
-</ADOXML>
+</Ado:ADOXMLType>

@@ -2,6 +2,8 @@ package eu.learnpad.transformations.model2text.generator;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +36,21 @@ public class AcceleoStandaloneStarter{
 	}
 	
 	   public void execute(String modelPath, String resultFolderPath) {
+		   
+		   
+//		   ClassLoader cl = ClassLoader.getSystemClassLoader();
+//	       URL[] urls = ((URLClassLoader)cl).getURLs();
+//	       for(URL url: urls){
+//	        	System.out.println(url.getFile());
+//	        }
+//		   
+		   
+		   
+		   
 //	     registerResourceFactories();
 	     registerPackages();
 //	     registerLibraries();
-	     
+	    
          URI modelURI = URI.createFileURI(modelPath);
          File folder = new File(resultFolderPath);
          List<String> arguments = new ArrayList<String>();
