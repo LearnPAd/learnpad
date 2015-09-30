@@ -177,13 +177,12 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 	public String addProcessInstance(String processId,
 			Collection<UserData> potentialUsers, String currentUser) {
 
+		// add users that were not yet present in the platform
 		Collection<String> users = simulator.userHandler().getUsers();
-		for (String user : users) {
-			simulator.userHandler().removeUser(user);
-		}
-
 		for (UserData user : potentialUsers) {
-			simulator.userHandler().addUser(user.id);
+			if (!users.contains(user)) {
+				simulator.userHandler().addUser(user.id);
+			}
 		}
 
 		return "uisingleprocess?processid=" + processId + "&" + "userid="
