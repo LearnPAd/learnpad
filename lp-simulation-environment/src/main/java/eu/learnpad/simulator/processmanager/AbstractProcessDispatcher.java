@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
@@ -40,6 +41,7 @@ import eu.learnpad.simulator.processmanager.gamification.TaskScorer;
  */
 public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 
+	private final ProcessInstanceData processInstanceData;
 	protected final String processId;
 	protected final Collection<String> involvedUsers;
 	private final IProcessManager manager;
@@ -52,15 +54,15 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 	private final Map<String, TaskScorer> taskScorers = new HashMap<String, TaskScorer>();
 
 	public AbstractProcessDispatcher(
+			ProcessInstanceData processInstanceData,
 			IProcessManager manager,
 			IProcessEventReceiver processEventReceiver,
-			String processId,
-			Collection<String> involvedUsers,
 			ITaskRouter router,
 			ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator) {
 		super();
-		this.processId = processId;
-		this.involvedUsers = involvedUsers;
+		this.processInstanceData = processInstanceData;
+		this.processId = processInstanceData.processartifactid;
+		this.involvedUsers = processInstanceData.users;
 		this.manager = manager;
 		this.processEventReceiver = processEventReceiver;
 		this.router = router;
@@ -71,6 +73,10 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 		}
 
 		System.out.println("Created dispatcher for process " + processId);
+	}
+
+	public ProcessInstanceData getProcessInstanceInfos() {
+		return processInstanceData;
 	}
 
 	/**

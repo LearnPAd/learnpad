@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.Map;
 
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
@@ -147,10 +148,9 @@ public interface IProcessManager {
 	 *
 	 * @param processInstanceId
 	 *            the ID of the process instance
-	 * @return a collection of the IDs of the involved users
+	 * @return the data associated with this process instance
 	 */
-	public Collection<String> getProcessInstanceInvolvedUsers(
-			String processInstanceId);
+	public ProcessInstanceData getProcessInstanceInfos(String processInstanceId);
 
 	/**
 	 * Signal the completion of a given task for a given process, along with the

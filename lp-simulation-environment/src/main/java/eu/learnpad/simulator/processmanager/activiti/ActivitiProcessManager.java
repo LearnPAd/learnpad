@@ -49,11 +49,12 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.image.ProcessDiagramGenerator;
 import org.activiti.image.impl.DefaultProcessDiagramGenerator;
 
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
-import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
 import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
+import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
 import eu.learnpad.simulator.monitoring.activiti.ActivitiProbe;
 import eu.learnpad.simulator.processmanager.AbstractProcessDispatcher;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
@@ -85,9 +86,6 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	private final Map<String, AbstractProcessDispatcher> processDispatchers = Collections
 			.synchronizedMap(new HashMap<String, AbstractProcessDispatcher>());
-
-	private final Map<String, Collection<String>> processInstanceToUsers = Collections
-			.synchronizedMap(new HashMap<String, Collection<String>>());
 
 	public ActivitiProcessManager(
 			ProcessEngine processEngine,
@@ -284,13 +282,17 @@ public class ActivitiProcessManager implements IProcessManager {
 		ProcessInstance process = runtimeService.startProcessInstanceById(
 				projectDefinitionId, parameters);
 
-		processInstanceToUsers.put(process.getId(), new HashSet<String>(users));
+		ProcessInstanceData data = new ProcessInstanceData(process.getId(),
+				parameters, users, router);
 
-		processDispatchers.put(process.getId(), new ActivitiProcessDispatcher(
-				this, this.processEventReceiverProvider.processEventReceiver(),
-				process, taskService, runtimeService, historyService,
-				new ActivitiTaskRouter(taskService, router), taskValidator,
-				users, explorerRepo.getExplorer(projectDefinitionId)));
+		processDispatchers.put(
+				process.getId(),
+				new ActivitiProcessDispatcher(data, this,
+						this.processEventReceiverProvider
+						.processEventReceiver(), taskService,
+						runtimeService, historyService, new ActivitiTaskRouter(
+								taskService, router), taskValidator,
+								explorerRepo.getExplorer(projectDefinitionId)));
 
 		// we are ready, so we can start the dispatcher
 		processDispatchers.get(process.getId()).start();
@@ -329,16 +331,10 @@ public class ActivitiProcessManager implements IProcessManager {
 				.getProcessDefinitionId();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * eu.learnpad.simulator.IProcessManager#getProcessInstanceInvolvedUsers
-	 * (java.lang.String)
-	 */
-	public Collection<String> getProcessInstanceInvolvedUsers(
-			String processInstanceId) {
-		return processInstanceToUsers.get(processInstanceId);
+	@Override
+	public ProcessInstanceData getProcessInstanceInfos(String processInstanceId) {
+		return processDispatchers.get(processInstanceId)
+				.getProcessInstanceInfos();
 	}
 
 	/*
@@ -357,7 +353,6 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	@Override
 	public void signalProcessCompletion(String processId) {
-		processInstanceToUsers.remove(processId);
 		processDispatchers.remove(processId);
 	}
 

@@ -188,8 +188,8 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 	public ProcessInstanceData getProcessInstanceInfos(String processInstanceId) {
 		if (simulator.processManager().getCurrentProcessInstances()
 				.contains(processInstanceId)) {
-			return new ProcessInstanceData("", null, simulator.processManager()
-					.getProcessInstanceInvolvedUsers(processInstanceId), null);
+			return simulator.processManager().getProcessInstanceInfos(
+					processInstanceId);
 		} else {
 			throw new NotFoundException();
 		}

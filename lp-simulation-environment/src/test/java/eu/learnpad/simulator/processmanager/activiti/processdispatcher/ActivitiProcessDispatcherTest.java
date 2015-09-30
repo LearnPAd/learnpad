@@ -58,6 +58,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.Main;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
@@ -86,6 +87,7 @@ public class ActivitiProcessDispatcherTest {
 	static ProcessEngine processEngine;
 
 	ProcessInstance processInstance;
+	ProcessInstanceData processInstanceData;
 
 	@BeforeClass
 	public static void initActivitiEngine() {
@@ -113,6 +115,10 @@ public class ActivitiProcessDispatcherTest {
 		// start process
 		processInstance = processEngine.getRuntimeService()
 				.startProcessInstanceByKey(TEST_PROCESS_KEY);
+
+		processInstanceData = new ProcessInstanceData(processInstance.getId(),
+				new HashMap<String, Object>(), TEST_PROCESS_USES,
+				new HashMap<String, Collection<String>>());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -122,12 +128,11 @@ public class ActivitiProcessDispatcherTest {
 		ActivitiProcessManager processManger = mock(ActivitiProcessManager.class);
 		IProcessEventReceiver processEventReceiver = mock(IProcessEventReceiver.class);
 
-		new ActivitiProcessDispatcher(processManger, processEventReceiver,
-				processInstance, processEngine.getTaskService(),
+		new ActivitiProcessDispatcher(processInstanceData, processManger,
+				processEventReceiver, processEngine.getTaskService(),
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), mock(ITaskRouter.class),
-				mock(ITaskValidator.class), TEST_PROCESS_USES,
-				mock(BPMNExplorer.class)).start();
+				mock(ITaskValidator.class), mock(BPMNExplorer.class)).start();
 
 		// dispatcher should have dispatched first task
 		// (since task processing is multithreaded to avoid blocking,
@@ -158,11 +163,11 @@ public class ActivitiProcessDispatcherTest {
 						any(Map.class))).thenReturn(true);
 
 		final ActivitiProcessDispatcher dispatcher = new ActivitiProcessDispatcher(
-				processManger, processEventReceiver, processInstance,
+				processInstanceData, processManger, processEventReceiver,
 				processEngine.getTaskService(),
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
-				TEST_PROCESS_USES, mock(BPMNExplorer.class));
+				mock(BPMNExplorer.class));
 		dispatcher.start();
 
 		validateAllTasks(dispatcher, taskRouter, processEventReceiver);
@@ -209,11 +214,11 @@ public class ActivitiProcessDispatcherTest {
 						any(Map.class))).thenReturn(true);
 
 		final ActivitiProcessDispatcher dispatcher = new ActivitiProcessDispatcher(
-				processManger, processEventReceiver, processInstance,
+				processInstanceData, processManger, processEventReceiver,
 				processEngine.getTaskService(),
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
-				TEST_PROCESS_USES, mock(BPMNExplorer.class));
+				mock(BPMNExplorer.class));
 		dispatcher.start();
 
 		// dispatcher should have dispatched first task
@@ -291,11 +296,11 @@ public class ActivitiProcessDispatcherTest {
 						any(Map.class))).thenReturn(true);
 
 		final ActivitiProcessDispatcher dispatcher = new ActivitiProcessDispatcher(
-				processManager, processEventReceiver, processInstance,
+				processInstanceData, processManager, processEventReceiver,
 				processEngine.getTaskService(),
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
-				TEST_PROCESS_USES, mock(BPMNExplorer.class));
+				mock(BPMNExplorer.class));
 		dispatcher.start();
 
 		validateAllTasks(dispatcher, taskRouter, processEventReceiver);
@@ -333,11 +338,11 @@ public class ActivitiProcessDispatcherTest {
 						any(Map.class))).thenReturn(true);
 
 		final ActivitiProcessDispatcher dispatcher = new ActivitiProcessDispatcher(
-				processManager, processEventReceiver, processInstance,
+				processInstanceData, processManager, processEventReceiver,
 				processEngine.getTaskService(),
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
-				TEST_PROCESS_USES, mock(BPMNExplorer.class));
+				mock(BPMNExplorer.class));
 		dispatcher.start();
 
 		// reach end of process
