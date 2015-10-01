@@ -5,10 +5,6 @@ package eu.learnpad.transformations.run;
 import java.io.File;
 import java.io.IOException;
 
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
 import eu.learnpad.transformations.model2model.ATLTransformation;
 import eu.learnpad.transformations.model2text.generator.AcceleoStandaloneStarter;
 import eu.learnpad.transformations.preprocessing.Alignment;
@@ -22,7 +18,7 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 		/*
 		 * The main method to execute all the transformations
 		 */
-		public void executeTransformation(String model_in){
+		public void executeTransformation(String model_in) throws InterruptedException{
 			
 			ATLTransformation myT = null;
 			
@@ -65,6 +61,9 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			
+			
 		}
 
 
@@ -77,8 +76,6 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 			modelName = modelName.substring(0, modelName.length()-4);
 			return modelName;
 		}
-		
-		
 		
 		
 		public static void main(String[] args) throws Exception {
@@ -95,7 +92,7 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 			 */
 			Alignment al = new Alignment();
 			String sanitazedFilePath = al.sanitizer(model_in);
-			System.out.println(sanitazedFilePath);
+//			System.out.println(sanitazedFilePath);
 			
 			System.out.println("Alignment Done!");
 			
@@ -105,6 +102,9 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 			MainTest mt = new MainTest();
 			System.out.println("*******STARTING THE OVERALL TRANSFORMATION*******");
 			mt.executeTransformation(sanitazedFilePath);
+			
+			
+			
 			System.out.println("*******FINISHED THE OVERALL TRANSFORMATION*******");
 		}
 
