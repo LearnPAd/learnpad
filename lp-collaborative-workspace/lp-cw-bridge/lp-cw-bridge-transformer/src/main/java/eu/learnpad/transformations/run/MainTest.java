@@ -18,7 +18,7 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 		/*
 		 * The main method to execute all the transformations
 		 */
-		public void executeTransformation(String model_in) throws InterruptedException{
+		public void executeTransformation(String model_in){
 			
 			ATLTransformation myT = null;
 			
@@ -62,8 +62,6 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 				e.printStackTrace();
 			}
 			
-			
-			
 		}
 
 
@@ -86,13 +84,11 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 //			String model_in = "resources/model/PATestCityApplication.xmi";
 			String model_in = "resources/model/PATestCityApplication.xml";
 			
-			
 			/*
 			 * Metamodel alignment
 			 */
 			Alignment al = new Alignment();
 			String sanitazedFilePath = al.sanitizer(model_in);
-//			System.out.println(sanitazedFilePath);
 			
 			System.out.println("Alignment Done!");
 			
@@ -102,8 +98,6 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 			MainTest mt = new MainTest();
 			System.out.println("*******STARTING THE OVERALL TRANSFORMATION*******");
 			mt.executeTransformation(sanitazedFilePath);
-			
-			
 			
 			System.out.println("*******FINISHED THE OVERALL TRANSFORMATION*******");
 		}
