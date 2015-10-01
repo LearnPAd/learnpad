@@ -1,0 +1,72 @@
+# baseURI: http://ikm-group.ch/archiMEO/nco
+
+@prefix cc:      <http://creativecommons.org/ns#> .
+@prefix dc:      <http://purl.org/dc/elements/1.1/> .
+@prefix nco:     <http://ikm-group.ch/archiMEO/nco#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ikm-group.ch/archiMEO/nco>
+      rdf:type owl:Ontology ;
+      rdfs:comment "Version 1.0: Initial import"@en ;
+      cc:license <http://creativecommons.org/licenses/by-sa/3.0/> , "This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License."@en ;
+      dc:contributor "Barbara Thönssen"^^xsd:string , "Knut Hinkelmann"^^xsd:string ;
+      dc:creator "Andreas Martin"^^xsd:string , "Roman Brun"^^xsd:string ;
+      dc:description "The NCO Ontology."@en ;
+      dc:issued "2010-01-01"^^xsd:date ;
+      dc:modified "2013-05-24"^^xsd:date ;
+      dc:publisher <http://de.dbpedia.org/resource/Fachhochschule_Nordwestschweiz> , <http://www.fhnw.ch/business> , "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
+      dc:rights "Copyright 2012 FHNW"^^xsd:string ;
+      dc:title "The NCO Ontology"@en ;
+      owl:versionInfo 1.0 .
+
+nco:Authority
+      rdf:type owl:Class ;
+      rdfs:comment """TOVE
+Verantwortung fuer etwas
+A von RACI"""^^xsd:string ;
+      rdfs:label "Authority"^^xsd:string ;
+      rdfs:subClassOf nco:NCO .
+
+nco:Category
+      rdf:type owl:Class ;
+      rdfs:label "Category"^^xsd:string ;
+      rdfs:subClassOf nco:NCO .
+
+nco:DataProtectionAct
+      rdf:type owl:Class ;
+      rdfs:subClassOf nco:LawAndRegulation .
+
+nco:GICS_Code
+      rdf:type owl:Class ;
+      rdfs:subClassOf nco:SpecificationStandard .
+
+nco:GeneralArchivingLaw
+      rdf:type owl:Class ;
+      rdfs:subClassOf nco:LawAndRegulation .
+
+nco:Language
+      rdf:type owl:Class ;
+      rdfs:label "Language"^^xsd:string ;
+      rdfs:subClassOf nco:NCO .
+
+nco:LawAndRegulation
+      rdf:type owl:Class ;
+      rdfs:label "LawAndRegulation"^^xsd:string ;
+      rdfs:subClassOf nco:NCO .
+
+nco:NCO
+      rdf:type owl:Class ;
+      rdfs:label "NCO"^^xsd:string ;
+      rdfs:subClassOf owl:Thing .
+
+nco:ProductLiability
+      rdf:type owl:Class ;
+      rdfs:subClassOf nco:LawAndRegulation .
+
+nco:SpecificationStandard
+      rdf:type owl:Class ;
+      rdfs:label "SpecificationStandard"^^xsd:string ;
+      rdfs:subClassOf nco:NCO .

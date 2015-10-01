@@ -5,7 +5,9 @@ package eu.learnpad.simulator.api.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.NotFoundException;
@@ -17,6 +19,7 @@ import javax.ws.rs.core.UriInfo;
 import eu.learnpad.sim.BridgeInterface;
 import eu.learnpad.sim.rest.data.ProcessData;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
+import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.simulator.Simulator;
 
 /*
@@ -104,8 +107,13 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 		// the location of a specific one.
 		setResponseToCreated("");
 
-		return simulator.processManager().addProjectDefinitions(
-				processDefinitionFilePath);
+		try {
+			return simulator.processManager().addProjectDefinitions(
+					new URL(processDefinitionFilePath).openStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+			return new HashSet<String>();
+		}
 	}
 
 	/*
@@ -152,6 +160,23 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 				data.routes);
 		setResponseToCreated(id);
 		return id;
+	}
+
+	@Override
+	public String addProcessInstance(String processId,
+			Collection<UserData> potentialUsers, String currentUser) {
+
+		Collection<String> users = simulator.userHandler().getUsers();
+		for (String user : users) {
+			simulator.userHandler().removeUser(user);
+		}
+
+		for (UserData user : potentialUsers) {
+			simulator.userHandler().addUser(user.id);
+		}
+
+		return "uisingleprocess?processid=" + processId + "&" + "userid="
+		+ currentUser;
 	}
 
 	/*

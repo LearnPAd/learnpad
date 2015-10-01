@@ -47,6 +47,7 @@ import org.mockito.ArgumentCaptor;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.Main;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.utils.BPMNExplorerRepository;
 
 /**
  * @author Tom Jorquera - Linagora
@@ -79,9 +80,11 @@ public class ActivitiProcessManagerTest {
 
 	@Test
 	public void testProcessDefinition() throws FileNotFoundException {
+
 		ActivitiProcessManager manager = new ActivitiProcessManager(
 				processEngine,
-				mock(IProcessEventReceiver.IProcessEventReceiverProvider.class));
+				mock(IProcessEventReceiver.IProcessEventReceiverProvider.class),
+				mock(BPMNExplorerRepository.class), false);
 
 		assertTrue(manager.getAvailableProcessDefintion().size() == 0);
 
@@ -100,7 +103,8 @@ public class ActivitiProcessManagerTest {
 	public void testProcessDefinitionRoles() throws FileNotFoundException {
 		ActivitiProcessManager manager = new ActivitiProcessManager(
 				processEngine,
-				mock(IProcessEventReceiver.IProcessEventReceiverProvider.class));
+				mock(IProcessEventReceiver.IProcessEventReceiverProvider.class),
+				mock(BPMNExplorerRepository.class), false);
 
 		String processDefinitionId = manager
 				.addProjectDefinitions(TEST_PROCESS).iterator().next();
@@ -108,7 +112,7 @@ public class ActivitiProcessManagerTest {
 		assertTrue(manager.getProcessDefinitionGroupRoles(processDefinitionId)
 				.containsAll(Arrays.asList("user1", "user2", "user3"))
 				&& manager.getProcessDefinitionGroupRoles(processDefinitionId)
-						.size() == 3);
+				.size() == 3);
 
 		assertTrue(manager.getProcessDefinitionSingleRoles(processDefinitionId)
 				.contains("user0"));
@@ -128,7 +132,8 @@ public class ActivitiProcessManagerTest {
 		};
 
 		ActivitiProcessManager manager = new ActivitiProcessManager(
-				processEngine, provider);
+				processEngine, provider, mock(BPMNExplorerRepository.class),
+				false);
 
 		String processDefinitionId = manager
 				.addProjectDefinitions(TEST_PROCESS).iterator().next();

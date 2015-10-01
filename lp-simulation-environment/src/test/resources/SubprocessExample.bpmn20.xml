@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  LearnPAd Simulator
+  %%
+  Copyright (C) 2014 - 2015 Linagora
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  #L%
+  -->
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="myProcess" name="My process" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <userTask id="usertask1" name="usertask1" activiti:candidateUsers="SUAP">
+      <documentation>some task</documentation>
+      <extensionElements>
+        <activiti:formProperty id="field" name="Some field" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
+    <subProcess id="subprocess1" name="subprocess1">
+      <startEvent id="startevent2" name="Start"></startEvent>
+      <userTask id="usertask2" name="usertask2" activiti:candidateUsers="SUAP">
+        <documentation>some task</documentation>
+        <extensionElements>
+          <activiti:formProperty id="field" name="Some field" type="string" required="true"></activiti:formProperty>
+        </extensionElements>
+      </userTask>
+      <sequenceFlow id="flow5" sourceRef="startevent2" targetRef="usertask2"></sequenceFlow>
+      <subProcess id="subprocess2" name="subprocess2">
+        <startEvent id="startevent3" name="Start"></startEvent>
+        <userTask id="usertask3" name="usertask3" activiti:candidateUsers="SUAP">
+          <documentation>some task</documentation>
+          <extensionElements>
+            <activiti:formProperty id="field" name="Some field" type="string" required="true"></activiti:formProperty>
+          </extensionElements>
+        </userTask>
+        <sequenceFlow id="flow8" sourceRef="startevent3" targetRef="usertask3"></sequenceFlow>
+        <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
+        <sequenceFlow id="flow13" sourceRef="usertask3" targetRef="parallelgateway1"></sequenceFlow>
+        <userTask id="usertask5" name="usertask5" activiti:candidateUsers="SUAP">
+          <documentation>some task</documentation>
+          <extensionElements>
+            <activiti:formProperty id="field" name="Some field" type="string" required="true"></activiti:formProperty>
+          </extensionElements>
+        </userTask>
+        <sequenceFlow id="flow14" sourceRef="parallelgateway1" targetRef="usertask5"></sequenceFlow>
+        <userTask id="usertask4" name="usertask4" activiti:candidateUsers="SUAP">
+          <documentation>some task</documentation>
+          <extensionElements>
+            <activiti:formProperty id="field" name="Some field" type="string" required="true"></activiti:formProperty>
+          </extensionElements>
+        </userTask>
+        <sequenceFlow id="flow15" sourceRef="parallelgateway1" targetRef="usertask4"></sequenceFlow>
+        <parallelGateway id="parallelgateway3" name="Parallel Gateway"></parallelGateway>
+        <sequenceFlow id="flow17" sourceRef="usertask4" targetRef="parallelgateway3"></sequenceFlow>
+        <sequenceFlow id="flow18" sourceRef="usertask5" targetRef="parallelgateway3"></sequenceFlow>
+        <subProcess id="subprocess3" name="subprocess3">
+          <startEvent id="startevent4" name="Start"></startEvent>
+          <endEvent id="endevent4" name="End"></endEvent>
+          <userTask id="usertask6" name="usertask6" activiti:candidateUsers="SUAP">
+            <documentation>some task</documentation>
+            <extensionElements>
+              <activiti:formProperty id="field" name="Some field" type="string" required="true"></activiti:formProperty>
+            </extensionElements>
+          </userTask>
+          <sequenceFlow id="flow21" sourceRef="startevent4" targetRef="usertask6"></sequenceFlow>
+          <userTask id="usertask7" name="usertask7" activiti:candidateUsers="SUAP">
+            <documentation>some task</documentation>
+            <extensionElements>
+              <activiti:formProperty id="field" name="Some field" type="string" required="true"></activiti:formProperty>
+            </extensionElements>
+          </userTask>
+          <sequenceFlow id="flow22" sourceRef="usertask6" targetRef="usertask7"></sequenceFlow>
+          <sequenceFlow id="flow23" sourceRef="usertask7" targetRef="endevent4"></sequenceFlow>
+        </subProcess>
+        <endEvent id="endevent3" name="End"></endEvent>
+        <sequenceFlow id="flow19" sourceRef="subprocess3" targetRef="endevent3"></sequenceFlow>
+        <sequenceFlow id="flow20" sourceRef="parallelgateway3" targetRef="subprocess3"></sequenceFlow>
+      </subProcess>
+      <endEvent id="endevent2" name="End"></endEvent>
+      <sequenceFlow id="flow6" sourceRef="subprocess2" targetRef="endevent2"></sequenceFlow>
+      <sequenceFlow id="flow7" sourceRef="usertask2" targetRef="subprocess2"></sequenceFlow>
+    </subProcess>
+    <userTask id="usertask8" name="usertask8" activiti:candidateUsers="SUAP">
+      <documentation>some task</documentation>
+      <extensionElements>
+        <activiti:formProperty id="field" name="Some field" type="string" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow2" sourceRef="usertask8" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="subprocess1" targetRef="usertask8"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="subprocess1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
+    <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="34.0" y="11.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="1070.0" y="19.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="103.0" y="1.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="subprocess1" id="BPMNShape_subprocess1">
+        <omgdc:Bounds height="374.0" width="1111.0" x="10.0" y="121.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent2" id="BPMNShape_startevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="36.0" y="175.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="116.0" y="165.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="subprocess2" id="BPMNShape_subprocess2">
+        <omgdc:Bounds height="215.0" width="1011.0" x="20.0" y="264.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent3" id="BPMNShape_startevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="30.0" y="354.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="100.0" y="344.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="250.0" y="351.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="330.0" y="398.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
+        <omgdc:Bounds height="55.0" width="105.0" x="330.0" y="281.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway3" id="BPMNShape_parallelgateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="470.0" y="351.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="subprocess3" id="BPMNShape_subprocess3">
+        <omgdc:Bounds height="176.0" width="401.0" x="550.0" y="284.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent4" id="BPMNShape_startevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="560.0" y="356.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="900.0" y="356.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask6" id="BPMNShape_usertask6">
+        <omgdc:Bounds height="55.0" width="105.0" x="630.0" y="346.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask7" id="BPMNShape_usertask7">
+        <omgdc:Bounds height="55.0" width="105.0" x="770.0" y="346.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="980.0" y="354.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="1070.0" y="359.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask8" id="BPMNShape_usertask8">
+        <omgdc:Bounds height="55.0" width="105.0" x="900.0" y="9.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="69.0" y="28.0"></omgdi:waypoint>
+        <omgdi:waypoint x="103.0" y="28.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="71.0" y="192.0"></omgdi:waypoint>
+        <omgdi:waypoint x="116.0" y="192.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="65.0" y="371.0"></omgdi:waypoint>
+        <omgdi:waypoint x="100.0" y="371.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="205.0" y="371.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="371.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="290.0" y="371.0"></omgdi:waypoint>
+        <omgdi:waypoint x="382.0" y="398.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="270.0" y="351.0"></omgdi:waypoint>
+        <omgdi:waypoint x="382.0" y="336.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="382.0" y="336.0"></omgdi:waypoint>
+        <omgdi:waypoint x="490.0" y="351.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="435.0" y="425.0"></omgdi:waypoint>
+        <omgdi:waypoint x="490.0" y="391.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="595.0" y="373.0"></omgdi:waypoint>
+        <omgdi:waypoint x="630.0" y="373.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="735.0" y="373.0"></omgdi:waypoint>
+        <omgdi:waypoint x="770.0" y="373.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="875.0" y="373.0"></omgdi:waypoint>
+        <omgdi:waypoint x="900.0" y="373.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="951.0" y="372.0"></omgdi:waypoint>
+        <omgdi:waypoint x="980.0" y="371.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="510.0" y="371.0"></omgdi:waypoint>
+        <omgdi:waypoint x="550.0" y="372.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="1031.0" y="371.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1070.0" y="376.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="168.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="525.0" y="264.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="1005.0" y="36.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1070.0" y="36.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="565.0" y="121.0"></omgdi:waypoint>
+        <omgdi:waypoint x="952.0" y="64.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="155.0" y="56.0"></omgdi:waypoint>
+        <omgdi:waypoint x="565.0" y="121.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

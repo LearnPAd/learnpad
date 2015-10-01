@@ -39,7 +39,7 @@ function taskReceiver(address, user) {
         switch (msg.type) {
 
         case 'FINISHED':
-            var containerDiv = $('#processcontainer' + msg.processid);
+            var containerDiv = $('#processmain' + msg.processid);
             var processFinished = document.createElement('p');
             processFinished.innerHTML = '<h4>Congratulations, you successfully completed the simulation</h4>'
             containerDiv.append(processFinished);

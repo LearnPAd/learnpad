@@ -1,0 +1,189 @@
+# baseURI: http://ikm-group.ch/archiMEO/top
+
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdfsplus: <http://topbraid.org/spin/rdfsplus#> .
+@prefix top: <http://ikm-group.ch/archiMEO/top#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ikm-group.ch/archiMEO/top>
+  rdf:type owl:Ontology ;
+  cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+  cc:license "This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License."@en ;
+  dc:contributor "Barbara Thönssen"^^xsd:string ;
+  dc:contributor "Knut Hinkelmann"^^xsd:string ;
+  dc:creator "Andreas Martin"^^xsd:string ;
+  dc:creator "Roman Brun"^^xsd:string ;
+  dc:description "The Top Level Ontology."@en ;
+  dc:issued "2010-01-01"^^xsd:date ;
+  dc:modified "2013-05-24"^^xsd:date ;
+  dc:publisher <http://de.dbpedia.org/resource/Fachhochschule_Nordwestschweiz> ;
+  dc:publisher <http://www.fhnw.ch/business> ;
+  dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
+  dc:rights "Copyright 2012 FHNW"^^xsd:string ;
+  dc:title "The Top Level Ontology"@en ;
+  rdfs:comment "Version 1.0: Initial import"@en ;
+  owl:versionInfo 1.0 ;
+.
+top:ActOfGod
+  rdf:type owl:Class ;
+  rdfs:subClassOf top:ForceMajeureEvent ;
+.
+top:CalendarElement
+  rdf:type owl:Class ;
+  rdfs:label "CalendarElement"^^xsd:string ;
+  rdfs:subClassOf top:Time ;
+.
+top:City
+  rdf:type owl:Class ;
+  rdfs:subClassOf top:PhysicalLocation ;
+.
+top:Continent
+  rdf:type owl:Class ;
+  rdfs:subClassOf top:PhysicalLocation ;
+.
+top:ContinentIncludesCountry
+  rdf:type owl:ObjectProperty ;
+  owl:inverseOf top:countryIsLocatedInContinent ;
+.
+top:Country
+  rdf:type owl:Class ;
+  rdfs:subClassOf top:PhysicalLocation ;
+.
+top:Event
+  rdf:type owl:Class ;
+  rdfs:subClassOf top:TopLevelElements ;
+.
+top:ForceMajeureEvent
+  rdf:type owl:Class ;
+  rdfs:subClassOf top:Event ;
+.
+top:Location
+  rdf:type owl:Class ;
+  rdfs:label "Location"^^xsd:string ;
+  rdfs:subClassOf top:TopLevelElements ;
+.
+top:LogicalLocation
+  rdf:type owl:Class ;
+  rdfs:label "LogicalLocation"^^xsd:string ;
+  rdfs:subClassOf top:Location ;
+.
+top:MenMadeEvent
+  rdf:type owl:Class ;
+  rdfs:subClassOf top:ForceMajeureEvent ;
+.
+top:PartOfCountry
+  rdf:type owl:Class ;
+  rdfs:subClassOf top:PhysicalLocation ;
+.
+top:PartOfCountryBelongsToCountry
+  rdf:type owl:ObjectProperty ;
+.
+top:PhysicalLocation
+  rdf:type owl:Class ;
+  rdfs:label "Location"^^xsd:string ;
+  rdfs:label "PhysicalLocation"^^xsd:string ;
+  rdfs:subClassOf top:Location ;
+.
+top:Street
+  rdf:type owl:Class ;
+  rdfs:subClassOf top:PhysicalLocation ;
+.
+top:Time
+  rdf:type owl:Class ;
+  rdfs:label "Time"^^xsd:string ;
+  rdfs:subClassOf top:TopLevelElements ;
+.
+top:TimeElement
+  rdf:type owl:Class ;
+  rdfs:label "TimeElement"^^xsd:string ;
+  rdfs:subClassOf top:Time ;
+.
+top:TimeInterval
+  rdf:type owl:Class ;
+  rdfs:comment "an interval of time specified as two TIME POINTS and bounds on the distance between the two time points"^^xsd:string ;
+  rdfs:label "TimeInterval"^^xsd:string ;
+  rdfs:subClassOf top:Time ;
+.
+top:TimePoint
+  rdf:type owl:Class ;
+  rdfs:comment "a particular, instantaneous point in time"^^xsd:string ;
+  rdfs:label "TimePoint"^^xsd:string ;
+  rdfs:subClassOf top:Time ;
+.
+top:TimeZone
+  rdf:type owl:Class ;
+  rdfs:label "TimeZone"^^xsd:string ;
+  rdfs:subClassOf top:Time ;
+.
+top:TopLevelElements
+  rdf:type owl:Class ;
+  rdfs:subClassOf owl:Thing ;
+.
+top:cityHasPostalCode
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain top:City ;
+.
+top:cityIsLocatedInCountry
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain top:City ;
+.
+top:cityIsLocatedInPartOfCountry
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain top:City ;
+.
+top:countryConsistsOfPartOfCountry
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain top:Country ;
+  rdfs:range top:PartOfCountry ;
+.
+top:countryHasTypeOfState
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain top:Country ;
+.
+top:countryIsLocatedInContinent
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain top:Country ;
+.
+top:logicalLocationIsConnectedToLogicalLocation
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain top:LogicalLocation ;
+  rdfs:label "logicalLocationIsConnectedToLogicalLocation"^^xsd:string ;
+  rdfs:range top:LogicalLocation ;
+.
+top:partOfCountryBelongsToCountry
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain top:PartOfCountry ;
+  rdfs:range top:Country ;
+  owl:inverseOf top:countryConsistsOfPartOfCountry ;
+.
+top:partOfCountryConsistsOfPartOfCountry
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain top:PartOfCountry ;
+  rdfs:range top:PartOfCountry ;
+.
+top:partOfCountryHasTypeOfPartOfCountry
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain top:PartOfCountry ;
+.
+top:partOfCountryIsPartOfCountry
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain top:PartOfCountry ;
+  rdfs:range top:PartOfCountry ;
+  owl:inverseOf top:partOfCountryConsistsOfPartOfCountry ;
+.
+top:physicalLocationIsPartOfPhysicalLocation
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain top:PhysicalLocation ;
+  rdfs:range top:PhysicalLocation ;
+.
+top:streetBelongsToCity
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain top:Street ;
+.
+top:swissCityBelongsToSwissCanton
+  rdf:type owl:ObjectProperty ;
+.

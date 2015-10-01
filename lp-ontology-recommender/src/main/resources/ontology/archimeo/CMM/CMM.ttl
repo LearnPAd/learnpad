@@ -1,0 +1,105 @@
+# baseURI: http://ikm-group.ch/archiMEO/CMM
+# imports: http://ikm-group.ch/archiMEO/archimate
+# imports: http://ikm-group.ch/archiMEO/emo
+# imports: http://ikm-group.ch/archiMEO/eo
+
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix cmm: <http://ikm-group.ch/archiMEO/CMM#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ikm-group.ch/archiMEO/CMM>
+  rdf:type owl:Ontology ;
+  cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+  cc:license "This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License."@en ;
+  dc:contributor "Andreas Martin"^^xsd:string ;
+  dc:contributor "Knut Hinkelmann"^^xsd:string ;
+  dc:contributor "Sandro Emmenegger"^^xsd:string ;
+  dc:creator "Barbara Thönssen"^^xsd:string ;
+  dc:description "The CMM Ontology based on the CMMN Ontology and http://www.omg.org/spec/CMMN/"@en ;
+  dc:issued "2015-03-04"^^xsd:date ;
+  dc:publisher <http://de.dbpedia.org/resource/Fachhochschule_Nordwestschweiz> ;
+  dc:publisher <http://www.fhnw.ch/business> ;
+  dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
+  dc:rights "Copyright 2015 FHNW "^^xsd:string ;
+  dc:title "The CMM Ontology"@en ;
+  owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
+  owl:imports <http://ikm-group.ch/archiMEO/emo> ;
+  owl:imports <http://ikm-group.ch/archiMEO/eo> ;  
+  owl:versionInfo "1.0"^^xsd:string ;
+.
+cmm:CaseFileItem
+  rdf:type owl:Class ;
+  rdfs:subClassOf emo:CaseManagementMetaModel ;
+.
+cmm:Competency
+  rdf:type owl:Class ;
+  rdfs:comment "(ITLET) observable or measurable ability of an actor to perform a necessary action(s) in a given context(s) to achieve a specific outcome(s). Source: ISO/IEC TR 23476, p. 13"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Competency"^^xsd:string ;
+  rdfs:subClassOf emo:CompetencyMetaModel ;
+.
+cmm:CompetencyGroup
+  rdf:type owl:Class ;
+  rdfs:comment "Concept is used for defining taxonomies and hierarchies where several lower-level competencies are grouped under higher-level competencies (CEN WS-LT Learning Technology Standards Observatory)"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:CompetencyMetaModel ;
+.
+cmm:CompetencyProfile
+  rdf:type owl:Class ;
+  rdfs:comment "Competency Profile holds an individual’s acquired competencies and their levels (based on: CEN WS-LT Learning Technology Standards Observatory)"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:CompetencyMetaModel ;
+.
+cmm:CompetencySet
+  rdf:type owl:Class ;
+  rdfs:comment "Competency Set pools competencies, e.g. required by a role or for a certain purpose"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:CompetencyMetaModel ;
+.
+cmm:competencyBelongsToCompetencyGroup
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "Relation, has part [consists of] is used mainly for defining taxonomies and hierarchies where several lower-level competencies are grouped under higher-level competencies. Refer to Based on the European Committee for standardisation, CEN WS-LT LTSO (Learning Technol-ogy Standards Observatory)"^^xsd:string ;
+  rdfs:domain cmm:Competency ;
+  rdfs:range cmm:CompetencyGroup ;
+.
+cmm:competencyBelongsToCompetencySet
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmm:Competency ;
+  rdfs:range cmm:CompetencySet ;
+.
+cmm:competencyHasDefinition
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:Competency ;
+.
+cmm:competencyHasDescriptionSource
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "Provides an identifier of the original model or structure upon which the definition is based. The model defines the key attributes or descriptive statements for the definition of the competency. Refer to Based on the European Committee for standardisation, CEN WS-LT LTSO (Learning Technology Standards Observatory)"^^xsd:string ;
+  rdfs:domain cmm:Competency ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+.
+cmm:competencyHasLevel
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmm:Competency ;
+.
+cmm:competencyProfileContainsCompetencySet
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "a competency profile can be thought of a job description, i.e. is a document that describes a set of competencies"^^xsd:string ;
+  rdfs:domain cmm:CompetencyProfile ;
+  rdfs:range cmm:CompetencySet ;
+.
+cmm:competencyRequiresCompetency
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "higher-level competency’s definition mandates that certain lower-level competencies are met"^^xsd:string ;
+  rdfs:domain cmm:Competency ;
+  rdfs:range cmm:Competency ;
+.

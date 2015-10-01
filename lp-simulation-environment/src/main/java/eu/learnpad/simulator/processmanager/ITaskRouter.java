@@ -26,8 +26,6 @@ package eu.learnpad.simulator.processmanager;
 
 import java.util.Set;
 
-import org.activiti.engine.task.Task;
-
 /**
  * Interface for the routing function.
  *
@@ -41,10 +39,10 @@ public interface ITaskRouter {
 
 	/**
 	 *
-	 * @param task
-	 *            the task to be routed
+	 * @param taskId
+	 *            the id task to be routed
 	 * @return the set of users id to which the task must be routed
 	 */
-	public Set<String> route(Task task);
+	public Set<String> route(String taskId);
 
 }

@@ -32,6 +32,15 @@ import eu.learnpad.simulator.uihandler.webserver.msg.task.ITaskMsg;
  */
 public class Validated implements ITaskMsg {
 
+	// include total score in order for interface refresh the
+	// user score during process resolution
+	public Integer totalscore;
+
+	public Validated(Integer totalscore) {
+		super();
+		this.totalscore = totalscore;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
