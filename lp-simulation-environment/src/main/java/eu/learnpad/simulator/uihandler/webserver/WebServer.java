@@ -25,6 +25,7 @@ package eu.learnpad.simulator.uihandler.webserver;
  */
 
 import java.io.IOException;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.NetworkInterface;
@@ -276,11 +277,13 @@ public class WebServer {
 			Enumeration<InetAddress> ee = n.getInetAddresses();
 			while (ee.hasMoreElements()) {
 				InetAddress i = ee.nextElement();
-				if (!i.getHostAddress().startsWith("127")
-						&& !i.getHostAddress().startsWith("fe")) {
-					return i.getHostAddress();
+				if (!i.isLoopbackAddress() && !i.isLinkLocalAddress()) {
+					if (i instanceof Inet6Address) {
+						return "[" + i.getHostAddress().split("%")[0] + "]";
+					} else {
+						return i.getHostAddress();
+					}
 				}
-
 			}
 		}
 
