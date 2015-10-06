@@ -20,7 +20,8 @@
 package eu.learnpad.or;
 
 import eu.learnpad.or.rest.GetComments;
+import eu.learnpad.or.rest.ModelImporter;
 
-public interface CoreFacade extends GetComments {
+public interface CoreFacade extends GetComments, ModelImporter {
 
 }

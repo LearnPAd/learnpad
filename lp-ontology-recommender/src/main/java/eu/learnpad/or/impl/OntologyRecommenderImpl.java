@@ -11,12 +11,15 @@ import eu.learnpad.ontology.execution.ExecutionStates;
 import eu.learnpad.or.rest.data.States;
 import eu.learnpad.ontology.recommender.Recommender;
 import eu.learnpad.or.rest.data.Recommendations;
+
 import javax.inject.Inject;
+import javax.ws.rs.Path;
 
 /**
  *
  * @author sandro.emmenegger
  */
+@Path("/learnpad/or/bridge")
 public class OntologyRecommenderImpl extends XwikiBridge{
     
     @Inject
@@ -25,11 +28,11 @@ public class OntologyRecommenderImpl extends XwikiBridge{
     @Inject
     Recommender recommender;
 
-    @Override
-    public void putModelSet(String modelSetId, String type) throws LpRestException {
+	@Override
+	public void modelSetImported(String modelSetId, String type) throws LpRestException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+	}
+    
     @Override
     public void sendResourceNotification(String modelSetId, String resourceId, String artifactIds, String action) throws LpRestException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -61,5 +64,5 @@ public class OntologyRecommenderImpl extends XwikiBridge{
         States states = executionStates.getStatesOfLatestAddedModelSet(userId);
         return states;
     }
-    
+
 }
