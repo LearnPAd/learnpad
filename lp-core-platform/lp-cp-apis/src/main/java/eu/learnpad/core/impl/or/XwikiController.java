@@ -29,6 +29,8 @@ import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.core.impl.or.XwikiBridgeInterfaceRestResource;
+import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.or.Controller;
@@ -101,8 +103,9 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	@Override
 	public byte[] getModel(String modelSetId, String type)
 			throws LpRestException {
-		// TODO Auto-generated method stub
-		return null;
+		String attachmentName = String.format("%s.%s", modelSetId, type);
+		return XWikiRestUtils.getAttachment(RestResource.CORE_REPOSITORY_WIKI,
+				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName);
 	}
 
 
