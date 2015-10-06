@@ -2,7 +2,7 @@
 <CollaborativeContentAnalysis language="english">
 	<CollaborativeContent id="1213">
 		<Title>Title of Documents</Title>
-		<Content>MAJOR EVENT PROTOCOL
+		<ContentPlain>MAJOR EVENT PROTOCOL
 
 Scope
 
@@ -1383,7 +1383,10 @@ Enrollment Counts and Daily Attendance
 6. Monthly Enrollment updates are submitted to the Board of Trustees.
 
 
-</Content>
+</ContentPlain>
+		<ContentHTML>
+		ciao
+		</ContentHTML>
 	</CollaborativeContent>
 	<QualityCriteria simplicity="true" non_ambiguity="true"
 		content_clarity="true" presentation_clarity="true" completeness="true"

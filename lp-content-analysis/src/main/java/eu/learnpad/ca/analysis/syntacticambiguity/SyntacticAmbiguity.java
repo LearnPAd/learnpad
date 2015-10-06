@@ -110,7 +110,7 @@ public class SyntacticAmbiguity extends Thread implements AnalysisInterface{
 	private void checkSyntacticAmbiguity(StaticContentAnalysis staticContentInput) {
 		String title = staticContentInput.getStaticContent().getTitle();
 		String idc = staticContentInput.getStaticContent().getId();
-		String content = staticContentInput.getStaticContent().getContent().toString();
+		String content = staticContentInput.getStaticContent().getContentplain();
 
 		annotatedStaticContent = new AnnotatedStaticContentAnalysis();
 		StaticContent sc = new StaticContent();
@@ -149,7 +149,7 @@ public class SyntacticAmbiguity extends Thread implements AnalysisInterface{
 			CollaborativeContentAnalysis collaborativeContentInput) {
 		String title = collaborativeContentInput.getCollaborativeContent().getTitle();
 		String idc = collaborativeContentInput.getCollaborativeContent().getId();
-		String content = collaborativeContentInput.getCollaborativeContent().getContent().toString();
+		String content = collaborativeContentInput.getCollaborativeContent().getContentplain();
 
 		annotatedCollaborativeContent = new AnnotatedCollaborativeContentAnalysis();
 		CollaborativeContent sc = new CollaborativeContent();

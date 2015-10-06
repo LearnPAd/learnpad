@@ -43,7 +43,7 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 	public AnnotatedCollaborativeContentAnalysis check(CollaborativeContentAnalysis collaborativeContentInput){
 		String title = collaborativeContentInput.getCollaborativeContent().getTitle();
 		String idc = collaborativeContentInput.getCollaborativeContent().getId();
-		String content = collaborativeContentInput.getCollaborativeContent().getContent().toString();
+		String content = collaborativeContentInput.getCollaborativeContent().getContentplain();
 
 		JLanguageTool langTool = new JLanguageTool(language);
 
@@ -75,12 +75,7 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 				id++;
 			}
 			
-			
-			
-			
 
-
-			
 
 
 			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
@@ -88,8 +83,6 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 			annotatedCollaborativeContentAnalysis.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 			annotatedCollaborativeContentAnalysis.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 			annotatedCollaborativeContentAnalysis.setType("Correctness");
-
-
 
 
 
@@ -111,7 +104,7 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 	public AnnotatedStaticContentAnalysis check(StaticContentAnalysis staticContentInput){
 		String title = staticContentInput.getStaticContent().getTitle();
 		String idc = staticContentInput.getStaticContent().getId();
-		String content = staticContentInput.getStaticContent().getContent().toString();
+		String content = staticContentInput.getStaticContent().getContentplain();
 
 		JLanguageTool langTool = new JLanguageTool(language);
 

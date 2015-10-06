@@ -7,18 +7,19 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import eu.learnpad.ca.rest.data.Content;
+import eu.learnpad.ca.rest.data.ContentHTML;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "title",
-    "content"
-})
 public class StaticContent {
 
     @XmlElement(name = "Title", required = true)
     protected String title;
-    @XmlElement(name = "Content", required = true)
+    @XmlElement(name = "Content", nillable= false)
     protected Content content;
+    @XmlElement(name = "ContentPlain",  nillable= false)
+    protected String contentplain;
+    @XmlElement(name = "ContentHTML", nillable= false)
+    protected String contenthtml;
     @XmlAttribute(name = "id")
     protected String id;
 
@@ -104,6 +105,30 @@ public class StaticContent {
     public void setId(String value) {
         this.id = value;
     }
+    
+    
+
+    
+    
+	public String getContentplain() {
+		return contentplain;
+	}
+
+
+	public void setContentplain(String contentplain) {
+		this.contentplain = contentplain;
+	}
+
+
+	public String getContenthtml() {
+		return contenthtml;
+	}
+
+
+	public void setContenthtml(String contenthtml) {
+		this.contenthtml = contenthtml;
+	}
+
 
 	@Override
 	public String toString() {
