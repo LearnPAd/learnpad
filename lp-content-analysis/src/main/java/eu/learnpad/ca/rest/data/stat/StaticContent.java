@@ -4,10 +4,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+
 
 import eu.learnpad.ca.rest.data.Content;
-import eu.learnpad.ca.rest.data.ContentHTML;
+
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class StaticContent {
