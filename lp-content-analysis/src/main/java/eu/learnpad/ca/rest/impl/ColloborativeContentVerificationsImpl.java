@@ -23,7 +23,7 @@ import org.languagetool.language.AmericanEnglish;
 import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
-import eu.learnpad.ca.analysis.AnalysisInterface;
+import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.analysis.contentclarity.UnclearAcronym;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.simplicity.DifficultJargon;
@@ -45,7 +45,7 @@ import eu.learnpad.exception.LpRestException;
 public class ColloborativeContentVerificationsImpl implements ColloborativeContentVerifications {
 
 
-	private static Map<Integer,List<AnalysisInterface>> map = new HashMap<Integer,List<AnalysisInterface>>();
+	private static Map<Integer,List<AbstractAnalysisClass>> map = new HashMap<Integer,List<AbstractAnalysisClass>>();
 	private static Integer id =0;
 
 
@@ -119,13 +119,13 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 	}
 
-	private void putAndCreate(int id, AnalysisInterface ai){
+	private void putAndCreate(int id, AbstractAnalysisClass ai){
 		if(!map.containsKey(id)){
-			List<AnalysisInterface> lai = new ArrayList<AnalysisInterface>();
+			List<AbstractAnalysisClass> lai = new ArrayList<AbstractAnalysisClass>();
 			lai.add(ai);
 			map.put(id, lai);
 		}else{
-			List<AnalysisInterface> lai = map.get(id);
+			List<AbstractAnalysisClass> lai = map.get(id);
 			lai.add(ai);
 		}
 	}
@@ -136,9 +136,9 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 			throws LpRestException{
 		if(map.containsKey(Integer.valueOf(contentID))){
 			ArrayList<AnnotatedCollaborativeContentAnalysis> ar = new ArrayList<AnnotatedCollaborativeContentAnalysis>();
-			List<AnalysisInterface> listanalysisInterface = map.get(Integer.valueOf(contentID));
+			List<AbstractAnalysisClass> listanalysisInterface = map.get(Integer.valueOf(contentID));
 
-			for(AnalysisInterface analysisInterface :listanalysisInterface){
+			for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
 				AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent = analysisInterface.getAnnotatedCollaborativeContentAnalysis();
 				if(annotatedCollaborativeContent!=null){
 					annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
@@ -158,8 +158,8 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	public String getStatusCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException{
 		if(map.containsKey(Integer.valueOf(contentID))){
-			List<AnalysisInterface> listanalysisInterface  = map.get(Integer.valueOf(contentID));
-			for(AnalysisInterface analysisInterface :listanalysisInterface){
+			List<AbstractAnalysisClass> listanalysisInterface  = map.get(Integer.valueOf(contentID));
+			for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
 				if(analysisInterface.getStatus()!="OK"){
 					return "IN PROGRESS";
 				}

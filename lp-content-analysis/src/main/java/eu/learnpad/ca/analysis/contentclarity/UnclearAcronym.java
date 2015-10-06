@@ -17,7 +17,7 @@ import org.apache.commons.lang.StringUtils;
 import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
 
-import eu.learnpad.ca.analysis.AnalysisInterface;
+import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
@@ -29,17 +29,9 @@ import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 
-public class UnclearAcronym  extends Thread implements AnalysisInterface{ 
+public class UnclearAcronym  extends  AbstractAnalysisClass{ 
 
-	private Language language;
-
-	private Integer numDefectiveSentences = 0;
-
-	private CollaborativeContentAnalysis collaborativeContentInput;
-	private AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent;
-
-	private StaticContentAnalysis staticContentInput;
-	private AnnotatedStaticContentAnalysis annotatedStaticContent;
+	
 
 
 	public UnclearAcronym(StaticContentAnalysis cca, Language lang){
@@ -55,64 +47,9 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 		collaborativeContentInput = cca;
 	}
 
-	private double calculateOverallQualityMeasure(Integer numsentence){
-		double qm = (1-(numDefectiveSentences.doubleValue()/numsentence.doubleValue()))*100;
-		double qualityMeasure = Math.abs(qm);
-		return qualityMeasure;
-	}
+	
 
-	private String calculateOverallQuality(double qualityMeasure){
-		String quality="";
-		if(qualityMeasure<=25){
-			quality="VERY BAD";
-		}else if(qualityMeasure<=50){
-			quality="BAD";
-		}else if(qualityMeasure<=75){
-			quality="GOOD";
-		}else if(qualityMeasure<100){
-			quality="VERY GOOD";
-		}else if(qualityMeasure==100){
-			quality="EXCELLENT";
-		}
-		return quality;
-	}
-
-	private String calculateOverallRecommendations(double qualityMeasure){
-		String recommendations="";
-		if(qualityMeasure<=25){
-			recommendations="Quality is very poor, correct the errors";
-		}else if(qualityMeasure<=50){
-			recommendations="Quality is poor, correct the errors";
-		}else if(qualityMeasure<=75){
-			recommendations="Quality is acceptable, but there are still some errors";
-		}else if(qualityMeasure<100){
-			recommendations="Well done, still few errors remaining";
-		}else if(qualityMeasure==100){
-			recommendations="Well done, no errors found!";
-		}
-		return recommendations;
-	}
-
-	public AnnotatedCollaborativeContentAnalysis getAnnotatedCollaborativeContentAnalysis(){
-		return annotatedCollaborativeContent;
-	}
-
-	public String getStatus(){
-		switch (this.getState()) {
-		case TERMINATED:
-			return "OK";
-
-		default:
-			return "IN PROGRESS";
-		}
-
-	}
-
-
-
-	public AnnotatedStaticContentAnalysis getAnnotatedStaticContentAnalysis() {
-		return annotatedStaticContent;
-	}
+	
 
 	public void run() {
 		if(collaborativeContentInput!=null){
@@ -348,30 +285,5 @@ public class UnclearAcronym  extends Thread implements AnalysisInterface{
 
 	}
 
-	private int indexofElement(String sentence, String word, Map<String, Integer> elementfinded){
-		String [] spliter = sentence.split("[\\s]");
-		int position = 0;
-		int numwordfinded = 0;
-		for (int i = 0; i < spliter.length; i++) {
-			int offset = 0;
-			String token = spliter[i];
-			if(token.equals(word)){
-				numwordfinded++;
-				if(!elementfinded.containsKey(token)){
-					elementfinded.put(token, 1);
-				}
-				if(elementfinded.get(token).intValue()==numwordfinded){
-					Integer I = elementfinded.get(token);
-					int y  = I.intValue()+1;
-					elementfinded.put(token, y);
-					return position;
-				}else{
-					position+=token.length()+1+offset;
-				}
-			}else{
-				position+=token.length()+1+offset;
-			}
-		}
-		return position;
-	}
+	
 }
