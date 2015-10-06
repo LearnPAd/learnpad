@@ -79,8 +79,8 @@ public abstract class AbstractAnalysisClass extends Thread{
 		return annotatedStaticContent;
 	} 
 	
-	protected int indexofElement(String sentence, String word, Map<String, Integer> elementfinded){
-		String [] spliter = sentence.split("[\\W]");
+	protected  int indexofElement(String sentence, String word, Map<String, Integer> elementfinded, String split){
+		String [] spliter = sentence.split(split);
 		int position = 0;
 		int numwordfinded = 0;
 		for (int i = 0; i < spliter.length; i++) {

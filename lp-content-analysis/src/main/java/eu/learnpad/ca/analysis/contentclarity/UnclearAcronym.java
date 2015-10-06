@@ -245,7 +245,7 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 			
 			String token = spliter[i];
 			if(acronymdefected.contains(token)){
-				int initialpos = indexofElement(sentence,token,elementfinded);
+				int initialpos = indexofElement(sentence,token,elementfinded,"[\\s]");
 				int finalpos = initialpos+token.length();
 				if(precedentposition>initialpos){
 					//initialpos = sentence.lastIndexOf(token);

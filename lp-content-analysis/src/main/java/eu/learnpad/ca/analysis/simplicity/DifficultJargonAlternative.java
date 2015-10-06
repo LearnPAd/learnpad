@@ -191,7 +191,7 @@ public class DifficultJargonAlternative  extends  AbstractAnalysisClass{
 			String token = spliter[i];
 			AlternativeTerm tmptoken = new AlternativeTerm(token);
 			if(listAltTermSet.contains(tmptoken)){
-				int initialpos = indexofElement(sentence,token,elementfinded);
+				int initialpos = indexofElement(sentence,token,elementfinded,"[\\W]");
 				int finalpos = initialpos+token.length();
 				if(precedentposition>initialpos){
 					//initialpos = sentence.lastIndexOf(token);

@@ -154,7 +154,7 @@ public class DifficultJargon  extends  AbstractAnalysisClass{
 			
 			String token = spliter[i];
 			if(!wordfrequency.contains(token.trim().toLowerCase()) & token.length()>4){
-				int initialpos = indexofElement(sentence,token,elementfinded);
+				int initialpos = indexofElement(sentence,token,elementfinded,"[\\W]");
 				int finalpos = initialpos+token.length();
 				if(precedentposition>initialpos){
 					//initialpos = sentence.lastIndexOf(token);
