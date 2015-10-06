@@ -58,6 +58,15 @@
 				fileEntryListener="#{ContentBean.sampleListener}" immediate="true"
 				maxFileCount="1" maxFileSizeMessage="File size cannot exceed 1 MB" maxFileSize="1024000" />
 			<h:message for="inputfile" />
+			
+			
+			<h:outputLabel for="inputfilehtml" value="or Input html File:" />
+			<ace:fileEntry id="inputfilehtml"
+				fileEntryListener="#{ContentBean.ListenerFileHTML}" immediate="true"
+				maxFileCount="1" maxFileSizeMessage="File size cannot exceed 1 MB" maxFileSize="1024000" />
+			<h:message for="inputfilehtml" />
+			
+			
 		</h:panelGrid>
 
 

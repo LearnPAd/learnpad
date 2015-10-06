@@ -243,6 +243,31 @@ public class ContentBean implements Serializable{
 		}
 
 	}
+	
+	public void ListenerFileHTML(FileEntryEvent e) {
+		FileEntry fe = (FileEntry)e.getComponent();
+		FileEntryResults results = fe.getResults();
+
+		for (FileEntryResults.FileInfo fileInfo : results.getFiles()) {
+			System.out.println(fileInfo);
+
+
+			if (fileInfo.isSaved()) {
+				// Process the file. Only save cloned copies of results or fileInfo,StandardCharsets.UTF_8
+
+				Path path = Paths.get(fileInfo.getFile().getAbsolutePath());
+				try {
+					filecontenthtml = 	new String(Files.readAllBytes(path), "UTF8");
+					
+					System.out.println(fileInfo.getFileName());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		}
+
+	}
 
 	public void submitButton(ActionEvent event) {
 
