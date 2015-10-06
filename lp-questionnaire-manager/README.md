@@ -1,14 +1,14 @@
-Template's component
-====================
+Questionnaire Manager's component
+=================================
 
 Information   | Value
 ------------- | --------
-Component     | Template
+Component     | Questionnaire Manager
 Partner       | XWIKI
-WP            | 2, 7
-Responsible   | Jean Simard <jean.simard@xwiki.com>
-Collaborators | Fabio Mancinelli <fabio.mancinelli@xwiki.com>, Caleb J. DeLisle <cjd@cjdns.fr>
-Roadmap       | wiki.learnpad.eu/LearnPAdWiki/bin/view/Components/Template
+WP            | 5
+Responsible   | Guglielmo De Angelis <guglielmo.deangelis@isti.cnr.it>
+Collaborators | 
+Roadmap       | http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Learning+Session+Manager
 
 # Summary
 This component is a template that you can use to start your own new component.

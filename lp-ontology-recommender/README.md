@@ -3,12 +3,12 @@ Collaboration workspace's component
 
 Information   | Value
 ------------- | --------
-Component     | Collaboration Workspace
-Partner       | XWIKI
-WP            | 2, 3, 5
-Responsible   | Jean Simard <jean.simard@xwiki.com>
-Collaborators | Caleb J. DeLisle <cjd@cjdns.fr>, Daniele Gagliardi <daniele.gagliardi@students.fhnw.ch>
-Roadmap       | http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Collaborative+Workspace
+Component     | Ontology Recommender
+Partner       | FHNW
+WP            | 5
+Responsible   | Sandro Emmenegger <sandro.emmenegger@fhnw.ch>
+Collaborators | CongYu Zhang <congyu.zhang@fhnw.ch>
+Roadmap       | http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Ontology+Recommender
 
 # Summary
 The Collaborative Workspace is the main entry-point for end-user.  It's the
