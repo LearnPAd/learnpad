@@ -19,10 +19,17 @@
  */
 package eu.learnpad.core.impl.or;
 
+import java.io.IOException;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.io.IOUtils;
+
+import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.or.CoreFacade;
-import eu.learnpad.rest.utils.RestResource;
 
 /*
  * The methods inherited form the CoreFacade in this
@@ -57,9 +64,30 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 	@Override
 	public byte[] getModel(String modelSetId, String type)
 			throws LpRestException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		// Now send the package's path to the importer for XWiki
+		HttpClient httpClient = RestResource.getClient();
+		String uri = String.format("%s/learnpad/or/corefacade/getmodel/%s",
+				RestResource.REST_URI, modelSetId);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Accept", "application/xml");
 
-	
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("type", type);
+		getMethod.setQueryString(queryString);
+
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		byte[] model = null;
+		try {
+			model = IOUtils.toByteArray(getMethod.getResponseBodyAsStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return model;
+	}
 }
