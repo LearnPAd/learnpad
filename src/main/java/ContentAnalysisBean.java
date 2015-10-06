@@ -158,7 +158,7 @@ public class ContentAnalysisBean implements Serializable {
 			id="1";
 		}
 		 
-		WebTarget target = client.target("http://localhost:8080").path("contentanalysis/learnpad/ca/validatecollaborativecontent/"+id+"/status");
+		WebTarget target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/validatecollaborativecontent/"+id+"/status");
 		String 	status ="";
 		while (!status.equals("OK")) {
 			
@@ -170,7 +170,7 @@ public class ContentAnalysisBean implements Serializable {
 		System.out.println("Status: "+status);
 		
 		
-		target = client.target("http://localhost:8080").path("contentanalysis/learnpad/ca/validatecollaborativecontent/"+id);
+		target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/validatecollaborativecontent/"+id);
 		Response annotatecontent =  target.request().get();
 
 		this.setCollectionannotatedcontent(annotatecontent.readEntity(new GenericType<Collection<AnnotatedCollaborativeContentAnalysis>>() {}));

@@ -234,7 +234,7 @@ public class ContentBean implements Serializable{
 
 
 		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target("http://localhost:8080").path("contentanalysis/learnpad/ca/validatecollaborativecontent");
+		WebTarget target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/validatecollaborativecontent");
 
 		CollaborativeContentAnalysis cca = new CollaborativeContentAnalysis();
 		cca.setLanguage(this.getLanguage());
