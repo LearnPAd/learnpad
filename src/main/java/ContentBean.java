@@ -40,9 +40,11 @@ public class ContentBean implements Serializable{
 	private String Title;
 	private int id;
 	private String Content;
+	private String ContentHTML;
 	private String Language;
 	private String restid;
 	private String filecontent;
+	private String filecontenthtml;
 	private String filename;
 	private boolean Correctness;
 	private boolean Simplicity;
@@ -67,6 +69,18 @@ public class ContentBean implements Serializable{
 
 	public boolean isCorrectness() {
 		return Correctness;
+	}
+
+	
+
+	public String getContentHTML() {
+		return ContentHTML;
+	}
+
+
+
+	public void setContentHTML(String contentHTML) {
+		ContentHTML = contentHTML;
 	}
 
 
@@ -241,13 +255,19 @@ public class ContentBean implements Serializable{
 		
 		if(filecontent!=null){
 			cca.setCollaborativeContent(new CollaborativeContent(String.valueOf(this.getId()), this.filename));
-			cca.getCollaborativeContent().setContent(new eu.learnpad.ca.rest.data.Content());
-			cca.getCollaborativeContent().getContent().setContent(filecontent);
+			//cca.getCollaborativeContent().setContent(new eu.learnpad.ca.rest.data.Content());
+			cca.getCollaborativeContent().setContentplain(filecontent);
 		}else{
 			cca.setCollaborativeContent(new CollaborativeContent(String.valueOf(this.getId()), this.getTitle()));
-			cca.getCollaborativeContent().setContent(new eu.learnpad.ca.rest.data.Content());
-			cca.getCollaborativeContent().getContent().setContent(getContent());
+			//cca.getCollaborativeContent().setContent(new eu.learnpad.ca.rest.data.Content());
+			cca.getCollaborativeContent().setContentplain(getContent());
 		}
+		if(filecontenthtml!=null){
+			cca.getCollaborativeContent().setContenthtml(filecontenthtml);
+		}else{
+			cca.getCollaborativeContent().setContenthtml(getContentHTML());
+		}
+		
 		cca.setQualityCriteria(new QualityCriteria());
 		cca.getQualityCriteria().setCorrectness(this.isCorrectness());
 		cca.getQualityCriteria().setSimplicity(this.isSimplicity());

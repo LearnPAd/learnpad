@@ -45,6 +45,12 @@
 				required="false" style="width:250px;height:100px" >
 				<f:ajax execute="Content" render=":contentout"/></h:inputTextarea>
 			<h:message for="Content" />
+			
+			<h:outputLabel for="ContentHTML" value="ContentHTML:" />
+			<h:inputTextarea id="ContentHTML" value="#{ContentBean.contentHTML}"
+				required="false" style="width:250px;height:100px" >
+				<f:ajax execute="ContentHTML" render=":contentoutHTML"/></h:inputTextarea>
+			<h:message for="ContentHTML" />
 
 
 			<h:outputLabel for="inputfile" value="or Input txt File:" />
@@ -119,6 +125,9 @@
 
 		<h:outputLabel for="contentout" value="Content:" />
 		<h:outputText id="contentout" value="#{ContentBean.content}" />
+		
+		<h:outputLabel for="contentoutHTML" value="ContentHTML:" />
+		<h:outputText id="contentoutHTML" value="OK" />
 
 		<h:outputLabel for="restOut" value="REstID:" />
 		<h:outputText id="restOut" value="#{ContentBean.restid}">
