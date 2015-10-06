@@ -19,6 +19,9 @@
  */
 package eu.learnpad.core.impl.or;
 
+import javax.ws.rs.Path;
+
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.or.BridgeInterface;
 import eu.learnpad.or.rest.data.Recommendations;
@@ -46,13 +49,6 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort){
 // This constructor has to be fixed, since it requires changes on the class
 //		eu.learnpad.core.rest.RestResource
-		
-	}
-
-	@Override
-	public void putModelSet(String modelSetId, String type)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -98,6 +94,13 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	public States listExecutionStates(String userId) throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void modelSetImported(String modelSetId, String type)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		
 	}
 
 

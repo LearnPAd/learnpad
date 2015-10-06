@@ -19,6 +19,7 @@
  */
 package eu.learnpad.core.impl.or;
 
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.or.CoreFacade;
 import eu.learnpad.rest.utils.RestResource;
@@ -49,6 +50,13 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 	@Override
 	public byte[] getComments(String modelSetId, String artifactId)
 			throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte[] getModel(String modelSetId, String type)
+			throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
 	}
