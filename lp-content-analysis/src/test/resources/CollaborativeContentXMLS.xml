@@ -2,7 +2,7 @@
 <CollaborativeContentAnalysis language="english">
 	<CollaborativeContent id="1213">
 		<Title>Title of Documents</Title>
-		<Content>
+		<ContentPlain>
 		Interventions
 
 1. Interventions are planned processes designed to secure compliance with the law and include:
@@ -86,7 +86,7 @@ Review
 • Assess effectiveness of intervention.
 
 18. Inspectors may find it useful to review some of their interventions, perhaps using the five elements listed here as a guide, to consider whether alternative approaches could have been more effective. For trainee inspectors this will be a more formal process carried out with line managers and / or more senior colleagues.
-		</Content>
+		</ContentPlain>
 	</CollaborativeContent>
 	<QualityCriteria simplicity="true" non_ambiguity="true"
 		content_clarity="true" presentation_clarity="true" completeness="true"

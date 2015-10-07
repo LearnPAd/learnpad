@@ -11,7 +11,7 @@ import org.languagetool.Language;
 import org.languagetool.language.AmericanEnglish;
 import org.languagetool.rules.RuleMatch;
 
-import eu.learnpad.ca.analysis.AnalysisInterface;
+import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
@@ -23,16 +23,11 @@ import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 
 
-public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
+public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 
 
-	private Language language;
-	private int numDefectiveSentences = 0;
-	private CollaborativeContentAnalysis collaborativeContentAnalysis;
-	private StaticContentAnalysis staticContentAnalysis;
-	private AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContentAnalysis;
-	private AnnotatedStaticContentAnalysis annotatedStaticContentAnalysis;
+	
 
 	public CorrectnessAnalysis(Language lang){
 
@@ -43,15 +38,15 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 	public AnnotatedCollaborativeContentAnalysis check(CollaborativeContentAnalysis collaborativeContentInput){
 		String title = collaborativeContentInput.getCollaborativeContent().getTitle();
 		String idc = collaborativeContentInput.getCollaborativeContent().getId();
-		String content = collaborativeContentInput.getCollaborativeContent().getContent().toString();
+		String content = collaborativeContentInput.getCollaborativeContent().getContentplain();
 
 		JLanguageTool langTool = new JLanguageTool(language);
 
 		List<RuleMatch> matches;
 		try {
-			annotatedCollaborativeContentAnalysis = new AnnotatedCollaborativeContentAnalysis();
+			annotatedCollaborativeContent = new AnnotatedCollaborativeContentAnalysis();
 			CollaborativeContent sc = new CollaborativeContent();
-			annotatedCollaborativeContentAnalysis.setCollaborativeContent(sc);
+			annotatedCollaborativeContent.setCollaborativeContent(sc);
 			sc.setTitle(title);
 			sc.setId(idc);
 			Content c = new Content();
@@ -71,31 +66,24 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 				if(annotations.size()>0){
 					numDefectiveSentences++;
 				}
-				annotatedCollaborativeContentAnalysis.setAnnotations(annotations);
+				annotatedCollaborativeContent.setAnnotations(annotations);
 				id++;
 			}
 			
-			
-			
-			
 
-
-			
 
 
 			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
-			annotatedCollaborativeContentAnalysis.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
-			annotatedCollaborativeContentAnalysis.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
-			annotatedCollaborativeContentAnalysis.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-			annotatedCollaborativeContentAnalysis.setType("Correctness");
-
-
+			annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
+			annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
+			annotatedCollaborativeContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
+			annotatedCollaborativeContent.setType("Correctness");
 
 
 
 			
 
-			return annotatedCollaborativeContentAnalysis;
+			return annotatedCollaborativeContent;
 
 
 
@@ -111,7 +99,7 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 	public AnnotatedStaticContentAnalysis check(StaticContentAnalysis staticContentInput){
 		String title = staticContentInput.getStaticContent().getTitle();
 		String idc = staticContentInput.getStaticContent().getId();
-		String content = staticContentInput.getStaticContent().getContent().toString();
+		String content = staticContentInput.getStaticContent().getContentplain();
 
 		JLanguageTool langTool = new JLanguageTool(language);
 
@@ -124,9 +112,9 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 		
 
 			//System.out.println(content);
-			annotatedStaticContentAnalysis = new AnnotatedStaticContentAnalysis();
+			annotatedStaticContent = new AnnotatedStaticContentAnalysis();
 			StaticContent sc = new StaticContent();
-			annotatedStaticContentAnalysis.setStaticContent(sc);
+			annotatedStaticContent.setStaticContent(sc);
 			sc.setTitle(title);
 			sc.setId(idc);
 			Content c = new Content();
@@ -138,7 +126,7 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 		
 				List<Annotation> annotations =new ArrayList<Annotation>();
 				id  = calculateAnnotations( sentence, matches, c, id,annotations);
-				annotatedStaticContentAnalysis.setAnnotations(annotations);
+				annotatedStaticContent.setAnnotations(annotations);
 				
 				if(annotations.size()>0){
 					numDefectiveSentences++;
@@ -152,16 +140,16 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 
 			
 			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
-			annotatedStaticContentAnalysis.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
-			annotatedStaticContentAnalysis.setOverallQualityMeasure(qualitymmeasure+"%");
-			annotatedStaticContentAnalysis.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-			annotatedStaticContentAnalysis.setType("Correctness");
+			annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
+			annotatedStaticContent.setOverallQualityMeasure(qualitymmeasure+"%");
+			annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
+			annotatedStaticContent.setType("Correctness");
 
 
 
 			
 
-			return annotatedStaticContentAnalysis;
+			return annotatedStaticContent;
 
 
 
@@ -226,84 +214,33 @@ public class CorrectnessAnalysis extends Thread implements AnalysisInterface{
 		return numDefectiveSentences;
 	}
 
-	private double calculateOverallQualityMeasure(Integer numsentence){
-		double qm = (1-(numDefectiveSentences/numsentence.doubleValue()))*100;
-		double qualityMeasure = Math.abs(qm);
-		return qualityMeasure;
-	}
-
-	private String calculateOverallQuality(double qualityMeasure){
-		String quality="";
-		if(qualityMeasure<=25){
-			quality="VERY BAD";
-		}else if(qualityMeasure<=50){
-			quality="BAD";
-		}else if(qualityMeasure<=75){
-			quality="GOOD";
-		}else if(qualityMeasure<100){
-			quality="VERY GOOD";
-		}else if(qualityMeasure==100){
-			quality="EXCELLENT";
-		}
-		return quality;
-	}
-
-	private String calculateOverallRecommendations(double qualityMeasure){
-		String recommendations="";
-		if(qualityMeasure<=25){
-			recommendations="Quality is very poor, correct the errors";
-		}else if(qualityMeasure<=50){
-			recommendations="Quality is poor, correct the errors";
-		}else if(qualityMeasure<=75){
-			recommendations="Quality is acceptable, but there are still some errors";
-		}else if(qualityMeasure<100){
-			recommendations="Well done, still few errors remaining";
-		}else if(qualityMeasure==100){
-			recommendations="Well done, no errors found!";
-		}
-		return recommendations;
-	}
-
+	
 	public CorrectnessAnalysis( Language lang, CollaborativeContentAnalysis collaborativeContentInput){
 
 		this.language=lang;
-		collaborativeContentAnalysis =collaborativeContentInput;
+		collaborativeContentInput =collaborativeContentInput;
 	}
 
 	public CorrectnessAnalysis( Language lang, StaticContentAnalysis staticContentInput){
 
 		this.language=lang;
-		staticContentAnalysis =staticContentInput;
+		staticContentInput =staticContentInput;
 	}
 
-	public AnnotatedStaticContentAnalysis getAnnotatedStaticContentAnalysis() {
-		return annotatedStaticContentAnalysis;
-	}
+	
 
-	public AnnotatedCollaborativeContentAnalysis getAnnotatedCollaborativeContentAnalysis() {
-		return annotatedCollaborativeContentAnalysis;
-	}
-
+	
 	public void run() {
-		if(collaborativeContentAnalysis!=null){
-			annotatedCollaborativeContentAnalysis = this.check(collaborativeContentAnalysis);	
+		if(collaborativeContentInput!=null){
+			annotatedCollaborativeContent = this.check(collaborativeContentInput);	
 		}
 
-		if(staticContentAnalysis!=null){
-			annotatedStaticContentAnalysis = this.check(staticContentAnalysis);	
+		if(staticContentInput!=null){
+			annotatedStaticContent = this.check(staticContentInput);	
 		}
 
 	}
 	
-	public String getStatus(){
-		switch (this.getState()) {
-		case TERMINATED:
-			return "OK";
-
-		default:
-			return "IN PROGRESS";
-		}
-		
-	}
+	
 
 }

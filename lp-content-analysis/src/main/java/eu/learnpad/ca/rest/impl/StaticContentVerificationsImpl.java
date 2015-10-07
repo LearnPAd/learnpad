@@ -20,9 +20,10 @@ import org.languagetool.language.AmericanEnglish;
 import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
-import eu.learnpad.ca.analysis.AnalysisInterface;
+import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
-import eu.learnpad.ca.analysis.simplicity.Simplicity;
+import eu.learnpad.ca.analysis.simplicity.JuridicalJargon;
+import eu.learnpad.ca.analysis.syntacticambiguity.SyntacticAmbiguity;
 import eu.learnpad.ca.rest.StaticContentVerifications;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
@@ -33,7 +34,7 @@ import eu.learnpad.exception.LpRestException;
 @Produces(MediaType.APPLICATION_XML)
 public class StaticContentVerificationsImpl implements StaticContentVerifications {
 
-	private static Map<Integer,List<AnalysisInterface>> map = new HashMap<Integer,List<AnalysisInterface>>();
+	private static Map<Integer,List<AbstractAnalysisClass>> map = new HashMap<Integer,List<AbstractAnalysisClass>>();
 	private static Integer id =0;
 
 
@@ -67,9 +68,16 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 			}
 			if(contentFile.getQualityCriteria().isSimplicity()){
 
-				Simplicity threadsimply = new Simplicity (contentFile, lang);
+				JuridicalJargon threadsimply = new JuridicalJargon (contentFile, lang);
 				threadsimply.start();
 				putAndCreate(id, threadsimply);
+
+			}
+			if(contentFile.getQualityCriteria().isNonAmbiguity()){
+
+				SyntacticAmbiguity threadSyntacticAmbiguity = new SyntacticAmbiguity (contentFile, lang);
+				threadSyntacticAmbiguity.start();
+				putAndCreate(id, threadSyntacticAmbiguity);
 
 			}
 			return id.toString();
@@ -79,13 +87,13 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 
 	}
 
-	private void putAndCreate(int id, AnalysisInterface ai){
+	private void putAndCreate(int id, AbstractAnalysisClass ai){
 		if(!map.containsKey(id)){
-			List<AnalysisInterface> lai = new ArrayList<AnalysisInterface>();
+			List<AbstractAnalysisClass> lai = new ArrayList<AbstractAnalysisClass>();
 			lai.add(ai);
 			map.put(id, lai);
 		}else{
-			List<AnalysisInterface> lai = map.get(id);
+			List<AbstractAnalysisClass> lai = map.get(id);
 			lai.add(ai);
 		}
 	}
@@ -97,13 +105,14 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 			@PathParam("idAnnotatedStaticContentAnalysis") String contentID) throws LpRestException {
 		if(map.containsKey(Integer.valueOf(contentID))){
 			ArrayList<AnnotatedStaticContentAnalysis> ar = new ArrayList<AnnotatedStaticContentAnalysis>();
-			List<AnalysisInterface> listanalysisInterface = map.get(Integer.valueOf(contentID));
+			List<AbstractAnalysisClass> listanalysisInterface = map.get(Integer.valueOf(contentID));
 
-			for(AnalysisInterface analysisInterface :listanalysisInterface){
+			for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
 				AnnotatedStaticContentAnalysis annotatedStaticContent = analysisInterface.getAnnotatedStaticContentAnalysis();
-
-				annotatedStaticContent.setId(Integer.valueOf(contentID));
-				ar.add(annotatedStaticContent);
+				if(annotatedStaticContent!=null){
+					annotatedStaticContent.setId(Integer.valueOf(contentID));
+					ar.add(annotatedStaticContent);
+				}
 			}
 
 			return ar;
@@ -116,8 +125,8 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 	public String getStatusStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
 			throws LpRestException {
 		if(map.containsKey(Integer.valueOf(contentID))){
-			List<AnalysisInterface> listanalysisInterface  = map.get(Integer.valueOf(contentID));
-			for(AnalysisInterface analysisInterface :listanalysisInterface){
+			List<AbstractAnalysisClass> listanalysisInterface  = map.get(Integer.valueOf(contentID));
+			for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
 				if(analysisInterface.getStatus()!="OK"){
 					return "IN PROGRESS";
 				}
