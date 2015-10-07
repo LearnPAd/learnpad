@@ -19,8 +19,6 @@
  */
 package eu.learnpad.core.factory;
 
-import eu.learnpad.qm.BridgeInterface;
-
 public abstract class LpControllersFactory {
 
 		private static LpControllersFactory concreteFactory = null;

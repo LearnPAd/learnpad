@@ -28,7 +28,6 @@ import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.ca.BridgeInterface;
 import eu.learnpad.ca.Controller;
 

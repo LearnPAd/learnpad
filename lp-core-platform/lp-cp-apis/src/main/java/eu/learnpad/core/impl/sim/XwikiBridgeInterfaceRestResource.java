@@ -30,7 +30,6 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.io.IOUtils;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.sim.BridgeInterface;
