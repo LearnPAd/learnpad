@@ -410,7 +410,10 @@
 										</versionRange>
 										<goals>
 											<goal>
-												update-project-license
+												add-third-party
+											</goal>
+											<goal>
+												download-licenses
 											</goal>
 										</goals>
 									</pluginExecutionFilter>
