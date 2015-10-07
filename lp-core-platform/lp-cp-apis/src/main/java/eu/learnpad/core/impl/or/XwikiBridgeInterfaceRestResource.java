@@ -19,8 +19,6 @@
  */
 package eu.learnpad.core.impl.or;
 
-import javax.ws.rs.Path;
-
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.or.BridgeInterface;

@@ -19,11 +19,6 @@
  */
 package eu.learnpad.core.impl.lsm;
 
-import javax.inject.Named;
-
-import org.xwiki.component.annotation.Component;
-import org.xwiki.rest.XWikiRestComponent;
-
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.lsm.CoreFacade;
 import eu.learnpad.core.rest.RestResource;

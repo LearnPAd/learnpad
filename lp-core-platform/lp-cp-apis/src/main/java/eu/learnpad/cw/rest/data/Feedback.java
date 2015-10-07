@@ -9,8 +9,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.apache.commons.lang.ArrayUtils;
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Feedback", propOrder = { "modelSetId", "modelId", "artifactId", "contents" })
 @XmlRootElement(name = "feedback")
