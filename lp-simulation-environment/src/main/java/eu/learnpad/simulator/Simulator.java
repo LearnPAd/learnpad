@@ -29,9 +29,10 @@ import org.activiti.engine.ProcessEngineConfiguration;
 import eu.learnpad.simulator.IProcessEventReceiver.IProcessEventReceiverProvider;
 import eu.learnpad.simulator.IProcessManager.IProcessManagerProvider;
 import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
-import eu.learnpad.simulator.uihandler.formhandler.activiti2jsonform.ActivitiToJsonFormFormHandler;
+import eu.learnpad.simulator.uihandler.formhandler.multi2jsonform.Multi2JsonFormFormHandler;
 import eu.learnpad.simulator.uihandler.webserver.UIHandlerWebImpl;
 import eu.learnpad.simulator.uihandler.webserver.WebServer;
+import eu.learnpad.simulator.utils.BPMNExplorerRepository;
 
 /**
  *
@@ -59,14 +60,19 @@ public class Simulator implements IProcessManagerProvider,
 
 		processEngine = config.buildProcessEngine();
 
+		// create BPMN Explorer
+		BPMNExplorerRepository explorerRepo = new BPMNExplorerRepository(
+				processEngine.getRepositoryService());
+
 		// create process manager
-		processManager = new ActivitiProcessManager(processEngine, this);
+		processManager = new ActivitiProcessManager(processEngine, this,
+				explorerRepo);
 
 		// create users ui handler
 		uiHandler = new UIHandlerWebImpl(new WebServer(webserverPort, "ui",
 				"tasks", this), new ArrayList<String>(), this,
-				new ActivitiToJsonFormFormHandler(processEngine
-						.getFormService()));
+				new Multi2JsonFormFormHandler(explorerRepo, processEngine
+						.getTaskService(), processEngine.getFormService()));
 	}
 
 	public void stop() {

@@ -22,7 +22,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<slf4j.version>1.7.10</slf4j.version>
-		<activiti.version>5.16.4</activiti.version>
+		<activiti.version>5.17.0</activiti.version>
 		<jettyVersion>9.2.2.v20140723</jettyVersion>
 		<jackson.version>2.4.4</jackson.version>
 		<junit.version>4.12</junit.version>
@@ -177,6 +177,26 @@
 			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- Monitoring local jar and dependencies -->
+		<dependency>
+			<groupId>it.cnr.isti.labsedc</groupId>
+			<artifactId>glimpse</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/jar/GlimpseAPI-Learn_PAd.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jms_1.1_spec</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-core</artifactId>
+			<version>5.3.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -231,7 +251,9 @@
 							<classpathLayoutType>custom</classpathLayoutType>
 							<customClasspathLayout>lib/${artifact.groupId}.${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</customClasspathLayout>
 						</manifest>
-
+						<manifestEntries>
+							<Class-Path>lib/it.cnr.isti.labsedc.glimpse-1.0.jar</Class-Path>
+						</manifestEntries>
 					</archive>
 				</configuration>
 			</plugin>

@@ -63,15 +63,7 @@ First of all, clone the repository.
 git clone https://github.com/LearnPAd/learnpad.git
 ```
 
-Then, once cloned, you'll need to import submodules.
-```
-cd learnpad
-git submodule init
-git submodule update
-```
-
-Finally, you can trigger a build with the `build` script in the root directory.
-
+Then, once cloned, you can trigger a build with the `build` script in the root directory.
 ```
 ./build
 ```
@@ -82,12 +74,16 @@ be the core of the platform.  You should be able to run the platform with the
 following command
 
 ```
-lp-platform/out/start
+bash launch start
 ```
 
 You can also stop it with the following command.
 ```
-lp-platform/out/stop
+bash launch stop
+```
+or restart it (it will stop every component then start it again)
+```
+bash launch restart
 ```
 
 Once the platform is started, access it on `localhost:8080` in your webbrowser.

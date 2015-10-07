@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+# Trace what's being executed (useful for debug)
+# set -o xtrace
+# Exit on error
+set -o errexit
+# Exit on unset variables
+set -o nounset
+# Catch the error code of the program who crashed in piping commands
+set -o pipefail
+
+declare -r __ROOT_PATH__="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+declare -r __BASE__="$(basename "${BASH_SOURCE[0]}")"
+declare -r __FILE__="${__ROOT_PATH__}/${__BASE__}"
+declare -r __BUILD_SYSTEM_PATH__="${__ROOT_PATH__}/build-system"
+declare -r __OPTIONS__=$*
+declare __LOG_LEVEL__="ERROR"
+
+declare -r COMPONENTS_LIST_FILE="${__ROOT_PATH__}/.components"
+
+### Libraries
+source ${__BUILD_SYSTEM_PATH__}/utils.sh
+source ${__BUILD_SYSTEM_PATH__}/launch.sh
+
+for ARG in $*
+do
+	case ${ARG} in
+		"-v"|"--verbose")
+			declare __LOG_LEVEL__="INFO"
+			;;
+		"-d"|"--debug")
+			declare __LOG_LEVEL__="DEBUG"
+			;;
+		"start"|"stop"|"restart")
+			declare __ACTION__="${ARG}"
+			;;
+		*)
+			customlog "INFO" "\`${ARG}' is not parsed by \`${__BASE__}' script."
+			;;
+	esac
+done
+
+cat ${COMPONENTS_LIST_FILE} | while read COMPONENT_NAME
+do
+	if iscomponent ${COMPONENT_NAME}
+	then
+		launch "${COMPONENT_NAME}" ${__ACTION__}
+	else
+		customlog "ERROR" "The list in \`.components' contains at least one non-existing component." ${ERROR_COMPONENTS}
+	fi
+done
+
+exit ${SUCCESS}

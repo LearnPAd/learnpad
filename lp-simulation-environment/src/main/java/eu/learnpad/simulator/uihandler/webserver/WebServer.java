@@ -25,6 +25,7 @@ package eu.learnpad.simulator.uihandler.webserver;
  */
 
 import java.io.IOException;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.NetworkInterface;
@@ -69,6 +70,7 @@ public class WebServer {
 	public static final long TIMEOUT = Long.MAX_VALUE;
 	public static final String UI_PATH = "ui.html";
 	public static final String UI_PROCESS_PATH = "ui-process.html";
+	public static final String UI_SINGLE_PROCESS_PATH = "ui-singleprocess.html";
 	public static final String STATIC_RESOURCES_PATH = "static";
 	public static final String WEBJARS_RESOURCES_PATH = "META-INF/resources/webjars";
 
@@ -98,6 +100,12 @@ public class WebServer {
 				UI_PROCESS_PATH);
 		this.context.addServlet(new ServletHolder(ui_process_servlet),
 				"/uiprocess");
+
+		// serve UI Process webpage (after dynamically setting server ip)
+		HttpServlet ui_single_process_servlet = new IPTokenHTTPServlet(port,
+				UI_SINGLE_PROCESS_PATH);
+		this.context.addServlet(new ServletHolder(ui_single_process_servlet),
+				"/uisingleprocess");
 
 		// related static resources
 		ContextHandler resourcesContext = new ContextHandler();
@@ -269,11 +277,13 @@ public class WebServer {
 			Enumeration<InetAddress> ee = n.getInetAddresses();
 			while (ee.hasMoreElements()) {
 				InetAddress i = ee.nextElement();
-				if (!i.getHostAddress().startsWith("127")
-						&& !i.getHostAddress().startsWith("fe")) {
-					return i.getHostAddress();
+				if (!i.isLoopbackAddress() && !i.isLinkLocalAddress()) {
+					if (i instanceof Inet6Address) {
+						return "[" + i.getHostAddress().split("%")[0] + "]";
+					} else {
+						return i.getHostAddress();
+					}
 				}
-
 			}
 		}
 

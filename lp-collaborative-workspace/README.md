@@ -8,7 +8,7 @@ Partner       | XWIKI
 WP            | 2, 3, 5
 Responsible   | Jean Simard <jean.simard@xwiki.com>
 Collaborators | Caleb J. DeLisle <cjd@cjdns.fr>, Daniele Gagliardi <daniele.gagliardi@students.fhnw.ch>
-Roadmap       | http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Components/Collaborative+Workspace
+Roadmap       | http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Collaborative+Workspace
 
 # Summary
 The Collaborative Workspace is the main entry-point for end-user.  It's the

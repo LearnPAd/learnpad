@@ -37,7 +37,7 @@ public interface ManageLearningSessions {
 	 * @throws LpRestException
 	 */
 	@POST
-	@Path("/learnpad/lsm/subscribelearner")
+	@Path("/subscribelearner")
 	void subscribeLearnerToQuestionnaire(@QueryParam("learneremail") String learnerEmail, @QueryParam("questionnaireid") String questionnaireId) throws LpRestException;
 
 	/** 
@@ -48,7 +48,7 @@ public interface ManageLearningSessions {
 	 * @throws LpRestException
 	 */
 	@POST
-	@Path("/learnpad/lsm/getquestionnairestat")
+	@Path("/getquestionnairestat")
 	void revokeLearnerFromQuestionnaire(@QueryParam("learneremail") String learnerEmail, @QueryParam("questionnaireid") String questionnaireId) throws LpRestException;
 	
 	/** 
@@ -58,7 +58,7 @@ public interface ManageLearningSessions {
 	 * @throws LpRestException
 	 */
 	@GET
-	@Path("/learnpad/lsm/{questionnaireid}/list")
+	@Path("/{questionnaireid}/list")
 	String [] listLearnersFromQuestionnaire(@PathParam("questionnaireid") String questionnaireId) throws LpRestException;
 	
 	/** 
@@ -68,6 +68,6 @@ public interface ManageLearningSessions {
 	 * @throws LpRestException
 	 */
 	@GET
-	@Path("/learnpad/lsm/list")
+	@Path("/list")
 	String [] listQuestionnaireFromLearner(@QueryParam("learneremail") String learnerEmail) throws LpRestException;
 }

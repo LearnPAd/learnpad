@@ -1,0 +1,462 @@
+# baseURI: http://learnpad.eu
+# imports: http://ikm-group.ch/archimeo
+# imports: http://spinrdf.org/spin
+
+@prefix archi: <http://ikm-group.ch/archiMEO/archimate#> .
+@prefix bmm: <http://ikm-group.ch/archiMEO/BMM#> .
+@prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#> .
+@prefix cmm: <http://ikm-group.ch/archiMEO/CMM#> .
+@prefix cmmn: <http://ikm-group.ch/archiMEO/CMMN#> .
+@prefix dkm: <http://ikm-group.ch/archiMEO/dkm#> .
+@prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
+@prefix eo: <http://ikm-group.ch/archiMEO/eo#> .
+@prefix foaf: <http://xmlns.com/foaf/spec#> .
+@prefix kpi: <http://ikm-group.ch/archiMEO/kpi#> .
+@prefix lpd: <http://learnpad.eu#> .
+@prefix omm: <http://ikm-group.ch/archiMEO/omm#> .
+@prefix ontogov: <http://ch.fhnw.ontogov#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pmmm: <http://ikm-group.ch/archiMEO/pmmm#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix smf: <http://topbraid.org/sparqlmotionfunctions#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix spl: <http://spinrdf.org/spl#> .
+@prefix top: <http://ikm-group.ch/archiMEO/top#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xwiki: <http://www.xwiki.org/xwiki/bin/view/Main/WebHome#> .
+
+<http://learnpad.eu>
+  rdf:type owl:Ontology ;
+  rdfs:comment "LearnPAd Ontology"^^xsd:string ;
+  owl:imports <http://ikm-group.ch/archimeo> ;
+  owl:imports <http://spinrdf.org/spin> ;
+  owl:versionInfo "Created with TopBraid Composer"^^xsd:string ;
+.
+lpd:Barbara_Thoenssen
+  rdf:type eo:Person ;
+  eo:personHasName "Barbara Thönssen"^^xsd:string ;
+  foaf:mbox "barbara.t@fhnw.ch"^^xsd:string ;
+  foaf:personHasFamiliyName "Thönssen"^^xsd:string ;
+  foaf:personHasFirstName "Barbara"^^xsd:string ;
+  foaf:phone "+442 236 7232"^^xsd:string ;
+.
+lpd:Barnaby_Barnes
+  rdf:type eo:Person ;
+  eo:personHasName "Barnaby Barnes"^^xsd:string ;
+  foaf:mbox "barnaby.barnes@fhnw.ch"^^xsd:string ;
+  foaf:personHasFamiliyName "Barnes"^^xsd:string ;
+  foaf:personHasFirstName "Barnaby"^^xsd:string ;
+  foaf:phone "+442 236 7232"^^xsd:string ;
+.
+lpd:Coach
+  rdf:type owl:Class ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:label "Coach"^^xsd:string ;
+  rdfs:subClassOf archi:BusinessRole ;
+.
+lpd:Congyu_Zhang
+  rdf:type eo:Person ;
+  eo:personHasName "Congyu Zhang"^^xsd:string ;
+  foaf:mbox "congyu.z@fhnw.ch"^^xsd:string ;
+  foaf:personHasFamiliyName "Zhang"^^xsd:string ;
+  foaf:personHasFirstName "Congyu"^^xsd:string ;
+  foaf:phone "+442 236 7232"^^xsd:string ;
+.
+lpd:Emanuele_Laurenzi
+  rdf:type eo:Person ;
+  eo:personHasName "Emanuele Laurenzi "^^xsd:string ;
+  foaf:mbox "emanuele.l@fhnw.ch"^^xsd:string ;
+  foaf:personHasFamiliyName "Laurenzi "^^xsd:string ;
+  foaf:personHasFirstName "Emanuele"^^xsd:string ;
+  foaf:phone "+442 236 7232"^^xsd:string ;
+.
+lpd:EnglishCompetency
+  cmm:competencyHasDefinition "West Germanic language of England, now widely used in many varieties throughout the world"^^xsd:string ;
+  rdfs:label "English"^^xsd:string ;
+.
+lpd:JobDescription
+  rdf:type owl:Class ;
+  rdfs:subClassOf foaf:Document ;
+.
+lpd:JobSpecification
+  rdf:type owl:Class ;
+  rdfs:subClassOf archi:BusinessObject ;
+.
+lpd:Knut_Hinkelmann
+  rdf:type eo:Person ;
+  eo:personHasName "Knut Hinkelmann"^^xsd:string ;
+  foaf:mbox "knut.h@fhnw.ch"^^xsd:string ;
+  foaf:personHasFamiliyName "Hinkelmann"^^xsd:string ;
+  foaf:personHasFirstName "Knut"^^xsd:string ;
+  foaf:phone "+442 236 7232"^^xsd:string ;
+.
+lpd:Learner
+  rdf:type owl:Class ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:label "Learner"^^xsd:string ;
+  rdfs:subClassOf archi:BusinessRole ;
+.
+lpd:LearningActivity
+  rdf:type owl:Class ;
+  rdfs:comment "Class E1 in the ITLET Conceptual Reference Model for Competency Information and Related Objects (ISO/IEC TR 23476 p.18)"^^xsd:string ;
+  rdfs:label "Action"^^xsd:string ;
+  rdfs:subClassOf eo:BusinessActivity ;
+.
+lpd:LearningCollaboration
+  rdf:type owl:Class ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:label "Learning Collaboration"^^xsd:string ;
+  rdfs:subClassOf archi:BusinessCollaboration ;
+.
+lpd:Sabrina_Kurjakovic
+  rdf:type eo:Person ;
+  eo:personHasName "Sabrina Kurjakovic "^^xsd:string ;
+  foaf:mbox "sabrina.k@fhnw.ch"^^xsd:string ;
+  foaf:personHasFamiliyName "Kurjakovic "^^xsd:string ;
+  foaf:personHasFirstName "Sabrina"^^xsd:string ;
+  foaf:phone "+442 236 7232"^^xsd:string ;
+.
+lpd:Sandro_Emmenegger
+  rdf:type eo:Person ;
+  eo:personHasName "Sandro Emmenegger"^^xsd:string ;
+  foaf:mbox "sandro.e@fhnw.ch"^^xsd:string ;
+  foaf:personHasFamiliyName "Emmenegger"^^xsd:string ;
+  foaf:personHasFirstName "Sandro"^^xsd:string ;
+  foaf:phone "+442 236 7232"^^xsd:string ;
+.
+lpd:archiBActivityConcernsId
+  rdf:type owl:DatatypeProperty ;
+.
+lpd:archiBProcessConcernsId
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "property is for identification of an instance; ID = ADONIS attribute ID"^^xsd:string ;
+  rdfs:domain archi:BusinessProcess ;
+.
+lpd:atomicBusinessProcessIsCalledTask
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:AtomicBusinessProcess ;
+  rdfs:range bpmn:Task ;
+.
+lpd:bpmnEndEventHasId
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain bpmn:EndEvent ;
+.
+lpd:bpmnEndEventHasName
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain bpmn:EndEvent ;
+.
+lpd:bpmnEndEventRepresentsEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:EndEvent ;
+.
+lpd:bpmnLaneHasId
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain bpmn:Swimlane ;
+.
+lpd:bpmnLaneHasName
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain bpmn:Swimlane ;
+.
+lpd:bpmnPoolHasId
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain bpmn:Pool ;
+.
+lpd:bpmnPoolHasName
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain bpmn:Pool ;
+.
+lpd:bpmnProcessHasCreator
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "ADONIS attribute AUTHOR"^^xsd:string ;
+  rdfs:domain bpmn:Process ;
+.
+lpd:bpmnProcessHasDateLastChanged
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "ADONIS attribute Date last changed"^^xsd:string ;
+  rdfs:domain bpmn:Process ;
+  rdfs:range xsd:date ;
+.
+lpd:bpmnProcessHasId
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "ADONIS attribute ID"^^xsd:string ;
+  rdfs:domain bpmn:Process ;
+  rdfs:range xsd:string ;
+.
+lpd:bpmnProcessHasName
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "natural language denomination"^^xsd:string ;
+  rdfs:domain bpmn:Process ;
+.
+lpd:bpmnStartEventHasId
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain bpmn:StartEvent ;
+.
+lpd:bpmnStartEventHasName
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain bpmn:StartEvent ;
+.
+lpd:bpmnStartEventRepresentsEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:StartEvent ;
+.
+lpd:bpmnSubProcessRepresentsBProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:SubProcess ;
+  rdfs:range bpmn:Process ;
+.
+lpd:bpmnTaskHasId
+  rdf:type owl:DatatypeProperty ;
+.
+lpd:bpmnTaskHasName
+  rdf:type owl:DatatypeProperty ;
+.
+lpd:bpmnTaskHasTaskType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain bpmn:Task ;
+.
+lpd:bpmnTaskIsPartOfProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:Task ;
+  rdfs:range bpmn:Process ;
+.
+lpd:bpmnTaskIsPerformedBy
+  rdf:type owl:DatatypeProperty ;
+.
+lpd:bpmnTaskIsPresentedInLane
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:Task ;
+  rdfs:range bpmn:Swimlane ;
+.
+lpd:bpmnTaskIsPresentedInPool
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:Task ;
+  rdfs:range bpmn:Pool ;
+.
+lpd:businessActivityIsInResponsibilityOfBActor
+  rdf:type owl:ObjectProperty ;
+.
+lpd:businessActivityIsPartOfBProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:BusinessActivity ;
+  rdfs:range archi:BusinessProcess ;
+.
+lpd:businessActivityIsPerformedByNode
+  rdf:type owl:ObjectProperty ;
+.
+lpd:compoundDocumentConsistsOfDocumentPart
+  rdf:type owl:ObjectProperty ;
+.
+lpd:executedFlowElementBelongsToExecutedProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:FlowElement ;
+  rdfs:range bpmn:Process ;
+.
+lpd:executedFlowElementEndingTime
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain bpmn:FlowElement ;
+  rdfs:range xsd:dateTime ;
+.
+lpd:executedFlowElementStartTime
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain bpmn:FlowElement ;
+  rdfs:range xsd:dateTime ;
+.
+lpd:informationIsInputForActivity
+  rdf:type owl:ObjectProperty ;
+  rdfs:range eo:BusinessActivity ;
+  rdfs:subPropertyOf lpd:informationIsUsedInActivity ;
+.
+lpd:informationIsOutputForActivity
+  rdf:type owl:ObjectProperty ;
+  rdfs:range eo:BusinessActivity ;
+  rdfs:subPropertyOf lpd:informationIsUsedInActivity ;
+.
+lpd:informationIsUsedInActivity
+  rdf:type owl:ObjectProperty ;
+  rdfs:range eo:BusinessActivity ;
+.
+lpd:performerIsManagerOfOrgUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain omm:Performer ;
+  rdfs:range omm:OrganisationalUnit ;
+.
+lpd:roleIsCastedByOrgUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain omm:Role ;
+  rdfs:range omm:OrganisationalUnit ;
+.
+lpd:roleReferencesToDocument
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain omm:Role ;
+  rdfs:range dkm:Document ;
+.
+lpd:xwikiPageRepresentsBActivity
+  rdf:type owl:ObjectProperty ;
+.
+lpd:xwikiPageRepresentsBActor
+  rdf:type owl:ObjectProperty ;
+.
+lpd:xwikiPageRepresentsBProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain xwiki:Page ;
+  rdfs:range archi:BusinessProcess ;
+.
+lpd:xwikiPageRepresentsEvent
+  rdf:type owl:ObjectProperty ;
+.
+lpd:xwikiPageRepresentsNode
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:Node ;
+.
+lpd:xwikiPageRepresentsRole
+  rdf:type owl:ObjectProperty ;
+.
+xwiki:Annotation
+  rdf:type owl:Class ;
+  rdfs:comment "CQ21"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:XWIKIMetaModel ;
+.
+xwiki:Class
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:XWIKIMetaModel ;
+.
+xwiki:Comment
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf xwiki:Annotation ;
+.
+xwiki:ExpertProposition
+  rdf:type owl:Class ;
+  rdfs:subClassOf xwiki:Proposition ;
+.
+xwiki:Page
+  rdf:type owl:Class ;
+  rdfs:comment "CQ17"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:XWIKIMetaModel ;
+.
+xwiki:Proposition
+  rdf:type owl:Class ;
+  rdfs:comment "CQ22"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf xwiki:Annotation ;
+.
+xwiki:ResourceProposition
+  rdf:type owl:Class ;
+  rdfs:subClassOf xwiki:Proposition ;
+.
+xwiki:TaskProposition
+  rdf:type owl:Class ;
+  rdfs:subClassOf xwiki:Proposition ;
+.
+xwiki:annotationHasStatus
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "CQ21"^^xsd:string ;
+  rdfs:comment "CQ22"^^xsd:string ;
+  rdfs:domain xwiki:Annotation ;
+  rdfs:range xsd:string ;
+.
+xwiki:annotationHasType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "CQ22"^^xsd:string ;
+  rdfs:domain xwiki:Annotation ;
+.
+xwiki:annotationIsMadeAtPage
+  rdf:type rdf:Property ;
+  rdfs:range xwiki:Page ;
+.
+xwiki:annotationIsMadeToPage
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ17"^^xsd:string ;
+  rdfs:comment "CQ21"^^xsd:string ;
+  rdfs:comment "CQ22"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain xwiki:Annotation ;
+  rdfs:range xwiki:Page ;
+.
+xwiki:classContainsInformationAboutPage
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain xwiki:Class ;
+  rdfs:range xwiki:Page ;
+.
+xwiki:classHoldsDataAboutPage
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain xwiki:Class ;
+  rdfs:range xwiki:Page ;
+.
+xwiki:commentHasPurpose
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "CQ17"^^xsd:string ;
+  rdfs:domain xwiki:Comment ;
+.
+xwiki:commentHasText
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "CQ17"^^xsd:string ;
+  rdfs:domain xwiki:Comment ;
+.
+xwiki:commentHasType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "CQ17"^^xsd:string ;
+  rdfs:domain xwiki:Comment ;
+.
+xwiki:expertPropositionProposesPerson
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain xwiki:ExpertProposition ;
+  rdfs:range eo:Person ;
+.
+xwiki:pageHasCategory
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain xwiki:Page ;
+.
+xwiki:pageHasSpace
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain xwiki:Page ;
+  rdfs:range xsd:string ;
+.
+xwiki:pageRepresentsBPMNProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain xwiki:Page ;
+  rdfs:range bpmn:Process ;
+.
+xwiki:propositionHasConstraint
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain xwiki:Proposition ;
+.
+xwiki:propositionHasLink
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain xwiki:Proposition ;
+.
+xwiki:propositionHasName
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain xwiki:Proposition ;
+.
+xwiki:resourcePropositionProposesDocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain xwiki:ResourceProposition ;
+  rdfs:range foaf:Document ;
+.
+xwiki:taskPropositionProposesActivity
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain xwiki:TaskProposition ;
+  rdfs:range eo:BusinessActivity ;
+.
+foaf:Document
+  rdfs:comment "CQ12"^^xsd:string ;
+.
+foaf:mbox
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:Person ;
+  rdfs:range xsd:string ;
+.
+foaf:phone
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:Person ;
+  rdfs:range xsd:string ;
+.

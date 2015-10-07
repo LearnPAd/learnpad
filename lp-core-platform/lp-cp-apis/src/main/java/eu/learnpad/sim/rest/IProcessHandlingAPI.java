@@ -27,10 +27,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.sim.rest.data.ProcessData;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
+import eu.learnpad.sim.rest.data.UserData;
 
 /**
  *
@@ -91,6 +93,23 @@ public interface IProcessHandlingAPI {
 	@POST
 	@Path("/instances")
 	public String addProcessInstance(ProcessInstanceData data);
+
+	/**
+	 *
+	 * @param processId
+	 *            the id of the process to instantiate
+	 * @param potentialUsers
+	 *            the info of the users that can participate in the simulation
+	 * @param currentUser
+	 *            the user instantiating the simulation
+	 * @return the path to the process instance configuration page (relative to
+	 *         the base url to access the simulator)
+	 */
+	@POST
+	@Path("/instances/{artifactid:.*}")
+	public String addProcessInstance(@PathParam("artifactid") String processId,
+			Collection<UserData> potentialUsers,
+			@QueryParam("currentuser") String currentUser);
 
 	/**
 	 *

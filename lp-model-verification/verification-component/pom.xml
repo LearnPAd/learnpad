@@ -1,0 +1,162 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>verification-component</artifactId>
+    <name>verification-component</name>
+    <description>Verification Component</description>
+    <organization>
+        <name>University of Camerino</name>
+    </organization>
+    <scm>
+        <developerConnection>Damiano Falcioni</developerConnection>
+    </scm>
+  
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Maven Repository Switchboard</name>
+            <layout>default</layout>
+            <url>http://repo1.maven.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <name>Maven Plugin Repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories> 
+  
+    <dependencies>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+  		    <artifactId>jersey-common</artifactId>
+  		    <version>2.21</version>
+        </dependency>
+        <dependency>
+  		    <groupId>org.glassfish.jersey.containers</groupId>
+  		    <artifactId>jersey-container-grizzly2-http</artifactId>
+  		    <version>2.21</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.learnpad.vc.deadlock</groupId>
+            <artifactId>verification-component-deadlock-plugin</artifactId>
+            <version>1.0</version>
+            <classifier>jar-with-dependencies</classifier>
+            <scope>test</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>eu.learnpad.vc.understandability</groupId>
+            <artifactId>verification-component-understandability-plugin</artifactId>
+            <version>1.0</version>
+            <classifier>jar-with-dependencies</classifier>
+            <scope>test</scope>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+    <build> 
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+        
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+            </plugin>
+      
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>eu.learnpad.verification.JAXRSService</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+ 
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>eu.learnpad.vc.deadlock</groupId>
+                                    <artifactId>verification-component-deadlock-plugin</artifactId>
+                                    <version>1.0</version>
+                                    <type>jar</type>
+                                    <classifier>jar-with-dependencies</classifier>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/VerificationComponentPlugins</outputDirectory>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>eu.learnpad.vc.understandability</groupId>
+                                    <artifactId>verification-component-understandability-plugin</artifactId>
+                                    <version>1.0</version>
+                                    <type>jar</type>
+                                    <classifier>jar-with-dependencies</classifier>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/VerificationComponentPlugins</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <excludeArtifactIds>verification-component-deadlock-plugin, verification-component-understandability-plugin</excludeArtifactIds>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>            
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webXml>src\main\webapp\WEB-INF\web.xml</webXml>        
+                </configuration>
+            </plugin>
+
+        </plugins> 
+    </build> 
+    <parent>
+        <groupId>eu.learnpad</groupId>
+        <artifactId>lp-model-verification</artifactId>
+        <version>1.0</version>
+        <relativePath>..</relativePath>
+    </parent>
+    <groupId>eu.learnpad.vc</groupId>
+</project>

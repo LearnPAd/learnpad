@@ -27,6 +27,7 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
 import javax.ws.rs.Path;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -38,36 +39,78 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
+import org.xwiki.component.phase.Initializable;
+import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
 
+import eu.learnpad.core.impl.me.XwikiBridgeInterfaceRestResource;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.cw.rest.data.Feedbacks;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.Controller;
 import eu.learnpad.mv.rest.data.MVResults;
+import eu.learnpad.me.BridgeInterface;
 
+/*
+ * It is not clear yet who is responsible for the instantiation
+ * of this class. From what I read from Jean it is supposed to be done
+ * automatically when registering the Java component into the XWiki Platform.
+ * Thus I do not know how may instances we may actually have. Thus, for the
+ * moment I marked it as Singleton.
+ *  
+ */
 @Component
+@Singleton
 @Named("eu.learnpad.core.impl.me.XwikiController")
-@Path("/learnpad/me")
-public class XwikiController extends Controller implements XWikiRestComponent {
+@Path("/learnpad/me/corefacade")
+public class XwikiController extends Controller implements XWikiRestComponent, Initializable{
+
+    /** Set to true once the inherited BridgeInterface has been initialized. */
+    private boolean initialized = false;	
+
+    /*
+     * Note that in this solution the Controllers do not interact
+     * each-others, but each controller directly invokes the BridgesInterfaces
+     * (from the other controllers) it needs. This is not actually what was
+     * originally planned, thus in the future it may change.
+     *
+     * Also, not sure if this is the correct way to proceed.
+     * I would like to decide in a configuration file
+     * the implementation to bind, and not into the source
+     * code. In fact, this second case implies to rebuild the
+     * whole platform at each change.	
+     */
+	private eu.learnpad.mv.BridgeInterface mv;
+	private eu.learnpad.cw.BridgeInterface cw;
+	private eu.learnpad.sim.BridgeInterface sim;
+	private eu.learnpad.qm.BridgeInterface qm;
+	private eu.learnpad.or.BridgeInterface or;
 
 	private Map<String, MVResults> mvResults;
 
 	@Inject
 	Logger logger;
 
-	public XwikiController() {
-		this(false);
-	}
+    public synchronized void updateBridgeInterface (BridgeInterface bi){
+		this.bridge = bi;    
+    }
 
-	public XwikiController(boolean isBridgeInterfaceLocal) {
-		if (isBridgeInterfaceLocal)
-			this.bridge = new XwikiBridgeInterface();
-		else
+	@Override
+	public synchronized void initialize() throws InitializationException {
+		if (!this.initialized){
 			this.bridge = new XwikiBridgeInterfaceRestResource();
+			
+			this.mv = new eu.learnpad.core.impl.mv.XwikiBridgeInterfaceRestResource();
+			this.cw = new eu.learnpad.core.impl.cw.XwikiBridgeInterfaceRestResource();
+			this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
+			this.qm = new eu.learnpad.core.impl.qm.XwikiBridgeInterfaceRestResource();
+			this.or = new eu.learnpad.core.impl.or.XwikiBridgeInterfaceRestResource();
 
-		this.mvResults = new HashMap<String, MVResults>();
+			this.mvResults = new HashMap<String, MVResults>();
+			
+			this.initialized=true;
+		}
 	}
 
 	@Override
