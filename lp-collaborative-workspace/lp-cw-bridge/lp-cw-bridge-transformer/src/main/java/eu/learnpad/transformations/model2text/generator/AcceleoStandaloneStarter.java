@@ -37,16 +37,6 @@ public class AcceleoStandaloneStarter{
 	
 	   public void execute(String modelPath, String resultFolderPath) {
 		   
-		   
-//		   ClassLoader cl = ClassLoader.getSystemClassLoader();
-//	       URL[] urls = ((URLClassLoader)cl).getURLs();
-//	       for(URL url: urls){
-//	        	System.out.println(url.getFile());
-//	        }
-//		   
-		   
-		   
-		   
 //	     registerResourceFactories();
 	     registerPackages();
 //	     registerLibraries();
