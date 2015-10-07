@@ -58,7 +58,7 @@ The service is available at `localhost:8080/lp-content-analysis/`.
 
 
 # Note
-You can also refer to the `Main` to see an example of how the Content Analysis API can be used.
+You can also refer to 
 `http://localhost:8080/lp-content-analysis/application.wadl`
 Wiki of repo is [here](https://github.com/ISTI-FMT-LearnPAd/ContentAnalysisComponent/wiki)
 
