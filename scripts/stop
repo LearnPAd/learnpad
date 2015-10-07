@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+
+### VARIABLES ###
+
+declare -r __CATALINA__BASE__="${CATALINA_BASE}"
+
+declare -r __CATALINA__WEB__="${__CATALINA__BASE__}/webapps"
+
+
+function component_uninstall() {
+
+    if [[ -z "${CATALINA_BASE+1}"  ]]; then
+        echo please set CATALINA_BASE
+    else
+    	rm -rf "${__CATALINA__WEB__}/lp-contentanalysis-component"*".war"
+    	rm -rf "${__CATALINA__WEB__}/lp-contentanalysis-component"
+    	echo component deleted
+    	
+    fi
+
+}
+
+component_uninstall

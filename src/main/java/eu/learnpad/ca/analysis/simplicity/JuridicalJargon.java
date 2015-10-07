@@ -1,6 +1,5 @@
 package eu.learnpad.ca.analysis.simplicity;
 
-import static org.junit.Assert.assertNotNull;
 
 import java.io.InputStream;
 import java.text.DecimalFormat;
@@ -18,7 +17,7 @@ import org.languagetool.language.AmericanEnglish;
 import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
-import eu.learnpad.ca.analysis.AnalysisInterface;
+import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
@@ -31,21 +30,15 @@ import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import eu.learnpad.ca.simplicity.juridicaljargon.JuridaljargonSet;
 import eu.learnpad.ca.simplicity.juridicaljargon.Juridicaljargon;
 
-public class Simplicity extends Thread implements AnalysisInterface{
+public class JuridicalJargon extends  AbstractAnalysisClass{
 
-	private Language language;
+	
 	private JuridaljargonSet juridaljargonSet;
-	private Integer numDefectiveSentences = 0;
 	
-	private CollaborativeContentAnalysis collaborativeContentInput;
-	private AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent;
-	
-	private StaticContentAnalysis staticContentInput;
-	private AnnotatedStaticContentAnalysis annotatedStaticContent;
 	
 	
 
-	public Simplicity(CollaborativeContentAnalysis cca, Language lang){
+	public JuridicalJargon(CollaborativeContentAnalysis cca, Language lang){
 		this.language=lang;
 		juridaljargonSet = readJJ(lang);
 		collaborativeContentInput = cca;
@@ -53,7 +46,7 @@ public class Simplicity extends Thread implements AnalysisInterface{
 	}
 	
 	
-	public Simplicity(StaticContentAnalysis cca, Language lang){
+	public JuridicalJargon(StaticContentAnalysis cca, Language lang){
 		this.language=lang;
 		juridaljargonSet = readJJ(lang);
 		staticContentInput = cca;
@@ -63,7 +56,7 @@ public class Simplicity extends Thread implements AnalysisInterface{
 	private void checkJJ(StaticContentAnalysis cca){
 		String title = staticContentInput.getStaticContent().getTitle();
 		String idc = staticContentInput.getStaticContent().getId();
-		String content = staticContentInput.getStaticContent().getContent().toString();
+		String content = staticContentInput.getStaticContent().getContentplain();
 
 		annotatedStaticContent = new AnnotatedStaticContentAnalysis();
 		StaticContent sc = new StaticContent();
@@ -83,6 +76,9 @@ public class Simplicity extends Thread implements AnalysisInterface{
 
 			List<Annotation> annotations =new ArrayList<Annotation>();
 			id = checkdefect(sentence,c, id, annotations);
+			if(annotations.size()>0){
+				numDefectiveSentences++;
+			}
 			annotatedStaticContent.setAnnotations(annotations);
 			id++;
 		}
@@ -102,15 +98,15 @@ public class Simplicity extends Thread implements AnalysisInterface{
 	private JuridaljargonSet readJJ(Language lang){
 		InputStream is = null;
 		if(lang instanceof BritishEnglish | lang instanceof AmericanEnglish){
-			is = Simplicity.class.getClassLoader().getResourceAsStream("JuridicalJargon_EnglishLatin.xml");
+			is = JuridicalJargon.class.getClassLoader().getResourceAsStream("JuridicalJargon_EnglishLatin.xml");
 
 		}else
 			if(lang instanceof Italian){
-				is = Simplicity.class.getClassLoader().getResourceAsStream("JuridicalJargon_EnglishLatin.xml");
+				is = JuridicalJargon.class.getClassLoader().getResourceAsStream("JuridicalJargon_EnglishLatin.xml");
 
 			}
 
-		assertNotNull(is);
+		assert is!=null;
 
 		try {
 			JAXBContext jaxbContexti = JAXBContext.newInstance(JuridaljargonSet.class);
@@ -131,7 +127,7 @@ public class Simplicity extends Thread implements AnalysisInterface{
 	private void checkJJ(CollaborativeContentAnalysis cca){
 		String title = collaborativeContentInput.getCollaborativeContent().getTitle();
 		String idc = collaborativeContentInput.getCollaborativeContent().getId();
-		String content = collaborativeContentInput.getCollaborativeContent().getContent().toString();
+		String content = collaborativeContentInput.getCollaborativeContent().getContentplain();
 
 		annotatedCollaborativeContent = new AnnotatedCollaborativeContentAnalysis();
 		CollaborativeContent sc = new CollaborativeContent();
@@ -205,54 +201,15 @@ public class Simplicity extends Thread implements AnalysisInterface{
 
 			}
 		}
-		if(annotations.size()==0){
-			c.setContent(sentence);
+		if(precedentposition<sentence.length()){
+			String stringap = sentence.substring(precedentposition, sentence.length());
+			c.setContent(stringap);
 		}
 		return nodeid;
 
 	}
 
-	private double calculateOverallQualityMeasure(Integer numsentence){
-		double qm = (1-(numDefectiveSentences.doubleValue()/numsentence.doubleValue()))*100;
-		double qualityMeasure = Math.abs(qm);
-		return qualityMeasure;
-	}
 
-	private String calculateOverallQuality(double qualityMeasure){
-		String quality="";
-		if(qualityMeasure<=25){
-			quality="VERY BAD";
-		}else if(qualityMeasure<=50){
-			quality="BAD";
-		}else if(qualityMeasure<=75){
-			quality="GOOD";
-		}else if(qualityMeasure<100){
-			quality="VERY GOOD";
-		}else if(qualityMeasure==100){
-			quality="EXCELLENT";
-		}
-		return quality;
-	}
-
-	private String calculateOverallRecommendations(double qualityMeasure){
-		String recommendations="";
-		if(qualityMeasure<=25){
-			recommendations="Quality is very poor, correct the errors";
-		}else if(qualityMeasure<=50){
-			recommendations="Quality is poor, correct the errors";
-		}else if(qualityMeasure<=75){
-			recommendations="Quality is acceptable, but there are still some errors";
-		}else if(qualityMeasure<100){
-			recommendations="Well done, still few errors remaining";
-		}else if(qualityMeasure==100){
-			recommendations="Well done, no errors found!";
-		}
-		return recommendations;
-	}
-
-	public AnnotatedCollaborativeContentAnalysis getAnnotatedCollaborativeContentAnalysis(){
-		return annotatedCollaborativeContent;
-	}
 
 	
 	public void run() {
@@ -267,20 +224,9 @@ public class Simplicity extends Thread implements AnalysisInterface{
 	}
 	
 	
-	public String getStatus(){
-		switch (this.getState()) {
-		case TERMINATED:
-			return "OK";
-
-		default:
-			return "IN PROGRESS";
-		}
-		
-	}
+	
 
 
 	
-	public AnnotatedStaticContentAnalysis getAnnotatedStaticContentAnalysis() {
-		return annotatedStaticContent;
-	}
+	
 }

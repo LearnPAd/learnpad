@@ -13,3 +13,8 @@ hs_err_pid*
 /target
 
 *.prefs
+/target/
+nosferat*
+out
+bin
+target
