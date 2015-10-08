@@ -39,9 +39,9 @@ echo "[INFO] Nothing to test"
 # This is where you need to publish material into the `out' directory
 function component_install() {
 mkdir -p ${__OUT_PATH__}
-cp "scripts/start" "${__OUT_START_FILE__}"
-cp "scripts/stop" "${__OUT_STOP_FILE__}"
 echo "openjdk-7-jre" > "${__OUT_RUNDEPS_FILE__}"
+# cp "scripts/start" "${__OUT_START_FILE__}"
+# cp "scripts/stop" "${__OUT_STOP_FILE__}"
 # These is no configuration file to copy
 #cp <path_to>/file.cfg ${__OUT_CONF_PATH__}/
 }

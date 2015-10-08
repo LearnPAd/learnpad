@@ -8,7 +8,7 @@ Partner       | XWIKI, CNR
 WP            | 2
 Responsible   | Jean Simard <jean.simard@xwiki.com>
 Collaborators | Guglielmo de Angelis <guglielmo.deangelis@isti.cnr.it>
-Roadmap       | wiki.learnpad.eu/LearnPAdWiki/bin/view/Components/Template
+Roadmap       | http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Template
 
 # Summary
 This is the core of the Learn PAd platform.  It provides the global platform as

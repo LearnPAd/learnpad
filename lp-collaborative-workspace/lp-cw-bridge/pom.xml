@@ -35,7 +35,7 @@
 	<name>Learn PAd - Collaborative Workspace - Bridge</name>
 
 	<modules>
-		<module>lp-cw-bridge-importer</module>
 		<module>lp-cw-bridge-transformer</module>
+		<module>lp-cw-bridge-implementation</module>
 	</modules>
 </project>

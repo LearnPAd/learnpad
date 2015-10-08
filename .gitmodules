@@ -1,3 +1,0 @@
-[submodule "lp-collaborative-workspace/lp-cw-bridge/bpmn2-emf"]
-	path = lp-core-platform/bpmn2-emf
-	url = https://github.com/LearnPAd/bpmn2-emf.git

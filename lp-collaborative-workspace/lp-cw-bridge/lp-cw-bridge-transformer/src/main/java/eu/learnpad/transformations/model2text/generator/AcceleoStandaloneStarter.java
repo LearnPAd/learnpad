@@ -38,6 +38,7 @@ public class AcceleoStandaloneStarter{
 	
 	   public void execute(String modelPath, String resultFolderPath) {
 		   
+
 	    
          URI modelURI = URI.createFileURI(modelPath);
          File folder = new File(resultFolderPath);

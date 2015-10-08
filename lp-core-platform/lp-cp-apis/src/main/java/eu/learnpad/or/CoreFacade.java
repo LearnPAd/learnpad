@@ -19,8 +19,12 @@
  */
 package eu.learnpad.or;
 
-import eu.learnpad.or.rest.GetComments;
+import javax.ws.rs.Path;
 
-public interface CoreFacade extends GetComments {
+import eu.learnpad.or.rest.GetComments;
+import eu.learnpad.or.rest.ModelImporter;
+
+@Path("/learnpad/or/corefacade")
+public interface CoreFacade extends GetComments, ModelImporter {
 
 }

@@ -84,7 +84,6 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 			
 //			String model_in = "resources/model/PATestCityApplication.xmi";
 			String model_in = "resources/model/TitoloUnico.xml";
-			
 			/*
 			 * Metamodel alignment
 			 */

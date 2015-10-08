@@ -27,7 +27,7 @@ import javax.ws.rs.QueryParam;
 import eu.learnpad.exception.LpRestException;
 
 // <host>/learnpad/or/{modelsetid}/{modelid}/simulationnotification?action={started|stopped},simulationid=id
-@Path("/learnpad/or/{modelsetid}/{modelid}/simulationnotification")
+@Path("/{modelsetid}/{modelid}/simulationnotification")
 public interface SimulationNotification {
 	/**
 	 * @param modelSetId

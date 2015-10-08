@@ -28,7 +28,7 @@ declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
 function component_build() {
     # mvn clean install -Dmaven.test.skip=true
     # skip tests as we will do them in the component_test stage
-    mvn $__MVN_PROFILE__ clean package -Dmaven.test.skip=true
+    mvn $__MVN_PROFILE__ clean install -Dmaven.test.skip=true
 }
 
 ### TEST ###
