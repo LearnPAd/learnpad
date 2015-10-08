@@ -30,6 +30,7 @@ import org.apache.commons.io.IOUtils;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.CoreFacade;
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.sim.rest.data.UserData;
 
 /*
@@ -109,5 +110,12 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 	public String startSimulation(String modelId, String currentUser,
 			Collection<UserData> potentialUsers) throws LpRestException {
 		return this.sim.addProcessInstance(modelId, potentialUsers, currentUser);
+	}
+
+	@Override
+	public Recommendations getRecommendations(String modelSetId,
+			String artifactId, String userId) throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
