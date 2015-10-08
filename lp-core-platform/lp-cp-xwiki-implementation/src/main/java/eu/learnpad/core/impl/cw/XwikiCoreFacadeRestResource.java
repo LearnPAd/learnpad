@@ -22,6 +22,9 @@ package eu.learnpad.core.impl.cw;
 import java.io.IOException;
 import java.util.Collection;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -115,7 +118,17 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 	@Override
 	public Recommendations getRecommendations(String modelSetId,
 			String artifactId, String userId) throws LpRestException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+		Client client = ClientBuilder.newClient();
+        client.register(RestResource.getXWikiAuthenticator());
+        
+        
+// We should look a way for accessing the annotations with reflection
+//        eu.learnpad.or.Bridge.class.getAnnotation(Path.class).value();
+        
+        String URI = this.REST_URI + "learnpad/cw/corefacade/recommendation";
+        
+        Recommendations response = client.target(URI).queryParam("modelsetid", modelSetId).queryParam("artifactid", artifactId).queryParam("userid", userId).request("application/xml").get(Recommendations.class);
+        
+		return response;	}
 }

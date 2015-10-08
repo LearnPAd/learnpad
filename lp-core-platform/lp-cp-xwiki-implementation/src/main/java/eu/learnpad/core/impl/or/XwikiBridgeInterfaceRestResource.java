@@ -74,7 +74,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 // We should look a way for accessing the annotations with reflection
 //        eu.learnpad.or.Bridge.class.getAnnotation(Path.class).value();
         
-        String URI = this.REST_URI + "learnpad/or/corefacade/" + modelSetId + "/recommendation";
+        String URI = this.REST_URI + "learnpad/or/bridge/" + modelSetId + "/recommendation";
         
         Recommendations response = client.target(URI).queryParam("artifactid", artifactId).queryParam("userid", userId).queryParam("type", type).request("application/xml").get(Recommendations.class);
         
