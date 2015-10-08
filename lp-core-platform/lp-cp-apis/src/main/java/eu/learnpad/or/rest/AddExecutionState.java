@@ -27,7 +27,7 @@ import javax.ws.rs.QueryParam;
 import eu.learnpad.exception.LpRestException;
 
 // <host>/learnpad/or/execution/{modelsetid}?executionId=id,userid=id,threadid=id,pageid=id,artifactid=id
-@Path("/learnpad/or/execution/{modelsetid}")
+@Path("/execution/{modelsetid}")
 public interface AddExecutionState {
 
 	/**
