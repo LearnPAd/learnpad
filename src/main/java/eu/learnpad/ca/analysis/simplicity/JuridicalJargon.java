@@ -33,6 +33,10 @@ import eu.learnpad.ca.simplicity.juridicaljargon.Juridicaljargon;
 public class JuridicalJargon extends  AbstractAnalysisClass{
 
 	
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(JuridicalJargon.class);
+
+	
+	
 	private JuridaljargonSet juridaljargonSet;
 	
 	
@@ -83,14 +87,14 @@ public class JuridicalJargon extends  AbstractAnalysisClass{
 			id++;
 		}
 
-		//System.out.println(content);
+		
 
 		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 		annotatedStaticContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 		annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 		annotatedStaticContent.setType("Simplicity");
-
+		log.trace("\nnumDefectiveSentences AlternativeTerm: "+numDefectiveSentences);
 
 	}
 	
@@ -154,15 +158,14 @@ public class JuridicalJargon extends  AbstractAnalysisClass{
 			id++;
 		}
 
-		//System.out.println(content);
-
+		
 		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 		annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 		annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 		annotatedCollaborativeContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 		annotatedCollaborativeContent.setType("Simplicity");
 
-
+		log.trace("\nnumDefectiveSentences AlternativeTerm: "+numDefectiveSentences);
 	}
 
 	private int checkdefect(String sentence,Content c,int nodeid,List<Annotation> annotations){

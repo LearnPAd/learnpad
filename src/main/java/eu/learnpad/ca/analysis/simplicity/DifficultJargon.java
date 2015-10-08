@@ -29,7 +29,7 @@ import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 
 public class DifficultJargon  extends  AbstractAnalysisClass{ 
 
-	
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DifficultJargon.class);
 
 
 	public DifficultJargon(StaticContentAnalysis cca, Language lang){
@@ -76,7 +76,7 @@ public class DifficultJargon  extends  AbstractAnalysisClass{
 		List<String> listsentence = langTool.sentenceTokenize(content);
 		insertdefectannotation(content,c,listsentence);
 
-		//System.out.println(content);
+		
 
 		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
@@ -111,7 +111,7 @@ public class DifficultJargon  extends  AbstractAnalysisClass{
 		annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 		annotatedCollaborativeContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 		annotatedCollaborativeContent.setType("Simplicity DifficultJargon");
-		//System.out.println(annotatedCollaborativeContent);
+		
 
 	}
 
@@ -132,7 +132,7 @@ public class DifficultJargon  extends  AbstractAnalysisClass{
 
 		}
 
-		System.out.println("\nnumDefectiveSentences: "+numDefectiveSentences);
+		log.trace("\nnumDefectiveSentences: "+numDefectiveSentences);
 		
 	}
 
@@ -159,7 +159,7 @@ public class DifficultJargon  extends  AbstractAnalysisClass{
 				if(precedentposition>initialpos){
 					//initialpos = sentence.lastIndexOf(token);
 					//finalpos = initialpos+token.length();
-					System.out.println();
+					log.error("token not find");
 				}
 				String stringap = sentence.substring(precedentposition, initialpos);
 				c.setContent(stringap);

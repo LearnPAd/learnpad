@@ -3,13 +3,10 @@ package eu.learnpad.ca.analysis.contentclarity;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import java.util.HashMap;
-
 import java.util.List;
 import java.util.Map;
 
-import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,7 +15,6 @@ import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
-
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
@@ -31,8 +27,9 @@ import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 
 public class UnclearAcronym  extends  AbstractAnalysisClass{ 
 
-	
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(UnclearAcronym.class);
 
+	
 
 	public UnclearAcronym(StaticContentAnalysis cca, Language lang){
 		this.language=lang;
@@ -81,7 +78,6 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 		List<String> listsentence = langTool.sentenceTokenize(content);
 		checkdefect(content,c,listsentence);
 
-		//System.out.println(content);
 
 		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
@@ -116,7 +112,7 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 		annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 		annotatedCollaborativeContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 		annotatedCollaborativeContent.setType("Content Clarity");
-		//System.out.println(annotatedCollaborativeContent);
+		
 
 	}
 
@@ -132,7 +128,7 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 		JLanguageTool langTool = new JLanguageTool(language);
 		List<String> listsentenceofContentCleaned = langTool.sentenceTokenize(ContentCleaned);
 
-		//System.out.println(ContentCleaned); 
+		
 		String regex = "[A-Z|\\.]{2,}";
 
 		// Create a Pattern object
@@ -146,7 +142,6 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 				String tmpcandidateAcronym = m.group();
 				String candidateAcronym = tmpcandidateAcronym;
 				if(candidateAcronym.length()<=1 | (candidateAcronym.contains(".")&candidateAcronym.length()==2 ) | (!candidateAcronym.contains(".")&candidateAcronym.length()>4 )){
-					//System.out.println("candidato scartato "+candidateAcronym);
 					continue;
 				}
 				if(candidateAcronym.contains(".") ){
@@ -167,7 +162,7 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 					//ok trovato  acronimi estesi
 
 					String candidateexAcr = m2.group();
-					//System.out.println(candidateexAcr);
+					
 
 					String [] splited = candidateexAcr.split("\\s");
 					if(candidateAcronym.length()==splited.length){
@@ -204,8 +199,8 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 		}
 
 
-		System.out.println(acronym+"\nsize: "+acronym.size());
-		System.out.println(acronymdefected+"\nsize: "+acronymdefected.size());
+		log.trace(acronym+"\nsize: "+acronym.size());
+		log.trace(acronymdefected+"\nsize: "+acronymdefected.size());
 		insertdefectannotation(content, c ,  acronymdefected, listsentence );
 
 	}
@@ -225,7 +220,7 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 
 		}
 
-		System.out.println("\nnumDefectiveSentences UnclearAcronym: "+numDefectiveSentences);
+		log.trace("\nnumDefectiveSentences UnclearAcronym: "+numDefectiveSentences);
 		
 	}
 
@@ -250,7 +245,7 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 				if(precedentposition>initialpos){
 					//initialpos = sentence.lastIndexOf(token);
 					//finalpos = initialpos+token.length();
-					System.out.println();
+					log.fatal("error jump position");
 				}
 				String stringap = sentence.substring(precedentposition, initialpos);
 				c.setContent(stringap);

@@ -26,7 +26,7 @@ import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 
-
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(CorrectnessAnalysis.class);
 	
 
 	public CorrectnessAnalysis(Language lang){
@@ -111,7 +111,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			List<String> listsentence = langTool.sentenceTokenize(content);
 		
 
-			//System.out.println(content);
+			
 			annotatedStaticContent = new AnnotatedStaticContentAnalysis();
 			StaticContent sc = new StaticContent();
 			annotatedStaticContent.setStaticContent(sc);
