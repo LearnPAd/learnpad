@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><object xmlns="http://www.xwiki.org"><className>LPCode.BaseElementClass</className>
+	<property name="id" type="String"><value>obj.16268</value></property>
+	<property name="name" type="String"><value>Intermediate Event (boundary)-83066</value></property>
+	<property name="type" type="StaticList"><value>Intermediate Event (boundary)</value></property>
+	<property name="documentation" type="TextArea"><value></value></property>
+</object>

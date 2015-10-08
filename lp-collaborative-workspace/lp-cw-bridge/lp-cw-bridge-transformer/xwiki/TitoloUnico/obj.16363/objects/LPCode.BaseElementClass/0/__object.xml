@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><object xmlns="http://www.xwiki.org"><className>LPCode.BaseElementClass</className>
+	<property name="id" type="String"><value>obj.16363</value></property>
+	<property name="name" type="String"><value>Text Annotation-83144</value></property>
+	<property name="type" type="StaticList"><value>Text Annotation</value></property>
+	<property name="documentation" type="TextArea"><value></value></property>
+</object>

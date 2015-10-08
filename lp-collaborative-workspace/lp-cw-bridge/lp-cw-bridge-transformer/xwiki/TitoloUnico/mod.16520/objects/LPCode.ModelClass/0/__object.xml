@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><object xmlns="http://www.xwiki.org"><className>LPCode.ModelClass</className>
+	<property name="id" type="String"><value>mod.16520</value></property>
+	<property name="name" type="String"><value>Document and Knowledge model TitoloUnico</value></property>
+	<property name="type" type="StaticList"><value>dkm</value></property>
+</object>

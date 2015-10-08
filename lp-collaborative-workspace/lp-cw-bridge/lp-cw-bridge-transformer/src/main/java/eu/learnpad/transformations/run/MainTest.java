@@ -32,7 +32,7 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 //			String tmpXwikiModelName = "xwiki_output_model.xmi";
 			String tmpModelPath = tmpModelFolder + tmpXwikiModelName;
 
-			String resultFolderPath = "result";
+			String resultFolderPath = "result/";
 			
 			try {
 				
@@ -54,7 +54,8 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 				 */
 				System.out.println("Starting Acceleo Model2Text transformation...");
 				AcceleoStandaloneStarter ast = new AcceleoStandaloneStarter();
-				ast.execute(tmpModelPath, resultFolderPath);
+				//TODO Change folder path with model name
+				ast.execute(tmpModelPath, "result/xwiki/TitoloUnico");
 				System.out.println("Acceleo Model2Text done. You can find the result in the /result folder.");
 				
 			} catch (IOException e) {
@@ -82,7 +83,7 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 			 */
 			
 //			String model_in = "resources/model/PATestCityApplication.xmi";
-			String model_in = "resources/model/PATestCityApplication.xml";
+			String model_in = "resources/model/TitoloUnico.xml";
 			
 			/*
 			 * Metamodel alignment

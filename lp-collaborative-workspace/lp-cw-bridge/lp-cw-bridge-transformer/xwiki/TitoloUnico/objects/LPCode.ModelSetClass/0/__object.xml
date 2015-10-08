@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?><object xmlns="http://www.xwiki.org"><className>LPCode.ModelSetClass</className>
+	<property name="id" type="String"><value>id????</value></property>
+	<property name="name" type="String"><value>name????</value></property>
+</object>
