@@ -27,7 +27,7 @@ import javax.ws.rs.QueryParam;
 import eu.learnpad.exception.LpRestException;
 
 // <host>/learnpad/cw/modelverified/{modelsetid}?result={will be a Java class but waiting for a PR first}
-@Path("/learnpad/cw/modelverified/{modelsetid}")
+@Path("/modelverified/{modelsetid}")
 public interface ModelVerified {
 	/**
 	 * @param modelSetId
