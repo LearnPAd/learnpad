@@ -37,6 +37,8 @@ import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 public class DifficultJargonAlternative  extends  AbstractAnalysisClass{ 
 
 	
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DifficultJargonAlternative.class);
+	
 	private AlternativeTermSet alternativetermset;
 	
 
@@ -87,13 +89,14 @@ public class DifficultJargonAlternative  extends  AbstractAnalysisClass{
 		List<String> listsentence = langTool.sentenceTokenize(content);
 		insertdefectannotation(content,c,listsentence);
 
-		//System.out.println(content);
+		
 
 		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 		annotatedStaticContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 		annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 		annotatedStaticContent.setType("Simplicity DifficultJargon Alternative");
+		log.trace("\nnumDefectiveSentences AlternativeTerm: "+numDefectiveSentences);
 
 	}
 
@@ -122,7 +125,7 @@ public class DifficultJargonAlternative  extends  AbstractAnalysisClass{
 		annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 		annotatedCollaborativeContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 		annotatedCollaborativeContent.setType("Simplicity DifficultJargon Alternative");
-		//System.out.println(annotatedCollaborativeContent);
+		log.trace("\nnumDefectiveSentences AlternativeTerm: "+numDefectiveSentences);
 
 	}
 
@@ -170,7 +173,7 @@ public class DifficultJargonAlternative  extends  AbstractAnalysisClass{
 
 		}
 
-		System.out.println("\nnumDefectiveSentences AlternativeTerm: "+numDefectiveSentences);
+		log.trace("\nnumDefectiveSentences AlternativeTerm: "+numDefectiveSentences);
 		
 	}
 
@@ -197,6 +200,7 @@ public class DifficultJargonAlternative  extends  AbstractAnalysisClass{
 					//initialpos = sentence.lastIndexOf(token);
 					//finalpos = initialpos+token.length();
 					System.out.println();
+					log.error("token not find");
 				}
 				String stringap = sentence.substring(precedentposition, initialpos);
 				c.setContent(stringap);

@@ -26,6 +26,7 @@ import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 public class SyntacticAmbiguity extends AbstractAnalysisClass{ 
 
 
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(SyntacticAmbiguity.class);
 
 
 	public SyntacticAmbiguity(CollaborativeContentAnalysis cca, Language lang){
@@ -126,7 +127,8 @@ public class SyntacticAmbiguity extends AbstractAnalysisClass{
 			annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 			annotatedCollaborativeContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 			annotatedCollaborativeContent.setType("non_ambiguity");
-			System.out.println(annotatedCollaborativeContent);
+			//System.out.println(annotatedCollaborativeContent);
+			log.trace("\nnumDefectiveSentences AlternativeTerm: "+numDefectiveSentences);
 
 		
 	}
