@@ -35,6 +35,9 @@ import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.cw.BridgeInterface;
 import eu.learnpad.cw.Controller;
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.sim.rest.data.UserData;
 
 /*
@@ -136,5 +139,12 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	public String startSimulation(String modelId, String currentUser,
 			Collection<UserData> potentialUsers) throws LpRestException {
 		return this.sim.addProcessInstance(modelId, potentialUsers, currentUser);
+	}
+
+	@Override
+	public Recommendations getRecommendations(String modelSetId,
+			String artifactId, String userId) throws LpRestException {
+		Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userId, "it-seams-it-has-no-meaning");
+		return rec;
 	}
 }

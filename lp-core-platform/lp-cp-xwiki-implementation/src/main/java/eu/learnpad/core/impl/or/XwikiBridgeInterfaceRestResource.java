@@ -19,6 +19,11 @@
  */
 package eu.learnpad.core.impl.or;
 
+import javax.ws.rs.Path;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.Response;
+
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.or.BridgeInterface;
@@ -61,7 +66,19 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	public Recommendations askRecommendation(String modelSetId, String artifactId,
 			String userId, String type) throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
-		return null;
+
+		Client client = ClientBuilder.newClient();
+        client.register(RestResource.getXWikiAuthenticator());
+        
+        
+// We should look a way for accessing the annotations with reflection
+//        eu.learnpad.or.Bridge.class.getAnnotation(Path.class).value();
+        
+        String URI = this.REST_URI + "learnpad/or/bridge/" + modelSetId + "/recommendation";
+        
+        Recommendations response = client.target(URI).queryParam("artifactid", artifactId).queryParam("userid", userId).queryParam("type", type).request("application/xml").get(Recommendations.class);
+        
+		return response;
 	}
 
 	@Override

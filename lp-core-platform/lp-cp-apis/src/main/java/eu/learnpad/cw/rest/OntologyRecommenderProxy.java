@@ -17,18 +17,20 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.cw;
+package eu.learnpad.cw.rest;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 
-import eu.learnpad.cw.rest.CommentNotification;
-import eu.learnpad.cw.rest.ModelImporter;
-import eu.learnpad.cw.rest.OntologyRecommenderProxy;
-import eu.learnpad.cw.rest.ResourceNotification;
-import eu.learnpad.cw.rest.Simulation;
+import eu.learnpad.exception.LpRestException;
+import eu.learnpad.or.rest.data.Recommendations;
 
-@Path("/learnpad/cw/corefacade")
-public interface CoreFacade extends CommentNotification, ModelImporter,
-		ResourceNotification, Simulation, OntologyRecommenderProxy {
+@Path("/recommendation")
+public interface OntologyRecommenderProxy {
 
+	@GET
+	public Recommendations getRecommendations(@QueryParam("modelsetid") String modelSetId,
+			@QueryParam("artifactid") String artifactId,
+			@QueryParam("userid") String userId) throws LpRestException;
 }
