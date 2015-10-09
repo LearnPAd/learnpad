@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Ado:ADOXMLType xmi:version="2.0"  xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ado="http://www.ado.org" xsi:schemaLocation="http://www.ado.org /Adoxx2XWiki/models/Ado.ecore">
+<!DOCTYPE ADOXML SYSTEM "adoxml31.dtd">
+<ADOXML version="3.1" date="10.09.2015" time="17:50" database="learnpad" username="Admin" adoversion="Version 1.0 4.0">
 <MODELS>
 <MODEL id="mod.16855" name="Org Model Sarnano Municipality" version="1" modeltype="Organizational structure" libtype="we" applib="LearnPAd Prototype Static Library 0.21">
 <MODELATTRIBUTES>
@@ -14148,4 +14149,4 @@ ATTR &quot;Id&quot; </ATTRIBUTE>
 <MODELREFERENCE name="Org Model Sarnano Municipality" version="1" modeltype="Organizational structure" libtype="we"></MODELREFERENCE>
 </MODELGROUP>
 </MODELGROUPS>
-</Ado:ADOXMLType>
+</ADOXML>
