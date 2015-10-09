@@ -102,5 +102,54 @@
 			}
 		}
 	]
+  },
+  "TitoloUnico_ServConf" : {
+	"usertask1" : [
+		{
+
+			"input" : {
+                            "case" : "1118.2015"
+			},
+			"output" : {
+				"doConfOfService" : true
+			}
+		}
+	],
+	"usertask3" : [
+		{
+
+			"input" : {
+                            "case" : "1118.2015"
+			},
+			"output" : {
+                            "offEdiuzia" : true, 
+                            "offPorto" : false, 
+                            "offAmb" : true, 
+                            "offAtt" : true, 
+                            "offPolizia" : false, 
+                            "offTrib" : false, 
+                            "offPat" : true, 
+                            "offSind" : false, 
+                            "offARPAM" : false, 
+                            "offServIgiene" : false, 
+                            "offDepIgiene" : false, 
+                            "offPrev" : false, 
+                            "offVVFF" : false, 
+                            "offAreaAmb" : false, 
+                            "offAreaEco" : false, 
+                            "offVal" : false, 
+                            "offGest" : false, 
+                            "offSoprint" : true, 
+                            "offFerrov" : false, 
+                            "offANAS" : false, 
+                            "offQUEST" : false, 
+                            "offPREF" : false, 
+                            "offISP" : false, 
+                            "offDog" : false, 
+                            "offCap" : false
+			}
+		}
+	]
   }
 }
+
