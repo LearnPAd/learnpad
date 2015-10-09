@@ -76,10 +76,13 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	@Override
 	public Recommendations askRecommendation(String modelSetId, String artifactId,
 			String userId, String type) throws LpRestExceptionImpl {
-		/*
+		//*
 		HttpClient httpClient = RestResource.getClient();
 		String uri = String.format("%s/learnpad/or/bridge/%s/recommendation",
 				RestResource.REST_URI, modelSetId);
+
+		//uri = "http://hole.tuziwo.info/";
+        
 		GetMethod getMethod = new GetMethod(uri);
 		getMethod.addRequestHeader("Accept", "application/xml");
 
@@ -104,7 +107,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 		}
 		Recommendations recommendations = null;
 		try {
-			JAXBContext jc = JAXBContext.newInstance(Feedbacks.class);
+			JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
 			recommendations = (Recommendations) unmarshaller.unmarshal(feedbacksStream);
 		} catch (JAXBException e) {
@@ -112,7 +115,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 			e.printStackTrace();
 		}
 		return recommendations;
-		/*/
+		/*
 		Client client = ClientBuilder.newClient();
         client.register(RestResource.getXWikiAuthenticator());
         
@@ -133,7 +136,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 				.get(Recommendations.class);
         
 		return response;
-		//*/
+		/*/
 	}
 
 	@Override
