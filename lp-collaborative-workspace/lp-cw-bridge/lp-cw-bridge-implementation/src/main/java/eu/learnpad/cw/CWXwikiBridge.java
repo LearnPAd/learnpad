@@ -31,6 +31,7 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Provider;
+import javax.inject.Singleton;
 import javax.ws.rs.Path;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -67,6 +68,7 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
 
 @Component
+@Singleton
 @Named("eu.learnpad.cw.CWXwikiBridge")
 @Path("/learnpad/cw/bridge")
 public class CWXwikiBridge extends XwikiBridge {

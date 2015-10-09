@@ -20,10 +20,14 @@
 package eu.learnpad.core.impl.cw;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
@@ -32,6 +36,7 @@ import org.apache.commons.io.IOUtils;
 
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.CoreFacade;
+import eu.learnpad.cw.rest.data.Feedbacks;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.sim.rest.data.UserData;
@@ -118,7 +123,42 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 	@Override
 	public Recommendations getRecommendations(String modelSetId,
 			String artifactId, String userId) throws LpRestException {
+		HttpClient httpClient = RestResource.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/recommendation",
+				RestResource.REST_URI);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Accept", "application/xml");
 
+		NameValuePair[] queryString = new NameValuePair[3];
+		queryString[0] = new NameValuePair("modelsetid", modelSetId);
+		queryString[1] = new NameValuePair("artifactid", artifactId);
+		queryString[2] = new NameValuePair("userid", userId);
+		getMethod.setQueryString(queryString);
+
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		InputStream feedbacksStream = null;
+		try {
+			feedbacksStream = getMethod.getResponseBodyAsStream();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Recommendations recommendations = null;
+		try {
+			JAXBContext jc = JAXBContext.newInstance(Feedbacks.class);
+			Unmarshaller unmarshaller = jc.createUnmarshaller();
+			recommendations = (Recommendations) unmarshaller.unmarshal(feedbacksStream);
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return recommendations;
+		/*
 		Client client = ClientBuilder.newClient();
         client.register(RestResource.getXWikiAuthenticator());
         
@@ -128,7 +168,13 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
         
         String URI = this.REST_URI + "learnpad/cw/corefacade/recommendation";
         
-        Recommendations response = client.target(URI).queryParam("modelsetid", modelSetId).queryParam("artifactid", artifactId).queryParam("userid", userId).request("application/xml").get(Recommendations.class);
+		Recommendations response = client.target(URI)
+				.queryParam("modelsetid", modelSetId)
+				.queryParam("artifactid", artifactId)
+				.queryParam("userid", userId).request("application/xml")
+				.get(Recommendations.class);
         
-		return response;	}
+		return response;
+		*/
+	}
 }
