@@ -298,6 +298,8 @@ public abstract class AbstractFormHandler implements IFormHandler {
 			res += ",\"format\": \"date\"";
 		} else if (type.equals("boolean")) {
 			res += "\"boolean\"";
+		} else if (type.equals("textarea")) {
+			res += "\"string\"";
 		}
 
 		return res;
@@ -348,6 +350,10 @@ public abstract class AbstractFormHandler implements IFormHandler {
 		} else if (type.equals("boolean")) {
 			res += "{ \"key\": \"" + field.id + "\"";
 			res += ",\"inlinetitle\": \"" + field.title + "\"";
+			res += "}";
+		} else if (type.equals("textarea")) {
+			res += "{ \"key\": \"" + field.id + "\"";
+			res += ",\"type\": \"textarea\"";
 			res += "}";
 		}
 
