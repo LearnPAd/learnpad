@@ -150,7 +150,7 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 		}
 		Recommendations recommendations = null;
 		try {
-			JAXBContext jc = JAXBContext.newInstance(Feedbacks.class);
+			JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
 			recommendations = (Recommendations) unmarshaller.unmarshal(feedbacksStream);
 		} catch (JAXBException e) {
