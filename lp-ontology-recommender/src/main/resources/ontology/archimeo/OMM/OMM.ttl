@@ -1,0 +1,144 @@
+# baseURI: http://ikm-group.ch/archiMEO/omm
+# imports: http://ikm-group.ch/archiMEO/archimate
+# imports: http://ikm-group.ch/archiMEO/emo
+# imports: http://ikm-group.ch/archiMEO/eo
+
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
+@prefix omm: <http://ikm-group.ch/archiMEO/omm#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ikm-group.ch/archiMEO/omm>
+  rdf:type owl:Ontology ;
+  cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+  cc:license "This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License."@en ;
+  dc:contributor "Andreas Martin"^^xsd:string ;
+  dc:contributor "Knut Hinkelmann"^^xsd:string ;
+  dc:contributor "Sandro Emmenegger"^^xsd:string ;
+  dc:creator "Barbara Thönssen"^^xsd:string ;
+  dc:description "The OMM Ontology"@en ;
+  dc:issued "2015-03-04"^^xsd:date ;
+  dc:publisher <http://de.dbpedia.org/resource/Fachhochschule_Nordwestschweiz> ;
+  dc:publisher <http://www.fhnw.ch/business> ;
+  dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
+  dc:rights "Copyright 2015 FHNW "^^xsd:string ;
+  dc:title "The OMM Ontology"@en ;
+  owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
+  owl:imports <http://ikm-group.ch/archiMEO/emo> ;
+  owl:imports <http://ikm-group.ch/archiMEO/eo> ;  
+  owl:versionInfo "1.0"^^xsd:string ;
+.
+omm:CostCenter
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:OrganisationMetaModel ;
+.
+omm:OrganisationalUnit
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:OrganisationMetaModel ;
+.
+omm:Performer
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:OrganisationMetaModel ;
+.
+omm:Position
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:OrganisationMetaModel ;
+.
+omm:Role
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:OrganisationMetaModel ;
+.
+omm:Team
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:OrganisationMetaModel ;
+.
+omm:TextAnnotation
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:OrganisationMetaModel ;
+.
+omm:organisationalUnitCoversOrganisationalUnit
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "in LPMM pointer name = has organizational model"^^xsd:string ;
+  rdfs:domain omm:OrganisationalUnit ;
+  rdfs:range omm:OrganisationalUnit ;
+.
+omm:organisationalUnitHasAssignedRole
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain omm:OrganisationalUnit ;
+  rdfs:range omm:Role ;
+.
+omm:organisationalUnitHasPosition
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain omm:OrganisationalUnit ;
+  rdfs:range omm:Position ;
+.
+omm:organisationalUnitHasRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain omm:OrganisationalUnit ;
+  rdfs:range omm:Role ;
+.
+omm:organisationalUnitIsSubordinatedToOrganisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain omm:OrganisationalUnit ;
+  rdfs:range omm:OrganisationalUnit ;
+.
+omm:performerBelongsToOrgUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain omm:Performer ;
+  rdfs:range omm:OrganisationalUnit ;
+.
+omm:performerBelongsToOrganisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain omm:Performer ;
+  rdfs:range omm:OrganisationalUnit ;
+.
+omm:performerHasRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain omm:Performer ;
+  rdfs:range omm:Role ;
+.
+omm:performerIsChargedToCostCenter
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain omm:Performer ;
+  rdfs:range omm:CostCenter ;
+.
+omm:performerIsCostCenterManager
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain omm:Performer ;
+  rdfs:range omm:CostCenter ;
+.
+omm:performerIsManagerOfOrganisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain omm:Performer ;
+  rdfs:range omm:OrganisationalUnit ;
+.
+omm:s_ConstructHasNote
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:range omm:TextAnnotation ;
+.
+omm:s_ConstructIsInsideS_Container
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+.

@@ -25,9 +25,8 @@ package eu.learnpad.simulator.uihandler.webserver;
  */
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WebSocketAdapter;
@@ -40,6 +39,8 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eu.learnpad.simulator.IProcessManager;
+import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
 import eu.learnpad.simulator.uihandler.IFormHandler;
 import eu.learnpad.simulator.uihandler.webserver.msg.task.receive.BaseReceiveMessage;
 import eu.learnpad.simulator.uihandler.webserver.msg.task.receive.Submit;
@@ -62,30 +63,25 @@ public class TaskServlet extends WebSocketServlet {
 
 	private final UIHandlerWebImpl uiHandler;
 	private final IProcessManager processManager;
-	private final String processId;
-	private final String taskId;
-	private final String taskName;
-	private final String taskDesc;
+	private final LearnPadTask task;
 	private final IFormHandler formHandler;
 
-	private final Map<TaskSocket, String> activeSockets = new HashMap<TaskSocket, String>();
+	// need to be concurrent as it may be accessed by different
+	// sockets representing different users that can try to complete the task
+	private final ConcurrentHashMap<TaskSocket, String> activeSockets = new ConcurrentHashMap<TaskSocket, String>();
 
 	/**
 	 * @param dispatcher
 	 * @param task
 	 */
 	public TaskServlet(UIHandlerWebImpl uiHandler,
-			IProcessManager processManager, String processId, String taskId,
-			String taskName, String taskDesc, IFormHandler formHandler) {
+			IProcessManager processManager, LearnPadTask task,
+			IFormHandler formHandler) {
 		super();
 		this.uiHandler = uiHandler;
 		this.processManager = processManager;
-		this.processId = processId;
-		this.taskId = taskId;
-		this.taskName = taskName;
-		this.taskDesc = taskDesc;
+		this.task = task;
 		this.formHandler = formHandler;
-
 	}
 
 	@Override
@@ -94,40 +90,42 @@ public class TaskServlet extends WebSocketServlet {
 		factory.setCreator(new TaskSocketCreator(this));
 	}
 
-	void submitTask(TaskSocket socket, String data) {
-		System.out.println("submitted task " + taskId + " with data " + data);
+	// Note: this method does not need to be synchronized as concurrent
+	// validation check is made at the lowest level (process dispatcher)
+	void submitTask(TaskSocket socket, String userId, String data) {
+		System.out.println("User " + userId + "submitted task " + task.id
+				+ " with data " + data);
 
 		// signal task submission to dispatcher and check validation
-		IProcessManager.TaskSubmissionStatus status = processManager
-				.submitTaskCompletion(processId, taskId, formHandler
-						.parseResult(data).getProperties());
+		LearnPadTaskSubmissionResult result = processManager
+				.submitTaskCompletion(task, userId,
+						formHandler.parseResult(data).getProperties());
+
+		LearnPadTaskSubmissionResult.TaskSubmissionStatus status = result.status;
 
 		switch (status) {
 		case VALIDATED:
 			// signal task completion to users
-			synchronized (activeSockets) {
-				for (Entry<TaskSocket, String> e : activeSockets.entrySet()) {
-					if (e.getValue().equals(activeSockets.get(socket))) {
-						e.getKey().sendValidated();
-					} else {
-						e.getKey().sendOtherValidated();
-					}
+			for (Entry<TaskSocket, String> e : activeSockets.entrySet()) {
+				if (e.getValue().equals(activeSockets.get(socket))) {
+					e.getKey().sendValidated(result.sessionScore);
+				} else {
+					e.getKey().sendOtherValidated();
 				}
 			}
-			uiHandler.completeTask(processId, taskId, data);
-			System.out.println("task " + taskId + " has been validated");
+			uiHandler.completeTask(task.processId, task.id, data);
+			System.out.println("task " + task.id + " has been validated");
 			break;
 
 		case REJECTED:
 			// signal rejection to all interfaces of the same user
-			synchronized (activeSockets) {
-				for (Entry<TaskSocket, String> e : activeSockets.entrySet()) {
-					if (e.getValue().equals(activeSockets.get(socket))) {
-						e.getKey().sendResubmit();
-					}
+
+			for (Entry<TaskSocket, String> e : activeSockets.entrySet()) {
+				if (e.getValue().equals(activeSockets.get(socket))) {
+					e.getKey().sendResubmit(userId);
 				}
 			}
-			System.out.println("task " + taskId + " has been resubmitted to "
+			System.out.println("task " + task.id + " has been resubmitted to "
 					+ socket);
 			break;
 
@@ -194,27 +192,33 @@ public class TaskServlet extends WebSocketServlet {
 			this.container = container;
 		}
 
-		void sendValidated() {
+		void sendValidated(Integer sessionScore) {
 			try {
 				getRemote().sendString(
-						mapper.writeValueAsString(new Validated()));
+						mapper.writeValueAsString(new Validated(sessionScore)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 
-		void sendResubmit() {
+		void sendResubmit(String userId) {
 			try {
 				getRemote()
 				.sendString(
 						mapper.writeValueAsString(new Resubmit(
-								taskName,
-								taskDesc.replaceAll("\n", "<p/>"),
-								processId,
+								task.name,
+								task.desc.replaceAll("\n", "<p/>"),
+								task.processId,
 								processManager
 								.getProcessDefinitionName(processManager
-										.getProcessDefinitionId(processId)),
-										formHandler.createFormString(taskId))));
+										.getProcessDefinitionId(task.processId)),
+										task.startingTime, formHandler
+										.createFormString(task.id),
+										task.documents,
+										processManager.getGameInfos(task,
+												userId).nbAttempts,
+										processManager.getGameInfos(task,
+												userId).expectedTime)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -241,29 +245,13 @@ public class TaskServlet extends WebSocketServlet {
 		@Override
 		public void onWebSocketConnect(Session sess) {
 			super.onWebSocketConnect(sess);
-			System.out.println("Socket " + taskId + " connected: " + sess);
-
-			try {
-				sess.getRemote()
-						.sendString(
-								mapper.writeValueAsString(new TaskDesc(
-										taskName,
-										taskDesc.replaceAll("\n", "<p/>"),
-										processId,
-								processManager
-												.getProcessDefinitionName(processManager
-										.getProcessDefinitionId(processId)),
-										formHandler.createFormString(taskId))));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
+			System.out.println("Socket " + task.id + " connected: " + sess);
 		}
 
 		@Override
 		public void onWebSocketText(String message) {
 			super.onWebSocketText(message);
-			System.out.println("Socket " + taskId + " received TEXT message: "
+			System.out.println("Socket " + task.id + " received TEXT message: "
 					+ message);
 
 			try {
@@ -275,14 +263,44 @@ public class TaskServlet extends WebSocketServlet {
 				case SUBSCRIBE:
 					Subscribe subscMsg = mapper.readValue(message,
 							Subscribe.class);
-					synchronized (container.activeSockets) {
-						container.activeSockets.put(this, subscMsg.user);
+					container.activeSockets.put(this, subscMsg.user);
+
+					// send task description to new subscriber
+					try {
+						this.getRemote()
+								.sendString(
+										mapper.writeValueAsString(new TaskDesc(
+												task.name,
+												task.desc.replaceAll("\n",
+												"<p/>"),
+												task.processId,
+												processManager
+														.getProcessDefinitionName(processManager
+																.getProcessDefinitionId(task.processId)),
+												task.startingTime,
+												formHandler
+														.createFormString(task.id),
+												task.documents,
+														processManager
+														.getInstanceScore(
+																task.processId,
+																subscMsg.user),
+																processManager.getGameInfos(
+																		task, subscMsg.user).nbAttempts,
+																		+processManager.getGameInfos(
+																				task, subscMsg.user).expectedTime)));
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
+
 					break;
 
 				case SUBMIT:
 					Submit submitMsg = mapper.readValue(message, Submit.class);
-					container.submitTask(this, submitMsg.values);
+					container
+							.submitTask(this,
+									container.activeSockets.get(this),
+									submitMsg.values);
 					break;
 
 				default:
@@ -300,10 +318,8 @@ public class TaskServlet extends WebSocketServlet {
 		@Override
 		public void onWebSocketClose(int statusCode, String reason) {
 			super.onWebSocketClose(statusCode, reason);
-			synchronized (container.activeSockets) {
-				container.activeSockets.remove(this);
-			}
-			System.out.println("Socket " + taskId + " closed: [" + statusCode
+			container.activeSockets.remove(this);
+			System.out.println("Socket " + task.id + " closed: [" + statusCode
 					+ "] " + reason);
 		}
 

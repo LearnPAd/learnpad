@@ -1,0 +1,368 @@
+# baseURI: http://ikm-group.ch/archiMEO/util
+# imports: http://ikm-group.ch/archiMEO/archimate
+# imports: http://ikm-group.ch/archiMEO/eo
+# imports: http://ikm-group.ch/archiMEO/nco
+# imports: http://ikm-group.ch/archiMEO/top
+
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix util: <http://ikm-group.ch/archiMEO/util#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ch.fhnw.ontogov#Join>
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://ch.fhnw.ontogov#ProcessControlConstruct> ;
+.
+<http://ch.fhnw.ontogov#ProcessControlConstruct>
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://ikm-group.ch/archiMEO/nco#NCO> ;
+.
+<http://ch.fhnw.ontogov#Sequence>
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://ch.fhnw.ontogov#ProcessControlConstruct> ;
+.
+<http://ch.fhnw.ontogov#Split>
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://ch.fhnw.ontogov#ProcessControlConstruct> ;
+.
+<http://ch.fhnw.ontogov#Switch>
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://ch.fhnw.ontogov#ProcessControlConstruct> ;
+.
+<http://dublincore.org/documents/2000/07/11/dcmi-type-vocabulary#DCMITYPE>
+  rdf:type owl:Class ;
+  rdfs:isDefinedBy """\"The DCMI Type Vocabulary provides a general, cross-domain list of approved terms that may be used as values for the Resource Type element to identify the genre of a resource.\"  (DC)
+http://dublincore.org/documents/dcmi-type-vocabulary/"""^^xsd:string ;
+  rdfs:label "DCMITYPE"^^xsd:string ;
+  rdfs:subClassOf <http://ikm-group.ch/archiMEO/nco#SpecificationStandard> ;
+.
+<http://ikm-group.ch/archiMEO/util>
+  rdf:type owl:Ontology ;
+  cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+  cc:license "This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License."@en ;
+  dc:contributor "Knut Hinkelmann"^^xsd:string ;
+  dc:contributor "Roman Brun"^^xsd:string ;
+  dc:contributor "Sandro Emmenegger"^^xsd:string ;
+  dc:creator "Andreas Martin"^^xsd:string ;
+  dc:creator "Barbara Thönssen"^^xsd:string ;
+  dc:creator "Simon Nikles"^^xsd:string ;
+  dc:description "util Ontologies."@en ;
+  dc:issued "2012-01-01"^^xsd:date ;
+  dc:modified "2013-05-24"^^xsd:date ;
+  dc:publisher <http://de.dbpedia.org/resource/Fachhochschule_Nordwestschweiz> ;
+  dc:publisher <http://www.fhnw.ch/business> ;
+  dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
+  dc:rights "Copyright 2012 FHNW"^^xsd:string ;
+  dc:title "util Ontologies"@en ;
+  rdfs:comment "Version 1.1: Initial import"@en ;
+  owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
+  owl:imports <http://ikm-group.ch/archiMEO/eo> ;
+  owl:imports <http://ikm-group.ch/archiMEO/nco> ;
+  owl:imports <http://ikm-group.ch/archiMEO/top> ;
+  owl:versionInfo 1.1 ;
+.
+<http://purl.org/dc/elements/1.1#documentHasContributor>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:isDefinedBy "\"An entity responsible for making contributions to the resource\" (DC)"^^xsd:string ;
+  rdfs:label "documentHasContributor"^^xsd:string ;
+  rdfs:range <http://ikm-group.ch/archiMEO/archimate#BusinessActor> ;
+.
+<http://purl.org/dc/elements/1.1#documentHasCoverage>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:isDefinedBy "\"The spatial or temporal topic of the resource, the spatial applicability of the resource, or the jurisdiction under which the resource is relevant\" (DC)"^^xsd:string ;
+  rdfs:range <http://ikm-group.ch/archiMEO/top#Time> ;
+.
+<http://purl.org/dc/elements/1.1#documentHasCreator>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:isDefinedBy "An entity primarily responsible for making the resource."^^xsd:string ;
+  rdfs:label "documentHasCreator"^^xsd:string ;
+  rdfs:range <http://ikm-group.ch/archiMEO/archimate#BusinessActor> ;
+.
+<http://purl.org/dc/elements/1.1#documentHasDate>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+.
+<http://purl.org/dc/elements/1.1#documentHasDescription>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasDescription"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+<http://purl.org/dc/elements/1.1#documentHasFormat>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:range <http://www.iana.org/assignments/media-types#MIMETYPE> ;
+.
+<http://purl.org/dc/elements/1.1#documentHasIdentifyer>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+.
+<http://purl.org/dc/elements/1.1#documentHasLanguage>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "Simple DC element"^^xsd:string ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasLanguage"^^xsd:string ;
+.
+<http://purl.org/dc/elements/1.1#documentHasPublisher>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:isDefinedBy "\"An entity responsible for making the resource available\" (DC)"^^xsd:string ;
+  rdfs:label "documentHasPublisher"^^xsd:string ;
+.
+<http://purl.org/dc/elements/1.1#documentHasRelationToDocument>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+.
+<http://purl.org/dc/elements/1.1#documentHasRight>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasLicense"^^xsd:string ;
+.
+<http://purl.org/dc/elements/1.1#documentHasSource>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasSource"^^xsd:string ;
+  rdfs:range <http://dublincore.org/documents/2000/07/11/dcmi-type-vocabulary#DCMITYPE> ;
+.
+<http://purl.org/dc/elements/1.1#documentHasSubject>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasSubject"^^xsd:string ;
+.
+<http://purl.org/dc/elements/1.1#documentHasTitle>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+.
+<http://purl.org/dc/elements/1.1#documentHasType>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:range <http://dublincore.org/documents/2000/07/11/dcmi-type-vocabulary#DCMITYPE> ;
+.
+<http://purl.org/dc/elements/1.1#documentHasVersion>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasVersion"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+<http://purl.org/dcterms#documentConformsToDocument>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentConformsToDocument"^^xsd:string ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasRelationToDocument> ;
+.
+<http://purl.org/dcterms#documentHasAlternativeTitle>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasAlternativeTitle"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+<http://purl.org/dcterms#documentHasAvailableDate>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasDate> ;
+.
+<http://purl.org/dcterms#documentHasCoverageLocation>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasCoverageLocation"^^xsd:string ;
+  rdfs:range <http://ikm-group.ch/archiMEO/top#Location> ;
+.
+<http://purl.org/dcterms#documentHasCoverageTime>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasCoverageTime"^^xsd:string ;
+  rdfs:range <http://ikm-group.ch/archiMEO/top#Time> ;
+.
+<http://purl.org/dcterms#documentHasCreationDate>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasDate> ;
+.
+<http://purl.org/dcterms#documentHasDateAccepted>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasDate> ;
+.
+<http://purl.org/dcterms#documentHasDateCopyrighted>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasDate> ;
+.
+<http://purl.org/dcterms#documentHasDateSigned>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:subPropertyOf <http://purl.org/dcterms#documentHasDateAccepted> ;
+.
+<http://purl.org/dcterms#documentHasDateSubmitted>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasDate> ;
+.
+<http://purl.org/dcterms#documentHasFormatOfDocument>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasFormatOfDocument"^^xsd:string ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasRelationToDocument> ;
+.
+<http://purl.org/dcterms#documentHasIssuedDate>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasDate> ;
+.
+<http://purl.org/dcterms#documentHasLatestAccessDate>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasDate> ;
+.
+<http://purl.org/dcterms#documentHasLicence>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasRetentionObligationBasedOnLaw"^^xsd:string ;
+  rdfs:range <http://ikm-group.ch/archiMEO/nco#LawAndRegulation> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasRight> ;
+.
+<http://purl.org/dcterms#documentHasModifiedDate>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasDate> ;
+.
+<http://purl.org/dcterms#documentHasPartOfDocument>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasPartOfDocument"^^xsd:string ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasRelationToDocument> ;
+.
+<http://purl.org/dcterms#documentHasSpatial>
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentHasSpatial"^^xsd:string ;
+.
+<http://purl.org/dcterms#documentHasTableOfContents>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment """\"A list of subunits of the resource\"
+http://dublincore.org/documents/dcmi-terms/#terms-tableOfContents"""^^xsd:string ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "contractDocumentHasContractDescription"^^xsd:string ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasDescription> ;
+.
+<http://purl.org/dcterms#documentHasTemporal>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasDate> ;
+.
+<http://purl.org/dcterms#documentHasValidDate>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:range xsd:date ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasDate> ;
+.
+<http://purl.org/dcterms#documentIsFormatForDocument>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentIsFormatForDocument"^^xsd:string ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasRelationToDocument> ;
+  owl:inverseOf <http://purl.org/dcterms#documentHasFormatOfDocument> ;
+.
+<http://purl.org/dcterms#documentIsPartOfDocument>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentIsPartOfDocument"^^xsd:string ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasRelationToDocument> ;
+  owl:inverseOf <http://purl.org/dcterms#documentHasPartOfDocument> ;
+.
+<http://purl.org/dcterms#documentIsReferencedByDocument>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentIsReferencedByDocument"^^xsd:string ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasRelationToDocument> ;
+.
+<http://purl.org/dcterms#documentIsReplacedByDocument>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentIsReplacedByDocument"^^xsd:string ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasRelationToDocument> ;
+.
+<http://purl.org/dcterms#documentIsReplacesDocument>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentIsReplacesDocument"^^xsd:string ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasRelationToDocument> ;
+  owl:inverseOf <http://purl.org/dcterms#documentIsReplacedByDocument> ;
+.
+<http://purl.org/dcterms#documentIsRequiredByDocument>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentIsRequiredByDocument"^^xsd:string ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasRelationToDocument> ;
+  owl:inverseOf <http://purl.org/dcterms#documentIsRequiresDocument> ;
+.
+<http://purl.org/dcterms#documentIsRequiresDocument>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentIsRequiresDocument"^^xsd:string ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasRelationToDocument> ;
+.
+<http://purl.org/dcterms#documentIsVersionOfDocument>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentIsVersionOfDocument"^^xsd:string ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasRelationToDocument> ;
+.
+<http://purl.org/dcterms#documentReferencesDocument>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentReferencesDocument"^^xsd:string ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasRelationToDocument> ;
+  owl:inverseOf <http://purl.org/dcterms#documentIsReferencedByDocument> ;
+.
+<http://purl.org/dcterms#documenthasAudience>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documenthasAudience"^^xsd:string ;
+.
+<http://purl.org/dcterms#documenthasVersionDocument>
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documenthasVersionDocument"^^xsd:string ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasRelationToDocument> ;
+  owl:inverseOf <http://purl.org/dcterms#documentIsVersionOfDocument> ;
+.
+<http://www.iana.org/assignments/media-types#MIMETYPE>
+  rdf:type owl:Class ;
+  rdfs:isDefinedBy "http://www.iana.org/assignments/media-types/"^^xsd:string ;
+  rdfs:label "MIMETYPE"^^xsd:string ;
+  rdfs:subClassOf <http://ikm-group.ch/archiMEO/nco#SpecificationStandard> ;
+.
+<http://xmlns.com/foaf/spec#Document>
+  rdf:type owl:Class ;
+  rdfs:comment "eo namespace replaced with foaf (thb, 3.7.2011)"@en ;
+  rdfs:isDefinedBy "\"The Document  class represents those things which are, broadly conceived, 'documents'\"(FOAF)"^^xsd:string ;
+  rdfs:subClassOf <http://ikm-group.ch/archiMEO/archimate#Representation> ;
+.
+<http://xmlns.com/foaf/spec#personHasFamiliyName>
+  rdf:type owl:DatatypeProperty ;
+.
+<http://xmlns.com/foaf/spec#personHasFamilyName>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain <http://ikm-group.ch/archiMEO/eo#Person> ;
+  rdfs:isDefinedBy "FOAF"^^xsd:string ;
+  rdfs:label "personHasSurname"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+<http://xmlns.com/foaf/spec#personHasFirstName>
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain <http://ikm-group.ch/archiMEO/eo#Person> ;
+  rdfs:isDefinedBy "FOAF"^^xsd:string ;
+  rdfs:label "personHasFirstName"^^xsd:string ;
+  rdfs:range xsd:string ;
+.

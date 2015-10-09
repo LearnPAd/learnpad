@@ -45,6 +45,8 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
+import org.xwiki.component.phase.Initializable;
+import org.xwiki.component.phase.InitializationException;
 import org.xwiki.model.reference.DocumentReference;
 import org.xwiki.model.reference.DocumentReferenceResolver;
 import org.xwiki.query.Query;
@@ -68,7 +70,8 @@ import eu.learnpad.exception.LpRestException;
 @Component
 @Named("eu.learnpad.core.impl.cw.XwikiBridge")
 @Path("/learnpad/cw/bridge")
-public class XwikiBridge extends Bridge implements XWikiRestComponent {
+public class XwikiBridge extends Bridge implements XWikiRestComponent,
+		Initializable {
 
 	private final String LEARNPAD_SPACE = "LearnPAdCode";
 	private final String FEEDBACK_CLASS_PAGE = "FeedbackClass";
@@ -96,18 +99,9 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 	@Named("current")
 	private DocumentReferenceResolver<String> documentReferenceResolver;
 
-	private XwikiController cwController;
-
-	public XwikiBridge() {
-		this(false);
-	}
-
-	public XwikiBridge(boolean isCoreFacadeLocal) {
-		cwController = new XwikiController(true);
-		if (isCoreFacadeLocal)
-			this.corefacade = new XwikiCoreFacade();
-		else
-			this.corefacade = new XwikiCoreFacadeRestResource();
+	@Override
+	public void initialize() throws InitializationException {
+		this.corefacade = new XwikiCoreFacadeRestResource();
 	}
 
 	@Override
@@ -158,7 +152,7 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 			throws LpRestException {
 		// Get the model file from Core Platform
 		InputStream modelStream = new ByteArrayInputStream(
-				this.cwController.getModel(modelSetId, type));
+				this.corefacade.getModel(modelSetId, type));
 
 		// Make the XSL transformation and get the package's path
 		String packagePath = buildXWikiPackage(modelSetId, modelStream, type);
@@ -280,5 +274,4 @@ public class XwikiBridge extends Bridge implements XWikiRestComponent {
 		}
 		return feedbacks;
 	}
-
 }

@@ -23,23 +23,43 @@ import javax.inject.Named;
 import javax.ws.rs.Path;
 
 import org.xwiki.component.annotation.Component;
+import org.xwiki.rest.XWikiRestComponent;
 
+import eu.learnpad.core.impl.mv.XwikiCoreFacadeRestResource;
 import eu.learnpad.mv.Bridge;
+import eu.learnpad.mv.CoreFacade;
 
 @Component
 @Named("eu.learnpad.core.impl.mv.XwikiBridge")
-@Path("/learnpad/mv")
-public abstract class XwikiBridge extends Bridge{
+@Path("/learnpad/mv/bridge")
+public abstract class XwikiBridge extends Bridge implements XWikiRestComponent{
 
 	public XwikiBridge (){
-		this(false);
+		this.corefacade = null;
 	}
 
-	public XwikiBridge (boolean isCoreFacadeLocal){
-		if (isCoreFacadeLocal)
-			this.corefacade = new XwikiCoreFacade();
-		else
-			this.corefacade = new XwikiCoreFacadeRestResource();
+	public XwikiBridge (CoreFacade cf){
+		this.updateCoreFacade(cf);
 	}
+
+	public XwikiBridge (String coreFacadeHostname,
+			int coreFacadeHostPort){
+		this.corefacade = new XwikiCoreFacadeRestResource(coreFacadeHostname, coreFacadeHostPort);
+	}
+	
+    public synchronized void updateCoreFacade (CoreFacade cf){
+		this.corefacade = cf;    	
+    }
+	
+//	public XwikiBridge (){
+//		this(false);
+//	}
+//
+//	public XwikiBridge (boolean isCoreFacadeLocal){
+//		if (isCoreFacadeLocal)
+//			this.corefacade = new XwikiCoreFacade();
+//		else
+//			this.corefacade = new XwikiCoreFacadeRestResource();
+//	}
 
 }

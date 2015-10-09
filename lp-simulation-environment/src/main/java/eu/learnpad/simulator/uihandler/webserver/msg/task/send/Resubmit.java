@@ -24,24 +24,43 @@ package eu.learnpad.simulator.uihandler.webserver.msg.task.send;
  * #L%
  */
 
+import java.util.Collection;
+
+import eu.learnpad.simulator.datastructures.document.LearnPadDocument;
 import eu.learnpad.simulator.uihandler.webserver.msg.task.ITaskMsg;
 
 /**
  * @author Tom Jorquera - Linagora
  *
  */
-public class Resubmit extends TaskDesc implements ITaskMsg {
+public class Resubmit implements ITaskMsg {
 
-	/**
-	 * @param name
-	 * @param description
-	 * @param process
-	 * @param processname
-	 * @param form
-	 */
-	public Resubmit(String name, String description, String process,
-			String processname, String form) {
-		super(name, description, process, processname, form);
+	public String name;
+	public String description;
+	public String processid;
+	public String processname;
+	public long startingtime;
+	public String form;
+	public Collection<LearnPadDocument> documents;
+
+	// for game-related display
+	public int nbattempts;
+	public long expectedtime;
+
+	public Resubmit(String name, String description, String processid,
+			String processname, long startingtime, String form,
+			Collection<LearnPadDocument> documents, int nbattempts,
+			long expectedtime) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.processid = processid;
+		this.processname = processname;
+		this.startingtime = startingtime;
+		this.form = form;
+		this.documents = documents;
+		this.nbattempts = nbattempts;
+		this.expectedtime = expectedtime;
 	}
 
 	/*

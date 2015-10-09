@@ -19,15 +19,35 @@
  */
 package eu.learnpad.core.impl.or;
 
-import org.xwiki.component.annotation.Component;
-import org.xwiki.rest.XWikiRestComponent;
-
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.or.BridgeInterface;
+import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.States;
 import eu.learnpad.rest.utils.RestResource;
 
-@Component
-public class XwikiBridgeInterfaceRestResource extends RestResource implements XWikiRestComponent, BridgeInterface{
+/*
+ * The methods inherited form the BridgeInterface in this
+ * class should be implemented as a REST invocation
+ * toward the BridgeInterface binded at the provided URL
+ */
+ 
+public class XwikiBridgeInterfaceRestResource extends RestResource implements BridgeInterface{
+
+	public XwikiBridgeInterfaceRestResource() {
+		this("localhost",8080);
+	}
+
+	public XwikiBridgeInterfaceRestResource(String coreFacadeHostname,
+			int coreFacadeHostPort) {
+		// This constructor could change in the future
+		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
+	}
+	
+	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort){
+// This constructor has to be fixed, since it requires changes on the class
+//		eu.learnpad.core.rest.RestResource
+		
+	}
 
 	@Override
 	public void putModelSet(String modelSetId, String type)
@@ -44,7 +64,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements XW
 	}
 
 	@Override
-	public byte[] askRecommendation(String modelSetId, String artifactId,
+	public Recommendations askRecommendation(String modelSetId, String artifactId,
 			String userId, String type) throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 		return null;
@@ -75,7 +95,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements XW
 	}
 
 	@Override
-	public byte[] listExecutionStates(String userId) throws LpRestExceptionImpl {
+	public States listExecutionStates(String userId) throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}

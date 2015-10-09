@@ -1,0 +1,353 @@
+# baseURI: http://ikm-group.ch/archiMEO/BMM
+# imports: http://ikm-group.ch/archiMEO/emo
+# imports: http://ikm-group.ch/archiMEO/eo
+# imports: http://ikm-group.ch/archiMEO/nco
+
+@prefix bmm: <http://ikm-group.ch/archiMEO/BMM#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
+@prefix nco: <http://ikm-group.ch/archiMEO/nco#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ikm-group.ch/archiMEO/BMM>
+  rdf:type owl:Ontology ;
+  cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+  cc:license "This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License."@en ;
+  dc:contributor "Knut Hinkelmann"^^xsd:string ;
+  dc:contributor "Roman Brun"^^xsd:string ;
+  dc:contributor "Sandro Emmenegger"^^xsd:string ;
+  dc:creator "Andreas Martin"^^xsd:string ;
+  dc:creator "Barbara Thönssen"^^xsd:string ;
+  dc:creator "Simon Nikles"^^xsd:string ;
+  dc:description "The BMM Ontology."@en ;
+  dc:issued "2012-01-01"^^xsd:date ;
+  dc:modified "2013-05-24"^^xsd:date ;
+  dc:publisher <http://de.dbpedia.org/resource/Fachhochschule_Nordwestschweiz> ;
+  dc:publisher <http://www.fhnw.ch/business> ;
+  dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
+  dc:rights "Copyright 2012 FHNW"^^xsd:string ;
+  dc:title "The BMM Ontology"@en ;
+  rdfs:comment "Version 1.1: Initial import"@en ;
+  owl:imports <http://ikm-group.ch/archiMEO/emo> ;
+  owl:imports <http://ikm-group.ch/archiMEO/eo> ;
+  owl:imports <http://ikm-group.ch/archiMEO/nco> ;
+  owl:versionInfo 1.1 ;
+.
+bmm:Assessment
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Assessment"^^xsd:string ;
+  rdfs:subClassOf bmm:MotivationElement ;
+.
+bmm:AssessmentCategory
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "AssessmentCategory"^^xsd:string ;
+  rdfs:subClassOf emo:BusinessMotivationMetaModel ;
+.
+bmm:Asset
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Asset"^^xsd:string ;
+  rdfs:subClassOf bmm:MotivationElement ;
+.
+bmm:BusinessPolicy
+  rdf:type owl:Class ;
+  rdfs:comment """\"A Business Policy is a non-actionable Directive whose purpose is to govern or guide the enterprise. Business Policies
+provide the basis for Business Rules. Business Policies also govern Business Processes.\" (OMG 2007)"""^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "BusinessPolicy"^^xsd:string ;
+  rdfs:subClassOf bmm:Directive ;
+.
+bmm:BusinessRule
+  rdf:type owl:Class ;
+  rdfs:comment """\"A Business Rule is a Directive, intended to govern, guide or influence business behavior, in support of Business Policy
+that has been formulated in response to an Opportunity, Threat, Strength, or Weakness.\" (OMG 2007)"""^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "BusinessRule"^^xsd:string ;
+  rdfs:subClassOf bmm:Directive ;
+.
+bmm:CourseOfAction
+  rdf:type owl:Class ;
+  rdfs:comment """\"A Course of Action is an approach or plan for configuring some aspect of the enterprise involving things, processes,
+locations, people, timing, or motivation, undertaken to achieve Desired Results.\" (OMG 2007)"""^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "CourseOfAction"^^xsd:string ;
+  rdfs:subClassOf bmm:Means ;
+.
+bmm:DesiredResult
+  rdf:type owl:Class ;
+  rdfs:comment """\"A Desired Result is an End that is a state or target that the enterprise intends to maintain or sustain. A Desired Result is
+supported by Courses of Action.\" (OMG 2007)"""^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "DesiredResult"^^xsd:string ;
+  rdfs:subClassOf bmm:End ;
+.
+bmm:Directive
+  rdf:type owl:Class ;
+  rdfs:comment """\"As the name suggests, Directives indicate how the Courses of Action should, or should not, be carried out — in other
+words, they govern Courses of Action.\" (OMG 2007)"""^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Directive"^^xsd:string ;
+  rdfs:subClassOf bmm:Means ;
+.
+bmm:End
+  rdf:type owl:Class ;
+  rdfs:comment """\"An End is something the business seeks to accomplish. The important thing to remember about an End is that it does not
+include any indication of how it will be achieved.\" (OMG 2007)"""^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "End"^^xsd:string ;
+  rdfs:subClassOf bmm:MotivationElement ;
+.
+bmm:ExternalInfluencer
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf bmm:Influencer ;
+.
+bmm:Goal
+  rdf:type owl:Class ;
+  rdfs:comment """\"A Goal is a statement about a state or condition of the enterprise to be brought about or sustained through appropriate
+Means. A Goal amplifies a Vision — that is, it indicates what must be satisfied on a continuing basis to effectively attain
+the Vision.\" (OMG 2007)"""^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Goal"^^xsd:string ;
+  rdfs:subClassOf bmm:DesiredResult ;
+.
+bmm:Influencer
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:BusinessMotivationMetaModel ;
+.
+bmm:InfluencerCategory
+  rdf:type owl:Class ;
+  rdfs:comment ""^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "InfluencerCategory"^^xsd:string ;
+  rdfs:subClassOf emo:BusinessMotivationMetaModel ;
+.
+bmm:InternalInfluencer
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf bmm:Influencer ;
+.
+bmm:Means
+  rdf:type owl:Class ;
+  rdfs:comment """\"A Means represents any device, capability, regime, technique, restriction, agency, instrument, or method that may be
+called upon, activated, or enforced to achieve Ends. Remember that a Means does not indicate either the steps (business
+processes and workflow) necessary to exploit it, nor responsibility for such tasks, but rather only the capabilities that can
+be exploited to achieve the desired Ends.\" (OMG 2007)"""^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Means"^^xsd:string ;
+  rdfs:subClassOf bmm:MotivationElement ;
+.
+bmm:Mission
+  rdf:type owl:Class ;
+  rdfs:comment """\"A Mission indicates the ongoing operational activity of the enterprise. The Mission describes what the business is or will
+be doing on a day-to-day basis.
+A Mission makes a Vision operative — that is, it indicates the ongoing activity that makes the Vision a reality. A Mission
+is planned by means of Strategies.\" (OMG 2007)"""^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Mission"^^xsd:string ;
+  rdfs:subClassOf bmm:Means ;
+.
+bmm:MotivationElement
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "top-level concept in BMM. (OMG 2007)"^^xsd:string ;
+  rdfs:subClassOf emo:BusinessMotivationMetaModel ;
+.
+bmm:Objective
+  rdf:type owl:Class ;
+  rdfs:comment """\"An Objective is a statement of an attainable, time-targeted, and measurable target that the enterprise seeks to meet in
+order to achieve its Goals.\" (OMG 2007)"""^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Objective"^^xsd:string ;
+  rdfs:subClassOf bmm:DesiredResult ;
+.
+bmm:OrganizationCategory
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "OrganizationCategory"^^xsd:string ;
+  rdfs:subClassOf emo:BusinessMotivationMetaModel ;
+.
+bmm:PotentialImpact
+  rdf:type owl:Class ;
+  rdfs:comment "\"evaluation that quantifies or qualifies an assessment in specific terms, types, or dimensions\" (OMG 2007)"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "PotentialImpact"^^xsd:string ;
+  rdfs:subClassOf bmm:MotivationElement ;
+.
+bmm:PotentialReward
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "PotentialReward"^^xsd:string ;
+  rdfs:subClassOf bmm:PotentialImpact ;
+.
+bmm:Risk
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Risk"^^xsd:string ;
+  rdfs:subClassOf bmm:PotentialImpact ;
+.
+bmm:Strategy
+  rdf:type owl:Class ;
+  rdfs:comment """\"A Strategy is one component of the plan for the Mission. A Strategy represents the essential Course of Action to achieve
+Ends — Goals in particular.\" (OMG 2007)"""^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Strategy"^^xsd:string ;
+  rdfs:subClassOf bmm:CourseOfAction ;
+.
+bmm:Tactic
+  rdf:type owl:Class ;
+  rdfs:comment "\"A Tactic is a Course of Action that represents part of the detailing of Strategies. A Tactic implements Strategies.\" (OMG 2007)"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Tactic"^^xsd:string ;
+  rdfs:subClassOf bmm:CourseOfAction ;
+.
+bmm:Vision
+  rdf:type owl:Class ;
+  rdfs:comment "\"A Vision describes the future state of the enterprise, without regard to how it is to be achieved.\" (OMG 2007)"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Vision"^^xsd:string ;
+  rdfs:subClassOf bmm:End ;
+.
+bmm:assessmentAffectsAchievementOfEnd
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:Assessment ;
+  rdfs:label "assessmentAffectsAchievementOfEnd"^^xsd:string ;
+  rdfs:range bmm:End ;
+.
+bmm:assessmentAffectsDeploymentOfMeans
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:Assessment ;
+  rdfs:label "assessmentAffectsDeploymentOfMeans"^^xsd:string ;
+  rdfs:range bmm:Means ;
+.
+bmm:assessmentIdentifiesPotentialImpact
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:Assessment ;
+  rdfs:label "assessmentIdentifiesPotentialImpact"^^xsd:string ;
+  rdfs:range bmm:PotentialImpact ;
+.
+bmm:assessmentProvidesImpetusForDirective
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:Assessment ;
+  rdfs:label "assessmentProvidesImpetusForDirective"^^xsd:string ;
+  rdfs:range bmm:Directive ;
+.
+bmm:businessPolicyIncludesMoreSpecificBusinessPolicy
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:BusinessPolicy ;
+  rdfs:label "broaderBusinessPolicyIncludesMoreSpecificBusinessPolicy"^^xsd:string ;
+  rdfs:range bmm:BusinessPolicy ;
+.
+bmm:businessPolicyIsBasisForBusinessRule
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:BusinessPolicy ;
+  rdfs:label "businessPolicyIsBasisForBusinessRule"^^xsd:string ;
+  rdfs:range bmm:BusinessRule ;
+.
+bmm:courseOfActionChannelsEffortsTowardsDesiredResult
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:CourseOfAction ;
+  rdfs:label "courseOfActionChannelsEffortsTowardsDesiredResult"^^xsd:string ;
+  rdfs:range bmm:DesiredResult ;
+.
+bmm:courseOfActionEnablesCourseOfAction
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:CourseOfAction ;
+  rdfs:label "enablingCourseOfActionEnablesEnabledCourseOfAction"^^xsd:string ;
+  rdfs:range bmm:CourseOfAction ;
+.
+bmm:directiveGovernsCourseOfAction
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:Directive ;
+  rdfs:label "directiveGovernsCourseOfAction"^^xsd:string ;
+  rdfs:range bmm:CourseOfAction ;
+.
+bmm:directiveGovernsUseOfAsset
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "BMM, OMG"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:Directive ;
+  rdfs:label "directiveGovernsUseOfAsset"^^xsd:string ;
+  rdfs:range bmm:Asset ;
+.
+bmm:directiveIsSourceOfCourseOfAction
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:Directive ;
+  rdfs:label "directiveIsSourceOfCourseOfAction"^^xsd:string ;
+  rdfs:range bmm:CourseOfAction ;
+.
+bmm:directiveSupportsAchievementOfDesiredResult
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:Directive ;
+  rdfs:label "supportAchievementOfDesiredResult"^^xsd:string ;
+  rdfs:range bmm:DesiredResult ;
+.
+bmm:goalAmplifiesVision
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:Goal ;
+  rdfs:label "goalAmplifiesVision"^^xsd:string ;
+  rdfs:range bmm:Vision ;
+.
+bmm:missionMakesOperativeVision
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:Mission ;
+  rdfs:label "missionMakesOperativeVision"^^xsd:string ;
+  rdfs:range bmm:Vision ;
+.
+bmm:objectiveQuantifiesGoal
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:Objective ;
+  rdfs:label "objectiveQuantifiesGoal"^^xsd:string ;
+  rdfs:range bmm:Goal ;
+.
+bmm:strategyIsAComponentOfThePlanForMission
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:Strategy ;
+  rdfs:label "strategyIsAComponentOfThePlanForMission"^^xsd:string ;
+  rdfs:range bmm:Mission ;
+.
+bmm:tacticEffectsEnforcementLevelOfBusinessRule
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:Tactic ;
+  rdfs:label "tacticEffectsEnforcementLevelOfBusinessRule"^^xsd:string ;
+  rdfs:range bmm:BusinessRule ;
+.
+bmm:tacticImplementsStrategy
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:Tactic ;
+  rdfs:label "tacticImplementsStrategy"^^xsd:string ;
+  rdfs:range bmm:Strategy ;
+.
+bmm:usingAssessmentUsesUsedAssessment
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:Assessment ;
+  rdfs:label "usingAssessmentUsesUsedAssessment"^^xsd:string ;
+  rdfs:range bmm:Assessment ;
+.

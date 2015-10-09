@@ -36,7 +36,7 @@ public interface NotificationsFromBridge {
 	 * @throws LpRestException
 	 */
 	@PUT
-	@Path("/learnpad/lsm/{questionnaireid}/started")
+	@Path("/{questionnaireid}/started")
 	void notifyLearningSessionStarted(@PathParam("questionnaireid") String questionnaireId,
 			@QueryParam("list") String [] emailList) throws LpRestException;
 
@@ -48,7 +48,7 @@ public interface NotificationsFromBridge {
 	 * @throws LpRestException
 	 */
 	@PUT
-	@Path("/learnpad/lsm/{questionnaireid}/completed")
+	@Path("/{questionnaireid}/completed")
 	void notifyLearningSessionCompleted(@PathParam("questionnaireid") String questionnaireId,
 			@QueryParam("list") String [] emailList) throws LpRestException;
 }

@@ -1,0 +1,396 @@
+# baseURI: http://ikm-group.ch/archiMEO/BPMN
+# imports: http://ikm-group.ch/archiMEO/archimate
+# imports: http://ikm-group.ch/archiMEO/emo
+# imports: http://ikm-group.ch/archiMEO/eo
+# imports: http://spinrdf.org/spin
+
+@prefix archi: <http://ikm-group.ch/archiMEO/archimate#> .
+@prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
+@prefix eo: <http://ikm-group.ch/archiMEO/eo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ikm-group.ch/archiMEO/BPMN>
+  rdf:type owl:Ontology ;
+  cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+  cc:license "This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License."@en ;
+  dc:contributor "Knut Hinkelmann"^^xsd:string ;
+  dc:contributor "Roman Brun"^^xsd:string ;
+  dc:contributor "Sandro Emmenegger"^^xsd:string ;
+  dc:creator "Andreas Martin"^^xsd:string ;
+  dc:creator "Barbara Thönssen"^^xsd:string ;
+  dc:creator "Simon Nikles"^^xsd:string ;
+  dc:description "The BPMN Ontology."@en ;
+  dc:issued "2012-01-01"^^xsd:date ;
+  dc:modified "2013-05-24"^^xsd:date ;
+  dc:publisher <http://de.dbpedia.org/resource/Fachhochschule_Nordwestschweiz> ;
+  dc:publisher <http://www.fhnw.ch/business> ;
+  dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
+  dc:rights "Copyright 2012 FHNW "^^xsd:string ;
+  dc:title "The BPMN Ontology"@en ;
+  rdfs:comment "Version 1.1: Initial import"@en ;
+  owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
+  owl:imports <http://ikm-group.ch/archiMEO/emo> ;
+  owl:imports <http://ikm-group.ch/archiMEO/eo> ;
+  owl:imports <http://spinrdf.org/spin> ;
+  owl:versionInfo 1.1 ;
+.
+bpmn:Activity
+  rdf:type owl:Class ;
+  rdfs:comment "Former 'Atomar', naming and subclass-structure in accordance to BPMN 2.0 (OMG 2009)"^^xsd:string ;
+  rdfs:label "Activity"^^xsd:string ;
+  rdfs:subClassOf bpmn:FlowNode ;
+.
+bpmn:Artifact
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:BPMN_MetaModel ;
+.
+bpmn:Association
+  rdf:type owl:Class ;
+  rdfs:comment "„An Association is used to link information and Artifacts with BPMN graphical elements. [â€¦] An arrowhead on the Association indicates a direction of flow (e.g., data), when appropriate.“ (Axway et al., 2009: p.21)\" (Brun 2010)"^^xsd:string ;
+  rdfs:label "Association"^^xsd:string ;
+  rdfs:subClassOf bpmn:Connector ;
+.
+bpmn:BusinessRuleTask
+  rdf:type owl:Class ;
+  rdfs:label "BusinessRuleTask"^^xsd:string ;
+  rdfs:subClassOf bpmn:Task ;
+.
+bpmn:CallActivity
+  rdf:type owl:Class ;
+  rdfs:comment """\"A Call Activity identifies a point in the Process where a global Process or a Global Task is used. The Call
+Activity acts as a ‘wrapper’ for the invocation of a global Process or Global Task within the execution.\" (OMG 2009)"""^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "according to BPMN 2.0 spec, p 181"^^xsd:string ;
+  rdfs:subClassOf bpmn:Activity ;
+.
+bpmn:CatchingIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:subClassOf bpmn:IntermediateEvent ;
+.
+bpmn:ComplexGateway
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf bpmn:Gateway ;
+.
+bpmn:ConditionalIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "ConditionalIntermediateEvent"^^xsd:string ;
+  rdfs:subClassOf bpmn:IntermediateEvent ;
+.
+bpmn:ConditionalStartEvent
+  rdf:type owl:Class ;
+  rdfs:label "ConditionalStartEvent"^^xsd:string ;
+  rdfs:subClassOf bpmn:StartEvent ;
+.
+bpmn:Connector
+  rdf:type owl:Class ;
+  rdfs:subClassOf emo:BPMN_MetaModel ;
+.
+bpmn:Data
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "one of the five basic categories of elements specified in BPMN 2.0, p 27"^^xsd:string ;
+  rdfs:subClassOf emo:BPMN_MetaModel ;
+.
+bpmn:DataAssociation
+  rdf:type owl:Class ;
+  rdfs:comment "„Data Associations are used to move data between Data Objects, Properties, and inputs and outputs of Activities, Processes, and Global Tasks. [â€¦] The purpose of retrieving data from Data Objects or Process Data Inputs is to fill the Activities inputs and later push the output values from the execution of the Activity back into Data Objects or Process Data Outputs.“ (Axway et al., 2009: p.199). It associates e.g. a task to a document\" (Brun 2010)"^^xsd:string ;
+  rdfs:label "DataAssociation"^^xsd:string ;
+  rdfs:subClassOf bpmn:Connector ;
+.
+bpmn:DataInput
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf bpmn:DataObject ;
+.
+bpmn:DataObject
+  rdf:type owl:Class ;
+  rdfs:subClassOf bpmn:Data ;
+.
+bpmn:DataOutput
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf bpmn:DataObject ;
+.
+bpmn:DataStore
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf bpmn:Data ;
+.
+bpmn:EndEvent
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "EndEvent"^^xsd:string ;
+  rdfs:subClassOf bpmn:Event ;
+.
+bpmn:ErrorEndEvent
+  rdf:type owl:Class ;
+  rdfs:label "ErrorEndEvent"^^xsd:string ;
+  rdfs:subClassOf bpmn:EndEvent ;
+.
+bpmn:ErrorIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "ErrorIntermediateEvent"^^xsd:string ;
+  rdfs:subClassOf bpmn:IntermediateEvent ;
+.
+bpmn:Event
+  rdf:type owl:Class ;
+  rdfs:comment "according to BPMN 2.0 spec, p 176"^^xsd:string ;
+  rdfs:subClassOf bpmn:FlowNode ;
+.
+bpmn:EventBasedGateway
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf bpmn:Gateway ;
+.
+bpmn:ExclusiveGateway
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "ExclusiveGateway"^^xsd:string ;
+  rdfs:subClassOf bpmn:Gateway ;
+.
+bpmn:FlowElement
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "according to BPMN 2.0 spec, p 176"^^xsd:string ;
+  rdfs:subClassOf emo:BPMN_MetaModel ;
+.
+bpmn:FlowElementContainer
+  rdf:type owl:Class ;
+  rdfs:comment "according to BPMN 2.0 spec, p 176"^^xsd:string ;
+  rdfs:subClassOf emo:BPMN_MetaModel ;
+.
+bpmn:FlowNode
+  rdf:type owl:Class ;
+  rdfs:comment "CQ21"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "according to BPMN 2.0 spec, p 176"^^xsd:string ;
+  rdfs:subClassOf bpmn:FlowElement ;
+.
+bpmn:Gateway
+  rdf:type owl:Class ;
+  rdfs:comment """\"Gateways are used to control how the Process flows (how Tokens flow) through Sequence Flow as they converge
+and diverge within a Process.\" (OMG 2009)"""^^xsd:string ;
+  rdfs:comment "according to BPMN 2.0 spec, p 176"^^xsd:string ;
+  rdfs:label "Gateway"^^xsd:string ;
+  rdfs:subClassOf bpmn:FlowNode ;
+.
+bpmn:Group
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Group"^^xsd:string ;
+  rdfs:subClassOf bpmn:Artifact ;
+.
+bpmn:InclusiveGateway
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "InclusiveGateway"^^xsd:string ;
+  rdfs:subClassOf bpmn:Gateway ;
+.
+bpmn:IntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "IntermediateEvent"^^xsd:string ;
+  rdfs:subClassOf bpmn:Event ;
+.
+bpmn:Lane
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf bpmn:Swimlane ;
+.
+bpmn:LaneSet
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf bpmn:Swimlane ;
+.
+bpmn:ManualTask
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "ManualTask"^^xsd:string ;
+  rdfs:subClassOf bpmn:Task ;
+.
+bpmn:Message
+  rdf:type owl:Class ;
+  rdfs:subClassOf bpmn:Data ;
+.
+bpmn:MessageEndEvent
+  rdf:type owl:Class ;
+  rdfs:label "MessageEndEvent"^^xsd:string ;
+  rdfs:subClassOf bpmn:EndEvent ;
+.
+bpmn:MessageFlow
+  rdf:type owl:Class ;
+  rdfs:comment "The BPMN modeling objects and shows how these objects can connect to one another through Message Flow. (Axway et al., 2009: p.35 ) (Brun 2010)"^^xsd:string ;
+  rdfs:label "MessageFlow"^^xsd:string ;
+  rdfs:subClassOf bpmn:Connector ;
+  rdfs:subClassOf archi:Flow ;
+.
+bpmn:MessageIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "MessageIntermediateEvent"^^xsd:string ;
+  rdfs:subClassOf bpmn:IntermediateEvent ;
+.
+bpmn:MessageStartEvent
+  rdf:type owl:Class ;
+  rdfs:label "MessageStartEvent"^^xsd:string ;
+  rdfs:subClassOf bpmn:StartEvent ;
+.
+bpmn:ParallelGateway
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "ParallelGateway"^^xsd:string ;
+  rdfs:subClassOf bpmn:Gateway ;
+.
+bpmn:Participant
+  rdf:type owl:Class ;
+  rdfs:subClassOf emo:BPMN_MetaModel ;
+.
+bpmn:Pool
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "Pool is the graphical representation of a Participant in a Collaboration"^^xsd:string ;
+  rdfs:subClassOf bpmn:Participant ;
+.
+bpmn:Process
+  rdf:type owl:Class ;
+  rdfs:comment "according to BPMN 2.0 spec, p 176"^^xsd:string ;
+  rdfs:subClassOf bpmn:FlowElementContainer ;
+.
+bpmn:ReceiveTask
+  rdf:type owl:Class ;
+  rdfs:label "ReceiveTask"^^xsd:string ;
+  rdfs:subClassOf bpmn:Task ;
+.
+bpmn:ScriptTask
+  rdf:type owl:Class ;
+  rdfs:label "ScriptTask"^^xsd:string ;
+  rdfs:subClassOf bpmn:Task ;
+.
+bpmn:SendTask
+  rdf:type owl:Class ;
+  rdfs:label "SendTask"^^xsd:string ;
+  rdfs:subClassOf bpmn:Task ;
+.
+bpmn:SequenceFlow
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "according to BPMN 2.0 spec, p 176"^^xsd:string ;
+  rdfs:label "SequenceFlow"^^xsd:string ;
+  rdfs:subClassOf bpmn:Connector ;
+  rdfs:subClassOf bpmn:FlowElement ;
+.
+bpmn:ServiceTask
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "ServiceTask"^^xsd:string ;
+  rdfs:subClassOf bpmn:Task ;
+.
+bpmn:StartEvent
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "StartEvent"^^xsd:string ;
+  rdfs:subClassOf bpmn:Event ;
+.
+bpmn:SubProcess
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "according to BPMN 2.0 spec, p 181"^^xsd:string ;
+  rdfs:subClassOf bpmn:Activity ;
+.
+bpmn:Swimlane
+  rdf:type owl:Class ;
+  rdfs:comment """Lanes are used to organize and categorize Activities within a Pool. The meaning of the Lanes is up to the modeler.
+BPMN does not specify the usage of Lanes"""^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf bpmn:Participant ;
+.
+bpmn:Task
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "according to BPMN 2.0 spec, p 181"^^xsd:string ;
+  rdfs:label "Task"^^xsd:string ;
+  rdfs:subClassOf bpmn:Activity ;
+.
+bpmn:TerminateEndEvent
+  rdf:type owl:Class ;
+  rdfs:label "TerminateEndEvent"^^xsd:string ;
+  rdfs:subClassOf bpmn:EndEvent ;
+.
+bpmn:TextAnnotation
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Annotation"^^xsd:string ;
+  rdfs:subClassOf bpmn:Artifact ;
+.
+bpmn:ThrowingIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "ThrowingIntermediateEvent"^^xsd:string ;
+  rdfs:subClassOf bpmn:IntermediateEvent ;
+.
+bpmn:TimerIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "TimerIntermediateEvent"^^xsd:string ;
+  rdfs:subClassOf bpmn:IntermediateEvent ;
+.
+bpmn:TimerStartEvent
+  rdf:type owl:Class ;
+  rdfs:label "TimerStartEvent"^^xsd:string ;
+  rdfs:subClassOf bpmn:StartEvent ;
+.
+bpmn:UserTask
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "UserTask"^^xsd:string ;
+  rdfs:subClassOf bpmn:Task ;
+.
+bpmn:bpmnProcessRepresentsBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:Process ;
+  rdfs:range archi:BusinessProcess ;
+.
+bpmn:flowNodeBelongsToParticipant
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:FlowNode ;
+  rdfs:range bpmn:Participant ;
+.
+bpmn:fromFlowElement
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:SequenceFlow ;
+  rdfs:range bpmn:FlowElement ;
+.
+bpmn:toFlowElement
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:SequenceFlow ;
+  rdfs:range bpmn:FlowElement ;
+.
+archi:BusinessActor
+  rdfs:comment "LCMM"^^xsd:string ;
+  rdfs:label "Actor"^^xsd:string ;
+.
+archi:BusinessProcess
+  rdfs:comment "LCMM"^^xsd:string ;
+  rdfs:label "Process"^^xsd:string ;
+.
+archi:BusinessRole
+  rdfs:comment "LCMM"^^xsd:string ;
+  rdfs:label "Role"^^xsd:string ;
+.
+emo:BPMNConsistsOfGroup
+  rdfs:range bpmn:Group ;
+.
+emo:BPMNConsistsOfTextAnnotation
+  rdfs:range bpmn:TextAnnotation ;
+.
+eo:BusinessActivity
+  rdfs:comment "LCMM"^^xsd:string ;
+  rdfs:label "Activity"^^xsd:string ;
+.

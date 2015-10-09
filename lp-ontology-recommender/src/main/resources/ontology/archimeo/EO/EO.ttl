@@ -1,0 +1,3008 @@
+# baseURI: http://ikm-group.ch/archiMEO/eo
+# imports: http://ikm-group.ch/archiMEO/BMM
+# imports: http://ikm-group.ch/archiMEO/BPMN
+# imports: http://ikm-group.ch/archiMEO/archimate
+# imports: http://ikm-group.ch/archiMEO/nco
+# imports: http://ikm-group.ch/archiMEO/top
+# imports: http://ikm-group.ch/archiMEO/util
+
+@prefix archi: <http://ikm-group.ch/archiMEO/archimate#> .
+@prefix bmm: <http://ikm-group.ch/archiMEO/BMM#> .
+@prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcmi-type-vocabulary: <http://dublincore.org/documents/2000/07/11/dcmi-type-vocabulary#> .
+@prefix eo: <http://ikm-group.ch/archiMEO/eo#> .
+@prefix media-types: <http://www.iana.org/assignments/media-types#> .
+@prefix nco: <http://ikm-group.ch/archiMEO/nco#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix omm: <http://ikm-group.ch/archiMEO/omm#> .
+@prefix pmmm: <http://ikm-group.ch/archiMEO/pmmm#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix top: <http://ikm-group.ch/archiMEO/top#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ikm-group.ch/archiMEO/emo#Method>
+  rdf:type owl:Class ;
+  rdfs:comment "see definition of bmm:Means."^^xsd:string ;
+  rdfs:subClassOf bmm:Means ;
+.
+<http://ikm-group.ch/archiMEO/emo#SWOT>
+  rdf:type owl:Class ;
+  rdfs:label "SWOT"^^xsd:string ;
+  rdfs:subClassOf <http://ikm-group.ch/archiMEO/emo#Method> ;
+.
+<http://ikm-group.ch/archiMEO/eo>
+  rdf:type owl:Ontology ;
+  cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+  cc:license "This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License."@en ;
+  dc:contributor "Barbara Thönssen"^^xsd:string ;
+  dc:contributor "Knut Hinkelmann"^^xsd:string ;
+  dc:creator "Andreas Martin"^^xsd:string ;
+  dc:creator "Roman Brun"^^xsd:string ;
+  dc:description "The EO Ontology."@en ;
+  dc:issued "2010-01-01"^^xsd:date ;
+  dc:modified "2013-05-24"^^xsd:date ;
+  dc:publisher <http://de.dbpedia.org/resource/Fachhochschule_Nordwestschweiz> ;
+  dc:publisher <http://www.fhnw.ch/business> ;
+  dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
+  dc:rights "Copyright 2012 FHNW "^^xsd:string ;
+  dc:title "The EO Ontology"@en ;
+  rdfs:comment "The EO as part of LEMO ontology is about enterprise objects and their relations to different model types."@en ;
+  owl:imports <http://ikm-group.ch/archiMEO/BMM> ;
+  owl:imports <http://ikm-group.ch/archiMEO/BPMN> ;
+  owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
+  owl:imports <http://ikm-group.ch/archiMEO/nco> ;
+  owl:imports <http://ikm-group.ch/archiMEO/top> ;
+  owl:imports <http://ikm-group.ch/archiMEO/util> ;
+  owl:versionInfo 1.0 ;
+.
+eo:AdministratorRole
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:ClerkRole ;
+.
+eo:Africa
+  rdf:type top:Continent ;
+  rdf:type owl:Thing ;
+.
+eo:Asia
+  rdf:type top:Continent ;
+  rdf:type owl:Thing ;
+.
+eo:AtomicBusinessProcess
+  rdf:type owl:Class ;
+  rdfs:comment "CQ14"^^xsd:string ;
+  rdfs:comment "CQ17"^^xsd:string ;
+  rdfs:comment "CQ18"^^xsd:string ;
+  rdfs:comment "CQ3"^^xsd:string ;
+  rdfs:comment "CQ4"^^xsd:string ;
+  rdfs:comment "CQ5"^^xsd:string ;
+  rdfs:comment "CQ9"^^xsd:string ;
+  rdfs:comment "concepts developed within the Ontogov Project; namespace ontogov changed to eo (BThoenssen)"^^xsd:string ;
+  rdfs:subClassOf archi:BusinessProcess ;
+.
+eo:AnnotationDataSet
+  rdf:type owl:Class ;
+  rdfs:comment "CQ17"^^xsd:string ;
+  rdfs:comment "CQ19"^^xsd:string ;
+  rdfs:subClassOf eo:DataSet ;
+.
+eo:Assessment
+  rdf:type owl:Class ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:subClassOf eo:MotivationElement ;
+.
+
+eo:Bankcruptcy
+  rdf:type eo:FinancialBusinessEvent ;
+  rdf:type owl:Thing ;
+.
+eo:Bid
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://xmlns.com/foaf/spec#Document> ;
+.
+eo:BoardMemberRole
+  rdf:type eo:DirectorsBoardRole ;
+  rdfs:label "Directors board member  (COB) "@en ;
+  rdfs:label "Verwaltungsratsmitglied"@de ;
+.
+eo:BusinessActivity
+  rdf:type owl:Class ;
+  rdfs:comment "Listed in the relationship table but not in the description of the  standard (thb)"@en ;
+  rdfs:comment "Replaces former archi:BusinessActivity because 'BusinessActivity' is not in ArchiMate V2.1"^^xsd:string ;
+  rdfs:subClassOf archi:BusinessBehaviourElement ;
+.
+eo:BusinessCase
+  rdf:type owl:Class ;
+  rdfs:subClassOf archi:BusinessBehaviourElement ;
+.
+eo:BusinessPartner
+  rdf:type owl:Class ;
+  rdfs:subClassOf archi:BusinessRole ;
+.
+eo:BusinessProcessEvent
+  rdf:type owl:Class ;
+  rdfs:subClassOf archi:BusinessEvent ;
+.
+eo:CalendarApril
+  rdf:type owl:Class ;
+  rdfs:label "CalendarApril"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarMonth ;
+.
+eo:CalendarAugust
+  rdf:type owl:Class ;
+  rdfs:label "CalendarAugust"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarMonth ;
+.
+eo:CalendarDay
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay"^^xsd:string ;
+  rdfs:subClassOf top:CalendarElement ;
+.
+eo:CalendarDay1
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay1"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay10
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay10"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay11
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay11"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay12
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay12"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay13
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay13"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay14
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay14"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay15
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay15"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay16
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay16"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay17
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay17"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay18
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay18"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay19
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay19"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay2
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay2"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay20
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay20"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay21
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay21"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay22
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay22"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay23
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay23"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay24
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay24"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay25
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay25"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay26
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay26"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay27
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay27"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay28
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay28"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay29
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay29"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay3
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay3"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay30
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay30"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay31
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay31"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay4
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay4"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay5
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay5"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay6
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay6"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay7
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay7"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay8
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay8"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDay9
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDay9"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarDecember
+  rdf:type owl:Class ;
+  rdfs:label "CalendarDecember"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarMonth ;
+.
+eo:CalendarFebruary
+  rdf:type owl:Class ;
+  rdfs:label "CalendarFebruary"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarMonth ;
+.
+eo:CalendarFriday
+  rdf:type owl:Class ;
+  rdfs:label "CalendarFriday"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarJanuary
+  rdf:type owl:Class ;
+  rdfs:label "CalendarJanuary"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarMonth ;
+.
+eo:CalendarJuly
+  rdf:type owl:Class ;
+  rdfs:label "CalendarJuly"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarMonth ;
+.
+eo:CalendarJune
+  rdf:type owl:Class ;
+  rdfs:label "CalendarJune"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarMonth ;
+.
+eo:CalendarMarch
+  rdf:type owl:Class ;
+  rdfs:label "CalendarMarch"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarMonth ;
+.
+eo:CalendarMay
+  rdf:type owl:Class ;
+  rdfs:label "CalendarMay"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarMonth ;
+.
+eo:CalendarMonday
+  rdf:type owl:Class ;
+  rdfs:label "CalendarMonday"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarMonth
+  rdf:type owl:Class ;
+  rdfs:label "CalendarMonth"^^xsd:string ;
+  rdfs:subClassOf top:CalendarElement ;
+.
+eo:CalendarNovember
+  rdf:type owl:Class ;
+  rdfs:label "CalendarNovember"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarMonth ;
+.
+eo:CalendarOctober
+  rdf:type owl:Class ;
+  rdfs:label "CalendarOctober"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarMonth ;
+.
+eo:CalendarSaturday
+  rdf:type owl:Class ;
+  rdfs:label "CalendarSaturday"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarWeekday ;
+.
+eo:CalendarSeptember
+  rdf:type owl:Class ;
+  rdfs:label "CalendarSeptember"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarMonth ;
+.
+eo:CalendarSunday
+  rdf:type owl:Class ;
+  rdfs:label "CalendarSunday"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarThursday
+  rdf:type owl:Class ;
+  rdfs:label "CalendarThursday"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarTuesday
+  rdf:type owl:Class ;
+  rdfs:label "CalendarTuesday"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarWednesday
+  rdf:type owl:Class ;
+  rdfs:label "CalendarWednesday"^^xsd:string ;
+  rdfs:subClassOf eo:CalendarDay ;
+.
+eo:CalendarWeekday
+  rdf:type owl:Class ;
+  rdfs:label "CalendarWeekday"^^xsd:string ;
+  rdfs:subClassOf top:CalendarElement ;
+.
+eo:CalendarYear
+  rdf:type owl:Class ;
+  rdfs:label "CalendarYear"^^xsd:string ;
+  rdfs:subClassOf top:CalendarElement ;
+.
+eo:Camerino
+  rdf:type top:City ;
+  rdf:type owl:Thing ;
+  top:cityIsLocatedInPartOfCountry eo:Marche ;
+.
+eo:CapVerde
+  rdf:type top:Country ;
+  rdf:type owl:Thing ;
+  top:countryHasTypeOfState "Island"^^xsd:string ;
+  top:countryIsLocatedInContinent eo:Africa ;
+.
+eo:ChairmanOfTheBoardRole
+  rdf:type eo:DirectorsBoardRole ;
+  rdfs:label "Chairman of the Board (COB) "@en ;
+  rdfs:label "Verwaltungsratspräsident "@de ;
+.
+eo:Channel
+  rdf:type owl:Class ;
+  rdfs:label "Channel"^^xsd:string ;
+  rdfs:subClassOf bmm:Strategy ;
+.
+eo:ChiefExecutiveOfficerRole
+  rdf:type eo:ChiefOfficerRole ;
+  rdfs:comment "A chief executive officer (CEO) is generally the most senior corporate officer (executive) or administrator in charge of managing a for-profit organization. The CEO of a corporation or company typically reports to the board of directors and is charged with maximizing the value of the entity. Titles often used as synonyms for CEO include president, managing director (MD) and chief executive (CE)."@en ;
+  rdfs:comment "Der Chief Executive Officer (CEO) ist die US-amerikanische Bezeichnung für das geschäftsführende Vorstandsmitglied (deutsche, schweizerische und österreichische Bezeichnung: Geschäftsführer) bzw. den Vorstandsvorsitzenden oder Generaldirektor (deutsche, schweizerische und österreichische Bezeichnung: Vorsitzender oder Präsident der Geschäftsleitung) eines Unternehmens oder einfach dessen allein zeichnungsberechtigtem Geschäftsführer."@de ;
+  rdfs:label "Chief Executive Officer (CEO) "@en ;
+  rdfs:label "Geschäftsführer "@de ;
+.
+eo:ChiefFinancialOfficerRole
+  rdf:type eo:ChiefOfficerRole ;
+  rdfs:comment "Die Funktionsbezeichnung Chief Financial Officer (CFO) aus dem angelsächsischen Raum entspricht im Deutschen etwa dem Kaufmännischen Geschäftsführer einer GmbH oder dem Finanzvorstand bei Aktiengesellschaften."@de ;
+  rdfs:comment "The chief financial officer (CFO) or chief financial and operating officer (CFOO) is a corporate officer primarily responsible for managing the financial risks of the corporation."@en ;
+  rdfs:label "Chief Financial Officer (CFO) "@en ;
+  rdfs:label "Finanzvorstand "@de ;
+.
+eo:ChiefOfficerRole
+  rdf:type owl:Class ;
+  rdfs:label "Chief Officer "@en ;
+  rdfs:label "Geschäftsleitungsmitglied / Vostandsmitglied"@de ;
+  rdfs:subClassOf eo:ManagerRole ;
+.
+eo:ChiefOperatingOfficerRole
+  rdf:type eo:ChiefOfficerRole ;
+  rdfs:comment "A chief operating officer (COO), also called the chief operations officer, director of operations, or operations director, is a position that can be one of the highest-ranking executive positions in an organization, comprising part of the \"C-Suite\". The COO is responsible for the daily operation of the company, and routinely reports to the highest ranking executive, usually the chief executive officer (CEO). The COO may also carry the title of President which makes that person the second in command at the firm, especially if the highest ranking executive is the Chairman and CEO."@en ;
+  rdfs:comment "Der COO ist ein Manager, der das operative Geschäft leitet beziehungsweise betreut. Zu seinen Aufgaben zählen die Leitung, Steuerung und Organisation der gesamten Betriebsprozesse und der betrieblichen Leistungen."@de ;
+  rdfs:label "Chief Operating Officer (COO) "@en ;
+  rdfs:label "Leiter des operativen Geschäfts "@de ;
+.
+eo:CityHasNickName
+  rdf:type owl:DatatypeProperty ;
+.
+eo:ClerkRole
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:Employee ;
+.
+eo:Client
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:BusinessPartner ;
+.
+eo:Competency
+  rdf:type owl:Class ;
+  rdfs:comment "CQ14"^^xsd:string ;
+  rdfs:comment "CQ9"^^xsd:string ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:subClassOf archi:PassiveStructureElement ;
+.
+eo:CompetencyProfile
+  rdf:type owl:Class ;
+  rdfs:comment "CQ5"^^xsd:string ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:subClassOf archi:PassiveStructureElement ;
+.
+eo:Competitor
+  rdf:type owl:Class ;
+  rdfs:label "Competitor"^^xsd:string ;
+  rdfs:subClassOf bmm:InfluencerCategory ;
+.
+eo:Component
+  rdf:type owl:Class ;
+  rdfs:comment "Components are parts of a tangible product. This is a pendant to archi:BusinessService which may be part of an intangible product."^^xsd:string ;
+  rdfs:label "Component"^^xsd:string ;
+  rdfs:subClassOf archi:PassiveStructureElement ;
+.
+eo:CompositeBusinessProcess
+  rdf:type owl:Class ;
+  rdfs:comment "CQ9"^^xsd:string ;
+  rdfs:comment "concepts developed within the Ontogov Project; namespace ontogov changed to eo (BThoenssen)"^^xsd:string ;
+  rdfs:subClassOf archi:BusinessProcess ;
+.
+eo:ComputerAided
+  rdf:type owl:Class ;
+  rdfs:label "ComputerAided"^^xsd:string ;
+  rdfs:subClassOf eo:TaskExecutionCategory ;
+.
+eo:Computerized
+  rdf:type owl:Class ;
+  rdfs:label "Computerized"^^xsd:string ;
+  rdfs:subClassOf eo:TaskExecutionCategory ;
+.
+eo:Consultant
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:BusinessPartner ;
+.
+eo:Consumer
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:BusinessPartner ;
+.
+eo:ContractAgreementHasOption
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "ContractAgreementHasOption"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:ContractDataSet
+  rdf:type owl:Class ;
+  rdfs:label "ContractData"^^xsd:string ;
+  rdfs:subClassOf eo:DataSet ;
+.
+eo:ContractDocument
+  rdf:type owl:Class ;
+  rdfs:label "ContractDocument"^^xsd:string ;
+  rdfs:subClassOf <http://xmlns.com/foaf/spec#Document> ;
+.
+eo:ContractObjectIsOfContract
+  rdf:type owl:ObjectProperty ;
+  rdfs:range eo:ContractDocument ;
+.
+eo:Contractee
+  rdf:type owl:Class ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "ContractPartner"^^xsd:string ;
+  rdfs:subClassOf eo:BusinessPartner ;
+.
+eo:Contractor
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:BusinessPartner ;
+.
+eo:CourseOfAction
+  rdf:type owl:Class ;
+  rdfs:comment "A principle is defined as a normative property of all systems in a given context, or the way in which they are realized, sec 10.2.7"^^xsd:string ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:comment "equals 'Principle' in ArchiMate 2.1, sec 10.2.7"^^xsd:string ;
+  rdfs:comment "in CMM called 'means'"^^xsd:string ;
+  rdfs:subClassOf eo:MotivationElement ;
+.
+eo:Criterion
+  rdf:type owl:Class ;
+  rdfs:comment "CQ20"^^xsd:string ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:comment "a person's competency profile, i.e. the set of competencies and its levels a person has acquired are described/reported in a document, e.g. a job description"^^xsd:string ;
+  rdfs:comment "concept is introduced to represent LPIMM KPI concepts in CMM"^^xsd:string ;
+  rdfs:subClassOf eo:Measurement ;
+.
+eo:ConvexInterval
+  rdf:type owl:Class ;
+  rdfs:label "ConvexInterval"^^xsd:string ;
+  rdfs:subClassOf top:TimeInterval ;
+.
+eo:Customer
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:BusinessPartner ;
+.
+eo:CustomerCharacteristics
+  rdf:type owl:Class ;
+  rdfs:subClassOf bmm:AssessmentCategory ;
+.
+eo:DataBaseManagementSystem
+  rdf:type owl:Class ;
+  rdfs:subClassOf archi:ApplicationService ;
+.
+eo:DataElement
+  rdf:type owl:Class ;
+  rdfs:comment "Single Data Element (may be part of a Dataset)"^^xsd:string ;
+  rdfs:label "DataElement"^^xsd:string ;
+  rdfs:subClassOf archi:DataObject ;
+.
+eo:DataSet
+  rdf:type owl:Class ;
+  rdfs:comment "A dataset consists of DataElements"^^xsd:string ;
+  rdfs:label "Data"^^xsd:string ;
+  rdfs:subClassOf archi:DataObject ;
+.
+eo:DesiredResult
+  rdf:type owl:Class ;
+  rdfs:comment "A goal is defined as an end state that a stakeholder intends to achieve, sec 10.2.4"^^xsd:string ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:comment "equals 'Goal' in ArchiMate 2.1, sec 10.2.4"^^xsd:string ;
+  rdfs:comment "in CMM called 'ends'"^^xsd:string ;
+  rdfs:subClassOf eo:MotivationElement ;
+.
+eo:DirectorsBoardRole
+  rdf:type owl:Class ;
+  rdfs:label "Member of the board of Directors(COO) "@en ;
+  rdfs:label "Verwaltungsratsmitglied "@de ;
+  rdfs:subClassOf eo:ManagerRole ;
+.
+eo:Directory
+  rdf:type owl:Class ;
+  rdfs:subClassOf archi:Node ;
+.
+eo:DistributionChannel
+  rdf:type owl:Class ;
+  rdfs:comment """Alexander Osterwalder & Yves Pigneur: An ontology for e-business models. In:
+Wendy Currie (ed): Value Creation from E-Business Models, Butterworth-Heinemann,"""^^xsd:string ;
+  rdfs:label "DistributionChannel"^^xsd:string ;
+  rdfs:subClassOf eo:Channel ;
+.
+eo:DocumentCreationTool
+  rdf:type owl:Class ;
+  rdfs:subClassOf archi:ApplicationService ;
+.
+eo:DocumentManagementTool
+  rdf:type owl:Class ;
+  rdfs:subClassOf archi:ApplicationService ;
+.
+eo:DocumentTemplate
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://xmlns.com/foaf/spec#Document> ;
+.
+eo:Documentation
+  rdf:type owl:Class ;
+  rdfs:label "Documentation"^^xsd:string ;
+  rdfs:subClassOf <http://xmlns.com/foaf/spec#Document> ;
+.
+eo:Earthquake
+  rdf:type top:ActOfGod ;
+  rdf:type owl:Thing ;
+.
+eo:Employee
+  rdf:type owl:Class ;
+  rdfs:subClassOf archi:BusinessRole ;
+.
+eo:Energy
+  rdf:type owl:Class ;
+  rdfs:label "Energy"^^xsd:string ;
+  rdfs:subClassOf bmm:Asset ;
+.
+eo:EnterpriseObject
+  rdf:type owl:Class ;
+  rdfs:label "EnterpriseObject"^^xsd:string ;
+  rdfs:subClassOf owl:Thing ;
+.
+eo:EnterpriseResourcePlanningSystem
+  rdf:type owl:Class ;
+  rdfs:subClassOf archi:ApplicationService ;
+.
+eo:Environment
+  rdf:type owl:Class ;
+  rdfs:label "Environment"^^xsd:string ;
+  rdfs:subClassOf bmm:InfluencerCategory ;
+.
+eo:Europe
+  rdf:type top:Continent ;
+  rdf:type owl:Thing ;
+.
+eo:ExpertRole
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:Employee ;
+.
+eo:Filesystem
+  rdf:type owl:Class ;
+  rdfs:subClassOf archi:Node ;
+.
+eo:FinancialBusinessEvent
+  rdf:type owl:Class ;
+  rdfs:subClassOf archi:BusinessEvent ;
+.
+eo:Fire
+  rdf:type top:ActOfGod ;
+  rdf:type owl:Thing ;
+.
+eo:Flood
+  rdf:type top:ActOfGod ;
+  rdf:type owl:Thing ;
+.
+eo:Fukushima
+  rdf:type top:PartOfCountry ;
+  rdf:type owl:Thing ;
+  top:partOfCountryBelongsToCountry eo:Japan ;
+  top:partOfCountryHasTypeOfPartOfCountry "Prefecture"^^xsd:string ;
+.
+eo:Germany
+  rdf:type top:Country ;
+  rdf:type owl:Thing ;
+  top:countryConsistsOfPartOfCountry eo:RheinlandPfalz ;
+  top:countryIsLocatedInContinent eo:Europe ;
+.
+eo:Goal
+  rdf:type owl:Class ;
+  rdfs:comment "CQ20"^^xsd:string ;
+  rdfs:subClassOf eo:DesiredResult ;
+.
+eo:Hurricane
+  rdf:type top:ActOfGod ;
+  rdf:type owl:Thing ;
+.
+eo:IdentificationData
+  rdf:type owl:Class ;
+  rdfs:label "BidDataElement"^^xsd:string ;
+  rdfs:subClassOf eo:DataElement ;
+.
+eo:Image
+  rdf:type dcmi-type-vocabulary:DCMITYPE ;
+  rdf:type owl:Thing ;
+.
+eo:Influencer
+  rdf:type owl:Class ;
+  rdfs:comment "A driver is defined as something that creates, motivates, and fuels the change in an organization, sec 10.2.2"^^xsd:string ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:comment "equals 'Driver' in ArchiMate 2.1, sec 10.2.2"^^xsd:string ;
+  rdfs:subClassOf eo:MotivationElement ;
+.
+eo:InformationManagementSystem
+  rdf:type owl:Class ;
+  rdfs:subClassOf archi:ApplicationService ;
+.
+eo:InfrastructureElement
+  rdf:type owl:Class ;
+  rdfs:label "InfrastructureElement"^^xsd:string ;
+  rdfs:subClassOf archi:ActiveStructureElement ;
+.
+eo:IntangibleProduct
+  rdf:type owl:Class ;
+  rdfs:label "NonTagibleProduct"^^xsd:string ;
+  rdfs:subClassOf archi:Product ;
+.
+eo:Italy
+  rdf:type top:Country ;
+  rdf:type owl:Thing ;
+  top:countryIsLocatedInContinent eo:Europe ;
+.
+eo:Iwaki
+  rdf:type top:City ;
+  rdf:type owl:Thing ;
+  top:cityIsLocatedInCountry eo:Japan ;
+.
+eo:Japan
+  rdf:type top:Country ;
+  rdf:type owl:Thing ;
+  top:countryConsistsOfPartOfCountry eo:Fukushima ;
+  top:countryIsLocatedInContinent eo:Asia ;
+.
+eo:KnowledgeResource
+  rdf:type owl:Class ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:subClassOf eo:EnterpriseObject ;
+.
+eo:LearningGoal
+  rdf:type owl:Class ;
+  rdfs:comment "CQ14"^^xsd:string ;
+  rdfs:comment "CQ20"^^xsd:string ;
+  rdfs:subClassOf eo:Goal ;
+.
+eo:LegalBusinessEvent
+  rdf:type owl:Class ;
+  rdfs:subClassOf archi:BusinessEvent ;
+.
+eo:LegalEntity
+  rdf:type owl:Class ;
+  rdfs:comment "CQ7"^^xsd:string ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:comment "equivalent to LET Institution, Class E7 in the ITLET Conceptual Reference Model for Competency Information and Related Objects (ISO/IEC TR 23476 p.18)"^^xsd:string ;
+  rdfs:label "Organisation"^^xsd:string ;
+  rdfs:label "LegalEntity"^^xsd:string ;
+  rdfs:subClassOf archi:BusinessActor ;
+.
+eo:Ludwigshafen
+  rdf:type top:City ;
+  rdf:type owl:Thing ;
+  top:cityIsLocatedInCountry eo:Germany ;
+  top:cityIsLocatedInPartOfCountry eo:RheinlandPfalz ;
+.
+eo:ManagerRole
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:Employee ;
+.
+eo:Manpower
+  rdf:type owl:Class ;
+  rdfs:label "Manpower"^^xsd:string ;
+  rdfs:subClassOf bmm:Asset ;
+.
+eo:Manual
+  rdf:type owl:Class ;
+  rdfs:label "Manual"^^xsd:string ;
+  rdfs:subClassOf eo:TaskExecutionCategory ;
+.
+eo:Marche
+  rdf:type top:PartOfCountry ;
+  rdf:type owl:Thing ;
+.
+eo:Measurement
+  rdf:type owl:Class ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:subClassOf eo:EnterpriseObject ;
+.
+eo:Metrics
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:Measurement ;
+.
+eo:MotivationElement
+  rdf:type owl:Class ;
+  rdfs:comment "Extension is based on ArchiMate 2.1 (Motivation Aspect Metamodel, p 16); names are taken from BMM"^^xsd:string ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:subClassOf eo:EnterpriseObject ;
+.
+eo:Money
+  rdf:type owl:Class ;
+  rdfs:label "Money"^^xsd:string ;
+  rdfs:subClassOf bmm:Asset ;
+.
+eo:MovingImage
+  rdf:type dcmi-type-vocabulary:DCMITYPE ;
+  rdf:type owl:Thing ;
+.
+eo:NDAHasContractObjectConfidentiality
+  rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf eo:contractHasContractObject ;
+.
+eo:NonConvexInterval
+  rdf:type owl:Class ;
+  rdfs:label "NonConvexInterval"^^xsd:string ;
+  rdfs:subClassOf top:TimeInterval ;
+.
+eo:Objective
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:DesiredResult ;
+.
+eo:Obligation
+  rdf:type owl:Class ;
+  rdfs:label "Obligation"^^xsd:string ;
+  rdfs:subClassOf archi:BusinessObject ;
+.
+eo:Opportunity
+  rdf:type owl:Class ;
+  rdfs:label "Opportunity"^^xsd:string ;
+  rdfs:subClassOf bmm:AssessmentCategory ;
+.
+eo:Order
+  rdf:type owl:Class ;
+  rdfs:label "Order"@en ;
+  rdfs:subClassOf archi:BusinessObject ;
+.
+eo:OrganisationalUnit
+  rdf:type owl:Class ;
+  rdfs:comment "CQ7"^^xsd:string ;
+  rdfs:comment "equivalent to LET Institution, Class E7 in the ITLET Conceptual Reference Model for Competency Information and Related Objects (ISO/IEC TR 23476 p.18)"^^xsd:string ;
+  rdfs:comment "Concept has been moved from 'BusinessRole' (thb, 03.07.2011)"@en ;
+  rdfs:label "OrganisationalUnit"^^xsd:string ;
+  rdfs:subClassOf archi:BusinessActor ;
+.
+eo:Partner
+  rdf:type owl:Class ;
+  rdfs:label "Partner"^^xsd:string ;
+  rdfs:subClassOf bmm:InfluencerCategory ;
+.
+eo:Person
+  rdf:type owl:Class ;
+  rdfs:comment "CQ1"^^xsd:string ;
+  rdfs:comment "CQ14"^^xsd:string ;
+  rdfs:comment "CQ2"^^xsd:string ;
+  rdfs:comment "CQ5"^^xsd:string ;
+  rdfs:comment "CQ6"^^xsd:string ;
+  rdfs:comment "CQ7"^^xsd:string ;
+  rdfs:comment "CQ9"^^xsd:string ;
+  rdfs:comment "equivalent to Actor, Class E2 in the ITLET Conceptual Reference Model for Competency Information and Related Objects (ISO/IEC TR 23476 p.18)"^^xsd:string ;
+  rdfs:comment """\"The Person class represents people. Something is a Person if it is a person. We don't nitpic about whether they're alive, dead, real, or imaginary. The Person class is a sub-class of the Agent class, since all people are considered 'agents' in FOAF\" (FOAF)
+As we do not have the super class agent we decided to use the eo-namespace instead foaf"""@en ;
+  rdfs:comment "replaces eo:NaturalActor"^^xsd:string ;
+  rdfs:subClassOf archi:BusinessActor ;
+.
+eo:Perspective
+  rdf:type owl:Class ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:comment "concept is introduced to represent LPIMM KPI concepts in CMM"^^xsd:string ;
+  rdfs:subClassOf eo:Measurement ;
+.
+eo:ProgramManagerRole
+  rdf:type eo:ManagerRole ;
+  rdfs:label "Program Manager"@en ;
+  rdfs:label "Programmleiter"@de ;
+.
+eo:ProgrammerRole
+  rdf:type eo:ExpertRole ;
+  rdfs:label "Programmer "@en ;
+  rdfs:label "Programmierer"@de ;
+.
+eo:Project
+  rdf:type owl:Class ;
+  rdfs:subClassOf archi:BusinessObject ;
+.
+eo:ProjectLeadRole
+  rdf:type eo:ManagerRole ;
+  rdfs:label "Project Lead "@en ;
+  rdfs:label "Projektleiter "@de ;
+.
+eo:Purchase
+  rdf:type owl:Class ;
+  rdfs:label "Purchase"@en ;
+  rdfs:subClassOf eo:Order ;
+.
+eo:Regulation
+  rdf:type owl:Class ;
+  rdfs:label "Regulation"^^xsd:string ;
+  rdfs:subClassOf bmm:InfluencerCategory ;
+  rdfs:subClassOf bmm:Influencer ;
+.
+eo:RegulationDocument
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://xmlns.com/foaf/spec#Document> ;
+.
+eo:RelationshipMechanism
+  rdf:type owl:Class ;
+  rdfs:comment """Alexander Osterwalder & Yves Pigneur: An ontology for e-business models. In:
+Wendy Currie (ed): Value Creation from E-Business Models, Butterworth-Heinemann, 2003"""^^xsd:string ;
+  rdfs:label "RelationshipMechanism"^^xsd:string ;
+  rdfs:subClassOf bmm:BusinessPolicy ;
+.
+eo:RheinlandPfalz
+  rdf:type top:PartOfCountry ;
+  rdf:type owl:Thing ;
+.
+eo:Sale
+  rdf:type owl:Class ;
+  rdfs:label "Sale"@en ;
+  rdfs:subClassOf eo:Order ;
+.
+eo:SalesManagerRole
+  rdf:type eo:ManagerRole ;
+  rdfs:label "Sales Manager "@en ;
+  rdfs:label "Verkaufsmanager "@de ;
+.
+eo:SoftwareArchitectRole
+  rdf:type eo:ExpertRole ;
+  rdfs:label "Software Architect "@en ;
+  rdfs:label "Softwarearchitekt "@de ;
+.
+eo:Sound
+  rdf:type dcmi-type-vocabulary:DCMITYPE ;
+  rdf:type owl:Thing ;
+.
+eo:Specification
+  rdf:type owl:Class ;
+  rdfs:label "Specification"^^xsd:string ;
+  rdfs:subClassOf <http://xmlns.com/foaf/spec#Document> ;
+.
+eo:Strategy
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:CourseOfAction ;
+.
+eo:StillImage
+  rdf:type dcmi-type-vocabulary:DCMITYPE ;
+  rdf:type owl:Thing ;
+.
+eo:Strength
+  rdf:type owl:Class ;
+  rdfs:label "Strength"^^xsd:string ;
+  rdfs:subClassOf bmm:AssessmentCategory ;
+.
+eo:Supplier
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:BusinessPartner ;
+.
+eo:SupplierCharacteristics
+  rdf:type owl:Class ;
+  rdfs:subClassOf bmm:AssessmentCategory ;
+.
+eo:SwissCodeOfObligations
+  rdf:type nco:GeneralArchivingLaw ;
+  rdf:type owl:Thing ;
+  eo:lawAndRegulationInLocation eo:Switzerland ;
+.
+eo:Switzerland
+  rdf:type top:Country ;
+  rdf:type owl:Thing ;
+  top:countryIsLocatedInContinent eo:Europe ;
+.
+eo:Tactic
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:CourseOfAction ;
+.
+eo:TangibleProduct
+  rdf:type owl:Class ;
+  rdfs:label "TangibleProduct"^^xsd:string ;
+  rdfs:subClassOf archi:Product ;
+.
+eo:TaskExecutionCategory
+  rdf:type owl:Class ;
+  rdfs:subClassOf nco:Category ;
+.
+eo:TechnicalConsultantRole
+  rdf:type eo:ExpertRole ;
+  rdfs:label "Technical Consultant "@en ;
+  rdfs:label "Technischer Berater "@de ;
+.
+eo:Technology
+  rdf:type owl:Class ;
+  rdfs:label "Technology"^^xsd:string ;
+  rdfs:subClassOf bmm:InfluencerCategory ;
+.
+eo:Tender
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://xmlns.com/foaf/spec#Document> ;
+.
+eo:TestManagerRole
+  rdf:type eo:ManagerRole ;
+  rdfs:label "Testmanager"@de ;
+  rdfs:label "Testmanager"@en ;
+.
+eo:Text
+  rdf:type dcmi-type-vocabulary:DCMITYPE ;
+  rdf:type owl:Thing ;
+.
+eo:Threat
+  rdf:type owl:Class ;
+  rdfs:label "Threat"^^xsd:string ;
+  rdfs:subClassOf bmm:AssessmentCategory ;
+.
+eo:TimeHour
+  rdf:type owl:Class ;
+  rdfs:label "TimeHour"^^xsd:string ;
+  rdfs:subClassOf top:TimeElement ;
+.
+eo:TimeMinute
+  rdf:type owl:Class ;
+  rdfs:label "TimeMinute"^^xsd:string ;
+  rdfs:subClassOf top:TimeElement ;
+.
+eo:TimeSecond
+  rdf:type owl:Class ;
+  rdfs:label "TimeSecond"^^xsd:string ;
+  rdfs:subClassOf top:TimeElement ;
+.
+eo:TimeSecond1
+  rdf:type owl:Class ;
+  rdfs:label "TimeSecond1"^^xsd:string ;
+  rdfs:subClassOf eo:TimeSecond ;
+.
+eo:TimeSecond2
+  rdf:type owl:Class ;
+  rdfs:label "TimeSecond2"^^xsd:string ;
+  rdfs:subClassOf eo:TimeSecond ;
+.
+eo:Tokio
+  rdf:type top:City ;
+  rdf:type owl:Thing ;
+.
+eo:Tsunami
+  rdf:type top:ActOfGod ;
+  rdf:type owl:Thing ;
+  eo:eventHasEventDescription ""^^xsd:string ;
+.
+eo:UCT-11
+  rdf:type owl:Class ;
+  rdfs:label "UCT-11"^^xsd:string ;
+  rdfs:subClassOf top:TimeZone ;
+.
+eo:UCT-12
+  rdf:type owl:Class ;
+  rdfs:label "UCT-12"^^xsd:string ;
+  rdfs:subClassOf top:TimeZone ;
+.
+eo:UCT14
+  rdf:type owl:Class ;
+  rdfs:label "UCT14"^^xsd:string ;
+  rdfs:subClassOf top:TimeZone ;
+.
+eo:ValueProposition
+  rdf:type owl:Class ;
+  rdfs:comment """Alexander Osterwalder & Yves Pigneur: An ontology for e-business models. In:
+Wendy Currie (ed): Value Creation from E-Business Models, Butterworth-Heinemann, 2003"""^^xsd:string ;
+  rdfs:label "ValueProposition"^^xsd:string ;
+  rdfs:subClassOf bmm:Tactic ;
+.
+eo:VulcanicEruption
+  rdf:type top:ActOfGod ;
+  rdf:type owl:Thing ;
+.
+eo:Weakness
+  rdf:type owl:Class ;
+  rdfs:label "Weakness"^^xsd:string ;
+  rdfs:subClassOf bmm:AssessmentCategory ;
+.
+eo:actionEndorsesMeans
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BehaviourElement ;
+  rdfs:label "actionEndorsesMeans"^^xsd:string ;
+  rdfs:range bmm:Means ;
+.
+eo:actionHasAssociatedBusinessRule
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BehaviourElement ;
+  rdfs:label "actionHasAssociatedBusinessRule"^^xsd:string ;
+  rdfs:range bmm:BusinessRule ;
+.
+eo:actionHasEndTime
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BehaviourElement ;
+  rdfs:label "actionHasEndTime"^^xsd:string ;
+  rdfs:range top:TimePoint ;
+.
+eo:actionHasHomeProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BehaviourElement ;
+  rdfs:label "actionHasHomeProcess"^^xsd:string ;
+.
+eo:actionHasRoleRequirement
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BehaviourElement ;
+  rdfs:label "actionHasRoleRequirement"^^xsd:string ;
+.
+eo:actionHasStartTime
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BehaviourElement ;
+  rdfs:label "actionHasStartTime"^^xsd:string ;
+  rdfs:range top:TimePoint ;
+.
+eo:actionIsExecutedWithTool
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BehaviourElement ;
+  rdfs:label "actionIsExecutedWithTool"@en ;
+  owl:inverseOf eo:applicationServiceExecutesBehaviour ;
+.
+eo:actionIsPerfomedByActor
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BehaviourElement ;
+  rdfs:label "actionIsPerfomedByActor"^^xsd:string ;
+.
+eo:actionProducesFacility
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BehaviourElement ;
+  rdfs:label "actionProducesFacility"^^xsd:string ;
+.
+eo:actionStrivesForEnd
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BehaviourElement ;
+  rdfs:label "actionStrivesForEnd"^^xsd:string ;
+  rdfs:range bmm:End ;
+.
+eo:actionStructureHasHomeProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "actionStructureHasHomeProcess"^^xsd:string ;
+.
+eo:actionUsesFacility
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BehaviourElement ;
+  rdfs:label "actionUsesFacility"^^xsd:string ;
+.
+eo:actorHandlesEnd
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "actorHandlesEnd"^^xsd:string ;
+  rdfs:range bmm:End ;
+.
+eo:actorHandlesMeans
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "actorHandlesMeans"^^xsd:string ;
+  rdfs:range bmm:Means ;
+.
+eo:actorHasSkill
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "actorHasSkill"^^xsd:string ;
+.
+eo:actorIsInfluencer
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "actorIsInfluencer"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:actorIsMemberOfCollective
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "actorIsMemberOfCollective"^^xsd:string ;
+.
+eo:actorIsMemberOfLegalEntity
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "actorIsMemberOfLegalEntity"^^xsd:string ;
+  rdfs:range eo:LegalEntity ;
+.
+eo:actorIsMotivatedByMeans
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "actorIsMotivatedByMeans"^^xsd:string ;
+  rdfs:range bmm:Means ;
+.
+eo:actorIsSituatedInLocation
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "actorIsSituatedInLocation"^^xsd:string ;
+  rdfs:range top:Location ;
+.
+eo:actorManagesFacility
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "actorManagesFacility"^^xsd:string ;
+.
+eo:actorPerformsAction
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "u_actorPerformsAction"^^xsd:string ;
+  rdfs:label "actorPerformsAction"^^xsd:string ;
+  rdfs:range archi:BehaviourElement ;
+.
+eo:actorPerformsBusinessFunction
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "actorPerformsBusinessFunction"^^xsd:string ;
+.
+eo:actorUsesFacility
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "actorUsesFacility"^^xsd:string ;
+.
+eo:actorUsesResource
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "actorUsesResource"^^xsd:string ;
+  rdfs:subPropertyOf eo:actorUsesFacility ;
+.
+eo:applicationServiceExecutesBehaviour
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:ApplicationService ;
+  rdfs:label "toolExecutesAction"@en ;
+  rdfs:range archi:BehaviourElement ;
+.
+eo:aspectContainsModelTypeClass
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "aspectContainsModelTypeClass"^^xsd:string ;
+  rdfs:range owl:Class ;
+.
+eo:aspectContainsModelTypeInstance
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "aspectContainsModelTypeInstance"^^xsd:string ;
+.
+eo:aspectUsesModelType
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "aspectUsesModelType"^^xsd:string ;
+.
+eo:assessmentCategoryCategorizesAssessment
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bmm:AssessmentCategory ;
+  rdfs:label "assessmentCategoryCategorizesAssessment"^^xsd:string ;
+  rdfs:range bmm:Assessment ;
+.
+eo:assessmentHasAssociatedSWOTDocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bmm:Assessment ;
+  rdfs:label "assessmentHasAssociatedSWOTDocument"^^xsd:string ;
+  rdfs:range <http://ikm-group.ch/archiMEO/emo#SWOT> ;
+.
+eo:assessmentIsJudgmentOfInfluencer
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bmm:Assessment ;
+  rdfs:label "assessmentIsJudgmentOfInfluencer"^^xsd:string ;
+.
+eo:assessmentIsPerformedWithMethod
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bmm:Assessment ;
+  rdfs:label "assessmentIsPerformedWithMethod"^^xsd:string ;
+  rdfs:range <http://ikm-group.ch/archiMEO/emo#Method> ;
+.
+eo:authorityHasRightsOnAction
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain nco:Authority ;
+  rdfs:label "authorityHasRightsOnAction"^^xsd:string ;
+  rdfs:range archi:BehaviourElement ;
+.
+eo:authorityHasRightsOnFacility
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain nco:Authority ;
+  rdfs:label "authorityHasRightsOnFacility"^^xsd:string ;
+.
+eo:behaviourContributesToAchieveMeans
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BusinessBehaviourElement ;
+  rdfs:label "behaviour contributes to achieve means"^^xsd:string ;
+  rdfs:range bmm:Means ;
+.
+eo:broaderDesiredResultIncludesMoreSpecificDesiredResult
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bmm:DesiredResult ;
+  rdfs:label "broaderDesiredResultIncludesMoreSpecificDesiredResult"^^xsd:string ;
+  rdfs:range bmm:DesiredResult ;
+.
+eo:businessActorHasAssignedBusinessRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ17"^^xsd:string ;
+  rdfs:comment "CQ6"^^xsd:string ;  
+  rdfs:domain archi:BusinessActor ;
+  rdfs:range archi:BusinessRole ;
+.
+eo:businessActorIsAssociatedTo
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain archi:BusinessActor ;
+.
+eo:businessActorIsSituatedInLocation
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BusinessActor ;
+  rdfs:subPropertyOf eo:enterpriseObjectIsSituatedInLocation ;
+.
+eo:businessFunctionBelongsToService
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BusinessFunction ;
+  rdfs:label "businessFunctionBelongsToService"@en ;
+.
+eo:businessFunctionIsPerformedByBusinessRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BusinessFunction ;
+  rdfs:range archi:BusinessRole ;
+  owl:inverseOf eo:businessRolePerformsBusinessFunction ;
+.
+eo:businessFunctionIsPerformedByEmployee
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BusinessFunction ;
+  rdfs:label "bsuinessFunctionIsPerformedByEmployee"@en ;
+  rdfs:range eo:Employee ;
+.
+eo:businessObjectIsAssociatedTo
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain archi:BusinessObject ;
+.
+eo:businessObjectIsInputForBehaviour
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "facilityIsUsedInAction"^^xsd:string ;
+  rdfs:domain archi:BusinessObject ;
+  rdfs:label "facilityIsInputForAction"^^xsd:string ;
+  rdfs:range archi:BehaviourElement ;
+.
+eo:businessPolicyGovernsBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bmm:BusinessPolicy ;
+  rdfs:label "businessPolicyGovernsBusinessProcess"^^xsd:string ;
+.
+eo:businessProcessRealizesCourseOfAction
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BusinessProcess ;
+  rdfs:label "businessProcessRealizesCourseOfAction"^^xsd:string ;
+  rdfs:range bmm:CourseOfAction ;
+.
+eo:businessRelationshipAdviceHasAdvisorBusinessActor
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessActor ;
+.
+eo:businessRelationshipAdviceHasReceiverBusinessActor
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessActor ;
+.
+eo:businessRelationshipContractHasContractee
+  rdf:type owl:ObjectProperty ;
+  rdfs:range eo:BusinessPartner ;
+.
+eo:businessRelationshipContractHasContractor
+  rdf:type owl:ObjectProperty ;
+  rdfs:range eo:BusinessPartner ;
+.
+eo:businessRelationshipHasType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:range [
+      rdf:type owl:DataRange ;
+      owl:oneOf (
+          "advising"^^xsd:string
+          "maintenance"^^xsd:string
+          "supply"^^xsd:string
+        ) ;
+    ] ;
+.
+eo:businessRelationshipIsBetweenBusinessRole
+  rdf:type owl:ObjectProperty ;
+.
+eo:businessRelationshipSupplyHasConsumer
+  rdf:type owl:ObjectProperty ;
+  rdfs:range eo:Consumer ;
+.
+eo:businessRelationshipSupplyHasConsumerBusinessActor
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessActor ;
+.
+eo:businessRelationshipSupplyHasSupplier
+  rdf:type owl:ObjectProperty ;
+  rdfs:range eo:Supplier ;
+  owl:inverseOf eo:ibusinessActorIsSupplierInBusinessRelationshipSupply ;
+.
+eo:businessRelationshipSupplyHasSupplierBusinessActor
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessActor ;
+.
+eo:businessRoleIsAssignedToBusinessActor
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ14"^^xsd:string ;
+  rdfs:comment "CQ7"^^xsd:string ;
+  rdfs:comment "CQ9"^^xsd:string ;  
+  rdfs:domain archi:BusinessRole ;
+  rdfs:range archi:BusinessActor ;
+  owl:inverseOf eo:businessActorHasAssignedBusinessRole ;
+.
+eo:businessRoleIsPerformedByPerson
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BusinessRole ;
+  rdfs:range eo:Person ;
+  owl:inverseOf eo:personPerformsBusinessRole ;
+.
+eo:businessRolePerformsBusinessFunction
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BusinessRole ;
+  rdfs:range archi:BusinessFunction ;
+.
+eo:businessRoleProvidesBusinessService
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BusinessRole ;
+  rdfs:range archi:BusinessService ;
+.
+eo:businessRuleEnforcesAction
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bmm:BusinessRule ;
+  rdfs:label "businessRuleEnforcesAction"^^xsd:string ;
+  rdfs:range archi:BehaviourElement ;
+.
+eo:businessRuleIsUsedInBusinessRuleTask
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessRuleIsUsedInBusinessRuleTask"^^xsd:string ;
+  rdfs:range bpmn:BusinessRuleTask ;
+  rdfs:subPropertyOf eo:businessRuleEnforcesAction ;
+.
+eo:businessServiceIsProvidedByBusinessRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BusinessService ;
+  rdfs:range archi:BusinessRole ;
+  owl:inverseOf eo:businessRoleProvidesBusinessService ;
+.
+eo:collDevelopmentAgreementHasWarranty
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "D1.2 DokLife RequSpec"^^xsd:string ;
+  rdfs:label "collDevelopmentAgreementHasWarranty"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:componentHasSpecification
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:ApplicationComponent ;
+  rdfs:label "componentHasSpecification"^^xsd:string ;
+  rdfs:range eo:Specification ;
+.
+eo:componentNeedsToConsiderLawAndRegulation
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:ApplicationComponent ;
+  rdfs:label "componentComliesWithLawAndRegulation"^^xsd:string ;
+  rdfs:range nco:LawAndRegulation ;
+.
+eo:contracDocumentHasTableOfContents
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:ContractDocument ;
+  rdfs:subPropertyOf <http://purl.org/dcterms#documentHasTableOfContents> ;
+.
+eo:contractAgreementHasModelType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "contractAgreementHasModelType"^^xsd:string ;
+  rdfs:range [
+      rdf:type owl:DataRange ;
+      owl:oneOf (
+          "fixed with automatic extension"^^xsd:string
+          "fixed with options"^^xsd:string
+          "fixed without extension"^^xsd:string
+          "unlimited"^^xsd:string
+        ) ;
+    ] ;
+.
+eo:contractAgreementHasOptionDate
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "ContractAgreementHasOption"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:contractAgreesOnObligation
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:Contract ;
+  rdfs:range eo:Obligation ;
+  owl:inverseOf eo:obligationIsAgreedInContract ;
+.
+eo:contractAgreesUponObligation
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "contractAgreesUponObligation"^^xsd:string ;
+  rdfs:range eo:Obligation ;
+  rdfs:subPropertyOf eo:contractConsidersAction ;
+.
+eo:contractBelongsToCollectionID
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "contractBelongsToCollectionID"^^xsd:string ;
+.
+eo:contractConsidersAction
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "contractConsidersAction"^^xsd:string ;
+  rdfs:range archi:BehaviourElement ;
+.
+eo:contractConsidersFacility
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "contractConsidersFacility"^^xsd:string ;
+.
+eo:contractDataElementIsPartOfContractData
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "contractDataElementIsPartOfContractParagraph"^^xsd:string ;
+  rdfs:range eo:ContractDataSet ;
+.
+eo:contractDataElementIsPartOfContractDocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:range eo:ContractDocument ;
+  rdfs:subPropertyOf eo:dataElementIsPartOfDocument ;
+  owl:inverseOf eo:contractDocumentHasContractDataElement ;
+.
+eo:contractDataHasContractDataElement
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:ContractDataSet ;
+  rdfs:label "contractDataHasContractDataElement"^^xsd:string ;
+  owl:inverseOf eo:contractElementBelongsToContractData ;
+.
+eo:contractDocumentHasContractDataElement
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:ContractDocument ;
+  rdfs:label "contractHasContractDataElement"@en ;
+.
+eo:contractDocumentHasContractDocumentStatus
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:ContractDocument ;
+  rdfs:label "contractDocumentHasContractDocumentStatus"^^xsd:string ;
+  rdfs:range [
+      rdf:type owl:DataRange ;
+      owl:oneOf (
+          "signed"^^xsd:string
+        ) ;
+    ] ;
+  rdfs:subPropertyOf eo:documentHasDocumentStatus ;
+.
+eo:contractDocumentHasContractStatus
+  rdf:type owl:DatatypeProperty ;
+  rdfs:range [
+      rdf:type owl:DataRange ;
+      owl:oneOf (
+          "expired"^^xsd:string
+          "signed"^^xsd:string
+          "workInProgress"^^xsd:string
+        ) ;
+    ] ;
+  rdfs:subPropertyOf eo:documentHasStatus ;
+.
+eo:contractDocumentHasJurisdiction
+  rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasCoverage> ;
+.
+eo:contractDocumentHasPartContractDataElement
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:ContractDocument ;
+  rdfs:label "contractDocumentHasPartContractDataElement"^^xsd:string ;
+  rdfs:subPropertyOf eo:documentHasDataElement ;
+.
+eo:contractDocumentHasSubjectContract
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:ContractDocument ;
+  rdfs:label "contractDocumentHasSubjectContract"^^xsd:string ;
+  rdfs:range archi:Contract ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasSubject> ;
+.
+eo:contractDocumentHasSubjectObligation
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:ContractDocument ;
+  rdfs:range eo:Obligation ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasSubject> ;
+.
+eo:contractDocumentHasTemporalCoverage
+  rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasCoverage> ;
+.
+eo:contractDocumentIsSignedByPerson
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:ContractDocument ;
+  rdfs:label "contractDocumentIsSignedByPerson"^^xsd:string ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasContributor> ;
+.
+eo:contractDocumentIsStoredAccordingToLaw
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:ContractDocument ;
+  rdfs:subPropertyOf eo:documentIsArchivedAccordingToLaw ;
+.
+eo:contractDocumentNamesExternalContractPartner
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:ContractDocument ;
+  rdfs:range eo:LegalEntity ;
+.
+eo:contractDocumentRealizesContract
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:ContractDocument ;
+  rdfs:range archi:Contract ;
+  rdfs:subPropertyOf archi:representationRealizesBusinessObject ;
+.
+eo:contractDocumentRealizesObligation
+  rdf:type owl:ObjectProperty ;
+  rdfs:subPropertyOf archi:representationRealizesBusinessObject ;
+  owl:inverseOf eo:obligationIsRealizedByDocument ;
+.
+eo:contractElementBelongsToContractData
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "contractElementBelongsToContractData"^^xsd:string ;
+.
+eo:contractHasApplicableLaw
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:domain archi:Contract ;
+  rdfs:label "contractHasApplicableLaw"^^xsd:string ;
+.
+eo:contractHasBegin
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:domain archi:Contract ;
+  rdfs:label "contractAgreementHasBegin"^^xsd:string ;
+  rdfs:range xsd:date ;
+.
+eo:contractHasBeginf
+  rdf:type owl:DatatypeProperty ;
+.
+eo:contractHasContractObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:Contract ;
+  rdfs:label "contractHasContractElements"^^xsd:string ;
+  rdfs:range archi:Product ;
+  owl:inverseOf eo:ContractObjectIsOfContract ;
+.
+eo:contractHasContractObjectDescription
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "contractHasContractObjectiveDescription"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:contractHasContractType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain archi:Contract ;
+  rdfs:range [
+      rdf:type owl:DataRange ;
+      owl:oneOf (
+          "LeasingAgreement"^^xsd:string
+          "LicenceAgreement"^^xsd:string
+          "MaintenanceAgreement"^^xsd:string
+          "NonDisclosureAgreement"^^xsd:string
+          "PurchaseAgreement"^^xsd:string
+          "SupplyAgreement"^^xsd:string
+        ) ;
+    ] ;
+.
+eo:contractHasContractee
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:Contract ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          eo:LegalEntity
+          eo:Person
+        ) ;
+    ] ;
+.
+eo:contractHasContractor
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:Contract ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          eo:LegalEntity
+          eo:Person
+        ) ;
+    ] ;
+.
+eo:contractHasEnd
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:domain archi:Contract ;
+  rdfs:label "contractAgreementHasEnd"^^xsd:string ;
+  rdfs:range xsd:date ;
+.
+eo:contractHasJurisdiction
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:domain archi:Contract ;
+  rdfs:label "contractHasJurisdiction"^^xsd:string ;
+.
+eo:contractHasNoOfPages
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "contractHasNoOfPages"^^xsd:string ;
+.
+eo:contractHasNotificationOfTermination
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:domain archi:Contract ;
+  rdfs:label "contractAgreementHasNotificationOfTermination"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:contractHasRelationToContract
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "contractHasRelationToContract"^^xsd:string ;
+  owl:inverseOf eo:contractIsRelatedToContract ;
+.
+eo:contractHasRoleRequirementContractPartner
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "contractHasRoleRequirementContractPartner"^^xsd:string ;
+  rdfs:range eo:Contractee ;
+  rdfs:subPropertyOf eo:actionHasRoleRequirement ;
+.
+eo:contractHasTermAndCondition
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "contractHasTermAndCondition"^^xsd:string ;
+.
+eo:contractIsConcludedWithBusinessActor
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:Contract ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          eo:LegalEntity
+          eo:Person
+        ) ;
+    ] ;
+.
+eo:contractIsConcludedWithLegalEntity
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "contractIsConcludedWithLegalEntity"@en ;
+  rdfs:range eo:LegalEntity ;
+.
+eo:contractIsConcludedWithPerson
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "contractIsConcludedWithPerson"@en ;
+.
+eo:contractIsRealizedByDocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:Contract ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+  owl:inverseOf eo:contractDocumentRealizesContract ;
+.
+eo:contractIsRelatedToContract
+  rdf:type owl:ObjectProperty ;
+.
+eo:contractParagraphHasLabel
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "contractParagraphHasLabel"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:contractParagraphHasParagraphID
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "contractParagraphHasParagraphID"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:contractPartnerHasContractPartnerID
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:domain eo:Contractee ;
+  rdfs:label "contractPartnerHasContractPartnerID"^^xsd:string ;
+.
+eo:contractPartnerIsOfType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:domain eo:Contractee ;
+  rdfs:label "contractPartnerIsOfType"^^xsd:string ;
+  rdfs:range [
+      rdf:type owl:DataRange ;
+      owl:oneOf (
+          "external"^^xsd:string
+          "internal"^^xsd:string
+        ) ;
+    ] ;
+.
+eo:convexIntervalHasEndPoint
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:ConvexInterval ;
+  rdfs:label "convexIntervalHasEndPoint"^^xsd:string ;
+  rdfs:range top:TimePoint ;
+.
+eo:convexIntervalHasStartPoint
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:ConvexInterval ;
+  rdfs:label "convexIntervalHasStartPoint"^^xsd:string ;
+  rdfs:range top:TimePoint ;
+.
+eo:courseOfActionIncludesMoreSpecificCourseOfAction
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bmm:CourseOfAction ;
+  rdfs:label "broaderCourseOfActionIncludesMoreSpecificCourseOfAction"^^xsd:string ;
+  rdfs:range bmm:CourseOfAction ;
+.
+eo:customerBelongsToCustomerSegment
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:Customer ;
+.
+eo:dataDescribesEnterpriseObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:DataSet ;
+  rdfs:label "dataDescribesEnterpriseObject"@en ;
+  rdfs:range eo:EnterpriseObject ;
+.
+eo:dataElementIsPartOfDocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ4"^^xsd:string ;
+  rdfs:domain eo:DataElement ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+.
+eo:dataIsManagedWithDatabaseManagementSystem
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:DataSet ;
+  rdfs:label "dataIsManagedWithDatabaseManagementSystem"@en ;
+  rdfs:range eo:DataBaseManagementSystem ;
+  rdfs:range eo:EnterpriseResourcePlanningSystem ;
+.
+eo:directiveActsAsRegulation
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bmm:Directive ;
+  rdfs:label "directiveActsAsRegulation"^^xsd:string ;
+  rdfs:range eo:Regulation ;
+.
+eo:directoryContainsDocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Directory ;
+  rdfs:label "directoryContainsDocument"@en ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+.
+eo:directoryHasStructureElementBusinessActor
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Directory ;
+  rdfs:range archi:BusinessActor ;
+.
+eo:directoryHasStructureElementBusinessFunction
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Directory ;
+  rdfs:label "directoryHasStructureElementBusinessFunction"@en ;
+  rdfs:range archi:BusinessFunction ;
+.
+eo:directoryHasStructureElementLegalEntity
+  rdf:type owl:ObjectProperty ;
+  rdfs:range eo:LegalEntity ;
+.
+eo:directoryHasStructureElementLocation
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Directory ;
+  rdfs:label "directoryHasStructureElementLocation"@en ;
+  rdfs:range top:PhysicalLocation ;
+.
+eo:directoryHasStructureElementOrganisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "directoryHasStructureElementOrganisationalUnit"@en ;
+  rdfs:range eo:OrganisationalUnit ;
+.
+eo:directoryHasStructureElementPerson
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "directoryHasStructureElementActor"@en ;
+  rdfs:range eo:Person ;
+.
+eo:directoryHasStructureElementProduct
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Directory ;
+  rdfs:label "directoryHasStructureElementProduct"@en ;
+  rdfs:range archi:Product ;
+.
+eo:directoryHasStructureElementRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Directory ;
+  rdfs:label "directoryHasStructureElementRole"@en ;
+  rdfs:range archi:BusinessRole ;
+.
+eo:directoryHasStructureElementTime
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Directory ;
+  rdfs:label "directoryHasStructureElementTime"@en ;
+  rdfs:range top:Time ;
+.
+eo:directoryIsPartOfDirectory
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Directory ;
+  rdfs:label "directoryIsPartOfDirectory"@en ;
+  rdfs:range eo:Directory ;
+.
+eo:doc
+  rdf:type media-types:MIMETYPE ;
+  rdf:type owl:Thing ;
+.
+eo:documentCollectionHasLanguage
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "documentCollectionHasLanguage"^^xsd:string ;
+.
+eo:documentCollectionIsOfCollectionType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements Specification"^^xsd:string ;
+  rdfs:label "documentCollectionIsOfCollectionType"^^xsd:string ;
+.
+eo:documentCollectiontHasCollectionID
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "documentCollectiontHasCollectionID"^^xsd:string ;
+.
+eo:documentContainsDataElement
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:range eo:DataElement ;
+  owl:inverseOf eo:dataElementIsPartOfDocument ;
+.
+eo:documentHasAddendumDocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentHasAddendumDocument"^^xsd:string ;
+  rdfs:subPropertyOf <http://purl.org/dcterms#documentReferencesDocument> ;
+  owl:inverseOf eo:documentIsAddendumToDocument ;
+.
+eo:documentHasArchiveDate
+  rdf:type owl:DatatypeProperty ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasDate> ;
+.
+eo:documentHasComment
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasComment"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:documentHasDataElement
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:range eo:DataElement ;
+  owl:inverseOf eo:dataElementIsPartOfDocument ;
+.
+eo:documentHasDocumentProcessingDate
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasDate> ;
+.
+eo:documentHasDocumentSeedingDate
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf eo:documentHasDocumentProcessingDate ;
+.
+eo:documentHasDocumentStatus
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasDocumentStatus"^^xsd:string ;
+.
+eo:documentHasIndex
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasIndex"^^xsd:string ;
+.
+eo:documentHasReponsibleRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasReponsibleRole"^^xsd:string ;
+.
+eo:documentHasReportedDate
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasDate> ;
+.
+eo:documentHasStatus
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "documentHasStatus"^^xsd:string ;
+.
+eo:documentHasStorage
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:range archi:Node ;
+.
+eo:documentHasSubjectBusinesService
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentHasSubjectAction"^^xsd:string ;
+  rdfs:range archi:BusinessService ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasSubject> ;
+.
+eo:documentHasSubjectBusinessActor
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessActor ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasSubject> ;
+.
+eo:documentHasSubjectBusinessBehaviourElement
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentHasSubjectBusinessFunction"^^xsd:string ;
+  rdfs:range archi:BusinessBehaviourElement ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasSubject> ;
+.
+eo:documentHasSubjectBusinessObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentHasSubjectFacility"^^xsd:string ;
+  rdfs:range archi:BusinessObject ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasSubject> ;
+.
+eo:documentHasSubjectBusinessRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentHasSubjectRole"^^xsd:string ;
+  rdfs:range archi:BusinessRole ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasSubject> ;
+.
+eo:documentHasSubjectDomain
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasSubject> ;
+.
+eo:documentHasSubjectProduct
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:Product ;
+  rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasSubject> ;
+.
+eo:documentHasSymbol
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasSymbol"^^xsd:string ;
+.
+eo:documentHasTag
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentHasTag"^^xsd:string ;
+.
+eo:documentIsAddendumToDocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentHasAddendumDocument"^^xsd:string ;
+  rdfs:subPropertyOf <http://purl.org/dcterms#documentIsReferencedByDocument> ;
+.
+eo:documentIsArchivedAccordingToLaw
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:range nco:LawAndRegulation ;
+.
+eo:documentIsAssociatedToContext
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+.
+eo:documentIsManagedWithDocumentCreationTool
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentIsManagedWithDocumentCreationTool"@en ;
+  rdfs:range eo:DocumentCreationTool ;
+  rdfs:range eo:DocumentManagementTool ;
+.
+eo:documentIsStoredInDirectory
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentIsStoredInDirectory"@en ;
+  rdfs:range eo:Directory ;
+  owl:inverseOf eo:directoryContainsDocument ;
+.
+eo:documentIsUsedInProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ4"^^xsd:string ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:label "documentIsUsedInProcess"@en ;
+.
+eo:documentIsUsedInTask
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:range bpmn:Task ;
+.
+eo:domainIsSubjectOfDocument
+  rdf:type owl:ObjectProperty ;
+  owl:inverseOf eo:documentHasSubjectDomain ;
+.
+eo:employeeHasEmployeeNo
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:Employee ;
+  rdfs:range xsd:string ;
+.
+eo:employeeIsMemberOfOrganisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "employeeIsMemberOfOrganisationalUnit"@en ;
+  owl:inverseOf eo:organisationalUnitHasMemberEmployee ;
+.
+eo:employeeIsResponsibleForDirectory
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Employee ;
+  rdfs:label "employeeIsResponsibleForDirectory"@en ;
+  rdfs:range eo:Directory ;
+.
+eo:employeeIsResponsibleForProduct
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Employee ;
+  rdfs:range archi:Product ;
+.
+eo:employeeWorksForLegalEntity
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Employee ;
+  rdfs:range eo:LegalEntity ;
+.
+eo:employeeWorksInBusinessFunction
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Employee ;
+  rdfs:label "employeeWorksInBusinessFunction"@en ;
+  owl:inverseOf eo:businessFunctionIsPerformedByEmployee ;
+.
+eo:employeeWorksOnBusinessFunction
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Employee ;
+  rdfs:label "employeeWorksOnBusinessFunction"@en ;
+.
+eo:enterpriseObjectExistsAtTime
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:EnterpriseObject ;
+  rdfs:label "enterpriseObjectExistsAtTime"^^xsd:string ;
+  rdfs:range top:Time ;
+.
+eo:enterpriseObjectHasIdentifier
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:EnterpriseObject ;
+  rdfs:label "enterpriseObjectHasIdentifier"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:enterpriseObjectHasName
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:EnterpriseObject ;
+  rdfs:label "enterpriseObjectHasName"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:enterpriseObjectHasSpecification
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:EnterpriseObject ;
+  rdfs:label "toolHasSpecification"^^xsd:string ;
+  rdfs:range eo:Specification ;
+.
+eo:enterpriseObjectIsSituatedInLocation
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:EnterpriseObject ;
+  rdfs:label "enterprise object is situated in location"^^xsd:string ;
+  rdfs:range top:Location ;
+.
+eo:eventHasEventDescription
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain top:Event ;
+.
+eo:eventIsOfType
+  rdf:type owl:DatatypeProperty ;
+.
+eo:filesystemIsStructuredInDirectory
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Filesystem ;
+  rdfs:label "filesystemIsStructuredInDirectory"@en ;
+  rdfs:range eo:Directory ;
+.
+eo:flowObjectHasHomeBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "flowObjectHasHomeBusinessProcess"^^xsd:string ;
+.
+eo:hasSource
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "hasSource"^^xsd:string ;
+  rdfs:range eo:EnterpriseObject ;
+.
+eo:hasTarget
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "hasTarget"^^xsd:string ;
+  rdfs:range eo:EnterpriseObject ;
+.
+eo:ibusinessActorIsSupplierInBusinessRelationshipSupply
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BusinessActor ;
+.
+eo:ibusinessActorPerformsObligation
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BusinessActor ;
+  rdfs:range eo:Obligation ;
+.
+eo:indexEntry
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "indexEntry"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:itSystemModelConsistsOfITService
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "itSystemModelConsistsOfITService"@en ;
+.
+eo:jpg
+  rdf:type media-types:MIMETYPE ;
+  rdf:type owl:Thing ;
+.
+eo:laneBelongsToPool
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "laneBelongsToPool"^^xsd:string ;
+.
+eo:lawAndRegulationInLocation
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain nco:LawAndRegulation ;
+  rdfs:range top:PhysicalLocation ;
+.
+eo:lawAndRegulationIsExpressedInRegulationDocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain nco:LawAndRegulation ;
+  rdfs:label "lawAndRegulationIsExpressedInRegulationDocument"@en ;
+  owl:inverseOf eo:regulationDocumentExpressesLawAndRegulation ;
+.
+eo:legalEntitiyBelongsToLegalEntity
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:LegalEntity ;
+  rdfs:range eo:LegalEntity ;
+.
+eo:legalEntitiyConsistsOfOrgnisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:LegalEntity ;
+  rdfs:label "legalEntitiyComprisesOrgnisationalUnit"^^xsd:string ;
+  rdfs:range eo:OrganisationalUnit ;
+  owl:inverseOf eo:organisationalUnitIsPartOfLegalEntitiy ;
+.
+eo:legalEntitiyHasLegalForm
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "Gesellschaftsform; Firmenstruktur, e.g. AG, Inc. etc."^^xsd:string ;
+  rdfs:domain eo:LegalEntity ;
+  rdfs:label "legalEntitiyHasLegalForm"^^xsd:string ;
+.
+eo:legalEntityHasAddress
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:LegalEntity ;
+  rdfs:label "egalEntityHasAddress"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:legalEntityHasAddressCity
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "legalEntityHasAddressCity"^^xsd:string ;
+  rdfs:subPropertyOf eo:legalEntityHasAddress ;
+.
+eo:legalEntityHasAddressCountry
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "legalEntityHasAddressCountry"^^xsd:string ;
+  rdfs:subPropertyOf eo:legalEntityHasAddress ;
+.
+eo:legalEntityHasAddressCountryCode
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "egalEntityHasAddressCountryCode"^^xsd:string ;
+  rdfs:subPropertyOf eo:legalEntityHasAddress ;
+.
+eo:legalEntityHasAddressPostalCode
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "legalEntityHasAddressPostalCode"^^xsd:string ;
+  rdfs:subPropertyOf eo:legalEntityHasAddress ;
+.
+eo:legalEntityHasAddressStreetNo
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "legalEntityHasAddressStreetNo"^^xsd:string ;
+  rdfs:subPropertyOf eo:legalEntityHasAddress ;
+.
+eo:legalEntityHasAddressStreetname
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "egalEntityHasAddressStreetname"^^xsd:string ;
+  rdfs:subPropertyOf eo:legalEntityHasAddress ;
+.
+eo:legalEntityHasAddressType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "legalEntityHasAddressType"^^xsd:string ;
+  rdfs:subPropertyOf eo:legalEntityHasAddress ;
+.
+eo:legalEntityHasEnterpriseIdentificationNo
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment """Swiss Enterprise Identification No
+http://www.estv.admin.ch/mwst/themen/00154/00589/01107/index.html
+Format: CHE-123.456.789"""^^xsd:string ;
+  rdfs:domain eo:LegalEntity ;
+.
+eo:legalEntityHasName
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:LegalEntity ;
+  rdfs:label "legalEntityHasName"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:legalEntityIs
+  rdf:type owl:ObjectProperty ;
+.
+eo:legalEntityIsPartOfIndustrySector
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment """European Comission: Industry Sectors Overview
+http://ec.europa.eu/enterprise/sectors/index_en.htm"""@en ;
+  rdfs:domain eo:LegalEntity ;
+.
+eo:legalEntityIsRepresentedThroughPerson
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:LegalEntity ;
+  rdfs:label "legalEntitiyIsRepresentedThroughPerson"@en ;
+.
+eo:legalEntityPerformsBusinessFunction
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "legalEntityPerformsBusinessFunction"^^xsd:string ;
+.
+eo:legalEventIsOfType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:LegalBusinessEvent ;
+  rdfs:range [
+      rdf:type owl:DataRange ;
+      owl:oneOf (
+          "acquisition"^^xsd:string
+          "injunction"^^xsd:string
+          "merger"^^xsd:string
+        ) ;
+    ] ;
+.
+eo:licenceAgreementHasWarranty
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "D1.2 DokLife RequSpec"^^xsd:string ;
+  rdfs:label "licenceAgreementHasWarranty"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:m_businessRuleGuidesBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bmm:BusinessRule ;
+  rdfs:label "m_businessRuleGuidesBusinessProcess"^^xsd:string ;
+  rdfs:subPropertyOf eo:businessRuleEnforcesAction ;
+.
+eo:maintenanceAgreementHasWarranty
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "D1.2 DokLife RequSpec"^^xsd:string ;
+  rdfs:label "maintenanceAgreementHasWarranty"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:mp3
+  rdf:type media-types:MIMETYPE ;
+  rdf:type owl:Thing ;
+.
+eo:mp4
+  rdf:type media-types:MIMETYPE ;
+  rdf:type owl:Thing ;
+.
+eo:objectManagedByService
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:PassiveStructureElement ;
+  rdfs:label "object is managed by service"@en ;
+  rdfs:range archi:Service ;
+.
+eo:obligationHasCondition
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:Obligation ;
+  rdfs:range [
+      rdf:type owl:DataRange ;
+      owl:oneOf (
+          "FinancialBusinessEvent"^^xsd:string
+          "ForceMajeure"^^xsd:string
+          "LegalBusinessEvent"^^xsd:string
+        ) ;
+    ] ;
+.
+eo:obligationHasConditionBusinessEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessEvent ;
+.
+eo:obligationHasConditionEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          archi:BusinessEvent
+          top:ForceMajeureEvent
+        ) ;
+    ] ;
+.
+eo:obligationHasConditionForceMajeure
+  rdf:type owl:DatatypeProperty ;
+.
+eo:obligationHasConditionForceMajeureEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:range top:ForceMajeureEvent ;
+.
+eo:obligationHasDueDate
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:Obligation ;
+.
+eo:obligationHasObligationDescription
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:Obligation ;
+  rdfs:range xsd:string ;
+.
+eo:obligationHasProvider
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Obligation ;
+  rdfs:range archi:BusinessActor ;
+.
+eo:obligationHasReceiver
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Obligation ;
+  rdfs:range archi:BusinessActor ;
+.
+eo:obligationHasType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:Obligation ;
+  rdfs:range [
+      rdf:type owl:DataRange ;
+      owl:oneOf (
+          "audit"^^xsd:string
+          "financials"^^xsd:string
+          "proof"^^xsd:string
+          "report"^^xsd:string
+          "retention"^^xsd:string
+          "termination"^^xsd:string
+        ) ;
+    ] ;
+.
+eo:obligationIsAgreedInContract
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Obligation ;
+  rdfs:range archi:Contract ;
+.
+eo:obligationIsExpressedInContractParagraph
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:domain eo:Obligation ;
+  rdfs:label "obligationIsExpressedInContractParagraph"^^xsd:string ;
+.
+eo:obligationIsPerformedByBusinessActor
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Obligation ;
+  rdfs:range archi:BusinessActor ;
+  owl:inverseOf eo:ibusinessActorPerformsObligation ;
+.
+eo:obligationIsRealizedByDocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Obligation ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+.
+eo:orderConsistsOfOrderDetail
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Order ;
+  rdfs:label "orderConsistsOfOrderDetail"@en ;
+  rdfs:range eo:DataSet ;
+.
+eo:organisationalUnitActsAsInfluencingOrganization
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "organisationalUnitActsAsInfluencingOrganization"^^xsd:string ;
+  rdfs:range owl:Thing ;
+.
+eo:organisationalUnitDefinesEnd
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:OrganisationalUnit ;
+  rdfs:label "organisationalUnitDefinesEnd"^^xsd:string ;
+  rdfs:range bmm:End ;
+  rdfs:subPropertyOf eo:actorHandlesEnd ;
+.
+eo:organisationalUnitEstablishesMeans
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:OrganisationalUnit ;
+  rdfs:label "organisationalUnitEstablishesMeans"^^xsd:string ;
+  rdfs:range bmm:Means ;
+  rdfs:subPropertyOf eo:actorHandlesMeans ;
+.
+eo:organisationalUnitHasMemberEmployee
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "organisationalUnitHasMemberEmployee"@en ;
+.
+eo:organisationalUnitIsPartOfLegalEntitiy
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ7"^^xsd:string ;
+  rdfs:domain eo:OrganisationalUnit ;
+  rdfs:label "organisationalUnitIsPartOfLegalEntitiy"^^xsd:string ;
+  rdfs:range eo:LegalEntity ;
+.
+eo:organisationalUnitIsStaffedWithPerson
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:OrganisationalUnit ;
+  rdfs:range eo:Person ;
+.
+eo:organisationalUnitIsSuperordinatedToOrganisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:OrganisationalUnit ;
+  rdfs:label "organisationalUnitIsSuperordinatedToOrganisationalUnit"^^xsd:string ;
+  rdfs:range eo:OrganisationalUnit ;
+.
+eo:organisationalUnitMakesAssessment
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:OrganisationalUnit ;
+  rdfs:label "organisationalUnitMakesAssessment"^^xsd:string ;
+  rdfs:range bmm:Assessment ;
+.
+eo:organisationalUnitOffersValueProposition
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment """Alexander Osterwalder & Yves Pigneur: An ontology for e-business models. In:
+Wendy Currie (ed): Value Creation from E-Business Models, Butterworth-Heinemann, 2003"""^^xsd:string ;
+  rdfs:domain eo:OrganisationalUnit ;
+  rdfs:label "organisationalUnitOffersValueProposition"^^xsd:string ;
+  rdfs:range eo:ValueProposition ;
+.
+eo:organisationalUnitRecognizesInfluencer
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:OrganisationalUnit ;
+  rdfs:label "organisationalUnitRecognizesInfluencer"^^xsd:string ;
+.
+eo:outsourcingAgreementHasWarranty
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "D1.2 DokLife RequSpec"^^xsd:string ;
+  rdfs:label "outsourcingAgreementHasWarranty"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:paymentObligationDefinesAmount
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "paymentObligationDefinesAmount"^^xsd:string ;
+  rdfs:range xsd:int ;
+.
+eo:paymentObligationDefinesCurrency
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "paymentObligationDefinesCurrency"^^xsd:string ;
+.
+eo:paymentObligationDefinesTerm
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "paymentObligationDefinesTerm"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:paymentObligationHasPaymentType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "DeliveryObligationHasPaymentType"^^xsd:string ;
+  rdfs:range [
+      rdf:type owl:DataRange ;
+      owl:oneOf (
+          "charges"^^xsd:string
+          "expenses"^^xsd:string
+          "fee"^^xsd:string
+        ) ;
+    ] ;
+.
+eo:paymentObligationtHasPaymentPeriod
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "paymentObligationtPaymentPeriod"^^xsd:string ;
+.
+eo:pdf
+  rdf:type media-types:MIMETYPE ;
+  rdf:type owl:Thing ;
+.
+eo:personHasAddress
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:Person ;
+  rdfs:label "personHasAddress"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:personHasAddressCity
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "personHasAddressCity"^^xsd:string ;
+  rdfs:subPropertyOf eo:personHasAddress ;
+.
+eo:personHasAddressCountry
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "personHasAddressCountry"^^xsd:string ;
+  rdfs:subPropertyOf eo:personHasAddress ;
+.
+eo:personHasAddressCountryCode
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "personHasAddressCountryCode"^^xsd:string ;
+  rdfs:subPropertyOf eo:personHasAddress ;
+.
+eo:personHasAddressPostalCode
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "personHasAddressPostalCode"^^xsd:string ;
+  rdfs:subPropertyOf eo:personHasAddress ;
+.
+eo:personHasAddressStreetNo
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "personHasAddressStreetNo"^^xsd:string ;
+  rdfs:subPropertyOf eo:personHasAddress ;
+.
+eo:personHasAddressStreetname
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "personHasAddressStreetname"^^xsd:string ;
+  rdfs:subPropertyOf eo:personHasAddress ;
+.
+eo:personHasAddressType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "personHasAddressType"^^xsd:string ;
+  rdfs:subPropertyOf eo:personHasAddress ;
+.
+eo:personHasMiddleInitial
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:Person ;
+  rdfs:label "personHasMiddleInitial"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:personHasName
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "CQ1"^^xsd:string ;
+  rdfs:comment "CQ14"^^xsd:string ;
+  rdfs:comment "CQ2"^^xsd:string ;
+  rdfs:comment "CQ6"^^xsd:string ;
+  rdfs:comment "CQ7"^^xsd:string ;
+  rdfs:comment "CQ9"^^xsd:string ;
+  rdfs:domain eo:Person ;
+.
+eo:personHasNameInitials
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain eo:Person ;
+.
+eo:personIsInternalOrExternal
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "personIsInternalOrExternal"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:personIsMemberOfOrganisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "personIsMemberOfOrganisationalUnit"^^xsd:string ;
+  rdfs:range eo:OrganisationalUnit ;
+  rdfs:subPropertyOf eo:actorIsMemberOfLegalEntity ;
+.
+eo:personPerformsBusinessRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ1"^^xsd:string ;
+  rdfs:comment "CQ2"^^xsd:string ;
+  rdfs:comment "CQ3"^^xsd:string ;
+  rdfs:comment "CQ7"^^xsd:string ;  
+  rdfs:domain eo:Person ;
+  rdfs:range archi:BusinessRole ;
+.
+eo:personRepresentsLegalEntity
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Person ;
+  rdfs:label "personRepresentsLegalEntity"^^xsd:string ;
+  rdfs:range eo:LegalEntity ;
+  owl:inverseOf eo:legalEntityIsRepresentedThroughPerson ;
+.
+eo:personWorksForLegalEntity
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:Person ;
+  rdfs:range eo:LegalEntity ;
+.
+eo:personWorksInOrganisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ6"^^xsd:string ;
+  rdfs:domain eo:Person ;
+  rdfs:range eo:OrganisationalUnit ;
+  owl:inverseOf eo:organisationalUnitIsStaffedWithPerson ;
+.
+eo:potentialImpactProvidesImpetusForDirective
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bmm:PotentialImpact ;
+  rdfs:label "potentialImpactProvidesImpetusForDirective"^^xsd:string ;
+  rdfs:range bmm:Directive ;
+.
+eo:ppt
+  rdf:type media-types:MIMETYPE ;
+  rdf:type owl:Thing ;
+.
+eo:processHasFirstElement
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BusinessProcess ;
+  rdfs:label "processHasFirstElement"^^xsd:string ;
+  rdfs:range eo:EnterpriseObject ;
+.
+eo:processProducesProduct
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "processProducesProduct"@en ;
+.
+eo:processUsesResource
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "processUsesResource"@en ;
+.
+eo:productConsistsOfComponent
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:IntangibleProduct ;
+  rdfs:label "productConsistsOfComponent"^^xsd:string ;
+  rdfs:range eo:Component ;
+.
+eo:productHasSpecification
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:Product ;
+  rdfs:label "productHasSpecification"^^xsd:string ;
+  rdfs:range eo:Specification ;
+.
+eo:productIsDeliveredOnContract
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:Product ;
+  rdfs:range archi:Contract ;
+.
+eo:productNeedsToConsiderLawAndRegulation
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:Product ;
+  rdfs:label "productCompliesWithLawAndRegulation"^^xsd:string ;
+  rdfs:range nco:LawAndRegulation ;
+.
+eo:purchaseContractAgreesOnItem4Sale
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:Product ;
+.
+eo:regulationDocumentExpressesLawAndRegulation
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain eo:RegulationDocument ;
+  rdfs:label "regulationDocumentExpressesLawAndRegulation"@en ;
+.
+eo:relationshipMechanismConcernsValueProposition
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment """Alexander Osterwalder & Yves Pigneur: An ontology for e-business models. In:
+Wendy Currie (ed): Value Creation from E-Business Models, Butterworth-Heinemann, 2003"""^^xsd:string ;
+  rdfs:domain eo:RelationshipMechanism ;
+  rdfs:label "relationshipMechanismConcernsValueProposition"^^xsd:string ;
+.
+eo:relationshipMechanismIsEstablishedWithCustomer
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment """Alexander Osterwalder & Yves Pigneur: An ontology for e-business models. In:
+Wendy Currie (ed): Value Creation from E-Business Models, Butterworth-Heinemann, 2003"""^^xsd:string ;
+  rdfs:label "relationshipMechanismIsEstablishedWithCustomer"^^xsd:string ;
+.
+eo:relationshipMechanismIsEstablishedWithSupplier
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment """Alexander Osterwalder & Yves Pigneur: An ontology for e-business models. In:
+Wendy Currie (ed): Value Creation from E-Business Models, Butterworth-Heinemann, 2003"""^^xsd:string ;
+  rdfs:label "relationshipMechanismIsEstablishedWithSupplier"^^xsd:string ;
+.
+eo:roleHasAuthority
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BusinessRole ;
+  rdfs:label "roleHasAuthority"^^xsd:string ;
+  rdfs:range nco:Authority ;
+.
+eo:roleHasCharacteristics
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment """Alexander Osterwalder & Yves Pigneur: An ontology for e-business models. In:
+Wendy Currie (ed): Value Creation from E-Business Models, Butterworth-Heinemann, 2003"""^^xsd:string ;
+  rdfs:domain archi:BusinessRole ;
+  rdfs:label "roleHasCharacteristics"^^xsd:string ;
+.
+eo:roleRequiresSkill
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain archi:BusinessRole ;
+  rdfs:label "roleRequiresSkill"^^xsd:string ;
+.
+eo:salesContractBecomesEffective
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "salesContractBecomesEffective"^^xsd:string ;
+  rdfs:range xsd:date ;
+.
+eo:salesContractHasBuyer
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "salesContractHasBuyer"^^xsd:string ;
+.
+eo:salesContractHasGuarantee
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "D1.2 DokLife RequSpec"^^xsd:string ;
+  rdfs:label "salesContractHasGuarantee"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:salesContractHasModelType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "salesContractHasModelType"^^xsd:string ;
+.
+eo:salesContractHasPaymentType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
+  rdfs:label "salesContractHasPaymentType"^^xsd:string ;
+.
+eo:salesContractHasRoleRequirementBuyer
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "salesContractHasRoleRequirementBuyer"^^xsd:string ;
+  rdfs:subPropertyOf eo:contractHasRoleRequirementContractPartner ;
+.
+eo:salesContractHasRoleRequirementSeller
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "salesContractHasRoleRequirementSeller"^^xsd:string ;
+  rdfs:subPropertyOf eo:contractHasRoleRequirementContractPartner ;
+.
+eo:salesContractHasSeller
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "salesContractHasSeller"^^xsd:string ;
+.
+eo:strategyDeterminesOrganisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bmm:Strategy ;
+  rdfs:label "strategyDeterminesOrganisationalUnit"^^xsd:string ;
+  rdfs:range eo:OrganisationalUnit ;
+.
+eo:subProcessRelatesToProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "subProcessRelatesToProcess"^^xsd:string ;
+.
+eo:supportAgreementHasWarranty
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "D1.2 DokLife RequSpec"^^xsd:string ;
+  rdfs:label "supportAgreementHasWarranty"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+eo:swimLaneHasHomeBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "swimLaneHasHomeBusinessProcess"^^xsd:string ;
+.
+eo:taskIsPerformedWithTool
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:Task ;
+  rdfs:label "taskIsPerformedWithTool"@en ;
+.
+eo:termAndConditionDefineObligation
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "termAndConditionDefineObligation"^^xsd:string ;
+  rdfs:range eo:Obligation ;
+.
+eo:timePointBelongsToCalendarElement
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain top:TimePoint ;
+  rdfs:label "timePointBelongsToCalendarElement"^^xsd:string ;
+  rdfs:range top:CalendarElement ;
+.
+eo:timePointBelongsToTimeElement
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain top:TimePoint ;
+  rdfs:label "timePointBelongsToTimeElement"^^xsd:string ;
+  rdfs:range top:TimeElement ;
+.
+eo:timePointBelongsToTimeZone
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain top:TimePoint ;
+  rdfs:label "timePointBelongsToTimeZone"^^xsd:string ;
+  rdfs:range top:TimeZone ;
+.
+eo:valuePropositionContributesToMission
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment """Alexander Osterwalder & Yves Pigneur: An ontology for e-business models. In:
+Wendy Currie (ed): Value Creation from E-Business Models, Butterworth-Heinemann, 2003"""^^xsd:string ;
+  rdfs:domain eo:ValueProposition ;
+  rdfs:label "valuePropositionContributesToMission"^^xsd:string ;
+  rdfs:range bmm:Mission ;
+.
+eo:valuePropositionIsOffesDistributionChannel
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment """Alexander Osterwalder & Yves Pigneur: An ontology for e-business models. In:
+Wendy Currie (ed): Value Creation from E-Business Models, Butterworth-Heinemann, 2003"""^^xsd:string ;
+  rdfs:domain eo:ValueProposition ;
+  rdfs:label "valuePropositionIsOffesDistributionChannel"^^xsd:string ;
+  rdfs:range eo:DistributionChannel ;
+.
+eo:valuePropositionOffersProduct
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment """Alexander Osterwalder & Yves Pigneur: An ontology for e-business models. In:
+Wendy Currie (ed): Value Creation from E-Business Models, Butterworth-Heinemann, 2003"""^^xsd:string ;
+  rdfs:domain eo:ValueProposition ;
+  rdfs:label "valuePropositionOffersProduct"^^xsd:string ;
+.
+eo:acquiredCompetencyIsStoredInCompetencyProfile
+  rdf:type rdf:Property ;
+  rdfs:comment "CQ2"^^xsd:string ;
+  rdfs:domain eo:Competency ;
+  rdfs:range eo:CompetencyProfile ;
+.
+eo:annotationDataSetIsAttachedToBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ17"^^xsd:string ;
+  rdfs:comment "CQ19"^^xsd:string ;
+  rdfs:domain eo:AnnotationDataSet ;
+  rdfs:range archi:BusinessProcess ;
+.
+eo:annotationDataSetIsCreatedByPerson
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ17"^^xsd:string ;
+  rdfs:domain eo:AnnotationDataSet ;
+  rdfs:range eo:Person ;
+.
+eo:atomicBusinessProcessHasInputDataObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ18"^^xsd:string ;
+  rdfs:domain eo:AtomicBusinessProcess ;
+  rdfs:range archi:DataObject ;
+.
+eo:atomicBusinessProcessHasOutputDataObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ18"^^xsd:string ;
+  rdfs:domain eo:AtomicBusinessProcess ;
+  rdfs:range archi:DataObject ;
+.
+eo:atomicBusinessProcessProcessesDataObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ4"^^xsd:string ;
+  rdfs:comment "CQ5"^^xsd:string ;
+  rdfs:domain eo:AtomicBusinessProcess ;
+  rdfs:range archi:DataObject ;
+.
+eo:atomicProcessIsPartOfCompositeProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ18"^^xsd:string ;
+  rdfs:comment "CQ9"^^xsd:string ;
+  rdfs:domain eo:AtomicBusinessProcess ;
+  rdfs:range eo:CompositeBusinessProcess ;
+.
+eo:businessActorHasAcquiredCompetency
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ14"^^xsd:string ;
+  rdfs:comment "CQ2"^^xsd:string ;
+  rdfs:comment "CQ3"^^xsd:string ;
+  rdfs:comment "CQ5"^^xsd:string ;
+  rdfs:comment "CQ9"^^xsd:string ;
+  rdfs:domain archi:BusinessActor ;
+  rdfs:range eo:Competency ;
+.
+eo:businessActorHasCompetencyProfile
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ2"^^xsd:string ;
+  rdfs:comment "CQ5"^^xsd:string ;
+  rdfs:domain archi:BusinessActor ;
+  rdfs:range eo:CompetencyProfile ;
+.
+eo:businessActorHasGoal
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ20"^^xsd:string ;
+  rdfs:domain archi:BusinessActor ;
+  rdfs:range eo:Goal ;
+.
+eo:businessActorPerformsBusinessCollaboration
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ7"^^xsd:string ;
+  rdfs:domain archi:BusinessActor ;
+  rdfs:range archi:BusinessCollaboration ;
+.
+eo:businessCollaborationHasType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "CQ7"^^xsd:string ;
+  rdfs:domain archi:BusinessCollaboration ;
+.
+eo:businessProcessRequiresCompetency
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ14"^^xsd:string ;
+  rdfs:comment "CQ2"^^xsd:string ;
+  rdfs:comment "CQ3"^^xsd:string ;
+  rdfs:comment "CQ9"^^xsd:string ;
+  rdfs:domain archi:BusinessProcess ;
+  rdfs:range eo:Competency ;
+.
+eo:businessProcessUsesDataObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ18"^^xsd:string ;
+  rdfs:domain archi:BusinessProcess ;
+  rdfs:range archi:DataObject ;
+.
+eo:catchingEvent
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "the event triggers an activity (yes/no)"^^xsd:string ;
+  rdfs:domain top:Event ;
+.
+eo:competencyHasLevel
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "CQ14"^^xsd:string ;
+  rdfs:comment "CQ2"^^xsd:string ;
+  rdfs:comment "CQ9"^^xsd:string ;
+  rdfs:domain eo:Competency ;
+.
+eo:criterionQuantifiesGoal
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ20"^^xsd:string ;
+  rdfs:domain eo:Criterion ;
+  rdfs:range eo:Goal ;
+.
+eo:dataObjectHasStatus
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "CQ10"^^xsd:string ;
+  rdfs:comment "CQ19"^^xsd:string ;
+  rdfs:domain archi:DataObject ;
+.
+eo:dataObjectHasType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "CQ12"^^xsd:string ;
+  rdfs:domain archi:DataObject ;
+.
+eo:informationIsInputForProcess
+  rdf:type rdf:Property ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:range archi:BusinessProcess ;
+.
+eo:informationIsOutputOfProcess
+  rdf:type rdf:Property ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:range archi:BusinessProcess ;
+.
+eo:orgUnitIsSubordinatedOrgUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain omm:OrganisationalUnit ;
+  rdfs:range omm:OrganisationalUnit ;
+.
+eo:organisationalUnitIsHeadedByPerson
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ6"^^xsd:string ;
+  rdfs:domain eo:OrganisationalUnit ;
+  rdfs:range eo:Person ;
+.
+eo:performerHasRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain omm:Performer ;
+  rdfs:range omm:Role ;
+.
+eo:processConsistsOfActivities
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain archi:BusinessProcess ;
+  rdfs:range eo:BusinessActivity ;
+.
+eo:processRepresentsCompositeBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM suggestion"^^xsd:string ;
+  rdfs:domain pmmm:process ;
+  rdfs:range eo:CompositeBusinessProcess ;
+.
+eo:representationIsUsedInBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ5"^^xsd:string ;
+  rdfs:domain archi:Representation ;
+  rdfs:range archi:BusinessProcess ;
+.
+eo:roleIsAssignedToActivity
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain archi:BusinessRole ;
+  rdfs:range eo:BusinessActivity ;
+.
+eo:roleIsAssignedToAtomicBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ1"^^xsd:string ;
+  rdfs:comment "CQ17"^^xsd:string ;
+  rdfs:comment "CQ3"^^xsd:string ;
+  rdfs:comment "CQ6"^^xsd:string ;
+  rdfs:comment "CQ7"^^xsd:string ;
+  rdfs:domain archi:BusinessRole ;
+  rdfs:range eo:AtomicBusinessProcess ;
+.
+eo:roleIsResponsibleForProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain archi:BusinessRole ;
+  rdfs:range archi:BusinessProcess ;
+.
+eo:teamRepresentsBusinessCollaboration
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain omm:Team ;
+  rdfs:range archi:BusinessCollaboration ;
+.
+eo:throwingEvent
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "event is a result of an activity (yes/nor)"^^xsd:string ;
+  rdfs:domain top:Event ;
+.

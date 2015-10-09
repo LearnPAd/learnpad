@@ -26,7 +26,10 @@ package eu.learnpad.simulator.processmanager;
 
 import java.util.Map;
 
-import eu.learnpad.simulator.IProcessManager.TaskSubmissionStatus;
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
+import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
+import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
 
 /**
  * This interface indicate the functionalities which must be exposed by a
@@ -43,15 +46,45 @@ import eu.learnpad.simulator.IProcessManager.TaskSubmissionStatus;
 public interface IProcessDispatcher {
 
 	/**
+	 *
+	 * @return the process instance data info of the associated process instance
+	 */
+	public ProcessInstanceData getProcessInstanceInfos();
+
+	/**
 	 * Signal the completion of a given task, along with the corresponding
 	 * proposed data
 	 *
-	 * @param taskId
-	 *            the id of the completed task
+	 * Note that implementations of this method should take care of enforcing
+	 * concurrent access to handle cases when users (possibly accessing the
+	 * dispatcher from different threads) try to complete the same task
+	 * simultaneously.
+	 *
+	 * @param task
+	 *            the completed task
+	 * @param users
+	 *            the users involved in the process instance
 	 * @param data
 	 *            the data corresponding to the task completion
-	 * @return the state of the task submission
+	 * @return the result of the task submission
 	 */
-	public TaskSubmissionStatus submitTaskCompletion(String taskId,
-			Map<String, Object> data);
+	public LearnPadTaskSubmissionResult submitTaskCompletion(LearnPadTask task,
+			String userId, Map<String, Object> data);
+
+	/**
+	 *
+	 * @param task
+	 * @return the score associated with the given user in the handled process,
+	 *         or null if no score have been assigned yet.
+	 */
+	public Integer getInstanceScore(String userId);
+
+	/**
+	 *
+	 * @param task
+	 * @param userId
+	 * @return the game-related information associated with the given task for
+	 *         the given user
+	 */
+	public LearnPadTaskGameInfos getGameInfos(LearnPadTask task, String userId);
 }

@@ -24,9 +24,9 @@ package eu.learnpad.simulator.processmanager.activiti;
  * #L%
  */
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
@@ -42,9 +42,12 @@ import org.activiti.engine.ProcessEngineConfiguration;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.Main;
+import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.utils.BPMNExplorerRepository;
 
 /**
  * @author Tom Jorquera - Linagora
@@ -77,9 +80,11 @@ public class ActivitiProcessManagerTest {
 
 	@Test
 	public void testProcessDefinition() throws FileNotFoundException {
+
 		ActivitiProcessManager manager = new ActivitiProcessManager(
 				processEngine,
-				mock(IProcessEventReceiver.IProcessEventReceiverProvider.class));
+				mock(IProcessEventReceiver.IProcessEventReceiverProvider.class),
+				mock(BPMNExplorerRepository.class), false);
 
 		assertTrue(manager.getAvailableProcessDefintion().size() == 0);
 
@@ -98,7 +103,8 @@ public class ActivitiProcessManagerTest {
 	public void testProcessDefinitionRoles() throws FileNotFoundException {
 		ActivitiProcessManager manager = new ActivitiProcessManager(
 				processEngine,
-				mock(IProcessEventReceiver.IProcessEventReceiverProvider.class));
+				mock(IProcessEventReceiver.IProcessEventReceiverProvider.class),
+				mock(BPMNExplorerRepository.class), false);
 
 		String processDefinitionId = manager
 				.addProjectDefinitions(TEST_PROCESS).iterator().next();
@@ -126,16 +132,19 @@ public class ActivitiProcessManagerTest {
 		};
 
 		ActivitiProcessManager manager = new ActivitiProcessManager(
-				processEngine, provider);
+				processEngine, provider, mock(BPMNExplorerRepository.class),
+				false);
 
 		String processDefinitionId = manager
 				.addProjectDefinitions(TEST_PROCESS).iterator().next();
 
 		assertTrue(manager.getCurrentProcessInstances().size() == 0);
 
-		String processInstanceId = manager.startProjectInstance(
-				processDefinitionId, null,
-				Arrays.asList("user1", "user2", "user3"),
+		String processDefKey = manager
+				.getProcessDefinitionKey(processDefinitionId);
+
+		String processInstanceId = manager.startProjectInstance(processDefKey,
+				null, Arrays.asList("user1", "user2", "user3"),
 				new HashMap<String, Collection<String>>() {
 					{
 						put("user1", Arrays.asList("user1"));
@@ -151,10 +160,11 @@ public class ActivitiProcessManagerTest {
 		// activiti database *after* it has shutdown. The verify allows us to
 		// "block" until the task submission thread has done its job.
 		// 5 seconds should be *far more* than enough for this.
-		verify(processEventReceiver, timeout(5000)).sendTask(
-				eq(processInstanceId), any(String.class), any(String.class),
-				any(String.class), any(Collection.class));
-		;
+		ArgumentCaptor<LearnPadTask> task = ArgumentCaptor
+				.forClass(LearnPadTask.class);
+		verify(processEventReceiver, timeout(5000)).sendTask(task.capture(),
+				any(Collection.class));
+		assertEquals(task.getValue().processId, processInstanceId);
 
 	}
 }

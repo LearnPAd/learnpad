@@ -49,11 +49,14 @@ then
 	postbuild_installdependencies "$( cat ${RUNDEPS_FILE} )"
 fi
 declare -r START_FILE="${OUT_PATH}/start"
-customlog "INFO" "[${COMPONENT_NAME}] Start the component"
-bash "${START_FILE}"
-declare -r STOP_FILE="${OUT_PATH}/stop"
-customlog "INFO" "[${COMPONENT_NAME}] Stop the component"
-bash "${STOP_FILE}"
+if [ -f "$START_FILE" ]
+then
+	customlog "INFO" "[${COMPONENT_NAME}] Start the component"
+	bash "${START_FILE}"
+	declare -r STOP_FILE="${OUT_PATH}/stop"
+	customlog "INFO" "[${COMPONENT_NAME}] Stop the component"
+	bash "${STOP_FILE}"
+fi
 }
 
 function postbuild_installdependencies() {

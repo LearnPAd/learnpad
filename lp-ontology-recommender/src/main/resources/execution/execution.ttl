@@ -1,0 +1,28 @@
+# baseURI: http://learnpad.eu/execution
+# imports: http://learnpad.eu/transfer
+
+@prefix : <http://learnpad.eu/execution#> .
+@prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#> .
+@prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
+@prefix execution: <http://learnpad.eu/execution#> .
+@prefix lpd: <http://learnpad.eu#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix transfer: <http://learnpad.eu/transfer#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://learnpad.eu/execution>
+  rdf:type owl:Ontology ;
+  owl:imports <http://learnpad.eu/transfer> ;
+  owl:versionInfo "Created with TopBraid Composer"^^xsd:string ;
+.
+<http://learnpad.eu/execution#mod.15604_executed_process_1>
+  rdf:type <http://learnpad.eu/transfer#mod.15604> ;
+  emo:belongsToVersion transfer:titolo-unico-v3 ;
+.
+<http://learnpad.eu/execution#obj.15819_executed_task_1>
+  rdf:type <http://learnpad.eu/transfer#obj.15819> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/execution#mod.15604_executed_process_1> ;
+  lpd:executedFlowElementStartTime "2015-08-31T17:51:07.174"^^xsd:dateTime ;
+.

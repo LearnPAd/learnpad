@@ -50,14 +50,28 @@ function task(address, taskid, user) {
         newTask.send({ 'type' : 'SUBSCRIBE', 'user' : user})
     };
 
+    function prettyDateFormat(time) {
+        var duration = new Date(time);
+        var hh = duration.getUTCHours();
+        var mm = duration.getUTCMinutes();
+        var ss = duration.getSeconds();
+        if (hh < 10) {hh = '0' + hh;}
+        if (mm < 10) {mm = '0' + mm;}
+        if (ss < 10) {ss = '0' + ss;}
+        return hh + ':' + mm + ':' + ss;
+    }
+
     newTask._onmessage = function(m) {
         var data = JSON.parse(m.data);
 
         switch (data.type) {
 
         case 'TASKDESC':
+            // memorize process id
+            this.processid = data.processid;
 
             if (!$('#processcontainer' + data.processid).length) {
+
                 // create new tab for new process
                 $('#taskstable').append(
                     '<li role="presentation"><a data-toggle="tab" href="#processcontainer' +
@@ -70,6 +84,33 @@ function task(address, taskid, user) {
                 processDiv.className = 'tab-pane';
                 tasksDiv.append(processDiv);
 
+                var processMainDiv = document.createElement('div');
+                processMainDiv.id = 'processmain' + data.processid;
+                processMainDiv.className = 'col-sm-8';
+                processDiv.appendChild(processMainDiv);
+
+                var processSideDiv = document.createElement('div');
+                processSideDiv.id = 'processside' + data.processid;
+                processSideDiv.className = 'col-sm-4';
+                processDiv.appendChild(processSideDiv);
+
+                users(user).setUserList('processside' + data.processid);
+
+                // add gamification panel to side div
+                var scoreHelpText = "Your score is calculated based on how well you perform each task.<p>Each successfully completed task gives you points based of your number of attempts and how long did you take regarding the expected time.<p>Faster completion and less mistakes will award more points.";
+                $('#processside' + data.processid).append(
+                    '<div id="gamification' + data.processid +
+                        '" class="game-panel panel panel-default">' +
+                        '<div class="panel-body">' +
+                        '<div><h4><em id="score' + data.processid +
+                        '"></em> <span style="float:right" class="glyphicon glyphicon-question-sign"' +
+                        ' data-toggle="popover" data-trigger="focus" tabindex="0" ' +
+                        'data-placement="bottom" data-content="' + scoreHelpText +
+                        '"></span></h4></div></div></div>'
+                );
+                // initialize help popover
+                $('#gamification' + data.processid + ' [data-toggle="popover"]').popover({'html': true});
+
                 // check if it is the first tab
                 // (in this case we make it open by default)
                 if ($('#taskstable li').length == 1) {
@@ -77,7 +118,7 @@ function task(address, taskid, user) {
                 }
 
                 // add the process diagram
-                $(processDiv).append(
+                $('#processmain' + data.processid).append(
                 '<div class="panel-group diagram" id="accordion' +
                     data.processid +
                     '" role="tablist" aria-multiselectable="true">' +
@@ -102,13 +143,72 @@ function task(address, taskid, user) {
 
             var taskDiv = document.createElement('div');
             taskDiv.id = 'taskcontainer' + taskid;
-            taskDiv.innerHTML = '<p id="taskdata' + taskid +
-                '"></p><div id="taskFormDiv' + taskid + '"></div><hr>';
+            taskDiv.innerHTML = '<p id="taskdata' + taskid + '"></p>' +
+                '<div id="taskDocsDiv' + taskid + '"></div>' +
+                '<div><h4><em id="time' + taskid +
+                '">Time on task:</em><p><em id="attempts' + taskid +
+                '">Attempts: ' + data.nbattempts + '</em></h4></div>' +
+                '</p><div id="taskFormDiv' + taskid + '"></div><hr>';
+
             $('#accordion' + data.processid).before(taskDiv);
 
             $('#taskdata' + taskid).html(
                 '<h4>' + '<em>' + data.name + '</em></h4>' +
                     '<h4>' + data.description + '</h4>'
+            );
+
+            // add documents after the description
+            var content =
+                    '<div class="panel-group" id="documentsaccordion" role="tablist" aria-multiselectable="true">';
+            for (var i = 0; i < data.documents.length; i++) {
+                var doc = data.documents[i];
+
+                content += '<div class="panel panel-default"><div class="panel-heading" role="tab" id="' +
+                    'heading_' + taskid + '_' + doc.id +
+                    '"><h4 class="panel-title">' +
+                    '<a role="button" data-toggle="collapse" data-parent="#accordion" href="#' +
+                    'collapse_' + taskid + '_' + doc.id +
+                    '" aria-expanded="true" aria-controls="' +
+                    'collapse_' + taskid + '_' + doc.id +
+                    '"><span class="glyphicon glyphicon-file"></span>' +
+                    doc.name + '</a></h4></div>';
+
+                content += '<div id="' +
+                    'collapse_' + taskid + '_' + doc.id +
+                    '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="' +
+                    'heading_' + taskid + '_' + doc.id +
+                    '"><div class="panel-body">';
+
+                content += '<table class="table">';
+
+                for (var j = 0; j < doc.fields.length; j++) {
+                    content += '<tr><td>' + doc.fields[j].name + '</td><td>' +
+                        doc.fields[j].value + '</td></tr>';
+                }
+
+                content += '</table>';
+
+                content += '</div></div></div>';
+            }
+            content += '</div>';
+            $('#taskDocsDiv' + taskid).html(content);
+
+            // add timer
+            newTask.timer = setInterval(function() {
+                var currentTime = new Date().getTime() - data.startingtime;
+                var style = '';
+                if (currentTime > data.expectedtime) {
+                   style = ' style="color:red"';
+                }
+                $('#time' + taskid).html(
+                    'Time on task: <span' + style + '>' +
+                        prettyDateFormat(currentTime) +
+                        '</span> / ' + prettyDateFormat(data.expectedtime));
+            }, 1000);
+
+            // update score
+            $('#score' + data.processid).html(
+                'Score: ' + data.totalscore
             );
 
             $('#processcontainer' + data.processid + ' .diagramImg').attr(
@@ -141,6 +241,14 @@ function task(address, taskid, user) {
                     taskid +
                     '" class="alert alert-success" role="alert">Great, your submission matched an expected answer.</div>'
             );
+
+            // update score
+            $('#score' + this.processid).html(
+                'Score: ' + data.totalscore
+            );
+
+            // stop timer
+            clearInterval(newTask.timer);
             break;
 
         case 'OTHER_VALIDATED':
@@ -150,6 +258,9 @@ function task(address, taskid, user) {
                     taskid +
                     '" class="alert alert-info" role="alert">Another user completed the task</div>'
             );
+
+            // stop timer
+            clearInterval(newTask.timer);
             break;
 
         case 'RESUBMIT':
@@ -171,7 +282,10 @@ function task(address, taskid, user) {
                     $('#taskFormDiv' + taskid).html('');
                 }
             );
-            $('html, body').scrollTop($('#tasknotif' + taskid).offset().top - 70);
+            $('html, body').scrollTop($('#taskdata' + taskid).offset().top - 70);
+
+            // update nb attempts infos
+            $('#attempts' + taskid).html('Attempts: ' + data.nbattempts);
             break;
 
         case 'ERROR':
@@ -181,6 +295,9 @@ function task(address, taskid, user) {
                     taskid +
                     '" class="alert alert-warning" role="alert">Hum... something weird happened, sorry about that</div>'
             );
+
+            // stop timer
+            clearInterval(newTask.timer);
             break;
 
         }
@@ -196,7 +313,7 @@ function task(address, taskid, user) {
     };
 
     newTask._onerror = function(e) {
-        closeOnError = true;
+        this.closeOnError = true;
     };
 
     return newTask;

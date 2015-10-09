@@ -1,0 +1,2345 @@
+# baseURI: http://ikm-group.ch/archiMEO/emo
+# imports: http://ikm-group.ch/archiMEO/BMM
+# imports: http://ikm-group.ch/archiMEO/BPMN
+# imports: http://ikm-group.ch/archiMEO/CMM
+# imports: http://ikm-group.ch/archiMEO/CMMN
+# imports: http://ikm-group.ch/archiMEO/archimate
+# imports: http://ikm-group.ch/archiMEO/dkm
+# imports: http://ikm-group.ch/archiMEO/eo
+# imports: http://ikm-group.ch/archiMEO/kpi
+# imports: http://ikm-group.ch/archiMEO/omm
+# imports: http://ikm-group.ch/archiMEO/pmmm
+# imports: http://ikm-group.ch/archiMEO/util
+
+@prefix archi: <http://ikm-group.ch/archiMEO/archimate#> .
+@prefix bmm: <http://ikm-group.ch/archiMEO/BMM#> .
+@prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix cmm: <http://ikm-group.ch/archiMEO/CMM#> .
+@prefix cmmn: <http://ikm-group.ch/archiMEO/CMMN#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dkm: <http://ikm-group.ch/archiMEO/dkm#> .
+@prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
+@prefix eo: <http://ikm-group.ch/archiMEO/eo#> .
+@prefix kpi: <http://ikm-group.ch/archiMEO/kpi#> .
+@prefix omm: <http://ikm-group.ch/archiMEO/omm#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix top: <http://ikm-group.ch/archiMEO/top#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xwiki: <http://www.xwiki.org/xwiki/bin/view/Main/WebHome#> .
+
+bmm:Assessment
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:Assessment ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:assessmentRepresentsAssessment ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bmm:DesiredResult
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:DesiredResult ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:endRepresentsDesiredResult ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bmm:Goal
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:Goal ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:goalRepresentsGoal ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bmm:Influencer
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:Influencer ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:influencerRepresentsInfluencer ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bmm:Means
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:CourseOfAction ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:meansRepresentsCourseOfAction ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bmm:Objective
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:Objective ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:objectiveRepresentsObjective ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bmm:Strategy
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:Strategy ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:strategyRepresentsStrategy ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bmm:Tactic
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:Tactic ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:tacticRepresentsTactic ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bpmn:DataObject
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object archi:Representation ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:dataObjectRepresentsRepresentation ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bpmn:DataStore
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object archi:Node ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:dataStoreRepresentsNode ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bpmn:Event
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object top:Event ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:eventRepresentsEvent ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bpmn:Message
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object archi:Representation ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:messageRepresentsRepresentation ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bpmn:Pool
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object archi:BusinessActor ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:poolRepresentsBActor ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bpmn:Process
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:CompositeBusinessProcess ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:processRepresentsCompositeProcess ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bpmn:SubProcess
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:CompositeBusinessProcess ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:subProcessRepresentsBusinessProcess ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bpmn:Swimlane
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object archi:BusinessRole ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:laneRepresentsBusinessRole ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bpmn:Task
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:AtomicBusinessProcess ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:taskRepresentsAtomicBusinessProcess ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+cmm:Competency
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:Competency ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:competencyRepresentsCompetency ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+cmm:CompetencyProfile
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:CompetencyProfile ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:competencyProfileRepresentsCompetencyProfile ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+cmmn:Case
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:BusinessCase ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:caseRepresentsBusinessCase ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+cmmn:CaseFile
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object archi:Representation ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:caseFileRepresentsRepresentation ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+cmmn:CaseTask
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:AtomicBusinessProcess ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:caseTaskRepresentsAtomicBusinessProcess ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+dkm:Document
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object <http://xmlns.com/foaf/spec#Document> ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:documentRepresentsdocument ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+dkm:KnowledgeResource
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:KnowledgeResource ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:knowledgeResourceRepresentsKnowledgeResource ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+dkm:KnowledgeSource
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object archi:ApplicationComponent ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:knowledgeSourceRepresentsApplicationComponent ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+<http://ikm-group.ch/archiMEO/emo>
+  rdf:type owl:Ontology ;
+  cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+  cc:license "This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License."@en ;
+  dc:contributor "Barbara Thönssen"^^xsd:string ;
+  dc:contributor "Knut Hinkelmann"^^xsd:string ;
+  dc:creator "Andreas Martin"^^xsd:string ;
+  dc:creator "Roman Brun"^^xsd:string ;
+  dc:description "The EMO Ontology."@en ;
+  dc:issued "2010-01-01"^^xsd:date ;
+  dc:modified "2013-05-24"^^xsd:date ;
+  dc:publisher <http://de.dbpedia.org/resource/Fachhochschule_Nordwestschweiz> ;
+  dc:publisher <http://www.fhnw.ch/business> ;
+  dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
+  dc:rights "Copyright 2012 FHNW"^^xsd:string ;
+  dc:title "The EMO Ontology"@en ;
+  rdfs:comment "The EMO ontology (as part of LEMO ontology) is about enterprise objects and their relations to different model types."@en ;
+  owl:imports <http://ikm-group.ch/archiMEO/BMM> ;
+  owl:imports <http://ikm-group.ch/archiMEO/BPMN> ;
+  owl:imports <http://ikm-group.ch/archiMEO/CMM> ;
+  owl:imports <http://ikm-group.ch/archiMEO/CMMN> ;
+  owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
+  owl:imports <http://ikm-group.ch/archiMEO/dkm> ;
+  owl:imports <http://ikm-group.ch/archiMEO/eo> ;
+  owl:imports <http://ikm-group.ch/archiMEO/kpi> ;
+  owl:imports <http://ikm-group.ch/archiMEO/omm> ;
+  owl:imports <http://ikm-group.ch/archiMEO/pmmm> ;
+  owl:imports <http://ikm-group.ch/archiMEO/util> ;
+  owl:versionInfo 1.0 ;
+.
+emo:ArchimateBusinessProcessViewConsistsOfBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessProcess ;
+  rdfs:subPropertyOf emo:ArchimateConsistsOfBusinessProcess ;
+.
+emo:ArchimateConsistsOfApplicationCollaboration
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:ApplicationCollaboration ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfApplicationComponent
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:ApplicationComponent ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfApplicationFunction
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:ApplicationFunction ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfApplicationInterface
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:ApplicationInterface ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfApplicationService
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:ApplicationService ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfArtifact
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:Artifact ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfBusinessActor
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessActor ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfBusinessCollaboration
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessCollaboration ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfBusinessEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessEvent ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfBusinessFunction
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessFunction ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfBusinessInteraction
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessInteraction ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfBusinessInterface
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessInterface ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfBusinessObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessObject ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessProcess ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfBusinessRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessRole ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfBusinessService
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:BusinessService ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfCommunicationPath
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:CommunicationPath ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfContract
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:Contract ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfDataObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:DataObject ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfDevice
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:Device ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfInfrastructureInterface
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:InfrastructureInterface ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfInfrastructureService
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:InfrastructureService ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfMeaning
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:Meaning ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfNetwork
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:Network ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfNode
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:Node ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfProduct
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:Product ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfRepresentation
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:Representation ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfSystemSoftware
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:SystemSoftware ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:ArchimateConsistsOfValue
+  rdf:type owl:ObjectProperty ;
+  rdfs:range archi:Value ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:Aspect
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://ikm-group.ch/archiMEO/nco#NCO> ;
+.
+emo:BMMConsistsOfAssessment
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BMMConsistsOfAssessment"^^xsd:string ;
+  rdfs:range bmm:Assessment ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BMMConsistsOfBusinessPolicy
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BMMConsistsOfBusinessPolicy"^^xsd:string ;
+  rdfs:range bmm:BusinessPolicy ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BMMConsistsOfBusinessRule
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BMMConsistsOfBusinessRule"^^xsd:string ;
+  rdfs:range bmm:BusinessRule ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BMMConsistsOfGoal
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BMMConsistsOfGoal"^^xsd:string ;
+  rdfs:range bmm:Goal ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BMMConsistsOfMission
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BMMConsistsOfMission"^^xsd:string ;
+  rdfs:range bmm:Mission ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BMMConsistsOfObjective
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BMMConsistsOfObjective"^^xsd:string ;
+  rdfs:range bmm:Objective ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BMMConsistsOfPotentialReward
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BMMConsistsOfPotentialReward"^^xsd:string ;
+  rdfs:range bmm:PotentialReward ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BMMConsistsOfRisk
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BMMConsistsOfRisk"^^xsd:string ;
+  rdfs:range bmm:Risk ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BMMConsistsOfStrategy
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BMMConsistsOfStrategy"^^xsd:string ;
+  rdfs:range bmm:Strategy ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BMMConsistsOfTactic
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BMMConsistsOfTactic"^^xsd:string ;
+  rdfs:range bmm:Tactic ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BMMConsistsOfVision
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BMMConsistsOfVision"^^xsd:string ;
+  rdfs:range bmm:Vision ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfAdHocSubProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfAdHocSubProcess"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfBusinessRuleTask
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfBusinessRuleTask"^^xsd:string ;
+  rdfs:range bpmn:BusinessRuleTask ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfConditionalIntermediateEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfConditionalIntermediateEvent"^^xsd:string ;
+  rdfs:range bpmn:ConditionalIntermediateEvent ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfConditionalStartEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfConditionalStartEvent"^^xsd:string ;
+  rdfs:range bpmn:ConditionalStartEvent ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfDataInput
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfDataInput"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfDataObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfDataObject"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfDataOutput
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfDataOutput"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfEndEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfEndEvent"^^xsd:string ;
+  rdfs:range bpmn:EndEvent ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfErrorEndEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfErrorEndEvent"^^xsd:string ;
+  rdfs:range bpmn:ErrorEndEvent ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfErrorIntermediateEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfErrorIntermediateEvent"^^xsd:string ;
+  rdfs:range bpmn:ErrorIntermediateEvent ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfEvent"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfExclusiveGateway
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfExclusiveGateway"^^xsd:string ;
+  rdfs:range bpmn:ExclusiveGateway ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfGateway
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfGateway"^^xsd:string ;
+  rdfs:range bpmn:Gateway ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfGroup
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfGroup"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfInclusiveGateway
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfInclusiveGateway"^^xsd:string ;
+  rdfs:range bpmn:InclusiveGateway ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfIntermediateEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfIntermediateEvent"^^xsd:string ;
+  rdfs:range bpmn:IntermediateEvent ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfLane
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfLane"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfManualTask
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfManualTask"^^xsd:string ;
+  rdfs:range bpmn:ManualTask ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfMessageEndEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfMessageEndEvent"^^xsd:string ;
+  rdfs:range bpmn:MessageEndEvent ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfMessageIntermediateEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfMessageIntermediateEvent"^^xsd:string ;
+  rdfs:range bpmn:MessageIntermediateEvent ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfMessageStartEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfMessageStartEvent"^^xsd:string ;
+  rdfs:range bpmn:MessageStartEvent ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfParallelGateway
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfParallelGateway"^^xsd:string ;
+  rdfs:range bpmn:ParallelGateway ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfPool
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfPool"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfReceiveTask
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfReceiveTask"^^xsd:string ;
+  rdfs:range bpmn:ReceiveTask ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfScriptTask
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfScriptTask"^^xsd:string ;
+  rdfs:range bpmn:ScriptTask ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfSendTask
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfSendTask"^^xsd:string ;
+  rdfs:range bpmn:SendTask ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfServiceTask
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfServiceTask"^^xsd:string ;
+  rdfs:range bpmn:ServiceTask ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfStartEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfStartEvent"^^xsd:string ;
+  rdfs:range bpmn:StartEvent ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfSubProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfSubProcess"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfTask
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfTask"^^xsd:string ;
+  rdfs:range bpmn:Task ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfTerminateEndEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfTerminateEndEvent"^^xsd:string ;
+  rdfs:range bpmn:TerminateEndEvent ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfTextAnnotation
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfTextAnnotation"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfThrowingIntermediateEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfThrowingIntermediateEvent"^^xsd:string ;
+  rdfs:range bpmn:ThrowingIntermediateEvent ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfTimerIntermediateEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfTimerIntermediateEvent"^^xsd:string ;
+  rdfs:range bpmn:TimerIntermediateEvent ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfTimerStartEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfTimerStartEvent"^^xsd:string ;
+  rdfs:range bpmn:TimerStartEvent ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMNConsistsOfUserTask
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "BPMNConsistsOfUserTask"^^xsd:string ;
+  rdfs:range bpmn:UserTask ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:BPMN_MetaModel
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:LearnPAdPlatformIndependentMetaModel ;
+.
+emo:BusinessMotivationMetaModel
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:LearnPAdPlatformIndependentMetaModel ;
+.
+emo:CaseManagementMetaModel
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:LearnPAdPlatformIndependentMetaModel ;
+.
+emo:CompetencyMetaModel
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "meta model for competencies based on on the European Committee for standardisation, CEN WS-LT LTSO (Learning Technology Standards Observatory)"^^xsd:string ;
+  rdfs:subClassOf emo:LearnPAdPlatformIndependentMetaModel ;
+.
+emo:DocumentAndKnowledgeMetaModel
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:LearnPAdPlatformIndependentMetaModel ;
+.
+emo:KPI_MetaModel
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:LearnPAdPlatformIndependentMetaModel ;
+.
+emo:LearnPAdPlatformIndependentMetaModel
+  rdf:type owl:Class ;
+  rdfs:comment "\"A model that defines the components of a conceptual model, process, or system\" (http://dictionary.reference.com/browse/metamodel). This replaces former concept emo:ArchitectureDescriptionLanguage."^^xsd:string ;
+  rdfs:comment "An Architecture Description Language (ADL) is a language designed to model a system (http://www.mrtc.mdh.se/han/FoPlan/ass2-bjornander.pdf)"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Learn PAd Platform Independent Meta Model"^^xsd:string ;
+  rdfs:subClassOf owl:Thing ;
+.
+emo:LearningGoal
+  rdf:type owl:Class ;
+  rdfs:subClassOf bmm:Goal ;
+.
+emo:ModelSetVersion
+  rdf:type owl:Class ;
+  rdfs:comment "Version for a set of models"^^xsd:string ;
+  rdfs:label "Model Set Version"^^xsd:string ;
+  rdfs:subClassOf emo:Version ;
+.
+emo:OrganisationMetaModel
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:LearnPAdPlatformIndependentMetaModel ;
+.
+emo:ProcessMapMetaModel
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:LearnPAdPlatformIndependentMetaModel ;
+.
+emo:Version
+  rdf:type owl:Class ;
+  rdfs:comment "A common model version based on the major -, minor - and patch - version pattern."^^xsd:string ;
+  rdfs:label "Model Version"^^xsd:string ;
+  rdfs:subClassOf emo:LearnPAdPlatformIndependentMetaModel ;
+.
+emo:XWIKIMetaModel
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf emo:LearnPAdPlatformIndependentMetaModel ;
+.
+emo:activityIsMeasuredByCriterion
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "an activity can be measured by a criterion"^^xsd:string ;
+  rdfs:domain bpmn:Activity ;
+  rdfs:range kpi:Criterion ;
+.
+emo:activityIsPerformedByOrganisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "in LPMM pointer name = actor"^^xsd:string ;
+  rdfs:domain bpmn:Activity ;
+  rdfs:range omm:OrganisationalUnit ;
+.
+emo:activityIsPerformedByPerformer
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "in LPMM pointer name = actor"^^xsd:string ;
+  rdfs:domain bpmn:Activity ;
+  rdfs:range omm:Performer ;
+.
+emo:activityIsPerformedByRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "in LPMM pointer name = actor"^^xsd:string ;
+  rdfs:domain bpmn:Activity ;
+  rdfs:range omm:Role ;
+.
+emo:activityIsPerformed_byPosition
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "in LPMM pointer name = actor"^^xsd:string ;
+  rdfs:domain bpmn:Activity ;
+  rdfs:range omm:Position ;
+.
+emo:activityRequiresCompetency
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "to execute an activity a competency is required"^^xsd:string ;
+  rdfs:domain bpmn:Activity ;
+  rdfs:range cmm:Competency ;
+.
+emo:annotationRepresentsAnnotationDataSet
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:comment "CQ17"^^xsd:string ;
+  rdfs:domain xwiki:Annotation ;
+  rdfs:range eo:AnnotationDataSet ;
+.
+emo:applicationArchitectureBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "applicationArchitectureBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:applicationArchitectureBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "applicationArchitectureBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:applicationArchitectureBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "applicationArchitectureBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:applicationArchitectureBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "applicationArchitectureBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:applicationsBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "applicationsBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:applicationsBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "applicationsBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:applicationsBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "applicationsBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:applicationsBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "applicationsBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:aspectCoversObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment ""^^xsd:string ;
+  rdfs:label "aspectCoversObject"^^xsd:string ;
+  rdfs:range eo:EnterpriseObject ;
+.
+emo:assessmentRepresentsAssessment
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bmm:Assessment ;
+  rdfs:range eo:Assessment ;
+.
+emo:belongsToVersion
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain emo:LearnPAdPlatformIndependentMetaModel ;
+  rdfs:range emo:Version ;
+.
+emo:businessGoalsModelBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessGoalsModelBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:businessGoalsModelBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessGoalsModelBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:businessGoalsModelBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessGoalsModelBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:businessGoalsModelBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessGoalsModelBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:businessModelBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessModelBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:businessModelBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessModelBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:businessModelBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessModelBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:businessModelBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessModelBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:businessRuleodelBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessRuleodelBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:businessRuleodelBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessRuleodelBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:businessRuleodelBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessRuleodelBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:businessRuleodelBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessRuleodelBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:businessUnitsBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessUnitsBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:businessUnitsBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessUnitsBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:businessUnitsBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessUnitsBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:businessUnitsBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "businessUnitsBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:callActivityRepresentsCompositeBusinessActivity
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:CallActivity ;
+  rdfs:range eo:CompositeBusinessProcess ;
+.
+emo:caseFileItemIsRelatedResource
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:range dkm:Resource ;
+.
+emo:caseFileRepresentsRepresentation
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain cmmn:CaseFile ;
+  rdfs:domain <http://www.omg.org/spec/CMMN#CaseFile> ;
+  rdfs:range archi:Representation ;
+.
+emo:caseRepresentsBusinessCase
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain cmmn:Case ;
+  rdfs:domain <http://www.omg.org/spec/CMMN#Case> ;
+  rdfs:range eo:BusinessCase ;
+.
+emo:caseTaskRepresentsAtomicBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain cmmn:CaseTask ;
+  rdfs:range eo:AtomicBusinessProcess ;
+.
+emo:competencyProfileDocumentsCompetency
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain eo:CompetencyProfile ;
+  rdfs:range eo:Competency ;
+.
+emo:competencyProfileIsAquiredByPerformer
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmm:CompetencyProfile ;
+  rdfs:range omm:Performer ;
+.
+emo:competencyProfileIsDocumentedInDocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmm:CompetencyProfile ;
+  rdfs:range dkm:Document ;
+.
+emo:competencyProfileIsReportedInDocument
+  rdf:type rdf:Property ;
+  rdfs:domain cmm:CompetencyProfile ;
+  rdfs:range dkm:Document ;
+.
+emo:competencyProfileRepresentsCompetencyProfile
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain cmm:CompetencyProfile ;
+  rdfs:range eo:CompetencyProfile ;
+.
+emo:competencyRelatesToKnowledgeObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cmm:Competency ;
+  rdfs:range owl:Thing ;
+.
+emo:competencyRepresentsCompetency
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain cmm:Competency ;
+  rdfs:range eo:Competency ;
+.
+emo:competencySetIsAssignedToOrganisationalUnit
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmm:CompetencySet ;
+  rdfs:range omm:OrganisationalUnit ;
+.
+emo:competencySetIsAssignedToPosition
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmm:CompetencySet ;
+  rdfs:range omm:Position ;
+.
+emo:competencySetIsAssignedToRole
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmm:CompetencySet ;
+  rdfs:range omm:Role ;
+.
+emo:competencySetIsAssignedToTeam
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain cmm:CompetencySet ;
+  rdfs:range omm:Team ;
+.
+emo:courseOfActionRealizes
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:CourseOfAction ;
+  rdfs:range bpmn:Activity ;
+  rdfs:range bpmn:Process ;
+.
+<http://ikm-group.ch/archiMEO/emo#criterionEmbodiesStrategicObjective.>
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "source: KPIs embody a strategic objective (Eckerson, Wayne)"^^xsd:string ;
+  rdfs:domain kpi:Criterion ;
+  rdfs:range bmm:Objective ;
+  owl:versionInfo "2015-02-06"^^xsd:string ;
+.
+emo:criterionHasTarget
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:comment "KPIs embody a strategic objective. KPIs measure performance against specific targets. Targets are defined in strategic, planning, or budget sessions and can take different forms (e.g., achievement, reduction, absolute, zero). Source: Eckerson, Wayne"^^xsd:string ;
+  rdfs:domain kpi:Criterion ;
+  rdfs:range bmm:Goal ;
+  owl:versionInfo "2015-02-06"^^xsd:string ;
+.
+emo:criterionQuantifiesGoal
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "relation between kpi:criterion and bmm:goal; criterion quantifies goal"^^xsd:string ;
+  rdfs:domain kpi:Criterion ;
+  rdfs:range bmm:Goal ;
+.
+emo:criterionRepresentsCriterion
+  rdf:type rdf:Property ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain kpi:Criterion ;
+  rdfs:range eo:Criterion ;
+.
+emo:dataInputReferencesDocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "in LPMM relation is form data input to dkm:resource; pointer name = referenced input data (while executing, resp. optional)"^^xsd:string ;
+  rdfs:domain bpmn:DataInput ;
+  rdfs:range dkm:Document ;
+.
+emo:dataObjectRepresentsRepresentation
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bpmn:DataObject ;
+  rdfs:range archi:Representation ;
+.
+emo:dataOutputReferencesDocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "in LPMM relation is form data output to dkm:resource; pointer name = referenced output data (while executing, resp. optional)"^^xsd:string ;
+  rdfs:domain bpmn:DataOutput ;
+  rdfs:range dkm:Document ;
+.
+emo:dataStoreRepresentsNode
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bpmn:DataStore ;
+  rdfs:range archi:Node ;
+.
+emo:documentModelBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentModelBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:documentModelBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentModelBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:documentModelBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentModelBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:documentModelBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentModelBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:documentModelConsitsOfDataInput
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentModelConsitsOfDataInput"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:documentModelConsitsOfDataObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentModelConsitsOfDataObject"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:documentModelConsitsOfDataOutput
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentModelConsitsOfDataOutput"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:documentModelConsitsOfDocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentModelConsitsOfDocument"^^xsd:string ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:documentModelConsitsOfOpportunity
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentModelConsitsOfOpportunity"^^xsd:string ;
+  rdfs:range eo:Opportunity ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:documentModelConsitsOfStrength
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentModelConsitsOfStrength"^^xsd:string ;
+  rdfs:range eo:Strength ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:documentModelConsitsOfThreat
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentModelConsitsOfThreat"^^xsd:string ;
+  rdfs:range eo:Threat ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:documentModelConsitsOfWeakness
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "documentModelConsitsOfWeakness"^^xsd:string ;
+  rdfs:range eo:Weakness ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:documentRepresentsdocument
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain dkm:Document ;
+  rdfs:range <http://xmlns.com/foaf/spec#Document> ;
+.
+emo:endDefinedByOrganisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:End ;
+  rdfs:range omm:OrganisationalUnit ;
+.
+emo:endRepresentsDesiredResult
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bmm:DesiredResult ;
+  rdfs:range eo:DesiredResult ;
+.
+emo:entitiesBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "entitiesBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:entitiesBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "entitiesBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:entitiesBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "entitiesBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:entitiesBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "entitiesBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:entitiesRelationsOntologyBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "entitiesRelationsOntologyBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:entitiesRelationsOntologyBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "entitiesRelationsOntologyBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:entitiesRelationsOntologyBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "entitiesRelationsOntologyBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:entitiesRelationsOntologyBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "entitiesRelationsOntologyBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:eventRepresentsEvent
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bpmn:Event ;
+  rdfs:range top:Event ;
+.
+emo:goalRepresentsGoal
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bmm:Goal ;
+  rdfs:range eo:Goal ;
+.
+emo:humanTaskIsPerformedByOrganisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain <http://www.omg.org/spec/CMMN#HumanTask> ;
+  rdfs:range omm:OrganisationalUnit ;
+.
+emo:humanTaskIsPerformedByPerformer
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain <http://www.omg.org/spec/CMMN#HumanTask> ;
+  rdfs:range omm:Performer ;
+.
+emo:humanTaskIsPerformedByPosition
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain <http://www.omg.org/spec/CMMN#HumanTask> ;
+  rdfs:range omm:Position ;
+.
+emo:humanTaskIsPerformedByRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain <http://www.omg.org/spec/CMMN#HumanTask> ;
+  rdfs:range omm:Role ;
+.
+emo:influencerRepresentsInfluencer
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bmm:Influencer ;
+  rdfs:range eo:Influencer ;
+.
+emo:itSystemModelBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "itSystemModelBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:itSystemModelBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "itSystemModelBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:itSystemModelBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "itSystemModelBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:itSystemModelBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "itSystemModelBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:itSystemModelConsistsOfApplication
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "itSystemModelConsistsOfApplication"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:itSystemModelConsistsOfInfrastructureElement
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "itSystemModelConsistsOfInfrastructureElement"^^xsd:string ;
+  rdfs:range eo:InfrastructureElement ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:itSystemModelConsistsOfService
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "itSystemModelConsistsOfService"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:knowledgeResourceRepresentsKnowledgeResource
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain dkm:KnowledgeResource ;
+  rdfs:range eo:KnowledgeResource ;
+.
+emo:knowledgeRessourceHasKnowledgeHolderOrgUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:range omm:OrganisationalUnit ;
+  rdfs:range omm:Performer ;
+  rdfs:range omm:Role ;
+.
+emo:knowledgeSourceRepresentsApplicationComponent
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain dkm:KnowledgeSource ;
+  rdfs:range archi:ApplicationComponent ;
+.
+emo:laneRepresentsBusinessRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bpmn:Swimlane ;
+  rdfs:range archi:BusinessRole ;
+.
+emo:laneRepresentsNode
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bpmn:Swimlane ;
+  rdfs:range eo:InfrastructureElement ;
+.
+emo:logicalDataModelBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "logicalDataModelBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:logicalDataModelBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "logicalDataModelBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:logicalDataModelBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "logicalDataModelBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:logicalDataModelBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "logicalDataModelBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:majorModelSetVersion
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain emo:ModelSetVersion ;
+  rdfs:subPropertyOf emo:majorModelVersion ;
+.
+emo:majorModelVersion
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain emo:Version ;
+  rdfs:range xsd:string ;
+.
+emo:meansEstablishedByOrganisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bmm:Means ;
+  rdfs:range omm:OrganisationalUnit ;
+.
+emo:meansRepresentsCourseOfAction
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bmm:Means ;
+  rdfs:range eo:CourseOfAction ;
+.
+emo:messageRepresentsRepresentation
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bpmn:Message ;
+  rdfs:range archi:Representation ;
+.
+emo:metricsRepresentsMetrics
+  rdf:type rdf:Property ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain kpi:Metrics ;
+  rdfs:range eo:Metrics ;
+.
+emo:minorModelSetVersion
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain emo:ModelSetVersion ;
+  rdfs:range xsd:string ;
+  rdfs:subPropertyOf emo:minorModelVersion ;
+.
+emo:minorModelVersion
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain emo:Version ;
+  rdfs:range xsd:string ;
+.
+emo:modelTypeBelongsToAspect
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "modelTypeBelongsToAspect"^^xsd:string ;
+.
+emo:modelTypeBelongsToPerspective
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "modelTypeBelongsToPerspective"^^xsd:string ;
+.
+emo:modelTypeConsistsOfEnterpriseObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "modelTypeConsistsOfEnterpriseObject"^^xsd:string ;
+  rdfs:range eo:EnterpriseObject ;
+.
+emo:objectTypeHasDescription
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain emo:LearnPAdPlatformIndependentMetaModel ;
+.
+emo:objectTypeHasID
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain emo:LearnPAdPlatformIndependentMetaModel ;
+.
+emo:objectTypeHasName
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain emo:LearnPAdPlatformIndependentMetaModel ;
+.
+emo:objectiveRepresentsObjective
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bmm:Objective ;
+  rdfs:range eo:Objective ;
+.
+emo:organigramBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "organigramBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:organigramBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "organigramBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:organigramBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "organigramBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:organigramBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "organigramBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:organigramConsistsOfOrganisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "organigramConsistsOfOrganisationalUnit"^^xsd:string ;
+  rdfs:range eo:OrganisationalUnit ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:organigramConsistsOfPerson
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "organigramConsistsOfPerson"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:organigramConsistsOfRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "organigramConsistsOfRole"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:organisationalUnitHasGoal
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain omm:OrganisationalUnit ;
+  rdfs:range bmm:Goal ;
+.
+emo:organisationalUnitHasResource
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain omm:OrganisationalUnit ;
+  rdfs:range dkm:Resource ;
+.
+emo:organisationalUnitRepresentsOrganisationalUnit
+  rdf:type rdf:Property ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain omm:OrganisationalUnit ;
+  rdfs:range eo:OrganisationalUnit ;
+.
+emo:pageRepresentsFlowNode
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ21"^^xsd:string ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain xwiki:Page ;
+  rdfs:range bpmn:FlowNode ;
+.
+emo:pageRepresentsKnowledgeObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ22"^^xsd:string ;
+  rdfs:domain xwiki:Page ;
+  rdfs:range dkm:Resource ;
+.
+emo:patchModelSetVersion
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain emo:ModelSetVersion ;
+  rdfs:range xsd:string ;
+  rdfs:subPropertyOf emo:patchModelVersion ;
+.
+emo:patchModelVersion
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain emo:Version ;
+  rdfs:range xsd:string ;
+.
+emo:performerHasEmailAddress
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain omm:Performer ;
+  rdfs:range xsd:string ;
+.
+emo:performerRepresentsPerson
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain omm:Performer ;
+  rdfs:range eo:Person ;
+.
+emo:perspectiveCoversProperty
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "perspectiveCoversProperty"^^xsd:string ;
+  rdfs:range rdf:Property ;
+.
+emo:perspectiveRepresentsPerspective
+  rdf:type rdf:Property ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain kpi:Perspective ;
+  rdfs:range eo:Perspective ;
+.
+emo:physicalDataModelBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "physicalDataModelBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:physicalDataModelBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "physicalDataModelBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:physicalDataModelBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "physicalDataModelBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:physicalDataModelBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "physicalDataModelBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:plattformSpecificWFModelBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "plattformSpecificWFModelBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:plattformSpecificWFModelBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "plattformSpecificWFModelBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:plattformSpecificWFModelBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "plattformSpecificWFModelBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:plattformSpecificWFModelBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "plattformSpecificWFModelBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:poolRepresentsBActor
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bpmn:Pool ;
+  rdfs:range archi:BusinessActor ;
+.
+emo:poolRepresentsOrganisationalUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bpmn:Pool ;
+  rdfs:range omm:OrganisationalUnit ;
+.
+emo:positionReferencesToDocument
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "a position is described/reported in a document; this could also be a job description"^^xsd:string ;
+  rdfs:comment "in LPMM pointer name = Referenced Documents"^^xsd:string ;
+  rdfs:domain omm:Position ;
+  rdfs:range dkm:Document ;
+.
+emo:processMapBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "processMapBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:processMapBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "processMapBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:processMapBelongsToAspectZ
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "processMapBelongsToAspectZ"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:processMapBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "processMapBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:processMapBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "processMapBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:processMapBelongsToPerspectiveZ
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "processMapBelongsToPerspectiveZ"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:processModelBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "processModelBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:processModelBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "processModelBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:processModelBelongsToAspectZ
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "processModelBelongsToAspectZ"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:processModelBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "processModelBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:processModelBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "processModelBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:processModelBelongsToPerspectiveZ
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "processModelBelongsToPerspectiveZ"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:processModelConsistsOfAction
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "processModelConsistsOfAction"^^xsd:string ;
+  rdfs:range archi:BehaviourElement ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:processRepresentsCompositeProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bpmn:Process ;
+  rdfs:range eo:CompositeBusinessProcess ;
+.
+emo:productModelBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "productModelBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:productModelBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "productModelBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:productModelBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "productModelBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:productModelBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "productModelBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:productModelConsistsOfComponent
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "productModelConsistsOfComponent"^^xsd:string ;
+  rdfs:range eo:Component ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:productModelConsistsOfProduct
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "productModelConsistsOfProduct"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:productionRuleDesignBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "productionRuleDesignBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:productionRuleDesignBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "productionRuleDesignBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:productionRuleDesignBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "productionRuleDesignBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:productionRuleDesingBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "productionRuleDesingBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:productionRuleodelBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "productionRuleodelBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:productionRuleodelBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "productionRuleodelBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:productionRuleodelBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "productionRuleodelBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:productionRuleodelBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "productionRuleodelBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:propositionReferencesEnterpriseObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ22"^^xsd:string ;
+  rdfs:domain xwiki:Proposition ;
+  rdfs:range eo:EnterpriseObject ;
+.
+emo:rganisationalStructureConsistsOfFacility
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "rganisationalStructureConsistsOfFacility"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeConsistsOfEnterpriseObject ;
+.
+emo:roleRepresentsBusinessRole
+  rdf:type rdf:Property ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain omm:Role ;
+  rdfs:range archi:BusinessRole ;
+.
+emo:spatialThingIsConnectedToSpatialThing
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "spatialThingIsConnectedToSpatialThing"^^xsd:string ;
+.
+emo:strategyRepresentsStrategy
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bmm:Strategy ;
+  rdfs:range eo:Strategy ;
+.
+emo:subProcessReferencesToCase
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bpmn:SubProcess ;
+  rdfs:range emo:CaseManagementMetaModel ;
+.
+emo:subProcessRepresentsBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bpmn:SubProcess ;
+  rdfs:range eo:CompositeBusinessProcess ;
+.
+emo:swimlaneRepresentsOrganisationalUnit
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "in LPMM pointer name = performer"^^xsd:string ;
+  rdfs:domain bpmn:Swimlane ;
+  rdfs:range omm:OrganisationalUnit ;
+.
+emo:swimlaneRepresentsPerformer
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:comment "in LPMM pointer name = performer"^^xsd:string ;
+  rdfs:domain bpmn:Swimlane ;
+  rdfs:range omm:Performer ;
+.
+emo:swimlaneRepresentsRole
+  rdf:type rdf:Property ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:domain bpmn:Swimlane ;
+  rdfs:range omm:Role ;
+.
+emo:systemDesignBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "systemDesignBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:systemDesignBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "systemDesignBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:systemDesignBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "systemDesignBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:systemDesignBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "systemDesignBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:tacticRepresentsTactic
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bmm:Tactic ;
+  rdfs:range eo:Tactic ;
+.
+emo:taskRepresentsAtomicBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain bpmn:Task ;
+  rdfs:range eo:AtomicBusinessProcess ;
+.
+emo:teamRepresentsBusinessCollaboration
+  rdf:type rdf:Property ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain omm:Team ;
+  rdfs:range archi:BusinessCollaboration ;
+.
+emo:userModelBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "userModelBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:userModelBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "userModelBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:userModelBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "userModelBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:userModelBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "userModelBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:workflowModelBelongsToAspectLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "workflowModelBelongsToAspectLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:workflowModelBelongsToAspectN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "workflowModelBelongsToAspectN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToAspect ;
+.
+emo:workflowModelBelongsToPerspectiveLeo
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "workflowModelBelongsToPerspectiveLeo"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+emo:workflowModelBelongsToPerspectiveN
+  rdf:type owl:ObjectProperty ;
+  rdfs:label "workflowModelBelongsToPerspectiveN"^^xsd:string ;
+  rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
+.
+kpi:Criterion
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:Criterion ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:criterionRepresentsCriterion ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+kpi:Metrics
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:Metrics ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:metricsRepresentsMetrics ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+kpi:Perspective
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:Perspective ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:perspectiveRepresentsPerspective ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+omm:OrganisationalUnit
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:OrganisationalUnit ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:organisationalUnitRepresentsOrganisationalUnit ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+omm:Performer
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:Person ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:performerRepresentsPerson ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where (
+          [
+            rdf:type sp:Filter ;
+            sp:expression [
+                rdf:type sp:notExists ;
+                sp:elements (
+                    [
+                      sp:object [
+                          sp:varName "email"^^xsd:string ;
+                        ] ;
+                      sp:predicate emo:performerHasEmailAddress ;
+                      sp:subject spin:_this ;
+                    ]
+                    [
+                      sp:object [
+                          sp:varName "email"^^xsd:string ;
+                        ] ;
+                      sp:predicate <http://xmlns.com/foaf/spec#mbox> ;
+                      sp:subject [
+                          sp:varName "person"^^xsd:string ;
+                        ] ;
+                    ]
+                    [
+                      rdf:type sp:TriplePath ;
+                      sp:object archi:BusinessActor ;
+                      sp:path [
+                          rdf:type sp:ModPath ;
+                          sp:modMax -2 ;
+                          sp:modMin 0 ;
+                          sp:subPath rdfs:subClassOf ;
+                        ] ;
+                      sp:subject [
+                          sp:varName "businessActorType"^^xsd:string ;
+                        ] ;
+                    ]
+                    [
+                      sp:object [
+                          sp:varName "businessActorType"^^xsd:string ;
+                        ] ;
+                      sp:predicate rdf:type ;
+                      sp:subject [
+                          sp:varName "person"^^xsd:string ;
+                        ] ;
+                    ]
+                  ) ;
+              ] ;
+          ]
+        ) ;
+    ] ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "person"^^xsd:string ;
+              ] ;
+            sp:predicate emo:performerRepresentsPerson ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object [
+                sp:varName "email"^^xsd:string ;
+              ] ;
+            sp:predicate emo:performerHasEmailAddress ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "email"^^xsd:string ;
+              ] ;
+            sp:predicate <http://xmlns.com/foaf/spec#mbox> ;
+            sp:subject [
+                sp:varName "person"^^xsd:string ;
+              ] ;
+          ]
+          [
+            rdf:type sp:TriplePath ;
+            sp:object archi:BusinessActor ;
+            sp:path [
+                rdf:type sp:ModPath ;
+                sp:modMax -2 ;
+                sp:modMin 0 ;
+                sp:subPath rdfs:subClassOf ;
+              ] ;
+            sp:subject [
+                sp:varName "businessActorType"^^xsd:string ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "businessActorType"^^xsd:string ;
+              ] ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "person"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+    ] ;
+.
+omm:Role
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object archi:BusinessRole ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:roleRepresentsBusinessRole ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+omm:Team
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object archi:BusinessCollaboration ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:teamRepresentsBusinessCollaboration ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.

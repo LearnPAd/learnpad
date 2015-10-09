@@ -26,6 +26,7 @@ package eu.learnpad.simulator.processmanager.activiti.processdispatcher;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -40,30 +41,29 @@ import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.simulator.IProcessEventReceiver;
-import eu.learnpad.simulator.IProcessManager;
-import eu.learnpad.simulator.IProcessManager.TaskSubmissionStatus;
-import eu.learnpad.simulator.processmanager.IProcessDispatcher;
+import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.datastructures.document.LearnPadDocument;
+import eu.learnpad.simulator.datastructures.document.LearnPadDocumentField;
+import eu.learnpad.simulator.processmanager.AbstractProcessDispatcher;
 import eu.learnpad.simulator.processmanager.ITaskRouter;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
+import eu.learnpad.simulator.utils.BPMNExplorer;
 
 /**
+ *
  * @author Tom Jorquera - Linagora
  *
  */
-public class ActivitiProcessDispatcher implements IProcessDispatcher,
-		ActivitiEventListener {
+public class ActivitiProcessDispatcher extends AbstractProcessDispatcher
+		implements ActivitiEventListener {
 
-	private final ActivitiProcessManager processManager;
-	private final IProcessEventReceiver processEventReceiver;
-	private final ProcessInstance process;
 	private final TaskService taskService;
-	private final ITaskRouter router;
 	private final RuntimeService runtimeService;
 	private final HistoryService historyService;
-
-	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
+	private final BPMNExplorer explorer;
 
 	private final Set<String> registeredWaitingTasks = new HashSet<String>();
 
@@ -76,161 +76,139 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 	//
 	// If we are not careful and try to terminate the process too soon, the last
 	// task is not completely processed and activiti may freak out (concurrent
-	// modification exception)
+	// modification exception).
 	// So we set a boolean when we notice a process is finished
-	// (during onEvent). When completing tasks (completeTask) we terminate by
-	// checking if the boolean is set to true. In this case we know that we can
-	// safely end the process.
+	// (during onEvent).
 	//
-	// NOTE: the two mentioned methods are set to synchronized. This does not
-	// seems to be currently necessary as activiti seems to handle all of this
-	// into a single thread, but better save than sorry.
+	// This is less an issue now, as we now have abstracted most of the
+	// treatment in the AbstractProcessDispatcher. Things work out ok
+	// "by default" because completeTask() is called and returns before we try
+	// to check if the process is terminated using isProcessFinished().
+	// So no issue arises as we will never try to terminate the process before
+	// the last task is completed.
+	// This comment is left here in case a change in the way things work either
+	// in the project or activiti requires some changes that could stumble upon
+	// this problem.
 	//
-	// NOTE: If this does not work anymore, it may be due to a change in the way
-	// activiti process the last task. In this case removing this boolean (and
-	// the synchronized) and simply calling completeProcess() during onEvent()
-	// could be sufficient (if things are sane on activiti side).
+	// NOTE: the isProcessFinished method and the activiti listener method are
+	// set to synchronized. This does not seems to be currently necessary as
+	// activiti seems to handle all of this into a single thread, but better
+	// safe than sorry.
 	private boolean processFinished = false;
 
-	/**
-	 * @param webserver
-	 * @param process
-	 * @param taskService
-	 */
 	public ActivitiProcessDispatcher(
+			ProcessInstanceData processInstanceData,
 			ActivitiProcessManager processManager,
 			IProcessEventReceiver processEventReceiver,
-			ProcessInstance process,
 			TaskService taskService,
 			RuntimeService runtimeService,
 			HistoryService historyService,
 			ITaskRouter router,
 			ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator,
-			Collection<String> involvedUsers) {
-		super();
-		this.processManager = processManager;
-		this.processEventReceiver = processEventReceiver;
-		this.process = process;
+			BPMNExplorer explorer) {
+		super(processInstanceData, processManager, processEventReceiver,
+				router, taskValidator);
 		this.taskService = taskService;
-		this.router = router;
 		this.runtimeService = runtimeService;
-		this.taskValidator = taskValidator;
 		this.historyService = historyService;
-
-		List<Task> tasks = taskService.createTaskQuery()
-				.processInstanceId(process.getId()).list();
-
-		if (tasks.isEmpty()) {
-			throw new RuntimeException("Process without waiting task");
-		} else {
-			processNewTasks(tasks);
-		}
+		this.explorer = explorer;
 
 		runtimeService.addEventListener(this,
 				ActivitiEventType.PROCESS_COMPLETED);
-
-		System.out.println("Created dispatcher for process " + process.getId());
-
 	}
 
-	private void processNewTasks(List<Task> tasks) {
-		for (final Task task : tasks) {
-			registeredWaitingTasks.add(task.getId());
-
-			// process new tasks in a new thread to avoid blocking
-			// current completion
-			new Thread(new Runnable() {
-				public void run() {
-					processEventReceiver.sendTask(task.getProcessInstanceId(),
-							task.getId(), task.getName(),
-							task.getDescription(), router.route(task));
-				}
-			}).start();
-		}
-	}
-
-	private void completeProcess() {
-
-		// signal process end to users
-		processEventReceiver
-		.signalProcessEnd(process.getId(), processManager
-				.getProcessInstanceInvolvedUsers(process.getId()));
-
+	@Override
+	protected void completeProcess() {
 		// unsubscribe to events
 		runtimeService.removeEventListener(this);
-
-		// remove itself from the process manager
-		processManager.removeDispatcher(process.getId());
-
-		System.out.println("Process " + process.getId() + " finished");
+		super.completeProcess();
 	}
 
-	// synchronized because several users can try to submit results for the same
-	// task simultaneously
-	public synchronized IProcessManager.TaskSubmissionStatus submitTaskCompletion(
-			String taskId, Map<String, Object> data) {
-		try {
-			if (historyService.createHistoricTaskInstanceQuery().finished()
-					.taskId(taskId).singleResult() != null) {
-				return TaskSubmissionStatus.ALREADY_COMPLETED;
-			} else {
+	// synchronized since in some case is it possible for several tasks to
+	// complete at the same time, joining on the same next task. This can cause
+	// a race condition where the next task is processed several times.
+	@Override
+	synchronized protected Collection<LearnPadTask> fetchNewTasks() {
+		List<LearnPadTask> newTasks = new ArrayList<LearnPadTask>();
 
-				Task task = taskService.createTaskQuery()
-						.includeProcessVariables().taskId(taskId)
-						.singleResult();
+		// check for newly triggered tasks by getting the list of waiting
+		// tasks...
+		List<Task> waitingTasks = taskService.createTaskQuery()
+				.processInstanceId(processId).list();
 
-				if (task == null) {
-					return TaskSubmissionStatus.UNKOWN_TASK;
-				} else {
+		final ProcessInstance processWithVars = runtimeService
+				.createProcessInstanceQuery().includeProcessVariables()
+				.processInstanceId(processId).singleResult();
 
-					Map<String, Object> processVariables = taskService
-							.createTaskQuery().includeProcessVariables()
-							.taskId(taskId).singleResult()
-							.getProcessVariables();
+		// ... ignoring already processed tasks
+		for (Task t : waitingTasks) {
+			if (!registeredWaitingTasks.contains(t.getId())) {
 
-					if (!taskValidator.taskResultIsValid(taskId,
-							processVariables, data)) {
-						// task result is invalid and must be resubmitted
-						return TaskSubmissionStatus.REJECTED;
-					} else {
+				Collection<LearnPadDocument> documents = new ArrayList<LearnPadDocument>();
 
-						taskService.complete(taskId, data);
+				// add input data objects to task
+				if (explorer != null) {
+					Set<String> dataInputs = explorer.getDataInputs(t
+							.getTaskDefinitionKey());
 
-						registeredWaitingTasks.remove(taskId);
+					for (String dataInput : dataInputs) {
 
-						// see comment on processFinished declaration
-						if (processFinished) {
-							completeProcess();
-						} else {
+						Collection<LearnPadDocumentField> fields = new ArrayList<LearnPadDocumentField>();
 
-							// check for newly triggered tasks
-							List<Task> waitingTasks = taskService
-									.createTaskQuery()
-									.processInstanceId(process.getId()).list();
-
-							// ignore already processed tasks
-							List<Task> newTasks = new ArrayList<Task>();
-							for (Task t : waitingTasks) {
-								if (!registeredWaitingTasks.contains(t.getId())) {
-									newTasks.add(t);
-								}
-							}
-
-							if (!newTasks.isEmpty()) {
-								processNewTasks(newTasks);
-							}
-
+						for (String element : explorer
+								.getDataObjectContent(dataInput)) {
+							fields.add(new LearnPadDocumentField(element,
+									element, "string", "", processWithVars
+											.getProcessVariables().get(element)
+									.toString()));
 						}
 
-						return TaskSubmissionStatus.VALIDATED;
+						documents.add(new LearnPadDocument(dataInput, explorer
+								.getDataObjectName(dataInput), "", fields));
 					}
-
 				}
+
+				newTasks.add(new LearnPadTask(t.getProcessInstanceId(), t
+						.getId(), t.getName(), t.getDescription(), documents,
+						new Date().getTime()));
+
+				registeredWaitingTasks.add(t.getId());
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return TaskSubmissionStatus.UNKOWN_ERROR;
 		}
+
+		return newTasks;
+	};
+
+	@Override
+	protected void completeTask(LearnPadTask task, Map<String, Object> data) {
+		// complete task and de-register it
+		taskService.complete(task.id, data);
+		registeredWaitingTasks.remove(task.id);
+	}
+
+	@Override
+	// note that we added the `synchronized` modifier (see comment on
+	// processFinished declaration for why)
+	protected synchronized boolean isProcessFinished() {
+		return processFinished;
+	}
+
+	@Override
+	protected boolean doesTaskExist(String taskId) {
+		return taskService.createTaskQuery().includeProcessVariables()
+				.taskId(taskId).singleResult() != null;
+	}
+
+	@Override
+	protected boolean isTaskAlreadyCompleted(String taskId) {
+		return historyService.createHistoricTaskInstanceQuery().finished()
+				.taskId(taskId).singleResult() != null;
+	}
+
+	@Override
+	protected Map<String, Object> getTaskInputs(String taskId) {
+		return taskService.createTaskQuery().includeProcessVariables()
+				.taskId(taskId).singleResult().getProcessVariables();
 	}
 
 	/*
@@ -241,22 +219,18 @@ public class ActivitiProcessDispatcher implements IProcessDispatcher,
 	 * activiti.engine.delegate.event.ActivitiEvent)
 	 */
 	public synchronized void onEvent(ActivitiEvent event) {
-		if (event.getProcessInstanceId().equals(process.getId())
+		if (event.getProcessInstanceId().equals(processId)
 				&& event.getType().equals(ActivitiEventType.PROCESS_COMPLETED)) {
 
 			// see comment on processFinished declaration
 			processFinished = true;
 		}
+
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.activiti.engine.delegate.event.ActivitiEventListener#isFailOnException
-	 * ()
-	 */
+	@Override
 	public boolean isFailOnException() {
 		return false;
 	}
+
 }

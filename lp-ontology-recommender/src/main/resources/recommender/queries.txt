@@ -1,0 +1,53 @@
+##START## QUERY:expertsWithSameRole
+##COMMENT:Experts in another organisational unit with the same role (name) assigned
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#>  
+prefix emo: <http://ikm-group.ch/archiMEO/emo#>
+prefix lpd: <http://learnpad.eu#>
+prefix omm: <http://ikm-group.ch/archiMEO/omm#>
+prefix foaf: <http://xmlns.com/foaf/spec#>
+SELECT DISTINCT ?otherPerformerName ?businessActor ?email ?phone ?roleName
+WHERE {
+    ?performer emo:performerHasEmailAddress "barnaby.barnes@fhnw.ch" .
+    ?performer omm:performerHasRole ?role .
+    ?role rdfs:label ?roleName .
+    ?sameRoleInOtherUnit rdfs:label ?roleName .
+    ?performerInOtherUnit omm:performerHasRole ?sameRoleInOtherUnit .
+    ?performerInOtherUnit rdfs:label ?otherPerformerName .
+    FILTER (?sameRoleInOtherUnit != ?role) .
+    ?performerInOtherUnit emo:performerRepresentsPerson ?businessActor .
+    OPTIONAL {
+        ?businessActor foaf:mbox ?email .
+    } .
+    OPTIONAL {
+        ?businessActor foaf:phone ?phone .
+    } .
+}
+##END##
+##START## QUERY:expertMostOftenExecutedTask
+##COMMENT:Experts who has executed the same task most often
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#>  
+prefix emo: <http://ikm-group.ch/archiMEO/emo#>
+prefix lpd: <http://learnpad.eu#>
+prefix omm: <http://ikm-group.ch/archiMEO/omm#>
+prefix foaf: <http://xmlns.com/foaf/spec#>
+SELECT DISTINCT ?otherPerformerName ?businessActor ?email ?phone ?roleName
+WHERE {
+    ?performer emo:performerHasEmailAddress "barnaby.barnes@fhnw.ch" .
+    ?performer omm:performerHasRole ?role .
+    ?role rdfs:label ?roleName .
+    ?sameRoleInOtherUnit rdfs:label ?roleName .
+    ?performerInOtherUnit omm:performerHasRole ?sameRoleInOtherUnit .
+    ?performerInOtherUnit rdfs:label ?otherPerformerName .
+    FILTER (?sameRoleInOtherUnit != ?role) .
+    ?performerInOtherUnit emo:performerRepresentsPerson ?businessActor .
+    OPTIONAL {
+        ?businessActor foaf:mbox ?email .
+    } .
+    OPTIONAL {
+        ?businessActor foaf:phone ?phone .
+    } .
+}
+##END##
+

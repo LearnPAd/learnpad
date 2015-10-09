@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import org.activiti.bpmn.model.BpmnModel;
@@ -48,13 +49,19 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.image.ProcessDiagramGenerator;
 import org.activiti.image.impl.DefaultProcessDiagramGenerator;
 
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
-import eu.learnpad.simulator.processmanager.IProcessDispatcher;
+import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
+import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
+import eu.learnpad.simulator.monitoring.activiti.ActivitiProbe;
+import eu.learnpad.simulator.processmanager.AbstractProcessDispatcher;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.processdispatcher.ActivitiProcessDispatcher;
 import eu.learnpad.simulator.processmanager.activiti.taskrouter.ActivitiTaskRouter;
 import eu.learnpad.simulator.processmanager.activiti.taskvalidator.ActivitiDemoTaskValidator;
+import eu.learnpad.simulator.utils.BPMNExplorerRepository;
 
 /**
  *
@@ -71,19 +78,19 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	private final ProcessDiagramGenerator generator;
 
+	private final BPMNExplorerRepository explorerRepo;
+
 	private final IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider;
 
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
 
-	private final Map<String, IProcessDispatcher> processDispatchers = Collections
-			.synchronizedMap(new HashMap<String, IProcessDispatcher>());
-
-	private final Map<String, Collection<String>> processInstanceToUsers = Collections
-			.synchronizedMap(new HashMap<String, Collection<String>>());
+	private final Map<String, AbstractProcessDispatcher> processDispatchers = Collections
+			.synchronizedMap(new HashMap<String, AbstractProcessDispatcher>());
 
 	public ActivitiProcessManager(
 			ProcessEngine processEngine,
-			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider)
+			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider,
+			BPMNExplorerRepository explorerRepo, boolean monitoringEnabled)
 					throws FileNotFoundException {
 		repositoryService = processEngine.getRepositoryService();
 		runtimeService = processEngine.getRuntimeService();
@@ -91,11 +98,31 @@ public class ActivitiProcessManager implements IProcessManager {
 		historyService = processEngine.getHistoryService();
 
 		this.generator = new DefaultProcessDiagramGenerator();
+		this.explorerRepo = explorerRepo;
 
 		taskValidator = new ActivitiDemoTaskValidator(repositoryService,
 				taskService);
 
 		this.processEventReceiverProvider = processEventReceiverProvider;
+
+		if (monitoringEnabled) {
+			// register a probe to monitor events
+			runtimeService.addEventListener(new ActivitiProbe(explorerRepo));
+		}
+	}
+
+	public ActivitiProcessManager(
+			ProcessEngine processEngine,
+			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider,
+			BPMNExplorerRepository explorerRepo) throws FileNotFoundException {
+		this(processEngine, processEventReceiverProvider, explorerRepo, true);
+	}
+
+	@Override
+	public String getProcessDefIdFromDefKey(String processDefinitionKey) {
+		return repositoryService.createProcessDefinitionQuery()
+				.processDefinitionKey(processDefinitionKey).singleResult()
+				.getId();
 	}
 
 	/*
@@ -108,6 +135,25 @@ public class ActivitiProcessManager implements IProcessManager {
 
 		String deploymentId = repositoryService.createDeployment()
 				.addClasspathResource(resource).deploy().getId();
+
+		for (ProcessDefinition processDef : repositoryService
+				.createProcessDefinitionQuery().deploymentId(deploymentId)
+				.list()) {
+			res.add(processDef.getId());
+		}
+
+		return res;
+	}
+
+	@Override
+	public Collection<String> addProjectDefinitions(InputStream resource) {
+		Set<String> res = new HashSet<String>();
+
+		String deploymentId = repositoryService
+				.createDeployment()
+				.addInputStream(
+						Long.toString(new Random().nextLong()) + ".bpmn20.xml",
+						resource).deploy().getId();
 
 		for (ProcessDefinition processDef : repositoryService
 				.createProcessDefinitionQuery().deploymentId(deploymentId)
@@ -198,13 +244,19 @@ public class ActivitiProcessManager implements IProcessManager {
 
 		// open the BPMN model of the process
 		BpmnModel model = repositoryService.getBpmnModel(processDefinitionId);
-		for (FlowElement element : model.getMainProcess().getFlowElements()) {
-			// filter to keep only user tasks
-			if (element instanceof UserTask) {
-				UserTask task = (UserTask) element;
-				result.addAll(task.getCandidateUsers());
+
+		// in order to handle collaboration diagrams, we need to get the users
+		// of *all* the processes
+		for (org.activiti.bpmn.model.Process process : model.getProcesses()) {
+			for (FlowElement element : process.getFlowElements()) {
+				// filter to keep only user tasks
+				if (element instanceof UserTask) {
+					UserTask task = (UserTask) element;
+					result.addAll(task.getCandidateUsers());
+				}
 			}
 		}
+
 		return result;
 	}
 
@@ -220,11 +272,16 @@ public class ActivitiProcessManager implements IProcessManager {
 
 		// open the BPMN model of the process
 		BpmnModel model = repositoryService.getBpmnModel(processDefinitionId);
-		for (FlowElement element : model.getMainProcess().getFlowElements()) {
-			// filter to keep only user tasks
-			if (element instanceof UserTask) {
-				UserTask task = (UserTask) element;
-				result.addAll(task.getCandidateGroups());
+
+		// in order to handle collaboration diagrams, we need to get the users
+		// of *all* the processes
+		for (org.activiti.bpmn.model.Process process : model.getProcesses()) {
+			for (FlowElement element : process.getFlowElements()) {
+				// filter to keep only user tasks
+				if (element instanceof UserTask) {
+					UserTask task = (UserTask) element;
+					result.addAll(task.getCandidateGroups());
+				}
 			}
 		}
 		return result;
@@ -236,20 +293,28 @@ public class ActivitiProcessManager implements IProcessManager {
 	 * @see activitipoc.IProcessManager#startProjectInstance(java.lang.String,
 	 * java.util.Map, activitipoc.ITaskRouter)
 	 */
-	public String startProjectInstance(String projectDefinitionId,
+	public String startProjectInstance(String projectDefinitionKey,
 			Map<String, Object> parameters, Collection<String> users,
 			Map<String, Collection<String>> router) {
 
-		ProcessInstance process = runtimeService.startProcessInstanceById(
-				projectDefinitionId, parameters);
+		ProcessInstance process = runtimeService.startProcessInstanceByKey(
+				projectDefinitionKey, parameters);
 
-		processInstanceToUsers.put(process.getId(), new HashSet<String>(users));
+		ProcessInstanceData data = new ProcessInstanceData(process.getId(),
+				projectDefinitionKey, parameters, users, router);
 
-		processDispatchers.put(process.getId(), new ActivitiProcessDispatcher(
-				this, this.processEventReceiverProvider.processEventReceiver(),
-				process, taskService, runtimeService, historyService,
-				new ActivitiTaskRouter(taskService, router), taskValidator,
-				users));
+		processDispatchers.put(
+				process.getId(),
+				new ActivitiProcessDispatcher(data, this,
+						this.processEventReceiverProvider
+								.processEventReceiver(), taskService,
+						runtimeService, historyService, new ActivitiTaskRouter(
+								taskService, router), taskValidator,
+						explorerRepo.getExplorer(process
+								.getProcessDefinitionId())));
+
+		// we are ready, so we can start the dispatcher
+		processDispatchers.get(process.getId()).start();
 
 		return process.getId();
 	}
@@ -285,16 +350,10 @@ public class ActivitiProcessManager implements IProcessManager {
 				.getProcessDefinitionId();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * eu.learnpad.simulator.IProcessManager#getProcessInstanceInvolvedUsers
-	 * (java.lang.String)
-	 */
-	public Collection<String> getProcessInstanceInvolvedUsers(
-			String processInstanceId) {
-		return processInstanceToUsers.get(processInstanceId);
+	@Override
+	public ProcessInstanceData getProcessInstanceInfos(String processInstanceId) {
+		return processDispatchers.get(processInstanceId)
+				.getProcessInstanceInfos();
 	}
 
 	/*
@@ -302,21 +361,23 @@ public class ActivitiProcessManager implements IProcessManager {
 	 * 
 	 * @see
 	 * eu.learnpad.simulator.processmanager.IProcessManager#submitTaskCompletion
-	 * (java.lang.String, java.lang.String, java.util.Map)
+	 * (eu.learnpad.simulator.datastructures.LearnPadTask, java.lang.String,
+	 * java.util.Map)
 	 */
-	public TaskSubmissionStatus submitTaskCompletion(String processId,
-			String taskId, Map<String, Object> data) {
-		return processDispatchers.get(processId).submitTaskCompletion(taskId,
-				data);
+	public LearnPadTaskSubmissionResult submitTaskCompletion(LearnPadTask task,
+			String userId, Map<String, Object> data) {
+		return processDispatchers.get(task.processId).submitTaskCompletion(
+				task, userId, data);
 	}
 
-	/**
-	 * Remove the dispatcher associated with a given processId
-	 *
-	 * @param processId
-	 */
-	public void removeDispatcher(String processId) {
+	@Override
+	public void signalProcessCompletion(String processId) {
 		processDispatchers.remove(processId);
+	}
+
+	@Override
+	public Integer getInstanceScore(String processId, String userId) {
+		return processDispatchers.get(processId).getInstanceScore(userId);
 	}
 
 	/*
@@ -404,6 +465,12 @@ public class ActivitiProcessManager implements IProcessManager {
 
 			}
 		}
+	}
+
+	@Override
+	public LearnPadTaskGameInfos getGameInfos(LearnPadTask task, String userId) {
+		return processDispatchers.get(task.processId)
+				.getGameInfos(task, userId);
 	}
 
 }

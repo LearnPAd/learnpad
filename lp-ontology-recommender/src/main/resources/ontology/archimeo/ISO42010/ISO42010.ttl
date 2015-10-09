@@ -1,0 +1,201 @@
+# baseURI: http://ikm-group.ch/archimeo/iso42010
+
+@prefix archi: <http://ikm-group.ch/archiMEO/archimate#> .
+@prefix archimeo: <http://ikm-group.ch/archiMEO#> .
+@prefix bmm: <http://ikm-group.ch/archiMEO/BMM#> .
+@prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcmi-type-vocabulary: <http://dublincore.org/documents/2000/07/11/dcmi-type-vocabulary#> .
+@prefix dcterms: <http://purl.org/dcterms#> .
+@prefix elements: <http://purl.org/dc/elements/1.1#> .
+@prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
+@prefix eo: <http://ikm-group.ch/archiMEO/eo#> .
+@prefix foaf: <http://xmlns.com/foaf/spec#> .
+@prefix iso42010: <http://ikm-group.ch/archimeo/iso42010#> .
+@prefix media-types: <http://www.iana.org/assignments/media-types#> .
+@prefix nco: <http://ikm-group.ch/archiMEO/nco#> .
+@prefix ontogov: <http://ch.fhnw.ontogov#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdfsplus: <http://topbraid.org/spin/rdfsplus#> .
+@prefix top: <http://ikm-group.ch/archiMEO/top#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ikm-group.ch/archimeo/iso42010>
+  rdf:type owl:Ontology ;
+  cc:license <http://creativecommons.org/licenses/by-sa/3.0/> ;
+  cc:license "This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License."@en ;
+  dc:creator "Andreas Martin"^^xsd:string ;
+  dc:creator "Barbara Thönssen"^^xsd:string ;
+  dc:description "The ISO/IEC/IEEE 42010 Ontology."@en ;
+  dc:issued "2014-11-17"^^xsd:date ;
+  dc:publisher <http://de.dbpedia.org/resource/Fachhochschule_Nordwestschweiz> ;
+  dc:publisher <http://www.fhnw.ch/business> ;
+  dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
+  dc:rights "Copyright 2014 FHNW"^^xsd:string ;
+  dc:title "The ISO/IEC/IEEE 42010 Ontology"@en ;
+  rdfs:comment "Version 1.1: Initial import"@en ;
+  owl:versionInfo 1.1 ;
+.
+iso42010:ADMetaModel
+  rdf:type owl:Class ;
+  rdfs:comment "Introduced as grouping for all ISO/IEC/IEEE 42010 elements"^^xsd:string ;
+  rdfs:label "ArchitectureDescriptionMetaModel"^^xsd:string ;
+  rdfs:subClassOf owl:Thing ;
+.
+iso42010:Architecture
+  rdf:type owl:Class ;
+  rdfs:comment """\"Systems have architectures. In the Standard, the architecture of a system is defined as:
+“fundamental concepts or properties of a system in its environment embodied in its elements, relationships, and in the principles of its design and evolution”. The definition was chosen (1) to accommodate the broad range of things listed above under System: the architecture of X is what is fundamental to X (whether X is an enterprise, system, system of systems, or some other entity); and (2) to emphasize (via the phrase “concepts or properties”) that a system can have an architecture even if that architecture is not written down.\" (http://www.iso-architecture.org/42010/cm/)."""^^xsd:string ;
+  rdfs:subClassOf iso42010:ADMetaModel ;
+.
+iso42010:ArchitectureDescription
+  rdf:type owl:Class ;
+  rdfs:comment "\"An Architecture Description is a work product used to express the Architecture of some System Of Interest. The Standard specifies requirements on ADs. An AD describes one possible Architecture for a System Of Interest. An AD may take the form of a document, a set of models, a model repository, or some other form (AD format is not defined by the Standard).\" (http://www.iso-architecture.org/42010/cm/)."^^xsd:string ;
+  rdfs:subClassOf iso42010:ADMetaModel ;
+.
+iso42010:ArchitectureModel
+  rdf:type owl:Class ;
+  rdfs:comment "\"A view is comprised of Architecture Models. Each model is constructed in accordance with the conventions established by its Model Kind, typically defined as part of its governing viewpoint. Models provide a means for sharing details between views and for the use of multiple notations within a view.\" (http://www.iso-architecture.org/42010/cm/)."^^xsd:string ;
+  rdfs:subClassOf iso42010:ADMetaModel ;
+.
+iso42010:ArchitectureRationale
+  rdf:type owl:Class ;
+  rdfs:comment "\"Architecture Rationale records the explanation, justification or reasoning about Architecture Decisions that have been made and architectural alternatives not chosen.\" (http://www.iso-architecture.org/42010/cm/)."^^xsd:string ;
+  rdfs:subClassOf iso42010:ADMetaModel ;
+.
+iso42010:ArchitectureView
+  rdf:type owl:Class ;
+  rdfs:comment "\"An Architecture View in an AD expresses the Architecture of the System of Interest from the perspective of one or more Stakeholders to address specific Concerns, using the conventions established by its viewpoint. An Architecture View consists of one or more Architecture Models.\" (http://www.iso-architecture.org/42010/cm/)."^^xsd:string ;
+  rdfs:subClassOf iso42010:ADMetaModel ;
+.
+iso42010:ArchitectureViewpoint
+  rdf:type owl:Class ;
+  rdfs:subClassOf iso42010:ADMetaModel ;
+.
+iso42010:Concern
+  rdf:type owl:Class ;
+  rdfs:comment "\"A Concern is any interest in the system. The term derives from the phrase “separation of concerns” as originally coined by Edsgar Dijkstra. Examples of concerns: (system) purpose, functionality, structure, behavior, cost, supportability, safety, interoperability.\" (http://www.iso-architecture.org/42010/cm/)."^^xsd:string ;
+  rdfs:subClassOf iso42010:ADMetaModel ;
+.
+iso42010:Correspondence
+  rdf:type owl:Class ;
+  rdfs:comment "\"Correspondences express a relation between AD Elements. Correspondences are used to express architecture relations of interest within an Architecture Description or between Architecture Descriptions. Correspondences can be governed by Correspondence Rules.\" (http://www.iso-architecture.org/42010/cm/)."^^xsd:string ;
+  rdfs:subClassOf iso42010:ADMetaModel ;
+.
+iso42010:CorrespondenceRule
+  rdf:type owl:Class ;
+  rdfs:comment "\"Correspondence Rules enforce relations within an Architecture Description or between Architecture Descriptions.\" (http://www.iso-architecture.org/42010/cm/)."^^xsd:string ;
+  rdfs:subClassOf iso42010:ADMetaModel ;
+.
+iso42010:ModelKind
+  rdf:type owl:Class ;
+  rdfs:comment "\"A Model Kind defines the conventions for one type of Architecture Model.\" (http://www.iso-architecture.org/42010/cm/)."^^xsd:string ;
+  rdfs:subClassOf iso42010:ADMetaModel ;
+.
+iso42010:Stakeholder
+  rdf:type owl:Class ;
+  rdfs:comment "\"Stakeholders are individuals, groups or organizations holding Concerns for the System of Interest. Examples of stakeholders: client, owner, user, consumer, supplier, designer, maintainer, auditor, CEO, certification authority, architect.\" (http://www.iso-architecture.org/42010/cm/)."^^xsd:string ;
+  rdfs:subClassOf iso42010:ADMetaModel ;
+.
+iso42010:System-of-Interest
+  rdf:type owl:Class ;
+  rdfs:comment "\"In the Standard, the term system is used as a placeholder – e.g., it could refer to an enterprise, a system of systems, a product line, a service, a subsystem, or software. Systems can be man-made or natural.\" (http://www.iso-architecture.org/42010/cm/)."^^xsd:string ;
+  rdfs:subClassOf iso42010:ADMetaModel ;
+.
+iso42010:architectureDescriptionExpressesArchitecture
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:ArchitectureDescription ;
+  rdfs:range iso42010:Architecture ;
+.
+iso42010:architectureDescriptionIdentifiesConcern
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:ArchitectureDescription ;
+  rdfs:range iso42010:Concern ;
+.
+iso42010:architectureDescriptionIdentifiesStakeholder
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:ArchitectureDescription ;
+  rdfs:range iso42010:Stakeholder ;
+.
+iso42010:architectureDescriptionIdentifiesSystem-of-Interest
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:ArchitectureDescription ;
+  rdfs:range iso42010:System-of-Interest ;
+.
+iso42010:architectureRationaleIsPartOfArchitectureDescription
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:ArchitectureRationale ;
+  rdfs:range iso42010:ArchitectureDescription ;
+.
+iso42010:architectureViewIsPartOfArchitectureDescription
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:ArchitectureView ;
+  rdfs:range iso42010:ArchitectureDescription ;
+.
+iso42010:architectureViewpointAddressesConcern
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:ArchitectureViewpoint ;
+  rdfs:range iso42010:Concern ;
+.
+iso42010:architectureViewpointFramesConcern
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:ArchitectureViewpoint ;
+  rdfs:range iso42010:Concern ;
+.
+iso42010:architectureViewpointGovernsArchitectureView
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:ArchitectureViewpoint ;
+  rdfs:range iso42010:ArchitectureView ;
+.
+iso42010:architectureViewpointIsPartOfArchitectureDescription
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:ArchitectureViewpoint ;
+  rdfs:range iso42010:ArchitectureDescription ;
+.
+iso42010:correspondenceIsPartOfArchitectureDescription
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:Correspondence ;
+  rdfs:range iso42010:ArchitectureDescription ;
+.
+iso42010:correspondenceRuleIsPartOfArchitectureDescription
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:CorrespondenceRule ;
+  rdfs:range iso42010:ArchitectureDescription ;
+.
+iso42010:modelKindGovernsArchitectureModel
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:ModelKind ;
+  rdfs:range iso42010:ArchitectureModel ;
+.
+iso42010:modelKindIsPartOfArchitectureViewpoint
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:ModelKind ;
+  rdfs:range iso42010:ArchitectureViewpoint ;
+.
+iso42010:stakeholderHasConcern
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:Stakeholder ;
+  rdfs:range iso42010:Concern ;
+.
+iso42010:stakeholderHasInterestInSystem-of-Interest
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:Stakeholder ;
+  rdfs:range iso42010:System-of-Interest ;
+.
+iso42010:system-of-InterestExhibitsArchitecture
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain iso42010:System-of-Interest ;
+  rdfs:range iso42010:Architecture ;
+.
+rdf:Property
+  rdf:type owl:Class ;
+.
+owl:Class
+  rdf:type owl:Class ;
+.
+owl:Thing
+  rdf:type owl:Class ;
+.

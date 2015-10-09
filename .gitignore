@@ -3,6 +3,11 @@
 # Vim
 *.swp
 
+# Linux
+*~
+.directory
+.Trash-*
+
 # Maven
 target/
 
