@@ -144,7 +144,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	@Override
 	public Recommendations getRecommendations(String modelSetId,
 			String artifactId, String userId) throws LpRestException {
-		Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userId, "it-seams-it-has-no-meaning");
+		Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userId, "it-seems-it-has-no-meaning");
+//		Recommendations rec = new Recommendations();
 		return rec;
 	}
 }
