@@ -17,56 +17,35 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.mon.rest.event.impl;
+package eu.learnpad.sim.rest.event.impl;
 
-import java.util.List;
-
-import eu.learnpad.mon.rest.event.AbstractEvent;
-import eu.learnpad.mon.rest.event.EventType;
+import eu.learnpad.sim.rest.event.AbstractEvent;
+import eu.learnpad.sim.rest.event.EventType;
 
 /**
  *
  * @author Tom Jorquera - Linagora
  *
  */
-public class TaskStartEvent extends AbstractEvent {
+public class ProcessEndEvent extends AbstractEvent {
 
 	/**
 	 * Unique ID of the process instance
 	 */
 	public String processid;
 
-	/**
-	 * Unique ID of the task instance
-	 */
-	public String taskid;
-
-	/**
-	 * ID used to identify the task in the BP definition
-	 */
-	public String taskdefid;
-
-	/**
-	 * The LearnPAd users that have been assigned to this task
-	 */
-	public List<String> assignedusers;
-
-	public TaskStartEvent() {
+	public ProcessEndEvent() {
 		super();
 	}
 
-	public TaskStartEvent(Long timestamp, String processid, String taskid,
-			String taskdefid, List<String> assignedusers) {
+	public ProcessEndEvent(Long timestamp, String processid) {
 		super(timestamp);
 		this.processid = processid;
-		this.taskid = taskid;
-		this.taskdefid = taskdefid;
-		this.assignedusers = assignedusers;
 	}
 
 	@Override
 	public EventType getType() {
-		return EventType.TASK_START;
+		return EventType.PROCESS_END;
 	}
 
 }

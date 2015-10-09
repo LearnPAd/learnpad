@@ -17,14 +17,48 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.mon;
+package eu.learnpad.sim.rest.event.impl;
 
-import eu.learnpad.mon.rest.IEventReceiver;
+import eu.learnpad.sim.rest.event.AbstractEvent;
+import eu.learnpad.sim.rest.event.EventType;
 
 /**
+ *
  * @author Tom Jorquera - Linagora
  *
  */
-public interface CoreFacade extends IEventReceiver {
+public class TaskEndEvent extends AbstractEvent {
+
+	/**
+	 * Unique ID of the process instance
+	 */
+	public String processid;
+
+	/**
+	 * Unique ID of the task instance
+	 */
+	public String taskid;
+
+	/**
+	 * The LearnPAd user that completed the task
+	 */
+	public String user;
+
+	public TaskEndEvent() {
+		super();
+	}
+
+	public TaskEndEvent(Long timestamp, String processid, String taskid,
+			String user) {
+		super(timestamp);
+		this.processid = processid;
+		this.taskid = taskid;
+		this.user = user;
+	}
+
+	@Override
+	public EventType getType() {
+		return EventType.TASK_END;
+	}
 
 }

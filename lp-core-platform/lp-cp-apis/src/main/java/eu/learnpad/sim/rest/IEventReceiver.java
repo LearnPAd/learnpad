@@ -17,16 +17,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.mon.rest;
+package eu.learnpad.sim.rest;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
-import eu.learnpad.mon.rest.event.impl.ProcessEndEvent;
-import eu.learnpad.mon.rest.event.impl.ProcessStartEvent;
-import eu.learnpad.mon.rest.event.impl.SessionScoreUpdateEvent;
-import eu.learnpad.mon.rest.event.impl.TaskEndEvent;
-import eu.learnpad.mon.rest.event.impl.TaskStartEvent;
+import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
+import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
+import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
+import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
+import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 
 /**
  *

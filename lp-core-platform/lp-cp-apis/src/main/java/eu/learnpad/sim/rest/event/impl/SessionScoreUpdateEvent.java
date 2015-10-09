@@ -17,10 +17,47 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.mon;
+package eu.learnpad.sim.rest.event.impl;
 
-public abstract class Controller implements CoreFacade {
+import eu.learnpad.sim.rest.event.AbstractEvent;
+import eu.learnpad.sim.rest.event.EventType;
 
-	protected BridgeInterface bridge;
+/**
+ *
+ * @author Tom Jorquera - Linagora
+ *
+ */
+public class SessionScoreUpdateEvent extends AbstractEvent {
+
+	/**
+	 * Unique ID of the process instance
+	 */
+	public String processid;
+
+	/**
+	 * The LearnPAd user those score is updated
+	 */
+	public String user;
+
+	/**
+	 * The new session score of the user
+	 */
+	public Long sessionscore;
+
+	public SessionScoreUpdateEvent() {
+		super();
+	}
+
+	public SessionScoreUpdateEvent(Long timestamp, String processid,
+			String user, Long sessionScore) {
+		super(timestamp);
+		this.processid = processid;
+		this.sessionscore = sessionScore;
+	}
+
+	@Override
+	public EventType getType() {
+		return EventType.SESSION_SCORE_UPDATE;
+	}
 
 }
