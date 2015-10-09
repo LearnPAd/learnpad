@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><object xmlns="http://www.xwiki.org"><className>LPCode.ModelClass</className>
-	<property name="id" type="String"><value>mod.16350</value></property>
-	<property name="name" type="String"><value>TitoloUnico_MontiAzzurrSUB_3</value></property>
-	<property name="type" type="StaticList"><value>bpmn</value></property>
-</object>
