@@ -5,6 +5,11 @@
  */
 package eu.learnpad.ontology.recommender;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Singleton;
+
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -14,14 +19,12 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Resource;
+
+import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.persistence.OntAO;
 import eu.learnpad.or.rest.data.BusinessActor;
 import eu.learnpad.or.rest.data.Experts;
 import eu.learnpad.or.rest.data.Recommendations;
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  *
@@ -30,8 +33,11 @@ import javax.inject.Singleton;
 @Singleton
 public class Recommender {
     
-    @Inject
-    OntAO ontAO;
+    private OntAO ontAO;
+    
+    public Recommender() {
+    	this.ontAO = new FileOntAO();
+    }
     
     public Recommendations getRecommendations(String modelSetId, String artifactId, String userId){
         Recommendations recommends = new Recommendations();
