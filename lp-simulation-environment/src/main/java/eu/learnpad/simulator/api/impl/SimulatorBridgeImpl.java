@@ -199,6 +199,7 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 	}
 
 	@Override
+
 	public String addProcessInstance(String processKey,
 			Collection<UserData> potentialUsers, String currentUser) {
 

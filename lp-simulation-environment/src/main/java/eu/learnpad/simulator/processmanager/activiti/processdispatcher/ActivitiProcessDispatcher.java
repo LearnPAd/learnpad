@@ -105,6 +105,7 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher
 			HistoryService historyService,
 			ITaskRouter router,
 			ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator,
+
 			BPMNExplorer explorer) {
 		super(processInstanceData, processManager, processEventReceiver,
 				router, taskValidator);
@@ -145,6 +146,7 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher
 			if (!registeredWaitingTasks.contains(t.getId())) {
 
 				Collection<LearnPadDocument> documents = new ArrayList<LearnPadDocument>();
+
 
 				// add input data objects to task
 				if (explorer != null) {
