@@ -16,6 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -35,6 +36,9 @@ import org.xml.sax.SAXException;
 
 public class Alignment {
 	
+	private String tmpModelFolder = "tmp/";
+	private boolean deleteFile = true;
+	
 	public static String XMIHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Ado:ADOXMLType xmi:version=\"2.0\"  xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:Ado=\"http://www.ado.org\" xsi:schemaLocation=\"http://www.ado.org /Adoxx2XWiki/models/Ado.ecore\">\n";
 //	public String XMLHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE ADOXML SYSTEM \"adoxml31.dtd\"><ADOXML version=\"3.1\" date=\"31.07.2015\" time=\"17:29\" database=\"lpad\" username=\"Admin\" adoversion=\"Version 1.0 4.0\">";
 	
@@ -42,7 +46,19 @@ public class Alignment {
 	public String sanitizer(String modelInputPath) throws Exception{
 		String XmlString;
 		
-		String resultFilePath = "tmp/model_aligned.xmi";
+		
+		String basenameInputModel = FilenameUtils.getBaseName(modelInputPath);
+
+		String copyModelInputPath = tmpModelFolder + "copy_" + basenameInputModel + ".xmi";
+		
+		File src = new File(modelInputPath);
+		File dst = new File(copyModelInputPath);
+		
+		Files.copy(src.toPath(), dst.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		System.out.println("Temporary copy of the XML file provided as input was created: "+dst.getName()+"!");
+		
+//		String resultFilePath = "tmp/model_aligned.xmi";
+		String resultFilePath = tmpModelFolder + basenameInputModel + ".xmi";
 
 		BufferedReader br;
 		String line;
@@ -52,16 +68,16 @@ public class Alignment {
 		//Delete first 3 rows
 		int nRowToDelete = 2;
 		while(nRowToDelete >= 0){
-			removeNthLine(modelInputPath, nRowToDelete);
+			removeNthLine(copyModelInputPath, nRowToDelete);
 			nRowToDelete--;
 		}
 
 		int rowToInsert  = 1; //top of the file
-		insertStringInFile(modelInputPath, rowToInsert, XMIHeader.trim());
-		replaceIntoAFile(modelInputPath);
+		insertStringInFile(copyModelInputPath, rowToInsert, XMIHeader.trim());
+		replaceIntoAFile(copyModelInputPath);
 		
 		
-		File inputFile = new File(modelInputPath);
+		File inputFile = new File(copyModelInputPath);
 		
 		
 		
@@ -117,7 +133,17 @@ public class Alignment {
 //			String fileName = getFileNameFromPath(modelInputPath);
 //			
 //			return createXMIFile(XmlString, fileName);
-		
+			
+			//Delete temporary file
+			if(deleteFile){
+				if(dst.delete()){
+					System.out.println("Temporary copy of the XML file provided as input was deleted: "+dst.getName()+"!");
+				}else{
+					System.out.println("Can't delete temporary copy of the XML file provided as input: "+dst.getName()+"!");
+				}
+				
+			}
+			
 			return resultFilePath;
 		}else{
 			System.out.println("The input file does not exist!");

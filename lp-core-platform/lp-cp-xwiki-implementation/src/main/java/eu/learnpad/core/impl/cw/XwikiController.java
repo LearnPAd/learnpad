@@ -19,8 +19,6 @@
  */
 package eu.learnpad.core.impl.cw;
 
-import java.util.Collection;
-
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
@@ -130,11 +128,5 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String attachmentName = String.format("%s.%s", modelSetId, type);
 		return XWikiRestUtils.getAttachment(RestResource.CORE_REPOSITORY_WIKI,
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName);
-	}
-
-	@Override
-	public String startSimulation(String modelId, String currentUser,
-			Collection<UserData> potentialUsers) throws LpRestException {
-		return this.sim.addProcessInstance(modelId, potentialUsers, currentUser);
 	}
 }
