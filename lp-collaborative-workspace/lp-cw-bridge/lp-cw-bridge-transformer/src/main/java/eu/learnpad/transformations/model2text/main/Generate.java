@@ -12,45 +12,41 @@ package eu.learnpad.transformations.model2text.main;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import org.eclipse.acceleo.common.IAcceleoConstants;
-import org.eclipse.acceleo.common.internal.utils.AcceleoPackageRegistry;
-import org.eclipse.acceleo.common.utils.ModelUtils;
+
+
+
+
 import org.eclipse.acceleo.engine.event.IAcceleoTextGenerationListener;
 import org.eclipse.acceleo.engine.generation.strategy.IAcceleoGenerationStrategy;
 import org.eclipse.acceleo.engine.service.AbstractAcceleoGenerator;
-import org.eclipse.acceleo.model.mtl.Module;
-import org.eclipse.acceleo.model.mtl.resource.AcceleoResourceSetImpl;
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.common.util.Monitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.URIConverter;
+
+import eu.learnpad.transformations.xwiki.XwikiFactory;
+import eu.learnpad.transformations.xwiki.XwikiPackage;
+
+
 
 /**
- * Entry point of the 'WebHome' generation module.
+ * Entry point of the 'Generate' generation module.
  *
  * @generated
  */
-public class WebHome extends AbstractAcceleoGenerator {
-	
-	/** The root element of the generation module for this launcher. */
-	protected Module module;
-	
+public class Generate extends AbstractAcceleoGenerator {
     /**
      * The name of the module.
      *
      * @generated
      */
-//    public static final String MODULE_FILE_NAME = "/XWIKI2XML/main/webHome";
-//    public static final String MODULE_FILE_NAME = "/learnpad.uda.LearnpadModelTransformation/model2text/main/webHome";
-    public static final String MODULE_FILE_NAME = "webHome";
+    public static final String MODULE_FILE_NAME = "/eu/learnpad/transformations/model2text/main/generate";
     
     /**
      * The name of the templates that are to be generated.
@@ -80,7 +76,7 @@ public class WebHome extends AbstractAcceleoGenerator {
      *
      * @generated
      */
-    public WebHome() {
+    public Generate() {
         // Empty implementation
     }
 
@@ -100,7 +96,7 @@ public class WebHome extends AbstractAcceleoGenerator {
      *             the model cannot be loaded.
      * @generated
      */
-    public WebHome(URI modelURI, File targetFolder,
+    public Generate(URI modelURI, File targetFolder,
             List<? extends Object> arguments) throws IOException {
         initialize(modelURI, targetFolder, arguments);
     }
@@ -121,7 +117,7 @@ public class WebHome extends AbstractAcceleoGenerator {
      *             This can be thrown in two scenarios : the module cannot be found, or it cannot be loaded.
      * @generated
      */
-    public WebHome(EObject model, File targetFolder,
+    public Generate(EObject model, File targetFolder,
             List<? extends Object> arguments) throws IOException {
         initialize(model, targetFolder, arguments);
     }
@@ -156,7 +152,7 @@ public class WebHome extends AbstractAcceleoGenerator {
                  * add in "arguments" this "String" attribute.
                  */
                 
-                WebHome generator = new WebHome(modelURI, folder, arguments);
+                Generate generator = new Generate(modelURI, folder, arguments);
                 
                 /*
                  * Add the properties from the launch arguments.
@@ -213,8 +209,7 @@ public class WebHome extends AbstractAcceleoGenerator {
         //        System.err.println(diagnostic.toString());
         //    }
         //}
-    	
-    	
+
         super.doGenerate(monitor);
     }
     
@@ -395,10 +390,12 @@ public class WebHome extends AbstractAcceleoGenerator {
      * 
      * @param resourceSet
      *            The resource set which registry has to be updated.
-     * @generated
+     * 
      */
     @Override
     public void registerResourceFactories(ResourceSet resourceSet) {
+    	EPackage.Registry.INSTANCE.put(XwikiPackage.eNS_URI, XwikiPackage.eINSTANCE); 
+    	Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("*", XwikiFactory.eINSTANCE);
         super.registerResourceFactories(resourceSet);
         /*
          * If you want to change the content of this method, do NOT forget to change the "@generated"
@@ -418,65 +415,5 @@ public class WebHome extends AbstractAcceleoGenerator {
         
         // resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
     }
-    
-    
-    
-    
-    public void myInitialize(URI modelURI, File folder, List<?> arguments) throws IOException {
-		ResourceSet modulesResourceSet = new AcceleoResourceSetImpl();
-		modulesResourceSet.setPackageRegistry(AcceleoPackageRegistry.INSTANCE);
-
-		URIConverter uriConverter = createURIConverter();
-		if (uriConverter != null) {
-			modulesResourceSet.setURIConverter(uriConverter);
-		}
-
-		Map<URI, URI> uriMap = EcorePlugin.computePlatformURIMap();
-
-		// make sure that metamodel projects in the workspace override those in plugins
-		modulesResourceSet.getURIConverter().getURIMap().putAll(uriMap);
-
-		registerResourceFactories(modulesResourceSet);
-		registerPackages(modulesResourceSet);
-
-		ResourceSet modelResourceSet = new AcceleoResourceSetImpl();
-		modelResourceSet.setPackageRegistry(AcceleoPackageRegistry.INSTANCE);
-		if (uriConverter != null) {
-			modelResourceSet.setURIConverter(uriConverter);
-		}
-
-		// make sure that metamodel projects in the workspace override those in plugins
-		modelResourceSet.getURIConverter().getURIMap().putAll(uriMap);
-
-		registerResourceFactories(modelResourceSet);
-		registerPackages(modelResourceSet);
-
-		addListeners();
-		addProperties();
-
-		String moduleName = getModuleName();
-		if (moduleName.endsWith('.' + IAcceleoConstants.MTL_FILE_EXTENSION)) {
-			moduleName = moduleName.substring(0, moduleName.lastIndexOf('.'));
-		}
-		if (!moduleName.endsWith('.' + IAcceleoConstants.EMTL_FILE_EXTENSION)) {
-			moduleName += '.' + IAcceleoConstants.EMTL_FILE_EXTENSION;
-		}
-
-		URL moduleURL = findModuleURL(moduleName);
-
-		if (moduleURL == null) {
-			throw new IOException("'" + getModuleName() + ".emtl' not found"); //$NON-NLS-1$ //$NON-NLS-2$
-		}
-		URI moduleURI = createTemplateURI(moduleURL.toString());
-		moduleURI = URI.createURI(moduleURI.toString(), true);
-		module = (Module)ModelUtils.load(moduleURI, modulesResourceSet);
-
-		URI newModelURI = URI.createURI(modelURI.toString(), true);
-		model = ModelUtils.load(newModelURI, modelResourceSet);
-		targetFolder = folder;
-		generationArguments = arguments;
-
-		this.postInitialize();
-	}
     
 }

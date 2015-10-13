@@ -1,30 +1,27 @@
 [comment encoding = UTF-8 /]
-[module webHome('http://www.xwiki.org')]
+[module generate('http://www.xwiki.org')]
 
-[import eu::learnpad::transformations::model2text::services::ModelServices /]
 
 [template public webHome(doc : DocumentRoot)]
 [comment @main/]
 
-[let modelSetId: String = getModelSetId()]
 	[for (p : Page | doc.page)]
 		[if (p.comment='WebHome')]
-			[file ('xwiki//'+modelSetId+'//WebHome//__page.xml',  false, 'UTF-8')]
+			[file ('//WebHome//__page.xml',  false, 'UTF-8')]
 <?xml version="1.0" encoding="UTF-8"?><page xmlns="http://www.xwiki.org"><content>[p.content/]</content></page>
 			[/file]]
 		[else] --mod, obj
-			[file ('xwiki//'+modelSetId+'//'+p.comment+'//__page.xml',  false, 'UTF-8')]
+			[file ('//'+p.comment+'//__page.xml',  false, 'UTF-8')]
 <?xml version="1.0" encoding="UTF-8"?><page xmlns="http://www.xwiki.org"><title>[p.title/]</title><content/></page>
 			[/file]
 		[/if]
 	[/for]
 	
 	[for (o : Object | Object.allInstances())]
-		[file ('xwiki//'+modelSetId+'//'+o.pageName+'//objects//'+o.className+'//'+o.number+'//__object.xml',  false, 'UTF-8')]
+		[file ('//'+o.pageName+'//objects//'+o.className+'//'+o.number+'//__object.xml',  false, 'UTF-8')]
 [getObjectContent(o)/]
 		[/file]
 	[/for]
-[/let]
 
 [/template]
 
@@ -46,3 +43,5 @@
 	[/if]
 [/for]
 [/template]
+
+
