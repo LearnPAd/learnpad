@@ -24,7 +24,6 @@ package eu.learnpad.simulator.uihandler.formhandler;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -109,8 +108,8 @@ public abstract class AbstractFormHandler implements IFormHandler {
 	 * @see activitipoc.IFormHandler#parseResult(java.lang.String)
 	 */
 	public FormResult parseResult(String data) {
-		final Map<String, Object> parameters = new HashMap<String, Object>();
-		final Map<String, Collection<String>> routes = new HashMap<String, Collection<String>>();
+		final Map<String, Object> parameters = new LinkedHashMap<String, Object>();
+		final Map<String, Collection<String>> routes = new LinkedHashMap<String, Collection<String>>();
 
 		JSONObject jObject = new JSONObject(data);
 		Iterator<?> keys = jObject.keys();
