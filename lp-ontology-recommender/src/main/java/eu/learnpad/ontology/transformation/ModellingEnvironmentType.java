@@ -11,6 +11,6 @@ package eu.learnpad.ontology.transformation;
  */
 public enum ModellingEnvironmentType {
     
-    ADOxx,
+    ADOXX,
     MD //MagicDraw
 }

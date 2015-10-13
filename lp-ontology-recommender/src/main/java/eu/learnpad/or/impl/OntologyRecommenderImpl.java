@@ -14,6 +14,8 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.ontology.execution.ExecutionStates;
 import eu.learnpad.or.rest.data.States;
 import eu.learnpad.ontology.recommender.Recommender;
+import eu.learnpad.ontology.transformation.ModellingEnvironmentType;
+import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.Recommendations;
 
 import javax.inject.Inject;
@@ -30,6 +32,9 @@ import org.xwiki.component.phase.InitializationException;
 public class OntologyRecommenderImpl extends XwikiBridge implements Initializable {
     
     @Inject
+    SimpleModelTransformator transformator;
+    
+    @Inject
     ExecutionStates executionStates;
     
     @Inject
@@ -42,8 +47,8 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 
 	@Override
 	public void modelSetImported(String modelSetId, String type) throws LpRestException {
-		InputStream inputStream = new ByteArrayInputStream(this.corefacade.getModel(modelSetId, type));
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//		InputStream inputStream = new ByteArrayInputStream(this.corefacade.getModel(modelSetId, type));
+            transformator.transform(modelSetId, this.corefacade.getModel(modelSetId, type), ModellingEnvironmentType.valueOf(type));
 	}
     
     @Override
