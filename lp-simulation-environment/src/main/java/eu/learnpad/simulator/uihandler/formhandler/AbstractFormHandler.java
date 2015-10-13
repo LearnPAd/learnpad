@@ -21,11 +21,13 @@ package eu.learnpad.simulator.uihandler.formhandler;
  * #L%
  */
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -50,16 +52,20 @@ public abstract class AbstractFormHandler implements IFormHandler {
 		final String type;
 		final boolean required;
 
+		final String category;
+
 		// for type 'enum'
 		final Map<String, String> enumValues;
 
 		public FormField(String id, String title, String type,
-				boolean required, Map<String, String> enumValues) {
+				boolean required, String category,
+				Map<String, String> enumValues) {
 			super();
 			this.id = id;
 			this.title = title;
 			this.type = type;
 			this.required = required;
+			this.category = category;
 			this.enumValues = enumValues;
 		}
 
@@ -218,6 +224,8 @@ public abstract class AbstractFormHandler implements IFormHandler {
 		String schema = "\"schema\": { ";
 		String form = "\"form\": [ ";
 
+		Map<String, List<FormField>> fieldSets = new LinkedHashMap<String, List<FormField>>();
+
 		for (FormField field : fields) {
 
 			schema += "\"" + field.id + "\": {";
@@ -225,13 +233,34 @@ public abstract class AbstractFormHandler implements IFormHandler {
 			schema += getType(field) + ", ";
 			schema += getRequired(field) + "},";
 
-			form += getForm(field);
-			form += ",";
+			if (field.category.equals("")) {
+				form += getForm(field);
+				form += ",";
+			} else {
+				if (!fieldSets.containsKey(field.category)) {
+					fieldSets.put(field.category, new ArrayList<FormField>());
+				}
+				fieldSets.get(field.category).add(field);
+			}
+
 		}
 		// remove last comma from schemas (or space if object is empty)
 		schema = schema.substring(0, schema.length() - 1);
 
 		schema += " }";
+
+		// add field sets to form
+		for (Entry<String, List<FormField>> fieldSet : fieldSets.entrySet()) {
+			form += "{\"type\": \"fieldset\"," + "\"title\": \""
+					+ fieldSet.getKey() + "\"," + "\"expandable\": true,"
+					+ "\"items\": [";
+			for (FormField field : fieldSet.getValue()) {
+				form += getForm(field) + ",";
+			}
+			// remove last comma
+			form = form.substring(0, form.length() - 1);
+			form += "]},";
+		}
 
 		// add submit button to form
 		form += "{\"type\": \"submit\",\"title\": \"Submit\"}";

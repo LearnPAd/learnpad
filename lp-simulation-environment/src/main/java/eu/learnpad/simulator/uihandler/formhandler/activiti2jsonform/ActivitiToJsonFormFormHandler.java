@@ -74,7 +74,7 @@ public class ActivitiToJsonFormFormHandler extends AbstractFormHandler {
 					.getType().getInformation("values") : null;
 
 			res.add(new FormField(prop.getId(), title, type, prop.isRequired(),
-					enumValues));
+							"", enumValues));
 		}
 
 		return res;

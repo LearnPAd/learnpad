@@ -55,7 +55,7 @@ public class DataObjectToJsonFormFormHandler extends AbstractFormHandler {
 		if (dataObjects != null) {
 			for (String dataObject : dataObjects) {
 				for (String line : explorer.getDataObjectContent(dataObject)) {
-					res.add(new FormField(line, line, "string", true, null));
+					res.add(new FormField(line, line, "string", true, "", null));
 				}
 			}
 		}
