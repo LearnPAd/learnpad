@@ -5,12 +5,14 @@
  */
 package eu.learnpad.ontology.persistence;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+
 import eu.learnpad.ontology.recommender.Inferencer;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Base class to access ontology and provide convenient methods.
@@ -28,7 +30,8 @@ public abstract class OntAO {
         modelSets = new HashMap<>();
         modelSetsInferencer = new HashMap<>();
         modelsSetsExecutionData = new HashMap<>();
-        metaModel = loadMetaModel();
+        // TODO: This line is causing problems, Sandro, please test that
+//        metaModel = loadMetaModel();
     }
 
     /**

@@ -1,0 +1,8 @@
+eu.learnpad.core.impl.ca.XwikiController
+eu.learnpad.core.impl.cw.XwikiController
+eu.learnpad.core.impl.lsm.XwikiController
+eu.learnpad.core.impl.me.XwikiController
+eu.learnpad.core.impl.mv.XwikiController
+eu.learnpad.core.impl.or.XwikiController
+eu.learnpad.core.impl.qm.XwikiController
+eu.learnpad.core.impl.sim.XwikiController

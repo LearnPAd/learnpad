@@ -27,8 +27,6 @@ import javax.ws.rs.QueryParam;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
 
-// <host>/learnpad/or/{modelsetid}/recommendation?artifactid=userid=id,type={role|context|expert|resource|...}
-@Path("/{modelsetid}/recommendation")
 public interface AskRecommendation {
 	/**
 	 * 
@@ -70,6 +68,8 @@ public interface AskRecommendation {
 	 * @return is the list of recommendations (see above for the format)
 	 * @throws LpRestException
 	 */
+	// <host>/learnpad/or/{modelsetid}/recommendation?artifactid=userid=id,type={role|context|expert|resource|...}
+	@Path("/{modelsetid}/recommendation")
 	@GET
 	Recommendations askRecommendation(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("artifactid") String artifactId,

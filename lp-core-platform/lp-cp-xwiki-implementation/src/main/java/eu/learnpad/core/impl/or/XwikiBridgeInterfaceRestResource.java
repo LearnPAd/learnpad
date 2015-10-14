@@ -19,12 +19,28 @@
  */
 package eu.learnpad.core.impl.or;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.ws.rs.Path;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.Response;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.GetMethod;
+
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.or.BridgeInterface;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.States;
 import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.cw.rest.data.Feedbacks;
 
 /*
  * The methods inherited form the BridgeInterface in this
@@ -60,8 +76,67 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	@Override
 	public Recommendations askRecommendation(String modelSetId, String artifactId,
 			String userId, String type) throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		return null;
+		//*
+		HttpClient httpClient = RestResource.getClient();
+		String uri = String.format("%s/learnpad/or/bridge/%s/recommendation",
+				RestResource.REST_URI, modelSetId);
+
+		//uri = "http://hole.tuziwo.info/";
+        
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Accept", "application/xml");
+
+		NameValuePair[] queryString = new NameValuePair[3];
+		queryString[0] = new NameValuePair("artifactid", artifactId);
+		queryString[1] = new NameValuePair("userid", userId);
+		queryString[2] = new NameValuePair("type", type);
+		getMethod.setQueryString(queryString);
+
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		InputStream feedbacksStream = null;
+		try {
+			feedbacksStream = getMethod.getResponseBodyAsStream();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Recommendations recommendations = null;
+		try {
+			JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
+			Unmarshaller unmarshaller = jc.createUnmarshaller();
+			recommendations = (Recommendations) unmarshaller.unmarshal(feedbacksStream);
+		} catch (JAXBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return recommendations;
+		/*
+		Client client = ClientBuilder.newClient();
+        client.register(RestResource.getXWikiAuthenticator());
+        
+        
+// We should look a way for accessing the annotations with reflection
+//        eu.learnpad.or.Bridge.class.getAnnotation(Path.class).value();
+
+		String uri = String.format("%s/learnpad/or/bridge/%s/recommendation",
+				RestResource.REST_URI, modelSetId);
+		uri = "http://localhost:8080/xwiki/rest/learnpad/or/bridge/modelsetid/recommendation";
+        
+		Recommendations response = client
+				.target(uri)
+				.queryParam("artifactid", artifactId)
+				.queryParam("userid", userId)
+				.queryParam("type", type)
+				.request("application/xml")
+				.get(Recommendations.class);
+        
+		return response;
+		/*/
 	}
 
 	@Override

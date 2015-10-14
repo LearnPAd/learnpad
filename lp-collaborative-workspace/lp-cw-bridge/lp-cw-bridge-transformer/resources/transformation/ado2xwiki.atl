@@ -14,11 +14,36 @@ helper def: resetCurObj() : OclAny = thisModule.refSetValue('curObj', 0);
 
 helper context String def : name : String = self.substring(self.lastIndexOf('!')+2, self.size());
 
+helper context String def : standardizeModelType : String = if self='Business process diagram (BPMN 2.0)' then 
+																'bpmn' 
+															else 
+																if self='Competency model' then
+																	'cm'
+																else if self='BMM' then
+																	'bmm'
+																	else if self='Document and Knowledge model' then
+																		'dkm'
+																		else if self='Organizational structure' then
+																			'os'
+																			else ''
+																			endif
+																		endif
+																	endif
+																endif
+															endif;
+
 helper context ADOXX!INSTANCEType def : relatedIncomingConnector : Sequence(ADOXX!COLLECTORType) =
 	self.refImmediateComposite().cONNECTOR->select(e | ((e.tO.class = self.class) and (e.tO.instance = self.name))).flatten();
 helper context ADOXX!INSTANCEType def : relatedOutgoingConnector : Sequence(ADOXX!COLLECTORType) =
 	self.refImmediateComposite().cONNECTOR->select(e | ((e.fROM.class = self.class) and (e.fROM.instance = self.name))).flatten();
 
+
+helper def: modeltypeFilter(): String = ADOXX!MODELType.allInstances()->
+													select(e |e.modeltype<>'KPI-Overview')->
+													collect(e | e.modeltype).asOrderedSet()->
+													iterate(e; filter: String = '(' |
+														filter.concat('(s.modeltype=\''+e+'\') or ')
+													).toString().regexReplaceAll('or $', ')');
 
 --helper def :getInstance(class: String, instance : String):ADOXX!INSTANCEType = ADOXX!INSTANCEType.allInstances()->any(e | e.class=class and e.name=instance);
 
@@ -36,31 +61,55 @@ helper def :getInstance(model: String, class: String, instance : String):ADOXX!I
 		
 helper def :documentRoot : XWIKI!DocumentRoot = OclUndefined;
 
-entrypoint rule RootWebHome() {
-	to t: XWIKI!DocumentRoot (), 
+rule RootWebHome {
+	from s: ADOXX!ADOXMLType
+	to t: XWIKI!DocumentRoot (
+		object <- msc,
+		page <- Sequence{}->append(p)
+	),
 	-----------------------  Static WebHome  -----------------------
 	p: XWIKI!Page (
-	   	title <- 'WebHome', 
-		content <- '{{include reference="LearnPAdCode.ModelSetWebHome" /}}',
-		comment <- 'WebHome'
+	   	title <- 'Home',
+		parent <- 'Main.WebHome',
+		name <- 'WebHome',
+		content <- '{{include reference="LPCode.ModelSetWebHome" /}}'
+	),
+	msc:XWIKI!Object (
+		className <- 'LPCode.ModelSetClass',
+		property <- Sequence{msc_p1, msc_p2}
+	),
+	msc_p1:XWIKI!Property (
+		name <- 'id',
+		type <- 'String',
+		value <- 'id????' --which id?
+	),
+	msc_p2:XWIKI!Property (
+		name <- 'name',
+		type <- 'String',
+		value <- 'name????' --which name?
 	)
 	do {
 		thisModule.documentRoot <- t;
-		thisModule.documentRoot.page<-p;
 		thisModule.instances <- thisModule.loadInstances;
 	}
 }
 
------------------------  MODELType  -----------------------
+-----------------------  MODELType  --------------------------
 rule MODELType2WebHome {
-	from s:ADOXX!MODELType(s.modeltype='Business process diagram (BPMN 2.0)')  --actually filter by BusinessProcess
+	from s:ADOXX!MODELType
+	--from s:ADOXX!MODELType( (s.modeltype='Organizational structure') or 
+	--						(s.modeltype='Document and Knowledge model') or 
+	--						(s.modeltype='BMM') or 
+	--						(s.modeltype='Competency model') or 
+	--						(s.modeltype='Business process diagram (BPMN 2.0)') )
 	-----------------------  mod.XXXXX  ----------------------- 
 	to p: XWIKI!Page (
 	   	title <- s.name,
-		comment <- s.id
+		parent <- 'WebHome',
+		name <- s.id
 	),
 	mc:XWIKI!Object (
-		className <- 'LearnPAdCode.ModelClass',
+		className <- 'LPCode.ModelClass',
 		number <- thisModule.curObj,
 		pageName <- s.id,
 		property <- Sequence{mc_p1, mc_p2, mc_p3}
@@ -78,7 +127,7 @@ rule MODELType2WebHome {
 	mc_p3:XWIKI!Property (
 		name <- 'type',
 		type <- 'StaticList',
-		value <- s.modeltype
+		value <- s.modeltype.standardizeModelType
 	),
 	xwiki:XWIKI!Object (
 		className <- 'XWiki.DocumentSheetBinding',
@@ -89,25 +138,28 @@ rule MODELType2WebHome {
 	xwiki_p1:XWIKI!Property (
 		name <- 'sheet',
 		type <- 'string',
-		value <- 'LearnPAdCode.ModelSheet'	
+		value <- 'LPCode.ModelSheet'	
 	)
 	do {
 		thisModule.documentRoot.page<-p;
+		thisModule.documentRoot.object <- mc ;
+		thisModule.documentRoot.object <- xwiki ;
+		
 	}
 }
 
 -----------------------  INSTANCEType  -----------------------
 rule INSTANCEType2Page {
-	from s:ADOXX!INSTANCEType(s.refImmediateComposite().modeltype='Business process diagram (BPMN 2.0)')  --actually filter by BusinessProcess
+	from s:ADOXX!INSTANCEType 
 	-----------------------  obj.XXXXX  ----------------------- 
 	to t_p: XWIKI!Page (
 	   	title <- s.name,
 		parent <- s.refImmediateComposite().id, --modelid 
 		comment <- s.id
 	),
-	------------------  objects\LearnPAdCode\BaseElementClass  ------------------
+	------------------  objects\LPCode\BaseElementClass  ------------------
 	bec:XWIKI!Object (
-		className <- 'LearnPAdCode.BaseElementClass',
+		className <- 'LPCode.BaseElementClass',
 		number <- thisModule.curObj,
 		pageName <- s.id,
 		property <- Sequence{bec_p1, bec_p2, bec_p3, bec_p4}->asSequence()
@@ -142,19 +194,19 @@ rule INSTANCEType2Page {
 	xwiki_p1:XWIKI!Property (
 		name <- 'sheet',
 		type <- 'String',
-		value <- 'LearnPAdCode.BaseElementSheet'	
+		value <- 'LPCode.BaseElementSheet'	
 	)
 	do {
 		thisModule.documentRoot.page<-t_p;
+		thisModule.documentRoot.object <- bec;
+		thisModule.documentRoot.object <- xwiki;
 		
 		-- Relazioni Incoming--
 		for (e in s.relatedIncomingConnector) {
-			thisModule.CONNECTORType2Page(s, e, 'incoming', thisModule.curObj);
 			thisModule.incCurObj();	
 		}
 		-- Relazioni Outgoing--
 		for (e in s.relatedOutgoingConnector) {
-			thisModule.CONNECTORType2Page(s, e, 'outgoing', thisModule.curObj);
 			thisModule.incCurObj();	
 		}
 		
@@ -166,9 +218,9 @@ rule INSTANCEType2Page {
 ----------------------  CONNECTORType  ----------------------
 rule CONNECTORType2Page(i: ADOXX!INSTANCEType, c:ADOXX!CONNECTORType, type: String, objNo: Integer) {
 	
-	----------------  objects\LearnPAdCode\LinkClass  ----------------
+	----------------  objects\LPCode\LinkClass  ----------------
 	to lc:XWIKI!Object (
-		className <- 'LearnPAdCode.LinkClass',
+		className <- 'LPCode.LinkClass',
 		number <- objNo,
 		pageName <- i.id,
 		property <- Sequence{lc_p1, lc_p2, lc_p3}
@@ -192,4 +244,7 @@ rule CONNECTORType2Page(i: ADOXX!INSTANCEType, c:ADOXX!CONNECTORType, type: Stri
 				thisModule.getInstance(c.refImmediateComposite().name, c.tO.class, c.tO.instance).id
 			endif
 	)
+	do {
+		thisModule.documentRoot.object <- lc;
+	}
 }

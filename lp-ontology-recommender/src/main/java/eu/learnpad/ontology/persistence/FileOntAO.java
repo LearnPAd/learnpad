@@ -25,42 +25,51 @@ import org.apache.jena.riot.Lang;
  */
 @Singleton
 public class FileOntAO extends OntAO {
-    
-    @Inject
-    SimpleModelTransformator transformator;
 
-    @Override
-    protected OntModel loadMetaModel() {
-        OntModel model = null;
-        try {
-            model = OntologyFileLoader.loadModel(APP.CONF.getStringArray("ontology.metamodel.path"), Lang.TTL);
-        } catch (IOException ex) {
-            Logger.getLogger(FileOntAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return model;
-    }
+	private SimpleModelTransformator transformator;
 
-    @Override
-    protected OntModel loadModelSet(String modelSetId) {
-        File modelSetFile = transformator.getLatestVersionFile(modelSetId);
-        if(modelSetFile == null){
-            return null;
-        }
-        
-        OntModel modelSet = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        modelSet.read(modelSetFile.toURI().toString(), "TTL");
-        return modelSet;
-    }
+	public FileOntAO() {
+		this.transformator = new SimpleModelTransformator();
+	}
 
-    @Override
-    protected OntModel loadExecutionData(String modelSetId) {
-        OntModel model = null;
-        try {
-            model = OntologyFileLoader.loadModel(APP.CONF.getStringArray("execution.data.path"), Lang.TTL);
-        } catch (IOException ex) {
-            Logger.getLogger(FileOntAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return model;
-    }
-    
+	@Override
+	protected OntModel loadMetaModel() {
+		OntModel model = null;
+		try {
+			model = OntologyFileLoader.loadModel(
+					APP.CONF.getStringArray("ontology.metamodel.path"),
+					Lang.TTL);
+		} catch (IOException ex) {
+			Logger.getLogger(FileOntAO.class.getName()).log(Level.SEVERE, null,
+					ex);
+		}
+		return model;
+	}
+
+	@Override
+	protected OntModel loadModelSet(String modelSetId) {
+		File modelSetFile = transformator.getLatestVersionFile(modelSetId);
+		if (modelSetFile == null) {
+			return null;
+		}
+
+		OntModel modelSet = ModelFactory
+				.createOntologyModel(OntModelSpec.OWL_MEM);
+		modelSet.read(modelSetFile.toURI().toString(), "TTL");
+		return modelSet;
+	}
+
+	@Override
+	protected OntModel loadExecutionData(String modelSetId) {
+		OntModel model = null;
+		try {
+			model = OntologyFileLoader.loadModel(
+					APP.CONF.getStringArray("execution.data.path"), Lang.TTL);
+		} catch (IOException ex) {
+			Logger.getLogger(FileOntAO.class.getName()).log(Level.SEVERE, null,
+					ex);
+		}
+		return model;
+	}
+
 }
