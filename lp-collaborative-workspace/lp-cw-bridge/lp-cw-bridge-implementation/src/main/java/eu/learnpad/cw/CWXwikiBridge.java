@@ -24,12 +24,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Provider;
+import javax.inject.Singleton;
 import javax.ws.rs.Path;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -63,8 +65,10 @@ import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.rest.data.Feedback;
 import eu.learnpad.cw.rest.data.Feedbacks;
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.or.rest.data.Recommendations;
 
 @Component
+@Singleton
 @Named("eu.learnpad.cw.CWXwikiBridge")
 @Path("/learnpad/cw/bridge")
 public class CWXwikiBridge extends XwikiBridge {
@@ -263,5 +267,13 @@ public class CWXwikiBridge extends XwikiBridge {
 			feedbacks.add(feedback);
 		}
 		return feedbacks;
+	}
+	
+	public Recommendations getRecommendations(String modelSetId, String artifactId, String userId) throws LpRestException{
+// Not sure yet if usedID is actually a parameter of if it can be queried
+// to XWIKI .... probably not		
+//		String userId;
+		Recommendations rec = this.corefacade.getRecommendations(modelSetId, artifactId, userId);
+		return rec;
 	}
 }

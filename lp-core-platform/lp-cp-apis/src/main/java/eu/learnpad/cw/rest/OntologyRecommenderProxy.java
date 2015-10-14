@@ -19,25 +19,18 @@
  */
 package eu.learnpad.cw.rest;
 
-import javax.ws.rs.PUT;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.or.rest.data.Recommendations;
 
-public interface ModelVerified {
-	/**
-	 * @param modelSetId
-	 *            is the ID of the model set that is concerned
-	 * @param result
-	 *            contain the feedback about the verification for the specified
-	 *            model
-	 * @throws LpRestException
-	 */
-	// <host>/learnpad/cw/modelverified/{modelsetid}?result={will be a Java class but waiting for a PR first}
-	@Path("/modelverified/{modelsetid}")
-	@PUT
-	void modelVerified(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("result") String result) throws LpRestException;
+public interface OntologyRecommenderProxy {
+	@GET
+	@Path("/recommendation")
+	Recommendations getRecommendations(
+			@QueryParam("modelsetid") String modelSetId,
+			@QueryParam("artifactid") String artifactId,
+			@QueryParam("userid") String userId) throws LpRestException;
 }

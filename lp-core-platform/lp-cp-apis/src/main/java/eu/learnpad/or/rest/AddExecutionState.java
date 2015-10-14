@@ -26,8 +26,6 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-// <host>/learnpad/or/execution/{modelsetid}?executionId=id,userid=id,threadid=id,pageid=id,artifactid=id
-@Path("/execution/{modelsetid}")
 public interface AddExecutionState {
 
 	/**
@@ -55,6 +53,8 @@ public interface AddExecutionState {
 	 *            etc.)
 	 * @throws LpRestException
 	 */
+	// <host>/learnpad/or/execution/{modelsetid}?executionId=id,userid=id,threadid=id,pageid=id,artifactid=id
+	@Path("/execution/{modelsetid}")
 	@GET
 	void addExecutionState(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("executionid") String executionId,

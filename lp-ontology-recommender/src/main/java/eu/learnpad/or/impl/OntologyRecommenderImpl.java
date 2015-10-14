@@ -7,18 +7,25 @@ package eu.learnpad.or.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import eu.learnpad.core.impl.or.XwikiBridge;
 import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.ontology.execution.ExecutionStates;
+import eu.learnpad.or.rest.data.BusinessActor;
+import eu.learnpad.or.rest.data.Experts;
 import eu.learnpad.or.rest.data.States;
 import eu.learnpad.ontology.recommender.Recommender;
 import eu.learnpad.or.rest.data.Recommendations;
 
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
 import javax.ws.rs.Path;
 
+import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 
@@ -26,18 +33,22 @@ import org.xwiki.component.phase.InitializationException;
  *
  * @author sandro.emmenegger
  */
+
+@Component
+@Singleton
+@Named("eu.learnpad.or.impl.OntologyRecommenderImpl")
 @Path("/learnpad/or/bridge")
 public class OntologyRecommenderImpl extends XwikiBridge implements Initializable {
     
-    @Inject
-    ExecutionStates executionStates;
+    private ExecutionStates executionStates;
     
-    @Inject
-    Recommender recommender;
+    private Recommender recommender;
 
 	@Override
 	public void initialize() throws InitializationException {
 		this.corefacade = new XwikiCoreFacadeRestResource();
+		this.executionStates = new ExecutionStates();
+		this.recommender = new Recommender();
 	}
 
 	@Override
@@ -53,7 +64,15 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 
     @Override
     public Recommendations askRecommendation(String modelSetId, String artifactId, String userId, String type) throws LpRestException {
-        Recommendations recomms = recommender.getRecommendations(modelSetId, artifactId, userId);
+//        Recommendations recomms = recommender.getRecommendations(modelSetId, artifactId, userId);
+        Recommendations recomms = new Recommendations();
+        Experts experts = new Experts();
+        List<BusinessActor> businessActors = new ArrayList<BusinessActor>();
+        BusinessActor businessActor = new BusinessActor();
+        businessActor.setName("Jean");
+        businessActors.add(businessActor);
+		experts.setBusinessActors(businessActors);
+        recomms.setExperts(experts);
         return recomms;
     }
 

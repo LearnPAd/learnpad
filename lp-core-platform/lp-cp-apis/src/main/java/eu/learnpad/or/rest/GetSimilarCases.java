@@ -25,8 +25,6 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-// <host>/learnpad/or/similarcases?artifactName=A name,artifactDescription=Some description,artifactType={event-start|gateway-exclusive|task|event-end|...},modelType={bpmn|cmmn|...},freeDescription=Some text,existingArtifactId=id,existingArtifactStructureDepth=2
-@Path("/similarcases")
 public interface GetSimilarCases {
 
 	/**
@@ -54,6 +52,8 @@ public interface GetSimilarCases {
 	 *            defined depth.
 	 * @throws LpRestException
 	 */
+	// <host>/learnpad/or/similarcases?artifactName=A name,artifactDescription=Some description,artifactType={event-start|gateway-exclusive|task|event-end|...},modelType={bpmn|cmmn|...},freeDescription=Some text,existingArtifactId=id,existingArtifactStructureDepth=2
+	@Path("/similarcases")
 	@GET
 	void addExecutionState(
 			@QueryParam("artifactName") String artifactName,
