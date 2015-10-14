@@ -21,19 +21,19 @@
 -->
 
 <xwikidoc>
-  <web>LearnPAdCode</web>
-  <name>BaseElementClass</name>
+  <web>LPCode</web>
+  <name>FeedbackClass</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
-  <parent>WebHome</parent>
+  <parent>LPCode.WebHome</parent>
   <creator>xwiki:XWiki.Admin</creator>
   <author>xwiki:XWiki.Admin</author>
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <creationDate>1422026776000</creationDate>
-  <date>1422279646000</date>
-  <contentUpdateDate>1422279646000</contentUpdateDate>
+  <creationDate>1436514741000</creationDate>
+  <date>1443522413000</date>
+  <contentUpdateDate>1443522173000</contentUpdateDate>
   <version>1.1</version>
   <title/>
   <defaultTemplate/>
@@ -43,7 +43,7 @@
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
   <class>
-    <name>LearnPAdCode.BaseElementClass</name>
+    <name>LPCode.FeedbackClass</name>
     <customClass/>
     <customMapping/>
     <defaultViewSheet/>
@@ -51,27 +51,27 @@
     <defaultWeb/>
     <nameField/>
     <validationScript/>
-    <documentation>
+    <description>
       <customDisplay/>
       <disabled>0</disabled>
-      <editor>Wysiwyg</editor>
-      <name>documentation</name>
-      <number>4</number>
+      <editor>Text</editor>
+      <name>description</name>
+      <number>2</number>
       <picker>0</picker>
-      <prettyName>Documentation</prettyName>
+      <prettyName>Description</prettyName>
       <rows>10</rows>
       <size>40</size>
       <unmodifiable>0</unmodifiable>
       <validationMessage/>
       <validationRegExp/>
       <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
-    </documentation>
+    </description>
     <id>
       <customDisplay/>
       <disabled>0</disabled>
       <name>id</name>
       <number>1</number>
-      <picker>1</picker>
+      <picker>0</picker>
       <prettyName>ID</prettyName>
       <size>30</size>
       <unmodifiable>0</unmodifiable>
@@ -79,41 +79,39 @@
       <validationRegExp/>
       <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
     </id>
-    <name>
-      <customDisplay/>
-      <disabled>0</disabled>
-      <name>name</name>
-      <number>2</number>
-      <picker>0</picker>
-      <prettyName>Name</prettyName>
-      <size>30</size>
-      <unmodifiable>0</unmodifiable>
-      <validationMessage/>
-      <validationRegExp/>
-      <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
-    </name>
-    <type>
-      <cache>0</cache>
-      <customDisplay/>
-      <disabled>0</disabled>
-      <displayType>select</displayType>
-      <multiSelect>0</multiSelect>
-      <name>type</name>
-      <number>3</number>
-      <picker>0</picker>
-      <prettyName>Type</prettyName>
-      <relationalStorage>0</relationalStorage>
-      <separator> </separator>
-      <separators> ,|</separators>
-      <size>1</size>
-      <sort>none</sort>
-      <unmodifiable>0</unmodifiable>
-      <validationMessage/>
-      <validationRegExp/>
-      <values>task=Business process task|startEvent=Start event|endEvent=End event|eclusiveGateway=Exclusive gateway</values>
-      <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
-    </type>
   </class>
+  <object>
+    <class>
+      <name>XWiki.ClassSheetBinding</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <sheet>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <name>sheet</name>
+        <number>1</number>
+        <picker>0</picker>
+        <prettyName>Sheet</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </sheet>
+    </class>
+    <name>LPCode.FeedbackClass</name>
+    <number>0</number>
+    <className>XWiki.ClassSheetBinding</className>
+    <guid>5a9cddf9-f4d7-4d69-92b1-2fa6577a2edc</guid>
+    <property>
+      <sheet>LPUI.FeedbackSheet</sheet>
+    </property>
+  </object>
   <object>
     <class>
       <name>XWiki.DocumentSheetBinding</name>
@@ -138,10 +136,10 @@
         <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
       </sheet>
     </class>
-    <name>LearnPAdCode.BaseElementClass</name>
+    <name>LPCode.FeedbackClass</name>
     <number>0</number>
     <className>XWiki.DocumentSheetBinding</className>
-    <guid>0e077026-a1b0-4156-b481-7b2ee69d9cbf</guid>
+    <guid>07d1fd84-16f6-43e6-9624-3f3751bd9070</guid>
     <property>
       <sheet>XWiki.ClassSheet</sheet>
     </property>

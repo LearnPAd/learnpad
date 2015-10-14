@@ -1,4 +1,6 @@
-/*
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
  *
@@ -16,16 +18,33 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
-package eu.learnpad.ca;
+-->
 
-import javax.ws.rs.Path;
+<xwikidoc>
+  <web>LPCode</web>
+  <name>RandomUUID</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <parent>LearnPAdCode.WebHome</parent>
+  <creator>xwiki:XWiki.Admin</creator>
+  <author>xwiki:XWiki.Admin</author>
+  <customClass/>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <creationDate>1443186574000</creationDate>
+  <date>1443186574000</date>
+  <contentUpdateDate>1443186574000</contentUpdateDate>
+  <version>1.1</version>
+  <title/>
+  <defaultTemplate/>
+  <validationScript/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>false</hidden>
+  <content>import java.util.UUID;
 
-import eu.learnpad.ca.rest.ColloborativeContentVerifications;
-import eu.learnpad.ca.rest.StaticContentVerifications;
-
-@Path("/learnpad/ca/bridge")
-public interface BridgeInterface extends ColloborativeContentVerifications,
-		StaticContentVerifications {
-
-}
+public String getRandomUUID() {
+  return UUID.randomUUID();
+}</content>
+</xwikidoc>

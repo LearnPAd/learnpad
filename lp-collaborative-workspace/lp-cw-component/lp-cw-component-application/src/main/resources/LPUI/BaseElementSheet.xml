@@ -20,28 +20,38 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc version="1.1">
-  <web>LearnPAdCode</web>
-  <name>RandomUUID</name>
+<xwikidoc>
+  <web>LPUI</web>
+  <name>BaseElementSheet</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
+  <parent>LearnPAdCode.BaseElementClass</parent>
   <creator>xwiki:XWiki.Admin</creator>
-  <creationDate>1436542111000</creationDate>
-  <parent>LearnPAdCode.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
+  <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1436544324000</date>
-  <contentUpdateDate>1436542183000</contentUpdateDate>
+  <creationDate>1443171988000</creationDate>
+  <date>1443444324000</date>
+  <contentUpdateDate>1443444324000</contentUpdateDate>
   <version>1.1</version>
-  <title/>
+  <title>${doc.getObject('LPCode.BaseElementClass').getProperty('name').value}</title>
+  <defaultTemplate/>
+  <validationScript/>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
-  <content>import java.util.UUID;
+  <content>{{velocity}}
+#set ($documentation = $doc.getObject('LPCode.BaseElementClass').getProperty('documentation').value)
+== ${services.localization.render('BaseElementSheet.documentation.title')} ==
+${documentation}
+{{/velocity}}
 
-public String getRandomUUID() {
-  return UUID.randomUUID();
-}</content>
+{{workflowbuttons /}}
+
+(% class="col-xs-4 col-xs-offset-4" style="margin-top:5ex" %)(((
+{{feedbackbutton /}}
+{{velocity}}(% class="help-block" %)${services.localization.render('BaseElementSheet.feedback.helper')}{{/velocity}}
+)))</content>
 </xwikidoc>

@@ -21,19 +21,19 @@
 -->
 
 <xwikidoc>
-  <web>Collections</web>
-  <name>LearnPAdCode</name>
+  <web>LPCode</web>
+  <name>ModelSetClass</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
-  <parent>xwiki:Collections.WebHome</parent>
+  <parent>WebHome</parent>
   <creator>xwiki:XWiki.Admin</creator>
   <author>xwiki:XWiki.Admin</author>
   <customClass/>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <creationDate>1422372976000</creationDate>
-  <date>1422372997000</date>
-  <contentUpdateDate>1422372997000</contentUpdateDate>
+  <creationDate>1443000854000</creationDate>
+  <date>1443172051000</date>
+  <contentUpdateDate>1443108400000</contentUpdateDate>
   <version>1.1</version>
   <title/>
   <defaultTemplate/>
@@ -42,9 +42,60 @@
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
+  <class>
+    <name>LPCode.ModelSetClass</name>
+    <customClass/>
+    <customMapping/>
+    <defaultViewSheet/>
+    <defaultEditSheet/>
+    <defaultWeb/>
+    <nameField/>
+    <validationScript/>
+    <documentation>
+      <customDisplay/>
+      <disabled>0</disabled>
+      <editor>---</editor>
+      <name>documentation</name>
+      <number>4</number>
+      <picker>0</picker>
+      <prettyName>Documentation</prettyName>
+      <rows>5</rows>
+      <size>40</size>
+      <unmodifiable>0</unmodifiable>
+      <validationMessage/>
+      <validationRegExp/>
+      <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+    </documentation>
+    <id>
+      <customDisplay/>
+      <disabled>0</disabled>
+      <name>id</name>
+      <number>1</number>
+      <picker>0</picker>
+      <prettyName>ID</prettyName>
+      <size>30</size>
+      <unmodifiable>0</unmodifiable>
+      <validationMessage/>
+      <validationRegExp/>
+      <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+    </id>
+    <name>
+      <customDisplay/>
+      <disabled>0</disabled>
+      <name>name</name>
+      <number>2</number>
+      <picker>0</picker>
+      <prettyName>Name</prettyName>
+      <size>30</size>
+      <unmodifiable>0</unmodifiable>
+      <validationMessage/>
+      <validationRegExp/>
+      <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+    </name>
+  </class>
   <object>
     <class>
-      <name>Collections.CollectionClass</name>
+      <name>XWiki.ClassSheetBinding</name>
       <customClass/>
       <customMapping/>
       <defaultViewSheet/>
@@ -52,31 +103,31 @@
       <defaultWeb/>
       <nameField/>
       <validationScript/>
-      <type>
+      <sheet>
         <customDisplay/>
         <disabled>0</disabled>
-        <name>type</name>
+        <name>sheet</name>
         <number>1</number>
         <picker>0</picker>
-        <prettyName>Type</prettyName>
+        <prettyName>Sheet</prettyName>
         <size>30</size>
         <unmodifiable>0</unmodifiable>
         <validationMessage/>
         <validationRegExp/>
         <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
-      </type>
+      </sheet>
     </class>
-    <name>Collections.LearnPAdCode</name>
+    <name>LPCode.ModelSetClass</name>
     <number>0</number>
-    <className>Collections.CollectionClass</className>
-    <guid>cbdc4613-2566-4a25-80ce-462d1dd51a83</guid>
+    <className>XWiki.ClassSheetBinding</className>
+    <guid>9ad1706f-9efc-4129-9573-5c81b5f2f2cb</guid>
     <property>
-      <type>query</type>
+      <sheet>LPUI.ModelSetSheet</sheet>
     </property>
   </object>
   <object>
     <class>
-      <name>Collections.QueryCollectionClass</name>
+      <name>XWiki.DocumentSheetBinding</name>
       <customClass/>
       <customMapping/>
       <defaultViewSheet/>
@@ -84,35 +135,27 @@
       <defaultWeb/>
       <nameField/>
       <validationScript/>
-      <type>
-        <cache>0</cache>
+      <sheet>
         <customDisplay/>
         <disabled>0</disabled>
-        <displayType>select</displayType>
-        <multiSelect>0</multiSelect>
-        <name>type</name>
+        <name>sheet</name>
         <number>1</number>
         <picker>0</picker>
-        <prettyName>Type</prettyName>
-        <relationalStorage>0</relationalStorage>
-        <separator> </separator>
-        <separators> ,|</separators>
-        <size>1</size>
-        <sort>none</sort>
+        <prettyName>Sheet</prettyName>
+        <size>30</size>
         <unmodifiable>0</unmodifiable>
         <validationMessage/>
         <validationRegExp/>
-        <values>xwql|hql</values>
-        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
-      </type>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </sheet>
     </class>
-    <name>Collections.LearnPAdCode</name>
+    <name>LPCode.ModelSetClass</name>
     <number>0</number>
-    <className>Collections.QueryCollectionClass</className>
-    <guid>4437a752-2107-4a12-a855-259d1b7a86c6</guid>
+    <className>XWiki.DocumentSheetBinding</className>
+    <guid>e340682c-8bc6-4f37-99d0-de7eabb35ff3</guid>
     <property>
-      <type>xwql</type>
+      <sheet>XWiki.ClassSheet</sheet>
     </property>
   </object>
-  <content>where doc.space = 'LPCode' or doc.space = 'LPUI' or doc.fullName = 'Main.WebHome' or doc.fullName = 'WebIDE.LearnPAd' or doc.fullName = 'Collections.LearnPAdCode'</content>
+  <content/>
 </xwikidoc>

@@ -19,9 +19,12 @@
  */
 package eu.learnpad.mv;
 
+import javax.ws.rs.Path;
+
 import eu.learnpad.mv.rest.ModelImporter;
 import eu.learnpad.mv.rest.NotifyVerification;
 
+@Path("/learnpad/mv/corefacade")
 public interface CoreFacade extends ModelImporter, NotifyVerification{
 	
 }
