@@ -17,15 +17,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.sim;
-
-import eu.learnpad.sim.rest.IEventReceiver;
-import eu.learnpad.sim.rest.IUserInfosAPI;
+package eu.learnpad.sim.rest.event;
 
 /**
+ *
  * @author Tom Jorquera - Linagora
  *
  */
-public interface CoreFacade extends IUserInfosAPI, IEventReceiver {
-
+public enum EventType {
+	PROCESS_START, PROCESS_END, TASK_START, TASK_END, SESSION_SCORE_UPDATE
 }

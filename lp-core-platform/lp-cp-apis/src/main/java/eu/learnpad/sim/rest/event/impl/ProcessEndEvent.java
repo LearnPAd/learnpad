@@ -17,15 +17,35 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.sim;
+package eu.learnpad.sim.rest.event.impl;
 
-import eu.learnpad.sim.rest.IEventReceiver;
-import eu.learnpad.sim.rest.IUserInfosAPI;
+import eu.learnpad.sim.rest.event.AbstractEvent;
+import eu.learnpad.sim.rest.event.EventType;
 
 /**
+ *
  * @author Tom Jorquera - Linagora
  *
  */
-public interface CoreFacade extends IUserInfosAPI, IEventReceiver {
+public class ProcessEndEvent extends AbstractEvent {
+
+	/**
+	 * Unique ID of the process instance
+	 */
+	public String processid;
+
+	public ProcessEndEvent() {
+		super();
+	}
+
+	public ProcessEndEvent(Long timestamp, String processid) {
+		super(timestamp);
+		this.processid = processid;
+	}
+
+	@Override
+	public EventType getType() {
+		return EventType.PROCESS_END;
+	}
 
 }

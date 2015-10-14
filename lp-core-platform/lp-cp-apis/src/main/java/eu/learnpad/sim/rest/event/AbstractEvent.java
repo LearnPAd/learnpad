@@ -17,15 +17,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.sim;
-
-import eu.learnpad.sim.rest.IEventReceiver;
-import eu.learnpad.sim.rest.IUserInfosAPI;
+package eu.learnpad.sim.rest.event;
 
 /**
+ *
  * @author Tom Jorquera - Linagora
  *
  */
-public interface CoreFacade extends IUserInfosAPI, IEventReceiver {
+public abstract class AbstractEvent {
+
+	public Long timestamp;
+
+	public AbstractEvent() {
+		super();
+	}
+
+	public AbstractEvent(Long timeStamp) {
+		super();
+		this.timestamp = timeStamp;
+	}
+
+	public abstract EventType getType();
 
 }

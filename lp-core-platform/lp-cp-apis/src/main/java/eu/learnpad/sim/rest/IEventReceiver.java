@@ -17,15 +17,42 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.sim;
+package eu.learnpad.sim.rest;
 
-import eu.learnpad.sim.rest.IEventReceiver;
-import eu.learnpad.sim.rest.IUserInfosAPI;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+
+import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
+import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
+import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
+import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
+import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 
 /**
+ *
  * @author Tom Jorquera - Linagora
  *
  */
-public interface CoreFacade extends IUserInfosAPI, IEventReceiver {
+public interface IEventReceiver {
+
+	@POST
+	@Path("/processstart")
+	public void receiveProcessStartEvent(ProcessStartEvent event);
+
+	@POST
+	@Path("/processend")
+	public void receiveProcessEndEvent(ProcessEndEvent event);
+
+	@POST
+	@Path("/taskstart")
+	public void receiveTaskStartEvent(TaskStartEvent event);
+
+	@POST
+	@Path("/taskend")
+	public void receiveTaskEndEvent(TaskEndEvent event);
+
+	@POST
+	@Path("/sessionscoreupdate")
+	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event);
 
 }
