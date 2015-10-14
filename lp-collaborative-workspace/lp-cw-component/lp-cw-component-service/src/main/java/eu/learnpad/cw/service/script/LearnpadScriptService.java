@@ -19,8 +19,6 @@
  */
 package eu.learnpad.cw.service.script;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -30,8 +28,9 @@ import org.xwiki.context.Execution;
 import org.xwiki.script.service.ScriptService;
 import org.xwiki.script.service.ScriptServiceManager;
 
-import eu.learnpad.cw.service.Learnpad;
-import eu.learnpad.cw.service.LearnpadException;
+import eu.learnpad.cw.UICWBridge;
+import eu.learnpad.exception.LpRestException;
+import eu.learnpad.or.rest.data.Recommendations;
 
 @Component
 @Named("learnpad")
@@ -50,16 +49,17 @@ public class LearnpadScriptService implements ScriptService {
 
 	@Inject
 	private ScriptServiceManager scriptServiceManager;
-
+	
 	@Inject
-	private Learnpad learnpadService;
+	@Named("eu.learnpad.cw.CWXwikiBridge")
+	private UICWBridge cwBridge;
 
 	/**
 	 * Provides access to the current context.
 	 */
 	@Inject
 	private Execution execution;
-
+	
 	/**
 	 * Get a sub script service related to wiki. (Note that we're voluntarily
 	 * using an API name of "get" to make it extra easy to access Script
@@ -98,56 +98,13 @@ public class LearnpadScriptService implements ScriptService {
 	private void setLastError(Exception e) {
 		this.execution.getContext().setProperty(LEARNPADERROR_KEY, e);
 	}
-
-	public String getName(String id) {
+	
+	public Recommendations getRecommendations(String modelSetId,
+			String artifactId, String userId) {
 		try {
-			return learnpadService.getName(id);
-		} catch (LearnpadException e) {
-			this.setLastError(e);
-			return null;
-		}
-	}
-
-	public String getType(String id) {
-		try {
-			return learnpadService.getType(id);
-		} catch (LearnpadException e) {
-			this.setLastError(e);
-			return null;
-		}
-	}
-
-	public String getDocumentation(String id) {
-		try {
-			return learnpadService.getDocumentation(id);
-		} catch (LearnpadException e) {
-			this.setLastError(e);
-			return null;
-		}
-	}
-
-	public String getURL(String id) {
-		try {
-			return learnpadService.getURL(id);
-		} catch (LearnpadException e) {
-			this.setLastError(e);
-			return null;
-		}
-	}
-
-	public List<String> getIncomings(String id) {
-		try {
-			return learnpadService.getIncomings(id);
-		} catch (LearnpadException e) {
-			this.setLastError(e);
-			return null;
-		}
-	}
-
-	public List<String> getOutgoings(String id) {
-		try {
-			return learnpadService.getOutgoings(id);
-		} catch (LearnpadException e) {
+			return this.cwBridge.getRecommendations(modelSetId, artifactId,
+					userId);
+		} catch (LpRestException e) {
 			this.setLastError(e);
 			return null;
 		}

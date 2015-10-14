@@ -85,19 +85,7 @@
 		</dependency>
 		<dependency>
 			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-component-service-api</artifactId>
-			<version>${learnpad.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-component-service-default</artifactId>
-			<version>${learnpad.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-component-service-script</artifactId>
+			<artifactId>lp-cw-component-service</artifactId>
 			<version>${learnpad.version}</version>
 			<type>jar</type>
 		</dependency>

@@ -17,23 +17,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.cw.service;
-
-import java.util.List;
+package eu.learnpad.cw;
 
 import org.xwiki.component.annotation.Role;
 
+import eu.learnpad.exception.LpRestException;
+import eu.learnpad.or.rest.data.Recommendations;
+
 @Role
-public interface Learnpad {
-	String getName(String id) throws LearnpadException;
-	
-	String getType(String id) throws LearnpadException;
-
-	String getDocumentation(String id) throws LearnpadException;
-
-	String getURL(String id) throws LearnpadException;
-
-	List<String> getIncomings(String id) throws LearnpadException;
-
-	List<String> getOutgoings(String id) throws LearnpadException;
+public interface UICWBridge {
+	Recommendations getRecommendations(String modelSetId, String artifactId,
+			String userId) throws LpRestException;
 }

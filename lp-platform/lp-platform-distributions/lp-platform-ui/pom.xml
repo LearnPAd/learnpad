@@ -156,12 +156,14 @@
 				<version>${commons.version}</version>
 				<configuration>
 					<transformations>
+						<!-- Configure the default color theme -->
 						<transformation>
 							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
 							<file>XWiki/XWikiPreferences.xml</file>
 							<xpath>/xwikidoc/object/property/colorTheme</xpath>
 							<value>ColorThemes.Charcoal</value>
 						</transformation>
+						<!-- Configure the default icon theme -->
 						<transformation>
 							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
 							<file>XWiki/XWikiPreferences.xml</file>
@@ -181,6 +183,13 @@
 							<file>XWiki/XWikiPreferences.xml</file>
 							<xpath>/xwikidoc/object/property/version</xpath>
 							<value>${xcs.footer.version}</value>
+						</transformation>
+						<!-- Configure the right panels -->
+						<transformation>
+							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+							<file>XWiki/XWikiPreferences.xml</file>
+							<xpath>/xwikidoc/object/property/rightPanels</xpath>
+							<value>LPUI.RecommendationPanel</value>
 						</transformation>
 					</transformations>
 				</configuration>
