@@ -19,6 +19,8 @@
  */
 package eu.learnpad.cw.service.script;
 
+import java.util.Collection;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -31,6 +33,7 @@ import org.xwiki.script.service.ScriptServiceManager;
 import eu.learnpad.cw.UICWBridge;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.sim.rest.data.UserData;
 
 @Component
 @Named("learnpad")
@@ -49,7 +52,7 @@ public class LearnpadScriptService implements ScriptService {
 
 	@Inject
 	private ScriptServiceManager scriptServiceManager;
-	
+
 	@Inject
 	@Named("eu.learnpad.cw.CWXwikiBridge")
 	private UICWBridge cwBridge;
@@ -59,7 +62,7 @@ public class LearnpadScriptService implements ScriptService {
 	 */
 	@Inject
 	private Execution execution;
-	
+
 	/**
 	 * Get a sub script service related to wiki. (Note that we're voluntarily
 	 * using an API name of "get" to make it extra easy to access Script
@@ -98,12 +101,23 @@ public class LearnpadScriptService implements ScriptService {
 	private void setLastError(Exception e) {
 		this.execution.getContext().setProperty(LEARNPADERROR_KEY, e);
 	}
-	
+
 	public Recommendations getRecommendations(String modelSetId,
 			String artifactId, String userId) {
 		try {
 			return this.cwBridge.getRecommendations(modelSetId, artifactId,
 					userId);
+		} catch (LpRestException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String startSimulation(String modelId, String currentUser,
+			Collection<UserData> potentialUsers) {
+		try {
+			return this.cwBridge.startSimulation(modelId, currentUser,
+					potentialUsers);
 		} catch (LpRestException e) {
 			this.setLastError(e);
 			return null;

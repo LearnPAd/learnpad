@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -65,6 +66,7 @@ import eu.learnpad.cw.rest.data.Feedback;
 import eu.learnpad.cw.rest.data.Feedbacks;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.sim.rest.data.UserData;
 
 @Component
 @Singleton
@@ -267,11 +269,18 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 		}
 		return feedbacks;
 	}
-	
+
+	@Override
 	public Recommendations getRecommendations(String modelSetId,
 			String artifactId, String userId) throws LpRestException {
-		Recommendations rec = this.corefacade.getRecommendations(modelSetId,
-				artifactId, userId);
-		return rec;
+		return this.corefacade.getRecommendations(modelSetId, artifactId,
+				userId);
+	}
+
+	@Override
+	public String startSimulation(String modelId, String currentUser,
+			Collection<UserData> potentialUsers) throws LpRestException {
+		return this.corefacade.startSimulation(modelId, currentUser,
+				potentialUsers);
 	}
 }

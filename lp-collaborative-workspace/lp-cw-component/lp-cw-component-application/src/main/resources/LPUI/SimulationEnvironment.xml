@@ -261,11 +261,11 @@
   <content>{{velocity}}
 #set ($modelid = $request.getParameter('modelid'))
 ## TODO: Replace the fake URL by the correct call to the API
-##set ($simulationURL = "$xwiki.parseGroovyFromPage('LPCode.CPAPI').startSimulation($modelid, 'XWiki.Admin', '[]')")
+##set ($simulationURL = "$services.learnpad.startSimulation($modelid, 'XWiki.Admin', [])")
 #set ($simulationURL = "uisingleprocess?processid=SUAPdemo")
 {{html clean="false"}}
 &lt;iframe id="simulation-iframe" width="100%" src="http://localhost:8081/${simulationURL}"&gt;
-	Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
+Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
 &lt;/iframe&gt;
 {{/html}}
 {{/velocity}}</content>
