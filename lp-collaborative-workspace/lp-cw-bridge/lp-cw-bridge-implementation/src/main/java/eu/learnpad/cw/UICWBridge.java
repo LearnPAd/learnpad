@@ -19,13 +19,23 @@
  */
 package eu.learnpad.cw;
 
+import java.util.Collection;
+
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
+
 import org.xwiki.component.annotation.Role;
 
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.sim.rest.data.UserData;
 
 @Role
 public interface UICWBridge {
 	Recommendations getRecommendations(String modelSetId, String artifactId,
 			String userId) throws LpRestException;
+
+	String startSimulation(@PathParam("modelid") String modelId,
+			@QueryParam("currentuser") String currentUser,
+			Collection<UserData> potentialUsers) throws LpRestException;
 }
