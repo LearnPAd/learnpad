@@ -49,8 +49,6 @@ import eu.learnpad.sim.rest.data.UserData;
 public class XwikiCoreFacadeRestResource extends RestResource implements
 		CoreFacade {
 	
-	eu.learnpad.sim.BridgeInterface sim;
-
 	public XwikiCoreFacadeRestResource() {
 		this("localhost", 8080);
 	}
@@ -59,7 +57,6 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 			int coreFacadeHostPort) {
 		// This constructor could change in the future
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
-		this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
 	}
 
 	public void updateConfiguration(String coreFacadeHostname,
@@ -117,7 +114,14 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 	@Override
 	public String startSimulation(String modelId, String currentUser,
 			Collection<UserData> potentialUsers) throws LpRestException {
-		return this.sim.addProcessInstance(modelId, potentialUsers, currentUser);
+// This method should implement an HTTP request to the remote REST resource
+// on the corresponding core facade on the LCP. Specifically, it should
+// invoke "eu.learnpad.core.impl.cw.XwikiController.startSimulation" as REST
+// and return back the result as String.
+//
+// See for example how it is implemented "getRecommendations" 
+// in this class.
+		return null;
 	}
 
 	@Override
