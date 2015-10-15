@@ -21,6 +21,7 @@ package eu.learnpad.core.impl.cw;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
 import javax.ws.rs.client.Client;
@@ -32,7 +33,10 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.io.IOUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.CoreFacade;
@@ -114,14 +118,46 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 	@Override
 	public String startSimulation(String modelId, String currentUser,
 			Collection<UserData> potentialUsers) throws LpRestException {
-// This method should implement an HTTP request to the remote REST resource
-// on the corresponding core facade on the LCP. Specifically, it should
-// invoke "eu.learnpad.core.impl.cw.XwikiController.startSimulation" as REST
-// and return back the result as String.
-//
-// See for example how it is implemented "getRecommendations" 
-// in this class.
-		return null;
+		HttpClient httpClient = RestResource.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/simulation/start/%s",
+				RestResource.REST_URI, modelId);
+		PostMethod postMethod = new PostMethod(uri);
+		postMethod.addRequestHeader("Accept", "application/json");
+
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("currentuser", currentUser);
+		postMethod.setQueryString(queryString);
+
+		StringRequestEntity requestEntity = null;
+		ObjectMapper om = new ObjectMapper();
+		String potentialUsersJson = "[]";
+		try {
+			potentialUsersJson = om.writeValueAsString(potentialUsers);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			requestEntity = new StringRequestEntity(potentialUsersJson,
+					"application/json", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		postMethod.setRequestEntity(requestEntity);
+		
+		try {
+			httpClient.executeMethod(postMethod);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			return IOUtils.toString(postMethod.getResponseBodyAsStream());
+		} catch (IOException e) {
+			return null;
+		}
 	}
 
 	@Override
