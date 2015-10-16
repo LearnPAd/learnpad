@@ -19,16 +19,18 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 		/*
 		 * The main method to execute all the transformations
 		 */
-		public void executeTransformation(String model_in){
+		public void executeTransformation(String model_in, String model_params){
 			
 			ATLTransformation myT = null;
 			
 			String metamodel_in = 	"resources/metamodels/adoxx/ado.ecore";
+			String metamodel_param = 	"resources/metamodels/Parameter/Parameter.ecore";
 			String metamodel_out =  "resources/metamodels/xwiki/XWIKI.ecore";
 			String modules =  		"resources/transformation/ado2xwiki.atl";
-			
+			String parameter = "tem";
 			String inTag = 	"ADOXX";
 			String outTag = "XWIKI";
+			String paramsTag = 	"Parameter";
 			
 			String basenameInputModel = FilenameUtils.getBaseName(model_in);
 			
@@ -47,7 +49,7 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 				 */
 				myT = new ATLTransformation();
 				System.out.println("Starting ATL Model2Model transformation...");
-				myT.run(model_in, metamodel_in, metamodel_out, modules, inTag, outTag, tmpModelPath);
+				myT.run(model_in, metamodel_in, model_params, metamodel_param, metamodel_out, modules, inTag, paramsTag, outTag, tmpModelPath);
 				System.out.println("ATL Model2Model transformation done. Temporary XWIKI model named: "+tmpXwikiModelName+".xmi created in /tmp folder.");
 				
 				
@@ -73,7 +75,7 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 
 			
 			String model_in = "resources/model/TitoloUnico.xml";
-			
+			String model_params = "JuriTest";
 			
 			
 			
@@ -89,7 +91,7 @@ import eu.learnpad.transformations.preprocessing.Alignment;
 			 * Start the execution of the overall transformation
 			 */
 			MainTest mt = new MainTest();
-			mt.executeTransformation(sanitazedFilePath);
+			mt.executeTransformation(sanitazedFilePath, model_params);
 			
 			System.out.println("*******FINISHED THE OVERALL TRANSFORMATION*******");
 		}
