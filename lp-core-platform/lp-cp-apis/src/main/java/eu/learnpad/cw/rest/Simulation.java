@@ -42,7 +42,7 @@ public interface Simulation {
 	 * @throws LpRestException
 	 */
 	// <host>/learnpad/cw/corefacade/simulation/start/{modelsetid}?currentUser=<name_of_user>
-	@Path("/simulation/start/{modelsetid}")
+	@Path("/simulation/start/{modelid}")
 	@POST
 	String startSimulation(@PathParam("modelid") String modelId,
 			@QueryParam("currentuser") String currentUser,

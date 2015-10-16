@@ -24,6 +24,11 @@ import java.util.List;
 import eu.learnpad.sim.CoreFacade;
 import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
+import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
+import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
+import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
+import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 
 /*
  * The methods inherited form the CoreFacade in this
@@ -60,5 +65,34 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 		return null;
 	}
 
+	@Override
+	public void receiveProcessStartEvent(ProcessStartEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void receiveProcessEndEvent(ProcessEndEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void receiveTaskStartEvent(TaskStartEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void receiveTaskEndEvent(TaskEndEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) {
+		// TODO Auto-generated method stub
+
+	}
 
 }

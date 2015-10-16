@@ -30,12 +30,14 @@
 	</parent>
 
 	<artifactId>lp-cw-component-service</artifactId>
-	<packaging>pom</packaging>
-	<name>Learn PAd - Collaborative Workspace - Component - Service</name>
+	<packaging>jar</packaging>
+	<name>Learn PAd - Collaborative Workspace - Component - Script Service</name>
 
-	<modules>
-		<module>lp-cw-component-service-api</module>
-		<module>lp-cw-component-service-default</module>
-		<module>lp-cw-component-service-script</module>
-	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>eu.learnpad</groupId>
+			<artifactId>lp-cw-bridge-implementation</artifactId>
+			<version>${learnpad.version}</version>
+		</dependency>
+	</dependencies>
 </project>

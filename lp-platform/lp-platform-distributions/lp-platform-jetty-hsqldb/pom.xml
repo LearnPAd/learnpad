@@ -45,7 +45,7 @@
 		<dependency>
 			<groupId>org.xwiki.platform</groupId>
 			<artifactId>xwiki-platform-store-filesystem-attachments</artifactId>
-			<version>7.0</version>
+			<version>${platform.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.xwiki.platform</groupId>
@@ -61,43 +61,13 @@
 		</dependency>
 		<dependency>
 			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cp-controllers-api</artifactId>
-			<version>${learnpad.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>eu.learnpad</groupId>
 			<artifactId>lp-cp-apis</artifactId>
 			<version>${learnpad.version}</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-bridge-importer-api</artifactId>
-			<version>${learnpad.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-bridge-importer-server</artifactId>
-			<version>${learnpad.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-component-service-api</artifactId>
-			<version>${learnpad.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-component-service-default</artifactId>
-			<version>${learnpad.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-component-service-script</artifactId>
+			<artifactId>lp-cw-component-service</artifactId>
 			<version>${learnpad.version}</version>
 			<type>jar</type>
 		</dependency>
@@ -120,6 +90,18 @@
 					<artifactId>slf4j-log4j12</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.xwiki.contrib</groupId>
+			<artifactId>xff-filter-stream</artifactId>
+			<version>0.3.1</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.xwiki.contrib</groupId>
+			<artifactId>xff-rest-api</artifactId>
+			<version>0.3.1</version>
+			<type>jar</type>
 		</dependency>
 	</dependencies>
 

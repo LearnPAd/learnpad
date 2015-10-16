@@ -5,7 +5,6 @@
  */
 package eu.learnpad.ontology.transformation;
 
-import eu.learnpad.ontology.config.APP;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +15,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.inject.Singleton;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
@@ -24,6 +24,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+
+import eu.learnpad.ontology.config.APP;
 
 /**
  * Simple XSLT based model transformator.

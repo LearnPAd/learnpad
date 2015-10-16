@@ -19,6 +19,8 @@
  */
 package eu.learnpad.core.impl.cw;
 
+import java.util.Collection;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
@@ -33,6 +35,9 @@ import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.cw.BridgeInterface;
 import eu.learnpad.cw.Controller;
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.sim.rest.data.UserData;
 
 /*
@@ -128,5 +133,19 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String attachmentName = String.format("%s.%s", modelSetId, type);
 		return XWikiRestUtils.getAttachment(RestResource.CORE_REPOSITORY_WIKI,
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName);
+	}
+
+	@Override
+	public String startSimulation(String modelId, String currentUser,
+			Collection<UserData> potentialUsers) throws LpRestException {
+		return this.sim.addProcessInstance(modelId, potentialUsers, currentUser);
+	}
+
+	@Override
+	public Recommendations getRecommendations(String modelSetId,
+			String artifactId, String userId) throws LpRestException {
+		Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userId, "it-seems-it-has-no-meaning");
+//		Recommendations rec = new Recommendations();
+		return rec;
 	}
 }

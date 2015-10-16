@@ -24,12 +24,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Provider;
+import javax.inject.Singleton;
 import javax.ws.rs.Path;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -63,11 +65,14 @@ import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.rest.data.Feedback;
 import eu.learnpad.cw.rest.data.Feedbacks;
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.sim.rest.data.UserData;
 
 @Component
+@Singleton
 @Named("eu.learnpad.cw.CWXwikiBridge")
 @Path("/learnpad/cw/bridge")
-public class CWXwikiBridge extends XwikiBridge {
+public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 	private final String LEARNPAD_SPACE = "LearnPAdCode";
 	private final String FEEDBACK_CLASS_PAGE = "FeedbackClass";
 	private final String FEEDBACK_CLASS = String.format("%s.%s",
@@ -263,5 +268,19 @@ public class CWXwikiBridge extends XwikiBridge {
 			feedbacks.add(feedback);
 		}
 		return feedbacks;
+	}
+
+	@Override
+	public Recommendations getRecommendations(String modelSetId,
+			String artifactId, String userId) throws LpRestException {
+		return this.corefacade.getRecommendations(modelSetId, artifactId,
+				userId);
+	}
+
+	@Override
+	public String startSimulation(String modelId, String currentUser,
+			Collection<UserData> potentialUsers) throws LpRestException {
+		return this.corefacade.startSimulation(modelId, currentUser,
+				potentialUsers);
 	}
 }
