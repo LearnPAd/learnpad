@@ -3,7 +3,11 @@
 
 module ado2xwiki;
 
-create OUT : XWIKI from IN : ADOXX;
+create OUT : XWIKI from IN : ADOXX, PARAMS : Parameter;
+
+helper def : getModelSetId() : String =
+	Parameter!Params.allInstances()->first().fileName;
+
 
 -- This helper stores an integer value used to assign an ID to each generated Object
 helper def: curObj : Integer = 0;
@@ -70,7 +74,9 @@ rule RootWebHome {
 	-----------------------  Static WebHome  -----------------------
 	p: XWIKI!Page (
 	   	title <- 'Home',
-		parent <- 'Main.WebHome',
+		parent <- '',
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
 		name <- 'WebHome',
 		content <- '{{include reference="LPCode.ModelSetWebHome" /}}'
 	),
@@ -81,12 +87,12 @@ rule RootWebHome {
 	msc_p1:XWIKI!Property (
 		name <- 'id',
 		type <- 'String',
-		value <- 'id????' --which id?
+		value <- thisModule.getModelSetId()
 	),
 	msc_p2:XWIKI!Property (
 		name <- 'name',
 		type <- 'String',
-		value <- 'name????' --which name?
+		value <- 'Set of models' --TODO: there is no model set name defined in our process
 	)
 	do {
 		thisModule.documentRoot <- t;
