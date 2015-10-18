@@ -17,23 +17,25 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.cw.service;
+package eu.learnpad.cw;
 
-import java.util.List;
+import java.util.Collection;
+
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 
 import org.xwiki.component.annotation.Role;
 
+import eu.learnpad.exception.LpRestException;
+import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.sim.rest.data.UserData;
+
 @Role
-public interface Learnpad {
-	String getName(String id) throws LearnpadException;
-	
-	String getType(String id) throws LearnpadException;
+public interface UICWBridge {
+	Recommendations getRecommendations(String modelSetId, String artifactId,
+			String userId) throws LpRestException;
 
-	String getDocumentation(String id) throws LearnpadException;
-
-	String getURL(String id) throws LearnpadException;
-
-	List<String> getIncomings(String id) throws LearnpadException;
-
-	List<String> getOutgoings(String id) throws LearnpadException;
+	String startSimulation(@PathParam("modelid") String modelId,
+			@QueryParam("currentuser") String currentUser,
+			Collection<UserData> potentialUsers) throws LpRestException;
 }

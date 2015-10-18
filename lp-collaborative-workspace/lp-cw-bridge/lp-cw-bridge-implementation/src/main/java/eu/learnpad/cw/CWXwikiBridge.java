@@ -66,12 +66,13 @@ import eu.learnpad.cw.rest.data.Feedback;
 import eu.learnpad.cw.rest.data.Feedbacks;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.sim.rest.data.UserData;
 
 @Component
 @Singleton
 @Named("eu.learnpad.cw.CWXwikiBridge")
 @Path("/learnpad/cw/bridge")
-public class CWXwikiBridge extends XwikiBridge {
+public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 	private final String LEARNPAD_SPACE = "LearnPAdCode";
 	private final String FEEDBACK_CLASS_PAGE = "FeedbackClass";
 	private final String FEEDBACK_CLASS = String.format("%s.%s",
@@ -268,12 +269,18 @@ public class CWXwikiBridge extends XwikiBridge {
 		}
 		return feedbacks;
 	}
-	
-	public Recommendations getRecommendations(String modelSetId, String artifactId, String userId) throws LpRestException{
-// Not sure yet if usedID is actually a parameter of if it can be queried
-// to XWIKI .... probably not		
-//		String userId;
-		Recommendations rec = this.corefacade.getRecommendations(modelSetId, artifactId, userId);
-		return rec;
+
+	@Override
+	public Recommendations getRecommendations(String modelSetId,
+			String artifactId, String userId) throws LpRestException {
+		return this.corefacade.getRecommendations(modelSetId, artifactId,
+				userId);
+	}
+
+	@Override
+	public String startSimulation(String modelId, String currentUser,
+			Collection<UserData> potentialUsers) throws LpRestException {
+		return this.corefacade.startSimulation(modelId, currentUser,
+				potentialUsers);
 	}
 }

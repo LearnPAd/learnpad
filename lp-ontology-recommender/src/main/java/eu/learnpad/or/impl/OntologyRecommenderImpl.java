@@ -68,9 +68,15 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         Recommendations recomms = new Recommendations();
         Experts experts = new Experts();
         List<BusinessActor> businessActors = new ArrayList<BusinessActor>();
-        BusinessActor businessActor = new BusinessActor();
-        businessActor.setName("Jean");
-        businessActors.add(businessActor);
+        BusinessActor businessActor1 = new BusinessActor();
+        BusinessActor businessActor2 = new BusinessActor();
+        businessActor1.setName("Jean");
+        businessActor1.setEmail("jean@localhost.org");
+        businessActor1.setPhoneNumber("+33123456789");
+        businessActors.add(businessActor1);
+        businessActor2.setName("Sandro");
+        businessActor2.setEmail("sandro@localhost.org");
+        businessActors.add(businessActor2);
 		experts.setBusinessActors(businessActors);
         recomms.setExperts(experts);
         return recomms;

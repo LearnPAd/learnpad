@@ -45,5 +45,11 @@
 			<version>${platform.version}</version>
 			<type>xar</type>
 		</dependency>
+		<dependency>
+			<groupId>org.xwiki.platform</groupId>
+			<artifactId>xwiki-platform-panels-ui</artifactId>
+			<version>${platform.version}</version>
+			<type>xar</type>
+		</dependency>
 	</dependencies>
 </project>

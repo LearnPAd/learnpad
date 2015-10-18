@@ -61,43 +61,13 @@
 		</dependency>
 		<dependency>
 			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cp-controllers-api</artifactId>
-			<version>${learnpad.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>eu.learnpad</groupId>
 			<artifactId>lp-cp-apis</artifactId>
 			<version>${learnpad.version}</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
 			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-bridge-importer-api</artifactId>
-			<version>${learnpad.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-bridge-importer-server</artifactId>
-			<version>${learnpad.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-component-service-api</artifactId>
-			<version>${learnpad.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-component-service-default</artifactId>
-			<version>${learnpad.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-component-service-script</artifactId>
+			<artifactId>lp-cw-component-service</artifactId>
 			<version>${learnpad.version}</version>
 			<type>jar</type>
 		</dependency>

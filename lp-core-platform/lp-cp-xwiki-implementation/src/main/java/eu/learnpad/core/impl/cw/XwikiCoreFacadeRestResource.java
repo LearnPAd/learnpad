@@ -21,6 +21,7 @@ package eu.learnpad.core.impl.cw;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
 import javax.ws.rs.client.Client;
@@ -32,7 +33,10 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.io.IOUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.CoreFacade;
@@ -49,8 +53,6 @@ import eu.learnpad.sim.rest.data.UserData;
 public class XwikiCoreFacadeRestResource extends RestResource implements
 		CoreFacade {
 	
-	eu.learnpad.sim.BridgeInterface sim;
-
 	public XwikiCoreFacadeRestResource() {
 		this("localhost", 8080);
 	}
@@ -59,7 +61,6 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 			int coreFacadeHostPort) {
 		// This constructor could change in the future
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
-		this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
 	}
 
 	public void updateConfiguration(String coreFacadeHostname,
@@ -117,7 +118,46 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 	@Override
 	public String startSimulation(String modelId, String currentUser,
 			Collection<UserData> potentialUsers) throws LpRestException {
-		return this.sim.addProcessInstance(modelId, potentialUsers, currentUser);
+		HttpClient httpClient = RestResource.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/simulation/start/%s",
+				RestResource.REST_URI, modelId);
+		PostMethod postMethod = new PostMethod(uri);
+		postMethod.addRequestHeader("Accept", "application/json");
+
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("currentuser", currentUser);
+		postMethod.setQueryString(queryString);
+
+		StringRequestEntity requestEntity = null;
+		ObjectMapper om = new ObjectMapper();
+		String potentialUsersJson = "[]";
+		try {
+			potentialUsersJson = om.writeValueAsString(potentialUsers);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			requestEntity = new StringRequestEntity(potentialUsersJson,
+					"application/json", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		postMethod.setRequestEntity(requestEntity);
+		
+		try {
+			httpClient.executeMethod(postMethod);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			return IOUtils.toString(postMethod.getResponseBodyAsStream());
+		} catch (IOException e) {
+			return null;
+		}
 	}
 
 	@Override

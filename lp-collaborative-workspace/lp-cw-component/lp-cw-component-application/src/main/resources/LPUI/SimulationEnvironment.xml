@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -259,9 +260,13 @@
   </object>
   <content>{{velocity}}
 #set ($modelid = $request.getParameter('modelid'))
-#set ($simulationURL = "$xwiki.parseGroovyFromPage('LPCode.CPAPI').startSimulation($modelid, 'XWiki.Admin', '[]')")
-{{iframe name="simulation-iframe" height="100px" url="http://localhost:8081/${simulationURL}"}}
-No iframe support for your browser!
-{{/iframe}}
+## TODO: Replace the fake URL by the correct call to the API
+##set ($simulationURL = "$services.learnpad.startSimulation($modelid, 'XWiki.Admin', [])")
+#set ($simulationURL = "uisingleprocess?processid=SUAPdemo")
+{{html clean="false"}}
+&lt;iframe id="simulation-iframe" width="100%" src="http://localhost:8081/${simulationURL}"&gt;
+Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
+&lt;/iframe&gt;
+{{/html}}
 {{/velocity}}</content>
 </xwikidoc>
