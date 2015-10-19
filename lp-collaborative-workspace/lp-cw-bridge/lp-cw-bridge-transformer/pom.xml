@@ -77,11 +77,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.m2m.atl</groupId>
-			<artifactId>driver.emf4atl</artifactId>
-			<version>3.4.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.m2m.atl</groupId>
 			<artifactId>emftvm</artifactId>
 			<version>3.6.0</version>
 		</dependency>

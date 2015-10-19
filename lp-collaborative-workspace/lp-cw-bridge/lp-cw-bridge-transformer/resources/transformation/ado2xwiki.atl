@@ -18,23 +18,46 @@ helper def: resetCurObj() : OclAny = thisModule.refSetValue('curObj', 0);
 
 helper context String def : name : String = self.substring(self.lastIndexOf('!')+2, self.size());
 
-helper context String def : standardizeModelType : String = if self='Business process diagram (BPMN 2.0)' then 
-																'bpmn' 
-															else 
-																if self='Competency model' then
-																	'cm'
-																else if self='BMM' then
-																	'bmm'
-																	else if self='Document and Knowledge model' then
-																		'dkm'
-																		else if self='Organizational structure' then
-																			'os'
-																			else ''
-																			endif
-																		endif
-																	endif
-																endif
-															endif;
+helper context String def : escapeId : String = self.regexReplaceAll('\\.', '\\\\.');
+
+helper def : mapModelType : Map(String, String) = Map {
+	('Business process diagram (BPMN 2.0)', 'bpmn'),
+	('Competency model', 'cm'),
+	('BMM', 'bmm'),
+	('Document and Knowledge model', 'dkm'),
+	('Organizational structure', 'omm')
+};
+helper context String def : mapStandardModelType : String = if thisModule.mapModelType.containsKey(self) then thisModule.mapModelType.get(self) else self endif;
+
+helper def : mapInstanceType : Map(String, String) = Map {
+	-- Business Process
+	('Task', 'bp-task'),
+	('Sub-Process', 'bpmn-process'),
+	('Start Event', 'bpmn-event-start'),
+	('Intermediate Event (boundary)', 'bpmn-event-intermediate'),
+	('Intermediate Event (sequence flow)', 'bpmn-event-intermediate'),
+	('End Event', 'bpmn-event-end'),
+	('Exclusive Gateway', 'bpmn-gateway-exclusive'),
+	('Non-exclusive Gateway', 'bpmn-gateway-nonexclusive'),
+	('Pool', 'bpmn-pool'),
+	('Pool (collapsed)', 'bpmn-pool'),
+	('Lane', 'bp-lane'),
+	('Data Object', 'bpmn-data-object'),
+	('Text Annotation', 'bpmn-annotation'),
+	-- Competency Model
+	('Competency', 'cm-competency'),
+	-- BMM
+	('Learning Goal', 'bmm-learning-goal'),
+	('Group (BMM)', 'bmm-group'),
+	-- Document and Knowledge model
+	('Document', 'dkm-document'),
+	('Group', 'dkm-group'),
+	-- Organizational structure
+	('Organizational unit', 'omm-unit'),
+	('Role', 'omm-role'),
+	('Performer', 'omm-performer')
+};
+helper context String def : mapStandardInstanceType : String = if thisModule.mapInstanceType.containsKey(self) then thisModule.mapInstanceType.get(self) else self endif;
 
 helper context ADOXX!INSTANCEType def : relatedIncomingConnector : Sequence(ADOXX!COLLECTORType) =
 	self.refImmediateComposite().cONNECTOR->select(e | ((e.tO.class = self.class) and (e.tO.instance = self.name))).flatten();
@@ -78,10 +101,13 @@ rule RootWebHome {
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
 		name <- 'WebHome',
-		content <- '{{include reference="LPCode.ModelSetWebHome" /}}'
+		content <- '{{include reference="LPCode\\.ModelSetWebHome" /}}'
 	),
 	msc:XWIKI!Object (
 		className <- 'LPCode.ModelSetClass',
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		pageName <- 'WebHome',
 		property <- Sequence{msc_p1, msc_p2}
 	),
 	msc_p1:XWIKI!Property (
@@ -112,11 +138,16 @@ rule MODELType2WebHome {
 	to p: XWIKI!Page (
 	   	title <- s.name,
 		parent <- 'WebHome',
-		name <- s.id
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		name <- s.id,
+		content <- ''
 	),
 	mc:XWIKI!Object (
 		className <- 'LPCode.ModelClass',
 		number <- thisModule.curObj,
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
 		pageName <- s.id,
 		property <- Sequence{mc_p1, mc_p2, mc_p3}
 	),
@@ -133,23 +164,11 @@ rule MODELType2WebHome {
 	mc_p3:XWIKI!Property (
 		name <- 'type',
 		type <- 'StaticList',
-		value <- s.modeltype.standardizeModelType
-	),
-	xwiki:XWIKI!Object (
-		className <- 'XWiki.DocumentSheetBinding',
-		number <- thisModule.curObj,
-		pageName <- s.id,
-		property <- Sequence{xwiki_p1}
-	),
-	xwiki_p1:XWIKI!Property (
-		name <- 'sheet',
-		type <- 'string',
-		value <- 'LPCode.ModelSheet'	
+		value <- s.modeltype.mapStandardModelType
 	)
 	do {
-		thisModule.documentRoot.page<-p;
-		thisModule.documentRoot.object <- mc ;
-		thisModule.documentRoot.object <- xwiki ;
+		thisModule.documentRoot.page <- p;
+		thisModule.documentRoot.object <- mc;
 		
 	}
 }
@@ -160,16 +179,26 @@ rule INSTANCEType2Page {
 	-----------------------  obj.XXXXX  ----------------------- 
 	to t_p: XWIKI!Page (
 	   	title <- s.name,
-		parent <- s.refImmediateComposite().id, --modelid 
-		comment <- s.id
+		parent <- s.refImmediateComposite().id.escapeId, --modelsetid
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		name <- s.id,
+		content <- ''
 	),
 	------------------  objects\LPCode\BaseElementClass  ------------------
 	bec:XWIKI!Object (
 		className <- 'LPCode.BaseElementClass',
 		number <- thisModule.curObj,
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
 		pageName <- s.id,
-		property <- Sequence{bec_p1, bec_p2, bec_p3, bec_p4}->asSequence()
-	), 
+		property <- Sequence{bec_p0, bec_p1, bec_p2, bec_p3, bec_p4}->asSequence()
+	),
+	bec_p0:XWIKI!Property (
+		name <- 'modelid',
+		type <- 'String',
+		value <- s.refImmediateComposite().id
+	),
 	bec_p1:XWIKI!Property (
 		name <- 'id',
 		type <- 'String',
@@ -183,29 +212,16 @@ rule INSTANCEType2Page {
 	bec_p3:XWIKI!Property (
 		name <- 'type',
 		type <- 'StaticList',
-		value <- s.class
+		value <- s.class.mapStandardInstanceType
 	),
 	bec_p4:XWIKI!Property (
 		name <- 'documentation',
 		type <- 'TextArea',
 		value <- ''
-	),
-	----------------  objects\XWiki\DocumentSheetBinding  ----------------
-	xwiki:XWIKI!Object (
-		className <- 'XWiki.DocumentSheetBinding',
-		number <- thisModule.curObj,
-		pageName <- s.id,
-		property <- Sequence{xwiki_p1}
-	), 
-	xwiki_p1:XWIKI!Property (
-		name <- 'sheet',
-		type <- 'String',
-		value <- 'LPCode.BaseElementSheet'	
 	)
 	do {
-		thisModule.documentRoot.page<-t_p;
+		thisModule.documentRoot.page <- t_p;
 		thisModule.documentRoot.object <- bec;
-		thisModule.documentRoot.object <- xwiki;
 		
 		-- Relazioni Incoming--
 		for (e in s.relatedIncomingConnector) {
@@ -228,6 +244,8 @@ rule CONNECTORType2Page(i: ADOXX!INSTANCEType, c:ADOXX!CONNECTORType, type: Stri
 	to lc:XWIKI!Object (
 		className <- 'LPCode.LinkClass',
 		number <- objNo,
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
 		pageName <- i.id,
 		property <- Sequence{lc_p1, lc_p2, lc_p3}
 	), 
