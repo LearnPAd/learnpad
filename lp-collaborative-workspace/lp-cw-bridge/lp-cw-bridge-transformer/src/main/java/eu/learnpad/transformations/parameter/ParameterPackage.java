@@ -1,6 +1,6 @@
 /**
  */
-package eu.learnpad.transformations.Parameter.Parameter;
+package eu.learnpad.transformations.parameter;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EPackage;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * @see eu.learnpad.transformations.Parameter.Parameter.ParameterFactory
+ * @see eu.learnpad.transformations.parameter.ParameterFactory
  * @model kind="package"
  * @generated
  */
@@ -53,14 +53,14 @@ public interface ParameterPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	ParameterPackage eINSTANCE = eu.learnpad.transformations.Parameter.Parameter.impl.ParameterPackageImpl.init();
+	ParameterPackage eINSTANCE = eu.learnpad.transformations.parameter.impl.ParameterPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link eu.learnpad.transformations.Parameter.Parameter.impl.ParamsImpl <em>Params</em>}' class.
+	 * The meta object id for the '{@link eu.learnpad.transformations.Parameter.impl.ParamsImpl <em>Params</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see eu.learnpad.transformations.Parameter.Parameter.impl.ParamsImpl
-	 * @see eu.learnpad.transformations.Parameter.Parameter.impl.ParameterPackageImpl#getParams()
+	 * @see eu.learnpad.transformations.Parameter.impl.ParamsImpl
+	 * @see eu.learnpad.transformations.Parameter.impl.ParameterPackageImpl#getParams()
 	 * @generated
 	 */
 	int PARAMS = 0;
@@ -94,21 +94,21 @@ public interface ParameterPackage extends EPackage {
 
 
 	/**
-	 * Returns the meta object for class '{@link eu.learnpad.transformations.Parameter.Parameter.Params <em>Params</em>}'.
+	 * Returns the meta object for class '{@link eu.learnpad.transformations.parameter.Params <em>Params</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Params</em>'.
-	 * @see eu.learnpad.transformations.Parameter.Parameter.Params
+	 * @see eu.learnpad.transformations.parameter.Params
 	 * @generated
 	 */
 	EClass getParams();
 
 	/**
-	 * Returns the meta object for the attribute '{@link eu.learnpad.transformations.Parameter.Parameter.Params#getFileName <em>File Name</em>}'.
+	 * Returns the meta object for the attribute '{@link eu.learnpad.transformations.parameter.Params#getFileName <em>File Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>File Name</em>'.
-	 * @see eu.learnpad.transformations.Parameter.Parameter.Params#getFileName()
+	 * @see eu.learnpad.transformations.parameter.Params#getFileName()
 	 * @see #getParams()
 	 * @generated
 	 */
@@ -138,11 +138,11 @@ public interface ParameterPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link eu.learnpad.transformations.Parameter.Parameter.impl.ParamsImpl <em>Params</em>}' class.
+		 * The meta object literal for the '{@link eu.learnpad.transformations.Parameter.impl.ParamsImpl <em>Params</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see eu.learnpad.transformations.Parameter.Parameter.impl.ParamsImpl
-		 * @see eu.learnpad.transformations.Parameter.Parameter.impl.ParameterPackageImpl#getParams()
+		 * @see eu.learnpad.transformations.Parameter.impl.ParamsImpl
+		 * @see eu.learnpad.transformations.Parameter.impl.ParameterPackageImpl#getParams()
 		 * @generated
 		 */
 		EClass PARAMS = eINSTANCE.getParams();
