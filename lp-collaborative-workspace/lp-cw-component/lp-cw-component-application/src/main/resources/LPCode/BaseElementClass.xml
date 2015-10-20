@@ -123,7 +123,7 @@
       <unmodifiable>0</unmodifiable>
       <validationMessage/>
       <validationRegExp/>
-      <values>bp-task=Task|bp-event-start=Start Event|bp-event-end=End Event|bp-event-intermediate-boundary=Intermediate Event (boundary)|bp-event-intermediate-sequenceflow=Intermediate Event (sequence flow)|bp-pool=Pool (collapsed)|bp-lane=Lane|bp-data-object=Data Object|bp-process=Sub-Process|bp-gateway-exclusive=Exclusive Gateway|bp-gateway-nonexclusive=Non-exclusive Gateway|bp-annotation=Text Annotation</values>
+      <values>bpmn-task=Task|bpmn-process=Sub-Process|bpmn-event-start=Start Event|bpmn-event-end=End Event|bpmn-event-intermediate=Intermediate Event|bpmn-gateway-exclusive=Exclusive Gateway|bpmn-gateway-nonexclusive=Non-exclusive Gateway|bpmn-pool=Pool|bpmn-lane=Lane|bpmn-data-object=Data Object|bpmn-annotation=Text Annotation|cm-competency=Competency|bmm-learning-goal=Learning Goal|bmm-group=Group|dkm-document=Document|dkm-group=Group|omm-unit=Unit|omm-role=Role|omm-perfomer=Performer</values>
       <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
     </type>
   </class>
