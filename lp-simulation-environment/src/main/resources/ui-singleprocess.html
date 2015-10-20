@@ -118,6 +118,10 @@
              alert("WebSocket not supported by this browser");
          }
          processInstanciator(#serveripaddress#);
+
+         // This element can cause page height change, so we need to
+         // monitor it
+         heightMon.monitor('#formPosition');
         </script>
 
     </body>

@@ -163,6 +163,12 @@
              alert("WebSocket not supported by this browser");
          }
          var processReceiver = processReceiver(#serveripaddress#);
+
+         // These elements can cause page height change, so we need to
+         // monitor them
+         heightMon.monitor('#processTable');
+         heightMon.monitor('#formPosition');
+         heightMon.monitor('#processInfo');
         </script>
 
     </body>

@@ -139,6 +139,11 @@ function task(address, taskid, user) {
                     '</div>' +
                     '</div>'
                 );
+
+                // this element can cause page height change, so we need to
+                // monitor it
+                heightMon.monitor('#accordion' + data.processid);
+
             }
 
             var taskDiv = document.createElement('div');
@@ -301,6 +306,9 @@ function task(address, taskid, user) {
             break;
 
         }
+
+        // some events can cause height change
+        heightMon.checkForChangeNotification();
     };
 
     newTask._onclose = function(m) {

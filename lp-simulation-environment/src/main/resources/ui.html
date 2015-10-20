@@ -252,6 +252,10 @@
                  return false;
              });
          }
+
+         // this element can cause page height change, so we need to
+         // monitor it
+         heightMon.monitor('#taskstable');
         </script>
 
     </body>

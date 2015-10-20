@@ -61,6 +61,9 @@ function taskReceiver(address, user) {
             delete newTaskReceiver.activeTasks[msg.taskid];
             break;
         }
+
+        // some events can cause height change
+        heightMon.checkForChangeNotification();
     };
 
     newTaskReceiver._onclose = function(m) {
