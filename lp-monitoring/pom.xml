@@ -36,7 +36,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>eu.learnpad.monitoring.glimpse.MainMonitoring</mainClass>
+							<mainClass>eu.learnpad.simulator.mon.MainMonitoring</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -58,7 +58,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>eu.learnpad.monitoring.glimpse.MainMonitoring</mainClass>
+							<mainClass>eu.learnpad.simulator.mon.MainMonitoring</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
