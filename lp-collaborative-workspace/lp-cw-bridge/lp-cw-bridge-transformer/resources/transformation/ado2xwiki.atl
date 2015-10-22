@@ -218,7 +218,7 @@ rule INSTANCEType2Page {
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
 		name <- s.id,
-		content <- ''
+		content <- let c :String = s.aTTRIBUTE->select(e | e.name='Description' and e.type='STRING')->collect(c | c.value)->first() in if c.oclIsUndefined() then '' else c endif
 	),
 	------------------  objects\LPCode\BaseElementClass  ------------------
 	bec:XWIKI!Object (
