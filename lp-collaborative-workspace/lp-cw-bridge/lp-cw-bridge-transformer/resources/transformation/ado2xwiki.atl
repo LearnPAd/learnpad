@@ -88,7 +88,7 @@ helper def : mapInstanceType : Map(String, String) = Map {
 	('Non-exclusive Gateway', 'bpmn-gateway-nonexclusive'),
 	('Pool', 'bpmn-pool'),
 	('Pool (collapsed)', 'bpmn-pool'),
-	('Lane', 'bp-lane'),
+	('Lane', 'bpmn-lane'),
 	('Data Object', 'bpmn-data-object'),
 	('Text Annotation', 'bpmn-annotation'),
 	-- Competency Model
@@ -278,7 +278,7 @@ rule CONNECTORType2Object {
 	lco_p2:XWIKI!Property (
 		name <- 'type',
 		type <- 'StaticList',
-		value <- 'incoming'
+		value <- 'outgoing'
 	),
 	lco_p3:XWIKI!Property (
 		name <- 'uri',
@@ -301,7 +301,7 @@ rule CONNECTORType2Object {
 	lci_p2:XWIKI!Property (
 		name <- 'type',
 		type <- 'StaticList',
-		value <- 'outgoing'
+		value <- 'incoming'
 	),
 	lci_p3:XWIKI!Property (
 		name <- 'uri',
