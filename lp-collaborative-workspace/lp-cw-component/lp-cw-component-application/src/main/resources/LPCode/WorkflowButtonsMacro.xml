@@ -158,24 +158,26 @@
     <guid>ec625aef-4118-4876-8488-fbcc5faba103</guid>
     <property>
       <code>(% class="row" %)(((
-  (% class="col-xs-4" %)(((
+(% class="col-xs-4" %)(((
 == Previous steps ==
 {{linkbuttons type="incoming" align="left" cssClass="btn-default" icon="left" iconAlign="left" block="true"}}
-bp-event
-bp-gateway
-bp-task
-bp-process
+bpmn-event
+bpmn-gateway
+bpmn-task
+bpmn-process
 {{/linkbuttons}}
-  )))(% class="col-xs-4" %)((()))(% class="col-xs-4" %)(((
-    (% class="text-right" %)
+)))
+(% class="col-xs-4" %)((()))
+(% class="col-xs-4" %)(((
+(% class="text-right" %)
 == Next steps ==
 {{linkbuttons type="outgoing" align="right" icon="right" iconAlign="right" block="true"}}
-bp-event
-bp-gateway
-bp-task
-bp-process
+bpmn-event
+bpmn-gateway
+bpmn-task
+bpmn-process
 {{/linkbuttons}}
-  )))
+)))
 )))</code>
     </property>
     <property>
