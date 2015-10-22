@@ -51,7 +51,9 @@ public class InferencerTest extends AbstractUnitTest {
         assertNotNull(inferencer.getInferedModel());
         assertTrue("Inferred triples > 0", inferencer.getInferedModel().size()>0);
     
-        inferencer.getModel().write(System.out, "Turtle");
+//        inferencer.getModel().write(System.out, "Turtle");
+        
+        inferencer.getInferedModel().write(System.out, "Turtle");
     
 //        Property prop = modelSet.getProperty("rdf:type");
 //        Resource object = modelSet.getOntResource(APP.NS.ARCHI+"BusinessRole");

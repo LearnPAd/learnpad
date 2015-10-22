@@ -223,7 +223,7 @@ class XsltURIResolver implements URIResolver {
     @Override
     public Source resolve(String href, String base) throws TransformerException {
         try{
-              InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(href);
+              InputStream inputStream = this.getClass().getResourceAsStream(href);
               return new StreamSource(inputStream);
         }
         catch(Exception ex){

@@ -9,24 +9,17 @@ import com.hp.hpl.jena.ontology.OntModel;
 import eu.learnpad.ontology.AbstractUnitTest;
 import java.io.FileWriter;
 import java.io.IOException;
-import javax.inject.Inject;
-import org.jglue.cdiunit.AdditionalClasses;
-import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
-import org.junit.runner.RunWith;
 
 /**
  *
  * @author sandro.emmenegger
  */
-@RunWith(CdiRunner.class)
-@AdditionalClasses({FileOntAO.class})
 public class OntAOTest extends AbstractUnitTest{
     
-    @Inject
-    OntAO ontAO;
+    OntAO ontAO = new FileOntAO();
     
     public OntAOTest() {
     }
@@ -34,16 +27,17 @@ public class OntAOTest extends AbstractUnitTest{
     /**
      * Test of getModelSet method, of class OntAO.
      */
-    @Ignore
+//    @Ignore
     @Test
     public void testGetModelSet() {
-        OntModel result = ontAO.getModelSet(TEST_MODEL_SET_ID_1);
+        OntModel result = ontAO.getModelSet(TEST_MODEL_SET_ID_TITOLO_UNICO);
         assertNotNull(result);
     }
     
     /**
      * Test of getExecutionData method, of class OntAO.
      */
+    @Ignore
     @Test
     public void testGetExecutionData() throws IOException {
         OntModel result = ontAO.getModelSet(TEST_MODEL_SET_ID_TITOLO_UNICO);
