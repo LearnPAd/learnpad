@@ -59,11 +59,12 @@ helper def : mapInstanceType : Map(String, String) = Map {
 };
 helper context String def : mapStandardInstanceType : String = if thisModule.mapInstanceType.containsKey(self) then thisModule.mapInstanceType.get(self) else self endif;
 
+-- helper connectors
 helper context ADOXX!INSTANCEType def : relatedIncomingConnector : Sequence(ADOXX!COLLECTORType) =
 	self.refImmediateComposite().cONNECTOR->select(e | ((e.tO.class = self.class) and (e.tO.instance = self.name))).flatten();
 helper context ADOXX!INSTANCEType def : relatedOutgoingConnector : Sequence(ADOXX!COLLECTORType) =
 	self.refImmediateComposite().cONNECTOR->select(e | ((e.fROM.class = self.class) and (e.fROM.instance = self.name))).flatten();
-
+--end helper connectors
 
 helper def: modeltypeFilter(): String = ADOXX!MODELType.allInstances()->
 													select(e |e.modeltype<>'KPI-Overview')->
@@ -71,8 +72,6 @@ helper def: modeltypeFilter(): String = ADOXX!MODELType.allInstances()->
 													iterate(e; filter: String = '(' |
 														filter.concat('(s.modeltype=\''+e+'\') or ')
 													).toString().regexReplaceAll('or $', ')');
-
---helper def :getInstance(class: String, instance : String):ADOXX!INSTANCEType = ADOXX!INSTANCEType.allInstances()->any(e | e.class=class and e.name=instance);
 
 helper def : instances : Map(OclAny, ADOXX!INSTANCEType) = Map{};
 helper def : loadInstances : Map(OclAny, ADOXX!INSTANCEType) =
@@ -102,8 +101,8 @@ rule RootWebHome {
 		space <- thisModule.getModelSetId(),
 		name <- 'WebHome',
 		content <- '{{include reference="LPCode\\.ModelSetWebHome" /}}'
-	),
-	msc:XWIKI!Object (
+	)
+	, msc:XWIKI!Object (
 		className <- 'LPCode.ModelSetClass',
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
@@ -129,7 +128,7 @@ rule RootWebHome {
 -----------------------  MODELType  --------------------------
 rule MODELType2WebHome {
 	from s:ADOXX!MODELType
-	--from s:ADOXX!MODELType( (s.modeltype='Organizational structure') or 
+	--from s:ADOXX!MODELType( (s.modeltype='Organizational structure') )--or 
 	--						(s.modeltype='Document and Knowledge model') or 
 	--						(s.modeltype='BMM') or 
 	--						(s.modeltype='Competency model') or 
@@ -142,8 +141,8 @@ rule MODELType2WebHome {
 		space <- thisModule.getModelSetId(),
 		name <- s.id,
 		content <- ''
-	),
-	mc:XWIKI!Object (
+	)
+	, mc:XWIKI!Object (
 		className <- 'LPCode.ModelClass',
 		number <- thisModule.curObj,
 		wiki <- 'xwiki',
@@ -169,7 +168,6 @@ rule MODELType2WebHome {
 	do {
 		thisModule.documentRoot.page <- p;
 		thisModule.documentRoot.object <- mc;
-		
 	}
 }
 
@@ -183,10 +181,10 @@ rule INSTANCEType2Page {
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
 		name <- s.id,
-		content <- ''
-	),
+		content <- ''  --damiano description
+	)
 	------------------  objects\LPCode\BaseElementClass  ------------------
-	bec:XWIKI!Object (
+	, bec:XWIKI!Object (
 		className <- 'LPCode.BaseElementClass',
 		number <- thisModule.curObj,
 		wiki <- 'xwiki',
@@ -223,14 +221,19 @@ rule INSTANCEType2Page {
 		thisModule.documentRoot.page <- t_p;
 		thisModule.documentRoot.object <- bec;
 		
-		-- Relazioni Incoming--
+		-- Relations --
 		for (e in s.relatedIncomingConnector) {
-			thisModule.incCurObj();	
+			let t: ADOXX!INSTANCEType = thisModule.getInstance(e.refImmediateComposite().name, e.fROM.class, e.fROM.instance) in 
+			thisModule.CONNECTORType2Object(s, e, t);
+			thisModule.incCurObj();
 		}
-		-- Relazioni Outgoing--
+		
 		for (e in s.relatedOutgoingConnector) {
-			thisModule.incCurObj();	
+			let t: ADOXX!INSTANCEType = thisModule.getInstance(e.refImmediateComposite().name, e.tO.class, e.tO.instance) in 
+			thisModule.CONNECTORType2Object(s, e, t);
+			thisModule.incCurObj();
 		}
+		-- Relations end --
 		
 		--reset the counter
 		thisModule.resetCurObj();
@@ -238,15 +241,14 @@ rule INSTANCEType2Page {
 }
 
 ----------------------  CONNECTORType  ----------------------
-rule CONNECTORType2Page(i: ADOXX!INSTANCEType, c:ADOXX!CONNECTORType, type: String, objNo: Integer) {
-	
+rule CONNECTORType2Object(s: ADOXX!INSTANCEType, c:ADOXX!CONNECTORType, t: ADOXX!INSTANCEType) {
 	----------------  objects\LPCode\LinkClass  ----------------
 	to lc:XWIKI!Object (
 		className <- 'LPCode.LinkClass',
-		number <- objNo,
+		number <- thisModule.curObj,
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
-		pageName <- i.id,
+		pageName <- s.id,
 		property <- Sequence{lc_p1, lc_p2, lc_p3}
 	), 
 	lc_p1:XWIKI!Property (
@@ -257,18 +259,15 @@ rule CONNECTORType2Page(i: ADOXX!INSTANCEType, c:ADOXX!CONNECTORType, type: Stri
 	lc_p2:XWIKI!Property (
 		name <- 'type',
 		type <- 'StaticList',
-		value <- type
+		value <- if(c.tO.instance=t.name) then 'incoming' else 'outgoing' endif
 	),
 	lc_p3:XWIKI!Property (
 		name <- 'uri',
 		type <- 'String',
-		value <- if(type='incoming') then 
-				thisModule.getInstance(c.refImmediateComposite().name, c.fROM.class, c.fROM.instance).id 
-			else
-				thisModule.getInstance(c.refImmediateComposite().name, c.tO.class, c.tO.instance).id
-			endif
+		value <- t.id
 	)
 	do {
 		thisModule.documentRoot.object <- lc;
 	}
+	
 }
