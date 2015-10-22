@@ -12,6 +12,7 @@ import eu.learnpad.core.impl.or.XwikiBridge;
 import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.ontology.execution.ExecutionStates;
+import eu.learnpad.ontology.recommender.Recommender;
 import eu.learnpad.or.rest.data.BusinessActor;
 import eu.learnpad.or.rest.data.Experts;
 import eu.learnpad.or.rest.data.States;
@@ -56,21 +57,21 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 
     @Override
     public Recommendations askRecommendation(String modelSetId, String artifactId, String userId, String type) throws LpRestException {
-//        Recommendations recomms = recommender.getRecommendations(modelSetId, artifactId, userId);
-        Recommendations recomms = new Recommendations();
-        Experts experts = new Experts();
-        List<BusinessActor> businessActors = new ArrayList<BusinessActor>();
-        BusinessActor businessActor1 = new BusinessActor();
-        BusinessActor businessActor2 = new BusinessActor();
-        businessActor1.setName("Jean");
-        businessActor1.setEmail("jean@localhost.org");
-        businessActor1.setPhoneNumber("+33123456789");
-        businessActors.add(businessActor1);
-        businessActor2.setName("Sandro");
-        businessActor2.setEmail("sandro@localhost.org");
-        businessActors.add(businessActor2);
-		experts.setBusinessActors(businessActors);
-        recomms.setExperts(experts);
+        Recommendations recomms = Recommender.getInstance().getRecommendations(modelSetId, artifactId, userId);
+//        Recommendations recomms = new Recommendations();
+//        Experts experts = new Experts();
+//        List<BusinessActor> businessActors = new ArrayList<BusinessActor>();
+//        BusinessActor businessActor1 = new BusinessActor();
+//        BusinessActor businessActor2 = new BusinessActor();
+//        businessActor1.setName("Jean");
+//        businessActor1.setEmail("jean@localhost.org");
+//        businessActor1.setPhoneNumber("+33123456789");
+//        businessActors.add(businessActor1);
+//        businessActor2.setName("Sandro");
+//        businessActor2.setEmail("sandro@localhost.org");
+//        businessActors.add(businessActor2);
+//		experts.setBusinessActors(businessActors);
+//        recomms.setExperts(experts);
         return recomms;
     }
 
