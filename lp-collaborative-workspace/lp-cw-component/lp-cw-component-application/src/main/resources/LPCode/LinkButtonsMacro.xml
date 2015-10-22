@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -20,29 +19,31 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc>
+<xwikidoc version="1.1">
   <web>LPCode</web>
   <name>LinkButtonsMacro</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
-  <parent>LPCode.FeedbackButtonMacro</parent>
   <creator>xwiki:XWiki.Admin</creator>
-  <author>xwiki:XWiki.Admin</author>
-  <customClass/>
-  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1443187619000</creationDate>
-  <date>1443430313000</date>
-  <contentUpdateDate>1443196496000</contentUpdateDate>
+  <parent>LPCode.FeedbackButtonMacro</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1445521281000</date>
+  <contentUpdateDate>1445521281000</contentUpdateDate>
   <version>1.1</version>
   <title>LinkButtonsMacro</title>
-  <defaultTemplate/>
-  <validationScript/>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
+  <content/>
   <object>
+    <name>LPCode.LinkButtonsMacro</name>
+    <number>0</number>
+    <className>XWiki.WikiMacroClass</className>
+    <guid>00f58ec9-458c-4310-8eed-ae9579f6a9e8</guid>
     <class>
       <name>XWiki.WikiMacroClass</name>
       <customClass/>
@@ -152,10 +153,6 @@
         <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
       </visibility>
     </class>
-    <name>LPCode.LinkButtonsMacro</name>
-    <number>0</number>
-    <className>XWiki.WikiMacroClass</className>
-    <guid>00f58ec9-458c-4310-8eed-ae9579f6a9e8</guid>
     <property>
       <code>{{velocity}}
 #set ($validElements = $xcontext.macro.content.trim().split("\r?\n"))
@@ -224,6 +221,10 @@
     </property>
   </object>
   <object>
+    <name>LPCode.LinkButtonsMacro</name>
+    <number>0</number>
+    <className>XWiki.WikiMacroParameterClass</className>
+    <guid>82549a98-4a86-4d05-82b8-585f0fe79694</guid>
     <class>
       <name>XWiki.WikiMacroParameterClass</name>
       <customClass/>
@@ -272,10 +273,6 @@
         <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
       </name>
     </class>
-    <name>LPCode.LinkButtonsMacro</name>
-    <number>0</number>
-    <className>XWiki.WikiMacroParameterClass</className>
-    <guid>82549a98-4a86-4d05-82b8-585f0fe79694</guid>
     <property>
       <defaultValue>all</defaultValue>
     </property>
@@ -290,6 +287,10 @@
     </property>
   </object>
   <object>
+    <name>LPCode.LinkButtonsMacro</name>
+    <number>1</number>
+    <className>XWiki.WikiMacroParameterClass</className>
+    <guid>d9d3f7e9-b86b-4150-bdc9-e9684a7e23dc</guid>
     <class>
       <name>XWiki.WikiMacroParameterClass</name>
       <customClass/>
@@ -338,10 +339,6 @@
         <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
       </name>
     </class>
-    <name>LPCode.LinkButtonsMacro</name>
-    <number>1</number>
-    <className>XWiki.WikiMacroParameterClass</className>
-    <guid>d9d3f7e9-b86b-4150-bdc9-e9684a7e23dc</guid>
     <property>
       <defaultValue>link</defaultValue>
     </property>
@@ -356,6 +353,10 @@
     </property>
   </object>
   <object>
+    <name>LPCode.LinkButtonsMacro</name>
+    <number>2</number>
+    <className>XWiki.WikiMacroParameterClass</className>
+    <guid>7869be1f-26c3-4080-915f-9bf4a867859c</guid>
     <class>
       <name>XWiki.WikiMacroParameterClass</name>
       <customClass/>
@@ -404,10 +405,6 @@
         <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
       </name>
     </class>
-    <name>LPCode.LinkButtonsMacro</name>
-    <number>2</number>
-    <className>XWiki.WikiMacroParameterClass</className>
-    <guid>7869be1f-26c3-4080-915f-9bf4a867859c</guid>
     <property>
       <defaultValue>btn-primary</defaultValue>
     </property>
@@ -422,6 +419,10 @@
     </property>
   </object>
   <object>
+    <name>LPCode.LinkButtonsMacro</name>
+    <number>3</number>
+    <className>XWiki.WikiMacroParameterClass</className>
+    <guid>b56f7550-7d0c-4439-b469-8fb1a28533c3</guid>
     <class>
       <name>XWiki.WikiMacroParameterClass</name>
       <customClass/>
@@ -470,10 +471,6 @@
         <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
       </name>
     </class>
-    <name>LPCode.LinkButtonsMacro</name>
-    <number>3</number>
-    <className>XWiki.WikiMacroParameterClass</className>
-    <guid>b56f7550-7d0c-4439-b469-8fb1a28533c3</guid>
     <property>
       <defaultValue>right</defaultValue>
     </property>
@@ -488,6 +485,10 @@
     </property>
   </object>
   <object>
+    <name>LPCode.LinkButtonsMacro</name>
+    <number>4</number>
+    <className>XWiki.WikiMacroParameterClass</className>
+    <guid>5fe4111d-4515-48fc-995b-77e6f17d1f9e</guid>
     <class>
       <name>XWiki.WikiMacroParameterClass</name>
       <customClass/>
@@ -536,10 +537,6 @@
         <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
       </name>
     </class>
-    <name>LPCode.LinkButtonsMacro</name>
-    <number>4</number>
-    <className>XWiki.WikiMacroParameterClass</className>
-    <guid>5fe4111d-4515-48fc-995b-77e6f17d1f9e</guid>
     <property>
       <defaultValue>center</defaultValue>
     </property>
@@ -554,6 +551,10 @@
     </property>
   </object>
   <object>
+    <name>LPCode.LinkButtonsMacro</name>
+    <number>5</number>
+    <className>XWiki.WikiMacroParameterClass</className>
+    <guid>74c51d68-0d61-47f2-86f6-95f9616a8d24</guid>
     <class>
       <name>XWiki.WikiMacroParameterClass</name>
       <customClass/>
@@ -602,10 +603,6 @@
         <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
       </name>
     </class>
-    <name>LPCode.LinkButtonsMacro</name>
-    <number>5</number>
-    <className>XWiki.WikiMacroParameterClass</className>
-    <guid>74c51d68-0d61-47f2-86f6-95f9616a8d24</guid>
     <property>
       <defaultValue>false</defaultValue>
     </property>
@@ -619,5 +616,4 @@
       <name>block</name>
     </property>
   </object>
-  <content/>
 </xwikidoc>

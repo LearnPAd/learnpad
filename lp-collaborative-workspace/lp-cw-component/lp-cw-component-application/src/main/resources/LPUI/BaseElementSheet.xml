@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -20,24 +19,21 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc>
+<xwikidoc version="1.1">
   <web>LPUI</web>
   <name>BaseElementSheet</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
-  <parent>LearnPAdCode.BaseElementClass</parent>
   <creator>xwiki:XWiki.Admin</creator>
-  <author>xwiki:XWiki.Admin</author>
-  <customClass/>
-  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1443171988000</creationDate>
-  <date>1443444324000</date>
-  <contentUpdateDate>1443444324000</contentUpdateDate>
+  <parent>LearnPAdCode.BaseElementClass</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1445521281000</date>
+  <contentUpdateDate>1445521281000</contentUpdateDate>
   <version>1.1</version>
   <title>${doc.getObject('LPCode.BaseElementClass').getProperty('name').value}</title>
-  <defaultTemplate/>
-  <validationScript/>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>

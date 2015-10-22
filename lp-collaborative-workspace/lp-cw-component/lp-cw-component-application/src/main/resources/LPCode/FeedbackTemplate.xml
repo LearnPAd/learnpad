@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -20,29 +19,31 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc>
+<xwikidoc version="1.1">
   <web>LPCode</web>
   <name>FeedbackTemplate</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
-  <parent>LPCode.FeedbackClass</parent>
   <creator>xwiki:XWiki.Admin</creator>
-  <author>xwiki:XWiki.Admin</author>
-  <customClass/>
-  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1436515802000</creationDate>
-  <date>1443522174000</date>
-  <contentUpdateDate>1443522174000</contentUpdateDate>
+  <parent>LPCode.FeedbackClass</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1445521281000</date>
+  <contentUpdateDate>1445521281000</contentUpdateDate>
   <version>1.1</version>
   <title>Feedback Template</title>
-  <defaultTemplate/>
-  <validationScript/>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
+  <content/>
   <object>
+    <name>LPCode.FeedbackTemplate</name>
+    <number>0</number>
+    <className>LPCode.FeedbackClass</className>
+    <guid>ac346e2d-6879-41e5-be5e-9aedf7d5b889</guid>
     <class>
       <name>LPCode.FeedbackClass</name>
       <customClass/>
@@ -81,10 +82,6 @@
         <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
       </id>
     </class>
-    <name>LPCode.FeedbackTemplate</name>
-    <number>0</number>
-    <className>LPCode.FeedbackClass</className>
-    <guid>ac346e2d-6879-41e5-be5e-9aedf7d5b889</guid>
     <property>
       <description/>
     </property>
@@ -92,5 +89,4 @@
       <id/>
     </property>
   </object>
-  <content/>
 </xwikidoc>

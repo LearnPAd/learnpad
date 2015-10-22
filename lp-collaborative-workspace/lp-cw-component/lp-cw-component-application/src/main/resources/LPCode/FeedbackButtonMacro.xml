@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -20,29 +19,31 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc>
+<xwikidoc version="1.1">
   <web>LPCode</web>
   <name>FeedbackButtonMacro</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
-  <parent>LPUI.BaseElementSheet</parent>
   <creator>xwiki:XWiki.Admin</creator>
-  <author>xwiki:XWiki.Admin</author>
-  <customClass/>
-  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1443185859000</creationDate>
-  <date>1443193478000</date>
-  <contentUpdateDate>1443185874000</contentUpdateDate>
+  <parent>LPUI.BaseElementSheet</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1445521281000</date>
+  <contentUpdateDate>1445521281000</contentUpdateDate>
   <version>1.1</version>
   <title>FeedbackButtonMacro</title>
-  <defaultTemplate/>
-  <validationScript/>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
+  <content/>
   <object>
+    <name>LPCode.FeedbackButtonMacro</name>
+    <number>0</number>
+    <className>XWiki.WikiMacroClass</className>
+    <guid>54fb1e1c-986c-4150-8403-a09acd1bc168</guid>
     <class>
       <name>XWiki.WikiMacroClass</name>
       <customClass/>
@@ -152,10 +153,6 @@
         <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
       </visibility>
     </class>
-    <name>LPCode.FeedbackButtonMacro</name>
-    <number>0</number>
-    <className>XWiki.WikiMacroClass</className>
-    <guid>54fb1e1c-986c-4150-8403-a09acd1bc168</guid>
     <property>
       <code>{{velocity}}
 #set ($feedbackPageName = $xwiki.parseGroovyFromPage('LPCode.RandomUUID').getRandomUUID())
@@ -192,5 +189,4 @@
       <visibility>Global</visibility>
     </property>
   </object>
-  <content/>
 </xwikidoc>
