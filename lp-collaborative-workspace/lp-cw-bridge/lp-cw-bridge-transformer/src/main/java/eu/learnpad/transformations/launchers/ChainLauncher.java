@@ -36,7 +36,7 @@ public class ChainLauncher {
 		
 		String tmpModelPath = tmpModelFolder + tmpXwikiModelName; //	tmp/xwiki_output_model.xmi
 
-		String resultFolderPath = "result/xwiki/" + basenameInputModel; 
+		String resultFolderPath = "result/";
 		
 		try {
 			
@@ -72,8 +72,8 @@ public class ChainLauncher {
 	public static void main(String[] args) throws Exception {
 
 		
-		String model_in = "resources/model/TitoloUnico.xml";
-		String model_params = "JuriTest";
+		String model_in = "resources/model/titolo-unico.xml";
+		String model_params = "titolo-unico";
 		
 		
 		
