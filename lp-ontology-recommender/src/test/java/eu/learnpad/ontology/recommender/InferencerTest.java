@@ -10,11 +10,13 @@ import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import eu.learnpad.ontology.AbstractUnitTest;
+import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.persistence.OntAO;
 import eu.learnpad.ontology.persistence.util.OntologyFileLoader;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.inject.Inject;
 import org.apache.jena.riot.Lang;
 import org.jglue.cdiunit.AdditionalClasses;
@@ -31,12 +33,9 @@ import static org.junit.Assert.*;
  *
  * @author sandro.emmenegger
  */
-@RunWith(CdiRunner.class)
-@AdditionalClasses({FileOntAO.class, OntAO.class, SimpleModelTransformator.class})
 public class InferencerTest extends AbstractUnitTest {
     
-    @Inject
-    OntAO ontAO;
+    OntAO ontAO = new FileOntAO();
     
     public InferencerTest() {
     }
@@ -44,7 +43,7 @@ public class InferencerTest extends AbstractUnitTest {
     /**
      * Test of run method, of class Inferencer.
      */
-    //@Ignore
+//    @Ignore
     @Test
     public void testRun() throws IOException {
         assertNotNull(ontAO);

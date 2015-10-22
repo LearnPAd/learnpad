@@ -5,8 +5,6 @@
  */
 package eu.learnpad.or.impl;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +15,10 @@ import eu.learnpad.ontology.execution.ExecutionStates;
 import eu.learnpad.or.rest.data.BusinessActor;
 import eu.learnpad.or.rest.data.Experts;
 import eu.learnpad.or.rest.data.States;
-import eu.learnpad.ontology.recommender.Recommender;
+import eu.learnpad.ontology.transformation.ModellingEnvironmentType;
+import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.Recommendations;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
@@ -40,22 +38,16 @@ import org.xwiki.component.phase.InitializationException;
 @Path("/learnpad/or/bridge")
 public class OntologyRecommenderImpl extends XwikiBridge implements Initializable {
     
-    private ExecutionStates executionStates;
-    
-    private Recommender recommender;
+    @Override
+    public void initialize() throws InitializationException {
+            this.corefacade = new XwikiCoreFacadeRestResource();
+    }
 
-	@Override
-	public void initialize() throws InitializationException {
-		this.corefacade = new XwikiCoreFacadeRestResource();
-		this.executionStates = new ExecutionStates();
-		this.recommender = new Recommender();
-	}
-
-	@Override
-	public void modelSetImported(String modelSetId, String type) throws LpRestException {
-		InputStream inputStream = new ByteArrayInputStream(this.corefacade.getModel(modelSetId, type));
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
+    @Override
+    public void modelSetImported(String modelSetId, String type) throws LpRestException {
+//            InputStream inputStream = new ByteArrayInputStream(this.corefacade.getModel(modelSetId, type));
+            SimpleModelTransformator.getInstance().transform(modelSetId, this.corefacade.getModel(modelSetId, type), ModellingEnvironmentType.valueOf(type.toUpperCase()));
+    }
     
     @Override
     public void sendResourceNotification(String modelSetId, String resourceId, String artifactIds, String action) throws LpRestException {
@@ -99,7 +91,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 
     @Override
     public States listExecutionStates(String userId) throws LpRestException {
-        States states = executionStates.getStatesOfLatestAddedModelSet(userId);
+        States states = ExecutionStates.getInstance().getStatesOfLatestAddedModelSet(userId);
         return states;
     }
 

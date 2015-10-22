@@ -30,8 +30,7 @@ public abstract class OntAO {
         modelSets = new HashMap<>();
         modelSetsInferencer = new HashMap<>();
         modelsSetsExecutionData = new HashMap<>();
-        // TODO: This line is causing problems, Sandro, please test that
-//        metaModel = loadMetaModel();
+        metaModel = loadMetaModel();
     }
 
     /**
@@ -72,7 +71,7 @@ public abstract class OntAO {
      * @return 
      */
     public Inferencer getInferencer(String modelSetId){
-        if(!modelSets.containsKey(modelSetId)){
+        if(!modelSetsInferencer.containsKey(modelSetId)){
             Inferencer inferencer = new Inferencer(getModelSet(modelSetId));
             modelSetsInferencer.put(modelSetId, inferencer);
         }

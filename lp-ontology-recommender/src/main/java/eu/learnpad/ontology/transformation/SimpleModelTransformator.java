@@ -16,7 +16,6 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.inject.Singleton;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -26,32 +25,55 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import eu.learnpad.ontology.config.APP;
+import java.io.ByteArrayOutputStream;
+import javax.xml.transform.Source;
+import javax.xml.transform.URIResolver;
 
 /**
  * Simple XSLT based model transformator.
  *
  * @author sandro.emmenegger
  */
-@Singleton
-public class SimpleModelTransformator {
-    
+public final class SimpleModelTransformator {
+
+    private static final SimpleModelTransformator instance = new SimpleModelTransformator();
     private static String latestModelSetId;
 
-    static{
+    static {
         System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
     }
-    
-    public SimpleModelTransformator(){
-        latestModelSetId = APP.CONF.getString("ontology.learnpad.model.latestVersion");
+
+    private SimpleModelTransformator() {
+    //For testing purposes a test modelset is loaded !
+        byte[] testModelFile = null;
+        try {
+            InputStream in = getClass().getResourceAsStream(APP.CONF.getString("testdata.model.file.path"));
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            int next = in.read();
+            while (next > -1) {
+                bos.write(next);
+                next = in.read();
+            }
+            bos.flush();
+            testModelFile = bos.toByteArray();
+        } catch (IOException ex) {
+            Logger.getLogger(SimpleModelTransformator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        transform("modelset-titolo-unico-v4", testModelFile, ModellingEnvironmentType.ADOXX);
     }
-    
+
+    public static SimpleModelTransformator getInstance() {
+        return instance;
+    }
+
     public File transform(String modelSetId, byte[] model, ModellingEnvironmentType type) {
 
         TransformerFactory tFactory = TransformerFactory.newInstance();
+        tFactory.setURIResolver(new XsltURIResolver());
         File latestOutFile = null;
 
         try {
-            InputStream xsltIn = getClass().getResourceAsStream(APP.CONF.getString("import.transformation.xslt.path") + type.name().toLowerCase()+"2ontology.xsl");
+            InputStream xsltIn = getClass().getResourceAsStream(APP.CONF.getString("import.transformation.xslt.path") + type.name().toLowerCase() + "2ontology.xsl");
             Transformer transformer = tFactory.newTransformer(new StreamSource(xsltIn));
 
             File previousVersionOfOutFile = getPreviousVersionOfOutputFile(modelSetId);
@@ -79,20 +101,20 @@ public class SimpleModelTransformator {
     public static String getLatestModelSetId() {
         return latestModelSetId;
     }
-    
+
     public static void setLatestModelSetId(String id) {
         latestModelSetId = id;
     }
-    
-    public File getLatestVersionFile(String modelSetId){
+
+    public File getLatestVersionFile(String modelSetId) {
         Path modelSetFolderPath = getModelSetFolderPath(modelSetId);
         Integer latestVersionNumber = getLatestVersionNumber(modelSetFolderPath);
-        if(!modelSetFolderPath.toFile().exists() || latestVersionNumber == null){
-            return null;
-        }
+//        if(!modelSetFolderPath.toFile().exists() || latestVersionNumber == null){
+//            return null;
+//        }
         String filename = modelSetId + APP.CONF.getString("ontology.learnpad.model.instances.filetype");
-        Path latestVersionFile = Paths.get(APP.CONF.getString("ontology.learnpad.model.instances"), modelSetId, latestVersionNumber.toString(), filename);
-        if(!latestVersionFile.toFile().exists()){
+        Path latestVersionFile = modelSetFolderPath.resolve(Paths.get(latestVersionNumber.toString(), filename));
+        if (!latestVersionFile.toFile().exists()) {
             return null;
         }
         return latestVersionFile.toFile();
@@ -126,19 +148,20 @@ public class SimpleModelTransformator {
     }
 
     private Path getModelSetFolderPath(String modelSetId) {
-        Path modelSetFolderPath = Paths.get(APP.CONF.getString("ontology.learnpad.model.instances"), modelSetId);
+        Path modelSetFolderPath = Paths.get(System.getProperty("user.dir"), APP.CONF.getString("ontology.learnpad.model.instances"), modelSetId);
         return modelSetFolderPath;
     }
 
     /**
-     * Searchs the highest version number in a set of number folders expected in a given parent folder.
-     * 
+     * Searchs the highest version number in a set of number folders expected in
+     * a given parent folder.
+     *
      * @param modelSetFolder
      * @return
-     * @throws NumberFormatException 
+     * @throws NumberFormatException
      */
     private Integer getLatestVersionNumber(Path modelSetFolderPath) throws NumberFormatException {
-        if(!modelSetFolderPath.toFile().exists()){
+        if (!modelSetFolderPath.toFile().exists()) {
             return null;
         }
         Integer latestVersionNumber = null;
@@ -152,12 +175,12 @@ public class SimpleModelTransformator {
     }
 
     /**
-     * Search for previous version of generated/transformed ontology instances file 
-     * of a given model set.
-     * 
+     * Search for previous version of generated/transformed ontology instances
+     * file of a given model set.
+     *
      * @param modelSetId
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     private File getPreviousVersionOfOutputFile(String modelSetId) throws IOException {
         Path modelSetPath = getModelSetFolderPath(modelSetId);
@@ -166,11 +189,11 @@ public class SimpleModelTransformator {
         }
 
         Integer latestVersionNumber = getLatestVersionNumber(modelSetPath);
-        if(latestVersionNumber == null || latestVersionNumber < 2){
+        if (latestVersionNumber == null || latestVersionNumber < 2) {
             return null;
         }
         latestVersionNumber--;
-        
+
         Path versionPath = Paths.get(modelSetPath.toString(), latestVersionNumber.toString());
         String filename = modelSetId + APP.CONF.getString("ontology.learnpad.model.instances.filetype");
         File previousVersionOutputFile = new File(versionPath.toString(), filename);
@@ -179,19 +202,33 @@ public class SimpleModelTransformator {
 
     /**
      * Compare files content.
-     * 
+     *
      * @param previousVersionOfOutFile
      * @param latestOutFile
-     * @return 
+     * @return
      */
     private boolean filesEqual(File previousVersionOfOutFile, File latestOutFile) throws IOException {
-        if(previousVersionOfOutFile == null || latestOutFile == null){
+        if (previousVersionOfOutFile == null || latestOutFile == null) {
             return false;
         }
         byte[] f1 = Files.readAllBytes(previousVersionOfOutFile.toPath());
         byte[] f2 = Files.readAllBytes(latestOutFile.toPath());
         return Arrays.equals(f1, f2);
     }
-    
 
+}
+
+class XsltURIResolver implements URIResolver {
+
+    @Override
+    public Source resolve(String href, String base) throws TransformerException {
+        try{
+              InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(href);
+              return new StreamSource(inputStream);
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.apache.jena.riot.Lang;
 
@@ -25,12 +24,6 @@ import org.apache.jena.riot.Lang;
  */
 @Singleton
 public class FileOntAO extends OntAO {
-
-	private SimpleModelTransformator transformator;
-
-	public FileOntAO() {
-		this.transformator = new SimpleModelTransformator();
-	}
 
 	@Override
 	protected OntModel loadMetaModel() {
@@ -48,7 +41,7 @@ public class FileOntAO extends OntAO {
 
 	@Override
 	protected OntModel loadModelSet(String modelSetId) {
-		File modelSetFile = transformator.getLatestVersionFile(modelSetId);
+		File modelSetFile = SimpleModelTransformator.getInstance().getLatestVersionFile(modelSetId);
 		if (modelSetFile == null) {
 			return null;
 		}
