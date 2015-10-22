@@ -104,11 +104,11 @@ public class ATLTransformationLauncher {
 	
 	public static void main(String[] args) throws Exception {
 		
-		String model_in = "resources/model/TitoloUnico.xml"; //For testing alignment
+		String model_in = "resources/model/titolo-unico.adoxx.xmi"; //For testing alignment
 //		String model_in = "resources/model/TitoloUnico.xmi"; // For testing without alignment
 		//If alignment is needed remember to take the right xml as input
-		boolean alignment = true;
-		String model_params = "JuriTest";
+		boolean alignment = false;
+		String model_params = "titolo-unico";
 		
 		
 		

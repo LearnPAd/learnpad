@@ -30,7 +30,7 @@ public class AlignmentLauncher {
 
 	public static void main(String[] args) throws Exception {
 		
-		String model_in = "resources/model/TitoloUnico.xml"; //For testing alignment
+		String model_in = "resources/model/titolo-unico.xml"; //For testing alignment
 		
 		
 		AlignmentLauncher align = new AlignmentLauncher();

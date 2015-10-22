@@ -45,7 +45,7 @@ public class AcceleoTransformationLauncher {
 		/*
 		 * Acceleo take as input a model (XMI file)
 		 */
-		String model_in = "resources/model/TitoloUnico.xmi";
+		String model_in = "resources/model/titolo-unico.xwiki.xmi";
 		
 		System.out.println("*******STARTING THE ACCELEO TRANSFORMATION*******");
 		AcceleoTransformationLauncher acceleoTL = new AcceleoTransformationLauncher();
