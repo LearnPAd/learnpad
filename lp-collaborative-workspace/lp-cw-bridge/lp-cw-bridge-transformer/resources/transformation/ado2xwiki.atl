@@ -107,6 +107,23 @@ helper def : mapInstanceType : Map(String, String) = Map {
 helper context String def : mapStandardInstanceType : String = if thisModule.mapInstanceType.containsKey(self) then thisModule.mapInstanceType.get(self) else self endif;
 ----------------------
 
+----------------------
+-- Documentation of elements
+
+helper def : getDocumentationRaw(i: ADOXX!INSTANCEType) : String =
+	i.aTTRIBUTE
+	->select(e | e.name='Documentation' and e.type='STRING')
+	->collect(c | c.value)
+	->first();
+helper def : getDocumentation(i: ADOXX!INSTANCEType) : String =
+	if thisModule.getDocumentationRaw(i).oclIsUndefined()
+	then
+		''
+	else
+		thisModule.getDocumentationRaw(i)
+	endif;
+----------------------
+
 helper def: modeltypeFilter() : String = ADOXX!MODELType.allInstances()->
 													select(e |e.modeltype<>'KPI-Overview')->
 													collect(e | e.modeltype).asOrderedSet()->
@@ -218,7 +235,7 @@ rule INSTANCEType2Page {
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
 		name <- s.id,
-		content <- let c :String = s.aTTRIBUTE->select(e | e.name='Description' and e.type='STRING')->collect(c | c.value)->first() in if c.oclIsUndefined() then '' else c endif
+		content <- ''
 	),
 	------------------  objects\LPCode\BaseElementClass  ------------------
 	bec:XWIKI!Object (
@@ -252,7 +269,7 @@ rule INSTANCEType2Page {
 	bec_p4:XWIKI!Property (
 		name <- 'documentation',
 		type <- 'TextArea',
-		value <- ''.escapeXML
+		value <- thisModule.getDocumentation(s).escapeXML
 	)
 	do {
 		thisModule.documentRoot.page <- t_p;
