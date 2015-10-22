@@ -110,7 +110,7 @@
       <unmodifiable>0</unmodifiable>
       <validationMessage/>
       <validationRegExp/>
-      <values>bpmn=BPMN 2.0|omm=OMM</values>
+      <values>bpmn=BPMN 2.0|cm=Competency model|bmm=BMM|dkm=Document and Knowledge model|omm=Organizational structure</values>
       <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
     </type>
   </class>

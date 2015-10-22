@@ -1,8 +1,6 @@
 /**
  */
-package eu.learnpad.transformations.Parameter.Parameter.impl;
-
-import eu.learnpad.transformations.Parameter.Parameter.*;
+package eu.learnpad.transformations.parameter.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -11,6 +9,8 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+
+import eu.learnpad.transformations.parameter.*;
 
 /**
  * <!-- begin-user-doc -->

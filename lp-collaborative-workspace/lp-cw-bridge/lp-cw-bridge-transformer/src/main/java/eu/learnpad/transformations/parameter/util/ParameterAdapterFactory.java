@@ -1,8 +1,6 @@
 /**
  */
-package eu.learnpad.transformations.Parameter.Parameter.util;
-
-import eu.learnpad.transformations.Parameter.Parameter.*;
+package eu.learnpad.transformations.parameter.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -10,6 +8,8 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
+
+import eu.learnpad.transformations.parameter.*;
 
 /**
  * <!-- begin-user-doc -->

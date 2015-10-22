@@ -33,8 +33,8 @@ import org.eclipse.m2m.atl.core.launch.ILauncher;
 import org.eclipse.m2m.atl.engine.compiler.atl2006.Atl2006Compiler;
 import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
 
-import eu.learnpad.transformations.Parameter.Parameter.ParameterFactory;
-import eu.learnpad.transformations.Parameter.Parameter.Params;
+import eu.learnpad.transformations.parameter.ParameterFactory;
+import eu.learnpad.transformations.parameter.Params;
 
 
 public class ATLTransformation {
@@ -144,7 +144,7 @@ public class ATLTransformation {
 //		    
 			ResourceSet resourceSet = new ResourceSetImpl();
 			
-			Resource resource = resourceSet.createResource(URI.createURI("temp/parm.xmi"));
+			Resource resource = resourceSet.createResource(URI.createURI("tmp/parm.xmi"));
 			resource.getContents().add(parm);
 			try {
 			      resource.save(Collections.EMPTY_MAP);

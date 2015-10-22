@@ -1,9 +1,6 @@
 /**
  */
-package eu.learnpad.transformations.Parameter.Parameter.impl;
-
-import eu.learnpad.transformations.Parameter.Parameter.ParameterPackage;
-import eu.learnpad.transformations.Parameter.Parameter.Params;
+package eu.learnpad.transformations.parameter.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -12,6 +9,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
+import eu.learnpad.transformations.parameter.ParameterPackage;
+import eu.learnpad.transformations.parameter.Params;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Params</b></em>'.
@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link eu.learnpad.transformations.Parameter.Parameter.impl.ParamsImpl#getFileName <em>File Name</em>}</li>
+ *   <li>{@link eu.learnpad.transformations.Parameter.impl.ParamsImpl#getFileName <em>File Name</em>}</li>
  * </ul>
  * </p>
  *

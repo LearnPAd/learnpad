@@ -1,13 +1,13 @@
 /**
  */
-package eu.learnpad.transformations.Parameter.Parameter.util;
-
-import eu.learnpad.transformations.Parameter.Parameter.*;
+package eu.learnpad.transformations.parameter.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
+
+import eu.learnpad.transformations.parameter.*;
 
 /**
  * <!-- begin-user-doc -->

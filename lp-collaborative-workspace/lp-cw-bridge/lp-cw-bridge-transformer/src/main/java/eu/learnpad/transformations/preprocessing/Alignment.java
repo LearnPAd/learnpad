@@ -22,12 +22,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.io.FilenameUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -77,13 +85,13 @@ public class Alignment {
 		replaceIntoAFile(copyModelInputPath);
 		
 		
-		File inputFile = new File(copyModelInputPath);
 		
+		File inputFile = new File(copyModelInputPath);
 		
 		
 		if(inputFile.exists()){
 			
-			PrintWriter out = new PrintWriter(resultFilePath);
+//			PrintWriter out = new PrintWriter(resultFilePath);
 			
 			System.out.println("The input file exist!");
 			try {
@@ -123,9 +131,10 @@ public class Alignment {
 			}
 			
 			
+			getValueFromAdoATTRIBUTETagAndCreateXMLFile(XmlString, resultFilePath);
 			
-			out.println(XmlString);
-			out.close();
+//			out.println(XmlString);
+//			out.close();
 
 			//			//replace of all the tags in respect to the xmi
 //			XmlString = updateBody(XmlString);
@@ -224,6 +233,39 @@ public class Alignment {
 	}
 	
 	
+	
+	/**
+	 * The function get text between tags <ATTRIBUTE> and </ATTRIBUTE> and put it into value attribute into the tag.
+	 * @param xmlString
+	 * @return String
+	 * @throws ParserConfigurationException 
+	 * @throws IOException 
+	 * @throws SAXException 
+	 * @throws TransformerException 
+	 */
+	private void getValueFromAdoATTRIBUTETagAndCreateXMLFile(String xmlString, String outputFilePath) throws ParserConfigurationException, SAXException, IOException, TransformerException{
+		
+	    Document document = Utils.readXml(new StringReader(xmlString));
+	    
+		NodeList nodeList = document.getElementsByTagName("aTTRIBUTE");
+		
+		    for (int i = 0; i < nodeList.getLength(); i++) {
+		    	Element el = (Element) nodeList.item(i);
+		    	String attributeToInsert = escapeHtml(el.getTextContent());
+		    	el.setAttribute("value", attributeToInsert);
+		    	el.setTextContent(""); //Put empty text where first there was text
+		    }
+		
+		
+		 // write the content into xml file
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		DOMSource source = new DOMSource(document);
+		StreamResult result = new StreamResult(new File(outputFilePath));
+		transformer.transform(source, result);
+		    
+	}
+	
 	private List<String> getAllTagsName(String xmlString) throws ParserConfigurationException, SAXException, IOException{
 		Set<String> setTest = new HashSet<String>();
 		
@@ -260,6 +302,38 @@ public class Alignment {
 		    return tagList;
 	}
 	
+	
+	
+	private String escapeHtml(String string) {
+	    String escapedTxt = "";
+	    char tmp = ' ';
+	    for(int i = 0; i < string.length(); i++) {
+	        tmp = string.charAt(i);
+	        switch (tmp) {
+	            case '<':
+	                escapedTxt += "&lt;";
+	                break;
+	            case '>':
+	                escapedTxt += "&gt;";
+	                break;
+	            case '&':
+	                escapedTxt += "&amp;";
+	                break;
+	            case '"':
+	                escapedTxt += "&quot;";
+	                break;
+	            case '\'':
+	                escapedTxt += "&#x27;";
+	                break;
+	            case '/':
+	                escapedTxt += "&#x2F;";
+	                break;
+	            default:
+	                escapedTxt += tmp;
+	        }
+	    }
+	    return escapedTxt;
+	}
 	
 //	private String getFileNameFromPath(String filePath){
 //		

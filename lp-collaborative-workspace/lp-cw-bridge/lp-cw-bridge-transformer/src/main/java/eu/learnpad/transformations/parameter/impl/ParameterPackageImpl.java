@@ -1,16 +1,16 @@
 /**
  */
-package eu.learnpad.transformations.Parameter.Parameter.impl;
-
-import eu.learnpad.transformations.Parameter.Parameter.ParameterFactory;
-import eu.learnpad.transformations.Parameter.Parameter.ParameterPackage;
-import eu.learnpad.transformations.Parameter.Parameter.Params;
+package eu.learnpad.transformations.parameter.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+
+import eu.learnpad.transformations.parameter.ParameterFactory;
+import eu.learnpad.transformations.parameter.ParameterPackage;
+import eu.learnpad.transformations.parameter.Params;
 
 /**
  * <!-- begin-user-doc -->
