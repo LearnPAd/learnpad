@@ -78,7 +78,7 @@ helper context String def : mapStandardModelType : String = if thisModule.mapMod
 
 helper def : mapInstanceType : Map(String, String) = Map {
 	-- Business Process
-	('Task', 'bp-task'),
+	('Task', 'bpmn-task'),
 	('Sub-Process', 'bpmn-process'),
 	('Start Event', 'bpmn-event-start'),
 	('Intermediate Event (boundary)', 'bpmn-event-intermediate'),
