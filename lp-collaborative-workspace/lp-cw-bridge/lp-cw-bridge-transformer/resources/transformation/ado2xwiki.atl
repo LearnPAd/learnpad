@@ -112,7 +112,7 @@ helper context String def : mapStandardInstanceType : String = if thisModule.map
 
 helper def : getDocumentationRaw(i: ADOXX!INSTANCEType) : String =
 	i.aTTRIBUTE
-	->select(e | e.name='Documentation' and e.type='STRING')
+	->select(e | e.name='Description' and e.type='STRING')
 	->collect(c | c.value)
 	->first();
 helper def : getDocumentation(i: ADOXX!INSTANCEType) : String =
