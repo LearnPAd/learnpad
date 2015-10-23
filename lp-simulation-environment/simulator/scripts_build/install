@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+declare -r __BUILD_SCRIPTS_PATH__="$( cd "$( dirname "${BASH_SOURCE[-1]}" )" && pwd )"
+
+source ${__BUILD_SCRIPTS_PATH__}/common
+
+component_install

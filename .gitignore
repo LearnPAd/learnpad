@@ -23,4 +23,4 @@ target-eclipse/
 /.apt_generated/
 
 # Monitoring component log file
-lp-monitoring/glimpseLog.log
+lp-simulation-environment/monitoring/glimpseLog.log
