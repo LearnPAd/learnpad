@@ -1,0 +1,1 @@
+eu.learnpad.qm.impl.QMXwikiBridgeImpl
