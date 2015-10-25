@@ -19,11 +19,13 @@
  */
 package eu.learnpad.ca;
 
+import javax.ws.rs.Path;
+
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
 import eu.learnpad.ca.rest.StaticContentVerifications;
 
-
-
-public interface BridgeInterface extends ColloborativeContentVerifications, StaticContentVerifications {
+@Path("/learnpad/ca/bridge")
+public interface BridgeInterface extends ColloborativeContentVerifications,
+		StaticContentVerifications {
 
 }

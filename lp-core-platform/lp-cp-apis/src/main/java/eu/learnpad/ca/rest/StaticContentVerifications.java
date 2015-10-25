@@ -24,14 +24,11 @@ package eu.learnpad.ca.rest;
 import java.util.Collection;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
@@ -43,18 +40,18 @@ import eu.learnpad.exception.LpRestException;
 public interface StaticContentVerifications {
 
 	
-	@Path("/learnpad/ca/validatestaticcontent")
+	@Path("/validatestaticcontent")
 	@POST
 	String putValidateStaticContent(StaticContentAnalysis contentFile)
 				throws LpRestException;
 	
 	
-	@Path("/learnpad/ca/staticcontentverifications/{idAnnotatedStaticContentAnalysis:.*}")
+	@Path("/staticcontentverifications/{idAnnotatedStaticContentAnalysis:.*}")
 	@GET
 	Collection<AnnotatedStaticContentAnalysis> getStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
 			throws LpRestException;
 	
-	@Path("/learnpad/ca/staticcontentverifications/{idAnnotatedStaticContentAnalysis:.*}/status")
+	@Path("/staticcontentverifications/{idAnnotatedStaticContentAnalysis:.*}/status")
 	@GET
 	String getStatusStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
 			throws LpRestException;

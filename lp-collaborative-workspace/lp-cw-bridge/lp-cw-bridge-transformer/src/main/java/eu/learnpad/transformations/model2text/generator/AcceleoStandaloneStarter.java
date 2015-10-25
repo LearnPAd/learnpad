@@ -25,7 +25,8 @@ import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 
-import eu.learnpad.transformations.model2text.main.WebHome;
+import eu.learnpad.transformations.model2text.main.Generate;
+
 
 
 public class AcceleoStandaloneStarter{
@@ -37,26 +38,14 @@ public class AcceleoStandaloneStarter{
 	
 	   public void execute(String modelPath, String resultFolderPath) {
 		   
-		   
-//		   ClassLoader cl = ClassLoader.getSystemClassLoader();
-//	       URL[] urls = ((URLClassLoader)cl).getURLs();
-//	       for(URL url: urls){
-//	        	System.out.println(url.getFile());
-//	        }
-//		   
-		   
-		   
-		   
-//	     registerResourceFactories();
-	     registerPackages();
-//	     registerLibraries();
+
 	    
          URI modelURI = URI.createFileURI(modelPath);
          File folder = new File(resultFolderPath);
          List<String> arguments = new ArrayList<String>();
-         WebHome generator;
+         Generate generator;
 			try {
-				generator = new WebHome(modelURI, folder, arguments);
+				generator = new Generate(modelURI, folder, arguments);
 				generator.doGenerate(new BasicMonitor());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

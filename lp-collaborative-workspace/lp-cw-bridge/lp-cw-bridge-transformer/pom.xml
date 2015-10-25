@@ -2,8 +2,8 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>learnpad.uda</groupId>
-  <artifactId>LearnpadModelTransformation</artifactId>
+  <groupId>eu.learnpad</groupId>
+  <artifactId>lp-cw-bridge-transformer</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
@@ -73,11 +73,6 @@
 		<dependency>
 			<groupId>org.eclipse.m2m.atl</groupId>
 			<artifactId>core</artifactId>
-			<version>3.4.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.m2m.atl</groupId>
-			<artifactId>driver.emf4atl</artifactId>
 			<version>3.4.0</version>
 		</dependency>
 		<dependency>
@@ -168,41 +163,41 @@
   </dependencies>
     <build>
                 <plugins>
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-compiler-plugin</artifactId>
-                                <version>3.2</version>
-                                <configuration>
-                                        <source>1.7</source>
-                                        <target>1.7</target>
-                                </configuration>
-                        </plugin>
-                        
-          <!--  <plugin>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>2.6</version>
-            <executions>
-                <execution>
-                    <id>copy-resources01</id>
-                    <phase>process-classes</phase>
-                    <goals>
-                        <goal>copy-resources</goal>
-                    </goals>
-                    <configuration>
-                        <outputDirectory>${basedir}/target/classes</outputDirectory>
-                        <encoding>UTF-8</encoding>
-                        <resources>
-                            <resource>
-                                <directory>${basedir}/src/main/java/eu/learnpad/transformations/model2text/main</directory>
-                                <includes>
-                                    <include>webHome.emtl</include>
-                                </includes>
-                            </resource>
-                        </resources>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin> -->
+               		<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.2</version>
+						<configuration>
+							<source>1.7</source>
+							<target>1.7</target>
+						</configuration>
+					</plugin>
+					<!-- COPY RESOURCES -->
+					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>2.6</version>
+						<executions>
+							<execution>
+								<id>copy-resources02</id>
+								<phase>process-classes</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${basedir}/target/classes/eu/learnpad/transformations/model2text/main/</outputDirectory>
+									<encoding>UTF-8</encoding>
+									<resources>
+										<resource>
+											<directory>${basedir}/src/main/java/eu/learnpad/transformations/model2text/main</directory>
+											<includes>
+												<include>generate.emtl</include>
+											</includes>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
                 </plugins>
         </build>
   

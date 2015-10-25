@@ -16,17 +16,26 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.io.FilenameUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -35,6 +44,9 @@ import org.xml.sax.SAXException;
 
 public class Alignment {
 	
+	private String tmpModelFolder = "tmp/";
+	private boolean deleteFile = true;
+	
 	public static String XMIHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Ado:ADOXMLType xmi:version=\"2.0\"  xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:Ado=\"http://www.ado.org\" xsi:schemaLocation=\"http://www.ado.org /Adoxx2XWiki/models/Ado.ecore\">\n";
 //	public String XMLHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE ADOXML SYSTEM \"adoxml31.dtd\"><ADOXML version=\"3.1\" date=\"31.07.2015\" time=\"17:29\" database=\"lpad\" username=\"Admin\" adoversion=\"Version 1.0 4.0\">";
 	
@@ -42,7 +54,19 @@ public class Alignment {
 	public String sanitizer(String modelInputPath) throws Exception{
 		String XmlString;
 		
-		String resultFilePath = "tmp/model_aligned.xmi";
+		
+		String basenameInputModel = FilenameUtils.getBaseName(modelInputPath);
+
+		String copyModelInputPath = tmpModelFolder + "copy_" + basenameInputModel + ".xmi";
+		
+		File src = new File(modelInputPath);
+		File dst = new File(copyModelInputPath);
+		
+		Files.copy(src.toPath(), dst.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		System.out.println("Temporary copy of the XML file provided as input was created: "+dst.getName()+"!");
+		
+//		String resultFilePath = "tmp/model_aligned.xmi";
+		String resultFilePath = tmpModelFolder + basenameInputModel + ".xmi";
 
 		BufferedReader br;
 		String line;
@@ -52,22 +76,22 @@ public class Alignment {
 		//Delete first 3 rows
 		int nRowToDelete = 2;
 		while(nRowToDelete >= 0){
-			removeNthLine(modelInputPath, nRowToDelete);
+			removeNthLine(copyModelInputPath, nRowToDelete);
 			nRowToDelete--;
 		}
 
 		int rowToInsert  = 1; //top of the file
-		insertStringInFile(modelInputPath, rowToInsert, XMIHeader.trim());
-		replaceIntoAFile(modelInputPath);
+		insertStringInFile(copyModelInputPath, rowToInsert, XMIHeader.trim());
+		replaceIntoAFile(copyModelInputPath);
 		
 		
-		File inputFile = new File(modelInputPath);
 		
+		File inputFile = new File(copyModelInputPath);
 		
 		
 		if(inputFile.exists()){
 			
-			PrintWriter out = new PrintWriter(resultFilePath);
+//			PrintWriter out = new PrintWriter(resultFilePath);
 			
 			System.out.println("The input file exist!");
 			try {
@@ -107,9 +131,10 @@ public class Alignment {
 			}
 			
 			
+			getValueFromAdoATTRIBUTETagAndCreateXMLFile(XmlString, resultFilePath);
 			
-			out.println(XmlString);
-			out.close();
+//			out.println(XmlString);
+//			out.close();
 
 			//			//replace of all the tags in respect to the xmi
 //			XmlString = updateBody(XmlString);
@@ -117,7 +142,17 @@ public class Alignment {
 //			String fileName = getFileNameFromPath(modelInputPath);
 //			
 //			return createXMIFile(XmlString, fileName);
-		
+			
+			//Delete temporary file
+			if(deleteFile){
+				if(dst.delete()){
+					System.out.println("Temporary copy of the XML file provided as input was deleted: "+dst.getName()+"!");
+				}else{
+					System.out.println("Can't delete temporary copy of the XML file provided as input: "+dst.getName()+"!");
+				}
+				
+			}
+			
 			return resultFilePath;
 		}else{
 			System.out.println("The input file does not exist!");
@@ -198,6 +233,39 @@ public class Alignment {
 	}
 	
 	
+	
+	/**
+	 * The function get text between tags <ATTRIBUTE> and </ATTRIBUTE> and put it into value attribute into the tag.
+	 * @param xmlString
+	 * @return String
+	 * @throws ParserConfigurationException 
+	 * @throws IOException 
+	 * @throws SAXException 
+	 * @throws TransformerException 
+	 */
+	private void getValueFromAdoATTRIBUTETagAndCreateXMLFile(String xmlString, String outputFilePath) throws ParserConfigurationException, SAXException, IOException, TransformerException{
+		
+	    Document document = Utils.readXml(new StringReader(xmlString));
+	    
+		NodeList nodeList = document.getElementsByTagName("aTTRIBUTE");
+		
+		    for (int i = 0; i < nodeList.getLength(); i++) {
+		    	Element el = (Element) nodeList.item(i);
+		    	String attributeToInsert = escapeHtml(el.getTextContent());
+		    	el.setAttribute("value", attributeToInsert);
+		    	el.setTextContent(""); //Put empty text where first there was text
+		    }
+		
+		
+		 // write the content into xml file
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		DOMSource source = new DOMSource(document);
+		StreamResult result = new StreamResult(new File(outputFilePath));
+		transformer.transform(source, result);
+		    
+	}
+	
 	private List<String> getAllTagsName(String xmlString) throws ParserConfigurationException, SAXException, IOException{
 		Set<String> setTest = new HashSet<String>();
 		
@@ -234,6 +302,38 @@ public class Alignment {
 		    return tagList;
 	}
 	
+	
+	
+	private String escapeHtml(String string) {
+	    String escapedTxt = "";
+	    char tmp = ' ';
+	    for(int i = 0; i < string.length(); i++) {
+	        tmp = string.charAt(i);
+	        switch (tmp) {
+	            case '<':
+	                escapedTxt += "&lt;";
+	                break;
+	            case '>':
+	                escapedTxt += "&gt;";
+	                break;
+	            case '&':
+	                escapedTxt += "&amp;";
+	                break;
+	            case '"':
+	                escapedTxt += "&quot;";
+	                break;
+	            case '\'':
+	                escapedTxt += "&#x27;";
+	                break;
+	            case '/':
+	                escapedTxt += "&#x2F;";
+	                break;
+	            default:
+	                escapedTxt += tmp;
+	        }
+	    }
+	    return escapedTxt;
+	}
 	
 //	private String getFileNameFromPath(String filePath){
 //		

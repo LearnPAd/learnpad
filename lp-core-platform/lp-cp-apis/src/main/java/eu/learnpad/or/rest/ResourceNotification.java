@@ -26,8 +26,7 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-// <host>/learnpad/or/resourcenotification/{modelsetid}?resourceid=id,linkedto=(id1,id2,id3),action={added|modified|deleted}
-@Path("/learnpad/or/resourcenotification/{modelsetid}")
+
 public interface ResourceNotification {
 	/**
 	 * @param modelSetId is the ID of the model set that is concerned
@@ -36,7 +35,9 @@ public interface ResourceNotification {
 	 * @param action will precise the kind of notification (added, deleted, modified)
 	 * @throws LpRestException
 	 */
+	// <host>/learnpad/or/resourcenotification/{modelsetid}?resourceid=id,linkedto=(id1,id2,id3),action={added|modified|deleted}
 	@POST
+	@Path("/resourcenotification/{modelsetid}")
 	void sendResourceNotification(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("resourceid") String resourceId,
 			@QueryParam("linkedto") String artifactIds,

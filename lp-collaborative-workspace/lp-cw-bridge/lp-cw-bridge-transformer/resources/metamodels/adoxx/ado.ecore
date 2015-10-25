@@ -233,6 +233,7 @@
         <details key="name" value="type"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ATTRPROFDIRType">
     <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">

@@ -24,14 +24,11 @@ package eu.learnpad.ca.rest;
 import java.util.Collection;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
@@ -43,18 +40,18 @@ import eu.learnpad.exception.LpRestException;
 public interface ColloborativeContentVerifications {
 
 	
-	@Path("/learnpad/ca/validatecollaborativecontent")
+	@Path("/validatecollaborativecontent")
 	@POST
 	String putValidateCollaborativeContent(CollaborativeContentAnalysis contentFile)
 				throws LpRestException;
 	
 	
-	@Path("/learnpad/ca/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:.*}")
+	@Path("/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:.*}")
 	@GET
 	Collection<AnnotatedCollaborativeContentAnalysis> getCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException;
 	
-	@Path("/learnpad/ca/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:.*}/status")
+	@Path("/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:.*}/status")
 	@GET
 	String getStatusCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException;
