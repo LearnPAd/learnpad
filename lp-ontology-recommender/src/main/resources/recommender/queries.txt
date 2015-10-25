@@ -6,6 +6,7 @@ prefix emo: <http://ikm-group.ch/archiMEO/emo#>
 prefix lpd: <http://learnpad.eu#>
 prefix omm: <http://ikm-group.ch/archiMEO/omm#>
 prefix foaf: <http://xmlns.com/foaf/spec#>
+prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
 SELECT DISTINCT ?organisationalUnitName ?lineManagerName ?email ?phone
 WHERE {
     ?performer emo:performerHasEmailAddress "barnaby.barnes@fhnw.ch" .
@@ -31,9 +32,10 @@ prefix emo: <http://ikm-group.ch/archiMEO/emo#>
 prefix lpd: <http://learnpad.eu#>
 prefix omm: <http://ikm-group.ch/archiMEO/omm#>
 prefix foaf: <http://xmlns.com/foaf/spec#>
+prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
 SELECT DISTINCT ?otherPerformerName ?businessActor ?email ?phone ?roleName
 WHERE {
-    ?performer emo:performerHasEmailAddress "barnaby.barnes@fhnw.ch"^^<http://www.w3.org/2001/XMLSchema#string> .
+    ?performer emo:performerHasEmailAddress ?userId .
     ?performer omm:performerHasRole ?role .
     ?role rdfs:label ?roleName .
     ?sameRoleInOtherUnit rdfs:label ?roleName .
@@ -57,6 +59,7 @@ prefix emo: <http://ikm-group.ch/archiMEO/emo#>
 prefix lpd: <http://learnpad.eu#>
 prefix omm: <http://ikm-group.ch/archiMEO/omm#>
 prefix foaf: <http://xmlns.com/foaf/spec#>
+prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
 SELECT ?experiencedPerformerName ?email
 WHERE {
 	{
@@ -84,6 +87,7 @@ prefix emo: <http://ikm-group.ch/archiMEO/emo#>
 prefix lpd: <http://learnpad.eu#>
 prefix omm: <http://ikm-group.ch/archiMEO/omm#>
 prefix foaf: <http://xmlns.com/foaf/spec#>
+prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
 SELECT ?documentTitle ?documentPageRef 
 WHERE {
     ?taskInstance rdf:type bpmn:Task .
@@ -106,6 +110,7 @@ prefix emo: <http://ikm-group.ch/archiMEO/emo#>
 prefix lpd: <http://learnpad.eu#>
 prefix omm: <http://ikm-group.ch/archiMEO/omm#>
 prefix foaf: <http://xmlns.com/foaf/spec#>
+prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
 SELECT ?learningMaterialTitle ?learningMaterialType ?learningMaterialURI 
 WHERE {
     {

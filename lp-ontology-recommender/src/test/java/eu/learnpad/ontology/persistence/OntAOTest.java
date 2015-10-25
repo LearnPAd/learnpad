@@ -23,6 +23,18 @@ public class OntAOTest extends AbstractUnitTest{
     
     public OntAOTest() {
     }
+    
+    /**
+     * Test of getModelSet method, of class OntAO.
+     */
+    @Ignore
+    @Test
+    public void testGetMetaModelSet() {
+        OntModel result = ontAO.getMetaModel();
+        result.write(System.out, "Turtle");
+        assertNotNull(result);
+    }
+        
 
     /**
      * Test of getModelSet method, of class OntAO.
@@ -31,6 +43,7 @@ public class OntAOTest extends AbstractUnitTest{
     @Test
     public void testGetModelSet() {
         OntModel result = ontAO.getModelSet(TEST_MODEL_SET_ID_TITOLO_UNICO);
+//        result.write(System.out, "Turtle");
         assertNotNull(result);
     }
     

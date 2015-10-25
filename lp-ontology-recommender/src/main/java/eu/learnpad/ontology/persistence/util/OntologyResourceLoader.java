@@ -28,21 +28,16 @@ public class OntologyResourceLoader {
         model.getDocumentManager().setProcessImports(true);
 
         for (String filePath : filePaths) {
-            Path path = Paths.get(filePath);
-
-            if (path.isAbsolute()) {
-                model.read(path.toString(), format.getName());
-            } else {
-                Reader in = null;
-                try {
-                    in = new InputStreamReader(OntologyResourceLoader.class.getResourceAsStream(filePath));
-                    model.read(in, null, format.getName());
-                } finally {
-                    if (in != null) {
-                        in.close();
-                    }
+            Reader in = null;
+            try {
+                in = new InputStreamReader(OntologyResourceLoader.class.getResourceAsStream(filePath));
+                model.read(in, null, format.getName());
+            } finally {
+                if (in != null) {
+                    in.close();
                 }
             }
+//            }
 
         }
 

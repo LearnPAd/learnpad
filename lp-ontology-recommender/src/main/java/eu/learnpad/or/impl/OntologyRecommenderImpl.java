@@ -42,6 +42,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     @Override
     public void initialize() throws InitializationException {
             this.corefacade = new XwikiCoreFacadeRestResource();
+            SimpleModelTransformator.getInstance();
     }
 
     @Override

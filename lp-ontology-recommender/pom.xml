@@ -13,6 +13,7 @@
     <name>LearnPAd Ontology Recommender</name>
     
     <dependencies>
+
         <dependency>
             <groupId>eu.learnpad</groupId>
             <artifactId>lp-cp-apis</artifactId>
@@ -28,7 +29,8 @@
             <groupId>net.sf.saxon</groupId>
             <artifactId>Saxon-HE</artifactId>
             <version>9.6.0-6</version>
-        </dependency>
+        </dependency>        
+
         <dependency>
             <groupId>commons-configuration</groupId>
             <artifactId>commons-configuration</artifactId>

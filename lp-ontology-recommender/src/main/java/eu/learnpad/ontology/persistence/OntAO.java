@@ -57,8 +57,9 @@ public abstract class OntAO {
                 //Using the ModelFactory.createUnion function has 2 advantages: 
                 //   1. Unified model is dynamic and not a copy of the underlying models
                 //   2. All new instances are stored automaticly in the dataModel only
-                OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, ModelFactory.createUnion(modelSet, metaModel));  
-                modelSets.put(modelSetId, model);
+//                OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, ModelFactory.createUnion(modelSet, metaModel));
+                modelSet.add(metaModel);
+                modelSets.put(modelSetId, modelSet);
             }
         }
         return modelSets.get(modelSetId);

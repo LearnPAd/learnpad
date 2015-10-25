@@ -109,9 +109,9 @@ public final class SimpleModelTransformator {
     public File getLatestVersionFile(String modelSetId) {
         Path modelSetFolderPath = getModelSetFolderPath(modelSetId);
         Integer latestVersionNumber = getLatestVersionNumber(modelSetFolderPath);
-//        if(!modelSetFolderPath.toFile().exists() || latestVersionNumber == null){
-//            return null;
-//        }
+        if(!modelSetFolderPath.toFile().exists() || latestVersionNumber == null){
+            return null;
+        }
         String filename = modelSetId + APP.CONF.getString("ontology.learnpad.model.instances.filetype");
         Path latestVersionFile = modelSetFolderPath.resolve(Paths.get(latestVersionNumber.toString(), filename));
         if (!latestVersionFile.toFile().exists()) {
@@ -147,7 +147,7 @@ public final class SimpleModelTransformator {
 
     }
 
-    private Path getModelSetFolderPath(String modelSetId) {
+    public Path getModelSetFolderPath(String modelSetId) {
         Path modelSetFolderPath = Paths.get(System.getProperty("user.dir"), APP.CONF.getString("ontology.learnpad.model.instances"), modelSetId);
         return modelSetFolderPath;
     }

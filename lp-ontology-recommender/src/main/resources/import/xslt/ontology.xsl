@@ -82,9 +82,15 @@ ________________________________________________________________________________
  Business process diagram (BPMN 2.0)
 ___________________________________________________________________________________________________-->
 	<xsl:template name="BPMN_MODEL">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">emo:BPMN_MetaModel</xsl:with-param>
-		</xsl:call-template>  rdf:type bpmn:Process ;
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type emo:BPMN_MetaModel ;
+  rdfs:subClassOf emo:BPMN_MetaModel ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;
   rdf:subClassOf bpmn:Process ;
 	</xsl:template>
 <!--...............................................................................................-->	
@@ -94,25 +100,34 @@ ________________________________________________________________________________
  Start Event
 ___________________________________________________________________________________________________-->
 	<xsl:template name="StartEvent">
-		<xsl:param name="id" tunnel="yes"/>
-		<xsl:param name="name" tunnel="yes"/>
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">bpmn:StartEvent</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type bpmn:StartEvent ;
+  rdfs:subClassOf bpmn:StartEvent ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;
   lpd:bpmnStartEventHasId "<xsl:value-of select="$id"/>"^^xsd:string ;
   lpd:bpmnStartEventHasName "<xsl:value-of select="$name"/>"^^xsd:string ;
-	</xsl:template>
+  	</xsl:template>
+       
 <!--...............................................................................................-->	
 <!--
 ___________________________________________________________________________________________________
  Message Start Event
 ___________________________________________________________________________________________________-->
 	<xsl:template name="MessageStartEvent">
-		<xsl:param name="id" tunnel="yes"/>
-		<xsl:param name="name" tunnel="yes"/>
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">bpmn:MessageStartEvent</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type bpmn:MessageStartEvent ;
+  rdfs:subClassOf bpmn:MessageStartEvent ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;
   lpd:bpmnStartEventHasId "<xsl:value-of select="$id"/>"^^xsd:string ;
   lpd:bpmnStartEventHasName "<xsl:value-of select="$name"/>"^^xsd:string ;
 	</xsl:template>
@@ -122,11 +137,15 @@ ________________________________________________________________________________
  Message Catching Intermediate Event
 ___________________________________________________________________________________________________-->
 	<xsl:template name="MessageCatchingSequenceIntermediateEvent">
-		<xsl:param name="id" tunnel="yes"/>
-		<xsl:param name="name" tunnel="yes"/>
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">bpmn:MessageCatchingSequenceIntermediateEvent</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type bpmn:MessageCatchingSequenceIntermediateEvent ;
+  rdfs:subClassOf bpmn:MessageCatchingSequenceIntermediateEvent ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;
 	</xsl:template>
 <!--
 ___________________________________________________________________________________________________
@@ -134,11 +153,15 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->	
 <!--...............................................................................................-->
 	<xsl:template name="MessageInterruptingBoundaryIntermediateEvent">
-		<xsl:param name="id" tunnel="yes"/>
-		<xsl:param name="name" tunnel="yes"/>
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">bpmn:MessageInterruptingBoundaryIntermediateEvent</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type bpmn:MessageInterruptingBoundaryIntermediateEvent ;
+  rdfs:subClassOf bpmn:MessageInterruptingBoundaryIntermediateEvent ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
 	</xsl:template>
 <!--...............................................................................................-->	
 <!--
@@ -146,11 +169,15 @@ ________________________________________________________________________________
  End Event
 ___________________________________________________________________________________________________-->
 	<xsl:template name="EndEvent">
-		<xsl:param name="id" tunnel="yes"/>
-		<xsl:param name="name" tunnel="yes"/>
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">bpmn:EndEvent</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type bpmn:EndEvent ;
+  rdfs:subClassOf bpmn:EndEvent ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                  
   lpd:bpmnEndEventHasId "<xsl:value-of select="$id"/>"^^xsd:string ;
   lpd:bpmnEndEventHasName "<xsl:value-of select="$name"/>"^^xsd:string ;
 	</xsl:template>
@@ -160,9 +187,15 @@ ________________________________________________________________________________
  Task
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Task">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">bpmn:Task</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                  
   	</xsl:template>
   	<xsl:template name="addInModelConnectionForTask">
   		<xsl:param name="toId"/>
@@ -174,9 +207,15 @@ ________________________________________________________________________________
  Send Task
 ___________________________________________________________________________________________________-->
 	<xsl:template name="SendTask">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">bpmn:SendTask</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type bpmn:SendTask ;
+  rdfs:subClassOf bpmn:SendTask ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
   	</xsl:template>
 <!--...............................................................................................-->
 <!--
@@ -184,9 +223,15 @@ ________________________________________________________________________________
  Receive Task
 ___________________________________________________________________________________________________-->
 	<xsl:template name="ReceiveTask">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">bpmn:ReceiveTask</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type bpmn:ReceiveTask ;
+  rdfs:subClassOf bpmn:ReceiveTask ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                                
   	</xsl:template>
 <!--...............................................................................................-->
 <!--
@@ -194,9 +239,15 @@ ________________________________________________________________________________
  Task bpmn:SubProcess ;
 ___________________________________________________________________________________________________-->
 	<xsl:template name="SubProcess">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">bpmn:SubProcess</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type bpmn:SubProcess ;
+  rdfs:subClassOf bpmn:SubProcess ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
   	</xsl:template>
   	<xsl:template name="addReferencedSubProcessConnection">
 		<xsl:param name="targetId"/>
@@ -208,9 +259,15 @@ ________________________________________________________________________________
  Gateway
 ___________________________________________________________________________________________________-->
 	<xsl:template name="ExclusiveGateway">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">bpmn:ExclusiveGateway</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type bpmn:ExclusiveGateway ;
+  rdfs:subClassOf bpmn:ExclusiveGateway ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                                
 	</xsl:template>
 <!--...............................................................................................-->
 <!--
@@ -218,9 +275,15 @@ ________________________________________________________________________________
   Parallel Gateway (Non-Exclusive Gateway)
 ___________________________________________________________________________________________________-->
 	<xsl:template name="ParallelGateway">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">bpmn:ParallelGateway</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type bpmn:ParallelGateway ;
+  rdfs:subClassOf bpmn:ParallelGateway ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
 	</xsl:template>
 <!--...............................................................................................-->
 <!--
@@ -228,9 +291,15 @@ ________________________________________________________________________________
  Data Input
 ___________________________________________________________________________________________________-->
 	<xsl:template name="DataInput">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">bpmn:DataInput</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type bpmn:DataInput ;
+  rdfs:subClassOf bpmn:DataInput ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                                
 	</xsl:template>
 	<xsl:template name="addDataInputConnection">
 		<xsl:param name="targetId"/>
@@ -243,9 +312,15 @@ ________________________________________________________________________________
  Data Output
 ___________________________________________________________________________________________________-->
 	<xsl:template name="DataOutput">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">bpmn:DataOutput</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type bpmn:DataOutput ;
+  rdfs:subClassOf bpmn:DataOutput ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                                                
 	</xsl:template>
 	<xsl:template name="addDataOutputConnection">
 		<xsl:param name="targetId"/>
@@ -258,11 +333,15 @@ ________________________________________________________________________________
  Pool
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Pool">
-		<xsl:param name="id" tunnel="yes"/>
-		<xsl:param name="name" tunnel="yes"/>
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">bpmn:Pool</xsl:with-param>
-		</xsl:call-template>  
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type bpmn:Pool ;
+  rdfs:subClassOf bpmn:Pool ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                  
   lpd:bpmnPoolHasId "<xsl:value-of select="$id"/>"^^xsd:string ;
   lpd:bpmnPoolHasName "<xsl:value-of select="$name"/>"^^xsd:string ;
 	</xsl:template>
@@ -277,9 +356,15 @@ ________________________________________________________________________________
  Lane
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Lane">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">bpmn:Lane</xsl:with-param>
-		</xsl:call-template>  
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type bpmn:Lane ;
+  rdfs:subClassOf bpmn:Lane ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                                  
 	</xsl:template>
     <xsl:template name="addSwimlaneRefToOrganisationalUnit">
 		<xsl:param name="targetId"/>
@@ -316,9 +401,15 @@ ________________________________________________________________________________
  Business Motivation Model (BMM)
 ___________________________________________________________________________________________________-->
 	<xsl:template name="BMM_MODEL">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">emo:BusinessMotivationMetaModel</xsl:with-param>
-		</xsl:call-template>		
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type emo:BusinessMotivationMetaModel ;
+  rdfs:subClassOf emo:BusinessMotivationMetaModel ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                  	
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -327,9 +418,15 @@ ________________________________________________________________________________
  Goal
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Goal">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">bmm:Goal</xsl:with-param>
-		</xsl:call-template> 		
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type bmm:Goal ;
+  rdfs:subClassOf bmm:Goal ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                  	                	
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -338,9 +435,15 @@ ________________________________________________________________________________
  Learning Goal
 ___________________________________________________________________________________________________-->
 	<xsl:template name="LearningGoal">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">emo:LearningGoal</xsl:with-param>
-		</xsl:call-template> 				
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type emo:LearningGoal ;
+  rdfs:subClassOf emo:LearningGoal ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                  	                	                			
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -351,9 +454,15 @@ ________________________________________________________________________________
  Document and Knowledge model (DKM)
 ___________________________________________________________________________________________________-->
 	<xsl:template name="DKM_MODEL">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">emo:DocumentAndKnowledgeMetaModel</xsl:with-param>
-		</xsl:call-template>				
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type emo:DocumentAndKnowledgeMetaModel ;
+  rdfs:subClassOf emo:DocumentAndKnowledgeMetaModel ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                				
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -362,13 +471,19 @@ ________________________________________________________________________________
  Document
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Document">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">dkm:Document</xsl:with-param>
-		</xsl:call-template>				
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                			
 	</xsl:template>
 	
 	<xsl:template name="addInModelConnectionForDocument">
-        		<xsl:param name="toId"/>  dkm:d_ConstructIsInsideD_Container transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text>
+            <xsl:param name="toId"/>  dkm:d_ConstructIsInsideD_Container transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text>
     	</xsl:template>	
 <!--...............................................................................................-->	
 
@@ -377,9 +492,15 @@ ________________________________________________________________________________
  Document Group
 ___________________________________________________________________________________________________-->
 	<xsl:template name="DocumentGroup">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">dkm:D_Container</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type dkm:D_Container ;
+  rdfs:subClassOf dkm:D_Container ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -390,9 +511,15 @@ ________________________________________________________________________________
  Organizational structure (OMM)
 ___________________________________________________________________________________________________-->
 	<xsl:template name="OMM_MODEL">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">emo:OrganisationMetaModel</xsl:with-param>
-		</xsl:call-template>				
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type emo:OrganisationMetaModel ;
+  rdfs:subClassOf emo:OrganisationMetaModel ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                    			
 	</xsl:template>
 <!--...............................................................................................-->	
 <!--
@@ -400,9 +527,15 @@ ________________________________________________________________________________
  Organizational unit
 ___________________________________________________________________________________________________-->
 	<xsl:template name="OrganizationalUnit">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">omm:OrganisationalUnit</xsl:with-param>
-		</xsl:call-template>				
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                				
 	</xsl:template>
 	
 	<xsl:template name="addInModelConnectionForOrganizationalUnit">
@@ -414,9 +547,15 @@ ________________________________________________________________________________
  Role
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Role">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">omm:Role</xsl:with-param>
-		</xsl:call-template>				
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                				
 	</xsl:template>
 	
 	<xsl:template name="addInModelConnectionForRole">
@@ -428,10 +567,16 @@ ________________________________________________________________________________
  Performer
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Performer">
-	     <xsl:param name="email" tunnel="yes"/>
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">omm:Performer</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="email" tunnel="yes"/>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
 		  <xsl:if test="$email != ''">
 		emo:performerHasEmailAddress "<xsl:value-of select="$email"/>"^^xsd:string ;
 		  </xsl:if>
@@ -448,9 +593,15 @@ ________________________________________________________________________________
  Case Management Model and Notation (CMMN)
 ___________________________________________________________________________________________________-->
 	<xsl:template name="CMMN_MODEL">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">emo:CaseManagementMetaModel</xsl:with-param>
-		</xsl:call-template>				
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type emo:CaseManagementMetaModel ;
+  rdfs:subClassOf emo:CaseManagementMetaModel ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                			
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -459,9 +610,15 @@ ________________________________________________________________________________
  Case
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Case">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">cmmn:Case</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type cmmn:Case ;
+  rdfs:subClassOf cmmn:Case ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -470,9 +627,15 @@ ________________________________________________________________________________
  CaseTask
 ___________________________________________________________________________________________________-->
 	<xsl:template name="CaseTask">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">cmmn:CaseTask</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type cmmn:CaseTask ;
+  rdfs:subClassOf cmmn:CaseTask ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                 
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -481,9 +644,15 @@ ________________________________________________________________________________
  DiscretionaryTask (mapped to Task since nothing else available) ??? Correct ???
 ___________________________________________________________________________________________________-->
 	<xsl:template name="DiscretionaryTask">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">cmmn:Task</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type cmmn:Task ;
+  rdfs:subClassOf cmmn:Task ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -492,9 +661,15 @@ ________________________________________________________________________________
  CaseFile
 ___________________________________________________________________________________________________-->
 	<xsl:template name="CaseFile">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">cmmn:CaseFile</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type cmmn:CaseFile ;
+  rdfs:subClassOf cmmn:CaseFile ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;   
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;               
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -503,9 +678,15 @@ ________________________________________________________________________________
  PlanningTable
 ___________________________________________________________________________________________________-->
 	<xsl:template name="PlanningTable">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">cmmn:PlanningTable</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type cmmn:PlanningTable ;
+  rdfs:subClassOf cmmn:PlanningTable ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -516,9 +697,15 @@ ________________________________________________________________________________
  KPI-Overview
 ___________________________________________________________________________________________________-->
 	<xsl:template name="KPI_MODEL">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">emo:KPI_MetaModel</xsl:with-param>
-		</xsl:call-template>				
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type emo:KPI_MetaModel ;
+  rdfs:subClassOf emo:KPI_MetaModel ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                				
 	</xsl:template>
 <!--...............................................................................................-->  
 <!--
@@ -526,11 +713,15 @@ ________________________________________________________________________________
  Perspective
 ___________________________________________________________________________________________________-->
   	<xsl:template name="Perspective">
-		<xsl:param name="id" tunnel="yes"/>
-		<xsl:param name="name" tunnel="yes"/>  	        
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">kpi:Perspective</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type kpi:Perspective ;
+  rdfs:subClassOf kpi:Perspective ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
   lpd:kpiPerspectiveHasId "<xsl:value-of select="$id"/>"^^xsd:string ;
   lpd:kpiPerspectiveHasName "<xsl:value-of select="$name"/>"^^xsd:string ;
 	</xsl:template>
@@ -540,11 +731,15 @@ ________________________________________________________________________________
  Strategic Goal
 ___________________________________________________________________________________________________-->
   	<xsl:template name="StrategicGoal">
-		<xsl:param name="id" tunnel="yes"/>
-		<xsl:param name="name" tunnel="yes"/>
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">kpi:StrategicGoal</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type kpi:StrategicGoal ;
+  rdfs:subClassOf kpi:StrategicGoal ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
   lpd:kpiStrategicGoalHasId "<xsl:value-of select="$id"/>"^^xsd:string ;
   lpd:kpiStrategicGoalHasName "<xsl:value-of select="$name"/>"^^xsd:string ;
 	</xsl:template>
@@ -554,11 +749,15 @@ ________________________________________________________________________________
  Performance Indicator
 ___________________________________________________________________________________________________-->
   	<xsl:template name="PerformanceIndicator">
-        	<xsl:param name="id" tunnel="yes"/>
-        	<xsl:param name="name" tunnel="yes"/>
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">kpi:PerformanceIndicator</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
   lpd:kpiPerformanceIndicatorHasId "<xsl:value-of select="$id"/>"^^xsd:string ;
   lpd:kpiPerformanceIndicatorHasName "<xsl:value-of select="$name"/>"^^xsd:string ;
   	</xsl:template>
@@ -570,9 +769,15 @@ ________________________________________________________________________________
  Competency Model
 ___________________________________________________________________________________________________-->
         <xsl:template name="COMPETENCY_MODEL">
-                <xsl:call-template name="basicInstanceProperties">
-			        <xsl:with-param name="rdfType">emo:CompetencyMetaModel</xsl:with-param>
-		        </xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type emo:CompetencyMetaModel ;
+  rdfs:subClassOf emo:CompetencyMetaModel ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                        
         </xsl:template>
 <!--...............................................................................................-->  
 <!--
@@ -580,9 +785,15 @@ ________________________________________________________________________________
  Competency
 ___________________________________________________________________________________________________-->
  	<xsl:template name="Competency">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">cmm:Competency</xsl:with-param>
-		</xsl:call-template>				
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type cmm:Competency ;
+  rdfs:subClassOf cmm:Competency ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                	
 	</xsl:template>
 	
 	<xsl:template name="addInModelConnectionForCompetency">
@@ -594,9 +805,15 @@ ________________________________________________________________________________
  Competency Group
 ___________________________________________________________________________________________________-->
   	<xsl:template name="CompetencyGroup">
-		<xsl:call-template name="basicInstanceProperties">
-			<xsl:with-param name="rdfType">cmm:CompetencyGroup</xsl:with-param>
-		</xsl:call-template>
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyGroup ;
+  rdfs:subClassOf cmm:CompetencyGroup ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
 	</xsl:template>  
 <!--...............................................................................................--> 
 <!-- ============================================================================================================================================== -->

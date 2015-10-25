@@ -30,15 +30,20 @@ public class SimpleModelTransformatorTest extends AbstractUnitTest{
     
     private final Path transformedModelsRoot = Paths.get(APP.CONF.getString("ontology.learnpad.model.instances"));
 
-    @Before
-    public void before() throws IOException {
-        cleanUp(transformedModelsRoot);
-    }
+//    @Before
+//    public void before() throws IOException {
+//        cleanUp(transformedModelsRoot);
+//    }
+//    
+//    @Test
+//    @Before
+//    public void testPaths(){
+//        testPath("ontology.metamodel.path");
+//    }
     
     @Test
-    @Before
-    public void testPaths(){
-        testPath("ontology.metamodel.path");
+    public void testInitialization(){
+        SimpleModelTransformator.getInstance();
     }
     
 
