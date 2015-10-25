@@ -78,7 +78,7 @@ helper context String def : mapStandardModelType : String = if thisModule.mapMod
 
 helper def : mapInstanceType : Map(String, String) = Map {
 	-- Business Process
-	('Task', 'bp-task'),
+	('Task', 'bpmn-task'),
 	('Sub-Process', 'bpmn-process'),
 	('Start Event', 'bpmn-event-start'),
 	('Intermediate Event (boundary)', 'bpmn-event-intermediate'),
@@ -105,6 +105,23 @@ helper def : mapInstanceType : Map(String, String) = Map {
 	('Performer', 'omm-performer')
 };
 helper context String def : mapStandardInstanceType : String = if thisModule.mapInstanceType.containsKey(self) then thisModule.mapInstanceType.get(self) else self endif;
+----------------------
+
+----------------------
+-- Documentation of elements
+
+helper def : getDocumentationRaw(i: ADOXX!INSTANCEType) : String =
+	i.aTTRIBUTE
+	->select(e | e.name='Description' and e.type='STRING')
+	->collect(c | c.value)
+	->first();
+helper def : getDocumentation(i: ADOXX!INSTANCEType) : String =
+	if thisModule.getDocumentationRaw(i).oclIsUndefined()
+	then
+		''
+	else
+		thisModule.getDocumentationRaw(i)
+	endif;
 ----------------------
 
 helper def: modeltypeFilter() : String = ADOXX!MODELType.allInstances()->
@@ -252,7 +269,7 @@ rule INSTANCEType2Page {
 	bec_p4:XWIKI!Property (
 		name <- 'documentation',
 		type <- 'TextArea',
-		value <- ''.escapeXML
+		value <- thisModule.getDocumentation(s).escapeXML
 	)
 	do {
 		thisModule.documentRoot.page <- t_p;
