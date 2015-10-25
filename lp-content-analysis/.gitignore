@@ -16,3 +16,7 @@ hs_err_pid*
 /target/
 nosferat*
 out
+bin
+target
+logs
+

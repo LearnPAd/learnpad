@@ -11,5 +11,8 @@ curl -X GET http://localhost:8080/lp-content-analysis/learnpad/ca/validatestatic
 
 curl -X GET http://localhost:8080/lp-content-analysis/learnpad/ca/validatecollaborativecontent/{id}
 
+
 curl -X GET http://localhost:8080/lp-content-analysis/learnpad/ca/validatestaticcontent/{id}
+
+
 
