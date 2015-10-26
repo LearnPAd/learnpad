@@ -155,12 +155,20 @@
         <script type="text/javascript" src="resources/Process-jsonform.js"></script>
         <script type="text/javascript" src="resources/Process.js"></script>
 
+        <script type="text/javascript" src="resources/HeightMonitor.js"></script>
+
         <script type="text/javascript">
          'use strict';
          if (!window.WebSocket){
              alert("WebSocket not supported by this browser");
          }
          var processReceiver = processReceiver(#serveripaddress#);
+
+         // These elements can cause page height change, so we need to
+         // monitor them
+         heightMon.monitor('#processTable');
+         heightMon.monitor('#formPosition');
+         heightMon.monitor('#processInfo');
         </script>
 
     </body>

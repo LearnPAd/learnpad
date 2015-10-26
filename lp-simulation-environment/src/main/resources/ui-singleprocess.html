@@ -110,24 +110,19 @@
         <script type="text/javascript" src="resources/Process-jsonform.js"></script>
         <script type="text/javascript" src="resources/SingleProcess.js"></script>
 
+        <script type="text/javascript" src="resources/HeightMonitor.js"></script>
+
         <script type="text/javascript">
          'use strict';
          if (!window.WebSocket){
              alert("WebSocket not supported by this browser");
          }
          processInstanciator(#serveripaddress#);
-        </script>
 
-		<script type="text/javascript">
-$(function() {
-	var handleMessage = function handleMessage(e) {
-		var height = $('html').height();
-		// Must call postMessage on the Window object of the recipient
-		window.parent.postMessage({'height': height}, e.origin); 
-	};
-	window.addEventListener('message', handleMessage, false);
-});
-		</script>
+         // This element can cause page height change, so we need to
+         // monitor it
+         heightMon.monitor('#formPosition');
+        </script>
 
     </body>
 </html>

@@ -223,6 +223,8 @@
         <script type="text/javascript" src="resources/Webchat.js"></script>
         <script type="text/javascript" src="resources/TaskReceiver.js"></script>
 
+        <script type="text/javascript" src="resources/HeightMonitor.js"></script>
+
         <script type="text/javascript">
          'use strict';
          if (!window.WebSocket){
@@ -250,6 +252,10 @@
                  return false;
              });
          }
+
+         // this element can cause page height change, so we need to
+         // monitor it
+         heightMon.monitor('#taskstable');
         </script>
 
     </body>

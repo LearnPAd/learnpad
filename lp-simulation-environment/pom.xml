@@ -35,6 +35,7 @@
 		<underscorejs.version>1.7.0-1</underscorejs.version>
 		<spectrum.version>1.6.0</spectrum.version>
 		<resteasy.version>3.0.11.Final</resteasy.version>
+		<opencsv.version>3.5</opencsv.version>
 		<license-maven-plugin.version>1.8</license-maven-plugin.version>
 		<build-helper-maven-plugin.version>1.9.1</build-helper-maven-plugin.version>
 	</properties>
@@ -123,6 +124,12 @@
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jackson-provider</artifactId>
 			<version>${resteasy.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>${opencsv.version}</version>
 		</dependency>
 
 

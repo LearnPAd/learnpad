@@ -21,12 +21,17 @@ package eu.learnpad.simulator.uihandler.formhandler.dataobject2jsonform;
  * #L%
  */
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
+
+import com.opencsv.CSVParser;
 
 import eu.learnpad.simulator.uihandler.formhandler.AbstractFormHandler;
 import eu.learnpad.simulator.utils.BPMNExplorer;
@@ -39,8 +44,18 @@ import eu.learnpad.simulator.utils.BPMNExplorerRepository;
  */
 public class DataObjectToJsonFormFormHandler extends AbstractFormHandler {
 
+	static final int NB_FIELDS = 5;
+
+	static final int FIELD_ID = 0;
+	static final int FIELD_NAME = 1;
+	static final int FIELD_TYPE = 2;
+	static final int FIELD_REQUIRED = 3;
+	static final int FIELD_CATEGORY = 4;
+
 	private final BPMNExplorerRepository repo;
 	private final TaskService taskService;
+
+	private final CSVParser csvParser = new CSVParser(',');
 
 	public DataObjectToJsonFormFormHandler(BPMNExplorerRepository repo,
 			TaskService taskService) {
@@ -55,7 +70,35 @@ public class DataObjectToJsonFormFormHandler extends AbstractFormHandler {
 		if (dataObjects != null) {
 			for (String dataObject : dataObjects) {
 				for (String line : explorer.getDataObjectContent(dataObject)) {
-					res.add(new FormField(line, line, "string", true, null));
+					String[] elements;
+					try {
+						elements = csvParser.parseLine(line);
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+
+					if (elements.length == 1) {
+						res.add(new FormField(line, line, "string", true, "",
+								null));
+					} else {
+
+						boolean required = elements[FIELD_REQUIRED]
+								.equals("true");
+
+						Map<String, String> enumValues = null;
+
+						if (elements[FIELD_TYPE].equals("enum")) {
+							enumValues = new LinkedHashMap<String, String>();
+							for (int i = NB_FIELDS; i < elements.length; i += 2) {
+								enumValues.put(elements[i], elements[i + 1]);
+							}
+						}
+
+						res.add(new FormField(elements[FIELD_ID],
+								elements[FIELD_NAME], elements[FIELD_TYPE],
+								required, elements[FIELD_CATEGORY], enumValues));
+
+					}
 				}
 			}
 		}
