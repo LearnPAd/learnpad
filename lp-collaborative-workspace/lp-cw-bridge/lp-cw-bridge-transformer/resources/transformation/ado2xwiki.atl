@@ -190,7 +190,7 @@ rule RootWebHome {
 	-----------------------  Static WebHome  -----------------------
 	p: XWIKI!Page (
 	   	title <- 'Home',
-		parent <- '',
+		parent <- 'Main.WebHome',
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
 		name <- 'WebHome',

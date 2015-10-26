@@ -4,7 +4,7 @@
     <property value="epbr" name="id" type="String"/>
     <property value="Set of models" name="name" type="String"/>
   </object>
-  <page wiki="xwiki" space="epbr" name="WebHome" title="Home" parent="" content="{{include reference=&quot;LPCode\.ModelSetWebHome&quot; /}}"/>
+  <page wiki="xwiki" space="epbr" name="WebHome" title="Home" parent="Main.WebHome" content="{{include reference=&quot;LPCode\.ModelSetWebHome&quot; /}}"/>
   <page wiki="xwiki" space="epbr" name="mod.13650" title="Go to Event" parent="WebHome" content=""/>
   <object wiki="xwiki" space="epbr" pageName="mod.13650" className="LPCode.ModelClass" number="0">
     <property value="mod.13650" name="id" type="String"/>
