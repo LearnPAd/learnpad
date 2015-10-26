@@ -394,7 +394,7 @@ rule IREFType2Object {
 	lco_p1:XWIKI!Property (
 		name <- 'id',
 		type <- 'String',
-		value <- '??'	
+		value <- ''	
 	),
 	lco_p2:XWIKI!Property (
 		name <- 'type',
@@ -417,7 +417,7 @@ rule IREFType2Object {
 	lci_p1:XWIKI!Property (
 		name <- 'id',
 		type <- 'String',
-		value <- '??'	
+		value <- ''	
 	),
 	lci_p2:XWIKI!Property (
 		name <- 'type',
