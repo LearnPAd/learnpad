@@ -23,19 +23,11 @@ import org.junit.Test;
  *
  * @author sandro.emmenegger
  */
-@RunWith(CdiRunner.class)
-@AdditionalClasses({FileOntAO.class})
 public class ExecutionStatesTest extends AbstractUnitTest {
     
-    @Inject
-    ExecutionStates exec;
-    
-    @Inject
-    SimpleModelTransformator transformator;
-
     @Before
     public void init(){
-        transformator.setLatestModelSetId(TEST_MODEL_SET_ID_TITOLO_UNICO);
+        SimpleModelTransformator.setLatestModelSetId(TEST_MODEL_SET_ID_TITOLO_UNICO);
     }
     
     public ExecutionStatesTest() {
@@ -46,7 +38,7 @@ public class ExecutionStatesTest extends AbstractUnitTest {
      */
     @Test
     public void testGetStates() {
-        States states = exec.getStates(TEST_USER_1_NAME, TEST_MODEL_SET_ID_TITOLO_UNICO);
+        States states = ExecutionStates.getInstance().getStates(TEST_USER_1_NAME, TEST_MODEL_SET_ID_TITOLO_UNICO);
         JAXB.marshal(states, System.out);
     }
     

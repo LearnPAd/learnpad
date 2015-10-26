@@ -5,7 +5,6 @@
  */
 package eu.learnpad.ontology.execution;
 
-import javax.inject.Singleton;
 
 import com.hp.hpl.jena.datatypes.xsd.XSDDateTime;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -28,20 +27,23 @@ import eu.learnpad.or.rest.data.States;
  *
  * @author sandro.emmenegger
  */
-@Singleton
 public class ExecutionStates {
-	
+    
+    private static final ExecutionStates instance = new ExecutionStates();
+    
     private OntAO ontAO;
-    
-    private SimpleModelTransformator transformator;
-    
+
+    public static ExecutionStates getInstance() {
+        return instance;
+    }
+	
     public ExecutionStates() {
     	this.ontAO = new FileOntAO();
-    	this.transformator = new SimpleModelTransformator();
+    	
     }
     
     public States getStatesOfLatestAddedModelSet(String userId){
-        String latestAddeModelSetId = transformator.getLatestModelSetId();
+        String latestAddeModelSetId = SimpleModelTransformator.getInstance().getLatestModelSetId();
         if(latestAddeModelSetId == null || latestAddeModelSetId.isEmpty()){
             return new States();
         }

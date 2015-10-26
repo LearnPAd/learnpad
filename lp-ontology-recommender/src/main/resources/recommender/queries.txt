@@ -1,3 +1,29 @@
+##START## QUERY:linemanagerAsExpert
+##COMMENT:The line manager of the organisational unit recommended as expert
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#>  
+prefix emo: <http://ikm-group.ch/archiMEO/emo#>
+prefix lpd: <http://learnpad.eu#>
+prefix omm: <http://ikm-group.ch/archiMEO/omm#>
+prefix foaf: <http://xmlns.com/foaf/spec#>
+prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
+SELECT DISTINCT ?organisationalUnitName ?lineManagerName ?email ?phone
+WHERE {
+    ?performer emo:performerHasEmailAddress "barnaby.barnes@fhnw.ch" .
+    ?performer omm:performerHasRole ?role .
+    ?role lpd:roleIsCastedByOrganisationalUnit ?organisationalUnit .
+    ?organisationalUnit ?eo:organisationalUnitIsHeadedByPerson ?lineManager .
+    ?organisationalUnit rdfs:label ?organisationalUnitName .
+    ?lineManager rdfs:label ?lineManagerName .    
+    ?lineManagerName emo:performerRepresentsPerson ?businessActor .
+    OPTIONAL {
+        ?businessActor foaf:mbox ?email .
+    } .
+    OPTIONAL {
+        ?businessActor foaf:phone ?phone .
+    } .
+}
+##END##
 ##START## QUERY:expertsWithSameRole
 ##COMMENT:Experts in another organisational unit with the same role (name) assigned
 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -6,9 +32,10 @@ prefix emo: <http://ikm-group.ch/archiMEO/emo#>
 prefix lpd: <http://learnpad.eu#>
 prefix omm: <http://ikm-group.ch/archiMEO/omm#>
 prefix foaf: <http://xmlns.com/foaf/spec#>
+prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
 SELECT DISTINCT ?otherPerformerName ?businessActor ?email ?phone ?roleName
 WHERE {
-    ?performer emo:performerHasEmailAddress "barnaby.barnes@fhnw.ch" .
+    ?performer emo:performerHasEmailAddress ?userId .
     ?performer omm:performerHasRole ?role .
     ?role rdfs:label ?roleName .
     ?sameRoleInOtherUnit rdfs:label ?roleName .
@@ -32,22 +59,84 @@ prefix emo: <http://ikm-group.ch/archiMEO/emo#>
 prefix lpd: <http://learnpad.eu#>
 prefix omm: <http://ikm-group.ch/archiMEO/omm#>
 prefix foaf: <http://xmlns.com/foaf/spec#>
-SELECT DISTINCT ?otherPerformerName ?businessActor ?email ?phone ?roleName
+prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
+SELECT ?experiencedPerformerName ?email
 WHERE {
-    ?performer emo:performerHasEmailAddress "barnaby.barnes@fhnw.ch" .
-    ?performer omm:performerHasRole ?role .
-    ?role rdfs:label ?roleName .
-    ?sameRoleInOtherUnit rdfs:label ?roleName .
-    ?performerInOtherUnit omm:performerHasRole ?sameRoleInOtherUnit .
-    ?performerInOtherUnit rdfs:label ?otherPerformerName .
-    FILTER (?sameRoleInOtherUnit != ?role) .
-    ?performerInOtherUnit emo:performerRepresentsPerson ?businessActor .
+	{
+		SELECT ?experiencedPerformer (count(?executedTaskInstance) AS ?count)	
+		WHERE {
+			?taskInstance rdf:type bpmn:Task .
+			?executedTaskInstance rdf:type ?taskInstance .
+   		 	?executedTaskInstance emo:activityIsPerformedByPerformer ?experiencedPerformer .
+			?currentPerformer emo:performerHasEmailAddress "barnaby.barnes@fhnw.ch" .
+			FILTER(?currentPerformer != ?experiencedPerformer)
+		} GROUP BY ?experiencedPerformer
+	}
+	?experiencedPerformer rdfs:label ?experiencedPerformerName .
+    ?experiencedPerformer emo:performerRepresentsPerson ?experiencedPerformerBusinessActor .
     OPTIONAL {
-        ?businessActor foaf:mbox ?email .
-    } .
-    OPTIONAL {
-        ?businessActor foaf:phone ?phone .
-    } .
+        	?experiencedPerformerBusinessActor foaf:mbox ?email .
+   	} 
+} ORDER BY DESC (?count ) LIMIT 1
+##END##
+##START## QUERY:learningObjectsForRestructuringInProtectedLandscapeArea
+##COMMENT:Recommend documents relevant for restructuring applications in a protected landscape area
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#>  
+prefix emo: <http://ikm-group.ch/archiMEO/emo#>
+prefix lpd: <http://learnpad.eu#>
+prefix omm: <http://ikm-group.ch/archiMEO/omm#>
+prefix foaf: <http://xmlns.com/foaf/spec#>
+prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
+SELECT ?documentTitle ?documentPageRef 
+WHERE {
+    ?taskInstance rdf:type bpmn:Task .
+    ?executedTaskInstance rdf:type ?taskInstance .
+    ?executedTaskInstance eo:atomicBusinessProcessProcessesDataObject ?applicationData .
+    ?applicationData lpd:applicationDataRequestsForActivity lpd:RestructuringBusinessActivity .
+    ?applicationData lpd:applicationDataRequestsForArea lpd:ProtectedLandscapeArea .
+    ?lpd:RestructuringBusinessActivity lpd:documentsUsedForPerformingBusinessActivity ?document .
+    ?document emo:documentRepresentsdocument ?foafDocument .
+    ?foafDocument elements:documentHasTitle ?documentTitle .
+    ?foafDocument eo:documentHasStorage ?documentNode .
+    ?documentNode lpd:xwikiPageRepresentsNode ?documentPageRef .
+}	
+##END##
+##START## QUERY:learningMaterialForNextCompetencyLevel
+##COMMENT:Recommend learning material related to the competency level above the users comptency level considering the learning style
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#>  
+prefix emo: <http://ikm-group.ch/archiMEO/emo#>
+prefix lpd: <http://learnpad.eu#>
+prefix omm: <http://ikm-group.ch/archiMEO/omm#>
+prefix foaf: <http://xmlns.com/foaf/spec#>
+prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
+SELECT ?learningMaterialTitle ?learningMaterialType ?learningMaterialURI 
+WHERE {
+    {
+    SELECT ?nextCompetencyLevelNumber ?aquiredCompetencyLabel ?learningStyle 
+    ?competencyProfile emo:competencyProfileIsAquiredByPerformer ?performer .
+    ?competencyProfile cmm:competencyProfileContainsCompetencySet ?aquiredCompetencySet .
+    ?aquiredCompetency cmm:competencyBelongsToCompetencySet ?aquiredCompetencySet .
+    ?aquiredCompetency cmm:competencyHasLevel ?competencyLevelNumber .
+    ?aquiredCompetency rdfs:label ?aquiredCompetencyLabel .
+    BIND(?competencyLevelNumber+1 AS ?nextCompetencyLevelNumber) .
+        ?competencyProfile lpd:competencyProfilePrefersLearningStyle ?learningStyle .
+    }
+    ?nextCompetency cmm:competencyHasLevel ?nextCompetencyLevelNumber .
+    ?nextCompetency rdfs:label ?aquiredCompetencyLabel .
+    ?nextCompetency lpd:proposedLearningDocument ?learningDocument .
+    ?learningDocument elements:documentHasType ?documentType .
+    ?learningStyle lpd:learningStyleBelongsToDocumentType ?documentType .
+    ?learningDocument emo:documentRepresentsdocument ?foafDocument .
+    ?foafDocument elements:documentHasTitle ?learningMaterialTitle .
+    ?foafDocument eo:documentHasStorage ?documentNode .
+    OPTIONAL{
+        ?documentNode lpd:xwikiPageRepresentsNode ?learningMaterialURI .
+    }
+    OPTIONAL{
+        NOT EXISTS(?documentNode lpd:xwikiPageRepresentsNode ?learningMaterialURI) .
+        ?foafDocument elements:documentHasSource ?learningMaterialURI) .	
+    }
 }
 ##END##
-

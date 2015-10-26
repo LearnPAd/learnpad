@@ -8,7 +8,6 @@ package eu.learnpad.ontology.recommender;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Singleton;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.query.Query;
@@ -16,6 +15,7 @@ import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
+import com.hp.hpl.jena.query.QuerySolutionMap;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Resource;
@@ -30,20 +30,24 @@ import eu.learnpad.or.rest.data.Recommendations;
  *
  * @author sandro.emmenegger
  */
-@Singleton
 public class Recommender {
     
+    private static final Recommender instance = new Recommender();
     private OntAO ontAO;
     
-    public Recommender() {
+    private Recommender() {
     	this.ontAO = new FileOntAO();
+    }
+    
+    public static Recommender getInstance(){
+        return instance;
     }
     
     public Recommendations getRecommendations(String modelSetId, String artifactId, String userId){
         Recommendations recommends = new Recommendations();
         Experts experts = new Experts();
         experts.addAllBusinessActors(suggestExpertsWithSameRole(modelSetId, artifactId, userId));
-        experts.addAllBusinessActors(suggestExpertMostOftenExecutedTask(modelSetId, artifactId, userId));
+//        experts.addAllBusinessActors(suggestExpertMostOftenExecutedTask(modelSetId, artifactId, userId));
         recommends.setExperts(experts);
         return recommends;
     }
@@ -60,10 +64,15 @@ public class Recommender {
         RecommenderQuery queryObj = QueryMap.getQuery(queryName);
         List<BusinessActor> experts = new ArrayList<>();
         Query query = QueryFactory.create(queryObj.getQueryString());
-        OntModel model = ontAO.getExecutionData(modelSetId);
+        //TODO replace if execution data is available.        
+//        OntModel model = ontAO.getExecutionData(modelSetId);
+        OntModel model = ontAO.getInferencer(modelSetId).getModel();
         QueryExecution qexec = null;
+        QuerySolutionMap initialBinding = new QuerySolutionMap();
+        initialBinding.add("userId", model.createTypedLiteral(userId));
+        
         try {
-            qexec = QueryExecutionFactory.create(query, model);
+            qexec = QueryExecutionFactory.create(query, model, initialBinding);
             ResultSet results = qexec.execSelect();
             for (; results.hasNext();) {
                 QuerySolution soln = results.nextSolution();
