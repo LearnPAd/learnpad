@@ -51,7 +51,7 @@ helper def : getConnectorTargetId(connector: ADOXX!CONNECTORType) : String =
 	.flatten()
 	.first()
 	.id;
-helper def : linkClassConnectorNumberMap : Map(String, Integer) =
+helper def : linkClassNumberMap : Map(String, Integer) =
 	ADOXX!INSTANCEType
 	.allInstances()
 	->iterate(
@@ -59,9 +59,9 @@ helper def : linkClassConnectorNumberMap : Map(String, Integer) =
 		accumulator : Map(String, Integer) = Map{} |
 		accumulator.including(i.id, 0)
 	);
-helper def : incLinkClassConnectorNumber(id: String) : Map(String, Integer) =
-	thisModule.linkClassConnectorNumberMap
-	.including(id, thisModule.linkClassConnectorNumberMap.get(id) + 1);
+helper def : incLinkClassNumber(id: String) : Map(String, Integer) =
+	thisModule.linkClassNumberMap
+	.including(id, thisModule.linkClassNumberMap.get(id) + 1);
 ----------------------
 
 
@@ -100,18 +100,6 @@ helper def : getIrefTargetId(iref: ADOXX!IREFType) : String =
 	)
 	.first()
 	.id;
-
-helper def : linkClassIrefNumberMap : Map(String, Integer) =
-	ADOXX!INSTANCEType
-	.allInstances()
-	->iterate(
-		i;
-		accumulator : Map(String, Integer) = Map{} |
-		accumulator.including(i.id, 0)
-	);
-helper def : incLinkClassIrefNumber(id: String) : Map(String, Integer) =
-	thisModule.linkClassIrefNumberMap
-	.including(id, thisModule.linkClassIrefNumberMap.get(id) + 1);
 ----------------------
 -- Standardization of names
 
@@ -329,7 +317,7 @@ rule CONNECTORType2Object {
 	from c:ADOXX!CONNECTORType
 	to lco:XWIKI!Object (
 		className <- 'LPCode.LinkClass',
-		number <- thisModule.linkClassConnectorNumberMap.get(thisModule.getConnectorSourceId(c)),
+		number <- thisModule.linkClassNumberMap.get(thisModule.getConnectorSourceId(c)),
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
 		pageName <- thisModule.getConnectorSourceId(c),
@@ -352,7 +340,7 @@ rule CONNECTORType2Object {
 	),
 	lci:XWIKI!Object (
 		className <- 'LPCode.LinkClass',
-		number <- thisModule.linkClassConnectorNumberMap.get(thisModule.getConnectorTargetId(c)),
+		number <- thisModule.linkClassNumberMap.get(thisModule.getConnectorTargetId(c)),
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
 		pageName <- thisModule.getConnectorTargetId(c),
@@ -376,8 +364,8 @@ rule CONNECTORType2Object {
 	do {
 		thisModule.documentRoot.object <- lco;
 		thisModule.documentRoot.object <- lci;
-		thisModule.linkClassConnectorNumberMap <- thisModule.incLinkClassConnectorNumber(thisModule.getConnectorSourceId(c));
-		thisModule.linkClassConnectorNumberMap <- thisModule.incLinkClassConnectorNumber(thisModule.getConnectorTargetId(c));
+		thisModule.linkClassNumberMap <- thisModule.incLinkClassNumber(thisModule.getConnectorSourceId(c));
+		thisModule.linkClassNumberMap <- thisModule.incLinkClassNumber(thisModule.getConnectorTargetId(c));
 	}
 }
 	
@@ -385,7 +373,7 @@ rule IREFType2Object {
 	from i:ADOXX!IREFType(i.type='objectreference')
 	to lco:XWIKI!Object (
 		className <- 'LPCode.LinkClass',
-		number <- thisModule.linkClassIrefNumberMap.get(thisModule.getIrefSourceId(i)),
+		number <- thisModule.linkClassNumberMap.get(thisModule.getIrefSourceId(i)),
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
 		pageName <- thisModule.getIrefSourceId(i),
@@ -408,7 +396,7 @@ rule IREFType2Object {
 	),
 	lci:XWIKI!Object (
 		className <- 'LPCode.LinkClass',
-		number <- thisModule.linkClassIrefNumberMap.get(thisModule.getIrefTargetId(i)),
+		number <- thisModule.linkClassNumberMap.get(thisModule.getIrefTargetId(i)),
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
 		pageName <- thisModule.getIrefTargetId(i),
@@ -432,7 +420,7 @@ rule IREFType2Object {
 	do {
 		thisModule.documentRoot.object <- lco;
 		thisModule.documentRoot.object <- lci;
-		thisModule.linkClassIrefNumberMap <- thisModule.incLinkClassIrefNumber(thisModule.getIrefSourceId(i));
-		thisModule.linkClassIrefNumberMap <- thisModule.incLinkClassIrefNumber(thisModule.getIrefTargetId(i));
+		thisModule.linkClassNumberMap <- thisModule.incLinkClassNumber(thisModule.getIrefSourceId(i));
+		thisModule.linkClassNumberMap <- thisModule.incLinkClassNumber(thisModule.getIrefTargetId(i));
 	}
 }
