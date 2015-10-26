@@ -45,11 +45,6 @@ import eu.learnpad.exception.LpRestException;
 public interface ColloborativeContentVerifications {
 	
 	
-	@Path("/test/{idAnnotatedCollaborativeContentAnalysis}")
-	@GET
-	public String getC(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
-			throws LpRestException;
-
 	
 	@Path("/")
 	@POST

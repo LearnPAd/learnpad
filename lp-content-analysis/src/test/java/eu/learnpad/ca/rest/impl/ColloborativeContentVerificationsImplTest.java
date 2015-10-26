@@ -2,7 +2,10 @@ package eu.learnpad.ca.rest.impl;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 import javax.ws.rs.client.Entity;
@@ -11,6 +14,7 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.ws.rs.core.Response;
 
@@ -50,6 +54,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		String id = response.readEntity(String.class);
 
 		assertNotNull(response);
+		assertTrue(id!="");
 		String status = "IN PROGRESS";
 		while(!status.equals("OK")){
 			status =  target("/learnpad/ca/validatecollaborativecontent/"+id+"/status").request().get(String.class);
@@ -61,6 +66,25 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		Response annotatecontent =  target("/learnpad/ca/validatecollaborativecontent/"+id).request().get();
 
 		ArrayList<AnnotatedCollaborativeContentAnalysis> res =	annotatecontent.readEntity(new GenericType<ArrayList<AnnotatedCollaborativeContentAnalysis>>() {});
+		for (AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContentAnalysis : res) {
+			JAXBContext jaxbCtx;
+			try {
+				jaxbCtx = javax.xml.bind.JAXBContext.newInstance(AnnotatedCollaborativeContentAnalysis.class);
+
+				Marshaller marshaller = jaxbCtx.createMarshaller();
+				marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8"); //NOI18N
+				marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+				//marshaller.marshal(annotatedCollaborativeContentAnalysis, System.out);
+				String type = annotatedCollaborativeContentAnalysis.getType();
+				OutputStream os = new FileOutputStream( "nosferatu"+type+".xml" );
+				marshaller.marshal( annotatedCollaborativeContentAnalysis, os );
+			} catch (JAXBException | FileNotFoundException  e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
 		assertNotNull(res);
 		assertNotNull(annotatecontent);
 	}
