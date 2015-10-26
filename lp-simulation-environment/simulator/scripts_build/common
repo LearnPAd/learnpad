@@ -17,7 +17,7 @@ declare -r __OUT_RUNDEPS_FILE__="${__OUT_PATH__}/rundeps.txt"
 declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
 
 # avoid deleting/re-downloading license files
-declare -r __MVN_PROFILE__="-Pkeep-license-files --batch-mode -f ${__COMPONENT_PATH__}"
+declare -r __MVN_PROFILE__="-Pkeep-license-files --batch-mode -f ${__COMPONENT_PATH__}/pom.xml"
 
 ### BUILD ###
 function component_build() {

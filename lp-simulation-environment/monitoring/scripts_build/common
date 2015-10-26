@@ -16,7 +16,7 @@ declare -r __OUT_RUNDEPS_FILE__="${__OUT_PATH__}/rundeps.txt"
 # This is the path to the directory where you can optionally put some configuration files
 declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
 
-declare -r __MVN_PROFILE__="--batch-mode -f ${__COMPONENT_PATH__}"
+declare -r __MVN_PROFILE__="--batch-mode -f ${__COMPONENT_PATH__}/pom.xml"
 
 ### BUILD ###
 function component_build() {
