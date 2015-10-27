@@ -27,7 +27,7 @@ import javax.ws.rs.QueryParam;
 import eu.learnpad.exception.LpRestException;
 
 // <host>/learnpad/or/modelsetimported/{modelsetid}?type={adoxx|md}
-@Path("/learnpad/or/modelsetimported/{modelsetid}")
+@Path("/modelsetimported/{modelsetid}")
 public interface ModelSetImported {
 	/**
 	 * @param modelSetId is the ID of the model set that is put
@@ -35,6 +35,7 @@ public interface ModelSetImported {
 	 * @throws LpRestException
 	 */
 	@POST
-	void putModelSet(@PathParam("modelsetid") String modelSetId,
+	void modelSetImported(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type") String type) throws LpRestException;
 }
+

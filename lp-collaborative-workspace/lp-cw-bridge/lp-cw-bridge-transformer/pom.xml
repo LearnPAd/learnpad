@@ -2,8 +2,8 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>learnpad.uda</groupId>
-  <artifactId>LearnpadModelTransformation</artifactId>
+  <groupId>eu.learnpad</groupId>
+  <artifactId>lp-cw-bridge-transformer</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
@@ -178,31 +178,95 @@
                                 </configuration>
                         </plugin>
                         
-          <!--  <plugin>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>2.6</version>
-            <executions>
-                <execution>
-                    <id>copy-resources01</id>
-                    <phase>process-classes</phase>
-                    <goals>
-                        <goal>copy-resources</goal>
-                    </goals>
-                    <configuration>
-                        <outputDirectory>${basedir}/target/classes</outputDirectory>
-                        <encoding>UTF-8</encoding>
-                        <resources>
-                            <resource>
-                                <directory>${basedir}/src/main/java/eu/learnpad/transformations/model2text/main</directory>
-                                <includes>
-                                    <include>webHome.emtl</include>
-                                </includes>
-                            </resource>
-                        </resources>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin> -->
+                        <!-- COPY RESOURCES -->
+			            <plugin>
+			            <artifactId>maven-resources-plugin</artifactId>
+			            <version>2.6</version>
+			            <executions>
+			            	 <!-- COPY webHome.mtl -->
+			                <!-- <execution>
+			                    <id>copy-resources01</id>
+			                    <phase>process-classes</phase>
+			                    <goals>
+			                        <goal>copy-resources</goal>
+			                    </goals>
+			                    <configuration>
+			                        <outputDirectory>${basedir}/target/classes/eu/learnpad/transformations/model2text/main/</outputDirectory>
+			                        <encoding>UTF-8</encoding>
+			                        <resources>
+			                            <resource>
+			                                <directory>${basedir}/src/main/java/eu/learnpad/transformations/model2text/main</directory>
+			                                <includes>
+			                                    <include>webHome.mtl</include>
+			                                </includes>
+			                            </resource>
+			                        </resources>
+			                    </configuration>
+			                </execution> -->
+			            	 <!-- COPY webHome.emtl -->
+			                <execution>
+			                    <id>copy-resources02</id>
+			                    <phase>process-classes</phase>
+			                    <goals>
+			                        <goal>copy-resources</goal>
+			                    </goals>
+			                    <configuration>
+			                        <outputDirectory>${basedir}/target/classes/eu/learnpad/transformations/model2text/main/</outputDirectory>
+			                        <encoding>UTF-8</encoding>
+			                        <resources>
+			                            <resource>
+			                                <directory>${basedir}/src/main/java/eu/learnpad/transformations/model2text/main</directory>
+			                                <includes>
+			                                    <include>webHome.emtl</include>
+			                                </includes>
+			                            </resource>
+			                        </resources>
+			                    </configuration>
+			                </execution>
+			            	 <!-- COPY ModelServices.mtl -->
+			               <!--  <execution>
+			                    <id>copy-resources03</id>
+			                    <phase>process-classes</phase>
+			                    <goals>
+			                        <goal>copy-resources</goal>
+			                    </goals>
+			                    <configuration>
+			                        <outputDirectory>${basedir}/target/classes/eu/learnpad/transformations/model2text/services/</outputDirectory>
+			                        <encoding>UTF-8</encoding>
+			                        <resources>
+			                            <resource>
+			                                <directory>${basedir}/src/main/java/eu/learnpad/transformations/model2text/services</directory>
+			                                <includes>
+			                                    <include>modelServices.mtl</include>
+			                                </includes>
+			                            </resource>
+			                        </resources>
+			                    </configuration>
+			                </execution> -->
+			            	 <!-- COPY ModelServices.emtl -->
+			                <execution>
+			                    <id>copy-resources04</id>
+			                    <phase>process-classes</phase>
+			                    <goals>
+			                        <goal>copy-resources</goal>
+			                    </goals>
+			                    <configuration>
+			                        <outputDirectory>${basedir}/target/classes/eu/learnpad/transformations/model2text/services/</outputDirectory>
+			                        <encoding>UTF-8</encoding>
+			                        <resources>
+			                            <resource>
+			                                <directory>${basedir}/src/main/java/eu/learnpad/transformations/model2text/services</directory>
+			                                <includes>
+			                                    <include>ModelServices.emtl</include>
+			                                </includes>
+			                            </resource>
+			                        </resources>
+			                    </configuration>
+			                </execution>
+			            </executions>
+			        </plugin> 
+        
+        
                 </plugins>
         </build>
   

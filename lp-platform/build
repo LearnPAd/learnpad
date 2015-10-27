@@ -26,6 +26,7 @@ declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
 ### BUILD ###
 # This is where you compile and build each part of your component
 function component_build() {
+rm -rf out/
 mvn clean install
 }
 

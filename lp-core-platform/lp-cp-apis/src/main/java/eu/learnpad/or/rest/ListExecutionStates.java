@@ -27,7 +27,7 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.States;
 
 // <host>/learnpad/or/execution/{userId}
-@Path("/learnpad/or/execution/{userId}")
+@Path("/execution/{userId}")
 public interface ListExecutionStates {
 
 	/**

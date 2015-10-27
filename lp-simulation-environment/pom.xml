@@ -34,8 +34,9 @@
 		<jquery-ui.version>1.11.3</jquery-ui.version>
 		<underscorejs.version>1.7.0-1</underscorejs.version>
 		<spectrum.version>1.6.0</spectrum.version>
-		<license-maven-plugin.version>1.8</license-maven-plugin.version>
 		<resteasy.version>3.0.11.Final</resteasy.version>
+		<license-maven-plugin.version>1.8</license-maven-plugin.version>
+		<build-helper-maven-plugin.version>1.9.1</build-helper-maven-plugin.version>
 	</properties>
 
 	<repositories>
@@ -196,7 +197,11 @@
 			<artifactId>activemq-core</artifactId>
 			<version>5.3.2</version>
 		</dependency>
-
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+			<version>9.6.0-5</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -243,6 +248,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -285,6 +291,7 @@
 				<!-- handle license files -->
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>license-maven-plugin</artifactId>
+				<version>${license-maven-plugin.version}</version>
 				<configuration>
 					<licenseName>agpl_v3</licenseName>
 					<roots>
@@ -356,6 +363,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>${build-helper-maven-plugin.version}</version>
 				<executions>
 					<execution>
 						<!-- Add third-party licenses to generated builds NOTE: the order is 
@@ -406,12 +414,36 @@
 										</versionRange>
 										<goals>
 											<goal>
-												update-project-license
+												add-third-party
+											</goal>
+											<goal>
+												download-licenses
 											</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
 										<ignore></ignore>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											build-helper-maven-plugin
+										</artifactId>
+										<versionRange>
+											[${build-helper-maven-plugin.version},)
+										</versionRange>
+										<goals>
+											<goal>
+												add-resource
+											</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute></execute>
 									</action>
 								</pluginExecution>
 							</pluginExecutions>

@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import eu.learnpad.ca.rest.data.Annotation;
-import eu.learnpad.ca.rest.data.Content;
 
 /**
  * This class contains the data structure with all the informations returned by

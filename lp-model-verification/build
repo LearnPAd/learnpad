@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
-### Help
-# This is a template to help you write the `build' script.
-
-# This script should build then test your component and copy needed material
-# into the `out' directory.  It is structured with 3 functions, one for each
-# need.
 
 ### VARIABLES ###
-# Here are some usefull variables
 
 # This is the directory path to your component
 declare -r __COMPONENT_PATH__="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -23,31 +16,34 @@ declare -r __OUT_RUNDEPS_FILE__="${__OUT_PATH__}/rundeps.txt"
 # This is the path to the directory where you can optionally put some configuration files
 declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
 
+# avoid deleting/re-downloading license files
+declare -r __MVN_PROFILE__="-Pkeep-license-files"
+
 ### BUILD ###
-# This is where you compile and build each part of your component
 function component_build() {
-make clean
-make all
+    rm -rf $__OUT_PATH__
+    mvn $__MVN_PROFILE__ clean
+    # skip tests as we will do them in the component_test stage
+    mvn $__MVN_PROFILE__ package -Dmaven.test.skip=true
 }
 
 ### TEST ###
-# This is where you can run tests of your component
 function component_test() {
-# There is no test in this template component
-echo "Nothing to test"
+    mvn $__MVN_PROFILE__ test
 }
 
 ### INSTALL ###
 # This is where you need to publish material into the `out' directory
 function component_install() {
-mkdir -p ${__OUT_PATH__}
-cp "scripts/start" "${__OUT_START_FILE__}"
-cp "scripts/stop" "${__OUT_STOP_FILE__}"
-cp "bin/hello" "${__OUT_PATH__}/"
-# There is no run dependencies for this component
-#cp <path_to>/rundeps.txt ${__OUT_RUNDEPS_FILE__}
-# These is no configuration file to copy
-#cp <path_to>/file.cfg ${__OUT_CONF_PATH__}/
+    mkdir -p ${__OUT_PATH__}
+    cp "scripts/start" "${__OUT_START_FILE__}"
+    cp "scripts/stop" "${__OUT_STOP_FILE__}"
+    cp -r "verification-component/target/VerificationComponentPlugins/" "${__OUT_PATH__}/VerificationComponentPlugins/"
+	cp "verification-component/target/verification-component-1.0-jar-with-dependencies.jar" "${__OUT_PATH__}/verification-component-1.0-jar-with-dependencies.jar"
+    # There is no run dependencies for this component
+    #cp <path_to>/rundeps.txt ${__OUT_RUNDEPS_FILE__}
+    # These is no configuration file to copy
+    #cp <path_to>/file.cfg ${__OUT_CONF_PATH__}/
 }
 
 component_build && component_test && component_install

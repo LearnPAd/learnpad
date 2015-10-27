@@ -28,7 +28,7 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
 
 // <host>/learnpad/or/{modelsetid}/recommendation?artifactid=userid=id,type={role|context|expert|resource|...}
-@Path("/learnpad/or/{modelsetid}/recommendation")
+@Path("/{modelsetid}/recommendation")
 public interface AskRecommendation {
 	/**
 	 * 

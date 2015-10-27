@@ -1,4 +1,0 @@
-eu.learnpad.rest.utils.internal.DefaultCPRestUtils
-eu.learnpad.rest.utils.internal.DefaultCWRestUtils
-eu.learnpad.rest.utils.internal.DefaultRestUtils
-eu.learnpad.rest.internal.DefaultModel
