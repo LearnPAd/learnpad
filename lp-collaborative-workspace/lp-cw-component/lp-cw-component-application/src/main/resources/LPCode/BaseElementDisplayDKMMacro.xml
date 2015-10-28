@@ -21,17 +21,17 @@
 
 <xwikidoc version="1.1">
   <web>LPCode</web>
-  <name>BaseElementDisplayBPMNMacro</name>
+  <name>BaseElementDisplayDKMMacro</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
-  <creationDate>1446027948000</creationDate>
+  <creationDate>1446041491000</creationDate>
   <parent>WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1446051553000</date>
-  <contentUpdateDate>1446027948000</contentUpdateDate>
+  <date>1446045191000</date>
+  <contentUpdateDate>1446041491000</contentUpdateDate>
   <version>1.1</version>
   <title/>
   <comment/>
@@ -40,10 +40,10 @@
   <hidden>false</hidden>
   <content/>
   <object>
-    <name>LPCode.BaseElementDisplayBPMNMacro</name>
+    <name>LPCode.BaseElementDisplayDKMMacro</name>
     <number>0</number>
     <className>XWiki.WikiMacroClass</className>
-    <guid>0b59e9e1-e9ec-447d-a448-082193788b59</guid>
+    <guid>08fb183f-7fab-41ed-ab36-73370badaf04</guid>
     <class>
       <name>XWiki.WikiMacroClass</name>
       <customClass/>
@@ -156,36 +156,33 @@
     <property>
       <code>{{velocity}}
 #set ($documentation = $doc.getObject('LPCode.BaseElementClass').getProperty('documentation').value)
-#set ($type = $doc.getObject('LPCode.BaseElementClass').getProperty('type').value)
-{{workflowbuttons type="${type}" /}}
-
+(% class="col-xs-12" %)(((
 {{documentation}}
 ${documentation}
 {{/documentation}}
-
-{{organization modeltype='bpmn' /}}
+)))
 {{/velocity}}</code>
     </property>
     <property>
       <contentDescription/>
     </property>
     <property>
-      <contentType>No content</contentType>
+      <contentType>Optional</contentType>
     </property>
     <property>
       <defaultCategory/>
     </property>
     <property>
-      <description>Display for artifact that are part of BPMN model.</description>
+      <description>Display for artifact that are part of DKM model.</description>
     </property>
     <property>
-      <id>baseelementdisplaybpmn</id>
+      <id>baseelementdisplaydkm</id>
     </property>
     <property>
-      <name>Base Element Display (BPMN)</name>
+      <name>Base Element Display (DKM)</name>
     </property>
     <property>
-      <supportsInlineMode>0</supportsInlineMode>
+      <supportsInlineMode/>
     </property>
     <property>
       <visibility>Current Wiki</visibility>
