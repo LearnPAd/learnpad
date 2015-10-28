@@ -905,7 +905,7 @@
     <property value="obj.13920" name="id" type="String"/>
     <property value="Confident check of regularity" name="name" type="String"/>
     <property value="bmm-learning-goal" name="type" type="StaticList"/>
-    <property value="check regularity&amp;amp;#x2F;irregularity of an request" name="documentation" type="TextArea"/>
+    <property value="check regularity/irregularity of an request" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="titolo-unico" name="obj.13923" title="Organisation Related Goals (Role/Unit)" parent="mod\.13916" content=""/>
   <object wiki="xwiki" space="titolo-unico" pageName="obj.13923" className="LPCode.BaseElementClass" number="0">
