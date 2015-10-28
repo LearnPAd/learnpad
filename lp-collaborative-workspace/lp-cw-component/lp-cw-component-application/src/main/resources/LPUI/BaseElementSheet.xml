@@ -31,8 +31,8 @@
   <parent>LearnPAdCode.BaseElementClass</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1446030397000</date>
-  <contentUpdateDate>1446030397000</contentUpdateDate>
+  <date>1446050159000</date>
+  <contentUpdateDate>1446050159000</contentUpdateDate>
   <version>1.1</version>
   <title>${doc.getObject('LPCode.BaseElementClass').getProperty('name').value}</title>
   <comment/>
@@ -42,9 +42,18 @@
   <content>{{velocity}}
 #set ($type = $doc.getObject('LPCode.BaseElementClass').getProperty('type').value)
 #if ($type.startsWith('bpmn'))
-{{bpmnelementdisplay /}}
+{{baseelementdisplaybpmn /}}
 #elseif ($type.startsWith('omm'))
-{{ommelementdisplay /}}
+{{baseelementdisplayomm /}}
+#elseif ($type.startsWith('bmm'))
+{{baseelementdisplaybmm /}}
+#elseif ($type.startsWith('dkm'))
+{{baseelementdisplaydkm /}}
+#elseif ($type.startsWith('cm'))
+{{baseelementdisplaycm /}}
 #end
+(% class="col-xs-4 pull-right" %)(((
+{{weavingbutton /}}
+)))
 {{/velocity}}</content>
 </xwikidoc>
