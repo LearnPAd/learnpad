@@ -31,7 +31,7 @@
   <parent>LPUI.BaseElementSheet</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1446042188000</date>
+  <date>1446052453000</date>
   <contentUpdateDate>1445874785000</contentUpdateDate>
   <version>1.1</version>
   <title>WorkflowButtonsMacro</title>
@@ -178,6 +178,14 @@ bpmn-task
 bpmn-process
 {{/linkbuttons}}
 )))
+#elseif ($type.startsWith('bpmn-pool') || $type.startsWith('bpmn-lane'))
+== ${services.localization.render('WorkflowButtonsMacro.poollane')} ==
+{{linkbuttons type="incoming" align="left" cssClass="btn-y" icon="up" iconAlign="left" block="true"}}
+bpmn-event
+bpmn-gateway
+bpmn-task
+bpmn-process
+{{/linkbuttons}}
 #end
 {{/velocity}}</code>
     </property>
