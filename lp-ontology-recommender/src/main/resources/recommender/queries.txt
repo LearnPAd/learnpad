@@ -41,11 +41,9 @@ WHERE {
     ?sameRoleInOtherUnit rdfs:label ?roleName .
     ?performerInOtherUnit omm:performerHasRole ?sameRoleInOtherUnit .
     ?performerInOtherUnit rdfs:label ?otherPerformerName .
+    ?performerInOtherUnit emo:performerHasEmailAddress ?email .
     FILTER (?sameRoleInOtherUnit != ?role) .
     ?performerInOtherUnit emo:performerRepresentsPerson ?businessActor .
-    OPTIONAL {
-        ?businessActor foaf:mbox ?email .
-    } .
     OPTIONAL {
         ?businessActor foaf:phone ?phone .
     } .

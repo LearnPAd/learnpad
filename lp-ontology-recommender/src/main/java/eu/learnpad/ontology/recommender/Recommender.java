@@ -80,7 +80,7 @@ public class Recommender {
                 Resource businessActor = soln.getResource("businessActor");
                 expert.setUri(businessActor.getURI());
                 expert.setName(getLiteralString(soln, "otherPerformerName"));
-                expert.setName(getLiteralString(soln, "email"));
+                expert.setEmail(getLiteralString(soln, "email"));
                 expert.setPhoneNumber(getLiteralString(soln, "phone"));
                 expert.setRole(getLiteralString(soln, "roleName"));
                 expert.setDescription(queryObj.getDescription());

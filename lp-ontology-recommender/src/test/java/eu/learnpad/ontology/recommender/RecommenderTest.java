@@ -26,7 +26,7 @@ public class RecommenderTest extends AbstractUnitTest {
 
     @Test
     public void testSuggestExpertWithSameRole() {
-        Recommendations recomms = Recommender.getInstance().getRecommendations(TEST_MODEL_SET_ID_TITOLO_UNICO, "", TEST_USER_1_EMAIL);
+        Recommendations recomms = Recommender.getInstance().getRecommendations(TEST_MODEL_SET_ID_TITOLO_UNICO_V5, "", TEST_USER_2_EMAIL);
         assertNotNull(recomms);
         JAXB.marshal(recomms, System.out);        
         Experts experts = recomms.getExperts();

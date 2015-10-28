@@ -59,7 +59,7 @@ public final class SimpleModelTransformator {
         } catch (IOException ex) {
             Logger.getLogger(SimpleModelTransformator.class.getName()).log(Level.SEVERE, null, ex);
         }
-        transform("modelset-titolo-unico-v4", testModelFile, ModellingEnvironmentType.ADOXX);
+        transform(APP.CONF.getString("testdata.modelset.version"), testModelFile, ModellingEnvironmentType.ADOXX);
     }
 
     public static SimpleModelTransformator getInstance() {
