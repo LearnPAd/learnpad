@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -31,7 +30,7 @@
   <parent>LPCode.WorkflowButtonsMacro</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1446031778000</date>
+  <date>1446041885000</date>
   <contentUpdateDate>1446030616000</contentUpdateDate>
   <version>1.1</version>
   <title>OrganizationMacro</title>
@@ -205,7 +204,7 @@ omm-performer
       <supportsInlineMode>0</supportsInlineMode>
     </property>
     <property>
-      <visibility>Global</visibility>
+      <visibility>Current Wiki</visibility>
     </property>
   </object>
   <object>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -31,8 +30,8 @@
   <parent>LPUI.BaseElementSheet</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1445607081000</date>
-  <contentUpdateDate>1445603601000</contentUpdateDate>
+  <date>1446041900000</date>
+  <contentUpdateDate>1445874785000</contentUpdateDate>
   <version>1.1</version>
   <title>FeedbackButtonMacro</title>
   <comment/>
@@ -188,7 +187,7 @@
       <supportsInlineMode>1</supportsInlineMode>
     </property>
     <property>
-      <visibility>Global</visibility>
+      <visibility>Current Wiki</visibility>
     </property>
   </object>
 </xwikidoc>

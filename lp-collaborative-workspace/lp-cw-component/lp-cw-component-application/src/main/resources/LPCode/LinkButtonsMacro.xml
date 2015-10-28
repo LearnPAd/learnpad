@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -31,7 +30,7 @@
   <parent>LPCode.FeedbackButtonMacro</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1445878408000</date>
+  <date>1446041894000</date>
   <contentUpdateDate>1445874785000</contentUpdateDate>
   <version>1.1</version>
   <title>LinkButtonsMacro</title>
@@ -218,7 +217,7 @@
       <supportsInlineMode>1</supportsInlineMode>
     </property>
     <property>
-      <visibility>Global</visibility>
+      <visibility>Current Wiki</visibility>
     </property>
   </object>
   <object>
