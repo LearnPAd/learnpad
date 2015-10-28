@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+cd $( dirname "${BASH_SOURCE[0]}")
+{
+	java -jar "./monitoring-"*"-jar-with-dependencies.jar" systemSettings > /dev/null
+}&

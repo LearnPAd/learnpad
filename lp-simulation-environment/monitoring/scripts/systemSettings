@@ -1,0 +1,11 @@
+ENVIRONMENTPARAMETERSFILE = ./configFiles/environmentFile
+DROOLSPARAMETERFILE = 		./configFiles/droolsFile
+MANAGERPARAMETERFILE = 		./configFiles/managerFile
+SOAPREQUESTFILE = 		./configFiles/soapRequestFile
+DROOLSRULEREQUESTTEMPLATE1 = 	./configFiles/droolsRuleRequestTemplateOne
+DROOLSRULEREQUESTTEMPLATE2 = 	./configFiles/droolsRuleRequestTemplateTwo
+DROOLSRULEREQUESTTEMPLATE3_1 = 	./configFiles/droolsRuleRequestTemplateThree_1
+DROOLSRULEREQUESTTEMPLATE3_2 = 	./configFiles/droolsRuleRequestTemplateThree_2
+BSMWSDLURIFILEPATH = 		./configFiles/bsmWsdl
+REGEXPATTERNFILEPATH = 		./configFiles/regexParameters
+MAILNOTIFICATIONPATH = 		./configFiles/mailSettings

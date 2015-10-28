@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<xwikidoc version="1.1">
+  <web>LPCode</web>
+  <name>WeavingMacro</name>
+  <language/>
+  <defaultLanguage/>
+  <parent>WebHome</parent>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1446046076000</creationDate>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1446050126000</date>
+  <contentUpdateDate>1446046076000</contentUpdateDate>
+  <version>1.1</version>
+  <title/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>false</hidden>
+  <content/>
+  <object>
+    <name>LPCode.WeavingMacro</name>
+    <number>0</number>
+    <className>XWiki.WikiMacroClass</className>
+    <guid>f8b02062-2de7-481c-aa52-88dbef44443a</guid>
+    <class>
+      <name>XWiki.WikiMacroClass</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>9</number>
+        <prettyName>Macro code</prettyName>
+        <rows>20</rows>
+        <size>40</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <contentDescription>
+        <disabled>0</disabled>
+        <name>contentDescription</name>
+        <number>8</number>
+        <prettyName>Content description (Not applicable for "No content" type)</prettyName>
+        <rows>5</rows>
+        <size>40</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </contentDescription>
+      <contentType>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>contentType</name>
+        <number>7</number>
+        <prettyName>Macro content type</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator>|</separator>
+        <separators>|</separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>Optional|Mandatory|No content</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </contentType>
+      <defaultCategory>
+        <disabled>0</disabled>
+        <name>defaultCategory</name>
+        <number>4</number>
+        <prettyName>Default category</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </defaultCategory>
+      <description>
+        <disabled>0</disabled>
+        <name>description</name>
+        <number>3</number>
+        <prettyName>Macro description</prettyName>
+        <rows>5</rows>
+        <size>40</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </description>
+      <id>
+        <disabled>0</disabled>
+        <name>id</name>
+        <number>1</number>
+        <prettyName>Macro id</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </id>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>2</number>
+        <prettyName>Macro name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <supportsInlineMode>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>supportsInlineMode</name>
+        <number>5</number>
+        <prettyName>Supports inline mode</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </supportsInlineMode>
+      <visibility>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>visibility</name>
+        <number>6</number>
+        <prettyName>Macro visibility</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator>|</separator>
+        <separators>|</separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>Current User|Current Wiki|Global</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </visibility>
+    </class>
+    <property>
+      <code>{{velocity}}
+#set ($linksin = $doc.getObjects('LPCode.LinkClass', 'type', 'incoming-weaving'))
+#set ($linksout = $doc.getObjects('LPCode.LinkClass', 'type', 'outgoing-weaving'))
+#set ($links = [])
+#set ($discard = $links.addAll($linksin))
+#set ($discard = $links.addAll($linksout))
+#set ($weavingmap = {})
+#foreach($link in $links)
+  #set ($type = $link.getProperty('type').value)
+  #set ($uri = $link.getProperty('uri').value)
+  #set ($linkReference = $services.model.createDocumentReference($xcontext.database, $doc.space, $uri))
+  #set ($linkDocument = $xwiki.getDocument($linkReference))
+  #set ($linkObject = $linkDocument.getObject('LPCode.BaseElementClass'))
+  #set ($linkModelId = $linkObject.getProperty('modelid').value)
+  #set ($linkName = $linkObject.getProperty('name').value)
+  #set ($modelReference = $services.model.createDocumentReference($xcontext.database, $doc.space, $linkModelId))
+  #set ($modelDocument = $xwiki.getDocument($modelReference))
+  #set ($modelObject = $modelDocument.getObject('LPCode.ModelClass'))
+  #set ($modelType = $modelObject.getProperty('type').value)
+  #set ($modelName = $modelObject.getProperty('name').value)
+  #set ($modelTypePrettyName = $modelObject.get('type'))
+  #if (!$weavingmap.containsKey($modelType))
+    #set ($discard = $weavingmap.put($modelType, {}))
+    #set ($discard = $weavingmap.get($modelType).put('typename', $modelTypePrettyName))
+    #set ($discard = $weavingmap.get($modelType).put('links', []))
+  #end
+  #set ($linkmap = {})
+  #set ($discard = $linkmap.put('reference', $linkReference))
+  #set ($discard = $linkmap.put('name', $linkName))
+  #set ($discard = $linkmap.put('modelname', $modelName))
+  #set ($discard = $weavingmap.get($modelType).get('links').add($linkmap))
+#end
+#if ($weavingmap.size() &gt; 0)
+(% class="panel panel-default" %)(((
+(% class="panel-heading" %)(((
+(% class="panel-title text-center" %)(((== ${services.localization.render('WeavingButtonMacro.title')} ==)))
+)))
+(% class="panel-body" %)(((
+  #foreach($modelTypeKey in $weavingmap.keySet())
+    #set ($modelType = $weavingmap.get($modelTypeKey))
+    #set ($modelTypeName = $modelType.get('typename'))
+    #set ($modelLinks = $modelType.get('links'))
+
+=== ${modelTypeName} ===
+    #foreach ($modelLink in $modelLinks)
+      #set ($linkReference = $modelLink.get('reference'))
+      #set ($linkName = $modelLink.get('name'))
+      #set ($modelName = $modelLink.get('modelname'))
+(% class="help-block" %)${modelName}
+[[${linkName}&gt;&gt;${linkReference}||class="btn btn-block btn-default" style="text-align:center"]]##
+    #end
+  #end
+)))
+)))
+#end
+{{/velocity}}</code>
+    </property>
+    <property>
+      <contentDescription/>
+    </property>
+    <property>
+      <contentType>No content</contentType>
+    </property>
+    <property>
+      <defaultCategory/>
+    </property>
+    <property>
+      <description>Display a button to navigate accross the model through the weaving model.</description>
+    </property>
+    <property>
+      <id>weavingbutton</id>
+    </property>
+    <property>
+      <name>Weaving Button</name>
+    </property>
+    <property>
+      <supportsInlineMode>1</supportsInlineMode>
+    </property>
+    <property>
+      <visibility>Current Wiki</visibility>
+    </property>
+  </object>
+</xwikidoc>

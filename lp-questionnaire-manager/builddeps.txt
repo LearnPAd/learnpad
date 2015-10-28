@@ -1,2 +1,2 @@
-gcc
-make
+default-jre
+maven

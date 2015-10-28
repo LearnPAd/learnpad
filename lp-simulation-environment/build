@@ -22,27 +22,50 @@ declare -r __MVN_PROFILE__="-Pkeep-license-files --batch-mode"
 ### BUILD ###
 function component_build() {
     rm -rf $__OUT_PATH__
-    mvn ${__MVN_PROFILE__} clean
-    # skip tests as we will do them in the component_test stage
-    mvn ${__MVN_PROFILE__} package -Dmaven.test.skip=true
+    simulator/scripts_build/build
+    STATUS=$?
+    if [ $STATUS -ne 0 ]; then
+        # if failed return error
+        exit $STATUS
+    else
+        monitoring/scripts_build/build
+	exit $?
+    fi
 }
 
 ### TEST ###
 function component_test() {
-    mvn ${__MVN_PROFILE__} test
+    simulator/scripts_build/test
+    STATUS=$?
+    if [ $STATUS -ne 0 ]; then
+        # if failed return error
+        exit 1;
+    else
+        monitoring/scripts_build/test;
+	exit $?
+    fi
 }
 
 ### INSTALL ###
 # This is where you need to publish material into the `out' directory
 function component_install() {
-    mkdir -p ${__OUT_PATH__}
-    cp "scripts/start" "${__OUT_START_FILE__}"
-    cp "scripts/stop" "${__OUT_STOP_FILE__}"
-    unzip "target/simulator-"*".zip" -d "${__OUT_PATH__}/"
-    # There is no run dependencies for this component
-    #cp <path_to>/rundeps.txt ${__OUT_RUNDEPS_FILE__}
-    # These is no configuration file to copy
-    #cp <path_to>/file.cfg ${__OUT_CONF_PATH__}/
+    simulator/scripts_build/install
+    STATUS=$?
+    if [ $STATUS -ne 0 ]; then
+        # if failed return error
+        exit $STATUS;
+    else
+        simulator/scripts_build/install
+        STATUS=$?
+        if [ $STATUS -ne 0 ]; then
+            # if failed return error
+            exit $STATUS;
+        else
+            mkdir -p ${__OUT_PATH__} &&
+                cp "scripts/start" "${__OUT_START_FILE__}" &&
+                cp "scripts/stop" "${__OUT_STOP_FILE__}"
+        fi;
+    fi
 }
 
 component_build && component_test && component_install

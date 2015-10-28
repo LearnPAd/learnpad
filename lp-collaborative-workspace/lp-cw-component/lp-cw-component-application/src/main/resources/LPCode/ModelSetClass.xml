@@ -20,28 +20,26 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc>
+<xwikidoc version="1.1">
   <web>LPCode</web>
   <name>ModelSetClass</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
-  <parent>WebHome</parent>
   <creator>xwiki:XWiki.Admin</creator>
-  <author>xwiki:XWiki.Admin</author>
-  <customClass/>
-  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1443000854000</creationDate>
-  <date>1443172051000</date>
-  <contentUpdateDate>1443108400000</contentUpdateDate>
+  <parent>WebHome</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1445521280000</date>
+  <contentUpdateDate>1445521280000</contentUpdateDate>
   <version>1.1</version>
   <title/>
-  <defaultTemplate/>
-  <validationScript/>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
+  <content/>
   <class>
     <name>LPCode.ModelSetClass</name>
     <customClass/>
@@ -94,6 +92,10 @@
     </name>
   </class>
   <object>
+    <name>LPCode.ModelSetClass</name>
+    <number>0</number>
+    <className>XWiki.ClassSheetBinding</className>
+    <guid>9ad1706f-9efc-4129-9573-5c81b5f2f2cb</guid>
     <class>
       <name>XWiki.ClassSheetBinding</name>
       <customClass/>
@@ -117,15 +119,15 @@
         <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
       </sheet>
     </class>
-    <name>LPCode.ModelSetClass</name>
-    <number>0</number>
-    <className>XWiki.ClassSheetBinding</className>
-    <guid>9ad1706f-9efc-4129-9573-5c81b5f2f2cb</guid>
     <property>
       <sheet>LPUI.ModelSetSheet</sheet>
     </property>
   </object>
   <object>
+    <name>LPCode.ModelSetClass</name>
+    <number>0</number>
+    <className>XWiki.DocumentSheetBinding</className>
+    <guid>e340682c-8bc6-4f37-99d0-de7eabb35ff3</guid>
     <class>
       <name>XWiki.DocumentSheetBinding</name>
       <customClass/>
@@ -149,13 +151,8 @@
         <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
       </sheet>
     </class>
-    <name>LPCode.ModelSetClass</name>
-    <number>0</number>
-    <className>XWiki.DocumentSheetBinding</className>
-    <guid>e340682c-8bc6-4f37-99d0-de7eabb35ff3</guid>
     <property>
       <sheet>XWiki.ClassSheet</sheet>
     </property>
   </object>
-  <content/>
 </xwikidoc>

@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
-cd $( dirname "${BASH_SOURCE[0]}")
-{
-	java -jar "simulator-"*"/simulator-"*".jar" > /dev/null
-}&
+simulator/out/start
+monitoring/out/start

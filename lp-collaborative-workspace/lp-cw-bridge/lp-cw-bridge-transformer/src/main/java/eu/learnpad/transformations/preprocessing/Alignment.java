@@ -323,10 +323,7 @@ public class Alignment {
 	                escapedTxt += "&quot;";
 	                break;
 	            case '\'':
-	                escapedTxt += "&#x27;";
-	                break;
-	            case '/':
-	                escapedTxt += "&#x2F;";
+	                escapedTxt += "&apos;";
 	                break;
 	            default:
 	                escapedTxt += tmp;
