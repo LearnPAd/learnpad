@@ -31,19 +31,22 @@
   <parent>WebIDE.LearnPAd</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1445521281000</date>
-  <contentUpdateDate>1445521281000</contentUpdateDate>
+  <date>1446128775000</date>
+  <contentUpdateDate>1446128775000</contentUpdateDate>
   <version>1.1</version>
-  <title>Simulation of ${request.getParameter('modelid')}</title>
+  <title>Simulation of ${xwiki.getDocument($services.model.createDocumentReference($xcontext.database, $request.getParameter('modelsetid'), $request.getParameter('modelid'))).getObject('LPCode.ModelClass').getProperty('name').value}</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
   <content>{{velocity}}
+#set ($modelsetid = $request.getParameter('modelsetid'))
 #set ($modelid = $request.getParameter('modelid'))
 ## TODO: Replace the fake URL by the correct call to the API
 ##set ($simulationURL = "$services.learnpad.startSimulation($modelid, 'XWiki.Admin', [])")
 #set ($simulationURL = "uisingleprocess?processid=SUAPdemo")
+#set ($backReference = $services.model.createDocumentReference($xcontext.database, ${modelsetid}, ${modelid}))
+[[$services.icon.render('left') $services.localization.render('SimulationEnvironment.goback')&gt;&gt;path:${xwiki.getURL($backReference)}]]
 {{html clean="false"}}
 &lt;iframe id="simulation-iframe" width="100%" src="http://localhost:8081/${simulationURL}"&gt;
 Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
