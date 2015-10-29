@@ -188,8 +188,8 @@
 						<transformation>
 							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
 							<file>XWiki/XWikiPreferences.xml</file>
-							<xpath>/xwikidoc/object/property/leftPanels</xpath>
-							<value></value>
+							<xpath>/xwikidoc/object/property/showLeftPanels</xpath>
+							<value>0</value>
 						</transformation>
 						<transformation>
 							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
