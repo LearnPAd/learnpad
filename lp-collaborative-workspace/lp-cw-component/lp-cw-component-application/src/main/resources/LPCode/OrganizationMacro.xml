@@ -31,7 +31,7 @@
   <parent>LPCode.WorkflowButtonsMacro</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1446041885000</date>
+  <date>1446120256000</date>
   <contentUpdateDate>1446030616000</contentUpdateDate>
   <version>1.1</version>
   <title>OrganizationMacro</title>
@@ -157,30 +157,26 @@
     <property>
       <code>{{velocity}}
 #set ($modeltype = $xcontext.macro.params.modeltype)
-(% class="panel panel-default" %)(((
-(% class="panel-heading" %)(((
-(% class="panel-title text-center" %)(((== ${services.localization.render('OrganizationMacro.title')} ==)))
-)))
-(% class="panel-body" %)(((
+== ${services.localization.render('OrganizationMacro.title')} ==
 #if ($modeltype.equals('bpmn'))
 {{linkbuttons type="outgoing" align="center" cssClass="btn-default" icon="group" iconAlign="right" block="true"}}
 bpmn-lane
 bpmn-pool
 {{/linkbuttons}}
 #elseif ($modeltype.equals('omm'))
+=== ${services.localization.render('OrganizationMacro.title.top')} ===
 {{linkbuttons type="outgoing" align="center" cssClass="btn-default" icon="up" iconAlign="right" block="true"}}
 omm-unit
 omm-role
 omm-performer
 {{/linkbuttons}}
+=== ${services.localization.render('OrganizationMacro.title.bottom')} ===
 {{linkbuttons type="incoming" align="center" cssClass="btn-primary" icon="down" iconAlign="right" block="true"}}
 omm-unit
 omm-role
 omm-performer
 {{/linkbuttons}}
 #end
-)))
-)))
 {{/velocity}}</code>
     </property>
     <property>
