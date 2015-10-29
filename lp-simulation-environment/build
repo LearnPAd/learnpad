@@ -61,7 +61,7 @@ function component_install() {
         # if failed return error
         exit $STATUS;
     else
-        simulator/scripts_build/install
+        monitoring/scripts_build/install
         STATUS=$?
         if [ $STATUS -ne 0 ]; then
             # if failed return error
