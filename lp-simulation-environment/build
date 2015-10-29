@@ -29,7 +29,10 @@ function component_build() {
         exit $STATUS
     else
         monitoring/scripts_build/build
-	exit $?
+        STATUS=$?
+        if [ $STATUS -ne 0 ]; then
+                exit $?
+        fi
     fi
 }
 
@@ -42,7 +45,10 @@ function component_test() {
         exit 1;
     else
         monitoring/scripts_build/test;
-	exit $?
+        STATUS=$?
+        if [ $STATUS -ne 0 ]; then
+                exit $?
+        fi
     fi
 }
 
