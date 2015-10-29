@@ -31,8 +31,8 @@
   <parent>Main.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1446128882000</date>
-  <contentUpdateDate>1446128882000</contentUpdateDate>
+  <date>1446135803000</date>
+  <contentUpdateDate>1446135803000</contentUpdateDate>
   <version>1.1</version>
   <title>${doc.getObject('LPCode.ModelClass').getProperty('name').value}</title>
   <comment/>
@@ -41,10 +41,12 @@
   <hidden>false</hidden>
   <content>{{velocity}}
 #set ($modelObject = $doc.getObject('LPCode.ModelClass'))
+#set ($modelsetid = $doc.space)
 #set ($modelid = $modelObject.getProperty('id').value)
 #set ($query = "from doc.object(LPCode.BaseElementClass) as be where doc.space = '${doc.space}' and be.modelid = '${modelid}' and be.type = 'bpmn-event-start'")
 #set ($results = $services.query.xwql($query).execute())
-
+################
+## Buttons
 {{html clean="false"}}
 &lt;div class="col-xs-3"&gt;
   &lt;div class="dropdown"&gt;
@@ -68,6 +70,17 @@
 (% class="col-xs-3" %)(((
 [[${services.icon.render('gamepad')} Simulate it!&gt;&gt;path:${simulationURL}||class="btn btn-block btn-danger"]]
 )))
+################
+## Image
+#set ($modelsetReference = $services.model.createDocumentReference($xcontext.database, 'CoreRepository', ${modelsetid}))
+#set ($modelsetDocument = $xwiki.getDocument($modelsetReference))
+#set ($modelImage = "${modelid}.jpg")
+#if ($modelsetDocument.getAttachment($modelImage))
+(% class="col-xs-12" %)(((
+[[image:CoreRepository.${modelsetid}@${modelid}.jpg||width="100%"]]
+)))
+#end
+################
 ## Livetable
 #set ($discard = $services.localization.use('document', 'LPCode.Translations'))
 #set ($discard = $xwiki.ssfx.use('uicomponents/widgets/userpicker/userPicker.css'))
