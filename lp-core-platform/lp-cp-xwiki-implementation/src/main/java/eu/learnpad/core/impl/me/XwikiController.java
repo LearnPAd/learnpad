@@ -36,6 +36,7 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
@@ -159,6 +160,22 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 				putMethod.setQueryString(queryString);
 				try {
 					httpClient.executeMethod(putMethod);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				// Notify OR about a new model set imported
+				httpClient = RestResource.getClient();
+				uri = String.format(
+						"%s/learnpad/or/bridge/modelsetimported/%s",
+						RestResource.REST_URI, toReturn.getModelSetId());
+				PostMethod postMethod = new PostMethod(uri);
+				postMethod.addRequestHeader("Accept", "application/xml");
+				queryString = new NameValuePair[1];
+				queryString[0] = new NameValuePair("type", toReturn.getType());
+				postMethod.setQueryString(queryString);
+				try {
+					httpClient.executeMethod(postMethod);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

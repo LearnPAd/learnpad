@@ -32,7 +32,7 @@ public interface ModelSetImported {
 	 * @param type precise the type of model file format (adoxx, md)
 	 * @throws LpRestException
 	 */
-	// <host>/learnpad/or/modelsetimported/{modelsetid}?type={adoxx|md}
+	// <host>/learnpad/or/bridge/modelsetimported/{modelsetid}?type={adoxx|md}
 	@Path("/modelsetimported/{modelsetid}")
 	@POST
 	void modelSetImported(@PathParam("modelsetid") String modelSetId,
