@@ -25,13 +25,13 @@
   <name>WeavingMacro</name>
   <language/>
   <defaultLanguage/>
-  <parent>WebHome</parent>
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
   <creationDate>1446046076000</creationDate>
+  <parent>WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1446050126000</date>
+  <date>1446050358000</date>
   <contentUpdateDate>1446046076000</contentUpdateDate>
   <version>1.1</version>
   <title/>
