@@ -31,7 +31,7 @@
   <parent>WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1446110028000</date>
+  <date>1446120154000</date>
   <contentUpdateDate>1446027948000</contentUpdateDate>
   <version>1.1</version>
   <title/>
@@ -159,15 +159,15 @@
 #set ($documentation = $doc.getObject('LPCode.BaseElementClass').getProperty('documentation').value)
 #set ($type = $doc.getObject('LPCode.BaseElementClass').getProperty('type').value)
 (% class="row" %)(((
-{{workflowbuttons type="${type}" /}}
-)))
-(% class="row" %)(((
 {{documentation}}
 ${documentation}
 {{/documentation}}
 )))
 (% class="row" %)(((
 {{organization modeltype='bpmn' /}}
+)))
+(% class="row" %)(((
+{{workflowbuttons type="${type}" /}}
 )))
 {{/velocity}}</code>
     </property>
