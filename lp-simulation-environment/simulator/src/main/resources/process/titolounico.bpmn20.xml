@@ -44,7 +44,7 @@ In this activity the SUAP office decides whether or not a Conference of services
       </dataOutputAssociation>
       <potentialOwner>
         <resourceAssignmentExpression>
-          <formalExpression>SUAP_Officer</formalExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
         </resourceAssignmentExpression>
       </potentialOwner>
     </userTask>
@@ -70,7 +70,7 @@ In this activity, the SUAP office selects the participants that have to be invit
       </dataOutputAssociation>
       <potentialOwner>
         <resourceAssignmentExpression>
-          <formalExpression>SUAP_Officer</formalExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
         </resourceAssignmentExpression>
       </potentialOwner>
     </userTask>
@@ -97,7 +97,7 @@ In this activity, the SUAP office makes the minutes of the meeting based on the 
       </dataOutputAssociation>
       <potentialOwner>
         <resourceAssignmentExpression>
-          <formalExpression>SUAP_Officer</formalExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
         </resourceAssignmentExpression>
       </potentialOwner>
     </userTask>
