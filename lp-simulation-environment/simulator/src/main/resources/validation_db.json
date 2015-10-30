@@ -150,6 +150,111 @@
 			}
 		}
 	]
+  },
+  "euproject" : {
+	"usertask1" : [
+		{
+
+			"input" : {
+                            "case" : "learnpad"
+			},
+			"output" : {
+			    "project_name" : "Model-Based Social Learning for Public Administrations",
+                            "project_acronym" : "Learn PAd",
+                            "project_code" : "619583",
+                            "funding_entity" : "European Union",
+                            "total_project_cost" : "3532993",
+                            "funding_requirement" : "2635000",
+                            "start_date" : "2014-02-01",
+                            "scientific_supervisor": "flavio_corradini",
+                            "andrea_polini": true,
+                            "barbara_re": true
+			}
+		}
+	],
+	"usertask2" : [
+		{
+
+			"input" : {
+                            "case" : "learnpad"
+			},
+			"output" : {
+                            "main_instigator" : "andrea_polini"
+			}
+		}
+	],
+	"usertask3" : [
+		{
+
+			"input" : {
+                            "case" : "learnpad"
+			},
+			"output" : {
+                            "bank" : "marche"
+			}
+		}
+	],
+	"usertask4" : [
+		{
+
+			"input" : {
+                            "case" : "learnpad"
+			},
+			"output" : {
+			    "ugov_project_name" : "Model-Based Social Learning for Public Administrations",
+                            "ugov_project_acronym" : "Learn PAd",
+                            "ugov_project_code" : "619583",
+                            "ugov_funding_entity" : "European Union"
+			}
+		}
+	],
+	"usertask5" : [
+		{
+
+			"input" : {
+                            "case" : "learnpad"
+			},
+			"output" : {
+                            "sign_consortium" : "yes"
+			}
+		}
+	],
+	"usertask6" : [
+		{
+
+			"input" : {
+                            "case" : "learnpad"
+			},
+			"output" : {
+                            "sign_grant" : "yes"
+			}
+		}
+	],
+	"usertask8" : [
+		{
+
+			"input" : {
+                            "case" : "learnpad"
+			},
+			"output" : {
+                            "cup_projectref" : "619583"
+			}
+		}
+	],
+	"usertask9" : [
+		{
+
+			"input" : {
+                            "case" : "learnpad"
+			},
+			"output" : {
+			    "miur_project_name" : "Model-Based Social Learning for Public Administrations",
+                            "miur_project_acronym" : "Learn PAd",
+                            "miur_project_code" : "619583",
+                            "miur_funding_entity" : "European Union"
+			}
+		}
+	],
   }
 }
 
