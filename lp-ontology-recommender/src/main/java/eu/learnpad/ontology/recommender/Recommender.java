@@ -19,6 +19,7 @@ import com.hp.hpl.jena.query.QuerySolutionMap;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Resource;
+import eu.learnpad.ontology.config.APP;
 
 import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.persistence.OntAO;
@@ -35,6 +36,10 @@ public class Recommender {
     private static final Recommender instance = new Recommender();
     private OntAO ontAO;
     
+    public static final String QUERY_LINEMANAGER_AS_EXPERT = "linemanagerAsExpert";
+    public static final String QUERY_EXPERTS_WITH_SAME_ROLE = "expertsWithSameRole";
+    public static final String QUERY_EXPERT_MOST_OFTEN_EXECUTED_TASK = "expertMostOftenExecutedTask";
+    
     private Recommender() {
     	this.ontAO = new FileOntAO();
     }
@@ -46,18 +51,25 @@ public class Recommender {
     public Recommendations getRecommendations(String modelSetId, String artifactId, String userId){
         Recommendations recommends = new Recommendations();
         Experts experts = new Experts();
+        experts.addAllBusinessActors(suggestLineManagerAsExpert(modelSetId, artifactId, userId));
         experts.addAllBusinessActors(suggestExpertsWithSameRole(modelSetId, artifactId, userId));
-//        experts.addAllBusinessActors(suggestExpertMostOftenExecutedTask(modelSetId, artifactId, userId));
+        experts.addAllBusinessActors(suggestExpertMostOftenExecutedTask(modelSetId, artifactId, userId));
         recommends.setExperts(experts);
         return recommends;
     }
-        
+    public List<BusinessActor> suggestLineManagerAsExpert(String modelSetId, String artifactId, String userId){
+        return getExperts(QUERY_LINEMANAGER_AS_EXPERT, modelSetId, artifactId, userId);
+    }    
+    
     public List<BusinessActor> suggestExpertsWithSameRole(String modelSetId, String artifactId, String userId){
-        return getExperts("expertsWithSameRole", modelSetId, artifactId, userId);
+        return getExperts(QUERY_EXPERTS_WITH_SAME_ROLE, modelSetId, artifactId, userId);
     }
     
     public List<BusinessActor> suggestExpertMostOftenExecutedTask(String modelSetId, String artifactId, String userId){
-        return getExperts("expertMostOftenExecutedTask", modelSetId, artifactId, userId);
+        if(artifactId == null){
+            return new ArrayList<>();
+        }
+        return getExperts(QUERY_EXPERT_MOST_OFTEN_EXECUTED_TASK, modelSetId, artifactId, userId);
     }
 
     private List<BusinessActor> getExperts(String queryName, String modelSetId, String artifactId, String userId) {
@@ -65,11 +77,15 @@ public class Recommender {
         List<BusinessActor> experts = new ArrayList<>();
         Query query = QueryFactory.create(queryObj.getQueryString());
         //TODO replace if execution data is available.        
-//        OntModel model = ontAO.getExecutionData(modelSetId);
-        OntModel model = ontAO.getInferencer(modelSetId).getModel();
+        OntModel model = ontAO.getExecutionData(modelSetId);
+//        OntModel model = ontAO.getInferencer(modelSetId).getModel();
+//        model.write(System.out, "Turtle");
         QueryExecution qexec = null;
         QuerySolutionMap initialBinding = new QuerySolutionMap();
         initialBinding.add("userId", model.createTypedLiteral(userId));
+        if(artifactId != null){
+           initialBinding.add("artifactId", model.getResource(APP.NS.TRANSFER+artifactId));
+        }
         
         try {
             qexec = QueryExecutionFactory.create(query, model, initialBinding);
@@ -79,7 +95,7 @@ public class Recommender {
                 BusinessActor expert = new BusinessActor();
                 Resource businessActor = soln.getResource("businessActor");
                 expert.setUri(businessActor.getURI());
-                expert.setName(getLiteralString(soln, "otherPerformerName"));
+                expert.setName(getLiteralString(soln, "name"));
                 expert.setEmail(getLiteralString(soln, "email"));
                 expert.setPhoneNumber(getLiteralString(soln, "phone"));
                 expert.setRole(getLiteralString(soln, "roleName"));

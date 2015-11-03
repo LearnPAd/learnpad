@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <!--To be set as parameter in transformation engine -->
-  <xsl:param name="modelSetVersion">titolo-unico-v4</xsl:param>
+  <!--xsl:param name="modelSetVersion">titolo-unico-v4</xsl:param-->
+  <xsl:param name="modelSetVersion"/>
 <!--___________________________________________________________________________________________________
 HEADER 
 ___________________________________________________________________________________________________-->
@@ -15,6 +16,7 @@ ________________________________________________________________________________
 @prefix cmmn: &lt;http://ikm-group.ch/archiMEO/CMMN#&gt; .
 @prefix dkm: &lt;http://ikm-group.ch/archiMEO/dkm#&gt; .
 @prefix emo: &lt;http://ikm-group.ch/archiMEO/emo#&gt; .
+@prefix eo: &lt;http://ikm-group.ch/archiMEO/eo#&gt; .
 @prefix kpi: &lt;http://ikm-group.ch/archiMEO/kpi#&gt; .
 @prefix lpd: &lt;http://learnpad.eu#&gt; .
 @prefix omm: &lt;http://ikm-group.ch/archiMEO/omm#&gt; .
@@ -582,9 +584,13 @@ ________________________________________________________________________________
 		  </xsl:if>
 	</xsl:template>
 	
-	<xsl:template name="addInModelConnectionForPerformer">
+	<xsl:template name="addInModelConnectionForPerformerHasRole">
         		<xsl:param name="toId"/>  omm:performerHasRole transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text>
     	</xsl:template>	
+    	<xsl:template name="addInModelConnectionForPerformerIsManagerOf">
+        		<xsl:param name="toId"/>  omm:performerIsManagerOfOrganisationalUnit transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text>
+    	</xsl:template>
+    	
 <!--...............................................................................................-->	
 <!-- ============================================================================================================================================== -->
 <!-- ============================================================================================================================================== -->

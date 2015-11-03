@@ -28,7 +28,8 @@ public class APP {
     
     public static enum NS{
         EMO("http://ikm-group.ch/archiMEO/emo#"),
-        ARCHI("http://ikm-group.ch/archiMEO/archimate");
+        ARCHI("http://ikm-group.ch/archiMEO/archimate"), 
+        TRANSFER("http://learnpad.eu/transfer#");
         
         private String namespace;
         

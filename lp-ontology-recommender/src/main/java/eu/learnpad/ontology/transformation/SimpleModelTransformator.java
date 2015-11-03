@@ -28,6 +28,8 @@ import eu.learnpad.ontology.config.APP;
 import java.io.ByteArrayOutputStream;
 import javax.xml.transform.Source;
 import javax.xml.transform.URIResolver;
+import net.sf.saxon.s9api.QName;
+import net.sf.saxon.s9api.XdmAtomicValue;
 
 /**
  * Simple XSLT based model transformator.
@@ -75,6 +77,7 @@ public final class SimpleModelTransformator {
         try {
             InputStream xsltIn = getClass().getResourceAsStream(APP.CONF.getString("import.transformation.xslt.path") + type.name().toLowerCase() + "2ontology.xsl");
             Transformer transformer = tFactory.newTransformer(new StreamSource(xsltIn));
+            transformer.setParameter("modelSetVersion", new XdmAtomicValue(modelSetId));
 
             File previousVersionOfOutFile = getPreviousVersionOfOutputFile(modelSetId);
             latestOutFile = createNewVersionOfOutputFile(modelSetId);
