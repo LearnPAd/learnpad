@@ -31,7 +31,7 @@
   <parent>LPUI.BaseElementSheet</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1446041900000</date>
+  <date>1446128969000</date>
   <contentUpdateDate>1445874785000</contentUpdateDate>
   <version>1.1</version>
   <title>FeedbackButtonMacro</title>
@@ -162,8 +162,8 @@
 #set ($parameters = "${parameters}&amp;parent=$escapetool.url(${doc.getFullName()})")
 #set ($parameters = "${parameters}&amp;LPCode.FeedbackClass_0_id=$escapetool.url(${feedbackPageName})")
 #set ($feedbackURL = ${xwiki.getURL($feedbackReference, 'edit', $parameters)})
+(% class="help-block text-center" %)${services.localization.render('BaseElementSheet.feedback.helper')}
 [[Feedback $services.icon.render('flag')&gt;&gt;path:${feedbackURL}||class="button btn-danger btn-block"]]
-(% class="help-block" %)${services.localization.render('BaseElementSheet.feedback.helper')}
 {{/velocity}}</code>
     </property>
     <property>

@@ -36,11 +36,8 @@ function heightMonitor() {
             if (!res.enableMonitoring) return;
             var height = $('html').height();
 
-            console.log('height: ' + height);
-
             if (res.prevHeight != height) {
                 res.prevHeight = height;
-                console.log('send ' + height);
                 for (var i = 0; i < res.receivers.length; i++) {
                     res.receivers[i].postMessage({'height': height}, '*');
                 }
