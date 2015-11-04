@@ -30,20 +30,20 @@ public class ExcessiveLength extends AbstractAnalysisClass {
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ExcessiveLength.class);
 
 
-	
-	
+
+
 	public ExcessiveLength(CollaborativeContentAnalysis collaborativeContentInput,Language lang){
 
 		this.language=lang;
 		this.collaborativeContentInput=collaborativeContentInput;
 	}
-	
+
 	public ExcessiveLength(StaticContentAnalysis staticContentInput,Language lang){
 
 		this.language=lang;
 		this.staticContentInput =staticContentInput;
 	}
-	
+
 	public void run() {
 		if(collaborativeContentInput!=null){
 			check(collaborativeContentInput);	
@@ -71,28 +71,25 @@ public class ExcessiveLength extends AbstractAnalysisClass {
 
 		UtilsGate gateu = new UtilsGate(content);
 
-		//List<String> listsentence = langTool.sentenceTokenize(content);
-		Integer id=0;
+
 		gateu.runProcessingResourcesforLenght();
-		Set<String> s = new HashSet<String>() {{
-		    add("Sent-Long");
-			//add("Sentence");
-		}};
-		Set<gate.Annotation> result = gateu.getAnnotationSet(s);
+		Set<gate.Annotation> result = gateu.getAnnotationSet(new HashSet<String>() {{
+			add("Sent-Long");
+		}});
 
-		
 
-		//List<Annotation> annotations = checkdefect(sentence,c, id);
+
+
 		List<Annotation> annotations =new ArrayList<Annotation>();
-		//id = calculateAnnotations(sentence, matches, c, id,annotations);
-		 gatevsleanpad(c,result,annotations,content,gateu.getCorpus());
-		
-		
+
+		gatevsleanpad(c,result,annotations,content,gateu.getCorpus());
+
+
 		annotatedCollaborativeContent.setAnnotations(annotations);
-		id++;
 
 
-		
+
+
 		Set<gate.Annotation> listSentence = gateu.getAnnotationSet(new HashSet<String>() {{
 			add("Sentence");
 		}});
@@ -120,46 +117,46 @@ public class ExcessiveLength extends AbstractAnalysisClass {
 		List<gate.Annotation> list=new ArrayList<>(setGateAnnotations);
 		Collections.sort(list);
 		for(gate.Annotation gateA : list){
-			 
+
 			gate.Node gatenodestart = gateA.getStartNode();
 			gate.Node gatenodeend =  gateA.getEndNode();
 			try{
-			gate.Document doc = corpus.get(0);
-			DocumentContent token = doc.getContent().getContent(gatenodestart.getOffset(),gatenodeend.getOffset());
-			log.info(token);
-			int initialpos = gatenodestart.getOffset().intValue();
-			if(precedentposition<initialpos){
-				String stringap = content.substring(precedentposition, initialpos );
-				c.setContent(stringap);
-				precedentposition = gatenodeend.getOffset().intValue();
-			}
-			
-			
-			
-			Node init= new Node(gatenodestart.getId());
-			
-			Node end= new Node(gatenodeend.getId());
-			c.setContent(init);
-			c.setContent(token.toString());
-			c.setContent(end);
+				gate.Document doc = corpus.get(0);
+				DocumentContent token = doc.getContent().getContent(gatenodestart.getOffset(),gatenodeend.getOffset());
+				log.info(token);
+				int initialpos = gatenodestart.getOffset().intValue();
+				if(precedentposition<initialpos){
+					String stringap = content.substring(precedentposition, initialpos );
+					c.setContent(stringap);
+					precedentposition = gatenodeend.getOffset().intValue();
+				}
 
-			Annotation a = new Annotation();
-			a.setId(gateA.getId());
-			a.setEndNode(end.getId());
-			a.setStartNode(init.getId());
-			a.setType("Simplicity Excessive Length");
-			
-			
-			a.setRecommendation("Shorten the sentence. A sentence should not exceed 25 words.");
-			annotations.add(a);
-			
-			
-			numDefectiveSentences++;
+
+
+				Node init= new Node(gatenodestart.getId());
+
+				Node end= new Node(gatenodeend.getId());
+				c.setContent(init);
+				c.setContent(token.toString());
+				c.setContent(end);
+
+				Annotation a = new Annotation();
+				a.setId(gateA.getId());
+				a.setEndNode(end.getId());
+				a.setStartNode(init.getId());
+				a.setType("Simplicity Excessive Length");
+
+
+				a.setRecommendation("Shorten the sentence. A sentence should not exceed 25 words.");
+				annotations.add(a);
+
+
+				numDefectiveSentences++;
 			}catch(InvalidOffsetException e){
 				log.debug(e);
 			}
 		}
-		
+
 	}
 
 	public AnnotatedStaticContentAnalysis check(StaticContentAnalysis staticContentInput){
@@ -185,39 +182,32 @@ public class ExcessiveLength extends AbstractAnalysisClass {
 		sc.setId(idc);
 		Content c = new Content();
 		sc.setContent(c);
-		Integer id=0;
 
+		UtilsGate gateu = new UtilsGate(content);
+
+		gateu.runProcessingResourcesforLenght();
+		Set<gate.Annotation> result = gateu.getAnnotationSet(new HashSet<String>() {{
+			add("Sent-Long");
+		}});
 
 		List<Annotation> annotations =new ArrayList<Annotation>();
+
+		gatevsleanpad(c,result,annotations,content,gateu.getCorpus());
+
+		Set<gate.Annotation> listSentence = gateu.getAnnotationSet(new HashSet<String>() {{
+			add("Sentence");
+		}});
+
 		//	id  = calculateAnnotations( sentence, matches, c, id,annotations);
 		annotatedStaticContent.setAnnotations(annotations);
 
-		if(annotations.size()>0){
-			numDefectiveSentences++;
-		}
-
-		id++;
-
-
-
-
-
-
-		double qualitymmeasure = calculateOverallQualityMeasure(0);
+		double qualitymmeasure = calculateOverallQualityMeasure(listSentence.size());
 		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 		annotatedStaticContent.setOverallQualityMeasure(qualitymmeasure+"%");
 		annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 		annotatedStaticContent.setType("Correctness");
 
-
-
-
-
 		return annotatedStaticContent;
-
-
-
-
 
 	}
 
