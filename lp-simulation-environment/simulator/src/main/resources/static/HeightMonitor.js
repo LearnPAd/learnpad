@@ -19,10 +19,15 @@
  * #L%
  */
 function heightMonitor() {
+
+    function getDocHeight() {
+        return $('#main-container').height();
+    }
+
     var res = {
         enableMonitoring: false,
         receivers: [],
-        prevHeight: $('html').height(),
+        prevHeight: getDocHeight(),
 
         // add a receiver to be notified of height changes
         addReceiver: function(receiver) {
@@ -34,7 +39,7 @@ function heightMonitor() {
         // if the height have changed, send a notification to receivers
         checkForChangeNotification: function() {
             if (!res.enableMonitoring) return;
-            var height = $('html').height();
+            var height = getDocHeight();
 
             if (res.prevHeight != height) {
                 res.prevHeight = height;
@@ -55,9 +60,12 @@ function heightMonitor() {
                            childList: true };
             }
             // add an observer to the element
-            new MutationObserver(function(mutations) {
-                res.checkForChangeNotification();
-            }).observe(document.querySelector(element), config);
+            var elements = document.querySelectorAll(element);
+            for (var i = 0; i < elements.length; i++) {
+                new MutationObserver(function(mutations) {
+                    res.checkForChangeNotification();
+                }).observe(elements[i], config);
+            }
         }
 
     };

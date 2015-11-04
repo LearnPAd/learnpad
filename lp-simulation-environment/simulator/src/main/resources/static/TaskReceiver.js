@@ -20,7 +20,10 @@
  */
 'use strict';
 
-function taskReceiver(address, user) {
+function taskReceiver(address, user, integratedMode) {
+    if (typeof integratedMode == 'undefined') {
+        integratedMode = false;
+    }
 
     var newTaskReceiver = {}
 
@@ -50,7 +53,7 @@ function taskReceiver(address, user) {
             break;
 
         case 'ADDTASK':
-            var newTask = task(address, msg.taskid, user);
+            var newTask = task(address, msg.taskid, user, integratedMode);
             newTaskReceiver.activeTasks[msg.taskid] = newTask;
             newTask.join();
             break;

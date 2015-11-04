@@ -205,7 +205,7 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 		// add users that were not yet present in the platform
 		Collection<String> users = simulator.userHandler().getUsers();
 		for (UserData user : potentialUsers) {
-			if (!users.contains(user)) {
+			if (!users.contains(user.id)) {
 				simulator.userHandler().addUser(user.id);
 			}
 		}

@@ -76,6 +76,9 @@
          .hidden {
              display: none;
          }
+         .standalone {
+             opacity: 0;
+         }
          .disabled {
              opacity: 0.5;
          }
@@ -100,7 +103,7 @@
     </head>
     <body>
 
-        <nav class="navbar navbar-default navbar-fixed-top">
+        <nav class="navbar navbar-default navbar-fixed-top standalone">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a href="ui">
@@ -139,7 +142,7 @@
             </div>
         </nav>
 
-        <div class="container-fluid">
+        <div id="main-container" class="container-fluid">
 
             <form id="connect" class="form-inline">
 	        <div class="form-group">
@@ -151,7 +154,7 @@
             </form>
             <div class="userui row hidden">
 
-                <div class="col-sm-2 list-group">
+                <div class="col-sm-2 list-group standalone">
                     <a href="#" class="list-group-item disabled active">Simulation </a>
                     <a href="#" class="list-group-item disabled">
                         <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
@@ -185,7 +188,7 @@
 
         </div>
 
-        <nav class="userui navbar navbar-inverse navbar-fixed-bottom hidden">
+        <nav class="userui navbar navbar-inverse navbar-fixed-bottom hidden standalone">
             <div class="container ">
                 <button type="button" class="btn btn-default navbar-btn" disabled="true">Chat with group</button>
                 <div class="btn-group dropup">
@@ -239,16 +242,32 @@
                                     '=([^&]*)')).exec(location.search))
                  return decodeURIComponent(name[1]);
          }
-
          var userid = get("userid");
+
+         var integratedMode = false;
+         if(window != parent.window) {
+             // we are in integrated mode (iframe)
+             integratedMode = true;
+
+             // delete superfluous UI elements
+             $('.standalone').remove();
+             $('body').css('padding', '0');
+         } else {
+             $('.standalone').removeClass('standalone');
+         }
+
          if(userid != null) {
-                 taskReceiver(#serveripaddress#, userid);
+             taskReceiver(#serveripaddress#, userid, integratedMode);
+             if(!integratedMode) {
                  chat('chatcontainer', #serveripaddress#, userid);
+             }
          } else {
              $('#connectBn').click(function(event) {
                  userid = $('#uiid').val().toLowerCase();
-                 taskReceiver(#serveripaddress#, userid);
-                 chat('chatcontainer', #serveripaddress#, userid);
+                 taskReceiver(#serveripaddress#, userid, integratedMode);
+                 if(!integratedMode) {
+                     chat('chatcontainer', #serveripaddress#, userid);
+                 }
                  return false;
              });
          }

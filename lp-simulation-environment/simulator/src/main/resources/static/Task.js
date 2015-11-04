@@ -18,7 +18,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-function task(address, taskid, user) {
+function task(address, taskid, user, integratedMode) {
+    if (typeof integratedMode == 'undefined') {
+        integratedMode = false;
+    }
 
     var newTask = {};
     newTask.closeOnError = false;
@@ -94,7 +97,9 @@ function task(address, taskid, user) {
                 processSideDiv.className = 'col-sm-4';
                 processDiv.appendChild(processSideDiv);
 
-                users(user).setUserList('processside' + data.processid);
+                if(!integratedMode) {
+                    users(user).setUserList('processside' + data.processid);
+                }
 
                 // add gamification panel to side div
                 var scoreHelpText = "Your score is calculated based on how well you perform each task.<p>Each successfully completed task gives you points based of your number of attempts and how long did you take regarding the expected time.<p>Faster completion and less mistakes will award more points.";
@@ -110,6 +115,12 @@ function task(address, taskid, user) {
                 );
                 // initialize help popover
                 $('#gamification' + data.processid + ' [data-toggle="popover"]').popover({'html': true});
+
+                // this element can cause page height change, so we need to
+                // monitor it
+                heightMon.monitor('#gamification' + data.processid + ' [data-toggle="popover"]');
+                $('#gamification' + data.processid + ' [data-toggle="popover"]').bind(
+                    'transitionend', heightMon.checkForChangeNotification);
 
                 // check if it is the first tab
                 // (in this case we make it open by default)
@@ -143,6 +154,9 @@ function task(address, taskid, user) {
                 // this element can cause page height change, so we need to
                 // monitor it
                 heightMon.monitor('#accordion' + data.processid);
+                document.getElementById('accordion' + data.processid).addEventListener(
+                    "transitionend",
+                    heightMon.checkForChangeNotification);
 
             }
 
@@ -234,6 +248,10 @@ function task(address, taskid, user) {
                 }
             );
 
+            // this element can cause page height change, so we need to
+            // monitor it
+            heightMon.monitor('#taskForm' + taskid);
+
             $('html, body').animate({
                 scrollTop: ($('#taskdata' + taskid).offset().top - 70)
             }, 'fast');
@@ -287,6 +305,11 @@ function task(address, taskid, user) {
                     $('#taskFormDiv' + taskid).html('');
                 }
             );
+
+            // this element can cause page height change, so we need to
+            // monitor it
+            heightMon.monitor('#taskForm' + taskid);
+
             $('html, body').scrollTop($('#taskdata' + taskid).offset().top - 70);
 
             // update nb attempts infos
