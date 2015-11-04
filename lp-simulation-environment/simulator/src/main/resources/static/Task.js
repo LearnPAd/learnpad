@@ -111,6 +111,12 @@ function task(address, taskid, user) {
                 // initialize help popover
                 $('#gamification' + data.processid + ' [data-toggle="popover"]').popover({'html': true});
 
+                // this element can cause page height change, so we need to
+                // monitor it
+                heightMon.monitor('#gamification' + data.processid + ' [data-toggle="popover"]');
+                $('#gamification' + data.processid + ' [data-toggle="popover"]').bind(
+                    'transitionend', heightMon.checkForChangeNotification);
+
                 // check if it is the first tab
                 // (in this case we make it open by default)
                 if ($('#taskstable li').length == 1) {
@@ -143,6 +149,9 @@ function task(address, taskid, user) {
                 // this element can cause page height change, so we need to
                 // monitor it
                 heightMon.monitor('#accordion' + data.processid);
+                document.getElementById('accordion' + data.processid).addEventListener(
+                    "transitionend",
+                    heightMon.checkForChangeNotification);
 
             }
 
