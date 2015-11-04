@@ -242,16 +242,32 @@
                                     '=([^&]*)')).exec(location.search))
                  return decodeURIComponent(name[1]);
          }
-
          var userid = get("userid");
+
+         var integratedMode = false;
+         if(window != parent.window) {
+             // we are in integrated mode (iframe)
+             integratedMode = true;
+
+             // delete superfluous UI elements
+             $('.standalone').remove();
+             $('body').css('padding', '0');
+         } else {
+             $('.standalone').removeClass('standalone');
+         }
+
          if(userid != null) {
-                 taskReceiver(#serveripaddress#, userid);
+             taskReceiver(#serveripaddress#, userid, integratedMode);
+             if(!integratedMode) {
                  chat('chatcontainer', #serveripaddress#, userid);
+             }
          } else {
              $('#connectBn').click(function(event) {
                  userid = $('#uiid').val().toLowerCase();
-                 taskReceiver(#serveripaddress#, userid);
-                 chat('chatcontainer', #serveripaddress#, userid);
+                 taskReceiver(#serveripaddress#, userid, integratedMode);
+                 if(!integratedMode) {
+                     chat('chatcontainer', #serveripaddress#, userid);
+                 }
                  return false;
              });
          }

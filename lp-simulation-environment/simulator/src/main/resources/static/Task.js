@@ -18,7 +18,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-function task(address, taskid, user) {
+function task(address, taskid, user, integratedMode) {
+    if (typeof integratedMode == 'undefined') {
+        integratedMode = false;
+    }
 
     var newTask = {};
     newTask.closeOnError = false;
@@ -94,7 +97,9 @@ function task(address, taskid, user) {
                 processSideDiv.className = 'col-sm-4';
                 processDiv.appendChild(processSideDiv);
 
-                users(user).setUserList('processside' + data.processid);
+                if(!integratedMode) {
+                    users(user).setUserList('processside' + data.processid);
+                }
 
                 // add gamification panel to side div
                 var scoreHelpText = "Your score is calculated based on how well you perform each task.<p>Each successfully completed task gives you points based of your number of attempts and how long did you take regarding the expected time.<p>Faster completion and less mistakes will award more points.";
