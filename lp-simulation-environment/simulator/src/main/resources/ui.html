@@ -76,6 +76,9 @@
          .hidden {
              display: none;
          }
+         .standalone {
+             opacity: 0;
+         }
          .disabled {
              opacity: 0.5;
          }
@@ -100,7 +103,7 @@
     </head>
     <body>
 
-        <nav class="navbar navbar-default navbar-fixed-top">
+        <nav class="navbar navbar-default navbar-fixed-top standalone">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a href="ui">
@@ -151,7 +154,7 @@
             </form>
             <div class="userui row hidden">
 
-                <div class="col-sm-2 list-group">
+                <div class="col-sm-2 list-group standalone">
                     <a href="#" class="list-group-item disabled active">Simulation </a>
                     <a href="#" class="list-group-item disabled">
                         <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
@@ -185,7 +188,7 @@
 
         </div>
 
-        <nav class="userui navbar navbar-inverse navbar-fixed-bottom hidden">
+        <nav class="userui navbar navbar-inverse navbar-fixed-bottom hidden standalone">
             <div class="container ">
                 <button type="button" class="btn btn-default navbar-btn" disabled="true">Chat with group</button>
                 <div class="btn-group dropup">
