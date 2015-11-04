@@ -73,13 +73,17 @@ import eu.learnpad.sim.rest.data.UserData;
 @Named("eu.learnpad.cw.CWXwikiBridge")
 @Path("/learnpad/cw/bridge")
 public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
-	private final String LEARNPAD_SPACE = "LearnPAdCode";
+	private final String LEARNPAD_SPACE = "LPCode";
 	private final String FEEDBACK_CLASS_PAGE = "FeedbackClass";
 	private final String FEEDBACK_CLASS = String.format("%s.%s",
 			LEARNPAD_SPACE, FEEDBACK_CLASS_PAGE);
 	private final String BASEELEMENT_CLASS_PAGE = "BaseElementClass";
 	private final String BASEELEMENT_CLASS = String.format("%s.%s",
 			LEARNPAD_SPACE, BASEELEMENT_CLASS_PAGE);
+	private final String XWIKI_SPACE = "XWiki";
+	private final String USER_CLASS_PAGE = "XWikiUsers";
+	private final String USER_CLASS = String.format("%s.%s", XWIKI_SPACE,
+			USER_CLASS_PAGE);
 
 	@Inject
 	private Logger logger;
@@ -279,8 +283,45 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 
 	@Override
 	public String startSimulation(String modelId, String currentUser,
-			Collection<UserData> potentialUsers) throws LpRestException {
+			Collection<String> potentialUsers) throws LpRestException {
+		XWikiContext xcontext = xcontextProvider.get();
+		XWiki xwiki = xcontext.getWiki();
+		DocumentReference userClassReference = documentReferenceResolver
+				.resolve(USER_CLASS);
+		Collection<UserData> potentialUsersCollection = new ArrayList<UserData>();
+
+		for (String userId : potentialUsers) {
+			UserData user = new UserData();
+			user.id = userId;
+
+			DocumentReference userReference = documentReferenceResolver
+					.resolve(userId);
+			try {
+				XWikiDocument userDocument = xwiki.getDocument(userReference,
+						xcontext);
+				if (userDocument != null) {
+					BaseObject userObject = userDocument
+							.getXObject(userClassReference);
+					if (userObject != null) {
+						user.firstName = userObject
+								.getStringValue("first_name");
+						user.lastName = userObject.getStringValue("last_name");
+						user.profileURL = userDocument.getURL("view", xcontext);
+						user.pictureURL = userDocument
+								.getAttachmentURL(
+										userDocument.getStringValue("avatar"),
+										xcontext);
+					}
+				}
+			} catch (XWikiException e) {
+				String message = String
+						.format("Error while trying to get profile information for the user '%s'.",
+								userReference.toString());
+				logger.error(message, e);
+			}
+			potentialUsersCollection.add(user);
+		}
 		return this.corefacade.startSimulation(modelId, currentUser,
-				potentialUsers);
+				potentialUsersCollection);
 	}
 }

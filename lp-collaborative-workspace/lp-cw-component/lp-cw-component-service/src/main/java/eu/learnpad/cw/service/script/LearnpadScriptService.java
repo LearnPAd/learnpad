@@ -114,7 +114,7 @@ public class LearnpadScriptService implements ScriptService {
 	}
 
 	public String startSimulation(String modelId, String currentUser,
-			Collection<UserData> potentialUsers) {
+			Collection<String> potentialUsers) {
 		try {
 			return this.cwBridge.startSimulation(modelId, currentUser,
 					potentialUsers);
