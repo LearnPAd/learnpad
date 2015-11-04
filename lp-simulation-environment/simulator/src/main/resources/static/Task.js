@@ -248,6 +248,10 @@ function task(address, taskid, user, integratedMode) {
                 }
             );
 
+            // this element can cause page height change, so we need to
+            // monitor it
+            heightMon.monitor('#taskForm' + taskid);
+
             $('html, body').animate({
                 scrollTop: ($('#taskdata' + taskid).offset().top - 70)
             }, 'fast');
@@ -301,6 +305,11 @@ function task(address, taskid, user, integratedMode) {
                     $('#taskFormDiv' + taskid).html('');
                 }
             );
+
+            // this element can cause page height change, so we need to
+            // monitor it
+            heightMon.monitor('#taskForm' + taskid);
+
             $('html, body').scrollTop($('#taskdata' + taskid).offset().top - 70);
 
             // update nb attempts infos
