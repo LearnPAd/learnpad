@@ -60,9 +60,12 @@ function heightMonitor() {
                            childList: true };
             }
             // add an observer to the element
-            new MutationObserver(function(mutations) {
-                res.checkForChangeNotification();
-            }).observe(document.querySelector(element), config);
+            var elements = document.querySelectorAll(element);
+            for (var i = 0; i < elements.length; i++) {
+                new MutationObserver(function(mutations) {
+                    res.checkForChangeNotification();
+                }).observe(elements[i], config);
+            }
         }
 
     };
