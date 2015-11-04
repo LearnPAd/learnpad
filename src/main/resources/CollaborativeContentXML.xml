@@ -88,7 +88,7 @@ Review
 18. Inspectors may find it useful to review some of their interventions, perhaps using the five elements listed here as a guide, to consider whether alternative approaches could have been more effective. For trainee inspectors this will be a more formal process carried out with line managers and / or more senior colleagues.
 		</Content>
 	</CollaborativeContent>
-	<QualityCriteria simplicity="true" non_ambiguity="true"
-		content_clarity="true" presentation_clarity="true" completeness="true"
-		correctness="true" />
+	<QualityCriteria simplicity="true" non_ambiguity="false"
+		content_clarity="false" presentation_clarity="false" completeness="false"
+		correctness="false" />
 </CollaborativeContentAnalysis>

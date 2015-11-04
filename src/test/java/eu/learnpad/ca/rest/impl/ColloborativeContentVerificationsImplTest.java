@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.GenericType;
@@ -18,11 +19,20 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.servlet.ServletContainer;
+import org.glassfish.jersey.test.DeploymentContext;
 import org.glassfish.jersey.test.JerseyTest;
+import org.glassfish.jersey.test.ServletDeploymentContext;
+import org.glassfish.jersey.test.TestProperties;
+import org.glassfish.jersey.test.grizzly.GrizzlyTestContainerFactory;
+import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
+import org.glassfish.jersey.test.spi.TestContainerFactory;
 import org.junit.Test;
 
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysisTest;
+import eu.learnpad.ca.gate.GateServletContextListener;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 
@@ -32,6 +42,20 @@ import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 
 
 public class ColloborativeContentVerificationsImplTest extends JerseyTest{
+
+	
+	@Override
+	protected TestContainerFactory getTestContainerFactory()  {
+	    return new GrizzlyWebTestContainerFactory();
+	}
+	@Override
+    protected DeploymentContext configureDeployment() {
+		 forceSet(TestProperties.CONTAINER_PORT, "0");
+		    return ServletDeploymentContext.forServlet(new ServletContainer(new ResourceConfig(ColloborativeContentVerificationsImpl.class)))
+		                                   .addListener(GateServletContextListener.class)
+		                                   .build();
+         
+    }
 
 	@Override
 	protected Application configure() {

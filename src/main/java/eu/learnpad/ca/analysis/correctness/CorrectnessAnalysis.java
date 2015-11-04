@@ -218,13 +218,13 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 	public CorrectnessAnalysis( Language lang, CollaborativeContentAnalysis collaborativeContentInput){
 
 		this.language=lang;
-		collaborativeContentInput =collaborativeContentInput;
+		this.collaborativeContentInput =collaborativeContentInput;
 	}
 
 	public CorrectnessAnalysis( Language lang, StaticContentAnalysis staticContentInput){
 
 		this.language=lang;
-		staticContentInput =staticContentInput;
+		this.staticContentInput =staticContentInput;
 	}
 
 	

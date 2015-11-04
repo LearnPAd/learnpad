@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -25,10 +26,10 @@ import eu.learnpad.ca.analysis.contentclarity.UnclearAcronym;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.simplicity.DifficultJargon;
 import eu.learnpad.ca.analysis.simplicity.DifficultJargonAlternative;
+import eu.learnpad.ca.analysis.simplicity.ExcessiveLength;
 import eu.learnpad.ca.analysis.simplicity.JuridicalJargon;
 import eu.learnpad.ca.analysis.syntacticambiguity.SyntacticAmbiguity;
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
-
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.exception.LpRestException;
@@ -43,7 +44,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	private static Integer id =0;
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ColloborativeContentVerificationsImpl.class);
 
-
+	private ServletContext context;
 
 
 	@Path("/")
@@ -89,6 +90,10 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 					DifficultJargonAlternative threadDFA = new DifficultJargonAlternative (contentFile, lang);
 					threadDFA.start();
 					putAndCreate(id, threadDFA);
+					
+					ExcessiveLength threadEL = new ExcessiveLength(contentFile, lang);
+					threadEL.start();
+					putAndCreate(id, threadEL);
 
 
 				}
