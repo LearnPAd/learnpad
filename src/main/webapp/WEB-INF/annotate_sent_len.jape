@@ -1,0 +1,27 @@
+Phase: SentLen
+Input: Sentence
+Options: control = appelt
+ 
+Rule: sentLen
+Priority: 1
+({Sentence}):sent
+-->
+{
+AnnotationSet annSet = (AnnotationSet) bindings.get("sent");
+Long charLen = annSet.lastNode().getOffset() - annSet.firstNode().getOffset();
+
+
+// len in tokens
+AnnotationSet includedAnnSet = inputAS.getContained(annSet.firstNode().getOffset(), annSet.lastNode().getOffset());
+AnnotationSet tokenAnnotations = includedAnnSet.get("Token", includedAnnSet.firstNode().getOffset(), includedAnnSet.lastNode().getOffset());
+int tokenLen = tokenAnnotations.size();
+
+Annotation sentenceAnn = annSet.iterator().next();  
+FeatureMap features = Factory.newFeatureMap();  
+features.put("len", charLen);  
+features.put("token_len", tokenLen);
+outputAS.add(annSet.firstNode(), annSet.lastNode(), "Sent-Len", features); 
+
+
+
+}

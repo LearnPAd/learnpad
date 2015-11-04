@@ -27,6 +27,12 @@
 	</repositories>
 
 	<dependencies>
+	<dependency>
+  		<groupId>uk.ac.gate</groupId>
+  		<artifactId>gate-core</artifactId>
+  		<version>8.1</version>
+  	</dependency>
+	
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
