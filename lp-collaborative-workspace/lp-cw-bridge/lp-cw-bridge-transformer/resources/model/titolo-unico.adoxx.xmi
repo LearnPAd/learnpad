@@ -7,7 +7,7 @@
         <aTTRIBUTE name="Version number" type="STRING" value=""/>
         <aTTRIBUTE name="Author" type="STRING" value="barbara"/>
         <aTTRIBUTE name="Creation date" type="STRING" value="11.08.2015, 14:04"/>
-        <aTTRIBUTE name="Date last changed" type="STRING" value="29.10.2015, 12:34:43"/>
+        <aTTRIBUTE name="Date last changed" type="STRING" value="05.11.2015, 11:03:30"/>
         <aTTRIBUTE name="Last user" type="STRING" value="Admin"/>
         <aTTRIBUTE name="Keywords" type="STRING" value=""/>
         <aTTRIBUTE name="Comment" type="STRING" value=""/>
@@ -15,19 +15,19 @@
         <aTTRIBUTE name="State" type="ENUMERATION" value="In process"/>
         <aTTRIBUTE name="Reviewed on" type="STRING" value=""/>
         <aTTRIBUTE name="Reviewed by" type="STRING" value=""/>
-        <aTTRIBUTE name="Description" type="STRING" value=""/>
+        <aTTRIBUTE name="Description" type="STRING" value="Titolo Unico Process.SUAP refers to the activities that the Italian Public Administrations have to put in place in order to permit to entrepreneurs to set up a new company or more general to organize a business activity. Reducingthe administrative burden the entrepreneurs refers to a single office, the SUAP office. Contact betweenentrepreneurs and SUAP office has to be done completely on-line. SUAP office can be considered as amediator among entrepreneurs and PAs. It means, that in case an entrepreneur wants to start a manufacturing activity, he/she needs to contact just the SUAP office that is in charge to forward the request toall the other involved administrations. SUAP office can be organized as an office of the municipality or itis possible that small municipalities decide to delegate such responsibility to a consortium that providethe SUAP office for more than one municipality.“Titolo Unico” it is named in English Standard request to start business activity. - It is a BPintroduced in the Italian law D.P.R. 160/2010 in the article 7 in which a citizen requests to themunicipality and third parties the permission to start an activity. In this case the entrepreneurshave to wait the office decision before starting the activity."/>
         <aTTRIBUTE name="Number of objects and relations" type="INTEGER" value="77"/>
         <aTTRIBUTE name="World area" type="STRING" value="w:59.38cm h:28.21cm minw:5cm minh:5cm"/>
         <aTTRIBUTE name="Grid" type="STRING" value=""/>
         <aTTRIBUTE name="Zoom" type="INTEGER" value="68"/>
-        <aTTRIBUTE name="Viewable area" type="STRING" value="VIEW representation:graphicGRAPHIC x:-16 y:-2 w:825 h:743 scale:0.68TABLE"/>
+        <aTTRIBUTE name="Viewable area" type="STRING" value="VIEW representation:graphicGRAPHIC x:161 y:-4 w:824 h:743 scale:0.68TABLE"/>
         <aTTRIBUTE name="Current mode" type="STRING" value="With KPIs"/>
         <aTTRIBUTE name="Base name" type="STRING" value="Titolo Unico - Monti Azzurri"/>
         <aTTRIBUTE name="Access state" type="ENUMERATION" value="write"/>
         <aTTRIBUTE name="Current page layout" type="STRING" value=""/>
         <aTTRIBUTE name="Connector marks" type="STRING" value=""/>
         <aTTRIBUTE name="Type" type="STRING" value="Business process diagram (BPMN 2.0)"/>
-        <aTTRIBUTE name="Change counter" type="INTEGER" value="8544"/>
+        <aTTRIBUTE name="Change counter" type="INTEGER" value="8590"/>
         <aTTRIBUTE name="Font size" type="INTEGER" value="0"/>
         <aTTRIBUTE name="Context of version" type="STRING" value=""/>
         <rECORD name="Change history"/>
@@ -168,7 +168,7 @@
         <rECORD name="Assignments"/>
         <aTTRIBUTE name="Term" type="STRING" value=""/>
         <aTTRIBUTE name="Order" type="INTEGER" value="0"/>
-        <aTTRIBUTE name="Description" type="STRING" value=""/>
+        <aTTRIBUTE name="Description" type="STRING" value="The process start when the SUAP office receives the SCIA request from the entrepreneur."/>
         <aTTRIBUTE name="Comment" type="STRING" value=""/>
         <aTTRIBUTE name="Trigger" type="STRING" value=""/>
         <aTTRIBUTE name="Result" type="STRING" value=""/>
@@ -980,8 +980,8 @@
         <rECORD name="Assignments"/>
         <aTTRIBUTE name="Term" type="STRING" value=""/>
         <aTTRIBUTE name="Language" type="EXPRESSION" value="EXPR expr:(&amp;quot;&amp;quot;) val:&amp;quot;&amp;quot;"/>
-        <aTTRIBUTE name="Description" type="STRING" value="first implementation: display events as buttons to trigger change of flow"/>
-        <aTTRIBUTE name="Comment" type="STRING" value="further development:1) enhance BPMN meta model properties for events &amp;gt; trigger/description2) display time gone for timer trigger"/>
+        <aTTRIBUTE name="Description" type="STRING" value="In any moment the &amp;quot;Manage of 3rd Party Admin&amp;quot; task can terminate and execute the next activities"/>
+        <aTTRIBUTE name="Comment" type="STRING" value=""/>
         <aTTRIBUTE name="External documentation" type="PROGRAMCALL" value="ITEM &amp;quot;&amp;quot; param:&amp;quot;&amp;quot;"/>
         <aTTRIBUTE name="Open questions" type="STRING" value=""/>
         <aTTRIBUTE name="Bezeichnung" type="STRING" value="Auslöser"/>
@@ -1033,7 +1033,7 @@
         <rECORD name="Assignments"/>
         <aTTRIBUTE name="Term" type="STRING" value=""/>
         <aTTRIBUTE name="Language" type="EXPRESSION" value="EXPR expr:(&amp;quot;&amp;quot;) val:&amp;quot;&amp;quot;"/>
-        <aTTRIBUTE name="Description" type="STRING" value=""/>
+        <aTTRIBUTE name="Description" type="STRING" value="In any moment the &amp;quot;Check Integration&amp;quot; task can terminate and execute the next activities"/>
         <aTTRIBUTE name="Comment" type="STRING" value=""/>
         <aTTRIBUTE name="External documentation" type="PROGRAMCALL" value="ITEM &amp;quot;&amp;quot; param:&amp;quot;&amp;quot;"/>
         <aTTRIBUTE name="Open questions" type="STRING" value=""/>
@@ -1120,7 +1120,7 @@
         <iNTERREF name="Actor"/>
         <aTTRIBUTE name="Representation" type="ENUMERATION" value="without name"/>
         <aTTRIBUTE name="Order" type="INTEGER" value="0"/>
-        <aTTRIBUTE name="Description" type="STRING" value=""/>
+        <aTTRIBUTE name="Description" type="STRING" value="The process is terminated"/>
         <aTTRIBUTE name="Comment" type="STRING" value=""/>
         <aTTRIBUTE name="Language" type="EXPRESSION" value="EXPR val:&amp;quot;System&amp;quot;"/>
         <aTTRIBUTE name="Bezeichnung" type="STRING" value="Ende"/>
@@ -1246,7 +1246,7 @@
         <aTTRIBUTE name="Cardinality" type="STRING" value=""/>
       </iNSTANCE>
       <iNSTANCE class="Task" id="obj.13734" name="Send Communication of non-ammissible instance">
-        <aTTRIBUTE name="Position" type="STRING" value="NODE x:26.9cm y:10.5cm w:3.36cm h:1.8cm index:39"/>
+        <aTTRIBUTE name="Position" type="STRING" value="NODE x:26.9cm y:10.5cm w:3.36cm h:1.8cm index:38"/>
         <aTTRIBUTE name="External tool coupling" type="STRING" value=""/>
         <aTTRIBUTE name="Performer" type="EXPRESSION" value="EXPR expr:(&amp;quot;&amp;quot;) val:&amp;quot;&amp;quot;"/>
         <aTTRIBUTE name="Execution time" type="TIME" value="00:000:00:00:00"/>
@@ -1390,7 +1390,7 @@
         <iNTERREF name="Referenced Competency"/>
       </iNSTANCE>
       <iNSTANCE class="Pool" id="obj.24412" name="Entrepreneur">
-        <aTTRIBUTE name="Position" type="STRING" value="NODE x:.45cm y:2cm w:51.5cm h:4cm index:42"/>
+        <aTTRIBUTE name="Position" type="STRING" value="NODE x:.45cm y:2cm w:51.5cm h:4cm index:41"/>
         <aTTRIBUTE name="External tool coupling" type="STRING" value=""/>
         <aTTRIBUTE name="fontcolor" type="EXPRESSION" value="EXPR expr:(&amp;quot;&amp;quot;) val:&amp;quot;&amp;quot;"/>
         <aTTRIBUTE name="Categories" type="STRING" value=""/>
@@ -1863,7 +1863,7 @@
         <aTTRIBUTE name="Transition condition" type="STRING" value=""/>
         <aTTRIBUTE name="Transition probability" type="STRING" value=""/>
         <aTTRIBUTE name="Visualized values" type="ENUMERATION" value="Denomination"/>
-        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 0 index:38"/>
+        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 0 index:37"/>
         <aTTRIBUTE name="VisibleAttrs" type="STRING" value=""/>
         <aTTRIBUTE name="AttrRep" type="STRING" value="@INCLUDE &amp;quot;db:\\attrep_c_REL_CLASS_Subsequent.leo&amp;quot;"/>
         <aTTRIBUTE name="Visualization" type="ENUMERATION" value="RELATION"/>
@@ -2312,26 +2312,6 @@
         <tO class="Lane" instance="Office SUAP"/>
         <aTTRIBUTE name="AutoConnect" type="STRING" value=""/>
       </cONNECTOR>
-      <cONNECTOR class="Data Association" id="con.13789">
-        <fROM class="Data Object" instance="Titolo Unico"/>
-        <tO class="Task" instance="Send Authorization Document"/>
-        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 0 index:37"/>
-        <aTTRIBUTE name="GraphRep" type="STRING" value="GRAPHREP rounded:0.1cmSHADOW offPEN style:dot w:0.03cmEDGEPEN style:solid w:0.03cmAVAL set-default:&amp;quot;Relation Node&amp;quot; fromType:&amp;quot;FromType&amp;quot;AVAL set-default:&amp;quot;Data Object&amp;quot; toType:&amp;quot;ToType&amp;quot;AVAL sRepr:&amp;quot;Representation&amp;quot;AVAL sRotate:&amp;quot;Rotate the visualised values by 90 degrees&amp;quot;AVAL sName:  &amp;quot;Name&amp;quot;ENDPOLYLINE ({-0.3cm, 0.1cm, 0cm, 0cm, -0.3cm, -0.1cm})MIDDLESET aObjectArray: {&amp;quot;Task&amp;quot;, &amp;quot;Sub-Process&amp;quot;, &amp;quot;Start Event&amp;quot;, &amp;quot;Intermediate Event (sequence flow)&amp;quot;, &amp;quot;Intermediate Event (boundary)&amp;quot;, &amp;quot;End Event&amp;quot;, &amp;quot;Relation Node&amp;quot;, &amp;quot;Data Object&amp;quot;, &amp;quot;Exclusive Gateway&amp;quot;, &amp;quot;Non-exclusive Gateway&amp;quot;, &amp;quot;Non-exclusive Gateway (converging)&amp;quot;}FONT &amp;quot;Arial&amp;quot; color:red boldIF (((fromType IN aObjectArray) != 1) OR ((toType IN aObjectArray) != 1))TEXT &amp;quot;!&amp;quot; x:0.1cm y:0.0cm w:l h:bELSIF ((fromType != &amp;quot;Data Object&amp;quot;) AND (toType != &amp;quot;Data Object&amp;quot;))TEXT &amp;quot;!&amp;quot; x:0.1cm y:0.0cm w:l h:bENDIFAVAL showName:&amp;quot;Show name&amp;quot;IF (showName = &amp;quot;Yes&amp;quot;)IF (sRepr = &amp;quot;above/below&amp;quot;)IF (sRotate = &amp;quot;Yes&amp;quot;)FONT line-orientation:90ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.2cm y:0.0cm w:c:(2.0cm) h:tELSEFONT line-orientation:0ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.0cm y:0.2cm w:c:(2.0cm) h:tENDIFELSEIF (sRotate = &amp;quot;Yes&amp;quot;)FONT line-orientation:90ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.0cm y:-0.2cm w:l:(2.0cm) h:cELSEFONT line-orientation:0ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.2cm y:0.0cm w:l:(2.0cm) h:cENDIFENDIFENDIF"/>
-        <aTTRIBUTE name="AttrRep" type="STRING" value="@INCLUDE &amp;quot;db:\\attrep_c_REL_CLASS_DataAssociation.leo&amp;quot;CHAPTER &amp;quot;Semantic Enrichment&amp;quot;ATTR &amp;quot;Annotation&amp;quot;ATTR &amp;quot;Set Annotation&amp;quot; no-param push-button"/>
-        <aTTRIBUTE name="Name" type="STRING" value=""/>
-        <aTTRIBUTE name="Representation" type="ENUMERATION" value="above/below"/>
-        <aTTRIBUTE name="Rotate the visualised values by 90 degrees" type="ENUMERATION" value="No"/>
-        <aTTRIBUTE name="Description" type="LONGSTRING" value=""/>
-        <aTTRIBUTE name="Show name" type="ENUMERATION" value="No"/>
-        <aTTRIBUTE name="Comment" type="STRING" value=""/>
-        <aTTRIBUTE name="Doku" type="STRING" value="#-----------------------CHAPTER &amp;quot;Description&amp;quot;#-----------------------ATTR &amp;quot;Name&amp;quot;ATTR &amp;quot;Description&amp;quot;ATTR &amp;quot;Comment&amp;quot;ATTR &amp;quot;Id&amp;quot; "/>
-        <aTTRIBUTE name="FromType" type="EXPRESSION" value="EXPR val:&amp;quot;Data Object&amp;quot;"/>
-        <aTTRIBUTE name="ToType" type="EXPRESSION" value="EXPR val:&amp;quot;Task&amp;quot;"/>
-        <aTTRIBUTE name="Id" type="EXPRESSION" value="EXPR val:&amp;quot;13789&amp;quot;"/>
-        <aTTRIBUTE name="id_bpmndi" type="STRING" value=""/>
-        <aTTRIBUTE name="Annotation" type="STRING" value=""/>
-        <aTTRIBUTE name="Set Annotation" type="PROGRAMCALL" value="ITEM &amp;quot;Set Annotation&amp;quot; param:&amp;quot;&amp;quot;"/>
-      </cONNECTOR>
       <cONNECTOR class="Is inside" id="con.13790">
         <fROM class="Task" instance="Send Communication of non-ammissible instance"/>
         <tO class="Pool" instance="Monti Azzurri Consorsium"/>
@@ -2347,7 +2327,7 @@
         <tO class="Pool" instance="Entrepreneur"/>
         <aTTRIBUTE name="AttrRep" type="STRING" value="@INCLUDE &amp;quot;db:\\attrep_c_REL_CLASS_MessageFlow.leo&amp;quot;CHAPTER &amp;quot;Semantic Enrichment&amp;quot;ATTR &amp;quot;Annotation&amp;quot;ATTR &amp;quot;Set Annotation&amp;quot; no-param push-button"/>
         <aTTRIBUTE name="GraphRep" type="STRING" value="GRAPHREP rounded:0.1cmSHADOW offAVAL set-default:&amp;quot;Task&amp;quot; toType:&amp;quot;ToType&amp;quot;AVAL set-default:&amp;quot;Task&amp;quot; fromType:&amp;quot;FromType&amp;quot;AVAL showName:&amp;quot;Show name&amp;quot;AVAL name:&amp;quot;Name&amp;quot;AVAL sRepr:&amp;quot;Representation&amp;quot;AVAL sRotate:&amp;quot;Rotate the visualised values by 90 degrees&amp;quot;AVAL sName:  &amp;quot;Name&amp;quot;PEN style:dash w:0.06cmEDGEPEN w:0.03cmFILL color:whiteSTARTIF (fromType != &amp;quot;Relation Node&amp;quot;)ELLIPSE x:0cm y:0cm rx:0.1cm ry:0.1cmENDIFENDIF (toType != &amp;quot;Relation Node&amp;quot;)POLYGON 3 x1:-.33cm y1:-.11cm x2:0.0cm y2:0.0cm x3:-.33cm y3:0.11cmENDIFMIDDLESET aObjectArray: {&amp;quot;Pool&amp;quot;, &amp;quot;Pool (collapsed)&amp;quot;, &amp;quot;Task&amp;quot;, &amp;quot;Sub-Process&amp;quot;, &amp;quot;Choreography Task&amp;quot;, &amp;quot;Sub-Choreography&amp;quot;, &amp;quot;Start Event&amp;quot;, &amp;quot;Intermediate Event (sequence flow)&amp;quot;, &amp;quot;Intermediate Event (boundary)&amp;quot;, &amp;quot;End Event&amp;quot;, &amp;quot;Relation Node&amp;quot;}FONT &amp;quot;Arial&amp;quot; color:red boldIF (((fromType IN aObjectArray) != 1) OR ((toType IN aObjectArray) != 1))TEXT &amp;quot;!&amp;quot; x:0.1cm y:0.0cm w:l h:bELSIF ((fromType = &amp;quot;Start Event&amp;quot;) OR (toType = &amp;quot;End Event&amp;quot;) OR ((fromType = &amp;quot;Relation Node&amp;quot;) AND (toType = &amp;quot;Relation Node&amp;quot;)))TEXT &amp;quot;!&amp;quot; x:0.1cm y:0.0cm w:l h:bENDIFIF (showName = &amp;quot;Yes&amp;quot;)IF (sRepr = &amp;quot;above/below&amp;quot;)IF (sRotate = &amp;quot;Yes&amp;quot;)FONT line-orientation:90ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.2cm y:0.0cm w:c:(2.0cm) h:tELSEFONT line-orientation:0ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.0cm y:0.2cm w:c:(2.0cm) h:tENDIFELSEIF (sRotate = &amp;quot;Yes&amp;quot;)FONT line-orientation:90ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.0cm y:-0.2cm w:l:(2.0cm) h:cELSEFONT line-orientation:0ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.2cm y:0.0cm w:l:(2.0cm) h:cENDIFENDIFENDIF"/>
-        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 1 x1:26.9cm y1:9.5cm index:40"/>
+        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 1 x1:26.9cm y1:9.5cm index:39"/>
         <aTTRIBUTE name="Message Name" type="STRING" value=""/>
         <aTTRIBUTE name="ParticipantType (from)" type="ENUMERATION" value="Role"/>
         <aTTRIBUTE name="Role (from)" type="STRING" value=""/>
@@ -2382,7 +2362,7 @@
         <aTTRIBUTE name="Transition condition" type="STRING" value=""/>
         <aTTRIBUTE name="Transition probability" type="STRING" value=""/>
         <aTTRIBUTE name="Visualized values" type="ENUMERATION" value="Denomination"/>
-        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 1 x1:51.9cm y1:10.5cm index:41"/>
+        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 1 x1:51.9cm y1:10.5cm index:40"/>
         <aTTRIBUTE name="VisibleAttrs" type="STRING" value=""/>
         <aTTRIBUTE name="AttrRep" type="STRING" value="@INCLUDE &amp;quot;db:\\attrep_c_REL_CLASS_Subsequent.leo&amp;quot;"/>
         <aTTRIBUTE name="Visualization" type="ENUMERATION" value="RELATION"/>
@@ -2430,6 +2410,26 @@
         <tO class="Lane" instance="Office SUAP"/>
         <aTTRIBUTE name="AutoConnect" type="STRING" value=""/>
       </cONNECTOR>
+      <cONNECTOR class="Data Association" id="con.27202">
+        <fROM class="Task" instance="Send Authorization Document"/>
+        <tO class="Data Object" instance="Titolo Unico"/>
+        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 0 index:42"/>
+        <aTTRIBUTE name="GraphRep" type="STRING" value="GRAPHREP rounded:0.1cmSHADOW offPEN style:dot w:0.03cmEDGEPEN style:solid w:0.03cmAVAL set-default:&amp;quot;Relation Node&amp;quot; fromType:&amp;quot;FromType&amp;quot;AVAL set-default:&amp;quot;Data Object&amp;quot; toType:&amp;quot;ToType&amp;quot;AVAL sRepr:&amp;quot;Representation&amp;quot;AVAL sRotate:&amp;quot;Rotate the visualised values by 90 degrees&amp;quot;AVAL sName:  &amp;quot;Name&amp;quot;ENDPOLYLINE ({-0.3cm, 0.1cm, 0cm, 0cm, -0.3cm, -0.1cm})MIDDLESET aObjectArray: {&amp;quot;Task&amp;quot;, &amp;quot;Sub-Process&amp;quot;, &amp;quot;Start Event&amp;quot;, &amp;quot;Intermediate Event (sequence flow)&amp;quot;, &amp;quot;Intermediate Event (boundary)&amp;quot;, &amp;quot;End Event&amp;quot;, &amp;quot;Relation Node&amp;quot;, &amp;quot;Data Object&amp;quot;, &amp;quot;Exclusive Gateway&amp;quot;, &amp;quot;Non-exclusive Gateway&amp;quot;, &amp;quot;Non-exclusive Gateway (converging)&amp;quot;}FONT &amp;quot;Arial&amp;quot; color:red boldIF (((fromType IN aObjectArray) != 1) OR ((toType IN aObjectArray) != 1))TEXT &amp;quot;!&amp;quot; x:0.1cm y:0.0cm w:l h:bELSIF ((fromType != &amp;quot;Data Object&amp;quot;) AND (toType != &amp;quot;Data Object&amp;quot;))TEXT &amp;quot;!&amp;quot; x:0.1cm y:0.0cm w:l h:bENDIFAVAL showName:&amp;quot;Show name&amp;quot;IF (showName = &amp;quot;Yes&amp;quot;)IF (sRepr = &amp;quot;above/below&amp;quot;)IF (sRotate = &amp;quot;Yes&amp;quot;)FONT line-orientation:90ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.2cm y:0.0cm w:c:(2.0cm) h:tELSEFONT line-orientation:0ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.0cm y:0.2cm w:c:(2.0cm) h:tENDIFELSEIF (sRotate = &amp;quot;Yes&amp;quot;)FONT line-orientation:90ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.0cm y:-0.2cm w:l:(2.0cm) h:cELSEFONT line-orientation:0ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.2cm y:0.0cm w:l:(2.0cm) h:cENDIFENDIFENDIF"/>
+        <aTTRIBUTE name="AttrRep" type="STRING" value="@INCLUDE &amp;quot;db:\\attrep_c_REL_CLASS_DataAssociation.leo&amp;quot;CHAPTER &amp;quot;Semantic Enrichment&amp;quot;ATTR &amp;quot;Annotation&amp;quot;ATTR &amp;quot;Set Annotation&amp;quot; no-param push-button"/>
+        <aTTRIBUTE name="Name" type="STRING" value=""/>
+        <aTTRIBUTE name="Representation" type="ENUMERATION" value="above/below"/>
+        <aTTRIBUTE name="Rotate the visualised values by 90 degrees" type="ENUMERATION" value="No"/>
+        <aTTRIBUTE name="Description" type="LONGSTRING" value=""/>
+        <aTTRIBUTE name="Show name" type="ENUMERATION" value="No"/>
+        <aTTRIBUTE name="Comment" type="STRING" value=""/>
+        <aTTRIBUTE name="Doku" type="STRING" value="#-----------------------CHAPTER &amp;quot;Description&amp;quot;#-----------------------ATTR &amp;quot;Name&amp;quot;ATTR &amp;quot;Description&amp;quot;ATTR &amp;quot;Comment&amp;quot;ATTR &amp;quot;Id&amp;quot; "/>
+        <aTTRIBUTE name="FromType" type="EXPRESSION" value="EXPR val:&amp;quot;Task&amp;quot;"/>
+        <aTTRIBUTE name="ToType" type="EXPRESSION" value="EXPR val:&amp;quot;Data Object&amp;quot;"/>
+        <aTTRIBUTE name="Id" type="EXPRESSION" value="EXPR val:&amp;quot;27202&amp;quot;"/>
+        <aTTRIBUTE name="id_bpmndi" type="STRING" value=""/>
+        <aTTRIBUTE name="Annotation" type="STRING" value=""/>
+        <aTTRIBUTE name="Set Annotation" type="PROGRAMCALL" value="ITEM &amp;quot;Set Annotation&amp;quot; param:&amp;quot;&amp;quot;"/>
+      </cONNECTOR>
     </mODEL>
     <mODEL applib="LearnPAd Prototype Dynamic Library 0.25" id="mod.13795" libtype="bp" modeltype="Business process diagram (BPMN 2.0)" name="Titolo Unico - Monti Azzurri - SubProcess (restrictions)" version="">
       <mODELATTRIBUTES>
@@ -2437,7 +2437,7 @@
         <aTTRIBUTE name="Version number" type="STRING" value=""/>
         <aTTRIBUTE name="Author" type="STRING" value="barbara"/>
         <aTTRIBUTE name="Creation date" type="STRING" value="11.08.2015, 15:15"/>
-        <aTTRIBUTE name="Date last changed" type="STRING" value="29.10.2015, 12:35:30"/>
+        <aTTRIBUTE name="Date last changed" type="STRING" value="05.11.2015, 11:07:36"/>
         <aTTRIBUTE name="Last user" type="STRING" value="Admin"/>
         <aTTRIBUTE name="Keywords" type="STRING" value=""/>
         <aTTRIBUTE name="Comment" type="STRING" value=""/>
@@ -2445,19 +2445,19 @@
         <aTTRIBUTE name="State" type="ENUMERATION" value="In process"/>
         <aTTRIBUTE name="Reviewed on" type="STRING" value=""/>
         <aTTRIBUTE name="Reviewed by" type="STRING" value=""/>
-        <aTTRIBUTE name="Description" type="STRING" value=""/>
+        <aTTRIBUTE name="Description" type="STRING" value="Subprocess &amp;quot;Manage of 3rd Party Admin&amp;quot; "/>
         <aTTRIBUTE name="Number of objects and relations" type="INTEGER" value="48"/>
         <aTTRIBUTE name="World area" type="STRING" value="w:40cm h:28.79cm minw:5cm minh:5cm"/>
         <aTTRIBUTE name="Grid" type="STRING" value=""/>
         <aTTRIBUTE name="Zoom" type="INTEGER" value="100"/>
-        <aTTRIBUTE name="Viewable area" type="STRING" value="VIEW representation:graphicGRAPHIC x:-16 y:-16 w:825 h:743 scale:1TABLE"/>
+        <aTTRIBUTE name="Viewable area" type="STRING" value="VIEW representation:graphicGRAPHIC x:171 y:-16 w:807 h:886 scale:1TABLE"/>
         <aTTRIBUTE name="Current mode" type="STRING" value="All modelling objects"/>
         <aTTRIBUTE name="Base name" type="STRING" value="Titolo Unico - Monti Azzurri - SubProcess (restrictions)"/>
         <aTTRIBUTE name="Access state" type="ENUMERATION" value="write"/>
         <aTTRIBUTE name="Current page layout" type="STRING" value=""/>
         <aTTRIBUTE name="Connector marks" type="STRING" value=""/>
         <aTTRIBUTE name="Type" type="STRING" value="Business process diagram (BPMN 2.0)"/>
-        <aTTRIBUTE name="Change counter" type="INTEGER" value="5037"/>
+        <aTTRIBUTE name="Change counter" type="INTEGER" value="5082"/>
         <aTTRIBUTE name="Font size" type="INTEGER" value="0"/>
         <aTTRIBUTE name="Context of version" type="STRING" value=""/>
         <rECORD name="Change history"/>
@@ -2644,7 +2644,7 @@
         <rECORD name="Assignments"/>
         <aTTRIBUTE name="Term" type="STRING" value=""/>
         <aTTRIBUTE name="Order" type="INTEGER" value="0"/>
-        <aTTRIBUTE name="Description" type="STRING" value=""/>
+        <aTTRIBUTE name="Description" type="STRING" value="The subprocess &amp;quot;Manage of 3rd Party Admin&amp;quot; is started"/>
         <aTTRIBUTE name="Comment" type="STRING" value=""/>
         <aTTRIBUTE name="Trigger" type="STRING" value=""/>
         <aTTRIBUTE name="Result" type="STRING" value=""/>
@@ -3057,7 +3057,7 @@
         <iNTERREF name="Actor"/>
         <aTTRIBUTE name="Representation" type="ENUMERATION" value="without name"/>
         <aTTRIBUTE name="Order" type="INTEGER" value="0"/>
-        <aTTRIBUTE name="Description" type="STRING" value=""/>
+        <aTTRIBUTE name="Description" type="STRING" value="The subprocess &amp;quot;Manage of 3rd Party Admin&amp;quot; related to the SUAP Office is terminated"/>
         <aTTRIBUTE name="Comment" type="STRING" value=""/>
         <aTTRIBUTE name="Language" type="EXPRESSION" value="EXPR val:&amp;quot;System&amp;quot;"/>
         <aTTRIBUTE name="Bezeichnung" type="STRING" value="Ende"/>
@@ -3115,7 +3115,7 @@
         <aTTRIBUTE name="Cardinality" type="STRING" value=""/>
       </iNSTANCE>
       <iNSTANCE class="Task" id="obj.13832" name="Check Involvement">
-        <aTTRIBUTE name="Position" type="STRING" value="NODE x:10cm y:17cm w:3.36cm h:1.8cm index:20"/>
+        <aTTRIBUTE name="Position" type="STRING" value="NODE x:10cm y:17cm w:3.36cm h:1.8cm index:19"/>
         <aTTRIBUTE name="External tool coupling" type="STRING" value=""/>
         <aTTRIBUTE name="Performer" type="EXPRESSION" value="EXPR expr:(&amp;quot;&amp;quot;) val:&amp;quot;&amp;quot;"/>
         <aTTRIBUTE name="Execution time" type="TIME" value="00:000:00:00:00"/>
@@ -3259,7 +3259,7 @@
         <iNTERREF name="Referenced Competency"/>
       </iNSTANCE>
       <iNSTANCE class="Pool" id="obj.24407" name="Third Party PA">
-        <aTTRIBUTE name="Position" type="STRING" value="NODE x:0cm y:1cm w:29cm h:4cm index:25"/>
+        <aTTRIBUTE name="Position" type="STRING" value="NODE x:0cm y:1cm w:29cm h:4cm index:24"/>
         <aTTRIBUTE name="External tool coupling" type="STRING" value=""/>
         <aTTRIBUTE name="fontcolor" type="EXPRESSION" value="EXPR expr:(&amp;quot;&amp;quot;) val:&amp;quot;&amp;quot;"/>
         <aTTRIBUTE name="Categories" type="STRING" value=""/>
@@ -3301,7 +3301,7 @@
         <iNTERREF name="Referenced Organizational Unit"/>
       </iNSTANCE>
       <iNSTANCE class="End Event" id="obj.25020" name="End Event-25020">
-        <aTTRIBUTE name="Position" type="STRING" value="NODE x:16cm y:17cm index:26"/>
+        <aTTRIBUTE name="Position" type="STRING" value="NODE x:16cm y:17cm index:25"/>
         <aTTRIBUTE name="External tool coupling" type="STRING" value=""/>
         <aTTRIBUTE name="Type" type="ENUMERATION" value="local"/>
         <aTTRIBUTE name="fontcolor" type="EXPRESSION" value="EXPR expr:(set(targets, ctobjs(&amp;quot;Is inside&amp;quot;)),cond(tokcnt(targets,&amp;quot; &amp;quot;)=0,&amp;quot;black&amp;quot;,(cond(tokcnt(targets,&amp;quot; &amp;quot;)=1,aval (VAL ctobjs(&amp;quot;Is inside&amp;quot;), &amp;quot;Fontcolor&amp;quot;),(set(tk,token(targets,0,&amp;quot; &amp;quot;)),set(t,VAL (copy(aval(VAL tk, &amp;quot;Position&amp;quot;),search(aval(VAL tk, &amp;quot;Position&amp;quot;),&amp;quot;index&amp;quot;,0)+6,-1))),fortok(x,targets,&amp;quot; &amp;quot;,(set(c,VAL (copy(aval(VAL x, &amp;quot;Position&amp;quot;),search(aval(VAL x, &amp;quot;Position&amp;quot;),&amp;quot;index&amp;quot;,0)+6,-1))),cond(c&amp;gt;=t,(set(res,x),set(t,c)),&amp;quot;&amp;quot;))),aval (VAL res, &amp;quot;Fontcolor&amp;quot;)))))) val:error:&amp;quot;[acoexpar-02] Attribute \&amp;quot;Fontcolor\&amp;quot; (Lane) does not exist!  \&amp;quot;fontcolor\&amp;quot; (End Event)&amp;quot;"/>
@@ -3315,7 +3315,7 @@
         <iNTERREF name="Actor"/>
         <aTTRIBUTE name="Representation" type="ENUMERATION" value="without name"/>
         <aTTRIBUTE name="Order" type="INTEGER" value="0"/>
-        <aTTRIBUTE name="Description" type="STRING" value=""/>
+        <aTTRIBUTE name="Description" type="STRING" value="The subprocess &amp;quot;Manage of 3rd Party Admin&amp;quot; related to the Agricolture Office is terminated"/>
         <aTTRIBUTE name="Comment" type="STRING" value=""/>
         <aTTRIBUTE name="Language" type="EXPRESSION" value="EXPR val:&amp;quot;System&amp;quot;"/>
         <aTTRIBUTE name="Bezeichnung" type="STRING" value="Ende"/>
@@ -3512,7 +3512,7 @@
         <aTTRIBUTE name="Transition condition" type="STRING" value=""/>
         <aTTRIBUTE name="Transition probability" type="STRING" value=""/>
         <aTTRIBUTE name="Visualized values" type="ENUMERATION" value="Denomination"/>
-        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 0 index:19"/>
+        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 0 index:18"/>
         <aTTRIBUTE name="VisibleAttrs" type="STRING" value=""/>
         <aTTRIBUTE name="AttrRep" type="STRING" value="@INCLUDE &amp;quot;db:\\attrep_c_REL_CLASS_Subsequent.leo&amp;quot;"/>
         <aTTRIBUTE name="Visualization" type="ENUMERATION" value="RELATION"/>
@@ -3561,7 +3561,7 @@
         <aTTRIBUTE name="Transition condition" type="STRING" value=""/>
         <aTTRIBUTE name="Transition probability" type="STRING" value=""/>
         <aTTRIBUTE name="Visualized values" type="ENUMERATION" value="Denomination"/>
-        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 0 index:23"/>
+        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 0 index:22"/>
         <aTTRIBUTE name="VisibleAttrs" type="STRING" value=""/>
         <aTTRIBUTE name="AttrRep" type="STRING" value="@INCLUDE &amp;quot;db:\\attrep_c_REL_CLASS_Subsequent.leo&amp;quot;"/>
         <aTTRIBUTE name="Visualization" type="ENUMERATION" value="RELATION"/>
@@ -3627,7 +3627,7 @@
       <cONNECTOR class="Data Association" id="con.13854">
         <fROM class="Data Object" instance="Instance SCIA (update)"/>
         <tO class="Task" instance="Check Involvement"/>
-        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 0 index:24"/>
+        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 0 index:23"/>
         <aTTRIBUTE name="GraphRep" type="STRING" value="GRAPHREP rounded:0.1cmSHADOW offPEN style:dot w:0.03cmEDGEPEN style:solid w:0.03cmAVAL set-default:&amp;quot;Relation Node&amp;quot; fromType:&amp;quot;FromType&amp;quot;AVAL set-default:&amp;quot;Data Object&amp;quot; toType:&amp;quot;ToType&amp;quot;AVAL sRepr:&amp;quot;Representation&amp;quot;AVAL sRotate:&amp;quot;Rotate the visualised values by 90 degrees&amp;quot;AVAL sName:  &amp;quot;Name&amp;quot;ENDPOLYLINE ({-0.3cm, 0.1cm, 0cm, 0cm, -0.3cm, -0.1cm})MIDDLESET aObjectArray: {&amp;quot;Task&amp;quot;, &amp;quot;Sub-Process&amp;quot;, &amp;quot;Start Event&amp;quot;, &amp;quot;Intermediate Event (sequence flow)&amp;quot;, &amp;quot;Intermediate Event (boundary)&amp;quot;, &amp;quot;End Event&amp;quot;, &amp;quot;Relation Node&amp;quot;, &amp;quot;Data Object&amp;quot;, &amp;quot;Exclusive Gateway&amp;quot;, &amp;quot;Non-exclusive Gateway&amp;quot;, &amp;quot;Non-exclusive Gateway (converging)&amp;quot;}FONT &amp;quot;Arial&amp;quot; color:red boldIF (((fromType IN aObjectArray) != 1) OR ((toType IN aObjectArray) != 1))TEXT &amp;quot;!&amp;quot; x:0.1cm y:0.0cm w:l h:bELSIF ((fromType != &amp;quot;Data Object&amp;quot;) AND (toType != &amp;quot;Data Object&amp;quot;))TEXT &amp;quot;!&amp;quot; x:0.1cm y:0.0cm w:l h:bENDIFAVAL showName:&amp;quot;Show name&amp;quot;IF (showName = &amp;quot;Yes&amp;quot;)IF (sRepr = &amp;quot;above/below&amp;quot;)IF (sRotate = &amp;quot;Yes&amp;quot;)FONT line-orientation:90ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.2cm y:0.0cm w:c:(2.0cm) h:tELSEFONT line-orientation:0ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.0cm y:0.2cm w:c:(2.0cm) h:tENDIFELSEIF (sRotate = &amp;quot;Yes&amp;quot;)FONT line-orientation:90ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.0cm y:-0.2cm w:l:(2.0cm) h:cELSEFONT line-orientation:0ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.2cm y:0.0cm w:l:(2.0cm) h:cENDIFENDIFENDIF"/>
         <aTTRIBUTE name="AttrRep" type="STRING" value="@INCLUDE &amp;quot;db:\\attrep_c_REL_CLASS_DataAssociation.leo&amp;quot;CHAPTER &amp;quot;Semantic Enrichment&amp;quot;ATTR &amp;quot;Annotation&amp;quot;ATTR &amp;quot;Set Annotation&amp;quot; no-param push-button"/>
         <aTTRIBUTE name="Name" type="STRING" value=""/>
@@ -3699,7 +3699,7 @@
         <aTTRIBUTE name="Transition condition" type="STRING" value=""/>
         <aTTRIBUTE name="Transition probability" type="STRING" value=""/>
         <aTTRIBUTE name="Visualized values" type="ENUMERATION" value="Denomination"/>
-        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 0 index:21 MIDDLE x:10cm y:14.02cm"/>
+        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 0 index:20 MIDDLE x:10cm y:14.02cm"/>
         <aTTRIBUTE name="VisibleAttrs" type="STRING" value=""/>
         <aTTRIBUTE name="AttrRep" type="STRING" value="@INCLUDE &amp;quot;db:\\attrep_c_REL_CLASS_Subsequent.leo&amp;quot;"/>
         <aTTRIBUTE name="Visualization" type="ENUMERATION" value="RELATION"/>
@@ -3752,26 +3752,6 @@
         <tO class="Lane" instance="SUAP Office"/>
         <aTTRIBUTE name="AutoConnect" type="STRING" value=""/>
       </cONNECTOR>
-      <cONNECTOR class="Data Association" id="con.13863">
-        <fROM class="Data Object" instance="3rd Party Opinion"/>
-        <tO class="Task" instance="Receive check of 3rd Party"/>
-        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 0 index:18"/>
-        <aTTRIBUTE name="GraphRep" type="STRING" value="GRAPHREP rounded:0.1cmSHADOW offPEN style:dot w:0.03cmEDGEPEN style:solid w:0.03cmAVAL set-default:&amp;quot;Relation Node&amp;quot; fromType:&amp;quot;FromType&amp;quot;AVAL set-default:&amp;quot;Data Object&amp;quot; toType:&amp;quot;ToType&amp;quot;AVAL sRepr:&amp;quot;Representation&amp;quot;AVAL sRotate:&amp;quot;Rotate the visualised values by 90 degrees&amp;quot;AVAL sName:  &amp;quot;Name&amp;quot;ENDPOLYLINE ({-0.3cm, 0.1cm, 0cm, 0cm, -0.3cm, -0.1cm})MIDDLESET aObjectArray: {&amp;quot;Task&amp;quot;, &amp;quot;Sub-Process&amp;quot;, &amp;quot;Start Event&amp;quot;, &amp;quot;Intermediate Event (sequence flow)&amp;quot;, &amp;quot;Intermediate Event (boundary)&amp;quot;, &amp;quot;End Event&amp;quot;, &amp;quot;Relation Node&amp;quot;, &amp;quot;Data Object&amp;quot;, &amp;quot;Exclusive Gateway&amp;quot;, &amp;quot;Non-exclusive Gateway&amp;quot;, &amp;quot;Non-exclusive Gateway (converging)&amp;quot;}FONT &amp;quot;Arial&amp;quot; color:red boldIF (((fromType IN aObjectArray) != 1) OR ((toType IN aObjectArray) != 1))TEXT &amp;quot;!&amp;quot; x:0.1cm y:0.0cm w:l h:bELSIF ((fromType != &amp;quot;Data Object&amp;quot;) AND (toType != &amp;quot;Data Object&amp;quot;))TEXT &amp;quot;!&amp;quot; x:0.1cm y:0.0cm w:l h:bENDIFAVAL showName:&amp;quot;Show name&amp;quot;IF (showName = &amp;quot;Yes&amp;quot;)IF (sRepr = &amp;quot;above/below&amp;quot;)IF (sRotate = &amp;quot;Yes&amp;quot;)FONT line-orientation:90ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.2cm y:0.0cm w:c:(2.0cm) h:tELSEFONT line-orientation:0ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.0cm y:0.2cm w:c:(2.0cm) h:tENDIFELSEIF (sRotate = &amp;quot;Yes&amp;quot;)FONT line-orientation:90ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.0cm y:-0.2cm w:l:(2.0cm) h:cELSEFONT line-orientation:0ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.2cm y:0.0cm w:l:(2.0cm) h:cENDIFENDIFENDIF"/>
-        <aTTRIBUTE name="AttrRep" type="STRING" value="@INCLUDE &amp;quot;db:\\attrep_c_REL_CLASS_DataAssociation.leo&amp;quot;CHAPTER &amp;quot;Semantic Enrichment&amp;quot;ATTR &amp;quot;Annotation&amp;quot;ATTR &amp;quot;Set Annotation&amp;quot; no-param push-button"/>
-        <aTTRIBUTE name="Name" type="STRING" value=""/>
-        <aTTRIBUTE name="Representation" type="ENUMERATION" value="above/below"/>
-        <aTTRIBUTE name="Rotate the visualised values by 90 degrees" type="ENUMERATION" value="No"/>
-        <aTTRIBUTE name="Description" type="LONGSTRING" value=""/>
-        <aTTRIBUTE name="Show name" type="ENUMERATION" value="No"/>
-        <aTTRIBUTE name="Comment" type="STRING" value=""/>
-        <aTTRIBUTE name="Doku" type="STRING" value="#-----------------------CHAPTER &amp;quot;Description&amp;quot;#-----------------------ATTR &amp;quot;Name&amp;quot;ATTR &amp;quot;Description&amp;quot;ATTR &amp;quot;Comment&amp;quot;ATTR &amp;quot;Id&amp;quot; "/>
-        <aTTRIBUTE name="FromType" type="EXPRESSION" value="EXPR val:&amp;quot;Data Object&amp;quot;"/>
-        <aTTRIBUTE name="ToType" type="EXPRESSION" value="EXPR val:&amp;quot;Task&amp;quot;"/>
-        <aTTRIBUTE name="Id" type="EXPRESSION" value="EXPR val:&amp;quot;13863&amp;quot;"/>
-        <aTTRIBUTE name="id_bpmndi" type="STRING" value=""/>
-        <aTTRIBUTE name="Annotation" type="STRING" value=""/>
-        <aTTRIBUTE name="Set Annotation" type="PROGRAMCALL" value="ITEM &amp;quot;Set Annotation&amp;quot; param:&amp;quot;&amp;quot;"/>
-      </cONNECTOR>
       <cONNECTOR class="Is inside" id="con.13864">
         <fROM class="Task" instance="Check Involvement"/>
         <tO class="Pool" instance="Monti Azzurri Consorsium"/>
@@ -3788,7 +3768,7 @@
         <aTTRIBUTE name="Transition condition" type="STRING" value=""/>
         <aTTRIBUTE name="Transition probability" type="STRING" value=""/>
         <aTTRIBUTE name="Visualized values" type="ENUMERATION" value="Denomination"/>
-        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 0 index:22 MIDDLE x:15.15cm y:17cm"/>
+        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 0 index:21 MIDDLE x:15.15cm y:17cm"/>
         <aTTRIBUTE name="VisibleAttrs" type="STRING" value=""/>
         <aTTRIBUTE name="AttrRep" type="STRING" value="@INCLUDE &amp;quot;db:\\attrep_c_REL_CLASS_Subsequent.leo&amp;quot;"/>
         <aTTRIBUTE name="Visualization" type="ENUMERATION" value="RELATION"/>
@@ -3836,6 +3816,26 @@
         <tO class="Lane" instance="Agriculture Office"/>
         <aTTRIBUTE name="AutoConnect" type="STRING" value=""/>
       </cONNECTOR>
+      <cONNECTOR class="Data Association" id="con.27201">
+        <fROM class="Task" instance="Receive check of 3rd Party"/>
+        <tO class="Data Object" instance="3rd Party Opinion"/>
+        <aTTRIBUTE name="Positions" type="STRING" value="EDGE 0 index:26"/>
+        <aTTRIBUTE name="GraphRep" type="STRING" value="GRAPHREP rounded:0.1cmSHADOW offPEN style:dot w:0.03cmEDGEPEN style:solid w:0.03cmAVAL set-default:&amp;quot;Relation Node&amp;quot; fromType:&amp;quot;FromType&amp;quot;AVAL set-default:&amp;quot;Data Object&amp;quot; toType:&amp;quot;ToType&amp;quot;AVAL sRepr:&amp;quot;Representation&amp;quot;AVAL sRotate:&amp;quot;Rotate the visualised values by 90 degrees&amp;quot;AVAL sName:  &amp;quot;Name&amp;quot;ENDPOLYLINE ({-0.3cm, 0.1cm, 0cm, 0cm, -0.3cm, -0.1cm})MIDDLESET aObjectArray: {&amp;quot;Task&amp;quot;, &amp;quot;Sub-Process&amp;quot;, &amp;quot;Start Event&amp;quot;, &amp;quot;Intermediate Event (sequence flow)&amp;quot;, &amp;quot;Intermediate Event (boundary)&amp;quot;, &amp;quot;End Event&amp;quot;, &amp;quot;Relation Node&amp;quot;, &amp;quot;Data Object&amp;quot;, &amp;quot;Exclusive Gateway&amp;quot;, &amp;quot;Non-exclusive Gateway&amp;quot;, &amp;quot;Non-exclusive Gateway (converging)&amp;quot;}FONT &amp;quot;Arial&amp;quot; color:red boldIF (((fromType IN aObjectArray) != 1) OR ((toType IN aObjectArray) != 1))TEXT &amp;quot;!&amp;quot; x:0.1cm y:0.0cm w:l h:bELSIF ((fromType != &amp;quot;Data Object&amp;quot;) AND (toType != &amp;quot;Data Object&amp;quot;))TEXT &amp;quot;!&amp;quot; x:0.1cm y:0.0cm w:l h:bENDIFAVAL showName:&amp;quot;Show name&amp;quot;IF (showName = &amp;quot;Yes&amp;quot;)IF (sRepr = &amp;quot;above/below&amp;quot;)IF (sRotate = &amp;quot;Yes&amp;quot;)FONT line-orientation:90ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.2cm y:0.0cm w:c:(2.0cm) h:tELSEFONT line-orientation:0ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.0cm y:0.2cm w:c:(2.0cm) h:tENDIFELSEIF (sRotate = &amp;quot;Yes&amp;quot;)FONT line-orientation:90ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.0cm y:-0.2cm w:l:(2.0cm) h:cELSEFONT line-orientation:0ATTR &amp;quot;Name&amp;quot; text:(sName) line-break:words x:0.2cm y:0.0cm w:l:(2.0cm) h:cENDIFENDIFENDIF"/>
+        <aTTRIBUTE name="AttrRep" type="STRING" value="@INCLUDE &amp;quot;db:\\attrep_c_REL_CLASS_DataAssociation.leo&amp;quot;CHAPTER &amp;quot;Semantic Enrichment&amp;quot;ATTR &amp;quot;Annotation&amp;quot;ATTR &amp;quot;Set Annotation&amp;quot; no-param push-button"/>
+        <aTTRIBUTE name="Name" type="STRING" value=""/>
+        <aTTRIBUTE name="Representation" type="ENUMERATION" value="above/below"/>
+        <aTTRIBUTE name="Rotate the visualised values by 90 degrees" type="ENUMERATION" value="No"/>
+        <aTTRIBUTE name="Description" type="LONGSTRING" value=""/>
+        <aTTRIBUTE name="Show name" type="ENUMERATION" value="No"/>
+        <aTTRIBUTE name="Comment" type="STRING" value=""/>
+        <aTTRIBUTE name="Doku" type="STRING" value="#-----------------------CHAPTER &amp;quot;Description&amp;quot;#-----------------------ATTR &amp;quot;Name&amp;quot;ATTR &amp;quot;Description&amp;quot;ATTR &amp;quot;Comment&amp;quot;ATTR &amp;quot;Id&amp;quot; "/>
+        <aTTRIBUTE name="FromType" type="EXPRESSION" value="EXPR val:&amp;quot;Task&amp;quot;"/>
+        <aTTRIBUTE name="ToType" type="EXPRESSION" value="EXPR val:&amp;quot;Data Object&amp;quot;"/>
+        <aTTRIBUTE name="Id" type="EXPRESSION" value="EXPR val:&amp;quot;27201&amp;quot;"/>
+        <aTTRIBUTE name="id_bpmndi" type="STRING" value=""/>
+        <aTTRIBUTE name="Annotation" type="STRING" value=""/>
+        <aTTRIBUTE name="Set Annotation" type="PROGRAMCALL" value="ITEM &amp;quot;Set Annotation&amp;quot; param:&amp;quot;&amp;quot;"/>
+      </cONNECTOR>
     </mODEL>
     <mODEL applib="LearnPAd Prototype Dynamic Library 0.25" id="mod.13868" libtype="bp" modeltype="Business process diagram (BPMN 2.0)" name="Titolo Unico - Monti Azzurri - SubProcess (conference)" version="">
       <mODELATTRIBUTES>
@@ -3843,7 +3843,7 @@
         <aTTRIBUTE name="Version number" type="STRING" value=""/>
         <aTTRIBUTE name="Author" type="STRING" value="barbara"/>
         <aTTRIBUTE name="Creation date" type="STRING" value="11.08.2015, 15:48"/>
-        <aTTRIBUTE name="Date last changed" type="STRING" value="29.10.2015, 12:28:51"/>
+        <aTTRIBUTE name="Date last changed" type="STRING" value="05.11.2015, 11:05:52"/>
         <aTTRIBUTE name="Last user" type="STRING" value="Admin"/>
         <aTTRIBUTE name="Keywords" type="STRING" value=""/>
         <aTTRIBUTE name="Comment" type="STRING" value=""/>
@@ -3851,19 +3851,19 @@
         <aTTRIBUTE name="State" type="ENUMERATION" value="In process"/>
         <aTTRIBUTE name="Reviewed on" type="STRING" value=""/>
         <aTTRIBUTE name="Reviewed by" type="STRING" value=""/>
-        <aTTRIBUTE name="Description" type="STRING" value=""/>
+        <aTTRIBUTE name="Description" type="STRING" value="Subprocess &amp;quot;Manage Service Conference&amp;quot; "/>
         <aTTRIBUTE name="Number of objects and relations" type="INTEGER" value="30"/>
         <aTTRIBUTE name="World area" type="STRING" value="w:29.5cm h:28.79cm minw:5cm minh:5cm"/>
         <aTTRIBUTE name="Grid" type="STRING" value=""/>
         <aTTRIBUTE name="Zoom" type="INTEGER" value="100"/>
-        <aTTRIBUTE name="Viewable area" type="STRING" value="VIEW representation:graphicGRAPHIC x:-16 y:89 w:825 h:743 scale:1TABLE"/>
+        <aTTRIBUTE name="Viewable area" type="STRING" value="VIEW representation:graphicGRAPHIC x:68 y:88 w:807 h:886 scale:1TABLE"/>
         <aTTRIBUTE name="Current mode" type="STRING" value="All modelling objects"/>
         <aTTRIBUTE name="Base name" type="STRING" value="Titolo Unico - Monti Azzurri - SubProcess (conference)"/>
         <aTTRIBUTE name="Access state" type="ENUMERATION" value="write"/>
         <aTTRIBUTE name="Current page layout" type="STRING" value=""/>
         <aTTRIBUTE name="Connector marks" type="STRING" value=""/>
         <aTTRIBUTE name="Type" type="STRING" value="Business process diagram (BPMN 2.0)"/>
-        <aTTRIBUTE name="Change counter" type="INTEGER" value="2706"/>
+        <aTTRIBUTE name="Change counter" type="INTEGER" value="2714"/>
         <aTTRIBUTE name="Font size" type="INTEGER" value="0"/>
         <aTTRIBUTE name="Context of version" type="STRING" value=""/>
         <rECORD name="Change history"/>
@@ -3933,7 +3933,7 @@
         <rECORD name="Assignments"/>
         <aTTRIBUTE name="Term" type="STRING" value=""/>
         <aTTRIBUTE name="Order" type="INTEGER" value="0"/>
-        <aTTRIBUTE name="Description" type="STRING" value=""/>
+        <aTTRIBUTE name="Description" type="STRING" value="The subprocess &amp;quot;Manage Service Conference&amp;quot; is started"/>
         <aTTRIBUTE name="Comment" type="STRING" value=""/>
         <aTTRIBUTE name="Trigger" type="STRING" value=""/>
         <aTTRIBUTE name="Result" type="STRING" value=""/>
@@ -4278,7 +4278,7 @@
         <rECORD name="Assignments"/>
         <aTTRIBUTE name="Term" type="STRING" value=""/>
         <aTTRIBUTE name="Language" type="EXPRESSION" value="EXPR val:&amp;quot;System&amp;quot;"/>
-        <aTTRIBUTE name="Description" type="STRING" value=""/>
+        <aTTRIBUTE name="Description" type="STRING" value="The SUAP Office have to wait the confirmation from the conference"/>
         <aTTRIBUTE name="Comment" type="STRING" value=""/>
         <aTTRIBUTE name="External documentation" type="PROGRAMCALL" value="ITEM &amp;quot;&amp;quot; param:&amp;quot;&amp;quot;"/>
         <aTTRIBUTE name="Open questions" type="STRING" value=""/>
@@ -4323,7 +4323,7 @@
         <iNTERREF name="Actor"/>
         <aTTRIBUTE name="Representation" type="ENUMERATION" value="without name"/>
         <aTTRIBUTE name="Order" type="INTEGER" value="0"/>
-        <aTTRIBUTE name="Description" type="STRING" value=""/>
+        <aTTRIBUTE name="Description" type="STRING" value="The subprocess &amp;quot;Manage Service Conference&amp;quot; is terminated"/>
         <aTTRIBUTE name="Comment" type="STRING" value=""/>
         <aTTRIBUTE name="Language" type="EXPRESSION" value="EXPR val:&amp;quot;System&amp;quot;"/>
         <aTTRIBUTE name="Bezeichnung" type="STRING" value="Ende"/>

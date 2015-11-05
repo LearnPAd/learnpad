@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE ADOXML SYSTEM "adoxml31.dtd">
-<ADOXML version="" date="29.10.2015" time="16:40:37" database="learndb3" username="Admin" adoversion="5.1">
+<ADOXML version="" date="05.11.2015" time="11:15:31" database="learndb3" username="Admin" adoversion="5.1">
   <MODELS>
-    <MODEL id="mod.25873" name="EU Project" version="1" modeltype="Business process diagram (BPMN 2.0)" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.25">
+    <MODEL id="mod.25873" name="EU Project" version="2" modeltype="Business process diagram (BPMN 2.0)" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.25">
       <MODELATTRIBUTES>
-        <ATTRIBUTE name="Name" type="STRING">EU Project 1</ATTRIBUTE>
-        <ATTRIBUTE name="Version number" type="STRING">1</ATTRIBUTE>
+        <ATTRIBUTE name="Name" type="STRING">EU Project 2</ATTRIBUTE>
+        <ATTRIBUTE name="Version number" type="STRING">2</ATTRIBUTE>
         <ATTRIBUTE name="Author" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Creation date" type="STRING">17.11.2014, 16:16</ATTRIBUTE>
-        <ATTRIBUTE name="Date last changed" type="STRING">29.10.2015, 16:30:32</ATTRIBUTE>
+        <ATTRIBUTE name="Date last changed" type="STRING">05.11.2015, 10:43:40</ATTRIBUTE>
         <ATTRIBUTE name="Last user" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Keywords" type="STRING"/>
         <ATTRIBUTE name="Comment" type="STRING"/>
@@ -16,13 +16,13 @@
         <ATTRIBUTE name="State" type="ENUMERATION">In process</ATTRIBUTE>
         <ATTRIBUTE name="Reviewed on" type="STRING"/>
         <ATTRIBUTE name="Reviewed by" type="STRING"/>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">EU Project - Grant Management</ATTRIBUTE>
         <ATTRIBUTE name="Number of objects and relations" type="INTEGER">91</ATTRIBUTE>
         <ATTRIBUTE name="World area" type="STRING">w:80.02cm h:28.63cm minw:5cm minh:5cm</ATTRIBUTE>
         <ATTRIBUTE name="Grid" type="STRING"/>
         <ATTRIBUTE name="Zoom" type="INTEGER">78</ATTRIBUTE>
         <ATTRIBUTE name="Viewable area" type="STRING">VIEW representation:graphic
-GRAPHIC x:-16 y:-16 w:825 h:743 scale:0.78
+GRAPHIC x:-16 y:-16 w:824 h:743 scale:0.78
 TABLE
 </ATTRIBUTE>
         <ATTRIBUTE name="Current mode" type="STRING"/>
@@ -31,7 +31,7 @@ TABLE
         <ATTRIBUTE name="Current page layout" type="STRING"/>
         <ATTRIBUTE name="Connector marks" type="STRING"/>
         <ATTRIBUTE name="Type" type="STRING">Business process diagram (BPMN 2.0)</ATTRIBUTE>
-        <ATTRIBUTE name="Change counter" type="INTEGER">66812</ATTRIBUTE>
+        <ATTRIBUTE name="Change counter" type="INTEGER">66919</ATTRIBUTE>
         <ATTRIBUTE name="Font size" type="INTEGER">100</ATTRIBUTE>
         <ATTRIBUTE name="Context of version" type="STRING"/>
         <RECORD name="Change history"/>
@@ -117,7 +117,7 @@ cond
         <RECORD name="Assignments"/>
         <ATTRIBUTE name="Term" type="STRING"/>
         <ATTRIBUTE name="Order" type="INTEGER">0</ATTRIBUTE>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">Receive Project Acceptance Notification </ATTRIBUTE>
         <ATTRIBUTE name="Comment" type="STRING"/>
         <ATTRIBUTE name="Trigger" type="STRING"/>
         <ATTRIBUTE name="Result" type="STRING"/>
@@ -508,7 +508,7 @@ cond
         <RECORD name="Assignments"/>
         <ATTRIBUTE name="Term" type="STRING"/>
         <ATTRIBUTE name="Language" type="EXPRESSION">EXPR val:"System"</ATTRIBUTE>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">Within 60 days from the sign</ATTRIBUTE>
         <ATTRIBUTE name="Comment" type="STRING"/>
         <ATTRIBUTE name="External documentation" type="PROGRAMCALL">ITEM "" param:""</ATTRIBUTE>
         <ATTRIBUTE name="Open questions" type="STRING"/>
@@ -1210,7 +1210,7 @@ cond
         <ATTRIBUTE name="Position" type="STRING">NODE x:72.5cm y:7.5cm w:3.36cm h:1.8cm index:9</ATTRIBUTE>
         <ATTRIBUTE name="External tool coupling" type="STRING"/>
         <INTERREF name="Referenced subprocess">
-          <IREF type="modelreference" tmodeltype="Business process diagram (BPMN 2.0)" tmodelname="SubProcess - Provide Final Report 1" tmodelver="1"/>
+          <IREF type="modelreference" tmodeltype="Business process diagram (BPMN 2.0)" tmodelname="SubProcess - Provide Final Report 2" tmodelver="2"/>
         </INTERREF>
         <ATTRIBUTE name="fontcolor" type="EXPRESSION">EXPR expr:(set(targets, ctobjs("Is inside")),
 cond
@@ -1349,7 +1349,7 @@ cond
         <INTERREF name="Actor"/>
         <ATTRIBUTE name="Representation" type="ENUMERATION">without name</ATTRIBUTE>
         <ATTRIBUTE name="Order" type="INTEGER">0</ATTRIBUTE>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">The process is terminated</ATTRIBUTE>
         <ATTRIBUTE name="Comment" type="STRING"/>
         <ATTRIBUTE name="Language" type="EXPRESSION">EXPR val:"System"</ATTRIBUTE>
         <ATTRIBUTE name="Bezeichnung" type="STRING">Ende</ATTRIBUTE>
@@ -1393,7 +1393,7 @@ cond
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
         <INTERREF name="Referenced output data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Grant Agreement"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Grant Agreement"/>
         </INTERREF>
         <INTERREF name="Referenced output data (while executing)"/>
         <ATTRIBUTE name="Collection (output)" type="ENUMERATION">No</ATTRIBUTE>
@@ -1410,7 +1410,7 @@ cond
         <ATTRIBUTE name="Position" type="STRING">NODE x:66cm y:9.5cm w:3.36cm h:1.8cm index:15</ATTRIBUTE>
         <ATTRIBUTE name="External tool coupling" type="STRING"/>
         <INTERREF name="Referenced subprocess">
-          <IREF type="modelreference" tmodeltype="Business process diagram (BPMN 2.0)" tmodelname="SubProcess - Provide Periodic Report 1" tmodelver="1"/>
+          <IREF type="modelreference" tmodeltype="Business process diagram (BPMN 2.0)" tmodelname="SubProcess - Provide Periodic Report 2" tmodelver="2"/>
         </INTERREF>
         <ATTRIBUTE name="fontcolor" type="EXPRESSION">EXPR expr:(set(targets, ctobjs("Is inside")),
 cond
@@ -1521,7 +1521,7 @@ cond
         <ATTRIBUTE name="Position" type="STRING">NODE x:66cm y:5cm w:3.36cm h:1.8cm index:16</ATTRIBUTE>
         <ATTRIBUTE name="External tool coupling" type="STRING"/>
         <INTERREF name="Referenced subprocess">
-          <IREF type="modelreference" tmodeltype="Business process diagram (BPMN 2.0)" tmodelname="SubProcess - Manage Amendment Request 1" tmodelver="1"/>
+          <IREF type="modelreference" tmodeltype="Business process diagram (BPMN 2.0)" tmodelname="SubProcess - Manage Amendment Request 2" tmodelver="2"/>
         </INTERREF>
         <ATTRIBUTE name="fontcolor" type="EXPRESSION">EXPR expr:(set(targets, ctobjs("Is inside")),
 cond
@@ -2081,7 +2081,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="School Council Report"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="School Council Report"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -2117,7 +2117,7 @@ cond
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
         <INTERREF name="Referenced output data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Consortium Agreement"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Consortium Agreement"/>
         </INTERREF>
         <INTERREF name="Referenced output data (while executing)"/>
         <ATTRIBUTE name="Collection (output)" type="ENUMERATION">No</ATTRIBUTE>
@@ -2416,7 +2416,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="School Research Project Form"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="School Research Project Form"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -2433,7 +2433,7 @@ cond
         <ATTRIBUTE name="Cardinality" type="STRING"/>
       </INSTANCE>
       <INSTANCE id="obj.25943" class="Pool" name="EU Project - Grant Management">
-        <ATTRIBUTE name="Position" type="STRING">NODE x:0cm y:0cm w:78.5cm h:15.5cm index:48</ATTRIBUTE>
+        <ATTRIBUTE name="Position" type="STRING">NODE x:0cm y:3cm w:78.5cm h:11.5cm index:48</ATTRIBUTE>
         <ATTRIBUTE name="External tool coupling" type="STRING"/>
         <ATTRIBUTE name="fontcolor" type="EXPRESSION">EXPR expr:("") val:""</ATTRIBUTE>
         <ATTRIBUTE name="Categories" type="STRING"/>
@@ -2473,7 +2473,7 @@ cond
         <ATTRIBUTE name="Executable" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Closed" type="ENUMERATION">No</ATTRIBUTE>
         <INTERREF name="Referenced Organizational Unit">
-          <IREF type="objectreference" tmodeltype="Organizational structure" tmodelname="EU Project Coordinator Organizational Structure 1" tmodelver="1" tclassname="Organizational unit" tobjname="University of Camerino"/>
+          <IREF type="objectreference" tmodeltype="Organizational structure" tmodelname="EU Project Coordinator Organizational Structure 2" tmodelver="2" tclassname="Organizational unit" tobjname="University of Camerino"/>
         </INTERREF>
       </INSTANCE>
       <INSTANCE id="obj.25946" class="Task" name="Manage School Authorization">
@@ -2872,7 +2872,7 @@ cond
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
         <INTERREF name="Referenced output data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="School Council Report"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="School Council Report"/>
         </INTERREF>
         <INTERREF name="Referenced output data (while executing)"/>
         <ATTRIBUTE name="Collection (output)" type="ENUMERATION">No</ATTRIBUTE>
@@ -2902,7 +2902,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Consortium Agreement"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Consortium Agreement"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -2935,7 +2935,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Grant Agreement"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Grant Agreement"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -8797,13 +8797,13 @@ ATTR "Id" </ATTRIBUTE>
         <ATTRIBUTE name="AutoConnect" type="STRING"/>
       </CONNECTOR>
     </MODEL>
-    <MODEL id="mod.26015" name="SubProcess - Manage Periodic Report" version="1" modeltype="Business process diagram (BPMN 2.0)" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.25">
+    <MODEL id="mod.26015" name="SubProcess - Manage Periodic Report" version="2" modeltype="Business process diagram (BPMN 2.0)" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.25">
       <MODELATTRIBUTES>
-        <ATTRIBUTE name="Name" type="STRING">SubProcess - Manage Periodic Report 1</ATTRIBUTE>
-        <ATTRIBUTE name="Version number" type="STRING">1</ATTRIBUTE>
+        <ATTRIBUTE name="Name" type="STRING">SubProcess - Manage Periodic Report 2</ATTRIBUTE>
+        <ATTRIBUTE name="Version number" type="STRING">2</ATTRIBUTE>
         <ATTRIBUTE name="Author" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Creation date" type="STRING">18.11.2014, 11:04</ATTRIBUTE>
-        <ATTRIBUTE name="Date last changed" type="STRING">29.10.2015, 16:34:24</ATTRIBUTE>
+        <ATTRIBUTE name="Date last changed" type="STRING">05.11.2015, 10:49:51</ATTRIBUTE>
         <ATTRIBUTE name="Last user" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Keywords" type="STRING"/>
         <ATTRIBUTE name="Comment" type="STRING"/>
@@ -8811,13 +8811,13 @@ ATTR "Id" </ATTRIBUTE>
         <ATTRIBUTE name="State" type="ENUMERATION">In process</ATTRIBUTE>
         <ATTRIBUTE name="Reviewed on" type="STRING"/>
         <ATTRIBUTE name="Reviewed by" type="STRING"/>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">Subprocess "Manage Periodic Report"</ATTRIBUTE>
         <ATTRIBUTE name="Number of objects and relations" type="INTEGER">51</ATTRIBUTE>
         <ATTRIBUTE name="World area" type="STRING">w:59.99cm h:28.57cm minw:5cm minh:5cm</ATTRIBUTE>
         <ATTRIBUTE name="Grid" type="STRING"/>
         <ATTRIBUTE name="Zoom" type="INTEGER">64</ATTRIBUTE>
         <ATTRIBUTE name="Viewable area" type="STRING">VIEW representation:graphic
-GRAPHIC x:-16 y:-16 w:841 h:743 scale:0.64
+GRAPHIC x:-16 y:-16 w:840 h:743 scale:0.64
 TABLE
 </ATTRIBUTE>
         <ATTRIBUTE name="Current mode" type="STRING"/>
@@ -8826,7 +8826,7 @@ TABLE
         <ATTRIBUTE name="Current page layout" type="STRING"/>
         <ATTRIBUTE name="Connector marks" type="STRING"/>
         <ATTRIBUTE name="Type" type="STRING">Business process diagram (BPMN 2.0)</ATTRIBUTE>
-        <ATTRIBUTE name="Change counter" type="INTEGER">48005</ATTRIBUTE>
+        <ATTRIBUTE name="Change counter" type="INTEGER">48033</ATTRIBUTE>
         <ATTRIBUTE name="Font size" type="INTEGER">100</ATTRIBUTE>
         <ATTRIBUTE name="Context of version" type="STRING"/>
         <RECORD name="Change history"/>
@@ -8912,7 +8912,7 @@ cond
         <RECORD name="Assignments"/>
         <ATTRIBUTE name="Term" type="STRING"/>
         <ATTRIBUTE name="Order" type="INTEGER">0</ATTRIBUTE>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">The subprocess "Manage Periodic Report" is started</ATTRIBUTE>
         <ATTRIBUTE name="Comment" type="STRING"/>
         <ATTRIBUTE name="Trigger" type="STRING"/>
         <ATTRIBUTE name="Result" type="STRING"/>
@@ -9305,7 +9305,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Annex VI - Form C"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Annex VI - Form C"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -9338,7 +9338,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Annex VI - Form C"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Annex VI - Form C"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -9875,7 +9875,7 @@ cond
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
         <INTERREF name="Referenced output data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Annex VI - Form C"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Annex VI - Form C"/>
         </INTERREF>
         <INTERREF name="Referenced output data (while executing)"/>
         <ATTRIBUTE name="Collection (output)" type="ENUMERATION">No</ATTRIBUTE>
@@ -10341,7 +10341,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Certificate Financial Statement"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Certificate Financial Statement"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -10541,7 +10541,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Certificate Financial Statement"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Certificate Financial Statement"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -10588,7 +10588,7 @@ cond
         <INTERREF name="Actor"/>
         <ATTRIBUTE name="Representation" type="ENUMERATION">without name</ATTRIBUTE>
         <ATTRIBUTE name="Order" type="INTEGER">0</ATTRIBUTE>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">The subprocess "Manage Periodic Report" is terminated</ATTRIBUTE>
         <ATTRIBUTE name="Comment" type="STRING"/>
         <ATTRIBUTE name="Language" type="EXPRESSION">EXPR val:"System"</ATTRIBUTE>
         <ATTRIBUTE name="Bezeichnung" type="STRING">Ende</ATTRIBUTE>
@@ -10796,7 +10796,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Budget Summary"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Budget Summary"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -10829,7 +10829,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Activity DOC"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Activity DOC"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -11029,7 +11029,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Timesheet"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Timesheet"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -11065,7 +11065,7 @@ cond
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
         <INTERREF name="Referenced output data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Annex VI - Form C"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Annex VI - Form C"/>
         </INTERREF>
         <INTERREF name="Referenced output data (while executing)"/>
         <ATTRIBUTE name="Collection (output)" type="ENUMERATION">No</ATTRIBUTE>
@@ -11095,7 +11095,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Annex VI - Form C"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Annex VI - Form C"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -11131,7 +11131,7 @@ cond
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
         <INTERREF name="Referenced output data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Certificate Financial Statement"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Certificate Financial Statement"/>
         </INTERREF>
         <INTERREF name="Referenced output data (while executing)"/>
         <ATTRIBUTE name="Collection (output)" type="ENUMERATION">No</ATTRIBUTE>
@@ -13310,7 +13310,7 @@ It can be used to link all types of objects with the exception of 'Variable', 'R
         <ATTRIBUTE name="__Variants__" type="LONGSTRING"/>
         <ATTRIBUTE name="Auditing" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Monitoring" type="ENUMERATION">No</ATTRIBUTE>
-        <ATTRIBUTE name="Default" type="ENUMERATION">Yes</ATTRIBUTE>
+        <ATTRIBUTE name="Default" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Immediate" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Category" type="STRING"/>
         <ATTRIBUTE name="Id" type="EXPRESSION">EXPR val:"26095"</ATTRIBUTE>
@@ -13531,7 +13531,7 @@ It can be used to link all types of objects with the exception of 'Variable', 'R
         <ATTRIBUTE name="__Variants__" type="LONGSTRING"/>
         <ATTRIBUTE name="Auditing" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Monitoring" type="ENUMERATION">No</ATTRIBUTE>
-        <ATTRIBUTE name="Default" type="ENUMERATION">No</ATTRIBUTE>
+        <ATTRIBUTE name="Default" type="ENUMERATION">Yes</ATTRIBUTE>
         <ATTRIBUTE name="Immediate" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Category" type="STRING"/>
         <ATTRIBUTE name="Id" type="EXPRESSION">EXPR val:"26096"</ATTRIBUTE>
@@ -15115,13 +15115,13 @@ ATTR "Id" </ATTRIBUTE>
         <ATTRIBUTE name="Set Annotation" type="PROGRAMCALL">ITEM "Set Annotation" param:""</ATTRIBUTE>
       </CONNECTOR>
     </MODEL>
-    <MODEL id="mod.26110" name="SubProcess - Provide Periodic Report" version="1" modeltype="Business process diagram (BPMN 2.0)" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.25">
+    <MODEL id="mod.26110" name="SubProcess - Provide Periodic Report" version="2" modeltype="Business process diagram (BPMN 2.0)" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.25">
       <MODELATTRIBUTES>
-        <ATTRIBUTE name="Name" type="STRING">SubProcess - Provide Periodic Report 1</ATTRIBUTE>
-        <ATTRIBUTE name="Version number" type="STRING">1</ATTRIBUTE>
+        <ATTRIBUTE name="Name" type="STRING">SubProcess - Provide Periodic Report 2</ATTRIBUTE>
+        <ATTRIBUTE name="Version number" type="STRING">2</ATTRIBUTE>
         <ATTRIBUTE name="Author" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Creation date" type="STRING">18.11.2014, 11:35</ATTRIBUTE>
-        <ATTRIBUTE name="Date last changed" type="STRING">29.10.2015, 16:33:14</ATTRIBUTE>
+        <ATTRIBUTE name="Date last changed" type="STRING">05.11.2015, 10:51:07</ATTRIBUTE>
         <ATTRIBUTE name="Last user" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Keywords" type="STRING"/>
         <ATTRIBUTE name="Comment" type="STRING"/>
@@ -15129,13 +15129,13 @@ ATTR "Id" </ATTRIBUTE>
         <ATTRIBUTE name="State" type="ENUMERATION">In process</ATTRIBUTE>
         <ATTRIBUTE name="Reviewed on" type="STRING"/>
         <ATTRIBUTE name="Reviewed by" type="STRING"/>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">Subprocess "Provide Periodic Report"</ATTRIBUTE>
         <ATTRIBUTE name="Number of objects and relations" type="INTEGER">95</ATTRIBUTE>
         <ATTRIBUTE name="World area" type="STRING">w:80.17cm h:52.5cm minw:5cm minh:5cm</ATTRIBUTE>
         <ATTRIBUTE name="Grid" type="STRING"/>
         <ATTRIBUTE name="Zoom" type="INTEGER">65</ATTRIBUTE>
         <ATTRIBUTE name="Viewable area" type="STRING">VIEW representation:graphic
-GRAPHIC x:-16 y:560 w:825 h:743 scale:0.648858711307
+GRAPHIC x:-16 y:-16 w:824 h:743 scale:0.648858711307
 TABLE
 </ATTRIBUTE>
         <ATTRIBUTE name="Current mode" type="STRING"/>
@@ -15144,7 +15144,7 @@ TABLE
         <ATTRIBUTE name="Current page layout" type="STRING"/>
         <ATTRIBUTE name="Connector marks" type="STRING"/>
         <ATTRIBUTE name="Type" type="STRING">Business process diagram (BPMN 2.0)</ATTRIBUTE>
-        <ATTRIBUTE name="Change counter" type="INTEGER">68070</ATTRIBUTE>
+        <ATTRIBUTE name="Change counter" type="INTEGER">68110</ATTRIBUTE>
         <ATTRIBUTE name="Font size" type="INTEGER">100</ATTRIBUTE>
         <ATTRIBUTE name="Context of version" type="STRING"/>
         <RECORD name="Change history"/>
@@ -15249,7 +15249,7 @@ cond
         <ATTRIBUTE name="Position" type="STRING">NODE x:22cm y:17cm w:3.36cm h:1.8cm index:2</ATTRIBUTE>
         <ATTRIBUTE name="External tool coupling" type="STRING"/>
         <INTERREF name="Referenced subprocess">
-          <IREF type="modelreference" tmodeltype="Business process diagram (BPMN 2.0)" tmodelname="SubProcess - Manage Periodic Report 1" tmodelver="1"/>
+          <IREF type="modelreference" tmodeltype="Business process diagram (BPMN 2.0)" tmodelname="SubProcess - Manage Periodic Report 2" tmodelver="2"/>
         </INTERREF>
         <ATTRIBUTE name="fontcolor" type="EXPRESSION">EXPR expr:(set(targets, ctobjs("Is inside")),
 cond
@@ -15360,7 +15360,7 @@ cond
         <ATTRIBUTE name="Position" type="STRING">NODE x:12cm y:9cm w:3.36cm h:1.8cm index:3</ATTRIBUTE>
         <ATTRIBUTE name="External tool coupling" type="STRING"/>
         <INTERREF name="Referenced subprocess">
-          <IREF type="modelreference" tmodeltype="Business process diagram (BPMN 2.0)" tmodelname="SubProcess - Manage Scientific Activities 1" tmodelver="1"/>
+          <IREF type="modelreference" tmodeltype="Business process diagram (BPMN 2.0)" tmodelname="SubProcess - Manage Scientific Activities 2" tmodelver="2"/>
         </INTERREF>
         <ATTRIBUTE name="fontcolor" type="EXPRESSION">EXPR expr:(set(targets, ctobjs("Is inside")),
 cond
@@ -15538,7 +15538,7 @@ cond
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
         <INTERREF name="Referenced output data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Activity DOC"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Activity DOC"/>
         </INTERREF>
         <INTERREF name="Referenced output data (while executing)"/>
         <ATTRIBUTE name="Collection (output)" type="ENUMERATION">No</ATTRIBUTE>
@@ -15587,7 +15587,7 @@ cond
         <RECORD name="Assignments"/>
         <ATTRIBUTE name="Term" type="STRING"/>
         <ATTRIBUTE name="Order" type="INTEGER">0</ATTRIBUTE>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">The subprocess "Provide Periodic Report" is started</ATTRIBUTE>
         <ATTRIBUTE name="Comment" type="STRING"/>
         <ATTRIBUTE name="Trigger" type="STRING"/>
         <ATTRIBUTE name="Result" type="STRING"/>
@@ -15660,7 +15660,7 @@ cond
         <INTERREF name="Actor"/>
         <ATTRIBUTE name="Representation" type="ENUMERATION">without name</ATTRIBUTE>
         <ATTRIBUTE name="Order" type="INTEGER">0</ATTRIBUTE>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">The subprocess "Provide Periodic Report" is terminated</ATTRIBUTE>
         <ATTRIBUTE name="Comment" type="STRING"/>
         <ATTRIBUTE name="Language" type="EXPRESSION">EXPR val:"System"</ATTRIBUTE>
         <ATTRIBUTE name="Bezeichnung" type="STRING">Ende</ATTRIBUTE>
@@ -16256,7 +16256,7 @@ cond
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
         <INTERREF name="Referenced output data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Periodic Report"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Periodic Report"/>
         </INTERREF>
         <INTERREF name="Referenced output data (while executing)"/>
         <ATTRIBUTE name="Collection (output)" type="ENUMERATION">No</ATTRIBUTE>
@@ -16507,7 +16507,7 @@ cond
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
         <INTERREF name="Referenced output data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Periodic Report"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Periodic Report"/>
         </INTERREF>
         <INTERREF name="Referenced output data (while executing)"/>
         <ATTRIBUTE name="Collection (output)" type="ENUMERATION">No</ATTRIBUTE>
@@ -16537,7 +16537,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Summary of Activities"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Summary of Activities"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -16740,7 +16740,7 @@ cond
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
         <INTERREF name="Referenced output data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="My Organization Periodic Report"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="My Organization Periodic Report"/>
         </INTERREF>
         <INTERREF name="Referenced output data (while executing)"/>
         <ATTRIBUTE name="Collection (output)" type="ENUMERATION">No</ATTRIBUTE>
@@ -17042,7 +17042,7 @@ cond
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
         <INTERREF name="Referenced output data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Periodic Report"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Periodic Report"/>
         </INTERREF>
         <INTERREF name="Referenced output data (while executing)"/>
         <ATTRIBUTE name="Collection (output)" type="ENUMERATION">No</ATTRIBUTE>
@@ -18219,7 +18219,7 @@ are collected.</ATTRIBUTE>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
         <INTERREF name="Referenced output data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="My Organization Periodic Report"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="My Organization Periodic Report"/>
         </INTERREF>
         <INTERREF name="Referenced output data (while executing)"/>
         <ATTRIBUTE name="Collection (output)" type="ENUMERATION">No</ATTRIBUTE>
@@ -18291,7 +18291,7 @@ are collected.</ATTRIBUTE>
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Activity DOC"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Activity DOC"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -18324,7 +18324,7 @@ are collected.</ATTRIBUTE>
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="My Organization Periodic Report"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="My Organization Periodic Report"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -18357,7 +18357,7 @@ are collected.</ATTRIBUTE>
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Periodic Report"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Periodic Report"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -18390,7 +18390,7 @@ are collected.</ATTRIBUTE>
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Periodic Report"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Periodic Report"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -18423,7 +18423,7 @@ are collected.</ATTRIBUTE>
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Periodic Report"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Periodic Report"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -18459,7 +18459,7 @@ are collected.</ATTRIBUTE>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
         <INTERREF name="Referenced output data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Summary of Activities"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Summary of Activities"/>
         </INTERREF>
         <INTERREF name="Referenced output data (while executing)"/>
         <ATTRIBUTE name="Collection (output)" type="ENUMERATION">No</ATTRIBUTE>
@@ -27080,13 +27080,13 @@ ATTR "Id" </ATTRIBUTE>
         <ATTRIBUTE name="Set Annotation" type="PROGRAMCALL">ITEM "Set Annotation" param:""</ATTRIBUTE>
       </CONNECTOR>
     </MODEL>
-    <MODEL id="mod.26281" name="SubProcess - Manage Scientific Activities" version="1" modeltype="Business process diagram (BPMN 2.0)" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.25">
+    <MODEL id="mod.26281" name="SubProcess - Manage Scientific Activities" version="2" modeltype="Business process diagram (BPMN 2.0)" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.25">
       <MODELATTRIBUTES>
-        <ATTRIBUTE name="Name" type="STRING">SubProcess - Manage Scientific Activities 1</ATTRIBUTE>
-        <ATTRIBUTE name="Version number" type="STRING">1</ATTRIBUTE>
+        <ATTRIBUTE name="Name" type="STRING">SubProcess - Manage Scientific Activities 2</ATTRIBUTE>
+        <ATTRIBUTE name="Version number" type="STRING">2</ATTRIBUTE>
         <ATTRIBUTE name="Author" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Creation date" type="STRING">18.11.2014, 14:05</ATTRIBUTE>
-        <ATTRIBUTE name="Date last changed" type="STRING">29.10.2015, 16:33:28</ATTRIBUTE>
+        <ATTRIBUTE name="Date last changed" type="STRING">05.11.2015, 10:50:14</ATTRIBUTE>
         <ATTRIBUTE name="Last user" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Keywords" type="STRING"/>
         <ATTRIBUTE name="Comment" type="STRING"/>
@@ -27094,13 +27094,13 @@ ATTR "Id" </ATTRIBUTE>
         <ATTRIBUTE name="State" type="ENUMERATION">In process</ATTRIBUTE>
         <ATTRIBUTE name="Reviewed on" type="STRING"/>
         <ATTRIBUTE name="Reviewed by" type="STRING"/>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">Subprocess "Manage Scientific Activities"</ATTRIBUTE>
         <ATTRIBUTE name="Number of objects and relations" type="INTEGER">15</ATTRIBUTE>
         <ATTRIBUTE name="World area" type="STRING">w:19.95cm h:24cm minw:5cm minh:5cm</ATTRIBUTE>
         <ATTRIBUTE name="Grid" type="STRING"/>
         <ATTRIBUTE name="Zoom" type="INTEGER">100</ATTRIBUTE>
         <ATTRIBUTE name="Viewable area" type="STRING">VIEW representation:graphic
-GRAPHIC x:-16 y:-16 w:825 h:759 scale:1
+GRAPHIC x:-16 y:-16 w:824 h:759 scale:1
 TABLE
 </ATTRIBUTE>
         <ATTRIBUTE name="Current mode" type="STRING"/>
@@ -27109,7 +27109,7 @@ TABLE
         <ATTRIBUTE name="Current page layout" type="STRING"/>
         <ATTRIBUTE name="Connector marks" type="STRING"/>
         <ATTRIBUTE name="Type" type="STRING">Business process diagram (BPMN 2.0)</ATTRIBUTE>
-        <ATTRIBUTE name="Change counter" type="INTEGER">6759</ATTRIBUTE>
+        <ATTRIBUTE name="Change counter" type="INTEGER">6783</ATTRIBUTE>
         <ATTRIBUTE name="Font size" type="INTEGER">100</ATTRIBUTE>
         <ATTRIBUTE name="Context of version" type="STRING"/>
         <RECORD name="Change history"/>
@@ -27195,7 +27195,7 @@ cond
         <RECORD name="Assignments"/>
         <ATTRIBUTE name="Term" type="STRING"/>
         <ATTRIBUTE name="Order" type="INTEGER">0</ATTRIBUTE>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">The subprocess "Manage Scientific Activities" is started</ATTRIBUTE>
         <ATTRIBUTE name="Comment" type="STRING"/>
         <ATTRIBUTE name="Trigger" type="STRING"/>
         <ATTRIBUTE name="Result" type="STRING"/>
@@ -27704,7 +27704,7 @@ cond
         <INTERREF name="Actor"/>
         <ATTRIBUTE name="Representation" type="ENUMERATION">without name</ATTRIBUTE>
         <ATTRIBUTE name="Order" type="INTEGER">0</ATTRIBUTE>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">The subprocess "Manage Scientific Activities" is terminated</ATTRIBUTE>
         <ATTRIBUTE name="Comment" type="STRING"/>
         <ATTRIBUTE name="Language" type="EXPRESSION">EXPR val:"System"</ATTRIBUTE>
         <ATTRIBUTE name="Bezeichnung" type="STRING">Ende</ATTRIBUTE>
@@ -27732,7 +27732,7 @@ cond
         <ATTRIBUTE name="Position" type="STRING">NODE x:10cm y:10cm w:3.36cm h:1.8cm index:15</ATTRIBUTE>
         <ATTRIBUTE name="External tool coupling" type="STRING"/>
         <INTERREF name="Referenced subprocess">
-          <IREF type="modelreference" tmodeltype="Business process diagram (BPMN 2.0)" tmodelname="SubProcess - Go to Event 1" tmodelver="1"/>
+          <IREF type="modelreference" tmodeltype="Business process diagram (BPMN 2.0)" tmodelname="SubProcess - Go to Event 2" tmodelver="2"/>
         </INTERREF>
         <ATTRIBUTE name="fontcolor" type="EXPRESSION">EXPR expr:(set(targets, ctobjs("Is inside")),
 cond
@@ -29608,13 +29608,13 @@ ATTR "Transition probability"
         <ATTRIBUTE name="id_bpmndi" type="STRING"/>
       </CONNECTOR>
     </MODEL>
-    <MODEL id="mod.26313" name="SubProcess - Provide Final Report" version="1" modeltype="Business process diagram (BPMN 2.0)" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.25">
+    <MODEL id="mod.26313" name="SubProcess - Provide Final Report" version="2" modeltype="Business process diagram (BPMN 2.0)" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.25">
       <MODELATTRIBUTES>
-        <ATTRIBUTE name="Name" type="STRING">SubProcess - Provide Final Report 1</ATTRIBUTE>
-        <ATTRIBUTE name="Version number" type="STRING">1</ATTRIBUTE>
+        <ATTRIBUTE name="Name" type="STRING">SubProcess - Provide Final Report 2</ATTRIBUTE>
+        <ATTRIBUTE name="Version number" type="STRING">2</ATTRIBUTE>
         <ATTRIBUTE name="Author" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Creation date" type="STRING">18.11.2014, 14:32</ATTRIBUTE>
-        <ATTRIBUTE name="Date last changed" type="STRING">29.10.2015, 16:32:21</ATTRIBUTE>
+        <ATTRIBUTE name="Date last changed" type="STRING">05.11.2015, 10:50:46</ATTRIBUTE>
         <ATTRIBUTE name="Last user" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Keywords" type="STRING"/>
         <ATTRIBUTE name="Comment" type="STRING"/>
@@ -29622,13 +29622,13 @@ ATTR "Transition probability"
         <ATTRIBUTE name="State" type="ENUMERATION">In process</ATTRIBUTE>
         <ATTRIBUTE name="Reviewed on" type="STRING"/>
         <ATTRIBUTE name="Reviewed by" type="STRING"/>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">Subprocess "Manage Final Report"</ATTRIBUTE>
         <ATTRIBUTE name="Number of objects and relations" type="INTEGER">13</ATTRIBUTE>
         <ATTRIBUTE name="World area" type="STRING">w:39.93cm h:17.5cm minw:5cm minh:5cm</ATTRIBUTE>
         <ATTRIBUTE name="Grid" type="STRING"/>
         <ATTRIBUTE name="Zoom" type="INTEGER">100</ATTRIBUTE>
         <ATTRIBUTE name="Viewable area" type="STRING">VIEW representation:graphic
-GRAPHIC x:-16 y:-16 w:841 h:743 scale:1
+GRAPHIC x:-16 y:-16 w:840 h:743 scale:1
 TABLE
 </ATTRIBUTE>
         <ATTRIBUTE name="Current mode" type="STRING"/>
@@ -29637,7 +29637,7 @@ TABLE
         <ATTRIBUTE name="Current page layout" type="STRING"/>
         <ATTRIBUTE name="Connector marks" type="STRING"/>
         <ATTRIBUTE name="Type" type="STRING">Business process diagram (BPMN 2.0)</ATTRIBUTE>
-        <ATTRIBUTE name="Change counter" type="INTEGER">6478</ATTRIBUTE>
+        <ATTRIBUTE name="Change counter" type="INTEGER">6494</ATTRIBUTE>
         <ATTRIBUTE name="Font size" type="INTEGER">100</ATTRIBUTE>
         <ATTRIBUTE name="Context of version" type="STRING"/>
         <RECORD name="Change history"/>
@@ -29723,7 +29723,7 @@ cond
         <RECORD name="Assignments"/>
         <ATTRIBUTE name="Term" type="STRING"/>
         <ATTRIBUTE name="Order" type="INTEGER">0</ATTRIBUTE>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">The subprocess "Manage Final Report" is started</ATTRIBUTE>
         <ATTRIBUTE name="Comment" type="STRING"/>
         <ATTRIBUTE name="Trigger" type="STRING"/>
         <ATTRIBUTE name="Result" type="STRING"/>
@@ -30297,7 +30297,7 @@ cond
         <INTERREF name="Actor"/>
         <ATTRIBUTE name="Representation" type="ENUMERATION">without name</ATTRIBUTE>
         <ATTRIBUTE name="Order" type="INTEGER">0</ATTRIBUTE>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">The subprocess "Manage Final Report" is terminated</ATTRIBUTE>
         <ATTRIBUTE name="Comment" type="STRING"/>
         <ATTRIBUTE name="Language" type="EXPRESSION">EXPR val:"System"</ATTRIBUTE>
         <ATTRIBUTE name="Bezeichnung" type="STRING">Ende</ATTRIBUTE>
@@ -31749,13 +31749,13 @@ ATTR "Id" </ATTRIBUTE>
         <ATTRIBUTE name="Set Annotation" type="PROGRAMCALL">ITEM "Set Annotation" param:""</ATTRIBUTE>
       </CONNECTOR>
     </MODEL>
-    <MODEL id="mod.26343" name="SubProcess - Manage Amendment Request" version="1" modeltype="Business process diagram (BPMN 2.0)" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.25">
+    <MODEL id="mod.26343" name="SubProcess - Manage Amendment Request" version="2" modeltype="Business process diagram (BPMN 2.0)" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.25">
       <MODELATTRIBUTES>
-        <ATTRIBUTE name="Name" type="STRING">SubProcess - Manage Amendment Request 1</ATTRIBUTE>
-        <ATTRIBUTE name="Version number" type="STRING">1</ATTRIBUTE>
+        <ATTRIBUTE name="Name" type="STRING">SubProcess - Manage Amendment Request 2</ATTRIBUTE>
+        <ATTRIBUTE name="Version number" type="STRING">2</ATTRIBUTE>
         <ATTRIBUTE name="Author" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Creation date" type="STRING">18.11.2014, 14:43</ATTRIBUTE>
-        <ATTRIBUTE name="Date last changed" type="STRING">29.10.2015, 16:36:59</ATTRIBUTE>
+        <ATTRIBUTE name="Date last changed" type="STRING">05.11.2015, 10:49:31</ATTRIBUTE>
         <ATTRIBUTE name="Last user" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Keywords" type="STRING"/>
         <ATTRIBUTE name="Comment" type="STRING"/>
@@ -31763,13 +31763,13 @@ ATTR "Id" </ATTRIBUTE>
         <ATTRIBUTE name="State" type="ENUMERATION">In process</ATTRIBUTE>
         <ATTRIBUTE name="Reviewed on" type="STRING"/>
         <ATTRIBUTE name="Reviewed by" type="STRING"/>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">Subprocess "Manage Amendment Request"</ATTRIBUTE>
         <ATTRIBUTE name="Number of objects and relations" type="INTEGER">35</ATTRIBUTE>
         <ATTRIBUTE name="World area" type="STRING">w:39.92cm h:28.71cm minw:5cm minh:5cm</ATTRIBUTE>
         <ATTRIBUTE name="Grid" type="STRING"/>
         <ATTRIBUTE name="Zoom" type="INTEGER">78</ATTRIBUTE>
         <ATTRIBUTE name="Viewable area" type="STRING">VIEW representation:graphic
-GRAPHIC x:366 y:118 w:825 h:743 scale:0.778719250293
+GRAPHIC x:-16 y:-16 w:824 h:743 scale:0.778719250293
 TABLE
 </ATTRIBUTE>
         <ATTRIBUTE name="Current mode" type="STRING"/>
@@ -31778,7 +31778,7 @@ TABLE
         <ATTRIBUTE name="Current page layout" type="STRING"/>
         <ATTRIBUTE name="Connector marks" type="STRING"/>
         <ATTRIBUTE name="Type" type="STRING">Business process diagram (BPMN 2.0)</ATTRIBUTE>
-        <ATTRIBUTE name="Change counter" type="INTEGER">17538</ATTRIBUTE>
+        <ATTRIBUTE name="Change counter" type="INTEGER">17583</ATTRIBUTE>
         <ATTRIBUTE name="Font size" type="INTEGER">100</ATTRIBUTE>
         <ATTRIBUTE name="Context of version" type="STRING"/>
         <RECORD name="Change history"/>
@@ -31864,7 +31864,7 @@ cond
         <RECORD name="Assignments"/>
         <ATTRIBUTE name="Term" type="STRING"/>
         <ATTRIBUTE name="Order" type="INTEGER">0</ATTRIBUTE>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">The subprocess "Manage Amendment Request" is started</ATTRIBUTE>
         <ATTRIBUTE name="Comment" type="STRING"/>
         <ATTRIBUTE name="Trigger" type="STRING"/>
         <ATTRIBUTE name="Result" type="STRING"/>
@@ -32090,7 +32090,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Amendment Template"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Amendment Template"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -32293,7 +32293,7 @@ cond
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
         <INTERREF name="Referenced output data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Amendment Template"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Amendment Template"/>
         </INTERREF>
         <INTERREF name="Referenced output data (while executing)"/>
         <ATTRIBUTE name="Collection (output)" type="ENUMERATION">No</ATTRIBUTE>
@@ -32307,7 +32307,7 @@ cond
         <ATTRIBUTE name="Cardinality" type="STRING"/>
       </INSTANCE>
       <INSTANCE id="obj.26359" class="Task" name="Discuss Amendment">
-        <ATTRIBUTE name="Position" type="STRING">NODE x:11.5cm y:6cm w:3.5cm h:2cm index:10</ATTRIBUTE>
+        <ATTRIBUTE name="Position" type="STRING">NODE x:12cm y:6cm w:3.5cm h:2cm index:10</ATTRIBUTE>
         <ATTRIBUTE name="External tool coupling" type="STRING"/>
         <ATTRIBUTE name="Performer" type="EXPRESSION">EXPR expr:("") val:""</ATTRIBUTE>
         <ATTRIBUTE name="Execution time" type="TIME">00:000:00:00:00</ATTRIBUTE>
@@ -32454,23 +32454,23 @@ cond
         <INTERREF name="Decision"/>
         <INTERREF name="Referenced documents"/>
         <ATTRIBUTE name="Left border" type="EXPRESSION">EXPR
- val:9.75</ATTRIBUTE>
+ val:10.25</ATTRIBUTE>
         <INTERREF name="Referenced Planning Table"/>
         <ATTRIBUTE name="Right border" type="EXPRESSION">EXPR
- val:13.25</ATTRIBUTE>
+ val:13.75</ATTRIBUTE>
         <ATTRIBUTE name="Show or Hide" type="ENUMERATION">Shown</ATTRIBUTE>
         <ATTRIBUTE name="Top border" type="EXPRESSION">EXPR
  val:5</ATTRIBUTE>
         <ATTRIBUTE name="Bottom border" type="EXPRESSION">EXPR
  val:7</ATTRIBUTE>
         <ATTRIBUTE name="X" type="EXPRESSION">EXPR
- val:11.5</ATTRIBUTE>
+ val:12</ATTRIBUTE>
         <ATTRIBUTE name="Y" type="EXPRESSION">EXPR
  val:6</ATTRIBUTE>
         <ATTRIBUTE name="Change Visibility" type="PROGRAMCALL">ITEM "Change Visibility" param:""</ATTRIBUTE>
         <ATTRIBUTE name="Planning Table" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Bounding box" type="EXPRESSION">EXPR
- val:"[5,7,9.75,13.25,11.5,6]"</ATTRIBUTE>
+ val:"[5,7,10.25,13.75,12,6]"</ATTRIBUTE>
         <INTERREF name="Referenced Competency"/>
       </INSTANCE>
       <INSTANCE id="obj.26362" class="Task" name="Send Amendment">
@@ -32671,7 +32671,7 @@ cond
         <INTERREF name="Actor"/>
         <ATTRIBUTE name="Representation" type="ENUMERATION">without name</ATTRIBUTE>
         <ATTRIBUTE name="Order" type="INTEGER">0</ATTRIBUTE>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">The subprocess "Manage Amendment Request" is terminated</ATTRIBUTE>
         <ATTRIBUTE name="Comment" type="STRING"/>
         <ATTRIBUTE name="Language" type="EXPRESSION">EXPR val:"System"</ATTRIBUTE>
         <ATTRIBUTE name="Bezeichnung" type="STRING">Ende</ATTRIBUTE>
@@ -32715,7 +32715,7 @@ cond
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
         <INTERREF name="Referenced output data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Amendment Template"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Amendment Template"/>
         </INTERREF>
         <INTERREF name="Referenced output data (while executing)"/>
         <ATTRIBUTE name="Collection (output)" type="ENUMERATION">No</ATTRIBUTE>
@@ -32729,7 +32729,7 @@ cond
         <ATTRIBUTE name="Cardinality" type="STRING"/>
       </INSTANCE>
       <INSTANCE id="obj.26371" class="Task" name="Request Amendment ">
-        <ATTRIBUTE name="Position" type="STRING">NODE x:7cm y:6cm w:3.36cm h:1.8cm index:19</ATTRIBUTE>
+        <ATTRIBUTE name="Position" type="STRING">NODE x:7.5cm y:6cm w:3.36cm h:1.8cm index:19</ATTRIBUTE>
         <ATTRIBUTE name="External tool coupling" type="STRING"/>
         <ATTRIBUTE name="Performer" type="EXPRESSION">EXPR expr:("") val:""</ATTRIBUTE>
         <ATTRIBUTE name="Execution time" type="TIME">00:000:00:00:00</ATTRIBUTE>
@@ -32876,23 +32876,23 @@ cond
         <INTERREF name="Decision"/>
         <INTERREF name="Referenced documents"/>
         <ATTRIBUTE name="Left border" type="EXPRESSION">EXPR
- val:5.32</ATTRIBUTE>
+ val:5.82</ATTRIBUTE>
         <INTERREF name="Referenced Planning Table"/>
         <ATTRIBUTE name="Right border" type="EXPRESSION">EXPR
- val:8.68</ATTRIBUTE>
+ val:9.18</ATTRIBUTE>
         <ATTRIBUTE name="Show or Hide" type="ENUMERATION">Shown</ATTRIBUTE>
         <ATTRIBUTE name="Top border" type="EXPRESSION">EXPR
  val:5.1</ATTRIBUTE>
         <ATTRIBUTE name="Bottom border" type="EXPRESSION">EXPR
  val:6.9</ATTRIBUTE>
         <ATTRIBUTE name="X" type="EXPRESSION">EXPR
- val:7</ATTRIBUTE>
+ val:7.5</ATTRIBUTE>
         <ATTRIBUTE name="Y" type="EXPRESSION">EXPR
  val:6</ATTRIBUTE>
         <ATTRIBUTE name="Change Visibility" type="PROGRAMCALL">ITEM "Change Visibility" param:""</ATTRIBUTE>
         <ATTRIBUTE name="Planning Table" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Bounding box" type="EXPRESSION">EXPR
- val:"[5.1,6.9,5.32,8.68,7,6]"</ATTRIBUTE>
+ val:"[5.1,6.9,5.82,9.18,7.5,6]"</ATTRIBUTE>
         <INTERREF name="Referenced Competency"/>
       </INSTANCE>
       <INSTANCE id="obj.26374" class="Exclusive Gateway" name="">
@@ -33133,7 +33133,7 @@ cond
         <ATTRIBUTE name="Cardinality" type="STRING"/>
       </INSTANCE>
       <INSTANCE id="obj.26686" class="Data Object" name="Amendment Template [Filled]-26686">
-        <ATTRIBUTE name="Position" type="STRING">NODE x:24cm y:9cm index:36</ATTRIBUTE>
+        <ATTRIBUTE name="Position" type="STRING">NODE x:24cm y:9cm index:34</ATTRIBUTE>
         <ATTRIBUTE name="External tool coupling" type="STRING"/>
         <ATTRIBUTE name="fontcolor" type="EXPRESSION">EXPR expr:("") val:""</ATTRIBUTE>
         <ATTRIBUTE name="Categories" type="STRING"/>
@@ -33149,7 +33149,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Amendment Template"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Amendment Template"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -33166,7 +33166,7 @@ cond
         <ATTRIBUTE name="Cardinality" type="STRING"/>
       </INSTANCE>
       <INSTANCE id="obj.26690" class="Data Object" name="Amendment Template [Signed]">
-        <ATTRIBUTE name="Position" type="STRING">NODE x:29cm y:9cm index:37</ATTRIBUTE>
+        <ATTRIBUTE name="Position" type="STRING">NODE x:29cm y:9cm index:35</ATTRIBUTE>
         <ATTRIBUTE name="External tool coupling" type="STRING"/>
         <ATTRIBUTE name="fontcolor" type="EXPRESSION">EXPR expr:("") val:""</ATTRIBUTE>
         <ATTRIBUTE name="Categories" type="STRING"/>
@@ -33182,7 +33182,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Amendment Template"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Amendment Template"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -35331,7 +35331,7 @@ It can be used to link all types of objects with the exception of 'Variable', 'R
         <ATTRIBUTE name="__Variants__" type="LONGSTRING"/>
         <ATTRIBUTE name="Auditing" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Monitoring" type="ENUMERATION">No</ATTRIBUTE>
-        <ATTRIBUTE name="Default" type="ENUMERATION">No</ATTRIBUTE>
+        <ATTRIBUTE name="Default" type="ENUMERATION">Yes</ATTRIBUTE>
         <ATTRIBUTE name="Immediate" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Category" type="STRING"/>
         <ATTRIBUTE name="Id" type="EXPRESSION">EXPR val:"26405"</ATTRIBUTE>
@@ -35552,7 +35552,7 @@ It can be used to link all types of objects with the exception of 'Variable', 'R
         <ATTRIBUTE name="__Variants__" type="LONGSTRING"/>
         <ATTRIBUTE name="Auditing" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Monitoring" type="ENUMERATION">No</ATTRIBUTE>
-        <ATTRIBUTE name="Default" type="ENUMERATION">Yes</ATTRIBUTE>
+        <ATTRIBUTE name="Default" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Immediate" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Category" type="STRING"/>
         <ATTRIBUTE name="Id" type="EXPRESSION">EXPR val:"26406"</ATTRIBUTE>
@@ -35658,7 +35658,7 @@ IF (showName = "Yes")
     ENDIF       
   ENDIF
 ENDIF</ATTRIBUTE>
-        <ATTRIBUTE name="Positions" type="STRING">EDGE 1 x1:7cm y1:11.5cm index:28</ATTRIBUTE>
+        <ATTRIBUTE name="Positions" type="STRING">EDGE 1 x1:7.5cm y1:11.5cm index:28</ATTRIBUTE>
         <ATTRIBUTE name="Message Name" type="STRING"/>
         <ATTRIBUTE name="ParticipantType (from)" type="ENUMERATION">Role</ATTRIBUTE>
         <ATTRIBUTE name="Role (from)" type="STRING"/>
@@ -35886,7 +35886,7 @@ It can be used to link all types of objects with the exception of 'Variable', 'R
         <ATTRIBUTE name="__Variants__" type="LONGSTRING"/>
         <ATTRIBUTE name="Auditing" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Monitoring" type="ENUMERATION">No</ATTRIBUTE>
-        <ATTRIBUTE name="Default" type="ENUMERATION">No</ATTRIBUTE>
+        <ATTRIBUTE name="Default" type="ENUMERATION">Yes</ATTRIBUTE>
         <ATTRIBUTE name="Immediate" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Category" type="STRING"/>
         <ATTRIBUTE name="Id" type="EXPRESSION">EXPR val:"26408"</ATTRIBUTE>
@@ -36107,7 +36107,7 @@ It can be used to link all types of objects with the exception of 'Variable', 'R
         <ATTRIBUTE name="__Variants__" type="LONGSTRING"/>
         <ATTRIBUTE name="Auditing" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Monitoring" type="ENUMERATION">No</ATTRIBUTE>
-        <ATTRIBUTE name="Default" type="ENUMERATION">Yes</ATTRIBUTE>
+        <ATTRIBUTE name="Default" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Immediate" type="ENUMERATION">No</ATTRIBUTE>
         <ATTRIBUTE name="Category" type="STRING"/>
         <ATTRIBUTE name="Id" type="EXPRESSION">EXPR val:"26409"</ATTRIBUTE>
@@ -36221,12 +36221,12 @@ ATTR "Id" </ATTRIBUTE>
         <ATTRIBUTE name="Set Annotation" type="PROGRAMCALL">ITEM "Set Annotation" param:""</ATTRIBUTE>
       </CONNECTOR>
     </MODEL>
-    <MODEL id="mod.26413" name="EU Project - DataObject" version="1" modeltype="Document and Knowledge model" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.25">
+    <MODEL id="mod.26413" name="EU Project - DataObject" version="2" modeltype="Document and Knowledge model" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.25">
       <MODELATTRIBUTES>
-        <ATTRIBUTE name="Version number" type="STRING">1</ATTRIBUTE>
+        <ATTRIBUTE name="Version number" type="STRING">2</ATTRIBUTE>
         <ATTRIBUTE name="Author" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Creation date" type="STRING">01.12.2014, 16:57</ATTRIBUTE>
-        <ATTRIBUTE name="Date last changed" type="STRING">29.10.2015, 16:30:02</ATTRIBUTE>
+        <ATTRIBUTE name="Date last changed" type="STRING">05.11.2015, 10:37:15</ATTRIBUTE>
         <ATTRIBUTE name="Last user" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Keywords" type="STRING"/>
         <ATTRIBUTE name="Comment" type="STRING"/>
@@ -36240,7 +36240,7 @@ ATTR "Id" </ATTRIBUTE>
         <ATTRIBUTE name="Grid" type="STRING"/>
         <ATTRIBUTE name="Zoom" type="INTEGER">85</ATTRIBUTE>
         <ATTRIBUTE name="Viewable area" type="STRING">VIEW representation:graphic
-GRAPHIC x:-16 y:-16 w:889 h:886 scale:0.85
+GRAPHIC x:-16 y:-16 w:824 h:743 scale:0.85
 TABLE
 </ATTRIBUTE>
         <ATTRIBUTE name="Current mode" type="STRING"/>
@@ -36249,7 +36249,7 @@ TABLE
         <ATTRIBUTE name="Current page layout" type="STRING"/>
         <ATTRIBUTE name="Connector marks" type="STRING"/>
         <ATTRIBUTE name="Type" type="STRING">Document and Knowledge model</ATTRIBUTE>
-        <ATTRIBUTE name="Change counter" type="INTEGER">16539</ATTRIBUTE>
+        <ATTRIBUTE name="Change counter" type="INTEGER">16548</ATTRIBUTE>
         <ATTRIBUTE name="Font size" type="INTEGER">100</ATTRIBUTE>
         <ATTRIBUTE name="Context of version" type="STRING"/>
         <RECORD name="Change history"/>
@@ -38771,13 +38771,13 @@ Die Verbindung wird vom &#xFC;bergeordneten Dokument zum untergeordneten Dokumen
         <ATTRIBUTE name="Set Annotation" type="PROGRAMCALL">ITEM "Set Annotation" param:""</ATTRIBUTE>
       </CONNECTOR>
     </MODEL>
-    <MODEL id="mod.26521" name="SubProcess - Go to Event" version="1" modeltype="Business process diagram (BPMN 2.0)" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.25">
+    <MODEL id="mod.26521" name="SubProcess - Go to Event" version="2" modeltype="Business process diagram (BPMN 2.0)" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.25">
       <MODELATTRIBUTES>
-        <ATTRIBUTE name="Name" type="STRING">SubProcess - Go to Event 1</ATTRIBUTE>
-        <ATTRIBUTE name="Version number" type="STRING">1</ATTRIBUTE>
+        <ATTRIBUTE name="Name" type="STRING">SubProcess - Go to Event 2</ATTRIBUTE>
+        <ATTRIBUTE name="Version number" type="STRING">2</ATTRIBUTE>
         <ATTRIBUTE name="Author" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Creation date" type="STRING">19.10.2015, 15:24</ATTRIBUTE>
-        <ATTRIBUTE name="Date last changed" type="STRING">29.10.2015, 16:37:38</ATTRIBUTE>
+        <ATTRIBUTE name="Date last changed" type="STRING">05.11.2015, 10:49:03</ATTRIBUTE>
         <ATTRIBUTE name="Last user" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Keywords" type="STRING"/>
         <ATTRIBUTE name="Comment" type="STRING"/>
@@ -38785,13 +38785,13 @@ Die Verbindung wird vom &#xFC;bergeordneten Dokument zum untergeordneten Dokumen
         <ATTRIBUTE name="State" type="ENUMERATION">In process</ATTRIBUTE>
         <ATTRIBUTE name="Reviewed on" type="STRING"/>
         <ATTRIBUTE name="Reviewed by" type="STRING"/>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">Subprocess "Go To Event"</ATTRIBUTE>
         <ATTRIBUTE name="Number of objects and relations" type="INTEGER">15</ATTRIBUTE>
         <ATTRIBUTE name="World area" type="STRING">w:27.7cm h:28.75cm minw:5cm minh:5cm</ATTRIBUTE>
         <ATTRIBUTE name="Grid" type="STRING"/>
         <ATTRIBUTE name="Zoom" type="INTEGER">100</ATTRIBUTE>
         <ATTRIBUTE name="Viewable area" type="STRING">VIEW representation:graphic
-GRAPHIC x:-16 y:-16 w:825 h:743 scale:1
+GRAPHIC x:-16 y:-16 w:824 h:743 scale:1
 TABLE
 </ATTRIBUTE>
         <ATTRIBUTE name="Current mode" type="STRING"/>
@@ -38800,7 +38800,7 @@ TABLE
         <ATTRIBUTE name="Current page layout" type="STRING"/>
         <ATTRIBUTE name="Connector marks" type="STRING"/>
         <ATTRIBUTE name="Type" type="STRING">Business process diagram (BPMN 2.0)</ATTRIBUTE>
-        <ATTRIBUTE name="Change counter" type="INTEGER">3004</ATTRIBUTE>
+        <ATTRIBUTE name="Change counter" type="INTEGER">3028</ATTRIBUTE>
         <ATTRIBUTE name="Font size" type="INTEGER">0</ATTRIBUTE>
         <ATTRIBUTE name="Context of version" type="STRING"/>
         <RECORD name="Change history"/>
@@ -38886,7 +38886,7 @@ cond
         <RECORD name="Assignments"/>
         <ATTRIBUTE name="Term" type="STRING"/>
         <ATTRIBUTE name="Order" type="INTEGER">0</ATTRIBUTE>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">The subprocess Go To Event start</ATTRIBUTE>
         <ATTRIBUTE name="Comment" type="STRING"/>
         <ATTRIBUTE name="Trigger" type="STRING"/>
         <ATTRIBUTE name="Result" type="STRING"/>
@@ -39627,7 +39627,7 @@ cond
         <INTERREF name="Actor"/>
         <ATTRIBUTE name="Representation" type="ENUMERATION">without name</ATTRIBUTE>
         <ATTRIBUTE name="Order" type="INTEGER">0</ATTRIBUTE>
-        <ATTRIBUTE name="Description" type="STRING"/>
+        <ATTRIBUTE name="Description" type="STRING">The subprocess Go To Event is terminated</ATTRIBUTE>
         <ATTRIBUTE name="Comment" type="STRING"/>
         <ATTRIBUTE name="Language" type="EXPRESSION">EXPR val:"System"</ATTRIBUTE>
         <ATTRIBUTE name="Bezeichnung" type="STRING">Ende</ATTRIBUTE>
@@ -39668,7 +39668,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Mission Request Form"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Mission Request Form"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -39701,7 +39701,7 @@ cond
         <ATTRIBUTE name="Open questions" type="STRING"/>
         <ATTRIBUTE name="Data type" type="ENUMERATION">Data Input</ATTRIBUTE>
         <INTERREF name="Referenced input data (optional)">
-          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 1" tmodelver="1" tclassname="Document" tobjname="Mission Refund Form"/>
+          <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="EU Project - DataObject 2" tmodelver="2" tclassname="Document" tobjname="Mission Refund Form"/>
         </INTERREF>
         <INTERREF name="Referenced input data (while executing)"/>
         <ATTRIBUTE name="Collection (input)" type="ENUMERATION">No</ATTRIBUTE>
@@ -40969,12 +40969,12 @@ ATTR "Id" </ATTRIBUTE>
         <ATTRIBUTE name="Set Annotation" type="PROGRAMCALL">ITEM "Set Annotation" param:""</ATTRIBUTE>
       </CONNECTOR>
     </MODEL>
-    <MODEL id="mod.26555" name="EU Project Coordinator Organizational Structure" version="1" modeltype="Organizational structure" libtype="we" applib="LearnPAd Prototype Static Library 0.25">
+    <MODEL id="mod.26555" name="EU Project Coordinator Organizational Structure" version="2" modeltype="Organizational structure" libtype="we" applib="LearnPAd Prototype Static Library 0.25">
       <MODELATTRIBUTES>
-        <ATTRIBUTE name="Version number" type="STRING">1</ATTRIBUTE>
+        <ATTRIBUTE name="Version number" type="STRING">2</ATTRIBUTE>
         <ATTRIBUTE name="Author" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Creation date" type="STRING">28.10.2015, 17:10</ATTRIBUTE>
-        <ATTRIBUTE name="Date last changed" type="STRING">29.10.2015, 16:30:31</ATTRIBUTE>
+        <ATTRIBUTE name="Date last changed" type="STRING">05.11.2015, 10:37:27</ATTRIBUTE>
         <ATTRIBUTE name="Last user" type="STRING">Admin</ATTRIBUTE>
         <ATTRIBUTE name="Keywords" type="STRING"/>
         <ATTRIBUTE name="Comment" type="STRING"/>
@@ -40988,7 +40988,7 @@ ATTR "Id" </ATTRIBUTE>
         <ATTRIBUTE name="Grid" type="STRING"/>
         <ATTRIBUTE name="Zoom" type="INTEGER">100</ATTRIBUTE>
         <ATTRIBUTE name="Viewable area" type="STRING">VIEW representation:graphic
-GRAPHIC x:-16 y:431 w:859 h:372 scale:1
+GRAPHIC x:-16 y:392 w:824 h:743 scale:1
 TABLE
 </ATTRIBUTE>
         <ATTRIBUTE name="Current mode" type="STRING"/>
@@ -40997,7 +40997,7 @@ TABLE
         <ATTRIBUTE name="Current page layout" type="STRING"/>
         <ATTRIBUTE name="Connector marks" type="STRING"/>
         <ATTRIBUTE name="Type" type="STRING">Organizational structure</ATTRIBUTE>
-        <ATTRIBUTE name="Change counter" type="INTEGER">2836</ATTRIBUTE>
+        <ATTRIBUTE name="Change counter" type="INTEGER">2845</ATTRIBUTE>
         <ATTRIBUTE name="Font size" type="INTEGER">0</ATTRIBUTE>
         <ATTRIBUTE name="Context of version" type="STRING"/>
         <RECORD name="Change history"/>
