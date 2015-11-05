@@ -49,7 +49,7 @@ public class DifficultJargonAlternative {
 
 	public List<Annotation> checkUnclearAcronym(Set<gate.Annotation> listsentence, Set<gate.Annotation> listSentenceDefected) {
 		List<Annotation> annotations =new ArrayList<Annotation>();
-		int id = 0;
+		int id = 900_000;
 		for (gate.Annotation sentence_gate : listsentence) {
 
 
@@ -146,7 +146,7 @@ public class DifficultJargonAlternative {
 				a.setStartNode(init.getId());
 				a.setNodeEnd(end);
 				a.setNodeStart(init);
-				a.setType("Simplicity DifficultJargon Alternative");
+				a.setType("DifficultJargon Alternative");
 
 				String suggestion = listAltTermSet.get(listAltTermSet.indexOf(tmptoken)).getSuggestion();
 				a.setRecommendation("The term "+tmptoken.getWord()+" is difficult. Please replace with: "+suggestion);

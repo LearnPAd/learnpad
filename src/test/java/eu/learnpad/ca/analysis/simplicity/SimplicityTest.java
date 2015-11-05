@@ -16,7 +16,7 @@ import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 
 public class SimplicityTest {
 
-	@Test
+	/*@Test
 	public void testSimplicityAnalysisCollaborativeContentAnalysis() {
 		try{
 			InputStream is = SimplicityTest.class.getClassLoader().getResourceAsStream("CollaborativeContentXMLS.xml");
@@ -50,6 +50,6 @@ public class SimplicityTest {
 		}catch(JAXBException e){
 			fail("Error Check Simplicity Analysis");
 		}
-	}
+	}*/
 
 }

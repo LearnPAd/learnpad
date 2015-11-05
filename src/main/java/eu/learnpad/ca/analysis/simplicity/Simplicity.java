@@ -75,17 +75,21 @@ public class Simplicity extends AbstractAnalysisClass {
 						add("Sentence");
 					}
 				});
-
-		DifficultJargonAlternative dja = new DifficultJargonAlternative(language, gateu.getCorpus().get(0).getContent());
 		Set<gate.Annotation> listSentenceDefected = new HashSet<>();
+		
+		DifficultJargonAlternative dja = new DifficultJargonAlternative(language, gateu.getCorpus().get(0).getContent());
 		List<Annotation> listannotationsdja = dja.checkUnclearAcronym(listSentence,listSentenceDefected);
+		
+		JuridicalJargon jj = new JuridicalJargon(language, gateu.getCorpus().get(0).getContent());
+		listannotationsdja.addAll(jj.checkJJ(listSentence,listSentenceDefected));
+		
 		Set<gate.Annotation> SetExcessiveLength = gateu.getAnnotationSet(new HashSet<String>() {
 			{
 				add("Sent-Long");
 			}
 		});
 		gatevsleanpadExcessiveLength(SetExcessiveLength, listannotationsdja,listSentenceDefected);
-		
+
 
 		addNodeInContent(listannotationsdja,c);
 		annotatedCollaborativeContent.setAnnotations(listannotationsdja);
@@ -114,7 +118,7 @@ public class Simplicity extends AbstractAnalysisClass {
 					//String stringap = //content.substring(precedentposition, initialpos );
 					token = docContent.getContent(precedentposition.longValue(),startpos.longValue()).toString();
 					c.setContent(token);
-					
+
 				}
 				precedentposition = endpos;
 				token = docContent.getContent(startpos.longValue(),endpos.longValue()).toString();
@@ -148,7 +152,7 @@ public class Simplicity extends AbstractAnalysisClass {
 				log.error(e);
 			}
 			int initialpos = gatenodestart.getOffset().intValue();
-			
+
 
 			Node init = new Node(gatenodestart.getId(), initialpos);
 

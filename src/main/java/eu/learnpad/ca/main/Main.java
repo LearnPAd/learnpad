@@ -46,7 +46,7 @@ public class Main {
 			Unmarshaller jaxbUnmarshaller1 = jaxbContexti.createUnmarshaller();
 			JuridaljargonSet result = (JuridaljargonSet) jaxbUnmarshaller1.unmarshal(new File(fileinput));
 
-			*/
+			
 			
 			
 			
@@ -78,7 +78,7 @@ public class Main {
 			} catch (JAXBException  e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 /*
 
 			System.out.println(result);

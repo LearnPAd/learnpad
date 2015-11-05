@@ -68,9 +68,9 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 				}
 				if(contentFile.getQualityCriteria().isSimplicity()){
 
-					JuridicalJargon threadsimply = new JuridicalJargon (contentFile, lang);
+					/*JuridicalJargon threadsimply = new JuridicalJargon (contentFile, lang);
 					threadsimply.start();
-					putAndCreate(id, threadsimply);
+					putAndCreate(id, threadsimply);*/
 
 				}
 				if(contentFile.getQualityCriteria().isNonAmbiguity()){
