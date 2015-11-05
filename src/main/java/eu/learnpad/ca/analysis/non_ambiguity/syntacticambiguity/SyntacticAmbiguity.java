@@ -1,4 +1,4 @@
-package eu.learnpad.ca.analysis.syntacticambiguity;
+package eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity;
 
 
 import java.text.DecimalFormat;
