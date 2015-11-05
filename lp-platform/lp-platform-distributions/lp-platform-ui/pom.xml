@@ -155,6 +155,7 @@
 				<artifactId>xwiki-commons-tool-xar-plugin</artifactId>
 				<version>${commons.version}</version>
 				<configuration>
+					<includeDependencies>true</includeDependencies>
 					<transformations>
 						<!-- Configure the default color theme -->
 						<transformation>
