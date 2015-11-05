@@ -107,7 +107,7 @@ public class LearnpadScriptService implements ScriptService {
 		try {
 			return this.cwBridge.getRecommendations(modelSetId, artifactId,
 					userId);
-		} catch (LpRestException e) {
+		} catch (Exception e) {
 			this.setLastError(e);
 			return null;
 		}

@@ -31,16 +31,19 @@ public class Inferencer {
     }
 
     private void run() {
-        // Initialize system functions and templates
-        SPINModuleRegistry.get().init();
+        if (model != null) {
+            // Initialize system functions and templates
+            SPINModuleRegistry.get().init();
 
-        // Create and add Model for inferred triples
-        inferedModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        model.addSubModel(inferedModel);
-        // Register any new functions defined in EO
-        //SPINFunctions.init();
-        SPINModuleRegistry.get().registerAll(model, null);
-        SPINInferences.run(model, inferedModel, null, null, true, null);
+            // Create and add Model for inferred triples
+            inferedModel = ModelFactory
+                    .createOntologyModel(OntModelSpec.OWL_MEM);
+            model.addSubModel(inferedModel);
+            // Register any new functions defined in EO
+            // SPINFunctions.init();
+            SPINModuleRegistry.get().registerAll(model, null);
+            SPINInferences.run(model, inferedModel, null, null, true, null);
+        }
     }
 
     public OntModel getModel() {
