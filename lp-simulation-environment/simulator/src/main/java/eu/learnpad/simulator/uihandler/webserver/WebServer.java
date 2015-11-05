@@ -266,7 +266,7 @@ public class WebServer {
 		}
 	}
 
-	public static String getIPAdress() throws UnknownHostException,
+	public static String getIPAddress() throws UnknownHostException,
 	SocketException {
 		// TODO: ip should be read in a config file
 
@@ -277,11 +277,15 @@ public class WebServer {
 			Enumeration<InetAddress> ee = n.getInetAddresses();
 			while (ee.hasMoreElements()) {
 				InetAddress i = ee.nextElement();
-				if (!i.isLoopbackAddress() && !i.isLinkLocalAddress()) {
+				String hostAddress = i.getHostAddress();
+				if (!i.isLoopbackAddress()
+						&& !i.isLinkLocalAddress()
+						&& !i.isAnyLocalAddress()
+						&& !i.isSiteLocalAddress()) {
 					if (i instanceof Inet6Address) {
-						return "[" + i.getHostAddress().split("%")[0] + "]";
+						return "[" + hostAddress.split("%")[0] + "]";
 					} else {
-						return i.getHostAddress();
+						return hostAddress;
 					}
 				}
 			}
@@ -319,7 +323,7 @@ public class WebServer {
 			scan.close();
 
 			// set server ip
-			uiPage = uiPage.replace("#serveripaddress#", "\"" + getIPAdress()
+			uiPage = uiPage.replace("#serveripaddress#", "\"" + getIPAddress()
 					+ ":" + port + "\"");
 
 			response.setContentType("text/html; charset=utf-8");
