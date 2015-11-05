@@ -23,11 +23,11 @@
   owl:versionInfo "1.0"^^xsd:string ;
 .	
 
-transfer:modelset-titolo-unico-v5
+transfer:titolo-unico
   rdf:type owl:Class;
   rdf:type emo:ModelSetVersion ;
   rdfs:subClassOf emo:ModelSetVersion ;
-  emo:majorModelSetVersion "modelset-titolo-unico-v5"^^xsd:string ;
+  emo:majorModelSetVersion "titolo-unico"^^xsd:string ;
 .
 
   transfer:mod.13868
@@ -37,7 +37,7 @@ transfer:modelset-titolo-unico-v5
   rdfs:label "Titolo Unico - Monti Azzurri - SubProcess (conference)"^^xsd:string ;
   emo:objectTypeHasName "Business process diagram (BPMN 2.0)"^^xsd:string ;
   rdf:subClassOf bpmn:Process ;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13869
   rdf:type owl:Class;
@@ -51,7 +51,7 @@ transfer:modelset-titolo-unico-v5
   bpmn:flowNodeBelongsToParticipant transfer:obj.25001;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.25004;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13878
   rdf:type owl:Class;
@@ -63,7 +63,7 @@ transfer:modelset-titolo-unico-v5
   bpmn:flowNodeBelongsToParticipant transfer:obj.25001;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.25004;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13881
   rdf:type owl:Class;
@@ -77,7 +77,7 @@ transfer:modelset-titolo-unico-v5
   bpmn:flowNodeBelongsToParticipant transfer:obj.25001;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.25004;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13872
   rdf:type owl:Class;
@@ -91,7 +91,7 @@ transfer:modelset-titolo-unico-v5
   bpmn:flowNodeBelongsToParticipant transfer:obj.25001;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.25004;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13875
   rdf:type owl:Class;
@@ -105,7 +105,7 @@ transfer:modelset-titolo-unico-v5
   bpmn:flowNodeBelongsToParticipant transfer:obj.25001;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.25004;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.24401
   rdf:type owl:Class;
@@ -115,7 +115,7 @@ transfer:modelset-titolo-unico-v5
   emo:objectTypeHasName "Pool"^^xsd:string ;                  
   lpd:bpmnPoolHasId "obj.24401"^^xsd:string ;
   lpd:bpmnPoolHasName "Service Conference"^^xsd:string ;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.25001
   rdf:type owl:Class;
@@ -127,7 +127,7 @@ transfer:modelset-titolo-unico-v5
   lpd:bpmnPoolHasName "Monti Azzurri Consortium"^^xsd:string ;
 	
    emo:poolRepresentsOrganisationalUnit transfer:obj.14020 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.25004
   rdf:type owl:Class;
@@ -137,7 +137,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   emo:objectTypeHasName "Lane"^^xsd:string ;                                  
 	
    emo:swimlaneRepresentsOrganisationalUnit transfer:obj.14011 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13887
   rdf:type owl:Class;
@@ -147,7 +147,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   emo:objectTypeHasName "Data Object"^^xsd:string ;                                
 	
    emo:dataInputReferencesDocument transfer:obj.13969 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:mod.13795
   rdf:type owl:Class;
@@ -156,7 +156,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Titolo Unico - Monti Azzurri - SubProcess (restrictions)"^^xsd:string ;
   emo:objectTypeHasName "Business process diagram (BPMN 2.0)"^^xsd:string ;
   rdf:subClassOf bpmn:Process ;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13811
   rdf:type owl:Class;
@@ -170,7 +170,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13799;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13802;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13826
   rdf:type owl:Class;
@@ -184,7 +184,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13799;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13802;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.25020
   rdf:type owl:Class;
@@ -198,7 +198,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13799;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13805;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13814
   rdf:type owl:Class;
@@ -212,7 +212,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13802;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.24407;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13817
   rdf:type owl:Class;
@@ -224,7 +224,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13799;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13802;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13832
   rdf:type owl:Class;
@@ -236,7 +236,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13799;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13805;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13814
   rdf:type owl:Class;
@@ -250,7 +250,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13802;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.24407;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13817
   rdf:type owl:Class;
@@ -262,7 +262,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13799;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13802;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13832
   rdf:type owl:Class;
@@ -274,7 +274,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13799;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13805;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13823
   rdf:type owl:Class;
@@ -286,7 +286,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13799;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13802;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13799
   rdf:type owl:Class;
@@ -298,7 +298,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   lpd:bpmnPoolHasName "Monti Azzurri Consorsium"^^xsd:string ;
 	
    emo:poolRepresentsOrganisationalUnit transfer:obj.14020 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.24407
   rdf:type owl:Class;
@@ -308,7 +308,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   emo:objectTypeHasName "Pool"^^xsd:string ;                  
   lpd:bpmnPoolHasId "obj.24407"^^xsd:string ;
   lpd:bpmnPoolHasName "Third Party PA"^^xsd:string ;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13802
   rdf:type owl:Class;
@@ -318,7 +318,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   emo:objectTypeHasName "Lane"^^xsd:string ;                                  
 	
    emo:swimlaneRepresentsOrganisationalUnit transfer:obj.14011 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13805
   rdf:type owl:Class;
@@ -328,7 +328,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   emo:objectTypeHasName "Lane"^^xsd:string ;                                  
 	
    emo:swimlaneRepresentsOrganisationalUnit transfer:obj.14008 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13820
   rdf:type owl:Class;
@@ -338,7 +338,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   emo:objectTypeHasName "Data Object"^^xsd:string ;                                
 	
    emo:dataInputReferencesDocument transfer:obj.13969 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13829
   rdf:type owl:Class;
@@ -348,7 +348,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   emo:objectTypeHasName "Data Object"^^xsd:string ;                                                
 	
    emo:dataOutputReferencesDocument transfer:obj.13972 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:mod.13676
   rdf:type owl:Class;
@@ -357,7 +357,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Titolo Unico - Monti Azzurri"^^xsd:string ;
   emo:objectTypeHasName "Business process diagram (BPMN 2.0)"^^xsd:string ;
   rdf:subClassOf bpmn:Process ;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13686
   rdf:type owl:Class;
@@ -371,7 +371,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13680;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13686
   rdf:type owl:Class;
@@ -385,7 +385,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13680;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13713
   rdf:type owl:Class;
@@ -397,7 +397,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13680;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13716
   rdf:type owl:Class;
@@ -409,7 +409,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13680;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13722
   rdf:type owl:Class;
@@ -423,7 +423,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13680;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13707
   rdf:type owl:Class;
@@ -437,7 +437,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.24412;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13734
   rdf:type owl:Class;
@@ -451,7 +451,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.24412;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13707
   rdf:type owl:Class;
@@ -465,7 +465,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.24412;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13689
   rdf:type owl:Class;
@@ -477,7 +477,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13680;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13692
   rdf:type owl:Class;
@@ -489,7 +489,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13680;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13695
   rdf:type owl:Class;
@@ -503,7 +503,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
 	
    lpd:bpmnSubProcessRepresentsBProcess transfer:mod.13795 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13698
   rdf:type owl:Class;
@@ -517,7 +517,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
 	
    lpd:bpmnSubProcessRepresentsBProcess transfer:mod.13868 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13701
   rdf:type owl:Class;
@@ -529,7 +529,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13680;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13704
   rdf:type owl:Class;
@@ -541,7 +541,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13680;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13710
   rdf:type owl:Class;
@@ -553,7 +553,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13680;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13719
   rdf:type owl:Class;
@@ -565,7 +565,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13680;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13725
   rdf:type owl:Class;
@@ -577,7 +577,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13680;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13728
   rdf:type owl:Class;
@@ -589,7 +589,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   bpmn:flowNodeBelongsToParticipant transfer:obj.13680;
 	
   bpmn:flowNodeBelongsToParticipant transfer:obj.13683;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13680
   rdf:type owl:Class;
@@ -601,7 +601,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   lpd:bpmnPoolHasName "Monti Azzurri Consorsium"^^xsd:string ;
 	
    emo:poolRepresentsOrganisationalUnit transfer:obj.14020 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.24412
   rdf:type owl:Class;
@@ -611,7 +611,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   emo:objectTypeHasName "Pool"^^xsd:string ;                  
   lpd:bpmnPoolHasId "obj.24412"^^xsd:string ;
   lpd:bpmnPoolHasName "Entrepreneur"^^xsd:string ;
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13683
   rdf:type owl:Class;
@@ -619,7 +619,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf bpmn:Lane ;
   rdfs:label "Office SUAP"^^xsd:string ;
   emo:objectTypeHasName "Lane"^^xsd:string ;                                  
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13731
   rdf:type owl:Class;
@@ -629,7 +629,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   emo:objectTypeHasName "Data Object"^^xsd:string ;                                                
 	
    emo:dataOutputReferencesDocument transfer:obj.13975 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:mod.13916
   rdf:type owl:Class;
@@ -637,7 +637,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf emo:BusinessMotivationMetaModel ;
   rdfs:label "BMM TitoloUnico"^^xsd:string ;
   emo:objectTypeHasName "BMM"^^xsd:string ;                  	
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13917
   rdf:type owl:Class;
@@ -645,7 +645,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf emo:LearningGoal ;
   rdfs:label "Proper management of user requests"^^xsd:string ;
   emo:objectTypeHasName "Learning Goal"^^xsd:string ;                  	                	                			
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13920
   rdf:type owl:Class;
@@ -653,7 +653,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf emo:LearningGoal ;
   rdfs:label "Confident check of regularity"^^xsd:string ;
   emo:objectTypeHasName "Learning Goal"^^xsd:string ;                  	                	                			
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13929
   rdf:type owl:Class;
@@ -661,7 +661,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf emo:LearningGoal ;
   rdfs:label "Properly coordination of admin procedure"^^xsd:string ;
   emo:objectTypeHasName "Learning Goal"^^xsd:string ;                  	                	                			
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13932
   rdf:type owl:Class;
@@ -669,7 +669,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf emo:LearningGoal ;
   rdfs:label "Properly check of regularity"^^xsd:string ;
   emo:objectTypeHasName "Learning Goal"^^xsd:string ;                  	                	                			
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13935
   rdf:type owl:Class;
@@ -677,7 +677,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf emo:LearningGoal ;
   rdfs:label "Check regularity/irregularity of the requests"^^xsd:string ;
   emo:objectTypeHasName "Learning Goal"^^xsd:string ;                  	                	                			
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13938
   rdf:type owl:Class;
@@ -685,7 +685,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf emo:LearningGoal ;
   rdfs:label "Coordination of the administrative procedure in respect of timeing and modality provided by the norms"^^xsd:string ;
   emo:objectTypeHasName "Learning Goal"^^xsd:string ;                  	                	                			
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13941
   rdf:type owl:Class;
@@ -693,7 +693,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf emo:LearningGoal ;
   rdfs:label "Check regularity of data and declarations"^^xsd:string ;
   emo:objectTypeHasName "Learning Goal"^^xsd:string ;                  	                	                			
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13944
   rdf:type owl:Class;
@@ -701,7 +701,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf emo:LearningGoal ;
   rdfs:label "Draw up an administrative act"^^xsd:string ;
   emo:objectTypeHasName "Learning Goal"^^xsd:string ;                  	                	                			
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:mod.13948
   rdf:type owl:Class;
@@ -709,7 +709,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf emo:DocumentAndKnowledgeMetaModel ;
   rdfs:label "Document and Knowledge model TitoloUnico"^^xsd:string ;
   emo:objectTypeHasName "Document and Knowledge model"^^xsd:string ;                				
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13949
   rdf:type owl:Class;
@@ -718,7 +718,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Acquired Competency Barnaby Barnes"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                			
 	  dkm:d_ConstructIsInsideD_Container transfer:obj.13960 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13969
   rdf:type owl:Class;
@@ -727,7 +727,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "SCIA Instance"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                			
 	  dkm:d_ConstructIsInsideD_Container transfer:obj.13966 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13972
   rdf:type owl:Class;
@@ -736,7 +736,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Third Party Opinion"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                			
 	  dkm:d_ConstructIsInsideD_Container transfer:obj.13966 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13975
   rdf:type owl:Class;
@@ -745,7 +745,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Titolo Unico Authorization Document"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                			
 	  dkm:d_ConstructIsInsideD_Container transfer:obj.13966 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13978
   rdf:type owl:Class;
@@ -754,7 +754,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Required Compentency SUAP Officer"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                			
 	  dkm:d_ConstructIsInsideD_Container transfer:obj.13960 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13989
   rdf:type owl:Class;
@@ -763,7 +763,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Book: Managing Service Conference"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                			
 	  dkm:d_ConstructIsInsideD_Container transfer:obj.13963 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13992
   rdf:type owl:Class;
@@ -772,7 +772,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Video: Service Conference Management"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                			
 	  dkm:d_ConstructIsInsideD_Container transfer:obj.13963 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13995
   rdf:type owl:Class;
@@ -781,7 +781,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Course Note: Managing Service Conference"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                			
 	  dkm:d_ConstructIsInsideD_Container transfer:obj.13963 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13960
   rdf:type owl:Class;
@@ -789,7 +789,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf dkm:D_Container ;
   rdfs:label "Competency Profiles"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13963
   rdf:type owl:Class;
@@ -797,7 +797,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf dkm:D_Container ;
   rdfs:label "Learning Objects"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13966
   rdf:type owl:Class;
@@ -805,7 +805,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf dkm:D_Container ;
   rdfs:label "Business Relevant Documents"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:mod.14299
   rdf:type owl:Class;
@@ -813,7 +813,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf emo:OrganisationMetaModel ;
   rdfs:label "Org Model Sarnano Municipality"^^xsd:string ;
   emo:objectTypeHasName "Organizational structure"^^xsd:string ;                    			
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14300
   rdf:type owl:Class;
@@ -821,7 +821,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf omm:OrganisationalUnit ;
   rdfs:label "Comune Sarnano"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14303
   rdf:type owl:Class;
@@ -830,7 +830,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Ufficio Commercio"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14300 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14306
   rdf:type owl:Class;
@@ -839,7 +839,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Ufficio Tributi Economato"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14300 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14309
   rdf:type owl:Class;
@@ -848,7 +848,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Ufficio Servizi Finanziari"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14300 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14312
   rdf:type owl:Class;
@@ -857,7 +857,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Ufficio Urbanistica e Lavori Pubblici"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14300 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14348
   rdf:type owl:Class;
@@ -866,7 +866,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "SUAP Office"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14300 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14330
   rdf:type owl:Class;
@@ -875,7 +875,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Segretario Comunale"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14300 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14333
   rdf:type owl:Class;
@@ -884,7 +884,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Sindaco"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14300 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14336
   rdf:type owl:Class;
@@ -893,7 +893,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsabile Ufficio Commercio"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14303 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14339
   rdf:type owl:Class;
@@ -902,7 +902,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsabile Ufficio Tributi Economato"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14306 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14342
   rdf:type owl:Class;
@@ -911,7 +911,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsabile Ufficio Servizi Finanziari"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14309 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14345
   rdf:type owl:Class;
@@ -920,7 +920,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsabile Ufficio Urbanistica e Lavori Pubblici"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14312 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14351
   rdf:type owl:Class;
@@ -929,7 +929,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "SUAP Officer"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14348 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14357
   rdf:type owl:Class;
@@ -938,7 +938,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsible SUAP office"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14348 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14315
   rdf:type owl:Class;
@@ -947,7 +947,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Venanzio Scuderini"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14330 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14318
   rdf:type owl:Class;
@@ -956,7 +956,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Franco Ceregioli"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14333 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14321
   rdf:type owl:Class;
@@ -965,7 +965,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Anna Marinozzi"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14336 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14324
   rdf:type owl:Class;
@@ -975,7 +975,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14339 ;
   omm:performerHasRole transfer:obj.14342 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14327
   rdf:type owl:Class;
@@ -984,7 +984,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Alfonso Tardella"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14345 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14354
   rdf:type owl:Class;
@@ -995,7 +995,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
 		  
 		emo:performerHasEmailAddress "jenny.kurjakovic@learnpad.com"^^xsd:string ;
 		    omm:performerHasRole transfer:obj.14351 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14360
   rdf:type owl:Class;
@@ -1007,7 +1007,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
 		emo:performerHasEmailAddress "tess.hinkelmann@learnpad.com"^^xsd:string ;
 		    omm:performerHasRole transfer:obj.14357 ;
   omm:performerIsManagerOfOrganisationalUnit transfer:obj.14348 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:mod.14073
   rdf:type owl:Class;
@@ -1015,7 +1015,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf emo:OrganisationMetaModel ;
   rdfs:label "Org Model Senigallia Municipality"^^xsd:string ;
   emo:objectTypeHasName "Organizational structure"^^xsd:string ;                    			
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14074
   rdf:type owl:Class;
@@ -1023,7 +1023,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf omm:OrganisationalUnit ;
   rdfs:label "Comune"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14083
   rdf:type owl:Class;
@@ -1032,7 +1032,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Area Tecnica Territorio e Ambiente"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14074 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14086
   rdf:type owl:Class;
@@ -1041,7 +1041,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Area Turismo Promozione e Sviluppo Econmico"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14074 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14089
   rdf:type owl:Class;
@@ -1050,7 +1050,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Area Organizzativa e Risorse Finanziarie"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14074 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14092
   rdf:type owl:Class;
@@ -1059,7 +1059,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Area Persona"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14074 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14095
   rdf:type owl:Class;
@@ -1068,7 +1068,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Ufficio Programmazione Urbanistica"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14083 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14098
   rdf:type owl:Class;
@@ -1077,7 +1077,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Sportello Unico Edilizia"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14083 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14101
   rdf:type owl:Class;
@@ -1086,7 +1086,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Ufficio Gestione Ambiente"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14083 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14104
   rdf:type owl:Class;
@@ -1095,7 +1095,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Ufficio Strade Mobilità e Territorio"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14083 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14107
   rdf:type owl:Class;
@@ -1104,7 +1104,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Ufficio Porto"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14083 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14110
   rdf:type owl:Class;
@@ -1113,7 +1113,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Sviluppo Urbano Sostenibile"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14083 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14155
   rdf:type owl:Class;
@@ -1122,7 +1122,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "SUAP Office"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14086 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14188
   rdf:type owl:Class;
@@ -1131,7 +1131,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Ufficio Attività Economiche"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14086 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14191
   rdf:type owl:Class;
@@ -1140,7 +1140,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Ufficio Sviluppo Economico"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14086 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14206
   rdf:type owl:Class;
@@ -1149,7 +1149,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Ufficio Tributi e Canoni"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14089 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14224
   rdf:type owl:Class;
@@ -1158,7 +1158,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Ufficio Politiche Sociali e Integrazioni Socio Sanitarie"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14092 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14077
   rdf:type owl:Class;
@@ -1167,7 +1167,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Sindaco"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14074 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14113
   rdf:type owl:Class;
@@ -1176,7 +1176,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsabile Ufficio Programmazione Urbanistica"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14095 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14119
   rdf:type owl:Class;
@@ -1185,7 +1185,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsabile Sportello Unico Edilizia"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14098 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14122
   rdf:type owl:Class;
@@ -1194,7 +1194,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsabile Ufficio Gestione Ambiente"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14101 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14125
   rdf:type owl:Class;
@@ -1203,7 +1203,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsabile Ufficio Strade Mobilità e Territorio"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14104 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14128
   rdf:type owl:Class;
@@ -1212,7 +1212,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsabile Ufficio Porto"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14107 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14131
   rdf:type owl:Class;
@@ -1221,7 +1221,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsabile Sviluppo Urbano Sostenibile"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14110 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14149
   rdf:type owl:Class;
@@ -1230,7 +1230,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Dirigente"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14086 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14158
   rdf:type owl:Class;
@@ -1239,7 +1239,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Geometra"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14155 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14161
   rdf:type owl:Class;
@@ -1248,7 +1248,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsible SUAP office"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14155 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14164
   rdf:type owl:Class;
@@ -1257,7 +1257,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Amministrazione"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14155 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14194
   rdf:type owl:Class;
@@ -1266,7 +1266,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsabile Ufficio Tributi Economato"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14188 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14200
   rdf:type owl:Class;
@@ -1275,7 +1275,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsabile Ufficio Sviluppo Economico"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14191 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14209
   rdf:type owl:Class;
@@ -1284,7 +1284,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsabile Ufficio Tributi e Canoni"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14206 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14215
   rdf:type owl:Class;
@@ -1293,7 +1293,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsabile Area Organizzativa e Risorse Finanziarie"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14089 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14221
   rdf:type owl:Class;
@@ -1302,7 +1302,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsabile Area Persona"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14092 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14230
   rdf:type owl:Class;
@@ -1311,7 +1311,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsabile Ufficio Politiche Sociali e Integrazioni Socio Sanitarie"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14224 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14239
   rdf:type owl:Class;
@@ -1320,7 +1320,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "SUAP Officer"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14155 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14080
   rdf:type owl:Class;
@@ -1329,7 +1329,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Maurizio Mangialardi"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14077 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14116
   rdf:type owl:Class;
@@ -1338,7 +1338,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Serenalli Roberto"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14113 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14134
   rdf:type owl:Class;
@@ -1347,7 +1347,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Mario Partenico"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14119 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14137
   rdf:type owl:Class;
@@ -1356,7 +1356,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Sara Giorgetti"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14122 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14140
   rdf:type owl:Class;
@@ -1365,7 +1365,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Maurizio Piccini"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14125 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14143
   rdf:type owl:Class;
@@ -1374,7 +1374,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Silvano Simonetti"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14128 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14146
   rdf:type owl:Class;
@@ -1383,7 +1383,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Stefano Giacai"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14131 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14152
   rdf:type owl:Class;
@@ -1392,7 +1392,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Paolo Mattei"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14149 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14167
   rdf:type owl:Class;
@@ -1402,7 +1402,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14161 ;
   omm:performerIsManagerOfOrganisationalUnit transfer:obj.14155 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14170
   rdf:type owl:Class;
@@ -1411,7 +1411,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Geometra1"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14158 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14173
   rdf:type owl:Class;
@@ -1420,7 +1420,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Amministrativo2"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14164 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14176
   rdf:type owl:Class;
@@ -1429,7 +1429,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Geometra2"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14158 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14179
   rdf:type owl:Class;
@@ -1438,7 +1438,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Geometra3"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14158 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14182
   rdf:type owl:Class;
@@ -1447,7 +1447,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Amministrativo1"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14164 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14185
   rdf:type owl:Class;
@@ -1456,7 +1456,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Amministrativo3"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14164 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14197
   rdf:type owl:Class;
@@ -1465,7 +1465,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Perini Rosanna"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14194 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14203
   rdf:type owl:Class;
@@ -1474,7 +1474,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Laura Sorellini"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14200 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14212
   rdf:type owl:Class;
@@ -1483,7 +1483,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Gabriele Paoletti"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14209 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14218
   rdf:type owl:Class;
@@ -1492,7 +1492,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Fiorenzi Laura"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14215 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14227
   rdf:type owl:Class;
@@ -1501,7 +1501,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Maurizio Mandolini"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14221 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14233
   rdf:type owl:Class;
@@ -1510,7 +1510,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Giuseppina Campolini"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14230 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14236
   rdf:type owl:Class;
@@ -1521,7 +1521,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
 		  
 		emo:performerHasEmailAddress "susan.meyer@learnpad.com"^^xsd:string ;
 		    omm:performerHasRole transfer:obj.14239 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:mod.14007
   rdf:type owl:Class;
@@ -1529,7 +1529,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf emo:OrganisationMetaModel ;
   rdfs:label "Org Model Monti Azzurri"^^xsd:string ;
   emo:objectTypeHasName "Organizational structure"^^xsd:string ;                    			
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14008
   rdf:type owl:Class;
@@ -1538,7 +1538,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Agriculture Office"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14029 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14011
   rdf:type owl:Class;
@@ -1547,7 +1547,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "SUAP Office"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14029 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14020
   rdf:type owl:Class;
@@ -1555,7 +1555,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf omm:OrganisationalUnit ;
   rdfs:label "Monti Azzurri"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14029
   rdf:type owl:Class;
@@ -1564,7 +1564,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Area 3"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.14020 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14014
   rdf:type owl:Class;
@@ -1573,7 +1573,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "SUAP Officer"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14011 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14023
   rdf:type owl:Class;
@@ -1582,7 +1582,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Secretary General"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14020 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14026
   rdf:type owl:Class;
@@ -1591,7 +1591,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "President"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14020 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14032
   rdf:type owl:Class;
@@ -1600,7 +1600,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsible Agriculture, Forestry, Environment"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14008 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14044
   rdf:type owl:Class;
@@ -1609,7 +1609,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Responsible SUAP office"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                				
 	  lpd:roleIsCastedByOrgUnit transfer:obj.14011 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14017
   rdf:type owl:Class;
@@ -1620,7 +1620,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
 		  
 		emo:performerHasEmailAddress "barnaby.barnes@learnpad.com"^^xsd:string ;
 		    omm:performerHasRole transfer:obj.14014 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14035
   rdf:type owl:Class;
@@ -1629,7 +1629,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Rando Laurenzi "^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14023 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14038
   rdf:type owl:Class;
@@ -1638,7 +1638,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Tim Emmenegger"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14026 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14041
   rdf:type owl:Class;
@@ -1647,7 +1647,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:label "Ling Zhang"^^xsd:string ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		    omm:performerHasRole transfer:obj.14032 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14047
   rdf:type owl:Class;
@@ -1659,7 +1659,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
 		emo:performerHasEmailAddress "susan.brown@learnpad.com"^^xsd:string ;
 		    omm:performerHasRole transfer:obj.14044 ;
   omm:performerIsManagerOfOrganisationalUnit transfer:obj.14011 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14050
   rdf:type owl:Class;
@@ -1670,7 +1670,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
 		  
 		emo:performerHasEmailAddress "sarah.brown@learnpad.com"^^xsd:string ;
 		    omm:performerHasRole transfer:obj.14014 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.14053
   rdf:type owl:Class;
@@ -1681,7 +1681,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
 		  
 		emo:performerHasEmailAddress "james.jason@learnpad.com"^^xsd:string ;
 		    omm:performerHasRole transfer:obj.14014 ;
-emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:mod.13899
   rdf:type owl:Class;
@@ -1689,7 +1689,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf emo:CompetencyMetaModel ;
   rdfs:label "Competency model TitoloUnico"^^xsd:string ;
   emo:objectTypeHasName "Competency model"^^xsd:string ;                        
-        emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+        emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13900
   rdf:type owl:Class;
@@ -1697,7 +1697,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf cmm:Competency ;
   rdfs:label "Managing front-office & external services"^^xsd:string ;
   emo:objectTypeHasName "Competency"^^xsd:string ;                	
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13903
   rdf:type owl:Class;
@@ -1705,7 +1705,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf cmm:Competency ;
   rdfs:label "Assessing administrative & procedural regularity"^^xsd:string ;
   emo:objectTypeHasName "Competency"^^xsd:string ;                	
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13906
   rdf:type owl:Class;
@@ -1713,7 +1713,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf cmm:Competency ;
   rdfs:label "Manage specific admin procedure"^^xsd:string ;
   emo:objectTypeHasName "Competency"^^xsd:string ;                	
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13909
   rdf:type owl:Class;
@@ -1721,7 +1721,7 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf cmm:Competency ;
   rdfs:label "Competent verification of congruency and pertinency"^^xsd:string ;
   emo:objectTypeHasName "Competency"^^xsd:string ;                	
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
   transfer:obj.13912
   rdf:type owl:Class;
@@ -1729,5 +1729,5 @@ emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
   rdfs:subClassOf cmm:Competency ;
   rdfs:label "Ability to draw up formal documents"^^xsd:string ;
   emo:objectTypeHasName "Competency"^^xsd:string ;                	
-	emo:belongsToVersion transfer:modelset-titolo-unico-v5 ;
+	emo:belongsToVersion transfer:titolo-unico ;
 .
