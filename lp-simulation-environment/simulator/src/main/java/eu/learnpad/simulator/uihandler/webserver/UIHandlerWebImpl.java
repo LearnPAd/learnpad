@@ -94,8 +94,10 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 	 * @see activitipoc.IUIHandler#addUser(java.lang.String)
 	 */
 	public void addUser(String userId) {
-		usersMap.put(userId,
-				webserver.addUIServlet(new UIServlet(userId), userId));
+		if (!usersMap.containsKey(userId)) {
+			usersMap.put(userId,
+					webserver.addUIServlet(new UIServlet(userId), userId));
+		}
 	}
 
 	/*
