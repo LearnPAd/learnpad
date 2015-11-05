@@ -2,10 +2,14 @@ package eu.learnpad.ca.rest.data;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 @XmlRootElement(name = "Node")
 public class Node {
+	
+	@XmlTransient
+	protected Integer OffSet;
 
 	protected Integer id=-1;
 	
@@ -19,6 +23,19 @@ public class Node {
 
 	
 	
+	public Node(Integer id,int offSet) {
+		OffSet = offSet;
+		this.id = id;
+	}
+
+	public Integer getOffSet() {
+		return OffSet;
+	}
+
+	public void setOffSet(int offSet) {
+		OffSet = offSet;
+	}
+
 	/**
 	 * Get the value of id.
 	 * 
@@ -64,6 +81,10 @@ public class Node {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public int compareTo(Node nodeStart) {
+		return OffSet.compareTo(nodeStart.getOffSet());
 	}
 
 

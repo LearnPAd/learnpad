@@ -1,13 +1,15 @@
 package eu.learnpad.ca.rest.data;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-public  class Annotation {
+public  class Annotation implements Comparable<Object>{
 
 	@XmlAttribute(name = "id", required = true)
 	protected Integer id;
@@ -20,6 +22,12 @@ public  class Annotation {
 	@XmlAttribute(name = "recommendation", required = true)
 	protected String recommendation;
 
+	@XmlTransient
+	protected Node NodeStart;
+	@XmlTransient
+	protected Node NodeEnd;
+	
+	
 	public Annotation(){
 		
 	}
@@ -32,6 +40,22 @@ public  class Annotation {
 		this.recommendation=recom;
 	}
 	
+	public Node getNodeStart() {
+		return NodeStart;
+	}
+
+	public void setNodeStart(Node nodeStart) {
+		NodeStart = nodeStart;
+	}
+
+	public Node getNodeEnd() {
+		return NodeEnd;
+	}
+
+	public void setNodeEnd(Node nodeEnd) {
+		NodeEnd = nodeEnd;
+	}
+
 	/**
 	 * get the value of id.
 	 * 
@@ -157,6 +181,12 @@ public  class Annotation {
 		return "Annotation_id=" + id + "[type=" + type + ", startNode="
 				+ startNode + ", endNode=" + endNode + ", recommendation="
 				+ recommendation + "]\n";
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		Annotation other = (Annotation) o;
+	    return NodeStart.compareTo(other.NodeStart);
 	}
 	
 	

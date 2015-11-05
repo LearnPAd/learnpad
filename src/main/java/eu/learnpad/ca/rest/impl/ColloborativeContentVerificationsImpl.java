@@ -27,6 +27,7 @@ import eu.learnpad.ca.analysis.simplicity.DifficultJargon;
 import eu.learnpad.ca.analysis.simplicity.DifficultJargonAlternative;
 import eu.learnpad.ca.analysis.simplicity.ExcessiveLength;
 import eu.learnpad.ca.analysis.simplicity.JuridicalJargon;
+import eu.learnpad.ca.analysis.simplicity.Simplicity;
 import eu.learnpad.ca.analysis.syntacticambiguity.SyntacticAmbiguity;
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
@@ -77,7 +78,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				}
 				if(contentFile.getQualityCriteria().isSimplicity()){
 
-					JuridicalJargon threadsimply = new JuridicalJargon (contentFile, lang);
+					/*JuridicalJargon threadsimply = new JuridicalJargon (contentFile, lang);
 					threadsimply.start();
 					putAndCreate(id, threadsimply);
 
@@ -85,11 +86,12 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 					threadDF.start();
 					putAndCreate(id, threadDF);
 
-					DifficultJargonAlternative threadDFA = new DifficultJargonAlternative (contentFile, lang);
-					threadDFA.start();
-					putAndCreate(id, threadDFA);
+					
 					
 					ExcessiveLength threadEL = new ExcessiveLength(contentFile, lang);
+					threadEL.start();
+					putAndCreate(id, threadEL);*/
+					Simplicity threadEL = new Simplicity(contentFile, lang);
 					threadEL.start();
 					putAndCreate(id, threadEL);
 

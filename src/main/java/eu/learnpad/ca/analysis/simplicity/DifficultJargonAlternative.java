@@ -3,130 +3,79 @@ package eu.learnpad.ca.analysis.simplicity;
 
 
 import java.io.InputStream;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
 import org.languagetool.language.AmericanEnglish;
 import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
-import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.analysis.simplicity.difficultjargon.AlternativeTerm;
 import eu.learnpad.ca.analysis.simplicity.difficultjargon.AlternativeTermSet;
 import eu.learnpad.ca.rest.data.Annotation;
-import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
-import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
-import eu.learnpad.ca.rest.data.collaborative.CollaborativeContent;
-import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
-import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
-import eu.learnpad.ca.rest.data.stat.StaticContent;
-import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
+
+import gate.DocumentContent;
+import gate.util.InvalidOffsetException;
 
 
-public class DifficultJargonAlternative  extends  AbstractAnalysisClass{ 
+public class DifficultJargonAlternative { 
 
-	
+
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DifficultJargonAlternative.class);
-	
+
 	private AlternativeTermSet alternativetermset;
-	
+	private Language language;
+	private DocumentContent docContent;
 
 
-	public DifficultJargonAlternative(StaticContentAnalysis cca, Language lang){
-		this.language=lang;
-		alternativetermset = readAlternativeTerms(lang);
-		staticContentInput = cca;
 
-	}
-
-
-	public DifficultJargonAlternative(CollaborativeContentAnalysis cca,
-			Language lang) {
+	public DifficultJargonAlternative(Language lang, DocumentContent docContent) {
 		this.language=lang;
 		alternativetermset  = readAlternativeTerms(lang);
-		collaborativeContentInput = cca;
+		this.docContent=docContent;
 	}
 
-	
-	public void run() {
-		if(collaborativeContentInput!=null){
-			checkUnclearAcronym(collaborativeContentInput);	
+
+
+
+	public List<Annotation> checkUnclearAcronym(Set<gate.Annotation> listsentence, Set<gate.Annotation> listSentenceDefected) {
+		List<Annotation> annotations =new ArrayList<Annotation>();
+		int id = 0;
+		for (gate.Annotation sentence_gate : listsentence) {
+
+
+			gate.Node gatenodestart = sentence_gate.getStartNode();
+			gate.Node gatenodeend =  sentence_gate.getEndNode();
+			try{
+
+				DocumentContent sentence = docContent.getContent(gatenodestart.getOffset(),gatenodeend.getOffset());
+
+				int len = annotations.size();
+				id= insertdefectannotationsentence(sentence.toString(), id, annotations,gatenodestart.getOffset().intValue());
+				if(annotations.size()>len){
+				  if(!listSentenceDefected.contains(sentence_gate))
+					  listSentenceDefected.add(sentence_gate);
+				}
+
+			}catch(InvalidOffsetException e){
+				log.debug(e);
+			}
+
 		}
-
-		if(staticContentInput!=null){
-			checkUnclearAcronym(staticContentInput);	
-		}
+		return annotations;
 
 	}
 
-	private void checkUnclearAcronym(StaticContentAnalysis staticContentInput2) {
-		String title = staticContentInput.getStaticContent().getTitle();
-		String idc = staticContentInput.getStaticContent().getId();
-		String content = staticContentInput.getStaticContent().getContentplain();
 
-		annotatedStaticContent = new AnnotatedStaticContentAnalysis();
-		StaticContent sc = new StaticContent();
-		annotatedStaticContent.setStaticContent(sc);
-		sc.setTitle(title);
-		sc.setId(idc);
-		Content c = new Content();
-		sc.setContent(c);
-
-		//String sResult = "This is a test. This is a T.L.A. test.";
-		//String[] sSentence = content.split("(?<=[a-z])\\.\\s+");
-		JLanguageTool langTool = new JLanguageTool(language);
-		List<String> listsentence = langTool.sentenceTokenize(content);
-		insertdefectannotation(content,c,listsentence);
-
-		
-
-		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
-		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
-		annotatedStaticContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
-		annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-		annotatedStaticContent.setType("Simplicity DifficultJargon Alternative");
-		log.trace("\nnumDefectiveSentences AlternativeTerm: "+numDefectiveSentences);
-
-	}
-
-	private void checkUnclearAcronym(CollaborativeContentAnalysis collaborativeContentInput) {
-		String title = collaborativeContentInput.getCollaborativeContent().getTitle();
-		String idc = collaborativeContentInput.getCollaborativeContent().getId();
-		String content = collaborativeContentInput.getCollaborativeContent().getContentplain();
-
-		annotatedCollaborativeContent = new AnnotatedCollaborativeContentAnalysis();
-		CollaborativeContent sc = new CollaborativeContent();
-		annotatedCollaborativeContent.setCollaborativeContent(sc);
-		sc.setTitle(title);
-		sc.setId(idc);
-		Content c = new Content();
-		sc.setContent(c);
-
-
-		JLanguageTool langTool = new JLanguageTool(language);
-		List<String> listsentence = langTool.sentenceTokenize(content);
-
-		insertdefectannotation(content,c,listsentence);
-
-
-		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
-		annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
-		annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
-		annotatedCollaborativeContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-		annotatedCollaborativeContent.setType("Simplicity DifficultJargon Alternative");
-		log.trace("\nnumDefectiveSentences AlternativeTerm: "+numDefectiveSentences);
-
-	}
 
 	private AlternativeTermSet readAlternativeTerms(Language lang){
 		InputStream is = null;
@@ -158,38 +107,19 @@ public class DifficultJargonAlternative  extends  AbstractAnalysisClass{
 	}
 
 
-	private void insertdefectannotation(String content,Content c, List<String> listsentence){
-		int id = 0;
-		for (String sentence : listsentence) {
-
-			List<Annotation> annotations =new ArrayList<Annotation>();
-			id = insertdefectannotationsentence(sentence, c , id, annotations);
-			if(annotations.size()>0){
-				numDefectiveSentences++;
-			}
-			annotatedCollaborativeContent.setAnnotations(annotations);
-			id++;
-
-		}
-
-		log.trace("\nnumDefectiveSentences AlternativeTerm: "+numDefectiveSentences);
-		
-	}
 
 
-	private int insertdefectannotationsentence(String sentence, Content c,
-			int nodeid, List<Annotation> annotations) {
+
+	private int insertdefectannotationsentence(String sentence,
+			int nodeid, List<Annotation> annotations, int offset) {
 		List<AlternativeTerm> listAltTermSet = alternativetermset.getAlternativeterms();
-		
+
 		String [] spliter = sentence.split("[\\W]");
 		Map<String, Integer> elementfinded = new HashMap<String, Integer>();
 		int precedentposition=0;
 
-		//while (tokenizer.hasMoreTokens()) {
-			//String token = tokenizer.nextToken();
-			//token =	token.trim().replace(".", "").replace(":", "").replace(";", "").replace("\"","");
 		for (int i = 0; i < spliter.length; i++) {
-			
+
 			String token = spliter[i];
 			AlternativeTerm tmptoken = new AlternativeTerm(token);
 			if(listAltTermSet.contains(tmptoken)){
@@ -201,34 +131,34 @@ public class DifficultJargonAlternative  extends  AbstractAnalysisClass{
 					System.out.println();
 					log.error("token not find");
 				}
-				String stringap = sentence.substring(precedentposition, initialpos);
-				c.setContent(stringap);
+				//String stringap = sentence.substring(precedentposition, initialpos);
+				
 				precedentposition=finalpos;
 				nodeid++;
-				Node init= new Node(nodeid);
+				Node init= new Node(nodeid,initialpos+offset);
 				nodeid++;
-				Node end= new Node(nodeid);
-				c.setContent(init);
-				c.setContent(token);
-				c.setContent(end);
+				Node end= new Node(nodeid,finalpos+offset);
+				
 
 				Annotation a = new Annotation();
 				a.setId(nodeid);
 				a.setEndNode(end.getId());
 				a.setStartNode(init.getId());
+				a.setNodeEnd(end);
+				a.setNodeStart(init);
 				a.setType("Simplicity DifficultJargon Alternative");
-				
+
 				String suggestion = listAltTermSet.get(listAltTermSet.indexOf(tmptoken)).getSuggestion();
 				a.setRecommendation("The term "+tmptoken.getWord()+" is difficult. Please replace with: "+suggestion);
 				annotations.add(a);
 
 			}
 		}
-		if(precedentposition<sentence.length()){
+		/*if(precedentposition<sentence.length()){
 			String stringap = sentence.substring(precedentposition, sentence.length());
-			c.setContent(stringap);
+			//c.setContent(stringap);
 		}
-		/*if(annotations.size()==0){
+		if(annotations.size()==0){
 			c.setContent(sentence);
 		}*/
 
@@ -236,5 +166,31 @@ public class DifficultJargonAlternative  extends  AbstractAnalysisClass{
 
 	}
 
-	
+	protected  int indexofElement(String sentence, String word, Map<String, Integer> elementfinded, String split){
+		String [] spliter = sentence.split(split);
+		int position = 0;
+		int numwordfinded = 0;
+		for (int i = 0; i < spliter.length; i++) {
+			int offset = 0;
+			String token = spliter[i];
+			if(token.equals(word)){
+				numwordfinded++;
+				if(!elementfinded.containsKey(token)){
+					elementfinded.put(token, 1);
+				}
+				if(elementfinded.get(token).intValue()==numwordfinded){
+					Integer I = elementfinded.get(token);
+					int y  = I.intValue()+1;
+					elementfinded.put(token, y);
+					return position;
+				}else{
+					position+=token.length()+1+offset;
+				}
+			}else{
+				position+=token.length()+1+offset;
+			}
+		}
+		return position;
+	}
+
 }
