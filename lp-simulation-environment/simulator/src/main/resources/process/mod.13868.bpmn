@@ -26,7 +26,7 @@
     </startEvent>
     <userTask id="usertask1" name="Check for Conference of services">
       <documentation>
-In this activity the SUAP office decides whether or not a Conference of services is required for the application.
+[[Description of task]]:
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;
       </documentation>
       <ioSpecification>
@@ -52,7 +52,7 @@ In this activity the SUAP office decides whether or not a Conference of services
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <userTask id="usertask3" name="Select administrative offices for invitation">
       <documentation>
-In this activity, the SUAP office selects the participants that have to be invited to the Conference of services.
+[[Description of task]]:
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;
       </documentation>
       <ioSpecification>
@@ -79,7 +79,7 @@ In this activity, the SUAP office selects the participants that have to be invit
     </sequenceFlow>
     <userTask id="usertask4" name="Make minutes of the meeting">
       <documentation>
-In this activity, the SUAP office makes the minutes of the meeting based on the discussions during the Conference of services.        
+[[Description of task]]:
 &lt;a href='resources/files/titolo_unico/${case}_transcript.txt' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Meeting transcript&lt;/a&gt;
       </documentation>
       <ioSpecification>

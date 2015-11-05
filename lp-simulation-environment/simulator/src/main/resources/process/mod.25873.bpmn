@@ -30,10 +30,7 @@
     <startEvent id="startevent1" name="Start"></startEvent>
 
     <userTask id="usertask1" name="Manage school Authorization">
-      <documentation>
-In this activity the Council of the School authorizes UniCam to be involved in the EU project.
-&lt;a href='resources/files/euproject/${case}/project_description.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Project Description&lt;/a&gt;
-      </documentation>
+      <documentation>In this activity the Council of the School authorizes UniCam to be involved in the EU project.</documentation>
       <ioSpecification>
         <dataOutput
             id="DataOutput_1"
@@ -117,10 +114,7 @@ In this activity the Council of the School authorizes UniCam to be involved in t
     <sequenceFlow id="flow3" sourceRef="usertask2" targetRef="usertask3"></sequenceFlow>
 
     <userTask id="usertask4" name="Create Instance in U-GOV">
-      <documentation>
-In this activity the “Area gestione scuole di ateneo” office creates a new instance in the U-GOV software tool.
-&lt;a href='resources/files/euproject/${case}/project_description.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Project Description&lt;/a&gt;
-</documentation>
+      <documentation>In this activity the “Area gestione scuole di ateneo” office creates a new instance in the U-GOV software tool.</documentation>
       <ioSpecification>
         <dataOutput
             id="DataOutput_4"
@@ -213,10 +207,7 @@ In this activity UniCam as coordinator signs the grant agreement. The EU will si
     <sequenceFlow id="flow8" sourceRef="usertask6" targetRef="parallelgateway1"></sequenceFlow>
 
     <userTask id="usertask8" name="Request CUP Code to MISE">
-      <documentation>
-In this activity the International and Industrial Liaison office requests and receive from MISE the project-code.
-&lt;a href='resources/files/euproject/${case}/project_description.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Project Description&lt;/a&gt;
-      </documentation>
+      <documentation>In this activity the International and Industrial Liaison office requests and receive from MISE the project-code.</documentation>
       <ioSpecification>
         <dataOutput
             id="DataOutput_7"
@@ -244,10 +235,7 @@ In this activity the International and Industrial Liaison office requests and re
     <sequenceFlow id="flow9" sourceRef="parallelgateway1" targetRef="usertask8"></sequenceFlow>
 
     <userTask id="usertask9" name="Insert project in MIUR Database">
-      <documentation>
-In this activity the International and Industrial Liaison office inserts the information about the project in the MIUR database.
-&lt;a href='resources/files/euproject/${case}/project_description.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Project Description&lt;/a&gt;
-      </documentation>
+      <documentation>In this activity the International and Industrial Liaison office inserts the information about the project in the MIUR database.</documentation>
       <ioSpecification>
         <dataOutput
             id="DataOutput_8"
@@ -280,11 +268,7 @@ In this activity the International and Industrial Liaison office inserts the inf
     <sequenceFlow id="flow12" sourceRef="usertask9" targetRef="parallelgateway2"></sequenceFlow>
 
     <userTask id="usertask10" name="Calculate Funds">
-      <documentation>
-In this activity UniCam receives from EU community the prefinancial fund, which are calculated.
-(Note: since for the demo the grant agreement has been censored, you can put any value for the allocated funds to each partners)
-&lt;a href='resources/files/euproject/${case}/grant_agreement.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Grant Agreement&lt;/a&gt;
-      </documentation>
+      <documentation>In this activity UniCam receives from EU community the prefinancial fund, which are calculated.</documentation>
       <ioSpecification>
         <dataOutput
             id="DataOutput_9"
