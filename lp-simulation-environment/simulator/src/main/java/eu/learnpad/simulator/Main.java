@@ -25,7 +25,6 @@ package eu.learnpad.simulator;
  */
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import eu.learnpad.simulator.uihandler.webserver.WebServer;
 
@@ -51,14 +50,12 @@ public class Main {
 
 			Simulator simulator = new Simulator(ACTIVITY_CONFIG_PATH, PORT);
 
-			// add users
-			for (String user : Arrays.asList("sally", "barnaby")) {
-				simulator.userHandler().addUser(user);
-			}
-
 			// load process definitions
 			simulator.processManager().addProjectDefinitions(
 					DEMO_PROCESS_FOLDER + "/titolounico.bpmn20.xml");
+
+			simulator.processManager().addProjectDefinitions(
+					DEMO_PROCESS_FOLDER + "/euproject.bpmn20.xml");
 
 			System.out.println("---\n");
 			System.out.println("Demo is ready and can be accessed at http://"
