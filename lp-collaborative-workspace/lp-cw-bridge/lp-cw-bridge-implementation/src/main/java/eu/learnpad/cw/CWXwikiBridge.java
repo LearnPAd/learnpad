@@ -281,9 +281,8 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 				userId);
 	}
 
-	@Override
-	public String startSimulation(String modelId, String currentUser,
-			Collection<String> potentialUsers) throws LpRestException {
+	private Collection<UserData> getUserProfiles(
+			Collection<String> potentialUsers) {
 		XWikiContext xcontext = xcontextProvider.get();
 		XWiki xwiki = xcontext.getWiki();
 		DocumentReference userClassReference = documentReferenceResolver
@@ -321,6 +320,13 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 			}
 			potentialUsersCollection.add(user);
 		}
+		return potentialUsersCollection;
+	}
+
+	@Override
+	public String startSimulation(String modelId, String currentUser,
+			Collection<String> potentialUsers) throws LpRestException {
+		Collection<UserData> potentialUsersCollection = getUserProfiles(potentialUsers);
 		return this.corefacade.startSimulation(modelId, currentUser,
 				potentialUsersCollection);
 	}
