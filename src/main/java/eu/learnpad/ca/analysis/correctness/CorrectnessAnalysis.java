@@ -5,10 +5,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.languagetool.AnalyzedSentence;
 import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
-import org.languagetool.language.AmericanEnglish;
 import org.languagetool.rules.RuleMatch;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
@@ -89,7 +87,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e);
 			return null;
 		}
 
@@ -155,7 +153,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e);
 			return null;
 		}
 
@@ -167,9 +165,6 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 	private int calculateAnnotations( String sentence,List<RuleMatch> matches, Content c, Integer id, List<Annotation> annotations){
 		int precedentposition=0;
 
-		
-
-		boolean flag = true;
 		int finalpos = 0;
 		for (RuleMatch match : matches) {
 

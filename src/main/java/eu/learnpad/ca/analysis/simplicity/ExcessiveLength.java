@@ -1,6 +1,5 @@
 package eu.learnpad.ca.analysis.simplicity;
 
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,8 +21,6 @@ import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import gate.DocumentContent;
-import gate.annotation.AnnotationImpl;
-import gate.creole.annic.apache.lucene.document.Document;
 import gate.util.InvalidOffsetException;
 
 public class ExcessiveLength extends AbstractAnalysisClass {

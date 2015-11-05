@@ -1,6 +1,5 @@
 package eu.learnpad.ca.rest.impl;
 
-import java.lang.Thread.State;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;

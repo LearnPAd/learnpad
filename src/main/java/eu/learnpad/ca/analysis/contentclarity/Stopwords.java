@@ -1,9 +1,8 @@
 package eu.learnpad.ca.analysis.contentclarity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+
 
 public class Stopwords {
 	private List<String> stopwordsList;

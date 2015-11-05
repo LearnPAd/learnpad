@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -44,7 +43,6 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	private static Integer id =0;
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ColloborativeContentVerificationsImpl.class);
 
-	private ServletContext context;
 
 
 	@Path("/")

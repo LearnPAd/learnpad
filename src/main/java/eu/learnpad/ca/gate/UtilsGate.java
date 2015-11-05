@@ -13,14 +13,12 @@ import gate.util.GateException;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletResponse;
 
 public class UtilsGate {
 
@@ -31,6 +29,10 @@ public class UtilsGate {
 
 	public UtilsGate(String content) {
 		CreateCorpusFromContent(content);
+	}
+	
+	public UtilsGate(File content) {
+		CreateCorpusFromFile(content);
 	}
 
 	
@@ -59,7 +61,7 @@ public class UtilsGate {
 	}
 
 
-	private void CreateCorpusFromFile(String TxtFile){
+	private void CreateCorpusFromFile(File TxtFile){
 		try {
 			// create a GATE corpus and add a document
 			// argument
@@ -67,7 +69,7 @@ public class UtilsGate {
 
 
 			Document doc = (Document)
-					Factory.newDocument(new File(TxtFile).toURI().toURL());
+					Factory.newDocument(TxtFile.toURI().toURL());
 			corpus.add(doc);
 
 		} catch (ResourceInstantiationException | MalformedURLException e) {
