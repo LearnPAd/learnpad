@@ -1,4 +1,4 @@
-package eu.learnpad.ca.analysis.simplicity;
+package eu.learnpad.ca.analysis.simplicity.plugin;
 
 
 import java.io.InputStream;
@@ -16,10 +16,10 @@ import org.languagetool.language.AmericanEnglish;
 import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
+import eu.learnpad.ca.analysis.simplicity.juridicaljargon.JuridaljargonSet;
+import eu.learnpad.ca.analysis.simplicity.juridicaljargon.Juridicaljargon;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Node;
-import eu.learnpad.ca.simplicity.juridicaljargon.JuridaljargonSet;
-import eu.learnpad.ca.simplicity.juridicaljargon.Juridicaljargon;
 import gate.DocumentContent;
 import gate.util.InvalidOffsetException;
 

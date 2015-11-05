@@ -1,4 +1,4 @@
-package eu.learnpad.ca.simplicity.juridicaljargon;
+package eu.learnpad.ca.analysis.simplicity.juridicaljargon;
 
 import java.util.ArrayList;
 import java.util.List;

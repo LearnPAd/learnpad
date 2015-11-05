@@ -21,7 +21,7 @@ import org.languagetool.language.Italian;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
-import eu.learnpad.ca.analysis.simplicity.JuridicalJargon;
+import eu.learnpad.ca.analysis.simplicity.plugin.JuridicalJargon;
 import eu.learnpad.ca.analysis.syntacticambiguity.SyntacticAmbiguity;
 import eu.learnpad.ca.rest.StaticContentVerifications;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;

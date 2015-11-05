@@ -10,6 +10,8 @@ import java.util.Set;
 import org.languagetool.Language;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
+import eu.learnpad.ca.analysis.simplicity.plugin.DifficultJargonAlternative;
+import eu.learnpad.ca.analysis.simplicity.plugin.JuridicalJargon;
 import eu.learnpad.ca.gate.UtilsGate;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;

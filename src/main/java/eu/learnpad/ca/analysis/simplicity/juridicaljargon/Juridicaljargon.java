@@ -1,4 +1,4 @@
-package eu.learnpad.ca.simplicity.juridicaljargon;
+package eu.learnpad.ca.analysis.simplicity.juridicaljargon;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

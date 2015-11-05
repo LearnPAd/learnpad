@@ -1,4 +1,4 @@
-package eu.learnpad.ca.analysis.simplicity;
+package eu.learnpad.ca.analysis.simplicity.plugin;
 
 
 

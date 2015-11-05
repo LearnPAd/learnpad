@@ -22,7 +22,8 @@ import org.languagetool.language.Italian;
 import org.languagetool.rules.RuleMatch;
 
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
-import eu.learnpad.ca.analysis.simplicity.JuridicalJargon;
+import eu.learnpad.ca.analysis.simplicity.juridicaljargon.JuridaljargonSet;
+import eu.learnpad.ca.analysis.simplicity.plugin.JuridicalJargon;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
@@ -31,7 +32,6 @@ import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
-import eu.learnpad.ca.simplicity.juridicaljargon.JuridaljargonSet;
 
 public class Main {
 
