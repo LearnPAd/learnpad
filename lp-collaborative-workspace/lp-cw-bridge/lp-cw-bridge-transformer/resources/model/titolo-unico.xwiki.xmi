@@ -81,7 +81,7 @@
     <property value="obj.13686" name="id" type="String"/>
     <property value="Start Event-83017" name="name" type="String"/>
     <property value="bpmn-event-start" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The process start when the SUAP office receives the SCIA request from the entrepreneur." name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="titolo-unico" name="obj.13689" title="Receive Instance" parent="mod\.13676" content=""/>
   <object wiki="xwiki" space="titolo-unico" pageName="obj.13689" className="LPCode.BaseElementClass" number="0">
@@ -153,7 +153,7 @@
     <property value="obj.13713" name="id" type="String"/>
     <property value="Intermediate Event (boundary)-83066" name="name" type="String"/>
     <property value="bpmn-event-intermediate" name="type" type="StaticList"/>
-    <property value="first implementation: display events as buttons to trigger change of flow" name="documentation" type="TextArea"/>
+    <property value="In any moment the &amp;amp;quot;Manage of 3rd Party Admin&amp;amp;quot; task can terminate and execute the next activities" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="titolo-unico" name="obj.13716" title="Intermediate Event (boundary)-83071" parent="mod\.13676" content=""/>
   <object wiki="xwiki" space="titolo-unico" pageName="obj.13716" className="LPCode.BaseElementClass" number="0">
@@ -161,7 +161,7 @@
     <property value="obj.13716" name="id" type="String"/>
     <property value="Intermediate Event (boundary)-83071" name="name" type="String"/>
     <property value="bpmn-event-intermediate" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="In any moment the &amp;amp;quot;Check Integration&amp;amp;quot; task can terminate and execute the next activities" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="titolo-unico" name="obj.13719" title="integration necessary?" parent="mod\.13676" content=""/>
   <object wiki="xwiki" space="titolo-unico" pageName="obj.13719" className="LPCode.BaseElementClass" number="0">
@@ -177,7 +177,7 @@
     <property value="obj.13722" name="id" type="String"/>
     <property value="End Event-83081" name="name" type="String"/>
     <property value="bpmn-event-end" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The process is terminated" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="titolo-unico" name="obj.13725" title="Exclusive Gateway-83095" parent="mod\.13676" content=""/>
   <object wiki="xwiki" space="titolo-unico" pageName="obj.13725" className="LPCode.BaseElementClass" number="0">
@@ -257,7 +257,7 @@
     <property value="obj.13811" name="id" type="String"/>
     <property value="Start Event-83148" name="name" type="String"/>
     <property value="bpmn-event-start" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess &amp;amp;quot;Manage of 3rd Party Admin&amp;amp;quot; is started" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="titolo-unico" name="obj.13814" title="Send Instance to Third Party" parent="mod\.13795" content=""/>
   <object wiki="xwiki" space="titolo-unico" pageName="obj.13814" className="LPCode.BaseElementClass" number="0">
@@ -297,7 +297,7 @@
     <property value="obj.13826" name="id" type="String"/>
     <property value="End Event-83205" name="name" type="String"/>
     <property value="bpmn-event-end" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess &amp;amp;quot;Manage of 3rd Party Admin&amp;amp;quot; related to the SUAP Office is terminated" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="titolo-unico" name="obj.13829" title="3rd Party Opinion" parent="mod\.13795" content=""/>
   <object wiki="xwiki" space="titolo-unico" pageName="obj.13829" className="LPCode.BaseElementClass" number="0">
@@ -329,7 +329,7 @@
     <property value="obj.25020" name="id" type="String"/>
     <property value="End Event-25020" name="name" type="String"/>
     <property value="bpmn-event-end" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess &amp;amp;quot;Manage of 3rd Party Admin&amp;amp;quot; related to the Agricolture Office is terminated" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="titolo-unico" name="obj.13869" title="Start Event-83232" parent="mod\.13868" content=""/>
   <object wiki="xwiki" space="titolo-unico" pageName="obj.13869" className="LPCode.BaseElementClass" number="0">
@@ -337,7 +337,7 @@
     <property value="obj.13869" name="id" type="String"/>
     <property value="Start Event-83232" name="name" type="String"/>
     <property value="bpmn-event-start" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess &amp;amp;quot;Manage Service Conference&amp;amp;quot; is started" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="titolo-unico" name="obj.13872" title="Activate Service Conference" parent="mod\.13868" content=""/>
   <object wiki="xwiki" space="titolo-unico" pageName="obj.13872" className="LPCode.BaseElementClass" number="0">
@@ -361,7 +361,7 @@
     <property value="obj.13878" name="id" type="String"/>
     <property value="Receive Confirmation" name="name" type="String"/>
     <property value="bpmn-event-intermediate" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The SUAP Office have to wait the confirmation from the conference" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="titolo-unico" name="obj.13881" title="End Event-83248" parent="mod\.13868" content=""/>
   <object wiki="xwiki" space="titolo-unico" pageName="obj.13881" className="LPCode.BaseElementClass" number="0">
@@ -369,7 +369,7 @@
     <property value="obj.13881" name="id" type="String"/>
     <property value="End Event-83248" name="name" type="String"/>
     <property value="bpmn-event-end" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess &amp;amp;quot;Manage Service Conference&amp;amp;quot; is terminated" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="titolo-unico" name="obj.13887" title="Instance SCIA" parent="mod\.13868" content=""/>
   <object wiki="xwiki" space="titolo-unico" pageName="obj.13887" className="LPCode.BaseElementClass" number="0">
@@ -1845,16 +1845,6 @@
     <property value="incoming" name="type" type="StaticList"/>
     <property value="obj.13731" name="uri" type="String"/>
   </object>
-  <object wiki="xwiki" space="titolo-unico" pageName="obj.13731" className="LPCode.LinkClass" number="1">
-    <property value="con.13789" name="id" type="String"/>
-    <property value="outgoing" name="type" type="StaticList"/>
-    <property value="obj.13707" name="uri" type="String"/>
-  </object>
-  <object wiki="xwiki" space="titolo-unico" pageName="obj.13707" className="LPCode.LinkClass" number="5">
-    <property value="con.13789" name="id" type="String"/>
-    <property value="incoming" name="type" type="StaticList"/>
-    <property value="obj.13731" name="uri" type="String"/>
-  </object>
   <object wiki="xwiki" space="titolo-unico" pageName="obj.13734" className="LPCode.LinkClass" number="1">
     <property value="con.13790" name="id" type="String"/>
     <property value="outgoing" name="type" type="StaticList"/>
@@ -1895,7 +1885,7 @@
     <property value="incoming" name="type" type="StaticList"/>
     <property value="obj.13734" name="uri" type="String"/>
   </object>
-  <object wiki="xwiki" space="titolo-unico" pageName="obj.13731" className="LPCode.LinkClass" number="2">
+  <object wiki="xwiki" space="titolo-unico" pageName="obj.13731" className="LPCode.LinkClass" number="1">
     <property value="con.24801" name="id" type="String"/>
     <property value="outgoing" name="type" type="StaticList"/>
     <property value="obj.13680" name="uri" type="String"/>
@@ -1924,6 +1914,16 @@
     <property value="con.24808" name="id" type="String"/>
     <property value="incoming" name="type" type="StaticList"/>
     <property value="obj.13722" name="uri" type="String"/>
+  </object>
+  <object wiki="xwiki" space="titolo-unico" pageName="obj.13707" className="LPCode.LinkClass" number="5">
+    <property value="con.27202" name="id" type="String"/>
+    <property value="outgoing" name="type" type="StaticList"/>
+    <property value="obj.13731" name="uri" type="String"/>
+  </object>
+  <object wiki="xwiki" space="titolo-unico" pageName="obj.13731" className="LPCode.LinkClass" number="2">
+    <property value="con.27202" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13707" name="uri" type="String"/>
   </object>
   <object wiki="xwiki" space="titolo-unico" pageName="obj.24407" className="LPCode.LinkClass" number="0">
     <property value="con.13835" name="id" type="String"/>
@@ -2195,16 +2195,6 @@
     <property value="incoming" name="type" type="StaticList"/>
     <property value="obj.13829" name="uri" type="String"/>
   </object>
-  <object wiki="xwiki" space="titolo-unico" pageName="obj.13829" className="LPCode.LinkClass" number="2">
-    <property value="con.13863" name="id" type="String"/>
-    <property value="outgoing" name="type" type="StaticList"/>
-    <property value="obj.13817" name="uri" type="String"/>
-  </object>
-  <object wiki="xwiki" space="titolo-unico" pageName="obj.13817" className="LPCode.LinkClass" number="5">
-    <property value="con.13863" name="id" type="String"/>
-    <property value="incoming" name="type" type="StaticList"/>
-    <property value="obj.13829" name="uri" type="String"/>
-  </object>
   <object wiki="xwiki" space="titolo-unico" pageName="obj.13832" className="LPCode.LinkClass" number="2">
     <property value="con.13864" name="id" type="String"/>
     <property value="outgoing" name="type" type="StaticList"/>
@@ -2264,6 +2254,16 @@
     <property value="con.25024" name="id" type="String"/>
     <property value="incoming" name="type" type="StaticList"/>
     <property value="obj.25020" name="uri" type="String"/>
+  </object>
+  <object wiki="xwiki" space="titolo-unico" pageName="obj.13817" className="LPCode.LinkClass" number="5">
+    <property value="con.27201" name="id" type="String"/>
+    <property value="outgoing" name="type" type="StaticList"/>
+    <property value="obj.13829" name="uri" type="String"/>
+  </object>
+  <object wiki="xwiki" space="titolo-unico" pageName="obj.13829" className="LPCode.LinkClass" number="2">
+    <property value="con.27201" name="id" type="String"/>
+    <property value="incoming" name="type" type="StaticList"/>
+    <property value="obj.13817" name="uri" type="String"/>
   </object>
   <object wiki="xwiki" space="titolo-unico" pageName="obj.13869" className="LPCode.LinkClass" number="0">
     <property value="con.13890" name="id" type="String"/>

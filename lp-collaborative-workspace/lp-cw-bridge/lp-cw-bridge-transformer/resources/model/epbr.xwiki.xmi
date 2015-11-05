@@ -65,7 +65,7 @@
     <property value="obj.25874" name="id" type="String"/>
     <property value="Receive Project Acceptance Notification " name="name" type="String"/>
     <property value="bpmn-event-start" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="Receive Project Acceptance Notification " name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="epbr" name="obj.25877" title="Sign Grant Agreement" parent="mod\.25873" content=""/>
   <object wiki="xwiki" space="epbr" pageName="obj.25877" className="LPCode.BaseElementClass" number="0">
@@ -89,7 +89,7 @@
     <property value="obj.25883" name="id" type="String"/>
     <property value="Within 60 days from the sign" name="name" type="String"/>
     <property value="bpmn-event-intermediate" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="Within 60 days from the sign" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="epbr" name="obj.25886" title="Open Bank Account" parent="mod\.25873" content=""/>
   <object wiki="xwiki" space="epbr" pageName="obj.25886" className="LPCode.BaseElementClass" number="0">
@@ -137,7 +137,7 @@
     <property value="obj.25901" name="id" type="String"/>
     <property value="End Event-12460" name="name" type="String"/>
     <property value="bpmn-event-end" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The process is terminated" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="epbr" name="obj.25904" title="Grant Agreement (created)" parent="mod\.25873" content=""/>
   <object wiki="xwiki" space="epbr" pageName="obj.25904" className="LPCode.BaseElementClass" number="0">
@@ -305,7 +305,7 @@
     <property value="obj.26016" name="id" type="String"/>
     <property value="Start Event-12618" name="name" type="String"/>
     <property value="bpmn-event-start" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess &amp;amp;quot;Manage Periodic Report&amp;amp;quot; is started" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="epbr" name="obj.26019" title="Calculate Direct Cost" parent="mod\.26015" content=""/>
   <object wiki="xwiki" space="epbr" pageName="obj.26019" className="LPCode.BaseElementClass" number="0">
@@ -433,7 +433,7 @@
     <property value="obj.26064" name="id" type="String"/>
     <property value="End Event-12731" name="name" type="String"/>
     <property value="bpmn-event-end" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess &amp;amp;quot;Manage Periodic Report&amp;amp;quot; is terminated" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="epbr" name="obj.26067" title="Include the Activity DOCs" parent="mod\.26015" content=""/>
   <object wiki="xwiki" space="epbr" pageName="obj.26067" className="LPCode.BaseElementClass" number="0">
@@ -545,7 +545,7 @@
     <property value="obj.26126" name="id" type="String"/>
     <property value="Start Event-12785" name="name" type="String"/>
     <property value="bpmn-event-start" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess &amp;amp;quot;Provide Periodic Report&amp;amp;quot; is started" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="epbr" name="obj.26129" title="End Event-12789" parent="mod\.26110" content=""/>
   <object wiki="xwiki" space="epbr" pageName="obj.26129" className="LPCode.BaseElementClass" number="0">
@@ -553,7 +553,7 @@
     <property value="obj.26129" name="id" type="String"/>
     <property value="End Event-12789" name="name" type="String"/>
     <property value="bpmn-event-end" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess &amp;amp;quot;Provide Periodic Report&amp;amp;quot; is terminated" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="epbr" name="obj.26132" title="Send Periodic Report Request " parent="mod\.26110" content=""/>
   <object wiki="xwiki" space="epbr" pageName="obj.26132" className="LPCode.BaseElementClass" number="0">
@@ -841,7 +841,7 @@
     <property value="obj.26282" name="id" type="String"/>
     <property value="Start Event-12884" name="name" type="String"/>
     <property value="bpmn-event-start" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess &amp;amp;quot;Manage Scientific Activities&amp;amp;quot; is started" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="epbr" name="obj.26285" title="Write Deliverable" parent="mod\.26281" content=""/>
   <object wiki="xwiki" space="epbr" pageName="obj.26285" className="LPCode.BaseElementClass" number="0">
@@ -881,7 +881,7 @@
     <property value="obj.26297" name="id" type="String"/>
     <property value="End Event-12909" name="name" type="String"/>
     <property value="bpmn-event-end" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess &amp;amp;quot;Manage Scientific Activities&amp;amp;quot; is terminated" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="epbr" name="obj.26300" title="Go to Event" parent="mod\.26281" content=""/>
   <object wiki="xwiki" space="epbr" pageName="obj.26300" className="LPCode.BaseElementClass" number="0">
@@ -897,7 +897,7 @@
     <property value="obj.26314" name="id" type="String"/>
     <property value="Start Event-13116" name="name" type="String"/>
     <property value="bpmn-event-start" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess &amp;amp;quot;Manage Final Report&amp;amp;quot; is started" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="epbr" name="obj.26317" title="Write Publishable Summary" parent="mod\.26313" content=""/>
   <object wiki="xwiki" space="epbr" pageName="obj.26317" className="LPCode.BaseElementClass" number="0">
@@ -929,7 +929,7 @@
     <property value="obj.26326" name="id" type="String"/>
     <property value="End Event-13130" name="name" type="String"/>
     <property value="bpmn-event-end" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess &amp;amp;quot;Manage Final Report&amp;amp;quot; is terminated" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="epbr" name="obj.26329" title="Submit Final Report" parent="mod\.26313" content=""/>
   <object wiki="xwiki" space="epbr" pageName="obj.26329" className="LPCode.BaseElementClass" number="0">
@@ -953,7 +953,7 @@
     <property value="obj.26344" name="id" type="String"/>
     <property value="Start Event-13135" name="name" type="String"/>
     <property value="bpmn-event-start" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess &amp;amp;quot;Manage Amendment Request&amp;amp;quot; is started" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="epbr" name="obj.26347" title="Fill the Amendment Template" parent="mod\.26343" content=""/>
   <object wiki="xwiki" space="epbr" pageName="obj.26347" className="LPCode.BaseElementClass" number="0">
@@ -1009,7 +1009,7 @@
     <property value="obj.26365" name="id" type="String"/>
     <property value="End Event-13173" name="name" type="String"/>
     <property value="bpmn-event-end" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess &amp;amp;quot;Manage Amendment Request&amp;amp;quot; is terminated" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="epbr" name="obj.26368" title="Amendment Template [Signed created]" parent="mod\.26343" content=""/>
   <object wiki="xwiki" space="epbr" pageName="obj.26368" className="LPCode.BaseElementClass" number="0">
@@ -1329,7 +1329,7 @@
     <property value="obj.26522" name="id" type="String"/>
     <property value="Start Event-13774" name="name" type="String"/>
     <property value="bpmn-event-start" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess Go To Event start" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="epbr" name="obj.26525" title="Provide Mission Request" parent="mod\.26521" content=""/>
   <object wiki="xwiki" space="epbr" pageName="obj.26525" className="LPCode.BaseElementClass" number="0">
@@ -1369,7 +1369,7 @@
     <property value="obj.26537" name="id" type="String"/>
     <property value="End Event-13789" name="name" type="String"/>
     <property value="bpmn-event-end" name="type" type="StaticList"/>
-    <property value="" name="documentation" type="TextArea"/>
+    <property value="The subprocess Go To Event is terminated" name="documentation" type="TextArea"/>
   </object>
   <page wiki="xwiki" space="epbr" name="obj.26540" title="Mission Request Form" parent="mod\.26521" content=""/>
   <object wiki="xwiki" space="epbr" pageName="obj.26540" className="LPCode.BaseElementClass" number="0">
