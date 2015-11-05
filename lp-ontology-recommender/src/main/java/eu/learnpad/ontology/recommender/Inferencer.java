@@ -40,7 +40,7 @@ public class Inferencer {
         // Register any new functions defined in EO
         //SPINFunctions.init();
         SPINModuleRegistry.get().registerAll(model, null);
-        SPINInferences.run(model, inferedModel, null, null, false, null);
+        SPINInferences.run(model, inferedModel, null, null, true, null);
     }
 
     public OntModel getModel() {

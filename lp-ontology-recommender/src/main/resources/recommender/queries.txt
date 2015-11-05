@@ -3,29 +3,28 @@
 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#>  
 prefix emo: <http://ikm-group.ch/archiMEO/emo#>
+prefix eo: <http://ikm-group.ch/archiMEO/eo#>
 prefix lpd: <http://learnpad.eu#>
 prefix omm: <http://ikm-group.ch/archiMEO/omm#>
 prefix foaf: <http://xmlns.com/foaf/spec#>
 prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
-SELECT DISTINCT ?organisationalUnitName ?lineManagerName ?email ?phone
+SELECT DISTINCT ?name ?businessActor ?email ?phone ?roleName ?organisationalUnitName
 WHERE {
-    ?performer emo:performerHasEmailAddress "barnaby.barnes@fhnw.ch" .
+    ?performer emo:performerHasEmailAddress ?userId .
     ?performer omm:performerHasRole ?role .
-    ?role lpd:roleIsCastedByOrganisationalUnit ?organisationalUnit .
-    ?organisationalUnit ?eo:organisationalUnitIsHeadedByPerson ?lineManager .
+    ?role lpd:roleIsCastedByOrgUnit ?organisationalUnit .
+    ?organisationalUnit eo:organisationalUnitIsHeadedByPerson ?lineManager .
     ?organisationalUnit rdfs:label ?organisationalUnitName .
-    ?lineManager rdfs:label ?lineManagerName .    
-    ?lineManagerName emo:performerRepresentsPerson ?businessActor .
-    OPTIONAL {
-        ?businessActor foaf:mbox ?email .
-    } .
+    ?lineManager rdfs:label ?name .    
+    ?lineManager emo:performerHasEmailAddress ?email .
+    ?lineManager emo:performerRepresentsPerson ?businessActor .
     OPTIONAL {
         ?businessActor foaf:phone ?phone .
     } .
 }
 ##END##
 ##START## QUERY:expertsWithSameRole
-##COMMENT:Experts in another organisational unit with the same role (name) assigned
+##COMMENT:Expert in another organisational unit with the same role (name) assigned
 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#>  
 prefix emo: <http://ikm-group.ch/archiMEO/emo#>
@@ -33,14 +32,14 @@ prefix lpd: <http://learnpad.eu#>
 prefix omm: <http://ikm-group.ch/archiMEO/omm#>
 prefix foaf: <http://xmlns.com/foaf/spec#>
 prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
-SELECT DISTINCT ?otherPerformerName ?businessActor ?email ?phone ?roleName
+SELECT DISTINCT ?name ?businessActor ?email ?phone ?roleName
 WHERE {
     ?performer emo:performerHasEmailAddress ?userId .
     ?performer omm:performerHasRole ?role .
     ?role rdfs:label ?roleName .
     ?sameRoleInOtherUnit rdfs:label ?roleName .
     ?performerInOtherUnit omm:performerHasRole ?sameRoleInOtherUnit .
-    ?performerInOtherUnit rdfs:label ?otherPerformerName .
+    ?performerInOtherUnit rdfs:label ?name .
     ?performerInOtherUnit emo:performerHasEmailAddress ?email .
     FILTER (?sameRoleInOtherUnit != ?role) .
     ?performerInOtherUnit emo:performerRepresentsPerson ?businessActor .
@@ -50,7 +49,8 @@ WHERE {
 }
 ##END##
 ##START## QUERY:expertMostOftenExecutedTask
-##COMMENT:Experts who has executed the same task most often
+##COMMENT:Expert who has executed the same task most often
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#>  
 prefix emo: <http://ikm-group.ch/archiMEO/emo#>
@@ -58,23 +58,28 @@ prefix lpd: <http://learnpad.eu#>
 prefix omm: <http://ikm-group.ch/archiMEO/omm#>
 prefix foaf: <http://xmlns.com/foaf/spec#>
 prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
-SELECT ?experiencedPerformerName ?email
+prefix transfer: <http://learnpad.eu/transfer#>
+SELECT DISTINCT ?name ?businessActor ?email ?phone ?roleName ?organisationalUnitName
 WHERE {
-	{
-		SELECT ?experiencedPerformer (count(?executedTaskInstance) AS ?count)	
-		WHERE {
-			?taskInstance rdf:type bpmn:Task .
-			?executedTaskInstance rdf:type ?taskInstance .
-   		 	?executedTaskInstance emo:activityIsPerformedByPerformer ?experiencedPerformer .
-			?currentPerformer emo:performerHasEmailAddress "barnaby.barnes@fhnw.ch" .
-			FILTER(?currentPerformer != ?experiencedPerformer)
-		} GROUP BY ?experiencedPerformer
-	}
-	?experiencedPerformer rdfs:label ?experiencedPerformerName .
-    ?experiencedPerformer emo:performerRepresentsPerson ?experiencedPerformerBusinessActor .
+  {
+    SELECT ?experiencedPerformer (count(?executedTaskInstance) AS ?count)	
+      WHERE {
+          ?executedTaskInstance rdf:type ?artifactId .
+          ?executedTaskInstance emo:activityIsPerformedByPerformer ?experiencedPerformer .
+          ?currentPerformer emo:performerHasEmailAddress ?userId .
+          FILTER(?currentPerformer != ?experiencedPerformer)
+      } GROUP BY ?experiencedPerformer
+    }
+    ?experiencedPerformer rdfs:label ?name .
+    ?experiencedPerformer emo:performerHasEmailAddress ?email .
+    ?experiencedPerformer emo:performerRepresentsPerson ?businessActor .
+    ?experiencedPerformer omm:performerHasRole ?role .
+    ?role rdfs:label ?roleName .
+    ?role lpd:roleIsCastedByOrgUnit ?organisationalUnit .
+    ?organisationalUnit rdfs:label ?organisationalUnitName .
     OPTIONAL {
-        	?experiencedPerformerBusinessActor foaf:mbox ?email .
-   	} 
+        ?businessActor foaf:phone ?phone .
+    } .
 } ORDER BY DESC (?count ) LIMIT 1
 ##END##
 ##START## QUERY:learningObjectsForRestructuringInProtectedLandscapeArea

@@ -482,11 +482,18 @@ ________________________________________________________________________________
 		</xsl:call-template>
 		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
 		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Role']/@id">
-  		     <xsl:call-template name="addInModelConnectionForPerformer">
+  		     <xsl:call-template name="addInModelConnectionForPerformerHasRole">
 			  <xsl:with-param name="toId" select="."/>
 		     </xsl:call-template>
 		  </xsl:for-each>
-		</xsl:for-each>		
+		</xsl:for-each>
+		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
+		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Organizational unit']/@id">
+  		     <xsl:call-template name="addInModelConnectionForPerformerIsManagerOf">
+			  <xsl:with-param name="toId" select="."/>
+		     </xsl:call-template>
+		  </xsl:for-each>
+		</xsl:for-each>
           <xsl:call-template name="elementPostProcessing"/>		
 	</xsl:template>
 <!--...............................................................................................-->	

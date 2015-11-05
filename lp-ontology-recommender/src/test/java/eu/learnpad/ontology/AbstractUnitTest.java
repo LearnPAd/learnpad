@@ -24,6 +24,7 @@ public abstract class AbstractUnitTest {
     
     public static final String TEST_MODEL_SET_ID_TITOLO_UNICO_V5 = "modelset-titolo-unico-v5";
     public static final String TEST_USER_2_EMAIL= "barnaby.barnes@learnpad.com";
+    public static final String TEST_TITOLO_UNICO_V5_ARTIFACT_ID = "obj.13872";
 
     protected void testPath(String configKey) {
         for (String pathString : APP.CONF.getStringArray(configKey)) {
