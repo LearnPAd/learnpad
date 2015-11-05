@@ -1,4 +1,4 @@
-package eu.learnpad.ca.analysis.contentclarity;
+package eu.learnpad.ca.analysis.contentclarity.plugin;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

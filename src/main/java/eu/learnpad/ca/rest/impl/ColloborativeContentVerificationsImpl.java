@@ -21,7 +21,7 @@ import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
-import eu.learnpad.ca.analysis.contentclarity.UnclearAcronym;
+import eu.learnpad.ca.analysis.contentclarity.plugin.UnclearAcronym;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.SyntacticAmbiguity;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
