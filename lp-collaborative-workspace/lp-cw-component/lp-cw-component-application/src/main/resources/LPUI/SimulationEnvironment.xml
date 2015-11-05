@@ -28,11 +28,11 @@
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
   <creationDate>1443540514000</creationDate>
-  <parent>WebHome</parent>
+  <parent>WebIDE.LearnPAd</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1446654955000</date>
-  <contentUpdateDate>1446654955000</contentUpdateDate>
+  <date>1446725130000</date>
+  <contentUpdateDate>1446725130000</contentUpdateDate>
   <version>1.1</version>
   <title>Simulation of $!{xwiki.getDocument($services.model.createDocumentReference($xcontext.database, $request.getParameter('modelsetid'), $request.getParameter('modelid'))).getObject('LPCode.ModelClass').getProperty('name').value}</title>
   <comment/>
@@ -45,14 +45,12 @@
 #set ($query = 'from doc.object(XWiki.XWikiUsers) as user')
 #set ($results = $services.query.xwql($query).execute())
 #set ($potentialUsers = [])
-#set($discard = $potentialUsers.add("${xcontext.getUser()}"))
+#set($currentUser = "${xcontext.user}")
+#set($discard = $potentialUsers.add($currentUser))
 #foreach($result in $results)
   #set($discard = $potentialUsers.add("$result"))
 #end
-#set ($modelid = "SUAPdemo")
-#set ($simulationURL = "uisingleprocess?processid=SUAPdemo")
 #set ($simulationURL = "$services.learnpad.startSimulation($modelid, $currentUser, $potentialUsers)")
-$simulationURL
 #set ($backReference = $services.model.createDocumentReference($xcontext.database, ${modelsetid}, ${modelid}))
 [[$services.icon.render('left') $services.localization.render('SimulationEnvironment.goback')&gt;&gt;path:${xwiki.getURL($backReference)}]]
 {{html clean="false"}}
