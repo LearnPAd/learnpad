@@ -199,7 +199,7 @@ public class JuridicalJargon extends  AbstractAnalysisClass{
 				a.setEndNode(end.getId());
 				a.setStartNode(init.getId());
 				a.setType("Simplicity");
-				a.setRecommendation("juridical jargon, use simpler terms");
+				a.setRecommendation("The term "+token+" is juridical jargon. Substitute "+token+" with a more common term.");
 				annotations.add(a);
 
 			}

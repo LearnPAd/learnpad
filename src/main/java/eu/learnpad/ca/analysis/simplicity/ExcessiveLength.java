@@ -100,7 +100,7 @@ public class ExcessiveLength extends AbstractAnalysisClass {
 		annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 		annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 		annotatedCollaborativeContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-		annotatedCollaborativeContent.setType("Simplicity Exce Len");
+		annotatedCollaborativeContent.setType("Simplicity Excessive Length");
 
 
 
@@ -205,7 +205,7 @@ public class ExcessiveLength extends AbstractAnalysisClass {
 		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 		annotatedStaticContent.setOverallQualityMeasure(qualitymmeasure+"%");
 		annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-		annotatedStaticContent.setType("Correctness");
+		annotatedStaticContent.setType("Simplicity Excessive Length");
 
 		return annotatedStaticContent;
 

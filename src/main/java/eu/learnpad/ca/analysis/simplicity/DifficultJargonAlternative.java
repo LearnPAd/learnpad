@@ -220,7 +220,7 @@ public class DifficultJargonAlternative  extends  AbstractAnalysisClass{
 				a.setType("Simplicity DifficultJargon Alternative");
 				
 				String suggestion = listAltTermSet.get(listAltTermSet.indexOf(tmptoken)).getSuggestion();
-				a.setRecommendation("Please replace with: "+suggestion);
+				a.setRecommendation("The term "+tmptoken+" is difficult. Please replace with: "+suggestion);
 				annotations.add(a);
 
 			}

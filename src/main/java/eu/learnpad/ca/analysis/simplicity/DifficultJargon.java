@@ -8,11 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
 import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
 
@@ -177,7 +173,7 @@ public class DifficultJargon  extends  AbstractAnalysisClass{
 				a.setEndNode(end.getId());
 				a.setStartNode(init.getId());
 				a.setType("Simplicity DifficultJargon");
-				a.setRecommendation("DifficultJargon "+token);
+				a.setRecommendation("The term "+token+" is difficult. Substitute "+token+" with a simpler term.");
 				annotations.add(a);
 
 			}
