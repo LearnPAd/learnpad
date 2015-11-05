@@ -24,13 +24,11 @@ package eu.learnpad.simulator.utils;
  * #L%
  */
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -108,25 +106,31 @@ public class BPMNExplorer {
 		// for all data objects, read its attributes
 		for (String dataObject : mutDataObjects) {
 
-			Path path;
 			try {
-				path = Paths.get(this
-						.getClass()
-						.getClassLoader()
-						.getResource(
-								DATA_OBJECTS_FOLDER
-								+ "/"
-								+ mutDataObjectsIdtoName
-								.get(dataObject)).toURI());
 
-				List<String> elements = Files.readAllLines(path,
-						Charset.defaultCharset());
+				List<String> elements = new ArrayList<String>();
+
+				try (BufferedReader br = new BufferedReader(
+						new InputStreamReader(this
+
+								.getClass()
+								.getClassLoader()
+								.getResourceAsStream(
+										DATA_OBJECTS_FOLDER
+										+ "/"
+										+ mutDataObjectsIdtoName
+										.get(dataObject))));
+
+						) {
+					String line;
+					while ((line = br.readLine()) != null) {
+						elements.add(line);
+					}
+				}
 
 				mutDataObjectContent.put(dataObject, elements);
 			} catch (IOException e) {
 				e.printStackTrace();
-			} catch (URISyntaxException e1) {
-				e1.printStackTrace();
 			}
 		}
 
