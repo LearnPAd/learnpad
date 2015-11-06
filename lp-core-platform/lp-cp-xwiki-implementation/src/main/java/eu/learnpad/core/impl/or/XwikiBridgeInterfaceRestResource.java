@@ -98,21 +98,24 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		InputStream feedbacksStream = null;
+		InputStream expertsStream = null;
 		try {
-			feedbacksStream = getMethod.getResponseBodyAsStream();
+			expertsStream = getMethod.getResponseBodyAsStream();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Recommendations recommendations = null;
-		try {
-			JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
-			Unmarshaller unmarshaller = jc.createUnmarshaller();
-			recommendations = (Recommendations) unmarshaller.unmarshal(feedbacksStream);
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (expertsStream != null) {
+			try {
+				JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
+				Unmarshaller unmarshaller = jc.createUnmarshaller();
+				recommendations = (Recommendations) unmarshaller
+						.unmarshal(expertsStream);
+			} catch (JAXBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return recommendations;
 		/*
