@@ -202,9 +202,15 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 	public String addProcessInstance(String processKey,
 			Collection<UserData> potentialUsers, String currentUser) {
 
+		// Convert the collection into a Set
+		// This ensures that we will have no duplicate.
+		// Otherwise we could add the same user twice, since we only check
+		// against the old user list
+		Set<UserData> uniqueUsers = new HashSet<UserData>(potentialUsers);
+
 		// add users that were not yet present in the platform
 		Collection<String> users = simulator.userHandler().getUsers();
-		for (UserData user : potentialUsers) {
+		for (UserData user : uniqueUsers) {
 			if (!users.contains(user.id)) {
 				simulator.userHandler().addUser(user.id);
 			}
