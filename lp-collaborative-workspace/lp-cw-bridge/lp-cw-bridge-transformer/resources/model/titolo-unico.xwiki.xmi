@@ -3935,4 +3935,24 @@
     <property value="incoming-weaving" name="type" type="StaticList"/>
     <property value="obj.14354" name="uri" type="String"/>
   </object>
+  <object wiki="xwiki" space="titolo-unico" pageName="obj.13695" className="LPCode.LinkClass" number="6">
+    <property value="" name="id" type="String"/>
+    <property value="outgoing-weaving" name="type" type="StaticList"/>
+    <property value="mod.13795" name="uri" type="String"/>
+  </object>
+  <object wiki="xwiki" space="titolo-unico" pageName="mod.13795" className="LPCode.LinkClass" number="0">
+    <property value="" name="id" type="String"/>
+    <property value="incoming-weaving" name="type" type="StaticList"/>
+    <property value="obj.13695" name="uri" type="String"/>
+  </object>
+  <object wiki="xwiki" space="titolo-unico" pageName="obj.13698" className="LPCode.LinkClass" number="5">
+    <property value="" name="id" type="String"/>
+    <property value="outgoing-weaving" name="type" type="StaticList"/>
+    <property value="mod.13868" name="uri" type="String"/>
+  </object>
+  <object wiki="xwiki" space="titolo-unico" pageName="mod.13868" className="LPCode.LinkClass" number="0">
+    <property value="" name="id" type="String"/>
+    <property value="incoming-weaving" name="type" type="StaticList"/>
+    <property value="obj.13698" name="uri" type="String"/>
+  </object>
 </xwiki:DocumentRoot>
