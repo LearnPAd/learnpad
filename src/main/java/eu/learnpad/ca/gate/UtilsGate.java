@@ -23,6 +23,7 @@ import java.util.Set;
 public class UtilsGate {
 
 	private Corpus corpus;
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(UtilsGate.class);
 
 
 
@@ -53,8 +54,7 @@ public class UtilsGate {
 			corpus.add(doc);
 
 		} catch (ResourceInstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e.getMessage());
 
 		}
 
@@ -73,8 +73,8 @@ public class UtilsGate {
 			corpus.add(doc);
 
 		} catch (ResourceInstantiationException | MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e.getMessage());
+
 
 		}
 
@@ -97,7 +97,8 @@ public class UtilsGate {
 
 			JapeCollection.add(len_nominal);
 		}catch(IOException e){
-			e.printStackTrace();
+			log.error(e.getMessage());
+
 		}
 		return JapeCollection;
 	}
@@ -110,10 +111,10 @@ public class UtilsGate {
 					.createResource("gate.creole.SerialAnalyserController");
 
 			for(int pr = 0; pr < processingResources.length; pr++) {
-				System.out.print("\t* Loading " + processingResources[pr] + " ... ");
+				log.info("\t* Loading " + processingResources[pr] + " ... ");
 				pipeline.add((gate.LanguageAnalyser)Factory
 						.createResource(processingResources[pr]));
-				System.out.println("done");
+				log.info("done");
 			}
 
 
@@ -127,15 +128,15 @@ public class UtilsGate {
 
 
 
-			System.out.print("Creating corpus from documents obtained...");
+			log.info("Creating corpus from documents obtained...");
 			pipeline.setCorpus(corpus);
-			System.out.println("done");
+			log.info("done");
 
-			System.out.print("Running processing resources over corpus...");
+			log.info("Running processing resources over corpus...");
 			pipeline.execute();
-			System.out.println("done");
+			log.info("done");
 		}catch(GateException  e){
-			e.printStackTrace();
+			log.error(e.getMessage());
 		} 
 	}
 
@@ -154,13 +155,13 @@ public class UtilsGate {
 				Set<Annotation> peopleAndPlaces =
 						new HashSet<Annotation>(defaultAnnotSet.get(annotTypesRequired));
 
-				System.out.println(peopleAndPlaces);
 				return peopleAndPlaces;
 
 			} // for each doc
-			System.out.println("fine");
+			log.info("fine");
 		}catch(Exception e){
-			e.printStackTrace();
+			log.error(e.getMessage());
+
 
 		}
 		return null;

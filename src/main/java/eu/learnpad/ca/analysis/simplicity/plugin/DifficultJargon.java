@@ -1,4 +1,4 @@
-package eu.learnpad.ca.analysis.simplicity.plugin;
+/*package eu.learnpad.ca.analysis.simplicity.plugin;
 
 
 
@@ -182,13 +182,13 @@ public class DifficultJargon  extends  AbstractAnalysisClass{
 			String stringap = sentence.substring(precedentposition, sentence.length());
 			c.setContent(stringap);
 		}
-		/*if(annotations.size()==0){
+		if(annotations.size()==0){
 			c.setContent(sentence);
-		}*/
+		}
 
 		return nodeid;
 
 	}
 
 	
-}
+}*/

@@ -130,7 +130,7 @@ public class Main {
 
 	}
 
-	public static void testwrite(){
+	/*public static void testwrite(){
 		AnnotatedStaticContentAnalysis asca = new AnnotatedStaticContentAnalysis();
 		asca.setId(1234);
 		asca.setOverallQuality("overallquality");
@@ -182,7 +182,7 @@ public class Main {
 			matches = langTool.check(text);
 			System.out.println(text);
 
-	/*		List<String> st = langTool.sentenceTokenize(text);
+			List<String> st = langTool.sentenceTokenize(text);
 			for (String string : st) {
 				System.out.println(string);
 			}
@@ -197,7 +197,7 @@ public class Main {
 			}
 
 			AnalyzedSentence se = langTool.getAnalyzedSentence(text);
-			*/
+			
 			
 			
 			for (RuleMatch match : matches) {
@@ -244,5 +244,5 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 }

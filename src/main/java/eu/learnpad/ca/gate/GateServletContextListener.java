@@ -9,10 +9,11 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 public class GateServletContextListener implements ServletContextListener{
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(GateServletContextListener.class);
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
-		System.out.println("ServletContextListener destroyed");
+		log.info("ServletContextListener destroyed");
 
 	}
 
@@ -40,10 +41,10 @@ public class GateServletContextListener implements ServletContextListener{
 			}
 
 		} 
-		catch(Exception ex) { 
-			ex.printStackTrace();
+		catch(Exception e) { 
+			log.error(e.getMessage());
 		} 
-		System.out.println("ServletContextListener started");	
+		log.info("ServletContextListener started");	
 	}
 
 }

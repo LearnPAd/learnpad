@@ -8,12 +8,12 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-		"description"
+		"Description"
 })
 public  class Juridicaljargon {
 
-	@XmlElement(required = true)
-	protected String description;
+	@XmlElement(name="description", required = true)
+	protected String Description;
 	@XmlAttribute(name = "jj")
 	protected String jj;
 	@XmlAttribute(name = "ref")
@@ -36,7 +36,7 @@ public  class Juridicaljargon {
 	 *     
 	 */
 	public String getDescription() {
-		return description;
+		return Description;
 	}
 
 	/**
@@ -48,7 +48,7 @@ public  class Juridicaljargon {
 	 *     
 	 */
 	public void setDescription(String value) {
-		this.description = value;
+		this.Description = value;
 	}
 
 	/**
@@ -101,7 +101,7 @@ public  class Juridicaljargon {
 
 	@Override
 	public String toString() {
-		return "Juridicaljargon=" + jj + ", description=" + description
+		return "Juridicaljargon=" + jj + ", description=" + Description
 				+ ", ref=" + ref + "\n";
 	}
 

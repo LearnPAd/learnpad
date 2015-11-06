@@ -1,4 +1,4 @@
-package eu.learnpad.ca.analysis.simplicity.plugin;
+/*package eu.learnpad.ca.analysis.simplicity.plugin;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -161,7 +161,7 @@ public class ExcessiveLength extends AbstractAnalysisClass {
 		String idc = staticContentInput.getStaticContent().getId();
 		String content = staticContentInput.getStaticContent().getContentplain();
 
-		/*JLanguageTool langTool = new JLanguageTool(language);
+		JLanguageTool langTool = new JLanguageTool(language);
 
 		List<RuleMatch> matches;
 		try {
@@ -170,7 +170,7 @@ public class ExcessiveLength extends AbstractAnalysisClass {
 
 			List<String> listsentence = langTool.sentenceTokenize(content);
 
-		 */
+		 
 
 		annotatedStaticContent = new AnnotatedStaticContentAnalysis();
 		StaticContent sc = new StaticContent();
@@ -209,3 +209,4 @@ public class ExcessiveLength extends AbstractAnalysisClass {
 	}
 
 }
+*/
