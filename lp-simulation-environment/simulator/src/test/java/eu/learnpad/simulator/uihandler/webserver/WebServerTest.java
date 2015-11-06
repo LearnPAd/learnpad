@@ -120,7 +120,7 @@ public class WebServerTest {
 				// set server ip for local content (since it is done on the
 				// pages served by the server)
 				localPageContent = localPageContent.replace(
-						"#serveripaddress#", "\"" + WebServer.getIPAdress()
+						"#serveripaddress#", "\"" + WebServer.getIPAddress()
 						+ ":" + MainTest.PORT + "\"");
 
 				byte[] fetchedFileDigest = checksum(new ByteArrayInputStream(

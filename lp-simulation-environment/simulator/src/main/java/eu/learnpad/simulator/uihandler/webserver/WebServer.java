@@ -266,27 +266,94 @@ public class WebServer {
 		}
 	}
 
-	public static String getIPAdress() throws UnknownHostException,
-	SocketException {
-		// TODO: ip should be read in a config file
+	/**
+	 * Select an IP address among the ones available to be used by the
+	 * Simulator.
+	 *
+	 * The selection procedure tries to do the "correct" thing by default, by
+	 * doing the following:
+	 * <ol>
+	 * <li>Try to select a non-local address</i>
+	 * <li>If none if found, try to select a non-link-local, non-loopback
+	 * address </i>
+	 * <li>If none if found, try to select any responding address</li>
+	 * </ol>
+	 *
+	 * @return The IP address considered by the Simulator
+	 * @throws UnknownHostException
+	 * @throws SocketException
+	 */
+	public static String getIPAddress() throws UnknownHostException,
+			SocketException {
+		// TODO: ip should be read in a config, file this would avoid all this
+
+		Set<InetAddress> localValidAddresses = new HashSet<InetAddress>();
 
 		Enumeration<NetworkInterface> e = NetworkInterface
 				.getNetworkInterfaces();
+
+		// try to find a non-local address
 		while (e.hasMoreElements()) {
 			NetworkInterface n = e.nextElement();
 			Enumeration<InetAddress> ee = n.getInetAddresses();
 			while (ee.hasMoreElements()) {
 				InetAddress i = ee.nextElement();
+				String hostAddress = i.getHostAddress();
 				if (!i.isLoopbackAddress() && !i.isLinkLocalAddress()) {
-					if (i instanceof Inet6Address) {
-						return "[" + i.getHostAddress().split("%")[0] + "]";
+
+					if (!i.isAnyLocalAddress() && !i.isSiteLocalAddress()) {
+						// got one !
+						if (i instanceof Inet6Address) {
+							return "[" + hostAddress.split("%")[0] + "]";
+						} else {
+							return hostAddress;
+						}
 					} else {
-						return i.getHostAddress();
+						// not good enough, store it in case we go to step 2
+						localValidAddresses.add(i);
 					}
+
 				}
 			}
 		}
 
+		// did not found any non-local address, try with a local (but non-link
+		// local)
+		// address
+		if (!localValidAddresses.isEmpty()) {
+			InetAddress i = localValidAddresses.iterator().next();
+			String hostAddress = i.getHostAddress();
+
+			if (i instanceof Inet6Address) {
+				return "[" + hostAddress.split("%")[0] + "]";
+			} else {
+				return hostAddress;
+			}
+		}
+
+		// still no luck, let's try any answering address...
+		e = NetworkInterface.getNetworkInterfaces();
+		while (e.hasMoreElements()) {
+			NetworkInterface n = e.nextElement();
+			Enumeration<InetAddress> ee = n.getInetAddresses();
+			while (ee.hasMoreElements()) {
+				InetAddress i = ee.nextElement();
+				try {
+					if (i.isReachable(500)) {
+						String hostAddress = i.getHostAddress();
+						if (i instanceof Inet6Address) {
+							return "[" + hostAddress.split("%")[0] + "]";
+						} else {
+							return hostAddress;
+						}
+					}
+				} catch (IOException e1) {
+					// nothing more to do
+				}
+			}
+		}
+
+		// give up
 		throw new RuntimeException("No valid IP adress");
 	}
 
@@ -319,7 +386,7 @@ public class WebServer {
 			scan.close();
 
 			// set server ip
-			uiPage = uiPage.replace("#serveripaddress#", "\"" + getIPAdress()
+			uiPage = uiPage.replace("#serveripaddress#", "\"" + getIPAddress()
 					+ ":" + port + "\"");
 
 			response.setContentType("text/html; charset=utf-8");

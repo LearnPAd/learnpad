@@ -59,7 +59,7 @@ public class Main {
 
 			System.out.println("---\n");
 			System.out.println("Demo is ready and can be accessed at http://"
-					+ WebServer.getIPAdress() + ":" + PORT);
+					+ WebServer.getIPAddress() + ":" + PORT);
 
 		} catch (Exception e) {
 			e.printStackTrace();
