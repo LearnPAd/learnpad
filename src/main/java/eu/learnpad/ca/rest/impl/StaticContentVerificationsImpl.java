@@ -20,9 +20,10 @@ import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
+import eu.learnpad.ca.analysis.contentclarity.plugin.UnclearAcronym;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.SyntacticAmbiguity;
-import eu.learnpad.ca.analysis.simplicity.plugin.JuridicalJargon;
+import eu.learnpad.ca.analysis.simplicity.Simplicity;
 import eu.learnpad.ca.rest.StaticContentVerifications;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
@@ -68,9 +69,9 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 				}
 				if(contentFile.getQualityCriteria().isSimplicity()){
 
-					/*JuridicalJargon threadsimply = new JuridicalJargon (contentFile, lang);
-					threadsimply.start();
-					putAndCreate(id, threadsimply);*/
+					Simplicity threadEL = new Simplicity(contentFile, lang);
+					threadEL.start();
+					putAndCreate(id, threadEL);
 
 				}
 				if(contentFile.getQualityCriteria().isNonAmbiguity()){
@@ -78,6 +79,13 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 					SyntacticAmbiguity threadSyntacticAmbiguity = new SyntacticAmbiguity (contentFile, lang);
 					threadSyntacticAmbiguity.start();
 					putAndCreate(id, threadSyntacticAmbiguity);
+
+				}
+				if(contentFile.getQualityCriteria().isContentClarity()){
+
+					UnclearAcronym threadUnclearAcronym = new UnclearAcronym (contentFile, lang);
+					threadUnclearAcronym.start();
+					putAndCreate(id, threadUnclearAcronym);
 
 				}
 				return id.toString();

@@ -76,9 +76,9 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 		//String[] sSentence = content.split("(?<=[a-z])\\.\\s+");
 		JLanguageTool langTool = new JLanguageTool(language);
 		List<String> listsentence = langTool.sentenceTokenize(content);
-		checkdefect(content,c,listsentence);
+		List<Annotation> annotations = checkdefect(content,c,listsentence);
 
-
+		annotatedStaticContent.setAnnotations(annotations);
 		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 		annotatedStaticContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
@@ -104,8 +104,8 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 		JLanguageTool langTool = new JLanguageTool(language);
 		List<String> listsentence = langTool.sentenceTokenize(content);
 
-		checkdefect(content,c,listsentence);
-
+		List<Annotation> annotations =checkdefect(content,c,listsentence);
+		annotatedCollaborativeContent.setAnnotations(annotations);
 
 		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 		annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
@@ -116,7 +116,7 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 
 	}
 
-	private void checkdefect(String content, Content c, List<String> listsentence) {
+	private List<Annotation>  checkdefect(String content, Content c, List<String> listsentence) {
 		List<String> acronymdefected = new ArrayList<String>();
 		List<String> listOfStrings = new ArrayList<String>(Arrays.asList(content.split(" ")));
 		Stopwords stopw = new Stopwords();
@@ -201,27 +201,27 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 
 		log.trace(acronym+"\nsize: "+acronym.size());
 		log.trace(acronymdefected+"\nsize: "+acronymdefected.size());
-		insertdefectannotation(content, c ,  acronymdefected, listsentence );
+		return insertdefectannotation(content, c ,  acronymdefected, listsentence );
 
 	}
 
 
-	private void insertdefectannotation(String content,Content c, List<String> acronymdefected, List<String> listsentence){
+	private List<Annotation> insertdefectannotation(String content,Content c, List<String> acronymdefected, List<String> listsentence){
 		int id = 0;
+		List<Annotation> annotations =new ArrayList<Annotation>();
 		for (String sentence : listsentence) {
 
-			List<Annotation> annotations =new ArrayList<Annotation>();
 			id = insertdefectannotationsentence(sentence, c , id, annotations, acronymdefected);
 			if(annotations.size()>0){
 				numDefectiveSentences++;
 			}
-			annotatedCollaborativeContent.setAnnotations(annotations);
+			
 			id++;
 
 		}
 
 		log.trace("\nnumDefectiveSentences UnclearAcronym: "+numDefectiveSentences);
-		
+		return annotations;
 	}
 
 

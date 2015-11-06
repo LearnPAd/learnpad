@@ -2,10 +2,12 @@ package eu.learnpad.ca.analysis.simplicity;
 
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 
 import org.languagetool.Language;
 
@@ -19,6 +21,8 @@ import eu.learnpad.ca.rest.data.Node;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContent;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
+import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
+import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import gate.DocumentContent;
 import gate.util.InvalidOffsetException;
@@ -47,7 +51,7 @@ public class Simplicity extends AbstractAnalysisClass {
 		}
 
 		if (staticContentInput != null) {
-			// check(staticContentInput);
+			check(staticContentInput);
 		}
 
 	}
@@ -67,42 +71,68 @@ public class Simplicity extends AbstractAnalysisClass {
 		sc.setContent(c);
 
 		// AnnotationImpl i;
-
-		UtilsGate gateu = new UtilsGate(content);
-		docContent = gateu.getCorpus().get(0).getContent();
-		gateu.runProcessingResourcesforLenght();
-		Set<gate.Annotation> listSentence = gateu
-				.getAnnotationSet(new HashSet<String>() {
-					{
-						add("Sentence");
-					}
-				});
-		Set<gate.Annotation> listSentenceDefected = new HashSet<>();
-		
-		DifficultJargonAlternative dja = new DifficultJargonAlternative(language, gateu.getCorpus().get(0).getContent());
-		List<Annotation> listannotationsdja = dja.checkUnclearAcronym(listSentence,listSentenceDefected);
-		
-		JuridicalJargon jj = new JuridicalJargon(language, gateu.getCorpus().get(0).getContent());
-		listannotationsdja.addAll(jj.checkJJ(listSentence,listSentenceDefected));
-		
-		Set<gate.Annotation> SetExcessiveLength = gateu.getAnnotationSet(new HashSet<String>() {
-			{
-				add("Sent-Long");
-			}
-		});
-		gatevsleanpadExcessiveLength(SetExcessiveLength, listannotationsdja,listSentenceDefected);
-
-
-		addNodeInContent(listannotationsdja,c);
-		annotatedCollaborativeContent.setAnnotations(listannotationsdja);
-		numDefectiveSentences = listSentenceDefected.size();
-		double qualitymmeasure = calculateOverallQualityMeasure(listSentence.size());
+		List<Annotation> listannotation  =new ArrayList<Annotation>();
+		annotatedCollaborativeContent.setAnnotations(listannotation);
+		int numSentence = execute(content,c,listannotation);
+		double qualitymmeasure = calculateOverallQualityMeasure(numSentence);
 		annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 		annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 		annotatedCollaborativeContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 		annotatedCollaborativeContent.setType("Simplicity");
 
 		return annotatedCollaborativeContent;
+
+	}
+	
+	private int execute(String content, Content c, List<Annotation> listannotations){
+		UtilsGate gateu = new UtilsGate(content);
+		docContent = gateu.getCorpus().get(0).getContent();
+		gateu.runProcessingResourcesforLenght();
+		Set<gate.Annotation> listSentence = gateu.getAnnotationSet(new HashSet<String>() {{
+						add("Sentence");
+					}});
+		Set<gate.Annotation> listSentenceDefected = new HashSet<>();
+		
+		DifficultJargonAlternative dja = new DifficultJargonAlternative(language, gateu.getCorpus().get(0).getContent());
+		listannotations = dja.checkUnclearAcronym(listSentence,listSentenceDefected);
+		
+		JuridicalJargon jj = new JuridicalJargon(language, gateu.getCorpus().get(0).getContent());
+		listannotations.addAll(jj.checkJJ(listSentence,listSentenceDefected));
+		
+		Set<gate.Annotation> SetExcessiveLength = gateu.getAnnotationSet(new HashSet<String>() {{
+				add("Sent-Long");
+			}});
+		gatevsleanpadExcessiveLength(SetExcessiveLength, listannotations,listSentenceDefected);
+
+
+		addNodeInContent(listannotations,c);
+		
+		numDefectiveSentences = listSentenceDefected.size();
+		return listSentence.size();
+	}
+	
+	private void check(StaticContentAnalysis staticContentInput2) {
+		String title = staticContentInput.getStaticContent().getTitle();
+		String idc = staticContentInput.getStaticContent().getId();
+		String content = staticContentInput.getStaticContent().getContentplain();
+
+		annotatedStaticContent = new AnnotatedStaticContentAnalysis();
+		StaticContent sc = new StaticContent();
+		annotatedStaticContent.setStaticContent(sc);
+		sc.setTitle(title);
+		sc.setId(idc);
+		Content c = new Content();
+		sc.setContent(c);
+
+		
+		List<Annotation> listannotation  =new ArrayList<Annotation>();
+		annotatedStaticContent.setAnnotations(listannotation);
+		int numSentence = execute(content,c,listannotation);
+		double qualitymmeasure = calculateOverallQualityMeasure(numSentence);
+		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
+		annotatedStaticContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
+		annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
+		annotatedStaticContent.setType("Content Clarity");
 
 	}
 

@@ -64,7 +64,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 
 	@Test
 	public void checkCollaborativeContentAnalysis() throws JAXBException {
-
+		
 		InputStream is = CorrectnessAnalysisTest.class.getClassLoader().getResourceAsStream("CollaborativeContentXML.xml");
 		assertNotNull(is);
 		JAXBContext jaxbContexti = JAXBContext.newInstance(CollaborativeContentAnalysis.class);
