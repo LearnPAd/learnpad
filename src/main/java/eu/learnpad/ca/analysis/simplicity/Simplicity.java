@@ -72,8 +72,8 @@ public class Simplicity extends AbstractAnalysisClass {
 
 		// AnnotationImpl i;
 		List<Annotation> listannotation  =new ArrayList<Annotation>();
-		annotatedCollaborativeContent.setAnnotations(listannotation);
 		int numSentence = execute(content,c,listannotation);
+		annotatedCollaborativeContent.setAnnotations(listannotation);
 		double qualitymmeasure = calculateOverallQualityMeasure(numSentence);
 		annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 		annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
@@ -94,7 +94,7 @@ public class Simplicity extends AbstractAnalysisClass {
 		Set<gate.Annotation> listSentenceDefected = new HashSet<>();
 		
 		DifficultJargonAlternative dja = new DifficultJargonAlternative(language, gateu.getCorpus().get(0).getContent());
-		listannotations = dja.checkUnclearAcronym(listSentence,listSentenceDefected);
+		dja.checkUnclearAcronym(listSentence,listSentenceDefected,listannotations);
 		
 		JuridicalJargon jj = new JuridicalJargon(language, gateu.getCorpus().get(0).getContent());
 		listannotations.addAll(jj.checkJJ(listSentence,listSentenceDefected));
@@ -126,8 +126,8 @@ public class Simplicity extends AbstractAnalysisClass {
 
 		
 		List<Annotation> listannotation  =new ArrayList<Annotation>();
-		annotatedStaticContent.setAnnotations(listannotation);
 		int numSentence = execute(content,c,listannotation);
+		annotatedStaticContent.setAnnotations(listannotation);
 		double qualitymmeasure = calculateOverallQualityMeasure(numSentence);
 		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 		annotatedStaticContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");

@@ -47,8 +47,7 @@ public class DifficultJargonAlternative {
 
 
 
-	public List<Annotation> checkUnclearAcronym(Set<gate.Annotation> listsentence, Set<gate.Annotation> listSentenceDefected) {
-		List<Annotation> annotations =new ArrayList<Annotation>();
+	public void checkUnclearAcronym(Set<gate.Annotation> listsentence, Set<gate.Annotation> listSentenceDefected, List<Annotation> listannotations) {
 		int id = 900_000;
 		for (gate.Annotation sentence_gate : listsentence) {
 
@@ -59,9 +58,9 @@ public class DifficultJargonAlternative {
 
 				DocumentContent sentence = docContent.getContent(gatenodestart.getOffset(),gatenodeend.getOffset());
 
-				int len = annotations.size();
-				id= insertdefectannotationsentence(sentence.toString(), id, annotations,gatenodestart.getOffset().intValue());
-				if(annotations.size()>len){
+				int len = listannotations.size();
+				id= insertdefectannotationsentence(sentence.toString(), id, listannotations,gatenodestart.getOffset().intValue());
+				if(listannotations.size()>len){
 				  if(!listSentenceDefected.contains(sentence_gate))
 					  listSentenceDefected.add(sentence_gate);
 				}
@@ -71,7 +70,7 @@ public class DifficultJargonAlternative {
 			}
 
 		}
-		return annotations;
+		
 
 	}
 
