@@ -12,13 +12,17 @@ public class AcceleoTransformationLauncher {
 	
 //	private String tmpModelFolder = "tmp/";
 	
-	/*
-	 * *******************************************************
-	 * MODEL2CODE Transformation (Acceleo)
-	 * *******************************************************
+	
+	/**
+	 * Acceleo Transformation Launcher (MODEL2CODE Transformation).
+	 * @param model_in The path of the model file to be tranformed.
 	 */
 	public void execute(String model_in){
-		
+		/*
+		 * *******************************************************
+		 * MODEL2CODE Transformation (Acceleo)
+		 * *******************************************************
+		 */
 		File f = new File(model_in);
 		if(f.exists() && !f.isDirectory()) { 
 			
