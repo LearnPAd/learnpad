@@ -92,20 +92,21 @@ public class Simplicity extends AbstractAnalysisClass {
 						add("Sentence");
 					}});
 		Set<gate.Annotation> listSentenceDefected = new HashSet<>();
+		List<Node> listnode = new ArrayList<Node>();
+		DifficultJargonAlternative dja = new DifficultJargonAlternative(language, gateu.getCorpus().get(0).getContent(),listnode);
 		
-		DifficultJargonAlternative dja = new DifficultJargonAlternative(language, gateu.getCorpus().get(0).getContent());
 		dja.checkUnclearAcronym(listSentence,listSentenceDefected,listannotations);
 		
-		JuridicalJargon jj = new JuridicalJargon(language, gateu.getCorpus().get(0).getContent());
+		JuridicalJargon jj = new JuridicalJargon(language, gateu.getCorpus().get(0).getContent(),listnode);
 		listannotations.addAll(jj.checkJJ(listSentence,listSentenceDefected));
 		
 		Set<gate.Annotation> SetExcessiveLength = gateu.getAnnotationSet(new HashSet<String>() {{
 				add("Sent-Long");
 			}});
-		gatevsleanpadExcessiveLength(SetExcessiveLength, listannotations,listSentenceDefected);
+		gatevsleanpadExcessiveLength(SetExcessiveLength, listannotations,listSentenceDefected,listnode);
 
 
-		addNodeInContent(listannotations,c);
+		addNodeInContent(listnode,c);
 		
 		numDefectiveSentences = listSentenceDefected.size();
 		return listSentence.size();
@@ -136,8 +137,7 @@ public class Simplicity extends AbstractAnalysisClass {
 
 	}
 
-	private void addNodeInContent(List<Annotation> listannotations, Content c){
-		List<Node> listnode = this.extractNode(listannotations);
+	private void addNodeInContent(List<Node> listnode, Content c){
 		Collections.sort(listnode);
 		Integer precedentposition = 0;
 		for(Node node :listnode){
@@ -178,7 +178,7 @@ public class Simplicity extends AbstractAnalysisClass {
 	}
 	private void gatevsleanpadExcessiveLength(
 			Set<gate.Annotation> setGateAnnotations,
-			List<Annotation> annotations, Set<gate.Annotation> listSentenceDefected) {
+			List<Annotation> annotations, Set<gate.Annotation> listSentenceDefected, List<Node> listnode) {
 
 		for (gate.Annotation gateA : setGateAnnotations) {
 
@@ -199,6 +199,9 @@ public class Simplicity extends AbstractAnalysisClass {
 			Node end = new Node(gatenodeend.getId(), gatenodeend.getOffset()
 					.intValue());
 
+			listnode.add(init);
+			listnode.add(end);
+			
 			Annotation a = new Annotation();
 			a.setId(gateA.getId());
 			a.setEndNode(end.getId());

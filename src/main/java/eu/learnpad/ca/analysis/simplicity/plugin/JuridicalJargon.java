@@ -33,14 +33,14 @@ public class JuridicalJargon{
 	private JuridaljargonSet juridaljargonSet;
 	private DocumentContent docContent;
 	private Language language;
+	 List<Node> listnode;
 
 
-
-	public JuridicalJargon(Language lang,  DocumentContent docContent){
+	public JuridicalJargon(Language lang,  DocumentContent docContent, List<Node> listnode){
 		this.language=lang;
 		juridaljargonSet = readJJ(lang);
 		this.docContent=docContent;
-
+		this.listnode=listnode;
 	}
 
 
@@ -94,7 +94,8 @@ public class JuridicalJargon{
 				Node init= new Node(nodeid,initialpos+offset);
 				nodeid++;
 				Node end= new Node(nodeid,finalpos+offset);
-				
+				listnode.add(init);
+				listnode.add(end);
 
 				Annotation a = new Annotation();
 				a.setId(nodeid);

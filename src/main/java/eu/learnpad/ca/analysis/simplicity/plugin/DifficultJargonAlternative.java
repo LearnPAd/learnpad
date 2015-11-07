@@ -35,13 +35,14 @@ public class DifficultJargonAlternative {
 	private AlternativeTermSet alternativetermset;
 	private Language language;
 	private DocumentContent docContent;
+	private List<Node> listnode;
 
 
-
-	public DifficultJargonAlternative(Language lang, DocumentContent docContent) {
+	public DifficultJargonAlternative(Language lang, DocumentContent docContent, List<Node> listnode) {
 		this.language=lang;
 		alternativetermset  = readAlternativeTerms(lang);
 		this.docContent=docContent;
+		this.listnode = listnode;
 	}
 
 
@@ -137,7 +138,8 @@ public class DifficultJargonAlternative {
 				Node init= new Node(nodeid,initialpos+offset);
 				nodeid++;
 				Node end= new Node(nodeid,finalpos+offset);
-				
+				listnode.add(init);
+				listnode.add(end);
 
 				Annotation a = new Annotation();
 				a.setId(nodeid);
