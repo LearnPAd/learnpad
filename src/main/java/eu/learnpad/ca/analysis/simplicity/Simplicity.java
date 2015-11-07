@@ -132,31 +132,31 @@ public class Simplicity extends AbstractAnalysisClass {
 		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 		annotatedStaticContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 		annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-		annotatedStaticContent.setType("Content Clarity");
+		annotatedStaticContent.setType("Simplicity");
 
 	}
 
 	private void addNodeInContent(List<Annotation> listannotations, Content c){
-		Collections.sort(listannotations);
+		List<Node> listnode = this.extractNode(listannotations);
+		Collections.sort(listnode);
 		Integer precedentposition = 0;
-		for(Annotation annotation :listannotations){
-			Node nodestart = annotation.getNodeStart();
-			Integer startpos = annotation.getNodeStart().getOffSet();
-			Node nodeend = annotation.getNodeEnd();
-			Integer endpos = annotation.getNodeEnd().getOffSet();
+		for(Node node :listnode){
+			
+			Integer pos = node.getOffSet();
+			
 			try{
 				String token = "";
-				if(precedentposition<startpos){
+				if(precedentposition>pos){
 					//String stringap = //content.substring(precedentposition, initialpos );
-					token = docContent.getContent(precedentposition.longValue(),startpos.longValue()).toString();
-					c.setContent(token);
+					log.debug("error Annotation Simplicity");
 
 				}
-				precedentposition = endpos;
-				token = docContent.getContent(startpos.longValue(),endpos.longValue()).toString();
-				c.setContent(nodestart);
-				c.setContent(token.toString());
-				c.setContent(nodeend);
+				token = docContent.getContent(precedentposition.longValue(),pos.longValue()).toString();
+				c.setContent(token);
+				c.setContent(node);
+				precedentposition = pos;
+				//c.setContent(token.toString());
+				//c.setContent(nodeend);
 
 			}catch(InvalidOffsetException e){
 				log.debug(e);
@@ -168,6 +168,14 @@ public class Simplicity extends AbstractAnalysisClass {
 
 	}
 
+	private List<Node> extractNode(List<Annotation> listannotation){
+		List<Node> listnode = new ArrayList<Node>();
+		for(Annotation a : listannotation){
+			listnode.add(a.getNodeEnd());
+			listnode.add(a.getNodeStart());
+		}
+		return listnode;
+	}
 	private void gatevsleanpadExcessiveLength(
 			Set<gate.Annotation> setGateAnnotations,
 			List<Annotation> annotations, Set<gate.Annotation> listSentenceDefected) {

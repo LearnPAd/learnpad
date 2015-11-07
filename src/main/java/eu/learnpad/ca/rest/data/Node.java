@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 @XmlRootElement(name = "Node")
-public class Node {
+public class Node implements Comparable<Object>{
 	
 	@XmlTransient
 	protected Integer OffSet;
@@ -83,8 +83,9 @@ public class Node {
 		return true;
 	}
 
-	public int compareTo(Node nodeStart) {
-		return OffSet.compareTo(nodeStart.getOffSet());
+	public int compareTo(Object o) {
+		Node node = (Node) o;
+		return OffSet.compareTo(node.getOffSet());
 	}
 
 
