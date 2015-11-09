@@ -32,12 +32,10 @@ public class JuridicalJargon{
 
 	private JuridaljargonSet juridaljargonSet;
 	private DocumentContent docContent;
-	private Language language;
 	 List<Node> listnode;
 
 
 	public JuridicalJargon(Language lang,  DocumentContent docContent, List<Node> listnode){
-		this.language=lang;
 		juridaljargonSet = readJJ(lang);
 		this.docContent=docContent;
 		this.listnode=listnode;
@@ -86,8 +84,9 @@ public class JuridicalJargon{
 				int finalpos = initialpos+token.length();
 				if(precedentposition>initialpos){
 					initialpos = sentence.lastIndexOf(token);
+					log.error("problemi con indici");
 				}
-				String stringap = sentence.substring(precedentposition, initialpos);
+				//String stringap = sentence.substring(precedentposition, initialpos);
 				
 				precedentposition=finalpos;
 				nodeid++;

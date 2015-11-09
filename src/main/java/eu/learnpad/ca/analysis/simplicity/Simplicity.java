@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
 import org.languagetool.Language;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
@@ -84,6 +83,7 @@ public class Simplicity extends AbstractAnalysisClass {
 
 	}
 	
+	@SuppressWarnings("serial")
 	private int execute(String content, Content c, List<Annotation> listannotations){
 		UtilsGate gateu = new UtilsGate(content);
 		docContent = gateu.getCorpus().get(0).getContent();
@@ -168,14 +168,14 @@ public class Simplicity extends AbstractAnalysisClass {
 
 	}
 
-	private List<Node> extractNode(List<Annotation> listannotation){
+	/*private List<Node> extractNode(List<Annotation> listannotation){
 		List<Node> listnode = new ArrayList<Node>();
 		for(Annotation a : listannotation){
 			listnode.add(a.getNodeEnd());
 			listnode.add(a.getNodeStart());
 		}
 		return listnode;
-	}
+	}*/
 	private void gatevsleanpadExcessiveLength(
 			Set<gate.Annotation> setGateAnnotations,
 			List<Annotation> annotations, Set<gate.Annotation> listSentenceDefected, List<Node> listnode) {

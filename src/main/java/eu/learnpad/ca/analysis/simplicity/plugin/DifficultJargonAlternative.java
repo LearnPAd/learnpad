@@ -3,7 +3,6 @@ package eu.learnpad.ca.analysis.simplicity.plugin;
 
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,13 +32,13 @@ public class DifficultJargonAlternative {
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DifficultJargonAlternative.class);
 
 	private AlternativeTermSet alternativetermset;
-	private Language language;
+	//private Language language;
 	private DocumentContent docContent;
 	private List<Node> listnode;
 
 
 	public DifficultJargonAlternative(Language lang, DocumentContent docContent, List<Node> listnode) {
-		this.language=lang;
+		//this.language=lang;
 		alternativetermset  = readAlternativeTerms(lang);
 		this.docContent=docContent;
 		this.listnode = listnode;
