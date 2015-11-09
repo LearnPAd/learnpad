@@ -58,8 +58,9 @@
 
 		<ace:tooltip rendered="#{data.recommendation ne null}"
 			id="d_#{status.index}" for="ciao1_#{status.index}"
-			forElement="ciao1_#{status.index}">
-			<h:outputText value="#{data.recommendation}" />
+			forElement="ciao1_#{status.index}"  position="topLeft"
+				targetPosition="bottomLeft">
+			<h:outputText value="#{data.recommendation}" style="white-space: pre-wrap;"/>
 		</ace:tooltip>
 	</c:forEach>
 	<br />

@@ -3,6 +3,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -136,10 +137,30 @@ public class DataContentAnalysis implements Serializable{
 	private void createData(){
 		Content c = acca.getCollaborativeContent().getContent();
 		List<Annotation> lannot =  acca.getAnnotations();
-
+		String content= exContent(c);
 		int inode=0;
-		Node temp= null;
-		String tempString = null;
+		//	List<Node> temp= new ArrayList<Node>();
+		DataContent prec = null;
+		Collections.sort(lannot);
+		for (Annotation ann : lannot) {
+			Integer startoff = ann.getstartNode_Offset();
+			Integer endoff = ann.getendNode_Offset();
+			if(inode<startoff){
+				String tok =  content.substring(inode,startoff.intValue());;
+				listdata.add(new DataContent(tok, acca.getType()));
+			}else{
+				if(inode>startoff){
+
+					prec.setRecommendation(prec.getRecommendation()+"\r\n"+ann.getRecommendation());
+					continue;
+				}
+			}
+			String token =  content.substring(startoff.intValue(), endoff.intValue());
+			prec = new DataContent(token,ann.getRecommendation(),ann.getType());
+			listdata.add(prec);
+			inode = endoff;
+		}
+		/*String tempString = null;
 		for (Object obj : c.getContent()) {
 			if(obj instanceof String && inode==0 ){
 				listdata.add(new DataContent(obj.toString(), acca.getType()));
@@ -150,21 +171,39 @@ public class DataContentAnalysis implements Serializable{
 			}
 			if(obj instanceof Node){
 				if(inode==0){
-					temp = (Node) obj;
+					temp.add((Node) obj);
 				}
 				if(inode==1){
-					inode=0;
-					listdata.add(search(temp, (Node) obj, lannot, tempString));
+					DataContent s = search(temp.get(0), (Node) obj, lannot, tempString);
+					if(s!=null){
+						inode=0;
+						listdata.add(s);
+					}else{
+
+					}
 				}else{
 					inode++;
 				}
 
 
 			}
-		}
+		}*/
 
 
 	}
+
+	private String exContent(Content c) {
+		String content = new String(); 
+		for(Object obj : c.getContent()) {
+			if(obj instanceof String){
+				content+=obj.toString();
+			}
+
+		}
+		return content;
+	}
+
+
 
 	private DataContent search(Node startn, Node end, List<Annotation> lannot, String element){
 		for (Annotation annotation : lannot) {
