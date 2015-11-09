@@ -24,6 +24,7 @@ import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import gate.DocumentContent;
+import gate.Factory;
 import gate.util.InvalidOffsetException;
 
 
@@ -109,6 +110,7 @@ public class Simplicity extends AbstractAnalysisClass {
 		addNodeInContent(listnode,c);
 		
 		numDefectiveSentences = listSentenceDefected.size();
+		Factory.deleteResource(gateu.getCorpus());
 		return listSentence.size();
 	}
 	
@@ -217,5 +219,6 @@ public class Simplicity extends AbstractAnalysisClass {
 		}
 
 	}
+
 
 }

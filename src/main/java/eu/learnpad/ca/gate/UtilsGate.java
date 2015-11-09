@@ -12,8 +12,8 @@ import gate.creole.SerialAnalyserController;
 import gate.util.GateException;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -31,18 +31,19 @@ public class UtilsGate {
 	public UtilsGate(String content) {
 		CreateCorpusFromContent(content);
 	}
-	
+
 	public UtilsGate(File content) {
 		CreateCorpusFromFile(content);
 	}
 
-	
+
 	public Corpus getCorpus() {
 		return corpus;
 	}
 
 
 	private void CreateCorpusFromContent(String content){
+
 		try {
 			// create a GATE corpus and add a document
 			// argument
@@ -56,7 +57,10 @@ public class UtilsGate {
 		} catch (ResourceInstantiationException e) {
 			log.error(e.getMessage());
 
+		}finally {
+			Factory.deleteResource(corpus);
 		}
+
 
 	}
 
@@ -83,23 +87,18 @@ public class UtilsGate {
 
 	private Collection<FeatureMap> loadJAPE(){
 		Collection<FeatureMap> JapeCollection = new ArrayList<>();
-		try{
-			// featuremaps for .jape files, specifying location of .jape files 
+		FeatureMap sent_len = Factory.newFeatureMap();
+		URL annotate_sent_len = UtilsGate.class.getClassLoader().getResource("annotate_sent_len.jape");
+			sent_len.put("grammarURL", annotate_sent_len);
 
+		JapeCollection.add(sent_len);
 
-			FeatureMap sent_len = Factory.newFeatureMap();
-			sent_len.put("grammarURL", new File("/Users/isiu/github/learnpadworkspace/gate/prova/src/main/webapp/WEB-INF/annotate_sent_len.jape").toURI().toURL());
+		FeatureMap len_nominal = Factory.newFeatureMap();
+		URL annotate_sent_len_nominalURL = UtilsGate.class.getClassLoader().getResource("annotate_sent_len_nominal.jape");//.getResourceAsStream("annotate_sent_len_nominal.jape");
+		
+		len_nominal.put("grammarURL", annotate_sent_len_nominalURL);
 
-			JapeCollection.add(sent_len);
-
-			FeatureMap len_nominal = Factory.newFeatureMap();
-			len_nominal.put("grammarURL", new File("/Users/isiu/github/learnpadworkspace/gate/prova/src/main/webapp/WEB-INF/annotate_sent_len_nominal.jape").toURI().toURL());
-
-			JapeCollection.add(len_nominal);
-		}catch(IOException e){
-			log.error(e.getMessage());
-
-		}
+		JapeCollection.add(len_nominal);
 		return JapeCollection;
 	}
 
