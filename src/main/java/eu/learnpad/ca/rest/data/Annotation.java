@@ -21,7 +21,13 @@ public  class Annotation implements Comparable<Object>{
 	protected Integer endNode;
 	@XmlAttribute(name = "recommendation", required = true)
 	protected String recommendation;
-
+	@XmlAttribute(name = "StartNode_Offset", required = true)
+	protected Integer startNode_Offset;
+	@XmlAttribute(name = "EndNode_Offset", required = true)
+	protected Integer endNode_Offset;
+	
+	
+	
 	@XmlTransient
 	protected Node NodeStart;
 	@XmlTransient
@@ -40,12 +46,32 @@ public  class Annotation implements Comparable<Object>{
 		this.recommendation=recom;
 	}
 	
+	
+	
+	
+	public Integer getstartNode_Offset() {
+		return startNode_Offset;
+	}
+
+	public void setstartNode_Offset(Integer startNode_Offset) {
+		this.startNode_Offset = startNode_Offset;
+	}
+
+	public Integer getendNode_Offset() {
+		return endNode_Offset;
+	}
+
+	public void setendNode_Offset(Integer endNode_Offset) {
+		this.endNode_Offset = endNode_Offset;
+	}
+
 	public Node getNodeStart() {
 		return NodeStart;
 	}
 
 	public void setNodeStart(Node nodeStart) {
 		NodeStart = nodeStart;
+		startNode_Offset = NodeStart.getOffSet();
 	}
 
 	public Node getNodeEnd() {
@@ -54,6 +80,7 @@ public  class Annotation implements Comparable<Object>{
 
 	public void setNodeEnd(Node nodeEnd) {
 		NodeEnd = nodeEnd;
+		endNode_Offset = NodeEnd.getOffSet();
 	}
 
 	/**
@@ -186,7 +213,7 @@ public  class Annotation implements Comparable<Object>{
 	@Override
 	public int compareTo(Object o) {
 		Annotation other = (Annotation) o;
-	    return NodeStart.compareTo(other.NodeStart);
+	    return startNode_Offset.compareTo(other.getstartNode_Offset());
 	}
 	
 	
