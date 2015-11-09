@@ -3,6 +3,7 @@ package eu.learnpad.ca.gate;
 import gate.Annotation;
 import gate.AnnotationSet;
 import gate.Corpus;
+import gate.CorpusController;
 import gate.Document;
 import gate.Factory;
 import gate.FeatureMap;
@@ -10,6 +11,7 @@ import gate.ProcessingResource;
 import gate.creole.ResourceInstantiationException;
 import gate.creole.SerialAnalyserController;
 import gate.util.GateException;
+import gate.util.persistence.PersistenceManager;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -24,12 +26,15 @@ public class UtilsGate {
 
 	private Corpus corpus;
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(UtilsGate.class);
-
+	private ThreadLocal<CorpusController> controller = new ThreadLocal<CorpusController>() {
+		protected CorpusController initialValue() { return initPersistentGateResources();
+		} };
 
 
 
 	public UtilsGate(String content) {
 		CreateCorpusFromContent(content);
+		
 	}
 
 	public UtilsGate(File content) {
@@ -40,7 +45,29 @@ public class UtilsGate {
 	public Corpus getCorpus() {
 		return corpus;
 	}
+	
+	
 
+	private CorpusController initPersistentGateResources() {
+		CorpusController corpusController =  null;
+	    try {
+	        //Corpus corpus = Factory.newCorpus("New Corpus");
+	        corpusController = (CorpusController) Factory.createResource("gate.creole.SerialAnalyserController");
+	        String[] processingResources = {"gate.creole.tokeniser.DefaultTokeniser",
+			"gate.creole.splitter.SentenceSplitter"};
+	        for(int pr = 0; pr < processingResources.length; pr++) {
+				log.info("\t* Loading " + processingResources[pr] + " ... ");
+				SerialAnalyserController pipeline = (SerialAnalyserController) corpusController;
+				pipeline.add((gate.LanguageAnalyser)Factory
+						.createResource(processingResources[pr]));
+				log.info("done");
+			}
+	        corpusController.setCorpus(corpus);
+	    } catch (Exception ex) {
+	        ex.printStackTrace();
+	    }
+	       return corpusController;
+	}
 
 	private void CreateCorpusFromContent(String content){
 
@@ -104,7 +131,7 @@ public class UtilsGate {
 
 	public void runProcessingResourcesforLenght() {
 		try{
-			String[] processingResources = {"gate.creole.tokeniser.DefaultTokeniser",
+			/*String[] processingResources = {"gate.creole.tokeniser.DefaultTokeniser",
 			"gate.creole.splitter.SentenceSplitter"};
 			SerialAnalyserController pipeline = (SerialAnalyserController)Factory
 					.createResource("gate.creole.SerialAnalyserController");
@@ -114,9 +141,9 @@ public class UtilsGate {
 				pipeline.add((gate.LanguageAnalyser)Factory
 						.createResource(processingResources[pr]));
 				log.info("done");
-			}
+			}*/
 
-
+			SerialAnalyserController pipeline = (SerialAnalyserController) controller.get();
 			// create an instance of a JAPE Transducer processing resource
 			Collection<FeatureMap> features = loadJAPE();
 			for(FeatureMap feature :features){
@@ -128,7 +155,7 @@ public class UtilsGate {
 
 
 			log.info("Creating corpus from documents obtained...");
-			pipeline.setCorpus(corpus);
+			//pipeline.setCorpus(corpus);
 			log.info("done");
 
 			log.info("Running processing resources over corpus...");

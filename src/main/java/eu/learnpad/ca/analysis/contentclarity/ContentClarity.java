@@ -59,7 +59,7 @@ public class ContentClarity extends AbstractAnalysisClass {
 
 		// AnnotationImpl i;
 
-		UtilsGate gateu = new UtilsGate(content);
+		/*UtilsGate gateu = new UtilsGate(content);
 		docContent = gateu.getCorpus().get(0).getContent();
 		gateu.runProcessingResourcesforLenght();
 		Set<gate.Annotation> listSentence = gateu
@@ -70,7 +70,7 @@ public class ContentClarity extends AbstractAnalysisClass {
 				});
 		Set<gate.Annotation> listSentenceDefected = new HashSet<>();
 
-		/*DifficultJargonAlternative dja = new DifficultJargonAlternative(language, gateu.getCorpus().get(0).getContent());
+		DifficultJargonAlternative dja = new DifficultJargonAlternative(language, gateu.getCorpus().get(0).getContent());
 		List<Annotation> listannotationsdja = dja.checkUnclearAcronym(listSentence,listSentenceDefected);
 
 		JuridicalJargon jj = new JuridicalJargon(language, gateu.getCorpus().get(0).getContent());
@@ -85,13 +85,13 @@ public class ContentClarity extends AbstractAnalysisClass {
 
 
 		addNodeInContent(listannotationsdja,c);
-		annotatedCollaborativeContent.setAnnotations(listannotationsdja);*/
+		annotatedCollaborativeContent.setAnnotations(listannotationsdja);
 		numDefectiveSentences = listSentenceDefected.size();
 		double qualitymmeasure = calculateOverallQualityMeasure(listSentence.size());
 		annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 		annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 		annotatedCollaborativeContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-		annotatedCollaborativeContent.setType("ContentClarity");
+		annotatedCollaborativeContent.setType("ContentClarity");*/
 
 		return annotatedCollaborativeContent;
 
