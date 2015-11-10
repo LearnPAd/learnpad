@@ -20,21 +20,32 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class UtilsGate {
 
 	private Corpus corpus;
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(UtilsGate.class);
+	
 	private ThreadLocal<CorpusController> controller = new ThreadLocal<CorpusController>() {
 		protected CorpusController initialValue() { return initPersistentGateResources();
 		} };
 
-
+	private BlockingQueue<CorpusController> pool;
+	
+	
+	public void init() {
+		pool = new LinkedBlockingQueue<CorpusController>(); for(int i = 0; i < 10; i++) {
+		    pool.add(initPersistentGateResources());
+		  }
+		}
+		
 
 	public UtilsGate(String content) {
 		CreateCorpusFromContent(content);
-		
+		//init();
 	}
 
 	public UtilsGate(File content) {
@@ -63,6 +74,7 @@ public class UtilsGate {
 				log.info("done");
 			}
 	        corpusController.setCorpus(corpus);
+	       
 	    } catch (Exception ex) {
 	        ex.printStackTrace();
 	    }
@@ -128,7 +140,31 @@ public class UtilsGate {
 		JapeCollection.add(len_nominal);
 		return JapeCollection;
 	}
+	
+	public void runProcessingResources() {
+		try{
+			
 
+			
+			SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( controller.get());
+	
+			//SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( pool.take());
+
+			log.info("Creating corpus from documents obtained...");
+			//pipeline.setCorpus(corpus);
+			log.info("done");
+
+			log.info("Running processing resources over corpus...");
+			pipeline.execute();
+			log.info("done");
+			
+			Factory.deleteResource(pipeline);
+			
+		}catch(GateException    e){
+			log.error(e.getMessage());
+		} 
+	}
+	
 	public void runProcessingResourcesforLenght() {
 		try{
 			/*String[] processingResources = {"gate.creole.tokeniser.DefaultTokeniser",
@@ -143,7 +179,11 @@ public class UtilsGate {
 				log.info("done");
 			}*/
 
-			SerialAnalyserController pipeline = (SerialAnalyserController) controller.get();
+			
+			SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( controller.get());
+			
+			//SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( pool.take());
+			
 			// create an instance of a JAPE Transducer processing resource
 			Collection<FeatureMap> features = loadJAPE();
 			for(FeatureMap feature :features){
@@ -160,10 +200,16 @@ public class UtilsGate {
 
 			log.info("Running processing resources over corpus...");
 			pipeline.execute();
+			
+			Factory.deleteResource(pipeline);
+			
 			log.info("done");
-		}catch(GateException  e){
+		}catch(GateException    e){
 			log.error(e.getMessage());
-		} 
+		} /*finally{
+			//return worker to the pool
+			pool.add(app1);
+		}*/
 	}
 
 	public Set<Annotation> getAnnotationSet(Set<String> TypesRequired){
@@ -193,5 +239,8 @@ public class UtilsGate {
 		return null;
 	}
 
-
+	public void destroy() {
+		for(CorpusController c : pool) 
+			Factory.deleteResource(c);
+	}
 }

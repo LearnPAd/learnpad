@@ -25,6 +25,7 @@ import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import gate.DocumentContent;
 import gate.Factory;
+import gate.resources.img.svg.GATEUpdateSiteIcon;
 import gate.util.InvalidOffsetException;
 
 
@@ -32,11 +33,13 @@ public class Simplicity extends AbstractAnalysisClass {
 
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Simplicity.class);
 	private DocumentContent docContent;
-
-	public Simplicity(CollaborativeContentAnalysis collaborativeContentInput,Language lang) {
+	private UtilsGate gateu = null;
+	
+	public Simplicity(CollaborativeContentAnalysis collaborativeContentInput,Language lang, UtilsGate gate) {
 
 		this.language = lang;
 		this.collaborativeContentInput = collaborativeContentInput;
+		this.gateu = gate;
 	}
 
 	public Simplicity(StaticContentAnalysis staticContentInput, Language lang) {
@@ -86,7 +89,6 @@ public class Simplicity extends AbstractAnalysisClass {
 	
 	@SuppressWarnings("serial")
 	private int execute(String content, Content c, List<Annotation> listannotations){
-		UtilsGate gateu = new UtilsGate(content);
 		docContent = gateu.getCorpus().get(0).getContent();
 		gateu.runProcessingResourcesforLenght();
 		Set<gate.Annotation> listSentence = gateu.getAnnotationSet(new HashSet<String>() {{

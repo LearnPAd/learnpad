@@ -25,6 +25,7 @@ import eu.learnpad.ca.analysis.contentclarity.plugin.UnclearAcronym;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.SyntacticAmbiguity;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
+import eu.learnpad.ca.gate.UtilsGate;
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
@@ -49,6 +50,8 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 			throws LpRestException{
 		try{
 			if(contentFile!=null){
+				String content = contentFile.getCollaborativeContent().getContentplain();
+				UtilsGate gateu = new UtilsGate(content);
 				id++;
 				Language lang = null;
 				if(contentFile.getLanguage().toLowerCase().equals("english")){
@@ -87,7 +90,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 					ExcessiveLength threadEL = new ExcessiveLength(contentFile, lang);
 					threadEL.start();
 					putAndCreate(id, threadEL);*/
-					Simplicity threadEL = new Simplicity(contentFile, lang);
+					Simplicity threadEL = new Simplicity(contentFile, lang, gateu);
 					threadEL.start();
 					putAndCreate(id, threadEL);
 
@@ -102,7 +105,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				}
 				if(contentFile.getQualityCriteria().isContentClarity()){
 
-					UnclearAcronym threadUnclearAcronym = new UnclearAcronym (contentFile, lang);
+					UnclearAcronym threadUnclearAcronym = new UnclearAcronym (contentFile, lang, gateu);
 					threadUnclearAcronym.start();
 					putAndCreate(id, threadUnclearAcronym);
 
