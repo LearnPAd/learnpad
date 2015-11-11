@@ -27,7 +27,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
-public class GateThread extends Thread{
+public class GateThread extends Thread implements StatusListener{
 
 	private Corpus corpus;
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(GateThread.class);
@@ -48,6 +48,7 @@ public class GateThread extends Thread{
 
 	public void run() {
 		runProcessingResourcesforLenght();
+		
 	}
 	
 	public GateThread(String content) {
@@ -192,7 +193,7 @@ public class GateThread extends Thread{
 			log.info("Creating corpus from documents obtained...");
 			pipeline.setCorpus(corpus);
 			log.info("done");
-
+			pipeline.addStatusListener(this);
 			log.info("Running processing resources over corpus...");
 			pipeline.execute();
 			
@@ -242,6 +243,13 @@ public class GateThread extends Thread{
 
 		}
 		return null;
+	}
+
+	@Override
+	public void statusChanged(String text) {
+		
+		log.trace(text);	
+		
 	}
 
 	/*public void destroy() {
