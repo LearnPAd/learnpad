@@ -16,6 +16,7 @@ import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
+import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.gate.UtilsGate;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
@@ -33,7 +34,7 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(UnclearAcronym.class);
 	private DocumentContent docContent;
-	private UtilsGate gateu = null;
+	private GateThread gateu = null;
 
 	public UnclearAcronym(StaticContentAnalysis cca, Language lang){
 		this.language=lang;
@@ -43,7 +44,7 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 
 
 	public UnclearAcronym(CollaborativeContentAnalysis cca,
-			Language lang, UtilsGate gate) {
+			Language lang, GateThread gate) {
 		this.language=lang;
 		collaborativeContentInput = cca;
 		this.gateu = gate;
@@ -126,9 +127,15 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 
 	private int  checkdefect(String content, Content c, List<Annotation> listannotation) {
 
-		gateu.runProcessingResources();
+		//gateu.runProcessingResources();
+		//docContent = gateu.getCorpus().get(0).getContent();
+		try {
+			gateu.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		docContent = gateu.getCorpus().get(0).getContent();
-		
 		Set<gate.Annotation> listSentence = gateu.getAnnotationSet(new HashSet<String>() {{
 			add("Sentence");
 		}});

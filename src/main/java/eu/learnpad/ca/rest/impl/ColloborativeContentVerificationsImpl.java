@@ -25,6 +25,7 @@ import eu.learnpad.ca.analysis.contentclarity.plugin.UnclearAcronym;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.SyntacticAmbiguity;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
+import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.gate.UtilsGate;
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
@@ -51,7 +52,8 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		try{
 			if(contentFile!=null){
 				String content = contentFile.getCollaborativeContent().getContentplain();
-				UtilsGate gateu = new UtilsGate(content);
+				GateThread gateu = new GateThread(content);
+				gateu.start();
 				id++;
 				Language lang = null;
 				if(contentFile.getLanguage().toLowerCase().equals("english")){

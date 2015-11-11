@@ -13,6 +13,7 @@ import org.languagetool.Language;
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.analysis.simplicity.plugin.DifficultJargonAlternative;
 import eu.learnpad.ca.analysis.simplicity.plugin.JuridicalJargon;
+import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.gate.UtilsGate;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
@@ -33,9 +34,9 @@ public class Simplicity extends AbstractAnalysisClass {
 
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Simplicity.class);
 	private DocumentContent docContent;
-	private UtilsGate gateu = null;
+	private GateThread gateu = null;
 	
-	public Simplicity(CollaborativeContentAnalysis collaborativeContentInput,Language lang, UtilsGate gate) {
+	public Simplicity(CollaborativeContentAnalysis collaborativeContentInput,Language lang, GateThread gate) {
 
 		this.language = lang;
 		this.collaborativeContentInput = collaborativeContentInput;
@@ -89,8 +90,15 @@ public class Simplicity extends AbstractAnalysisClass {
 	
 	@SuppressWarnings("serial")
 	private int execute(String content, Content c, List<Annotation> listannotations){
+		
+		//gateu.runProcessingResourcesforLenght();
+		try {
+			gateu.join();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		docContent = gateu.getCorpus().get(0).getContent();
-		gateu.runProcessingResourcesforLenght();
 		Set<gate.Annotation> listSentence = gateu.getAnnotationSet(new HashSet<String>() {{
 						add("Sentence");
 					}});
