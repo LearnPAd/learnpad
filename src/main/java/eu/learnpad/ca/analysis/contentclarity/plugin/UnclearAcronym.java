@@ -33,7 +33,6 @@ import gate.util.InvalidOffsetException;
 public class UnclearAcronym  extends  AbstractAnalysisClass{ 
 
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(UnclearAcronym.class);
-	private DocumentContent docContent;
 	private GateThread gateu = null;
 
 	public UnclearAcronym(StaticContentAnalysis cca, Language lang){
@@ -135,10 +134,8 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		docContent = gateu.getCorpus().get(0).getContent();
-		Set<gate.Annotation> listSentence = gateu.getAnnotationSet(new HashSet<String>() {{
-			add("Sentence");
-		}});
+		DocumentContent docContent = gateu.getDocumentContent();
+		Set<gate.Annotation> listSentence = gateu.getSentence();
 
 		List<String> acronymdefected = new ArrayList<String>();
 		List<String> listOfStrings = new ArrayList<String>(Arrays.asList(content.split(" ")));
@@ -224,7 +221,7 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 
 		log.trace(acronym+"\nsize: "+acronym.size());
 		log.trace(acronymdefected+"\nsize: "+acronymdefected.size());
-		insertdefectannotation(content, c ,  acronymdefected, listSentence, listannotation );
+		insertdefectannotation(content, c ,  acronymdefected, listSentence, listannotation,docContent );
 		//numDefectiveSentences =  listSentence.size();
 
 		return listSentence.size();
@@ -232,7 +229,7 @@ public class UnclearAcronym  extends  AbstractAnalysisClass{
 	}
 
 
-	private void insertdefectannotation(String content,Content c, List<String> acronymdefected, Set<gate.Annotation> listsentence, List<Annotation> annotations){
+	private void insertdefectannotation(String content,Content c, List<String> acronymdefected, Set<gate.Annotation> listsentence, List<Annotation> annotations, DocumentContent docContent){
 		int id = 0;
 
 		for (gate.Annotation sentence_gate : listsentence) {

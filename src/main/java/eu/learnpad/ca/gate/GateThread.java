@@ -5,6 +5,7 @@ import gate.AnnotationSet;
 import gate.Corpus;
 import gate.CorpusController;
 import gate.Document;
+import gate.DocumentContent;
 import gate.Factory;
 import gate.FeatureMap;
 import gate.Gate;
@@ -173,18 +174,6 @@ public class GateThread extends Thread{
 	
 	public void runProcessingResourcesforLenght() {
 		try{
-			/*String[] processingResources = {"gate.creole.tokeniser.DefaultTokeniser",
-			"gate.creole.splitter.SentenceSplitter"};
-			SerialAnalyserController pipeline = (SerialAnalyserController)Factory
-					.createResource("gate.creole.SerialAnalyserController");
-
-			for(int pr = 0; pr < processingResources.length; pr++) {
-				log.info("\t* Loading " + processingResources[pr] + " ... ");
-				pipeline.add((gate.LanguageAnalyser)Factory
-						.createResource(processingResources[pr]));
-				log.info("done");
-			}*/
-
 			
 			SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( controller.get());
 			
@@ -216,6 +205,16 @@ public class GateThread extends Thread{
 			//return worker to the pool
 			pool.add(app1);
 		}*/
+	}
+	
+	public Set<gate.Annotation> getSentence(){
+		return this.getAnnotationSet(new HashSet<String>() {{
+			add("Sentence");
+		}});
+	}
+	
+	public DocumentContent getDocumentContent() {
+		return this.getCorpus().get(0).getContent();
 	}
 
 	public Set<Annotation> getAnnotationSet(Set<String> TypesRequired){

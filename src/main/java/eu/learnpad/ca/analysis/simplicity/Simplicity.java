@@ -33,7 +33,7 @@ import gate.util.InvalidOffsetException;
 public class Simplicity extends AbstractAnalysisClass {
 
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Simplicity.class);
-	private DocumentContent docContent;
+
 	private GateThread gateu = null;
 	
 	public Simplicity(CollaborativeContentAnalysis collaborativeContentInput,Language lang, GateThread gate) {
@@ -96,12 +96,10 @@ public class Simplicity extends AbstractAnalysisClass {
 			gateu.join();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e);
 		}
-		docContent = gateu.getCorpus().get(0).getContent();
-		Set<gate.Annotation> listSentence = gateu.getAnnotationSet(new HashSet<String>() {{
-						add("Sentence");
-					}});
+		DocumentContent docContent = gateu.getDocumentContent();
+		Set<gate.Annotation> listSentence = gateu.getSentence();
 		Set<gate.Annotation> listSentenceDefected = new HashSet<>();
 		List<Node> listnode = new ArrayList<Node>();
 		DifficultJargonAlternative dja = new DifficultJargonAlternative(language, gateu.getCorpus().get(0).getContent(),listnode);
@@ -114,10 +112,10 @@ public class Simplicity extends AbstractAnalysisClass {
 		Set<gate.Annotation> SetExcessiveLength = gateu.getAnnotationSet(new HashSet<String>() {{
 				add("Sent-Long");
 			}});
-		gatevsleanpadExcessiveLength(SetExcessiveLength, listannotations,listSentenceDefected,listnode);
+		gatevsleanpadExcessiveLength(SetExcessiveLength, listannotations,listSentenceDefected,listnode,docContent);
 
 
-		addNodeInContent(listnode,c);
+		addNodeInContent(listnode,c,docContent);
 		
 		numDefectiveSentences = listSentenceDefected.size();
 		Factory.deleteResource(gateu.getCorpus());
@@ -149,7 +147,7 @@ public class Simplicity extends AbstractAnalysisClass {
 
 	}
 
-	private void addNodeInContent(List<Node> listnode, Content c){
+	private void addNodeInContent(List<Node> listnode, Content c, DocumentContent docContent){
 		Collections.sort(listnode);
 		Integer precedentposition = 0;
 		for(Node node :listnode){
@@ -190,7 +188,7 @@ public class Simplicity extends AbstractAnalysisClass {
 	}*/
 	private void gatevsleanpadExcessiveLength(
 			Set<gate.Annotation> setGateAnnotations,
-			List<Annotation> annotations, Set<gate.Annotation> listSentenceDefected, List<Node> listnode) {
+			List<Annotation> annotations, Set<gate.Annotation> listSentenceDefected, List<Node> listnode, DocumentContent docContent) {
 
 		for (gate.Annotation gateA : setGateAnnotations) {
 
