@@ -7,6 +7,7 @@ import gate.CorpusController;
 import gate.Document;
 import gate.Factory;
 import gate.FeatureMap;
+import gate.Gate;
 import gate.ProcessingResource;
 import gate.creole.ResourceInstantiationException;
 import gate.creole.SerialAnalyserController;
@@ -60,25 +61,25 @@ public class UtilsGate {
 	
 
 	private CorpusController initPersistentGateResources() {
-		CorpusController corpusController =  null;
+		SerialAnalyserController  serialcorpusController = null;
 	    try {
 	        //Corpus corpus = Factory.newCorpus("New Corpus");
-	        corpusController = (CorpusController) Factory.createResource("gate.creole.SerialAnalyserController");
+	    	 serialcorpusController = (SerialAnalyserController) Factory.createResource("gate.creole.SerialAnalyserController");
 	        String[] processingResources = {"gate.creole.tokeniser.DefaultTokeniser",
 			"gate.creole.splitter.SentenceSplitter"};
 	        for(int pr = 0; pr < processingResources.length; pr++) {
 				log.info("\t* Loading " + processingResources[pr] + " ... ");
-				SerialAnalyserController pipeline = (SerialAnalyserController) corpusController;
-				pipeline.add((gate.LanguageAnalyser)Factory
+				
+				serialcorpusController.add((gate.LanguageAnalyser)Factory
 						.createResource(processingResources[pr]));
 				log.info("done");
 			}
-	        corpusController.setCorpus(corpus);
+	        
 	       
 	    } catch (Exception ex) {
 	        ex.printStackTrace();
 	    }
-	       return corpusController;
+	       return serialcorpusController;
 	}
 
 	private void CreateCorpusFromContent(String content){
@@ -149,9 +150,9 @@ public class UtilsGate {
 			SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( controller.get());
 	
 			//SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( pool.take());
-
+			
 			log.info("Creating corpus from documents obtained...");
-			//pipeline.setCorpus(corpus);
+			pipeline.setCorpus(corpus);
 			log.info("done");
 
 			log.info("Running processing resources over corpus...");
@@ -160,7 +161,7 @@ public class UtilsGate {
 			
 			Factory.deleteResource(pipeline);
 			
-		}catch(GateException    e){
+		}catch(GateException     e){
 			log.error(e.getMessage());
 		} 
 	}
@@ -192,10 +193,10 @@ public class UtilsGate {
 				pipeline.add(japeTransducer);
 			}
 
-
+			
 
 			log.info("Creating corpus from documents obtained...");
-			//pipeline.setCorpus(corpus);
+			pipeline.setCorpus(corpus);
 			log.info("done");
 
 			log.info("Running processing resources over corpus...");
@@ -204,7 +205,7 @@ public class UtilsGate {
 			Factory.deleteResource(pipeline);
 			
 			log.info("done");
-		}catch(GateException    e){
+		}catch(GateException     e){
 			log.error(e.getMessage());
 		} /*finally{
 			//return worker to the pool
