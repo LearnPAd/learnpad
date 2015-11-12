@@ -21,16 +21,30 @@
 'use strict';
 
 function taskFormGenerate(taskid, data, formContainer, formId, callback) {
+    // check if we stored a previous submission for the task
+    // if yes, use it for default form values
+    var values = retrieveFormContent(taskid);
+
     $('#' + formContainer).html('<form id="' +
                         formId + '"  class="well"></form>');
 
     $('#' + formId).jsonForm({
         schema: JSON.parse(data.form).schema,
         form: JSON.parse(data.form).form,
+        value: values,
         onSubmit: function(errors, values) {
             if (!errors) {
+                // store submission to restore values in other tries
+                saveFormContent(taskid, values);
                 callback(JSON.stringify(values));
             }
         }});
 }
 
+function saveFormContent(taskid, values) {
+    sessionStorage.setItem(taskid, JSON.stringify(values));
+}
+
+function retrieveFormContent(taskid) {
+    return JSON.parse(sessionStorage.getItem(taskid));
+}
