@@ -6,6 +6,8 @@
 package eu.learnpad.ontology.recommender;
 
 import eu.learnpad.ontology.AbstractUnitTest;
+import eu.learnpad.ontology.config.APP;
+import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.BusinessActor;
 import eu.learnpad.or.rest.data.Experts;
 import eu.learnpad.or.rest.data.Recommendations;
@@ -22,12 +24,12 @@ public class RecommenderTest extends AbstractUnitTest {
 
     @Before
     public void init() {
-        
+        SimpleModelTransformator.getInstance();
     }
 
     @Test
     public void testSuggestExperts() {
-        Recommendations recomms = Recommender.getInstance().getRecommendations(TEST_MODEL_SET_ID_TITOLO_UNICO_V5, TEST_TITOLO_UNICO_V5_ARTIFACT_ID, TEST_USER_2_EMAIL);
+        Recommendations recomms = Recommender.getInstance().getRecommendations(MODELSET_ID, APP.CONF.getString("testdata.artifactId"), APP.CONF.getString("testdata.user.email"));
         assertNotNull(recomms);
         JAXB.marshal(recomms, System.out);        
         Experts experts = recomms.getExperts();

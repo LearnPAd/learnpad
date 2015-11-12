@@ -25,10 +25,9 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import eu.learnpad.ontology.config.APP;
-import java.io.ByteArrayOutputStream;
+import eu.learnpad.ontology.persistence.FileOntAO;
 import javax.xml.transform.Source;
 import javax.xml.transform.URIResolver;
-import net.sf.saxon.s9api.QName;
 import net.sf.saxon.s9api.XdmAtomicValue;
 
 /**
@@ -46,22 +45,13 @@ public final class SimpleModelTransformator {
     }
 
     private SimpleModelTransformator() {
-    //For testing purposes a test modelset is loaded !
-        byte[] testModelFile = null;
-        try {
-            InputStream in = getClass().getResourceAsStream(APP.CONF.getString("testdata.model.file.path"));
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            int next = in.read();
-            while (next > -1) {
-                bos.write(next);
-                next = in.read();
-            }
-            bos.flush();
-            testModelFile = bos.toByteArray();
-        } catch (IOException ex) {
-            Logger.getLogger(SimpleModelTransformator.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        transform(APP.CONF.getString("testdata.modelset.version"), testModelFile, ModellingEnvironmentType.ADOXX);
+        loadTestmodel();
+    }
+
+    private void loadTestmodel() {
+        //For testing purposes a test modelset is loaded !
+        byte[] testModelSetFile = FileOntAO.getInstance().getModelSetFile(APP.CONF.getString("testdata.model.file.path"));
+        transform(APP.CONF.getString("testdata.modelset.version"), testModelSetFile, ModellingEnvironmentType.ADOXX);
     }
 
     public static SimpleModelTransformator getInstance() {
@@ -112,7 +102,7 @@ public final class SimpleModelTransformator {
     public File getLatestVersionFile(String modelSetId) {
         Path modelSetFolderPath = getModelSetFolderPath(modelSetId);
         Integer latestVersionNumber = getLatestVersionNumber(modelSetFolderPath);
-        if(!modelSetFolderPath.toFile().exists() || latestVersionNumber == null){
+        if (!modelSetFolderPath.toFile().exists() || latestVersionNumber == null) {
             return null;
         }
         String filename = modelSetId + APP.CONF.getString("ontology.learnpad.model.instances.filetype");
@@ -151,8 +141,28 @@ public final class SimpleModelTransformator {
     }
 
     public Path getModelSetFolderPath(String modelSetId) {
-        Path modelSetFolderPath = Paths.get(System.getProperty("user.dir"), APP.CONF.getString("ontology.learnpad.model.instances"), modelSetId);
+        Path relativeModelSetPath = Paths.get(APP.CONF.getString("ontology.learnpad.model.instances"), modelSetId);
+        Path modelSetFolderPath;
+        Path workingDirectory = getWorkingDirectory(APP.CONF.getString("working.directory"), System.getProperty("user.dir"));
+        if (workingDirectory != null) {
+            modelSetFolderPath = workingDirectory.resolve(relativeModelSetPath);
+        } else {
+            modelSetFolderPath = relativeModelSetPath;
+        }
         return modelSetFolderPath;
+    }
+
+    private Path getWorkingDirectory(String... directoryPaths) {
+        for (String directoryPathString : directoryPaths) {
+            if (directoryPathString != null) {
+                Path directoryPath = Paths.get(directoryPathString);
+                File workingDirectory = directoryPath.toFile();
+                if (workingDirectory.exists() && workingDirectory.canWrite()) {
+                    return directoryPath;
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -225,11 +235,10 @@ class XsltURIResolver implements URIResolver {
 
     @Override
     public Source resolve(String href, String base) throws TransformerException {
-        try{
-              InputStream inputStream = this.getClass().getResourceAsStream(href);
-              return new StreamSource(inputStream);
-        }
-        catch(Exception ex){
+        try {
+            InputStream inputStream = this.getClass().getResourceAsStream(href);
+            return new StreamSource(inputStream);
+        } catch (Exception ex) {
             ex.printStackTrace();
             return null;
         }

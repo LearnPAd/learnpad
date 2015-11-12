@@ -22,7 +22,6 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import eu.learnpad.ontology.config.APP;
 
 import eu.learnpad.ontology.persistence.FileOntAO;
-import eu.learnpad.ontology.persistence.OntAO;
 import eu.learnpad.or.rest.data.BusinessActor;
 import eu.learnpad.or.rest.data.Experts;
 import eu.learnpad.or.rest.data.Recommendations;
@@ -34,15 +33,12 @@ import eu.learnpad.or.rest.data.Recommendations;
 public class Recommender {
     
     private static final Recommender instance = new Recommender();
-    private OntAO ontAO;
-    
+       
     public static final String QUERY_LINEMANAGER_AS_EXPERT = "linemanagerAsExpert";
     public static final String QUERY_EXPERTS_WITH_SAME_ROLE = "expertsWithSameRole";
     public static final String QUERY_EXPERT_MOST_OFTEN_EXECUTED_TASK = "expertMostOftenExecutedTask";
     
-    private Recommender() {
-    	this.ontAO = new FileOntAO();
-    }
+    private Recommender() {}
     
     public static Recommender getInstance(){
         return instance;
@@ -77,7 +73,7 @@ public class Recommender {
         List<BusinessActor> experts = new ArrayList<>();
         Query query = QueryFactory.create(queryObj.getQueryString());
         //TODO replace if execution data is available.        
-        OntModel model = ontAO.getExecutionData(modelSetId);
+        OntModel model = FileOntAO.getInstance().getExecutionData(modelSetId);
 //        OntModel model = ontAO.getInferencer(modelSetId).getModel();
 //        model.write(System.out, "Turtle");
         QueryExecution qexec = null;

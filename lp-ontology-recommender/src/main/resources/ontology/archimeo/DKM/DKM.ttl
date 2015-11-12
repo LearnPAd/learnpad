@@ -29,7 +29,7 @@
   dc:title "The DKM Ontology"@en ;
   owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
   owl:imports <http://ikm-group.ch/archiMEO/emo> ;
-  owl:imports <http://ikm-group.ch/archiMEO/eo> ;  
+  owl:imports <http://ikm-group.ch/archiMEO/eo> ;
   owl:versionInfo "1.0"^^xsd:string ;
 .
 dkm:Aggregation
@@ -75,6 +75,11 @@ dkm:Lane
   rdf:type owl:Class ;
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:subClassOf dkm:D_Container ;
+.
+dkm:LearningDocument
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf dkm:Document ;
 .
 dkm:Note
   rdf:type owl:Class ;
@@ -125,4 +130,9 @@ dkm:knowledgeProductIsRelatedToKnowledgeProduct
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:domain dkm:KnowledgeProduct ;
   rdfs:range dkm:KnowledgeProduct ;
+.
+dkm:learningDocumentIncreasesCompetency
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain dkm:LearningDocument ;
+  rdfs:range <http://ikm-group.ch/archiMEO/CMM#Competency> ;
 .

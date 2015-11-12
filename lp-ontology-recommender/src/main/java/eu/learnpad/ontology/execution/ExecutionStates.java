@@ -31,16 +31,11 @@ public class ExecutionStates {
     
     private static final ExecutionStates instance = new ExecutionStates();
     
-    private OntAO ontAO;
-
     public static ExecutionStates getInstance() {
         return instance;
     }
 	
-    public ExecutionStates() {
-    	this.ontAO = new FileOntAO();
-    	
-    }
+    public ExecutionStates() {}
     
     public States getStatesOfLatestAddedModelSet(String userId){
         String latestAddeModelSetId = SimpleModelTransformator.getInstance().getLatestModelSetId();
@@ -89,7 +84,7 @@ public class ExecutionStates {
                 + "}";
 
         Query query = QueryFactory.create(queryString);
-        OntModel model = ontAO.getExecutionData(modelSetId);
+        OntModel model = FileOntAO.getInstance().getExecutionData(modelSetId);
 //        model.write(System.out, "Turtle");
         QueryExecution qexec = null;
         States states = new States();

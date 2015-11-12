@@ -6,31 +6,50 @@
 package eu.learnpad.ontology;
 
 import eu.learnpad.ontology.config.APP;
+import eu.learnpad.ontology.transformation.SimpleModelTransformator;
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import static org.junit.Assert.*;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import org.junit.AfterClass;
 
 /**
  *
  * @author sandro.emmenegger
  */
-public abstract class AbstractUnitTest {
+public class AbstractUnitTest {
     
-    public static final String TEST_MODEL_SET_ID_1 = "modelset-222"; 
-    public static final String TEST_MODEL_SET_ID_2 = "modelset-224";
-    public static final String TEST_MODEL_SET_ID_TITOLO_UNICO = "modelset-titolo-unico-v4";
-    public static final String TEST_USER_1_NAME = "Barnaby Barnes";
-    public static final String TEST_USER_1_EMAIL= "barnaby.barnes@fhnw.ch";
+    protected static final String MODELSET_ID = APP.CONF.getString("testdata.modelset.version");
     
-    public static final String TEST_MODEL_SET_ID_TITOLO_UNICO_V5 = "titolo-unico";
-    public static final String TEST_USER_2_EMAIL= "barnaby.barnes@learnpad.com";
-    public static final String TEST_TITOLO_UNICO_V5_ARTIFACT_ID = "obj.13872";
+    /**
+     * Remove all transformed files after testrun;
+     * 
+     * @throws IOException 
+     */
+    @AfterClass
+    public static void after() throws IOException {
+        Path path = SimpleModelTransformator.getInstance().getModelSetFolderPath(MODELSET_ID);
+        cleanUp(path.getParent());
+    }    
 
-    protected void testPath(String configKey) {
-        for (String pathString : APP.CONF.getStringArray(configKey)) {
-            Path path = Paths.get(pathString);
-            assertNotNull(path);
-            assertTrue(path.toFile().isDirectory());
+    protected static void cleanUp(Path rootPath) throws IOException {
+
+        if (Files.exists(rootPath)) {
+            Files.walkFileTree(rootPath, new SimpleFileVisitor<Path>() {
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    Files.deleteIfExists(file);
+                    return FileVisitResult.CONTINUE;
+                }
+
+                @Override
+                public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                    Files.deleteIfExists(dir);
+                    return FileVisitResult.CONTINUE;
+                }
+            });
         }
     }
 

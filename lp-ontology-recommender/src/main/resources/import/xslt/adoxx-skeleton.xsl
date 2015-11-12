@@ -661,6 +661,7 @@ ________________________________________________________________________________
 		<xsl:call-template name="elementPostProcessing"/>	
     <xsl:apply-templates select=".//INSTANCE[@class='Competency']" mode="Competency"/>
     <xsl:apply-templates select=".//INSTANCE[@class='Group']" mode="CompetencyGroup"/>
+    <xsl:apply-templates select=".//INSTANCE[@class='Document']" mode="Document"/>
 </xsl:template>
 <!--...............................................................................................-->  
 <!--
@@ -689,6 +690,19 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
   <xsl:template match="INSTANCE" mode="CompetencyGroup">
 		<xsl:call-template name="CompetencyGroup">
+			<xsl:with-param name="id" select="@id" tunnel="yes"/>
+			<xsl:with-param name="name" select="@name" tunnel="yes"/>
+			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+		</xsl:call-template>
+		<xsl:call-template name="elementPostProcessing"/> 
+  </xsl:template>
+<!--...............................................................................................--> 
+<!--
+___________________________________________________________________________________________________
+ Competency Profile
+___________________________________________________________________________________________________-->
+  <xsl:template match="INSTANCE" mode="CompetencyProfile">
+		<xsl:call-template name="CompetencyProfile">
 			<xsl:with-param name="id" select="@id" tunnel="yes"/>
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>

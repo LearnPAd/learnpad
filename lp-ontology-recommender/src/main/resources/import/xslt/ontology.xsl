@@ -2,7 +2,7 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <!--To be set as parameter in transformation engine -->
   <!--xsl:param name="modelSetVersion">titolo-unico-v4</xsl:param-->
-  <xsl:param name="modelSetVersion"/>
+  <xsl:param name="modelSetVersion">titolo-unico</xsl:param>
 <!--___________________________________________________________________________________________________
 HEADER 
 ___________________________________________________________________________________________________-->
@@ -818,6 +818,22 @@ ________________________________________________________________________________
   rdf:type owl:Class;
   rdf:type cmm:CompetencyGroup ;
   rdfs:subClassOf cmm:CompetencyGroup ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
+	</xsl:template>  
+<!--...............................................................................................--> 
+<!--
+___________________________________________________________________________________________________
+ Competency Profile
+___________________________________________________________________________________________________-->
+  	<xsl:template name="CompetencyProfile">
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyProfile ;
+  rdfs:subClassOf cmm:CompetencyProfile ;
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
 	</xsl:template>  

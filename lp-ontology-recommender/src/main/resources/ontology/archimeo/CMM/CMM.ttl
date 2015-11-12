@@ -29,8 +29,13 @@
   dc:title "The CMM Ontology"@en ;
   owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
   owl:imports <http://ikm-group.ch/archiMEO/emo> ;
-  owl:imports <http://ikm-group.ch/archiMEO/eo> ;  
+  owl:imports <http://ikm-group.ch/archiMEO/eo> ;
   owl:versionInfo "1.0"^^xsd:string ;
+.
+cmm:AquiredCompetency
+  rdf:type owl:Class ;
+  rdfs:comment "The level of an aquired competency belonging to a performers competency profile."^^xsd:string ;
+  rdfs:subClassOf emo:CompetencyMetaModel ;
 .
 cmm:CaseFileItem
   rdf:type owl:Class ;
@@ -60,6 +65,54 @@ cmm:CompetencySet
   rdfs:comment "Competency Set pools competencies, e.g. required by a role or for a certain purpose"^^xsd:string ;
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:subClassOf emo:CompetencyMetaModel ;
+.
+cmm:LearningPreference
+  rdf:type owl:Class ;
+  rdfs:subClassOf emo:CompetencyMetaModel ;
+.
+cmm:aquiredCompetencies
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cmm:CompetencyProfile ;
+  rdfs:range cmm:AquiredCompetency ;
+.
+cmm:aquiredCompetencyComment
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:AquiredCompetency ;
+  rdfs:range xsd:string ;
+.
+cmm:aquiredCompetencyLastUpdate
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:AquiredCompetency ;
+  rdfs:range xsd:dateTime ;
+.
+cmm:aquiredCompetencyLearningGoal
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:AquiredCompetency ;
+  rdfs:range xsd:string ;
+.
+cmm:aquiredCompetencyLevel
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:AquiredCompetency ;
+  rdfs:range xsd:integer ;
+.
+cmm:aquiredCompetencyRefersToCompetency
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cmm:AquiredCompetency ;
+  rdfs:range cmm:Competency ;
+.
+cmm:aquiredCompetencyScore
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:AquiredCompetency ;
+  rdfs:range xsd:string ;
+.
+cmm:aquiredCompetencyStatus
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:AquiredCompetency ;
+  rdfs:range xsd:string ;
+.
+cmm:auditory_learningPreference
+  rdf:type cmm:LearningPreference ;
+  cmm:learningPreferenceHasName "Auditory"^^xsd:string ;
 .
 cmm:competencyBelongsToCompetencyGroup
   rdf:type owl:ObjectProperty ;
@@ -102,4 +155,25 @@ cmm:competencyRequiresCompetency
   rdfs:comment "higher-level competency’s definition mandates that certain lower-level competencies are met"^^xsd:string ;
   rdfs:domain cmm:Competency ;
   rdfs:range cmm:Competency ;
+.
+cmm:learningPreferenceHasName
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:LearningPreference ;
+  rdfs:range xsd:string ;
+.
+cmm:mentoring_learningPreference
+  rdf:type cmm:LearningPreference ;
+  cmm:learningPreferenceHasName "Mentoring"^^xsd:string ;
+.
+cmm:reading_learningPreference
+  rdf:type cmm:LearningPreference ;
+  cmm:learningPreferenceHasName "Reading"^^xsd:string ;
+.
+cmm:simulation_learningPreference
+  rdf:type cmm:LearningPreference ;
+  cmm:learningPreferenceHasName "Simulation"^^xsd:string ;
+.
+cmm:visualBrowsing_learningPreference
+  rdf:type cmm:LearningPreference ;
+  cmm:learningPreferenceHasName "Visual (Browsing)"^^xsd:string ;
 .
