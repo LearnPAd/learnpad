@@ -108,7 +108,8 @@ public class TaskServlet extends WebSocketServlet {
 			// signal task completion to users
 			for (Entry<TaskSocket, String> e : activeSockets.entrySet()) {
 				if (e.getValue().equals(activeSockets.get(socket))) {
-					e.getKey().sendValidated(result.sessionScore);
+					e.getKey().sendValidated(result.sessionScore,
+							result.taskScore);
 				} else {
 					e.getKey().sendOtherValidated();
 				}
@@ -192,10 +193,11 @@ public class TaskServlet extends WebSocketServlet {
 			this.container = container;
 		}
 
-		void sendValidated(Integer sessionScore) {
+		void sendValidated(Integer sessionScore, Integer taskScore) {
 			try {
 				getRemote().sendString(
-						mapper.writeValueAsString(new Validated(sessionScore)));
+						mapper.writeValueAsString(new Validated(sessionScore,
+								taskScore)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -34,39 +34,42 @@ public class LearnPadTaskSubmissionResult {
 
 	public final TaskSubmissionStatus status;
 	public final Integer sessionScore;
+	public final Integer taskScore;
 
 	public LearnPadTaskSubmissionResult(TaskSubmissionStatus status,
-			Integer sessionScore) {
+			Integer sessionScore, Integer taskScore) {
 		super();
 		this.status = status;
 		this.sessionScore = sessionScore;
+		this.taskScore = taskScore;
 	}
 
 	// helper methods to create submission results
 
-	public static LearnPadTaskSubmissionResult validated(Integer sessionScore) {
+	public static LearnPadTaskSubmissionResult validated(Integer sessionScore,
+			Integer taskScore) {
 		return new LearnPadTaskSubmissionResult(TaskSubmissionStatus.VALIDATED,
-				sessionScore);
+				sessionScore, taskScore);
 	}
 
 	public static LearnPadTaskSubmissionResult rejected() {
 		return new LearnPadTaskSubmissionResult(TaskSubmissionStatus.REJECTED,
-				0);
+				0, 0);
 	}
 
 	public static LearnPadTaskSubmissionResult alreadyCompleted() {
 		return new LearnPadTaskSubmissionResult(
-				TaskSubmissionStatus.ALREADY_COMPLETED, 0);
+				TaskSubmissionStatus.ALREADY_COMPLETED, 0, 0);
 	}
 
 	public static LearnPadTaskSubmissionResult unknownTask() {
 		return new LearnPadTaskSubmissionResult(
-				TaskSubmissionStatus.UNKOWN_TASK, 0);
+				TaskSubmissionStatus.UNKOWN_TASK, 0, 0);
 	}
 
 	public static LearnPadTaskSubmissionResult unknownError() {
 		return new LearnPadTaskSubmissionResult(
-				TaskSubmissionStatus.UNKOWN_ERROR, 0);
+				TaskSubmissionStatus.UNKOWN_ERROR, 0, 0);
 	}
 
 }

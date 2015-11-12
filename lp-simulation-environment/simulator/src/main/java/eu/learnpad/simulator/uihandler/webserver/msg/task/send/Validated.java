@@ -36,9 +36,13 @@ public class Validated implements ITaskMsg {
 	// user score during process resolution
 	public Integer totalscore;
 
-	public Validated(Integer totalscore) {
+	// task-specific score
+	public Integer taskscore;
+
+	public Validated(Integer totalscore, Integer taskscore) {
 		super();
 		this.totalscore = totalscore;
+		this.taskscore = taskscore;
 	}
 
 	/*

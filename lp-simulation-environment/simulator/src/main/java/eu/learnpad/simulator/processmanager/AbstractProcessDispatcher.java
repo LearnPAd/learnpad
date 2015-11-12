@@ -131,15 +131,18 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 
 					completeTask(task, data);
 
+					int taskScore = 0;
+
 					// Can be false if a robot is submitting the result
 					// in this case there is no point in calculating a user
 					// score
 					if (usersScores.containsKey(userId)) {
 						// TODO calculate actual task score
-						usersScores.put(userId,
-								usersScores.get(userId)
-								+ (int) (taskScorers.get(task.id)
-										.userComplete(userId) * 100));
+						taskScore = (int) (taskScorers.get(task.id)
+								.userComplete(userId) * 100);
+
+						usersScores.put(userId, usersScores.get(userId)
+								+ taskScore);
 					}
 
 					if (isProcessFinished()) {
@@ -156,8 +159,8 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 						}).start();
 					}
 
-					return LearnPadTaskSubmissionResult.validated(usersScores
-							.get(userId));
+					return LearnPadTaskSubmissionResult.validated(
+							usersScores.get(userId), taskScore);
 				}
 			}
 		}
