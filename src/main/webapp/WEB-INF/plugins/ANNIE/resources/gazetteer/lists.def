@@ -114,3 +114,6 @@ say.lst:say
 person_male_lower.lst:person_first:male
 person_female_lower.lst:person_first:female
 vague_time_terms.lst:vague_time
+vagueness.lst:lexicalambiguity:vagueness
+optionality.lst:lexicalambiguity:optionality
+subjectivity.lst:lexicalambiguity:subjectivity
