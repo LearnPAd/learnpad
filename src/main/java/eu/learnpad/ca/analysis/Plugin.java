@@ -11,10 +11,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.languagetool.Language;
-
+import org.apache.log4j.Logger;
 public abstract class Plugin {
 	
-	protected static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Plugin.class);
+	
 	protected DocumentContent docContent;
 	protected List<Node> listnode;
 	protected Language language;
@@ -49,7 +49,7 @@ public abstract class Plugin {
 	
 	public void gatevsleanpadAnnotation(
 			Set<gate.Annotation> setGateAnnotations,
-			List<Annotation> annotations, Set<gate.Annotation> listSentenceDefected, List<Node> listnode, DocumentContent docContent,String Type, String Racc) {
+			List<Annotation> annotations, Set<gate.Annotation> listSentenceDefected, List<Node> listnode, DocumentContent docContent,String Type, String Racc,Logger log) {
 
 		for (gate.Annotation gateA : setGateAnnotations) {
 

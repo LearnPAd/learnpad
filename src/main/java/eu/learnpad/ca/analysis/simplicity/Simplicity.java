@@ -44,6 +44,7 @@ public class Simplicity extends AbstractAnalysisClass {
 
 		this.language = lang;
 		this.staticContentInput = staticContentInput;
+		this.gateu = gate;
 	}
 
 	public void run() {
@@ -85,17 +86,15 @@ public class Simplicity extends AbstractAnalysisClass {
 
 	}
 
-	
+
 	private int execute(String content, Content c, List<Annotation> listannotations){
 
 		//gateu.runProcessingResourcesforLenght();
 		try {
 			gateu.join();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			log.error(e);
-		}
-		if(gateu!=null){
+
+
+
 			DocumentContent docContent = gateu.getDocumentContent();
 			Set<gate.Annotation> listSentence = gateu.getSentence();
 			Set<gate.Annotation> listSentenceDefected = new HashSet<>();
@@ -118,10 +117,11 @@ public class Simplicity extends AbstractAnalysisClass {
 			numDefectiveSentences = listSentenceDefected.size();
 			Factory.deleteResource(gateu.getCorpus());
 			return listSentence.size();
-		}else{
-			log.error("gate null");
-			return 0;	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			log.error(e);	
 		}
+		return 0 ;
 	}
 
 	private void check(StaticContentAnalysis staticContentInput2) {

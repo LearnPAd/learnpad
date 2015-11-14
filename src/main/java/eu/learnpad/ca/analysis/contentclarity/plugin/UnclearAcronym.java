@@ -22,9 +22,9 @@ import gate.util.InvalidOffsetException;
 
 public class UnclearAcronym extends Plugin{ 
 
+	protected static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(UnclearAcronym.class);
 
-	 
-	 
+
 	public UnclearAcronym(Language lang,  DocumentContent docContent, List<Node> listnode){
 		this.language=lang;
 		this.docContent = docContent;
@@ -32,13 +32,13 @@ public class UnclearAcronym extends Plugin{
 	}
 
 
-	
-	
+
+
 
 
 
 	public List<Annotation> checkUnclearAcronym(Set<gate.Annotation> listsentence, Set<gate.Annotation> listSentenceDefected, List<Annotation> annotations) {
-		
+
 		int id = 100_000;
 
 		for (gate.Annotation sentence_gate : listsentence) {
@@ -71,8 +71,8 @@ public class UnclearAcronym extends Plugin{
 
 		//gateu.runProcessingResources();
 		//docContent = gateu.getCorpus().get(0).getContent();
-		
-		
+
+
 
 		List<String> acronymdefected = new ArrayList<String>();
 		List<String> listOfStrings = new ArrayList<String>(Arrays.asList(sentence.split(" ")));
@@ -155,9 +155,10 @@ public class UnclearAcronym extends Plugin{
 			}
 		}
 
-
-		log.trace(acronym+"\nsize: "+acronym.size());
-		log.trace(acronymdefected+"\nsize: "+acronymdefected.size());
+		if(acronym.size()>0 & acronymdefected.size()>0 ){
+			log.trace(acronym+"\nsize: "+acronym.size());
+			log.trace(acronymdefected+"\nsize: "+acronymdefected.size());
+		}
 		//insertdefectannotation(content, c ,  acronymdefected, listSentence, listannotation,docContent );
 		//numDefectiveSentences =  listSentence.size();
 
@@ -166,7 +167,7 @@ public class UnclearAcronym extends Plugin{
 	}
 
 
-	
+
 
 
 	private int insertdefectannotationsentence(String sentence,
@@ -191,7 +192,7 @@ public class UnclearAcronym extends Plugin{
 					//finalpos = initialpos+token.length();
 					log.fatal("error jump position");
 				}
-				
+
 				precedentposition=finalpos;
 				nodeid++;
 				Node init= new Node(nodeid,initialpos+offset);
@@ -223,6 +224,6 @@ public class UnclearAcronym extends Plugin{
 		return nodeid;
 
 	}
-	
+
 
 }

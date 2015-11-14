@@ -19,6 +19,8 @@ import eu.learnpad.ca.rest.data.Node;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContent;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
+import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
+import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import gate.DocumentContent;
 import gate.Factory;
@@ -34,10 +36,11 @@ public class ContentClarity extends AbstractAnalysisClass {
 		this.gateu = gate;
 	}
 
-	public ContentClarity(StaticContentAnalysis staticContentInput, Language lang) {
+	public ContentClarity(StaticContentAnalysis staticContentInput, Language lang, GateThread gate) {
 
 		this.language = lang;
 		this.staticContentInput = staticContentInput;
+		this.gateu = gate;
 	}
 
 	public void run() {
@@ -46,12 +49,41 @@ public class ContentClarity extends AbstractAnalysisClass {
 		}
 
 		if (staticContentInput != null) {
-			// check(staticContentInput);
+			check(staticContentInput);
 		}
 
 	}
 
 	
+	private AnnotatedStaticContentAnalysis check(StaticContentAnalysis staticContentInput) {
+		String title = staticContentInput.getStaticContent().getTitle();
+		String idc = staticContentInput.getStaticContent().getId();
+		String content = staticContentInput.getStaticContent().getContentplain();
+
+		annotatedStaticContent = new AnnotatedStaticContentAnalysis();
+		StaticContent sc = new StaticContent();
+		annotatedStaticContent.setStaticContent(sc);
+		sc.setTitle(title);
+		sc.setId(idc);
+		Content c = new Content();
+		sc.setContent(c);
+
+		// AnnotationImpl i;
+
+		
+		List<Annotation> listannotation  =new ArrayList<Annotation>();
+		int numSentence = execute(content,c,listannotation);
+		annotatedStaticContent.setAnnotations(listannotation);
+		double qualitymmeasure = calculateOverallQualityMeasure(numSentence);
+		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
+		annotatedStaticContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
+		annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
+		annotatedStaticContent.setType("Content Clarity");
+
+		return annotatedStaticContent;
+		
+	}
+
 	public AnnotatedCollaborativeContentAnalysis check(
 			CollaborativeContentAnalysis collaborativeContentInput) {
 		String title = collaborativeContentInput.getCollaborativeContent().getTitle();

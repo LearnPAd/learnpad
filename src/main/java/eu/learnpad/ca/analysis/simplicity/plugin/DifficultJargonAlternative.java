@@ -28,7 +28,7 @@ import gate.util.InvalidOffsetException;
 
 public class DifficultJargonAlternative extends Plugin { 
 
-
+	protected static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DifficultJargonAlternative.class);
 	
 	private AlternativeTermSet alternativetermset;
 	//private Language language;

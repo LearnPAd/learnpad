@@ -14,7 +14,7 @@ import org.languagetool.Language;
 
 public class ActorUnclear extends Plugin {
 	
-	
+	protected static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ActorUnclear.class);
 	
 	public ActorUnclear(Language lang,  DocumentContent docContent, List<Node> listnode){
 		this.language=lang;
@@ -31,7 +31,9 @@ public class ActorUnclear extends Plugin {
 		
 		
 		String rac = "The sentence does not specify the subject. Please include who is performing the action.";
-		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,"Actor Unclear",rac );
+		
+		String type = "Actor Unclear";
+		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log );
 	}
 
 }

@@ -20,6 +20,7 @@ import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
+import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.SyntacticAmbiguity;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
@@ -86,9 +87,9 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 				}
 				if(contentFile.getQualityCriteria().isContentClarity()){
 
-					/*UnclearAcronym threadUnclearAcronym = new UnclearAcronym (contentFile, lang);
-					threadUnclearAcronym.start();
-					putAndCreate(id, threadUnclearAcronym);*/
+					ContentClarity threadContentClarity = new ContentClarity (contentFile, lang, gateu);
+					threadContentClarity.start();
+					putAndCreate(id, threadContentClarity);
 
 				}
 				return id.toString();
