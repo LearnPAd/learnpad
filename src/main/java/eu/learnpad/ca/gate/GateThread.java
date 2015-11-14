@@ -159,6 +159,16 @@ public class GateThread extends Thread implements StatusListener{
 
 
 		}
+		
+		private void LoadJAPESyntacticAmbiguityAnaphoric(ArrayList<String> JAPEActorUnclear){
+			
+			JAPEActorUnclear.add("annotate_anaphoric_ambiguity_RULE_0.jape");
+			JAPEActorUnclear.add("annotate_anaphoric_ambiguity_RULE_1.jape");
+			JAPEActorUnclear.add("annotate_anaphoric_ambiguity_RULE_2.jape");
+			
+
+
+		}
 
 		private Collection<FeatureMap> loadJAPE(ArrayList<String> JAPElist){
 			Collection<FeatureMap> JapeCollection = new ArrayList<>();
@@ -210,6 +220,8 @@ public class GateThread extends Thread implements StatusListener{
 				ArrayList<String> listJAPE = new ArrayList<String>();
 				LoadJAPELenght(listJAPE);
 				LoadJAPEActorUnclear(listJAPE);
+				LoadJAPESyntacticAmbiguityCoordination(listJAPE);
+				LoadJAPESyntacticAmbiguityAnaphoric(listJAPE);
 				Collection<FeatureMap> features = loadJAPE(listJAPE);
 				for(FeatureMap feature :features){
 					ProcessingResource japeTransducer = (ProcessingResource) Factory.createResource("gate.creole.Transducer", feature);
@@ -238,9 +250,9 @@ public class GateThread extends Thread implements StatusListener{
 		}
 
 		public Set<gate.Annotation> getSentence(){
-			return this.getAnnotationSet(new HashSet<String>() {{
-				add("Sentence");
-			}});
+			HashSet<String> hs = new HashSet<String>();
+			hs.add("Sentence");
+			return this.getAnnotationSet(hs);
 		}
 
 		public DocumentContent getDocumentContent() {

@@ -1,0 +1,21 @@
+Phase: NumCoordTermSent
+Input: Split Sentence Token 
+Options: control = first
+
+//this rule checks the presence of more than 2 AND or OR in the same sentence.
+//Pipeline: Document Reset PR, Annie English Tokenizer, Sentence Splitter,
+//annotate_coord_ambiguity_PREPROCESS.jape
+ 
+Rule: CoordAmbiguity
+(
+//{Split}
+({Token.category == JJ})
+({Token.category == NN} | {Token.category == NNS})
+({Token.string == "and"} | {Token.string == "or"})
+({Token.category == NN} | {Token.category == NNS})
+//{Split}
+):coord_ambiguity
+-->
+:coord_ambiguity.CoordAmbiguity = {}
+
+

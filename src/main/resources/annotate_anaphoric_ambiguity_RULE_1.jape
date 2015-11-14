@@ -1,0 +1,42 @@
+Phase: NumCoordTermSent
+Input: Token Split Pronoun NounChunk 
+Options: control = first
+
+//this rule checks the presence of more NP before the personal pronoun it.
+//Pipeline: Document Reset PR, Annie Gazetteer, Annie English Tokenizer, Annie Sentence Splitter, 
+//Annie POS Tagger, NP Chunker
+
+ 
+Rule: AnaphoricAmbiguity
+Priority: 10
+(
+({Split})
+({Token.category != "."})*
+({NounChunk})
+({Token.category != "."})*
+({NounChunk})+
+({Token.category != "."})*
+({Pronoun})
+({Token.category != "."})*
+):anaphoric_ambiguity
+-->
+:anaphoric_ambiguity.AnaphoricAmbiguity1 = {case = "same_sent"}
+
+//This fires only if the first does not fire
+/*
+Rule: AnaphoricAmbiguityTwoSent
+Priority: 5
+(
+({Split})
+//({Token.category != "."})*
+({NounChunk})
+//({Token.category != "."})*
+({NounChunk})+
+//({Token})*
+({Split})
+({Pronoun})
+//({Token.category != "."})*
+):anaphoric_ambiguity
+-->
+:anaphoric_ambiguity.AnaphoricAmbiguity2 = {case = "previous_sent"}
+*/
