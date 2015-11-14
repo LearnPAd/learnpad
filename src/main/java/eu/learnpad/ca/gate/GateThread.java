@@ -70,7 +70,8 @@ public class GateThread extends Thread implements StatusListener{
 				//Corpus corpus = Factory.newCorpus("New Corpus");
 				serialcorpusController = (SerialAnalyserController) Factory.createResource("gate.creole.SerialAnalyserController");
 				String[] processingResources = {"gate.creole.tokeniser.DefaultTokeniser",
-				"gate.creole.splitter.SentenceSplitter"};
+				"gate.creole.splitter.SentenceSplitter", "gate.creole.POSTagger", "gate.creole.ConditionalSerialAnalyserController"};
+				
 				for(int pr = 0; pr < processingResources.length; pr++) {
 					log.info("\t* Loading " + processingResources[pr] + " ... ");
 

@@ -22,7 +22,7 @@ import org.languagetool.language.Italian;
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
-import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.SyntacticAmbiguity;
+import eu.learnpad.ca.analysis.non_ambiguity.NonAmbiguity;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.StaticContentVerifications;
@@ -80,9 +80,9 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 				}
 				if(contentFile.getQualityCriteria().isNonAmbiguity()){
 
-					SyntacticAmbiguity threadSyntacticAmbiguity = new SyntacticAmbiguity (contentFile, lang);
-					threadSyntacticAmbiguity.start();
-					putAndCreate(id, threadSyntacticAmbiguity);
+					NonAmbiguity threadNonAmbiguity = new NonAmbiguity (contentFile, lang, gateu);
+					threadNonAmbiguity.start();
+					putAndCreate(id, threadNonAmbiguity);
 
 				}
 				if(contentFile.getQualityCriteria().isContentClarity()){

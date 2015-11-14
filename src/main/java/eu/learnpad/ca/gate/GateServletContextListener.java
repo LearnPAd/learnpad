@@ -38,6 +38,8 @@ public class GateServletContextListener implements ServletContextListener{
 				// load plugins, for example... 
 				Gate.getCreoleRegister().registerDirectories( 
 						ctx.getResource("/WEB-INF/plugins/ANNIE")); 
+				Gate.getCreoleRegister().registerDirectories( 
+						ctx.getResource("/WEB-INF/plugins/Tagger_NP_Chunking")); 
 			}
 
 		} 
