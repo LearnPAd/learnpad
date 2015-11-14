@@ -12,7 +12,6 @@ import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.analysis.contentclarity.plugin.ActorUnclear;
 import eu.learnpad.ca.analysis.contentclarity.plugin.UnclearAcronym;
 import eu.learnpad.ca.gate.GateThread;
-import eu.learnpad.ca.gate.UtilsGate;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;

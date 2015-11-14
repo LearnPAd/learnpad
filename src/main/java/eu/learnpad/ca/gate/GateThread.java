@@ -8,13 +8,11 @@ import gate.Document;
 import gate.DocumentContent;
 import gate.Factory;
 import gate.FeatureMap;
-import gate.Gate;
 import gate.ProcessingResource;
 import gate.creole.ResourceInstantiationException;
 import gate.creole.SerialAnalyserController;
 import gate.event.StatusListener;
 import gate.util.GateException;
-import gate.util.persistence.PersistenceManager;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -23,8 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+
 
 
 public class GateThread extends Thread implements StatusListener{
@@ -47,7 +44,7 @@ public class GateThread extends Thread implements StatusListener{
 
 
 		public void run() {
-			runProcessingResourcesforLenght();
+			runProcessingResourcesforAll();
 
 		}
 
@@ -137,8 +134,7 @@ public class GateThread extends Thread implements StatusListener{
 			
 			JAPLenght.add("annotate_sent_len.jape");
 			
-			JAPLenght.add("annotate_sent_len_nominal.jape");//.getResourceAsStream("annotate_sent_len_nominal.jape");
-
+			JAPLenght.add("annotate_sent_len_nominal.jape");
 			
 			
 		}
@@ -150,6 +146,16 @@ public class GateThread extends Thread implements StatusListener{
 			JAPEActorUnclear.add("annotate_passive_forms_irregular_passive.jape");
 			JAPEActorUnclear.add("annotate_passive_forms_regular_passive.jape");
 			JAPEActorUnclear.add("annotate_passive_forms_RULE_1.jape");
+
+
+		}
+		
+		private void LoadJAPESyntacticAmbiguityCoordination(ArrayList<String> JAPEActorUnclear){
+			
+			JAPEActorUnclear.add("annotate_coord_ambiguity_PREPROCESS.jape");
+			JAPEActorUnclear.add("annotate_coord_ambiguity_RULE_1.jape");
+			JAPEActorUnclear.add("annotate_coord_ambiguity_RULE_2.jape");
+			
 
 
 		}
@@ -193,7 +199,7 @@ public class GateThread extends Thread implements StatusListener{
 			} 
 		}
 
-		public void runProcessingResourcesforLenght() {
+		public void runProcessingResourcesforAll() {
 			try{
 
 				SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( controller.get());
