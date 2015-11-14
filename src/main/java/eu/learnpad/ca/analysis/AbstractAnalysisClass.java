@@ -1,17 +1,23 @@
 package eu.learnpad.ca.analysis;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import org.languagetool.Language;
 
+import eu.learnpad.ca.rest.data.Content;
+import eu.learnpad.ca.rest.data.Node;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
+import gate.DocumentContent;
+import gate.util.InvalidOffsetException;
 
 public abstract class AbstractAnalysisClass extends Thread{
 
-	
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(AbstractAnalysisClass.class);
 	protected AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent;
 	protected AnnotatedStaticContentAnalysis annotatedStaticContent;
 	
@@ -78,6 +84,38 @@ public abstract class AbstractAnalysisClass extends Thread{
 	public AnnotatedStaticContentAnalysis getAnnotatedStaticContentAnalysis() {
 		return annotatedStaticContent;
 	} 
+	
+	protected void addNodeInContent(List<Node> listnode, Content c, DocumentContent docContent){
+		Collections.sort(listnode);
+		Integer precedentposition = 0;
+		for(Node node :listnode){
+			
+			Integer pos = node.getOffSet();
+			
+			try{
+				String token = "";
+				if(precedentposition>pos){
+					//String stringap = //content.substring(precedentposition, initialpos );
+					log.debug("error Annotation Simplicity");
+
+				}
+				token = docContent.getContent(precedentposition.longValue(),pos.longValue()).toString();
+				c.setContent(token);
+				c.setContent(node);
+				precedentposition = pos;
+				//c.setContent(token.toString());
+				//c.setContent(nodeend);
+
+			}catch(InvalidOffsetException e){
+				log.debug(e);
+			}
+
+		}
+
+
+
+	}
+
 	
 	protected  int indexofElement(String sentence, String word, Map<String, Integer> elementfinded, String split){
 		String [] spliter = sentence.split(split);

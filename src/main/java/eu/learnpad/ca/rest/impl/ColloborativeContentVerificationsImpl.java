@@ -21,12 +21,11 @@ import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
-import eu.learnpad.ca.analysis.contentclarity.plugin.UnclearAcronym;
+import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.SyntacticAmbiguity;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
 import eu.learnpad.ca.gate.GateThread;
-import eu.learnpad.ca.gate.UtilsGate;
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
@@ -107,9 +106,9 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				}
 				if(contentFile.getQualityCriteria().isContentClarity()){
 
-					UnclearAcronym threadUnclearAcronym = new UnclearAcronym (contentFile, lang, gateu);
-					threadUnclearAcronym.start();
-					putAndCreate(id, threadUnclearAcronym);
+					ContentClarity threadContentClarity = new ContentClarity (contentFile, lang, gateu);
+					threadContentClarity.start();
+					putAndCreate(id, threadContentClarity);
 
 				}
 

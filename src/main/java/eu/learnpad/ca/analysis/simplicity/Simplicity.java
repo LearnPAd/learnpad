@@ -3,7 +3,6 @@ package eu.learnpad.ca.analysis.simplicity;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,7 +13,6 @@ import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.analysis.simplicity.plugin.DifficultJargonAlternative;
 import eu.learnpad.ca.analysis.simplicity.plugin.JuridicalJargon;
 import eu.learnpad.ca.gate.GateThread;
-import eu.learnpad.ca.gate.UtilsGate;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
@@ -26,7 +24,6 @@ import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import gate.DocumentContent;
 import gate.Factory;
-import gate.resources.img.svg.GATEUpdateSiteIcon;
 import gate.util.InvalidOffsetException;
 
 
@@ -35,7 +32,7 @@ public class Simplicity extends AbstractAnalysisClass {
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Simplicity.class);
 
 	private GateThread gateu = null;
-	
+
 	public Simplicity(CollaborativeContentAnalysis collaborativeContentInput,Language lang, GateThread gate) {
 
 		this.language = lang;
@@ -43,7 +40,7 @@ public class Simplicity extends AbstractAnalysisClass {
 		this.gateu = gate;
 	}
 
-	public Simplicity(StaticContentAnalysis staticContentInput, Language lang) {
+	public Simplicity(StaticContentAnalysis staticContentInput, Language lang, GateThread gate) {
 
 		this.language = lang;
 		this.staticContentInput = staticContentInput;
@@ -87,10 +84,10 @@ public class Simplicity extends AbstractAnalysisClass {
 		return annotatedCollaborativeContent;
 
 	}
+
 	
-	@SuppressWarnings("serial")
 	private int execute(String content, Content c, List<Annotation> listannotations){
-		
+
 		//gateu.runProcessingResourcesforLenght();
 		try {
 			gateu.join();
@@ -98,30 +95,35 @@ public class Simplicity extends AbstractAnalysisClass {
 			// TODO Auto-generated catch block
 			log.error(e);
 		}
-		DocumentContent docContent = gateu.getDocumentContent();
-		Set<gate.Annotation> listSentence = gateu.getSentence();
-		Set<gate.Annotation> listSentenceDefected = new HashSet<>();
-		List<Node> listnode = new ArrayList<Node>();
-		DifficultJargonAlternative dja = new DifficultJargonAlternative(language, gateu.getCorpus().get(0).getContent(),listnode);
-		
-		dja.checkUnclearAcronym(listSentence,listSentenceDefected,listannotations);
-		
-		JuridicalJargon jj = new JuridicalJargon(language, gateu.getCorpus().get(0).getContent(),listnode);
-		listannotations.addAll(jj.checkJJ(listSentence,listSentenceDefected));
-		
-		Set<gate.Annotation> SetExcessiveLength = gateu.getAnnotationSet(new HashSet<String>() {{
-				add("Sent-Long");
-			}});
-		gatevsleanpadExcessiveLength(SetExcessiveLength, listannotations,listSentenceDefected,listnode,docContent);
+		if(gateu!=null){
+			DocumentContent docContent = gateu.getDocumentContent();
+			Set<gate.Annotation> listSentence = gateu.getSentence();
+			Set<gate.Annotation> listSentenceDefected = new HashSet<>();
+			List<Node> listnode = new ArrayList<Node>();
+			DifficultJargonAlternative dja = new DifficultJargonAlternative(language, docContent,listnode);
+
+			dja.checkUnclearAcronym(listSentence,listSentenceDefected,listannotations);
+
+			JuridicalJargon jj = new JuridicalJargon(language, docContent,listnode);
+			listannotations.addAll(jj.checkJJ(listSentence,listSentenceDefected));
+
+			HashSet<String> hs = new HashSet<String>();
+			hs.add("Sent-Long");
+			Set<gate.Annotation> SetExcessiveLength = gateu.getAnnotationSet(hs);
+			gatevsleanpadExcessiveLength(SetExcessiveLength, listannotations,listSentenceDefected,listnode,docContent);
 
 
-		addNodeInContent(listnode,c,docContent);
-		
-		numDefectiveSentences = listSentenceDefected.size();
-		Factory.deleteResource(gateu.getCorpus());
-		return listSentence.size();
+			addNodeInContent(listnode,c,docContent);
+
+			numDefectiveSentences = listSentenceDefected.size();
+			Factory.deleteResource(gateu.getCorpus());
+			return listSentence.size();
+		}else{
+			log.error("gate null");
+			return 0;	
+		}
 	}
-	
+
 	private void check(StaticContentAnalysis staticContentInput2) {
 		String title = staticContentInput.getStaticContent().getTitle();
 		String idc = staticContentInput.getStaticContent().getId();
@@ -135,7 +137,7 @@ public class Simplicity extends AbstractAnalysisClass {
 		Content c = new Content();
 		sc.setContent(c);
 
-		
+
 		List<Annotation> listannotation  =new ArrayList<Annotation>();
 		int numSentence = execute(content,c,listannotation);
 		annotatedStaticContent.setAnnotations(listannotation);
@@ -147,36 +149,6 @@ public class Simplicity extends AbstractAnalysisClass {
 
 	}
 
-	private void addNodeInContent(List<Node> listnode, Content c, DocumentContent docContent){
-		Collections.sort(listnode);
-		Integer precedentposition = 0;
-		for(Node node :listnode){
-			
-			Integer pos = node.getOffSet();
-			
-			try{
-				String token = "";
-				if(precedentposition>pos){
-					//String stringap = //content.substring(precedentposition, initialpos );
-					log.debug("error Annotation Simplicity");
-
-				}
-				token = docContent.getContent(precedentposition.longValue(),pos.longValue()).toString();
-				c.setContent(token);
-				c.setContent(node);
-				precedentposition = pos;
-				//c.setContent(token.toString());
-				//c.setContent(nodeend);
-
-			}catch(InvalidOffsetException e){
-				log.debug(e);
-			}
-
-		}
-
-
-
-	}
 
 	/*private List<Node> extractNode(List<Annotation> listannotation){
 		List<Node> listnode = new ArrayList<Node>();
@@ -211,7 +183,7 @@ public class Simplicity extends AbstractAnalysisClass {
 
 			listnode.add(init);
 			listnode.add(end);
-			
+
 			Annotation a = new Annotation();
 			a.setId(gateA.getId());
 			a.setEndNode(end.getId());

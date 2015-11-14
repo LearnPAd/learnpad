@@ -17,25 +17,22 @@ import org.languagetool.language.AmericanEnglish;
 import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
+import eu.learnpad.ca.analysis.Plugin;
 import eu.learnpad.ca.analysis.simplicity.difficultjargon.AlternativeTerm;
 import eu.learnpad.ca.analysis.simplicity.difficultjargon.AlternativeTermSet;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Node;
-
 import gate.DocumentContent;
 import gate.util.InvalidOffsetException;
 
 
-public class DifficultJargonAlternative { 
+public class DifficultJargonAlternative extends Plugin { 
 
 
-	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DifficultJargonAlternative.class);
-
+	
 	private AlternativeTermSet alternativetermset;
 	//private Language language;
-	private DocumentContent docContent;
-	private List<Node> listnode;
-
+	
 
 	public DifficultJargonAlternative(Language lang, DocumentContent docContent, List<Node> listnode) {
 		//this.language=lang;
@@ -166,31 +163,6 @@ public class DifficultJargonAlternative {
 
 	}
 
-	protected  int indexofElement(String sentence, String word, Map<String, Integer> elementfinded, String split){
-		String [] spliter = sentence.split(split);
-		int position = 0;
-		int numwordfinded = 0;
-		for (int i = 0; i < spliter.length; i++) {
-			int offset = 0;
-			String token = spliter[i];
-			if(token.equals(word)){
-				numwordfinded++;
-				if(!elementfinded.containsKey(token)){
-					elementfinded.put(token, 1);
-				}
-				if(elementfinded.get(token).intValue()==numwordfinded){
-					Integer I = elementfinded.get(token);
-					int y  = I.intValue()+1;
-					elementfinded.put(token, y);
-					return position;
-				}else{
-					position+=token.length()+1+offset;
-				}
-			}else{
-				position+=token.length()+1+offset;
-			}
-		}
-		return position;
-	}
+	
 
 }

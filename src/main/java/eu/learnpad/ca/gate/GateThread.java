@@ -31,228 +31,251 @@ public class GateThread extends Thread implements StatusListener{
 
 	private Corpus corpus;
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(GateThread.class);
-	
+
 	private ThreadLocal<CorpusController> controller = new ThreadLocal<CorpusController>() {
 		protected CorpusController initialValue() { return initPersistentGateResources();
 		} };
 
-	//private BlockingQueue<CorpusController> pool;
-	
-	
-	/*public void init() {
+		//private BlockingQueue<CorpusController> pool;
+
+
+		/*public void init() {
 		pool = new LinkedBlockingQueue<CorpusController>(); for(int i = 0; i < 10; i++) {
 		    pool.add(initPersistentGateResources());
 		  }
 		}*/
-		
-
-	public void run() {
-		runProcessingResourcesforLenght();
-		
-	}
-	
-	public GateThread(String content) {
-		CreateCorpusFromContent(content);
-		//init();
-	}
-
-	public GateThread(File content) {
-		CreateCorpusFromFile(content);
-	}
 
 
-	public Corpus getCorpus() {
-		return corpus;
-	}
-	
-	
+		public void run() {
+			runProcessingResourcesforLenght();
 
-	private CorpusController initPersistentGateResources() {
-		SerialAnalyserController  serialcorpusController = null;
-	    try {
-	        //Corpus corpus = Factory.newCorpus("New Corpus");
-	    	 serialcorpusController = (SerialAnalyserController) Factory.createResource("gate.creole.SerialAnalyserController");
-	        String[] processingResources = {"gate.creole.tokeniser.DefaultTokeniser",
-			"gate.creole.splitter.SentenceSplitter"};
-	        for(int pr = 0; pr < processingResources.length; pr++) {
-				log.info("\t* Loading " + processingResources[pr] + " ... ");
-				
-				serialcorpusController.add((gate.LanguageAnalyser)Factory
-						.createResource(processingResources[pr]));
+		}
+
+		public GateThread(String content) {
+			CreateCorpusFromContent(content);
+			//init();
+		}
+
+		public GateThread(File content) {
+			CreateCorpusFromFile(content);
+		}
+
+
+		public Corpus getCorpus() {
+			return corpus;
+		}
+
+
+
+		private CorpusController initPersistentGateResources() {
+			SerialAnalyserController  serialcorpusController = null;
+			try {
+				//Corpus corpus = Factory.newCorpus("New Corpus");
+				serialcorpusController = (SerialAnalyserController) Factory.createResource("gate.creole.SerialAnalyserController");
+				String[] processingResources = {"gate.creole.tokeniser.DefaultTokeniser",
+				"gate.creole.splitter.SentenceSplitter"};
+				for(int pr = 0; pr < processingResources.length; pr++) {
+					log.info("\t* Loading " + processingResources[pr] + " ... ");
+
+					serialcorpusController.add((gate.LanguageAnalyser)Factory
+							.createResource(processingResources[pr]));
+					log.info("done");
+				}
+
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			return serialcorpusController;
+		}
+
+		private void CreateCorpusFromContent(String content){
+
+			try {
+				// create a GATE corpus and add a document
+				// argument
+				corpus = Factory.newCorpus("Corpus");
+
+
+				Document doc = (Document)
+						Factory.newDocument(content);
+				corpus.add(doc);
+
+			} catch (ResourceInstantiationException e) {
+				log.error(e.getMessage());
+
+			}finally {
+				Factory.deleteResource(corpus);
+			}
+
+
+		}
+
+
+		private void CreateCorpusFromFile(File TxtFile){
+			try {
+				// create a GATE corpus and add a document
+				// argument
+				Corpus corpus = Factory.newCorpus("Corpus");
+
+
+				Document doc = (Document)
+						Factory.newDocument(TxtFile.toURI().toURL());
+				corpus.add(doc);
+
+			} catch (ResourceInstantiationException | MalformedURLException e) {
+				log.error(e.getMessage());
+
+
+			}
+
+		}
+
+
+		private void LoadJAPELenght(ArrayList<String> JAPLenght ){
+			
+			
+			JAPLenght.add("annotate_sent_len.jape");
+			
+			JAPLenght.add("annotate_sent_len_nominal.jape");//.getResourceAsStream("annotate_sent_len_nominal.jape");
+
+			
+			
+		}
+
+		private void LoadJAPEActorUnclear(ArrayList<String> JAPEActorUnclear){
+			
+			JAPEActorUnclear.add("annotate_passive_forms_auxiliary_verbs.jape");
+			JAPEActorUnclear.add("annotate_passive_forms_by.jape");
+			JAPEActorUnclear.add("annotate_passive_forms_irregular_passive.jape");
+			JAPEActorUnclear.add("annotate_passive_forms_regular_passive.jape");
+			JAPEActorUnclear.add("annotate_passive_forms_RULE_1.jape");
+
+
+		}
+
+		private Collection<FeatureMap> loadJAPE(ArrayList<String> JAPElist){
+			Collection<FeatureMap> JapeCollection = new ArrayList<>();
+
+			for(String jape :JAPElist){
+				FeatureMap japeFM = Factory.newFeatureMap();
+				URL japeFMFILE = GateThread.class.getClassLoader().getResource(jape);
+				japeFM.put("grammarURL", japeFMFILE);
+
+				JapeCollection.add(japeFM);
+			}
+
+			return JapeCollection;
+		}
+
+
+		public void runProcessingResources() {
+			try{
+
+
+
+				SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( controller.get());
+
+				//SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( pool.take());
+
+				log.info("Creating corpus from documents obtained...");
+				pipeline.setCorpus(corpus);
 				log.info("done");
-			}
-	        
-	       
-	    } catch (Exception ex) {
-	        ex.printStackTrace();
-	    }
-	       return serialcorpusController;
-	}
 
-	private void CreateCorpusFromContent(String content){
+				log.info("Running processing resources over corpus...");
+				pipeline.execute();
+				log.info("done");
 
-		try {
-			// create a GATE corpus and add a document
-			// argument
-			corpus = Factory.newCorpus("Corpus");
+				Factory.deleteResource(pipeline);
 
-
-			Document doc = (Document)
-					Factory.newDocument(content);
-			corpus.add(doc);
-
-		} catch (ResourceInstantiationException e) {
-			log.error(e.getMessage());
-
-		}finally {
-			Factory.deleteResource(corpus);
+			}catch(GateException     e){
+				log.error(e.getMessage());
+			} 
 		}
 
+		public void runProcessingResourcesforLenght() {
+			try{
 
-	}
+				SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( controller.get());
 
+				//SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( pool.take());
 
-	private void CreateCorpusFromFile(File TxtFile){
-		try {
-			// create a GATE corpus and add a document
-			// argument
-			Corpus corpus = Factory.newCorpus("Corpus");
-
-
-			Document doc = (Document)
-					Factory.newDocument(TxtFile.toURI().toURL());
-			corpus.add(doc);
-
-		} catch (ResourceInstantiationException | MalformedURLException e) {
-			log.error(e.getMessage());
-
-
-		}
-
-	}
+				// create an instance of a JAPE Transducer processing resource
+				ArrayList<String> listJAPE = new ArrayList<String>();
+				LoadJAPELenght(listJAPE);
+				LoadJAPEActorUnclear(listJAPE);
+				Collection<FeatureMap> features = loadJAPE(listJAPE);
+				for(FeatureMap feature :features){
+					ProcessingResource japeTransducer = (ProcessingResource) Factory.createResource("gate.creole.Transducer", feature);
+					// add the language resources to application, here SerialAccessController
+					pipeline.add(japeTransducer);
+				}
 
 
-	private Collection<FeatureMap> loadJAPE(){
-		Collection<FeatureMap> JapeCollection = new ArrayList<>();
-		FeatureMap sent_len = Factory.newFeatureMap();
-		URL annotate_sent_len = GateThread.class.getClassLoader().getResource("annotate_sent_len.jape");
-			sent_len.put("grammarURL", annotate_sent_len);
 
-		JapeCollection.add(sent_len);
+				log.info("Creating corpus from documents obtained...");
+				pipeline.setCorpus(corpus);
+				log.info("done");
+				pipeline.addStatusListener(this);
+				log.info("Running processing resources over corpus...");
+				pipeline.execute();
 
-		FeatureMap len_nominal = Factory.newFeatureMap();
-		URL annotate_sent_len_nominalURL = GateThread.class.getClassLoader().getResource("annotate_sent_len_nominal.jape");//.getResourceAsStream("annotate_sent_len_nominal.jape");
-		
-		len_nominal.put("grammarURL", annotate_sent_len_nominalURL);
+				Factory.deleteResource(pipeline);
 
-		JapeCollection.add(len_nominal);
-		return JapeCollection;
-	}
-	
-	public void runProcessingResources() {
-		try{
-			
-
-			
-			SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( controller.get());
-	
-			//SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( pool.take());
-			
-			log.info("Creating corpus from documents obtained...");
-			pipeline.setCorpus(corpus);
-			log.info("done");
-
-			log.info("Running processing resources over corpus...");
-			pipeline.execute();
-			log.info("done");
-			
-			Factory.deleteResource(pipeline);
-			
-		}catch(GateException     e){
-			log.error(e.getMessage());
-		} 
-	}
-	
-	public void runProcessingResourcesforLenght() {
-		try{
-			
-			SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( controller.get());
-			
-			//SerialAnalyserController pipeline = (SerialAnalyserController)Factory.duplicate( pool.take());
-			
-			// create an instance of a JAPE Transducer processing resource
-			Collection<FeatureMap> features = loadJAPE();
-			for(FeatureMap feature :features){
-				ProcessingResource japeTransducer = (ProcessingResource) Factory.createResource("gate.creole.Transducer", feature);
-				// add the language resources to application, here SerialAccessController
-				pipeline.add(japeTransducer);
-			}
-
-			
-
-			log.info("Creating corpus from documents obtained...");
-			pipeline.setCorpus(corpus);
-			log.info("done");
-			pipeline.addStatusListener(this);
-			log.info("Running processing resources over corpus...");
-			pipeline.execute();
-			
-			Factory.deleteResource(pipeline);
-			
-			log.info("done");
-		}catch(GateException     e){
-			log.error(e.getMessage());
-		} /*finally{
+				log.info("done");
+			}catch(GateException     e){
+				log.error(e.getMessage());
+			} /*finally{
 			//return worker to the pool
 			pool.add(app1);
 		}*/
-	}
-	
-	public Set<gate.Annotation> getSentence(){
-		return this.getAnnotationSet(new HashSet<String>() {{
-			add("Sentence");
-		}});
-	}
-	
-	public DocumentContent getDocumentContent() {
-		return this.getCorpus().get(0).getContent();
-	}
+		}
 
-	public Set<Annotation> getAnnotationSet(Set<String> TypesRequired){
-		try{
+		public Set<gate.Annotation> getSentence(){
+			return this.getAnnotationSet(new HashSet<String>() {{
+				add("Sentence");
+			}});
+		}
 
-			for( Document doc : corpus){
+		public DocumentContent getDocumentContent() {
+			return this.getCorpus().get(0).getContent();
+		}
 
-				AnnotationSet defaultAnnotSet = doc.getAnnotations();
-				Set<String> annotTypesRequired = new HashSet<>();
-				annotTypesRequired.addAll(TypesRequired);
-				//annotTypesRequired.add("Sent-Len");
-				//annotTypesRequired.add("Sent-Long");
-				//annotTypesRequired.add("Split");
-				//annotTypesRequired.add("SpaceToken");
-				Set<Annotation> peopleAndPlaces =
-						new HashSet<Annotation>(defaultAnnotSet.get(annotTypesRequired));
+		public Set<Annotation> getAnnotationSet(Set<String> TypesRequired){
+			try{
 
-				return peopleAndPlaces;
+				for( Document doc : corpus){
 
-			} // for each doc
-			log.info("fine");
-		}catch(Exception e){
-			log.error(e.getMessage());
+					AnnotationSet defaultAnnotSet = doc.getAnnotations();
+					Set<String> annotTypesRequired = new HashSet<>();
+					annotTypesRequired.addAll(TypesRequired);
+					//annotTypesRequired.add("Sent-Len");
+					//annotTypesRequired.add("Sent-Long");
+					//annotTypesRequired.add("Split");
+					//annotTypesRequired.add("SpaceToken");
+					Set<Annotation> peopleAndPlaces =
+							new HashSet<Annotation>(defaultAnnotSet.get(annotTypesRequired));
 
+					return peopleAndPlaces;
+
+				} // for each doc
+				log.info("fine");
+			}catch(Exception e){
+				log.error(e.getMessage());
+
+
+			}
+			return null;
+		}
+
+		@Override
+		public void statusChanged(String text) {
+
+			log.trace(text);	
 
 		}
-		return null;
-	}
 
-	@Override
-	public void statusChanged(String text) {
-		
-		log.trace(text);	
-		
-	}
-
-	/*public void destroy() {
+		/*public void destroy() {
 		for(CorpusController c : pool) 
 			Factory.deleteResource(c);
 	}*/

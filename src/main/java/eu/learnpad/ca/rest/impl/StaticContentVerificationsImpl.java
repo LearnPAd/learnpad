@@ -20,10 +20,10 @@ import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
-import eu.learnpad.ca.analysis.contentclarity.plugin.UnclearAcronym;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.SyntacticAmbiguity;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
+import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.StaticContentVerifications;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
@@ -43,6 +43,9 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 	public String putValidateStaticContent(StaticContentAnalysis contentFile)
 			throws LpRestException {
 		try{
+			String content = contentFile.getStaticContent().getContentplain();
+			GateThread gateu = new GateThread(content);
+			gateu.start();
 			if(contentFile.getQualityCriteria().isCorrectness()){
 				id++;
 				Language lang = null;
@@ -69,7 +72,7 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 				}
 				if(contentFile.getQualityCriteria().isSimplicity()){
 
-					Simplicity threadEL = new Simplicity(contentFile, lang);
+					Simplicity threadEL = new Simplicity(contentFile, lang,gateu);
 					threadEL.start();
 					putAndCreate(id, threadEL);
 
@@ -83,9 +86,9 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 				}
 				if(contentFile.getQualityCriteria().isContentClarity()){
 
-					UnclearAcronym threadUnclearAcronym = new UnclearAcronym (contentFile, lang);
+					/*UnclearAcronym threadUnclearAcronym = new UnclearAcronym (contentFile, lang);
 					threadUnclearAcronym.start();
-					putAndCreate(id, threadUnclearAcronym);
+					putAndCreate(id, threadUnclearAcronym);*/
 
 				}
 				return id.toString();
