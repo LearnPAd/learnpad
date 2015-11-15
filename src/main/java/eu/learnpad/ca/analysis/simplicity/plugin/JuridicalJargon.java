@@ -3,7 +3,9 @@ package eu.learnpad.ca.analysis.simplicity.plugin;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -16,6 +18,7 @@ import org.languagetool.language.AmericanEnglish;
 import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
+import eu.learnpad.ca.analysis.Plugin;
 import eu.learnpad.ca.analysis.simplicity.juridicaljargon.JuridaljargonSet;
 import eu.learnpad.ca.analysis.simplicity.juridicaljargon.Juridicaljargon;
 import eu.learnpad.ca.rest.data.Annotation;
@@ -23,7 +26,7 @@ import eu.learnpad.ca.rest.data.Node;
 import gate.DocumentContent;
 import gate.util.InvalidOffsetException;
 
-public class JuridicalJargon{
+public class JuridicalJargon extends Plugin{
 
 
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(JuridicalJargon.class);
@@ -72,15 +75,19 @@ public class JuridicalJargon{
 
 	private int checkdefect(String sentence,int nodeid,List<Annotation> annotations, int offset){
 		List<Juridicaljargon> Listjj = juridaljargonSet.getJuridicaljargon();
-		StringTokenizer tokenizer = new StringTokenizer(sentence);
-
+		//StringTokenizer tokenizer = new StringTokenizer(sentence);
+		String [] spliter = sentence.split("[\\s]");
+		Map<String, Integer> elementfinded = new HashMap<String, Integer>();
 		int precedentposition=0;
 
-		while (tokenizer.hasMoreTokens()) {
-			String token = tokenizer.nextToken();
+		/*while (tokenizer.hasMoreTokens()) {
+			String token = tokenizer.nextToken();*/
+		for (int i = 0; i < spliter.length; i++) {
+
+			String token = spliter[i];
 			if(Listjj.contains(new Juridicaljargon(token))){
 
-				int initialpos = sentence.indexOf(token);
+				int initialpos = indexofElement(sentence,token,elementfinded,"[\\s]");//sentence.indexOf(token);
 				int finalpos = initialpos+token.length();
 				if(precedentposition>initialpos){
 					initialpos = sentence.lastIndexOf(token);
