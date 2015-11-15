@@ -226,6 +226,10 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 	
 	public void run() {
+		
+
+		long lStartTime = System.currentTimeMillis();
+		//some tasks
 		if(collaborativeContentInput!=null){
 			annotatedCollaborativeContent = this.check(collaborativeContentInput);	
 		}
@@ -233,6 +237,10 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 		if(staticContentInput!=null){
 			annotatedStaticContent = this.check(staticContentInput);	
 		}
+		long lEndTime = System.currentTimeMillis();
+		long difference = lEndTime - lStartTime;
+
+		log.trace("CorrectnessAnalysis Elapsed milliseconds: " + difference);
 
 	}
 	

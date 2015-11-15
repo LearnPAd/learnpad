@@ -44,7 +44,13 @@ public class GateThread extends Thread implements StatusListener{
 
 
 		public void run() {
+			long lStartTime = System.currentTimeMillis();
+			//some tasks
 			runProcessingResourcesforAll();
+			long lEndTime = System.currentTimeMillis();
+			long difference = lEndTime - lStartTime;
+
+			log.trace("GATE Elapsed milliseconds: " + difference);
 
 		}
 

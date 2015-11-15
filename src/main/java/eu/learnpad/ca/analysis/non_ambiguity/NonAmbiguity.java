@@ -45,6 +45,8 @@ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(C
 	}
 
 	public void run() {
+		long lStartTime = System.currentTimeMillis();
+		//some tasks
 		if (collaborativeContentInput != null) {
 			check(collaborativeContentInput);
 		}
@@ -52,6 +54,10 @@ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(C
 		if (staticContentInput != null) {
 			check(staticContentInput);
 		}
+		long lEndTime = System.currentTimeMillis();
+		long difference = lEndTime - lStartTime;
+
+		log.trace("NonAmbiguity Elapsed milliseconds: " + difference);
 
 	}
 

@@ -48,6 +48,8 @@ public class Simplicity extends AbstractAnalysisClass {
 	}
 
 	public void run() {
+		long lStartTime = System.currentTimeMillis();
+		//some tasks
 		if (collaborativeContentInput != null) {
 			check(collaborativeContentInput);
 		}
@@ -55,6 +57,10 @@ public class Simplicity extends AbstractAnalysisClass {
 		if (staticContentInput != null) {
 			check(staticContentInput);
 		}
+		long lEndTime = System.currentTimeMillis();
+		long difference = lEndTime - lStartTime;
+
+		log.trace("Simplicity Elapsed milliseconds: " + difference);
 
 	}
 
