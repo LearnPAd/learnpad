@@ -39,7 +39,7 @@ public class LexicalAmbiguity extends Plugin {
 
 		String rac = "The term %s is vague. Remove %s or substitute it with a more unequivocal term.";
 
-		String type = "Lexical Ambiguity";
+		String type = "Lexical Ambiguity Vagueness";
 		if(!SetVagueness.isEmpty())
 			gatevsleanpadAnnotation(SetVagueness, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
 	}
@@ -58,7 +58,7 @@ public class LexicalAmbiguity extends Plugin {
 
 		String rac = "The term %s is subjective. Remove %s or substitute it with a more unequivocal term.";
 
-		String type = "Lexical Ambiguity";
+		String type = "Lexical Ambiguity Subjectivity";
 		if(!SetSubjectivity.isEmpty())
 			gatevsleanpadAnnotation(SetSubjectivity, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
 	}
@@ -76,7 +76,7 @@ public class LexicalAmbiguity extends Plugin {
 
 		String rac = "The term %s is optional. Remove %s or substitute it with a more unequivocal term.";
 
-		String type = "Lexical Ambiguity";
+		String type = "Lexical Ambiguity Optionality";
 		if(!SetOptionality.isEmpty())
 			gatevsleanpadAnnotation(SetOptionality, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
 	}
