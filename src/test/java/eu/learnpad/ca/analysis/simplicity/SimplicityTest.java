@@ -1,6 +1,6 @@
 package eu.learnpad.ca.analysis.simplicity;
 
-import static org.junit.Assert.*;
+/*import static org.junit.Assert.*;
 
 import java.io.InputStream;
 
@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.languagetool.language.BritishEnglish;
 
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
-import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
+import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;*/
 
 public class SimplicityTest {
 
