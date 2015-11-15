@@ -9,6 +9,11 @@ import javax.faces.event.ActionEvent;
 @ManagedBean(name="pageController")
 @SessionScoped
 public class PageController implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4584289279328839768L;
+
 	public String navigatePage1() {
 		System.out.println("Redirect to Page 1");
 		

@@ -6,7 +6,6 @@ import java.util.Collection;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -147,9 +146,9 @@ public class ContentAnalysisBean implements Serializable {
 	
 	public void actionDownloadAnalysis(ActionEvent event){
 		try {
-            Thread.currentThread().sleep(2500);
+            Thread.sleep(2500);
         } catch(Exception e) {}
-		FacesContext context = FacesContext.getCurrentInstance();
+		//FacesContext context = FacesContext.getCurrentInstance();
 
 
 		//id =  (String) context.getApplication().evaluateExpressionGet(context, "#{ContentBean.restid}", String.class);

@@ -1,5 +1,4 @@
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import javax.xml.bind.Marshaller;
 
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
-import eu.learnpad.ca.rest.data.Node;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 
 @ManagedBean(name="DataContentAnalysisbean")
@@ -29,12 +27,12 @@ public class DataContentAnalysis implements Serializable{
 	private AnnotatedCollaborativeContentAnalysis acca;
 	private List<DataContent> listdata;
 	private String color;
-	private String xml;
+	//private String xml;
 	private String element = "ele";
 
 
 	public DataContentAnalysis(){
-
+		
 		System.out.println("DataContentAnalysisbean");
 		listdata = new ArrayList<DataContent>();
 	}
@@ -74,9 +72,9 @@ public class DataContentAnalysis implements Serializable{
 
 
 
-	public void setXml(String xml) {
+	/*public void setXml(String xml) {
 		this.xml = xml;
-	}
+	}*/
 
 
 
@@ -205,14 +203,14 @@ public class DataContentAnalysis implements Serializable{
 
 
 
-	private DataContent search(Node startn, Node end, List<Annotation> lannot, String element){
+	/*private DataContent search(Node startn, Node end, List<Annotation> lannot, String element){
 		for (Annotation annotation : lannot) {
 			if(annotation.getStartNode().equals(startn.getId()) && annotation.getEndNode().equals(end.getId()) ){
 				return new DataContent(element,annotation.getRecommendation(),annotation.getType());
 			}
 		}
 		return null;
-	}
+	}*/
 
 	public List<DataContent> getListdata() {
 		return listdata;
