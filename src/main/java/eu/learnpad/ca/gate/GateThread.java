@@ -167,7 +167,15 @@ public class GateThread extends Thread implements StatusListener{
 
 
 		}
+		private void LoadJAPEPragmaticAmbiguity(ArrayList<String> JAPEs){
+			String sep = File.separator;
+			JAPEs.add("pragmaticambiguity"+sep+"annotate_pragmatic_ambiguity_names_adjective.jape");
+			JAPEs.add("pragmaticambiguity"+sep+"annotate_pragmatic_ambiguity_names_alone.jape");
+			JAPEs.add("pragmaticambiguity"+sep+"annotate_pragmatic_ambiguity_names_specified.jape");
 
+
+
+		}
 		private void LoadJAPESyntacticAmbiguityCoordination(ArrayList<String> JAPEs){
 			String sep = File.separator;
 			JAPEs.add("coordambiguity"+sep+"annotate_coord_ambiguity_PREPROCESS.jape");
@@ -245,6 +253,7 @@ public class GateThread extends Thread implements StatusListener{
 				if(qualitycriteria.isNonAmbiguity()){
 					LoadJAPESyntacticAmbiguityCoordination(listJAPE);
 					LoadJAPESyntacticAmbiguityAnaphoric(listJAPE);
+					LoadJAPEPragmaticAmbiguity(listJAPE);
 				}
 				Collection<FeatureMap> features = loadJAPE(listJAPE);
 				for(FeatureMap feature :features){

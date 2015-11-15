@@ -26,12 +26,11 @@ public class PragmaticAmbiguity  extends Plugin {
 	public void check(GateThread gateu, List<Annotation> listannotations, Set<gate.Annotation> listSentenceDefected,Set<gate.Annotation> listSentence){
 		
 		HashSet<String> hs = new HashSet<String>();
-		hs.add("CoordAmbiguity");
+		hs.add("SpecifiedName");
 		Set<gate.Annotation> SetActorUnclear = gateu.getAnnotationSet(hs);
 		
 		
-		String rac = "The sentence is ambiguous because you are using complex combinations of \"and\" or \"or\". Clarify the sentence by introducing some commas, or by splitting it into two sentences.";
-		
+		String rac = "The sentence is ambiguous.";
 		String type = "Pragmatic Ambiguity";
 		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log,listSentence );
 	}

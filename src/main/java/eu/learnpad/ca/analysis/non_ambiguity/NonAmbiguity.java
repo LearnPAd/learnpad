@@ -13,6 +13,7 @@ import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
 import eu.learnpad.ca.analysis.non_ambiguity.lexicalambiguity.plugin.LexicalAmbiguity;
 import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.plugin.AnaphoricAmbiguities;
 import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.plugin.CoordinationAmbiguity;
+import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.plugin.PragmaticAmbiguity;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
@@ -147,6 +148,10 @@ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(C
 		lexicalAmbiguity.checkVagueness(gateu, listannotation, listSentenceDefected,listSentence);
 		lexicalAmbiguity.checkSubjective(gateu, listannotation, listSentenceDefected,listSentence);
 		lexicalAmbiguity.checkOptional(gateu, listannotation, listSentenceDefected,listSentence);
+		
+		
+		PragmaticAmbiguity pragmaticambiguity = new PragmaticAmbiguity(language, docContent,listnode);
+		pragmaticambiguity.check(gateu, listannotation, listSentenceDefected,listSentence);
 		
 		addNodeInContent(listnode,c,docContent);
 		
