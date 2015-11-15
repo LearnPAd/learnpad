@@ -11,7 +11,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
-import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
 
 import eu.learnpad.ca.analysis.Plugin;
@@ -76,19 +75,19 @@ public class UnclearAcronym extends Plugin{
 		listOfStrings.removeAll(stopw.getStopwords());
 		String ContentCleaned = StringUtils.join(listOfStrings, " ");
 		Map<String,String> acronym = new HashMap<String, String>();
-
+/*
 		JLanguageTool langTool = new JLanguageTool(language);
 		List<String> listsentenceofContentCleaned = langTool.sentenceTokenize(ContentCleaned);
-
+*/
 
 		String regex = "[A-Z|\\.]{2,}";
 
-		// Create a Pattern object
+		// Create a Pattern object 65,46
 		Pattern r = Pattern.compile(regex);
-		for (String sentencecleanend : listsentenceofContentCleaned) {
+	//	for (String sentencecleanend : listsentenceofContentCleaned) {
 
 			// Now create matcher object.
-			Matcher m = r.matcher(sentencecleanend);
+			Matcher m = r.matcher(ContentCleaned);
 
 			while (m.find()){
 				String tmpcandidateAcronym = m.group();
@@ -107,7 +106,7 @@ public class UnclearAcronym extends Plugin{
 				Pattern r2 = Pattern.compile(regex2);
 
 				// Now create matcher object.
-				Matcher m2 = r2.matcher(sentencecleanend);
+				Matcher m2 = r2.matcher(ContentCleaned);
 				boolean flag = true;
 				while(m2.find()){
 
@@ -147,10 +146,10 @@ public class UnclearAcronym extends Plugin{
 					}
 				}
 
-			}
+			//}
 		}
 
-		if(acronym.size()>0 & acronymdefected.size()>0 ){
+		if(acronym.size()>0 | acronymdefected.size()>0 ){
 			log.trace(acronym+"\nsize: "+acronym.size());
 			log.trace(acronymdefected+"\nsize: "+acronymdefected.size());
 		}
