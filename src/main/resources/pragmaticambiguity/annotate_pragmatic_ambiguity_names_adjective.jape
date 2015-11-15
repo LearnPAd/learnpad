@@ -1,0 +1,30 @@
+Phase: SpecifiedNames
+Input: Token
+Options: control = appelt
+
+Rule: AdjectiveWithNames
+Priority: 10
+(
+({Token.category == JJ} | 
+{Token.category == NN, Token.kind != "punctuation"} | 
+{Token.category == NNS, Token.kind != "punctuation"})
+
+({Token.category == NN, Token.kind != "punctuation"} | 
+{Token.category == NNS, Token.kind != "punctuation"})
+):adj_name
+-->
+:adj_name.AdjectiveName = {}
+
+Rule: NamesWithAdjectives
+Priority: 10
+(
+({Token.category == NN, Token.kind != "punctuation"} | 
+{Token.category == NNS, Token.kind != "punctuation"})
+
+({Token.category == JJ} | 
+{Token.category == NN, Token.kind != "punctuation"} | 
+{Token.category == NNS, Token.kind != "punctuation"})
+
+):adj_name
+-->
+:adj_name.AdjectiveName = {}

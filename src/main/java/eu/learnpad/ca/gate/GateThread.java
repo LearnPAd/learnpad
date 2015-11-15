@@ -149,40 +149,40 @@ public class GateThread extends Thread implements StatusListener{
 
 		private void LoadJAPELenght(ArrayList<String> JAPLenght ){
 
+			String sep = File.separator;
+			JAPLenght.add("sentlen"+sep+"annotate_sent_len.jape");
 
-			JAPLenght.add("annotate_sent_len.jape");
-
-			JAPLenght.add("annotate_sent_len_nominal.jape");
+			JAPLenght.add("sentlen"+sep+"annotate_sent_len_nominal.jape");
 
 
 		}
 
 		private void LoadJAPEActorUnclear(ArrayList<String> JAPEs){
-
-			JAPEs.add("annotate_passive_forms_auxiliary_verbs.jape");
-			JAPEs.add("annotate_passive_forms_by.jape");
-			JAPEs.add("annotate_passive_forms_irregular_passive.jape");
-			JAPEs.add("annotate_passive_forms_regular_passive.jape");
-			JAPEs.add("annotate_passive_forms_RULE_1.jape");
+			String sep = File.separator;
+			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_auxiliary_verbs.jape");
+			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_by.jape");
+			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_irregular_passive.jape");
+			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_regular_passive.jape");
+			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_RULE_1.jape");
 
 
 		}
 
 		private void LoadJAPESyntacticAmbiguityCoordination(ArrayList<String> JAPEs){
-
-			JAPEs.add("annotate_coord_ambiguity_PREPROCESS.jape");
-			JAPEs.add("annotate_coord_ambiguity_RULE_1.jape");
-			JAPEs.add("annotate_coord_ambiguity_RULE_2.jape");
+			String sep = File.separator;
+			JAPEs.add("coordambiguity"+sep+"annotate_coord_ambiguity_PREPROCESS.jape");
+			JAPEs.add("coordambiguity"+sep+"annotate_coord_ambiguity_RULE_1.jape");
+			JAPEs.add("coordambiguity"+sep+"annotate_coord_ambiguity_RULE_2.jape");
 
 
 
 		}
 
 		private void LoadJAPESyntacticAmbiguityAnaphoric(ArrayList<String> JAPEs){
-
-			JAPEs.add("annotate_anaphoric_ambiguity_RULE_0.jape");
-			JAPEs.add("annotate_anaphoric_ambiguity_RULE_1.jape");
-			JAPEs.add("annotate_anaphoric_ambiguity_RULE_2.jape");
+			String sep = File.separator;
+			JAPEs.add("anaphoricambiguity"+sep+"annotate_anaphoric_ambiguity_RULE_0.jape");
+			JAPEs.add("anaphoricambiguity"+sep+"annotate_anaphoric_ambiguity_RULE_1.jape");
+			JAPEs.add("anaphoricambiguity"+sep+"annotate_anaphoric_ambiguity_RULE_2.jape");
 
 
 
