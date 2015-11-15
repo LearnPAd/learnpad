@@ -104,9 +104,9 @@ public class UnclearAcronym extends Plugin{
 
 			// Create a Pattern object
 			Pattern r2 = Pattern.compile(regex2);
-
+			String ContentCleaned2 = ContentCleaned.replace(candidateAcronym, "");
 			// Now create matcher object.
-			Matcher m2 = r2.matcher(ContentCleaned);
+			Matcher m2 = r2.matcher(ContentCleaned2);
 			boolean flag = true;
 			while(m2.find()){
 
