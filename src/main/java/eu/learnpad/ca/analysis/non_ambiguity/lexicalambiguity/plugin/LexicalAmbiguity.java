@@ -1,11 +1,8 @@
 package eu.learnpad.ca.analysis.non_ambiguity.lexicalambiguity.plugin;
 
-import java.util.Collection;
-import java.util.HashSet;
+
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.Map.Entry;
 
 import org.languagetool.Language;
 
@@ -27,24 +24,60 @@ public class LexicalAmbiguity extends Plugin {
 		this.docContent = docContent;
 		this.listnode = listnode;
 	}
-	
 
-	public void check(GateThread gateu, List<Annotation> listannotations, Set<gate.Annotation> listSentenceDefected,Set<gate.Annotation> listSentence){
-		
-		
+
+	public void checkVagueness(GateThread gateu, List<Annotation> listannotations, Set<gate.Annotation> listSentenceDefected,Set<gate.Annotation> listSentence){
+
+
 		FeatureMap fe = Factory.newFeatureMap();
-		
+
 		//majorType lexicalambiguity
 		fe.put("minorType", "vagueness");//  vagueness
 		fe.put("majorType", "lexicalambiguity");
-		Set<gate.Annotation> SetActorUnclear = gateu.getAnnotationSet("Lookup" , fe);
-		
-		
+		Set<gate.Annotation> SetVagueness = gateu.getAnnotationSet("Lookup" , fe);
+
+
 		String rac = "The term %s is vague. Remove %s or substitute it with a more unequivocal term.";
-		String racs = "The term < t > is subjective. Remove t or substitute it with a more unequivocal term.";
-		String raco = "The term < t > is optional. Remove t or substitute it with a more unequivocal term.";
-		
+
 		String type = "Lexical Ambiguity";
-		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
+		if(!SetVagueness.isEmpty())
+			gatevsleanpadAnnotation(SetVagueness, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
+	}
+
+	public void checkSubjective(GateThread gateu, List<Annotation> listannotations, Set<gate.Annotation> listSentenceDefected,Set<gate.Annotation> listSentence){
+
+
+		FeatureMap fe = Factory.newFeatureMap();
+
+		//majorType lexicalambiguity
+		fe.put("minorType", "subjectivity");
+		fe.put("majorType", "lexicalambiguity");
+		Set<gate.Annotation> SetSubjectivity = gateu.getAnnotationSet("Lookup" , fe);
+
+
+
+		String rac = "The term %s is subjective. Remove %s or substitute it with a more unequivocal term.";
+
+		String type = "Lexical Ambiguity";
+		if(!SetSubjectivity.isEmpty())
+			gatevsleanpadAnnotation(SetSubjectivity, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
+	}
+	public void checkOptional(GateThread gateu, List<Annotation> listannotations, Set<gate.Annotation> listSentenceDefected,Set<gate.Annotation> listSentence){
+
+
+		FeatureMap fe = Factory.newFeatureMap();
+
+		//majorType lexicalambiguity
+		fe.put("minorType", "optionality");
+		fe.put("majorType", "lexicalambiguity");
+		Set<gate.Annotation> SetOptionality = gateu.getAnnotationSet("Lookup" , fe);
+
+
+
+		String rac = "The term %s is optional. Remove %s or substitute it with a more unequivocal term.";
+
+		String type = "Lexical Ambiguity";
+		if(!SetOptionality.isEmpty())
+			gatevsleanpadAnnotation(SetOptionality, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
 	}
 }

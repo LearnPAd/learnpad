@@ -135,7 +135,9 @@ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(C
 		coordinationAmbiguity.check(gateu, listannotation, listSentenceDefected,listSentence);
 		
 		LexicalAmbiguity lexicalAmbiguity = new LexicalAmbiguity(language, docContent,listnode);
-		lexicalAmbiguity.check(gateu, listannotation, listSentenceDefected,listSentence);
+		lexicalAmbiguity.checkVagueness(gateu, listannotation, listSentenceDefected,listSentence);
+		lexicalAmbiguity.checkSubjective(gateu, listannotation, listSentenceDefected,listSentence);
+		lexicalAmbiguity.checkOptional(gateu, listannotation, listSentenceDefected,listSentence);
 		
 		addNodeInContent(listnode,c,docContent);
 		

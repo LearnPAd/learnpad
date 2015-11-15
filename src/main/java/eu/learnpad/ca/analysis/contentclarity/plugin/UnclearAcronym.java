@@ -69,11 +69,6 @@ public class UnclearAcronym extends Plugin{
 
 	private int  checkdefect(String sentence, int id, List<Annotation> annotations, int offset) {
 
-		//gateu.runProcessingResources();
-		//docContent = gateu.getCorpus().get(0).getContent();
-
-
-
 		List<String> acronymdefected = new ArrayList<String>();
 		List<String> listOfStrings = new ArrayList<String>(Arrays.asList(sentence.split(" ")));
 		Stopwords stopw = new Stopwords();
@@ -159,8 +154,6 @@ public class UnclearAcronym extends Plugin{
 			log.trace(acronym+"\nsize: "+acronym.size());
 			log.trace(acronymdefected+"\nsize: "+acronymdefected.size());
 		}
-		//insertdefectannotation(content, c ,  acronymdefected, listSentence, listannotation,docContent );
-		//numDefectiveSentences =  listSentence.size();
 
 		return insertdefectannotationsentence(sentence,id,annotations, acronymdefected,offset);
 
@@ -213,13 +206,6 @@ public class UnclearAcronym extends Plugin{
 
 			}
 		}
-		/*if(precedentposition<sentence.length()){
-			String stringap = sentence.substring(precedentposition, sentence.length());
-			c.setContent(stringap);
-		}
-		if(annotations.size()==0){
-			c.setContent(sentence);
-		}*/
 
 		return nodeid;
 

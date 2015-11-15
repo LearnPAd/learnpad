@@ -4,7 +4,6 @@ package eu.learnpad.ca.analysis;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Node;
 import gate.DocumentContent;
-import gate.annotation.AnnotationImpl;
 import gate.util.InvalidOffsetException;
 
 import java.util.HashSet;
@@ -108,7 +107,7 @@ public abstract class Plugin {
 		for(gate.Annotation sentence : listSentence){
 			gate.Node startSentence = sentence.getStartNode();
 			gate.Node endSentence = sentence.getEndNode();
-			String nod=null;
+			/*String nod=null;
 			String sentence_gate=null;
 			try{
 				 nod = docContent.getContent(gatenodestart.getOffset(),gatenodeend.getOffset()).toString();
@@ -116,7 +115,7 @@ public abstract class Plugin {
 				
 			}catch(InvalidOffsetException e){
 				
-			}
+			}*/
 			
 			
 			boolean initial = startSentence.getOffset()-gatenodestart.getOffset()<=0;

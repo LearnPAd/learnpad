@@ -7,12 +7,10 @@ import gate.CorpusController;
 import gate.Document;
 import gate.Factory;
 import gate.FeatureMap;
-import gate.Gate;
 import gate.ProcessingResource;
 import gate.creole.ResourceInstantiationException;
 import gate.creole.SerialAnalyserController;
 import gate.util.GateException;
-import gate.util.persistence.PersistenceManager;
 
 import java.io.File;
 import java.net.MalformedURLException;
