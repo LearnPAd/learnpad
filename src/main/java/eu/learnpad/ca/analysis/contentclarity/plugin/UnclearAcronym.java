@@ -207,7 +207,7 @@ public class UnclearAcronym extends Plugin{
 				a.setStartNode(init.getId());
 				a.setNodeEnd(end);
 				a.setNodeStart(init);
-				a.setType("Content Clarity");
+				a.setType("Unclear Acronym");
 				a.setRecommendation("Explicit Acronym "+token);
 				annotations.add(a);
 

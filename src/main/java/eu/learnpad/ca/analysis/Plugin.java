@@ -119,8 +119,8 @@ public abstract class Plugin {
 			}
 			
 			
-			boolean initial = startSentence.getOffset()<=gatenodestart.getOffset();
-			boolean end = endSentence.getOffset()>=gatenodeend.getOffset();
+			boolean initial = startSentence.getOffset()-gatenodestart.getOffset()<=0;
+			boolean end = endSentence.getOffset()-gatenodeend.getOffset()>=-1;
 			if(initial & end){
 				sent.add(sentence);
 				sentenceorec = null;
