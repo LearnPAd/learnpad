@@ -70,7 +70,7 @@ public class GateThread extends Thread implements StatusListener{
 				//Corpus corpus = Factory.newCorpus("New Corpus");
 				serialcorpusController = (SerialAnalyserController) Factory.createResource("gate.creole.SerialAnalyserController");
 				String[] processingResources = {"gate.creole.tokeniser.DefaultTokeniser",
-				"gate.creole.splitter.SentenceSplitter", "gate.creole.POSTagger", "gate.creole.ConditionalSerialAnalyserController"};
+				"gate.creole.splitter.SentenceSplitter", "gate.creole.POSTagger", "gate.creole.ConditionalSerialAnalyserController", "gate.creole.gazetteer.DefaultGazetteer"};
 				
 				for(int pr = 0; pr < processingResources.length; pr++) {
 					log.info("\t* Loading " + processingResources[pr] + " ... ");
@@ -266,14 +266,31 @@ public class GateThread extends Thread implements StatusListener{
 				for( Document doc : corpus){
 
 					AnnotationSet defaultAnnotSet = doc.getAnnotations();
-					Set<String> annotTypesRequired = new HashSet<>();
-					annotTypesRequired.addAll(TypesRequired);
-					//annotTypesRequired.add("Sent-Len");
-					//annotTypesRequired.add("Sent-Long");
-					//annotTypesRequired.add("Split");
-					//annotTypesRequired.add("SpaceToken");
+					
 					Set<Annotation> peopleAndPlaces =
-							new HashSet<Annotation>(defaultAnnotSet.get(annotTypesRequired));
+							new HashSet<Annotation>(defaultAnnotSet.get(TypesRequired));
+
+					return peopleAndPlaces;
+
+				} // for each doc
+				log.info("fine");
+			}catch(Exception e){
+				log.error(e.getMessage());
+
+
+			}
+			return null;
+		}
+		
+		public Set<Annotation> getAnnotationSet(String TypeRequired, FeatureMap fe){
+			try{
+
+				for( Document doc : corpus){
+
+					AnnotationSet defaultAnnotSet = doc.getAnnotations();
+					
+					Set<Annotation> peopleAndPlaces =
+							new HashSet<Annotation>(defaultAnnotSet.get(TypeRequired,fe));
 
 					return peopleAndPlaces;
 

@@ -10,6 +10,7 @@ import org.languagetool.Language;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
+import eu.learnpad.ca.analysis.non_ambiguity.lexicalambiguity.plugin.LexicalAmbiguity;
 import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.plugin.AnaphoricAmbiguities;
 import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.plugin.CoordinationAmbiguity;
 import eu.learnpad.ca.gate.GateThread;
@@ -128,10 +129,13 @@ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(C
 		List<Node> listnode = new ArrayList<Node>();
 		
 		AnaphoricAmbiguities anaphoricAmbiguities = new AnaphoricAmbiguities(language, docContent,listnode);
-		anaphoricAmbiguities.check(gateu, listannotation, listSentenceDefected);
+		anaphoricAmbiguities.check(gateu, listannotation, listSentenceDefected,listSentence);
 		
 		CoordinationAmbiguity coordinationAmbiguity = new CoordinationAmbiguity(language, docContent,listnode);
-		coordinationAmbiguity.check(gateu, listannotation, listSentenceDefected);
+		coordinationAmbiguity.check(gateu, listannotation, listSentenceDefected,listSentence);
+		
+		LexicalAmbiguity lexicalAmbiguity = new LexicalAmbiguity(language, docContent,listnode);
+		lexicalAmbiguity.check(gateu, listannotation, listSentenceDefected,listSentence);
 		
 		addNodeInContent(listnode,c,docContent);
 		

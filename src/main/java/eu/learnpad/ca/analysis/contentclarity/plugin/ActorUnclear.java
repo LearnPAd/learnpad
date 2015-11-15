@@ -23,7 +23,7 @@ public class ActorUnclear extends Plugin {
 	}
 	
 
-	public void check(GateThread gateu, List<Annotation> listannotations, Set<gate.Annotation> listSentenceDefected){
+	public void check(GateThread gateu, List<Annotation> listannotations, Set<gate.Annotation> listSentenceDefected, Set<gate.Annotation> listSentence){
 		
 		HashSet<String> hs = new HashSet<String>();
 		hs.add("PassiveVoice");
@@ -33,7 +33,7 @@ public class ActorUnclear extends Plugin {
 		String rac = "The sentence does not specify the subject. Please include who is performing the action.";
 		
 		String type = "Actor Unclear";
-		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log );
+		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log,listSentence );
 	}
 
 }

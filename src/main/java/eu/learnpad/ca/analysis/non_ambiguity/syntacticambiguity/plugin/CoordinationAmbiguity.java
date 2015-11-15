@@ -22,7 +22,7 @@ public class CoordinationAmbiguity extends Plugin {
 	}
 	
 
-	public void check(GateThread gateu, List<Annotation> listannotations, Set<gate.Annotation> listSentenceDefected){
+	public void check(GateThread gateu, List<Annotation> listannotations, Set<gate.Annotation> listSentenceDefected,Set<gate.Annotation> listSentence){
 		
 		HashSet<String> hs = new HashSet<String>();
 		hs.add("CoordAmbiguity");
@@ -32,7 +32,7 @@ public class CoordinationAmbiguity extends Plugin {
 		String rac = "The sentence is ambiguous because you are using complex combinations of \"and\" or \"or\". Clarify the sentence by introducing some commas, or by splitting it into two sentences.";
 		
 		String type = "Coordination Ambiguity";
-		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log );
+		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log,listSentence );
 	}
 
 

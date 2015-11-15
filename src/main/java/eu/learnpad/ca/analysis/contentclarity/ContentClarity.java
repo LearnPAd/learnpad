@@ -130,7 +130,7 @@ public class ContentClarity extends AbstractAnalysisClass {
 		uclearac.checkUnclearAcronym(listSentence, listSentenceDefected,listannotation);
 		
 		ActorUnclear ucleActor = new ActorUnclear(language, docContent, listnode);
-		ucleActor.check(gateu, listannotation, listSentenceDefected);
+		ucleActor.check(gateu, listannotation, listSentenceDefected, listSentence);
 		addNodeInContent(listnode,c,docContent);
 		
 		numDefectiveSentences = listSentenceDefected.size();

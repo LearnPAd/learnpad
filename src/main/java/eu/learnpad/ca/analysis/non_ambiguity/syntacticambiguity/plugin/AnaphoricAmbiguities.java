@@ -23,7 +23,7 @@ public class AnaphoricAmbiguities extends Plugin {
 	}
 	
 
-	public void check(GateThread gateu, List<Annotation> listannotations, Set<gate.Annotation> listSentenceDefected){
+	public void check(GateThread gateu, List<Annotation> listannotations, Set<gate.Annotation> listSentenceDefected,Set<gate.Annotation> listSentence){
 		
 		HashSet<String> hs = new HashSet<String>();
 		hs.add("AnaphoricAmbiguity1");
@@ -34,6 +34,6 @@ public class AnaphoricAmbiguities extends Plugin {
 		String rac = "The sentence is ambiguous because you are pronouns instead of names. Clarify the sentence by replacing the pronouns with names.";
 		
 		String type = "AnaphoricAmbiguities";
-		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log );
+		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log, listSentence );
 	}
 }
