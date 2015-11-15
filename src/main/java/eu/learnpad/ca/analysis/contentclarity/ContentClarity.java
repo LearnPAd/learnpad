@@ -28,6 +28,7 @@ public class ContentClarity extends AbstractAnalysisClass {
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ContentClarity.class);
 	
 	private GateThread gateu = null;
+	private long lStartTime;
 	public ContentClarity(CollaborativeContentAnalysis collaborativeContentInput,Language lang, GateThread gate) {
 
 		this.language = lang;
@@ -43,7 +44,7 @@ public class ContentClarity extends AbstractAnalysisClass {
 	}
 
 	public void run() {
-		long lStartTime = System.currentTimeMillis();
+		 lStartTime = System.currentTimeMillis();
 		//some tasks
 		if (collaborativeContentInput != null) {
 			check(collaborativeContentInput);
@@ -128,6 +129,7 @@ public class ContentClarity extends AbstractAnalysisClass {
 			// TODO Auto-generated catch block
 			log.error(e);
 		}
+		 lStartTime = System.currentTimeMillis();
 		DocumentContent docContent = gateu.getDocumentContent();
 		Set<gate.Annotation> listSentence = gateu.getSentence();
 		Set<gate.Annotation> listSentenceDefected = new HashSet<>();

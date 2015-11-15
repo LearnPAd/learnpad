@@ -30,11 +30,13 @@ public class NonAmbiguity extends AbstractAnalysisClass{
 private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ContentClarity.class);
 	
 	private GateThread gateu = null;
+	private long lStartTime;
 	public NonAmbiguity(CollaborativeContentAnalysis collaborativeContentInput,Language lang, GateThread gate) {
 
 		this.language = lang;
 		this.collaborativeContentInput = collaborativeContentInput;
 		this.gateu = gate;
+		
 	}
 
 	public NonAmbiguity(StaticContentAnalysis staticContentInput, Language lang, GateThread gate) {
@@ -45,7 +47,7 @@ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(C
 	}
 
 	public void run() {
-		long lStartTime = System.currentTimeMillis();
+		lStartTime = System.currentTimeMillis();
 		//some tasks
 		if (collaborativeContentInput != null) {
 			check(collaborativeContentInput);
@@ -129,6 +131,7 @@ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(C
 			// TODO Auto-generated catch block
 			log.error(e);
 		}
+		lStartTime = System.currentTimeMillis();
 		DocumentContent docContent = gateu.getDocumentContent();
 		Set<gate.Annotation> listSentence = gateu.getSentence();
 		Set<gate.Annotation> listSentenceDefected = new HashSet<>();

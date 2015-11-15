@@ -84,9 +84,9 @@ public class GateThread extends Thread implements StatusListener{
 				processingResources.add("gate.creole.tokeniser.DefaultTokeniser");
 				processingResources.add("gate.creole.splitter.SentenceSplitter");
 				processingResources.add("gate.creole.POSTagger");
-
+				
 				if(qualitycriteria.isNonAmbiguity()){
-					processingResources.add("gate.creole.ConditionalSerialAnalyserController");
+					processingResources.add("mark.chunking.GATEWrapper");
 					processingResources.add("gate.creole.gazetteer.DefaultGazetteer");
 				}
 				for(String res :processingResources) {
@@ -157,32 +157,32 @@ public class GateThread extends Thread implements StatusListener{
 
 		}
 
-		private void LoadJAPEActorUnclear(ArrayList<String> JAPEActorUnclear){
+		private void LoadJAPEActorUnclear(ArrayList<String> JAPEs){
 
-			JAPEActorUnclear.add("annotate_passive_forms_auxiliary_verbs.jape");
-			JAPEActorUnclear.add("annotate_passive_forms_by.jape");
-			JAPEActorUnclear.add("annotate_passive_forms_irregular_passive.jape");
-			JAPEActorUnclear.add("annotate_passive_forms_regular_passive.jape");
-			JAPEActorUnclear.add("annotate_passive_forms_RULE_1.jape");
-
-
-		}
-
-		private void LoadJAPESyntacticAmbiguityCoordination(ArrayList<String> JAPEActorUnclear){
-
-			JAPEActorUnclear.add("annotate_coord_ambiguity_PREPROCESS.jape");
-			JAPEActorUnclear.add("annotate_coord_ambiguity_RULE_1.jape");
-			JAPEActorUnclear.add("annotate_coord_ambiguity_RULE_2.jape");
-
+			JAPEs.add("annotate_passive_forms_auxiliary_verbs.jape");
+			JAPEs.add("annotate_passive_forms_by.jape");
+			JAPEs.add("annotate_passive_forms_irregular_passive.jape");
+			JAPEs.add("annotate_passive_forms_regular_passive.jape");
+			JAPEs.add("annotate_passive_forms_RULE_1.jape");
 
 
 		}
 
-		private void LoadJAPESyntacticAmbiguityAnaphoric(ArrayList<String> JAPEActorUnclear){
+		private void LoadJAPESyntacticAmbiguityCoordination(ArrayList<String> JAPEs){
 
-			JAPEActorUnclear.add("annotate_anaphoric_ambiguity_RULE_0.jape");
-			JAPEActorUnclear.add("annotate_anaphoric_ambiguity_RULE_1.jape");
-			JAPEActorUnclear.add("annotate_anaphoric_ambiguity_RULE_2.jape");
+			JAPEs.add("annotate_coord_ambiguity_PREPROCESS.jape");
+			JAPEs.add("annotate_coord_ambiguity_RULE_1.jape");
+			JAPEs.add("annotate_coord_ambiguity_RULE_2.jape");
+
+
+
+		}
+
+		private void LoadJAPESyntacticAmbiguityAnaphoric(ArrayList<String> JAPEs){
+
+			JAPEs.add("annotate_anaphoric_ambiguity_RULE_0.jape");
+			JAPEs.add("annotate_anaphoric_ambiguity_RULE_1.jape");
+			JAPEs.add("annotate_anaphoric_ambiguity_RULE_2.jape");
 
 
 
@@ -296,7 +296,6 @@ public class GateThread extends Thread implements StatusListener{
 					return peopleAndPlaces;
 
 				} // for each doc
-				log.info("fine");
 			}catch(Exception e){
 				log.error(e.getMessage());
 

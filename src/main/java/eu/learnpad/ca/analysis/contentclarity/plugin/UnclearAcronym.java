@@ -151,9 +151,9 @@ public class UnclearAcronym extends Plugin{
 
 		if(acronym.size()>0)
 			log.trace(acronym+"\nsize: "+acronym.size());
-		if(acronymdefected.size()>0 )
+		/*if(acronymdefected.size()>0 )
 			log.trace(acronymdefected+"\nsize: "+acronymdefected.size());
-
+*/
 
 		return insertdefectannotationsentence(sentence,id,annotations, acronymdefected,offset);
 

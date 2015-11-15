@@ -30,7 +30,7 @@ import gate.util.InvalidOffsetException;
 public class Simplicity extends AbstractAnalysisClass {
 
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Simplicity.class);
-
+	private long lStartTime;
 	private GateThread gateu = null;
 
 	public Simplicity(CollaborativeContentAnalysis collaborativeContentInput,Language lang, GateThread gate) {
@@ -48,7 +48,7 @@ public class Simplicity extends AbstractAnalysisClass {
 	}
 
 	public void run() {
-		long lStartTime = System.currentTimeMillis();
+		lStartTime = System.currentTimeMillis();
 		//some tasks
 		if (collaborativeContentInput != null) {
 			check(collaborativeContentInput);
@@ -100,7 +100,7 @@ public class Simplicity extends AbstractAnalysisClass {
 			gateu.join();
 
 
-
+			lStartTime = System.currentTimeMillis();
 			DocumentContent docContent = gateu.getDocumentContent();
 			Set<gate.Annotation> listSentence = gateu.getSentence();
 			Set<gate.Annotation> listSentenceDefected = new HashSet<>();
