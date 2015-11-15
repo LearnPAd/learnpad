@@ -213,7 +213,16 @@ public  class Annotation implements Comparable<Object>{
 	@Override
 	public int compareTo(Object o) {
 		Annotation other = (Annotation) o;
-	    return startNode_Offset.compareTo(other.getstartNode_Offset());
+		int result = startNode_Offset.compareTo(other.getstartNode_Offset());
+		Integer diff = endNode_Offset-startNode_Offset;
+		Integer diffother = other.getendNode_Offset()-other.getstartNode_Offset();
+		if(result==0){
+			if(diff<diffother){
+				return 1;
+			}else
+				return -1;
+		}
+	    return result;
 	}
 	
 	

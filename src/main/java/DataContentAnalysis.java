@@ -138,8 +138,8 @@ public class DataContentAnalysis implements Serializable{
 		Content c = acca.getCollaborativeContent().getContent();
 		List<Annotation> lannot =  acca.getAnnotations();
 		String content= exContent(c);
-		int inode=0;
-		//	List<Node> temp= new ArrayList<Node>();
+		Integer inode=0;
+		//List<Node> temp= new ArrayList<Node>();
 		DataContent prec = null;
 		Collections.sort(lannot);
 		for (Annotation ann : lannot) {
@@ -150,8 +150,8 @@ public class DataContentAnalysis implements Serializable{
 				listdata.add(new DataContent(tok, acca.getType()));
 			}else{
 				if(inode>startoff){
-
-					prec.setRecommendation(prec.getRecommendation()+"\r\n"+ann.getRecommendation());
+					if(prec!=null)
+						prec.setRecommendation(prec.getRecommendation()+"\r\n"+ann.getRecommendation());
 					continue;
 				}
 			}
