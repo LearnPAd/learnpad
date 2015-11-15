@@ -51,7 +51,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		try{
 			if(contentFile!=null){
 				String content = contentFile.getCollaborativeContent().getContentplain();
-				GateThread gateu = new GateThread(content);
+				GateThread gateu = new GateThread(content,contentFile.getQualityCriteria());
 				gateu.start();
 				id++;
 				Language lang = null;

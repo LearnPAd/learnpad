@@ -75,76 +75,76 @@ public class UnclearAcronym extends Plugin{
 		listOfStrings.removeAll(stopw.getStopwords());
 		String ContentCleaned = StringUtils.join(listOfStrings, " ");
 		Map<String,String> acronym = new HashMap<String, String>();
-/*
+		/*
 		JLanguageTool langTool = new JLanguageTool(language);
 		List<String> listsentenceofContentCleaned = langTool.sentenceTokenize(ContentCleaned);
-*/
+		 */
 
 		String regex = "[A-Z|\\.]{2,}";
 
 		// Create a Pattern object 65,46
 		Pattern r = Pattern.compile(regex);
-	//	for (String sentencecleanend : listsentenceofContentCleaned) {
+		//	for (String sentencecleanend : listsentenceofContentCleaned) {
+
+		// Now create matcher object.
+		Matcher m = r.matcher(ContentCleaned);
+
+		while (m.find()){
+			String tmpcandidateAcronym = m.group();
+			String candidateAcronym = tmpcandidateAcronym;
+			if(candidateAcronym.length()<=1 | (candidateAcronym.contains(".")&candidateAcronym.length()==2 ) | (!candidateAcronym.contains(".")&candidateAcronym.length()>4 )){
+				continue;
+			}
+			if(candidateAcronym.contains(".") ){
+				candidateAcronym = candidateAcronym.replaceAll("\\.", "");
+
+			}
+			int lencandidateAcronym = candidateAcronym.length();
+			String regex2 = "([A-Z]+\\w+([ ]|)){"+lencandidateAcronym+"}";
+
+			// Create a Pattern object
+			Pattern r2 = Pattern.compile(regex2);
 
 			// Now create matcher object.
-			Matcher m = r.matcher(ContentCleaned);
+			Matcher m2 = r2.matcher(ContentCleaned);
+			boolean flag = true;
+			while(m2.find()){
 
-			while (m.find()){
-				String tmpcandidateAcronym = m.group();
-				String candidateAcronym = tmpcandidateAcronym;
-				if(candidateAcronym.length()<=1 | (candidateAcronym.contains(".")&candidateAcronym.length()==2 ) | (!candidateAcronym.contains(".")&candidateAcronym.length()>4 )){
-					continue;
-				}
-				if(candidateAcronym.contains(".") ){
-					candidateAcronym = candidateAcronym.replaceAll("\\.", "");
+				//ok trovato  acronimi estesi
 
-				}
-				int lencandidateAcronym = candidateAcronym.length();
-				String regex2 = "([A-Z]+\\w+([ ]|)){"+lencandidateAcronym+"}";
-
-				// Create a Pattern object
-				Pattern r2 = Pattern.compile(regex2);
-
-				// Now create matcher object.
-				Matcher m2 = r2.matcher(ContentCleaned);
-				boolean flag = true;
-				while(m2.find()){
-
-					//ok trovato  acronimi estesi
-
-					String candidateexAcr = m2.group();
+				String candidateexAcr = m2.group();
 
 
-					String [] splited = candidateexAcr.split("\\s");
-					if(candidateAcronym.length()==splited.length){
-						for (int i = 0; i < splited.length; i++) {
-							if(!splited[i].startsWith(String.valueOf(candidateAcronym.charAt(i)))){
-								flag = true;
-								break;
-							}else{
-								flag = false;					
-							}
-						}
-
-						if(!flag){
-							//System.out.println("Acronym "+candidateAcronym+" "+candidateexAcr);
-							//Acronym trovato
-							acronym.put(candidateAcronym,candidateexAcr);
+				String [] splited = candidateexAcr.split("\\s");
+				if(candidateAcronym.length()==splited.length){
+					for (int i = 0; i < splited.length; i++) {
+						if(!splited[i].startsWith(String.valueOf(candidateAcronym.charAt(i)))){
+							flag = true;
 							break;
+						}else{
+							flag = false;					
 						}
 					}
+
+					if(!flag){
+						//System.out.println("Acronym "+candidateAcronym+" "+candidateexAcr);
+						//Acronym trovato
+						acronym.put(candidateAcronym,candidateexAcr);
+						break;
+					}
 				}
-				if(flag){
-					//new defect
-					if(!acronym.containsKey(candidateAcronym)){
-						/*if(tmpcandidateAcronym.indexOf(".")==tmpcandidateAcronym.lastIndexOf(".") & tmpcandidateAcronym.contains(".")){
+			}
+			if(flag){
+				//new defect
+				if(!acronym.containsKey(candidateAcronym)){
+					/*if(tmpcandidateAcronym.indexOf(".")==tmpcandidateAcronym.lastIndexOf(".") & tmpcandidateAcronym.contains(".")){
 							tmpcandidateAcronym = tmpcandidateAcronym.replaceAll("\\.", "");
 						}*/
-						if(!acronymdefected.contains(tmpcandidateAcronym)){
-							acronymdefected.add(tmpcandidateAcronym);
-						}
+					if(!acronymdefected.contains(tmpcandidateAcronym)){
+						acronymdefected.add(tmpcandidateAcronym);
 					}
 				}
+			}
 
 			//}
 		}
@@ -153,7 +153,7 @@ public class UnclearAcronym extends Plugin{
 			log.trace(acronym+"\nsize: "+acronym.size());
 		if(acronymdefected.size()>0 )
 			log.trace(acronymdefected+"\nsize: "+acronymdefected.size());
-		
+
 
 		return insertdefectannotationsentence(sentence,id,annotations, acronymdefected,offset);
 

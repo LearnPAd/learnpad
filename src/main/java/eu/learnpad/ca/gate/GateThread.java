@@ -1,5 +1,6 @@
 package eu.learnpad.ca.gate;
 
+import eu.learnpad.ca.rest.data.QualityCriteria;
 import gate.Annotation;
 import gate.AnnotationSet;
 import gate.Corpus;
@@ -20,6 +21,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -28,6 +30,8 @@ public class GateThread extends Thread implements StatusListener{
 
 	private Corpus corpus;
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(GateThread.class);
+	private QualityCriteria qualitycriteria;
+
 
 	private ThreadLocal<CorpusController> controller = new ThreadLocal<CorpusController>() {
 		protected CorpusController initialValue() { return initPersistentGateResources();
@@ -54,7 +58,8 @@ public class GateThread extends Thread implements StatusListener{
 
 		}
 
-		public GateThread(String content) {
+		public GateThread(String content, QualityCriteria qc) {
+			this.qualitycriteria = qc;
 			CreateCorpusFromContent(content);
 			//init();
 		}
@@ -75,14 +80,20 @@ public class GateThread extends Thread implements StatusListener{
 			try {
 				//Corpus corpus = Factory.newCorpus("New Corpus");
 				serialcorpusController = (SerialAnalyserController) Factory.createResource("gate.creole.SerialAnalyserController");
-				String[] processingResources = {"gate.creole.tokeniser.DefaultTokeniser",
-				"gate.creole.splitter.SentenceSplitter", "gate.creole.POSTagger", "gate.creole.ConditionalSerialAnalyserController", "gate.creole.gazetteer.DefaultGazetteer"};
-				
-				for(int pr = 0; pr < processingResources.length; pr++) {
-					log.info("\t* Loading " + processingResources[pr] + " ... ");
+				List<String> processingResources = new ArrayList<String>();
+				processingResources.add("gate.creole.tokeniser.DefaultTokeniser");
+				processingResources.add("gate.creole.splitter.SentenceSplitter");
+				processingResources.add("gate.creole.POSTagger");
+
+				if(qualitycriteria.isNonAmbiguity()){
+					processingResources.add("gate.creole.ConditionalSerialAnalyserController");
+					processingResources.add("gate.creole.gazetteer.DefaultGazetteer");
+				}
+				for(String res :processingResources) {
+					log.info("\t* Loading " + res + " ... ");
 
 					serialcorpusController.add((gate.LanguageAnalyser)Factory
-							.createResource(processingResources[pr]));
+							.createResource(res));
 					log.info("done");
 				}
 
@@ -137,17 +148,17 @@ public class GateThread extends Thread implements StatusListener{
 
 
 		private void LoadJAPELenght(ArrayList<String> JAPLenght ){
-			
-			
+
+
 			JAPLenght.add("annotate_sent_len.jape");
-			
+
 			JAPLenght.add("annotate_sent_len_nominal.jape");
-			
-			
+
+
 		}
 
 		private void LoadJAPEActorUnclear(ArrayList<String> JAPEActorUnclear){
-			
+
 			JAPEActorUnclear.add("annotate_passive_forms_auxiliary_verbs.jape");
 			JAPEActorUnclear.add("annotate_passive_forms_by.jape");
 			JAPEActorUnclear.add("annotate_passive_forms_irregular_passive.jape");
@@ -156,23 +167,23 @@ public class GateThread extends Thread implements StatusListener{
 
 
 		}
-		
+
 		private void LoadJAPESyntacticAmbiguityCoordination(ArrayList<String> JAPEActorUnclear){
-			
+
 			JAPEActorUnclear.add("annotate_coord_ambiguity_PREPROCESS.jape");
 			JAPEActorUnclear.add("annotate_coord_ambiguity_RULE_1.jape");
 			JAPEActorUnclear.add("annotate_coord_ambiguity_RULE_2.jape");
-			
+
 
 
 		}
-		
+
 		private void LoadJAPESyntacticAmbiguityAnaphoric(ArrayList<String> JAPEActorUnclear){
-			
+
 			JAPEActorUnclear.add("annotate_anaphoric_ambiguity_RULE_0.jape");
 			JAPEActorUnclear.add("annotate_anaphoric_ambiguity_RULE_1.jape");
 			JAPEActorUnclear.add("annotate_anaphoric_ambiguity_RULE_2.jape");
-			
+
 
 
 		}
@@ -225,10 +236,16 @@ public class GateThread extends Thread implements StatusListener{
 
 				// create an instance of a JAPE Transducer processing resource
 				ArrayList<String> listJAPE = new ArrayList<String>();
-				LoadJAPELenght(listJAPE);
-				LoadJAPEActorUnclear(listJAPE);
-				LoadJAPESyntacticAmbiguityCoordination(listJAPE);
-				LoadJAPESyntacticAmbiguityAnaphoric(listJAPE);
+				if(qualitycriteria.isSimplicity()){
+					LoadJAPELenght(listJAPE);
+				}
+				if(qualitycriteria.isContentClarity()){
+					LoadJAPEActorUnclear(listJAPE);
+				}
+				if(qualitycriteria.isNonAmbiguity()){
+					LoadJAPESyntacticAmbiguityCoordination(listJAPE);
+					LoadJAPESyntacticAmbiguityAnaphoric(listJAPE);
+				}
 				Collection<FeatureMap> features = loadJAPE(listJAPE);
 				for(FeatureMap feature :features){
 					ProcessingResource japeTransducer = (ProcessingResource) Factory.createResource("gate.creole.Transducer", feature);
@@ -272,7 +289,7 @@ public class GateThread extends Thread implements StatusListener{
 				for( Document doc : corpus){
 
 					AnnotationSet defaultAnnotSet = doc.getAnnotations();
-					
+
 					Set<Annotation> peopleAndPlaces =
 							new HashSet<Annotation>(defaultAnnotSet.get(TypesRequired));
 
@@ -287,14 +304,14 @@ public class GateThread extends Thread implements StatusListener{
 			}
 			return null;
 		}
-		
+
 		public Set<Annotation> getAnnotationSet(String TypeRequired, FeatureMap fe){
 			try{
 
 				for( Document doc : corpus){
 
 					AnnotationSet defaultAnnotSet = doc.getAnnotations();
-					
+
 					Set<Annotation> peopleAndPlaces =
 							new HashSet<Annotation>(defaultAnnotSet.get(TypeRequired,fe));
 

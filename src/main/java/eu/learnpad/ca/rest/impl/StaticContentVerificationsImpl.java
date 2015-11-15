@@ -45,7 +45,7 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 			throws LpRestException {
 		try{
 			String content = contentFile.getStaticContent().getContentplain();
-			GateThread gateu = new GateThread(content);
+			GateThread gateu = new GateThread(content,contentFile.getQualityCriteria());
 			gateu.start();
 			if(contentFile.getQualityCriteria().isCorrectness()){
 				id++;
