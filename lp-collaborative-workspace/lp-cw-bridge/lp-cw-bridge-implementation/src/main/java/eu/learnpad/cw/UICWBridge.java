@@ -28,7 +28,6 @@ import org.xwiki.component.annotation.Role;
 
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
-import eu.learnpad.sim.rest.data.UserData;
 
 @Role
 public interface UICWBridge {
@@ -37,5 +36,5 @@ public interface UICWBridge {
 
 	String startSimulation(@PathParam("modelid") String modelId,
 			@QueryParam("currentuser") String currentUser,
-			Collection<UserData> potentialUsers) throws LpRestException;
+			Collection<String> potentialUsers) throws LpRestException;
 }

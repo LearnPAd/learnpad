@@ -17,30 +17,35 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import javax.inject.Inject;
-import org.jglue.cdiunit.CdiRunner;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  *
  * @author sandro.emmenegger
  */
-@RunWith(CdiRunner.class)
 public class SimpleModelTransformatorTest extends AbstractUnitTest{
     
-    @Inject
-    SimpleModelTransformator transformator;
-
     private final Path transformedModelsRoot = Paths.get(APP.CONF.getString("ontology.learnpad.model.instances"));
 
-    @Before
-    public void before() throws IOException {
-        cleanUp(transformedModelsRoot);
+//    @Before
+//    public void before() throws IOException {
+//        cleanUp(transformedModelsRoot);
+//    }
+//    
+//    @Test
+//    @Before
+//    public void testPaths(){
+//        testPath("ontology.metamodel.path");
+//    }
+    
+    @Test
+    public void testInitialization(){
+        SimpleModelTransformator.getInstance();
     }
+    
 
     /**
      * Test of transform method, of class SimpleModelTransformator.
@@ -54,29 +59,29 @@ public class SimpleModelTransformatorTest extends AbstractUnitTest{
         
         String testModelsFilePath = "/models/Models4Transformation-18032015.xml";
 
-        File outputFile = transform(testModelsFilePath, TEST_MODEL_SET_ID_1, ModellingEnvironmentType.ADOxx);
+        File outputFile = transform(testModelsFilePath, TEST_MODEL_SET_ID_1, ModellingEnvironmentType.ADOXX);
         assertNotNull(outputFile);
         assertTrue(outputFile.exists());
         assertTrue(outputFile.length() > 0);
 
         //same again
-        File outputFile2 = transform(testModelsFilePath, TEST_MODEL_SET_ID_1, ModellingEnvironmentType.ADOxx);
+        File outputFile2 = transform(testModelsFilePath, TEST_MODEL_SET_ID_1, ModellingEnvironmentType.ADOXX);
         assertEquals(outputFile.getPath(), outputFile2.getPath());
 
-        outputFile2 = transform(testModelsFilePath, TEST_MODEL_SET_ID_2, ModellingEnvironmentType.ADOxx);
+        outputFile2 = transform(testModelsFilePath, TEST_MODEL_SET_ID_2, ModellingEnvironmentType.ADOXX);
         assertFalse(outputFile.getPath().equals(outputFile2.getPath()));
 
-        File latestTransformation = transformator.getLatestVersionFile(TEST_MODEL_SET_ID_2);
+        File latestTransformation = SimpleModelTransformator.getInstance().getLatestVersionFile(TEST_MODEL_SET_ID_2);
         assertNotNull(latestTransformation);
         assertEquals(latestTransformation.getPath(), outputFile2.getPath());
 
     }
-    
+    @Ignore
     @Test
     public void testTitoloUnico() throws IOException{
         String testModelsFilePath = "/models/TitoloUnicoV4/TitoloUnico_v4.xml";
 
-        File outputFile = transform(testModelsFilePath, TEST_MODEL_SET_ID_TITOLO_UNICO, ModellingEnvironmentType.ADOxx);
+        File outputFile = transform(testModelsFilePath, TEST_MODEL_SET_ID_TITOLO_UNICO, ModellingEnvironmentType.ADOXX);
         assertNotNull(outputFile);
         assertTrue(outputFile.exists());
         assertTrue(outputFile.length() > 0);
@@ -93,7 +98,7 @@ public class SimpleModelTransformatorTest extends AbstractUnitTest{
         bos.flush();
         byte[] testModelFile = bos.toByteArray();
 
-        File outputFile = transformator.transform(modelSetId, testModelFile, type);
+        File outputFile = SimpleModelTransformator.getInstance().transform(modelSetId, testModelFile, type);
         return outputFile;
     }
 

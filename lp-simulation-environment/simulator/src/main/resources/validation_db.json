@@ -1,0 +1,458 @@
+{
+  "SCIArequestDemo" : {
+	"validateIntegration" : [
+		{
+			"input" : {
+				"integrationApproved" : false
+			},
+			"output" : {
+				"integrationValidated" : false
+			}
+		},
+		{
+			"input" : {
+				"integrationChecked" : false
+			},
+			"output" : {
+				"integrationValidated" : false
+			}
+		},
+		{
+			"input" : {
+				"integrationApproved" : true,
+				"integrationChecked" : true
+			},
+			"output" : {
+				"integrationValidated" : true
+			}
+		}
+	],
+	"doChecks" : [
+		{
+
+			"input" : {
+				"document" : "example_document_valid"
+			},
+			"output" : {
+				"integrationChecked" : true
+			}
+		},
+		{
+
+			"input" : {
+				"document" : "example_document_invalid"
+			},
+			"output" : {
+				"integrationChecked" : false
+			}
+		}
+	]},
+  "SUAPdemo" : {
+	"usertask1" : [
+		{
+
+			"input" : {
+
+			},
+			"output" : {
+				"food_sector" : true,
+				"driving_school_sector" : true,
+				"is_foreigner" : true,
+				"moral_professional_requirement" : true,
+				"fuel_sector" : true,
+				"fixed_location" : true
+			}
+		}
+	],
+	"usertask2" : [
+		{
+
+			"input" : {
+				"document" : "example_document_valid"
+			},
+			"output" : {
+				"applicationAdmissible" : true
+			}
+		},
+		{
+
+			"input" : {
+				"document" : "example_document_invalid"
+			},
+			"output" : {
+				"applicationAdmissible" : false
+			}
+		}
+	],
+	"usertask8" : [
+		{
+			"input" : {
+				"document" : "example_document_valid"
+			},
+			"output" : {
+				"applicationValid" : true
+			}
+		},
+		{
+			"input" : {
+				"document" : "example_document_invalid"
+			},
+			"output" : {
+				"applicationValid" : false
+			}
+		}
+	]
+  },
+  "mod.13868" : {
+	"usertask1" : [
+		{
+			"input" : {
+                            "case" : "515.2015"
+			},
+			"output" : {
+				"doConfOfService" : true
+			}
+		},
+		{
+			"input" : {
+                            "case" : "829.2015"
+			},
+			"output" : {
+				"doConfOfService" : true
+			}
+		},
+		{
+			"input" : {
+                            "case" : "859.2015"
+			},
+			"output" : {
+				"doConfOfService" : true
+			}
+		},
+		{
+			"input" : {
+                            "case" : "889.2015"
+			},
+			"output" : {
+				"doConfOfService" : true
+			}
+		},
+		{
+			"input" : {
+                            "case" : "1118.2015"
+			},
+			"output" : {
+				"doConfOfService" : true
+			}
+		},
+		{
+			"input" : {
+                            "case" : "1267.2015"
+			},
+			"output" : {
+				"doConfOfService" : true
+			}
+		}
+	],
+	"usertask3" : [
+		{
+			"input" : {
+                            "case" : "515.2015"
+			},
+			"output" : {
+                            "offEdiuzia" : false,
+                            "offPorto" : false,
+                            "offAmb" : false,
+                            "offAtt" : true,
+                            "offPolizia" : false,
+                            "offTrib" : false,
+                            "offPat" : false,
+                            "offSind" : false,
+                            "offARPAM" : false,
+                            "offServIgiene" : true,
+                            "offDepIgiene" : false,
+                            "offPrev" : false,
+                            "offVVFF" : false,
+                            "offAreaAmb" : false,
+                            "offAreaEco" : false,
+                            "offVal" : false,
+                            "offGest" : false,
+                            "offSoprint" : false,
+                            "offFerrov" : false,
+                            "offANAS" : false,
+                            "offQUEST" : false,
+                            "offPREF" : false,
+                            "offISP" : false,
+                            "offDog" : false,
+                            "offCap" : false
+			}
+		},
+		{
+			"input" : {
+                            "case" : "829.2015"
+			},
+			"output" : {
+                            "offEdiuzia" : true,
+                            "offPorto" : true,
+                            "offAmb" : true,
+                            "offAtt" : true,
+                            "offPolizia" : true,
+                            "offTrib" : true,
+                            "offPat" : false,
+                            "offSind" : false,
+                            "offARPAM" : false,
+                            "offServIgiene" : false,
+                            "offDepIgiene" : false,
+                            "offPrev" : false,
+                            "offVVFF" : false,
+                            "offAreaAmb" : false,
+                            "offAreaEco" : false,
+                            "offVal" : false,
+                            "offGest" : false,
+                            "offSoprint" : true,
+                            "offFerrov" : false,
+                            "offANAS" : false,
+                            "offQUEST" : false,
+                            "offPREF" : false,
+                            "offISP" : false,
+                            "offDog" : true,
+                            "offCap" : true
+			}
+		},
+		{
+			"input" : {
+                            "case" : "859.2015"
+			},
+			"output" : {
+                            "offEdiuzia" : true,
+                            "offPorto" : false,
+                            "offAmb" : false,
+                            "offAtt" : true,
+                            "offPolizia" : false,
+                            "offTrib" : false,
+                            "offPat" : false,
+                            "offSind" : false,
+                            "offARPAM" : false,
+                            "offServIgiene" : true,
+                            "offDepIgiene" : false,
+                            "offPrev" : true,
+                            "offVVFF" : false,
+                            "offAreaAmb" : true,
+                            "offAreaEco" : true,
+                            "offVal" : false,
+                            "offGest" : true,
+                            "offSoprint" : false,
+                            "offFerrov" : false,
+                            "offANAS" : false,
+                            "offQUEST" : false,
+                            "offPREF" : false,
+                            "offISP" : false,
+                            "offDog" : false,
+                            "offCap" : false
+			}
+		},
+		{
+			"input" : {
+                            "case" : "889.2015"
+			},
+			"output" : {
+                            "offEdiuzia" : true,
+                            "offPorto" : false,
+                            "offAmb" : false,
+                            "offAtt" : true,
+                            "offPolizia" : false,
+                            "offTrib" : false,
+                            "offPat" : false,
+                            "offSind" : false,
+                            "offARPAM" : false,
+                            "offServIgiene" : false,
+                            "offDepIgiene" : false,
+                            "offPrev" : false,
+                            "offVVFF" : false,
+                            "offAreaAmb" : false,
+                            "offAreaEco" : false,
+                            "offVal" : false,
+                            "offGest" : false,
+                            "offSoprint" : false,
+                            "offFerrov" : true,
+                            "offANAS" : false,
+                            "offQUEST" : false,
+                            "offPREF" : false,
+                            "offISP" : false,
+                            "offDog" : false,
+                            "offCap" : false
+			}
+		},
+		{
+			"input" : {
+                            "case" : "1118.2015"
+			},
+			"output" : {
+                            "offEdiuzia" : true, 
+                            "offPorto" : false, 
+                            "offAmb" : true, 
+                            "offAtt" : true, 
+                            "offPolizia" : false, 
+                            "offTrib" : false, 
+                            "offPat" : true, 
+                            "offSind" : false, 
+                            "offARPAM" : false, 
+                            "offServIgiene" : false, 
+                            "offDepIgiene" : false, 
+                            "offPrev" : false, 
+                            "offVVFF" : false, 
+                            "offAreaAmb" : false, 
+                            "offAreaEco" : false, 
+                            "offVal" : false, 
+                            "offGest" : false, 
+                            "offSoprint" : true, 
+                            "offFerrov" : false, 
+                            "offANAS" : false, 
+                            "offQUEST" : false, 
+                            "offPREF" : false, 
+                            "offISP" : false, 
+                            "offDog" : false, 
+                            "offCap" : false
+			}
+		},
+		{
+			"input" : {
+                            "case" : "1267.2015"
+			},
+			"output" : {
+                            "offEdiuzia" : true,
+                            "offPorto" : false,
+                            "offAmb" : true,
+                            "offAtt" : true,
+                            "offPolizia" : false,
+                            "offTrib" : false,
+                            "offPat" : false,
+                            "offSind" : false,
+                            "offARPAM" : false,
+                            "offServIgiene" : false,
+                            "offDepIgiene" : false,
+                            "offPrev" : false,
+                            "offVVFF" : false,
+                            "offAreaAmb" : false,
+                            "offAreaEco" : false,
+                            "offVal" : false,
+                            "offGest" : false,
+                            "offSoprint" : true,
+                            "offFerrov" : true,
+                            "offANAS" : false,
+                            "offQUEST" : false,
+                            "offPREF" : false,
+                            "offISP" : false,
+                            "offDog" : false,
+                            "offCap" : true
+			}
+		}
+	]
+  },
+  "mod.25873" : {
+	"usertask1" : [
+		{
+
+			"input" : {
+                            "case" : "learnpad"
+			},
+			"output" : {
+			    "project_name" : "Model-Based Social Learning for Public Administrations",
+                            "project_acronym" : "Learn PAd",
+                            "project_code" : "619583",
+                            "funding_entity" : "European Union",
+                            "total_project_cost" : "3532993",
+                            "funding_requirement" : "2635000",
+                            "start_date" : "2014-02-01",
+                            "scientific_supervisor": "flavio_corradini",
+                            "andrea_polini": true,
+                            "barbara_re": true
+			}
+		}
+	],
+	"usertask2" : [
+		{
+
+			"input" : {
+                            "case" : "learnpad"
+			},
+			"output" : {
+                            "main_instigator" : "andrea_polini"
+			}
+		}
+	],
+	"usertask3" : [
+		{
+
+			"input" : {
+                            "case" : "learnpad"
+			},
+			"output" : {
+                            "bank" : "marche"
+			}
+		}
+	],
+	"usertask4" : [
+		{
+
+			"input" : {
+                            "case" : "learnpad"
+			},
+			"output" : {
+			    "ugov_project_name" : "Model-Based Social Learning for Public Administrations",
+                            "ugov_project_acronym" : "Learn PAd",
+                            "ugov_project_code" : "619583",
+                            "ugov_funding_entity" : "European Union"
+			}
+		}
+	],
+	"usertask5" : [
+		{
+
+			"input" : {
+                            "case" : "learnpad"
+			},
+			"output" : {
+                            "sign_consortium" : "yes"
+			}
+		}
+	],
+	"usertask6" : [
+		{
+
+			"input" : {
+                            "case" : "learnpad"
+			},
+			"output" : {
+                            "sign_grant" : "yes"
+			}
+		}
+	],
+	"usertask8" : [
+		{
+
+			"input" : {
+                            "case" : "learnpad"
+			},
+			"output" : {
+                            "cup_projectref" : "619583"
+			}
+		}
+	],
+	"usertask9" : [
+		{
+
+			"input" : {
+                            "case" : "learnpad"
+			},
+			"output" : {
+			    "miur_project_name" : "Model-Based Social Learning for Public Administrations",
+                            "miur_project_acronym" : "Learn PAd",
+                            "miur_project_code" : "619583",
+                            "miur_funding_entity" : "European Union"
+			}
+		}
+	],
+  }
+}
+

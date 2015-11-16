@@ -1,0 +1,4 @@
+ugov_project_name,"Project Name",string,true,""
+ugov_project_acronym,"Acronym",string,true,""
+ugov_project_code,"Project Code",string,true,""
+ugov_funding_entity,"Funding Entity",string,true,""

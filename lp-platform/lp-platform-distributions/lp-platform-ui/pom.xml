@@ -155,6 +155,7 @@
 				<artifactId>xwiki-commons-tool-xar-plugin</artifactId>
 				<version>${commons.version}</version>
 				<configuration>
+					<includeDependencies>true</includeDependencies>
 					<transformations>
 						<!-- Configure the default color theme -->
 						<transformation>
@@ -184,7 +185,13 @@
 							<xpath>/xwikidoc/object/property/version</xpath>
 							<value>${xcs.footer.version}</value>
 						</transformation>
-						<!-- Configure the right panels -->
+						<!-- Configure the panels -->
+						<transformation>
+							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+							<file>XWiki/XWikiPreferences.xml</file>
+							<xpath>/xwikidoc/object/property/showLeftPanels</xpath>
+							<value>0</value>
+						</transformation>
 						<transformation>
 							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
 							<file>XWiki/XWikiPreferences.xml</file>

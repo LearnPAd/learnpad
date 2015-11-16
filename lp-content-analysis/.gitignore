@@ -14,5 +14,9 @@ hs_err_pid*
 
 *.prefs
 /target/
-
+nosferat*
 out
+bin
+target
+logs
+

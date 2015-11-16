@@ -1,0 +1,4 @@
+miur_project_name,"Project Name",string,true,""
+miur_project_acronym,"Acronym",string,true,""
+miur_project_code,"Project Code",string,true,""
+miur_funding_entity,"Funding Entity",string,true,""

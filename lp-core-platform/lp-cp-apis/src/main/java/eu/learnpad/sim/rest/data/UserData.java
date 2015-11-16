@@ -51,6 +51,7 @@ public class UserData {
 		this.lastName = lastName;
 		this.bio = bio;
 		this.pictureURL = pictureURL;
+		this.profileURL = profileURL;
 	}
 
 }

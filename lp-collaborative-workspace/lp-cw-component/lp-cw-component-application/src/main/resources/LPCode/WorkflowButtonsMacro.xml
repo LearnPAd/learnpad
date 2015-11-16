@@ -20,29 +20,31 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc>
+<xwikidoc version="1.1">
   <web>LPCode</web>
   <name>WorkflowButtonsMacro</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
-  <parent>LPUI.BaseElementSheet</parent>
   <creator>xwiki:XWiki.Admin</creator>
-  <author>xwiki:XWiki.Admin</author>
-  <customClass/>
-  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <creationDate>1443429310000</creationDate>
-  <date>1443430460000</date>
-  <contentUpdateDate>1443429336000</contentUpdateDate>
+  <parent>LPUI.BaseElementSheet</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1446109949000</date>
+  <contentUpdateDate>1445874785000</contentUpdateDate>
   <version>1.1</version>
   <title>WorkflowButtonsMacro</title>
-  <defaultTemplate/>
-  <validationScript/>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
+  <content/>
   <object>
+    <name>LPCode.WorkflowButtonsMacro</name>
+    <number>0</number>
+    <className>XWiki.WikiMacroClass</className>
+    <guid>ec625aef-4118-4876-8488-fbcc5faba103</guid>
     <class>
       <name>XWiki.WikiMacroClass</name>
       <customClass/>
@@ -152,31 +154,42 @@
         <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
       </visibility>
     </class>
-    <name>LPCode.WorkflowButtonsMacro</name>
-    <number>0</number>
-    <className>XWiki.WikiMacroClass</className>
-    <guid>ec625aef-4118-4876-8488-fbcc5faba103</guid>
     <property>
-      <code>(% class="row" %)(((
-  (% class="col-xs-4" %)(((
-== Previous steps ==
+      <code>{{velocity}}
+#set ($type = $xcontext.macro.params.type)
+#if ($type.startsWith('bpmn-event') || $type.startsWith('bpmn-gateway') || $type.startsWith('bpmn-task') || $type.startsWith('bpmn-process'))
+(% class="row" %)(((
+(% class="col-xs-4" %)(((
+== ${services.localization.render('WorkflowButtonsMacro.previous')} ==
 {{linkbuttons type="incoming" align="left" cssClass="btn-default" icon="left" iconAlign="left" block="true"}}
-bp-event
-bp-gateway
-bp-task
-bp-process
+bpmn-event
+bpmn-gateway
+bpmn-task
+bpmn-process
 {{/linkbuttons}}
-  )))(% class="col-xs-4" %)((()))(% class="col-xs-4" %)(((
-    (% class="text-right" %)
-== Next steps ==
+)))
+(% class="col-xs-4" %)((()))
+(% class="col-xs-4" %)(((
+(% class="text-right" %)
+== ${services.localization.render('WorkflowButtonsMacro.next')} ==
 {{linkbuttons type="outgoing" align="right" icon="right" iconAlign="right" block="true"}}
-bp-event
-bp-gateway
-bp-task
-bp-process
+bpmn-event
+bpmn-gateway
+bpmn-task
+bpmn-process
 {{/linkbuttons}}
-  )))
-)))</code>
+)))
+)))
+#elseif ($type.startsWith('bpmn-pool') || $type.startsWith('bpmn-lane'))
+== ${services.localization.render('WorkflowButtonsMacro.poollane')} ==
+{{linkbuttons type="incoming" align="left" cssClass="btn-y" icon="up" iconAlign="left" block="true"}}
+bpmn-event
+bpmn-gateway
+bpmn-task
+bpmn-process
+{{/linkbuttons}}
+#end
+{{/velocity}}</code>
     </property>
     <property>
       <contentDescription/>
@@ -200,8 +213,73 @@ bp-process
       <supportsInlineMode>0</supportsInlineMode>
     </property>
     <property>
-      <visibility>Global</visibility>
+      <visibility>Current Wiki</visibility>
     </property>
   </object>
-  <content/>
+  <object>
+    <name>LPCode.WorkflowButtonsMacro</name>
+    <number>0</number>
+    <className>XWiki.WikiMacroParameterClass</className>
+    <guid>a3241467-14ed-43ed-ae65-29839e818363</guid>
+    <class>
+      <name>XWiki.WikiMacroParameterClass</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <defaultValue>
+        <disabled>0</disabled>
+        <name>defaultValue</name>
+        <number>4</number>
+        <prettyName>Parameter default value</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </defaultValue>
+      <description>
+        <disabled>0</disabled>
+        <name>description</name>
+        <number>2</number>
+        <prettyName>Parameter description</prettyName>
+        <rows>5</rows>
+        <size>40</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </description>
+      <mandatory>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>mandatory</name>
+        <number>3</number>
+        <prettyName>Parameter mandatory</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </mandatory>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Parameter name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+    </class>
+    <property>
+      <defaultValue>none</defaultValue>
+    </property>
+    <property>
+      <description>Type of the current artifact.</description>
+    </property>
+    <property>
+      <mandatory>0</mandatory>
+    </property>
+    <property>
+      <name>type</name>
+    </property>
+  </object>
 </xwikidoc>
