@@ -1,0 +1,191 @@
+# baseURI: http://learnpad.eu/execution
+# imports: http://learnpad.eu/transfer
+
+@prefix : <http://learnpad.eu/execution#> .
+@prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#> .
+@prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
+@prefix execution: <http://learnpad.eu/execution#> .
+@prefix lpd: <http://learnpad.eu#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix transfer: <http://learnpad.eu/transfer#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://learnpad.eu/execution>
+  rdf:type owl:Ontology ;
+  owl:imports <http://learnpad.eu/transfer> ;
+  owl:versionInfo "Created with TopBraid Composer"^^xsd:string ;
+.
+<http://learnpad.eu/transfer#executed_process_mod.13676_1>
+  rdf:type <http://learnpad.eu/transfer#mod.13676> ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13872_1>
+  rdf:type <http://learnpad.eu/transfer#obj.13872> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14047> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13872_10>
+  rdf:type <http://learnpad.eu/transfer#obj.13872> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14047> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13872_11>
+  rdf:type <http://learnpad.eu/transfer#obj.13872> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14047> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13872_12>
+  rdf:type <http://learnpad.eu/transfer#obj.13872> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14053> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13872_2>
+  rdf:type <http://learnpad.eu/transfer#obj.13872> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14047> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13872_3>
+  rdf:type <http://learnpad.eu/transfer#obj.13872> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14047> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13872_4>
+  rdf:type <http://learnpad.eu/transfer#obj.13872> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14047> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13872_5>
+  rdf:type <http://learnpad.eu/transfer#obj.13872> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14047> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13872_6>
+  rdf:type <http://learnpad.eu/transfer#obj.13872> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14047> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13872_7>
+  rdf:type <http://learnpad.eu/transfer#obj.13872> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14047> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13872_8>
+  rdf:type <http://learnpad.eu/transfer#obj.13872> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14047> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13872_9>
+  rdf:type <http://learnpad.eu/transfer#obj.13872> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14047> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+
+<http://learnpad.eu/transfer#executed_task_obj.13875_1>
+  rdf:type <http://learnpad.eu/transfer#obj.13875> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14053> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13875_10>
+  rdf:type <http://learnpad.eu/transfer#obj.13875> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14053> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13875_11>
+  rdf:type <http://learnpad.eu/transfer#obj.13875> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14053> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13875_12>
+  rdf:type <http://learnpad.eu/transfer#obj.13875> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14053> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13875_2>
+  rdf:type <http://learnpad.eu/transfer#obj.13875> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14053> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13875_3>
+  rdf:type <http://learnpad.eu/transfer#obj.13875> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14053> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13875_4>
+  rdf:type <http://learnpad.eu/transfer#obj.13875> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14053> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13875_5>
+  rdf:type <http://learnpad.eu/transfer#obj.13875> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14053> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13875_6>
+  rdf:type <http://learnpad.eu/transfer#obj.13875> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14053> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13875_7>
+  rdf:type <http://learnpad.eu/transfer#obj.13875> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14053> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13875_8>
+  rdf:type <http://learnpad.eu/transfer#obj.13875> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14053> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.
+<http://learnpad.eu/transfer#executed_task_obj.13875_9>
+  rdf:type <http://learnpad.eu/transfer#obj.13875> ;
+  emo:activityIsPerformedByPerformer <http://learnpad.eu/transfer#obj.14053> ;
+  lpd:executedFlowElementBelongsToExecutedProcess <http://learnpad.eu/transfer#executed_process_mod.13676_1> ;
+  lpd:executedFlowElementEndingTime "2015-11-02T15:42:36.066"^^xsd:dateTime ;
+  lpd:executedFlowElementStartTime "2015-11-03T15:47:42.848"^^xsd:dateTime ;
+.

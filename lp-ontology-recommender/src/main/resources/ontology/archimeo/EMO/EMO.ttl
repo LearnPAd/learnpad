@@ -2253,6 +2253,7 @@ omm:Performer
               ] ;
           ]
         ) ;
+      rdfs:comment "1 (rule execution order)"^^xsd:string ;
     ] ;
   spin:rule [
       rdf:type sp:Construct ;
@@ -2305,6 +2306,42 @@ omm:Performer
               ] ;
           ]
         ) ;
+      rdfs:comment "1 (rule execution order)"^^xsd:string ;
+    ] ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "person"^^xsd:string ;
+              ] ;
+            sp:predicate eo:organisationalUnitIsHeadedByPerson ;
+            sp:subject [
+                sp:varName "organisationalUnit"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object [
+                sp:varName "organisationalUnit"^^xsd:string ;
+              ] ;
+            sp:predicate omm:performerIsManagerOfOrganisationalUnit ;
+            sp:subject [
+                sp:varName "performer"^^xsd:string ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "person"^^xsd:string ;
+              ] ;
+            sp:predicate emo:performerRepresentsPerson ;
+            sp:subject [
+                sp:varName "performer"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+      rdfs:comment "2 (rule execution order)"^^xsd:string ;
     ] ;
 .
 omm:Role

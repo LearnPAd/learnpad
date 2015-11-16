@@ -107,14 +107,14 @@ public class LearnpadScriptService implements ScriptService {
 		try {
 			return this.cwBridge.getRecommendations(modelSetId, artifactId,
 					userId);
-		} catch (LpRestException e) {
+		} catch (Exception e) {
 			this.setLastError(e);
 			return null;
 		}
 	}
 
 	public String startSimulation(String modelId, String currentUser,
-			Collection<UserData> potentialUsers) {
+			Collection<String> potentialUsers) {
 		try {
 			return this.cwBridge.startSimulation(modelId, currentUser,
 					potentialUsers);

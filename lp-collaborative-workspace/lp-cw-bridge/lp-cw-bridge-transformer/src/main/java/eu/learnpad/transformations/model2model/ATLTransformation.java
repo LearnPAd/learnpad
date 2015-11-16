@@ -36,7 +36,12 @@ import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
 import eu.learnpad.transformations.parameter.ParameterFactory;
 import eu.learnpad.transformations.parameter.Params;
 
-
+/**
+ * Class used to execute the ATL Transformation
+ * @author Basciani Francesco
+ * @version 1.0
+ *
+ */
 public class ATLTransformation {
 	private IModel inModel;
 	private IModel paramsModel;
@@ -54,6 +59,11 @@ public class ATLTransformation {
 
 	private Map<String, Object> options;
 
+	/**
+	 * The constructor inizialize some options of the transformation.
+	 * Here there is the registration of the Metamodel Ecore.
+	 * @throws IOException
+	 */
 	public ATLTransformation() throws IOException {
 		options = new HashMap<String, Object>();
 		options.put("supportUML2Stereotypes", "false");
@@ -66,14 +76,19 @@ public class ATLTransformation {
 	}
 	
 	
-	
 	/**
 	 * The function is the only one to be visible to the outside and is the one that initiates the whole process of transformation.
-	 * @param model_params TODO
-	 * @param metamodel_params TODO
-	 * @param paramsTag TODO
-	 * @param String model_in, String metamodel_in, String metamodel_out, String modules, String inTag, String outTag, String outPath
-	 * @return IModel
+	 * @param model_in Path of the file representing the Ecore model (in .XMI) to be transformed.
+	 * @param metamodel_in Path of the Ecore Metamodel in which the model in input is conform to.
+	 * @param model_params Path of the Ecore Model (Parameter) that support the transformation.
+	 * @param metamodel_params Path of the Ecore Metamodel Parameter in which the model parameter in input is conform to.
+	 * @param metamodel_out The Path of the file for the Ecore Metamodel that the resulting model have to be conform.
+	 * @param modules The path of the effective ATL transformation (the .ATL file).
+	 * @param inTag The tag of the input Metamodel
+	 * @param paramsTag The tag of the input Parameter Metamodel
+	 * @param outTag The tag of the input Parameter Metamodel
+	 * @param outPath The path of the Ecore model file resulting from the transformation.
+	 * @return
 	 */
 	public IModel run(String model_in, String metamodel_in, String model_params, String metamodel_params, String metamodel_out, String modules, String inTag, String paramsTag, String outTag, String outPath) {
 		
@@ -115,7 +130,7 @@ public class ATLTransformation {
 	 * @param metamodel_out
 	 * @param modules
 	 * @param inTag
-	 * @param paramsTag TODO
+	 * @param paramsTag 
 	 * @param outTag
 	 * @throws ATLCoreException
 	 */

@@ -1,0 +1,8 @@
+grant_boc,"BOC",string,false,""
+grant_lin,"Linagora GSO",string,false,""
+grant_nomag,"NO MAGIC EUROPE UAB",string,false,""
+grant_regmar,"REGIONE MARCHE",string,false,""
+grant_fac,"FACHHOCHSCHULE NORDWESTSCHWEIZ",string,false,""
+grant_unicam,"UNIVERSITA DEGLI STUDI DI CAMERINO",string,false,""
+grant_aquila,"UNIVERSITA DEGLI STUDI DELL'AQUILA",string,false,""
+grant_xwiki,"XWIKI SAS",string,false,""

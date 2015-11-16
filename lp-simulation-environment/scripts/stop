@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
-pkill -f "java -jar simulator-" || exit 0
+cd $( dirname "${BASH_SOURCE[0]}")/..
+simulator/out/stop
+monitoring/out/stop

@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  LearnPAd Simulator
+  %%
+  Copyright (C) 2014 - 2015 Linagora
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  #L%
+  -->
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="mod.25873" name="European Project" isExecutable="true">
+
+    <dataObject
+        id="DataObject_0"
+        name="EUproject_0_init" />
+
+    <startEvent id="startevent1" name="Start"></startEvent>
+
+    <userTask id="usertask1" name="Manage school Authorization">
+      <documentation>
+In this activity the Council of the School authorizes UniCam to be involved in the EU project.
+&lt;a href='resources/files/euproject/${case}/project_description.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Project Description&lt;/a&gt;
+      </documentation>
+      <ioSpecification>
+        <dataOutput
+            id="DataOutput_1"
+            name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput_1</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput_1</sourceRef>
+        <targetRef>DataObject_1</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Coordinator)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <dataObject
+        id="DataObject_1"
+        name="EUproject_1_authorization" />
+
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
+
+    <userTask id="usertask2" name="Confirm Principal instigator">
+      <documentation>The council identifies the Principal Investigator for the project.</documentation>
+      <ioSpecification>
+        <dataOutput
+            id="DataOutput_2"
+            name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput_2</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput_2</sourceRef>
+        <targetRef>DataObject_2</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Coordinator)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <dataObject
+        id="DataObject_2"
+        name="EUproject_2_instigator" />
+
+    <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="usertask2"></sequenceFlow>
+
+    <userTask id="usertask3" name="Open Bank Account">
+      <documentation>In this activity the International and Industrial Liaison office opens a bank account used to manage the fund of the project.</documentation>
+      <ioSpecification>
+        <dataOutput
+            id="DataOutput_3"
+            name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput_3</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput_3</sourceRef>
+        <targetRef>DataObject_3</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Coordinator)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <dataObject
+        id="DataObject_3"
+        name="EUproject_3_bank_account" />
+
+    <sequenceFlow id="flow3" sourceRef="usertask2" targetRef="usertask3"></sequenceFlow>
+
+    <userTask id="usertask4" name="Create Instance in U-GOV">
+      <documentation>
+In this activity the “Area gestione scuole di ateneo” office creates a new instance in the U-GOV software tool.
+&lt;a href='resources/files/euproject/${case}/project_description.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Project Description&lt;/a&gt;
+</documentation>
+      <ioSpecification>
+        <dataOutput
+            id="DataOutput_4"
+            name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput_4</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput_4</sourceRef>
+        <targetRef>DataObject_4</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Coordinator)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <dataObject
+        id="DataObject_4"
+        name="EUproject_4_ugov" />
+
+    <sequenceFlow id="flow4" sourceRef="usertask3" targetRef="usertask4"></sequenceFlow>
+
+    <userTask id="usertask5" name="Sign Consortium Agreement">
+      <documentation>
+In this activity partners signs the consortium agreement.
+&lt;a href='resources/files/euproject/${case}/consortium_agreement.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Consortium Agreement&lt;/a&gt;
+      </documentation>
+      <ioSpecification>
+        <dataOutput
+            id="DataOutput_5"
+            name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput_5</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput_5</sourceRef>
+        <targetRef>DataObject_5</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Coordinator)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <dataObject
+        id="DataObject_5"
+        name="EUproject_5_consortium_agreement" />
+
+    <sequenceFlow id="flow5" sourceRef="usertask4" targetRef="usertask5"></sequenceFlow>
+
+    <userTask id="usertask6" name="Sign Grant Agreement">
+      <documentation>
+In this activity UniCam as coordinator signs the grant agreement. The EU will sign it. The rector is in charge to do that.
+&lt;a href='resources/files/euproject/${case}/grant_agreement.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Grant Agreement&lt;/a&gt;
+      </documentation>
+      <ioSpecification>
+        <dataOutput
+            id="DataOutput_6"
+            name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput_6</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput_6</sourceRef>
+        <targetRef>DataObject_6</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Coordinator)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <dataObject
+        id="DataObject_6"
+        name="EUproject_6_grant_agreement" />
+
+    <sequenceFlow id="flow6" sourceRef="usertask5" targetRef="usertask6"></sequenceFlow>
+
+    <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
+    <sequenceFlow id="flow8" sourceRef="usertask6" targetRef="parallelgateway1"></sequenceFlow>
+
+    <userTask id="usertask8" name="Request CUP Code to MISE">
+      <documentation>
+In this activity the International and Industrial Liaison office requests and receive from MISE the project-code.
+&lt;a href='resources/files/euproject/${case}/project_description.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Project Description&lt;/a&gt;
+      </documentation>
+      <ioSpecification>
+        <dataOutput
+            id="DataOutput_7"
+            name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput_7</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput_7</sourceRef>
+        <targetRef>DataObject_7</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Coordinator)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <dataObject
+        id="DataObject_7"
+        name="EUproject_7_cup_code" />
+
+    <sequenceFlow id="flow9" sourceRef="parallelgateway1" targetRef="usertask8"></sequenceFlow>
+
+    <userTask id="usertask9" name="Insert project in MIUR Database">
+      <documentation>
+In this activity the International and Industrial Liaison office inserts the information about the project in the MIUR database.
+&lt;a href='resources/files/euproject/${case}/project_description.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Project Description&lt;/a&gt;
+      </documentation>
+      <ioSpecification>
+        <dataOutput
+            id="DataOutput_8"
+            name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput_8</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput_8</sourceRef>
+        <targetRef>DataObject_8</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Coordinator)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <dataObject
+        id="DataObject_8"
+        name="EUproject_8_MIUR" />
+
+    <sequenceFlow id="flow10" sourceRef="parallelgateway1" targetRef="usertask9"></sequenceFlow>
+
+    <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
+    <sequenceFlow id="flow11" sourceRef="usertask8" targetRef="parallelgateway2"></sequenceFlow>
+
+    <sequenceFlow id="flow12" sourceRef="usertask9" targetRef="parallelgateway2"></sequenceFlow>
+
+    <userTask id="usertask10" name="Calculate Funds">
+      <documentation>
+In this activity UniCam receives from EU community the prefinancial fund, which are calculated.
+(Note: since for the demo the grant agreement has been censored, you can put any value for the allocated funds to each partners)
+&lt;a href='resources/files/euproject/${case}/grant_agreement.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Grant Agreement&lt;/a&gt;
+      </documentation>
+      <ioSpecification>
+        <dataOutput
+            id="DataOutput_9"
+            name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput_9</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput_9</sourceRef>
+        <targetRef>DataObject_9</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Coordinator)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <dataObject
+        id="DataObject_9"
+        name="EUproject_9_calc_funds" />
+
+    <sequenceFlow id="flow13" sourceRef="parallelgateway2" targetRef="usertask10"></sequenceFlow>
+
+    <userTask id="usertask11" name="Provide Final Report">
+      <documentation>In this activity UniCam as coordinator finalizes the EU project writing the final report.
+      </documentation>
+      <ioSpecification>
+        <dataOutput
+            id="DataOutput_10"
+            name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput_10</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput_10</sourceRef>
+        <targetRef>DataObject_10</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Coordinator)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <dataObject
+        id="DataObject_10"
+        name="EUproject_10_final_report" />
+
+    <sequenceFlow id="flow14" sourceRef="usertask10" targetRef="usertask11"></sequenceFlow>
+
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow15" sourceRef="usertask11" targetRef="endevent1"></sequenceFlow>
+
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
+    <bpmndi:BPMNPlane bpmnElement="myProcess" id="BPMNPlane_myProcess">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="50.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="61.0" width="105.0" x="120.0" y="187.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="270.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="420.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
+        <omgdc:Bounds height="55.0" width="105.0" x="550.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="700.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask6" id="BPMNShape_usertask6">
+        <omgdc:Bounds height="55.0" width="105.0" x="850.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="980.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask8" id="BPMNShape_usertask8">
+        <omgdc:Bounds height="55.0" width="105.0" x="1070.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask9" id="BPMNShape_usertask9">
+        <omgdc:Bounds height="55.0" width="105.0" x="1070.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway2" id="BPMNShape_parallelgateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="1200.0" y="220.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask10" id="BPMNShape_usertask10">
+        <omgdc:Bounds height="55.0" width="105.0" x="1285.0" y="213.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask11" id="BPMNShape_usertask11">
+        <omgdc:Bounds height="55.0" width="105.0" x="1435.0" y="213.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="1585.0" y="223.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="85.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="120.0" y="217.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="225.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="217.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="375.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="217.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="525.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="550.0" y="217.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="655.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="700.0" y="217.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="805.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="850.0" y="217.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="955.0" y="217.0"></omgdi:waypoint>
+        <omgdi:waypoint x="980.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="1000.0" y="200.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1000.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1070.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="1000.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="999.0" y="307.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1070.0" y="307.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="1175.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1220.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1220.0" y="220.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="1175.0" y="307.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1220.0" y="307.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1220.0" y="260.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="1240.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1285.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="1390.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1435.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="1540.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1585.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -6,47 +6,53 @@
 package eu.learnpad.ontology.recommender;
 
 import eu.learnpad.ontology.AbstractUnitTest;
-import static eu.learnpad.ontology.AbstractUnitTest.TEST_MODEL_SET_ID_TITOLO_UNICO;
-import eu.learnpad.ontology.persistence.FileOntAO;
+import eu.learnpad.or.rest.data.BusinessActor;
 import eu.learnpad.or.rest.data.Experts;
 import eu.learnpad.or.rest.data.Recommendations;
-import eu.learnpad.ontology.transformation.SimpleModelTransformator;
-import javax.inject.Inject;
 import javax.xml.bind.JAXB;
-import org.jglue.cdiunit.AdditionalClasses;
-import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
  *
  * @author sandro.emmenegger
  */
-@RunWith(CdiRunner.class)
-@AdditionalClasses({FileOntAO.class})
 public class RecommenderTest extends AbstractUnitTest {
-
-    @Inject
-    Recommender recommender;
-
-    @Inject
-    SimpleModelTransformator transformator;
 
     @Before
     public void init() {
-        transformator.setLatestModelSetId(TEST_MODEL_SET_ID_TITOLO_UNICO);
+        
     }
 
     @Test
-    public void testSuggestExpertWithSameRole() {
-        Recommendations recomms = recommender.getRecommendations(TEST_MODEL_SET_ID_TITOLO_UNICO, "", TEST_USER_1_EMAIL);
+    public void testSuggestExperts() {
+        Recommendations recomms = Recommender.getInstance().getRecommendations(TEST_MODEL_SET_ID_TITOLO_UNICO_V5, TEST_TITOLO_UNICO_V5_ARTIFACT_ID, TEST_USER_2_EMAIL);
         assertNotNull(recomms);
         JAXB.marshal(recomms, System.out);        
         Experts experts = recomms.getExperts();
         assertNotNull(experts);
         assertTrue(experts.getBusinessActors().size() > 0);
+        
+        boolean lineManagerExpert = false;
+        boolean otherUnitExpert = false;
+        boolean mostOftenExecutedTaskExpert = false;
+        for (BusinessActor businessActor : experts.getBusinessActors()) {
+            if(businessActor.getDescription().equals(QueryMap.getQuery(Recommender.QUERY_LINEMANAGER_AS_EXPERT).getDescription())){
+                lineManagerExpert = true;
+            }
+            if(businessActor.getDescription().equals(QueryMap.getQuery(Recommender.QUERY_EXPERTS_WITH_SAME_ROLE).getDescription())){
+                otherUnitExpert = true;
+            }
+            if(businessActor.getDescription().equals(QueryMap.getQuery(Recommender.QUERY_EXPERT_MOST_OFTEN_EXECUTED_TASK).getDescription())){
+                mostOftenExecutedTaskExpert = true;
+            }            
+        }
+        
+        assertTrue(lineManagerExpert);
+        assertTrue(otherUnitExpert);
+        assertTrue(mostOftenExecutedTaskExpert);
+        
     }
 
 }
