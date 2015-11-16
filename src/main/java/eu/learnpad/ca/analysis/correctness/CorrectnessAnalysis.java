@@ -5,10 +5,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.languagetool.AnalyzedSentence;
 import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
-import org.languagetool.language.AmericanEnglish;
 import org.languagetool.rules.RuleMatch;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
@@ -26,7 +24,7 @@ import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 
-
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(CorrectnessAnalysis.class);
 	
 
 	public CorrectnessAnalysis(Language lang){
@@ -89,7 +87,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e);
 			return null;
 		}
 
@@ -111,7 +109,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			List<String> listsentence = langTool.sentenceTokenize(content);
 		
 
-			//System.out.println(content);
+			
 			annotatedStaticContent = new AnnotatedStaticContentAnalysis();
 			StaticContent sc = new StaticContent();
 			annotatedStaticContent.setStaticContent(sc);
@@ -155,7 +153,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e);
 			return null;
 		}
 
@@ -167,9 +165,6 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 	private int calculateAnnotations( String sentence,List<RuleMatch> matches, Content c, Integer id, List<Annotation> annotations){
 		int precedentposition=0;
 
-		
-
-		boolean flag = true;
 		int finalpos = 0;
 		for (RuleMatch match : matches) {
 
@@ -218,19 +213,23 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 	public CorrectnessAnalysis( Language lang, CollaborativeContentAnalysis collaborativeContentInput){
 
 		this.language=lang;
-		collaborativeContentInput =collaborativeContentInput;
+		this.collaborativeContentInput =collaborativeContentInput;
 	}
 
 	public CorrectnessAnalysis( Language lang, StaticContentAnalysis staticContentInput){
 
 		this.language=lang;
-		staticContentInput =staticContentInput;
+		this.staticContentInput =staticContentInput;
 	}
 
 	
 
 	
 	public void run() {
+		
+
+		long lStartTime = System.currentTimeMillis();
+		//some tasks
 		if(collaborativeContentInput!=null){
 			annotatedCollaborativeContent = this.check(collaborativeContentInput);	
 		}
@@ -238,6 +237,10 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 		if(staticContentInput!=null){
 			annotatedStaticContent = this.check(staticContentInput);	
 		}
+		long lEndTime = System.currentTimeMillis();
+		long difference = lEndTime - lStartTime;
+
+		log.trace("CorrectnessAnalysis Elapsed milliseconds: " + difference);
 
 	}
 	

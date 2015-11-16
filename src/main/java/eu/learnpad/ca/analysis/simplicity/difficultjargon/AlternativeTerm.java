@@ -30,15 +30,15 @@ public class AlternativeTerm {
 	public String getSuggestion() {
 		return Suggestion;
 	}
-	public void setSuggestion(String suggestion) {
+/*	public void setSuggestion(String suggestion) {
 		Suggestion = suggestion;
-	}
+	}*/
 	public String getWord() {
 		return word;
 	}
-	public void setWord(String word) {
+	/*public void setWord(String word) {
 		this.word = word;
-	}
+	}*/
 	@Override
 	public String toString() {
 		return "AlternativeTerm [word=" + word + ",Suggestion =" + Suggestion

@@ -2,15 +2,14 @@ package eu.learnpad.ca.analysis.correctness;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
-import java.io.IOException;
+
 import java.io.InputStream;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import junit.framework.Assert;
+
 
 import org.junit.Test;
 import org.languagetool.language.BritishEnglish;

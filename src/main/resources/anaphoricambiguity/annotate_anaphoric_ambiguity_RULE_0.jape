@@ -1,0 +1,54 @@
+Phase: NumCoordTermSent
+Input: Token
+Options: control = first
+
+//this rule checks the presence of personal pronouns.
+//Pipeline: Document Reset PR, Annie Gazetteer, Annie English Tokenizer, Annie Sentence Splitter, 
+//Annie POS Tagger, NP Chunker
+
+ 
+Rule: DetectPronoun
+(
+{Token.string == "he"} |
+{Token.string == "his"} |
+{Token.string == "him"} |
+{Token.string == "himself"} |
+{Token.string == "she"} |
+{Token.string == "her"} |
+{Token.string == "hers"} |
+{Token.string == "herself"} |
+{Token.string == "it"} |
+{Token.string == "its"} |
+{Token.string == "itself"} |
+{Token.string == "they"} |
+{Token.string == "their"} |
+{Token.string == "theirs"} |
+{Token.string == "them"} |
+{Token.string == "themselves"} |
+{Token.string == "He"} |
+{Token.string == "His"} |
+{Token.string == "Him"} |
+{Token.string == "Himself"} |
+{Token.string == "She"} |
+{Token.string == "Her"} |
+{Token.string == "Hers"} |
+{Token.string == "Herself"} |
+{Token.string == "It"} |
+{Token.string == "Its"} |
+{Token.string == "Itself"} |
+{Token.string == "They"} |
+{Token.string == "Their"} |
+{Token.string == "Theirs"} |
+{Token.string == "Them"} |
+{Token.string == "Themselves"}
+):pronoun_pattern
+-->
+:pronoun_pattern.Pronoun = {}
+/*
+Rule: DetectPronoun
+(
+{Token.category == "PRP"} | {Token.category == "PRP$"}
+):pronoun_pattern
+-->
+:pronoun_pattern.Pronoun = {}
+*/

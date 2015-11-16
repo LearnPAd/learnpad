@@ -1,0 +1,2000 @@
+T_2T_1P0P1 I I DT NN B
+T0T1P0P1 I O JJ IN O
+T0T1P_1 O I DT I
+T0T1P0 I O JJ O
+T_2T_1P0 I I WDT B
+T_1T0W0 I O & I
+T0T1P0 I I IN O
+T_1T0P0 I I PRP B
+T_1T0W0 I I who B
+T0T1P0P1 O I CC NN I
+T_1T0P0P1 I O CC NNS I
+T0P_1P0 O DT JJ I
+T0P0P1 O RB $ I
+T_2T_1P0 O I WDT B
+T0T1P_1P1 O I JJ JJ I
+T0P0 I VBZ O
+T0T1W_1W0 O I more than I
+T0P0P1 O VBN NNS I
+T0P_1 O PRP$ I
+T0T1P_1P0 O I IN RB I
+T1T2P0P1 I I JJ CC I
+T0T1P0P1 I O JJR IN O
+T0W_1 I which B
+T_2T_1P_1P0 I I NN CD B
+T1T2P_1P0 I I JJ IN O
+T_1T0P0P1 O I CC NN O
+T_2T_1W0 I I last B
+T_1T0P_1P0 I O DT RB I
+T_1T0W0 O O about I
+T1T2P0 I I RBR I
+T0P_1 I PRP B
+T0T1W0 O I only I
+T0W0 I due O
+T1T2W0 I O operating I
+T_2T_1P_1P0 I I RB VBN I
+T_1T0P_1P0 I I NN DT B
+T_1T0P_1 I I WP B
+T0T1P0 I O JJR O
+T_1T0W0 I I yesterday B
+T0T1P_1P0 O I IN VBN I
+T1T2P_2P_1 I O NNP CD I
+T1T2W123 I I least I
+T_1T0P_1P0 I I NNS DT B
+T0P_1 B JJ I
+T1T2P0P1 I I IN DT O
+T0T1P_1 O I POS I
+T0T1P_1P0 O I JJ '' I
+T0T1P0P1 O I JJ '' I
+T1T2P1 I O PRP O
+T_1T0W0W1 O O as much I
+T0T1W0 I O about O
+T1T2P_1P0 I O NNP CC I
+T1T2W0 O I much I
+T_1T0W_1 I O the I
+T0T1W0 O O many I
+T_1T0P0P1 Z I CC NN O
+T0W_1W0 O Securities and I
+T_2T_1W0 O I , O
+T0T1P0P1 O I RB JJ I
+T1T2W1 I I , I
+T_1T0P_1P0 I I CD DT B
+T_1T0P_1P0 O I IN JJS O
+T0T1P_1P0 I O NN NNP B
+T0T1P_1P0 O I NN '' I
+T_1T0W0 I I today B
+T0P_1P0 O JJ `` I
+T1T2W0 I I just I
+T0P_1P0 I NNP DT B
+T0T1P_1P0 O I NNP . I
+T0T1P_1P0 I I NNS JJ B
+T0T1W_3_2_1 O Z ZZZ I
+T_2T_1P_2P_1 I I RB JJ I
+T0P0P1 O JJ VBN I
+T1T2P_1P0 O I NNP . I
+T0T1P0 I I TO O
+T1T2P1P2 I I JJ '' I
+T_2T_1P_1P0 I B CD TO I
+T_2T_1W_1 O I a I
+T1T2P0P1 I I JJ VBG I
+T1T2W0W1 O I subject to O
+T_1T0W1 I O company I
+T0P_2P_1 B $ NN I
+T0T1P_1P0 B O NNP POS I
+T_1T0W0W1 I I earlier this B
+T0T1P_1P0 I I VBZ VBN O
+T_1T0W0W1 I O or more I
+T_1T0W_1W0 O O out the I
+T_1T0W0W1 O O less than I
+T0T1P0 I I VBD O
+T_1T0W0 O I down O
+T_2T_1W123 O I & I
+T_1T0W0 I O concern I
+T_1T0W0 I I have O
+T_1T0W0 I I that B
+T0W_1 O capital-gains I
+T0T1P0P1 I I IN NNP O
+T0T1W0 O I nearly I
+T_2T_1P0P1 O I CC CD I
+T_1T0P_1P1 I O JJ NN I
+T0T1W0 O I even I
+T0T1P0P1 I I IN PRP$ O
+T_2T_1P_1P1 O I NNP ) I
+T0T1P0P1 O I JJ `` I
+T0W0 I in O
+T0T1P_1P1 I I NN CD B
+T0P_1P0 I VBP VBN O
+T0T1W0W1 O O more . I
+T0W0 O About I
+T0T1W_1W0 I O at all O
+T0W0 O existing I
+T0W0 O little I
+T0P_2P_1 O DT RBS I
+T_2T_1W1W2 O I % ; B
+T_1T0W_3_2_1 I B No. I
+T1T2W0W1 O I more of I
+T0P0P1 O ) NN I
+T0P_2P_1 O IN JJR I
+T_2T_1W1 Z Z - O
+T_2T_1W0 I I late B
+T0W0 I either O
+T_2T_1P_2P_1 I I DT JJR I
+T_2T_1P0 I I WP$ B
+T0W0 I says O
+T_1T0P_1P0 I I DT VBP O
+T_1T0P_1P0 I I NNS CD B
+T_2T_1P0P1 Z Z RB CD I
+T1T2P_1P0 I I NNS CC O
+T1T2P_1P0 I O NNP '' I
+T_2T_1W_1 Z I The I
+T1T2W0 O O most O
+T1T2W0 I O managing I
+T1T2P_1P0 I O JJ IN O
+T0W_3_2_1 I Exchequer O
+T1T2W0 O I Many I
+T0T1P_1P0 I O NNS NNP B
+T_1T0P0 O B PRP I
+T0T1W0 I I worth O
+T0T1W0 O I almost I
+T_1T0W0W1 O I order to O
+T_1T0W0W1 O I both the O
+T_1T0P0P1 I O VBN NN I
+T_1T0P_3_2_1 O B NN I
+T_1T0P_1P0 I O JJ JJ I
+T_2T_1W123 B I chief I
+T0T1P_1P1 I I NNS CD B
+T0T1P_1P1 I I DT DT O
+T_1T0W_1W0 I O appeals court I
+T_2T_1P_1P0 I O IN JJ I
+T_2T_1P0P1 I I , NNP O
+T0W0W1 O how much I
+T0W0W1 O or so I
+T_1T0P0P1 I B PRP IN I
+T1T2W_1W0 I I ZZZ -- I
+T_1T0P0P1 I O CC NNS I
+T1T2W_1W0 I O U.S. and O
+T0P_1P0 I NN JJR O
+T_2T_1W_1 I I or I
+T0T1W0 O O Much I
+T_1T0W_2W_1 I B a record I
+T_1T0P_1 I O `` I
+T0T1W0 O I declining I
+T0T1W0 O I growing I
+T0T1W0 I I payable O
+T1T2P1 I O PRP O
+T1T2P0P1 I I RB JJR I
+T0W0 O group I
+T0W0 B A I
+T_2T_1W0 I I next B
+T1T2P_1 I Z CD I
+T0W0 I not O
+T0T1W123 O I Administration I
+T1T2W_1W0 I I up to I
+T1T2W_1W0 I I ZZZ Even I
+T0W_1 I way B
+T0W1W2 O one-year adjustable I
+T0P0P1 I IN DT O
+T0P0P1 I TO DT O
+T_1T0P_1P0 I I NNP $ B
+T0P0P1 I JJ PRP$ O
+T_1T0W_1W0 I O tax cut I
+T0W1 I what O
+T_1T0P_1P0 I B WP NN I
+T0T1W0 O I continued I
+T0T1W0 I O short O
+T1T2P0P1 I I IN TO I
+T_1T0W0 O I right O
+T_1T0W0 I I of O
+T_1T0W0 O I . O
+T1T2P0P1 O I DT JJR O
+T_1T0W0 Z O Estimated I
+T1T2P0P1 I O ) NNS I
+T_1T0P_1 I B JJ I
+T_1T0W0 O I effective O
+T0T1P_3_2_1 B I PDT I
+T_1T0W0W1 O O between $ I
+T0W0 I now O
+T_2T_1W0W1 I I plans to O
+T_2T_1W0W1 I I and others O
+T1T2W0 I I times I
+T1T2W0 I O continuing I
+T1T2W0 O I More I
+T_1T0P_1 I O RBR I
+T0T1P0 I O CC O
+T1T2W0W1 I I around $ I
+T1T2W0W1 O I that of I
+T0W_1 O an I
+T1T2W0W1 I I how many I
+T1T2P_1P0 I I JJ CC I
+T_2T_1P_1P1 I I RB NN I
+T1T2P_1P0 O Z CD NNP B
+T1T2P_1P0 I I IN JJR I
+T_2T_1W1 I I Mass. I
+T_2T_1W_1W1 O I Tokyo , B
+T1T2P_1P0 O I NNP POS I
+T0T1W_1W0 O I state and I
+T0T1W_1W0 B O of which I
+T0T1P0P1 I I CC DT O
+T_1T0P_1P1 I O VBN JJ I
+T1T2W1 I I and I
+T1T2W_1W0 I I U.S. and I
+T0T1P0P1 I O EX , O
+T_2T_1P_2P_1 I I , NNP I
+T0P_1P0 O POS JJ I
+T_1T0P_1P1 I O JJR CD I
+T_1T0W0 O I n't O
+T_1T0W0 O O date I
+T_1T0W0 I O contract I
+T_1T0W0 O I back O
+T0T1W0 O I coming I
+T1T2P_1P0 I I NNS JJ O
+T0T1W0 O O net I
+T0T1W0 I I then O
+T_1T0P_1 I I PRP O
+T1T2W0W1 I I less full O
+T0P0 B CC O
+T1T2P_1P0 O Z NN VBG I
+T0T1W0 O I Not I
+T_2T_1W_1 O I the I
+T_2T_1W_1 O I a I
+T_2T_1P0P1 I O JJ . O
+T0W_1W1 O two three I
+T0T1P_1P1 I I POS DT O
+T1T2P1P2 I I NNP '' I
+T0W_2W_1 O according to I
+T0T1W1W2 O O of record I
+T0W0 I still O
+T_2T_1W0 I I put O
+T0P_1 B CC I
+T0W0 O average I
+T0W0 O subordinated I
+T_2T_1W0 O I else I
+T_2T_1P0 I I WP B
+T0W0 I is O
+T1T2P0P1 I O ) NNP I
+T0T1P_1P0 I I NNP POS B
+T_1T0P0 O I : O
+T0T1P_1P0 I O RB RB O
+T0T1P_1P0 O I JJS CC I
+T0T1P_1P0 O O NNP JJ I
+T1T2P0 O I CD I
+T0T1W0W1 O I , Harris I
+T0W0W1 I Chancellor of O
+T0T1P0P1 O I DT NN I
+T_1T0P0P1 I O CC NNPS I
+T_1T0P0P1 I O `` NN I
+T0T1W_1W0 O I closely held I
+T0T1W_1W0 O I Calif. , I
+T0T1P0P1 I I NNS PRP$ O
+T0T1W_1W0 I I or even O
+T_2T_1W0W1 I I '' of I
+T1T2W0 I I offering O
+T_2T_1W0W1 I I or two I
+T_2T_1W0W1 I I that , B
+T1T2W0 I I roughly I
+T1T2W0 I O leading I
+T1T2W0 I I Only I
+T0T1P_1P0 O I IN RB I
+T1T2W0 O I both O
+T1T2W0W1 I I , Calif. I
+T1T2W1 O I up O
+T1T2W0W1 O O little changed O
+T1T2W0W1 O O all but O
+T1T2W_3_2_1 I O interbank I
+T_2T_1W_1W1 O O how the O
+T1T2P1 I I ) I
+T_1T0P_1P0 O O TO VBN I
+T1T2P0P1 O I JJR CC I
+T0T1W0 O O segment I
+T0T1W0 I I sure O
+T1T2P0P1 O O RBS VBN O
+T0T1W0 O I many I
+T1T2W_1W0 I I not only O
+T_1T0P_1P0 I I NNP RB B
+T_2T_1W_1W0 Z Z ZZZ Annualized I
+T_1T0W0W1 I I last year B
+T_1T0W0 I O general I
+T_1T0W0 I B either O
+T_1T0W0W1 O O about a I
+T0T1W_2W_1 I I by Moody O
+T_1T0W0 O I meaning O
+T0W0 I currently O
+T0W0 O half I
+T0W0 O prices I
+T0W0 I also O
+T0W0 I have O
+T0W0 O hours I
+T0W_3_2_1 O Ad I
+T0W0 O shares I
+T0P0P1 I JJR DT O
+T_2T_1P0P1 I I IN NN O
+T1T2P0P1 O I VBG CC I
+T0W_2W_1 I of State O
+T1T2P0P1 O O POS VBG B
+T0T1W1W2 O I Sachs & I
+T_2T_1P0P1 Z Z : DT O
+T0T1P_1P0 B O PRP JJR O
+T0W1 I n't O
+T0T1P0 B O JJ O
+T1T2P_1P0 I O JJ VBG I
+T_2T_1W1W2 I I , gold B
+T_1T0W_1W1 I O House Senate I
+T_1T0P0P1 I B PRP TO I
+T_1T0W_1W1 I O % 8 I
+T_2T_1P_2P_1 I I CD VBZ B
+T0W0W1 O more , I
+T0W0W1 O and financial I
+T0W0W1 I Secretary of O
+T_2T_1W_1 O I the I
+T_1T0P123 O B NN I
+T_1T0P_1P1 I O JJR JJR I
+T0T1W0 O I 5 I
+T0T1P0P1 B I CD CD I
+T0T1W0 O I much I
+T_2T_1W_1 I I new I
+T0T1W0 I O briefly O
+T0W_1W0 B times the I
+T0W_1W0 I in general O
+T0T1W_1W1 O I % 20 I
+T0W_1 O near I
+T0W_1W0 I Inc. and O
+T0T1W_1W1 I I Britain % B
+T0W_1W0 I talking about O
+T1T2W0W1 I I as many I
+T1T2W0 I O rising I
+T0W0 O sales I
+T0W0 I made O
+T_1T0W0 O I reported O
+T1T2W0W1 O I equivalent to O
+T1T2W0W1 O I all over O
+T0W0 O bank I
+T_2T_1P_1P0 O O JJ IN O
+T0T1W_1W0 O I , proposed I
+T_1T0W0W1 O O over $ I
+T1T2W_1W1 O O both and O
+T_1T0W0W1 I I estimates that O
+T_1T0W_1W1 Z O ZZZ issues I
+T_1T0W0W1 O O developing countries I
+T0T1W_1W0 O I million and I
+T0T1W_1W0 I I % and O
+T_2T_1W1W2 I I N.J. , I
+T0P_2P_1 B RB NN I
+T1T2W0W1 I I quite a I
+T0W_1W0 O do that I
+T1T2W_1W1 I I Monday October I
+T0W_1W0 O in back I
+T1T2W_1W1 I O Volume shares B
+T0T1W_1W1 O I 1989 auction I
+T1T2P1P2 I I JJ ) I
+T0P_1P0 I NNS WP$ B
+T1T2P1P2 O O NNP IN O
+T1T2P_1P0 I O VBN IN O
+T1T2W_1W0 I I little as I
+T0T1W_3_2_1 B O leader I
+T1T2P1P2 I O PRP TO O
+T_1T0W_1W0 Z O ZZZ Net I
+T0T1W_1W0 O O from now I
+T1T2W0 O O both O
+T_2T_1P0 I I EX B
+T0T1P_2P_1 I I MD RB O
+T0W0 O stocks I
+T0W0 O several I
+T_2T_1W0 I O forecast O
+T0T1W0 B I that O
+T0T1W0 O O offers I
+T0W0 O fewer I
+T_1T0P_1P0 I O VBN VBG I
+T0T1P0P1 I O RB JJ O
+T_2T_1P0P1 I I '' NN I
+T_1T0W0 O I meeting O
+T_2T_1P0P1 O I . ZZZ O
+T_1T0W0 I I tomorrow B
+T_1T0W0W1 O O more to I
+T0P0P1 I VBN DT O
+T_2T_1P_1P0 I O NNP NNP O
+T0T1P_1P0 O O POS VBG I
+T0T1P0P1 B I NNS CD I
+T1T2W_1W0 I I three to I
+T1T2P_1P0 I I TO IN I
+T0T1W0W1 O I double the I
+T_1T0P1P2 I B CC NNP I
+T1T2P_1P0 O Z JJ JJ O
+T0P_1 B , I
+T0W_2W_1 I ; transportation B
+T1T2W0W1 O I then , I
+T_2T_1P0P1 Z Z CD . O
+T_2T_1P0P1 Z Z VBN NN I
+T_2T_1P0P1 O I `` NNS I
+T_1T0W0W1 I O later this B
+T0W_1W0 O at around I
+T1T2W0 I O just I
+T1T2W0 I O increasing I
+T1T2W0 I O increased I
+T0P_1P0 O PRP$ VBD I
+T1T2W0 I I for O
+T_1T0W_1W0 O I noted that O
+T_1T0P0 O O PRP I
+T_1T0W_1W0 I I York and O
+T_2T_1W0 Z Z Nearly I
+T_2T_1W0 I I complex I
+T0W_3_2_1 B US I
+T_2T_1P_1P0 I I NN PRP$ B
+T0T1P0 B O POS I
+T_1T0W0 O O offsetting I
+T_1T0W0 I I just B
+T_1T0W0 O I bidding O
+T_1T0W0 O I once O
+T0P0P1 I IN NNP O
+T0T1W0W1 I O 's `` B
+T0T1W0 O O Japanese I
+T0T1W0 O I competing I
+T0T1W0 O O potential I
+T0T1P0 B O RB O
+T0T1W0 O I improved I
+T0T1W0W1 I I and chairman O
+T_2T_1P_1P0 I I JJ PRP B
+T0T1W0 I I plus O
+T_2T_1P0P1 I I POS RB B
+T_2T_1P0P1 I I POS VBD B
+T0W0 I make O
+T_1T0W0 O I ' O
+T_1T0P_1 I O $ I
+T_1T0W0 I O fine I
+T_1T0W_3_2_1 B I we O
+T_1T0W0W1 O O as little I
+T_1T0P_2P_1 B O NNP POS I
+T_1T0P_3_2_1 O B NN I
+T0T1P_1P0 I I '' NNS O
+T_2T_1W_1W1 I I chairman chief I
+T0T1P_1P0 I I NNP PRP$ B
+T1T2W0 I O but O
+T_2T_1W0W1 I I , Ill. I
+T_2T_1P_2P_1 I I , NNP I
+T0T1P0P1 O I JJ VBG I
+T1T2W0W1 O O hope to O
+T0T1P0P1 O I IN VB I
+T_1T0P0P1 I O VBG VBZ I
+T_1T0P0P1 I O '' NNS I
+T_2T_1P_1P0 I I VBG DT B
+T_2T_1W123 I I Representatives O
+T_2T_1W0W1 I I early next B
+T0W_2W_1 I % more O
+T_2T_1W0W1 I I , which O
+T_2T_1W0W1 I I and Steel I
+T0T1P_2P_1 B I NNPS NN I
+T1T2W0 I I Just I
+T_2T_1W0W1 I O privately placed I
+T_2T_1W0W1 I I , Ariz. I
+T1T2P0P1 I I NN DT O
+T_1T0P_1P0 I O RB VBN I
+T0W_1W0 O savings and I
+T1T2P0P1 I B NNS NNP O
+T_1T0W_1 I I companies O
+T0W_1W1 O Ways Means I
+T0W_1W0 I Co. and O
+T0W_1W1 I are the O
+T_2T_1P0 I O JJS O
+T1T2P1P2 I I NN '' I
+T0T1W_2W_1 I I how much B
+T_1T0W0 O I not O
+T_2T_1P0 I O CC O
+T0W0 I say O
+T0T1W0 O I remaining I
+T0T1W_1 O I consumer I
+T_1T0W0 O I spread O
+T0W0 O computing I
+T0T1W_1W0 O I 10,000 to I
+T0T1W_1W0 O I five to I
+T_1T0W_3_2_1 I I Staff O
+T0T1W_1W0 O O rights plan I
+T_2T_1W_3_2_1 I I Ariz. I
+T_1T0W_1W0 O I began trading O
+T_2T_1P0P1 O I VBG , I
+T0T1W_1W0 O I Texas , I
+T_2T_1W0 I I ends O
+T_2T_1W0 I I Tuesday B
+T_1T0W0 I O exchange I
+T0W0 O tax I
+T0W0 B now O
+T_1T0W0 O I hearing O
+T_1T0W0 O I subject O
+T0W0 I go O
+T0W_1 I which B
+T0T1P0P1 I I , DT O
+T0T1W_1W1 I O far than O
+T0T1P0 I O TO O
+T0W_1 B Chapter I
+T0T1W_1W1 O I % 10 I
+T0W0W1 O and Urban I
+T1T2W0 I I closely I
+T0T1P_1P0 I I DT , O
+T_2T_1P_1P0 O O RB VBN O
+T0T1W0 O O standard I
+T0W1 I them O
+T_2T_1P_1P0 I I NN '' I
+T0T1W0 I O and O
+T0T1W0 O I twice I
+T0T1W0 B O one I
+T1T2P0P1 I I '' DT O
+T_2T_1P_1P0 I O IN VB I
+T1T2W1 I O today O
+T_2T_1W0W1 I I '' and O
+T1T2P0 I B RB O
+T_1T0W_1 I O the I
+T_1T0W_1 I O a I
+T_1T0P0P1 O I . ZZZ O
+T_1T0P_1P0 O B NN PRP I
+T0T1W_1W0 O I N.Y. , I
+T_2T_1P1P2 I O '' NN I
+T1T2W1W2 I I N.Y. , I
+T_1T0W0 I O plant I
+T_1T0W0 O I handling O
+T1T2P1P2 I I NNP ) I
+T_1T0W0 O O mounting I
+T_1T0P_2P_1 I I NN POS O
+T0W1 B 13th I
+T1T2W_1W1 I I less $ I
+T_1T0W1W2 I I much as B
+T1T2W0 I I mature O
+T0T1W0W1 I I and head O
+T1T2W0 I O working I
+T0W123 I Disabilities O
+T_2T_1W123 O I depreciation I
+T0T1W0W1 I O as well O
+T_1T0W_1W1 Z O ZZZ option I
+T1T2W_3_2_1 Z Z AND I
+T_2T_1W1 I I Japan O
+T_2T_1W_1W0 I O or less I
+T1T2P_1P0 I O CD IN O
+T0T1W_1W0 O O declined comment I
+T_2T_1W1 I I Ky. I
+T0P_1 B CC I
+T_2T_1W_1W0 Z Z ZZZ Neither I
+T0T1P0 I O , O
+T1T2P_1P0 O Z DT RB O
+T0T1W_1W0 O I Mich. , I
+T_2T_1W_1 I O between I
+T0P0P1 I CC DT O
+T0T1P_1P0 O I IN JJ I
+T_2T_1W_1 I O now O
+T1T2W0W1 I I , Mich. I
+T1T2W0W1 O I more for I
+T0T1W_1 B I they O
+T_2T_1P_1P0 I I RB JJ I
+T0T1W0 O I related I
+T0W0 O interest I
+T_1T0P_3_2_1 O B NN I
+T0W1 I him O
+T_1T0W_1W0 I O housing starts I
+T0T1W_1W1 I I ZZZ Mr. O
+T_1T0P_1P1 I I VBZ NN B
+T_2T_1P_1P1 O I VBG NN I
+T_2T_1P_1P1 I O JJ JJ O
+T_1T0W1W2 O I forecasts in O
+T0T1P_1P0 O I RB DT I
+T1T2P0P1 I I VBD DT O
+T_2T_1P_1P0 O I NN $ I
+T_2T_1W0 I I buying I
+T_2T_1W0W1 I I -- ZZZ I
+T0T1P_1P0 I I NN IN O
+T_1T0W0W1 I O and industrial I
+T0W0W1 I costs about O
+T1T2P0P1 O O JJ DT O
+T1T2W0W1 O I amounts to O
+T0T1P0P1 I O EX CC O
+T_1T0P0P1 O I NN $ O
+T0W0 I take O
+T0W0 B him I
+T_1T0W_1 I O Chairman I
+T0W0 O refunding I
+T0W0 O employees I
+T0T1W_1W0 B I times the I
+T_2T_1W1W2 I I years ago B
+T1T2W1W2 I I Texas , I
+T0W_2W_1 I the company O
+T_2T_1W123 Z I & I
+T0T1W0 O O market I
+T_2T_1W123 O I Milan I
+T1T2P_1P0 O O CC RBS I
+T0T1W0W1 O I and Commerce I
+T0T1W0W1 I I and Europe O
+T1T2W_1W1 O O buying selling I
+T0P_1P0 I WDT DT B
+T0T1W0W1 O O talk of I
+T0W_1W0 O many as I
+T0P_1P0 B JJ JJ I
+T0T1W0W1 O I , Paris I
+T_1T0W_1 O O federally I
+T_1T0P_1P0 I I NNS RB O
+T_1T0P_1P0 I O VBN CC I
+T1T2W0 O I hopes I
+T_1T0P_1P0 I O CC VBG I
+T1T2W0 I O shipping I
+T1T2W0 I I secured I
+T0W0W1 O thanks to I
+T1T2W_1 O Z seeking I
+T0P_1 B IN I
+T1T2P0P1 I I RB VBN I
+T0P_1 B RB I
+T_2T_1W0 O I -RRB- O
+T1T2P0P1 I O , NNS O
+T1T2W_1W0 I I just under I
+T1T2P0P1 I I CD NN I
+T0T1P0 I O VBD O
+T0T1P_1 B I DT I
+T0P0P1 O JJR VBZ I
+T0P0P1 O NNS CC I
+T0T1P_1 I I WP B
+T1T2W1 I I under I
+T_1T0P0P1 I I WDT MD B
+T0W0 O rates I
+T0W0 O underlying I
+T0T1W_1 I I effect B
+T_1T0P0P1 I I PRP VBP B
+T_2T_1P_1P0 I I NNS RB O
+T_2T_1P_1P0 O I NNPS NN O
+T0T1W_1W1 I O and out O
+T0T1W1 B I Donuts I
+T0T1W_1W1 O I little no I
+T_2T_1P_1P0 I O NN DT I
+T_2T_1P_1P0 O I RB VBZ I
+T_1T0W_3_2_1 I O Farmington I
+T_1T0W_1 I O new I
+T_1T0W_1 I I miles O
+T_1T0P_1P0 O I RB VBN O
+T0T1P1P2 I I PRP VBD O
+T_2T_1W_1W0 I I Washington , I
+T0T1P_2P_1 B I CD NNP I
+T_2T_1W0 O O planning O
+T0T1W_1W0 O I bill that B
+T_1T0P_1P0 I B JJR NN I
+T0T1W0W1 I O points out O
+T_2T_1W0 I O usual O
+T0T1W_1W0 O I see accompanying I
+T_1T0W0W1 O I much as O
+T1T2W1 I O Calif. O
+T_2T_1W1 I I Calif.-based I
+T0T1W_3_2_1 O O oohs I
+T0P0P1 B NNP ( I
+T1T2W1 I B Pinkerton O
+T_2T_1W_1 I I Ky. I
+T_2T_1W_3_2_1 I I lot O
+T0W0W1 I all about O
+T_2T_1W0W1 O I or all I
+T_1T0W1 Z I -RRB- O
+T1T2W_3_2_1 I I medium I
+T_1T0P0 I O UH I
+T0T1P0P1 B O CD . I
+T0W0W1 O that day B
+T_1T0W_1W1 O I that said B
+T_2T_1W_1W0 O I one another I
+T_1T0W0 O O votes I
+T0T1W_2W_1 O Z football player I
+T_1T0W0 I O trading I
+T_2T_1W_1W0 I I rights issue I
+T_1T0W0 O O nonrecurring I
+T_1T0W0 O I show O
+T0W_1 I complain O
+T_1T0W0 O O power I
+T1T2P0P1 I O RB JJ I
+T0T1W0 O B that B
+T0T1W0 O I virtually I
+T0T1W0 O I nearly I
+T0T1W0 O I enough I
+T0T1W0 O I detailed I
+T0W_1W0 O something that B
+T0T1W0 O I late B
+T0T1W0 O O tonight B
+T_1T0P_2P_1 B I NN IN B
+T_2T_1P_1P0 I I VBG DT B
+T_2T_1P_1P0 O I VBZ DT B
+T1T2W_1W1 O O that say B
+T1T2W_1W1 O I of and I
+T_1T0P_2P_1 I O $ JJ I
+T_1T0W_1W0 O O to trial I
+T0T1W_3_2_1 B O downtown I
+T_1T0W0W1 O I accounting for O
+T_1T0W_1W0 I O policy making I
+T_2T_1W0 O O offering O
+T0P0P1 I IN NNP O
+T_1T0P0P1 O I VBG CD O
+T_1T0W123 I I Sumita O
+T1T2W0W1 O O all along O
+T1T2W0W1 O I fully diluted I
+T_2T_1W_2W_1 O O , with I
+T_2T_1W0W1 I I '' -LRB- O
+T_2T_1W0W1 O I last month B
+T0T1P_1P0 I O VBP JJ O
+T_1T0P0 B B NNS O
+T_2T_1W_1W0 I O to time I
+T_1T0W_1W0 I O fully diluted I
+T_2T_1W_1W0 I I Defense and I
+T0T1P_1P0 I I DT VB O
+T_2T_1W_1W0 I O that I B
+T_2T_1W_1W0 I I president and O
+T_1T0W_1W0 O I are all O
+T_2T_1P0P1 O I POS RB B
+T1T2W0 B O that B
+T0T1W1 I I yesterday O
+T1T2W0 I O total I
+T_1T0W0 I I give O
+T1T2P_1P0 O O NN POS O
+T0W_1W0 O of between I
+T_2T_1P_1P1 I I JJS NN I
+T_1T0P_2P_1 B O NN POS I
+T0W_3_2_1 O Fees I
+T_1T0P_1P0 O I DT JJ O
+T0W_1 B home I
+T0W_1 B cost I
+T_1T0P_2P_1 O I NNS MD O
+T0W_1 I reason B
+T_1T0P_2P_1 I O , JJR I
+T_1T0P_1P0 I O RB VBG I
+T1T2P0P1 I I NN DT O
+T_1T0W0W1 O O late yesterday I
+T1T2P0P1 O I RB JJ O
+T_1T0W_1 I O the I
+T1T2P0P1 O O JJ VBP I
+T0T1W0 I O No O
+T1T2P0P1 O I JJ '' O
+T_1T0P0 O B DT I
+T_2T_1P0P1 I I RB $ B
+T_1T0P0P1 I O '' NNP I
+T_1T0P0P1 Z O JJ NN I
+T_2T_1P_1P0 O I NNS VBG O
+T0T1W_1W1 O I Federated Allied I
+T0W_1 I Never O
+T_2T_1P_1P0 I I JJ NNS I
+T_2T_1W0 I I clearing I
+T0T1W1 O I or I
+T_1T0P_2P_1 I I DT VB B
+T1T2P0P1 O O DT JJR O
+T_2T_1W0W1 I I , Ohio I
+T1T2P_1P0 I O JJR CC O
+T_1T0W_1 O I funds B
+T0T1W_3_2_1 B O shuttle I
+T1T2P0P1 O O '' ) O
+T_2T_1W_2W_1 I I , D.C. I
+T0T1P_3_2_1 O B NN I
+T_2T_1W_1 I I , I
+T0T1P0P1 O O IN NNS B
+T0W0W1 O much to I
+T0W_1W0 I been trading O
+T0W_1W0 O and reduced I
+T0W0W1 O shows , I
+T0T1W_1 O I telecommunications I
+T_2T_1P0 I B VBZ O
+T_2T_1P_2P_1 I I `` JJ I
+T0W0 B EDT I
+T_1T0W_1W0 I O 18 to I
+T1T2W0 O I else I
+T1T2W0W1 I O a University O
+T0T1W_1 O I highly I
+T0T1W0W1 O O a.m . I
+T_1T0P_1P0 I I NNS EX O
+T1T2W1 I O there O
+T_2T_1W0W1 O O University of O
+T1T2W1 I O N.J. O
+T0W_1W0 O of living I
+T0W0 I are O
+T0W0 O p.m I
+T0W_1W0 O engineering and I
+T0W_1W0 I how long O
+T0W0 O 55 I
+T_2T_1P_2P_1 I I , NNP I
+T1T2W0 O O `` O
+T0T1W0 O I highly I
+T0T1W0 O I falling I
+T_2T_1W123 O I 2009 I
+T0T1W_1W0 O I % or I
+T1T2W123 I O planner I
+T0T1W0 O O tracks I
+T_1T0P_1P0 I I NN RBS B
+T0W0W1 O selling pressure I
+T0W0W1 B I , I
+T1T2W_1W1 I I % 7 I
+T0W0W1 I elected directors O
+T1T2W1W2 O O and House O
+T0W0W1 O holding companies I
+T1T2W_1W1 I I 225 $ I
+T0T1W_2W_1 O O access to I
+T_1T0W_2W_1 O O billion in I
+T_1T0W0 O O neighboring I
+T1T2P0P1 O I RB JJR O
+T_2T_1W_1W0 I I Corp. and O
+T0T1W0W1 I O Most important O
+T0P0P1 I VBN PRP$ O
+T_2T_1W_1W0 I I industry and O
+T1T2P0P1 I I VBG DT O
+T0T1W0W1 I O independent of O
+T1T2P0 O I POS I
+T_1T0W_1W0 I O data base I
+T_1T0P_2P_1 O I PRP MD O
+T_1T0W_1W0 I O telephone calls I
+T_1T0W_1W0 I O stake that B
+T1T2W1 O O Senate O
+T_1T0W_1W1 O I helped the O
+T_1T0P_2P_1 I O NNS NNP I
+T_1T0W_1 I I prices O
+T0T1W0 O I approximately I
+T0T1W0W1 O O set of I
+T0T1W0W1 O I sell orders I
+T0T1W_1W0 I O ZZZ Third O
+T_1T0P_1P0 I B DT NN I
+T0T1W0 I O further O
+T0T1W0 I O far O
+T0T1W0W1 I I all right O
+T_1T0W_1 I O such I
+T_1T0W0 O B the I
+T_2T_1W0 O O right O
+T0T1W_1 I O Democrats O
+T_1T0W0 I B still O
+T_2T_1W0 I O ruling O
+T_1T0W0 O O Said I
+T_1T0W0 O I shot O
+T1T2W0W1 I O and Congress O
+T_1T0W0 O O prolonged I
+T1T2W0W1 I I down more O
+T0W_1 I it B
+T_2T_1W0W1 I I and pharmaceutical I
+T_2T_1W123 O O moderate-income I
+T0W0 I away O
+T_2T_1W0W1 I O just over I
+T0W_1 B hope I
+T1T2W_1W1 O I no than O
+T0W0 O revolving I
+T0W0 O cases I
+T0W_1 I cases B
+T_2T_1P_2P_1 O O MD DT O
+T0T1W_1W0 O I ZZZ Almost I
+T0T1W_1W0 I O were all O
+T_2T_1W0 I O neither O
+T_2T_1W0W1 I I '' at O
+T_2T_1P_2P_1 I O NNP ) O
+T_2T_1W0 O O calls I
+T_2T_1W0 O I selling I
+T_2T_1W0 O I both O
+T0W_1 I week B
+T_1T0P1P2 I B RB , I
+T_1T0W_1 I O only I
+T_1T0W_1 I O just I
+T1T2W_1W0 O O have all O
+T1T2W0 I I more I
+T0T1P_1P0 I O RB VBN O
+T_2T_1P_1P0 I O TO JJ I
+T1T2W_1W0 O O as much I
+T_1T0W_1 I O brewing I
+T0W_1W0 I and focus O
+T_1T0W0 O I gathering O
+T_2T_1W_1W0 O I government and I
+T_1T0W0 O I split O
+T0T1P0 O I JJS I
+T1T2W_1W1 O Z for . I
+T0T1P_2P_1 I O IN CC O
+T_2T_1W_1W0 I O to lower O
+T_1T0W_1W0 I O founder and I
+T0W_1W0 O company that B
+T0T1W0 I O no O
+T0T1P0P1 I I JJS PRP O
+T0T1W0 I O and O
+T0T1W0W1 O I as much I
+T_1T0W0W1 I I claims that O
+T0T1W0W1 O I yet another I
+T0T1W0W1 O I Either way I
+T_1T0W0W1 I O set , I
+T0W_1 I nothing O
+T_1T0W0W1 O O operating profit I
+T0T1W_2W_1 I O to `` O
+T0W123 I Buying O
+T0W123 O Enforcement I
+T_1T0P1P2 I B CC DT I
+T_1T0W_1 I I officials O
+T0W_1 I there B
+T_2T_1W_1 B I `` I
+T0T1W_1 B I evidence I
+T0W0 O Buying I
+T_2T_1W0W1 O I to five I
+T_1T0W_2W_1 O O number of I
+T0T1W_1 O I tobacco I
+T_2T_1W0W1 I I '' as O
+T0W0 O floating I
+T1T2P_2P_1 I B NN NNS O
+T_2T_1W123 O I Zurich I
+T_2T_1P_2P_1 O I `` PRP O
+T_2T_1W_1W1 I I 50,000 less I
+T_2T_1W1 I I Wash. I
+T0W_1W0 O time around I
+T1T2W_1W0 I I communications and I
+T_2T_1P_2P_1 I I , NNS I
+T_2T_1W_1W1 I O in . I
+T0T1W0 I I need O
+T0T1W0 O I age B
+T0T1W0 O I aging I
+T1T2W123 I I herbicide O
+T_1T0P0P1 I I , DT O
+T0T1W0 O I emerging I
+T_1T0P0P1 O I JJ WDT O
+T_2T_1W1W2 O I -LRB- D. O
+T_2T_1P_2P_1 I I CD CC I
+T_1T0P0 O O PRP$ I
+T1T2W123 O O D. O
+T0T1W0 I I increase O
+T0T1P_1P0 I O VBG WDT B
+T_1T0W_1 O I worry O
+T_1T0W0 O I opening O
+T0T1W_1W0 I I and that O
+T_2T_1P_1P0 Z I NNP DT I
+T1T2W0 O Z . O
+T1T2W0 I I neither O
+T1T2W_1W1 O I is than O
+T0T1W_1 B I costs I
+T1T2W0 I B `` O
+T0W0W1 O that to I
+T1T2W_1W1 O I For , I
+T0P0P1 O DT VBZ I
+T_1T0P_1P0 O I JJR IN O
+T1T2P_1P0 O I NNS JJR O
+T1T2W_1 O O until I
+T_1T0P_1P0 I O VBN JJ I
+T0T1P0P1 I O '' . O
+T1T2W_1 I I 200 I
+T1T2W_1 O O go O
+T_2T_1W0 I I win O
+T_2T_1P0P1 I I POS VBZ B
+T0W_1 O financial I
+T_2T_1W_1 I O still O
+T0W_1 I economy O
+T0W_1 I rates B
+T0W_1 I problems O
+T_1T0W_1W0 O I and plans O
+T_1T0W_1W0 O I , as O
+T_2T_1P0P1 Z Z JJS RB O
+T_2T_1W_1 O O likely O
+T0T1W0 B I and O
+T0T1W0 O I sweeping I
+T0T1W0 I O possible O
+T0T1W0 I O cleaning O
+T0T1W0 O I enhanced I
+T_2T_1W_2W_1 O O lead to I
+T_2T_1P_1P1 I I RBR DT O
+T0W_1W0 O times estimated I
+T_2T_1W_3_2_1 I I Ludcke I
+T_1T0W_1W0 O O to growth I
+T0W1 I us O
+T_1T0W_1W1 I O Bear Stearns I
+T0T1P0P1 I I TO NN O
+T_1T0P0 O O PRP I
+T0T1P0P1 I I VBD PRP$ O
+T_1T0W_1W1 O I , less O
+T0T1W_1W1 O I 1986 1987 I
+T0T1W_1W1 I O that says B
+T0T1W_1W1 O I Lawrence Morgan I
+T_1T0P_3_2_1 O B VB I
+T_1T0W1 I I anything O
+T_1T0W123 I O swimming I
+T1T2P_1P0 I I NN JJR B
+T0W0 I intact O
+T_1T0W0W1 O O both of I
+T0W0 I called O
+T0W0 I want O
+T_1T0W0W1 O I that anyone O
+T_1T0W0W1 O I all too O
+T1T2W_3_2_1 I I Messrs. I
+T_2T_1W0W1 O O not all I
+T0P_2P_1 I POS ) O
+T0T1W_3_2_1 O O Wedding I
+T_1T0W0 O I well O
+T_1T0W0 O I promising O
+T0W0W1 I intent on O
+T0P_2P_1 I VB POS O
+T0W_2W_1 O subject to I
+T0T1W_3_2_1 O O equivalents I
+T_1T0P123 O B NN I
+T0T1W_2W_1 O O go to I
+T0T1W_2W_1 O O out of I
+T_1T0W_1W0 O O for close I
+T_1T0W_1W0 O O to that I
+T_1T0W_1W0 I O strategy that B
+T0W0 I find O
+T0W1W2 B said . I
+T1T2W_1W0 I O to record I
+T0W0 B 2000 I
+T0W0 I aside O
+T0T1W_1W1 O I Everything a I
+T0W0 I together O
+T1T2P0P1 O O RBS VBP I
+T1T2W_1W0 O I of publicly I
+T_1T0P0P1 I O VBN NN I
+T1T2W0W1 I O next door O
+T_1T0P0P1 I O VB VBZ I
+T_1T0W0W1 O I a la O
+T0W0W1 I and one O
+T0W0W1 I and advertising O
+T0W0W1 I increasing sales O
+T_2T_1W_1W0 Z Z ZZZ Better O
+T_1T0P0P1 I O '' WP I
+T1T2W0 I I times I
+T_1T0W0 I O service I
+T0T1W_1W0 I I n't all O
+T_1T0W0 O O Will I
+T0T1W0W1 O I playing field I
+T0T1W0W1 I O trading around O
+T0T1W_1W0 I O ZZZ First O
+T1T2W0 B I face O
+T1T2P_1P1 I I '' `` I
+T_1T0W0 O I cast O
+T_1T0P_3_2_1 O B NN I
+T_1T0P_2P_1 B I NN IN B
+T_1T0W_1W0 I O maitre 'd I
+T0W0 I struggles O
+T1T2W1W2 I I capita income I
+T_1T0W_1W0 O I a la O
+T_1T0W0W1 I O and Trade I
+T_1T0W0W1 I I familiar with O
+T_1T0W_1W0 O O to heart I
+T_1T0W0W1 I O and Finance I
+T_1T0W_1 O I all O
+T_2T_1P0 I I WP B
+T1T2P_1P1 I O IN WDT I
+T0T1W0W1 O O part of I
+T_2T_1W0W1 O I control , I
+T0T1W0W1 I I that someone O
+T_2T_1W_1W0 I I home runs I
+T1T2W1 O O loyal O
+T_1T0P1P2 Z O VBN NNP I
+T1T2W_1W0 I I rating and I
+T_1T0P_1P0 I I PRP$ DT B
+T0W_3_2_1 O Pulp I
+T_1T0P0P1 O I VBG CD O
+T0W_1W0 I were both O
+T0W_1W0 O A 's I
+T0T1W_1 O I plus I
+T0W_3_2_1 O Skadden I
+T0T1W1 O I Mass.-based I
+T_2T_1P_2P_1 O I CC VBG I
+T0T1W1 O I Inc. I
+T1T2W0 I O . I
+T1T2P0 O I RBR O
+T0T1W_1W0 I O pretty much O
+T_2T_1P_1P0 I I VBP WDT B
+T1T2W0W1 O O all around O
+T0T1W_1W0 O I is about I
+T1T2W0 I I formerly O
+T1T2W0W1 O O trying to O
+T1T2W0W1 I I , company O
+T_2T_1P0P1 O O NNS IN I
+T0T1W_1W0 O O record high I
+T0T1W_1W1 I I but least O
+T0T1W_1W0 O O futures pit I
+T0T1W_1 I I point B
+T0T1W_1W0 I I know about O
+T_1T0W_1 I I thing B
+T0T1W0W1 O I sell programs I
+T0T1W_1W1 O I % 15 I
+T0T1W_1W0 O Z 1987 : I
+T1T2P0P1 O O RB JJ O
+T1T2W0 O I east O
+T_2T_1W123 I I testified O
+T0W0 O rumors I
+T1T2W0 I I rolled I
+T0W0 I quack O
+T0W0 O Chinese I
+T1T2W0 I I barely I
+T1T2W0 O I Chief O
+T1T2W_2W_1 O O has been O
+T0T1P0P1 I O JJ DT O
+T_1T0W0 O I necessary O
+T1T2W_1W0 I I 50 to I
+T_1T0W0 I O staff I
+T_1T0W0 O I counter O
+T0T1P_1P1 I I NNP WDT O
+T_1T0W0 I B past O
+T_2T_1W0W1 I I to 5 I
+T_1T0W0 I I up B
+T_1T0W_2W_1 I I last time B
+T0T1W0 I O the O
+T_2T_1W_2W_1 I O flight to I
+T_1T0P_1P1 I O JJS RBS I
+T0T1W0 O I integrated I
+T1T2W123 O O unnamed I
+T_1T0W0W1 O O well over I
+T0W0W1 I much like O
+T0W0W1 O and 6 I
+T0W0W1 O call options I
+T0T1W0 I I processes O
+T0T1W0 O I almost I
+T0T1W0 O I Emerging I
+T0T1W0 I O even O
+T0T1P0 I O ) O
+T0T1W0 O I Rising I
+T0T1W0 O O totals I
+T0T1W0 O O Call I
+T_2T_1W_2W_1 O I for close I
+T_2T_1P_2P_1 I B NNP POS I
+T0T1W1W2 O I Human Services I
+T1T2W_3_2_1 I I hemorrhaging O
+T0T1P0P1 O O DT MD I
+T1T2W0W1 O I centers on O
+T1T2W0W1 I O , office I
+T1T2W0W1 I I to 85 I
+T1T2W0W1 O O mining and O
+T_1T0W_1W0 O I , move O
+T0W_1 O an I
+T_1T0W0 O I possibly O
+T_1T0W0 O I unlikely O
+T_2T_1P_1 I I , I
+T_1T0P0P1 I I PRP VBZ B
+T_2T_1W0 I I remains O
+T_2T_1W0 I I million I
+T_2T_1W0 B I last B
+T_2T_1W0 O O stock I
+T_2T_1W0 I I 'S B
+T_2T_1W0 I I coming O
+T_2T_1W0 I I program I
+T_2T_1W0 I O warning O
+T_2T_1W1W2 I I Tenn. , I
+T_1T0P_1P0 I O RB JJ I
+T1T2W123 I O thrift I
+T0T1W_1W0 O I State , I
+T0T1W_1W0 I O even more O
+T0T1P_1P0 I O VBZ VBG O
+T_2T_1W_1 I B it O
+T_1T0W0W1 I I early this B
+T0T1W1 I I it O
+T_1T0W1 I O Wade I
+T1T2W_1W0 I I July and O
+T_2T_1W_1 I O currently O
+T1T2W_1W0 I I 's and O
+T1T2W_1W0 I I million to I
+T1T2W_1W0 I I billion to I
+T_2T_1P0P1 I I '' VBD I
+T_2T_1W_1 I I most I
+T_2T_1P0P1 O O `` NN O
+T0T1W_1W0 I I 's just O
+T0T1W123 I I Right O
+T0T1P0P1 I I TO DT O
+T0T1P0P1 I I TO PRP$ O
+T0T1P0P1 I I TO NNP O
+T0T1P0P1 I I TO JJ O
+T_2T_1P_1P1 I I VBN NN I
+T0T1P_2P_1 O I PRP$ CD I
+T0T1P0P1 I I VBG DT O
+T1T2W0 O I works O
+T_2T_1W0W1 I I Friday , B
+T_1T0W0 I O research I
+T_1T0W_1 I I things B
+T_1T0W0 O I sold O
+T0T1W0W1 I O up to O
+T_1T0W_1 I O single I
+T_2T_1W0W1 I I that banks B
+T0T1W0W1 O O particular , I
+T_1T0W0 O I least O
+T0T1W_1 O I federal I
+T_1T0P_1P1 I O JJR RBR I
+T0T1W_1 O I electronics I
+T_1T0W0W1 I I '' with O
+T1T2W123 I O basis I
+T0P0P1 O DT CD I
+T_1T0W0W1 O O later this I
+T_1T0W0W1 I O to 1\/2 I
+T0T1W_1 I I computers O
+T0T1W_1 O I newly I
+T_2T_1P_1P0 Z I RB VBN I
+T_1T0W0 O I bid O
+T0T1W_1W0 I I Europe and O
+T_1T0W0 O I reading O
+T0T1W_1W0 I I is that O
+T_2T_1W0 O O processing O
+T_1T0W0 O I sort O
+T0T1W_1W0 O I Trade and I
+T0T1P0P1 O I RB VBN I
+T0T1W_1W0 O I just about I
+T_1T0W_2W_1 I I of Trade O
+T_1T0W_1W0 B I that banks B
+T1T2P_2P_1 O I VB CC O
+T1T2P_2P_1 I I PRP$ NNP I
+T0W0W1 O - and I
+T1T2W_1W0 I O to market I
+T0T1W0W1 O O less . I
+T0T1W0W1 O I exactly what I
+T_1T0W_1W0 I O companies that B
+T_1T0P_1P0 I O : CC I
+T_1T0W123 I I Freedom O
+T_1T0P_1P0 I I NNPS DT B
+T_2T_1W0W1 I O even a O
+T1T2W0 I O rolling I
+T_2T_1W0W1 I I and other O
+T1T2W0 I O pending I
+T_1T0W0W1 I O and electronic I
+T0T1W0 O I living I
+T1T2P_1P0 O I TO JJ I
+T1T2P_1P0 I B VBD VBN O
+T0T1W0 I I use O
+T_2T_1P_2P_1 I I ( NN I
+T0T1W0 O O purchasing I
+T0T1W0 I I hope O
+T_2T_1W_1W1 I O of , I
+T1T2P_1P0 O O NNP '' O
+T0T1P0P1 O I NN '' I
+T0W0 O people I
+T0W0 I has O
+T0T1P_1P0 O O CC DT I
+T0W0 I again O
+T0W0 I never O
+T0W0 I by O
+T0T1P_1P0 I O RB RB O
+T0W0 I feel O
+T1T2W_1W0 I I debt and O
+T0T1W1 I I it O
+T_1T0W1 I I everyone O
+T0T1W_1W0 I O Disabilities Act O
+T_2T_1P1P2 O O ) NN O
+T0W1W2 O nine years I
+T0T1W_1W0 O I , retired I
+T_1T0W0W1 I O late yesterday B
+T_1T0W0W1 I O , paper I
+T0T1W1 O I system I
+T_1T0P_1P1 O I NNP TO O
+T0T1W0 I I of O
+T0T1W0 B O 's I
+T_1T0W0 O I filing O
+T0T1W0 O I organized I
+T_1T0W_2W_1 I I the dollar O
+T0P_2P_1 B VB WDT I
+T1T2P_1P0 O Z IN JJ O
+T1T2P0P1 O I JJR CC O
+T1T2W0W1 O O all over O
+T1T2P0P1 I I CC VB I
+T1T2P0P1 I O POS NN B
+T1T2W0W1 O O there to O
+T1T2W0W1 I I and Jon I
+T0P_1P0 I MD JJR O
+T1T2W0W1 I I , many O
+T_1T0W_1 I I person O
+T0T1P_1P0 I I VBD WDT O
+T0T1P_1P0 I I NNP JJR B
+T_1T0W1 I I something O
+T0T1W_3_2_1 O I Wilmington I
+T_2T_1W_2W_1 I I little more O
+T_1T0W_2W_1 O I lot more O
+T1T2W123 O O three-fourths I
+T1T2W0W1 O I keeping with I
+T_1T0W1 I I Taiwan O
+T1T2W123 I O period I
+T0W_1 I Hampshire O
+T1T2W_1W1 B I that the O
+T1T2W1W2 I I insurance and I
+T0W_2W_1 O the appropriations I
+T1T2W_1W1 O Z by . I
+T0W_2W_1 I Buying '' O
+T_2T_1W123 O O medium-size I
+T_2T_1W123 O I Nevada I
+T_1T0W_3_2_1 O O unconsolidated I
+T_1T0W_3_2_1 I B claim I
+T_1T0P_1 O B NN I
+T_2T_1P0 I I WDT B
+T_2T_1W0 O O somewhere I
+T_2T_1W0 O I too O
+T0W1W2 O machines . I
+T0T1W0W1 O O buying by I
+T1T2W_1 O Z worth O
+T0W_1W0 I suggests that O
+T1T2W_1 O I spend I
+T0T1W0 I I claim O
+T0T1W0 O I combined I
+T_1T0P_1P1 I I RBS DT O
+T0T1P0P1 B O EX , O
+T0T1W0 I I simply O
+T_2T_1W_3_2_1 I I duck O
+T0T1P_1P1 O O CD ( I
+T_1T0W_1 I I suit O
+T0T1W_1W0 O I construction and I
+T0T1W_1W0 O I 1970s and I
+T_2T_1P_1P0 I I JJ ( I
+T_1T0W_1 O I 've O
+T_1T0W_1 I O its I
+T_2T_1P_1P0 I I RB VBP I
+T0T1W_2W_1 I I not at O
+T1T2W0W1 O I show that O
+T0W_1 I somebody O
+T_1T0W_1 O I points B
+T0T1W1W2 I I these days O
+T0T1P123 O B NN I
+T0T1P_1P0 O I JJ RB I
+T_1T0W0 O I best O
+T_1T0P_3_2_1 O B DT I
+T_1T0W1W2 I I hundreds of O
+T0T1W1 O I and I
+T1T2W0 I O price I
+T_2T_1W_1 O I the I
+T_2T_1W_1 O I Life O
+T_2T_1W_1 I I Tenn. I
+T_2T_1W0W1 I I reports that O
+T0T1W_1W1 I I was and O
+T1T2W0 I I weakening I
+T_1T0P_1P0 O I JJ CC O
+T0T1P1 O I '' I
+T_1T0W123 O O faded I
+T0T1P0P1 I O CC NN O
+T_2T_1W0 I O renewed I
+T0T1P0P1 I O JJR NN O
+T0W0W1 O , unit I
+T_2T_1W_1W1 O O by , I
+T_2T_1W1W2 I I delays in O
+T0W0 O & I
+T1T2W123 I I Conn. I
+T0T1W1 I O times O
+T1T2P1 I I WRB O
+T_1T0W0 O I cooling O
+T1T2P_1P0 O I VBZ WDT B
+T_1T0W0 O O practically I
+T0T1W_2W_1 O I sports facilities I
+T0T1W1W2 I I this time O
+T0T1W0 O I soaring I
+T0T1W0 O O permits I
+T0T1W0 I I values O
+T0T1W0 O I no I
+T1T2W0 I O earning I
+T0T1W_1W0 O I But not I
+T0T1W0 I I increases O
+T_1T0W123 I I renunciation O
+T1T2W_1W1 I I Alberta Saskatchewan I
+T_2T_1P0P1 I I VBG CD O
+T1T2P0P1 O O JJR IN O
+T_2T_1P0P1 Z I RB VBZ O
+T_1T0W_2W_1 I I first time B
+T0T1P_1P0 O I NNP '' I
+T0T1P_1P0 I I NN IN O
+T0T1P_1P0 I O VBG WDT B
+T1T2W0W1 I O , market I
+T0W1W2 I Mrs. Thatcher O
+T_1T0W_1W0 I O funds that B
+T0T1P1 O I , I
+T0T1W_1W1 I O are and O
+T0T1P123 O B VBD I
+T_1T0P_1P0 I O VBN CC I
+T_2T_1W_1 I I and I
+T_2T_1W_1 O I how I
+T0W_1W1 I not much O
+T1T2W0W1 B O claims he O
+T0W_1W1 O FUNDS ZZZ I
+T1T2W_2W_1 O I advancers , O
+T1T2W0W1 O I catering to O
+T1T2W1W2 I I a matter O
+T0W1 O Va.-based I
+T1T2W0W1 I I and Amex I
+T0W_1W1 I , an O
+T_1T0W1W2 O O share price I
+T1T2W_1W0 I O systems and O
+T1T2W_1W0 I I , about I
+T0T1W_3_2_1 O O levamisole I
+T0T1W_3_2_1 I I Armonk O
+T1T2W_1W0 I I , around I
+T_2T_1W123 O O humanist I
+T1T2W_1W0 I I well over I
+T1T2W_1W0 I O Street and O
+T_2T_1W1W2 O I price changes O
+T0W_3_2_1 O Boheme I
+T0W_1 I letter O
+T_1T0P0 O B PRP I
+T_1T0W_1W0 I I U.K. and O
+T_1T0W_1W0 I O dollar -LRB- I
+T_2T_1W_1 O O experiencing I
+T0W_1 B First I
+T0W_1 B least I
+T0T1W_1W1 O I and bids I
+T1T2W_1W1 I I Influenced Corrupt I
+T_1T0W_1W0 O I by offering O
+T_1T0W_1W1 O I that says B
+T1T2W0 O I , O
+T0W_2W_1 I just how O
+T_2T_1W1 I I Dec. O
+T_1T0W0W1 O O just one I
+T0T1W_1W0 O O in there I
+T_1T0W0W1 I O -RCB- in I
+T_1T0W_2W_1 O O shipments to I
+T_1T0P0P1 O I EX : O
+T_2T_1W_3_2_1 O O longtime I
+T1T2W0 I O attempted I
+T_1T0W123 O O invariably I
+T1T2W_2W_1 I O demand and I
+T0T1W_1W0 O I corporate , I
+T_2T_1W0W1 O O certain of I
+T1T2W0 B I stand O
+T1T2W123 O O mitigating I
+T0T1W1W2 O I Investment Group I
+T_2T_1W0W1 O O square one I
+T0W_3_2_1 O well-run I
+T_1T0P0 O B DT I
+T0W_1W0 O to gas I
+T0P0P1 B PRP NN I
+T_2T_1W_2W_1 I O round of I
+T0W_1W0 I Satoshi Sumita O
+T0W_1W0 O programs that B
+T0W_1W0 I be there O
+T0T1W123 O O wistful I
+T1T2W_1W1 I I so the O
+T_1T0P_2P_1 O I ) JJ O
+T_1T0W0W1 I O , trucks I
+T0T1W0W1 O I , Peabody I
+T0W_1W1 O aircraft PWA B
+T0T1W0W1 I I and fines O
+T_2T_1W123 B I counsel I
+T0T1W0W1 I I managing speed O
+T_1T0W0W1 I I a share B
+T0T1W0W1 I I both a O
+T0T1W0W1 O O investing . I
+T_1T0P_1P0 B I IN NNP B
+T_1T0P123 O B NN I
+T_1T0W_1 I I place B
+T0T1W0 O O Spanish I
+T1T2P1P2 I I VBP NN I
+T0T1W0 O O few I
+T0T1W0 O B that B
+T_1T0W_1 I I firms O
+T_1T0W0 Z O Several I
+T1T2W_3_2_1 O O reflecting I
+T0W123 I adapter O
+T_1T0W_2W_1 O O single-A-3 from I
+T0T1W1 O I Wedding I
+T_2T_1W123 O O potentialities I
+T0W_2W_1 B in case I
+T0W0W1 I that inflation O
+T0W0W1 O purchasing managers I
+T1T2W_1 I I worried O
+T_1T0W_2W_1 I O only three I
+T0W_2W_1 I in 1987 O
+T1T2W1W2 I I last spring O
+T0W1 O communities I
+T_2T_1W_1W0 O O bring about O
+T_1T0W123 O O transportable I
+T0W_3_2_1 I multipled O
+T0W_1W0 O to No. I
+T0W_3_2_1 I music-entertainment O
+T_2T_1W_1W0 O I incest and O
+T0W_3_2_1 O low-tax I
+T_1T0W1W2 I B points to I
+T_1T0P0P1 I I CC IN O
+T0P0 B VBD O
+T0T1W_1W0 O I out the I
+T_1T0W0 I O lining I
+T_2T_1W0W1 I I that sets B
+T0T1W_1W0 O O of hemorrhaging I
+T_1T0W0 O O conflicting I
+T0T1W_1W0 O O with shows I
+T_1T0W_1 I I he O
+T_2T_1W0 O O Batman I
+T_2T_1W_2W_1 I O % of I
+T0T1W0 O O leaves I
+T0T1W0 I O Concerned O
+T_2T_1W_2W_1 I I No wonder I
+T_1T0W_3_2_1 O O premediated I
+T0T1W0 I O contrasts O
+T0T1W0 I O as O
+T_2T_1W0 O O Reps. O
+T_2T_1P_1P1 O O NNP NNP O
+T0T1W123 O I Conn.-based I
+T_2T_1W_2W_1 I I a modern I
+T_1T0W_1W0 I I group controls O
+T0T1W123 O O non-firm I
+T_2T_1W123 O I roofing I
+T_1T0W_1W1 I O 1.10 $ I
+T_2T_1P0P1 I I POS JJ B
+T_1T0W_1W0 O O of over I
+T_1T0W_1W0 O O to home I
+T0W_3_2_1 O Buckles I
+T_2T_1W_1W0 I O , lead I
+T0T1W_1W0 I I Francisco and O
+T0T1W_1 I O parties B
+T0P0P1 I VBD DT O
+T_2T_1W_1W0 O O since then I
+T0T1W_1W0 I I program and O
+T0W0 O slumping I
+T_2T_1W_1W0 O I Webster vs. I
+T_1T0P_3_2_1 O B PRP I
+T0T1W0W1 I I that uncertainty O
+T0W_2W_1 I of Investigation O
+T_1T0W0W1 O O operating cash I
+T1T2W123 I I Peasants O
+T_1T0W0W1 O O that : I
+T0T1P1 O I UH I
+T_1T0W0 I O list I
+T1T2W_3_2_1 O O idealistic I
+T0T1W_3_2_1 B I Even I
+T_1T0P_1P0 I I NNS JJR B
+T0T1P0P1 O I JJ , I
+T0W123 I Foxmoor O
+T0T1P_1P0 I O VBD RB O
+T_1T0W1W2 O I -LRB- D. O
+T0W123 I pyrotechnic O
+T0W123 O quick-to-prepare I
+T_1T0P1P2 Z I PRP CC O
+T0W_1W1 O Baker Nye I
+T1T2W0 I I somewhat I
+T_1T0W1W2 O I the nation O
+T_2T_1W_1W0 I O 're all O
+T_1T0W0W1 O O either of I
+T_2T_1W_1W0 I I Pacific and O
+T1T2P0P1 I O ) NNS I
+T_2T_1W_1W0 O I it s O
+T_1T0W1W2 O O director and I
+T0W123 O Asset-Backed I
+T_2T_1W1W2 O I a dozen I
+T_1T0W0W1 I I and inflation O
+T1T2P_1P0 I O WP DT B
+T1T2W_1W1 I I % 12 I
+T0T1W0 I O out O
+T0T1W0 I O also O
+T_1T0W0 I B currently O
+T0T1W_3_2_1 O O tastier I
+T_1T0W0 O O concrete I
+T0W0 I incapable O
+T1T2W0 O O long O
+T0T1W_3_2_1 O O powdered I
+T1T2P1P2 I I NN ) I
+T_2T_1P_1P0 I I POS NN O
+T_2T_1W0 I I major I
+T_2T_1W0 Z Z Already O
+T_2T_1P_1P0 I I NNPS VBN O
+T0P_1P0 I CD PRP$ B
+T_2T_1W0 O O comfortable O
+T_2T_1W0 I O cash I
+T_2T_1W0W1 I I and 40 I
+T0W_1W1 I and off O
+T_2T_1W_1W1 O O and it O
+T0W_1W0 I started trading O
+T0W_1W0 O one that B
+T0T1W123 I I abundant O
+T_2T_1W_1W1 I I % 80 I
+T0W_1W0 I time Mr. B
+T0T1W123 I I notoriously O
+T1T2W0W1 I I to # O
+T0T1W_2W_1 O O the weeks I
+T1T2W_1W1 I I gas electric I
+T0T1P0P1 I I POS VBZ B
+T0W0 O center I
+T0T1W1 O I and I
+T0W0 I outstripped O
+T0W0 I Once O
+T0T1W0W1 O O three-fourths of I
+T0T1W0W1 I O right after O
+T0T1W0W1 I I that none O
+T0W0 B right O
+T_2T_1P0 O O PRP I
+T_2T_1W_1 I O currently O
+T0W0W1 O matching funds I
+T0W0W1 O -LCB- U.S. I
+T_1T0W123 O O non-Hispanic I
+T0W0W1 O triple the I
+T1T2W_1W0 I I mining , I
+T0T1W_2W_1 I B and then O
+T_1T0W_1W0 O O And that I
+T0W0W1 O There are I
+T1T2W0 O O and O
+T_1T0P1 O B NN I
+T_2T_1P_2P_1 I O POS NN O
+T1T2W0 O I breathing O
+T0W123 I Hoc O
+T_1T0W_3_2_1 I I Wives O
+T1T2W0 O I black I
+T1T2W123 I I 0.50 O
+T1T2W123 I I state-level O
+T0W_2W_1 I this year B
+T1T2W0W1 O I selling , I
+T0W_2W_1 O to counter I
+T1T2P0P1 O I JJ DT O
+T1T2W0W1 I I -LRB- Far I
+T_1T0W0 I B Jaguar I
+T_1T0W_2W_1 I I of staff O
+T1T2W0W1 O Z calls . I
+T0T1P1P2 I I WP DT O
+T_2T_1W0W1 I I and software I
+T0W_1W0 O as such I
+T_1T0W_1 I B run I
+T1T2W_1W0 I O has increased O
+T0W_1W0 I billion and O
+T0W_1W0 O Zurich , I
+T_1T0W_1W0 O O more help I
+T_1T0W_2W_1 O O n't produce I
+T0W_1W1 I up more O
+T0W_1W0 O losses that B
+T0W0W1 O and principal I
+T_2T_1W123 O I Raleigh I
+T0W0W1 I and half O
+T0W0 I quit O
+T_2T_1W123 I I veterans O
+T_2T_1W_1W1 O I National of O
+T0W123 I Vishwanath O
+T0W0W1 O more help I
+T_1T0W123 I I Schulof O
+T_1T0W0 O I understanding O
+T0T1W_1W0 O I ZZZ Late I
+T0W_1 I months B
+T0T1W123 I I unnerving O
+T0T1W_1W0 O I to changing I
+T1T2W0W1 I O unchanged Friday O
+T0T1W_1W0 O O from outside I
+T0W_2W_1 B heart drug I
+T0T1P_1P0 B B WDT NN I
+T0T1W_1W0 O O or next I
+T0T1W1W2 I I expensive and O
+T_1T0W0W1 O I about other O
+T0T1W0W1 I O reminiscent of O
+T0T1W_1 O I German I
+T_1T0W0W1 I O set . I
+T_2T_1W_1W0 O O by then O
+T0T1W0W1 I O characteristic of O
+T_2T_1W_3_2_1 O O six-footer I
+T_2T_1W_3_2_1 O I brick I
+T0W_3_2_1 I NH O
+T0T1W0W1 O I , resolution I
+T_1T0W0W1 O O early yesterday I
+T_2T_1W_3_2_1 I I Wolfe O
+T0T1W0W1 I I sometime next O
+T_2T_1P1P2 B O JJ IN O
+T_2T_1W0 I I favor O
+T_2T_1W_3_2_1 O I Nov I
+T_2T_1W_1W0 I I cents share B
+T_2T_1W_3_2_1 O O clearer I
+T_2T_1W_1W0 O O thinking about O
+T0T1W0 I I run O
+T0T1W_2W_1 O O returned to I
+T_1T0W_1 I I difficulties B
+T1T2W_1W1 O O were to O
+T0W0 O orders I
+T_1T0P_3_2_1 O B NNP I
+T_1T0W1W2 O I out the O
+T0T1W_1W1 I O 's off O
+T0W0 O commute I
+T1T2W_1W1 O O neither nor O
+T_1T0P_2P_1 I O NN , I
+T1T2W0W1 O O wound up O
+T0T1W_3_2_1 I I affirming O
+T1T2W_2W_1 O Z 's not I
+T1T2W0W1 I I and Business I
+T0T1W_3_2_1 O O unlovable I
+T0W_2W_1 O 's recently I
+T0T1P_1P1 I I NNP PRP$ O
+T_1T0W_2W_1 I B the Pinkerton I
+T_1T0W123 O O Mixtec I
+T0T1W1 O I , I
+T0W0W1 I expensive and O
+T0W0W1 O , anxiety I
+T_1T0W0 O I feeling O
+T_1T0W0 O I likely O
+T0T1W1 O I indicators I
+T_1T0W_1W0 O I , building O
+T0T1P_1P0 I O WDT PRP B
+T0T1W1W2 I I Rally 's O
+T0P0P1 I JJR PRP$ O
+T1T2W0 O I the O
+T_1T0W_1 O I comfortable O
+T0T1W_1W0 O I are all I
+T_2T_1W_1 I I large I
+T0W_1 O whose I
+T0T1W123 I I baring O
+T_2T_1P_1P0 I I JJ PRP B
+T0T1W_1W1 O I four six I
+T0T1W_1W0 I O and move O
+T0T1W123 I I flashes O
+T0W123 O Byzantine I
+T_1T0W1W2 O I -RRB- the O
+T_1T0W0W1 O I high . O
+T0W123 O individual-investor I
+T_1T0W0W1 O O between C$ I
+T_2T_1W_3_2_1 O I Education O
+T0W123 O dictating I
+T_1T0W1W2 O I hopes will B
+T1T2W0W1 O I buying in I
+T_2T_1W_3_2_1 I I it O
+T0T1W0 I O overseas O
+T0W_1W0 O sales or I
+T0T1W_3_2_1 I I power-generation O
+T_1T0W_1W0 O O make that I
+T_2T_1W0W1 O O just that I
+T_1T0W_1W0 O O lived there I
+T0T1W0 O I acting I
+T0T1W_2W_1 O I group of I
+T0P_1P0 O POS RBS I
+T0T1W0 O I engineered I
+T_1T0W_1W1 I I 's . O
+T_1T0P_1P1 I O RB : I
+T_1T0P_1P0 I O CC JJ I
+T_2T_1W_1W1 O O and about O
+T_1T0W0 I I Assistant B
+T1T2P0P1 I I VBG PRP$ O
+T_2T_1W_1W1 I I 10 20 I
+T_2T_1W123 O O stumbling I
+T_2T_1W_1W1 I O that analysts B
+T0T1P_1 O B NN B
+T_1T0W0W1 I O that so B
+T0T1W123 I I vaccines O
+T_2T_1P_2P_1 I I JJ CC I
+T0T1W0W1 I O declines to O
+T1T2W_3_2_1 I O Manila O
+T_2T_1P_2P_1 O O CD TO O
+T_2T_1W_3_2_1 O I unity I
+T0T1W0 B O 's I
+T0W_1W1 O North South I
+T0P0P1 I VBG PRP O
+T0T1W0 O I early B
+T0T1W0 I O different O
+T0W_3_2_1 O fewest I
+T0W0 I for O
+T0T1W_3_2_1 O O tricky I
+T0T1W0 I I designs O
+T0W_3_2_1 I Crete O
+T_1T0W0 O I own O
+T_2T_1W123 I I Plans O
+T1T2P0P1 I I RB VBN I
+T1T2P0P1 O O JJ NNP O
+T0T1P0 I O : O
+T1T2W_1 I O carefully I
+T_1T0W0 I O second I
+T_1T0W0 O O lunch I
+T1T2P0P1 O I '' : O
+T1T2P0P1 O O VBG '' I
+T1T2P_1P0 I O IN VBN I
+T0W_1W0 I Bank and O
+T1T2W_1W0 O I and more I
+T1T2W0W1 I I , tobacco I
+T1T2W_1W0 I B ZZZ Both O
+T1T2W_1W0 I O to light I
+T_2T_1W0W1 I I only a B
+T0W_1W0 I million more O
+T1T2W_1W0 I O of outside I
+T0W123 O Bfree I
+T0T1W0W1 I O notes that O
+T0W_3_2_1 O pockmarked I
+T_2T_1P_1P1 O I FW , O
+T0W_3_2_1 I Il O
+T_1T0P0 O O WP I
+T0W_3_2_1 O Shortage I
+T_1T0P_1P0 I O RBS VBN I
+T0W_3_2_1 O Goodbye I
+T_1T0P_3_2_1 O B NN I
+T0W_3_2_1 O discord I
+T0W123 I Mittag O
+T_2T_1P_1P0 O I VBN JJ I
+T_1T0W0W1 I O that measures B
+T0W123 O French-made I
+T0W0W1 O more money I
+T_1T0P0P1 I O VBG VBD I
+T_2T_1W0W1 O I , industrial I
+T1T2W0 I O insured I
+T0T1W123 I I dig O
+T0T1W0 I I sets O
+T1T2W0W1 I O and support O
+T1T2W0 O I at O
+T0T1W0 O I surging I
+T1T2W_1W0 I I Treasury , I
+T1T2W0 O O puts I
+T0T1W0 O I deteriorating I
+T1T2W_1W0 O O , etc. O
+T_2T_1P0P1 O I '' NN O
+T_2T_1W_3_2_1 I I Masterson O
+T1T2W123 I I 1964 O
+T1T2W_3_2_1 I O eating I
+T0W_1W0 I , strike O
+T_2T_1W0 I O anywhere I
+T1T2W_3_2_1 O I Too O
+T_1T0W_3_2_1 O B , I
+T1T2W123 I I Authority I
+T0W_1W0 I and markets O
+T_1T0W_3_2_1 I O anywhere I
+T1T2W_3_2_1 I I kidney I
+T1T2W1W2 I O group . I
+T_1T0P0P1 I O `` FW I
+T_1T0P_2P_1 B I NN IN O
+T_2T_1P_1P0 O I PRP `` O
+T0T1P_1P0 B O NNP DT O
+T0W_1 O Prebon I
+T0P0P1 I MD VB O
+T_1T0W_1W1 I I more year B
+T0W123 O inchworm I
+T_1T0W0 O I case O
+T_1T0W_1W1 I B world most I
+T_1T0W_1W1 O O for long I
+T1T2P1P2 I I NN '' I
+T0W123 O Pearson I
+T0W_1W0 I by far O
+T_2T_1W_1W1 I O and -- I
+T0W0 I with O
+T0T1W0W1 I O account for O
+T_2T_1W0 Z Z So O
+T0W0 I think O
+T1T2W123 I I resurgent B
+T0W_2W_1 I , Va. O
+T0T1W0W1 I O home to O
+T_2T_1W0 Z I even O
+T0T1W0W1 I I and two O
+T_1T0P_3_2_1 O B NN I
+T0T1W0 I O and O
+T0T1W0 O O case I
+T0T1W0 I O really O
+T0T1W0 I I estimates O
+T0T1W0 I O bad O
+T_1T0P_1P0 I O VBN , I
+T_1T0W_1 O I further O
+T0T1W0 I I convincing O
+T1T2W_1W0 I I other , I
+T1T2W_1W0 I O calls a B
+T1T2W_1W0 I I yield to I
+T0T1P0P1 I I JJR DT O
+T1T2W_1W0 I I , currently I
+T0W0W1 I and intelligence O
+T1T2W_1W0 O O that much O
+T_2T_1W1 I I Wis. I
+T1T2W1 I O Sony O
+T1T2W_1W0 I I food , I
+T0W_1W0 I set , O
+T_1T0P_1 I O RBR I
+T1T2W0 I O Even I
+T1T2W0 I I here O
+T1T2W0 I O passed O
+T_1T0P_1P0 O O VB NNS I
+T1T2W0 O I EST I
+T_2T_1W_1 I I , I
+T_2T_1P_1P0 O I RB JJR I
+T_2T_1W_1 O I mainstream I
+T_2T_1W_1 I I big I
+T_2T_1W_1 O I fewer I
+T_1T0W_3_2_1 I I Wyoming O
+T0T1W_1 I O system O
+T_1T0W_3_2_1 I I Good O
+T1T2P_1P0 O I RBS VBN O
+T_1T0W0 I I was O
+T0T1W0 O I other I
+T1T2W_1 I O one-third I
+T1T2P_1P1 I O JJR JJR I
+T_1T0W_1 I O The I
+T_1T0W0 O I put O
+T_2T_1W_3_2_1 O I WSJ B
+T_2T_1W0W1 I I , Pa. I
+T0T1W_3_2_1 O I Boulder I
+T_2T_1W0 O I of O
+T0T1P0P1 O I JJR CC I
+T_2T_1W_1W0 O O said that O
+T_2T_1W_1W0 I I analysts and I
+T_2T_1W_1W0 I O to both O
+T_2T_1W_1W0 I I '' that B
+T1T2P0 O Z RBS O
+T_2T_1W_1W0 O O be enough I
+T_1T0W_1 I O no I
+T0T1W1 O I , I
+T_1T0W_1W1 I O American of I
+T0T1P0 O I PRP$ I
+T0T1P0 O B VBZ I
+T0T1P0 O O WDT I
+T_1T0W0 B I he B
+T0T1P1P2 I O NNPS IN O
+T_2T_1W0W1 O O put options I
+T_2T_1W0W1 I I the stock I
+T_1T0P_1P0 O I DT RB O
+T_2T_1W_1W1 I O that for O
+T0W0W1 I and costs O
+T1T2W_1W0 I I in both I
+T1T2W_1W0 O I so much O
+T_2T_1P_1P0 B I JJ CC I
+T0W0 I allowed O
+T1T2W_1W0 I O found that O
+T0W0W1 O exactly how I
+T1T2W1 I O it O
+T1T2W0 O I flows O
+T_1T0P0P1 Z I NNP DT O
+T1T2W0 O I a O
+T0T1W0W1 O I just about I
+T1T2W0W1 O O so much O
+T1T2W1 I I publishing I
+T1T2P_1P1 I I JJ PRP$ O
+T0T1W0 O O bears I
+T1T2P_1P0 I I TO ( I
+T_1T0W_1 I I levels B
+T_1T0W_1 I O a I
+T1T2P_1P0 I O VB VBD I
+T_2T_1W0W1 I I bid and O
+T1T2P0P1 I O VBN VBG I
+T_2T_1W0W1 I I and up I
+T1T2P0P1 O O IN NNS B
+T_2T_1W0W1 O I , financial I
+T_2T_1P_1P0 I I CC RB I
+T1T2W_1W0 O I cash flows I
+T0T1W0 O O total I
+T1T2P1P2 I I NNP '' I
+T0T1W0 O O multiple I
+T1T2W_1W0 I I American and I
+T0W_1W1 O 1987 1988 I
+T0T1W_3_2_1 O O stark I
+T0T1W_3_2_1 I O Keeping O
+T_1T0W123 I B race I
+T_1T0P_2P_1 B I NNS NN O
+T0P0 B CC O
+T_2T_1P0P1 O O FW . O
+T0W_1W0 O company 's I
+T_2T_1P_1P1 B I RB NNS O
+T_2T_1P0P1 I I ) NNP I
+T0W1 I Manila O
+T_1T0W_3_2_1 I I bottlers O
+T_1T0W1 Z I they O
+T0T1P0P1 O I CC VBZ I
+T1T2W0 I I in O
+T0T1W_2W_1 I O Va. , O
+T1T2W0W1 O O times as O
+T1T2W0W1 O I smaller , I
+T_1T0P1P2 O I FW , O
+T0T1W_2W_1 I O of Michigan O
+T_1T0P1P2 Z I RB DT O
+T1T2W0W1 I I , management I
+T0T1W_2W_1 I I vice chairman O
+T_2T_1W_1 I I and I
+T0W_3_2_1 I tad O
+T0T1W123 I I Children O
+T_2T_1W_1 I I secondary I
+T1T2W0 I O controlling I
+T_2T_1W_1 I I Eastern I
+T1T2P_1P1 O O : VBZ I
+T1T2W0 O O sound O
+T0T1P0P1 I I WDT NNP O
+T_2T_1W_1 I I Wash. I
+T0T1P_1P0 O I IN NNP I
+T_2T_1P_1P1 O O NNP IN O
+T_2T_1W0W1 I I this year B
+T0T1P_1P0 I B RB JJ O
+T_2T_1W0W1 I I , electronics I
+T0W_2W_1 I markets and O
+T0T1P_1P0 I O JJ `` O
+T_1T0W_1 I O heavy I
+T0T1W_2W_1 B O the state I
+T0W1 B '' I
+T0T1P_1P1 I I NN IN O
+T1T2P0P1 O I RB JJ O
+T1T2P0P1 O O CD NNS O
+T0T1P_1P1 I I NNS DT O
+T0W0 I had O
+T0W0 O investors I
+T_1T0W_1W0 I O smaller , I
+T_1T0W_1W0 O O from around I
+T1T2P1 O O CD O
+T_2T_1W123 I I markka O
+T_1T0W_2W_1 O I week at O
+T_1T0P_1 I B RBR I
+T0T1W_1W0 I I , notes O
+T_2T_1W_2W_1 I I secondary , I
+T_2T_1W1 O O compared O
+T1T2W_2W_1 I I 1\/4 % I
+T1T2W_3_2_1 Z Z J. I
+T_1T0P0P1 I O CC FW I
+T_1T0P_1P0 I I NNS WP B
+T_1T0P_1P0 I I NN WDT B
+T_1T0P_1P0 I O RB JJ I
+T_1T0W0 I O trade I
+T_1T0W0 I I v. O
+T_1T0W_1W0 I I Ciba-Geigy and O
+T_2T_1W0W1 Z O what about O
+T_2T_1P0P1 I I NNS $ O
+T0W_3_2_1 O J I
+T_2T_1P0P1 I I NNP : I
+T_1T0W_1 I O the I
+T0T1P_1P0 I O NNS CC O
+T0T1P_1P0 I I RB , O
+T1T2W0W1 I I and management I
+T_1T0W0W1 O I that it O
+T1T2W0W1 I I to 1,000 I
+T1T2W0W1 I I and environmental I
+T_2T_1W_1 O I small I
+T1T2W0W1 I I and automotive I
+T_1T0P_2P_1 O B IN DT I
+T_2T_1W_3_2_1 I I me I
+T0T1W0 I O better O
+T0T1W0W1 I O '' can O
+T0T1W0 O I adjusted I
+T0T1W0W1 O I , communications I
+T_1T0W_3_2_1 I I D&B O
+T0T1W0 O I Stop I
+T_2T_1W_3_2_1 I I Joshua I
+T_2T_1P0P1 I I '' NN I
+T0T1P0P1 O I RB VBN I
+T_2T_1P0P1 I I JJ '' I
+T_2T_1W_1W1 O I tens thousands I
+T1T2W1W2 I O % of I
+T0W0W1 O later this B

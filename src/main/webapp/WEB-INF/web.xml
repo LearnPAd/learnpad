@@ -10,6 +10,13 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
+   <listener>
+	<listener-class>
+             eu.learnpad.ca.gate.GateServletContextListener 
+        </listener-class>
+   </listener>
+  
+  
   <servlet>
 		<servlet-name>jersey-serlvet</servlet-name>
 		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
@@ -18,9 +25,9 @@
 		     <param-name>jersey.config.server.provider.packages</param-name>
 		     <param-value>eu.learnpad.ca.main;eu.learnpad.ca.rest.impl</param-value>
 		</init-param>
-		
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
  
 	<servlet-mapping>
 		<servlet-name>jersey-serlvet</servlet-name>

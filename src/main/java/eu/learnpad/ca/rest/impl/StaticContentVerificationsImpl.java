@@ -1,6 +1,5 @@
 package eu.learnpad.ca.rest.impl;
 
-import java.lang.Thread.State;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,9 +20,11 @@ import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
+import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
-import eu.learnpad.ca.analysis.simplicity.JuridicalJargon;
-import eu.learnpad.ca.analysis.syntacticambiguity.SyntacticAmbiguity;
+import eu.learnpad.ca.analysis.non_ambiguity.NonAmbiguity;
+import eu.learnpad.ca.analysis.simplicity.Simplicity;
+import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.StaticContentVerifications;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
@@ -36,55 +37,71 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 
 	private static Map<Integer,List<AbstractAnalysisClass>> map = new HashMap<Integer,List<AbstractAnalysisClass>>();
 	private static Integer id =0;
-
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(StaticContentVerificationsImpl.class);
 
 	@Path("/")
 	@POST
 	public String putValidateStaticContent(StaticContentAnalysis contentFile)
 			throws LpRestException {
-		if(contentFile.getQualityCriteria().isCorrectness()){
-			id++;
-			Language lang = null;
-			if(contentFile.getLanguage()=="english"){
-				lang = new BritishEnglish();
-			}else{
-				if(contentFile.getLanguage().toLowerCase().equals("italian")){
-					lang = new Italian();
-				}else
-					if(contentFile.getLanguage().toLowerCase().equals("english uk")){
-						lang = new BritishEnglish();
-					}else
-						if(contentFile.getLanguage().toLowerCase().equals("english us")){
-							lang = new AmericanEnglish();
-						}else
-							lang = new BritishEnglish();
-			}
+		try{
+			String content = contentFile.getStaticContent().getContentplain();
+			GateThread gateu = new GateThread(content,contentFile.getQualityCriteria());
+			gateu.start();
 			if(contentFile.getQualityCriteria().isCorrectness()){
+				id++;
+				Language lang = null;
+				if(contentFile.getLanguage()=="english"){
+					lang = new BritishEnglish();
+				}else{
+					if(contentFile.getLanguage().toLowerCase().equals("italian")){
+						lang = new Italian();
+					}else
+						if(contentFile.getLanguage().toLowerCase().equals("english uk")){
+							lang = new BritishEnglish();
+						}else
+							if(contentFile.getLanguage().toLowerCase().equals("english us")){
+								lang = new AmericanEnglish();
+							}else
+								lang = new BritishEnglish();
+				}
+				if(contentFile.getQualityCriteria().isCorrectness()){
 
-				CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(lang, contentFile);
-				threadcorre.start();
-				putAndCreate(id, threadcorre);
+					CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(lang, contentFile);
+					threadcorre.start();
+					putAndCreate(id, threadcorre);
 
+				}
+				if(contentFile.getQualityCriteria().isSimplicity()){
+
+					Simplicity threadEL = new Simplicity(contentFile, lang,gateu);
+					threadEL.start();
+					putAndCreate(id, threadEL);
+
+				}
+				if(contentFile.getQualityCriteria().isNonAmbiguity()){
+
+					NonAmbiguity threadNonAmbiguity = new NonAmbiguity (contentFile, lang, gateu);
+					threadNonAmbiguity.start();
+					putAndCreate(id, threadNonAmbiguity);
+
+				}
+				if(contentFile.getQualityCriteria().isContentClarity()){
+
+					ContentClarity threadContentClarity = new ContentClarity (contentFile, lang, gateu);
+					threadContentClarity.start();
+					putAndCreate(id, threadContentClarity);
+
+				}
+				return id.toString();
+			}else{
+				log.error("Error "+"Null Element send");
+				return "Null Element send";
 			}
-			if(contentFile.getQualityCriteria().isSimplicity()){
 
-				JuridicalJargon threadsimply = new JuridicalJargon (contentFile, lang);
-				threadsimply.start();
-				putAndCreate(id, threadsimply);
-
-			}
-			if(contentFile.getQualityCriteria().isNonAmbiguity()){
-
-				SyntacticAmbiguity threadSyntacticAmbiguity = new SyntacticAmbiguity (contentFile, lang);
-				threadSyntacticAmbiguity.start();
-				putAndCreate(id, threadSyntacticAmbiguity);
-
-			}
-			return id.toString();
-		}else
-			return "Null Element send";
-
-
+		}catch(Exception e){
+			log.fatal("Fatal "+e.getMessage());
+			return "FATAL ERROR";
+		}
 	}
 
 	private void putAndCreate(int id, AbstractAnalysisClass ai){
@@ -103,37 +120,51 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 	@GET
 	public Collection<AnnotatedStaticContentAnalysis> getStaticContentVerifications(
 			@PathParam("idAnnotatedStaticContentAnalysis") String contentID) throws LpRestException {
-		if(map.containsKey(Integer.valueOf(contentID))){
-			ArrayList<AnnotatedStaticContentAnalysis> ar = new ArrayList<AnnotatedStaticContentAnalysis>();
-			List<AbstractAnalysisClass> listanalysisInterface = map.get(Integer.valueOf(contentID));
+		try{
+			if(map.containsKey(Integer.valueOf(contentID))){
+				ArrayList<AnnotatedStaticContentAnalysis> ar = new ArrayList<AnnotatedStaticContentAnalysis>();
+				List<AbstractAnalysisClass> listanalysisInterface = map.get(Integer.valueOf(contentID));
 
-			for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
-				AnnotatedStaticContentAnalysis annotatedStaticContent = analysisInterface.getAnnotatedStaticContentAnalysis();
-				if(annotatedStaticContent!=null){
-					annotatedStaticContent.setId(Integer.valueOf(contentID));
-					ar.add(annotatedStaticContent);
+				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
+					AnnotatedStaticContentAnalysis annotatedStaticContent = analysisInterface.getAnnotatedStaticContentAnalysis();
+					if(annotatedStaticContent!=null){
+						annotatedStaticContent.setId(Integer.valueOf(contentID));
+						ar.add(annotatedStaticContent);
+					}
 				}
-			}
 
-			return ar;
-		}else
+				return ar;
+			}else{
+				log.error("Element not found");
+				return null;
+			}
+		}catch(Exception e){
+			log.fatal("Fatal "+e.getMessage());
 			return null;
+		}
 	}
 
 	@Path("/{idAnnotatedStaticContentAnalysis:\\d+}/status")
 	@GET
 	public String getStatusStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
 			throws LpRestException {
-		if(map.containsKey(Integer.valueOf(contentID))){
-			List<AbstractAnalysisClass> listanalysisInterface  = map.get(Integer.valueOf(contentID));
-			for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
-				if(analysisInterface.getStatus()!="OK"){
-					return "IN PROGRESS";
+		try{
+			if(map.containsKey(Integer.valueOf(contentID))){
+				List<AbstractAnalysisClass> listanalysisInterface  = map.get(Integer.valueOf(contentID));
+				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
+					if(analysisInterface.getStatus()!="OK"){
+						return "IN PROGRESS";
+					}
 				}
+				return "OK";
 			}
-			return "OK";
-		}
-		return "ERROR";
-	}
+			log.error("Element not found");
+			return "ERROR";
 
+
+		}catch(Exception e){
+			log.fatal("Fatal "+e.getMessage());
+			return "FATAL ERROR";
+		}
+	}
 }

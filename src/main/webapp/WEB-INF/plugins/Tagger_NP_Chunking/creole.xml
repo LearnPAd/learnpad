@@ -1,0 +1,43 @@
+<CREOLE-DIRECTORY>
+  <CREOLE>
+    <JAR SCAN="true">Chunker.jar</JAR>
+    
+    <RESOURCE>
+      <NAME>Noun Phrase Chunker</NAME>
+      <COMMENT>Implementation of the Ramshaw and Marcus base noun phrase chunker</COMMENT>
+      <HELPURL>http://gate.ac.uk/userguide/sec:parsers:npchunker</HELPURL>
+      <CLASS>mark.chunking.GATEWrapper</CLASS>
+      <ICON>NpChunker</ICON>
+      <PARAMETER NAME="document"
+        COMMENT="The document to be analysed."
+        RUNTIME="true">gate.Document</PARAMETER>
+      <PARAMETER NAME="posTagURL"
+        DEFAULT="pos_tag_dict"
+        COMMENT="The URL of the pos_tag_dict file.">java.net.URL</PARAMETER>
+      <PARAMETER NAME="rulesURL"
+        DEFAULT="rules"
+        COMMENT="The URL of the rules file.">java.net.URL</PARAMETER>
+      <PARAMETER NAME="posFeature"
+        COMMENT="The name of the feature which holds the POS tag."
+        DEFAULT="category"
+        RUNTIME="true">java.lang.String</PARAMETER>
+      <PARAMETER NAME="unknownTag"
+        COMMENT="The chunk tag to use for an unknown POS tag."
+        RUNTIME="true"
+        DEFAULT="I">java.lang.String</PARAMETER>
+      <PARAMETER NAME="inputASName"
+        COMMENT="The name of the annotation set used for input."
+        RUNTIME="true"
+        OPTIONAL="true">java.lang.String</PARAMETER>
+      <PARAMETER NAME="outputASName"
+        COMMENT="The name of the annotation set used for output."
+        RUNTIME="true"
+        OPTIONAL="true">java.lang.String</PARAMETER>
+      <PARAMETER NAME="annotationName"
+        COMMENT="The name of the annotations added to mark noun chunks."
+        DEFAULT="NounChunk"
+        RUNTIME="true">java.lang.String</PARAMETER>
+    </RESOURCE>
+  
+  </CREOLE>
+</CREOLE-DIRECTORY>
