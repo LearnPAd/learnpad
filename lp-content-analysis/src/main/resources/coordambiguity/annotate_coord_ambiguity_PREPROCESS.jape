@@ -1,0 +1,18 @@
+Phase: Coord
+Input: Token 
+Options: control = first
+
+//this rule checks the presence of more than 2 AND or OR in the same sentence.
+//Pipeline: Document Reset PR, Annie English Tokenizer
+ 
+Rule: Coord
+({Token.string == "and"} | {Token.string == "or"})
+:andor
+-->
+:andor.AndOr = {}
+
+Rule: Punctuation
+({Token.kind == "punctuation"})
+:punct
+-->
+:punct.Punctuation = {}

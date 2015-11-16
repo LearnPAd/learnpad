@@ -1,0 +1,9 @@
+Phase: SentLenNom
+Input: Sent-Len
+Options: control = appelt
+ 
+Rule: sentLong
+Priority: 10
+({Sent-Len.token_len > 25}):sent_long
+-->
+:sent_long.Sent-Long = {long = "yes"}
