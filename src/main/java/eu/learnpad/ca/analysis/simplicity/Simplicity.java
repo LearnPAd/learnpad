@@ -12,7 +12,7 @@ import org.languagetool.Language;
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.analysis.simplicity.plugin.DifficultJargonAlternative;
 import eu.learnpad.ca.analysis.simplicity.plugin.ExcessiveLength;
-import eu.learnpad.ca.analysis.simplicity.plugin.JuridicalJargon;
+import eu.learnpad.ca.analysis.simplicity.plugin.Juridical;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
@@ -110,18 +110,36 @@ public class Simplicity extends AbstractAnalysisClass {
 
 			dja.checkUnclearAcronym(listSentence,listSentenceDefected,listannotations);
 
-			JuridicalJargon jj = new JuridicalJargon(language, docContent,listnode);
-			listannotations.addAll(jj.checkJJ(listSentence,listSentenceDefected));
+			long lEndTime = System.currentTimeMillis();
+			long difference = lEndTime - lStartTime;
 
+			
+			log.trace("Simplicity DifficultJargon Elapsed milliseconds: " + difference);
+			long lStartTime = System.currentTimeMillis();
+			
+			//JuridicalJargon jj = new JuridicalJargon(language, docContent,listnode);
+			//listannotations.addAll(jj.checkJJ(listSentence,listSentenceDefected));
+			Juridical jj = new Juridical(language, docContent,listnode);
+			jj.checkJuridicalJargon(gateu, listannotations, listSentenceDefected, listSentenceDefected);
+			
+			
+			 lEndTime = System.currentTimeMillis();
+			 difference = lEndTime - lStartTime;
+
+			log.trace("Simplicity JuridicalJargon Elapsed milliseconds: " + difference);
 			/*HashSet<String> hs = new HashSet<String>();
 			hs.add("Sent-Long");
 			Set<gate.Annotation> SetExcessiveLength = gateu.getAnnotationSet(hs);
 			gatevsleanpadExcessiveLength(SetExcessiveLength, listannotations,listSentenceDefected,listnode,docContent);
 */
+			 lStartTime = System.currentTimeMillis();
 			ExcessiveLength excessiveLength = new ExcessiveLength(language, docContent,listnode);
 			excessiveLength.check(gateu, listannotations, listSentenceDefected,listSentence);
 
+			lEndTime = System.currentTimeMillis();
+			 difference = lEndTime - lStartTime;
 
+			log.trace("Simplicity ExcessiveLength Elapsed milliseconds: " + difference);
 			addNodeInContent(listnode,c,docContent);
 
 			numDefectiveSentences = listSentenceDefected.size();

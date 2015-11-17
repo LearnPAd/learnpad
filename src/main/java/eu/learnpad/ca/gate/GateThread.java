@@ -97,7 +97,7 @@ public class GateThread extends Thread implements StatusListener{
 							.createResource(res));
 					log.info("done");
 				}
-				if(qualitycriteria.isNonAmbiguity()){
+				if(qualitycriteria.isNonAmbiguity() | qualitycriteria.isSimplicity()){
 					log.info("\t* Loading gate.creole.gazetteer.DefaultGazetteer ... ");
 					FeatureMap fm = Factory.newFeatureMap();
 					fm.put(DefaultGazetteer.DEF_GAZ_CASE_SENSITIVE_PARAMETER_NAME, false);
