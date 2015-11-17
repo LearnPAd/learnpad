@@ -11,6 +11,7 @@ import org.languagetool.Language;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.analysis.simplicity.plugin.DifficultJargonAlternative;
+import eu.learnpad.ca.analysis.simplicity.plugin.ExcessiveLength;
 import eu.learnpad.ca.analysis.simplicity.plugin.JuridicalJargon;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Annotation;
@@ -112,10 +113,13 @@ public class Simplicity extends AbstractAnalysisClass {
 			JuridicalJargon jj = new JuridicalJargon(language, docContent,listnode);
 			listannotations.addAll(jj.checkJJ(listSentence,listSentenceDefected));
 
-			HashSet<String> hs = new HashSet<String>();
+			/*HashSet<String> hs = new HashSet<String>();
 			hs.add("Sent-Long");
 			Set<gate.Annotation> SetExcessiveLength = gateu.getAnnotationSet(hs);
 			gatevsleanpadExcessiveLength(SetExcessiveLength, listannotations,listSentenceDefected,listnode,docContent);
+*/
+			ExcessiveLength excessiveLength = new ExcessiveLength(language, docContent,listnode);
+			excessiveLength.check(gateu, listannotations, listSentenceDefected,listSentence);
 
 
 			addNodeInContent(listnode,c,docContent);
@@ -164,47 +168,7 @@ public class Simplicity extends AbstractAnalysisClass {
 		}
 		return listnode;
 	}*/
-	private void gatevsleanpadExcessiveLength(
-			Set<gate.Annotation> setGateAnnotations,
-			List<Annotation> annotations, Set<gate.Annotation> listSentenceDefected, List<Node> listnode, DocumentContent docContent) {
-
-		for (gate.Annotation gateA : setGateAnnotations) {
-
-			gate.Node gatenodestart = gateA.getStartNode();
-			gate.Node gatenodeend = gateA.getEndNode();
-			try{
-				String sentence_gate = docContent.getContent(gatenodestart.getOffset(),gatenodeend.getOffset()).toString();
-				if(!listSentenceDefected.contains(sentence_gate))
-					listSentenceDefected.add(gateA);
-			}catch(InvalidOffsetException e){
-				log.error(e);
-			}
-			int initialpos = gatenodestart.getOffset().intValue();
-
-
-			Node init = new Node(gatenodestart.getId(), initialpos);
-
-			Node end = new Node(gatenodeend.getId(), gatenodeend.getOffset()
-					.intValue());
-
-			listnode.add(init);
-			listnode.add(end);
-
-			Annotation a = new Annotation();
-			a.setId(gateA.getId());
-			a.setEndNode(end.getId());
-			a.setStartNode(init.getId());
-			a.setNodeEnd(end);
-			a.setNodeStart(init);
-
-			a.setType("Simplicity Excessive Length");
-
-			a.setRecommendation("Shorten the sentence. A sentence should not exceed 25 words.");
-			annotations.add(a);
-
-		}
-
-	}
+	
 
 
 }
