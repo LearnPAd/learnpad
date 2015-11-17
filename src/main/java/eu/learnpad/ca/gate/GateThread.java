@@ -12,6 +12,7 @@ import gate.FeatureMap;
 import gate.ProcessingResource;
 import gate.creole.ResourceInstantiationException;
 import gate.creole.SerialAnalyserController;
+import gate.creole.gazetteer.DefaultGazetteer;
 import gate.event.StatusListener;
 import gate.util.GateException;
 
@@ -84,10 +85,10 @@ public class GateThread extends Thread implements StatusListener{
 				processingResources.add("gate.creole.tokeniser.DefaultTokeniser");
 				processingResources.add("gate.creole.splitter.SentenceSplitter");
 				processingResources.add("gate.creole.POSTagger");
-				
+
 				if(qualitycriteria.isNonAmbiguity()){
 					processingResources.add("mark.chunking.GATEWrapper");
-					processingResources.add("gate.creole.gazetteer.DefaultGazetteer");
+
 				}
 				for(String res :processingResources) {
 					log.info("\t* Loading " + res + " ... ");
@@ -96,8 +97,14 @@ public class GateThread extends Thread implements StatusListener{
 							.createResource(res));
 					log.info("done");
 				}
-
-
+				if(qualitycriteria.isNonAmbiguity()){
+					log.info("\t* Loading gate.creole.gazetteer.DefaultGazetteer ... ");
+					FeatureMap fm = Factory.newFeatureMap();
+					fm.put(DefaultGazetteer.DEF_GAZ_CASE_SENSITIVE_PARAMETER_NAME, false);
+					serialcorpusController.add((gate.LanguageAnalyser)Factory
+							.createResource("gate.creole.gazetteer.DefaultGazetteer",fm));
+					log.info("done");
+				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
