@@ -26,7 +26,7 @@ import eu.learnpad.verificationComponent.utils.ConfigManager;
 import eu.learnpad.verificationComponent.utils.NETUtils;
 
 
-public class PlatformFacadeImpl implements eu.learnpad.mv.CoreFacade {
+public class PlatformFacadeImpl extends eu.learnpad.mv.Controller {
 
     @Override
     public byte[] getModel(String modelSetId, String type) throws LpRestException {

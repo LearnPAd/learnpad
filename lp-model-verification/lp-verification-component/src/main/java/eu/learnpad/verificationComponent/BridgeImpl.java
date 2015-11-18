@@ -38,7 +38,7 @@ import eu.learnpad.verificationComponent.utils.ModelUtils;
 import eu.learnpad.verificationComponent.utils.XMLUtils;
 
 @Path("/learnpad/mv")
-public class BridgeImpl implements eu.learnpad.mv.BridgeInterface {
+public class BridgeImpl extends eu.learnpad.mv.Bridge {
     
     public static void initialize(){
         final String lpModelType = "lpzip";
