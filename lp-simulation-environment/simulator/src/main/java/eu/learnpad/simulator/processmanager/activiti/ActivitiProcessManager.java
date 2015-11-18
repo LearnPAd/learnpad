@@ -65,6 +65,7 @@ import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.processdispatcher.ActivitiProcessDispatcher;
 import eu.learnpad.simulator.processmanager.activiti.taskrouter.ActivitiTaskRouter;
 import eu.learnpad.simulator.processmanager.activiti.taskvalidator.ActivitiDemoTaskValidator;
+import eu.learnpad.simulator.processmanager.activiti.workarounds.msg.MessageInfoData;
 import eu.learnpad.simulator.utils.BPMNExplorerRepository;
 
 /**
@@ -321,9 +322,9 @@ public class ActivitiProcessManager implements IProcessManager,
 				new ActivitiProcessDispatcher(data, this,
 						this.processEventReceiverProvider
 								.processEventReceiver(), taskService,
-						runtimeService, historyService, new ActivitiTaskRouter(
-								taskService, router), taskValidator,
-						explorerRepo.getExplorer(process
+						runtimeService, repositoryService, historyService,
+						new ActivitiTaskRouter(taskService, router),
+						taskValidator, explorerRepo.getExplorer(process
 								.getProcessDefinitionId())));
 
 		// we are ready, so we can start the dispatcher
@@ -484,6 +485,18 @@ public class ActivitiProcessManager implements IProcessManager,
 	public LearnPadTaskGameInfos getGameInfos(LearnPadTask task, String userId) {
 		return processDispatchers.get(task.processId)
 				.getGameInfos(task, userId);
+	}
+
+	// Activiti message workaround
+	public void receiveTaskMessage(final MessageInfoData msgInfo) {
+		jobHandler.execute(new Runnable() {
+			@Override
+			public void run() {
+				processDispatchers.get(msgInfo.originProcessInstanceId)
+						.receiveTaskMessage(msgInfo);
+			}
+		});
+
 	}
 
 	@Override

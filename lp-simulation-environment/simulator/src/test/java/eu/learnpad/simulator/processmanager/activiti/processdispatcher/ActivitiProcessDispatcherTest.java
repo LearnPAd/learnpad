@@ -150,6 +150,7 @@ public class ActivitiProcessDispatcherTest {
 		new ActivitiProcessDispatcher(processInstanceData, processManger,
 				processEventReceiver, processEngine.getTaskService(),
 				processEngine.getRuntimeService(),
+				processEngine.getRepositoryService(),
 				processEngine.getHistoryService(), mock(ITaskRouter.class),
 				mock(ITaskValidator.class), mock(BPMNExplorer.class)).start();
 
@@ -185,6 +186,7 @@ public class ActivitiProcessDispatcherTest {
 				processInstanceData, processManger, processEventReceiver,
 				processEngine.getTaskService(),
 				processEngine.getRuntimeService(),
+				processEngine.getRepositoryService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
 				mock(BPMNExplorer.class));
 
@@ -239,6 +241,7 @@ public class ActivitiProcessDispatcherTest {
 				processInstanceData, processManger, processEventReceiver,
 				processEngine.getTaskService(),
 				processEngine.getRuntimeService(),
+				processEngine.getRepositoryService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
 				mock(BPMNExplorer.class));
 
@@ -324,6 +327,7 @@ public class ActivitiProcessDispatcherTest {
 				processInstanceData, processManager, processEventReceiver,
 				processEngine.getTaskService(),
 				processEngine.getRuntimeService(),
+				processEngine.getRepositoryService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
 				mock(BPMNExplorer.class));
 
@@ -369,6 +373,7 @@ public class ActivitiProcessDispatcherTest {
 				processInstanceData, processManager, processEventReceiver,
 				processEngine.getTaskService(),
 				processEngine.getRuntimeService(),
+				processEngine.getRepositoryService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
 				mock(BPMNExplorer.class));
 

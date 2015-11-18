@@ -33,12 +33,17 @@ import java.util.Map;
 import java.util.Set;
 
 import org.activiti.engine.HistoryService;
+import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventType;
+import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.eclipse.jetty.util.ConcurrentHashSet;
 
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.simulator.IProcessEventReceiver;
@@ -49,6 +54,7 @@ import eu.learnpad.simulator.processmanager.AbstractProcessDispatcher;
 import eu.learnpad.simulator.processmanager.ITaskRouter;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
+import eu.learnpad.simulator.processmanager.activiti.workarounds.msg.MessageInfoData;
 import eu.learnpad.simulator.utils.BPMNExplorer;
 
 /**
@@ -60,10 +66,13 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 
 	private final TaskService taskService;
 	private final RuntimeService runtimeService;
+	private final RepositoryService repositoryService;
 	private final HistoryService historyService;
 	private final BPMNExplorer explorer;
 
 	private final Set<String> registeredWaitingTasks = new HashSet<String>();
+
+	private final Set<MessageInfoData> waitingMessages = new ConcurrentHashSet<MessageInfoData>();
 
 	private boolean processEndNotified = false;
 
@@ -73,6 +82,7 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 			IProcessEventReceiver processEventReceiver,
 			TaskService taskService,
 			RuntimeService runtimeService,
+			RepositoryService repositoryService,
 			HistoryService historyService,
 			ITaskRouter router,
 			ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator,
@@ -81,9 +91,9 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 				router, taskValidator);
 		this.taskService = taskService;
 		this.runtimeService = runtimeService;
+		this.repositoryService = repositoryService;
 		this.historyService = historyService;
 		this.explorer = explorer;
-
 	}
 
 	@Override
@@ -180,12 +190,88 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 	public void onEvent(final ActivitiEvent event) {
 
 		if (event.getProcessInstanceId().equals(processId)
+				&& !event.getType().equals(ActivitiEventType.PROCESS_COMPLETED)) {
+
+			Set<MessageInfoData> msgInfoCopy;
+			synchronized (waitingMessages) {
+				msgInfoCopy = new HashSet<MessageInfoData>(waitingMessages);
+				waitingMessages.clear();
+			}
+
+			for (final MessageInfoData msg : msgInfoCopy) {
+
+				final HistoricProcessInstance processInstance = historyService
+						.createHistoricProcessInstanceQuery()
+						.processInstanceId(msg.originProcessInstanceId)
+						.includeProcessVariables().singleResult();
+
+				// get data from origin process, we will use the same users
+				// and routes
+				final ProcessInstanceData originData = this
+						.getProcessInstanceInfos();
+
+				// get the current variables of the process
+				final Map<String, Object> processVariables = processInstance
+						.getProcessVariables();
+
+				// check if there is a process to be instantiated by the message
+				// reception
+				final ProcessDefinition processDef = repositoryService
+						.createProcessDefinitionQuery()
+						.messageEventSubscriptionName(msg.msgContent)
+						.singleResult();
+
+				if (processDef != null) {
+					// note that we pass all the process variables just in case
+					manager.startProjectInstance(processDef.getKey(),
+							processVariables, originData.users,
+							originData.routes);
+				}
+
+				// check if there is some message subscription event pending
+				// TODO: filter to only wake matching receiving process (and not
+				// *all* receiving processes)
+				List<Execution> otherExecutions = runtimeService
+						.createExecutionQuery()
+						.messageEventSubscriptionName(msg.msgContent).list();
+
+				// if it is the case, notify them
+				if (!otherExecutions.isEmpty()) {
+					for (Execution otherExec : otherExecutions) {
+						runtimeService.messageEventReceived(msg.msgContent,
+								otherExec.getId(), processVariables);
+					}
+				}
+
+				// check if there is a process with a receive task waiting for
+				// the message
+				otherExecutions = runtimeService.createExecutionQuery()
+						.activityId(msg.msgContent).list();
+
+				if (!otherExecutions.isEmpty()) {
+					for (Execution otherExec : otherExecutions) {
+						runtimeService.trigger(otherExec.getId(),
+								processVariables);
+					}
+				}
+
+			}
+		}
+
+		if (event.getProcessInstanceId().equals(processId)
 				&& event.getType().equals(ActivitiEventType.PROCESS_COMPLETED)) {
 			completeProcess();
 		} else {
 			for (LearnPadTask newTask : fetchNewTasks()) {
 				processNewTask(newTask);
 			}
+		}
+	}
+
+	// Activiti message workaround
+	public synchronized void receiveTaskMessage(MessageInfoData msgInfo) {
+		synchronized (waitingMessages) {
+			waitingMessages.add(msgInfo);
 		}
 	}
 
