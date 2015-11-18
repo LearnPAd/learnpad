@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 cd $( dirname "${BASH_SOURCE[0]}")
 {
-	java -jar verification-component-1.0-jar-with-dependencies.jar
+	java -jar lp-verification-component-1.0-jar-with-dependencies.jar
 }&

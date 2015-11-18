@@ -19,33 +19,35 @@
  */
 package eu.learnpad.mv.rest;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import eu.learnpad.exception.LpRestException;
-import eu.learnpad.mv.rest.data.MVResults;
+import eu.learnpad.mv.rest.data.VerificationResults;
 
-public interface DeadlockVerification {
-	/**
-	 * @param modelSetId
-	 * @param type
-	 * @param modelContent
-	 * @return a verification process id
-	 * @throws LpRestException
-	 */
-	@PUT
-	@Path("/startdeadlockverification/{modelsetid}")
-	String startDeadlockVerification(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type")@DefaultValue("lpzip") String type, byte[] modelContent) throws LpRestException;
-	
-	@GET
-	@Path("/getdeadlockverificationstatus/{verificationprocessid}")
-	@Consumes(MediaType.APPLICATION_JSON)
-	MVResults getDeadlockVerificationStatus(@PathParam("verificationprocessid") String verificationProcessId) throws LpRestException;
+
+@Path("/learnpad/mv")
+public interface Verification {
+    
+    @GET
+    @Path("/getavailableverifications")
+    @Produces(MediaType.TEXT_PLAIN)
+    String getAvailableVerifications();
+
+    @GET
+    @Path("/startverification")
+    @Produces(MediaType.TEXT_PLAIN)
+    String startVerification(@QueryParam("modelsetid") String modelSetId, @QueryParam("verificationtype") String verificationType);
+
+    @GET
+    @Path("/getverificationstatus")
+    @Produces(MediaType.TEXT_PLAIN)
+    String getVerificationStatus(@QueryParam("verificationprocessid") String verificationProcessId);
+
+    @GET
+    @Path("/getverificationresult")
+    @Produces(MediaType.APPLICATION_XML)
+    VerificationResults getVerificationResult(@QueryParam("verificationprocessid") String verificationProcessId);
 }

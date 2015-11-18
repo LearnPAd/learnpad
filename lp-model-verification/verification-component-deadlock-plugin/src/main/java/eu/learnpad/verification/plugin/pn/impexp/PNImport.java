@@ -60,12 +60,17 @@ public class PNImport {
     
     /**
      * Generate a PetriNet from the provided OMG BPMN2 Standard.
-     * Supported BPMN2 elements are: startEvent, endEvent, task, userTask, serviceTask, manualTask, businessRuleTask, receiveTask, sendTask, scriptTask, choreographyTask, intermediateCatchEvent, intermediateThrowEvent, adHocSubProcess, subProcess, transaction, callActivity, choreographyTask, subChoreography, callChoreography, standardLoopCharacteristics, boundaryEvent, parallelGateway, exclusiveGateway, eventBasedGateway, inclusiveGateway, complexGateway, sequenceFlow, messageFlow, participant.
+     * Supported BPMN2 elements are: startEvent, endEvent, task, userTask, serviceTask, manualTask, businessRuleTask, receiveTask, sendTask, scriptTask, intermediateCatchEvent, intermediateThrowEvent, adHocSubProcess, subProcess, transaction, callActivity, choreographyTask, subChoreography, callChoreography, standardLoopCharacteristics, boundaryEvent, parallelGateway, exclusiveGateway, eventBasedGateway, inclusiveGateway, complexGateway, sequenceFlow, messageFlow, participant.
      * The function provide a personalized mapping for every element.
      * @param bpmnXml The BPMN2 model
      * @return The PetriNet
      * @throws Exception
      */
+    //FIXME: rimuovere i conversation dato che non saranno che non si gestisce il conversationlink?
+    //FIXME: analizzare meglio i task che non continuano (transizione senza place uscenti)
+    //FIXME: loop con numero specificato mettere un place con dentro tanti token quanti sono i loop che entra nella transizione del loop: aggiungere p1(n)>t1 al mapping del loop con p1 escluso dal deadlock
+    //FIXME: gestire i parallel event gateways!!! pag 298 eventGatewayType=parallel
+    //FIXME: una sequenceflow che esce da un activity può avere una condizione, quindi partire o meno (solo se ci sono almeno 2 fresce uscenti)
     public static PetriNet generateFromBPMN(Document bpmnXml) throws Exception{
         if(!isOMGBPMN2(bpmnXml))
             throw new Exception("ERROR: The provided model is not a valid OMG standard BPMN2.0 model");
@@ -85,7 +90,7 @@ public class PNImport {
         String startQuery = "//*[local-name()='startEvent']";
         String endQuery = "//*[local-name()='endEvent']";
         //String endSpecialQuery = "./*[local-name()='terminateEventDefinition']|./*[local-name()='errorEventDefinition']";
-        String anyTaskQuery = "//*[local-name()='task']|//*[local-name()='userTask']|//*[local-name()='serviceTask']|//*[local-name()='manualTask']|//*[local-name()='businessRuleTask']|//*[local-name()='receiveTask']|//*[local-name()='sendTask']|//*[local-name()='scriptTask']|//*[local-name()='choreographyTask']|//*[local-name()='intermediateCatchEvent']|//*[local-name()='intermediateThrowEvent']|//*[local-name()='adHocSubProcess']|//*[local-name()='subProcess']|//*[local-name()='transaction']|//*[local-name()='callActivity']|//*[local-name()='choreographyTask']|//*[local-name()='subChoreography']|//*[local-name()='callChoreography']";
+        String anyTaskQuery = "//*[local-name()='task']|//*[local-name()='userTask']|//*[local-name()='serviceTask']|//*[local-name()='manualTask']|//*[local-name()='businessRuleTask']|//*[local-name()='receiveTask']|//*[local-name()='sendTask']|//*[local-name()='scriptTask']|//*[local-name()='intermediateCatchEvent']|//*[local-name()='intermediateThrowEvent']|//*[local-name()='adHocSubProcess']|//*[local-name()='subProcess']|//*[local-name()='transaction']|//*[local-name()='callActivity']|//*[local-name()='choreographyTask']|//*[local-name()='subChoreography']|//*[local-name()='callChoreography']";
         //String anyTaskLoopQuery = "./*[local-name()='standardLoopCharacteristics']|./*[local-name()='multiInstanceLoopCharacteristics']";
         String anyTaskLoopQuery = "./*[local-name()='standardLoopCharacteristics']";
         String boundaryTaskQuery = "//*[local-name()='boundaryEvent']";
@@ -100,12 +105,23 @@ public class PNImport {
         String sequenceFlowExcludeFromToElemList = "participant"; //Se ci sono sequence flow da/verso una pool allora non li considero
         String messageFlowExcludeFromToElemList = "participant"; //Se ci sono messaggi da/verso una pool allora non li considero in quanto per la verifica si assumerebbe che il messaggio sia inviato/ricevuto sempre perci� � come se non ci fosse; se si toglie, vanno mappati a parte un place con un token ed una transizione per ogni messaggio
         
+        String modelId = bpmnXml.getDocumentElement().getAttribute("id");
+        
         NodeList startEventNodeList =  (NodeList) XMLUtils.execXPath(bpmnXml.getDocumentElement(), startQuery, XPathConstants.NODESET);
         for(int i=0;i<startEventNodeList.getLength();i++){
             String id = startEventNodeList.item(i).getAttributes().getNamedItem("id").getNodeValue();
-            NodeList messegesToStartNodeList =  (NodeList) XMLUtils.execXPath(bpmnXml.getDocumentElement(), "//*[local-name()='messageFlow' and (@sourceRef="+XMLUtils.escapeXPathField(id)+" or @targetRef="+XMLUtils.escapeXPathField(id)+")]", XPathConstants.NODESET);
+            
+            boolean isMessageStart = false;
+            NodeList messagesToStartNodeList =  (NodeList) XMLUtils.execXPath(bpmnXml.getDocumentElement(), "//*[local-name()='messageFlow' and (@targetRef="+XMLUtils.escapeXPathField(id)+")]", XPathConstants.NODESET);
+            for(int x=0;x<messagesToStartNodeList.getLength();x++){
+                String sourceId = messagesToStartNodeList.item(x).getAttributes().getNamedItem("sourceRef").getNodeValue();
+                String sourceType =  ((Node) XMLUtils.execXPath(bpmnXml.getDocumentElement(), "//*[@id="+XMLUtils.escapeXPathField(sourceId)+"]", XPathConstants.NODE)).getLocalName();
+                if(!messageFlowExcludeFromToElemList.contains(sourceType))
+                    isMessageStart = true;
+            }
+            
             String elemType = "start";
-            if(messegesToStartNodeList.getLength()>0)
+            if(isMessageStart)
                 elemType += "Msg";
             float[] xy = getBPMNElementCoordinatesXY(bpmnXml, id);
             
@@ -116,14 +132,25 @@ public class PNImport {
                 place.addInfo("poolId", poolId);
             for(TR transition:ge.transitionList)
                 transition.addInfo("poolId", poolId);
+            //map dependent
+            ge.transitionList[0].addInfo("isEntryPoint", "true");
         }
         
         NodeList endEventNodeList =  (NodeList) XMLUtils.execXPath(bpmnXml.getDocumentElement(), endQuery, XPathConstants.NODESET);
         for(int i=0;i<endEventNodeList.getLength();i++){
             String id = endEventNodeList.item(i).getAttributes().getNamedItem("id").getNodeValue();
-            NodeList messegesFromEndNodeList =  (NodeList) XMLUtils.execXPath(bpmnXml.getDocumentElement(), "//*[local-name()='messageFlow' and (@sourceRef="+XMLUtils.escapeXPathField(id)+" or @targetRef="+XMLUtils.escapeXPathField(id)+")]", XPathConstants.NODESET);
+            
+            boolean isMessageEnd = false;
+            NodeList messagesFromEndNodeList =  (NodeList) XMLUtils.execXPath(bpmnXml.getDocumentElement(), "//*[local-name()='messageFlow' and (@sourceRef="+XMLUtils.escapeXPathField(id)+")]", XPathConstants.NODESET);
+            for(int x=0;x<messagesFromEndNodeList.getLength();x++){
+                String targetId = messagesFromEndNodeList.item(x).getAttributes().getNamedItem("targetRef").getNodeValue();
+                String targetType =  ((Node) XMLUtils.execXPath(bpmnXml.getDocumentElement(), "//*[@id="+XMLUtils.escapeXPathField(targetId)+"]", XPathConstants.NODE)).getLocalName();
+                if(!messageFlowExcludeFromToElemList.contains(targetType))
+                    isMessageEnd = true;
+            }
+            
             String elemType = "end";
-            if(messegesFromEndNodeList.getLength()>0)
+            if(isMessageEnd)
                 elemType += "Msg";
             float[] xy = getBPMNElementCoordinatesXY(bpmnXml, id);
             GeneratedElements ge = pnm.processElement(id, elemType, id, xy[0], xy[1]);
@@ -133,6 +160,12 @@ public class PNImport {
                 place.addInfo("poolId", poolId);
             for(TR transition:ge.transitionList)
                 transition.addInfo("poolId", poolId);
+            
+            //map dependent
+            if(elemType.equals("endMsg"))
+                ge.transitionList[0].addInfo("isEntryPoint", "true");
+            else
+                ge.placeList[0].addInfo("isEntryPoint", "true");
         }
         
         NodeList anyTaskNodeList =  (NodeList) XMLUtils.execXPath(bpmnXml.getDocumentElement(), anyTaskQuery, XPathConstants.NODESET);
@@ -158,6 +191,14 @@ public class PNImport {
                 place.addInfo("poolId", poolId);
             for(TR transition:ge.transitionList)
                 transition.addInfo("poolId", poolId);
+            
+            //map dependent
+            if(elemType.equals("task"))
+                ge.transitionList[0].addInfo("isEntryPoint", "true");
+            else
+                for(TR transition:ge.transitionList)
+                    if(transition.name.startsWith("t0"))
+                        transition.addInfo("isEntryPoint", "true");
         }
         
         NodeList andNodeList =  (NodeList) XMLUtils.execXPath(bpmnXml.getDocumentElement(), andQuery, XPathConstants.NODESET);
@@ -171,6 +212,9 @@ public class PNImport {
                 place.addInfo("poolId", poolId);
             for(TR transition:ge.transitionList)
                 transition.addInfo("poolId", poolId);
+            
+            //map dependent
+            ge.transitionList[0].addInfo("isEntryPoint", "true");
         }
         
         NodeList xorNodeList =  (NodeList) XMLUtils.execXPath(bpmnXml.getDocumentElement(), xorQuery, XPathConstants.NODESET);
@@ -184,6 +228,9 @@ public class PNImport {
                 place.addInfo("poolId", poolId);
             for(TR transition:ge.transitionList)
                 transition.addInfo("poolId", poolId);
+            
+            //map dependent
+            ge.placeList[0].addInfo("isEntryPoint", "true");
         }
         
         NodeList eventGNodeList =  (NodeList) XMLUtils.execXPath(bpmnXml.getDocumentElement(), eventGatewayQuery, XPathConstants.NODESET);
@@ -197,6 +244,9 @@ public class PNImport {
                 place.addInfo("poolId", poolId);
             for(TR transition:ge.transitionList)
                 transition.addInfo("poolId", poolId);
+            
+            //map dependent
+            ge.placeList[0].addInfo("isEntryPoint", "true");
         }
         
         NodeList inclusiveComplexGNodeList =  (NodeList) XMLUtils.execXPath(bpmnXml.getDocumentElement(), inclusiveComplexGatewayQuery, XPathConstants.NODESET);
@@ -215,23 +265,34 @@ public class PNImport {
                 place.addInfo("poolId", poolId);
             for(TR transition:ge.transitionList)
                 transition.addInfo("poolId", poolId);
+            
+            //map dependent
+            ge.placeList[0].addInfo("isEntryPoint", "true");
         }
         
         NodeList boundaryTaskNodeList =  (NodeList) XMLUtils.execXPath(bpmnXml.getDocumentElement(), boundaryTaskQuery, XPathConstants.NODESET);
         for(int i=0;i<boundaryTaskNodeList.getLength();i++){
             String id = boundaryTaskNodeList.item(i).getAttributes().getNamedItem("id").getNodeValue();
             float[] xy = getBPMNElementCoordinatesXY(bpmnXml, id);
-            pnm.processElement(id, "bound", id, xy[0], xy[1]);
             String sourceId = boundaryTaskNodeList.item(i).getAttributes().getNamedItem("attachedToRef").getNodeValue();
             if(sourceId.isEmpty())
                 throw new Exception("ERROR: Attribute 'attachedToRef' not defined for the object " + id);
-            GeneratedElements ge = pnm.processRelation(id, "bound", sourceId, id);    
+            
+            GeneratedElements ge = pnm.processElement(id, "bound", id, xy[0], xy[1]);
+            GeneratedElements ge1 = pnm.processRelation(id, "bound", sourceId, id);    
             
             String poolId = getBPMNElementPool(bpmnXml, id);
             for(PL place:ge.placeList)
                 place.addInfo("poolId", poolId);
             for(TR transition:ge.transitionList)
                 transition.addInfo("poolId", poolId);
+            for(PL place:ge1.placeList)
+                place.addInfo("poolId", poolId);
+            for(TR transition:ge1.transitionList)
+                transition.addInfo("poolId", poolId);
+            
+            //map dependent
+            ge.transitionList[0].addInfo("isEntryPoint", "true");
         }
         
         NodeList sequenceFlowNodeList =  (NodeList) XMLUtils.execXPath(bpmnXml.getDocumentElement(), sequenceFlowQuery, XPathConstants.NODESET);
@@ -281,7 +342,7 @@ public class PNImport {
             
         }
         
-        PetriNet pn = pnm.generatePN("PNBPMN");
+        PetriNet pn = pnm.generatePN(modelId);
         postProcessEventGateways(pn, "eventG", "message");
         postProcessInclusiveComplexGateways(pn, "inclusiveComplexG");
         pn.updateStartListCheckingFlow(); //richiamando questa funzione sistemo i bpmn fatti male che iniziano senza uno startevent necessario quando un processo inizia ad es da un intermediate event che parte da un segnale o da un altro processo
@@ -348,9 +409,17 @@ public class PNImport {
             for(int i=0;i<startEventNodeList.getLength();i++){
                 String id = startEventNodeList.item(i).getAttributes().getNamedItem("id").getNodeValue();
                 String name = startEventNodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
-                NodeList messegesToStartNodeList =  (NodeList) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @class='Message Flow' and (.//@instance="+XMLUtils.escapeXPathField(name)+")]", XPathConstants.NODESET);
+                
+                boolean isMessageStart = false;
+                NodeList messagesToStartNodeList =  (NodeList) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @class='Message Flow' and (.//@instance="+XMLUtils.escapeXPathField(name)+")]", XPathConstants.NODESET);
+                for(int x=0;x<messagesToStartNodeList.getLength();x++){
+                    String sourceType = (String) XMLUtils.execXPath(messagesToStartNodeList.item(x), "./*[local-name()='FROM' or local-name()='from']/@class", XPathConstants.STRING);
+                    if(!messageFlowExcludeFromToElemList.contains(sourceType))
+                        isMessageStart = true;
+                }
+                
                 String elemType = "start";
-                if(messegesToStartNodeList.getLength()>0)
+                if(isMessageStart)
                     elemType += "Msg";
                 float[] xy = getAdoxxElementCoordinatesXY(adoxxXml, id);
                 GeneratedElements ge = pnm.processElement(id, elemType, id, xy[0], xy[1]);
@@ -360,15 +429,26 @@ public class PNImport {
                     place.addInfo("poolId", poolId);
                 for(TR transition:ge.transitionList)
                     transition.addInfo("poolId", poolId);
+                
+                //map dependent
+                ge.transitionList[0].addInfo("isEntryPoint", "true");
             }
             
             NodeList endEventNodeList =  (NodeList) XMLUtils.execXPath(bpmnModelEl, endQuery, XPathConstants.NODESET);
             for(int i=0;i<endEventNodeList.getLength();i++){
                 String id = endEventNodeList.item(i).getAttributes().getNamedItem("id").getNodeValue();
                 String name = endEventNodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
+                
+                boolean isMessageEnd = false;
                 NodeList messegesFromEndNodeList =  (NodeList) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @class='Message Flow' and (.//@instance="+XMLUtils.escapeXPathField(name)+")]", XPathConstants.NODESET);
+                for(int x=0;x<messegesFromEndNodeList.getLength();x++){
+                    String targetType = (String) XMLUtils.execXPath(messegesFromEndNodeList.item(x), "./*[local-name()='TO' or local-name()='to']/@class", XPathConstants.STRING);
+                    if(!messageFlowExcludeFromToElemList.contains(targetType))
+                        isMessageEnd = true;
+                }
+                
                 String elemType = "end";
-                if(messegesFromEndNodeList.getLength()>0)
+                if(isMessageEnd)
                     elemType += "Msg";
                 float[] xy = getAdoxxElementCoordinatesXY(adoxxXml, id);
                 GeneratedElements ge = pnm.processElement(id, elemType, id, xy[0], xy[1]);
@@ -378,6 +458,12 @@ public class PNImport {
                     place.addInfo("poolId", poolId);
                 for(TR transition:ge.transitionList)
                     transition.addInfo("poolId", poolId);
+                
+                //map dependent
+                if(elemType.equals("endMsg"))
+                    ge.transitionList[0].addInfo("isEntryPoint", "true");
+                else
+                    ge.placeList[0].addInfo("isEntryPoint", "true");
             }
             
             NodeList anyTaskNodeList =  (NodeList) XMLUtils.execXPath(bpmnModelEl, anyTaskQuery, XPathConstants.NODESET);
@@ -396,6 +482,14 @@ public class PNImport {
                 for(TR transition:ge.transitionList)
                     transition.addInfo("poolId", poolId);
                 
+                //map dependent
+                if(elemType.equals("task"))
+                    ge.transitionList[0].addInfo("isEntryPoint", "true");
+                else
+                    for(TR transition:ge.transitionList)
+                        if(transition.name.startsWith("t0"))
+                            transition.addInfo("isEntryPoint", "true");
+                
             }
             
             NodeList andNodeList =  (NodeList) XMLUtils.execXPath(bpmnModelEl, andQuery, XPathConstants.NODESET);
@@ -412,9 +506,13 @@ public class PNImport {
                     ge = pnm.processElement(id, "inclusiveComplexG", id, xy[0], xy[1]);
                     if(ge.placeList.length==1 && ge.placeList[0]!=null)
                         ge.placeList[0].addInfo("defaultSequenceFlowId", defaultSequenceFlowId);
-                }else
+                    //map dependent
+                    ge.placeList[0].addInfo("isEntryPoint", "true");
+                }else{
                     ge = pnm.processElement(id, "and", id, xy[0], xy[1]);
-                
+                    //map dependent
+                    ge.transitionList[0].addInfo("isEntryPoint", "true");
+                }
                 String poolId = getAdoxxElementPool(adoxxXml, id);
                 for(PL place:ge.placeList)
                     place.addInfo("poolId", poolId);
@@ -439,30 +537,34 @@ public class PNImport {
                     place.addInfo("poolId", poolId);
                 for(TR transition:ge.transitionList)
                     transition.addInfo("poolId", poolId);
+                
+                //map dependent
+                ge.placeList[0].addInfo("isEntryPoint", "true");
             }
             
             NodeList boundaryTaskNodeList =  (NodeList) XMLUtils.execXPath(bpmnModelEl, boundaryTaskQuery, XPathConstants.NODESET);
             for(int i=0;i<boundaryTaskNodeList.getLength();i++){
                 String id = boundaryTaskNodeList.item(i).getAttributes().getNamedItem("id").getNodeValue();
-                float[] xy = getAdoxxElementCoordinatesXY(adoxxXml, id);
-                GeneratedElements ge = pnm.processElement(id, "bound", id, xy[0], xy[1]);
+                float[] xy = getAdoxxElementCoordinatesXY(adoxxXml, id);               
+                String sourceName = (String) XMLUtils.execXPath(boundaryTaskNodeList.item(i), "./*[@name='Attached to']//@tobjname", XPathConstants.STRING);
+                if(sourceName.isEmpty()) throw new Exception("ERROR: Attribute 'Attached to' not defined for the object " + id);
+                String sourceId = (String) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @name="+XMLUtils.escapeXPathField(sourceName)+"]/@id", XPathConstants.STRING);
+                if(sourceId.isEmpty()) throw new Exception("ERROR: Can not find the object with name " + sourceName);
                 
+                GeneratedElements ge = pnm.processElement(id, "bound", id, xy[0], xy[1]);
+                GeneratedElements ge1 = pnm.processRelation(id, "bound", sourceId, id);  
                 String poolId = getAdoxxElementPool(adoxxXml, id);
                 for(PL place:ge.placeList)
                     place.addInfo("poolId", poolId);
                 for(TR transition:ge.transitionList)
                     transition.addInfo("poolId", poolId);
                 
-                String sourceName = (String) XMLUtils.execXPath(boundaryTaskNodeList.item(i), "./*[@name='Attached to']//@tobjname", XPathConstants.STRING);
-                if(sourceName.isEmpty()) throw new Exception("ERROR: Attribute 'Attached to' not defined for the object " + id);
-                String sourceId = (String) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @name="+XMLUtils.escapeXPathField(sourceName)+"]/@id", XPathConstants.STRING);
-                if(sourceId.isEmpty()) throw new Exception("ERROR: Can not find the object with name " + sourceName);
-                GeneratedElements ge1 = pnm.processRelation(id, "bound", sourceId, id);  
-                
                 for(PL place:ge1.placeList)
                     place.addInfo("poolId", poolId);
                 for(TR transition:ge1.transitionList)
                     transition.addInfo("poolId", poolId);
+                //map dependent
+                ge.transitionList[0].addInfo("isEntryPoint", "true");
             }
             
             NodeList sequenceFlowNodeList =  (NodeList) XMLUtils.execXPath(bpmnModelEl, sequenceFlowQuery, XPathConstants.NODESET);
@@ -677,7 +779,7 @@ public class PNImport {
     /*
     public static void main(String[] args) {
         try {
-            String modelUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_adoxx_02.xml";
+            String modelUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_61.xml";
             //PetriNet[] pnList = new PetriNet[]{generateFromBPMN(XMLUtils.getXmlDocFromURI(modelUrl))};
             PetriNet[] pnList = generateFromAdoxxBPMN(XMLUtils.getXmlDocFromURI(modelUrl));
             //PetriNet[] pnList = generateFromAdoxxPetriNet(XMLUtils.getXmlDocFromURI(modelUrl));

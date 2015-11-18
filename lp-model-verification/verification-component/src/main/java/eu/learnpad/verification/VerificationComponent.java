@@ -46,7 +46,7 @@ public class VerificationComponent {
     /**
      * This interface have to be implemented if you want to use your own method of model retrieval from a given model id.
      */
-    public interface CustomGetModel{ public String getModel(String modelId) throws Exception; }
+    public interface CustomGetModel{ public String[] getModels(String modelSetId) throws Exception; }
     /**
      * This interface have to be implemented if you want to be notified about the end of a verification identified by the given verification id.
      */
@@ -141,7 +141,7 @@ public class VerificationComponent {
      * @return String The result of the verification. It is an xml in the following format:
      * <pre>
      * {@code
- <VerificationResult>
+ <VerificationResults>
    <VerificationType>...</VerificationType>
    <VerificationID>...</VerificationID>
    <ModelID>...</ModelID>
@@ -149,7 +149,7 @@ public class VerificationComponent {
    <Results>
      ...plugin output...
    </Results>
- </VerificationResult>
+ </VerificationResults>
          }
      * </pre>
      */
@@ -205,11 +205,16 @@ public class VerificationComponent {
             if(verificationEngine == null)
                 throw new Exception("ERROR: Impossible to find a plugin for the verification type: " + verificationType);
             
-            String model = getModel(modelId);
-            String result = verificationEngine.performVerification(model, verificationType);
+            String[] modelList = getModels(modelId);
+            String result = "";
+            for(String model: modelList)
+                result += verificationEngine.performVerification(model, verificationType);
+            
+            if(result=="")
+                result = "<ErrorResult><Status>ERROR</Status><Description>The "+verificationType+" verificator returned an empty response</Description></ErrorResult>";
             verificationEngine = null;
             verificationMap = null;
-            String resultXml = "<VerificationResult><VerificationType>"+verificationType+"</VerificationType><VerificationID>"+vid+"</VerificationID><ModelID>"+modelId+"</ModelID><Time>"+Utils.getUTCTime()+"</Time><Results>"+result+"</Results></VerificationResult>";
+            String resultXml = "<VerificationResults><VerificationType>"+verificationType+"</VerificationType><VerificationID>"+vid+"</VerificationID><ModelID>"+modelId+"</ModelID><Time>"+Utils.getUTCTime()+"</Time><Results>"+result+"</Results></VerificationResults>";
             try{
                 XMLUtils.getXmlDocFromString(resultXml);
             }catch(Exception e){ throw new Exception("ERROR: The result is not a valid XML:\n"+resultXml);}
@@ -224,13 +229,13 @@ public class VerificationComponent {
             _customNotify.notifyVerificationEnd(verificationId);
     }
     
-    private static String getModel(String modelId) throws Exception{
-        String model = loadedModelList.get(modelId);
-        if(model==null) {
+    private static String[] getModels(String modelId) throws Exception{
+        String[] model = new String[]{loadedModelList.get(modelId)};
+        if(model[0]==null) {
             if(_customGetModel==null)
                 throw new Exception("ERROR: can not retrive model with id " + modelId + "; customGetModel not defined. Please use the setCustomGetModelFunction function first");
-            model = _customGetModel.getModel(modelId);
-            if(model==null)
+            model = _customGetModel.getModels(modelId);
+            if(model==null || model.length==0)
                 throw new Exception("ERROR: can not retrive model with id " + modelId);
         }
         return model;

@@ -19,15 +19,18 @@
  */
 package eu.learnpad.core.impl.mv;
 
+import javax.inject.Named;
 import javax.ws.rs.Path;
 
+import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
+import eu.learnpad.core.impl.mv.XwikiCoreFacadeRestResource;
 import eu.learnpad.mv.Bridge;
 import eu.learnpad.mv.CoreFacade;
 
-//@Component
-//@Named("eu.learnpad.core.impl.mv.XwikiBridge")
+@Component
+@Named("eu.learnpad.core.impl.mv.XwikiBridge")
 @Path("/learnpad/mv/bridge")
 public abstract class XwikiBridge extends Bridge implements XWikiRestComponent{
 

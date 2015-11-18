@@ -56,7 +56,7 @@ public class PNVerifier implements Plugin {
             ex.printStackTrace();
             Utils.log(ex);
             Utils.log("\nModel involved in the exception:\n"+model, LogType.ERROR);
-            ret = "<Result><Status>ERROR</Status><Description>"+ex.getMessage()+"</Description></Result>";
+            ret = "<ErrorResult><Status>ERROR</Status><Description>"+ex.getMessage()+"</Description></ErrorResult>";
         }
         return ret;
     }
@@ -91,7 +91,7 @@ public class PNVerifier implements Plugin {
                 try{
                     XMLUtils.getXmlDocFromString(resultXml);
                 }catch(Exception e){
-                    resultXml = "<VerificationResult><VerificationType>"+verificationType+"</VerificationType><VerificationID></VerificationID><ModelID>"+modelPath+"</ModelID><Time>"+Utils.getUTCTime()+"</Time><Results><Result><Status>ERROR</Status><Description>ERROR: The result is not a valid XML</Description></Result></Results></VerificationResult>";
+                    resultXml = "<VerificationResults><VerificationType>"+verificationType+"</VerificationType><VerificationID></VerificationID><ModelID>"+modelPath+"</ModelID><Time>"+Utils.getUTCTime()+"</Time><Results><ErrorResult><Status>ERROR</Status><Description>ERROR: The result is not a valid XML</Description></ErrorResult></Results></VerificationResults>";
                     Utils.log("ERROR: The result is not a valid XML:\n"+resultXml, LogType.ERROR);
                 }
                 

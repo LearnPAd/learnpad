@@ -20,9 +20,8 @@
 package eu.learnpad.core.impl.mv;
 
 import eu.learnpad.core.rest.RestResource;
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.mv.BridgeInterface;
-import eu.learnpad.mv.rest.data.MVResults;
+import eu.learnpad.mv.rest.data.VerificationResults;
 
 /*
  * The methods inherited form the BridgeInterface in this
@@ -47,18 +46,28 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 		
 	}
 
-	@Override
-	public String startDeadlockVerification(String modelSetId, String type,
-			byte[] modelContent) throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getAvailableVerifications() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public MVResults getDeadlockVerificationStatus(String verificationProcessId)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String startVerification(String modelSetId, String verificationType) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getVerificationStatus(String verificationProcessId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public VerificationResults getVerificationResult(String verificationProcessId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

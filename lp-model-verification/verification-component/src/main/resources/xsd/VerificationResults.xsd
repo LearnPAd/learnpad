@@ -1,0 +1,23 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="ErrorResult.xsd" />
+  <xs:include schemaLocation="FormalVerificationResult.xsd" />
+  <xs:include schemaLocation="UnderstandabilityResult.xsd" />
+  
+  <xs:element name="VerificationResults">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="VerificationType"/>
+        <xs:element type="xs:string" name="VerificationID"/>
+        <xs:element type="xs:string" name="ModelID"/>
+        <xs:element type="xs:string" name="Time"/>
+        <xs:element name="Results">
+		  <xs:complexType>
+            <xs:sequence>
+			  <xs:any minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+		  </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>				
+</xs:schema>
