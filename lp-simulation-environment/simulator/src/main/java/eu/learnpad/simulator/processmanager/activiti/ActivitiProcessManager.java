@@ -35,6 +35,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
@@ -44,6 +46,9 @@ import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.delegate.event.ActivitiEvent;
+import org.activiti.engine.delegate.event.ActivitiEventListener;
+import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.image.ProcessDiagramGenerator;
@@ -56,7 +61,6 @@ import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
 import eu.learnpad.simulator.monitoring.activiti.ActivitiProbe;
-import eu.learnpad.simulator.processmanager.AbstractProcessDispatcher;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.processdispatcher.ActivitiProcessDispatcher;
 import eu.learnpad.simulator.processmanager.activiti.taskrouter.ActivitiTaskRouter;
@@ -69,12 +73,15 @@ import eu.learnpad.simulator.utils.BPMNExplorerRepository;
  * @author Tom Jorquera - Linagora
  *
  */
-public class ActivitiProcessManager implements IProcessManager {
+public class ActivitiProcessManager implements IProcessManager,
+		ActivitiEventListener {
 
 	private final RepositoryService repositoryService;
 	private final RuntimeService runtimeService;
 	private final TaskService taskService;
 	private final HistoryService historyService;
+
+	private final Executor jobHandler = Executors.newSingleThreadExecutor();
 
 	private final ProcessDiagramGenerator generator;
 
@@ -84,18 +91,24 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
 
-	private final Map<String, AbstractProcessDispatcher> processDispatchers = Collections
-			.synchronizedMap(new HashMap<String, AbstractProcessDispatcher>());
+	private final Map<String, ActivitiProcessDispatcher> processDispatchers = Collections
+			.synchronizedMap(new HashMap<String, ActivitiProcessDispatcher>());
 
 	public ActivitiProcessManager(
 			ProcessEngine processEngine,
 			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider,
 			BPMNExplorerRepository explorerRepo, boolean monitoringEnabled)
-					throws FileNotFoundException {
+			throws FileNotFoundException {
 		repositoryService = processEngine.getRepositoryService();
 		runtimeService = processEngine.getRuntimeService();
 		taskService = processEngine.getTaskService();
 		historyService = processEngine.getHistoryService();
+
+		// register itself as a listener
+		this.runtimeService.addEventListener(this,
+				ActivitiEventType.PROCESS_COMPLETED);
+		this.runtimeService.addEventListener(this,
+				ActivitiEventType.ACTIVITY_COMPLETED);
 
 		this.generator = new DefaultProcessDiagramGenerator();
 		this.explorerRepo = explorerRepo;
@@ -471,6 +484,28 @@ public class ActivitiProcessManager implements IProcessManager {
 	public LearnPadTaskGameInfos getGameInfos(LearnPadTask task, String userId) {
 		return processDispatchers.get(task.processId)
 				.getGameInfos(task, userId);
+	}
+
+	@Override
+	public synchronized void onEvent(final ActivitiEvent event) {
+		// send event to corresponding dispatcher
+		if (event.getProcessInstanceId() != null
+				&& processDispatchers.get(event.getProcessInstanceId()) != null) {
+
+			jobHandler.execute(new Runnable() {
+				@Override
+				public void run() {
+					processDispatchers.get(event.getProcessInstanceId())
+							.onEvent(event);
+				}
+			});
+		}
+
+	}
+
+	@Override
+	public boolean isFailOnException() {
+		return false;
 	}
 
 }

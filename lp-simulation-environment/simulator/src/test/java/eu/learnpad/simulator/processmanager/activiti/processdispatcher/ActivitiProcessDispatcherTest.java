@@ -43,12 +43,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
+import org.activiti.engine.delegate.event.ActivitiEvent;
+import org.activiti.engine.delegate.event.ActivitiEventListener;
+import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -85,6 +90,7 @@ public class ActivitiProcessDispatcherTest {
 			"user2", "user3");
 
 	static ProcessEngine processEngine;
+	static EventForwarder eventForwarder;
 
 	ProcessInstance processInstance;
 	ProcessInstanceData processInstanceData;
@@ -103,6 +109,15 @@ public class ActivitiProcessDispatcherTest {
 		processEngine.getRepositoryService().createDeployment()
 		.addClasspathResource(TEST_PROCESS).deploy();
 
+		eventForwarder = new EventForwarder();
+
+		processEngine.getRuntimeService().addEventListener(eventForwarder,
+				ActivitiEventType.PROCESS_COMPLETED);
+		processEngine.getRuntimeService().addEventListener(eventForwarder,
+				ActivitiEventType.ACTIVITY_COMPLETED);
+		processEngine.getRuntimeService().addEventListener(eventForwarder,
+				ActivitiEventType.ACTIVITY_STARTED);
+
 	}
 
 	@AfterClass
@@ -112,6 +127,9 @@ public class ActivitiProcessDispatcherTest {
 
 	@Before
 	public void instanciateTestProcess() {
+		// reset event forwarder
+		eventForwarder.setDispatcher(null);
+
 		// start process
 		processInstance = processEngine.getRuntimeService()
 				.startProcessInstanceByKey(TEST_PROCESS_KEY);
@@ -169,6 +187,9 @@ public class ActivitiProcessDispatcherTest {
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
 				mock(BPMNExplorer.class));
+
+		eventForwarder.setDispatcher(dispatcher);
+
 		dispatcher.start();
 
 		validateAllTasks(dispatcher, taskRouter, processEventReceiver);
@@ -220,6 +241,9 @@ public class ActivitiProcessDispatcherTest {
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
 				mock(BPMNExplorer.class));
+
+		eventForwarder.setDispatcher(dispatcher);
+
 		dispatcher.start();
 
 		// dispatcher should have dispatched first task
@@ -302,6 +326,9 @@ public class ActivitiProcessDispatcherTest {
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
 				mock(BPMNExplorer.class));
+
+		eventForwarder.setDispatcher(dispatcher);
+
 		dispatcher.start();
 
 		validateAllTasks(dispatcher, taskRouter, processEventReceiver);
@@ -311,7 +338,7 @@ public class ActivitiProcessDispatcherTest {
 
 		@SuppressWarnings("rawtypes")
 		final ArgumentCaptor<Collection> notifiedUsers = ArgumentCaptor
-				.forClass(Collection.class);
+		.forClass(Collection.class);
 
 		verify(processEventReceiver, timeout(5000)).signalProcessEnd(
 				eq(processInstance.getId()), notifiedUsers.capture());
@@ -344,6 +371,9 @@ public class ActivitiProcessDispatcherTest {
 				processEngine.getRuntimeService(),
 				processEngine.getHistoryService(), taskRouter, taskValidator,
 				mock(BPMNExplorer.class));
+
+		eventForwarder.setDispatcher(dispatcher);
+
 		dispatcher.start();
 
 		// reach end of process
@@ -384,8 +414,8 @@ public class ActivitiProcessDispatcherTest {
 			if (!processEngine.getTaskService().createTaskQuery().taskId(id)
 					.taskCandidateOrAssigned(role).list().isEmpty()
 					|| !processEngine.getTaskService().createTaskQuery()
-							.taskId(id).taskCandidateGroup(role).list()
-							.isEmpty()) {
+					.taskId(id).taskCandidateGroup(role).list()
+					.isEmpty()) {
 				result.add(role);
 			}
 		}
@@ -431,5 +461,37 @@ public class ActivitiProcessDispatcherTest {
 		// we may need to wait a little)
 		verify(processEventReceiver, timeout(5000)).signalProcessEnd(
 				eq(processInstance.getId()), any(Collection.class));
+	}
+
+	// Helper class to emulate the message forwarding behavior of
+	// ActivitiProcessManager
+	private static class EventForwarder implements ActivitiEventListener {
+
+		private final Executor jobHandler = Executors.newSingleThreadExecutor();
+
+		private ActivitiProcessDispatcher dispatcher;
+
+		public void setDispatcher(ActivitiProcessDispatcher dispatcher) {
+			this.dispatcher = dispatcher;
+		}
+
+		@Override
+		public void onEvent(final ActivitiEvent event) {
+			if (this.dispatcher != null
+					&& (event.getProcessInstanceId() != null)) {
+				jobHandler.execute(new Runnable() {
+					@Override
+					public void run() {
+						dispatcher.onEvent(event);
+					}
+				});
+			}
+		}
+
+		@Override
+		public boolean isFailOnException() {
+			return false;
+		}
+
 	}
 }

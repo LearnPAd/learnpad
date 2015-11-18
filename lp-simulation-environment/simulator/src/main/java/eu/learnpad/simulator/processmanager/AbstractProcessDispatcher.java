@@ -44,7 +44,7 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 	private final ProcessInstanceData processInstanceData;
 	protected final String processId;
 	protected final Collection<String> involvedUsers;
-	private final IProcessManager manager;
+	protected final IProcessManager manager;
 	private final IProcessEventReceiver processEventReceiver;
 	private final ITaskRouter router;
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
@@ -98,12 +98,9 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 
 		// process initial waiting tasks
 		final Collection<LearnPadTask> newTasks = fetchNewTasks();
-		if (newTasks.isEmpty()) {
-			throw new RuntimeException("Process without waiting task");
-		} else {
-			for (LearnPadTask newTask : newTasks) {
-				processNewTask(newTask);
-			}
+
+		for (LearnPadTask newTask : newTasks) {
+			processNewTask(newTask);
 		}
 	}
 
@@ -143,20 +140,6 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 
 						usersScores.put(userId, usersScores.get(userId)
 								+ taskScore);
-					}
-
-					if (isProcessFinished()) {
-						completeProcess();
-					} else {
-						// process new tasks in a new thread to avoid
-						// blocking current completion
-						new Thread(new Runnable() {
-							public void run() {
-								for (LearnPadTask newTask : fetchNewTasks()) {
-									processNewTask(newTask);
-								}
-							}
-						}).start();
 					}
 
 					return LearnPadTaskSubmissionResult.validated(
@@ -218,12 +201,6 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 	 */
 	protected abstract void completeTask(LearnPadTask task,
 			Map<String, Object> data);
-
-	/**
-	 *
-	 * @return true if the process is finished
-	 */
-	protected abstract boolean isProcessFinished();
 
 	/**
 	 * This method should be implemented to check if a task exists or not.
