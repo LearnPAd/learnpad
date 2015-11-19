@@ -43,7 +43,7 @@
 #set ($discard = $services.localization.use('document', 'LPCode.Translations'))
 #set ($discard = $xwiki.ssfx.use('uicomponents/widgets/userpicker/userPicker.css'))
 #set ($columnsProperties = {
-  'id': {'type': 'text', 'size': 1, 'link': 'view'},
+##  'id': {'type': 'text', 'size': 1, 'link': 'view'},
   'name': {'type': 'text', 'size': 8, 'link': 'view'},
   'doc.date': {'type': 'text', 'size': 2}
 })
@@ -57,7 +57,7 @@
   'selectedColumn': 'name',
   'defaultOrder': 'asc'
 })
-#set ($columns = ['id', 'name', 'doc.date'])
+#set ($columns = ['name', 'doc.date'])
 #livetable('lp-modelsetlist' $columns $columnsProperties $options)
 {{/velocity}}</content>
 </xwikidoc>
