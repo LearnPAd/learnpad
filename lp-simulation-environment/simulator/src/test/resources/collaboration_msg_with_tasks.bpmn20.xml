@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  LearnPAd Simulator
+  %%
+  Copyright (C) 2014 - 2015 Linagora
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  #L%
+  -->
+
+<!-- origin at X=0.0 Y=0.0 -->
+<bpmn2:definitions
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+	xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+	xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+	xmlns:ext="http://org.eclipse.bpmn2/ext"
+	id="Definitions_1"
+	exporter="org.eclipse.bpmn2.modeler.core"
+	exporterVersion="1.1.0.201409091530"
+	targetNamespace="http://org.eclipse.bpmn2/default/collaboration"
+	xmlns:activiti="http://activiti.org/bpmn">
+
+	<bpmn2:message
+		id="Message_1"
+		name="Message_1" />
+
+	<bpmn2:message
+		id="Message_2"
+		name="waitTask" />
+
+	<bpmn2:collaboration
+		id="Collaboration_1"
+		name="Default Collaboration">
+		<bpmn2:participant
+			id="Participant_1"
+			name="Initiating Pool"
+			processRef="Process_1" />
+		<bpmn2:participant
+			id="Participant_2"
+			name="Non-initiating Pool"
+			processRef="Process_2" />
+		<bpmn2:messageFlow
+			id="MessageFlow_1"
+			messageRef="Message_1"
+			sourceRef="SendTask_1"
+			targetRef="StartEvent_2" />
+	</bpmn2:collaboration>
+
+	<bpmn2:process
+		id="Process_1"
+		name="Initiating Process"
+		definitionalCollaborationRef="Collaboration_1">
+
+		<bpmn2:startEvent
+			id="StartEvent_1"
+			name="Start Event 1">
+		</bpmn2:startEvent>
+
+		<bpmn2:userTask
+			id="UserTask_1"
+			name="User Task 1">
+			<bpmn2:documentation>Some doc</bpmn2:documentation>
+			<bpmn2:potentialOwner>
+				<bpmn2:resourceAssignmentExpression>
+					<bpmn2:formalExpression>User1</bpmn2:formalExpression>
+				</bpmn2:resourceAssignmentExpression>
+			</bpmn2:potentialOwner>
+		</bpmn2:userTask>
+
+		<bpmn2:sendTask
+			id="SendTask_1"
+			name="Send Task 1"
+			messageRef="Message_1">
+		</bpmn2:sendTask>
+
+		<bpmn2:receiveTask
+			id="waitTask"
+			name="waitTask" />
+
+		<bpmn2:endEvent
+			id="EndEvent_1"
+			name="End Event 1">
+		</bpmn2:endEvent>
+
+		<bpmn2:sequenceFlow
+			id="SequenceFlow_1"
+			sourceRef="StartEvent_1"
+			targetRef="UserTask_1" />
+		<bpmn2:sequenceFlow
+			id="SequenceFlow_2"
+			sourceRef="UserTask_1"
+			targetRef="SendTask_1" />
+		<bpmn2:sequenceFlow
+			id="SequenceFlow_3"
+			sourceRef="SendTask_1"
+			targetRef="waitTask" />
+		<bpmn2:sequenceFlow
+			id="SequenceFlow_4"
+			sourceRef="waitTask"
+			targetRef="EndEvent_1" />
+
+	</bpmn2:process>
+
+	<bpmn2:process
+		id="Process_2"
+		name="Non-initiating Process"
+		definitionalCollaborationRef="Collaboration_1">
+
+		<bpmn2:startEvent
+			id="StartEvent_2"
+			name="Start Event 2">
+			<bpmn2:messageEventDefinition
+				id="MessageEventDefinition_1"
+				messageRef="Message_1" />
+		</bpmn2:startEvent>
+
+		<bpmn2:userTask
+			id="UserTask_2"
+			name="User Task 2">
+			<bpmn2:documentation>Some doc</bpmn2:documentation>
+			<bpmn2:potentialOwner>
+				<bpmn2:resourceAssignmentExpression>
+					<bpmn2:formalExpression>User2</bpmn2:formalExpression>
+				</bpmn2:resourceAssignmentExpression>
+			</bpmn2:potentialOwner>
+		</bpmn2:userTask>
+
+		<bpmn2:sendTask
+			id="SendTask_2"
+			name="Send Task 2"
+			messageRef="waitTask">
+		</bpmn2:sendTask>
+
+		<bpmn2:endEvent
+			id="EndEvent_2"
+			name="End Event 2">
+		</bpmn2:endEvent>
+
+		<bpmn2:sequenceFlow
+			id="SequenceFlow_6"
+			sourceRef="StartEvent_2"
+			targetRef="UserTask_2" />
+		<bpmn2:sequenceFlow
+			id="SequenceFlow_7"
+			sourceRef="UserTask_2"
+			targetRef="SendTask_2" />
+		<bpmn2:sequenceFlow
+			id="SequenceFlow_8"
+			sourceRef="SendTask_2"
+			targetRef="EndEvent_2" />
+
+	</bpmn2:process>
+
+	<bpmndi:BPMNDiagram
+		id="BPMNDiagram_1"
+		name="Default Collaboration Diagram">
+		<bpmndi:BPMNPlane
+			id="BPMNPlane_1"
+			bpmnElement="Collaboration_1">
+			<bpmndi:BPMNShape
+				id="BPMNShape_1"
+				bpmnElement="Participant_1"
+				isHorizontal="true">
+				<dc:Bounds
+					height="150.0"
+					width="500.0"
+					x="100.0"
+					y="50.0" />
+				<bpmndi:BPMNLabel
+					id="BPMNLabel_1"
+					labelStyle="BPMNLabelStyle_1">
+					<dc:Bounds
+						height="74.0"
+						width="14.0"
+						x="106.0"
+						y="88.0" />
+				</bpmndi:BPMNLabel>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape
+				id="BPMNShape_2"
+				bpmnElement="Participant_2"
+				isHorizontal="true">
+				<dc:Bounds
+					height="150.0"
+					width="500.0"
+					x="100.0"
+					y="350.0" />
+				<bpmndi:BPMNLabel
+					id="BPMNLabel_2"
+					labelStyle="BPMNLabelStyle_1">
+					<dc:Bounds
+						height="101.0"
+						width="14.0"
+						x="106.0"
+						y="374.0" />
+				</bpmndi:BPMNLabel>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape
+				id="BPMNShape_StartEvent_1"
+				bpmnElement="StartEvent_1">
+				<dc:Bounds
+					height="36.0"
+					width="36.0"
+					x="152.0"
+					y="112.0" />
+				<bpmndi:BPMNLabel
+					id="BPMNLabel_3"
+					labelStyle="BPMNLabelStyle_1">
+					<dc:Bounds
+						height="14.0"
+						width="68.0"
+						x="136.0"
+						y="148.0" />
+				</bpmndi:BPMNLabel>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape
+				id="BPMNShape_SendTask_1"
+				bpmnElement="SendTask_1">
+				<dc:Bounds
+					height="50.0"
+					width="110.0"
+					x="369.0"
+					y="105.0" />
+				<bpmndi:BPMNLabel
+					id="BPMNLabel_4"
+					labelStyle="BPMNLabelStyle_1">
+					<dc:Bounds
+						height="14.0"
+						width="68.0"
+						x="390.0"
+						y="123.0" />
+				</bpmndi:BPMNLabel>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape
+				id="BPMNShape_EndEvent_1"
+				bpmnElement="EndEvent_1">
+				<dc:Bounds
+					height="36.0"
+					width="36.0"
+					x="522.0"
+					y="112.0" />
+				<bpmndi:BPMNLabel
+					id="BPMNLabel_6"
+					labelStyle="BPMNLabelStyle_1">
+					<dc:Bounds
+						height="14.0"
+						width="65.0"
+						x="508.0"
+						y="148.0" />
+				</bpmndi:BPMNLabel>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape
+				id="BPMNShape_UserTask_1"
+				bpmnElement="UserTask_1">
+				<dc:Bounds
+					height="50.0"
+					width="110.0"
+					x="220.0"
+					y="105.0" />
+				<bpmndi:BPMNLabel
+					id="BPMNLabel_8"
+					labelStyle="BPMNLabelStyle_1">
+					<dc:Bounds
+						height="14.0"
+						width="66.0"
+						x="242.0"
+						y="123.0" />
+				</bpmndi:BPMNLabel>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape
+				id="BPMNShape_StartEvent_2"
+				bpmnElement="StartEvent_2">
+				<dc:Bounds
+					height="36.0"
+					width="36.0"
+					x="170.0"
+					y="402.0" />
+				<bpmndi:BPMNLabel
+					id="BPMNLabel_10"
+					labelStyle="BPMNLabelStyle_1">
+					<dc:Bounds
+						height="14.0"
+						width="68.0"
+						x="154.0"
+						y="438.0" />
+				</bpmndi:BPMNLabel>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape
+				id="BPMNShape_UserTask_2"
+				bpmnElement="UserTask_2">
+				<dc:Bounds
+					height="50.0"
+					width="110.0"
+					x="287.0"
+					y="395.0" />
+				<bpmndi:BPMNLabel
+					id="BPMNLabel_11"
+					labelStyle="BPMNLabelStyle_1">
+					<dc:Bounds
+						height="14.0"
+						width="66.0"
+						x="309.0"
+						y="413.0" />
+				</bpmndi:BPMNLabel>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape
+				id="BPMNShape_EndEvent_2"
+				bpmnElement="EndEvent_2">
+				<dc:Bounds
+					height="36.0"
+					width="36.0"
+					x="530.0"
+					y="402.0" />
+				<bpmndi:BPMNLabel
+					id="BPMNLabel_12"
+					labelStyle="BPMNLabelStyle_1">
+					<dc:Bounds
+						height="14.0"
+						width="65.0"
+						x="516.0"
+						y="438.0" />
+				</bpmndi:BPMNLabel>
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge
+				id="BPMNEdge_SequenceFlow_1"
+				bpmnElement="SequenceFlow_1"
+				sourceElement="BPMNShape_StartEvent_1"
+				targetElement="BPMNShape_UserTask_1">
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="188.0"
+					y="130.0" />
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="220.0"
+					y="130.0" />
+				<bpmndi:BPMNLabel
+					id="BPMNLabel_5"
+					labelStyle="BPMNLabelStyle_1" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge
+				id="BPMNEdge_SequenceFlow_2"
+				bpmnElement="SequenceFlow_2"
+				sourceElement="BPMNShape_SendTask_1"
+				targetElement="BPMNShape_EndEvent_1">
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="479.0"
+					y="130.0" />
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="522.0"
+					y="130.0" />
+				<bpmndi:BPMNLabel
+					id="BPMNLabel_7"
+					labelStyle="BPMNLabelStyle_1" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge
+				id="BPMNEdge_SequenceFlow_3"
+				bpmnElement="SequenceFlow_3"
+				sourceElement="BPMNShape_UserTask_1"
+				targetElement="BPMNShape_SendTask_1">
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="330.0"
+					y="130.0" />
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="347.0"
+					y="130.0" />
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="347.0"
+					y="121.0" />
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="369.0"
+					y="121.0" />
+				<bpmndi:BPMNLabel
+					id="BPMNLabel_9"
+					labelStyle="BPMNLabelStyle_1" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge
+				id="BPMNEdge_SequenceFlow_4"
+				bpmnElement="SequenceFlow_4"
+				sourceElement="BPMNShape_UserTask_2"
+				targetElement="BPMNShape_EndEvent_2">
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="397.0"
+					y="420.0" />
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="530.0"
+					y="420.0" />
+				<bpmndi:BPMNLabel
+					id="BPMNLabel_13"
+					labelStyle="BPMNLabelStyle_1" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge
+				id="BPMNEdge_SequenceFlow_5"
+				bpmnElement="SequenceFlow_5"
+				sourceElement="BPMNShape_StartEvent_2"
+				targetElement="BPMNShape_UserTask_2">
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="206.0"
+					y="420.0" />
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="287.0"
+					y="420.0" />
+				<bpmndi:BPMNLabel
+					id="BPMNLabel_14"
+					labelStyle="BPMNLabelStyle_1" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge
+				id="BPMNEdge_MessageFlow_1"
+				bpmnElement="MessageFlow_1"
+				sourceElement="BPMNShape_SendTask_1"
+				targetElement="BPMNShape_StartEvent_2">
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="369.0"
+					y="137.0" />
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="333.0"
+					y="137.0" />
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="333.0"
+					y="165.0" />
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="188.0"
+					y="165.0" />
+				<di:waypoint
+					xsi:type="dc:Point"
+					x="188.0"
+					y="402.0" />
+				<bpmndi:BPMNLabel
+					id="BPMNLabel_15"
+					labelStyle="BPMNLabelStyle_1" />
+			</bpmndi:BPMNEdge>
+		</bpmndi:BPMNPlane>
+		<bpmndi:BPMNLabelStyle id="BPMNLabelStyle_1">
+			<dc:Font
+				name="arial"
+				size="9.0" />
+		</bpmndi:BPMNLabelStyle>
+	</bpmndi:BPMNDiagram>
+</bpmn2:definitions>
