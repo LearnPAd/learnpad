@@ -40,7 +40,6 @@ public class Server {
                 port = new ConfigManager().getElement("PORT");
             }catch(Exception ex){Utils.log(ex);port="9998";}
             
-            BridgeImpl.initialize();
             URI baseUri = UriBuilder.fromUri("http://127.0.0.1/rest").port(Integer.parseInt(port)).build();
             ResourceConfig resourceConfig = new ResourceConfig(BridgeImpl.class);
             HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri,resourceConfig, false);

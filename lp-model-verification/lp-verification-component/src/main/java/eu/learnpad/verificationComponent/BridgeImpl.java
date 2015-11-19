@@ -31,6 +31,7 @@ import javax.xml.bind.JAXBContext;
 
 import org.w3c.dom.Document;
 
+import eu.learnpad.mv.CoreFacade;
 import eu.learnpad.mv.rest.data.VerificationResults;
 import eu.learnpad.verification.VerificationComponent;
 import eu.learnpad.verification.utils.Utils;
@@ -40,20 +41,32 @@ import eu.learnpad.verificationComponent.utils.XMLUtils;
 @Path("/learnpad/mv")
 public class BridgeImpl extends eu.learnpad.mv.Bridge {
     
-    public static void initialize(){
-        final String lpModelType = "lpzip";
-        VerificationComponent.setCustomGetModelFunction(new VerificationComponent.CustomGetModel() {
-            public String[] getModels(String modelId) throws Exception {
-                byte[] zippedModel = new PlatformFacadeImpl().getModel(modelId, lpModelType);
-                return ModelUtils.processModel(zippedModel);
-            }
-        });
-        VerificationComponent.setCustomNotifyVerificationEndFunction(new VerificationComponent.CustomNotify() {
-            public void notifyVerificationEnd(String verificationId) throws Exception {
-                new PlatformFacadeImpl().notifyVerification(verificationId);
-            }
-        });
+    public BridgeImpl() {
+        String lpModelTypeToDownload = "lpzip";
+        this.corefacade = new PlatformFacadeImpl();
+        VerificationComponent.setCustomNotifyVerificationEndFunction(customNotifyFactory(this.corefacade));
+        VerificationComponent.setCustomGetModelFunction(customGetModelFactory(lpModelTypeToDownload, this.corefacade));
     }
+    
+    private VerificationComponent.CustomGetModel customGetModelFactory(final String lpModelType, final CoreFacade corefacade){
+        VerificationComponent.CustomGetModel myCustomGetModel = new VerificationComponent.CustomGetModel() {
+                public String[] getModels(String modelId) throws Exception {
+                    byte[] zippedModel = corefacade.getModel(modelId, lpModelType);
+                    return ModelUtils.processModel(zippedModel);
+                }
+            };
+        return myCustomGetModel;
+    }
+    
+    private VerificationComponent.CustomNotify customNotifyFactory(final CoreFacade corefacade){
+        VerificationComponent.CustomNotify myCustomNotify = new VerificationComponent.CustomNotify() {
+                public void notifyVerificationEnd(String verificationId) throws Exception {
+                    corefacade.notifyVerification(verificationId);
+                }
+            };
+        return myCustomNotify;
+    }
+    
     
     @GET
     @Path("/getavailableverifications")
@@ -105,7 +118,7 @@ public class BridgeImpl extends eu.learnpad.mv.Bridge {
         return ret;
     }
     
-    //TEST METHODS: set the LP platform address to 127.0.0.1:9998/rest in the config file to use them
+    //TEST METHODS: set the LP platform address to 127.0.0.1:9998/rest in the config file in order to use them
     @GET
     @Path("/getmodel/{modelsetid}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
