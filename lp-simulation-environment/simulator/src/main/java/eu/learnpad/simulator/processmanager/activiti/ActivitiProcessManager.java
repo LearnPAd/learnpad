@@ -25,6 +25,7 @@ package eu.learnpad.simulator.processmanager.activiti;
  */
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,6 +38,11 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.xpath.XPathExpressionException;
 
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
@@ -53,6 +59,7 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.image.ProcessDiagramGenerator;
 import org.activiti.image.impl.DefaultProcessDiagramGenerator;
+import org.xml.sax.SAXException;
 
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.simulator.IProcessEventReceiver;
@@ -65,6 +72,7 @@ import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.processdispatcher.ActivitiProcessDispatcher;
 import eu.learnpad.simulator.processmanager.activiti.taskrouter.ActivitiTaskRouter;
 import eu.learnpad.simulator.processmanager.activiti.taskvalidator.ActivitiDemoTaskValidator;
+import eu.learnpad.simulator.processmanager.activiti.workarounds.msg.BPMNTransformer;
 import eu.learnpad.simulator.processmanager.activiti.workarounds.msg.MessageInfoData;
 import eu.learnpad.simulator.utils.BPMNExplorerRepository;
 
@@ -145,37 +153,39 @@ public class ActivitiProcessManager implements IProcessManager,
 	 * @see activitipoc.IProcessManager#addProjectDefininition(java.lang.String)
 	 */
 	public Collection<String> addProjectDefinitions(String resource) {
-		Set<String> res = new HashSet<String>();
-
-		String deploymentId = repositoryService.createDeployment()
-				.addClasspathResource(resource).deploy().getId();
-
-		for (ProcessDefinition processDef : repositoryService
-				.createProcessDefinitionQuery().deploymentId(deploymentId)
-				.list()) {
-			res.add(processDef.getId());
-		}
-
-		return res;
+		return this.addProjectDefinitions(this.getClass().getClassLoader()
+				.getResourceAsStream(resource));
 	}
 
 	@Override
 	public Collection<String> addProjectDefinitions(InputStream resource) {
 		Set<String> res = new HashSet<String>();
 
-		String deploymentId = repositoryService
-				.createDeployment()
-				.addInputStream(
-						Long.toString(new Random().nextLong()) + ".bpmn20.xml",
-						resource).deploy().getId();
+		try {
+			// Activiti message workaround
+			InputStream transformedResource = BPMNTransformer
+					.transform(resource);
 
-		for (ProcessDefinition processDef : repositoryService
-				.createProcessDefinitionQuery().deploymentId(deploymentId)
-				.list()) {
-			res.add(processDef.getId());
+			String deploymentId = repositoryService
+					.createDeployment()
+					.addInputStream(
+							Long.toString(new Random().nextLong())
+									+ ".bpmn20.xml", transformedResource)
+					.deploy().getId();
+
+			for (ProcessDefinition processDef : repositoryService
+					.createProcessDefinitionQuery().deploymentId(deploymentId)
+					.list()) {
+				res.add(processDef.getId());
+			}
+		} catch (XPathExpressionException | SAXException | IOException
+				| ParserConfigurationException | TransformerException
+				| TransformerFactoryConfigurationError e) {
+			e.printStackTrace();
 		}
 
 		return res;
+
 	}
 
 	/*
