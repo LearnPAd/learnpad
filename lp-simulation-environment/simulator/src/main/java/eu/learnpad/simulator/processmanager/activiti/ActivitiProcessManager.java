@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -311,6 +312,8 @@ public class ActivitiProcessManager implements IProcessManager,
 		return result;
 	}
 
+	public static final String SIMULATION_ID_KEY = "__LEARNPAD_SIMULATION_ID";
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -320,6 +323,12 @@ public class ActivitiProcessManager implements IProcessManager,
 	public String startProjectInstance(String projectDefinitionKey,
 			Map<String, Object> parameters, Collection<String> users,
 			Map<String, Collection<String>> router) {
+
+		if (!parameters.containsKey(SIMULATION_ID_KEY)) {
+			// add a UUID to be shared by the processes involved in the
+			// simulation
+			parameters.put(SIMULATION_ID_KEY, UUID.randomUUID().toString());
+		}
 
 		ProcessInstance process = runtimeService.startProcessInstanceByKey(
 				projectDefinitionKey, parameters);
