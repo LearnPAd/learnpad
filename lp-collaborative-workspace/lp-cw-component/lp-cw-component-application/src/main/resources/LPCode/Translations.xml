@@ -44,7 +44,7 @@
 LPUI.WebHome.title=Learning materials
 	
 # BaseElementSheet
-BaseElementSheet.documentation.title=Documentation
+BaseElementSheet.documentation.title=Description of the activity
 BaseElementSheet.documentation.empty=There is no documentation for this artifact.
 BaseElementSheet.organization.title=Organization
 BaseElementSheet.feedback.helper=If you think the content of this page has errors, please fill a note that will be sent to the responsible of this process.
