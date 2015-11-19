@@ -210,7 +210,7 @@ public class VerificationComponent {
             for(String model: modelList)
                 result += verificationEngine.performVerification(model, verificationType);
             
-            if(result=="")
+            if(result.isEmpty())
                 result = "<ErrorResult><Status>ERROR</Status><Description>The "+verificationType+" verificator returned an empty response</Description></ErrorResult>";
             verificationEngine = null;
             verificationMap = null;
@@ -242,7 +242,7 @@ public class VerificationComponent {
     }
     
     private static String checkResultsFolder(String folder) throws Exception{
-        if(folder == null || folder.equals("")){
+        if(folder == null || folder.isEmpty()){
             String folderPath = VerificationComponent.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
             if(new File(folderPath).isDirectory())
                 folderPath = folderPath.substring(0, folderPath.length()-1);

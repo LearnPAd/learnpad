@@ -36,7 +36,7 @@ public class PluginManager {
     private static String defaultPluginFolder = "VerificationComponentPlugins/";
     
     private static String checkFolder(String folder) throws Exception{
-        if(folder == null || folder.equals("")){
+        if(folder == null || folder.isEmpty()){
             String folderPath = PluginManager.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
             if(new File(folderPath).isDirectory())
                 folderPath = folderPath.substring(0, folderPath.length()-1);

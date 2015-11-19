@@ -48,6 +48,7 @@ public class Algorithms {
     }
     
     public static PetriNet generateReducedNet(PetriNet pn) throws Exception{
+        //FIXME: Riadattare la regola considerando gli arc weight!
         /* Applica regole piu complesse che generano una petri net minima (potrebbe renderne piu' difficile la lettura)
          Regole:
          - T1->P->T2 = posso togliere p ed unire le T (copiare tutti i next di T2 in T1 e i previous di T2 in T1 e rimuovere T2 e P) solo se p ha un solo next ed un solo previous e (T2 ha un solo previous o T1 ha un solo next): questa modalita riduce di piu gli stati ma in questo caso bisogna anche controllare che non esista una connessione tra un previous di t2 e t1. Se esiste non si puo applicare perche andrebbe a eliminare deadlock: Es: in questo caso non si puo ridurre: p0->t1->p->t2->p1, p0->t2
@@ -203,6 +204,7 @@ public class Algorithms {
     }
     
     public static PetriNet generateReducedNetLight(PetriNet pn) throws Exception{
+        //FIXME: Riadattare la regola considerando gli arc weight!
         /* Applica regole piu leggere che non creano una petrinet minima
          Regole:
          - T1->P->T2 = posso togliere p ed unire le T (copiare tutti i next di T2 in T1 e rimuovere T2) solo se p ha un solo next ed un solo previous e T2 ha un solo previous
