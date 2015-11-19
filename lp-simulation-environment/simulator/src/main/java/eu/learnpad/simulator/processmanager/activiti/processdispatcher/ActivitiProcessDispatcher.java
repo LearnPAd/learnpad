@@ -233,7 +233,12 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 				// *all* receiving processes)
 				List<Execution> otherExecutions = runtimeService
 						.createExecutionQuery()
-						.messageEventSubscriptionName(msg.msgContent).list();
+						.messageEventSubscriptionName(msg.msgContent)
+						.processVariableValueEquals(
+								ActivitiProcessManager.SIMULATION_ID_KEY,
+								processVariables
+										.get(ActivitiProcessManager.SIMULATION_ID_KEY))
+								.list();
 
 				// if it is the case, notify them
 				if (!otherExecutions.isEmpty()) {
@@ -245,8 +250,14 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 
 				// check if there is a process with a receive task waiting for
 				// the message
-				otherExecutions = runtimeService.createExecutionQuery()
-						.activityId(msg.msgContent).list();
+				otherExecutions = runtimeService
+						.createExecutionQuery()
+						.activityId(msg.msgContent)
+						.processVariableValueEquals(
+								ActivitiProcessManager.SIMULATION_ID_KEY,
+								processVariables
+										.get(ActivitiProcessManager.SIMULATION_ID_KEY))
+						.list();
 
 				if (!otherExecutions.isEmpty()) {
 					for (Execution otherExec : otherExecutions) {
