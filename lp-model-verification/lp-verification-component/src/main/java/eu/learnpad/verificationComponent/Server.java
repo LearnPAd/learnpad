@@ -32,17 +32,38 @@ import eu.learnpad.verification.utils.Utils;
 import eu.learnpad.verificationComponent.utils.ConfigManager;
 
 public class Server {
-
+    private HttpServer server = null;
+    
+    public Server(){
+        this("http://127.0.0.1/rest");
+    }
+    
+    public Server(String endpoint){
+        int port = getPort();
+        URI baseUri = null;
+        if(endpoint.split(":").length==3)
+            baseUri = UriBuilder.fromUri(endpoint).build();
+        else
+            baseUri = UriBuilder.fromUri(endpoint).port(port).build();
+        ResourceConfig resourceConfig = new ResourceConfig(BridgeImpl.class);
+        server = GrizzlyHttpServerFactory.createHttpServer(baseUri,resourceConfig, false);
+    }
+    
+    private int getPort(){
+        int port = 9998;
+        try{
+            port = Integer.parseInt(new ConfigManager().getElement("PORT"));
+        }catch(Exception ex){Utils.log(ex);}
+        return port;
+    }
+    
+    public void start() throws Exception{
+        server.start();
+    }
+    
     public static void main(String[] args) {
         try{
-            String port = "";
-            try{
-                port = new ConfigManager().getElement("PORT");
-            }catch(Exception ex){Utils.log(ex);port="9998";}
-            
-            URI baseUri = UriBuilder.fromUri("http://127.0.0.1/rest").port(Integer.parseInt(port)).build();
-            ResourceConfig resourceConfig = new ResourceConfig(BridgeImpl.class);
-            HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri,resourceConfig, false);
+            Server server = new Server();
             server.start();
         }catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
     }
