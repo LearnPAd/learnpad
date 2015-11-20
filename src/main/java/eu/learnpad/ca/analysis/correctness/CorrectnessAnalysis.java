@@ -186,6 +186,8 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			a.setId(id);
 			a.setEndNode(end.getId());
 			a.setStartNode(init.getId());
+			a.setNodeEnd(end);
+			a.setNodeStart(init);
 			a.setType("Correctness");
 			a.setRecommendation(match.getMessage()+"\n Suggested correction: " +match.getSuggestedReplacements());
 			annotations.add(a);
