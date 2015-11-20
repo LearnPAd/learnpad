@@ -48,6 +48,7 @@ import eu.learnpad.core.impl.me.XwikiBridgeInterfaceRestResource;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.cw.rest.data.Feedbacks;
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.Controller;
 import eu.learnpad.mv.rest.data.MVResults;
@@ -138,7 +139,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
 	@Override
 	public MVResults checkModelSetVerification(String verificationProcessId)
-			throws LpRestExceptionImpl {
+			throws LpRestException {
 		MVResults result = mvResults.get(verificationProcessId);
 		if (result != null) {
 			MVResults toReturn = new MVResults(result);
@@ -148,6 +149,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 				mvResults.remove(verificationProcessId);
 			}
 			if (toReturn.getStatus().equals("finished")) {
+// I suggest to change the implementation of notification passing through
+// the XwikiBridgeInterfaceRestResource	referred by this.cw  -- Gulyx		
 				// Notify CW about a new model set imported
 				HttpClient httpClient = RestResource.getClient();
 				String uri = String.format(
@@ -164,6 +167,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+// I suggest to change the implementation of notification passing through
+// the XwikiBridgeInterfaceRestResource	referred by this.or  -- Gulyx		
 				// Notify OR about a new model set imported
 				httpClient = RestResource.getClient();
 				uri = String.format(
@@ -180,6 +185,9 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				// Notify QM about a new model set imported
+				String fooModelContent = "-ask-to-jean-how-to-retraive-the-modelset-";
+				this.qm.importModelSet(toReturn.getModelSetId(), toReturn.getType(), fooModelContent.getBytes());
 			}
 			return toReturn;
 		} else {

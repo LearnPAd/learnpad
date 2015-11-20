@@ -19,6 +19,14 @@
  */
 package eu.learnpad.core.impl.qm;
 
+import java.io.IOException;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
+import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.httpclient.methods.RequestEntity;
+
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.qm.BridgeInterface;
 import eu.learnpad.core.rest.RestResource;
@@ -50,15 +58,59 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	@Override
 	public void importModelSet(String modelSetId, String type,
 			byte[] modelContent) throws LpRestExceptionXWikiImpl {
-		// TODO Auto-generated method stub
+		// Notify QM about a new model set imported
+		HttpClient httpClient = RestResource.getClient();
+		String uri = String.format(
+				"%s/learnpad/qm/bridge/importmodel/%s",
+				RestResource.REST_URI, modelSetId);
+		PutMethod putMethod = new PutMethod(uri);
+		putMethod.addRequestHeader("Accept", "application/xml");
+
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("type", type);
+		putMethod.setQueryString(queryString);
 		
+		RequestEntity requestEntity = new ByteArrayRequestEntity(modelContent);
+		putMethod.setRequestEntity(requestEntity);
+
+		try {
+			httpClient.executeMethod(putMethod);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
 	}
 
 	@Override
 	public String generateQuestionnaires(String modelSetId, String type,
 			byte[] configurationFile) throws LpRestExceptionXWikiImpl {
-		// TODO Auto-generated method stub
-		return null;
+		// Ask the QM to generate new questionnaire for a given model set
+		// that has been already imported
+		HttpClient httpClient = RestResource.getClient();
+		String uri = String.format(
+				"%s/learnpad/qm/bridge/generate/%s",
+				RestResource.REST_URI, modelSetId);
+		PutMethod putMethod = new PutMethod(uri);
+		putMethod.addRequestHeader("Accept", "application/xml");
+
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("type", type);
+		putMethod.setQueryString(queryString);
+		
+		RequestEntity requestEntity = new ByteArrayRequestEntity(configurationFile);
+		putMethod.setRequestEntity(requestEntity);
+
+		String genProcessID = null;
+		try {
+			httpClient.executeMethod(putMethod);
+			genProcessID = putMethod.getResponseBodyAsString();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+		return genProcessID;
 	}
 
 	@Override

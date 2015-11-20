@@ -19,6 +19,10 @@
  */
 package eu.learnpad.qm.impl;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
@@ -30,6 +34,8 @@ import org.xwiki.component.phase.InitializationException;
 import eu.learnpad.core.impl.qm.XwikiBridge;
 import eu.learnpad.core.impl.qm.XwikiCoreFacadeRestResource;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.qm.component.QuestionnaireGenerationStatus;
+import eu.learnpad.qm.component.QuestionnaireManager;
 
 /**
 *
@@ -41,17 +47,25 @@ import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 @Named("eu.learnpad.qm.impl.QMXwikiBridgeImpl")
 @Path("/learnpad/qm/bridge")
 public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
-
+	
+	// Currently this class has been implemented with the 
+	// only idea to support the development of the core platform
+	private QuestionnaireManager qm;
+	
 	@Override
 	public void initialize() throws InitializationException {
 		this.corefacade = new XwikiCoreFacadeRestResource();
+		
+		this.qm = QuestionnaireManager.getInstance();
+//		this.qm = QuestionnaireManager.getInstance("put here some file");
 	}
 
 	@Override
 	public void importModelSet(String modelSetId, String type,
 			byte[] modelContent) throws LpRestExceptionXWikiImpl {
-		// TODO Auto-generated method stub
-		
+		// TODO This is stub code that heve been implemented in order to 
+		// make easy the development of the core-platform
+		this.qm.storeModelID(modelSetId);
 	}
 
 	@Override
@@ -77,15 +91,28 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 	@Override
 	public String generateQuestionnaires(String modelSetId, String type,
 			byte[] configurationFile) throws LpRestExceptionXWikiImpl {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO This is stub code that heve been implemented in order to 
+		// make easy the development of the core-platform
+		
+		String genProcessID;
+		try {
+			genProcessID = this.qm.startGeneration(modelSetId);
+		} catch (Exception e) {
+			throw new LpRestExceptionXWikiImpl(e);
+		}
+		
+		return genProcessID;
 	}
 
 	@Override
 	public String getGenerationStatus(String generationProcessId)
 			throws LpRestExceptionXWikiImpl {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO This is stub code that heve been implemented in order to 
+		// make easy the development of the core-platform
+
+		String currentStatus = this.qm.getGenerationStatus(generationProcessId).name();
+		
+		return currentStatus;
 	}
 
 }
