@@ -174,13 +174,13 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			String stringap = sentence.substring(precedentposition, match.getFromPos());
 			c.setContent(stringap);
 			id++;
-			Node init= new Node(id);
+			Node init= new Node(id, match.getFromPos());
 			c.setContent(init);
 			String stringa = sentence.substring(match.getFromPos(),match.getToPos());
 			precedentposition= match.getToPos();
 			c.setContent(stringa);
 			id++;
-			Node end= new Node(id);
+			Node end= new Node(id,match.getToPos());
 			c.setContent(end);
 			Annotation a = new Annotation();
 			a.setId(id);
