@@ -19,9 +19,8 @@
  */
 package eu.learnpad.qm.impl;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -34,7 +33,6 @@ import org.xwiki.component.phase.InitializationException;
 import eu.learnpad.core.impl.qm.XwikiBridge;
 import eu.learnpad.core.impl.qm.XwikiCoreFacadeRestResource;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
-import eu.learnpad.qm.component.QuestionnaireGenerationStatus;
 import eu.learnpad.qm.component.QuestionnaireManager;
 
 /**
@@ -63,7 +61,7 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 	@Override
 	public void importModelSet(String modelSetId, String type,
 			byte[] modelContent) throws LpRestExceptionXWikiImpl {
-		// TODO This is stub code that heve been implemented in order to 
+		// TODO This is stub code that have been implemented in order to 
 		// make easy the development of the core-platform
 		this.qm.storeModelID(modelSetId);
 	}
@@ -94,7 +92,7 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 		// TODO This is stub code that heve been implemented in order to 
 		// make easy the development of the core-platform
 		
-		String genProcessID;
+		String genProcessID = null;
 		try {
 			genProcessID = this.qm.startGeneration(modelSetId);
 		} catch (Exception e) {
@@ -115,4 +113,16 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 		return currentStatus;
 	}
 
+	private void printSomething(String data){
+		try {
+			PrintWriter w = new PrintWriter("/tmp/"+this.getClass().getName()+".log");
+			w.println("[TEST MSG] : " + data);
+			w.flush();
+			w.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+	
 }

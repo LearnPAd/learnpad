@@ -1,8 +1,11 @@
 package eu.learnpad.qm.component;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,49 +13,59 @@ import java.util.Vector;
 
 import org.xwiki.component.phase.InitializationException;
 
+import eu.learnpad.qm.impl.QMXwikiBridgeImpl;
+
 public class QuestionnaireManager {
 
     private static QuestionnaireManager instance = null;
     
-	private final String defaultConfiguratioFilename = "";
+	private final String defaultConfiguratioFilename = "/tmp/foo";
 	private BufferedReader configurationReader;
 
 	private Collection<String> importedModelID;
 	private Map<String, QuestionnaireGenerationStatus> generationStatusMap;
 	private static int fooIndex = 0;
 	
-    private QuestionnaireManager (String configurationFilename){
-		try {			
-			if (configurationFilename == null)
-				configurationFilename = this.defaultConfiguratioFilename;
-				this.configurationReader = new BufferedReader(new FileReader(configurationFilename));
-				
-				this.importedModelID = new Vector<String>();
-				this.generationStatusMap = new HashMap<String,QuestionnaireGenerationStatus>();
-		} catch (IOException e) {
-			new InitializationException(e.getMessage(), e);
+    private QuestionnaireManager (String configurationFilename) throws IOException {
+		if (configurationFilename == null) {
+			configurationFilename = this.defaultConfiguratioFilename;
+			new FileOutputStream(this.defaultConfiguratioFilename, true).close();
 		}
+		this.configurationReader = new BufferedReader(new FileReader(configurationFilename));
+
+		this.importedModelID = new Vector<String>();
+		this.generationStatusMap = new HashMap<String, QuestionnaireGenerationStatus>();
     }
 
 
-    private static synchronized QuestionnaireManager instantiate(String configurationFilename){
+    private static synchronized QuestionnaireManager instantiate(String configurationFilename) throws IOException{
     	if (instance == null){
     		instance = new QuestionnaireManager(configurationFilename);
     	}
     	return instance;
     }
 
-    public static QuestionnaireManager getInstance(){
-    	return QuestionnaireManager.instantiate(null);
+    public static QuestionnaireManager getInstance() throws InitializationException{
+    	try {
+			return QuestionnaireManager.instantiate(null);
+		} catch (IOException e) {
+			throw new InitializationException(e.getMessage(), e);
+		}
     }
 
-    public static QuestionnaireManager getInstance(String configurationFilename){
-    	return QuestionnaireManager.instantiate(configurationFilename);
+    public static QuestionnaireManager getInstance(String configurationFilename) throws InitializationException{
+		try {
+			return QuestionnaireManager.instantiate(configurationFilename);
+		} catch (IOException e) {
+			throw new InitializationException(e.getMessage(), e);
+		}
     }
 
-    public void storeModelID(String modelSetID){
+    public void storeModelID(String modelSetID){    	
     	if (!this.importedModelID.contains(modelSetID))
     		this.importedModelID.add(modelSetID);
+
+    	this.printSomething("[IMPORTED] " + modelSetID);
     }
     
     public String startGeneration(String modelSetID) throws Exception{
@@ -66,21 +79,51 @@ public class QuestionnaireManager {
     }
     
     public QuestionnaireGenerationStatus getGenerationStatus(String genProcessID){
+//    	The second time a given genProcessID is checked, its status is
+//    	changed to completed (if it exists in the map)
     	QuestionnaireGenerationStatus currentStatus = this.generationStatusMap.get(genProcessID);
     	
-    	switch (currentStatus) {
-    	case InProgress:
-    		this.generationStatusMap.put(genProcessID, QuestionnaireGenerationStatus.Completed);
-    		break;
-    	case Completed:
-    		break;
-		default:
-    		currentStatus = QuestionnaireGenerationStatus.NotAvailable;
-			break;
-		}
+    	if (currentStatus == null){
+    		currentStatus = QuestionnaireGenerationStatus.NotAvailable;    		
+    	} else {
+    		switch (currentStatus) {
+    		case InProgress:
+    			this.generationStatusMap.put(genProcessID, QuestionnaireGenerationStatus.Completed);
+    			break;
+    		case Completed:
+    			break;
+    		default:
+    			currentStatus = QuestionnaireGenerationStatus.NotAvailable;
+    			break;
+    		}
+    	}	
     	
     	return currentStatus;
     }
+    
+	private void printSomething(String data){
+		try {
+			PrintWriter w = new PrintWriter("/tmp/"+this.getClass().getName()+".log");
+			w.println("[TEST MSG] : " + data);
+			w.flush();
+			w.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}	    
+	
+	public static void main(String[] args) {
+		QuestionnaireManager me;
+		try {
+			me = QuestionnaireManager.getInstance();
+			me.storeModelID("modelSetID");
+			me.getGenerationStatus("genProcessID");
+		} catch (InitializationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
 
 
