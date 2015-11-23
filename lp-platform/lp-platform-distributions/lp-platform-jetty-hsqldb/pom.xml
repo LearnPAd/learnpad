@@ -60,6 +60,18 @@
 			<type>jar</type>
 		</dependency>
 		<dependency>
+    		<groupId>org.xwiki.platform</groupId>
+    		<artifactId>xwiki-platform-rendering-macro-groovy</artifactId>
+    		<version>${platform.version}</version>
+    		<type>jar</type>
+		</dependency>
+		<dependency>
+		    <groupId>org.xwiki.platform</groupId>
+    		<artifactId>xwiki-platform-component-script</artifactId>
+    		<version>${platform.version}</version>
+    		<type>jar</type>
+		</dependency>
+		<dependency>
 			<groupId>eu.learnpad</groupId>
 			<artifactId>lp-cp-apis</artifactId>
 			<version>${learnpad.version}</version>
