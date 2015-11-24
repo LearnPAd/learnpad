@@ -53,13 +53,14 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			
 			List<String> listsentence = langTool.sentenceTokenize(content);
 			Integer id=0;
+			int offset = 0;
 			for (String sentence : listsentence) {
 
 				matches = langTool.check(sentence);
 				//List<Annotation> annotations = checkdefect(sentence,c, id);
 				List<Annotation> annotations =new ArrayList<Annotation>();
-				id = calculateAnnotations(sentence, matches, c, id,annotations);
-				
+				id = calculateAnnotations(sentence, matches, c, id,annotations,offset);
+				offset+=sentence.length();
 				
 				if(annotations.size()>0){
 					numDefectiveSentences++;
@@ -118,14 +119,15 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			Content c = new Content();
 			sc.setContent(c);
 			Integer id=0;
+			int offset = 0;
 			for (String sentence : listsentence) {
 
 				matches = langTool.check(sentence);
 		
 				List<Annotation> annotations =new ArrayList<Annotation>();
-				id  = calculateAnnotations( sentence, matches, c, id,annotations);
+				id  = calculateAnnotations( sentence, matches, c, id,annotations, offset);
 				annotatedStaticContent.setAnnotations(annotations);
-				
+				offset+=sentence.length();
 				if(annotations.size()>0){
 					numDefectiveSentences++;
 				}
@@ -162,7 +164,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 
 
-	private int calculateAnnotations( String sentence,List<RuleMatch> matches, Content c, Integer id, List<Annotation> annotations){
+	private int calculateAnnotations( String sentence,List<RuleMatch> matches, Content c, Integer id, List<Annotation> annotations, int offset){
 		int precedentposition=0;
 
 		int finalpos = 0;
@@ -174,18 +176,20 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			String stringap = sentence.substring(precedentposition, match.getFromPos());
 			c.setContent(stringap);
 			id++;
-			Node init= new Node(id);
+			Node init= new Node(id, match.getFromPos()+offset);
 			c.setContent(init);
 			String stringa = sentence.substring(match.getFromPos(),match.getToPos());
 			precedentposition= match.getToPos();
 			c.setContent(stringa);
 			id++;
-			Node end= new Node(id);
+			Node end= new Node(id,match.getToPos()+offset);
 			c.setContent(end);
 			Annotation a = new Annotation();
 			a.setId(id);
 			a.setEndNode(end.getId());
 			a.setStartNode(init.getId());
+			a.setNodeEnd(end);
+			a.setNodeStart(init);
 			a.setType("Correctness");
 			a.setRecommendation(match.getMessage()+"\n Suggested correction: " +match.getSuggestedReplacements());
 			annotations.add(a);

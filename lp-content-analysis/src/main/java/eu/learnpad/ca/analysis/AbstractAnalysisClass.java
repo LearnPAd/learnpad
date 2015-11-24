@@ -1,5 +1,6 @@
 package eu.learnpad.ca.analysis;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public abstract class AbstractAnalysisClass extends Thread{
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(AbstractAnalysisClass.class);
 	protected AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent;
 	protected AnnotatedStaticContentAnalysis annotatedStaticContent;
-	
+
 	protected Language language;
 	protected Integer numDefectiveSentences = 0;
 	protected CollaborativeContentAnalysis collaborativeContentInput;
@@ -84,39 +85,48 @@ public abstract class AbstractAnalysisClass extends Thread{
 	public AnnotatedStaticContentAnalysis getAnnotatedStaticContentAnalysis() {
 		return annotatedStaticContent;
 	} 
-	
+
 	protected void addNodeInContent(List<Node> listnode, Content c, DocumentContent docContent){
 		Collections.sort(listnode);
 		Integer precedentposition = 0;
-		for(Node node :listnode){
-			
-			Integer pos = node.getOffSet();
-			
-			try{
+		List<Node> nodeadded = new ArrayList<Node>();
+		try{
+			for(Node node :listnode){
+
+				Integer pos = node.getOffSet();
+
+
 				String token = "";
 				if(precedentposition>pos){
 					//String stringap = //content.substring(precedentposition, initialpos );
-					log.debug("error Annotation Simplicity");
+					log.debug("error Annotation");
 
 				}
 				token = docContent.getContent(precedentposition.longValue(),pos.longValue()).toString();
 				c.setContent(token);
-				c.setContent(node);
+				if(!nodeadded.contains(node)){
+					c.setContent(node);
+					nodeadded.add(node);
+				}
 				precedentposition = pos;
 				//c.setContent(token.toString());
 				//c.setContent(nodeend);
 
-			}catch(InvalidOffsetException e){
-				log.debug(e);
+
+
 			}
-
+			if(listnode.isEmpty()){
+				String token = docContent.toString();
+				c.setContent(token);
+			}
+		}catch(InvalidOffsetException e){
+			log.debug(e);
 		}
-
 
 
 	}
 
-	
+
 	protected  int indexofElement(String sentence, String word, Map<String, Integer> elementfinded, String split){
 		String [] spliter = sentence.split(split);
 		int position = 0;
