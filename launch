@@ -47,7 +47,7 @@ done
 
 if [ "${__ARE_OPTIONS_CORRECT__}"  == "no" ]
 then
-	customlog "ERROR" "usage: ${__BASE__} [-v|-d] [start|stop|restart]" ${ERROR_ARGS}
+	customlog "ERROR" "usage: ${__BASE__} [-v|-d] <start|stop|restart>" ${ERROR_ARGS}
 fi
 
 cat ${COMPONENTS_LIST_FILE} | while read COMPONENT_NAME
