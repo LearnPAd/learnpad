@@ -14,7 +14,9 @@ declare -r _ERROR_LEVEL_=1
 declare -r _INFO_LEVEL_=2
 declare -r _DEBUG_LEVEL_=3
 declare -r LOG_SCRIPT="${0}"
-declare -r LOG_ERROR_CODE=${3}
+if [$# -ge 3 ]
+	declare -r LOG_ERROR_CODE=${3}
+fi
 if [ $# -ge 2 ]
 then
 	declare -r LOG_MESSAGE="${2}"
