@@ -34,6 +34,8 @@ public class ModelUtils {
     
     public static String[] processModel(byte[] model) throws Exception{
         ArrayList<String> retA = new ArrayList<String>();
+        if(model==null || model.length==0)
+            throw new Exception("The model is empty");
         
         if(isZipFile(model)){
             HashMap<String, byte[]> zipContentList = IOUtils.unZip(model);
@@ -49,14 +51,12 @@ public class ModelUtils {
                         retA.addAll(extractOMGBPMNModelsFromADOXX(new String(zipEntry, "UTF-8")));
                 }
             }
+        } else if(isADOXX(model)) {
+            retA.addAll(extractOMGBPMNModelsFromADOXX(new String(model, "UTF-8")));
+        } else if(isOMGBPMN2(model)) {
+            retA.add(new String(model, "UTF-8"));
         }
         
-        if(isADOXX(model))
-            retA.addAll(extractOMGBPMNModelsFromADOXX(new String(model, "UTF-8")));
-        
-        if(isOMGBPMN2(model))
-            retA.add(new String(model, "UTF-8"));
- 
         if(retA.isEmpty())
             throw new Exception("Cannot find any know models");
         
@@ -66,7 +66,7 @@ public class ModelUtils {
     }
     
     private static boolean isZipFile(byte[] modelB){
-        if(modelB[0]=='P' && modelB[1]=='K')
+        if(modelB!=null && modelB.length>=2 && modelB[0]=='P' && modelB[1]=='K')
             return true;
         return false;
     }

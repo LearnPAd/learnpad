@@ -20,6 +20,7 @@
 
 package eu.learnpad.verificationComponent;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -84,7 +85,7 @@ public class BridgeImpl extends eu.learnpad.mv.Bridge {
     @GET
     @Path("/startverification")
     @Produces(MediaType.TEXT_PLAIN)
-    public String startVerification(@QueryParam("modelsetid") String modelSetId, @QueryParam("verificationType") String verificationType){
+    public String startVerification(@QueryParam("modelsetid") String modelSetId, @QueryParam("verificationtype") String verificationType){
         String ret = "";
         try{
             ret = VerificationComponent.startVerification(modelSetId, verificationType);
@@ -135,5 +136,27 @@ public class BridgeImpl extends eu.learnpad.mv.Bridge {
     @Path("/notifyverification/{verificationprocessid}")
     public void notifyVerificationTEST(@PathParam("verificationprocessid") String verificationProcessId){
         System.out.println("Verification completed: "+verificationProcessId);
+    }
+    
+    @PUT
+    @Path("/loadmodel")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    public static String loadModel(byte[] model){
+        try{
+            return VerificationComponent.loadModel(ModelUtils.processModel(model));
+        }catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
+        return "";
+    }
+    
+    @GET
+    @Path("/startsyncverification")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String startSyncVerification(@QueryParam("modelsetid") String modelSetId, @QueryParam("verificationtype") String verificationType){
+        String ret = "";
+        try{
+            ret = VerificationComponent.startSyncVerification(modelSetId, verificationType);
+        }catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
+        return ret;
     }
 }

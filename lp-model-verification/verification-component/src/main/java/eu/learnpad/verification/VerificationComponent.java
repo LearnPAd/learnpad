@@ -38,7 +38,7 @@ import eu.learnpad.verification.utils.XMLUtils;
 public class VerificationComponent {
 
     private static ArrayList<String> verificationRunningList = new ArrayList<String>();
-    private static HashMap<String, String> loadedModelList = new HashMap<String, String>();
+    private static HashMap<String, String[]> loadedModelList = new HashMap<String, String[]>();
 
     private static CustomGetModel _customGetModel = null;
     private static CustomNotify _customNotify = null;
@@ -75,7 +75,18 @@ public class VerificationComponent {
      */
     public static String loadModel(String model){
         String mid = java.util.UUID.randomUUID() + "";
-        loadedModelList.put(mid, model);
+        loadedModelList.put(mid, new String[]{model});
+        return mid;
+    }
+    
+    /**
+     * This method load a model in the component and return an id specific for the modelSet that have to be used for the verification
+     * @param modelSet The modelSet to load. It accepts any kind of model formats.
+     * @return String an unique id associated to the modelSet
+     */
+    public static String loadModel(String[] modelSet){
+        String mid = java.util.UUID.randomUUID() + "";
+        loadedModelList.put(mid, modelSet);
         return mid;
     }
     
@@ -230,8 +241,8 @@ public class VerificationComponent {
     }
     
     private static String[] getModels(String modelId) throws Exception{
-        String[] model = new String[]{loadedModelList.get(modelId)};
-        if(model[0]==null) {
+        String[] model = loadedModelList.get(modelId);
+        if(model==null || model.length==0) {
             if(_customGetModel==null)
                 throw new Exception("ERROR: can not retrive model with id " + modelId + "; customGetModel not defined. Please use the setCustomGetModelFunction function first");
             model = _customGetModel.getModels(modelId);
