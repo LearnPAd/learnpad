@@ -123,6 +123,7 @@ public abstract class Plugin {
 			if(initial & end){
 				sent.add(sentence);
 				sentenceorec = null;
+				break;
 			}else{
 				if(initial){
 					if(gatenodestart.getOffset()<=endSentence.getOffset()){
@@ -134,6 +135,7 @@ public abstract class Plugin {
 						sent.add(sentenceorec);
 						sent.add(sentence);
 						sentenceorec = null;
+						break;
 						}
 					}
 				}
