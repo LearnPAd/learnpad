@@ -18,7 +18,8 @@ declare __LOG_LEVEL__="ERROR"
 
 declare -r COMPONENTS_LIST_FILE="${__ROOT_PATH__}/.components"
 
-declare -r __ARE_OPTIONS_CORRECT__=""
+declare __ACTION__=""
+declare __ARE_OPTIONS_CORRECT__="no"
 
 ### Libraries
 
@@ -30,26 +31,23 @@ do
 	case ${ARG} in
 		"-v"|"--verbose")
 			declare __LOG_LEVEL__="INFO"
-			__ARE_OPTIONS_CORRECT__="yes"
 			;;
 		"-d"|"--debug")
 			declare __LOG_LEVEL__="DEBUG"
-			__ARE_OPTIONS_CORRECT__="yes"
 			;;
 		"start"|"stop"|"restart")
 			declare __ACTION__="${ARG}"
-			__ARE_OPTIONS_CORRECT__="yes"
+			declare __ARE_OPTIONS_CORRECT__="yes"
 			;;
 		*)
-			echo >&2 "[ERROR] \`${ARG}' is not parsed by \`${__BASE__}' script."
+			customlog "ERROR" "\`${ARG}' is not parsed by \`${__BASE__}' script." ${ERROR_ARGS}
 			;;
 	esac
 done
 
-if [ -z "${__ARE_OPTIONS_CORRECT__}" ]
+if [ "${__ARE_OPTIONS_CORRECT__}"  == "no" ]
 then
-    echo >&2 "[ERROR] USAGE : ${__BASE__} [-v|-d] [start|stop|restart]"
-    exit 1
+	customlog "ERROR" "usage: ${__BASE__} [-v|-d] [start|stop|restart]" ${ERROR_ARGS}
 fi
 
 cat ${COMPONENTS_LIST_FILE} | while read COMPONENT_NAME
