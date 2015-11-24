@@ -30,7 +30,7 @@ public class PragmaticAmbiguity  extends Plugin {
 		Set<gate.Annotation> SetActorUnclear = gateu.getAnnotationSet(hs);
 		
 		
-		String rac = "The sentence is ambiguous.";
+		String rac = "The term %s is ambiguous. Please specify it more precisely.";
 		String type = "Pragmatic Ambiguity";
 		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log,listSentence );
 	}

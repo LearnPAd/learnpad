@@ -150,8 +150,8 @@ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(C
 		lexicalAmbiguity.checkOptional(gateu, listannotation, listSentenceDefected,listSentence);
 		
 		
-		PragmaticAmbiguity pragmaticambiguity = new PragmaticAmbiguity(language, docContent,listnode);
-		pragmaticambiguity.check(gateu, listannotation, listSentenceDefected,listSentence);
+		/*PragmaticAmbiguity pragmaticambiguity = new PragmaticAmbiguity(language, docContent,listnode);
+		pragmaticambiguity.check(gateu, listannotation, listSentenceDefected,listSentence);*/
 		
 		addNodeInContent(listnode,c,docContent);
 		
