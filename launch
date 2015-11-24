@@ -46,7 +46,7 @@ do
 	esac
 done
 
-if [ -z "${__ARE_OPTIONS_CORRECT__}"]
+if [ -z "${__ARE_OPTIONS_CORRECT__}" ]
 then
     echo >&2 "[ERROR] USAGE : ${__BASE__} [-v|-d] [start|stop|restart]"
     exit 1
