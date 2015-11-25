@@ -362,9 +362,18 @@ public class PNImport {
         return (String) XMLUtils.execXPath(bpmnXml.getDocumentElement(), "//*[local-name()='process'][.//*[@id=" + XMLUtils.escapeXPathField(elementId) + "]]/@id", XPathConstants.STRING);
     }
     
-        
+    /**
+     * Generate a list of PetriNets, one for each BPMN model (modeltype=Business process diagram (BPMN 2.0)) inside the Adoxx xml provided.
+     * 
+     * @param bpmnXml The Adoxx modelset containing BPMN models
+     * @return The PetriNet list
+     * @throws Exception
+     */
     public static PetriNet[] generateFromAdoxxBPMN(Document adoxxXml) throws Exception{
-        
+        /* To Remember:
+         * - id are unique between all the models
+         * - name are unique only inside a model. Es: 2 model can have a task with the same name.
+         * */
         if(!isADOXX(adoxxXml))
             throw new Exception("ERROR: The provided model is not a valid ADOXX model");
         
@@ -411,7 +420,7 @@ public class PNImport {
                 String name = startEventNodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
                 
                 boolean isMessageStart = false;
-                NodeList messagesToStartNodeList =  (NodeList) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @class='Message Flow' and (.//@instance="+XMLUtils.escapeXPathField(name)+")]", XPathConstants.NODESET);
+                NodeList messagesToStartNodeList =  (NodeList) XMLUtils.execXPath(bpmnModelEl, ".//*[@id!='' and @class='Message Flow' and (.//@instance="+XMLUtils.escapeXPathField(name)+")]", XPathConstants.NODESET);
                 for(int x=0;x<messagesToStartNodeList.getLength();x++){
                     String sourceType = (String) XMLUtils.execXPath(messagesToStartNodeList.item(x), "./*[local-name()='FROM' or local-name()='from']/@class", XPathConstants.STRING);
                     if(!messageFlowExcludeFromToElemList.contains(sourceType))
@@ -440,7 +449,7 @@ public class PNImport {
                 String name = endEventNodeList.item(i).getAttributes().getNamedItem("name").getNodeValue();
                 
                 boolean isMessageEnd = false;
-                NodeList messegesFromEndNodeList =  (NodeList) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @class='Message Flow' and (.//@instance="+XMLUtils.escapeXPathField(name)+")]", XPathConstants.NODESET);
+                NodeList messegesFromEndNodeList =  (NodeList) XMLUtils.execXPath(bpmnModelEl, ".//*[@id!='' and @class='Message Flow' and (.//@instance="+XMLUtils.escapeXPathField(name)+")]", XPathConstants.NODESET);
                 for(int x=0;x<messegesFromEndNodeList.getLength();x++){
                     String targetType = (String) XMLUtils.execXPath(messegesFromEndNodeList.item(x), "./*[local-name()='TO' or local-name()='to']/@class", XPathConstants.STRING);
                     if(!messageFlowExcludeFromToElemList.contains(targetType))
@@ -501,8 +510,8 @@ public class PNImport {
                 
                 String gatewayType =  (String) XMLUtils.execXPath(andNodeList.item(i), inclusiveComplexGatewayQuery, XPathConstants.STRING);
                 GeneratedElements ge = null;
-                if(gatewayType.equals("Inclusive") || gatewayType.equals("Complex")){                    
-                    String defaultSequenceFlowId =  (String) XMLUtils.execXPath(bpmnModelEl, "//*[local-name()='CONNECTOR' or local-name()='connector'][./*[local-name()='FROM' or local-name()='from']/@instance="+XMLUtils.escapeXPathField(name)+" and ./*[local-name()='ATTRIBUTE' or local-name()='attribute'][@name='Default']='Yes']/@id", XPathConstants.STRING);
+                if(gatewayType.equals("Inclusive") || gatewayType.equals("Complex")){
+                    String defaultSequenceFlowId =  (String) XMLUtils.execXPath(bpmnModelEl, ".//*[local-name()='CONNECTOR' or local-name()='connector'][./*[local-name()='FROM' or local-name()='from']/@instance="+XMLUtils.escapeXPathField(name)+" and ./*[local-name()='ATTRIBUTE' or local-name()='attribute'][@name='Default']='Yes']/@id", XPathConstants.STRING);
                     ge = pnm.processElement(id, "inclusiveComplexG", id, xy[0], xy[1]);
                     if(ge.placeList.length==1 && ge.placeList[0]!=null)
                         ge.placeList[0].addInfo("defaultSequenceFlowId", defaultSequenceFlowId);
@@ -548,7 +557,8 @@ public class PNImport {
                 float[] xy = getAdoxxElementCoordinatesXY(adoxxXml, id);               
                 String sourceName = (String) XMLUtils.execXPath(boundaryTaskNodeList.item(i), "./*[@name='Attached to']//@tobjname", XPathConstants.STRING);
                 if(sourceName.isEmpty()) throw new Exception("ERROR: Attribute 'Attached to' not defined for the object " + id);
-                String sourceId = (String) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @name="+XMLUtils.escapeXPathField(sourceName)+"]/@id", XPathConstants.STRING);
+                
+                String sourceId = (String) XMLUtils.execXPath(bpmnModelEl, ".//*[@id!='' and @name="+XMLUtils.escapeXPathField(sourceName)+"]/@id", XPathConstants.STRING);
                 if(sourceId.isEmpty()) throw new Exception("ERROR: Can not find the object with name " + sourceName);
                 
                 GeneratedElements ge = pnm.processElement(id, "bound", id, xy[0], xy[1]);
@@ -575,8 +585,9 @@ public class PNImport {
                 String sourceType = (String) XMLUtils.execXPath(sequenceFlowNodeList.item(i), "./*[local-name()='FROM' or local-name()='from']/@class", XPathConstants.STRING);
                 String targetName = (String) XMLUtils.execXPath(sequenceFlowNodeList.item(i), "./*[local-name()='TO' or local-name()='to']/@instance", XPathConstants.STRING);
                 String targetType = (String) XMLUtils.execXPath(sequenceFlowNodeList.item(i), "./*[local-name()='TO' or local-name()='to']/@class", XPathConstants.STRING);
-                String sourceId = (String) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @name="+XMLUtils.escapeXPathField(sourceName)+"]/@id", XPathConstants.STRING);
-                String targetId = (String) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @name="+XMLUtils.escapeXPathField(targetName)+"]/@id", XPathConstants.STRING);
+                
+                String sourceId = (String) XMLUtils.execXPath(bpmnModelEl, ".//*[@id!='' and @name="+XMLUtils.escapeXPathField(sourceName)+"]/@id", XPathConstants.STRING);
+                String targetId = (String) XMLUtils.execXPath(bpmnModelEl, ".//*[@id!='' and @name="+XMLUtils.escapeXPathField(targetName)+"]/@id", XPathConstants.STRING);
 
                 if(sourceId.isEmpty()) throw new Exception("ERROR: Can not identify the element with name " + sourceName + " for the relation " + id);
                 if(targetId.isEmpty()) throw new Exception("ERROR: Can not identify the element with name " + targetName + " for the relation " + id);
@@ -595,8 +606,9 @@ public class PNImport {
                 String sourceType = (String) XMLUtils.execXPath(messageFlowNodeList.item(i), "./*[local-name()='FROM' or local-name()='from']/@class", XPathConstants.STRING);
                 String targetName = (String) XMLUtils.execXPath(messageFlowNodeList.item(i), "./*[local-name()='TO' or local-name()='to']/@instance", XPathConstants.STRING);
                 String targetType = (String) XMLUtils.execXPath(messageFlowNodeList.item(i), "./*[local-name()='TO' or local-name()='to']/@class", XPathConstants.STRING);
-                String sourceId = (String) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @name="+XMLUtils.escapeXPathField(sourceName)+"]/@id", XPathConstants.STRING);
-                String targetId = (String) XMLUtils.execXPath(bpmnModelEl, "//*[@id!='' and @name="+XMLUtils.escapeXPathField(targetName)+"]/@id", XPathConstants.STRING);
+
+                String sourceId = (String) XMLUtils.execXPath(bpmnModelEl, ".//*[@id!='' and @name="+XMLUtils.escapeXPathField(sourceName)+"]/@id", XPathConstants.STRING);
+                String targetId = (String) XMLUtils.execXPath(bpmnModelEl, ".//*[@id!='' and @name="+XMLUtils.escapeXPathField(targetName)+"]/@id", XPathConstants.STRING);
 
                 if(sourceId.isEmpty()) throw new Exception("ERROR: Can not identify the element with name " + sourceName + " for the relation " + id);
                 if(targetId.isEmpty()) throw new Exception("ERROR: Can not identify the element with name " + targetName + " for the relation " + id);
@@ -630,8 +642,9 @@ public class PNImport {
     
     private static String getAdoxxElementPool(Document adoxxXml, String elementId) throws Exception{
         String elementName = (String) XMLUtils.execXPath(adoxxXml.getDocumentElement(), "//*[@id=" + XMLUtils.escapeXPathField(elementId) + "]/@name", XPathConstants.STRING);
-        String elementPoolName = (String) XMLUtils.execXPath(adoxxXml.getDocumentElement(), "//*[@class='Is inside'][(./*[local-name()='TO' or local-name()='to']/@class='Pool') or (./*[local-name()='TO' or local-name()='to']/@class='Pool (collapsed)')][./*[local-name()='FROM' or local-name()='from']/@instance=" + XMLUtils.escapeXPathField(elementName) + "]/*[local-name()='TO' or local-name()='to']/@instance", XPathConstants.STRING);
-        String elementPoolId = (String) XMLUtils.execXPath(adoxxXml.getDocumentElement(), "//*[@name=" + XMLUtils.escapeXPathField(elementPoolName) + "]/@id", XPathConstants.STRING);
+        Node bpmnModelEl =  (Node) XMLUtils.execXPath(adoxxXml.getDocumentElement(), "//*[@modeltype='Business process diagram (BPMN 2.0)' and .//@id=" + XMLUtils.escapeXPathField(elementId) + "]", XPathConstants.NODE);
+        String elementPoolName = (String) XMLUtils.execXPath(bpmnModelEl, ".//*[@class='Is inside'][(./*[local-name()='TO' or local-name()='to']/@class='Pool') or (./*[local-name()='TO' or local-name()='to']/@class='Pool (collapsed)')][./*[local-name()='FROM' or local-name()='from']/@instance=" + XMLUtils.escapeXPathField(elementName) + "]/*[local-name()='TO' or local-name()='to']/@instance", XPathConstants.STRING);
+        String elementPoolId = (String) XMLUtils.execXPath(bpmnModelEl, ".//*[@name=" + XMLUtils.escapeXPathField(elementPoolName) + "]/@id", XPathConstants.STRING);
         return elementPoolId;
     }
 
@@ -752,8 +765,8 @@ public class PNImport {
                 
                 String sourceName = (String) XMLUtils.execXPath(relationNodeList.item(i), "./*[local-name()='FROM' or local-name()='from']/@instance", XPathConstants.STRING);
                 String targetName = (String) XMLUtils.execXPath(relationNodeList.item(i), "./*[local-name()='TO' or local-name()='to']/@instance", XPathConstants.STRING);
-                String sourceId = (String) XMLUtils.execXPath(pnModelEl, "//*[@id!='' and @name="+XMLUtils.escapeXPathField(sourceName)+"]/@id", XPathConstants.STRING);
-                String targetId = (String) XMLUtils.execXPath(pnModelEl, "//*[@id!='' and @name="+XMLUtils.escapeXPathField(targetName)+"]/@id", XPathConstants.STRING);
+                String sourceId = (String) XMLUtils.execXPath(pnModelEl, ".//*[@id!='' and @name="+XMLUtils.escapeXPathField(sourceName)+"]/@id", XPathConstants.STRING);
+                String targetId = (String) XMLUtils.execXPath(pnModelEl, ".//*[@id!='' and @name="+XMLUtils.escapeXPathField(targetName)+"]/@id", XPathConstants.STRING);
 
                 String weight = (String) XMLUtils.execXPath(relationNodeList.item(i), "./*[@name='Weight']", XPathConstants.STRING);
                 int weightN = 1;
@@ -779,7 +792,7 @@ public class PNImport {
     /*
     public static void main(String[] args) {
         try {
-            String modelUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_61.xml";
+            String modelUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_adoxx_0.xml";
             //PetriNet[] pnList = new PetriNet[]{generateFromBPMN(XMLUtils.getXmlDocFromURI(modelUrl))};
             PetriNet[] pnList = generateFromAdoxxBPMN(XMLUtils.getXmlDocFromURI(modelUrl));
             //PetriNet[] pnList = generateFromAdoxxPetriNet(XMLUtils.getXmlDocFromURI(modelUrl));
@@ -792,5 +805,5 @@ public class PNImport {
             e.printStackTrace();
         }
     }
-    */
+   */ 
 }
