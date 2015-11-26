@@ -4,7 +4,7 @@
 	  <xs:sequence>
         <xs:element type="xs:string" name="VerificationType"/>
 		<xs:element type="xs:string" name="DefinitionID"/>
-		<xs:element type="xs:string" name="Status"/>
+		<xs:element type="FVResultType" name="Status"/>
 		<xs:element type="xs:string" name="Description"/>
 		<xs:element name="CounterExampleTrace" maxOccurs="unbounded" minOccurs="0">
 		  <xs:complexType>
@@ -23,4 +23,12 @@
 	  </xs:sequence>
 	</xs:complexType>
   </xs:element>
+  
+  <xs:simpleType name="FVResultType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OK"/>
+      <xs:enumeration value="KO"/>
+      <xs:enumeration value="ERROR"/>
+    </xs:restriction>
+  </xs:simpleType>
 </xs:schema>

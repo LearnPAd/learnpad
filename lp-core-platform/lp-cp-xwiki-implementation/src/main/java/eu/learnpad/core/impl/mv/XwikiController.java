@@ -36,6 +36,7 @@ import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.mv.Controller;
+import eu.learnpad.mv.rest.data.FinalResultType;
 import eu.learnpad.mv.rest.data.VerificationResults;
 import eu.learnpad.mv.BridgeInterface;
 
@@ -106,7 +107,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String modelSetId = res.getModelID();
         String type = this.typesMap.get(modelSetId);
         
-		boolean resultsOk = res.getFinalResult().equals("OK");
+		boolean resultsOk = res.getFinalResult().equals(FinalResultType.OK);
 		if(resultsOk){
 		    if(XWikiRestUtils.isPage(RestResource.CORE_REPOSITORY_WIKI,
 	                RestResource.CORE_REPOSITORY_SPACE, modelSetId) == true){
