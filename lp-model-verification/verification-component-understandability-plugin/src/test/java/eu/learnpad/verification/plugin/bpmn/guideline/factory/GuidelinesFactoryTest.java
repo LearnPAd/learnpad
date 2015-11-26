@@ -43,6 +43,7 @@ public class GuidelinesFactoryTest {
 
 
             GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readFileModel(temp.getAbsolutePath()));
+            eg.setVerificationType("UNDERSTANDABILITY");
             //System.out.println(eg);
             
             for ( abstractGuideline iterable_element : eg.getGuidelines()) {
@@ -61,7 +62,7 @@ public class GuidelinesFactoryTest {
 
 
             //jaxbMarshaller.marshal(eg, System.out);
-            assertTrue(eg.getStatus().equals("not OK"));
+            assertTrue(eg.getStatus().equals("KO"));
         } catch (JAXBException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

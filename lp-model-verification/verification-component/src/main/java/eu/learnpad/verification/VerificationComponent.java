@@ -156,6 +156,7 @@ public class VerificationComponent {
    <VerificationType>...</VerificationType>
    <VerificationID>...</VerificationID>
    <ModelID>...</ModelID>
+   <FinalResult>..OK o KO..</FinalResult>
    <Time> ...UTC Time...</Time>
    <Results>
      ...plugin output...
@@ -202,6 +203,7 @@ public class VerificationComponent {
         _verificationThread(vid, modelId, verificationType);
         System.gc();
     }
+
     private static void _verificationThread(String vid, String modelId, String verificationType){
         try{
             String pluginsFolderPath = new ConfigManager().getElement("pluginsFolderPath");
@@ -212,20 +214,28 @@ public class VerificationComponent {
                 resultsFolderPathFile.mkdirs();
             
             HashMap<String, Plugin> verificationMap = PluginManager.getAvailableVerifications(pluginsFolderPath);
-            Plugin verificationEngine = verificationMap.get(verificationType);
-            if(verificationEngine == null)
-                throw new Exception("ERROR: Impossible to find a plugin for the verification type: " + verificationType);
-            
             String[] modelList = getModels(modelId);
             String result = "";
-            for(String model: modelList)
-                result += verificationEngine.performVerification(model, verificationType);
             
+            if(verificationType.equals("ALL")){
+                for(String model: modelList)
+                    for(String pluginVerificationType:verificationMap.keySet())
+                        result += verificationMap.get(pluginVerificationType).performVerification(model, pluginVerificationType);
+            } else {
+                Plugin verificationEngine = verificationMap.get(verificationType);
+                if(verificationEngine == null)
+                    throw new Exception("ERROR: Impossible to find a plugin for the verification type: " + verificationType);
+                for(String model: modelList)
+                    result += verificationEngine.performVerification(model, verificationType);
+            }
+            
+            verificationMap = null;
             if(result.isEmpty())
                 result = "<ErrorResult><Status>ERROR</Status><Description>The "+verificationType+" verificator returned an empty response</Description></ErrorResult>";
-            verificationEngine = null;
-            verificationMap = null;
-            String resultXml = "<VerificationResults><VerificationType>"+verificationType+"</VerificationType><VerificationID>"+vid+"</VerificationID><ModelID>"+modelId+"</ModelID><Time>"+Utils.getUTCTime()+"</Time><Results>"+result+"</Results></VerificationResults>";
+            String finalResult = "OK";
+            if(result.contains("<Status>ERROR</Status>") || result.contains("<Status>KO</Status>"))
+                finalResult = "KO";
+            String resultXml = "<VerificationResults><VerificationType>"+verificationType+"</VerificationType><VerificationID>"+vid+"</VerificationID><ModelID>"+modelId+"</ModelID><FinalResult>"+finalResult+"</FinalResult><Time>"+Utils.getUTCTime()+"</Time><Results>"+result+"</Results></VerificationResults>";
             try{
                 XMLUtils.getXmlDocFromString(resultXml);
             }catch(Exception e){ throw new Exception("ERROR: The result is not a valid XML:\n"+resultXml);}

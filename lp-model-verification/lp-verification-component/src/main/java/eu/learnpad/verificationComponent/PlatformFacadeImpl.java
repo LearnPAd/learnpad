@@ -20,7 +20,10 @@
 
 package eu.learnpad.verificationComponent;
 
-import eu.learnpad.exception.LpRestException;
+import java.util.HashMap;
+
+import javax.xml.bind.DatatypeConverter;
+
 import eu.learnpad.verification.utils.Utils;
 import eu.learnpad.verificationComponent.utils.ConfigManager;
 import eu.learnpad.verificationComponent.utils.NETUtils;
@@ -29,32 +32,44 @@ import eu.learnpad.verificationComponent.utils.NETUtils;
 public class PlatformFacadeImpl implements eu.learnpad.mv.CoreFacade {
 
     @Override
-    public byte[] getModel(String modelSetId, String type) throws LpRestException {
-        String url = "";
+    public byte[] getModel(String modelSetId, String type) {
+        ConfigManager cfg = null;
         try{
-            url = new ConfigManager().getElement("LPHOSTNAME");
+            cfg = new ConfigManager();
         }catch(Exception ex){Utils.log(ex);return new byte[0];}
         
-        url = "http://" + url + "/learnpad/mv/getmodel/"+modelSetId+"?type="+type;
+        String url = cfg.getElement("LPHOSTNAME");
+        String username = cfg.getElement("LPUSERNAME");
+        String password = cfg.getElement("LPPASSWORD");
+        
+        url = url + "/learnpad/mv/corefacade/getmodel/"+modelSetId+"?type="+type;
         byte[] ret = new byte[0];
         try{
-            ret = NETUtils.sendHTTPGET(url, null, false, false);
+            HashMap<String, String> headerList = new HashMap<String, String>() ;
+            headerList.put("Authorization", "Basic " + DatatypeConverter.printBase64Binary((username+":"+password).getBytes("UTF-8")));
+            ret = NETUtils.sendHTTPGET(url, headerList, false, false);
         }catch(Exception ex){Utils.log(ex);}
         
         return ret;
     }
 
     @Override
-    public void notifyVerification(String verificationProcessId) throws LpRestException {
-        String url = "";
+    public void notifyVerification(String verificationProcessId) {
+        ConfigManager cfg = null;
         try{
-            url = new ConfigManager().getElement("LPHOSTNAME");
+            cfg = new ConfigManager();
         }catch(Exception ex){Utils.log(ex);return;}
         
-        url = "http://" + url + "/learnpad/mv/notifyverification/"+verificationProcessId;
+        String url = cfg.getElement("LPHOSTNAME");
+        String username = cfg.getElement("LPUSERNAME");
+        String password = cfg.getElement("LPPASSWORD");
+        
+        url = url + "/learnpad/mv/corefacade/notifyverification/"+verificationProcessId;
         
         try{
-            NETUtils.sendHTTP(url, "PUT", null, null, false, false);
+            HashMap<String, String> headerList = new HashMap<String, String>() ;
+            headerList.put("Authorization", "Basic " + DatatypeConverter.printBase64Binary((username+":"+password).getBytes("UTF-8")));
+            NETUtils.sendHTTP(url, "PUT", null, headerList , false, false);
         }catch(Exception ex){Utils.log(ex);}
     }
 }

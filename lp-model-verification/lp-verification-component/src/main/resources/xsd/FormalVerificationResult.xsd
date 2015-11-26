@@ -2,7 +2,6 @@
   <xs:element name="FormalVerificationResult" >
 	<xs:complexType>
 	  <xs:sequence>
-        <xs:element type="xs:string" name="VerificationType"/>
 		<xs:element type="xs:string" name="DefinitionID"/>
 		<xs:element type="xs:string" name="Status"/>
 		<xs:element type="xs:string" name="Description"/>

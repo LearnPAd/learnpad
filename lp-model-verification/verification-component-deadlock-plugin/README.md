@@ -27,6 +27,7 @@ and define this [MANIFEST.MF](./src/main/resources/custom/MANIFEST.MF)
 The output structure of the verification provided by this plugin is reported in the following:
 
 		<FormalVerificationResult>
+		   <VerificationType>..type of the verification..</VerificationType>
 			<DefinitionID>..Model ID..</DefinitionID>
 			<Status>..OK or KO..</Status>
 			<Description>..detailed description of the result..</Description>

@@ -28,8 +28,9 @@ The output structure of the verification provided by this plugin is reported in 
 
 
 	<UnderstandabilityResult>			
+   			<VerificationType>..type of the verification..</VerificationType>
    			<DefinitionID>PROCESS_1</DefinitionID> ..id of definition..
-			<Status>Ok or not</Status> ..status of the verification..
+			<Status>OK or KO</Status> ..status of the verification..
 			<Description>Summary Description of result</Description>
 			<Guidelines>
 				<Guideline id="" Name=""> ..id and name of the guideline..

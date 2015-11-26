@@ -31,6 +31,7 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.explicitGateways;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+        "verificationType",
 		"definitionID",
 		"status",
 		"description",
@@ -39,6 +40,8 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.explicitGateways;
 @XmlRootElement(name = "UnderstandabilityResult")
 public class GuidelinesFactory {
 
+    @XmlElement(name = "VerificationType", required = true)
+    private String verificationType;
 	@XmlElement(name = "DefinitionID", required = true)
 	private String definitionID;
 	@XmlElement(name = "Status", required = true)
@@ -73,6 +76,14 @@ public class GuidelinesFactory {
 		return guidelines;
 	}
 
+	public String getVerificationType() {
+        return verificationType;
+    }
+
+    public void setVerificationType(String verificationType) {
+        this.verificationType = verificationType;
+    }
+	
 	public String getDefinitionID() {
 		return definitionID;
 	}
@@ -90,7 +101,7 @@ public class GuidelinesFactory {
 		description = "Well done, no errors found!";
 		for (abstractGuideline abstractGuideline : guidelines) {
 			if(!abstractGuideline.getStatus()){
-				status = "not OK";
+				status = "KO";
 				description = "Please follow these guidelines:";
 				break;
 			}

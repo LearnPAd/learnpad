@@ -37,6 +37,7 @@ import eu.learnpad.verification.plugin.utils.XMLUtils;
 
 public class Engine {
 
+    public String verificationType = "";
     private String modelCheckerExePath = "";
     
     public Engine() throws Exception{
@@ -263,7 +264,8 @@ public class Engine {
     
     private String formatResult(boolean propertyVerified, ArrayList<String[]> counterExampleTraceList, PetriNet pn, String verificationDescription) throws Exception{
         /*
-         <Result>
+         <FormalVerificationResult>
+             <VerificationType>..type of the verification..</VerificationType>
              <DefinitionID>..petri net name..</DefinitionID>
              <Status>..OK or KO..</Status>
              <Description>..detailed description of the result..</Description>
@@ -286,12 +288,12 @@ public class Engine {
                  ...
              </CounterExampleTrace>
              ...
-         </Result>
+         </FormalVerificationResult>
          */
-        
+        String verificationType = this.verificationType;
         String status = (propertyVerified)?"OK":"KO";
         String description = "The property \""+verificationDescription+"\" is "+((propertyVerified)?"TRUE!":"FALSE!");
-        String ret = "<FormalVerificationResult><DefinitionID>"+pn.name+"</DefinitionID><Status>"+status+"</Status><Description>"+description+"</Description>";
+        String ret = "<FormalVerificationResult><VerificationType>"+verificationType+"</VerificationType><DefinitionID>"+pn.name+"</DefinitionID><Status>"+status+"</Status><Description>"+description+"</Description>";
         for(String[] counterExampleTrace: counterExampleTraceList){
             ret += "<CounterExampleTrace>";
             

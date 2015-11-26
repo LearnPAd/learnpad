@@ -27,7 +27,7 @@ import javax.ws.rs.PathParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/mv")
+@Path("/learnpad/mv/corefacade")
 public interface NotifyVerification {
 	@PUT
 	@Path("/notifyverification/{verificationprocessid}")

@@ -20,6 +20,8 @@
 
 package eu.learnpad.verificationComponent;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -33,13 +35,18 @@ import javax.xml.bind.JAXBContext;
 import org.w3c.dom.Document;
 
 import eu.learnpad.mv.CoreFacade;
+import eu.learnpad.mv.rest.data.StatusType;
+import eu.learnpad.mv.rest.data.VerificationId;
 import eu.learnpad.mv.rest.data.VerificationResults;
+import eu.learnpad.mv.rest.data.VerificationStatus;
+import eu.learnpad.mv.rest.data.VerificationsAvailable;
 import eu.learnpad.verification.VerificationComponent;
 import eu.learnpad.verification.utils.Utils;
+import eu.learnpad.verification.utils.Utils.LogType;
 import eu.learnpad.verificationComponent.utils.ModelUtils;
 import eu.learnpad.verificationComponent.utils.XMLUtils;
 
-@Path("/learnpad/mv")
+@Path("")
 public class BridgeImpl extends eu.learnpad.mv.Bridge {
     
     public BridgeImpl() {
@@ -70,42 +77,49 @@ public class BridgeImpl extends eu.learnpad.mv.Bridge {
     
     
     @GET
-    @Path("/getavailableverifications")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getAvailableVerifications(){
-        String ret = "";
+    @Path("/learnpad/mv/bridge/getavailableverifications")
+    @Produces(MediaType.APPLICATION_XML)
+    public VerificationsAvailable getAvailableVerifications(){
         try{
             String[] verificationList = VerificationComponent.getSupportedVerifications();
+            VerificationsAvailable ret = new VerificationsAvailable();
+            List<String> va = ret.getVerificationAvailable();
             for(String verification:verificationList)
-                ret += verification + "\n";
+                va.add(verification);
+            
+            return ret;
         }catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
-        return ret;
+        return null;
     }
     
     @GET
-    @Path("/startverification")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String startVerification(@QueryParam("modelsetid") String modelSetId, @QueryParam("verificationtype") String verificationType){
-        String ret = "";
+    @Path("/learnpad/mv/bridge/startverification")
+    @Produces(MediaType.APPLICATION_XML)
+    public VerificationId startVerification(@QueryParam("modelsetid") String modelSetId, @QueryParam("verificationtype") String verificationType){
+        VerificationId vid = null;
         try{
-            ret = VerificationComponent.startVerification(modelSetId, verificationType);
+            String ret = VerificationComponent.startVerification(modelSetId, verificationType);
+            vid = new VerificationId();
+            vid.setId(ret);
         }catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
-        return ret;
+        return vid;
     }
     
     @GET
-    @Path("/getverificationstatus")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getVerificationStatus(@QueryParam("verificationprocessid") String verificationProcessId){
-        String ret = "";
+    @Path("/learnpad/mv/bridge/getverificationstatus")
+    @Produces(MediaType.APPLICATION_XML)
+    public VerificationStatus getVerificationStatus(@QueryParam("verificationprocessid") String verificationProcessId){
         try{
-            ret = VerificationComponent.getVerificationStatus(verificationProcessId);
+            String ret = VerificationComponent.getVerificationStatus(verificationProcessId);
+            VerificationStatus vs = new VerificationStatus();
+            vs.setStatus(StatusType.fromValue(ret));
+            return vs;
         }catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
-        return ret;
+        return null;
     }
     
     @GET
-    @Path("/getverificationresult")
+    @Path("/learnpad/mv/bridge/getverificationresult")
     @Produces(MediaType.APPLICATION_XML)
     public VerificationResults getVerificationResult(@QueryParam("verificationprocessid") String verificationProcessId){
         VerificationResults ret = null;
@@ -119,9 +133,9 @@ public class BridgeImpl extends eu.learnpad.mv.Bridge {
         return ret;
     }
     
-    //TEST METHODS: set the LP platform address to 127.0.0.1:9998/rest in the config file in order to use them
+    //TEST METHODS: set the LP platform address to http://127.0.0.1:9998/rest in the config file in order to use them
     @GET
-    @Path("/getmodel/{modelsetid}")
+    @Path("/learnpad/mv/corefacade/getmodel/{modelsetid}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public byte[] getModelTEST(@PathParam("modelsetid") String modelSetId, @QueryParam("type") String type){
         try{
@@ -133,13 +147,14 @@ public class BridgeImpl extends eu.learnpad.mv.Bridge {
     }
     
     @PUT
-    @Path("/notifyverification/{verificationprocessid}")
+    @Path("/learnpad/mv/corefacade/notifyverification/{verificationprocessid}")
     public void notifyVerificationTEST(@PathParam("verificationprocessid") String verificationProcessId){
         System.out.println("Verification completed: "+verificationProcessId);
+        Utils.log("Verification completed: "+verificationProcessId, LogType.INFO);
     }
     
     @PUT
-    @Path("/loadmodel")
+    @Path("/learnpad/mv/bridge/loadmodel")
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     public static String loadModel(byte[] model){
@@ -150,7 +165,7 @@ public class BridgeImpl extends eu.learnpad.mv.Bridge {
     }
     
     @GET
-    @Path("/startsyncverification")
+    @Path("/learnpad/mv/bridge/startsyncverification")
     @Produces(MediaType.TEXT_PLAIN)
     public String startSyncVerification(@QueryParam("modelsetid") String modelSetId, @QueryParam("verificationtype") String verificationType){
         String ret = "";

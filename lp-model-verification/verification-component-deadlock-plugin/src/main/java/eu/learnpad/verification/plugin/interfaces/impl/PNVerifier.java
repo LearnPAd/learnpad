@@ -42,6 +42,7 @@ public class PNVerifier implements Plugin {
         String ret = "";
         try{
             Engine engine = new Engine();
+            engine.verificationType = type;
             if(type.equals("ONE DEADLOCK")){
                 ret = engine.verifyDeadlock(model, false);
             } else if(type.equals("ALL DEADLOCKS")){
@@ -87,11 +88,14 @@ public class PNVerifier implements Plugin {
                 String modelPath = args[2];
                 String model = new String(IOUtils.readFile(modelPath));
                 String result = new PNVerifier().performVerification(model, verificationType);
-                String resultXml = "<VerificationResult><VerificationType>"+verificationType+"</VerificationType><VerificationID></VerificationID><ModelID>"+modelPath+"</ModelID><Time>"+Utils.getUTCTime()+"</Time><Results>"+result+"</Results></VerificationResult>";
+                String finalResult = "OK";
+                if(result.contains("<Status>ERROR</Status>") || result.contains("<Status>KO</Status>"))
+                    finalResult = "KO";
+                String resultXml = "<VerificationResult><VerificationType>"+verificationType+"</VerificationType><VerificationID></VerificationID><ModelID>"+modelPath+"</ModelID><FinalResult>"+finalResult+"</FinalResult><Time>"+Utils.getUTCTime()+"</Time><Results>"+result+"</Results></VerificationResult>";
                 try{
                     XMLUtils.getXmlDocFromString(resultXml);
                 }catch(Exception e){
-                    resultXml = "<VerificationResults><VerificationType>"+verificationType+"</VerificationType><VerificationID></VerificationID><ModelID>"+modelPath+"</ModelID><Time>"+Utils.getUTCTime()+"</Time><Results><ErrorResult><Status>ERROR</Status><Description>ERROR: The result is not a valid XML</Description></ErrorResult></Results></VerificationResults>";
+                    resultXml = "<VerificationResults><VerificationType>"+verificationType+"</VerificationType><VerificationID></VerificationID><ModelID>"+modelPath+"</ModelID><FinalResult>KO</FinalResult><Time>"+Utils.getUTCTime()+"</Time><Results><ErrorResult><Status>ERROR</Status><Description>ERROR: The result is not a valid XML</Description></ErrorResult></Results></VerificationResults>";
                     Utils.log("ERROR: The result is not a valid XML:\n"+resultXml, LogType.ERROR);
                 }
                 
