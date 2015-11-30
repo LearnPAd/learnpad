@@ -313,14 +313,17 @@ public class PNExport {
         else
             placeList = pn.getPlaceList_safe();
         
-        String[] ret = new String[placeList.size()];
+        ArrayList<String> retA = new ArrayList<String>();
         for(int i=0;i<placeList.size();i++)
             if(!placeList.get(i).excludeFromDeadlockCheck)
-                ret[i] = "EF( "+placeList.get(i).name+" >= oo )";
+                retA.add("EF( "+placeList.get(i).name+" >= oo )");
+        
+        String[] ret = new String[retA.size()];
+        retA.toArray(ret);
         return ret;
     }
     
-    public static String exportTo_LOLA_property_State2FollowState1(PetriNet pn, String[] pnIdObject1List, String[] pnIdObject2List, boolean always) throws Exception{
+    public static String exportTo_LOLA_property_State2FollowState1(PetriNet pn, String[] pnIdObject1List, String[] pnIdObject2List, boolean always, boolean negateFrom, boolean negateTo) throws Exception{
 
         if(pnIdObject1List.length==0)
             throw new Exception("ERROR: At least one PetriNet Object Id for the first state is required");
@@ -346,13 +349,14 @@ public class PNExport {
         if(pnIdObject2S.endsWith("AND "))
             pnIdObject2S = pnIdObject2S.substring(0, pnIdObject2S.length()-5);
         
-        if(always)
-            return "AG(("+pnIdObject1S+") -> AF("+pnIdObject2S+"))";
-        else
-            return "AG(("+pnIdObject1S+") -> EF("+pnIdObject2S+"))";
+        String alwaysFollow = (always)?"A":"E";
+        String notFrom = (negateFrom)?"NOT":"";
+        String notTo = (negateTo)?"G NOT":"F";
+        
+        return "AG ("+notFrom+"("+pnIdObject1S+") -> "+alwaysFollow+notTo+"("+pnIdObject2S+"))";
     }
     
-    public static String exportTo_LOLA_property_StateReachable(PetriNet pn, String[] pnIdObjectList, boolean always) throws Exception{
+    public static String exportTo_LOLA_property_StateReachable(PetriNet pn, String[] pnIdObjectList, boolean always, boolean negate) throws Exception{
         if(pnIdObjectList.length==0)
             throw new Exception("ERROR: At least one PetriNet Object Id for the first state is required");
 
@@ -362,10 +366,10 @@ public class PNExport {
         if(pnIdObjectS.endsWith("AND "))
             pnIdObjectS = pnIdObjectS.substring(0, pnIdObjectS.length()-5);
         
-        if(always)
-            return "AF("+pnIdObjectS+")";
-        else
-            return "EF("+pnIdObjectS+")";
+        String alwaysFollow = (always)?"A":"E";
+        String not = (negate)?"G NOT":"F";
+        
+        return alwaysFollow+not+"("+pnIdObjectS+")";
     }
     
     /*

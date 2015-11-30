@@ -1,0 +1,16 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="ErrorResult" >
+	<xs:complexType>
+	  <xs:sequence>
+		<xs:element type="EResultType" name="Status"/>
+		<xs:element type="xs:string" name="Description"/>
+	  </xs:sequence>
+	</xs:complexType>
+  </xs:element>
+  
+  <xs:simpleType name="EResultType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ERROR"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

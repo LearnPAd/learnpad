@@ -186,6 +186,7 @@ public class PetriNet implements java.io.Serializable{
             initialMark[i] = placeList.get(i).numToken;
         return getEnabledTransitions(initialMark);
     }
+    //FIXME: leggere arc weight!!!
     public ArrayList<TR> getEnabledTransitions(int[] startingMarkList) throws Exception{
 
         if(startingMarkList == null)
@@ -204,7 +205,7 @@ public class PetriNet implements java.io.Serializable{
             
         return enabledList;
     }
-    
+    //FIXME: leggere arc weight!!!
     public void fireTransition(TR transition) throws Exception{
         if(!getEnabledTransitions().contains(transition))
             throw new Exception("ERROR: transition " + transition.name + " can not be fired");

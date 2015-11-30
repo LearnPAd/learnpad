@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-pkill -f "java -jar verification-component-1.0-jar-with-dependencies.jar" || exit 0
+pkill -f "java -jar lp-verification-component-1.0.jar" || exit 0

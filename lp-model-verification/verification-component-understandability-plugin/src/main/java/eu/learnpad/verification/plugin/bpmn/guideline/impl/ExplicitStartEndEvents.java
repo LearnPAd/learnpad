@@ -2,6 +2,7 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl;
 
 import java.util.List;
 
+import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.EndEvent;
 import org.eclipse.bpmn2.Event;
 import org.eclipse.bpmn2.FlowElement;
@@ -13,7 +14,7 @@ import org.eclipse.bpmn2.SubProcess;
 public class ExplicitStartEndEvents extends abstractGuideline{
 
 
-	public ExplicitStartEndEvents(List<RootElement> diagram) {
+	public ExplicitStartEndEvents(Definitions diagram) {
 		super(diagram);
 		this.id = "16";
 		this.Description = "The modeler should explicitly make use of start and end events. The use of start and end events is necessary to represent the different states that begin and complete the modeled process. Processes with implicit start and end events are undesirable and could lead to misinterpretations.";
@@ -23,43 +24,41 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 	}
 
 	@Override
-	protected void findGL(List<RootElement> diagram) {
+	protected void findGL(Definitions diagram) {
 		StringBuilder ret = new StringBuilder("");
 		int i = 1;
 		boolean flag = false;
-		for (RootElement rootElement : diagram) {
+		for (RootElement rootElement : diagram.getRootElements()) {
 			if (rootElement instanceof Process) {
 				Process process = (Process) rootElement;
-				System.out.format("Found a process: %s\n", process.getName());
-				NameProcess = process.getName();
+				//System.out.format("Found a process: %s\n", process.getName());
+				
 				IDProcess = process.getId();
 				for (FlowElement fe : process.getFlowElements()) {
 					if(fe instanceof SubProcess){
 						SubProcess sub = (SubProcess) fe;
-						System.out.format("Found a SubProcess: %s\n", sub.getName());
+						//System.out.format("Found a SubProcess: %s\n", sub.getName());
 						i = this.searchSubProcess(sub, ret, i);
 					}else
 						if (fe instanceof StartEvent) {
 							Event event = (Event) fe;
 							flag = true;
-							System.out.println(fe.eClass().getName() + ": name="
-									+ fe.getName() + " ID=" + fe.getId());
+							//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
 
 							if (event.getOutgoing().size() < 1) {
 								elementsBPMN.add(fe);
-								setElements(fe.getId());
+								setElements(fe.getId(),IDProcess);
 								ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
 										+ "\n");
 							}
 						} else if (fe instanceof EndEvent) {
 							Event event = (Event) fe;
 							flag = true;
-							System.out.println(fe.eClass().getName() + ": name="
-									+ fe.getName() + " ID=" + fe.getId());
+							//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
 
 							if (event.getIncoming().size() < 1) {
 								elementsBPMN.add(fe);
-								setElements(fe.getId());
+								setElements(fe.getId(),IDProcess);
 								ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
 										+ "\n");
 							}
@@ -81,30 +80,28 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 		for ( FlowElement fe : sub.getFlowElements()) {
 			if(fe instanceof SubProcess){
 				SubProcess ssub = (SubProcess) fe;
-				System.out.format("Found a SubProcess: %s\n", ssub.getName());
+				//System.out.format("Found a SubProcess: %s\n", ssub.getName());
 				i = this.searchSubProcess(ssub, ret, i);
 			}else
 			if (fe instanceof StartEvent) {
 				Event event = (Event) fe;
 				flag = true;
-				System.out.println(fe.eClass().getName() + ": name="
-						+ fe.getName() + " ID=" + fe.getId());
+				//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
 
 				if (event.getOutgoing().size() < 1) {
 					elementsBPMN.add(fe);
-					setElements(fe.getId());
+					setElements(fe.getId(),IDProcess);
 					ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
 							+ "\n");
 				}
 			} else if (fe instanceof EndEvent) {
 				Event event = (Event) fe;
 				flag = true;
-				System.out.println(fe.eClass().getName() + ": name="
-						+ fe.getName() + " ID=" + fe.getId());
+				//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
 
 				if (event.getIncoming().size() < 1) {
 					elementsBPMN.add(fe);
-					setElements(fe.getId());
+					setElements(fe.getId(),IDProcess);
 					ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
 							+ "\n");
 				}

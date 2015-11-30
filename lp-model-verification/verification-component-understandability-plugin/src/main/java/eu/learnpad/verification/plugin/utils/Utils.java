@@ -23,7 +23,6 @@ package eu.learnpad.verification.plugin.utils;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -41,10 +40,8 @@ public class Utils {
 		return sdf.parse(dateTime);
 	}
 	
-
-	
 	public enum LogType{
-		INFO, ERROR, DEBUG;
+		INFO, ERROR, DEBUG, WARNING;
 	}
 	public static void log(Error e){
 		StringWriter sw = new StringWriter();

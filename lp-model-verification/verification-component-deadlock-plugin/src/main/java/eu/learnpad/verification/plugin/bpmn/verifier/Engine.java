@@ -37,6 +37,7 @@ import eu.learnpad.verification.plugin.utils.XMLUtils;
 
 public class Engine {
 
+    public String verificationType = "";
     private String modelCheckerExePath = "";
     
     public Engine() throws Exception{
@@ -89,13 +90,13 @@ public class Engine {
     /*
     Attenzione: il metodo usa la full state search perciò in caso di loop nel modello genera esplosione di stati
     */
-    public String verifyObjectReachability(String model, String bpObjectId, boolean inAnyCase) throws Exception {
+    public String verifyObjectReachability(String model, String bpObjectId, boolean inAnyCase, boolean negate) throws Exception {
         PetriNet[] pnList = generatePN(model);
         
         String ret = "";
         for(PetriNet pn: pnList){
             if(pn.isEmpty())
-                throw new Exception("ERROR: The provided petri net is empty");
+                throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
             
             String[] pnIdObjectList = new String[0];
             if(BPUtils.existBPMNObject(pn, bpObjectId)){
@@ -108,7 +109,7 @@ public class Engine {
                 throw new Exception("ERROR: Can not find the petri net objects related to the element "+bpObjectId);
 
             String modelToVerify = PNExport.exportTo_LOLA(pn);
-            String propertyToVerify = PNExport.exportTo_LOLA_property_StateReachable(pn, pnIdObjectList, inAnyCase);
+            String propertyToVerify = PNExport.exportTo_LOLA_property_StateReachable(pn, pnIdObjectList, inAnyCase, negate);
             
             ArrayList<String[]> counterExampleTraceList = new ArrayList<String[]>();
             String out = LOLA.sync_getVerificationOutput(modelCheckerExePath, modelToVerify, propertyToVerify, false);
@@ -118,7 +119,7 @@ public class Engine {
                 propertyVerified = true;
             }
             
-            return formatResult(!propertyVerified, counterExampleTraceList, pn, "Unreachability for object "+bpObjectId);
+            ret += formatResult(propertyVerified, counterExampleTraceList, pn, "Object "+bpObjectId+" is "+((inAnyCase)?"every time":"sometime")+((negate)?" not":"")+" reachable");
         }
         return ret;
     }
@@ -126,13 +127,13 @@ public class Engine {
     /*
      Attenzione: il metodo usa la full state search perciò in caso di loop nel modello genera esplosione di stati
      */
-    public String verifyPathExistence(String model, String bpFromObjectId, String bpToObjectId, boolean inAnyCase) throws Exception {
+    public String verifyPathExistence(String model, String bpFromObjectId, String bpToObjectId, boolean inAnyCase, boolean negateFrom, boolean negateTo) throws Exception {
         PetriNet[] pnList = generatePN(model);
         
         String ret = "";
         for(PetriNet pn: pnList){
             if(pn.isEmpty())
-                throw new Exception("ERROR: The provided petri net is empty");
+                throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
             
             String[] pnFromObjectIdList = new String[0];
             if(BPUtils.existBPMNObject(pn, bpFromObjectId)){
@@ -154,9 +155,9 @@ public class Engine {
             if(pnToObjectIdList.length==0)
                 throw new Exception("ERROR: Can not find the petri net objects related to the element "+bpToObjectId);
 
-            
             String modelToVerify = PNExport.exportTo_LOLA(pn);
-            String propertyToVerify = PNExport.exportTo_LOLA_property_State2FollowState1(pn, pnFromObjectIdList, pnToObjectIdList, inAnyCase);
+            String propertyToVerify = PNExport.exportTo_LOLA_property_State2FollowState1(pn, pnFromObjectIdList, pnToObjectIdList, inAnyCase, negateFrom, negateTo);
+
             ArrayList<String[]> counterExampleTraceList = new ArrayList<String[]>();
             String out = LOLA.sync_getVerificationOutput(modelCheckerExePath, modelToVerify, propertyToVerify, false);
             boolean propertyVerified = false;
@@ -165,13 +166,19 @@ public class Engine {
                 propertyVerified = true;
             }
             
-            return formatResult(!propertyVerified, counterExampleTraceList, pn, "Unreachability from object "+bpFromObjectId + " to object "+bpToObjectId);
+            ret += formatResult(propertyVerified, counterExampleTraceList, pn, ((inAnyCase)?"For every path":"Exist a path where")+" "+((negateFrom)?"not ":"")+"happens "+bpFromObjectId + " and then "+((negateTo)?"not ":"")+"happens "+bpToObjectId);
         }
         return ret;
     }
-    
+
     private PetriNet[] generatePN(String model) throws Exception{
         PetriNet[] pnList = new PetriNet[0];
+        
+        model = model.replace("<!DOCTYPE ADOXML SYSTEM \"adoxml31.dtd\">", "")
+                        .replace("<?xml version=\"1.1\" encoding=\"UTF-8\"?>\n", "")
+                        .replace(" xmlns=\"@boc-eu.com/boc-is/adonis.model.document;1\"", "")
+                        .replace(" xsi:schemaLocation=\"@boc-eu.com/boc-is/adonis.model.document;1 adoxmlmodel.xsd\"", "");
+        
         Document xmlModel = XMLUtils.getXmlDocFromString(model);
         
         if(PNImport.isOMGBPMN2(xmlModel))
@@ -182,16 +189,17 @@ public class Engine {
             pnList = Utils.concatenate(pnList1, pnList2);
         } else
             throw new Exception("ERROR: The model file format can not be recognized.");
-        
-        if(pnList.length==0)
-            throw new Exception("ERROR: No BPMN2.0 model provided.");
-        
+        /*
+        for(int i=0;i<pnList.length;i++)
+            if(Algorithms.needToBeReduced(pnList[i]))
+                pnList[i] = Algorithms.generateReducedNet(pnList[i]);
+        */
         return pnList;
     }
-
+    
     private String verifySingleDeadlock(PetriNet pn) throws Exception{
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty");
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
         
         String modelToVerify = PNExport.exportTo_LOLA(pn);
         String propertyToVerify = PNExport.exportTo_LOLA_property_DeadlockPresence(pn);
@@ -204,12 +212,12 @@ public class Engine {
             propertyVerified = true;
         }
         
-        return formatResult(propertyVerified, counterExampleTraceList, pn, "Deadlock");
+        return formatResult(!propertyVerified, counterExampleTraceList, pn, "Deadlock absence");
     }
     
     private String verifyAllDeadlocks(PetriNet pn) throws Exception{
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty");
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
         
         ArrayList<PL> endPLList = pn.getEndList_safe();
         
@@ -233,12 +241,12 @@ public class Engine {
                     pn.getPlace(lastCounterExampleObj).excludeFromDeadlockCheck=true;
         }
         
-        return formatResult(propertyVerified, counterExampleTraceList, pn, "Deadlock");
+        return formatResult(!propertyVerified, counterExampleTraceList, pn, "Deadlock absence (checking all deadlocks)");
     }
     
     private String verifyUnboundedness(PetriNet pn, boolean onlyEndPlaces) throws Exception{
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty");
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
         
         String modelToVerify = PNExport.exportTo_LOLA(pn);
         String[] propertyToVerifyList = PNExport.exportTo_LOLA_property_UnboundednessPresence(pn, onlyEndPlaces);
@@ -251,13 +259,14 @@ public class Engine {
                 propertyVerified = true;
             }
         }
-        return formatResult(propertyVerified, counterExampleTraceList, pn, "Unboundedness");
+        return formatResult(!propertyVerified, counterExampleTraceList, pn, "Unboundedness absence "+((onlyEndPlaces)?"only on the ending events":"in all the model"));
     }
     
-    private String formatResult(boolean propertyVerified, ArrayList<String[]> counterExampleTraceList, PetriNet pn, String verificationName) throws Exception{
+    private String formatResult(boolean propertyVerified, ArrayList<String[]> counterExampleTraceList, PetriNet pn, String verificationDescription) throws Exception{
         /*
-         <Result>
-             <PNName>..petri net name..</PNName>
+         <FormalVerificationResult>
+             <VerificationType>..type of the verification..</VerificationType>
+             <DefinitionID>..petri net name..</DefinitionID>
              <Status>..OK or KO..</Status>
              <Description>..detailed description of the result..</Description>
              <CounterExampleTrace>
@@ -279,12 +288,12 @@ public class Engine {
                  ...
              </CounterExampleTrace>
              ...
-         </Result>
+         </FormalVerificationResult>
          */
-        
-        String status = (!propertyVerified)?"OK":"KO";
-        String description = (!propertyVerified)?verificationName+" not found!":verificationName+" found!";
-        String ret = "<Result><PNName>"+pn.name+"</PNName><Status>"+status+"</Status><Description>"+description+"</Description>";
+        String verificationType = this.verificationType;
+        String status = (propertyVerified)?"OK":"KO";
+        String description = "The property \""+verificationDescription+"\" is "+((propertyVerified)?"TRUE!":"FALSE!");
+        String ret = "<FormalVerificationResult><VerificationType>"+verificationType+"</VerificationType><DefinitionID>"+pn.name+"</DefinitionID><Status>"+status+"</Status><Description>"+description+"</Description>";
         for(String[] counterExampleTrace: counterExampleTraceList){
             ret += "<CounterExampleTrace>";
             
@@ -305,7 +314,7 @@ public class Engine {
             }
             ret += "</CounterExampleTrace>";
         }
-        ret += "</Result>";
+        ret += "</FormalVerificationResult>";
             
         return ret;
     }
@@ -318,14 +327,14 @@ public class Engine {
             //a = XMLUtils.escapeXPathField(a);
             //Node b = (Node)XMLUtils.execXPath(t.getDocumentElement(), "//*[@a="+a+"]", XPathConstants.NODE);
             
-            String bpmnUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_4.bpmn";
+            String bpmnUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_11.bpmn";
             String bpmnModel = new String(IOUtils.readFile(bpmnUrl));
             
             Engine engine = new Engine();
-            //System.out.println(engine.verifyDeadlock(bpmnModel));
+            //System.out.println(engine.verifyDeadlock(bpmnModel, false));
             //System.out.println(engine.verifyUnboundedness(bpmnModel, true));
-            //System.out.println(engine.verifyObjectReachability(bpmnModel, "Task_2", true));
-            System.out.println(engine.verifyPathExistence(bpmnModel, "StartEvent_2", "Task_2", false));
+            //System.out.println(engine.verifyObjectReachability(bpmnModel, "pTask1", false, true));
+            System.out.println(engine.verifyPathExistence(bpmnModel, "StartEvent_1", "pTask1", false, false, true));
             
         } catch (Exception e) {
             e.printStackTrace();

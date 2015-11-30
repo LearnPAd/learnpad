@@ -33,9 +33,11 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.or.BridgeInterface;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.States;
@@ -173,9 +175,22 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	}
 
 	@Override
-	public void modelSetImported(String modelSetId, String type)
-			throws LpRestException {
-		// TODO Auto-generated method stub
+	public void modelSetImported(String modelSetId, String type) throws LpRestExceptionXWikiImpl {
+      HttpClient httpClient = RestResource.getClient();
+        String uri = String.format(
+                "%s/learnpad/or/bridge/modelsetimported/%s",
+                RestResource.REST_URI, modelSetId);
+        PutMethod putMethod = new PutMethod(uri);
+        putMethod.addRequestHeader("Accept", "application/xml");
+        NameValuePair[] queryString = new NameValuePair[1];
+        queryString[0] = new NameValuePair("type", type);
+        putMethod.setQueryString(queryString);
+        try {
+            httpClient.executeMethod(putMethod);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new LpRestExceptionXWikiImpl(e.getMessage(),e);
+        }
 		
 	}
 

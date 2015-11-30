@@ -1,0 +1,17 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="StatusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IN PROGRESS"/>
+      <xs:enumeration value="NEVER STARTED"/>
+      <xs:enumeration value="COMPLETED"/>
+    </xs:restriction>
+  </xs:simpleType>
+          
+  <xs:element name="VerificationStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Status" minOccurs="1" maxOccurs="1" type="StatusType"/>          
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>             
+</xs:schema>

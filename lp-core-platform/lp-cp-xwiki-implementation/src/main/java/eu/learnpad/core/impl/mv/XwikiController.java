@@ -19,6 +19,9 @@
  */
 package eu.learnpad.core.impl.mv;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
@@ -29,8 +32,12 @@ import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.core.impl.mv.XwikiBridgeInterfaceRestResource;
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.core.rest.XWikiRestUtils;
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.mv.Controller;
+import eu.learnpad.mv.rest.data.FinalResultType;
+import eu.learnpad.mv.rest.data.VerificationResults;
 import eu.learnpad.mv.BridgeInterface;
 
 @Component
@@ -45,6 +52,13 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
     /** Set to true once the inherited BridgeInterface has been initialized. */
     private boolean initialized = false;	
 
+    private eu.learnpad.cw.BridgeInterface cw;
+    private eu.learnpad.or.BridgeInterface or;
+    
+    private Map<String, String> typesMap;
+    
+    
+    
 	 /** A means of instantiating the inherited BridgeInterface according
 	  * to XWIKI (see  http://extensions.xwiki.org/xwiki/bin/view/Extension/Component+Module#HComponentInitialization).
 	  * Actually in this implementation we currently support only 
@@ -62,7 +76,12 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 //	        	} catch (ComponentLookupException e) {
 //	        		throw new InitializationException(e.getMessage(), e);
 //	        }
+			this.cw = new eu.learnpad.core.impl.cw.XwikiBridgeInterfaceRestResource();
+			this.or = new eu.learnpad.core.impl.or.XwikiBridgeInterfaceRestResource();
+			this.typesMap = new HashMap<String, String>();
+			
 			this.initialized=true;
+			
 		}
 	}
 		
@@ -70,18 +89,34 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		this.bridge = bi;    
     }
 	
+
 	@Override
 	public byte[] getModel(String modelSetId, String type)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		return null;
+			throws LpRestException {
+	    this.typesMap.put(modelSetId, type);
+        String attachmentName = String.format("%s.%s", modelSetId, type);
+        return XWikiRestUtils.getAttachment(RestResource.CORE_REPOSITORY_WIKI,
+                RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName);
 	}
 
 	@Override
 	public void notifyVerification(String verificationProcessId)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
+			throws LpRestException {
+		VerificationResults res = this.bridge.getVerificationResult(verificationProcessId);
+        
+		String modelSetId = res.getModelID();
+        String type = this.typesMap.get(modelSetId);
+        
+		boolean resultsOk = res.getFinalResult().equals(FinalResultType.OK);
+		if(resultsOk){
+		    if(XWikiRestUtils.isPage(RestResource.CORE_REPOSITORY_WIKI,
+	                RestResource.CORE_REPOSITORY_SPACE, modelSetId) == true){
+    		    this.cw.modelSetImported(modelSetId, type);
+    		    this.or.modelSetImported(modelSetId, type);
+		    }
+		}
 		
+		this.cw.modelVerified(modelSetId, (resultsOk)?"OK":"KO");
 	}
 
 }
