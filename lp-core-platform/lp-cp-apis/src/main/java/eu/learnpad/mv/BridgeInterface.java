@@ -19,8 +19,11 @@
  */
 package eu.learnpad.mv;
 
+import javax.ws.rs.Path;
+
 import eu.learnpad.mv.rest.Verification;
 
+@Path("/learnpad/mv/bridge")
 public interface BridgeInterface extends Verification  {
 
 }

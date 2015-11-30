@@ -29,7 +29,6 @@ import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/mv/corefacade")
 public interface ModelImporter {
 	@GET
 	@Path("/getmodel/{modelsetid}")

@@ -32,7 +32,6 @@ import eu.learnpad.mv.rest.data.VerificationStatus;
 import eu.learnpad.mv.rest.data.VerificationsAvailable;
 
 
-@Path("/learnpad/mv/bridge")
 public interface Verification {
     
     @GET
