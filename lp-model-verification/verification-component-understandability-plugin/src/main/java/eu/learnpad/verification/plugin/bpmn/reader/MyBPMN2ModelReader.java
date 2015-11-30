@@ -54,11 +54,9 @@ public class MyBPMN2ModelReader {
 
     }
 
+    public Definitions readURIModel(URI uri) throws IOException{
 
-    public Definitions readFileModel(String theBPMNFile) throws IOException{
 
-
-        URI uri = URI.createFileURI(theBPMNFile);
 
         //URI uri = URI.createURI("SampleProcess.bpmn");
         Bpmn2ResourceFactoryImpl resFactory = new Bpmn2ResourceFactoryImpl();
@@ -74,16 +72,40 @@ public class MyBPMN2ModelReader {
             resource.load(options);
         }catch(IOWrappedException e){
             Utils.log(e.getMessage(), LogType.WARNING);
-            Utils.log("\nModel involved in the exception:\n"+theBPMNFile, LogType.WARNING);
+
+            Utils.log("\nModel involved in the exception:\n"+uri.toString(), LogType.WARNING);
+
             //  e.printStackTrace();
         }
         // This is the root element of the XML document
         Definitions d = getDefinitions(resource);
 
 
+
        
         return d;
 
+
+
+    }
+
+    public Definitions readJavaURIModel(String theBPMNURIjava) throws IOException{
+
+
+        URI uri = URI.createURI(theBPMNURIjava);
+        
+        
+        return readURIModel(uri);
+
+
+    }
+    public Definitions readFileModel(String theBPMNFile) throws IOException{
+
+
+        URI uri = URI.createFileURI(theBPMNFile);
+        
+        
+        return readURIModel(uri);
 
 
     }

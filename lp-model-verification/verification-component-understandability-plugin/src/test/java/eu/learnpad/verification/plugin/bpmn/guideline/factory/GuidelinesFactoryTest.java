@@ -2,10 +2,10 @@ package eu.learnpad.verification.plugin.bpmn.guideline.factory;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -30,20 +30,24 @@ public class GuidelinesFactoryTest {
     private void genarateTestforFile(String NameFile,String id){
         
         try {
-            InputStream is = GuidelinesFactoryTest.class.getClassLoader().getResourceAsStream(NameFile);
-            assertNotNull(is);
-            File temp = File.createTempFile("tempfiletest", ".tmp"); 
-            temp.deleteOnExit();
 
-            Files.copy(is,temp.toPath(),java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            URL is = GuidelinesFactoryTest.class.getClassLoader().getResource(NameFile);
+            assertNotNull(is);
+           // File temp = File.createTempFile("tempfiletest", ".tmp"); 
+            //temp.deleteOnExit();
+
+            //Files.copy(is,temp.toPath(),java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+
 
             MyBPMN2ModelReader readerBPMN = new MyBPMN2ModelReader();
 
 
 
 
-            GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readFileModel(temp.getAbsolutePath()));
-            eg.setVerificationType("UNDERSTANDABILITY");
+
+            GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readJavaURIModel(is.toURI().toString()));
+           eg.setVerificationType("UNDERSTANDABILITY");
+
             //System.out.println(eg);
             
             for ( abstractGuideline iterable_element : eg.getGuidelines()) {
@@ -61,33 +65,36 @@ public class GuidelinesFactoryTest {
 
 
 
-            //jaxbMarshaller.marshal(eg, System.out);
+            jaxbMarshaller.marshal(eg, System.out);
+
             assertTrue(eg.getStatus().equals("KO"));
-        } catch (JAXBException e) {
+        } catch (JAXBException  | URISyntaxException  | IOException e ) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        } 
+
     }
     
     @Test
     public void testGuidelinesFactoryListOfRootElementGood() {
         try {
-            InputStream is = GuidelinesFactoryTest.class.getClassLoader().getResourceAsStream("TitoloUnico_MontiAzzurrSUB.bpmn");
+
+            URL is = GuidelinesFactoryTest.class.getClassLoader().getResource("TitoloUnico_MontiAzzurrSUB.bpmn");
             assertNotNull(is);
-            File temp = File.createTempFile("tempfiletest", ".tmp"); 
+           /* File temp = File.createTempFile("tempfiletest", ".tmp"); 
             temp.deleteOnExit();
 
             Files.copy(is,temp.toPath(),java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+*/
 
             MyBPMN2ModelReader readerBPMN = new MyBPMN2ModelReader();
 
 
 
 
-            GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readFileModel(temp.getAbsolutePath()));
+
+            GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readJavaURIModel(is.toURI().toString()));
+
             //System.out.println(eg);
 
             JAXBContext jaxbContext = JAXBContext.newInstance(GuidelinesFactory.class);
@@ -100,13 +107,12 @@ public class GuidelinesFactoryTest {
 
             //jaxbMarshaller.marshal(eg, System.out);
             assertTrue(eg.getStatus().equals("OK"));
-        } catch (JAXBException e) {
+
+        } catch (JAXBException  | URISyntaxException  | IOException e ) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        } 
+
 
     }
 

@@ -5,6 +5,10 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+
+import java.net.URISyntaxException;
+import java.net.URL;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,20 +27,21 @@ public class MyBPMN2ModelReaderTest {
     @Test
     public void test() {
         try {
-            InputStream is = GuidelinesFactoryTest.class.getClassLoader().getResourceAsStream("TitoloUnico_MontiAzzurrSUB.bpmn");
+            URL is = GuidelinesFactoryTest.class.getClassLoader().getResource("TitoloUnico_MontiAzzurrSUB.bpmn");
             assertNotNull(is);
-            File temp = File.createTempFile("tempfiletest", ".tmp"); 
+           /* File temp = File.createTempFile("tempfiletest", ".tmp"); 
             temp.deleteOnExit();
 
             Files.copy(is,temp.toPath(),java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-
+*/
             MyBPMN2ModelReader readerBPMN = new MyBPMN2ModelReader();
 
 
-            readerBPMN.ReadThisModel(temp.getAbsolutePath());
+            readerBPMN.readJavaURIModel(is.toURI().toString());
 
             
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
+
             // TODO Auto-generated catch block
             e.printStackTrace();
             fail();
