@@ -19,18 +19,15 @@
  */
 package eu.learnpad.core.impl.sim;
 
-import javax.inject.Named;
 import javax.ws.rs.Path;
 
-import org.xwiki.component.annotation.Component;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.core.impl.sim.XwikiCoreFacadeRestResource;
-import eu.learnpad.sim.CoreFacade;
 import eu.learnpad.sim.Bridge;
+import eu.learnpad.sim.CoreFacade;
 
-@Component
-@Named("eu.learnpad.core.impl.sim.XwikiBridge")
+//@Component
+//@Named("eu.learnpad.core.impl.sim.XwikiBridge")
 @Path("/learnpad/sim/bridge")
 public abstract class XwikiBridge extends Bridge implements XWikiRestComponent {
 

@@ -19,12 +19,13 @@
  */
 package eu.learnpad.sim;
 
+import eu.learnpad.sim.rest.IEventReceiver;
 import eu.learnpad.sim.rest.IUserInfosAPI;
 
 /**
  * @author Tom Jorquera - Linagora
  *
  */
-public interface CoreFacade extends IUserInfosAPI {
+public interface CoreFacade extends IUserInfosAPI, IEventReceiver {
 
 }

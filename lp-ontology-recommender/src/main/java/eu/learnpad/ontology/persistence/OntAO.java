@@ -5,12 +5,14 @@
  */
 package eu.learnpad.ontology.persistence;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+
 import eu.learnpad.ontology.recommender.Inferencer;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Base class to access ontology and provide convenient methods.
@@ -55,8 +57,9 @@ public abstract class OntAO {
                 //Using the ModelFactory.createUnion function has 2 advantages: 
                 //   1. Unified model is dynamic and not a copy of the underlying models
                 //   2. All new instances are stored automaticly in the dataModel only
-                OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, ModelFactory.createUnion(modelSet, metaModel));  
-                modelSets.put(modelSetId, model);
+//                OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, ModelFactory.createUnion(modelSet, metaModel));
+                modelSet.add(metaModel);
+                modelSets.put(modelSetId, modelSet);
             }
         }
         return modelSets.get(modelSetId);
@@ -69,7 +72,7 @@ public abstract class OntAO {
      * @return 
      */
     public Inferencer getInferencer(String modelSetId){
-        if(!modelSets.containsKey(modelSetId)){
+        if(!modelSetsInferencer.containsKey(modelSetId)){
             Inferencer inferencer = new Inferencer(getModelSet(modelSetId));
             modelSetsInferencer.put(modelSetId, inferencer);
         }

@@ -31,7 +31,6 @@ import javax.ws.rs.core.MediaType;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.mv.rest.data.MVResults;
 
-@Path("/learnpad/mv")
 public interface DeadlockVerification {
 	/**
 	 * @param modelSetId

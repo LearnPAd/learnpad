@@ -1,0 +1,29 @@
+Phase: SpecifiedNames
+Input: Token
+Options: control = appelt
+
+//this rule checks the presence of more than 2 AND or OR in the same sentence.
+//Pipeline: Document Reset PR, Annie English Tokenizer, Sentence Splitter, Annie POS Tagger
+ 
+Rule: SpecifiedNames //Cases such as ``The office of''
+Priority: 10
+(
+({Token.category == NN, Token.kind != "punctuation"} | {Token.category == NNS, Token.kind != "punctuation"})
+({Token.string == "of"})
+({Token})
+):spec_name
+-->
+:spec_name.SpecifiedName = {}
+
+Rule: SpecifiedNames //Cases such as ``The office of the director''
+Priority: 10
+(
+({Token.category == NN, Token.kind != "punctuation"} | {Token.category == NNS, Token.kind != "punctuation"})
+({Token.string == "of"})
+({Token.category == "DT"})
+({Token.category == NN, Token.kind != "punctuation"} | {Token.category == NNS, Token.kind != "punctuation"})
+):spec_name
+-->
+:spec_name.SpecifiedName = {}
+
+

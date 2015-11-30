@@ -34,6 +34,11 @@ import eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource;
 import eu.learnpad.sim.BridgeInterface;
 import eu.learnpad.sim.Controller;
 import eu.learnpad.sim.rest.data.UserData;
+import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
+import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
+import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
+import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
+import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 
 /*
  * It is not clear yet who is responsible for the instantiation
@@ -105,5 +110,34 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		return null;
 	}
 
+	@Override
+	public void receiveProcessStartEvent(ProcessStartEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void receiveProcessEndEvent(ProcessEndEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void receiveTaskStartEvent(TaskStartEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void receiveTaskEndEvent(TaskEndEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) {
+		// TODO Auto-generated method stub
+
+	}
 
 }

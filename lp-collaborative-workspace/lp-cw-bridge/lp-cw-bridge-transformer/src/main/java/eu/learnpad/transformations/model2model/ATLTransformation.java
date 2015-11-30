@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,12 +15,14 @@ import java.util.Map;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.m2m.atl.common.ATLExecutionException;
 import org.eclipse.m2m.atl.core.ATLCoreException;
 import org.eclipse.m2m.atl.core.IExtractor;
-import org.eclipse.m2m.atl.core.IInjector;
 import org.eclipse.m2m.atl.core.IModel;
 import org.eclipse.m2m.atl.core.IReferenceModel;
 import org.eclipse.m2m.atl.core.ModelFactory;
@@ -30,21 +33,37 @@ import org.eclipse.m2m.atl.core.launch.ILauncher;
 import org.eclipse.m2m.atl.engine.compiler.atl2006.Atl2006Compiler;
 import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
 
+import eu.learnpad.transformations.parameter.ParameterFactory;
+import eu.learnpad.transformations.parameter.Params;
 
+/**
+ * Class used to execute the ATL Transformation
+ * @author Basciani Francesco
+ * @version 1.0
+ *
+ */
 public class ATLTransformation {
 	private IModel inModel;
+	private IModel paramsModel;
 	private IModel outModel;
 
 	private IReferenceModel inmodelMetamodel;
+	private IReferenceModel paramsmodelMetamodel;
 	private IReferenceModel outmodelMetamodel;
 
 	private String modules; //This is the file .atl of the transformation
 
 	private String inTag;
+	private String paramsTag;
 	private String outTag;
 
 	private Map<String, Object> options;
 
+	/**
+	 * The constructor inizialize some options of the transformation.
+	 * Here there is the registration of the Metamodel Ecore.
+	 * @throws IOException
+	 */
 	public ATLTransformation() throws IOException {
 		options = new HashMap<String, Object>();
 		options.put("supportUML2Stereotypes", "false");
@@ -57,16 +76,24 @@ public class ATLTransformation {
 	}
 	
 	
-	
 	/**
 	 * The function is the only one to be visible to the outside and is the one that initiates the whole process of transformation.
-	 * @param String model_in, String metamodel_in, String metamodel_out, String modules, String inTag, String outTag, String outPath
-	 * @return IModel
+	 * @param model_in Path of the file representing the Ecore model (in .XMI) to be transformed.
+	 * @param metamodel_in Path of the Ecore Metamodel in which the model in input is conform to.
+	 * @param model_params Path of the Ecore Model (Parameter) that support the transformation.
+	 * @param metamodel_params Path of the Ecore Metamodel Parameter in which the model parameter in input is conform to.
+	 * @param metamodel_out The Path of the file for the Ecore Metamodel that the resulting model have to be conform.
+	 * @param modules The path of the effective ATL transformation (the .ATL file).
+	 * @param inTag The tag of the input Metamodel
+	 * @param paramsTag The tag of the input Parameter Metamodel
+	 * @param outTag The tag of the input Parameter Metamodel
+	 * @param outPath The path of the Ecore model file resulting from the transformation.
+	 * @return
 	 */
-	public IModel run(String model_in, String metamodel_in, String metamodel_out, String modules, String inTag, String outTag, String outPath) {
+	public IModel run(String model_in, String metamodel_in, String model_params, String metamodel_params, String metamodel_out, String modules, String inTag, String paramsTag, String outTag, String outPath) {
 		
 		try {
-			set(model_in, metamodel_in, metamodel_out, modules, inTag, outTag);
+			set(model_in, metamodel_in, model_params, metamodel_params, metamodel_out, modules, inTag, paramsTag, outTag);
 			//Execute transformation
 			doTransformation(new NullProgressMonitor());
 			//Save the model created in a file that has the name passed in input with outPath
@@ -98,24 +125,52 @@ public class ATLTransformation {
 	 * The function takes all the parameters that are passed in input and puts them in the variables of the class types using their ATL.
 	 * @param model_in
 	 * @param metamodel_in
+	 * @param model_params
+	 * @param metamodel_params
 	 * @param metamodel_out
 	 * @param modules
 	 * @param inTag
+	 * @param paramsTag 
 	 * @param outTag
 	 * @throws ATLCoreException
 	 */
-	private void set(String model_in, String metamodel_in, String metamodel_out, String modules, String inTag, String outTag) throws ATLCoreException {
+	private void set(String model_in, String metamodel_in, String model_params, String metamodel_params, String metamodel_out, String modules, String inTag, String paramsTag, String outTag) throws ATLCoreException {
 			ModelFactory factory = new EMFModelFactory();
-			IInjector injector = new EMFInjector();
+			EMFInjector injector = new EMFInjector();
 			this.inmodelMetamodel = factory.newReferenceModel();
 			injector.inject(this.inmodelMetamodel,  metamodel_in);
+			this.paramsmodelMetamodel = factory.newReferenceModel();
+			injector.inject(this.paramsmodelMetamodel,  metamodel_params);
 			this.outmodelMetamodel = factory.newReferenceModel();
 			injector.inject(this.outmodelMetamodel,  metamodel_out);
 			this.outModel = factory.newModel(this.outmodelMetamodel);
 			this.inModel = factory.newModel(this.inmodelMetamodel);
+			this.paramsModel = factory.newModel(this.paramsmodelMetamodel);
 			injector.inject(this.inModel,  model_in);
+			
+//			ParameterFactory.eINSTANCE.eClass();
+			ParameterFactory parameterFactory = ParameterFactory.eINSTANCE;
+			Params parm = parameterFactory.createParams();
+			parm.setFileName(model_params);
+//			
+//			Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+//			Map<String, Object> m = reg.getExtensionToFactoryMap();
+//		    m.put("*", new XMIResourceFactoryImpl());
+//		    
+			ResourceSet resourceSet = new ResourceSetImpl();
+			
+			Resource resource = resourceSet.createResource(URI.createURI("tmp/parm.xmi"));
+			resource.getContents().add(parm);
+			try {
+			      resource.save(Collections.EMPTY_MAP);
+			    } catch (IOException e) {
+			      // TODO Auto-generated catch block
+			      e.printStackTrace();
+			    }
+			injector.inject(this.paramsModel,  "tmp/parm.xmi");
 			this.modules = modules;
 			this.inTag = inTag;
+			this.paramsTag = paramsTag;
 			this.outTag = outTag;
 	}
 
@@ -142,6 +197,7 @@ public class ATLTransformation {
 		Map<String, Object> launcherOptions = getOptions();
 		launcher.initialize(launcherOptions);
 		launcher.addInModel(this.inModel, "IN", this.inTag);
+		launcher.addInModel(this.paramsModel, "PARAMS", this.paramsTag);
 		launcher.addOutModel(this.outModel, "OUT", this.outTag);
 		InputStream[] modulesStreams = getModulesList();
 		inputStreamsToClose.addAll(Arrays.asList(modulesStreams));

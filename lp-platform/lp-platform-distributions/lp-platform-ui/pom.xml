@@ -136,12 +136,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.xwiki.platform</groupId>
-			<artifactId>xwiki-platform-administration-ui</artifactId>
-			<version>${platform.version}</version>
-			<type>xar</type>
-		</dependency>
-		<dependency>
-			<groupId>org.xwiki.platform</groupId>
 			<artifactId>xwiki-platform-xclass-ui</artifactId>
 			<version>${platform.version}</version>
 			<type>xar</type>
@@ -161,13 +155,16 @@
 				<artifactId>xwiki-commons-tool-xar-plugin</artifactId>
 				<version>${commons.version}</version>
 				<configuration>
+					<includeDependencies>true</includeDependencies>
 					<transformations>
+						<!-- Configure the default color theme -->
 						<transformation>
 							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
 							<file>XWiki/XWikiPreferences.xml</file>
 							<xpath>/xwikidoc/object/property/colorTheme</xpath>
 							<value>ColorThemes.Charcoal</value>
 						</transformation>
+						<!-- Configure the default icon theme -->
 						<transformation>
 							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
 							<file>XWiki/XWikiPreferences.xml</file>
@@ -187,6 +184,19 @@
 							<file>XWiki/XWikiPreferences.xml</file>
 							<xpath>/xwikidoc/object/property/version</xpath>
 							<value>${xcs.footer.version}</value>
+						</transformation>
+						<!-- Configure the panels -->
+						<transformation>
+							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+							<file>XWiki/XWikiPreferences.xml</file>
+							<xpath>/xwikidoc/object/property/showLeftPanels</xpath>
+							<value>0</value>
+						</transformation>
+						<transformation>
+							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+							<file>XWiki/XWikiPreferences.xml</file>
+							<xpath>/xwikidoc/object/property/rightPanels</xpath>
+							<value>LPUI.RecommendationPanel</value>
 						</transformation>
 					</transformations>
 				</configuration>

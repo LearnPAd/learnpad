@@ -1,0 +1,33 @@
+<p>An implementation of the Ramshaw and Marcus BaseNP chunker, which marks noun
+phrases with a <em>NounChunk</em> annotation.  This application also includes a
+tokeniser, sentence splitter and POS tagger as these are required by the
+chunking algorithm.</p>
+
+<p><button class="btn btn-info" data-toggle="collapse" data-target="#ldAnnotationDetails"><i class="icon-info-sign icon-white"></i> Annotation details</button></p>
+
+<div class="collapse clearfix" id="ldAnnotationDetails">
+<table>
+  <tr>
+    <td colspan="2"><b>Default annotations</b></td>
+  </tr>
+  <tr>
+    <td><tt>:NounChunk</tt></td>
+    <td>Noun chunks discovered by the chunker</td>
+  </tr>
+  <tr>
+    <td colspan="2"><b>Additional annotations available if selected</b></td>
+  </tr>
+  <tr>
+    <td><tt>:Token</tt></td>
+    <td>The individual tokens of the text, with "category" feature for POS</td>
+  </tr>
+  <tr>
+    <td><tt>:SpaceToken</tt></td>
+    <td>The spaces between tokens</td>
+  </tr>
+  <tr>
+    <td><tt>:Sentence</tt></td>
+    <td>Sentences detected by the sentence splitter</td>
+  </tr>
+</table>
+</div>

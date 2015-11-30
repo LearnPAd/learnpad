@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.learnpad</groupId>
-	<artifactId>lp-contentanalysis-component</artifactId>
+	<artifactId>lp-content-analysis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<packaging>war</packaging>
@@ -27,11 +27,30 @@
 	</repositories>
 
 	<dependencies>
+	<dependency>
+  		<groupId>uk.ac.gate</groupId>
+  		<artifactId>gate-core</artifactId>
+  		<version>8.1</version>
+  	</dependency>
+	
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 		</dependency>
+<dependency>
+            <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+            <artifactId>jersey-test-framework-provider-grizzly2</artifactId>
+            <version>2.19</version>
+        </dependency>
+
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.languagetool</groupId>
@@ -57,7 +76,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-	<finalName>${project.artifactId}</finalName>
+		<finalName>${project.artifactId}</finalName>
 		<plugins>
 
 			<plugin>
@@ -106,19 +125,19 @@
 				</executions>
 			</plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>2.6</version>
-        <configuration>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
 					<warSourceDirectory>src/main/webapp</warSourceDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
-      </plugin>
-    
-		
+			</plugin>
+
+
 		</plugins>
 	</build>
 
-	
+
 </project>

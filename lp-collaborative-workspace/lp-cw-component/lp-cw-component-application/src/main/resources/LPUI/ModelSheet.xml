@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<xwikidoc version="1.1">
+  <web>LPUI</web>
+  <name>ModelSheet</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1443012383000</creationDate>
+  <parent>Main.WebHome</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1446728965000</date>
+  <contentUpdateDate>1446728965000</contentUpdateDate>
+  <version>1.1</version>
+  <title>${doc.getObject('LPCode.ModelClass').getProperty('name').value}</title>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>false</hidden>
+  <content>{{velocity}}
+#set ($modelObject = $doc.getObject('LPCode.ModelClass'))
+#set ($modelsetid = $doc.space)
+#set ($modelid = $modelObject.getProperty('id').value)
+#set ($query = "from doc.object(LPCode.BaseElementClass) as be where doc.space = '${doc.space}' and be.modelid = '${modelid}' and be.type = 'bpmn-event-start'")
+#set ($results = $services.query.xwql($query).execute())
+################
+## Buttons
+{{html clean="false"}}
+&lt;div class="col-xs-3"&gt;
+  &lt;div class="dropdown"&gt;
+    &lt;button class="btn btn-block btn-success dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="false"&gt;
+      &lt;span class="caret"&gt;&lt;/span&gt; Start to browse
+    &lt;/button&gt;
+    &lt;ul class="dropdown-menu" role="menu"&gt;
+#foreach($eventReference in $results)
+  #set ($eventDocument = $xwiki.getDocument($eventReference))
+  #set ($eventObject = $eventDocument.getObject('LPCode.BaseElementClass'))
+  #set ($eventName = $eventObject.getProperty('name').value)
+  #set ($eventURL = $xwiki.getURL($eventReference))
+      &lt;li&gt;&lt;a href="${eventURL}"&gt;${services.icon.renderHTML('play')} ${eventName}&lt;/a&gt;&lt;/li&gt;
+#end
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+{{/html}}
+#set ($modelsetReference = $services.model.createDocumentReference($xcontext.database, 'CoreRepository', $modelsetid))
+#set ($modelsetDocument = $xwiki.getDocument($modelsetReference))
+#set ($modelBPMNAttachment = $modelsetDocument.getAttachment("${modelid}.bpmn"))
+#if ($modelBPMNAttachment)
+  #set ($simulationReference = $services.model.createDocumentReference($xcontext.database, 'LPUI', 'SimulationEnvironment'))
+  #set ($simulationURL = $xwiki.getURL($simulationReference, 'view', "modelsetid=${doc.space}&amp;modelid=${modelid}"))
+(% class="col-xs-3" %)(((
+[[${services.icon.render('gamepad')} Simulate it!&gt;&gt;path:${simulationURL}||class="btn btn-block btn-danger"]]
+)))
+#end
+################
+## Image
+#set ($modelsetReference = $services.model.createDocumentReference($xcontext.database, 'CoreRepository', ${modelsetid}))
+#set ($modelsetDocument = $xwiki.getDocument($modelsetReference))
+#set ($modelImage = "${modelid}.jpg")
+#if ($modelsetDocument.getAttachment($modelImage))
+(% class="col-xs-12" %)(((
+[[image:CoreRepository.${modelsetid}@${modelid}.jpg||width="100%"]]
+)))
+#end
+################
+## Livetable
+#set ($discard = $services.localization.use('document', 'LPCode.Translations'))
+#set ($discard = $xwiki.ssfx.use('uicomponents/widgets/userpicker/userPicker.css'))
+#set ($modelid = $doc.getObject('LPCode.ModelClass').getProperty('id').value)
+#set ($columnsProperties = {
+  'modelid': {'type': 'hidden', 'size': 1},
+  'id': {'type': 'text', 'size': 1, 'link': 'view'},
+  'name': {'type': 'text', 'size': 8, 'link': 'view'},
+  'type': {'type': 'list', 'size': 2},
+  'doc.date': {'type': 'text', 'size': 2}
+})
+#set ($options = {
+  'className': 'LPCode.BaseElementClass',
+  'resultPage': 'XWiki.LiveTableResults',
+  'translationPrefix': 'lpcode.livetable.model.',
+  'tagCloud': true,
+  'rowCount': 15,
+  'maxPages': 20,
+  'selectedColumn': 'name',
+  'defaultOrder': 'asc',
+  'extraParams': "&amp;modelid=${modelid}&amp;space=${doc.space}"
+})
+#set ($columns = ['modelid', 'id', 'name', 'type', 'doc.date'])
+#livetable('lp-modellist' $columns $columnsProperties $options)
+{{/velocity}}</content>
+</xwikidoc>

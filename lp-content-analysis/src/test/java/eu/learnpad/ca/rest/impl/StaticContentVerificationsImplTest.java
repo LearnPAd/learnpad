@@ -15,14 +15,33 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.servlet.ServletContainer;
+import org.glassfish.jersey.test.DeploymentContext;
 import org.glassfish.jersey.test.JerseyTest;
+import org.glassfish.jersey.test.ServletDeploymentContext;
+import org.glassfish.jersey.test.TestProperties;
+import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
+import org.glassfish.jersey.test.spi.TestContainerFactory;
 import org.junit.Test;
 
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysisTest;
+import eu.learnpad.ca.gate.GateServletContextListener;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 
 public class StaticContentVerificationsImplTest extends JerseyTest{
+	@Override
+	protected TestContainerFactory getTestContainerFactory()  {
+	    return new GrizzlyWebTestContainerFactory();
+	}
+	@Override
+    protected DeploymentContext configureDeployment() {
+		 forceSet(TestProperties.CONTAINER_PORT, "0");
+		    return ServletDeploymentContext.forServlet(new ServletContainer(new ResourceConfig(StaticContentVerificationsImpl.class)))
+		                                   .addListener(GateServletContextListener.class)
+		                                   .build();
+         
+    }
 
 	@Override
 	protected Application configure() {
@@ -32,7 +51,7 @@ public class StaticContentVerificationsImplTest extends JerseyTest{
 	
 	@Test
 	public void checkStaticContentAnalysis() throws JAXBException {
-
+		
 		InputStream is = CorrectnessAnalysisTest.class.getClassLoader().getResourceAsStream("StaticContentXML.xml");
 		assertNotNull(is);
 		JAXBContext jaxbContexti = JAXBContext.newInstance(StaticContentAnalysis.class);

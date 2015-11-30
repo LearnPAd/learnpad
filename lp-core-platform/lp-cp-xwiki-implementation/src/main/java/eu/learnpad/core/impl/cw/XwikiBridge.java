@@ -19,18 +19,16 @@
  */
 package eu.learnpad.core.impl.cw;
 
-import javax.inject.Named;
 import javax.ws.rs.Path;
 
-import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.cw.Bridge;
 
-@Component
-@Named("eu.learnpad.core.impl.cw.XwikiBridge")
+//@Component
+//@Named("eu.learnpad.core.impl.cw.XwikiBridge")
 @Path("/learnpad/cw/bridge")
 public abstract class XwikiBridge extends Bridge implements XWikiRestComponent,
 		Initializable {

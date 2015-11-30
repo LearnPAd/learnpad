@@ -1,6 +1,6 @@
 package eu.learnpad.ca.main;
 
-import java.io.File;
+/*import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,7 +22,8 @@ import org.languagetool.language.Italian;
 import org.languagetool.rules.RuleMatch;
 
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
-import eu.learnpad.ca.analysis.simplicity.Simplicity;
+import eu.learnpad.ca.analysis.simplicity.juridicaljargon.JuridaljargonSet;
+import eu.learnpad.ca.analysis.simplicity.plugin.JuridicalJargon;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
@@ -30,8 +31,7 @@ import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnaly
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContent;
-import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
-import eu.learnpad.ca.simplicity.juridicaljargon.JuridaljargonSet;
+import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;*/
 
 public class Main {
 
@@ -46,7 +46,7 @@ public class Main {
 			Unmarshaller jaxbUnmarshaller1 = jaxbContexti.createUnmarshaller();
 			JuridaljargonSet result = (JuridaljargonSet) jaxbUnmarshaller1.unmarshal(new File(fileinput));
 
-			*/
+			
 			
 			
 			
@@ -56,7 +56,7 @@ public class Main {
 			Unmarshaller jaxbUnmarshaller1 = jaxbContexti.createUnmarshaller();
 			CollaborativeContentAnalysis cca = (CollaborativeContentAnalysis) jaxbUnmarshaller1.unmarshal(is);
 
-			Simplicity sim = new Simplicity(cca, new  BritishEnglish());
+			JuridicalJargon sim = new JuridicalJargon(cca, new  BritishEnglish());
 			
 		
 			AnnotatedCollaborativeContentAnalysis acca = sim.getAnnotatedCollaborativeContentAnalysis();
@@ -78,7 +78,7 @@ public class Main {
 			} catch (JAXBException  e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 /*
 
 			System.out.println(result);
@@ -130,7 +130,7 @@ public class Main {
 
 	}
 
-	public static void testwrite(){
+	/*public static void testwrite(){
 		AnnotatedStaticContentAnalysis asca = new AnnotatedStaticContentAnalysis();
 		asca.setId(1234);
 		asca.setOverallQuality("overallquality");
@@ -182,7 +182,7 @@ public class Main {
 			matches = langTool.check(text);
 			System.out.println(text);
 
-	/*		List<String> st = langTool.sentenceTokenize(text);
+			List<String> st = langTool.sentenceTokenize(text);
 			for (String string : st) {
 				System.out.println(string);
 			}
@@ -197,7 +197,7 @@ public class Main {
 			}
 
 			AnalyzedSentence se = langTool.getAnalyzedSentence(text);
-			*/
+			
 			
 			
 			for (RuleMatch match : matches) {
@@ -244,5 +244,5 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 }

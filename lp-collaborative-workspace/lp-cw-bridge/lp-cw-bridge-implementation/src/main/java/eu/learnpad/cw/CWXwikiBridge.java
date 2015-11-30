@@ -24,12 +24,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Provider;
+import javax.inject.Singleton;
 import javax.ws.rs.Path;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -63,18 +65,25 @@ import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.rest.data.Feedback;
 import eu.learnpad.cw.rest.data.Feedbacks;
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.sim.rest.data.UserData;
 
 @Component
+@Singleton
 @Named("eu.learnpad.cw.CWXwikiBridge")
 @Path("/learnpad/cw/bridge")
-public class CWXwikiBridge extends XwikiBridge {
-	private final String LEARNPAD_SPACE = "LearnPAdCode";
+public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
+	private final String LEARNPAD_SPACE = "LPCode";
 	private final String FEEDBACK_CLASS_PAGE = "FeedbackClass";
 	private final String FEEDBACK_CLASS = String.format("%s.%s",
 			LEARNPAD_SPACE, FEEDBACK_CLASS_PAGE);
 	private final String BASEELEMENT_CLASS_PAGE = "BaseElementClass";
 	private final String BASEELEMENT_CLASS = String.format("%s.%s",
 			LEARNPAD_SPACE, BASEELEMENT_CLASS_PAGE);
+	private final String XWIKI_SPACE = "XWiki";
+	private final String USER_CLASS_PAGE = "XWikiUsers";
+	private final String USER_CLASS = String.format("%s.%s", XWIKI_SPACE,
+			USER_CLASS_PAGE);
 
 	@Inject
 	private Logger logger;
@@ -263,5 +272,62 @@ public class CWXwikiBridge extends XwikiBridge {
 			feedbacks.add(feedback);
 		}
 		return feedbacks;
+	}
+
+	@Override
+	public Recommendations getRecommendations(String modelSetId,
+			String artifactId, String userId) throws LpRestException {
+		return this.corefacade.getRecommendations(modelSetId, artifactId,
+				userId);
+	}
+
+	private Collection<UserData> getUserProfiles(
+			Collection<String> potentialUsers) {
+		XWikiContext xcontext = xcontextProvider.get();
+		XWiki xwiki = xcontext.getWiki();
+		DocumentReference userClassReference = documentReferenceResolver
+				.resolve(USER_CLASS);
+		Collection<UserData> potentialUsersCollection = new ArrayList<UserData>();
+
+		for (String userId : potentialUsers) {
+			UserData user = new UserData();
+			user.id = userId;
+
+			DocumentReference userReference = documentReferenceResolver
+					.resolve(userId);
+			try {
+				XWikiDocument userDocument = xwiki.getDocument(userReference,
+						xcontext);
+				if (userDocument != null) {
+					BaseObject userObject = userDocument
+							.getXObject(userClassReference);
+					if (userObject != null) {
+						user.firstName = userObject
+								.getStringValue("first_name");
+						user.lastName = userObject.getStringValue("last_name");
+						user.profileURL = userDocument.getURL("view", xcontext);
+						user.pictureURL = userDocument
+								.getAttachmentURL(
+										userDocument.getStringValue("avatar"),
+										xcontext);
+					}
+				}
+			} catch (XWikiException e) {
+				String message = String
+						.format("Error while trying to get profile information for the user '%s'.",
+								userReference.toString());
+				logger.error(message, e);
+			}
+			potentialUsersCollection.add(user);
+		}
+		return potentialUsersCollection;
+	}
+
+	@Override
+	public String startSimulation(String modelId, String currentUser,
+			Collection<String> potentialUsers) throws LpRestException {
+		Collection<UserData> potentialUsersCollection = getUserProfiles(potentialUsers);
+		return this.corefacade.startSimulation(modelId, currentUser,
+				potentialUsersCollection);
 	}
 }

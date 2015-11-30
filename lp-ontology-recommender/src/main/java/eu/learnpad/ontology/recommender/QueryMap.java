@@ -8,11 +8,8 @@ package eu.learnpad.ontology.recommender;
 import eu.learnpad.ontology.config.APP;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -28,41 +25,39 @@ public class QueryMap {
 
     static {
         try {
-            final Path queriesFilePath = Paths.get(QueryMap.class.getResource(APP.CONF.getString("recommender.queries.file")).toURI());
-            BufferedReader br = new BufferedReader(new FileReader(queriesFilePath.toFile()));
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(QueryMap.class.getResourceAsStream(APP.CONF.getString("recommender.queries.file"))));
             String queryName = "";
             String comment = "";
             StringBuilder queryStr = new StringBuilder();
             for (String line; (line = br.readLine()) != null;) {
-                if(line.startsWith("##START##")){
-                    queryName=line.substring(line.indexOf(":")+1);
-                }else{
-                    if(line.startsWith("##END##")){
+                if (line.startsWith("##START##")) {
+                    queryName = line.substring(line.indexOf(":") + 1);
+                } else {
+                    if (line.startsWith("##END##")) {
                         queries.put(queryName, new RecommenderQuery(queryStr.toString(), comment));
                         queryName = "";
                         comment = "";
                         queryStr = new StringBuilder();
-                    }else{
-                        if(line.startsWith("##COMMENT")){
-                            comment = line.substring(line.indexOf(":")+1);
-                        }else{
+                    } else {
+                        if (line.startsWith("##COMMENT")) {
+                            comment = line.substring(line.indexOf(":") + 1);
+                        } else {
                             queryStr.append(line).append("\n");
                         }
                     }
                 }
             }
 
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(QueryMap.class.getName()).log(Level.SEVERE, null, ex);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(QueryMap.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(QueryMap.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static RecommenderQuery getQuery(String name){
+
+    public static RecommenderQuery getQuery(String name) {
         return queries.get(name);
     }
-    
+
 }

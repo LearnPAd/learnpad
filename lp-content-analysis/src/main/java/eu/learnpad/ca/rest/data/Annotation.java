@@ -1,13 +1,15 @@
 package eu.learnpad.ca.rest.data;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-public  class Annotation {
+public  class Annotation implements Comparable<Object>{
 
 	@XmlAttribute(name = "id", required = true)
 	protected Integer id;
@@ -19,7 +21,19 @@ public  class Annotation {
 	protected Integer endNode;
 	@XmlAttribute(name = "recommendation", required = true)
 	protected String recommendation;
-
+	@XmlAttribute(name = "StartNode_Offset", required = true)
+	protected Integer startNode_Offset;
+	@XmlAttribute(name = "EndNode_Offset", required = true)
+	protected Integer endNode_Offset;
+	
+	
+	
+	@XmlTransient
+	protected Node NodeStart;
+	@XmlTransient
+	protected Node NodeEnd;
+	
+	
 	public Annotation(){
 		
 	}
@@ -32,6 +46,43 @@ public  class Annotation {
 		this.recommendation=recom;
 	}
 	
+	
+	
+	
+	public Integer getstartNode_Offset() {
+		return startNode_Offset;
+	}
+
+	public void setstartNode_Offset(Integer startNode_Offset) {
+		this.startNode_Offset = startNode_Offset;
+	}
+
+	public Integer getendNode_Offset() {
+		return endNode_Offset;
+	}
+
+	public void setendNode_Offset(Integer endNode_Offset) {
+		this.endNode_Offset = endNode_Offset;
+	}
+
+	public Node getNodeStart() {
+		return NodeStart;
+	}
+
+	public void setNodeStart(Node nodeStart) {
+		NodeStart = nodeStart;
+		startNode_Offset = NodeStart.getOffSet();
+	}
+
+	public Node getNodeEnd() {
+		return NodeEnd;
+	}
+
+	public void setNodeEnd(Node nodeEnd) {
+		NodeEnd = nodeEnd;
+		endNode_Offset = NodeEnd.getOffSet();
+	}
+
 	/**
 	 * get the value of id.
 	 * 
@@ -157,6 +208,12 @@ public  class Annotation {
 		return "Annotation_id=" + id + "[type=" + type + ", startNode="
 				+ startNode + ", endNode=" + endNode + ", recommendation="
 				+ recommendation + "]\n";
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		Annotation other = (Annotation) o;
+	    return startNode_Offset.compareTo(other.getstartNode_Offset());
 	}
 	
 	

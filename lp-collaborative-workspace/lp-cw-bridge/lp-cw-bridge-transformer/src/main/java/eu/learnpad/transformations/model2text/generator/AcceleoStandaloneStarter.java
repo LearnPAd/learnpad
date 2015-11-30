@@ -2,8 +2,6 @@ package eu.learnpad.transformations.model2text.generator;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +9,6 @@ import java.util.List;
 import org.eclipse.acceleo.common.IAcceleoConstants;
 import org.eclipse.acceleo.model.mtl.MtlPackage;
 import org.eclipse.acceleo.model.mtl.resource.EMtlResourceFactoryImpl;
-import org.eclipse.acceleo.parser.compiler.AcceleoCompiler;
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -25,28 +22,35 @@ import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 
-import eu.learnpad.transformations.model2text.main.WebHome;
+import eu.learnpad.transformations.model2text.main.Generate;
 
 
+/**
+ * Class for the execution of Acceleo transformation in a standalone environment.
+ * @author Basciani Francesco
+ * @version 1.0
+ *
+ */
 public class AcceleoStandaloneStarter{
 	
 	
-	public AcceleoStandaloneStarter(){
-		
-	}
+	   public AcceleoStandaloneStarter(){
+			
+	   }
 	
+	   /**
+	    * Method that actually performs the Acceleo transformation.
+	    * @param modelPath The path of the model to be transformed.
+	    * @param resultFolderPath The path of the folder in which the result of the transformation will be located.
+	    */
 	   public void execute(String modelPath, String resultFolderPath) {
 		   
-//	     registerResourceFactories();
-	     registerPackages();
-//	     registerLibraries();
-	    
          URI modelURI = URI.createFileURI(modelPath);
          File folder = new File(resultFolderPath);
          List<String> arguments = new ArrayList<String>();
-         WebHome generator;
+         Generate generator;
 			try {
-				generator = new WebHome(modelURI, folder, arguments);
+				generator = new Generate(modelURI, folder, arguments);
 				generator.doGenerate(new BasicMonitor());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -54,11 +58,17 @@ public class AcceleoStandaloneStarter{
 			}
 	   }
 	 
+	   /**
+	    * The method is used to register globally the Ecore Resource Factory to the ".ecore" extension
+	    */
 	   public void registerResourceFactories() {
 	     Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
 	     Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(IAcceleoConstants.EMTL_FILE_EXTENSION, new EMtlResourceFactoryImpl());
 	   }
 	 
+	   /**
+	    * The method is used to register globally packages.
+	    */
 	   public void registerPackages() {
 			String metamodelPath = "resources/metamodels/xwiki/XWIKI.ecore";
 	       	URI metamodelURI = URI.createFileURI(metamodelPath);
@@ -82,6 +92,9 @@ public class AcceleoStandaloneStarter{
 		   
 	   }
 	 
+	   /**
+	    * The method is used to register globally libraries.
+	    */
 	   public void registerLibraries() {
 	     CodeSource acceleoModel = MtlPackage.class.getProtectionDomain().getCodeSource();
 	     if (acceleoModel != null) {

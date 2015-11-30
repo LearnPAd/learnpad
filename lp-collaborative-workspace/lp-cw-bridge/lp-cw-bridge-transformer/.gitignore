@@ -1,3 +1,5 @@
 result/
 tmp/
 target/
+resources/transformation/ado2xwiki.asm
+build.properties

@@ -26,8 +26,6 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-// <host>/learnpad/or/{modelsetid}/{modelid}/simulationnotification?action={started|stopped},simulationid=id
-@Path("/{modelsetid}/{modelid}/simulationnotification")
 public interface SimulationNotification {
 	/**
 	 * @param modelSetId
@@ -41,7 +39,9 @@ public interface SimulationNotification {
 	 * @return
 	 * @throws LpRestException
 	 */
+	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationnotification?action={started|stopped},simulationid=id
 	@POST
+	@Path("/{modelsetid}/{modelid}/simulationnotification")
 	byte[] simulationNotification(@PathParam("modelsetid") String modelSetId,
 			@PathParam("modelid") String modelId,
 			@QueryParam("action") String action,

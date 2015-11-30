@@ -1,0 +1,43 @@
+v1.1 Invalid Chunk Release (02/06/2005)
+=======================================
+The main change is that there is now a check to make sure the
+annotations added by the GATE wrapper are valid. It turns out
+that in some weird cases the end offset was before the start
+offset and although GATE would accept this as an annotation
+doing any further processing of the text usually failed
+miserably. Clearly I should try and figure out what is causing
+these invalid offsets but for now this will suffice.
+
+v1.0_04 Combined Release (26/03/2005)
+=====================================
+For some reason some of the changes from previous versions got
+lost in the 1.0_03 build, so this makes sure everything is
+done properly. So now empty lines are handled, the GATE annotation
+is NounChunk (no space) and if the config files are not specified
+when loading the GATE module then the defaults will be loaded from
+the JAR file.
+
+v1.0_03 Annotation Name Change (13/01/2005)
+===========================================
+If you use the chunker inside GATE then this release changes the
+default annotation name from "Noun Chunk" to "NounChunk" so that
+GATE can save tagged documents in XML with well formed tags.
+This is the only change in this release.
+
+v1.0_02 Empty Line Release (12/01/2005)
+=======================================
+Added some code to handle empty lines in the data files which
+were causing the initialisation of the chunker to fail.
+
+v1.0_01 Clarified Release (06/12/2003)
+======================================
+Added a Unix/Linux build script which seems to work, at least under
+cygwin on Windows haven't managed to actually test it on a Unix box
+yet. Also updated the README file to explain about what other GATE
+modules are needed to run the chunker within GATE. And finally I
+added this file to the release.
+
+v1.0 First Public Release (05/12/2003)
+======================================
+Not much to say really it works but hasn't been optimized and some
+of the Unix/Linux scripts are missing or untested.

@@ -35,8 +35,8 @@ function component_uninstall() {
     if [[ -z "${CATALINA_BASE+1}"  ]]; then
         echo please set CATALINA_BASE
     else
-    	rm -rf "${__CATALINA__WEB__}/lp-contentanalysis-component"*".war"
-    	rm -rf "${__CATALINA__WEB__}/lp-contentanalysis-component"
+    	rm -rf "${__CATALINA__WEB__}/lp-content-analysis"*".war"
+    	rm -rf "${__CATALINA__WEB__}/lp-content-analysis"
     	echo component deleted
     	
     fi
@@ -74,10 +74,10 @@ function component_install() {
     if [[ -z "${CATALINA_BASE+1}"  ]]; then
         echo please set CATALINA_BASE
     else
-    	cp "target/lp-contentanalysis-component"*".war" "${__OUT_PATH__}"
-    	cp "target/lp-contentanalysis-component"*".war" "${__CATALINA__WEB__}/"
+    	cp "target/lp-content-analysis"*".war" "${__OUT_PATH__}"
+    	cp "target/lp-content-analysis"*".war" "${__CATALINA__WEB__}/"
     fi
-    #unzip "target/lp-contentanalysis-component-"*".zip" -d "${__OUT_PATH__}/"
+    #unzip "target/lp-content-analysis"*".zip" -d "${__OUT_PATH__}/"
     # There is no run dependencies for this component
     #cp <path_to>/rundeps.txt ${__OUT_RUNDEPS_FILE__}
     # These is no configuration file to copy

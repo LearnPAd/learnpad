@@ -1,0 +1,281 @@
+<!--
+  #%L
+  LearnPAd Simulator
+  %%
+  Copyright (C) 2014 - 2015 Linagora
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  #L%
+  -->
+<html>
+    <head>
+        <title>LearnPAd WebUI</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <style>
+         @import url("webjars/bootstrap/3.3.2-1/css/bootstrap.css");
+         @import url("webjars/spectrum/1.6.0/spectrum.css");
+         @import url("webjars/bootstrap-tagsinput/0.3.9/bootstrap-tagsinput.css");
+         @import url("webjars/jquery-ui/1.11.3/jquery-ui.min.css");
+         @import url("webjars/jquery-ui/1.11.3/jquery-ui.theme.min.css");
+
+         #form select { width: auto; }
+         #form .add-on {
+             border: none;
+             background-color: inherit;
+         }
+
+         .expandable > legend:before {
+             content: '\25B8';
+             padding-right: 5px;
+         }
+         .expanded > legend:before {
+             content: '\25BE';
+         }
+
+         ._jsonform-array-buttons {
+             margin-left: 25px;
+         }
+
+         .jsonform-required > label:after {
+             content: ' *';
+             color: red;
+         }
+
+         form.jsonform-hasrequired:after {
+             content: '* Required field';
+             display: block;
+             color: red;
+             padding-top: 1em;
+         }
+         .inline-other-field > .other-field-content,
+         .inline-other-field > label > .other-field-content {
+             display: inline-block;
+             margin: 0;
+         }
+         .inline-other-field > input[type=checkbox],
+         .inline-other-field > label > input[type=checkbox] {
+             margin-top: 8px;
+         }
+         .other-field-content > .control-group,
+         .other-field-content > .control-group > .controls > input[type=text] {
+             margin: 0;
+         }
+
+         .hidden {
+             display: none;
+         }
+         .standalone {
+             opacity: 0;
+         }
+         .disabled {
+             opacity: 0.5;
+         }
+         body {
+             padding-top: 70px;
+             padding-bottom: 70;
+         }
+
+         .userui-user {
+             display:inline-block;
+             text-align: center;
+         }
+         .userui-otherinfo img {
+             width: 50%;
+         }
+
+         .dropdown-menu {
+             width: 160%;
+         }
+        </style>
+
+    </head>
+    <body>
+
+        <nav class="navbar navbar-default navbar-fixed-top standalone">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a href="ui">
+                        <img height="45px" alt="LeanrPAd" src="resources/img/logo-pic.svg">
+                        <img class="hidden-xs" height="35px" alt="LearnPAd" src="resources/img/logo-text.svg">
+                    </a>
+                    <button type="button" class="navbar-toggle collapsed"
+                            data-toggle="collapse" data-target="#nav-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="nav-collapse" class="navbar-right collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <form class="navbar-form navbar-left" role="search">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search" disabled="true">
+                                </div>
+                            </form>
+                        </li>
+                        <li>
+                            <a href="uiprocess" class ="navbar-link" target='_blank'>
+                                Launch a Process
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="ui" class ="navbar-link">
+                                Log In
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="main-container" class="container-fluid">
+
+            <form id="connect" class="form-inline">
+	        <div class="form-group">
+	            <label for="uiid">UI Id:&nbsp;</label>
+	            <input id="uiid" type="text" class="form-control"/>
+	            <button id="connectBn"
+		            type="submit" class="btn btn-default">connect</button>
+	        </div>
+            </form>
+            <div class="userui row hidden">
+
+                <div class="col-sm-2 list-group standalone">
+                    <a href="#" class="list-group-item disabled active">Simulation </a>
+                    <a href="#" class="list-group-item disabled">
+                        <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+                         Play
+                    </a>
+                    <a href="#" class="list-group-item disabled">
+                        <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+                         Pause
+                    </a>
+                    <a href="#" class="list-group-item disabled">
+                        <span class="glyphicon glyphicon-stop" aria-hidden="true"></span>
+                         Stop
+                    </a>
+                    <a href="#" class="list-group-item disabled">
+                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                         Save
+                    </a>
+                    <a href="#" class="list-group-item disabled">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                         Coordinator: Sally
+                    </a>
+                </div>
+
+                <div class="col-sm-10">
+                    <ul id="taskstable" class="nav nav-tabs" role="tablist">
+                    </ul>
+                    <div id="tasks" class="content tab-content container">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <nav class="userui navbar navbar-inverse navbar-fixed-bottom hidden standalone">
+            <div class="container ">
+                <button type="button" class="btn btn-default navbar-btn" disabled="true">Chat with group</button>
+                <div class="btn-group dropup">
+                    <button id="connectchat" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        Chat with an expert <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    </button>
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        <li><div id="chatcontainer" class="panel-body" onclick=" event.stopPropagation();"></div></li>
+                    </ul>
+                </div>
+                <span class="navbar-text navbar-right"> Notifications <span class="badge">0</span></span>
+            </div>
+        </nav>
+
+        <script type="text/javascript" src="webjars/jquery/2.1.3/jquery.min.js"></script>
+        <script type="text/javascript" src="webjars/jquery-ui/1.11.3/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="webjars/underscorejs/1.7.0/underscore-min.js"></script>
+        <script type="text/javascript" src="webjars/bootstrap/3.3.2-1/js/tab.js"></script>
+        <script type="text/javascript" src="webjars/bootstrap/3.3.2-1/js/dropdown.js"></script>
+        <script type="text/javascript" src="webjars/bootstrap/3.3.2-1/js/transition.js"></script>
+        <script type="text/javascript" src="webjars/bootstrap/3.3.2-1/js/collapse.js"></script>
+        <script type="text/javascript" src="webjars/bootstrap/3.3.2-1/js/tooltip.js"></script>
+        <script type="text/javascript" src="webjars/bootstrap/3.3.2-1/js/popover.js"></script>
+        <script type="text/javascript" src="webjars/bootstrap-tagsinput/0.3.9/bootstrap-tagsinput.min.js"></script>
+        <script type="text/javascript" src="webjars/Bootstrap-3-Typeahead/3.1.0/bootstrap3-typeahead.min.js"></script>
+        <script type="text/javascript" src="webjars/spectrum/1.6.0/spectrum.js"></script>
+
+        <script type="text/javascript" src="resources/deps/opt/ZSchema-browser.js"></script>
+        <script type="text/javascript" src="resources/lib/jquery.slimscroll.min.js"></script>
+        <script type="text/javascript" src="resources/lib/jsonform.js"></script>
+
+        <script type="text/javascript" src="resources/Task-jsonform.js"></script>
+        <script type="text/javascript" src="resources/Task.js"></script>
+        <script type="text/javascript" src="resources/Users.js"></script>
+        <script type="text/javascript" src="resources/Webchat.js"></script>
+        <script type="text/javascript" src="resources/TaskReceiver.js"></script>
+
+        <script type="text/javascript" src="resources/HeightMonitor.js"></script>
+
+        <script type="text/javascript">
+         'use strict';
+         if (!window.WebSocket){
+             alert("WebSocket not supported by this browser");
+         }
+
+         // helper function to get the parameters from the URL
+         //
+         // see http://stackoverflow.com/questions/831030/how-to-get-get-request-parameters-in-javascript
+         function get(name) {
+             if (name = (new RegExp('[?&]' + encodeURIComponent(name) +
+                                    '=([^&]*)')).exec(location.search))
+                 return decodeURIComponent(name[1]);
+         }
+         var userid = get("userid");
+
+         var integratedMode = false;
+         if(window != parent.window) {
+             // we are in integrated mode (iframe)
+             integratedMode = true;
+
+             // delete superfluous UI elements
+             $('.standalone').remove();
+             $('body').css('padding', '0');
+         } else {
+             $('.standalone').removeClass('standalone');
+         }
+
+         if(userid != null) {
+             taskReceiver(#serveripaddress#, userid, integratedMode);
+             if(!integratedMode) {
+                 chat('chatcontainer', #serveripaddress#, userid);
+             }
+         } else {
+             $('#connectBn').click(function(event) {
+                 userid = $('#uiid').val().toLowerCase();
+                 taskReceiver(#serveripaddress#, userid, integratedMode);
+                 if(!integratedMode) {
+                     chat('chatcontainer', #serveripaddress#, userid);
+                 }
+                 return false;
+             });
+         }
+
+         // this element can cause page height change, so we need to
+         // monitor it
+         heightMon.monitor('#taskstable');
+        </script>
+
+    </body>
+</html>

@@ -1,6 +1,6 @@
 package eu.learnpad.ca.rest.impl;
 
-import java.lang.Thread.State;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,14 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.languagetool.Language;
@@ -23,15 +20,14 @@ import org.languagetool.language.AmericanEnglish;
 import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
-import eu.learnpad.ca.analysis.AnalysisInterface;
+import eu.learnpad.ca.analysis.AbstractAnalysisClass;
+import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
+import eu.learnpad.ca.analysis.non_ambiguity.NonAmbiguity;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
+import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
-import eu.learnpad.ca.rest.data.Annotation;
-import eu.learnpad.ca.rest.data.Content;
-import eu.learnpad.ca.rest.data.Node;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
-import eu.learnpad.ca.rest.data.collaborative.CollaborativeContent;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.exception.LpRestException;
 
@@ -41,16 +37,9 @@ import eu.learnpad.exception.LpRestException;
 public class ColloborativeContentVerificationsImpl implements ColloborativeContentVerifications {
 
 
-	private static Map<Integer,List<AnalysisInterface>> map = new HashMap<Integer,List<AnalysisInterface>>();
+	private static Map<Integer,List<AbstractAnalysisClass>> map = new HashMap<Integer,List<AbstractAnalysisClass>>();
 	private static Integer id =0;
-
-
-
-	@Path("/test/{idAnnotatedCollaborativeContentAnalysis}")
-	@GET
-	public String getC(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)throws LpRestException{
-		return contentID+"\n";
-	}
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ColloborativeContentVerificationsImpl.class);
 
 
 
@@ -59,51 +48,90 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	@Consumes(MediaType.APPLICATION_XML)
 	public String putValidateCollaborativeContent(CollaborativeContentAnalysis contentFile)
 			throws LpRestException{
-		if(contentFile!=null){
-			id++;
-			Language lang = null;
-			if(contentFile.getLanguage().toLowerCase().equals("english")){
-				lang = new  BritishEnglish();
-			}else{
-				if(contentFile.getLanguage().toLowerCase().equals("italian")){
-					lang = new Italian();
-				}else
-					if(contentFile.getLanguage().toLowerCase().equals("english uk")){
-						lang = new BritishEnglish();
+		try{
+			if(contentFile!=null){
+				String content = contentFile.getCollaborativeContent().getContentplain();
+				GateThread gateu = new GateThread(content,contentFile.getQualityCriteria());
+				gateu.start();
+				id++;
+				Language lang = null;
+				if(contentFile.getLanguage().toLowerCase().equals("english")){
+					lang = new  BritishEnglish();
+				}else{
+					if(contentFile.getLanguage().toLowerCase().equals("italian")){
+						lang = new Italian();
 					}else
-						if(contentFile.getLanguage().toLowerCase().equals("english us")){
-							lang = new AmericanEnglish();
-						}else
+						if(contentFile.getLanguage().toLowerCase().equals("english uk")){
 							lang = new BritishEnglish();
+						}else
+							if(contentFile.getLanguage().toLowerCase().equals("english us")){
+								lang = new AmericanEnglish();
+							}else
+								lang = new BritishEnglish();
+				}
+				if(contentFile.getQualityCriteria().isCorrectness()){
+
+					CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(lang, contentFile);
+					threadcorre.start();
+					putAndCreate(id, threadcorre);
+
+				}
+				if(contentFile.getQualityCriteria().isSimplicity()){
+
+					/*JuridicalJargon threadsimply = new JuridicalJargon (contentFile, lang);
+					threadsimply.start();
+					putAndCreate(id, threadsimply);
+
+					DifficultJargon threadDF = new DifficultJargon (contentFile, lang);
+					threadDF.start();
+					putAndCreate(id, threadDF);
+
+					
+					
+					ExcessiveLength threadEL = new ExcessiveLength(contentFile, lang);
+					threadEL.start();
+					putAndCreate(id, threadEL);*/
+					Simplicity threadEL = new Simplicity(contentFile, lang, gateu);
+					threadEL.start();
+					putAndCreate(id, threadEL);
+
+
+				}
+				if(contentFile.getQualityCriteria().isNonAmbiguity()){
+
+					NonAmbiguity threadNonAmbiguity = new NonAmbiguity (contentFile, lang, gateu);
+					threadNonAmbiguity.start();
+					putAndCreate(id, threadNonAmbiguity);
+
+				}
+				if(contentFile.getQualityCriteria().isContentClarity()){
+
+					ContentClarity threadContentClarity = new ContentClarity (contentFile, lang, gateu);
+					threadContentClarity.start();
+					putAndCreate(id, threadContentClarity);
+
+				}
+
+
+				return id.toString();
+			}else{
+				log.error("Null Element send");
+				return "Null Element send";
 			}
-			if(contentFile.getQualityCriteria().isCorrectness()){
 
-				CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(lang, contentFile);
-				threadcorre.start();
-				putAndCreate(id, threadcorre);
-
-			}
-			if(contentFile.getQualityCriteria().isSimplicity()){
-
-				Simplicity threadsimply = new Simplicity (contentFile, lang);
-				threadsimply.start();
-				putAndCreate(id, threadsimply);
-
-			}
-			return id.toString();
-		}else
-			return "Null Element send";
-
-
+		}catch(Exception e){
+			log.fatal("Fatal "+e.getMessage());
+			return "FATAL ERROR";
+		}
 	}
 
-	private void putAndCreate(int id, AnalysisInterface ai){
+	private void putAndCreate(int id, AbstractAnalysisClass ai){
 		if(!map.containsKey(id)){
-			List<AnalysisInterface> lai = new ArrayList<AnalysisInterface>();
+			List<AbstractAnalysisClass> lai = new ArrayList<AbstractAnalysisClass>();
 			lai.add(ai);
 			map.put(id, lai);
 		}else{
-			List<AnalysisInterface> lai = map.get(id);
+			List<AbstractAnalysisClass> lai = map.get(id);
 			lai.add(ai);
 		}
 	}
@@ -112,38 +140,53 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 	@GET
 	public Collection<AnnotatedCollaborativeContentAnalysis> getCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException{
-		if(map.containsKey(Integer.valueOf(contentID))){
-			ArrayList<AnnotatedCollaborativeContentAnalysis> ar = new ArrayList<AnnotatedCollaborativeContentAnalysis>();
-			List<AnalysisInterface> listanalysisInterface = map.get(Integer.valueOf(contentID));
+		try{
+			if(map.containsKey(Integer.valueOf(contentID))){
+				ArrayList<AnnotatedCollaborativeContentAnalysis> ar = new ArrayList<AnnotatedCollaborativeContentAnalysis>();
+				List<AbstractAnalysisClass> listanalysisInterface = map.get(Integer.valueOf(contentID));
 
-			for(AnalysisInterface analysisInterface :listanalysisInterface){
-				AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent = analysisInterface.getAnnotatedCollaborativeContentAnalysis();
+				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
+					AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent = analysisInterface.getAnnotatedCollaborativeContentAnalysis();
+					if(annotatedCollaborativeContent!=null){
+						annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
+						ar.add(annotatedCollaborativeContent);
+					}
+				}
 
-				annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
-				ar.add(annotatedCollaborativeContent);
+
+
+				return ar;
+			}else{
+				log.error("Element not found");
+				return null;
 			}
-
-
-
-			return ar;
-		}else
+		}catch(Exception e){
+			log.fatal("Fatal "+e.getMessage());
 			return null;
+		}
 	}
 
 	@Path("/{idAnnotatedCollaborativeContentAnalysis:\\d+}/status")
 	@GET
 	public String getStatusCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException{
-		if(map.containsKey(Integer.valueOf(contentID))){
-			List<AnalysisInterface> listanalysisInterface  = map.get(Integer.valueOf(contentID));
-			for(AnalysisInterface analysisInterface :listanalysisInterface){
-				if(analysisInterface.getStatus()!="OK"){
-					return "IN PROGRESS";
+		try{
+			if(map.containsKey(Integer.valueOf(contentID))){
+				List<AbstractAnalysisClass> listanalysisInterface  = map.get(Integer.valueOf(contentID));
+				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
+					if(analysisInterface.getStatus()!="OK"){
+						return "IN PROGRESS";
+					}
 				}
+				return "OK";
 			}
-			return "OK";
+			log.error("Element not found");
+			return "ERROR";
+		}catch(Exception e){
+			log.fatal("Fatal "+e.getMessage());
+			return "FATAL ERROR";
 		}
-		return "ERROR";
 	}
+
 
 }

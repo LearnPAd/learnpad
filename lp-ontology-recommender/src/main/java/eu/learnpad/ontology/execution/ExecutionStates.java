@@ -5,6 +5,7 @@
  */
 package eu.learnpad.ontology.execution;
 
+
 import com.hp.hpl.jena.datatypes.xsd.XSDDateTime;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.query.Query;
@@ -15,27 +16,34 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Resource;
-import eu.learnpad.or.rest.data.State;
-import eu.learnpad.or.rest.data.States;
+
+import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.persistence.OntAO;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import eu.learnpad.or.rest.data.State;
+import eu.learnpad.or.rest.data.States;
 
 /**
  *
  * @author sandro.emmenegger
  */
-@Singleton
 public class ExecutionStates {
-        
-    @Inject
-    OntAO ontAO;
-    @Inject
-    SimpleModelTransformator transformator;
+    
+    private static final ExecutionStates instance = new ExecutionStates();
+    
+    private OntAO ontAO;
+
+    public static ExecutionStates getInstance() {
+        return instance;
+    }
+	
+    public ExecutionStates() {
+    	this.ontAO = new FileOntAO();
+    	
+    }
     
     public States getStatesOfLatestAddedModelSet(String userId){
-        String latestAddeModelSetId = transformator.getLatestModelSetId();
+        String latestAddeModelSetId = SimpleModelTransformator.getInstance().getLatestModelSetId();
         if(latestAddeModelSetId == null || latestAddeModelSetId.isEmpty()){
             return new States();
         }

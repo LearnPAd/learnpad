@@ -27,7 +27,6 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/mv")
 public interface ModelImporter {
 	@GET
 	@Path("/getmodel/{modelsetid}")

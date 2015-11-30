@@ -16,6 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,25 +25,62 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.io.FilenameUtils;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 
-
+/**
+ * Class used for the pre-processing of XML files from modeling applications of third parties.
+	These files may be sub-standard XML for this request is a phase alignment to make these XML compliant.
+ * @author Basciani Francesco
+ * @version 1.0
+ */
 public class Alignment {
 	
-	public static String XMIHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Ado:ADOXMLType xmi:version=\"2.0\"  xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:Ado=\"http://www.ado.org\" xsi:schemaLocation=\"http://www.ado.org /Adoxx2XWiki/models/Ado.ecore\">\n";
-//	public String XMLHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE ADOXML SYSTEM \"adoxml31.dtd\"><ADOXML version=\"3.1\" date=\"31.07.2015\" time=\"17:29\" database=\"lpad\" username=\"Admin\" adoversion=\"Version 1.0 4.0\">";
+	private String tmpModelFolder = "tmp/";
+	private boolean deleteFile = true;
 	
+	public static String ADOXX_XMIHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Ado:ADOXMLType xmi:version=\"2.0\"  xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:Ado=\"http://www.ado.org\" xsi:schemaLocation=\"http://www.ado.org /Adoxx2XWiki/models/Ado.ecore\">\n";
 	
-	public String sanitizer(String modelInputPath) throws Exception{
+	/**
+	 * This method take the path of the ADOXX XML file and, after a phase of sanitizing, return an XMI file that could be processed by an ATL Transformation.
+	 * To sanitize the XML it create a copy of the original file in a temporary folder with the same name of the original one.
+	 * It get as a String the content of the XML and replace the original Header of the XML with new one (in order to make as result a conform XML).
+	 * Furthermore it parse with XML Java Parser the string representing the XML in order to take all the tags in it.
+	 * Once we have all the tags the method order this list by length in decreasing way so we are able to replace, starting from the longest string, all the tags with the first letter lowercase and all the remaining letters in uppercase (e.g. <ATTRIBUTE> became <aTTRIBUTE>).
+	 * The phase of ordering is important to avoid situation like: <ATTRIBUTE_TYPE> could became <ATTRIBUTE_tYPE> if the first replace was with the tag <TYPE> instead of <ATTRIBUTE_TYPE>.
+	 * Optionally at the end the temporary file used for the processing could be delete or not.
+	 * @param modelInputPath String path of the XML file to be sanitized.
+	 * @return The String path of the new XMI file, ready to be processed by an ATL Transformation.
+	 * @throws Exception
+	 */
+	public String sanitizerForADOXX(String modelInputPath) throws Exception{
 		String XmlString;
 		
-		String resultFilePath = "tmp/model_aligned.xmi";
+		Utils utils = new Utils();
+		
+		String basenameInputModel = FilenameUtils.getBaseName(modelInputPath);
+
+		String copyModelInputPath = tmpModelFolder + "copy_" + basenameInputModel + ".xmi";
+		
+		File src = new File(modelInputPath);
+		File dst = new File(copyModelInputPath);
+		
+		Files.copy(src.toPath(), dst.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		System.out.println("Temporary copy of the XML file provided as input was created: "+dst.getName()+"!");
+		
+//		String resultFilePath = "tmp/model_aligned.xmi";
+		String resultFilePath = tmpModelFolder + basenameInputModel + ".xmi";
 
 		BufferedReader br;
 		String line;
@@ -52,22 +90,24 @@ public class Alignment {
 		//Delete first 3 rows
 		int nRowToDelete = 2;
 		while(nRowToDelete >= 0){
-			removeNthLine(modelInputPath, nRowToDelete);
+			utils.removeNthLine(copyModelInputPath, nRowToDelete);
 			nRowToDelete--;
 		}
 
 		int rowToInsert  = 1; //top of the file
-		insertStringInFile(modelInputPath, rowToInsert, XMIHeader.trim());
-		replaceIntoAFile(modelInputPath);
+		utils.insertStringInFile(copyModelInputPath, rowToInsert, ADOXX_XMIHeader.trim());
+		
+		/*
+		 * This replacement is important in order to maintain the XML conformance after the XML header replacement.
+		 * Simply this method replace the last tag of the original XML file: </ADOXML> to </Ado:ADOXMLType>.
+		 */
+		utils.replaceIntoAFile(copyModelInputPath, "</ADOXML>", "</Ado:ADOXMLType>");
 		
 		
-		File inputFile = new File(modelInputPath);
-		
+		File inputFile = new File(copyModelInputPath);
 		
 		
 		if(inputFile.exists()){
-			
-			PrintWriter out = new PrintWriter(resultFilePath);
 			
 			System.out.println("The input file exist!");
 			try {
@@ -90,15 +130,6 @@ public class Alignment {
 			
 			XmlString=sb.toString();
 			
-//			XmlString = XmlString.replace("</ADOXML>", "</Ado:ADOXMLType>").trim();
-			
-			
-			
-			//Simple replace of the header declaration
-//			XmlString = updateHeader(XmlString);
-			
-//			System.out.println(XmlString);
-
 			List<String> allTags = getAllTagsName(XmlString);
 			
 			for (String tagName : allTags) {
@@ -106,18 +137,18 @@ public class Alignment {
 				XmlString = XmlString.replaceAll("</"+tagName+">", "</"+tagName.substring(0, 1).toLowerCase() + tagName.substring(1)+">");
 			}
 			
+			getValueFromAdoATTRIBUTETagAndCreateXMLFile(XmlString, resultFilePath);
 			
+			//Delete temporary file
+			if(deleteFile){
+				if(dst.delete()){
+					System.out.println("Temporary copy of the XML file provided as input was deleted: "+dst.getName()+"!");
+				}else{
+					System.out.println("Can't delete temporary copy of the XML file provided as input: "+dst.getName()+"!");
+				}
+				
+			}
 			
-			out.println(XmlString);
-			out.close();
-
-			//			//replace of all the tags in respect to the xmi
-//			XmlString = updateBody(XmlString);
-//			
-//			String fileName = getFileNameFromPath(modelInputPath);
-//			
-//			return createXMIFile(XmlString, fileName);
-		
 			return resultFilePath;
 		}else{
 			System.out.println("The input file does not exist!");
@@ -128,96 +159,62 @@ public class Alignment {
 	}
 	
 	
-	private void insertStringInFile(String inputPathFile, int lineno, String lineToBeInserted) throws Exception {
+	/**
+	 * The function get text between tags <ATTRIBUTE> and </ATTRIBUTE> and put it into value attribute into the tag.
+	 * It takes the String of the XML and using an XML Java Parser it navigate throw the file searching for the text between the two tags.
+	 * It do is job directly to the file passed in input as String path.
+	 * @param xmlString String representing the XML 
+	 * @param outputFilePath String representing the path of the file to be modified 
+	 * @throws ParserConfigurationException 
+	 * @throws IOException 
+	 * @throws SAXException 
+	 * @throws TransformerException 
+	 */
+	private void getValueFromAdoATTRIBUTETagAndCreateXMLFile(String xmlString, String outputFilePath) throws ParserConfigurationException, SAXException, IOException, TransformerException{
 		
-			File inFile = new File(inputPathFile);
-		    // temp file
-		    File outFile = new File("tmp/temp_file.tmp");
-		     
-		    // input
-		    FileInputStream fis  = new FileInputStream(inFile);
-		    BufferedReader in = new BufferedReader
-		        (new InputStreamReader(fis));
-
-		    // output         
-		    FileOutputStream fos = new FileOutputStream(outFile);
-		    PrintWriter out = new PrintWriter(fos);
-
-		    String thisLine = "";
-		    int i =1;
-		    while ((thisLine = in.readLine()) != null) {
-		      if(i == lineno) out.println(lineToBeInserted);
-		      out.println(thisLine);
-		      i++;
-		      }
-		   out.flush();
-		   out.close();
-		   in.close();
+	    Document document = Utils.readXml(new StringReader(xmlString));
+	    
+		NodeList nodeList = document.getElementsByTagName("aTTRIBUTE");
+		
+		Utils utils = new Utils();
+		
+		    for (int i = 0; i < nodeList.getLength(); i++) {
+		    	Element el = (Element) nodeList.item(i);
+		    	String attributeToInsert = utils.escapeHtml(el.getTextContent());
+		    	el.setAttribute("value", attributeToInsert);
+		    	el.setTextContent(""); //Put empty text where first there was text
+		    }
+		
+		 // write the content into xml file
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		DOMSource source = new DOMSource(document);
+		StreamResult result = new StreamResult(new File(outputFilePath));
+		transformer.transform(source, result);
 		    
-		   inFile.delete();
-		   outFile.renameTo(inFile);
-		 }
-	
-	
-	
-	private void replaceIntoAFile(String filePath) throws IOException{
-		Path path = Paths.get(filePath);
-		Charset charset = StandardCharsets.UTF_8;
-	
-		String content = new String(Files.readAllBytes(path), charset);
-		content = content.replaceAll("</ADOXML>", "</Ado:ADOXMLType>");
-		Files.write(path, content.getBytes(charset));
 	}
 	
-	
-	private void removeNthLine(String f, int toRemove) throws IOException {
-	    RandomAccessFile raf = new RandomAccessFile(f, "rw");
-
-	    // Leave the n first lines unchanged.
-	    for (int i = 0; i < toRemove; i++){
-	    	raf.readLine();
-	    }
-
-	    // Shift remaining lines upwards.
-	    long writePos = raf.getFilePointer();
-	    raf.readLine();
-	    long readPos = raf.getFilePointer();
-
-	    byte[] buf = new byte[1024];
-	    int n;
-	    while (-1 != (n = raf.read(buf))) {
-	        raf.seek(writePos);
-	        raf.write(buf, 0, n);
-	        readPos += n;
-	        writePos += n;
-	        raf.seek(readPos);
-	    }
-
-	    raf.setLength(writePos);
-	    raf.close();
-	}
-	
-	
+	/**
+	 * This method get a list with all the names of the tags, ordered in decreasing way based on length of the strings, of the XML passed as String input throw an XML Java parser.
+	 * @param xmlString
+	 * @return A list of String representig all the tags name.
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 */
 	private List<String> getAllTagsName(String xmlString) throws ParserConfigurationException, SAXException, IOException{
 		Set<String> setTest = new HashSet<String>();
 		
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		  
-	    DocumentBuilder builder;
-	    builder = factory.newDocumentBuilder();
 	    Document document = Utils.readXml(new StringReader(xmlString));
-		
-//		 DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-//		 DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-//		 Document document = docBuilder.parse(new File(filepath));
 
+	    /**
+	     * With "*" we are saying that we are interested in all the tags (no one in particular)
+	     */
 		 NodeList nodeList = document.getElementsByTagName("*");
 		    for (int i = 0; i < nodeList.getLength(); i++) {
 		        Node node = nodeList.item(i);
 		        
 		        setTest.add(node.getNodeName());
-		        
-//		        String output = node.getNodeName().substring(0, 1).toLowerCase() + node.getNodeName().substring(1);
 		    }
 
 		    List<String> tagList = new ArrayList<String>();
@@ -234,13 +231,4 @@ public class Alignment {
 		    return tagList;
 	}
 	
-	
-//	private String getFileNameFromPath(String filePath){
-//		
-//		return FilenameUtils.getBaseName(filePath); //get the name of the file without extension
-//		
-////		Path p = Paths.get(filePath);
-////		return p.getFileName().toString();
-//	}
-
 }

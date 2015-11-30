@@ -1,24 +1,18 @@
 package eu.learnpad.ca.analysis.simplicity;
 
-import static org.junit.Assert.assertNotNull;
 
-import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.StringTokenizer;
+import java.util.Set;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
-import org.languagetool.JLanguageTool;
 import org.languagetool.Language;
-import org.languagetool.language.AmericanEnglish;
-import org.languagetool.language.BritishEnglish;
-import org.languagetool.language.Italian;
 
-import eu.learnpad.ca.analysis.AnalysisInterface;
+import eu.learnpad.ca.analysis.AbstractAnalysisClass;
+import eu.learnpad.ca.analysis.simplicity.plugin.DifficultJargonAlternative;
+import eu.learnpad.ca.analysis.simplicity.plugin.JuridicalJargon;
+import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
@@ -28,110 +22,53 @@ import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
-import eu.learnpad.ca.simplicity.juridicaljargon.JuridaljargonSet;
-import eu.learnpad.ca.simplicity.juridicaljargon.Juridicaljargon;
+import gate.DocumentContent;
+import gate.Factory;
+import gate.util.InvalidOffsetException;
 
-public class Simplicity extends Thread implements AnalysisInterface{
 
-	private Language language;
-	private JuridaljargonSet juridaljargonSet;
-	private Integer numDefectiveSentences = 0;
-	
-	private CollaborativeContentAnalysis collaborativeContentInput;
-	private AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent;
-	
-	private StaticContentAnalysis staticContentInput;
-	private AnnotatedStaticContentAnalysis annotatedStaticContent;
-	
-	
+public class Simplicity extends AbstractAnalysisClass {
 
-	public Simplicity(CollaborativeContentAnalysis cca, Language lang){
-		this.language=lang;
-		juridaljargonSet = readJJ(lang);
-		collaborativeContentInput = cca;
-		
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Simplicity.class);
+	private long lStartTime;
+	private GateThread gateu = null;
+
+	public Simplicity(CollaborativeContentAnalysis collaborativeContentInput,Language lang, GateThread gate) {
+
+		this.language = lang;
+		this.collaborativeContentInput = collaborativeContentInput;
+		this.gateu = gate;
 	}
-	
-	
-	public Simplicity(StaticContentAnalysis cca, Language lang){
-		this.language=lang;
-		juridaljargonSet = readJJ(lang);
-		staticContentInput = cca;
-		
+
+	public Simplicity(StaticContentAnalysis staticContentInput, Language lang, GateThread gate) {
+
+		this.language = lang;
+		this.staticContentInput = staticContentInput;
+		this.gateu = gate;
 	}
-	
-	private void checkJJ(StaticContentAnalysis cca){
-		String title = staticContentInput.getStaticContent().getTitle();
-		String idc = staticContentInput.getStaticContent().getId();
-		String content = staticContentInput.getStaticContent().getContent().toString();
 
-		annotatedStaticContent = new AnnotatedStaticContentAnalysis();
-		StaticContent sc = new StaticContent();
-		annotatedStaticContent.setStaticContent(sc);
-		sc.setTitle(title);
-		sc.setId(idc);
-		Content c = new Content();
-		sc.setContent(c);
-
-		//String sResult = "This is a test. This is a T.L.A. test.";
-		//String[] sSentence = content.split("(?<=[a-z])\\.\\s+");
-		JLanguageTool langTool = new JLanguageTool(language);
-		List<String> listsentence = langTool.sentenceTokenize(content);
-		int id=0;
-		for (String sentence : listsentence) {
-
-
-			List<Annotation> annotations =new ArrayList<Annotation>();
-			id = checkdefect(sentence,c, id, annotations);
-			annotatedStaticContent.setAnnotations(annotations);
-			id++;
+	public void run() {
+		lStartTime = System.currentTimeMillis();
+		//some tasks
+		if (collaborativeContentInput != null) {
+			check(collaborativeContentInput);
 		}
 
-		//System.out.println(content);
-
-		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
-		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
-		annotatedStaticContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
-		annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-		annotatedStaticContent.setType("Simplicity");
-
-
-	}
-	
-
-	private JuridaljargonSet readJJ(Language lang){
-		InputStream is = null;
-		if(lang instanceof BritishEnglish | lang instanceof AmericanEnglish){
-			is = Simplicity.class.getClassLoader().getResourceAsStream("JuridicalJargon_EnglishLatin.xml");
-
-		}else
-			if(lang instanceof Italian){
-				is = Simplicity.class.getClassLoader().getResourceAsStream("JuridicalJargon_EnglishLatin.xml");
-
-			}
-
-		assertNotNull(is);
-
-		try {
-			JAXBContext jaxbContexti = JAXBContext.newInstance(JuridaljargonSet.class);
-
-
-			Unmarshaller jaxbUnmarshaller1 = jaxbContexti.createUnmarshaller();
-			JuridaljargonSet jjSet = (JuridaljargonSet) jaxbUnmarshaller1.unmarshal(is);
-			return jjSet;
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
+		if (staticContentInput != null) {
+			check(staticContentInput);
 		}
+		long lEndTime = System.currentTimeMillis();
+		long difference = lEndTime - lStartTime;
 
+		log.trace("Simplicity Elapsed milliseconds: " + difference);
 
 	}
 
-	private void checkJJ(CollaborativeContentAnalysis cca){
+	public AnnotatedCollaborativeContentAnalysis check(
+			CollaborativeContentAnalysis collaborativeContentInput) {
 		String title = collaborativeContentInput.getCollaborativeContent().getTitle();
 		String idc = collaborativeContentInput.getCollaborativeContent().getId();
-		String content = collaborativeContentInput.getCollaborativeContent().getContent().toString();
+		String content = collaborativeContentInput.getCollaborativeContent().getContentplain();
 
 		annotatedCollaborativeContent = new AnnotatedCollaborativeContentAnalysis();
 		CollaborativeContent sc = new CollaborativeContent();
@@ -141,146 +78,133 @@ public class Simplicity extends Thread implements AnalysisInterface{
 		Content c = new Content();
 		sc.setContent(c);
 
-		//String sResult = "This is a test. This is a T.L.A. test.";
-		//String[] sSentence = content.split("(?<=[a-z])\\.\\s+");
-		JLanguageTool langTool = new JLanguageTool(language);
-		List<String> listsentence = langTool.sentenceTokenize(content);
-		int id=0;
-		for (String sentence : listsentence) {
-
-
-			List<Annotation> annotations =new ArrayList<Annotation>();
-			id = checkdefect(sentence,c, id,annotations);
-			if(annotations.size()>0){
-				numDefectiveSentences++;
-			}
-			annotatedCollaborativeContent.setAnnotations(annotations);
-			id++;
-		}
-
-		//System.out.println(content);
-
-		double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
+		// AnnotationImpl i;
+		List<Annotation> listannotation  =new ArrayList<Annotation>();
+		int numSentence = execute(content,c,listannotation);
+		annotatedCollaborativeContent.setAnnotations(listannotation);
+		double qualitymmeasure = calculateOverallQualityMeasure(numSentence);
 		annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 		annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
 		annotatedCollaborativeContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
 		annotatedCollaborativeContent.setType("Simplicity");
 
-
-	}
-
-	private int checkdefect(String sentence,Content c,int nodeid,List<Annotation> annotations){
-		List<Juridicaljargon> Listjj = juridaljargonSet.getJuridicaljargon();
-		StringTokenizer tokenizer = new StringTokenizer(sentence);
-		
-		int precedentposition=0;
-
-		while (tokenizer.hasMoreTokens()) {
-			String token = tokenizer.nextToken();
-			if(Listjj.contains(new Juridicaljargon(token))){
-				
-				int initialpos = sentence.indexOf(token);
-				int finalpos = initialpos+token.length();
-				if(precedentposition>initialpos){
-					 initialpos = sentence.lastIndexOf(token);
-				}
-				String stringap = sentence.substring(precedentposition, initialpos);
-				c.setContent(stringap);
-				precedentposition=finalpos;
-				nodeid++;
-				Node init= new Node(nodeid);
-				nodeid++;
-				Node end= new Node(nodeid);
-				c.setContent(init);
-				c.setContent(token);
-				c.setContent(end);
-
-				Annotation a = new Annotation();
-				a.setId(nodeid);
-				a.setEndNode(end.getId());
-				a.setStartNode(init.getId());
-				a.setType("Simplicity");
-				a.setRecommendation("juridical jargon, use simpler terms");
-				annotations.add(a);
-
-			}
-		}
-		if(annotations.size()==0){
-			c.setContent(sentence);
-		}
-		return nodeid;
-
-	}
-
-	private double calculateOverallQualityMeasure(Integer numsentence){
-		double qm = (1-(numDefectiveSentences.doubleValue()/numsentence.doubleValue()))*100;
-		double qualityMeasure = Math.abs(qm);
-		return qualityMeasure;
-	}
-
-	private String calculateOverallQuality(double qualityMeasure){
-		String quality="";
-		if(qualityMeasure<=25){
-			quality="VERY BAD";
-		}else if(qualityMeasure<=50){
-			quality="BAD";
-		}else if(qualityMeasure<=75){
-			quality="GOOD";
-		}else if(qualityMeasure<100){
-			quality="VERY GOOD";
-		}else if(qualityMeasure==100){
-			quality="EXCELLENT";
-		}
-		return quality;
-	}
-
-	private String calculateOverallRecommendations(double qualityMeasure){
-		String recommendations="";
-		if(qualityMeasure<=25){
-			recommendations="Quality is very poor, correct the errors";
-		}else if(qualityMeasure<=50){
-			recommendations="Quality is poor, correct the errors";
-		}else if(qualityMeasure<=75){
-			recommendations="Quality is acceptable, but there are still some errors";
-		}else if(qualityMeasure<100){
-			recommendations="Well done, still few errors remaining";
-		}else if(qualityMeasure==100){
-			recommendations="Well done, no errors found!";
-		}
-		return recommendations;
-	}
-
-	public AnnotatedCollaborativeContentAnalysis getAnnotatedCollaborativeContentAnalysis(){
 		return annotatedCollaborativeContent;
+
 	}
 
-	
-	public void run() {
-		if(collaborativeContentInput!=null){
-			checkJJ(collaborativeContentInput);	
+
+	private int execute(String content, Content c, List<Annotation> listannotations){
+
+		//gateu.runProcessingResourcesforLenght();
+		try {
+			gateu.join();
+
+
+			lStartTime = System.currentTimeMillis();
+			DocumentContent docContent = gateu.getDocumentContent();
+			Set<gate.Annotation> listSentence = gateu.getSentence();
+			Set<gate.Annotation> listSentenceDefected = new HashSet<>();
+			List<Node> listnode = new ArrayList<Node>();
+			DifficultJargonAlternative dja = new DifficultJargonAlternative(language, docContent,listnode);
+
+			dja.checkUnclearAcronym(listSentence,listSentenceDefected,listannotations);
+
+			JuridicalJargon jj = new JuridicalJargon(language, docContent,listnode);
+			listannotations.addAll(jj.checkJJ(listSentence,listSentenceDefected));
+
+			HashSet<String> hs = new HashSet<String>();
+			hs.add("Sent-Long");
+			Set<gate.Annotation> SetExcessiveLength = gateu.getAnnotationSet(hs);
+			gatevsleanpadExcessiveLength(SetExcessiveLength, listannotations,listSentenceDefected,listnode,docContent);
+
+
+			addNodeInContent(listnode,c,docContent);
+
+			numDefectiveSentences = listSentenceDefected.size();
+			Factory.deleteResource(gateu.getCorpus());
+			return listSentence.size();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			log.error(e);	
+		}
+		return 0 ;
+	}
+
+	private void check(StaticContentAnalysis staticContentInput2) {
+		String title = staticContentInput.getStaticContent().getTitle();
+		String idc = staticContentInput.getStaticContent().getId();
+		String content = staticContentInput.getStaticContent().getContentplain();
+
+		annotatedStaticContent = new AnnotatedStaticContentAnalysis();
+		StaticContent sc = new StaticContent();
+		annotatedStaticContent.setStaticContent(sc);
+		sc.setTitle(title);
+		sc.setId(idc);
+		Content c = new Content();
+		sc.setContent(c);
+
+
+		List<Annotation> listannotation  =new ArrayList<Annotation>();
+		int numSentence = execute(content,c,listannotation);
+		annotatedStaticContent.setAnnotations(listannotation);
+		double qualitymmeasure = calculateOverallQualityMeasure(numSentence);
+		annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
+		annotatedStaticContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
+		annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
+		annotatedStaticContent.setType("Simplicity");
+
+	}
+
+
+	/*private List<Node> extractNode(List<Annotation> listannotation){
+		List<Node> listnode = new ArrayList<Node>();
+		for(Annotation a : listannotation){
+			listnode.add(a.getNodeEnd());
+			listnode.add(a.getNodeStart());
+		}
+		return listnode;
+	}*/
+	private void gatevsleanpadExcessiveLength(
+			Set<gate.Annotation> setGateAnnotations,
+			List<Annotation> annotations, Set<gate.Annotation> listSentenceDefected, List<Node> listnode, DocumentContent docContent) {
+
+		for (gate.Annotation gateA : setGateAnnotations) {
+
+			gate.Node gatenodestart = gateA.getStartNode();
+			gate.Node gatenodeend = gateA.getEndNode();
+			try{
+				String sentence_gate = docContent.getContent(gatenodestart.getOffset(),gatenodeend.getOffset()).toString();
+				if(!listSentenceDefected.contains(sentence_gate))
+					listSentenceDefected.add(gateA);
+			}catch(InvalidOffsetException e){
+				log.error(e);
+			}
+			int initialpos = gatenodestart.getOffset().intValue();
+
+
+			Node init = new Node(gatenodestart.getId(), initialpos);
+
+			Node end = new Node(gatenodeend.getId(), gatenodeend.getOffset()
+					.intValue());
+
+			listnode.add(init);
+			listnode.add(end);
+
+			Annotation a = new Annotation();
+			a.setId(gateA.getId());
+			a.setEndNode(end.getId());
+			a.setStartNode(init.getId());
+			a.setNodeEnd(end);
+			a.setNodeStart(init);
+
+			a.setType("Simplicity Excessive Length");
+
+			a.setRecommendation("Shorten the sentence. A sentence should not exceed 25 words.");
+			annotations.add(a);
+
 		}
 
-		if(staticContentInput!=null){
-			checkJJ(staticContentInput);	
-		}
-
-	}
-	
-	
-	public String getStatus(){
-		switch (this.getState()) {
-		case TERMINATED:
-			return "OK";
-
-		default:
-			return "IN PROGRESS";
-		}
-		
 	}
 
 
-	
-	public AnnotatedStaticContentAnalysis getAnnotatedStaticContentAnalysis() {
-		return annotatedStaticContent;
-	}
 }
