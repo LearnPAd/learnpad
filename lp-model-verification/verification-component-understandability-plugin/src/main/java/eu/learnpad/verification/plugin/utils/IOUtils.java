@@ -20,14 +20,9 @@
 
 package eu.learnpad.verification.plugin.utils;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.io.RandomAccessFile;
-import java.util.Scanner;
+
 
 public class IOUtils {
 

@@ -2,10 +2,9 @@ package eu.learnpad.verification.plugin.interfaces.impl;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
-import java.io.IOException;
+
 import java.io.InputStream;
-import java.nio.file.Files;
+
 import java.util.Scanner;
 
 import org.junit.Test;
@@ -20,7 +19,9 @@ public class BPMNUnderstandabilityTest {
         assertNotNull(is);
         BPMNUnderstandability understandability = new BPMNUnderstandability();
         String[]  type = understandability.getVerificationTypeProvided();
-        String model= new Scanner(is).useDelimiter("\\A").next();
+        Scanner scanner = new Scanner(is);
+		String model= scanner.useDelimiter("\\A").next();
+		scanner.close();
         String result = understandability.performVerification(model, type[0]);
         //System.out.println(result);
         assertNotNull(result);
@@ -32,7 +33,9 @@ public class BPMNUnderstandabilityTest {
         assertNotNull(is);
         BPMNUnderstandability understandability = new BPMNUnderstandability();
         String[]  type = understandability.getVerificationTypeProvided();
-        String model= new Scanner(is).useDelimiter("\\A").next();
+        Scanner scanner = new Scanner(is);
+		String model= scanner.useDelimiter("\\A").next();
+		scanner.close();
         String result = understandability.performVerification(model, type[0]);
         //System.out.println(result);
         assertNotNull(result);
@@ -44,7 +47,9 @@ public class BPMNUnderstandabilityTest {
         assertNotNull(is);
         BPMNUnderstandability understandability = new BPMNUnderstandability();
         String[]  type = understandability.getVerificationTypeProvided();
-        String model= new Scanner(is).useDelimiter("\\A").next();
+        Scanner scanner = new Scanner(is);
+		String model= scanner.useDelimiter("\\A").next();
+		scanner.close();
         String result = understandability.performVerification(model, type[0]);
         //System.out.println(result);
         assertNotNull(result);

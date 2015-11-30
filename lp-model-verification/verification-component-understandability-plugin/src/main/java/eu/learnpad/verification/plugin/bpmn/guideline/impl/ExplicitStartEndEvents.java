@@ -1,6 +1,5 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl;
 
-import java.util.List;
 
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.EndEvent;

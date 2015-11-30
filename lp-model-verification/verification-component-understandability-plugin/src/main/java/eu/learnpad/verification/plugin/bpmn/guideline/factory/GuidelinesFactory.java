@@ -2,7 +2,6 @@ package eu.learnpad.verification.plugin.bpmn.guideline.factory;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 
 
@@ -21,8 +20,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import org.eclipse.bpmn2.Definitions;
-import org.eclipse.bpmn2.Process;
-import org.eclipse.bpmn2.RootElement;
+
 
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.ExplicitStartEndEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.SplitAndJoinFlows;
