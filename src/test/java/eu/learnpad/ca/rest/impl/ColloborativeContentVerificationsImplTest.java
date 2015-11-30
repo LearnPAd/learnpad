@@ -19,19 +19,16 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.ws.rs.core.Response;
 
-import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.test.DeploymentContext;
 import org.glassfish.jersey.test.JerseyTest;
 import org.glassfish.jersey.test.ServletDeploymentContext;
 import org.glassfish.jersey.test.TestProperties;
-import org.glassfish.jersey.test.grizzly.GrizzlyTestContainerFactory;
 import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
 import org.glassfish.jersey.test.spi.TestContainerFactory;
 import org.junit.Test;
 
-import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysisTest;
 import eu.learnpad.ca.gate.GateServletContextListener;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
@@ -65,7 +62,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 	@Test
 	public void checkCollaborativeContentAnalysis() throws JAXBException {
 		
-		InputStream is = CorrectnessAnalysisTest.class.getClassLoader().getResourceAsStream("CollaborativeContentXML.xml");
+		InputStream is = ColloborativeContentVerificationsImplTest.class.getClassLoader().getResourceAsStream("CollaborativeContentXMLAll.xml");
 		assertNotNull(is);
 		JAXBContext jaxbContexti = JAXBContext.newInstance(CollaborativeContentAnalysis.class);
 

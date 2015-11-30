@@ -24,7 +24,6 @@ import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
 import org.glassfish.jersey.test.spi.TestContainerFactory;
 import org.junit.Test;
 
-import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysisTest;
 import eu.learnpad.ca.gate.GateServletContextListener;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
@@ -52,7 +51,7 @@ public class StaticContentVerificationsImplTest extends JerseyTest{
 	@Test
 	public void checkStaticContentAnalysis() throws JAXBException {
 		
-		InputStream is = CorrectnessAnalysisTest.class.getClassLoader().getResourceAsStream("StaticContentXML.xml");
+		InputStream is = StaticContentVerificationsImplTest.class.getClassLoader().getResourceAsStream("StaticContentXML.xml");
 		assertNotNull(is);
 		JAXBContext jaxbContexti = JAXBContext.newInstance(StaticContentAnalysis.class);
 

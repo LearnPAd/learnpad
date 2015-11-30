@@ -39,7 +39,7 @@ public class Juridical extends Plugin {
 
 		String rac = "The term %s is juridical jargon. Substitute %s with a more common term.";
 
-		String type = "Juridical Jargon";
+		String type = "Simplicity Juridical Jargon";
 		if(!jj.isEmpty())
 			gatevsleanpadAnnotation(jj, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
 	}
