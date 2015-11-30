@@ -11,6 +11,8 @@ import java.util.List;
 
 
 
+
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -18,9 +20,12 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
+
+import eu.learnpad.verification.plugin.utils.ElementID;
 
 
 
@@ -33,8 +38,7 @@ public abstract class abstractGuideline {
 
 	@XmlTransient
 	protected boolean status;
-	@XmlTransient
-	protected String NameProcess;
+
 	@XmlTransient
 	protected String IDProcess;
 
@@ -48,22 +52,22 @@ public abstract class abstractGuideline {
 
 	@XmlElement(name = "Suggestion", required = true)
 	protected String Suggestion;
-	@XmlElementWrapper(name = "Elements",  nillable=false)
 	@XmlElement(name = "ElementID", required = false)
-	protected Collection<String> Elements = null;
+	@XmlElementWrapper(name = "Elements",  nillable=false)
+	protected Collection<ElementID> Elements = null;
 
 	abstractGuideline(){
 
 	}
 
-	abstractGuideline(List<RootElement> diagram){
+	abstractGuideline(Definitions diagram){
 		elementsBPMN = new ArrayList<FlowElement>();
 
 		status = false;
 		findGL(diagram);
 	}
 
-	protected abstract void findGL(List<RootElement> diagram);
+	protected abstract void findGL(Definitions diagram);
 
 	public boolean getStatus() {
 
@@ -92,11 +96,11 @@ public abstract class abstractGuideline {
 
 
 
-	public void setElements(String element) {
+	public void setElements(String element, String refprocessid) {
 		if(Elements==null){
-			Elements = new ArrayList<String>();
+			Elements = new ArrayList<ElementID>();
 		}
-		Elements.add(element);
+		Elements.add(new ElementID(element, refprocessid));
 	}
 
 
@@ -111,9 +115,6 @@ public abstract class abstractGuideline {
 		return Name;
 	}
 
-	public String getProcessName() {
-		return NameProcess;
-	}
 
 	public String getProcessID() {
 		return IDProcess;

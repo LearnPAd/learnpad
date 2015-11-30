@@ -36,7 +36,7 @@ public class PluginManager {
     private static String defaultPluginFolder = "VerificationComponentPlugins/";
     
     private static String checkFolder(String folder) throws Exception{
-        if(folder == null || folder.equals("")){
+        if(folder == null || folder.isEmpty()){
             String folderPath = PluginManager.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
             if(new File(folderPath).isDirectory())
                 folderPath = folderPath.substring(0, folderPath.length()-1);
@@ -60,13 +60,15 @@ public class PluginManager {
         for(File pluginFile: pluginsPath.listFiles()){
             if(!pluginFile.getPath().endsWith(".jar"))
                 continue;
-            ClassLoader pluginCL = URLClassLoader.newInstance(new URL[] { pluginFile.toURI().toURL() });
             try{
+                ClassLoader pluginCL = URLClassLoader.newInstance(new URL[] { pluginFile.toURI().toURL() });
                 JarFile jar = new JarFile(pluginFile);
                 Manifest manifest = jar.getManifest();
                 jar.close();
                 String className = manifest.getMainAttributes().getValue(manifestEntry);
                 Plugin plugin = (Plugin) pluginCL.loadClass(className).newInstance();
+                if(plugin==null)
+                    throw new Exception("Plugin class loader create null plugin");
                 puginsInterfaceList.add(plugin);
             }catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
         }
@@ -82,9 +84,12 @@ public class PluginManager {
         Plugin[] pluginList = getPlugins(pluginsFolderPath);
         for(Plugin plugin: pluginList){
             String[] verList = plugin.getVerificationTypeProvided();
-            for(String ver: verList)
+            for(String ver: verList){
+                if(ver.equals("ALL"))
+                    throw new Exception("A plugin can not provide a verification of type: ALL");
                 if(!ret.containsKey(ver))
                     ret.put(ver, plugin);
+            }
         }
         return ret;
     }

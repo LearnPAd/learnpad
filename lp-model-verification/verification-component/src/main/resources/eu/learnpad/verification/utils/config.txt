@@ -1,2 +1,3 @@
 pluginsFolderPath=
 resultsFolderPath=
+PORT=9998

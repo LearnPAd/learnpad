@@ -38,7 +38,7 @@ import eu.learnpad.verification.utils.XMLUtils;
 public class VerificationComponent {
 
     private static ArrayList<String> verificationRunningList = new ArrayList<String>();
-    private static HashMap<String, String> loadedModelList = new HashMap<String, String>();
+    private static HashMap<String, String[]> loadedModelList = new HashMap<String, String[]>();
 
     private static CustomGetModel _customGetModel = null;
     private static CustomNotify _customNotify = null;
@@ -46,7 +46,7 @@ public class VerificationComponent {
     /**
      * This interface have to be implemented if you want to use your own method of model retrieval from a given model id.
      */
-    public interface CustomGetModel{ public String getModel(String modelId) throws Exception; }
+    public interface CustomGetModel{ public String[] getModels(String modelSetId) throws Exception; }
     /**
      * This interface have to be implemented if you want to be notified about the end of a verification identified by the given verification id.
      */
@@ -75,7 +75,18 @@ public class VerificationComponent {
      */
     public static String loadModel(String model){
         String mid = java.util.UUID.randomUUID() + "";
-        loadedModelList.put(mid, model);
+        loadedModelList.put(mid, new String[]{model});
+        return mid;
+    }
+    
+    /**
+     * This method load a model in the component and return an id specific for the modelSet that have to be used for the verification
+     * @param modelSet The modelSet to load. It accepts any kind of model formats.
+     * @return String an unique id associated to the modelSet
+     */
+    public static String loadModel(String[] modelSet){
+        String mid = java.util.UUID.randomUUID() + "";
+        loadedModelList.put(mid, modelSet);
         return mid;
     }
     
@@ -141,15 +152,16 @@ public class VerificationComponent {
      * @return String The result of the verification. It is an xml in the following format:
      * <pre>
      * {@code
- <VerificationResult>
+ <VerificationResults>
    <VerificationType>...</VerificationType>
    <VerificationID>...</VerificationID>
    <ModelID>...</ModelID>
+   <FinalResult>..OK o KO..</FinalResult>
    <Time> ...UTC Time...</Time>
    <Results>
      ...plugin output...
    </Results>
- </VerificationResult>
+ </VerificationResults>
          }
      * </pre>
      */
@@ -191,6 +203,7 @@ public class VerificationComponent {
         _verificationThread(vid, modelId, verificationType);
         System.gc();
     }
+
     private static void _verificationThread(String vid, String modelId, String verificationType){
         try{
             String pluginsFolderPath = new ConfigManager().getElement("pluginsFolderPath");
@@ -201,15 +214,28 @@ public class VerificationComponent {
                 resultsFolderPathFile.mkdirs();
             
             HashMap<String, Plugin> verificationMap = PluginManager.getAvailableVerifications(pluginsFolderPath);
-            Plugin verificationEngine = verificationMap.get(verificationType);
-            if(verificationEngine == null)
-                throw new Exception("ERROR: Impossible to find a plugin for the verification type: " + verificationType);
+            String[] modelList = getModels(modelId);
+            String result = "";
             
-            String model = getModel(modelId);
-            String result = verificationEngine.performVerification(model, verificationType);
-            verificationEngine = null;
+            if(verificationType.equals("ALL")){
+                for(String model: modelList)
+                    for(String pluginVerificationType:verificationMap.keySet())
+                        result += verificationMap.get(pluginVerificationType).performVerification(model, pluginVerificationType);
+            } else {
+                Plugin verificationEngine = verificationMap.get(verificationType);
+                if(verificationEngine == null)
+                    throw new Exception("ERROR: Impossible to find a plugin for the verification type: " + verificationType);
+                for(String model: modelList)
+                    result += verificationEngine.performVerification(model, verificationType);
+            }
+            
             verificationMap = null;
-            String resultXml = "<VerificationResult><VerificationType>"+verificationType+"</VerificationType><VerificationID>"+vid+"</VerificationID><ModelID>"+modelId+"</ModelID><Time>"+Utils.getUTCTime()+"</Time><Results>"+result+"</Results></VerificationResult>";
+            if(result.isEmpty())
+                result = "<ErrorResult><Status>ERROR</Status><Description>The "+verificationType+" verificator returned an empty response</Description></ErrorResult>";
+            String finalResult = "OK";
+            if(result.contains("<Status>ERROR</Status>") || result.contains("<Status>KO</Status>"))
+                finalResult = "KO";
+            String resultXml = "<VerificationResults><VerificationType>"+verificationType+"</VerificationType><VerificationID>"+vid+"</VerificationID><ModelID>"+modelId+"</ModelID><FinalResult>"+finalResult+"</FinalResult><Time>"+Utils.getUTCTime()+"</Time><Results>"+result+"</Results></VerificationResults>";
             try{
                 XMLUtils.getXmlDocFromString(resultXml);
             }catch(Exception e){ throw new Exception("ERROR: The result is not a valid XML:\n"+resultXml);}
@@ -224,20 +250,20 @@ public class VerificationComponent {
             _customNotify.notifyVerificationEnd(verificationId);
     }
     
-    private static String getModel(String modelId) throws Exception{
-        String model = loadedModelList.get(modelId);
-        if(model==null) {
+    private static String[] getModels(String modelId) throws Exception{
+        String[] model = loadedModelList.get(modelId);
+        if(model==null || model.length==0) {
             if(_customGetModel==null)
                 throw new Exception("ERROR: can not retrive model with id " + modelId + "; customGetModel not defined. Please use the setCustomGetModelFunction function first");
-            model = _customGetModel.getModel(modelId);
-            if(model==null)
+            model = _customGetModel.getModels(modelId);
+            if(model==null || model.length==0)
                 throw new Exception("ERROR: can not retrive model with id " + modelId);
         }
         return model;
     }
     
     private static String checkResultsFolder(String folder) throws Exception{
-        if(folder == null || folder.equals("")){
+        if(folder == null || folder.isEmpty()){
             String folderPath = VerificationComponent.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
             if(new File(folderPath).isDirectory())
                 folderPath = folderPath.substring(0, folderPath.length()-1);

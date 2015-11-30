@@ -21,8 +21,16 @@ package eu.learnpad.core.impl.cw;
 
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.cw.BridgeInterface;
 import eu.learnpad.cw.rest.data.Feedbacks;
+
+import java.io.IOException;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.PutMethod;
+
 import eu.learnpad.core.rest.RestResource;
 
 /*
@@ -62,9 +70,23 @@ import eu.learnpad.core.rest.RestResource;
 	}
 
 	@Override
-	public void modelSetImported(String modelSetId, String type) throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-
+	public void modelSetImported(String modelSetId, String type) throws LpRestExceptionXWikiImpl {
+	    
+	    HttpClient httpClient = RestResource.getClient();
+        String uri = String.format(
+                "%s/learnpad/cw/bridge/modelsetimported/%s",
+                RestResource.REST_URI, modelSetId);
+        PutMethod putMethod = new PutMethod(uri);
+        putMethod.addRequestHeader("Accept", "application/xml");
+        NameValuePair[] queryString = new NameValuePair[1];
+        queryString[0] = new NameValuePair("type", type);
+        putMethod.setQueryString(queryString);
+        try {
+            httpClient.executeMethod(putMethod);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new LpRestExceptionXWikiImpl(e.getMessage(),e);
+        }
 	}
 
 	@Override
@@ -76,8 +98,23 @@ import eu.learnpad.core.rest.RestResource;
 
 	@Override
 	public void modelVerified(String modelSetId, String result)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
+			throws LpRestExceptionXWikiImpl {
+
+	        HttpClient httpClient = RestResource.getClient();
+	        String uri = String.format(
+	                "%s/learnpad/cw/bridge/modelverified/%s",
+	                RestResource.REST_URI, modelSetId);
+	        PutMethod putMethod = new PutMethod(uri);
+	        putMethod.addRequestHeader("Accept", "application/xml");
+	        NameValuePair[] queryString = new NameValuePair[1];
+	        queryString[0] = new NameValuePair("result", result);
+	        putMethod.setQueryString(queryString);
+	        try {
+	            httpClient.executeMethod(putMethod);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            throw new LpRestExceptionXWikiImpl(e.getMessage(),e);
+	        }
 	}
 
 	@Override
