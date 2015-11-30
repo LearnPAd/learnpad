@@ -1,17 +1,16 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl;
 
-import java.util.List;
+
 
 import org.eclipse.bpmn2.Definitions;
-import org.eclipse.bpmn2.Event;
+
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.Gateway;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
-import org.eclipse.bpmn2.StartEvent;
+
 import org.eclipse.bpmn2.SubProcess;
 
-import eu.learnpad.verification.plugin.utils.ElementID;
 
 public class SplitAndJoinFlows extends abstractGuideline {
 
