@@ -13,6 +13,7 @@ import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.analysis.simplicity.plugin.DifficultJargonAlternative;
 import eu.learnpad.ca.analysis.simplicity.plugin.ExcessiveLength;
 import eu.learnpad.ca.analysis.simplicity.plugin.Juridical;
+import eu.learnpad.ca.analysis.simplicity.plugin.TechnicalJargon;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
@@ -25,7 +26,6 @@ import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import gate.DocumentContent;
 import gate.Factory;
-import gate.util.InvalidOffsetException;
 
 
 public class Simplicity extends AbstractAnalysisClass {
@@ -121,6 +121,10 @@ public class Simplicity extends AbstractAnalysisClass {
 			//listannotations.addAll(jj.checkJJ(listSentence,listSentenceDefected));
 			Juridical jj = new Juridical(language, docContent,listnode);
 			jj.checkJuridicalJargon(gateu, listannotations, listSentenceDefected, listSentenceDefected);
+			
+			TechnicalJargon tj = new TechnicalJargon(language, docContent,listnode);
+			tj.checkTechnicalJargon(gateu, listannotations, listSentenceDefected, listSentenceDefected);
+			
 			
 			
 			 lEndTime = System.currentTimeMillis();

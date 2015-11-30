@@ -2,3 +2,4 @@ vagueness.lst:lexicalambiguity:vagueness
 optionality.lst:lexicalambiguity:optionality
 subjectivity.lst:lexicalambiguity:subjectivity
 juricaljargon.lst:simplicity:juricaljargon
+technicaljargon.lst:simplicity:technicaljargon
