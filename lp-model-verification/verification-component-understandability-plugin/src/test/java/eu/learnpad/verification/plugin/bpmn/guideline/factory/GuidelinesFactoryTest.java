@@ -65,7 +65,7 @@ public class GuidelinesFactoryTest {
 
 
 
-            jaxbMarshaller.marshal(eg, System.out);
+            //jaxbMarshaller.marshal(eg, System.out);
 
             assertTrue(eg.getStatus().equals("KO"));
         } catch (JAXBException  | URISyntaxException  | IOException e ) {
