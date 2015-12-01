@@ -103,13 +103,13 @@ public class GuidelinesFactory {
 		
 	}
 	
-	public String getStatusThreadPool(){
+	public boolean getStatusThreadPool(){
 		boolean res = threadPoolExecutor.isTerminated();
 		if(res){
 			setStatus();
-			return "OK";
+		
 		}
-		return "IN PROGRESS";
+		return res;
 	}
 
 	public Collection<abstractGuideline> getGuidelines(){
