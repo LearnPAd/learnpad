@@ -25,6 +25,7 @@ package eu.learnpad.simulator.processmanager.activiti;
  */
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,6 +36,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.xpath.XPathExpressionException;
 
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
@@ -44,10 +53,14 @@ import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.delegate.event.ActivitiEvent;
+import org.activiti.engine.delegate.event.ActivitiEventListener;
+import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.image.ProcessDiagramGenerator;
 import org.activiti.image.impl.DefaultProcessDiagramGenerator;
+import org.xml.sax.SAXException;
 
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.simulator.IProcessEventReceiver;
@@ -56,11 +69,12 @@ import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
 import eu.learnpad.simulator.monitoring.activiti.ActivitiProbe;
-import eu.learnpad.simulator.processmanager.AbstractProcessDispatcher;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.processdispatcher.ActivitiProcessDispatcher;
 import eu.learnpad.simulator.processmanager.activiti.taskrouter.ActivitiTaskRouter;
 import eu.learnpad.simulator.processmanager.activiti.taskvalidator.ActivitiDemoTaskValidator;
+import eu.learnpad.simulator.processmanager.activiti.workarounds.msg.BPMNTransformer;
+import eu.learnpad.simulator.processmanager.activiti.workarounds.msg.MessageInfoData;
 import eu.learnpad.simulator.utils.BPMNExplorerRepository;
 
 /**
@@ -69,12 +83,15 @@ import eu.learnpad.simulator.utils.BPMNExplorerRepository;
  * @author Tom Jorquera - Linagora
  *
  */
-public class ActivitiProcessManager implements IProcessManager {
+public class ActivitiProcessManager implements IProcessManager,
+		ActivitiEventListener {
 
 	private final RepositoryService repositoryService;
 	private final RuntimeService runtimeService;
 	private final TaskService taskService;
 	private final HistoryService historyService;
+
+	private final Executor jobHandler = Executors.newSingleThreadExecutor();
 
 	private final ProcessDiagramGenerator generator;
 
@@ -84,18 +101,24 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
 
-	private final Map<String, AbstractProcessDispatcher> processDispatchers = Collections
-			.synchronizedMap(new HashMap<String, AbstractProcessDispatcher>());
+	private final Map<String, ActivitiProcessDispatcher> processDispatchers = Collections
+			.synchronizedMap(new HashMap<String, ActivitiProcessDispatcher>());
 
 	public ActivitiProcessManager(
 			ProcessEngine processEngine,
 			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider,
 			BPMNExplorerRepository explorerRepo, boolean monitoringEnabled)
-					throws FileNotFoundException {
+			throws FileNotFoundException {
 		repositoryService = processEngine.getRepositoryService();
 		runtimeService = processEngine.getRuntimeService();
 		taskService = processEngine.getTaskService();
 		historyService = processEngine.getHistoryService();
+
+		// register itself as a listener
+		this.runtimeService.addEventListener(this,
+				ActivitiEventType.PROCESS_COMPLETED);
+		this.runtimeService.addEventListener(this,
+				ActivitiEventType.ACTIVITY_COMPLETED);
 
 		this.generator = new DefaultProcessDiagramGenerator();
 		this.explorerRepo = explorerRepo;
@@ -131,37 +154,39 @@ public class ActivitiProcessManager implements IProcessManager {
 	 * @see activitipoc.IProcessManager#addProjectDefininition(java.lang.String)
 	 */
 	public Collection<String> addProjectDefinitions(String resource) {
-		Set<String> res = new HashSet<String>();
-
-		String deploymentId = repositoryService.createDeployment()
-				.addClasspathResource(resource).deploy().getId();
-
-		for (ProcessDefinition processDef : repositoryService
-				.createProcessDefinitionQuery().deploymentId(deploymentId)
-				.list()) {
-			res.add(processDef.getId());
-		}
-
-		return res;
+		return this.addProjectDefinitions(this.getClass().getClassLoader()
+				.getResourceAsStream(resource));
 	}
 
 	@Override
 	public Collection<String> addProjectDefinitions(InputStream resource) {
 		Set<String> res = new HashSet<String>();
 
-		String deploymentId = repositoryService
-				.createDeployment()
-				.addInputStream(
-						Long.toString(new Random().nextLong()) + ".bpmn20.xml",
-						resource).deploy().getId();
+		try {
+			// Activiti message workaround
+			InputStream transformedResource = BPMNTransformer
+					.transform(resource);
 
-		for (ProcessDefinition processDef : repositoryService
-				.createProcessDefinitionQuery().deploymentId(deploymentId)
-				.list()) {
-			res.add(processDef.getId());
+			String deploymentId = repositoryService
+					.createDeployment()
+					.addInputStream(
+							Long.toString(new Random().nextLong())
+									+ ".bpmn20.xml", transformedResource)
+					.deploy().getId();
+
+			for (ProcessDefinition processDef : repositoryService
+					.createProcessDefinitionQuery().deploymentId(deploymentId)
+					.list()) {
+				res.add(processDef.getId());
+			}
+		} catch (XPathExpressionException | SAXException | IOException
+				| ParserConfigurationException | TransformerException
+				| TransformerFactoryConfigurationError e) {
+			e.printStackTrace();
 		}
 
 		return res;
+
 	}
 
 	/*
@@ -287,6 +312,8 @@ public class ActivitiProcessManager implements IProcessManager {
 		return result;
 	}
 
+	public static final String SIMULATION_ID_KEY = "__LEARNPAD_SIMULATION_ID";
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -296,6 +323,12 @@ public class ActivitiProcessManager implements IProcessManager {
 	public String startProjectInstance(String projectDefinitionKey,
 			Map<String, Object> parameters, Collection<String> users,
 			Map<String, Collection<String>> router) {
+
+		if (!parameters.containsKey(SIMULATION_ID_KEY)) {
+			// add a UUID to be shared by the processes involved in the
+			// simulation
+			parameters.put(SIMULATION_ID_KEY, UUID.randomUUID().toString());
+		}
 
 		ProcessInstance process = runtimeService.startProcessInstanceByKey(
 				projectDefinitionKey, parameters);
@@ -308,9 +341,9 @@ public class ActivitiProcessManager implements IProcessManager {
 				new ActivitiProcessDispatcher(data, this,
 						this.processEventReceiverProvider
 								.processEventReceiver(), taskService,
-						runtimeService, historyService, new ActivitiTaskRouter(
-								taskService, router), taskValidator,
-						explorerRepo.getExplorer(process
+						runtimeService, repositoryService, historyService,
+						new ActivitiTaskRouter(taskService, router),
+						taskValidator, explorerRepo.getExplorer(process
 								.getProcessDefinitionId())));
 
 		// we are ready, so we can start the dispatcher
@@ -471,6 +504,40 @@ public class ActivitiProcessManager implements IProcessManager {
 	public LearnPadTaskGameInfos getGameInfos(LearnPadTask task, String userId) {
 		return processDispatchers.get(task.processId)
 				.getGameInfos(task, userId);
+	}
+
+	// Activiti message workaround
+	public void receiveTaskMessage(final MessageInfoData msgInfo) {
+		jobHandler.execute(new Runnable() {
+			@Override
+			public void run() {
+				processDispatchers.get(msgInfo.originProcessInstanceId)
+						.receiveTaskMessage(msgInfo);
+			}
+		});
+
+	}
+
+	@Override
+	public synchronized void onEvent(final ActivitiEvent event) {
+		// send event to corresponding dispatcher
+		if (event.getProcessInstanceId() != null
+				&& processDispatchers.get(event.getProcessInstanceId()) != null) {
+
+			jobHandler.execute(new Runnable() {
+				@Override
+				public void run() {
+					processDispatchers.get(event.getProcessInstanceId())
+							.onEvent(event);
+				}
+			});
+		}
+
+	}
+
+	@Override
+	public boolean isFailOnException() {
+		return false;
 	}
 
 }
