@@ -122,7 +122,7 @@ public class ActivitiProcessManagerTest {
 				.contains("user0"));
 	}
 
-	@SuppressWarnings({ "serial", "unchecked" })
+	@SuppressWarnings("serial")
 	@Test
 	public void testProcessInstantation() throws FileNotFoundException {
 

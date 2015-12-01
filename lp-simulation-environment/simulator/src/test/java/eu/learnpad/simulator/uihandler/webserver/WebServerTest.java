@@ -93,7 +93,6 @@ public class WebServerTest {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testWebPagesAccessibles() {
 
