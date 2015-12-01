@@ -68,7 +68,8 @@ public class WebServerTest {
 	public void init() {
 		try {
 
-			server = new WebServer(MainTest.PORT, "ui", "tasks", mock(Simulator.class));
+			server = new WebServer(MainTest.PORT, "ui", "tasks",
+					mock(Simulator.class));
 		} catch (Exception e) {
 			System.err.println(e);
 			fail("got exception during setup");
