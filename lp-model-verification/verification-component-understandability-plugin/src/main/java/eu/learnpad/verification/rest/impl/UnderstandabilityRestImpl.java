@@ -23,15 +23,14 @@ import eu.learnpad.verification.plugin.utils.Utils.LogType;
 
 
 
-
-@Path("/learnpad/ca/validatemodel")
-@Produces(MediaType.APPLICATION_XML)
+//@Produces(MediaType.APPLICATION_XML)
+@Path("validatemodel")
 public class UnderstandabilityRestImpl {
 
 	private static Map<Integer,GuidelinesFactory> map = new HashMap<Integer,GuidelinesFactory>();
 	private static Integer id =0;
 
-	@Path("/")
+	@Path("/put")
 	@POST
 	@Consumes(MediaType.TEXT_PLAIN)
 	public String putModel(String modelxml){
