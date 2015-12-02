@@ -27,7 +27,7 @@ declare -r __OUT_RUNDEPS_FILE__="${__OUT_PATH__}/rundeps.txt"
 declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
 
 # avoid deleting/re-downloading license files
-declare -r __MVN_PROFILE__="-Pkeep-license-files --batch-mode"
+#declare -r __MVN_PROFILE__="-Pkeep-license-files"
 
 
 function component_uninstall() {
@@ -48,15 +48,15 @@ function component_uninstall() {
 function component_build() {
 	component_uninstall
     rm -rf $__OUT_PATH__
-    mvn ${__MVN_PROFILE__} clean
+    mvn clean
     rm -rf "target"
     # skip tests as we will do them in the component_test stage
-    mvn ${__MVN_PROFILE__} package -Dmaven.test.skip=true
+    mvn  package -Dmaven.test.skip=true
 }
 
 ### TEST ###
 function component_test() {
-    #mvn ${__MVN_PROFILE__} test
+    #mvn  test   
     echo $__OUT_PATH__
     echo $__COMPONENT_NAME__
     echo $__COMPONENT_PATH__

@@ -262,7 +262,7 @@ function task(address, taskid, user, integratedMode) {
             taskDiv = $('#taskFormDiv' + taskid).before(
                 '<div id="tasknotif' +
                     taskid +
-                    '" class="alert alert-success" role="alert">Great, your submission matched an expected answer.</div>'
+                    '" class="alert alert-success" role="alert">Great, your submission matched an expected answer (task score ' + data.taskscore +'.)</div>'
             );
 
             // update score

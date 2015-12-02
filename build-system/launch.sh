@@ -12,13 +12,13 @@ source ${__BUILD_SYSTEM_PATH__}/utils.sh
 function launch() {
 if [ $# -lt 2 ]
 then
-	customlog "ERROR" "\`launch' takes at least 2 argument (the name of the component and a value 'start' or 'stop' or 'restart')" ${ERROR_BUILD_ARGS}
+	customlog "ERROR" "\`launch' takes at least 2 arguments (the name of the component and a value 'start' or 'stop' or 'restart')" ${ERROR_LAUNCH_ARGS}
 fi
 declare -r __COMPONENT_NAME__="$1"
 declare -r __ACTION__="$2"
 if isnotcomponent ${__COMPONENT_NAME__}
 then
-	customlog "ERROR" "\`start' takes a component's name as an argument" ${ERROR_BUILD_ARGS}
+	customlog "ERROR" "\`start' takes a component's name as an argument" ${ERROR_LAUNCH_ARGS}
 fi
 
 declare -r COMPONENT_PATH="${__ROOT_PATH__}/${__COMPONENT_NAME__}"

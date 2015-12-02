@@ -21,14 +21,12 @@ import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
-import eu.learnpad.ca.analysis.contentclarity.UnclearAcronym;
+import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
-import eu.learnpad.ca.analysis.simplicity.DifficultJargon;
-import eu.learnpad.ca.analysis.simplicity.DifficultJargonAlternative;
-import eu.learnpad.ca.analysis.simplicity.JuridicalJargon;
-import eu.learnpad.ca.analysis.syntacticambiguity.SyntacticAmbiguity;
+import eu.learnpad.ca.analysis.non_ambiguity.NonAmbiguity;
+import eu.learnpad.ca.analysis.simplicity.Simplicity;
+import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
-
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.exception.LpRestException;
@@ -45,7 +43,6 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 
 
-
 	@Path("/")
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
@@ -53,6 +50,9 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 			throws LpRestException{
 		try{
 			if(contentFile!=null){
+				String content = contentFile.getCollaborativeContent().getContentplain();
+				GateThread gateu = new GateThread(content,contentFile.getQualityCriteria());
+				gateu.start();
 				id++;
 				Language lang = null;
 				if(contentFile.getLanguage().toLowerCase().equals("english")){
@@ -78,7 +78,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				}
 				if(contentFile.getQualityCriteria().isSimplicity()){
 
-					JuridicalJargon threadsimply = new JuridicalJargon (contentFile, lang);
+					/*JuridicalJargon threadsimply = new JuridicalJargon (contentFile, lang);
 					threadsimply.start();
 					putAndCreate(id, threadsimply);
 
@@ -86,24 +86,29 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 					threadDF.start();
 					putAndCreate(id, threadDF);
 
-					DifficultJargonAlternative threadDFA = new DifficultJargonAlternative (contentFile, lang);
-					threadDFA.start();
-					putAndCreate(id, threadDFA);
+					
+					
+					ExcessiveLength threadEL = new ExcessiveLength(contentFile, lang);
+					threadEL.start();
+					putAndCreate(id, threadEL);*/
+					Simplicity threadEL = new Simplicity(contentFile, lang, gateu);
+					threadEL.start();
+					putAndCreate(id, threadEL);
 
 
 				}
 				if(contentFile.getQualityCriteria().isNonAmbiguity()){
 
-					SyntacticAmbiguity threadSyntacticAmbiguity = new SyntacticAmbiguity (contentFile, lang);
-					threadSyntacticAmbiguity.start();
-					putAndCreate(id, threadSyntacticAmbiguity);
+					NonAmbiguity threadNonAmbiguity = new NonAmbiguity (contentFile, lang, gateu);
+					threadNonAmbiguity.start();
+					putAndCreate(id, threadNonAmbiguity);
 
 				}
 				if(contentFile.getQualityCriteria().isContentClarity()){
 
-					UnclearAcronym threadUnclearAcronym = new UnclearAcronym (contentFile, lang);
-					threadUnclearAcronym.start();
-					putAndCreate(id, threadUnclearAcronym);
+					ContentClarity threadContentClarity = new ContentClarity (contentFile, lang, gateu);
+					threadContentClarity.start();
+					putAndCreate(id, threadContentClarity);
 
 				}
 

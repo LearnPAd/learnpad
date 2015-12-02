@@ -1,6 +1,5 @@
 package eu.learnpad.ca.rest.impl;
 
-import java.lang.Thread.State;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,9 +20,11 @@ import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
+import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
-import eu.learnpad.ca.analysis.simplicity.JuridicalJargon;
-import eu.learnpad.ca.analysis.syntacticambiguity.SyntacticAmbiguity;
+import eu.learnpad.ca.analysis.non_ambiguity.NonAmbiguity;
+import eu.learnpad.ca.analysis.simplicity.Simplicity;
+import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.StaticContentVerifications;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
@@ -43,6 +44,9 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 	public String putValidateStaticContent(StaticContentAnalysis contentFile)
 			throws LpRestException {
 		try{
+			String content = contentFile.getStaticContent().getContentplain();
+			GateThread gateu = new GateThread(content,contentFile.getQualityCriteria());
+			gateu.start();
 			if(contentFile.getQualityCriteria().isCorrectness()){
 				id++;
 				Language lang = null;
@@ -69,16 +73,23 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 				}
 				if(contentFile.getQualityCriteria().isSimplicity()){
 
-					JuridicalJargon threadsimply = new JuridicalJargon (contentFile, lang);
-					threadsimply.start();
-					putAndCreate(id, threadsimply);
+					Simplicity threadEL = new Simplicity(contentFile, lang,gateu);
+					threadEL.start();
+					putAndCreate(id, threadEL);
 
 				}
 				if(contentFile.getQualityCriteria().isNonAmbiguity()){
 
-					SyntacticAmbiguity threadSyntacticAmbiguity = new SyntacticAmbiguity (contentFile, lang);
-					threadSyntacticAmbiguity.start();
-					putAndCreate(id, threadSyntacticAmbiguity);
+					NonAmbiguity threadNonAmbiguity = new NonAmbiguity (contentFile, lang, gateu);
+					threadNonAmbiguity.start();
+					putAndCreate(id, threadNonAmbiguity);
+
+				}
+				if(contentFile.getQualityCriteria().isContentClarity()){
+
+					ContentClarity threadContentClarity = new ContentClarity (contentFile, lang, gateu);
+					threadContentClarity.start();
+					putAndCreate(id, threadContentClarity);
 
 				}
 				return id.toString();

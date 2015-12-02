@@ -21,7 +21,7 @@ declare -r __MVN_PROFILE__="-Pkeep-license-files --batch-mode"
 
 ### BUILD ###
 function component_build() {
-    rm -rf $__OUT_PATH__
+    rm -rf ${__OUT_PATH__}
     mvn ${__MVN_PROFILE__} clean
     # skip tests as we will do them in the component_test stage
     mvn ${__MVN_PROFILE__} package -Dmaven.test.skip=true
@@ -38,8 +38,9 @@ function component_install() {
     mkdir -p ${__OUT_PATH__}
     cp "scripts/start" "${__OUT_START_FILE__}"
     cp "scripts/stop" "${__OUT_STOP_FILE__}"
-    cp -r "verification-component/target/VerificationComponentPlugins/" "${__OUT_PATH__}/VerificationComponentPlugins/"
-	cp "verification-component/target/verification-component-1.0-jar-with-dependencies.jar" "${__OUT_PATH__}/verification-component-1.0-jar-with-dependencies.jar"
+    cp -r "lp-verification-component/target/lib/" "${__OUT_PATH__}/lib/"
+    cp -r "verification-component/target/VerificationComponentPlugins/" "${__OUT_PATH__}/lib/VerificationComponentPlugins/"
+    cp "lp-verification-component/target/lp-verification-component-1.0.jar" "${__OUT_PATH__}/lp-verification-component-1.0.jar"
     # There is no run dependencies for this component
     #cp <path_to>/rundeps.txt ${__OUT_RUNDEPS_FILE__}
     # These is no configuration file to copy

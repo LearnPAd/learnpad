@@ -1,0 +1,14 @@
+Phase: SpecifiedNames
+Input: Token
+Options: control = appelt
+
+//Pipeline: Document Reset PR, Annie English Tokenizer, Sentence Splitter, Annie POS Tagger
+ 
+Rule: Names //Cases such as ``The office of the director''
+Priority: 10
+(
+({Token.category == NN, Token.kind != "punctuation"} | 
+{Token.category == NNS, Token.kind != "punctuation"})
+):name
+-->
+:name.Name = {}

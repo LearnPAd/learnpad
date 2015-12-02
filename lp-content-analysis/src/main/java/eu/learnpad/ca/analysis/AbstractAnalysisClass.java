@@ -1,20 +1,27 @@
 package eu.learnpad.ca.analysis;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import org.languagetool.Language;
 
+import eu.learnpad.ca.rest.data.Content;
+import eu.learnpad.ca.rest.data.Node;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
+import gate.DocumentContent;
+import gate.util.InvalidOffsetException;
 
 public abstract class AbstractAnalysisClass extends Thread{
 
-	
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(AbstractAnalysisClass.class);
 	protected AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent;
 	protected AnnotatedStaticContentAnalysis annotatedStaticContent;
-	
+
 	protected Language language;
 	protected Integer numDefectiveSentences = 0;
 	protected CollaborativeContentAnalysis collaborativeContentInput;
@@ -78,7 +85,48 @@ public abstract class AbstractAnalysisClass extends Thread{
 	public AnnotatedStaticContentAnalysis getAnnotatedStaticContentAnalysis() {
 		return annotatedStaticContent;
 	} 
-	
+
+	protected void addNodeInContent(List<Node> listnode, Content c, DocumentContent docContent){
+		Collections.sort(listnode);
+		Integer precedentposition = 0;
+		List<Node> nodeadded = new ArrayList<Node>();
+		try{
+			for(Node node :listnode){
+
+				Integer pos = node.getOffSet();
+
+
+				String token = "";
+				if(precedentposition>pos){
+					//String stringap = //content.substring(precedentposition, initialpos );
+					log.debug("error Annotation");
+
+				}
+				token = docContent.getContent(precedentposition.longValue(),pos.longValue()).toString();
+				c.setContent(token);
+				if(!nodeadded.contains(node)){
+					c.setContent(node);
+					nodeadded.add(node);
+				}
+				precedentposition = pos;
+				//c.setContent(token.toString());
+				//c.setContent(nodeend);
+
+
+
+			}
+			if(listnode.isEmpty()){
+				String token = docContent.toString();
+				c.setContent(token);
+			}
+		}catch(InvalidOffsetException e){
+			log.debug(e);
+		}
+
+
+	}
+
+
 	protected  int indexofElement(String sentence, String word, Map<String, Integer> elementfinded, String split){
 		String [] spliter = sentence.split(split);
 		int position = 0;

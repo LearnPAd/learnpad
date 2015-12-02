@@ -1,0 +1,4 @@
+LPHOSTNAME=http://127.0.0.1:9998/rest
+LPUSERNAME=superadmin
+LPPASSWORD=LearnPAss
+PORT=9998

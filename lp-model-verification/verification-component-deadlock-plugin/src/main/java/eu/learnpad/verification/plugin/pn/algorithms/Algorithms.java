@@ -28,18 +28,38 @@ import eu.learnpad.verification.plugin.pn.PetriNet.TR;
 
 public class Algorithms {
 
+    public static boolean needToBeReduced(PetriNet pn) throws Exception{
+        if(pn.isEmpty())
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+        
+        int numPlaceLimit = 100;
+        int numChoicePlaceLimit = 10;
+        
+        int numChoicePlace = 0;
+        ArrayList<PL> plList = pn.getPlaceList_safe();
+        for(PL pl:plList)
+            if(pl.nextList.size()>1)
+                numChoicePlace++;
+        
+        if(plList.size()>numPlaceLimit && numChoicePlace>numChoicePlaceLimit)
+            return true;
+        
+        return false;
+    }
+    
     public static PetriNet generateReducedNet(PetriNet pn) throws Exception{
-        /* Applica regole piu complesse che generano una petri net minima (potrebbe renderne pi� difficile la lettura)
+        //FIXME: Riadattare la regola considerando gli arc weight!
+        /* Applica regole piu complesse che generano una petri net minima (potrebbe renderne piu' difficile la lettura)
          Regole:
-         - T1->P->T2 = posso togliere p ed unire le T (copiare tutti i next di T2 in T1 e i previous di T2 in T1 e rimuovere T2) solo se p ha un solo next ed un solo previous e (T2 ha un solo previous o T1 ha un solo next): questa modalita riduce di piu gli stati ma in questo caso bisogna anche controllare che non esista una connessione tra un previous di t2 e t1. Se esiste non si puo applicare perche andrebbe a eliminare deadlock: Es: in questo caso non si puo ridurre: p0->t1->p->t2->p1, p0->t2
-         - P1->T->P2 = posso togliere T ed unire le P (copiare tutti i previous di P1 in P2 e i next di P1 in P2 e rimuovere P1) solo se T ha un solo next ed un solo previous e (P1 ha un solo next o P2 ha almeno un next): questa modalita riduce di piu gli stati ma in questo caso bisogna anche controllare che non esista una connessione tra un next di P1 ed un next di P2. Se gia esiste non si puo applicare perche andrebbe ad eliminare deadlock: Es: in questo caso non si puo ridurre: p0->t0->p1->t1, p0->t1
+         - T1->P->T2 = posso togliere p ed unire le T (copiare tutti i next di T2 in T1 e i previous di T2 in T1 e rimuovere T2 e P) solo se p ha un solo next ed un solo previous e (T2 ha un solo previous o T1 ha un solo next): questa modalita riduce di piu gli stati ma in questo caso bisogna anche controllare che non esista una connessione tra un previous di t2 e t1. Se esiste non si puo applicare perche andrebbe a eliminare deadlock: Es: in questo caso non si puo ridurre: p0->t1->p->t2->p1, p0->t2
+         - P1->T->P2 = posso togliere T ed unire le P (copiare tutti i previous di P1 in P2 e i next di P1 in P2 e rimuovere P1 e T) solo se T ha un solo next ed un solo previous e (P1 ha un solo next o P2 ha almeno un next): questa modalita riduce di piu gli stati ma in questo caso bisogna anche controllare che non esista una connessione tra P1 ed un next di P2. Se gia esiste non si puo applicare perche andrebbe ad eliminare deadlock: Es: in questo caso non si puo ridurre: p1->t->p2->t1, p1->t1
          - per ogni T con un prev e un next controllare se ne esiste un altra con stesso num di prev e next e che abbia lo stesso prev e next. Se c'e' toglierla.
          - per ogni P con un prev e un next controllare se ne esiste un altro con stesso num di prev e next e che abbia lo stesso prev e next. Se c'e' toglierlo.
          poi ripetere
          */
         
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty");
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
         
         PetriNet pnReduced = pn.clonePN();
         while(true){
@@ -97,7 +117,7 @@ public class Algorithms {
                         boolean canBeApplied = true;
                         for(TR p2NextT: p2.nextList)
                             if(!p2NextT.equals(transition))
-                                if(pnReduced.existConnection(p2, p2NextT))
+                                if(pnReduced.existConnection(p1, p2NextT))
                                     canBeApplied=false;
                         if(!canBeApplied)
                             continue;
@@ -183,7 +203,8 @@ public class Algorithms {
         return pnReduced;
     }
     
-    public static PetriNet generateReducedNet0(PetriNet pn) throws Exception{
+    public static PetriNet generateReducedNetLight(PetriNet pn) throws Exception{
+        //FIXME: Riadattare la regola considerando gli arc weight!
         /* Applica regole piu leggere che non creano una petrinet minima
          Regole:
          - T1->P->T2 = posso togliere p ed unire le T (copiare tutti i next di T2 in T1 e rimuovere T2) solo se p ha un solo next ed un solo previous e T2 ha un solo previous
@@ -194,7 +215,7 @@ public class Algorithms {
          */
         
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty");
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
         
         PetriNet pnReduced = pn.clonePN();
         while(true){
@@ -313,7 +334,7 @@ public class Algorithms {
     public static PetriNet generateUnfoldedNet(PetriNet pn) throws Exception{
         //TODO
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty");
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
         
         throw new Exception("TO BE IMPLEMENTED");
     }
@@ -322,7 +343,7 @@ public class Algorithms {
     /*
     public static void main(String[] args) {
         try {
-            String bpmnUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_9.bpmn";
+            String bpmnUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_7.bpmn";
             PetriNet pn = PNImport.generateFromBPMN(XMLUtils.getXmlDocFromURI(bpmnUrl));
             PetriNet pnReduced = Algorithms.generateReducedNet(pn);
             System.out.println(PNExport.exportTo_PNML(pn));

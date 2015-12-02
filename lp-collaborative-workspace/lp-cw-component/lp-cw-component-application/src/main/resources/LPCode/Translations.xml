@@ -40,8 +40,11 @@
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
   <content>## UI pages
+# LPUI.WebHome
+LPUI.WebHome.title=Learning materials
+	
 # BaseElementSheet
-BaseElementSheet.documentation.title=Documentation
+BaseElementSheet.documentation.title=Description of the activity
 BaseElementSheet.documentation.empty=There is no documentation for this artifact.
 BaseElementSheet.organization.title=Organization
 BaseElementSheet.feedback.helper=If you think the content of this page has errors, please fill a note that will be sent to the responsible of this process.
@@ -76,7 +79,7 @@ WeavingButtonMacro.title=Cross-model
 ## Livetables
 # Model sets livetable
 lpcode.livetable.modelset.id=ID
-lpcode.livetable.modelset.name=Process name
+lpcode.livetable.modelset.name=Course name
 lpcode.livetable.modelset.doc.date=Last update
 lpcode.livetable.modelset._actions=Actions
 # Models livetable

@@ -40,6 +40,13 @@ public class Main {
 
 	public static final int PORT = 8081;
 
+	// Global reference to the simulator
+	// This is a little ugly, but only needed for JavaMsgTask. This class is
+	// automatically instantiated by the Activiti engine and we cannot easily
+	// pass a reference to it otherwise (at least not with the current
+	// architecture).
+	public static Simulator simulator;
+
 	/**
 	 * @param args
 	 * @throws IOException
@@ -48,7 +55,7 @@ public class Main {
 
 		try {
 
-			Simulator simulator = new Simulator(ACTIVITY_CONFIG_PATH, PORT);
+			simulator = new Simulator(ACTIVITY_CONFIG_PATH, PORT);
 
 			// load process definitions
 			simulator.processManager().addProjectDefinitions(

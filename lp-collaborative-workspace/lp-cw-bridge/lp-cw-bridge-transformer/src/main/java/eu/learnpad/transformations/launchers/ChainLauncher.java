@@ -9,14 +9,24 @@ import eu.learnpad.transformations.model2text.generator.AcceleoStandaloneStarter
 import eu.learnpad.transformations.preprocessing.Alignment;
 
 
-
+/**
+ * Class that execute the chain of transformation composed by: ATL Transformation (MODEL2MODEL Transformation) and 
+ * Acceleo Transformation (MODEL2TEXT Transformation).
+ * @author Basciani Francesco
+ * @version 1.0
+ *
+ */
 public class ChainLauncher {
 
 		
 	private String tmpModelFolder = "tmp/";
 	
-	/*
-	 * The main method to execute all the transformations
+	/**
+	 * Execute the chain of transformation composed by: ATL Transformation (MODEL2MODEL Transformation) and 
+	 * Acceleo Transformation (MODEL2TEXT Transformation).
+	 * @param model_in The path of the model file to be tranformed.
+	 * @param model_params The path of the model file conform to Parameter Metamodel that is to support to the transformation.
+	 * @throws IOException
 	 */
 	public void executeTransformation(String model_in, String model_params){
 		
@@ -83,7 +93,7 @@ public class ChainLauncher {
 		 * ADOXX XML file alignment
 		 */
 		Alignment al = new Alignment();
-		String sanitazedFilePath = al.sanitizer(model_in);
+		String sanitazedFilePath = al.sanitizerForADOXX(model_in);
 		System.out.println("Alignment Done!");
 		
 		/*

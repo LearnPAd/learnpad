@@ -13,12 +13,18 @@ public class ATLTransformationLauncher {
 	
 	private String tmpModelFolder = "tmp/";
 	
-	/*
-	 * *******************************************************
-	 * MODEL2MODEL Transformation (ATL)
-	 * *******************************************************
+	/**
+	 * ATL Transformation Launcher (MODEL2MODEL Transformation).
+	 * @param model_in The path of the model file to be tranformed.
+	 * @param model_params The path of the model file conform to Parameter Metamodel that is to support to the transformation.
+	 * @throws IOException
 	 */
 	public void execute(String model_in, String model_params) throws IOException{
+		/*
+		 * *******************************************************
+		 * MODEL2MODEL Transformation (ATL)
+		 * *******************************************************
+		 */
 		
 		File f = new File(model_in);
 		if(f.exists() && !f.isDirectory()) { 
@@ -52,7 +58,13 @@ public class ATLTransformationLauncher {
 		
 	}
 	
-	
+	/**
+	 * Execution of the ATL Transformation with a pre-processing with alignement.
+	 * This method take an XML file instead of XMI and after a pre-precessing phase execute the transformation with the resulting XMI model file.
+	 * @param model_in The path of the model file to be tranformed.
+	 * @param model_params The path of the model file conform to Parameter Metamodel that is to support to the transformation.
+	 * @throws Exception
+	 */
 	public void executeWithAlignment(String model_in, String model_params) throws Exception{
 		
 		File f = new File(model_in);
@@ -63,10 +75,8 @@ public class ATLTransformationLauncher {
 			 */
 			System.out.println("*******STARTING ALIGNMENT*******");
 			Alignment al = new Alignment();
-			String sanitazedFilePath = al.sanitizer(model_in);
+			String sanitazedFilePath = al.sanitizerForADOXX(model_in);
 			System.out.println("*******ALIGNMENT DONE*******");
-			
-			
 			
 			
 			ATLTransformation myT = null;
@@ -109,7 +119,6 @@ public class ATLTransformationLauncher {
 		//If alignment is needed remember to take the right xml as input
 		boolean alignment = false;
 		String model_params = "titolo-unico";
-		
 		
 		
 		System.out.println("*******STARTING THE ATL TRANSFORMATION*******");

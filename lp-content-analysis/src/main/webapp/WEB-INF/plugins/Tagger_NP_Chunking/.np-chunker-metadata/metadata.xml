@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<metadata xmlns="http://gate.ac.uk/ns/pipeline-metadata">
+  <pipeline-name>Noun Phrase Chunker</pipeline-name>
+  <slug>noun-phrase-chunker</slug>
+  <ordering>50</ordering>
+  <annotation-selectors>:NounChunk</annotation-selectors>
+  <additional-annotations>:Token, :SpaceToken, :Sentence</additional-annotations>
+  <tags>
+    <tag>Chunker</tag>
+  </tags>
+</metadata>

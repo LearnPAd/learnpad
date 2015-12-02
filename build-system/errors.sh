@@ -27,3 +27,6 @@ declare -r ERROR_BUILD_ARGS=7
 
 # Errors for the `postbuild' script
 declare -r ERROR_POSTBUILD_ARGS=8
+
+# Errors for the `launch' script
+declare -r ERROR_LAUNCH_ARGS=9
