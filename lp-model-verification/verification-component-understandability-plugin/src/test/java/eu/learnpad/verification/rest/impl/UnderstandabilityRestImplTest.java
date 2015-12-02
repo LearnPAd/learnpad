@@ -59,7 +59,7 @@ public class UnderstandabilityRestImplTest extends JerseyTest {
 	@Test
 	public void test() {
 		try {
-			URL is = UnderstandabilityRestImplTest.class.getClassLoader().getResource("ExplicitStartEndEvents.bpmn");
+			URL is = UnderstandabilityRestImplTest.class.getClassLoader().getResource("annidategateway.bpmn");
 			assertNotNull(is);
 			String content = new String(Files.readAllBytes(Paths.get(is.toURI())));
 
@@ -80,7 +80,7 @@ public class UnderstandabilityRestImplTest extends JerseyTest {
 
 			Response annotatecontent =  target("/validatemodel/"+id).request().get();
 
-			GuidelinesFactory res =	annotatecontent.readEntity(new GenericType<GuidelinesFactory>(){});
+			GuidelinesFactory res =	annotatecontent.readEntity(GuidelinesFactory.class);
 
 			JAXBContext jaxbCtx;
 

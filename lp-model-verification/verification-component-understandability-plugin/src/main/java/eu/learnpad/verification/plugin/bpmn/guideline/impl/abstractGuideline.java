@@ -31,7 +31,7 @@ import eu.learnpad.verification.plugin.utils.ElementID;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 
-public abstract class abstractGuideline implements Runnable {
+public  class abstractGuideline implements Runnable {
 
 	@XmlTransient
 	protected Collection<FlowElement> elementsBPMN;
@@ -74,7 +74,9 @@ public abstract class abstractGuideline implements Runnable {
 		findGL(diagram);
 	}
 
-	protected abstract void findGL(Definitions diagram);
+	protected  void findGL(Definitions diagram){
+		
+	}
 
 	public boolean getStatus() {
 
@@ -131,7 +133,9 @@ public abstract class abstractGuideline implements Runnable {
 		return Suggestion;
 	}
 
-	protected abstract int searchSubProcess(SubProcess sub, StringBuilder ret, int i);
+	protected  int searchSubProcess(SubProcess sub, StringBuilder ret, int i){
+		return 0;
+	}
 
 	@Override
 	public void run() {

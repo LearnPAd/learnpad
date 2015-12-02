@@ -23,7 +23,7 @@ import eu.learnpad.verification.plugin.utils.Utils.LogType;
 
 
 
-//@Produces(MediaType.APPLICATION_XML)
+
 @Path("validatemodel")
 public class UnderstandabilityRestImpl {
 
@@ -76,6 +76,7 @@ public class UnderstandabilityRestImpl {
 
 	@Path("/{idmodel:\\d+}")
 	@GET
+	@Produces(MediaType.APPLICATION_XML)
 	public GuidelinesFactory getUnderstandabilityVerifications(@PathParam("idmodel") String modelID){
 		try{
 			if(map.containsKey(Integer.valueOf(modelID))){
