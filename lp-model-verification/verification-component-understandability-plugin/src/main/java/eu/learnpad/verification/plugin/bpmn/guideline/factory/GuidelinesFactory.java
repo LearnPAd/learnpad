@@ -11,6 +11,12 @@ import java.util.Collection;
 
 
 
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,7 +26,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import org.eclipse.bpmn2.Definitions;
-
 
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.ExplicitStartEndEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.SplitAndJoinFlows;
@@ -52,7 +57,11 @@ public class GuidelinesFactory {
 	@XmlElement(name = "Guideline", required = true)
 	private Collection<abstractGuideline> guidelines;
 
-
+	@XmlTransient
+	protected BlockingQueue<Runnable> threadPool;
+	@XmlTransient
+	private ExecutorService threadPoolExecutor; 
+	
 	GuidelinesFactory(){
 
 	}
@@ -64,11 +73,44 @@ public class GuidelinesFactory {
 		guidelines.add(new ExplicitStartEndEvents(diagram));
 		guidelines.add(new explicitGateways(diagram));
 		guidelines.add(new SplitAndJoinFlows(diagram));
-		setStatus();
+		threadPool = new LinkedBlockingQueue<Runnable>();
 		/*
 		setProcessID(explicitSEevent.getProcessID());*/	
 	}
 
+	public void StartSequential(){
+		for (abstractGuideline abstractGuideline : guidelines) {
+			abstractGuideline.Start();
+		}
+		setStatus();
+	}
+	
+	public void StartThreadPool(){
+		long keepAliveTime =5000;
+		
+		 threadPoolExecutor =
+		        new ThreadPoolExecutor(
+		               5,
+		                10,
+		                keepAliveTime,
+		                TimeUnit.MILLISECONDS,
+		                threadPool
+		                );
+		for (abstractGuideline abstractGuideline : guidelines) {
+			threadPoolExecutor.execute(abstractGuideline);
+		}
+		threadPoolExecutor.shutdown();
+		
+	}
+	
+	public boolean getStatusThreadPool(){
+		boolean res = threadPoolExecutor.isTerminated();
+		if(res){
+			setStatus();
+		
+		}
+		return res;
+	}
 
 	public Collection<abstractGuideline> getGuidelines(){
 		return guidelines;

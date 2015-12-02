@@ -47,7 +47,7 @@ public class GuidelinesFactoryTest {
 
             GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readJavaURIModel(is.toURI().toString()));
            eg.setVerificationType("UNDERSTANDABILITY");
-
+           eg.StartSequential();
             //System.out.println(eg);
             
             for ( abstractGuideline iterable_element : eg.getGuidelines()) {
@@ -94,7 +94,8 @@ public class GuidelinesFactoryTest {
 
 
             GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readJavaURIModel(is.toURI().toString()));
-
+            eg.setVerificationType("UNDERSTANDABILITY");
+            eg.StartSequential();
             //System.out.println(eg);
 
             JAXBContext jaxbContext = JAXBContext.newInstance(GuidelinesFactory.class);
