@@ -29,38 +29,20 @@ import eu.learnpad.sim.rest.event.EventType;
  * @author Tom Jorquera - Linagora
  *
  */
-public class SessionScoreUpdateEvent extends AbstractEvent {
+public class SimulationStartEvent extends AbstractEvent {
 
-	/**
-	 * Unique ID of the process instance
-	 */
-	public String processid;
-
-	/**
-	 * The LearnPAd user those score is updated
-	 */
-	public String user;
-
-	/**
-	 * The new session score of the user
-	 */
-	public Long sessionscore;
-
-	public SessionScoreUpdateEvent() {
+	public SimulationStartEvent() {
 		super();
 	}
 
-	public SessionScoreUpdateEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String processid, String user,
-			Long sessionScore) {
+	public SimulationStartEvent(Long timestamp, String simulationsessionid,
+			List<String> involvedusers) {
 		super(timestamp, simulationsessionid, involvedusers);
-		this.processid = processid;
-		this.sessionscore = sessionScore;
 	}
 
 	@Override
 	public EventType getType() {
-		return EventType.SESSION_SCORE_UPDATE;
+		return EventType.SIMULATION_START;
 	}
 
 }

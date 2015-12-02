@@ -21,7 +21,6 @@ package eu.learnpad.sim.rest.event.impl;
 
 import java.util.List;
 
-import eu.learnpad.sim.rest.event.AbstractEvent;
 import eu.learnpad.sim.rest.event.EventType;
 
 /**
@@ -29,38 +28,20 @@ import eu.learnpad.sim.rest.event.EventType;
  * @author Tom Jorquera - Linagora
  *
  */
-public class SessionScoreUpdateEvent extends AbstractEvent {
+public class SimulationEndEvent extends SimulationStartEvent {
 
-	/**
-	 * Unique ID of the process instance
-	 */
-	public String processid;
-
-	/**
-	 * The LearnPAd user those score is updated
-	 */
-	public String user;
-
-	/**
-	 * The new session score of the user
-	 */
-	public Long sessionscore;
-
-	public SessionScoreUpdateEvent() {
+	public SimulationEndEvent() {
 		super();
 	}
 
-	public SessionScoreUpdateEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String processid, String user,
-			Long sessionScore) {
+	public SimulationEndEvent(Long timestamp, String simulationsessionid,
+			List<String> involvedusers) {
 		super(timestamp, simulationsessionid, involvedusers);
-		this.processid = processid;
-		this.sessionscore = sessionScore;
 	}
 
 	@Override
 	public EventType getType() {
-		return EventType.SESSION_SCORE_UPDATE;
+		return EventType.SIMULATION_END;
 	}
 
 }

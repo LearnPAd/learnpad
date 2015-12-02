@@ -25,6 +25,8 @@ import javax.ws.rs.Path;
 import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
+import eu.learnpad.sim.rest.event.impl.SimulationEndEvent;
+import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
 import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
 import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 
@@ -34,6 +36,14 @@ import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
  *
  */
 public interface IEventReceiver {
+
+	@POST
+	@Path("/simulationstart")
+	public void receiveSimulationStartEvent(SimulationStartEvent event);
+
+	@POST
+	@Path("/simulationend")
+	public void receiveSimulationEndEvent(SimulationEndEvent event);
 
 	@POST
 	@Path("/processstart")

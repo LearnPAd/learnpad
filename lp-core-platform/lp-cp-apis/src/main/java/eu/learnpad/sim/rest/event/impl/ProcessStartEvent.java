@@ -19,6 +19,8 @@
  */
 package eu.learnpad.sim.rest.event.impl;
 
+import java.util.List;
+
 import eu.learnpad.sim.rest.event.AbstractEvent;
 import eu.learnpad.sim.rest.event.EventType;
 
@@ -43,9 +45,10 @@ public class ProcessStartEvent extends AbstractEvent {
 		super();
 	}
 
-	public ProcessStartEvent(Long timestamp, String processid,
+	public ProcessStartEvent(Long timestamp, String simulationsessionid,
+			List<String> involvedusers, String processid,
 			String processdefinitionid) {
-		super(timestamp);
+		super(timestamp, simulationsessionid, involvedusers);
 		this.processid = processid;
 		this.processdefinitionid = processdefinitionid;
 	}

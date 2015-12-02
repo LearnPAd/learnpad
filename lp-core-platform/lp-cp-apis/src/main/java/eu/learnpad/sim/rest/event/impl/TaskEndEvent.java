@@ -19,7 +19,8 @@
  */
 package eu.learnpad.sim.rest.event.impl;
 
-import eu.learnpad.sim.rest.event.AbstractEvent;
+import java.util.List;
+
 import eu.learnpad.sim.rest.event.EventType;
 
 /**
@@ -27,33 +28,20 @@ import eu.learnpad.sim.rest.event.EventType;
  * @author Tom Jorquera - Linagora
  *
  */
-public class TaskEndEvent extends AbstractEvent {
+public class TaskEndEvent extends TaskStartEvent {
 
-	/**
-	 * Unique ID of the process instance
-	 */
-	public String processid;
-
-	/**
-	 * Unique ID of the task instance
-	 */
-	public String taskid;
-
-	/**
-	 * The LearnPAd user that completed the task
-	 */
-	public String user;
+	public String completingUser;
 
 	public TaskEndEvent() {
 		super();
 	}
 
-	public TaskEndEvent(Long timestamp, String processid, String taskid,
-			String user) {
-		super(timestamp);
-		this.processid = processid;
-		this.taskid = taskid;
-		this.user = user;
+	public TaskEndEvent(Long timestamp, String simulationsessionid,
+			List<String> involvedusers, String processid, String taskid,
+			String taskdefid, List<String> assignedusers, String completingUser) {
+		super(timestamp, simulationsessionid, involvedusers, processid, taskid,
+				taskdefid, assignedusers);
+		this.completingUser = completingUser;
 	}
 
 	@Override
