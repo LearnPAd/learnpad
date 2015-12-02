@@ -40,11 +40,8 @@ public final class SimpleModelTransformator {
     private static final SimpleModelTransformator instance = new SimpleModelTransformator();
     private static String latestModelSetId;
 
-    static {
-        System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
-    }
-
     private SimpleModelTransformator() {
+        System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
         loadTestmodel();
     }
 

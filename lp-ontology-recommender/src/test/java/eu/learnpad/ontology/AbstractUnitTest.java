@@ -28,7 +28,7 @@ public class AbstractUnitTest {
      * 
      * @throws IOException 
      */
-    @AfterClass
+    //@AfterClass
     public static void after() throws IOException {
         Path path = SimpleModelTransformator.getInstance().getModelSetFolderPath(MODELSET_ID);
         cleanUp(path.getParent());

@@ -103,6 +103,16 @@ dkm:d_ConstructIsInsideD_Container
   rdfs:domain dkm:D_Construct ;
   rdfs:range dkm:D_Container ;
 .
+dkm:documentHasDescription
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain dkm:Document ;
+  rdfs:range xsd:string ;
+.
+dkm:documentHasMIMEType
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain dkm:Document ;
+  rdfs:range <http://www.iana.org/assignments/media-types#MIMETYPE> ;
+.
 dkm:documentHasSubDocument
   rdf:type owl:ObjectProperty ;
   rdfs:comment "PIMM"^^xsd:string ;
@@ -113,6 +123,11 @@ dkm:documentHasSubdocument
   rdf:type owl:ObjectProperty ;
   rdfs:domain dkm:Document ;
   rdfs:range dkm:Document ;
+.
+dkm:documentHasURL
+  rdf:type rdf:Property ;
+  rdfs:domain dkm:Document ;
+  rdfs:range xsd:string ;
 .
 dkm:documentIsAggregatedToDocument
   rdf:type owl:ObjectProperty ;

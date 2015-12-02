@@ -491,6 +491,36 @@ ________________________________________________________________________________
 
 <!--
 ___________________________________________________________________________________________________
+ Learning Document
+___________________________________________________________________________________________________-->
+	<xsl:template name="LearningDocument">
+            <xsl:param name="id" tunnel="yes"/>
+            <xsl:param name="name" tunnel="yes"/>
+            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="materialURL"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type dkm:LearningDocument ;
+  rdfs:subClassOf dkm:LearningDocument ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;  
+  dkm:documentHasURL "http://www.learnpad.eu/"^^xsd:string ;
+  dkm:documentHasMIMEType "text/html"^^xsd:string ;
+  dkm:documentHasDescription "This web page contains the required learning material to improve ..."^^xsd:string ;
+  rdfs:comment "This material should be updated ..."^^xsd:string ;
+	</xsl:template>
+
+    <xsl:template name="addLearningDocumentRefToCompetency">
+		<xsl:param name="targetId"/> dkm:learningDocumentIncreasesCompetency transfer:<xsl:value-of select="$targetId"/> ;<xsl:text>&#10;</xsl:text>
+	</xsl:template>		
+	
+	<xsl:template name="addInModelConnectionForLearningDocument">
+            <xsl:param name="toId"/>  dkm:d_ConstructIsInsideD_Container transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text>
+    	</xsl:template>	
+<!--...............................................................................................-->	
+
+<!--
+___________________________________________________________________________________________________
  Document Group
 ___________________________________________________________________________________________________-->
 	<xsl:template name="DocumentGroup">
@@ -563,6 +593,10 @@ ________________________________________________________________________________
 	<xsl:template name="addInModelConnectionForRole">
         		<xsl:param name="toId"/>  lpd:roleIsCastedByOrgUnit transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text>
     	</xsl:template>	
+    	
+     <xsl:template name="addRoleRefToCompetency">
+        		<xsl:param name="targetId"/> omm:roleRequiresCompetencies transfer:<xsl:value-of select="$targetId"/> ;<xsl:text>&#10;</xsl:text>
+    	</xsl:template>    	
 <!--...............................................................................................-->	
 <!--
 ___________________________________________________________________________________________________
@@ -591,6 +625,9 @@ ________________________________________________________________________________
         		<xsl:param name="toId"/>  omm:performerIsManagerOfOrganisationalUnit transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text>
     	</xsl:template>
     	
+     <xsl:template name="addPerformerRefToCompetencyProfile">
+        		<xsl:param name="targetId"/> omm:performerAquiredCompetencyProfile transfer:<xsl:value-of select="$targetId"/> ;<xsl:text>&#10;</xsl:text>
+    	</xsl:template>    	    	
 <!--...............................................................................................-->	
 <!-- ============================================================================================================================================== -->
 <!-- ============================================================================================================================================== -->
@@ -790,17 +827,25 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________
  Competency
 ___________________________________________________________________________________________________-->
- 	<xsl:template name="Competency">
+ 	<xsl:template name="EQFCompetency">
             <xsl:param name="id" tunnel="yes"/>
             <xsl:param name="name" tunnel="yes"/>
             <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="level"/>
+            <xsl:param name="competence"/>
+            <xsl:param name="skill"/>
+            <xsl:param name="knowledge"/>
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
-  rdf:type cmm:Competency ;
-  rdfs:subClassOf cmm:Competency ;
+  rdf:type cmm:EQFCompetency ;
+  rdfs:subClassOf cmm:EQFCompetency ;
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                	
-	</xsl:template>
+  cmm:eqfCompetencyHasLevel "<xsl:value-of select="$level"/>"^^xsd:integer ;
+  cmm:eqfCompetencyHasCompetence """<xsl:value-of select="$competence"/>"""^^xsd:string ;
+  cmm:eqfCompetencyHasSkill """<xsl:value-of select="$skill"/>"""^^xsd:string ;
+  cmm:eqfCompetencyHasKnowledge """<xsl:value-of select="$knowledge"/>"""^^xsd:string ;
+ 	</xsl:template>
 	
 	<xsl:template name="addInModelConnectionForCompetency">
         		<xsl:param name="toId"/>  cmm:competencyBelongsToCompetencyGroup transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text>
@@ -830,13 +875,55 @@ ________________________________________________________________________________
             <xsl:param name="id" tunnel="yes"/>
             <xsl:param name="name" tunnel="yes"/>
             <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="learningPreferences"/>
+            <xsl:param name="competenciesAndLevels"/>
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type cmm:CompetencyProfile ;
   rdfs:subClassOf cmm:CompetencyProfile ;
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
-  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;
+  emo:competencyProfileIsDocumentedInDocument transfer:<xsl:value-of select="$id"/> ;
+              <xsl:for-each select="tokenize($learningPreferences, ';')">
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:<xsl:value-of select="replace(replace(replace(current(),' ',''), '\(', ''), '\)', '')"/>_learningPreference ;
+            </xsl:for-each>
+            <xsl:for-each select="$competenciesAndLevels">
+  cmm:competenciesAndLevels transfer:<xsl:value-of select="@id"/> ;            
+            </xsl:for-each>
 	</xsl:template>  
+<!--...............................................................................................--> 
+<!-- ============================================================================================================================================== -->
+<!--
+___________________________________________________________________________________________________
+ Competency and Level 
+___________________________________________________________________________________________________-->
+  	<xsl:template name="CompetencyAndLevel">
+            <xsl:param name="id"/>
+            <xsl:param name="name"/>
+            <xsl:param name="class"/>
+            <xsl:param name="competencyProfile"/>
+  	       <xsl:param name="competencyAndLevelLevel"/>
+  		  <!--xsl:param name="competencyAndLevelLearningGoal"/-->
+  		  <xsl:param name="competencyAndLevelStatus"/>
+  		  <xsl:param name="competencyAndLevelScore"/>
+  		  <xsl:param name="competencyAndLevelLastUpdate"/>
+  		  <xsl:param name="competencyAndLevelComment"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;
+  cmm:competencyAndLevelLevel "<xsl:value-of select="$competencyAndLevelLevel"/>"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus "<xsl:value-of select="$competencyAndLevelStatus"/>"^^xsd:string ;
+  cmm:competencyAndLevelScore "<xsl:value-of select="$competencyAndLevelScore"/>"^^xsd:string ;
+  <!-- cmm:competencyAndLevelLastUpdate "<xsl:value-of select="$competencyAndLevelLastUpdate"/>"^^xsd:date ; -->
+  cmm:competencyAndLevelComment "<xsl:value-of select="$competencyAndLevelComment"/>"^^xsd:string ;
+  	</xsl:template> 
+	
+     <xsl:template name="addCompetencyLevelRefToCompetency">
+        		<xsl:param name="targetId"/>  cmm:competencyAndLevelRefersToCompetency transfer:<xsl:value-of select="$targetId"/> ;<xsl:text>&#10;</xsl:text>
+    	</xsl:template>
 <!--...............................................................................................--> 
 <!-- ============================================================================================================================================== -->
 </xsl:stylesheet>

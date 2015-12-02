@@ -10,6 +10,7 @@ import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.BusinessActor;
 import eu.learnpad.or.rest.data.Experts;
+import eu.learnpad.or.rest.data.LearningMaterials;
 import eu.learnpad.or.rest.data.Recommendations;
 import javax.xml.bind.JAXB;
 import org.junit.Before;
@@ -28,13 +29,17 @@ public class RecommenderTest extends AbstractUnitTest {
     }
 
     @Test
-    public void testSuggestExperts() {
+    public void testRecommendations() {
         Recommendations recomms = Recommender.getInstance().getRecommendations(MODELSET_ID, APP.CONF.getString("testdata.artifactId"), APP.CONF.getString("testdata.user.email"));
         assertNotNull(recomms);
         JAXB.marshal(recomms, System.out);        
         Experts experts = recomms.getExperts();
         assertNotNull(experts);
         assertTrue(experts.getBusinessActors().size() > 0);
+        
+        LearningMaterials materials = recomms.getLearningMaterials();
+        assertNotNull(materials);
+        assertTrue(materials.getLearningMaterials().size() > 0);
         
         boolean lineManagerExpert = false;
         boolean otherUnitExpert = false;
