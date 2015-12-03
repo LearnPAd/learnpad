@@ -109,7 +109,9 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	    //TODO: show the status.getStatus() somewhere in the wiki for the verification with id verificationProcessId?
 	    
 	    if(!status.getStatus().equals(StatusType.COMPLETED)){
-	        //The verification is completed but a severe error has happened
+	        //A severe error occurred in the verification phase that is terminated unexpectedly
+	        //The verification results in this case is null. If this.bridge.getVerificationResult will be called an exception will rise up
+	        //Notify somewhere the status of the verification id? or obtain the modelSet Id from the verification id and notify the verification status of the modelset id?
 	        return;
 	    }
 	    

@@ -232,6 +232,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
         VerificationId vId = this.mv.startVerification(modelSetId, verification);
         VerificationStatus vStatus = this.mv.getVerificationStatus(vId.getId());
         //TODO: show the vStatus.getStatus() of the verification with id vId.getId() somewhere in the wiki?
+        //The verification status (currently IN PROGRESS) should be visualizes somewhere in the cw for the given modelsetid so the modeler can check it.
         return vId;
     }
     
