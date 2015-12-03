@@ -240,9 +240,13 @@ public class VerificationComponent {
                 XMLUtils.getXmlDocFromString(resultXml);
             }catch(Exception e){ throw new Exception("ERROR: The result is not a valid XML:\n"+resultXml);}
             IOUtils.writeFile(resultXml.getBytes(), resultsFolderPath + File.separator + vid, false);
-            notifyVerificationEnd(vid);
+            
         }catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
         verificationRunningList.remove(vid);
+        
+        try{
+            notifyVerificationEnd(vid);
+        }catch(Exception ex){ex.printStackTrace(); Utils.log(ex);}
     }
     
     private static void notifyVerificationEnd(String verificationId) throws Exception{

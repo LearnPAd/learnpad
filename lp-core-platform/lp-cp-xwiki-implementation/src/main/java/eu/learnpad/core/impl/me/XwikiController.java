@@ -229,7 +229,10 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
     @Override
     public VerificationId startModelSetVerification(String modelSetId, String type, String verification)
             throws LpRestException {
-        return this.mv.startVerification(modelSetId, verification);
+        VerificationId vId = this.mv.startVerification(modelSetId, verification);
+        VerificationStatus vStatus = this.mv.getVerificationStatus(vId.getId());
+        //TODO: show the vStatus.getStatus() of the verification with id vId.getId() somewhere in the wiki?
+        return vId;
     }
     
     @Override

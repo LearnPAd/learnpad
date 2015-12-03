@@ -37,7 +37,9 @@ import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.mv.Controller;
 import eu.learnpad.mv.rest.data.FinalResultType;
+import eu.learnpad.mv.rest.data.StatusType;
 import eu.learnpad.mv.rest.data.VerificationResults;
+import eu.learnpad.mv.rest.data.VerificationStatus;
 import eu.learnpad.mv.BridgeInterface;
 
 @Component
@@ -102,6 +104,15 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	@Override
 	public void notifyVerification(String verificationProcessId)
 			throws LpRestException {
+
+	    VerificationStatus status = this.bridge.getVerificationStatus(verificationProcessId);
+	    //TODO: show the status.getStatus() somewhere in the wiki for the verification with id verificationProcessId?
+	    
+	    if(!status.getStatus().equals(StatusType.COMPLETED)){
+	        //The verification is completed but a severe error has happened
+	        return;
+	    }
+	    
 		VerificationResults res = this.bridge.getVerificationResult(verificationProcessId);
         
 		String modelSetId = res.getModelID();
