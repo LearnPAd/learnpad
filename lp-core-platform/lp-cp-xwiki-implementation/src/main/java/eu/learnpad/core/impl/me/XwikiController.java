@@ -48,9 +48,14 @@ import eu.learnpad.core.impl.me.XwikiBridgeInterfaceRestResource;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.cw.rest.data.Feedbacks;
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.Controller;
 import eu.learnpad.mv.rest.data.MVResults;
+import eu.learnpad.mv.rest.data.VerificationId;
+import eu.learnpad.mv.rest.data.VerificationResults;
+import eu.learnpad.mv.rest.data.VerificationStatus;
+import eu.learnpad.mv.rest.data.VerificationsAvailable;
 import eu.learnpad.me.BridgeInterface;
 
 /*
@@ -127,7 +132,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName,
 				modelSetFile);
 	}
-
+/*
 	@Override
 	public String startModelSetVerification(String modelSetId, String type,
 			String verification) throws LpRestExceptionImpl {
@@ -186,7 +191,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 			return null;
 		}
 	}
-
+*/
 	@Override
 	public Feedbacks getFeedbacks(String modelSetId) throws LpRestExceptionImpl {
 		// Now send the package's path to the importer for XWiki
@@ -220,4 +225,25 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		}
 		return feedbacks;
 	}
+
+    @Override
+    public VerificationId startModelSetVerification(String modelSetId, String type, String verification)
+            throws LpRestException {
+        return this.mv.startVerification(modelSetId, verification);
+    }
+    
+    @Override
+    public VerificationStatus checkModelSetVerification(String verificationProcessId) throws LpRestException {
+        return this.mv.getVerificationStatus(verificationProcessId);
+    }
+    
+    @Override
+    public VerificationResults getModelSetVerificationResults(String verificationProcessId) throws LpRestException {
+        return this.mv.getVerificationResult(verificationProcessId);
+    }
+    
+    @Override
+    public VerificationsAvailable getAvailableVerifications() throws LpRestException {
+        return this.mv.getAvailableVerifications();
+    }
 }
