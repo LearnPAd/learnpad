@@ -82,8 +82,8 @@ public class ChainLauncher {
 	public static void main(String[] args) throws Exception {
 
 		
-//		String model_in = "resources/model/titolo-unico.xml";
-		String model_in = "resources/model/epbr.xml";
+//		String model_in = "resources/model/epbr.xml";
+		String model_in = "resources/model/ado4f16a6bb-9318-4908-84a7-c2d135253dc9.xml";
 		String model_params = "titolo-unico";
 		
 		
