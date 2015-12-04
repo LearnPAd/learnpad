@@ -1,6 +1,5 @@
 -- @nsURI ADOXX=http://www.ado.org
 -- @nsURI XWIKI=http://www.xwiki.org
---todo..ADOXX!MODELType.allInstances() sostituire
 module ado2xwiki;
 
 create OUT : XWIKI from IN : ADOXX;
@@ -72,8 +71,7 @@ helper def : incLinkClassNumber(id: String) : Map(String, Integer) =
 	endif;
 	
 helper def : linkModelNumberMap : Map(String, Integer) =
-	ADOXX!MODELType
-	.allInstances()
+	ADOXX!MODELType.allInstances()
 	->iterate( i; accumulator : Map(String, Integer) = Map{} | accumulator.including(i.id, 0));
 
 helper def : incLinkModelNumber(id: String) : Map(String, Integer) =
@@ -103,7 +101,7 @@ helper def : getIrefTargetInstanceId(iref: ADOXX!IREFType) : String =
 	 endif;
 
 helper def : getIrefTargetInstance(iref: ADOXX!IREFType) : ADOXX!INSTANCEType = 
-	ADOXX!MODELType.allInstances()
+	thisModule.sourceModels
 	->select(m | iref.tmodeltype = m.modeltype)
 	->collect(c | c.iNSTANCE)
 	.flatten()
@@ -112,8 +110,7 @@ helper def : getIrefTargetInstance(iref: ADOXX!IREFType) : ADOXX!INSTANCEType =
 
 -- Get the target model id for the iref
 helper def : getIrefTargetModelId(iref: ADOXX!IREFType) : String = 
-	ADOXX!MODELType
-	.allInstances()
+	thisModule.sourceModels
 	->select(m | (iref.tmodeltype = m.modeltype) and (iref.tmodelname = m.name))
 	->collect(c | c.id)
 	.first();
