@@ -63,7 +63,7 @@ public  class abstractGuideline implements Runnable {
 
 	}
 
-	abstractGuideline(Definitions diagram){
+	public abstractGuideline(Definitions diagram){
 		this.elementsBPMN = new ArrayList<FlowElement>();
 
 		this.status = false;
