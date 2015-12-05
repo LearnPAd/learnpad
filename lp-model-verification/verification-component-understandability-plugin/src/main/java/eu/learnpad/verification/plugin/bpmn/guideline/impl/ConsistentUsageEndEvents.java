@@ -5,23 +5,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.bpmn2.Definitions;
+import org.eclipse.bpmn2.EndEvent;
 
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
-import org.eclipse.bpmn2.StartEvent;
+
 import org.eclipse.bpmn2.SubProcess;
 
 import eu.learnpad.verification.plugin.utils.ElementID;
 
-public class ConsistentUsageStartEvents extends abstractGuideline{
+public class ConsistentUsageEndEvents extends abstractGuideline{
 
 
-	public ConsistentUsageStartEvents(Definitions diagram) {
+	public ConsistentUsageEndEvents(Definitions diagram) {
 		super(diagram);
-		this.id = "13";
-		this.Description = "The modeler should include, in the model, only one start event. Where necessary, alternative instantiations of the process should be depicted with separate start events and using a event-based start gateway.";
-		this.Name = "Consistent Usage of Start Events";
+		this.id = "14";
+		this.Description = "The modeler should distinguish success and failure end states in a pro- cess or a sub-process with separate end events. Flows that end in the same end state should be merged to the same end event. Therefore, separate end events that do not represent distinct end states must be merged in a single end event.";
+		this.Name = "Consistent Usage of End Events";
 
 
 	}
@@ -46,7 +47,7 @@ public class ConsistentUsageStartEvents extends abstractGuideline{
 						//System.out.format("Found a SubProcess: %s\n", sub.getName());
 						this.searchSubProcess(sub);
 					}else
-						if (fe instanceof StartEvent) {
+						if (fe instanceof EndEvent) {
 							num++;
 							
 								/*elementsBPMN.add(fe);
@@ -66,7 +67,7 @@ public class ConsistentUsageStartEvents extends abstractGuideline{
 		if (num>1) {
 			elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);
-			this.Suggestion = "\nUse only one Start End Event :" + temp;
+			this.Suggestion = "\nUse only one End End Event :" + temp;
 			this.status = false;
 		}else{
 			this.status = true;
@@ -85,7 +86,7 @@ public class ConsistentUsageStartEvents extends abstractGuideline{
 				//System.out.format("Found a SubProcess: %s\n", ssub.getName());
 				this.searchSubProcess(ssub);
 			}else
-			if (fe instanceof StartEvent) {
+			if (fe instanceof EndEvent) {
 				
 				
 				//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
@@ -102,7 +103,7 @@ public class ConsistentUsageStartEvents extends abstractGuideline{
 		if ( num>1) {
 			elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);
-			this.Suggestion += "\nUse only one Start Event in SubProcess "+sub.getName()+" " + temp;
+			this.Suggestion += "\nUse only one End Event in SubProcess "+sub.getName()+" " + temp;
 			this.status = false;
 		}
 		
