@@ -42,23 +42,23 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 						if (fe instanceof StartEvent) {
 							Event event = (Event) fe;
 							flag = true;
-							//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
+							//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 
 							if (event.getOutgoing().size() < 1) {
 								elementsBPMN.add(fe);
 								setElements(fe.getId(),IDProcess);
-								ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+								ret.append(i++ +") name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
 										+ "\n");
 							}
 						} else if (fe instanceof EndEvent) {
 							Event event = (Event) fe;
 							flag = true;
-							//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
+							//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 
 							if (event.getIncoming().size() < 1) {
 								elementsBPMN.add(fe);
 								setElements(fe.getId(),IDProcess);
-								ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+								ret.append(i++ +") name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
 										+ "\n");
 							}
 						}
@@ -85,23 +85,23 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 			if (fe instanceof StartEvent) {
 				Event event = (Event) fe;
 				flag = true;
-				//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
+				//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 
 				if (event.getOutgoing().size() < 1) {
 					elementsBPMN.add(fe);
 					setElements(fe.getId(),IDProcess);
-					ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+					ret.append(i++ +") name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
 							+ "\n");
 				}
 			} else if (fe instanceof EndEvent) {
 				Event event = (Event) fe;
 				flag = true;
-				//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
+				//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 
 				if (event.getIncoming().size() < 1) {
 					elementsBPMN.add(fe);
 					setElements(fe.getId(),IDProcess);
-					ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+					ret.append(i++ +") name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
 							+ "\n");
 				}
 			}

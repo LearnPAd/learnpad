@@ -2,9 +2,12 @@ package eu.learnpad.verification.plugin.bpmn.guideline.factory;
 
 import static org.junit.Assert.*;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+
 
 
 import javax.xml.bind.JAXBContext;
@@ -20,11 +23,15 @@ public class GuidelinesFactoryTest {
 
     @Test
     public void testGuidelinesFactoryListOfRootElement() {
-        genarateTestforFile("ExplicitStartEndEvents.bpmn","16");
-        genarateTestforFile("annidategateway.bpmn","20");
-        genarateTestforFile("SplitAndJoinFlows.bpmn","21");
-        genarateTestforFile("modelloTest.bpmn","21");
-        genarateTestforFile("modelloTestO.bpmn","21");
+    	genarateTestforFile("24485.bpmn","20");
+        genarateTestforFile("ExplicitStartEndEvents.bpmn","12");
+        genarateTestforFile("annidategateway.bpmn","16");
+        genarateTestforFile("SplitAndJoinFlows.bpmn","18");
+        genarateTestforFile("modelloTest.bpmn","18");
+        genarateTestforFile("modelloTestO.bpmn","18");
+        //genarateTestforFile("test7.bpmn","14");
+        genarateTestforFile("test7.bpmn","13");
+       
     }
     
     private void genarateTestforFile(String NameFile,String id){
@@ -62,10 +69,11 @@ public class GuidelinesFactoryTest {
 
             // output pretty printed
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+           
+            OutputStream os = new FileOutputStream( "nosferatu"+ NameFile.substring(0, NameFile.length()-4)+".xml" );
+            jaxbMarshaller.marshal( eg, os );
 
-
-
-            //jaxbMarshaller.marshal(eg, System.out);
+           // jaxbMarshaller.marshal(eg, System.out);
 
             assertTrue(eg.getStatus().equals("KO"));
         } catch (JAXBException  | URISyntaxException  | IOException e ) {

@@ -6,11 +6,9 @@ import java.util.Collection;
 
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.EndEvent;
-
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
-
 import org.eclipse.bpmn2.SubProcess;
 
 import eu.learnpad.verification.plugin.utils.ElementID;
@@ -56,9 +54,10 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 										+ "\n");*/
 								
 								elementsBPMNtemp.add(fe);
+								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
 								Elementstemp.add(new ElementID(fe.getId(),IDProcess));
-								temp.append("* name=" + fe.getName() + " ID=" + fe.getId()
-										+ "\n");
+								temp.append("Name=" +name + " ID=" + fe.getId()
+										+ "; ");
 							
 						} 
 				}
@@ -67,7 +66,7 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 		if (num>1) {
 			elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);
-			this.Suggestion = "\nUse only one End End Event :" + temp;
+			this.Suggestion = "\nUse only one End Events :" + temp;
 			this.status = false;
 		}else{
 			this.status = true;
@@ -94,8 +93,9 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 				
 					elementsBPMNtemp.add(fe);
 					Elementstemp.add(new ElementID(fe.getId(),IDProcess));
-					temp.append("* name=" + fe.getName() + " ID=" + fe.getId()
-							+ "\n");
+					String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+					temp.append(" Name=" + name + " ID=" + fe.getId()
+							+ "; ");
 				
 			
 			}

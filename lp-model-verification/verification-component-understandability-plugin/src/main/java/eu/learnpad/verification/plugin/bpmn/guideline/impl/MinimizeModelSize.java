@@ -2,17 +2,12 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl;
 
 
 import org.eclipse.bpmn2.Activity;
-import org.eclipse.bpmn2.CatchEvent;
 import org.eclipse.bpmn2.Definitions;
-import org.eclipse.bpmn2.EndEvent;
-import org.eclipse.bpmn2.Event;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.Gateway;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
-import org.eclipse.bpmn2.StartEvent;
 import org.eclipse.bpmn2.SubProcess;
-import org.eclipse.bpmn2.ThrowEvent;
 
 
 public class MinimizeModelSize extends abstractGuideline {
@@ -60,58 +55,7 @@ public class MinimizeModelSize extends abstractGuideline {
 
 	protected int searchSubProcess(SubProcess sub, StringBuilder ret, int i){
 
-		for ( FlowElement fe : sub.getFlowElements()) {
-			if(fe instanceof SubProcess){
-				SubProcess ssub = (SubProcess) fe;
-				//System.out.format("Found a SubProcess: %s\n", ssub.getName());
-				i = this.searchSubProcess(ssub, ret, i);
-			}else
-			if (fe instanceof Activity) {
-
-				Activity act = (Activity) fe;
-				//System.out.println(fe.eClass().getName() + ": name=" + fe.getName() + " ID=" + fe.getId());
-
-				if (act.getOutgoing().size() > 1
-						| act.getIncoming().size() > 1) {
-					elementsBPMN.add(fe);
-					setElements(fe.getId(),IDProcess);
-					ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
-							+ "\n");
-				}
-			}  else if (fe instanceof StartEvent) {
-				Event event = (Event) fe;
-				//System.out.println(fe.eClass().getName() + ": name=" + fe.getName() + " ID=" + fe.getId());
-
-				if (event.getOutgoing().size() > 1) {
-					elementsBPMN.add(fe);
-					setElements(fe.getId(),IDProcess);
-					ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
-							+ "\n");
-				}
-			} else if (fe instanceof EndEvent) {
-				Event event = (Event) fe;
-				//System.out.println(fe.eClass().getName() + ": name=" + fe.getName() + " ID=" + fe.getId());
-
-				if (event.getIncoming().size() > 1) {
-					elementsBPMN.add(fe);
-					setElements(fe.getId(),IDProcess);
-					ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
-							+ "\n");
-				}
-			}else if (fe instanceof CatchEvent
-					| fe instanceof ThrowEvent) {
-				Event event = (Event) fe;
-				//System.out.println(fe.eClass().getName() + ": name=" + fe.getName() + " ID=" + fe.getId());
-
-				if (event.getOutgoing().size() > 1
-						| event.getIncoming().size() > 1) {
-					elementsBPMN.add(fe);
-					setElements(fe.getId(),IDProcess);
-					ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
-							+ "\n");
-				}
-			}
-		}
+		
 		return i;
 	}
 

@@ -41,13 +41,13 @@ public class UsageMeaningfulGateways extends abstractGuideline {
 						if (fe instanceof Gateway) {
 							Gateway gateway = (Gateway) fe;
 							
-							//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
+							//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 
 							boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() == 1) );
 							if (!bool) {
 								elementsBPMN.add(fe);
 								setElements(  fe.getId(),IDProcess);
-								ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+								ret.append(i++ +") name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
 										+ "\n");
 							}
 						}
@@ -74,13 +74,13 @@ public class UsageMeaningfulGateways extends abstractGuideline {
 				if (fe instanceof Gateway) {
 					Gateway gateway = (Gateway) fe;
 					
-					//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
+					//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 
 					boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() > 1) );
 					if (!bool) {
 						elementsBPMN.add(fe);
 						setElements( fe.getId(),IDProcess);
-						ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+						ret.append(i++ +") name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
 								+ "\n");
 					}
 				}

@@ -27,6 +27,8 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.eclipse.bpmn2.Definitions;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.ConsistentUsageEndEvents;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.ConsistentUsageStartEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.ExplicitStartEndEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.SplitAndJoinFlows;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
@@ -73,6 +75,8 @@ public class GuidelinesFactory {
 		guidelines.add(new ExplicitStartEndEvents(diagram));
 		guidelines.add(new explicitGateways(diagram));
 		guidelines.add(new SplitAndJoinFlows(diagram));
+		guidelines.add(new ConsistentUsageEndEvents(diagram));
+		guidelines.add(new ConsistentUsageStartEvents(diagram));
 		threadPool = new LinkedBlockingQueue<Runnable>();
 		/*
 		setProcessID(explicitSEevent.getProcessID());*/	

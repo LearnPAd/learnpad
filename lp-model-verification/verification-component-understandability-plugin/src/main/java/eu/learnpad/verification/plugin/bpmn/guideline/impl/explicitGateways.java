@@ -49,7 +49,8 @@ public class explicitGateways extends abstractGuideline {
 								| act.getIncoming().size() > 1) {
 							elementsBPMN.add(fe);
 							setElements(fe.getId(),IDProcess);
-							ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+							ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 									+ "\n");
 						}
 						if(fe instanceof SubProcess){
@@ -67,7 +68,8 @@ public class explicitGateways extends abstractGuideline {
 						if (event.getOutgoing().size() > 1) {
 							elementsBPMN.add(fe);
 							setElements(fe.getId(),IDProcess);
-							ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+							ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 									+ "\n");
 						}
 					} else if (fe instanceof EndEvent) {
@@ -77,7 +79,8 @@ public class explicitGateways extends abstractGuideline {
 						if (event.getIncoming().size() > 1) {
 							elementsBPMN.add(fe);
 							setElements(fe.getId(),IDProcess);
-							ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+							ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 									+ "\n");
 						}
 					}else if (fe instanceof CatchEvent
@@ -89,7 +92,8 @@ public class explicitGateways extends abstractGuideline {
 								| event.getIncoming().size() > 1) {
 							elementsBPMN.add(fe);
 							setElements(fe.getId(),IDProcess);
-							ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+							ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 									+ "\n");
 						}
 					}
@@ -123,7 +127,8 @@ public class explicitGateways extends abstractGuideline {
 						| act.getIncoming().size() > 1) {
 					elementsBPMN.add(fe);
 					setElements(fe.getId(),IDProcess);
-					ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+					String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+					ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 							+ "\n");
 				}
 			}  else if (fe instanceof StartEvent) {
@@ -133,7 +138,8 @@ public class explicitGateways extends abstractGuideline {
 				if (event.getOutgoing().size() > 1) {
 					elementsBPMN.add(fe);
 					setElements(fe.getId(),IDProcess);
-					ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+					String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+					ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 							+ "\n");
 				}
 			} else if (fe instanceof EndEvent) {
@@ -143,7 +149,8 @@ public class explicitGateways extends abstractGuideline {
 				if (event.getIncoming().size() > 1) {
 					elementsBPMN.add(fe);
 					setElements(fe.getId(),IDProcess);
-					ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+					String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+					ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 							+ "\n");
 				}
 			}else if (fe instanceof CatchEvent
@@ -155,7 +162,8 @@ public class explicitGateways extends abstractGuideline {
 						| event.getIncoming().size() > 1) {
 					elementsBPMN.add(fe);
 					setElements(fe.getId(),IDProcess);
-					ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+					String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+					ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 							+ "\n");
 				}
 			}

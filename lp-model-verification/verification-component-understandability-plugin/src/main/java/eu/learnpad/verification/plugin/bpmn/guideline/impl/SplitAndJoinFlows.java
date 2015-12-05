@@ -3,12 +3,10 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl;
 
 
 import org.eclipse.bpmn2.Definitions;
-
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.Gateway;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
-
 import org.eclipse.bpmn2.SubProcess;
 
 
@@ -47,7 +45,8 @@ public class SplitAndJoinFlows extends abstractGuideline {
 							if (!bool) {
 								elementsBPMN.add(fe);
 								setElements(  fe.getId(),IDProcess);
-								ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 										+ "\n");
 							}
 						}
@@ -80,7 +79,7 @@ public class SplitAndJoinFlows extends abstractGuideline {
 					if (!bool) {
 						elementsBPMN.add(fe);
 						setElements( fe.getId(),IDProcess);
-						ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+						ret.append(i++ +") name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
 								+ "\n");
 					}
 				}
