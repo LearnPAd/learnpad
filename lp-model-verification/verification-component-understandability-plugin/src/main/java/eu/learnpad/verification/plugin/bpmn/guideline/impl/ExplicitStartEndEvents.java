@@ -15,7 +15,7 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 
 	public ExplicitStartEndEvents(Definitions diagram) {
 		super(diagram);
-		this.id = "16";
+		this.id = "12";
 		this.Description = "The modeler should explicitly make use of start and end events. The use of start and end events is necessary to represent the different states that begin and complete the modeled process. Processes with implicit start and end events are undesirable and could lead to misinterpretations.";
 		this.Name = "Explicit usage of start and end events";
 

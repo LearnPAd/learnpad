@@ -111,6 +111,13 @@ public  class abstractGuideline implements Runnable {
 		}
 		Elements.add(new ElementID(element, refprocessid));
 	}
+	
+	public void setAllElements(Collection<ElementID> Elementstemp) {
+		if(Elements==null){
+			Elements = new ArrayList<ElementID>();
+		}
+		Elements.addAll(Elementstemp);
+	}
 
 
 	public String getDescription() {
