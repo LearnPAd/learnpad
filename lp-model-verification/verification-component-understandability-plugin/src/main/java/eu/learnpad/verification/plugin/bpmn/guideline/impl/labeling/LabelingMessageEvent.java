@@ -53,12 +53,12 @@ public class LabelingMessageEvent extends abstractGuideline{
 							for (EventDefinition eventDefinition : def) {
 								if(eventDefinition instanceof MessageEventDefinition){
 									if(a.getName()==null || (a.getName().length()>0) ){
-										//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
+										//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 										num++;
 
 										elementsBPMN.add(fe);
 										setElements(fe.getId(),IDProcess);
-										temp.append("* name=" + fe.getName() + " ID=" + fe.getId()
+										temp.append("* name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
 												+ "\n");
 									}
 								}
@@ -71,12 +71,12 @@ public class LabelingMessageEvent extends abstractGuideline{
 								for (EventDefinition eventDefinition : def) {
 									if(eventDefinition instanceof MessageEventDefinition){
 										if(a.getName()==null || (a.getName().length()>0) ){
-											//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
+											//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 											num++;
 
 											elementsBPMN.add(fe);
 											setElements(fe.getId(),IDProcess);
-											temp.append("* name=" + fe.getName() + " ID=" + fe.getId()
+											temp.append("* name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
 													+ "\n");
 										}
 									}
@@ -113,12 +113,12 @@ public class LabelingMessageEvent extends abstractGuideline{
 					for (EventDefinition eventDefinition : def) {
 						if(eventDefinition instanceof MessageEventDefinition){
 							if(a.getName()==null || (a.getName().length()>0) ){
-								//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
+								//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 								num++;
 
 								elementsBPMN.add(fe);
 								setElements(fe.getId(),IDProcess);
-								temp.append("* name=" + fe.getName() + " ID=" + fe.getId()
+								temp.append("* name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
 										+ "\n");
 							}
 						}
@@ -132,12 +132,12 @@ public class LabelingMessageEvent extends abstractGuideline{
 						for (EventDefinition eventDefinition : def) {
 							if(eventDefinition instanceof MessageEventDefinition){
 								if(a.getName()==null || (a.getName().length()>0) ){
-									//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
+									//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 									num++;
 
 									elementsBPMN.add(fe);
 									setElements(fe.getId(),IDProcess);
-									temp.append("* name=" + fe.getName() + " ID=" + fe.getId()
+									temp.append("* name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
 											+ "\n");
 								}
 							}
