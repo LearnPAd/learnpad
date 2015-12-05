@@ -32,7 +32,7 @@ public class MinimizeModelSize extends abstractGuideline {
 	}
 
 	public void findGL(Definitions diagram) {
-		StringBuilder ret = new StringBuilder("");
+		
 		int i = 0;
 		for (RootElement rootElement : diagram.getRootElements()) {
 			if (rootElement instanceof Process) {

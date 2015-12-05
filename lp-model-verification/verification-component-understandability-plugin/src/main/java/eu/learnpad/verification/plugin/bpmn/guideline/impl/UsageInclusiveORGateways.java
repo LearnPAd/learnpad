@@ -1,18 +1,11 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl;
 
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.eclipse.bpmn2.Definitions;
-import org.eclipse.bpmn2.EndEvent;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.InclusiveGateway;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
-
-import eu.learnpad.verification.plugin.utils.ElementID;
 
 public class UsageInclusiveORGateways extends abstractGuideline{
 
