@@ -1,29 +1,25 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling;
 
 
-import org.eclipse.bpmn2.Activity;
-import org.eclipse.bpmn2.CatchEvent;
 import org.eclipse.bpmn2.Definitions;
-import org.eclipse.bpmn2.Event;
+import org.eclipse.bpmn2.EndEvent;
 import org.eclipse.bpmn2.FlowElement;
-import org.eclipse.bpmn2.IntermediateCatchEvent;
-import org.eclipse.bpmn2.IntermediateThrowEvent;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
+import org.eclipse.bpmn2.StartEvent;
 import org.eclipse.bpmn2.SubProcess;
-import org.eclipse.bpmn2.TimerEventDefinition;
 
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 
-public class LabelingEvents extends abstractGuideline{
+public class LabelingStartandEndEvents extends abstractGuideline{
 
 
-	public LabelingEvents(Definitions diagram) {
+	public LabelingStartandEndEvents(Definitions diagram) {
 		super(diagram);
-		this.id = "31";
-		this.Description = "All events should have a label representing the state of the process: Events of type message, signal, escalation, and error events should be labeled with a past participle using an active verb; Link events should be labeled with a noun; Timer events should be labeled with time-date or schedule; Conditional events should be labeled with the condition that triggers them.";
-		this.Name = "Labeling Events";
+		this.id = "32";
+		this.Description = "The modeler should not label start none and end none event if there is only one instance of them. The modeler shoud use labeling when multiple start and end events are used. Label them according to what they represent using a noun. Do not repeat names.";
+		this.Name = "Labeling Start and End Events";
 
 
 	}
@@ -47,8 +43,8 @@ public class LabelingEvents extends abstractGuideline{
 						//System.out.format("Found a SubProcess: %s\n", sub.getName());
 						this.searchSubProcess(sub);
 					}else
-						if (fe instanceof IntermediateCatchEvent) {
-							IntermediateCatchEvent a = (IntermediateCatchEvent) fe;
+						if (fe instanceof StartEvent) {
+							StartEvent a = (StartEvent) fe;
 							if(a.getName()==null || (a.getName().length()>0) ){
 								num++;
 
@@ -60,8 +56,8 @@ public class LabelingEvents extends abstractGuideline{
 							}
 
 						} else
-							if (fe instanceof IntermediateThrowEvent) {
-								IntermediateThrowEvent a = (IntermediateThrowEvent) fe;
+							if (fe instanceof EndEvent) {
+								EndEvent a = (EndEvent) fe;
 								if(a.getName()==null || (a.getName().length()>0) ){
 									num++;
 
@@ -78,7 +74,7 @@ public class LabelingEvents extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion = "\nUse Labeling in Events :" + temp;
+			this.Suggestion = "\nLabelling Start/End Events :" + temp;
 			this.status = false;
 		}else{
 			this.status = true;
@@ -96,9 +92,9 @@ public class LabelingEvents extends abstractGuideline{
 				//System.out.format("Found a SubProcess: %s\n", ssub.getName());
 				this.searchSubProcess(ssub);
 			}else
-				if (fe instanceof IntermediateCatchEvent) {
+				if (fe instanceof StartEvent) {
 
-					IntermediateCatchEvent a = (IntermediateCatchEvent) fe;
+					StartEvent a = (StartEvent) fe;
 					if(a.getName()==null || (a.getName().length()>0) ){
 						//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
 						num++;
@@ -110,8 +106,8 @@ public class LabelingEvents extends abstractGuideline{
 					}
 
 				} else
-					if (fe instanceof IntermediateThrowEvent) {
-						IntermediateThrowEvent a = (IntermediateThrowEvent) fe;
+					if (fe instanceof EndEvent) {
+						EndEvent a = (EndEvent) fe;
 						if(a.getName()==null || (a.getName().length()>0) ){
 							num++;
 
@@ -125,7 +121,7 @@ public class LabelingEvents extends abstractGuideline{
 					} 
 		}
 		if ( num>0) {
-			this.Suggestion += "\nUse Labeling in Events of the SubProcess "+sub.getName()+" " + temp;
+			this.Suggestion += "\nLabelling Start/End Events in SubProcess "+sub.getName()+" " + temp;
 			this.status = false;
 		}
 

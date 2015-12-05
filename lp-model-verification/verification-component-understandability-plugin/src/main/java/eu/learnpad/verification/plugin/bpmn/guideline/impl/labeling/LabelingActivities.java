@@ -59,7 +59,7 @@ public class LabelingActivities extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion = "\nUse only one End End Event :" + temp;
+			this.Suggestion = "\nLabeling Activities :" + temp;
 			this.status = false;
 		}else{
 			this.status = true;
@@ -93,7 +93,7 @@ public class LabelingActivities extends abstractGuideline{
 				}
 		}
 		if ( num>0) {
-			this.Suggestion += "\nUse only one End Event in SubProcess "+sub.getName()+" " + temp;
+			this.Suggestion += "\nLabeling Activities in SubProcess "+sub.getName()+" " + temp;
 			this.status = false;
 		}
 
