@@ -23,7 +23,7 @@ public class explicitGateways extends abstractGuideline {
 
 	public explicitGateways(Definitions diagram) {
 		super(diagram);
-		this.id = "20";
+		this.id = "16";
 		this.Description = "The modeler should not split or join flows using activities or events; the modeler should split or join sequence flows always using gateways. Moreover the modeler should not start conditional sequence flows from an activity; he should always make explicit use of gateways and start conditional sequence flows from them. This includes that an activity can have only one incoming sequence flow and only one outgoing sequence flow.";
 		this.Name = "Explicit usage of gateways";
 

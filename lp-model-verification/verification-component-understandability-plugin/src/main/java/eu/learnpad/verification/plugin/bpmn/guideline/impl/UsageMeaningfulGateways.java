@@ -12,13 +12,13 @@ import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
 
 
-public class SplitAndJoinFlows extends abstractGuideline {
+public class UsageMeaningfulGateways extends abstractGuideline {
 
-	public SplitAndJoinFlows(Definitions diagram) {
+	public UsageMeaningfulGateways(Definitions diagram) {
 		super(diagram);
-		this.id = "18";
-		this.Description = "The modeler should not use gateways to join and split at the same time.";
-		this.Name = "Split and Join Flows";
+		this.id = "20";
+		this.Description = "Since gateways are only used for linkage or merging within processes, they always need to have multiple incoming or outgoing flows. Gateways with only one incoming and one outgoing sequence flow do not provide any added value.";
+		this.Name = "Usage of Meaningful Gateways";
 
 
 	}
@@ -43,7 +43,7 @@ public class SplitAndJoinFlows extends abstractGuideline {
 							
 							//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
 
-							boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() > 1) | (gateway.getIncoming().size() > 1 & gateway.getOutgoing().size() == 1));
+							boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() == 1) );
 							if (!bool) {
 								elementsBPMN.add(fe);
 								setElements(  fe.getId(),IDProcess);
@@ -55,7 +55,7 @@ public class SplitAndJoinFlows extends abstractGuideline {
 			}
 		}
 		if (!elementsBPMN.isEmpty()) {
-			this.Suggestion = "Split following Gateway :" + ret;
+			this.Suggestion = "Remove Gateways with only one incoming/outgoing sequence flow:" + ret;
 			this.status = false;
 		}else{
 			this.status = true;
@@ -76,7 +76,7 @@ public class SplitAndJoinFlows extends abstractGuideline {
 					
 					//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
 
-					boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() > 1) | (gateway.getIncoming().size() > 1 & gateway.getOutgoing().size() == 1));
+					boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() > 1) );
 					if (!bool) {
 						elementsBPMN.add(fe);
 						setElements( fe.getId(),IDProcess);
