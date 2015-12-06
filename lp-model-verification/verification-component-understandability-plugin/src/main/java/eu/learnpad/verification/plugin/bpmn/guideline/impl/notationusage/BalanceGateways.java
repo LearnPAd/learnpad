@@ -1,4 +1,4 @@
-package eu.learnpad.verification.plugin.bpmn.guideline.impl;
+package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
 
 
@@ -13,14 +13,16 @@ import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
-public class MinimizeGatewayHeterogeneity extends abstractGuideline {
 
-	public MinimizeGatewayHeterogeneity(Definitions diagram) {
+public class BalanceGateways extends abstractGuideline {
+
+	public BalanceGateways(Definitions diagram) {
 		super(diagram);
-		this.id = "9";
-		this.Description = "The modeler should minimize the heterogeneity of gateway types. The use of several type of gateway may cause confusion against the simplicity of using few main type of gateways.";
-		this.Name = "Minimize Gateway Heterogeneity";
+		this.id = "19";
+		this.Description = "The modeler should always use the same type of gateway used both for splitting and joining the flow. For example, when a flow is divided with a parallel gateway, the resulting parallel flows should be consolidated via another parallel gateway. In particular, the modeler should ensure that join parallel gateways have the correct number of incoming sequence flow-especially when used in conjunction with other gateways; this is related to ensuring the soundness property. Don’t apply this guidelines on Event-based or Complex Gateways.";
+		this.Name = "Balance gateways";
 
 
 	}
@@ -67,9 +69,9 @@ public class MinimizeGatewayHeterogeneity extends abstractGuideline {
 		long gpg = sum>0?(npg/sum): 0;
 		long gig = sum>0?(nig/sum): 0;
 		long gcg = sum>0?(ncg/sum): 0;
-		long sum2= (geg*logOfBase(3,geg))+(gpg*logOfBase(3,gpg))+(gig*logOfBase(3,gig))+(gcg*logOfBase(3,gcg));
+		long sum2= (geg)+(gpg)+(gig)+(gcg);
 		if (sum2>0.92) {
-			this.Suggestion += "Minimize Gateway Heterogeneity " + ret;
+			this.Suggestion += "Balance gateways " + ret;
 			this.status = false;
 		}else{
 			this.status = true;
@@ -111,18 +113,16 @@ public class MinimizeGatewayHeterogeneity extends abstractGuideline {
 		long gpg = sum>0?(npg/sum): 0;
 		long gig = sum>0?(nig/sum): 0;
 		long gcg = sum>0?(ncg/sum): 0;
-		long sum2= (geg*logOfBase(3,geg))+(gpg*logOfBase(3,gpg))+(gig*logOfBase(3,gig))+(gcg*logOfBase(3,gcg));
+		long sum2= geg+gpg+gig+gcg;
 		if (sum2>0.92) {
 
-			this.Suggestion += "\nMinimize Gateway Heterogeneity SubProcess "+sub.getName()+" " + temp;
+			this.Suggestion += "\nBalance gateways in SubProcess "+sub.getName()+" " + temp;
 			this.status = false;
 		}
 
 	}
 	
-	public long logOfBase(int base, long num) {
-	    return (long) (Math.log(num) / Math.log(base));
-	}
+	
 
 
 }

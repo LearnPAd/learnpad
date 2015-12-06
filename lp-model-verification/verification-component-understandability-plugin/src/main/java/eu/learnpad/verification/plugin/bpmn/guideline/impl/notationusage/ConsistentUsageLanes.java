@@ -12,7 +12,6 @@ import org.eclipse.bpmn2.Lane;
 import org.eclipse.bpmn2.LaneSet;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
-import org.eclipse.emf.ecore.EObject;
 
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 import eu.learnpad.verification.plugin.utils.ElementID;
