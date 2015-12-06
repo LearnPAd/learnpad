@@ -24,7 +24,8 @@ public class BPMNUtils {
 	public static BPMNShape findBPMNShape(BPMNDiagram bpmnDiagram, BaseElement baseElement) {
 		for (DiagramElement de : bpmnDiagram.getPlane().getPlaneElement()) {
 			if (de instanceof BPMNShape) {
-				if (((BPMNShape)de).getBpmnElement() == baseElement)
+				BaseElement ele = ((BPMNShape)de).getBpmnElement();
+				if (ele == baseElement)
 					return (BPMNShape)de;
 			}
 		}

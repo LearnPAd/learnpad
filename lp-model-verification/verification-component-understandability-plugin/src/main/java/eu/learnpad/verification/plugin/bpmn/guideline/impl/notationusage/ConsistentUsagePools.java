@@ -7,13 +7,9 @@ import java.util.List;
 
 import org.eclipse.bpmn2.Collaboration;
 import org.eclipse.bpmn2.Definitions;
-import org.eclipse.bpmn2.EndEvent;
 import org.eclipse.bpmn2.FlowElement;
-import org.eclipse.bpmn2.LaneSet;
 import org.eclipse.bpmn2.Participant;
-import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
-import org.eclipse.bpmn2.SubProcess;
 import org.eclipse.bpmn2.di.BPMNShape;
 
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
@@ -37,7 +33,7 @@ public class ConsistentUsagePools extends abstractGuideline{
 		StringBuilder temp = new StringBuilder();
 		Collection<FlowElement> elementsBPMNtemp = new ArrayList<FlowElement>();
 		Collection<ElementID> Elementstemp = new ArrayList<ElementID>();
-		boolean flag=false;
+	
 
 		int num = 0;
 		for (RootElement rootElement : diagram.getRootElements()) {
@@ -52,6 +48,7 @@ public class ConsistentUsagePools extends abstractGuideline{
 					participant.getId();
 					IDProcess = participant.getProcessRef().getId();
 					BPMNShape shape= BPMNUtils.findBPMNShape(diagram,participant);
+					if(shape!=null)
 					if(shape.isIsExpanded()){
 						num++;
 
