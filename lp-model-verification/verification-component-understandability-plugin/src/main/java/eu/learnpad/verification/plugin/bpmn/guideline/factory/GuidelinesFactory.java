@@ -27,8 +27,11 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.eclipse.bpmn2.Definitions;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.ActivityDescription;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.ApplyHierarchicalStructure;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.MinimizeGatewayHeterogeneity;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.MinimizeModelSize;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.ModelLoops;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingANDGateways;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingActivities;
@@ -89,6 +92,9 @@ public class GuidelinesFactory {
 		//** General
 		guidelines.add(new MinimizeModelSize(diagram));
 		guidelines.add(new ApplyHierarchicalStructure(diagram));
+		guidelines.add(new ModelLoops(diagram));
+		guidelines.add(new ActivityDescription(diagram));
+		guidelines.add(new MinimizeGatewayHeterogeneity(diagram));
 		//** Notation Usage
 		guidelines.add(new ExplicitStartEndEvents(diagram));
 		guidelines.add(new ConsistentUsageStartEvents(diagram));
