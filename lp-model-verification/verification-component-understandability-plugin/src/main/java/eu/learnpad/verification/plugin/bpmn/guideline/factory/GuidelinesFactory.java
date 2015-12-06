@@ -31,6 +31,8 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.MinimizeModelSize;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingActivities;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingEvents;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingMessageEvent;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingStartandEndEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ConsistentUsageEndEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ConsistentUsageStartEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ExplicitStartEndEvents;
@@ -92,7 +94,8 @@ public class GuidelinesFactory {
 		//** Labeling 
 		guidelines.add(new LabelingActivities(diagram));
 		guidelines.add(new LabelingEvents(diagram));
-		
+		guidelines.add(new LabelingStartandEndEvents(diagram));
+		guidelines.add(new LabelingMessageEvent(diagram));
 		threadPool = new LinkedBlockingQueue<Runnable>();
 		/*
 		setProcessID(explicitSEevent.getProcessID());*/	

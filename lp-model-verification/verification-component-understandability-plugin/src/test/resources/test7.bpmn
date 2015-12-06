@@ -48,7 +48,7 @@
       <incoming>_18</incoming>
     </endEvent>
     <sequenceFlow id="_18" sourceRef="_13" targetRef="_16"/>
-    <endEvent id="_17" name="End Event">
+    <endEvent id="_17">
       <incoming>_19</incoming>
       <incoming>_21</incoming>
     </endEvent>
@@ -115,7 +115,7 @@
       <bpmndi:BPMNShape bpmnElement="_17" id="Yaoqiang-_17">
         <dc:Bounds height="32.0" width="32.0" x="831.5608465608465" y="325.35201382140156"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="18.955078125" width="58.0" x="818.5608465608465" y="365.89693569640156"/>
+          <dc:Bounds height="18.955078125" width="6.0" x="844.5608465608465" y="365.89693569640156"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="_20" id="Yaoqiang-_20">

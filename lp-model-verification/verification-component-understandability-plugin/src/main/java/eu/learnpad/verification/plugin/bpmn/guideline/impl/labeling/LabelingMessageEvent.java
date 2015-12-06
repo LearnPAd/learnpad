@@ -52,7 +52,7 @@ public class LabelingMessageEvent extends abstractGuideline{
 							List<EventDefinition> def = a.getEventDefinitions();
 							for (EventDefinition eventDefinition : def) {
 								if(eventDefinition instanceof MessageEventDefinition){
-									if(a.getName()==null || (a.getName().length()>0) ){
+									if(a.getName()==null || (a.getName().length()==0) ){
 										//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 										num++;
 
@@ -71,7 +71,7 @@ public class LabelingMessageEvent extends abstractGuideline{
 								List<EventDefinition> def = a.getEventDefinitions();
 								for (EventDefinition eventDefinition : def) {
 									if(eventDefinition instanceof MessageEventDefinition){
-										if(a.getName()==null || (a.getName().length()>0) ){
+										if(a.getName()==null || (a.getName().length()==0) ){
 											//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 											num++;
 
@@ -90,7 +90,7 @@ public class LabelingMessageEvent extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion = "\nLabelling Start/End Events :" + temp;
+			this.Suggestion = "\nLabeling Message Events:" + temp;
 			this.status = false;
 		}else{
 			this.status = true;
@@ -114,7 +114,7 @@ public class LabelingMessageEvent extends abstractGuideline{
 					List<EventDefinition> def = a.getEventDefinitions();
 					for (EventDefinition eventDefinition : def) {
 						if(eventDefinition instanceof MessageEventDefinition){
-							if(a.getName()==null || (a.getName().length()>0) ){
+							if(a.getName()==null || (a.getName().length()==0) ){
 								//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 								num++;
 
@@ -134,7 +134,7 @@ public class LabelingMessageEvent extends abstractGuideline{
 						List<EventDefinition> def = a.getEventDefinitions();
 						for (EventDefinition eventDefinition : def) {
 							if(eventDefinition instanceof MessageEventDefinition){
-								if(a.getName()==null || (a.getName().length()>0) ){
+								if(a.getName()==null || (a.getName().length()==0) ){
 									//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 									num++;
 
@@ -150,7 +150,7 @@ public class LabelingMessageEvent extends abstractGuideline{
 					} 
 		}
 		if ( num>0) {
-			this.Suggestion += "\nLabelling Start/End Events in SubProcess "+sub.getName()+" " + temp;
+			this.Suggestion += "\nLabeling Message Events in SubProcess: "+sub.getName()+" " + temp;
 			this.status = false;
 		}
 

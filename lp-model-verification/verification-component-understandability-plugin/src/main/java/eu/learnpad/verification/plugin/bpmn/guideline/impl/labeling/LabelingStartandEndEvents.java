@@ -45,7 +45,7 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 					}else
 						if (fe instanceof StartEvent) {
 							StartEvent a = (StartEvent) fe;
-							if(a.getName()==null || (a.getName().length()>0) ){
+							if(a.getName()==null || (a.getName().length()==0) ){
 								num++;
 
 								elementsBPMN.add(fe);
@@ -59,7 +59,7 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 						} else
 							if (fe instanceof EndEvent) {
 								EndEvent a = (EndEvent) fe;
-								if(a.getName()==null || (a.getName().length()>0) ){
+								if(a.getName()==null || (a.getName().length()==0) ){
 									num++;
 
 									elementsBPMN.add(fe);
@@ -75,8 +75,7 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 			}
 		}
 		if (num>0) {
-
-			this.Suggestion = "\nLabelling Start/End Events :" + temp;
+			this.Suggestion = "\nLabeling Start/End Events: " + temp;
 			this.status = false;
 		}else{
 			this.status = true;
@@ -97,7 +96,7 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 				if (fe instanceof StartEvent) {
 
 					StartEvent a = (StartEvent) fe;
-					if(a.getName()==null || (a.getName().length()>0) ){
+					if(a.getName()==null || (a.getName().length()==0) ){
 						//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 						num++;
 
@@ -111,7 +110,7 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 				} else
 					if (fe instanceof EndEvent) {
 						EndEvent a = (EndEvent) fe;
-						if(a.getName()==null || (a.getName().length()>0) ){
+						if(a.getName()==null || (a.getName().length()==0) ){
 							num++;
 
 							elementsBPMN.add(fe);
@@ -125,7 +124,7 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 					} 
 		}
 		if ( num>0) {
-			this.Suggestion += "\nLabelling Start/End Events in SubProcess "+sub.getName()+" " + temp;
+			this.Suggestion += "\nLabeling Start/End Events in SubProcess: "+sub.getName()+" " + temp;
 			this.status = false;
 		}
 
