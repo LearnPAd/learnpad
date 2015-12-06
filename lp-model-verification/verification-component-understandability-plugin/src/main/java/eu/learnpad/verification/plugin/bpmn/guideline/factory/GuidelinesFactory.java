@@ -89,11 +89,11 @@ public class GuidelinesFactory {
 		guidelines.add(new MinimizeModelSize(diagram));
 		//** Notation Usage
 		guidelines.add(new ExplicitStartEndEvents(diagram));
-		guidelines.add(new explicitGateways(diagram));
-		guidelines.add(new SplitAndJoinFlows(diagram));
-		guidelines.add(new ConsistentUsageEndEvents(diagram));
 		guidelines.add(new ConsistentUsageStartEvents(diagram));
+		guidelines.add(new ConsistentUsageEndEvents(diagram));
 		guidelines.add(new RestrictUsageTerminateEndEvent(diagram));
+		guidelines.add(new explicitGateways(diagram));
+		guidelines.add(new SplitAndJoinFlows(diagram));	
 		guidelines.add(new UsageMeaningfulGateways(diagram));
 		guidelines.add(new UsageInclusiveORGateways(diagram));
 		//** Labeling 
@@ -102,8 +102,8 @@ public class GuidelinesFactory {
 		guidelines.add(new LabelingStartandEndEvents(diagram));
 		guidelines.add(new LabelingMessageEvent(diagram));
 		guidelines.add(new LabelingXORGateway(diagram));
-		guidelines.add(new LabelingConvergingGateways(diagram));
 		guidelines.add(new LabelingANDGateways(diagram));
+		guidelines.add(new LabelingConvergingGateways(diagram));
 		guidelines.add(new LabelingDataObject(diagram));
 		guidelines.add(new LoopMarkerAnnotation(diagram));
 		//guidelines.add(new (diagram));
