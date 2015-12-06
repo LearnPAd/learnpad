@@ -56,11 +56,11 @@ public class UsageMeaningfulGateways extends abstractGuideline {
 			}
 		}
 		if (!elementsBPMN.isEmpty()) {
-			this.Suggestion = "Remove Gateways with only one incoming/outgoing sequence flow:" + ret;
+			this.Suggestion += "Remove Gateways with only one incoming/outgoing sequence flow:" + ret;
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion = "Well done!";
+			this.Suggestion += "Well done!";
 		}
 	}
 

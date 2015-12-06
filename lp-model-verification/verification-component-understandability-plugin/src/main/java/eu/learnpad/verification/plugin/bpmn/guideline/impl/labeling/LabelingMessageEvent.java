@@ -90,11 +90,11 @@ public class LabelingMessageEvent extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion = "\nLabeling Message Events:" + temp;
+			this.Suggestion += "\nLabeling Message Events:" + temp;
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion = "Well done!";
+			this.Suggestion += "Well done!";
 		}
 	}
 

@@ -70,11 +70,11 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 			}
 		}
 		if (!elementsBPMN.isEmpty() | !flag) {
-			this.Suggestion = "Add Start or/and End Event " + ret;
+			this.Suggestion += "Add Start or/and End Event " + ret;
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion = "Well done!";
+			this.Suggestion += "Well done!";
 		}
 	}
 

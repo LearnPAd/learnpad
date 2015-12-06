@@ -76,11 +76,11 @@ public class LabelingEvents extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion = "\nUse Labeling in Events :" + temp;
+			this.Suggestion += "\nUse Labeling in Events :" + temp;
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion = "Well done!";
+			this.Suggestion += "Well done!";
 		}
 	}
 

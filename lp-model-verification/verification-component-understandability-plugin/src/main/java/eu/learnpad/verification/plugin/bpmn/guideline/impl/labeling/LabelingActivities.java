@@ -60,11 +60,11 @@ public class LabelingActivities extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion = "\nLabeling Activities :" + temp;
+			this.Suggestion += "\nLabeling Activities :" + temp;
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion = "Well done!";
+			this.Suggestion += "Well done!";
 		}
 	}
 

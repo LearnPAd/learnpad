@@ -75,11 +75,11 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 			}
 		}
 		if (num>0) {
-			this.Suggestion = "\nLabeling Start/End Events: " + temp;
+			this.Suggestion += "\nLabeling Start/End Events: " + temp;
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion = "Well done!";
+			this.Suggestion += "Well done!";
 		}
 	}
 

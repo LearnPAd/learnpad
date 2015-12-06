@@ -45,11 +45,11 @@ public class MinimizeModelSize extends abstractGuideline {
 			}
 		}
 		if (i>31) {
-			this.Suggestion = "Too much elements "+i+". Please use max 31  the number of nodes: number of activities and routing elements in a process model";
+			this.Suggestion += "Too much elements "+i+". Please use max 31  the number of nodes: number of activities and routing elements in a process model";
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion = "Well done!";
+			this.Suggestion += "Well done!";
 		}
 	}
 

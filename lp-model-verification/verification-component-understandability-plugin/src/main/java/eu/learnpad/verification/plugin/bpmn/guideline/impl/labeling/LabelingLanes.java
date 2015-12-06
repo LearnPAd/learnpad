@@ -67,11 +67,11 @@ public class LabelingLanes extends abstractGuideline{
 		if (num>1) {
 			elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);
-			this.Suggestion = "\nUse only one End End Event :" + temp;
+			this.Suggestion += "\nUse only one End End Event :" + temp;
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion = "Well done!";
+			this.Suggestion += "Well done!";
 		}
 	}
 

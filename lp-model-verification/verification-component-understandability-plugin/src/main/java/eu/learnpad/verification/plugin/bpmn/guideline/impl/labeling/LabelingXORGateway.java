@@ -63,11 +63,11 @@ public class LabelingXORGateway extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion = "\nLabeling XOR Gateways: " + temp;
+			this.Suggestion += "\nLabeling XOR Gateways: " + temp;
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion = "Well done!";
+			this.Suggestion += "Well done!";
 		}
 	}
 

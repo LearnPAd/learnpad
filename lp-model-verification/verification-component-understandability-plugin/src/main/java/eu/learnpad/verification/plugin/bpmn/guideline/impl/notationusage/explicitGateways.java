@@ -101,11 +101,11 @@ public class explicitGateways extends abstractGuideline {
 			}
 		}
 		if (!elementsBPMN.isEmpty()) {
-			this.Suggestion = "Add Gateway before or/and after of the elements: " + ret;
+			this.Suggestion += "Add Gateway before or/and after of the elements: " + ret;
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion = "Well done!";
+			this.Suggestion += "Well done!";
 		}
 	}
 

@@ -76,11 +76,11 @@ public class RestrictUsageTerminateEndEvent extends abstractGuideline {
 		if (num>0) {
 			/*elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);*/
-			this.Suggestion = "\nDon't use Terminate End Event :" + temp;
+			this.Suggestion += "\nDon't use Terminate End Event :" + temp;
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion = "Well done!";
+			this.Suggestion += "Well done!";
 		}
 	}
 
