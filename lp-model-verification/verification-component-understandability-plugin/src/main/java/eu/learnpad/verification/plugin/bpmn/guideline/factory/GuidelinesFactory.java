@@ -29,7 +29,10 @@ import org.eclipse.bpmn2.Definitions;
 
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.MinimizeModelSize;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingANDGateways;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingActivities;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingConvergingGateways;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingDataObject;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingMessageEvent;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingStartandEndEvents;
@@ -98,6 +101,11 @@ public class GuidelinesFactory {
 		guidelines.add(new LabelingStartandEndEvents(diagram));
 		guidelines.add(new LabelingMessageEvent(diagram));
 		guidelines.add(new LabelingXORGateway(diagram));
+		guidelines.add(new LabelingConvergingGateways(diagram));
+		guidelines.add(new LabelingANDGateways(diagram));
+		guidelines.add(new LabelingDataObject(diagram));
+		//guidelines.add(new (diagram));
+		//guidelines.add(new (diagram));
 		//guidelines.add(new (diagram));
 		threadPool = new LinkedBlockingQueue<Runnable>();
 		/*
