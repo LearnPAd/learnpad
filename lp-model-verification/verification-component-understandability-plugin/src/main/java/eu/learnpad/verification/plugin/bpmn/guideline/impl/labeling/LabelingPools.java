@@ -62,7 +62,7 @@ public class LabelingPools extends abstractGuideline{
 				}
 			}
 		}
-		if (num>1) {
+		if (num>0) {
 			elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);
 			this.Suggestion += "\nLabeling Pools:";
