@@ -23,7 +23,7 @@ public class GuidelinesFactoryTest {
 
 	@Test
 	public void testGuidelinesFactoryListOfRootElement() {
-		genarateTestforFile("24485.bpmn","16");
+		/**/genarateTestforFile("24485.bpmn","16");
 		genarateTestforFile("ExplicitStartEndEvents.bpmn","12");
 		genarateTestforFile("annidategateway.bpmn","16");
 		genarateTestforFile("SplitAndJoinFlows.bpmn","18");
@@ -34,7 +34,12 @@ public class GuidelinesFactoryTest {
 		genarateTestforFile("test7.bpmn","13");
 		genarateTestforFile("test8.bpmn","15");
 		genarateTestforFile("MeaningfulGateways.bpmn","20");
-		genarateTestforFile("testorg.bpmn","21");/**/
+		genarateTestforFile("testorg.bpmn","21");
+		genarateTestforFile("test7.bpmn","30");
+		genarateTestforFile("test7.bpmn","31");
+		genarateTestforFile("test7.bpmn","33");
+		genarateTestforFile("test7.bpmn","32");
+		genarateTestforFile("test7.bpmn","34");
 
 	}
 
@@ -90,7 +95,7 @@ public class GuidelinesFactoryTest {
 
 	@Test
 	public void testGuidelinesFactoryListOfRootElementGood() {
-		genarateTestforFileOk("TitoloUnico_MontiAzzurrSUB.bpmn","2");
+		genarateTestforFileOk2("TitoloUnico_MontiAzzurrSUB.bpmn","2");
 		genarateTestforFileOk2("test7.bpmn","2");
 	}
 	private void genarateTestforFileOk(String NameFile,String id){
