@@ -2,6 +2,8 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
 
 
+import java.util.List;
+
 import org.eclipse.bpmn2.ComplexGateway;
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.ExclusiveGateway;
@@ -11,6 +13,7 @@ import org.eclipse.bpmn2.InclusiveGateway;
 import org.eclipse.bpmn2.ParallelGateway;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
+import org.eclipse.bpmn2.SequenceFlow;
 import org.eclipse.bpmn2.SubProcess;
 
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
@@ -34,6 +37,10 @@ public class BalanceGateways extends abstractGuideline {
 		int npg=0;
 		int nig=0;
 		int ncg=0;
+		int negc=0;
+		int npgc=0;
+		int nigc=0;
+		int ncgc=0;
 		for (RootElement rootElement : diagram.getRootElements()) {
 			if (rootElement instanceof Process) {
 				Process process = (Process) rootElement;
@@ -48,29 +55,45 @@ public class BalanceGateways extends abstractGuideline {
 					}else
 						if (fe instanceof Gateway) {
 							Gateway gateway = (Gateway) fe;
-							if(gateway instanceof ExclusiveGateway){
-								neg++;
-							}else
-								if(gateway instanceof ParallelGateway){
-									npg++;
+							List<SequenceFlow> listout = gateway.getOutgoing();
+							List<SequenceFlow> listin = gateway.getIncoming();
+							boolean diverging = listout.size()>listin.size();
+							if(diverging){
+								if(gateway instanceof ExclusiveGateway){
+
+									neg+=listout.size();
 								}else
-									if(gateway instanceof InclusiveGateway){
-										nig++;
+									if(gateway instanceof ParallelGateway){
+										npg+=listout.size();
 									}else
-										if(gateway instanceof ComplexGateway){
-											ncg++;
-										}
+										if(gateway instanceof InclusiveGateway){
+											nig+=listout.size();
+										}else
+											if(gateway instanceof ComplexGateway){
+												ncg+=listout.size();
+											}
+							}else{
+								if(gateway instanceof ExclusiveGateway){
+
+									negc+=listin.size();
+								}else
+									if(gateway instanceof ParallelGateway){
+										npgc+=listin.size();
+									}else
+										if(gateway instanceof InclusiveGateway){
+											nigc+=listin.size();
+										}else
+											if(gateway instanceof ComplexGateway){
+												ncgc+=listin.size();
+											}
+							}
+							
 						}
 				}
 			}
 		}
-		int sum = neg+npg+nig+ncg;
-		long geg = sum>0? (neg/sum) : 0;
-		long gpg = sum>0?(npg/sum): 0;
-		long gig = sum>0?(nig/sum): 0;
-		long gcg = sum>0?(ncg/sum): 0;
-		long sum2= (geg)+(gpg)+(gig)+(gcg);
-		if (sum2>0.92) {
+		int sum = Math.abs(neg-negc)+Math.abs(npg-npgc)+Math.abs(nig-nigc)+Math.abs(ncg-ncgc);
+		if (sum>=15) {
 			this.Suggestion += "Balance gateways " + ret;
 			this.status = false;
 		}else{
@@ -81,7 +104,7 @@ public class BalanceGateways extends abstractGuideline {
 
 	protected void searchSubProcess(SubProcess sub){
 		StringBuilder temp = new StringBuilder();
-		
+
 		int neg=0;
 		int npg=0;
 		int nig=0;
@@ -121,8 +144,8 @@ public class BalanceGateways extends abstractGuideline {
 		}
 
 	}
-	
-	
+
+
 
 
 }
