@@ -38,7 +38,9 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingActi
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingConvergingGateways;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingDataObject;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingEvents;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingLanes;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingMessageEvent;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingPools;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingStartandEndEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingXORGateway;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LoopMarkerAnnotation;
@@ -113,6 +115,8 @@ public class GuidelinesFactory {
 		guidelines.add(new UsageMeaningfulGateways(diagram));
 		guidelines.add(new UsageInclusiveORGateways(diagram));
 		//** Labeling 
+		guidelines.add(new LabelingPools(diagram));
+		guidelines.add(new LabelingLanes(diagram));
 		guidelines.add(new LabelingActivities(diagram));
 		guidelines.add(new LabelingEvents(diagram));
 		guidelines.add(new LabelingStartandEndEvents(diagram));

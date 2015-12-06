@@ -43,6 +43,7 @@ public class LabelingLanes extends abstractGuideline{
 				List<LaneSet> lanes = process.getLaneSets();
 				for (LaneSet laneSet : lanes) {
 					if(laneSet.getName()==null){
+						num++;
 						//elementsBPMNtemp.add(laneSet);
 						String name = laneSet.getName()!=null? laneSet.getName() : "Unlabeled"; 
 						Elementstemp.add(new ElementID(laneSet.getId(),IDProcess,name));
@@ -54,7 +55,7 @@ public class LabelingLanes extends abstractGuideline{
 				
 			}
 		}
-		if (num>1) {
+		if (num>0) {
 			elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);
 			this.Suggestion += "\nLabeling Lanes:";
