@@ -1,24 +1,24 @@
-package eu.learnpad.verification.plugin.bpmn.guideline.impl;
+package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
 
 
 import org.eclipse.bpmn2.Definitions;
-
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.Gateway;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
-
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
-public class UsageMeaningfulGateways extends abstractGuideline {
 
-	public UsageMeaningfulGateways(Definitions diagram) {
+public class SplitAndJoinFlows extends abstractGuideline {
+
+	public SplitAndJoinFlows(Definitions diagram) {
 		super(diagram);
-		this.id = "20";
-		this.Description = "Since gateways are only used for linkage or merging within processes, they always need to have multiple incoming or outgoing flows. Gateways with only one incoming and one outgoing sequence flow do not provide any added value.";
-		this.Name = "Usage of Meaningful Gateways";
+		this.id = "18";
+		this.Description = "The modeler should not use gateways to join and split at the same time.";
+		this.Name = "Split and Join Flows";
 
 
 	}
@@ -41,14 +41,14 @@ public class UsageMeaningfulGateways extends abstractGuideline {
 						if (fe instanceof Gateway) {
 							Gateway gateway = (Gateway) fe;
 							
-							//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
+							//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
 
-							boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() == 1) );
-							if (bool) {
+							boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() > 1) | (gateway.getIncoming().size() > 1 & gateway.getOutgoing().size() == 1));
+							if (!bool) {
 								elementsBPMN.add(fe);
 								setElements(  fe.getId(),IDProcess);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled";
-								ret.append(i++ +") name=" + name+ " ID=" + fe.getId()
+								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 										+ "\n");
 							}
 						}
@@ -56,7 +56,7 @@ public class UsageMeaningfulGateways extends abstractGuideline {
 			}
 		}
 		if (!elementsBPMN.isEmpty()) {
-			this.Suggestion = "Remove Gateways with only one incoming/outgoing sequence flow:" + ret;
+			this.Suggestion = "Split following Gateway :" + ret;
 			this.status = false;
 		}else{
 			this.status = true;
@@ -75,10 +75,10 @@ public class UsageMeaningfulGateways extends abstractGuideline {
 				if (fe instanceof Gateway) {
 					Gateway gateway = (Gateway) fe;
 					
-					//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
+					//System.out.println(fe.eClass().getName() + ": name="+ fe.getName() + " ID=" + fe.getId());
 
-					boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() == 1) );
-					if (bool) {
+					boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() > 1) | (gateway.getIncoming().size() > 1 & gateway.getOutgoing().size() == 1));
+					if (!bool) {
 						elementsBPMN.add(fe);
 						setElements( fe.getId(),IDProcess);
 						String name = fe.getName()!=null? fe.getName() : "Unlabeled";

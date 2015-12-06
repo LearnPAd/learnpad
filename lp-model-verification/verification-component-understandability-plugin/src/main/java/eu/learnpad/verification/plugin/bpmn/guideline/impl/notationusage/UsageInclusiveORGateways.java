@@ -1,4 +1,4 @@
-package eu.learnpad.verification.plugin.bpmn.guideline.impl;
+package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
@@ -6,6 +6,8 @@ import org.eclipse.bpmn2.InclusiveGateway;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
+
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 public class UsageInclusiveORGateways extends abstractGuideline{
 

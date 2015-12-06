@@ -1,4 +1,4 @@
-package eu.learnpad.verification.plugin.bpmn.guideline.impl;
+package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
 
 import org.eclipse.bpmn2.Activity;
@@ -13,13 +13,12 @@ import org.eclipse.bpmn2.StartEvent;
 import org.eclipse.bpmn2.SubProcess;
 import org.eclipse.bpmn2.ThrowEvent;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
+
 
 public class explicitGateways extends abstractGuideline {
 
-	explicitGateways() {
-
-	}
-
+	
 
 	public explicitGateways(Definitions diagram) {
 		super(diagram);

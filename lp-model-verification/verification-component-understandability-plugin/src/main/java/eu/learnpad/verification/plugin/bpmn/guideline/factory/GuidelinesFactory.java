@@ -27,16 +27,16 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.eclipse.bpmn2.Definitions;
 
-import eu.learnpad.verification.plugin.bpmn.guideline.impl.ConsistentUsageEndEvents;
-import eu.learnpad.verification.plugin.bpmn.guideline.impl.ConsistentUsageStartEvents;
-import eu.learnpad.verification.plugin.bpmn.guideline.impl.ExplicitStartEndEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.MinimizeModelSize;
-import eu.learnpad.verification.plugin.bpmn.guideline.impl.RestrictUsageTerminateEndEvent;
-import eu.learnpad.verification.plugin.bpmn.guideline.impl.SplitAndJoinFlows;
-import eu.learnpad.verification.plugin.bpmn.guideline.impl.UsageInclusiveORGateways;
-import eu.learnpad.verification.plugin.bpmn.guideline.impl.UsageMeaningfulGateways;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
-import eu.learnpad.verification.plugin.bpmn.guideline.impl.explicitGateways;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ConsistentUsageEndEvents;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ConsistentUsageStartEvents;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ExplicitStartEndEvents;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.RestrictUsageTerminateEndEvent;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.SplitAndJoinFlows;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.UsageInclusiveORGateways;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.UsageMeaningfulGateways;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.explicitGateways;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {

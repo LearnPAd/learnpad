@@ -1,4 +1,4 @@
-package eu.learnpad.verification.plugin.bpmn.guideline.impl;
+package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
 
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 import eu.learnpad.verification.plugin.utils.ElementID;
 
 public class ConsistentUsageEndEvents extends abstractGuideline{

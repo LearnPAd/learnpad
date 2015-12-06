@@ -1,4 +1,4 @@
-package eu.learnpad.verification.plugin.bpmn.guideline.impl;
+package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
 
 
@@ -12,6 +12,8 @@ import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
 import org.eclipse.bpmn2.TerminateEventDefinition;
+
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 
 
