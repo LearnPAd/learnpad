@@ -37,6 +37,7 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingEven
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingMessageEvent;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingStartandEndEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingXORGateway;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LoopMarkerAnnotation;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ConsistentUsageEndEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ConsistentUsageStartEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ExplicitStartEndEvents;
@@ -104,7 +105,7 @@ public class GuidelinesFactory {
 		guidelines.add(new LabelingConvergingGateways(diagram));
 		guidelines.add(new LabelingANDGateways(diagram));
 		guidelines.add(new LabelingDataObject(diagram));
-		//guidelines.add(new (diagram));
+		guidelines.add(new LoopMarkerAnnotation(diagram));
 		//guidelines.add(new (diagram));
 		//guidelines.add(new (diagram));
 		threadPool = new LinkedBlockingQueue<Runnable>();
