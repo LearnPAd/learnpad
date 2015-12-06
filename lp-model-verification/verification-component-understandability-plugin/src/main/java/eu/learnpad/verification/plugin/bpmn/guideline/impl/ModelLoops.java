@@ -8,7 +8,6 @@ import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.FlowNode;
 import org.eclipse.bpmn2.Gateway;
-import org.eclipse.bpmn2.GatewayDirection;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SequenceFlow;
@@ -30,7 +29,6 @@ public class ModelLoops extends abstractGuideline {
 
 	public void findGL(Definitions diagram) {
 		StringBuilder ret = new StringBuilder("");
-		int i = 0;
 		boolean flag=false;
 		for (RootElement rootElement : diagram.getRootElements()) {
 			if (rootElement instanceof Process) {
@@ -71,7 +69,6 @@ public class ModelLoops extends abstractGuideline {
 								}*/
 								
 							}
-							i++;
 						}  
 
 

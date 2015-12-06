@@ -4,7 +4,6 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling;
 import org.eclipse.bpmn2.Activity;
 import org.eclipse.bpmn2.Artifact;
 import org.eclipse.bpmn2.Association;
-import org.eclipse.bpmn2.BaseElement;
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.LoopCharacteristics;
