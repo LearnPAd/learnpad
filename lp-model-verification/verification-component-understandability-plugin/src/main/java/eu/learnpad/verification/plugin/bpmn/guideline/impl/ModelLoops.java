@@ -78,7 +78,7 @@ public class ModelLoops extends abstractGuideline {
 			}
 		}
 		if (flag) {
-			this.Suggestion += "Model loops via activity looping: " + ret;
+			this.Suggestion += "Model loops via activity looping: ";
 			this.status = false;
 		}else{
 			this.status = true;

@@ -75,7 +75,7 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 			}
 		}
 		if (num>0) {
-			this.Suggestion += "\nLabeling Start/End Events: " + temp;
+			this.Suggestion += "\nLabeling Start/End Events: ";
 			this.status = false;
 		}else{
 			this.status = true;
@@ -124,7 +124,7 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 					} 
 		}
 		if ( num>0) {
-			this.Suggestion += "\nLabeling Start/End Events in SubProcess: "+sub.getName()+" " + temp;
+			this.Suggestion += "\nLabeling Start/End Events in SubProcess: "+sub.getName()+" ";
 			this.status = false;
 		}
 

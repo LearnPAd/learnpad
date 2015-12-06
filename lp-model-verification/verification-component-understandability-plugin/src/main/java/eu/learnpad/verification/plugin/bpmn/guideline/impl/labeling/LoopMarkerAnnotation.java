@@ -86,7 +86,7 @@ public class LoopMarkerAnnotation extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nLabeling Marker Annotations :" + temp;
+			this.Suggestion += "\nLabeling Marker Annotations :";
 			this.status = false;
 		}else{
 			this.status = true;
@@ -121,7 +121,7 @@ public class LoopMarkerAnnotation extends abstractGuideline{
 				}
 		}
 		if ( num>0) {
-			this.Suggestion += "\nLabeling Marker Annotations in SubProcess "+sub.getName()+" " + temp;
+			this.Suggestion += "\nLabeling Marker Annotations in SubProcess "+sub.getName()+" ";
 			this.status = false;
 		}
 

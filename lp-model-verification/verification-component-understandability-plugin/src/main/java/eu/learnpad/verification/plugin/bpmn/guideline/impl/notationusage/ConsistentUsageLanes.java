@@ -64,7 +64,7 @@ public class ConsistentUsageLanes extends abstractGuideline{
 		if (num>0) {
 			elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);
-			this.Suggestion += "\nLabeling Lanes:" + temp;
+			this.Suggestion += "\nLabeling Lanes:";
 			this.status = false;
 		}else{
 			this.status = true;

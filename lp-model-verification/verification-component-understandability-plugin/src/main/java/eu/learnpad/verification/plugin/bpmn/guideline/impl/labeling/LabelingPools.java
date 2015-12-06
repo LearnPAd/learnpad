@@ -65,7 +65,7 @@ public class LabelingPools extends abstractGuideline{
 		if (num>1) {
 			elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);
-			this.Suggestion += "\nLabeling Pools:" + temp;
+			this.Suggestion += "\nLabeling Pools:";
 			this.status = false;
 		}else{
 			this.status = true;

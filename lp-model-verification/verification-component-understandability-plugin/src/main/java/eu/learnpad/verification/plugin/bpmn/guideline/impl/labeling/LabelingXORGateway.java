@@ -63,7 +63,7 @@ public class LabelingXORGateway extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nLabeling XOR Gateways: " + temp;
+			this.Suggestion += "\nLabeling XOR Gateways: ";
 			this.status = false;
 		}else{
 			this.status = true;
@@ -99,7 +99,7 @@ public class LabelingXORGateway extends abstractGuideline{
 				}  
 		}
 		if ( num>0) {
-			this.Suggestion += "\nLabeling XOR Gateways in SubProcess: "+sub.getName()+" " + temp;
+			this.Suggestion += "\nLabeling XOR Gateways in SubProcess: "+sub.getName()+" ";
 			this.status = false;
 		}
 

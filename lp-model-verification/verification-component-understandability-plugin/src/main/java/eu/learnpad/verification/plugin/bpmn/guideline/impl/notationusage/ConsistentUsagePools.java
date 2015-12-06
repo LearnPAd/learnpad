@@ -69,7 +69,7 @@ public class ConsistentUsagePools extends abstractGuideline{
 		if (num>1) {
 			elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);
-			this.Suggestion += "\nOpen only one pools: " + temp;
+			this.Suggestion += "\nOpen only one pools: ";
 			this.status = false;
 		}else{
 			this.status = true;

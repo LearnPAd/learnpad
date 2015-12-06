@@ -76,7 +76,7 @@ public class LabelingEvents extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nUse Labeling in Events :" + temp;
+			this.Suggestion += "\nUse Labeling in Events :";
 			this.status = false;
 		}else{
 			this.status = true;
@@ -125,7 +125,7 @@ public class LabelingEvents extends abstractGuideline{
 					} 
 		}
 		if ( num>0) {
-			this.Suggestion += "\nUse Labeling in Events of the SubProcess "+sub.getName()+" " + temp;
+			this.Suggestion += "\nUse Labeling in Events of the SubProcess "+sub.getName()+" ";
 			this.status = false;
 		}
 

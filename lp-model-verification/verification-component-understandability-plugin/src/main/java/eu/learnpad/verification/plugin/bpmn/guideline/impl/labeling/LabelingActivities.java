@@ -60,7 +60,7 @@ public class LabelingActivities extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nLabeling Activities :" + temp;
+			this.Suggestion += "\nLabeling Activities :";
 			this.status = false;
 		}else{
 			this.status = true;
@@ -95,7 +95,7 @@ public class LabelingActivities extends abstractGuideline{
 				}
 		}
 		if ( num>0) {
-			this.Suggestion += "\nLabeling Activities in SubProcess "+sub.getName()+" " + temp;
+			this.Suggestion += "\nLabeling Activities in SubProcess "+sub.getName();
 			this.status = false;
 		}
 

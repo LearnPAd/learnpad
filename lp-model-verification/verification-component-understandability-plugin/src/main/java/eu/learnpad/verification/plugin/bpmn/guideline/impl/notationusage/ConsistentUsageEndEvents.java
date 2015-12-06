@@ -73,7 +73,7 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 		if (flag) {
 			elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);
-			this.Suggestion += "\nUse only one End Events :" + temp;
+			this.Suggestion += "\nUse only one End Events :";
 			this.status = false;
 		}else{
 			this.status = true;
@@ -111,7 +111,7 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 		if ( num>1) {
 			elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);
-			this.Suggestion += "\nUse only one End Event in SubProcess "+sub.getName()+" " + temp;
+			this.Suggestion += "\nUse only one End Event in SubProcess "+sub.getName()+" ";
 			this.status = false;
 		}
 		

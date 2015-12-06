@@ -70,7 +70,7 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 			}
 		}
 		if (!elementsBPMN.isEmpty() | !flag) {
-			this.Suggestion += "Add Start or/and End Event " + ret;
+			this.Suggestion += "Add Start or/and End Event ";
 			this.status = false;
 		}else{
 			this.status = true;
@@ -113,7 +113,7 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 			}
 		}
 		if ( !flag) {
-			this.Suggestion += "\nAdd Start or/and End Event in SubProcess "+sub.getName()+" " + ret;
+			this.Suggestion += "\nAdd Start or/and End Event in SubProcess "+sub.getName()+" ";
 			this.status = false;
 		}
 		return i;

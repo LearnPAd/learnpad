@@ -56,7 +56,7 @@ public class SplitAndJoinFlows extends abstractGuideline {
 			}
 		}
 		if (!elementsBPMN.isEmpty()) {
-			this.Suggestion += "Split following Gateway :" + ret;
+			this.Suggestion += "Split following Gateway :";
 			this.status = false;
 		}else{
 			this.status = true;

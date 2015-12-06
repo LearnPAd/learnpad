@@ -53,7 +53,7 @@ public class ApplyHierarchicalStructure extends abstractGuideline {
 			}
 		}
 		if (i>10 & subele<=2) {
-			this.Suggestion += "Apply hierarchical structure with SubProcesses: " + ret;
+			this.Suggestion += "Apply hierarchical structure with SubProcesses: ";
 			this.status = false;
 		}else{
 			this.status = true;

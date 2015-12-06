@@ -61,7 +61,7 @@ public class LabelingANDGateways extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nNot Labeling AND Gateways: " + temp;
+			this.Suggestion += "\nNot Labeling AND Gateways: ";
 			this.status = false;
 		}else{
 			this.status = true;
@@ -95,7 +95,7 @@ public class LabelingANDGateways extends abstractGuideline{
 				}  
 		}
 		if ( num>0) {
-			this.Suggestion += "\nNot Labeling AND Gateways in SubProcess: "+sub.getName()+" " + temp;
+			this.Suggestion += "\nNot Labeling AND Gateways in SubProcess: "+sub.getName()+" ";
 			this.status = false;
 		}
 

@@ -61,7 +61,7 @@ public class LabelingDataObject extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nLabeling Data Objects: " + temp;
+			this.Suggestion += "\nLabeling Data Objects: ";
 			this.status = false;
 		}else{
 			this.status = true;
@@ -93,7 +93,7 @@ public class LabelingDataObject extends abstractGuideline{
 				}  
 		}
 		if ( num>0) {
-			this.Suggestion += "\nLabeling Data Objects in SubProcess: "+sub.getName()+" " + temp;
+			this.Suggestion += "\nLabeling Data Objects in SubProcess: "+sub.getName()+" ";
 			this.status = false;
 		}
 

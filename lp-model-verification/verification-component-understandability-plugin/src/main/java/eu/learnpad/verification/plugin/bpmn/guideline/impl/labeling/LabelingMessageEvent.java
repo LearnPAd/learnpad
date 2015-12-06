@@ -90,7 +90,7 @@ public class LabelingMessageEvent extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nLabeling Message Events:" + temp;
+			this.Suggestion += "\nLabeling Message Events:";
 			this.status = false;
 		}else{
 			this.status = true;
@@ -150,7 +150,7 @@ public class LabelingMessageEvent extends abstractGuideline{
 					} 
 		}
 		if ( num>0) {
-			this.Suggestion += "\nLabeling Message Events in SubProcess: "+sub.getName()+" " + temp;
+			this.Suggestion += "\nLabeling Message Events in SubProcess: "+sub.getName()+" ";
 			this.status = false;
 		}
 

@@ -62,7 +62,7 @@ public class UsageInclusiveORGateways extends abstractGuideline{
 		if (num>0) {
 			/*elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);*/
-			this.Suggestion += "\nDon't use Inclusive Gateway: " + temp;
+			this.Suggestion += "\nDon't use Inclusive Gateway: ";
 			this.status = false;
 		}else{
 			this.status = true;
@@ -102,7 +102,7 @@ public class UsageInclusiveORGateways extends abstractGuideline{
 		if ( num>0) {
 			/*elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);*/
-			this.Suggestion += "\nDon't use Inclusive Gateway in SubProcess "+sub.getName()+" " + temp;
+			this.Suggestion += "\nDon't use Inclusive Gateway in SubProcess "+sub.getName()+" ";
 			this.status = false;
 		}
 		

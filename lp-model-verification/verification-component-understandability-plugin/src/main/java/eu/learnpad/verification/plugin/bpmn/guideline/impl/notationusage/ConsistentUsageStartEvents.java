@@ -74,7 +74,7 @@ public class ConsistentUsageStartEvents extends abstractGuideline{
 		if (flag) {
 			elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);
-			this.Suggestion += "\nUse only one Start End Event :" + temp;
+			this.Suggestion += "\nUse only one Start End Event :";
 			this.status = false;
 		}else{
 			this.status = true;
@@ -111,7 +111,7 @@ public class ConsistentUsageStartEvents extends abstractGuideline{
 		if (num>1) {
 			elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);
-			this.Suggestion += "\nUse only one Start Event in SubProcess "+sub.getName()+" " + temp;
+			this.Suggestion += "\nUse only one Start Event in SubProcess "+sub.getName()+" ";
 			this.status = false;
 		}
 		

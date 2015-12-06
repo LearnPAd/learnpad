@@ -65,7 +65,7 @@ public class ActivityDescription extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nPlease add Activity Description in element :" + temp;
+			this.Suggestion += "\nPlease add Activity Description in element:";
 			this.status = false;
 		}else{
 			this.status = true;
@@ -74,7 +74,7 @@ public class ActivityDescription extends abstractGuideline{
 	}
 
 	protected void searchSubProcess(SubProcess sub){
-		StringBuilder temp = new StringBuilder();
+		
 
 		int num = 0;
 		for ( FlowElement fe : sub.getFlowElements()) {
@@ -94,14 +94,13 @@ public class ActivityDescription extends abstractGuideline{
 						elementsBPMN.add(fe);
 						String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
 						setElements(fe.getId(),IDProcess,name); 
-						temp.append("* name=" + name + " ID=" + fe.getId()
-								+ "\n");
+						
 					}
 
 				}
 		}
 		if ( num>0) {
-			this.Suggestion += "\nPlease add Activity Description in SubProcess "+sub.getName()+" Elements: " + temp;
+			this.Suggestion += "\nPlease add Activity Description in SubProcess "+sub.getName();
 			this.status = false;
 		}
 

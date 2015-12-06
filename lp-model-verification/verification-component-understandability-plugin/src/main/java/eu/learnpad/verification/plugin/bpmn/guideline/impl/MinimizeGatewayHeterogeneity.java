@@ -69,7 +69,7 @@ public class MinimizeGatewayHeterogeneity extends abstractGuideline {
 		long gcg = sum>0?(ncg/sum): 0;
 		long sum2= (geg*logOfBase(3,geg))+(gpg*logOfBase(3,gpg))+(gig*logOfBase(3,gig))+(gcg*logOfBase(3,gcg));
 		if (sum2>0.92) {
-			this.Suggestion += "Minimize Gateway Heterogeneity " + ret;
+			this.Suggestion += "Minimize Gateway Heterogeneity ";
 			this.status = false;
 		}else{
 			this.status = true;
@@ -114,7 +114,7 @@ public class MinimizeGatewayHeterogeneity extends abstractGuideline {
 		long sum2= (geg*logOfBase(3,geg))+(gpg*logOfBase(3,gpg))+(gig*logOfBase(3,gig))+(gcg*logOfBase(3,gcg));
 		if (sum2>0.92) {
 
-			this.Suggestion += "\nMinimize Gateway Heterogeneity SubProcess "+sub.getName()+" " + temp;
+			this.Suggestion += "\nMinimize Gateway Heterogeneity SubProcess "+sub.getName();
 			this.status = false;
 		}
 

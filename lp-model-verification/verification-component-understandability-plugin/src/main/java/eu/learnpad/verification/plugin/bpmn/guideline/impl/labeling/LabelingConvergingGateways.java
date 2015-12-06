@@ -63,7 +63,7 @@ public class LabelingConvergingGateways extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nNot Labeling Converging Gateways: " + temp;
+			this.Suggestion += "\nNot Labeling Converging Gateways: ";
 			this.status = false;
 		}else{
 			this.status = true;
@@ -99,7 +99,7 @@ public class LabelingConvergingGateways extends abstractGuideline{
 				}  
 		}
 		if ( num>0) {
-			this.Suggestion += "\nNot Labeling Converging Gateways in SubProcess: "+sub.getName()+" " + temp;
+			this.Suggestion += "\nNot Labeling Converging Gateways in SubProcess: "+sub.getName()+" ";
 			this.status = false;
 		}
 
