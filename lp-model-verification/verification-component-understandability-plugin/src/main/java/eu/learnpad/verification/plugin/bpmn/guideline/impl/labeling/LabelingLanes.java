@@ -56,7 +56,8 @@ public class LabelingLanes extends abstractGuideline{
 								
 								elementsBPMNtemp.add(fe);
 								Elementstemp.add(new ElementID(fe.getId(),IDProcess));
-								temp.append("* name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
+								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								temp.append("* name=" + name + " ID=" + fe.getId()
 										+ "\n");
 							
 						} 
@@ -93,7 +94,8 @@ public class LabelingLanes extends abstractGuideline{
 				
 					elementsBPMNtemp.add(fe);
 					Elementstemp.add(new ElementID(fe.getId(),IDProcess));
-					temp.append("* name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
+					String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+					temp.append("* name=" + name + " ID=" + fe.getId()
 							+ "\n");
 				
 			

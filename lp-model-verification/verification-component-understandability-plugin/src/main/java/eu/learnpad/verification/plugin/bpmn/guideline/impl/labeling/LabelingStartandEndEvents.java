@@ -50,7 +50,8 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 
 								elementsBPMN.add(fe);
 								setElements(fe.getId(),IDProcess);
-								temp.append("* name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
+								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								temp.append("* name=" + name + " ID=" + fe.getId()
 										+ "\n");
 
 							}
@@ -63,7 +64,8 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 
 									elementsBPMN.add(fe);
 									setElements(fe.getId(),IDProcess);
-									temp.append("* name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
+									String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+									temp.append("* name=" + name + " ID=" + fe.getId()
 											+ "\n");
 
 								}
@@ -101,7 +103,8 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 
 						elementsBPMN.add(fe);
 						setElements(fe.getId(),IDProcess);
-						temp.append("* name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
+						String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+						temp.append("* name=" + name + " ID=" + fe.getId()
 								+ "\n");
 					}
 
@@ -113,7 +116,8 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 
 							elementsBPMN.add(fe);
 							setElements(fe.getId(),IDProcess);
-							temp.append("* name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
+							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+							temp.append("* name=" + name + " ID=" + fe.getId()
 									+ "\n");
 
 						}
