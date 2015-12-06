@@ -43,6 +43,7 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingStar
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingXORGateway;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LoopMarkerAnnotation;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ConsistentUsageEndEvents;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ConsistentUsagePools;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ConsistentUsageStartEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ExplicitStartEndEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.RestrictUsageTerminateEndEvent;
@@ -96,6 +97,7 @@ public class GuidelinesFactory {
 		guidelines.add(new ActivityDescription(diagram));
 		guidelines.add(new MinimizeGatewayHeterogeneity(diagram));
 		//** Notation Usage
+		guidelines.add(new ConsistentUsagePools(diagram));
 		guidelines.add(new ExplicitStartEndEvents(diagram));
 		guidelines.add(new ConsistentUsageStartEvents(diagram));
 		guidelines.add(new ConsistentUsageEndEvents(diagram));
