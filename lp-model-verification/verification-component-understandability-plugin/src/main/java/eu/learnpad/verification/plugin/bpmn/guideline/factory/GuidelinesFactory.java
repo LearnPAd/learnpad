@@ -29,6 +29,8 @@ import org.eclipse.bpmn2.Definitions;
 
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.MinimizeModelSize;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingActivities;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ConsistentUsageEndEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ConsistentUsageStartEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ExplicitStartEndEvents;
@@ -76,15 +78,21 @@ public class GuidelinesFactory {
 		diagram = graph;
 		guidelines = new ArrayList<abstractGuideline>();
 		setDefinitionID(diagram.getId());
+		//** General
+		guidelines.add(new MinimizeModelSize(diagram));
+		//** Notation Usage
 		guidelines.add(new ExplicitStartEndEvents(diagram));
 		guidelines.add(new explicitGateways(diagram));
 		guidelines.add(new SplitAndJoinFlows(diagram));
 		guidelines.add(new ConsistentUsageEndEvents(diagram));
 		guidelines.add(new ConsistentUsageStartEvents(diagram));
-		guidelines.add(new MinimizeModelSize(diagram));
 		guidelines.add(new RestrictUsageTerminateEndEvent(diagram));
 		guidelines.add(new UsageMeaningfulGateways(diagram));
 		guidelines.add(new UsageInclusiveORGateways(diagram));
+		//** Labeling 
+		guidelines.add(new LabelingActivities(diagram));
+		guidelines.add(new LabelingEvents(diagram));
+		
 		threadPool = new LinkedBlockingQueue<Runnable>();
 		/*
 		setProcessID(explicitSEevent.getProcessID());*/	

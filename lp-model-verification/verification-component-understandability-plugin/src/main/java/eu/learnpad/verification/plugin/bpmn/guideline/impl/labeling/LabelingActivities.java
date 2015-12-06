@@ -43,7 +43,7 @@ public class LabelingActivities extends abstractGuideline{
 					}else
 						if (fe instanceof Activity) {
 							Activity a = (Activity) fe;
-							if(a.getName()==null || (a.getName().length()>0) ){
+							if(a.getName()==null || (a.getName().length()==0) ){
 								num++;
 
 								elementsBPMN.add(fe);
@@ -81,7 +81,7 @@ public class LabelingActivities extends abstractGuideline{
 				if (fe instanceof Activity) {
 
 					Activity a = (Activity) fe;
-					if(a.getName()==null || (a.getName().length()>0) ){
+					if(a.getName()==null || (a.getName().length()==0) ){
 						//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 						num++;
 

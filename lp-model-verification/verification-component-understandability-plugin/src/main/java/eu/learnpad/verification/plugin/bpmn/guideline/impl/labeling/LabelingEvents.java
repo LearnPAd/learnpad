@@ -1,17 +1,13 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling;
 
 
-import org.eclipse.bpmn2.Activity;
-import org.eclipse.bpmn2.CatchEvent;
 import org.eclipse.bpmn2.Definitions;
-import org.eclipse.bpmn2.Event;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.IntermediateCatchEvent;
 import org.eclipse.bpmn2.IntermediateThrowEvent;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
-import org.eclipse.bpmn2.TimerEventDefinition;
 
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
@@ -49,7 +45,7 @@ public class LabelingEvents extends abstractGuideline{
 					}else
 						if (fe instanceof IntermediateCatchEvent) {
 							IntermediateCatchEvent a = (IntermediateCatchEvent) fe;
-							if(a.getName()==null || (a.getName().length()>0) ){
+							if(a.getName()==null || (a.getName().length()==0) ){
 								num++;
 
 								elementsBPMN.add(fe);
@@ -63,7 +59,7 @@ public class LabelingEvents extends abstractGuideline{
 						} else
 							if (fe instanceof IntermediateThrowEvent) {
 								IntermediateThrowEvent a = (IntermediateThrowEvent) fe;
-								if(a.getName()==null || (a.getName().length()>0) ){
+								if(a.getName()==null || (a.getName().length()==0) ){
 									num++;
 
 									elementsBPMN.add(fe);
@@ -101,7 +97,7 @@ public class LabelingEvents extends abstractGuideline{
 				if (fe instanceof IntermediateCatchEvent) {
 
 					IntermediateCatchEvent a = (IntermediateCatchEvent) fe;
-					if(a.getName()==null || (a.getName().length()>0) ){
+					if(a.getName()==null || (a.getName().length()==0) ){
 						//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 						num++;
 
@@ -115,7 +111,7 @@ public class LabelingEvents extends abstractGuideline{
 				} else
 					if (fe instanceof IntermediateThrowEvent) {
 						IntermediateThrowEvent a = (IntermediateThrowEvent) fe;
-						if(a.getName()==null || (a.getName().length()>0) ){
+						if(a.getName()==null || (a.getName().length()==0) ){
 							num++;
 
 							elementsBPMN.add(fe);
