@@ -23,8 +23,8 @@ public class GuidelinesFactoryTest {
 
 	@Test
 	public void testGuidelinesFactoryListOfRootElement() {
-		/**/genarateTestforFile("24485.bpmn","16");
-		genarateTestforFile("ExplicitStartEndEvents.bpmn","12");
+		genarateTestforFile("24485.bpmn","16");
+		/*genarateTestforFile("ExplicitStartEndEvents.bpmn","12");
 		genarateTestforFile("annidategateway.bpmn","16");
 		genarateTestforFile("SplitAndJoinFlows.bpmn","18");
 		genarateTestforFile("modelloTest.bpmn","18");
@@ -34,7 +34,7 @@ public class GuidelinesFactoryTest {
 		genarateTestforFile("test7.bpmn","13");
 		genarateTestforFile("test8.bpmn","15");
 		genarateTestforFile("MeaningfulGateways.bpmn","20");
-		genarateTestforFile("testorg.bpmn","21");
+		genarateTestforFile("testorg.bpmn","21");*/
 
 	}
 

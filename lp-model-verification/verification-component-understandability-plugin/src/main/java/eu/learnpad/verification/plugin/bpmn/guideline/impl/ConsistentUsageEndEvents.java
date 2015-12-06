@@ -30,14 +30,14 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 		StringBuilder temp = new StringBuilder();
 		Collection<FlowElement> elementsBPMNtemp = new ArrayList<FlowElement>();
 		Collection<ElementID> Elementstemp = new ArrayList<ElementID>();
-		int num = 0;
+		boolean flag=false;
 	
 		
 		for (RootElement rootElement : diagram.getRootElements()) {
 			if (rootElement instanceof Process) {
 				Process process = (Process) rootElement;
 				//System.out.format("Found a process: %s\n", process.getName());
-				
+				int num = 0;
 				IDProcess = process.getId();
 				for (FlowElement fe : process.getFlowElements()) {
 					if(fe instanceof SubProcess){
@@ -61,9 +61,15 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 							
 						} 
 				}
+				if(num>1){
+					flag=true;
+				}else{
+					elementsBPMNtemp = new ArrayList<FlowElement>();
+					Elementstemp = new ArrayList<ElementID>();
+				}
 			}
 		}
-		if (num>1) {
+		if (flag) {
 			elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);
 			this.Suggestion = "\nUse only one End Events :" + temp;
