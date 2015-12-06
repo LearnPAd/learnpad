@@ -1,12 +1,17 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl;
 
 
+import java.util.List;
+
 import org.eclipse.bpmn2.Activity;
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
+import org.eclipse.bpmn2.FlowNode;
 import org.eclipse.bpmn2.Gateway;
+import org.eclipse.bpmn2.GatewayDirection;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
+import org.eclipse.bpmn2.SequenceFlow;
 import org.eclipse.bpmn2.SubProcess;
 
 
@@ -26,7 +31,7 @@ public class ModelLoops extends abstractGuideline {
 	public void findGL(Definitions diagram) {
 		StringBuilder ret = new StringBuilder("");
 		int i = 0;
-		int subele=0;
+		boolean flag=false;
 		for (RootElement rootElement : diagram.getRootElements()) {
 			if (rootElement instanceof Process) {
 				Process process = (Process) rootElement;
@@ -39,10 +44,33 @@ public class ModelLoops extends abstractGuideline {
 						//SubProcess sub = (SubProcess) fe;
 						//System.out.format("Found a SubProcess: %s\n", sub.getName());
 						//i = this.searchSubProcess(sub, ret, i);
-						subele++;
+						
 					}else
-						if (fe instanceof Activity || fe instanceof Gateway || fe instanceof SubProcess) {
-
+						if (fe instanceof Gateway ) {
+							Gateway g =(Gateway) fe;
+							String nameclass = fe.getClass().getName();
+							List<SequenceFlow> out = g.getOutgoing();
+							for (SequenceFlow sequenceFlow : out) {
+								FlowNode target = sequenceFlow.getTargetRef();
+								String nameclasst = target.getClass().getName();
+								//String targetid = sequenceFlow.getTargetRef().getId();
+								/*if(nameclasst.equals(nameclass)){
+									Gateway t = (Gateway)target;
+									List<SequenceFlow> in = t.getIncoming();
+									for (SequenceFlow sequenceFlowin : in) {
+										FlowNode s = sequenceFlowin.getSourceRef();
+										if(s.equals(g)){
+											//flag=true;
+										}
+									}
+									GatewayDirection dir = t.getGatewayDirection();
+									if(dir.equals(GatewayDirection.DIVERGING)){
+										flag=true;
+									}
+									//System.out.format("Found a targetid: %s\n", targetid);
+								}*/
+								
+							}
 							i++;
 						}  
 
@@ -52,8 +80,8 @@ public class ModelLoops extends abstractGuideline {
 
 			}
 		}
-		if (i>10 & subele<=2) {
-			this.Suggestion += "Apply hierarchical structure with SubProcesses: " + ret;
+		if (flag) {
+			this.Suggestion += "Model loops via activity looping: " + ret;
 			this.status = false;
 		}else{
 			this.status = true;

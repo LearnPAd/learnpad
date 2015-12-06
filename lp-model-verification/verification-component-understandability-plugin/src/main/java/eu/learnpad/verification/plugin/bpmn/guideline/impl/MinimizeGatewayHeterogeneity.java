@@ -107,10 +107,10 @@ public class MinimizeGatewayHeterogeneity extends abstractGuideline {
 				}
 		}
 		int sum = neg+npg+nig+ncg;
-		long geg = (neg/sum);
-		long gpg = (npg/sum);
-		long gig = (nig/sum);
-		long gcg = (ncg/sum);
+		long geg = sum>0? (neg/sum) : 0;
+		long gpg = sum>0?(npg/sum): 0;
+		long gig = sum>0?(nig/sum): 0;
+		long gcg = sum>0?(ncg/sum): 0;
 		long sum2= geg+gpg+gig+gcg;
 		if (sum2>0.92) {
 
