@@ -44,8 +44,9 @@ public class LabelingLanes extends abstractGuideline{
 				for (LaneSet laneSet : lanes) {
 					if(laneSet.getName()==null){
 						//elementsBPMNtemp.add(laneSet);
-						Elementstemp.add(new ElementID(laneSet.getId(),IDProcess));
 						String name = laneSet.getName()!=null? laneSet.getName() : "Unlabeled"; 
+						Elementstemp.add(new ElementID(laneSet.getId(),IDProcess,name));
+						
 						temp.append("* name=" + name + " ID=" + laneSet.getId()
 								+ "\n");
 					}

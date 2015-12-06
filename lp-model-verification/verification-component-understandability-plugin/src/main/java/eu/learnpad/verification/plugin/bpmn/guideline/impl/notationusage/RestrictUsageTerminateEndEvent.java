@@ -55,8 +55,8 @@ public class RestrictUsageTerminateEndEvent extends abstractGuideline {
 								if(eventDefinition instanceof TerminateEventDefinition){
 									num++;
 									elementsBPMN.add(fe);
-									setElements(fe.getId(),IDProcess);
 									String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+									setElements(fe.getId(),IDProcess,name);
 									temp.append("* name=" +name + " ID=" + fe.getId()
 											+ "\n");
 								}
@@ -102,8 +102,8 @@ public class RestrictUsageTerminateEndEvent extends abstractGuideline {
 						if(eventDefinition instanceof TerminateEventDefinition){
 							num++;
 							elementsBPMN.add(fe);
-							setElements(fe.getId(),IDProcess);
 							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+							setElements(fe.getId(),IDProcess,name);
 							temp.append("* name=" + name + " ID=" + fe.getId()
 									+ "\n");
 						}

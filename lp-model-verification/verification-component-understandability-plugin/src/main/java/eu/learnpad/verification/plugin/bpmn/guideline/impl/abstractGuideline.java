@@ -105,11 +105,11 @@ public  class abstractGuideline implements Runnable {
 
 
 
-	public void setElements(String element, String refprocessid) {
+	public void setElements(String element, String refprocessid, String name) {
 		if(Elements==null){
 			Elements = new ArrayList<ElementID>();
 		}
-		Elements.add(new ElementID(element, refprocessid));
+		Elements.add(new ElementID(element, refprocessid,name));
 	}
 	
 	public void setAllElements(Collection<ElementID> Elementstemp) {

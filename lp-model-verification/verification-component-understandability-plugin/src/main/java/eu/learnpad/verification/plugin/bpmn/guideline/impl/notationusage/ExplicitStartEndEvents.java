@@ -48,8 +48,8 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 
 							if (event.getOutgoing().size() < 1) {
 								elementsBPMN.add(fe);
-								setElements(fe.getId(),IDProcess);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled";
+								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								setElements(fe.getId(),IDProcess,name);
 								ret.append(i++ +") name=" + name+ " ID=" + fe.getId()
 										+ "\n");
 							}
@@ -60,8 +60,8 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 
 							if (event.getIncoming().size() < 1) {
 								elementsBPMN.add(fe);
-								setElements(fe.getId(),IDProcess);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled";
+								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								setElements(fe.getId(),IDProcess,name);
 								ret.append(i++ +") name=" + name+ " ID=" + fe.getId()
 										+ "\n");
 							}
@@ -93,8 +93,8 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 
 				if (event.getOutgoing().size() < 1) {
 					elementsBPMN.add(fe);
-					setElements(fe.getId(),IDProcess);
-					String name = fe.getName()!=null? fe.getName() : "Unlabeled";
+					String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+					setElements(fe.getId(),IDProcess,name);
 					ret.append(i++ +") name=" + name+ " ID=" + fe.getId()
 							+ "\n");
 				}
@@ -105,8 +105,8 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 
 				if (event.getIncoming().size() < 1) {
 					elementsBPMN.add(fe);
-					setElements(fe.getId(),IDProcess);
-					String name = fe.getName()!=null? fe.getName() : "Unlabeled";
+					String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+					setElements(fe.getId(),IDProcess,name);
 					ret.append(i++ +") name=" + name+ " ID=" + fe.getId()
 							+ "\n");
 				}

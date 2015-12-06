@@ -45,8 +45,8 @@ public class UsageInclusiveORGateways extends abstractGuideline{
 							num++;
 							
 								elementsBPMN.add(fe);
-								setElements(fe.getId(),IDProcess);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled";
+								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								setElements(fe.getId(),IDProcess,name);
 								temp.append("* name=" + name + " ID=" + fe.getId()
 										+ "\n");
 								
@@ -92,8 +92,9 @@ public class UsageInclusiveORGateways extends abstractGuideline{
 					temp.append("* name=" + fe.getName() + " ID=" + fe.getId()
 							+ "\n");*/
 				elementsBPMN.add(fe);
-				setElements(fe.getId(),IDProcess);
-				temp.append("* name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
+				String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+				setElements(fe.getId(),IDProcess,name);
+				temp.append("* name=" + name  + " ID=" + fe.getId()
 						+ "\n");
 			
 			}

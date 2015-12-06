@@ -50,8 +50,9 @@ public class ConsistentUsageLanes extends abstractGuideline{
 					if(flow.isEmpty()){
 						num++;
 						//elementsBPMNtemp.add(laneSet);
-						Elementstemp.add(new ElementID(laneSet.getId(),IDProcess));
+						
 						String name = laneSet.getName()!=null? laneSet.getName() : "Unlabeled"; 
+						Elementstemp.add(new ElementID(laneSet.getId(),IDProcess,name));
 						temp.append("* name=" + name + " ID=" + laneSet.getId()
 								+ "\n");
 					}

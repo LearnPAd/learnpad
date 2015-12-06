@@ -46,8 +46,8 @@ public class SplitAndJoinFlows extends abstractGuideline {
 							boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() > 1) | (gateway.getIncoming().size() > 1 & gateway.getOutgoing().size() == 1));
 							if (!bool) {
 								elementsBPMN.add(fe);
-								setElements(  fe.getId(),IDProcess);
 								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								setElements(fe.getId(),IDProcess,name); 
 								ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 										+ "\n");
 							}
@@ -80,8 +80,8 @@ public class SplitAndJoinFlows extends abstractGuideline {
 					boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() > 1) | (gateway.getIncoming().size() > 1 & gateway.getOutgoing().size() == 1));
 					if (!bool) {
 						elementsBPMN.add(fe);
-						setElements( fe.getId(),IDProcess);
-						String name = fe.getName()!=null? fe.getName() : "Unlabeled";
+						String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+						setElements(fe.getId(),IDProcess,name);
 						ret.append(i++ +") name=" + name+ " ID=" + fe.getId()
 								+ "\n");
 					}

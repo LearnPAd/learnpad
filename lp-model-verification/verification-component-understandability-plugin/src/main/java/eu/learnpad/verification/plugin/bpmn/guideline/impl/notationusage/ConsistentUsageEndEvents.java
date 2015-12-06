@@ -56,7 +56,7 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 								
 								elementsBPMNtemp.add(fe);
 								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
-								Elementstemp.add(new ElementID(fe.getId(),IDProcess));
+								Elementstemp.add(new ElementID(fe.getId(),IDProcess,name));
 								temp.append("Name=" +name + " ID=" + fe.getId()
 										+ "; ");
 							
@@ -99,8 +99,9 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 				num++;
 				
 					elementsBPMNtemp.add(fe);
-					Elementstemp.add(new ElementID(fe.getId(),IDProcess));
+					
 					String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+					Elementstemp.add(new ElementID(fe.getId(),IDProcess,name));
 					temp.append(" Name=" + name + " ID=" + fe.getId()
 							+ "; ");
 				

@@ -59,7 +59,7 @@ public class ConsistentUsagePools extends abstractGuideline{
 
 						//elementsBPMNtemp.add(participant);
 						String name = participant.getName()!=null? participant.getName() : "Unlabeled"; 
-						Elementstemp.add(new ElementID(participant.getId(),IDProcess));
+						Elementstemp.add(new ElementID(participant.getId(),IDProcess,name));
 						temp.append("Name=" +name + " ID=" + participant.getId()
 								+ "; ");
 					}
