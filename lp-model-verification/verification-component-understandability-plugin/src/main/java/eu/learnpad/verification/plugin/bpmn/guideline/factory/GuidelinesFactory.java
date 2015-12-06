@@ -30,7 +30,10 @@ import org.eclipse.bpmn2.Definitions;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.ConsistentUsageEndEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.ConsistentUsageStartEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.ExplicitStartEndEvents;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.MinimizeModelSize;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.RestrictUsageTerminateEndEvent;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.SplitAndJoinFlows;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.UsageMeaningfulGateways;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.explicitGateways;
 
@@ -77,6 +80,9 @@ public class GuidelinesFactory {
 		guidelines.add(new SplitAndJoinFlows(diagram));
 		guidelines.add(new ConsistentUsageEndEvents(diagram));
 		guidelines.add(new ConsistentUsageStartEvents(diagram));
+		guidelines.add(new MinimizeModelSize(diagram));
+		guidelines.add(new RestrictUsageTerminateEndEvent(diagram));
+		guidelines.add(new UsageMeaningfulGateways(diagram));
 		threadPool = new LinkedBlockingQueue<Runnable>();
 		/*
 		setProcessID(explicitSEevent.getProcessID());*/	

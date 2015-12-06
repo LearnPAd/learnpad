@@ -19,7 +19,7 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 	public ConsistentUsageEndEvents(Definitions diagram) {
 		super(diagram);
 		this.id = "14";
-		this.Description = "The modeler should distinguish success and failure end states in a pro- cess or a sub-process with separate end events. Flows that end in the same end state should be merged to the same end event. Therefore, separate end events that do not represent distinct end states must be merged in a single end event.";
+		this.Description = "The modeler should distinguish success and failure end states in a process or a sub-process with separate end events. Flows that end in the same end state should be merged to the same end event. Therefore, separate end events that do not represent distinct end states must be merged in a single end event.";
 		this.Name = "Consistent Usage of End Events";
 
 

@@ -44,7 +44,7 @@ public class UsageMeaningfulGateways extends abstractGuideline {
 							//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 
 							boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() == 1) );
-							if (!bool) {
+							if (bool) {
 								elementsBPMN.add(fe);
 								setElements(  fe.getId(),IDProcess);
 								ret.append(i++ +") name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
@@ -76,8 +76,8 @@ public class UsageMeaningfulGateways extends abstractGuideline {
 					
 					//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 
-					boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() > 1) );
-					if (!bool) {
+					boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() == 1) );
+					if (bool) {
 						elementsBPMN.add(fe);
 						setElements( fe.getId(),IDProcess);
 						ret.append(i++ +") name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
