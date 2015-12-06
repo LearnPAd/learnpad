@@ -82,7 +82,9 @@ public class GuidelinesFactory {
 	@XmlTransient
 	protected BlockingQueue<Runnable> threadPool;
 	@XmlTransient
-	private ExecutorService threadPoolExecutor; 
+	private ExecutorService threadPoolExecutor;
+	@XmlTransient
+	private long lStartTime; 
 	
 	GuidelinesFactory(){
 
@@ -139,7 +141,7 @@ public class GuidelinesFactory {
 		
 		 threadPoolExecutor =
 		        new ThreadPoolExecutor(
-		               5,
+		               8,
 		                10,
 		                keepAliveTime,
 		                TimeUnit.MILLISECONDS,
@@ -148,6 +150,7 @@ public class GuidelinesFactory {
 		for (abstractGuideline abstractGuideline : guidelines) {
 			threadPoolExecutor.execute(abstractGuideline);
 		}
+		lStartTime = System.currentTimeMillis();
 		threadPoolExecutor.shutdown();
 		
 	}
@@ -156,7 +159,10 @@ public class GuidelinesFactory {
 		boolean res = threadPoolExecutor.isTerminated();
 		if(res){
 			setStatus();
-		
+			long lEndTime = System.currentTimeMillis();
+			long difference = lEndTime - lStartTime;
+
+			System.out.println("Guidelines Elapsed milliseconds: " + difference);
 		}
 		return res;
 	}

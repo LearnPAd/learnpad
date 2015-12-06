@@ -82,6 +82,7 @@ public class LabelingANDGateways extends abstractGuideline{
 				if (fe instanceof ParallelGateway) {
 					ParallelGateway gateway = (ParallelGateway) fe;
 					if(gateway.getName()!=null  ){
+						if(gateway.getName().length()>0){
 						//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 						num++;
 
@@ -90,6 +91,7 @@ public class LabelingANDGateways extends abstractGuideline{
 						setElements(fe.getId(),IDProcess,name);
 						temp.append("* name=" + name + " ID=" + fe.getId()
 								+ "\n");
+						}
 					}
 
 				}  

@@ -23,7 +23,9 @@ public class GuidelinesFactoryTest {
 
 	@Test
 	public void testGuidelinesFactoryListOfRootElement() {
-		/**/genarateTestforFile("24485.bpmn","16");
+		genarateTestforFile("lanes.bpmn","11");
+		genarateTestforFile("lanes.bpmn","29");
+		genarateTestforFile("24485.bpmn","16");
 		genarateTestforFile("ExplicitStartEndEvents.bpmn","12");
 		genarateTestforFile("annidategateway.bpmn","16");
 		genarateTestforFile("SplitAndJoinFlows.bpmn","18");
@@ -43,7 +45,7 @@ public class GuidelinesFactoryTest {
 		genarateTestforFile("ConvergingGateways.bpmn","35");
 		genarateTestforFile("ConvergingGateways.bpmn","36");
 		genarateTestforFile("ConvergingGateways.bpmn","37");
-		genarateTestforFile("LoopMarkerAnnotation.bpmn","39");
+		genarateTestforFile("LoopMarkerAnnotation.bpmn","39");/**/
 
 	}
 
@@ -84,8 +86,8 @@ public class GuidelinesFactoryTest {
 			// output pretty printed
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-			OutputStream os = new FileOutputStream( "nosferatu"+ NameFile.substring(0, NameFile.length()-4)+".xml" );
-			jaxbMarshaller.marshal( eg, os );
+			//OutputStream os = new FileOutputStream( "nosferatu"+ NameFile.substring(0, NameFile.length()-4)+".xml" );
+			//jaxbMarshaller.marshal( eg, os );
 
 			// jaxbMarshaller.marshal(eg, System.out);
 
