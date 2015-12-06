@@ -33,6 +33,7 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingActi
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingMessageEvent;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingStartandEndEvents;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingXORGateway;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ConsistentUsageEndEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ConsistentUsageStartEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ExplicitStartEndEvents;
@@ -96,6 +97,8 @@ public class GuidelinesFactory {
 		guidelines.add(new LabelingEvents(diagram));
 		guidelines.add(new LabelingStartandEndEvents(diagram));
 		guidelines.add(new LabelingMessageEvent(diagram));
+		guidelines.add(new LabelingXORGateway(diagram));
+		//guidelines.add(new (diagram));
 		threadPool = new LinkedBlockingQueue<Runnable>();
 		/*
 		setProcessID(explicitSEevent.getProcessID());*/	

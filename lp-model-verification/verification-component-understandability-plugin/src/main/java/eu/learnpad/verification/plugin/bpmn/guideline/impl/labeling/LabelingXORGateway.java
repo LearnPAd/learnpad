@@ -2,12 +2,10 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling;
 
 
 import org.eclipse.bpmn2.Definitions;
-import org.eclipse.bpmn2.EndEvent;
 import org.eclipse.bpmn2.ExclusiveGateway;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
-import org.eclipse.bpmn2.StartEvent;
 import org.eclipse.bpmn2.SubProcess;
 
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
@@ -46,9 +44,9 @@ public class LabelingXORGateway extends abstractGuideline{
 					}else
 						if (fe instanceof ExclusiveGateway) {
 							ExclusiveGateway gateway = (ExclusiveGateway) fe;
-							boolean bool = ((gateway.getIncoming().size()< gateway.getOutgoing().size()));
+							boolean bool = ((gateway.getIncoming().size()<= gateway.getOutgoing().size()));
 							if(bool)
-							if(gateway.getName()==null || (gateway.getName().length()>0) ){
+							if(gateway.getName()==null || (gateway.getName().length()==0) ){
 								num++;
 
 								elementsBPMN.add(fe);
@@ -65,7 +63,7 @@ public class LabelingXORGateway extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion = "\nLabelling Start/End Events :" + temp;
+			this.Suggestion = "\nLabeling XOR Gateways: " + temp;
 			this.status = false;
 		}else{
 			this.status = true;
@@ -85,9 +83,9 @@ public class LabelingXORGateway extends abstractGuideline{
 			}else
 				if (fe instanceof ExclusiveGateway) {
 					ExclusiveGateway gateway = (ExclusiveGateway) fe;
-					boolean bool = ((gateway.getIncoming().size()< gateway.getOutgoing().size()));
+					boolean bool = ((gateway.getIncoming().size()<= gateway.getOutgoing().size()));
 					if(bool)
-					if(gateway.getName()==null || (gateway.getName().length()>0) ){
+					if(gateway.getName()==null || (gateway.getName().length()==0) ){
 						//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 						num++;
 
@@ -101,7 +99,7 @@ public class LabelingXORGateway extends abstractGuideline{
 				}  
 		}
 		if ( num>0) {
-			this.Suggestion += "\nLabelling Start/End Events in SubProcess "+sub.getName()+" " + temp;
+			this.Suggestion += "\nLabeling XOR Gateways in SubProcess: "+sub.getName()+" " + temp;
 			this.status = false;
 		}
 
