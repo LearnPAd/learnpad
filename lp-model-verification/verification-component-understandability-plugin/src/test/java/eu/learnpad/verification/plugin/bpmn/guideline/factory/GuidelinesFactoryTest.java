@@ -40,6 +40,10 @@ public class GuidelinesFactoryTest {
 		genarateTestforFile("test7.bpmn","33");
 		genarateTestforFile("test7.bpmn","32");
 		genarateTestforFile("test7.bpmn","34");
+		genarateTestforFile("ConvergingGateways.bpmn","35");
+		genarateTestforFile("ConvergingGateways.bpmn","36");
+		genarateTestforFile("ConvergingGateways.bpmn","37");
+		genarateTestforFile("LoopMarkerAnnotation.bpmn","39");
 
 	}
 
@@ -134,8 +138,8 @@ public class GuidelinesFactoryTest {
 				}
 			}
 
-			OutputStream os = new FileOutputStream( "nosferatuB"+ NameFile.substring(0, NameFile.length()-4)+".xml" );
-			jaxbMarshaller.marshal( eg, os );
+			//OutputStream os = new FileOutputStream( "nosferatuB"+ NameFile.substring(0, NameFile.length()-4)+".xml" );
+			//jaxbMarshaller.marshal( eg, os );
 
 			//jaxbMarshaller.marshal(eg, System.out);
 			assertTrue(eg.getStatus().equals("OK"));
@@ -185,8 +189,8 @@ public class GuidelinesFactoryTest {
 				}
 			}
 
-			OutputStream os = new FileOutputStream( "nosferatuBB"+ NameFile.substring(0, NameFile.length()-4)+".xml" );
-			jaxbMarshaller.marshal( eg, os );
+			//OutputStream os = new FileOutputStream( "nosferatuBB"+ NameFile.substring(0, NameFile.length()-4)+".xml" );
+			//jaxbMarshaller.marshal( eg, os );
 
 			//jaxbMarshaller.marshal(eg, System.out);
 			//assertTrue(eg.getStatus().equals("OK"));
