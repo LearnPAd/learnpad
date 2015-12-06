@@ -23,7 +23,7 @@ public class GuidelinesFactoryTest {
 
 	@Test
 	public void testGuidelinesFactoryListOfRootElement() {
-		/*genarateTestforFile("24485.bpmn","20");
+		/**/genarateTestforFile("24485.bpmn","16");
 		genarateTestforFile("ExplicitStartEndEvents.bpmn","12");
 		genarateTestforFile("annidategateway.bpmn","16");
 		genarateTestforFile("SplitAndJoinFlows.bpmn","18");
@@ -32,8 +32,9 @@ public class GuidelinesFactoryTest {
 		//genarateTestforFile("test7.bpmn","14");
 		//genarateTestforFile("test7.bpmn","13");
 		genarateTestforFile("test7.bpmn","13");
-		genarateTestforFile("test8.bpmn","15");*/
+		genarateTestforFile("test8.bpmn","15");
 		genarateTestforFile("MeaningfulGateways.bpmn","20");
+		genarateTestforFile("testorg.bpmn","21");
 
 	}
 
@@ -63,6 +64,7 @@ public class GuidelinesFactoryTest {
 			for ( abstractGuideline iterable_element : eg.getGuidelines()) {
 				if(iterable_element.getid().equals(id)){
 					if(iterable_element.getStatus()){
+						System.out.println(NameFile+" "+ id);
 						fail();
 					}
 				}

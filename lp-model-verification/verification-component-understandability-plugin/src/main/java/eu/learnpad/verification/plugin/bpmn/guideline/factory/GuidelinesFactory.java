@@ -33,6 +33,7 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.ExplicitStartEndEvent
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.MinimizeModelSize;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.RestrictUsageTerminateEndEvent;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.SplitAndJoinFlows;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.UsageInclusiveORGateways;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.UsageMeaningfulGateways;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.explicitGateways;
@@ -83,6 +84,7 @@ public class GuidelinesFactory {
 		guidelines.add(new MinimizeModelSize(diagram));
 		guidelines.add(new RestrictUsageTerminateEndEvent(diagram));
 		guidelines.add(new UsageMeaningfulGateways(diagram));
+		guidelines.add(new UsageInclusiveORGateways(diagram));
 		threadPool = new LinkedBlockingQueue<Runnable>();
 		/*
 		setProcessID(explicitSEevent.getProcessID());*/	

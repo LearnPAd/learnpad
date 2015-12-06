@@ -44,7 +44,8 @@ public class UsageInclusiveORGateways extends abstractGuideline{
 							
 								elementsBPMN.add(fe);
 								setElements(fe.getId(),IDProcess);
-								temp.append("* name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
+								String name = fe.getName()!=null? fe.getName() : "Unlabeled";
+								temp.append("* name=" + name + " ID=" + fe.getId()
 										+ "\n");
 								
 								/*elementsBPMNtemp.add(fe);
@@ -59,7 +60,7 @@ public class UsageInclusiveORGateways extends abstractGuideline{
 		if (num>0) {
 			/*elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);*/
-			this.Suggestion = "\nDon't use Inclusive Gateway :" + temp;
+			this.Suggestion = "\nDon't use Inclusive Gateway: " + temp;
 			this.status = false;
 		}else{
 			this.status = true;

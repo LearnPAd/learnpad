@@ -79,7 +79,8 @@ public class SplitAndJoinFlows extends abstractGuideline {
 					if (!bool) {
 						elementsBPMN.add(fe);
 						setElements( fe.getId(),IDProcess);
-						ret.append(i++ +") name=" + fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId()
+						String name = fe.getName()!=null? fe.getName() : "Unlabeled";
+						ret.append(i++ +") name=" + name+ " ID=" + fe.getId()
 								+ "\n");
 					}
 				}
