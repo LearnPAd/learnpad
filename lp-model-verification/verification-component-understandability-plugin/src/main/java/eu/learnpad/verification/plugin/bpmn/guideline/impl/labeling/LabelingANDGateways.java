@@ -44,7 +44,7 @@ public class LabelingANDGateways extends abstractGuideline{
 					}else
 						if (fe instanceof ParallelGateway) {
 							ParallelGateway gateway = (ParallelGateway) fe;
-							if(gateway.getName()!=null ){
+							if(gateway.getName()==null ){
 								num++;
 
 								elementsBPMN.add(fe);
@@ -81,8 +81,8 @@ public class LabelingANDGateways extends abstractGuideline{
 			}else
 				if (fe instanceof ParallelGateway) {
 					ParallelGateway gateway = (ParallelGateway) fe;
-					if(gateway.getName()!=null  ){
-						if(gateway.getName().length()>0){
+					if(gateway.getName()==null  ){
+						
 						//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 						num++;
 
@@ -94,7 +94,7 @@ public class LabelingANDGateways extends abstractGuideline{
 						}
 					}
 
-				}  
+				 
 		}
 		if ( num>0) {
 			this.Suggestion += "\nNot Labeling AND Gateways in SubProcess: "+sub.getName()+" ";
