@@ -19,9 +19,8 @@ target/
 target/
 target-eclipse/
 /gulyxout/
-
+/pom.xml
 /.apt_generated/
 
 # Monitoring component log file
 lp-simulation-environment/monitoring/glimpseLog.log
-nosferat*
