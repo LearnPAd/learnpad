@@ -44,17 +44,19 @@ public class LabelingANDGateways extends abstractGuideline{
 					}else
 						if (fe instanceof ParallelGateway) {
 							ParallelGateway gateway = (ParallelGateway) fe;
-							if(gateway.getName()==null ){
-								num++;
+							if(gateway.getName()!=null ){
+								if(gateway.getName().length()>1){
+									num++;
 
-								elementsBPMN.add(fe);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
-								setElements(fe.getId(),IDProcess,name);
-								temp.append("* name=" + name + " ID=" + fe.getId()
-										+ "\n");
+									elementsBPMN.add(fe);
+									String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+									setElements(fe.getId(),IDProcess,name);
+									temp.append("* name=" + name + " ID=" + fe.getId()
+											+ "\n");
+								}
 
 							}
-							
+
 						} 
 				}
 			}
@@ -81,20 +83,21 @@ public class LabelingANDGateways extends abstractGuideline{
 			}else
 				if (fe instanceof ParallelGateway) {
 					ParallelGateway gateway = (ParallelGateway) fe;
-					if(gateway.getName()==null  ){
-						
-						//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
-						num++;
+					if(gateway.getName()!=null  ){
+						if(gateway.getName().length()>1){
+							//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
+							num++;
 
-						elementsBPMN.add(fe);
-						String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
-						setElements(fe.getId(),IDProcess,name);
-						temp.append("* name=" + name + " ID=" + fe.getId()
-								+ "\n");
+							elementsBPMN.add(fe);
+							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+							setElements(fe.getId(),IDProcess,name);
+							temp.append("* name=" + name + " ID=" + fe.getId()
+									+ "\n");
 						}
 					}
+				}
 
-				 
+
 		}
 		if ( num>0) {
 			this.Suggestion += "\nNot Labeling AND Gateways in SubProcess: "+sub.getName()+" ";
