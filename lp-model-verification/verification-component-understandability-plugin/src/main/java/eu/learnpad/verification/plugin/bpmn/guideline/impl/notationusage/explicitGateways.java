@@ -1,4 +1,4 @@
-package eu.learnpad.verification.plugin.bpmn.guideline.impl;
+package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
 
 import org.eclipse.bpmn2.Activity;
@@ -13,17 +13,16 @@ import org.eclipse.bpmn2.StartEvent;
 import org.eclipse.bpmn2.SubProcess;
 import org.eclipse.bpmn2.ThrowEvent;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
+
 
 public class explicitGateways extends abstractGuideline {
 
-	explicitGateways() {
-
-	}
-
+	
 
 	public explicitGateways(Definitions diagram) {
 		super(diagram);
-		this.id = "20";
+		this.id = "16";
 		this.Description = "The modeler should not split or join flows using activities or events; the modeler should split or join sequence flows always using gateways. Moreover the modeler should not start conditional sequence flows from an activity; he should always make explicit use of gateways and start conditional sequence flows from them. This includes that an activity can have only one incoming sequence flow and only one outgoing sequence flow.";
 		this.Name = "Explicit usage of gateways";
 
@@ -48,8 +47,9 @@ public class explicitGateways extends abstractGuideline {
 						if (act.getOutgoing().size() > 1
 								| act.getIncoming().size() > 1) {
 							elementsBPMN.add(fe);
-							setElements(fe.getId(),IDProcess);
-							ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+							setElements(fe.getId(),IDProcess,name);
+							ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 									+ "\n");
 						}
 						if(fe instanceof SubProcess){
@@ -66,8 +66,9 @@ public class explicitGateways extends abstractGuideline {
 
 						if (event.getOutgoing().size() > 1) {
 							elementsBPMN.add(fe);
-							setElements(fe.getId(),IDProcess);
-							ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+							setElements(fe.getId(),IDProcess,name);
+							ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 									+ "\n");
 						}
 					} else if (fe instanceof EndEvent) {
@@ -76,8 +77,9 @@ public class explicitGateways extends abstractGuideline {
 
 						if (event.getIncoming().size() > 1) {
 							elementsBPMN.add(fe);
-							setElements(fe.getId(),IDProcess);
-							ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+							setElements(fe.getId(),IDProcess,name); 
+							ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 									+ "\n");
 						}
 					}else if (fe instanceof CatchEvent
@@ -88,8 +90,9 @@ public class explicitGateways extends abstractGuideline {
 						if (event.getOutgoing().size() > 1
 								| event.getIncoming().size() > 1) {
 							elementsBPMN.add(fe);
-							setElements(fe.getId(),IDProcess);
-							ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+							setElements(fe.getId(),IDProcess,name); 
+							ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 									+ "\n");
 						}
 					}
@@ -98,11 +101,11 @@ public class explicitGateways extends abstractGuideline {
 			}
 		}
 		if (!elementsBPMN.isEmpty()) {
-			this.Suggestion = "Add Gateway before or/and after of the elements: " + ret;
+			this.Suggestion += "Add Gateway before or/and after of the elements: ";
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion = "Well done!";
+			this.Suggestion += "Well done!";
 		}
 	}
 
@@ -122,8 +125,9 @@ public class explicitGateways extends abstractGuideline {
 				if (act.getOutgoing().size() > 1
 						| act.getIncoming().size() > 1) {
 					elementsBPMN.add(fe);
-					setElements(fe.getId(),IDProcess);
-					ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+					String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+					setElements(fe.getId(),IDProcess,name);
+					ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 							+ "\n");
 				}
 			}  else if (fe instanceof StartEvent) {
@@ -132,8 +136,9 @@ public class explicitGateways extends abstractGuideline {
 
 				if (event.getOutgoing().size() > 1) {
 					elementsBPMN.add(fe);
-					setElements(fe.getId(),IDProcess);
-					ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+					String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+					setElements(fe.getId(),IDProcess,name);
+					ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 							+ "\n");
 				}
 			} else if (fe instanceof EndEvent) {
@@ -142,8 +147,9 @@ public class explicitGateways extends abstractGuideline {
 
 				if (event.getIncoming().size() > 1) {
 					elementsBPMN.add(fe);
-					setElements(fe.getId(),IDProcess);
-					ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+					String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+					setElements(fe.getId(),IDProcess,name); 
+					ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 							+ "\n");
 				}
 			}else if (fe instanceof CatchEvent
@@ -154,8 +160,9 @@ public class explicitGateways extends abstractGuideline {
 				if (event.getOutgoing().size() > 1
 						| event.getIncoming().size() > 1) {
 					elementsBPMN.add(fe);
-					setElements(fe.getId(),IDProcess);
-					ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
+					String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+					setElements(fe.getId(),IDProcess,name);
+					ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 							+ "\n");
 				}
 			}

@@ -63,9 +63,9 @@ public  class abstractGuideline implements Runnable {
 
 	}
 
-	abstractGuideline(Definitions diagram){
+	public abstractGuideline(Definitions diagram){
 		this.elementsBPMN = new ArrayList<FlowElement>();
-
+		this.Suggestion="";
 		this.status = false;
 		this.diagram=diagram;
 	}
@@ -105,11 +105,18 @@ public  class abstractGuideline implements Runnable {
 
 
 
-	public void setElements(String element, String refprocessid) {
+	public void setElements(String element, String refprocessid, String name) {
 		if(Elements==null){
 			Elements = new ArrayList<ElementID>();
 		}
-		Elements.add(new ElementID(element, refprocessid));
+		Elements.add(new ElementID(element, refprocessid,name));
+	}
+	
+	public void setAllElements(Collection<ElementID> Elementstemp) {
+		if(Elements==null){
+			Elements = new ArrayList<ElementID>();
+		}
+		Elements.addAll(Elementstemp);
 	}
 
 

@@ -64,7 +64,7 @@ public class XMLUtils {
         return builder.parse(new ByteArrayInputStream(xml.getBytes()));
     }
     
-    public static Document getXmlDocFromURI(String xmlFile) throws Exception{
+  /*  public static Document getXmlDocFromURI(String xmlFile) throws Exception{
         if(xmlFile.startsWith("http"))
             return getXmlDocFromURI(new URL(xmlFile).openStream());
         else
@@ -130,7 +130,7 @@ public class XMLUtils {
         if (start == 0)
             return "'" + field + "'";
         return buffer.append("'").append(field.substring(start)).append("'").append(")").toString();
-    }
+    }*/
     
     public static Object execXPath(org.w3c.dom.Node node, String pattern, QName xPathConstantsType) throws Exception{
          return XPathFactory.newInstance().newXPath().compile(pattern).evaluate(node, xPathConstantsType);
