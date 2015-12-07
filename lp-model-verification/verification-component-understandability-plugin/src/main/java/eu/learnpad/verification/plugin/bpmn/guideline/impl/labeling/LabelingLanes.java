@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
+import org.eclipse.bpmn2.Lane;
 import org.eclipse.bpmn2.LaneSet;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
@@ -32,27 +33,32 @@ public class LabelingLanes extends abstractGuideline{
 		Collection<FlowElement> elementsBPMNtemp = new ArrayList<FlowElement>();
 		Collection<ElementID> Elementstemp = new ArrayList<ElementID>();
 		int num = 0;
-	
-		
+
+
 		for (RootElement rootElement : diagram.getRootElements()) {
 			if (rootElement instanceof Process) {
 				Process process = (Process) rootElement;
 				//System.out.format("Found a process: %s\n", process.getName());
-				
+
 				IDProcess = process.getId();
-				List<LaneSet> lanes = process.getLaneSets();
-				for (LaneSet laneSet : lanes) {
-					if(laneSet.getName()==null){
-						num++;
-						//elementsBPMNtemp.add(laneSet);
-						String name = laneSet.getName()!=null? laneSet.getName() : "Unlabeled"; 
-						Elementstemp.add(new ElementID(laneSet.getId(),IDProcess,name));
-						
-						temp.append("* name=" + name + " ID=" + laneSet.getId()
-								+ "\n");
+				List<LaneSet> listlanes = process.getLaneSets();
+				for (LaneSet laneSet : listlanes) {
+					List<Lane> lanes = laneSet.getLanes();
+					for (Lane lane : lanes) {
+
+
+						if(lane.getName()==null){
+							num++;
+							//elementsBPMNtemp.add(laneSet);
+							String name = lane.getName()!=null? lane.getName() : "Unlabeled"; 
+							Elementstemp.add(new ElementID(lane.getId(),IDProcess,name));
+
+							temp.append("* name=" + name + " ID=" + lane.getId()
+									+ "\n");
+						}
 					}
 				}
-				
+
 			}
 		}
 		if (num>0) {
@@ -66,6 +72,6 @@ public class LabelingLanes extends abstractGuideline{
 		}
 	}
 
-	
+
 
 }
