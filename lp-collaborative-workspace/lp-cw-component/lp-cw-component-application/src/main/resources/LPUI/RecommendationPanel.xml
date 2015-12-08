@@ -31,8 +31,8 @@
   <parent>LPUI.SimulationEnvironment</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1446741557000</date>
-  <contentUpdateDate>1446737348000</contentUpdateDate>
+  <date>1449584645000</date>
+  <contentUpdateDate>1449506442000</contentUpdateDate>
   <version>1.1</version>
   <title>RecommendationPanel</title>
   <comment/>
@@ -124,19 +124,18 @@
     <property>
       <content>{{velocity}}
 #set ($modelSetId = "${doc.space}")
-##set ($modelSetId = "modelset-titolo-unico-v5")
 #set ($artifactId = $doc.getObject('LPCode.BaseElementClass').getProperty('id').value)
 #set ($currentUser = $xcontext.user)
 #set ($userId = $xwiki.getDocument($currentUser).getObject('XWiki.XWikiUsers').getProperty('email').value)
 #if ($modelSetId &amp;&amp; $artifactId &amp;&amp; $userId)
   #set ($recommendations = $services.learnpad.getRecommendations(${modelSetId}, ${artifactId}, ${userId}))
   #if ($recommendations)
-    #panelheader($services.localization.render('RecommendationPanel.experts.title'))
     #set ($experts = $recommendations.getExperts())
     #if ($experts)
+      #panelheader($services.localization.render('RecommendationPanel.experts.title'))
       #set ($businessActors = $experts.getBusinessActors())
       #if ($businessActors.size() &gt; 0)
-        #foreach($businessActor in $businessActors)
+        #foreach ($businessActor in $businessActors)
 (((
 ${businessActor.name}(% class="pull-right" %)##
           #if ($businessActor.email)
@@ -145,11 +144,23 @@ ${businessActor.name}(% class="pull-right" %)##
           #if ($businessActor.phoneNumber)
 {{html}}&lt;a href="tel:${businessActor.phoneNumber}"&gt;$services.icon.renderHTML('telephone')&lt;/a&gt;{{/html}}##
           #end
+)))
         #end
+      #end
+      #panelfooter()
+    #end
+    #set ($learningMaterials = $recommendations.getLearningMaterials())
+    #if ($learningMaterials)
+      #panelheader($services.localization.render('RecommendationPanel.learningmaterials.title'))
+      #set ($learningMaterialsList = $learningMaterials.getLearningMaterials())
+      #foreach ($learningMaterial in $learningMaterialsList)
+(((
+; [[${learningMaterial.name}&gt;&gt;${learningMaterial.url}]]
+: (% class="help-block" %)${learningMaterial.description}
 )))
       #end
+      #panelfooter()
     #end
-    #panelfooter()
   #end
 #end
 {{/velocity}}</content>
