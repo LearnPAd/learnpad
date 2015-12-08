@@ -101,7 +101,7 @@ public class LinearMessageFlows extends abstractGuideline{
 
 		if (num>1) {
 
-			this.Suggestion += "\nUse Linear Message Flows: ";
+			this.Suggestion += "Use Linear Message Flows: ";
 			this.status = false;
 		}else{
 			this.status = true;

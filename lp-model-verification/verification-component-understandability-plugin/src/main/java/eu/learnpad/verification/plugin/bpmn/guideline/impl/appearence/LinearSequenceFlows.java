@@ -65,7 +65,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 						if(resd){
 							List<Point> points = BPMNEdges.get(base).getWaypoint();
 							if(points!=null)
-								if(points.size()>2)
+								if(points.size()>2){
 									if(!((flaggateawy |flaglane ) & points.size()==3))
 										if((!((flaggateawy | !flaglane)&  points.size()==6)  ) ){
 											num++;
@@ -76,6 +76,28 @@ public class LinearSequenceFlows extends abstractGuideline{
 											//ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 											//		+ "\n");
 										}
+								}else{
+									Point x =null;
+									boolean flag=false;
+									for (Point point : points) {
+										if(x==null)
+											x = point;
+										else{
+											flag = point.getY()==x.getY();
+										}
+
+									}
+									if(!flag){
+										num++;
+
+										elementsBPMN.add(fe);
+										String name = sf.getName()!=null? sf.getName() : "Unlabeled"; 
+										setElements(fe.getId(),IDProcess,name);
+										//ret.append(i++ +") name=" + name + " ID=" + fe.getId()
+										//		+ "\n");
+									}
+
+								}
 						}
 					}
 
@@ -100,7 +122,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 		 */
 		if (num>1) {
 
-			this.Suggestion += "\nUse Linear sequence flows: ";
+			this.Suggestion += "Use Linear sequence flows: ";
 			this.status = false;
 		}else{
 			this.status = true;
