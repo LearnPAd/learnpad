@@ -34,70 +34,6 @@
 	<packaging>xar</packaging>
 	<name>Learn PAd - Platform - Distribution - UI</name>
 
-	<!--dependencies>
-		<dependency>
-			<groupId>org.xwiki.platform</groupId>
-			<artifactId>xwiki-platform-administration-ui</artifactId>
-			<version>${platform.version}</version>
-			<type>xar</type>
-		</dependency>
-		<dependency>
-			<groupId>org.xwiki.enterprise</groupId>
-			<artifactId>xwiki-enterprise-ui-admin-user</artifactId>
-			<version>${enterprise.version}</version>
-			<type>xar</type>
-		</dependency>
-		<dependency>
-			<groupId>org.xwiki.enterprise</groupId>
-			<artifactId>xwiki-enterprise-ui-mainwikipreferences</artifactId>
-			<version>${enterprise.version}</version>
-			<type>xar</type>
-		</dependency>
-	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.xwiki.commons</groupId>
-				<artifactId>xwiki-commons-tool-xar-plugin</artifactId>
-				<version>${commons.version}</version>
-				<configuration>
-					<transformations>
-						<transformation>
-							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
-							<file>XWiki/XWikiPreferences.xml</file>
-							<xpath>/xwikidoc/object/property/showLeftPanels</xpath>
-							<value>false</value>
-						</transformation>
-						<transformation>
-							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
-							<file>XWiki/XWikiPreferences.xml</file>
-							<xpath>/xwikidoc/object/property/showRightPanels</xpath>
-							<value>false</value>
-						</transformation>
-						<transformation>
-							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
-							<file>XWiki/XWikiPreferences.xml</file>
-							<xpath>/xwikidoc/object/property/colorTheme</xpath>
-							<value>FlamingoThemes.XCS-Charcoal</value>
-						</transformation>
-						<transformation>
-							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
-							<file>XWiki/XWikiPreferences.xml</file>
-							<xpath>xwikidoc/object[property/users[text()="XWiki.XWikiGuest"]]/property/levels</xpath>
-							<value>none</value>
-						</transformation>
-						<transformation>
-							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
-							<file>XWiki/XWikiPreferences.xml</file>
-							<xpath>xwikidoc/object[property/groups[contains(text(),"XWiki.XWikiAllGroup")]]/property/levels</xpath>
-							<value>view,edit,comment,undelete</value>
-						</transformation>
-					</transformations>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build-->
-
 	<properties>
 		<xcs.footer.webcopyright><![CDATA[License ...]]></xcs.footer.webcopyright>
 		<xcs.footer.version><![CDATA[Learn PAd platform (v1.0)]]></xcs.footer.version>
@@ -228,4 +164,24 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.xwiki.platform</groupId>
+					<artifactId>xwiki-platform-extension-ui</artifactId>
+					<version>${platform.version}</version>
+					<type>xar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.xwiki.contrib</groupId>
+					<artifactId>application-webide</artifactId>
+					<version>0.11</version>
+					<type>xar</type>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 </project>
