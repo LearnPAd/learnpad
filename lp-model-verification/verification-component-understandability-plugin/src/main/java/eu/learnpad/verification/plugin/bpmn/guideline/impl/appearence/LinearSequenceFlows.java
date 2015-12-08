@@ -7,6 +7,7 @@ import java.util.Map;
 import org.eclipse.bpmn2.BaseElement;
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
+import org.eclipse.bpmn2.Gateway;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SequenceFlow;
@@ -33,7 +34,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 		/*StringBuilder temp = new StringBuilder();
 		Collection<FlowElement> elementsBPMNtemp = new ArrayList<FlowElement>();
 		Collection<ElementID> Elementstemp = new ArrayList<ElementID>();
-*/
+		 */
 
 		int num = 0;
 		Map<BaseElement,BPMNEdge> BPMNEdges = BPMNUtils.getAllBPMNEdge(diagram);
@@ -48,20 +49,33 @@ public class LinearSequenceFlows extends abstractGuideline{
 					if(fe instanceof SequenceFlow){
 						SequenceFlow sf = (SequenceFlow) fe;
 						//BPMNEdge res = BPMNUtils.findBPMNEdge(diagram, sf);
+
+
+						//boolean flagprocess = sf.getSourceRef().eContainer() == sf.getTargetRef().eContainer();
+						boolean flaglane =false;
+						if(sf.getSourceRef().getLanes()!=null)
+							if(sf.getTargetRef().getLanes()!=null)
+								if(!sf.getSourceRef().getLanes().isEmpty())
+									if(!sf.getTargetRef().getLanes().isEmpty())
+										flaglane = sf.getSourceRef().getLanes().get(0) == sf.getTargetRef().getLanes().get(0);
+						boolean flaggateawy = sf.getSourceRef() instanceof Gateway | sf.getTargetRef() instanceof Gateway;
+
 						BaseElement base= (BaseElement)sf;
 						boolean resd = BPMNEdges.containsKey(base);
 						if(resd){
 							List<Point> points = BPMNEdges.get(base).getWaypoint();
 							if(points!=null)
-								if(points.size()==2 | points.size()==4 | points.size()==6){
-									num++;
+								if(points.size()>2)
+									if((!flaggateawy |!flaglane ) & points.size()>3)
+										if((!((flaggateawy | !flaglane)&  points.size()==6)  ) ){
+											num++;
 
-									elementsBPMN.add(fe);
-									String name = sf.getName()!=null? sf.getName() : "Unlabeled"; 
-									setElements(fe.getId(),IDProcess,name);
-									//ret.append(i++ +") name=" + name + " ID=" + fe.getId()
-									//		+ "\n");
-								}
+											elementsBPMN.add(fe);
+											String name = sf.getName()!=null? sf.getName() : "Unlabeled"; 
+											setElements(fe.getId(),IDProcess,name);
+											//ret.append(i++ +") name=" + name + " ID=" + fe.getId()
+											//		+ "\n");
+										}
 						}
 					}
 
@@ -70,7 +84,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 		}
 
 
-	//
+		//
 		/*	for (BPMNEdge bpmnEdge : BPMNEdges.values()) {
 			BaseElement bpmnelement = bpmnEdge.getBpmnElement();
 			if(bpmnelement instanceof SequenceFlow){
@@ -83,9 +97,9 @@ public class LinearSequenceFlows extends abstractGuideline{
 			}
 		}
 
-		*/
+		 */
 		if (num>1) {
-			
+
 			this.Suggestion += "\nUse Linear sequence flows: ";
 			this.status = false;
 		}else{
