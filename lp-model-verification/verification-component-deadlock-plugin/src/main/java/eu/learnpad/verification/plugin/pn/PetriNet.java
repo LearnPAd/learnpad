@@ -148,16 +148,16 @@ public class PetriNet implements java.io.Serializable{
         return placeList.isEmpty() && transitionList.isEmpty();
     }
     
-    public PL addPlace(String name) throws Exception{
+    public PL addPlace(String name){
         return addPlace(name, 0);
     }
 
-    public PL addPlace(String name, int numToken) throws Exception{
+    public PL addPlace(String name, int numToken){
         if(name == null || name.isEmpty())
-            throw new Exception("ERROR: Name is empty or null");
+            throw new IllegalArgumentException("ERROR: Name is empty or null");
         for(PL place:placeList)
             if(place.name.equals(name))
-                throw new Exception("ERROR: A place with name " + name + " already exist");
+                throw new IllegalArgumentException("ERROR: A place with name " + name + " already exist");
         PL ret = new PL(name);
         ret.numToken = numToken;
         placeList.add(ret);
@@ -166,10 +166,10 @@ public class PetriNet implements java.io.Serializable{
         return ret;
     }
     
-    public void delPlace(String name) throws Exception{
+    public void delPlace(String name){
         delPlace(getPlace(name));
     }
-    public void delPlace(PL place) throws Exception{
+    public void delPlace(PL place){
         placeList.remove(place);
         endList.remove(place);
         startList.remove(place);
@@ -180,19 +180,19 @@ public class PetriNet implements java.io.Serializable{
             delConnection(place, tr0);
     }
     
-    public  ArrayList<TR> getEnabledTransitions() throws Exception{
+    public  ArrayList<TR> getEnabledTransitions(){
         int[] initialMark = new int[placeList.size()];
         for(int i=0; i<placeList.size();i++)
             initialMark[i] = placeList.get(i).numToken;
         return getEnabledTransitions(initialMark);
     }
     //FIXME: leggere arc weight!!!
-    public ArrayList<TR> getEnabledTransitions(int[] startingMarkList) throws Exception{
+    public ArrayList<TR> getEnabledTransitions(int[] startingMarkList){
 
         if(startingMarkList == null)
-            throw new Exception("ERROR: starting mark can not be null");
+            throw new IllegalArgumentException("ERROR: starting mark can not be null");
         if(startingMarkList.length != placeList.size())
-            throw new Exception("ERROR: you have to provide a mark for each place");
+            throw new IllegalArgumentException("ERROR: you have to provide a mark for each place");
         ArrayList<TR> enabledList = new ArrayList<TR>();
         for(TR transition: transitionList){
             boolean isEnabled=true;
@@ -206,9 +206,9 @@ public class PetriNet implements java.io.Serializable{
         return enabledList;
     }
     //FIXME: leggere arc weight!!!
-    public void fireTransition(TR transition) throws Exception{
+    public void fireTransition(TR transition){
         if(!getEnabledTransitions().contains(transition))
-            throw new Exception("ERROR: transition " + transition.name + " can not be fired");
+            throw new IllegalArgumentException("ERROR: transition " + transition.name + " can not be fired");
         
         for(PL place: transition.previousList)
             if(place.numToken>0)
@@ -225,30 +225,30 @@ public class PetriNet implements java.io.Serializable{
         return mark;
     }
     
-    public void setMark(int[] newMark) throws Exception{
+    public void setMark(int[] newMark){
         if(newMark == null)
-            throw new Exception("ERROR: starting mark can not be null");
+            throw new IllegalArgumentException("ERROR: starting mark can not be null");
         if(newMark.length != placeList.size())
-            throw new Exception("ERROR: you have to provide a mark for each place");
+            throw new IllegalArgumentException("ERROR: you have to provide a mark for each place");
         for(int i=0; i<placeList.size();i++)
             placeList.get(i).numToken = newMark[i];
     }
     
-    public TR addTransition(String name) throws Exception{
+    public TR addTransition(String name){
         if(name == null || name.isEmpty())
-            throw new Exception("ERROR: Name is empty or null");
+            throw new IllegalArgumentException("ERROR: Name is empty or null");
         for(TR transition:transitionList)
             if(transition.name.equals(name))
-                throw new Exception("ERROR: A transition with name " + name + " already exist");
+                throw new IllegalArgumentException("ERROR: A transition with name " + name + " already exist");
         TR ret = new TR(name);
         transitionList.add(ret);
         return ret;
     }
     
-    public void delTransition(String name) throws Exception{
+    public void delTransition(String name){
         delTransition(getTransition(name));
     }
-    public void delTransition(TR transition) throws Exception{
+    public void delTransition(TR transition){
         transitionList.remove(transition);
         for(PL pl0:transition.getPreviousList_safe())
             delConnection(pl0, transition);
@@ -256,7 +256,7 @@ public class PetriNet implements java.io.Serializable{
             delConnection(transition, pl0);
     }
     
-    public PT connect(PL place, TR transition) throws Exception{
+    public PT connect(PL place, TR transition){
         PT conn = null;
         try {
             conn = getConnection(place, transition);
@@ -264,7 +264,7 @@ public class PetriNet implements java.io.Serializable{
         if(conn != null) {
             //conn.weight += 1;
             //return conn;
-            throw new Exception("ERROR: A connection already exist between " + transition.name + " and " + place.name);
+            throw new IllegalArgumentException("ERROR: A connection already exist between " + transition.name + " and " + place.name);
         }
         place.nextList.add(transition);
         transition.previousList.add(place);
@@ -272,7 +272,7 @@ public class PetriNet implements java.io.Serializable{
         connectionPTList.add(conn);
         return conn;
     }
-    public TP connect(TR transition, PL place) throws Exception{
+    public TP connect(TR transition, PL place){
         TP conn = null;
         try {
             conn = getConnection(transition, place);
@@ -280,7 +280,7 @@ public class PetriNet implements java.io.Serializable{
         if(conn != null) {
             //conn.weight += 1;
             //return conn;
-            throw new Exception("ERROR: A connection already exist between " + transition.name + " and " + place.name);
+            throw new IllegalArgumentException("ERROR: A connection already exist between " + transition.name + " and " + place.name);
         }
         transition.nextList.add(place);
         place.previousList.add(transition);
@@ -303,43 +303,43 @@ public class PetriNet implements java.io.Serializable{
         return false;
     }
     
-    public void delConnection(PL place, TR transition) throws Exception{
+    public void delConnection(PL place, TR transition){
         PT conn = getConnection(place, transition);
         connectionPTList.remove(conn);
         place.nextList.remove(transition);
         transition.previousList.remove(place);
         
     }
-    public void delConnection(TR transition, PL place) throws Exception{
+    public void delConnection(TR transition, PL place){
         TP conn = getConnection(transition, place);
         connectionTPList.remove(conn);
         transition.nextList.remove(place);
         place.previousList.remove(transition);
     }
     
-    public PL getPlace(String name) throws Exception{
+    public PL getPlace(String name){
         if(name == null || name.isEmpty())
-            throw new Exception("ERROR: Name is empty or null");
+            throw new IllegalArgumentException("ERROR: Name is empty or null");
         name = name.replaceAll("(\\W|_)+", "");
         for(PL place:placeList)
             if(place.name.equals(name))
                 return place;
-        throw new Exception("ERROR: Can not find a Place with name " + name);
+        throw new IllegalArgumentException("ERROR: Can not find a Place with name " + name);
     }
     
-    public TR getTransition(String name) throws Exception{
+    public TR getTransition(String name){
         if(name == null || name.isEmpty())
-            throw new Exception("ERROR: Name is empty or null");
+            throw new IllegalArgumentException("ERROR: Name is empty or null");
         name = name.replaceAll("(\\W|_)+", "");
         for(TR transition:transitionList)
             if(transition.name.equals(name))
                 return transition;
-        throw new Exception("ERROR: Can not find a Transition with name " + name);
+        throw new IllegalArgumentException("ERROR: Can not find a Transition with name " + name);
     }
     
-    public boolean existPlace(String name) throws Exception{
+    public boolean existPlace(String name){
         if(name == null || name.isEmpty())
-            throw new Exception("ERROR: Name is empty or null");
+            throw new IllegalArgumentException("ERROR: Name is empty or null");
         name = name.replaceAll("(\\W|_)+", "");
         for(PL place:placeList)
             if(place.name.equals(name))
@@ -347,9 +347,9 @@ public class PetriNet implements java.io.Serializable{
         return false;
     }
     
-    public boolean existTransition(String name) throws Exception{
+    public boolean existTransition(String name){
         if(name == null || name.isEmpty())
-            throw new Exception("ERROR: Name is empty or null");
+            throw new IllegalArgumentException("ERROR: Name is empty or null");
         name = name.replaceAll("(\\W|_)+", "");
         for(TR transition:transitionList)
             if(transition.name.equals(name))
@@ -357,24 +357,33 @@ public class PetriNet implements java.io.Serializable{
         return false;
     }
     
-    public TP getConnection(TR transition, PL place) throws Exception{
+    public TP getConnection(TR transition, PL place){
         for(TP tp:connectionTPList)
             if(tp.source == transition && tp.target == place)
                 return tp;
-        throw new Exception("ERROR: Can not find a connection between " + transition.name + " and " + place.name);
+        throw new IllegalArgumentException("ERROR: Can not find a connection between " + transition.name + " and " + place.name);
     }
-    public PT getConnection(PL place, TR transition) throws Exception{
+    public PT getConnection(PL place, TR transition){
         for(PT pt:connectionPTList)
             if(pt.source == place && pt.target == transition)
                 return pt;
-        throw new Exception("ERROR: Can not find a connection between " + place.name + " and " + transition.name);
+        throw new IllegalArgumentException("ERROR: Can not find a connection between " + place.name + " and " + transition.name);
     }
     
     public void finalizeModel(){
+        correctDeadTransitions();
         updateEndList();
         updateStartList();
     }
 
+    private void correctDeadTransitions(){
+        for(TR transition:transitionList)
+            if(transition.nextList.isEmpty()){
+                PL pl = this.addPlace("pEnd"+transition.name);
+                this.connect(transition, pl);
+            }
+    }
+    
     private void updateEndList(){
         ArrayList<PL> newEndList = new ArrayList<PetriNet.PL>();
         for(PL place:placeList)
@@ -412,17 +421,17 @@ public class PetriNet implements java.io.Serializable{
             TR t0 = pn.addTransition("t0");
             PL p1 = pn.addPlace("p1");
             TR t1 = pn.addTransition("t1");
-            PL p2 = pn.addPlace("p2");
+            //PL p2 = pn.addPlace("p2");
             pn.connect(p0, t0);
-            pn.connect(p0, t1);
+            //pn.connect(p0, t1);
             pn.connect(t0, p1);
             pn.connect(p1, t1);
-            pn.connect(t1, p2);
+            //pn.connect(t1, p2);
             //pn.delTransition(t0);
             //pn.delPlace(p1);
             pn.finalizeModel();
             
-            System.out.println(eu.learnpad.verification.pn.impexp.PNExport.exportTo_EldaricaP(pn));
+            System.out.println(PNExport.exportTo_PNML(pn));
         } catch (Exception e) {
             e.printStackTrace();
         }

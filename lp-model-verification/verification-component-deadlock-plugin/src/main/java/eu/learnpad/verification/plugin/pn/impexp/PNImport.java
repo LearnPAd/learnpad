@@ -58,6 +58,16 @@ public class PNImport {
         return false;
     }
     
+    public static boolean isPNML(Document model){
+        try{
+            String queryRoot = "/*[local-name()='pnml']";
+            Node pnmlRootNode =  (Node) XMLUtils.execXPath(model.getDocumentElement(), queryRoot, XPathConstants.NODE);
+            if(pnmlRootNode!=null)
+                return true;
+        }catch(Exception e){}
+        return false;
+    }
+    
     /**
      * Generate a PetriNet from the provided OMG BPMN2 Standard.
      * Supported BPMN2 elements are: startEvent, endEvent, task, userTask, serviceTask, manualTask, businessRuleTask, receiveTask, sendTask, scriptTask, intermediateCatchEvent, intermediateThrowEvent, adHocSubProcess, subProcess, transaction, callActivity, choreographyTask, subChoreography, callChoreography, standardLoopCharacteristics, boundaryEvent, parallelGateway, exclusiveGateway, eventBasedGateway, inclusiveGateway, complexGateway, sequenceFlow, messageFlow, participant.
@@ -790,6 +800,9 @@ public class PNImport {
     }
     
     public static PetriNet generateFromPNML(Document pnmlXml) throws Exception{
+        
+        if(!isPNML(pnmlXml))
+            throw new Exception("ERROR: The provided model is not a valid PNML model");
         
         PNMapping pnm = new PNMapping();
         pnm.addMapping("p : p ; in:connection=p ; out:connection=p");

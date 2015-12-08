@@ -178,17 +178,22 @@ public class Engine {
                         .replace("<?xml version=\"1.1\" encoding=\"UTF-8\"?>\n", "")
                         .replace(" xmlns=\"@boc-eu.com/boc-is/adonis.model.document;1\"", "")
                         .replace(" xsi:schemaLocation=\"@boc-eu.com/boc-is/adonis.model.document;1 adoxmlmodel.xsd\"", "");
-        
-        Document xmlModel = XMLUtils.getXmlDocFromString(model);
-        
-        if(PNImport.isOMGBPMN2(xmlModel))
+        Document xmlModel = null;
+        try{
+            xmlModel = XMLUtils.getXmlDocFromString(model);
+        }catch(Exception ex){
+            throw new IllegalArgumentException("ERROR: The input model format is an incorrect xml: "+ex.getMessage());
+        }
+        if(PNImport.isOMGBPMN2(xmlModel)){
             pnList = new PetriNet[]{PNImport.generateFromBPMN(xmlModel)};
-        else if(PNImport.isADOXX(xmlModel)) {
+        } else if(PNImport.isPNML(xmlModel)){
+            pnList = new PetriNet[]{PNImport.generateFromPNML(xmlModel)};
+        } else if(PNImport.isADOXX(xmlModel)) {
             PetriNet[] pnList1 = PNImport.generateFromAdoxxBPMN(xmlModel);
             PetriNet[] pnList2 = PNImport.generateFromAdoxxPetriNet(xmlModel);
             pnList = Utils.concatenate(pnList1, pnList2);
         } else
-            throw new Exception("ERROR: The model file format can not be recognized.");
+            throw new IllegalArgumentException("ERROR: The model file format can not be recognized.");
         /*
         for(int i=0;i<pnList.length;i++)
             if(Algorithms.needToBeReduced(pnList[i]))
