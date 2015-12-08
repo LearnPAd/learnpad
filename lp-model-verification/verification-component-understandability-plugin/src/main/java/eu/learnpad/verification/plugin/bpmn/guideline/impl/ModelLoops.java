@@ -28,7 +28,7 @@ public class ModelLoops extends abstractGuideline {
 	}
 
 	public void findGL(Definitions diagram) {
-		StringBuilder ret = new StringBuilder("");
+	//	StringBuilder ret = new StringBuilder("");
 		boolean flag=false;
 		for (RootElement rootElement : diagram.getRootElements()) {
 			if (rootElement instanceof Process) {

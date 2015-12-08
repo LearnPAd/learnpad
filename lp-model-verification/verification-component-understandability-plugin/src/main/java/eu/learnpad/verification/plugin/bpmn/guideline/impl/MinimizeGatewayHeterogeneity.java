@@ -26,7 +26,7 @@ public class MinimizeGatewayHeterogeneity extends abstractGuideline {
 	}
 	@Override
 	protected void findGL(Definitions diagram) {
-		StringBuilder ret = new StringBuilder("");
+		//StringBuilder ret = new StringBuilder("");
 
 		int neg=0;
 		int npg=0;
@@ -78,7 +78,7 @@ public class MinimizeGatewayHeterogeneity extends abstractGuideline {
 	}
 
 	protected void searchSubProcess(SubProcess sub){
-		StringBuilder temp = new StringBuilder();
+	//	StringBuilder temp = new StringBuilder();
 		
 		int neg=0;
 		int npg=0;
@@ -114,7 +114,7 @@ public class MinimizeGatewayHeterogeneity extends abstractGuideline {
 		long sum2= (geg*logOfBase(3,geg))+(gpg*logOfBase(3,gpg))+(gig*logOfBase(3,gig))+(gcg*logOfBase(3,gcg));
 		if (sum2>0.92) {
 
-			this.Suggestion += "\nMinimize Gateway Heterogeneity SubProcess "+sub.getName();
+			this.Suggestion += "\nMinimize Gateway Heterogeneity in SubProcess "+sub.getName();
 			this.status = false;
 		}
 
