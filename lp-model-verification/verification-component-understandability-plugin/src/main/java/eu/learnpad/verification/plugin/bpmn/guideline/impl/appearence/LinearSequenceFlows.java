@@ -66,7 +66,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 							List<Point> points = BPMNEdges.get(base).getWaypoint();
 							if(points!=null)
 								if(points.size()>2)
-									if((!flaggateawy |!flaglane ) & points.size()>3)
+									if(!((flaggateawy |flaglane ) & points.size()==3))
 										if((!((flaggateawy | !flaglane)&  points.size()==6)  ) ){
 											num++;
 
