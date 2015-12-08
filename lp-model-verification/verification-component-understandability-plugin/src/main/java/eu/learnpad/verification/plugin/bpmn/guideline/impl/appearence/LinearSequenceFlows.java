@@ -53,7 +53,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 						if(resd){
 							List<Point> points = BPMNEdges.get(base).getWaypoint();
 							if(points!=null)
-								if(points.size()>2){
+								if(points.size()==2 | points.size()==4 | points.size()==6){
 									num++;
 
 									elementsBPMN.add(fe);

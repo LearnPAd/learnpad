@@ -80,7 +80,7 @@ public class LinearMessageFlows extends abstractGuideline{
 				bpmnelement.getId();
 				List<Point> points = BPMNEdges.get(bpmnelement).getWaypoint();
 				if(points!=null)
-					if(points.size()>1){
+					if(points.size()>2){
 						num++;
 						InteractionNode ele = base.getSourceRef();
 						if(ele!=null){
