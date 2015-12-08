@@ -33,6 +33,9 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.MinimizeGatewayHetero
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.MinimizeModelSize;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.ModelLoops;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.appearence.LinearMessageFlows;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.appearence.LinearSequenceFlows;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.appearence.ProcessOrientation;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingANDGateways;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingActivities;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling.LabelingConvergingGateways;
@@ -126,6 +129,11 @@ public class GuidelinesFactory {
 		guidelines.add(new LabelingConvergingGateways(diagram));
 		guidelines.add(new LabelingDataObject(diagram));
 		guidelines.add(new LoopMarkerAnnotation(diagram));
+		//** Appearence 
+		guidelines.add(new LinearSequenceFlows(diagram));
+		guidelines.add(new LinearMessageFlows(diagram));
+		guidelines.add(new ProcessOrientation(diagram));
+		//guidelines.add(new (diagram));
 		//guidelines.add(new (diagram));
 		//guidelines.add(new (diagram));
 		threadPool = new LinkedBlockingQueue<Runnable>();

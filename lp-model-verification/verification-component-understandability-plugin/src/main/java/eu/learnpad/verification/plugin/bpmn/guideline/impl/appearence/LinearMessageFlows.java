@@ -30,7 +30,7 @@ public class LinearMessageFlows extends abstractGuideline{
 
 	@Override
 	protected void findGL(Definitions diagram) {
-		
+
 
 		int num = 0;
 		Map<BaseElement,BPMNEdge> BPMNEdges = BPMNUtils.getAllBPMNEdge(diagram);
@@ -78,25 +78,27 @@ public class LinearMessageFlows extends abstractGuideline{
 			if(bpmnelement instanceof MessageFlow){
 				MessageFlow base= (MessageFlow)bpmnelement;
 				bpmnelement.getId();
-					List<Point> points = BPMNEdges.get(bpmnelement).getWaypoint();
-					if(points!=null)
-						if(points.size()>1){
-							num++;
-							InteractionNode ele = base.getSourceRef();
+				List<Point> points = BPMNEdges.get(bpmnelement).getWaypoint();
+				if(points!=null)
+					if(points.size()>1){
+						num++;
+						InteractionNode ele = base.getSourceRef();
+						if(ele!=null){
 							EObject process = ele.eContainer();
 							//elementsBPMN.add(fe);
 							if(process instanceof Process){
 
 								IDProcess =(( Process)process).getId();
 							}
-							String name = base.getName()!=null? base.getName() : "Unlabeled"; 
-							setElements(base.getId(),IDProcess,name);
 						}
-				
+						String name = base.getName()!=null? base.getName() : "Unlabeled"; 
+						setElements(base.getId(),IDProcess,name);
+					}
+
 			}
 		}
 
-		 
+
 		if (num>1) {
 
 			this.Suggestion += "\nUse Linear Message Flows: ";
