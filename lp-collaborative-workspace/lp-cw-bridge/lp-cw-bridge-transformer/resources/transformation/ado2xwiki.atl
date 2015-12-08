@@ -20,6 +20,8 @@ helper def : getModelType(modelName : String, modelType : String, modelVer : Str
 												and (i.modeltype = modelType) 
 												and (i.version = modelVer))
 								  ->first();
+helper def : getModelSetId() : String = 
+	thisModule.modelSet.aTTRIBUTE->select(e | e.name='Model Set ID').first().value;
 
 ----------------------
 -- Escaping methods
@@ -78,10 +80,20 @@ helper def : incLinkModelNumber(id: String) : Map(String, Integer) =
 	thisModule.linkModelNumberMap
 	.including(id, thisModule.linkModelNumberMap.get(id) + 1);
 
-helper def : getNumber(iref : ADOXX!IREFType) : Integer =
-	thisModule.linkClassNumberMap.get(thisModule.getIrefSourceId(iref));
-----------------------
+helper def : getNumberFromIref(par : String, iref : ADOXX!IREFType) : Integer =
+	if par='SOURCE' then 
+		thisModule.linkClassNumberMap.get(thisModule.getIrefSourceId(iref))
+	else
+		thisModule.linkClassNumberMap.get(thisModule.getIrefTargetInstanceId(iref))
+	endif;
 
+helper def : getNumberFromConnector(par : String, c : ADOXX!CONNECTORType) : Integer =
+	if par='SOURCE' then 
+		thisModule.linkClassNumberMap.get(thisModule.getConnectorSourceId(c)) 
+	else 
+		thisModule.linkClassNumberMap.get(thisModule.getConnectorTargetId(c))
+	endif;
+-------------
 
 -- Get the source instance id for the iref
 helper def : getIrefSourceId(iref: OclAny) : String = 
@@ -126,7 +138,12 @@ helper def : mapModelType : Map(String, String) = Map {
 	('Organizational structure', 'omm')
 };
 
-helper context String def : mapStandardModelType : String = if thisModule.mapModelType.containsKey(self) then thisModule.mapModelType.get(self) else self endif;
+helper context String def : mapStandardModelType : String = 
+	if thisModule.mapModelType.containsKey(self) then 
+		thisModule.mapModelType.get(self) 
+	else 
+		self 
+	endif;
 
 helper def : mapInstanceType : Map(String, String) = Map {
 	-- Business Process
@@ -157,22 +174,42 @@ helper def : mapInstanceType : Map(String, String) = Map {
 	('Performer', 'omm-performer')
 };
 
-helper context String def : mapStandardInstanceType : String = if thisModule.mapInstanceType.containsKey(self) then thisModule.mapInstanceType.get(self) else self endif;
+helper context String def : mapStandardInstanceType : String = 
+	if thisModule.mapInstanceType.containsKey(self) then 
+		thisModule.mapInstanceType.get(self) 
+	else 
+		self 
+	endif;
 
+-- End Standardization of names
 
 -- Documentation of elements
-helper def : getDocumentationRaw(i: ADOXX!INSTANCEType) : String =
+helper def : getDocumentationRawFromModel(i: ADOXX!MODELType) : String =
+	i.mODELATTRIBUTES.aTTRIBUTE
+	->select(e | e.name='Description' and e.type='STRING')
+	->collect(c | c.value)
+	->first();
+
+helper def : getDocumentationFromModel(i: ADOXX!MODELType) : String =
+	if thisModule.getDocumentationRawFromModel(i).oclIsUndefined()
+	then
+		''
+	else
+		thisModule.getDocumentationRawFromModel(i)
+	endif;
+
+helper def : getDocumentationRawFromInstance(i: ADOXX!INSTANCEType) : String =
 	i.aTTRIBUTE
 	->select(e | e.name='Description' and e.type='STRING')
 	->collect(c | c.value)
 	->first();
 
-helper def : getDocumentation(i: ADOXX!INSTANCEType) : String =
-	if thisModule.getDocumentationRaw(i).oclIsUndefined()
+helper def : getDocumentationFromInstance(i: ADOXX!INSTANCEType) : String =
+	if thisModule.getDocumentationRawFromInstance(i).oclIsUndefined()
 	then
 		''
 	else
-		thisModule.getDocumentationRaw(i)
+		thisModule.getDocumentationRawFromInstance(i)
 	endif;
 
 --helper def: modeltypeFilter() : String = ADOXX!MODELType.allInstances()->
@@ -220,7 +257,7 @@ entrypoint rule ModelOverview() {
 
 rule initWebHome() {
 	to t: XWIKI!DocumentRoot (
-		object <- msc,
+		object <- Sequence{msc, msc1}->asSequence(),
 		page <- Sequence{}->append(p)
 	),
 	-----------------------  Static WebHome  -----------------------
@@ -228,7 +265,7 @@ rule initWebHome() {
 	   	title <- 'Home',
 		parent <- 'Main.WebHome',
 		wiki <- 'xwiki',
-		space <- thisModule.modelSet.name,
+		space <- thisModule.getModelSetId(),
 		name <- 'WebHome',
 		content <- '{{include reference="LPCode\\.ModelSetWebHome" /}}'
 	),
@@ -236,20 +273,55 @@ rule initWebHome() {
 		className <- 'LPCode.ModelSetClass',
 		number <- 0,
 		wiki <- 'xwiki',
-		space <- thisModule.modelSet.name,
+		space <- thisModule.getModelSetId(),
 		pageName <- 'WebHome',
 		property <- Sequence{msc_p1, msc_p2}
 	),
 	msc_p1:XWIKI!Property (
 		name <- 'id',
 		type <- 'String',
-		value <- thisModule.modelSet.name
+		value <- thisModule.getModelSetId()
 	),
 	msc_p2:XWIKI!Property (
 		name <- 'name',
 		type <- 'String',
-		value <- 'Set of models' --TODO: there is no model set name defined in our process
+		value <- 'Set of models'
+	),
+	--begin documentation
+	msc1:XWIKI!Object (
+		className <- 'LPCode.ModelSetClass',
+		number <- 1,
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		pageName <- 'WebHome',
+		property <- Sequence{msc1_p0, msc1_p1, msc1_p2, msc1_p3, msc1_p4}->asSequence()
+	),
+	msc1_p0:XWIKI!Property (
+		name <- 'modelid',
+		type <- 'String',
+		value <- ''
+	),
+	msc1_p1:XWIKI!Property (
+		name <- 'id',
+		type <- 'String',
+		value <- 'WebHome'
+	),
+	msc1_p2:XWIKI!Property (
+		name <- 'name',
+		type <- 'String',
+		value <- 'WebHome'
+	),
+	msc1_p3:XWIKI!Property (
+		name <- 'type',
+		type <- 'StaticList',
+		value <- 'OverviewModel'
+	),
+	msc1_p4:XWIKI!Property (
+		name <- 'documentation',
+		type <- 'TextArea',
+		value <- 'WebHome'
 	)
+	---- end documentation
 	do {
 		thisModule.documentRoot <- t;
 		thisModule.instances <- thisModule.loadInstances;
@@ -264,7 +336,7 @@ rule MODELType2WebHome {
 	   	title <- s.name.escapeXML,
 		parent <- 'WebHome',
 		wiki <- 'xwiki',
-		space <- thisModule.modelSet.name,
+		space <- thisModule.getModelSetId(),
 		name <- s.id,
 		content <- ''
 	),
@@ -272,7 +344,7 @@ rule MODELType2WebHome {
 		className <- 'LPCode.ModelClass',
 		number <- 0,
 		wiki <- 'xwiki',
-		space <- thisModule.modelSet.name,
+		space <- thisModule.getModelSetId(),
 		pageName <- s.id,
 		property <- Sequence{mc_p1, mc_p2, mc_p3}
 	),
@@ -290,11 +362,46 @@ rule MODELType2WebHome {
 		name <- 'type',
 		type <- 'StaticList',
 		value <- s.modeltype.mapStandardModelType
+	),
+	--begin documentation
+	mc1:XWIKI!Object (
+		className <- 'LPCode.ModelClass',
+		number <- 1,
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		pageName <- s.id,
+		property <- Sequence{mc1_p0, mc1_p1, mc1_p2, mc1_p3, mc1_p4}->asSequence()
+	),
+	mc1_p0:XWIKI!Property (
+		name <- 'modelid',
+		type <- 'String',
+		value <- 'WebHome'
+	),
+	mc1_p1:XWIKI!Property (
+		name <- 'id',
+		type <- 'String',
+		value <- s.id
+	),
+	mc1_p2:XWIKI!Property (
+		name <- 'name',
+		type <- 'String',
+		value <- s.name.escapeXML
+	),
+	mc1_p3:XWIKI!Property (
+		name <- 'type',
+		type <- 'StaticList',
+		value <- s.modeltype.mapStandardModelType
+	),
+	mc1_p4:XWIKI!Property (
+		name <- 'documentation',
+		type <- 'TextArea',
+		value <- thisModule.getDocumentationFromModel(s).escapeXML
 	)
-	--aggiungere una property documentation
+	---- end documentation
 	do {
 		thisModule.documentRoot.page <- p;
 		thisModule.documentRoot.object <- mc;
+		thisModule.documentRoot.object <- mc1;
 	}
 }
 
@@ -306,7 +413,7 @@ rule INSTANCEType2Page {
 	   	title <- s.name.escapeXML,
 		parent <- s.refImmediateComposite().id.escapeId, --modelsetid
 		wiki <- 'xwiki',
-		space <- thisModule.modelSet.name,
+		space <- thisModule.getModelSetId(),
 		name <- s.id,
 		content <- ''
 	),
@@ -315,7 +422,7 @@ rule INSTANCEType2Page {
 		className <- 'LPCode.BaseElementClass',
 		number <- 0,
 		wiki <- 'xwiki',
-		space <- thisModule.modelSet.name,
+		space <- thisModule.getModelSetId(),
 		pageName <- s.id,
 		property <- Sequence{bec_p0, bec_p1, bec_p2, bec_p3, bec_p4}->asSequence()
 	),
@@ -342,7 +449,7 @@ rule INSTANCEType2Page {
 	bec_p4:XWIKI!Property (
 		name <- 'documentation',
 		type <- 'TextArea',
-		value <- thisModule.getDocumentation(s).escapeXML
+		value <- thisModule.getDocumentationFromInstance(s).escapeXML
 	)
 	do {
 		thisModule.documentRoot.page <- t_p;
@@ -354,9 +461,9 @@ rule CONNECTORType2Object {
 	from c:ADOXX!CONNECTORType
 	to lco:XWIKI!Object (
 		className <- 'LPCode.LinkClass',
-		number <- thisModule.linkClassNumberMap.get(thisModule.getConnectorSourceId(c)),
+		number <- thisModule.getNumberFromConnector('SOURCE', c),
 		wiki <- 'xwiki',
-		space <- thisModule.modelSet.name,
+		space <- thisModule.getModelSetId(),
 		pageName <- thisModule.getConnectorSourceId(c),
 		property <- Sequence{lco_p1, lco_p2, lco_p3}
 	), 
@@ -377,9 +484,9 @@ rule CONNECTORType2Object {
 	),
 	lci:XWIKI!Object (
 		className <- 'LPCode.LinkClass',
-		number <- thisModule.linkClassNumberMap.get(thisModule.getConnectorTargetId(c)),
+		number <- thisModule.getNumberFromConnector('TARGET', c),
 		wiki <- 'xwiki',
-		space <- thisModule.modelSet.name,
+		space <- thisModule.getModelSetId(),
 		pageName <- thisModule.getConnectorTargetId(c),
 		property <- Sequence{lci_p1, lci_p2, lci_p3}
 	), 
@@ -410,9 +517,9 @@ rule IREFTypeObjRef2Object {
 	from i:ADOXX!IREFType(i.type='objectreference')
 	to lco:XWIKI!Object (
 		className <- 'LPCode.LinkClass',
-		number <- thisModule.getNumber(i),
+		number <- thisModule.getNumberFromIref('SOURCE', i),
 		wiki <- 'xwiki',
-		space <- thisModule.modelSet.name,
+		space <- thisModule.getModelSetId(),
 		pageName <- thisModule.getIrefSourceId(i),
 		property <- Sequence{lco_p1, lco_p2, lco_p3}
 	),
@@ -433,9 +540,9 @@ rule IREFTypeObjRef2Object {
 	),
 	lci:XWIKI!Object (
 		className <- 'LPCode.LinkClass',
-		number <- thisModule.linkClassNumberMap.get(thisModule.getIrefTargetInstanceId(i)),
+		number <- thisModule.getNumberFromIref('TARGET', i),
 		wiki <- 'xwiki',
-		space <- thisModule.modelSet.name,
+		space <- thisModule.getModelSetId(),
 		pageName <- thisModule.getIrefTargetInstanceId(i),
 		property <- Sequence{lci_p1, lci_p2, lci_p3}
 	), 
@@ -466,9 +573,9 @@ rule IREFTypeModRef2Object {
 	from i:ADOXX!IREFType((i.type='modelreference') and (not thisModule.getIrefTargetModelId(i).oclIsUndefined()) )
 	to lco:XWIKI!Object (
 		className <- 'LPCode.LinkClass',
-		number <- thisModule.getNumber(i),
+		number <- thisModule.getNumberFromIref('SOURCE', i),
 		wiki <- 'xwiki',
-		space <- thisModule.modelSet.name,
+		space <- thisModule.getModelSetId(),
 		pageName <- thisModule.getIrefSourceId(i),
 		property <- Sequence{lco_p1, lco_p2, lco_p3}
 	),
@@ -489,9 +596,9 @@ rule IREFTypeModRef2Object {
 	),
 	lci:XWIKI!Object (
 		className <- 'LPCode.LinkClass',
-		number <- thisModule.linkModelNumberMap.get(thisModule.getIrefTargetModelId(i)),
+		number <- thisModule.getNumberFromIref('TARGET', i),
 		wiki <- 'xwiki',
-		space <- thisModule.modelSet.name,
+		space <- thisModule.getModelSetId(),
 		pageName <- thisModule.getIrefTargetModelId(i),
 		property <- Sequence{lci_p1, lci_p2, lci_p3}
 	), 
