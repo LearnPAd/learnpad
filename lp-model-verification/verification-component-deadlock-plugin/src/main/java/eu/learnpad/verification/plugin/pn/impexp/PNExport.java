@@ -318,9 +318,11 @@ public class PNExport {
             throw new Exception("ERROR: The provided petri net is empty");
         
         ArrayList<PL> placeList = null;
-        if(onlyEndPlaces)
+        if(onlyEndPlaces){
             placeList = pn.getEndList_safe();
-        else
+            if(placeList.size()==0)
+                placeList = pn.getPlaceList_safe();
+        } else
             placeList = pn.getPlaceList_safe();
         
         ArrayList<String> retA = new ArrayList<String>();
@@ -382,7 +384,7 @@ public class PNExport {
         return alwaysFollow+not+"("+pnIdObjectS+")";
     }
     
-    
+    /*
     public static void main(String[] args) {
         try {
             String bpmnUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_3.bpmn";
@@ -397,5 +399,5 @@ public class PNExport {
             e.printStackTrace();
         }
     }
-    
+    */
 }
