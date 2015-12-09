@@ -20,6 +20,8 @@
 package eu.learnpad.sim.rest.event.impl;
 
 import eu.learnpad.sim.rest.event.EventType;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -27,6 +29,18 @@ import eu.learnpad.sim.rest.event.EventType;
  *
  */
 public class TaskFailedEvent extends TaskEndEvent {
+
+	public TaskFailedEvent() {
+		super();
+	}
+
+	public TaskFailedEvent(Long timestamp, String simulationsessionid,
+			List<String> involvedusers, String processid, String taskid,
+			String taskdefid, List<String> assignedusers,
+			String completingUser, Map<String, Object> submittedData) {
+		super(timestamp, simulationsessionid, involvedusers, processid, taskid,
+				taskdefid, assignedusers, completingUser, submittedData);
+	}
 
 	@Override
 	public EventType getType() {

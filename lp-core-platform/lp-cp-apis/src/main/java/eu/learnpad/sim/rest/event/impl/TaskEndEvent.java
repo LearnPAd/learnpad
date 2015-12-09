@@ -22,6 +22,7 @@ package eu.learnpad.sim.rest.event.impl;
 import java.util.List;
 
 import eu.learnpad.sim.rest.event.EventType;
+import java.util.Map;
 
 /**
  *
@@ -31,6 +32,7 @@ import eu.learnpad.sim.rest.event.EventType;
 public class TaskEndEvent extends TaskStartEvent {
 
 	public String completingUser;
+	public Map<String, Object> submittedData;
 
 	public TaskEndEvent() {
 		super();
@@ -38,10 +40,12 @@ public class TaskEndEvent extends TaskStartEvent {
 
 	public TaskEndEvent(Long timestamp, String simulationsessionid,
 			List<String> involvedusers, String processid, String taskid,
-			String taskdefid, List<String> assignedusers, String completingUser) {
+			String taskdefid, List<String> assignedusers,
+			String completingUser, Map<String, Object> submittedData) {
 		super(timestamp, simulationsessionid, involvedusers, processid, taskid,
 				taskdefid, assignedusers);
 		this.completingUser = completingUser;
+		this.submittedData = submittedData;
 	}
 
 	@Override
