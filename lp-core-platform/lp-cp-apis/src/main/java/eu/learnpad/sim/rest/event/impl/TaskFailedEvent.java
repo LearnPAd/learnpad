@@ -17,13 +17,20 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.sim.rest.event;
+package eu.learnpad.sim.rest.event.impl;
+
+import eu.learnpad.sim.rest.event.EventType;
 
 /**
  *
  * @author Tom Jorquera - Linagora
  *
  */
-public enum EventType {
-	SIMULATION_START, SIMULATION_END, PROCESS_START, PROCESS_END, TASK_START, TASK_END, TASK_FAILED, SESSION_SCORE_UPDATE
+public class TaskFailedEvent extends TaskEndEvent {
+
+	@Override
+	public EventType getType() {
+		return EventType.TASK_FAILED;
+	}
+
 }

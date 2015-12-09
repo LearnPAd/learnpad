@@ -28,6 +28,7 @@ import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationEndEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
 import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
+import eu.learnpad.sim.rest.event.impl.TaskFailedEvent;
 import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 
 /**
@@ -60,6 +61,10 @@ public interface IEventReceiver {
 	@POST
 	@Path("/taskend")
 	public void receiveTaskEndEvent(TaskEndEvent event);
+
+	@POST
+	@Path("/taskfailed")
+	public void receiveTaskFailedEvent(TaskFailedEvent event);
 
 	@POST
 	@Path("/sessionscoreupdate")
