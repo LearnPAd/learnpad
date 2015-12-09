@@ -96,7 +96,7 @@ public class Engine {
         String ret = "";
         for(PetriNet pn: pnList){
             if(pn.isEmpty())
-                throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+                throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
             
             String[] pnIdObjectList = new String[0];
             if(BPUtils.existBPMNObject(pn, bpObjectId)){
@@ -133,7 +133,7 @@ public class Engine {
         String ret = "";
         for(PetriNet pn: pnList){
             if(pn.isEmpty())
-                throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+                throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
             
             String[] pnFromObjectIdList = new String[0];
             if(BPUtils.existBPMNObject(pn, bpFromObjectId)){
@@ -204,7 +204,7 @@ public class Engine {
     
     private String verifySingleDeadlock(PetriNet pn) throws Exception{
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
         
         String modelToVerify = PNExport.exportTo_LOLA(pn);
         String propertyToVerify = PNExport.exportTo_LOLA_property_DeadlockPresence(pn);
@@ -222,7 +222,7 @@ public class Engine {
     
     private String verifyAllDeadlocks(PetriNet pn) throws Exception{
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
         
         ArrayList<PL> endPLList = pn.getEndList_safe();
         
@@ -251,7 +251,7 @@ public class Engine {
     
     private String verifyUnboundedness(PetriNet pn, boolean onlyEndPlaces) throws Exception{
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
         
         String modelToVerify = PNExport.exportTo_LOLA(pn);
         String[] propertyToVerifyList = PNExport.exportTo_LOLA_property_UnboundednessPresence(pn, onlyEndPlaces);
@@ -298,7 +298,7 @@ public class Engine {
         String verificationType = this.verificationType;
         String status = (propertyVerified)?"OK":"KO";
         String description = "The property \""+verificationDescription+"\" is "+((propertyVerified)?"TRUE!":"FALSE!");
-        String ret = "<FormalVerificationResult><VerificationType>"+verificationType+"</VerificationType><DefinitionID>"+pn.name+"</DefinitionID><Status>"+status+"</Status><Description>"+description+"</Description>";
+        String ret = "<FormalVerificationResult><VerificationType>"+verificationType+"</VerificationType><DefinitionID>"+pn.getName()+"</DefinitionID><Status>"+status+"</Status><Description>"+description+"</Description>";
         for(String[] counterExampleTrace: counterExampleTraceList){
             ret += "<CounterExampleTrace>";
             

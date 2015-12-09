@@ -30,7 +30,7 @@ public class Algorithms {
 
     public static boolean needToBeReduced(PetriNet pn) throws Exception{
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
         
         int numPlaceLimit = 100;
         int numChoicePlaceLimit = 10;
@@ -59,7 +59,7 @@ public class Algorithms {
          */
         
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
         
         PetriNet pnReduced = pn.clonePN();
         while(true){
@@ -215,7 +215,7 @@ public class Algorithms {
          */
         
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
         
         PetriNet pnReduced = pn.clonePN();
         while(true){
@@ -334,7 +334,7 @@ public class Algorithms {
     public static PetriNet generateUnfoldedNet(PetriNet pn) throws Exception{
         //TODO
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
         
         throw new Exception("TO BE IMPLEMENTED");
     }

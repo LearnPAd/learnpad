@@ -38,7 +38,7 @@ public class PNExport {
         if(pn.isEmpty())
             throw new Exception("ERROR: The provided petri net is empty");
         
-        String pnName = pn.name.replaceAll(" ", "_");
+        String pnName = pn.getName().replaceAll("(\\W|_)+", "");
         
         Document xmlDoc = XMLUtils.createNewDocument();
         
@@ -159,7 +159,7 @@ public class PNExport {
         if(pn.isEmpty())
             throw new Exception("ERROR: The provided petri net is empty");
         
-        String ret = "net {\""+pn.name+"\"}\n";
+        String ret = "net {\""+pn.getName()+"\"}\n";
         
         for(TR tr:pn.getTransitionList_safe()){
             ret += "\ntr " + tr.name + " [] ";

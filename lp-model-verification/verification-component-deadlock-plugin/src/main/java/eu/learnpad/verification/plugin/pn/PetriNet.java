@@ -88,7 +88,7 @@ public class PetriNet implements java.io.Serializable{
         public void addInfo(String name, String value){ additionalInfoList.put(name, value); }
     }
     
-    public String name;
+    private String name;
     private ArrayList<PL> placeList = new ArrayList<PL>();
     private ArrayList<TR> transitionList = new ArrayList<TR>();
     private ArrayList<PL> startList = new ArrayList<PL>();
@@ -98,6 +98,14 @@ public class PetriNet implements java.io.Serializable{
     
     public PetriNet(String name){
         this.name = name;
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    
+    public String getName(){
+        return name;
     }
     
     public void resetNet(){
