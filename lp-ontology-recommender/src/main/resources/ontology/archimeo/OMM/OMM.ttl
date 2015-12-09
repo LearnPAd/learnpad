@@ -29,7 +29,7 @@
   dc:title "The OMM Ontology"@en ;
   owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
   owl:imports <http://ikm-group.ch/archiMEO/emo> ;
-  owl:imports <http://ikm-group.ch/archiMEO/eo> ;  
+  owl:imports <http://ikm-group.ch/archiMEO/eo> ;
   owl:versionInfo "1.0"^^xsd:string ;
 .
 omm:CostCenter
@@ -98,6 +98,11 @@ omm:organisationalUnitIsSubordinatedToOrganisationalUnit
   rdfs:domain omm:OrganisationalUnit ;
   rdfs:range omm:OrganisationalUnit ;
 .
+omm:performerAquiredCompetencyProfile
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain omm:Performer ;
+  rdfs:range <http://ikm-group.ch/archiMEO/CMM#Competency> ;
+.
 omm:performerBelongsToOrgUnit
   rdf:type owl:ObjectProperty ;
   rdfs:domain omm:Performer ;
@@ -132,6 +137,11 @@ omm:performerIsManagerOfOrganisationalUnit
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:domain omm:Performer ;
   rdfs:range omm:OrganisationalUnit ;
+.
+omm:roleRequiresCompetencies
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain omm:Role ;
+  rdfs:range <http://ikm-group.ch/archiMEO/CMM#Competency> ;
 .
 omm:s_ConstructHasNote
   rdf:type owl:ObjectProperty ;

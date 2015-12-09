@@ -23,6 +23,9 @@ helper def : getModelType(modelName : String, modelType : String, modelVer : Str
 helper def : getModelSetId() : String = 
 	thisModule.modelSet.aTTRIBUTE->select(e | e.name='Model Set ID').first().value;
 
+helper def : getModelSetDescription() : String = 
+	thisModule.modelSet.aTTRIBUTE->select(e | e.name='Model Set Description').first().value;
+
 ----------------------
 -- Escaping methods
 
@@ -257,7 +260,7 @@ entrypoint rule ModelOverview() {
 
 rule initWebHome() {
 	to t: XWIKI!DocumentRoot (
-		object <- Sequence{msc, msc1}->asSequence(),
+		object <- msc,
 		page <- Sequence{}->append(p)
 	),
 	-----------------------  Static WebHome  -----------------------
@@ -275,7 +278,7 @@ rule initWebHome() {
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
 		pageName <- 'WebHome',
-		property <- Sequence{msc_p1, msc_p2}
+		property <- Sequence{msc_p1, msc_p2, msc_p3, msc_p4, msc_p5, msc_p6, msc_p7}
 	),
 	msc_p1:XWIKI!Property (
 		name <- 'id',
@@ -288,35 +291,27 @@ rule initWebHome() {
 		value <- 'Set of models'
 	),
 	--begin documentation
-	msc1:XWIKI!Object (
-		className <- 'LPCode.ModelSetClass',
-		number <- 1,
-		wiki <- 'xwiki',
-		space <- thisModule.getModelSetId(),
-		pageName <- 'WebHome',
-		property <- Sequence{msc1_p0, msc1_p1, msc1_p2, msc1_p3, msc1_p4}->asSequence()
-	),
-	msc1_p0:XWIKI!Property (
+	msc_p3:XWIKI!Property (
 		name <- 'modelid',
 		type <- 'String',
 		value <- ''
 	),
-	msc1_p1:XWIKI!Property (
+	msc_p4:XWIKI!Property (
 		name <- 'id',
 		type <- 'String',
 		value <- 'WebHome'
 	),
-	msc1_p2:XWIKI!Property (
+	msc_p5:XWIKI!Property (
 		name <- 'name',
 		type <- 'String',
-		value <- 'WebHome'
+		value <- thisModule.getModelSetDescription().escapeXML
 	),
-	msc1_p3:XWIKI!Property (
+	msc_p6:XWIKI!Property (
 		name <- 'type',
 		type <- 'StaticList',
 		value <- 'OverviewModel'
 	),
-	msc1_p4:XWIKI!Property (
+	msc_p7:XWIKI!Property (
 		name <- 'documentation',
 		type <- 'TextArea',
 		value <- 'WebHome'
@@ -346,7 +341,7 @@ rule MODELType2WebHome {
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
 		pageName <- s.id,
-		property <- Sequence{mc_p1, mc_p2, mc_p3}
+		property <- Sequence{mc_p1, mc_p2, mc_p3, mc_p4, mc_p5, mc_p6, mc_p7, mc_p8}
 	),
 	mc_p1:XWIKI!Property (
 		name <- 'id',
@@ -364,35 +359,27 @@ rule MODELType2WebHome {
 		value <- s.modeltype.mapStandardModelType
 	),
 	--begin documentation
-	mc1:XWIKI!Object (
-		className <- 'LPCode.ModelClass',
-		number <- 1,
-		wiki <- 'xwiki',
-		space <- thisModule.getModelSetId(),
-		pageName <- s.id,
-		property <- Sequence{mc1_p0, mc1_p1, mc1_p2, mc1_p3, mc1_p4}->asSequence()
-	),
-	mc1_p0:XWIKI!Property (
+	mc_p4:XWIKI!Property (
 		name <- 'modelid',
 		type <- 'String',
 		value <- 'WebHome'
 	),
-	mc1_p1:XWIKI!Property (
+	mc_p5:XWIKI!Property (
 		name <- 'id',
 		type <- 'String',
 		value <- s.id
 	),
-	mc1_p2:XWIKI!Property (
+	mc_p6:XWIKI!Property (
 		name <- 'name',
 		type <- 'String',
 		value <- s.name.escapeXML
 	),
-	mc1_p3:XWIKI!Property (
+	mc_p7:XWIKI!Property (
 		name <- 'type',
 		type <- 'StaticList',
 		value <- s.modeltype.mapStandardModelType
 	),
-	mc1_p4:XWIKI!Property (
+	mc_p8:XWIKI!Property (
 		name <- 'documentation',
 		type <- 'TextArea',
 		value <- thisModule.getDocumentationFromModel(s).escapeXML
@@ -401,7 +388,6 @@ rule MODELType2WebHome {
 	do {
 		thisModule.documentRoot.page <- p;
 		thisModule.documentRoot.object <- mc;
-		thisModule.documentRoot.object <- mc1;
 	}
 }
 

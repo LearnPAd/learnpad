@@ -6,17 +6,9 @@
 package eu.learnpad.ontology.execution;
 
 import eu.learnpad.ontology.AbstractUnitTest;
+import eu.learnpad.ontology.config.APP;
 import eu.learnpad.or.rest.data.States;
-import eu.learnpad.ontology.persistence.FileOntAO;
-import eu.learnpad.ontology.transformation.SimpleModelTransformator;
-import javax.inject.Inject;
-import javax.xml.bind.JAXB;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import org.jglue.cdiunit.AdditionalClasses;
-import org.jglue.cdiunit.CdiRunner;
-import org.junit.Before;
-import org.junit.runner.RunWith;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
@@ -24,39 +16,17 @@ import org.junit.Test;
  * @author sandro.emmenegger
  */
 public class ExecutionStatesTest extends AbstractUnitTest {
-    
-    @Before
-    public void init(){
-        SimpleModelTransformator.setLatestModelSetId(TEST_MODEL_SET_ID_TITOLO_UNICO);
-    }
-    
-    public ExecutionStatesTest() {
-    }
 
     /**
      * Test of getStates method, of class ExecutionStates.
      */
     @Test
     public void testGetStates() {
-        States states = ExecutionStates.getInstance().getStates(TEST_USER_1_NAME, TEST_MODEL_SET_ID_TITOLO_UNICO);
-        JAXB.marshal(states, System.out);
+        States states = ExecutionStates.getInstance().getStates(APP.CONF.getString("testdata.user.email"), MODELSET_ID);
+        assertNotNull(states);
+//        assertNotNull(states.getStates());
+//        assertTrue(states.getStates().size() > 0);
+//        JAXB.marshal(states, System.out);
     }
     
 }
-
-
-@XmlRootElement
-        class MyObject{
-            
-            String name;
-
-    public String getName() {
-        return name;
-    }
-@XmlElement
-    public void setName(String name) {
-        this.name = name;
-    }
-            
-            
-        }

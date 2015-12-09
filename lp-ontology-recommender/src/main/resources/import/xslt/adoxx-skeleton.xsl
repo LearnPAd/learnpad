@@ -376,10 +376,12 @@ ________________________________________________________________________________
 			<xsl:with-param name="class" select="@modeltype" tunnel="yes"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>	 
-		<xsl:apply-templates select=".//INSTANCE[@class='Document']" mode="Document"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Group']" mode="DocumentGroup"/>
+		<xsl:apply-templates select=".//INSTANCE[@class='Document'][./ATTRIBUTE[@name='Object Type']='Generic']" mode="Document"/>
+		<xsl:apply-templates select=".//INSTANCE[@class='Document'][./ATTRIBUTE[@name='Object Type']='Learning Object']" mode="LearningDocument"/>
+		<xsl:apply-templates select=".//INSTANCE[@class='Document'][./ATTRIBUTE[@name='Object Type']='Competency Profile']" mode="CompetencyProfile"/>
 	</xsl:template>
-<!--...............................................................................................-->	
+<!--...............................................................................................-->
 
 <!--
 ___________________________________________________________________________________________________
@@ -403,6 +405,34 @@ ________________________________________________________________________________
 
 <!--
 ___________________________________________________________________________________________________
+Learning Document
+___________________________________________________________________________________________________-->
+	<xsl:template match="INSTANCE" mode="LearningDocument">
+		<xsl:call-template name="LearningDocument">
+			<xsl:with-param name="id" select="@id" tunnel="yes"/>
+			<xsl:with-param name="name" select="@name" tunnel="yes"/>
+			<xsl:with-param name="materialURL" select="replace(replace(replace(.//ATTRIBUTE[@name='Model Source' and @type='PROGRAMCALL'],'ITEM &quot;&quot; param:&quot;&quot;',''), 'ITEM &quot;&lt;automatically&gt;&quot; param:&quot;',''),'&quot;','')"/>
+		</xsl:call-template>
+		<xsl:apply-templates select="./INTERREF/IREF[@type='objectreference'][@tmodeltype='Competency model'][@tclassname='Competency']" mode="learningDocumentRefToCompetency"/>
+		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
+		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Group']/@id">
+  		     <xsl:call-template name="addInModelConnectionForLearningDocument">
+			  <xsl:with-param name="toId" select="."/>
+		     </xsl:call-template>
+		  </xsl:for-each>
+		</xsl:for-each>		
+          <xsl:call-template name="elementPostProcessing"/>		
+	</xsl:template>
+	
+	<xsl:template match="IREF" mode="learningDocumentRefToCompetency">
+		<xsl:call-template name="addLearningDocumentRefToCompetency">
+			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype][@name=current()/@tmodelname]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
+		</xsl:call-template>
+	</xsl:template>		
+<!--...............................................................................................-->	
+
+<!--
+___________________________________________________________________________________________________
  Document Group
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="DocumentGroup">
@@ -413,7 +443,45 @@ ________________________________________________________________________________
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
 <!--...............................................................................................-->	
-
+<!--
+___________________________________________________________________________________________________
+ Competency Profile  (aquired by performer or required for role)
+___________________________________________________________________________________________________-->
+  <xsl:template match="INSTANCE" mode="CompetencyProfile">
+		<xsl:call-template name="CompetencyProfile">
+			<xsl:with-param name="id" select="@id" tunnel="yes"/>
+			<xsl:with-param name="name" select="@name" tunnel="yes"/>
+			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="learningPreferences" select="./ATTRIBUTE[@name='Learning Preference']"/>
+			<xsl:with-param name="competenciesAndLevels" select="./RECORD[@name='CompetencyAndLevel']/ROW"></xsl:with-param>
+		</xsl:call-template>
+		<xsl:call-template name="elementPostProcessing"/>
+		
+		<xsl:variable name="competencyProfileId" select="@id"/>
+		<xsl:for-each select="./RECORD[@name='CompetencyAndLevel']/ROW">
+    		    <xsl:call-template name="CompetencyAndLevel">
+  		    	    <xsl:with-param name="id" select="@id"/>
+  			    <xsl:with-param name="name" select="@name"/>
+  			    <xsl:with-param name="class" select="@class"/>
+  			    <xsl:with-param name="competencyProfile" select="$competencyProfileId"/>
+  			    <xsl:with-param name="competencyAndLevelLevel" select="./ATTRIBUTE[@name='ACLevel']"/>
+  			    <!--xsl:with-param name="competencyAndLevelLearningGoal" select=""/-->
+  			    <xsl:with-param name="competencyAndLevelStatus" select="./ATTRIBUTE[@name='Status']"/>
+  			    <xsl:with-param name="competencyAndLevelScore" select="./ATTRIBUTE[@name='Score']"/>
+  			    <xsl:with-param name="competencyAndLevelLastUpdate" select="./ATTRIBUTE[@name='Updated']"/>
+  			    <xsl:with-param name="competencyAndLevelComment" select="./ATTRIBUTE[@name='Comment']"/>
+  		    </xsl:call-template>
+  		    <xsl:apply-templates select="./INTERREF[@name='Competency']/IREF" mode="competencyLevelRefToCompetency"/>
+  		    <xsl:call-template name="elementPostProcessing"/>
+		</xsl:for-each>
+  </xsl:template>
+  
+  	<xsl:template match="IREF" mode="competencyLevelRefToCompetency">
+		<xsl:call-template name="addCompetencyLevelRefToCompetency">
+			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype][@name=current()/@tmodelname]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
+		</xsl:call-template>
+	</xsl:template>	
+<!--...............................................................................................--> 
 <!-- ============================================================================================================================================== -->
 <!-- ============================================================================================================================================== -->
 <!--
@@ -466,9 +534,16 @@ ________________________________________________________________________________
 			  <xsl:with-param name="toId" select="."/>
 		     </xsl:call-template>
 		  </xsl:for-each>
-		</xsl:for-each>		
+		</xsl:for-each>	
+		<xsl:apply-templates select="./INTERREF[@name='Referenced Competency']/IREF" mode="roleRefToCompetency"/>
           <xsl:call-template name="elementPostProcessing"/>		
 	</xsl:template>
+	
+  	<xsl:template match="IREF" mode="roleRefToCompetency">
+		<xsl:call-template name="addRoleRefToCompetency">
+			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype][@name=current()/@tmodelname]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
+		</xsl:call-template>
+	</xsl:template>		
 <!--...............................................................................................-->	
 <!--
 ___________________________________________________________________________________________________
@@ -494,8 +569,15 @@ ________________________________________________________________________________
 		     </xsl:call-template>
 		  </xsl:for-each>
 		</xsl:for-each>
+		<xsl:apply-templates select="./INTERREF[@name='Referenced Competency Profile']/IREF" mode="performerRefToCompetencyProfile"/>
           <xsl:call-template name="elementPostProcessing"/>		
 	</xsl:template>
+	
+  	<xsl:template match="IREF" mode="performerRefToCompetencyProfile">
+		<xsl:call-template name="addPerformerRefToCompetencyProfile">
+			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype][@name=current()/@tmodelname]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
+		</xsl:call-template>
+	</xsl:template>			
 <!--...............................................................................................-->	
 <!-- ============================================================================================================================================== -->
 <!-- ============================================================================================================================================== -->
@@ -659,7 +741,7 @@ ________________________________________________________________________________
 			<xsl:with-param name="class" select="@modeltype" tunnel="yes"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>	
-    <xsl:apply-templates select=".//INSTANCE[@class='Competency']" mode="Competency"/>
+    <xsl:apply-templates select=".//INSTANCE[@class='Competency']" mode="EQFCompetency"/>
     <xsl:apply-templates select=".//INSTANCE[@class='Group']" mode="CompetencyGroup"/>
 </xsl:template>
 <!--...............................................................................................-->  
@@ -667,11 +749,15 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________
  Competency
 ___________________________________________________________________________________________________-->
-  <xsl:template match="INSTANCE" mode="Competency">
-		<xsl:call-template name="Competency">
+  <xsl:template match="INSTANCE" mode="EQFCompetency">
+		<xsl:call-template name="EQFCompetency">
 			<xsl:with-param name="id" select="@id" tunnel="yes"/>
 			<xsl:with-param name="name" select="@name" tunnel="yes"/>
 			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="level" select="./ATTRIBUTE[@name='EQF Level']"/>
+			<xsl:with-param name="competence" select="./ATTRIBUTE[@name='EQF Competence']"/>
+			<xsl:with-param name="skill" select="./ATTRIBUTE[@name='EQF Skill']"/>
+			<xsl:with-param name="knowledge" select="./ATTRIBUTE[@name='EQF Knowledge']"/>
 		</xsl:call-template>
 		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
 		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Role']/@id">

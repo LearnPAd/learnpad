@@ -7,31 +7,29 @@ package eu.learnpad.ontology.persistence;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import eu.learnpad.ontology.AbstractUnitTest;
-import java.io.FileWriter;
-import java.io.IOException;
+import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Ignore;
+import org.junit.Before;
 
 /**
  *
  * @author sandro.emmenegger
  */
-public class OntAOTest extends AbstractUnitTest{
+public class FileOntAOTest extends AbstractUnitTest{
     
-    OntAO ontAO = new FileOntAO();
-    
-    public OntAOTest() {
+    @Before
+    public void loadTestModelset(){
+        SimpleModelTransformator.getInstance();
     }
     
     /**
      * Test of getModelSet method, of class OntAO.
      */
-    @Ignore
     @Test
     public void testGetMetaModelSet() {
-        OntModel result = ontAO.getMetaModel();
-        result.write(System.out, "Turtle");
+        OntModel result = FileOntAO.getInstance().getMetaModel();
+//        result.write(System.out, "Turtle");
         assertNotNull(result);
     }
         
@@ -42,7 +40,7 @@ public class OntAOTest extends AbstractUnitTest{
 //    @Ignore
     @Test
     public void testGetModelSet() {
-        OntModel result = ontAO.getModelSet(TEST_MODEL_SET_ID_TITOLO_UNICO);
+        OntModel result = FileOntAO.getInstance().getModelSet(MODELSET_ID);
 //        result.write(System.out, "Turtle");
         assertNotNull(result);
     }
@@ -50,13 +48,11 @@ public class OntAOTest extends AbstractUnitTest{
     /**
      * Test of getExecutionData method, of class OntAO.
      */
-    @Ignore
+//    @Ignore
     @Test
-    public void testGetExecutionData() throws IOException {
-        OntModel result = ontAO.getModelSet(TEST_MODEL_SET_ID_TITOLO_UNICO);
+    public void testGetExecutionData() {
+        OntModel result = FileOntAO.getInstance().getExecutionData(MODELSET_ID);
         assertNotNull(result);
-        
-        result.write(new FileWriter("C:/temp/exec.ttl"), "Turtle");
     }    
     
 }
