@@ -44,6 +44,4 @@ public abstract class AbstractEvent {
 		this.involvedusers = involvedusers;
 	}
 
-	public abstract EventType getType();
-
 }

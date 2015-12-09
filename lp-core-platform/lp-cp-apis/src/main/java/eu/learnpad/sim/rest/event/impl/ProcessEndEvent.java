@@ -21,8 +21,6 @@ package eu.learnpad.sim.rest.event.impl;
 
 import java.util.List;
 
-import eu.learnpad.sim.rest.event.EventType;
-
 /**
  *
  * @author Tom Jorquera - Linagora
@@ -39,11 +37,6 @@ public class ProcessEndEvent extends ProcessStartEvent {
 			String processdefinitionid) {
 		super(timestamp, simulationsessionid, involvedusers, processid,
 				processdefinitionid);
-	}
-
-	@Override
-	public EventType getType() {
-		return EventType.PROCESS_END;
 	}
 
 }
