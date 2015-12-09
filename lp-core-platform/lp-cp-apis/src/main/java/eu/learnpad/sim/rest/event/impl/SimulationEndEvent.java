@@ -21,8 +21,6 @@ package eu.learnpad.sim.rest.event.impl;
 
 import java.util.List;
 
-import eu.learnpad.sim.rest.event.EventType;
-
 /**
  *
  * @author Tom Jorquera - Linagora
@@ -37,11 +35,6 @@ public class SimulationEndEvent extends SimulationStartEvent {
 	public SimulationEndEvent(Long timestamp, String simulationsessionid,
 			List<String> involvedusers) {
 		super(timestamp, simulationsessionid, involvedusers);
-	}
-
-	@Override
-	public EventType getType() {
-		return EventType.SIMULATION_END;
 	}
 
 }

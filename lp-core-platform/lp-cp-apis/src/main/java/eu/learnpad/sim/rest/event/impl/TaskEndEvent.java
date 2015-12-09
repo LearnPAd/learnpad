@@ -20,8 +20,6 @@
 package eu.learnpad.sim.rest.event.impl;
 
 import java.util.List;
-
-import eu.learnpad.sim.rest.event.EventType;
 import java.util.Map;
 
 /**
@@ -46,11 +44,6 @@ public class TaskEndEvent extends TaskStartEvent {
 				taskdefid, assignedusers);
 		this.completingUser = completingUser;
 		this.submittedData = submittedData;
-	}
-
-	@Override
-	public EventType getType() {
-		return EventType.TASK_END;
 	}
 
 }
