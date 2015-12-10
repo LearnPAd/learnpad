@@ -425,7 +425,7 @@ public class PNMapping {
     }
     
     public PetriNet generatePN(String name){
-        petriNet.name = name;
+        petriNet.setName(name);
         petriNet.finalizeModel();
         return petriNet;
     }

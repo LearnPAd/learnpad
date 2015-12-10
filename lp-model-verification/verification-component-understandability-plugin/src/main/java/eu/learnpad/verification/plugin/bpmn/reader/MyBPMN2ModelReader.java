@@ -6,10 +6,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
+
 
 import org.eclipse.bpmn2.Definitions;
-import org.eclipse.bpmn2.FlowElement;
+/*import org.eclipse.bpmn2.FlowElement;
+import java.util.List;
 import org.eclipse.bpmn2.ManualTask;
 import org.eclipse.bpmn2.ReceiveTask;
 import org.eclipse.bpmn2.RootElement;
@@ -20,7 +21,7 @@ import org.eclipse.bpmn2.SubProcess;
 import org.eclipse.bpmn2.Task;
 import org.eclipse.bpmn2.UserTask;
 import org.eclipse.bpmn2.impl.MessageFlowImpl;
-import org.eclipse.bpmn2.impl.SequenceFlowImpl;
+import org.eclipse.bpmn2.impl.SequenceFlowImpl;*/
 import org.eclipse.bpmn2.util.Bpmn2ResourceFactoryImpl;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -54,11 +55,9 @@ public class MyBPMN2ModelReader {
 
     }
 
+    public Definitions readURIModel(URI uri) throws IOException{
 
-    public Definitions readFileModel(String theBPMNFile) throws IOException{
 
-
-        URI uri = URI.createFileURI(theBPMNFile);
 
         //URI uri = URI.createURI("SampleProcess.bpmn");
         Bpmn2ResourceFactoryImpl resFactory = new Bpmn2ResourceFactoryImpl();
@@ -74,11 +73,14 @@ public class MyBPMN2ModelReader {
             resource.load(options);
         }catch(IOWrappedException e){
             Utils.log(e.getMessage(), LogType.WARNING);
-            Utils.log("\nModel involved in the exception:\n"+theBPMNFile, LogType.WARNING);
+
+            Utils.log("\nModel involved in the exception:\n"+uri.toString(), LogType.WARNING);
+
             //  e.printStackTrace();
         }
         // This is the root element of the XML document
         Definitions d = getDefinitions(resource);
+
 
 
        
@@ -88,8 +90,29 @@ public class MyBPMN2ModelReader {
 
     }
 
+    public Definitions readJavaURIModel(String theBPMNURIjava) throws IOException{
 
-    public void ReadThisModel(String theBPMNFile) throws IOException {
+
+        URI uri = URI.createURI(theBPMNURIjava);
+        
+        
+        return readURIModel(uri);
+
+
+    }
+    public Definitions readFileModel(String theBPMNFile) throws IOException{
+
+
+        URI uri = URI.createFileURI(theBPMNFile);
+        
+        
+        return readURIModel(uri);
+
+
+    }
+
+
+    /*public void ReadThisModel(String theBPMNFile) throws IOException {
         
         // Print all elements contained in all Processes found
         List<RootElement> rootElements = readFileModel(theBPMNFile).getRootElements();
@@ -186,7 +209,7 @@ public class MyBPMN2ModelReader {
             //System.out.println("Total number of Subprocess tasks in the process = " + NSubTasks);
             //System.out.println("Total number of tasks in the process = " + NTasks);
         }
-    }
+    }*/
 
     private static Definitions getDefinitions(Resource resource) {
         if (resource!=null && !resource.getContents().isEmpty() && !((EObject) resource.getContents().get(0)).eContents().isEmpty()) {

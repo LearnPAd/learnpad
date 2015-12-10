@@ -58,6 +58,16 @@ public class PNImport {
         return false;
     }
     
+    public static boolean isPNML(Document model){
+        try{
+            String queryRoot = "/*[local-name()='pnml']";
+            Node pnmlRootNode =  (Node) XMLUtils.execXPath(model.getDocumentElement(), queryRoot, XPathConstants.NODE);
+            if(pnmlRootNode!=null)
+                return true;
+        }catch(Exception e){}
+        return false;
+    }
+    
     /**
      * Generate a PetriNet from the provided OMG BPMN2 Standard.
      * Supported BPMN2 elements are: startEvent, endEvent, task, userTask, serviceTask, manualTask, businessRuleTask, receiveTask, sendTask, scriptTask, intermediateCatchEvent, intermediateThrowEvent, adHocSubProcess, subProcess, transaction, callActivity, choreographyTask, subChoreography, callChoreography, standardLoopCharacteristics, boundaryEvent, parallelGateway, exclusiveGateway, eventBasedGateway, inclusiveGateway, complexGateway, sequenceFlow, messageFlow, participant.
@@ -789,12 +799,81 @@ public class PNImport {
         return ret;
     }
     
+    public static PetriNet generateFromPNML(Document pnmlXml) throws Exception{
+        
+        if(!isPNML(pnmlXml))
+            throw new Exception("ERROR: The provided model is not a valid PNML model");
+        
+        PNMapping pnm = new PNMapping();
+        pnm.addMapping("p : p ; in:connection=p ; out:connection=p");
+        pnm.addMapping("t : t ; in:connection=t ; out:connection=t");        
+        
+        String placeQuery = "//*[local-name()='place']";
+        String transitionQuery = "//*[local-name()='transition']";
+        String relationQuery = "//*[local-name()='arc']";
+        
+        Node netEl = (Node) XMLUtils.execXPath(pnmlXml.getDocumentElement(), "//*[local-name()='net']", XPathConstants.NODE);
+        String netId = netEl.getAttributes().getNamedItem("id").getNodeValue();
+        
+        NodeList placeNodeList =  (NodeList) XMLUtils.execXPath(pnmlXml.getDocumentElement(), placeQuery, XPathConstants.NODESET);
+        for(int i=0;i<placeNodeList.getLength();i++){
+            String id = placeNodeList.item(i).getAttributes().getNamedItem("id").getNodeValue();
+            float[] xy = getPNMLElementCoordinatesXY(pnmlXml, id);
+            String nTokenS = (String) XMLUtils.execXPath(placeNodeList.item(i), "./*[local-name()='initialMarking']/*[local-name()='text']", XPathConstants.STRING);
+            int nToken = 0;
+            try{
+                nToken = Integer.parseInt(nTokenS);
+            }catch(Exception ex){}
+            GeneratedElements genList = pnm.processElement(id, "p", id, xy[0], xy[1]);
+            
+            if(genList.placeList.length>0)
+                genList.placeList[0].numToken = nToken;
+        }
+        
+        NodeList transitionNodeList =  (NodeList) XMLUtils.execXPath(pnmlXml.getDocumentElement(), transitionQuery, XPathConstants.NODESET);
+        for(int i=0;i<transitionNodeList.getLength();i++){
+            String id = transitionNodeList.item(i).getAttributes().getNamedItem("id").getNodeValue();
+            float[] xy = getPNMLElementCoordinatesXY(pnmlXml, id);
+            pnm.processElement(id, "t", id, xy[0], xy[1]);
+        }
+        
+        NodeList relationNodeList =  (NodeList) XMLUtils.execXPath(pnmlXml.getDocumentElement(), relationQuery, XPathConstants.NODESET);
+        for(int i=0;i<relationNodeList.getLength();i++){
+            String id = relationNodeList.item(i).getAttributes().getNamedItem("id").getNodeValue();
+            
+            String sourceId = relationNodeList.item(i).getAttributes().getNamedItem("source").getNodeValue();
+            String targetId = relationNodeList.item(i).getAttributes().getNamedItem("target").getNodeValue();
+
+            String weight = (String) XMLUtils.execXPath(relationNodeList.item(i), "./*[local-name()='inscription']/*[local-name()='text']", XPathConstants.STRING);
+            int weightN = 1;
+            try{
+                weightN = Integer.parseInt(weight);
+            }catch(Exception ex){}
+
+            GeneratedElements elList = pnm.processRelation(id, "connection", sourceId, targetId);
+            if(elList.ptList.length>0)
+                elList.ptList[0].weight = weightN;
+            if(elList.tpList.length>0)
+                elList.tpList[0].weight = weightN;
+        }
+
+        return pnm.generatePN(netId);
+    }
+    
+    private static float[] getPNMLElementCoordinatesXY(Document pnmlXml, String elementId) throws Exception{
+        Node position = (Node) XMLUtils.execXPath(pnmlXml.getDocumentElement(), "//*[@id=" + XMLUtils.escapeXPathField(elementId) + "]/*[local-name()='graphics']/*[local-name()='position']", XPathConstants.NODE);
+        String x = position.getAttributes().getNamedItem("x").getNodeValue();
+        String y = position.getAttributes().getNamedItem("y").getNodeValue();
+        return new float[]{Float.valueOf(x), Float.valueOf(y)};
+    }
+    
     /*
     public static void main(String[] args) {
         try {
-            String modelUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\test_adoxx_0.xml";
+            String modelUrl = "D:\\LAVORO\\PROGETTI\\PNToolkit\\testModels\\asd.pnml";
+            PetriNet[] pnList = new PetriNet[]{generateFromPNML(XMLUtils.getXmlDocFromURI(modelUrl))};
             //PetriNet[] pnList = new PetriNet[]{generateFromBPMN(XMLUtils.getXmlDocFromURI(modelUrl))};
-            PetriNet[] pnList = generateFromAdoxxBPMN(XMLUtils.getXmlDocFromURI(modelUrl));
+            //PetriNet[] pnList = generateFromAdoxxBPMN(XMLUtils.getXmlDocFromURI(modelUrl));
             //PetriNet[] pnList = generateFromAdoxxPetriNet(XMLUtils.getXmlDocFromURI(modelUrl));
             //System.out.println(PNExport.exportToEldaricaP(pn));
             //System.out.println(PNExport.exportToEldaricaP_propertyDeadlockPresence(pn));
@@ -805,5 +884,5 @@ public class PNImport {
             e.printStackTrace();
         }
     }
-   */ 
+    */
 }

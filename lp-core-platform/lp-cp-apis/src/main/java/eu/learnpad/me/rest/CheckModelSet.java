@@ -29,7 +29,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
-import eu.learnpad.mv.rest.data.MVResults;
+import eu.learnpad.mv.rest.data.VerificationId;
+import eu.learnpad.mv.rest.data.VerificationResults;
+import eu.learnpad.mv.rest.data.VerificationStatus;
+import eu.learnpad.mv.rest.data.VerificationsAvailable;
 
 public interface CheckModelSet {
 
@@ -47,25 +50,53 @@ public interface CheckModelSet {
 	 * @throws LpRestException
 	 */
 	// "/learnpad/me/checkmodelset/start/{modelsetid}"
-	@Path("/checkmodelset/start/{modelsetid}")
+	
 	@PUT
-	String startModelSetVerification(
+	@Path("/checkmodelset/start/{modelsetid}")
+	@Produces(MediaType.APPLICATION_XML)
+	VerificationId startModelSetVerification(
 			@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type") @DefaultValue("lpzip") String type,
-			@QueryParam("verification") @DefaultValue("deadlock") String verification)
+			@QueryParam("verification") @DefaultValue("ALL") String verification)
 			throws LpRestException;
 
 	/**
 	 * @param verificationProcessId
 	 *            is the ID returned by startModelSetVerification
-	 * @return the results if finished and the progression status if not
-	 *         finished
+	 * @return the progression status
 	 * @throws LpRestException
 	 */
 	// "/learnpad/me/checkmodelset/check/{verificationprocessid}"
-	@Path("/checkmodelset/check/{verificationprocessid}")
+	
 	@GET
-	MVResults checkModelSetVerification(
+	@Path("/checkmodelset/check/{verificationprocessid}")
+	@Produces(MediaType.APPLICATION_XML)
+	VerificationStatus checkModelSetVerification(
 			@PathParam("verificationprocessid") String verificationProcessId)
 			throws LpRestException;
+	
+	   /**
+     * @param verificationProcessId
+     *            is the ID returned by startModelSetVerification
+     * @return the results if finished
+     * @throws LpRestException
+     */
+    // "/learnpad/me/checkmodelset/check/{verificationprocessid}"
+    
+    @GET
+    @Path("/checkmodelset/results/{verificationprocessid}")
+    @Produces(MediaType.APPLICATION_XML)
+    VerificationResults getModelSetVerificationResults(
+            @PathParam("verificationprocessid") String verificationProcessId)
+            throws LpRestException;
+    
+    /**
+  * @return the list of all available verifications
+  * @throws LpRestException
+  */
+    @GET
+    @Path("/checkmodelset/availableverifications")
+    @Produces(MediaType.APPLICATION_XML)
+    VerificationsAvailable getAvailableVerifications()
+            throws LpRestException;
 }

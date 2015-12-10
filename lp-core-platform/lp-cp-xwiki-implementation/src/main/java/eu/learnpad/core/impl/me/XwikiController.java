@@ -48,9 +48,14 @@ import eu.learnpad.core.impl.me.XwikiBridgeInterfaceRestResource;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.cw.rest.data.Feedbacks;
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.Controller;
 import eu.learnpad.mv.rest.data.MVResults;
+import eu.learnpad.mv.rest.data.VerificationId;
+import eu.learnpad.mv.rest.data.VerificationResults;
+import eu.learnpad.mv.rest.data.VerificationStatus;
+import eu.learnpad.mv.rest.data.VerificationsAvailable;
 import eu.learnpad.me.BridgeInterface;
 
 /*
@@ -127,7 +132,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName,
 				modelSetFile);
 	}
-
+/*
 	@Override
 	public String startModelSetVerification(String modelSetId, String type,
 			String verification) throws LpRestExceptionImpl {
@@ -186,7 +191,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 			return null;
 		}
 	}
-
+*/
 	@Override
 	public Feedbacks getFeedbacks(String modelSetId) throws LpRestExceptionImpl {
 		// Now send the package's path to the importer for XWiki
@@ -220,4 +225,29 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		}
 		return feedbacks;
 	}
+
+    @Override
+    public VerificationId startModelSetVerification(String modelSetId, String type, String verification)
+            throws LpRestException {
+        VerificationId vId = this.mv.startVerification(modelSetId, verification);
+        VerificationStatus vStatus = this.mv.getVerificationStatus(vId.getId());
+        //TODO: show the vStatus.getStatus() of the verification with id vId.getId() somewhere in the wiki?
+        //The verification status (currently IN PROGRESS) should be visualizes somewhere in the cw for the given modelsetid so the modeler can check it.
+        return vId;
+    }
+    
+    @Override
+    public VerificationStatus checkModelSetVerification(String verificationProcessId) throws LpRestException {
+        return this.mv.getVerificationStatus(verificationProcessId);
+    }
+    
+    @Override
+    public VerificationResults getModelSetVerificationResults(String verificationProcessId) throws LpRestException {
+        return this.mv.getVerificationResult(verificationProcessId);
+    }
+    
+    @Override
+    public VerificationsAvailable getAvailableVerifications() throws LpRestException {
+        return this.mv.getAvailableVerifications();
+    }
 }

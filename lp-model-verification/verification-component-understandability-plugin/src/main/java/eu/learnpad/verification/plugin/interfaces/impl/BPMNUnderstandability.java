@@ -78,6 +78,7 @@ public class BPMNUnderstandability implements Plugin {
 		
 				GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readStringModel(model));
 				eg.setVerificationType("UNDERSTANDABILITY");
+				eg.StartSequential();
 				//System.out.println(eg);
 				
 				JAXBContext jaxbContext = JAXBContext.newInstance(GuidelinesFactory.class);

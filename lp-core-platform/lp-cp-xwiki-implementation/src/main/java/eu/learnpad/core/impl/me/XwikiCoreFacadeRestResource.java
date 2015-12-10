@@ -22,7 +22,10 @@ package eu.learnpad.core.impl.me;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.CoreFacade;
-import eu.learnpad.mv.rest.data.MVResults;
+import eu.learnpad.mv.rest.data.VerificationId;
+import eu.learnpad.mv.rest.data.VerificationResults;
+import eu.learnpad.mv.rest.data.VerificationStatus;
+import eu.learnpad.mv.rest.data.VerificationsAvailable;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.rest.data.Feedbacks;
 
@@ -57,24 +60,34 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 	}
 
 	@Override
-	public String startModelSetVerification(String modelSetId, String type,
-			String verification) throws LpRestException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MVResults checkModelSetVerification(String verificationProcessId)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		return null;
-
-	}
-
-	@Override
 	public Feedbacks getFeedbacks(String modelSetId) throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    @Override
+    public VerificationId startModelSetVerification(String modelSetId, String type, String verification)
+            throws LpRestException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public VerificationStatus checkModelSetVerification(String verificationProcessId) throws LpRestException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public VerificationResults getModelSetVerificationResults(String verificationProcessId) throws LpRestException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public VerificationsAvailable getAvailableVerifications() throws LpRestException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

@@ -37,7 +37,9 @@ import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.mv.Controller;
 import eu.learnpad.mv.rest.data.FinalResultType;
+import eu.learnpad.mv.rest.data.StatusType;
 import eu.learnpad.mv.rest.data.VerificationResults;
+import eu.learnpad.mv.rest.data.VerificationStatus;
 import eu.learnpad.mv.BridgeInterface;
 
 @Component
@@ -102,6 +104,17 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	@Override
 	public void notifyVerification(String verificationProcessId)
 			throws LpRestException {
+
+	    VerificationStatus status = this.bridge.getVerificationStatus(verificationProcessId);
+	    //TODO: show the status.getStatus() somewhere in the wiki for the verification with id verificationProcessId?
+	    
+	    if(!status.getStatus().equals(StatusType.COMPLETED)){
+	        //A severe error occurred in the verification phase that is terminated unexpectedly
+	        //The verification results in this case is null. If this.bridge.getVerificationResult will be called an exception will rise up
+	        //Notify somewhere the status of the verification id? or obtain the modelSet Id from the verification id and notify the verification status of the modelset id?
+	        return;
+	    }
+	    
 		VerificationResults res = this.bridge.getVerificationResult(verificationProcessId);
         
 		String modelSetId = res.getModelID();
