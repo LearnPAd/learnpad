@@ -19,6 +19,8 @@ component of the platform.
 Core Platform component works as a bus.  It offers interfaces to the components
 and notify other components.
 
+Core Platform is accessible on port `8080`.
+
 # Configuration
 There is no possible configuration at the moment.
 
