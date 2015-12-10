@@ -24,9 +24,13 @@ package eu.learnpad.simulator;
  * #L%
  */
 
-import java.util.Collection;
-
-import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.monitoring.event.impl.ProcessEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.ProcessStartSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SessionScoreUpdateSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
 
 /**
  *
@@ -41,24 +45,18 @@ public interface IProcessEventReceiver {
 		public IProcessEventReceiver processEventReceiver();
 	}
 
-	/**
-	 * Send a task to a set of users
-	 *
-	 * @param task
-	 *            task to send
-	 * @param users
-	 *            the users concerned by the task
-	 */
-	public void sendTask(LearnPadTask task, Collection<String> users);
+	public void receiveSimulationStartEvent(SimulationStartSimEvent event);
 
-	/**
-	 * Signal the end of a process instance to a list of users
-	 *
-	 * @param processId
-	 *            the id of the process
-	 *
-	 * @param users
-	 *            the users concerned by the process
-	 */
-	public void signalProcessEnd(String processId, Collection<String> users);
+	public void receiveSimulationEndEvent(SimulationEndSimEvent event);
+
+	public void receiveProcessStartEvent(ProcessStartSimEvent event);
+
+	public void receiveProcessEndEvent(ProcessEndSimEvent event);
+
+	public void receiveTaskStartEvent(TaskStartSimEvent event);
+
+	public void receiveTaskEndEvent(TaskEndSimEvent event);
+
+	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateSimEvent event);
+
 }

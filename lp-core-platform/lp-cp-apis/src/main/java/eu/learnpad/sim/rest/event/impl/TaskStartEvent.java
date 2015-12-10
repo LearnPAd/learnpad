@@ -22,7 +22,6 @@ package eu.learnpad.sim.rest.event.impl;
 import java.util.List;
 
 import eu.learnpad.sim.rest.event.AbstractEvent;
-import eu.learnpad.sim.rest.event.EventType;
 
 /**
  *
@@ -63,11 +62,6 @@ public class TaskStartEvent extends AbstractEvent {
 		this.taskid = taskid;
 		this.taskdefid = taskdefid;
 		this.assignedusers = assignedusers;
-	}
-
-	@Override
-	public EventType getType() {
-		return EventType.TASK_START;
 	}
 
 }

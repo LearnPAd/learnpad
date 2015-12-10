@@ -17,13 +17,28 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.sim.rest.event;
+package eu.learnpad.sim.rest.event.impl;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author Tom Jorquera - Linagora
  *
  */
-public enum EventType {
-	SIMULATION_START, SIMULATION_END, PROCESS_START, PROCESS_END, TASK_START, TASK_END, SESSION_SCORE_UPDATE
+public class TaskFailedEvent extends TaskEndEvent {
+
+	public TaskFailedEvent() {
+		super();
+	}
+
+	public TaskFailedEvent(Long timestamp, String simulationsessionid,
+			List<String> involvedusers, String processid, String taskid,
+			String taskdefid, List<String> assignedusers,
+			String completingUser, Map<String, Object> submittedData) {
+		super(timestamp, simulationsessionid, involvedusers, processid, taskid,
+				taskdefid, assignedusers, completingUser, submittedData);
+	}
+
 }

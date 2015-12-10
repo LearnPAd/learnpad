@@ -33,8 +33,14 @@ import java.util.Set;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.IRobotHandler;
-import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
+import eu.learnpad.simulator.monitoring.event.impl.ProcessEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.ProcessStartSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SessionScoreUpdateSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
 
 /**
  * This class is supposed to "wrap" a {@link IProcessEventReceiver} in order to
@@ -65,74 +71,6 @@ IProcessEventReceiver, IRobotHandler {
 		this.robotFactory = robotFactory;
 		this.inputExtractor = inputExtractor;
 		this.processManager = processManager;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * eu.learnpad.simulator.IProcessEventReceiver#sendTask(java.lang.String,
-	 * java.lang.String, java.lang.String, java.lang.String,
-	 * java.util.Collection)
-	 */
-	@Override
-	public void sendTask(LearnPadTask task, Collection<String> users) {
-
-		// propagate removing robots from users list
-		Collection<String> newUsers = new HashSet<String>(users);
-		newUsers.removeAll(robots.keySet());
-		eventReceiver.sendTask(task, newUsers);
-
-		for (String user : robots.keySet()) {
-			if (users.contains(user)) {
-
-				// solve the task
-				Map<String, Object> outData = robots.get(user).handleTask(
-						task.id, inputExtractor.getInput(task.id));
-
-				// submit the answer
-				LearnPadTaskSubmissionResult result = processManager
-						.submitTaskCompletion(task, user, outData);
-
-				// check task validation status
-				switch (result.status) {
-				case VALIDATED:
-				case ALREADY_COMPLETED:
-					// ok
-					break;
-
-				case REJECTED:
-				case UNKOWN_TASK:
-				case UNKOWN_ERROR:
-					// weird error...
-					System.err
-					.println("RobotUserEventReceiverWrapper: received weird response status "
-							+ result.status
-							+ " for completion of the task " + task.id);
-					break;
-				}
-
-				// no need for several robots to handle the same task
-				break;
-			}
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see
-	 * eu.learnpad.simulator.IProcessEventReceiver#signalProcessEnd(java.lang
-	 * .String, java.util.Collection)
-	 */
-	@Override
-	public void signalProcessEnd(String processId, Collection<String> users) {
-
-		// propagate
-		eventReceiver.signalProcessEnd(processId, users);
-
-		robots.remove(processId);
-
 	}
 
 	// robot handling
@@ -166,6 +104,88 @@ IProcessEventReceiver, IRobotHandler {
 	@Override
 	public Set<String> getRobots() {
 		return robots.keySet();
+	}
+
+	// event handling
+	// note: most events are simply forwarded, some events trigger additional
+	// action
+
+	@Override
+	public void receiveSimulationStartEvent(SimulationStartSimEvent event) {
+		eventReceiver.receiveSimulationStartEvent(event);
+	}
+
+	@Override
+	public void receiveSimulationEndEvent(SimulationEndSimEvent event) {
+		eventReceiver.receiveSimulationEndEvent(event);
+	}
+
+	@Override
+	public void receiveProcessStartEvent(ProcessStartSimEvent event) {
+		eventReceiver.receiveProcessStartEvent(event);
+	}
+
+	@Override
+	public void receiveProcessEndEvent(ProcessEndSimEvent event) {
+		// propagate
+		eventReceiver.receiveProcessEndEvent(event);
+
+		robots.remove(event.processInstance.processartifactid);
+	}
+
+	@Override
+	public void receiveTaskStartEvent(TaskStartSimEvent event) {
+
+		// propagate removing robots from users list
+		Collection<String> newUsers = new HashSet<String>(event.involvedusers);
+		newUsers.removeAll(robots.keySet());
+		eventReceiver.receiveTaskStartEvent(event);
+
+		for (String user : robots.keySet()) {
+			if (event.involvedusers.contains(user)) {
+
+				// solve the task
+				Map<String, Object> outData = robots.get(user).handleTask(
+						event.task.id, inputExtractor.getInput(event.task.id));
+
+				// submit the answer
+				LearnPadTaskSubmissionResult result = processManager
+						.submitTaskCompletion(event.task, user, outData);
+
+				// check task validation status
+				switch (result.status) {
+				case VALIDATED:
+				case ALREADY_COMPLETED:
+					// ok
+					break;
+
+				case REJECTED:
+				case UNKOWN_TASK:
+				case UNKOWN_ERROR:
+					// weird error...
+					System.err
+					.println("RobotUserEventReceiverWrapper: received weird response status "
+							+ result.status
+							+ " for completion of the task "
+							+ event.task.id);
+					break;
+				}
+
+				// no need for several robots to handle the same task
+				break;
+			}
+		}
+
+	}
+
+	@Override
+	public void receiveTaskEndEvent(TaskEndSimEvent event) {
+		eventReceiver.receiveTaskEndEvent(event);
+	}
+
+	@Override
+	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateSimEvent event) {
+		eventReceiver.receiveSessionScoreUpdateEvent(event);
 	}
 
 }

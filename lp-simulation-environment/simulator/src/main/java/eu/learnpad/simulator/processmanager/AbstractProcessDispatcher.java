@@ -32,6 +32,11 @@ import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
+import eu.learnpad.simulator.monitoring.event.impl.ProcessEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SessionScoreUpdateSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
+import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
 import eu.learnpad.simulator.processmanager.gamification.TaskScorer;
 
 /**
@@ -48,6 +53,7 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 	private final IProcessEventReceiver processEventReceiver;
 	private final ITaskRouter router;
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
+	private final String simulationSessionId;
 
 	private final Map<String, Integer> usersScores = new HashMap<String, Integer>();
 
@@ -67,6 +73,9 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 		this.processEventReceiver = processEventReceiver;
 		this.router = router;
 		this.taskValidator = taskValidator;
+
+		this.simulationSessionId = (String) processInstanceData.parameters
+				.get(ActivitiProcessManager.SIMULATION_ID_KEY);
 
 		for (String user : involvedUsers) {
 			usersScores.put(user, 0);
@@ -142,8 +151,21 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 								+ taskScore);
 					}
 
-					return LearnPadTaskSubmissionResult.validated(
-							usersScores.get(userId), taskScore);
+					LearnPadTaskSubmissionResult res = LearnPadTaskSubmissionResult
+							.validated(usersScores.get(userId), taskScore);
+
+					processEventReceiver
+					.receiveTaskEndEvent(new TaskEndSimEvent(System
+							.currentTimeMillis(), simulationSessionId,
+							involvedUsers, task, userId, res));
+
+					processEventReceiver
+					.receiveSessionScoreUpdateEvent(new SessionScoreUpdateSimEvent(
+							System.currentTimeMillis(),
+							simulationSessionId, involvedUsers,
+							processId, userId, res.sessionScore));
+
+					return res;
 				}
 			}
 		}
@@ -166,7 +188,9 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 	 */
 	protected void completeProcess() {
 		// signal process end to users
-		processEventReceiver.signalProcessEnd(processId, involvedUsers);
+		processEventReceiver.receiveProcessEndEvent(new ProcessEndSimEvent(
+				System.currentTimeMillis(), simulationSessionId, involvedUsers,
+				processInstanceData));
 
 		// remove itself from the process manager
 		manager.signalProcessCompletion(processId);
@@ -184,7 +208,9 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 		// TODO: correct init parameters
 		taskScorers.put(task.id, new TaskScorer(new Date(), 30000));
 
-		processEventReceiver.sendTask(task, router.route(task.id));
+		processEventReceiver.receiveTaskStartEvent(new TaskStartSimEvent(System
+				.currentTimeMillis(), simulationSessionId, router
+				.route(task.id), task));
 	}
 
 	/**

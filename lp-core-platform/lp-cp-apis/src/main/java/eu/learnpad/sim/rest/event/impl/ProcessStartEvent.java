@@ -22,7 +22,6 @@ package eu.learnpad.sim.rest.event.impl;
 import java.util.List;
 
 import eu.learnpad.sim.rest.event.AbstractEvent;
-import eu.learnpad.sim.rest.event.EventType;
 
 /**
  *
@@ -51,11 +50,6 @@ public class ProcessStartEvent extends AbstractEvent {
 		super(timestamp, simulationsessionid, involvedusers);
 		this.processid = processid;
 		this.processdefinitionid = processdefinitionid;
-	}
-
-	@Override
-	public EventType getType() {
-		return EventType.PROCESS_START;
 	}
 
 }

@@ -17,33 +17,34 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.sim.rest.event.impl;
+package eu.learnpad.simulator.monitoring.event;
 
-import java.util.List;
-import java.util.Map;
+/*
+ * #%L
+ * LearnPAd Simulator
+ * %%
+ * Copyright (C) 2014 - 2015 Linagora
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * #L%
+ */
 
 /**
  *
  * @author Tom Jorquera - Linagora
  *
  */
-public class TaskEndEvent extends TaskStartEvent {
-
-	public String completingUser;
-	public Map<String, Object> submittedData;
-
-	public TaskEndEvent() {
-		super();
-	}
-
-	public TaskEndEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String processid, String taskid,
-			String taskdefid, List<String> assignedusers,
-			String completingUser, Map<String, Object> submittedData) {
-		super(timestamp, simulationsessionid, involvedusers, processid, taskid,
-				taskdefid, assignedusers);
-		this.completingUser = completingUser;
-		this.submittedData = submittedData;
-	}
-
+public enum SimEventType {
+	SIMULATION_START, SIMULATION_END, PROCESS_START, PROCESS_END, TASK_START, TASK_END, SESSION_SCORE_UPDATE
 }
