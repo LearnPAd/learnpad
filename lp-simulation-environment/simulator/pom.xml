@@ -133,6 +133,11 @@
 			<version>${opencsv.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>tjws</artifactId>
+			<version>${resteasy.version}</version>
+		</dependency>
 
 		<!-- Web dependencies (yes that's a thing) -->
 
