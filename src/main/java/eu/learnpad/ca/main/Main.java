@@ -4,12 +4,9 @@ import java.io.IOException;
 import java.net.URI;
 
 import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.grizzly.servlet.ServletRegistration;
 import org.glassfish.grizzly.servlet.WebappContext;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.servlet.ServletContainer;
-import org.glassfish.jersey.test.ServletDeploymentContext;
 
 import eu.learnpad.ca.gate.GateServletContextListener;
 import eu.learnpad.ca.rest.impl.ColloborativeContentVerificationsImpl;
