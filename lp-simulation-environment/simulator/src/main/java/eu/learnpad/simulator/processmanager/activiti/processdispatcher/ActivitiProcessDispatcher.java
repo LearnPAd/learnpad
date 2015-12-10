@@ -151,8 +151,9 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 				}
 
 				newTasks.add(new LearnPadTask(t.getProcessInstanceId(), t
-						.getId(), t.getName(), t.getDescription(), documents,
-						new Date().getTime()));
+						.getId(), t.getTaskDefinitionKey(), explorer
+						.getSubprocess(t.getTaskDefinitionKey()), t.getName(),
+						t.getDescription(), documents, new Date().getTime()));
 
 				registeredWaitingTasks.add(t.getId());
 			}

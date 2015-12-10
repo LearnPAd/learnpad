@@ -68,7 +68,9 @@ import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
-import eu.learnpad.simulator.monitoring.activiti.ActivitiProbe;
+import eu.learnpad.simulator.monitoring.event.impl.ProcessEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.processdispatcher.ActivitiProcessDispatcher;
 import eu.learnpad.simulator.processmanager.activiti.taskrouter.ActivitiTaskRouter;
@@ -104,11 +106,13 @@ public class ActivitiProcessManager implements IProcessManager,
 	private final Map<String, ActivitiProcessDispatcher> processDispatchers = Collections
 			.synchronizedMap(new HashMap<String, ActivitiProcessDispatcher>());
 
+	private final Map<String, Integer> nbProcessesBySession = new HashMap<>();
+	private final Map<String, Collection<String>> usersBySession = new HashMap<>();
+
 	public ActivitiProcessManager(
 			ProcessEngine processEngine,
 			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider,
-			BPMNExplorerRepository explorerRepo, boolean monitoringEnabled)
-			throws FileNotFoundException {
+			BPMNExplorerRepository explorerRepo) throws FileNotFoundException {
 		repositoryService = processEngine.getRepositoryService();
 		runtimeService = processEngine.getRuntimeService();
 		taskService = processEngine.getTaskService();
@@ -127,18 +131,6 @@ public class ActivitiProcessManager implements IProcessManager,
 				taskService);
 
 		this.processEventReceiverProvider = processEventReceiverProvider;
-
-		if (monitoringEnabled) {
-			// register a probe to monitor events
-			runtimeService.addEventListener(new ActivitiProbe(explorerRepo));
-		}
-	}
-
-	public ActivitiProcessManager(
-			ProcessEngine processEngine,
-			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider,
-			BPMNExplorerRepository explorerRepo) throws FileNotFoundException {
-		this(processEngine, processEventReceiverProvider, explorerRepo, true);
 	}
 
 	@Override
@@ -324,11 +316,31 @@ public class ActivitiProcessManager implements IProcessManager,
 			Map<String, Object> parameters, Collection<String> users,
 			Map<String, Collection<String>> router) {
 
-		if (!parameters.containsKey(SIMULATION_ID_KEY)) {
+		String simSession;
+
+		if (parameters.containsKey(SIMULATION_ID_KEY)) {
+			simSession = (String) parameters.get(SIMULATION_ID_KEY);
+		} else {
+			// this is a new session
+
+			simSession = UUID.randomUUID().toString();
+			nbProcessesBySession.put(simSession, 0);
+			usersBySession.put(simSession, users);
+
 			// add a UUID to be shared by the processes involved in the
 			// simulation
-			parameters.put(SIMULATION_ID_KEY, UUID.randomUUID().toString());
+			parameters.put(SIMULATION_ID_KEY, simSession);
+
+			// signal simulation session start
+			// signal process start
+			this.processEventReceiverProvider.processEventReceiver()
+					.receiveSimulationStartEvent(
+					new SimulationStartSimEvent(System
+							.currentTimeMillis(), simSession, users));
 		}
+
+		nbProcessesBySession.put(simSession,
+				nbProcessesBySession.get(simSession) + 1);
 
 		ProcessInstance process = runtimeService.startProcessInstanceByKey(
 				projectDefinitionKey, parameters);
@@ -348,6 +360,13 @@ public class ActivitiProcessManager implements IProcessManager,
 
 		// we are ready, so we can start the dispatcher
 		processDispatchers.get(process.getId()).start();
+
+		// signal process start
+		this.processEventReceiverProvider.processEventReceiver()
+				.receiveProcessStartEvent(
+				new ProcessEndSimEvent(System.currentTimeMillis(),
+						(String) parameters.get(SIMULATION_ID_KEY),
+						users, data));
 
 		return process.getId();
 	}
@@ -404,8 +423,30 @@ public class ActivitiProcessManager implements IProcessManager,
 	}
 
 	@Override
-	public void signalProcessCompletion(String processId) {
+	public synchronized void signalProcessCompletion(String processId) {
+
+		String simSession = (String) processDispatchers.get(processId)
+				.getProcessInstanceInfos().parameters.get(SIMULATION_ID_KEY);
+
 		processDispatchers.remove(processId);
+
+		// check if session is terminated
+		int nbActiveProcesses = nbProcessesBySession.get(simSession);
+		if (nbActiveProcesses > 1) {
+			nbProcessesBySession.put(simSession, nbActiveProcesses - 1);
+		} else {
+			// this was the last process of the simulation
+
+			this.processEventReceiverProvider.processEventReceiver()
+			.receiveSimulationEndEvent(
+					new SimulationEndSimEvent(System
+							.currentTimeMillis(), simSession,
+							usersBySession.get(simSession)));
+
+			nbProcessesBySession.remove(simSession);
+			usersBySession.remove(simSession);
+		}
+
 	}
 
 	@Override

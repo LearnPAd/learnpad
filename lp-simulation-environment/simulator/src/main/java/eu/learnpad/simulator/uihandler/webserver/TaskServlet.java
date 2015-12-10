@@ -61,7 +61,6 @@ public class TaskServlet extends WebSocketServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private final UIHandlerWebImpl uiHandler;
 	private final IProcessManager processManager;
 	private final LearnPadTask task;
 	private final IFormHandler formHandler;
@@ -74,11 +73,9 @@ public class TaskServlet extends WebSocketServlet {
 	 * @param dispatcher
 	 * @param task
 	 */
-	public TaskServlet(UIHandlerWebImpl uiHandler,
-			IProcessManager processManager, LearnPadTask task,
+	public TaskServlet(IProcessManager processManager, LearnPadTask task,
 			IFormHandler formHandler) {
 		super();
-		this.uiHandler = uiHandler;
 		this.processManager = processManager;
 		this.task = task;
 		this.formHandler = formHandler;
@@ -114,7 +111,6 @@ public class TaskServlet extends WebSocketServlet {
 					e.getKey().sendOtherValidated();
 				}
 			}
-			uiHandler.completeTask(task.processId, task.id, data);
 			System.out.println("task " + task.id + " has been validated");
 			break;
 
