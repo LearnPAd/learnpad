@@ -38,6 +38,10 @@ import org.glassfish.jersey.server.ResourceConfig;
 import eu.learnpad.verification.utils.ConfigManager;
 import eu.learnpad.verification.utils.Utils;
 
+/**
+ * This class expose a REST interface that should not be used anymore
+ */
+@Deprecated
 @Path("/VerificationComponent")
 public class JAXRSService {
     @GET
