@@ -87,7 +87,6 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			log.error(e);
 			return null;
 		}
@@ -154,7 +153,6 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			log.error(e);
 			return null;
 		}

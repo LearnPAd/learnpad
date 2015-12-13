@@ -102,6 +102,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 			} catch (JAXBException | FileNotFoundException  e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				assertTrue(false);
 			}
 		}
 		

@@ -24,7 +24,7 @@ import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.non_ambiguity.NonAmbiguity;
-import eu.learnpad.ca.analysis.presentation.Presentation;
+import eu.learnpad.ca.analysis.presentation.PresentationClarity;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
@@ -114,7 +114,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				}
 				if(contentFile.getQualityCriteria().isPresentationClarity()){
 
-					Presentation threadPresentation = new Presentation (contentFile, lang);
+					PresentationClarity threadPresentation = new PresentationClarity (contentFile, lang);
 					threadPresentation.start();
 					putAndCreate(id, threadPresentation);
 
