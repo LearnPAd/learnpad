@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.languagetool.Language;
 
@@ -165,7 +166,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 
 					String type = "PresentationClarity: Poor section partitioning";
 					//RULE 1: N = number of <h* > tags, N > 1.
-					//RULE 2: L = number of sentences between <p>, L < t.
+					//RULE 2: L = number of sentences between <p>, L < t. //and div??
 					id = offset;
 					boolean PSPrule1 = (h1.size()+h2.size()+h3.size()+h4.size()+h5.size())>1;
 
@@ -181,7 +182,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					int tau=5;
 					boolean PSPrule2 = p.size()<tau;
 
-					if(PSPrule2){
+					if(!PSPrule2){
 						String rec = "Split your paragraphs. Each paragraph shall be less than "+tau+" sentences.";
 						Annotation rule2 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule2);
@@ -198,12 +199,12 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					//RULE 1: n = number of terms within <strong> and <b> tags, tot = total number of terms, n/tot ·
 					//100% > X%
 
-					int n = strong.size()+b.size();
+					int n = getTotNumerTerms(strong)+getTotNumerTerms(b);
 					int tot = getTotNumerTerms(doc);
 					int X = 2;
-					boolean RCErule1 = ((n/tot)*100)>X;
+					boolean RCErule1 = ((n*100)/tot)>X;
 
-					if(RCErule1){
+					if(!RCErule1){
 						String rec = "Highlight in bold the relevant sentences and keywords of your text.";
 						Annotation rule1 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule1);
@@ -218,7 +219,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					//RULE1: N =numberof<ol>or<ul>tags,N >t
 
 					tau=2;
-					boolean IHIPrule1 = (ol.size()+ul.size())>tau;
+					boolean IHIPrule1 = (ol.size()>tau)|(ul.size()>tau);
 
 					if(IHIPrule1){
 						String rec = " Provide bullet point lists or numbered lists for your instructions";
@@ -234,7 +235,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 
 					//RULE 1: N = number of <li> tags between <ol> or <ul> tags, N < t.
 
-					tau=2;
+					tau=200;
 					boolean ENIPrule1 = (li.size())<tau;
 
 					if(ENIPrule1){
@@ -253,7 +254,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					tau = 30;
 					boolean ELDrule1 = tot<tau;
 
-					if(ELDrule1){
+					if(!ELDrule1){
 						String rec = "The document is too long. A document shall not be longer than "+tau+" words.";
 						Annotation rule1 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule1);
@@ -266,7 +267,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					type = "PresentationClarity: Excessive references";
 
 					//RULE1: N =numberof<a>tags,N < t.
-					tau = 30;
+					tau = 2;
 					boolean ERrule1 = a.size()<tau;
 
 					if(ERrule1){
@@ -284,6 +285,14 @@ public class PresentationClarity extends AbstractAnalysisClass {
 			log.error(e);
 		}
 		return id-offset;// listSentence.size();
+	}
+
+	private int getTotNumerTerms(Elements elements) {
+		String stringelements = "";
+		for (Element element : elements) {
+			stringelements +=element.text();
+		}
+		return stringelements.split(" ").length;
 	}
 
 	private int getTotNumerTerms(Document doc) {
