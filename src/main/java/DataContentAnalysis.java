@@ -32,7 +32,7 @@ public class DataContentAnalysis implements Serializable{
 
 
 	public DataContentAnalysis(){
-		
+
 		System.out.println("DataContentAnalysisbean");
 		listdata = new ArrayList<DataContent>();
 	}
@@ -139,24 +139,28 @@ public class DataContentAnalysis implements Serializable{
 		Integer inode=0;
 		//List<Node> temp= new ArrayList<Node>();
 		DataContent prec = null;
-		Collections.sort(lannot);
-		for (Annotation ann : lannot) {
-			Integer startoff = ann.getstartNode_Offset();
-			Integer endoff = ann.getendNode_Offset();
-			if(inode<startoff){
-				String tok =  content.substring(inode,startoff.intValue());;
-				listdata.add(new DataContent(tok, acca.getType()));
-			}else{
-				if(inode>startoff){
-					if(prec!=null)
-						prec.setRecommendation(prec.getRecommendation()+"\r\n"+ann.getRecommendation());
-					continue;
+		if(content.length()>1){
+			Collections.sort(lannot);
+
+
+			for (Annotation ann : lannot) {
+				Integer startoff = ann.getstartNode_Offset();
+				Integer endoff = ann.getendNode_Offset();
+				if(inode<startoff){
+					String tok =  content.substring(inode,startoff.intValue());;
+					listdata.add(new DataContent(tok, acca.getType()));
+				}else{
+					if(inode>startoff){
+						if(prec!=null)
+							prec.setRecommendation(prec.getRecommendation()+"\r\n"+ann.getRecommendation());
+						continue;
+					}
 				}
+				String token =  content.substring(startoff.intValue(), endoff.intValue());
+				prec = new DataContent(token,ann.getRecommendation(),ann.getType());
+				listdata.add(prec);
+				inode = endoff;
 			}
-			String token =  content.substring(startoff.intValue(), endoff.intValue());
-			prec = new DataContent(token,ann.getRecommendation(),ann.getType());
-			listdata.add(prec);
-			inode = endoff;
 		}
 		/*String tempString = null;
 		for (Object obj : c.getContent()) {
@@ -192,12 +196,13 @@ public class DataContentAnalysis implements Serializable{
 
 	private String exContent(Content c) {
 		String content = new String(); 
-		for(Object obj : c.getContent()) {
-			if(obj instanceof String){
-				content+=obj.toString();
-			}
+		if(c!=null)
+			for(Object obj : c.getContent()) {
+				if(obj instanceof String){
+					content+=obj.toString();
+				}
 
-		}
+			}
 		return content;
 	}
 
