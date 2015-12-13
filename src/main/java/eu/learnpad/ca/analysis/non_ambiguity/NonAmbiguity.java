@@ -13,7 +13,6 @@ import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
 import eu.learnpad.ca.analysis.non_ambiguity.lexicalambiguity.plugin.LexicalAmbiguity;
 import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.plugin.AnaphoricAmbiguities;
 import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.plugin.CoordinationAmbiguity;
-import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.plugin.PragmaticAmbiguity;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;

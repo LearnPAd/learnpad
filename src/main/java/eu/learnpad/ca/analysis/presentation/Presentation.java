@@ -122,6 +122,10 @@ public class Presentation extends AbstractAnalysisClass {
 					Document doc = Jsoup.parse(contenthtml);
 					Elements links = doc.select("a[href]");
 					Elements h1 = doc.getElementsByTag("h1");
+					Elements h2 = doc.getElementsByTag("h2");
+					Elements h3 = doc.getElementsByTag("h3");
+					Elements h4 = doc.getElementsByTag("h4");
+					Elements h5 = doc.getElementsByTag("h5");
 					Elements strong = doc.getElementsByTag("strong");
 					Elements p = doc.getElementsByTag("p"); //paraghraf
 					Elements b = doc.getElementsByTag("b"); //bold
@@ -138,6 +142,10 @@ public class Presentation extends AbstractAnalysisClass {
 					//numDefectiveSentences = listSentenceDefected.size();
 					log.info("#links "+links.size());
 					log.info("#h1 "+h1.size());
+					log.info("#h2 "+h2.size());
+					log.info("#h3 "+h3.size());
+					log.info("#h4 "+h4.size());
+					log.info("#h5 "+h5.size());
 					log.info("#strong "+strong.size());
 					log.info("#p "+p.size());
 					log.info("#b "+b.size());
