@@ -118,7 +118,13 @@
 
 	<build>
 		<finalName>${project.artifactId}</finalName>
+		<defaultGoal>clean verify jetty:run</defaultGoal>
 		<plugins>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>7.6.14.v20131031</version>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
