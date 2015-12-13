@@ -174,6 +174,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 						String rec = "Partition your document into sections";
 						Annotation rule1 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule1);
+						log.trace(rec);
 						id++;
 					}
 
@@ -184,6 +185,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 						String rec = "Split your paragraphs. Each paragraph shall be less than "+tau+" sentences.";
 						Annotation rule2 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule2);
+						log.trace(rec);
 						id++;
 					}
 
@@ -198,13 +200,14 @@ public class PresentationClarity extends AbstractAnalysisClass {
 
 					int n = strong.size()+b.size();
 					int tot = getTotNumerTerms(doc);
-					int X = 20;
+					int X = 2;
 					boolean RCErule1 = ((n/tot)*100)>X;
 
 					if(RCErule1){
 						String rec = "Highlight in bold the relevant sentences and keywords of your text.";
 						Annotation rule1 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule1);
+						log.trace(rec);
 						id++;
 					}
 
@@ -214,13 +217,14 @@ public class PresentationClarity extends AbstractAnalysisClass {
 
 					//RULE1: N =numberof<ol>or<ul>tags,N >t
 
-					tau=5;
+					tau=2;
 					boolean IHIPrule1 = (ol.size()+ul.size())>tau;
 
 					if(IHIPrule1){
 						String rec = " Provide bullet point lists or numbered lists for your instructions";
 						Annotation rule1 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule1);
+						log.trace(rec);
 						id++;
 					}
 
@@ -230,13 +234,14 @@ public class PresentationClarity extends AbstractAnalysisClass {
 
 					//RULE 1: N = number of <li> tags between <ol> or <ul> tags, N < t.
 
-					tau=5;
+					tau=2;
 					boolean ENIPrule1 = (li.size())<tau;
 
 					if(ENIPrule1){
 						String rec = "Limit the number of elements in the lists. Each list shall not be longer than 10 items. If needed, split the list into sub-tasks";
 						Annotation rule1 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule1);
+						log.trace(rec);
 						id++;
 					}
 
@@ -245,13 +250,14 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					type = "PresentationClarity: Excessive length of the document";
 
 					//RULE 1: N = number of words in the document, N < t.
-					tau = 100;
+					tau = 30;
 					boolean ELDrule1 = tot<tau;
 
 					if(ELDrule1){
 						String rec = "The document is too long. A document shall not be longer than "+tau+" words.";
 						Annotation rule1 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule1);
+						log.trace(rec);
 						id++;
 					}
 
@@ -260,13 +266,14 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					type = "PresentationClarity: Excessive references";
 
 					//RULE1: N =numberof<a>tags,N < t.
-					tau = 100;
+					tau = 30;
 					boolean ERrule1 = a.size()<tau;
 
 					if(ERrule1){
 						String rec = "Do not refer more than "+tau+" external documents. The reader might be confused. Refer only relevant external documents.";
 						Annotation rule1 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule1);
+						log.trace(rec);
 						id++;
 					}
 					//Recommendation: Do not refer more than t external documents. The reader might be confused. Refer only relevant external documents.
@@ -282,9 +289,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 	private int getTotNumerTerms(Document doc) {
 		int numdoc = 0;
 		String stringdoc = doc.text();
-		System.out.println(stringdoc);
 		numdoc = stringdoc.split(" ").length;
-
 		return numdoc;
 	}
 
