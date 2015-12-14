@@ -240,8 +240,8 @@ public class UIHandlerWebImplTest {
 		for (String task : tasks) {
 			uiHandler.receiveTaskStartEvent(new TaskStartSimEvent(System
 					.currentTimeMillis(), "", tasksToUsers.get(task),
-					new LearnPadTask("process1", task, "", null, null, null,
-							null, 0L)));
+					new LearnPadTask("session1", "process1", task, "", null,
+							null, null, null, 0L)));
 		}
 
 		// check all user has been notified of its tasks
@@ -262,8 +262,8 @@ public class UIHandlerWebImplTest {
 		for (String task : tasks) {
 			uiHandler.receiveTaskEndEvent(new TaskEndSimEvent(System
 					.currentTimeMillis(), "", tasksToUsers.get(task),
-					new LearnPadTask("process1", task, "", null, null, null,
-							null, 0L), "", null));
+					new LearnPadTask("session1", "process1", task, "", null,
+							null, null, null, 0L), "", null));
 		}
 
 		// check all user has been notified of its tasks completion

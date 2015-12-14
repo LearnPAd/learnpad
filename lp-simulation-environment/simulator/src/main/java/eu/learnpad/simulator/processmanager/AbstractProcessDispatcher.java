@@ -53,7 +53,7 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 	private final IProcessEventReceiver processEventReceiver;
 	private final ITaskRouter router;
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
-	private final String simulationSessionId;
+	protected final String simulationSessionId;
 
 	private final Map<String, Integer> usersScores = new HashMap<String, Integer>();
 
