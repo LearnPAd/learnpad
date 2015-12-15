@@ -85,7 +85,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 
 	}
 	protected double calculateOverallQualityMeasure(Integer numdef){
-		double qm = (1-(numdef.doubleValue()/7))*100;
+		double qm = (1-(numdef.doubleValue()/6))*100;
 		double qualityMeasure = Math.abs(qm);
 		return qualityMeasure;
 	}
@@ -171,7 +171,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					boolean PSPrule1 = (h1.size()+h2.size()+h3.size()+h4.size()+h5.size())>1;
 
 
-					if(PSPrule1){
+					if(!PSPrule1){
 						String rec = "Partition your document into sections";
 						Annotation rule1 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule1);
@@ -201,8 +201,10 @@ public class PresentationClarity extends AbstractAnalysisClass {
 
 					int n = getTotNumerTerms(strong)+getTotNumerTerms(b);
 					int tot = getTotNumerTerms(doc);
-					int X = 2;
+					int X = 1;
 					boolean RCErule1 = ((n*100)/tot)>X;
+					int X2 = 20;
+					boolean RCErule2 = ((n*100)/tot)<X2;
 
 					if(!RCErule1){
 						String rec = "Highlight in bold the relevant sentences and keywords of your text.";
@@ -212,6 +214,16 @@ public class PresentationClarity extends AbstractAnalysisClass {
 						id++;
 					}
 
+					type = "PresentationClarity: Excessive amount of emphasised content";
+					
+					if(!RCErule2){
+						String rec = "Reduce the amount of bold terms and sentences. Only the parts of the text that "
+								+ "are particularly relevant shall be emphasised.";
+						Annotation rule1 = new Annotation(id,type,0,0,rec);
+						listannotation.add(rule1);
+						log.trace(rec);
+						id++;
+					}
 					//Recommendation: Highlight in bold the relevant sentences and keywords of your text.
 
 					type = "PresentationClarity: Instructions hard to identify";
@@ -221,7 +233,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					tau=2;
 					boolean IHIPrule1 = (ol.size()>tau)|(ul.size()>tau);
 
-					if(IHIPrule1){
+					if(!IHIPrule1){
 						String rec = " Provide bullet point lists or numbered lists for your instructions";
 						Annotation rule1 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule1);
@@ -234,11 +246,11 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					type = "PresentationClarity: Excessive number of instructions";
 
 					//RULE 1: N = number of <li> tags between <ol> or <ul> tags, N < t.
-
-					tau=200;
+					//per ogni lista puntata o numerata controlla che sia minore della soglia
+					tau=11;
 					boolean ENIPrule1 = (li.size())<tau;
 
-					if(ENIPrule1){
+					if(!ENIPrule1){
 						String rec = "Limit the number of elements in the lists. Each list shall not be longer than 10 items. If needed, split the list into sub-tasks";
 						Annotation rule1 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule1);
@@ -251,7 +263,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					type = "PresentationClarity: Excessive length of the document";
 
 					//RULE 1: N = number of words in the document, N < t.
-					tau = 30;
+					tau = 1600;
 					boolean ELDrule1 = tot<tau;
 
 					if(!ELDrule1){
@@ -267,10 +279,10 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					type = "PresentationClarity: Excessive references";
 
 					//RULE1: N =numberof<a>tags,N < t.
-					tau = 2;
+					tau = 5;
 					boolean ERrule1 = a.size()<tau;
 
-					if(ERrule1){
+					if(!ERrule1){
 						String rec = "Do not refer more than "+tau+" external documents. The reader might be confused. Refer only relevant external documents.";
 						Annotation rule1 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule1);
