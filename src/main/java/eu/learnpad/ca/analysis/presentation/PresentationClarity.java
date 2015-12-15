@@ -310,11 +310,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 		return id-offset;// listSentence.size();
 	}
 
-	private int numElementsOfType(Element elem, String string) {
-	   Elements anni = elem.select("li > ol");
-		Elements ele = elem.getElementsByTag(string);
-		return ele.size();
-	}
+	
 
 	private int getTotNumberTerms(Elements elements) {
 		String stringelements = "";
