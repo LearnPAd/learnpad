@@ -119,7 +119,20 @@
 					<failOnMissingWebXml>true</failOnMissingWebXml>
 				</configuration>
 			</plugin>
-
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.22</version>
+				<configuration>
+					<connectors>
+						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+							<port>9982</port>
+							<maxIdleTime>60000</maxIdleTime>
+						</connector>
+					</connectors>
+					
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<name>verification-component-understandability-plugin</name>
