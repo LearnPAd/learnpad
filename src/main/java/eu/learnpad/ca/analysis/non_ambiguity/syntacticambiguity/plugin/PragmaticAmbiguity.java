@@ -14,7 +14,7 @@ import gate.DocumentContent;
 
 public class PragmaticAmbiguity  extends Plugin {
 
-	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(PragmaticAmbiguity.class);
+/*	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(PragmaticAmbiguity.class);
 
 	public PragmaticAmbiguity(Language lang,  DocumentContent docContent, List<Node> listnode){
 		this.language=lang;
@@ -33,5 +33,5 @@ public class PragmaticAmbiguity  extends Plugin {
 		String rac = "The term %s is ambiguous. Please specify it more precisely.";
 		String type = "Pragmatic Ambiguity";
 		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log,listSentence );
-	}
+	}*/
 }

@@ -126,31 +126,4 @@ public abstract class AbstractAnalysisClass extends Thread{
 
 	}
 
-	@Deprecated
-	protected  int indexofElement(String sentence, String word, Map<String, Integer> elementfinded, String split){
-		String [] spliter = sentence.split(split);
-		int position = 0;
-		int numwordfinded = 0;
-		for (int i = 0; i < spliter.length; i++) {
-			int offset = 0;
-			String token = spliter[i];
-			if(token.equals(word)){
-				numwordfinded++;
-				if(!elementfinded.containsKey(token)){
-					elementfinded.put(token, 1);
-				}
-				if(elementfinded.get(token).intValue()==numwordfinded){
-					Integer I = elementfinded.get(token);
-					int y  = I.intValue()+1;
-					elementfinded.put(token, y);
-					return position;
-				}else{
-					position+=token.length()+1+offset;
-				}
-			}else{
-				position+=token.length()+1+offset;
-			}
-		}
-		return position;
-	}
 }
