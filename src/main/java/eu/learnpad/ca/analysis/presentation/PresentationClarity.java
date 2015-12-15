@@ -199,8 +199,8 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					//RULE 1: n = number of terms within <strong> and <b> tags, tot = total number of terms, n/tot ·
 					//100% > X%
 
-					int n = getTotNumerTerms(strong)+getTotNumerTerms(b);
-					int tot = getTotNumerTerms(doc);
+					int n = getTotNumberTerms(strong)+getTotNumberTerms(b);
+					int tot = getTotNumberTerms(doc);
 					int X = 1;
 					boolean RCErule1 = ((n*100)/tot)>X;
 					int X2 = 20;
@@ -248,7 +248,18 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					//RULE 1: N = number of <li> tags between <ol> or <ul> tags, N < t.
 					//per ogni lista puntata o numerata controlla che sia minore della soglia
 					tau=11;
-					boolean ENIPrule1 = (li.size())<tau;
+					
+					
+					boolean ENIPrule1 = true;
+					for( Element elem : ol){
+						Elements allin = elem.children();
+						ENIPrule1 = (allin.size())<tau;
+					}
+					for( Element elem : ul){
+						Elements allin = elem.children();
+						ENIPrule1 = ENIPrule1 | (allin.size())<tau;
+					}
+					
 
 					if(!ENIPrule1){
 						String rec = "Limit the number of elements in the lists. Each list shall not be longer than 10 items. If needed, split the list into sub-tasks";
@@ -299,7 +310,13 @@ public class PresentationClarity extends AbstractAnalysisClass {
 		return id-offset;// listSentence.size();
 	}
 
-	private int getTotNumerTerms(Elements elements) {
+	private int numElementsOfType(Element elem, String string) {
+	   Elements anni = elem.select("li > ol");
+		Elements ele = elem.getElementsByTag(string);
+		return ele.size();
+	}
+
+	private int getTotNumberTerms(Elements elements) {
 		String stringelements = "";
 		for (Element element : elements) {
 			stringelements +=element.text();
@@ -307,7 +324,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 		return stringelements.split(" ").length;
 	}
 
-	private int getTotNumerTerms(Document doc) {
+	private int getTotNumberTerms(Document doc) {
 		int numdoc = 0;
 		String stringdoc = doc.text();
 		numdoc = stringdoc.split(" ").length;
