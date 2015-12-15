@@ -3,6 +3,7 @@ package eu.learnpad.ca.analysis.presentation;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -124,6 +125,10 @@ public class PresentationClarity extends AbstractAnalysisClass {
 		int offset = 2300;
 		lStartTime = System.currentTimeMillis();
 		try{
+			Properties prop = new Properties();
+			// load a properties file
+			prop.load(PresentationClarity.class.getClassLoader().getResourceAsStream("presentationclarity.properties"));
+
 			if(contenthtml!=null){
 				if(contenthtml!=""){
 					Document doc = Jsoup.parse(contenthtml);
@@ -178,8 +183,8 @@ public class PresentationClarity extends AbstractAnalysisClass {
 						log.trace(rec);
 						id++;
 					}
-
-					int num_p_tag_max=5;
+					String res = prop.getProperty("num_p_tag_max");
+					int num_p_tag_max= res!=null ? Integer.valueOf(res): 5;
 					boolean PSPrule2 = p.size()<num_p_tag_max;
 
 					if(!PSPrule2){
@@ -200,10 +205,17 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					//100% > X%
 
 					int n = getTotNumberTerms(strong)+getTotNumberTerms(b);
+					
 					int tot = getTotNumberTerms(doc);
-					int min_emphasised = 1;
+					
+					res = prop.getProperty("min_emphasised");
+					int min_emphasised = res!=null ? Integer.valueOf(res): 1;
+					
 					boolean RCErule1 = ((n*100)/tot)>min_emphasised;
-					int max_emphasised = 20;
+					
+					res = prop.getProperty("max_emphasised");
+					int max_emphasised = res!=null ? Integer.valueOf(res): 20;
+					
 					boolean RCErule2 = ((n*100)/tot)<max_emphasised;
 
 					if(!RCErule1){
@@ -230,7 +242,9 @@ public class PresentationClarity extends AbstractAnalysisClass {
 
 					//RULE1: N =numberof<ol>or<ul>tags,N >t
 
-					int num_min_lists=2;
+					res = prop.getProperty("num_min_lists");
+					int num_min_lists = res!=null ? Integer.valueOf(res): 2;
+					
 					boolean IHIPrule1 = (ol.size()>num_min_lists)|(ul.size()>num_min_lists);
 
 					if(!IHIPrule1){
@@ -247,7 +261,10 @@ public class PresentationClarity extends AbstractAnalysisClass {
 
 					//RULE 1: N = number of <li> tags between <ol> or <ul> tags, N < t.
 					//per ogni lista puntata o numerata controlla che sia minore della soglia
-					int num_max_lists=11;
+					
+					
+					res = prop.getProperty("num_max_lists");
+					int num_max_lists = res!=null ? Integer.valueOf(res): 11;
 					
 					
 					boolean ENIPrule1 = true;
@@ -274,7 +291,9 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					type = "PresentationClarity: Excessive length of the document";
 
 					//RULE 1: N = number of words in the document, N < t.
-					int num_max_word = 1600;
+					res = prop.getProperty("num_max_word");
+					int num_max_word = res!=null ? Integer.valueOf(res): 1600;
+					
 					boolean ELDrule1 = tot<num_max_word;
 
 					if(!ELDrule1){
@@ -290,7 +309,9 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					type = "PresentationClarity: Excessive references";
 
 					//RULE1: N =numberof<a>tags,N < t.
-					int num_min_ref = 5;
+					res = prop.getProperty("num_min_ref");
+					int num_min_ref = res!=null ? Integer.valueOf(res): 5;
+
 					boolean ERrule1 = a.size()<num_min_ref;
 
 					if(!ERrule1){
