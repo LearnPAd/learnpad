@@ -85,7 +85,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 
 	}
 	protected double calculateOverallQualityMeasure(Integer numdef){
-		double qm = (1-(numdef.doubleValue()/6))*100;
+		double qm = (1-(numdef.doubleValue()/7))*100;
 		double qualityMeasure = Math.abs(qm);
 		return qualityMeasure;
 	}
@@ -179,11 +179,11 @@ public class PresentationClarity extends AbstractAnalysisClass {
 						id++;
 					}
 
-					int tau=5;
-					boolean PSPrule2 = p.size()<tau;
+					int num_p_tag_max=5;
+					boolean PSPrule2 = p.size()<num_p_tag_max;
 
 					if(!PSPrule2){
-						String rec = "Split your paragraphs. Each paragraph shall be less than "+tau+" sentences.";
+						String rec = "Split your paragraphs. Each paragraph shall be less than "+num_p_tag_max+" sentences.";
 						Annotation rule2 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule2);
 						log.trace(rec);
@@ -201,10 +201,10 @@ public class PresentationClarity extends AbstractAnalysisClass {
 
 					int n = getTotNumberTerms(strong)+getTotNumberTerms(b);
 					int tot = getTotNumberTerms(doc);
-					int X = 1;
-					boolean RCErule1 = ((n*100)/tot)>X;
-					int X2 = 20;
-					boolean RCErule2 = ((n*100)/tot)<X2;
+					int min_emphasised = 1;
+					boolean RCErule1 = ((n*100)/tot)>min_emphasised;
+					int max_emphasised = 20;
+					boolean RCErule2 = ((n*100)/tot)<max_emphasised;
 
 					if(!RCErule1){
 						String rec = "Highlight in bold the relevant sentences and keywords of your text.";
@@ -230,11 +230,11 @@ public class PresentationClarity extends AbstractAnalysisClass {
 
 					//RULE1: N =numberof<ol>or<ul>tags,N >t
 
-					tau=2;
-					boolean IHIPrule1 = (ol.size()>tau)|(ul.size()>tau);
+					int num_min_lists=2;
+					boolean IHIPrule1 = (ol.size()>num_min_lists)|(ul.size()>num_min_lists);
 
 					if(!IHIPrule1){
-						String rec = " Provide bullet point lists or numbered lists for your instructions";
+						String rec = "Provide bullet point lists or numbered lists for your instructions";
 						Annotation rule1 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule1);
 						log.trace(rec);
@@ -247,17 +247,17 @@ public class PresentationClarity extends AbstractAnalysisClass {
 
 					//RULE 1: N = number of <li> tags between <ol> or <ul> tags, N < t.
 					//per ogni lista puntata o numerata controlla che sia minore della soglia
-					tau=11;
+					int num_max_lists=11;
 					
 					
 					boolean ENIPrule1 = true;
 					for( Element elem : ol){
 						Elements allin = elem.children();
-						ENIPrule1 = (allin.size())<tau;
+						ENIPrule1 = (allin.size())<num_max_lists;
 					}
 					for( Element elem : ul){
 						Elements allin = elem.children();
-						ENIPrule1 = ENIPrule1 | (allin.size())<tau;
+						ENIPrule1 = ENIPrule1 | (allin.size())<num_max_lists;
 					}
 					
 
@@ -274,11 +274,11 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					type = "PresentationClarity: Excessive length of the document";
 
 					//RULE 1: N = number of words in the document, N < t.
-					tau = 1600;
-					boolean ELDrule1 = tot<tau;
+					int num_max_word = 1600;
+					boolean ELDrule1 = tot<num_max_word;
 
 					if(!ELDrule1){
-						String rec = "The document is too long. A document shall not be longer than "+tau+" words.";
+						String rec = "The document is too long. A document shall not be longer than "+num_max_word+" words.";
 						Annotation rule1 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule1);
 						log.trace(rec);
@@ -290,11 +290,11 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					type = "PresentationClarity: Excessive references";
 
 					//RULE1: N =numberof<a>tags,N < t.
-					tau = 5;
-					boolean ERrule1 = a.size()<tau;
+					int num_min_ref = 5;
+					boolean ERrule1 = a.size()<num_min_ref;
 
 					if(!ERrule1){
-						String rec = "Do not refer more than "+tau+" external documents. The reader might be confused. Refer only relevant external documents.";
+						String rec = "Do not refer more than "+num_min_ref+" external documents. The reader might be confused. Refer only relevant external documents.";
 						Annotation rule1 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule1);
 						log.trace(rec);
