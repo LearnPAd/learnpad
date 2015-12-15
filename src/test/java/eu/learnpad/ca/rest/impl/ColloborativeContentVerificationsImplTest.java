@@ -1,6 +1,7 @@
 package eu.learnpad.ca.rest.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -8,16 +9,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
@@ -62,7 +62,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 	@Test
 	public void checkCollaborativeContentAnalysis() throws JAXBException {
 		
-		InputStream is = ColloborativeContentVerificationsImplTest.class.getClassLoader().getResourceAsStream("CollaborativeContentXMLAll.xml");
+		InputStream is = ColloborativeContentVerificationsImplTest.class.getClassLoader().getResourceAsStream("CollaborativeContentXMLS_HTML.xml");
 		assertNotNull(is);
 		JAXBContext jaxbContexti = JAXBContext.newInstance(CollaborativeContentAnalysis.class);
 
@@ -102,6 +102,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 			} catch (JAXBException | FileNotFoundException  e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				assertTrue(false);
 			}
 		}
 		

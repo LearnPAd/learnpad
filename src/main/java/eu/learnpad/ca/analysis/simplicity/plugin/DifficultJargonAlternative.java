@@ -94,8 +94,7 @@ public class DifficultJargonAlternative extends Plugin {
 			AlternativeTermSet atSet = (AlternativeTermSet) jaxbUnmarshaller1.unmarshal(is);
 			return atSet;
 		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e);
 			return null;
 		}
 

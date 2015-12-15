@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-
+@Deprecated
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 public  class ContentHTML {

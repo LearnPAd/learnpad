@@ -24,7 +24,7 @@ import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Node;
 import gate.DocumentContent;
 import gate.util.InvalidOffsetException;
-
+@Deprecated
 public class JuridicalJargon extends Plugin{
 
 

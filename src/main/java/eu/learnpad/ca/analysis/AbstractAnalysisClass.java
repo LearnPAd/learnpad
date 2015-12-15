@@ -126,7 +126,7 @@ public abstract class AbstractAnalysisClass extends Thread{
 
 	}
 
-
+	@Deprecated
 	protected  int indexofElement(String sentence, String word, Map<String, Integer> elementfinded, String split){
 		String [] spliter = sentence.split(split);
 		int position = 0;
