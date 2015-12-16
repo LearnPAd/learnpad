@@ -17,11 +17,9 @@ public class UsageDefaultFlows extends abstractGuideline{
 
 	public UsageDefaultFlows(Definitions diagram) {
 		super(diagram);
-		this.id = "21";
-		this.Description = "The modeler should minimize the use of inclusive gateways (OR-joins and OR-splits). Inclusive OR-splits activate one, several, or all sub- sequent branches based on conditions. They need to be synchronized with inclusive OR-join elements, which are difficult to understand in the general case.";
+		this.id = "22";
+		this.Description = "Where possible, after an exclusive and an inclusive gateway, the modeler should express the default flow. One way for the modeler to ensure that the process does not get stuck at a gateway is to use a default condition for one of the outgoing sequence flow. This default sequence flow will always evaluate to true if all the other sequence flow conditions turn out to be false.";
 		this.Name = "Usage of default flows";
-
-
 	}
 
 	@Override
@@ -71,7 +69,7 @@ public class UsageDefaultFlows extends abstractGuideline{
 		if (num>0) {
 			/*elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);*/
-			this.Suggestion += "\nUsage of default flows: ";
+			this.Suggestion += "Usage of default flows in Exclusive Gateways";
 			this.status = false;
 		}else{
 			this.status = true;
