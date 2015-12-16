@@ -49,7 +49,7 @@ public class UsageDefaultFlows extends abstractGuideline{
 							boolean diverging = listout.size() >= listin.size();
 							SequenceFlow def =gateway.getDefault();
 							if (diverging & def==null) {
-								
+								num++;
 									elementsBPMN.add(fe);
 									String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
 									setElements(fe.getId(),IDProcess,name);
@@ -95,7 +95,7 @@ public class UsageDefaultFlows extends abstractGuideline{
 					boolean diverging = listout.size() >= listin.size();
 					SequenceFlow def =gateway.getDefault();
 					if (diverging & def==null) {
-						
+							num++;
 							elementsBPMN.add(fe);
 							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
 							setElements(fe.getId(),IDProcess,name);
