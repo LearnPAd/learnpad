@@ -12,6 +12,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
+
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
@@ -139,27 +140,32 @@ public class DataContentAnalysis implements Serializable{
 		Integer inode=0;
 		//List<Node> temp= new ArrayList<Node>();
 		DataContent prec = null;
-		if(content.length()>1){
+
+		if(content.length()>1  && !lannot.isEmpty() ){
 			Collections.sort(lannot);
 
 
 			for (Annotation ann : lannot) {
-				Integer startoff = ann.getstartNode_Offset();
-				Integer endoff = ann.getendNode_Offset();
-				if(inode<startoff){
-					String tok =  content.substring(inode,startoff.intValue());;
-					listdata.add(new DataContent(tok, acca.getType()));
-				}else{
-					if(inode>startoff){
-						if(prec!=null)
-							prec.setRecommendation(prec.getRecommendation()+"\r\n"+ann.getRecommendation());
-						continue;
+				try{
+					Integer startoff = ann.getstartNode_Offset();
+					Integer endoff = ann.getendNode_Offset();
+					if(inode<startoff){
+						String tok =  content.substring(inode,startoff.intValue());;
+						listdata.add(new DataContent(tok, acca.getType()));
+					}else{
+						if(inode>startoff){
+							if(prec!=null)
+								prec.setRecommendation(prec.getRecommendation()+"\r\n"+ann.getRecommendation());
+							continue;
+						}
 					}
+					String token =  content.substring(startoff.intValue(), endoff.intValue());
+					prec = new DataContent(token,ann.getRecommendation(),ann.getType());
+					listdata.add(prec);
+					inode = endoff;
+				}catch(IndexOutOfBoundsException e){
+					e.printStackTrace();
 				}
-				String token =  content.substring(startoff.intValue(), endoff.intValue());
-				prec = new DataContent(token,ann.getRecommendation(),ann.getType());
-				listdata.add(prec);
-				inode = endoff;
 			}
 		}
 		/*String tempString = null;
