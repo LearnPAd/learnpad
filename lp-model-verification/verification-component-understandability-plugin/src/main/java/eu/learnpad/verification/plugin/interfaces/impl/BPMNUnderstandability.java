@@ -37,12 +37,15 @@ import org.w3c.dom.Node;
 import eu.learnpad.verification.plugin.bpmn.guideline.factory.GuidelinesFactory;
 import eu.learnpad.verification.plugin.bpmn.reader.MyBPMN2ModelReader;
 import eu.learnpad.verification.plugin.interfaces.Plugin;
-import eu.learnpad.verification.plugin.utils.Utils;
+
 import eu.learnpad.verification.plugin.utils.XMLUtils;
-import eu.learnpad.verification.plugin.utils.Utils.LogType;
+
 
 
 public class BPMNUnderstandability implements Plugin {
+	
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BPMNUnderstandability.class);
+
 
     private boolean isOMGBPMN2(String modelS){
         try{
@@ -52,8 +55,8 @@ public class BPMNUnderstandability implements Plugin {
             if(bpmnRootNode!=null)
                 return true;
         }catch(Exception e){
-        	Utils.log(e);
-			Utils.log("\nModel involved in the exception:\n"+modelS, LogType.ERROR);
+        	log.error(e);
+			log.error("Model involved in the exception:\n"+modelS);
 			
         }
         return false;
@@ -97,8 +100,8 @@ public class BPMNUnderstandability implements Plugin {
 				throw new Exception("ERROR: Verification type " + type + " not supported.");
 		}catch(Exception ex){
 			//ex.printStackTrace();
-			Utils.log(ex);
-			Utils.log("\nModel involved in the exception:\n"+model, LogType.ERROR);
+			log.error(ex);
+			log.error("\nModel involved in the exception:\n"+model);
 			ret = "<ErrorResult><Status>ERROR</Status><Description>"+ex.getMessage()+"</Description></ErrorResult>";
 		}
 		return ret;
@@ -125,7 +128,7 @@ public class BPMNUnderstandability implements Plugin {
 				System.out.println("");
 				
 			
-		}catch(Exception ex){Utils.log(ex);}
+		}catch(Exception ex){log.error(ex);}
 	}
 	
 }
