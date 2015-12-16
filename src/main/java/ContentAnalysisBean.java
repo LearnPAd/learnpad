@@ -20,6 +20,8 @@ import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnaly
 @SessionScoped
 public class ContentAnalysisBean implements Serializable {
 
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ContentAnalysisBean.class);
+
 	/**
 	 * 
 	 */
@@ -41,7 +43,7 @@ public class ContentAnalysisBean implements Serializable {
 		
 		
 
-		System.out.println(id);
+		log.trace(id);
 	}
 
 	
@@ -166,7 +168,7 @@ public class ContentAnalysisBean implements Serializable {
 		
 		this.setStatus(status);
 		}
-		System.out.println("Status: "+status);
+		log.trace("Status: "+status);
 		
 		
 		target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/validatecollaborativecontent/"+id);

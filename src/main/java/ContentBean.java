@@ -32,6 +32,7 @@ import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 @RequestScoped
 public class ContentBean implements Serializable{
 
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ContentBean.class);
 
 	/**
 	 * 
@@ -224,7 +225,7 @@ public class ContentBean implements Serializable{
 		FileEntryResults results = fe.getResults();
 
 		for (FileEntryResults.FileInfo fileInfo : results.getFiles()) {
-			System.out.println(fileInfo);
+			log.info(fileInfo);
 
 
 			if (fileInfo.isSaved()) {
@@ -234,10 +235,11 @@ public class ContentBean implements Serializable{
 				try {
 					filecontent = 	new String(Files.readAllBytes(path), "UTF8");
 					filename = fileInfo.getFileName();
-					System.out.println(filecontent);
+					log.info(filecontent);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					
+					log.error(e1);
+					log.error(e1.getMessage());
 				}
 			}
 		}
@@ -249,7 +251,7 @@ public class ContentBean implements Serializable{
 		FileEntryResults results = fe.getResults();
 
 		for (FileEntryResults.FileInfo fileInfo : results.getFiles()) {
-			System.out.println(fileInfo);
+			log.info(fileInfo);
 
 
 			if (fileInfo.isSaved()) {
@@ -259,10 +261,10 @@ public class ContentBean implements Serializable{
 				try {
 					filecontenthtml = 	new String(Files.readAllBytes(path), "UTF8");
 					
-					System.out.println(fileInfo.getFileName());
+					log.info(fileInfo.getFileName());
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					log.error(e1);
+					log.error(e1.getMessage());
 				}
 			}
 		}
@@ -314,6 +316,6 @@ public class ContentBean implements Serializable{
 
 		this.setRestid(id);
 
-		System.out.println("Submit Clicked: " + Title + ", " + Content + ", " + id + "; ");
+		log.info("Submit Clicked: " + Title + ", " + Content + ", " + id + "; ");
 	}
 }

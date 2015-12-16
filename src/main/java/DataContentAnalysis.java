@@ -12,7 +12,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
-
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
@@ -21,6 +20,9 @@ import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnaly
 @SessionScoped
 public class DataContentAnalysis implements Serializable{
 
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataContentAnalysis.class);
+
+	
 	/**
 	 * 
 	 */
@@ -34,7 +36,7 @@ public class DataContentAnalysis implements Serializable{
 
 	public DataContentAnalysis(){
 
-		System.out.println("DataContentAnalysisbean");
+		log.info("DataContentAnalysisbean");
 		listdata = new ArrayList<DataContent>();
 	}
 
@@ -63,8 +65,8 @@ public class DataContentAnalysis implements Serializable{
 
 
 			} catch (JAXBException  e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error(e);
+				log.error(e.getMessage());
 			}
 
 		}
@@ -95,7 +97,7 @@ public class DataContentAnalysis implements Serializable{
 		this.acca = acca;
 		listdata = new ArrayList<DataContent>();
 		createData();
-		System.out.println(listdata);
+		log.info(listdata);
 	}
 
 	public void setElement(String element) {
@@ -164,7 +166,8 @@ public class DataContentAnalysis implements Serializable{
 					listdata.add(prec);
 					inode = endoff;
 				}catch(IndexOutOfBoundsException e){
-					e.printStackTrace();
+					log.error(e);
+					log.error(e.getMessage());
 				}
 			}
 			if(inode<content.length()){
@@ -243,7 +246,7 @@ public class DataContentAnalysis implements Serializable{
 
 	public void listener(ActionEvent event){
 		this.setAcca((AnnotatedCollaborativeContentAnalysis) event.getComponent().getAttributes().get("valdata"));
-		System.out.println(event);
+		log.info(event);
 	}
 
 }
