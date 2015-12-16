@@ -25,20 +25,17 @@
 
 
 
-		<h:commandButton value="page1 "
-			action="#{pageController.navigatePage1}" />
-		<h:commandButton value="Redirect to Page 2"
-			action="#{pageController.navigatePage2}" />
+		
 		<h:commandButton value="Redirect to Page CF"
 			action="#{pageController.navigatePageCF}" />
 		<h:commandButton value="Refresh"
 			action="#{pageController.navigatePageGetAnalysis}" />
 
-		<h:commandButton value="go to 13" action="page13?faces-redirect=true" />
+	
 
-	</h:form>
 
-	<h:panelGrid columns="2" border="1">
+
+	<h:panelGrid columns="3" border="1">
 		<f:facet name="header">
 			Content Analysis Information
 		</f:facet>
@@ -47,9 +44,12 @@
 
 	
 
-		<h:outputLabel for="recOut12" value="ContentAnalysisBean.id:" />
-		<h:outputText id="recOut12" value="#{ContentAnalysisBean.id}" />
-
+		<h:outputLabel for="inputOut2" value="ContentAnalysisBean.id:" />
+		<h:outputText id="inputOut2" value="#{ContentAnalysisBean.id}" />
+		<h:inputText id="inputOut"  value="#{ContentAnalysisBean.id}" >
+		<f:ajax execute="inputOut" render="inputOut2" immediate="true"/></h:inputText>
+		
+		
 		<h:outputLabel for="recOut123" value="ContentAnalysisBean.status:" />
 		<h:outputText id="recOut123" value="#{ContentAnalysisBean.status}" />
 
@@ -58,7 +58,7 @@
 
 
 	</h:panelGrid>
-
+	</h:form>
 	<br />
 
 	<br />
