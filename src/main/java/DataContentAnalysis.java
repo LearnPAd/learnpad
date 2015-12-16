@@ -167,6 +167,11 @@ public class DataContentAnalysis implements Serializable{
 					e.printStackTrace();
 				}
 			}
+			if(inode<content.length()){
+				String token =  content.substring(inode, content.length());
+				prec = new DataContent(token,acca.getType());
+				listdata.add(prec);
+			}
 		}
 		/*String tempString = null;
 		for (Object obj : c.getContent()) {
