@@ -115,6 +115,10 @@ public abstract class AbstractAnalysisClass extends Thread{
 
 
 			}
+			if(precedentposition.longValue()<docContent.size()){
+				String finalsentece = docContent.getContent(precedentposition.longValue(),docContent.size()).toString();
+				c.setContent(finalsentece);
+			}
 			if(listnode.isEmpty()){
 				String token = docContent.toString();
 				c.setContent(token);
