@@ -94,9 +94,7 @@ public abstract class AbstractAnalysisClass extends Thread{
 			for(Node node :listnode){
 
 				Integer pos = node.getOffSet();
-				if(precedentposition.equals(3658)){
-					log.trace("");
-				}
+				
 
 				String token = "";
 				if(precedentposition>pos){
