@@ -68,7 +68,7 @@ import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
-import eu.learnpad.simulator.monitoring.event.impl.ProcessEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.ProcessStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
@@ -364,7 +364,7 @@ public class ActivitiProcessManager implements IProcessManager,
 		// signal process start
 		this.processEventReceiverProvider.processEventReceiver()
 				.receiveProcessStartEvent(
-				new ProcessEndSimEvent(System.currentTimeMillis(),
+				new ProcessStartSimEvent(System.currentTimeMillis(),
 						(String) parameters.get(SIMULATION_ID_KEY),
 						users, data));
 
