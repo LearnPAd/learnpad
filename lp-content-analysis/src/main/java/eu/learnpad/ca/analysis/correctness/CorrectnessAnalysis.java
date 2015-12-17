@@ -60,7 +60,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 				//List<Annotation> annotations = checkdefect(sentence,c, id);
 				List<Annotation> annotations =new ArrayList<Annotation>();
 				id = calculateAnnotations(sentence, matches, c, id,annotations,offset);
-				offset+=sentence.length();
+				offset+= sentence.length()+ 1 ;
 				
 				if(annotations.size()>0){
 					numDefectiveSentences++;
@@ -87,7 +87,6 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			log.error(e);
 			return null;
 		}
@@ -154,7 +153,6 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			log.error(e);
 			return null;
 		}

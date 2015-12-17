@@ -94,7 +94,7 @@ public abstract class AbstractAnalysisClass extends Thread{
 			for(Node node :listnode){
 
 				Integer pos = node.getOffSet();
-
+				
 
 				String token = "";
 				if(precedentposition>pos){
@@ -103,7 +103,8 @@ public abstract class AbstractAnalysisClass extends Thread{
 
 				}
 				token = docContent.getContent(precedentposition.longValue(),pos.longValue()).toString();
-				c.setContent(token);
+				if(token.length()>0)
+					c.setContent(token);
 				if(!nodeadded.contains(node)){
 					c.setContent(node);
 					nodeadded.add(node);
@@ -114,6 +115,10 @@ public abstract class AbstractAnalysisClass extends Thread{
 
 
 
+			}
+			if(precedentposition.longValue()<docContent.size()){
+				String finalsentece = docContent.getContent(precedentposition.longValue(),docContent.size()).toString();
+				c.setContent(finalsentece);
 			}
 			if(listnode.isEmpty()){
 				String token = docContent.toString();
@@ -126,31 +131,4 @@ public abstract class AbstractAnalysisClass extends Thread{
 
 	}
 
-
-	protected  int indexofElement(String sentence, String word, Map<String, Integer> elementfinded, String split){
-		String [] spliter = sentence.split(split);
-		int position = 0;
-		int numwordfinded = 0;
-		for (int i = 0; i < spliter.length; i++) {
-			int offset = 0;
-			String token = spliter[i];
-			if(token.equals(word)){
-				numwordfinded++;
-				if(!elementfinded.containsKey(token)){
-					elementfinded.put(token, 1);
-				}
-				if(elementfinded.get(token).intValue()==numwordfinded){
-					Integer I = elementfinded.get(token);
-					int y  = I.intValue()+1;
-					elementfinded.put(token, y);
-					return position;
-				}else{
-					position+=token.length()+1+offset;
-				}
-			}else{
-				position+=token.length()+1+offset;
-			}
-		}
-		return position;
-	}
 }
