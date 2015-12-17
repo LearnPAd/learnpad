@@ -105,7 +105,7 @@ public abstract class AbstractAnalysisClass extends Thread{
 
 				}
 				token = docContent.getContent(precedentposition.longValue(),pos.longValue()).toString();
-				if(token.length()>1)
+				if(token.length()>0)
 					c.setContent(token);
 				if(!nodeadded.contains(node)){
 					c.setContent(node);
