@@ -14,6 +14,7 @@ import javax.xml.bind.Marshaller;
 
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
+import eu.learnpad.ca.rest.data.Node;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 
 @ManagedBean(name="DataContentAnalysisbean")
@@ -139,6 +140,7 @@ public class DataContentAnalysis implements Serializable{
 		Content c = acca.getCollaborativeContent().getContent();
 		List<Annotation> lannot =  acca.getAnnotations();
 		String content= exContent(c);
+		log.trace("cont: "+content);
 		Integer inode=0;
 		//List<Node> temp= new ArrayList<Node>();
 		DataContent prec = null;
@@ -151,9 +153,11 @@ public class DataContentAnalysis implements Serializable{
 				try{
 					Integer startoff = ann.getstartNode_Offset();
 					Integer endoff = ann.getendNode_Offset();
+					
 					if(inode<startoff){
 						String tok =  content.substring(inode,startoff.intValue());;
 						listdata.add(new DataContent(tok, acca.getType()));
+						log.trace("tok: "+tok);
 					}else{
 						if(inode>startoff){
 							if(prec!=null)
@@ -161,8 +165,10 @@ public class DataContentAnalysis implements Serializable{
 							continue;
 						}
 					}
+					
 					String token =  content.substring(startoff.intValue(), endoff.intValue());
 					prec = new DataContent(token,ann.getRecommendation(),ann.getType());
+					log.trace("tok: "+token);
 					listdata.add(prec);
 					inode = endoff;
 				}catch(IndexOutOfBoundsException e){
@@ -210,13 +216,18 @@ public class DataContentAnalysis implements Serializable{
 
 	private String exContent(Content c) {
 		String content = new String(); 
-		if(c!=null)
+		log.info(c.toString());
+		if(c!=null){
 			for(Object obj : c.getContent()) {
-				if(obj instanceof String){
+				if(!(obj instanceof Node)){
 					content+=obj.toString();
+					log.info("ins "+ obj.toString());
+				}else{
+					log.info("scar "+obj.toString());
 				}
-
 			}
+			log.info("null ");
+		}
 		return content;
 	}
 

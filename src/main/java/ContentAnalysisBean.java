@@ -40,19 +40,19 @@ public class ContentAnalysisBean implements Serializable {
 
 	public ContentAnalysisBean(){
 
-		
-		
+
+
 
 		log.trace(id);
 	}
 
-	
+
 
 	@PostConstruct
-	   public void init(){
-		
-		
-	   }
+	public void init(){
+
+
+	}
 
 
 
@@ -143,13 +143,13 @@ public class ContentAnalysisBean implements Serializable {
 		Content = content;
 	}
 
-	
-	
-	
+
+
+
 	public void actionDownloadAnalysis(ActionEvent event){
 		try {
-            Thread.sleep(2500);
-        } catch(Exception e) {}
+			Thread.sleep(2500);
+		} catch(Exception e) {}
 		//FacesContext context = FacesContext.getCurrentInstance();
 
 
@@ -158,27 +158,29 @@ public class ContentAnalysisBean implements Serializable {
 		if(id==null){
 			id="1";
 		}
-		 
+
 		WebTarget target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/validatecollaborativecontent/"+id+"/status");
 		String 	status ="";
 		while (!status.equals("OK")) {
-			
-		
-		status = target.request().get(String.class);
-		
-		this.setStatus(status);
+
+
+			status = target.request().get(String.class);
+
+			this.setStatus(status);
+			if(status.equals("ERROR"))
+				break;
 		}
 		log.trace("Status: "+status);
-		
-		
-		target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/validatecollaborativecontent/"+id);
-		Response annotatecontent =  target.request().get();
 
-		this.setCollectionannotatedcontent(annotatecontent.readEntity(new GenericType<Collection<AnnotatedCollaborativeContentAnalysis>>() {}));
+		if(status.equals("OK")){
+			target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/validatecollaborativecontent/"+id);
+			Response annotatecontent =  target.request().get();
 
-		
-		
-		
+			this.setCollectionannotatedcontent(annotatecontent.readEntity(new GenericType<Collection<AnnotatedCollaborativeContentAnalysis>>() {}));
+
+		}
+
+
 	}
 
 
