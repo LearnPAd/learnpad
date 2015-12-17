@@ -94,7 +94,9 @@ public abstract class AbstractAnalysisClass extends Thread{
 			for(Node node :listnode){
 
 				Integer pos = node.getOffSet();
-
+				if(precedentposition.equals(3658)){
+					log.trace("");
+				}
 
 				String token = "";
 				if(precedentposition>pos){
@@ -103,7 +105,8 @@ public abstract class AbstractAnalysisClass extends Thread{
 
 				}
 				token = docContent.getContent(precedentposition.longValue(),pos.longValue()).toString();
-				c.setContent(token);
+				if(token.length()>1)
+					c.setContent(token);
 				if(!nodeadded.contains(node)){
 					c.setContent(node);
 					nodeadded.add(node);
