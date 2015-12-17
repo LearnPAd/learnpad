@@ -95,7 +95,7 @@ public class UnclearAcronym extends Plugin{
 			if(candidateAcronym.length()<=1 | (candidateAcronym.contains(".")&candidateAcronym.length()==2 ) | (!candidateAcronym.contains(".")&candidateAcronym.length()>4 )){
 				continue;
 			}
-			if(candidateAcronym.contains(".") ){
+			if(candidateAcronym.contains(".")){
 				candidateAcronym = candidateAcronym.replaceAll("\\.", "");
 
 			}
@@ -177,7 +177,8 @@ public class UnclearAcronym extends Plugin{
 		for (int i = 0; i < spliter.length; i++) {
 
 			String token = spliter[i];
-			if(acronymdefected.contains(token)){
+			String	tok =	token.trim().replace(",", "").replace("'", "").replace("’s", "").replace("]", "").replace("(", "").replace(")", "").replace(":", "").replace(";", "").replace("\"","");
+			if(acronymdefected.contains(tok)){
 				int initialpos = indexofElement(sentence,token,elementfinded,"[\\s]");
 				int finalpos = initialpos+token.length();
 				if(precedentposition>initialpos){
