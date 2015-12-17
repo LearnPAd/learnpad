@@ -1,6 +1,8 @@
 
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
@@ -60,7 +62,22 @@ public class ContentAnalysisBean implements Serializable {
 		return status;
 	}
 
+	public void setAllid(String ID){
+		this.id = ID;
+	}
+	
+	public String getAllid(){
+		return this.id;
+	}
 
+	public Collection<String> getCollectionids(){
+		Client client = ClientBuilder.newClient();
+		WebTarget target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/validatecollaborativecontent/allid");
+		Response allID =  target.request().get();
+		String res = allID.readEntity(String.class);
+		
+		return Arrays.asList(res.split(";"));
+	}
 
 	public void setStatus(String status) {
 		this.status = status;

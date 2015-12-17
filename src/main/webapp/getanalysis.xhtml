@@ -52,8 +52,17 @@
 		
 		<h:outputLabel for="recOut123" value="ContentAnalysisBean.status:" />
 		<h:outputText id="recOut123" value="#{ContentAnalysisBean.status}" />
-
+		<h:outputLabel for="recOut123" value=" " />
 	
+		<h:outputLabel for="disp" value="Server IDs:" />
+		<ace:comboBox id="disp" value="#{ContentAnalysisBean.allid}"  label="Select ID Present In Server: " labelPosition="top" style="height:19px;">
+                    <c:forEach  items="#{ContentAnalysisBean.collectionids}"
+			var="data" varStatus="status">
+                    <f:selectItem itemValue="#{data}" itemLabel="#{data}" />
+                    </c:forEach>
+                    <ace:ajax execute="@this" render="@all" />
+                    <ace:ajax event="blur" execute="@this" render="@all" />
+                </ace:comboBox>
 
 
 
