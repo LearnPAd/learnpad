@@ -17,9 +17,7 @@ import org.w3c.dom.Node;
 
 import eu.learnpad.verification.plugin.bpmn.guideline.factory.GuidelinesFactory;
 import eu.learnpad.verification.plugin.bpmn.reader.MyBPMN2ModelReader;
-import eu.learnpad.verification.plugin.utils.Utils;
 import eu.learnpad.verification.plugin.utils.XMLUtils;
-import eu.learnpad.verification.plugin.utils.Utils.LogType;
 
 
 
@@ -27,6 +25,9 @@ import eu.learnpad.verification.plugin.utils.Utils.LogType;
 @Path("validatemodel")
 public class UnderstandabilityRestImpl {
 
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(UnderstandabilityRestImpl.class);
+
+	
 	private static Map<Integer,GuidelinesFactory> map = new HashMap<Integer,GuidelinesFactory>();
 	private static Integer id =0;
 
@@ -47,7 +48,7 @@ public class UnderstandabilityRestImpl {
 			map.put(id, eg);
 			return id.toString();
 		}catch(Exception e){
-			//log.fatal("Fatal "+e.getMessage());
+			log.fatal("Fatal "+e.getMessage());
 			return "FATAL ERROR";
 		}
 	}
@@ -102,8 +103,8 @@ public class UnderstandabilityRestImpl {
 			if(bpmnRootNode!=null)
 				return true;
 		}catch(Exception e){
-			Utils.log(e);
-			Utils.log("\nModel involved in the exception:\n"+modelS, LogType.ERROR);
+			log.error(e);
+			log.error("\nModel involved in the exception:\n"+modelS);
 
 		}
 		return false;
