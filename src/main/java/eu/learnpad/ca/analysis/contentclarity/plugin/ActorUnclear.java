@@ -1,6 +1,7 @@
 package eu.learnpad.ca.analysis.contentclarity.plugin;
 
 import eu.learnpad.ca.analysis.Plugin;
+import eu.learnpad.ca.analysis.localizzation.Messages;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Node;
@@ -26,13 +27,13 @@ public class ActorUnclear extends Plugin {
 	public void check(GateThread gateu, List<Annotation> listannotations, Set<gate.Annotation> listSentenceDefected, Set<gate.Annotation> listSentence){
 		
 		HashSet<String> hs = new HashSet<String>();
-		hs.add("PassiveVoice");
+		hs.add("PassiveVoice"); //$NON-NLS-1$
 		Set<gate.Annotation> SetActorUnclear = gateu.getAnnotationSet(hs);
 		
 		
-		String rac = "The sentence does not specify the subject. Please include who is performing the action.";
+		String rac = Messages.getString("ActorUnclear.Raccomandation", language); //$NON-NLS-1$
 		
-		String type = "Actor Unclear";
+		String type = "Actor Unclear"; //$NON-NLS-1$
 		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log,listSentence );
 	}
 

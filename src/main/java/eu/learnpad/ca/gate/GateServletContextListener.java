@@ -3,6 +3,7 @@ package eu.learnpad.ca.gate;
 import gate.Gate;
 
 import java.io.File;
+import java.net.URL;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -24,7 +25,7 @@ public class GateServletContextListener implements ServletContextListener{
 			ServletContext ctx = sce.getServletContext();
 			if(!Gate.isInitialised()){
 				// use /path/to/your/webapp/WEB−INF as gate.home 
-				File gateHome = new File(ctx.getRealPath("/WEB-INF")); 
+				File gateHome = new File(ctx.getRealPath("src\\main\\webapp\\WEB-INF")); 
 
 				Gate.setGateHome(gateHome); 
 				// thus webapp/WEB−INF/plugins is the plugins directory, and 
@@ -35,11 +36,12 @@ public class GateServletContextListener implements ServletContextListener{
 				Gate.setUserConfigFile(new File(gateHome, "gate.xml")); 
 
 				Gate.init(); 
+				URL uu = new URL("file:\\C:\\Users\\winspa\\Documents\\GitHub\\ContentAnalysisComponent\\src\\main\\webapp\\WEB-INF\\plugins\\ANNIE");
 				// load plugins, for example... 
-				Gate.getCreoleRegister().registerDirectories( 
-						ctx.getResource("/WEB-INF/plugins/ANNIE")); 
-				Gate.getCreoleRegister().registerDirectories( 
-						ctx.getResource("/WEB-INF/plugins/Tagger_NP_Chunking")); 
+				Gate.getCreoleRegister().registerDirectories(uu);
+				URL u = new URL("file:\\C:\\Users\\winspa\\Documents\\GitHub\\ContentAnalysisComponent\\src\\main\\webapp\\WEB-INF\\plugins\\Tagger_NP_Chunking");
+				
+				Gate.getCreoleRegister().registerDirectories(u); 
 			}
 
 		} 
