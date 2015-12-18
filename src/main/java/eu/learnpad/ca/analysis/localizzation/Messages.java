@@ -12,8 +12,8 @@ public class Messages {
 
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
 			.getBundle("localizzation/"+BUNDLE_NAME);
-	private static final ResourceBundle RESOURCE_BUNDLE_IT = ResourceBundle
-			.getBundle("localizzation/"+BUNDLE_NAME, new Locale("it"));
+//	private static final ResourceBundle RESOURCE_BUNDLE_IT = ResourceBundle
+	//		.getBundle("localizzation/"+BUNDLE_NAME, new Locale("it"));
 
 	private Messages() {
 	}
@@ -21,9 +21,10 @@ public class Messages {
 	public static String getString(String key, Language lang) {
 		try {
 			if(lang instanceof Italian){
-				return RESOURCE_BUNDLE_IT.getString(key);			
+				//return RESOURCE_BUNDLE_IT.getString(key);			
 			}
-			return RESOURCE_BUNDLE.getString(key);
+			String res = RESOURCE_BUNDLE.getString(key);
+			return res;
 		} catch (MissingResourceException e) {
 			return '!' + key + '!';
 		}

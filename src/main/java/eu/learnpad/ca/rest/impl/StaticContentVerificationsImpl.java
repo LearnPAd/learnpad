@@ -152,7 +152,7 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 			if(map.containsKey(Integer.valueOf(contentID))){
 				List<AbstractAnalysisClass> listanalysisInterface  = map.get(Integer.valueOf(contentID));
 				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
-					if(analysisInterface.getStatus()!="OK"){
+					if(!analysisInterface.getStatus().equals("OK") ){
 						return "IN PROGRESS";
 					}
 				}

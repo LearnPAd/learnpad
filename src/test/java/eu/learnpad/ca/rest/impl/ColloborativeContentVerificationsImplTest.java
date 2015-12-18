@@ -40,19 +40,19 @@ import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 
 public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 
-	
+
 	@Override
 	protected TestContainerFactory getTestContainerFactory()  {
-	    return new GrizzlyWebTestContainerFactory();
+		return new GrizzlyWebTestContainerFactory();
 	}
 	@Override
-    protected DeploymentContext configureDeployment() {
-		 forceSet(TestProperties.CONTAINER_PORT, "0");
-		    return ServletDeploymentContext.forServlet(new ServletContainer(new ResourceConfig(ColloborativeContentVerificationsImpl.class)))
-		                                   .addListener(GateServletContextListener.class)
-		                                   .build();
-         
-    }
+	protected DeploymentContext configureDeployment() {
+		forceSet(TestProperties.CONTAINER_PORT, "0");
+		return ServletDeploymentContext.forServlet(new ServletContainer(new ResourceConfig(ColloborativeContentVerificationsImpl.class)))
+				.addListener(GateServletContextListener.class)
+				.build();
+
+	}
 
 	@Override
 	protected Application configure() {
@@ -61,7 +61,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 
 	@Test
 	public void checkCollaborativeContentAnalysis() throws JAXBException {
-		
+
 		InputStream is = ColloborativeContentVerificationsImplTest.class.getClassLoader().getResourceAsStream("CollaborativeContentXMLS_HTML.xml");
 		assertNotNull(is);
 		JAXBContext jaxbContexti = JAXBContext.newInstance(CollaborativeContentAnalysis.class);
@@ -77,40 +77,45 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		assertNotNull(response);
 		assertTrue(id!="");
 		String status = "IN PROGRESS";
-		while(!status.equals("OK")){
+		boolean flag = true;
+		while(flag){
 			status =  target("/learnpad/ca/validatecollaborativecontent/"+id+"/status").request().get(String.class);
 
 			assertNotNull(status);
-
-		}
-
-		Response annotatecontent =  target("/learnpad/ca/validatecollaborativecontent/"+id).request().get();
-
-		ArrayList<AnnotatedCollaborativeContentAnalysis> res =	annotatecontent.readEntity(new GenericType<ArrayList<AnnotatedCollaborativeContentAnalysis>>() {});
-		for (AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContentAnalysis : res) {
-			JAXBContext jaxbCtx;
-			try {
-				jaxbCtx = javax.xml.bind.JAXBContext.newInstance(AnnotatedCollaborativeContentAnalysis.class);
-
-				Marshaller marshaller = jaxbCtx.createMarshaller();
-				marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8"); //NOI18N
-				marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-				//marshaller.marshal(annotatedCollaborativeContentAnalysis, System.out);
-				String type = annotatedCollaborativeContentAnalysis.getType();
-				OutputStream os = new FileOutputStream( "nosferatu"+type+".xml" );
-				marshaller.marshal( annotatedCollaborativeContentAnalysis, os );
-			} catch (JAXBException | FileNotFoundException  e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				assertTrue(false);
+			if(status.equals("ERROR") | status.equals("OK")){
+				flag = false;
 			}
 		}
-		
-		
-		assertNotNull(res);
-		assertNotNull(annotatecontent);
+		assertTrue(!status.equals("ERROR"));
+		if(!status.equals("ERROR")){
+			Response annotatecontent =  target("/learnpad/ca/validatecollaborativecontent/"+id).request().get();
+
+			ArrayList<AnnotatedCollaborativeContentAnalysis> res =	annotatecontent.readEntity(new GenericType<ArrayList<AnnotatedCollaborativeContentAnalysis>>() {});
+			for (AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContentAnalysis : res) {
+				JAXBContext jaxbCtx;
+				try {
+					jaxbCtx = javax.xml.bind.JAXBContext.newInstance(AnnotatedCollaborativeContentAnalysis.class);
+
+					Marshaller marshaller = jaxbCtx.createMarshaller();
+					marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8"); //NOI18N
+					marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+					//marshaller.marshal(annotatedCollaborativeContentAnalysis, System.out);
+					String type = annotatedCollaborativeContentAnalysis.getType();
+					OutputStream os = new FileOutputStream( "nosferatu"+type+".xml" );
+					marshaller.marshal( annotatedCollaborativeContentAnalysis, os );
+				} catch (JAXBException | FileNotFoundException  e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					assertTrue(false);
+				}
+			}
+
+
+			assertNotNull(res);
+			assertNotNull(annotatecontent);
+		}
 	}
 
-	
+
 
 }
