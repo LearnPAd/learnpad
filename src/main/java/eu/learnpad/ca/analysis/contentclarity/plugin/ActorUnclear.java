@@ -31,7 +31,7 @@ public class ActorUnclear extends Plugin {
 		Set<gate.Annotation> SetActorUnclear = gateu.getAnnotationSet(hs);
 		
 		
-		String rac = Messages.getString("ActorUnclear.Raccomandation", language); //$NON-NLS-1$
+		String rac = Messages.getString("ActorUnclear.Reccomandation", language); //$NON-NLS-1$
 		
 		String type = "Actor Unclear"; //$NON-NLS-1$
 		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log,listSentence );
