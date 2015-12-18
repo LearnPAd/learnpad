@@ -89,7 +89,7 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 	@Override
 	public String generateQuestionnaires(String modelSetId, String type,
 			byte[] configurationFile) throws LpRestExceptionXWikiImpl {
-		// TODO This is stub code that heve been implemented in order to 
+		// TODO This is stub code that have been implemented in order to 
 		// make easy the development of the core-platform
 		
 		String genProcessID = null;
@@ -105,7 +105,7 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 	@Override
 	public String getGenerationStatus(String generationProcessId)
 			throws LpRestExceptionXWikiImpl {
-		// TODO This is stub code that heve been implemented in order to 
+		// TODO This is stub code that have been implemented in order to 
 		// make easy the development of the core-platform
 
 		String currentStatus = this.qm.getGenerationStatus(generationProcessId).name();

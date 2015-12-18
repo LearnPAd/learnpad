@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
@@ -13,6 +14,7 @@ import java.util.Vector;
 
 import org.xwiki.component.phase.InitializationException;
 
+import eu.learnpad.qm.exception.QMModelNotImportedException;
 import eu.learnpad.qm.impl.QMXwikiBridgeImpl;
 
 public class QuestionnaireManager {
@@ -27,12 +29,15 @@ public class QuestionnaireManager {
 	private static int fooIndex = 0;
 	
     private QuestionnaireManager (String configurationFilename) throws IOException {
-		if (configurationFilename == null) {
+// *******************************************
+// this part is not completed yet
+    	if (configurationFilename == null) {
 			configurationFilename = this.defaultConfiguratioFilename;
 			new FileOutputStream(this.defaultConfiguratioFilename, true).close();
 		}
 		this.configurationReader = new BufferedReader(new FileReader(configurationFilename));
-
+// *******************************************
+		
 		this.importedModelID = new Vector<String>();
 		this.generationStatusMap = new HashMap<String, QuestionnaireGenerationStatus>();
     }
@@ -68,9 +73,15 @@ public class QuestionnaireManager {
     	this.printSomething("[IMPORTED] " + modelSetID);
     }
     
-    public String startGeneration(String modelSetID) throws Exception{
+    public String startGeneration(String modelSetID) throws QMModelNotImportedException{
+    	this.printSomething("[STARTING] " + modelSetID);
+
     	if (!this.importedModelID.contains(modelSetID)){
-    		throw new Exception("[ERROR:] " + modelSetID +" has not been imported yet");
+        	String message = "[ERROR:] " + modelSetID +" has not been imported yet";
+    		
+        	this.printSomething(message);
+    		
+    		throw new QMModelNotImportedException(message);
     	}
 		String genProcessID = "genProcessID:" + fooIndex + ":" + modelSetID.trim().toLowerCase();
 		fooIndex++;
@@ -85,10 +96,14 @@ public class QuestionnaireManager {
     	
     	if (currentStatus == null){
     		currentStatus = QuestionnaireGenerationStatus.NotAvailable;    		
-    	} else {
-    		switch (currentStatus) {
+    	}
+
+    	this.printSomething("[CURRENT STATUS] " + genProcessID + " ---> " + currentStatus);
+
+    	switch (currentStatus) {
     		case InProgress:
-    			this.generationStatusMap.put(genProcessID, QuestionnaireGenerationStatus.Completed);
+    			currentStatus = QuestionnaireGenerationStatus.Completed;
+    			this.generationStatusMap.put(genProcessID, currentStatus);
     			break;
     		case Completed:
     			break;
@@ -96,19 +111,19 @@ public class QuestionnaireManager {
     			currentStatus = QuestionnaireGenerationStatus.NotAvailable;
     			break;
     		}
-    	}	
+
+    	this.printSomething("[UPDATED STATUS] " + genProcessID + " ---> " + currentStatus);
     	
     	return currentStatus;
     }
     
 	private void printSomething(String data){
 		try {
-			PrintWriter w = new PrintWriter("/tmp/"+this.getClass().getName()+".log");
+			PrintWriter w = new PrintWriter(new FileWriter("/tmp/"+this.getClass().getName()+".log",true));
 			w.println("[TEST MSG] : " + data);
 			w.flush();
 			w.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}	    
@@ -118,10 +133,14 @@ public class QuestionnaireManager {
 		try {
 			me = QuestionnaireManager.getInstance();
 			me.storeModelID("modelSetID");
-			me.getGenerationStatus("genProcessID");
+			String genProcessID = me.startGeneration("modelSetID");
+			me.getGenerationStatus(genProcessID);
+			me.getGenerationStatus("fooGenProcessID");
+			me.getGenerationStatus(genProcessID);
 		} catch (InitializationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (QMModelNotImportedException e){
+			e.printStackTrace();			
 		}
 	}
 }
