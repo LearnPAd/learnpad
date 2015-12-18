@@ -176,7 +176,7 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 		}
 
 		// remove task ui from webserver
-		webserver.removeServletHolder(tasksMap.get(event.task));
+		webserver.removeServletHolder(tasksMap.get(event.task.id));
 
 		tasksMap.remove(event.task.id);
 
