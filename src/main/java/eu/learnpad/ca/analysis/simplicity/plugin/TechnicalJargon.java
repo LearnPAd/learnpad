@@ -7,6 +7,7 @@ import java.util.Set;
 import org.languagetool.Language;
 
 import eu.learnpad.ca.analysis.Plugin;
+import eu.learnpad.ca.analysis.localizzation.Messages;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Node;
@@ -32,14 +33,14 @@ public class TechnicalJargon extends Plugin {
 		FeatureMap fe = Factory.newFeatureMap();
 
 		//majorType lexicalambiguity
-		fe.put("minorType", "technicaljargon");//  vagueness
-		fe.put("majorType", "simplicity");
-		Set<gate.Annotation> tj = gateu.getAnnotationSet("Lookup" , fe);
+		fe.put("minorType", "technicaljargon");//  vagueness //$NON-NLS-1$ //$NON-NLS-2$
+		fe.put("majorType", "simplicity"); //$NON-NLS-1$ //$NON-NLS-2$
+		Set<gate.Annotation> tj = gateu.getAnnotationSet("Lookup" , fe); //$NON-NLS-1$
 
 
-		String rac = "The term %s is technical jargon. Substitute %s with a more common term.";
+		String rac = Messages.getString("TechnicalJargon.Recomandation",language); //$NON-NLS-1$
 
-		String type = "Simplicity Technical Jargon";
+		String type = "Simplicity Technical Jargon"; //$NON-NLS-1$
 		if(!tj.isEmpty())
 			gatevsleanpadAnnotation(tj, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
 	}
