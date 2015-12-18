@@ -59,10 +59,19 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		return new ResourceConfig(ColloborativeContentVerificationsImpl.class);
 	}
 
+	
 	@Test
 	public void checkCollaborativeContentAnalysis() throws JAXBException {
+		checkCollaborativeContentAnalysis("CollaborativeContentXMLITALIAN.xml");
+		//checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML.xml");
+	
+	}
+	
+	
+	
+	public void checkCollaborativeContentAnalysis(String nameFilexml) throws JAXBException {
 
-		InputStream is = ColloborativeContentVerificationsImplTest.class.getClassLoader().getResourceAsStream("CollaborativeContentXMLS_HTML.xml");
+		InputStream is = ColloborativeContentVerificationsImplTest.class.getClassLoader().getResourceAsStream(nameFilexml);
 		assertNotNull(is);
 		JAXBContext jaxbContexti = JAXBContext.newInstance(CollaborativeContentAnalysis.class);
 
