@@ -19,11 +19,24 @@
  */
 package eu.learnpad.qm.tests;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
+
 /**
  *
  * @author gulyx
  */
 public abstract class AbstractUnitTest {
     
-
+	protected static final int MAX_TENTATIVES = 5;
+	private SecureRandom random;
+	
+	protected AbstractUnitTest() {
+	  this.random = new SecureRandom();
+	}
+	
+	protected String randomId() {
+		    return new BigInteger(130, random).toString(32);
+	}
+	
 }
