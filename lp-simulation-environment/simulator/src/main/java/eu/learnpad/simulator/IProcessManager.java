@@ -175,6 +175,21 @@ public interface IProcessManager {
 			String userId, Map<String, Object> data);
 
 	/**
+	 * Finalize the completion of a task
+	 *
+	 * @param task
+	 *            the completed task
+	 * @param data
+	 *            the data corresponding to the task completion
+	 * @param completingUser
+	 *            the user that completed the task
+	 * @param submissionResult
+	 *            the result of the task submission
+	 */
+	public void completeTask(LearnPadTask task, Map<String, Object> data,
+			String completingUser, LearnPadTaskSubmissionResult submissionResult);
+
+	/**
 	 * Signal the completion of a given process
 	 *
 	 * @param processId

@@ -48,6 +48,7 @@ import org.eclipse.jetty.util.ConcurrentHashSet;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
 import eu.learnpad.simulator.datastructures.document.LearnPadDocument;
 import eu.learnpad.simulator.datastructures.document.LearnPadDocumentField;
 import eu.learnpad.simulator.processmanager.AbstractProcessDispatcher;
@@ -110,7 +111,7 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 	// complete at the same time, joining on the same next task. This can cause
 	// a race condition where the next task is processed several times.
 	@Override
-	synchronized protected Collection<LearnPadTask> fetchNewTasks() {
+	protected Collection<LearnPadTask> fetchNewTasks() {
 		List<LearnPadTask> newTasks = new ArrayList<LearnPadTask>();
 
 		// check for newly triggered tasks by getting the list of waiting
@@ -164,8 +165,10 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 	};
 
 	@Override
-	protected void completeTask(final LearnPadTask task,
-			final Map<String, Object> data) {
+	public synchronized void completeTask(final LearnPadTask task,
+			final Map<String, Object> data, String completingUser,
+			LearnPadTaskSubmissionResult submissionResult) {
+		super.completeTask(task, data, completingUser, submissionResult);
 		// complete task and de-register it
 		taskService.complete(task.id, data);
 		registeredWaitingTasks.remove(task.id);
@@ -189,8 +192,7 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 				.taskId(taskId).singleResult().getProcessVariables();
 	}
 
-	public void onEvent(final ActivitiEvent event) {
-
+	public synchronized void onEvent(final ActivitiEvent event) {
 		if (event.getProcessInstanceId().equals(processId)
 				&& !event.getType().equals(ActivitiEventType.PROCESS_COMPLETED)) {
 

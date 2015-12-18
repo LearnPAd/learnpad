@@ -25,6 +25,7 @@ package eu.learnpad.simulator.uihandler.webserver;
  */
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -93,10 +94,12 @@ public class TaskServlet extends WebSocketServlet {
 		System.out.println("User " + userId + "submitted task " + task.id
 				+ " with data " + data);
 
+		Map<String, Object> dataMap = formHandler.parseResult(data)
+				.getProperties();
+
 		// signal task submission to dispatcher and check validation
 		LearnPadTaskSubmissionResult result = processManager
-				.submitTaskCompletion(task, userId,
-						formHandler.parseResult(data).getProperties());
+				.submitTaskCompletion(task, userId, dataMap);
 
 		LearnPadTaskSubmissionResult.TaskSubmissionStatus status = result.status;
 
@@ -112,6 +115,9 @@ public class TaskServlet extends WebSocketServlet {
 				}
 			}
 			System.out.println("task " + task.id + " has been validated");
+
+			processManager.completeTask(task, dataMap, userId, result);
+
 			break;
 
 		case REJECTED:

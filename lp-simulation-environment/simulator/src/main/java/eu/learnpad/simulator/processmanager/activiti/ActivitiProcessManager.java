@@ -423,6 +423,13 @@ public class ActivitiProcessManager implements IProcessManager,
 	}
 
 	@Override
+	public void completeTask(LearnPadTask task, Map<String, Object> data,
+			String completingUser, LearnPadTaskSubmissionResult submissionResult) {
+		processDispatchers.get(task.processId).completeTask(task, data,
+				completingUser, submissionResult);
+	}
+
+	@Override
 	public synchronized void signalProcessCompletion(String processId) {
 
 		String simSession = (String) processDispatchers.get(processId)
