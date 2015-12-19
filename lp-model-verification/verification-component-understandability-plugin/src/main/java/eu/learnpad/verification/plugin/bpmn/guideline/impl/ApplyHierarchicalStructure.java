@@ -9,6 +9,8 @@ import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
+
 
 public class ApplyHierarchicalStructure extends abstractGuideline {
 
@@ -16,9 +18,9 @@ public class ApplyHierarchicalStructure extends abstractGuideline {
 
 	public ApplyHierarchicalStructure(Definitions diagram) {
 		super(diagram);
-		this.id = "3";
-		this.Description = "The modeler should create a hierarchical Business Process Model with multi layers of details for the Process. BPMN sub-processes are used to split the Process into “phases” or “layers”. The modeler can expand the sub-processes later to expose details of lower levels of hierarchy. A process model will contain multiple pages, but internally the integrity of a single model is maintained.";
-		this.Name = "Apply hierarchical structure with SubProcesses";
+		this.id = "3"; //$NON-NLS-1$
+		this.Description = Messages.getString("ApplyHierarchicalStructure.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("ApplyHierarchicalStructure.Name",l); //$NON-NLS-1$
 
 
 	}
@@ -53,11 +55,11 @@ public class ApplyHierarchicalStructure extends abstractGuideline {
 			}
 		}
 		if (i>10 & subele<=2) {
-			this.Suggestion += "Apply hierarchical structure with SubProcesses: ";
+			this.Suggestion += Messages.getString("ApplyHierarchicalStructure.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("ApplyHierarchicalStructure.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
