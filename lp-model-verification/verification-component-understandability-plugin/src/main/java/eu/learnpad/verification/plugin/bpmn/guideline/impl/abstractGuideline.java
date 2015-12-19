@@ -2,17 +2,7 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-
-
-
-
-
-
-
-
-
-
+import java.util.Locale;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -44,6 +34,9 @@ public  class abstractGuideline implements Runnable {
 	
 	@XmlTransient
 	protected Definitions diagram;
+	
+	@XmlTransient
+	protected Locale l; 
 
 	@XmlAttribute(name = "id", required = true)
 	protected String id;

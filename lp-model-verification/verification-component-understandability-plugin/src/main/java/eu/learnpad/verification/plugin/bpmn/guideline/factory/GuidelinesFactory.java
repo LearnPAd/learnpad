@@ -2,15 +2,7 @@ package eu.learnpad.verification.plugin.bpmn.guideline.factory;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-
-
-
-
-
-
-
-
+import java.util.Locale;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -27,6 +19,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.eclipse.bpmn2.Definitions;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.ActivityDescription;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.ApplyHierarchicalStructure;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.MinimizeGatewayHeterogeneity;
@@ -91,6 +84,8 @@ public class GuidelinesFactory {
 	private ExecutorService threadPoolExecutor;
 	@XmlTransient
 	private long lStartTime; 
+	@XmlTransient
+	private Locale l; 
 	
 	GuidelinesFactory(){
 
@@ -176,7 +171,7 @@ public class GuidelinesFactory {
 			long lEndTime = System.currentTimeMillis();
 			long difference = lEndTime - lStartTime;
 
-			System.out.println("Guidelines Elapsed milliseconds: " + difference);
+			System.out.println("Guidelines Elapsed milliseconds: " + difference); //$NON-NLS-1$
 		}
 		return res;
 	}
@@ -206,12 +201,12 @@ public class GuidelinesFactory {
 	}
 
 	private void setStatus() {
-		status = "OK";
-		description = "Well done, no errors found!";
+		status = Messages.getString("GuidelinesFactory.OK",  l); //$NON-NLS-1$
+		description = Messages.getString("GuidelinesFactory.OKDescription",  l); //$NON-NLS-1$
 		for (abstractGuideline abstractGuideline : guidelines) {
 			if(!abstractGuideline.getStatus()){
-				status = "KO";
-				description = "Please follow these guidelines:";
+				status = Messages.getString("GuidelinesFactory.KO",  l); //$NON-NLS-1$
+				description = Messages.getString("GuidelinesFactory.KODescription",  l); //$NON-NLS-1$
 				break;
 			}
 		}
@@ -219,10 +214,10 @@ public class GuidelinesFactory {
 
 	@Override
 	public String toString() {
-		String ret = "GuideLineFactory: \n\r";
+		String ret = "GuideLineFactory: \n\r"; //$NON-NLS-1$
 		int index=0;
 		for(abstractGuideline bp: guidelines){
-			ret+=++index+") ";
+			ret+=++index+") "; //$NON-NLS-1$
 			ret+=bp.toString();
 			ret+="\n\r-------------------------------------\n\r"; 
 		}
