@@ -27,8 +27,8 @@ public class explicitGateways extends abstractGuideline {
 		super(diagram,l);
 		this.l=l;
 		this.id = "16"; //$NON-NLS-1$
-		this.Description = Messages.getString("explicitGateways.1",l); //$NON-NLS-1$
-		this.Name = Messages.getString("explicitGateways.2",l); //$NON-NLS-1$
+		this.Description = Messages.getString("explicitGateways.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("explicitGateways.Name",l); //$NON-NLS-1$
 
 
 	}
