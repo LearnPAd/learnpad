@@ -11,6 +11,7 @@ import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 import eu.learnpad.verification.plugin.utils.ElementID;
 
@@ -19,9 +20,9 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 
 	public ConsistentUsageEndEvents(Definitions diagram) {
 		super(diagram);
-		this.id = "14";
-		this.Description = "The modeler should distinguish success and failure end states in a process or a sub-process with separate end events. Flows that end in the same end state should be merged to the same end event. Therefore, separate end events that do not represent distinct end states must be merged in a single end event.";
-		this.Name = "Consistent Usage of End Events";
+		this.id = "14"; //$NON-NLS-1$
+		this.Description = Messages.getString("ConsistentUsageEndEvents.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("ConsistentUsageEndEvents.Name",l); //$NON-NLS-1$
 
 
 	}
@@ -55,10 +56,10 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 										+ "\n");*/
 								
 								elementsBPMNtemp.add(fe);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 								Elementstemp.add(new ElementID(fe.getId(),IDProcess,name));
-								temp.append("Name=" +name + " ID=" + fe.getId()
-										+ "; ");
+								temp.append("Name=" +name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+										+ "; "); //$NON-NLS-1$
 							
 						} 
 				}
@@ -73,11 +74,11 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 		if (flag) {
 			elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);
-			this.Suggestion += "\nUse only one End Events :";
+			this.Suggestion += Messages.getString("ConsistentUsageEndEvents.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("ConsistentUsageEndEvents.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
@@ -100,10 +101,10 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 				
 					elementsBPMNtemp.add(fe);
 					
-					String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+					String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 					Elementstemp.add(new ElementID(fe.getId(),IDProcess,name));
-					temp.append(" Name=" + name + " ID=" + fe.getId()
-							+ "; ");
+					temp.append(" Name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+							+ "; "); //$NON-NLS-1$
 				
 			
 			}
@@ -111,7 +112,7 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 		if ( num>1) {
 			elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);
-			this.Suggestion += "\nUse only one End Event in SubProcess "+sub.getName()+" ";
+			this.Suggestion += Messages.getString("ConsistentUsageEndEvents.SuggestionSubprocessKO",l)+sub.getName()+" "; //$NON-NLS-1$ //$NON-NLS-2$
 			this.status = false;
 		}
 		

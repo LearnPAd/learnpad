@@ -14,21 +14,22 @@ import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SequenceFlow;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 public class BalanceGateways extends abstractGuideline {
 
 	public BalanceGateways(Definitions diagram) {
 		super(diagram);
-		this.id = "19";
-		this.Description = "The modeler should always use the same type of gateway used both for splitting and joining the flow. For example, when a flow is divided with a parallel gateway, the resulting parallel flows should be consolidated via another parallel gateway. In particular, the modeler should ensure that join parallel gateways have the correct number of incoming sequence flow-especially when used in conjunction with other gateways; this is related to ensuring the soundness property. Don’t apply this guidelines on Event-based or Complex Gateways.";
-		this.Name = "Balance gateways";
+		this.id = "19"; //$NON-NLS-1$
+		this.Description = Messages.getString("BalanceGateways.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("BalanceGateways.Name",l); //$NON-NLS-1$
 
 	}
 
 	@Override
 	protected void findGL(Definitions diagram) {
-		StringBuilder ret = new StringBuilder("");
+		StringBuilder ret = new StringBuilder(""); //$NON-NLS-1$
 
 		int neg = 0;
 		int npg = 0;
@@ -87,11 +88,11 @@ public class BalanceGateways extends abstractGuideline {
 		int sum = Math.abs(neg - negc) + Math.abs(npg - npgc)
 				+ Math.abs(nig - nigc) + Math.abs(ncg - ncgc);
 		if (sum >= 15) {
-			this.Suggestion += "Balance gateways " + ret;
+			this.Suggestion += Messages.getString("BalanceGateways.SuggestionKO",l) + ret; //$NON-NLS-1$
 			this.status = false;
 		} else {
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("BalanceGateways.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
@@ -146,8 +147,8 @@ public class BalanceGateways extends abstractGuideline {
 				+ Math.abs(nig - nigc) + Math.abs(ncg - ncgc);
 		if (sum >= 15) {
 
-			this.Suggestion += "\nBalance gateways in SubProcess "
-					+ sub.getName() + " " + temp;
+			this.Suggestion += Messages.getString("BalanceGateways.SuggestionSubprocessKO",l) //$NON-NLS-1$
+					+ sub.getName() + " " + temp; //$NON-NLS-1$
 			this.status = false;
 		}
 
