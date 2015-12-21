@@ -1,6 +1,8 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
 
+import java.util.Locale;
+
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.EndEvent;
 import org.eclipse.bpmn2.Event;
@@ -16,8 +18,9 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 public class ExplicitStartEndEvents extends abstractGuideline{
 
 
-	public ExplicitStartEndEvents(Definitions diagram) {
-		super(diagram);
+	public ExplicitStartEndEvents(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "12"; //$NON-NLS-1$
 		this.Description = Messages.getString("ExplicitStartEndEvents.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("ExplicitStartEndEvents.Name",l); //$NON-NLS-1$

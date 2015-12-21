@@ -4,6 +4,7 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 import org.eclipse.bpmn2.Collaboration;
 import org.eclipse.bpmn2.Definitions;
@@ -20,8 +21,9 @@ import eu.learnpad.verification.plugin.utils.ElementID;
 public class ConsistentUsagePools extends abstractGuideline{
 
 
-	public ConsistentUsagePools(Definitions diagram) {
-		super(diagram);
+	public ConsistentUsagePools(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "10"; //$NON-NLS-1$
 		this.Description = Messages.getString("ConsistentUsagePools.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("ConsistentUsagePools.Name",l); //$NON-NLS-1$

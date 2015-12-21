@@ -2,6 +2,7 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl.appearence;
 
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.eclipse.bpmn2.BaseElement;
@@ -21,8 +22,9 @@ import eu.learnpad.verification.plugin.bpmn.reader.BPMNUtils;
 public class LinearSequenceFlows extends abstractGuideline{
 
 
-	public LinearSequenceFlows(Definitions diagram) {
-		super(diagram);
+	public LinearSequenceFlows(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "45"; //$NON-NLS-1$
 		this.Description = Messages.getString("LinearSequenceFlows.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("LinearSequenceFlows.Name",l); //$NON-NLS-1$

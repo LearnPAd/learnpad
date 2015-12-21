@@ -3,6 +3,7 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
 
 import java.util.List;
+import java.util.Locale;
 
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.EndEvent;
@@ -20,8 +21,9 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 public class RestrictUsageTerminateEndEvent extends abstractGuideline {
 
-	public RestrictUsageTerminateEndEvent(Definitions diagram) {
-		super(diagram);
+	public RestrictUsageTerminateEndEvent(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "15"; //$NON-NLS-1$
 		this.Description = Messages.getString("RestrictUsageTerminateEndEvent.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("RestrictUsageTerminateEndEvent.Name",l); //$NON-NLS-1$

@@ -1,6 +1,8 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling;
 
 
+import java.util.Locale;
+
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.IntermediateCatchEvent;
@@ -16,8 +18,9 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 public class LabelingEvents extends abstractGuideline{
 
 
-	public LabelingEvents(Definitions diagram) {
-		super(diagram);
+	public LabelingEvents(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "31"; //$NON-NLS-1$
 		this.Description = Messages.getString("LabelingEvents.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("LabelingEvents.Name",l); //$NON-NLS-1$

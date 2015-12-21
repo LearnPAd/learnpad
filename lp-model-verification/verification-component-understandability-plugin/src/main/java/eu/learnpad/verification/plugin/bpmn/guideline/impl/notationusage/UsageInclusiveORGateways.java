@@ -1,5 +1,7 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
+import java.util.Locale;
+
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.InclusiveGateway;
@@ -13,8 +15,9 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 public class UsageInclusiveORGateways extends abstractGuideline{
 
 
-	public UsageInclusiveORGateways(Definitions diagram) {
-		super(diagram);
+	public UsageInclusiveORGateways(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "21"; //$NON-NLS-1$
 		this.Description = Messages.getString("UsageInclusiveORGateways.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("UsageInclusiveORGateways.Name",l); //$NON-NLS-1$

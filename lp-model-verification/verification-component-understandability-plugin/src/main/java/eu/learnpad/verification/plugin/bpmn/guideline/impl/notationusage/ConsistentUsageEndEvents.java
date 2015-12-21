@@ -3,6 +3,7 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Locale;
 
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.EndEvent;
@@ -18,8 +19,9 @@ import eu.learnpad.verification.plugin.utils.ElementID;
 public class ConsistentUsageEndEvents extends abstractGuideline{
 
 
-	public ConsistentUsageEndEvents(Definitions diagram) {
-		super(diagram);
+	public ConsistentUsageEndEvents(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "14"; //$NON-NLS-1$
 		this.Description = Messages.getString("ConsistentUsageEndEvents.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("ConsistentUsageEndEvents.Name",l); //$NON-NLS-1$

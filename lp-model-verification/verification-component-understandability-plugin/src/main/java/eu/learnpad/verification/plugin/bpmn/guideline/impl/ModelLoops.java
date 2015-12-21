@@ -2,6 +2,7 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl;
 
 
 import java.util.List;
+import java.util.Locale;
 
 import org.eclipse.bpmn2.Activity;
 import org.eclipse.bpmn2.Definitions;
@@ -19,8 +20,9 @@ public class ModelLoops extends abstractGuideline {
 
 
 
-	public ModelLoops(Definitions diagram) {
-		super(diagram);
+	public ModelLoops(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "7"; //$NON-NLS-1$
 		this.Description = Messages.getString("ModelLoops.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("ModelLoops.Name",l); //$NON-NLS-1$

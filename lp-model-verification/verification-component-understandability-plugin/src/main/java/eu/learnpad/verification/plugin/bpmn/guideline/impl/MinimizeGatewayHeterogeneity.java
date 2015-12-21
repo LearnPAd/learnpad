@@ -2,6 +2,8 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl;
 
 
 
+import java.util.Locale;
+
 import org.eclipse.bpmn2.ComplexGateway;
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.ExclusiveGateway;
@@ -18,8 +20,9 @@ import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 
 public class MinimizeGatewayHeterogeneity extends abstractGuideline {
 
-	public MinimizeGatewayHeterogeneity(Definitions diagram) {
-		super(diagram);
+	public MinimizeGatewayHeterogeneity(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "9"; //$NON-NLS-1$
 		this.Description = Messages.getString("MinimizeGatewayHeterogeneity.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("MinimizeGatewayHeterogeneity.Name",l); //$NON-NLS-1$

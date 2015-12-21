@@ -56,11 +56,13 @@ public  class abstractGuideline implements Runnable {
 
 	}
 
-	public abstractGuideline(Definitions diagram){
+	public abstractGuideline(Definitions diagram, Locale l){
+		this.l=l;
 		this.elementsBPMN = new ArrayList<FlowElement>();
 		this.Suggestion="";
 		this.status = false;
 		this.diagram=diagram;
+		
 	}
 	
 	public void Start() {

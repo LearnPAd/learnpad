@@ -2,6 +2,8 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
 
 
+import java.util.Locale;
+
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.Gateway;
@@ -15,8 +17,9 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 public class SplitAndJoinFlows extends abstractGuideline {
 
-	public SplitAndJoinFlows(Definitions diagram) {
-		super(diagram);
+	public SplitAndJoinFlows(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "18"; //$NON-NLS-1$
 		this.Description = Messages.getString("SplitAndJoinFlows.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("SplitAndJoinFlows.Name",l); //$NON-NLS-1$

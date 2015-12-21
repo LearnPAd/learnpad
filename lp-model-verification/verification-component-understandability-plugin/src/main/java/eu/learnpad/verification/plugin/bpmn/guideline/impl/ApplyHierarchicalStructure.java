@@ -1,6 +1,8 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl;
 
 
+import java.util.Locale;
+
 import org.eclipse.bpmn2.Activity;
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
@@ -16,8 +18,9 @@ public class ApplyHierarchicalStructure extends abstractGuideline {
 
 
 
-	public ApplyHierarchicalStructure(Definitions diagram) {
-		super(diagram);
+	public ApplyHierarchicalStructure(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "3"; //$NON-NLS-1$
 		this.Description = Messages.getString("ApplyHierarchicalStructure.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("ApplyHierarchicalStructure.Name",l); //$NON-NLS-1$

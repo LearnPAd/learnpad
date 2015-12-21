@@ -1,6 +1,8 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling;
 
 
+import java.util.Locale;
+
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.ParallelGateway;
@@ -15,8 +17,9 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 public class LabelingANDGateways extends abstractGuideline{
 
 
-	public LabelingANDGateways(Definitions diagram) {
-		super(diagram);
+	public LabelingANDGateways(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "35"; //$NON-NLS-1$
 		this.Description = Messages.getString("LabelingANDGateways.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("LabelingANDGateways.Name",l); //$NON-NLS-1$

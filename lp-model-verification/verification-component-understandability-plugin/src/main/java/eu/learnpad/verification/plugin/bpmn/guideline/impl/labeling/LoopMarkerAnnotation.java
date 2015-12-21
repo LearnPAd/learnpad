@@ -1,6 +1,8 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling;
 
 
+import java.util.Locale;
+
 import org.eclipse.bpmn2.Activity;
 import org.eclipse.bpmn2.Artifact;
 import org.eclipse.bpmn2.Association;
@@ -17,8 +19,9 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 public class LoopMarkerAnnotation extends abstractGuideline{
 
 
-	public LoopMarkerAnnotation(Definitions diagram) {
-		super(diagram);
+	public LoopMarkerAnnotation(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "39"; //$NON-NLS-1$
 		this.Description = Messages.getString("LoopMarkerAnnotation.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("LoopMarkerAnnotation.Name",l); //$NON-NLS-1$

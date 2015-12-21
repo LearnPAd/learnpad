@@ -1,6 +1,7 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.ExclusiveGateway;
@@ -16,8 +17,9 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 public class UsageDefaultFlows extends abstractGuideline{
 
 
-	public UsageDefaultFlows(Definitions diagram) {
-		super(diagram);
+	public UsageDefaultFlows(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "22"; //$NON-NLS-1$
 		this.Description = Messages.getString("UsageDefaultFlows.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("UsageDefaultFlows.Name",l); //$NON-NLS-1$

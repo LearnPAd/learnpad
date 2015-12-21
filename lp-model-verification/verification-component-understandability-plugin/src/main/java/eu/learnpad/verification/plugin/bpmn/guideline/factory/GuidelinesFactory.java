@@ -55,7 +55,7 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.explici
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-        "verificationType",
+		"verificationType",
 		"definitionID",
 		"status",
 		"description",
@@ -64,8 +64,8 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.explici
 @XmlRootElement(name = "UnderstandabilityResult")
 public class GuidelinesFactory {
 
-    @XmlElement(name = "VerificationType", required = true)
-    private String verificationType;
+	@XmlElement(name = "VerificationType", required = true)
+	private String verificationType;
 	@XmlElement(name = "DefinitionID", required = true)
 	private String definitionID;
 	@XmlElement(name = "Status", required = true)
@@ -86,53 +86,63 @@ public class GuidelinesFactory {
 	private long lStartTime; 
 	@XmlTransient
 	private Locale l; 
-	
+
 	GuidelinesFactory(){
 
 	}
 
 	public GuidelinesFactory(Definitions graph){
 		diagram = graph;
+		this.l = new Locale("en");
+		init();
+	}
+
+	public GuidelinesFactory(Definitions graph, Locale l){
+		diagram = graph;
+		this.l=l;
+		init();
+	}
+	private void init(){
 		guidelines = new ArrayList<abstractGuideline>();
 		setDefinitionID(diagram.getId());
 		//** General
-		guidelines.add(new MinimizeModelSize(diagram));
-		guidelines.add(new ApplyHierarchicalStructure(diagram));
-		guidelines.add(new ModelLoops(diagram));
-		guidelines.add(new ActivityDescription(diagram));
-		guidelines.add(new MinimizeGatewayHeterogeneity(diagram));
+		guidelines.add(new MinimizeModelSize(diagram,l));
+		guidelines.add(new ApplyHierarchicalStructure(diagram,l));
+		guidelines.add(new ModelLoops(diagram,l));
+		guidelines.add(new ActivityDescription(diagram,l));
+		guidelines.add(new MinimizeGatewayHeterogeneity(diagram,l));
 		//** Notation Usage
-		guidelines.add(new ConsistentUsagePools(diagram));
-		guidelines.add(new ConsistentUsageLanes(diagram));
-		guidelines.add(new ExplicitStartEndEvents(diagram));
-		guidelines.add(new ConsistentUsageStartEvents(diagram));
-		guidelines.add(new ConsistentUsageEndEvents(diagram));
-		guidelines.add(new RestrictUsageTerminateEndEvent(diagram));
-		guidelines.add(new explicitGateways(diagram));
-		guidelines.add(new SplitAndJoinFlows(diagram));	
-		guidelines.add(new BalanceGateways(diagram));	
-		guidelines.add(new UsageMeaningfulGateways(diagram));
-		guidelines.add(new UsageInclusiveORGateways(diagram));
-		guidelines.add(new UsageDefaultFlows(diagram));
+		guidelines.add(new ConsistentUsagePools(diagram,l));
+		guidelines.add(new ConsistentUsageLanes(diagram,l));
+		guidelines.add(new ExplicitStartEndEvents(diagram,l));
+		guidelines.add(new ConsistentUsageStartEvents(diagram,l));
+		guidelines.add(new ConsistentUsageEndEvents(diagram,l));
+		guidelines.add(new RestrictUsageTerminateEndEvent(diagram,l));
+		guidelines.add(new explicitGateways(diagram,l));
+		guidelines.add(new SplitAndJoinFlows(diagram,l));	
+		guidelines.add(new BalanceGateways(diagram,l));	
+		guidelines.add(new UsageMeaningfulGateways(diagram,l));
+		guidelines.add(new UsageInclusiveORGateways(diagram,l));
+		guidelines.add(new UsageDefaultFlows(diagram,l));
 		//** Labeling 
-		guidelines.add(new LabelingPools(diagram));
-		guidelines.add(new LabelingLanes(diagram));
-		guidelines.add(new LabelingActivities(diagram));
-		guidelines.add(new LabelingEvents(diagram));
-		guidelines.add(new LabelingStartandEndEvents(diagram));
-		guidelines.add(new LabelingMessageEvent(diagram));
-		guidelines.add(new LabelingXORGateway(diagram));
-		guidelines.add(new LabelingANDGateways(diagram));
-		guidelines.add(new LabelingConvergingGateways(diagram));
-		guidelines.add(new LabelingDataObject(diagram));
-		guidelines.add(new LoopMarkerAnnotation(diagram));
+		guidelines.add(new LabelingPools(diagram,l));
+		guidelines.add(new LabelingLanes(diagram,l));
+		guidelines.add(new LabelingActivities(diagram,l));
+		guidelines.add(new LabelingEvents(diagram,l));
+		guidelines.add(new LabelingStartandEndEvents(diagram,l));
+		guidelines.add(new LabelingMessageEvent(diagram,l));
+		guidelines.add(new LabelingXORGateway(diagram,l));
+		guidelines.add(new LabelingANDGateways(diagram,l));
+		guidelines.add(new LabelingConvergingGateways(diagram,l));
+		guidelines.add(new LabelingDataObject(diagram,l));
+		guidelines.add(new LoopMarkerAnnotation(diagram,l));
 		//** Appearence 
-		guidelines.add(new LinearSequenceFlows(diagram));
-		guidelines.add(new LinearMessageFlows(diagram));
-		guidelines.add(new ProcessOrientation(diagram));
-		//guidelines.add(new (diagram));
-		//guidelines.add(new (diagram));
-		//guidelines.add(new (diagram));
+		guidelines.add(new LinearSequenceFlows(diagram,l));
+		guidelines.add(new LinearMessageFlows(diagram,l));
+		guidelines.add(new ProcessOrientation(diagram,l));
+		//guidelines.add(new (diagram,l));
+		//guidelines.add(new (diagram,l));
+		//guidelines.add(new (diagram,l));
 		threadPool = new LinkedBlockingQueue<Runnable>();
 		/*
 		setProcessID(explicitSEevent.getProcessID());*/	
@@ -144,26 +154,26 @@ public class GuidelinesFactory {
 		}
 		setStatus();
 	}
-	
+
 	public void StartThreadPool(){
 		long keepAliveTime =5000;
-		
-		 threadPoolExecutor =
-		        new ThreadPoolExecutor(
-		               8,
-		                10,
-		                keepAliveTime,
-		                TimeUnit.MILLISECONDS,
-		                threadPool
-		                );
+
+		threadPoolExecutor =
+				new ThreadPoolExecutor(
+						8,
+						10,
+						keepAliveTime,
+						TimeUnit.MILLISECONDS,
+						threadPool
+						);
 		for (abstractGuideline abstractGuideline : guidelines) {
 			threadPoolExecutor.execute(abstractGuideline);
 		}
 		lStartTime = System.currentTimeMillis();
 		threadPoolExecutor.shutdown();
-		
+
 	}
-	
+
 	public boolean getStatusThreadPool(){
 		boolean res = threadPoolExecutor.isTerminated();
 		if(res){
@@ -181,13 +191,13 @@ public class GuidelinesFactory {
 	}
 
 	public String getVerificationType() {
-        return verificationType;
-    }
+		return verificationType;
+	}
 
-    public void setVerificationType(String verificationType) {
-        this.verificationType = verificationType;
-    }
-	
+	public void setVerificationType(String verificationType) {
+		this.verificationType = verificationType;
+	}
+
 	public String getDefinitionID() {
 		return definitionID;
 	}

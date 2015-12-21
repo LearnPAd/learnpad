@@ -1,6 +1,7 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.eclipse.bpmn2.ComplexGateway;
 import org.eclipse.bpmn2.Definitions;
@@ -19,8 +20,9 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 public class BalanceGateways extends abstractGuideline {
 
-	public BalanceGateways(Definitions diagram) {
-		super(diagram);
+	public BalanceGateways(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "19"; //$NON-NLS-1$
 		this.Description = Messages.getString("BalanceGateways.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("BalanceGateways.Name",l); //$NON-NLS-1$

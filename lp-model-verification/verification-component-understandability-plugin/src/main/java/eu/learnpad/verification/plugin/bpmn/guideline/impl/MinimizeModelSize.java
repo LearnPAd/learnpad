@@ -1,6 +1,8 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl;
 
 
+import java.util.Locale;
+
 import org.eclipse.bpmn2.Activity;
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
@@ -19,8 +21,9 @@ public class MinimizeModelSize extends abstractGuideline {
 	}
 
 
-	public MinimizeModelSize(Definitions diagram) {
-		super(diagram);
+	public MinimizeModelSize(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "2"; //$NON-NLS-1$
 		this.Description = Messages.getString("MinimizeModelSize.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("MinimizeModelSize.Name",l); //$NON-NLS-1$

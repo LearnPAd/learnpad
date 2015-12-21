@@ -1,6 +1,8 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling;
 
 
+import java.util.Locale;
+
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.Gateway;
@@ -15,8 +17,9 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 public class LabelingConvergingGateways extends abstractGuideline{
 
 
-	public LabelingConvergingGateways(Definitions diagram) {
-		super(diagram);
+	public LabelingConvergingGateways(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
 		this.id = "36"; //$NON-NLS-1$
 		this.Description = Messages.getString("LabelingConvergingGateways.Description",l); //$NON-NLS-1$
 		this.Name = Messages.getString("LabelingConvergingGateways.Name",l); //$NON-NLS-1$
