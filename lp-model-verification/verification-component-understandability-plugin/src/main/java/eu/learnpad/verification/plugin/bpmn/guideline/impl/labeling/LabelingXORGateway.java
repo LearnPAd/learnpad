@@ -8,6 +8,7 @@ import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 
@@ -16,9 +17,9 @@ public class LabelingXORGateway extends abstractGuideline{
 
 	public LabelingXORGateway(Definitions diagram) {
 		super(diagram);
-		this.id = "34";
-		this.Description = "Label XOR split gateways with an interrogative phrase (do not label XOR join-gateways). Sequence flows coming out of diverging gateways of type exclusive, inclusive and complex should be labeled using their associated conditions stated as outcomes.";
-		this.Name = "Labeling XOR Gateway";
+		this.id = "34"; //$NON-NLS-1$
+		this.Description = Messages.getString("LabelingXORGateway.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("LabelingXORGateway.Name",l); //$NON-NLS-1$
 
 
 	}
@@ -50,10 +51,10 @@ public class LabelingXORGateway extends abstractGuideline{
 								num++;
 
 								elementsBPMN.add(fe);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 								setElements(fe.getId(),IDProcess,name);
-								temp.append("* name=" + name + " ID=" + fe.getId()
-										+ "\n");
+								temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+										+ "\n"); //$NON-NLS-1$
 
 							}
 							
@@ -63,11 +64,11 @@ public class LabelingXORGateway extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nLabeling XOR Gateways: ";
+			this.Suggestion += Messages.getString("LabelingXORGateway.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("LabelingXORGateway.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
@@ -90,16 +91,16 @@ public class LabelingXORGateway extends abstractGuideline{
 						num++;
 
 						elementsBPMN.add(fe);
-						String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+						String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 						setElements(fe.getId(),IDProcess,name); 
-						temp.append("* name=" + name + " ID=" + fe.getId()
-								+ "\n");
+						temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+								+ "\n"); //$NON-NLS-1$
 					}
 
 				}  
 		}
 		if ( num>0) {
-			this.Suggestion += "\nLabeling XOR Gateways in SubProcess: "+sub.getName()+" ";
+			this.Suggestion += Messages.getString("LabelingXORGateway.SuggestionSubprocessKO",l)+sub.getName()+" "; //$NON-NLS-1$ //$NON-NLS-2$
 			this.status = false;
 		}
 

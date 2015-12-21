@@ -9,6 +9,7 @@ import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.StartEvent;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 
@@ -17,9 +18,9 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 
 	public LabelingStartandEndEvents(Definitions diagram) {
 		super(diagram);
-		this.id = "32";
-		this.Description = "The modeler should not label start none and end none event if there is only one instance of them. The modeler shoud use labeling when multiple start and end events are used. Label them according to what they represent using a noun. Do not repeat names.";
-		this.Name = "Labeling Start and End Events";
+		this.id = "32"; //$NON-NLS-1$
+		this.Description = Messages.getString("LabelingStartandEndEvents.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("LabelingStartandEndEvents.Name",l); //$NON-NLS-1$
 
 
 	}
@@ -49,10 +50,10 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 								num++;
 
 								elementsBPMN.add(fe);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 								setElements(fe.getId(),IDProcess,name);
-								temp.append("* name=" + name + " ID=" + fe.getId()
-										+ "\n");
+								temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+										+ "\n"); //$NON-NLS-1$
 
 							}
 
@@ -63,10 +64,10 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 									num++;
 
 									elementsBPMN.add(fe);
-									String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+									String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 									setElements(fe.getId(),IDProcess,name);
-									temp.append("* name=" + name + " ID=" + fe.getId()
-											+ "\n");
+									temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+											+ "\n"); //$NON-NLS-1$
 
 								}
 
@@ -75,11 +76,11 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 			}
 		}
 		if (num>0) {
-			this.Suggestion += "\nLabeling Start/End Events: ";
+			this.Suggestion += Messages.getString("LabelingStartandEndEvents.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("LabelingStartandEndEvents.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
@@ -101,10 +102,10 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 						num++;
 
 						elementsBPMN.add(fe);
-						String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+						String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 						setElements(fe.getId(),IDProcess,name);
-						temp.append("* name=" + name + " ID=" + fe.getId()
-								+ "\n");
+						temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+								+ "\n"); //$NON-NLS-1$
 					}
 
 				} else
@@ -114,17 +115,17 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 							num++;
 
 							elementsBPMN.add(fe);
-							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+							String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 							setElements(fe.getId(),IDProcess,name); 
-							temp.append("* name=" + name + " ID=" + fe.getId()
-									+ "\n");
+							temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+									+ "\n"); //$NON-NLS-1$
 
 						}
 
 					} 
 		}
 		if ( num>0) {
-			this.Suggestion += "\nLabeling Start/End Events in SubProcess: "+sub.getName()+" ";
+			this.Suggestion += Messages.getString("LabelingStartandEndEvents.SuggestionSubprocessKO",l)+sub.getName()+" "; //$NON-NLS-1$ //$NON-NLS-2$
 			this.status = false;
 		}
 
