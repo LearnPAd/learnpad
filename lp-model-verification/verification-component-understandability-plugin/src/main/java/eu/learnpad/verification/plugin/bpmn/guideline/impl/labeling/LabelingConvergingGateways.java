@@ -8,6 +8,7 @@ import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 
@@ -16,9 +17,9 @@ public class LabelingConvergingGateways extends abstractGuideline{
 
 	public LabelingConvergingGateways(Definitions diagram) {
 		super(diagram);
-		this.id = "36";
-		this.Description = "Converging gateways do not required to be labeled. When the convergence logic is not obvious, a text annotation should be associated to the gateway.";
-		this.Name = "Labeling Converging Gateways";
+		this.id = "36"; //$NON-NLS-1$
+		this.Description = Messages.getString("LabelingConvergingGateways.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("LabelingConvergingGateways.Name",l); //$NON-NLS-1$
 
 
 	}
@@ -50,10 +51,10 @@ public class LabelingConvergingGateways extends abstractGuideline{
 								num++;
 
 								elementsBPMN.add(fe);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 								setElements(fe.getId(),IDProcess,name); 
-								temp.append("* name=" + name + " ID=" + fe.getId()
-										+ "\n");
+								temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+										+ "\n"); //$NON-NLS-1$
 
 							}
 							
@@ -63,11 +64,11 @@ public class LabelingConvergingGateways extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nNot Labeling Converging Gateways: ";
+			this.Suggestion += Messages.getString("LabelingConvergingGateways.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("LabelingConvergingGateways.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
@@ -90,16 +91,16 @@ public class LabelingConvergingGateways extends abstractGuideline{
 						num++;
 
 						elementsBPMN.add(fe);
-						String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+						String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 						setElements(fe.getId(),IDProcess,name); 
-						temp.append("* name=" + name + " ID=" + fe.getId()
-								+ "\n");
+						temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+								+ "\n"); //$NON-NLS-1$
 					}
 
 				}  
 		}
 		if ( num>0) {
-			this.Suggestion += "\nNot Labeling Converging Gateways in SubProcess: "+sub.getName()+" ";
+			this.Suggestion += Messages.getString("LabelingConvergingGateways.SuggestionSubprocessKO",l)+sub.getName()+" "; //$NON-NLS-1$ //$NON-NLS-2$
 			this.status = false;
 		}
 
