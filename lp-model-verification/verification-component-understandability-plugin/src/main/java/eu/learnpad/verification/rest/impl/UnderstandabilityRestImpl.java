@@ -45,8 +45,7 @@ public class UnderstandabilityRestImpl {
 
 			log.trace(lang);
 			MyBPMN2ModelReader readerBPMN = new MyBPMN2ModelReader();
-			
-			Locale l = new Locale("en");
+			Locale l = new Locale(lang);
 			GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readStringModel(modelxml),l);
 			eg.setVerificationType("UNDERSTANDABILITY");
 			eg.StartThreadPool();

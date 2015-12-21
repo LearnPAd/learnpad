@@ -14,6 +14,9 @@ public class Messages {
 
 	public static String getString(String key, Locale l) {
 		try {
+			if(l.equals(l.ITALIAN)){
+				// TODO: 
+			}
 			return RESOURCE_BUNDLE.getString(key);
 		} catch (MissingResourceException e) {
 			return '!' + key + '!';
