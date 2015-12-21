@@ -10,6 +10,7 @@ import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SequenceFlow;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 public class UsageDefaultFlows extends abstractGuideline{
@@ -17,9 +18,9 @@ public class UsageDefaultFlows extends abstractGuideline{
 
 	public UsageDefaultFlows(Definitions diagram) {
 		super(diagram);
-		this.id = "22";
-		this.Description = "Where possible, after an exclusive and an inclusive gateway, the modeler should express the default flow. One way for the modeler to ensure that the process does not get stuck at a gateway is to use a default condition for one of the outgoing sequence flow. This default sequence flow will always evaluate to true if all the other sequence flow conditions turn out to be false.";
-		this.Name = "Usage of default flows";
+		this.id = "22"; //$NON-NLS-1$
+		this.Description = Messages.getString("UsageDefaultFlows.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("UsageDefaultFlows.Name",l); //$NON-NLS-1$
 	}
 
 	@Override
@@ -51,7 +52,7 @@ public class UsageDefaultFlows extends abstractGuideline{
 							if (diverging & def==null) {
 								num++;
 									elementsBPMN.add(fe);
-									String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+									String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 									setElements(fe.getId(),IDProcess,name);
 								//	temp.append("* name=" + name + " ID=" + fe.getId()
 									//		+ "\n");
@@ -69,11 +70,11 @@ public class UsageDefaultFlows extends abstractGuideline{
 		if (num>0) {
 			/*elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);*/
-			this.Suggestion += "Usage of default flows in Exclusive Gateways";
+			this.Suggestion += Messages.getString("UsageDefaultFlows.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("UsageDefaultFlows.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
@@ -97,7 +98,7 @@ public class UsageDefaultFlows extends abstractGuideline{
 					if (diverging & def==null) {
 							num++;
 							elementsBPMN.add(fe);
-							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+							String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 							setElements(fe.getId(),IDProcess,name);
 					}
 				}
@@ -105,7 +106,7 @@ public class UsageDefaultFlows extends abstractGuideline{
 		if ( num>0) {
 			/*elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);*/
-			this.Suggestion += "\nUsage of default flows in SubProcess "+sub.getName()+" ";
+			this.Suggestion += Messages.getString("UsageDefaultFlows.SuggestionSubprocessKO",l)+sub.getName()+" "; //$NON-NLS-1$ //$NON-NLS-2$
 			this.status = false;
 		}
 

@@ -9,6 +9,7 @@ import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 
@@ -16,15 +17,15 @@ public class UsageMeaningfulGateways extends abstractGuideline {
 
 	public UsageMeaningfulGateways(Definitions diagram) {
 		super(diagram);
-		this.id = "20";
-		this.Description = "Since gateways are only used for linkage or merging within processes, they always need to have multiple incoming or outgoing flows. Gateways with only one incoming and one outgoing sequence flow do not provide any added value.";
-		this.Name = "Usage of Meaningful Gateways";
+		this.id = "20"; //$NON-NLS-1$
+		this.Description = Messages.getString("UsageMeaningfulGateways.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("UsageMeaningfulGateways.Name",l); //$NON-NLS-1$
 
 
 	}
 	@Override
 	protected void findGL(Definitions diagram) {
-		StringBuilder ret = new StringBuilder("");
+		StringBuilder ret = new StringBuilder(""); //$NON-NLS-1$
 		int i = 1;
 		for (RootElement rootElement : diagram.getRootElements()) {
 			if (rootElement instanceof Process) {
@@ -46,21 +47,21 @@ public class UsageMeaningfulGateways extends abstractGuideline {
 							boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() == 1) );
 							if (bool) {
 								elementsBPMN.add(fe);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 								setElements(fe.getId(),IDProcess,name);
-								ret.append(i++ +") name=" + name+ " ID=" + fe.getId()
-										+ "\n");
+								ret.append(i++ +") name=" + name+ " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+										+ "\n"); //$NON-NLS-1$
 							}
 						}
 				}
 			}
 		}
 		if (!elementsBPMN.isEmpty()) {
-			this.Suggestion += "Remove Gateways with only one incoming/outgoing sequence flow:";
+			this.Suggestion += Messages.getString("UsageMeaningfulGateways.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("UsageMeaningfulGateways.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
@@ -80,10 +81,10 @@ public class UsageMeaningfulGateways extends abstractGuideline {
 					boolean bool = ((gateway.getIncoming().size() == 1 & gateway.getOutgoing().size() == 1) );
 					if (bool) {
 						elementsBPMN.add(fe);
-						String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+						String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 						setElements(fe.getId(),IDProcess,name);
-						ret.append(i++ +") name=" + name+ " ID=" + fe.getId()
-								+ "\n");
+						ret.append(i++ +") name=" + name+ " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+								+ "\n"); //$NON-NLS-1$
 					}
 				}
 		}
