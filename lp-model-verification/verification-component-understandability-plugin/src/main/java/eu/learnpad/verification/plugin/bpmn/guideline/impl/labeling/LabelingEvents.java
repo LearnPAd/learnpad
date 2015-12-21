@@ -9,6 +9,7 @@ import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 
@@ -17,9 +18,9 @@ public class LabelingEvents extends abstractGuideline{
 
 	public LabelingEvents(Definitions diagram) {
 		super(diagram);
-		this.id = "31";
-		this.Description = "All events should have a label representing the state of the process: Events of type message, signal, escalation, and error events should be labeled with a past participle using an active verb; Link events should be labeled with a noun; Timer events should be labeled with time-date or schedule; Conditional events should be labeled with the condition that triggers them.";
-		this.Name = "Labeling Events";
+		this.id = "31"; //$NON-NLS-1$
+		this.Description = Messages.getString("LabelingEvents.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("LabelingEvents.Name",l); //$NON-NLS-1$
 
 
 	}
@@ -49,10 +50,10 @@ public class LabelingEvents extends abstractGuideline{
 								num++;
 
 								elementsBPMN.add(fe);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 								setElements(fe.getId(),IDProcess,name); 
-								temp.append("* name=" + name + " ID=" + fe.getId()
-										+ "\n");
+								temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+										+ "\n"); //$NON-NLS-1$
 
 							}
 
@@ -63,10 +64,10 @@ public class LabelingEvents extends abstractGuideline{
 									num++;
 
 									elementsBPMN.add(fe);
-									String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+									String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 									setElements(fe.getId(),IDProcess,name); 
-									temp.append("* name=" + name + " ID=" + fe.getId()
-											+ "\n");
+									temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+											+ "\n"); //$NON-NLS-1$
 
 								}
 
@@ -76,11 +77,11 @@ public class LabelingEvents extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nUse Labeling in Events :";
+			this.Suggestion += Messages.getString("LabelingEvents.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("LabelingEvents.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
@@ -102,10 +103,10 @@ public class LabelingEvents extends abstractGuideline{
 						num++;
 
 						elementsBPMN.add(fe);
-						String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+						String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 						setElements(fe.getId(),IDProcess,name); 
-						temp.append("* name=" + name + " ID=" + fe.getId()
-								+ "\n");
+						temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+								+ "\n"); //$NON-NLS-1$
 					}
 
 				} else
@@ -115,17 +116,17 @@ public class LabelingEvents extends abstractGuideline{
 							num++;
 
 							elementsBPMN.add(fe);
-							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+							String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 							setElements(fe.getId(),IDProcess,name); 
-							temp.append("* name=" + name + " ID=" + fe.getId()
-									+ "\n");
+							temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+									+ "\n"); //$NON-NLS-1$
 
 						}
 
 					} 
 		}
 		if ( num>0) {
-			this.Suggestion += "\nUse Labeling in Events of the SubProcess "+sub.getName()+" ";
+			this.Suggestion += Messages.getString("LabelingEvents.SuggestionSubProcessKO",l)+sub.getName()+" "; //$NON-NLS-1$ //$NON-NLS-2$
 			this.status = false;
 		}
 
