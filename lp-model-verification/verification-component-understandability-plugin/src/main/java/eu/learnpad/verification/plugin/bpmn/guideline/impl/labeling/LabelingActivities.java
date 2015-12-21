@@ -8,6 +8,7 @@ import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 public class LabelingActivities extends abstractGuideline{
@@ -15,9 +16,9 @@ public class LabelingActivities extends abstractGuideline{
 
 	public LabelingActivities(Definitions diagram) {
 		super(diagram);
-		this.id = "30";
-		this.Description = "Label activities with one verb, and one object. The verb used should use the present tense and be familiar to the organization. The object has to be qualified and also of meaning to the business. Multiple activ- ities should not be labeled with the same name, except for same Call Activities used many time in the process.";
-		this.Name = "Labeling Activities";
+		this.id = "30"; //$NON-NLS-1$
+		this.Description = Messages.getString("LabelingActivities.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("LabelingActivities.Name",l); //$NON-NLS-1$
 
 
 	}
@@ -47,10 +48,10 @@ public class LabelingActivities extends abstractGuideline{
 								num++;
 
 								elementsBPMN.add(fe);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 								setElements(fe.getId(),IDProcess,name); 
-								temp.append("* name=" + name + " ID=" + fe.getId()
-										+ "\n");
+								temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+										+ "\n"); //$NON-NLS-1$
 
 							}
 
@@ -60,11 +61,11 @@ public class LabelingActivities extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nLabeling Activities :";
+			this.Suggestion += Messages.getString("LabelingActivities.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("LabelingActivities.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
@@ -86,16 +87,16 @@ public class LabelingActivities extends abstractGuideline{
 						num++;
 
 						elementsBPMN.add(fe);
-						String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+						String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 						setElements(fe.getId(),IDProcess,name);
-						temp.append("* name=" + name + " ID=" + fe.getId()
-								+ "\n");
+						temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+								+ "\n"); //$NON-NLS-1$
 					}
 
 				}
 		}
 		if ( num>0) {
-			this.Suggestion += "\nLabeling Activities in SubProcess "+sub.getName();
+			this.Suggestion += Messages.getString("LabelingActivities.SuggestionSubprocessKO",l)+sub.getName(); //$NON-NLS-1$
 			this.status = false;
 		}
 

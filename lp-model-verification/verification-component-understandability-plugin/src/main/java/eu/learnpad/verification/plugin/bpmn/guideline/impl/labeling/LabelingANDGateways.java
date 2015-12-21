@@ -8,6 +8,7 @@ import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 
@@ -16,9 +17,9 @@ public class LabelingANDGateways extends abstractGuideline{
 
 	public LabelingANDGateways(Definitions diagram) {
 		super(diagram);
-		this.id = "35";
-		this.Description = "Omit labels on AND-splits and joins (and sequence flows connecting them); they add no new information, so it is best to omit them.";
-		this.Name = "Labeling AND Gateway";
+		this.id = "35"; //$NON-NLS-1$
+		this.Description = Messages.getString("LabelingANDGateways.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("LabelingANDGateways.Name",l); //$NON-NLS-1$
 
 
 	}
@@ -49,10 +50,10 @@ public class LabelingANDGateways extends abstractGuideline{
 									num++;
 
 									elementsBPMN.add(fe);
-									String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+									String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 									setElements(fe.getId(),IDProcess,name);
-									temp.append("* name=" + name + " ID=" + fe.getId()
-											+ "\n");
+									temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+											+ "\n"); //$NON-NLS-1$
 								}
 
 							}
@@ -63,11 +64,11 @@ public class LabelingANDGateways extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nNot Labeling AND Gateways: ";
+			this.Suggestion += Messages.getString("LabelingANDGateways.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("LabelingANDGateways.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
@@ -89,10 +90,10 @@ public class LabelingANDGateways extends abstractGuideline{
 							num++;
 
 							elementsBPMN.add(fe);
-							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+							String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 							setElements(fe.getId(),IDProcess,name);
-							temp.append("* name=" + name + " ID=" + fe.getId()
-									+ "\n");
+							temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+									+ "\n"); //$NON-NLS-1$
 						}
 					}
 				}
@@ -100,7 +101,7 @@ public class LabelingANDGateways extends abstractGuideline{
 
 		}
 		if ( num>0) {
-			this.Suggestion += "\nNot Labeling AND Gateways in SubProcess: "+sub.getName()+" ";
+			this.Suggestion += Messages.getString("LabelingANDGateways.SuggestionSubprocessKO",l)+sub.getName()+" "; //$NON-NLS-1$ //$NON-NLS-2$
 			this.status = false;
 		}
 
