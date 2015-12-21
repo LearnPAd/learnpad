@@ -14,7 +14,7 @@ public class Messages {
 
 	public static String getString(String key, Locale l) {
 		try {
-			if(l.equals(l.ITALIAN)){
+			if(l.equals(Locale.ITALIAN)){
 				// TODO: 
 			}
 			return RESOURCE_BUNDLE.getString(key);
