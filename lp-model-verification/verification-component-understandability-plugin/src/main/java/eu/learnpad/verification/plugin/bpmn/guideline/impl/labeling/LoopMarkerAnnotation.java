@@ -1,6 +1,8 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling;
 
 
+import java.util.Locale;
+
 import org.eclipse.bpmn2.Activity;
 import org.eclipse.bpmn2.Artifact;
 import org.eclipse.bpmn2.Association;
@@ -11,16 +13,18 @@ import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 public class LoopMarkerAnnotation extends abstractGuideline{
 
 
-	public LoopMarkerAnnotation(Definitions diagram) {
-		super(diagram);
-		this.id = "39";
-		this.Description = "The loop marker provides a more compact representation than the gateway-loopback, but it hides the loop condition. For that reason, it is best to indicate the condition in a text annotation.";
-		this.Name = "Labeling Marker Annotation";
+	public LoopMarkerAnnotation(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
+		this.id = "39"; //$NON-NLS-1$
+		this.Description = Messages.getString("LoopMarkerAnnotation.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("LoopMarkerAnnotation.Name",l); //$NON-NLS-1$
 
 
 	}
@@ -56,16 +60,16 @@ public class LoopMarkerAnnotation extends abstractGuideline{
 											String target = asso.getTargetRef().toString();
 											int starts = source.length();
 											int startf = target.length();
-											String ids = source.substring(source.indexOf("#")+1,starts-1 );
-											String idt = target.substring(target.indexOf("#")+1,startf-1 );
+											String ids = source.substring(source.indexOf("#")+1,starts-1 ); //$NON-NLS-1$
+											String idt = target.substring(target.indexOf("#")+1,startf-1 ); //$NON-NLS-1$
 											if(!(a.getId().equals(ids) || a.getId().equals(idt)) ){
 												num++;
 
 												elementsBPMN.add(fe);
-												String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+												String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 												setElements(fe.getId(),IDProcess,name);
-												temp.append("* name=" + name + " ID=" + fe.getId()
-														+ "\n");
+												temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+														+ "\n"); //$NON-NLS-1$
 
 											}
 										}
@@ -74,10 +78,10 @@ public class LoopMarkerAnnotation extends abstractGuideline{
 									num++;
 
 									elementsBPMN.add(fe);
-									String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+									String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 									setElements(fe.getId(),IDProcess,name);
-									temp.append("* name=" + name + " ID=" + fe.getId()
-											+ "\n");
+									temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+											+ "\n"); //$NON-NLS-1$
 								}
 							}
 						} 
@@ -86,11 +90,11 @@ public class LoopMarkerAnnotation extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nLabeling Marker Annotations :";
+			this.Suggestion += Messages.getString("LoopMarkerAnnotation.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("LoopMarkerAnnotation.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
@@ -112,16 +116,16 @@ public class LoopMarkerAnnotation extends abstractGuideline{
 						num++;
 
 						elementsBPMN.add(fe);
-						String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+						String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 						setElements(fe.getId(),IDProcess,name); 
-						temp.append("* name=" + name + " ID=" + fe.getId()
-								+ "\n");
+						temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+								+ "\n"); //$NON-NLS-1$
 					}
 
 				}
 		}
 		if ( num>0) {
-			this.Suggestion += "\nLabeling Marker Annotations in SubProcess "+sub.getName()+" ";
+			this.Suggestion += Messages.getString("LoopMarkerAnnotation.SuggestionSubprocessKO",l)+sub.getName()+" "; //$NON-NLS-1$ //$NON-NLS-2$
 			this.status = false;
 		}
 

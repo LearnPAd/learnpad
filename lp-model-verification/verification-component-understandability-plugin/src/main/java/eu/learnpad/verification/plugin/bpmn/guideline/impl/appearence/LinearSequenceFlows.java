@@ -2,6 +2,7 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl.appearence;
 
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.eclipse.bpmn2.BaseElement;
@@ -14,17 +15,19 @@ import org.eclipse.bpmn2.SequenceFlow;
 import org.eclipse.bpmn2.di.BPMNEdge;
 import org.eclipse.dd.dc.Point;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 import eu.learnpad.verification.plugin.bpmn.reader.BPMNUtils;
 
 public class LinearSequenceFlows extends abstractGuideline{
 
 
-	public LinearSequenceFlows(Definitions diagram) {
-		super(diagram);
-		this.id = "45";
-		this.Description = "Linear sequence flows without useless foldings help to maintain the model clear.";
-		this.Name = "Linear sequence flows";
+	public LinearSequenceFlows(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
+		this.id = "45"; //$NON-NLS-1$
+		this.Description = Messages.getString("LinearSequenceFlows.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("LinearSequenceFlows.Name",l); //$NON-NLS-1$
 
 
 	}
@@ -71,7 +74,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 											num++;
 
 											elementsBPMN.add(fe);
-											String name = sf.getName()!=null? sf.getName() : "Unlabeled"; 
+											String name = sf.getName()!=null? sf.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 											setElements(fe.getId(),IDProcess,name);
 											//ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 											//		+ "\n");
@@ -91,7 +94,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 										num++;
 
 										elementsBPMN.add(fe);
-										String name = sf.getName()!=null? sf.getName() : "Unlabeled"; 
+										String name = sf.getName()!=null? sf.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 										setElements(fe.getId(),IDProcess,name);
 										//ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 										//		+ "\n");
@@ -122,11 +125,11 @@ public class LinearSequenceFlows extends abstractGuideline{
 		 */
 		if (num>1) {
 
-			this.Suggestion += "Use Linear sequence flows: ";
+			this.Suggestion += Messages.getString("LinearSequenceFlows.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("LinearSequenceFlows.SeggetionOK",l); //$NON-NLS-1$
 		}
 	}
 

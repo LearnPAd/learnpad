@@ -1,14 +1,17 @@
 package eu.learnpad.verification.rest.impl;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.xml.xpath.XPathConstants;
 
@@ -31,18 +34,19 @@ public class UnderstandabilityRestImpl {
 	private static Map<Integer,GuidelinesFactory> map = new HashMap<Integer,GuidelinesFactory>();
 	private static Integer id =0;
 
-	@Path("/put")
+	@Path("put")
 	@POST
 	@Consumes(MediaType.TEXT_PLAIN)
-	public String putModel(String modelxml){
+	public String putModel(String modelxml, @DefaultValue("en") @QueryParam("lang") String lang){
 		try{
 			id++;
 			if(!isOMGBPMN2(modelxml))
 				return "";
 
+			log.trace(lang);
 			MyBPMN2ModelReader readerBPMN = new MyBPMN2ModelReader();
-
-			GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readStringModel(modelxml));
+			Locale l = new Locale(lang);
+			GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readStringModel(modelxml),l);
 			eg.setVerificationType("UNDERSTANDABILITY");
 			eg.StartThreadPool();
 			map.put(id, eg);

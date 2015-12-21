@@ -2,6 +2,7 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl.appearence;
 
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.eclipse.bpmn2.BaseElement;
@@ -13,17 +14,19 @@ import org.eclipse.bpmn2.di.BPMNEdge;
 import org.eclipse.dd.dc.Point;
 import org.eclipse.emf.ecore.EObject;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 import eu.learnpad.verification.plugin.bpmn.reader.BPMNUtils;
 
 public class LinearMessageFlows extends abstractGuideline{
 
 
-	public LinearMessageFlows(Definitions diagram) {
-		super(diagram);
-		this.id = "46";
-		this.Description = "Linear message flows without useless foldings help to maintain the model clear.";
-		this.Name = "Linear Message Flows";
+	public LinearMessageFlows(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
+		this.id = "46"; //$NON-NLS-1$
+		this.Description = Messages.getString("LinearMessageFlows.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("LinearMessageFlows.Name",l); //$NON-NLS-1$
 
 
 	}
@@ -91,7 +94,7 @@ public class LinearMessageFlows extends abstractGuideline{
 								IDProcess =(( Process)process).getId();
 							}
 						}
-						String name = base.getName()!=null? base.getName() : "Unlabeled"; 
+						String name = base.getName()!=null? base.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 						setElements(base.getId(),IDProcess,name);
 					}
 
@@ -101,11 +104,11 @@ public class LinearMessageFlows extends abstractGuideline{
 
 		if (num>1) {
 
-			this.Suggestion += "Use Linear Message Flows: ";
+			this.Suggestion += Messages.getString("LinearMessageFlows.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("LinearMessageFlows.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
