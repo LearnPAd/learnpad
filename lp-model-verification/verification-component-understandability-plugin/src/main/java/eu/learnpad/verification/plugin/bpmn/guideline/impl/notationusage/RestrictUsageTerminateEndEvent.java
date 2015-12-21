@@ -13,6 +13,7 @@ import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
 import org.eclipse.bpmn2.TerminateEventDefinition;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 
@@ -21,9 +22,9 @@ public class RestrictUsageTerminateEndEvent extends abstractGuideline {
 
 	public RestrictUsageTerminateEndEvent(Definitions diagram) {
 		super(diagram);
-		this.id = "15";
-		this.Description = "The process modeler should use terminate events only when strictly necessary; they are used to model situations where several alternative paths are enabled and the entire process have to be finished when one of them is completed. The modeler should use other end events rather than the terminate end event (e.g. a generic end event), to guarantee that the executions of the reaming process paths or activities will not be stopped.";
-		this.Name = "Restrict usage of terminate end event";
+		this.id = "15"; //$NON-NLS-1$
+		this.Description = Messages.getString("RestrictUsageTerminateEndEvent.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("RestrictUsageTerminateEndEvent.Name",l); //$NON-NLS-1$
 
 
 	}
@@ -55,10 +56,10 @@ public class RestrictUsageTerminateEndEvent extends abstractGuideline {
 								if(eventDefinition instanceof TerminateEventDefinition){
 									num++;
 									elementsBPMN.add(fe);
-									String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+									String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 									setElements(fe.getId(),IDProcess,name);
-									temp.append("* name=" +name + " ID=" + fe.getId()
-											+ "\n");
+									temp.append("* name=" +name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+											+ "\n"); //$NON-NLS-1$
 								}
 							}
 
@@ -76,11 +77,11 @@ public class RestrictUsageTerminateEndEvent extends abstractGuideline {
 		if (num>0) {
 			/*elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);*/
-			this.Suggestion += "\nDon't use Terminate End Event :";
+			this.Suggestion += Messages.getString("RestrictUsageTerminateEndEvent.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("RestrictUsageTerminateEndEvent.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
@@ -102,10 +103,10 @@ public class RestrictUsageTerminateEndEvent extends abstractGuideline {
 						if(eventDefinition instanceof TerminateEventDefinition){
 							num++;
 							elementsBPMN.add(fe);
-							String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+							String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 							setElements(fe.getId(),IDProcess,name);
-							temp.append("* name=" + name + " ID=" + fe.getId()
-									+ "\n");
+							temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+									+ "\n"); //$NON-NLS-1$
 						}
 					}
 				}
@@ -113,7 +114,7 @@ public class RestrictUsageTerminateEndEvent extends abstractGuideline {
 		if ( num>0) {
 			/*	elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);*/
-			this.Suggestion += "\nDon't use Terminate Event in SubProcess "+sub.getName()+" ";
+			this.Suggestion += Messages.getString("RestrictUsageTerminateEndEvent.SuggestionSubprocessKO",l)+sub.getName()+" "; //$NON-NLS-1$ //$NON-NLS-2$
 			this.status = false;
 		}
 
