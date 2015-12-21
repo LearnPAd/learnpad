@@ -19,7 +19,8 @@
  */
 package eu.learnpad.qm.impl;
 
-import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.inject.Named;
@@ -54,8 +55,10 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 	public void initialize() throws InitializationException {
 		this.corefacade = new XwikiCoreFacadeRestResource();
 		
-		this.qm = QuestionnaireManager.getInstance();
+		this.qm = QuestionnaireManager.getInstance();		
 //		this.qm = QuestionnaireManager.getInstance("put here some file");
+		
+		this.printSomething("Initialization Completed");
 	}
 
 	@Override
@@ -69,13 +72,18 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 	@Override
 	public String createQuestionnaire() throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
-		return null;
+		
+		String questionnareID = "this-is-foo";
+		this.printSomething("invoked createQuestionnaire()");
+
+		return questionnareID;
 	}
 
 	@Override
 	public void addQuestionToQuestionnaire(String creationProcessId,
 			String question, String expectedAnswer) throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
+		this.printSomething("invoked addQuestionToQuestionnaire("+creationProcessId+","+question+","+expectedAnswer+")");
 		
 	}
 
@@ -83,6 +91,7 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 	public void finalizeQuestionnaire(String creationProcessId, String type)
 			throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
+		this.printSomething("invoked finalizeQuestionnaire("+creationProcessId+","+type+")");
 		
 	}
 
@@ -92,12 +101,12 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 		// TODO This is stub code that have been implemented in order to 
 		// make easy the development of the core-platform
 		
-		String genProcessID = null;
-		try {
-			genProcessID = this.qm.startGeneration(modelSetId);
-		} catch (Exception e) {
-			throw new LpRestExceptionXWikiImpl(e);
-		}
+		String genProcessID = "thisIsFoo";
+//		try {
+//			genProcessID = this.qm.startGeneration(modelSetId);
+//		} catch (Exception e) {
+//			throw new LpRestExceptionXWikiImpl(e);
+//		}
 		
 		return genProcessID;
 	}
@@ -115,11 +124,11 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 
 	private void printSomething(String data){
 		try {
-			PrintWriter w = new PrintWriter("/tmp/"+this.getClass().getName()+".log");
+			PrintWriter w = new PrintWriter(new FileWriter("/tmp/"+this.getClass().getName()+".log",true));
 			w.println("[TEST MSG] : " + data);
 			w.flush();
 			w.close();
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		

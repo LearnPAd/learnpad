@@ -28,7 +28,7 @@ import eu.learnpad.qm.CoreFacade;
 
 //@Component
 //@Named("eu.learnpad.core.impl.qm.XwikiBridge")
-//@Path("/learnpad/qm/bridge")
+@Path("/learnpad/qm/bridge")
 public abstract class XwikiBridge extends Bridge implements XWikiRestComponent{
 
 	public XwikiBridge (){

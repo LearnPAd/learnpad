@@ -1,12 +1,32 @@
+/*
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
 package eu.learnpad.qm.component;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,8 +35,11 @@ import java.util.Vector;
 import org.xwiki.component.phase.InitializationException;
 
 import eu.learnpad.qm.exception.QMModelNotImportedException;
-import eu.learnpad.qm.impl.QMXwikiBridgeImpl;
 
+/**
+*
+* @author gulyx
+*/
 public class QuestionnaireManager {
 
     private static QuestionnaireManager instance = null;
@@ -26,7 +49,7 @@ public class QuestionnaireManager {
 
 	private Collection<String> importedModelID;
 	private Map<String, QuestionnaireGenerationStatus> generationStatusMap;
-	private static int fooIndex = 0;
+	private SecureRandom random;
 	
     private QuestionnaireManager (String configurationFilename) throws IOException {
 // *******************************************
@@ -37,11 +60,17 @@ public class QuestionnaireManager {
 		}
 		this.configurationReader = new BufferedReader(new FileReader(configurationFilename));
 // *******************************************
-		
+	
 		this.importedModelID = new Vector<String>();
 		this.generationStatusMap = new HashMap<String, QuestionnaireGenerationStatus>();
+
+		this.random = new SecureRandom();
     }
 
+
+	private String randomId() {
+	    return new BigInteger(130, random).toString(32);
+	}
 
     private static synchronized QuestionnaireManager instantiate(String configurationFilename) throws IOException{
     	if (instance == null){
@@ -83,8 +112,10 @@ public class QuestionnaireManager {
     		
     		throw new QMModelNotImportedException(message);
     	}
-		String genProcessID = "genProcessID:" + fooIndex + ":" + modelSetID.trim().toLowerCase();
-		fooIndex++;
+    	
+    	String fooIndex = this.randomId();
+		String genProcessID = "genProcessID:" + modelSetID.trim().toLowerCase() + ":" + fooIndex;
+
 		this.generationStatusMap.put(genProcessID, QuestionnaireGenerationStatus.InProgress);
 		return genProcessID;
     }
