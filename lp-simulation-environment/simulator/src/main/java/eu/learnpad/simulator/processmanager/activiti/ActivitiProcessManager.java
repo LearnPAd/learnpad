@@ -123,6 +123,8 @@ public class ActivitiProcessManager implements IProcessManager,
 				ActivitiEventType.PROCESS_COMPLETED);
 		this.runtimeService.addEventListener(this,
 				ActivitiEventType.ACTIVITY_COMPLETED);
+		this.runtimeService.addEventListener(this,
+				ActivitiEventType.TASK_CREATED);
 
 		this.generator = new DefaultProcessDiagramGenerator();
 		this.explorerRepo = explorerRepo;

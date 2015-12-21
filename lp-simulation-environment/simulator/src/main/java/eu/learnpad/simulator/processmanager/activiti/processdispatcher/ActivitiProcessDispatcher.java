@@ -36,9 +36,11 @@ import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -107,6 +109,39 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 
 	}
 
+	private LearnPadTask fetchTask(Task t) {
+		final ProcessInstance processWithVars = runtimeService
+				.createProcessInstanceQuery().includeProcessVariables()
+				.processInstanceId(processId).singleResult();
+
+		Collection<LearnPadDocument> documents = new ArrayList<LearnPadDocument>();
+
+		// add input data objects to task
+		if (explorer != null) {
+			Set<String> dataInputs = explorer.getDataInputs(t
+					.getTaskDefinitionKey());
+
+			for (String dataInput : dataInputs) {
+
+				Collection<LearnPadDocumentField> fields = new ArrayList<LearnPadDocumentField>();
+
+				for (String element : explorer.getDataObjectContent(dataInput)) {
+					fields.add(new LearnPadDocumentField(element, element,
+							"string", "", processWithVars.getProcessVariables()
+							.get(element).toString()));
+				}
+
+				documents.add(new LearnPadDocument(dataInput, explorer
+						.getDataObjectName(dataInput), "", fields));
+			}
+		}
+
+		return new LearnPadTask(this.simulationSessionId,
+				t.getProcessInstanceId(), t.getId(), t.getTaskDefinitionKey(),
+				explorer.getSubprocess(t.getTaskDefinitionKey()), t.getName(),
+				t.getDescription(), documents, new Date().getTime());
+	}
+
 	// synchronized since in some case is it possible for several tasks to
 	// complete at the same time, joining on the same next task. This can cause
 	// a race condition where the next task is processed several times.
@@ -119,46 +154,10 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 		List<Task> waitingTasks = taskService.createTaskQuery()
 				.processInstanceId(processId).list();
 
-		final ProcessInstance processWithVars = runtimeService
-				.createProcessInstanceQuery().includeProcessVariables()
-				.processInstanceId(processId).singleResult();
-
 		// ... ignoring already processed tasks
 		for (Task t : waitingTasks) {
-			if (!registeredWaitingTasks.contains(t.getId())) {
-
-				Collection<LearnPadDocument> documents = new ArrayList<LearnPadDocument>();
-
-				// add input data objects to task
-				if (explorer != null) {
-					Set<String> dataInputs = explorer.getDataInputs(t
-							.getTaskDefinitionKey());
-
-					for (String dataInput : dataInputs) {
-
-						Collection<LearnPadDocumentField> fields = new ArrayList<LearnPadDocumentField>();
-
-						for (String element : explorer
-								.getDataObjectContent(dataInput)) {
-							fields.add(new LearnPadDocumentField(element,
-									element, "string", "", processWithVars
-											.getProcessVariables().get(element)
-									.toString()));
-						}
-
-						documents.add(new LearnPadDocument(dataInput, explorer
-								.getDataObjectName(dataInput), "", fields));
-					}
-				}
-
-				newTasks.add(new LearnPadTask(this.simulationSessionId, t
-						.getProcessInstanceId(), t.getId(), t
-						.getTaskDefinitionKey(), explorer.getSubprocess(t
-						.getTaskDefinitionKey()), t.getName(), t
-						.getDescription(), documents, new Date().getTime()));
-
-				registeredWaitingTasks.add(t.getId());
-			}
+			newTasks.add(fetchTask(t));
+			registeredWaitingTasks.add(t.getId());
 		}
 
 		return newTasks;
@@ -276,10 +275,14 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 		if (event.getProcessInstanceId().equals(processId)
 				&& event.getType().equals(ActivitiEventType.PROCESS_COMPLETED)) {
 			completeProcess();
-		} else {
-			for (LearnPadTask newTask : fetchNewTasks()) {
+		} else if (event.getType().equals(ActivitiEventType.TASK_CREATED)) {
+				ActivitiEntityEvent activityEntityEvent = (ActivitiEntityEvent) event;
+				TaskEntity t = (TaskEntity) activityEntityEvent.getEntity();
+
+				LearnPadTask newTask = fetchTask(t);
+				registeredWaitingTasks.add(t.getId());
+
 				processNewTask(newTask);
-			}
 		}
 	}
 

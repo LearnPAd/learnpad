@@ -152,7 +152,7 @@ public class ActivitiProcessDispatcherTest {
 		processEngine.getRuntimeService().addEventListener(eventForwarder,
 				ActivitiEventType.ACTIVITY_COMPLETED);
 		processEngine.getRuntimeService().addEventListener(eventForwarder,
-				ActivitiEventType.ACTIVITY_STARTED);
+				ActivitiEventType.TASK_CREATED);
 
 		processManager = mock(ActivitiProcessManager.class);
 		processEventReceiver = mock(IProcessEventReceiver.class);
