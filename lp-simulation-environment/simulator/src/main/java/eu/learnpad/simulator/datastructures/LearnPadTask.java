@@ -33,6 +33,7 @@ import eu.learnpad.simulator.datastructures.document.LearnPadDocument;
  */
 public class LearnPadTask {
 
+	public final String sessionId;
 	public final String processId;
 	public final String id;
 	public final String key;
@@ -42,10 +43,11 @@ public class LearnPadTask {
 	public final Collection<LearnPadDocument> documents;
 	public final long startingTime;
 
-	public LearnPadTask(String processId, String taskId, String key,
-			String subprocessKey, String taskName, String taskDesc,
+	public LearnPadTask(String sessionId, String processId, String taskId,
+			String key, String subprocessKey, String taskName, String taskDesc,
 			Collection<LearnPadDocument> documents, long startingTime) {
 		super();
+		this.sessionId = sessionId;
 		this.processId = processId;
 		this.id = taskId;
 		this.key = key;

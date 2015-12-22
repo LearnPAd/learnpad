@@ -68,7 +68,7 @@ import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
-import eu.learnpad.simulator.monitoring.event.impl.ProcessEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.ProcessStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
@@ -123,6 +123,8 @@ public class ActivitiProcessManager implements IProcessManager,
 				ActivitiEventType.PROCESS_COMPLETED);
 		this.runtimeService.addEventListener(this,
 				ActivitiEventType.ACTIVITY_COMPLETED);
+		this.runtimeService.addEventListener(this,
+				ActivitiEventType.TASK_CREATED);
 
 		this.generator = new DefaultProcessDiagramGenerator();
 		this.explorerRepo = explorerRepo;
@@ -364,7 +366,7 @@ public class ActivitiProcessManager implements IProcessManager,
 		// signal process start
 		this.processEventReceiverProvider.processEventReceiver()
 				.receiveProcessStartEvent(
-				new ProcessEndSimEvent(System.currentTimeMillis(),
+				new ProcessStartSimEvent(System.currentTimeMillis(),
 						(String) parameters.get(SIMULATION_ID_KEY),
 						users, data));
 
@@ -420,6 +422,13 @@ public class ActivitiProcessManager implements IProcessManager,
 			String userId, Map<String, Object> data) {
 		return processDispatchers.get(task.processId).submitTaskCompletion(
 				task, userId, data);
+	}
+
+	@Override
+	public void completeTask(LearnPadTask task, Map<String, Object> data,
+			String completingUser, LearnPadTaskSubmissionResult submissionResult) {
+		processDispatchers.get(task.processId).completeTask(task, data,
+				completingUser, submissionResult);
 	}
 
 	@Override

@@ -67,4 +67,10 @@ public abstract class AbstractSimEvent {
 
 	public abstract SimEventType getType();
 
+	@Override
+	public String toString() {
+		return "Event: " + getType() + " " + timestamp + " "
+				+ simulationsessionid + " " + involvedusers;
+	}
+
 }

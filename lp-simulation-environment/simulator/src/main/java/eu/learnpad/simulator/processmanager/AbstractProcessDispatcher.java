@@ -53,7 +53,7 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 	private final IProcessEventReceiver processEventReceiver;
 	private final ITaskRouter router;
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
-	private final String simulationSessionId;
+	protected final String simulationSessionId;
 
 	private final Map<String, Integer> usersScores = new HashMap<String, Integer>();
 
@@ -135,8 +135,6 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 					return LearnPadTaskSubmissionResult.rejected();
 				} else {
 
-					completeTask(task, data);
-
 					int taskScore = 0;
 
 					// Can be false if a robot is submitting the result
@@ -153,11 +151,6 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 
 					LearnPadTaskSubmissionResult res = LearnPadTaskSubmissionResult
 							.validated(usersScores.get(userId), taskScore);
-
-					processEventReceiver
-					.receiveTaskEndEvent(new TaskEndSimEvent(System
-							.currentTimeMillis(), simulationSessionId,
-							involvedUsers, task, userId, res));
 
 					processEventReceiver
 					.receiveSessionScoreUpdateEvent(new SessionScoreUpdateSimEvent(
@@ -219,14 +212,15 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 	 */
 	protected abstract Collection<LearnPadTask> fetchNewTasks();
 
-	/**
-	 * This method should be implemented to complete a given task
-	 *
-	 * @param task
-	 * @param data
-	 */
-	protected abstract void completeTask(LearnPadTask task,
-			Map<String, Object> data);
+	public void completeTask(LearnPadTask task, Map<String, Object> data,
+			String completingUser, LearnPadTaskSubmissionResult submissionResult) {
+
+		// signal task end event
+		processEventReceiver.receiveTaskEndEvent(new TaskEndSimEvent(System
+				.currentTimeMillis(), simulationSessionId, involvedUsers, task,
+				completingUser, submissionResult));
+
+	};
 
 	/**
 	 * This method should be implemented to check if a task exists or not.
