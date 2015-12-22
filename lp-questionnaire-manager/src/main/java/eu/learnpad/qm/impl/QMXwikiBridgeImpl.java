@@ -57,7 +57,7 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 		
 		this.qm = QuestionnaireManager.getInstance();		
 //		this.qm = QuestionnaireManager.getInstance("put here some file");
-		
+			
 		this.printSomething("Initialization Completed");
 	}
 
@@ -101,6 +101,8 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 		// TODO This is stub code that have been implemented in order to 
 		// make easy the development of the core-platform
 		
+//	TODO : the REST invocation on this method is not working properly
+//	I commented the actual body in order to have a better understanding
 		String genProcessID = "thisIsFoo";
 //		try {
 //			genProcessID = this.qm.startGeneration(modelSetId);

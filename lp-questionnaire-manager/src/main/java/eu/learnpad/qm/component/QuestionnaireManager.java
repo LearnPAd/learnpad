@@ -28,6 +28,7 @@ import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -40,7 +41,7 @@ import eu.learnpad.qm.exception.QMModelNotImportedException;
 *
 * @author gulyx
 */
-public class QuestionnaireManager {
+public class QuestionnaireManager implements QuestionnaireManagerNotifier {
 
     private static QuestionnaireManager instance = null;
     
@@ -48,7 +49,9 @@ public class QuestionnaireManager {
 	private BufferedReader configurationReader;
 
 	private Collection<String> importedModelID;
-	private Map<String, QuestionnaireGenerationStatus> generationStatusMap;
+	private volatile Map<String, String> genProcessID2QuestionnaireFileMap;
+	private volatile Map<String, QuestionnaireGenerationTask> activeGenerationTasks;
+	
 	private SecureRandom random;
 	
     private QuestionnaireManager (String configurationFilename) throws IOException {
@@ -62,8 +65,9 @@ public class QuestionnaireManager {
 // *******************************************
 	
 		this.importedModelID = new Vector<String>();
-		this.generationStatusMap = new HashMap<String, QuestionnaireGenerationStatus>();
-
+		this.activeGenerationTasks = Collections.synchronizedMap(new HashMap<String, QuestionnaireGenerationTask>());
+		this.genProcessID2QuestionnaireFileMap = Collections.synchronizedMap(new HashMap<String,String>());
+				
 		this.random = new SecureRandom();
     }
 
@@ -101,8 +105,14 @@ public class QuestionnaireManager {
 
     	this.printSomething("[IMPORTED] " + modelSetID);
     }
+
     
     public String startGeneration(String modelSetID) throws QMModelNotImportedException{
+    	String genProcessID = this.startGeneration(modelSetID, this.configurationReader);
+    	return genProcessID;
+    }
+    
+    public String startGeneration(String modelSetID, BufferedReader configurationFile) throws QMModelNotImportedException{
     	this.printSomething("[STARTING] " + modelSetID);
 
     	if (!this.importedModelID.contains(modelSetID)){
@@ -116,39 +126,44 @@ public class QuestionnaireManager {
     	String fooIndex = this.randomId();
 		String genProcessID = "genProcessID:" + modelSetID.trim().toLowerCase() + ":" + fooIndex;
 
-		this.generationStatusMap.put(genProcessID, QuestionnaireGenerationStatus.InProgress);
+//		The new questionnaire generation task is created, added into the map, and activated 
+		QuestionnaireGenerationTask genTask = new QuestionnaireGenerationTask(genProcessID,this);
+		this.activeGenerationTasks.put(genProcessID, genTask);
+		new Thread(genTask).start();
+		
 		return genProcessID;
     }
     
-    public QuestionnaireGenerationStatus getGenerationStatus(String genProcessID){
-//    	The second time a given genProcessID is checked, its status is
-//    	changed to completed (if it exists in the map)
-    	QuestionnaireGenerationStatus currentStatus = this.generationStatusMap.get(genProcessID);
+    public QuestionnaireGenerationStatus getGenerationStatus(String genProcessID){    	
+    	QuestionnaireGenerationStatus currentStatus = QuestionnaireGenerationStatus.NotAvailable;
     	
-    	if (currentStatus == null){
-    		currentStatus = QuestionnaireGenerationStatus.NotAvailable;    		
+    	if (this.genProcessID2QuestionnaireFileMap.containsKey(genProcessID)){
+    		currentStatus = QuestionnaireGenerationStatus.Completed;
+    	}else{    	
+    		QuestionnaireGenerationTask genTask = this.activeGenerationTasks.get(genProcessID);    	    	
+    		if (genTask != null){
+    			currentStatus = genTask.getGenerationStatus();
+// If an existing genProcessID is checked, it is notified with a stimulus so that change its status.
+// This method simulate a progression on the generation step.
+// It must be removed when MOTHIA is integrated.
+    			genTask.stimulusFromABackdoor();
+    		}
     	}
-
+    	
     	this.printSomething("[CURRENT STATUS] " + genProcessID + " ---> " + currentStatus);
 
-    	switch (currentStatus) {
-    		case InProgress:
-    			currentStatus = QuestionnaireGenerationStatus.Completed;
-    			this.generationStatusMap.put(genProcessID, currentStatus);
-    			break;
-    		case Completed:
-    			break;
-    		default:
-    			currentStatus = QuestionnaireGenerationStatus.NotAvailable;
-    			break;
-    		}
-
-    	this.printSomething("[UPDATED STATUS] " + genProcessID + " ---> " + currentStatus);
-    	
     	return currentStatus;
     }
     
-	private void printSomething(String data){
+	@Override
+	public void generationCompleted(String genProcessID, String genFilePath) {
+		this.genProcessID2QuestionnaireFileMap.put(genProcessID, genFilePath);
+		this.activeGenerationTasks.remove(genProcessID);
+
+		this.printSomething("[NOTIFICATION] " + genProcessID + " has been completed!" );
+	}
+
+	private synchronized void printSomething(String data){
 		try {
 			PrintWriter w = new PrintWriter(new FileWriter("/tmp/"+this.getClass().getName()+".log",true));
 			w.println("[TEST MSG] : " + data);
