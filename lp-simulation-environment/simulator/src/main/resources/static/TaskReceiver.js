@@ -41,14 +41,14 @@ function taskReceiver(address, user, integratedMode) {
         var msg = JSON.parse(m.data);
         switch (msg.type) {
 
-        case 'FINISHED':
-            var containerDiv = $('#processmain' + msg.processid);
+        case 'SESSION_FINISHED':
+            var containerDiv = $('#processmain' + msg.sessionid);
             var processFinished = document.createElement('p');
             processFinished.innerHTML = '<h4>Congratulations, you successfully completed the simulation</h4>'
             containerDiv.append(processFinished);
 
             // remove process diagram
-            $('#accordion' + msg.processid).remove();
+            $('#accordion' + msg.sessionid).remove();
 
             break;
 
