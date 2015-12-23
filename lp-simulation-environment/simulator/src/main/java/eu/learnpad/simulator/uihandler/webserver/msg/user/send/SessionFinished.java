@@ -1,7 +1,7 @@
 /**
  *
  */
-package eu.learnpad.simulator.uihandler.webserver.msg.user;
+package eu.learnpad.simulator.uihandler.webserver.msg.user.send;
 
 /*
  * #%L
@@ -24,18 +24,31 @@ package eu.learnpad.simulator.uihandler.webserver.msg.user;
  * #L%
  */
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import eu.learnpad.simulator.uihandler.webserver.msg.user.IUserMsg;
 
 /**
  * @author Tom Jorquera - Linagora
  *
  */
-public interface IUserMsg {
-	static enum TYPE {
-		ADDTASK, DELTASK, FINISHED, SESSION_FINISHED
+public class SessionFinished implements IUserMsg {
+
+	public String sessionid;
+
+	/**
+	 * @param processid
+	 */
+	public SessionFinished(String sessionid) {
+		super();
+		this.sessionid = sessionid;
 	}
 
-	@JsonProperty("type")
-	public TYPE getType();
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see activitipoc.uihandler.webserver.msg.user.UserMsg#getType()
+	 */
+	public TYPE getType() {
+		return TYPE.SESSION_FINISHED;
+	}
 
 }
