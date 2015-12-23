@@ -40,7 +40,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eu.learnpad.simulator.uihandler.webserver.msg.user.send.AddTask;
 import eu.learnpad.simulator.uihandler.webserver.msg.user.send.DeleteTask;
-import eu.learnpad.simulator.uihandler.webserver.msg.user.send.ProcessFinished;
+import eu.learnpad.simulator.uihandler.webserver.msg.user.send.SessionFinished;
 
 /**
  * @author Tom Jorquera - Linagora
@@ -116,13 +116,13 @@ public class UIServlet extends WebSocketServlet {
 		}
 	}
 
-	public void completeProcess(String processId) {
+	public void completeSession(String sessionId) {
 		for (UISocket session : activeSockets) {
 			try {
 				session.getRemote()
 				.sendString(
-						mapper.writeValueAsString(new ProcessFinished(
-								processId)));
+						mapper.writeValueAsString(new SessionFinished(
+										sessionId)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

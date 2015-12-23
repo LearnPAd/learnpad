@@ -37,6 +37,7 @@ public class Resubmit implements ITaskMsg {
 
 	public String name;
 	public String description;
+	public String sessionid;
 	public String processid;
 	public String processname;
 	public long startingtime;
@@ -47,13 +48,14 @@ public class Resubmit implements ITaskMsg {
 	public int nbattempts;
 	public long expectedtime;
 
-	public Resubmit(String name, String description, String processid,
-			String processname, long startingtime, String form,
-			Collection<LearnPadDocument> documents, int nbattempts,
-			long expectedtime) {
+	public Resubmit(String name, String description, String sessionid,
+			String processid, String processname, long startingtime,
+			String form, Collection<LearnPadDocument> documents,
+			int nbattempts, long expectedtime) {
 		super();
 		this.name = name;
 		this.description = description;
+		this.sessionid = sessionid;
 		this.processid = processid;
 		this.processname = processname;
 		this.startingtime = startingtime;

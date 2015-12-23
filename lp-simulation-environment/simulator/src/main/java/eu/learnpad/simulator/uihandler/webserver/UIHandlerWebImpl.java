@@ -137,7 +137,10 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 
 	@Override
 	public void receiveSimulationEndEvent(SimulationEndSimEvent event) {
-		// nothing to do
+		for (String userId : event.involvedusers) {
+			((UIServlet) usersMap.get(userId).getServletInstance())
+			.completeSession(event.simulationsessionid);
+		}
 	}
 
 	@Override
@@ -147,10 +150,7 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 
 	@Override
 	public void receiveProcessEndEvent(ProcessEndSimEvent event) {
-		for (String userId : event.involvedusers) {
-			((UIServlet) usersMap.get(userId).getServletInstance())
-			.completeProcess(event.processInstance.processartifactid);
-		}
+		// nothing to do
 	}
 
 	@Override
