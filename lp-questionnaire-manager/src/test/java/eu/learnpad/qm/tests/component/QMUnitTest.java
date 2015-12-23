@@ -22,9 +22,14 @@ package eu.learnpad.qm.tests.component;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
+
 import org.junit.Test;
 import org.junit.Before;
-
 import org.xwiki.component.phase.InitializationException;
 
 import eu.learnpad.qm.component.QuestionnaireGenerationStatus;
@@ -43,7 +48,7 @@ public class QMUnitTest extends AbstractUnitTest {
 	@Before
 	public void configureEnvironment(){
 		try {
-			this.qm = QuestionnaireManager.getInstance();
+			this.qm = QuestionnaireManager.getInstance(null);
 		} catch (InitializationException e) {
 			e.printStackTrace();
 		}
@@ -100,5 +105,83 @@ public class QMUnitTest extends AbstractUnitTest {
 		
 	}
 	
+	@Test
+	public void testMultipleImportAndMultipleStartGeneration(){
+		int actionsToPerform = 20;
+		
+		List<String> modelSetIDs = new Vector<String>();
+		List<String> genProcessIDs = new Vector<String>();
+		Map<String,Integer> tentativesPerProcessID = new HashMap<String,Integer>();
+		
+		String modelSetID;
+		int modelSetIDIndex;
+		String genProcessID;
+		int genProcessIDIndex;
+		
+		QuestionnaireGenerationStatus status;
+		
+		int i=0;
+		int pendingGeneration = 0;
+		while (( i < actionsToPerform ) || (pendingGeneration != 0)) {
+			int action =  this.randomInt() % 3;
+			switch (action){
+				case 0 : // Import a new modeledSet 
+					if ( i < actionsToPerform ){
+						modelSetID = this.randomId();
+						this.qm.storeModelID(modelSetID);
+						modelSetIDs.add(modelSetID);
+
+						i++;
+					}	
+					break;
+				case 1 : // Generate a new questionnaire from a modeledSet
+					if ((modelSetIDs.size() != 0 ) && ( i < actionsToPerform )){
+						modelSetIDIndex = this.randomInt() % modelSetIDs.size();
+						modelSetID = modelSetIDs.get(modelSetIDIndex);
+						try {
+							genProcessID = this.qm.startGeneration(modelSetID);
+						} catch (QMModelNotImportedException e) {
+							AssertionError ae = new AssertionError(e);
+							throw ae;
+						}
+						pendingGeneration++;
+						genProcessIDs.add(genProcessID);
+						tentativesPerProcessID.put(genProcessID, new Integer(0));
+					
+						i++;			
+					}	
+					break;
+				case 2 : // Check the status of a generation
+					if (genProcessIDs.size()!= 0){
+						genProcessIDIndex = this.randomInt() % genProcessIDs.size();
+						genProcessID = genProcessIDs.get(genProcessIDIndex);
+						status = this.qm.getGenerationStatus(genProcessID);
+						if (status == QuestionnaireGenerationStatus.Completed){
+							genProcessIDs.remove(genProcessIDIndex);
+							tentativesPerProcessID.remove(genProcessID);
+							pendingGeneration--;
+						}else{
+							Integer tentatives = tentativesPerProcessID.get(genProcessID).intValue();
+							if (tentatives < AbstractUnitTest.MAX_TENTATIVES){
+								tentatives++;
+								tentativesPerProcessID.put(genProcessID, tentatives);
+							}else{
+								genProcessIDs.remove(genProcessIDIndex);
+								pendingGeneration--;							
+							}
+						}
+
+						i++;			
+					}
+					break;				
+				default:
+					break;
+			}			
+		}
+		
+		boolean isCompleted = tentativesPerProcessID.isEmpty();
+		
+		assertTrue("The Import and Start Generation Test Failed",isCompleted);
+	}
 
 }

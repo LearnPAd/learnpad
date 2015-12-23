@@ -39,4 +39,7 @@ public abstract class AbstractUnitTest {
 		    return new BigInteger(130, random).toString(32);
 	}
 	
+	protected int randomInt() {
+	    return new BigInteger(10, random).intValue();
+}
 }
