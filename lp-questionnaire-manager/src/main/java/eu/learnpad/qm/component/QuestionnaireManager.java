@@ -36,6 +36,7 @@ import java.util.Vector;
 import org.xwiki.component.phase.InitializationException;
 
 import eu.learnpad.qm.exception.QMModelNotImportedException;
+import eu.learnpad.qm.impl.QMBridgeNotifier;
 
 /**
 *
@@ -54,7 +55,9 @@ public class QuestionnaireManager implements QuestionnaireManagerNotifier {
 	
 	private SecureRandom random;
 	
-    private QuestionnaireManager (String configurationFilename) throws IOException {
+	private QMBridgeNotifier bridgeNofitier;
+	
+    private QuestionnaireManager (QMBridgeNotifier bridgeNofitier, String configurationFilename) throws IOException {
 // *******************************************
 // this part is not completed yet
     	if (configurationFilename == null) {
@@ -64,6 +67,8 @@ public class QuestionnaireManager implements QuestionnaireManagerNotifier {
 		this.configurationReader = new BufferedReader(new FileReader(configurationFilename));
 // *******************************************
 	
+		this.bridgeNofitier = bridgeNofitier;
+		
 		this.importedModelID = new Vector<String>();
 		this.activeGenerationTasks = Collections.synchronizedMap(new HashMap<String, QuestionnaireGenerationTask>());
 		this.genProcessID2QuestionnaireFileMap = Collections.synchronizedMap(new HashMap<String,String>());
@@ -76,24 +81,24 @@ public class QuestionnaireManager implements QuestionnaireManagerNotifier {
 	    return new BigInteger(130, random).toString(32);
 	}
 
-    private static synchronized QuestionnaireManager instantiate(String configurationFilename) throws IOException{
+    private static synchronized QuestionnaireManager instantiate(QMBridgeNotifier bridgeNofitier, String configurationFilename) throws IOException{
     	if (instance == null){
-    		instance = new QuestionnaireManager(configurationFilename);
+    		instance = new QuestionnaireManager(bridgeNofitier, configurationFilename);
     	}
     	return instance;
     }
 
-    public static QuestionnaireManager getInstance() throws InitializationException{
+    public static QuestionnaireManager getInstance(QMBridgeNotifier bridgeNofitier) throws InitializationException{
     	try {
-			return QuestionnaireManager.instantiate(null);
+			return QuestionnaireManager.instantiate(bridgeNofitier,null);
 		} catch (IOException e) {
 			throw new InitializationException(e.getMessage(), e);
 		}
     }
 
-    public static QuestionnaireManager getInstance(String configurationFilename) throws InitializationException{
+    public static QuestionnaireManager getInstance(QMBridgeNotifier bridgeNofitier, String configurationFilename) throws InitializationException{
 		try {
-			return QuestionnaireManager.instantiate(configurationFilename);
+			return QuestionnaireManager.instantiate(bridgeNofitier,configurationFilename);
 		} catch (IOException e) {
 			throw new InitializationException(e.getMessage(), e);
 		}
@@ -160,6 +165,9 @@ public class QuestionnaireManager implements QuestionnaireManagerNotifier {
 		this.genProcessID2QuestionnaireFileMap.put(genProcessID, genFilePath);
 		this.activeGenerationTasks.remove(genProcessID);
 
+		if (this.bridgeNofitier != null)
+			this.bridgeNofitier.generationCompleted(genProcessID, genFilePath);
+		
 		this.printSomething("[NOTIFICATION] " + genProcessID + " has been completed!" );
 	}
 
@@ -176,8 +184,9 @@ public class QuestionnaireManager implements QuestionnaireManagerNotifier {
 	
 	public static void main(String[] args) {
 		QuestionnaireManager me;
+		
 		try {
-			me = QuestionnaireManager.getInstance();
+			me = QuestionnaireManager.getInstance(null);
 			me.storeModelID("modelSetID");
 			String genProcessID = me.startGeneration("modelSetID");
 			me.getGenerationStatus(genProcessID);

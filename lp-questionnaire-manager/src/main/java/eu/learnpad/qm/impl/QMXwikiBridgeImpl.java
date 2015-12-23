@@ -22,6 +22,8 @@ package eu.learnpad.qm.impl;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -33,6 +35,7 @@ import org.xwiki.component.phase.InitializationException;
 
 import eu.learnpad.core.impl.qm.XwikiBridge;
 import eu.learnpad.core.impl.qm.XwikiCoreFacadeRestResource;
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.qm.component.QuestionnaireManager;
 
@@ -45,7 +48,7 @@ import eu.learnpad.qm.component.QuestionnaireManager;
 @Singleton
 @Named("eu.learnpad.qm.impl.QMXwikiBridgeImpl")
 @Path("/learnpad/qm/bridge")
-public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
+public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable, QMBridgeNotifier  {
 	
 	// Currently this class has been implemented with the 
 	// only idea to support the development of the core platform
@@ -55,7 +58,7 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 	public void initialize() throws InitializationException {
 		this.corefacade = new XwikiCoreFacadeRestResource();
 		
-		this.qm = QuestionnaireManager.getInstance();		
+		this.qm = QuestionnaireManager.getInstance(this);		
 //		this.qm = QuestionnaireManager.getInstance("put here some file");
 			
 		this.printSomething("Initialization Completed");
@@ -134,6 +137,22 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
+	}
+
+	@Override
+	public void generationCompleted(String genProcessID, String genFilePath) {
+		byte[] questionnairesFile;
+		try {
+			questionnairesFile = Files.readAllBytes(Paths.get(genFilePath));
+			this.corefacade.genrationCompleted(genProcessID);			
+			this.corefacade.publish(genProcessID, "mothia-out", questionnairesFile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LpRestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
