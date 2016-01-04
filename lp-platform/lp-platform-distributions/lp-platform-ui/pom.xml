@@ -60,7 +60,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.xwiki.platform</groupId>
-			<artifactId>xwiki-platform-flamingo-theme</artifactId>
+			<artifactId>xwiki-platform-flamingo-theme-ui</artifactId>
 			<version>${platform.version}</version>
 			<type>xar</type>
 		</dependency>
