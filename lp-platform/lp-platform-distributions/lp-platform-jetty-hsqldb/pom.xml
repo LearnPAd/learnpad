@@ -94,7 +94,7 @@
 		<dependency>
 			<groupId>org.xwiki.contrib</groupId>
 			<artifactId>xff-filter-stream</artifactId>
-			<version>0.3.1</version>
+			<version>0.4.0</version>
 			<type>jar</type>
 			<exclusions>
 				<exclusion>
@@ -106,7 +106,7 @@
 		<dependency>
 			<groupId>org.xwiki.contrib</groupId>
 			<artifactId>xff-rest-api</artifactId>
-			<version>0.3.1</version>
+			<version>0.4.0</version>
 			<type>jar</type>
 			<exclusions>
 				<exclusion>
