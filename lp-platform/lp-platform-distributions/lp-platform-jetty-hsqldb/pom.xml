@@ -96,11 +96,29 @@
 			<artifactId>xff-filter-stream</artifactId>
 			<version>0.3.1</version>
 			<type>jar</type>
+			<exclusions>
+				<exclusion>
+					<groupId>org.xwiki.platform</groupId>
+					<artifactId>xwiki-platform-rest-model</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.xwiki.contrib</groupId>
 			<artifactId>xff-rest-api</artifactId>
 			<version>0.3.1</version>
+			<type>jar</type>
+			<exclusions>
+				<exclusion>
+					<groupId>org.xwiki.platform</groupId>
+					<artifactId>xwiki-platform-rest-model</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.xwiki.platform</groupId>
+			<artifactId>xwiki-platform-rest-model</artifactId>
+			<version>${platform.version}</version>
 			<type>jar</type>
 		</dependency>
 	</dependencies>
