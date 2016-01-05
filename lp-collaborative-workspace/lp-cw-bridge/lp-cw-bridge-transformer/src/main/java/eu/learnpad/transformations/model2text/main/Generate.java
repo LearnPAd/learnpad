@@ -30,8 +30,8 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
-import eu.learnpad.transformations.xwiki.XwikiFactory;
-import eu.learnpad.transformations.xwiki.XwikiPackage;
+import eu.learnpad.transformations.metamodel_corpus.xwiki.XwikiFactory;
+import eu.learnpad.transformations.metamodel_corpus.xwiki.XwikiPackage;
 
 
 

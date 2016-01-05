@@ -16,10 +16,9 @@ public class ATLTransformationLauncher {
 	/**
 	 * ATL Transformation Launcher (MODEL2MODEL Transformation).
 	 * @param model_in The path of the model file to be tranformed.
-	 * @param model_params The path of the model file conform to Parameter Metamodel that is to support to the transformation.
 	 * @throws IOException
 	 */
-	public void execute(String model_in, String model_params) throws IOException{
+	public void execute(String model_in) throws IOException{
 		/*
 		 * *******************************************************
 		 * MODEL2MODEL Transformation (ATL)
@@ -32,12 +31,10 @@ public class ATLTransformationLauncher {
 			ATLTransformation myT = null;
 			
 			String metamodel_in 	= "resources/metamodels/adoxx/ado.ecore";
-			String metamodel_param 	= "resources/metamodels/Parameter/Parameter.ecore";
 			String metamodel_out 	= "resources/metamodels/xwiki/XWIKI.ecore";
 			String modules 			= "resources/transformation/ado2xwiki.atl";
 			String inTag 			= "ADOXX";
 			String outTag 			= "XWIKI";
-			String paramsTag 		= "Parameter";
 			
 			String basenameInputModel = FilenameUtils.getBaseName(model_in);
 			
@@ -47,7 +44,7 @@ public class ATLTransformationLauncher {
 
 			myT = new ATLTransformation();
 			System.out.println("Starting ATL Model2Model transformation...");
-			myT.run(model_in, metamodel_in, model_params, metamodel_param, metamodel_out, modules, inTag, paramsTag, outTag, tmpModelPath);
+			myT.run(model_in, metamodel_in, metamodel_out, modules, inTag, outTag, tmpModelPath);
 			System.out.println("ATL Model2Model transformation done. Temporary XWIKI model named: "+tmpXwikiModelName+" created in /tmp folder.");
 				
 		    
@@ -62,10 +59,9 @@ public class ATLTransformationLauncher {
 	 * Execution of the ATL Transformation with a pre-processing with alignement.
 	 * This method take an XML file instead of XMI and after a pre-precessing phase execute the transformation with the resulting XMI model file.
 	 * @param model_in The path of the model file to be tranformed.
-	 * @param model_params The path of the model file conform to Parameter Metamodel that is to support to the transformation.
 	 * @throws Exception
 	 */
-	public void executeWithAlignment(String model_in, String model_params) throws Exception{
+	public void executeWithAlignment(String model_in) throws Exception{
 		
 		File f = new File(model_in);
 		if(f.exists() && !f.isDirectory()) { 
@@ -82,12 +78,10 @@ public class ATLTransformationLauncher {
 			ATLTransformation myT = null;
 			
 			String metamodel_in 	= "resources/metamodels/adoxx/ado.ecore";
-			String metamodel_param 	= "resources/metamodels/Parameter/Parameter.ecore";
 			String metamodel_out 	= "resources/metamodels/xwiki/XWIKI.ecore";
 			String modules 			= "resources/transformation/ado2xwiki.atl";
 			String inTag 			= "ADOXX";
 			String outTag 			= "XWIKI";
-			String paramsTag 		= "Parameter";
 			
 			String basenameInputModel = FilenameUtils.getBaseName(sanitazedFilePath);
 			
@@ -97,7 +91,7 @@ public class ATLTransformationLauncher {
 
 			myT = new ATLTransformation();
 			System.out.println("Starting ATL Model2Model transformation...");
-			myT.run(sanitazedFilePath, metamodel_in, model_params, metamodel_param, metamodel_out, modules, inTag, paramsTag, outTag, tmpModelPath);
+			myT.run(sanitazedFilePath, metamodel_in, metamodel_out, modules, inTag, outTag, tmpModelPath);
 			System.out.println("ATL Model2Model transformation done. Temporary XWIKI model named: "+tmpXwikiModelName+" created in /tmp folder.");
 				
 		}else{
@@ -118,7 +112,6 @@ public class ATLTransformationLauncher {
 //		String model_in = "resources/model/TitoloUnico.xmi"; // For testing without alignment
 		//If alignment is needed remember to take the right xml as input
 		boolean alignment = false;
-		String model_params = "titolo-unico";
 		
 		
 		System.out.println("*******STARTING THE ATL TRANSFORMATION*******");
@@ -128,9 +121,9 @@ public class ATLTransformationLauncher {
 		 */
 		ATLTransformationLauncher atlTL = new ATLTransformationLauncher();
 		if(alignment){
-			atlTL.executeWithAlignment(model_in, model_params);
+			atlTL.executeWithAlignment(model_in);
 		}else{
-			atlTL.execute(model_in, model_params);
+			atlTL.execute(model_in);
 		}
 		
 		System.out.println("*******FINISHED THE ATL TRANSFORMATION*******");

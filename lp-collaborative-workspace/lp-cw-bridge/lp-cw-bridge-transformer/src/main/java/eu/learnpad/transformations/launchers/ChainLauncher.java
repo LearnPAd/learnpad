@@ -25,20 +25,17 @@ public class ChainLauncher {
 	 * Execute the chain of transformation composed by: ATL Transformation (MODEL2MODEL Transformation) and 
 	 * Acceleo Transformation (MODEL2TEXT Transformation).
 	 * @param model_in The path of the model file to be tranformed.
-	 * @param model_params The path of the model file conform to Parameter Metamodel that is to support to the transformation.
 	 * @throws IOException
 	 */
-	public void executeTransformation(String model_in, String model_params){
+	public void executeTransformation(String model_in){
 		
 		ATLTransformation myT = null;
 		
 		String metamodel_in 	= "resources/metamodels/adoxx/ado.ecore";
-		String metamodel_param 	= "resources/metamodels/Parameter/Parameter.ecore";
 		String metamodel_out 	= "resources/metamodels/xwiki/XWIKI.ecore";
 		String modules 			= "resources/transformation/ado2xwiki.atl";
 		String inTag 			= "ADOXX";
 		String outTag 			= "XWIKI";
-		String paramsTag 		= "Parameter";
 		
 		String basenameInputModel = FilenameUtils.getBaseName(model_in);
 		
@@ -57,7 +54,7 @@ public class ChainLauncher {
 			 */
 			myT = new ATLTransformation();
 			System.out.println("Starting ATL Model2Model transformation...");
-			myT.run(model_in, metamodel_in, model_params, metamodel_param, metamodel_out, modules, inTag, paramsTag, outTag, tmpModelPath);
+			myT.run(model_in, metamodel_in, metamodel_out, modules, inTag, outTag, tmpModelPath);
 			System.out.println("ATL Model2Model transformation done. Temporary XWIKI model named: "+tmpXwikiModelName+" created in /tmp folder.");
 			
 			
@@ -84,7 +81,6 @@ public class ChainLauncher {
 		
 //		String model_in = "resources/model/epbr.xml";
 		String model_in = "resources/model/ado4f16a6bb-9318-4908-84a7-c2d135253dc9.xml";
-		String model_params = "titolo-unico";
 		
 		
 		
@@ -100,7 +96,7 @@ public class ChainLauncher {
 		 * Start the execution of the overall transformation
 		 */
 		ChainLauncher mt = new ChainLauncher();
-		mt.executeTransformation(sanitazedFilePath, model_params);
+		mt.executeTransformation(sanitazedFilePath);
 		
 		System.out.println("*******FINISHED THE OVERALL TRANSFORMATION*******");
 	}
