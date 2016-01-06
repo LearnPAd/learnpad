@@ -212,7 +212,7 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 		Collection<String> users = simulator.userHandler().getUsers();
 		for (UserData user : uniqueUsers) {
 			if (!users.contains(user.id)) {
-				simulator.userHandler().addUser(user.id);
+				simulator.userHandler().addUser(user);
 			}
 		}
 
