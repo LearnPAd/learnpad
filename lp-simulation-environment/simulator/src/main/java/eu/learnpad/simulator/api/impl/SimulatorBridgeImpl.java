@@ -6,8 +6,10 @@ package eu.learnpad.simulator.api.impl;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +22,7 @@ import javax.ws.rs.core.UriInfo;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
 import eu.learnpad.sim.BridgeInterface;
+import eu.learnpad.sim.rest.IUserInfosAPI;
 import eu.learnpad.sim.rest.data.ProcessData;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.sim.rest.data.UserData;
@@ -51,7 +54,7 @@ import eu.learnpad.simulator.Simulator;
  *
  */
 @Path("/")
-public class SimulatorBridgeImpl implements BridgeInterface {
+public class SimulatorBridgeImpl implements BridgeInterface, IUserInfosAPI {
 
 	// this will allow us to return specific response codes (specifically for
 	// POST methods)
@@ -164,11 +167,11 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 
 			return new ProcessData(simulator.processManager()
 					.getProcessDefinitionName(processDefId), simulator
-					.processManager()
-					.getProcessDefinitionDescription(processDefId), simulator
-					.processManager()
-					.getProcessDefinitionSingleRoles(processDefId), simulator
-					.processManager().getProcessDefinitionGroupRoles(processDefId));
+					.processManager().getProcessDefinitionDescription(
+							processDefId), simulator.processManager()
+							.getProcessDefinitionSingleRoles(processDefId), simulator
+							.processManager().getProcessDefinitionGroupRoles(
+									processDefId));
 		} else {
 			throw new NotFoundException();
 		}
@@ -254,6 +257,16 @@ public class SimulatorBridgeImpl implements BridgeInterface {
 		// TODO Proper Implementation of Simulation Monitoring API
 		return this.getClass().getClassLoader()
 				.getResourceAsStream("validation_db.json");
+	}
+
+	@Override
+	public List<String> getUsers() {
+		return new ArrayList<String>(simulator.userHandler().getUsers());
+	}
+
+	@Override
+	public UserData getUserData(String userartifactid) {
+		return simulator.userHandler().getUserData(userartifactid);
 	}
 
 }
