@@ -18,21 +18,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-function users(userid) {
+function users(userid, processid) {
 
-    // TODO: this should be dynamic
-    var userInfos = {
-        'sally': {
-            'name': 'Sally',
-            'description': 'Sally Shugar works for the Monti Azzurri Consortium since five years. Since three years she is head of the SUAP office.<p/>She speaks fluently French, Spanish and English; her mother tongue is Italien. She also has profound knowledge in legislation.',
-            'img': 'resources/img/SallyShugar.jpg'
-        },
-        'barnaby': {
-            'name': 'Barnaby',
-            'description': 'Barnaby joins the Monti Azzurri Consortium recently. His professional background is as a legal assistant.',
-            'img': 'resources/img/BarnabyBarnes.jpg'
+    var userInfos = {};
+
+    var req = new XMLHttpRequest();
+    req.open('GET',
+             'http://localhost:8081/learnpad/sim/instances/' + processid,
+             false);
+    req.send(null);
+
+    if (req.status == 200) {
+        var data = JSON.parse(req.responseText);
+        var otherId;
+        for (var i = 0; i < data.users.length; i++) {
+            otherId = data.users[i];
+            req = new XMLHttpRequest();
+            req.open('GET',
+                     'http://localhost:8081/learnpad/sim/users/' + otherId,
+                     false);
+            req.send(null);
+            userInfos[otherId] = JSON.parse(req.responseText);
         }
-    };
+    }
 
     var res = {};
 
@@ -48,11 +56,13 @@ function users(userid) {
             '<div id="user-' + userid + '" class="userui-user">' +
                 '<a tabindex="0" data-toggle="popover" ' +
                 'data-trigger="focus" data-placement="bottom" ' +
-                'data-content="' + userInfos[userid].description + '">' +
-                '<img src="' + userInfos[userid].img +
-                '" alt="' + userInfos[userid].name +
+                'data-content="' + userInfos[userid].bio + '">' +
+                '<img src="' + userInfos[userid].pictureURL +
+                '" alt="' + userInfos[userid].firstName +
+                ' ' + userInfos[userid].lastName +
                 '" class="img-circle">' +
-                '<p>' + userInfos[userid].name + '</p></a></div>'
+                '<p>' + userInfos[userid].firstName + ' ' +
+                        userInfos[userid].lastName + '</p></a></div>'
         );
 
         // create other users subcontainer
@@ -66,7 +76,6 @@ function users(userid) {
 
         // add other users
         var userInfosKeys = Object.keys(userInfos);
-        console.log(userInfosKeys);
         for (var i = 0; i < userInfosKeys.length; i++) {
             var oid = userInfosKeys[i];
             if (oid != userid) {
@@ -74,11 +83,13 @@ function users(userid) {
                     '<div id="user-' + oid + '" class="userui-user">' +
                         '<a tabindex="0" data-toggle="popover" ' +
                         'data-trigger="focus" data-placement="bottom" ' +
-                        'data-content="' + userInfos[oid].description + '">' +
-                        '<img src="' + userInfos[oid].img +
-                        '" alt="' + userInfos[oid].name +
+                        'data-content="' + userInfos[oid].bio + '">' +
+                        '<img src="' + userInfos[oid].pictureURL +
+                        '" alt="' + userInfos[oid].firstName + ' ' +
+                        userInfos[oid].lastName +
                         '" class="img-circle">' +
-                        '<p>' + userInfos[oid].name +
+                        '<p>' + userInfos[oid].firstName + ' ' +
+                        userInfos[oid].lastName +
                         '</p></a></div>'
                 );
                 // append space to separate users names

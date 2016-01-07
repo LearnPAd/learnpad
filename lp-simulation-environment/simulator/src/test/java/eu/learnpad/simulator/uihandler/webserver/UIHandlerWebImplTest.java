@@ -49,6 +49,7 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
@@ -187,7 +188,7 @@ public class UIHandlerWebImplTest {
 
 		// add some users
 		for (int i = 1; i <= nbUsers; i++) {
-			uiHandler.addUser("user" + i);
+			uiHandler.addUser(new UserData("user" + i, "", "", "", "", ""));
 
 			assertTrue(uiHandler.getUsers().size() == i);
 			assertTrue(uiHandler.getUsers().contains("user" + i));
