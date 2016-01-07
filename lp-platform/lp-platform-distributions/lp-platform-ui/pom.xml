@@ -35,7 +35,7 @@
 	<name>Learn PAd - Platform - Distribution - UI</name>
 
 	<properties>
-		<xcs.footer.webcopyright><![CDATA[License ...]]></xcs.footer.webcopyright>
+		<xcs.footer.webcopyright><![CDATA[License LGPL]]></xcs.footer.webcopyright>
 		<xcs.footer.version><![CDATA[Learn PAd platform (v1.0)]]></xcs.footer.version>
 	</properties>
 
@@ -60,7 +60,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.xwiki.platform</groupId>
-			<artifactId>xwiki-platform-flamingo-theme</artifactId>
+			<artifactId>xwiki-platform-flamingo-theme-ui</artifactId>
 			<version>${platform.version}</version>
 			<type>xar</type>
 		</dependency>
@@ -178,7 +178,7 @@
 				<dependency>
 					<groupId>org.xwiki.contrib</groupId>
 					<artifactId>application-webide-ui</artifactId>
-					<version>1.1.1</version>
+					<version>1.2</version>
 					<type>xar</type>
 				</dependency>
 			</dependencies>
