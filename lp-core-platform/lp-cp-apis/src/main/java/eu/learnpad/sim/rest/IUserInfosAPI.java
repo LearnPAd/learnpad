@@ -34,17 +34,16 @@ import eu.learnpad.sim.rest.data.UserData;
  * @author Tom Jorquera - Linagora
  *
  */
-@Path("/learnpad/sim/users")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface IUserInfosAPI {
 
 	@GET
-	@Path("/")
+	@Path("/users/")
 	public List<String> getUsers();
 
 	@GET
-	@Path("/{userartifactid:.*}")
+	@Path("/users/{userartifactid:.*}")
 	public UserData getUserData(
 			@PathParam("userartifactid") String userartifactid);
 }
