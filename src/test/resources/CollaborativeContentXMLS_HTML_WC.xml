@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CollaborativeContentAnalysis language="italian">
+<CollaborativeContentAnalysis language="english">
 	<CollaborativeContent id="1213">
 		<Title>Title of Documents</Title>
 		<ContentPlain>Section 9 Review of decisions eligible for appeal
@@ -89,7 +89,7 @@ Charging
 ]]>
 		</ContentHTML>
 	</CollaborativeContent>
-	<QualityCriteria simplicity="true" non_ambiguity="true"
-		content_clarity="true" presentation_clarity="true" completeness="true"
-		correctness="true" />
+	<QualityCriteria simplicity="false" non_ambiguity="false"
+		content_clarity="false" presentation_clarity="false" completeness="true"
+		correctness="false" />
 </CollaborativeContentAnalysis>

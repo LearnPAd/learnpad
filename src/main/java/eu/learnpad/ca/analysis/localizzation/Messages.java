@@ -11,7 +11,7 @@ public class Messages {
 	private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
 
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
-			.getBundle("localizzation/"+BUNDLE_NAME);
+			.getBundle("localizzation/"+BUNDLE_NAME, new Locale("en"));
 	private static final ResourceBundle RESOURCE_BUNDLE_IT = ResourceBundle
 			.getBundle("localizzation/"+BUNDLE_NAME, new Locale("it"));
 
