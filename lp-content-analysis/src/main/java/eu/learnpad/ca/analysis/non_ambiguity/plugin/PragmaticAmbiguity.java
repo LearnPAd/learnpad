@@ -1,16 +1,18 @@
-package eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.plugin;
+package eu.learnpad.ca.analysis.non_ambiguity.plugin;
 
-import java.util.HashSet;
+/*import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.languagetool.Language;
 
-import eu.learnpad.ca.analysis.Plugin;
+
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Node;
-import gate.DocumentContent;
+import gate.DocumentContent;*/
+
+import eu.learnpad.ca.analysis.Plugin;
 
 public class PragmaticAmbiguity  extends Plugin {
 

@@ -1,4 +1,4 @@
-package eu.learnpad.ca.analysis.simplicity.difficultjargon;
+package eu.learnpad.ca.analysis.simplicity.plugin.utils;
 
 import java.util.ArrayList;
 import java.util.List;

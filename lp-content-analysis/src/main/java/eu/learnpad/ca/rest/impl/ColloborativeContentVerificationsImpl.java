@@ -21,6 +21,7 @@ import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
+import eu.learnpad.ca.analysis.completeness.Completeness;
 import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.non_ambiguity.NonAmbiguity;
@@ -119,6 +120,13 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 					putAndCreate(id, threadPresentation);
 
 				}
+				if(contentFile.getQualityCriteria().isCompleteness()){
+
+					Completeness threadCompleteness = new Completeness (contentFile, lang);
+					threadCompleteness.start();
+					putAndCreate(id, threadCompleteness);
+
+				}
 				
 
 				return id.toString();
@@ -182,7 +190,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 			if(map.containsKey(Integer.valueOf(contentID))){
 				List<AbstractAnalysisClass> listanalysisInterface  = map.get(Integer.valueOf(contentID));
 				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
-					if(analysisInterface.getStatus()!="OK"){
+					if(!analysisInterface.getStatus().equals("OK") ){
 						return "IN PROGRESS";
 					}
 				}
@@ -196,5 +204,28 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		}
 	}
 
+	@Path("/allid")
+	@GET
+	public String  getStatusCollaborativeContentVerifications()
+			throws LpRestException{
+		String result = new String();
+		try{
+			if(!map.isEmpty()){
+				for(Integer key :map.keySet()){
+					result+=key.toString()+";";
+				}
+				
+				 return result;
+
+			}
+			log.error("Element not found");
+			 return "ERROR";
+		}catch(Exception e){
+			log.fatal("Fatal "+e.getMessage());
+
+			 return "FATAL ERROR";
+
+		}
+	}
 
 }

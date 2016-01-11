@@ -11,7 +11,6 @@ import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Node;
 import gate.DocumentContent;
-import gate.util.InvalidOffsetException;
 
 public class ExcessiveLength extends Plugin {
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ExcessiveLength.class);
