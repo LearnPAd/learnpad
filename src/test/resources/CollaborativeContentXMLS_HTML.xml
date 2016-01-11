@@ -1,0 +1,1274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CollaborativeContentAnalysis language="english">
+	<CollaborativeContent id="1213">
+		<Title>Title of Documents</Title>
+		<ContentPlain>Section 9 Review of decisions eligible for appeal
+
+Introduction
+
+9.1 Under the Offshore Installations (Safety Case) Regulations 2005 (SCR), Regulation 24(1) any person who is aggrieved by a decision by HSE may appeal to the Secretary of State. The relevant decisions relate to:
+
+- a finding of fact by HSE,
+- non-acceptance of a Safety Case,
+- direction to prepare a Safety Case revision,
+- non-acceptance of a revision to a Safety Case,
+- suspension of a Safety Case,
+- not lifting a suspension,
+- revocation of an exemption certificate, and
+- grant of an exemption certificate with a condition or time limit.
+
+These decisions do not include a direction of a review of a Safety Case.
+
+9.2 The guidance in Booklet L30 indicates that all other means of resolving the matter should be fully explored with HSE, and that the duty holder can request a review of the decision by the Executive. This section describes the arrangements for carrying out such a review. It is written in terms of a decision not to accept a Safety Case, but it applies generally to all the decisions listed above. Where appropriate, it may also be a basis for an internal review of a decision to direct a review of a Safety Case.
+Purpose of a review
+
+9.3 A review is an internal HSE activity. The main purpose is to ensure that:
+
+- the assessment was conducted fairly,
+- the issues in contention were relevant,
+- due account was taken of the facts and opinions presented, and
+- OSD was entitled to reach the decision that it did.
+
+It does not involve detailed peer review, nor an attempt to second-guess specialist opinion. The reviewer may have technical assistance and hear technical arguments; however, this is limited to understanding the issues involved, and to ensuring that OSD has taken full congnisance of the duty holder’s arguments and has reached a logical and consistent decision.
+
+Summary of features
+
+- It is a review by HSE’s Chief Executive, who can delegate all or part of the function to their deputy or to another senior manager. However, the conclusions letter to the duty holder is sent under the Chief Executive’s authority.
+- The reviewer may ask a technical specialist [from outside OSD] to advise on interpretation of technical matters and, if necessary, someone from the Legal Advisor’s Office to advise on the law. A secretary may also be appointed.
+- The reviewer considers written submissions from OSD, the duty holder and safety representatives. The reviewer may meet OSD and the duty holder, separately or together, to discuss their positions and see if there is any scope for common ground or for alternative solutions. Third parties are not involved unless the reviewer considers it beneficial.
+- The review does not try to revisit complex technical issues. Rather, it focuses on whether the processes leading up to the decision were properly carried out, and OSD was entitled to take the view that it did. If procedures were materially misapplied, OSD will be directed to re-open the assessment.
+- The Chief Executive gives a written judgement on the case, with the reasons for the views expressed. If finding in favour of the duty holder, the Chief Executive directs OSD to take appropriate action. The outcome is reported fully, so that all parties are aware of the scope and depth of the review.
+
+Submission of an application for review
+
+9.4 The duty holder applies in writing to the Chief Executive, within 3 weeks of receipt of the written decision or a subsequent meeting with the Head of OSD. The application includes:
+- a summary of the reasons for seeking the review, and
+- any supporting documentation submitted to OSD during the assessment
+process. This can include information or opinion from third parties.
+
+
+Conduct of the review
+
+9.5 The review is carried out by the Chief Executive, who may delegate all or part of the review to a senior manager outside of OSD. The reviewer may ask other staff, such as technical specialists from outside OSD, or a member of the Legal Advisor’s Office, to assist.
+
+9.6 The reviewer informs the relevant safety representatives of the duty holder’s reasons for seeking a review, and invites them to submit comments by a specified date. Any such comments are not attributed to individuals. If there is no resident workforce or no safety representatives [for example if the installation is stacked or operating abroad], the reviewer may make other arrangements to hear views from those whose health and safety may be affected by the matters under review.
+
+9.7 OSD provides the reviewer with a summary of the assessment process, including;
+- the points of contention,
+- the work done to try to resolve them,
+- OSD’s current position, and
+- any proposals for resolution.
+
+The duty holder provides a similar view on the points of contention, their current position and any proposals for resolution. New issues or arguments should not be raised.
+
+9.8 If the duty holder has any concerns over the way OSD has followed its assessment procedures, the reviewer asks OSD to comment. If the concern is justified, the Chief Executive may ask OSD to re-open the assessment and deal with the concerns.
+
+9.9 The reviewer considers the submission, and any from the employee representatives, and seeks any clarification required. The reviewer may meet OSD and the duty holder, separately or together, to see if there is any scope for common ground or for alternative solutions. Third parties may be involved if the reviewer considers it beneficial; however it is not the reviewers function to arbitrate between, or to second- guess, complex technical issues.
+
+9.10 The reviewer considers in particular:
+- if the decision was taken in accordance with OSD’s procedures and associated guidance,
+- if the issues giving rise to the decision related to matters of significance within the scope of SCR, and were clearly described to the duty holder,
+- if the responses from the duty holder were given due consideration,
+- if there are any obvious flaws in OSD’s reasoning in making the decision,
+and
+- if there was any unfairness or bias in OSD’s assessment activity.
+
+9.11 The Chief Executive gives a written view on the case, with reasons, to the parties
+involved. Where appropriate, the Chief Executive may direct OSD to take particular action [accept the case, lift the suspension, etc]. Where practicable, the judgement is provided within 6 weeks of receipt of the review application
+
+9.12 The review may find that the duty holder’s view has merit but there is no strong case for considering that OSD’s position is in error. It may then recommend further technical discussions take place, or simply indicate that there is insufficient reason to change the decision. This may be the case where there are strongly held opposing technical views.
+Amendment
+
+9.13 The Chief Executive may change any part of the procedure for a particular review. For any substantive change the Chief Executive will give the reasons for the change, and where appropriate will consult with the duty holder and OSD.
+Charging
+
+9.14 In the event of a review finding in favour of the duty holder, HSE will not normally charge for work related to the review.
+		</ContentPlain>
+		<ContentHTML>
+<![CDATA[		dsada
+			<p>
+				In this page, the
+				<strong>Defects indicators</strong>
+				for each
+				<strong>Quality Attribute</strong>
+				expressed in the
+				<span class="wikilink">
+					<a rel="__blank"
+						href="/LearnPAdWiki/bin/view/WP4/Quality+Model+LearnPAd+%2D+Instance+of+Quality+Model">Quality Model of LearnPAd</a>
+				</span>
+				are listed together with clarifying examples and suggestions for
+				techniques to be adopted to address each defect. The system can
+				embed also the error-checking tool named Language Tool defined
+				<span class="wikiexternallink">
+					<a rel="__blank" href="https://www.languagetool.org">here</a>
+				</span>
+				.
+			</p>
+			<p>
+				<strong>NOTE:</strong>
+				the language tool community is a great resource for spotting out
+				textual defects
+				<strong>
+					, see
+					<span class="wikiexternallink">
+						<a href="http://community.languagetool.org/">here</a>
+					</span>
+					(also for Italian).
+				</strong>
+			</p>
+			<h4 id="HSimplicity28orReadability29">
+				<span>Simplicity (or Readability)</span>
+			</h4>
+			<p>
+				<strong>Summary:</strong>
+				this quality attribute defines how easy is to read a NL Description
+				in LearnPAd. It is a quality attribute that, in a sense, shall give
+				an overall degree of readability of each sentence, and compute an
+				aggregate value of readability. Such quality attribute takes into
+				account the difficulty of the terms, and the difficulty associated
+				to the syntax and to the length of the sentences.
+			</p>
+			<p>
+				<strong>Quality measure:</strong>
+				1 - (Number of defective sentences / Total number of sentences).
+			</p>
+			<p>
+				<strong>Indicators:</strong>
+			</p>
+			<ol>
+				<li>
+					<strong>
+						<span style="font-size: 14px;">Excessive length [SENT]:</span>
+					</strong>
+					<span style="font-size: 14px;">this
+						indicator tells that a sentence is too long. (
+						<strong>Difficulty:</strong>
+						Low,
+						<strong>Relevance:</strong>
+						High)
+					</span>
+					<ol>
+						<li>
+							<strong>Example:
+							</strong>
+							Further distribution of vote sheets within the staff is
+							permissible upon issuance of the vote, but distribution outside
+							the agency is permissible only after the final collegial decision
+							is recorded by the Secretary in an SRM to the action office and
+							the votes have been released to the public.
+						</li>
+						<li>
+							<strong>Technology:
+							</strong>
+							The threshold for which we state that a sentence is too long
+							shall be defined on the basis of an analysis of the available
+							documents. After deciding a threshold of characters, we shall
+							implement a component that checks the length of each sentence and
+							highlight those that are too long. Another way for computing is
+							referring to the threshold of 20 words per sentence, as in
+							language tool
+							<span class="wikiexternallink">
+								<a rel="__blank" href="http://community.languagetool.org">http://community.languagetool.org</a>
+							</span>
+							.
+						</li>
+						<li>
+							<strong>Language
+								Dependency:
+							</strong>
+							this
+							<strong>
+							</strong>
+							indicator does not depend on the language.
+						</li>
+						<li>
+							<strong>ACTIONS:
+							</strong>
+							just define a rule in GATE that evaluates the length of
+							sentences. (
+							<em>Alessio)</em>
+						</li>
+					</ol>
+				</li>
+				<li>
+					<strong>Juridical
+						jargon [TERM,SENT]:
+					</strong>
+					this indicator tells that a sentence includes juridical terms that
+					might be difficult to understand for the reader. This indicator
+					might also tell that the structure of the sentence is typical of
+					technical document. At this stage, we consider solely the case of
+					juridical terms. (
+					<strong>Difficulty:</strong>
+					High,
+					<strong>Relevance:</strong>
+					High)
+					<ol>
+						<li>
+							<strong>Example:
+							</strong>
+							<ins>Judicial</ins>
+							decisions can be contrasted with
+							<ins>administrative</ins>
+							decisions
+						</li>
+						<li>
+							<strong>Technology:
+							</strong>
+							several options can be considered to detect juridical terms. A
+							first option is described below, other options have to be
+							explored
+							<strong>
+								<ins>[TODO]</ins>
+							</strong>
+							.
+							<ol>
+								<li>Contrastive technology: we can take a set of juridical texts
+									and then contrast them with the Penn Treebank corpus. All those
+									terms that have higher frequency in juridical texts with
+									respect to those in the Penn Treebank corpus, can be consider
+									to belong to juridical jargon. If a term is in this set, then
+									it is considered a juridical term. Threshold for considering a
+									term as juridical or common shall be defined. Moreover, we
+									shall check not only frequent single-word terms, but also
+									groups of two and three words forming a single term.</li>
+								<li>
+									Take a list of typical juridical terms (e.g., from
+									<span class="wikiexternallink">
+										<a rel="__blank" href="http://www.jud.ct.gov/legalterms.htm">http://www.jud.ct.gov/legalterms.htm
+										</a>
+									</span>
+									for English, from
+									<span class="wikiexternallink">
+										<a rel="__blank"
+											href="https://en.wikipedia.org/wiki/List_of_legal_Latin_terms">https://en.wikipedia.org/wiki/List_of_legal_Latin_terms
+										</a>
+									</span>
+									for latin, from
+									<span class="wikiexternallink">
+										<a rel="__blank"
+											href="http://www.simone.it/cgi-local/Dizionari/newdiz.cgi?index,5,A">http://www.simone.it/cgi-local/Dizionari/newdiz.cgi?index,5,A
+										</a>
+									</span>
+									for italian). Check whether the terms in the document are
+									included in the set of juridical terms.
+								</li>
+							</ol>
+						</li>
+						<li>
+							<strong>Language
+								Dependency:
+							</strong>this
+							indicator depends on the language, and different components shall
+							be defined for EN and IT.
+						</li>
+						<li>
+							<strong>ACTIONS:
+							</strong>
+							reduce common juridical jargon terms. (
+							<em>Giorgio and Alessio</em>
+							)
+						</li>
+					</ol>
+				</li>
+				<li>
+					<strong>Multiple
+						negation [SENT]:
+					</strong>
+					this indicator tells whether a sentence include multiple/double
+					negative expressions. (
+					<strong>Difficulty:</strong>
+					Medium,
+					<strong>Relevance:</strong>
+					Medium)
+					<ol>
+						<li>
+							<strong>Example:
+							</strong>
+							If the commission does
+							<ins>not</ins>
+							say that the document is
+							<ins>unacceptable</ins>
+							.
+						</li>
+						<li>
+							<strong>Technology:
+							</strong>
+							several options can be considered to multiple negation. Two
+							options are described below, which depend on the definition of
+							"double negative", other options have to be explored
+							<ins>
+								<strong>[TODO]</strong>
+							</ins>
+							.
+							<ol>
+								<li>
+									A double negative occurs with a negation and a negative
+									expression: a simple solution is to find the presence of the
+									terms "not", "no" or all the terms here (
+									<span class="wikiexternallink">
+										<a rel="__blank"
+											href="http://www.grammarly.com/handbook/sentences/negatives/">http://www.grammarly.com/handbook/sentences/negatives/
+										</a>
+									</span>
+									) within a window from a negative term (e.g., unacceptable,
+									unclear, unfeasible) or verb. A list of negative terms,
+									normally adopted for sentiment analysis, can be found here:
+									<span class="wikiexternallink">
+										<a rel="__blank"
+											href="https://github.com/jeffreybreen/twitter-sentiment-analysis-tutorial-201107/blob/master/data/opinion-lexicon-English/negative-words.txt">https://github.com/jeffreybreen/twitter-sentiment-analysis-tutorial-201107/blob/master/data/opinion-lexicon-English/negative-words.txt
+										</a>
+									</span>
+									, or here:
+									<span class="wikiexternallink">
+										<a rel="__blank"
+											href="https://github.com/abhiii5459/Sentiment-Analysis/blob/master/negative.txt">https://github.com/abhiii5459/Sentiment-Analysis/blob/master/negative.txt
+										</a>
+									</span>
+									. From such terms, we can extract only those that appear also
+									in legal documents. A list of negative verbs is here:
+									<span class="wikiexternallink">
+										<a rel="__blank"
+											href="https://docs.google.com/document/d/1F-ZN5WRek29R-BvRf-9iigcXO7D03qPx7AvhuNoEc00/edit?hl=en">list of negative verbs</a>
+									</span>
+									.
+								</li>
+								<li>
+									A double negative occurs when two negations occurs in the same
+									clause: in this case we can simply search for the presence of
+									the terms here (
+									<span class="wikiexternallink">
+										<a href="http://www.grammarly.com/handbook/sentences/negatives/">http://www.grammarly.com/handbook/sentences/negatives/
+										</a>
+									</span>
+									) within the same clause or within a window.
+								</li>
+							</ol>
+						</li>
+						<li>
+							<strong>Language
+								Dependency:
+							</strong>
+							this indicator depends on the language, and different components
+							shall be defined for EN and IT. Moreover, also the semantics of a
+							double negation depends on the language. In italian "non c'è
+							nessuno" is correct, and this double negative is still a
+							negative. In English "there isn't nobody" is incorrect (correct
+							version: "there isn't anybody").
+						</li>
+						<li>
+							<strong>ACTIONS:</strong>
+							could be discarded from the list. To be done by implementing
+							rules in GATE if some time remains. (
+							<em>Alessio</em>
+							)
+						</li>
+					</ol>
+				</li>
+				<li>
+					<strong>Complex
+						syntax [SENT]:
+					</strong>
+					this indicator tells that a sentence is complex in terms of syntax.
+					(
+					<strong>Difficulty:</strong>
+					High,
+					<strong>Relevance:</strong>
+					High)
+					<ol>
+						<li>
+							<strong>
+								Example:
+								<em>
+								</em>
+							</strong>
+							If in the opinion of the IRB staff member reviewing the new
+							information the rights and welfare of participants might be
+							adversely affected before the convened IRB can review the
+							information, contact the IRB chair to consider a Suspension of
+							IRB Approval following the "SOP: Suspension or Termination of IRB
+							Approval."
+						</li>
+						<li>
+							<strong>Technology:
+							</strong>
+							several options can be considered to detect complex syntax. A
+							first option is described below, other options have to be
+							explored
+							<ins>
+								<strong>[TODO]</strong>
+							</ins>
+							<strong>.</strong>
+							<ol>
+								<li>
+									We can adopt the same technology adopted in
+									<em>
+										Dell'Orletta et al. "
+										<span style="font-size: 14px;">READ–IT:
+											Assessing Readability of Italian Texts with a View to Text
+											Simplification"
+										</span>
+									</em>
+									<span style="font-size: 14px;">
+										(see the tool here:
+										<span class="wikiexternallink">
+											<a rel="__blank" href="http://www.ilc.cnr.it/dylanlab/apps/texttools/">http://www.ilc.cnr.it/dylanlab/apps/texttools/
+											</a>
+										</span>
+										<em>)
+										</em>
+										for what concerns the syntactic complexity. A key issue is
+										evaluating the length of the dependency links.
+									</span>
+								</li>
+							</ol>
+						</li>
+						<li>
+							<strong>
+								<span style="font-size: 14px;">Language
+									Dependency:
+								</span>
+							</strong>
+							<span style="font-size: 14px;">this
+								indicator depends on the language, and different components
+								shall be defined for EN and IT.
+							</span>
+						</li>
+						<li>
+							<strong>
+								<span style="font-size: 14px;">ACTIONS:
+								</span>
+							</strong>
+							<span style="font-size: 14px;">
+								check the work of Dell'Orletta to establish a formula, and a
+								threshold. No experiments at this stage, just report the
+								formula. (
+								<em>Alessio</em>
+								)
+							</span>
+						</li>
+					</ol>
+				</li>
+				<li>
+					<strong>Difficult
+						jargon [TERM,SENT]:
+					</strong>
+					this indicator tells if a sentence is including terms that are
+					difficult for a reader. (
+					<strong>Difficulty:</strong>
+					Low,
+					<strong>Relevance:</strong>
+					Medium)
+					<ol>
+						<li>
+							<strong>Example:
+							</strong>
+							<ins>Allegations</ins>
+							of
+							<ins>Non-Compliance</ins>
+							: Determine whether each
+							<ins>Allegation</ins>
+							of
+							<ins>Non-Compliance</ins>
+							has any basis in fact.
+						</li>
+						<li>
+							<strong>Technology:</strong>
+							we can foresee two technologies to address this issue.
+							<ol>
+								<li>
+									Common terms for IT (Italian) are reported in the list that can
+									be downloaded here:
+									<span class="wikiexternallink">
+										<a rel="__blank" href="http://www.sensocomune.it">http://www.sensocomune.it</a>
+									</span>
+									. If a term does not appear in the list, then it is considered
+									a "difficult" term. For EN (English), a similar list can be
+									found here:
+									<span class="wikiexternallink">
+										<a rel="__blank" href="http://www.wordfrequency.info/free.asp">http://www.wordfrequency.info/free.asp
+										</a>
+									</span>
+									.
+								</li>
+								<li>
+									A list of "difficult" terms can be filled by considering as
+									"not difficult" all the terms that are more common in PA
+									documents, and considering "difficult" all the terms that are
+									less common in PA documents. This approach implies that a large
+									set of PA documents is adopted. Note that this approach might
+									be specular with respect to Technology-1 for juridical jargon,
+									since here we consider
+									<em>unfrequent</em>
+									terms in PA documents as being defective, while in the
+									mentioned approach,
+									<em>frequent</em>
+									terms in PA documents are considered to be defective. A list of
+									difficult jargon term for EU documents is available here:
+									<span class="wikiexternallink">
+										<a
+											href="http://ec.europa.eu/ipg/content/tips/words-style/jargon-alternatives_en.htm">http://ec.europa.eu/ipg/content/tips/words-style/jargon-alternatives_en.htm
+										</a>
+									</span>
+								</li>
+							</ol>
+						</li>
+						<li>
+							<strong>Language Dependency:</strong>
+							this indicator depends on the language, and different components
+							shall be defined for EN and IT.
+						</li>
+						<li>
+							<strong>ACTIONS:
+							</strong>
+							download the list of frequent terms and perform preliminary
+							evaluation. (
+							<em>Giorgio).</em>
+						</li>
+					</ol>
+				</li>
+			</ol>
+			<h4 id="HNonAmbiguity">
+				<span>Non Ambiguity</span>
+			</h4>
+			<p>
+				<strong>Summary:</strong>
+				this quality attribute defines the degree of non ambiguity of a NL
+				Description in LearnPAd. Such quality attribute considers both the
+				ambiguity of the terms (at lexical, semantic and pragmatic level)
+				and the ambiguity of the syntax.
+			</p>
+			<p>
+				<strong>Quality measure:</strong>
+				1 - (Number of defective sentences / Total number of sentences).
+			</p>
+			<p>
+				<strong>Indicators:</strong>
+			</p>
+			<ol>
+				<li>
+					<strong>Lexical
+						Ambiguity:
+					</strong>
+					this indicator states that a term is lexically ambiguous, which
+					implies that it expresses vagueness, subjectivity or optionality. (
+					<strong>Difficulty:</strong>
+					Low,
+					<strong>Relevance:
+					</strong>
+					High)
+					<ol>
+						<li>
+							<strong>Example:
+							</strong>
+							The document shall be sent as
+							<ins>soon as possible</ins>.
+						</li>
+						<li>
+							<strong>Technology:
+							</strong>
+							to address lexical ambiguity we can simply port the vocabulary of
+							QuARS for English, while for Italian we can perform a translation
+							of such vocabulary.
+						</li>
+						<li>
+							<strong>Language
+								Dependency:
+							</strong>this
+							indicator depends on the language, and different components shall
+							be defined for EN and IT.
+						</li>
+						<li>
+							<strong>ACTIONS:
+							</strong>
+							try with QuARS, only vagueness items (
+							<em>Giorgio</em>
+							).
+						</li>
+					</ol>
+				</li>
+				<li>
+					<strong>Semantic
+						Ambiguity:
+					</strong>
+					this indicator states that a word can have different meaning. (
+					<strong>Difficulty:</strong>
+					Medium,
+					<strong>Relevance:</strong>
+					High)
+					<ol>
+						<li>
+							<strong>Example:
+							</strong>
+							The
+							<ins>operator</ins>
+							shall add the document to the administrative file (
+							<em>can be the "plus operator" or can be the "human operator"
+							</em>
+							)
+						</li>
+						<li>
+							<strong>Technology:</strong>
+							we can adopt the technology defined in
+							<span style="font-size: 14px;">
+								Arman Allahyari-Abhari et al.
+								<em>"Requirement
+									Phrasing Assistance using Automatic Quality Assessment",
+								</em>
+								where the degree of semantic ambiguity of a sentence is computed
+								as the number of synsets in WordNet where a term occurs. To use
+								this indicator, we shall define a degree of acceptable semantic
+								ambiguity (i.e., a threshold for which a word or term is not
+								considered ambiguous).
+							</span>
+						</li>
+						<li>
+							<strong>
+								<span style="font-size: 14px;">Language
+									Dependency:
+								</span>
+							</strong>
+							<span style="font-size: 14px;">this indicator depends on the language, and
+								different components shall be defined for EN and IT. Moreover,
+								given the current resources, it is probably unfeasible to
+								develop the component for IT.</span>
+						</li>
+						<li>
+							<strong>ACTIONS:</strong>
+							check related documents on dangerous use of all and plurals, and
+							check presence of universal quantifiers/plurals (
+							<em>Experiments needed: Giorgio and Alessio</em>
+							).
+						</li>
+					</ol>
+				</li>
+				<li>
+					<strong>Pragmatic Ambiguity:</strong>
+					this indicator states that the interpretation of a sentence is
+					context-dependent. (
+					<strong>Difficulty:</strong>
+					Medium,
+					<strong>Relevance:</strong>
+					High)
+					<ol>
+						<li>
+							<strong>Example:
+							</strong>
+							<ins>the member shall send the Patent Document to the Patent
+								Office</ins>
+							(
+							<em>the meaning of "member" depends on the context</em>
+							)
+						</li>
+						<li>
+							<strong>Technology:
+							</strong>
+							the technology based on knowledge graphs can be adopted in this
+							case to evaluate the degree of pragmatic ambiguity of a sentence.
+							A threshold of ambiguity shall be defined that specifies when a
+							sentence shall be considered ambiguous.
+						</li>
+						<li>
+							<strong>Language
+								Dependency:
+							</strong>
+							the knowledge graph based technology is independent from the
+							language.
+						</li>
+						<li>
+							<strong>ACTIONS:
+							</strong>
+							refer to previous papers in which we see that performance are not
+							acceptable. Refer to paper where ambiguity is computed as the
+							number of synset in WordNet
+							<em>(Alessio).</em>
+						</li>
+					</ol>
+				</li>
+				<li>
+					<strong>Syntactic
+						Ambiguity:
+					</strong>
+					this indicators states that a structural ambiguity occurred in a
+					sentence. (
+					<strong>Difficulty:</strong>
+					Medium,
+					<strong>Relevance:</strong>
+					High)
+					<ol>
+						<li>
+							<strong>Example:
+							</strong>
+							SBA will send a letter to the CDC applicant notifying it of the
+							decision with a copy to the SBA district director.
+						</li>
+						<li>
+							<strong>Technology:
+							</strong>
+							syntactic ambiguity as a whole might require multiple machine
+							learning techniques.
+							<ol>
+								<li>
+									Some tools exist that can be employed for anaphora resolution
+									(e.g., CoreNLP, BART, ARKref, Reconcile) and FreeLing:
+									<span class="wikiexternallink">
+										<a rel="__blank" href="http://nlp.lsi.upc.edu/freeling/">http://nlp.lsi.upc.edu/freeling/</a>
+									</span>
+									. Other resources shall be studied to address the other types
+									of syntactic ambiguities
+									<strong>[TODO]</strong>.
+								</li>
+								<li>
+									A simple solution to compute syntactic ambiguity would be
+									counting the parse trees of a sentence and check whether the
+									top trees have close, and high rankings. The Stanford Parser (
+									<span class="wikiexternallink">
+										<a rel="__blank" href="http://nlp.stanford.edu/software/parser-faq.shtml#h">http://nlp.stanford.edu/software/parser-faq.shtml#h
+										</a>
+									</span>
+									) includes this multiple-parse generation.
+								</li>
+							</ol>
+						</li>
+						<li>
+							<strong>Language
+								Dependency:
+							</strong>this
+							indicator depends on the language, and different components shall
+							be defined for EN and IT.
+						</li>
+						<li>
+							<strong>ACTIONS:
+							</strong>
+							<em>perform further experiments with the list of terms extracted
+								by Giorgio, and define novel rules (Alessio).</em>
+						</li>
+					</ol>
+				</li>
+			</ol>
+			<h4 id="HContentClarity">
+				<span>
+					<span style="font-size: 19px; line-height: 1.2em;">Content Clarity</span>
+				</span>
+			</h4>
+			<p>
+				<strong>Summary:</strong>
+				this quality attribute defines the degree of clarity of a NL
+				Description in LearnPAd. Such quality attribute considers both the
+				clarity of the terms and the clarity of the syntax. It is not the
+				same indicator as "simplicity", since it is strictly focused on the
+				clarity associated to PA documents.
+			</p>
+			<p>
+				<strong>Quality measure:</strong>
+				1 - (Number of defective sentences / Total number of sentences).
+			</p>
+			<p>
+				<strong>Indicators
+					(Machine Learning):
+				</strong>
+			</p>
+			<ol>
+				<li>
+					<span style="font-size: 14px;">
+						All the indicators together with examples can be found in the
+						<span class="wikilink">
+							<a rel="__blank" href="/LearnPAdWiki/bin/view/WP4/Suggested+Tagging">suggested tagging page</a>
+						</span>
+						.
+					</span>
+				</li>
+				<li>For each indicator, a machine learning approach is foreseen to
+					identify defects</li>
+			</ol>
+			<div>
+				<p>
+					<strong>
+						<span style="line-height: 19.600000381469727px;">Indicators (Rule-based):</span>
+					</strong>
+				</p>
+				<ul>
+					<li>
+						<strong>Unclear
+							Acronym:
+						</strong>
+						try to identify acronym and search for corresponding definitions
+						in the text.
+						<em>Giorgio</em>
+					</li>
+					<li>
+						<strong>Deadline/time-interval
+							unclear:
+						</strong>
+						refer to the rules in feedback-based evaluation.
+						<em>Alessio</em>
+					</li>
+					<li>
+						<strong>Actor
+							unclear:
+						</strong>
+						check passive voice through GATE.
+						<em>Alessio</em>
+					</li>
+					<li>
+						<strong>Action
+							verbs in enumeration/itemization:
+						</strong>
+						check presence of action verbs.
+						<em>Alessio</em>
+					</li>
+				</ul>
+			</div>
+			<h4 id="HPresentationClarity">
+				<span>Presentation Clarity</span>
+			</h4>
+			<p>
+				<strong>Summary:
+				</strong>
+				this quality attribute defines the degree of clarity of the
+				presentation of a NL Description in LearnPAd. Such quality attribute
+				considers the clarity of the presentation format (i.e., bullet list,
+				enumerations, bold characters, etc.), and not to the content.
+			</p>
+			<p>We assume that the content is send in HTML format.</p>
+			<p>
+				<strong>Quality
+					measure:
+				</strong>
+				Number of defective indicators/Total number of indicators.
+				<span style="font-size: 14px;">Each indicator will be associated to a binary
+					decision: Defective/Not Defective. The decision, in some cases,
+					depends on a threshold to be specified for each indicator.</span>
+			</p>
+			<p>
+				<strong>Indicators:</strong>
+			</p>
+			<ol>
+				<li>
+					<strong>Absence
+						of section partitioning:
+					</strong>
+					this indicator tells that a document is not properly partitioned
+					into sections.
+					<strong>
+					</strong>
+					(
+					<strong>Difficulty:
+					</strong>
+					Low
+					<strong>,
+						Relevance:
+					</strong>
+					Medium)
+					<ol>
+						<li>
+							<strong>Example:</strong>
+							a
+							<ins>document
+								without section partitioning.
+							</ins>
+						</li>
+						<li>
+							<strong>Technology:</strong>
+							a rule-based approach can be envisioned that checks for the
+							presence or absence of sections in the document.
+						</li>
+						<li>
+							<strong>Language Dependency:</strong>
+							the approach is independent from the language.
+						</li>
+						<li>
+							ACTIONS: we can check the presence of section separators (can be
+							two \n\n, \br in HTML). (
+							<em>Giorgio</em>
+							).
+						</li>
+					</ol>
+				</li>
+				<li>
+					<strong>Relevant
+						content not emphasised:
+					</strong>
+					this indicator tells that the relevant content of the document is
+					not emphasised (
+					<strong>Difficulty:</strong>
+					Not Implementable,
+					<strong>Relevance:</strong>
+					High)
+					<ol>
+						<li>
+							<strong>Example:
+							</strong>
+							a document without bold terms, or bold sentences.
+						</li>
+						<li>
+							<strong>Technology:
+							</strong>
+							a rule-based approach that tells the amount of bold terms within
+							the overall document. We expect at least 10% of the terms in bold
+							(the parameter can be configured).
+						</li>
+						<li>
+							<strong>Language Dependency:</strong>
+							the approach is independent from the language.
+						</li>
+						<li>
+							<strong>ACTIONS:
+							</strong>
+							find a way to compute how much of the text is in bold. It is
+							sufficient to have a term in bold in a sentence, and the sentence
+							is in bold. We want 10% of the sentences. Check also literature
+							on Web-pages (
+							<em>Giorgio, Alessio</em>
+							).
+						</li>
+					</ol>
+				</li>
+				<li>
+					<strong>Excessive number of instructions</strong>
+					: this indicator tells that a too large number of instructions is
+					used. (
+					<strong>Difficulty:</strong>
+					Low,
+					<strong>Relevance:</strong>
+					Medium)
+					<ol>
+						<li>
+							<strong>Example:
+							</strong>
+							a document with a series of steps to follow that is higher than a
+							given threshold.
+						</li>
+						<li>
+							<strong>Technology:</strong>
+							a rule-based approach that identifies numbered lists, and that
+							check that the number is not higher that a certain threshold
+							(e.g., 10 instructions).
+						</li>
+						<li>
+							<strong>Language Dependency:</strong>
+							the approach is independent from the language.
+						</li>
+						<li>
+							<strong>ACTIONS:
+							</strong>
+							no need to perform experiments, just refer to the rules in the
+							literature. (
+							<em>Alessio)</em>
+						</li>
+					</ol>
+				</li>
+				<li>
+					<strong>
+						<em>
+							<del>Unbalanced
+								Sectioning:
+							</del>
+						</em>
+					</strong>
+					<em>
+						<del>
+							this indicator tells that there are some sections that are larger
+							than other. (
+							<strong>Difficulty:</strong>
+							Low,
+							<strong>Relevance:</strong>
+							Low)
+						</del>
+					</em>
+					<ol>
+						<li>
+							<strong>
+								<em>
+									<del>Example:
+									</del>
+								</em>
+							</strong>
+							<em>
+								<del>a document with a large initial section, and several
+									smaller sections.</del>
+							</em>
+						</li>
+						<li>
+							<strong>
+								<em>
+									<del>Technology:
+									</del>
+								</em>
+							</strong>
+							<em>
+								<del>
+									an approach that
+									<strong>
+									</strong>
+									considers the length of each section in terms of words, and
+									evaluate the statistical variance of the sections. In absence
+									of clear section partitioning, the approach can focus on the
+									number of paragraphs, i.e., a blank line indicates a paragraph
+									separation.
+								</del>
+							</em>
+						</li>
+						<li>
+							<strong>
+								<em>
+									<del>Language
+										Dependency:
+									</del>
+								</em>
+							</strong>
+							<em>
+								<del>
+									the
+									<strong>
+									</strong>
+									approach is independent from the language.
+								</del>
+							</em>
+						</li>
+					</ol>
+				</li>
+				<li>
+					<strong>Instruction
+						not Labelled:
+					</strong>
+					this
+					<strong>
+					</strong>
+					indicator tells that an instruction does not have a title or label
+					that identifies it. (
+					<strong>Difficulty:</strong>
+					-,
+					<strong>Relevance:</strong>
+					Low)
+					<ol>
+						<li>
+							<strong>Example:
+								WRONG
+							</strong>
+							(1) Access the online system by logging with the credentials that
+							you received by e-mail.
+							<strong>CORRECT:
+							</strong>
+							(1)
+							<strong>Login:
+							</strong>
+							Access the online system [...].
+						</li>
+						<li>
+							<strong>Technology:</strong>
+							a rule-based approach that identifies numbered lists, and checks
+							whether the first element of the list is a label (by checking its
+							form through a rule-based approach).
+						</li>
+						<li>
+							<strong>Language
+								Dependency:
+							</strong>
+							the approach is independent from the language.
+						</li>
+						<li>
+							<strong>ACTIONS:</strong>
+							no need to perform experiments, just express the rule in a clear
+							way.
+							<em>Alessio</em>
+						</li>
+					</ol>
+				</li>
+				<li>
+					<strong>Instruction
+						hard to identify:
+					</strong>
+					this indicator tells that, in the document, it is hard to identify
+					instructions. (
+					<strong>Difficulty:</strong>
+					Low,
+					<strong>Relevance:</strong>
+					Medium)
+					<ol>
+						<li>
+							<strong>Example:</strong>
+							a document without bullet-point lists or without numbered lists.
+						</li>
+						<li>
+							<strong>Technology:</strong>
+							a rule-based approach that checks the presence of numbered and
+							bullet point lists with respect to the overall text.
+						</li>
+						<li>
+							<strong>Language Dependency:</strong>
+							the approach is independent from the language.
+						</li>
+						<li>
+							<strong>ACTIONS:
+							</strong>
+							list html elements that identify list and enumeration items. (
+							<em>Giorgio, Alessio</em>
+							).
+						</li>
+					</ol>
+				</li>
+				<li>
+					<strong>Excessive
+						length of the document:
+					</strong>
+					this
+					<strong>
+					</strong>
+					indicator tells that the document is too long and shall be
+					partitioned into more pages. (
+					<strong>Difficulty:</strong>
+					Low,
+					<strong>Relevance:</strong>
+					Medium)
+					<ol>
+						<li>
+							<strong>Example:</strong>
+							a large document.
+						</li>
+						<li>
+							<strong>Technology:
+							</strong>
+							a rule-based approach that, based on a threshold, decides whether
+							the document is too long or not.
+						</li>
+						<li>
+							<strong>Language Dependency:</strong>
+							the approach is independent from the language.
+						</li>
+						<li>
+							<strong>ACTIONS:</strong>
+							check literature on Web-pages on how long a Web page is supposed
+							to be. (
+							<em>Alessio</em>
+							)
+						</li>
+					</ol>
+				</li>
+				<li>
+					<strong>Excessive references:</strong>
+					this indicator tells that too many external documents are referred,
+					and this might cause confusion. (
+					<strong>Difficulty:</strong>
+					Medium,
+					<strong>Relevance:</strong>
+					High)
+					<ol>
+						<li>
+							<strong>Example:
+							</strong>
+							Given rule 673.4 from document R.125 from Nuclear Commission,
+							given decisions in document S.324-1999, given rule 329 from
+							Std-425.126.334 [...].
+						</li>
+						<li>
+							<strong>Technology:
+							</strong>
+							a rule-based approach that counts the number of external
+							references, after recognising the references in the text. If the
+							number of references is higher than a configurable threshold
+							(e.g., 10), the document is marked as defective.
+						</li>
+						<li>
+							<strong>Language
+								Dependency:
+							</strong>
+							the approach is independent from the language.
+						</li>
+						<li>
+							<strong>ACTIONS:
+							</strong>
+							define rules in gate
+							<strong>
+							</strong>
+							that allow to identify references in our current documents. (
+							<em>Alessio)</em>
+						</li>
+					</ol>
+				</li>
+			</ol>
+			<h4 id="HCompleteness">
+				<span>Completeness</span>
+			</h4>
+			<p>
+				<strong>Summary:
+				</strong>
+				this quality attribute tells how many of the required fields of a
+				given template are covered. In our case, we refer to the NL Content
+				template described
+				<span class="wikilink">
+					<a rel="__blank"
+						href="/LearnPAdWiki/bin/view/WP4/WP4+%2D+NL+Content+Analysis+Component+%2D+NL+Content+Template">here</a>
+				</span>
+				.
+			</p>
+			<p>
+				<strong>Quality
+					Measure:
+				</strong>
+				Number of fields with content/Total number of fields. (
+				<strong>Difficulty:</strong>
+				Low,
+				<strong>Relevance:</strong>
+				High)
+			</p>
+			<h4 id="HCorrectness-DONEIteration0">
+				<span>
+					Correctness -
+					<ins>DONE Iteration 0</ins>
+				</span>
+			</h4>
+			<p>
+				<strong>Quality
+					Measure:
+				</strong>
+				1 - (Number of defective sentences / Total number of sentences).
+			</p>
+			<ol>
+				<li>
+					<strong>Grammatical Error [SENT]:</strong>
+					count any grammatical error in a sentence. (
+					<strong>Difficulty:</strong>
+					Medium,
+					<strong>Relevance:</strong>
+					High)
+					<ol>
+						<li>
+							<strong>Example:
+							</strong>
+							use this text too see
+							<ins>an</ins>
+							few of
+							<ins>of</ins>
+							the problems that LanguageTool can
+							<ins>detecd.</ins>
+						</li>
+						<li>
+							<strong>Technology:
+							</strong>
+							to address grammatical errors we can rely on embedding the
+							Language Tool component (
+							<span class="wikiexternallink">
+								<a rel="__blank" href="https://www.languagetool.org">https://www.languagetool.org</a>
+							</span>
+							), which is Multi-Lingual, and therefore can address both Italian
+							and English errors.
+						</li>
+						<li>
+							<strong>Language
+								Dependency:
+							</strong>
+							this indicator depends on the language. However, by using the
+							Language Tool, both IT and EN can be supported.
+						</li>
+					</ol>
+				</li>
+			</ol>
+			<div></div>
+]]>
+		</ContentHTML>
+	</CollaborativeContent>
+	<QualityCriteria simplicity="true" non_ambiguity="true"
+		content_clarity="true" presentation_clarity="true" completeness="false"
+		correctness="true" />
+</CollaborativeContentAnalysis>

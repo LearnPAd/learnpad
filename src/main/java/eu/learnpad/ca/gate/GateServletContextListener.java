@@ -3,6 +3,7 @@ package eu.learnpad.ca.gate;
 import gate.Gate;
 
 import java.io.File;
+import java.net.URL;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;

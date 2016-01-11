@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -14,7 +13,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import org.languagetool.Language;
 import org.languagetool.language.AmericanEnglish;
 import org.languagetool.language.BritishEnglish;
@@ -24,6 +22,7 @@ import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.non_ambiguity.NonAmbiguity;
+import eu.learnpad.ca.analysis.presentation.PresentationClarity;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
@@ -111,7 +110,14 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 					putAndCreate(id, threadContentClarity);
 
 				}
+				if(contentFile.getQualityCriteria().isPresentationClarity()){
 
+					PresentationClarity threadPresentation = new PresentationClarity (contentFile, lang);
+					threadPresentation.start();
+					putAndCreate(id, threadPresentation);
+
+				}
+				
 
 				return id.toString();
 			}else{
@@ -174,7 +180,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 			if(map.containsKey(Integer.valueOf(contentID))){
 				List<AbstractAnalysisClass> listanalysisInterface  = map.get(Integer.valueOf(contentID));
 				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
-					if(analysisInterface.getStatus()!="OK"){
+					if(!analysisInterface.getStatus().equals("OK") ){
 						return "IN PROGRESS";
 					}
 				}
@@ -188,5 +194,28 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		}
 	}
 
+	@Path("/allid")
+	@GET
+	public String  getStatusCollaborativeContentVerifications()
+			throws LpRestException{
+		String result = new String();
+		try{
+			if(!map.isEmpty()){
+				for(Integer key :map.keySet()){
+					result+=key.toString()+";";
+				}
+				
+				 return result;
+
+			}
+			log.error("Element not found");
+			 return "ERROR";
+		}catch(Exception e){
+			log.fatal("Fatal "+e.getMessage());
+
+			 return "FATAL ERROR";
+
+		}
+	}
 
 }
