@@ -62,7 +62,8 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 	
 	@Test
 	public void checkCollaborativeContentAnalysis() throws JAXBException {
-		checkCollaborativeContentAnalysis("CollaborativeContentXMLITALIAN.xml");
+		//checkCollaborativeContentAnalysis("CollaborativeContentXMLITALIAN.xml");
+		checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML_WC.xml");
 		//checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML.xml");
 	
 	}

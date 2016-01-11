@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -13,12 +14,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
 import org.languagetool.Language;
 import org.languagetool.language.AmericanEnglish;
 import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
+import eu.learnpad.ca.analysis.completeness.Completeness;
 import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.non_ambiguity.NonAmbiguity;
@@ -115,6 +118,13 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 					PresentationClarity threadPresentation = new PresentationClarity (contentFile, lang);
 					threadPresentation.start();
 					putAndCreate(id, threadPresentation);
+
+				}
+				if(contentFile.getQualityCriteria().isCompleteness()){
+
+					Completeness threadCompleteness = new Completeness (contentFile, lang);
+					threadCompleteness.start();
+					putAndCreate(id, threadCompleteness);
 
 				}
 				
