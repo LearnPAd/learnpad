@@ -40,18 +40,18 @@ import eu.learnpad.exception.LpRestException;
 public interface StaticContentVerifications {
 
 	
-	@Path("/validatestaticcontent")
+	@Path("/learnpad/ca/validatestaticcontent")
 	@POST
 	String putValidateStaticContent(StaticContentAnalysis contentFile)
 				throws LpRestException;
 	
 	
-	@Path("/staticcontentverifications/{idAnnotatedStaticContentAnalysis:.*}")
+	@Path("/learnpad/ca/staticcontentverifications/{idAnnotatedStaticContentAnalysis:.*}")
 	@GET
 	Collection<AnnotatedStaticContentAnalysis> getStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
 			throws LpRestException;
 	
-	@Path("/staticcontentverifications/{idAnnotatedStaticContentAnalysis:.*}/status")
+	@Path("/learnpad/ca/staticcontentverifications/{idAnnotatedStaticContentAnalysis:.*}/status")
 	@GET
 	String getStatusStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
 			throws LpRestException;
