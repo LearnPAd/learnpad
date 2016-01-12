@@ -88,8 +88,8 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 					threadDF.start();
 					putAndCreate(id, threadDF);
 
-					
-					
+
+
 					ExcessiveLength threadEL = new ExcessiveLength(contentFile, lang);
 					threadEL.start();
 					putAndCreate(id, threadEL);*/
@@ -127,7 +127,7 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 					putAndCreate(id, threadCompleteness);
 
 				}
-				
+
 
 				return id.toString();
 			}else{
@@ -189,12 +189,11 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		try{
 			if(map.containsKey(Integer.valueOf(contentID))){
 				List<AbstractAnalysisClass> listanalysisInterface  = map.get(Integer.valueOf(contentID));
-				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
-					if(!analysisInterface.getStatus().equals("OK") ){
-						return "IN PROGRESS";
-					}
-				}
-				return "OK";
+				Integer progress = getProgress(listanalysisInterface);
+				if(progress>99)
+					return "OK";
+				else
+					return "InProgess_"+progress+"%";
 			}
 			log.error("Element not found");
 			return "ERROR";
@@ -202,6 +201,19 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 			log.fatal("Fatal "+e.getMessage());
 			return "FATAL ERROR";
 		}
+	}
+
+	private Integer getProgress(List<AbstractAnalysisClass> listanalysisInterface){
+		int size = listanalysisInterface.size();
+		int i = 0;
+		for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
+			if(analysisInterface.getStatus().equals("OK") ){
+				i++;
+			}
+		}
+		Integer p = (i*100/size);
+		return p;
+
 	}
 
 	@Path("/allid")
@@ -214,16 +226,16 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 				for(Integer key :map.keySet()){
 					result+=key.toString()+";";
 				}
-				
-				 return result;
+
+				return result;
 
 			}
 			log.error("Element not found");
-			 return "ERROR";
+			return "ERROR";
 		}catch(Exception e){
 			log.fatal("Fatal "+e.getMessage());
 
-			 return "FATAL ERROR";
+			return "FATAL ERROR";
 
 		}
 	}
