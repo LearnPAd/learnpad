@@ -109,7 +109,7 @@ public class Completeness  extends AbstractAnalysisClass {
 	}
 
 	protected double calculateOverallQualityMeasure(Integer NumberFields){
-		double qm = (NumberFields/18)*100;
+		double qm = (NumberFields.doubleValue()/18)*100;
 		double qualityMeasure = Math.abs(qm);
 		return qualityMeasure;
 	}
