@@ -151,12 +151,12 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 		try{
 			if(map.containsKey(Integer.valueOf(contentID))){
 				List<AbstractAnalysisClass> listanalysisInterface  = map.get(Integer.valueOf(contentID));
-				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
-					if(!analysisInterface.getStatus().equals("OK") ){
-						return "IN PROGRESS";
-					}
-				}
-				return "OK";
+				Integer progress = getProgress(listanalysisInterface);
+				if(progress>99)
+					return "OK";
+				else
+					return "InProgess_"+progress+"%";
+			
 			}
 			log.error("Element not found");
 			return "ERROR";
@@ -166,5 +166,18 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 			log.fatal("Fatal "+e.getMessage());
 			return "FATAL ERROR";
 		}
+	}
+	
+	private Integer getProgress(List<AbstractAnalysisClass> listanalysisInterface){
+		int size = listanalysisInterface.size();
+		int i = 0;
+		for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
+			if(analysisInterface.getStatus().equals("OK") ){
+				i++;
+			}
+		}
+		Integer p = (i*100/size);
+		return p;
+
 	}
 }
