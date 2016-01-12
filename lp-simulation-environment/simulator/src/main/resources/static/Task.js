@@ -98,7 +98,7 @@ function task(address, taskid, user, integratedMode) {
                 processDiv.appendChild(processSideDiv);
 
                 if (!integratedMode) {
-                    users(user, data.processid).
+                    users(address, user, data.processid).
                         setUserList('processside' + data.sessionid);
                 }
 
