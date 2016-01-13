@@ -34,63 +34,24 @@ import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnaly
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.exception.LpRestException;
 
-//@Consumes(MediaType.APPLICATION_XML)
-//@Produces(MediaType.APPLICATION_XML)
-@Path("/learnpad/ca/validatecollaborativecontent")
+
+
 public interface ColloborativeContentVerifications {
 	
 	
 	
-	@Path("/")
+	@Path("/validatecollaborativecontent")
 	@POST
 	String putValidateCollaborativeContent(@FormParam("collaborativecontent") CollaborativeContentAnalysis contentFile)
 				throws LpRestException;
 	
-	/*@Path("/")
-	@PUT
-	String updateValidateCollaborativeContent(@FormParam("collaborativecontent") CollaborativeContentAnalysis contentFile)
-				throws LpRestException;
-*/
-	@Path("/{idAnnotatedCollaborativeContentAnalysis:.*}")
+	@Path("/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:.*}")
 	@GET
 	Collection<AnnotatedCollaborativeContentAnalysis> getCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException;
 	
-	@Path("/{idAnnotatedCollaborativeContentAnalysis:.*}/status")
+	@Path("/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:.*}/status")
 	@GET
 	String getStatusCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException;
 }
-
-
-/**
-*@startuml
-*
-LPCorePlatform -> ContentAnalysis:putValidateCollaborativeContent(contentXML) HTTP Req @POST /learnpad/ca/validatecollaborativecontent 
-activate ContentAnalysis #FFBBBB 
-
-ContentAnalysis-->LPCorePlatform: Http Response OK (idAnnotatedCollaborativeContentAnalysis)
-
-ContentAnalysis->ContentAnalysis: Perform verifications
-
-LPCorePlatform -> ContentAnalysis: getStatusCollaborativeContentVerifications(idAnnotatedCollaborativeContentAnalysis) @GET /learnpad/ca/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis}/status
-
-ContentAnalysis-->LPCorePlatform: Http Response OK (Status:Processing)
-
-
-
-LPCorePlatform -> ContentAnalysis: getStatusCollaborativeContentVerifications(idAnnotatedCollaborativeContentAnalysis) @GET /learnpad/ca/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis}/status
-
-
-ContentAnalysis-->LPCorePlatform: Http Response OK (Status:OK)
-
-deactivate ContentAnalysis #FFBBBB 
-
-LPCorePlatform -> ContentAnalysis: getCollaborativeContentVerifications(idAnnotatedCollaborativeContentAnalysis) @GET  /learnpad/ca/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis}
-
-ContentAnalysis-->LPCorePlatform: Http Response OK (Collection<annotatedCollaborativeContentAnalysis>)
-
-
-
-*@enduml
-**/

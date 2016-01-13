@@ -40,49 +40,20 @@ import eu.learnpad.exception.LpRestException;
 public interface StaticContentVerifications {
 
 	
-	@Path("/learnpad/ca/validatestaticcontent")
+	@Path("/validatestaticcontent")
 	@POST
 	String putValidateStaticContent(StaticContentAnalysis contentFile)
 				throws LpRestException;
 	
 	
-	@Path("/learnpad/ca/staticcontentverifications/{idAnnotatedStaticContentAnalysis:.*}")
+	@Path("/staticcontentverifications/{idAnnotatedStaticContentAnalysis:.*}")
 	@GET
 	Collection<AnnotatedStaticContentAnalysis> getStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
 			throws LpRestException;
 	
-	@Path("/learnpad/ca/staticcontentverifications/{idAnnotatedStaticContentAnalysis:.*}/status")
+	@Path("/staticcontentverifications/{idAnnotatedStaticContentAnalysis:.*}/status")
 	@GET
 	String getStatusStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
 			throws LpRestException;
 }
-/**
-*@startuml
-*
-LPCorePlatform -> ContentAnalysis:putValidateStaticContent(contentXML) HTTP Req @POST /learnpad/ca/validatestaticcontent 
-activate ContentAnalysis #FFBBBB 
 
-ContentAnalysis-->LPCorePlatform: Http Response OK (idAnnotatedStaticContentAnalysis)
-
-ContentAnalysis->ContentAnalysis: Perform verifications
-
-LPCorePlatform -> ContentAnalysis: getStatusStaticContentVerifications(idAnnotatedStaticContentAnalysis) @GET /learnpad/ca/staticcontentverifications/{idAnnotatedStaticContentAnalysis}/status
-
-ContentAnalysis-->LPCorePlatform: Http Response OK (Status:Processing)
-
-
-
-LPCorePlatform -> ContentAnalysis: getStatusStaticContentVerifications(idAnnotatedStaticContentAnalysis) @GET /learnpad/ca/staticcontentverifications/{idAnnotatedStaticContentAnalysis}/status
-
-ContentAnalysis-->LPCorePlatform: Http Response OK (Status:OK)
-
-deactivate ContentAnalysis #FFBBBB 
-
-LPCorePlatform -> ContentAnalysis: getStaticContentVerifications(idAnnotatedStaticContentAnalysis) @GET  /learnpad/ca/staticcontentverifications/{idAnnotatedStaticContentAnalysis}
-
-ContentAnalysis-->LPCorePlatform: Http Response OK (Collection<AnnotatedStaticContentAnalysis>)
-
-
-
-*@enduml
-**/
