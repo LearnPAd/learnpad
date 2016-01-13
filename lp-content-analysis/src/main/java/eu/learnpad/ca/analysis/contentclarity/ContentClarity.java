@@ -126,7 +126,6 @@ public class ContentClarity extends AbstractAnalysisClass {
 		try {
 			gateu.join();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			log.error(e);
 		}
 		 lStartTime = System.currentTimeMillis();

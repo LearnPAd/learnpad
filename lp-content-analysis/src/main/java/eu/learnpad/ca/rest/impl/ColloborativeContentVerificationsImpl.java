@@ -21,9 +21,11 @@ import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
+import eu.learnpad.ca.analysis.completeness.Completeness;
 import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.non_ambiguity.NonAmbiguity;
+import eu.learnpad.ca.analysis.presentation.PresentationClarity;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
@@ -86,8 +88,8 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 					threadDF.start();
 					putAndCreate(id, threadDF);
 
-					
-					
+
+
 					ExcessiveLength threadEL = new ExcessiveLength(contentFile, lang);
 					threadEL.start();
 					putAndCreate(id, threadEL);*/
@@ -109,6 +111,20 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 					ContentClarity threadContentClarity = new ContentClarity (contentFile, lang, gateu);
 					threadContentClarity.start();
 					putAndCreate(id, threadContentClarity);
+
+				}
+				if(contentFile.getQualityCriteria().isPresentationClarity()){
+
+					PresentationClarity threadPresentation = new PresentationClarity (contentFile, lang);
+					threadPresentation.start();
+					putAndCreate(id, threadPresentation);
+
+				}
+				if(contentFile.getQualityCriteria().isCompleteness()){
+
+					Completeness threadCompleteness = new Completeness (contentFile, lang);
+					threadCompleteness.start();
+					putAndCreate(id, threadCompleteness);
 
 				}
 
@@ -173,12 +189,11 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		try{
 			if(map.containsKey(Integer.valueOf(contentID))){
 				List<AbstractAnalysisClass> listanalysisInterface  = map.get(Integer.valueOf(contentID));
-				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
-					if(analysisInterface.getStatus()!="OK"){
-						return "IN PROGRESS";
-					}
-				}
-				return "OK";
+				Integer progress = getProgress(listanalysisInterface);
+				if(progress>99)
+					return "OK";
+				else
+					return "InProgess_"+progress+"%";
 			}
 			log.error("Element not found");
 			return "ERROR";
@@ -188,5 +203,41 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		}
 	}
 
+	private Integer getProgress(List<AbstractAnalysisClass> listanalysisInterface){
+		int size = listanalysisInterface.size();
+		int i = 0;
+		for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
+			if(analysisInterface.getStatus().equals("OK") ){
+				i++;
+			}
+		}
+		Integer p = (i*100/size);
+		return p;
+
+	}
+
+	@Path("/allid")
+	@GET
+	public String  getStatusCollaborativeContentVerifications()
+			throws LpRestException{
+		String result = new String();
+		try{
+			if(!map.isEmpty()){
+				for(Integer key :map.keySet()){
+					result+=key.toString()+";";
+				}
+
+				return result;
+
+			}
+			log.error("Element not found");
+			return "ERROR";
+		}catch(Exception e){
+			log.fatal("Fatal "+e.getMessage());
+
+			return "FATAL ERROR";
+
+		}
+	}
 
 }

@@ -1,4 +1,4 @@
-package eu.learnpad.ca.analysis.non_ambiguity.lexicalambiguity.plugin;
+package eu.learnpad.ca.analysis.non_ambiguity.plugin;
 
 
 import java.util.List;
@@ -7,6 +7,7 @@ import java.util.Set;
 import org.languagetool.Language;
 
 import eu.learnpad.ca.analysis.Plugin;
+import eu.learnpad.ca.analysis.localizzation.Messages;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Node;
@@ -32,14 +33,14 @@ public class LexicalAmbiguity extends Plugin {
 		FeatureMap fe = Factory.newFeatureMap();
 
 		//majorType lexicalambiguity
-		fe.put("minorType", "vagueness");//  vagueness
-		fe.put("majorType", "lexicalambiguity");
-		Set<gate.Annotation> SetVagueness = gateu.getAnnotationSet("Lookup" , fe);
+		fe.put("minorType", "vagueness");//  vagueness //$NON-NLS-1$ //$NON-NLS-2$
+		fe.put("majorType", "lexicalambiguity"); //$NON-NLS-1$ //$NON-NLS-2$
+		Set<gate.Annotation> SetVagueness = gateu.getAnnotationSet("Lookup" , fe); //$NON-NLS-1$
 
 
-		String rac = "The term %s is vague. Remove %s or substitute it with a more unequivocal term.";
+		String rac = Messages.getString("LexicalAmbiguity.VaguenessRecomandation",language); //$NON-NLS-1$
 
-		String type = "Lexical Ambiguity Vagueness";
+		String type = "Lexical Ambiguity Vagueness"; //$NON-NLS-1$
 		if(!SetVagueness.isEmpty())
 			gatevsleanpadAnnotation(SetVagueness, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
 	}
@@ -50,15 +51,15 @@ public class LexicalAmbiguity extends Plugin {
 		FeatureMap fe = Factory.newFeatureMap();
 
 		//majorType lexicalambiguity
-		fe.put("minorType", "subjectivity");
-		fe.put("majorType", "lexicalambiguity");
-		Set<gate.Annotation> SetSubjectivity = gateu.getAnnotationSet("Lookup" , fe);
+		fe.put("minorType", "subjectivity"); //$NON-NLS-1$ //$NON-NLS-2$
+		fe.put("majorType", "lexicalambiguity"); //$NON-NLS-1$ //$NON-NLS-2$
+		Set<gate.Annotation> SetSubjectivity = gateu.getAnnotationSet("Lookup" , fe); //$NON-NLS-1$
 
 
 
-		String rac = "The term %s is subjective. Remove %s or substitute it with a more unequivocal term.";
+		String rac = Messages.getString("LexicalAmbiguity.SubjectivityRecomandation",language); //$NON-NLS-1$
 
-		String type = "Lexical Ambiguity Subjectivity";
+		String type = "Lexical Ambiguity Subjectivity"; //$NON-NLS-1$
 		if(!SetSubjectivity.isEmpty())
 			gatevsleanpadAnnotation(SetSubjectivity, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
 	}
@@ -68,15 +69,15 @@ public class LexicalAmbiguity extends Plugin {
 		FeatureMap fe = Factory.newFeatureMap();
 
 		//majorType lexicalambiguity
-		fe.put("minorType", "optionality");
-		fe.put("majorType", "lexicalambiguity");
-		Set<gate.Annotation> SetOptionality = gateu.getAnnotationSet("Lookup" , fe);
+		fe.put("minorType", "optionality"); //$NON-NLS-1$ //$NON-NLS-2$
+		fe.put("majorType", "lexicalambiguity"); //$NON-NLS-1$ //$NON-NLS-2$
+		Set<gate.Annotation> SetOptionality = gateu.getAnnotationSet("Lookup" , fe); //$NON-NLS-1$
 
 
 
-		String rac = "The term %s is optional. Remove %s or substitute it with a more unequivocal term.";
+		String rac = Messages.getString("LexicalAmbiguity.OptionalityRecomandation",language); //$NON-NLS-1$
 
-		String type = "Lexical Ambiguity Optionality";
+		String type = "Lexical Ambiguity Optionality"; //$NON-NLS-1$
 		if(!SetOptionality.isEmpty())
 			gatevsleanpadAnnotation(SetOptionality, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
 	}
