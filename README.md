@@ -4,7 +4,7 @@ LearnPAd Content Analysis Component
 
 
 
-Status project [![Build Status](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent.svg?branch=RESTinterface)](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent)
+Status project [![Build Status](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent.svg?branch=develop)](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent)
 
 Information   | Value
 ------------- | --------
@@ -36,7 +36,7 @@ The component is ready to be packaged as a WAR to be deployed on an Application 
 
 The component is also to be packaged as a JAR and it deployed in an Grizzly HTTP server.
 
-To run component: `mvn exec:java`
+To build/run component [click here](https://github.com/ISTI-FMT-LearnPAd/ContentAnalysisComponent/wiki/Build-Run-Component)
 
 The service is available at `localhost:8082/lp-content-analysis/`.
 
