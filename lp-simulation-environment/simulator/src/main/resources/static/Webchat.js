@@ -82,3 +82,102 @@ function dummyChat(container, websocketadress, user) {
 
     return chatResult;
 }
+
+function sessionChat(container, websocketaddress, user, session) {
+    // add session chat panel
+    $(container).html(
+        '<div class="panel panel-default"><div class="panel-heading">' +
+            '<h3 class="panel-title">Session groupchat</div>' +
+            '<div id="chatcontent_' + session +
+            '" class="panel panel-default" style="height:30%;overflow:auto;"></div>' +
+            '<input class="form-control" type="text"' +
+            'id="chat_' + session +
+            '" placeholder="Write your message and press enter"/></div>'
+    );
+
+     //attach slim scrollbar to chat box
+    $(function() {
+        $('#chatcontent_' + session).slimScroll({
+            height: '250px'
+        });
+    });
+
+    var chatResult = {};
+
+    var ws = new WebSocket('ws://' + websocketaddress + '/chat');
+
+    var write = function(msg) {
+        var pre = document.createElement('p');
+        pre.style.wordWrap = 'break-word';
+        pre.innerHTML = msg;
+
+        var chat_msgs = $('#chatcontent_' + session);
+        chat_msgs.append(pre);
+        chat_msgs.slimScroll({scrollTo: chat_msgs[0].scrollHeight});
+    };
+
+    ws.onopen = function(e) {
+        // send registration message on connection
+        ws.send(JSON.stringify({ 'type' : 'REGISTER',
+                                 'user' : user}));
+        ws.send(JSON.stringify({ 'type' : 'SUBSCRIBE',
+                                 'channel' : session }));
+        console.log('socket opened');
+    };
+
+    ws.onclose = function(e) {
+        write('<span style="color: grey;">' + user +
+              ' left the discussion</span>');
+        console.log('socket closed');
+    };
+
+    ws.onmessage = function(e) {
+        var dec = JSON.parse(e.data);
+        switch (dec.type) {
+        case 'RECEIVE_MSG' :
+            if (dec.channel == session) {
+                write(dec.sender + ' : ' + dec.content);
+            }
+            break;
+        case 'NOTIF_JOIN' :
+            if (dec.channel == session) {
+                write('<span style="color:grey;">user ' + dec.user +
+                      ' joined the discussion</span>');
+            }
+            break;
+        case 'NOTIF_LEFT' :
+            if (dec.channel == session) {
+                write('<span style="color:grey;">user ' + dec.user +
+                      ' left the discussion</span>');
+            }
+            break;
+        case 'ERROR' :
+            write('<span style="color:red;">ERROR : ' + dec.content +
+                  '</span>');
+            break;
+        default:
+            console.error('unexpected type for received msg ' + dec);
+        }
+    };
+
+    ws.onerror = function(e) {
+        write('<span style="color: red;">ERROR:</span> ' + e.data);
+        console.log('socket errored');
+    };
+
+    chatResult._ws = ws;
+
+    $('#chat_' + session).keypress(function(event) {
+        if (event.which == 13) {
+            // 'Enter' key pressed
+            ws.send(JSON.stringify({
+                'type' : 'SUBMIT',
+                'channel' : session,
+                'msg': $('#chat_' + session).val()
+            }));
+            $('#chat_' + session).val('');
+        }
+    });
+
+    return chatResult;
+}
