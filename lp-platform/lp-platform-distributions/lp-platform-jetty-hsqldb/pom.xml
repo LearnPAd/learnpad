@@ -38,8 +38,14 @@
 	<dependencies>
 		<dependency>
 			<groupId>eu.learnpad</groupId>
+			<artifactId>lp-cw-component-skin</artifactId>
+			<version>${learnpad.version}</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>eu.learnpad</groupId>
 			<artifactId>lp-platform-ui</artifactId>
-			<version>${project.version}</version>
+			<version>${learnpad.version}</version>
 			<type>xar</type>
 		</dependency>
 		<dependency>
@@ -137,6 +143,30 @@
 						<goals>
 							<goal>package</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<!-- Unpack the Learn PAd skin -->
+								<artifactItem>
+									<groupId>eu.learnpad</groupId>
+									<artifactId>lp-cw-component-skin</artifactId>
+									<type>zip</type>
+									<outputDirectory>${project.build.directory}/xwiki/webapps/xwiki/skins/</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

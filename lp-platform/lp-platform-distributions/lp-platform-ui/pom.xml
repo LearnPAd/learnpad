@@ -93,6 +93,13 @@
 				<configuration>
 					<includeDependencies>true</includeDependencies>
 					<transformations>
+						<!-- Configure the skin -->
+						<transformation>
+							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+							<file>XWiki/XWikiPreferences.xml</file>
+							<xpath>/xwikidoc/object/property/skin</xpath>
+							<value>learnpad</value>
+						</transformation>
 						<!-- Configure the default color theme -->
 						<transformation>
 							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
