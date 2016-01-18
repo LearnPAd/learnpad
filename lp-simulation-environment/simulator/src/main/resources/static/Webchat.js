@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-function chat(container, websocketadress, user) {
+function dummyChat(container, websocketadress, user) {
 
     $('#' + container).html(
         '<div id="chat_msgs" class="well well-lg" style="height:30%;overflow:auto;"></div>' +
@@ -35,7 +35,7 @@ function chat(container, websocketadress, user) {
 
     var chatResult = {};
 
-    var ws = new WebSocket('ws://' + websocketadress + '/chat');
+    var ws = new WebSocket('ws://' + websocketadress + '/dummychat');
 
     var write = function(msg) {
         var pre = document.createElement('p');
