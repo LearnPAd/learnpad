@@ -52,9 +52,12 @@ import eu.learnpad.simulator.monitoring.event.SimEventType;
  */
 public class SimulationStartSimEvent extends AbstractSimEvent {
 
+	public final String simulationsessionname;
+
 	public SimulationStartSimEvent(Long timestamp, String simulationsessionid,
-			Collection<String> involvedusers) {
+			Collection<String> involvedusers, String sessionname) {
 		super(timestamp, simulationsessionid, involvedusers);
+		this.simulationsessionname = sessionname;
 	}
 
 	@Override

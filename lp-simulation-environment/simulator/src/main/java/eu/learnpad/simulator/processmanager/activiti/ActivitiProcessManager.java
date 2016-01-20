@@ -333,12 +333,17 @@ public class ActivitiProcessManager implements IProcessManager,
 			// simulation
 			parameters.put(SIMULATION_ID_KEY, simSession);
 
+			ProcessDefinition processDefInfos = repositoryService
+					.createProcessDefinitionQuery()
+					.processDefinitionKey(projectDefinitionKey).singleResult();
+
 			// signal simulation session start
 			// signal process start
 			this.processEventReceiverProvider.processEventReceiver()
 					.receiveSimulationStartEvent(
 					new SimulationStartSimEvent(System
-							.currentTimeMillis(), simSession, users));
+							.currentTimeMillis(), simSession, users,
+							processDefInfos.getName()));
 		}
 
 		nbProcessesBySession.put(simSession,
