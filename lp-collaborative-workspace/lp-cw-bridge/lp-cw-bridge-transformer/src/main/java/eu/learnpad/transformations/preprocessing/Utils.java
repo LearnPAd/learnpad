@@ -10,16 +10,24 @@ import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+ 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+ 
 import org.w3c.dom.Document;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
@@ -31,6 +39,39 @@ import org.xml.sax.SAXException;
  * @version 1.0
  */
 public class Utils {
+	
+	public static Document convertStringToDocument(String xmlStr) {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();  
+        DocumentBuilder builder;  
+        try 
+        {  
+            builder = factory.newDocumentBuilder();  
+            Document doc = builder.parse( new InputSource( new StringReader( xmlStr ) ) ); 
+            return doc;
+        } catch (Exception e) {  
+            e.printStackTrace();  
+        } 
+        return null;
+    }
+	
+	
+	public static String convertDocumentToString(Document doc) {
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer transformer;
+        try {
+            transformer = tf.newTransformer();
+            // below code to remove XML declaration
+            // transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+            StringWriter writer = new StringWriter();
+            transformer.transform(new DOMSource(doc), new StreamResult(writer));
+            String output = writer.getBuffer().toString();
+            return output;
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
+         
+        return null;
+    }
 
 	/**
 	 * Starting from a Reader element (the XML) this method return a Document (an XML parsable Document).

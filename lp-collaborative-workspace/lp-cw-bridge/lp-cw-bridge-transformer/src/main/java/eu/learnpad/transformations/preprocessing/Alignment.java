@@ -2,34 +2,23 @@ package eu.learnpad.transformations.preprocessing;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.io.RandomAccessFile;
 import java.io.StringReader;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 import org.apache.commons.io.FilenameUtils;
 import org.w3c.dom.Document;
@@ -48,9 +37,88 @@ import org.xml.sax.SAXException;
 public class Alignment {
 	
 	private String tmpModelFolder = "tmp/";
+	private String tmpFileFromInputStream = "fileFromInputStream.xml";
 	private boolean deleteFile = true;
 	
 	public static String ADOXX_XMIHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Ado:ADOXMLType xmi:version=\"2.0\"  xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:Ado=\"http://www.ado.org\" xsi:schemaLocation=\"http://www.ado.org /Adoxx2XWiki/models/Ado.ecore\">\n";
+	
+	
+	private String createFileFromInputStream(InputStream modelInputStream) throws IOException{
+		
+		String fullFileFromInputStreamPath = tmpModelFolder + tmpFileFromInputStream;
+		
+		OutputStream outputStream = null;
+		
+		File fileFromeInputStream = new File(fullFileFromInputStreamPath);
+		fileFromeInputStream.createNewFile();
+		if(fileFromeInputStream.exists()){
+			try {
+				outputStream = new FileOutputStream(fileFromeInputStream);
+				int read = 0;
+				byte[] bytes = new byte[1024];
+			
+				while ((read = modelInputStream.read(bytes)) != -1) {
+					outputStream.write(bytes, 0, read);
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			System.out.println("File not exists!");
+		}
+		
+		return fullFileFromInputStreamPath;
+	}
+	
+	
+	public File sanitizerForADOXX(InputStream modelInputStream) throws Exception {
+		
+		String fileFromInputStreamPath = createFileFromInputStream(modelInputStream);
+		
+		File result = sanitizerForADOXX(fileFromInputStreamPath);
+		
+		if(deleteFile){
+			File fileToDelete = new File(tmpModelFolder + tmpFileFromInputStream);
+			fileToDelete.delete();
+			System.out.println("Tmp file ("+tmpModelFolder + tmpFileFromInputStream+") from input stream deleted!");
+		}
+		
+		return result;
+	}
+	
+		
+	
+	
+	public File sanitizerForMagicDraw(InputStream modelInputStream) throws Exception {
+		
+		String fileFromInputStreamPath = createFileFromInputStream(modelInputStream);
+		
+		File result = sanitizerForMagicDraw(fileFromInputStreamPath);
+		
+		
+		if(deleteFile){
+			File fileToDelete = new File(tmpModelFolder + tmpFileFromInputStream);
+			fileToDelete.delete();
+			System.out.println("Tmp file ("+tmpModelFolder + tmpFileFromInputStream+") from input stream deleted!");
+		}
+		
+		return result;
+	}
+	
+	
+	//TODO
+	private File sanitizerForMagicDraw(String modelInputPath){
+		
+		return null;
+		
+	}
+	
+	
+	
 	
 	/**
 	 * This method take the path of the ADOXX XML file and, after a phase of sanitizing, return an XMI file that could be processed by an ATL Transformation.
@@ -64,12 +132,14 @@ public class Alignment {
 	 * @return The String path of the new XMI file, ready to be processed by an ATL Transformation.
 	 * @throws Exception
 	 */
-	public String sanitizerForADOXX(String modelInputPath) throws Exception{
+	private File sanitizerForADOXX(String modelInputPath) throws Exception{
 		String XmlString;
 		
 		Utils utils = new Utils();
 		
 		String basenameInputModel = FilenameUtils.getBaseName(modelInputPath);
+		
+		System.out.println(basenameInputModel);
 
 		String copyModelInputPath = tmpModelFolder + "copy_" + basenameInputModel + ".xmi";
 		
@@ -79,7 +149,6 @@ public class Alignment {
 		Files.copy(src.toPath(), dst.toPath(), StandardCopyOption.REPLACE_EXISTING);
 		System.out.println("Temporary copy of the XML file provided as input was created: "+dst.getName()+"!");
 		
-//		String resultFilePath = "tmp/model_aligned.xmi";
 		String resultFilePath = tmpModelFolder + basenameInputModel + ".xmi";
 
 		BufferedReader br;
@@ -114,7 +183,7 @@ public class Alignment {
 				br = new BufferedReader(new FileReader(inputFile));
 				
 				while((line=br.readLine())!= null){
-					sb.append(line.trim());
+					sb.append(line.trim() + "\n");
 //					sb.append(System.getProperty("line.separator"));
 				}
 				
@@ -137,7 +206,14 @@ public class Alignment {
 				XmlString = XmlString.replaceAll("</"+tagName+">", "</"+tagName.substring(0, 1).toLowerCase() + tagName.substring(1)+">");
 			}
 			
-			getValueFromAdoATTRIBUTETagAndCreateXMLFile(XmlString, resultFilePath);
+			String resultXmlString = getValueFromAdoATTRIBUTETag(XmlString);
+
+			//CREATE RESULT FILE
+			File resultFile = new File(resultFilePath);
+			resultFile.createNewFile();
+			PrintWriter out = new PrintWriter(resultFile);
+			out.write(resultXmlString);
+			out.close();
 			
 			//Delete temporary file
 			if(deleteFile){
@@ -149,7 +225,7 @@ public class Alignment {
 				
 			}
 			
-			return resultFilePath;
+			return resultFile;
 		}else{
 			System.out.println("The input file does not exist!");
 			return null;
@@ -170,9 +246,9 @@ public class Alignment {
 	 * @throws SAXException 
 	 * @throws TransformerException 
 	 */
-	private void getValueFromAdoATTRIBUTETagAndCreateXMLFile(String xmlString, String outputFilePath) throws ParserConfigurationException, SAXException, IOException, TransformerException{
+	private String getValueFromAdoATTRIBUTETag(String xmlString) throws ParserConfigurationException, SAXException, IOException, TransformerException{
 		
-	    Document document = Utils.readXml(new StringReader(xmlString));
+		 Document document = Utils.readXml(new StringReader(xmlString));
 	    
 		NodeList nodeList = document.getElementsByTagName("aTTRIBUTE");
 		
@@ -185,19 +261,24 @@ public class Alignment {
 		    	el.setTextContent(""); //Put empty text where first there was text
 		    }
 		
-		 // write the content into xml file
-		TransformerFactory transformerFactory = TransformerFactory.newInstance();
-		Transformer transformer = transformerFactory.newTransformer();
-		DOMSource source = new DOMSource(document);
-		StreamResult result = new StreamResult(new File(outputFilePath));
-		transformer.transform(source, result);
+		    String result = Utils.convertDocumentToString(document);
+		   
+		    return result;
+		    
+		    
+//		 // write the content into xml file
+//		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+//		Transformer transformer = transformerFactory.newTransformer();
+//		DOMSource source = new DOMSource(document);
+//		StreamResult result = new StreamResult(resultFile);
+//		transformer.transform(source, result);
 		    
 	}
 	
 	/**
 	 * This method get a list with all the names of the tags, ordered in decreasing way based on length of the strings, of the XML passed as String input throw an XML Java parser.
 	 * @param xmlString
-	 * @return A list of String representig all the tags name.
+	 * @return A list of String representing all the tags name.
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 * @throws IOException
