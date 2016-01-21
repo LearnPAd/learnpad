@@ -18,28 +18,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-function users(address, userid, processid) {
+function users(address, userid, involvedusers) {
 
     var userInfos = {};
 
-    var req = new XMLHttpRequest();
-    req.open('GET',
-             'http://' + address + '/learnpad/sim/instances/' + processid,
-             false);
-    req.send(null);
-
-    if (req.status == 200) {
-        var data = JSON.parse(req.responseText);
-        var otherId;
-        for (var i = 0; i < data.users.length; i++) {
-            otherId = data.users[i];
-            req = new XMLHttpRequest();
-            req.open('GET',
-                     'http://' + address + '/learnpad/sim/users/' + otherId,
-                     false);
-            req.send(null);
-            userInfos[otherId] = JSON.parse(req.responseText);
-        }
+    var otherId;
+    for (var i = 0; i < involvedusers.length; i++) {
+        var otherId = involvedusers[i];
+        var req = new XMLHttpRequest();
+        req.open('GET',
+                 'http://' + address + '/learnpad/sim/users/' + otherId,
+                 false);
+        req.send(null);
+        userInfos[otherId] = JSON.parse(req.responseText);
     }
 
     var res = {};
