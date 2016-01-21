@@ -475,11 +475,11 @@ public class ActivitiProcessManager implements IProcessManager,
 	 * eu.learnpad.simulator.processmanager.IDiagramGenerator#getProcessDiagram
 	 * (java.lang.String)
 	 */
-	public InputStream getProcessDiagram(String processDefinitionId) {
+	public InputStream getProcessDiagram(String processDefinitionKey) {
 
 		ProcessDefinition processDefinition = repositoryService
 				.createProcessDefinitionQuery()
-				.processDefinitionId(processDefinitionId).singleResult();
+				.processDefinitionKey(processDefinitionKey).singleResult();
 
 		if (processDefinition == null) {
 			return null;

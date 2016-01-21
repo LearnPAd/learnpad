@@ -207,13 +207,13 @@ public interface IProcessManager {
 	public Integer getInstanceScore(String processInstanceId, String userId);
 
 	/**
-	 * @param processDefinitionId
-	 *            the definition ID of the process for which we want the
+	 * @param processDefinitionKey
+	 *            the definition key of the process for which we want the
 	 *            diagram.
 	 * @return the input stream of the image containing the diagram of the given
 	 *         process, or null if no diagram is available
 	 */
-	public InputStream getProcessDiagram(String processDefinitionId);
+	public InputStream getProcessDiagram(String processDefinitionKey);
 
 	/**
 	 *
