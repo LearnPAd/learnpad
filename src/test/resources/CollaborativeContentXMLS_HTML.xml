@@ -1268,7 +1268,7 @@ Charging
 ]]>
 		</ContentHTML>
 	</CollaborativeContent>
-	<QualityCriteria simplicity="true" non_ambiguity="true"
-		content_clarity="true" presentation_clarity="true" completeness="false"
-		correctness="true" />
+	<QualityCriteria simplicity="false" non_ambiguity="false"
+		content_clarity="false" presentation_clarity="false" completeness="true"
+		correctness="false" />
 </CollaborativeContentAnalysis>
