@@ -33,7 +33,7 @@ import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnaly
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/ca/validatecollaborativecontent")
+@Path("/learnpad/ca/bridge/validatecollaborativecontent")
 //@Consumes("text/plain")//{"text/plain", MediaType.APPLICATION_XML})
 @Produces(MediaType.APPLICATION_XML)
 public class ColloborativeContentVerificationsImpl implements ColloborativeContentVerifications {
