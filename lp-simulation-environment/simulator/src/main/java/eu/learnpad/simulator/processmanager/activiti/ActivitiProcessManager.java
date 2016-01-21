@@ -343,7 +343,8 @@ public class ActivitiProcessManager implements IProcessManager,
 					.receiveSimulationStartEvent(
 					new SimulationStartSimEvent(System
 							.currentTimeMillis(), simSession, users,
-							processDefInfos.getName()));
+							processDefInfos.getName(),
+							projectDefinitionKey));
 		}
 
 		nbProcessesBySession.put(simSession,

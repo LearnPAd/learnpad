@@ -53,11 +53,14 @@ import eu.learnpad.simulator.monitoring.event.SimEventType;
 public class SimulationStartSimEvent extends AbstractSimEvent {
 
 	public final String simulationsessionname;
+	public final String initialProcessDefinitionKey;
 
 	public SimulationStartSimEvent(Long timestamp, String simulationsessionid,
-			Collection<String> involvedusers, String sessionname) {
+			Collection<String> involvedusers, String sessionname,
+			String initialProcessDefinitionKey) {
 		super(timestamp, simulationsessionid, involvedusers);
 		this.simulationsessionname = sessionname;
+		this.initialProcessDefinitionKey = initialProcessDefinitionKey;
 	}
 
 	@Override
