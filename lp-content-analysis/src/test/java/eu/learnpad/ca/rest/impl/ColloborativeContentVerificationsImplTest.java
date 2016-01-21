@@ -30,6 +30,7 @@ import org.glassfish.jersey.test.spi.TestContainerFactory;
 import org.junit.Test;
 
 import eu.learnpad.ca.gate.GateServletContextListener;
+import eu.learnpad.ca.impl.BridgeImpl;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 
@@ -48,7 +49,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 	@Override
 	protected DeploymentContext configureDeployment() {
 		forceSet(TestProperties.CONTAINER_PORT, "0");
-		return ServletDeploymentContext.forServlet(new ServletContainer(new ResourceConfig(ColloborativeContentVerificationsImpl.class)))
+		return ServletDeploymentContext.forServlet(new ServletContainer(new ResourceConfig(BridgeImpl.class)))
 				.addListener(GateServletContextListener.class)
 				.build();
 
@@ -56,7 +57,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 
 	@Override
 	protected Application configure() {
-		return new ResourceConfig(ColloborativeContentVerificationsImpl.class);
+		return new ResourceConfig(BridgeImpl.class);
 	}
 
 	
