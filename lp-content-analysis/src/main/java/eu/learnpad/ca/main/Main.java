@@ -49,7 +49,7 @@ public class Main {
 			//ServletRegistration servletRegistration = webappContext.addServlet( "jersey-servlet", "org.glassfish.jersey.servlet.ServletContainer" );
 			webappContext.deploy( server );
 			server.start();
-			System.out.println(String.format("Jersey app started with WADL available at "
+			System.out.println(String.format("Web app started with WADL available at "
 					+ "%sapplication.wadl", BASE_URI));
 
 		}catch(Exception e){
