@@ -37,16 +37,18 @@ public class SessionStarted implements IUserMsg {
 	public String sessionid;
 	public String sessionname;
 	public Collection<String> involvedusers;
+	public String initialprocessdefinitionkey;
 
 	/**
 	 * @param processid
 	 */
 	public SessionStarted(String sessionid, String sessionname,
-			Collection<String> involvedusers) {
+			Collection<String> involvedusers, String initialProcessdefinitionKey) {
 		super();
 		this.sessionid = sessionid;
 		this.sessionname = sessionname;
 		this.involvedusers = involvedusers;
+		this.initialprocessdefinitionkey = initialProcessdefinitionKey;
 	}
 
 	/*

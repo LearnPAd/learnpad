@@ -88,7 +88,8 @@ public class UIServlet extends WebSocketServlet {
 						mapper.writeValueAsString(new SessionStarted(
 								session.simulationsessionid,
 								session.simulationsessionname,
-								session.involvedusers)));
+								session.involvedusers,
+								session.initialProcessDefinitionKey)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -141,7 +142,8 @@ public class UIServlet extends WebSocketServlet {
 						mapper.writeValueAsString(new SessionStarted(
 								simStartEvent.simulationsessionid,
 								simStartEvent.simulationsessionname,
-								simStartEvent.involvedusers)));
+								simStartEvent.involvedusers,
+								simStartEvent.initialProcessDefinitionKey)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
