@@ -72,9 +72,9 @@ function taskReceiver(address, user, integratedMode) {
 
             // add session chat container
             $('#processside' + msg.sessionid).append(
-                '<div id=sessionchat ' + msg.sessionid + '></div>'
+                '<div id="sessionchat' + msg.sessionid + '"></div>'
             );
-            sessionChat('#processside' + msg.sessionid, address, user, msg.sessionid);
+            sessionChat('#sessionchat' + msg.sessionid, address, user, msg.sessionid);
 
             // add gamification panel to side div
             var scoreHelpText = "Your score is calculated based on how well you perform each task.<p>Each successfully completed task gives you points based of your number of attempts and how long did you take regarding the expected time.<p>Faster completion and less mistakes will award more points.";
