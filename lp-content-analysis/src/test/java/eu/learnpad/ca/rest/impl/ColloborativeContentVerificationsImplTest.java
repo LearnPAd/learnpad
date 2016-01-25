@@ -30,6 +30,7 @@ import org.glassfish.jersey.test.spi.TestContainerFactory;
 import org.junit.Test;
 
 import eu.learnpad.ca.gate.GateServletContextListener;
+import eu.learnpad.ca.impl.BridgeImpl;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 
@@ -48,7 +49,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 	@Override
 	protected DeploymentContext configureDeployment() {
 		forceSet(TestProperties.CONTAINER_PORT, "0");
-		return ServletDeploymentContext.forServlet(new ServletContainer(new ResourceConfig(ColloborativeContentVerificationsImpl.class)))
+		return ServletDeploymentContext.forServlet(new ServletContainer(new ResourceConfig(BridgeImpl.class)))
 				.addListener(GateServletContextListener.class)
 				.build();
 
@@ -56,7 +57,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 
 	@Override
 	protected Application configure() {
-		return new ResourceConfig(ColloborativeContentVerificationsImpl.class);
+		return new ResourceConfig(BridgeImpl.class);
 	}
 
 	
@@ -64,7 +65,9 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 	public void checkCollaborativeContentAnalysis() throws JAXBException {
 		//checkCollaborativeContentAnalysis("CollaborativeContentXMLITALIAN.xml");
 		//checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML_WC.xml");
-		checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML.xml");
+		checkCollaborativeContentAnalysis("CollaborativeContentXMLBi.xml");
+		//checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML_WC2.xml");
+		//checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML.xml");
 	
 	}
 	
@@ -80,7 +83,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		CollaborativeContentAnalysis collaborativeContentInput = (CollaborativeContentAnalysis) jaxbUnmarshaller1.unmarshal(is);
 
 		Entity<CollaborativeContentAnalysis> entity = Entity.entity(collaborativeContentInput,MediaType.APPLICATION_XML);
-		Response response =  target("/learnpad/ca/validatecollaborativecontent").request(MediaType.APPLICATION_XML).post(entity);
+		Response response =  target("/learnpad/ca/bridge/validatecollaborativecontent").request(MediaType.APPLICATION_XML).post(entity);
 
 		String id = response.readEntity(String.class);
 
@@ -89,7 +92,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		String status = "IN PROGRESS";
 		boolean flag = true;
 		while(flag){
-			status =  target("/learnpad/ca/validatecollaborativecontent/"+id+"/status").request().get(String.class);
+			status =  target("/learnpad/ca/bridge/validatecollaborativecontent/"+id+"/status").request().get(String.class);
 
 			assertNotNull(status);
 			if(status.equals("ERROR") | status.equals("OK")){
@@ -98,7 +101,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		}
 		assertTrue(!status.equals("ERROR"));
 		if(!status.equals("ERROR")){
-			Response annotatecontent =  target("/learnpad/ca/validatecollaborativecontent/"+id).request().get();
+			Response annotatecontent =  target("/learnpad/ca/bridge/validatecollaborativecontent/"+id).request().get();
 
 			ArrayList<AnnotatedCollaborativeContentAnalysis> res =	annotatecontent.readEntity(new GenericType<ArrayList<AnnotatedCollaborativeContentAnalysis>>() {});
 			for (AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContentAnalysis : res) {

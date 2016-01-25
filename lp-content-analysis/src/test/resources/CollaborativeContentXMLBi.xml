@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CollaborativeContentAnalysis language="english">
+	<CollaborativeContent id="1213">
+		<Title>Title of Documents</Title>
+		<ContentPlain>BP: Entrepreneur : Rumore The first activity of the entrepreneur is to fill the documents and certificated needed for the request. Next, he can send it via Web Form or via Certified Electronic Mail. In case more documents or certificated are needed he has to integrate the request. It can be done for two times. At the end the entrepreneur can receive the permission to start the activity or not depending on the request. More in deep, the activities executed by the entrepreneur are followed listed.
+“Fill data about request” (Task). In this activity the entrepreneur has to fill the application form, attach requested documents and digitally sign all the data. The data object “Instanza” is generated in this activity.
+“Send via PEC” (Send Task). In this activity the entrepreneur has to send to the SUAP office the request via certificated e-mail. The data object “Instanza” is requested to perform this activity.
+“Send via Web Form” (Send Task). In this activity the entrepreneur has to sendto the SUAP office the request via Web Form to the SUAP office. The data object “Instanza” is requested to perform this activity.
+“Send Instance integration” (Send Task). In this activity the entrepreneur has to send to the SUAP office the documentation to integrate the request.
+“Send Instance integration according to request” (Send Task). In this activity the entrepreneur has to send to the SUAP office the documentation requested by Municipality offices or third party institutions to integrate the request. The data object “Integrazione Instanza” is requested to perform this activity.
+“Receive inhibition” (Receive Task). In this activity the entrepreneur received a communication that he cannot start his manufacturing activity.
+“Send comment on inhibition”(Send Task). In this activity the entrepreneur sends remarks about the instance to the SUAP office.
+“Receive authorization Document” (Receive Task). In this activity the entrepreneur received the permission to start his manufacturing activity. The data object “Titolo Unico” is generated in this activity.
+
+BP: Municipality : Municipality is involved in the BP when the SUAP office receives the SCIA request from the entrepreneur. In case SUAP office receives the request via Web Form it has to quickly check documents and certificates since the software installed in the Web Form does most of the checks, otherwise it has to check manually the request. If the request is ok an automatic communication of reception is sent. Then, the SUAP office checks if the request is admissible, in case it is not admissible the request can be archived, or in some cases the entrepreneur can integrate it. At this point, SUAP office forwards the request to the involved municipality offices and to third parties. If someone finds some lack of documentation, integration can be requested to the entrepreneur. Anytime the “Conferenza dei Servizi” may be organized in order to discuss about the case. At the end if the request is acceptable the permission to start the activity is sent to the entrepreneur, otherwise a communication of stop of the business activity is sent. More in deep, the activities executed by the entrepreneur are followed listed.
+“Deep Check Data” (Manual Task). In this activity the SUAP office has to check carefully the documentation and certificates sent by the entrepreneur since they are sent via PEC. The data object “Instanza” is requested to perform this activity. In all the cases in which the entrepreneur apply for a request of Standard Request to start an Activity, some checks have to be done by the SUAP Office (even if it can be placed inside the municipality or offered by a consortium of municipalities), and they change case by case even if there is a basic check that has to be done in all the case (Figure 4.15). Three mandatory data objects compose all the requests, they are the “Instanza”, the “Ricevuta di Pagamento” and one specific form depending on the request. In all the cases the three mandatory data objects can be checked independently. Another data objects can be involved in each case, it is the “Dichiarazione altri Proprietari”. It is an attachment that has to be provided by the entrepreneur only in case the activity refers to a build that is owned by more than one person.
+“General Check Data” (Manual Task). In this activity the SUAP office has to brief the documentation and certificates sent by the entrepreneur since the software installed in the Web Form site already checks them. The data object “Instanza” is requested to perform this activity.
+“SCIA Instance Verification” (Task). In this activity the SUAP office has to check the admissibility of the request. The data object “Instanza” is requested to perform this activity.
+“Communication of instance not authorized ” (Send Task). In this activity the SUAP office has to communicate to the entrepreneur that some integrations are needed to make the request admissible.
+“Send Communication of instance now authorized” (Send Task).In this activity the SUAP office has to communicate to the entrepreneur the inadmissibility of the request.
+“Send Communication starting check” (Send Task). In this activity the SUAP office sends a message to the entrepreneur to inform the applicant that his procedure is started.
+“Send instance to third party administration” (Send Task Multi). In this activity the SUAP office has to send to PAs documentation and certificates for the checking. It is a multi-instance activity since more than one PAs can be involved in the process. The data object “Instanza” is requested to perform this activity.
+“Receive check from third party administration” (Receive Task Loop). In this activity the SUAP office receive results of the checks performed by other PAs. It is a loop activity since more than one PAs can send its results. The data object “Parere” is generated in this activity.
+“Do check” (Task Multi). In this activity involved municipality offices checks documentation and certificates sent by the entrepreneur. It is a multi-instance activity since more than one offices can be involved in the process. The data object “Instanza” is requested to perform this activity.
+“Ask for integration” (Send Task). In this activity the SUAP office has to send to the entrepreneur a request for integrations.
+“Receive Integration” (Receive Task). In this activity the SUAP office receive integrations from the citizen. The data object “Integrazione Instanza” is generated in this activity.
+“Send integration to Administration in charge” (Send Task Multi). In this activity the SUAP has to send to PAs integrations to integrate the request. It is a multi-instance activity since more than one PAs can be involved in the process. The data object “Integrazione Instanza” is requested to perform this activity.
+“Receive Confirmation” (Receive Task Loop). In this activity the SUAP office receives from PAs confirmations of receipt of integration. It is a loop activity since more than one PAs can send its results.
+“Do check” (Task Multi). In this activity involved municipality offices checks integrations sent by the Citizen Applicant. It is a multi-instance activity since more than one offices can be involved in the process. The data object “Integrazione Instanza” is requested to perform this activity.
+“Activate Service Conference” (Task). In this activity the SUAP office announces the Service Conference. The data object “Instanza” is requested to perform this activity.
+“Ask Service Conference opinion” (Send Task). In this activity the SUAP office requests the opinion of the Service Conference.
+“Send inhibition” (Send Task). In this activity the SUAP office has to send a communication to the entrepreneur in order to inform that he cannot start his manufacturing activity.
+“Reply to comment” (Send Task). In this activity the SUAP office responds to the entrepreneur about his remarks about the case.
+“Send authorization document” (Send Task). In this activity the SUAP office sends to the entrepreneur the permission to start the manufacturing activity. The data object “Titolo Unico” is requested to perform this activity.
+
+
+
+
+BP: Third party PA : A third party is involved in the BP when the SUAP office request some checks. It just sends the results of its checks and, in case some integration is needed, it also receives the integration and send a communication of reception. More in deep, the activities executed by the entrepreneur are followed listed.
+“Do check” (Task). In this activity involved PA checks documents and certificates sent by the SUAP office. The data object “Parere” is generated in this activity.
+“Send Opinion” (Send Task). In this activity involved PA sends the result of the check to the SUAP office. The data object “Parere” is requested to perform this activity.
+“Send Integration confirmation” (Send Task). In this activity involved PA sends the confirmation that the integrations are sent.
+
+BP: Service Conference : The Service Conference can be involved in the BP in the case the request is complex to manage. During the meeting the request is analysed in deep and a decision about it is taken. More in deep, the activities executed by the entrepreneur are followed listed.
+“Check request” (Task). In this activity the “The Service Conference” analyse the case. The data object “Verbare CdS” is generated in this activity.
+“Send final decision” (Send Task). In this activity the “The Service Conference” communicates the sentence to the SUAP office. The data object “Verbale CdS” is requested to perform this activity.
+
+
+
+
+</ContentPlain>
+		<ContentHTML>
+		ciao
+		</ContentHTML>
+	</CollaborativeContent>
+	<QualityCriteria simplicity="false" non_ambiguity="false"
+		content_clarity="false" presentation_clarity="false" completeness="false"
+		correctness="true" />
+</CollaborativeContentAnalysis>

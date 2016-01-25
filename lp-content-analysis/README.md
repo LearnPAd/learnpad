@@ -4,7 +4,7 @@ LearnPAd Content Analysis Component
 
 
 
-Status project [![Build Status](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent.svg?branch=RESTinterface)](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent)
+Status project [![Build Status](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent.svg?branch=develop)](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent)
 
 Information   | Value
 ------------- | --------
@@ -36,7 +36,7 @@ The component is ready to be packaged as a WAR to be deployed on an Application 
 
 The component is also to be packaged as a JAR and it deployed in an Grizzly HTTP server.
 
-To run component: `mvn exec:java`
+To build/run component [click here](https://github.com/ISTI-FMT-LearnPAd/ContentAnalysisComponent/wiki/Build-Run-Component)
 
 The service is available at `localhost:8082/lp-content-analysis/`.
 
@@ -44,21 +44,21 @@ The service is available at `localhost:8082/lp-content-analysis/`.
 
 #CURL Test
  * To send CollaborativeContent XML to component, the reply is a ID:  
-`curl -X POST -H "Content-Type: application/XML" --data @CollaborativeContentXML.xml http://localhost:8082/lp-content-analysis/learnpad/ca/validatecollaborativecontent/`
+`curl -X POST -H "Content-Type: application/XML" --data @CollaborativeContentXML.xml http://localhost:8082/lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/`
 
 * To send StaticContent XML to component, the reply is a ID:  
-`curl -X POST -H "Content-Type: application/XML" --data @StaticContentXML.xml http://localhost:8082/lp-content-analysis/learnpad/ca/validatestaticcontent/`
+`curl -X POST -H "Content-Type: application/XML" --data @StaticContentXML.xml http://localhost:8082/lp-content-analysis/learnpad/ca/bridge/validatestaticcontent/`
 
 * To get Status of analysis of Collaborative Content referred by ID:  
-`curl -X GET http://localhost:8082/lp-content-analysis/learnpad/ca/validatecollaborativecontent/{id}/status`
+`curl -X GET http://localhost:8082/lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/{id}/status`
 
 * To get Status of analysis of Static Content referred by ID:  
-`curl -X GET http://localhost:8082/lp-content-analysis/learnpad/ca/validatestaticcontent/{id}/status`
+`curl -X GET http://localhost:8082/lp-content-analysis/learnpad/ca/bridge/validatestaticcontent/{id}/status`
 
 * To get Collaborative Content referred by ID:  
-`curl -X GET http://localhost:8082/lp-content-analysis/learnpad/ca/validatecollaborativecontent/{id}`
+`curl -X GET http://localhost:8082/lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/{id}`
 * To get Static Content referred by ID:  
-`curl -X GET http://localhost:8082/lp-content-analysis/learnpad/ca/validatestaticcontent/{id}`
+`curl -X GET http://localhost:8082/lp-content-analysis/learnpad/ca/bridge/validatestaticcontent/{id}`
 
 
 # Note

@@ -13,7 +13,6 @@ import org.jsoup.select.Elements;
 import org.languagetool.Language;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
-import eu.learnpad.ca.analysis.localizzation.Messages;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContent;
@@ -154,31 +153,32 @@ public class Completeness  extends AbstractAnalysisClass {
 				if(contenthtml!=""){ //$NON-NLS-1$
 					Document doc = Jsoup.parse(contenthtml);
 
-					Elements strong = doc.getElementsByTag("strong"); //$NON-NLS-1$
+					Elements mark = doc.getElementsByTag("mark"); //$NON-NLS-1$
 
-					Elements b = doc.getElementsByTag("b"); //bold //$NON-NLS-1$
+					
 
-					log.info("#strong "+strong.size()); //$NON-NLS-1$
+					log.info("#mark "+mark.size()); //$NON-NLS-1$
 
-					log.info("#b "+b.size()); //$NON-NLS-1$
+				
 
 
 
 
 					String type = "Completeness"; //$NON-NLS-1$
 
-					strong.addAll(b);
+				
 
 					List<String> Elements = new ArrayList<String>();
 
 
-					for (Element element : strong) {
+					for (Element element : mark) {
 						String node = getString(element.text());
+						node = node.replace(".", "").replace(":", "");
 						if(Elements_Template.contains(node)){
 							Element e = (Element) element.parentNode();
 							Node n = element.nextSibling();
 							
-							if(n.toString().length()>12){
+							if(n.toString().length()>6){
 								Elements.add(node);
 								NumberFields++;
 							}
@@ -187,7 +187,7 @@ public class Completeness  extends AbstractAnalysisClass {
 						}
 					}
 
-					int n = getTotNumberTerms(strong)+getTotNumberTerms(b);
+					int n = getTotNumberTerms(mark);
 
 					for (String field : Elements_Template) {
 

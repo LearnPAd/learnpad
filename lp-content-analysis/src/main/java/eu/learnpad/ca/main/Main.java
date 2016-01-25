@@ -9,9 +9,7 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import eu.learnpad.ca.gate.GateServletContextListener;
-import eu.learnpad.ca.rest.impl.ColloborativeContentVerificationsImpl;
-import eu.learnpad.ca.rest.impl.StaticContentVerificationsImpl;
-
+import eu.learnpad.ca.impl.BridgeImpl;
 
 
 public class Main {
@@ -26,7 +24,7 @@ public class Main {
 	public static HttpServer startServer() {
 		// create a resource config that scans for JAX-RS resources and providers
 
-		final ResourceConfig rc = new ResourceConfig(ColloborativeContentVerificationsImpl.class, StaticContentVerificationsImpl.class);
+		final ResourceConfig rc = new ResourceConfig(BridgeImpl.class);
 
 		// create and start a new instance of grizzly http server
 		// exposing the Jersey application at BASE_URI
@@ -49,7 +47,7 @@ public class Main {
 			//ServletRegistration servletRegistration = webappContext.addServlet( "jersey-servlet", "org.glassfish.jersey.servlet.ServletContainer" );
 			webappContext.deploy( server );
 			server.start();
-			System.out.println(String.format("Jersey app started with WADL available at "
+			System.out.println(String.format("Web app started with WADL available at "
 					+ "%sapplication.wadl", BASE_URI));
 
 		}catch(Exception e){
