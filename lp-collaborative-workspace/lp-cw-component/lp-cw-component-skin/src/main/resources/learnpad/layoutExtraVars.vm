@@ -9,13 +9,12 @@
  * #set($displayShortcuts = false)
  *#
  
-#set($currentUser = $xwiki.user.user.toString())
-#set($adminDoc = $xwiki.getDocument('xwiki:XWiki.XWikiAdminGroup'))
-#set($adminObj = $adminDoc.getObject('XWiki.XWikiGroups', 'member', $currentUser.replace('xwiki:', '')))
-
-##if(!$adminObj)
-  #set($displayContentMenu = false)
+#if("$!{xcontext.user}" != "XWiki.superadmin"))
+  ## Top header menu
   #set($displayMainMenu = false)
+  ## Page contextual menus (add, edit, delete, exports, etc.)
+  #set($displayContentMenu = false)
+  ## Comments, history, attachments tabs at the bottom
   ##set($displayDocExtra = false)
   #set($displayShortcuts = false)
-##end
+#end
