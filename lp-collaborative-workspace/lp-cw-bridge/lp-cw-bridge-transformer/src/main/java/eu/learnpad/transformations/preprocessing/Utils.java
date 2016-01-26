@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.io.Reader;
@@ -27,7 +29,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
- 
+
+import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
@@ -233,6 +236,71 @@ public class Utils {
 	    return escapedTxt;
 	}
 	
+	
+	
+	
+	/**
+	 * Convert an InputStream to String.
+	 * @param is
+	 * @return String
+	 */
+	public String convertInputStreamToString(InputStream is){
+		
+		String result = null;
+		
+		StringWriter writer = new StringWriter();
+		try {
+			IOUtils.copy(is, writer, "utf8");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		result = writer.toString();
+		
+		return result;
+	}
+	
+	
+	
+	
+	public void writeInputStreamToFile(InputStream inputStream, File file){
+		
+		OutputStream outputStream = null;
+
+		try {
+			// write the inputStream to a FileOutputStream
+			outputStream = new FileOutputStream(file);
+
+			int read = 0;
+			byte[] bytes = new byte[1024];
+
+			while ((read = inputStream.read(bytes)) != -1) {
+				outputStream.write(bytes, 0, read);
+			}
+
+			System.out.println("Done!");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (inputStream != null) {
+				try {
+					inputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (outputStream != null) {
+				try {
+					// outputStream.flush();
+					outputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+		}
+	}
 	
 }
 

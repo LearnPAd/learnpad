@@ -2,21 +2,23 @@ package eu.learnpad.transformations.launchers;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.apache.commons.io.FilenameUtils;
-
 import eu.learnpad.transformations.model2model.ATLTransformation;
 import eu.learnpad.transformations.preprocessing.Alignment;
+import eu.learnpad.transformations.preprocessing.Utils;
 
 public class ATLTransformationLauncher {
 	
-	private String tmpModelFolder = "tmp/";
 	private final String ADOXX_TYPE = "ADOXX";
 	private final String MAGIC_DRAW_TYPE = "MD";
 	private String ADOXX2XWIKI_ATL_TRANSFORMATION = "resources/transformation/ado2xwiki.atl";
 	private String MAGICDRAW2XWIKI_ATL_TRANSFORMATION = "";
+	private String tmpAlignmentOutputXMIFile = "tmp/tmpAlignmentOutputXMIFile.xmi";
+//	private String tmpModelInputFilePath = "tmp/tmpModelInputFile.xmi";
+	private boolean deleteFile = false;
 	
 	
 	
@@ -27,9 +29,16 @@ public class ATLTransformationLauncher {
 	 * @param model The InputStream of the model file to be transformed.
 	 * @throws Exception
 	 */
-	public OutputStream  transform(InputStream model, String type) throws Exception{
+	public boolean transform(InputStream model, String type, OutputStream out) throws Exception{
 		
-		File sanitazedFilePath = null;
+		Utils utils = new Utils();
+		
+		
+		
+		
+		boolean result = false;
+		
+		boolean sanitizerResult = false;
 		Alignment al = new Alignment();
 		
 		String metamodel_in = "";
@@ -38,10 +47,27 @@ public class ATLTransformationLauncher {
 		String inTag = "";
 		String outTag = "";
 		
+		
+		//posso usare PipedOutpuStream dataPipe come InputStream ora
+//		int BUFFER = 8192;
+//		PipedInputStream convertPipe = new PipedInputStream(BUFFER);
+//		PipedOutputStream dataPipe = new PipedOutputStream(convertPipe);
+		
+		
+//		//temp output stream to use in sanitizer
+//		String tmpSanitizerFilePath = tmpModelFolder + "tmpSanitizerOutputStream.xmi";
+//		// create a new output stream
+//        OutputStream midOutput = new FileOutputStream(tmpSanitizerFilePath);
+        
+		//Inizialize the outputstream with the tmp file path
+		//This OutputStrem will be used to take the sanitize file.
+		OutputStream outputAlignementFile = new FileOutputStream(tmpAlignmentOutputXMIFile);
+		
+		
 		switch (type) {
 		case ADOXX_TYPE:
 			System.out.println("*******STARTING ADOXX ALIGNMENT*******");
-			sanitazedFilePath = al.sanitizerForADOXX(model);
+			sanitizerResult = al.sanitizerForADOXX(model, outputAlignementFile);
 			System.out.println("*******ALIGNMENT ADOXX DONE*******");
 			
 			metamodel_in 	= "resources/metamodels/adoxx/ado.ecore";
@@ -53,7 +79,7 @@ public class ATLTransformationLauncher {
 			break;
 		case MAGIC_DRAW_TYPE:
 			System.out.println("*******STARTING MAGICDRAW ALIGNMENT*******");
-			sanitazedFilePath = al.sanitizerForMagicDraw(model);
+			sanitizerResult = al.sanitizerForMagicDraw(model, outputAlignementFile);
 			System.out.println("*******ALIGNMENT MAGICDRAW DONE*******");
 			
 			metamodel_in 	= "";
@@ -69,144 +95,78 @@ public class ATLTransformationLauncher {
 		}
 		
 				
-		
-		
-		
-		
-		
-		String basenameInputModel = FilenameUtils.getBaseName(sanitazedFilePath.getAbsolutePath());
-		
-		String tmpXwikiModelName = basenameInputModel + ".xmi";
-		
-		String tmpModelPath = tmpModelFolder + tmpXwikiModelName; //	tmp/xwiki_output_model.xmi
+		if(sanitizerResult){
+			//if the sanitizer succeded
+			
+//			String basenameInputModel = FilenameUtils.getBaseName(sanitazedFilePath.getAbsolutePath());
+//			String tmpXwikiModelName = basenameInputModel + ".xmi";
+//			String tmpModelPath = tmpModelFolder + tmpXwikiModelName; //	tmp/xwiki_output_model.xmi
+			
+			
+			
+			
+			//posso usare PipedOutpuStream dataPipe come InputStream ora
+//			int BUFFER = 2048;
+//			PipedInputStream convertPipe = new PipedInputStream(BUFFER);
+//			PipedOutputStream dataPipe = new PipedOutputStream(convertPipe);
+			
+//			DataSource dataSource = new DataSource(dataPipe);
+//			DataConsumer dataConsumer = new DataConsumer(convertPipe);
+			
+			
+			//Create a file starting from the inputStream
+//			File file = new File(tmpAlignmentOutputXMIFile);
+//			utils.writeInputStreamToFile(model, file);
+			
+			
+			
+			
+			//In the tmpAlignmentOutputXMIFile we have aligned file. We use this for the transformation
+//			FileInputStream alignedFile = new FileInputStream(tmpAlignmentOutputXMIFile);
+//			String model_in = utils.convertInputStreamToString(alignedFile);
+			
+			
+			ATLTransformation myT = new ATLTransformation();
+			System.out.println("Starting ATL Model2Model transformation...");
+			myT.run(tmpAlignmentOutputXMIFile, metamodel_in, metamodel_out, modules, inTag, outTag, out);
+			System.out.println("ATL Model2Model transformation done.");
+			
+			
+			
 
-		ATLTransformation myT = new ATLTransformation();
-		System.out.println("Starting ATL Model2Model transformation...");
-		myT.run(sanitazedFilePath.getAbsolutePath(), metamodel_in, metamodel_out, modules, inTag, outTag, tmpModelPath);
-		System.out.println("ATL Model2Model transformation done. Temporary XWIKI model named: "+tmpXwikiModelName+" created in /tmp folder.");
-		
-		
-		
-		File resultFile = new File(tmpModelPath);
-		if(resultFile.exists()){
-			System.out.println("File Exists!");
+			if(deleteFile){
+				File fileToDelete = new File(tmpAlignmentOutputXMIFile);
+				fileToDelete.delete();
+				System.out.println("Temp file "+tmpAlignmentOutputXMIFile+" deleted!");
+//				file.delete();
+//				System.out.println("Temp file "+tmpAlignmentOutputXMIFile+" deleted!");
+			}
+			
+			
+		}else{
+			System.out.println("Sanitizer failed!");
 		}
 		
-		return null;
+		return result;
 		
 	}
 	
 	
-	
-	
-	
-	
-//	/**
-//	 * ATL Transformation Launcher (MODEL2MODEL Transformation).
-//	 * @param model_in The path of the model file to be tranformed.
-//	 * @throws IOException
-//	 */
-//	public void execute(String model_in) throws IOException{
-//		/*
-//		 * *******************************************************
-//		 * MODEL2MODEL Transformation (ATL)
-//		 * *******************************************************
-//		 */
-//		
-//		File f = new File(model_in);
-//		if(f.exists() && !f.isDirectory()) { 
-//			
-//			ATLTransformation myT = null;
-//			
-//			String metamodel_in 	= "resources/metamodels/adoxx/ado.ecore";
-//			String metamodel_out 	= "resources/metamodels/xwiki/XWIKI.ecore";
-//			String modules 			= "resources/transformation/ado2xwiki.atl";
-//			String inTag 			= "ADOXX";
-//			String outTag 			= "XWIKI";
-//			
-//			String basenameInputModel = FilenameUtils.getBaseName(model_in);
-//			
-//			String tmpXwikiModelName = basenameInputModel + ".xmi";
-//			
-//			String tmpModelPath = tmpModelFolder + tmpXwikiModelName; //	tmp/xwiki_output_model.xmi
-//
-//			myT = new ATLTransformation();
-//			System.out.println("Starting ATL Model2Model transformation...");
-//			myT.run(model_in, metamodel_in, metamodel_out, modules, inTag, outTag, tmpModelPath);
-//			System.out.println("ATL Model2Model transformation done. Temporary XWIKI model named: "+tmpXwikiModelName+" created in /tmp folder.");
-//				
-//		    
-//		}else{
-//			System.out.println("File "+model_in+" provided as input doesn't exist!");
-//		}
-//		
-//		
-//	}
-//	
-//	/**
-//	 * Execution of the ATL Transformation with a pre-processing with alignement.
-//	 * This method take an XML file instead of XMI and after a pre-precessing phase execute the transformation with the resulting XMI model file.
-//	 * @param model_in The path of the model file to be tranformed.
-//	 * @throws Exception
-//	 */
-//	public void executeWithAlignment(String model_in) throws Exception{
-//		
-//		File f = new File(model_in);
-//		if(f.exists() && !f.isDirectory()) { 
-//			
-//			/*
-//			 * ADOXX XML file alignment
-//			 */
-//			System.out.println("*******STARTING ALIGNMENT*******");
-//			Alignment al = new Alignment();
-//			String sanitazedFilePath = al.sanitizerForADOXX(model_in);
-//			System.out.println("*******ALIGNMENT DONE*******");
-//			
-//			
-//			ATLTransformation myT = null;
-//			
-//			String metamodel_in 	= "resources/metamodels/adoxx/ado.ecore";
-//			String metamodel_out 	= "resources/metamodels/xwiki/XWIKI.ecore";
-//			String modules 			= "resources/transformation/ado2xwiki.atl";
-//			String inTag 			= "ADOXX";
-//			String outTag 			= "XWIKI";
-//			
-//			String basenameInputModel = FilenameUtils.getBaseName(sanitazedFilePath);
-//			
-//			String tmpXwikiModelName = basenameInputModel + ".xmi";
-//			
-//			String tmpModelPath = tmpModelFolder + tmpXwikiModelName; //	tmp/xwiki_output_model.xmi
-//
-//			myT = new ATLTransformation();
-//			System.out.println("Starting ATL Model2Model transformation...");
-//			myT.run(sanitazedFilePath, metamodel_in, metamodel_out, modules, inTag, outTag, tmpModelPath);
-//			System.out.println("ATL Model2Model transformation done. Temporary XWIKI model named: "+tmpXwikiModelName+" created in /tmp folder.");
-//				
-//		}else{
-//			System.out.println("File "+model_in+" provided as input doesn't exist!");
-//		}
-//			
-//		
-//		
-//	}
-	
-	
-	
-	
-	
 	public static void main(String[] args) throws Exception {
 		
-		String model_in = "resources/model/ado4f16a6bb-9318-4908-84a7-c2d135253dc9.xml";
+//		String model_in = "resources/model/ado4f16a6bb-9318-4908-84a7-c2d135253dc9.xml";
+		String model_in = "resources/model/titolo-unico.xml";
+		String file_out = "tmp/testTransformationOutputStream.xmi";
 		String type = "ADOXX";
 //		String type = "MD";
 		
 		
 		FileInputStream fis = new FileInputStream(model_in);
-		
+		OutputStream out = new FileOutputStream(file_out);	
 		
 		ATLTransformationLauncher atlTL = new ATLTransformationLauncher();
 		System.out.println("*******STARTING THE ATL TRANSFORMATION*******");
-		atlTL.transform(fis, type);
+		atlTL.transform(fis, type, out);
 		System.out.println("*******FINISHED THE ATL TRANSFORMATION*******");
 
 	}

@@ -26,33 +26,31 @@ public class Launcher {
 	private String ADOXX2XWIKI_ATL_TRANSFORMATION = "resources/transformation/ado2xwiki.atl";
 	private String MAGICDRAW2XWIKI_ATL_TRANSFORMATION = "";
 	
-	//TODO eliminare. NON mi serve. il path lo devo prendere dall'output dell'ATL T.
-	private String tmpInputStreamFilePath = "tmp/acceleoInputStreamFile.xmi";
-	
 	
 	
 	/**
-	 * Alignment Launcher: starting from an XML file as InputStream it create a valid XMI model file. 
+	 * Alignment Launcher: starting from an XML file as InputStream it create a valid XMI model file 
+	 * directly into the OutputStream provided as input. 
 	 * @param model The InputStream of the model file to be transformed.
 	 */
-	public OutputStream  align(InputStream model, String type) throws Exception{
+	public boolean align(InputStream model, String type, OutputStream out) throws Exception{
 		
 		Alignment al = new Alignment();
-		File result = null;
+		boolean result = false;
 		
 		switch (type) {
 		case ADOXX_TYPE:
-			result = al.sanitizerForADOXX(model);
+			result = al.sanitizerForADOXX(model, out);
 			break;
 		case MAGIC_DRAW_TYPE:
-			result = al.sanitizerForMagicDraw(model);
+			result = al.sanitizerForMagicDraw(model, out);
 			break;
 		default:
 			System.out.println("Type not allowed!");
 			break;
 		}
 		
-		return null;
+		return result;
 		
 	}
 	
@@ -65,9 +63,10 @@ public class Launcher {
 	 * @param model The InputStream of the model file to be transformed.
 	 * @throws Exception
 	 */
-	public OutputStream  transform(InputStream model, String type) throws Exception{
+	public boolean transform(InputStream model, OutputStream out, String type) throws Exception{
 		
-		File sanitazedFilePath = null;
+//		File sanitazedFilePath = null;
+		boolean sanitizerResult = false;
 		Alignment al = new Alignment();
 		
 		String metamodel_in = "";
@@ -79,7 +78,7 @@ public class Launcher {
 		switch (type) {
 		case ADOXX_TYPE:
 			System.out.println("*******STARTING ADOXX ALIGNMENT*******");
-			sanitazedFilePath = al.sanitizerForADOXX(model);
+			sanitizerResult = al.sanitizerForADOXX(model, out);
 			System.out.println("*******ALIGNMENT ADOXX DONE*******");
 			
 			metamodel_in 	= "resources/metamodels/adoxx/ado.ecore";
@@ -91,7 +90,7 @@ public class Launcher {
 			break;
 		case MAGIC_DRAW_TYPE:
 			System.out.println("*******STARTING MAGICDRAW ALIGNMENT*******");
-			sanitazedFilePath = al.sanitizerForMagicDraw(model);
+			sanitizerResult = al.sanitizerForMagicDraw(model, out);
 			System.out.println("*******ALIGNMENT MAGICDRAW DONE*******");
 			
 			metamodel_in 	= "";
@@ -104,6 +103,22 @@ public class Launcher {
 		default:
 			System.out.println("Type not allowed!");
 			break;
+		}
+		
+		if(sanitizerResult){
+			//if the sanitizer succeded
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		}else{
+			System.out.println("Sanitizer failed!");
 		}
 		
 		String basenameInputModel = FilenameUtils.getBaseName(sanitazedFilePath.getAbsolutePath());
@@ -131,7 +146,7 @@ public class Launcher {
 	 * Acceleo Transformation Launcher (MODEL2CODE Transformation).
 	 * @param model The InputStream of the model file to be transformed.
 	 */
-	public Path write(InputStream model){
+	public boolean write(InputStream model, OutputStream out){
 
 		String resultFolderPath = tmpAcceleoModelFolder + "test"; 
 		
@@ -155,7 +170,7 @@ public class Launcher {
 	 * @throws Exception 
 	 * @throws IOException
 	 */
-	public Path executeChain(InputStream model, String type) throws Exception{
+	public boolean executeChain(InputStream model, String type, OutputStream out) throws Exception{
 		
 		/*
 		 * The producer streams data to an OutputStream while the consumer consumes it through its InputStream. 

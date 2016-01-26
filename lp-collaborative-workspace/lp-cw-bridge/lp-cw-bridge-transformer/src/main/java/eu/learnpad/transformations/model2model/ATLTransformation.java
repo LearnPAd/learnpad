@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -39,7 +40,7 @@ import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
  */
 public class ATLTransformation {
 	private IModel inModel;
-	private IModel paramsModel;
+//	private IModel paramsModel;
 	private IModel outModel;
 
 	private IReferenceModel inmodelMetamodel;
@@ -82,15 +83,16 @@ public class ATLTransformation {
 	 * @param outPath The path of the Ecore model file resulting from the transformation.
 	 * @return
 	 */
-	public IModel run(String model_in, String metamodel_in, String metamodel_out, String modules, String inTag, String outTag, String outPath) {
-		
+//	public IModel run(String model_in, String metamodel_in, String metamodel_out, String modules, String inTag, String outTag, String outPath) {
+	public IModel run(String model_in, String metamodel_in, String metamodel_out, String modules, String inTag, String outTag, OutputStream outPath) {
 		try {
 			set(model_in, metamodel_in, metamodel_out, modules, inTag, outTag);
 			//Execute transformation
 			doTransformation(new NullProgressMonitor());
 			//Save the model created in a file that has the name passed in input with outPath
 			IExtractor extractor = new EMFExtractor();
-			extractor.extract(outModel, outPath);
+//			extractor.extract(outModel, outPath);
+			extractor.extract(outModel, outPath, null);
 			
 //			//We create an object file with the path entered by the user, or are we going to take the template you just created and saved
 //			File myTemp = new File(outPath);
@@ -132,7 +134,7 @@ public class ATLTransformation {
 			injector.inject(this.outmodelMetamodel,  metamodel_out);
 			this.outModel = factory.newModel(this.outmodelMetamodel);
 			this.inModel = factory.newModel(this.inmodelMetamodel);
-			this.paramsModel = factory.newModel(this.paramsmodelMetamodel);
+//			this.paramsModel = factory.newModel(this.paramsmodelMetamodel);
 			injector.inject(this.inModel,  model_in);
 			
 //			
@@ -168,7 +170,7 @@ public class ATLTransformation {
 		Map<String, Object> launcherOptions = getOptions();
 		launcher.initialize(launcherOptions);
 		launcher.addInModel(this.inModel, "IN", this.inTag);
-		launcher.addInModel(this.paramsModel, "PARAMS", this.paramsTag);
+//		launcher.addInModel(this.paramsModel, "PARAMS", this.paramsTag);
 		launcher.addOutModel(this.outModel, "OUT", this.outTag);
 		InputStream[] modulesStreams = getModulesList();
 		inputStreamsToClose.addAll(Arrays.asList(modulesStreams));

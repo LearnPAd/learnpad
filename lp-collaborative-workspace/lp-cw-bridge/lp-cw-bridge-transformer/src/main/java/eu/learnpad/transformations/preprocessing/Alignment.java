@@ -2,6 +2,7 @@ package eu.learnpad.transformations.preprocessing;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -21,6 +22,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -41,6 +43,71 @@ public class Alignment {
 	private boolean deleteFile = true;
 	
 	public static String ADOXX_XMIHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Ado:ADOXMLType xmi:version=\"2.0\"  xmlns:xmi=\"http://www.omg.org/XMI\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:Ado=\"http://www.ado.org\" xsi:schemaLocation=\"http://www.ado.org /Adoxx2XWiki/models/Ado.ecore\">\n";
+	
+	
+	
+	public boolean sanitizerForADOXX(InputStream modelInputStream, OutputStream out) throws Exception {
+		
+		boolean result = false;
+		
+		String fileFromInputStreamPath = createFileFromInputStream(modelInputStream);
+		
+		File fileToSanitize = sanitizerForADOXX(fileFromInputStreamPath);
+		
+		//TODO check also if the outputstream was written correctly
+		if(fileToSanitize.exists()){
+			result = true;
+		}
+		
+		//Write to the OutputStream provided as input
+//		writeFileToOutputStream(fileToSanitize, out);
+		InputStream isTmp = new FileInputStream(fileToSanitize);
+		IOUtils.copy(isTmp, out);
+		
+		if(deleteFile){
+			File fileToDelete = new File(tmpModelFolder + tmpFileFromInputStream);
+			fileToDelete.delete();
+			System.out.println("Tmp file ("+tmpModelFolder + tmpFileFromInputStream+") from input stream deleted!");
+		}
+		
+		if(result){
+			System.out.println("Alignment with ADOXX done!");
+		}
+		
+		return result;
+	}
+
+	
+	private void writeFileToOutputStream(File file, OutputStream out){
+		
+		byte[] buf = new byte[1024];
+
+        InputStream is = null;
+		try {
+			is = new FileInputStream(file);
+			
+			 int c = 0;
+
+		        while ((c = is.read(buf, 0, buf.length)) > 0) {
+		        	out.write(buf, 0, c);
+		        	out.flush();
+		        }
+
+		        out.close();
+		        System.out.println("File written on OutputStream!");
+		        is.close();
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+       
+	}
 	
 	
 	private String createFileFromInputStream(InputStream modelInputStream) throws IOException{
@@ -75,11 +142,25 @@ public class Alignment {
 	}
 	
 	
-	public File sanitizerForADOXX(InputStream modelInputStream) throws Exception {
+	
+	
+		
+	
+	public boolean sanitizerForMagicDraw(InputStream modelInputStream, OutputStream out) throws Exception {
+		
+		boolean result = false;
 		
 		String fileFromInputStreamPath = createFileFromInputStream(modelInputStream);
 		
-		File result = sanitizerForADOXX(fileFromInputStreamPath);
+		File fileToSanitize = sanitizerForMagicDraw(fileFromInputStreamPath);
+		
+		//TODO check also if the outputstream was written correctly
+		if(fileToSanitize.exists()){
+			result = true;
+		}
+		
+		//Write to the OutputStream provided as input
+		writeFileToOutputStream(fileToSanitize, out);
 		
 		if(deleteFile){
 			File fileToDelete = new File(tmpModelFolder + tmpFileFromInputStream);
@@ -87,27 +168,13 @@ public class Alignment {
 			System.out.println("Tmp file ("+tmpModelFolder + tmpFileFromInputStream+") from input stream deleted!");
 		}
 		
-		return result;
-	}
-	
-		
-	
-	
-	public File sanitizerForMagicDraw(InputStream modelInputStream) throws Exception {
-		
-		String fileFromInputStreamPath = createFileFromInputStream(modelInputStream);
-		
-		File result = sanitizerForMagicDraw(fileFromInputStreamPath);
-		
-		
-		if(deleteFile){
-			File fileToDelete = new File(tmpModelFolder + tmpFileFromInputStream);
-			fileToDelete.delete();
-			System.out.println("Tmp file ("+tmpModelFolder + tmpFileFromInputStream+") from input stream deleted!");
+		if(result){
+			System.out.println("Alignment with Magic Draw done!");
 		}
 		
 		return result;
 	}
+	
 	
 	
 	//TODO
