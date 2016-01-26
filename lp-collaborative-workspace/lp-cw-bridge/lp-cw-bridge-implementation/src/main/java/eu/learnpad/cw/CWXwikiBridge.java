@@ -62,8 +62,13 @@ import com.xpn.xwiki.objects.BaseObject;
 
 import eu.learnpad.core.impl.cw.XwikiBridge;
 import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.cw.rest.data.Artefact;
+import eu.learnpad.cw.rest.data.Attribute;
 import eu.learnpad.cw.rest.data.Feedback;
 import eu.learnpad.cw.rest.data.Feedbacks;
+import eu.learnpad.cw.rest.data.PFResults;
+import eu.learnpad.cw.rest.data.Patch;
+import eu.learnpad.cw.rest.data.PatchType;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.sim.rest.data.UserData;
@@ -240,13 +245,13 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 	}
 
 	@Override
-	public Feedbacks getFeedbacks(String modelSetId) throws LpRestException {
+	public PFResults getFeedbacks(String modelSetId) throws LpRestException {
 		XWikiContext xcontext = xcontextProvider.get();
 		XWiki xwiki = xcontext.getWiki();
 		DocumentReference classReference = documentReferenceResolver
 				.resolve(FEEDBACK_CLASS);
 		List<Object> documentNames = getFeedbacksDocuments(modelSetId);
-		Feedbacks feedbacks = new Feedbacks();
+		PFResults pf = new PFResults();
 		for (Object documentName : documentNames) {
 			DocumentReference documentReference = documentReferenceResolver
 					.resolve((String) documentName);
@@ -265,13 +270,30 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 			String modelId = "undefined";
 			String artifactId = getParentArtifactId(document
 					.getParentReference());
-			List<String> contents = new ArrayList<String>();
-			contents.add(feedbackObject.getStringValue("description"));
+			String content = feedbackObject.getStringValue("description");
 			Feedback feedback = new Feedback(modelSetId, modelId, artifactId,
-					contents);
-			feedbacks.add(feedback);
+					content);
+			pf.addFeedback(feedback);
 		}
-		return feedbacks;
+		Attribute attribute1 = new Attribute("123", "name", "adsfdsafY");
+		Attribute attribute2 = new Attribute("234", "xs", "adsfdsafY");
+		Attribute attribute3 = new Attribute("345", "sd", "adsfdsafY");
+		Artefact artefact1 = new Artefact("", "sdfds", "Task");
+		artefact1.add(attribute1);
+		artefact1.add(attribute2);
+		artefact1.add(attribute3);
+		Artefact artefact2 = new Artefact("123", "sdfasdf", "Task");
+		artefact2.add(attribute1);
+		artefact2.add(attribute2);
+		artefact2.add(attribute3);
+		Artefact artefact3 = new Artefact("123", "sdfasdf", "End Event");
+		Patch patch1 = new Patch(PatchType.ADD, "123", artefact1);
+		Patch patch2 = new Patch(PatchType.EDIT, "123", artefact2);
+		Patch patch3 = new Patch(PatchType.DELETE, "123", artefact3);
+		pf.addPatch(patch1);
+		pf.addPatch(patch2);
+		pf.addPatch(patch3);
+		return pf;
 	}
 
 	@Override

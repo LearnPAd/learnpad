@@ -21,54 +21,30 @@ package eu.learnpad.cw.rest.data;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Feedback", propOrder = { "modelSetId", "modelId",
-		"artifactId", "content" })
-@XmlRootElement(name = "feedback")
-public class Feedback {
-	// TODO: class to store verification results; to define
+@XmlType(name = "PFResults", propOrder = { "patches", "feedbacks" })
+@XmlRootElement(name = "PFResults")
+public class PFResults {
+	@XmlElement(name = "patches", required = false)
+	protected Patches patches;
+	
+	@XmlElement(name = "feedbacks", required = false)
+	protected Feedbacks feedbacks;
 
-	public String getModelSetId() {
-		return this.modelSetId;
+	public PFResults() {
+		this.patches = new Patches();
+		this.feedbacks = new Feedbacks();
 	}
 
-	public String getModelId() {
-		return this.modelId;
+	public void addPatch(Patch patch) {
+		this.patches.add(patch);
 	}
 
-	public String getArtifactId() {
-		return this.artifactId;
-	}
-
-	public String getContent() {
-		return this.content;
-	}
-
-	@XmlAttribute(name = "modelsetid", required = true)
-	protected String modelSetId;
-
-	@XmlAttribute(name = "modelid")
-	protected String modelId;
-
-	@XmlAttribute(name = "artifactid")
-	protected String artifactId;
-
-	@XmlValue
-	protected String content;
-
-	public Feedback() {
-	}
-
-	public Feedback(String modelSetId, String modelId, String artifactId,
-			String content) {
-		this.modelSetId = modelSetId;
-		this.modelId = modelId;
-		this.artifactId = artifactId;
-		this.content = content;
+	public void addFeedback(Feedback feedback) {
+		this.feedbacks.add(feedback);
 	}
 }

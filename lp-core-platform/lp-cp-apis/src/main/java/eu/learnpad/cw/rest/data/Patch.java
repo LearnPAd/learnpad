@@ -19,56 +19,39 @@
  */
 package eu.learnpad.cw.rest.data;
 
+import java.util.UUID;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Feedback", propOrder = { "modelSetId", "modelId",
-		"artifactId", "content" })
-@XmlRootElement(name = "feedback")
-public class Feedback {
-	// TODO: class to store verification results; to define
+@XmlType(name = "Patch", propOrder = { "id", "type", "modelId", "artefact" })
+@XmlRootElement(name = "patch")
+public class Patch {
+	@XmlAttribute(name = "id")
+	protected UUID id;
 
-	public String getModelSetId() {
-		return this.modelSetId;
-	}
+	@XmlAttribute(name = "type", required = true)
+	protected PatchType type;
 
-	public String getModelId() {
-		return this.modelId;
-	}
-
-	public String getArtifactId() {
-		return this.artifactId;
-	}
-
-	public String getContent() {
-		return this.content;
-	}
-
-	@XmlAttribute(name = "modelsetid", required = true)
-	protected String modelSetId;
-
-	@XmlAttribute(name = "modelid")
+	@XmlAttribute(name = "modelid", required = true)
 	protected String modelId;
 
-	@XmlAttribute(name = "artifactid")
-	protected String artifactId;
+	@XmlElement(name = "artefact", required = true)
+	protected Artefact artefact;
 
-	@XmlValue
-	protected String content;
-
-	public Feedback() {
+	public Patch() {
+		this.id = UUID.randomUUID();
 	}
 
-	public Feedback(String modelSetId, String modelId, String artifactId,
-			String content) {
-		this.modelSetId = modelSetId;
-		this.modelId = modelId;
-		this.artifactId = artifactId;
-		this.content = content;
+	public Patch(PatchType type, String modelid, Artefact artifact) {
+		this.id = UUID.randomUUID();
+		this.type = type;
+		this.modelId = modelid;
+		this.artefact = artifact;
 	}
 }

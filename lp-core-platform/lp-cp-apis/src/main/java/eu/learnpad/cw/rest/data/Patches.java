@@ -1,4 +1,4 @@
-/*
+/*@
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
  *
@@ -19,56 +19,27 @@
  */
 package eu.learnpad.cw.rest.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Feedback", propOrder = { "modelSetId", "modelId",
-		"artifactId", "content" })
-@XmlRootElement(name = "feedback")
-public class Feedback {
-	// TODO: class to store verification results; to define
+@XmlType(name = "Patches", propOrder = { "patches" })
+@XmlRootElement(name = "patches")
+public class Patches {
+	@XmlElement(name = "patch")
+	protected List<Patch> patches;
 
-	public String getModelSetId() {
-		return this.modelSetId;
+	public Patches() {
+		this.patches = new ArrayList<Patch>();
 	}
 
-	public String getModelId() {
-		return this.modelId;
-	}
-
-	public String getArtifactId() {
-		return this.artifactId;
-	}
-
-	public String getContent() {
-		return this.content;
-	}
-
-	@XmlAttribute(name = "modelsetid", required = true)
-	protected String modelSetId;
-
-	@XmlAttribute(name = "modelid")
-	protected String modelId;
-
-	@XmlAttribute(name = "artifactid")
-	protected String artifactId;
-
-	@XmlValue
-	protected String content;
-
-	public Feedback() {
-	}
-
-	public Feedback(String modelSetId, String modelId, String artifactId,
-			String content) {
-		this.modelSetId = modelSetId;
-		this.modelId = modelId;
-		this.artifactId = artifactId;
-		this.content = content;
+	public void add(Patch patch) {
+		this.patches.add(patch);
 	}
 }

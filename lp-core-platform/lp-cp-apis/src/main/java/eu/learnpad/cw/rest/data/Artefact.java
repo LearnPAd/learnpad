@@ -19,56 +19,44 @@
  */
 package eu.learnpad.cw.rest.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Feedback", propOrder = { "modelSetId", "modelId",
-		"artifactId", "content" })
-@XmlRootElement(name = "feedback")
-public class Feedback {
-	// TODO: class to store verification results; to define
+@XmlType(name = "Artefact", propOrder = { "artefactId", "name", "className", "attributes" })
+@XmlRootElement(name = "artefact")
+public class Artefact {
+	@XmlAttribute(name = "id", required = true)
+	protected String artefactId;
 
-	public String getModelSetId() {
-		return this.modelSetId;
+	@XmlAttribute(name = "name")
+	protected String name;
+
+	@XmlAttribute(name = "className")
+	protected String className;
+
+	@XmlElement(name = "attribute")
+	protected List<Attribute> attributes;
+
+	public Artefact() {
+		this.attributes = new ArrayList<Attribute>();
+	}
+	
+	public Artefact(String artefactId, String name, String className) {
+		this.artefactId = artefactId;
+		this.name = name;
+		this.className = className;
+		this.attributes = new ArrayList<Attribute>();
 	}
 
-	public String getModelId() {
-		return this.modelId;
-	}
-
-	public String getArtifactId() {
-		return this.artifactId;
-	}
-
-	public String getContent() {
-		return this.content;
-	}
-
-	@XmlAttribute(name = "modelsetid", required = true)
-	protected String modelSetId;
-
-	@XmlAttribute(name = "modelid")
-	protected String modelId;
-
-	@XmlAttribute(name = "artifactid")
-	protected String artifactId;
-
-	@XmlValue
-	protected String content;
-
-	public Feedback() {
-	}
-
-	public Feedback(String modelSetId, String modelId, String artifactId,
-			String content) {
-		this.modelSetId = modelSetId;
-		this.modelId = modelId;
-		this.artifactId = artifactId;
-		this.content = content;
+	public void add(Attribute attribute) {
+		this.attributes.add(attribute);
 	}
 }

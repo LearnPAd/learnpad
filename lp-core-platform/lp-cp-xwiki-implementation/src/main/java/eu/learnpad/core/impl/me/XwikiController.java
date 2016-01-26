@@ -19,44 +19,32 @@
  */
 package eu.learnpad.core.impl.me;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.PutMethod;
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.core.impl.me.XwikiBridgeInterfaceRestResource;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
-import eu.learnpad.cw.rest.data.Feedbacks;
+import eu.learnpad.cw.rest.data.PFResults;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.me.BridgeInterface;
 import eu.learnpad.me.Controller;
 import eu.learnpad.mv.rest.data.MVResults;
 import eu.learnpad.mv.rest.data.VerificationId;
 import eu.learnpad.mv.rest.data.VerificationResults;
 import eu.learnpad.mv.rest.data.VerificationStatus;
 import eu.learnpad.mv.rest.data.VerificationsAvailable;
-import eu.learnpad.me.BridgeInterface;
 
 /*
  * It is not clear yet who is responsible for the instantiation
@@ -134,7 +122,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 	
 	@Override
-	public Feedbacks getFeedbacks(String modelSetId) throws LpRestException {
+	public PFResults getFeedbacks(String modelSetId) throws LpRestException {
 		return this.cw.getFeedbacks(modelSetId);
 	}
 

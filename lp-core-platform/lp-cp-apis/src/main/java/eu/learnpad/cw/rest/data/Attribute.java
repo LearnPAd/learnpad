@@ -27,48 +27,24 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Feedback", propOrder = { "modelSetId", "modelId",
-		"artifactId", "content" })
-@XmlRootElement(name = "feedback")
-public class Feedback {
-	// TODO: class to store verification results; to define
-
-	public String getModelSetId() {
-		return this.modelSetId;
-	}
-
-	public String getModelId() {
-		return this.modelId;
-	}
-
-	public String getArtifactId() {
-		return this.artifactId;
-	}
-
-	public String getContent() {
-		return this.content;
-	}
-
-	@XmlAttribute(name = "modelsetid", required = true)
-	protected String modelSetId;
-
-	@XmlAttribute(name = "modelid")
-	protected String modelId;
-
-	@XmlAttribute(name = "artifactid")
-	protected String artifactId;
+@XmlType(name = "Attribute", propOrder = { "attributeId", "name", "content" })
+@XmlRootElement(name = "attribute")
+public class Attribute {
+	@XmlAttribute(name = "id")
+	protected String attributeId;
+	
+	@XmlAttribute(name = "name")
+	protected String name;
 
 	@XmlValue
 	protected String content;
 
-	public Feedback() {
+	public Attribute() {
 	}
 
-	public Feedback(String modelSetId, String modelId, String artifactId,
-			String content) {
-		this.modelSetId = modelSetId;
-		this.modelId = modelId;
-		this.artifactId = artifactId;
+	public Attribute(String attributeId, String name, String content) {
+		this.attributeId = attributeId;
+		this.name = name;
 		this.content = content;
 	}
 }

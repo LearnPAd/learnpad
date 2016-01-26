@@ -19,31 +19,17 @@
  */
 package eu.learnpad.cw.rest.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Feedbacks", propOrder = { "feedbacks" })
-@XmlRootElement(name = "feedbacks")
-public class Feedbacks {
-	@XmlElement(name = "feedback")
-	protected List<Feedback> feedbacks;
-
-	public Feedbacks() {
-		this.feedbacks = new ArrayList<Feedback>();
-	}
-
-	public Feedbacks(List<Feedback> feedbacks) {
-		this.feedbacks = new ArrayList<Feedback>(feedbacks);
-	}
-
-	public void add(Feedback feedback) {
-		this.feedbacks.add(feedback);
-	}
+@XmlType
+@XmlEnum(String.class)
+public enum PatchType {
+	@XmlEnumValue("add")
+	ADD,
+	@XmlEnumValue("edit")
+	EDIT,
+	@XmlEnumValue("delete")
+	DELETE
 }
