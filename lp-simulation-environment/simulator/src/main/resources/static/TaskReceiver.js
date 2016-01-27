@@ -66,8 +66,11 @@ function taskReceiver(address, user, integratedMode) {
             processDiv.appendChild(processSideDiv);
 
             if (!integratedMode) {
-                users(address, user, msg.involvedusers).
-                    setUserList('processside' + msg.sessionid);
+                var processUserInfos = document.createElement('div');
+                processUserInfos.id = 'processuserinfos' +msg.sessionid;
+                processSideDiv.appendChild(processUserInfos);
+
+                users(address, user, msg.involvedusers, processUserInfos.id);
             }
 
             // add session chat container
