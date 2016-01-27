@@ -33,10 +33,10 @@ import org.apache.commons.httpclient.methods.PutMethod;
 
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.BridgeInterface;
-import eu.learnpad.cw.rest.data.PFResults;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.rest.model.jaxb.PFResults;
 
 /*
  * The methods inherited form the BridgeInterface in this

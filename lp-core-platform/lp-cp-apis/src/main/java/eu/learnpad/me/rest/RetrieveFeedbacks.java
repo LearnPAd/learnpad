@@ -23,8 +23,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
-import eu.learnpad.cw.rest.data.PFResults;
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.rest.model.jaxb.PFResults;
 
 public interface RetrieveFeedbacks {
 	//"/learnpad/me/retrievefeedbacks/{modelsetid}"

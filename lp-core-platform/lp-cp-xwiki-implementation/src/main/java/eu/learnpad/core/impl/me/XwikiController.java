@@ -35,7 +35,6 @@ import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
-import eu.learnpad.cw.rest.data.PFResults;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.BridgeInterface;
@@ -45,6 +44,7 @@ import eu.learnpad.mv.rest.data.VerificationId;
 import eu.learnpad.mv.rest.data.VerificationResults;
 import eu.learnpad.mv.rest.data.VerificationStatus;
 import eu.learnpad.mv.rest.data.VerificationsAvailable;
+import eu.learnpad.rest.model.jaxb.PFResults;
 
 /*
  * It is not clear yet who is responsible for the instantiation

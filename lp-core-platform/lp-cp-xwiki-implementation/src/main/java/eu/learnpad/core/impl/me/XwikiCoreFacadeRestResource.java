@@ -19,6 +19,7 @@
  */
 package eu.learnpad.core.impl.me;
 
+import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.CoreFacade;
@@ -26,9 +27,7 @@ import eu.learnpad.mv.rest.data.VerificationId;
 import eu.learnpad.mv.rest.data.VerificationResults;
 import eu.learnpad.mv.rest.data.VerificationStatus;
 import eu.learnpad.mv.rest.data.VerificationsAvailable;
-import eu.learnpad.core.rest.RestResource;
-import eu.learnpad.cw.rest.data.Feedbacks;
-import eu.learnpad.cw.rest.data.PFResults;
+import eu.learnpad.rest.model.jaxb.PFResults;
 
 /*
  * The methods inherited form the CoreFacade in this

@@ -47,8 +47,10 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
+import org.xwiki.model.EntityType;
 import org.xwiki.model.reference.DocumentReference;
 import org.xwiki.model.reference.DocumentReferenceResolver;
+import org.xwiki.model.reference.EntityReference;
 import org.xwiki.query.Query;
 import org.xwiki.query.QueryException;
 import org.xwiki.query.QueryFilter;
@@ -62,15 +64,16 @@ import com.xpn.xwiki.objects.BaseObject;
 
 import eu.learnpad.core.impl.cw.XwikiBridge;
 import eu.learnpad.core.rest.RestResource;
-import eu.learnpad.cw.rest.data.Artefact;
-import eu.learnpad.cw.rest.data.Attribute;
-import eu.learnpad.cw.rest.data.Feedback;
-import eu.learnpad.cw.rest.data.Feedbacks;
-import eu.learnpad.cw.rest.data.PFResults;
-import eu.learnpad.cw.rest.data.Patch;
-import eu.learnpad.cw.rest.data.PatchType;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.rest.model.jaxb.PFResults;
+import eu.learnpad.rest.model.jaxb.PFResults.Feedbacks;
+import eu.learnpad.rest.model.jaxb.PFResults.Feedbacks.Feedback;
+import eu.learnpad.rest.model.jaxb.PFResults.Patches;
+import eu.learnpad.rest.model.jaxb.PFResults.Patches.Patch;
+import eu.learnpad.rest.model.jaxb.PFResults.Patches.Patch.Artefact;
+import eu.learnpad.rest.model.jaxb.PFResults.Patches.Patch.Artefact.Attribute;
+import eu.learnpad.rest.model.jaxb.PatchType;
 import eu.learnpad.sim.rest.data.UserData;
 
 @Component
@@ -106,7 +109,10 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 
 	@Inject
 	@Named("current")
-	private DocumentReferenceResolver<String> documentReferenceResolver;
+	private DocumentReferenceResolver<String> stringDocumentReferenceResolver;
+
+	@Inject
+	private DocumentReferenceResolver<EntityReference> referenceDocumentReferenceResolver;
 
 	@Override
 	public byte[] getComments(String modelSetId, String artifactId)
@@ -225,11 +231,12 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 		}
 	}
 
-	private String getParentArtifactId(DocumentReference parentReference) {
+	private Integer getPropertyFromParent(DocumentReference parentReference,
+			String propertyName) {
+		DocumentReference classReference = stringDocumentReferenceResolver
+				.resolve(BASEELEMENT_CLASS);
 		XWikiContext xcontext = xcontextProvider.get();
 		XWiki xwiki = xcontext.getWiki();
-		DocumentReference classReference = documentReferenceResolver
-				.resolve(BASEELEMENT_CLASS);
 		XWikiDocument parentDocument = null;
 		try {
 			parentDocument = xwiki.getDocument(parentReference, xcontext);
@@ -241,19 +248,18 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 			return null;
 		}
 		BaseObject artifactObject = parentDocument.getXObject(classReference);
-		return artifactObject.getStringValue("id");
+		return Integer.parseInt(artifactObject.getStringValue(propertyName));
 	}
 
-	@Override
-	public PFResults getFeedbacks(String modelSetId) throws LpRestException {
+	private Feedbacks getFeedbackList(String modelSetId) {
 		XWikiContext xcontext = xcontextProvider.get();
 		XWiki xwiki = xcontext.getWiki();
-		DocumentReference classReference = documentReferenceResolver
+		DocumentReference classReference = stringDocumentReferenceResolver
 				.resolve(FEEDBACK_CLASS);
 		List<Object> documentNames = getFeedbacksDocuments(modelSetId);
-		PFResults pf = new PFResults();
+		List<Feedback> feedbacksList = new ArrayList<Feedback>();
 		for (Object documentName : documentNames) {
-			DocumentReference documentReference = documentReferenceResolver
+			DocumentReference documentReference = stringDocumentReferenceResolver
 					.resolve((String) documentName);
 
 			XWikiDocument document;
@@ -267,32 +273,84 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 				return null;
 			}
 			BaseObject feedbackObject = document.getXObject(classReference);
-			String modelId = "undefined";
-			String artifactId = getParentArtifactId(document
-					.getParentReference());
+			Integer id = Integer.parseInt(feedbackObject.getStringValue("id"));
+			DocumentReference parentReference = referenceDocumentReferenceResolver
+					.resolve(document.getParentReference(), EntityType.DOCUMENT);
+			Integer modelId = getPropertyFromParent(parentReference, "modelid");
+			Integer artefactId = getPropertyFromParent(parentReference, "id");
 			String content = feedbackObject.getStringValue("description");
-			Feedback feedback = new Feedback(modelSetId, modelId, artifactId,
-					content);
-			pf.addFeedback(feedback);
+			Feedback feedback = new Feedback();
+			feedback.setId(id);
+			feedback.setModelid(modelId);
+			feedback.setArtefactid(artefactId);
+			feedback.setValue(content);
+			feedbacksList.add(feedback);
 		}
-		Attribute attribute1 = new Attribute("123", "name", "adsfdsafY");
-		Attribute attribute2 = new Attribute("234", "xs", "adsfdsafY");
-		Attribute attribute3 = new Attribute("345", "sd", "adsfdsafY");
-		Artefact artefact1 = new Artefact("", "sdfds", "Task");
-		artefact1.add(attribute1);
-		artefact1.add(attribute2);
-		artefact1.add(attribute3);
-		Artefact artefact2 = new Artefact("123", "sdfasdf", "Task");
-		artefact2.add(attribute1);
-		artefact2.add(attribute2);
-		artefact2.add(attribute3);
-		Artefact artefact3 = new Artefact("123", "sdfasdf", "End Event");
-		Patch patch1 = new Patch(PatchType.ADD, "123", artefact1);
-		Patch patch2 = new Patch(PatchType.EDIT, "123", artefact2);
-		Patch patch3 = new Patch(PatchType.DELETE, "123", artefact3);
-		pf.addPatch(patch1);
-		pf.addPatch(patch2);
-		pf.addPatch(patch3);
+		Feedbacks feedbacks = new Feedbacks();
+		feedbacks.setFeedback(feedbacksList);
+		return feedbacks;
+	}
+
+	private Patches getPatchList(String modelSetId) {
+		Attribute attribute1 = new Attribute();
+		attribute1.setId("123");
+		attribute1.setName("name");
+		attribute1.setValue("adsfdsafY");
+		Attribute attribute2 = new Attribute();
+		attribute2.setId("234");
+		attribute2.setName("xs");
+		attribute2.setValue("adsfdsafY");
+		Attribute attribute3 = new Attribute();
+		attribute3.setId("345");
+		attribute3.setName("sd");
+		attribute3.setValue("adsfdsafY");
+		List<Attribute> attributesList = new ArrayList<Attribute>();
+		attributesList.add(attribute1);
+		attributesList.add(attribute2);
+		attributesList.add(attribute3);
+		Artefact artefact1 = new Artefact();
+		artefact1.setId("");
+		artefact1.setName("sdfds");
+		artefact1.setClassName("Task");
+		artefact1.setAttribute(attributesList);
+		Artefact artefact2 = new Artefact();
+		artefact2.setId("123");
+		artefact2.setName("sdfasdf");
+		artefact2.setClassName("Task");
+		artefact2.setAttribute(attributesList);
+		Artefact artefact3 = new Artefact();
+		artefact3.setId("123");
+		artefact3.setName("sdfasdf");
+		artefact3.setClassName("End Event");
+		Patch patch1 = new Patch();
+		patch1.setType(PatchType.ADD);
+		patch1.setId(Integer.parseInt("123"));
+		patch1.setModelid(Integer.parseInt("123456"));
+		patch1.setArtefact(artefact1);
+		Patch patch2 = new Patch();
+		patch2.setType(PatchType.EDIT);
+		patch2.setId(Integer.parseInt("123"));
+		patch2.setModelid(Integer.parseInt("123456"));
+		patch2.setArtefact(artefact2);
+		Patch patch3 = new Patch();
+		patch3.setType(PatchType.DELETE);
+		patch3.setId(Integer.parseInt("123"));
+		patch3.setModelid(Integer.parseInt("123456"));
+		patch3.setArtefact(artefact3);
+		List<Patch> patchesList = new ArrayList<Patch>();
+		patchesList.add(patch1);
+		patchesList.add(patch2);
+		patchesList.add(patch3);
+		Patches patches = new Patches();
+		patches.setPatch(patchesList);
+		return patches;
+	}
+
+	@Override
+	public PFResults getFeedbacks(String modelSetId) throws LpRestException {
+		PFResults pf = new PFResults();
+		pf.setFeedbacks(getFeedbackList(modelSetId));
+		pf.setPatches(getPatchList(modelSetId));
 		return pf;
 	}
 
@@ -307,7 +365,7 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 			Collection<String> potentialUsers) {
 		XWikiContext xcontext = xcontextProvider.get();
 		XWiki xwiki = xcontext.getWiki();
-		DocumentReference userClassReference = documentReferenceResolver
+		DocumentReference userClassReference = stringDocumentReferenceResolver
 				.resolve(USER_CLASS);
 		Collection<UserData> potentialUsersCollection = new ArrayList<UserData>();
 
@@ -315,7 +373,7 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 			UserData user = new UserData();
 			user.id = userId;
 
-			DocumentReference userReference = documentReferenceResolver
+			DocumentReference userReference = stringDocumentReferenceResolver
 					.resolve(userId);
 			try {
 				XWikiDocument userDocument = xwiki.getDocument(userReference,

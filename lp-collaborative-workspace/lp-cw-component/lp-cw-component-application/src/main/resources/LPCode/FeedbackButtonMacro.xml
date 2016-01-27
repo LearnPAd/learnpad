@@ -156,7 +156,7 @@
     </class>
     <property>
       <code>{{velocity}}
-#set ($feedbackPageName = $xwiki.parseGroovyFromPage('LPCode.RandomUUID').getRandomUUID())
+#set ($feedbackPageName = $xwiki.parseGroovyFromPage('LPCode.RandomID').getRandomID())
 #set ($feedbackReference = $services.model.createDocumentReference($xcontext.database, $doc.space, $feedbackPageName))
 #set ($parameters = "template=xwiki:LPCode.FeedbackTemplate")
 #set ($parameters = "${parameters}&amp;parent=$escapetool.url(${doc.getFullName()})")
