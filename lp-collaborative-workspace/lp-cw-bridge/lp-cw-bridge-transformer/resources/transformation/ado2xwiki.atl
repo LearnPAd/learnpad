@@ -16,10 +16,18 @@ helper def : loadSourceModels() : Set(ADOXX!MODELType) =
    );	
 
 helper def : getModelType(modelName : String, modelType : String, modelVer : String) : ADOXX!MODELType =
-	ADOXX!MODELType.allInstances()->select(i | (i.name = (modelName.substring(1, modelName.lastIndexOf(modelVer)-1))) 
+	ADOXX!MODELType.allInstances()->select(i | (i.name = thisModule.getOriginalModelName(modelName, modelVer)) 
 												and (i.modeltype = modelType) 
 												and (i.version = modelVer))
 								  ->first();
+
+helper def : getOriginalModelName(modelName : String, modelVer : String) : String = 
+		if (modelVer = '') then
+			modelName
+		else
+			modelName.substring(1, modelName.lastIndexOf(modelVer)-1)
+		endif;
+
 helper def : getModelSetId() : String = 
 	thisModule.modelSet.aTTRIBUTE->select(e | e.name='Model Set ID').first().value;
 
