@@ -4,6 +4,18 @@ module ado2xwiki;
 
 create OUT : XWIKI from IN : ADOXX;
 
+--Constant definitions
+helper def : _SOURCE : String = 'SOURCE';
+helper def : _TARGET : String = 'TARGET';
+helper def : _OBJREF : String = 'objectreference';
+helper def : _MDLREF : String = 'modelreference';
+helper def : _BROKENREF : String = 'brokenLink';
+helper def : _LP_MSetClass : String = 'LPCode.ModelSetClass';
+helper def : _LPModelClass : String = 'LPCode.ModelClass';
+helper def : _LPBElementClass : String = 'LPCode.BaseElementClass';
+helper def : _LPLinkClass : String = 'LPCode.LinkClass';
+
+
 --Attribute(modelSetId and Source Models) from OverviewModel
 helper def : modelSet : ADOXX!INSTANCEType = OclUndefined;
 helper def : sourceModels : Set(ADOXX!MODELType) = OclUndefined;
@@ -12,20 +24,51 @@ helper def : loadSourceModels() : Set(ADOXX!MODELType) =
    .first()
    .iREF
    ->iterate(e; acc : Set(ADOXX!MODELType) = Set{} |     	
-     	acc.including(thisModule.getModelType(e.tmodelname, e.tmodeltype, e.tmodelver))
-   );	
+     	acc.including(e.getModelType));	
 
-helper def : getModelType(modelName : String, modelType : String, modelVer : String) : ADOXX!MODELType =
-	ADOXX!MODELType.allInstances()->select(i | (i.name = (modelName.substring(1, modelName.lastIndexOf(modelVer)-1))) 
-												and (i.modeltype = modelType) 
-												and (i.version = modelVer))
+helper context ADOXX!IREFType def : getModelType : ADOXX!MODELType =
+	ADOXX!MODELType.allInstances()->select(m | (m.name = thisModule.getOriginalModelName(self.tmodelname, self.tmodelver)) 
+												and (m.modeltype = self.tmodeltype) 
+												and (m.version = self.tmodelver))
 								  ->first();
+
+helper def : getOriginalModelName(modelName : String, modelVer : String) : String = 
+		if (modelVer = '') then
+			modelName
+		else
+			modelName.substring(1, modelName.lastIndexOf(modelVer)-1)
+		endif;
+
 helper def : getModelSetId() : String = 
 	thisModule.modelSet.aTTRIBUTE->select(e | e.name='Model Set ID').first().value;
 
 helper def : getModelSetDescription() : String = 
 	thisModule.modelSet.aTTRIBUTE->select(e | e.name='Model Set Description').first().value;
 
+helper context ADOXX!INSTANCEType def : isInSourceModels : Boolean =
+	thisModule.sourceModels
+	->collect(c | c.iNSTANCE)
+	.flatten()
+	.count(self);
+
+helper context ADOXX!CONNECTORType def : isInSourceModels : Boolean =
+	thisModule.sourceModels
+	->collect(c | c.cONNECTOR)
+	.flatten()
+	.count(self);
+
+helper context ADOXX!IREFType def : isInSourceModels : Boolean =
+	thisModule.sourceModels
+	->collect(c | c.cONNECTOR)
+	.flatten()
+	.count(self);
+
+helper def : findInstance(o: OclAny) : ADOXX!INSTANCEType =
+	if (o.oclIsTypeOf(ADOXX!INSTANCEType)) then 
+		o 
+	else 
+		thisModule.findInstance(o.refImmediateComposite()) 
+	endif;
 ----------------------
 -- Escaping methods
 
@@ -64,71 +107,77 @@ helper def : getConnectorTargetId(connector: ADOXX!CONNECTORType) : String =
 	.first()
 	.id;
 
-helper def : linkClassNumberMap : Map(String, Integer) =
-	ADOXX!INSTANCEType.allInstances()
-	->iterate(i; accumulator : Map(String, Integer) = Map{} | accumulator.including(i.id, 0));
+helper def : linkNumberMap : Map(String, Integer) =
+	let seq: Sequence(String) = ADOXX!INSTANCEType.allInstances()
+								->collect(i | i.id)
+								.union(
+									ADOXX!MODELType.allInstances()
+									->collect(m | m.id)
+								) in
+	seq	->iterate(i; accumulator : Map(String, Integer) = Map{} | accumulator.including(i, 0)).including(thisModule._BROKENREF, 0);
 
-helper def : incLinkClassNumber(id: String) : Map(String, Integer) =
-	if (thisModule.linkClassNumberMap.get(id).oclIsUndefined()) then 
-		Map{('brokenLink', 0)}
+helper def : incLinkNumber(id: String) : Map(String, Integer) =
+	thisModule.linkNumberMap.including(id, thisModule.linkNumberMap.get(id) + 1); 
+		
+helper context ADOXX!IREFType def : getNumber(par : String) : Integer =
+	if par=thisModule._SOURCE then 
+		thisModule.linkNumberMap.get(thisModule.getIrefSourceId(self))
 	else 
-		thisModule.linkClassNumberMap.including(id, thisModule.linkClassNumberMap.get(id) + 1) 
-	endif;
-	
-helper def : linkModelNumberMap : Map(String, Integer) =
-	ADOXX!MODELType.allInstances()
-	->iterate( i; accumulator : Map(String, Integer) = Map{} | accumulator.including(i.id, 0));
-
-helper def : incLinkModelNumber(id: String) : Map(String, Integer) =
-	thisModule.linkModelNumberMap
-	.including(id, thisModule.linkModelNumberMap.get(id) + 1);
-
-helper def : getNumberFromIref(par : String, iref : ADOXX!IREFType) : Integer =
-	if par='SOURCE' then 
-		thisModule.linkClassNumberMap.get(thisModule.getIrefSourceId(iref))
-	else
-		thisModule.linkClassNumberMap.get(thisModule.getIrefTargetInstanceId(iref))
+		if (self.type= thisModule._OBJREFERENCE) then
+			thisModule.incLinkNumber.get(thisModule.getIrefTargetInstanceId(self))
+		else
+			thisModule.linkNumberMap.get(thisModule.getIrefTargetModelId(self))
+		endif
 	endif;
 
-helper def : getNumberFromConnector(par : String, c : ADOXX!CONNECTORType) : Integer =
-	if par='SOURCE' then 
-		thisModule.linkClassNumberMap.get(thisModule.getConnectorSourceId(c)) 
+helper context ADOXX!CONNECTORType def : getNumber(par : String) : Integer =
+	if par=thisModule._SOURCE then 
+		thisModule.linkNumberMap.get(thisModule.getConnectorSourceId(self)) 
 	else 
-		thisModule.linkClassNumberMap.get(thisModule.getConnectorTargetId(c))
+		thisModule.linkNumberMap.get(thisModule.getConnectorTargetId(self))
 	endif;
 -------------
 
 -- Get the source instance id for the iref
-helper def : getIrefSourceId(iref: OclAny) : String = 
+helper def : getIrefSourceId(iref: OclAny) : String =  
 	if (iref.oclIsTypeOf(ADOXX!INSTANCEType)) then 
-		iref.id
+		if (iref.isInSourceModels > 0) then
+			iref.id
+		else
+			thisModule._BROKENREF
+		endif
 	else 
 		thisModule.getIrefSourceId(iref.refImmediateComposite())
 	endif;
 
 -- Get the target instance id for the iref
-helper def : getIrefTargetInstanceId(iref: ADOXX!IREFType) : String = 
+helper def : getIrefTargetInstanceId(iref: ADOXX!IREFType) : String =
 	let target : ADOXX!INSTANCEType = thisModule.getIrefTargetInstance(iref) in
-	if (target.oclIsUndefined()) then 
-	  'brokenLink'
+	if (target.oclIsUndefined()) then
+		thisModule._BROKENREF
 	 else 
-	  target.id
+	 	target.id
 	 endif;
 
 helper def : getIrefTargetInstance(iref: ADOXX!IREFType) : ADOXX!INSTANCEType = 
 	thisModule.sourceModels
-	->select(m | iref.tmodeltype = m.modeltype)
-	->collect(c | c.iNSTANCE)
+	->select(m | (m.modeltype = iref.tmodeltype) and (m.name = iref.tmodelname)) --check if the instance belong to one of the models defined in overview 
+	->collect(c | c.iNSTANCE)  -- collecting all instances
 	.flatten()
-	->select(i | ((i.class = iref.tclassname) and (i.name=iref.tobjname)))
+	->select(i | ((i.class = iref.tclassname) and (i.name=iref.tobjname)))  --finding the instance
 	.first();
 
 -- Get the target model id for the iref
 helper def : getIrefTargetModelId(iref: ADOXX!IREFType) : String = 
-	thisModule.sourceModels
-	->select(m | (iref.tmodeltype = m.modeltype) and (iref.tmodelname = m.name))
-	->collect(c | c.id)
-	.first();
+	let id : String =thisModule.sourceModels
+			->select(m | (m.modeltype = iref.tmodeltype) and (m.name = iref.tmodelname))
+			->collect(c | c.id)
+			.first() in
+	if (id.oclIsUndefined()) then
+		thisModule._BROKENREF 
+	else
+		id
+	endif;
 
 ----------------------
 -- Standardization of names
@@ -273,7 +322,7 @@ rule initWebHome() {
 		content <- '{{include reference="LPCode\\.ModelSetWebHome" /}}'
 	),
 	msc:XWIKI!Object (
-		className <- 'LPCode.ModelSetClass',
+		className <- thisModule._LP_MSetClass,
 		number <- 0,
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
@@ -316,7 +365,7 @@ rule MODELType2WebHome {
 		content <- ''
 	),
 	mc:XWIKI!Object (
-		className <- 'LPCode.ModelClass',
+		className <- thisModule._LPModelClass,
 		number <- 0,
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
@@ -353,7 +402,7 @@ rule MODELType2WebHome {
 
 -----------------------  INSTANCEType  -----------------------
 rule INSTANCEType2Page {
-	from s:ADOXX!INSTANCEType 
+	from s:ADOXX!INSTANCEType (s.isInSourceModels > 0)
 	-----------------------  obj.XXXXX  ----------------------- 
 	to t_p: XWIKI!Page (
 	   	title <- s.name.escapeXML,
@@ -365,7 +414,7 @@ rule INSTANCEType2Page {
 	),
 	------------------  objects\LPCode\BaseElementClass  ------------------
 	bec:XWIKI!Object (
-		className <- 'LPCode.BaseElementClass',
+		className <- thisModule._LPBElementClass,
 		number <- 0,
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
@@ -404,10 +453,10 @@ rule INSTANCEType2Page {
 }
 
 rule CONNECTORType2Object {
-	from c:ADOXX!CONNECTORType
+	from c:ADOXX!CONNECTORType (c.isInSourceModels > 0)
 	to lco:XWIKI!Object (
-		className <- 'LPCode.LinkClass',
-		number <- thisModule.getNumberFromConnector('SOURCE', c),
+		className <- thisModule._LPLinkClass,
+		number <- c.getNumber(thisModule._SOURCE),
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
 		pageName <- thisModule.getConnectorSourceId(c),
@@ -429,8 +478,8 @@ rule CONNECTORType2Object {
 		value <- thisModule.getConnectorTargetId(c)
 	),
 	lci:XWIKI!Object (
-		className <- 'LPCode.LinkClass',
-		number <- thisModule.getNumberFromConnector('TARGET', c),
+		className <- thisModule._LPLinkClass,
+		number <- c.getNumber(thisModule._TARGET),
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
 		pageName <- thisModule.getConnectorTargetId(c),
@@ -454,16 +503,17 @@ rule CONNECTORType2Object {
 	do {
 		thisModule.documentRoot.object <- lco;
 		thisModule.documentRoot.object <- lci;
-		thisModule.linkClassNumberMap <- thisModule.incLinkClassNumber(thisModule.getConnectorSourceId(c));
-		thisModule.linkClassNumberMap <- thisModule.incLinkClassNumber(thisModule.getConnectorTargetId(c));
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.getConnectorSourceId(c));
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.getConnectorTargetId(c));
 	}
 }
 	
 rule IREFTypeObjRef2Object {
-	from i:ADOXX!IREFType(i.type='objectreference')
+	from i:ADOXX!IREFType((i.type=thisModule._OBJREF) and 
+							(thisModule.findInstance(i).isInSourceModels > 0))
 	to lco:XWIKI!Object (
-		className <- 'LPCode.LinkClass',
-		number <- thisModule.getNumberFromIref('SOURCE', i),
+		className <- thisModule._LPLinkClass,
+		number <- i.getNumber(thisModule._SOURCE),
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
 		pageName <- thisModule.getIrefSourceId(i),
@@ -485,11 +535,11 @@ rule IREFTypeObjRef2Object {
 		value <- thisModule.getIrefTargetInstanceId(i)
 	),
 	lci:XWIKI!Object (
-		className <- 'LPCode.LinkClass',
-		number <- thisModule.getNumberFromIref('TARGET', i),
+		className <- thisModule._LPLinkClass,
+		number <- i.getNumber(thisModule._TARGET),  
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
-		pageName <- thisModule.getIrefTargetInstanceId(i),
+		pageName <- thisModule.getIrefTargetInstanceId(i),  --casino
 		property <- Sequence{lci_p1, lci_p2, lci_p3}
 	), 
 	lci_p1:XWIKI!Property (
@@ -510,16 +560,18 @@ rule IREFTypeObjRef2Object {
 	do {
 		thisModule.documentRoot.object <- lco;
 		thisModule.documentRoot.object <- lci;
-		thisModule.linkClassNumberMap <- thisModule.incLinkClassNumber(thisModule.getIrefSourceId(i));
-		thisModule.linkClassNumberMap <- thisModule.incLinkClassNumber(thisModule.getIrefTargetInstanceId(i));
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.getIrefSourceId(i));
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.getIrefTargetInstanceId(i));
 	}
 }
 	
 rule IREFTypeModRef2Object {
-	from i:ADOXX!IREFType((i.type='modelreference') and (not thisModule.getIrefTargetModelId(i).oclIsUndefined()) )
+	from i:ADOXX!IREFType((i.type=thisModule._MDLREF) and 
+							(thisModule.findInstance(i).isInSourceModels > 0) and
+							(not thisModule.getIrefTargetModelId(i).oclIsUndefined()))
 	to lco:XWIKI!Object (
-		className <- 'LPCode.LinkClass',
-		number <- thisModule.getNumberFromIref('SOURCE', i),
+		className <- thisModule._LPLinkClass,
+		number <- i.getNumber(thisModule._SOURCE),
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
 		pageName <- thisModule.getIrefSourceId(i),
@@ -540,9 +592,9 @@ rule IREFTypeModRef2Object {
 		type <- 'String',
 		value <- thisModule.getIrefTargetModelId(i)
 	),
-	lci:XWIKI!Object (
-		className <- 'LPCode.LinkClass',
-		number <- thisModule.getNumberFromIref('TARGET', i),
+	lci:XWIKI!Object (    
+		className <- thisModule._LPLinkClass,
+		number <- i.getNumber(thisModule._TARGET),
 		wiki <- 'xwiki',
 		space <- thisModule.getModelSetId(),
 		pageName <- thisModule.getIrefTargetModelId(i),
@@ -566,7 +618,7 @@ rule IREFTypeModRef2Object {
 	do {
 		thisModule.documentRoot.object <- lco;
 		thisModule.documentRoot.object <- lci;
-		thisModule.linkClassNumberMap <- thisModule.incLinkClassNumber(thisModule.getIrefSourceId(i));
-		thisModule.incLinkModelNumber <- thisModule.incLinkModelNumber(thisModule.getIrefTargetModelId(i));
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.getIrefSourceId(i));
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.getIrefTargetModelId(i));
 	}
 }
