@@ -224,7 +224,9 @@ public class Alignment {
 		
 
 		//Delete first 3 rows
-		int nRowToDelete = 2;
+//		int nRowToDelete = 2;
+		//Delete first 1 rows with value = 0
+		int nRowToDelete = 0;
 		while(nRowToDelete >= 0){
 			utils.removeNthLine(copyModelInputPath, nRowToDelete);
 			nRowToDelete--;

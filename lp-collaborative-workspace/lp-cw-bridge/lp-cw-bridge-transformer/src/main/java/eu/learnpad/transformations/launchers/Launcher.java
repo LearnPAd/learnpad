@@ -64,7 +64,8 @@ public class Launcher {
 	
 	public static void main(String[] args) throws Exception {
 		
-		String model_in = "resources/model/ado4f16a6bb-9318-4908-84a7-c2d135253dc9.xml";
+//		String model_in = "resources/model/ado4f16a6bb-9318-4908-84a7-c2d135253dc9.xml";
+		String model_in = "resources/model/adoxx_modelset.xml";
 		String file_out = "tmp/testAlignmentOutputStream.xmi";
 		String type = "ADOXX";
 //		String type = "MD";
@@ -81,7 +82,7 @@ public class Launcher {
 		 * ****ALIGNMENT EXAMPLE**********************
 		 * ******************************************
 		 */
-//		launcher.align(fis, type, out);
+		launcher.align(fis, type, out);
 		
 		/*
 		 * ******************************************
@@ -102,7 +103,7 @@ public class Launcher {
 		 * ****CHAIN EXAMPLE*************************
 		 * ******************************************
 		 */
-		launcher.chain(fis, type, out);
+//		launcher.chain(fis, type, out);
 	
 	}
 
