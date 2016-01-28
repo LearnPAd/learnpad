@@ -39,7 +39,7 @@ import eu.learnpad.sim.rest.data.UserData;
  */
 public class MainTest {
 
-	public static final int PORT = Main.PORT + 1;
+	public static final int PORT = 9091;
 
 	@Test
 	public void testCorrectBoot() {
