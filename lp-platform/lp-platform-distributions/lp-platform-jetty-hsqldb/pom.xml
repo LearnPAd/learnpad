@@ -66,6 +66,12 @@
 			<type>jar</type>
 		</dependency>
 		<dependency>
+			<groupId>org.xwiki.platform</groupId>
+			<artifactId>xwiki-platform-vfs-api</artifactId>
+			<version>${platform.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
 			<groupId>eu.learnpad</groupId>
 			<artifactId>lp-cp-apis</artifactId>
 			<version>${learnpad.version}</version>
