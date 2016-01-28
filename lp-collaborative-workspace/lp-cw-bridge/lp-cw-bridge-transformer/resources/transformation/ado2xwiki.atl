@@ -27,9 +27,9 @@ helper def : loadSourceModels() : Set(ADOXX!MODELType) =
      	acc.including(e.getModelType));	
 
 helper context ADOXX!IREFType def : getModelType : ADOXX!MODELType =
-	ADOXX!MODELType.allInstances()->select(m | (m.name = thisModule.getOriginalModelName(self.modelName, self.modelVer)) 
-												and (m.modeltype = self.modelType) 
-												and (m.version = self.modelVer))
+	ADOXX!MODELType.allInstances()->select(m | (m.name = thisModule.getOriginalModelName(self.tmodelname, self.tmodelver)) 
+												and (m.modeltype = self.tmodeltype) 
+												and (m.version = self.tmodelver))
 								  ->first();
 
 helper def : getOriginalModelName(modelName : String, modelVer : String) : String = 

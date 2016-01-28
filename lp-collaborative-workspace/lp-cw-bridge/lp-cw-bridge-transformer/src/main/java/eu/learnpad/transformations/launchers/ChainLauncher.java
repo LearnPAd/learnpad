@@ -1,6 +1,7 @@
 package eu.learnpad.transformations.launchers;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,100 +17,57 @@ import java.nio.file.Path;
  */
 public class ChainLauncher {
 	
-	//TODO eliminare. NON mi serve. il path lo devo prendere dall'output dell'ATL T.
-	private String tmpInputStreamFilePath = "tmp/acceleoInputStreamFile.xmi";
-		
-	private String tmpModelFolder = "tmp/";
+	private String tmpAlignmentOutputXMIFile = "tmp/tmpAlignmentOutputXMIFile.xmi";		
 	
 	
 	/**
 	 * Execute the chain of transformation composed by: ATL Transformation (MODEL2MODEL Transformation) and 
 	 * Acceleo Transformation (MODEL2TEXT Transformation).
-	 * @param model_in The path of the model file to be tranformed.
+	 * @param model_in The path of the model file to be transformed.
 	 * @throws Exception 
 	 * @throws IOException
 	 */
-	public Path executeChain(InputStream model, String type) throws Exception{
+	public Path executeChain(InputStream model, String type, OutputStream out) throws Exception{
 		
+		Path acceleoResultPath = null;
+		
+		boolean atlResult = false;
 		ATLTransformationLauncher atlTL = new ATLTransformationLauncher();
-		OutputStream atlResult = atlTL.transform(model, type);
+		atlResult = atlTL.transform(model, type, out);
 		
+		if(atlResult){
+			//If the transformation succeded
+			
+			//Take the result of ATL Transformation as File in order to pass it to the Acceleo T.
+			FileInputStream fis = new FileInputStream(tmpAlignmentOutputXMIFile);
+			AcceleoTransformationLauncher acceleoTL = new AcceleoTransformationLauncher();
+			acceleoResultPath = acceleoTL.write(fis);
+		}else{
+			System.out.println("ATL Transformation failed!");
+		}
 		
-		FileInputStream fis = new FileInputStream(tmpInputStreamFilePath);
-		
-		AcceleoTransformationLauncher acceleoTL = new AcceleoTransformationLauncher();
-		Path acceleoResultPath = acceleoTL.write(fis);
 		
 		return acceleoResultPath;
 		
 	}
 	
-//	/**
-//	 * Execute the chain of transformation composed by: ATL Transformation (MODEL2MODEL Transformation) and 
-//	 * Acceleo Transformation (MODEL2TEXT Transformation).
-//	 * @param model_in The path of the model file to be tranformed.
-//	 * @throws IOException
-//	 */
-//	public void executeTransformation(String model_in){
-//		
-//		ATLTransformation myT = null;
-//		
-//		String metamodel_in 	= "resources/metamodels/adoxx/ado.ecore";
-//		String metamodel_out 	= "resources/metamodels/xwiki/XWIKI.ecore";
-//		String modules 			= "resources/transformation/ado2xwiki.atl";
-//		String inTag 			= "ADOXX";
-//		String outTag 			= "XWIKI";
-//		
-//		String basenameInputModel = FilenameUtils.getBaseName(model_in);
-//		
-//		String tmpXwikiModelName = basenameInputModel + ".xmi";
-//		
-//		String tmpModelPath = tmpModelFolder + tmpXwikiModelName; //	tmp/xwiki_output_model.xmi
-//
-//		String resultFolderPath = "result/";
-//		
-//		try {
-//			
-//			/*
-//			 * *******************************************************
-//			 * MODEL2MODEL Transformation (ATL)
-//			 * *******************************************************
-//			 */
-//			myT = new ATLTransformation();
-//			System.out.println("Starting ATL Model2Model transformation...");
-//			myT.run(model_in, metamodel_in, metamodel_out, modules, inTag, outTag, tmpModelPath);
-//			System.out.println("ATL Model2Model transformation done. Temporary XWIKI model named: "+tmpXwikiModelName+" created in /tmp folder.");
-//			
-//			
-//			/*
-//			 * *******************************************************
-//			 * MODEL2CODE Transformation (Acceleo)
-//			 * *******************************************************
-//			 */
-//			System.out.println("Starting Acceleo Model2Text transformation...");
-//			AcceleoStandaloneStarter ast = new AcceleoStandaloneStarter();
-//			ast.execute(tmpModelPath, resultFolderPath);
-//			System.out.println("Acceleo Model2Text done. You can find the result in the /result folder.");
-//			
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//	}
 
 
 	public static void main(String[] args) throws Exception {
 		
-		String model_in = "resources/model/ado4f16a6bb-9318-4908-84a7-c2d135253dc9.xml";
+//		String model_in = "resources/model/ado4f16a6bb-9318-4908-84a7-c2d135253dc9.xml";
+		String model_in = "resources/model/titolo-unico.xml";
+		String file_out = "tmp/testTransformationOutputStream.xmi";
 		String type = "ADOXX";
-		FileInputStream fis = new FileInputStream(model_in);
+//		String type = "MD";
 		
+		FileInputStream fis = new FileInputStream(model_in);
+		OutputStream out = new FileOutputStream(file_out);	
 		
 		
 		System.out.println("*******STARTING THE OVERALL TRANSFORMATION*******");
 		ChainLauncher mt = new ChainLauncher();
-		Path resultPath = mt.executeChain(fis, type);
+		Path resultPath = mt.executeChain(fis, type, out);
 		System.out.println("*******FINISHED THE OVERALL TRANSFORMATION*******");
 	}
 
