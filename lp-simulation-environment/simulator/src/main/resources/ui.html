@@ -263,7 +263,7 @@
              }
          } else {
              $('#connectBn').click(function(event) {
-                 userid = $('#uiid').val().toLowerCase();
+                 userid = $('#uiid').val();
                  taskReceiver(#serveripaddress#, userid, integratedMode);
                  if(!integratedMode) {
                      chat('chatcontainer', #serveripaddress#, userid);

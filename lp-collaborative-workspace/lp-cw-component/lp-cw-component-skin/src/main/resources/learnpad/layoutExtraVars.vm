@@ -1,0 +1,20 @@
+#* 
+ * Voluntary left empty.
+ * This template is intended to be used by custom skin that want to override values from layoutvars.vm safely.
+ *  
+ * Some example of variables that can be overridden here :
+ * #set($displayContentMenu = false)
+ * #set($displayMainMenu = false)
+ * #set($displayDocExtra = false)
+ * #set($displayShortcuts = false)
+ *#
+ 
+#if("$!{xcontext.user}" != "XWiki.superadmin"))
+  ## Top header menu
+  #set($displayMainMenu = false)
+  ## Page contextual menus (add, edit, delete, exports, etc.)
+  #set($displayContentMenu = false)
+  ## Comments, history, attachments tabs at the bottom
+  ##set($displayDocExtra = false)
+  #set($displayShortcuts = false)
+#end

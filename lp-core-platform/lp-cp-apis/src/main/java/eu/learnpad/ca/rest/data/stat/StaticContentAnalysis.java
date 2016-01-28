@@ -21,14 +21,14 @@ import eu.learnpad.ca.rest.data.collaborative.CollaborativeContent;
 })
 @XmlRootElement(name = "StaticContentAnalysis")
 public class StaticContentAnalysis {
-	
+
 	@XmlAttribute(name = "language", required = true)
 	protected String language;
     @XmlElement(name = "StaticContent", required = true)
     protected StaticContent staticContent;
     @XmlElement(name = "QualityCriteria", required = true)
     protected QualityCriteria qualityCriteria;
-
+    
     /**
      * Get the value of language.
      * 

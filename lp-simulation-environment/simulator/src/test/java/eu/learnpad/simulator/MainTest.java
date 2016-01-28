@@ -30,6 +30,8 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import eu.learnpad.sim.rest.data.UserData;
+
 /**
  *
  * @author Tom Jorquera - Linagora
@@ -37,7 +39,7 @@ import org.junit.Test;
  */
 public class MainTest {
 
-	public static final int PORT = Main.PORT + 1;
+	public static final int PORT = 9091;
 
 	@Test
 	public void testCorrectBoot() {
@@ -48,7 +50,8 @@ public class MainTest {
 
 			// add users
 			for (String user : Arrays.asList("sarah", "tom")) {
-				simulator.userHandler().addUser(user);
+				simulator.userHandler().addUser(
+						new UserData(user, "", "", "", "", ""));
 			}
 
 			// load process definitions

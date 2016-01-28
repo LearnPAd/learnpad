@@ -5,7 +5,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
-
 import eu.learnpad.ca.rest.data.Content;
 
 @XmlAccessorType(XmlAccessType.FIELD)

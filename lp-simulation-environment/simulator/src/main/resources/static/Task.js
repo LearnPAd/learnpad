@@ -97,8 +97,9 @@ function task(address, taskid, user, integratedMode) {
                 processSideDiv.className = 'col-sm-4';
                 processDiv.appendChild(processSideDiv);
 
-                if(!integratedMode) {
-                    users(user).setUserList('processside' + data.sessionid);
+                if (!integratedMode) {
+                    users(address, user, data.processid).
+                        setUserList('processside' + data.sessionid);
                 }
 
                 // add gamification panel to side div

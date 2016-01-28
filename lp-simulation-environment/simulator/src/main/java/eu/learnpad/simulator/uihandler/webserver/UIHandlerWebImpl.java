@@ -24,14 +24,16 @@ package eu.learnpad.simulator.uihandler.webserver;
  * #L%
  */
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jetty.servlet.ServletHolder;
 
+import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.IUserHandler;
@@ -57,6 +59,9 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 			.synchronizedMap(new HashMap<String, ServletHolder>());
 	private final Map<String, ServletHolder> tasksMap = Collections
 			.synchronizedMap(new HashMap<String, ServletHolder>());
+
+	private final Map<String, UserData> usersInfos = Collections
+			.synchronizedMap(new HashMap<String, UserData>());
 
 	/**
 	 * @param webserver
@@ -97,10 +102,11 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 	 * 
 	 * @see activitipoc.IUIHandler#addUser(java.lang.String)
 	 */
-	public void addUser(String userId) {
-		if (!usersMap.containsKey(userId)) {
-			usersMap.put(userId,
-					webserver.addUIServlet(new UIServlet(userId), userId));
+	public void addUser(UserData user) {
+		if (!usersMap.containsKey(user.id)) {
+			usersMap.put(user.id,
+					webserver.addUIServlet(new UIServlet(user.id), user.id));
+			usersInfos.put(user.id, user);
 		}
 	}
 
@@ -112,6 +118,7 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 	public void removeUser(String userId) {
 		webserver.removeServletHolder(usersMap.get(userId));
 		usersMap.remove(userId);
+		usersInfos.remove(userId);
 	}
 
 	/*
@@ -119,8 +126,13 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 	 * 
 	 * @see activitipoc.IUIHandler#getUsers()
 	 */
-	public Collection<String> getUsers() {
-		return new HashSet<String>(usersMap.keySet());
+	public List<String> getUsers() {
+		return new ArrayList<String>(usersMap.keySet());
+	}
+
+	@Override
+	public UserData getUserData(String userId) {
+		return usersInfos.get(userId);
 	}
 
 	/**

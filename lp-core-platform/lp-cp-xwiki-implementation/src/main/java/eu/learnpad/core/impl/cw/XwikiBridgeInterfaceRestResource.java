@@ -19,12 +19,6 @@
  */
 package eu.learnpad.core.impl.cw;
 
-import eu.learnpad.exception.LpRestException;
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
-import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
-import eu.learnpad.cw.BridgeInterface;
-import eu.learnpad.cw.rest.data.Feedbacks;
-
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -38,6 +32,11 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 
 import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.cw.BridgeInterface;
+import eu.learnpad.exception.LpRestException;
+import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.rest.model.jaxb.PFResults;
 
 /*
  * The methods inherited form the BridgeInterface in this
@@ -126,7 +125,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements
 	}
 
 	@Override
-	public Feedbacks getFeedbacks(String modelSetId) throws LpRestException {
+	public PFResults getFeedbacks(String modelSetId) throws LpRestException {
 		HttpClient httpClient = RestResource.getClient();
 		String uri = String.format("%s/learnpad/cw/bridge/%s/feedbacks",
 				RestResource.REST_URI, modelSetId);
@@ -139,23 +138,23 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		InputStream feedbacksStream = null;
+		InputStream pfStream = null;
 		try {
-			feedbacksStream = getMethod.getResponseBodyAsStream();
+			pfStream = getMethod.getResponseBodyAsStream();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Feedbacks feedbacks = null;
+		PFResults pf = null;
 		try {
-			JAXBContext jc = JAXBContext.newInstance(Feedbacks.class);
+			JAXBContext jc = JAXBContext.newInstance(PFResults.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
-			feedbacks = (Feedbacks) unmarshaller.unmarshal(feedbacksStream);
+			pf = (PFResults) unmarshaller.unmarshal(pfStream);
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return feedbacks;
+		return pf;
 	}
 
 }

@@ -38,8 +38,14 @@
 	<dependencies>
 		<dependency>
 			<groupId>eu.learnpad</groupId>
+			<artifactId>lp-cw-component-skin</artifactId>
+			<version>${learnpad.version}</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>eu.learnpad</groupId>
 			<artifactId>lp-platform-ui</artifactId>
-			<version>${project.version}</version>
+			<version>${learnpad.version}</version>
 			<type>xar</type>
 		</dependency>
 		<dependency>
@@ -94,13 +100,31 @@
 		<dependency>
 			<groupId>org.xwiki.contrib</groupId>
 			<artifactId>xff-filter-stream</artifactId>
-			<version>0.3.1</version>
+			<version>0.4.0</version>
 			<type>jar</type>
+			<exclusions>
+				<exclusion>
+					<groupId>org.xwiki.platform</groupId>
+					<artifactId>xwiki-platform-rest-model</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.xwiki.contrib</groupId>
 			<artifactId>xff-rest-api</artifactId>
-			<version>0.3.1</version>
+			<version>0.4.0</version>
+			<type>jar</type>
+			<exclusions>
+				<exclusion>
+					<groupId>org.xwiki.platform</groupId>
+					<artifactId>xwiki-platform-rest-model</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.xwiki.platform</groupId>
+			<artifactId>xwiki-platform-rest-model</artifactId>
+			<version>${platform.version}</version>
 			<type>jar</type>
 		</dependency>
 	</dependencies>
@@ -119,6 +143,30 @@
 						<goals>
 							<goal>package</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<!-- Unpack the Learn PAd skin -->
+								<artifactItem>
+									<groupId>eu.learnpad</groupId>
+									<artifactId>lp-cw-component-skin</artifactId>
+									<type>zip</type>
+									<outputDirectory>${project.build.directory}/xwiki/webapps/xwiki/skins/</outputDirectory>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

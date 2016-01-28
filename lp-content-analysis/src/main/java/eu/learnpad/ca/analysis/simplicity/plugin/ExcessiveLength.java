@@ -11,7 +11,6 @@ import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Node;
 import gate.DocumentContent;
-import gate.util.InvalidOffsetException;
 
 public class ExcessiveLength extends Plugin {
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ExcessiveLength.class);
@@ -35,49 +34,9 @@ public class ExcessiveLength extends Plugin {
 		
 		String rac = "Shorten the sentence. A sentence should not exceed 25 words.";
 		String type = "Simplicity Excessive Length";
-		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac );
+		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log, listSentence );
 	}
 	
-	private void gatevsleanpadAnnotation(
-			Set<gate.Annotation> setGateAnnotations,
-			List<Annotation> annotations, Set<gate.Annotation> listSentenceDefected, List<Node> listnode, DocumentContent docContent, String type, String rac) {
-
-		for (gate.Annotation gateA : setGateAnnotations) {
-
-			gate.Node gatenodestart = gateA.getStartNode();
-			gate.Node gatenodeend = gateA.getEndNode();
-			try{
-				String sentence_gate = docContent.getContent(gatenodestart.getOffset(),gatenodeend.getOffset()).toString();
-				if(!listSentenceDefected.contains(sentence_gate))
-					listSentenceDefected.add(gateA);
-			}catch(InvalidOffsetException e){
-				log.error(e);
-			}
-			int initialpos = gatenodestart.getOffset().intValue();
-
-
-			Node init = new Node(gatenodestart.getId(), initialpos);
-
-			Node end = new Node(gatenodeend.getId(), gatenodeend.getOffset()
-					.intValue());
-
-			listnode.add(init);
-			listnode.add(end);
-
-			Annotation a = new Annotation();
-			a.setId(gateA.getId());
-			a.setEndNode(end.getId());
-			a.setStartNode(init.getId());
-			a.setNodeEnd(end);
-			a.setNodeStart(init);
-
-			a.setType(type);
-
-			a.setRecommendation(rac);
-			annotations.add(a);
-
-		}
-
-	}
+	
 
 }

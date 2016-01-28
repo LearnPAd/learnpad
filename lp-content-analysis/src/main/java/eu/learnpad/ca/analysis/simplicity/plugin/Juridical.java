@@ -7,6 +7,7 @@ import java.util.Set;
 import org.languagetool.Language;
 
 import eu.learnpad.ca.analysis.Plugin;
+import eu.learnpad.ca.analysis.localizzation.Messages;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Node;
@@ -32,14 +33,14 @@ public class Juridical extends Plugin {
 		FeatureMap fe = Factory.newFeatureMap();
 
 		//majorType lexicalambiguity
-		fe.put("minorType", "juricaljargon");//  vagueness
-		fe.put("majorType", "simplicity");
-		Set<gate.Annotation> jj = gateu.getAnnotationSet("Lookup" , fe);
+		fe.put("minorType", "juricaljargon");//  vagueness //$NON-NLS-1$ //$NON-NLS-2$
+		fe.put("majorType", "simplicity"); //$NON-NLS-1$ //$NON-NLS-2$
+		Set<gate.Annotation> jj = gateu.getAnnotationSet("Lookup" , fe); //$NON-NLS-1$
 
 
-		String rac = "The term %s is juridical jargon. Substitute %s with a more common term.";
+		String rac = Messages.getString("Juridical.Recomandation", language); //$NON-NLS-1$
 
-		String type = "Simplicity Juridical Jargon";
+		String type = "Simplicity Juridical Jargon"; //$NON-NLS-1$
 		if(!jj.isEmpty())
 			gatevsleanpadAnnotation(jj, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
 	}
