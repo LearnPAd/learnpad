@@ -54,12 +54,12 @@ function dummyChat(container, websocketadress, user) {
 
     ws.onopen = function(e) {
         write('<span style="color: grey;">' + user +
-             ' connected</span>');
+              ' connected</span>');
     };
 
     ws.onclose = function(e) {
         write('<span style="color: grey;">' + user +
-             ' left the discussion</span>');
+              ' left the discussion</span>');
     };
 
     ws.onmessage = function(e) {

@@ -144,7 +144,10 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 
 	@Override
 	public void receiveSimulationStartEvent(SimulationStartSimEvent event) {
-		// nothing to do
+		for (String userId : event.involvedusers) {
+			((UIServlet) usersMap.get(userId).getServletInstance())
+			.startSession(event);
+		}
 	}
 
 	@Override
