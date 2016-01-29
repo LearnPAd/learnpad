@@ -147,7 +147,7 @@ public class WebServer {
 		this.server.start();
 
 		// set chat servlet
-		ServletHolder holder = new ServletHolder(new DummyChatServlet());
+		ServletHolder holder = new ServletHolder(new ChatServlet(simulator));
 		String fullPath = "/chat/*";
 
 		this.context.addServlet(holder, fullPath);
@@ -156,6 +156,11 @@ public class WebServer {
 				+ server.getURI().toString()
 				.substring(0, server.getURI().toString().length() - 1)
 				+ fullPath);
+
+		holder = new ServletHolder(new DummyChatServlet());
+		fullPath = "/dummychat/*";
+
+		this.context.addServlet(holder, fullPath);
 
 	}
 

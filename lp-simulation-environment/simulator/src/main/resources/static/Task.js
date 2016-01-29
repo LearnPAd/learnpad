@@ -102,6 +102,12 @@ function task(address, taskid, user, integratedMode) {
                         setUserList('processside' + data.sessionid);
                 }
 
+                // add session chat container
+                $('#processside' + data.sessionid).append(
+                    '<div id=sessionchat ' + data.sessionid + '></div>'
+                );
+                sessionChat('#processside' + data.sessionid, address, user, data.sessionid);
+
                 // add gamification panel to side div
                 var scoreHelpText = "Your score is calculated based on how well you perform each task.<p>Each successfully completed task gives you points based of your number of attempts and how long did you take regarding the expected time.<p>Faster completion and less mistakes will award more points.";
                 $('#processside' + data.sessionid).append(
