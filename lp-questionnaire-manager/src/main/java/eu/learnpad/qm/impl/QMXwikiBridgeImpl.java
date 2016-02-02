@@ -19,16 +19,23 @@
  */
 package eu.learnpad.qm.impl;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
 
+import org.restlet.representation.InputRepresentation;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 
 import eu.learnpad.core.impl.qm.XwikiBridge;
 import eu.learnpad.core.impl.qm.XwikiCoreFacadeRestResource;
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 
 /**
@@ -88,4 +95,21 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 		return null;
 	}
 
+	public static void main(String[] args) {
+		XwikiCoreFacadeRestResource cf = new XwikiCoreFacadeRestResource();
+		try {
+			cf.genrationCompleted("this-is-foo");
+			
+			byte[] questionnairesFile = Files.readAllBytes(Paths.get("/tmp/thisIsFoo.txt"));
+			System.out.println("########################################################");
+			System.out.println("########################################################");
+			cf.publish("this-is-again-foo", "mothia-out" , questionnairesFile);
+			System.out.println("********************************************************");
+			System.out.println("********************************************************");
+		} catch (LpRestException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }
