@@ -23,6 +23,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.ws.rs.core.MediaType;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
@@ -66,7 +68,7 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 				RestResource.REST_URI, questionnairesId);
 		
 		PutMethod putMethod = new PutMethod(uri);
-		putMethod.addRequestHeader("Accept", "application/xml");
+		putMethod.addRequestHeader("Content-Type", MediaType.APPLICATION_OCTET_STREAM);
 
 		NameValuePair[] queryString = new NameValuePair[1];
 		queryString[0] = new NameValuePair("type", type);
@@ -92,8 +94,7 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 		String uri = String.format("%s/learnpad/qm/corefacade/genrationcompleted/%s",
 				RestResource.REST_URI, questionnairesId);
 		PutMethod putMethod = new PutMethod(uri);
-		putMethod.addRequestHeader("Accept", "application/xml");
-
+		putMethod.addRequestHeader("Accept", MediaType.TEXT_PLAIN);
 		try {
 			httpClient.executeMethod(putMethod);
 		} catch (IOException e) {
