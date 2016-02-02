@@ -81,8 +81,6 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	private eu.learnpad.qm.BridgeInterface qm;
 	private eu.learnpad.or.BridgeInterface or;
 
-	private Map<String, MVResults> mvResults;
-
 	@Inject
 	Logger logger;
 
@@ -100,8 +98,6 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 			this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
 			this.qm = new eu.learnpad.core.impl.qm.XwikiBridgeInterfaceRestResource();
 			this.or = new eu.learnpad.core.impl.or.XwikiBridgeInterfaceRestResource();
-
-			this.mvResults = new HashMap<String, MVResults>();
 			
 			this.initialized=true;
 		}
