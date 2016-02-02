@@ -36,7 +36,6 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,9 +49,12 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
-import eu.learnpad.simulator.datastructures.document.LearnPadDocument;
+import eu.learnpad.simulator.monitoring.event.impl.ProcessEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
 import eu.learnpad.simulator.uihandler.IFormHandler;
 
 /**
@@ -222,27 +224,25 @@ public class UIHandlerWebImplTest {
 				mock(IProcessManager.IProcessManagerProvider.class),
 				mock(IFormHandler.class));
 
+		List<String> tasks = Arrays.asList("task1", "task2", "task3", "task4",
+				"task5");
+
+		Map<String, List<String>> tasksToUsers = new HashMap<String, List<String>>();
+		tasksToUsers.put("task1", Arrays.asList("user1"));
+		tasksToUsers.put("task2", Arrays.asList("user1", "user2"));
+		tasksToUsers.put("task3", Arrays.asList("user1", "user2", "user3"));
+		tasksToUsers.put("task4", Arrays.asList("user2", "user3"));
+		tasksToUsers.put("task5", Arrays.asList("user3"));
+
+		// create some tasks
+
 		// send some tasks
-
-		uiHandler.sendTask(new LearnPadTask("process1", "task1", "", "",
-				new ArrayList<LearnPadDocument>(), new Date().getTime()),
-				Arrays.asList("user1"));
-
-		uiHandler.sendTask(new LearnPadTask("process1", "task2", "", "",
-				new ArrayList<LearnPadDocument>(), new Date().getTime()),
-				Arrays.asList("user1", "user2"));
-
-		uiHandler.sendTask(new LearnPadTask("process1", "task3", "", "",
-				new ArrayList<LearnPadDocument>(), new Date().getTime()),
-				Arrays.asList("user1", "user2", "user3"));
-
-		uiHandler.sendTask(new LearnPadTask("process1", "task4", "", "",
-				new ArrayList<LearnPadDocument>(), new Date().getTime()),
-				Arrays.asList("user2", "user3"));
-
-		uiHandler.sendTask(new LearnPadTask("process1", "task5", "", "",
-				new ArrayList<LearnPadDocument>(), new Date().getTime()),
-				Arrays.asList("user3"));
+		for (String task : tasks) {
+			uiHandler.receiveTaskStartEvent(new TaskStartSimEvent(System
+					.currentTimeMillis(), "", tasksToUsers.get(task),
+					new LearnPadTask("session1", "process1", task, "", null,
+							null, null, null, 0L)));
+		}
 
 		// check all user has been notified of its tasks
 
@@ -259,11 +259,12 @@ public class UIHandlerWebImplTest {
 				Arrays.asList("task3", "task4", "task5")));
 
 		// complete tasks
-		uiHandler.completeTask("process1", "task1", "");
-		uiHandler.completeTask("process1", "task2", "");
-		uiHandler.completeTask("process1", "task3", "");
-		uiHandler.completeTask("process1", "task4", "");
-		uiHandler.completeTask("process1", "task5", "");
+		for (String task : tasks) {
+			uiHandler.receiveTaskEndEvent(new TaskEndSimEvent(System
+					.currentTimeMillis(), "", tasksToUsers.get(task),
+					new LearnPadTask("session1", "process1", task, "", null,
+							null, null, null, 0L), "", null));
+		}
 
 		// check all user has been notified of its tasks completion
 
@@ -290,16 +291,26 @@ public class UIHandlerWebImplTest {
 
 		// signal some process completion
 
-		uiHandler.signalProcessEnd("process1", Arrays.asList("user1"));
+		uiHandler.receiveProcessEndEvent(new ProcessEndSimEvent(System
+				.currentTimeMillis(), "", Arrays.asList("user1"),
+				new ProcessInstanceData("process1", null, null, null, null)));
 
-		uiHandler.signalProcessEnd("process2", Arrays.asList("user1", "user2"));
+		uiHandler.receiveProcessEndEvent(new ProcessEndSimEvent(System
+				.currentTimeMillis(), "", Arrays.asList("user1", "user2"),
+				new ProcessInstanceData("process2", null, null, null, null)));
 
-		uiHandler.signalProcessEnd("process3",
-				Arrays.asList("user1", "user2", "user3"));
+		uiHandler.receiveProcessEndEvent(new ProcessEndSimEvent(System
+				.currentTimeMillis(), "", Arrays.asList("user1", "user2",
+						"user3"), new ProcessInstanceData("process3", null, null, null,
+								null)));
 
-		uiHandler.signalProcessEnd("process4", Arrays.asList("user2", "user3"));
+		uiHandler.receiveProcessEndEvent(new ProcessEndSimEvent(System
+				.currentTimeMillis(), "", Arrays.asList("user2", "user3"),
+				new ProcessInstanceData("process4", null, null, null, null)));
 
-		uiHandler.signalProcessEnd("process5", Arrays.asList("user3"));
+		uiHandler.receiveProcessEndEvent(new ProcessEndSimEvent(System
+				.currentTimeMillis(), "", Arrays.asList("user3"),
+				new ProcessInstanceData("process5", null, null, null, null)));
 
 		// check that concerned users (and only them) received process
 		// completion notification

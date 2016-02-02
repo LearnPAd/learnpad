@@ -27,6 +27,7 @@ package eu.learnpad.simulator.processmanager.activiti;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
@@ -43,10 +44,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.Main;
-import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
+import eu.learnpad.simulator.utils.BPMNExplorer;
 import eu.learnpad.simulator.utils.BPMNExplorerRepository;
 
 /**
@@ -84,7 +88,7 @@ public class ActivitiProcessManagerTest {
 		ActivitiProcessManager manager = new ActivitiProcessManager(
 				processEngine,
 				mock(IProcessEventReceiver.IProcessEventReceiverProvider.class),
-				mock(BPMNExplorerRepository.class), false);
+				mock(BPMNExplorerRepository.class));
 
 		assertTrue(manager.getAvailableProcessDefintion().size() == 0);
 
@@ -104,7 +108,7 @@ public class ActivitiProcessManagerTest {
 		ActivitiProcessManager manager = new ActivitiProcessManager(
 				processEngine,
 				mock(IProcessEventReceiver.IProcessEventReceiverProvider.class),
-				mock(BPMNExplorerRepository.class), false);
+				mock(BPMNExplorerRepository.class));
 
 		String processDefinitionId = manager
 				.addProjectDefinitions(TEST_PROCESS).iterator().next();
@@ -118,7 +122,7 @@ public class ActivitiProcessManagerTest {
 				.contains("user0"));
 	}
 
-	@SuppressWarnings({ "serial", "unchecked" })
+	@SuppressWarnings("serial")
 	@Test
 	public void testProcessInstantation() throws FileNotFoundException {
 
@@ -131,9 +135,16 @@ public class ActivitiProcessManagerTest {
 			}
 		};
 
+		final BPMNExplorerRepository bpmnRepo = mock(BPMNExplorerRepository.class);
+
+		doAnswer(new Answer<BPMNExplorer>() {
+			public BPMNExplorer answer(InvocationOnMock invocation) {
+				return mock(BPMNExplorer.class);
+			}
+		}).when(bpmnRepo).getExplorer(any(String.class));
+
 		ActivitiProcessManager manager = new ActivitiProcessManager(
-				processEngine, provider, mock(BPMNExplorerRepository.class),
-				false);
+				processEngine, provider, bpmnRepo);
 
 		String processDefinitionId = manager
 				.addProjectDefinitions(TEST_PROCESS).iterator().next();
@@ -144,7 +155,8 @@ public class ActivitiProcessManagerTest {
 				.getProcessDefinitionKey(processDefinitionId);
 
 		String processInstanceId = manager.startProjectInstance(processDefKey,
-				null, Arrays.asList("user1", "user2", "user3"),
+				new HashMap<String, Object>(),
+				Arrays.asList("user1", "user2", "user3"),
 				new HashMap<String, Collection<String>>() {
 					{
 						put("user1", Arrays.asList("user1"));
@@ -160,11 +172,12 @@ public class ActivitiProcessManagerTest {
 		// activiti database *after* it has shutdown. The verify allows us to
 		// "block" until the task submission thread has done its job.
 		// 5 seconds should be *far more* than enough for this.
-		ArgumentCaptor<LearnPadTask> task = ArgumentCaptor
-				.forClass(LearnPadTask.class);
-		verify(processEventReceiver, timeout(5000)).sendTask(task.capture(),
-				any(Collection.class));
-		assertEquals(task.getValue().processId, processInstanceId);
+		ArgumentCaptor<TaskStartSimEvent> taskEvent = ArgumentCaptor
+				.forClass(TaskStartSimEvent.class);
+
+		verify(processEventReceiver, timeout(5000)).receiveTaskStartEvent(
+				taskEvent.capture());
+		assertEquals(taskEvent.getValue().task.processId, processInstanceId);
 
 	}
 }

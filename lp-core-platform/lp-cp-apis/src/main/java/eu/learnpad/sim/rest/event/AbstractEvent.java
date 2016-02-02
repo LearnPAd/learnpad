@@ -19,6 +19,8 @@
  */
 package eu.learnpad.sim.rest.event;
 
+import java.util.List;
+
 /**
  *
  * @author Tom Jorquera - Linagora
@@ -27,16 +29,19 @@ package eu.learnpad.sim.rest.event;
 public abstract class AbstractEvent {
 
 	public Long timestamp;
+	public String simulationsessionid;
+	public List<String> involvedusers;
 
 	public AbstractEvent() {
 		super();
 	}
 
-	public AbstractEvent(Long timeStamp) {
+	public AbstractEvent(Long timeStamp, String simulationsessionid,
+			List<String> involvedusers) {
 		super();
 		this.timestamp = timeStamp;
+		this.simulationsessionid = simulationsessionid;
+		this.involvedusers = involvedusers;
 	}
-
-	public abstract EventType getType();
 
 }

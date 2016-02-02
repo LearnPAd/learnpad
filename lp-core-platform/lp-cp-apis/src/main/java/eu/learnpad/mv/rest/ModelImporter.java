@@ -23,13 +23,16 @@ import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
 
 public interface ModelImporter {
 	@GET
 	@Path("/getmodel/{modelsetid}")
+	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	byte[] getModel(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type")@DefaultValue("lpzip") String type) throws LpRestException;
 }

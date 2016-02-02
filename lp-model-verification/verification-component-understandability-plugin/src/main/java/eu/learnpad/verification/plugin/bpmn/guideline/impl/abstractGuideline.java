@@ -2,7 +2,10 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+
+
+
+
 
 
 
@@ -18,52 +21,62 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
-import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
+
+import eu.learnpad.verification.plugin.utils.ElementID;
 
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
 
-public abstract class abstractGuideline {
+public  class abstractGuideline implements Runnable {
 
 	@XmlTransient
 	protected Collection<FlowElement> elementsBPMN;
 
 	@XmlTransient
 	protected boolean status;
-	@XmlTransient
-	protected String NameProcess;
+
 	@XmlTransient
 	protected String IDProcess;
+	
+	@XmlTransient
+	protected Definitions diagram;
 
 	@XmlAttribute(name = "id", required = true)
 	protected String id;
 	@XmlAttribute(name = "Name", required = true)
-	protected String Name;
+	protected  String Name;
 
 	@XmlElement(name = "Description", required = true)
 	protected String Description;
 
 	@XmlElement(name = "Suggestion", required = true)
 	protected String Suggestion;
-	@XmlElementWrapper(name = "Elements",  nillable=false)
 	@XmlElement(name = "ElementID", required = false)
-	protected Collection<String> Elements = null;
+	@XmlElementWrapper(name = "Elements",  nillable=false)
+	protected Collection<ElementID> Elements = null;
 
 	abstractGuideline(){
 
 	}
 
-	abstractGuideline(List<RootElement> diagram){
-		elementsBPMN = new ArrayList<FlowElement>();
-
-		status = false;
+	public abstractGuideline(Definitions diagram){
+		this.elementsBPMN = new ArrayList<FlowElement>();
+		this.Suggestion="";
+		this.status = false;
+		this.diagram=diagram;
+	}
+	
+	public void Start() {
 		findGL(diagram);
 	}
 
-	protected abstract void findGL(List<RootElement> diagram);
+	protected  void findGL(Definitions diagram){
+		
+	}
 
 	public boolean getStatus() {
 
@@ -92,11 +105,18 @@ public abstract class abstractGuideline {
 
 
 
-	public void setElements(String element) {
+	public void setElements(String element, String refprocessid, String name) {
 		if(Elements==null){
-			Elements = new ArrayList<String>();
+			Elements = new ArrayList<ElementID>();
 		}
-		Elements.add(element);
+		Elements.add(new ElementID(element, refprocessid,name));
+	}
+	
+	public void setAllElements(Collection<ElementID> Elementstemp) {
+		if(Elements==null){
+			Elements = new ArrayList<ElementID>();
+		}
+		Elements.addAll(Elementstemp);
 	}
 
 
@@ -111,9 +131,6 @@ public abstract class abstractGuideline {
 		return Name;
 	}
 
-	public String getProcessName() {
-		return NameProcess;
-	}
 
 	public String getProcessID() {
 		return IDProcess;
@@ -123,6 +140,26 @@ public abstract class abstractGuideline {
 		return Suggestion;
 	}
 
-	protected abstract int searchSubProcess(SubProcess sub, StringBuilder ret, int i);
+	protected  int searchSubProcess(SubProcess sub, StringBuilder ret, int i){
+		return 0;
+	}
 
+	@Override
+	public void run() {
+		Start();
+		
+	}
+	
+	
+	public String getState(){
+		switch (Thread.currentThread().getState()) {
+		case TERMINATED:
+			return "OK";
+
+		default:
+			return "IN PROGRESS";
+		}
+
+	}
+	
 }

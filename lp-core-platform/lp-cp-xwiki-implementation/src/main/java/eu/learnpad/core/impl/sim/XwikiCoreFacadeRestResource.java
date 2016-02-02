@@ -27,7 +27,10 @@ import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
+import eu.learnpad.sim.rest.event.impl.SimulationEndEvent;
+import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
 import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
+import eu.learnpad.sim.rest.event.impl.TaskFailedEvent;
 import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 
 /*
@@ -91,6 +94,24 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 
 	@Override
 	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void receiveSimulationStartEvent(SimulationStartEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void receiveSimulationEndEvent(SimulationEndEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void receiveTaskFailedEvent(TaskFailedEvent event) {
 		// TODO Auto-generated method stub
 
 	}

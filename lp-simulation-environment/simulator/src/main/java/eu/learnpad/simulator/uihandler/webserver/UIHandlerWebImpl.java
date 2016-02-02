@@ -35,7 +35,13 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.IUserHandler;
-import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.monitoring.event.impl.ProcessEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.ProcessStartSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SessionScoreUpdateSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
 import eu.learnpad.simulator.uihandler.IFormHandler;
 
 /**
@@ -49,8 +55,6 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 	private final WebServer webserver;
 	private final Map<String, ServletHolder> usersMap = Collections
 			.synchronizedMap(new HashMap<String, ServletHolder>());
-	private final Map<String, Collection<String>> tasksToUsers = Collections
-			.synchronizedMap(new HashMap<String, Collection<String>>());
 	private final Map<String, ServletHolder> tasksMap = Collections
 			.synchronizedMap(new HashMap<String, ServletHolder>());
 
@@ -119,59 +123,68 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 		return new HashSet<String>(usersMap.keySet());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see activitipoc.IUIHandler#sendTask(java.lang.String, java.util.Set)
-	 */
-	public void sendTask(LearnPadTask task, Collection<String> users) {
-
-		tasksMap.put(task.id, webserver.addTaskServlet(new TaskServlet(this,
-				userEventReceiverProvider.processManager(), task, formHandler),
-				task.id));
-		tasksToUsers.put(task.id, users);
-
-		// note: it is important to signal new tasks to users *after* having
-		// created the corresponding servlet otherwise the user may try to
-		// connect to the task before it is available
-		for (String user : users) {
-			((UIServlet) usersMap.get(user).getServletInstance())
-			.addTask(task.id);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see activitipoc.IUIHandler#signalProcessEnd(java.lang.String,
-	 * java.util.Set)
-	 */
-	public void signalProcessEnd(String processId, Collection<String> users) {
-		for (String userId : users) {
-			((UIServlet) usersMap.get(userId).getServletInstance())
-					.completeProcess(processId);
-		}
-
-	}
-
-	public void completeTask(String processId, String taskId, String data) {
-		for (String userId : tasksToUsers.get(taskId)) {
-			((UIServlet) usersMap.get(userId).getServletInstance())
-					.removeTask(taskId);
-		}
-
-		// remove task ui from webserver
-		webserver.removeServletHolder(tasksMap.get(taskId));
-
-		tasksToUsers.remove(taskId);
-		tasksMap.remove(taskId);
-	}
-
 	/**
 	 * stop the webserver
 	 */
 	public void stop() {
 		webserver.stop();
+	}
+
+	@Override
+	public void receiveSimulationStartEvent(SimulationStartSimEvent event) {
+		// nothing to do
+	}
+
+	@Override
+	public void receiveSimulationEndEvent(SimulationEndSimEvent event) {
+		// nothing to do
+	}
+
+	@Override
+	public void receiveProcessStartEvent(ProcessStartSimEvent event) {
+		// nothing to do
+	}
+
+	@Override
+	public void receiveProcessEndEvent(ProcessEndSimEvent event) {
+		for (String userId : event.involvedusers) {
+			((UIServlet) usersMap.get(userId).getServletInstance())
+			.completeProcess(event.processInstance.processartifactid);
+		}
+	}
+
+	@Override
+	public void receiveTaskStartEvent(TaskStartSimEvent event) {
+		tasksMap.put(event.task.id, webserver.addTaskServlet(new TaskServlet(
+				userEventReceiverProvider.processManager(), event.task,
+				formHandler), event.task.id));
+
+		// note: it is important to signal new tasks to users *after* having
+		// created the corresponding servlet otherwise the user may try to
+		// connect to the task before it is available
+		for (String user : event.involvedusers) {
+			((UIServlet) usersMap.get(user).getServletInstance())
+					.addTask(event.task.id);
+		}
+	}
+
+	@Override
+	public void receiveTaskEndEvent(TaskEndSimEvent event) {
+		for (String userId : event.involvedusers) {
+			((UIServlet) usersMap.get(userId).getServletInstance())
+			.removeTask(event.task.id);
+		}
+
+		// remove task ui from webserver
+		webserver.removeServletHolder(tasksMap.get(event.task.id));
+
+		tasksMap.remove(event.task.id);
+
+	}
+
+	@Override
+	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateSimEvent event) {
+		// nothing to do
 	}
 
 }

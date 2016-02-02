@@ -6,6 +6,7 @@
 
 @prefix cc: <http://creativecommons.org/ns#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix media-types: <http://www.iana.org/assignments/media-types#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -64,6 +65,44 @@ http://dublincore.org/documents/dcmi-type-vocabulary/"""^^xsd:string ;
   owl:imports <http://ikm-group.ch/archiMEO/top> ;
   owl:versionInfo 1.1 ;
 .
+util:application_msword
+  rdf:type media-types:MIMETYPE ;
+  util:mimeTypeHasName "msword"^^xsd:string ;
+  util:mimeTypeHasTemplate "application/msword"^^xsd:string ;
+  rdfs:label "Word"^^xsd:string ;
+.
+util:application_pdf
+  rdf:type media-types:MIMETYPE ;
+  util:mimeTypeHasName "pdf"^^xsd:string ;
+  util:mimeTypeHasTemplate "application/pdf"^^xsd:string ;
+  rdfs:label "PDF"^^xsd:string ;
+.
+util:application_vnd-ms-excel
+  rdf:type media-types:MIMETYPE ;
+  util:mimeTypeHasName "vnd.ms-excel"^^xsd:string ;
+  util:mimeTypeHasTemplate "application/vnd.ms-excel"^^xsd:string ;
+  rdfs:label "Excel"^^xsd:string ;
+.
+util:application_vnd-ms-powerpoint
+  rdf:type media-types:MIMETYPE ;
+  util:mimeTypeHasName "vnd.ms-powerpoint"^^xsd:string ;
+  rdfs:label "Powerpoint"^^xsd:string ;
+.
+util:mimeTypeHasName
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain media-types:MIMETYPE ;
+  rdfs:range xsd:string ;
+.
+util:mimeTypeHasTemplate
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain media-types:MIMETYPE ;
+.
+util:text_html
+  rdf:type media-types:MIMETYPE ;
+  util:mimeTypeHasName "html"^^xsd:string ;
+  util:mimeTypeHasTemplate "text/html"^^xsd:string ;
+  rdfs:label "HTML"^^xsd:string ;
+.
 <http://purl.org/dc/elements/1.1#documentHasContributor>
   rdf:type owl:ObjectProperty ;
   rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
@@ -97,7 +136,7 @@ http://dublincore.org/documents/dcmi-type-vocabulary/"""^^xsd:string ;
 <http://purl.org/dc/elements/1.1#documentHasFormat>
   rdf:type owl:ObjectProperty ;
   rdfs:domain <http://xmlns.com/foaf/spec#Document> ;
-  rdfs:range <http://www.iana.org/assignments/media-types#MIMETYPE> ;
+  rdfs:range media-types:MIMETYPE ;
 .
 <http://purl.org/dc/elements/1.1#documentHasIdentifyer>
   rdf:type owl:DatatypeProperty ;
@@ -337,7 +376,7 @@ http://dublincore.org/documents/dcmi-terms/#terms-tableOfContents"""^^xsd:string
   rdfs:subPropertyOf <http://purl.org/dc/elements/1.1#documentHasRelationToDocument> ;
   owl:inverseOf <http://purl.org/dcterms#documentIsVersionOfDocument> ;
 .
-<http://www.iana.org/assignments/media-types#MIMETYPE>
+media-types:MIMETYPE
   rdf:type owl:Class ;
   rdfs:isDefinedBy "http://www.iana.org/assignments/media-types/"^^xsd:string ;
   rdfs:label "MIMETYPE"^^xsd:string ;

@@ -19,33 +19,24 @@
  */
 package eu.learnpad.sim.rest.event.impl;
 
-import eu.learnpad.sim.rest.event.AbstractEvent;
-import eu.learnpad.sim.rest.event.EventType;
+import java.util.List;
 
 /**
  *
  * @author Tom Jorquera - Linagora
  *
  */
-public class ProcessEndEvent extends AbstractEvent {
-
-	/**
-	 * Unique ID of the process instance
-	 */
-	public String processid;
+public class ProcessEndEvent extends ProcessStartEvent {
 
 	public ProcessEndEvent() {
 		super();
 	}
 
-	public ProcessEndEvent(Long timestamp, String processid) {
-		super(timestamp);
-		this.processid = processid;
-	}
-
-	@Override
-	public EventType getType() {
-		return EventType.PROCESS_END;
+	public ProcessEndEvent(Long timestamp, String simulationsessionid,
+			List<String> involvedusers, String processid,
+			String processdefinitionid) {
+		super(timestamp, simulationsessionid, involvedusers, processid,
+				processdefinitionid);
 	}
 
 }

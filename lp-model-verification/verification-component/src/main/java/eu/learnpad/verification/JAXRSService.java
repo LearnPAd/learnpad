@@ -35,8 +35,13 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
+import eu.learnpad.verification.utils.ConfigManager;
 import eu.learnpad.verification.utils.Utils;
 
+/**
+ * This class expose a REST interface that should not be used anymore
+ */
+@Deprecated
 @Path("/VerificationComponent")
 public class JAXRSService {
     @GET
@@ -106,7 +111,12 @@ public class JAXRSService {
     
     public static void main(String[] args) {
         try{
-            URI baseUri = UriBuilder.fromUri("http://127.0.0.1/rest").port(9998).build();
+            String port = "";
+            try{
+                port = new ConfigManager().getElement("PORT");
+            }catch(Exception ex){Utils.log(ex);port="9998";}
+            
+            URI baseUri = UriBuilder.fromUri("http://127.0.0.1/rest").port(Integer.parseInt(port)).build();
             final ResourceConfig resourceConfig = new ResourceConfig(JAXRSService.class);
             HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri,resourceConfig, false);
             server.start();

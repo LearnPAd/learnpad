@@ -43,7 +43,8 @@ public class MainTest {
 	public void testCorrectBoot() {
 
 		try {
-			Simulator simulator = new Simulator(Main.ACTIVITY_CONFIG_PATH, PORT);
+			Simulator simulator = new Simulator(Main.ACTIVITY_CONFIG_PATH,
+					PORT, false);
 
 			// add users
 			for (String user : Arrays.asList("sarah", "tom")) {

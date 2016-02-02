@@ -25,6 +25,7 @@ package eu.learnpad.simulator.uihandler.webserver;
  */
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -61,7 +62,6 @@ public class TaskServlet extends WebSocketServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private final UIHandlerWebImpl uiHandler;
 	private final IProcessManager processManager;
 	private final LearnPadTask task;
 	private final IFormHandler formHandler;
@@ -74,11 +74,9 @@ public class TaskServlet extends WebSocketServlet {
 	 * @param dispatcher
 	 * @param task
 	 */
-	public TaskServlet(UIHandlerWebImpl uiHandler,
-			IProcessManager processManager, LearnPadTask task,
+	public TaskServlet(IProcessManager processManager, LearnPadTask task,
 			IFormHandler formHandler) {
 		super();
-		this.uiHandler = uiHandler;
 		this.processManager = processManager;
 		this.task = task;
 		this.formHandler = formHandler;
@@ -96,10 +94,12 @@ public class TaskServlet extends WebSocketServlet {
 		System.out.println("User " + userId + "submitted task " + task.id
 				+ " with data " + data);
 
+		Map<String, Object> dataMap = formHandler.parseResult(data)
+				.getProperties();
+
 		// signal task submission to dispatcher and check validation
 		LearnPadTaskSubmissionResult result = processManager
-				.submitTaskCompletion(task, userId,
-						formHandler.parseResult(data).getProperties());
+				.submitTaskCompletion(task, userId, dataMap);
 
 		LearnPadTaskSubmissionResult.TaskSubmissionStatus status = result.status;
 
@@ -114,8 +114,10 @@ public class TaskServlet extends WebSocketServlet {
 					e.getKey().sendOtherValidated();
 				}
 			}
-			uiHandler.completeTask(task.processId, task.id, data);
 			System.out.println("task " + task.id + " has been validated");
+
+			processManager.completeTask(task, dataMap, userId, result);
+
 			break;
 
 		case REJECTED:

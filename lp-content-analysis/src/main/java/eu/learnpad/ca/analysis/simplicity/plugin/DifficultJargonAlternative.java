@@ -143,7 +143,7 @@ public class DifficultJargonAlternative extends Plugin {
 				a.setStartNode(init.getId());
 				a.setNodeEnd(end);
 				a.setNodeStart(init);
-				a.setType("DifficultJargon Alternative");
+				a.setType("Simplicity Difficult Jargon");
 
 				String suggestion = listAltTermSet.get(listAltTermSet.indexOf(tmptoken)).getSuggestion();
 				a.setRecommendation("The term "+tmptoken.getWord()+" is difficult. Please replace with: "+suggestion);

@@ -1,0 +1,47 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="UnderstandabilityResult" >
+	<xs:complexType>
+	  <xs:sequence>
+        <xs:element type="xs:string" name="VerificationType"/>
+		<xs:element type="xs:string" name="DefinitionID"/>
+		<xs:element type="UResultType" name="Status"/>
+		<xs:element type="xs:string" name="Description"/>
+		<xs:element name="Guidelines" minOccurs="0">
+		  <xs:complexType>
+			<xs:sequence>
+			  <xs:element name="Guideline" maxOccurs="unbounded" minOccurs="0">
+				<xs:complexType>
+				  <xs:sequence>
+					<xs:element type="xs:string" name="Description"/>
+					<xs:element type="xs:string" name="Suggestion"/>
+					<xs:element name="Elements" minOccurs="0">
+					  <xs:complexType>
+						<xs:sequence>
+						  <xs:element name="ElementID" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                              <xs:attribute type="xs:string" name="refProcessID"/>
+                            </xs:complexType>
+                          </xs:element>
+						</xs:sequence>
+					  </xs:complexType>
+					</xs:element>
+				  </xs:sequence>
+				  <xs:attribute type="xs:string" name="id"/>
+				  <xs:attribute type="xs:string" name="Name"/>
+				</xs:complexType>
+			  </xs:element>
+			</xs:sequence>
+		  </xs:complexType>
+		</xs:element>
+	  </xs:sequence>
+	</xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="UResultType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="OK"/>
+      <xs:enumeration value="KO"/>
+      <xs:enumeration value="ERROR"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

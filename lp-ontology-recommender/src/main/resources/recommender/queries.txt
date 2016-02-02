@@ -108,38 +108,37 @@ WHERE {
 ##START## QUERY:learningMaterialForNextCompetencyLevel
 ##COMMENT:Recommend learning material related to the competency level above the users comptency level considering the learning style
 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#>  
+prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#>
+prefix cmm: <http://ikm-group.ch/archiMEO/CMM#>
+prefix dkm: <http://ikm-group.ch/archiMEO/dkm#>
 prefix emo: <http://ikm-group.ch/archiMEO/emo#>
 prefix lpd: <http://learnpad.eu#>
 prefix omm: <http://ikm-group.ch/archiMEO/omm#>
 prefix foaf: <http://xmlns.com/foaf/spec#>
 prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
-SELECT ?learningMaterialTitle ?learningMaterialType ?learningMaterialURI 
+SELECT ?learningMaterialDocument ?documentLabel ?documentURL ?documentMimeType ?documentDescription ?documentComment
 WHERE {
     {
-    SELECT ?nextCompetencyLevelNumber ?aquiredCompetencyLabel ?learningStyle 
-    ?competencyProfile emo:competencyProfileIsAquiredByPerformer ?performer .
-    ?competencyProfile cmm:competencyProfileContainsCompetencySet ?aquiredCompetencySet .
-    ?aquiredCompetency cmm:competencyBelongsToCompetencySet ?aquiredCompetencySet .
-    ?aquiredCompetency cmm:competencyHasLevel ?competencyLevelNumber .
-    ?aquiredCompetency rdfs:label ?aquiredCompetencyLabel .
-    BIND(?competencyLevelNumber+1 AS ?nextCompetencyLevelNumber) .
-        ?competencyProfile lpd:competencyProfilePrefersLearningStyle ?learningStyle .
+    SELECT ?requiredCompetency (MIN(?levelDiff) AS ?minimalLevelDif)
+        WHERE {
+            ?performer emo:performerHasEmailAddress ?email .
+            ?performer omm:performerAquiredCompetencyProfile  ?aquiredCompetencyProfile .
+            ?aquiredCompetencyProfile cmm:competenciesAndLevels ?aquiredCompetencyAndLevel .
+            ?aquiredCompetencyAndLevel cmm:competencyAndLevelLevel ?aquiredCompetencyLevelNumber .
+            ?aquiredCompetencyAndLevel cmm:competencyAndLevelRefersToCompetency ?aquiredCompetency .
+            ?performer omm:performerHasRole ?role .
+            ?role omm:roleRequiresCompetencies ?requiredCompetency .
+            ?requiredCompetency cmm:eqfCompetencyHasLevel ?requiredCompetenciesEQFLevel .
+            BIND(?requiredCompetenciesEQFLevel - ?aquiredCompetencyLevelNumber AS ?levelDiff)
+            FILTER (?levelDiff > 0)
+        } 
+        GROUP BY ?requiredCompetency
     }
-    ?nextCompetency cmm:competencyHasLevel ?nextCompetencyLevelNumber .
-    ?nextCompetency rdfs:label ?aquiredCompetencyLabel .
-    ?nextCompetency lpd:proposedLearningDocument ?learningDocument .
-    ?learningDocument elements:documentHasType ?documentType .
-    ?learningStyle lpd:learningStyleBelongsToDocumentType ?documentType .
-    ?learningDocument emo:documentRepresentsdocument ?foafDocument .
-    ?foafDocument elements:documentHasTitle ?learningMaterialTitle .
-    ?foafDocument eo:documentHasStorage ?documentNode .
-    OPTIONAL{
-        ?documentNode lpd:xwikiPageRepresentsNode ?learningMaterialURI .
-    }
-    OPTIONAL{
-        NOT EXISTS(?documentNode lpd:xwikiPageRepresentsNode ?learningMaterialURI) .
-        ?foafDocument elements:documentHasSource ?learningMaterialURI) .	
-    }
+    ?learningMaterialDocument dkm:learningDocumentIncreasesCompetency ?requiredCompetency.
+    ?learningMaterialDocument dkm:documentHasURL ?documentURL .
+    ?learningMaterialDocument dkm:documentHasMIMEType ?documentMimeType .
+    ?learningMaterialDocument rdfs:label ?documentLabel .
+    OPTIONAL {?learningMaterialDocument rdfs:comment ?documentComment . }
+    OPTIONAL {?learningMaterialDocument dkm:documentHasDescription ?documentDescription . }
 }
 ##END##

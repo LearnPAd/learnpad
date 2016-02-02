@@ -30,6 +30,8 @@ import org.activiti.engine.ProcessEngineConfiguration;
 import eu.learnpad.simulator.IProcessEventReceiver.IProcessEventReceiverProvider;
 import eu.learnpad.simulator.IProcessManager.IProcessManagerProvider;
 import eu.learnpad.simulator.IRobotHandler.IRobotHandlerProvider;
+import eu.learnpad.simulator.monitoring.EventDispatcherImpl;
+import eu.learnpad.simulator.monitoring.activiti.ProbeEventReceiver;
 import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
 import eu.learnpad.simulator.robot.IRobotFactory;
 import eu.learnpad.simulator.robot.RobotUserEventReceiverWrapper;
@@ -55,11 +57,13 @@ public class Simulator implements IProcessManagerProvider,
 	private final UIHandlerWebImpl uiHandler;
 	private final ProcessEngine processEngine;
 
+	private final EventDispatcherImpl eventDispatcher;
+
 	private final RobotUserEventReceiverWrapper<Map<String, Object>> robotEventReceiver;
 	private final IRobotFactory<Map<String, Object>, Map<String, Object>> robotFactory;
 
-	public Simulator(String activitiConfigPath, int webserverPort)
-			throws Exception {
+	public Simulator(String activitiConfigPath, int webserverPort,
+			boolean monitoringEnabled) throws Exception {
 
 		// launch activiti process engine
 		ProcessEngineConfiguration config = ProcessEngineConfiguration
@@ -91,6 +95,23 @@ public class Simulator implements IProcessManagerProvider,
 		robotEventReceiver = new RobotUserEventReceiverWrapper<Map<String, Object>>(
 				uiHandler, robotFactory, new ActivitiRobotInputExtractor(
 						processEngine.getTaskService()), processManager);
+
+		// manage events subscriptions
+		eventDispatcher = new EventDispatcherImpl();
+		eventDispatcher.subscribe(robotEventReceiver);
+
+		// add monitoring probe
+
+		if (monitoringEnabled) {
+			// register a probe to monitor events
+			eventDispatcher.subscribe(new ProbeEventReceiver());
+		}
+
+	}
+
+	public Simulator(String activitiConfigPath, int webserverPort)
+			throws Exception {
+		this(activitiConfigPath, webserverPort, true);
 	}
 
 	public void stop() {
@@ -110,7 +131,7 @@ public class Simulator implements IProcessManagerProvider,
 	 * #processEventReceiver()
 	 */
 	public IProcessEventReceiver processEventReceiver() {
-		return robotEventReceiver;
+		return eventDispatcher;
 	}
 
 	/*

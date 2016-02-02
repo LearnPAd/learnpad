@@ -29,16 +29,36 @@ import java.io.StringWriter;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import javax.xml.xpath.XPathConstants;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 import eu.learnpad.verification.plugin.bpmn.guideline.factory.GuidelinesFactory;
 import eu.learnpad.verification.plugin.bpmn.reader.MyBPMN2ModelReader;
 import eu.learnpad.verification.plugin.interfaces.Plugin;
 import eu.learnpad.verification.plugin.utils.Utils;
+import eu.learnpad.verification.plugin.utils.XMLUtils;
 import eu.learnpad.verification.plugin.utils.Utils.LogType;
 
 
 public class BPMNUnderstandability implements Plugin {
 
+    private boolean isOMGBPMN2(String modelS){
+        try{
+            Document model = XMLUtils.getXmlDocFromString(modelS);
+            String queryRoot = "/*[namespace-uri()='http://www.omg.org/spec/BPMN/20100524/MODEL' and local-name()='definitions']";
+            Node bpmnRootNode =  (Node) XMLUtils.execXPath(model.getDocumentElement(), queryRoot, XPathConstants.NODE);
+            if(bpmnRootNode!=null)
+                return true;
+        }catch(Exception e){
+        	Utils.log(e);
+			Utils.log("\nModel involved in the exception:\n"+modelS, LogType.ERROR);
+			
+        }
+        return false;
+    }
+    
 	@Override
 	public String[] getVerificationTypeProvided() {
 		return new String[]{"UNDERSTANDABILITY"};
@@ -51,10 +71,15 @@ public class BPMNUnderstandability implements Plugin {
 			
 			if(type.equals("UNDERSTANDABILITY")){
 				
+			    if(!isOMGBPMN2(model))
+			        return "";
+			    
 				MyBPMN2ModelReader readerBPMN = new MyBPMN2ModelReader();
 		
 				GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readStringModel(model));
-				System.out.println(eg);
+				eg.setVerificationType("UNDERSTANDABILITY");
+				eg.StartSequential();
+				//System.out.println(eg);
 				
 				JAXBContext jaxbContext = JAXBContext.newInstance(GuidelinesFactory.class);
 				Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
@@ -64,7 +89,7 @@ public class BPMNUnderstandability implements Plugin {
 				jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
 
 				StringWriter w = new StringWriter();
-				jaxbMarshaller.marshal(eg, System.out);
+				//jaxbMarshaller.marshal(eg, System.out);
 				jaxbMarshaller.marshal(eg, w);
 				
 				ret =  w.toString();
@@ -74,7 +99,7 @@ public class BPMNUnderstandability implements Plugin {
 			//ex.printStackTrace();
 			Utils.log(ex);
 			Utils.log("\nModel involved in the exception:\n"+model, LogType.ERROR);
-			ret = "<Result><Status>ERROR</Status><Description>"+ex.getMessage()+"</Description></Result>";
+			ret = "<ErrorResult><Status>ERROR</Status><Description>"+ex.getMessage()+"</Description></ErrorResult>";
 		}
 		return ret;
 	}

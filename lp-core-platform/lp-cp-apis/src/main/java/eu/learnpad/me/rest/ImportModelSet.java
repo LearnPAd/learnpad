@@ -19,17 +19,21 @@
  */
 package eu.learnpad.me.rest;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
 
 public interface ImportModelSet {
-	//"/learnpad/me/importmodelset/{modelsetid}?type={adoxx,md,lpz}"
-	@Path("/importmodelset/{modelsetid}")
+	//"/learnpad/me/importmodelset/{modelsetid}?type={adoxx,md,lpzip}"
+	
 	@PUT
+	@Path("/importmodelset/{modelsetid}")
+	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
 	void putModelSet(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type") String type, byte [] modelSetFile)
 					throws LpRestException;

@@ -29,8 +29,12 @@
   dc:title "The CMM Ontology"@en ;
   owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
   owl:imports <http://ikm-group.ch/archiMEO/emo> ;
-  owl:imports <http://ikm-group.ch/archiMEO/eo> ;  
+  owl:imports <http://ikm-group.ch/archiMEO/eo> ;
   owl:versionInfo "1.0"^^xsd:string ;
+.
+cmm:Auditory_learningPreference
+  rdf:type cmm:LearningPreference ;
+  cmm:learningPreferenceHasName "Auditory"^^xsd:string ;
 .
 cmm:CaseFileItem
   rdf:type owl:Class ;
@@ -41,6 +45,11 @@ cmm:Competency
   rdfs:comment "(ITLET) observable or measurable ability of an actor to perform a necessary action(s) in a given context(s) to achieve a specific outcome(s). Source: ISO/IEC TR 23476, p. 13"^^xsd:string ;
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:label "Competency"^^xsd:string ;
+  rdfs:subClassOf emo:CompetencyMetaModel ;
+.
+cmm:CompetencyAndLevel
+  rdf:type owl:Class ;
+  rdfs:comment "The level of an aquired or required competency belonging to a performers or roles competency profile."^^xsd:string ;
   rdfs:subClassOf emo:CompetencyMetaModel ;
 .
 cmm:CompetencyGroup
@@ -60,6 +69,70 @@ cmm:CompetencySet
   rdfs:comment "Competency Set pools competencies, e.g. required by a role or for a certain purpose"^^xsd:string ;
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:subClassOf emo:CompetencyMetaModel ;
+.
+cmm:EQFCompetency
+  rdf:type owl:Class ;
+  rdfs:subClassOf cmm:Competency ;
+.
+cmm:LearningPreference
+  rdf:type owl:Class ;
+  rdfs:subClassOf emo:CompetencyMetaModel ;
+.
+cmm:Mentoring_learningPreference
+  rdf:type cmm:LearningPreference ;
+  cmm:learningPreferenceHasName "Mentoring"^^xsd:string ;
+.
+cmm:Reading_learningPreference
+  rdf:type cmm:LearningPreference ;
+  cmm:learningPreferenceHasName "Reading"^^xsd:string ;
+.
+cmm:Simulation_learningPreference
+  rdf:type cmm:LearningPreference ;
+  cmm:learningPreferenceHasName "Simulation"^^xsd:string ;
+.
+cmm:VisualBrowsing_learningPreference
+  rdf:type cmm:LearningPreference ;
+  cmm:learningPreferenceHasName "Visual (Browsing)"^^xsd:string ;
+.
+cmm:competenciesAndLevels
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cmm:CompetencyProfile ;
+  rdfs:range cmm:CompetencyAndLevel ;
+.
+cmm:competencyAndLevelComment
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:CompetencyAndLevel ;
+  rdfs:range xsd:string ;
+.
+cmm:competencyAndLevelLastUpdate
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:CompetencyAndLevel ;
+  rdfs:range xsd:dateTime ;
+.
+cmm:competencyAndLevelLearningGoal
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:CompetencyAndLevel ;
+  rdfs:range xsd:string ;
+.
+cmm:competencyAndLevelLevel
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:CompetencyAndLevel ;
+  rdfs:range xsd:integer ;
+.
+cmm:competencyAndLevelRefersToCompetency
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cmm:CompetencyAndLevel ;
+  rdfs:range cmm:Competency ;
+.
+cmm:competencyAndLevelScore
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:CompetencyAndLevel ;
+  rdfs:range xsd:string ;
+.
+cmm:competencyAndLevelStatus
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:CompetencyAndLevel ;
+  rdfs:range xsd:string ;
 .
 cmm:competencyBelongsToCompetencyGroup
   rdf:type owl:ObjectProperty ;
@@ -102,4 +175,35 @@ cmm:competencyRequiresCompetency
   rdfs:comment "higher-level competency’s definition mandates that certain lower-level competencies are met"^^xsd:string ;
   rdfs:domain cmm:Competency ;
   rdfs:range cmm:Competency ;
+.
+cmm:eqfCompetenceHasCompetence
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:EQFCompetency ;
+  rdfs:range xsd:string ;
+.
+cmm:eqfCompetenceHasKnowledge
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:EQFCompetency ;
+  rdfs:range xsd:string ;
+.
+cmm:eqfCompetenceHasSkill
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:EQFCompetency ;
+  rdfs:range xsd:string ;
+.
+cmm:eqfCompetencyHasLevel
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:EQFCompetency ;
+  rdfs:range xsd:integer ;
+  rdfs:subPropertyOf cmm:competencyHasLevel ;
+.
+cmm:learningPreferenceHasName
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cmm:LearningPreference ;
+  rdfs:range xsd:string ;
+.
+cmm:learningPreferencesAssignedToCompetencyProfile
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cmm:CompetencyProfile ;
+  rdfs:range cmm:LearningPreference ;
 .

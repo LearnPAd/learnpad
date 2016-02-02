@@ -18,7 +18,11 @@ declare __LOG_LEVEL__="ERROR"
 
 declare -r COMPONENTS_LIST_FILE="${__ROOT_PATH__}/.components"
 
+declare __ACTION__=""
+declare __ARE_OPTIONS_CORRECT__="no"
+
 ### Libraries
+
 source ${__BUILD_SYSTEM_PATH__}/utils.sh
 source ${__BUILD_SYSTEM_PATH__}/launch.sh
 
@@ -33,12 +37,18 @@ do
 			;;
 		"start"|"stop"|"restart")
 			declare __ACTION__="${ARG}"
+			declare __ARE_OPTIONS_CORRECT__="yes"
 			;;
 		*)
-			customlog "INFO" "\`${ARG}' is not parsed by \`${__BASE__}' script."
+			customlog "ERROR" "\`${ARG}' is not parsed by \`${__BASE__}' script." ${ERROR_ARGS}
 			;;
 	esac
 done
+
+if [ "${__ARE_OPTIONS_CORRECT__}"  == "no" ]
+then
+	customlog "ERROR" "usage: ${__BASE__} [-v|-d] start|stop|restart" ${ERROR_ARGS}
+fi
 
 cat ${COMPONENTS_LIST_FILE} | while read COMPONENT_NAME
 do
