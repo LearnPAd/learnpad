@@ -42,10 +42,6 @@ public class RestResource {
 		return getClient(RestResource.DEFAULT_USER, RestResource.DEFAULT_PASSWORD);
 	}
 
-	public static Authenticator getXWikiAuthenticator() {
-		return new Authenticator(DEFAULT_USER, DEFAULT_PASSWORD); 
-	}
-
 	public static HttpClient getClient(String userName, String password) {
 		HttpClient httpClient = new HttpClient();
 		httpClient.getParams().setAuthenticationPreemptive(true);

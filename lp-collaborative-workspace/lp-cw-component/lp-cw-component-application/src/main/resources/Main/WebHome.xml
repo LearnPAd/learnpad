@@ -33,7 +33,7 @@
   <date>1445521280000</date>
   <contentUpdateDate>1445521280000</contentUpdateDate>
   <version>1.1</version>
-  <title>${xwiki.getDocument('LPUI.WebHome').getTitle()}</title>
+  <title>${services.localization.render('LPUI.WebHome.title')}</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.0</syntaxId>

@@ -25,6 +25,7 @@ import org.glassfish.jersey.test.spi.TestContainerFactory;
 import org.junit.Test;
 
 import eu.learnpad.ca.gate.GateServletContextListener;
+import eu.learnpad.ca.impl.BridgeImpl;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 
@@ -36,7 +37,7 @@ public class StaticContentVerificationsImplTest extends JerseyTest{
 	@Override
     protected DeploymentContext configureDeployment() {
 		 forceSet(TestProperties.CONTAINER_PORT, "0");
-		    return ServletDeploymentContext.forServlet(new ServletContainer(new ResourceConfig(StaticContentVerificationsImpl.class)))
+		    return ServletDeploymentContext.forServlet(new ServletContainer(new ResourceConfig(BridgeImpl.class)))
 		                                   .addListener(GateServletContextListener.class)
 		                                   .build();
          
@@ -44,7 +45,7 @@ public class StaticContentVerificationsImplTest extends JerseyTest{
 
 	@Override
 	protected Application configure() {
-		return new ResourceConfig(StaticContentVerificationsImpl.class);
+		return new ResourceConfig(BridgeImpl.class);
 	}
 
 	
@@ -59,20 +60,20 @@ public class StaticContentVerificationsImplTest extends JerseyTest{
 		StaticContentAnalysis StaticContentInput = (StaticContentAnalysis) jaxbUnmarshaller1.unmarshal(is);
 
 		Entity<StaticContentAnalysis> entity = Entity.entity(StaticContentInput,MediaType.APPLICATION_XML);
-		Response response =  target("/learnpad/ca/validatestaticcontent").request(MediaType.APPLICATION_XML).post(entity);
+		Response response =  target("/learnpad/ca/bridge/validatestaticcontent").request(MediaType.APPLICATION_XML).post(entity);
 
 		String id = response.readEntity(String.class);
 
 		assertNotNull(response);
 		String status = "IN PROGRESS";
 		while(!status.equals("OK")){
-			status =  target("/learnpad/ca/validatestaticcontent/"+id+"/status").request().get(String.class);
+			status =  target("/learnpad/ca/bridge/validatestaticcontent/"+id+"/status").request().get(String.class);
 
 			assertNotNull(status);
 
 		}
 
-		Response annotatecontent =  target("/learnpad/ca/validatestaticcontent/"+id).request().get();
+		Response annotatecontent =  target("/learnpad/ca/bridge/validatestaticcontent/"+id).request().get();
 
 		ArrayList<AnnotatedStaticContentAnalysis> res =	annotatecontent.readEntity(new GenericType<ArrayList<AnnotatedStaticContentAnalysis>>() {});
 		assertNotNull(res);

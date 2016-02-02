@@ -35,8 +35,6 @@ import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.cw.BridgeInterface;
 import eu.learnpad.cw.Controller;
 import eu.learnpad.exception.LpRestException;
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
-import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.sim.rest.data.UserData;
 

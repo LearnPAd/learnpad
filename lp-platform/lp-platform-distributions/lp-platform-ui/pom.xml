@@ -35,7 +35,7 @@
 	<name>Learn PAd - Platform - Distribution - UI</name>
 
 	<properties>
-		<xcs.footer.webcopyright><![CDATA[License ...]]></xcs.footer.webcopyright>
+		<xcs.footer.webcopyright><![CDATA[License LGPL]]></xcs.footer.webcopyright>
 		<xcs.footer.version><![CDATA[Learn PAd platform (v1.0)]]></xcs.footer.version>
 	</properties>
 
@@ -60,7 +60,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.xwiki.platform</groupId>
-			<artifactId>xwiki-platform-flamingo-theme</artifactId>
+			<artifactId>xwiki-platform-flamingo-theme-ui</artifactId>
 			<version>${platform.version}</version>
 			<type>xar</type>
 		</dependency>
@@ -93,6 +93,13 @@
 				<configuration>
 					<includeDependencies>true</includeDependencies>
 					<transformations>
+						<!-- Configure the skin -->
+						<transformation>
+							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+							<file>XWiki/XWikiPreferences.xml</file>
+							<xpath>/xwikidoc/object/property/skin</xpath>
+							<value>learnpad</value>
+						</transformation>
 						<!-- Configure the default color theme -->
 						<transformation>
 							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
@@ -177,11 +184,98 @@
 				</dependency>
 				<dependency>
 					<groupId>org.xwiki.contrib</groupId>
-					<artifactId>application-webide</artifactId>
-					<version>0.11</version>
+					<artifactId>application-webide-ui</artifactId>
+					<version>1.2</version>
 					<type>xar</type>
 				</dependency>
 			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.xwiki.commons</groupId>
+						<artifactId>xwiki-commons-tool-xar-plugin</artifactId>
+						<version>${commons.version}</version>
+						<configuration>
+							<includeDependencies>true</includeDependencies>
+							<transformations>
+								<!-- Configure the skin -->
+								<transformation>
+									<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+									<file>XWiki/XWikiPreferences.xml</file>
+									<xpath>/xwikidoc/object/property/skin</xpath>
+									<value>learnpad</value>
+								</transformation>
+								<!-- Configure the default color theme -->
+								<transformation>
+									<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+									<file>XWiki/XWikiPreferences.xml</file>
+									<xpath>/xwikidoc/object/property/colorTheme</xpath>
+									<value>ColorThemes.Charcoal</value>
+								</transformation>
+								<!-- Configure the default icon theme -->
+								<transformation>
+									<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+									<file>XWiki/XWikiPreferences.xml</file>
+									<xpath>/xwikidoc/object/property/iconTheme</xpath>
+									<value>IconThemes.FontAwesome</value>
+								</transformation>
+								<!-- Specify a different footer copyright -->
+								<transformation>
+									<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+									<file>XWiki/XWikiPreferences.xml</file>
+									<xpath>/xwikidoc/object/property/webcopyright</xpath>
+									<value>${xcs.footer.webcopyright}</value>
+								</transformation>
+								<!-- Specify a different footer version -->
+								<transformation>
+									<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+									<file>XWiki/XWikiPreferences.xml</file>
+									<xpath>/xwikidoc/object/property/version</xpath>
+									<value>${xcs.footer.version}</value>
+								</transformation>
+								<!-- Configure the panels -->
+								<transformation>
+									<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+									<file>XWiki/XWikiPreferences.xml</file>
+									<xpath>/xwikidoc/object/property/showLeftPanels</xpath>
+									<value>1</value>
+								</transformation>
+								<transformation>
+									<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+									<file>XWiki/XWikiPreferences.xml</file>
+									<xpath>/xwikidoc/object/property/showRightPanels</xpath>
+									<value>1</value>
+								</transformation>
+								<transformation>
+									<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+									<file>XWiki/XWikiPreferences.xml</file>
+									<xpath>/xwikidoc/object/property/rightPanels</xpath>
+									<value>LPUI.RecommendationPanel</value>
+								</transformation>
+								<!-- Remove tabs at the bottom -->
+								<transformation>
+									<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+									<file>XWiki/XWikiPreferences.xml</file>
+									<xpath>/xwikidoc/object/property/showattachments</xpath>
+									<value>1</value>
+								</transformation>
+								<transformation>
+									<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+									<file>XWiki/XWikiPreferences.xml</file>
+									<xpath>/xwikidoc/object/property/showhistory</xpath>
+									<value>1</value>
+								</transformation>
+								<transformation>
+									<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+									<file>XWiki/XWikiPreferences.xml</file>
+									<xpath>/xwikidoc/object/property/showinformation</xpath>
+									<value>1</value>
+								</transformation>
+							</transformations>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 </project>

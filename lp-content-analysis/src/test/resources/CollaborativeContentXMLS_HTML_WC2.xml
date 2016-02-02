@@ -1,0 +1,43 @@
+<CollaborativeContentAnalysis language="english">
+	<CollaborativeContent id="1213">
+		<Title> SUAP - Titolo Unico Business Process </Title>
+		<ContentPlain>
+
+Headline.
+
+SUAP - Titolo Unico Business Process.
+
+Context. 
+
+The participation to a EU financed project oblige the beneficiary in budget reporting activities as an evidence of the tasks performed within the project. 
+				
+Motivation. 
+
+Over the last years the Seventh Framework Program (FP7), and now Horizon 2020, are funding opportunities for many organizations in Europe in order to support innovation and collaboration. Submitting a EU project the organizations have to be aware of the complexity of the environment in which they are working.
+
+</ContentPlain>
+		<ContentHTML>
+		<![CDATA[
+<mark>Headline.</mark>
+
+SUAP - Titolo Unico Business Process.
+
+<mark>Context.</mark>
+
+The participation to a <b>EU financed project</b> oblige the beneficiary in budget reporting activities as an evidence of the tasks performed within the project. 
+				
+<mark>Motivation.</mark>  
+
+Over the last years the <b>Seventh Framework Program (FP7)</b>, and now Horizon 2020, are funding opportunities for many organizations in Europe in order to support innovation and collaboration. Submitting a EU project the organizations have to be aware of the complexity of the environment in which they are working.
+
+<mark>Involved actors.</mark>  
+		<mark>Input documents.</mark>  
+
+
+]]>
+		</ContentHTML>
+	</CollaborativeContent>
+	<QualityCriteria simplicity="true" non_ambiguity="true"
+		content_clarity="true" presentation_clarity="true" 
+		completeness="true" correctness="true" />
+</CollaborativeContentAnalysis>

@@ -10,6 +10,7 @@ import org.languagetool.Language;
 import org.languagetool.rules.RuleMatch;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
+import eu.learnpad.ca.analysis.localizzation.Messages;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
@@ -60,7 +61,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 				//List<Annotation> annotations = checkdefect(sentence,c, id);
 				List<Annotation> annotations =new ArrayList<Annotation>();
 				id = calculateAnnotations(sentence, matches, c, id,annotations,offset);
-				offset+=sentence.length();
+				offset+= sentence.length()+ 1 ;
 				
 				if(annotations.size()>0){
 					numDefectiveSentences++;
@@ -74,9 +75,9 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 			annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
-			annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
+			annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%"); //$NON-NLS-1$ //$NON-NLS-2$
 			annotatedCollaborativeContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-			annotatedCollaborativeContent.setType("Correctness");
+			annotatedCollaborativeContent.setType("Correctness"); //$NON-NLS-1$
 
 
 
@@ -87,7 +88,6 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			log.error(e);
 			return null;
 		}
@@ -141,9 +141,9 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			
 			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 			annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
-			annotatedStaticContent.setOverallQualityMeasure(qualitymmeasure+"%");
+			annotatedStaticContent.setOverallQualityMeasure(qualitymmeasure+"%"); //$NON-NLS-1$
 			annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-			annotatedStaticContent.setType("Correctness");
+			annotatedStaticContent.setType("Correctness"); //$NON-NLS-1$
 
 
 
@@ -154,7 +154,6 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			log.error(e);
 			return null;
 		}
@@ -190,8 +189,8 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			a.setStartNode(init.getId());
 			a.setNodeEnd(end);
 			a.setNodeStart(init);
-			a.setType("Correctness");
-			a.setRecommendation(match.getMessage()+"\n Suggested correction: " +match.getSuggestedReplacements());
+			a.setType("Correctness"); //$NON-NLS-1$
+			a.setRecommendation(match.getMessage()+Messages.getString("CorrectnessAnalysis.Reccomandation", language) +match.getSuggestedReplacements()); //$NON-NLS-1$
 			annotations.add(a);
 			id++;
 			finalpos = match.getToPos();
@@ -244,7 +243,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 		long lEndTime = System.currentTimeMillis();
 		long difference = lEndTime - lStartTime;
 
-		log.trace("CorrectnessAnalysis Elapsed milliseconds: " + difference);
+		log.trace("CorrectnessAnalysis Elapsed milliseconds: " + difference); //$NON-NLS-1$
 
 	}
 	
