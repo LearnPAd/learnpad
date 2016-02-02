@@ -120,7 +120,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName,
 				modelSetFile);
 	}
-/*
+
 	@Override
 	public PFResults getFeedbacks(String modelSetId) throws LpRestException {
 		return this.cw.getFeedbacks(modelSetId);
