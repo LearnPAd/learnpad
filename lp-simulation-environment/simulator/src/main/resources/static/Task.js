@@ -71,94 +71,7 @@ function task(address, taskid, user, integratedMode) {
 
         case 'TASKDESC':
             // memorize process id
-            this.processid = data.processid;
-
-            if (!$('#processcontainer' + data.processid).length) {
-
-                // create new tab for new process
-                $('#taskstable').append(
-                    '<li role="presentation"><a data-toggle="tab" href="#processcontainer' +
-                        data.processid + '">' + data.processname +
-                        '</a></li>'
-                );
-                var tasksDiv = $('#tasks');
-                var processDiv = document.createElement('div');
-                processDiv.id = 'processcontainer' + data.processid;
-                processDiv.className = 'tab-pane';
-                tasksDiv.append(processDiv);
-
-                var processMainDiv = document.createElement('div');
-                processMainDiv.id = 'processmain' + data.processid;
-                processMainDiv.className = 'col-sm-8';
-                processDiv.appendChild(processMainDiv);
-
-                var processSideDiv = document.createElement('div');
-                processSideDiv.id = 'processside' + data.processid;
-                processSideDiv.className = 'col-sm-4';
-                processDiv.appendChild(processSideDiv);
-
-                if(!integratedMode) {
-                    users(user).setUserList('processside' + data.processid);
-                }
-
-                // add gamification panel to side div
-                var scoreHelpText = "Your score is calculated based on how well you perform each task.<p>Each successfully completed task gives you points based of your number of attempts and how long did you take regarding the expected time.<p>Faster completion and less mistakes will award more points.";
-                $('#processside' + data.processid).append(
-                    '<div id="gamification' + data.processid +
-                        '" class="game-panel panel panel-default">' +
-                        '<div class="panel-body">' +
-                        '<div><h4><em id="score' + data.processid +
-                        '"></em> <span style="float:right" class="glyphicon glyphicon-question-sign"' +
-                        ' data-toggle="popover" data-trigger="focus" tabindex="0" ' +
-                        'data-placement="bottom" data-content="' + scoreHelpText +
-                        '"></span></h4></div></div></div>'
-                );
-                // initialize help popover
-                $('#gamification' + data.processid + ' [data-toggle="popover"]').popover({'html': true});
-
-                // this element can cause page height change, so we need to
-                // monitor it
-                heightMon.monitor('#gamification' + data.processid + ' [data-toggle="popover"]');
-                $('#gamification' + data.processid + ' [data-toggle="popover"]').bind(
-                    'transitionend', heightMon.checkForChangeNotification);
-
-                // check if it is the first tab
-                // (in this case we make it open by default)
-                if ($('#taskstable li').length == 1) {
-                    $('#taskstable li a:first').tab('show');
-                }
-
-                // add the process diagram
-                $('#processmain' + data.processid).append(
-                '<div class="panel-group diagram" id="accordion' +
-                    data.processid +
-                    '" role="tablist" aria-multiselectable="true">' +
-                    '<div class="panel panel-default">' +
-                    '<div class="panel-heading" role="tab" id="diagramHeading' + taskid +
-                    '"><h4 class="panel-title">' +
-                    '<a class="collapsed" data-toggle="collapse" data-parent="#accordion' + taskid +
-                    '" href="#diagramCollapse' + taskid +
-                    '" aria-expanded="true" aria-controls="diagramCollapse' + taskid +
-                    '">See Process Diagram' + '</a>' + '</h4>' + '</div>' +
-                    '<div id="diagramCollapse' + taskid +
-                    '" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="diagramHeading' + taskid +
-                    '"><div class="panel-body" style="overflow: scroll;width: 100%;">' +
-                    '<img class="diagramImg" src="diagram/processinstance/' +
-                    data.processid + '/' + taskid + '"></img>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>'
-                );
-
-                // this element can cause page height change, so we need to
-                // monitor it
-                heightMon.monitor('#accordion' + data.processid);
-                document.getElementById('accordion' + data.processid).addEventListener(
-                    "transitionend",
-                    heightMon.checkForChangeNotification);
-
-            }
+            this.sessionid = data.sessionid;
 
             var taskDiv = document.createElement('div');
             taskDiv.id = 'taskcontainer' + taskid;
@@ -169,7 +82,7 @@ function task(address, taskid, user, integratedMode) {
                 '">Attempts: ' + data.nbattempts + '</em></h4></div>' +
                 '</p><div id="taskFormDiv' + taskid + '"></div><hr>';
 
-            $('#accordion' + data.processid).before(taskDiv);
+            $('#accordion' + data.sessionid).before(taskDiv);
 
             $('#taskdata' + taskid).html(
                 '<h4>' + '<em>' + data.name + '</em></h4>' +
@@ -226,11 +139,11 @@ function task(address, taskid, user, integratedMode) {
             }, 1000);
 
             // update score
-            $('#score' + data.processid).html(
+            $('#score' + data.sessionid).html(
                 'Score: ' + data.totalscore
             );
 
-            $('#processcontainer' + data.processid + ' .diagramImg').attr(
+            $('#processcontainer' + data.sessionid + ' .diagramImg').attr(
                 'src',
                 'diagram/processinstance/' + data.processid + '/' + taskid
             );
@@ -266,7 +179,7 @@ function task(address, taskid, user, integratedMode) {
             );
 
             // update score
-            $('#score' + this.processid).html(
+            $('#score' + this.sessionid).html(
                 'Score: ' + data.totalscore
             );
 

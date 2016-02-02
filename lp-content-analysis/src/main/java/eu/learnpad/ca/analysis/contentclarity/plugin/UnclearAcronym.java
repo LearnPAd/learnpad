@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.languagetool.Language;
 
 import eu.learnpad.ca.analysis.Plugin;
+import eu.learnpad.ca.analysis.localizzation.Messages;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Node;
 import gate.DocumentContent;
@@ -69,18 +70,18 @@ public class UnclearAcronym extends Plugin{
 	private int  checkdefect(String sentence, int id, List<Annotation> annotations, int offset) {
 
 		List<String> acronymdefected = new ArrayList<String>();
-		List<String> listOfStrings = new ArrayList<String>(Arrays.asList(sentence.split(" ")));
+		List<String> listOfStrings = new ArrayList<String>(Arrays.asList(sentence.split(" "))); //$NON-NLS-1$
 		Stopwords stopw = new Stopwords();
 
 		listOfStrings.removeAll(stopw.getStopwords());
-		String ContentCleaned = StringUtils.join(listOfStrings, " ");
+		String ContentCleaned = StringUtils.join(listOfStrings, " "); //$NON-NLS-1$
 		Map<String,String> acronym = new HashMap<String, String>();
 		/*
 		JLanguageTool langTool = new JLanguageTool(language);
 		List<String> listsentenceofContentCleaned = langTool.sentenceTokenize(ContentCleaned);
 		 */
 
-		String regex = "[A-Z|\\.]{2,}";
+		String regex = "[A-Z|\\.]{2,}"; //$NON-NLS-1$
 
 		// Create a Pattern object 65,46
 		Pattern r = Pattern.compile(regex);
@@ -92,19 +93,19 @@ public class UnclearAcronym extends Plugin{
 		while (m.find()){
 			String tmpcandidateAcronym = m.group();
 			String candidateAcronym = tmpcandidateAcronym;
-			if(candidateAcronym.length()<=1 | (candidateAcronym.contains(".")&candidateAcronym.length()==2 ) | (!candidateAcronym.contains(".")&candidateAcronym.length()>4 )){
+			if(candidateAcronym.length()<=1 | (candidateAcronym.contains(".")&candidateAcronym.length()==2 ) | (!candidateAcronym.contains(".")&candidateAcronym.length()>4 )){ //$NON-NLS-1$ //$NON-NLS-2$
 				continue;
 			}
-			if(candidateAcronym.contains(".") ){
-				candidateAcronym = candidateAcronym.replaceAll("\\.", "");
+			if(candidateAcronym.contains(".")){ //$NON-NLS-1$
+				candidateAcronym = candidateAcronym.replaceAll("\\.", ""); //$NON-NLS-1$ //$NON-NLS-2$
 
 			}
 			int lencandidateAcronym = candidateAcronym.length();
-			String regex2 = "([A-Z]+\\w+([ ]|)){"+lencandidateAcronym+"}";
+			String regex2 = "([A-Z]+\\w+([ ]|)){"+lencandidateAcronym+"}"; //$NON-NLS-1$ //$NON-NLS-2$
 
 			// Create a Pattern object
 			Pattern r2 = Pattern.compile(regex2);
-			String ContentCleaned2 = ContentCleaned.replace(candidateAcronym, "");
+			String ContentCleaned2 = ContentCleaned.replace(candidateAcronym, ""); //$NON-NLS-1$
 			// Now create matcher object.
 			Matcher m2 = r2.matcher(ContentCleaned2);
 			boolean flag = true;
@@ -115,7 +116,7 @@ public class UnclearAcronym extends Plugin{
 				String candidateexAcr = m2.group();
 
 
-				String [] splited = candidateexAcr.split("\\s");
+				String [] splited = candidateexAcr.split("\\s"); //$NON-NLS-1$
 				if(candidateAcronym.length()==splited.length){
 					for (int i = 0; i < splited.length; i++) {
 						if(!splited[i].startsWith(String.valueOf(candidateAcronym.charAt(i)))){
@@ -150,7 +151,7 @@ public class UnclearAcronym extends Plugin{
 		}
 
 		if(acronym.size()>0)
-			log.trace(acronym+"\nsize: "+acronym.size());
+			log.trace(acronym+"\nsize: "+acronym.size()); //$NON-NLS-1$
 		/*if(acronymdefected.size()>0 )
 			log.trace(acronymdefected+"\nsize: "+acronymdefected.size());
 */
@@ -167,7 +168,7 @@ public class UnclearAcronym extends Plugin{
 			int nodeid, List<Annotation> annotations,
 			List<String> acronymdefected, int offset) {
 		//StringTokenizer tokenizer = new StringTokenizer(sentence," \u201c\u201d.,?!:;()<>[]\b\t\n\f\r\"\'\"");
-		String [] spliter = sentence.split("[\\s]");
+		String [] spliter = sentence.split("[\\s]"); //$NON-NLS-1$
 		Map<String, Integer> elementfinded = new HashMap<String, Integer>();
 		int precedentposition=0;
 
@@ -177,13 +178,14 @@ public class UnclearAcronym extends Plugin{
 		for (int i = 0; i < spliter.length; i++) {
 
 			String token = spliter[i];
-			if(acronymdefected.contains(token)){
-				int initialpos = indexofElement(sentence,token,elementfinded,"[\\s]");
+			String	tok =	token.trim().replace(",", "").replace("'", "").replace("’s", "").replace("]", "").replace("(", "").replace(")", "").replace(":", "").replace(";", "").replace("\"",""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$ //$NON-NLS-17$ //$NON-NLS-18$
+			if(acronymdefected.contains(tok)){
+				int initialpos = indexofElement(sentence,token,elementfinded,"[\\s]"); //$NON-NLS-1$
 				int finalpos = initialpos+token.length();
 				if(precedentposition>initialpos){
 					//initialpos = sentence.lastIndexOf(token);
 					//finalpos = initialpos+token.length();
-					log.fatal("error jump position");
+					log.fatal("error jump position"); //$NON-NLS-1$
 				}
 
 				precedentposition=finalpos;
@@ -200,8 +202,8 @@ public class UnclearAcronym extends Plugin{
 				a.setStartNode(init.getId());
 				a.setNodeEnd(end);
 				a.setNodeStart(init);
-				a.setType("Unclear Acronym");
-				a.setRecommendation("Explicit Acronym "+token);
+				a.setType("Unclear Acronym"); //$NON-NLS-1$
+				a.setRecommendation(Messages.getString("UnclearAcronym.Recomandation", language)+token); //$NON-NLS-1$
 				annotations.add(a);
 
 			}

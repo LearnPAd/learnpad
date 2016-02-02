@@ -10,7 +10,7 @@ import java.util.Set;
 import org.languagetool.Language;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
-import eu.learnpad.ca.analysis.simplicity.plugin.DifficultJargonAlternative;
+import eu.learnpad.ca.analysis.simplicity.plugin.DifficultJargon;
 import eu.learnpad.ca.analysis.simplicity.plugin.ExcessiveLength;
 import eu.learnpad.ca.analysis.simplicity.plugin.Juridical;
 import eu.learnpad.ca.analysis.simplicity.plugin.TechnicalJargon;
@@ -106,7 +106,7 @@ public class Simplicity extends AbstractAnalysisClass {
 			Set<gate.Annotation> listSentence = gateu.getSentence();
 			Set<gate.Annotation> listSentenceDefected = new HashSet<>();
 			List<Node> listnode = new ArrayList<Node>();
-			DifficultJargonAlternative dja = new DifficultJargonAlternative(language, docContent,listnode);
+			DifficultJargon dja = new DifficultJargon(language, docContent,listnode);
 
 			dja.checkUnclearAcronym(listSentence,listSentenceDefected,listannotations);
 

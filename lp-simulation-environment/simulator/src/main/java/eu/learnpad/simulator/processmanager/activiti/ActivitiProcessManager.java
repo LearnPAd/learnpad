@@ -333,12 +333,18 @@ public class ActivitiProcessManager implements IProcessManager,
 			// simulation
 			parameters.put(SIMULATION_ID_KEY, simSession);
 
+			ProcessDefinition processDefInfos = repositoryService
+					.createProcessDefinitionQuery()
+					.processDefinitionKey(projectDefinitionKey).singleResult();
+
 			// signal simulation session start
 			// signal process start
 			this.processEventReceiverProvider.processEventReceiver()
 					.receiveSimulationStartEvent(
 					new SimulationStartSimEvent(System
-							.currentTimeMillis(), simSession, users));
+							.currentTimeMillis(), simSession, users,
+							processDefInfos.getName(),
+							projectDefinitionKey));
 		}
 
 		nbProcessesBySession.put(simSession,
@@ -470,11 +476,11 @@ public class ActivitiProcessManager implements IProcessManager,
 	 * eu.learnpad.simulator.processmanager.IDiagramGenerator#getProcessDiagram
 	 * (java.lang.String)
 	 */
-	public InputStream getProcessDiagram(String processDefinitionId) {
+	public InputStream getProcessDiagram(String processDefinitionKey) {
 
 		ProcessDefinition processDefinition = repositoryService
 				.createProcessDefinitionQuery()
-				.processDefinitionId(processDefinitionId).singleResult();
+				.processDefinitionKey(processDefinitionKey).singleResult();
 
 		if (processDefinition == null) {
 			return null;

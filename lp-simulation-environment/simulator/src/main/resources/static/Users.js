@@ -18,83 +18,92 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-function users(userid) {
+function users(address, userid, involvedusers, container) {
 
-    // TODO: this should be dynamic
-    var userInfos = {
-        'sally': {
-            'name': 'Sally',
-            'description': 'Sally Shugar works for the Monti Azzurri Consortium since five years. Since three years she is head of the SUAP office.<p/>She speaks fluently French, Spanish and English; her mother tongue is Italien. She also has profound knowledge in legislation.',
-            'img': 'resources/img/SallyShugar.jpg'
-        },
-        'barnaby': {
-            'name': 'Barnaby',
-            'description': 'Barnaby joins the Monti Azzurri Consortium recently. His professional background is as a legal assistant.',
-            'img': 'resources/img/BarnabyBarnes.jpg'
-        }
-    };
+    // create user subcontainer
+    $('#' + container).append(
+        '<div id="' + container + 'userinfo" class="userui-userinfo"></div>'
+    );
 
-    var res = {};
+    // create other users subcontainer
+    $('#' + container).append(
+        '<div class="panel panel-default">' +
+            '<div class="panel-heading">' +
+            '<h3 class="panel-title">Other Participants</h3></div>' +
+            '<div id="' +
+            container + 'otherinfo" class="panel-body userui-otherinfo"></div></div>'
+    );
 
-    res.setUserList = function(container) {
+    var userInfos = {};
 
-        // create user subcontainer
-        $('#' + container).append(
-            '<div id="' + container + 'userinfo" class="userui-userinfo"></div>'
-        );
+    for (var i = 0; i < involvedusers.length; i++) {
+        requestUserInfos(involvedusers[i]);
+    }
 
-        // add user
-        $('#' + container + 'userinfo').html(
-            '<div id="user-' + userid + '" class="userui-user">' +
-                '<a tabindex="0" data-toggle="popover" ' +
-                'data-trigger="focus" data-placement="bottom" ' +
-                'data-content="' + userInfos[userid].description + '">' +
-                '<img src="' + userInfos[userid].img +
-                '" alt="' + userInfos[userid].name +
-                '" class="img-circle">' +
-                '<p>' + userInfos[userid].name + '</p></a></div>'
-        );
+    function requestUserInfos(userId) {
+        var req = new XMLHttpRequest();
+        req.open('GET',
+                 'http://' + address + '/learnpad/sim/users/' + userId,
+                 true);
 
-        // create other users subcontainer
-        $('#' + container).append(
-            '<div class="panel panel-default">' +
-                '<div class="panel-heading">' +
-                '<h3 class="panel-title">Other Participants</h3></div>' +
-                '<div id="' +
-                container + 'otherinfo" class="panel-body userui-otherinfo"></div></div>'
-        );
-
-        // add other users
-        var userInfosKeys = Object.keys(userInfos);
-        console.log(userInfosKeys);
-        for (var i = 0; i < userInfosKeys.length; i++) {
-            var oid = userInfosKeys[i];
-            if (oid != userid) {
-                $('#' + container + 'otherinfo').append(
-                    '<div id="user-' + oid + '" class="userui-user">' +
-                        '<a tabindex="0" data-toggle="popover" ' +
-                        'data-trigger="focus" data-placement="bottom" ' +
-                        'data-content="' + userInfos[oid].description + '">' +
-                        '<img src="' + userInfos[oid].img +
-                        '" alt="' + userInfos[oid].name +
-                        '" class="img-circle">' +
-                        '<p>' + userInfos[oid].name +
-                        '</p></a></div>'
-                );
-                // append space to separate users names
-                $('#' + container + 'otherinfo').append(' ');
+        req.onreadystatechange = function(e) {
+            if(req.readyState == 4 && req.status == 200) {
+                registerUserInfos(userId, JSON.parse(req.responseText));
             }
+        };
+        req.send(null);
+    }
+
+    function registerUserInfos(user, infos) {
+        userInfos[user] = infos;
+        if(user === userid) {
+            // add current user infos
+            $('#' + container + 'userinfo').html(
+                '<div id="user-' + userid + '" class="userui-user">' +
+                    '<a tabindex="0" data-toggle="popover" ' +
+                    'data-trigger="focus" data-placement="bottom" ' +
+                    'data-content="' + userInfos[userid].bio + '">' +
+                    '<img src="' + userInfos[userid].pictureURL +
+                    '" alt="' + userInfos[userid].firstName +
+                    ' ' + userInfos[userid].lastName +
+                    '" class="img-circle">' +
+                    '<p>' + userInfos[userid].firstName + ' ' +
+                    userInfos[userid].lastName + '</p></a></div>'
+            );
+
+            // outline current user
+            var content = $('#user-' + userid + ' p').html();
+            $('#user-' + userid + ' img').attr('style', 'border:1px solid black');
+            $('#user-' + userid + ' p').html('<b>' + content + '</b>');
+
+        } else {
+            // add other user infos
+            var userInfosKeys = Object.keys(userInfos);
+            for (var i = 0; i < userInfosKeys.length; i++) {
+                var oid = userInfosKeys[i];
+                if (oid != userid) {
+                    $('#' + container + 'otherinfo').append(
+                        '<div id="user-' + oid + '" class="userui-user">' +
+                            '<a tabindex="0" data-toggle="popover" ' +
+                            'data-trigger="focus" data-placement="bottom" ' +
+                            'data-content="' + userInfos[oid].bio + '">' +
+                            '<img src="' + userInfos[oid].pictureURL +
+                            '" alt="' + userInfos[oid].firstName + ' ' +
+                            userInfos[oid].lastName +
+                            '" class="img-circle">' +
+                            '<p>' + userInfos[oid].firstName + ' ' +
+                            userInfos[oid].lastName +
+                            '</p></a></div>'
+                    );
+                    // append space to separate users names
+                    $('#' + container + 'otherinfo').append(' ');
+                }
+            }
+
+            // (re)initialize container popovers
+            $('#' + container + ' [data-toggle="popover"]').popover(
+                {'html': true}
+            );
         }
-
-        // outline current user
-        var content = $('#user-' + userid + ' p').html();
-        $('#user-' + userid + ' img').attr('style', 'border:1px solid black');
-        $('#user-' + userid + ' p').html('<b>' + content + '</b>')
-
-        // initialize container popovers
-        $('#' + container + ' [data-toggle="popover"]').popover({'html': true});
-
-    };
-
-    return res;
+    }
 }

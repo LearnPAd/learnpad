@@ -42,6 +42,7 @@ package eu.learnpad.simulator.monitoring.event.impl;
 
 import java.util.Collection;
 
+import eu.learnpad.simulator.monitoring.event.AbstractSimEvent;
 import eu.learnpad.simulator.monitoring.event.SimEventType;
 
 /**
@@ -49,7 +50,7 @@ import eu.learnpad.simulator.monitoring.event.SimEventType;
  * @author Tom Jorquera - Linagora
  *
  */
-public class SimulationEndSimEvent extends SimulationStartSimEvent {
+public class SimulationEndSimEvent extends AbstractSimEvent {
 
 	public SimulationEndSimEvent(Long timestamp, String simulationsessionid,
 			Collection<String> involvedusers) {

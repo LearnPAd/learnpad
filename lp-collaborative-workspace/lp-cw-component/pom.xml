@@ -37,5 +37,6 @@
 	<modules>
 		<module>lp-cw-component-application</module>
 		<module>lp-cw-component-service</module>
+		<module>lp-cw-component-skin</module>
 	</modules>
 </project>

@@ -91,8 +91,6 @@
 #set ($discard = $xwiki.ssfx.use('uicomponents/widgets/userpicker/userPicker.css'))
 #set ($modelid = $doc.getObject('LPCode.ModelClass').getProperty('id').value)
 #set ($columnsProperties = {
-##  'modelid': {'type': 'hidden', 'size': 1},
-##  'id': {'type': 'text', 'size': 1, 'link': 'view'},
   'name': {'type': 'text', 'size': 8, 'link': 'view'},
   'type': {'type': 'list', 'size': 2},
   'doc.date': {'type': 'text', 'size': 2}

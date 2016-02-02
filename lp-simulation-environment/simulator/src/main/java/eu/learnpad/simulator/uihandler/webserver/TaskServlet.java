@@ -212,6 +212,7 @@ public class TaskServlet extends WebSocketServlet {
 						mapper.writeValueAsString(new Resubmit(
 								task.name,
 								task.desc.replaceAll("\n", "<p/>"),
+								task.sessionId,
 								task.processId,
 								processManager
 								.getProcessDefinitionName(processManager
@@ -277,6 +278,7 @@ public class TaskServlet extends WebSocketServlet {
 												task.name,
 												task.desc.replaceAll("\n",
 												"<p/>"),
+												task.sessionId,
 												task.processId,
 												processManager
 														.getProcessDefinitionName(processManager

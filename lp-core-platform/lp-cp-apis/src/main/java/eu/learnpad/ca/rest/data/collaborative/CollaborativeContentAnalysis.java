@@ -28,7 +28,6 @@ public class CollaborativeContentAnalysis {
     @XmlElement(name = "QualityCriteria", required = true)
     protected QualityCriteria qualityCriteria;
 
-    
     /**
      * Get the value of language.
      * 
@@ -52,6 +51,7 @@ public class CollaborativeContentAnalysis {
     public void setLanguage(String value) {
         this.language = value;
     }
+    
     
     /**
      * Get the value of collaborativeContent.

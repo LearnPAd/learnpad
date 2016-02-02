@@ -1,3 +1,4 @@
+eu.learnpad.core.impl.cp.VfsLpzipDriverRegistrationListener
 eu.learnpad.core.impl.ca.XwikiController
 eu.learnpad.core.impl.cw.XwikiController
 eu.learnpad.core.impl.lsm.XwikiController

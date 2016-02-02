@@ -88,6 +88,7 @@ public abstract class Plugin {
 			String recc = null;
 			try{
 				String sentence_gate = docContent.getContent(gatenodestart.getOffset(),gatenodeend.getOffset()).toString();
+				//log.trace(sentence_gate);
 				recc = String.format(Racc, sentence_gate, sentence_gate);
 			}catch(InvalidOffsetException e){
 				log.error(e);
