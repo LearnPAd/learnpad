@@ -7,10 +7,14 @@ import java.util.Locale;
 import org.eclipse.bpmn2.Activity;
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.Documentation;
+import org.eclipse.bpmn2.ExtensionAttributeValue;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
+import org.eclipse.emf.ecore.util.FeatureMap;
+import org.eclipse.emf.ecore.util.FeatureMap.Entry;
+import org.eclipse.emf.ecore.xml.type.AnyType;
 
 import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
@@ -49,12 +53,42 @@ public class ActivityDescription extends abstractGuideline{
 					}else
 						if (fe instanceof Activity) {
 							Activity a = (Activity) fe;
+							boolean flag = false;
 							List<Documentation> doc = a.getDocumentation();
-							if(doc.isEmpty() ){
+							try{
+								List<ExtensionAttributeValue> Listed = a.getExtensionValues();
+								for(ExtensionAttributeValue ed :Listed){
+									FeatureMap val = ed.getValue();
+									for(int d=0;d<val.size();d++){
+										Entry elem = val.get(d);
+										AnyType obj = (AnyType) elem.getValue();
+										FeatureMap any = obj.getAny();
+										for(int s=0;s<any.size();s++){
+											Entry entry = any.get(s);
+											entry.getValue();
+											AnyType objt = (AnyType) entry.getValue();
+											FeatureMap anyt = objt.getAnyAttribute();
+											Entry nameex = anyt.get(0);
+											if(nameex.getValue().equals("Description")){
+												String descrpt = objt.getMixed().get(0).getValue().toString();
+												if(descrpt.length()>4){
+													flag=true;
+												}
+											}
+											System.out.println();
+										}
+
+									}
+
+								}
+							}catch(Exception e){
+
+							}
+							if(doc.isEmpty() && !flag){
 								num++;
 
 								elementsBPMN.add(fe);
-								
+
 								String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 								setElements(fe.getId(),IDProcess,name);
 								temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
@@ -77,7 +111,7 @@ public class ActivityDescription extends abstractGuideline{
 	}
 
 	protected void searchSubProcess(SubProcess sub){
-		
+
 
 		int num = 0;
 		for ( FlowElement fe : sub.getFlowElements()) {
@@ -97,7 +131,7 @@ public class ActivityDescription extends abstractGuideline{
 						elementsBPMN.add(fe);
 						String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 						setElements(fe.getId(),IDProcess,name); 
-						
+
 					}
 
 				}
