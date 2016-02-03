@@ -100,7 +100,7 @@ public class GateThread extends Thread implements StatusListener{
 				if(qualitycriteria.isNonAmbiguity() | qualitycriteria.isSimplicity()){
 					log.info("\t* Loading gate.creole.gazetteer.DefaultGazetteer ... ");
 					FeatureMap fm = Factory.newFeatureMap();
-					fm.put(DefaultGazetteer.DEF_GAZ_CASE_SENSITIVE_PARAMETER_NAME, false);
+					fm.put(DefaultGazetteer.DEF_GAZ_CASE_SENSITIVE_PARAMETER_NAME, true);
 					serialcorpusController.add((gate.LanguageAnalyser)Factory
 							.createResource("gate.creole.gazetteer.DefaultGazetteer",fm));
 					log.info("done");
