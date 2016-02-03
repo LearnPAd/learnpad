@@ -48,7 +48,7 @@ import eu.learnpad.qm.component.QuestionnaireManager;
 @Singleton
 @Named("eu.learnpad.qm.impl.QMXwikiBridgeImpl")
 @Path("/learnpad/qm/bridge")
-public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable, QMBridgeNotifier  {
+public class QMXwikiBridgeImpl extends XwikiBridge implements Initializable, QMBridgeNotifier  {
 	
 	// Currently this class has been implemented with the 
 	// only idea to support the development of the core platform
@@ -56,12 +56,14 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable, QM
 	
 	@Override
 	public void initialize() throws InitializationException {
+		this.printSomething("Initialization Started ... ");
+
 		this.corefacade = new XwikiCoreFacadeRestResource();
 		
 		this.qm = QuestionnaireManager.getInstance(this);		
 //		this.qm = QuestionnaireManager.getInstance("put here some file");
 			
-		this.printSomething("Initialization Completed");
+		this.printSomething("... Initialization Completed");
 	}
 
 	@Override
