@@ -18,6 +18,7 @@ import java.nio.file.Path;
 public class ChainLauncher {
 	
 	private String tmpAlignmentOutputXMIFile = "tmp/tmpAlignmentOutputXMIFile.xmi";		
+	private String tmpATLOutputXMIfile = "tmp/tmpATLOutputStream.xmi";
 	
 	
 	/**
@@ -27,12 +28,15 @@ public class ChainLauncher {
 	 * @throws Exception 
 	 * @throws IOException
 	 */
-	public Path executeChain(InputStream model, String type, OutputStream out) throws Exception{
+	public Path executeChain(InputStream model, String type) throws Exception{
 		
 		Path acceleoResultPath = null;
 		
 		boolean atlResult = false;
 		ATLTransformationLauncher atlTL = new ATLTransformationLauncher();
+		
+		//Create tmp outputstrem in order to store the ATL transformation
+		OutputStream out = new FileOutputStream(tmpATLOutputXMIfile);
 		atlResult = atlTL.transform(model, type, out);
 		
 		if(atlResult){
@@ -57,17 +61,15 @@ public class ChainLauncher {
 		
 //		String model_in = "resources/model/ado4f16a6bb-9318-4908-84a7-c2d135253dc9.xml";
 		String model_in = "resources/model/titolo-unico.xml";
-		String file_out = "tmp/testTransformationOutputStream.xmi";
 		String type = "ADOXX";
 //		String type = "MD";
 		
 		FileInputStream fis = new FileInputStream(model_in);
-		OutputStream out = new FileOutputStream(file_out);	
 		
 		
 		System.out.println("*******STARTING THE OVERALL TRANSFORMATION*******");
 		ChainLauncher mt = new ChainLauncher();
-		Path resultPath = mt.executeChain(fis, type, out);
+		Path resultPath = mt.executeChain(fis, type);
 		System.out.println("*******FINISHED THE OVERALL TRANSFORMATION*******");
 	}
 

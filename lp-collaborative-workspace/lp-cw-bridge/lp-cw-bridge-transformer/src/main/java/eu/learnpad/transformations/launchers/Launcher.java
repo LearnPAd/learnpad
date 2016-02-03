@@ -55,9 +55,9 @@ public class Launcher {
 	 * @return Path
 	 * @throws Exception
 	 */
-	public Path chain(InputStream model, String type, OutputStream out) throws Exception{
+	public Path chain(InputStream model, String type) throws Exception{
 		ChainLauncher chainL = new ChainLauncher();
-		return chainL.executeChain(model, type, out);
+		return chainL.executeChain(model, type);
 	}
 	
 
@@ -103,7 +103,7 @@ public class Launcher {
 		 * ****CHAIN EXAMPLE*************************
 		 * ******************************************
 		 */
-//		launcher.chain(fis, type, out);
+//		launcher.chain(fis, type);
 	
 	}
 
