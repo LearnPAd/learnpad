@@ -24,6 +24,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.or.rest.data.SimilarCases;
 
 public interface GetSimilarCases {
 
@@ -31,8 +32,6 @@ public interface GetSimilarCases {
 	 * Search for similar cases with the given case descriptions. Each parameter
 	 * is optional.
 	 * 
-	 * !!This feature list and case description structure is a proposal and not
-	 * final.
 	 *
 	 * @param artifactName
 	 *            the name or title of an artifact
@@ -55,13 +54,19 @@ public interface GetSimilarCases {
 	// <host>/learnpad/or/similarcases?artifactName=A name,artifactDescription=Some description,artifactType={event-start|gateway-exclusive|task|event-end|...},modelType={bpmn|cmmn|...},freeDescription=Some text,existingArtifactId=id,existingArtifactStructureDepth=2
 	@Path("/similarcases")
 	@GET
-	void addExecutionState(
-			@QueryParam("artifactName") String artifactName,
-			@QueryParam("artifactDescription") String artifactDescription,
-			@QueryParam("artifactType") String artifactType,
-			@QueryParam("modelType") String modelType,
-			@QueryParam("freeDescription") String freeDescription,
-			@QueryParam("existingArtifactId") String existingArtifactId,
-			@QueryParam("existingArtifactStructureDepth") String existingArtifactStructureDepth)
+	   SimilarCases retrieveSimilarCases(
+			@QueryParam("modelsetId") String modelSetId,
+			@QueryParam("artifactid") String artifactId,
+			@QueryParam("userid") String userId, 
+			@QueryParam("type") String type,
+			@QueryParam("applicantName") String applicantName,
+			@QueryParam("applicationCity") String applicationCity,
+			@QueryParam("applicationZone") String applicationZone,
+			@QueryParam("applicationType") String applicationType,
+			@QueryParam("applicationPublicAdministration") String applicationPublicAdministration,
+			@QueryParam("applicationSector") String applicationSector,
+			@QueryParam("applicationBusinessActivity") String applicationBusinessActivity,
+			@QueryParam("applicationDescription") String applicationDescription,
+			@QueryParam("applicationATECOCategory") String applicationATECOCategory)
 			throws LpRestException;
 }

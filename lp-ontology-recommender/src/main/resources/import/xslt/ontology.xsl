@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <!--To be set as parameter in transformation engine -->
   <!--xsl:param name="modelSetVersion">titolo-unico-v4</xsl:param-->
   <xsl:param name="modelSetVersion">titolo-unico</xsl:param>
@@ -49,9 +49,9 @@ Writes basic instance properties like the URI, type, label and name
 ___________________________________________________________________________________________________-->
 <xsl:template name="basicInstanceProperties">
 	<xsl:param name="rdfType" required="yes"/>
-	<xsl:param name="id" tunnel="yes"/>
-	<xsl:param name="name" tunnel="yes"/>
-	<xsl:param name="class" tunnel="yes"/>
+	<xsl:param name="id" />
+	<xsl:param name="name" />
+	<xsl:param name="class" />
 transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type <xsl:value-of select="$rdfType"/> ;
@@ -84,9 +84,9 @@ ________________________________________________________________________________
  Business process diagram (BPMN 2.0)
 ___________________________________________________________________________________________________-->
 	<xsl:template name="BPMN_MODEL">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type emo:BPMN_MetaModel ;
@@ -102,9 +102,9 @@ ________________________________________________________________________________
  Start Event
 ___________________________________________________________________________________________________-->
 	<xsl:template name="StartEvent">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type bpmn:StartEvent ;
@@ -121,9 +121,9 @@ ________________________________________________________________________________
  Message Start Event
 ___________________________________________________________________________________________________-->
 	<xsl:template name="MessageStartEvent">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type bpmn:MessageStartEvent ;
@@ -139,9 +139,9 @@ ________________________________________________________________________________
  Message Catching Intermediate Event
 ___________________________________________________________________________________________________-->
 	<xsl:template name="MessageCatchingSequenceIntermediateEvent">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type bpmn:MessageCatchingSequenceIntermediateEvent ;
@@ -155,9 +155,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->	
 <!--...............................................................................................-->
 	<xsl:template name="MessageInterruptingBoundaryIntermediateEvent">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type bpmn:MessageInterruptingBoundaryIntermediateEvent ;
@@ -171,9 +171,9 @@ ________________________________________________________________________________
  End Event
 ___________________________________________________________________________________________________-->
 	<xsl:template name="EndEvent">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type bpmn:EndEvent ;
@@ -189,9 +189,9 @@ ________________________________________________________________________________
  Task
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Task">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type bpmn:Task ;
@@ -209,9 +209,9 @@ ________________________________________________________________________________
  Send Task
 ___________________________________________________________________________________________________-->
 	<xsl:template name="SendTask">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type bpmn:SendTask ;
@@ -225,9 +225,9 @@ ________________________________________________________________________________
  Receive Task
 ___________________________________________________________________________________________________-->
 	<xsl:template name="ReceiveTask">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type bpmn:ReceiveTask ;
@@ -241,9 +241,9 @@ ________________________________________________________________________________
  Task bpmn:SubProcess ;
 ___________________________________________________________________________________________________-->
 	<xsl:template name="SubProcess">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type bpmn:SubProcess ;
@@ -261,9 +261,9 @@ ________________________________________________________________________________
  Gateway
 ___________________________________________________________________________________________________-->
 	<xsl:template name="ExclusiveGateway">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type bpmn:ExclusiveGateway ;
@@ -277,9 +277,9 @@ ________________________________________________________________________________
   Parallel Gateway (Non-Exclusive Gateway)
 ___________________________________________________________________________________________________-->
 	<xsl:template name="ParallelGateway">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type bpmn:ParallelGateway ;
@@ -293,9 +293,9 @@ ________________________________________________________________________________
  Data Input
 ___________________________________________________________________________________________________-->
 	<xsl:template name="DataInput">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type bpmn:DataInput ;
@@ -314,9 +314,9 @@ ________________________________________________________________________________
  Data Output
 ___________________________________________________________________________________________________-->
 	<xsl:template name="DataOutput">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type bpmn:DataOutput ;
@@ -335,9 +335,9 @@ ________________________________________________________________________________
  Pool
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Pool">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type bpmn:Pool ;
@@ -358,9 +358,9 @@ ________________________________________________________________________________
  Lane
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Lane">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type bpmn:Lane ;
@@ -403,9 +403,9 @@ ________________________________________________________________________________
  Business Motivation Model (BMM)
 ___________________________________________________________________________________________________-->
 	<xsl:template name="BMM_MODEL">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type emo:BusinessMotivationMetaModel ;
@@ -420,9 +420,9 @@ ________________________________________________________________________________
  Goal
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Goal">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type bmm:Goal ;
@@ -437,9 +437,9 @@ ________________________________________________________________________________
  Learning Goal
 ___________________________________________________________________________________________________-->
 	<xsl:template name="LearningGoal">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type emo:LearningGoal ;
@@ -456,9 +456,9 @@ ________________________________________________________________________________
  Document and Knowledge model (DKM)
 ___________________________________________________________________________________________________-->
 	<xsl:template name="DKM_MODEL">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type emo:DocumentAndKnowledgeMetaModel ;
@@ -473,9 +473,9 @@ ________________________________________________________________________________
  Document
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Document">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type dkm:Document ;
@@ -494,9 +494,9 @@ ________________________________________________________________________________
  Learning Document
 ___________________________________________________________________________________________________-->
 	<xsl:template name="LearningDocument">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
             <xsl:param name="materialURL"/>
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
@@ -510,8 +510,8 @@ ________________________________________________________________________________
   rdfs:comment "This material should be updated ..."^^xsd:string ;
 	</xsl:template>
 
-    <xsl:template name="addLearningDocumentRefToCompetency">
-		<xsl:param name="targetId"/> dkm:learningDocumentIncreasesCompetency transfer:<xsl:value-of select="$targetId"/> ;<xsl:text>&#10;</xsl:text>
+    <xsl:template name="addLearningDocumentRefToCompetencyAndLevel">
+		<xsl:param name="targetId"/> dkm:learningDocumentIncreasesCompetenciesToLevel transfer:<xsl:value-of select="$targetId"/> ;<xsl:text>&#10;</xsl:text>
 	</xsl:template>		
 	
 	<xsl:template name="addInModelConnectionForLearningDocument">
@@ -524,9 +524,9 @@ ________________________________________________________________________________
  Document Group
 ___________________________________________________________________________________________________-->
 	<xsl:template name="DocumentGroup">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type dkm:D_Container ;
@@ -543,9 +543,9 @@ ________________________________________________________________________________
  Organizational structure (OMM)
 ___________________________________________________________________________________________________-->
 	<xsl:template name="OMM_MODEL">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type emo:OrganisationMetaModel ;
@@ -559,9 +559,9 @@ ________________________________________________________________________________
  Organizational unit
 ___________________________________________________________________________________________________-->
 	<xsl:template name="OrganizationalUnit">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type omm:OrganisationalUnit ;
@@ -579,9 +579,9 @@ ________________________________________________________________________________
  Role
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Role">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type omm:Role ;
@@ -603,10 +603,10 @@ ________________________________________________________________________________
  Performer
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Performer">
-            <xsl:param name="email" tunnel="yes"/>
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="email" />
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type omm:Performer ;
@@ -626,7 +626,7 @@ ________________________________________________________________________________
     	</xsl:template>
     	
      <xsl:template name="addPerformerRefToCompetencyProfile">
-        		<xsl:param name="targetId"/> omm:performerAquiredCompetencyProfile transfer:<xsl:value-of select="$targetId"/> ;<xsl:text>&#10;</xsl:text>
+        		<xsl:param name="targetId"/> omm:performerAcquiredCompetencyProfile transfer:<xsl:value-of select="$targetId"/> ;<xsl:text>&#10;</xsl:text>
     	</xsl:template>    	    	
 <!--...............................................................................................-->	
 <!-- ============================================================================================================================================== -->
@@ -636,9 +636,9 @@ ________________________________________________________________________________
  Case Management Model and Notation (CMMN)
 ___________________________________________________________________________________________________-->
 	<xsl:template name="CMMN_MODEL">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type emo:CaseManagementMetaModel ;
@@ -653,9 +653,9 @@ ________________________________________________________________________________
  Case
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Case">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type cmmn:Case ;
@@ -670,9 +670,9 @@ ________________________________________________________________________________
  CaseTask
 ___________________________________________________________________________________________________-->
 	<xsl:template name="CaseTask">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type cmmn:CaseTask ;
@@ -687,9 +687,9 @@ ________________________________________________________________________________
  DiscretionaryTask (mapped to Task since nothing else available) ??? Correct ???
 ___________________________________________________________________________________________________-->
 	<xsl:template name="DiscretionaryTask">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type cmmn:Task ;
@@ -704,9 +704,9 @@ ________________________________________________________________________________
  CaseFile
 ___________________________________________________________________________________________________-->
 	<xsl:template name="CaseFile">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type cmmn:CaseFile ;
@@ -721,9 +721,9 @@ ________________________________________________________________________________
  PlanningTable
 ___________________________________________________________________________________________________-->
 	<xsl:template name="PlanningTable">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type cmmn:PlanningTable ;
@@ -740,9 +740,9 @@ ________________________________________________________________________________
  KPI-Overview
 ___________________________________________________________________________________________________-->
 	<xsl:template name="KPI_MODEL">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type emo:KPI_MetaModel ;
@@ -756,9 +756,9 @@ ________________________________________________________________________________
  Perspective
 ___________________________________________________________________________________________________-->
   	<xsl:template name="Perspective">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type kpi:Perspective ;
@@ -774,9 +774,9 @@ ________________________________________________________________________________
  Strategic Goal
 ___________________________________________________________________________________________________-->
   	<xsl:template name="StrategicGoal">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type kpi:StrategicGoal ;
@@ -792,9 +792,9 @@ ________________________________________________________________________________
  Performance Indicator
 ___________________________________________________________________________________________________-->
   	<xsl:template name="PerformanceIndicator">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type kpi:PerformanceIndicator ;
@@ -812,9 +812,9 @@ ________________________________________________________________________________
  Competency Model
 ___________________________________________________________________________________________________-->
         <xsl:template name="COMPETENCY_MODEL">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type emo:CompetencyMetaModel ;
@@ -828,9 +828,9 @@ ________________________________________________________________________________
  Competency
 ___________________________________________________________________________________________________-->
  	<xsl:template name="EQFCompetency">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
             <xsl:param name="level"/>
             <xsl:param name="competence"/>
             <xsl:param name="skill"/>
@@ -856,9 +856,9 @@ ________________________________________________________________________________
  Competency Group
 ___________________________________________________________________________________________________-->
   	<xsl:template name="CompetencyGroup">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type cmm:CompetencyGroup ;
@@ -869,12 +869,12 @@ ________________________________________________________________________________
 <!--...............................................................................................--> 
 <!--
 ___________________________________________________________________________________________________
- Competency Profile
+ Acquired Competency Profile
 ___________________________________________________________________________________________________-->
-  	<xsl:template name="CompetencyProfile">
-            <xsl:param name="id" tunnel="yes"/>
-            <xsl:param name="name" tunnel="yes"/>
-            <xsl:param name="class" tunnel="yes"/>
+  	<xsl:template name="AcquiredCompetencyProfile">
+            <xsl:param name="id"/>
+            <xsl:param name="name"/>
+            <xsl:param name="class"/>
             <xsl:param name="learningPreferences"/>
             <xsl:param name="competenciesAndLevels"/>
   transfer:<xsl:value-of select="$id"/>
@@ -892,16 +892,35 @@ ________________________________________________________________________________
             </xsl:for-each>
 	</xsl:template>  
 <!--...............................................................................................--> 
-<!-- ============================================================================================================================================== -->
 <!--
 ___________________________________________________________________________________________________
- Competency and Level 
+ Required Competency Profile
 ___________________________________________________________________________________________________-->
-  	<xsl:template name="CompetencyAndLevel">
+  	<xsl:template name="RequiredCompetencyProfile">
             <xsl:param name="id"/>
             <xsl:param name="name"/>
             <xsl:param name="class"/>
-            <xsl:param name="competencyProfile"/>
+            <xsl:param name="competenciesAndLevels"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyProfile ;
+  rdfs:subClassOf cmm:CompetencyProfile ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;
+  emo:competencyProfileIsDocumentedInDocument transfer:<xsl:value-of select="$id"/> ;
+            <xsl:for-each select="$competenciesAndLevels">
+  cmm:competenciesAndLevels transfer:<xsl:value-of select="@id"/> ;            
+            </xsl:for-each>
+	</xsl:template>  
+<!--...............................................................................................--> 
+<!--
+___________________________________________________________________________________________________
+ Competency and Level ( which was acquired)
+___________________________________________________________________________________________________-->
+  	<xsl:template name="AcquiredCompetencyAndLevel">
+            <xsl:param name="id"/>
+            <xsl:param name="name"/>
+            <xsl:param name="class"/>
   	       <xsl:param name="competencyAndLevelLevel"/>
   		  <!--xsl:param name="competencyAndLevelLearningGoal"/-->
   		  <xsl:param name="competencyAndLevelStatus"/>
@@ -924,6 +943,26 @@ ________________________________________________________________________________
      <xsl:template name="addCompetencyLevelRefToCompetency">
         		<xsl:param name="targetId"/>  cmm:competencyAndLevelRefersToCompetency transfer:<xsl:value-of select="$targetId"/> ;<xsl:text>&#10;</xsl:text>
     	</xsl:template>
+<!--...............................................................................................--> 
+<!--
+___________________________________________________________________________________________________
+ Target Competency and Level (Association instance to target competencies with a specific level).
+___________________________________________________________________________________________________-->
+  	<xsl:template name="TargetCompetencyAndLevel">
+            <xsl:param name="id"/>
+            <xsl:param name="name"/>
+            <xsl:param name="class"/>
+  	       <xsl:param name="competencyAndLevelLevel"/>
+  		  <xsl:param name="competencyAndLevelComment"/>
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;
+  cmm:competencyAndLevelLevel "<xsl:value-of select="$competencyAndLevelLevel"/>"^^xsd:integer ; 
+  cmm:competencyAndLevelComment "<xsl:value-of select="$competencyAndLevelComment"/>"^^xsd:string ;
+  	</xsl:template> 
 <!--...............................................................................................--> 
 <!-- ============================================================================================================================================== -->
 </xsl:stylesheet>

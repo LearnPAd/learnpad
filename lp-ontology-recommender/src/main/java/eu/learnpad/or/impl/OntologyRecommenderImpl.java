@@ -5,20 +5,17 @@
  */
 package eu.learnpad.or.impl;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import eu.learnpad.core.impl.or.XwikiBridge;
 import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.ontology.execution.ExecutionStates;
 import eu.learnpad.ontology.recommender.Recommender;
-import eu.learnpad.or.rest.data.BusinessActor;
-import eu.learnpad.or.rest.data.Experts;
 import eu.learnpad.or.rest.data.States;
 import eu.learnpad.ontology.transformation.ModellingEnvironmentType;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.SimilarCases;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -82,11 +79,6 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     }
 
     @Override
-    public void addExecutionState(String artifactName, String artifactDescription, String artifactType, String modelType, String freeDescription, String existingArtifactId, String existingArtifactStructureDepth) throws LpRestException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void addExecutionState(String modelSetId, String executionId, String userId, String threadId, String pageId, String artifactId) throws LpRestException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -95,6 +87,11 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     public States listExecutionStates(String userId) throws LpRestException {
         States states = ExecutionStates.getInstance().getStatesOfLatestAddedModelSet(userId);
         return states;
+    }
+
+    @Override
+    public SimilarCases retrieveSimilarCases(String modelSetId, String artifactId, String userId, String type, String applicantName, String applicationCity, String applicationZone, String applicationType, String applicationPublicAdministration, String applicationSector, String applicationBusinessActivity, String applicationDescription, String applicationATECOCategory) throws LpRestException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
