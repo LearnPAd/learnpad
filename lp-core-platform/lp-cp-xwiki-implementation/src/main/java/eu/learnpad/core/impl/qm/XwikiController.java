@@ -89,11 +89,11 @@ System.err.println("Done!");
 	}
 
 	@Override
-	public void genrationCompleted(String questionnairesId)
+	public void generationCompleted(String questionnairesId)
 			throws LpRestExceptionImpl {
 /**
-* THIS IMPLEMENTATION OF THIS METHOD 
-* HAS BEEN DEVELOPED ONLY eu.learnpad.core.impl.qm.XwikiCoreFacadeRestResource FOR TESTING .
+* THE IMPLEMENTATION OF THIS METHOD 
+* HAS BEEN DEVELOPED ONLY FOR TESTING eu.learnpad.core.impl.qm.XwikiCoreFacadeRestResource .
 * IT WILL CHANGE IN THE FUTURE
 */
 		System.err.println("Received: \t" + questionnairesId);		

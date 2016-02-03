@@ -27,8 +27,8 @@ import eu.learnpad.exception.LpRestException;
 
 public interface NotificationsFromBridge {
 
-	@Path("/genrationcompleted/{questionnairesid}")
+	@Path("/generationcompleted/{questionnairesid}")
 	@PUT
-	void genrationCompleted(@PathParam("questionnairesid") String questionnairesId)
+	void generationCompleted(@PathParam("questionnairesid") String questionnairesId)
 					throws LpRestException;
 }

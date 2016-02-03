@@ -34,7 +34,7 @@ public class XwikiCoreFacadeRestResourceTest extends AbstractUnitTest{
 	public void generationCompletedTest(){
 		this.cf = new XwikiCoreFacadeRestResource();
 		try {
-			cf.genrationCompleted("this-is-foo");
+			cf.generationCompleted("this-is-foo");
 		} catch (LpRestException e) {
 			Assert.assertFalse(e.getMessage(),true);
 		}

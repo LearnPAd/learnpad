@@ -87,7 +87,7 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 	}
 
 	@Override
-	public void genrationCompleted(String questionnairesId)
+	public void generationCompleted(String questionnairesId)
 			throws LpRestException {
 		// Now actually notifying the CP via REST
 		HttpClient httpClient = RestResource.getClient();
