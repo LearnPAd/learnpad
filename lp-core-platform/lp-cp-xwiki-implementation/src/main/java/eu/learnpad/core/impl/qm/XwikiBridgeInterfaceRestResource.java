@@ -98,17 +98,18 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 				"%s/learnpad/qm/bridge/generate/%s",
 				RestResource.REST_URI, modelSetId);
 		PostMethod postMethod = new PostMethod(uri);
-		postMethod.addRequestHeader("Content-Type", "application/octet-stream");
 
 		NameValuePair[] queryString = new NameValuePair[1];
 		queryString[0] = new NameValuePair("type", type);
 		postMethod.setQueryString(queryString);
 		
+		RequestEntity requestEntity = null; 
 		if (configurationFile != null){
-			RequestEntity requestEntity = new ByteArrayRequestEntity(configurationFile);
-			postMethod.setRequestEntity(requestEntity);
+			postMethod.addRequestHeader("Content-Type", "application/octet-stream");
+			requestEntity = new ByteArrayRequestEntity(configurationFile);
 		}	
-
+		postMethod.setRequestEntity(requestEntity);
+		
 		String genProcessID = null;
 		try {
 			httpClient.executeMethod(postMethod);
