@@ -106,6 +106,17 @@
 					value="#{data.overallRecommendations}" />
 
 				<f:facet name="footer">
+				
+				<c:choose> 
+				<c:when test="#{data.type eq 'Completeness' or data.type eq 'Presentation Clarity'}">
+					<c:forEach items="#{data.annotations}"
+			var="annot" varStatus="status">
+						<h:outputText 
+					value="#{annot.recommendation}"  /> <br/>
+						</c:forEach>
+					</c:when>
+					
+					<c:otherwise>
 					<h:panelGroup style="display:block; text-align:center">
 						<h:commandButton  value="#{data.type}"
 							action="#{pageController.navigatepageAnalysis}"
@@ -113,6 +124,8 @@
 							 <f:attribute name="valdata" value="#{data}" />  
 							</h:commandButton>
 					</h:panelGroup>
+					</c:otherwise>
+					</c:choose>
 				</f:facet>
 			</h:panelGrid>
 			<br />
