@@ -76,14 +76,27 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	@Override
 	public void publish(String questionnairesId, String type,
 			byte[] questionnairesFile) throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		
+/**
+* THIS IMPLEMENTATION OF THIS METHOD 
+* HAS BEEN DEVELOPED ONLY eu.learnpad.core.impl.qm.XwikiCoreFacadeRestResource FOR TESTING .
+* IT WILL CHANGE IN THE FUTURE
+*/
+String contentQuestionnaireFile = new String(questionnairesFile);
+
+System.err.println("Received: \n \t" + questionnairesId +": "+ type);		
+System.err.println("Content: \n \t" + contentQuestionnaireFile);
+System.err.println("Done!");
 	}
 
 	@Override
 	public void genrationCompleted(String questionnairesId)
 			throws LpRestExceptionImpl {
-System.err.println("Test");		
+/**
+* THIS IMPLEMENTATION OF THIS METHOD 
+* HAS BEEN DEVELOPED ONLY eu.learnpad.core.impl.qm.XwikiCoreFacadeRestResource FOR TESTING .
+* IT WILL CHANGE IN THE FUTURE
+*/
+		System.err.println("Received: \t" + questionnairesId);		
 	}
 
 	

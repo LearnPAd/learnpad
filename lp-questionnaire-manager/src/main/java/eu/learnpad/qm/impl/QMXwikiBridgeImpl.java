@@ -95,21 +95,4 @@ public class QMXwikiBridgeImpl  extends XwikiBridge implements Initializable {
 		return null;
 	}
 
-	public static void main(String[] args) {
-		XwikiCoreFacadeRestResource cf = new XwikiCoreFacadeRestResource();
-		try {
-			cf.genrationCompleted("this-is-foo");
-			
-			byte[] questionnairesFile = Files.readAllBytes(Paths.get("/tmp/thisIsFoo.txt"));
-			System.out.println("########################################################");
-			System.out.println("########################################################");
-			cf.publish("this-is-again-foo", "mothia-out" , questionnairesFile);
-			System.out.println("********************************************************");
-			System.out.println("********************************************************");
-		} catch (LpRestException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 }
