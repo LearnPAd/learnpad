@@ -41,5 +41,5 @@ public abstract class AbstractUnitTest {
 	
 	protected int randomInt() {
 	    return new BigInteger(10, random).intValue();
-}
+	}
 }
