@@ -76,7 +76,9 @@ public class QMXwikiBridgeImpl extends XwikiBridge implements Initializable, QMB
 
 	@Override
 	public String createQuestionnaire() throws LpRestExceptionXWikiImpl {
-		// TODO Auto-generated method stub
+		// TODO This method is supposed to be used for the interactive
+		// set-up of a questionnaire, so it does not concern the
+		// integration with MOTHIA
 		
 		String questionnareID = "this-is-foo";
 		this.printSomething("invoked createQuestionnaire()");
@@ -87,17 +89,21 @@ public class QMXwikiBridgeImpl extends XwikiBridge implements Initializable, QMB
 	@Override
 	public void addQuestionToQuestionnaire(String creationProcessId,
 			String question, String expectedAnswer) throws LpRestExceptionXWikiImpl {
-		// TODO Auto-generated method stub
-		this.printSomething("invoked addQuestionToQuestionnaire("+creationProcessId+","+question+","+expectedAnswer+")");
-		
+		// TODO This method is supposed to be used for the interactive
+		// set-up of a questionnaire, so it does not concern the
+		// integration with MOTHIA
+
+		this.printSomething("invoked addQuestionToQuestionnaire("+creationProcessId+","+question+","+expectedAnswer+")");		
 	}
 
 	@Override
 	public void finalizeQuestionnaire(String creationProcessId, String type)
 			throws LpRestExceptionXWikiImpl {
-		// TODO Auto-generated method stub
-		this.printSomething("invoked finalizeQuestionnaire("+creationProcessId+","+type+")");
-		
+		// TODO This method is supposed to be used for the interactive
+		// set-up of a questionnaire, so it does not concern the
+		// integration with MOTHIA
+
+		this.printSomething("invoked finalizeQuestionnaire("+creationProcessId+","+type+")");		
 	}
 
 	@Override
@@ -106,14 +112,12 @@ public class QMXwikiBridgeImpl extends XwikiBridge implements Initializable, QMB
 		// TODO This is stub code that have been implemented in order to 
 		// make easy the development of the core-platform
 		
-//	TODO : the REST invocation on this method is not working properly
-//	I commented the actual body in order to have a better understanding
-		String genProcessID = "thisIsFoo";
-//		try {
-//			genProcessID = this.qm.startGeneration(modelSetId);
-//		} catch (Exception e) {
-//			throw new LpRestExceptionXWikiImpl(e);
-//		}
+		String genProcessID = "thisIsFoo";		
+		try {
+			genProcessID = this.qm.startGeneration(modelSetId);
+		} catch (Exception e) {
+			throw new LpRestExceptionXWikiImpl(e);
+		}
 		
 		return genProcessID;
 	}
