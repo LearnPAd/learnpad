@@ -72,7 +72,7 @@ public class ContentAnalysisBean implements Serializable {
 
 	public Collection<String> getCollectionids(){
 		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/validatecollaborativecontent/allid");
+		WebTarget target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/allid");
 		Response allID =  target.request().get();
 		String res = allID.readEntity(String.class);
 		
@@ -176,7 +176,7 @@ public class ContentAnalysisBean implements Serializable {
 			id="1";
 		}
 
-		WebTarget target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/validatecollaborativecontent/"+id+"/status");
+		WebTarget target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id+"/status");
 		String 	status ="";
 		while (!status.equals("OK")) {
 
@@ -190,7 +190,7 @@ public class ContentAnalysisBean implements Serializable {
 		log.trace("Status: "+status);
 
 		if(status.equals("OK")){
-			target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/validatecollaborativecontent/"+id);
+			target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id);
 			Response annotatecontent =  target.request().get();
 
 			this.setCollectionannotatedcontent(annotatecontent.readEntity(new GenericType<Collection<AnnotatedCollaborativeContentAnalysis>>() {}));
