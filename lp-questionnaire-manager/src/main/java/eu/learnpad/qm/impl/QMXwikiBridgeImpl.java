@@ -19,16 +19,23 @@
  */
 package eu.learnpad.qm.impl;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
 
+import org.restlet.representation.InputRepresentation;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 
 import eu.learnpad.core.impl.qm.XwikiBridge;
 import eu.learnpad.core.impl.qm.XwikiCoreFacadeRestResource;
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 
 /**

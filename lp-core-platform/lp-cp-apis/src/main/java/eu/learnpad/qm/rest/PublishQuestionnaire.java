@@ -27,11 +27,12 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 
-//"/learnpad/qm/publish/{questionnairesid}?type={mothia-out}"
-@Path("/publish/{questionnairesid}")
 public interface PublishQuestionnaire {
 
+	//"/learnpad/qm/publish/{questionnairesid}?type={mothia-out}"
+
 	@PUT
+	@Path("/publish/{questionnairesid}")
 	void publish(@PathParam("questionnairesid") String questionnairesId,
 			@QueryParam("type") @DefaultValue("mothia-out") String type, byte [] questionnairesFile)
 					throws LpRestException;
