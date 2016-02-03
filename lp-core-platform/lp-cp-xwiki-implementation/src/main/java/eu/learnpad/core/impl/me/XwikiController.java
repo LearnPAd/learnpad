@@ -19,9 +19,6 @@
  */
 package eu.learnpad.core.impl.me;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -36,10 +33,8 @@ import org.xwiki.rest.XWikiRestComponent;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.exception.LpRestException;
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.BridgeInterface;
 import eu.learnpad.me.Controller;
-import eu.learnpad.mv.rest.data.MVResults;
 import eu.learnpad.mv.rest.data.VerificationId;
 import eu.learnpad.mv.rest.data.VerificationResults;
 import eu.learnpad.mv.rest.data.VerificationStatus;
@@ -99,7 +94,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
 	@Override
 	public void putModelSet(String modelSetId, String type, byte[] modelSetFile)
-			throws LpRestExceptionImpl {
+			throws LpRestException {
 		if (XWikiRestUtils.isPage(RestResource.CORE_REPOSITORY_WIKI,
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId) == false) {
 			XWikiRestUtils.createEmptyPage(RestResource.CORE_REPOSITORY_WIKI,
@@ -109,10 +104,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		XWikiRestUtils.putAttachment(RestResource.CORE_REPOSITORY_WIKI,
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName,
 				modelSetFile);
-		
-// Note that form other branches it may result here a statement invoking the "startVerification" on MV.
-// I am not sure that is correct, in fact in that way we may lose the VerificationID. -- Gulyx 
-		
+		this.mv.startVerification(modelSetId, "ALL");
 	}
 
 	@Override
