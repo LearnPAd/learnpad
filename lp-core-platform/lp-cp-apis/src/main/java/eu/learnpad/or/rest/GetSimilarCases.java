@@ -28,45 +28,41 @@ import eu.learnpad.or.rest.data.SimilarCases;
 
 public interface GetSimilarCases {
 
-	/**
-	 * Search for similar cases with the given case descriptions. Each parameter
-	 * is optional.
-	 * 
-	 *
-	 * @param artifactName
-	 *            the name or title of an artifact
-	 * @param artifactDescription
-	 *            a free text description of a single artifact
-	 * @param artifactType
-	 *            might be further classify
-	 * @param modelType
-	 *            the model type, ex. business process (BPMN, ...)
-	 * @param freeDescription
-	 * @param existingArtifactId
-	 *            allows to search for similar cases according the properties of
-	 *            an existing or selected artifact.
-	 * @param existingArtifactStructureDepth
-	 *            considers connected artifacts of a selected artifact reference
-	 *            by the parameter <code>existingArtifactId</code> until the
-	 *            defined depth.
-	 * @throws LpRestException
-	 */
-	// <host>/learnpad/or/similarcases?artifactName=A name,artifactDescription=Some description,artifactType={event-start|gateway-exclusive|task|event-end|...},modelType={bpmn|cmmn|...},freeDescription=Some text,existingArtifactId=id,existingArtifactStructureDepth=2
-	@Path("/similarcases")
-	@GET
-	   SimilarCases retrieveSimilarCases(
-			@QueryParam("modelsetId") String modelSetId,
-			@QueryParam("artifactid") String artifactId,
-			@QueryParam("userid") String userId, 
-			@QueryParam("type") String type,
-			@QueryParam("applicantName") String applicantName,
-			@QueryParam("applicationCity") String applicationCity,
-			@QueryParam("applicationZone") String applicationZone,
-			@QueryParam("applicationType") String applicationType,
-			@QueryParam("applicationPublicAdministration") String applicationPublicAdministration,
-			@QueryParam("applicationSector") String applicationSector,
-			@QueryParam("applicationBusinessActivity") String applicationBusinessActivity,
-			@QueryParam("applicationDescription") String applicationDescription,
-			@QueryParam("applicationATECOCategory") String applicationATECOCategory)
-			throws LpRestException;
+    /**
+     * Search for similar cases with the given case descriptions. 
+     * Each parameter belonging to the application is optional.
+     *
+     * @param modelSetId is the uniq ID of the model set
+     * @param artifactId is the ID of the artifact in the model (event, gateway, unit, etc.)
+     * @param userId the users unique
+     * @param applicantName name of the applicant
+     * @param applicationCity location of the object the application belongs to
+     * @param applicationZone spatial zone(s) affected by the application
+     * @param applicationType type of application
+     * @param applicationPublicAdministration responsible public administration
+     * @param applicationSector business sector(s) affected by application
+     * @param applicationBusinessActivity business activity or activities affected by application
+     * @param applicationDescription short freetext description of application
+     * @param applicationATECOCategory standard category code the application object belongs to
+     * @return list of similar cases with assigned content.
+     *
+     * @throws LpRestException
+     */
+    // <host>/learnpad/or/similarcases?artifactName=A name,artifactDescription=Some description,artifactType={event-start|gateway-exclusive|task|event-end|...},modelType={bpmn|cmmn|...},freeDescription=Some text,existingArtifactId=id,existingArtifactStructureDepth=2
+    @Path("/similarcases")
+    @GET
+    SimilarCases retrieveSimilarCases(
+            @QueryParam("modelsetId") String modelSetId,
+            @QueryParam("artifactid") String artifactId,
+            @QueryParam("userid") String userId,
+            @QueryParam("applicantName") String applicantName,
+            @QueryParam("applicationCity") String applicationCity,
+            @QueryParam("applicationZone") String applicationZone,
+            @QueryParam("applicationType") String applicationType,
+            @QueryParam("applicationPublicAdministration") String applicationPublicAdministration,
+            @QueryParam("applicationSector") String applicationSector,
+            @QueryParam("applicationBusinessActivity") String applicationBusinessActivity,
+            @QueryParam("applicationDescription") String applicationDescription,
+            @QueryParam("applicationATECOCategory") String applicationATECOCategory)
+            throws LpRestException;
 }
