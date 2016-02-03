@@ -116,6 +116,7 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 				}
 			}
 		}
+		if(!sub.getFlowElements().isEmpty())
 		if ( !flag) {
 			this.Suggestion += Messages.getString("ExplicitStartEndEvents.SuggestionSubprocessKO",l)+sub.getName()+" "; //$NON-NLS-1$ //$NON-NLS-2$
 			this.status = false;
