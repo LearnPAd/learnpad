@@ -116,7 +116,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName,
 				modelSetFile);
 	}
-	
+
 	@Override
 	public PFResults getFeedbacks(String modelSetId) throws LpRestException {
 		return this.cw.getFeedbacks(modelSetId);
@@ -134,6 +134,10 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
     
     @Override
     public VerificationStatus checkModelSetVerification(String verificationProcessId) throws LpRestException {
+// Gulyx : I MUST CHECK THIS AND PROBABLY REMOVE IT. IT COMES FORM THE BIG MERGE WITH JEAN!!
+// Notify QM about a new model set imported
+//				String fooModelContent = "-ask-to-jean-how-to-retraive-the-modelset-";
+//				this.qm.importModelSet(toReturn.getModel
         return this.mv.getVerificationStatus(verificationProcessId);
     }
     

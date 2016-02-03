@@ -19,11 +19,13 @@
  */
 package eu.learnpad.qm.rest;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
 
@@ -43,11 +45,12 @@ public interface GenerateQuestionnaires {
 	 */
 	@GET
 	@Path("/generate/{modelsetid}")
+	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
 	String generateQuestionnaires(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type")@DefaultValue("mothia-out") String type, byte[] configurationFile) throws LpRestException;
 	
-	@Path("/generate/{generationprocessid}/status")
 	@GET
+	@Path("/generate/{generationprocessid}/status")
 	String getGenerationStatus(@PathParam("generationprocessid") String generationProcessId)
 			throws LpRestException;
 	
