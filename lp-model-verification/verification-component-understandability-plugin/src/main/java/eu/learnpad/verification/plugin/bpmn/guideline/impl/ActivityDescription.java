@@ -82,7 +82,7 @@ public class ActivityDescription extends abstractGuideline{
 
 								}
 							}catch(Exception e){
-
+								//TODO:
 							}
 							if(doc.isEmpty() && !flag){
 								num++;
