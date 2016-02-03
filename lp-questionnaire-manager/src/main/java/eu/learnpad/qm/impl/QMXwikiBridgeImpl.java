@@ -112,6 +112,18 @@ public class QMXwikiBridgeImpl extends XwikiBridge implements Initializable, QMB
 		// TODO This is stub code that have been implemented in order to 
 		// make easy the development of the core-platform
 		
+		
+		// TODO configuration files are not supported yet
+		String genProcessID = this.generateQuestionnaires(modelSetId, type);			
+		
+		return genProcessID;
+	}
+
+	@Override
+	public String generateQuestionnaires(String modelSetId, String type) throws LpRestExceptionXWikiImpl {
+		// TODO This is stub code that have been implemented in order to 
+		// make easy the development of the core-platform
+		
 		String genProcessID = "thisIsFoo";		
 		try {
 			genProcessID = this.qm.startGeneration(modelSetId);
