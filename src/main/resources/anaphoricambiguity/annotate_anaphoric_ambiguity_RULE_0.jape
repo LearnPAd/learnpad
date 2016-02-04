@@ -9,46 +9,23 @@ Options: control = first
  
 Rule: DetectPronoun
 (
-{Token.string == "he"} |
-{Token.string == "his"} |
-{Token.string == "him"} |
-{Token.string == "himself"} |
-{Token.string == "she"} |
-{Token.string == "her"} |
-{Token.string == "hers"} |
-{Token.string == "herself"} |
-{Token.string == "it"} |
-{Token.string == "its"} |
-{Token.string == "itself"} |
-{Token.string == "they"} |
-{Token.string == "their"} |
-{Token.string == "theirs"} |
-{Token.string == "them"} |
-{Token.string == "themselves"} |
-{Token.string == "He"} |
-{Token.string == "His"} |
-{Token.string == "Him"} |
-{Token.string == "Himself"} |
-{Token.string == "She"} |
-{Token.string == "Her"} |
-{Token.string == "Hers"} |
-{Token.string == "Herself"} |
-{Token.string == "It"} |
-{Token.string == "Its"} |
-{Token.string == "Itself"} |
-{Token.string == "They"} |
-{Token.string == "Their"} |
-{Token.string == "Theirs"} |
-{Token.string == "Them"} |
-{Token.string == "Themselves"}
+({Token.string ==~ "(?i)he"} |
+{Token.string ==~ "(?i)his"} |
+{Token.string ==~ "(?i)him"} |
+//{Token.string ==~ "(?i)himself"} |
+{Token.string ==~ "(?i)she"} |
+{Token.string ==~ "(?i)her"} |
+{Token.string ==~ "(?i)hers"} |
+//{Token.string ==~ "(?i)herself"} |
+{Token.string ==~ "(?i)it"} |
+{Token.string ==~ "(?i)its"} |
+//{Token.string ==~ "(?i)itself"} |
+{Token.string ==~ "(?i)they"} |
+{Token.string ==~ "(?i)their"} |
+{Token.string ==~ "(?i)theirs"} |
+{Token.string ==~ "(?i)them"}
+//{Token.string ==~ "(?i)themselves"}
+):pronoun
 ):pronoun_pattern
 -->
-:pronoun_pattern.Pronoun = {}
-/*
-Rule: DetectPronoun
-(
-{Token.category == "PRP"} | {Token.category == "PRP$"}
-):pronoun_pattern
--->
-:pronoun_pattern.Pronoun = {}
-*/
+:pronoun_pattern.Pronoun = {pronoun = :pronoun.Token.string}

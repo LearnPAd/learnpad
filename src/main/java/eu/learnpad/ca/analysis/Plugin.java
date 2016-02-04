@@ -14,13 +14,13 @@ import java.util.Set;
 import org.languagetool.Language;
 import org.apache.log4j.Logger;
 public abstract class Plugin {
-	
-	
+
+
 	protected DocumentContent docContent;
 	protected List<Node> listnode;
 	protected Language language;
-	
-	
+
+
 	protected  int indexofElement(String sentence, String word, Map<String, Integer> elementfinded, String split){
 		String [] spliter = sentence.split(split);
 		int position = 0;
@@ -47,14 +47,14 @@ public abstract class Plugin {
 		}
 		return position;
 	}
-	
+
 	public void gatevsleanpadAnnotation(
 			Set<gate.Annotation> setGateAnnotations,
 			List<Annotation> annotations, Set<gate.Annotation> listSentenceDefected, 
 			List<Node> listnode, DocumentContent docContent,String Type, String Racc,Logger log, 
 			Set<gate.Annotation> listSentence) {
 
-		
+
 		for (gate.Annotation gateA : setGateAnnotations) {
 
 			gate.Node gatenodestart = gateA.getStartNode();
@@ -62,13 +62,19 @@ public abstract class Plugin {
 			String refverb = null;
 			String refaux = null;
 			if(gateA.getFeatures().containsKey("refverb")){
-				 refverb = gateA.getFeatures().get("refverb").toString();
-				 if(gateA.getFeatures().containsKey("refaux")){
-					 refaux = gateA.getFeatures().get("refaux").toString();
-				 }
-				
+				refverb = gateA.getFeatures().get("refverb").toString();
+				if(gateA.getFeatures().containsKey("refaux")){
+					refaux = gateA.getFeatures().get("refaux").toString();
+				}
+
 			}
-				
+			String pronuon = null;
+			if(gateA.getFeatures().containsKey("pronoun")){
+				pronuon = gateA.getFeatures().get("pronoun").toString();
+
+			}
+
+
 			Set<gate.Annotation> sentencedef = getSentenceFromNode(listSentence,gatenodestart,gatenodeend);
 			for(gate.Annotation def : sentencedef){
 				if(!listSentenceDefected.contains(def))
@@ -84,7 +90,7 @@ public abstract class Plugin {
 
 			listnode.add(init);
 			listnode.add(end);
-			
+
 			Annotation a = new Annotation();
 			a.setId(gateA.getId());
 			a.setEndNode(end.getId());
@@ -99,20 +105,24 @@ public abstract class Plugin {
 				//log.trace(sentence_gate);
 				if(refverb!=null && refaux!=null)
 					recc = String.format(Racc,refaux+" "+refverb);
-				else
-					recc = String.format(Racc, sentence_gate, sentence_gate);
+				else{
+					if(pronuon!=null)
+						recc = String.format(Racc,pronuon);
+					else
+						recc = String.format(Racc, sentence_gate, sentence_gate);
+				}
 			}catch(InvalidOffsetException e){
 				log.error(e);
 			}
-			
+
 			a.setRecommendation(recc);
-			
+
 			annotations.add(a);
 
 		}
-	
+
 	}
-	
+
 	public Set<gate.Annotation> getSentenceFromNode(Set<gate.Annotation> listSentence,gate.Node gatenodestart, gate.Node gatenodeend){
 		Set<gate.Annotation> sent = new HashSet<gate.Annotation>();
 		gate.Annotation sentenceorec = null;
@@ -124,12 +134,12 @@ public abstract class Plugin {
 			try{
 				 nod = docContent.getContent(gatenodestart.getOffset(),gatenodeend.getOffset()).toString();
 				 sentence_gate = docContent.getContent(startSentence.getOffset(),endSentence.getOffset()).toString();
-				
+
 			}catch(InvalidOffsetException e){
-				
+
 			}*/
-			
-			
+
+
 			boolean initial = startSentence.getOffset()-gatenodestart.getOffset()<=0;
 			boolean end = endSentence.getOffset()-gatenodeend.getOffset()>=-1;
 			if(initial & end){
@@ -139,23 +149,23 @@ public abstract class Plugin {
 			}else{
 				if(initial){
 					if(gatenodestart.getOffset()<=endSentence.getOffset()){
-					sentenceorec=sentence;
+						sentenceorec=sentence;
 					}
 				}else{
 					if(end & sentenceorec!=null){
 						if(gatenodeend.getOffset()>=startSentence.getOffset()){
-						sent.add(sentenceorec);
-						sent.add(sentence);
-						sentenceorec = null;
-						break;
+							sent.add(sentenceorec);
+							sent.add(sentence);
+							sentenceorec = null;
+							break;
 						}
 					}
 				}
 			}
-			
+
 		}
-		
+
 		return sent;
 	}
-	
+
 }
