@@ -73,6 +73,18 @@ public abstract class Plugin {
 				pronuon = gateA.getFeatures().get("pronoun").toString();
 
 			}
+			
+			String adj = null;
+			String noun1 = null;
+			String noun2 = null;
+			if(gateA.getFeatures().containsKey("adj")){
+				adj = gateA.getFeatures().get("adj").toString();
+				noun1 = gateA.getFeatures().get("noun1").toString();
+				noun2 = gateA.getFeatures().get("noun2").toString();
+				
+
+			}
+			
 
 
 			Set<gate.Annotation> sentencedef = getSentenceFromNode(listSentence,gatenodestart,gatenodeend);
@@ -108,8 +120,12 @@ public abstract class Plugin {
 				else{
 					if(pronuon!=null)
 						recc = String.format(Racc,pronuon);
-					else
+					else{
+						if(adj!=null && noun1!=null && noun2!=null)
+							recc = String.format(Racc,adj,noun1,noun2);
+						else
 						recc = String.format(Racc, sentence_gate, sentence_gate);
+					}
 				}
 			}catch(InvalidOffsetException e){
 				log.error(e);
