@@ -59,7 +59,15 @@ public abstract class Plugin {
 
 			gate.Node gatenodestart = gateA.getStartNode();
 			gate.Node gatenodeend = gateA.getEndNode();
-			
+			String refverb = null;
+			String refaux = null;
+			if(gateA.getFeatures().containsKey("refverb")){
+				 refverb = gateA.getFeatures().get("refverb").toString();
+				 if(gateA.getFeatures().containsKey("refaux")){
+					 refaux = gateA.getFeatures().get("refaux").toString();
+				 }
+				
+			}
 				
 			Set<gate.Annotation> sentencedef = getSentenceFromNode(listSentence,gatenodestart,gatenodeend);
 			for(gate.Annotation def : sentencedef){
@@ -89,13 +97,16 @@ public abstract class Plugin {
 			try{
 				String sentence_gate = docContent.getContent(gatenodestart.getOffset(),gatenodeend.getOffset()).toString();
 				//log.trace(sentence_gate);
-				recc = String.format(Racc, sentence_gate, sentence_gate);
+				if(refverb!=null && refaux!=null)
+					recc = String.format(Racc,refaux+" "+refverb);
+				else
+					recc = String.format(Racc, sentence_gate, sentence_gate);
 			}catch(InvalidOffsetException e){
 				log.error(e);
 			}
 			
-			
 			a.setRecommendation(recc);
+			
 			annotations.add(a);
 
 		}

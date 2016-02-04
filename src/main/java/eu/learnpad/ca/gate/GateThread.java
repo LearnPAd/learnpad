@@ -166,11 +166,9 @@ public class GateThread extends Thread implements StatusListener{
 
 		private void LoadJAPEActorUnclear(ArrayList<String> JAPEs){
 			String sep = File.separator;
-			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_auxiliary_verbs.jape");
-			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_by.jape");
-			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_irregular_passive.jape");
-			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_regular_passive.jape");
-			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_RULE_1.jape");
+			JAPEs.add("passiveforms"+sep+"annotate_preliminary_passive_forms.jape");
+			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_RULE_ALT.jape");
+			
 
 
 		}
