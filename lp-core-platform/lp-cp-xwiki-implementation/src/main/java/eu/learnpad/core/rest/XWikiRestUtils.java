@@ -111,6 +111,12 @@ public class XWikiRestUtils {
 				IOUtils.toInputStream(emptyPageXML));
 	}
 
+	public static byte[] getAttachmentFromCoreRepository(String basename, String extension){
+		String attachmentName = String.format("%s.%s", basename, extension);
+		return XWikiRestUtils.getAttachment(RestResource.CORE_REPOSITORY_WIKI,
+				RestResource.CORE_REPOSITORY_SPACE, basename, attachmentName);
+	}
+	
 	public static byte[] getAttachment(String wikiName, String spaceName,
 			String pageName, String attachmentName) {
 		HttpClient httpClient = RestResource.getClient();

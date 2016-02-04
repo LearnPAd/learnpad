@@ -60,8 +60,22 @@ public class XwikiController extends Controller implements XWikiRestComponent,
 	/** Set to true once the inherited BridgeInterface has been initialized. */
 	private boolean initialized = false;
 
+    /*
+     * Note that in this solution the Controllers do not interact
+     * each-others, but each controller directly invokes the BridgesInterfaces
+     * (from the other controllers) it needs. This is not actually what was
+     * originally planned, thus in the future it may change.
+     *
+     * Also, not sure if this is the correct way to proceed.
+     * I would like to decide in a configuration file
+     * the implementation to bind, and not into the source
+     * code. In fact, this second case implies to rebuild the
+     * whole platform at each change.	
+     */
 	private eu.learnpad.cw.BridgeInterface cw;
 	private eu.learnpad.or.BridgeInterface or;
+	private eu.learnpad.qm.BridgeInterface qm;
+	private eu.learnpad.sim.BridgeInterface sim;
 
 	private Map<String, String> typesMap;
 
@@ -88,6 +102,9 @@ public class XwikiController extends Controller implements XWikiRestComponent,
 			// }
 			this.cw = new eu.learnpad.core.impl.cw.XwikiBridgeInterfaceRestResource();
 			this.or = new eu.learnpad.core.impl.or.XwikiBridgeInterfaceRestResource();
+			this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
+			this.qm = new eu.learnpad.core.impl.qm.XwikiBridgeInterfaceRestResource();
+
 			this.typesMap = new HashMap<String, String>();
 
 			this.initialized = true;
@@ -223,6 +240,12 @@ public class XwikiController extends Controller implements XWikiRestComponent,
 					RestResource.CORE_REPOSITORY_SPACE, modelSetId) == true) {
 				this.cw.modelSetImported(modelSetId, type);
 				this.or.modelSetImported(modelSetId, type);
+				
+				byte[] modelContent = XWikiRestUtils.getAttachmentFromCoreRepository(modelSetId, type);
+				this.qm.importModelSet(modelSetId, type, modelContent);
+				
+				// TODO should we add here also some notification to this.sim ?
+				
 			}
 		}
 
