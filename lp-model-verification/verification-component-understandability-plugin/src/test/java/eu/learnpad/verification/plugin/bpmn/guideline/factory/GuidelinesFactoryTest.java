@@ -215,12 +215,12 @@ public class GuidelinesFactoryTest {
 	public void testGuidelinesFactoryListGood() {
 		List<String> ldirectory = new ArrayList<String>();
 		String sep = File.separator;
-/*		ldirectory.add("EPBR-Coordinator"+sep+"20903.bpmn");
+		ldirectory.add("EPBR-Coordinator"+sep+"20903.bpmn");
 		ldirectory.add("EPBR-Coordinator"+sep+"21099.bpmn");
 		ldirectory.add("EPBR-Coordinator"+sep+"21203.bpmn");
 		ldirectory.add("EPBR-Coordinator"+sep+"21385.bpmn");
 		ldirectory.add("EPBR-Coordinator"+sep+"21417.bpmn");
-		ldirectory.add("EPBR-Coordinator"+sep+"21823.bpmn");*/
+		ldirectory.add("EPBR-Coordinator"+sep+"21823.bpmn");
 		//ldirectory.add("TitoloUnico"+sep+"diagram.bpmn");
 		ldirectory.add("TitoloUnico"+sep+"20250.bpmn");
 		ldirectory.add("TitoloUnico"+sep+"20386.bpmn");
