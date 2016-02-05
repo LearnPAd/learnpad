@@ -125,7 +125,7 @@ public class BPMNUnderstandability implements Plugin {
 				jaxbMarshaller.marshal(eg, System.out);
 			}
 			
-				System.out.println("");
+				//System.out.println("");
 				
 			
 		}catch(Exception ex){log.error(ex);}

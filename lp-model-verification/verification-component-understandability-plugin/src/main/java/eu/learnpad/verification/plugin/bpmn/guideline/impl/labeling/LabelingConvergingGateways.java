@@ -75,7 +75,7 @@ public class LabelingConvergingGateways extends abstractGuideline{
 													flag=true;
 												}
 											}
-											System.out.println();
+											//System.out.println();
 										}
 
 									}
@@ -144,7 +144,7 @@ public class LabelingConvergingGateways extends abstractGuideline{
 											flag=true;
 										}
 									}
-									System.out.println();
+									//System.out.println();
 								}
 
 							}

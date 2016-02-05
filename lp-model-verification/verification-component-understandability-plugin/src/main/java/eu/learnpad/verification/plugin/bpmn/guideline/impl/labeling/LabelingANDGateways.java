@@ -74,7 +74,7 @@ public class LabelingANDGateways extends abstractGuideline{
 													flag=true;
 												}
 											}
-											System.out.println();
+										//	System.out.println();
 										}
 
 									}
@@ -143,7 +143,7 @@ public class LabelingANDGateways extends abstractGuideline{
 											flag=true;
 										}
 									}
-									System.out.println();
+									//System.out.println();
 								}
 
 							}
