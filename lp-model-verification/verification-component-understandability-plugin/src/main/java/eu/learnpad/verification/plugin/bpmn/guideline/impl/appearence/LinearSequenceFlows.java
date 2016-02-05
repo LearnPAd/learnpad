@@ -69,7 +69,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 							List<Point> points = BPMNEdges.get(base).getWaypoint();
 							if(points!=null)
 								if(points.size()>2){
-									if(!((flaggateawy |flaglane ) & points.size()==3))
+									if(!((flaggateawy |flaglane ) & (points.size()==3)| points.size()==4 ))
 										if((!((flaggateawy | !flaglane)&  points.size()==6)  ) ){
 											num++;
 
@@ -81,16 +81,18 @@ public class LinearSequenceFlows extends abstractGuideline{
 										}
 								}else{
 									Point x =null;
-									boolean flag=false;
+									boolean flagx=false;
+									boolean flagy=false;
 									for (Point point : points) {
 										if(x==null)
 											x = point;
 										else{
-											flag = point.getY()==x.getY();
+											flagy = point.getY()==x.getY();
+											flagx = point.getX()==x.getX();
 										}
 
 									}
-									if(!flag){
+									if(!(flagx | flagy)){
 										num++;
 
 										elementsBPMN.add(fe);
