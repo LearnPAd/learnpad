@@ -52,4 +52,10 @@ public class RestResource {
 		httpClient.getState().setCredentials(authentication, credentials);
 		return httpClient;
 	}
+
+	public static HttpClient getAnonymousClient() {
+		HttpClient httpClient = new HttpClient();
+		return httpClient;
+	}
+
 }
