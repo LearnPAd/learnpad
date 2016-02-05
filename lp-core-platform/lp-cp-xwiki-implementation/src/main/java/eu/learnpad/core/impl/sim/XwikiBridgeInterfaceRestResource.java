@@ -22,14 +22,18 @@ package eu.learnpad.core.impl.sim;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.io.IOUtils;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.sim.BridgeInterface;
@@ -62,17 +66,57 @@ import eu.learnpad.sim.rest.data.UserData;
 
 	@Override
 	public Collection<String> getProcessDefinitions() {
-		// TODO Auto-generated method stub
-		return null;
+		HttpClient httpClient = RestResource.getAnonymousClient();
+		String uri = String.format("%s/learnpad/sim/bridge/processes",
+				RestResource.SIM_REST_URI);
+
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Content-Type", "application/json");
+		
+		Collection<String> unmashelledList = new ArrayList<String>();
+		try {
+
+			httpClient.executeMethod(getMethod);
+		    
+			ObjectMapper objectMapper = new ObjectMapper();
+// Not fully tested, but is looks working for our purposes -- Gulyx
+			unmashelledList = objectMapper.readValue(getMethod.getResponseBodyAsStream(), Collection.class);			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return unmashelledList;
 	}
 
 	@Override
 	public Collection<String> addProcessDefinition(
 			String processDefinitionFileURL) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		HttpClient httpClient = RestResource.getAnonymousClient();
+		String uri = String.format("%s/learnpad/sim/bridge/processes",
+				RestResource.SIM_REST_URI);
 
+		PostMethod postMethod = new PostMethod(uri);
+		postMethod.addRequestHeader("Content-Type", "application/json");
+		
+		Collection<String> unmashelledList = new ArrayList<String>();
+		try {
+			RequestEntity requestEntity = new StringRequestEntity(processDefinitionFileURL,"application/json", "UTF-8");
+			postMethod.setRequestEntity(requestEntity);
+
+			httpClient.executeMethod(postMethod);
+		    
+			ObjectMapper objectMapper = new ObjectMapper();
+// Not fully tested, but is looks working for our purposes -- Gulyx
+			unmashelledList = objectMapper.readValue(postMethod.getResponseBodyAsStream(), Collection.class);			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return unmashelledList;
+	}
+	
 	@Override
 	public ProcessData getProcessInfos(String processArtifactId) {
 		// TODO Auto-generated method stub
@@ -81,14 +125,58 @@ import eu.learnpad.sim.rest.data.UserData;
 
 	@Override
 	public Collection<String> getProcessInstances() {
-		// TODO Auto-generated method stub
-		return null;
+		HttpClient httpClient = RestResource.getAnonymousClient();
+		String uri = String.format("%s/learnpad/sim/bridge/instances",
+				RestResource.SIM_REST_URI);
+
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Content-Type", "application/json");
+		
+		Collection<String> unmashelledList = new ArrayList<String>();
+		try {
+
+			httpClient.executeMethod(getMethod);
+		    
+			ObjectMapper objectMapper = new ObjectMapper();
+// Not fully tested, but is looks working for our purposes -- Gulyx
+			unmashelledList = objectMapper.readValue(getMethod.getResponseBodyAsStream(), Collection.class);			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return unmashelledList;
 	}
 
 	@Override
 	public String addProcessInstance(ProcessInstanceData data) {
-		// TODO Auto-generated method stub
-		return null;
+		HttpClient httpClient = RestResource.getAnonymousClient();
+		String uri = String.format("%s/learnpad/sim/bridge/processes",
+				RestResource.SIM_REST_URI);
+
+		PostMethod postMethod = new PostMethod(uri);
+		postMethod.addRequestHeader("Content-Type", "application/json");
+		
+		String unmashelledProcessInstanceID = "no-process-instance-added";
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+
+			// Not fully tested, but is looks working for our purposes -- Gulyx
+			String mashelledData = objectMapper.writeValueAsString(data);
+
+			RequestEntity requestEntity = new StringRequestEntity(mashelledData,"application/json", "UTF-8");
+			postMethod.setRequestEntity(requestEntity);
+
+			httpClient.executeMethod(postMethod);
+		    
+// Not fully tested, but is looks working for our purposes -- Gulyx
+			unmashelledProcessInstanceID = objectMapper.readValue(postMethod.getResponseBodyAsStream(), String.class);			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return unmashelledProcessInstanceID;
 	}
 
 	@Override
@@ -120,14 +208,19 @@ import eu.learnpad.sim.rest.data.UserData;
 	@Override
 	public String addProcessInstance(String processId,
 			Collection<UserData> potentialUsers, String currentUser) {
-		HttpClient httpClient = RestResource.getClient();
-		String uri = String.format("%s/learnpad/sim/instances/%s",
+// No auth is currently needed for the SIM 
+//		HttpClient httpClient = RestResource.getClient();
+		HttpClient httpClient = RestResource.getAnonymousClient();
+		String uri = String.format("%s/learnpad/sim/bridge/instances/%s",
 				RestResource.SIM_REST_URI, processId);
+		
 		PostMethod postMethod = new PostMethod(uri);
 		postMethod.addRequestHeader("Content-Type", "application/json");
+		
 		NameValuePair[] queryString = new NameValuePair[1];
 		queryString[0] = new NameValuePair("currentuser", currentUser);
 		postMethod.setQueryString(queryString);
+		
 		StringRequestEntity requestEntity = null;
 		ObjectMapper om = new ObjectMapper();
 		String potentialUsersJson = "[]";
@@ -157,4 +250,5 @@ import eu.learnpad.sim.rest.data.UserData;
 			return null;
 		}
 	}
+	
 }
