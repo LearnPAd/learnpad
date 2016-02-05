@@ -111,6 +111,17 @@ public class XWikiRestUtils {
 				IOUtils.toInputStream(emptyPageXML));
 	}
 
+	public static String exposeBPMNFromCoreRepository(String basename, String extension){
+		String pageName = basename;
+		String attachmentName = String.format("%s.%s", basename, extension);
+		
+		//TODO : implement here the extraction and the publication of the BPMN URL
+		String uri = String.format("%s/wikis/%s/spaces/%s/pages/%s",
+				RestResource.REST_URI, RestResource.CORE_REPOSITORY_WIKI, RestResource.CORE_REPOSITORY_SPACE, pageName);
+		
+		return uri;
+	}
+
 	public static byte[] getAttachment(String wikiName, String spaceName,
 			String pageName, String attachmentName) {
 		HttpClient httpClient = RestResource.getClient();

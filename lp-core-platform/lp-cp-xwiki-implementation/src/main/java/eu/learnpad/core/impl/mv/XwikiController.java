@@ -19,6 +19,7 @@
  */
 package eu.learnpad.core.impl.mv;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,6 +57,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
     private eu.learnpad.cw.BridgeInterface cw;
     private eu.learnpad.or.BridgeInterface or;
+    private eu.learnpad.sim.BridgeInterface sim;
     
     private Map<String, String> typesMap;
     
@@ -80,6 +82,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 //	        }
 			this.cw = new eu.learnpad.core.impl.cw.XwikiBridgeInterfaceRestResource();
 			this.or = new eu.learnpad.core.impl.or.XwikiBridgeInterfaceRestResource();
+			this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
+
 			this.typesMap = new HashMap<String, String>();
 			
 			this.initialized=true;
@@ -121,15 +125,42 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
         String type = this.typesMap.get(modelSetId);
         
 		boolean resultsOk = res.getFinalResult().equals(FinalResultType.OK);
+		boolean importedInTheSimulator = true;
 		if(resultsOk){
 		    if(XWikiRestUtils.isPage(RestResource.CORE_REPOSITORY_WIKI,
 	                RestResource.CORE_REPOSITORY_SPACE, modelSetId) == true){
     		    this.cw.modelSetImported(modelSetId, type);
     		    this.or.modelSetImported(modelSetId, type);
+    		    
+    		    String bpmnFileURL = XWikiRestUtils.exposeBPMNFromCoreRepository(modelSetId, type);
+    		    Collection<String> savedProcessesList = this.sim.addProcessDefinition(bpmnFileURL);
+    		    importedInTheSimulator = this.verifyImportedProcesses(savedProcessesList, bpmnFileURL);
 		    }
 		}
 		
-		this.cw.modelVerified(modelSetId, (resultsOk)?"OK":"KO");
+		// the value for message may change accordingly to eu.learnpad.cw.rest.ModelVerified
+		String message = "KO";
+		if ( resultsOk ){
+			if ( !importedInTheSimulator ){
+				// the value for message may change accordingly to eu.learnpad.cw.rest.ModelVerified
+				message = "OK but Problems with the Simulator"; 			
+			}else{
+				// the value for message may change accordingly to eu.learnpad.cw.rest.ModelVerified
+				message = "OK";
+			}			
+		}
+		
+		this.cw.modelVerified(modelSetId, message);		
+	}
+
+	private boolean verifyImportedProcesses(Collection<String> savedProcessesList, String bpmnFileURL) {
+		// TODO This is a stub implementation that may change in the future
+		boolean isValid = false;
+		if (savedProcessesList != null){
+			isValid = savedProcessesList.size() > 0;
+		}
+		
+		return isValid;
 	}
 
 }
