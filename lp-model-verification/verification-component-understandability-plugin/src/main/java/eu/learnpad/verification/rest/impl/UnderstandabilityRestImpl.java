@@ -1,14 +1,17 @@
 package eu.learnpad.verification.rest.impl;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.xml.xpath.XPathConstants;
 
@@ -17,9 +20,7 @@ import org.w3c.dom.Node;
 
 import eu.learnpad.verification.plugin.bpmn.guideline.factory.GuidelinesFactory;
 import eu.learnpad.verification.plugin.bpmn.reader.MyBPMN2ModelReader;
-import eu.learnpad.verification.plugin.utils.Utils;
 import eu.learnpad.verification.plugin.utils.XMLUtils;
-import eu.learnpad.verification.plugin.utils.Utils.LogType;
 
 
 
@@ -27,27 +28,31 @@ import eu.learnpad.verification.plugin.utils.Utils.LogType;
 @Path("validatemodel")
 public class UnderstandabilityRestImpl {
 
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(UnderstandabilityRestImpl.class);
+
+	
 	private static Map<Integer,GuidelinesFactory> map = new HashMap<Integer,GuidelinesFactory>();
 	private static Integer id =0;
 
-	@Path("/put")
+	@Path("put")
 	@POST
 	@Consumes(MediaType.TEXT_PLAIN)
-	public String putModel(String modelxml){
+	public String putModel(String modelxml, @DefaultValue("en") @QueryParam("lang") String lang){
 		try{
 			id++;
 			if(!isOMGBPMN2(modelxml))
 				return "";
 
+			log.trace(lang);
 			MyBPMN2ModelReader readerBPMN = new MyBPMN2ModelReader();
-
-			GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readStringModel(modelxml));
+			Locale l = new Locale(lang);
+			GuidelinesFactory eg = new GuidelinesFactory(readerBPMN.readStringModel(modelxml),l);
 			eg.setVerificationType("UNDERSTANDABILITY");
 			eg.StartThreadPool();
 			map.put(id, eg);
 			return id.toString();
 		}catch(Exception e){
-			//log.fatal("Fatal "+e.getMessage());
+			log.fatal("Fatal "+e.getMessage());
 			return "FATAL ERROR";
 		}
 	}
@@ -102,8 +107,8 @@ public class UnderstandabilityRestImpl {
 			if(bpmnRootNode!=null)
 				return true;
 		}catch(Exception e){
-			Utils.log(e);
-			Utils.log("\nModel involved in the exception:\n"+modelS, LogType.ERROR);
+			log.error(e);
+			log.error("\nModel involved in the exception:\n"+modelS);
 
 		}
 		return false;

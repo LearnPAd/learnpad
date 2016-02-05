@@ -103,6 +103,9 @@ public class GuidelinesFactoryTest {
 	@Test
 	public void testGuidelinesFactoryListOfRootElementGood() {
 		genarateTestforFileOk2("TitoloUnico_MontiAzzurrSUB.bpmn","2");
+		genarateTestforFileOk2("EPBR - Business Process.bpmn","8");
+		genarateTestforFileOk2("EPBR - Business Process.bpmn","35");
+		genarateTestforFileOk2("EPBR - Business Process.bpmn","36");
 		genarateTestforFileOk2("test7.bpmn","2");
 	}
 	private void genarateTestforFileOk(String NameFile,String id){

@@ -1,6 +1,8 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling;
 
 
+import java.util.Locale;
+
 import org.eclipse.bpmn2.DataObject;
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
@@ -8,17 +10,19 @@ import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 
 public class LabelingDataObject extends abstractGuideline{
 
 
-	public LabelingDataObject(Definitions diagram) {
-		super(diagram);
-		this.id = "37";
-		this.Description = "All data objects should be labeled using a qualified noun that is the name of a business object. Multiple instances of the same data object are labeled (which are really data object references) using a matching label followed by the applicable state in square brackets.";
-		this.Name = "Labeling Data Object";
+	public LabelingDataObject(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
+		this.id = "37"; //$NON-NLS-1$
+		this.Description = Messages.getString("LabelingDataObject.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("LabelingDataObject.Name",l); //$NON-NLS-1$
 
 
 	}
@@ -48,10 +52,10 @@ public class LabelingDataObject extends abstractGuideline{
 								num++;
 
 								elementsBPMN.add(fe);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 								setElements(fe.getId(),IDProcess,name); 
-								temp.append("* name=" + name + " ID=" + fe.getId()
-										+ "\n");
+								temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+										+ "\n"); //$NON-NLS-1$
 
 							}
 							
@@ -61,11 +65,11 @@ public class LabelingDataObject extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nLabeling Data Objects: ";
+			this.Suggestion += Messages.getString("LabelingDataObject.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("LabelingDataObject.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
@@ -84,16 +88,16 @@ public class LabelingDataObject extends abstractGuideline{
 					if(data.getName()==null || (data.getName().length()==0) ){
 				
 						elementsBPMN.add(fe);
-						String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+						String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 						setElements(fe.getId(),IDProcess,name);
-						temp.append("* name=" + name + " ID=" + fe.getId()
-								+ "\n");
+						temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+								+ "\n"); //$NON-NLS-1$
 					}
 
 				}  
 		}
 		if ( num>0) {
-			this.Suggestion += "\nLabeling Data Objects in SubProcess: "+sub.getName()+" ";
+			this.Suggestion += Messages.getString("LabelingDataObject.SuggestionSubprocessKO",l)+sub.getName()+" "; //$NON-NLS-1$ //$NON-NLS-2$
 			this.status = false;
 		}
 

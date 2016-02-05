@@ -2,6 +2,7 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling;
 
 
 import java.util.List;
+import java.util.Locale;
 
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.EndEvent;
@@ -13,17 +14,19 @@ import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.StartEvent;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 
 public class LabelingMessageEvent extends abstractGuideline{
 
 
-	public LabelingMessageEvent(Definitions diagram) {
-		super(diagram);
-		this.id = "33";
-		this.Description = "Whenever the modeler uses a message event he should draw the message flow, and label the event. When a focus on the message itself is required, the modeler can represent a message icon and label it with the name of the message.";
-		this.Name = "Labeling Message Event";
+	public LabelingMessageEvent(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
+		this.id = "33"; //$NON-NLS-1$
+		this.Description = Messages.getString("LabelingMessageEvent.Decription",l); //$NON-NLS-1$
+		this.Name = Messages.getString("LabelingMessageEvent.Name",l); //$NON-NLS-1$
 
 
 	}
@@ -57,10 +60,10 @@ public class LabelingMessageEvent extends abstractGuideline{
 										num++;
 
 										elementsBPMN.add(fe);
-										String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+										String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 										setElements(fe.getId(),IDProcess,name); 
-										temp.append("* name=" + name + " ID=" + fe.getId()
-												+ "\n");
+										temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+												+ "\n"); //$NON-NLS-1$
 									}
 								}
 							}
@@ -76,10 +79,10 @@ public class LabelingMessageEvent extends abstractGuideline{
 											num++;
 
 											elementsBPMN.add(fe);
-											String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+											String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 											setElements(fe.getId(),IDProcess,name); 
-											temp.append("* name=" + name + " ID=" + fe.getId()
-													+ "\n");
+											temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+													+ "\n"); //$NON-NLS-1$
 										}
 									}
 								}
@@ -90,11 +93,11 @@ public class LabelingMessageEvent extends abstractGuideline{
 		}
 		if (num>0) {
 
-			this.Suggestion += "\nLabeling Message Events:";
+			this.Suggestion += Messages.getString("LabelingMessageEvent.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("LabelingMessageEvent.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
@@ -119,10 +122,10 @@ public class LabelingMessageEvent extends abstractGuideline{
 								num++;
 
 								elementsBPMN.add(fe);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 								setElements(fe.getId(),IDProcess,name); 
-								temp.append("* name=" + name + " ID=" + fe.getId()
-										+ "\n");
+								temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+										+ "\n"); //$NON-NLS-1$
 							}
 						}
 					}
@@ -139,10 +142,10 @@ public class LabelingMessageEvent extends abstractGuideline{
 									num++;
 
 									elementsBPMN.add(fe);
-									String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+									String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 									setElements(fe.getId(),IDProcess,name);
-									temp.append("* name=" + name + " ID=" + fe.getId()
-											+ "\n");
+									temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+											+ "\n"); //$NON-NLS-1$
 								}
 							}
 						}
@@ -150,7 +153,7 @@ public class LabelingMessageEvent extends abstractGuideline{
 					} 
 		}
 		if ( num>0) {
-			this.Suggestion += "\nLabeling Message Events in SubProcess: "+sub.getName()+" ";
+			this.Suggestion += Messages.getString("LabelingMessageEvent.SuggestionSubprocessKO",l)+sub.getName()+" "; //$NON-NLS-1$ //$NON-NLS-2$
 			this.status = false;
 		}
 

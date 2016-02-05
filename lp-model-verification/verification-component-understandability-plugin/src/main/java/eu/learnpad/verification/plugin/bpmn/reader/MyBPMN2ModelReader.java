@@ -29,11 +29,12 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.IOWrappedException;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 
-import eu.learnpad.verification.plugin.utils.Utils;
-import eu.learnpad.verification.plugin.utils.Utils.LogType;
 
 
 public class MyBPMN2ModelReader {
+	
+	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(MyBPMN2ModelReader.class);
+
 
     public MyBPMN2ModelReader(){
 
@@ -72,9 +73,9 @@ public class MyBPMN2ModelReader {
             // Load the resource
             resource.load(options);
         }catch(IOWrappedException e){
-            Utils.log(e.getMessage(), LogType.WARNING);
+        
 
-            Utils.log("\nModel involved in the exception:\n"+uri.toString(), LogType.WARNING);
+            log.error("\nModel involved in the exception:\n"+uri.toString()+" "+e.getMessage());
 
             //  e.printStackTrace();
         }
