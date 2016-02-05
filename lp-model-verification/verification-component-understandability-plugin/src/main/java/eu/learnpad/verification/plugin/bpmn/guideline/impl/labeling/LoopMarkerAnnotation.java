@@ -9,8 +9,10 @@ import org.eclipse.bpmn2.Association;
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.LoopCharacteristics;
+import org.eclipse.bpmn2.MultiInstanceLoopCharacteristics;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
+import org.eclipse.bpmn2.StandardLoopCharacteristics;
 import org.eclipse.bpmn2.SubProcess;
 
 import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
@@ -51,7 +53,8 @@ public class LoopMarkerAnnotation extends abstractGuideline{
 						if (fe instanceof Activity) {
 							Activity a = (Activity) fe;
 							LoopCharacteristics loop = a.getLoopCharacteristics();
-							if(loop!=null){
+							if(loop!=null)
+							if(loop instanceof StandardLoopCharacteristics){
 								if(process.getArtifacts()!=null && !process.getArtifacts().isEmpty()){
 									for( Artifact artifact :  process.getArtifacts()){
 										if(artifact instanceof Association){
