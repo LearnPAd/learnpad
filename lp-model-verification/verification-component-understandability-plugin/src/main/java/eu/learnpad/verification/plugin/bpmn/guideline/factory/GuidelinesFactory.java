@@ -138,7 +138,7 @@ public class GuidelinesFactory {
 		guidelines.add(new LoopMarkerAnnotation(diagram,l));
 		//** Appearence 
 		guidelines.add(new LinearSequenceFlows(diagram,l));
-		guidelines.add(new LinearMessageFlows(diagram,l));
+	//	guidelines.add(new LinearMessageFlows(diagram,l));
 		guidelines.add(new ProcessOrientation(diagram,l));
 		//guidelines.add(new (diagram,l));
 		//guidelines.add(new (diagram,l));
