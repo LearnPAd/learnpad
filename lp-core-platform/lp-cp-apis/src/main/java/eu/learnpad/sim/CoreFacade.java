@@ -19,6 +19,8 @@
  */
 package eu.learnpad.sim;
 
+import javax.ws.rs.Path;
+
 import eu.learnpad.sim.rest.IEventReceiver;
 import eu.learnpad.sim.rest.IUserInfosAPI;
 
@@ -26,6 +28,7 @@ import eu.learnpad.sim.rest.IUserInfosAPI;
  * @author Tom Jorquera - Linagora
  *
  */
+@Path("/learnpad/sim/corefacade/")
 public interface CoreFacade extends IUserInfosAPI, IEventReceiver {
 
 }

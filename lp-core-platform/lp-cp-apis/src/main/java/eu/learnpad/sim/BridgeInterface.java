@@ -31,7 +31,7 @@ import eu.learnpad.sim.rest.ISimulationMonitoringAPI;
  * @author Tom Jorquera - Linagora
  *
  */
-@Path("/learnpad/sim/")
+@Path("/learnpad/sim/bridge/")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public interface BridgeInterface extends IProcessHandlingAPI,
