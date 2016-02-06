@@ -1,20 +1,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>eu.learnpad</groupId>
-  <artifactId>lp-cw-bridge-transformer</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+	<groupId>eu.learnpad</groupId>
+	<artifactId>lp-model-transformer</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
-  <name>LearnpadModelTransformation</name>
-  <url>http://maven.apache.org</url>
+	<name>Learn PAd - Model Transformer</name>
+	<url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-  
-  <repositories>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<learnpad.version>1.0-SNAPSHOT</learnpad.version>
+		<resteasy.version>3.0.11.Final</resteasy.version>
+	</properties>
+
+	<repositories>
 		<repository>
 			<id>public</id>
 			<name>Archiva Managed Public Repository</name>
@@ -37,25 +39,93 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-		
+
 		<repository>
-	       <id>Eclipse - Acceleo Snapshots</id>
-	       <url>https://repo.eclipse.org/content/repositories/acceleo-snapshots</url>
-	     </repository>
-	     <repository>
-	       <id>Eclipse - Acceleo Release</id>
-	       <url>https://repo.eclipse.org/content/repositories/acceleo-releases</url>
-	     </repository>
+			<id>Eclipse - Acceleo Snapshots</id>
+			<url>https://repo.eclipse.org/content/repositories/acceleo-snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>Eclipse - Acceleo Release</id>
+			<url>https://repo.eclipse.org/content/repositories/acceleo-releases</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>xwiki-snapshots</id>
+			<name>XWiki Nexus Snapshot Repository Proxy</name>
+			<url>http://nexus.xwiki.org/nexus/content/groups/public-snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>xwiki-releases</id>
+			<name>XWiki Nexus Releases Repository Proxy</name>
+			<url>http://nexus.xwiki.org/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>Eclipse - Acceleo Snapshots</id>
+			<url>https://repo.eclipse.org/content/repositories/acceleo-snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>Eclipse - Acceleo Release</id>
+			<url>https://repo.eclipse.org/content/repositories/acceleo-releases</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>eu.learnpad</groupId>
+			<artifactId>lp-cp-apis</artifactId>
+			<version>${learnpad.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.ws.rs</groupId>
+					<artifactId>jsr311-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.eclipse.m2m.atl</groupId>
 			<artifactId>driver.emf4atl</artifactId>
 			<version>3.4.0</version>
@@ -142,63 +212,150 @@
 			<artifactId>common</artifactId>
 			<version>2.10.0</version>
 		</dependency>
-		
+
 		<!-- ACCELEO -->
-		 <dependency>
-	       <groupId>org.eclipse.acceleo</groupId>
-	       <artifactId>org.eclipse.acceleo.maven</artifactId>
-	       <version>3.5.0-SNAPSHOT</version>
-	     </dependency>
-	     <dependency>
-	       <groupId>org.eclipse.acceleo</groupId>
-	       <artifactId>org.eclipse.acceleo.engine</artifactId>
-	       <version>3.5.0-SNAPSHOT</version>
-	     </dependency>
-	    
-	     <dependency>
-	       <groupId>org.slf4j</groupId>
-	       <artifactId>slf4j-simple</artifactId>
-	       <version>1.6.4</version>
-	     </dependency>
-  </dependencies>
-    <build>
-                <plugins>
-               		<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-compiler-plugin</artifactId>
-						<version>3.2</version>
+		<dependency>
+			<groupId>org.eclipse.acceleo</groupId>
+			<artifactId>org.eclipse.acceleo.maven</artifactId>
+			<version>3.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.acceleo</groupId>
+			<artifactId>org.eclipse.acceleo.engine</artifactId>
+			<version>3.5.1.201409021433</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.acceleo</groupId>
+			<artifactId>org.eclipse.acceleo.maven.launcher</artifactId>
+			<version>3.5.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-grizzly2-http</artifactId>
+			<version>2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-client</artifactId>
+			<version>${resteasy.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.xwiki.contrib</groupId>
+			<artifactId>xff-core</artifactId>
+			<version>0.4.0</version>
+			<type>jar</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<!-- COPY RESOURCES -->
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-resources02</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
 						<configuration>
-							<source>1.7</source>
-							<target>1.7</target>
+							<outputDirectory>${basedir}/target/classes/eu/learnpad/transformations/model2text/main/</outputDirectory>
+							<encoding>UTF-8</encoding>
+							<resources>
+								<resource>
+									<directory>${basedir}/src/main/java/eu/learnpad/transformations/model2text/main</directory>
+									<includes>
+										<include>generate.emtl</include>
+									</includes>
+								</resource>
+							</resources>
 						</configuration>
-					</plugin>
-					<!-- COPY RESOURCES -->
-					<plugin>
-						<artifactId>maven-resources-plugin</artifactId>
-						<version>2.6</version>
-						<executions>
-							<execution>
-								<id>copy-resources02</id>
-								<phase>process-classes</phase>
-								<goals>
-									<goal>copy-resources</goal>
-								</goals>
-								<configuration>
-									<outputDirectory>${basedir}/target/classes/eu/learnpad/transformations/model2text/main/</outputDirectory>
-									<encoding>UTF-8</encoding>
-									<resources>
-										<resource>
-											<directory>${basedir}/src/main/java/eu/learnpad/transformations/model2text/main</directory>
-											<includes>
-												<include>generate.emtl</include>
-											</includes>
-										</resource>
-									</resources>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-                </plugins>
-        </build>
-  
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>eu.learnpad.mt.server.Main</mainClass>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>eu.learnpad.mt.server.Main</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.acceleo</groupId>
+				<artifactId>org.eclipse.acceleo.maven.launcher</artifactId>
+				<version>3.5.2</version>
+				<executions>
+					<execution>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>acceleo-launcher</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<generatorClass>eu.learnpad.transformations.model2text.main.Generate</generatorClass>
+					<model>${basedir}/src/main/resources/metamodels/xwiki/XWIKI.ecore</model>
+					<outputFolder>${basedir}/src</outputFolder>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
