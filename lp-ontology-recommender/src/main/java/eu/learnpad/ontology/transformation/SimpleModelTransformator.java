@@ -47,7 +47,7 @@ public final class SimpleModelTransformator {
 
     private void loadTestmodel() {
         //For testing purposes a test modelset is loaded !
-        byte[] testModelSetFile = FileOntAO.getInstance().getModelSetFile(APP.CONF.getString("testdata.model.file.path"));
+        InputStream testModelSetFile = new ByteArrayInputStream(FileOntAO.getInstance().getModelSetFile(APP.CONF.getString("testdata.model.file.path")));
         transform(APP.CONF.getString("testdata.modelset.version"), testModelSetFile, ModellingEnvironmentType.ADOXX);
     }
 
@@ -55,7 +55,7 @@ public final class SimpleModelTransformator {
         return instance;
     }
 
-    public File transform(String modelSetId, byte[] model, ModellingEnvironmentType type) {
+    public File transform(String modelSetId, InputStream model, ModellingEnvironmentType type) {
 
         TransformerFactory tFactory = TransformerFactory.newInstance();
         tFactory.setURIResolver(new XsltURIResolver());
@@ -69,7 +69,7 @@ public final class SimpleModelTransformator {
             File previousVersionOfOutFile = getPreviousVersionOfOutputFile(modelSetId);
             latestOutFile = createNewVersionOfOutputFile(modelSetId);
             Result result = new StreamResult(latestOutFile);
-            transformer.transform(new StreamSource(new ByteArrayInputStream(model)), result);
+            transformer.transform(new StreamSource(model), result);
 
             //Compare previous file version with new generated version and remove the new version if no changes are recognized.
             if (filesEqual(previousVersionOfOutFile, latestOutFile)) {
