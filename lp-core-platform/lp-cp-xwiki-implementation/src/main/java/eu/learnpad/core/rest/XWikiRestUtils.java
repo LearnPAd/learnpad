@@ -21,13 +21,19 @@ package eu.learnpad.core.rest;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import net.java.truevfs.access.TPath;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
@@ -35,6 +41,11 @@ import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
+import org.xwiki.model.reference.AttachmentReference;
+import org.xwiki.model.reference.DocumentReference;
+import org.xwiki.model.reference.EntityReferenceSerializer;
+
+import com.xpn.xwiki.web.Utils;
 
 @Component
 @Singleton
@@ -141,8 +152,45 @@ public class XWikiRestUtils {
 		}
 	}
 
+	public static InputStream getFileInAttachment(String wikiName,
+			String spaceName, String pageName, String attachmentName,
+			Path filePath) {
+		EntityReferenceSerializer<String> referenceSerializer = Utils
+				.getComponent(EntityReferenceSerializer.TYPE_STRING);
+		DocumentReference modelsetReference = new DocumentReference(wikiName,
+				Arrays.asList(spaceName), pageName);
+		AttachmentReference attachmentReference = new AttachmentReference(
+				attachmentName, modelsetReference);
+		// TODO: Adapt the name dynamically for Adoxx or MagicDraw
+		URI uri = null;
+		try {
+			uri = new URI(String.format("attach://%s/%s/%s",
+					referenceSerializer.serialize(attachmentReference
+							.getParent()), attachmentReference.getName(),
+					filePath.toString()));
+		} catch (URISyntaxException e) {
+			String message = String.format(
+					"Unable to get URI for the file '%s' in archive '%s'",
+					filePath.toString(), attachmentReference);
+			logger.error(message, e);
+			return null;
+		}
+		java.nio.file.Path tPath = new TPath(uri);
+		InputStream stream = null;
+		try {
+			stream = Files.newInputStream(tPath);
+		} catch (IOException e) {
+			String message = String
+					.format("Unable to get input stream of the file '%s' in archive '%s'",
+							filePath.toString(), attachmentReference);
+			logger.error(message, e);
+			return null;
+		}
+		return stream;
+	}
+
 	public static boolean putAttachment(String wikiName, String spaceName,
-			String pageName, String attachmentName, byte[] attachment) {
+			String pageName, String attachmentName, InputStream attachment) {
 		HttpClient httpClient = RestResource.getClient();
 
 		String uri = String.format(
@@ -152,7 +200,7 @@ public class XWikiRestUtils {
 		PutMethod putMethod = new PutMethod(uri);
 		putMethod.addRequestHeader("Accept", "application/xml");
 		putMethod.addRequestHeader("Accept-Ranges", "bytes");
-		RequestEntity fileRequestEntity = new ByteArrayRequestEntity(
+		RequestEntity fileRequestEntity = new InputStreamRequestEntity(
 				attachment, "application/xml");
 		putMethod.setRequestEntity(fileRequestEntity);
 		try {

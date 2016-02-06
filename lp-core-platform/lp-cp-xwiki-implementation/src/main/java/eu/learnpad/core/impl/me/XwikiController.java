@@ -19,6 +19,7 @@
  */
 package eu.learnpad.core.impl.me;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -98,8 +99,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public void putModelSet(String modelSetId, String type, byte[] modelSetFile)
-			throws LpRestExceptionImpl {
+	public void putModelSet(String modelSetId, String type, InputStream modelSetFile)
+			throws LpRestException {
 		if (XWikiRestUtils.isPage(RestResource.CORE_REPOSITORY_WIKI,
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId) == false) {
 			XWikiRestUtils.createEmptyPage(RestResource.CORE_REPOSITORY_WIKI,

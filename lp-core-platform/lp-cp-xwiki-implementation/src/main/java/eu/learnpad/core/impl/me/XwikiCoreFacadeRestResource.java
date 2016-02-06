@@ -19,6 +19,8 @@
  */
 package eu.learnpad.core.impl.me;
 
+import java.io.InputStream;
+
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
@@ -53,8 +55,8 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 	}
 	
 	@Override
-	public void putModelSet(String modelSetId, String type, byte[] modelSetFile)
-			throws LpRestExceptionImpl {
+	public void putModelSet(String modelSetId, String type, InputStream modelSetFile)
+			throws LpRestException {
 		// TODO Auto-generated method stub
 
 	}
