@@ -17,8 +17,8 @@ import java.nio.file.Path;
  */
 public class ChainLauncher {
 	
-	private String tmpAlignmentOutputXMIFile = "tmp/tmpAlignmentOutputXMIFile.xmi";		
-	private String tmpATLOutputXMIfile = "tmp/tmpATLOutputStream.xmi";
+	private String tmpAlignmentOutputXMIFile = "/tmp/tmpAlignmentOutputXMIFile.xmi";		
+	private String tmpATLOutputXMIfile = "/tmp/tmpATLOutputStream.xmi";
 	
 	
 	/**

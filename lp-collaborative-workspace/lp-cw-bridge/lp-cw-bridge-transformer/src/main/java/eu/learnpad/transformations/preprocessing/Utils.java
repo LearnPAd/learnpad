@@ -156,7 +156,7 @@ public class Utils {
 		
 			File inFile = new File(inputPathFile);
 		    // temp file
-		    File outFile = new File("tmp/temp_file.tmp");
+		    File outFile = new File("/tmp/temp_file.tmp");
 		     
 		    // input
 		    FileInputStream fis  = new FileInputStream(inFile);

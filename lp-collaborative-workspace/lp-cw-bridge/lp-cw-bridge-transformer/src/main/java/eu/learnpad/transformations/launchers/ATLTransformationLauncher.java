@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.apache.commons.io.IOUtils;
+
 import eu.learnpad.transformations.model2model.ATLTransformation;
 import eu.learnpad.transformations.preprocessing.Alignment;
 
@@ -13,9 +15,9 @@ public class ATLTransformationLauncher {
 	
 	private final String ADOXX_TYPE = "ADOXX";
 	private final String MAGIC_DRAW_TYPE = "MD";
-	private String ADOXX2XWIKI_ATL_TRANSFORMATION = "resources/transformation/ado2xwiki.atl";
+	private String ADOXX2XWIKI_ATL_TRANSFORMATION = "transformation/ado2xwiki.atl";
 	private String MAGICDRAW2XWIKI_ATL_TRANSFORMATION = "";
-	private String tmpAlignmentOutputXMIFile = "tmp/tmpAlignmentOutputXMIFile.xmi";
+	private String tmpAlignmentOutputXMIFile = "/tmp/tmpAlignmentOutputXMIFile.xmi";
 	private boolean deleteFile = false;
 	
 	
@@ -27,7 +29,7 @@ public class ATLTransformationLauncher {
 	 * @param model The InputStream of the model file to be transformed.
 	 * @throws Exception
 	 */
-	public boolean transform(InputStream model, String type, OutputStream out) throws Exception{
+	public boolean transform(InputStream modelInputStream, String type, OutputStream out) throws Exception{
 		
 		boolean result = false;
 		
@@ -45,11 +47,11 @@ public class ATLTransformationLauncher {
 		switch (type) {
 		case ADOXX_TYPE:
 			System.out.println("*******STARTING ADOXX ALIGNMENT*******");
-			sanitizerResult = al.sanitizerForADOXX(model, outputAlignementFile);
+			sanitizerResult = al.sanitizerForADOXX(modelInputStream, outputAlignementFile);
 			System.out.println("*******ALIGNMENT ADOXX DONE*******");
 			
-			metamodel_in 	= "resources/metamodels/adoxx/ado.ecore";
-			metamodel_out 	= "resources/metamodels/xwiki/XWIKI.ecore";
+			metamodel_in 	= "metamodels/adoxx/ado.ecore";
+			metamodel_out 	= "metamodels/xwiki/XWIKI.ecore";
 			modules 		= ADOXX2XWIKI_ATL_TRANSFORMATION;
 			inTag 			= "ADOXX";
 			outTag 			= "XWIKI";
@@ -57,7 +59,7 @@ public class ATLTransformationLauncher {
 			break;
 		case MAGIC_DRAW_TYPE:
 			System.out.println("*******STARTING MAGICDRAW ALIGNMENT*******");
-			sanitizerResult = al.sanitizerForMagicDraw(model, outputAlignementFile);
+			sanitizerResult = al.sanitizerForMagicDraw(modelInputStream, outputAlignementFile);
 			System.out.println("*******ALIGNMENT MAGICDRAW DONE*******");
 			
 			metamodel_in 	= "";
@@ -77,7 +79,22 @@ public class ATLTransformationLauncher {
 			
 			ATLTransformation myT = new ATLTransformation();
 			System.out.println("Starting ATL Model2Model transformation...");
-			myT.run(tmpAlignmentOutputXMIFile, metamodel_in, metamodel_out, modules, inTag, outTag, out);
+			InputStream learnpadMetamodelInputStream = this.getClass().getClassLoader().getResourceAsStream(metamodel_in);
+			InputStream xwikiMetamodelInputStream = this.getClass().getClassLoader().getResourceAsStream(metamodel_out);
+			InputStream transformationInputStream = this.getClass().getClassLoader().getResourceAsStream(modules);
+			OutputStream learnpadMetamodelOutputStream = new FileOutputStream("/tmp/adoxx.ecore");
+			OutputStream xwikiMetamodelOutputStream = new FileOutputStream("/tmp/xwiki.ecore");
+			OutputStream transformationOutputStream = new FileOutputStream("/tmp/transformation.atl");
+			IOUtils.copy(learnpadMetamodelInputStream, learnpadMetamodelOutputStream);
+			IOUtils.copy(xwikiMetamodelInputStream, xwikiMetamodelOutputStream);
+			IOUtils.copy(transformationInputStream, transformationOutputStream);
+			learnpadMetamodelInputStream.close();
+			learnpadMetamodelOutputStream.close();
+			transformationInputStream.close();
+			xwikiMetamodelInputStream.close();
+			xwikiMetamodelOutputStream.close();
+			transformationOutputStream.close();
+			myT.run(tmpAlignmentOutputXMIFile, "/tmp/adoxx.ecore", "/tmp/xwiki.ecore", "/tmp/transformation.atl", inTag, outTag, out);
 			result = true;
 			System.out.println("ATL Model2Model transformation done.");
 
@@ -101,7 +118,7 @@ public class ATLTransformationLauncher {
 		
 //		String model_in = "resources/model/ado4f16a6bb-9318-4908-84a7-c2d135253dc9.xml";
 		String model_in = "resources/model/titolo-unico.xml";
-		String file_out = "tmp/testTransformationOutputStream.xmi";
+		String file_out = "/tmp/testTransformationOutputStream.xmi";
 		String type = "ADOXX";
 //		String type = "MD";
 		
