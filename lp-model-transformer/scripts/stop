@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+pkill -f "lp-model-transformer-1.0-SNAPSHOT.jar" || exit 0
