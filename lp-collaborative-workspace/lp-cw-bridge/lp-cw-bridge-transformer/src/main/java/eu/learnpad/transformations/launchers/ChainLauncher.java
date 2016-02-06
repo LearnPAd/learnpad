@@ -43,7 +43,7 @@ public class ChainLauncher {
 			//If the transformation succeded
 			
 			//Take the result of ATL Transformation as File in order to pass it to the Acceleo T.
-			FileInputStream fis = new FileInputStream(tmpAlignmentOutputXMIFile);
+			FileInputStream fis = new FileInputStream(tmpATLOutputXMIfile);
 			AcceleoTransformationLauncher acceleoTL = new AcceleoTransformationLauncher();
 			acceleoResultPath = acceleoTL.write(fis);
 		}else{
