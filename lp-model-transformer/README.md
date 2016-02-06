@@ -1,4 +1,31 @@
-# README
+Model Transformer's component
+=============================
+
+Information   | Value
+------------- | --------
+Component     | Model Transformer
+Partner       | UNIVAQ
+WP            | 3
+Responsible   | Francesco Basciani <francesco.basciani@gmail.com>
+Collaborators | Gianni Rosa <gianni.rosa@gmail.com>
+Roadmap       | http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Model+Transformer
+
+# Summary
+Model Transformer will provide a service to transform model from Modeling
+Environment to Collaborative Workspace (and possibly others).
+
+# How it works?
+Based on EMF, the Model Transformer component is using ATL for model to model
+transformation and Acceleo for serialization of the models.  It's ran as a
+webservice on port `8083`.
+
+# Configuration
+No specific configuration
+
+# Interfaces
+No specific documentation at the moment
+
+# Further details
 
 In order to run the workflow of the transformation look at 
 learnpad.uda.LearnpadModelTransformation.run.MainTest.java class and execute the main method.
