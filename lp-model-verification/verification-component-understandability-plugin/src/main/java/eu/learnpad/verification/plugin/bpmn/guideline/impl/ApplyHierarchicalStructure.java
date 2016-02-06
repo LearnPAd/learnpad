@@ -57,7 +57,7 @@ public class ApplyHierarchicalStructure extends abstractGuideline {
 
 			}
 		}
-		if (i>10 & subele<=2) {
+		if (i>29 & subele<=2) {
 			this.Suggestion += Messages.getString("ApplyHierarchicalStructure.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
