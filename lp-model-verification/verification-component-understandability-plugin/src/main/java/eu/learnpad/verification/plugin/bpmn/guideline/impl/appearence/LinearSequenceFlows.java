@@ -68,7 +68,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 						if(resd){
 							List<Point> points = BPMNEdges.get(base).getWaypoint();
 							if(points!=null)
-								if(points.size()>2){
+								if(!comparerangepoints(points)){
 									if(!((flaggateawy |flaglane ) & (points.size()==3)| points.size()==4 ))
 										if((!((flaggateawy | !flaglane)&  points.size()==6)  ) ){
 											num++;
@@ -79,7 +79,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 											//ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 											//		+ "\n");
 										}
-								}else{
+								}/*else{
 									Point x =null;
 									boolean flagx=false;
 									boolean flagy=false;
@@ -102,7 +102,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 										//		+ "\n");
 									}
 
-								}
+								}*/
 						}
 					}
 
@@ -146,4 +146,24 @@ public class LinearSequenceFlows extends abstractGuideline{
 		
 		return false;
 	}
+	
+	private boolean comparerangepoints(List<Point> points){
+		boolean flag=false;
+		if(points.size()>1)
+		for(int i = 1;i<points.size();i++){
+			float px = points.get(i-1).getX();
+			float py = points.get(i-1).getY();
+			float x = points.get(i).getX();
+			float y = points.get(i).getY();
+			if(comparerange(px,x) | comparerange(py,y)){
+				flag=true;
+			}else
+				flag=false;
+		}
+		
+		
+		return flag;
+	}
+	
+	
 }
