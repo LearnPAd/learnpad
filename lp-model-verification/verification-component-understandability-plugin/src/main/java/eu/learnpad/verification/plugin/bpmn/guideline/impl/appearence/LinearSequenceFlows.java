@@ -87,8 +87,8 @@ public class LinearSequenceFlows extends abstractGuideline{
 										if(x==null)
 											x = point;
 										else{
-											flagy = point.getY()==x.getY();
-											flagx = point.getX()==x.getX();
+											flagy = comparerange( point.getY(),x.getY());
+											flagx =comparerange( point.getX(),x.getX());
 										}
 
 									}
@@ -137,4 +137,13 @@ public class LinearSequenceFlows extends abstractGuideline{
 
 
 
+	private boolean comparerange(float f, float g){
+		
+		
+		if(f-g<=10){
+			return true;
+		}
+		
+		return false;
+	}
 }
