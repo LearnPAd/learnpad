@@ -60,7 +60,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 							if(sf.getTargetRef().getLanes()!=null)
 								if(!sf.getSourceRef().getLanes().isEmpty())
 									if(!sf.getTargetRef().getLanes().isEmpty())
-										flaglane = sf.getSourceRef().getLanes().get(0) == sf.getTargetRef().getLanes().get(0);
+										flaglane = sf.getSourceRef().getLanes().get(0) != sf.getTargetRef().getLanes().get(0);
 						boolean flaggateawy = sf.getSourceRef() instanceof Gateway | sf.getTargetRef() instanceof Gateway;
 
 						BaseElement base= (BaseElement)sf;
@@ -125,7 +125,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 		}
 
 		 */
-		if (num>1) {
+		if (num>0) {
 
 			this.Suggestion += Messages.getString("LinearSequenceFlows.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
