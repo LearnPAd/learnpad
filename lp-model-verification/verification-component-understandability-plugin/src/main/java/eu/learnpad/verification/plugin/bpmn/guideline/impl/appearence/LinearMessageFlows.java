@@ -102,7 +102,7 @@ public class LinearMessageFlows extends abstractGuideline{
 		}
 
 
-		if (num>1) {
+		if (num>0) {
 
 			this.Suggestion += Messages.getString("LinearMessageFlows.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
