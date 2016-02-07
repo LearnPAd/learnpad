@@ -322,7 +322,7 @@ TABLE
             <targetRef>obj.20287</targetRef>
          </dataOutputAssociation>
       </sendTask>
-      <exclusiveGateway name="reject application?" id="obj.20269">
+      <exclusiveGateway default="con.20372" name="reject application?" id="obj.20269">
          <extensionElements>
             <adonis:instance>
                <adonis:attribute name="Order" type="INTEGER">0</adonis:attribute>
@@ -365,7 +365,7 @@ TABLE
             <condition id="condition_obj.20272"/>
          </conditionalEventDefinition>
       </boundaryEvent>
-      <exclusiveGateway name="integration necessary?" id="obj.20275">
+      <exclusiveGateway default="con.20364" name="integration necessary?" id="obj.20275">
          <extensionElements>
             <adonis:instance>
                <adonis:attribute name="Order" type="INTEGER">0</adonis:attribute>
@@ -388,7 +388,7 @@ TABLE
          <incoming>con.20378</incoming>
          <outgoing>con.20349</outgoing>
       </exclusiveGateway>
-      <exclusiveGateway name="inhibition of the application?" id="obj.20284">
+      <exclusiveGateway default="con.20361" name="inhibition of the application?" id="obj.20284">
          <extensionElements>
             <adonis:instance>
                <adonis:attribute name="Order" type="INTEGER">0</adonis:attribute>
