@@ -140,7 +140,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 	private boolean comparerange(float f, float g){
 		
 		
-		if(f-g<=10){
+		if(Math.abs(f-g)<=10){
 			return true;
 		}
 		
