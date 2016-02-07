@@ -34,7 +34,7 @@ public class ExcessiveLength extends Plugin {
 		
 		String rac = "Shorten the sentence. A sentence should not exceed 25 words.";
 		String type = "Simplicity Excessive Length";
-		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log, listSentence );
+		gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log, listSentence,null,null,null );
 	}
 	
 	

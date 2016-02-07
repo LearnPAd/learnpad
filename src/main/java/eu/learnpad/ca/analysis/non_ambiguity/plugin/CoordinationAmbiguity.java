@@ -35,7 +35,7 @@ public class CoordinationAmbiguity extends Plugin {
 			
 
 			String type = "Coordination Ambiguity"; //$NON-NLS-1$
-			gatevsleanpadAnnotation(SetCoordAmbiguity, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log,listSentence );
+			gatevsleanpadAnnotation(SetCoordAmbiguity, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log,listSentence,null,null,null );
 		
 			
 			hs = new HashSet<String>();
@@ -47,7 +47,7 @@ public class CoordinationAmbiguity extends Plugin {
 			
 
 			 type = "Coordination Ambiguity"; //$NON-NLS-1$
-			gatevsleanpadAnnotation(SetCoordAmbiguity, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log,listSentence );
+			gatevsleanpadAnnotation(SetCoordAmbiguity, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log,listSentence,"adj","noun1","noun2" );
 		
 			
 		

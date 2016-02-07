@@ -52,39 +52,28 @@ public abstract class Plugin {
 			Set<gate.Annotation> setGateAnnotations,
 			List<Annotation> annotations, Set<gate.Annotation> listSentenceDefected, 
 			List<Node> listnode, DocumentContent docContent,String Type, String Racc,Logger log, 
-			Set<gate.Annotation> listSentence) {
+			Set<gate.Annotation> listSentence, String featureA, String featureB, String featureC) {
 
 
 		for (gate.Annotation gateA : setGateAnnotations) {
 
 			gate.Node gatenodestart = gateA.getStartNode();
 			gate.Node gatenodeend = gateA.getEndNode();
-			String refverb = null;
-			String refaux = null;
-			if(gateA.getFeatures().containsKey("refverb")){
-				refverb = gateA.getFeatures().get("refverb").toString();
-				if(gateA.getFeatures().containsKey("refaux")){
-					refaux = gateA.getFeatures().get("refaux").toString();
+			String datafeatureA = "";
+			String datafeatureB = "";
+			String datafeatureC = "";
+
+			if(featureA!=null)
+				if(gateA.getFeatures().containsKey(featureA)){
+					datafeatureA = gateA.getFeatures().get(featureA).toString();
+					if(featureB!=null)
+						datafeatureB = gateA.getFeatures().get(featureB).toString();
+					if(featureC!=null)
+						datafeatureC = gateA.getFeatures().get(featureC).toString();
+
+
 				}
 
-			}
-			String pronuon = null;
-			if(gateA.getFeatures().containsKey("pronoun")){
-				pronuon = gateA.getFeatures().get("pronoun").toString();
-
-			}
-			
-			String adj = null;
-			String noun1 = null;
-			String noun2 = null;
-			if(gateA.getFeatures().containsKey("adj")){
-				adj = gateA.getFeatures().get("adj").toString();
-				noun1 = gateA.getFeatures().get("noun1").toString();
-				noun2 = gateA.getFeatures().get("noun2").toString();
-				
-
-			}
-			
 
 
 			Set<gate.Annotation> sentencedef = getSentenceFromNode(listSentence,gatenodestart,gatenodeend);
@@ -115,18 +104,12 @@ public abstract class Plugin {
 			try{
 				String sentence_gate = docContent.getContent(gatenodestart.getOffset(),gatenodeend.getOffset()).toString();
 				//log.trace(sentence_gate);
-				if(refverb!=null && refaux!=null)
-					recc = String.format(Racc,refaux+" "+refverb);
-				else{
-					if(pronuon!=null)
-						recc = String.format(Racc,pronuon);
-					else{
-						if(adj!=null && noun1!=null && noun2!=null)
-							recc = String.format(Racc,adj,noun1,noun2);
-						else
-						recc = String.format(Racc, sentence_gate, sentence_gate);
-					}
-				}
+
+				if(datafeatureA.length()>1)
+					recc = String.format(Racc,datafeatureA,datafeatureB,datafeatureC);
+				else
+					recc = String.format(Racc, sentence_gate, sentence_gate);
+
 			}catch(InvalidOffsetException e){
 				log.error(e);
 			}
