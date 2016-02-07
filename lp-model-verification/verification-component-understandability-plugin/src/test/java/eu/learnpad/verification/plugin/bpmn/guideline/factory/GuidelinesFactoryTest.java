@@ -233,7 +233,7 @@ public class GuidelinesFactoryTest {
 	
 	private void genarateTestforFileOk2(String NameFile){
 		try {
-			System.out.print(NameFile);
+			System.out.println(NameFile);
 			URL is = GuidelinesFactoryTest.class.getClassLoader().getResource(NameFile);
 			assertNotNull(is);
 			
@@ -260,12 +260,12 @@ public class GuidelinesFactoryTest {
 			// output pretty printed
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			String nFile = NameFile.replace(File.separator, "");
-			OutputStream os = new FileOutputStream( "nosferatuvv"+ nFile.substring(0, nFile.length()-4)+"xml" );
+		/*	OutputStream os = new FileOutputStream( "nosferatuvv"+ nFile.substring(0, nFile.length()-4)+"xml" );
 			jaxbMarshaller.marshal( eg, os );
-			
+			*/
 				if(!eg.getStatus().equals("OK")){
 					
-					//	fail();
+						fail();
 					
 				}
 			

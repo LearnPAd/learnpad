@@ -240,7 +240,7 @@ TABLE
          <incoming>con.22221</incoming>
          <outgoing>con.21413</outgoing>
       </parallelGateway>
-      <exclusiveGateway name="Write a paper?" id="obj.22206">
+      <exclusiveGateway default="con.21410" name="Write a paper?" id="obj.22206">
          <extensionElements>
             <adonis:instance>
                <adonis:attribute name="Order" type="INTEGER">0</adonis:attribute>
@@ -262,7 +262,7 @@ TABLE
          <incoming>con.22222</incoming>
          <outgoing>con.22213</outgoing>
       </exclusiveGateway>
-      <exclusiveGateway name="Go to Event?" id="obj.22214">
+      <exclusiveGateway default="con.21412" name="Go to Event?" id="obj.22214">
          <extensionElements>
             <adonis:instance>
                <adonis:attribute name="Order" type="INTEGER">0</adonis:attribute>
