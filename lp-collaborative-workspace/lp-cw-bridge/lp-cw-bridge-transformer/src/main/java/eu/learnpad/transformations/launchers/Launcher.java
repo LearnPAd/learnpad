@@ -66,7 +66,7 @@ public class Launcher {
 		
 //		String model_in = "resources/model/ado4f16a6bb-9318-4908-84a7-c2d135253dc9.xml";
 		String model_in = "resources/model/adoxx_modelset.xml";
-		String file_out = "tmp/testAlignmentOutputStream.xmi";
+		String file_out = "/tmp/testAlignmentOutputStream.xmi";
 		String type = "ADOXX";
 //		String type = "MD";
 		

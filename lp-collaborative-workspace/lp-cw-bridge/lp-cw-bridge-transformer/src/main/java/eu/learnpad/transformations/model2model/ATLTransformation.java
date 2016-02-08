@@ -129,7 +129,7 @@ public class ATLTransformation {
 			ModelFactory factory = new EMFModelFactory();
 			EMFInjector injector = new EMFInjector();
 			this.inmodelMetamodel = factory.newReferenceModel();
-			injector.inject(this.inmodelMetamodel,  metamodel_in);
+			injector.inject(this.inmodelMetamodel, metamodel_in);
 			this.outmodelMetamodel = factory.newReferenceModel();
 			injector.inject(this.outmodelMetamodel,  metamodel_out);
 			this.outModel = factory.newModel(this.outmodelMetamodel);
