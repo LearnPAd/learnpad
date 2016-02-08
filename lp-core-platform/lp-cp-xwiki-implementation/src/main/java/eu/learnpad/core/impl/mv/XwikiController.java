@@ -21,6 +21,7 @@ package eu.learnpad.core.impl.mv;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.inject.Named;
@@ -132,9 +133,13 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
     		    this.cw.modelSetImported(modelSetId, type);
     		    this.or.modelSetImported(modelSetId, type);
     		    
-    		    String bpmnFileURL = XWikiRestUtils.exposeBPMNFromCoreRepository(modelSetId, type);
-    		    Collection<String> savedProcessesList = this.sim.addProcessDefinition(bpmnFileURL);
-    		    importedInTheSimulator = this.verifyImportedProcesses(savedProcessesList, bpmnFileURL);
+    		    Collection<String> uriCollection = XWikiRestUtils.exposeBPMNFromCoreRepository(modelSetId, type); 
+    		    Iterator<String> uriIterator = uriCollection.iterator();
+    	        while (importedInTheSimulator && uriIterator.hasNext()) {
+    	        	String bpmnFileURL = uriIterator.next();
+        		    Collection<String> savedProcessesList = this.sim.addProcessDefinition(bpmnFileURL);
+        		    importedInTheSimulator = this.verifyImportedProcesses(savedProcessesList, bpmnFileURL);					
+    	        }
 		    }
 		}
 		

@@ -21,6 +21,8 @@ package eu.learnpad.core.rest;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -111,15 +113,19 @@ public class XWikiRestUtils {
 				IOUtils.toInputStream(emptyPageXML));
 	}
 
-	public static String exposeBPMNFromCoreRepository(String basename, String extension){
+	public static Collection<String> exposeBPMNFromCoreRepository(String basename, String extension){
+		Collection<String> uriCollection = new ArrayList<String>();
+		
 		String pageName = basename;
 		String attachmentName = String.format("%s.%s", basename, extension);
+				
 		
 		//TODO : implement here the extraction and the publication of the BPMN URL
 		String uri = String.format("%s/wikis/%s/spaces/%s/pages/%s",
 				RestResource.REST_URI, RestResource.CORE_REPOSITORY_WIKI, RestResource.CORE_REPOSITORY_SPACE, pageName);
+		uriCollection.add(uri);
 		
-		return uri;
+		return uriCollection;
 	}
 
 	public static byte[] getAttachment(String wikiName, String spaceName,
