@@ -38,7 +38,7 @@ import org.xml.sax.SAXException;
  */
 public class Alignment {
 	
-	private String tmpModelFolder = "tmp/";
+	private String tmpModelFolder = "/tmp/";
 	private String tmpFileFromInputStream = "fileFromInputStream.xml";
 	private boolean deleteFile = true;
 	

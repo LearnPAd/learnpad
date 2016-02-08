@@ -19,6 +19,8 @@
  */
 package eu.learnpad.me.rest;
 
+import java.io.InputStream;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -35,6 +37,6 @@ public interface ImportModelSet {
 	@Path("/importmodelset/{modelsetid}")
 	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
 	void putModelSet(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type") String type, byte[] modelSetFile)
+			@QueryParam("type") String type, InputStream modelSetFile)
 			throws LpRestException;
 }

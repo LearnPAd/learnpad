@@ -19,6 +19,8 @@
  */
 package eu.learnpad.core.impl.cw;
 
+import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.Collection;
 
 import javax.inject.Named;
@@ -126,11 +128,14 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public byte[] getModel(String modelSetId, String type)
+	public InputStream getModel(String modelSetId, String type)
 			throws LpRestException {
 		String attachmentName = String.format("%s.%s", modelSetId, type);
-		return XWikiRestUtils.getAttachment(RestResource.CORE_REPOSITORY_WIKI,
-				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName);
+		// TODO: Adapt the name dynamically for Adoxx or MagicDraw
+		String fileName = "adoxx_modelset.xml";
+		java.nio.file.Path filePath = Paths.get(fileName);
+		return XWikiRestUtils.getFileInAttachment(RestResource.CORE_REPOSITORY_WIKI,
+				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName, filePath);
 	}
 
 	@Override

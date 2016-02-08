@@ -69,13 +69,13 @@ public class LabelingConvergingGateways extends abstractGuideline{
 											AnyType objt = (AnyType) entry.getValue();
 											FeatureMap anyt = objt.getAnyAttribute();
 											Entry nameex = anyt.get(0);
-											if(nameex.getValue().equals("Representation")){
+											if(nameex.getValue().equals("Show name")){
 												String descrpt = objt.getMixed().get(0).getValue().toString();
-												if(descrpt.equals("without name")){
+												if(descrpt.equals("do not show")){
 													flag=true;
 												}
 											}
-											System.out.println();
+											//System.out.println();
 										}
 
 									}
@@ -144,7 +144,7 @@ public class LabelingConvergingGateways extends abstractGuideline{
 											flag=true;
 										}
 									}
-									System.out.println();
+									//System.out.println();
 								}
 
 							}

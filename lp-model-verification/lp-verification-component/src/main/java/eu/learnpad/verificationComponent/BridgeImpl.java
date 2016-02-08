@@ -41,6 +41,7 @@ import eu.learnpad.mv.rest.data.VerificationResults;
 import eu.learnpad.mv.rest.data.VerificationStatus;
 import eu.learnpad.mv.rest.data.VerificationsAvailable;
 import eu.learnpad.verification.VerificationComponent;
+import eu.learnpad.verification.utils.IOUtils;
 import eu.learnpad.verification.utils.Utils;
 import eu.learnpad.verification.utils.Utils.LogType;
 import eu.learnpad.verificationComponent.utils.ModelUtils;
@@ -59,7 +60,7 @@ public class BridgeImpl extends eu.learnpad.mv.Bridge {
     private VerificationComponent.CustomGetModel customGetModelFactory(final String lpModelType, final CoreFacade corefacade){
         VerificationComponent.CustomGetModel myCustomGetModel = new VerificationComponent.CustomGetModel() {
                 public String[] getModels(String modelId) throws Exception {
-                    byte[] zippedModel = corefacade.getModel(modelId, lpModelType);
+                    byte[] zippedModel = IOUtils.toByteArray(corefacade.getModel(modelId, lpModelType));
                     return ModelUtils.processModel(zippedModel);
                 }
             };

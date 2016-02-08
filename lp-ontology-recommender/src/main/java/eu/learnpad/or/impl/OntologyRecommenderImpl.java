@@ -5,6 +5,8 @@
  */
 package eu.learnpad.or.impl;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +49,6 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 
     @Override
     public void modelSetImported(String modelSetId, String type) throws LpRestException {
-//            InputStream inputStream = new ByteArrayInputStream(this.corefacade.getModel(modelSetId, type));
             SimpleModelTransformator.getInstance().transform(modelSetId, this.corefacade.getModel(modelSetId, type), ModellingEnvironmentType.valueOf(type.toUpperCase()));
     }
     

@@ -19,6 +19,7 @@
  */
 package eu.learnpad.core.impl.me;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -77,9 +78,6 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
      */
 	private eu.learnpad.mv.BridgeInterface mv;
 	private eu.learnpad.cw.BridgeInterface cw;
-	private eu.learnpad.sim.BridgeInterface sim;
-	private eu.learnpad.qm.BridgeInterface qm;
-	private eu.learnpad.or.BridgeInterface or;
 
 	@Inject
 	Logger logger;
@@ -95,17 +93,14 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 			
 			this.mv = new eu.learnpad.core.impl.mv.XwikiBridgeInterfaceRestResource();
 			this.cw = new eu.learnpad.core.impl.cw.XwikiBridgeInterfaceRestResource();
-			this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
-			this.qm = new eu.learnpad.core.impl.qm.XwikiBridgeInterfaceRestResource();
-			this.or = new eu.learnpad.core.impl.or.XwikiBridgeInterfaceRestResource();
 			
 			this.initialized=true;
 		}
 	}
 
 	@Override
-	public void putModelSet(String modelSetId, String type, byte[] modelSetFile)
-			throws LpRestExceptionImpl {
+	public void putModelSet(String modelSetId, String type, InputStream modelSetFile)
+			throws LpRestException {
 		if (XWikiRestUtils.isPage(RestResource.CORE_REPOSITORY_WIKI,
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId) == false) {
 			XWikiRestUtils.createEmptyPage(RestResource.CORE_REPOSITORY_WIKI,
@@ -115,6 +110,10 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		XWikiRestUtils.putAttachment(RestResource.CORE_REPOSITORY_WIKI,
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName,
 				modelSetFile);
+		
+// Note that form other branches it may result here a statement invoking the "startVerification" on MV.
+// I am not sure that is correct, in fact in that way we may lose the VerificationID. -- Gulyx 
+		
 	}
 
 	@Override
@@ -134,10 +133,6 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
     
     @Override
     public VerificationStatus checkModelSetVerification(String verificationProcessId) throws LpRestException {
-// Gulyx : I MUST CHECK THIS AND PROBABLY REMOVE IT. IT COMES FORM THE BIG MERGE WITH JEAN!!
-// Notify QM about a new model set imported
-//				String fooModelContent = "-ask-to-jean-how-to-retraive-the-modelset-";
-//				this.qm.importModelSet(toReturn.getModel
         return this.mv.getVerificationStatus(verificationProcessId);
     }
     

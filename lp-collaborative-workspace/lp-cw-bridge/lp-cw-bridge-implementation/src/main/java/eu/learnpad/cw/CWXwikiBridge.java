@@ -161,8 +161,7 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 	public void modelSetImported(String modelSetId, String type)
 			throws LpRestException {
 		// Get the model file from Core Platform
-		InputStream modelStream = new ByteArrayInputStream(
-				this.corefacade.getModel(modelSetId, type));
+		InputStream modelStream = this.corefacade.getModel(modelSetId, type);
 
 		// Make the XSL transformation and get the package's path
 		String packagePath = buildXWikiPackage(modelSetId, modelStream, type);

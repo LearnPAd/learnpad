@@ -75,7 +75,7 @@ public class ActivityDescription extends abstractGuideline{
 													flag=true;
 												}
 											}
-											System.out.println();
+										//	System.out.println();
 										}
 
 									}

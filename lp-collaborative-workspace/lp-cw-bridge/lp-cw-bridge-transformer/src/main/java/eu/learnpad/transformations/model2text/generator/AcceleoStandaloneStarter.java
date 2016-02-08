@@ -38,7 +38,7 @@ import eu.learnpad.transformations.model2text.main.Generate;
  */
 public class AcceleoStandaloneStarter{
 	
-	private String tmpInputStreamFilePath = "tmp/acceleoInputStreamFile.xmi";
+	private String tmpInputStreamFilePath = "/tmp/acceleoInputStreamFile.xmi";
 	private boolean deleteTmpFile = true;
 	
 	

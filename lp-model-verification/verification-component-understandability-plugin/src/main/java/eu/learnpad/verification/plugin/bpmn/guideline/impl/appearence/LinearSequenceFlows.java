@@ -60,7 +60,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 							if(sf.getTargetRef().getLanes()!=null)
 								if(!sf.getSourceRef().getLanes().isEmpty())
 									if(!sf.getTargetRef().getLanes().isEmpty())
-										flaglane = sf.getSourceRef().getLanes().get(0) == sf.getTargetRef().getLanes().get(0);
+										flaglane = sf.getSourceRef().getLanes().get(0) != sf.getTargetRef().getLanes().get(0);
 						boolean flaggateawy = sf.getSourceRef() instanceof Gateway | sf.getTargetRef() instanceof Gateway;
 
 						BaseElement base= (BaseElement)sf;
@@ -68,9 +68,9 @@ public class LinearSequenceFlows extends abstractGuideline{
 						if(resd){
 							List<Point> points = BPMNEdges.get(base).getWaypoint();
 							if(points!=null)
-								if(points.size()>2){
-									if(!((flaggateawy |flaglane ) & points.size()==3))
-										if((!((flaggateawy | !flaglane)&  points.size()==6)  ) ){
+								if(!comparerangepoints(points)){
+									if(!((flaggateawy |flaglane ) & (points.size()==3)| points.size()==4 ))
+										if((!((flaggateawy | flaglane)&  points.size()==6)  ) ){
 											num++;
 
 											elementsBPMN.add(fe);
@@ -79,18 +79,20 @@ public class LinearSequenceFlows extends abstractGuideline{
 											//ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 											//		+ "\n");
 										}
-								}else{
+								}/*else{
 									Point x =null;
-									boolean flag=false;
+									boolean flagx=false;
+									boolean flagy=false;
 									for (Point point : points) {
 										if(x==null)
 											x = point;
 										else{
-											flag = point.getY()==x.getY();
+											flagy = comparerange( point.getY(),x.getY());
+											flagx =comparerange( point.getX(),x.getX());
 										}
 
 									}
-									if(!flag){
+									if(!(flagx | flagy)){
 										num++;
 
 										elementsBPMN.add(fe);
@@ -100,7 +102,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 										//		+ "\n");
 									}
 
-								}
+								}*/
 						}
 					}
 
@@ -123,7 +125,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 		}
 
 		 */
-		if (num>1) {
+		if (num>0) {
 
 			this.Suggestion += Messages.getString("LinearSequenceFlows.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
@@ -133,6 +135,66 @@ public class LinearSequenceFlows extends abstractGuideline{
 		}
 	}
 
+
+
+	private boolean comparerange(float f, float g){
+
+
+		if(Math.abs(f-g)<=10){
+			return true;
+		}
+
+		return false;
+	}
+
+	private boolean comparerangepoints(List<Point> points){
+		boolean flag=false;
+		int next = -1;
+		if(points.size()>1)
+			for(int i = 1;i<points.size();i++){
+				float px = points.get(i-1).getX();
+				float py = points.get(i-1).getY();
+				float x = points.get(i).getX();
+				float y = points.get(i).getY();
+				if(i==1){
+					if(comparerange(px,x)){
+						next = 0;
+						flag=true;
+					}else{
+						if(comparerange(py,y)){
+							next = 1;
+							flag=true;
+						}else{
+							flag=false;
+							break;
+						}
+					}
+				}else{
+					if(next==1){
+						if(comparerange(py,y)){
+							flag=true;
+						}else{
+							flag=false;
+							break;
+						}
+					}else{
+						if(next==0){
+							if(comparerange(px,x)){
+								flag=true;
+							}else{
+								flag=false;
+								break;
+							}
+						}else{
+							flag=false;
+							break;
+						}
+					}
+				}
+			}
+
+		return flag;
+	}
 
 
 }
