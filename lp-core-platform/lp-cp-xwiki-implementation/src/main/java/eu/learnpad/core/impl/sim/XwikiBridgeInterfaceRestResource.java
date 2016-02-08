@@ -208,8 +208,6 @@ import eu.learnpad.sim.rest.data.UserData;
 	@Override
 	public String addProcessInstance(String processId,
 			Collection<UserData> potentialUsers, String currentUser) {
-// No auth is currently needed for the SIM 
-//		HttpClient httpClient = RestResource.getClient();
 		HttpClient httpClient = RestResource.getAnonymousClient();
 		String uri = String.format("%s/learnpad/sim/bridge/instances/%s",
 				RestResource.SIM_REST_URI, processId);
