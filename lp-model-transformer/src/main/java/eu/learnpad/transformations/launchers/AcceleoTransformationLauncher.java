@@ -11,7 +11,7 @@ import eu.learnpad.transformations.model2text.generator.AcceleoStandaloneStarter
 
 public class AcceleoTransformationLauncher {
 	
-	private String tmpModelFolder = "result/";
+	private String tmpModelFolder = "/tmp/result/";
 	
 	
 	
