@@ -3,4 +3,4 @@ declare -r __PATH__="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 java \
 	-Xdebug \
 	-Xrunjdwp:transport=dt_socket,address=8998,server=y,suspend=n \
-	-jar target/lp-model-transformer-1.0-SNAPSHOT.jar > target/transformer.log 2>&1 &
+	-jar ${__PATH__}/lp-model-transformer-1.0-SNAPSHOT.jar > ${__PATH__}/transformer.log 2>&1 &
