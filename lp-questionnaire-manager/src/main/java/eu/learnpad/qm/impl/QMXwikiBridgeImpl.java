@@ -21,6 +21,7 @@ package eu.learnpad.qm.impl;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -68,7 +69,7 @@ public class QMXwikiBridgeImpl extends XwikiBridge implements Initializable, QMB
 
 	@Override
 	public void importModelSet(String modelSetId, String type,
-			byte[] modelContent) throws LpRestExceptionXWikiImpl {
+			InputStream modelContent) throws LpRestExceptionXWikiImpl {
 		// TODO This is stub code that have been implemented in order to 
 		// make easy the development of the core-platform
 		this.qm.storeModelID(modelSetId);

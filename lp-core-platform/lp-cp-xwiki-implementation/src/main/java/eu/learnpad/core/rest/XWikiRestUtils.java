@@ -118,7 +118,7 @@ public class XWikiRestUtils
         return putPage(wikiName, spaceName, pageName, IOUtils.toInputStream(emptyPageXML));
     }
 
-    public static byte[] getAttachmentFromCoreRepository(String basename, String extension)
+    public static InputStream getAttachmentFromCoreRepository(String basename, String extension)
     {
         String attachmentName = String.format("%s.%s", basename, extension);
         return XWikiRestUtils.getAttachment(RestResource.CORE_REPOSITORY_WIKI, RestResource.CORE_REPOSITORY_SPACE,
@@ -140,7 +140,7 @@ public class XWikiRestUtils
         return uriCollection;
     }
 
-    public static byte[] getAttachment(String wikiName, String spaceName, String pageName, String attachmentName)
+    public static InputStream getAttachment(String wikiName, String spaceName, String pageName, String attachmentName)
     {
         HttpClient httpClient = RestResource.getClient();
 
@@ -152,7 +152,7 @@ public class XWikiRestUtils
 
         try {
             httpClient.executeMethod(getMethod);
-            return getMethod.getResponseBody();
+            return getMethod.getResponseBodyAsStream();
         } catch (HttpException e) {
             String message = String.format("Unable to process GET request for the attachment '%s:%s.%s@%s'.", wikiName,
                 spaceName, pageName, attachmentName);

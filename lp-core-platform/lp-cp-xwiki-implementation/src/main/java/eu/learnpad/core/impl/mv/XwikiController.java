@@ -105,10 +105,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
     {
         this.typesMap.put(modelSetId, type);
         String attachmentName = String.format("%s.%s", modelSetId, type);
-        String fileName = "adoxx_modelset.xml";
-        java.nio.file.Path filePath = Paths.get(fileName);
-        return XWikiRestUtils.getFileInAttachment(RestResource.CORE_REPOSITORY_WIKI, RestResource.CORE_REPOSITORY_SPACE,
-            modelSetId, attachmentName, filePath);
+        return XWikiRestUtils.getAttachment(RestResource.CORE_REPOSITORY_WIKI, RestResource.CORE_REPOSITORY_SPACE,
+            modelSetId, attachmentName);
     }
 
     private void printResults(VerificationResults res)
@@ -172,7 +170,6 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
     @Override
     public void notifyVerification(String verificationProcessId) throws LpRestException
     {
-
         VerificationStatus status = this.bridge.getVerificationStatus(verificationProcessId);
         // TODO: show the status.getStatus() somewhere in the wiki for the
         // verification with id verificationProcessId?
@@ -204,7 +201,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
                 this.cw.modelSetImported(modelSetId, type);
                 this.or.modelSetImported(modelSetId, type);
 
-                byte[] modelContent = XWikiRestUtils.getAttachmentFromCoreRepository(modelSetId, type);
+                InputStream modelContent = XWikiRestUtils.getAttachmentFromCoreRepository(modelSetId, type);
                 this.qm.importModelSet(modelSetId, type, modelContent);
 
                 Collection<String> uriCollection = XWikiRestUtils.exposeBPMNFromCoreRepository(modelSetId, type);

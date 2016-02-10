@@ -24,6 +24,9 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+
+import java.io.InputStream;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
 
@@ -36,6 +39,6 @@ public interface ModelSetImported {
 	@Path("/importmodel/{modelsetid}")
 	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
 	void importModelSet(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type")@DefaultValue("lpzip") String type, byte[] modelContent) throws LpRestException;
+			@QueryParam("type")@DefaultValue("lpzip") String type, InputStream modelContent) throws LpRestException;
 	
 }
