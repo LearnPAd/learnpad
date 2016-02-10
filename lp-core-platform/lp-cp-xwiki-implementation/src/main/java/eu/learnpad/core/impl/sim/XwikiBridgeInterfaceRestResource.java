@@ -120,7 +120,7 @@ import eu.learnpad.sim.rest.data.UserData;
 	@Override
 	public ProcessData getProcessInfos(String processArtifactId) {
 		HttpClient httpClient = RestResource.getAnonymousClient();
-		String uri = String.format("%s/learnpad/sim/bridge/processes/artifactid:%s",
+		String uri = String.format("%s/learnpad/sim/bridge/processes/%s",
 				RestResource.SIM_REST_URI,processArtifactId);
 
 		GetMethod getMethod = new GetMethod(uri);
@@ -203,7 +203,7 @@ import eu.learnpad.sim.rest.data.UserData;
 	public String addProcessInstance(String processId,
 			Collection<UserData> potentialUsers, String currentUser) {
 		HttpClient httpClient = RestResource.getAnonymousClient();
-		String uri = String.format("%s/learnpad/sim/bridge/instances/artifactid:%s",
+		String uri = String.format("%s/learnpad/sim/bridge/instances/%s",
 				RestResource.SIM_REST_URI, processId);
 		
 		PostMethod postMethod = new PostMethod(uri);
@@ -248,7 +248,7 @@ import eu.learnpad.sim.rest.data.UserData;
 			String processInstanceArtifactId) {
 		
 		HttpClient httpClient = RestResource.getAnonymousClient();
-		String uri = String.format("%s/learnpad/sim/bridge/instances/artifactid:%s",
+		String uri = String.format("%s/learnpad/sim/bridge/instances/%s",
 				RestResource.SIM_REST_URI,processInstanceArtifactId);
 
 		GetMethod getMethod = new GetMethod(uri);
