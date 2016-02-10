@@ -8,9 +8,13 @@ package eu.learnpad.ontology.transformation;
 import eu.learnpad.ontology.AbstractUnitTest;
 import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.persistence.FileOntAO;
+
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 /**
@@ -33,7 +37,7 @@ public class SimpleModelTransformatorTest extends AbstractUnitTest{
         assertTrue(modelSetFile1.length > 0);
         
         String modelSetId1 = APP.CONF.getString("testdata.modelset.version.previous");
-        File transformedFile1 = SimpleModelTransformator.getInstance().transform(modelSetId1, modelSetFile1, ModellingEnvironmentType.ADOXX);
+        File transformedFile1 = SimpleModelTransformator.getInstance().transform(modelSetId1, new ByteArrayInputStream(modelSetFile1), ModellingEnvironmentType.ADOXX);
         assertNotNull(transformedFile1);
         assertTrue(transformedFile1.exists());
         assertTrue(transformedFile1.length() > 0);        
@@ -42,7 +46,7 @@ public class SimpleModelTransformatorTest extends AbstractUnitTest{
         assertEquals(latestTransformationFile.getPath(), transformedFile1.getPath());
         
         //same again
-        transformedFile1 = SimpleModelTransformator.getInstance().transform(modelSetId1, modelSetFile1, ModellingEnvironmentType.ADOXX);
+        transformedFile1 = SimpleModelTransformator.getInstance().transform(modelSetId1, new ByteArrayInputStream(modelSetFile1), ModellingEnvironmentType.ADOXX);
         assertEquals("Expect no new folder resp. version since the modelset file has not changed.", transformedFile1.getPath(), transformedFile1.getPath());
                 
                 
@@ -51,7 +55,7 @@ public class SimpleModelTransformatorTest extends AbstractUnitTest{
         assertTrue(modelSetFile2.length > 0);
         
         String modelSetId2 = APP.CONF.getString("testdata.modelset.version");
-        File transformedFile2 = SimpleModelTransformator.getInstance().transform(modelSetId2, modelSetFile2, ModellingEnvironmentType.ADOXX);
+        File transformedFile2 = SimpleModelTransformator.getInstance().transform(modelSetId2, new ByteArrayInputStream(modelSetFile2), ModellingEnvironmentType.ADOXX);
         assertNotNull(transformedFile2);
         assertTrue(transformedFile2.exists());
         assertTrue(transformedFile2.length() > 0);            
