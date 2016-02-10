@@ -41,7 +41,13 @@ import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.mv.Controller;
 import eu.learnpad.mv.rest.data.FinalResultType;
+import eu.learnpad.mv.rest.data.FormalVerificationResult;
+import eu.learnpad.mv.rest.data.FormalVerificationResult.CounterExampleTrace;
+import eu.learnpad.mv.rest.data.FormalVerificationResult.CounterExampleTrace.Step;
 import eu.learnpad.mv.rest.data.StatusType;
+import eu.learnpad.mv.rest.data.UnderstandabilityResult;
+import eu.learnpad.mv.rest.data.UnderstandabilityResult.Guidelines.Guideline;
+import eu.learnpad.mv.rest.data.UnderstandabilityResult.Guidelines.Guideline.Elements.ElementID;
 import eu.learnpad.mv.rest.data.VerificationResults;
 import eu.learnpad.mv.rest.data.VerificationStatus;
 import eu.learnpad.mv.BridgeInterface;
@@ -50,10 +56,8 @@ import eu.learnpad.mv.BridgeInterface;
 @Singleton
 @Named("eu.learnpad.core.impl.mv.XwikiController")
 @Path("/learnpad/mv/corefacade")
-public class XwikiController extends Controller implements XWikiRestComponent, Initializable{
-
-//	@Inject
-//	Logger logger;
+public class XwikiController extends Controller implements XWikiRestComponent,
+		Initializable {
 
     /** Set to true once the inherited BridgeInterface has been initialized. */
     private boolean initialized = false;	
@@ -78,11 +82,6 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	public synchronized void initialize() throws InitializationException {
 		if (!this.initialized){
 			this.bridge = new XwikiBridgeInterfaceRestResource();
-//			try {
-//				this.bridge= this.manager.getInstance(XWikiRestComponent.class, "eu.learnpad.core.impl.qm.XwikiBridgeInterfaceRestResource");
-//	        	} catch (ComponentLookupException e) {
-//	        		throw new InitializationException(e.getMessage(), e);
-//	        }
 			this.cw = new eu.learnpad.core.impl.cw.XwikiBridgeInterfaceRestResource();
 			this.or = new eu.learnpad.core.impl.or.XwikiBridgeInterfaceRestResource();
 			this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
@@ -93,39 +92,128 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 			
 		}
 	}
-		
-	public synchronized void updateBridgeInterface (BridgeInterface bi){
-		this.bridge = bi;    
-    }
-	
+
+	public synchronized void updateBridgeInterface(BridgeInterface bi) {
+		this.bridge = bi;
+	}
 
 	@Override
 	public InputStream getModel(String modelSetId, String type)
 			throws LpRestException {
 	    this.typesMap.put(modelSetId, type);
         String attachmentName = String.format("%s.%s", modelSetId, type);
-		String fileName = "adoxx_modelset.xml";
+        String fileName = "adoxx_modelset.xml";
 		java.nio.file.Path filePath = Paths.get(fileName);
         return XWikiRestUtils.getFileInAttachment(RestResource.CORE_REPOSITORY_WIKI,
                 RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName, filePath);
+	}
+
+	private void printResults(VerificationResults res) {
+		System.out.println("################");
+		System.out.println(String.format("Final result: %s",
+				res.getFinalResult()));
+		System.out.println(String.format("Model Set ID: %s", res.getModelID()));
+		System.out.println(String.format("Verification type: %s",
+				res.getVerificationType()));
+		if (res.getResults() != null) {
+			for (Object o : res.getResults().getAny()) {
+				if (o instanceof FormalVerificationResult) {
+					FormalVerificationResult r = (FormalVerificationResult) o;
+					System.out.println(String.format(
+							"# Formal Verification: %s", r.getStatus()));
+					System.out.println(String.format("    ID: %s",
+							r.getDefinitionID()));
+					System.out.println(String.format("    Description: %s",
+							r.getDescription()));
+					int countCET = 0;
+					for (CounterExampleTrace cet : r.getCounterExampleTrace()) {
+						System.out.println(String.format(
+								"    CounterExampleTrace #%d", countCET));
+						int countStep = 0;
+						for (Step s : cet.getStep()) {
+							System.out.println(String.format("      Step #%d",
+									countStep));
+							System.out.println(String.format(
+									"        Object ID: %s", s.getObjectID()));
+							System.out.println(String.format("        Num: %s",
+									s.getNum()));
+							countStep++;
+						}
+						countCET++;
+					}
+				} else if (o instanceof UnderstandabilityResult) {
+					UnderstandabilityResult r = (UnderstandabilityResult) o;
+					System.out.println(String.format("# Understandability: %s",
+							r.getStatus()));
+					System.out.println(String.format("    ID: %s",
+							r.getDefinitionID()));
+					System.out.println(String.format("    Description: %s",
+							r.getDescription()));
+					int countG = 0;
+					for (Guideline g : r.getGuidelines().getGuideline()) {
+						System.out.println(String.format("    Guideline #%d",
+								countG));
+						System.out.println(String.format(
+								"      Guideline ID: %s", g.getId()));
+						System.out.println(String.format("      Name: %s",
+								g.getName()));
+						System.out.println(String.format(
+								"      Description: %s", g.getDescription()));
+						System.out.println(String.format(
+								"      Suggestion: %s", g.getSuggestion()));
+						int countEID = 0;
+						if (g.getElements() != null) {
+							for (ElementID eid : g.getElements().getElementID()) {
+								System.out.println(String.format(
+										"      ElementID #%s", countEID));
+								System.out.println(String.format(
+										"        Reference Name: %s",
+										eid.getRefName()));
+								System.out.println(String.format(
+										"        Reference Process ID: %s",
+										eid.getRefProcessID()));
+								System.out.println(String.format(
+										"        Value: %s", eid.getValue()));
+								countEID++;
+							}
+						}
+						countG++;
+					}
+				} else {
+					System.out.println(String.format("Unkown Result type [%s]",
+							o.getClass()));
+				}
+			}
+		}
+		System.out.println("################");
 	}
 
 	@Override
 	public void notifyVerification(String verificationProcessId)
 			throws LpRestException {
 
-	    VerificationStatus status = this.bridge.getVerificationStatus(verificationProcessId);
-	    //TODO: show the status.getStatus() somewhere in the wiki for the verification with id verificationProcessId?
-	    
-	    if(!status.getStatus().equals(StatusType.COMPLETED)){
-	        //A severe error occurred in the verification phase that is terminated unexpectedly
-	        //The verification results in this case is null. If this.bridge.getVerificationResult will be called an exception will rise up
-	        //Notify somewhere the status of the verification id? or obtain the modelSet Id from the verification id and notify the verification status of the modelset id?
-	        return;
-	    }
-	    
-		VerificationResults res = this.bridge.getVerificationResult(verificationProcessId);
-        
+		VerificationStatus status = this.bridge
+				.getVerificationStatus(verificationProcessId);
+		// TODO: show the status.getStatus() somewhere in the wiki for the
+		// verification with id verificationProcessId?
+
+		if (!status.getStatus().equals(StatusType.COMPLETED)) {
+			// A severe error occurred in the verification phase that is
+			// terminated unexpectedly
+			// The verification results in this case is null. If
+			// this.bridge.getVerificationResult will be called an exception
+			// will rise up
+			// Notify somewhere the status of the verification id? or obtain the
+			// modelSet Id from the verification id and notify the verification
+			// status of the modelset id?
+			return;
+		}
+
+		VerificationResults res = this.bridge
+				.getVerificationResult(verificationProcessId);
+
+		printResults(res);
+
 		String modelSetId = res.getModelID();
         String type = this.typesMap.get(modelSetId);
         
@@ -171,5 +259,4 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		
 		return isValid;
 	}
-
 }

@@ -46,7 +46,7 @@ public class Generate extends AbstractAcceleoGenerator {
      *
      * @generated
      */
-    public static final String MODULE_FILE_NAME = "generate";
+    public static final String MODULE_FILE_NAME = "/eu/learnpad/transformations/model2text/main/generate";
     
     /**
      * The name of the templates that are to be generated.
