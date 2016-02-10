@@ -134,7 +134,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		// TODO: Adapt the name dynamically for Adoxx or MagicDraw
 		String fileName = "adoxx_modelset.xml";
 		java.nio.file.Path filePath = Paths.get(fileName);
-		return XWikiRestUtils.getFileInAttachment(RestResource.CORE_REPOSITORY_WIKI,
+        return XWikiRestUtils.getFileInAttachment(RestResource.CORE_REPOSITORY_WIKI,
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName, filePath);
 	}
 
