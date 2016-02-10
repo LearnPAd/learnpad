@@ -119,8 +119,28 @@ import eu.learnpad.sim.rest.data.UserData;
 	
 	@Override
 	public ProcessData getProcessInfos(String processArtifactId) {
-		// TODO Auto-generated method stub
-		return null;
+		HttpClient httpClient = RestResource.getAnonymousClient();
+		String uri = String.format("%s/learnpad/sim/bridge/processes/artifactid:%s",
+				RestResource.SIM_REST_URI,processArtifactId);
+
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Content-Type", "application/json");
+		
+		ProcessData unmashelledProcessData = new ProcessData();
+		
+		try {
+
+			httpClient.executeMethod(getMethod);
+		    
+			ObjectMapper objectMapper = new ObjectMapper();
+// Not fully tested, but is looks working for our purposes -- Gulyx
+			unmashelledProcessData = objectMapper.readValue(getMethod.getResponseBodyAsStream(), ProcessData.class);			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return unmashelledProcessData;
 	}
 
 	@Override
@@ -151,7 +171,7 @@ import eu.learnpad.sim.rest.data.UserData;
 	@Override
 	public String addProcessInstance(ProcessInstanceData data) {
 		HttpClient httpClient = RestResource.getAnonymousClient();
-		String uri = String.format("%s/learnpad/sim/bridge/processes",
+		String uri = String.format("%s/learnpad/sim/bridge/instances",
 				RestResource.SIM_REST_URI);
 
 		PostMethod postMethod = new PostMethod(uri);
@@ -180,36 +200,10 @@ import eu.learnpad.sim.rest.data.UserData;
 	}
 
 	@Override
-	public ProcessInstanceData getProcessInstanceInfos(
-			String processInstanceArtifactId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public InputStream getProcessInstanceResults(
-			String processinstanceartifactid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public InputStream getUserResults(String userartifactid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public InputStream getProcessResults(String processartifactid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String addProcessInstance(String processId,
 			Collection<UserData> potentialUsers, String currentUser) {
 		HttpClient httpClient = RestResource.getAnonymousClient();
-		String uri = String.format("%s/learnpad/sim/bridge/instances/%s",
+		String uri = String.format("%s/learnpad/sim/bridge/instances/artifactid:%s",
 				RestResource.SIM_REST_URI, processId);
 		
 		PostMethod postMethod = new PostMethod(uri);
@@ -249,4 +243,51 @@ import eu.learnpad.sim.rest.data.UserData;
 		}
 	}
 	
+	@Override
+	public ProcessInstanceData getProcessInstanceInfos(
+			String processInstanceArtifactId) {
+		
+		HttpClient httpClient = RestResource.getAnonymousClient();
+		String uri = String.format("%s/learnpad/sim/bridge/instances/artifactid:%s",
+				RestResource.SIM_REST_URI,processInstanceArtifactId);
+
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Content-Type", "application/json");
+		
+		ProcessInstanceData unmashelledProcessInstanceData = new ProcessInstanceData();
+		
+		try {
+
+			httpClient.executeMethod(getMethod);
+		    
+			ObjectMapper objectMapper = new ObjectMapper();
+// Not fully tested, but is looks working for our purposes -- Gulyx
+			unmashelledProcessInstanceData = objectMapper.readValue(getMethod.getResponseBodyAsStream(), ProcessInstanceData.class);			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return unmashelledProcessInstanceData;
+	}
+
+	@Override
+	public InputStream getProcessInstanceResults(
+			String processinstanceartifactid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InputStream getUserResults(String userartifactid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InputStream getProcessResults(String processartifactid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
