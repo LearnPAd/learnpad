@@ -36,6 +36,8 @@ import org.apache.commons.io.IOUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.exception.LpRestException;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.sim.BridgeInterface;
 import eu.learnpad.sim.rest.data.ProcessData;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
@@ -65,7 +67,7 @@ import eu.learnpad.sim.rest.data.UserData;
 		}
 
 	@Override
-	public Collection<String> getProcessDefinitions() {
+	public Collection<String> getProcessDefinitions() throws LpRestException {
 		HttpClient httpClient = RestResource.getAnonymousClient();
 		String uri = String.format("%s/learnpad/sim/bridge/processes",
 				RestResource.SIM_REST_URI);
@@ -82,8 +84,8 @@ import eu.learnpad.sim.rest.data.UserData;
 // Not fully tested, but is looks working for our purposes -- Gulyx
 			unmashelledList = objectMapper.readValue(getMethod.getResponseBodyAsStream(), Collection.class);			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			throw e1;
 		}
 		
 		return unmashelledList;
@@ -91,7 +93,7 @@ import eu.learnpad.sim.rest.data.UserData;
 
 	@Override
 	public Collection<String> addProcessDefinition(
-			String processDefinitionFileURL) {
+			String processDefinitionFileURL) throws LpRestException {
 		HttpClient httpClient = RestResource.getAnonymousClient();
 		String uri = String.format("%s/learnpad/sim/bridge/processes",
 				RestResource.SIM_REST_URI);
@@ -110,15 +112,15 @@ import eu.learnpad.sim.rest.data.UserData;
 // Not fully tested, but is looks working for our purposes -- Gulyx
 			unmashelledList = objectMapper.readValue(postMethod.getResponseBodyAsStream(), Collection.class);			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			throw e1;
 		}
 		
 		return unmashelledList;
 	}
 	
 	@Override
-	public ProcessData getProcessInfos(String processArtifactId) {
+	public ProcessData getProcessInfos(String processArtifactId) throws LpRestException {
 		HttpClient httpClient = RestResource.getAnonymousClient();
 		String uri = String.format("%s/learnpad/sim/bridge/processes/%s",
 				RestResource.SIM_REST_URI,processArtifactId);
@@ -136,15 +138,15 @@ import eu.learnpad.sim.rest.data.UserData;
 // Not fully tested, but is looks working for our purposes -- Gulyx
 			unmashelledProcessData = objectMapper.readValue(getMethod.getResponseBodyAsStream(), ProcessData.class);			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			throw e1;
 		}
 		
 		return unmashelledProcessData;
 	}
 
 	@Override
-	public Collection<String> getProcessInstances() {
+	public Collection<String> getProcessInstances() throws LpRestException {
 		HttpClient httpClient = RestResource.getAnonymousClient();
 		String uri = String.format("%s/learnpad/sim/bridge/instances",
 				RestResource.SIM_REST_URI);
@@ -161,15 +163,15 @@ import eu.learnpad.sim.rest.data.UserData;
 // Not fully tested, but is looks working for our purposes -- Gulyx
 			unmashelledList = objectMapper.readValue(getMethod.getResponseBodyAsStream(), Collection.class);			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			throw e1;
 		}
 		
 		return unmashelledList;
 	}
 
 	@Override
-	public String addProcessInstance(ProcessInstanceData data) {
+	public String addProcessInstance(ProcessInstanceData data) throws LpRestException {
 		HttpClient httpClient = RestResource.getAnonymousClient();
 		String uri = String.format("%s/learnpad/sim/bridge/instances",
 				RestResource.SIM_REST_URI);
@@ -192,8 +194,8 @@ import eu.learnpad.sim.rest.data.UserData;
 // Not fully tested, but is looks working for our purposes -- Gulyx
 			unmashelledProcessInstanceID = objectMapper.readValue(postMethod.getResponseBodyAsStream(), String.class);			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			throw e1;
 		}
 		
 		return unmashelledProcessInstanceID;
@@ -201,7 +203,7 @@ import eu.learnpad.sim.rest.data.UserData;
 
 	@Override
 	public String addProcessInstance(String processId,
-			Collection<UserData> potentialUsers, String currentUser) {
+			Collection<UserData> potentialUsers, String currentUser) throws LpRestException {
 		HttpClient httpClient = RestResource.getAnonymousClient();
 		String uri = String.format("%s/learnpad/sim/bridge/instances/%s",
 				RestResource.SIM_REST_URI, processId);
@@ -219,33 +221,34 @@ import eu.learnpad.sim.rest.data.UserData;
 		try {
 			potentialUsersJson = om.writeValueAsString(potentialUsers);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			throw e1;
 		}
 		try {
 			requestEntity = new StringRequestEntity(potentialUsersJson,
 					"application/json", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			throw e1;
 		}
 		postMethod.setRequestEntity(requestEntity);
 		try {
 			httpClient.executeMethod(postMethod);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			throw e1;
 		}
 		try {
 			return IOUtils.toString(postMethod.getResponseBodyAsStream());
 		} catch (IOException e) {
-			return null;
+			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			throw e1;
 		}
 	}
 	
 	@Override
 	public ProcessInstanceData getProcessInstanceInfos(
-			String processInstanceArtifactId) {
+			String processInstanceArtifactId) throws LpRestException {
 		
 		HttpClient httpClient = RestResource.getAnonymousClient();
 		String uri = String.format("%s/learnpad/sim/bridge/instances/%s",
@@ -264,8 +267,8 @@ import eu.learnpad.sim.rest.data.UserData;
 // Not fully tested, but is looks working for our purposes -- Gulyx
 			unmashelledProcessInstanceData = objectMapper.readValue(getMethod.getResponseBodyAsStream(), ProcessInstanceData.class);			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			throw e1;
 		}
 		
 		return unmashelledProcessInstanceData;
@@ -273,19 +276,19 @@ import eu.learnpad.sim.rest.data.UserData;
 
 	@Override
 	public InputStream getProcessInstanceResults(
-			String processinstanceartifactid) {
+			String processinstanceartifactid) throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public InputStream getUserResults(String userartifactid) {
+	public InputStream getUserResults(String userartifactid) throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public InputStream getProcessResults(String processartifactid) {
+	public InputStream getProcessResults(String processartifactid) throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
 	}
