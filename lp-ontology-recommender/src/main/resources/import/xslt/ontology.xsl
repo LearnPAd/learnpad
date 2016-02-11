@@ -498,6 +498,7 @@ ________________________________________________________________________________
             <xsl:param name="name" />
             <xsl:param name="class" />
             <xsl:param name="materialURL"/>
+            <xsl:param name="competenciesAndLevels"/>
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type dkm:LearningDocument ;
@@ -508,11 +509,10 @@ ________________________________________________________________________________
   dkm:documentHasMIMEType "text/html"^^xsd:string ;
   dkm:documentHasDescription "This web page contains the required learning material to improve ..."^^xsd:string ;
   rdfs:comment "This material should be updated ..."^^xsd:string ;
+              <xsl:for-each select="$competenciesAndLevels">
+  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:<xsl:value-of select="@id"/> ;            
+            </xsl:for-each>
 	</xsl:template>
-
-    <xsl:template name="addLearningDocumentRefToCompetencyAndLevel">
-		<xsl:param name="targetId"/> dkm:learningDocumentIncreasesCompetenciesToLevel transfer:<xsl:value-of select="$targetId"/> ;<xsl:text>&#10;</xsl:text>
-	</xsl:template>		
 	
 	<xsl:template name="addInModelConnectionForLearningDocument">
             <xsl:param name="toId"/>  dkm:d_ConstructIsInsideD_Container transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text>
@@ -594,8 +594,8 @@ ________________________________________________________________________________
         		<xsl:param name="toId"/>  lpd:roleIsCastedByOrgUnit transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text>
     	</xsl:template>	
     	
-     <xsl:template name="addRoleRefToCompetency">
-        		<xsl:param name="targetId"/> omm:roleRequiresCompetencies transfer:<xsl:value-of select="$targetId"/> ;<xsl:text>&#10;</xsl:text>
+     <xsl:template name="addRoleRefToCompetencyProfile">
+        		<xsl:param name="targetId"/> omm:roleRequiresCompetencyProfile transfer:<xsl:value-of select="$targetId"/> ;<xsl:text>&#10;</xsl:text>
     	</xsl:template>    	
 <!--...............................................................................................-->	
 <!--
@@ -603,18 +603,26 @@ ________________________________________________________________________________
  Performer
 ___________________________________________________________________________________________________-->
 	<xsl:template name="Performer">
-            <xsl:param name="email" />
             <xsl:param name="id" />
             <xsl:param name="name" />
             <xsl:param name="class" />
+            <xsl:param name="firstName" />
+            <xsl:param name="lastName" />
+            <xsl:param name="email" />
+            <xsl:param name="phoneNo" />            
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type omm:Performer ;
   rdfs:subClassOf omm:Performer ;
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
-		  <xsl:if test="$email != ''">
-		emo:performerHasEmailAddress "<xsl:value-of select="$email"/>"^^xsd:string ;
+		  <xsl:if test="$firstName != ''">omm:performerHasFirstName "<xsl:value-of select="$firstName"/>"^^xsd:string ;
+		  </xsl:if>
+		  <xsl:if test="$lastName != ''">omm:performerHasLastName "<xsl:value-of select="$lastName"/>"^^xsd:string ;
+		  </xsl:if>
+		  <xsl:if test="$email != ''">emo:performerHasEmailAddress "<xsl:value-of select="$email"/>"^^xsd:string ;
+		  </xsl:if>
+		  <xsl:if test="$phoneNo != ''">omm:performerHasPhoneNumber "<xsl:value-of select="$phoneNo"/>"^^xsd:string ;
 		  </xsl:if>
 	</xsl:template>
 	
@@ -627,7 +635,7 @@ ________________________________________________________________________________
     	
      <xsl:template name="addPerformerRefToCompetencyProfile">
         		<xsl:param name="targetId"/> omm:performerAcquiredCompetencyProfile transfer:<xsl:value-of select="$targetId"/> ;<xsl:text>&#10;</xsl:text>
-    	</xsl:template>    	    	
+    	</xsl:template>    	    	                         
 <!--...............................................................................................-->	
 <!-- ============================================================================================================================================== -->
 <!-- ============================================================================================================================================== -->
