@@ -19,6 +19,8 @@
  */
 package eu.learnpad.or.rest;
 
+import java.util.Map;
+
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -28,6 +30,8 @@ import eu.learnpad.exception.LpRestException;
 
 public interface SimulationNotification {
 	/**
+         * Notifies about the start/end of a simulation session.  
+         * 
 	 * @param modelSetId
 	 *            is the modelset ID concerned by the simulation
 	 * @param modelId
@@ -36,15 +40,59 @@ public interface SimulationNotification {
 	 *            is one of the following values: started, stopped
 	 * @param simulationId
 	 *            is the ID of the concerned simulation
-	 * @return
 	 * @throws LpRestException
 	 */
 	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationnotification?action={started|stopped},simulationid=id
 	@POST
-	@Path("/{modelsetid}/{modelid}/simulationnotification")
-	byte[] simulationNotification(@PathParam("modelsetid") String modelSetId,
+	@Path("/{modelsetid}/{modelid}/simulationinstancenotification")
+	void simulationInstanceNotification(@PathParam("modelsetid") String modelSetId,
 			@PathParam("modelid") String modelId,
 			@QueryParam("action") String action,
 			@QueryParam("simulationid") String simulationId)
 			throws LpRestException;
+        
+	/**
+	 * @param modelSetId
+	 *            is the modelset ID concerned by the simulation
+	 * @param modelId
+	 *            is the model ID concerned by the simulation
+	 * @param artifactId
+	 *            is the ID of the artifact in the model (event, gateway, unit,
+	 *            etc.)         * 
+	 * @param simulationId
+	 *            is the ID of the concerned simulation
+	 * @throws LpRestException
+	 */
+	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationnotification?action={started|stopped},simulationid=id
+	@POST
+	@Path("/{modelsetid}/{modelid}/simulationtaskstart")
+	void simulationTaskStartNotification(@PathParam("modelsetid") String modelSetId,
+			@PathParam("modelid") String modelId,
+                        @QueryParam("artifactid") String artifactId,
+			@QueryParam("simulationid") String simulationId)
+			throws LpRestException;    
+        
+	/**
+	 * @param modelSetId
+	 *            is the modelset ID concerned by the simulation
+	 * @param modelId
+	 *            is the model ID concerned by the simulation
+	 * @param artifactId
+	 *            is the ID of the artifact in the model (event, gateway, unit,
+	 *            etc.)         * 
+	 * @param data
+	 *            user data 
+	 * @param simulationId
+	 *            is the ID of the concerned simulation
+	 * @throws LpRestException
+	 */
+	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationnotification?action={started|stopped},simulationid=id
+	@POST
+	@Path("/{modelsetid}/{modelid}/simulationtaskstart")
+	void simulationTaskEndNotification(@PathParam("modelsetid") String modelSetId,
+			@PathParam("modelid") String modelId,
+                        @QueryParam("artifactid") String artifactId,
+			@QueryParam("simulationid") String simulationId,
+                        @QueryParam("data") Map<String, Object> data) 
+			throws LpRestException;          
 }

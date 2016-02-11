@@ -27,6 +27,21 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.SimilarCases;
 
 public interface GetSimilarCases {
+    
+    /**
+     * Search for similar cases with the given case descriptions. 
+     * Each parameter belonging to the application is optional.
+     *
+     * @param simulationSessionId unique id of a simulation session instance
+     * 
+     * @return list of similar cases with assigned content.
+     *
+     * @throws LpRestException
+     */
+    @Path("/similarcasesforsimulation")
+    @GET
+    SimilarCases retrieveSimilarCasesForSimulation(@QueryParam("simulationSessionId") String simulationSessionId ) throws LpRestException;    
+    
 
     /**
      * Search for similar cases with the given case descriptions. 
