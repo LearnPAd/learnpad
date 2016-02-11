@@ -43,4 +43,21 @@
 		<module>lp-platform-jetty-hsqldb</module>
 		<module>lp-platform-ui</module>
 	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.xwiki.platform</groupId>
+				<artifactId>xwiki-platform-rest-api</artifactId>
+				<type>jar</type>
+				<version>7.4.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.xwiki.platform</groupId>
+				<artifactId>xwiki-platform-rest-server</artifactId>
+				<type>jar</type>
+				<version>7.4.1</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>
