@@ -128,44 +128,15 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 		return null;
 	}
 
-	private String buildXWikiPackage(String modelSetId,
-			InputStream modelStream, String type) {
-		UUID uuid = UUID.randomUUID();
-		String stylesheetFileName = "/stylesheet/" + type + "2xwiki.xsl";
-		InputStream stylesheetStream = getClass().getClassLoader()
-				.getResourceAsStream(stylesheetFileName);
-		File packageFolder = new File("/tmp/learnpad/" + uuid);
-		packageFolder.mkdirs();
-
-		Source modelSource = new StreamSource(modelStream);
-		Source stylesheetSource = new StreamSource(stylesheetStream);
-		File rdfFile = new File(packageFolder.getPath() + "/ontology.rdf");
-		Result result = new StreamResult(rdfFile);
-
-		// create an instance of TransformerFactory
-		TransformerFactory transFact = new net.sf.saxon.TransformerFactoryImpl();
-
-		try {
-			Transformer trans = transFact.newTransformer(stylesheetSource);
-			trans.setParameter("packageFolder", packageFolder.getPath());
-			trans.setParameter("modelSetId", modelSetId);
-			trans.transform(modelSource, result);
-		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return packageFolder.getPath() + "/xwiki";
-	}
-
 	@Override
 	public void modelSetImported(String modelSetId, String type)
 			throws LpRestException {
 		// Get the model file from Core Platform
 		InputStream modelStream = this.corefacade.getModel(modelSetId, type);
+		
+		// TODO: Run transformations
 
-		// Make the XSL transformation and get the package's path
-		String packagePath = buildXWikiPackage(modelSetId, modelStream, type);
-
+        /* TODO: Import package
 		// Now send the package's path to the importer for XWiki
 		HttpClient httpClient = RestResource.getClient();
 
@@ -188,7 +159,8 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge {
 		} catch (IOException e) {
 			logger.error("Unable to PUT XWiki package '" + packagePath
 					+ "' to the Collaborative Workspace.", e);
-		}
+        }
+        */
 	}
 
 	@Override
