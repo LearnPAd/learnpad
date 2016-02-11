@@ -30,6 +30,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.sim.rest.data.ProcessData;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.sim.rest.data.UserData;
@@ -52,7 +53,7 @@ public interface IProcessHandlingAPI {
 	 */
 	@GET
 	@Path("/processes")
-	public Collection<String> getProcessDefinitions();
+	public Collection<String> getProcessDefinitions() throws LpRestException;
 
 	/**
 	 *
@@ -63,7 +64,7 @@ public interface IProcessHandlingAPI {
 	@POST
 	@Path("/processes")
 	public Collection<String> addProcessDefinition(
-			String processDefinitionFileURL);
+			String processDefinitionFileURL) throws LpRestException;
 
 	/**
 	 *
@@ -74,7 +75,8 @@ public interface IProcessHandlingAPI {
 	@GET
 	@Path("/processes/{artifactid:.*}")
 	public ProcessData getProcessInfos(
-			@PathParam("artifactid") String processArtifactId);
+			@PathParam("artifactid") String processArtifactId)
+			throws LpRestException;
 
 	/**
 	 *
@@ -82,7 +84,7 @@ public interface IProcessHandlingAPI {
 	 */
 	@GET
 	@Path("/instances")
-	public Collection<String> getProcessInstances();
+	public Collection<String> getProcessInstances() throws LpRestException;
 
 	/**
 	 *
@@ -92,7 +94,8 @@ public interface IProcessHandlingAPI {
 	 */
 	@POST
 	@Path("/instances")
-	public String addProcessInstance(ProcessInstanceData data);
+	public String addProcessInstance(ProcessInstanceData data)
+			throws LpRestException;
 
 	/**
 	 *
@@ -109,7 +112,8 @@ public interface IProcessHandlingAPI {
 	@Path("/instances/{artifactid:.*}")
 	public String addProcessInstance(@PathParam("artifactid") String processId,
 			Collection<UserData> potentialUsers,
-			@QueryParam("currentuser") String currentUser);
+			@QueryParam("currentuser") String currentUser)
+			throws LpRestException;
 
 	/**
 	 *
@@ -120,5 +124,6 @@ public interface IProcessHandlingAPI {
 	@GET
 	@Path("/instances/{artifactid:.*}")
 	public ProcessInstanceData getProcessInstanceInfos(
-			@PathParam("artifactid") String processInstanceArtifactId);
+			@PathParam("artifactid") String processInstanceArtifactId)
+			throws LpRestException;
 }
