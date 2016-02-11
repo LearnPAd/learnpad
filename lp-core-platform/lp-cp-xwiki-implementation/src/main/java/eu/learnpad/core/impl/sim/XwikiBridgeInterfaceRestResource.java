@@ -234,25 +234,13 @@ import eu.learnpad.sim.rest.data.UserData;
 		
 		try {
 			potentialUsersJson = this.objectWriterCollection.writeValueAsString(potentialUsers);
-		} catch (IOException e) {
-			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
-			throw e1;
-		}
-		try {
 			requestEntity = new StringRequestEntity(potentialUsersJson,
 					"application/json", "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
-			throw e1;
-		}
-		postMethod.setRequestEntity(requestEntity);
-		try {
+
+			postMethod.setRequestEntity(requestEntity);
+		
 			httpClient.executeMethod(postMethod);
-		} catch (IOException e) {
-			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
-			throw e1;
-		}
-		try {
+
 			return IOUtils.toString(postMethod.getResponseBodyAsStream());
 		} catch (IOException e) {
 			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
