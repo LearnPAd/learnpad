@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import eu.learnpad.transformations.model2text.generator.AcceleoStandaloneStarter;
 
@@ -31,7 +32,7 @@ public class AcceleoTransformationLauncher {
 		ast.execute(model, resultFolderPath);
 		System.out.println("Acceleo Model2Text done. You can find the result in the /result folder.");
 		
-		return null;
+		return Paths.get(resultFolderPath);
 	}
 	
 	

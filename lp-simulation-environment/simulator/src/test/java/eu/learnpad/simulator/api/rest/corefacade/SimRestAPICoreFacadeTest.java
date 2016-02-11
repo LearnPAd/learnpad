@@ -22,6 +22,7 @@ package eu.learnpad.simulator.api.rest.corefacade;
  */
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -33,6 +34,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
@@ -96,35 +98,46 @@ public class SimRestAPICoreFacadeTest {
 		assertEquals(server.nbSessionScoreUpdateEvents, 0);
 
 		// send events
-		receiverClient.receiveSimulationEndEvent(new SimulationEndEvent(System
-				.currentTimeMillis(), "1", Arrays.asList("test")));
+		try {
+			receiverClient.receiveSimulationEndEvent(new SimulationEndEvent(
+					System.currentTimeMillis(), "1", Arrays.asList("test")));
 
-		receiverClient.receiveSimulationStartEvent(new SimulationStartEvent(
-				System.currentTimeMillis(), "1", Arrays.asList("test")));
+			receiverClient
+					.receiveSimulationStartEvent(new SimulationStartEvent(
+							System.currentTimeMillis(), "1", Arrays
+									.asList("test")));
 
-		receiverClient.receiveProcessEndEvent(new ProcessEndEvent(System
-				.currentTimeMillis(), "1", Arrays.asList("test"), "1", "1"));
+			receiverClient
+					.receiveProcessEndEvent(new ProcessEndEvent(System
+							.currentTimeMillis(), "1", Arrays.asList("test"),
+							"1", "1"));
 
-		receiverClient.receiveProcessStartEvent(new ProcessStartEvent(System
-				.currentTimeMillis(), "1", Arrays.asList("test"), "1", "1"));
+			receiverClient.receiveProcessStartEvent(new ProcessStartEvent(
+					System.currentTimeMillis(), "1", Arrays.asList("test"),
+					"1", "1"));
 
-		receiverClient.receiveTaskEndEvent(new TaskEndEvent(System
-				.currentTimeMillis(), "1", Arrays.asList("test"), "1", "1",
-				"1", Arrays.asList("test"), "test",
-				new HashMap<String, Object>()));
+			receiverClient.receiveTaskEndEvent(new TaskEndEvent(System
+					.currentTimeMillis(), "1", Arrays.asList("test"), "1", "1",
+					"1", Arrays.asList("test"), "test",
+					new HashMap<String, Object>()));
 
-		receiverClient.receiveTaskFailedEvent(new TaskFailedEvent(System
-				.currentTimeMillis(), "1", Arrays.asList("test"), "1", "1",
-				"1", Arrays.asList("test"), "test",
-				new HashMap<String, Object>()));
+			receiverClient.receiveTaskFailedEvent(new TaskFailedEvent(System
+					.currentTimeMillis(), "1", Arrays.asList("test"), "1", "1",
+					"1", Arrays.asList("test"), "test",
+					new HashMap<String, Object>()));
 
-		receiverClient.receiveTaskStartEvent(new TaskStartEvent(System
-				.currentTimeMillis(), "1", Arrays.asList("test"), "1", "1",
-				"1", Arrays.asList("test")));
-		receiverClient
-		.receiveSessionScoreUpdateEvent(new SessionScoreUpdateEvent(
-				System.currentTimeMillis(), "1", Arrays.asList("test"),
-				"1", "1", 1L));
+			receiverClient.receiveTaskStartEvent(new TaskStartEvent(System
+					.currentTimeMillis(), "1", Arrays.asList("test"), "1", "1",
+					"1", Arrays.asList("test")));
+			receiverClient
+					.receiveSessionScoreUpdateEvent(new SessionScoreUpdateEvent(
+							System.currentTimeMillis(), "1", Arrays
+									.asList("test"), "1", "1", 1L));
+
+		} catch (LpRestException e) {
+			e.printStackTrace();
+			fail("Exception thrown");
+		}
 
 		// verify that all events has been registered
 		assertEquals(server.nbSimulationEndEvents, 1);

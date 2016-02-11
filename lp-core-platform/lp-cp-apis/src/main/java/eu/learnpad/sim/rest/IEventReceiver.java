@@ -22,6 +22,7 @@ package eu.learnpad.sim.rest;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
@@ -40,34 +41,41 @@ public interface IEventReceiver {
 
 	@POST
 	@Path("/simulationstart")
-	public void receiveSimulationStartEvent(SimulationStartEvent event);
+	public void receiveSimulationStartEvent(SimulationStartEvent event)
+			throws LpRestException;
 
 	@POST
 	@Path("/simulationend")
-	public void receiveSimulationEndEvent(SimulationEndEvent event);
+	public void receiveSimulationEndEvent(SimulationEndEvent event)
+			throws LpRestException;
 
 	@POST
 	@Path("/processstart")
-	public void receiveProcessStartEvent(ProcessStartEvent event);
+	public void receiveProcessStartEvent(ProcessStartEvent event)
+			throws LpRestException;
 
 	@POST
 	@Path("/processend")
-	public void receiveProcessEndEvent(ProcessEndEvent event);
+	public void receiveProcessEndEvent(ProcessEndEvent event)
+			throws LpRestException;
 
 	@POST
 	@Path("/taskstart")
-	public void receiveTaskStartEvent(TaskStartEvent event);
+	public void receiveTaskStartEvent(TaskStartEvent event)
+			throws LpRestException;
 
 	@POST
 	@Path("/taskend")
-	public void receiveTaskEndEvent(TaskEndEvent event);
+	public void receiveTaskEndEvent(TaskEndEvent event) throws LpRestException;
 
 	@POST
 	@Path("/taskfailed")
-	public void receiveTaskFailedEvent(TaskFailedEvent event);
+	public void receiveTaskFailedEvent(TaskFailedEvent event)
+			throws LpRestException;
 
 	@POST
 	@Path("/sessionscoreupdate")
-	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event);
+	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event)
+			throws LpRestException;
 
 }
