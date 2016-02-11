@@ -21,8 +21,6 @@ package eu.learnpad.core.impl.sim;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.commons.httpclient.NameValuePair;
@@ -95,19 +93,15 @@ import eu.learnpad.sim.rest.data.UserData;
 		GetMethod getMethod = new GetMethod(uri);
 		getMethod.addRequestHeader("Content-Type", "application/json");
 		
-		Collection<String> unmashelledList = new ArrayList<String>();
 		try {
 
 			httpClient.executeMethod(getMethod);
 		    
 // Not fully tested, but is looks working for our purposes -- Gulyx
-			unmashelledList = this.objectReaderCollection.readValue(getMethod.getResponseBodyAsStream());			
+			 return this.objectReaderCollection.readValue(getMethod.getResponseBodyAsStream());
 		} catch (IOException e) {
-			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
-			throw e1;
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
-		
-		return unmashelledList;
 	}
 
 	@Override
@@ -120,7 +114,6 @@ import eu.learnpad.sim.rest.data.UserData;
 		PostMethod postMethod = new PostMethod(uri);
 		postMethod.addRequestHeader("Content-Type", "application/json");
 		
-		Collection<String> unmashelledList = new ArrayList<String>();
 		try {
 			RequestEntity requestEntity = new StringRequestEntity(processDefinitionFileURL,"application/json", "UTF-8");
 			postMethod.setRequestEntity(requestEntity);
@@ -128,13 +121,10 @@ import eu.learnpad.sim.rest.data.UserData;
 			httpClient.executeMethod(postMethod);
 		    
 // Not fully tested, but is looks working for our purposes -- Gulyx
-			unmashelledList = this.objectReaderCollection.readValue(postMethod.getResponseBodyAsStream());			
+			return this.objectReaderCollection.readValue(postMethod.getResponseBodyAsStream());
 		} catch (IOException e) {
-			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
-			throw e1;
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
-		
-		return unmashelledList;
 	}
 	
 	@Override
@@ -145,21 +135,16 @@ import eu.learnpad.sim.rest.data.UserData;
 
 		GetMethod getMethod = new GetMethod(uri);
 		getMethod.addRequestHeader("Content-Type", "application/json");
-		
-		ProcessData unmashelledProcessData = new ProcessData();
-		
+
 		try {
 
 			httpClient.executeMethod(getMethod);
 		    
 // Not fully tested, but is looks working for our purposes -- Gulyx
-			unmashelledProcessData = objectReaderProcessData.readValue(getMethod.getResponseBodyAsStream());			
+			return objectReaderProcessData.readValue(getMethod.getResponseBodyAsStream());
 		} catch (IOException e) {
-			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
-			throw e1;
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
-		
-		return unmashelledProcessData;
 	}
 
 	@Override
@@ -171,19 +156,15 @@ import eu.learnpad.sim.rest.data.UserData;
 		GetMethod getMethod = new GetMethod(uri);
 		getMethod.addRequestHeader("Content-Type", "application/json");
 		
-		Collection<String> unmashelledList = new ArrayList<String>();
 		try {
 
 			httpClient.executeMethod(getMethod);
 		    
 // Not fully tested, but is looks working for our purposes -- Gulyx
-			unmashelledList = objectReaderCollection.readValue(getMethod.getResponseBodyAsStream());			
+			return objectReaderCollection.readValue(getMethod.getResponseBodyAsStream());
 		} catch (IOException e) {
-			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
-			throw e1;
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
-		
-		return unmashelledList;
 	}
 
 	@Override
@@ -195,7 +176,6 @@ import eu.learnpad.sim.rest.data.UserData;
 		PostMethod postMethod = new PostMethod(uri);
 		postMethod.addRequestHeader("Content-Type", "application/json");
 		
-		String unmashelledProcessInstanceID = "no-process-instance-added";
 		try {
 // Not fully tested, but is looks working for our purposes -- Gulyx
 			String mashelledData = objectWriterProcessInstanceData.writeValueAsString(data);
@@ -206,13 +186,10 @@ import eu.learnpad.sim.rest.data.UserData;
 			httpClient.executeMethod(postMethod);
 		    
 // Not fully tested, but is looks working for our purposes -- Gulyx
-			unmashelledProcessInstanceID = objectReaderString.readValue(postMethod.getResponseBodyAsStream());			
+			return objectReaderString.readValue(postMethod.getResponseBodyAsStream());
 		} catch (IOException e) {
-			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
-			throw e1;
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
-		
-		return unmashelledProcessInstanceID;
 	}
 
 	@Override
@@ -243,8 +220,7 @@ import eu.learnpad.sim.rest.data.UserData;
 
 			return IOUtils.toString(postMethod.getResponseBodyAsStream());
 		} catch (IOException e) {
-			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
-			throw e1;
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
 	}
 	
@@ -259,20 +235,15 @@ import eu.learnpad.sim.rest.data.UserData;
 		GetMethod getMethod = new GetMethod(uri);
 		getMethod.addRequestHeader("Content-Type", "application/json");
 		
-		ProcessInstanceData unmashelledProcessInstanceData = new ProcessInstanceData();
-		
 		try {
 
 			httpClient.executeMethod(getMethod);
 		    
 // Not fully tested, but is looks working for our purposes -- Gulyx
-			unmashelledProcessInstanceData = objectReaderProcessInstanceData.readValue(getMethod.getResponseBodyAsStream());			
+			return objectReaderProcessInstanceData.readValue(getMethod.getResponseBodyAsStream());
 		} catch (IOException e) {
-			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
-			throw e1;
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
-		
-		return unmashelledProcessInstanceData;
 	}
 
 	@Override
