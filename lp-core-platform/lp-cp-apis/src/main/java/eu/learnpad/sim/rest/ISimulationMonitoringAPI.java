@@ -27,6 +27,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import eu.learnpad.exception.LpRestException;
+
 /**
  *
  * This interface describes the REST API functionalities related to simulation
@@ -47,7 +49,8 @@ public interface ISimulationMonitoringAPI {
 	@Path("/results/instances/{processinstanceartifactid:.*}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	public InputStream getProcessInstanceResults(
-			@PathParam("processinstanceartifactid") String processinstanceartifactid);
+			@PathParam("processinstanceartifactid") String processinstanceartifactid)
+			throws LpRestException;
 
 	/**
 	 * Get the results file associated with a learner
@@ -59,7 +62,8 @@ public interface ISimulationMonitoringAPI {
 	@Path("/results/users/{userartifactid:.*}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	public InputStream getUserResults(
-			@PathParam("userartifactid") String userartifactid);
+			@PathParam("userartifactid") String userartifactid)
+			throws LpRestException;
 
 	/**
 	 * Get the results file associated with a process
@@ -71,6 +75,7 @@ public interface ISimulationMonitoringAPI {
 	@Path("/results/processes/{processartifactid:.*}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	public InputStream getProcessResults(
-			@PathParam("processartifactid") String processartifactid);
+			@PathParam("processartifactid") String processartifactid)
+			throws LpRestException;
 
 }
