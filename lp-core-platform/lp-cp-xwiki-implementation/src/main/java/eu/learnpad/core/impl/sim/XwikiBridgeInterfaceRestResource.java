@@ -34,6 +34,8 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.io.IOUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.exception.LpRestException;
@@ -50,12 +52,30 @@ import eu.learnpad.sim.rest.data.UserData;
  */
  public class XwikiBridgeInterfaceRestResource extends RestResource implements BridgeInterface{
 
-		public XwikiBridgeInterfaceRestResource() {
+	 	private ObjectReader objectReaderCollection;
+	 	private ObjectReader objectReaderString;
+	 	private ObjectReader objectReaderProcessData;
+	 	private ObjectReader objectReaderProcessInstanceData;
+	 
+	 	private ObjectWriter objectWriterCollection;
+	 	private ObjectWriter objectWriterProcessInstanceData;
+
+	 	public XwikiBridgeInterfaceRestResource() {
 			this("localhost",8080);
 		}
 
 		public XwikiBridgeInterfaceRestResource(String coreFacadeHostname,
 				int coreFacadeHostPort) {
+			ObjectMapper objectMapper = new ObjectMapper();
+
+			this.objectReaderCollection = objectMapper.readerFor(Collection.class);
+			this.objectReaderString = objectMapper.readerFor(String.class);
+			this.objectReaderProcessData = objectMapper.readerFor(ProcessData.class);
+		 	this.objectReaderProcessInstanceData = objectMapper.readerFor(ProcessInstanceData.class);
+			
+			this.objectWriterCollection = objectMapper.writerFor(Collection.class);
+			this.objectWriterProcessInstanceData = objectMapper.writerFor(ProcessInstanceData.class);
+			
 			// This constructor could change in the future
 			this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
 		}
@@ -80,9 +100,8 @@ import eu.learnpad.sim.rest.data.UserData;
 
 			httpClient.executeMethod(getMethod);
 		    
-			ObjectMapper objectMapper = new ObjectMapper();
 // Not fully tested, but is looks working for our purposes -- Gulyx
-			unmashelledList = objectMapper.readValue(getMethod.getResponseBodyAsStream(), Collection.class);			
+			unmashelledList = this.objectReaderCollection.readValue(getMethod.getResponseBodyAsStream());			
 		} catch (IOException e) {
 			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 			throw e1;
@@ -108,9 +127,8 @@ import eu.learnpad.sim.rest.data.UserData;
 
 			httpClient.executeMethod(postMethod);
 		    
-			ObjectMapper objectMapper = new ObjectMapper();
 // Not fully tested, but is looks working for our purposes -- Gulyx
-			unmashelledList = objectMapper.readValue(postMethod.getResponseBodyAsStream(), Collection.class);			
+			unmashelledList = this.objectReaderCollection.readValue(postMethod.getResponseBodyAsStream());			
 		} catch (IOException e) {
 			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 			throw e1;
@@ -134,9 +152,8 @@ import eu.learnpad.sim.rest.data.UserData;
 
 			httpClient.executeMethod(getMethod);
 		    
-			ObjectMapper objectMapper = new ObjectMapper();
 // Not fully tested, but is looks working for our purposes -- Gulyx
-			unmashelledProcessData = objectMapper.readValue(getMethod.getResponseBodyAsStream(), ProcessData.class);			
+			unmashelledProcessData = objectReaderProcessData.readValue(getMethod.getResponseBodyAsStream());			
 		} catch (IOException e) {
 			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 			throw e1;
@@ -159,9 +176,8 @@ import eu.learnpad.sim.rest.data.UserData;
 
 			httpClient.executeMethod(getMethod);
 		    
-			ObjectMapper objectMapper = new ObjectMapper();
 // Not fully tested, but is looks working for our purposes -- Gulyx
-			unmashelledList = objectMapper.readValue(getMethod.getResponseBodyAsStream(), Collection.class);			
+			unmashelledList = objectReaderCollection.readValue(getMethod.getResponseBodyAsStream());			
 		} catch (IOException e) {
 			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 			throw e1;
@@ -181,10 +197,8 @@ import eu.learnpad.sim.rest.data.UserData;
 		
 		String unmashelledProcessInstanceID = "no-process-instance-added";
 		try {
-			ObjectMapper objectMapper = new ObjectMapper();
-
-			// Not fully tested, but is looks working for our purposes -- Gulyx
-			String mashelledData = objectMapper.writeValueAsString(data);
+// Not fully tested, but is looks working for our purposes -- Gulyx
+			String mashelledData = objectWriterProcessInstanceData.writeValueAsString(data);
 
 			RequestEntity requestEntity = new StringRequestEntity(mashelledData,"application/json", "UTF-8");
 			postMethod.setRequestEntity(requestEntity);
@@ -192,7 +206,7 @@ import eu.learnpad.sim.rest.data.UserData;
 			httpClient.executeMethod(postMethod);
 		    
 // Not fully tested, but is looks working for our purposes -- Gulyx
-			unmashelledProcessInstanceID = objectMapper.readValue(postMethod.getResponseBodyAsStream(), String.class);			
+			unmashelledProcessInstanceID = objectReaderString.readValue(postMethod.getResponseBodyAsStream());			
 		} catch (IOException e) {
 			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 			throw e1;
@@ -216,10 +230,10 @@ import eu.learnpad.sim.rest.data.UserData;
 		postMethod.setQueryString(queryString);
 		
 		StringRequestEntity requestEntity = null;
-		ObjectMapper om = new ObjectMapper();
 		String potentialUsersJson = "[]";
+		
 		try {
-			potentialUsersJson = om.writeValueAsString(potentialUsers);
+			potentialUsersJson = this.objectWriterCollection.writeValueAsString(potentialUsers);
 		} catch (IOException e) {
 			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 			throw e1;
@@ -263,9 +277,8 @@ import eu.learnpad.sim.rest.data.UserData;
 
 			httpClient.executeMethod(getMethod);
 		    
-			ObjectMapper objectMapper = new ObjectMapper();
 // Not fully tested, but is looks working for our purposes -- Gulyx
-			unmashelledProcessInstanceData = objectMapper.readValue(getMethod.getResponseBodyAsStream(), ProcessInstanceData.class);			
+			unmashelledProcessInstanceData = objectReaderProcessInstanceData.readValue(getMethod.getResponseBodyAsStream());			
 		} catch (IOException e) {
 			LpRestException e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 			throw e1;
