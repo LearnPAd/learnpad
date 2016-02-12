@@ -27,7 +27,12 @@ import javax.xml.bind.JAXBContext;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.httpclient.methods.RequestEntity;
 
+import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.mt.BridgeInterface;
@@ -37,32 +42,59 @@ import eu.learnpad.mt.BridgeInterface;
  * class should be implemented as a REST invocation
  * toward the BridgeInterface binded at the provided URL
  */
-public class XwikiBridgeInterfaceRestResource implements BridgeInterface {
-    
+public class XwikiBridgeInterfaceRestResource implements BridgeInterface
+{
+
     private String HOSTNAME = "localhost";
-    private int PORT = 9998;
+
+    private int PORT = 8083;
+
     private String URL;
-    
-	public XwikiBridgeInterfaceRestResource() {
-		this("localhost",9998);
-	}
 
-	public XwikiBridgeInterfaceRestResource(String bridgeInterfaceHostname,
-			int bridgeInterfaceHostPort) {
-		// This constructor could change in the future
-		this.updateConfiguration(bridgeInterfaceHostname, bridgeInterfaceHostPort);
-	}
-	
-	public void updateConfiguration(String bridgeInterfaceHostname, int bridgeInterfaceHostPort){
-		this.HOSTNAME = bridgeInterfaceHostname;
-		this.PORT = bridgeInterfaceHostPort;
-		this.URL = "http://" + this.HOSTNAME + ":" + this.PORT + "/rest";
-	}
+    public XwikiBridgeInterfaceRestResource()
+    {
+        this("localhost", 8083);
+    }
 
-	@Override
-	public InputStream getModel(String type, InputStream model)
-			throws LpRestException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public XwikiBridgeInterfaceRestResource(String bridgeInterfaceHostname, int bridgeInterfaceHostPort)
+    {
+        // This constructor could change in the future
+        this.updateConfiguration(bridgeInterfaceHostname, bridgeInterfaceHostPort);
+    }
+
+    public void updateConfiguration(String bridgeInterfaceHostname, int bridgeInterfaceHostPort)
+    {
+        this.HOSTNAME = bridgeInterfaceHostname;
+        this.PORT = bridgeInterfaceHostPort;
+        this.URL = "http://" + this.HOSTNAME + ":" + this.PORT + "/rest";
+    }
+
+    @Override
+    public InputStream transform(String type, InputStream model) throws LpRestException
+    {
+        HttpClient httpClient = RestResource.getClient();
+        String uri = String.format("%s/learnpad/mt/bridge/transform", RestResource.REST_URI);
+        PostMethod postMethod = new PostMethod(uri);
+        postMethod.addRequestHeader("Content-Type", "application/octet-stream");
+        postMethod.addRequestHeader("Accept", "application/octet-stream");
+        NameValuePair[] queryString = new NameValuePair[1];
+        queryString[0] = new NameValuePair("type", type);
+        postMethod.setQueryString(queryString);
+
+        RequestEntity modelEntity = new InputStreamRequestEntity(model);
+        postMethod.setRequestEntity(modelEntity);
+        try {
+            httpClient.executeMethod(postMethod);
+        } catch (IOException e) {
+            String message = String.format("Error in sending POST to Model Transformer component [type: %s]", type);
+            throw new LpRestExceptionXWikiImpl(message, e);
+        }
+        try {
+            return postMethod.getResponseBodyAsStream();
+        } catch (IOException e) {
+            String message =
+                String.format("Model Transformer component failed to return result of transformation [type: %s]", type);
+            throw new LpRestExceptionXWikiImpl(message, e);
+        }
+    }
 }

@@ -72,7 +72,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	private eu.learnpad.ca.BridgeInterface ca;
 //	private eu.learnpad.db.BridgeInterface db;
 	private eu.learnpad.me.BridgeInterface me;
-	private eu.learnpad.mv.BridgeInterface mv;
+    private eu.learnpad.mv.BridgeInterface mv;
+    private eu.learnpad.mt.BridgeInterface mt;
 	private eu.learnpad.lsm.BridgeInterface lsm;
 	private eu.learnpad.or.BridgeInterface or;
 	private eu.learnpad.qm.BridgeInterface qm;
@@ -102,8 +103,9 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
 			this.ca = new eu.learnpad.core.impl.ca.XwikiBridgeInterfaceRestResource();			
 //			this.db = new eu.learnpad.core.impl.db.XwikiBridgeInterfaceRestResource();			
-			this.me = new eu.learnpad.core.impl.me.XwikiBridgeInterfaceRestResource();			
-			this.mv = new eu.learnpad.core.impl.mv.XwikiBridgeInterfaceRestResource();			
+			this.me = new eu.learnpad.core.impl.me.XwikiBridgeInterfaceRestResource();	      
+            this.mv = new eu.learnpad.core.impl.mv.XwikiBridgeInterfaceRestResource();          
+            this.mt = new eu.learnpad.core.impl.mt.XwikiBridgeInterfaceRestResource();  		
 			this.lsm = new eu.learnpad.core.impl.lsm.XwikiBridgeInterfaceRestResource();			
 			this.or = new eu.learnpad.core.impl.or.XwikiBridgeInterfaceRestResource();			
 			this.qm = new eu.learnpad.core.impl.qm.XwikiBridgeInterfaceRestResource();			
@@ -151,4 +153,10 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 //		Recommendations rec = new Recommendations();
 		return rec;
 	}
+
+    @Override
+    public InputStream tranform(String type, InputStream model) throws LpRestException
+    {
+        return this.mt.transform(type, model);
+    }
 }

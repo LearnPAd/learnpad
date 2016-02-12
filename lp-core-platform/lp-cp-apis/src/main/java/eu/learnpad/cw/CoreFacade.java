@@ -26,9 +26,10 @@ import eu.learnpad.cw.rest.ModelImporter;
 import eu.learnpad.cw.rest.OntologyRecommenderProxy;
 import eu.learnpad.cw.rest.ResourceNotification;
 import eu.learnpad.cw.rest.Simulation;
+import eu.learnpad.cw.rest.Transformer;
 
 @Path("/learnpad/cw/corefacade")
 public interface CoreFacade extends CommentNotification, ModelImporter,
-		ResourceNotification, Simulation, OntologyRecommenderProxy {
+		ResourceNotification, Simulation, OntologyRecommenderProxy, Transformer {
 
 }

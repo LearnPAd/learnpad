@@ -17,7 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.mt.rest;
+package eu.learnpad.cw.rest;
 
 import java.io.InputStream;
 
@@ -35,5 +35,5 @@ public interface Transformer {
 	@Path("/transform")
 	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	InputStream transform(@QueryParam("type") String type, InputStream model) throws LpRestException;
+	InputStream tranform(@QueryParam("type") String type, InputStream model) throws LpRestException;
 }

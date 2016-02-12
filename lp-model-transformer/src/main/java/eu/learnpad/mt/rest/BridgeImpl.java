@@ -35,7 +35,7 @@ import eu.learnpad.transformations.launchers.Launcher;
 @Path("/learnpad/mt/bridge")
 public class BridgeImpl extends Bridge {
 	@Override
-	public InputStream getModel(String type, InputStream model)
+	public InputStream transform(String type, InputStream model)
 			throws LpRestException {
 		Launcher launcher = new Launcher();
 		java.nio.file.Path path = null;

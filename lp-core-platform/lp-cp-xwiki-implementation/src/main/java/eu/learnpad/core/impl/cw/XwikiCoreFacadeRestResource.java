@@ -214,4 +214,11 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 		return response;
 		*/
 	}
+
+    @Override
+    public InputStream tranform(String type, InputStream model) throws LpRestException
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
