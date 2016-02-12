@@ -230,8 +230,8 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					type = "PresentationClarity: Excessive amount of emphasised content";
 					
 					if(!RCErule2){
-						String rec = Messages.getString("PresentationClarity.BoldRecomandation",language) //$NON-NLS-1$
-								+ "are particularly relevant shall be emphasised.";
+						String rec = Messages.getString("PresentationClarity.BoldRecomandation",language); //$NON-NLS-1$
+						// TODO: Ritestare
 						Annotation rule1 = new Annotation(id,type,0,0,rec);
 						listannotation.add(rule1);
 						log.trace(rec);

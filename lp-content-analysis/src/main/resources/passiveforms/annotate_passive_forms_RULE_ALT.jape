@@ -1,0 +1,33 @@
+Phase: PassiveVoice
+Input: Split RegularPassive IrregularPassive Auxiliary By
+Options: control = appelt
+
+//this rule checks the presence of passive voice.
+//Pipeline: Document Reset PR, Annie Gazetteer, Annie English Tokenizer, Annie Sentence Splitter,
+//annotate_preliminary_passive_forms.jape
+
+
+
+//This rule checks for the occurrence of passive voice followed by the term "by"
+Rule: DetectPassiveVoice1
+Priority: 12
+(
+({Auxiliary})
+({RegularPassive} | {IrregularPassive})+
+({By})
+):passive_voice
+-->
+:passive_voice.PassiveBy = {}
+
+
+//This rule checks for one or more occurrences of passive voice not followed by "by" 
+//(this is achieved thanks to the previous rule, which has higher priority)
+Rule: DetectPassiveVoice1
+Priority: 10
+(
+({Auxiliary}):aux_used
+({RegularPassive} | {IrregularPassive}):verbused
+({RegularPassive} | {IrregularPassive})*
+):passive_voice
+-->
+:passive_voice.PassiveVoice = {rule = 1, refaux =:aux_used.Auxiliary.verb_aux, refverb= :verbused.RegularPassive.verb, refverb=:verbused.IrregularPassive.verb}

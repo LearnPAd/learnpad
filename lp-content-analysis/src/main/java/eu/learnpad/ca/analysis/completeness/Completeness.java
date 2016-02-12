@@ -148,57 +148,86 @@ public class Completeness  extends AbstractAnalysisClass {
 		int NumberFields  = 0;
 		lStartTime = System.currentTimeMillis();
 		try{
-		
+
 			if(contenthtml!=null){
 				if(contenthtml!=""){ //$NON-NLS-1$
 					Document doc = Jsoup.parse(contenthtml);
 
 					Elements mark = doc.getElementsByTag("mark"); //$NON-NLS-1$
 
-					
+
 
 					log.info("#mark "+mark.size()); //$NON-NLS-1$
 
-				
+
 
 
 
 
 					String type = "Completeness"; //$NON-NLS-1$
 
-				
+
 
 					List<String> Elements = new ArrayList<String>();
 
 
 					for (Element element : mark) {
 						String node = getString(element.text());
-						node = node.replace(".", "").replace(":", "");
-						if(Elements_Template.contains(node)){
-							Element e = (Element) element.parentNode();
-							Node n = element.nextSibling();
-							
-							if(n.toString().length()>6){
-								Elements.add(node);
-								NumberFields++;
+						//node = node.replace(".", "").replace(":", "").replace(" ", "");
+						for(String Element :  Elements_Template){
+							if(node.startsWith(Element)){
+								Element e = (Element) element.parentNode();
+								org.jsoup.select.Elements allEle = e.getAllElements();
+								if(allEle.size()<=2 && allEle.size()>0){
+									Node n = element.nextSibling();
+									if(n!=null)
+									if(n.toString().length()>6){
+										Elements.add(Element);
+										NumberFields++;
+									}
+								}else{
+									for(int i=2;i<allEle.size();i++){
+										org.jsoup.nodes.Element n = allEle.get(i);
+										if(n!=null)
+										if(n.toString().length()>6){
+											Elements.add(Element);
+											NumberFields++;
+											break;
+										}
+									}
+								}
+								/*boolean flag = true;
+								//while(flag){
+									Node n = element.nextSibling();
+									//for(org.jsoup.nodes.Element ele :e.getAllElements()){
+									if(n.toString().length()>6){
+										Elements.add(Element);
+										NumberFields++;
+									}
+									if(e!=null){
+										e = element.after(element);
+										log.info("ee "+e); //$NON-NLS-1$
+									}*/
+								//element = (org.jsoup.nodes.Element) n;
+								//}
+								break;
 							}
-							e = element.after(element);
-							log.info("ee "+e); //$NON-NLS-1$
 						}
+
 					}
 
-					int n = getTotNumberTerms(mark);
+					//int n = getTotNumberTerms(mark);
 
 					for (String field : Elements_Template) {
 
-							if(!Elements.contains(field)){
-								String rec = String.format("The field %s appears to be without content. Please provide additional information.", field);
-								Annotation rule1 = new Annotation(id,type,0,0,rec);
-								listannotation.add(rule1);
-								log.trace(rec);
-								id++;
-							}
-						
+						if(!Elements.contains(field)){
+							String rec = String.format("The field %s appears to be without content. Please provide additional information.", field);
+							Annotation rule1 = new Annotation(id,type,0,0,rec);
+							listannotation.add(rule1);
+							log.trace(rec);
+							id++;
+						}
+
 					}
 
 				}
