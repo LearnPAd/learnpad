@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<element name="CollaborativeContentAnalysis">
+		<complexType>
+			<sequence>
+				<element name="CollaborativeContent">
+					<complexType>
+						<sequence>
+							<element type="string" name="Title" />
+							<element type="string" name="ContentPlain" />
+							<element type="string" name="ContentHTML" />
+						</sequence>
+						<attribute name="id" type="string"></attribute>
+					</complexType>
+				</element>
+				<element name="QualityCriteria">
+					<complexType>
+						<attribute name="simplicity" type="boolean"></attribute>
+						<attribute name="non_ambiguity" type="boolean"></attribute>
+						<attribute name="content_clarity" type="boolean"></attribute>
+						<attribute name="presentation_clarity" type="boolean"></attribute>
+						<attribute name="completeness" type="boolean"></attribute>
+						<attribute name="correctness" type="boolean"></attribute>
+					</complexType>
+				</element>
+			</sequence>
+			<attribute type="string" name="language" />
+		</complexType>
+	</element>
+</schema>

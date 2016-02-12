@@ -62,8 +62,10 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 	
 	@Test
 	public void checkCollaborativeContentAnalysis() throws JAXBException {
-		//checkCollaborativeContentAnalysis("CollaborativeContentXMLITALIAN.xml");
-		//checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML_WC.xml");
+		checkCollaborativeContentAnalysis("CollaborativeContentXMLITALIAN.xml");
+		checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML_WC.xml");
+		checkCollaborativeContentAnalysis("CollaborativeContentXMLBi.xml");
+		checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML_WC2.xml");
 		checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML.xml");
 	
 	}
@@ -80,7 +82,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		CollaborativeContentAnalysis collaborativeContentInput = (CollaborativeContentAnalysis) jaxbUnmarshaller1.unmarshal(is);
 
 		Entity<CollaborativeContentAnalysis> entity = Entity.entity(collaborativeContentInput,MediaType.APPLICATION_XML);
-		Response response =  target("/learnpad/ca/validatecollaborativecontent").request(MediaType.APPLICATION_XML).post(entity);
+		Response response =  target("/learnpad/ca/bridge/validatecollaborativecontent").request(MediaType.APPLICATION_XML).post(entity);
 
 		String id = response.readEntity(String.class);
 
@@ -89,7 +91,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		String status = "IN PROGRESS";
 		boolean flag = true;
 		while(flag){
-			status =  target("/learnpad/ca/validatecollaborativecontent/"+id+"/status").request().get(String.class);
+			status =  target("/learnpad/ca/bridge/validatecollaborativecontent/"+id+"/status").request().get(String.class);
 
 			assertNotNull(status);
 			if(status.equals("ERROR") | status.equals("OK")){
@@ -98,7 +100,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		}
 		assertTrue(!status.equals("ERROR"));
 		if(!status.equals("ERROR")){
-			Response annotatecontent =  target("/learnpad/ca/validatecollaborativecontent/"+id).request().get();
+			Response annotatecontent =  target("/learnpad/ca/bridge/validatecollaborativecontent/"+id).request().get();
 
 			ArrayList<AnnotatedCollaborativeContentAnalysis> res =	annotatecontent.readEntity(new GenericType<ArrayList<AnnotatedCollaborativeContentAnalysis>>() {});
 			for (AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContentAnalysis : res) {
@@ -111,9 +113,9 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 					marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 					//marshaller.marshal(annotatedCollaborativeContentAnalysis, System.out);
 					String type = annotatedCollaborativeContentAnalysis.getType();
-					OutputStream os = new FileOutputStream( "nosferatu"+type+".xml" );
-					marshaller.marshal( annotatedCollaborativeContentAnalysis, os );
-				} catch (JAXBException | FileNotFoundException  e) {
+					//OutputStream os = new FileOutputStream( "nosferatu"+type+".xml" );
+					//marshaller.marshal( annotatedCollaborativeContentAnalysis, os );
+				} catch (JAXBException /*| FileNotFoundException*/  e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					assertTrue(false);

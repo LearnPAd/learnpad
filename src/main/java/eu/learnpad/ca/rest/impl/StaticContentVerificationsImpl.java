@@ -30,7 +30,7 @@ import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import eu.learnpad.exception.LpRestException;
 
-@Path("/learnpad/ca/validatestaticcontent")
+@Path("/learnpad/ca/bridge/validatestaticcontent")
 @Consumes(MediaType.APPLICATION_XML)
 @Produces(MediaType.APPLICATION_XML)
 public class StaticContentVerificationsImpl implements StaticContentVerifications {

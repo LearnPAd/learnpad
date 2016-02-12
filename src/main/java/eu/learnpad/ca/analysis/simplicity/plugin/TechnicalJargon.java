@@ -42,7 +42,7 @@ public class TechnicalJargon extends Plugin {
 
 		String type = "Simplicity Technical Jargon"; //$NON-NLS-1$
 		if(!tj.isEmpty())
-			gatevsleanpadAnnotation(tj, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
+			gatevsleanpadAnnotation(tj, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence,null,null,null);
 	}
 
 	

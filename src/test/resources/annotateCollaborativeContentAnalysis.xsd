@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema">
+	<element name="annotatedCollaborativeContentAnalyses">
+		<complexType>
+			<sequence>
+				<element name="annotateCollaborativeContentAnalysis">
+					<complexType>
+						<sequence>
+							<element name="CollaborativeContent">
+								<complexType>
+									<sequence>
+										<element type="string" name="Title" />
+										<element name="Content">
+											<complexType mixed="true">
+												<sequence>
+													<element name="Node" maxOccurs="unbounded"
+														minOccurs="0">
+														<complexType>
+															<simpleContent>
+																<extension base="string">
+																	<attribute type="short" name="id"
+																		use="required" />
+																</extension>
+															</simpleContent>
+														</complexType>
+													</element>
+												</sequence>
+											</complexType>
+										</element>
+									</sequence>
+									<attribute type="int" name="id" use="required" />
+								</complexType>
+							</element>
+							<element name="Annotations">
+								<complexType>
+									<sequence>
+										<element name="Annotation" maxOccurs="unbounded"
+											minOccurs="0">
+											<complexType>
+												<simpleContent>
+													<extension base="string">
+														<attribute type="byte" name="id" use="required" />
+														<attribute type="string" name="type"
+															use="required" />
+														<attribute type="byte" name="StartNode"
+															use="required" />
+														<attribute type="byte" name="EndNode"
+															use="required" />
+														<attribute type="string" name="recommendation"
+															use="required" />
+														<attribute name="StartNode_Offset" type="int" use="required" />
+														<attribute name="EndNode_Offset" type="int" use="required" />
+													</extension>
+												</simpleContent>
+											</complexType>
+										</element>
+									</sequence>
+								</complexType>
+							</element>
+							<element type="string" name="OverallQuality" />
+							<element type="string" name="OverallQualityMeasure" />
+							<element type="string" name="OverallRecommendations" />
+						</sequence>
+						<attribute type="short" name="id" use="required" />
+						<attribute type="string" name="type" use="required" />
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+</schema>
