@@ -35,7 +35,7 @@ public class ActorUnclear extends Plugin {
 			String rac = Messages.getString("ActorUnclear.Reccomandation", language); //$NON-NLS-1$
 
 			String type = "Actor Unclear"; //$NON-NLS-1$
-			gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log,listSentence );
+			gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log,listSentence,"refverb","refaux",null );
 
 		}
 	}

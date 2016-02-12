@@ -12,4 +12,4 @@ Rule: CoordAmbiguity
 {AndOr}
 ):coord_ambiguity
 -->
-:coord_ambiguity.CoordAmbiguity = {}
+:coord_ambiguity.CoordAmbiguityComplex = {}

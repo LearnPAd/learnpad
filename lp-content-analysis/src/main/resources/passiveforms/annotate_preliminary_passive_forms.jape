@@ -1,0 +1,42 @@
+Phase: PreparePassiveForms
+Input: Lookup Token
+Options: control = first
+
+//this rule checks the presence of elements of passive forms.
+//Pipeline: Document Reset PR, Annie Gazetteer, Annie English Tokenizer, Annie Sentence Splitter
+
+Rule: DetectAuxiliary
+(
+{Token.string ==~ "(?i)am"} |
+{Token.string ==~ "(?i)are"} |
+{Token.string ==~ "(?i)were"} |
+{Token.string ==~ "(?i)being"} |
+{Token.string ==~ "(?i)is"} |
+{Token.string ==~ "(?i)been"} |
+{Token.string ==~ "(?i)was"} |
+{Token.string ==~ "(?i)be"}
+):passive_voice_aux
+-->
+:passive_voice_aux.Auxiliary = {verb_aux=:passive_voice_aux.Token.string}
+
+Rule: DetectBy
+(
+{Token.string == "by"} //The dollar signals the end of the string
+):by
+-->
+:by.By = {}
+
+Rule: DetectIrregularPassive
+(
+{Lookup.majorType == "passive", Token}
+):irregular_passive
+-->
+:irregular_passive.IrregularPassive = {verb = :irregular_passive.Token.string}
+
+
+Rule: DetectRegularPassive
+(
+{Token.string =~ "[.]*ed$", Token.string != "need", Token.string != "proceed"} //The dollar signals the end of the string
+):regular_passive
+-->
+:regular_passive.RegularPassive = {verb=:regular_passive.Token.string}
