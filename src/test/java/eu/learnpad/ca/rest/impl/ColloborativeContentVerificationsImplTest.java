@@ -62,11 +62,11 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 	
 	@Test
 	public void checkCollaborativeContentAnalysis() throws JAXBException {
-		//checkCollaborativeContentAnalysis("CollaborativeContentXMLITALIAN.xml");
-		//checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML_WC.xml");
+		checkCollaborativeContentAnalysis("CollaborativeContentXMLITALIAN.xml");
+		checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML_WC.xml");
 		checkCollaborativeContentAnalysis("CollaborativeContentXMLBi.xml");
-		//checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML_WC2.xml");
-		//checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML.xml");
+		checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML_WC2.xml");
+		checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML.xml");
 	
 	}
 	
@@ -113,9 +113,9 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 					marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 					//marshaller.marshal(annotatedCollaborativeContentAnalysis, System.out);
 					String type = annotatedCollaborativeContentAnalysis.getType();
-					OutputStream os = new FileOutputStream( "nosferatu"+type+".xml" );
-					marshaller.marshal( annotatedCollaborativeContentAnalysis, os );
-				} catch (JAXBException | FileNotFoundException  e) {
+					//OutputStream os = new FileOutputStream( "nosferatu"+type+".xml" );
+					//marshaller.marshal( annotatedCollaborativeContentAnalysis, os );
+				} catch (JAXBException /*| FileNotFoundException*/  e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					assertTrue(false);
