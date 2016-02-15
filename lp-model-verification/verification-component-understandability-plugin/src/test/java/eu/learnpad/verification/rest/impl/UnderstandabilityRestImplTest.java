@@ -64,7 +64,7 @@ public class UnderstandabilityRestImplTest extends JerseyTest {
 			String content = new String(Files.readAllBytes(Paths.get(is.toURI())));
 
 			Entity<String> entity = Entity.entity(content,MediaType.TEXT_PLAIN);
-			Response response =  target("/validatemodel/put/").request(MediaType.TEXT_PLAIN).post(entity);
+			Response response =  target("/validatemodel/put").queryParam("lang", "en").request(MediaType.TEXT_PLAIN).post(entity);
 
 			String id = response.readEntity(String.class);
 			assertNotEquals(response.getStatus(), 404);

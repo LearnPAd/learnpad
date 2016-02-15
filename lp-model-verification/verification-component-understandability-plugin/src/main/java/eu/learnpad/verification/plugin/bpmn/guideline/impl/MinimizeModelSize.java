@@ -1,6 +1,8 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl;
 
 
+import java.util.Locale;
+
 import org.eclipse.bpmn2.Activity;
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
@@ -8,6 +10,8 @@ import org.eclipse.bpmn2.Gateway;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
+
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 
 
 public class MinimizeModelSize extends abstractGuideline {
@@ -17,11 +21,12 @@ public class MinimizeModelSize extends abstractGuideline {
 	}
 
 
-	public MinimizeModelSize(Definitions diagram) {
-		super(diagram);
-		this.id = "2";
-		this.Description = "The modeler should try to keep models as small as possible. Large process models are difficult to read and comprehend. Additionally, they tend to contain more errors. Defining the correct scope of tasks and level of detail of processes is key to reduce the overage of information.";
-		this.Name = "Minimize Model Size";
+	public MinimizeModelSize(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
+		this.id = "2"; //$NON-NLS-1$
+		this.Description = Messages.getString("MinimizeModelSize.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("MinimizeModelSize.Name",l); //$NON-NLS-1$
 
 
 	}
@@ -45,11 +50,11 @@ public class MinimizeModelSize extends abstractGuideline {
 			}
 		}
 		if (i>31) {
-			this.Suggestion += "Too much elements "+i+". Please use max 31  the number of nodes: number of activities and routing elements in a process model";
+			this.Suggestion += String.format(Messages.getString("MinimizeModelSize.SuggestionKO",l),i); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("MinimizeModelSize.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 

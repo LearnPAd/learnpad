@@ -25,6 +25,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
+import java.io.InputStream;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.core.MediaType;
+
 import eu.learnpad.exception.LpRestException;
 
 public interface ModelSetImported {
@@ -32,7 +37,8 @@ public interface ModelSetImported {
 	//<host>/learnpad/qm/importmodelset/{modelsetid}?type={adoxx|md|lpzip}
 	@PUT
 	@Path("/importmodel/{modelsetid}")
+	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
 	void importModelSet(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type")@DefaultValue("lpzip") String type, byte[] modelContent) throws LpRestException;
+			@QueryParam("type")@DefaultValue("lpzip") String type, InputStream modelContent) throws LpRestException;
 	
 }

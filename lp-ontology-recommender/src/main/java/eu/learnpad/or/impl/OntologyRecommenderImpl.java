@@ -5,7 +5,6 @@
  */
 package eu.learnpad.or.impl;
 
-
 import eu.learnpad.core.impl.or.XwikiBridge;
 import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
 import eu.learnpad.exception.LpRestException;

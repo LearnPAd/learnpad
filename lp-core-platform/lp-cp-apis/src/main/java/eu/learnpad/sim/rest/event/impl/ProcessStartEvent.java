@@ -45,9 +45,9 @@ public class ProcessStartEvent extends AbstractEvent {
 	}
 
 	public ProcessStartEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String processid,
+			List<String> involvedusers, String modelsetid, String processid,
 			String processdefinitionid) {
-		super(timestamp, simulationsessionid, involvedusers);
+		super(timestamp, simulationsessionid, involvedusers, modelsetid);
 		this.processid = processid;
 		this.processdefinitionid = processdefinitionid;
 	}

@@ -19,6 +19,8 @@
  */
 package eu.learnpad.core.impl.cw;
 
+import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.Collection;
 
 import javax.inject.Named;
@@ -70,7 +72,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	private eu.learnpad.ca.BridgeInterface ca;
 //	private eu.learnpad.db.BridgeInterface db;
 	private eu.learnpad.me.BridgeInterface me;
-	private eu.learnpad.mv.BridgeInterface mv;
+    private eu.learnpad.mv.BridgeInterface mv;
+    private eu.learnpad.mt.BridgeInterface mt;
 	private eu.learnpad.lsm.BridgeInterface lsm;
 	private eu.learnpad.or.BridgeInterface or;
 	private eu.learnpad.qm.BridgeInterface qm;
@@ -100,8 +103,9 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
 			this.ca = new eu.learnpad.core.impl.ca.XwikiBridgeInterfaceRestResource();			
 //			this.db = new eu.learnpad.core.impl.db.XwikiBridgeInterfaceRestResource();			
-			this.me = new eu.learnpad.core.impl.me.XwikiBridgeInterfaceRestResource();			
-			this.mv = new eu.learnpad.core.impl.mv.XwikiBridgeInterfaceRestResource();			
+			this.me = new eu.learnpad.core.impl.me.XwikiBridgeInterfaceRestResource();	      
+            this.mv = new eu.learnpad.core.impl.mv.XwikiBridgeInterfaceRestResource();          
+            this.mt = new eu.learnpad.core.impl.mt.XwikiBridgeInterfaceRestResource();  		
 			this.lsm = new eu.learnpad.core.impl.lsm.XwikiBridgeInterfaceRestResource();			
 			this.or = new eu.learnpad.core.impl.or.XwikiBridgeInterfaceRestResource();			
 			this.qm = new eu.learnpad.core.impl.qm.XwikiBridgeInterfaceRestResource();			
@@ -126,11 +130,14 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public byte[] getModel(String modelSetId, String type)
+	public InputStream getModel(String modelSetId, String type)
 			throws LpRestException {
 		String attachmentName = String.format("%s.%s", modelSetId, type);
-		return XWikiRestUtils.getAttachment(RestResource.CORE_REPOSITORY_WIKI,
-				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName);
+		// TODO: Adapt the name dynamically for Adoxx or MagicDraw
+		String fileName = "adoxx_modelset.xml";
+		java.nio.file.Path filePath = Paths.get(fileName);
+        return XWikiRestUtils.getFileInAttachment(RestResource.CORE_REPOSITORY_WIKI,
+				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName, filePath);
 	}
 
 	@Override
@@ -146,4 +153,10 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 //		Recommendations rec = new Recommendations();
 		return rec;
 	}
+
+    @Override
+    public InputStream tranform(String type, InputStream model) throws LpRestException
+    {
+        return this.mt.transform(type, model);
+    }
 }

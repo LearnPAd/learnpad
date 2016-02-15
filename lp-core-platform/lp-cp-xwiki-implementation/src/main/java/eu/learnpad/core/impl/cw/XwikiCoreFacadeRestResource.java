@@ -83,7 +83,7 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 	}
 
 	@Override
-	public byte[] getModel(String modelSetId, String type)
+	public InputStream getModel(String modelSetId, String type)
 			throws LpRestException {
 		// Now send the package's path to the importer for XWiki
 		HttpClient httpClient = RestResource.getClient();
@@ -102,9 +102,9 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		byte[] model = null;
+		InputStream model = null;
 		try {
-			model = IOUtils.toByteArray(getMethod.getResponseBodyAsStream());
+			model = getMethod.getResponseBodyAsStream();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -214,4 +214,11 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 		return response;
 		*/
 	}
+
+    @Override
+    public InputStream tranform(String type, InputStream model) throws LpRestException
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

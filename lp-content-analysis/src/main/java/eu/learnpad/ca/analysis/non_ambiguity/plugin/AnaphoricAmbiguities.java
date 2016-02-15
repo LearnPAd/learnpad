@@ -36,7 +36,7 @@ public class AnaphoricAmbiguities extends Plugin {
 			String rac = Messages.getString("AnaphoricAmbiguities.Recomandation", language); //$NON-NLS-1$
 
 			String type = "AnaphoricAmbiguities"; //$NON-NLS-1$
-			gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log, listSentence );
+			gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log, listSentence, "pronoun",null,null );
 		}
 	}
 }

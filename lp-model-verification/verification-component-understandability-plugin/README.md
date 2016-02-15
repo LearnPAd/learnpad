@@ -37,7 +37,7 @@ The output structure of the verification provided by this plugin is reported in 
 					<Description>..detailed description of guideline..</Description>
 					<Suggestion>..suggestion of the specific problem..</Suggestion>
 					<Elements>..elements of the specific problem..
-						<ElementID refProcessID="" >..bpmn object id..</ElementID>
+						<ElementID refProcessID="" refName="" >..bpmn object id..</ElementID>
 					</Elements>
 				</Guideline>
 				...
@@ -45,7 +45,7 @@ The output structure of the verification provided by this plugin is reported in 
 					<Description>..detailed description of guideline..</Description>
 					<Suggestion>..suggestion of the specific problem..</Suggestion>
 					<Elements>..elements of the specific problem..
-						<ElementID refProcessID="" >..bpmn object id..</ElementID>
+						<ElementID refProcessID="" refName="" >..bpmn object id..</ElementID>
 					</Elements>
 				</Guideline>	
 				...		

@@ -1,6 +1,8 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
 
+import java.util.Locale;
+
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.EndEvent;
 import org.eclipse.bpmn2.Event;
@@ -10,23 +12,25 @@ import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.StartEvent;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 public class ExplicitStartEndEvents extends abstractGuideline{
 
 
-	public ExplicitStartEndEvents(Definitions diagram) {
-		super(diagram);
-		this.id = "12";
-		this.Description = "The modeler should explicitly make use of start and end events. The use of start and end events is necessary to represent the different states that begin and complete the modeled process. Processes with implicit start and end events are undesirable and could lead to misinterpretations.";
-		this.Name = "Explicit usage of start and end events";
+	public ExplicitStartEndEvents(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
+		this.id = "12"; //$NON-NLS-1$
+		this.Description = Messages.getString("ExplicitStartEndEvents.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("ExplicitStartEndEvents.Name",l); //$NON-NLS-1$
 
 
 	}
 
 	@Override
 	protected void findGL(Definitions diagram) {
-		StringBuilder ret = new StringBuilder("");
+		StringBuilder ret = new StringBuilder(""); //$NON-NLS-1$
 		int i = 1;
 		boolean flag = false;
 		for (RootElement rootElement : diagram.getRootElements()) {
@@ -48,10 +52,10 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 
 							if (event.getOutgoing().size() < 1) {
 								elementsBPMN.add(fe);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 								setElements(fe.getId(),IDProcess,name);
-								ret.append(i++ +") name=" + name+ " ID=" + fe.getId()
-										+ "\n");
+								ret.append(i++ +") name=" + name+ " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+										+ "\n"); //$NON-NLS-1$
 							}
 						} else if (fe instanceof EndEvent) {
 							Event event = (Event) fe;
@@ -60,21 +64,21 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 
 							if (event.getIncoming().size() < 1) {
 								elementsBPMN.add(fe);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 								setElements(fe.getId(),IDProcess,name);
-								ret.append(i++ +") name=" + name+ " ID=" + fe.getId()
-										+ "\n");
+								ret.append(i++ +") name=" + name+ " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+										+ "\n"); //$NON-NLS-1$
 							}
 						}
 				}
 			}
 		}
 		if (!elementsBPMN.isEmpty() | !flag) {
-			this.Suggestion += "Add Start or/and End Event ";
+			this.Suggestion += Messages.getString("ExplicitStartEndEvents.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("ExplicitStartEndEvents.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
@@ -93,10 +97,10 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 
 				if (event.getOutgoing().size() < 1) {
 					elementsBPMN.add(fe);
-					String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+					String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 					setElements(fe.getId(),IDProcess,name);
-					ret.append(i++ +") name=" + name+ " ID=" + fe.getId()
-							+ "\n");
+					ret.append(i++ +") name=" + name+ " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+							+ "\n"); //$NON-NLS-1$
 				}
 			} else if (fe instanceof EndEvent) {
 				Event event = (Event) fe;
@@ -105,15 +109,16 @@ public class ExplicitStartEndEvents extends abstractGuideline{
 
 				if (event.getIncoming().size() < 1) {
 					elementsBPMN.add(fe);
-					String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+					String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 					setElements(fe.getId(),IDProcess,name);
-					ret.append(i++ +") name=" + name+ " ID=" + fe.getId()
-							+ "\n");
+					ret.append(i++ +") name=" + name+ " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+							+ "\n"); //$NON-NLS-1$
 				}
 			}
 		}
+		if(!sub.getFlowElements().isEmpty())
 		if ( !flag) {
-			this.Suggestion += "\nAdd Start or/and End Event in SubProcess "+sub.getName()+" ";
+			this.Suggestion += Messages.getString("ExplicitStartEndEvents.SuggestionSubprocessKO",l)+sub.getName()+" "; //$NON-NLS-1$ //$NON-NLS-2$
 			this.status = false;
 		}
 		return i;

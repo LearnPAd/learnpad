@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/LearnpadModelTransformation/src" modelPluginID="LearnpadModelTransformation"
+    modelName="XWIKI" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>XWIKI.ecore</foreignModel>
+  <genPackages prefix="Xwiki" basePackage="eu.learnpad.transformations" resource="XML"
+      disposableProviderFactory="true" ecorePackage="XWIKI.ecore#/">
+    <genClasses ecoreClass="XWIKI.ecore#//Attachment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Attachment/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Attachment/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Attachment/size"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Attachment/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Attachment/pageId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Attachment/pageVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Attachment/mimeType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Attachment/author"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Attachment/authorName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Attachment/date"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Attachment/xwikiRelativeUrl"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Attachment/xwikiAbsoluteUrl"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//AttachmentsType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//AttachmentsType/attachment"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//Attribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Attribute/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Attribute/value"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//Class">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Class/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Class/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//Class/property"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//ClassesType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//ClassesType/class"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//Comment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Comment/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Comment/pageId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Comment/author"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Comment/authorName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Comment/date"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Comment/highlight"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Comment/text"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Comment/replyTo"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//CommentsType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//CommentsType/comment"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//DocumentRoot">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//DocumentRoot/mixed"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/xMLNSPrefixMap"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/xSISchemaLocation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/attachment"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/attachments"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/class"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/classes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/comment"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/comments"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/history"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/object"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/objects"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/objectSummary"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/page"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/pages"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/properties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/property"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/searchResult"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/searchResults"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/space"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/spaces"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/syntaxes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/tag"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/tags"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/translations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/wiki"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/wikis"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//DocumentRoot/xwiki"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//HistorySummary">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//HistorySummary/pageId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//HistorySummary/wiki"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//HistorySummary/space"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//HistorySummary/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//HistorySummary/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//HistorySummary/majorVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//HistorySummary/minorVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//HistorySummary/modified"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//HistorySummary/modifier"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//HistorySummary/modifierName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//HistorySummary/language"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//HistorySummary/comment"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//HistoryType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//HistoryType/historySummary"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//Link">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Link/href"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Link/hrefLang"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Link/rel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Link/type"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//LinkCollection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//LinkCollection/link"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//Object">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//Object/property"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//ObjectsType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//ObjectsType/objectSummary"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//ObjectSummary">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//ObjectSummary/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//ObjectSummary/guid"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//ObjectSummary/pageId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//ObjectSummary/pageVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//ObjectSummary/wiki"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//ObjectSummary/space"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//ObjectSummary/pageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//ObjectSummary/pageAuthor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//ObjectSummary/pageAuthorName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//ObjectSummary/className"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//ObjectSummary/number"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//ObjectSummary/headline"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//Page">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Page/language"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Page/majorVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Page/minorVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Page/created"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Page/creator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Page/creatorName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Page/modified"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Page/modifier"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Page/modifierName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Page/comment"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Page/content"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//PagesType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//PagesType/pageSummary"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//PageSummary">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//PageSummary/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//PageSummary/fullName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//PageSummary/wiki"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//PageSummary/space"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//PageSummary/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//PageSummary/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//PageSummary/parent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//PageSummary/parentId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//PageSummary/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//PageSummary/author"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//PageSummary/authorName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//PageSummary/xwikiRelativeUrl"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//PageSummary/xwikiAbsoluteUrl"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//PageSummary/translations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//PageSummary/syntax"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//PropertiesType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//PropertiesType/property"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//Property">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//Property/attribute"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Property/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Property/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Property/type"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//SearchResult">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResult/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResult/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResult/pageFullName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResult/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResult/wiki"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResult/space"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResult/pageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResult/modified"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResult/author"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResult/authorName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResult/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResult/language"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResult/className"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResult/objectNumber"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResult/filename"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResult/score"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//SearchResult/object"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//SearchResultsType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//SearchResultsType/searchResult"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//SearchResultsType/template"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//Space">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Space/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Space/wiki"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Space/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Space/home"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Space/xwikiRelativeUrl"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Space/xwikiAbsoluteUrl"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//SpacesType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//SpacesType/space"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//Syntaxes">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Syntaxes/syntax"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//Tag">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Tag/name"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//TagsType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//TagsType/tag"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//Translation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Translation/language"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//Translations">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//Translations/translation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Translations/default"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//Wiki">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Wiki/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Wiki/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Wiki/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//Wiki/owner"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//WikisType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//WikisType/wiki"/>
+    </genClasses>
+    <genClasses ecoreClass="XWIKI.ecore#//XWiki">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XWIKI.ecore#//XWiki/version"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XWIKI.ecore#//XWiki/syntaxes"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

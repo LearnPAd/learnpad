@@ -27,14 +27,31 @@ public class CoordinationAmbiguity extends Plugin {
 	public void check(GateThread gateu, List<Annotation> listannotations, Set<gate.Annotation> listSentenceDefected,Set<gate.Annotation> listSentence){
 		if(!(language instanceof Italian)){
 			HashSet<String> hs = new HashSet<String>();
-			hs.add("CoordAmbiguity"); //$NON-NLS-1$
-			Set<gate.Annotation> SetActorUnclear = gateu.getAnnotationSet(hs);
+			hs.add("CoordAmbiguityComplex"); //$NON-NLS-1$
+			Set<gate.Annotation> SetCoordAmbiguity = gateu.getAnnotationSet(hs);
 
 
-			String rac = Messages.getString("CoordinationAmbiguity.Recomandation", language); //$NON-NLS-1$
+			String rac = Messages.getString("CoordinationAmbiguity.Complex.Recomandation", language); //$NON-NLS-1$
+			
 
 			String type = "Coordination Ambiguity"; //$NON-NLS-1$
-			gatevsleanpadAnnotation(SetActorUnclear, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log,listSentence );
+			gatevsleanpadAnnotation(SetCoordAmbiguity, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log,listSentence,null,null,null );
+		
+			
+			hs = new HashSet<String>();
+			hs.add("CoordAmbiguityAttachment"); //$NON-NLS-1$
+			SetCoordAmbiguity = gateu.getAnnotationSet(hs);
+
+
+			 rac = Messages.getString("CoordinationAmbiguity.Attachment.Recomandation", language); //$NON-NLS-1$
+			
+
+			 type = "Coordination Ambiguity"; //$NON-NLS-1$
+			gatevsleanpadAnnotation(SetCoordAmbiguity, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log,listSentence,"adj","noun1","noun2" );
+		
+			
+		
+		
 		}
 	}
 

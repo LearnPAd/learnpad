@@ -1,0 +1,624 @@
+-- @nsURI ADOXX=http://www.ado.org
+-- @nsURI XWIKI=http://www.xwiki.org
+module ado2xwiki;
+
+create OUT : XWIKI from IN : ADOXX;
+
+--Constant definitions
+helper def : _SOURCE : String = 'SOURCE';
+helper def : _TARGET : String = 'TARGET';
+helper def : _OBJREF : String = 'objectreference';
+helper def : _MDLREF : String = 'modelreference';
+helper def : _BROKENREF : String = 'brokenLink';
+helper def : _LP_MSetClass : String = 'LPCode.ModelSetClass';
+helper def : _LPModelClass : String = 'LPCode.ModelClass';
+helper def : _LPBElementClass : String = 'LPCode.BaseElementClass';
+helper def : _LPLinkClass : String = 'LPCode.LinkClass';
+
+
+--Attribute(modelSetId and Source Models) from OverviewModel
+helper def : modelSet : ADOXX!INSTANCEType = OclUndefined;
+helper def : sourceModels : Set(ADOXX!MODELType) = OclUndefined;
+helper def : loadSourceModels() : Set(ADOXX!MODELType) =
+   thisModule.modelSet.iNTERREF
+   .first()
+   .iREF
+   ->iterate(e; acc : Set(ADOXX!MODELType) = Set{} |     	
+     	acc.including(e.getModelType));	
+
+helper context ADOXX!IREFType def : getModelType : ADOXX!MODELType =
+	ADOXX!MODELType.allInstances()->select(m | (m.name = thisModule.getOriginalModelName(self.tmodelname, self.tmodelver)) 
+												and (m.modeltype = self.tmodeltype) 
+												and (m.version = self.tmodelver))
+								  ->first();
+
+helper def : getOriginalModelName(modelName : String, modelVer : String) : String = 
+		if (modelVer = '') then
+			modelName
+		else
+			modelName.substring(1, modelName.lastIndexOf(modelVer)-1)
+		endif;
+
+helper def : getModelSetId() : String = 
+	thisModule.modelSet.aTTRIBUTE->select(e | e.name='Model Set ID').first().value;
+
+helper def : getModelSetDescription() : String = 
+	thisModule.modelSet.aTTRIBUTE->select(e | e.name='Model Set Description').first().value;
+
+helper context ADOXX!INSTANCEType def : isInSourceModels : Boolean =
+	thisModule.sourceModels
+	->collect(c | c.iNSTANCE)
+	.flatten()
+	.count(self);
+
+helper context ADOXX!CONNECTORType def : isInSourceModels : Boolean =
+	thisModule.sourceModels
+	->collect(c | c.cONNECTOR)
+	.flatten()
+	.count(self);
+
+helper context ADOXX!IREFType def : isInSourceModels : Boolean =
+	thisModule.sourceModels
+	->collect(c | c.cONNECTOR)
+	.flatten()
+	.count(self);
+
+helper def : findInstance(o: OclAny) : ADOXX!INSTANCEType =
+	if (o.oclIsTypeOf(ADOXX!INSTANCEType)) then 
+		o 
+	else 
+		thisModule.findInstance(o.refImmediateComposite()) 
+	endif;
+----------------------
+-- Escaping methods
+
+-- Escape Ids for XWiki
+helper context String def : escapeId : String = self.regexReplaceAll('\\.', '\\\\.');
+
+-- https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references#Predefined_entities_in_XML
+helper context String def : escapeXML : String = self
+	.regexReplaceAll('"', '&quot;')
+	.regexReplaceAll('&', '&amp;')
+	.regexReplaceAll('\'', '&apos;')
+	.regexReplaceAll('<', '&lt;')
+	.regexReplaceAll('>', '&gt;');
+----------------------
+
+----------------------
+-- Numbering of objects
+
+-- Get the source[FROM] instance id for the connector
+helper def : getConnectorSourceId(connector: ADOXX!CONNECTORType) : String = 
+	connector
+	.refImmediateComposite()
+	.iNSTANCE
+	->select(i | (connector.fROM.class = i.class) and (connector.fROM.instance = i.name))
+	.flatten()
+	.first()
+	.id;
+
+-- Get the target[TO] instance id for the connector
+helper def : getConnectorTargetId(connector: ADOXX!CONNECTORType) : String = 
+	connector
+	.refImmediateComposite()
+	.iNSTANCE
+	->select(i | (connector.tO.class = i.class) and (connector.tO.instance = i.name))
+	.flatten()
+	.first()
+	.id;
+
+helper def : linkNumberMap : Map(String, Integer) =
+	let seq: Sequence(String) = ADOXX!INSTANCEType.allInstances()
+								->collect(i | i.id)
+								.union(
+									ADOXX!MODELType.allInstances()
+									->collect(m | m.id)
+								) in
+	seq	->iterate(i; accumulator : Map(String, Integer) = Map{} | accumulator.including(i, 0)).including(thisModule._BROKENREF, 0);
+
+helper def : incLinkNumber(id: String) : Map(String, Integer) =
+	thisModule.linkNumberMap.including(id, thisModule.linkNumberMap.get(id) + 1); 
+		
+helper context ADOXX!IREFType def : getNumber(par : String) : Integer =
+	if par=thisModule._SOURCE then 
+		thisModule.linkNumberMap.get(thisModule.getIrefSourceId(self))
+	else 
+		if (self.type= thisModule._OBJREFERENCE) then
+			thisModule.incLinkNumber.get(thisModule.getIrefTargetInstanceId(self))
+		else
+			thisModule.linkNumberMap.get(thisModule.getIrefTargetModelId(self))
+		endif
+	endif;
+
+helper context ADOXX!CONNECTORType def : getNumber(par : String) : Integer =
+	if par=thisModule._SOURCE then 
+		thisModule.linkNumberMap.get(thisModule.getConnectorSourceId(self)) 
+	else 
+		thisModule.linkNumberMap.get(thisModule.getConnectorTargetId(self))
+	endif;
+-------------
+
+-- Get the source instance id for the iref
+helper def : getIrefSourceId(iref: OclAny) : String =  
+	if (iref.oclIsTypeOf(ADOXX!INSTANCEType)) then 
+		if (iref.isInSourceModels > 0) then
+			iref.id
+		else
+			thisModule._BROKENREF
+		endif
+	else 
+		thisModule.getIrefSourceId(iref.refImmediateComposite())
+	endif;
+
+-- Get the target instance id for the iref
+helper def : getIrefTargetInstanceId(iref: ADOXX!IREFType) : String =
+	let target : ADOXX!INSTANCEType = thisModule.getIrefTargetInstance(iref) in
+	if (target.oclIsUndefined()) then
+		thisModule._BROKENREF
+	 else 
+	 	target.id
+	 endif;
+
+helper def : getIrefTargetInstance(iref: ADOXX!IREFType) : ADOXX!INSTANCEType = 
+	thisModule.sourceModels
+	->select(m | (m.modeltype = iref.tmodeltype) and (m.name = iref.tmodelname)) --check if the instance belong to one of the models defined in overview 
+	->collect(c | c.iNSTANCE)  -- collecting all instances
+	.flatten()
+	->select(i | ((i.class = iref.tclassname) and (i.name=iref.tobjname)))  --finding the instance
+	.first();
+
+-- Get the target model id for the iref
+helper def : getIrefTargetModelId(iref: ADOXX!IREFType) : String = 
+	let id : String =thisModule.sourceModels
+			->select(m | (m.modeltype = iref.tmodeltype) and (m.name = iref.tmodelname))
+			->collect(c | c.id)
+			.first() in
+	if (id.oclIsUndefined()) then
+		thisModule._BROKENREF 
+	else
+		id
+	endif;
+
+----------------------
+-- Standardization of names
+
+helper def : mapModelType : Map(String, String) = Map {
+	('Business process diagram (BPMN 2.0)', 'bpmn'),
+	('Competency model', 'cm'),
+	('BMM', 'bmm'),
+	('Document and Knowledge model', 'dkm'),
+	('Organizational structure', 'omm')
+};
+
+helper context String def : mapStandardModelType : String = 
+	if thisModule.mapModelType.containsKey(self) then 
+		thisModule.mapModelType.get(self) 
+	else 
+		self 
+	endif;
+
+helper def : mapInstanceType : Map(String, String) = Map {
+	-- Business Process
+	('Task', 'bpmn-task'),
+	('Sub-Process', 'bpmn-process'),
+	('Start Event', 'bpmn-event-start'),
+	('Intermediate Event (boundary)', 'bpmn-event-intermediate'),
+	('Intermediate Event (sequence flow)', 'bpmn-event-intermediate'),
+	('End Event', 'bpmn-event-end'),
+	('Exclusive Gateway', 'bpmn-gateway-exclusive'),
+	('Non-exclusive Gateway', 'bpmn-gateway-nonexclusive'),
+	('Pool', 'bpmn-pool'),
+	('Pool (collapsed)', 'bpmn-pool'),
+	('Lane', 'bpmn-lane'),
+	('Data Object', 'bpmn-data-object'),
+	('Text Annotation', 'bpmn-annotation'),
+	-- Competency Model
+	('Competency', 'cm-competency'),
+	-- BMM
+	('Learning Goal', 'bmm-learning-goal'),
+	('Group (BMM)', 'bmm-group'),
+	-- Document and Knowledge model
+	('Document', 'dkm-document'),
+	('Group', 'dkm-group'),
+	-- Organizational structure
+	('Organizational unit', 'omm-unit'),
+	('Role', 'omm-role'),
+	('Performer', 'omm-performer')
+};
+
+helper context String def : mapStandardInstanceType : String = 
+	if thisModule.mapInstanceType.containsKey(self) then 
+		thisModule.mapInstanceType.get(self) 
+	else 
+		self 
+	endif;
+
+-- End Standardization of names
+
+-- Documentation of elements
+helper def : getDocumentationRawFromModel(i: ADOXX!MODELType) : String =
+	i.mODELATTRIBUTES.aTTRIBUTE
+	->select(e | e.name='Description' and e.type='STRING')
+	->collect(c | c.value)
+	->first();
+
+helper def : getDocumentationFromModel(i: ADOXX!MODELType) : String =
+	if thisModule.getDocumentationRawFromModel(i).oclIsUndefined()
+	then
+		''
+	else
+		thisModule.getDocumentationRawFromModel(i)
+	endif;
+
+helper def : getDocumentationRawFromInstance(i: ADOXX!INSTANCEType) : String =
+	i.aTTRIBUTE
+	->select(e | e.name='Description' and e.type='STRING')
+	->collect(c | c.value)
+	->first();
+
+helper def : getDocumentationFromInstance(i: ADOXX!INSTANCEType) : String =
+	if thisModule.getDocumentationRawFromInstance(i).oclIsUndefined()
+	then
+		''
+	else
+		thisModule.getDocumentationRawFromInstance(i)
+	endif;
+
+--helper def: modeltypeFilter() : String = ADOXX!MODELType.allInstances()->
+--													select(e |e.modeltype<>'KPI-Overview')->
+--													collect(e | e.modeltype).asOrderedSet()->
+--													iterate(e; filter: String = '(' |
+--														filter.concat('(s.modeltype=\''+e+'\') or ')
+--													).toString().regexReplaceAll('or $', ')');
+
+helper def : instances : Map(OclAny, ADOXX!INSTANCEType) = Map{};
+
+helper def : loadInstances : Map(OclAny, ADOXX!INSTANCEType) =
+   ADOXX!INSTANCEType.allInstances()->iterate(e; acc : Map(OclAny, ADOXX!INSTANCEType) = Map{} |
+     acc.including(e.refImmediateComposite().name+'-'+e.class+'-'+e.name, e)
+   );
+
+helper def : getInstance(model: String, class: String, instance : String):ADOXX!INSTANCEType = 
+	if (thisModule.instances.get(model+'-'+class+'-'+instance).oclIsUndefined()) then
+		OclUndefined
+	else
+		thisModule.instances.get(model+'-'+class+'-'+instance)
+	endif;
+		
+helper def : documentRoot : XWIKI!DocumentRoot = OclUndefined;
+
+
+entrypoint rule ModelOverview() {
+	using {
+		overview : ADOXX!MODELType = ADOXX!MODELType.allInstances()->select(e | e.modeltype='Model Set Overview').first();
+		modelSet : ADOXX!INSTANCEType = overview.iNSTANCE
+			->select(e | e.class='ModelSet')
+			->first();
+	}
+	do {
+		--set the modelSet
+		thisModule.modelSet <- modelSet;
+		
+		--set the models to take into account
+		thisModule.sourceModels <- thisModule.loadSourceModels();
+		
+		--create the WebHome
+		thisModule.initWebHome();
+	}
+}
+
+rule initWebHome() {
+	to t: XWIKI!DocumentRoot (
+		object <- msc,
+		page <- Sequence{}->append(p)
+	),
+	-----------------------  Static WebHome  -----------------------
+	p: XWIKI!Page (
+	   	title <- 'Home',
+		parent <- 'Main.WebHome',
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		name <- 'WebHome',
+		content <- '{{include reference="LPCode\\.ModelSetWebHome" /}}'
+	),
+	msc:XWIKI!Object (
+		className <- thisModule._LP_MSetClass,
+		number <- 0,
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		pageName <- 'WebHome',
+		property <- Sequence{msc_p1, msc_p2, msc_p3}
+	),
+	msc_p1:XWIKI!Property (
+		name <- 'id',
+		type <- 'String',
+		value <- thisModule.getModelSetId()
+	),
+	msc_p2:XWIKI!Property (
+		name <- 'name',
+		type <- 'String',
+		value <- thisModule.modelSet.name
+	),
+	--begin documentation
+	msc_p3:XWIKI!Property (
+		name <- 'documentation',
+		type <- 'TextArea',
+		value <- thisModule.getModelSetDescription().escapeXML
+	)
+	---- end documentation
+	do {
+		thisModule.documentRoot <- t;
+		thisModule.instances <- thisModule.loadInstances;
+	}
+}
+
+-----------------------  MODELType  --------------------------
+rule MODELType2WebHome {
+	from s:ADOXX!MODELType(thisModule.sourceModels.includes(s))
+	-----------------------  mod.XXXXX  ----------------------- 
+	to p: XWIKI!Page (
+	   	title <- s.name.escapeXML,
+		parent <- 'WebHome',
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		name <- s.id,
+		content <- ''
+	),
+	mc:XWIKI!Object (
+		className <- thisModule._LPModelClass,
+		number <- 0,
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		pageName <- s.id,
+		property <- Sequence{mc_p1, mc_p2, mc_p3, mc_p4}
+	),
+	mc_p1:XWIKI!Property (
+		name <- 'id',
+		type <- 'String',
+		value <- s.id	
+	),
+	mc_p2:XWIKI!Property (
+		name <- 'name',
+		type <- 'String',
+		value <- s.name.escapeXML
+	),
+	mc_p3:XWIKI!Property (
+		name <- 'type',
+		type <- 'StaticList',
+		value <- s.modeltype.mapStandardModelType
+	),
+	--begin documentation
+	mc_p4:XWIKI!Property (
+		name <- 'documentation',
+		type <- 'TextArea',
+		value <- thisModule.getDocumentationFromModel(s).escapeXML
+	)
+	---- end documentation
+	do {
+		thisModule.documentRoot.page <- p;
+		thisModule.documentRoot.object <- mc;
+	}
+}
+
+-----------------------  INSTANCEType  -----------------------
+rule INSTANCEType2Page {
+	from s:ADOXX!INSTANCEType (s.isInSourceModels > 0)
+	-----------------------  obj.XXXXX  ----------------------- 
+	to t_p: XWIKI!Page (
+	   	title <- s.name.escapeXML,
+		parent <- s.refImmediateComposite().id.escapeId, --modelsetid
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		name <- s.id,
+		content <- ''
+	),
+	------------------  objects\LPCode\BaseElementClass  ------------------
+	bec:XWIKI!Object (
+		className <- thisModule._LPBElementClass,
+		number <- 0,
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		pageName <- s.id,
+		property <- Sequence{bec_p0, bec_p1, bec_p2, bec_p3, bec_p4}->asSequence()
+	),
+	bec_p0:XWIKI!Property (
+		name <- 'modelid',
+		type <- 'String',
+		value <- s.refImmediateComposite().id
+	),
+	bec_p1:XWIKI!Property (
+		name <- 'id',
+		type <- 'String',
+		value <- s.id
+	),
+	bec_p2:XWIKI!Property (
+		name <- 'name',
+		type <- 'String',
+		value <- s.name.escapeXML
+	),
+	bec_p3:XWIKI!Property (
+		name <- 'type',
+		type <- 'StaticList',
+		value <- s.class.mapStandardInstanceType
+	),
+	bec_p4:XWIKI!Property (
+		name <- 'documentation',
+		type <- 'TextArea',
+		value <- thisModule.getDocumentationFromInstance(s).escapeXML
+	)
+	do {
+		thisModule.documentRoot.page <- t_p;
+		thisModule.documentRoot.object <- bec;
+	}
+}
+
+rule CONNECTORType2Object {
+	from c:ADOXX!CONNECTORType (c.isInSourceModels > 0)
+	to lco:XWIKI!Object (
+		className <- thisModule._LPLinkClass,
+		number <- c.getNumber(thisModule._SOURCE),
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		pageName <- thisModule.getConnectorSourceId(c),
+		property <- Sequence{lco_p1, lco_p2, lco_p3}
+	), 
+	lco_p1:XWIKI!Property (
+		name <- 'id',
+		type <- 'String',
+		value <- c.id	
+	),
+	lco_p2:XWIKI!Property (
+		name <- 'type',
+		type <- 'StaticList',
+		value <- 'outgoing'
+	),
+	lco_p3:XWIKI!Property (
+		name <- 'uri',
+		type <- 'String',
+		value <- thisModule.getConnectorTargetId(c)
+	),
+	lci:XWIKI!Object (
+		className <- thisModule._LPLinkClass,
+		number <- c.getNumber(thisModule._TARGET),
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		pageName <- thisModule.getConnectorTargetId(c),
+		property <- Sequence{lci_p1, lci_p2, lci_p3}
+	), 
+	lci_p1:XWIKI!Property (
+		name <- 'id',
+		type <- 'String',
+		value <- c.id	
+	),
+	lci_p2:XWIKI!Property (
+		name <- 'type',
+		type <- 'StaticList',
+		value <- 'incoming'
+	),
+	lci_p3:XWIKI!Property (
+		name <- 'uri',
+		type <- 'String',
+		value <- thisModule.getConnectorSourceId(c)
+	)
+	do {
+		thisModule.documentRoot.object <- lco;
+		thisModule.documentRoot.object <- lci;
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.getConnectorSourceId(c));
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.getConnectorTargetId(c));
+	}
+}
+	
+rule IREFTypeObjRef2Object {
+	from i:ADOXX!IREFType((i.type=thisModule._OBJREF) and 
+							(thisModule.findInstance(i).isInSourceModels > 0))
+	to lco:XWIKI!Object (
+		className <- thisModule._LPLinkClass,
+		number <- i.getNumber(thisModule._SOURCE),
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		pageName <- thisModule.getIrefSourceId(i),
+		property <- Sequence{lco_p1, lco_p2, lco_p3}
+	),
+	lco_p1:XWIKI!Property (
+		name <- 'id',
+		type <- 'String',
+		value <- ''	
+	),
+	lco_p2:XWIKI!Property (
+		name <- 'type',
+		type <- 'StaticList',
+		value <- 'outgoing-weaving'
+	),
+	lco_p3:XWIKI!Property (
+		name <- 'uri',
+		type <- 'String',
+		value <- thisModule.getIrefTargetInstanceId(i)
+	),
+	lci:XWIKI!Object (
+		className <- thisModule._LPLinkClass,
+		number <- i.getNumber(thisModule._TARGET),  
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		pageName <- thisModule.getIrefTargetInstanceId(i),  --casino
+		property <- Sequence{lci_p1, lci_p2, lci_p3}
+	), 
+	lci_p1:XWIKI!Property (
+		name <- 'id',
+		type <- 'String',
+		value <- ''	
+	),
+	lci_p2:XWIKI!Property (
+		name <- 'type',
+		type <- 'StaticList',
+		value <- 'incoming-weaving'
+	),
+	lci_p3:XWIKI!Property (
+		name <- 'uri',
+		type <- 'String',
+		value <- thisModule.getIrefSourceId(i)
+	)
+	do {
+		thisModule.documentRoot.object <- lco;
+		thisModule.documentRoot.object <- lci;
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.getIrefSourceId(i));
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.getIrefTargetInstanceId(i));
+	}
+}
+	
+rule IREFTypeModRef2Object {
+	from i:ADOXX!IREFType((i.type=thisModule._MDLREF) and 
+							(thisModule.findInstance(i).isInSourceModels > 0) and
+							(not thisModule.getIrefTargetModelId(i).oclIsUndefined()))
+	to lco:XWIKI!Object (
+		className <- thisModule._LPLinkClass,
+		number <- i.getNumber(thisModule._SOURCE),
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		pageName <- thisModule.getIrefSourceId(i),
+		property <- Sequence{lco_p1, lco_p2, lco_p3}
+	),
+	lco_p1:XWIKI!Property (
+		name <- 'id',
+		type <- 'String',
+		value <- ''	
+	),
+	lco_p2:XWIKI!Property (
+		name <- 'type',
+		type <- 'StaticList',
+		value <- 'outgoing-weaving'
+	),
+	lco_p3:XWIKI!Property (
+		name <- 'uri',
+		type <- 'String',
+		value <- thisModule.getIrefTargetModelId(i)
+	),
+	lci:XWIKI!Object (    
+		className <- thisModule._LPLinkClass,
+		number <- i.getNumber(thisModule._TARGET),
+		wiki <- 'xwiki',
+		space <- thisModule.getModelSetId(),
+		pageName <- thisModule.getIrefTargetModelId(i),
+		property <- Sequence{lci_p1, lci_p2, lci_p3}
+	), 
+	lci_p1:XWIKI!Property (
+		name <- 'id',
+		type <- 'String',
+		value <- ''	
+	),
+	lci_p2:XWIKI!Property (
+		name <- 'type',
+		type <- 'StaticList',
+		value <- 'incoming-weaving'
+	),
+	lci_p3:XWIKI!Property (
+		name <- 'uri',
+		type <- 'String',
+		value <- thisModule.getIrefSourceId(i)
+	)
+	do {
+		thisModule.documentRoot.object <- lco;
+		thisModule.documentRoot.object <- lci;
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.getIrefSourceId(i));
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.getIrefTargetModelId(i));
+	}
+}

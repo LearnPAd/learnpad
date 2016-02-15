@@ -87,11 +87,11 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 	}
 
 	@Override
-	public void genrationCompleted(String questionnairesId)
+	public void generationCompleted(String questionnairesId)
 			throws LpRestException {
 		// Now actually notifying the CP via REST
 		HttpClient httpClient = RestResource.getClient();
-		String uri = String.format("%s/learnpad/qm/corefacade/genrationcompleted/%s",
+		String uri = String.format("%s/learnpad/qm/corefacade/generationcompleted/%s",
 				RestResource.REST_URI, questionnairesId);
 		PutMethod putMethod = new PutMethod(uri);
 		putMethod.addRequestHeader("Accept", MediaType.TEXT_PLAIN);

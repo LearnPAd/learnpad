@@ -42,7 +42,7 @@ public class Juridical extends Plugin {
 
 		String type = "Simplicity Juridical Jargon"; //$NON-NLS-1$
 		if(!jj.isEmpty())
-			gatevsleanpadAnnotation(jj, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
+			gatevsleanpadAnnotation(jj, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence,null,null,null);
 	}
 
 	

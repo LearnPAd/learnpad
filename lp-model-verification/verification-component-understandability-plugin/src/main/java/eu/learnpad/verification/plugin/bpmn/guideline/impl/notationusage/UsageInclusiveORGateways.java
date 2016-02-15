@@ -1,5 +1,7 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
+import java.util.Locale;
+
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.InclusiveGateway;
@@ -7,16 +9,18 @@ import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
 
+import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
 
 public class UsageInclusiveORGateways extends abstractGuideline{
 
 
-	public UsageInclusiveORGateways(Definitions diagram) {
-		super(diagram);
-		this.id = "21";
-		this.Description = "The modeler should minimize the use of inclusive gateways (OR-joins and OR-splits). Inclusive OR-splits activate one, several, or all sub- sequent branches based on conditions. They need to be synchronized with inclusive OR-join elements, which are difficult to understand in the general case.";
-		this.Name = "Usage of Inclusive OR-Gateways";
+	public UsageInclusiveORGateways(Definitions diagram, Locale l){
+		super(diagram,l);
+		this.l=l;
+		this.id = "21"; //$NON-NLS-1$
+		this.Description = Messages.getString("UsageInclusiveORGateways.Description",l); //$NON-NLS-1$
+		this.Name = Messages.getString("UsageInclusiveORGateways.Name",l); //$NON-NLS-1$
 
 
 	}
@@ -45,10 +49,10 @@ public class UsageInclusiveORGateways extends abstractGuideline{
 							num++;
 							
 								elementsBPMN.add(fe);
-								String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+								String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 								setElements(fe.getId(),IDProcess,name);
-								temp.append("* name=" + name + " ID=" + fe.getId()
-										+ "\n");
+								temp.append("* name=" + name + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+										+ "\n"); //$NON-NLS-1$
 								
 								/*elementsBPMNtemp.add(fe);
 								Elementstemp.add(new ElementID(fe.getId(),IDProcess));
@@ -62,11 +66,11 @@ public class UsageInclusiveORGateways extends abstractGuideline{
 		if (num>0) {
 			/*elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);*/
-			this.Suggestion += "\nDon't use Inclusive Gateway: ";
+			this.Suggestion += Messages.getString("UsageInclusiveORGateways.SuggestionKO",l); //$NON-NLS-1$
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += "Well done!";
+			this.Suggestion += Messages.getString("UsageInclusiveORGateways.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
@@ -92,17 +96,17 @@ public class UsageInclusiveORGateways extends abstractGuideline{
 					temp.append("* name=" + fe.getName() + " ID=" + fe.getId()
 							+ "\n");*/
 				elementsBPMN.add(fe);
-				String name = fe.getName()!=null? fe.getName() : "Unlabeled"; 
+				String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
 				setElements(fe.getId(),IDProcess,name);
-				temp.append("* name=" + name  + " ID=" + fe.getId()
-						+ "\n");
+				temp.append("* name=" + name  + " ID=" + fe.getId() //$NON-NLS-1$ //$NON-NLS-2$
+						+ "\n"); //$NON-NLS-1$
 			
 			}
 		}
 		if ( num>0) {
 			/*elementsBPMN.addAll(elementsBPMNtemp);
 			setAllElements(Elementstemp);*/
-			this.Suggestion += "\nDon't use Inclusive Gateway in SubProcess "+sub.getName()+" ";
+			this.Suggestion += Messages.getString("UsageInclusiveORGateways.SuggestionSubprocessKO",l)+sub.getName()+" "; //$NON-NLS-1$ //$NON-NLS-2$
 			this.status = false;
 		}
 		

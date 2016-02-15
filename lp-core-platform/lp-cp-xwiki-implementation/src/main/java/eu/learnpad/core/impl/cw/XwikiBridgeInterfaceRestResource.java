@@ -36,6 +36,7 @@ import eu.learnpad.cw.BridgeInterface;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.rest.model.jaxb.PFResults;
 
 /*
@@ -155,6 +156,13 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements
 			e.printStackTrace();
 		}
 		return pf;
+	}
+
+	@Override
+	public void notifyRecommendations(String simulationid, Recommendations rec)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

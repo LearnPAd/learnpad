@@ -42,7 +42,7 @@ public class LexicalAmbiguity extends Plugin {
 
 		String type = "Lexical Ambiguity Vagueness"; //$NON-NLS-1$
 		if(!SetVagueness.isEmpty())
-			gatevsleanpadAnnotation(SetVagueness, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
+			gatevsleanpadAnnotation(SetVagueness, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence,null,null,null);
 	}
 
 	public void checkSubjective(GateThread gateu, List<Annotation> listannotations, Set<gate.Annotation> listSentenceDefected,Set<gate.Annotation> listSentence){
@@ -61,7 +61,7 @@ public class LexicalAmbiguity extends Plugin {
 
 		String type = "Lexical Ambiguity Subjectivity"; //$NON-NLS-1$
 		if(!SetSubjectivity.isEmpty())
-			gatevsleanpadAnnotation(SetSubjectivity, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
+			gatevsleanpadAnnotation(SetSubjectivity, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence,null,null,null);
 	}
 	public void checkOptional(GateThread gateu, List<Annotation> listannotations, Set<gate.Annotation> listSentenceDefected,Set<gate.Annotation> listSentence){
 
@@ -79,6 +79,6 @@ public class LexicalAmbiguity extends Plugin {
 
 		String type = "Lexical Ambiguity Optionality"; //$NON-NLS-1$
 		if(!SetOptionality.isEmpty())
-			gatevsleanpadAnnotation(SetOptionality, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence);
+			gatevsleanpadAnnotation(SetOptionality, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence,null,null,null);
 	}
 }

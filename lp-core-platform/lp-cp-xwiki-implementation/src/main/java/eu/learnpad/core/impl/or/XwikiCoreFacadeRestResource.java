@@ -20,6 +20,7 @@
 package eu.learnpad.core.impl.or;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
@@ -62,7 +63,7 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 	}
 
 	@Override
-	public byte[] getModel(String modelSetId, String type)
+	public InputStream getModel(String modelSetId, String type)
 			throws LpRestException {
 		// Now send the package's path to the importer for XWiki
 		HttpClient httpClient = RestResource.getClient();
@@ -81,9 +82,9 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		byte[] model = null;
+		InputStream model = null;
 		try {
-			model = IOUtils.toByteArray(getMethod.getResponseBodyAsStream());
+			model = getMethod.getResponseBodyAsStream();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

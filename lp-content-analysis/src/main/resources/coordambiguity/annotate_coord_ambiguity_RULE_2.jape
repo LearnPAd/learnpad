@@ -9,13 +9,13 @@ Options: control = first
 Rule: CoordAmbiguity
 (
 //{Split}
-({Token.category == JJ})
-({Token.category == NN} | {Token.category == NNS})
+({Token.category == JJ}):adjective
+({Token.category == NN} | {Token.category == NNS}):firstnoun
 ({Token.string == "and"} | {Token.string == "or"})
-({Token.category == NN} | {Token.category == NNS})
+({Token.category == NN} | {Token.category == NNS}):secondnoun
 //{Split}
 ):coord_ambiguity
 -->
-:coord_ambiguity.CoordAmbiguity = {}
+:coord_ambiguity.CoordAmbiguityAttachment = {adj =:adjective.Token.string, noun1=:firstnoun.Token.string, noun2=:secondnoun.Token.string}
 
 

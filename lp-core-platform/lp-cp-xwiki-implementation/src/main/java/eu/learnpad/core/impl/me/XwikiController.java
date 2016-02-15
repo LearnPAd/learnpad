@@ -19,8 +19,7 @@
  */
 package eu.learnpad.core.impl.me;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.InputStream;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -36,10 +35,8 @@ import org.xwiki.rest.XWikiRestComponent;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.exception.LpRestException;
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.BridgeInterface;
 import eu.learnpad.me.Controller;
-import eu.learnpad.mv.rest.data.MVResults;
 import eu.learnpad.mv.rest.data.VerificationId;
 import eu.learnpad.mv.rest.data.VerificationResults;
 import eu.learnpad.mv.rest.data.VerificationStatus;
@@ -77,9 +74,6 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
      */
 	private eu.learnpad.mv.BridgeInterface mv;
 	private eu.learnpad.cw.BridgeInterface cw;
-	private eu.learnpad.sim.BridgeInterface sim;
-	private eu.learnpad.qm.BridgeInterface qm;
-	private eu.learnpad.or.BridgeInterface or;
 
 	@Inject
 	Logger logger;
@@ -95,17 +89,14 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 			
 			this.mv = new eu.learnpad.core.impl.mv.XwikiBridgeInterfaceRestResource();
 			this.cw = new eu.learnpad.core.impl.cw.XwikiBridgeInterfaceRestResource();
-			this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
-			this.qm = new eu.learnpad.core.impl.qm.XwikiBridgeInterfaceRestResource();
-			this.or = new eu.learnpad.core.impl.or.XwikiBridgeInterfaceRestResource();
 			
 			this.initialized=true;
 		}
 	}
 
 	@Override
-	public void putModelSet(String modelSetId, String type, byte[] modelSetFile)
-			throws LpRestExceptionImpl {
+	public void putModelSet(String modelSetId, String type, InputStream modelSetFile)
+			throws LpRestException {
 		if (XWikiRestUtils.isPage(RestResource.CORE_REPOSITORY_WIKI,
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId) == false) {
 			XWikiRestUtils.createEmptyPage(RestResource.CORE_REPOSITORY_WIKI,
@@ -115,8 +106,9 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		XWikiRestUtils.putAttachment(RestResource.CORE_REPOSITORY_WIKI,
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName,
 				modelSetFile);
+		this.mv.startVerification(modelSetId, "ALL");
 	}
-	
+
 	@Override
 	public PFResults getFeedbacks(String modelSetId) throws LpRestException {
 		return this.cw.getFeedbacks(modelSetId);

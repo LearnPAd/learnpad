@@ -33,10 +33,10 @@ public class ProcessEndEvent extends ProcessStartEvent {
 	}
 
 	public ProcessEndEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String processid,
+			List<String> involvedusers, String modelsetid, String processid,
 			String processdefinitionid) {
-		super(timestamp, simulationsessionid, involvedusers, processid,
-				processdefinitionid);
+		super(timestamp, simulationsessionid, involvedusers, modelsetid,
+				processid, processdefinitionid);
 	}
 
 }
