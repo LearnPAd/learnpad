@@ -55,9 +55,9 @@ public class TaskStartEvent extends AbstractEvent {
 	}
 
 	public TaskStartEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String processid, String taskid,
-			String taskdefid, List<String> assignedusers) {
-		super(timestamp, simulationsessionid, involvedusers);
+			List<String> involvedusers, String modelsetid, String processid,
+			String taskid, String taskdefid, List<String> assignedusers) {
+		super(timestamp, simulationsessionid, involvedusers, modelsetid);
 		this.processid = processid;
 		this.taskid = taskid;
 		this.taskdefid = taskdefid;

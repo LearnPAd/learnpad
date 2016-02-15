@@ -33,8 +33,8 @@ public class SimulationEndEvent extends SimulationStartEvent {
 	}
 
 	public SimulationEndEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers) {
-		super(timestamp, simulationsessionid, involvedusers);
+			List<String> involvedusers, String modelsetid) {
+		super(timestamp, simulationsessionid, involvedusers, modelsetid);
 	}
 
 }

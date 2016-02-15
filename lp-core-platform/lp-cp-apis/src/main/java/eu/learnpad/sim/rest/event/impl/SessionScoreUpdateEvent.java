@@ -50,9 +50,9 @@ public class SessionScoreUpdateEvent extends AbstractEvent {
 	}
 
 	public SessionScoreUpdateEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String processid, String user,
-			Long sessionScore) {
-		super(timestamp, simulationsessionid, involvedusers);
+			List<String> involvedusers, String modelsetid, String processid,
+			String user, Long sessionScore) {
+		super(timestamp, simulationsessionid, involvedusers, modelsetid);
 		this.processid = processid;
 		this.sessionscore = sessionScore;
 	}

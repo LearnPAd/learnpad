@@ -34,11 +34,12 @@ public class TaskFailedEvent extends TaskEndEvent {
 	}
 
 	public TaskFailedEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String processid, String taskid,
-			String taskdefid, List<String> assignedusers,
+			List<String> involvedusers, String modelsetid, String processid,
+			String taskid, String taskdefid, List<String> assignedusers,
 			String completingUser, Map<String, Object> submittedData) {
-		super(timestamp, simulationsessionid, involvedusers, processid, taskid,
-				taskdefid, assignedusers, completingUser, submittedData);
+		super(timestamp, simulationsessionid, involvedusers, modelsetid,
+				processid, taskid, taskdefid, assignedusers, completingUser,
+				submittedData);
 	}
 
 }

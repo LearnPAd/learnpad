@@ -35,8 +35,8 @@ public class SimulationStartEvent extends AbstractEvent {
 	}
 
 	public SimulationStartEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers) {
-		super(timestamp, simulationsessionid, involvedusers);
+			List<String> involvedusers, String modelsetid) {
+		super(timestamp, simulationsessionid, involvedusers, modelsetid);
 	}
 
 }

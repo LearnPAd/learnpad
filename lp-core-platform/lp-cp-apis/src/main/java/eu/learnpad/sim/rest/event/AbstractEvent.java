@@ -31,17 +31,19 @@ public abstract class AbstractEvent {
 	public Long timestamp;
 	public String simulationsessionid;
 	public List<String> involvedusers;
+	public String modelsetid;
 
 	public AbstractEvent() {
 		super();
 	}
 
 	public AbstractEvent(Long timeStamp, String simulationsessionid,
-			List<String> involvedusers) {
+			List<String> involvedusers, String modelsetid) {
 		super();
 		this.timestamp = timeStamp;
 		this.simulationsessionid = simulationsessionid;
 		this.involvedusers = involvedusers;
+		this.modelsetid = modelsetid;
 	}
 
 }
