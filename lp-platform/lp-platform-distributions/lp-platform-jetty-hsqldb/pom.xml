@@ -203,6 +203,18 @@
 					<type>jar</type>
 				</dependency>
 				<dependency>
+					<groupId>org.xwiki.commons</groupId>
+					<artifactId>xwiki-commons-extension-handler-jar</artifactId>
+					<version>${commons.version}</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.xwiki.platform</groupId>
+					<artifactId>xwiki-platform-extension-handler-xar</artifactId>
+					<version>${platform.version}</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
 					<groupId>org.xwiki.platform</groupId>
 					<artifactId>xwiki-platform-extension-script</artifactId>
 					<version>${platform.version}</version>
