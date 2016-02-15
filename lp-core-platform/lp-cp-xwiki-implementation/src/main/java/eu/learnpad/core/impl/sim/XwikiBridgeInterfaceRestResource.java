@@ -106,7 +106,7 @@ import eu.learnpad.sim.rest.data.UserData;
 
 	@Override
 	public Collection<String> addProcessDefinition(
-			String processDefinitionFileURL) throws LpRestException {
+			String processDefinitionFileURL, String modelSetId) throws LpRestException {
 		HttpClient httpClient = RestResource.getAnonymousClient();
 		String uri = String.format("%s/learnpad/sim/bridge/processes",
 				RestResource.SIM_REST_URI);

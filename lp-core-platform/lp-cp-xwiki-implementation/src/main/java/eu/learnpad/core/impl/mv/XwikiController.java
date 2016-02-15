@@ -208,7 +208,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
                 Iterator<String> uriIterator = uriCollection.iterator();
                 while (importedInTheSimulator && uriIterator.hasNext()) {
                     String bpmnFileURL = uriIterator.next();
-                    Collection<String> savedProcessesList = this.sim.addProcessDefinition(bpmnFileURL);
+                    Collection<String> savedProcessesList = this.sim.addProcessDefinition(bpmnFileURL, modelSetId);
                     importedInTheSimulator = this.verifyImportedProcesses(savedProcessesList, bpmnFileURL);
                 }
             }

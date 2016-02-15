@@ -126,7 +126,7 @@ public class SimulatorBridgeImpl implements BridgeInterface, IUserInfosAPI {
 	 * addProcessDefinition(java.lang.String)
 	 */
 	public Collection<String> addProcessDefinition(
-			String processDefinitionFilePath) {
+			String processDefinitionFilePath, String modelSetId) {
 
 		// since we are potentially creating several resources we do not return
 		// the location of a specific one.

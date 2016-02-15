@@ -64,7 +64,9 @@ public interface IProcessHandlingAPI {
 	@POST
 	@Path("/processes")
 	public Collection<String> addProcessDefinition(
-			String processDefinitionFileURL) throws LpRestException;
+			String processDefinitionFileURL,
+			@QueryParam("modelsetartifactid") String modelSetId)
+			throws LpRestException;
 
 	/**
 	 *
