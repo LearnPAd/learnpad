@@ -108,8 +108,14 @@ import eu.learnpad.sim.rest.data.UserData;
 	public Collection<String> addProcessDefinition(
 			String processDefinitionFileURL, String modelSetId) throws LpRestException {
 		HttpClient httpClient = RestResource.getAnonymousClient();
-		String uri = String.format("%s/learnpad/sim/bridge/processes",
-				RestResource.SIM_REST_URI);
+		String uri;
+		if(modelSetId != null) {
+			uri = String.format("%s/learnpad/sim/bridge/processes?modelsetartifactid=%s",
+					RestResource.SIM_REST_URI, modelSetId);
+		} else {
+			uri = String.format("%s/learnpad/sim/bridge/processes",
+					RestResource.SIM_REST_URI);
+		}
 
 		PostMethod postMethod = new PostMethod(uri);
 		postMethod.addRequestHeader("Content-Type", "application/json");
