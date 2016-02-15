@@ -20,6 +20,7 @@
 package eu.learnpad.core.impl.sim;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -31,6 +32,9 @@ import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource;
+import eu.learnpad.exception.LpRestException;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.sim.BridgeInterface;
 import eu.learnpad.sim.Controller;
 import eu.learnpad.sim.rest.data.UserData;
@@ -114,9 +118,17 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public void receiveProcessStartEvent(ProcessStartEvent event) {
+	public void receiveProcessStartEvent(ProcessStartEvent event) throws LpRestException{
 		// TODO Auto-generated method stub
-
+				
+		String modelId = event.processid;
+		String action = "started";
+		
+		String modelSetId = event.modelsetid;
+//		String modelSetId = this.retreiveModelSetId(modelId);
+		
+		String simulationId = event.simulationsessionid;
+		this.or.simulationInstanceNotification(modelSetId, modelId, action, simulationId);
 	}
 
 	@Override
@@ -126,15 +138,34 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public void receiveTaskStartEvent(TaskStartEvent event) {
-		// TODO Auto-generated method stub
+	public void receiveTaskStartEvent(TaskStartEvent event) throws LpRestException {
+		// TODO please check this ... for sure with Sandro
 
+		String modelId = event.processid;
+		String artifactId = event.taskdefid;
+		
+		String modelSetId = event.modelsetid;
+//		String modelSetId = this.retreiveModelSetId(modelId);
+		
+		String simulationId = event.simulationsessionid;
+		Recommendations rec = this.or.askRecommendation(simulationId); 
+		
+		this.cw.notifyRecommendations(simulationId, rec);		
 	}
 
 	@Override
-	public void receiveTaskEndEvent(TaskEndEvent event) {
-		// TODO Auto-generated method stub
+	public void receiveTaskEndEvent(TaskEndEvent event) throws LpRestException {
+		// TODO please check this ... 
 
+		String modelId = event.processid;
+		String artifactId = event.taskdefid;
+		Map<String, Object> data = event.submittedData; 
+						
+		String modelSetId = event.modelsetid;
+//		String modelSetId = this.retreiveModelSetId(modelId);
+		
+		String simulationId = event.simulationsessionid;
+		this.or.simulationTaskEndNotification(modelSetId, modelId, artifactId, simulationId, data);		
 	}
 
 	@Override
@@ -145,8 +176,9 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
 	@Override
 	public void receiveSimulationStartEvent(SimulationStartEvent event) {
-		// TODO Auto-generated method stub
-
+		// TODO probably we do not want do anything here. The actual interaction
+		// between the OR and the SIM starts when receiveProcessStartEvent will be
+		// received
 	}
 
 	@Override
@@ -161,4 +193,18 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
 	}
 
+	private String retreiveModelSetId(String resourceID) throws LpRestException{
+		List<String> modelSetIdList = this.cw.retreiveModelSetId(resourceID);
+		if ((modelSetIdList == null) || (modelSetIdList.isEmpty())){
+			LpRestExceptionXWikiImpl e = new LpRestExceptionXWikiImpl("No ModelSetId found for the Process ID :" + resourceID +" in the Collaborative Workspace");
+			throw e;
+		}
+		
+// TODO : Currently we only rely on the first match returned. In fact we assume
+//	that once stored, ID are uniques. This may change in future.	
+		String modelSetId = modelSetIdList.get(0);
+		
+		return modelSetId;
+	}
+	
 }
