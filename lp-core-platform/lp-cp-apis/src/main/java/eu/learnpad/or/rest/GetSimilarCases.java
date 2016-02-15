@@ -29,8 +29,8 @@ import eu.learnpad.or.rest.data.SimilarCases;
 public interface GetSimilarCases {
     
     /**
-     * Search for similar cases with the given case descriptions. 
-     * Each parameter belonging to the application is optional.
+     * Lookup case description (case characterisation) of the case assigned to the simulation id
+     * and search for similar cases based on the comparsion of the case characterisations. 
      *
      * @param simulationSessionId unique id of a simulation session instance
      * 

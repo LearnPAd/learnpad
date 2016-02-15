@@ -28,50 +28,66 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
 
 public interface AskRecommendation {
-	/**
-	 * 
-	 * The file returned could be XML or JSON (below is shown as XML to explain
-	 * the structure) The different types of recommendations are based on the
-	 * Ölten's workshop discussions
-	 * http://wiki.learnpad.eu/LearnPAdWiki/bin/view
-	 * /WP5/MinutesOltenWorkshop#HContextpanel
-	 * <p>
-	 * A specific format for each kind of recommendation.  For example, the following one is about experts.
+
+    /**
+     *
+     * The file returned could be XML or JSON (below is shown as XML to explain
+     * the structure) The different types of recommendations are based on the
+     * Ölten's workshop discussions
+     * http://wiki.learnpad.eu/LearnPAdWiki/bin/view
+     * /WP5/MinutesOltenWorkshop#HContextpanel
+     * <p>
+     * A specific format for each kind of recommendation. For example, the
+     * following one is about experts.
 	 * <code>
-	 * <experts>
-	 *   <expert>
-	 *     <id>useridfromthemodel</id>
-	 *     <user>Jean Simard</user>
-	 *     <email>jean.simard@...</email>
-	 *     <phone>2132321</phone>
-	 *   </expert>
-	 * </experts>
-	 * </code>
-	 * <p>
-	 * The different type of recommendations could be:
-	 * <ul>
-	 * <li>role: about the role concerned by the current artifact (what people?,
-	 * what organisation unit?)
-	 * <li>context: mainly in execution mode, what are the contextual
-	 * information from previous steps that could be needed here
-	 * <li>expert: recommend some other people that may help on the current
-	 * artifact
-	 * <li>resource: other document that can complete the information on the
-	 * current artifact
-	 * </ul>
-	 * 
-	 * @param modelSetId
-	 *            is the uniq ID of the model set
-	 * @param artifactId
-	 *            is the ID of the artifact in the model (event, gateway, unit,
-	 *            etc.)
-	 * @return is the list of recommendations (see above for the format)
-	 * @throws LpRestException
-	 */
-	// <host>/learnpad/or/{modelsetid}/recommendation?artifactid=userid=id,type={role|context|expert|resource|...}
-	@Path("/{modelsetid}/recommendation")
-	@GET
-	Recommendations askRecommendation(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("artifactid") String artifactId,
-			@QueryParam("userid") String userId, @QueryParam("type") String type) throws LpRestException;
+     * <experts>
+     * <expert>
+     * <id>useridfromthemodel</id>
+     * <user>Jean Simard</user>
+     * <email>jean.simard@...</email>
+     * <phone>2132321</phone>
+     * </expert>
+     * </experts>
+     * </code>
+     * <p>
+     * The different type of recommendations could be:
+     * <ul>
+     * <li>role: about the role concerned by the current artifact (what people?,
+     * what organisation unit?)
+     * <li>context: mainly in execution mode, what are the contextual
+     * information from previous steps that could be needed here
+     * <li>expert: recommend some other people that may help on the current
+     * artifact
+     * <li>resource: other document that can complete the information on the
+     * current artifact
+     * </ul>
+     *
+     * @param modelSetId is the uniq ID of the model set
+     * @param artifactId is the ID of the artifact in the model (event, gateway, unit, etc.)
+     * @param userId
+     * @param type
+     * @return is the list of recommendations (see above for the format)
+     * @throws LpRestException
+     */
+    // <host>/learnpad/or/{modelsetid}/recommendation?artifactid=userid=id,type={role|context|expert|resource|...}
+    @Path("/{modelsetid}/recommendation")
+    @GET
+    Recommendations askRecommendation(@PathParam("modelsetid") String modelSetId,
+            @QueryParam("artifactid") String artifactId,
+            @QueryParam("userid") String userId, @QueryParam("type") String type) throws LpRestException;
+
+    /**
+     * Lookup case description (case characterisation) of the case assigned to
+     * the simulation id and search for similar cases based on the comparsion of
+     * the case characterisations.
+     *
+     * @param simulationSessionId unique id of a simulation session instance
+     *
+     * @return list of recommendations with similar cases.
+     *
+     * @throws LpRestException
+     */
+    @Path("/recommendation")
+    @GET
+    Recommendations askRecommendation(@PathParam("simulationSessionId") String simulationSessionId) throws LpRestException;
 }

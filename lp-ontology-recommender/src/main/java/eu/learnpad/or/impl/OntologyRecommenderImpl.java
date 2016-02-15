@@ -15,7 +15,11 @@ import eu.learnpad.or.rest.data.States;
 import eu.learnpad.ontology.transformation.ModellingEnvironmentType;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.SimilarCase;
 import eu.learnpad.or.rest.data.SimilarCases;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -72,26 +76,63 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 //        recomms.setExperts(experts);
         return recomms;
     }
-
+    
     @Override
-    public byte[] simulationNotification(String modelSetId, String modelId, String action, String simulationId) throws LpRestException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Recommendations askRecommendation(String simulationSessionId) throws LpRestException {
+          Recommendations rec = new Recommendations();
+          SimilarCases cases = new SimilarCases();
+          List<SimilarCase> caseList = new ArrayList();
+          SimilarCase case1 = new SimilarCase();
+          case1.setSimilarityValue(0.82);
+          case1.setName("Capelletti - Chalet at the beach (Test)");
+          case1.setApplicantName("Giuseppe Cappelletti");
+          case1.setApplicationCity("Senigallia");
+          case1.setApplicationZones(new String[]{"Beach area at the sea"});
+          case1.setApplicationPublicAdministration("Senigallia");
+          case1.setApplicationType("Modification");
+          case1.setApplicationSubtype("Restructuring");
+          case1.setApplicationSectors(new String[]{"Building","Environment","Public Land","Tourism"});
+          case1.setApplicationBusinessActivities(new String[]{"Receptive Tourism"});
+          case1.setApplicationDescription("Realization of a chalet on a beach area of Senigallia");
+          case1.setApplicationATECOCategories(new String[]{"55.20.51: Boutique hotels for short staying, houses and apatments for holidays, bed&breakfast, residence", "43.39.01: Non specialized construction (masons)"});
+          caseList.add(case1);
+          SimilarCase case2 = new SimilarCase();
+          case2.setSimilarityValue(0.42);
+          case2.setName("Gianna Morbidelli - Walls on hotel(Test)");
+          caseList.add(case2);
+          SimilarCase case3 = new SimilarCase();
+          case3.setSimilarityValue(0.38);
+          case3.setName("Ermenegildo Fiori - Restructuring for B&B (Test)");
+          caseList.add(case3);
+          cases.setSimilarCases(caseList);
+          rec.setSimilarCases(cases);
+          
+          return rec;
+    }    
+    
+    @Override
+    public void simulationInstanceNotification(String modelSetId, String modelId, String action, String simulationId) throws LpRestException {
+        //TODO
     }
 
     @Override
+    public void simulationTaskStartNotification(String modelSetId, String modelId, String artifactId, String simulationId) throws LpRestException {
+        //TODO
+    }
+
+    @Override
+    public void simulationTaskEndNotification(String modelSetId, String modelId, String artifactId, String simulationId, Map<String, Object> data) throws LpRestException {
+        //TODO
+    }
+    
+    @Override
     public void addExecutionState(String modelSetId, String executionId, String userId, String threadId, String pageId, String artifactId) throws LpRestException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Postponed
     }
 
     @Override
     public States listExecutionStates(String userId) throws LpRestException {
         States states = ExecutionStates.getInstance().getStatesOfLatestAddedModelSet(userId);
         return states;
-    }
-
-    @Override
-    public SimilarCases retrieveSimilarCases(String modelSetId, String artifactId, String userId, String type, String applicantName, String applicationCity, String applicationZone, String applicationType, String applicationPublicAdministration, String applicationSector, String applicationBusinessActivity, String applicationDescription, String applicationATECOCategory) throws LpRestException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    }    
 }

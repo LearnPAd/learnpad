@@ -1,7 +1,5 @@
 # baseURI: http://ikm-group.ch/archiMEO/CMM
-# imports: http://ikm-group.ch/archiMEO/archimate
 # imports: http://ikm-group.ch/archiMEO/emo
-# imports: http://ikm-group.ch/archiMEO/eo
 
 @prefix cc: <http://creativecommons.org/ns#> .
 @prefix cmm: <http://ikm-group.ch/archiMEO/CMM#> .
@@ -27,9 +25,7 @@
   dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
   dc:rights "Copyright 2015 FHNW "^^xsd:string ;
   dc:title "The CMM Ontology"@en ;
-  owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
   owl:imports <http://ikm-group.ch/archiMEO/emo> ;
-  owl:imports <http://ikm-group.ch/archiMEO/eo> ;
   owl:versionInfo "1.0"^^xsd:string ;
 .
 cmm:Auditory_learningPreference
