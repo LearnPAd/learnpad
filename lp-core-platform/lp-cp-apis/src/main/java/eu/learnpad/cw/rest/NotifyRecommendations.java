@@ -8,10 +8,10 @@ import javax.ws.rs.QueryParam;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
 
-public interface NotifyRecommendations {
-
-	@Path("/notify/{modelsetid}")
-	@PUT
-	public void notify(@QueryParam("simulationid")@DefaultValue("") String simulationid, Recommendations rec) throws LpRestException;
-	
+public interface NotifyRecommendations
+{
+    @Path("/notify/{modelsetid}")
+    @PUT
+    public void notifyRecommendations(@QueryParam("simulationid") @DefaultValue("") String simulationid,
+        Recommendations rec) throws LpRestException;
 }

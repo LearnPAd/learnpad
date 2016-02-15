@@ -19,34 +19,21 @@
  */
 package eu.learnpad.cw;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
@@ -385,7 +372,7 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge
     }
 
 	@Override
-	public void notify(String simulationid, Recommendations recommendations)
+	public void notifyRecommendations(String simulationid, Recommendations recommendations)
 			throws LpRestException {
 		// TODO Auto-generated method stub
 	}
