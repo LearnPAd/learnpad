@@ -37,6 +37,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -594,6 +595,20 @@ public class ActivitiProcessManager implements IProcessManager,
 	@Override
 	public boolean isFailOnException() {
 		return false;
+	}
+
+	// // ModelSetId related methods
+
+	private final Map<String, String> processDefToModelSet = new ConcurrentHashMap<String, String>();
+
+	@Override
+	public void setModelSetId(String processDefId, String modelSetId) {
+		processDefToModelSet.put(processDefId, modelSetId);
+	}
+
+	@Override
+	public String getModelSetId(String processDefId) {
+		return processDefToModelSet.get(processDefId);
 	}
 
 }

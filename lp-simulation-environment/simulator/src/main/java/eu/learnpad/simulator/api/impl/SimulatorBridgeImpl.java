@@ -142,6 +142,11 @@ public class SimulatorBridgeImpl implements BridgeInterface, IUserInfosAPI {
 			for (String id : processDefIds) {
 				processDefKeys.add(simulator.processManager()
 						.getProcessDefinitionKey(id));
+
+				// register modelsetid if provided
+				if (modelSetId != null) {
+					simulator.processManager().setModelSetId(id, modelSetId);
+				}
 			}
 			return processDefKeys;
 		} catch (IOException e) {

@@ -237,4 +237,21 @@ public interface IProcessManager {
 	 */
 	public LearnPadTaskGameInfos getGameInfos(LearnPadTask task, String userId);
 
+	// ModelSetId-related methods
+
+	/**
+	 * Associate a modelset id to a process definition id
+	 *
+	 * @param processDefId
+	 * @param modelSetId
+	 */
+	public void setModelSetId(String processDefId, String modelSetId);
+
+	/**
+	 *
+	 * @param processDefId
+	 * @return the model set id associated with a process definition id, or null
+	 *         if no model set is associated to the process def id
+	 */
+	public String getModelSetId(String processDefId);
 }
