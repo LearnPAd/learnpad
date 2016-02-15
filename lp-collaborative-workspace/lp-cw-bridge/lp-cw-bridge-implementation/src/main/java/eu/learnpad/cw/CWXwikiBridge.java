@@ -383,4 +383,11 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge
         Collection<UserData> potentialUsersCollection = getUserProfiles(potentialUsers);
         return this.corefacade.startSimulation(modelId, currentUser, potentialUsersCollection);
     }
+
+	@Override
+	public void notify(String simulationid, Recommendations rec)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		
+	}
 }
