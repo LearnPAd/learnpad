@@ -35,7 +35,7 @@ public interface SimulationNotification {
 	 * @param modelSetId
 	 *            is the modelset ID concerned by the simulation
 	 * @param modelId
-	 *            is the model ID concerned by the simulation
+	 *            is the model ID process concerned by the simulation
 	 * @param action
 	 *            is one of the following values: started, stopped
 	 * @param simulationId
@@ -63,7 +63,7 @@ public interface SimulationNotification {
 	 *            is the ID of the concerned simulation
 	 * @throws LpRestException
 	 */
-	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationnotification?action={started|stopped},simulationid=id
+	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationtaskstart?artifactid=aid,simulationid=id
 	@POST
 	@Path("/{modelsetid}/{modelid}/simulationtaskstart")
 	void simulationTaskStartNotification(@PathParam("modelsetid") String modelSetId,
@@ -86,9 +86,10 @@ public interface SimulationNotification {
 	 *            is the ID of the concerned simulation
 	 * @throws LpRestException
 	 */
-	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationnotification?action={started|stopped},simulationid=id
+	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationtaskend?artifactid=aid,simulationid=id,data=dapaMap
+
 	@POST
-	@Path("/{modelsetid}/{modelid}/simulationtaskstart")
+	@Path("/{modelsetid}/{modelid}/simulationtaskend")
 	void simulationTaskEndNotification(@PathParam("modelsetid") String modelSetId,
 			@PathParam("modelid") String modelId,
                         @QueryParam("artifactid") String artifactId,
