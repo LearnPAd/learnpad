@@ -182,7 +182,7 @@ public class MainMonitoring {
 
 				engineOne.start();
 				
-				RestNotifier notifierEngine = new RestNotifier(Manager.Read(RESTNOTIFIERURLSTRING).getProperty("post.rest.url"));
+				RestNotifier notifierEngine = new RestNotifier();
 				notifierEngine.start();
 				
 				//starting the LAM and connecting to DB

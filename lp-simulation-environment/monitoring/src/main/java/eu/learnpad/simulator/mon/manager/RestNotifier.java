@@ -14,17 +14,17 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 
+import eu.learnpad.sim.CoreFacade;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
+import eu.learnpad.simulator.api.impl.SimulatorMonCoreFacadeImpl;
+import eu.learnpad.sim.rest.event.AbstractEvent;
+import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
 
 public class RestNotifier extends Thread {
 	
-	private static HttpClient client;
-	private static HttpPost post;
-	private static HttpResponse response;
+	private volatile static CoreFacade platformCoreFacade = new SimulatorMonCoreFacadeImpl(); 
 	
-	public RestNotifier(String restEventNotificationURL) {
-		client = HttpClientBuilder.create().build();
-		post = new HttpPost(restEventNotificationURL); 
+	public RestNotifier() { 
 	}
 
 	public void run() {
@@ -32,27 +32,25 @@ public class RestNotifier extends Thread {
 	}
 	
 	public static void notifySimulationStart(String processID, String processName, String processTimeStamp, String learnerID, String sessionID) {
-		RestNotifier.executePostAction(processID, processName, processTimeStamp, learnerID, sessionID);
+		//AbstractEvent event = new SimulationStartEvent(processTimeStamp,  sessionID,  , modelsetid)
+				
+	//	platformCoreFacade.receiveSimulationStartEvent( );
 	}
 		
 	public static void notifySimulationStop(String processID, String processName, String processTimeStamp,	String learnerID, String sessionID) {
-		RestNotifier.executePostAction(processID, processName, processTimeStamp, learnerID, sessionID);
+		
 	}
 		
 	public static void notifyProcessStart(String processID, String processName, String processTimeStamp, String learnerID, String sessionID) {
-		RestNotifier.executePostAction(processID, processName, processTimeStamp, learnerID, sessionID);
 	}
 	
 	public static void notifyProcessStop(String processID, String processName, String processTimeStamp,	String learnerID, String sessionID) {
-		RestNotifier.executePostAction(processID, processName, processTimeStamp, learnerID, sessionID);
 	}
 	
 	public static void notifyTaskStart(String processID, String processName, String processTimeStamp, String learnerID, String sessionID) {
-		RestNotifier.executePostAction(processID, processName, processTimeStamp, learnerID, sessionID);
 	}
 	
 	public static void notifyTaskStop(String processID, String processName, String processTimeStamp, String learnerID, String sessionID) {
-		RestNotifier.executePostAction(processID, processName, processTimeStamp, learnerID, sessionID);
 	}
 	
 	
@@ -67,22 +65,6 @@ public class RestNotifier extends Thread {
 		return nameValuePairs;
 	}
 	
-	public static void executePostAction(String processID, String processName, String processTimeStamp,
-																		String learnerID, String sessionID) {
-		try {
-			post.setEntity(new UrlEncodedFormEntity(RestNotifier.setupValue(processID,processName, processTimeStamp, learnerID, sessionID)));		
-			response = client.execute(post);
-	
-			BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-			String line = "";
-			while ((line = rd.readLine()) != null) {
-				System.out.println(line);
-			}
-		} catch (IOException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(),e.getCause().toString());
-		}
-	}
-
 	public static void notifySessionScoreUpdates(String learnersID, int idPath, String idBPMN, float sessionScore) {
 		// TODO Auto-generated method stub
 		
