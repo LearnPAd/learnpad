@@ -119,33 +119,27 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
 	@Override
 	public void receiveProcessStartEvent(ProcessStartEvent event) throws LpRestException{
-		// TODO Auto-generated method stub
-				
 		String modelId = event.processid;
-		String action = "started";
-		
-		String modelSetId = event.modelsetid;
-//		String modelSetId = this.retreiveModelSetId(modelId);
-		
+		String action = "started";		
+		String modelSetId = event.modelsetid;		
 		String simulationId = event.simulationsessionid;
-		this.or.simulationInstanceNotification(modelSetId, modelId, action, simulationId);
+		
+		this.or.simulationInstanceNotification(modelSetId, modelId, action, simulationId);				
 	}
 
 	@Override
-	public void receiveProcessEndEvent(ProcessEndEvent event) {
-		// TODO Auto-generated method stub
-
+	public void receiveProcessEndEvent(ProcessEndEvent event)  throws LpRestException{
+		String modelId = event.processid;
+		String action = "stopped";		
+		String modelSetId = event.modelsetid;		
+		String simulationId = event.simulationsessionid;
+		
+		this.or.simulationInstanceNotification(modelSetId, modelId, action, simulationId);				
 	}
 
 	@Override
 	public void receiveTaskStartEvent(TaskStartEvent event) throws LpRestException {
 		// TODO please check this ... for sure with Sandro
-
-		String modelId = event.processid;
-		String artifactId = event.taskdefid;
-		
-		String modelSetId = event.modelsetid;
-//		String modelSetId = this.retreiveModelSetId(modelId);
 		
 		String simulationId = event.simulationsessionid;
 		Recommendations rec = this.or.askRecommendation(simulationId); 
@@ -159,10 +153,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
 		String modelId = event.processid;
 		String artifactId = event.taskdefid;
-		Map<String, Object> data = event.submittedData; 
-						
 		String modelSetId = event.modelsetid;
-//		String modelSetId = this.retreiveModelSetId(modelId);
+		Map<String, Object> data = event.submittedData; 						
 		
 		String simulationId = event.simulationsessionid;
 		this.or.simulationTaskEndNotification(modelSetId, modelId, artifactId, simulationId, data);		
@@ -183,8 +175,9 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
 	@Override
 	public void receiveSimulationEndEvent(SimulationEndEvent event) {
-		// TODO Auto-generated method stub
-
+		// TODO probably we do not want do anything here. The actual interaction
+		// between the OR and the SIM ends when receiveProcessEndEvent will be
+		// received
 	}
 
 	@Override
