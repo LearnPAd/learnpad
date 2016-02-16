@@ -1,5 +1,7 @@
 package eu.learnpad.simulator.mon.rulesGenerator;
 
+import eu.learnpad.simulator.mon.coverage.Activity;
+
 public class RuleElements {
 
 	
@@ -7,10 +9,12 @@ public class RuleElements {
 	
 	public static String getHeader(String ruleName, String dialect) {
 	
-		header ="\t\timport eu.learnpad.monitoring.glimpse.event.GlimpseBaseEventBPMN;\n\t\t" +
-				"import eu.learnpad.monitoring.glimpse.manager.ResponseDispatcher;\n\t\t" +
-				"import eu.learnpad.monitoring.glimpse.utils.NotifierUtils;\n\t\t" +
-				"import eu.learnpad.monitoring.glimpse.rules.DroolsRulesManager;\n\n" +
+		header ="\t\t"+
+				"import eu.learnpad.simulator.mon.event.GlimpseBaseEventBPMN;\n\t\t" +
+				"import eu.learnpad.simulator.mon.manager.ResponseDispatcher;\n\t\t" +
+				"import eu.learnpad.simulator.mon.manager.RestNotifier;\n\t\t" +
+				"import eu.learnpad.simulator.mon.utils.NotifierUtils;\n\t\t" +
+				"import eu.learnpad.simulator.mon.rules.DroolsRulesManager;\n\n" +
 				"\t\tdeclare GlimpseBaseEventBPMN\n" +
 				"\t\t\t@role( event )\n" +
 				"\t\t\t@timestamp( timeStamp )\n" +
@@ -27,9 +31,29 @@ public class RuleElements {
 		return "\t\twhen\n";
 	}
 	
-	public static String getThenClause() {
-		return "\n\t\tthen \n\t\t\t$0Event.setConsumed(true); \n\t\t\tupdate($0Event);";
+	public static String getThenClause(Activity[] theActivitySetToSetConsumed) {
+		String concat = "\n\t\tthen ";
+		for (int i = 0; i<theActivitySetToSetConsumed.length; i++) {
+			concat = concat + "\n\t\t\t$"+ i
+					+ "Event.setConsumed(true); \n\t\t\tupdate($"+ i +"Event);"
+					+ "\n\t\t\tretract($"+ i +"Event);"; 
+		}
+		return concat;
 	}
+	
+	public static String getThenClauseWithLearnersScoreUpdateAndProcessStartNotification(Activity[] theActivitySetToSetConsumed, String idBPMN, int idPath) {
+		String concat = "\n\t\tthen ";
+		for (int i = 0; i<theActivitySetToSetConsumed.length; i++) {
+			concat = concat + "\n\t\t\t$"+ i
+					+ "Event.setConsumed(true); \n\t\t\tupdate($"+ i +"Event);"
+					+ "\n\t\t\tretract($"+ i +"Event);";					
+		}
+		 concat = concat + "\n\t\t\t"
+			+ "ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \""+ idBPMN +"\", " +  theActivitySetToSetConsumed[0].getPath_id() + ", " + "##TASKSCORE##);";
+		 //TODO: fix idPath
+		return concat;
+	}
+		
 	
 	public static String getEnd() {
 		return "\n\t\tend\n\n\t";

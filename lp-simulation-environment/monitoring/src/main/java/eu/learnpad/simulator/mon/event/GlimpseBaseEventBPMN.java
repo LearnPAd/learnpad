@@ -6,8 +6,7 @@ public class GlimpseBaseEventBPMN<T> extends GlimpseBaseEventGeneric<String> {
 
 	private static final long serialVersionUID = 1L;
 	public String sessionID;
-	public String assigneeID;
-	public String roleID;	
+	public int assigneeID;
 	public String taskID;
 	public String subProcessID;
 	public String desideredCompletionTime;
@@ -15,14 +14,13 @@ public class GlimpseBaseEventBPMN<T> extends GlimpseBaseEventGeneric<String> {
 	public GlimpseBaseEventBPMN(
 			String data, String probeID, Long timeStamp,
 			String eventName, boolean isException, String extraDataField, 
-			String sessionID, String assigneeID, String roleID, String taskID,
+			String sessionID, int assigneeID, String taskID,
 			String subProcessID, String desideredCompletionTime) {
 		
 		super(data, probeID, timeStamp, eventName, isException, extraDataField);
 		
 		this.sessionID = sessionID;
-		this.assigneeID = assigneeID;
-		this.roleID = roleID;
+		this.assigneeID = assigneeID;		
 		this.taskID = taskID;
 		this.subProcessID = subProcessID;
 		this.desideredCompletionTime = desideredCompletionTime;
@@ -44,11 +42,11 @@ public class GlimpseBaseEventBPMN<T> extends GlimpseBaseEventGeneric<String> {
 		this.sessionID = sessionID;
 	}
 	
-	public String getAssigneeID() {
+	public int getAssigneeID() {
 		return this.assigneeID;
 	}
 	
-	public void setAssigneeID(String assigneeID) {
+	public void setAssigneeID(int assigneeID) {
 		this.assigneeID = assigneeID;
 	}
 	
@@ -65,12 +63,5 @@ public class GlimpseBaseEventBPMN<T> extends GlimpseBaseEventGeneric<String> {
 	
 	public void setSubProcessID(String subProcessID) {
 		this.subProcessID = subProcessID;
-	}	
-	public String getRoleID() {
-		return this.roleID;
-	}
-	
-	public void setRoleID(String roleID) {
-		this.roleID = roleID;
 	}
 }

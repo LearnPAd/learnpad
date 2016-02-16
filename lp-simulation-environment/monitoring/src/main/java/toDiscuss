@@ -1,0 +1,8 @@
+When the simulator sends the learners that are joining the simulation,
+it sends a Vector<Learner> ?
+
+Where is located the task score?
+
+On the jms message we should include also the session_score?
+
+ 
