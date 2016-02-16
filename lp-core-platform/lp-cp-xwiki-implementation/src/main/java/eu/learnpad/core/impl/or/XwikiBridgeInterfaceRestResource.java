@@ -73,7 +73,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 
 	@Override
 	public Recommendations askRecommendation(String modelSetId, String artifactId,
-			String userId, String type) throws LpRestExceptionImpl {
+			String userId) throws LpRestExceptionImpl {
 		//*
 		HttpClient httpClient = RestResource.getClient();
 		String uri = String.format("%s/learnpad/or/bridge/%s/recommendation",
@@ -87,7 +87,6 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 		NameValuePair[] queryString = new NameValuePair[3];
 		queryString[0] = new NameValuePair("artifactid", artifactId);
 		queryString[1] = new NameValuePair("userid", userId);
-		queryString[2] = new NameValuePair("type", type);
 		getMethod.setQueryString(queryString);
 
 		try {

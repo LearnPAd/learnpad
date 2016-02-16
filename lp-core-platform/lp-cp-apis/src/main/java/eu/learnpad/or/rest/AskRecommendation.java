@@ -65,16 +65,15 @@ public interface AskRecommendation {
      * @param modelSetId is the uniq ID of the model set
      * @param artifactId is the ID of the artifact in the model (event, gateway, unit, etc.)
      * @param userId
-     * @param type
      * @return is the list of recommendations (see above for the format)
      * @throws LpRestException
      */
-    // <host>/learnpad/or/{modelsetid}/recommendation?artifactid=userid=id,type={role|context|expert|resource|...}
+    // <host>/learnpad/or/{modelsetid}/recommendation?artifactid=userid=id
     @Path("/{modelsetid}/recommendation")
     @GET
     Recommendations askRecommendation(@PathParam("modelsetid") String modelSetId,
             @QueryParam("artifactid") String artifactId,
-            @QueryParam("userid") String userId, @QueryParam("type") String type) throws LpRestException;
+            @QueryParam("userid") String userId) throws LpRestException;
 
     /**
      * Lookup case description (case characterisation) of the case assigned to
@@ -87,7 +86,8 @@ public interface AskRecommendation {
      *
      * @throws LpRestException
      */
+    // <host>/learnpad/or/recommendation?simulationid=id
     @Path("/recommendation")
     @GET
-    Recommendations askRecommendation(@PathParam("simulationSessionId") String simulationSessionId) throws LpRestException;
+    Recommendations askRecommendation(@QueryParam("simulationSessionId") String simulationSessionId) throws LpRestException;
 }
