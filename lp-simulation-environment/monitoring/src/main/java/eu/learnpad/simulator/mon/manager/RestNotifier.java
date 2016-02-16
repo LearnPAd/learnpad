@@ -1,24 +1,21 @@
 package eu.learnpad.simulator.mon.manager;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.net.ntp.TimeStamp;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
 
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.sim.CoreFacade;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 import eu.learnpad.simulator.api.impl.SimulatorMonCoreFacadeImpl;
-import eu.learnpad.sim.rest.event.AbstractEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
+import eu.learnpad.sim.rest.event.impl.SimulationEndEvent;
+import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
+import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
+import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
+import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
+import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 
 public class RestNotifier extends Thread {
 	
@@ -31,42 +28,73 @@ public class RestNotifier extends Thread {
 		
 	}
 	
-	public static void notifySimulationStart(String processID, String processName, String processTimeStamp, String learnerID, String sessionID) {
-		//AbstractEvent event = new SimulationStartEvent(processTimeStamp,  sessionID,  , modelsetid)
-				
-	//	platformCoreFacade.receiveSimulationStartEvent( );
+	public static void notifySimulationStart(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID) {
+		SimulationStartEvent event = new SimulationStartEvent(processTimeStamp, sessionID, involvedUsers, modelSetID);
+		try {
+			platformCoreFacade.receiveSimulationStartEvent(event);
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SimulatioStartEvent sent");
+		} catch (LpRestException e) {
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifySimulationStart method");
+		}
 	}
 		
-	public static void notifySimulationStop(String processID, String processName, String processTimeStamp,	String learnerID, String sessionID) {
-		
+	public static void notifySimulationStop(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID) {
+		SimulationEndEvent event = new SimulationEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID);
+		try {
+			platformCoreFacade.receiveSimulationEndEvent(event);
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SimulatioStopEvent sent");
+		} catch (LpRestException e) {
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifySimulationStop method");
+		}
 	}
 		
-	public static void notifyProcessStart(String processID, String processName, String processTimeStamp, String learnerID, String sessionID) {
+	public static void notifyProcessStart(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID, String processID, String processDefinitionID) {
+		ProcessStartEvent event = new ProcessStartEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, processID, processDefinitionID);
+		try {
+			platformCoreFacade.receiveProcessStartEvent(event);
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "ProcessStartEvent sent");
+		} catch (LpRestException e) {
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifyProcessStart method");
+		}
 	}
 	
-	public static void notifyProcessStop(String processID, String processName, String processTimeStamp,	String learnerID, String sessionID) {
+	public static void notifyProcessStop(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID, String processID, String processDefinitionID) {
+		ProcessEndEvent event = new ProcessEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, processID, processDefinitionID);
+		try {
+			platformCoreFacade.receiveProcessEndEvent(event);
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "ProcessStopEvent sent");
+		} catch (LpRestException e) {
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifyProcessStop method");
+		}
 	}
 	
-	public static void notifyTaskStart(String processID, String processName, String processTimeStamp, String learnerID, String sessionID) {
+	public static void notifyTaskStart(Long processTimeStamp, String sessionID, List<String> involvedUsers, String modelSetID, String processID, String taskID, String taskDefinitionID, List<String> assignedUsers) {
+		TaskStartEvent event = new TaskStartEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, processID, taskID, taskDefinitionID, assignedUsers);
+		try {
+			platformCoreFacade.receiveTaskStartEvent(event);
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "TaskStartEvent sent");
+		} catch (LpRestException e) {
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifyTaskStart method");
+		}
 	}
 	
-	public static void notifyTaskStop(String processID, String processName, String processTimeStamp, String learnerID, String sessionID) {
+	public static void notifyTaskStop(Long processTimeStamp, String sessionID, List<String> involvedUsers, String modelSetID, String processID, String taskID, String taskDefinitionID, List<String> assignedUsers, String completingUserID, Map<String,Object> submittedData) {
+		TaskEndEvent event = new TaskEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, processID, taskID, taskDefinitionID, assignedUsers, completingUserID, submittedData);
+		try {
+			platformCoreFacade.receiveTaskEndEvent(event);
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "TaskEndEvent sent");
+		} catch (LpRestException e) {
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifyTaskEnd method");
+		}
 	}
 	
-	
-	public static List<BasicNameValuePair> setupValue(String processID, String processName, String processTimeStamp,
-																		String learnerID, String sessionID) {
-		List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>(1);
-		nameValuePairs.add(new BasicNameValuePair("processID", processID));
-		nameValuePairs.add(new BasicNameValuePair("processName", processName));
-		nameValuePairs.add(new BasicNameValuePair("processTimeStamp", processTimeStamp));
-		nameValuePairs.add(new BasicNameValuePair("learnerID", learnerID));
-		nameValuePairs.add(new BasicNameValuePair("sessionID", sessionID));
-		return nameValuePairs;
-	}
-	
-	public static void notifySessionScoreUpdates(String learnersID, int idPath, String idBPMN, float sessionScore) {
-		// TODO Auto-generated method stub
-		
+	public static void notifySessionScoreUpdate(Long processTimeStamp, String sessionID, List<String> involvedUsers, String modelSetID, String processID, String userID, Long sessionScore) {
+		SessionScoreUpdateEvent event = new SessionScoreUpdateEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, processID, userID, sessionScore);
+		try {
+			platformCoreFacade.receiveSessionScoreUpdateEvent(event);
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SessionScoreUpdateEvent sent");
+		} catch (LpRestException e) {
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifySessionScoreUpdate method");
+		}
 	}
 }
