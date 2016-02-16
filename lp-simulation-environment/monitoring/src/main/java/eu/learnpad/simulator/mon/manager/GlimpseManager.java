@@ -193,14 +193,8 @@ public class GlimpseManager extends Thread implements MessageListener {
 				sendMessage(createMessage("PROVIDED RULE CONTAINS ERRORS", sender));
 			}
 			
-	//TODO:////////TESTTTTTTTTTTTTTTTTT///////////////////////////
-	//TODO:///////TESTTTTTTTTTTTTTTTTT///////////////////////////
-	//TODO:///////TESTTTTTTTTTTTTTTTTT///////////////////////////
-			ResponseDispatcher.saveAndNotifyLearnersScore("1-2-6", "a23748293649", 5, 300.0f);
-	//TODO:///////TESTTTTTTTTTTTTTTTTT///////////////////////////
-	//TODO:///////TESTTTTTTTTTTTTTTTTT///////////////////////////
-	//TODO:///////TESTTTTTTTTTTTTTTTTT///////////////////////////
-			
+//TODO:////////TESTTTTTTTTTTTTTTTTT///////////////////////////
+//			ResponseDispatcher.saveAndNotifyLearnersScore("1-2-6", "a23748293649", 5, 300.0f);
 			
 		} catch (NullPointerException asd) {
 			try {
