@@ -19,7 +19,6 @@ package eu.learnpad.simulator.mon;
   * 
 */
 
-
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.Properties;
@@ -32,12 +31,16 @@ import org.apache.commons.net.ntp.TimeStamp;
 
 import eu.learnpad.simulator.mon.buffer.EventsBuffer;
 import eu.learnpad.simulator.mon.cep.ComplexEventProcessor;
+import eu.learnpad.simulator.mon.controller.DBController;
+import eu.learnpad.simulator.mon.controller.MySqlController;
 import eu.learnpad.simulator.mon.event.GlimpseBaseEvent;
 import eu.learnpad.simulator.mon.impl.ComplexEventProcessorImpl;
 import eu.learnpad.simulator.mon.impl.EventsBufferImpl;
+import eu.learnpad.simulator.mon.impl.LearnerAssessmentManagerImpl;
 import eu.learnpad.simulator.mon.impl.RuleTemplateManager;
 import eu.learnpad.simulator.mon.manager.GlimpseManager;
 import eu.learnpad.simulator.mon.manager.LearnerAssessmentManager;
+import eu.learnpad.simulator.mon.manager.RestNotifier;
 import eu.learnpad.simulator.mon.services.ServiceLocatorFactory;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 import eu.learnpad.simulator.mon.utils.MailNotification;
@@ -70,6 +73,8 @@ public class MainMonitoring {
 	protected static String BSMWSDLURIFILEPATH;
 	protected static String REGEXPATTERNFILEPATH;
 	protected static String MAILNOTIFICATIONSETTINGSFILEPATH;
+	protected static String DATABASECONNECTIONSTRING;
+	protected static String RESTNOTIFIERURLSTRING; 
 	// end settings
 
 	private static TopicConnectionFactory connFact;
@@ -86,36 +91,68 @@ public class MainMonitoring {
 	
 	public static boolean initProps(String systemSettings) {
 		try {
-			systemProps = Manager
-					.Read(systemSettings);
+			systemProps = Manager.Read(systemSettings);
 
-			ENVIRONMENTPARAMETERSFILE = systemProps
-					.getProperty("ENVIRONMENTPARAMETERSFILE");
-			DROOLSPARAMETERFILE = systemProps
-					.getProperty("DROOLSPARAMETERFILE");
-			MANAGERPARAMETERFILE = systemProps
-					.getProperty("MANAGERPARAMETERFILE");
-			SOAPREQUESTFILE = systemProps
-					.getProperty("SOAPREQUESTFILE");
-			DROOLSRULEREQUESTTEMPLATE1 = systemProps
-					.getProperty("DROOLSRULEREQUESTTEMPLATE1");	
-			DROOLSRULEREQUESTTEMPLATE2 = systemProps
-					.getProperty("DROOLSRULEREQUESTTEMPLATE2");	
-			DROOLSRULEREQUESTTEMPLATE3_1 = systemProps
-					.getProperty("DROOLSRULEREQUESTTEMPLATE3_1");
-			DROOLSRULEREQUESTTEMPLATE3_2 = systemProps
-					.getProperty("DROOLSRULEREQUESTTEMPLATE3_2");
-			BSMWSDLURIFILEPATH = systemProps
-					.getProperty("BSMWSDLURIFILEPATH");		
-			REGEXPATTERNFILEPATH = systemProps
-					.getProperty("REGEXPATTERNFILEPATH");
-			MAILNOTIFICATIONSETTINGSFILEPATH = systemProps
-					.getProperty("MAILNOTIFICATIONPATH");
+			ENVIRONMENTPARAMETERSFILE = 		systemProps.getProperty("ENVIRONMENTPARAMETERSFILE");
+			DROOLSPARAMETERFILE = 				systemProps.getProperty("DROOLSPARAMETERFILE");
+			MANAGERPARAMETERFILE = 				systemProps.getProperty("MANAGERPARAMETERFILE");
+			SOAPREQUESTFILE = 					systemProps.getProperty("SOAPREQUESTFILE");
+			DROOLSRULEREQUESTTEMPLATE1 = 		systemProps.getProperty("DROOLSRULEREQUESTTEMPLATE1");	
+			DROOLSRULEREQUESTTEMPLATE2 = 		systemProps.getProperty("DROOLSRULEREQUESTTEMPLATE2");	
+			DROOLSRULEREQUESTTEMPLATE3_1 = 		systemProps.getProperty("DROOLSRULEREQUESTTEMPLATE3_1");
+			DROOLSRULEREQUESTTEMPLATE3_2 = 		systemProps.getProperty("DROOLSRULEREQUESTTEMPLATE3_2");
+			BSMWSDLURIFILEPATH = 				systemProps.getProperty("BSMWSDLURIFILEPATH");		
+			REGEXPATTERNFILEPATH = 				systemProps.getProperty("REGEXPATTERNFILEPATH");
+			MAILNOTIFICATIONSETTINGSFILEPATH = 	systemProps.getProperty("MAILNOTIFICATIONPATH");
+			DATABASECONNECTIONSTRING = 			systemProps.getProperty("DATABASECONNECTIONSTRING");
+			RESTNOTIFIERURLSTRING = 			systemProps.getProperty("RESTNOTIFIERURLSTRING");
 			return true;
 		} catch (Exception asd) {
 			System.out.println("USAGE: java -jar MainMonitoring.jar \"systemSettings\"");
 			return false;
 		}
+	}
+	
+	public static boolean init()
+	{
+		boolean successfullInit = false;
+		
+		try 
+		{
+			//the connection are initialized
+			Properties environmentParameters = Manager.Read(ENVIRONMENTPARAMETERSFILE);
+			initConn = new InitialContext(environmentParameters);
+			 
+			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), "Connection Parameters");
+			DebugMessages.line();
+			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), 
+									"java.naming.factory.initial " + environmentParameters.getProperty("java.naming.factory.initial"));
+			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), 
+									"java.naming.provider.url " + environmentParameters.getProperty("java.naming.provider.url"));
+			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), 
+									"java.naming.security.principal " + environmentParameters.getProperty("java.naming.security.principal"));
+			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), 
+									"java.naming.security.credentials " + environmentParameters.getProperty("java.naming.security.credentials"));
+			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), 
+									"connectionFactoryNames " + environmentParameters.getProperty("connectionFactoryNames"));
+			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), 
+									"topic.serviceTopic " + environmentParameters.getProperty("topic.serviceTopic"));
+			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), 
+									"topic.probeTopic " + environmentParameters.getProperty("topic.probeTopic"));
+			DebugMessages.line();
+			DebugMessages.print(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(),"Setting up TopicConnectionFactory");
+			connFact = (TopicConnectionFactory)initConn.lookup("TopicCF");
+			DebugMessages.ok();
+			DebugMessages.line();
+			successfullInit = true;
+		} catch (NamingException e) {
+			e.printStackTrace();
+			successfullInit = false;
+		} catch (Exception e) {
+			e.printStackTrace();
+			successfullInit = false;
+		}
+		return successfullInit;
 	}
 
 	/**
@@ -145,19 +182,30 @@ public class MainMonitoring {
 
 				engineOne.start();
 				
+				RestNotifier notifierEngine = new RestNotifier(Manager.Read(RESTNOTIFIERURLSTRING).getProperty("post.rest.url"));
+				notifierEngine.start();
+				
+				//starting the LAM and connecting to DB
+				DBController databaseController = new MySqlController(Manager.Read(DATABASECONNECTIONSTRING));
+				LearnerAssessmentManager lam = new LearnerAssessmentManagerImpl(databaseController);
+				lam.start(); 
+				
 				try {
-					Thread.sleep(3000);
+					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-
-				RuleTemplateManager templateManager = new RuleTemplateManager(DROOLSRULEREQUESTTEMPLATE1,DROOLSRULEREQUESTTEMPLATE2, DROOLSRULEREQUESTTEMPLATE3_1,DROOLSRULEREQUESTTEMPLATE3_2);
+				
+				RuleTemplateManager templateManager = new RuleTemplateManager(
+										DROOLSRULEREQUESTTEMPLATE1,
+										DROOLSRULEREQUESTTEMPLATE2, 
+										DROOLSRULEREQUESTTEMPLATE3_1,
+										DROOLSRULEREQUESTTEMPLATE3_2);
 
 				//the component in charge to locate services and load specific rules.
-				ServiceLocatorFactory.getServiceLocatorParseViolationReceivedFromBSM(engineOne, templateManager, REGEXPATTERNFILEPATH).start();
-				
-				LearnerAssessmentManager lam = new LearnerAssessmentManager();
-				
+				ServiceLocatorFactory.getServiceLocatorParseViolationReceivedFromBSM(
+										engineOne, templateManager, REGEXPATTERNFILEPATH).start();
+
 				//start MailNotifier component
 				MailNotification mailer = new MailNotification(
 						Manager.Read(MAILNOTIFICATIONSETTINGSFILEPATH));
@@ -174,39 +222,6 @@ public class MainMonitoring {
 		}
 	}
 	
-	public static boolean init()
-	{
-		boolean successfullInit = false;
-		
-		try 
-		{
-			//the connection are initialized
-			Properties environmentParameters = Manager.Read(ENVIRONMENTPARAMETERSFILE);
-			initConn = new InitialContext(environmentParameters);
-			 
-			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), "Connection Parameters");
-			DebugMessages.line();
-			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), "java.naming.factory.initial " + environmentParameters.getProperty("java.naming.factory.initial"));
-			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), "java.naming.provider.url " + environmentParameters.getProperty("java.naming.provider.url"));
-			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), "java.naming.security.principal " + environmentParameters.getProperty("java.naming.security.principal"));
-			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), "java.naming.security.credentials " + environmentParameters.getProperty("java.naming.security.credentials"));
-			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), "connectionFactoryNames " + environmentParameters.getProperty("connectionFactoryNames"));
-			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), "topic.serviceTopic " + environmentParameters.getProperty("topic.serviceTopic"));
-			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), "topic.probeTopic " + environmentParameters.getProperty("topic.probeTopic"));
-			DebugMessages.line();
-			DebugMessages.print(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(),"Setting up TopicConnectionFactory");
-			connFact = (TopicConnectionFactory)initConn.lookup("TopicCF");
-			DebugMessages.ok();
-			DebugMessages.line();
-			successfullInit = true;
-		} catch (NamingException e) {
-			e.printStackTrace();
-			successfullInit = false;
-		} catch (Exception e) {
-			e.printStackTrace();
-			successfullInit = false;
-		}
-		return successfullInit;
-	}
+
 	
 }

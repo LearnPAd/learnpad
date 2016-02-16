@@ -9,3 +9,4 @@ DROOLSRULEREQUESTTEMPLATE3_2 = 	./configFiles/droolsRuleRequestTemplateThree_2
 BSMWSDLURIFILEPATH = 		./configFiles/bsmWsdl
 REGEXPATTERNFILEPATH = 		./configFiles/regexParameters
 MAILNOTIFICATIONPATH = 		./configFiles/mailSettings
+RESTNOTIFIERURLSTRING = ./configFiles/restUrlString
