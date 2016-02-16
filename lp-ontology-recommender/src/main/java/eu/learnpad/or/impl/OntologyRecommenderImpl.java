@@ -57,7 +57,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     }
 
     @Override
-    public Recommendations askRecommendation(String modelSetId, String artifactId, String userId, String type) throws LpRestException {
+    public Recommendations askRecommendation(String modelSetId, String artifactId, String userId) throws LpRestException {
         Recommendations recomms = Recommender.getInstance().getRecommendations(modelSetId, artifactId, userId);
 //        Recommendations recomms = new Recommendations();
 //        Experts experts = new Experts();
