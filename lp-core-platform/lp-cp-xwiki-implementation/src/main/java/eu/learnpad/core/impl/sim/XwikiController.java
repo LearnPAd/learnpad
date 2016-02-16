@@ -192,19 +192,5 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		// TODO Auto-generated method stub
 
 	}
-
-	private String retreiveModelSetId(String resourceID) throws LpRestException{
-		List<String> modelSetIdList = this.cw.retreiveModelSetId(resourceID);
-		if ((modelSetIdList == null) || (modelSetIdList.isEmpty())){
-			LpRestExceptionXWikiImpl e = new LpRestExceptionXWikiImpl("No ModelSetId found for the Process ID :" + resourceID +" in the Collaborative Workspace");
-			throw e;
-		}
-		
-// TODO : Currently we only rely on the first match returned. In fact we assume
-//	that once stored, ID are uniques. This may change in future.	
-		String modelSetId = modelSetIdList.get(0);
-		
-		return modelSetId;
-	}
 	
 }
