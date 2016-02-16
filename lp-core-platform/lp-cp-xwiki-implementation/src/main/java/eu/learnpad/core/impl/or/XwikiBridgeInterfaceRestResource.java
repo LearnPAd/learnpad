@@ -32,11 +32,13 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 
 import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.or.BridgeInterface;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.States;
+import java.util.Map;
 
 /*
  * The methods inherited form the BridgeInterface in this
@@ -139,22 +141,6 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	}
 
 	@Override
-	public byte[] simulationNotification(String modelSetId, String modelId,
-			String action, String simulationId) throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addExecutionState(String artifactName,
-			String artifactDescription, String artifactType, String modelType,
-			String freeDescription, String existingArtifactId,
-			String existingArtifactStructureDepth) throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void addExecutionState(String modelSetId, String executionId,
 			String userId, String threadId, String pageId, String artifactId)
 			throws LpRestExceptionImpl {
@@ -187,6 +173,27 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
         }
 		
 	}
+
+    @Override
+    public Recommendations askRecommendation(String simulationSessionId) throws LpRestException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void simulationInstanceNotification(String modelSetId, String modelId, String action, String simulationId) throws LpRestException {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void simulationTaskStartNotification(String modelSetId, String modelId, String artifactId, String simulationId) throws LpRestException {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void simulationTaskEndNotification(String modelSetId, String modelId, String artifactId, String simulationId, Map<String, Object> data) throws LpRestException {
+        // TODO Auto-generated method stub
+    }
 
 
 }

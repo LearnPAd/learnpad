@@ -1,7 +1,5 @@
 # baseURI: http://ikm-group.ch/archiMEO/dkm
-# imports: http://ikm-group.ch/archiMEO/archimate
 # imports: http://ikm-group.ch/archiMEO/emo
-# imports: http://ikm-group.ch/archiMEO/eo
 
 @prefix cc: <http://creativecommons.org/ns#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
@@ -27,9 +25,7 @@
   dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
   dc:rights "Copyright 2015 FHNW "^^xsd:string ;
   dc:title "The DKM Ontology"@en ;
-  owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
   owl:imports <http://ikm-group.ch/archiMEO/emo> ;
-  owl:imports <http://ikm-group.ch/archiMEO/eo> ;
   owl:versionInfo "1.0"^^xsd:string ;
 .
 dkm:Aggregation
@@ -146,8 +142,12 @@ dkm:knowledgeProductIsRelatedToKnowledgeProduct
   rdfs:domain dkm:KnowledgeProduct ;
   rdfs:range dkm:KnowledgeProduct ;
 .
-dkm:learningDocumentIncreasesCompetency
+dkm:learningDocumentIncreasesCompetenciesToLevel
   rdf:type owl:ObjectProperty ;
   rdfs:domain dkm:LearningDocument ;
+  rdfs:range <http://ikm-group.ch/archiMEO/CMM#CompetencyAndLevel> ;
+.
+dkm:learningDocumentIncreasesCompetency
+  rdf:type owl:ObjectProperty ;
   rdfs:range <http://ikm-group.ch/archiMEO/CMM#Competency> ;
 .

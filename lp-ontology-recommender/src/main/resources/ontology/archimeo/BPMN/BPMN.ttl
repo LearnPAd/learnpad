@@ -2,7 +2,6 @@
 # imports: http://ikm-group.ch/archiMEO/archimate
 # imports: http://ikm-group.ch/archiMEO/emo
 # imports: http://ikm-group.ch/archiMEO/eo
-# imports: http://spinrdf.org/spin
 
 @prefix archi: <http://ikm-group.ch/archiMEO/archimate#> .
 @prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#> .
@@ -39,7 +38,6 @@
   owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
   owl:imports <http://ikm-group.ch/archiMEO/emo> ;
   owl:imports <http://ikm-group.ch/archiMEO/eo> ;
-  owl:imports <http://spinrdf.org/spin> ;
   owl:versionInfo 1.1 ;
 .
 bpmn:Activity
@@ -238,6 +236,10 @@ bpmn:MessageIntermediateEvent
   rdf:type owl:Class ;
   rdfs:label "MessageIntermediateEvent"^^xsd:string ;
   rdfs:subClassOf bpmn:IntermediateEvent ;
+.
+bpmn:MessageInterruptingBoundaryIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:subClassOf bpmn:MessageIntermediateEvent ;
 .
 bpmn:MessageStartEvent
   rdf:type owl:Class ;

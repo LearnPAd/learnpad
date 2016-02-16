@@ -1,12 +1,10 @@
 # baseURI: http://ikm-group.ch/archiMEO/kpi
-# imports: http://ikm-group.ch/archiMEO/archimate
 # imports: http://ikm-group.ch/archiMEO/emo
-# imports: http://ikm-group.ch/archiMEO/eo
 
 @prefix cc: <http://creativecommons.org/ns#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
-@prefix kpi: <http://ikm-group.ch/archiMEO/kpi#> .
 @prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
+@prefix kpi: <http://ikm-group.ch/archiMEO/kpi#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -27,11 +25,9 @@
   dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
   dc:rights "Copyright 2015 FHNW "^^xsd:string ;
   dc:title "The KPI Ontology"@en ;
-  owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
   owl:imports <http://ikm-group.ch/archiMEO/emo> ;
-  owl:imports <http://ikm-group.ch/archiMEO/eo> ;  
   owl:versionInfo "1.0"^^xsd:string ;
-. 
+.
 kpi:Criterion
   rdf:type owl:Class ;
   rdfs:comment "A KPI is a measurement which evaluates how a company executes its strategic vision. Source: http://www.atinternet.com/wp-content/uploads/2012/02/AT_WP_KPI_EN.pdf"^^xsd:string ;

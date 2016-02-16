@@ -8,7 +8,7 @@ prefix lpd: <http://learnpad.eu#>
 prefix omm: <http://ikm-group.ch/archiMEO/omm#>
 prefix foaf: <http://xmlns.com/foaf/spec#>
 prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
-SELECT DISTINCT ?name ?businessActor ?email ?phone ?roleName ?organisationalUnitName
+SELECT DISTINCT ?name ?firstName ?lastName ?businessActor ?email ?phone ?roleName ?organisationalUnitName
 WHERE {
     ?performer emo:performerHasEmailAddress ?userId .
     ?performer omm:performerHasRole ?role .
@@ -18,8 +18,11 @@ WHERE {
     ?lineManager rdfs:label ?name .    
     ?lineManager emo:performerHasEmailAddress ?email .
     ?lineManager emo:performerRepresentsPerson ?businessActor .
+	FILTER(?userId != ?email)
     OPTIONAL {
-        ?businessActor foaf:phone ?phone .
+        ?lineManager omm:performerHasFirstName ?firstName .
+        ?lineManager omm:performerHasLastName ?lastName .
+        ?lineManager omm:performerHasPhoneNumber ?phone .
     } .
 }
 ##END##
@@ -32,7 +35,7 @@ prefix lpd: <http://learnpad.eu#>
 prefix omm: <http://ikm-group.ch/archiMEO/omm#>
 prefix foaf: <http://xmlns.com/foaf/spec#>
 prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
-SELECT DISTINCT ?name ?businessActor ?email ?phone ?roleName
+SELECT DISTINCT ?name ?performerInOtherUnit ?firstName ?lastName ?businessActor ?email ?phone ?roleName
 WHERE {
     ?performer emo:performerHasEmailAddress ?userId .
     ?performer omm:performerHasRole ?role .
@@ -44,7 +47,9 @@ WHERE {
     FILTER (?sameRoleInOtherUnit != ?role) .
     ?performerInOtherUnit emo:performerRepresentsPerson ?businessActor .
     OPTIONAL {
-        ?businessActor foaf:phone ?phone .
+        ?performerInOtherUnit omm:performerHasFirstName ?firstName .
+        ?performerInOtherUnit omm:performerHasLastName ?lastName .
+	?performerInOtherUnit omm:performerHasPhoneNumber ?phone .
     } .
 }
 ##END##
@@ -119,22 +124,27 @@ prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
 SELECT ?learningMaterialDocument ?documentLabel ?documentURL ?documentMimeType ?documentDescription ?documentComment
 WHERE {
     {
-    SELECT ?requiredCompetency (MIN(?levelDiff) AS ?minimalLevelDif)
+        SELECT DISTINCT ?requiredCompetency ?requiredCompetenciesEQFLevel
         WHERE {
-            ?performer emo:performerHasEmailAddress ?email .
-            ?performer omm:performerAquiredCompetencyProfile  ?aquiredCompetencyProfile .
+            ?performer emo:performerHasEmailAddress ?userId .
+            ?performer omm:performerAcquiredCompetencyProfile  ?aquiredCompetencyProfile .
             ?aquiredCompetencyProfile cmm:competenciesAndLevels ?aquiredCompetencyAndLevel .
             ?aquiredCompetencyAndLevel cmm:competencyAndLevelLevel ?aquiredCompetencyLevelNumber .
             ?aquiredCompetencyAndLevel cmm:competencyAndLevelRefersToCompetency ?aquiredCompetency .
             ?performer omm:performerHasRole ?role .
-            ?role omm:roleRequiresCompetencies ?requiredCompetency .
-            ?requiredCompetency cmm:eqfCompetencyHasLevel ?requiredCompetenciesEQFLevel .
-            BIND(?requiredCompetenciesEQFLevel - ?aquiredCompetencyLevelNumber AS ?levelDiff)
-            FILTER (?levelDiff > 0)
+            ?role omm:roleRequiresCompetencyProfile ?requiredCompetencyProfile .
+			?requiredCompetencyProfile cmm:competenciesAndLevels ?requiredCompetencyLevel .
+			?aquiredCompetencyAndLevel cmm:competencyAndLevelLevel ?requiredCompetencyLevelNumber .
+			?aquiredCompetencyAndLevel cmm:competencyAndLevelRefersToCompetency ?requiredCompetency .
+            FILTER(?aquiredCompetency = ?requiredCompetency) .
+			?requiredCompetency cmm:eqfCompetencyHasLevel ?requiredCompetenciesEQFLevel .
+            BIND(?requiredCompetenciesEQFLevel - ?aquiredCompetencyLevelNumber AS ?levelDiff) .
+            FILTER (?levelDiff  = 1) .
         } 
-        GROUP BY ?requiredCompetency
     }
-    ?learningMaterialDocument dkm:learningDocumentIncreasesCompetency ?requiredCompetency.
+    ?learningMaterialDocument dkm:learningDocumentIncreasesCompetenciesToLevel ?competencyAndLevelOfLearningMaterial.
+    ?competencyAndLevelOfLearningMaterial cmm:competencyAndLevelRefersToCompetency ?requiredCompetency .
+    ?competencyAndLevelOfLearningMaterial cmm:competencyAndLevelLevel  ?requiredCompetenciesEQFLevel .
     ?learningMaterialDocument dkm:documentHasURL ?documentURL .
     ?learningMaterialDocument dkm:documentHasMIMEType ?documentMimeType .
     ?learningMaterialDocument rdfs:label ?documentLabel .
