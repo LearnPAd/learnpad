@@ -125,6 +125,9 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String simulationId = event.simulationsessionid;
 		
 		this.or.simulationInstanceNotification(modelSetId, modelId, action, simulationId);				
+
+		Recommendations rec = this.or.askRecommendation(simulationId); 		
+		this.cw.notifyRecommendations(simulationId, rec);		
 	}
 
 	@Override
@@ -135,29 +138,40 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String simulationId = event.simulationsessionid;
 		
 		this.or.simulationInstanceNotification(modelSetId, modelId, action, simulationId);				
+
+// Not sure if it is always the case to notify the CW, as this notification ends the simulation		
+// and probably the Recommendations are not needed anymore!
+		Recommendations rec = this.or.askRecommendation(simulationId); 		
+		this.cw.notifyRecommendations(simulationId, rec);		
 	}
 
 	@Override
 	public void receiveTaskStartEvent(TaskStartEvent event) throws LpRestException {
-		// TODO please check this ... for sure with Sandro
-		
+		String modelId = event.processid;
+		String modelSetId = event.modelsetid;
+		String artifactId = event.taskdefid; 
 		String simulationId = event.simulationsessionid;
-		Recommendations rec = this.or.askRecommendation(simulationId); 
+
+		this.or.simulationTaskStartNotification(modelSetId, modelId, artifactId, simulationId);
 		
+		Recommendations rec = this.or.askRecommendation(simulationId); 		
 		this.cw.notifyRecommendations(simulationId, rec);		
 	}
 
 	@Override
 	public void receiveTaskEndEvent(TaskEndEvent event) throws LpRestException {
-		// TODO please check this ... 
-
 		String modelId = event.processid;
 		String artifactId = event.taskdefid;
 		String modelSetId = event.modelsetid;
 		Map<String, Object> data = event.submittedData; 						
 		
 		String simulationId = event.simulationsessionid;
-		this.or.simulationTaskEndNotification(modelSetId, modelId, artifactId, simulationId, data);		
+		this.or.simulationTaskEndNotification(modelSetId, modelId, artifactId, simulationId, data);
+
+// Not sure if it is always the case to notify the CW, as this notification should
+// happen just suddenly because of either "receiveTaskStartEvent" or "receiveProcessEndEvent" 	
+		Recommendations rec = this.or.askRecommendation(simulationId); 		
+		this.cw.notifyRecommendations(simulationId, rec);		
 	}
 
 	@Override
@@ -185,5 +199,6 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		// TODO Auto-generated method stub
 
 	}
+
 	
 }
