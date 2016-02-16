@@ -36,7 +36,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>eu.learnpad.simulator.mon.MainMonitoring</mainClass>
+							<mainClass>eu.learnpad.monitoring.glimpse.MainMonitoring</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -58,7 +58,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>eu.learnpad.simulator.mon.MainMonitoring</mainClass>
+							<mainClass>eu.learnpad.monitoring.glimpse.MainMonitoring</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -140,6 +140,11 @@
 	  	<version>5.5.0.Final</version>
 	  </dependency>
 	  <dependency>
+	   	<groupId>org.apache.httpcomponents</groupId>
+  		<artifactId>httpclient</artifactId>
+  		<version>4.5.1</version>
+  	  </dependency>
+	  <dependency>
 	  	<groupId>it.cnr.isti.labsedc</groupId>
 	  	<artifactId>ComplexEventException</artifactId>
 	  	<version>0.0.1-SNAPSHOT</version>
@@ -153,6 +158,11 @@
 	  	<groupId>it.cnr.isti.labsedc</groupId>
 	  	<artifactId>ComplexEventRule</artifactId>
 	  	<version>0.0.1-SNAPSHOT</version>
+	  </dependency>
+	  <dependency>
+	  	<groupId>mysql</groupId>
+	  	<artifactId>mysql-connector-java</artifactId>
+	  	<version>5.1.37</version>
 	  </dependency>
 	</dependencies>
 </project>
