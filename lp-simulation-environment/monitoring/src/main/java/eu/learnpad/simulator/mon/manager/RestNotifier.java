@@ -32,17 +32,17 @@ public class RestNotifier extends Thread {
         return platformCoreFacade;
     }
     
-
-	public static void Main(String[] args) {
-		//test
-		Vector<String> testInvolvedUsers = new Vector<String>();
-		testInvolvedUsers.add("userOne");
-		testInvolvedUsers.add("userTwo");
-		testInvolvedUsers.add("userThree");
-		RestNotifier.notifySimulationStop(System.currentTimeMillis(), testInvolvedUsers, "sessionID", "modelSetID");
-		
-		
-	}
+//
+//	public static void Main(String[] args) {
+//		//test
+//		Vector<String> testInvolvedUsers = new Vector<String>();
+//		testInvolvedUsers.add("userOne");
+//		testInvolvedUsers.add("userTwo");
+//		testInvolvedUsers.add("userThree");
+//		RestNotifier.notifySimulationStop(System.currentTimeMillis(), testInvolvedUsers, "sessionID", "modelSetID");
+//		
+//		
+//	}
 	
 	
 	public void run() {
