@@ -9,7 +9,7 @@ import org.apache.commons.net.ntp.TimeStamp;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.sim.CoreFacade;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
-import eu.learnpad.simulator.api.impl.SimulatorMonCoreFacadeImpl;
+import eu.learnpad.simulator.api.impl.SimulatorMonCoreFacadeRESTResource;
 import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationEndEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
@@ -27,7 +27,7 @@ public class RestNotifier extends Thread {
 
     public static synchronized CoreFacade getCoreFacade() {
         if (platformCoreFacade == null) {
-        	platformCoreFacade = new SimulatorMonCoreFacadeImpl();
+        	platformCoreFacade = new SimulatorMonCoreFacadeRESTResource();
         }
         return platformCoreFacade;
     }

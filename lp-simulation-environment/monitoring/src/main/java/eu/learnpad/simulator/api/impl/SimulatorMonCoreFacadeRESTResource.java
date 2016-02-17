@@ -18,7 +18,7 @@ import eu.learnpad.sim.rest.event.impl.TaskFailedEvent;
 import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 import eu.learnpad.simulator.mon.utils.RestResource;
 
-public class SimulatorMonCoreFacadeImpl implements eu.learnpad.sim.CoreFacade {
+public class SimulatorMonCoreFacadeRESTResource implements eu.learnpad.sim.CoreFacade {
 
 	@Override
 	public List<String> getUsers() {
