@@ -12,9 +12,9 @@ public class RestResource {
 	final private static int SIM_PORT = 8081;
 	final private static String HOST = PROTOCOL + "://" + HOSTNAME + ":" + PORT;
 	final private static String SIM_HOST = PROTOCOL + "://" + HOSTNAME + ":" + SIM_PORT;
-	final private static String DEFAULT_USER = "userName";
+	final private static String DEFAULT_USER = "superadmin";
 	final private static String DEFAULT_PASSWORD = "LearnPAss";
-	final public static String REST_URI = HOST + "/sim/mon/rest";
+	final public static String REST_URI = HOST + "/xwiki/rest/learnpad/sim/corefacade";
 	final public static String SIM_REST_URI = SIM_HOST;
 
 	public static HttpClient getClient() {
