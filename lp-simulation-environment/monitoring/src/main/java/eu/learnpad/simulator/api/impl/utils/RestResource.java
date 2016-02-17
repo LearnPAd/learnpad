@@ -1,4 +1,4 @@
-package eu.learnpad.simulator.mon.utils;
+package eu.learnpad.simulator.api.impl.utils;
 
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;

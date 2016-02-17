@@ -18,7 +18,7 @@ import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
 import eu.learnpad.sim.rest.event.impl.TaskFailedEvent;
 import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
-import eu.learnpad.simulator.mon.utils.RestResource;
+import eu.learnpad.simulator.api.impl.utils.RestResource;;
 
 public class SimulatorMonCoreFacadeRESTResource implements eu.learnpad.sim.CoreFacade {
 
