@@ -1,6 +1,10 @@
 package eu.learnpad.simulator.api.impl;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.PostMethod;
 
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.sim.rest.data.UserData;
@@ -12,6 +16,7 @@ import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
 import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
 import eu.learnpad.sim.rest.event.impl.TaskFailedEvent;
 import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
+import eu.learnpad.simulator.mon.utils.RestResource;
 
 public class SimulatorMonCoreFacadeImpl implements eu.learnpad.sim.CoreFacade {
 
@@ -23,14 +28,28 @@ public class SimulatorMonCoreFacadeImpl implements eu.learnpad.sim.CoreFacade {
 
 	@Override
 	public UserData getUserData(String userartifactid) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void receiveSimulationStartEvent(SimulationStartEvent event) throws LpRestException {
-		// TODO Auto-generated method stub
+		HttpClient httpClient = RestResource.getAnonymousClient();
+		String uri = String.format("%s/simulationstart/%s",
+				RestResource.REST_URI, event);
 		
+		// Request parameters and other properties.
+		//List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+		//params.add(new BasicNameValuePair("param-1", "asd"));
+		//params.add(new BasicNameValuePair("param-2", "n1hehe"));
+		
+		try {
+		    PostMethod method = new PostMethod(uri);
+			int response = httpClient.executeMethod(method);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
 
 	@Override

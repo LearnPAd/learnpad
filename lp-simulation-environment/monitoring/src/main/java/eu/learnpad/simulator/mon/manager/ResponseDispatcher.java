@@ -119,9 +119,7 @@ public class ResponseDispatcher {
 	public static void saveAndNotifyLearnersScore(String learnersID, String idBPMN, int idPath, float sessionScore) {
 			
 			ResponseDispatcher.lam.computeAndSaveScores(learnersID, idPath, idBPMN, sessionScore);
-			
-			RestNotifier.notifySessionScoreUpdates(learnersID, idPath, idBPMN, sessionScore);
-
+			//TODO: RestNotifier
 	}
 
 	public static void sendResponse(Object object, String enablerName, String answerTopic)
