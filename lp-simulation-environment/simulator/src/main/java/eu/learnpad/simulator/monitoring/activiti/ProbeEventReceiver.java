@@ -3,6 +3,22 @@
  */
 package eu.learnpad.simulator.monitoring.activiti;
 
+import javax.jms.JMSException;
+import javax.naming.NamingException;
+
+import eu.learnpad.simulator.IProcessEventReceiver;
+import eu.learnpad.simulator.mon.event.GlimpseBaseEvent;
+import eu.learnpad.simulator.mon.event.GlimpseBaseEventBPMN;
+import eu.learnpad.simulator.mon.probe.GlimpseAbstractProbe;
+import eu.learnpad.simulator.mon.utils.Manager;
+import eu.learnpad.simulator.monitoring.event.impl.ProcessEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.ProcessStartSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SessionScoreUpdateSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
+
 /*
  * #%L
  * LearnPAd Simulator
@@ -23,23 +39,6 @@ package eu.learnpad.simulator.monitoring.activiti;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-
-import it.cnr.isti.labsedc.glimpse.event.GlimpseBaseEvent;
-import it.cnr.isti.labsedc.glimpse.event.GlimpseBaseEventBPMN;
-import it.cnr.isti.labsedc.glimpse.probe.GlimpseAbstractProbe;
-import it.cnr.isti.labsedc.glimpse.utils.Manager;
-
-import javax.jms.JMSException;
-import javax.naming.NamingException;
-
-import eu.learnpad.simulator.IProcessEventReceiver;
-import eu.learnpad.simulator.monitoring.event.impl.ProcessEndSimEvent;
-import eu.learnpad.simulator.monitoring.event.impl.ProcessStartSimEvent;
-import eu.learnpad.simulator.monitoring.event.impl.SessionScoreUpdateSimEvent;
-import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
-import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
-import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
-import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
 
 /**
  * Monitor simulation sessions in order to notify Glimpse server of various
@@ -104,9 +103,9 @@ IProcessEventReceiver {
 	@Override
 	public void receiveSimulationStartEvent(SimulationStartSimEvent event) {
 		GlimpseBaseEventBPMN<String> monitoringEvent = new GlimpseBaseEventBPMN<String>(
-				null, event.simulationsessionid, event.timestamp, event
-				.getType().toString(), false, "",
-				event.simulationsessionid, null, null, null, null, null);
+				"Activity_" + event.timestamp, event.simulationsessionid,
+				event.timestamp, event.getType().toString(), false, "",
+				event.simulationsessionid, 0, null, null, null);
 
 		send(monitoringEvent);
 
@@ -115,9 +114,9 @@ IProcessEventReceiver {
 	@Override
 	public void receiveSimulationEndEvent(SimulationEndSimEvent event) {
 		GlimpseBaseEventBPMN<String> monitoringEvent = new GlimpseBaseEventBPMN<String>(
-				null, event.simulationsessionid, event.timestamp, event
-				.getType().toString(), false, "",
-				event.simulationsessionid, null, null, null, null, null);
+				"Activity_" + event.timestamp, event.simulationsessionid,
+				event.timestamp, event.getType().toString(), false, "",
+				event.simulationsessionid, 0, null, null, null);
 
 		send(monitoringEvent);
 
@@ -126,9 +125,9 @@ IProcessEventReceiver {
 	@Override
 	public void receiveProcessStartEvent(ProcessStartSimEvent event) {
 		GlimpseBaseEventBPMN<String> monitoringEvent = new GlimpseBaseEventBPMN<String>(
-				null, event.simulationsessionid, event.timestamp, event
-				.getType().toString(), false, "",
-				event.simulationsessionid, null, null, null, null, null);
+				"Activity_" + event.timestamp, event.simulationsessionid,
+				event.timestamp, event.getType().toString(), false, "",
+				event.simulationsessionid, 0, null, null, null);
 
 		send(monitoringEvent);
 
@@ -137,9 +136,9 @@ IProcessEventReceiver {
 	@Override
 	public void receiveProcessEndEvent(ProcessEndSimEvent event) {
 		GlimpseBaseEventBPMN<String> monitoringEvent = new GlimpseBaseEventBPMN<String>(
-				null, event.simulationsessionid, event.timestamp, event
-						.getType().toString(), false, "",
-				event.simulationsessionid, null, null, null, null, null);
+				"Activity_" + event.timestamp, event.simulationsessionid,
+				event.timestamp, event.getType().toString(), false, "",
+				event.simulationsessionid, 0, null, null, null);
 		send(monitoringEvent);
 
 	}
@@ -148,9 +147,10 @@ IProcessEventReceiver {
 	public void receiveTaskStartEvent(TaskStartSimEvent event) {
 		GlimpseBaseEventBPMN<String> monitoringEvent = new GlimpseBaseEventBPMN<String>(
 				"Activity_" + event.timestamp, event.simulationsessionid,
-				System.currentTimeMillis(), event.getType().toString(), false,
-				"", event.simulationsessionid, null, null, event.task.key,
+				event.timestamp, event.getType().toString(), false, "",
+				event.simulationsessionid, 0, event.task.key,
 				event.task.subprocessKey, null);
+
 		send(monitoringEvent);
 
 	}
@@ -159,9 +159,10 @@ IProcessEventReceiver {
 	public void receiveTaskEndEvent(TaskEndSimEvent event) {
 		GlimpseBaseEventBPMN<String> monitoringEvent = new GlimpseBaseEventBPMN<String>(
 				"Activity_" + event.timestamp, event.simulationsessionid,
-				System.currentTimeMillis(), event.getType().toString(), false,
-				"", event.simulationsessionid, event.completingUser, null,
-				event.task.key, event.task.subprocessKey, null);
+				event.timestamp, event.getType().toString(), false, "",
+				event.simulationsessionid, 0, event.task.key,
+				event.task.subprocessKey, null);
+
 		send(monitoringEvent);
 
 	}
@@ -170,9 +171,10 @@ IProcessEventReceiver {
 	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateSimEvent event) {
 		GlimpseBaseEventBPMN<String> monitoringEvent = new GlimpseBaseEventBPMN<String>(
 				"Activity_" + event.timestamp, event.simulationsessionid,
-				System.currentTimeMillis(), event.getType().toString(), false,
-				event.sessionscore.toString(), event.simulationsessionid,
-				event.user, null, null, null, null);
+				event.timestamp, event.getType().toString(), false,
+				event.sessionscore.toString(), event.simulationsessionid, 0,
+				null, null, null);
+
 		send(monitoringEvent);
 
 	}
