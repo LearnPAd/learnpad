@@ -18,7 +18,7 @@ public class TestSimulatorMonCoreFacadeRESTResource {
 		involvedUsers.add("involvedUsers2");
 		
 		SimulationStartEvent event = new SimulationStartEvent(TimeStamp.getCurrentTime().getTime(),
-				"simsessionID",involvedUsers,"modelSetID");
+				"theSimsessionID",involvedUsers,"theModelSetID");
 		
 		try {
 			simMinRest.receiveSimulationStartEvent(event);

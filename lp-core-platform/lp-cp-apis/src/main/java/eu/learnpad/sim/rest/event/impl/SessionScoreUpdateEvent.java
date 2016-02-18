@@ -55,6 +55,7 @@ public class SessionScoreUpdateEvent extends AbstractEvent {
 		super(timestamp, simulationsessionid, involvedusers, modelsetid);
 		this.processid = processid;
 		this.sessionscore = sessionScore;
+		this.user = user;
 	}
 
 }
