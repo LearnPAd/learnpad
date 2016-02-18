@@ -34,6 +34,7 @@ public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 	public SimulatorMonCoreFacadeRESTResource() {
 		
 		ObjectMapper objectMapper = new ObjectMapper();
+		
 		this.objectWriterProcessInstanceData = objectMapper.writerFor(AbstractEvent.class);
 	}
 	
