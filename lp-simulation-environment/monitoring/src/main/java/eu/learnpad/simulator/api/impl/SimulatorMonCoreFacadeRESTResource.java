@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 import eu.learnpad.sim.rest.data.UserData;
-import eu.learnpad.sim.rest.event.AbstractEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
@@ -29,13 +28,12 @@ import eu.learnpad.sim.CoreFacade;
 
 public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 
-  	private ObjectWriter objectWriterProcessInstanceData;
+	private ObjectWriter objectWriter;
 	
 	public SimulatorMonCoreFacadeRESTResource() {
 		
 		ObjectMapper objectMapper = new ObjectMapper();
-		
-		this.objectWriterProcessInstanceData = objectMapper.writerFor(AbstractEvent.class);
+		this.objectWriter = objectMapper.writer();
 	}
 	
 	@Override
@@ -52,14 +50,13 @@ public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 	@Override
 	public void receiveSimulationStartEvent(SimulationStartEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
-		String uri = String.format("%s/simulationstart",
-				RestResource.REST_URI, event);
+		String uri = String.format("%s/simulationstart",RestResource.REST_URI);
 		int response = 0;
 		try {
 			
-			String unmarshalledData = objectWriterProcessInstanceData.writeValueAsString(event);
+			String marshalledData = objectWriter.writeValueAsString(event);
 		    PostMethod method = new PostMethod(uri);
-			RequestEntity requestEntity = new StringRequestEntity(unmarshalledData,"application/json", "UTF-8");
+			RequestEntity requestEntity = new StringRequestEntity(marshalledData,"application/json", "UTF-8");
 			method.setRequestEntity(requestEntity);
 		    response = httpClient.executeMethod(method);
 			
@@ -74,13 +71,12 @@ public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 	@Override
 	public void receiveSimulationEndEvent(SimulationEndEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
-		String uri = String.format("%s/simulationend",
-				RestResource.REST_URI, event);
+		String uri = String.format("%s/simulationend",RestResource.REST_URI);
 		int response = 0;
 		try {
-			String unmarshalledData = objectWriterProcessInstanceData.writeValueAsString(event);
+			String marshalledData = objectWriter.writeValueAsString(event);
 		    PostMethod method = new PostMethod(uri);
-			RequestEntity requestEntity = new StringRequestEntity(unmarshalledData,"application/json", "UTF-8");
+			RequestEntity requestEntity = new StringRequestEntity(marshalledData,"application/json", "UTF-8");
 			method.setRequestEntity(requestEntity);
 		    response = httpClient.executeMethod(method);
 			
@@ -95,13 +91,12 @@ public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 	@Override
 	public void receiveProcessStartEvent(ProcessStartEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
-		String uri = String.format("%s/processstart",
-				RestResource.REST_URI, event);
+		String uri = String.format("%s/processstart",RestResource.REST_URI);
 		int response = 0;
 		try {
-			String unmarshalledData = objectWriterProcessInstanceData.writeValueAsString(event);
+			String marshalledData = objectWriter.writeValueAsString(event);
 		    PostMethod method = new PostMethod(uri);
-			RequestEntity requestEntity = new StringRequestEntity(unmarshalledData,"application/json", "UTF-8");
+			RequestEntity requestEntity = new StringRequestEntity(marshalledData,"application/json", "UTF-8");
 			method.setRequestEntity(requestEntity);
 		    response = httpClient.executeMethod(method);
 			
@@ -116,13 +111,12 @@ public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 	@Override
 	public void receiveProcessEndEvent(ProcessEndEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
-		String uri = String.format("%s/processend",
-				RestResource.REST_URI, event);
+		String uri = String.format("%s/processend",RestResource.REST_URI);
 		int response = 0;
 		try {
-			String unmarshalledData = objectWriterProcessInstanceData.writeValueAsString(event);
+			String marshalledData = objectWriter.writeValueAsString(event);
 		    PostMethod method = new PostMethod(uri);
-			RequestEntity requestEntity = new StringRequestEntity(unmarshalledData,"application/json", "UTF-8");
+			RequestEntity requestEntity = new StringRequestEntity(marshalledData,"application/json", "UTF-8");
 			method.setRequestEntity(requestEntity);
 		    response = httpClient.executeMethod(method);
 			
@@ -138,13 +132,12 @@ public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 	@Override
 	public void receiveTaskStartEvent(TaskStartEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
-		String uri = String.format("%s/taskstart",
-				RestResource.REST_URI, event);
+		String uri = String.format("%s/taskstart",RestResource.REST_URI);
 		int response = 0;
 		try {
-			String unmarshalledData = objectWriterProcessInstanceData.writeValueAsString(event);
+			String marshalledData = objectWriter.writeValueAsString(event);
 		    PostMethod method = new PostMethod(uri);
-			RequestEntity requestEntity = new StringRequestEntity(unmarshalledData,"application/json", "UTF-8");
+			RequestEntity requestEntity = new StringRequestEntity(marshalledData,"application/json", "UTF-8");
 			method.setRequestEntity(requestEntity);
 		    response = httpClient.executeMethod(method);
 			
@@ -159,13 +152,12 @@ public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 	@Override
 	public void receiveTaskEndEvent(TaskEndEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
-		String uri = String.format("%s/taskend",
-				RestResource.REST_URI, event);
+		String uri = String.format("%s/taskend",RestResource.REST_URI);
 		int response = 0;
 		try {
-			String unmarshalledData = objectWriterProcessInstanceData.writeValueAsString(event);
+			String marshalledData = objectWriter.writeValueAsString(event);
 		    PostMethod method = new PostMethod(uri);
-			RequestEntity requestEntity = new StringRequestEntity(unmarshalledData,"application/json", "UTF-8");
+			RequestEntity requestEntity = new StringRequestEntity(marshalledData,"application/json", "UTF-8");
 			method.setRequestEntity(requestEntity);
 		    response = httpClient.executeMethod(method);
 			
@@ -180,14 +172,13 @@ public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 	@Override
 	public void receiveTaskFailedEvent(TaskFailedEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
-		String uri = String.format("%s/taskfailed",
-				RestResource.REST_URI, event);
+		String uri = String.format("%s/taskfailed",RestResource.REST_URI);
 		
 		int response = 0;
 		try {
-			String unmarshalledData = objectWriterProcessInstanceData.writeValueAsString(event);
+			String marshalledData = objectWriter.writeValueAsString(event);
 		    PostMethod method = new PostMethod(uri);
-			RequestEntity requestEntity = new StringRequestEntity(unmarshalledData,"application/json", "UTF-8");
+			RequestEntity requestEntity = new StringRequestEntity(marshalledData,"application/json", "UTF-8");
 			method.setRequestEntity(requestEntity);
 		    response = httpClient.executeMethod(method);
 			
@@ -202,13 +193,12 @@ public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 	@Override
 	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
-		String uri = String.format("%s/sessionscoreupdate",
-				RestResource.REST_URI, event);
+		String uri = String.format("%s/sessionscoreupdate",RestResource.REST_URI);
 		int response = 0;
 		try {
-			String unmarshalledData = objectWriterProcessInstanceData.writeValueAsString(event);
+			String marshalledData = objectWriter.writeValueAsString(event);
 		    PostMethod method = new PostMethod(uri);
-			RequestEntity requestEntity = new StringRequestEntity(unmarshalledData,"application/json", "UTF-8");
+			RequestEntity requestEntity = new StringRequestEntity(marshalledData,"application/json", "UTF-8");
 			method.setRequestEntity(requestEntity);
 		    response = httpClient.executeMethod(method);
 			
