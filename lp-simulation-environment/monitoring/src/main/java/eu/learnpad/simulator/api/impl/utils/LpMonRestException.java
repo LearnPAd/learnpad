@@ -4,6 +4,10 @@ import eu.learnpad.exception.LpRestException;
 
 public class LpMonRestException extends LpRestException  {
 
+	public LpMonRestException(String message, Throwable cause) {
+		super();
+	}
+
 	private static final long serialVersionUID = 1L;
 	
 
