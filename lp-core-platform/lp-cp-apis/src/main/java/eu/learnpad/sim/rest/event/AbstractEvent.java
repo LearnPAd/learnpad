@@ -20,6 +20,7 @@
 package eu.learnpad.sim.rest.event;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -32,18 +33,21 @@ public abstract class AbstractEvent {
 	public String simulationsessionid;
 	public List<String> involvedusers;
 	public String modelsetid;
+	public Map<String, Object> simulationSessionData;
 
 	public AbstractEvent() {
 		super();
 	}
 
 	public AbstractEvent(Long timeStamp, String simulationsessionid,
-			List<String> involvedusers, String modelsetid) {
+			List<String> involvedusers, String modelsetid,
+			Map<String, Object> simulationSessionData) {
 		super();
 		this.timestamp = timeStamp;
 		this.simulationsessionid = simulationsessionid;
 		this.involvedusers = involvedusers;
 		this.modelsetid = modelsetid;
+		this.simulationSessionData = simulationSessionData;
 	}
 
 }

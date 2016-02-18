@@ -37,11 +37,13 @@ public class TaskEndEvent extends TaskStartEvent {
 	}
 
 	public TaskEndEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String modelsetid, String processid,
+			List<String> involvedusers, String modelsetid,
+			Map<String, Object> simulationSessionData, String processid,
 			String taskid, String taskdefid, List<String> assignedusers,
 			String completingUser, Map<String, Object> submittedData) {
 		super(timestamp, simulationsessionid, involvedusers, modelsetid,
-				processid, taskid, taskdefid, assignedusers);
+				simulationSessionData, processid, taskid, taskdefid,
+				assignedusers);
 		this.completingUser = completingUser;
 		this.submittedData = submittedData;
 	}

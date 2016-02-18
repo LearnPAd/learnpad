@@ -47,8 +47,8 @@ public class RestNotifier extends Thread {
 	public void run() {
 	}
 	
-	public static void notifySimulationStart(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID) {
-		SimulationStartEvent event = new SimulationStartEvent(processTimeStamp, sessionID, involvedUsers, modelSetID);
+	public static void notifySimulationStart(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID, Map<String, Object> simulationSessionData) {
+		SimulationStartEvent event = new SimulationStartEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData);
 		try {
 			RestNotifier.getCoreFacade().receiveSimulationStartEvent(event);
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SimulatioStartEvent sent");
@@ -57,8 +57,8 @@ public class RestNotifier extends Thread {
 		}
 	}
 		
-	public static void notifySimulationStop(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID) {
-		SimulationEndEvent event = new SimulationEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID);
+	public static void notifySimulationStop(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID, Map<String, Object> simulationSessionData) {
+		SimulationEndEvent event = new SimulationEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData);
 		try {
 			RestNotifier.getCoreFacade().receiveSimulationEndEvent(event);
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SimulatioStopEvent sent");
@@ -67,8 +67,8 @@ public class RestNotifier extends Thread {
 		}
 	}
 		
-	public static void notifyProcessStart(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID, String processID, String processDefinitionID) {
-		ProcessStartEvent event = new ProcessStartEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, processID, processDefinitionID);
+	public static void notifyProcessStart(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID, Map<String, Object> simulationSessionData, String processID, String processDefinitionID) {
+		ProcessStartEvent event = new ProcessStartEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData, processID, processDefinitionID);
 		try {
 			RestNotifier.getCoreFacade().receiveProcessStartEvent(event);
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "ProcessStartEvent sent");
@@ -77,8 +77,8 @@ public class RestNotifier extends Thread {
 		}
 	}
 	
-	public static void notifyProcessStop(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID, String processID, String processDefinitionID) {
-		ProcessEndEvent event = new ProcessEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, processID, processDefinitionID);
+	public static void notifyProcessStop(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID, Map<String, Object> simulationSessionData, String processID, String processDefinitionID) {
+		ProcessEndEvent event = new ProcessEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData, processID, processDefinitionID);
 		try {
 			RestNotifier.getCoreFacade().receiveProcessEndEvent(event);
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "ProcessStopEvent sent");
@@ -87,8 +87,8 @@ public class RestNotifier extends Thread {
 		}
 	}
 	
-	public static void notifyTaskStart(Long processTimeStamp, String sessionID, List<String> involvedUsers, String modelSetID, String processID, String taskID, String taskDefinitionID, List<String> assignedUsers) {
-		TaskStartEvent event = new TaskStartEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, processID, taskID, taskDefinitionID, assignedUsers);
+	public static void notifyTaskStart(Long processTimeStamp, String sessionID, List<String> involvedUsers, String modelSetID, Map<String, Object> simulationSessionData, String processID, String taskID, String taskDefinitionID, List<String> assignedUsers) {
+		TaskStartEvent event = new TaskStartEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData, processID, taskID, taskDefinitionID, assignedUsers);
 		try {
 			RestNotifier.getCoreFacade().receiveTaskStartEvent(event);
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "TaskStartEvent sent");
@@ -97,8 +97,8 @@ public class RestNotifier extends Thread {
 		}
 	}
 	
-	public static void notifyTaskStop(Long processTimeStamp, String sessionID, List<String> involvedUsers, String modelSetID, String processID, String taskID, String taskDefinitionID, List<String> assignedUsers, String completingUserID, Map<String,Object> submittedData) {
-		TaskEndEvent event = new TaskEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, processID, taskID, taskDefinitionID, assignedUsers, completingUserID, submittedData);
+	public static void notifyTaskStop(Long processTimeStamp, String sessionID, List<String> involvedUsers, String modelSetID, Map<String, Object> simulationSessionData, String processID, String taskID, String taskDefinitionID, List<String> assignedUsers, String completingUserID, Map<String,Object> submittedData) {
+		TaskEndEvent event = new TaskEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData, processID, taskID, taskDefinitionID, assignedUsers, completingUserID, submittedData);
 		try {
 			RestNotifier.getCoreFacade().receiveTaskEndEvent(event);
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "TaskEndEvent sent");
@@ -107,8 +107,8 @@ public class RestNotifier extends Thread {
 		}
 	}
 	
-	public static void notifySessionScoreUpdate(Long processTimeStamp, String sessionID, List<String> involvedUsers, String modelSetID, String processID, String userID, Long sessionScore) {
-		SessionScoreUpdateEvent event = new SessionScoreUpdateEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, processID, userID, sessionScore);
+	public static void notifySessionScoreUpdate(Long processTimeStamp, String sessionID, List<String> involvedUsers, String modelSetID, Map<String, Object> simulationSessionData, String processID, String userID, Long sessionScore) {
+		SessionScoreUpdateEvent event = new SessionScoreUpdateEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData, processID, userID, sessionScore);
 		try {
 			RestNotifier.getCoreFacade().receiveSessionScoreUpdateEvent(event);
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SessionScoreUpdateEvent sent");

@@ -20,6 +20,7 @@
 package eu.learnpad.sim.rest.event.impl;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -33,8 +34,10 @@ public class SimulationEndEvent extends SimulationStartEvent {
 	}
 
 	public SimulationEndEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String modelsetid) {
-		super(timestamp, simulationsessionid, involvedusers, modelsetid);
+			List<String> involvedusers, String modelsetid,
+			Map<String, Object> simulationSessionData) {
+		super(timestamp, simulationsessionid, involvedusers, modelsetid,
+				simulationSessionData);
 	}
 
 }
