@@ -3,5 +3,5 @@
    "http://www.w3.org/TR/html4/loose.dtd">
 
 <%
-    response.sendRedirect("page1.jsf");
+    response.sendRedirect("getanalysis.jsf");
 %>

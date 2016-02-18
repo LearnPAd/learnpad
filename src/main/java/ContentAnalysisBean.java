@@ -46,14 +46,21 @@ public class ContentAnalysisBean implements Serializable {
 
 
 		log.trace(id);
+		Collection<String> listc = getCollectionids();
+		if(!listc.isEmpty()){
+			for(String l :listc){
+				this.id=l;
+				log.trace(id);
+			}
+			actionDownloadAnalysis();
+		}
 	}
 
 
 
 	@PostConstruct
 	public void init(){
-
-
+		
 	}
 
 
@@ -65,17 +72,17 @@ public class ContentAnalysisBean implements Serializable {
 	public void setAllid(String ID){
 		this.id = ID;
 	}
-	
+
 	public String getAllid(){
 		return this.id;
 	}
 
 	public Collection<String> getCollectionids(){
 		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/allid");
+		WebTarget target = client.target("http://fmt.isti.cnr.it:8080").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/allid");
 		Response allID =  target.request().get();
 		String res = allID.readEntity(String.class);
-		
+
 		return Arrays.asList(res.split(";"));
 	}
 
@@ -163,10 +170,8 @@ public class ContentAnalysisBean implements Serializable {
 
 
 
-	public void actionDownloadAnalysis(ActionEvent event){
-		try {
-			Thread.sleep(2500);
-		} catch(Exception e) {}
+	public void actionDownloadAnalysis(){
+		
 		//FacesContext context = FacesContext.getCurrentInstance();
 
 
@@ -176,7 +181,7 @@ public class ContentAnalysisBean implements Serializable {
 			id="1";
 		}
 
-		WebTarget target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id+"/status");
+		WebTarget target = client.target("http://fmt.isti.cnr.it:8080").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id+"/status");
 		String 	status ="";
 		while (!status.equals("OK")) {
 
@@ -190,7 +195,7 @@ public class ContentAnalysisBean implements Serializable {
 		log.trace("Status: "+status);
 
 		if(status.equals("OK")){
-			target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id);
+			target = client.target("http://fmt.isti.cnr.it:8080").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id);
 			Response annotatecontent =  target.request().get();
 
 			this.setCollectionannotatedcontent(annotatecontent.readEntity(new GenericType<Collection<AnnotatedCollaborativeContentAnalysis>>() {}));

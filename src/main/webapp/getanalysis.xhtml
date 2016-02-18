@@ -19,54 +19,13 @@
                                        sessionExpiredLabel="Session expired" />
 	<h:form id="Form">
 
-		
-		<h:commandButton value="Get Analysis"
-			actionListener="#{ContentAnalysisBean.actionDownloadAnalysis}" action="#{pageController.navigatePageGetAnalysis}"  immediate="true" />
-
-
 
 		
-		<h:commandButton value="Redirect to Page CF"
-			action="#{pageController.navigatePageCF}" />
-		<h:commandButton value="Refresh"
-			action="#{pageController.navigatePageGetAnalysis}" />
-
 	
 
 
 
-	<h:panelGrid columns="3" border="1">
-		<f:facet name="header">
-			Content Analysis Information
-		</f:facet>
-
-
-
 	
-
-		<h:outputLabel for="inputOut2" value="ContentAnalysisBean.id:" />
-		<h:outputText id="inputOut2" value="#{ContentAnalysisBean.id}" />
-		<h:inputText id="inputOut"  value="#{ContentAnalysisBean.id}" >
-		<f:ajax execute="inputOut" render="inputOut2" immediate="true"/></h:inputText>
-		
-		
-		<h:outputLabel for="recOut123" value="ContentAnalysisBean.status:" />
-		<h:outputText id="recOut123" value="#{ContentAnalysisBean.status}" />
-		<h:outputLabel for="recOut123" value=" " />
-	
-		<h:outputLabel for="disp" value="Server IDs:" />
-		<ace:comboBox id="disp" value="#{ContentAnalysisBean.allid}"  label="Select ID Present In Server: " labelPosition="top" style="height:19px;">
-                    <c:forEach  items="#{ContentAnalysisBean.collectionids}"
-			var="data" varStatus="status">
-                    <f:selectItem itemValue="#{data}" itemLabel="#{data}" />
-                    </c:forEach>
-                    <ace:ajax execute="@this" render="@all" />
-                    <ace:ajax event="blur" execute="@this" render="@all" />
-                </ace:comboBox>
-
-
-
-	</h:panelGrid>
 	</h:form>
 	<br />
 
