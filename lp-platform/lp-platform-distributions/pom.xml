@@ -41,14 +41,38 @@
 
 	<modules>
 		<module>lp-platform-jetty-hsqldb</module>
-		<module>lp-platform-ui</module>
 	</modules>
 
 	<dependencyManagement>
 		<dependencies>
+			<!-- Force dependencies for XFF plugin -->
 			<dependency>
 				<groupId>org.xwiki.platform</groupId>
 				<artifactId>xwiki-platform-rest-api</artifactId>
+				<type>jar</type>
+				<version>${platform.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.xwiki.platform</groupId>
+				<artifactId>xwiki-platform-filter-event-xwiki</artifactId>
+				<type>jar</type>
+				<version>7.4.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.xwiki.commons</groupId>
+				<artifactId>xwiki-commons-filter-event-extension</artifactId>
+				<type>jar</type>
+				<version>7.4.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.xwiki.commons</groupId>
+				<artifactId>xwiki-commons-filter-xml</artifactId>
+				<type>jar</type>
+				<version>7.4.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.xwiki.platform</groupId>
+				<artifactId>xwiki-platform-xar</artifactId>
 				<type>jar</type>
 				<version>7.4.1</version>
 			</dependency>
@@ -56,8 +80,16 @@
 				<groupId>org.xwiki.platform</groupId>
 				<artifactId>xwiki-platform-rest-server</artifactId>
 				<type>jar</type>
-				<version>7.4.1</version>
+				<version>${platform.version}</version>
 			</dependency>
+			<!-- Force dependencies for WebIDE application -->
+			<dependency>
+				<groupId>org.xwiki.platform</groupId>
+				<artifactId>xwiki-platform-appwithinminutes-ui</artifactId>
+				<type>xar</type>
+				<version>${platform.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 </project>
