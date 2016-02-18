@@ -55,8 +55,7 @@ import eu.learnpad.sim.rest.data.UserData;
 	 	private ObjectReader objectReaderProcessData;
 	 	private ObjectReader objectReaderProcessInstanceData;
 	 
-	 	private ObjectWriter objectWriterCollection;
-	 	private ObjectWriter objectWriterProcessInstanceData;
+	 	private ObjectWriter objectWriter;
 
 	 	public XwikiBridgeInterfaceRestResource() {
 			this("localhost",8080);
@@ -71,8 +70,7 @@ import eu.learnpad.sim.rest.data.UserData;
 			this.objectReaderProcessData = objectMapper.readerFor(ProcessData.class);
 		 	this.objectReaderProcessInstanceData = objectMapper.readerFor(ProcessInstanceData.class);
 			
-			this.objectWriterCollection = objectMapper.writerFor(Collection.class);
-			this.objectWriterProcessInstanceData = objectMapper.writerFor(ProcessInstanceData.class);
+			this.objectWriter = objectMapper.writer();
 			
 			// This constructor could change in the future
 			this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
@@ -184,7 +182,7 @@ import eu.learnpad.sim.rest.data.UserData;
 		
 		try {
 // Not fully tested, but is looks working for our purposes -- Gulyx
-			String mashelledData = objectWriterProcessInstanceData.writeValueAsString(data);
+			String mashelledData = objectWriter.writeValueAsString(data);
 
 			RequestEntity requestEntity = new StringRequestEntity(mashelledData,"application/json", "UTF-8");
 			postMethod.setRequestEntity(requestEntity);
@@ -216,7 +214,7 @@ import eu.learnpad.sim.rest.data.UserData;
 		String potentialUsersJson = "[]";
 		
 		try {
-			potentialUsersJson = this.objectWriterCollection.writeValueAsString(potentialUsers);
+			potentialUsersJson = this.objectWriter.writeValueAsString(potentialUsers);
 			requestEntity = new StringRequestEntity(potentialUsersJson,
 					"application/json", "UTF-8");
 
