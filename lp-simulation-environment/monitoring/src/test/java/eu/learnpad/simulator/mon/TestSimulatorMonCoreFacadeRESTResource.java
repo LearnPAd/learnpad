@@ -1,5 +1,6 @@
 package eu.learnpad.simulator.mon;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 import org.apache.commons.net.ntp.TimeStamp;
@@ -18,7 +19,7 @@ public class TestSimulatorMonCoreFacadeRESTResource {
 		involvedUsers.add("involvedUsers2");
 		
 		SimulationStartEvent event = new SimulationStartEvent(TimeStamp.getCurrentTime().getTime(),
-				"theSimsessionID",involvedUsers,"theModelSetID");
+				"theSimsessionID",involvedUsers,"theModelSetID", new HashMap<String, Object>());
 		
 		try {
 			simMinRest.receiveSimulationStartEvent(event);

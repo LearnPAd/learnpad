@@ -20,6 +20,7 @@
 package eu.learnpad.sim.rest.event.impl;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -33,10 +34,10 @@ public class ProcessEndEvent extends ProcessStartEvent {
 	}
 
 	public ProcessEndEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String modelsetid, String processid,
+			List<String> involvedusers, String modelsetid,
+			Map<String, Object> simulationSessionData, String processid,
 			String processdefinitionid) {
 		super(timestamp, simulationsessionid, involvedusers, modelsetid,
-				processid, processdefinitionid);
+				simulationSessionData, processid, processdefinitionid);
 	}
-
 }

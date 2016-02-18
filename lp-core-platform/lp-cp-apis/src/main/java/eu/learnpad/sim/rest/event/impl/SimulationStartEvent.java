@@ -20,6 +20,7 @@
 package eu.learnpad.sim.rest.event.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import eu.learnpad.sim.rest.event.AbstractEvent;
 
@@ -35,8 +36,10 @@ public class SimulationStartEvent extends AbstractEvent {
 	}
 
 	public SimulationStartEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String modelsetid) {
-		super(timestamp, simulationsessionid, involvedusers, modelsetid);
+			List<String> involvedusers, String modelsetid,
+			Map<String, Object> simulationSessionData) {
+		super(timestamp, simulationsessionid, involvedusers, modelsetid,
+				simulationSessionData);
 	}
 
 }

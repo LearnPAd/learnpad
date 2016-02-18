@@ -101,38 +101,38 @@ public class SimRestAPICoreFacadeTest {
 		try {
 			receiverClient.receiveSimulationEndEvent(new SimulationEndEvent(
 					System.currentTimeMillis(), "1", Arrays.asList("test"),
-					null));
+					null, null));
 
 			receiverClient
 			.receiveSimulationStartEvent(new SimulationStartEvent(
 					System.currentTimeMillis(), "1", Arrays
-					.asList("test"), null));
+					.asList("test"), null, null));
 
 			receiverClient.receiveProcessEndEvent(new ProcessEndEvent(System
 					.currentTimeMillis(), "1", Arrays.asList("test"), null,
-					"1", "1"));
+					null, "1", "1"));
 
 			receiverClient.receiveProcessStartEvent(new ProcessStartEvent(
 					System.currentTimeMillis(), "1", Arrays.asList("test"),
-					null, "1", "1"));
+					null, null, "1", "1"));
 
 			receiverClient.receiveTaskEndEvent(new TaskEndEvent(System
 					.currentTimeMillis(), "1", Arrays.asList("test"), null,
-					"1", "1", "1", Arrays.asList("test"), "test",
+					null, "1", "1", "1", Arrays.asList("test"), "test",
 					new HashMap<String, Object>()));
 
 			receiverClient.receiveTaskFailedEvent(new TaskFailedEvent(System
 					.currentTimeMillis(), "1", Arrays.asList("test"), null,
-					"1", "1", "1", Arrays.asList("test"), "test",
+					null, "1", "1", "1", Arrays.asList("test"), "test",
 					new HashMap<String, Object>()));
 
 			receiverClient.receiveTaskStartEvent(new TaskStartEvent(System
 					.currentTimeMillis(), "1", Arrays.asList("test"), null,
-					"1", "1", "1", Arrays.asList("test")));
+					null, "1", "1", "1", Arrays.asList("test")));
 			receiverClient
 			.receiveSessionScoreUpdateEvent(new SessionScoreUpdateEvent(
 					System.currentTimeMillis(), "1", Arrays
-					.asList("test"), null, "1", "1", 1L));
+					.asList("test"), null, null, "1", "1", 1L));
 
 		} catch (LpRestException e) {
 			e.printStackTrace();
