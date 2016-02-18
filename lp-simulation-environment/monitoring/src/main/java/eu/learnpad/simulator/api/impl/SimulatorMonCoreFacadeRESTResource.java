@@ -18,9 +18,11 @@ import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
 import eu.learnpad.sim.rest.event.impl.TaskFailedEvent;
 import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
-import eu.learnpad.simulator.api.impl.utils.RestResource;;
+import eu.learnpad.simulator.api.impl.utils.LpMonRestException;
+import eu.learnpad.simulator.api.impl.utils.RestResource;
+import eu.learnpad.sim.CoreFacade;
 
-public class SimulatorMonCoreFacadeRESTResource implements eu.learnpad.sim.CoreFacade {
+public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 
 	@Override
 	public List<String> getUsers() {
@@ -45,12 +47,12 @@ public class SimulatorMonCoreFacadeRESTResource implements eu.learnpad.sim.CoreF
 		//params.add(new BasicNameValuePair("param-2", "n1hehe"));
 		try {
 		    PostMethod method = new PostMethod(uri);
-			response = httpClient.executeMethod(method);
-			
+			response = httpClient.executeMethod(method);			
 		} catch (IOException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), 
 					SimulatorMonCoreFacadeRESTResource.class.getCanonicalName(),
 					"Exception in receiveSimulationStartEvent\nResponse: " + response);
+			throw new LpMonRestException();
 		}		
 	}
 
@@ -63,11 +65,11 @@ public class SimulatorMonCoreFacadeRESTResource implements eu.learnpad.sim.CoreF
 		try {
 		    PostMethod method = new PostMethod(uri);
 			response = httpClient.executeMethod(method);
-			
 		} catch (IOException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), 
 					SimulatorMonCoreFacadeRESTResource.class.getCanonicalName(),
 					"Exception in receiveSimulationEndEvent\nResponse: " + response);
+			throw new LpMonRestException();
 		}		
 	}
 
@@ -79,12 +81,12 @@ public class SimulatorMonCoreFacadeRESTResource implements eu.learnpad.sim.CoreF
 		int response = 0;
 		try {
 		    PostMethod method = new PostMethod(uri);
-			response = httpClient.executeMethod(method);
-			
+			response = httpClient.executeMethod(method);	
 		} catch (IOException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), 
 					SimulatorMonCoreFacadeRESTResource.class.getCanonicalName(),
 					"Exception in receiveProcessStartEvent\nResponse: " + response);
+			throw new LpMonRestException();
 		}			
 	}
 
@@ -97,11 +99,11 @@ public class SimulatorMonCoreFacadeRESTResource implements eu.learnpad.sim.CoreF
 		try {
 		    PostMethod method = new PostMethod(uri);
 			response = httpClient.executeMethod(method);
-			
 		} catch (IOException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), 
 					SimulatorMonCoreFacadeRESTResource.class.getCanonicalName(),
 					"Exception in receiveProcessEndEvent\nResponse: " + response);
+			throw new LpMonRestException();
 		}			
 		
 	}
@@ -115,11 +117,11 @@ public class SimulatorMonCoreFacadeRESTResource implements eu.learnpad.sim.CoreF
 		try {
 		    PostMethod method = new PostMethod(uri);
 			response = httpClient.executeMethod(method);
-			
 		} catch (IOException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), 
 					SimulatorMonCoreFacadeRESTResource.class.getCanonicalName(),
 					"Exception in receiveTaskStartEvent\nResponse: " + response);
+			throw new LpMonRestException();
 		}			
 	}
 
@@ -132,11 +134,11 @@ public class SimulatorMonCoreFacadeRESTResource implements eu.learnpad.sim.CoreF
 		try {
 		    PostMethod method = new PostMethod(uri);
 			response = httpClient.executeMethod(method);
-			
 		} catch (IOException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), 
 					SimulatorMonCoreFacadeRESTResource.class.getCanonicalName(),
 					"Exception in receiveTaskEndEvent\nResponse: " + response);
+			throw new LpMonRestException();
 		}			
 	}
 
@@ -149,11 +151,11 @@ public class SimulatorMonCoreFacadeRESTResource implements eu.learnpad.sim.CoreF
 		try {
 		    PostMethod method = new PostMethod(uri);
 			response = httpClient.executeMethod(method);
-			
 		} catch (IOException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), 
 					SimulatorMonCoreFacadeRESTResource.class.getCanonicalName(),
 					"Exception in receiveTaskFailedEvent\nResponse: " + response);
+			throw new LpMonRestException();
 		}			
 	}
 
@@ -166,11 +168,11 @@ public class SimulatorMonCoreFacadeRESTResource implements eu.learnpad.sim.CoreF
 		try {
 		    PostMethod method = new PostMethod(uri);
 			response = httpClient.executeMethod(method);
-			
 		} catch (IOException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), 
 					SimulatorMonCoreFacadeRESTResource.class.getCanonicalName(),
 					"Exception in receiveSessionScoreUpdateEvent\nResponse: " + response);
+			throw new LpMonRestException();
 		}			
 	}
 }
