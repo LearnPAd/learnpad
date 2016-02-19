@@ -153,12 +153,12 @@ public class Completeness  extends AbstractAnalysisClass {
 				if(contenthtml!=""){ //$NON-NLS-1$
 					Document doc = Jsoup.parse(contenthtml);
 
-					Elements mark = doc.getElementsByTag("mark"); //$NON-NLS-1$
+					Elements strong = doc.getElementsByTag("strong"); //$NON-NLS-1$
+					Elements b = doc.getElementsByTag("b"); //$NON-NLS-1$
 
 
-
-					log.info("#mark "+mark.size()); //$NON-NLS-1$
-
+					log.info("#strong "+strong.size()); //$NON-NLS-1$
+					log.info("#b "+b.size()); //$NON-NLS-1$
 
 
 
@@ -169,9 +169,9 @@ public class Completeness  extends AbstractAnalysisClass {
 
 
 					List<String> Elements = new ArrayList<String>();
+					strong.addAll(b);
 
-
-					for (Element element : mark) {
+					for (Element element : strong) {
 						String node = getString(element.text());
 						//node = node.replace(".", "").replace(":", "").replace(" ", "");
 						for(String Element :  Elements_Template){
