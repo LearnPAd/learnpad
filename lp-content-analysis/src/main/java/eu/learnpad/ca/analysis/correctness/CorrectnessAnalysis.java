@@ -221,7 +221,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			c.setContent(sentence);
 		}else{
 			if(finalpos< sentence.length()){
-				c.setContent(sentence.substring(finalpos, sentence.length()));
+				c.setContent(sentence.substring(finalpos, sentence.length()).replace(". ", "."));
 			}
 		}
 		return id;
