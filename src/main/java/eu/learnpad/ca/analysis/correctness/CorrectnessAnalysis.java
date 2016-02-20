@@ -26,7 +26,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(CorrectnessAnalysis.class);
-	
+
 
 	public CorrectnessAnalysis(Language lang){
 
@@ -51,7 +51,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			Content c = new Content();
 			sc.setContent(c);
 
-			
+
 			List<String> listsentence = langTool.sentenceTokenize(content);
 			Integer id=0;
 			int offset = 0;
@@ -61,15 +61,15 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 				//List<Annotation> annotations = checkdefect(sentence,c, id);
 				List<Annotation> annotations =new ArrayList<Annotation>();
 				id = calculateAnnotations(sentence, matches, c, id,annotations,offset);
-				offset+= sentence.length()+ 1 ;
-				
+				offset+= sentence.length();
+
 				if(annotations.size()>0){
 					numDefectiveSentences++;
 				}
 				annotatedCollaborativeContent.setAnnotations(annotations);
 				id++;
 			}
-			
+
 
 
 
@@ -81,7 +81,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 
 
-			
+
 
 			return annotatedCollaborativeContent;
 
@@ -108,9 +108,9 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			matches = langTool.check(content);
 
 			List<String> listsentence = langTool.sentenceTokenize(content);
-		
 
-			
+
+
 			annotatedStaticContent = new AnnotatedStaticContentAnalysis();
 			StaticContent sc = new StaticContent();
 			annotatedStaticContent.setStaticContent(sc);
@@ -123,7 +123,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			for (String sentence : listsentence) {
 
 				matches = langTool.check(sentence);
-		
+
 				List<Annotation> annotations =new ArrayList<Annotation>();
 				id  = calculateAnnotations( sentence, matches, c, id,annotations, offset);
 				annotatedStaticContent.setAnnotations(annotations);
@@ -131,14 +131,14 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 				if(annotations.size()>0){
 					numDefectiveSentences++;
 				}
-				
+
 				id++;
 			}
 
-		
 
 
-			
+
+
 			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 			annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
 			annotatedStaticContent.setOverallQualityMeasure(qualitymmeasure+"%"); //$NON-NLS-1$
@@ -147,7 +147,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 
 
-			
+
 
 			return annotatedStaticContent;
 
@@ -167,35 +167,56 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 		int precedentposition=0;
 
 		int finalpos = 0;
+		Annotation prev = null;
+		String prec = "";
 		for (RuleMatch match : matches) {
 
-			if(precedentposition>match.getFromPos()){
+			if(precedentposition>=match.getFromPos()){
 				precedentposition =  match.getFromPos();
+			}else{
+				String stringap = sentence.substring(precedentposition, match.getFromPos());
+				c.setContent(stringap);
 			}
-			String stringap = sentence.substring(precedentposition, match.getFromPos());
-			c.setContent(stringap);
-			id++;
-			Node init= new Node(id, match.getFromPos()+offset);
-			c.setContent(init);
 			String stringa = sentence.substring(match.getFromPos(),match.getToPos());
-			precedentposition= match.getToPos();
-			c.setContent(stringa);
-			id++;
-			Node end= new Node(id,match.getToPos()+offset);
-			c.setContent(end);
-			Annotation a = new Annotation();
-			a.setId(id);
-			a.setEndNode(end.getId());
-			a.setStartNode(init.getId());
-			a.setNodeEnd(end);
-			a.setNodeStart(init);
-			a.setType("Correctness"); //$NON-NLS-1$
-			a.setRecommendation(match.getMessage()+Messages.getString("CorrectnessAnalysis.Reccomandation", language) +match.getSuggestedReplacements()); //$NON-NLS-1$
-			annotations.add(a);
-			id++;
-			finalpos = match.getToPos();
+			if( !(stringa.equals(prec)) ){
+				id++;
+				Node init= new Node(id, match.getFromPos()+offset);
+				c.setContent(init);
+				precedentposition= match.getToPos();
+				prec=stringa;
+				c.setContent(stringa);
+				id++;
+				Node end= new Node(id,match.getToPos()+offset);
+				c.setContent(end);
+				Annotation a = new Annotation();
+				a.setId(id);
+				a.setEndNode(end.getId());
+				a.setStartNode(init.getId());
+				a.setNodeEnd(end);
+				a.setNodeStart(init);
+				a.setType("Correctness"); //$NON-NLS-1$
+				a.setRecommendation(match.getMessage()+Messages.getString("CorrectnessAnalysis.Reccomandation", language) +match.getSuggestedReplacements()); //$NON-NLS-1$
+				annotations.add(a);
+				prev=a;
+				id++;
+				finalpos = match.getToPos();
+			}else{
+				id++;
+				Annotation a = new Annotation();
+				a.setId(id);
+				a.setEndNode(prev.getNodeEnd().getId());
+				a.setStartNode(prev.getNodeStart().getId());
+				a.setNodeEnd(prev.getNodeEnd());
+				a.setNodeStart(prev.getNodeStart());
+				a.setType("Correctness"); //$NON-NLS-1$
+				a.setRecommendation(match.getMessage()+Messages.getString("CorrectnessAnalysis.Reccomandation", language) +match.getSuggestedReplacements()); //$NON-NLS-1$
+				annotations.add(a);
+				prev=a;
+				id++;
+				finalpos = match.getToPos();
+			}
 		}
-		
+
 		if(annotations.size()==0){
 			c.setContent(sentence);
 		}else{
@@ -207,12 +228,12 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 	}
 
-	
+
 	public int getNumSentenceDiffected() {
 		return numDefectiveSentences;
 	}
 
-	
+
 	public CorrectnessAnalysis( Language lang, CollaborativeContentAnalysis collaborativeContentInput){
 
 		this.language=lang;
@@ -225,11 +246,11 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 		this.staticContentInput =staticContentInput;
 	}
 
-	
 
-	
+
+
 	public void run() {
-		
+
 
 		long lStartTime = System.currentTimeMillis();
 		//some tasks
@@ -246,7 +267,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 		log.trace("CorrectnessAnalysis Elapsed milliseconds: " + difference); //$NON-NLS-1$
 
 	}
-	
-	
+
+
 
 }
