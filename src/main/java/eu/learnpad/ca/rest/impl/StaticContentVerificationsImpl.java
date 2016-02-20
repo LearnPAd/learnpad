@@ -45,54 +45,59 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 			throws LpRestException {
 		try{
 			String content = contentFile.getStaticContent().getContentplain();
-			GateThread gateu = new GateThread(content,contentFile.getQualityCriteria());
-			gateu.start();
-			if(contentFile.getQualityCriteria().isCorrectness()){
-				id++;
-				Language lang = null;
-				if(contentFile.getLanguage()=="english"){
-					lang = new BritishEnglish();
-				}else{
-					if(contentFile.getLanguage().toLowerCase().equals("italian")){
-						lang = new Italian();
-					}else
-						if(contentFile.getLanguage().toLowerCase().equals("english uk")){
-							lang = new BritishEnglish();
-						}else
-							if(contentFile.getLanguage().toLowerCase().equals("english us")){
-								lang = new AmericanEnglish();
-							}else
-								lang = new BritishEnglish();
-				}
+			if(content!=null && content.length()>0){
+				GateThread gateu = new GateThread(content,contentFile.getQualityCriteria());
+				gateu.start();
 				if(contentFile.getQualityCriteria().isCorrectness()){
+					id++;
+					Language lang = null;
+					if(contentFile.getLanguage()=="english"){
+						lang = new BritishEnglish();
+					}else{
+						if(contentFile.getLanguage().toLowerCase().equals("italian")){
+							lang = new Italian();
+						}else
+							if(contentFile.getLanguage().toLowerCase().equals("english uk")){
+								lang = new BritishEnglish();
+							}else
+								if(contentFile.getLanguage().toLowerCase().equals("english us")){
+									lang = new AmericanEnglish();
+								}else
+									lang = new BritishEnglish();
+					}
+					if(contentFile.getQualityCriteria().isCorrectness()){
 
-					CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(lang, contentFile);
-					threadcorre.start();
-					putAndCreate(id, threadcorre);
+						CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(lang, contentFile);
+						threadcorre.start();
+						putAndCreate(id, threadcorre);
 
+					}
+					if(contentFile.getQualityCriteria().isSimplicity()){
+
+						Simplicity threadEL = new Simplicity(contentFile, lang,gateu);
+						threadEL.start();
+						putAndCreate(id, threadEL);
+
+					}
+					if(contentFile.getQualityCriteria().isNonAmbiguity()){
+
+						NonAmbiguity threadNonAmbiguity = new NonAmbiguity (contentFile, lang, gateu);
+						threadNonAmbiguity.start();
+						putAndCreate(id, threadNonAmbiguity);
+
+					}
+					if(contentFile.getQualityCriteria().isContentClarity()){
+
+						ContentClarity threadContentClarity = new ContentClarity (contentFile, lang, gateu);
+						threadContentClarity.start();
+						putAndCreate(id, threadContentClarity);
+
+					}
+					return id.toString();
+				}else{
+					log.error("No Content send: "+content);
+					return "No Content send";
 				}
-				if(contentFile.getQualityCriteria().isSimplicity()){
-
-					Simplicity threadEL = new Simplicity(contentFile, lang,gateu);
-					threadEL.start();
-					putAndCreate(id, threadEL);
-
-				}
-				if(contentFile.getQualityCriteria().isNonAmbiguity()){
-
-					NonAmbiguity threadNonAmbiguity = new NonAmbiguity (contentFile, lang, gateu);
-					threadNonAmbiguity.start();
-					putAndCreate(id, threadNonAmbiguity);
-
-				}
-				if(contentFile.getQualityCriteria().isContentClarity()){
-
-					ContentClarity threadContentClarity = new ContentClarity (contentFile, lang, gateu);
-					threadContentClarity.start();
-					putAndCreate(id, threadContentClarity);
-
-				}
-				return id.toString();
 			}else{
 				log.error("Error "+"Null Element send");
 				return "Null Element send";
@@ -135,7 +140,7 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 
 				return ar;
 			}else{
-				log.error("Element not found");
+				log.error("Element not found: "+contentID+" map:"+map.keySet().toString());
 				return null;
 			}
 		}catch(Exception e){
@@ -156,9 +161,9 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 					return "OK";
 				else
 					return "InProgess_"+progress+"%";
-			
+
 			}
-			log.error("Element not found");
+			log.error("Element not found: "+contentID+" map:"+map.keySet().toString());
 			return "ERROR";
 
 
@@ -167,7 +172,7 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 			return "FATAL ERROR";
 		}
 	}
-	
+
 	private Integer getProgress(List<AbstractAnalysisClass> listanalysisInterface){
 		int size = listanalysisInterface.size();
 		int i = 0;
