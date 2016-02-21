@@ -20,6 +20,7 @@ import org.languagetool.language.BritishEnglish;
 import org.languagetool.language.Italian;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
+import eu.learnpad.ca.analysis.completeness.Completeness;
 import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.non_ambiguity.NonAmbiguity;
@@ -91,6 +92,13 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 						ContentClarity threadContentClarity = new ContentClarity (contentFile, lang, gateu);
 						threadContentClarity.start();
 						putAndCreate(id, threadContentClarity);
+
+					}
+					if(contentFile.getQualityCriteria().isCompleteness()){
+
+						Completeness threadCompleteness = new Completeness (contentFile, lang);
+						threadCompleteness.start();
+						putAndCreate(id, threadCompleteness);
 
 					}
 					return id.toString();
