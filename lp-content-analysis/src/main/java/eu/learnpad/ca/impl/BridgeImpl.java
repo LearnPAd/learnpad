@@ -297,6 +297,13 @@ public class BridgeImpl extends Bridge {
 						putAndCreate(id, threadContentClarity);
 
 					}
+					if(contentFile.getQualityCriteria().isCompleteness()){
+
+						Completeness threadCompleteness = new Completeness (contentFile, lang);
+						threadCompleteness.start();
+						putAndCreate(id, threadCompleteness);
+
+					}
 					return id.toString();
 				}else{
 					log.error("No Content send: "+content);
