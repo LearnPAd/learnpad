@@ -80,6 +80,9 @@ public interface AskRecommendation {
      * the simulation id and search for similar cases based on the comparsion of
      * the case characterisations.
      *
+     * @param modelSetId is the uniq ID of the model set
+     * @param artifactId is the ID of the artifact in the model (event, gateway, unit, etc.)
+     * @param userId
      * @param simulationSessionId unique id of a simulation session instance
      *
      * @return list of recommendations with similar cases.
@@ -89,5 +92,7 @@ public interface AskRecommendation {
     // <host>/learnpad/or/recommendation?simulationid=id
     @Path("/recommendation")
     @GET
-    Recommendations askRecommendation(@QueryParam("simulationSessionId") String simulationSessionId) throws LpRestException;
+    Recommendations askRecommendation(@PathParam("modelsetid") String modelSetId,
+            @QueryParam("artifactid") String artifactId,
+            @QueryParam("userid") String userId, @QueryParam("simulationSessionId") String simulationSessionId) throws LpRestException;
 }

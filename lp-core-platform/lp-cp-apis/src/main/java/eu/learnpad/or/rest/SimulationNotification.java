@@ -94,6 +94,7 @@ public interface SimulationNotification {
 			@PathParam("modelid") String modelId,
                         @QueryParam("artifactid") String artifactId,
 			@QueryParam("simulationid") String simulationId,
+                        @QueryParam("simdata") Map<String, Object> simSessionData,
                         @QueryParam("data") Map<String, Object> data) 
 			throws LpRestException;          
 }

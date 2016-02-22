@@ -13,5 +13,5 @@ public interface NotifyRecommendations
     @Path("/notify/{modelsetid}")
     @PUT
     public void notifyRecommendations(@QueryParam("simulationid") @DefaultValue("") String simulationid,
-        Recommendations rec) throws LpRestException;
+        Recommendations rec, String usedId) throws LpRestException;
 }
