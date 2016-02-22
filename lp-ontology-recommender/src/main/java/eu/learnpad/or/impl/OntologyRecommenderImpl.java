@@ -16,6 +16,7 @@ import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.SimilarCase;
 import eu.learnpad.or.rest.data.SimilarCases;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -77,7 +78,11 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     }
     
     @Override
-    public Recommendations askRecommendation(String simulationSessionId) throws LpRestException {
+    public Recommendations askRecommendation(String modelSetId,
+			String artifactId, String userId, String simulationSessionId) throws LpRestException {
+    	
+    	//TODO Ssandro, please consider to use the also the new parameters : modelSetId, artifactId, userId 
+    	
           Recommendations rec = new Recommendations();
           SimilarCases cases = new SimilarCases();
           List<SimilarCase> caseList = new ArrayList();
@@ -110,17 +115,17 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     }    
     
     @Override
-    public void simulationInstanceNotification(String modelSetId, String modelId, String action, String simulationId) throws LpRestException {
+    public void simulationInstanceNotification(String modelSetId, String modelId, String action, String simulationId, Map<String, Object> simSessionData) throws LpRestException {
         //TODO
     }
 
     @Override
-    public void simulationTaskStartNotification(String modelSetId, String modelId, String artifactId, String simulationId) throws LpRestException {
+    public void simulationTaskStartNotification(String modelSetId, String modelId, String artifactId, String simulationId, Map<String, Object> simSessionData) throws LpRestException {
         //TODO
     }
 
     @Override
-    public void simulationTaskEndNotification(String modelSetId, String modelId, String artifactId, String simulationId, Map<String, Object> data) throws LpRestException {
+    public void simulationTaskEndNotification(String modelSetId, String modelId, String artifactId, String simulationId, Map<String, Object> simSessionData, Map<String, Object> data) throws LpRestException {
         //TODO
     }
     

@@ -159,7 +159,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements
 	}
 
 	@Override
-	public void notifyRecommendations(String simulationid, Recommendations rec)
+	public void notifyRecommendations(String simulationid, Recommendations rec, String usedId)
 			throws LpRestException {
 		// TODO Auto-generated method stub
 		
