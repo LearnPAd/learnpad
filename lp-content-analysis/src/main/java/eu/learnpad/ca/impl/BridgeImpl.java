@@ -37,7 +37,7 @@ import eu.learnpad.exception.LpRestException;
 @Path("/learnpad/ca/bridge/")
 @Produces(MediaType.APPLICATION_XML)
 public class BridgeImpl extends Bridge {
-	
+
 	private static Map<Integer,List<AbstractAnalysisClass>> map = new HashMap<Integer,List<AbstractAnalysisClass>>();
 	private static Integer id =0;
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BridgeImpl.class);
@@ -51,34 +51,35 @@ public class BridgeImpl extends Bridge {
 		try{
 			if(contentFile!=null){
 				String content = contentFile.getCollaborativeContent().getContentplain();
-				GateThread gateu = new GateThread(content,contentFile.getQualityCriteria());
-				gateu.start();
-				id++;
-				Language lang = null;
-				if(contentFile.getLanguage().toLowerCase().equals("english")){
-					lang = new  BritishEnglish();
-				}else{
-					if(contentFile.getLanguage().toLowerCase().equals("italian")){
-						lang = new Italian();
-					}else
-						if(contentFile.getLanguage().toLowerCase().equals("english uk")){
-							lang = new BritishEnglish();
+				if(content!=null && content.length()>0){
+					GateThread gateu = new GateThread(content,contentFile.getQualityCriteria());
+					gateu.start();
+					id++;
+					Language lang = null;
+					if(contentFile.getLanguage().toLowerCase().equals("english")){
+						lang = new  BritishEnglish();
+					}else{
+						if(contentFile.getLanguage().toLowerCase().equals("italian")){
+							lang = new Italian();
 						}else
-							if(contentFile.getLanguage().toLowerCase().equals("english us")){
-								lang = new AmericanEnglish();
-							}else
+							if(contentFile.getLanguage().toLowerCase().equals("english uk")){
 								lang = new BritishEnglish();
-				}
-				if(contentFile.getQualityCriteria().isCorrectness()){
+							}else
+								if(contentFile.getLanguage().toLowerCase().equals("english us")){
+									lang = new AmericanEnglish();
+								}else
+									lang = new BritishEnglish();
+					}
+					if(contentFile.getQualityCriteria().isCorrectness()){
 
-					CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(lang, contentFile);
-					threadcorre.start();
-					putAndCreate(id, threadcorre);
+						CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(lang, contentFile);
+						threadcorre.start();
+						putAndCreate(id, threadcorre);
 
-				}
-				if(contentFile.getQualityCriteria().isSimplicity()){
+					}
+					if(contentFile.getQualityCriteria().isSimplicity()){
 
-					/*JuridicalJargon threadsimply = new JuridicalJargon (contentFile, lang);
+						/*JuridicalJargon threadsimply = new JuridicalJargon (contentFile, lang);
 					threadsimply.start();
 					putAndCreate(id, threadsimply);
 
@@ -91,43 +92,47 @@ public class BridgeImpl extends Bridge {
 					ExcessiveLength threadEL = new ExcessiveLength(contentFile, lang);
 					threadEL.start();
 					putAndCreate(id, threadEL);*/
-					Simplicity threadEL = new Simplicity(contentFile, lang, gateu);
-					threadEL.start();
-					putAndCreate(id, threadEL);
+						Simplicity threadEL = new Simplicity(contentFile, lang, gateu);
+						threadEL.start();
+						putAndCreate(id, threadEL);
 
 
+					}
+					if(contentFile.getQualityCriteria().isNonAmbiguity()){
+
+						NonAmbiguity threadNonAmbiguity = new NonAmbiguity (contentFile, lang, gateu);
+						threadNonAmbiguity.start();
+						putAndCreate(id, threadNonAmbiguity);
+
+					}
+					if(contentFile.getQualityCriteria().isContentClarity()){
+
+						ContentClarity threadContentClarity = new ContentClarity (contentFile, lang, gateu);
+						threadContentClarity.start();
+						putAndCreate(id, threadContentClarity);
+
+					}
+					if(contentFile.getQualityCriteria().isPresentationClarity()){
+
+						PresentationClarity threadPresentation = new PresentationClarity (contentFile, lang);
+						threadPresentation.start();
+						putAndCreate(id, threadPresentation);
+
+					}
+					if(contentFile.getQualityCriteria().isCompleteness()){
+
+						Completeness threadCompleteness = new Completeness (contentFile, lang);
+						threadCompleteness.start();
+						putAndCreate(id, threadCompleteness);
+
+					}
+
+
+					return id.toString();
+				}else{
+					log.error("No Content send: "+content);
+					return "No Content send";
 				}
-				if(contentFile.getQualityCriteria().isNonAmbiguity()){
-
-					NonAmbiguity threadNonAmbiguity = new NonAmbiguity (contentFile, lang, gateu);
-					threadNonAmbiguity.start();
-					putAndCreate(id, threadNonAmbiguity);
-
-				}
-				if(contentFile.getQualityCriteria().isContentClarity()){
-
-					ContentClarity threadContentClarity = new ContentClarity (contentFile, lang, gateu);
-					threadContentClarity.start();
-					putAndCreate(id, threadContentClarity);
-
-				}
-				if(contentFile.getQualityCriteria().isPresentationClarity()){
-
-					PresentationClarity threadPresentation = new PresentationClarity (contentFile, lang);
-					threadPresentation.start();
-					putAndCreate(id, threadPresentation);
-
-				}
-				if(contentFile.getQualityCriteria().isCompleteness()){
-
-					Completeness threadCompleteness = new Completeness (contentFile, lang);
-					threadCompleteness.start();
-					putAndCreate(id, threadCompleteness);
-
-				}
-
-
-				return id.toString();
 			}else{
 				log.error("Null Element send");
 				return "Null Element send";
@@ -171,7 +176,7 @@ public class BridgeImpl extends Bridge {
 
 				return ar;
 			}else{
-				log.error("Element not found");
+				log.error("Element not found: "+contentID+" map:"+map.keySet().toString());
 				return null;
 			}
 		}catch(Exception e){
@@ -193,7 +198,7 @@ public class BridgeImpl extends Bridge {
 				else
 					return "InProgess_"+progress+"%";
 			}
-			log.error("Element not found");
+			log.error("Element not found: "+contentID+" map:"+map.keySet().toString());
 			return "ERROR";
 		}catch(Exception e){
 			log.fatal("Fatal "+e.getMessage());
@@ -244,54 +249,66 @@ public class BridgeImpl extends Bridge {
 			throws LpRestException {
 		try{
 			String content = contentFile.getStaticContent().getContentplain();
-			GateThread gateu = new GateThread(content,contentFile.getQualityCriteria());
-			gateu.start();
-			if(contentFile.getQualityCriteria().isCorrectness()){
-				id++;
-				Language lang = null;
-				if(contentFile.getLanguage()=="english"){
-					lang = new BritishEnglish();
-				}else{
-					if(contentFile.getLanguage().toLowerCase().equals("italian")){
-						lang = new Italian();
-					}else
-						if(contentFile.getLanguage().toLowerCase().equals("english uk")){
-							lang = new BritishEnglish();
-						}else
-							if(contentFile.getLanguage().toLowerCase().equals("english us")){
-								lang = new AmericanEnglish();
-							}else
-								lang = new BritishEnglish();
-				}
+			if(content!=null && content.length()>0){
+				GateThread gateu = new GateThread(content,contentFile.getQualityCriteria());
+				gateu.start();
 				if(contentFile.getQualityCriteria().isCorrectness()){
+					id++;
+					Language lang = null;
+					if(contentFile.getLanguage()=="english"){
+						lang = new BritishEnglish();
+					}else{
+						if(contentFile.getLanguage().toLowerCase().equals("italian")){
+							lang = new Italian();
+						}else
+							if(contentFile.getLanguage().toLowerCase().equals("english uk")){
+								lang = new BritishEnglish();
+							}else
+								if(contentFile.getLanguage().toLowerCase().equals("english us")){
+									lang = new AmericanEnglish();
+								}else
+									lang = new BritishEnglish();
+					}
+					if(contentFile.getQualityCriteria().isCorrectness()){
 
-					CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(lang, contentFile);
-					threadcorre.start();
-					putAndCreate(id, threadcorre);
+						CorrectnessAnalysis threadcorre = new CorrectnessAnalysis(lang, contentFile);
+						threadcorre.start();
+						putAndCreate(id, threadcorre);
 
+					}
+					if(contentFile.getQualityCriteria().isSimplicity()){
+
+						Simplicity threadEL = new Simplicity(contentFile, lang,gateu);
+						threadEL.start();
+						putAndCreate(id, threadEL);
+
+					}
+					if(contentFile.getQualityCriteria().isNonAmbiguity()){
+
+						NonAmbiguity threadNonAmbiguity = new NonAmbiguity (contentFile, lang, gateu);
+						threadNonAmbiguity.start();
+						putAndCreate(id, threadNonAmbiguity);
+
+					}
+					if(contentFile.getQualityCriteria().isContentClarity()){
+
+						ContentClarity threadContentClarity = new ContentClarity (contentFile, lang, gateu);
+						threadContentClarity.start();
+						putAndCreate(id, threadContentClarity);
+
+					}
+					if(contentFile.getQualityCriteria().isCompleteness()){
+
+						Completeness threadCompleteness = new Completeness (contentFile, lang);
+						threadCompleteness.start();
+						putAndCreate(id, threadCompleteness);
+
+					}
+					return id.toString();
+				}else{
+					log.error("No Content send: "+content);
+					return "No Content send";
 				}
-				if(contentFile.getQualityCriteria().isSimplicity()){
-
-					Simplicity threadEL = new Simplicity(contentFile, lang,gateu);
-					threadEL.start();
-					putAndCreate(id, threadEL);
-
-				}
-				if(contentFile.getQualityCriteria().isNonAmbiguity()){
-
-					NonAmbiguity threadNonAmbiguity = new NonAmbiguity (contentFile, lang, gateu);
-					threadNonAmbiguity.start();
-					putAndCreate(id, threadNonAmbiguity);
-
-				}
-				if(contentFile.getQualityCriteria().isContentClarity()){
-
-					ContentClarity threadContentClarity = new ContentClarity (contentFile, lang, gateu);
-					threadContentClarity.start();
-					putAndCreate(id, threadContentClarity);
-
-				}
-				return id.toString();
 			}else{
 				log.error("Error "+"Null Element send");
 				return "Null Element send";
@@ -303,7 +320,7 @@ public class BridgeImpl extends Bridge {
 		}
 	}
 
-	
+
 
 
 	@Path("/validatestaticcontent/{idAnnotatedStaticContentAnalysis:\\d+}")
@@ -325,7 +342,7 @@ public class BridgeImpl extends Bridge {
 
 				return ar;
 			}else{
-				log.error("Element not found");
+				log.error("Element not found: "+contentID+" map:"+map.keySet().toString());
 				return null;
 			}
 		}catch(Exception e){
@@ -346,9 +363,9 @@ public class BridgeImpl extends Bridge {
 					return "OK";
 				else
 					return "InProgess_"+progress+"%";
-			
+
 			}
-			log.error("Element not found");
+			log.error("Element not found: "+contentID+" map:"+map.keySet().toString());
 			return "ERROR";
 
 

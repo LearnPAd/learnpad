@@ -6,6 +6,9 @@ LearnPAd Content Analysis Component
 
 Status project [![Build Status](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent.svg?branch=develop)](https://travis-ci.org/ISTI-FMT-LearnPAd/ContentAnalysisComponent)
 
+[![codecov.io](https://codecov.io/github/ISTI-FMT-LearnPAd/ContentAnalysisComponent/coverage.svg?branch=develop)](https://codecov.io/github/ISTI-FMT-LearnPAd/ContentAnalysisComponent?branch=develop)
+
+
 Information   | Value
 ------------- | --------
 Component     | Content Analysis
