@@ -218,7 +218,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 		}
 
 		if(annotations.size()==0){
-			c.setContent(sentence);
+			c.setContent(sentence.replace(". ", "."));
 		}else{
 			if(finalpos< sentence.length()){
 				c.setContent(sentence.substring(finalpos, sentence.length()).replace(". ", "."));
