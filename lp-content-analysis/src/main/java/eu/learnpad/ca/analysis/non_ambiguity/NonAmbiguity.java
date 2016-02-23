@@ -29,7 +29,7 @@ import gate.Factory;
 public class NonAmbiguity extends AbstractAnalysisClass{
 private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ContentClarity.class);
 	
-	private GateThread gateu = null;
+	
 	private long lStartTime;
 	public NonAmbiguity(CollaborativeContentAnalysis collaborativeContentInput,Language lang, GateThread gate) {
 

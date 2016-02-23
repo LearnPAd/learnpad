@@ -193,8 +193,10 @@ public class BridgeImpl extends Bridge {
 			if(map.containsKey(Integer.valueOf(contentID))){
 				List<AbstractAnalysisClass> listanalysisInterface  = map.get(Integer.valueOf(contentID));
 				Integer progress = getProgress(listanalysisInterface);
-				if(progress>99)
+				if(progress>99){
+					clean(listanalysisInterface);
 					return "OK";
+				}
 				else
 					return "InProgess_"+progress+"%";
 			}
@@ -217,6 +219,14 @@ public class BridgeImpl extends Bridge {
 		Integer p = (i*100/size);
 		return p;
 
+	}
+	
+	private void clean(List<AbstractAnalysisClass> listanalysisInterface){
+		for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
+			if(analysisInterface.getGate()!=null){
+				analysisInterface.getGate().cleanup();
+			}
+		}
 	}
 
 	@Path("/validatecollaborativecontent/allid")
@@ -359,8 +369,10 @@ public class BridgeImpl extends Bridge {
 			if(map.containsKey(Integer.valueOf(contentID))){
 				List<AbstractAnalysisClass> listanalysisInterface  = map.get(Integer.valueOf(contentID));
 				Integer progress = getProgress(listanalysisInterface);
-				if(progress>99)
+				if(progress>99){
+					clean(listanalysisInterface);
 					return "OK";
+				}
 				else
 					return "InProgess_"+progress+"%";
 
