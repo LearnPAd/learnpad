@@ -29,6 +29,7 @@ import java.util.Map;
  */
 public abstract class AbstractEvent {
 
+	public EventType type;
 	public Long timestamp;
 	public String simulationsessionid;
 	public List<String> involvedusers;
@@ -39,10 +40,11 @@ public abstract class AbstractEvent {
 		super();
 	}
 
-	public AbstractEvent(Long timeStamp, String simulationsessionid,
-			List<String> involvedusers, String modelsetid,
-			Map<String, Object> simulationSessionData) {
+	public AbstractEvent(EventType type, Long timeStamp,
+			String simulationsessionid, List<String> involvedusers,
+			String modelsetid, Map<String, Object> simulationSessionData) {
 		super();
+		this.type = type;
 		this.timestamp = timeStamp;
 		this.simulationsessionid = simulationsessionid;
 		this.involvedusers = involvedusers;

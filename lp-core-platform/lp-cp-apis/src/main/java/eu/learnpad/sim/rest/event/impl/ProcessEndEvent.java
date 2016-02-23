@@ -22,12 +22,25 @@ package eu.learnpad.sim.rest.event.impl;
 import java.util.List;
 import java.util.Map;
 
+import eu.learnpad.sim.rest.event.AbstractEvent;
+import eu.learnpad.sim.rest.event.EventType;
+
 /**
  *
  * @author Tom Jorquera - Linagora
  *
  */
-public class ProcessEndEvent extends ProcessStartEvent {
+public class ProcessEndEvent extends AbstractEvent {
+
+	/**
+	 * Unique ID of the process instance
+	 */
+	public String processid;
+
+	/**
+	 * ID used to identify the process in the BP definition
+	 */
+	public String processdefinitionid;
 
 	public ProcessEndEvent() {
 		super();
@@ -37,7 +50,9 @@ public class ProcessEndEvent extends ProcessStartEvent {
 			List<String> involvedusers, String modelsetid,
 			Map<String, Object> simulationSessionData, String processid,
 			String processdefinitionid) {
-		super(timestamp, simulationsessionid, involvedusers, modelsetid,
-				simulationSessionData, processid, processdefinitionid);
+		super(EventType.PROCESS_END, timestamp, simulationsessionid,
+				involvedusers, modelsetid, simulationSessionData);
+		this.processid = processid;
+		this.processdefinitionid = processdefinitionid;
 	}
 }

@@ -1,0 +1,5 @@
+package eu.learnpad.sim.rest.event;
+
+public enum EventType {
+	PROCESS_END, PROCESS_START, SESSION_SCORE_UPDATE, SIMULATION_END, SIMULATION_START, TASK_END, TASK_FAILED, TASK_START
+}

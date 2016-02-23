@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import eu.learnpad.sim.rest.event.AbstractEvent;
+import eu.learnpad.sim.rest.event.EventType;
 
 /**
  *
@@ -54,8 +55,8 @@ public class SessionScoreUpdateEvent extends AbstractEvent {
 			List<String> involvedusers, String modelsetid,
 			Map<String, Object> simulationSessionData, String processid,
 			String user, Long sessionScore) {
-		super(timestamp, simulationsessionid, involvedusers, modelsetid,
-				simulationSessionData);
+		super(EventType.SESSION_SCORE_UPDATE, timestamp, simulationsessionid,
+				involvedusers, modelsetid, simulationSessionData);
 		this.processid = processid;
 		this.sessionscore = sessionScore;
 		this.user = user;

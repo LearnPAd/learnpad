@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import eu.learnpad.sim.rest.event.AbstractEvent;
+import eu.learnpad.sim.rest.event.EventType;
 
 /**
  *
@@ -49,8 +50,8 @@ public class ProcessStartEvent extends AbstractEvent {
 			List<String> involvedusers, String modelsetid,
 			Map<String, Object> simulationSessionData, String processid,
 			String processdefinitionid) {
-		super(timestamp, simulationsessionid, involvedusers, modelsetid,
-				simulationSessionData);
+		super(EventType.PROCESS_START, timestamp, simulationsessionid,
+				involvedusers, modelsetid, simulationSessionData);
 		this.processid = processid;
 		this.processdefinitionid = processdefinitionid;
 	}

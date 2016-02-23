@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import eu.learnpad.sim.rest.event.AbstractEvent;
+import eu.learnpad.sim.rest.event.EventType;
 
 /**
  *
@@ -59,8 +60,8 @@ public class TaskStartEvent extends AbstractEvent {
 			List<String> involvedusers, String modelsetid,
 			Map<String, Object> simulationSessionData, String processid,
 			String taskid, String taskdefid, List<String> assignedusers) {
-		super(timestamp, simulationsessionid, involvedusers, modelsetid,
-				simulationSessionData);
+		super(EventType.TASK_START, timestamp, simulationsessionid,
+				involvedusers, modelsetid, simulationSessionData);
 		this.processid = processid;
 		this.taskid = taskid;
 		this.taskdefid = taskdefid;

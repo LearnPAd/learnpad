@@ -22,12 +22,39 @@ package eu.learnpad.sim.rest.event.impl;
 import java.util.List;
 import java.util.Map;
 
+import eu.learnpad.sim.rest.event.AbstractEvent;
+import eu.learnpad.sim.rest.event.EventType;
+
 /**
  *
  * @author Tom Jorquera - Linagora
  *
  */
-public class TaskFailedEvent extends TaskEndEvent {
+public class TaskFailedEvent extends AbstractEvent {
+
+	/**
+	 * Unique ID of the process instance
+	 */
+	public String processid;
+
+	/**
+	 * Unique ID of the task instance
+	 */
+	public String taskid;
+
+	/**
+	 * ID used to identify the task in the BP definition
+	 */
+	public String taskdefid;
+
+	/**
+	 * The LearnPAd users that have been assigned to this task
+	 */
+	public List<String> assignedusers;
+
+	public String completingUser;
+
+	public Map<String, Object> submittedData;
 
 	public TaskFailedEvent() {
 		super();
@@ -38,9 +65,14 @@ public class TaskFailedEvent extends TaskEndEvent {
 			Map<String, Object> simulationSessionData, String processid,
 			String taskid, String taskdefid, List<String> assignedusers,
 			String completingUser, Map<String, Object> submittedData) {
-		super(timestamp, simulationsessionid, involvedusers, modelsetid,
-				simulationSessionData, processid, taskid, taskdefid,
-				assignedusers, completingUser, submittedData);
+		super(EventType.TASK_FAILED, timestamp, simulationsessionid,
+				involvedusers, modelsetid, simulationSessionData);
+		this.processid = processid;
+		this.taskid = taskid;
+		this.taskdefid = taskdefid;
+		this.assignedusers = assignedusers;
+		this.completingUser = completingUser;
+		this.submittedData = submittedData;
 	}
 
 }
