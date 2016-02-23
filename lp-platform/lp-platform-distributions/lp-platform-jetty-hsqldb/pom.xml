@@ -144,7 +144,7 @@
 		<!-- XAR -->
 		<dependency>
 			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-platform-ui</artifactId>
+			<artifactId>lp-cw-component-application</artifactId>
 			<version>${learnpad.version}</version>
 			<type>xar</type>
 		</dependency>
