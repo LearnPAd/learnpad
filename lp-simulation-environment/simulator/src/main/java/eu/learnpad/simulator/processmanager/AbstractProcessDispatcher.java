@@ -218,7 +218,7 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 		// signal task end event
 		processEventReceiver.receiveTaskEndEvent(new TaskEndSimEvent(System
 				.currentTimeMillis(), simulationSessionId, involvedUsers, task,
-				completingUser, submissionResult));
+				completingUser, data, submissionResult));
 
 	};
 

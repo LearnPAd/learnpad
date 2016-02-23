@@ -263,7 +263,8 @@ public class UIHandlerWebImplTest {
 			uiHandler.receiveTaskEndEvent(new TaskEndSimEvent(System
 					.currentTimeMillis(), "", tasksToUsers.get(task),
 					new LearnPadTask("session1", "session1", task, "", null,
-							null, null, null, 0L), "", null));
+							null, null, null, 0L), "",
+					new HashMap<String, Object>(), null));
 		}
 
 		// check all user has been notified of its tasks completion

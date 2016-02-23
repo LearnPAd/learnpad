@@ -41,6 +41,7 @@ package eu.learnpad.simulator.monitoring.event.impl;
  */
 
 import java.util.Collection;
+import java.util.Map;
 
 import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
@@ -54,13 +55,16 @@ import eu.learnpad.simulator.monitoring.event.SimEventType;
 public class TaskEndSimEvent extends TaskStartSimEvent {
 
 	public final String completingUser;
+	public Map<String, Object> submittedData;
 	public final LearnPadTaskSubmissionResult submissionResult;
 
 	public TaskEndSimEvent(Long timestamp, String simulationsessionid,
 			Collection<String> involvedusers, LearnPadTask task,
-			String completingUser, LearnPadTaskSubmissionResult submissionResult) {
+			String completingUser, Map<String, Object> submittedData,
+			LearnPadTaskSubmissionResult submissionResult) {
 		super(timestamp, simulationsessionid, involvedusers, task);
 		this.completingUser = completingUser;
+		this.submittedData = submittedData;
 		this.submissionResult = submissionResult;
 	}
 
