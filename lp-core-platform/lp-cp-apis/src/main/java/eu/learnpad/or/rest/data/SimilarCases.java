@@ -34,7 +34,7 @@ public class SimilarCases {
     
     private List<SimilarCase> similarCases(){
         if(similarCases == null){
-            similarCases = new ArrayList();
+            similarCases = new ArrayList<SimilarCase>();
         }
         return similarCases;
     }

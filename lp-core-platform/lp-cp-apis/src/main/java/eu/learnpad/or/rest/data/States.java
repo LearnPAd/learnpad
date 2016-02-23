@@ -30,7 +30,7 @@ public class States {
     
     public void addState(State state){
         if(states == null){
-            states = new ArrayList();
+            states = new ArrayList<State>();
         }
         states.add(state);
     }

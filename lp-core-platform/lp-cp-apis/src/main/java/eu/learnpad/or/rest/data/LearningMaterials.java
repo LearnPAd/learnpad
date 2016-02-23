@@ -38,7 +38,7 @@ public class LearningMaterials {
     
     private List<LearningMaterial> learningMaterials(){
         if(learningMaterials == null){
-            learningMaterials = new ArrayList();
+            learningMaterials = new ArrayList<LearningMaterial>();
         }
         return learningMaterials;
     }
