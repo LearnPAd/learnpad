@@ -38,7 +38,7 @@ public class Experts {
     
     private List<BusinessActor> businessActors(){
         if(businessActors == null){
-            businessActors = new ArrayList();
+            businessActors = new ArrayList<BusinessActor>();
         }
         return businessActors;
     }
