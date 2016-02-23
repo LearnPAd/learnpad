@@ -110,6 +110,8 @@ public class ActivitiProcessManager implements IProcessManager,
 	private final Map<String, Integer> nbProcessesBySession = new HashMap<>();
 	private final Map<String, Collection<String>> usersBySession = new HashMap<>();
 
+	private final Map<String, Map<String, Object>> sessionParametersData = new HashMap<>();
+
 	public ActivitiProcessManager(
 			ProcessEngine processEngine,
 			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider,
@@ -338,6 +340,9 @@ public class ActivitiProcessManager implements IProcessManager,
 					.createProcessDefinitionQuery()
 					.processDefinitionKey(projectDefinitionKey).singleResult();
 
+			// register session parameters data
+			sessionParametersData.put(simSession, parameters);
+
 			// signal simulation session start
 			// signal process start
 			this.processEventReceiverProvider.processEventReceiver()
@@ -461,6 +466,7 @@ public class ActivitiProcessManager implements IProcessManager,
 
 			nbProcessesBySession.remove(simSession);
 			usersBySession.remove(simSession);
+			sessionParametersData.remove(simSession);
 		}
 
 	}
@@ -609,6 +615,12 @@ public class ActivitiProcessManager implements IProcessManager,
 	@Override
 	public String getModelSetId(String processDefId) {
 		return processDefToModelSet.get(processDefId);
+	}
+
+	@Override
+	public Map<String, Object> getSimulationSessionParametersData(
+			String simulationSessionId) {
+		return sessionParametersData.get(simulationSessionId);
 	}
 
 }
