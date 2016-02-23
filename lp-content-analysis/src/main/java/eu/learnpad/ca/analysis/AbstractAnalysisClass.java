@@ -7,6 +7,7 @@ import java.util.List;
 import org.languagetool.Language;
 
 import eu.learnpad.ca.analysis.localizzation.Messages;
+import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
@@ -26,7 +27,7 @@ public abstract class AbstractAnalysisClass extends Thread{
 	protected Integer numDefectiveSentences = 0;
 	protected CollaborativeContentAnalysis collaborativeContentInput;
 	protected StaticContentAnalysis staticContentInput;
-
+	protected GateThread gateu = null;
 
 	public String getStatus(){
 		switch (this.getState()) {
@@ -129,6 +130,10 @@ public abstract class AbstractAnalysisClass extends Thread{
 		}
 
 
+	}
+	
+	public GateThread getGate(){
+		return gateu;
 	}
 
 }

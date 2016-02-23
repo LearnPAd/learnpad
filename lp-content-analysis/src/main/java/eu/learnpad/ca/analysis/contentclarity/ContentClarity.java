@@ -27,7 +27,7 @@ import gate.Factory;
 public class ContentClarity extends AbstractAnalysisClass {
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ContentClarity.class);
 	
-	private GateThread gateu = null;
+	
 	private long lStartTime;
 	public ContentClarity(CollaborativeContentAnalysis collaborativeContentInput,Language lang, GateThread gate) {
 

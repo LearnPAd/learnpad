@@ -32,7 +32,7 @@ public class Simplicity extends AbstractAnalysisClass {
 
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Simplicity.class);
 	private long lStartTime;
-	private GateThread gateu = null;
+	
 
 	public Simplicity(CollaborativeContentAnalysis collaborativeContentInput,Language lang, GateThread gate) {
 
