@@ -369,8 +369,10 @@ public class BridgeImpl extends Bridge {
 			if(map.containsKey(Integer.valueOf(contentID))){
 				List<AbstractAnalysisClass> listanalysisInterface  = map.get(Integer.valueOf(contentID));
 				Integer progress = getProgress(listanalysisInterface);
-				if(progress>99)
+				if(progress>99){
+					clean(listanalysisInterface);
 					return "OK";
+				}
 				else
 					return "InProgess_"+progress+"%";
 
