@@ -47,6 +47,7 @@
 	</scm>
 
 	<modules>
+		<module>lp-platform-conf</module>
 		<module>lp-platform-distributions</module>
 	</modules>
 </project>

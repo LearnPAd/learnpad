@@ -240,10 +240,8 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge
             }
             BaseObject feedbackObject = document.getXObject(classReference);
             Integer id = Integer.parseInt(feedbackObject.getStringValue("id"));
-            DocumentReference parentReference =
-                referenceDocumentReferenceResolver.resolve(document.getParentReference(), EntityType.DOCUMENT);
-            Integer modelId = getPropertyFromParent(parentReference, "modelid");
-            Integer artefactId = getPropertyFromParent(parentReference, "id");
+            Integer modelId = feedbackObject.getIntValue("modelid");
+            Integer artefactId = feedbackObject.getIntValue("artefactid");
             String content = feedbackObject.getStringValue("description");
             Feedback feedback = new Feedback();
             feedback.setId(id);
@@ -371,9 +369,10 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge
         return this.corefacade.startSimulation(modelId, currentUser, potentialUsersCollection);
     }
 
-	@Override
-	public void notifyRecommendations(String simulationid, String userId, Recommendations recommendations)
-			throws LpRestException {
-		// TODO Auto-generated method stub
-	}
+    @Override
+    public void notifyRecommendations(String simulationid, String userId, Recommendations rec) throws LpRestException
+    {
+        // TODO Auto-generated method stub
+
+    }
 }
