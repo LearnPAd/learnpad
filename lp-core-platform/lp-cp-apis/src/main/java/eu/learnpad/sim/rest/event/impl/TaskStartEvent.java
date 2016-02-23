@@ -68,4 +68,11 @@ public class TaskStartEvent extends AbstractEvent {
 		this.assignedusers = assignedusers;
 	}
 
+	@Override
+	public String toString() {
+		return super.toString() + " processid=" + processid + " taskid="
+				+ taskid + " taskdefid=" + taskdefid + " assignedusers="
+				+ assignedusers;
+	}
+
 }

@@ -74,4 +74,11 @@ public class TaskEndEvent extends AbstractEvent {
 		this.submittedData = submittedData;
 	}
 
+	@Override
+	public String toString() {
+		return super.toString() + " processid=" + processid + " taskid="
+				+ taskid + " taskdefid=" + taskdefid + " assignedusers="
+				+ assignedusers + " completingUser=" + completingUser
+				+ " submittedData=" + submittedData;
+	}
 }

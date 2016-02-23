@@ -56,4 +56,9 @@ public class ProcessStartEvent extends AbstractEvent {
 		this.processdefinitionid = processdefinitionid;
 	}
 
+	@Override
+	public String toString() {
+		return super.toString() + " processid=" + processid
+				+ " processdefinitionid=" + processdefinitionid;
+	}
 }

@@ -52,4 +52,12 @@ public abstract class AbstractEvent {
 		this.simulationSessionData = simulationSessionData;
 	}
 
+	@Override
+	public String toString() {
+		return "Event: " + "type=" + type + " timestamp=" + timestamp
+				+ " simulationsessionid=" + simulationsessionid
+				+ " involvedusers=" + involvedusers + " modelsetid="
+				+ modelsetid + " simulationSessionData="
+				+ simulationSessionData;
+	}
 }

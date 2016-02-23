@@ -62,4 +62,9 @@ public class SessionScoreUpdateEvent extends AbstractEvent {
 		this.user = user;
 	}
 
+	@Override
+	public String toString() {
+		return super.toString() + " processid=" + processid + " user=" + user
+				+ " sessionscore=" + sessionscore;
+	}
 }
