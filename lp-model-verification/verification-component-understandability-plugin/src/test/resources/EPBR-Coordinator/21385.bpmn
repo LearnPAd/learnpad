@@ -23,7 +23,7 @@
          <adonis:modelattributes>
             <adonis:attribute name="Name" type="STRING">EPBR - Manage Scientific Activities - Subprocess</adonis:attribute>
             <adonis:attribute name="Creation date" type="STRING">18.11.2014, 14:05</adonis:attribute>
-            <adonis:attribute name="Date last changed" type="STRING">05.02.2016, 01:51:07</adonis:attribute>
+            <adonis:attribute name="Date last changed" type="STRING">08.02.2016, 00:27:00</adonis:attribute>
             <adonis:attribute name="Last user" type="STRING">Admin</adonis:attribute>
             <adonis:attribute name="Model type" type="ENUMERATION">Current model</adonis:attribute>
             <adonis:attribute name="State" type="ENUMERATION">In process</adonis:attribute>
@@ -32,13 +32,13 @@
             <adonis:attribute name="World area" type="STRING">w:25.2cm h:24cm minw:5cm minh:5cm</adonis:attribute>
             <adonis:attribute name="Zoom" type="INTEGER">100</adonis:attribute>
             <adonis:attribute name="Viewable area" type="STRING">VIEW representation:graphic
-GRAPHIC x:-16 y:48 w:897 h:428 scale:1
+GRAPHIC x:-16 y:47 w:897 h:428 scale:1
 TABLE
 </adonis:attribute>
             <adonis:attribute name="Base name" type="STRING">EPBR - Manage Scientific Activities - Subprocess</adonis:attribute>
             <adonis:attribute name="Access state" type="ENUMERATION">write</adonis:attribute>
             <adonis:attribute name="Type" type="STRING">Business process diagram (BPMN 2.0)</adonis:attribute>
-            <adonis:attribute name="Change counter" type="INTEGER">10640</adonis:attribute>
+            <adonis:attribute name="Change counter" type="INTEGER">10647</adonis:attribute>
             <adonis:attribute name="Font size" type="INTEGER">100</adonis:attribute>
             <adonis:attribute name="Auditing" type="ENUMERATION">No</adonis:attribute>
             <adonis:attribute name="Monitoring" type="ENUMERATION">No</adonis:attribute>
@@ -240,7 +240,7 @@ TABLE
          <incoming>con.22221</incoming>
          <outgoing>con.21413</outgoing>
       </parallelGateway>
-      <exclusiveGateway default="con.21410" name="Write a paper?" id="obj.22206">
+      <exclusiveGateway name="Write a paper?" id="obj.22206" default="con.22209">
          <extensionElements>
             <adonis:instance>
                <adonis:attribute name="Order" type="INTEGER">0</adonis:attribute>
@@ -262,7 +262,7 @@ TABLE
          <incoming>con.22222</incoming>
          <outgoing>con.22213</outgoing>
       </exclusiveGateway>
-      <exclusiveGateway default="con.21412" name="Go to Event?" id="obj.22214">
+      <exclusiveGateway name="Go to Event?" id="obj.22214" default="con.22217">
          <extensionElements>
             <adonis:instance>
                <adonis:attribute name="Order" type="INTEGER">0</adonis:attribute>

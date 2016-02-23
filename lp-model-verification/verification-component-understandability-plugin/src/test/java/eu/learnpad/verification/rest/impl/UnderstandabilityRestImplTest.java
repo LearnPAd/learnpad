@@ -48,7 +48,7 @@ public class UnderstandabilityRestImplTest extends JerseyTest {
 		    		new ResourceConfig(UnderstandabilityRestImpl.class)))
 		                                   .build();
          
-    }*/
+    }
 	
 	@Override
 	protected Application configure() {
@@ -103,6 +103,6 @@ public class UnderstandabilityRestImplTest extends JerseyTest {
 
 
 
-	}
+	}*/
 
 }
