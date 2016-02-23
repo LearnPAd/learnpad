@@ -214,6 +214,9 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 		for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
 			if(analysisInterface.getStatus().equals("OK") ){
 				i++;
+				if(analysisInterface.getGate()!=null){
+					analysisInterface.getGate().cleanup();
+				}
 			}
 		}
 		Integer p = (i*100/size);

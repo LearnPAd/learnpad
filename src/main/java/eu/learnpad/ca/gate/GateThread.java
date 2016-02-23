@@ -347,6 +347,23 @@ public class GateThread extends Thread implements StatusListener{
 
 		}
 
+		public void cleanup(){
+			/*for(CorpusController c : pool) 
+				Factory.deleteResource(c);*/
+
+
+			if(!corpus.isEmpty()){
+				for(int i=0;i<corpus.size();i++){
+					Document doc1 = (Document)corpus.remove(i);
+					corpus.unloadDocument(doc1);
+					Factory.deleteResource(doc1);
+				}
+				Factory.deleteResource(corpus);
+				log.info("Removed Resource");
+			}
+			Factory.deleteResource(controller.get());
+			//this.interrupt();
+		}
 		/*public void destroy() {
 		for(CorpusController c : pool) 
 			Factory.deleteResource(c);
