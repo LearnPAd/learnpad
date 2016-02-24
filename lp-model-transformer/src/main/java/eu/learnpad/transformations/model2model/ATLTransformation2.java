@@ -88,8 +88,8 @@ public class ATLTransformation2
      * transformation.
      * 
      * @param lpModelPath Path of the file representing the Ecore model (in .XMI) to be transformed.
-     * @param lpMetamodelPath Path of the Ecore Metamodel in which the model in input is conform to.
-     * @param xwikiMetamodelPath The Path of the file for the Ecore Metamodel that the resulting model have to be
+     * @param lpMetamodelStream Path of the Ecore Metamodel in which the model in input is conform to.
+     * @param xwikiMetamodelStream The Path of the file for the Ecore Metamodel that the resulting model have to be
      *            conform.
      * @param atlPaths The path of the effective ATL transformation (the .ATL file).
      * @param inTag The tag of the input Metamodel
@@ -97,7 +97,7 @@ public class ATLTransformation2
      * @param out The path of the Ecore model file resulting from the transformation.
      * @return
      */
-    public IModel run(String lpModelPath, String lpMetamodelPath, String xwikiMetamodelPath, List<InputStream> atlStreams,
+    public IModel run(String lpModelPath, InputStream lpMetamodelStream, InputStream xwikiMetamodelStream, List<InputStream> atlStreams,
         String inTag, String outTag, OutputStream out)
     {
         ILauncher launcher = new EMFVMLauncher();
@@ -107,9 +107,9 @@ public class ATLTransformation2
 
         try {
             IReferenceModel lpMetamodel = modelFactory.newReferenceModel();
-            injector.inject(lpMetamodel, lpMetamodelPath);
+            injector.inject(lpMetamodel, lpMetamodelStream, this.options);
             IReferenceModel xwikiMetamodel = modelFactory.newReferenceModel();
-            injector.inject(xwikiMetamodel, xwikiMetamodelPath);
+            injector.inject(xwikiMetamodel, xwikiMetamodelStream, this.options);
 
             IModel lpModel = modelFactory.newModel(lpMetamodel);
             injector.inject(lpModel, lpModelPath);

@@ -89,15 +89,9 @@ public class ATLTransformationLauncher {
 			System.out.println("Starting ATL Model2Model transformation...");
 			InputStream learnpadMetamodelInputStream = this.getClass().getClassLoader().getResourceAsStream(metamodel_in);
 			InputStream xwikiMetamodelInputStream = this.getClass().getClassLoader().getResourceAsStream(metamodel_out);
-			OutputStream learnpadMetamodelOutputStream = new FileOutputStream(TMP_ADOXX_ECORE);
-			OutputStream xwikiMetamodelOutputStream = new FileOutputStream(TMP_XWIKI_ECORE);
-			IOUtils.copy(learnpadMetamodelInputStream, learnpadMetamodelOutputStream);
-			IOUtils.copy(xwikiMetamodelInputStream, xwikiMetamodelOutputStream);
+			myT.run(modelFile, learnpadMetamodelInputStream, xwikiMetamodelInputStream, modules, inTag, outTag, out);
 			learnpadMetamodelInputStream.close();
-			learnpadMetamodelOutputStream.close();
 			xwikiMetamodelInputStream.close();
-			xwikiMetamodelOutputStream.close();
-			myT.run(modelFile, TMP_ADOXX_ECORE, TMP_XWIKI_ECORE, modules, inTag, outTag, out);
 			for (InputStream module : modules) {
 			    module.close();
 			}
