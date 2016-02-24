@@ -124,6 +124,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 			List<Annotation> listannotation) {
 		int id = 0;
 		int offset = 2300;
+		id = offset;
 		lStartTime = System.currentTimeMillis();
 		try{
 			Properties prop = new Properties();
@@ -173,7 +174,6 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					String type = "PresentationClarity: Poor section partitioning"; //$NON-NLS-1$
 					//RULE 1: N = number of <h* > tags, N > 1.
 					//RULE 2: L = number of sentences between <p>, L < t. //and div??
-					id = offset;
 					boolean PSPrule1 = (h1.size()+h2.size()+h3.size()+h4.size()+h5.size())>1;
 
 
