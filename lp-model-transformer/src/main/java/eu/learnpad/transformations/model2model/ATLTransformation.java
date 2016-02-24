@@ -19,26 +19,20 @@
  */
 package eu.learnpad.transformations.model2model;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
-import org.eclipse.m2m.atl.common.ATLExecutionException;
 import org.eclipse.m2m.atl.core.ATLCoreException;
 import org.eclipse.m2m.atl.core.IExtractor;
 import org.eclipse.m2m.atl.core.IInjector;
@@ -47,19 +41,16 @@ import org.eclipse.m2m.atl.core.IReferenceModel;
 import org.eclipse.m2m.atl.core.ModelFactory;
 import org.eclipse.m2m.atl.core.emf.EMFExtractor;
 import org.eclipse.m2m.atl.core.emf.EMFInjector;
-import org.eclipse.m2m.atl.core.emf.EMFModel;
 import org.eclipse.m2m.atl.core.emf.EMFModelFactory;
 import org.eclipse.m2m.atl.core.launch.ILauncher;
-import org.eclipse.m2m.atl.engine.compiler.AtlDefaultCompiler;
 import org.eclipse.m2m.atl.engine.compiler.AtlStandaloneCompiler;
 import org.eclipse.m2m.atl.engine.compiler.atl2006.Atl2006Compiler;
-import org.eclipse.m2m.atl.engine.compiler.atl2010.Atl2010InPlace;
 import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
 
 /**
  * Class used to execute the ATL Transformation
  * 
- * @author Jean Simard
+ * @author Francesco Basciani, Jean Simard
  * @version 1.0
  */
 public class ATLTransformation
@@ -122,12 +113,6 @@ public class ATLTransformation
             launcher.launch(ILauncher.RUN_MODE, new NullProgressMonitor(), this.options, asm);
 
             extractor.extract(xwikiModel, out, null);
-
-            EMFModelFactory emfModelFactory = (EMFModelFactory) modelFactory;
-            emfModelFactory.unload((EMFModel) lpModel);
-            emfModelFactory.unload((EMFModel) xwikiModel);
-            emfModelFactory.unload((EMFModel) lpMetamodel);
-            emfModelFactory.unload((EMFModel) xwikiModel);
 
             return xwikiModel;
         } catch (ATLCoreException e) {

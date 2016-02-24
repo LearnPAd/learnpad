@@ -20,9 +20,6 @@ public class ATLTransformationLauncher {
 	private final String ADOXX_TYPE = "ADOXX";
 	private final String MAGIC_DRAW_TYPE = "MD";
 	private String ADOXX2XWIKI_ATL_TRANSFORMATION = "transformation/ado2xwiki.atl";
-	private String TMP_ADOXX_ECORE = "/tmp/learnpad/mt/adoxx.ecore";
-    private String TMP_XWIKI_ECORE = "/tmp/learnpad/mt/xwiki.ecore";
-    private String TMP_ATL_TRANSFORMATION = "/tmp/learnpad/mt/transformation.atl";
 	private String MAGICDRAW2XWIKI_ATL_TRANSFORMATION = "";
 	private String modelFile = "/tmp/learnpad/mt/model.xmi";
 	private boolean deleteFile = false;
@@ -94,6 +91,7 @@ public class ATLTransformationLauncher {
 			myT.run(modelStream, learnpadMetamodelInputStream, xwikiMetamodelInputStream, modules, inTag, outTag, out);
 			learnpadMetamodelInputStream.close();
 			xwikiMetamodelInputStream.close();
+			modelStream.close();
 			for (InputStream module : modules) {
 			    module.close();
 			}
