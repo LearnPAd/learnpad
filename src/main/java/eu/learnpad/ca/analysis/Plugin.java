@@ -79,7 +79,7 @@ public abstract class Plugin {
 			Set<gate.Annotation> sentencedef = getSentenceFromNode(listSentence,gatenodestart,gatenodeend);
 			for(gate.Annotation def : sentencedef){
 				if(!listSentenceDefected.contains(def))
-					listSentenceDefected.add(gateA);
+					listSentenceDefected.add(def);
 			}
 			int initialpos = gatenodestart.getOffset().intValue();
 
