@@ -314,6 +314,13 @@ public class BridgeImpl extends Bridge {
 						putAndCreate(id, threadCompleteness);
 
 					}
+					if(contentFile.getQualityCriteria().isPresentationClarity()){
+
+						PresentationClarity threadPresentation = new PresentationClarity (contentFile, lang);
+						threadPresentation.start();
+						putAndCreate(id, threadPresentation);
+
+					}
 					return id.toString();
 				}else{
 					log.error("No Content send: "+content);
