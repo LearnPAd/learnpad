@@ -324,8 +324,10 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					}
 					//Recommendation: Do not refer more than t external documents. The reader might be confused. Refer only relevant external documents.
 
-				}
-			}
+				}else
+					id+=7;
+			}else
+				id+=7;
 		} catch (Exception e) {
 			log.error(e);
 		}
