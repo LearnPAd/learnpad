@@ -132,7 +132,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 			prop.load(PresentationClarity.class.getClassLoader().getResourceAsStream("presentationclarity.properties")); //$NON-NLS-1$
 
 			if(contenthtml!=null){
-				if(contenthtml!=""){ //$NON-NLS-1$
+				//if(contenthtml!=""){ //$NON-NLS-1$
 					Document doc = Jsoup.parse(contenthtml);
 					Elements links = doc.select("a[href]"); //$NON-NLS-1$
 					Elements h1 = doc.getElementsByTag("h1"); //$NON-NLS-1$
@@ -324,8 +324,8 @@ public class PresentationClarity extends AbstractAnalysisClass {
 					}
 					//Recommendation: Do not refer more than t external documents. The reader might be confused. Refer only relevant external documents.
 
-				}else
-					id+=7;
+				/*}else
+					id+=7;*/
 			}else
 				id+=7;
 		} catch (Exception e) {
