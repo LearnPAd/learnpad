@@ -24,6 +24,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -47,7 +49,10 @@ import org.eclipse.m2m.atl.core.emf.EMFInjector;
 import org.eclipse.m2m.atl.core.emf.EMFModel;
 import org.eclipse.m2m.atl.core.emf.EMFModelFactory;
 import org.eclipse.m2m.atl.core.launch.ILauncher;
+import org.eclipse.m2m.atl.engine.compiler.AtlDefaultCompiler;
+import org.eclipse.m2m.atl.engine.compiler.AtlStandaloneCompiler;
 import org.eclipse.m2m.atl.engine.compiler.atl2006.Atl2006Compiler;
+import org.eclipse.m2m.atl.engine.compiler.atl2010.Atl2010InPlace;
 import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
 
 /**
@@ -116,11 +121,11 @@ public class ATLTransformation2
             launcher.initialize(this.options);
             launcher.addInModel(lpModel, "IN", inTag);
             launcher.addOutModel(xwikiModel, "OUT", outTag);
-            launcher.launch(ILauncher.RUN_MODE, new NullProgressMonitor(), this.options,
-                (Object[]) getModulesList(atlPaths));
+            Object[] modules = (Object[]) getModules(atlPaths).toArray();
+            launcher.launch(ILauncher.RUN_MODE, new NullProgressMonitor(), this.options, modules);
 
             extractor.extract(xwikiModel, out, null);
-            
+
             EMFModelFactory emfModelFactory = (EMFModelFactory) modelFactory;
             emfModelFactory.unload((EMFModel) lpModel);
             emfModelFactory.unload((EMFModel) xwikiModel);
@@ -137,6 +142,7 @@ public class ATLTransformation2
         return this.outModel;
     }
 
+
     /**
      * The function returns the modules that are present in the file processing. Each transform file (.atl) may contain
      * more modules within it (each has within the mapping that makes the transformation). Each of these modules to its
@@ -145,23 +151,19 @@ public class ATLTransformation2
      * @return InputStream[]
      * @throws IOException
      */
-    private InputStream[] getModulesList(String atlPaths) throws IOException
+    private List<InputStream> getModules(String atlPaths) throws IOException
     {
-        InputStream[] modulesList = null;
-        String[] moduleNames = atlPaths.split(",");
-        modulesList = new InputStream[moduleNames.length];
-        for (int i = 0; i < moduleNames.length; i++) {
-
-            String asmModulePath =
-                new Path(moduleNames[i].trim()).removeFileExtension().addFileExtension("asm").toString();
-            System.out.println(asmModulePath);
-
-            Atl2006Compiler compiler = new Atl2006Compiler();
-            compiler.compile(new FileInputStream(new File(moduleNames[i])), asmModulePath);
-
-            modulesList[i] = new FileInputStream(asmModulePath);
+        List<InputStream> out = new ArrayList<InputStream>();
+        List<String> atlPathList = Arrays.asList(atlPaths.split(","));
+        for (String atlPathString : atlPathList) {
+            java.nio.file.Path atlPath = Paths.get(atlPathString);
+            InputStream atlStream = Files.newInputStream(atlPath);
+            AtlStandaloneCompiler compiler = new Atl2006Compiler();
+            String asmPathString = String.format("%s.asm", atlPathString.substring(0, atlPathString.lastIndexOf(".")));
+            java.nio.file.Path asmPath = Paths.get(asmPathString);
+            compiler.compile(atlStream, asmPathString);
+            out.add(Files.newInputStream(asmPath));
         }
-        return modulesList;
+        return out;
     }
-
 }
