@@ -104,7 +104,7 @@ public class Simulator implements IProcessManagerProvider,
 
 		if (monitoringEnabled) {
 			// register a probe to monitor events
-			eventDispatcher.subscribe(new ProbeEventReceiver());
+			eventDispatcher.subscribe(new ProbeEventReceiver(processManager));
 		}
 
 	}

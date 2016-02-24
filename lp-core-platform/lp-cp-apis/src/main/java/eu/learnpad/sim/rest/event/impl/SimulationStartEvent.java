@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import eu.learnpad.sim.rest.event.AbstractEvent;
+import eu.learnpad.sim.rest.event.EventType;
 
 /**
  *
@@ -38,8 +39,8 @@ public class SimulationStartEvent extends AbstractEvent {
 	public SimulationStartEvent(Long timestamp, String simulationsessionid,
 			List<String> involvedusers, String modelsetid,
 			Map<String, Object> simulationSessionData) {
-		super(timestamp, simulationsessionid, involvedusers, modelsetid,
-				simulationSessionData);
+		super(EventType.SIMULATION_START, timestamp, simulationsessionid,
+				involvedusers, modelsetid, simulationSessionData);
 	}
 
 }

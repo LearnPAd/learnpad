@@ -173,11 +173,7 @@ public class ComplexEventProcessorImpl extends ComplexEventProcessor implements 
 								"eventData: " + receivedEvent.getEventData() + "\n" +
 								"eventName: " + receivedEvent.getEventName() + "\n" +
 								"timestamp: " + receivedEvent.getTimeStamp() + "\n" +
-								"sessionID: " + ((GlimpseBaseEventBPMN<?>) receivedEvent).getSessionID() + "\n" +
-								"usersInvolved: " + ((GlimpseBaseEventBPMN<?>) receivedEvent).getAssigneeID() + "\n" +
-								"taskID: " + ((GlimpseBaseEventBPMN<?>) receivedEvent).getTaskID() + "\n" +
-								"subProcessID: " + ((GlimpseBaseEventBPMN<?>) receivedEvent).getSubProcessID() + "\n" +
-								"desideredCompletionTime: " + ((GlimpseBaseEventBPMN<?>) receivedEvent).getDesideredCompletionTime()
+								"event: " + ((GlimpseBaseEventBPMN<?>) receivedEvent).getEvent()
 								);	
 						} else {
 						DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(),

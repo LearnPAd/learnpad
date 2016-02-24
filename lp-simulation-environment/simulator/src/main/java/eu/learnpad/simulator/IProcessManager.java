@@ -254,4 +254,13 @@ public interface IProcessManager {
 	 *         if no model set is associated to the process def id
 	 */
 	public String getModelSetId(String processDefId);
+
+	/**
+	 *
+	 * @param simulationSessionId
+	 * @return the parameters data that have been used to instanciate the
+	 *         session
+	 */
+	public Map<String, Object> getSimulationSessionParametersData(
+			String simulationSessionId);
 }

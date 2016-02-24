@@ -65,11 +65,11 @@ public class SessionScoreUpdateSimEvent extends AbstractSimEvent {
 	/**
 	 * The new session score of the user
 	 */
-	public Integer sessionscore;
+	public long sessionscore;
 
 	public SessionScoreUpdateSimEvent(Long timestamp,
 			String simulationsessionid, Collection<String> involvedusers,
-			String processid, String user, Integer sessionScore) {
+			String processid, String user, long sessionScore) {
 		super(timestamp, simulationsessionid, involvedusers);
 		this.processid = processid;
 		this.sessionscore = sessionScore;
