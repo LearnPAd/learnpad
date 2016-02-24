@@ -97,8 +97,8 @@ public class ATLTransformation
      * @param out The path of the Ecore model file resulting from the transformation.
      * @return
      */
-    public IModel run(InputStream lpModelStream, InputStream lpMetamodelStream, InputStream xwikiMetamodelStream, List<InputStream> atlStreams,
-        String inTag, String outTag, OutputStream out)
+    public IModel run(InputStream lpModelStream, InputStream lpMetamodelStream, InputStream xwikiMetamodelStream,
+        List<InputStream> atlStreams, String inTag, String outTag, OutputStream out)
     {
         ILauncher launcher = new EMFVMLauncher();
         ModelFactory modelFactory = new EMFModelFactory();
@@ -118,7 +118,7 @@ public class ATLTransformation
             launcher.initialize(this.options);
             launcher.addInModel(lpModel, "IN", inTag);
             launcher.addOutModel(xwikiModel, "OUT", outTag);
-            Object[] asm = (Object[]) compile(atlStreams).toArray();
+            Object[] asm = (Object[]) this.compile(atlStreams).toArray();
             launcher.launch(ILauncher.RUN_MODE, new NullProgressMonitor(), this.options, asm);
 
             extractor.extract(xwikiModel, out, null);
@@ -128,7 +128,7 @@ public class ATLTransformation
             emfModelFactory.unload((EMFModel) xwikiModel);
             emfModelFactory.unload((EMFModel) lpMetamodel);
             emfModelFactory.unload((EMFModel) xwikiModel);
-            
+
             return xwikiModel;
         } catch (ATLCoreException e) {
             // TODO Auto-generated catch block
@@ -137,16 +137,21 @@ public class ATLTransformation
 
         return null;
     }
-    
-    private List<InputStream> compile(List<InputStream> atlStreams) {
+
+    private List<InputStream> compile(List<InputStream> atlStreams)
+    {
         List<InputStream> asmStreams = new ArrayList<InputStream>();
-        for(InputStream atlStream: atlStreams) {
-            asmStreams.add(compile(atlStream));
+        for (InputStream atlStream : atlStreams) {
+            InputStream asmStream = this.compile(atlStream);
+            if (asmStream != null) {
+                asmStreams.add(asmStream);
+            }
         }
         return asmStreams;
     }
 
-    public InputStream compile(InputStream atlStream) {
+    public InputStream compile(InputStream atlStream)
+    {
         AtlStandaloneCompiler compiler = new Atl2006Compiler();
         String asmFilename = String.format("%s.asm", UUID.randomUUID().toString());
         java.nio.file.Path asmPath = Paths.get("/tmp/learnpad/mt", asmFilename);
