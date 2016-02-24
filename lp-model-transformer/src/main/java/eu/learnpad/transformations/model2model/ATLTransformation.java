@@ -1,6 +1,5 @@
 package eu.learnpad.transformations.model2model;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,6 +19,7 @@ import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.m2m.atl.common.ATLExecutionException;
 import org.eclipse.m2m.atl.core.ATLCoreException;
 import org.eclipse.m2m.atl.core.IExtractor;
+import org.eclipse.m2m.atl.core.IInjector;
 import org.eclipse.m2m.atl.core.IModel;
 import org.eclipse.m2m.atl.core.IReferenceModel;
 import org.eclipse.m2m.atl.core.ModelFactory;
@@ -29,8 +29,6 @@ import org.eclipse.m2m.atl.core.emf.EMFModelFactory;
 import org.eclipse.m2m.atl.core.launch.ILauncher;
 import org.eclipse.m2m.atl.engine.compiler.atl2006.Atl2006Compiler;
 import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
-
-
 
 /**
  * Class used to execute the ATL Transformation
@@ -68,9 +66,7 @@ public class ATLTransformation {
 		options.put("allowInterModelReferences", "false");
 		options.put("step", "false");
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new EcoreResourceFactoryImpl());
-
 	}
-	
 	
 	/**
 	 * The function is the only one to be visible to the outside and is the one that initiates the whole process of transformation.
@@ -101,7 +97,6 @@ public class ATLTransformation {
 			
 			System.out.println("Transformation executed!");
 			
-			
 		} catch (ATLCoreException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -127,17 +122,16 @@ public class ATLTransformation {
 	 */
 	private void set(String model_in, String metamodel_in, String metamodel_out, String modules, String inTag, String outTag) throws ATLCoreException {
 			ModelFactory factory = new EMFModelFactory();
-			EMFInjector injector = new EMFInjector();
+			IInjector injector = new EMFInjector();
 			this.inmodelMetamodel = factory.newReferenceModel();
 			injector.inject(this.inmodelMetamodel, metamodel_in);
 			this.outmodelMetamodel = factory.newReferenceModel();
-			injector.inject(this.outmodelMetamodel,  metamodel_out);
+			injector.inject(this.outmodelMetamodel, metamodel_out);
 			this.outModel = factory.newModel(this.outmodelMetamodel);
 			this.inModel = factory.newModel(this.inmodelMetamodel);
 //			this.paramsModel = factory.newModel(this.paramsmodelMetamodel);
-			injector.inject(this.inModel,  model_in);
+			injector.inject(this.inModel, model_in);
 			
-//			
 //			Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 //			Map<String, Object> m = reg.getExtensionToFactoryMap();
 //		    m.put("*", new XMIResourceFactoryImpl());

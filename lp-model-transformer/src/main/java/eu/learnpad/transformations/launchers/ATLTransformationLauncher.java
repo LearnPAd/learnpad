@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import org.apache.commons.io.IOUtils;
 
 import eu.learnpad.transformations.model2model.ATLTransformation;
+import eu.learnpad.transformations.model2model.ATLTransformation2;
 import eu.learnpad.transformations.preprocessing.Alignment;
 
 public class ATLTransformationLauncher {
@@ -16,12 +17,12 @@ public class ATLTransformationLauncher {
 	private final String ADOXX_TYPE = "ADOXX";
 	private final String MAGIC_DRAW_TYPE = "MD";
 	private String ADOXX2XWIKI_ATL_TRANSFORMATION = "transformation/ado2xwiki.atl";
+	private String TMP_ADOXX_ECORE = "/tmp/learnpad/mt/adoxx.ecore";
+    private String TMP_XWIKI_ECORE = "/tmp/learnpad/mt/xwiki.ecore";
+    private String TMP_ATL_TRANSFORMATION = "/tmp/learnpad/mt/transformation.atl";
 	private String MAGICDRAW2XWIKI_ATL_TRANSFORMATION = "";
-	private String tmpAlignmentOutputXMIFile = "/tmp/tmpAlignmentOutputXMIFile.xmi";
+	private String modelFile = "/tmp/learnpad/mt/model.xmi";
 	private boolean deleteFile = false;
-	
-	
-	
 	
 	/**
 	 * Execution of the ATL Transformation with a pre-processing with alignment.
@@ -42,12 +43,13 @@ public class ATLTransformationLauncher {
 		String inTag = "";
 		String outTag = "";
 
-		OutputStream outputAlignementFile = new FileOutputStream(tmpAlignmentOutputXMIFile);
+		OutputStream outputAlignementFile = new FileOutputStream(modelFile);
 		
 		switch (type) {
 		case ADOXX_TYPE:
 			System.out.println("*******STARTING ADOXX ALIGNMENT*******");
 			sanitizerResult = al.sanitizerForADOXX(modelInputStream, outputAlignementFile);
+			outputAlignementFile.close();
 			System.out.println("*******ALIGNMENT ADOXX DONE*******");
 			
 			metamodel_in 	= "metamodels/adoxx/ado.ecore";
@@ -60,6 +62,7 @@ public class ATLTransformationLauncher {
 		case MAGIC_DRAW_TYPE:
 			System.out.println("*******STARTING MAGICDRAW ALIGNMENT*******");
 			sanitizerResult = al.sanitizerForMagicDraw(modelInputStream, outputAlignementFile);
+            outputAlignementFile.close();
 			System.out.println("*******ALIGNMENT MAGICDRAW DONE*******");
 			
 			metamodel_in 	= "";
@@ -77,14 +80,14 @@ public class ATLTransformationLauncher {
 		if(sanitizerResult){
 			//if the sanitizer succeded
 			
-			ATLTransformation myT = new ATLTransformation();
+			ATLTransformation2 myT = new ATLTransformation2();
 			System.out.println("Starting ATL Model2Model transformation...");
 			InputStream learnpadMetamodelInputStream = this.getClass().getClassLoader().getResourceAsStream(metamodel_in);
 			InputStream xwikiMetamodelInputStream = this.getClass().getClassLoader().getResourceAsStream(metamodel_out);
 			InputStream transformationInputStream = this.getClass().getClassLoader().getResourceAsStream(modules);
-			OutputStream learnpadMetamodelOutputStream = new FileOutputStream("/tmp/adoxx.ecore");
-			OutputStream xwikiMetamodelOutputStream = new FileOutputStream("/tmp/xwiki.ecore");
-			OutputStream transformationOutputStream = new FileOutputStream("/tmp/transformation.atl");
+			OutputStream learnpadMetamodelOutputStream = new FileOutputStream(TMP_ADOXX_ECORE);
+			OutputStream xwikiMetamodelOutputStream = new FileOutputStream(TMP_XWIKI_ECORE);
+			OutputStream transformationOutputStream = new FileOutputStream(TMP_ATL_TRANSFORMATION);
 			IOUtils.copy(learnpadMetamodelInputStream, learnpadMetamodelOutputStream);
 			IOUtils.copy(xwikiMetamodelInputStream, xwikiMetamodelOutputStream);
 			IOUtils.copy(transformationInputStream, transformationOutputStream);
@@ -94,14 +97,14 @@ public class ATLTransformationLauncher {
 			xwikiMetamodelInputStream.close();
 			xwikiMetamodelOutputStream.close();
 			transformationOutputStream.close();
-			myT.run(tmpAlignmentOutputXMIFile, "/tmp/adoxx.ecore", "/tmp/xwiki.ecore", "/tmp/transformation.atl", inTag, outTag, out);
+			myT.run(modelFile, TMP_ADOXX_ECORE, TMP_XWIKI_ECORE, TMP_ATL_TRANSFORMATION, inTag, outTag, out);
 			result = true;
 			System.out.println("ATL Model2Model transformation done.");
 
 			if(deleteFile){
-				File fileToDelete = new File(tmpAlignmentOutputXMIFile);
+				File fileToDelete = new File(modelFile);
 				fileToDelete.delete();
-				System.out.println("Temp file "+tmpAlignmentOutputXMIFile+" deleted!");
+				System.out.println("Temp file "+modelFile+" deleted!");
 			}
 			
 			

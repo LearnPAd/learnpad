@@ -1,16 +1,17 @@
 package eu.learnpad.transformations.model2text.generator;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.eclipse.acceleo.common.IAcceleoConstants;
 import org.eclipse.acceleo.model.mtl.MtlPackage;
 import org.eclipse.acceleo.model.mtl.resource.EMtlResourceFactoryImpl;
@@ -27,8 +28,8 @@ import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 
+import eu.learnpad.transformations.metamodel_corpus.xwiki.XwikiPackage;
 import eu.learnpad.transformations.model2text.main.Generate;
-
 
 /**
  * Class for the execution of Acceleo transformation in a standalone environment.
@@ -38,13 +39,10 @@ import eu.learnpad.transformations.model2text.main.Generate;
  */
 public class AcceleoStandaloneStarter{
 	
-	private String tmpInputStreamFilePath = "/tmp/acceleoInputStreamFile.xmi";
+	private String modelXWikiAcceleoTmpPath = "/tmp/learnpad/mt/model.xwiki.acceleo-tmp.xmi";
 	private boolean deleteTmpFile = true;
 	
-	
 	   public AcceleoStandaloneStarter(){
-		   
-			
 	   }
 	
 	   /**
@@ -52,52 +50,39 @@ public class AcceleoStandaloneStarter{
 	    * @param modelPath The path of the model to be transformed.
 	    * @param resultFolderPath The path of the folder in which the result of the transformation will be located.
 	    */
-	   public void execute(InputStream model, String resultFolderPath) {
-		   
-		   File result = null;
-		   
+	   public void execute(InputStream model, String resultFolderPath) {		   
 		   try {
 			   //Save the Input Stream as file
-			   result = saveInputStreamIntoFile(model);
+		       OutputStream modelXWikiAcceleoTmp = new FileOutputStream(modelXWikiAcceleoTmpPath);
+		       IOUtils.copy(model, modelXWikiAcceleoTmp);
+		       modelXWikiAcceleoTmp.close();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		   
-         URI modelURI = URI.createFileURI(tmpInputStreamFilePath);
+         URI modelURI = URI.createFileURI(modelXWikiAcceleoTmpPath);
          File folder = new File(resultFolderPath);
          List<String> arguments = new ArrayList<String>();
          Generate generator;
 			try {
 				generator = new Generate(modelURI, folder, arguments);
 				generator.doGenerate(new BasicMonitor());
+				// Have to unregister them because if not, they stay loaded and are messing up with ATL module
+				// They are automatically loaded by Acceleo in the Generate class
+		        EPackage.Registry.INSTANCE.remove(XwikiPackage.eNS_URI); 
+		        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().remove("*");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
-			if(deleteTmpFile){
-				result.delete();
-			}
-	   }
-	   
-	   private File saveInputStreamIntoFile(InputStream inputStreamToSave) throws IOException{
-		   
-		   File file = new File(tmpInputStreamFilePath);
-		   file.createNewFile();
-		   
-		   // write the inputStream to a FileOutputStream
-		   OutputStream outputStream = new FileOutputStream(file);
-
-			int read = 0;
-			byte[] bytes = new byte[1024];
-
-			while ((read = inputStreamToSave.read(bytes)) != -1) {
-				outputStream.write(bytes, 0, read);
-			}
-		   
-		   return file;
+			// Remove temporary file
+			try {
+                Files.delete(Paths.get(modelXWikiAcceleoTmpPath));
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 	   }
 	 
 	   /**
