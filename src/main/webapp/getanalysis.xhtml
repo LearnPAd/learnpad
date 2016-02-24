@@ -27,9 +27,11 @@
 
 		
 		<h:commandButton value="Redirect to Page CF"
-			action="#{pageController.navigatePageCF}" />
+			action="#{pageController.navigatePageCF}" > <f:setPropertyActionListener target="#{ContentAnalysisBean.collectionannotatedcontent}"  value="#{null}" /></h:commandButton>
 		<h:commandButton value="Refresh"
-			action="#{pageController.navigatePageGetAnalysis}" />
+			action="#{pageController.navigatePageGetAnalysis}" >
+			 <f:setPropertyActionListener target="#{ContentAnalysisBean.collectionannotatedcontent}"  value="#{null}" />
+			</h:commandButton>
 
 	
 
@@ -62,6 +64,7 @@
                     </c:forEach>
                     <ace:ajax execute="@this" render="@all" />
                     <ace:ajax event="blur" execute="@this" render="@all" />
+                    
                 </ace:comboBox>
 
 

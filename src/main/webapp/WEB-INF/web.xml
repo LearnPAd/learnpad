@@ -62,7 +62,7 @@
         <url-pattern>/resources/*</url-pattern>
      </servlet-mapping>
      <session-config>
-       <session-timeout>1</session-timeout>
+       <session-timeout>1000</session-timeout>
      </session-config>
     
     <!-- Welcome files -->
