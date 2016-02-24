@@ -3,10 +3,20 @@
  */
 package eu.learnpad.simulator.monitoring.activiti;
 
+import java.util.ArrayList;
+
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 
+import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
+import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
+import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
+import eu.learnpad.sim.rest.event.impl.SimulationEndEvent;
+import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
+import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
+import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 import eu.learnpad.simulator.IProcessEventReceiver;
+import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.mon.event.GlimpseBaseEvent;
 import eu.learnpad.simulator.mon.event.GlimpseBaseEventBPMN;
 import eu.learnpad.simulator.mon.probe.GlimpseAbstractProbe;
@@ -50,14 +60,18 @@ import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
 public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 IProcessEventReceiver {
 
+	private final IProcessManager manager;
+
 	/**
 	 * @param settings
 	 */
-	public ProbeEventReceiver() {
+	public ProbeEventReceiver(IProcessManager manager) {
 		super(Manager.createProbeSettingsPropertiesObject(
 				"org.apache.activemq.jndi.ActiveMQInitialContextFactory",
 				"tcp://atlantis.isti.cnr.it:61616", "system", "manager",
 				"TopicCF", "jms.probeTopic", false, "probeName", "probeTopic"));
+
+		this.manager = manager;
 	}
 
 	/**
@@ -103,9 +117,18 @@ IProcessEventReceiver {
 	@Override
 	public void receiveSimulationStartEvent(SimulationStartSimEvent event) {
 		GlimpseBaseEventBPMN<String> monitoringEvent = new GlimpseBaseEventBPMN<String>(
-				"Activity_" + event.timestamp, event.simulationsessionid,
-				event.timestamp, event.getType().toString(), false, "",
-				event.simulationsessionid, 0, null, null, null);
+				"Activity_" + event.timestamp,
+				event.simulationsessionid,
+				event.timestamp,
+				event.getType().toString(),
+				false,
+				"",
+				new SimulationStartEvent(
+						event.timestamp,
+						event.simulationsessionid,
+						new ArrayList<String>(event.involvedusers),
+						manager.getModelSetId(event.initialProcessDefinitionKey),
+						manager.getSimulationSessionParametersData(event.simulationsessionid)));
 
 		send(monitoringEvent);
 
@@ -114,9 +137,18 @@ IProcessEventReceiver {
 	@Override
 	public void receiveSimulationEndEvent(SimulationEndSimEvent event) {
 		GlimpseBaseEventBPMN<String> monitoringEvent = new GlimpseBaseEventBPMN<String>(
-				"Activity_" + event.timestamp, event.simulationsessionid,
-				event.timestamp, event.getType().toString(), false, "",
-				event.simulationsessionid, 0, null, null, null);
+				"Activity_" + event.timestamp,
+				event.simulationsessionid,
+				event.timestamp,
+				event.getType().toString(),
+				false,
+				"",
+				new SimulationEndEvent(
+						event.timestamp,
+						event.simulationsessionid,
+						new ArrayList<String>(event.involvedusers),
+						manager.getModelSetId(event.simulationsessionid),
+						manager.getSimulationSessionParametersData(event.simulationsessionid)));
 
 		send(monitoringEvent);
 
@@ -125,9 +157,20 @@ IProcessEventReceiver {
 	@Override
 	public void receiveProcessStartEvent(ProcessStartSimEvent event) {
 		GlimpseBaseEventBPMN<String> monitoringEvent = new GlimpseBaseEventBPMN<String>(
-				"Activity_" + event.timestamp, event.simulationsessionid,
-				event.timestamp, event.getType().toString(), false, "",
-				event.simulationsessionid, 0, null, null, null);
+				"Activity_" + event.timestamp,
+				event.simulationsessionid,
+				event.timestamp,
+				event.getType().toString(),
+				false,
+				"",
+				new ProcessStartEvent(
+						event.timestamp,
+						event.simulationsessionid,
+						new ArrayList<String>(event.involvedusers),
+						manager.getModelSetId(event.simulationsessionid),
+						manager.getSimulationSessionParametersData(event.simulationsessionid),
+						event.processInstance.processartifactid,
+						event.processInstance.processartifactkey));
 
 		send(monitoringEvent);
 
@@ -136,9 +179,20 @@ IProcessEventReceiver {
 	@Override
 	public void receiveProcessEndEvent(ProcessEndSimEvent event) {
 		GlimpseBaseEventBPMN<String> monitoringEvent = new GlimpseBaseEventBPMN<String>(
-				"Activity_" + event.timestamp, event.simulationsessionid,
-				event.timestamp, event.getType().toString(), false, "",
-				event.simulationsessionid, 0, null, null, null);
+				"Activity_" + event.timestamp,
+				event.simulationsessionid,
+				event.timestamp,
+				event.getType().toString(),
+				false,
+				"",
+				new ProcessEndEvent(
+						event.timestamp,
+						event.simulationsessionid,
+						new ArrayList<String>(event.involvedusers),
+						manager.getModelSetId(event.simulationsessionid),
+						manager.getSimulationSessionParametersData(event.simulationsessionid),
+						event.processInstance.processartifactid,
+						event.processInstance.processartifactkey));
 		send(monitoringEvent);
 
 	}
@@ -146,10 +200,20 @@ IProcessEventReceiver {
 	@Override
 	public void receiveTaskStartEvent(TaskStartSimEvent event) {
 		GlimpseBaseEventBPMN<String> monitoringEvent = new GlimpseBaseEventBPMN<String>(
-				"Activity_" + event.timestamp, event.simulationsessionid,
-				event.timestamp, event.getType().toString(), false, "",
-				event.simulationsessionid, 0, event.task.key,
-				event.task.subprocessKey, null);
+				"Activity_" + event.timestamp,
+				event.simulationsessionid,
+				event.timestamp,
+				event.getType().toString(),
+				false,
+				event.task.subprocessKey,
+				new TaskStartEvent(
+						event.timestamp,
+						event.simulationsessionid,
+						new ArrayList<String>(event.involvedusers),
+						manager.getModelSetId(event.simulationsessionid),
+						manager.getSimulationSessionParametersData(event.simulationsessionid),
+						event.task.processId, event.task.id, event.task.key,
+						new ArrayList<String>(event.involvedusers)));
 
 		send(monitoringEvent);
 
@@ -158,10 +222,21 @@ IProcessEventReceiver {
 	@Override
 	public void receiveTaskEndEvent(TaskEndSimEvent event) {
 		GlimpseBaseEventBPMN<String> monitoringEvent = new GlimpseBaseEventBPMN<String>(
-				"Activity_" + event.timestamp, event.simulationsessionid,
-				event.timestamp, event.getType().toString(), false, "",
-				event.simulationsessionid, 0, event.task.key,
-				event.task.subprocessKey, null);
+				"Activity_" + event.timestamp,
+				event.simulationsessionid,
+				event.timestamp,
+				event.getType().toString(),
+				false,
+				event.task.subprocessKey,
+				new TaskEndEvent(
+						event.timestamp,
+						event.simulationsessionid,
+						new ArrayList<String>(event.involvedusers),
+						manager.getModelSetId(event.simulationsessionid),
+						manager.getSimulationSessionParametersData(event.simulationsessionid),
+						event.task.processId, event.task.id, event.task.key,
+						new ArrayList<String>(event.involvedusers),
+						event.completingUser, event.submittedData));
 
 		send(monitoringEvent);
 
@@ -170,10 +245,19 @@ IProcessEventReceiver {
 	@Override
 	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateSimEvent event) {
 		GlimpseBaseEventBPMN<String> monitoringEvent = new GlimpseBaseEventBPMN<String>(
-				"Activity_" + event.timestamp, event.simulationsessionid,
-				event.timestamp, event.getType().toString(), false,
-				event.sessionscore.toString(), event.simulationsessionid, 0,
-				null, null, null);
+				"Activity_" + event.timestamp,
+				event.simulationsessionid,
+				event.timestamp,
+				event.getType().toString(),
+				false,
+				"",
+				new SessionScoreUpdateEvent(
+						event.timestamp,
+						event.simulationsessionid,
+						new ArrayList<String>(event.involvedusers),
+						manager.getModelSetId(event.simulationsessionid),
+						manager.getSimulationSessionParametersData(event.simulationsessionid),
+						event.processid, event.user, event.sessionscore));
 
 		send(monitoringEvent);
 
