@@ -31,6 +31,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -63,14 +64,10 @@ import org.eclipse.m2m.atl.engine.emfvm.launch.EMFVMLauncher;
  */
 public class ATLTransformation2
 {
-
-    // private IModel paramsModel;
-    private IModel outModel;
-
     private Map<String, Object> options;
 
     /**
-     * The constructor inizialize some options of the transformation. Here there is the registration of the Metamodel
+     * The constructor initialize some options of the transformation. Here there is the registration of the Metamodel
      * Ecore.
      * 
      * @throws IOException
@@ -100,7 +97,7 @@ public class ATLTransformation2
      * @param out The path of the Ecore model file resulting from the transformation.
      * @return
      */
-    public IModel run(String lpModelPath, String lpMetamodelPath, String xwikiMetamodelPath, String atlPaths,
+    public IModel run(String lpModelPath, String lpMetamodelPath, String xwikiMetamodelPath, List<InputStream> atlStreams,
         String inTag, String outTag, OutputStream out)
     {
         ILauncher launcher = new EMFVMLauncher();
@@ -121,8 +118,8 @@ public class ATLTransformation2
             launcher.initialize(this.options);
             launcher.addInModel(lpModel, "IN", inTag);
             launcher.addOutModel(xwikiModel, "OUT", outTag);
-            Object[] modules = (Object[]) getModules(atlPaths).toArray();
-            launcher.launch(ILauncher.RUN_MODE, new NullProgressMonitor(), this.options, modules);
+            Object[] asm = (Object[]) compile(atlStreams).toArray();
+            launcher.launch(ILauncher.RUN_MODE, new NullProgressMonitor(), this.options, asm);
 
             extractor.extract(xwikiModel, out, null);
 
@@ -131,39 +128,34 @@ public class ATLTransformation2
             emfModelFactory.unload((EMFModel) xwikiModel);
             emfModelFactory.unload((EMFModel) lpMetamodel);
             emfModelFactory.unload((EMFModel) xwikiModel);
+            
+            return xwikiModel;
         } catch (ATLCoreException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         }
 
-        return this.outModel;
+        return null;
+    }
+    
+    private List<InputStream> compile(List<InputStream> atlStreams) {
+        List<InputStream> asmStreams = new ArrayList<InputStream>();
+        for(InputStream atlStream: atlStreams) {
+            asmStreams.add(compile(atlStream));
+        }
+        return asmStreams;
     }
 
-
-    /**
-     * The function returns the modules that are present in the file processing. Each transform file (.atl) may contain
-     * more modules within it (each has within the mapping that makes the transformation). Each of these modules to its
-     * interior will have a variable IN and an OUT eg. Each of these modules is then saved in a separate file .asm.
-     * 
-     * @return InputStream[]
-     * @throws IOException
-     */
-    private List<InputStream> getModules(String atlPaths) throws IOException
-    {
-        List<InputStream> out = new ArrayList<InputStream>();
-        List<String> atlPathList = Arrays.asList(atlPaths.split(","));
-        for (String atlPathString : atlPathList) {
-            java.nio.file.Path atlPath = Paths.get(atlPathString);
-            InputStream atlStream = Files.newInputStream(atlPath);
-            AtlStandaloneCompiler compiler = new Atl2006Compiler();
-            String asmPathString = String.format("%s.asm", atlPathString.substring(0, atlPathString.lastIndexOf(".")));
-            java.nio.file.Path asmPath = Paths.get(asmPathString);
-            compiler.compile(atlStream, asmPathString);
-            out.add(Files.newInputStream(asmPath));
+    public InputStream compile(InputStream atlStream) {
+        AtlStandaloneCompiler compiler = new Atl2006Compiler();
+        String asmFilename = String.format("%s.asm", UUID.randomUUID().toString());
+        java.nio.file.Path asmPath = Paths.get("/tmp/learnpad/mt", asmFilename);
+        compiler.compile(atlStream, asmPath.toString());
+        try {
+            return Files.newInputStream(asmPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
-        return out;
     }
 }
