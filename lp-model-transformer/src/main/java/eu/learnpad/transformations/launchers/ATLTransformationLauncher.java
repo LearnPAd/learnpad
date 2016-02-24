@@ -13,7 +13,6 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 
 import eu.learnpad.transformations.model2model.ATLTransformation;
-import eu.learnpad.transformations.model2model.ATLTransformation2;
 import eu.learnpad.transformations.preprocessing.Alignment;
 
 public class ATLTransformationLauncher {
@@ -87,7 +86,7 @@ public class ATLTransformationLauncher {
 		if(sanitizerResult){
 			//if the sanitizer succeded
 			
-			ATLTransformation2 myT = new ATLTransformation2();
+			ATLTransformation myT = new ATLTransformation();
 			System.out.println("Starting ATL Model2Model transformation...");
 			InputStream learnpadMetamodelInputStream = this.getClass().getClassLoader().getResourceAsStream(metamodel_in);
 			InputStream xwikiMetamodelInputStream = this.getClass().getClassLoader().getResourceAsStream(metamodel_out);
