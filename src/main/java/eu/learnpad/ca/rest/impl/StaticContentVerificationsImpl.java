@@ -24,6 +24,7 @@ import eu.learnpad.ca.analysis.completeness.Completeness;
 import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
 import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.non_ambiguity.NonAmbiguity;
+import eu.learnpad.ca.analysis.presentation.PresentationClarity;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.StaticContentVerifications;
@@ -99,6 +100,13 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 						Completeness threadCompleteness = new Completeness (contentFile, lang);
 						threadCompleteness.start();
 						putAndCreate(id, threadCompleteness);
+
+					}
+					if(contentFile.getQualityCriteria().isPresentationClarity()){
+
+						PresentationClarity threadPresentation = new PresentationClarity (contentFile, lang);
+						threadPresentation.start();
+						putAndCreate(id, threadPresentation);
 
 					}
 					return id.toString();
