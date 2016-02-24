@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,7 +91,8 @@ public class ATLTransformationLauncher {
 			System.out.println("Starting ATL Model2Model transformation...");
 			InputStream learnpadMetamodelInputStream = this.getClass().getClassLoader().getResourceAsStream(metamodel_in);
 			InputStream xwikiMetamodelInputStream = this.getClass().getClassLoader().getResourceAsStream(metamodel_out);
-			myT.run(modelFile, learnpadMetamodelInputStream, xwikiMetamodelInputStream, modules, inTag, outTag, out);
+			InputStream modelStream = Files.newInputStream(Paths.get(modelFile));
+			myT.run(modelStream, learnpadMetamodelInputStream, xwikiMetamodelInputStream, modules, inTag, outTag, out);
 			learnpadMetamodelInputStream.close();
 			xwikiMetamodelInputStream.close();
 			for (InputStream module : modules) {

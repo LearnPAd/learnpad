@@ -87,7 +87,7 @@ public class ATLTransformation2
      * The function is the only one to be visible to the outside and is the one that initiates the whole process of
      * transformation.
      * 
-     * @param lpModelPath Path of the file representing the Ecore model (in .XMI) to be transformed.
+     * @param lpModelStream Path of the file representing the Ecore model (in .XMI) to be transformed.
      * @param lpMetamodelStream Path of the Ecore Metamodel in which the model in input is conform to.
      * @param xwikiMetamodelStream The Path of the file for the Ecore Metamodel that the resulting model have to be
      *            conform.
@@ -97,7 +97,7 @@ public class ATLTransformation2
      * @param out The path of the Ecore model file resulting from the transformation.
      * @return
      */
-    public IModel run(String lpModelPath, InputStream lpMetamodelStream, InputStream xwikiMetamodelStream, List<InputStream> atlStreams,
+    public IModel run(InputStream lpModelStream, InputStream lpMetamodelStream, InputStream xwikiMetamodelStream, List<InputStream> atlStreams,
         String inTag, String outTag, OutputStream out)
     {
         ILauncher launcher = new EMFVMLauncher();
@@ -112,7 +112,7 @@ public class ATLTransformation2
             injector.inject(xwikiMetamodel, xwikiMetamodelStream, this.options);
 
             IModel lpModel = modelFactory.newModel(lpMetamodel);
-            injector.inject(lpModel, lpModelPath);
+            injector.inject(lpModel, lpModelStream, this.options);
             IModel xwikiModel = modelFactory.newModel(xwikiMetamodel);
 
             launcher.initialize(this.options);
