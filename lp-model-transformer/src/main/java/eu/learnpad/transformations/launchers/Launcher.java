@@ -4,7 +4,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Launcher {	
 	
@@ -55,9 +57,42 @@ public class Launcher {
 	 * @return Path
 	 * @throws Exception
 	 */
-	public Path chain(InputStream model, String type) throws Exception{
-		ChainLauncher chainL = new ChainLauncher();
-		return chainL.executeChain(model, type);
+	public Path chain(InputStream model, String type) throws Exception {
+        Path lpModelPath = Paths.get("/tmp/learnpad/mt/model.adoxx.xmi");
+        Path xwikiModelPath = Paths.get("/tmp/learnpad/mt/model.xwiki.xmi");
+	    
+        // ALIGN
+        AlignmentLauncher alignLauncher = new AlignmentLauncher();
+	    OutputStream alignOutputStream = Files.newOutputStream(lpModelPath);
+	    boolean isAlign = alignLauncher.align(model, type, alignOutputStream);
+	    
+	    // TRANSFORM
+	    ATLTransformationLauncher transformLauncher = new ATLTransformationLauncher();
+	    InputStream transformInputStream = Files.newInputStream(lpModelPath);
+	    OutputStream transformOutputStream = Files.newOutputStream(xwikiModelPath);
+	    boolean isTransformed = transformLauncher.transform(transformInputStream, type, transformOutputStream);
+	    
+	    // WRITE
+	    AcceleoTransformationLauncher writeLauncher = new AcceleoTransformationLauncher();
+        InputStream writeInputStream = Files.newInputStream(xwikiModelPath);
+        Path path = writeLauncher.write(writeInputStream);
+
+        // CLEAN
+        alignOutputStream.close();
+        transformInputStream.close();
+        transformOutputStream.close();
+        writeInputStream.close();
+        Files.delete(lpModelPath);
+        Files.delete(xwikiModelPath);
+        
+        if (isAlign && isTransformed && path != null) {
+            return path;
+        } else {
+            return null;
+        }
+//	    
+//		ChainLauncher chainL = new ChainLauncher();
+//		return chainL.executeChain(model, type);
 	}
 	
 

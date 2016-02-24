@@ -30,29 +30,18 @@ public class ATLTransformationLauncher {
 	 * @param model The InputStream of the model file to be transformed.
 	 * @throws Exception
 	 */
-	public boolean transform(InputStream modelInputStream, String type, OutputStream out) throws Exception{
-		
+	public boolean transform(InputStream modelInputStream, String type, OutputStream out) throws Exception {
 		boolean result = false;
-		
-		boolean sanitizerResult = false;
-		Alignment al = new Alignment();
 		
 		String metamodel_in = "";
 		String metamodel_out = "";
 		List<InputStream> modules = new ArrayList<InputStream>();
 		String inTag = "";
 		String outTag = "";
-
-		OutputStream outputAlignementFile = new FileOutputStream(modelFile);
 		
 		InputStream atlStream;
 		switch (type) {
 		case ADOXX_TYPE:
-			System.out.println("*******STARTING ADOXX ALIGNMENT*******");
-			sanitizerResult = al.sanitizerForADOXX(modelInputStream, outputAlignementFile);
-			outputAlignementFile.close();
-			System.out.println("*******ALIGNMENT ADOXX DONE*******");
-			
 			metamodel_in 	= "metamodels/adoxx/ado.ecore";
 			metamodel_out 	= "metamodels/xwiki/XWIKI.ecore";
 			atlStream = this.getClass().getClassLoader().getResourceAsStream(ADOXX2XWIKI_ATL_TRANSFORMATION);
@@ -62,11 +51,6 @@ public class ATLTransformationLauncher {
 			
 			break;
 		case MAGIC_DRAW_TYPE:
-			System.out.println("*******STARTING MAGICDRAW ALIGNMENT*******");
-			sanitizerResult = al.sanitizerForMagicDraw(modelInputStream, outputAlignementFile);
-            outputAlignementFile.close();
-			System.out.println("*******ALIGNMENT MAGICDRAW DONE*******");
-			
 			metamodel_in 	= "";
 			metamodel_out 	= "";
             atlStream = this.getClass().getClassLoader().getResourceAsStream(MAGICDRAW2XWIKI_ATL_TRANSFORMATION);
@@ -79,8 +63,6 @@ public class ATLTransformationLauncher {
 			System.out.println("Type not allowed!");
 			break;
 		}
-				
-		if(sanitizerResult){
 			//if the sanitizer succeded
 			
 			ATLTransformation myT = new ATLTransformation();
@@ -88,7 +70,7 @@ public class ATLTransformationLauncher {
 			InputStream learnpadMetamodelInputStream = this.getClass().getClassLoader().getResourceAsStream(metamodel_in);
 			InputStream xwikiMetamodelInputStream = this.getClass().getClassLoader().getResourceAsStream(metamodel_out);
 			InputStream modelStream = Files.newInputStream(Paths.get(modelFile));
-			myT.run(modelStream, learnpadMetamodelInputStream, xwikiMetamodelInputStream, modules, inTag, outTag, out);
+			myT.run(modelInputStream, learnpadMetamodelInputStream, xwikiMetamodelInputStream, modules, inTag, outTag, out);
 			learnpadMetamodelInputStream.close();
 			xwikiMetamodelInputStream.close();
 			modelStream.close();
@@ -102,13 +84,8 @@ public class ATLTransformationLauncher {
 				File fileToDelete = new File(modelFile);
 				fileToDelete.delete();
 				System.out.println("Temp file "+modelFile+" deleted!");
-			}
+			}	
 			
-			
-			
-		}else{
-			System.out.println("Sanitizer failed!");
-		}
 		
 		return result;
 	}

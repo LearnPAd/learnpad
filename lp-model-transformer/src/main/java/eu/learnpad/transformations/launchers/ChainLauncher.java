@@ -7,12 +7,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Path;
 
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
-
-import eu.learnpad.transformations.metamodel_corpus.xwiki.XwikiFactory;
-import eu.learnpad.transformations.metamodel_corpus.xwiki.XwikiPackage;
-
 /**
  * Class that execute the chain of transformation composed by: ATL Transformation (MODEL2MODEL Transformation) and 
  * Acceleo Transformation (MODEL2TEXT Transformation).
