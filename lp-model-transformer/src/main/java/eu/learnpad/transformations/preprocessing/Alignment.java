@@ -12,6 +12,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,7 +40,7 @@ import org.xml.sax.SAXException;
  */
 public class Alignment {
 	
-	private String tmpModelFolder = "/tmp/";
+	private String tmpModelFolder = "/tmp/learnpad/mt";
 	private String tmpFileFromInputStream = "fileFromInputStream.xml";
 	private boolean deleteFile = true;
 	
@@ -50,7 +52,9 @@ public class Alignment {
 		
 		boolean result = false;
 		
-		String fileFromInputStreamPath = createFileFromInputStream(modelInputStream);
+		Path modelPath = Paths.get(String.format("%s/%s", tmpModelFolder, tmpFileFromInputStream));
+		Files.copy(modelInputStream, modelPath);
+		String fileFromInputStreamPath = modelPath.toString();
 		
 		File fileToSanitize = sanitizerForADOXX(fileFromInputStreamPath);
 		
@@ -60,9 +64,7 @@ public class Alignment {
 		}
 		
 		//Write to the OutputStream provided as input
-//		writeFileToOutputStream(fileToSanitize, out);
-		InputStream isTmp = new FileInputStream(fileToSanitize);
-		IOUtils.copy(isTmp, out);
+		Files.copy(fileToSanitize.toPath(), out);
 		
 		if(deleteFile){
 			File fileToDelete = new File(tmpModelFolder + tmpFileFromInputStream);
@@ -76,81 +78,14 @@ public class Alignment {
 		
 		return result;
 	}
-
-	
-	private void writeFileToOutputStream(File file, OutputStream out){
-		
-		byte[] buf = new byte[1024];
-
-        InputStream is = null;
-		try {
-			is = new FileInputStream(file);
-			
-			 int c = 0;
-
-		        while ((c = is.read(buf, 0, buf.length)) > 0) {
-		        	out.write(buf, 0, c);
-		        	out.flush();
-		        }
-
-		        out.close();
-		        System.out.println("File written on OutputStream!");
-		        is.close();
-			
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-       
-	}
-	
-	
-	private String createFileFromInputStream(InputStream modelInputStream) throws IOException{
-		
-		String fullFileFromInputStreamPath = tmpModelFolder + tmpFileFromInputStream;
-		
-		OutputStream outputStream = null;
-		
-		File fileFromeInputStream = new File(fullFileFromInputStreamPath);
-		fileFromeInputStream.createNewFile();
-		if(fileFromeInputStream.exists()){
-			try {
-				outputStream = new FileOutputStream(fileFromeInputStream);
-				int read = 0;
-				byte[] bytes = new byte[1024];
-			
-				while ((read = modelInputStream.read(bytes)) != -1) {
-					outputStream.write(bytes, 0, read);
-				}
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else{
-			System.out.println("File not exists!");
-		}
-		
-		return fullFileFromInputStreamPath;
-	}
-	
-	
-	
-	
-		
 	
 	public boolean sanitizerForMagicDraw(InputStream modelInputStream, OutputStream out) throws Exception {
 		
 		boolean result = false;
-		
-		String fileFromInputStreamPath = createFileFromInputStream(modelInputStream);
+
+        Path modelPath = Paths.get(String.format("%s/%s", tmpModelFolder, tmpFileFromInputStream));
+        Files.copy(modelInputStream, modelPath);
+        String fileFromInputStreamPath = modelPath.toString();
 		
 		File fileToSanitize = sanitizerForMagicDraw(fileFromInputStreamPath);
 		
@@ -160,7 +95,7 @@ public class Alignment {
 		}
 		
 		//Write to the OutputStream provided as input
-		writeFileToOutputStream(fileToSanitize, out);
+        Files.copy(fileToSanitize.toPath(), out);
 		
 		if(deleteFile){
 			File fileToDelete = new File(tmpModelFolder + tmpFileFromInputStream);
@@ -183,9 +118,6 @@ public class Alignment {
 		return null;
 		
 	}
-	
-	
-	
 	
 	/**
 	 * This method take the path of the ADOXX XML file and, after a phase of sanitizing, return an XMI file that could be processed by an ATL Transformation.
@@ -302,7 +234,6 @@ public class Alignment {
 			
 		
 	}
-	
 	
 	/**
 	 * The function get text between tags <ATTRIBUTE> and </ATTRIBUTE> and put it into value attribute into the tag.

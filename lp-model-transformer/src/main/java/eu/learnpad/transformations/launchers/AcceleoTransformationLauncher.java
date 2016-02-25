@@ -21,7 +21,7 @@ public class AcceleoTransformationLauncher
      */
     public Path write(InputStream model)
     {
-        String resultFolderPath = String.format("%s/%s", tmpModelFolder, UUID.randomUUID().toString());
+        Path resultFolderPath = Paths.get(String.format("%s/%s", tmpModelFolder, UUID.randomUUID().toString()));
 
         System.out.println("Starting Acceleo Model2Text transformation...");
         AcceleoStandaloneStarter ast = new AcceleoStandaloneStarter();
@@ -29,7 +29,7 @@ public class AcceleoTransformationLauncher
         System.out.println(
             String.format("Acceleo Model2Text done. You can find the result in the '%s' folder.", resultFolderPath));
 
-        return Paths.get(resultFolderPath);
+        return resultFolderPath;
     }
 
     public static void main(String[] args) throws FileNotFoundException
