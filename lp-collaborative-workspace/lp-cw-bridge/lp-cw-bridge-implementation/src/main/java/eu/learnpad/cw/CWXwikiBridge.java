@@ -372,7 +372,7 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge
     }
 
 	@Override
-	public void notifyRecommendations(String simulationid, Recommendations recommendations, String usedId)
+	public void notifyRecommendations(String simulationid, String userId, Recommendations recommendations)
 			throws LpRestException {
 		// TODO Auto-generated method stub
 	}
