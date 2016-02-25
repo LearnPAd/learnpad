@@ -38,6 +38,7 @@ import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.or.BridgeInterface;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.States;
+
 import java.util.Map;
 
 /*
@@ -173,26 +174,29 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 		
 	}
 
-    @Override
-    public Recommendations askRecommendation(String simulationSessionId) throws LpRestException {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     @Override
-    public void simulationInstanceNotification(String modelSetId, String modelId, String action, String simulationId) throws LpRestException {
+    public void simulationInstanceNotification(String modelSetId, String modelId, String action, String simulationId, Map<String, Object> simSessionData) throws LpRestException {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void simulationTaskStartNotification(String modelSetId, String modelId, String artifactId, String simulationId) throws LpRestException {
+    public void simulationTaskStartNotification(String modelSetId, String modelId, String artifactId, String simulationId, Map<String, Object> simSessionData) throws LpRestException {
         // TODO Auto-generated method stub
     }
 
     @Override
-    public void simulationTaskEndNotification(String modelSetId, String modelId, String artifactId, String simulationId, Map<String, Object> data) throws LpRestException {
+    public void simulationTaskEndNotification(String modelSetId, String modelId, String artifactId, String simulationId, Map<String, Object> simSessionData, Map<String, Object> data) throws LpRestException {
         // TODO Auto-generated method stub
     }
+
+	@Override
+	public Recommendations askRecommendation(String modelSetId,
+			String artifactId, String userId, String simulationSessionId)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 }

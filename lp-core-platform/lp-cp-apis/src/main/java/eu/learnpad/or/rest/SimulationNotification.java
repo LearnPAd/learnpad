@@ -40,15 +40,18 @@ public interface SimulationNotification {
 	 *            is one of the following values: started, stopped
 	 * @param simulationId
 	 *            is the ID of the concerned simulation
+	 * @param simSessionData
+	 *            data and metadata defining the context for the simulation session
 	 * @throws LpRestException
 	 */
-	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationnotification?action={started|stopped},simulationid=id
+	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationnotification?action={started|stopped},simulationid=id,simSessionData=simSesMap
 	@POST
 	@Path("/{modelsetid}/{modelid}/simulationinstancenotification")
 	void simulationInstanceNotification(@PathParam("modelsetid") String modelSetId,
 			@PathParam("modelid") String modelId,
 			@QueryParam("action") String action,
-			@QueryParam("simulationid") String simulationId)
+			@QueryParam("simulationid") String simulationId,
+            @QueryParam("simdata") Map<String, Object> simSessionData)
 			throws LpRestException;
         
 	/**
@@ -61,15 +64,18 @@ public interface SimulationNotification {
 	 *            etc.)         * 
 	 * @param simulationId
 	 *            is the ID of the concerned simulation
+	 * @param simSessionData
+	 *            data and metadata defining the context for the simulation session
 	 * @throws LpRestException
 	 */
-	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationtaskstart?artifactid=aid,simulationid=id
+	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationtaskstart?artifactid=aid,simulationid=id,simSessionData=simSesMap
 	@POST
 	@Path("/{modelsetid}/{modelid}/simulationtaskstart")
 	void simulationTaskStartNotification(@PathParam("modelsetid") String modelSetId,
 			@PathParam("modelid") String modelId,
                         @QueryParam("artifactid") String artifactId,
-			@QueryParam("simulationid") String simulationId)
+			@QueryParam("simulationid") String simulationId,
+            @QueryParam("simdata") Map<String, Object> simSessionData)
 			throws LpRestException;    
         
 	/**
@@ -80,10 +86,12 @@ public interface SimulationNotification {
 	 * @param artifactId
 	 *            is the ID of the artifact in the model (event, gateway, unit,
 	 *            etc.)         * 
-	 * @param data
-	 *            user data 
 	 * @param simulationId
 	 *            is the ID of the concerned simulation
+	 * @param simSessionData
+	 *            data and metadata defining the context for the simulation session
+	 * @param data
+	 *            user data inserted during the simulation
 	 * @throws LpRestException
 	 */
 	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationtaskend?artifactid=aid,simulationid=id,data=dapaMap
@@ -94,6 +102,7 @@ public interface SimulationNotification {
 			@PathParam("modelid") String modelId,
                         @QueryParam("artifactid") String artifactId,
 			@QueryParam("simulationid") String simulationId,
+                        @QueryParam("simdata") Map<String, Object> simSessionData,
                         @QueryParam("data") Map<String, Object> data) 
 			throws LpRestException;          
 }
