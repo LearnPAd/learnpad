@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 cd $( dirname "${BASH_SOURCE[0]}")
 {
-	java -jar lp-content-analysis.jar
+	java -jar lp-content-analysis.jar > analysis.log
 }&
