@@ -134,7 +134,7 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge
             throw new LpRestExceptionXWikiImpl("Fail to get the new modelset");
         }
 
-        InputStream packageStream = this.corefacade.tranform("ADOXX", modelStream);
+        InputStream packageStream = this.corefacade.transform("ADOXX", modelStream);
         if (packageStream == null) {
             throw new LpRestExceptionXWikiImpl("Fail to transform the new modelset");
         }

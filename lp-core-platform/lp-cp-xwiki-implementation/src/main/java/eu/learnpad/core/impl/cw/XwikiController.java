@@ -155,7 +155,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
     @Override
-    public InputStream tranform(String type, InputStream model) throws LpRestException
+    public InputStream transform(String type, InputStream model) throws LpRestException
     {
         return this.mt.transform(type, model);
     }
