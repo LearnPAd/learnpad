@@ -19,10 +19,12 @@
  */
 package eu.learnpad.core.rest;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -31,6 +33,8 @@ import java.util.Collection;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -44,9 +48,11 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.model.reference.AttachmentReference;
 import org.xwiki.model.reference.DocumentReference;
 import org.xwiki.model.reference.EntityReferenceSerializer;
+import org.xwiki.rest.model.jaxb.Property;
 
 import com.xpn.xwiki.web.Utils;
 
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import net.java.truevfs.access.TPath;
 
 @Component
@@ -224,5 +230,37 @@ public class XWikiRestUtils
             logger.error(message, e);
             return false;
         }
+    }
+    
+    public static String getEmailAddress(String wikiName, String username) throws LpRestExceptionXWikiImpl{
+    	String emailAddress = null;
+
+    	HttpClient httpClient = RestResource.getClient();
+
+        String uri = String.format("%s/wikis/%s/spaces/XWiki/pages/%s/objects/XWiki.XWikiUsers/0/properties/email", RestResource.REST_URI, wikiName, username);    	
+        GetMethod getMethod = new GetMethod(uri);
+
+        try {
+			httpClient.executeMethod(getMethod);
+			
+			String response = getMethod.getResponseBodyAsString();
+	
+			JAXBContext jaxbContext = JAXBContext.newInstance(Property.class);
+            InputStream responseInputStream = new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8));
+            Property emailProperty = (Property)jaxbContext.createUnmarshaller().unmarshal(responseInputStream);
+            
+            emailAddress = emailProperty.getValue();			
+		} catch (IOException e) {
+            String message = String.format("Unable to GET the email propery of '%s' on %s@%s'.", username, wikiName, RestResource.REST_URI);
+            logger.error(message, e);
+            throw new LpRestExceptionXWikiImpl(message, e.getCause());
+		} catch (JAXBException e) {
+            String message = String.format("Unable to unmarshall the email propery of '%s' on %s@%s'.", username, wikiName, RestResource.REST_URI);
+            logger.error(message, e);
+            throw new LpRestExceptionXWikiImpl(message, e.getCause());
+		}
+        
+    	return emailAddress;
+    	
     }
 }
