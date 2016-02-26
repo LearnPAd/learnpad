@@ -157,6 +157,14 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
     @Override
     public InputStream transform(String type, InputStream model) throws LpRestException
     {
-        return this.mt.transform(type, model);
+        switch (type) {
+            case "adoxx":
+            case "lpzip":
+                return this.mt.transform("ADOXX", model);
+            case "md":
+                return this.mt.transform("MD", model);
+            default:
+                return null;
+        }
     }
 }
