@@ -328,7 +328,13 @@
 				<dependency>
 					<groupId>org.xwiki.contrib.scriptingdocumentation</groupId>
 					<artifactId>scripting-documentation-ui</artifactId>
-					<version>1.0</version>
+					<version>1.1</version>
+					<type>xar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.xwiki.enterprise</groupId>
+					<artifactId>xwiki-enterprise-ui-admin-user</artifactId>
+					<version>${enterprise.version}</version>
 					<type>xar</type>
 				</dependency>
 			</dependencies>
