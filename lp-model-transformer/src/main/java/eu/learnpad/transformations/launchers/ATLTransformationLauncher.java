@@ -21,8 +21,6 @@ public class ATLTransformationLauncher
 
     private String MAGICDRAW2XWIKI_ATL_TRANSFORMATION = "";
 
-    private String modelFile = "/tmp/learnpad/mt/model.xmi";
-
     /**
      * Execution of the ATL Transformation with a pre-processing with alignment. This method take an XML file as
      * InputStream and after a pre-precessing phase execute the transformation with the resulting XMI model file.
@@ -65,11 +63,9 @@ public class ATLTransformationLauncher
         System.out.println("Starting ATL Model2Model transformation...");
         InputStream learnpadMetamodelStream = this.getClass().getClassLoader().getResourceAsStream(metamodel_in);
         InputStream xwikiMetamodelStream = this.getClass().getClassLoader().getResourceAsStream(metamodel_out);
-        InputStream modelStream = Files.newInputStream(Paths.get(modelFile));
         myT.run(modelInputStream, learnpadMetamodelStream, xwikiMetamodelStream, atlStreams, inTag, outTag, out);
         learnpadMetamodelStream.close();
         xwikiMetamodelStream.close();
-        modelStream.close();
         for (InputStream module : atlStreams) {
             module.close();
         }

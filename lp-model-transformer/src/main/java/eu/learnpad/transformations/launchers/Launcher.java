@@ -66,7 +66,7 @@ public class Launcher
      */
     public Path chain(InputStream model, String type) throws Exception
     {
-        Path lpModelPath = Paths.get("/tmp/learnpad/mt/model.adoxx.xmi");
+        Path lpModelPath = Paths.get("/tmp/learnpad/mt/model.xmi");
         Path xwikiModelPath = Paths.get("/tmp/learnpad/mt/model.xwiki.xmi");
 
         // ALIGN
