@@ -28,13 +28,16 @@ public class RestResource {
 	final private static String PROTOCOL = "http";
 	final private static String HOSTNAME = "localhost";
 	final private static int PORT = 8080;
-	final private static int SIM_PORT = 8081;
+    final private static int SIM_PORT = 8081;
+    final private static int MT_PORT = 8083;
 	final private static String HOST = PROTOCOL + "://" + HOSTNAME + ":" + PORT;
-	final private static String SIM_HOST = PROTOCOL + "://" + HOSTNAME + ":" + SIM_PORT;
+    final private static String SIM_HOST = PROTOCOL + "://" + HOSTNAME + ":" + SIM_PORT;
+    final private static String MT_HOST = PROTOCOL + "://" + HOSTNAME + ":" + MT_PORT;
 	final private static String DEFAULT_USER = "superadmin";
 	final private static String DEFAULT_PASSWORD = "LearnPAss";
 	final public static String REST_URI = HOST + "/xwiki/rest";
-	final public static String SIM_REST_URI = SIM_HOST;
+    final public static String SIM_REST_URI = SIM_HOST;
+    final public static String MT_REST_URI = MT_HOST + "/rest";
 	final public static String CORE_REPOSITORY_WIKI = "xwiki";
 	final public static String CORE_REPOSITORY_SPACE = "CoreRepository";
 

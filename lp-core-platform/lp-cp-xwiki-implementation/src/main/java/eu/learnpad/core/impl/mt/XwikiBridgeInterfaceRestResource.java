@@ -72,8 +72,8 @@ public class XwikiBridgeInterfaceRestResource implements BridgeInterface
     @Override
     public InputStream transform(String type, InputStream model) throws LpRestException
     {
-        HttpClient httpClient = RestResource.getClient();
-        String uri = String.format("%s/learnpad/mt/bridge/transform", RestResource.REST_URI);
+        HttpClient httpClient = RestResource.getAnonymousClient();
+        String uri = String.format("%s/learnpad/mt/bridge/transform", RestResource.MT_REST_URI);
         PostMethod postMethod = new PostMethod(uri);
         postMethod.addRequestHeader("Content-Type", "application/octet-stream");
         postMethod.addRequestHeader("Accept", "application/octet-stream");
