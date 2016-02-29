@@ -95,7 +95,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public void putModelSet(String modelSetId, String type, InputStream modelSetFile)
+	public VerificationId putModelSet(String modelSetId, String type, InputStream modelSetFile)
 			throws LpRestException {
 		if (XWikiRestUtils.isPage(RestResource.CORE_REPOSITORY_WIKI,
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId) == false) {
@@ -106,7 +106,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		XWikiRestUtils.putAttachment(RestResource.CORE_REPOSITORY_WIKI,
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName,
 				modelSetFile);
-		this.mv.startVerification(modelSetId, "ALL");
+		return this.mv.startVerification(modelSetId, "ALL");
 	}
 
 	@Override

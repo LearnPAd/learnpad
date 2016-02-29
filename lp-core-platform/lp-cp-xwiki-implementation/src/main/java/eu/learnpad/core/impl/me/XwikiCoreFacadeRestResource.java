@@ -55,10 +55,10 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 	}
 	
 	@Override
-	public void putModelSet(String modelSetId, String type, InputStream modelSetFile)
+	public VerificationId putModelSet(String modelSetId, String type, InputStream modelSetFile)
 			throws LpRestException {
 		// TODO Auto-generated method stub
-
+	    return null;
 	}
 
 	@Override
