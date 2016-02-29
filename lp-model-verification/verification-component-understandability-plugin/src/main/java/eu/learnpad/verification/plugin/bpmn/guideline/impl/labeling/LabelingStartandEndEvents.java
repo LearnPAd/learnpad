@@ -1,11 +1,14 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.impl.labeling;
 
 
+import java.util.List;
 import java.util.Locale;
 
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.EndEvent;
+import org.eclipse.bpmn2.EventDefinition;
 import org.eclipse.bpmn2.FlowElement;
+import org.eclipse.bpmn2.MessageEventDefinition;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.StartEvent;
@@ -49,7 +52,9 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 					}else
 						if (fe instanceof StartEvent) {
 							StartEvent a = (StartEvent) fe;
-							if(a.getName()==null || (a.getName().length()==0) ){
+							List<EventDefinition> la = a.getEventDefinitions();
+						//	MessageEventDefinition
+							if((a.getName()==null || (a.getName().length()==0))&&!la.isEmpty() ){
 								num++;
 
 								elementsBPMN.add(fe);
@@ -63,7 +68,8 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 						} else
 							if (fe instanceof EndEvent) {
 								EndEvent a = (EndEvent) fe;
-								if(a.getName()==null || (a.getName().length()==0) ){
+								List<EventDefinition> la = a.getEventDefinitions();
+								if((a.getName()==null || (a.getName().length()==0))&&!la.isEmpty() ){
 									num++;
 
 									elementsBPMN.add(fe);
@@ -100,7 +106,9 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 				if (fe instanceof StartEvent) {
 
 					StartEvent a = (StartEvent) fe;
-					if(a.getName()==null || (a.getName().length()==0) ){
+					List<EventDefinition> la = a.getEventDefinitions();
+					//	MessageEventDefinition
+						if((a.getName()==null || (a.getName().length()==0))&&!la.isEmpty() ){
 						//System.out.println(fe.eClass().getName() + ": name="+ fe.getName()!=null? fe.getName() : "Unlabeled" + " ID=" + fe.getId());
 						num++;
 
@@ -114,7 +122,9 @@ public class LabelingStartandEndEvents extends abstractGuideline{
 				} else
 					if (fe instanceof EndEvent) {
 						EndEvent a = (EndEvent) fe;
-						if(a.getName()==null || (a.getName().length()==0) ){
+						List<EventDefinition> la = a.getEventDefinitions();
+						//	MessageEventDefinition
+							if((a.getName()==null || (a.getName().length()==0))&&!la.isEmpty() ){
 							num++;
 
 							elementsBPMN.add(fe);
