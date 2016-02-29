@@ -91,8 +91,8 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 
 		// instanciate users UI
 		for (String user : users) {
-			usersMap.put(user,
-					this.webserver.addUIServlet(new UIServlet(user), user));
+			usersMap.put(user, this.webserver.addUIServlet(new UIServlet(user,
+					userEventReceiverProvider.processManager()), user));
 		}
 
 	}
@@ -104,8 +104,8 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 	 */
 	public void addUser(UserData user) {
 		if (!usersMap.containsKey(user.id)) {
-			usersMap.put(user.id,
-					webserver.addUIServlet(new UIServlet(user.id), user.id));
+			usersMap.put(user.id, webserver.addUIServlet(new UIServlet(user.id,
+					userEventReceiverProvider.processManager()), user.id));
 			usersInfos.put(user.id, user);
 		}
 	}

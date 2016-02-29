@@ -112,6 +112,8 @@ public class ActivitiProcessManager implements IProcessManager,
 
 	private final Map<String, Map<String, Object>> sessionParametersData = new HashMap<>();
 
+	private final Map<String, Map<String, Map<LearnPadTask, Integer>>> taskScoresByUsersBySession = new HashMap<>();
+
 	public ActivitiProcessManager(
 			ProcessEngine processEngine,
 			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider,
@@ -432,8 +434,29 @@ public class ActivitiProcessManager implements IProcessManager,
 	 */
 	public LearnPadTaskSubmissionResult submitTaskCompletion(LearnPadTask task,
 			String userId, Map<String, Object> data) {
-		return processDispatchers.get(task.processId).submitTaskCompletion(
-				task, userId, data);
+
+		LearnPadTaskSubmissionResult result = processDispatchers.get(
+				task.processId).submitTaskCompletion(task, userId, data);
+
+		if (result.status
+				.equals(LearnPadTaskSubmissionResult.TaskSubmissionStatus.VALIDATED)) {
+
+			if (!taskScoresByUsersBySession.containsKey(task.sessionId)) {
+				taskScoresByUsersBySession.put(task.sessionId,
+						new HashMap<String, Map<LearnPadTask, Integer>>());
+			}
+
+			if (!taskScoresByUsersBySession.get(task.sessionId).containsKey(
+					userId)) {
+				taskScoresByUsersBySession.get(task.sessionId).put(userId,
+						new HashMap<LearnPadTask, Integer>());
+			}
+
+			taskScoresByUsersBySession.get(task.sessionId).get(userId)
+					.put(task, result.taskScore);
+		}
+
+		return result;
 	}
 
 	@Override
@@ -467,6 +490,8 @@ public class ActivitiProcessManager implements IProcessManager,
 			nbProcessesBySession.remove(simSession);
 			usersBySession.remove(simSession);
 			sessionParametersData.remove(simSession);
+
+			taskScoresByUsersBySession.remove(simSession);
 		}
 
 	}
@@ -474,6 +499,17 @@ public class ActivitiProcessManager implements IProcessManager,
 	@Override
 	public Integer getInstanceScore(String processId, String userId) {
 		return processDispatchers.get(processId).getInstanceScore(userId);
+	}
+
+	public Map<LearnPadTask, Integer> getDetailedInstanceScore(
+			String sessionId, String userId) {
+
+		if (taskScoresByUsersBySession.get(sessionId) == null) {
+			return new HashMap<LearnPadTask, Integer>();
+		} else {
+			return taskScoresByUsersBySession.get(sessionId).get(userId);
+		}
+
 	}
 
 	/*

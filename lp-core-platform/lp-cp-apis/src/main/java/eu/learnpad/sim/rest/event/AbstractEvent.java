@@ -27,7 +27,12 @@ import java.util.Map;
  * @author Tom Jorquera - Linagora
  *
  */
-public abstract class AbstractEvent {
+public abstract class AbstractEvent implements java.io.Serializable {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -4734413104214101930L;
 
 	public EventType type;
 	public Long timestamp;

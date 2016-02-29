@@ -207,6 +207,15 @@ public interface IProcessManager {
 	public Integer getInstanceScore(String processInstanceId, String userId);
 
 	/**
+	 * @param sessionId
+	 * @param userId
+	 * @return the detailed score for each task associated with the given user
+	 *         in the given session.
+	 */
+	public Map<LearnPadTask, Integer> getDetailedInstanceScore(
+			String sessionId, String userId);
+
+	/**
 	 * @param processDefinitionKey
 	 *            the definition key of the process for which we want the
 	 *            diagram.

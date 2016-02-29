@@ -33,6 +33,11 @@ import eu.learnpad.sim.rest.event.EventType;
 public class TaskEndEvent extends AbstractEvent {
 
 	/**
+	 *
+	 */
+	private static final long serialVersionUID = -5328814254042585792L;
+
+	/**
 	 * Unique ID of the process instance
 	 */
 	public String processid;

@@ -32,6 +32,11 @@ import eu.learnpad.sim.rest.event.EventType;
  */
 public class SimulationStartEvent extends AbstractEvent {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -2632601182542203292L;
+
 	public SimulationStartEvent() {
 		super();
 	}
