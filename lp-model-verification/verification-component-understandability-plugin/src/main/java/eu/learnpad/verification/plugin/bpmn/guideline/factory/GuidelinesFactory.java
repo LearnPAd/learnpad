@@ -45,6 +45,7 @@ import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.Consist
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ConsistentUsageLanes;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ConsistentUsagePools;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ConsistentUsageStartEvents;
+import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ExclusiveGatewayMarking;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.ExplicitStartEndEvents;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.RestrictUsageTerminateEndEvent;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage.SplitAndJoinFlows;
@@ -119,6 +120,7 @@ public class GuidelinesFactory {
 		guidelines.add(new ConsistentUsageEndEvents(diagram,l));
 		guidelines.add(new RestrictUsageTerminateEndEvent(diagram,l));
 		guidelines.add(new explicitGateways(diagram,l));
+		guidelines.add(new ExclusiveGatewayMarking(diagram,l));	
 		guidelines.add(new SplitAndJoinFlows(diagram,l));	
 		guidelines.add(new BalanceGateways(diagram,l));	
 		guidelines.add(new UsageMeaningfulGateways(diagram,l));
