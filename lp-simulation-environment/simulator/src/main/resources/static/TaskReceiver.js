@@ -140,7 +140,19 @@ function taskReceiver(address, user, integratedMode) {
         case 'SESSION_FINISHED':
             var containerDiv = $('#processmain' + msg.sessionid);
             var processFinished = document.createElement('p');
-            processFinished.innerHTML = '<h4>Congratulations, you successfully completed the simulation</h4>'
+            var result = '<h4>Congratulations, you successfully completed the simulation</h4>';
+            result += '<p>Score Summary:</p>';
+            result += '<table class="detailed-score table table-striped table-condensed">';
+            result += '<tr><th>Task</th><th>Score</th></tr>';
+            // add task scores
+            for(var aTask in msg.tasknames) {
+                result += '<tr><td>' + msg.tasknames[aTask] + '</td><td>' +
+                    msg.taskscores[aTask] +'</td></tr>';
+            }
+            result += '</table>';
+
+            processFinished.innerHTML = result;
+
             containerDiv.append(processFinished);
 
             // remove process diagram
