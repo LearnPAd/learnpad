@@ -1,13 +1,15 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.factory;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +50,8 @@ public class GuidelinesFactoryTest {
 		genarateTestforFile("ConvergingGateways.bpmn","36");
 		genarateTestforFile("ConvergingGateways.bpmn","37");
 		genarateTestforFile("LoopMarkerAnnotation.bpmn","39");
+		String sep = File.separator;
+		genarateTestforFile("journal"+sep+"EsempioFig1_1.bpmn","17");
 
 	}
 
@@ -109,16 +113,16 @@ public class GuidelinesFactoryTest {
 		genarateTestforFileOk2("EPBR - Business Process.bpmn","36");
 		genarateTestforFileOk2("test7.bpmn","2");
 	}
-	private void genarateTestforFileOk(String NameFile,String id){
+/*	private void genarateTestforFileOk(String NameFile,String id){
 		try {
 
 			URL is = GuidelinesFactoryTest.class.getClassLoader().getResource(NameFile);
 			assertNotNull(is);
-			/* File temp = File.createTempFile("tempfiletest", ".tmp"); 
+			 File temp = File.createTempFile("tempfiletest", ".tmp"); 
             temp.deleteOnExit();
 
             Files.copy(is,temp.toPath(),java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-			 */
+			 
 
 			MyBPMN2ModelReader readerBPMN = new MyBPMN2ModelReader();
 
@@ -157,7 +161,7 @@ public class GuidelinesFactoryTest {
 		} 
 
 
-	}
+	}*/
 
 	
 	private void genarateTestforFileOk2(String NameFile,String id){
@@ -259,8 +263,8 @@ public class GuidelinesFactoryTest {
 
 			// output pretty printed
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			String nFile = NameFile.replace(File.separator, "");
-		/*	OutputStream os = new FileOutputStream( "nosferatuvv"+ nFile.substring(0, nFile.length()-4)+"xml" );
+		/*		String nFile = NameFile.replace(File.separator, "");
+		OutputStream os = new FileOutputStream( "nosferatuvv"+ nFile.substring(0, nFile.length()-4)+"xml" );
 			jaxbMarshaller.marshal( eg, os );
 			*/
 				if(!eg.getStatus().equals("OK")){

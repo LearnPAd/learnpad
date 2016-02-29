@@ -29,8 +29,16 @@ public class BPMNUtils {
 		for (DiagramElement de : bpmnDiagram.getPlane().getPlaneElement()) {
 			if (de instanceof BPMNShape) {
 				BaseElement ele = ((BPMNShape)de).getBpmnElement();
-				if (ele == baseElement)
+				if (ele.equals(baseElement))
 					return (BPMNShape)de;
+				else{
+					String target = ele.toString();
+					int startf = target.length();
+					String ids = target.substring(target.indexOf("#")+1,startf-1 );
+					if( baseElement.getId().equals(ids)){
+						return (BPMNShape)de;
+					}
+				}
 			}
 		}
 		return null;
@@ -54,7 +62,7 @@ public class BPMNUtils {
 		for (DiagramElement de : bpmnDiagram.getPlane().getPlaneElement()) {
 			if (de instanceof BPMNEdge) {
 				BaseElement ele = ((BPMNEdge)de).getBpmnElement();
-				if (ele == baseElement)
+				if (ele.equals(baseElement))
 					return (BPMNEdge)de;
 			}
 		}
