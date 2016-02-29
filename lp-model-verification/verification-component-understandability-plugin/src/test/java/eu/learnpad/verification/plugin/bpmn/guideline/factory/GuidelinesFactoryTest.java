@@ -1,14 +1,13 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.factory;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import java.io.FileOutputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
-
-
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -47,6 +46,8 @@ public class GuidelinesFactoryTest {
 		genarateTestforFile("ConvergingGateways.bpmn","36");
 		genarateTestforFile("ConvergingGateways.bpmn","37");
 		genarateTestforFile("LoopMarkerAnnotation.bpmn","39");
+		String sep = File.separator;
+		genarateTestforFile("journal"+sep+"EsempioFig1_1.bpmn","17");
 
 	}
 
