@@ -64,7 +64,10 @@ public class LoopMarkerAnnotation extends abstractGuideline{
 											int startf = target.length();
 											String ids = source.substring(source.indexOf("#")+1,starts-1 ); //$NON-NLS-1$
 											String idt = target.substring(target.indexOf("#")+1,startf-1 ); //$NON-NLS-1$
-											if(!(a.getId().equals(ids) || a.getId().equals(idt)) ){
+											
+											boolean flag = (a.getId().equals(ids) || a.getId().equals(idt));
+											boolean flag2 = asso.getSourceRef().equals(a) || asso.getTargetRef().equals(a) ;
+											if(!(flag || flag2)){
 												num++;
 
 												elementsBPMN.add(fe);
