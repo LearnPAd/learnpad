@@ -91,7 +91,7 @@ public class ExclusiveGatewayMarking extends abstractGuideline{
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += Messages.getString("ExclusiveGatewayMarking.SeggestionOK",l); //$NON-NLS-1$
+			this.Suggestion += Messages.getString("ExclusiveGatewayMarking.SuggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
