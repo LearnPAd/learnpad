@@ -131,7 +131,7 @@ public class LinearSequenceFlows extends abstractGuideline{
 			this.status = false;
 		}else{
 			this.status = true;
-			this.Suggestion += Messages.getString("LinearSequenceFlows.SeggetionOK",l); //$NON-NLS-1$
+			this.Suggestion += Messages.getString("LinearSequenceFlows.SeggestionOK",l); //$NON-NLS-1$
 		}
 	}
 
