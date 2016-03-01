@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<xwikidoc version="1.2" reference="LPCode.CollaborativeDocumentTemplate" locale="">
+  <web>LPCode</web>
+  <name>CollaborativeDocumentTemplate</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1456828656000</creationDate>
+  <author>xwiki:XWiki.Admin</author>
+  <parent>LPCode.WebHome</parent>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1456829303000</date>
+  <contentUpdateDate>1456829303000</contentUpdateDate>
+  <version>1.1</version>
+  <title/>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>false</hidden>
+  <content>= Headline =
+//a short title describing the content. The title can be the name of the process or activity described//
+
+= Glossary =
+//list of definitions for terms that are useful to understand the content - preferably a link to a central glossary//
+
+= Context =
+//a brief overview of the information that might be useful for a reader to understand the current process or activity//
+
+= Motivation =
+//the higher-level objective or justification of the process or activity described//
+
+= Intended readership =
+//type of civil servants that should read this content. Example: employee, manager, etc.//
+
+= Required tools =
+//software or hardware tools to be used to perform the process or activity//
+
+= Detailed Description =
+//description of the process or activity, expressed in terms of instructions or rules to be performed by any of the people involved in the process or activity//
+
+= Examples/Experiences =
+//list of real-world examples to practically describe the process or activity -  preferably expressed with links to other wiki pages//
+
+= What to do in case of problems =
+//suggestions of possible alternative choices to take if some-thing goes wrong while performing the process or activity - preferably expressed with links to other wiki pages//
+
+= FAQ =
+//list of frequently asked questions associated to the current process or activity - preferably expressed with links to other wiki pages//</content>
+  <object>
+    <name>LPCode.CollaborativeDocumentTemplate</name>
+    <number>0</number>
+    <className>LPCode.CollaborativeDocumentClass</className>
+    <guid>3988fc1d-bb6a-4def-a8ed-b7fae4cb3e05</guid>
+    <class>
+      <name>LPCode.CollaborativeDocumentClass</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <artifactid>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <name>artifactid</name>
+        <number>3</number>
+        <numberType>integer</numberType>
+        <prettyName>Artifact ID</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.NumberClass</classType>
+      </artifactid>
+      <content>
+        <customDisplay>{{include reference="AppWithinMinutes.Content"/}}</customDisplay>
+        <disabled>0</disabled>
+        <name>content</name>
+        <number>4</number>
+        <prettyName>Content</prettyName>
+        <script/>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.ComputedFieldClass</classType>
+      </content>
+      <modelid>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <name>modelid</name>
+        <number>2</number>
+        <numberType>integer</numberType>
+        <prettyName>Model ID</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.NumberClass</classType>
+      </modelid>
+      <modelsetid>
+        <customDisplay/>
+        <disabled>0</disabled>
+        <name>modelsetid</name>
+        <number>1</number>
+        <picker>0</picker>
+        <prettyName>Model Set ID</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <validationMessage/>
+        <validationRegExp/>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </modelsetid>
+    </class>
+    <property>
+      <artifactid/>
+    </property>
+    <property>
+      <modelid/>
+    </property>
+    <property>
+      <modelsetid/>
+    </property>
+  </object>
+</xwikidoc>

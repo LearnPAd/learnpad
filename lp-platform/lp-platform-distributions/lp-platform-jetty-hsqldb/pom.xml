@@ -128,6 +128,18 @@
 			<version>${platform.version}</version>
 			<type>jar</type>
 		</dependency>
+		<dependency>
+			<groupId>org.xwiki.rendering</groupId>
+			<artifactId>xwiki-rendering-syntax-plain</artifactId>
+			<version>${rendering.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>org.xwiki.platform</groupId>
+			<artifactId>xwiki-platform-web</artifactId>
+			<version>${platform.version}</version>
+			<type>war</type>
+		</dependency>
 		<!-- SKIN -->
 		<dependency>
 			<groupId>eu.learnpad</groupId>
