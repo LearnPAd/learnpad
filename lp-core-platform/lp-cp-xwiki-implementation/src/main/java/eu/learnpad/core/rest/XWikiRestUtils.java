@@ -19,12 +19,10 @@
  */
 package eu.learnpad.core.rest;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -237,19 +235,19 @@ public class XWikiRestUtils
 
     	HttpClient httpClient = RestResource.getClient();
 
-        String uri = String.format("%s/wikis/%s/spaces/XWiki/pages/%s/objects/XWiki.XWikiUsers/0/properties/email", RestResource.REST_URI, wikiName, username);    	
+//		http://<server>/rest/wikis/xwiki/spaces/XWiki/pages/<username>/objects/XWiki.XWikiUsers/0/properties/email
+    	String uri = String.format("%s/wikis/%s/spaces/XWiki/pages/%s/objects/XWiki.XWikiUsers/0/properties/email", RestResource.REST_URI, wikiName, username);    	
         GetMethod getMethod = new GetMethod(uri);
 
         try {
 			httpClient.executeMethod(getMethod);
 			
-			String response = getMethod.getResponseBodyAsString();
+			InputStream response = getMethod.getResponseBodyAsStream();
 	
-			JAXBContext jaxbContext = JAXBContext.newInstance(Property.class);
-            InputStream responseInputStream = new ByteArrayInputStream(response.getBytes(StandardCharsets.UTF_8));
-            Property emailProperty = (Property)jaxbContext.createUnmarshaller().unmarshal(responseInputStream);
+			JAXBContext jaxbContext = JAXBContext.newInstance(Property.class);            
+			Property emailProperty = (Property)jaxbContext.createUnmarshaller().unmarshal(response);
             
-            emailAddress = emailProperty.getValue();			
+            emailAddress = emailProperty.getValue();
 		} catch (IOException e) {
             String message = String.format("Unable to GET the email propery of '%s' on %s@%s'.", username, wikiName, RestResource.REST_URI);
             logger.error(message, e);
@@ -263,4 +261,5 @@ public class XWikiRestUtils
     	return emailAddress;
     	
     }
+    
 }
