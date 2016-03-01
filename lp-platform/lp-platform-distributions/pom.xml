@@ -56,25 +56,25 @@
 				<groupId>org.xwiki.platform</groupId>
 				<artifactId>xwiki-platform-filter-event-xwiki</artifactId>
 				<type>jar</type>
-				<version>7.4.1</version>
+				<version>${platform.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.xwiki.commons</groupId>
 				<artifactId>xwiki-commons-filter-event-extension</artifactId>
 				<type>jar</type>
-				<version>7.4.1</version>
+				<version>${commons.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.xwiki.commons</groupId>
 				<artifactId>xwiki-commons-filter-xml</artifactId>
 				<type>jar</type>
-				<version>7.4.1</version>
+				<version>${commons.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.xwiki.platform</groupId>
 				<artifactId>xwiki-platform-xar</artifactId>
 				<type>jar</type>
-				<version>7.4.1</version>
+				<version>${platform.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.xwiki.platform</groupId>

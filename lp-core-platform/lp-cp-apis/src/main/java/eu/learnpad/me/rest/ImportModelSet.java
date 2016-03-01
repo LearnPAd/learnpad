@@ -29,6 +29,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.mv.rest.data.VerificationId;
 
 public interface ImportModelSet {
 	// "/learnpad/me/importmodelset/{modelsetid}?type={adoxx,md,lpzip}"
@@ -36,7 +37,7 @@ public interface ImportModelSet {
 	@PUT
 	@Path("/importmodelset/{modelsetid}")
 	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
-	void putModelSet(@PathParam("modelsetid") String modelSetId,
+	VerificationId putModelSet(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type") String type, InputStream modelSetFile)
 			throws LpRestException;
 }
