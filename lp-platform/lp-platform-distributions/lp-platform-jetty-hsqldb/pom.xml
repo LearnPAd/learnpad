@@ -43,6 +43,12 @@
 	<dependencies>
 		<!-- JAR -->
 		<dependency>
+			<groupId>eu.learnpad</groupId>
+			<artifactId>lp-cp-apis</artifactId>
+			<version>${learnpad.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
 			<groupId>org.xwiki.platform</groupId>
 			<artifactId>xwiki-platform-store-filesystem-attachments</artifactId>
 			<version>${platform.version}</version>
@@ -58,18 +64,6 @@
 			<groupId>org.xwiki.rendering</groupId>
 			<artifactId>xwiki-rendering-macro-html</artifactId>
 			<version>${rendering.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>org.xwiki.platform</groupId>
-			<artifactId>xwiki-platform-vfs-api</artifactId>
-			<version>${platform.version}</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
-			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cp-apis</artifactId>
-			<version>${learnpad.version}</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
@@ -144,7 +138,13 @@
 		<!-- XAR -->
 		<dependency>
 			<groupId>eu.learnpad</groupId>
-			<artifactId>lp-cw-component-application</artifactId>
+			<artifactId>lp-platform-conf</artifactId>
+			<version>${learnpad.version}</version>
+			<type>xar</type>
+		</dependency>
+		<dependency>
+			<groupId>eu.learnpad</groupId>
+			<artifactId>lp-cw-component-ui</artifactId>
 			<version>${learnpad.version}</version>
 			<type>xar</type>
 		</dependency>
@@ -312,12 +312,6 @@
 					<version>${platform.version}</version>
 					<type>jar</type>
 				</dependency>
-				<dependency>
-					<groupId>org.xwiki.platform</groupId>
-					<artifactId>xwiki-platform-resource-default</artifactId>
-					<version>${platform.version}</version>
-					<type>jar</type>
-				</dependency>
 				<!-- XAR -->
 				<dependency>
 					<groupId>org.xwiki.contrib</groupId>
@@ -332,9 +326,15 @@
 					</exclusions>
 				</dependency>
 				<dependency>
-					<groupId>org.xwiki.platform</groupId>
-					<artifactId>xwiki-platform-extension-ui</artifactId>
-					<version>${platform.version}</version>
+					<groupId>org.xwiki.contrib.scriptingdocumentation</groupId>
+					<artifactId>scripting-documentation-ui</artifactId>
+					<version>1.1</version>
+					<type>xar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.xwiki.enterprise</groupId>
+					<artifactId>xwiki-enterprise-ui-admin-user</artifactId>
+					<version>${enterprise.version}</version>
 					<type>xar</type>
 				</dependency>
 			</dependencies>

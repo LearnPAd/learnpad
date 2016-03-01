@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
+import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -31,9 +32,12 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpHeaders;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import eu.learnpad.core.rest.RestResource;
@@ -164,7 +168,7 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 		String uri = String.format("%s/learnpad/cw/corefacade/recommendation",
 				RestResource.REST_URI);
 		GetMethod getMethod = new GetMethod(uri);
-		getMethod.addRequestHeader("Accept", "application/xml");
+		getMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_XML);
 
 		NameValuePair[] queryString = new NameValuePair[3];
 		queryString[0] = new NameValuePair("modelsetid", modelSetId);
@@ -216,9 +220,29 @@ public class XwikiCoreFacadeRestResource extends RestResource implements
 	}
 
     @Override
-    public InputStream tranform(String type, InputStream model) throws LpRestException
+    public InputStream transform(String type, InputStream model) throws LpRestException
     {
-        // TODO Auto-generated method stub
+        HttpClient httpClient = RestResource.getClient();
+        String uri = String.format("%s/learnpad/cw/corefacade/transform",
+                RestResource.REST_URI);
+        PostMethod postMethod = new PostMethod(uri);
+        postMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM);
+        postMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_OCTET_STREAM);
+
+        NameValuePair[] queryString = new NameValuePair[1];
+        queryString[0] = new NameValuePair("type", type);
+        postMethod.setQueryString(queryString);
+        
+        RequestEntity requestEntity = new InputStreamRequestEntity(model);
+        postMethod.setRequestEntity(requestEntity);
+
+        try {
+            httpClient.executeMethod(postMethod);
+            return postMethod.getResponseBodyAsStream();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return null;
     }
 }

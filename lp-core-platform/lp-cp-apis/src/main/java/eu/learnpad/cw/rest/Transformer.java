@@ -30,10 +30,20 @@ import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
 
-public interface Transformer {
-	@POST
-	@Path("/transform")
-	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
-	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	InputStream tranform(@QueryParam("type") String type, InputStream model) throws LpRestException;
+public interface Transformer
+{
+    /**
+     * Ask for a transformation of the model into an XWiki package
+     * 
+     * @param type is the kind of model (Adoxx, MagicDraw or Learn PAd)
+     * @param model is the XML stream of the model
+     * @return an XFF xwiki package
+     * @throws LpRestException when any error is raised during the process
+     */
+    // <host>/learnpad/cw/corefacade/transform?type={adoxx,md,lpzip}
+    @POST
+    @Path("/transform")
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    InputStream transform(@QueryParam("type") String type, InputStream model) throws LpRestException;
 }

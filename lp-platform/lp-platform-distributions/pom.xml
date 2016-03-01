@@ -89,7 +89,19 @@
 				<type>xar</type>
 				<version>${platform.version}</version>
 			</dependency>
-
+			<!-- Force dependencies for Scripting Documentation application -->
+			<dependency>
+				<groupId>org.xwiki.platform</groupId>
+				<artifactId>xwiki-platform-skin-skinx</artifactId>
+				<type>jar</type>
+				<version>${platform.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.xwiki.platform</groupId>
+				<artifactId>xwiki-platform-localization-script</artifactId>
+				<type>jar</type>
+				<version>${platform.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 </project>

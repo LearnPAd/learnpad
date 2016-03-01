@@ -33,6 +33,11 @@ import eu.learnpad.sim.rest.event.EventType;
 public class SessionScoreUpdateEvent extends AbstractEvent {
 
 	/**
+	 *
+	 */
+	private static final long serialVersionUID = -8719161124674249926L;
+
+	/**
 	 * Unique ID of the process instance
 	 */
 	public String processid;

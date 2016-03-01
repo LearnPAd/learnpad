@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Path;
 
-
 /**
  * Class that execute the chain of transformation composed by: ATL Transformation (MODEL2MODEL Transformation) and 
  * Acceleo Transformation (MODEL2TEXT Transformation).
@@ -15,11 +14,8 @@ import java.nio.file.Path;
  * @version 1.0
  *
  */
-public class ChainLauncher {
-	
-	private String tmpAlignmentOutputXMIFile = "/tmp/tmpAlignmentOutputXMIFile.xmi";		
-	private String tmpATLOutputXMIfile = "/tmp/tmpATLOutputStream.xmi";
-	
+public class ChainLauncher {		
+	private String xwikiModelFile = "/tmp/learnpad/mt/model.xwiki.xmi";
 	
 	/**
 	 * Execute the chain of transformation composed by: ATL Transformation (MODEL2MODEL Transformation) and 
@@ -29,33 +25,29 @@ public class ChainLauncher {
 	 * @throws IOException
 	 */
 	public Path executeChain(InputStream model, String type) throws Exception{
-		
 		Path acceleoResultPath = null;
 		
 		boolean atlResult = false;
 		ATLTransformationLauncher atlTL = new ATLTransformationLauncher();
 		
 		//Create tmp outputstrem in order to store the ATL transformation
-		OutputStream out = new FileOutputStream(tmpATLOutputXMIfile);
+		OutputStream out = new FileOutputStream(xwikiModelFile);
 		atlResult = atlTL.transform(model, type, out);
+		out.close();
 		
 		if(atlResult){
 			//If the transformation succeded
 			
 			//Take the result of ATL Transformation as File in order to pass it to the Acceleo T.
-			FileInputStream fis = new FileInputStream(tmpATLOutputXMIfile);
+			FileInputStream fis = new FileInputStream(xwikiModelFile);
 			AcceleoTransformationLauncher acceleoTL = new AcceleoTransformationLauncher();
 			acceleoResultPath = acceleoTL.write(fis);
 		}else{
 			System.out.println("ATL Transformation failed!");
 		}
-		
-		
-		return acceleoResultPath;
-		
-	}
-	
 
+		return acceleoResultPath;	
+	}
 
 	public static void main(String[] args) throws Exception {
 		
@@ -66,11 +58,9 @@ public class ChainLauncher {
 		
 		FileInputStream fis = new FileInputStream(model_in);
 		
-		
 		System.out.println("*******STARTING THE OVERALL TRANSFORMATION*******");
 		ChainLauncher mt = new ChainLauncher();
 		Path resultPath = mt.executeChain(fis, type);
 		System.out.println("*******FINISHED THE OVERALL TRANSFORMATION*******");
 	}
-
 }

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 cd $( dirname "${BASH_SOURCE[0]}")/..
-simulator/out/start
-monitoring/out/start
+simulator/out/start > simulator.log 2>&1
+monitoring/out/start > monitor.log 2>&1

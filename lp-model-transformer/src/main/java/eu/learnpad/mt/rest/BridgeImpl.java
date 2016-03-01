@@ -33,34 +33,42 @@ import eu.learnpad.mt.Bridge;
 import eu.learnpad.transformations.launchers.Launcher;
 
 @Path("/learnpad/mt/bridge")
-public class BridgeImpl extends Bridge {
-	@Override
-	public InputStream transform(String type, InputStream model)
-			throws LpRestException {
-		Launcher launcher = new Launcher();
-		java.nio.file.Path path = null;
-		try {
-			path = launcher.chain(model, type);
-		} catch (Exception e) {
-			String message = String.format(
-					"Error in the transformation of type '%s'", type);
-			System.err.println(message);
-			e.printStackTrace();
-			return null;
-		}
-		XFFZipper xffZipper = null;
-		String packageName = String.format("%s.xff", UUID.randomUUID().toString());
-		java.nio.file.Path packagePath = Paths.get("/tmp/", packageName);
-		try {
-			xffZipper = new XFFZipper(path);
-			xffZipper.xff(packagePath);
-			return Files.newInputStream(packagePath);
-		} catch (Exception e) {
-			String message = String.format(
-					"Error in the XFF zipping of the package of type '%s'", type);
-			System.err.println(message);
-			e.printStackTrace();
-		}
-		return null;
-	}
+public class BridgeImpl extends Bridge
+{
+    private String TMP_PATH = "/tmp/learnpad/mt";
+
+    @Override
+    public InputStream transform(String type, InputStream model) throws LpRestException
+    {
+        try {
+            Files.createDirectories(Paths.get(TMP_PATH));
+        } catch (Exception e) {
+            String message = String.format("Cannot create the directory '%s'", TMP_PATH);
+            System.err.println(message);
+            e.printStackTrace();
+        }
+        Launcher launcher = new Launcher();
+        java.nio.file.Path path = null;
+        try {
+            path = launcher.chain(model, type);
+        } catch (Exception e) {
+            String message = String.format("Error in the transformation of type '%s'", type);
+            System.err.println(message);
+            e.printStackTrace();
+            return null;
+        }
+        XFFZipper xffZipper = null;
+        String packageName = String.format("%s.xff", UUID.randomUUID().toString());
+        java.nio.file.Path packagePath = Paths.get("/tmp", packageName);
+        try {
+            xffZipper = new XFFZipper(path);
+            xffZipper.xff(packagePath);
+            return Files.newInputStream(packagePath);
+        } catch (Exception e) {
+            String message = String.format("Error in the XFF zipping of the package of type '%s'", type);
+            System.err.println(message);
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
