@@ -82,7 +82,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	}
 
 	@Override
-	public Collection<AnnotatedStaticContentAnalysis> getStaticContentVerifications(
+	public AnnotatedStaticContentAnalyses getStaticContentVerifications(
 			String contentID) throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
