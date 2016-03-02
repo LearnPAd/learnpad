@@ -45,14 +45,14 @@ public interface SimulationNotification {
 	 *            data, metadata, and user submitted data defining the context for the simulation
 	 * @throws LpRestException
 	 */
-	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationnotification?action={started|stopped},simulationid=id,simdata=data
+	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationnotification?action={started|stopped},simulationid=id
 	@POST
 	@Path("/{modelsetid}/{modelid}/simulationinstancenotification")
 	void simulationInstanceNotification(@PathParam("modelsetid") String modelSetId,
 			@PathParam("modelid") String modelId,
 			@QueryParam("action") String action,
 			@QueryParam("simulationid") String simulationId,
-            @QueryParam("simdata") SimulationData data)
+            SimulationData data)
 			throws LpRestException;
         
 	/**
@@ -69,14 +69,14 @@ public interface SimulationNotification {
 	 *            data and metadata, and user submitted data defining the context for the simulation
 	 * @throws LpRestException
 	 */
-	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationtaskstart?artifactid=aid,simulationid=id,simdata=data
+	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationtaskstart?artifactid=aid,simulationid=id
 	@POST
 	@Path("/{modelsetid}/{modelid}/simulationtaskstart")
 	void simulationTaskStartNotification(@PathParam("modelsetid") String modelSetId,
 			@PathParam("modelid") String modelId,
                         @QueryParam("artifactid") String artifactId,
 			@QueryParam("simulationid") String simulationId,
-            @QueryParam("simdata") SimulationData data)
+            SimulationData data)
 			throws LpRestException;    
         
 	/**
@@ -93,7 +93,7 @@ public interface SimulationNotification {
 	 *            data and metadata, and user submitted data defining the context for the simulation session
 	 * @throws LpRestException
 	 */
-	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationtaskend?artifactid=aid,simulationid=id,simdata=data
+	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationtaskend?artifactid=aid,simulationid=id
 
 	@POST
 	@Path("/{modelsetid}/{modelid}/simulationtaskend")
@@ -101,6 +101,6 @@ public interface SimulationNotification {
 			@PathParam("modelid") String modelId,
                         @QueryParam("artifactid") String artifactId,
 			@QueryParam("simulationid") String simulationId,
-                        @QueryParam("simdata") SimulationData data) 
+                        SimulationData data) 
 			throws LpRestException;          
 }
