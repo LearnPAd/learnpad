@@ -50,7 +50,7 @@ public class ExclusiveGatewayMarking extends abstractGuideline{
 
 						BPMNShape shape= BPMNUtils.findBPMNShape(diagram,g);
 						if(shape!=null){
-							if(!shape.isIsMarkerVisible())
+							if(!shape.isIsMarkerVisible()){
 
 								num++;
 
@@ -59,7 +59,7 @@ public class ExclusiveGatewayMarking extends abstractGuideline{
 							setElements(fe.getId(),IDProcess,name);
 							//ret.append(i++ +") name=" + name + " ID=" + fe.getId()
 							//		+ "\n");
-
+							}
 						}
 					}
 				}
