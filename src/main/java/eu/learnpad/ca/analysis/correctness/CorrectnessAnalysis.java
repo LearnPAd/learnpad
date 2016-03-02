@@ -171,6 +171,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 		String prec = "";
 		for (RuleMatch match : matches) {
 
+
 			if(precedentposition>=match.getFromPos()){
 				precedentposition =  match.getFromPos();
 			}else{
@@ -178,6 +179,24 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 				c.setContent(stringap);
 			}
 			String stringa = sentence.substring(match.getFromPos(),match.getToPos());
+			if(!stringa.isEmpty()){
+				if(Character.isUpperCase(stringa.charAt(0))){
+					continue;
+				}else{
+					try{
+						String prestringa =  sentence.substring(match.getFromPos()-2, match.getFromPos());
+						String poststringa =  sentence.substring(match.getToPos(), match.getToPos()+2);
+						boolean flag = (prestringa.contains("“") || poststringa.contains("”")) || (prestringa.contains("\"") || poststringa.contains("\""));
+						if(flag){
+							continue;
+						}
+					}catch(Exception e){
+
+					}
+
+				}
+			}
+
 			if( !(stringa.equals(prec)) ){
 				id++;
 				Node init= new Node(id, match.getFromPos()+offset);
