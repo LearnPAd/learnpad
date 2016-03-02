@@ -3,7 +3,6 @@ package eu.learnpad.ca.rest.impl;
 import static org.junit.Assert.*;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
@@ -25,7 +24,7 @@ import org.glassfish.jersey.test.spi.TestContainerFactory;
 import org.junit.Test;
 
 import eu.learnpad.ca.gate.GateServletContextListener;
-import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
+import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalyses;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 
 public class StaticContentVerificationsImplTest extends JerseyTest{
@@ -74,7 +73,7 @@ public class StaticContentVerificationsImplTest extends JerseyTest{
 
 		Response annotatecontent =  target("/learnpad/ca/bridge/validatestaticcontent/"+id).request().get();
 
-		ArrayList<AnnotatedStaticContentAnalysis> res =	annotatecontent.readEntity(new GenericType<ArrayList<AnnotatedStaticContentAnalysis>>() {});
+		AnnotatedStaticContentAnalyses res =	annotatecontent.readEntity(new GenericType<AnnotatedStaticContentAnalyses>() {});
 		assertNotNull(res);
 		assertNotNull(annotatecontent);
 	}

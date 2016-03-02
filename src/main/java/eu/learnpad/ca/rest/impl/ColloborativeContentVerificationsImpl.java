@@ -2,7 +2,6 @@ package eu.learnpad.ca.rest.impl;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +28,7 @@ import eu.learnpad.ca.analysis.presentation.PresentationClarity;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.ColloborativeContentVerifications;
+import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.exception.LpRestException;
@@ -159,18 +159,18 @@ public class ColloborativeContentVerificationsImpl implements ColloborativeConte
 
 	@Path("/{idAnnotatedCollaborativeContentAnalysis:\\d+}")
 	@GET
-	public Collection<AnnotatedCollaborativeContentAnalysis> getCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
+	public AnnotatedCollaborativeContentAnalyses getCollaborativeContentVerifications(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException{
 		try{
 			if(map.containsKey(Integer.valueOf(contentID))){
-				ArrayList<AnnotatedCollaborativeContentAnalysis> ar = new ArrayList<AnnotatedCollaborativeContentAnalysis>();
+				AnnotatedCollaborativeContentAnalyses ar = new AnnotatedCollaborativeContentAnalyses();
 				List<AbstractAnalysisClass> listanalysisInterface = map.get(Integer.valueOf(contentID));
 
 				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
 					AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent = analysisInterface.getAnnotatedCollaborativeContentAnalysis();
 					if(annotatedCollaborativeContent!=null){
 						annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
-						ar.add(annotatedCollaborativeContent);
+						ar.setAnnotateCollaborativeContentAnalysis(annotatedCollaborativeContent);
 					}
 				}
 

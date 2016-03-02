@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
@@ -30,6 +29,7 @@ import org.glassfish.jersey.test.spi.TestContainerFactory;
 import org.junit.Test;
 
 import eu.learnpad.ca.gate.GateServletContextListener;
+import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 
@@ -67,6 +67,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		checkCollaborativeContentAnalysis("CollaborativeContentXMLBi.xml");
 		checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML_WC2.xml");
 		checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML.xml");
+		checkCollaborativeContentAnalysis("CollaborativeContentXML_SUAP.xml");
 	
 	}
 	
@@ -102,8 +103,13 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		if(!status.equals("ERROR")){
 			Response annotatecontent =  target("/learnpad/ca/bridge/validatecollaborativecontent/"+id).request().get();
 
-			ArrayList<AnnotatedCollaborativeContentAnalysis> res =	annotatecontent.readEntity(new GenericType<ArrayList<AnnotatedCollaborativeContentAnalysis>>() {});
-			for (AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContentAnalysis : res) {
+			//ArrayList<AnnotatedCollaborativeContentAnalysis> res =	annotatecontent.readEntity(new GenericType<ArrayList<AnnotatedCollaborativeContentAnalysis>>() {});
+			
+			AnnotatedCollaborativeContentAnalyses res =	annotatecontent.readEntity(new GenericType<AnnotatedCollaborativeContentAnalyses>() {});
+			
+			//AnnotatedCollaborativeContentAnalyses res =  annotatecontent.readEntity(AnnotatedCollaborativeContentAnalyses.class);
+			
+			for (AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContentAnalysis : res.getAnnotateCollaborativeContentAnalysis()) {
 				JAXBContext jaxbCtx;
 				try {
 					jaxbCtx = javax.xml.bind.JAXBContext.newInstance(AnnotatedCollaborativeContentAnalysis.class);
@@ -113,9 +119,9 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 					marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 					//marshaller.marshal(annotatedCollaborativeContentAnalysis, System.out);
 					String type = annotatedCollaborativeContentAnalysis.getType();
-					//OutputStream os = new FileOutputStream( "nosferatu"+type+".xml" );
-					//marshaller.marshal( annotatedCollaborativeContentAnalysis, os );
-				} catch (JAXBException /*| FileNotFoundException*/  e) {
+					OutputStream os = new FileOutputStream( "nosferatu"+type+".xml" );
+					marshaller.marshal( annotatedCollaborativeContentAnalysis, os );
+				} catch (JAXBException | FileNotFoundException  e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					assertTrue(false);

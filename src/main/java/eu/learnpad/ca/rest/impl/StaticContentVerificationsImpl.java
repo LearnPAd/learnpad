@@ -28,6 +28,7 @@ import eu.learnpad.ca.analysis.presentation.PresentationClarity;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.StaticContentVerifications;
+import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalyses;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import eu.learnpad.exception.LpRestException;
@@ -139,18 +140,18 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 
 	@Path("/{idAnnotatedStaticContentAnalysis:\\d+}")
 	@GET
-	public Collection<AnnotatedStaticContentAnalysis> getStaticContentVerifications(
+	public AnnotatedStaticContentAnalyses getStaticContentVerifications(
 			@PathParam("idAnnotatedStaticContentAnalysis") String contentID) throws LpRestException {
 		try{
 			if(map.containsKey(Integer.valueOf(contentID))){
-				ArrayList<AnnotatedStaticContentAnalysis> ar = new ArrayList<AnnotatedStaticContentAnalysis>();
+				AnnotatedStaticContentAnalyses ar = new AnnotatedStaticContentAnalyses();
 				List<AbstractAnalysisClass> listanalysisInterface = map.get(Integer.valueOf(contentID));
 
 				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
 					AnnotatedStaticContentAnalysis annotatedStaticContent = analysisInterface.getAnnotatedStaticContentAnalysis();
 					if(annotatedStaticContent!=null){
 						annotatedStaticContent.setId(Integer.valueOf(contentID));
-						ar.add(annotatedStaticContent);
+						ar.setAnnotateStaticContentAnalysis(annotatedStaticContent);
 					}
 				}
 
