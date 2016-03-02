@@ -31,6 +31,7 @@ import org.junit.Test;
 
 import eu.learnpad.ca.gate.GateServletContextListener;
 import eu.learnpad.ca.impl.BridgeImpl;
+import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 
@@ -103,8 +104,8 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		if(!status.equals("ERROR")){
 			Response annotatecontent =  target("/learnpad/ca/bridge/validatecollaborativecontent/"+id).request().get();
 
-			ArrayList<AnnotatedCollaborativeContentAnalysis> res =	annotatecontent.readEntity(new GenericType<ArrayList<AnnotatedCollaborativeContentAnalysis>>() {});
-			for (AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContentAnalysis : res) {
+			AnnotatedCollaborativeContentAnalyses res =	annotatecontent.readEntity(new GenericType<AnnotatedCollaborativeContentAnalyses>() {});
+			for (AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContentAnalysis : res.getAnnotateCollaborativeContentAnalysis()) {
 				JAXBContext jaxbCtx;
 				try {
 					jaxbCtx = javax.xml.bind.JAXBContext.newInstance(AnnotatedCollaborativeContentAnalysis.class);
