@@ -24,6 +24,7 @@ import java.util.Collection;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.ca.BridgeInterface;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
+import eu.learnpad.ca.rest.data.collaborative.AnnotatedStaticContentAnalyses;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
