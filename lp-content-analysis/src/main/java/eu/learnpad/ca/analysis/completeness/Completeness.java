@@ -150,7 +150,7 @@ public class Completeness  extends AbstractAnalysisClass {
 		try{
 
 			if(contenthtml!=null){
-				if(contenthtml!=""){ //$NON-NLS-1$
+				//if(contenthtml!=""){ //$NON-NLS-1$
 					Document doc = Jsoup.parse(contenthtml);
 
 					Elements strong = doc.getElementsByTag("strong"); //$NON-NLS-1$
@@ -230,7 +230,7 @@ public class Completeness  extends AbstractAnalysisClass {
 
 					}
 
-				}
+				//}
 			}
 		} catch (Exception e) {
 			log.error(e);
