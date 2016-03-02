@@ -114,9 +114,12 @@ public class DataContentAnalysis implements Serializable{
 				break;
 
 			case "BAD":
+				color ="#FF9C07";
+				break;
+				
+			case "NOT SO BAD":
 				color ="#FFFF00";
 				break;
-
 			case "GOOD":
 				color ="#00FF00";
 				break;
