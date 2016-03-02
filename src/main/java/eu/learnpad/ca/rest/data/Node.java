@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Node implements Comparable<Object>{
 	
 	@XmlTransient
-	protected Integer OffSet;
+	protected Integer OffSet=-1;
 
 	protected Integer id=-1;
 	
