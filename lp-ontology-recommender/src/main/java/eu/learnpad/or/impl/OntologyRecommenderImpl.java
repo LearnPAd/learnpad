@@ -16,10 +16,10 @@ import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.SimilarCase;
 import eu.learnpad.or.rest.data.SimilarCases;
+import eu.learnpad.or.rest.data.SimulationData;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -115,17 +115,17 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     }    
     
     @Override
-    public void simulationInstanceNotification(String modelSetId, String modelId, String action, String simulationId, Map<String, Object> simSessionData) throws LpRestException {
+    public void simulationInstanceNotification(String modelSetId, String modelId, String action, String simulationId, SimulationData data) throws LpRestException {
         //TODO
     }
 
     @Override
-    public void simulationTaskStartNotification(String modelSetId, String modelId, String artifactId, String simulationId, Map<String, Object> simSessionData) throws LpRestException {
+    public void simulationTaskStartNotification(String modelSetId, String modelId, String artifactId, String simulationId, SimulationData data) throws LpRestException {
         //TODO
     }
 
     @Override
-    public void simulationTaskEndNotification(String modelSetId, String modelId, String artifactId, String simulationId, Map<String, Object> simSessionData, Map<String, Object> data) throws LpRestException {
+    public void simulationTaskEndNotification(String modelSetId, String modelId, String artifactId, String simulationId, SimulationData data) throws LpRestException {
         //TODO
     }
     

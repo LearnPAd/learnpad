@@ -20,7 +20,6 @@
 package eu.learnpad.core.impl.sim;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -36,6 +35,7 @@ import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.SimulationData;
 import eu.learnpad.sim.BridgeInterface;
 import eu.learnpad.sim.Controller;
 import eu.learnpad.sim.rest.data.UserData;
@@ -124,9 +124,11 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String action = "started";		
 		String modelSetId = event.modelsetid;		
 		String simulationId = event.simulationsessionid;
-		Map<String, Object> simSessionData = event.simulationSessionData;
 		
-		this.or.simulationInstanceNotification(modelSetId, modelId, action, simulationId, simSessionData);				
+		SimulationData data = new SimulationData();
+		data.setSessionData(event.simulationSessionData);
+		
+		this.or.simulationInstanceNotification(modelSetId, modelId, action, simulationId, data);				
 
 		this.handleRecommendations(modelSetId, modelId, event.involvedusers, simulationId);
 	}
@@ -137,9 +139,11 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String action = "stopped";		
 		String modelSetId = event.modelsetid;		
 		String simulationId = event.simulationsessionid;
-		Map<String, Object> simSessionData = event.simulationSessionData;
 		
-		this.or.simulationInstanceNotification(modelSetId, modelId, action, simulationId, simSessionData);				
+		SimulationData data = new SimulationData();
+		data.setSessionData(event.simulationSessionData);		
+		
+		this.or.simulationInstanceNotification(modelSetId, modelId, action, simulationId, data);				
 
 // Not sure if it is always the case to notify the CW, as this notification ends the simulation		
 // and probably the Recommendations are not needed anymore!
@@ -163,12 +167,13 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String modelId = event.processid;
 		String artifactId = event.taskdefid;
 		String modelSetId = event.modelsetid;
-		Map<String, Object> dataFilledByLearner = event.submittedData; 
-		Map<String, Object> simulationSessionData = event.simulationSessionData; 
 		
+		SimulationData data = new SimulationData();
+		data.setSessionData(event.simulationSessionData);
+		data.setSubmittedData(event.submittedData);
 		
 		String simulationId = event.simulationsessionid;
-		this.or.simulationTaskEndNotification(modelSetId, modelId, artifactId, simulationId, simulationSessionData, dataFilledByLearner);
+		this.or.simulationTaskEndNotification(modelSetId, modelId, artifactId, simulationId, data);
 
 // Not sure if it is always the case to notify the CW, as this notification should
 // happen just suddenly because of either "receiveTaskStartEvent" or "receiveProcessEndEvent" 			
