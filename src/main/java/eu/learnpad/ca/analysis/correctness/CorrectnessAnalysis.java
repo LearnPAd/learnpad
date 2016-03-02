@@ -214,7 +214,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 				a.setNodeEnd(end);
 				a.setNodeStart(init);
 				a.setType("Correctness"); //$NON-NLS-1$
-				a.setRecommendation(match.getMessage()+Messages.getString("CorrectnessAnalysis.Reccomandation", language) +match.getSuggestedReplacements()); //$NON-NLS-1$
+				a.setRecommendation(getSuggestion(match.getMessage())+Messages.getString("CorrectnessAnalysis.Reccomandation", language) +match.getSuggestedReplacements()); //$NON-NLS-1$
 				annotations.add(a);
 				prev=a;
 				id++;
@@ -228,7 +228,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 				a.setNodeEnd(prev.getNodeEnd());
 				a.setNodeStart(prev.getNodeStart());
 				a.setType("Correctness"); //$NON-NLS-1$
-				a.setRecommendation(match.getMessage()+Messages.getString("CorrectnessAnalysis.Reccomandation", language) +match.getSuggestedReplacements()); //$NON-NLS-1$
+				a.setRecommendation(getSuggestion(match.getMessage())+Messages.getString("CorrectnessAnalysis.Reccomandation", language) +match.getSuggestedReplacements()); //$NON-NLS-1$
 				annotations.add(a);
 				prev=a;
 				id++;
@@ -287,6 +287,8 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 	}
 
-
+	private String getSuggestion(String a){
+		return a.replace("<suggestion>","").replace("</suggestion>","");
+	}
 
 }
