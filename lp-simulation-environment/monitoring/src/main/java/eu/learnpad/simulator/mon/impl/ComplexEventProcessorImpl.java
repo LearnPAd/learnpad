@@ -60,6 +60,7 @@ import eu.learnpad.simulator.mon.exceptions.UnknownMethodCallRuleException;
 import eu.learnpad.simulator.mon.rules.DroolsRulesManager;
 import eu.learnpad.simulator.mon.rules.RulesManager;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
+import eu.learnpad.simulator.mon.utils.Manager;
 
 public class ComplexEventProcessorImpl extends ComplexEventProcessor implements MessageListener {
 
@@ -217,14 +218,15 @@ public class ComplexEventProcessorImpl extends ComplexEventProcessor implements 
 				
 				knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
 				
-				String firstRuleToLoad = 
-						"import eu.learnpad.simulator.mon.event.GlimpseBaseEventAbstract; " +
-						"declare GlimpseBaseEventAbstract " +
-						"@role( event ) " +
-						"@timestamp( timeStamp ) " +
-						"end";
+//				String firstRuleToLoad = 
+//						"import eu.learnpad.simulator.mon.event.GlimpseBaseEventAbstract; " +
+//						"declare GlimpseBaseEventAbstract " +
+//						"@role( event ) " +
+//						"@timestamp( timeStamp ) " +
+//						"end";
 				
-				byte[] firstRuleToLoadByteArray = firstRuleToLoad.getBytes();
+
+				byte[] firstRuleToLoadByteArray = Manager.ReadTextFromFile(System.getProperty("user.dir")	+ "/configFiles/startupRule.drl").getBytes();
 				Resource drlToLoad = ResourceFactory.newByteArrayResource(firstRuleToLoadByteArray);
 				
 				try {
