@@ -69,7 +69,7 @@ public class PresentationClarity extends AbstractAnalysisClass {
 		annotatedStaticContent.setStaticContent(sc);
 		sc.setTitle(title);
 		sc.setId(idc);
-		
+
 
 		// AnnotationImpl i;
 
@@ -133,196 +133,196 @@ public class PresentationClarity extends AbstractAnalysisClass {
 
 			if(contenthtml!=null){
 				//if(contenthtml!=""){ //$NON-NLS-1$
-					Document doc = Jsoup.parse(contenthtml);
-					Elements links = doc.select("a[href]"); //$NON-NLS-1$
-					Elements h1 = doc.getElementsByTag("h1"); //$NON-NLS-1$
-					Elements h2 = doc.getElementsByTag("h2"); //$NON-NLS-1$
-					Elements h3 = doc.getElementsByTag("h3"); //$NON-NLS-1$
-					Elements h4 = doc.getElementsByTag("h4"); //$NON-NLS-1$
-					Elements h5 = doc.getElementsByTag("h5"); //$NON-NLS-1$
-					Elements strong = doc.getElementsByTag("strong"); //$NON-NLS-1$
-					Elements p = doc.getElementsByTag("p"); //paraghraf //$NON-NLS-1$
-					Elements b = doc.getElementsByTag("b"); //bold //$NON-NLS-1$
-					Elements i = doc.getElementsByTag("i"); //emphasis //$NON-NLS-1$
-					Elements em = doc.getElementsByTag("em"); //emphasis //$NON-NLS-1$
-					Elements mark = doc.getElementsByTag("mark"); //evidenziato //$NON-NLS-1$
-					Elements ul = doc.getElementsByTag("ul"); //list //$NON-NLS-1$
-					Elements li = doc.getElementsByTag("li"); //$NON-NLS-1$
-					Elements ol = doc.getElementsByTag("ol"); //numered list //$NON-NLS-1$
-					Elements div = doc.getElementsByTag("div"); //block //$NON-NLS-1$
-					Elements a = doc.getElementsByTag("h1"); //links //$NON-NLS-1$
-					//Elements h1 = doc.getElementsByTag("h1");
+				Document doc = Jsoup.parse(contenthtml);
+				Elements links = doc.select("a[href]"); //$NON-NLS-1$
+				Elements h1 = doc.getElementsByTag("h1"); //$NON-NLS-1$
+				Elements h2 = doc.getElementsByTag("h2"); //$NON-NLS-1$
+				Elements h3 = doc.getElementsByTag("h3"); //$NON-NLS-1$
+				Elements h4 = doc.getElementsByTag("h4"); //$NON-NLS-1$
+				Elements h5 = doc.getElementsByTag("h5"); //$NON-NLS-1$
+				Elements strong = doc.getElementsByTag("strong"); //$NON-NLS-1$
+				Elements p = doc.getElementsByTag("p"); //paraghraf //$NON-NLS-1$
+				Elements b = doc.getElementsByTag("b"); //bold //$NON-NLS-1$
+				Elements i = doc.getElementsByTag("i"); //emphasis //$NON-NLS-1$
+				Elements em = doc.getElementsByTag("em"); //emphasis //$NON-NLS-1$
+				Elements mark = doc.getElementsByTag("mark"); //evidenziato //$NON-NLS-1$
+				Elements ul = doc.getElementsByTag("ul"); //list //$NON-NLS-1$
+				Elements li = doc.getElementsByTag("li"); //$NON-NLS-1$
+				Elements ol = doc.getElementsByTag("ol"); //numered list //$NON-NLS-1$
+				Elements div = doc.getElementsByTag("div"); //block //$NON-NLS-1$
+				Elements a = doc.getElementsByTag("h1"); //links //$NON-NLS-1$
+				//Elements h1 = doc.getElementsByTag("h1");
 
-					//numDefectiveSentences = listSentenceDefected.size();
-					log.info("#links "+links.size()); //$NON-NLS-1$
-					log.info("#h1 "+h1.size()); //$NON-NLS-1$
-					log.info("#h2 "+h2.size()); //$NON-NLS-1$
-					log.info("#h3 "+h3.size()); //$NON-NLS-1$
-					log.info("#h4 "+h4.size()); //$NON-NLS-1$
-					log.info("#h5 "+h5.size()); //$NON-NLS-1$
-					log.info("#strong "+strong.size()); //$NON-NLS-1$
-					log.info("#p "+p.size()); //$NON-NLS-1$
-					log.info("#b "+b.size()); //$NON-NLS-1$
-					log.info("#i "+i.size()); //$NON-NLS-1$
-					log.info("#em "+em.size()); //$NON-NLS-1$
-					log.info("#mark "+mark.size()); //$NON-NLS-1$
-					log.info("#ul "+ul.size()); //$NON-NLS-1$
-					log.info("#li "+li.size()); //$NON-NLS-1$
-					log.info("#ol "+ol.size()); //$NON-NLS-1$
-					log.info("#div "+div.size()); //$NON-NLS-1$
+				//numDefectiveSentences = listSentenceDefected.size();
+				log.info("#links "+links.size()); //$NON-NLS-1$
+				log.info("#h1 "+h1.size()); //$NON-NLS-1$
+				log.info("#h2 "+h2.size()); //$NON-NLS-1$
+				log.info("#h3 "+h3.size()); //$NON-NLS-1$
+				log.info("#h4 "+h4.size()); //$NON-NLS-1$
+				log.info("#h5 "+h5.size()); //$NON-NLS-1$
+				log.info("#strong "+strong.size()); //$NON-NLS-1$
+				log.info("#p "+p.size()); //$NON-NLS-1$
+				log.info("#b "+b.size()); //$NON-NLS-1$
+				log.info("#i "+i.size()); //$NON-NLS-1$
+				log.info("#em "+em.size()); //$NON-NLS-1$
+				log.info("#mark "+mark.size()); //$NON-NLS-1$
+				log.info("#ul "+ul.size()); //$NON-NLS-1$
+				log.info("#li "+li.size()); //$NON-NLS-1$
+				log.info("#ol "+ol.size()); //$NON-NLS-1$
+				log.info("#div "+div.size()); //$NON-NLS-1$
 
-					String type = "PresentationClarity: Poor section partitioning"; //$NON-NLS-1$
-					//RULE 1: N = number of <h* > tags, N > 1.
-					//RULE 2: L = number of sentences between <p>, L < t. //and div??
-					boolean PSPrule1 = (h1.size()+h2.size()+h3.size()+h4.size()+h5.size())>1;
-
-
-					if(!PSPrule1){
-						String rec = Messages.getString("PresentationClarity.PoorSectionRecomandation",language); //$NON-NLS-1$
-						Annotation rule1 = new Annotation(id,type,0,0,rec);
-						listannotation.add(rule1);
-						log.trace(rec);
-						id++;
-					}
-					String res = prop.getProperty("num_p_tag_max"); //$NON-NLS-1$
-					int num_p_tag_max= res!=null ? Integer.valueOf(res): 5;
-					boolean PSPrule2 = p.size()<num_p_tag_max;
-
-					if(!PSPrule2){
-						String rec = String.format(Messages.getString("PresentationClarity.PoorSectionParagraphRecomandation",language), num_p_tag_max); //$NON-NLS-1$ //$NON-NLS-2$
-						Annotation rule2 = new Annotation(id,type,0,0,rec);
-						listannotation.add(rule2);
-						log.trace(rec);
-						id++;
-					}
-
-					//Recommendation (RULE 1): Partition your document into sections.
-					//Recommendation (RULE 2): Split your paragraphs. Each paragraph shall be less than 5 sentences.
+				String type = "PresentationClarity: Poor section partitioning"; //$NON-NLS-1$
+				//RULE 1: N = number of <h* > tags, N > 1.
+				//RULE 2: L = number of sentences between <p>, L < t. //and div??
+				boolean PSPrule1 = (h1.size()+h2.size()+h3.size()+h4.size()+h5.size())>1;
 
 
-					type = "PresentationClarity: Relevant content not emphasised"; //$NON-NLS-1$
+				if(!PSPrule1){
+					String rec = Messages.getString("PresentationClarity.PoorSectionRecomandation",language); //$NON-NLS-1$
+					Annotation rule1 = new Annotation(id,type,0,0,rec);
+					listannotation.add(rule1);
+					log.trace(rec);
+					id++;
+				}
+				String res = prop.getProperty("num_p_tag_max"); //$NON-NLS-1$
+				int num_p_tag_max= res!=null ? Integer.valueOf(res): 5;
+				boolean PSPrule2 = p.size()<num_p_tag_max;
 
-					//RULE 1: n = number of terms within <strong> and <b> tags, tot = total number of terms, n/tot ·
-					//100% > X%
+				if(!PSPrule2){
+					String rec = String.format(Messages.getString("PresentationClarity.PoorSectionParagraphRecomandation",language), num_p_tag_max); //$NON-NLS-1$ //$NON-NLS-2$
+					Annotation rule2 = new Annotation(id,type,0,0,rec);
+					listannotation.add(rule2);
+					log.trace(rec);
+					id++;
+				}
 
-					int n = getTotNumberTerms(strong)+getTotNumberTerms(b);
-					
-					int tot = getTotNumberTerms(doc);
-					
-					res = prop.getProperty("min_emphasised"); //$NON-NLS-1$
-					int min_emphasised = res!=null ? Integer.valueOf(res): 1;
-					
-					boolean RCErule1 = ((n*100)/tot)>min_emphasised;
-					
-					res = prop.getProperty("max_emphasised"); //$NON-NLS-1$
-					int max_emphasised = res!=null ? Integer.valueOf(res): 20;
-					
-					boolean RCErule2 = ((n*100)/tot)<max_emphasised;
+				//Recommendation (RULE 1): Partition your document into sections.
+				//Recommendation (RULE 2): Split your paragraphs. Each paragraph shall be less than 5 sentences.
 
-					if(!RCErule1){
-						String rec = Messages.getString("PresentationClarity.RelevantContentRecomandation",language); //$NON-NLS-1$
-						Annotation rule1 = new Annotation(id,type,0,0,rec);
-						listannotation.add(rule1);
-						log.trace(rec);
-						id++;
-					}
 
-					type = "PresentationClarity: Excessive amount of emphasised content";
-					
-					if(!RCErule2){
-						String rec = Messages.getString("PresentationClarity.BoldRecomandation",language); //$NON-NLS-1$
-						// TODO: Ritestare
-						Annotation rule1 = new Annotation(id,type,0,0,rec);
-						listannotation.add(rule1);
-						log.trace(rec);
-						id++;
-					}
-					//Recommendation: Highlight in bold the relevant sentences and keywords of your text.
+				type = "PresentationClarity: Relevant content not emphasised"; //$NON-NLS-1$
 
-					type = "PresentationClarity: Instructions hard to identify"; //$NON-NLS-1$
+				//RULE 1: n = number of terms within <strong> and <b> tags, tot = total number of terms, n/tot ·
+				//100% > X%
 
-					//RULE1: N =numberof<ol>or<ul>tags,N >t
+				int n = getTotNumberTerms(strong)+getTotNumberTerms(b);
 
-					res = prop.getProperty("num_min_lists"); //$NON-NLS-1$
-					int num_min_lists = res!=null ? Integer.valueOf(res): 2;
-					
-					boolean IHIPrule1 = (ol.size()>num_min_lists)|(ul.size()>num_min_lists);
+				int tot = getTotNumberTerms(doc);
 
-					if(!IHIPrule1){
-						String rec = Messages.getString("PresentationClarity.MinListRecomandation",language); //$NON-NLS-1$
-						Annotation rule1 = new Annotation(id,type,0,0,rec);
-						listannotation.add(rule1);
-						log.trace(rec);
-						id++;
-					}
+				res = prop.getProperty("min_emphasised"); //$NON-NLS-1$
+				int min_emphasised = res!=null ? Integer.valueOf(res): 1;
 
-					//Recommendation: Provide bullet point lists or numbered lists for your instructions.
+				boolean RCErule1 = ((n*100)/tot)>min_emphasised;
 
-					type = "PresentationClarity: Excessive number of instructions"; //$NON-NLS-1$
+				res = prop.getProperty("max_emphasised"); //$NON-NLS-1$
+				int max_emphasised = res!=null ? Integer.valueOf(res): 20;
 
-					//RULE 1: N = number of <li> tags between <ol> or <ul> tags, N < t.
-					//per ogni lista puntata o numerata controlla che sia minore della soglia
-					
-					
-					res = prop.getProperty("num_max_lists"); //$NON-NLS-1$
-					int num_max_lists = res!=null ? Integer.valueOf(res): 11;
-					
-					
-					boolean ENIPrule1 = true;
-					for( Element elem : ol){
-						Elements allin = elem.children();
-						ENIPrule1 = (allin.size())<num_max_lists;
-					}
-					for( Element elem : ul){
-						Elements allin = elem.children();
-						ENIPrule1 = ENIPrule1 | (allin.size())<num_max_lists;
-					}
-					
+				boolean RCErule2 = ((n*100)/tot)<max_emphasised;
 
-					if(!ENIPrule1){
-						String rec = Messages.getString("PresentationClarity.MaxListRecomandation",language); //$NON-NLS-1$
-						Annotation rule1 = new Annotation(id,type,0,0,rec);
-						listannotation.add(rule1);
-						log.trace(rec);
-						id++;
-					}
+				if(!RCErule1){
+					String rec = Messages.getString("PresentationClarity.RelevantContentRecomandation",language); //$NON-NLS-1$
+					Annotation rule1 = new Annotation(id,type,0,0,rec);
+					listannotation.add(rule1);
+					log.trace(rec);
+					id++;
+				}
 
-					//Recommendation: Limit the number of elements in the lists. Each list shall not be longer than 10 items. If needed, split the list into sub-tasks.
+				type = "PresentationClarity: Excessive amount of emphasised content";
 
-					type = "PresentationClarity: Excessive length of the document"; //$NON-NLS-1$
+				if(!RCErule2){
+					String rec = Messages.getString("PresentationClarity.BoldRecomandation",language); //$NON-NLS-1$
+					// TODO: Ritestare
+					Annotation rule1 = new Annotation(id,type,0,0,rec);
+					listannotation.add(rule1);
+					log.trace(rec);
+					id++;
+				}
+				//Recommendation: Highlight in bold the relevant sentences and keywords of your text.
 
-					//RULE 1: N = number of words in the document, N < t.
-					res = prop.getProperty("num_max_word"); //$NON-NLS-1$
-					int num_max_word = res!=null ? Integer.valueOf(res): 1600;
-					
-					boolean ELDrule1 = tot<num_max_word;
+				type = "PresentationClarity: Instructions hard to identify"; //$NON-NLS-1$
 
-					if(!ELDrule1){
-						String rec = String.format(Messages.getString("PresentationClarity.TooLongContentRecomandation",language), num_max_word); //$NON-NLS-1$ //$NON-NLS-2$
-						Annotation rule1 = new Annotation(id,type,0,0,rec);
-						listannotation.add(rule1);
-						log.trace(rec);
-						id++;
-					}
+				//RULE1: N =numberof<ol>or<ul>tags,N >t
 
-					//Recommendation: The document is too long. A document shall not be longer than t words.
+				res = prop.getProperty("num_min_lists"); //$NON-NLS-1$
+				int num_min_lists = res!=null ? Integer.valueOf(res): 2;
 
-					type = "PresentationClarity: Excessive references"; //$NON-NLS-1$
+				boolean IHIPrule1 = (ol.size()>num_min_lists)|(ul.size()>num_min_lists);
 
-					//RULE1: N =numberof<a>tags,N < t.
-					res = prop.getProperty("num_min_ref"); //$NON-NLS-1$
-					int num_min_ref = res!=null ? Integer.valueOf(res): 5;
+				if(!IHIPrule1){
+					String rec = Messages.getString("PresentationClarity.MinListRecomandation",language); //$NON-NLS-1$
+					Annotation rule1 = new Annotation(id,type,0,0,rec);
+					listannotation.add(rule1);
+					log.trace(rec);
+					id++;
+				}
 
-					boolean ERrule1 = a.size()<num_min_ref;
+				//Recommendation: Provide bullet point lists or numbered lists for your instructions.
 
-					if(!ERrule1){
-						String rec = String.format(Messages.getString("PresentationClarity.ExcessiveReferencesRecomandation",language),num_min_ref); //$NON-NLS-1$ //$NON-NLS-2$
-						Annotation rule1 = new Annotation(id,type,0,0,rec);
-						listannotation.add(rule1);
-						log.trace(rec);
-						id++;
-					}
-					//Recommendation: Do not refer more than t external documents. The reader might be confused. Refer only relevant external documents.
+				type = "PresentationClarity: Excessive number of instructions"; //$NON-NLS-1$
+
+				//RULE 1: N = number of <li> tags between <ol> or <ul> tags, N < t.
+				//per ogni lista puntata o numerata controlla che sia minore della soglia
+
+
+				res = prop.getProperty("num_max_lists"); //$NON-NLS-1$
+				int num_max_lists = res!=null ? Integer.valueOf(res): 11;
+
+
+				boolean ENIPrule1 = true;
+				for( Element elem : ol){
+					Elements allin = elem.children();
+					ENIPrule1 = (allin.size())<num_max_lists;
+				}
+				for( Element elem : ul){
+					Elements allin = elem.children();
+					ENIPrule1 = ENIPrule1 | (allin.size())<num_max_lists;
+				}
+
+
+				if(!ENIPrule1){
+					String rec = Messages.getString("PresentationClarity.MaxListRecomandation",language); //$NON-NLS-1$
+					Annotation rule1 = new Annotation(id,type,0,0,rec);
+					listannotation.add(rule1);
+					log.trace(rec);
+					id++;
+				}
+
+				//Recommendation: Limit the number of elements in the lists. Each list shall not be longer than 10 items. If needed, split the list into sub-tasks.
+
+				type = "PresentationClarity: Excessive length of the document"; //$NON-NLS-1$
+
+				//RULE 1: N = number of words in the document, N < t.
+				res = prop.getProperty("num_max_word"); //$NON-NLS-1$
+				int num_max_word = res!=null ? Integer.valueOf(res): 1600;
+
+				boolean ELDrule1 = tot<num_max_word;
+
+				if(!ELDrule1){
+					String rec = String.format(Messages.getString("PresentationClarity.TooLongContentRecomandation",language), num_max_word); //$NON-NLS-1$ //$NON-NLS-2$
+					Annotation rule1 = new Annotation(id,type,0,0,rec);
+					listannotation.add(rule1);
+					log.trace(rec);
+					id++;
+				}
+
+				//Recommendation: The document is too long. A document shall not be longer than t words.
+
+				type = "PresentationClarity: Excessive references"; //$NON-NLS-1$
+
+				//RULE1: N =numberof<a>tags,N < t.
+				res = prop.getProperty("num_min_ref"); //$NON-NLS-1$
+				int num_min_ref = res!=null ? Integer.valueOf(res): 5;
+
+				boolean ERrule1 = a.size()<num_min_ref;
+
+				if(!ERrule1){
+					String rec = String.format(Messages.getString("PresentationClarity.ExcessiveReferencesRecomandation",language),num_min_ref); //$NON-NLS-1$ //$NON-NLS-2$
+					Annotation rule1 = new Annotation(id,type,0,0,rec);
+					listannotation.add(rule1);
+					log.trace(rec);
+					id++;
+				}
+				//Recommendation: Do not refer more than t external documents. The reader might be confused. Refer only relevant external documents.
 
 				/*}else
 					id+=7;*/
@@ -334,14 +334,17 @@ public class PresentationClarity extends AbstractAnalysisClass {
 		return id-offset;// listSentence.size();
 	}
 
-	
+
 
 	private int getTotNumberTerms(Elements elements) {
-		String stringelements = ""; //$NON-NLS-1$
-		for (Element element : elements) {
-			stringelements +=element.text();
+		if(!elements.isEmpty()){
+			String stringelements = ""; //$NON-NLS-1$
+			for (Element element : elements) {
+				stringelements +=element.text();
+			}
+			return stringelements.split(" ").length; //$NON-NLS-1$
 		}
-		return stringelements.split(" ").length; //$NON-NLS-1$
+		return 0;
 	}
 
 	private int getTotNumberTerms(Document doc) {

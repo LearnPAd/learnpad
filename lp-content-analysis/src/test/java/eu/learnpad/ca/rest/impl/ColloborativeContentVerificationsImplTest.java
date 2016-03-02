@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
@@ -69,6 +68,7 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		//checkCollaborativeContentAnalysis("CollaborativeContentXMLBi.xml");
 		//checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML_WC2.xml");
 		checkCollaborativeContentAnalysis("CollaborativeContentXMLS_HTML.xml");
+		checkCollaborativeContentAnalysis("CollaborativeContentXML_SUAP.xml");
 	
 	}
 	
@@ -104,7 +104,9 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 		if(!status.equals("ERROR")){
 			Response annotatecontent =  target("/learnpad/ca/bridge/validatecollaborativecontent/"+id).request().get();
 
+
 			AnnotatedCollaborativeContentAnalyses res =	annotatecontent.readEntity(new GenericType<AnnotatedCollaborativeContentAnalyses>() {});
+
 			for (AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContentAnalysis : res.getAnnotateCollaborativeContentAnalysis()) {
 				JAXBContext jaxbCtx;
 				try {
@@ -115,9 +117,9 @@ public class ColloborativeContentVerificationsImplTest extends JerseyTest{
 					marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 					//marshaller.marshal(annotatedCollaborativeContentAnalysis, System.out);
 					String type = annotatedCollaborativeContentAnalysis.getType();
-					//OutputStream os = new FileOutputStream( "nosferatu"+type+".xml" );
-					//marshaller.marshal( annotatedCollaborativeContentAnalysis, os );
-				} catch (JAXBException /*| FileNotFoundException*/  e) {
+					OutputStream os = new FileOutputStream( "nosferatu"+type+".xml" );
+					marshaller.marshal( annotatedCollaborativeContentAnalysis, os );
+				} catch (JAXBException | FileNotFoundException  e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 					assertTrue(false);
