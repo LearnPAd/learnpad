@@ -26,7 +26,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(CorrectnessAnalysis.class);
-
+	private String listsentences = "";
 
 	public CorrectnessAnalysis(Language lang){
 
@@ -55,16 +55,25 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			List<String> listsentence = langTool.sentenceTokenize(content);
 			Integer id=0;
 			int offset = 0;
-			for (String sentence : listsentence) {
+			for (int i = 0; i < listsentence.size(); i++) {
+				
+				String sentence = listsentence.get(i);
 
 				matches = langTool.check(sentence);
 				//List<Annotation> annotations = checkdefect(sentence,c, id);
 				List<Annotation> annotations =new ArrayList<Annotation>();
+				
 				id = calculateAnnotations(sentence, matches, c, id,annotations,offset);
-				offset+= sentence.length();
+				int l = sentence.length();
+				offset+= l;
 
 				if(annotations.size()>0){
 					numDefectiveSentences++;
+				}
+				boolean last = i==listsentence.size()-1;
+				if(last && listsentences!=""){
+					c.setContent(listsentences);
+					listsentences = "";
 				}
 				annotatedCollaborativeContent.setAnnotations(annotations);
 				id++;
@@ -120,7 +129,9 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			sc.setContent(c);
 			Integer id=0;
 			int offset = 0;
-			for (String sentence : listsentence) {
+			for (int i = 0; i < listsentence.size(); i++) {
+				
+			String sentence = listsentence.get(i);
 
 				matches = langTool.check(sentence);
 
@@ -131,7 +142,11 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 				if(annotations.size()>0){
 					numDefectiveSentences++;
 				}
-
+				boolean last = i==listsentence.size()-1;
+				if(last && listsentences!=""){
+					c.setContent(listsentences);
+					listsentences = "";
+				}
 				id++;
 			}
 
@@ -167,8 +182,9 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 		int precedentposition=0;
 
 		int finalpos = 0;
-		Annotation prev = null;
-		String prec = "";
+		
+		Annotation prev = new Annotation(-1,"",-1,-1,"");
+		
 		for (RuleMatch match : matches) {
 
 			String stringa = sentence.substring(match.getFromPos(),match.getToPos());
@@ -177,8 +193,8 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 					continue;
 				}else{
 					try{
-						String prestringa =  sentence.substring(match.getFromPos()-2, match.getFromPos());
-						String poststringa =  sentence.substring(match.getToPos(), match.getToPos()+2);
+						String prestringa =  sentence.substring(match.getFromPos()-1, match.getFromPos());
+						String poststringa =  sentence.substring(match.getToPos(), match.getToPos()+1);
 						boolean flag = (prestringa.contains("“") || poststringa.contains("”")) || (prestringa.contains("\"") || poststringa.contains("\""));
 						if(flag){
 							continue;
@@ -193,16 +209,19 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 				precedentposition =  match.getFromPos();
 			}else{
 				String stringap = sentence.substring(precedentposition, match.getFromPos());
-				c.setContent(stringap);
+				listsentences+=stringap;
+				//c.setContent(stringap);
 			}
 			
 
-			if( !(stringa.equals(prec)) ){
+			if(match.getToPos()!=(prev.getNodeStart().getOffSet()-offset)){
+				c.setContent(listsentences);
+				listsentences = "";
 				id++;
 				Node init= new Node(id, match.getFromPos()+offset);
 				c.setContent(init);
 				precedentposition= match.getToPos();
-				prec=stringa;
+				
 				c.setContent(stringa);
 				id++;
 				Node end= new Node(id,match.getToPos()+offset);
@@ -237,10 +256,11 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 		}
 
 		if(annotations.size()==0){
-			c.setContent(sentence.replace(". ", "."));
+			listsentences+=sentence;
 		}else{
 			if(finalpos< sentence.length()){
-				c.setContent(sentence.substring(finalpos, sentence.length()).replace(". ", "."));
+				listsentences+=sentence.substring(finalpos, sentence.length());
+				
 			}
 		}
 		return id;
