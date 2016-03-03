@@ -3,6 +3,7 @@ package eu.learnpad.ca.analysis.contentclarity.plugin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,8 +41,9 @@ public class UnclearAcronym extends Plugin{
 	public List<Annotation> checkUnclearAcronym(Set<gate.Annotation> listsentence, Set<gate.Annotation> listSentenceDefected, List<Annotation> annotations) {
 
 		int id = 100_000;
-
-		for (gate.Annotation sentence_gate : listsentence) {
+		List<gate.Annotation> list = new ArrayList<gate.Annotation>(listsentence);
+		Collections.sort(list);
+		for (gate.Annotation sentence_gate : list) {
 
 
 			gate.Node gatenodestart = sentence_gate.getStartNode();
@@ -101,7 +103,7 @@ public class UnclearAcronym extends Plugin{
 
 			}
 			int lencandidateAcronym = candidateAcronym.length();
-			String regex2 = "([A-Z]+\\w+([ ]|)){"+lencandidateAcronym+"}"; //$NON-NLS-1$ //$NON-NLS-2$
+			String regex2 = "([A-Z]+\\S+([ ]|)){"+lencandidateAcronym+"}"; //$NON-NLS-1$ //$NON-NLS-2$
 
 			// Create a Pattern object
 			Pattern r2 = Pattern.compile(regex2);
