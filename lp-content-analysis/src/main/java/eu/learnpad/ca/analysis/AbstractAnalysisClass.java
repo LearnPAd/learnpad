@@ -52,7 +52,10 @@ public abstract class AbstractAnalysisClass extends Thread{
 			quality=Messages.getString("AbstractAnalysisClass.VeryBad",language); //$NON-NLS-1$
 		}else if(qualityMeasure<=50){
 			quality=Messages.getString("AbstractAnalysisClass.Bad",language); //$NON-NLS-1$
-		}else if(qualityMeasure<=75){
+			
+		}else if(qualityMeasure<=70){
+			quality=Messages.getString("AbstractAnalysisClass.NotsoBad",language); //$NON-NLS-1$
+		}else if(qualityMeasure<=80){
 			quality=Messages.getString("AbstractAnalysisClass.Good",language); //$NON-NLS-1$
 		}else if(qualityMeasure<100){
 			quality=Messages.getString("AbstractAnalysisClass.VeryGood",language); //$NON-NLS-1$
@@ -68,7 +71,9 @@ public abstract class AbstractAnalysisClass extends Thread{
 			recommendations=Messages.getString("AbstractAnalysisClass.QualityVeryPoor",language); //$NON-NLS-1$
 		}else if(qualityMeasure<=50){
 			recommendations=Messages.getString("AbstractAnalysisClass.QualityPoor",language); //$NON-NLS-1$
-		}else if(qualityMeasure<=75){
+		}else if(qualityMeasure<=70){
+			recommendations=Messages.getString("AbstractAnalysisClass.NotsobadErrors",language); //$NON-NLS-1$
+		}else if(qualityMeasure<=80){
 			recommendations=Messages.getString("AbstractAnalysisClass.QualityAcceptable",language); //$NON-NLS-1$
 		}else if(qualityMeasure<100){
 			recommendations=Messages.getString("AbstractAnalysisClass.WellDoneFewErrors",language); //$NON-NLS-1$
@@ -77,8 +82,8 @@ public abstract class AbstractAnalysisClass extends Thread{
 		}
 		return recommendations;
 	}
-
-
+	
+	
 	public AnnotatedCollaborativeContentAnalysis getAnnotatedCollaborativeContentAnalysis(){
 		return annotatedCollaborativeContent;
 	}
