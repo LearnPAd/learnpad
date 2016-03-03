@@ -23,7 +23,7 @@ import java.util.Collection;
 
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.ca.BridgeInterface;
-import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
+import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
@@ -61,7 +61,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	}
 
 	@Override
-	public Collection<AnnotatedCollaborativeContentAnalysis> getCollaborativeContentVerifications(
+	public AnnotatedCollaborativeContentAnalyses getCollaborativeContentVerifications(
 			String contentID) throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;

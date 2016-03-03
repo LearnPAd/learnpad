@@ -20,29 +20,22 @@
 package eu.learnpad.core.impl.sim;
 
 import java.util.List;
-import java.util.Map;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
 
 import org.xwiki.component.annotation.Component;
-import org.xwiki.component.manager.ComponentLookupException;
-import org.xwiki.component.manager.ComponentManager;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
-import org.xwiki.query.Query;
-import org.xwiki.query.QueryException;
-import org.xwiki.query.QueryManager;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource;
+import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.exception.LpRestException;
-import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.SimulationData;
 import eu.learnpad.sim.BridgeInterface;
 import eu.learnpad.sim.Controller;
 import eu.learnpad.sim.rest.data.UserData;
@@ -68,9 +61,6 @@ import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 @Named("eu.learnpad.core.impl.sim.XwikiController")
 @Path("/learnpad/sim/corefacade")
 public class XwikiController extends Controller implements XWikiRestComponent, Initializable {
-	
-	@Inject
-	private ComponentManager componentManager;
 	
     /** Set to true once the inherited BridgeInterface has been initialized. */
     private boolean initialized = false;	
@@ -134,9 +124,11 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String action = "started";		
 		String modelSetId = event.modelsetid;		
 		String simulationId = event.simulationsessionid;
-		Map<String, Object> simSessionData = event.simulationSessionData;
 		
-		this.or.simulationInstanceNotification(modelSetId, modelId, action, simulationId, simSessionData);				
+		SimulationData data = new SimulationData();
+		data.setSessionData(event.simulationSessionData);
+		
+		this.or.simulationInstanceNotification(modelSetId, modelId, action, simulationId, data);				
 
 		this.handleRecommendations(modelSetId, modelId, event.involvedusers, simulationId);
 	}
@@ -147,9 +139,11 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String action = "stopped";		
 		String modelSetId = event.modelsetid;		
 		String simulationId = event.simulationsessionid;
-		Map<String, Object> simSessionData = event.simulationSessionData;
 		
-		this.or.simulationInstanceNotification(modelSetId, modelId, action, simulationId, simSessionData);				
+		SimulationData data = new SimulationData();
+		data.setSessionData(event.simulationSessionData);		
+		
+		this.or.simulationInstanceNotification(modelSetId, modelId, action, simulationId, data);				
 
 // Not sure if it is always the case to notify the CW, as this notification ends the simulation		
 // and probably the Recommendations are not needed anymore!
@@ -173,12 +167,13 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String modelId = event.processid;
 		String artifactId = event.taskdefid;
 		String modelSetId = event.modelsetid;
-		Map<String, Object> dataFilledByLearner = event.submittedData; 
-		Map<String, Object> simulationSessionData = event.simulationSessionData; 
 		
+		SimulationData data = new SimulationData();
+		data.setSessionData(event.simulationSessionData);
+		data.setSubmittedData(event.submittedData);
 		
 		String simulationId = event.simulationsessionid;
-		this.or.simulationTaskEndNotification(modelSetId, modelId, artifactId, simulationId, simulationSessionData, dataFilledByLearner);
+		this.or.simulationTaskEndNotification(modelSetId, modelId, artifactId, simulationId, data);
 
 // Not sure if it is always the case to notify the CW, as this notification should
 // happen just suddenly because of either "receiveTaskStartEvent" or "receiveProcessEndEvent" 			
@@ -211,34 +206,11 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
 	private String converUserID (String simUserId) throws LpRestException {
 //		http://<server>/xwiki/rest/wikis/query?q=object:XWiki.XWikiUsers		
-//		
-//		try {
-//			QueryManager queryManager = (QueryManager) componentManager.getInstance(QueryManager.class);
-//			String xwqlstatement = "doc.fullName from Document doc, doc.object(XWiki.XWikiUsers) as user where user.email;
-//			Query query = queryManager.createQuery(xwqlstatement,Query.HQL);
-//			List<Object> results = query.execute();
-//
-//			  when(
-//				        mockQueryManager
-//				            .createQuery(
-//				                "select doc.fullName from Document doc, doc.object(XWiki.XWikiUsers) as user where LOWER(user.email) like :pattern",
-//				                Query.XWQL)).thenReturn(mockQuery);
-//				    when(mockQuery.bindValue("pattern", "auser@host.org")).thenReturn(mockQuery);
-//				    when(mockQuery.execute()).thenReturn(queryResult);
-//
-//				    IMAUser maUser = mailutils.parseUser("A User <auser@host.org>", false);
-//				    assertEquals("auser@host.org", maUser.getAddress());
-//				    assertEquals("A User", maUser.getDisplayName());
-//				    assertEquals("A User <auser@host.org>", maUser.getOriginalAddress());
-//				    assertEquals("toto", maUser.getWikiProfile());		
-//		
-//		} catch (ComponentLookupException | QueryException e) {
-//			throw new LpRestExceptionXWikiImpl(e.getMessage(),e.getCause());
-//		}
-//		
+//		http://<server>/rest/wikis/xwiki/spaces/XWiki/pages/<username>/objects/XWiki.XWikiUsers/0/properties/email
 		
-		// TODO Convert from Sim UserID to OR UserID by implementing something in the utils
-		throw new LpRestExceptionXWikiImpl("the metohod eu.learnpad.core.impl.sim.XwikiController.converUserID has not been implemented yet!");
+		String wikiName = RestResource.CORE_REPOSITORY_WIKI;
+		String username = simUserId.replaceFirst("XWiki\\.", "");
+		return XWikiRestUtils.getEmailAddress(wikiName, username);
 	}
 	
 	private void handleRecommendations(String modelSetId, String artifactId, List<String> involvedUsers, String simulationId) throws LpRestException {
@@ -250,4 +222,5 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		}
 		
 	}
+	
 }

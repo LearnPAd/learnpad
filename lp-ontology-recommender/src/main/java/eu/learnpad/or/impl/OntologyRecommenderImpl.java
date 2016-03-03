@@ -10,14 +10,17 @@ import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.ontology.execution.ExecutionStates;
 import eu.learnpad.ontology.recommender.Recommender;
+import eu.learnpad.ontology.recommender.cbr.CBRAdapter;
 import eu.learnpad.or.rest.data.States;
 import eu.learnpad.ontology.transformation.ModellingEnvironmentType;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.SimilarCase;
 import eu.learnpad.or.rest.data.SimilarCases;
+import eu.learnpad.or.rest.data.SimulationData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +57,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     
     @Override
     public void sendResourceNotification(String modelSetId, String resourceId, String artifactIds, String action) throws LpRestException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //later 
     }
 
     @Override
@@ -81,52 +84,52 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     public Recommendations askRecommendation(String modelSetId,
 			String artifactId, String userId, String simulationSessionId) throws LpRestException {
     	
-    	//TODO Ssandro, please consider to use the also the new parameters : modelSetId, artifactId, userId 
-    	
-          Recommendations rec = new Recommendations();
-          SimilarCases cases = new SimilarCases();
-          List<SimilarCase> caseList = new ArrayList();
-          SimilarCase case1 = new SimilarCase();
-          case1.setSimilarityValue(0.82);
-          case1.setName("Capelletti - Chalet at the beach (Test)");
-          case1.setApplicantName("Giuseppe Cappelletti");
-          case1.setApplicationCity("Senigallia");
-          case1.setApplicationZones(new String[]{"Beach area at the sea"});
-          case1.setApplicationPublicAdministration("Senigallia");
-          case1.setApplicationType("Modification");
-          case1.setApplicationSubtype("Restructuring");
-          case1.setApplicationSectors(new String[]{"Building","Environment","Public Land","Tourism"});
-          case1.setApplicationBusinessActivities(new String[]{"Receptive Tourism"});
-          case1.setApplicationDescription("Realization of a chalet on a beach area of Senigallia");
-          case1.setApplicationATECOCategories(new String[]{"55.20.51: Boutique hotels for short staying, houses and apatments for holidays, bed&breakfast, residence", "43.39.01: Non specialized construction (masons)"});
-          caseList.add(case1);
-          SimilarCase case2 = new SimilarCase();
-          case2.setSimilarityValue(0.42);
-          case2.setName("Gianna Morbidelli - Walls on hotel(Test)");
-          caseList.add(case2);
-          SimilarCase case3 = new SimilarCase();
-          case3.setSimilarityValue(0.38);
-          case3.setName("Ermenegildo Fiori - Restructuring for B&B (Test)");
-          caseList.add(case3);
-          cases.setSimilarCases(caseList);
-          rec.setSimilarCases(cases);
+    	  Recommendations rec = new Recommendations();
+          SimilarCases cases = CBRAdapter.getInstance().retrieveSimilarCases(modelSetId, artifactId, userId, simulationSessionId);
+//          SimilarCases cases = new SimilarCases();
+//          List<SimilarCase> caseList = new ArrayList();
+//          SimilarCase case1 = new SimilarCase();
+//          case1.setSimilarityValue("82%");
+//          case1.setName("Capelletti - Chalet at the beach (Test)");
+//          Map<String, Object> data = new HashMap<>();
+//          data.put("applicantName", "Giuseppe Cappelletti");
+//          data.put("applicationCity", "Senigallia");
+//          data.put("applicationZones", new String[]{"Beach area at the sea"});
+//          data.put("applicationPublicAdministration", "Senigallia");
+//          data.put("applicationType", "Modification");
+//          data.put("applicationSubtype", "Restructuring");
+//          data.put("applicationSectors", new String[]{"Building","Environment","Public Land","Tourism"});
+//          data.put("applicationBusinessActivities", new String[]{"Receptive Tourism"});
+//          data.put("applicationDescription", "Realization of a chalet on a beach area of Senigallia");
+//          data.put("applicationATECOCategories", new String[]{"55.20.51: Boutique hotels for short staying, houses and apatments for holidays, bed&breakfast, residence", "43.39.01: Non specialized construction (masons)"});
+//          caseList.add(case1);
+//          SimilarCase case2 = new SimilarCase();
+//          case2.setSimilarityValue("42%");
+//          case2.setName("Gianna Morbidelli - Walls on hotel(Test)");
+//          caseList.add(case2);
+//          SimilarCase case3 = new SimilarCase();
+//          case3.setSimilarityValue("38%");
+//          case3.setName("Ermenegildo Fiori - Restructuring for B&B (Test)");
+//          caseList.add(case3);
+//          cases.setSimilarCases(caseList);
+//          rec.setSimilarCases(cases);
           
           return rec;
     }    
     
     @Override
-    public void simulationInstanceNotification(String modelSetId, String modelId, String action, String simulationId, Map<String, Object> simSessionData) throws LpRestException {
-        //TODO
+    public void simulationInstanceNotification(String modelSetId, String modelId, String action, String simulationId, SimulationData data) throws LpRestException {
+        CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
     }
 
     @Override
-    public void simulationTaskStartNotification(String modelSetId, String modelId, String artifactId, String simulationId, Map<String, Object> simSessionData) throws LpRestException {
-        //TODO
+    public void simulationTaskStartNotification(String modelSetId, String modelId, String artifactId, String simulationId, SimulationData data) throws LpRestException {
+        CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
     }
 
     @Override
-    public void simulationTaskEndNotification(String modelSetId, String modelId, String artifactId, String simulationId, Map<String, Object> simSessionData, Map<String, Object> data) throws LpRestException {
-        //TODO
+    public void simulationTaskEndNotification(String modelSetId, String modelId, String artifactId, String simulationId, SimulationData data) throws LpRestException {
+        CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
     }
     
     @Override

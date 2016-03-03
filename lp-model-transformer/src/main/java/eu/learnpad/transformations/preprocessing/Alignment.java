@@ -53,7 +53,7 @@ public class Alignment {
 		boolean result = false;
 		
 		Path modelPath = Paths.get(String.format("%s/%s", tmpModelFolder, tmpFileFromInputStream));
-		Files.delete(modelPath);
+		Files.deleteIfExists(modelPath);
 		Files.copy(modelInputStream, modelPath);
 		String fileFromInputStreamPath = modelPath.toString();
 		
