@@ -1,6 +1,6 @@
 package eu.learnpad.mon.test;
 
-import eu.learnpad.simulator.mon.MainMonitoring;
+//import eu.learnpad.simulator.mon.MainMonitoring;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -34,6 +34,6 @@ public class AppTest
      */
     public void testApp()
     {
-        MainMonitoring.main(new String[]{"systemSettings"});
+    //    MainMonitoring.main(new String[]{"systemSettings"});
     }
 }
