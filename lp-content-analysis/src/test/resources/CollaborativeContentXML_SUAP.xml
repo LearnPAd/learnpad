@@ -8,7 +8,7 @@ Headline: SUAP - Titolo Unico Business Process.
 Glossary: list of definitions that are useful to understand the BP. (preferably a link to a central glossary)
 
 •	“Conferenza Dei Servizi”: It is named in English Service Conference. It is a meeting in which all involved participants (both municipality offices, third party administrations, and entrepreneur) discuss about the case and decide if the business activity is acceptable or not.  
-•	“Sportello Unico per le Attività Produttive” (SUAP): it refers to the activities that the Italian Public Administrations have to put in place in order to permit to entrepreneurs to set up a new company or more general to organize a business activity. 			
+•	“Sportello Unico Attività Produttive” (SUAP): it refers to the activities that the Italian Public Administrations have to put in place in order to permit to entrepreneurs to set up a new company or more general to organize a business activity. 			
 •	“Titolo Unico”: it is named in English Standard request to start business activity. - It is introduced in the Italian law D.P.R. 160/2010 in the article 7 in which a citizen requests to the municipality and third parties the permission to start an activity. In this case the entrepreneurs have to wait the office decision before starting the activity. 
 
 Context: In the PA context, this process defines all the tasks that are required to allow citizens to open a commercial activity.
@@ -45,6 +45,6 @@ There are a lot of already available FAQs we refer to them:
 	]]>	</ContentHTML>
 	</CollaborativeContent>
 	<QualityCriteria simplicity="false" non_ambiguity="false"
-		content_clarity="false" presentation_clarity="false" completeness="false"
+		content_clarity="true" presentation_clarity="false" completeness="false"
 		correctness="true" />
 </CollaborativeContentAnalysis>
