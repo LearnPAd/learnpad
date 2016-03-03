@@ -77,6 +77,7 @@ public class MainMonitoring {
 	protected static String RESTNOTIFIERURLSTRING; 
 	// end settings
 
+	private static Properties environmentParameters;
 	private static TopicConnectionFactory connFact;
 	private static InitialContext initConn;
 
@@ -120,7 +121,7 @@ public class MainMonitoring {
 		try 
 		{
 			//the connection are initialized
-			Properties environmentParameters = Manager.Read(ENVIRONMENTPARAMETERSFILE);
+			environmentParameters = Manager.Read(ENVIRONMENTPARAMETERSFILE);
 			initConn = new InitialContext(environmentParameters);
 			 
 			DebugMessages.println(TimeStamp.getCurrentTime(), MainMonitoring.class.getSimpleName(), "Connection Parameters");
@@ -168,6 +169,17 @@ public class MainMonitoring {
 			
 			if (MainMonitoring.initProps(args[0]) && MainMonitoring.init()) {
 	
+				System.out.println("Running ActiveMQ instance on " + environmentParameters.getProperty("java.naming.provider.url"));
+				
+				ActiveMQRunner anActiveMQInstance = new ActiveMQRunner(environmentParameters.getProperty("java.naming.provider.url"));
+				anActiveMQInstance.start();
+								
+				while (!anActiveMQInstance.isBrokerStarted()) {
+					Thread.sleep(1000);
+				}
+				
+				System.out.println("ActiveMQ is running");
+				System.out.println("Running GLIMPSE");
 				SplashScreen.Show();
 				System.out.println("Please wait until setup is done...");
 				
