@@ -80,9 +80,30 @@
             <url>http://topquadrant.com/repository/spin</url>
         </repository>  
         <repository>
-            <id>iceberg-repository</id>
+            <id>iceberg-repository-snapshots</id>
+            <name>ICBERG CBR services snapshot repository</name>
             <url>https://bitbucket.org/ikmgroup/iceberg-toolkit-library/raw/master/repository/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>    
+    
+    <pluginRepositories>
+        <pluginRepository>
+            <id>iceberg-plugins-repository-snapshots</id>
+            <name>ICBERG CBR services plugins snapshot repository</name>
+            <url>https://bitbucket.org/ikmgroup/iceberg-toolkit-library/raw/master/repository/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
     
 </project>
