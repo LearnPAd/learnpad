@@ -45,7 +45,7 @@ public interface SimulationNotification {
 	 *            data, metadata, and user submitted data defining the context for the simulation
 	 * @throws LpRestException
 	 */
-	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationnotification?action={started|stopped},simulationid=id
+	// <host>/learnpad/or/bridge/{modelsetid}/{modelid}/simulationinstancenotification?action={started|stopped},simulationid=id
 	@POST
 	@Path("/{modelsetid}/{modelid}/simulationinstancenotification")
 	void simulationInstanceNotification(@PathParam("modelsetid") String modelSetId,
@@ -69,7 +69,7 @@ public interface SimulationNotification {
 	 *            data and metadata, and user submitted data defining the context for the simulation
 	 * @throws LpRestException
 	 */
-	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationtaskstart?artifactid=aid,simulationid=id
+	// <host>/learnpad/or/bridge/{modelsetid}/{modelid}/simulationtaskstart?artifactid=aid,simulationid=id
 	@POST
 	@Path("/{modelsetid}/{modelid}/simulationtaskstart")
 	void simulationTaskStartNotification(@PathParam("modelsetid") String modelSetId,
@@ -93,7 +93,7 @@ public interface SimulationNotification {
 	 *            data and metadata, and user submitted data defining the context for the simulation session
 	 * @throws LpRestException
 	 */
-	// <host>/learnpad/or/{modelsetid}/{modelid}/simulationtaskend?artifactid=aid,simulationid=id
+	// <host>/learnpad/or/bridge/{modelsetid}/{modelid}/simulationtaskend?artifactid=aid,simulationid=id
 
 	@POST
 	@Path("/{modelsetid}/{modelid}/simulationtaskend")
