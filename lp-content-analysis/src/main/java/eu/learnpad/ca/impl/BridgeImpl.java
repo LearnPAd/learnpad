@@ -1,7 +1,6 @@
 package eu.learnpad.ca.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +30,7 @@ import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
+import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalyses;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import eu.learnpad.exception.LpRestException;
@@ -162,19 +162,20 @@ public class BridgeImpl extends Bridge {
 			throws LpRestException{
 		try{
 			if(map.containsKey(Integer.valueOf(contentID))){
-                AnnotatedCollaborativeContentAnalyses acca = new AnnotatedCollaborativeContentAnalyses();
-                List<AbstractAnalysisClass> listanalysisInterface = map.get(Integer.valueOf(contentID));
+				AnnotatedCollaborativeContentAnalyses ar = new AnnotatedCollaborativeContentAnalyses();
+				List<AbstractAnalysisClass> listanalysisInterface = map.get(Integer.valueOf(contentID));
 
-                for (AbstractAnalysisClass analysisInterface : listanalysisInterface) {
-                    AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent =
-                        analysisInterface.getAnnotatedCollaborativeContentAnalysis();
-                    if (annotatedCollaborativeContent != null) {
-                        annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
-                        acca.setAnnotateCollaborativeContentAnalysis(annotatedCollaborativeContent);
-                    }
-                }
+				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
+					AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent = analysisInterface.getAnnotatedCollaborativeContentAnalysis();
+					if(annotatedCollaborativeContent!=null){
+						annotatedCollaborativeContent.setId(Integer.valueOf(contentID));
+						ar.setAnnotateCollaborativeContentAnalysis(annotatedCollaborativeContent);
+					}
+				}
 
-                return acca;
+
+
+				return ar;
 			}else{
 				log.error("Element not found: "+contentID+" map:"+map.keySet().toString());
 				return null;
@@ -342,18 +343,18 @@ public class BridgeImpl extends Bridge {
 
 	@Path("/validatestaticcontent/{idAnnotatedStaticContentAnalysis:\\d+}")
 	@GET
-	public Collection<AnnotatedStaticContentAnalysis> getStaticContentVerifications(
+	public AnnotatedStaticContentAnalyses getStaticContentVerifications(
 			@PathParam("idAnnotatedStaticContentAnalysis") String contentID) throws LpRestException {
 		try{
 			if(map.containsKey(Integer.valueOf(contentID))){
-				ArrayList<AnnotatedStaticContentAnalysis> ar = new ArrayList<AnnotatedStaticContentAnalysis>();
+				AnnotatedStaticContentAnalyses ar = new AnnotatedStaticContentAnalyses();
 				List<AbstractAnalysisClass> listanalysisInterface = map.get(Integer.valueOf(contentID));
 
 				for(AbstractAnalysisClass analysisInterface :listanalysisInterface){
 					AnnotatedStaticContentAnalysis annotatedStaticContent = analysisInterface.getAnnotatedStaticContentAnalysis();
 					if(annotatedStaticContent!=null){
 						annotatedStaticContent.setId(Integer.valueOf(contentID));
-						ar.add(annotatedStaticContent);
+						ar.setAnnotateStaticContentAnalysis(annotatedStaticContent);
 					}
 				}
 

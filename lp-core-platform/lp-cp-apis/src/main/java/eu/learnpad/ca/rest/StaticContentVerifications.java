@@ -21,14 +21,13 @@
 package eu.learnpad.ca.rest;
 
 
-import java.util.Collection;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
-import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
+import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalyses;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import eu.learnpad.exception.LpRestException;
 
@@ -44,7 +43,7 @@ public interface StaticContentVerifications {
 	
 	@Path("/{idAnnotatedStaticContentAnalysis:.*}")
 	@GET
-	Collection<AnnotatedStaticContentAnalysis> getStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
+	AnnotatedStaticContentAnalyses getStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
 			throws LpRestException;
 	
 	@Path("/{idAnnotatedStaticContentAnalysis:.*}/status")

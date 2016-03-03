@@ -171,13 +171,32 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 		String prec = "";
 		for (RuleMatch match : matches) {
 
+			String stringa = sentence.substring(match.getFromPos(),match.getToPos());
+			if(!stringa.isEmpty()){
+				if(Character.isUpperCase(stringa.charAt(0))){
+					continue;
+				}else{
+					try{
+						String prestringa =  sentence.substring(match.getFromPos()-2, match.getFromPos());
+						String poststringa =  sentence.substring(match.getToPos(), match.getToPos()+2);
+						boolean flag = (prestringa.contains("“") || poststringa.contains("”")) || (prestringa.contains("\"") || poststringa.contains("\""));
+						if(flag){
+							continue;
+						}
+					}catch(Exception e){
+
+					}
+
+				}
+			}
 			if(precedentposition>=match.getFromPos()){
 				precedentposition =  match.getFromPos();
 			}else{
 				String stringap = sentence.substring(precedentposition, match.getFromPos());
 				c.setContent(stringap);
 			}
-			String stringa = sentence.substring(match.getFromPos(),match.getToPos());
+			
+
 			if( !(stringa.equals(prec)) ){
 				id++;
 				Node init= new Node(id, match.getFromPos()+offset);
@@ -195,7 +214,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 				a.setNodeEnd(end);
 				a.setNodeStart(init);
 				a.setType("Correctness"); //$NON-NLS-1$
-				a.setRecommendation(match.getMessage()+Messages.getString("CorrectnessAnalysis.Reccomandation", language) +match.getSuggestedReplacements()); //$NON-NLS-1$
+				a.setRecommendation(getSuggestion(match.getMessage())+Messages.getString("CorrectnessAnalysis.Reccomandation", language) +match.getSuggestedReplacements()); //$NON-NLS-1$
 				annotations.add(a);
 				prev=a;
 				id++;
@@ -209,7 +228,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 				a.setNodeEnd(prev.getNodeEnd());
 				a.setNodeStart(prev.getNodeStart());
 				a.setType("Correctness"); //$NON-NLS-1$
-				a.setRecommendation(match.getMessage()+Messages.getString("CorrectnessAnalysis.Reccomandation", language) +match.getSuggestedReplacements()); //$NON-NLS-1$
+				a.setRecommendation(getSuggestion(match.getMessage())+Messages.getString("CorrectnessAnalysis.Reccomandation", language) +match.getSuggestedReplacements()); //$NON-NLS-1$
 				annotations.add(a);
 				prev=a;
 				id++;
@@ -268,6 +287,8 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 	}
 
-
+	private String getSuggestion(String a){
+		return a.replace("<suggestion>","").replace("</suggestion>","");
+	}
 
 }
