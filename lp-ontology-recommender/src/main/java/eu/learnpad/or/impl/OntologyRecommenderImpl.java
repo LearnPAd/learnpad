@@ -60,23 +60,11 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         //later 
     }
 
+    //Depricated, to be removed
     @Override
     public Recommendations askRecommendation(String modelSetId, String artifactId, String userId) throws LpRestException {
         Recommendations recomms = Recommender.getInstance().getRecommendations(modelSetId, artifactId, userId);
-//        Recommendations recomms = new Recommendations();
-//        Experts experts = new Experts();
-//        List<BusinessActor> businessActors = new ArrayList<BusinessActor>();
-//        BusinessActor businessActor1 = new BusinessActor();
-//        BusinessActor businessActor2 = new BusinessActor();
-//        businessActor1.setName("Jean");
-//        businessActor1.setEmail("jean@localhost.org");
-//        businessActor1.setPhoneNumber("+33123456789");
-//        businessActors.add(businessActor1);
-//        businessActor2.setName("Sandro");
-//        businessActor2.setEmail("sandro@localhost.org");
-//        businessActors.add(businessActor2);
-//		experts.setBusinessActors(businessActors);
-//        recomms.setExperts(experts);
+
         return recomms;
     }
     
@@ -84,35 +72,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     public Recommendations askRecommendation(String modelSetId,
 			String artifactId, String userId, String simulationSessionId) throws LpRestException {
     	
-    	  Recommendations rec = new Recommendations();
-          SimilarCases cases = CBRAdapter.getInstance().retrieveSimilarCases(modelSetId, artifactId, userId, simulationSessionId);
-//          SimilarCases cases = new SimilarCases();
-//          List<SimilarCase> caseList = new ArrayList();
-//          SimilarCase case1 = new SimilarCase();
-//          case1.setSimilarityValue("82%");
-//          case1.setName("Capelletti - Chalet at the beach (Test)");
-//          Map<String, Object> data = new HashMap<>();
-//          data.put("applicantName", "Giuseppe Cappelletti");
-//          data.put("applicationCity", "Senigallia");
-//          data.put("applicationZones", new String[]{"Beach area at the sea"});
-//          data.put("applicationPublicAdministration", "Senigallia");
-//          data.put("applicationType", "Modification");
-//          data.put("applicationSubtype", "Restructuring");
-//          data.put("applicationSectors", new String[]{"Building","Environment","Public Land","Tourism"});
-//          data.put("applicationBusinessActivities", new String[]{"Receptive Tourism"});
-//          data.put("applicationDescription", "Realization of a chalet on a beach area of Senigallia");
-//          data.put("applicationATECOCategories", new String[]{"55.20.51: Boutique hotels for short staying, houses and apatments for holidays, bed&breakfast, residence", "43.39.01: Non specialized construction (masons)"});
-//          caseList.add(case1);
-//          SimilarCase case2 = new SimilarCase();
-//          case2.setSimilarityValue("42%");
-//          case2.setName("Gianna Morbidelli - Walls on hotel(Test)");
-//          caseList.add(case2);
-//          SimilarCase case3 = new SimilarCase();
-//          case3.setSimilarityValue("38%");
-//          case3.setName("Ermenegildo Fiori - Restructuring for B&B (Test)");
-//          caseList.add(case3);
-//          cases.setSimilarCases(caseList);
-//          rec.setSimilarCases(cases);
+    	  Recommendations rec = Recommender.getInstance().getRecommendations(modelSetId, artifactId, userId, simulationSessionId);
           
           return rec;
     }    

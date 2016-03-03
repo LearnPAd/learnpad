@@ -5,10 +5,6 @@
  */
 package eu.learnpad.ontology.recommender;
 
-import ch.fhnw.cbr.service.CBRServices;
-import ch.fhnw.cbr.service.data.CaseInstanceVO;
-import ch.fhnw.cbr.service.data.CaseMatchVO;
-import ch.fhnw.cbr.service.data.CaseViewVO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,14 +23,11 @@ import eu.learnpad.ontology.config.APP;
 
 import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.recommender.cbr.CBRAdapter;
-import static eu.learnpad.ontology.recommender.cbr.CBRAdapter.OVERALL_PROCESS_VIEW;
-import static eu.learnpad.ontology.recommender.cbr.CBRAdapter.SIMULATION_CASE_CLASS_URI;
 import eu.learnpad.or.rest.data.BusinessActor;
 import eu.learnpad.or.rest.data.Experts;
 import eu.learnpad.or.rest.data.LearningMaterial;
 import eu.learnpad.or.rest.data.LearningMaterials;
 import eu.learnpad.or.rest.data.Recommendations;
-import eu.learnpad.or.rest.data.SimilarCase;
 import eu.learnpad.or.rest.data.SimilarCases;
 
 /**
@@ -59,8 +52,10 @@ public class Recommender {
     
     public Recommendations getRecommendations(String modelSetId, String artifactId, String userId, String simulationSessionId){
         Recommendations recommends = getRecommendations(modelSetId, artifactId, userId);
-        SimilarCases similarCases = CBRAdapter.getInstance().retrieveSimilarCases(modelSetId, artifactId, userId, simulationSessionId);
-        recommends.setSimilarCases(similarCases);
+        if(simulationSessionId != null && !simulationSessionId.isEmpty() && !"--none--".equals(simulationSessionId)){
+            SimilarCases similarCases = CBRAdapter.getInstance().retrieveSimilarCases(modelSetId, artifactId, userId, simulationSessionId);
+            recommends.setSimilarCases(similarCases);
+        }
         
         return recommends;
     }
