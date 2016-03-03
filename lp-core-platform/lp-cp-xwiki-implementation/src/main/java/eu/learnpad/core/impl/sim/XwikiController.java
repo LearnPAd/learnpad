@@ -34,6 +34,7 @@ import eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.SimulationData;
 import eu.learnpad.sim.BridgeInterface;
@@ -214,6 +215,11 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 	
 	private void handleRecommendations(String modelSetId, String artifactId, List<String> involvedUsers, String simulationId) throws LpRestException {
+		if (involvedUsers == null){
+			String message = "List \"involvedUsers\" is null (ModelSetId:"+modelSetId+", ArtifactId:"+artifactId+",SimulationId:"+simulationId+")";
+			throw new LpRestExceptionXWikiImpl(message);
+		}
+		
 		for (String simUserId : involvedUsers){
 			String userId = this.converUserID(simUserId);
 
