@@ -1,4 +1,4 @@
-package eu.learnpad.simulator.mon;
+package eu.learnpad.mon.test;
 
 import java.util.HashMap;
 import java.util.Vector;
