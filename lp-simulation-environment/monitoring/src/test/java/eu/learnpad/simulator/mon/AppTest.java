@@ -1,6 +1,6 @@
 package eu.learnpad.simulator.mon;
 
-import eu.learnpad.simulator.mon.MainMonitoring;
+//import eu.learnpad.simulator.mon.MainMonitoring;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;

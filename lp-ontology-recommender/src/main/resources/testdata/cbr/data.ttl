@@ -1,0 +1,542 @@
+# baseURI: http://learnpad.eu/data
+# imports: http://learnpad.eu/cbr
+
+@prefix cbr: <http://ikm-group.ch/cbr#> .
+@prefix data: <http://learnpad.eu/data#> .
+@prefix elements: <http://purl.org/dc/elements/1.1#> .
+@prefix eo: <http://ikm-group.ch/archiMEO/eo#> .
+@prefix foaf: <http://xmlns.com/foaf/spec#> .
+@prefix lpd: <http://learnpad.eu#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+lpd:Accomodation
+  rdfs:label "Accomodation"^^xsd:string ;
+.
+lpd:Administration_Police_Sector
+  rdfs:label "Administrative Police"^^xsd:string ;
+.
+lpd:Adminstering_Food_and_Beverage_Sector
+  rdfs:label "Administering Food and Beverage"^^xsd:string ;
+.
+lpd:Agriculture_Sector
+  rdfs:label "Agriculture"^^xsd:string ;
+.
+lpd:BarAndSimilarBusinessesWithoutCusine
+  rdfs:label "Bar and similar businesses without cusine"^^xsd:string ;
+.
+lpd:Beach_Area_At_The_Lake
+  rdfs:label "Beach area at the lake"^^xsd:string ;
+.
+lpd:Beach_Area_At_The_Sea
+  rdfs:label "Beach area at the sea"^^xsd:string ;
+.
+lpd:BoutiqueHotels_Apartments_BedAndBreakfast_Residence
+  rdfs:label "Boutique hotels, Apartments, B&B, Residence houses"^^xsd:string ;
+.
+lpd:Building_Sector
+  rdfs:label "Building"^^xsd:string ;
+.
+lpd:CampingGrounds_RecreationalVehiclesAndTrailers
+  rdfs:label "Camping grounds, recreational vehicles and trailers"^^xsd:string ;
+.
+lpd:CateringServices
+  rdfs:label "Catering services"^^xsd:string ;
+.
+lpd:Commercial_Activity
+  rdfs:label "Commercial"^^xsd:string ;
+.
+lpd:ConstructionAndInstallationOfActivitiesNotCategorized
+  rdfs:label "Construction and installation of not categorized activities"^^xsd:string ;
+.
+lpd:ConstructionOfBuildings
+  rdfs:label "Construction of buildings"^^xsd:string ;
+.
+lpd:ConstructionOfResidentialAndNotResidentialBuildings
+  rdfs:label "Construction of residential and not residential buidings"^^xsd:string ;
+.
+lpd:Crafts_Activity
+  rdfs:label "Crafts"^^xsd:string ;
+.
+lpd:Dining
+  rdfs:label "Dining"^^xsd:string ;
+.
+lpd:Driving_School_Sector
+  rdfs:label "Driving School"^^xsd:string ;
+.
+lpd:Education_Sector
+  rdfs:label "Education"^^xsd:string ;
+.
+lpd:Energy_Sector
+  rdfs:label "Energy"^^xsd:string ;
+.
+lpd:Environment_Sector
+  rdfs:label "Environment"^^xsd:string ;
+.
+lpd:Farming_Activity
+  rdfs:label "Farming"^^xsd:string ;
+.
+lpd:Filling_Station_Sector
+  rdfs:label "Filling Station"^^xsd:string ;
+.
+lpd:Finance_Sector
+  rdfs:label "Finance"^^xsd:string ;
+.
+lpd:Fire_Fighters_Sector
+  rdfs:label "Fire Fighters"^^xsd:string ;
+.
+lpd:Food_Sector
+  rdfs:label "Food"^^xsd:string ;
+.
+lpd:Funerary_Sector
+  rdfs:label "Funerary"^^xsd:string ;
+.
+lpd:GatheringActivities_TreatmentAndDisposalActivities_RecoveryOfMaterial
+  rdfs:label "Gathering, treatment and disposal activities, Recovery of material"^^xsd:string ;
+.
+lpd:Health_Sector
+  rdfs:label "Health"^^xsd:string ;
+.
+lpd:Hotels
+  rdfs:label "Hotels"^^xsd:string ;
+.
+lpd:Industrial_Activitiy
+  rdfs:label "Industrial"^^xsd:string ;
+.
+lpd:Industrial_Area
+  rdfs:label "Industrial area"^^xsd:string ;
+.
+lpd:InstallationOfAntifireSystems
+  rdfs:label "Installation of antifire systems"^^xsd:string ;
+.
+lpd:InstallationOfCovers
+  rdfs:label "Installation of covers"^^xsd:string ;
+.
+lpd:InstallationOfElectricalAndElectronicEquipmentForTelecommunication_TV_etc
+  rdfs:label "Installation of electrical and electronic equipment for telecommunication, TV etc."^^xsd:string ;
+.
+lpd:InstallationOfElectricalSystems
+  rdfs:label "Installation of electrical systems"^^xsd:string ;
+.
+lpd:InstallationOfFixtureFornitureCeilings_etc
+  rdfs:label "Installation of fixture forniture ceilings etc."^^xsd:string ;
+.
+lpd:InstallationOfIdraulicSystems
+  rdfs:label "Installation of idraulic systems"^^xsd:string ;
+.
+lpd:Machinery_Sector
+  rdfs:label "Machinery"^^xsd:string ;
+.
+lpd:MarineAndMountaineSummerCamps
+  rdfs:label "Marine and mountain summer camps"^^xsd:string ;
+.
+lpd:Naval_Sector
+  rdfs:label "Naval"^^xsd:string ;
+.
+lpd:Newspaper_and_Megazines_Sector
+  rdfs:label "News paper and megazines"^^xsd:string ;
+.
+lpd:NotSpecializedConstruction
+  rdfs:label "Not specialized construction"^^xsd:string ;
+.
+lpd:OverlayingFloorsAndWalls
+  rdfs:label "Overlaying floors and walls"^^xsd:string ;
+.
+lpd:Phone_Center_Internet_Point_Sector
+  rdfs:label "Phone center, Internet point"^^xsd:string ;
+.
+lpd:PlasterAndStucco
+  rdfs:label "Plaster and Stucco"^^xsd:string ;
+.
+lpd:Province_of_Ancona
+  rdfs:label "Ancona province"^^xsd:string ;
+.
+lpd:Province_of_Ascoli_Piceno
+  rdfs:label "Ascoli Piceno province"^^xsd:string ;
+.
+lpd:Province_of_Fermo
+  rdfs:label "Fermo province"^^xsd:string ;
+.
+lpd:Province_of_Macerata
+  rdfs:label "Macerata province"^^xsd:string ;
+.
+lpd:Province_of_Pesaro_and_Urbino
+  rdfs:label "Pesaro Urbino province"^^xsd:string ;
+.
+lpd:ProvisionOfInternetAccess
+  rdfs:label "Provision of internet access"^^xsd:string ;
+.
+lpd:Public_Land_Sector
+  rdfs:label "Public Land"^^xsd:string ;
+.
+lpd:Public_Security_Sector
+  rdfs:label "Public Security"^^xsd:string ;
+.
+lpd:Rapair_Maintenance_Installation_ofMachineryAndEquipment
+  rdfs:label "Repais maintenance installation of machinery and equipment"^^xsd:string ;
+.
+lpd:Receptive_Toursim_Activity
+  rdfs:label "Receptive Toursim"^^xsd:string ;
+.
+lpd:Regional_Protected_Area_Comunità_Montana_Alto_e_Medio_Metauro
+  rdfs:label "Comunità Montana Alto e Medio Metauro"^^xsd:string ;
+.
+lpd:Regional_Protected_Area_Unione_Montana_Monti_Azzurri
+  rdfs:label "Unione Montana Monti Azzurri"^^xsd:string ;
+.
+lpd:Regional_Protected_Area_Valle_del_Metauro
+  rdfs:label "Valle del Metauro"^^xsd:string ;
+.
+lpd:Retail_Trade_on_Public_Areas_Sector
+  rdfs:label "Retail trade on public areas"^^xsd:string ;
+.
+lpd:SUAPAscoliPiceno
+  rdfs:label "SUAP Ascoli Piceno"^^xsd:string ;
+.
+lpd:SUAPMontiAzzurri
+  rdfs:label "SUAP Monti Azzurri"^^xsd:string ;
+.
+lpd:SUAPSenigallia
+  rdfs:label "SUAP Senigallia"^^xsd:string ;
+.
+lpd:SUAPValleDelMetauro
+  rdfs:label "SUAP Valle del Metauro"^^xsd:string ;
+.
+lpd:Service_Care_Sector
+  rdfs:label "Service Care"^^xsd:string ;
+.
+lpd:SitePreparationAndArrangementOfTerrain
+  rdfs:label "Site preparation and arrangament of terrain"^^xsd:string ;
+.
+lpd:Social_Assistance
+  rdfs:label "Social Assistance"^^xsd:string ;
+.
+lpd:SpecializedConstructionActivities
+  rdfs:label "Specialized construction activities"^^xsd:string ;
+.
+lpd:Sport_Sector
+  rdfs:label "Sport"^^xsd:string ;
+.
+lpd:Telecommunication
+  rdfs:label "Telecommunication"^^xsd:string ;
+.
+lpd:Telecommunication_Activity
+  rdfs:label "Telecommunication"^^xsd:string ;
+.
+lpd:Tourism_Sector
+  rdfs:label "Toursim"^^xsd:string ;
+.
+lpd:Trade_in_Fixed_Locations_Sector
+  rdfs:label "Trade in fixed locations"^^xsd:string ;
+.
+lpd:Transport_Sector
+  rdfs:label "Transport"^^xsd:string ;
+.
+lpd:TreatmentAndDisposalOfOtherNonHazardousWaste
+  rdfs:label "Treatment and disposal of other non-hazardous waste"^^xsd:string ;
+.
+lpd:Urban_Area
+  rdfs:label "Urban Area"^^xsd:string ;
+.
+lpd:Waste_Sector
+  rdfs:label "Waste"^^xsd:string ;
+.
+<http://learnpad.eu/data>
+  rdf:type owl:Ontology ;
+  owl:imports <http://learnpad.eu/cbr> ;
+  owl:versionInfo "Created with TopBraid Composer"^^xsd:string ;
+.
+data:Alessanrdo_Sciamanna
+  rdf:type eo:Person ;
+.
+data:Allevi_Restructuring_a_chalet_to_include_a_bar
+  rdf:type lpd:Application ;
+  lpd:ApplicationHasType lpd:Restructuring ;
+  lpd:affectsTargetATECO lpd:BarAndSimilarBusinessesWithoutCusine ;
+  lpd:affectsTargetATECO lpd:NotSpecializedConstruction ;
+  lpd:applicationAffectsSector lpd:Building_Sector ;
+  lpd:applicationAffectsSector lpd:Environment_Sector ;
+  lpd:applicationAffectsSector lpd:Food_Sector ;
+  lpd:applicationAffectsSector lpd:Tourism_Sector ;
+  lpd:applicationAffectsTargetBusinessActivity lpd:Commercial_Activity ;
+  lpd:applicationAffectsTargetBusinessActivity lpd:Receptive_Toursim_Activity ;
+  lpd:applicationAffectsZone lpd:Beach_Area_At_The_Sea ;
+  lpd:applicationIsLocatedInCity lpd:Senigallia ;
+  lpd:applicationIsManagedByPublicAdministration lpd:SUAPSenigallia ;
+  lpd:applicationIsSubmittedByApplicant data:Giovanni_Allevi ;
+  lpd:description "Restructuring a chalet for the realization of an internal bar"^^xsd:string ;
+  rdfs:label "Allevi - Restructuring a chalet to include a Bar"@en ;
+.
+data:Berti_Replacing_windows_in_hotel
+  rdf:type lpd:Application ;
+  lpd:ApplicationHasType lpd:Transformation ;
+  lpd:affectsTargetATECO lpd:Hotels ;
+  lpd:affectsTargetATECO lpd:InstallationOfFixtureFornitureCeilings_etc ;
+  lpd:applicationAffectsSector lpd:Building_Sector ;
+  lpd:applicationAffectsSector lpd:Environment_Sector ;
+  lpd:applicationAffectsTargetBusinessActivity lpd:Receptive_Toursim_Activity ;
+  lpd:applicationAffectsZone lpd:Urban_Area ;
+  lpd:applicationIsLocatedInCity lpd:Senigallia ;
+  lpd:applicationIsManagedByPublicAdministration lpd:SUAPSenigallia ;
+  lpd:applicationIsSubmittedByApplicant data:Orietta_Berti ;
+  lpd:description "Replacing of windows fixtures in hotel"^^xsd:string ;
+  rdfs:label "Berti - Replacing windows fixtures in hotel"@en ;
+.
+data:CaseItem_Law_for_constructions_in_Industrial_Zone
+  rdf:type cbr:CaseItem ;
+  cbr:caseItemRepresentedBy data:regulationDocument_cosntructions_Industrial_Area_AscoliPiceno ;
+.
+data:CaseItem_Law_for_constructions_in_Living_Zone
+  rdf:type cbr:CaseItem ;
+  cbr:caseItemRepresentedBy data:regulationDocument_cosntructions_Urban_Area_Ascoli_Piceno ;
+  cbr:caseItemRepresentedBy data:regulationDocument_cosntructions_Urban_Area_Senigallia ;
+.
+data:CaseItem_Law_for_constructions_in_Regional_Protected_Zones
+  rdf:type cbr:CaseItem ;
+  cbr:caseItemRepresentedBy data:regulationDocument_constructions_in_Regional_Protected_Area_Valle_del_Metauro ;
+  cbr:caseItemRepresentedBy data:regulationDocument_constructions_in_Unione_Montana_Monti_Azzurri ;
+  cbr:caseItemRepresentedBy data:regulationDocument_cosntructions_Comunità_Montana_Alto_e_Medio_Metauro ;
+.
+data:CaseItem_Law_for_constructions_in_the_Costal_Zone
+  rdf:type cbr:CaseItem ;
+  cbr:caseItemRepresentedBy data:regulationDocument_constructions_in_Beach_Area_At_The_Lake ;
+  cbr:caseItemRepresentedBy data:regulationDocument_constructions_in_Beach_Area_At_The_Sea ;
+.
+data:CaseStateHistory_Allevi_Restructuring_a_chalet_to_include_a_bar_1
+  rdf:type cbr:CaseStateHistory ;
+  cbr:belongsToCase data:Allevi_Restructuring_a_chalet_to_include_a_bar ;
+  cbr:caseStateTimestamp "2016-02-03T18:05:10.241"^^xsd:dateTime ;
+  cbr:hasCaseState cbr:Learned_CaseState ;
+.
+data:CaseStateHistory_Berti_Replacing_windows_in_hotel_1
+  rdf:type cbr:CaseStateHistory ;
+  cbr:belongsToCase data:Berti_Replacing_windows_in_hotel ;
+  cbr:caseStateTimestamp "2016-02-03T18:05:47.506"^^xsd:dateTime ;
+  cbr:hasCaseState cbr:Learned_CaseState ;
+.
+data:CaseStateHistory_for_all
+  rdf:type cbr:CaseStateHistory ;
+  cbr:belongsToCase data:Fiori_Restructuring_for_BandB ;
+  cbr:belongsToCase data:Gattuso_Realization_of_a_petrol_station ;
+  cbr:belongsToCase data:Leuteri_Installation_antenna_for_WiFi ;
+  cbr:belongsToCase data:Lupi_Sciamanna_Vignola_Realization_of_a_residencial_care_facility ;
+  cbr:belongsToCase data:Monaldi_Realization_recovery_waste_disposal_plant ;
+  cbr:belongsToCase data:Morbidelli_masonry_walls_in_hotel ;
+  cbr:belongsToCase data:Nannini_Installation_of_removable_covers_for_outdoor_dining ;
+  cbr:belongsToCase data:Rossi_Realization_of_a_petrol_station_and_a_building_crafts ;
+  cbr:caseStateTimestamp "2016-02-03T18:09:41.708"^^xsd:dateTime ;
+  cbr:hasCaseState cbr:Learned_CaseState ;
+.
+data:Elia_Vignola
+  rdf:type eo:Person ;
+.
+data:Ermenegildo_Fiori
+  rdf:type eo:Person ;
+.
+data:Ettore_Messina
+  rdf:type eo:Person ;
+.
+data:Eugenio_Rossi
+  rdf:type eo:Person ;
+.
+data:Fabiana_Leuteri
+  rdf:type eo:Person ;
+.
+data:Fiori_Restructuring_for_BandB
+  rdf:type lpd:Application ;
+  lpd:ApplicationHasType lpd:Restructuring ;
+  lpd:affectsTargetATECO lpd:BoutiqueHotels_Apartments_BedAndBreakfast_Residence ;
+  lpd:affectsTargetATECO lpd:InstallationOfAntifireSystems ;
+  lpd:affectsTargetATECO lpd:InstallationOfIdraulicSystems ;
+  lpd:affectsTargetATECO lpd:NotSpecializedConstruction ;
+  lpd:affectsTargetATECO lpd:PlasterAndStucco ;
+  lpd:applicationAffectsSector lpd:Environment_Sector ;
+  lpd:applicationAffectsSector lpd:Tourism_Sector ;
+  lpd:applicationAffectsTargetBusinessActivity lpd:Commercial_Activity ;
+  lpd:applicationAffectsTargetBusinessActivity lpd:Receptive_Toursim_Activity ;
+  lpd:applicationAffectsZone lpd:Regional_Protected_Area_Unione_Montana_Monti_Azzurri ;
+  lpd:applicationIsLocatedInCity lpd:Urbania ;
+  lpd:applicationIsManagedByPublicAdministration lpd:SUAPValleDelMetauro ;
+  lpd:description "Restructuring a civil building to allocate it as a B&B"^^xsd:string ;
+  rdfs:label "Fiori - Restructuring for B&B"@en ;
+.
+data:Gattuso_Realization_of_a_petrol_station
+  rdf:type lpd:Application ;
+  lpd:ApplicationHasType lpd:Realization ;
+  lpd:affectsTargetATECO lpd:ConstructionAndInstallationOfActivitiesNotCategorized ;
+  lpd:applicationAffectsSector lpd:Building_Sector ;
+  lpd:applicationAffectsSector lpd:Environment_Sector ;
+  lpd:applicationAffectsSector lpd:Filling_Station_Sector ;
+  lpd:applicationAffectsTargetBusinessActivity lpd:Commercial_Activity ;
+  lpd:applicationAffectsTargetBusinessActivity lpd:Crafts_Activity ;
+  lpd:applicationAffectsZone lpd:Urban_Area ;
+  lpd:applicationIsLocatedInCity lpd:Ascoli_Piceno ;
+  lpd:applicationIsManagedByPublicAdministration lpd:SUAPAscoliPiceno ;
+  lpd:applicationIsSubmittedByApplicant data:Gennaro_Gattuso ;
+  lpd:description "Realization of a petrol station"^^xsd:string ;
+  rdfs:label "Gattuso - Realization of a petrol station"@en ;
+.
+data:Gennaro_Gattuso
+  rdf:type eo:Person ;
+.
+data:Gianna_Morbidelli
+  rdf:type eo:Person ;
+.
+data:Gianna_Nannini
+  rdf:type eo:Person ;
+.
+data:Giorgio_Lupi
+  rdf:type eo:Person ;
+.
+data:Giovanni_Allevi
+  rdf:type eo:Person ;
+.
+data:Giuseppe_Cappelletti
+  rdf:type eo:Person ;
+.
+data:Leuteri_Installation_antenna_for_WiFi
+  rdf:type lpd:Application ;
+  lpd:ApplicationHasType lpd:Realization ;
+  lpd:affectsTargetATECO lpd:InstallationOfElectricalAndElectronicEquipmentForTelecommunication_TV_etc ;
+  lpd:affectsTargetATECO lpd:ProvisionOfInternetAccess ;
+  lpd:applicationAffectsSector lpd:Service_Care_Sector ;
+  lpd:applicationAffectsTargetBusinessActivity lpd:Telecommunication_Activity ;
+  lpd:applicationAffectsZone lpd:Regional_Protected_Area_Unione_Montana_Monti_Azzurri ;
+  lpd:applicationIsLocatedInCity lpd:San_Ginesio ;
+  lpd:applicationIsManagedByPublicAdministration lpd:SUAPMontiAzzurri ;
+  lpd:applicationIsSubmittedByApplicant data:Fabiana_Leuteri ;
+  lpd:description "Installation of radioelectric antenna for WiFi data transmission in protected area"^^xsd:string ;
+  rdfs:label "Leuteri - Installation of antenna for WiFi"@en ;
+.
+data:Lupi_Sciamanna_Vignola_Realization_of_a_residencial_care_facility
+  rdf:type lpd:Application ;
+  lpd:ApplicationHasType lpd:Realization ;
+  lpd:applicationAffectsSector lpd:Service_Care_Sector ;
+  lpd:applicationAffectsTargetBusinessActivity lpd:Social_Assistance ;
+  lpd:applicationAffectsZone lpd:Urban_Area ;
+  lpd:applicationIsLocatedInCity lpd:Ascoli_Piceno ;
+  lpd:applicationIsManagedByPublicAdministration lpd:SUAPAscoliPiceno ;
+  lpd:applicationIsSubmittedByApplicant data:Alessanrdo_Sciamanna ;
+  lpd:applicationIsSubmittedByApplicant data:Elia_Vignola ;
+  lpd:applicationIsSubmittedByApplicant data:Giorgio_Lupi ;
+  lpd:description "Realization of a residencial and protected facility for elderly people"^^xsd:string ;
+  rdfs:label "Lupi, Sciamanna, Vignola - Ralization of a residencial care facility"@en ;
+.
+data:Monaldi_Realization_recovery_waste_disposal_plant
+  rdf:type lpd:Application ;
+  lpd:ApplicationHasType lpd:Realization ;
+  lpd:affectsTargetATECO lpd:SitePreparationAndArrangementOfTerrain ;
+  lpd:affectsTargetATECO lpd:TreatmentAndDisposalOfOtherNonHazardousWaste ;
+  lpd:applicationAffectsSector lpd:Building_Sector ;
+  lpd:applicationAffectsSector lpd:Environment_Sector ;
+  lpd:applicationAffectsSector lpd:Health_Sector ;
+  lpd:applicationAffectsSector lpd:Waste_Sector ;
+  lpd:applicationAffectsTargetBusinessActivity lpd:Industrial_Activitiy ;
+  lpd:applicationAffectsZone lpd:Industrial_Area ;
+  lpd:applicationIsLocatedInCity lpd:Ascoli_Piceno ;
+  lpd:applicationIsManagedByPublicAdministration lpd:SUAPAscoliPiceno ;
+  lpd:applicationIsSubmittedByApplicant data:Samanta_Monaldi ;
+  lpd:description "Realization of recovery and waste disposal plant"^^xsd:string ;
+  rdfs:label "Monaldi - Realization of a recovery and waste disposal plant"@en ;
+.
+data:Morbidelli_masonry_walls_in_hotel
+  rdf:type lpd:Application ;
+  cbr:caseReleasedAtDate "2015-06-10+00:00"^^xsd:date ;
+  lpd:ApplicationHasType lpd:Realization ;
+  lpd:affectsTargetATECO lpd:Hotels ;
+  lpd:affectsTargetATECO lpd:NotSpecializedConstruction ;
+  lpd:affectsTargetATECO lpd:OverlayingFloorsAndWalls ;
+  lpd:applicationAffectsSector lpd:Building_Sector ;
+  lpd:applicationAffectsSector lpd:Environment_Sector ;
+  lpd:applicationAffectsSector lpd:Public_Security_Sector ;
+  lpd:applicationAffectsSector lpd:Tourism_Sector ;
+  lpd:applicationAffectsTargetBusinessActivity lpd:Commercial_Activity ;
+  lpd:applicationAffectsTargetBusinessActivity lpd:Receptive_Toursim_Activity ;
+  lpd:applicationAffectsZone lpd:Urban_Area ;
+  lpd:applicationIsLocatedInCity lpd:Senigallia ;
+  lpd:applicationIsManagedByPublicAdministration lpd:SUAPSenigallia ;
+  lpd:applicationIsSubmittedByApplicant data:Gianna_Morbidelli ;
+  lpd:description "Realiaziotion of masonry walls in hotel"^^xsd:string ;
+  rdfs:label "Morbidelli - Masonry walls in hotel"@en ;
+.
+data:Nannini_Installation_of_removable_covers_for_outdoor_dining
+  rdf:type lpd:Application ;
+  lpd:ApplicationHasType lpd:Expansion ;
+  lpd:affectsTargetATECO lpd:Dining ;
+  lpd:affectsTargetATECO lpd:InstallationOfCovers ;
+  lpd:applicationAffectsSector lpd:Building_Sector ;
+  lpd:applicationAffectsSector lpd:Tourism_Sector ;
+  lpd:applicationAffectsTargetBusinessActivity lpd:Commercial_Activity ;
+  lpd:applicationAffectsTargetBusinessActivity lpd:Receptive_Toursim_Activity ;
+  lpd:applicationAffectsZone lpd:Urban_Area ;
+  lpd:applicationIsLocatedInCity lpd:Senigallia ;
+  lpd:applicationIsManagedByPublicAdministration lpd:SUAPSenigallia ;
+  lpd:applicationIsSubmittedByApplicant data:Gianna_Nannini ;
+  lpd:applicationRequiresOrganisationalUnits lpd:SUAPSenigallia ;
+  lpd:description "Installation of removable covers fot outdoor dining in restaurant"^^xsd:string ;
+  rdfs:label "Nannini - Installation of removable covers for outdoor dining"@en ;
+.
+data:Orietta_Berti
+  rdf:type eo:Person ;
+.
+data:Rossi_Realization_of_a_petrol_station_and_a_building_crafts
+  rdf:type lpd:Application ;
+  lpd:ApplicationHasType lpd:Realization ;
+  lpd:affectsTargetATECO lpd:ConstructionAndInstallationOfActivitiesNotCategorized ;
+  lpd:applicationAffectsSector lpd:Building_Sector ;
+  lpd:applicationAffectsSector lpd:Environment_Sector ;
+  lpd:applicationAffectsSector lpd:Filling_Station_Sector ;
+  lpd:applicationAffectsTargetBusinessActivity lpd:Commercial_Activity ;
+  lpd:applicationAffectsTargetBusinessActivity lpd:Crafts_Activity ;
+  lpd:applicationAffectsZone lpd:Regional_Protected_Area_Valle_del_Metauro ;
+  lpd:applicationIsLocatedInCity lpd:Cartoceto ;
+  lpd:applicationIsManagedByPublicAdministration lpd:SUAPValleDelMetauro ;
+  lpd:applicationIsSubmittedByApplicant data:Eugenio_Rossi ;
+  lpd:description "Realization of a petrol station and a building crafts"^^xsd:string ;
+  rdfs:label "Rossi - Realization of a petrol station and a building crafts"@en ;
+.
+data:Samanta_Monaldi
+  rdf:type eo:Person ;
+.
+data:regulationDocument_constructions_in_Beach_Area_At_The_Lake
+  rdf:type foaf:Document ;
+  elements:documentHasTitle "Regulations for contructions in beach areas at the lake"^^xsd:string ;
+  elements:documentHasType eo:Text ;
+.
+data:regulationDocument_constructions_in_Beach_Area_At_The_Sea
+  rdf:type foaf:Document ;
+  elements:documentHasTitle "Regulations for contructions in beach areas at the sea"^^xsd:string ;
+  elements:documentHasType eo:Text ;
+.
+data:regulationDocument_constructions_in_Regional_Protected_Area_Valle_del_Metauro
+  rdf:type foaf:Document ;
+  elements:documentHasTitle "Regulations for contructions in the regional protected area Valle del Metauro"^^xsd:string ;
+  elements:documentHasType eo:Text ;
+.
+data:regulationDocument_constructions_in_Unione_Montana_Monti_Azzurri
+  rdf:type foaf:Document ;
+  elements:documentHasTitle "Regulations for contructions in the Unione Montana Monti Azzurri"^^xsd:string ;
+  elements:documentHasType eo:Text ;
+.
+data:regulationDocument_cosntructions_Comunità_Montana_Alto_e_Medio_Metauro
+  rdf:type foaf:Document ;
+  elements:documentHasTitle "Regulations for contructions in the Comunità Montana Alto e Medio Metauro"^^xsd:string ;
+  elements:documentHasType eo:Text ;
+.
+data:regulationDocument_cosntructions_Industrial_Area_AscoliPiceno
+  rdf:type foaf:Document ;
+  elements:documentHasTitle "Regulations for contructions in the Industrial Area of Ascoli Piceno"^^xsd:string ;
+  elements:documentHasType eo:Text ;
+.
+data:regulationDocument_cosntructions_Urban_Area_Ascoli_Piceno
+  rdf:type foaf:Document ;
+  elements:documentHasTitle "Regulations for contructions in the Urban Area of Ascoli Piceno"^^xsd:string ;
+  elements:documentHasType eo:Text ;
+.
+data:regulationDocument_cosntructions_Urban_Area_Senigallia
+  rdf:type foaf:Document ;
+  elements:documentHasTitle "Regulations for contructions in the Urban Area of Senigallia"^^xsd:string ;
+  elements:documentHasType eo:Text ;
+.

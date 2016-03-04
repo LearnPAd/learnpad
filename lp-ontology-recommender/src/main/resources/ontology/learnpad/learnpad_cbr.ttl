@@ -1,0 +1,456 @@
+# baseURI: http://learnpad.eu/cbr
+# imports: http://ikm-group.ch/cbr
+# imports: http://learnpad.eu/
+
+@prefix cbr: <http://learnpad.eu/cbr#> .
+@prefix lpd: <http://learnpad.eu#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sim: <http://ikm-group.ch/similarity#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ikm-group.ch/archiMEO/archimate#BusinessRole>
+  rdfs:subClassOf <http://ikm-group.ch/cbr#Role> ;
+.
+<http://ikm-group.ch/archiMEO/eo#organisationalUnitIsSuperordinatedToOrganisationalUnit>
+  sim:similarity cbr:RTOPS_organisationalUnitIsSuperordinatedToOrganisationalUnit ;
+.
+<http://ikm-group.ch/archiMEO/eo#personHasName>
+  sim:similarity cbr:DPS_personHasName ;
+.
+<http://ikm-group.ch/archiMEO/top#City>
+  sim:similarity cbr:TS_City ;
+.
+lpd:ATECO_Category
+  sim:similarity cbr:TS_ATECO_Category ;
+.
+lpd:Aggregated_PA
+  sim:similarity cbr:TS_Aggregated_PA ;
+.
+lpd:Agricultural_Zone
+  sim:similarity cbr:TS_Agricultural_Zone ;
+.
+lpd:Applicant
+  sim:similarity cbr:APS_Applicant_label ;
+.
+lpd:Application
+  sim:similarity cbr:RCCS_Application ;
+  rdfs:subClassOf <http://ikm-group.ch/cbr#Case> ;
+.
+lpd:ApplicationHasType
+  sim:similarity cbr:TOPS_appliationHasType ;
+.
+lpd:ApplicationType
+  sim:similarity cbr:TS_ApplicationType ;
+.
+lpd:BusinessActivity
+  sim:similarity cbr:APS_BusinessActivity_label ;
+.
+lpd:BusinessSector
+  sim:similarity cbr:AP_BusinessActor_label ;
+.
+lpd:Costal_Zone
+  sim:similarity cbr:TS_Costal_Zone ;
+.
+lpd:Forrest_Zone
+  sim:similarity cbr:TS_Forrest_Zone ;
+.
+lpd:Industrial_Zone
+  sim:similarity cbr:TS_Industrial_Zone ;
+.
+lpd:Living_Zone
+  sim:similarity cbr:TS_Living_Zone ;
+.
+lpd:Province
+  sim:similarity cbr:TS_Province ;
+.
+lpd:PublicAdministration
+  sim:similarity cbr:APS_PA ;
+.
+lpd:Region
+  sim:similarity cbr:TS_Region ;
+.
+lpd:Single_PA
+  sim:similarity cbr:TS_Single_PA ;
+.
+lpd:affectsTargetATECO
+  sim:similarity cbr:TOPS_affectsTargetATECO ;
+.
+lpd:applicationAffectsSector
+  sim:similarity cbr:OPS_applicationAffectsSector ;
+.
+lpd:applicationAffectsTargetBusinessActivity
+  sim:similarity cbr:OPS_applicationAffectsTargetBusinessActivity ;
+.
+lpd:applicationAffectsZone
+  sim:similarity cbr:TOPS_applicationAffectsZone ;
+.
+lpd:applicationIsLocatedInCity
+  sim:similarity cbr:RTOPS_applicationIsLocatedInCity ;
+.
+lpd:applicationIsManagedByPublicAdministration
+  sim:similarity cbr:TOPS_applicationIsManagedByPublicAdministration ;
+.
+lpd:applicationIsSubmittedByApplicant
+  sim:similarity cbr:OPS_applicationIsSubmittedByApplicant ;
+.
+lpd:applicationRequiresOrganisationalUnits
+  sim:similarity cbr:TOPS_applicationRequiresOrganisationalUnits ;
+.
+lpd:businessSectorIsAssignedToCode
+  sim:similarity cbr:DPS_Code ;
+.
+lpd:decision
+  sim:similarity cbr:DPS_Decision ;
+.
+lpd:description
+  sim:similarity cbr:DPS_ApplicationDescription ;
+.
+lpd:isSubATECOCategoryOfCategory
+  sim:similarity cbr:RSTOPS_RSTOPS_isSubATECOCategoryOfCategory ;
+.
+lpd:isSubApplicationTypeOfType
+  sim:similarity cbr:RTOPS_isSubApplicationTypeOfType ;
+.
+<http://learnpad.eu/cbr>
+  rdf:type owl:Ontology ;
+  owl:imports <http://ikm-group.ch/cbr> ;
+  owl:imports <http://learnpad.eu/> ;
+  owl:versionInfo "Created with TopBraid Composer"^^xsd:string ;
+.
+cbr:APS_Applicant_label
+  rdf:type sim:AnnotationPropertySimilarity ;
+  sim:annotationLanguage "en"^^xsd:string ;
+  sim:annotationProperty rdfs:label ;
+  sim:annotationSimilarityFunction sim:equals ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:weight "1.0"^^xsd:float ;
+.
+cbr:APS_BusinessActivity_label
+  rdf:type sim:AnnotationPropertySimilarity ;
+  sim:annotationLanguage "en"^^xsd:string ;
+  sim:annotationProperty rdfs:label ;
+  sim:annotationSimilarityFunction sim:equals ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:weight "1.0"^^xsd:float ;
+.
+cbr:APS_PA
+  rdf:type sim:AnnotationPropertySimilarity ;
+  sim:annotationLanguage "en"^^xsd:string ;
+  sim:annotationProperty rdfs:label ;
+  sim:annotationSimilarityFunction sim:equals ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:weight "7"^^xsd:float ;
+.
+cbr:APS_personHasName
+  rdf:type sim:AnnotationPropertySimilarity ;
+  sim:annotationLanguage "en"^^xsd:string ;
+  sim:annotationProperty rdfs:label ;
+.
+cbr:AP_BusinessActor_label
+  rdf:type sim:AnnotationPropertySimilarity ;
+  sim:annotationLanguage "en"^^xsd:string ;
+  sim:annotationProperty rdfs:label ;
+  sim:annotationSimilarityFunction sim:equals ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:weight "1.0"^^xsd:float ;
+.
+cbr:AnnotationPropertySimilarity_1
+  rdf:type sim:AnnotationPropertySimilarity ;
+  sim:annotationProperty rdfs:label ;
+.
+cbr:CS_ApplicationSubType
+  rdf:type sim:ClassSimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+.
+cbr:CS_OrganizationalUnit
+  rdf:type sim:ClassSimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:instanceSimilarityFunction sim:taxonomyDistance ;
+.
+cbr:ClassSimilarity_1
+  rdf:type sim:ClassSimilarity ;
+.
+cbr:DPS_ApplicationDescription
+  rdf:type sim:DatatypePropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:localSimilarityFunction sim:softTFIDFJaroWinkler ;
+  sim:weight "5"^^xsd:float ;
+.
+cbr:DPS_Application_decision
+  rdf:type sim:DatatypePropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:localSimilarityFunction sim:equals ;
+  sim:weight "7.0"^^xsd:float ;
+.
+cbr:DPS_Code
+  rdf:type sim:DatatypePropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:localSimilarityFunction sim:equals ;
+  sim:weight "7"^^xsd:float ;
+.
+cbr:DPS_Decision
+  rdf:type sim:DatatypePropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:localSimilarityFunction sim:equals ;
+  sim:weight "7"^^xsd:float ;
+.
+cbr:DPS_Zone
+  rdf:type sim:DatatypePropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:localSimilarityFunction sim:equals ;
+.
+cbr:DPS_personHasName
+  rdf:type sim:DatatypePropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:localSimilarityFunction sim:equals ;
+  sim:weight "1.0"^^xsd:float ;
+.
+cbr:DatatypePropertySimilarity_1
+  rdf:type sim:DatatypePropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:localSimilarityFunction sim:equals ;
+  sim:weight "10"^^xsd:float ;
+.
+cbr:LearningConcern
+  rdf:type <http://ikm-group.ch/cbr#Concern> ;
+  <http://ikm-group.ch/cbr#concernsBelongToRole> lpd:SUAP_officer ;
+  rdfs:label "Learning processes"@en ;
+.
+cbr:OPS_Applicant
+  rdf:type sim:ObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+.
+cbr:OPS_Application_Requires_OUs
+  rdf:type sim:ObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+  sim:weight "8"^^xsd:float ;
+.
+cbr:OPS_BusinessActivity
+  rdf:type sim:ObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+  sim:weight "7"^^xsd:float ;
+.
+cbr:OPS_OrganisationalUnit
+  rdf:type sim:ObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+  sim:weight "8"^^xsd:float ;
+.
+cbr:OPS_applicationAffectsSector
+  rdf:type sim:ObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:cascadeDeleteRule "never"^^xsd:string ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+  sim:weight "8.0"^^xsd:float ;
+.
+cbr:OPS_applicationAffectsTargetBusinessActivity
+  rdf:type sim:ObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:cascadeDeleteRule "never"^^xsd:string ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+  sim:weight "7.0"^^xsd:float ;
+.
+cbr:OPS_applicationIsSubmittedByApplicant
+  rdf:type sim:ObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:cascadeDeleteRule "allways"^^xsd:string ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+  sim:weight "5"^^xsd:float ;
+.
+cbr:OPS_zone
+  rdf:type sim:ObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+  sim:weight "8"^^xsd:float ;
+.
+cbr:OverallProcessView
+  rdf:type <http://ikm-group.ch/cbr#CaseView> ;
+  <http://ikm-group.ch/cbr#caseViewAddressesConcerns> cbr:LearningConcern ;
+  rdfs:label ""@en ;
+.
+cbr:RCCS_Application
+  rdf:type sim:RootCaseClassSimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:globalSimilarityFunction sim:average ;
+  sim:weight "1.0"^^xsd:float ;
+.
+cbr:RSTOPS_RSTOPS_isSubATECOCategoryOfCategory
+  rdf:type sim:RecursiveTaxonomyObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:cascadeDeleteRule "never"^^xsd:string ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+  sim:recursiveTaxonomyParentChildDirection "expressesChildOf"^^xsd:string ;
+  sim:taxonomySimilarityFunction sim:taxonomicNearestCommonPredecessor ;
+  sim:taxonomySimilaritySetIdentifier "atecoCategory"^^xsd:string ;
+.
+cbr:RTOPS_applicationIsLocatedInCity
+  rdf:type sim:RecursiveTaxonomyObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:cascadeDeleteRule "never"^^xsd:string ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+  sim:recursiveObjectProperty <http://ikm-group.ch/archiMEO/top#physicalLocationIsPartOfPhysicalLocation> ;
+  sim:recursiveTaxonomyParentChildDirection "expressesChildOf"^^xsd:string ;
+  sim:taxonomySimilarityFunction sim:taxonomicNearestCommonPredecessor ;
+  sim:taxonomySimilaritySetIdentifier "city"^^xsd:string ;
+  sim:weight "7"^^xsd:float ;
+.
+cbr:RTOPS_applicationRequiresOrganisationalUnits
+  rdf:type sim:RecursiveTaxonomyObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:cascadeDeleteRule "never"^^xsd:string ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+.
+cbr:RTOPS_isSubApplicationTypeOfType
+  rdf:type sim:RecursiveTaxonomyObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:cascadeDeleteRule "never"^^xsd:string ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+  sim:recursiveTaxonomyParentChildDirection "expressesChildOf"^^xsd:string ;
+  sim:taxonomySimilarityFunction sim:taxonomicNearestCommonPredecessor ;
+  sim:taxonomySimilaritySetIdentifier "applicationType"^^xsd:string ;
+.
+cbr:RTOPS_organisationalUnitIsSuperordinatedToOrganisationalUnit
+  rdf:type sim:RecursiveTaxonomyObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:cascadeDeleteRule "never"^^xsd:string ;
+  sim:recursiveTaxonomyParentChildDirection "expressesChildOf"^^xsd:string ;
+  sim:taxonomySimilarityFunction sim:taxonomicNearestCommonPredecessor ;
+  sim:taxonomySimilaritySetIdentifier "requiredOrganisationalUnits"^^xsd:string ;
+.
+cbr:TOPS_affectsTargetATECO
+  rdf:type sim:TaxonomyObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:cascadeDeleteRule "never"^^xsd:string ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+  sim:taxonomySimilarityFunction sim:taxonomicNearestCommonPredecessor ;
+  sim:taxonomySimilaritySetIdentifier "atecoCategory"^^xsd:string ;
+  sim:weight "12"^^xsd:float ;
+.
+cbr:TOPS_appliationHasType
+  rdf:type sim:TaxonomyObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:cascadeDeleteRule "never"^^xsd:string ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+  sim:taxonomySimilarityFunction sim:taxonomicNearestCommonPredecessor ;
+  sim:taxonomySimilaritySetIdentifier "applicationType"^^xsd:string ;
+  sim:weight "3"^^xsd:float ;
+.
+cbr:TOPS_applicationAffectsZone
+  rdf:type sim:TaxonomyObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:cascadeDeleteRule "never"^^xsd:string ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+  sim:taxonomySimilarityFunction sim:taxonomicNearestCommonPredecessor ;
+  sim:taxonomySimilaritySetIdentifier "zone"^^xsd:string ;
+  sim:weight "8.0"^^xsd:float ;
+.
+cbr:TOPS_applicationIsManagedByPublicAdministration
+  rdf:type sim:TaxonomyObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:cascadeDeleteRule "never"^^xsd:string ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+  sim:taxonomySimilarityFunction sim:taxonomicNearestCommonPredecessor ;
+  sim:taxonomySimilaritySetIdentifier "publicAdministration"^^xsd:string ;
+  sim:weight "7.0"^^xsd:float ;
+.
+cbr:TOPS_applicationRequiresOrganisationalUnits
+  rdf:type sim:TaxonomyObjectPropertySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:cascadeDeleteRule "never"^^xsd:string ;
+  sim:globalSimilarityFunction sim:probabilistic ;
+  sim:taxonomySimilarityFunction sim:taxonomicNearestCommonPredecessor ;
+  sim:taxonomySimilaritySetIdentifier "requiredOrganisationalUnits"^^xsd:string ;
+  sim:weight "20.0"^^xsd:float ;
+.
+cbr:TS_ATECO_Category
+  rdf:type sim:TaxonomySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:taxonomySimilaritySetIdentifier "atecoCategory"^^xsd:string ;
+  sim:taxonomySimilarityValue "0.7"^^xsd:float ;
+.
+cbr:TS_Aggregated_PA
+  rdf:type sim:TaxonomySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:taxonomySimilaritySetIdentifier "publicAdministration"^^xsd:string ;
+  sim:taxonomySimilarityValue "0.7"^^xsd:float ;
+.
+cbr:TS_Agricultural_Zone
+  rdf:type sim:TaxonomySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:taxonomySimilaritySetIdentifier "zone"^^xsd:string ;
+  sim:taxonomySimilarityValue "0.8"^^xsd:float ;
+.
+cbr:TS_ApplicationType
+  rdf:type sim:TaxonomySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:taxonomySimilaritySetIdentifier "applicationType"^^xsd:string ;
+  sim:taxonomySimilarityValue "0.5"^^xsd:float ;
+.
+cbr:TS_City
+  rdf:type sim:TaxonomySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:taxonomySimilaritySetIdentifier "city"^^xsd:string ;
+  sim:taxonomySimilarityValue "1.0"^^xsd:float ;
+  sim:weight "1.0"^^xsd:float ;
+.
+cbr:TS_Costal_Zone
+  rdf:type sim:TaxonomySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:taxonomySimilaritySetIdentifier "zone"^^xsd:string ;
+  sim:taxonomySimilarityValue "0.8"^^xsd:float ;
+.
+cbr:TS_Forrest_Zone
+  rdf:type sim:TaxonomySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:taxonomySimilaritySetIdentifier "zone"^^xsd:string ;
+  sim:taxonomySimilarityValue "0.8"^^xsd:float ;
+.
+cbr:TS_Industrial_Zone
+  rdf:type sim:TaxonomySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:taxonomySimilaritySetIdentifier "zone"^^xsd:string ;
+  sim:taxonomySimilarityValue "0.8"^^xsd:float ;
+.
+cbr:TS_Living_Zone
+  rdf:type sim:TaxonomySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:taxonomySimilaritySetIdentifier "zone"^^xsd:string ;
+  sim:taxonomySimilarityValue "0.8"^^xsd:float ;
+.
+cbr:TS_Province
+  rdf:type sim:TaxonomySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:taxonomySimilaritySetIdentifier "city"^^xsd:string ;
+  sim:taxonomySimilarityValue "0.8"^^xsd:float ;
+  sim:weight "1.0"^^xsd:float ;
+.
+cbr:TS_Region
+  rdf:type sim:TaxonomySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:taxonomySimilaritySetIdentifier "city"^^xsd:string ;
+  sim:taxonomySimilarityValue "0.6"^^xsd:float ;
+  sim:weight "1.0"^^xsd:float ;
+.
+cbr:TS_Single_PA
+  rdf:type sim:TaxonomySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:taxonomySimilaritySetIdentifier "publicAdminstration"^^xsd:string ;
+  sim:taxonomySimilarityValue "0.7"^^xsd:float ;
+.
+cbr:TS_Zone
+  rdf:type sim:TaxonomySimilarity ;
+  sim:belongsToCaseView cbr:OverallProcessView ;
+  sim:taxonomySimilaritySetIdentifier "zone"^^xsd:string ;
+  sim:taxonomySimilarityValue "0.8"^^xsd:float ;
+.
+cbr:TaxonomySimilarity_1
+  rdf:type sim:TaxonomySimilarity ;
+.
+cbr:TaxonomySimilarity_2
+  rdf:type sim:TaxonomySimilarity ;
+.

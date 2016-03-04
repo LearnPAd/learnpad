@@ -24,3 +24,4 @@ target-eclipse/
 
 # Monitoring component log file
 lp-simulation-environment/monitoring/glimpseLog.log
+/lp-ontology-recommender/nbproject/

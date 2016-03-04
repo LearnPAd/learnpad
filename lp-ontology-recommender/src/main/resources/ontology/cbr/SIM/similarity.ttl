@@ -1,0 +1,1305 @@
+# baseURI: http://ikm-group.ch/similarity
+# imports: http://spinrdf.org/spin
+# imports: http://spinrdf.org/spinx
+
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sim: <http://ikm-group.ch/similarity#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix spif: <http://spinrdf.org/spif#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix spinx: <http://spinrdf.org/spinx#> .
+@prefix spl: <http://spinrdf.org/spl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ikm-group.ch/similarity>
+  rdf:type owl:Ontology ;
+  owl:imports <http://spinrdf.org/spin> ;
+  owl:imports <http://spinrdf.org/spinx> ;
+.
+sim:AnnotationPropertySimilarity
+  rdf:type owl:Class ;
+  rdfs:label "Encapsulates similarity properties for annotations like labels and comments."@en ;
+  rdfs:subClassOf sim:PropertySimilarity ;
+.
+sim:ClassSimilarity
+  rdf:type owl:Class ;
+  rdfs:label "Encapsulates class similarity properties to apply a similarity funcion for comparing instances as a whole. For example by their position in the taxonomie."@en ;
+  rdfs:subClassOf sim:PropertySimilarity ;
+.
+sim:DatatypePropertySimilarity
+  rdf:type owl:Class ;
+  rdfs:label "Encapsulates similarity properties for datatype properties also called local similarity for attirbutes."@en ;
+  rdfs:subClassOf sim:PropertySimilarity ;
+.
+sim:Elements
+  rdf:type owl:Class ;
+  rdfs:subClassOf sim:Similarity ;
+.
+sim:Functions
+  rdf:type spin:Function ;
+  rdfs:subClassOf sim:Similarity ;
+  rdfs:subClassOf spin:Functions ;
+.
+sim:GlobalFunctions
+  rdf:type spin:Function ;
+  rdfs:subClassOf sim:Functions ;
+.
+sim:LocalFunctions
+  rdf:type spin:Function ;
+  rdfs:subClassOf sim:Functions ;
+.
+sim:ObjectPropertySimilarity
+  rdf:type owl:Class ;
+  rdfs:label "Encapsulates similarity properties for object properties. Also called global similarity. Allows to apply different similarity functions for the aggregation of multiple instance and local similarity measures."@en ;
+  rdfs:subClassOf sim:PropertySimilarity ;
+.
+sim:PropertySimilarity
+  rdf:type owl:Class ;
+  rdfs:subClassOf sim:Elements ;
+.
+sim:RecursiveTaxonomyObjectPropertySimilarity
+  rdf:type owl:Class ;
+  rdfs:subClassOf sim:TaxonomyObjectPropertySimilarity ;
+.
+sim:RootCaseClassSimilarity
+  rdf:type owl:Class ;
+  rdfs:comment "Similarity annotation to mark the root (start) case class of the characterisation tree"^^xsd:string ;
+  rdfs:subClassOf sim:ClassSimilarity ;
+.
+sim:RootSimilarity
+  rdf:type owl:Class ;
+  rdfs:subClassOf sim:Elements ;
+.
+sim:Similarity
+  rdf:type owl:Class ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "sumWeight"^^xsd:string ;
+              ] ;
+            sp:predicate sim:_sumWeight ;
+            sp:subject [
+                sp:varName "domainClass"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+      sp:where (
+          [
+            rdf:type sp:SubQuery ;
+            sp:query [
+                rdf:type sp:Select ;
+                sp:groupBy (
+                    [
+                      sp:varName "domainClass"^^xsd:string ;
+                    ]
+                  ) ;
+                sp:resultVariables (
+                    [
+                      sp:varName "domainClass"^^xsd:string ;
+                    ]
+                    [
+                      sp:expression [
+                          rdf:type sp:Sum ;
+                          sp:expression [
+                              sp:varName "weight"^^xsd:string ;
+                            ] ;
+                        ] ;
+                      sp:varName "sumWeight"^^xsd:string ;
+                    ]
+                  ) ;
+                sp:where (
+                    [
+                      rdf:type sp:Union ;
+                      sp:elements (
+                          (
+                            [
+                              sp:object owl:DatatypeProperty ;
+                              sp:predicate rdf:type ;
+                              sp:subject [
+                                  sp:varName "property"^^xsd:string ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "class"^^xsd:string ;
+                                ] ;
+                              sp:predicate rdfs:domain ;
+                              sp:subject [
+                                  sp:varName "property"^^xsd:string ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "dpQueryValue"^^xsd:string ;
+                                ] ;
+                              sp:predicate [
+                                  sp:varName "property"^^xsd:string ;
+                                ] ;
+                              sp:subject [
+                                  sp:varName "queryClassInst"^^xsd:string ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "domainClass"^^xsd:string ;
+                                ] ;
+                              sp:predicate rdfs:domain ;
+                              sp:subject [
+                                  sp:varName "property"^^xsd:string ;
+                                ] ;
+                            ]
+                          )
+                          (
+                            [
+                              sp:object [
+                                  sp:varName "similarity"^^xsd:string ;
+                                ] ;
+                              sp:predicate sim:similarity ;
+                              sp:subject [
+                                  sp:varName "class"^^xsd:string ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "similarity"^^xsd:string ;
+                                ] ;
+                              sp:predicate sim:similarity ;
+                              sp:subject [
+                                  sp:varName "property"^^xsd:string ;
+                                ] ;
+                            ]
+                            [
+                              sp:object sim:AnnotationPropertySimilarity ;
+                              sp:predicate rdf:type ;
+                              sp:subject [
+                                  sp:varName "similarity"^^xsd:string ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "similarity"^^xsd:string ;
+                                ] ;
+                              sp:predicate sim:similarity ;
+                              sp:subject [
+                                  sp:varName "domainClass"^^xsd:string ;
+                                ] ;
+                            ]
+                          )
+                          (
+                            [
+                              sp:object owl:ObjectProperty ;
+                              sp:predicate rdf:type ;
+                              sp:subject [
+                                  sp:varName "property"^^xsd:string ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "class"^^xsd:string ;
+                                ] ;
+                              sp:predicate rdfs:range ;
+                              sp:subject [
+                                  sp:varName "property"^^xsd:string ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "domainClass"^^xsd:string ;
+                                ] ;
+                              sp:predicate rdfs:domain ;
+                              sp:subject [
+                                  sp:varName "property"^^xsd:string ;
+                                ] ;
+                            ]
+                          )
+                        ) ;
+                    ]
+                    [
+                      sp:object [
+                          sp:varName "similarity"^^xsd:string ;
+                        ] ;
+                      sp:predicate sim:similarity ;
+                      sp:subject [
+                          sp:varName "property"^^xsd:string ;
+                        ] ;
+                    ]
+                    [
+                      sp:object [
+                          sp:varName "weight"^^xsd:string ;
+                        ] ;
+                      sp:predicate sim:weight ;
+                      sp:subject [
+                          sp:varName "similarity"^^xsd:string ;
+                        ] ;
+                    ]
+                    [
+                      sp:object [
+                          sp:varName "context"^^xsd:string ;
+                        ] ;
+                      sp:predicate sim:belongsToCaseView ;
+                      sp:subject [
+                          sp:varName "similarity"^^xsd:string ;
+                        ] ;
+                    ]
+                    [
+                      sp:object [
+                          sp:varName "contextClass"^^xsd:string ;
+                        ] ;
+                      sp:predicate rdf:type ;
+                      sp:subject [
+                          sp:varName "context"^^xsd:string ;
+                        ] ;
+                    ]
+                    [
+                      rdf:type sp:TriplePath ;
+                      sp:object sim:RootSimilarity ;
+                      sp:path [
+                          rdf:type sp:ModPath ;
+                          sp:modMax -2 ;
+                          sp:modMin 1 ;
+                          sp:subPath rdfs:subClassOf ;
+                        ] ;
+                      sp:subject [
+                          sp:varName "contextClass"^^xsd:string ;
+                        ] ;
+                    ]
+                    [
+                      sp:object "true"^^xsd:boolean ;
+                      sp:predicate sim:_partOfQuery ;
+                      sp:subject [
+                          sp:varName "context"^^xsd:string ;
+                        ] ;
+                    ]
+                    [
+                      rdf:type sp:Union ;
+                      sp:elements (
+                          (
+                            [
+                              sp:object [
+                                  sp:varName "class"^^xsd:string ;
+                                ] ;
+                              sp:predicate rdf:type ;
+                              sp:subject [
+                                  sp:varName "queryClassInst"^^xsd:string ;
+                                ] ;
+                            ]
+                          )
+                          (
+                            [
+                              rdf:type sp:TriplePath ;
+                              sp:object [
+                                  sp:varName "class"^^xsd:string ;
+                                ] ;
+                              sp:path [
+                                  rdf:type sp:ModPath ;
+                                  sp:modMax -2 ;
+                                  sp:modMin 1 ;
+                                  sp:subPath rdfs:subClassOf ;
+                                ] ;
+                              sp:subject [
+                                  sp:varName "subclass"^^xsd:string ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "subclass"^^xsd:string ;
+                                ] ;
+                              sp:predicate rdf:type ;
+                              sp:subject [
+                                  sp:varName "queryClassInst"^^xsd:string ;
+                                ] ;
+                            ]
+                          )
+                        ) ;
+                    ]
+                    [
+                      sp:object "true"^^xsd:boolean ;
+                      sp:predicate sim:_partOfQuery ;
+                      sp:subject [
+                          sp:varName "queryClassInst"^^xsd:string ;
+                        ] ;
+                    ]
+                  ) ;
+              ] ;
+          ]
+        ) ;
+      rdfs:comment "RULE LEVEL 1    Calculate weight sum on concepts."^^xsd:string ;
+    ] ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "weightedSimilaritySum"^^xsd:string ;
+              ] ;
+            sp:predicate sim:_value ;
+            sp:subject [
+                sp:varName "classInst"^^xsd:string ;
+              ] ;
+          ]
+        ) ;
+      sp:where (
+          [
+            rdf:type sp:SubQuery ;
+            sp:query [
+                rdf:type sp:Select ;
+                sp:groupBy (
+                    [
+                      sp:varName "classInst"^^xsd:string ;
+                    ]
+                  ) ;
+                sp:resultVariables (
+                    [
+                      sp:varName "classInst"^^xsd:string ;
+                    ]
+                    [
+                      sp:expression [
+                          rdf:type sp:Sum ;
+                          sp:expression [
+                              sp:varName "weightedSimilarity"^^xsd:string ;
+                            ] ;
+                        ] ;
+                      sp:varName "weightedSimilaritySum"^^xsd:string ;
+                    ]
+                  ) ;
+                sp:where (
+                    [
+                      rdf:type sp:SubQuery ;
+                      sp:query [
+                          rdf:type sp:Select ;
+                          sp:resultVariables (
+                              [
+                                sp:varName "classInst"^^xsd:string ;
+                              ]
+                              [
+                                sp:varName "simValue"^^xsd:string ;
+                              ]
+                              [
+                                sp:varName "weight"^^xsd:string ;
+                              ]
+                              [
+                                sp:varName "sumWeight"^^xsd:string ;
+                              ]
+                            ) ;
+                          sp:where (
+                              [
+                                rdf:type sp:Union ;
+                                sp:elements (
+                                    (
+                                      [
+                                        rdf:type sp:Union ;
+                                        sp:elements (
+                                            (
+                                              [
+                                                sp:object owl:DatatypeProperty ;
+                                                sp:predicate rdf:type ;
+                                                sp:subject [
+                                                    sp:varName "property"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                              [
+                                                sp:object [
+                                                    sp:varName "class"^^xsd:string ;
+                                                  ] ;
+                                                sp:predicate rdfs:domain ;
+                                                sp:subject [
+                                                    sp:varName "property"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                              [
+                                                sp:object [
+                                                    sp:varName "similarity"^^xsd:string ;
+                                                  ] ;
+                                                sp:predicate sim:similarity ;
+                                                sp:subject [
+                                                    sp:varName "property"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                              [
+                                                sp:object [
+                                                    sp:varName "dpQueryValue"^^xsd:string ;
+                                                  ] ;
+                                                sp:predicate [
+                                                    sp:varName "property"^^xsd:string ;
+                                                  ] ;
+                                                sp:subject [
+                                                    sp:varName "queryClassInst"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                              [
+                                                sp:object [
+                                                    sp:varName "dpValue"^^xsd:string ;
+                                                  ] ;
+                                                sp:predicate [
+                                                    sp:varName "property"^^xsd:string ;
+                                                  ] ;
+                                                sp:subject [
+                                                    sp:varName "classInst"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                            )
+                                            (
+                                              [
+                                                sp:object [
+                                                    sp:varName "similarity"^^xsd:string ;
+                                                  ] ;
+                                                sp:predicate sim:similarity ;
+                                                sp:subject [
+                                                    sp:varName "class"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                              [
+                                                sp:object sim:AnnotationPropertySimilarity ;
+                                                sp:predicate rdf:type ;
+                                                sp:subject [
+                                                    sp:varName "similarity"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                              [
+                                                sp:object [
+                                                    sp:varName "language"^^xsd:string ;
+                                                  ] ;
+                                                sp:predicate sim:annotationLanguage ;
+                                                sp:subject [
+                                                    sp:varName "similarity"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                              [
+                                                sp:object [
+                                                    sp:varName "annotationProperty"^^xsd:string ;
+                                                  ] ;
+                                                sp:predicate sim:annotationProperty ;
+                                                sp:subject [
+                                                    sp:varName "similarity"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                              [
+                                                sp:object [
+                                                    sp:varName "dpQueryValue"^^xsd:string ;
+                                                  ] ;
+                                                sp:predicate [
+                                                    sp:varName "annotationProperty"^^xsd:string ;
+                                                  ] ;
+                                                sp:subject [
+                                                    sp:varName "queryClassInst"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                              [
+                                                rdf:type sp:Filter ;
+                                                sp:expression [
+                                                    rdf:type sp:eq ;
+                                                    sp:arg1 [
+                                                        rdf:type sp:lang ;
+                                                        sp:arg1 [
+                                                            sp:varName "dpQueryValue"^^xsd:string ;
+                                                          ] ;
+                                                      ] ;
+                                                    sp:arg2 [
+                                                        sp:varName "language"^^xsd:string ;
+                                                      ] ;
+                                                  ] ;
+                                              ]
+                                            )
+                                          ) ;
+                                      ]
+                                      [
+                                        sp:object [
+                                            sp:varName "weight"^^xsd:string ;
+                                          ] ;
+                                        sp:predicate sim:weight ;
+                                        sp:subject [
+                                            sp:varName "similarity"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        sp:object [
+                                            sp:varName "context"^^xsd:string ;
+                                          ] ;
+                                        sp:predicate sim:belongsToCaseView ;
+                                        sp:subject [
+                                            sp:varName "similarity"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        sp:object [
+                                            sp:varName "contextClass"^^xsd:string ;
+                                          ] ;
+                                        sp:predicate rdf:type ;
+                                        sp:subject [
+                                            sp:varName "context"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        rdf:type sp:TriplePath ;
+                                        sp:object sim:RootSimilarity ;
+                                        sp:path [
+                                            rdf:type sp:ModPath ;
+                                            sp:modMax -2 ;
+                                            sp:modMin 1 ;
+                                            sp:subPath rdfs:subClassOf ;
+                                          ] ;
+                                        sp:subject [
+                                            sp:varName "contextClass"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        sp:object "true"^^xsd:boolean ;
+                                        sp:predicate sim:_partOfQuery ;
+                                        sp:subject [
+                                            sp:varName "context"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        sp:object [
+                                            sp:varName "simFunction"^^xsd:string ;
+                                          ] ;
+                                        sp:predicate [
+                                            sp:varName "simFunctionProperty"^^xsd:string ;
+                                          ] ;
+                                        sp:subject [
+                                            sp:varName "similarity"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        rdf:type sp:TriplePath ;
+                                        sp:object sim:similarityFunction ;
+                                        sp:path [
+                                            rdf:type sp:ModPath ;
+                                            sp:modMax -2 ;
+                                            sp:modMin 1 ;
+                                            sp:subPath rdfs:subPropertyOf ;
+                                          ] ;
+                                        sp:subject [
+                                            sp:varName "simFunctionProperty"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        rdf:type sp:Union ;
+                                        sp:elements (
+                                            (
+                                              [
+                                                sp:object [
+                                                    sp:varName "class"^^xsd:string ;
+                                                  ] ;
+                                                sp:predicate rdf:type ;
+                                                sp:subject [
+                                                    sp:varName "queryClassInst"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                            )
+                                            (
+                                              [
+                                                rdf:type sp:TriplePath ;
+                                                sp:object [
+                                                    sp:varName "class"^^xsd:string ;
+                                                  ] ;
+                                                sp:path [
+                                                    rdf:type sp:ModPath ;
+                                                    sp:modMax -2 ;
+                                                    sp:modMin 1 ;
+                                                    sp:subPath rdfs:subClassOf ;
+                                                  ] ;
+                                                sp:subject [
+                                                    sp:varName "subclass"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                              [
+                                                sp:object [
+                                                    sp:varName "subclass"^^xsd:string ;
+                                                  ] ;
+                                                sp:predicate rdf:type ;
+                                                sp:subject [
+                                                    sp:varName "queryClassInst"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                            )
+                                          ) ;
+                                      ]
+                                      [
+                                        sp:object "true"^^xsd:boolean ;
+                                        sp:predicate sim:_partOfQuery ;
+                                        sp:subject [
+                                            sp:varName "queryClassInst"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        rdf:type sp:Union ;
+                                        sp:elements (
+                                            (
+                                              [
+                                                sp:object [
+                                                    sp:varName "class"^^xsd:string ;
+                                                  ] ;
+                                                sp:predicate rdf:type ;
+                                                sp:subject [
+                                                    sp:varName "classInst"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                            )
+                                            (
+                                              [
+                                                rdf:type sp:TriplePath ;
+                                                sp:object [
+                                                    sp:varName "class"^^xsd:string ;
+                                                  ] ;
+                                                sp:path [
+                                                    rdf:type sp:ModPath ;
+                                                    sp:modMax -2 ;
+                                                    sp:modMin 1 ;
+                                                    sp:subPath rdfs:subClassOf ;
+                                                  ] ;
+                                                sp:subject [
+                                                    sp:varName "subclass"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                              [
+                                                sp:object [
+                                                    sp:varName "subclass"^^xsd:string ;
+                                                  ] ;
+                                                sp:predicate rdf:type ;
+                                                sp:subject [
+                                                    sp:varName "classInst"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                            )
+                                          ) ;
+                                      ]
+                                      [
+                                        rdf:type sp:Optional ;
+                                        sp:elements (
+                                            [
+                                              sp:object [
+                                                  sp:varName "dpValue"^^xsd:string ;
+                                                ] ;
+                                              sp:predicate [
+                                                  sp:varName "annotationProperty"^^xsd:string ;
+                                                ] ;
+                                              sp:subject [
+                                                  sp:varName "classInst"^^xsd:string ;
+                                                ] ;
+                                            ]
+                                            [
+                                              rdf:type sp:Filter ;
+                                              sp:expression [
+                                                  rdf:type sp:eq ;
+                                                  sp:arg1 [
+                                                      rdf:type sp:lang ;
+                                                      sp:arg1 [
+                                                          sp:varName "dpValue"^^xsd:string ;
+                                                        ] ;
+                                                    ] ;
+                                                  sp:arg2 [
+                                                      sp:varName "language"^^xsd:string ;
+                                                    ] ;
+                                                ] ;
+                                            ]
+                                          ) ;
+                                      ]
+                                      [
+                                        sp:object [
+                                            sp:varName "sumWeight"^^xsd:string ;
+                                          ] ;
+                                        sp:predicate sim:_sumWeight ;
+                                        sp:subject [
+                                            sp:varName "class"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        rdf:type sp:Bind ;
+                                        sp:expression [
+                                            rdf:type spif:invoke ;
+                                            sp:arg1 [
+                                                sp:varName "simFunction"^^xsd:string ;
+                                              ] ;
+                                            sp:arg2 [
+                                                sp:varName "dpQueryValue"^^xsd:string ;
+                                              ] ;
+                                            sp:arg3 [
+                                                sp:varName "dpValue"^^xsd:string ;
+                                              ] ;
+                                          ] ;
+                                        sp:variable [
+                                            sp:varName "simValue"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                    )
+                                    (
+                                      [
+                                        sp:object [
+                                            sp:varName "object"^^xsd:string ;
+                                          ] ;
+                                        sp:predicate [
+                                            sp:varName "op"^^xsd:string ;
+                                          ] ;
+                                        sp:subject [
+                                            sp:varName "classInst"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        sp:object owl:ObjectProperty ;
+                                        sp:predicate rdf:type ;
+                                        sp:subject [
+                                            sp:varName "op"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        sp:object [
+                                            sp:varName "similarity"^^xsd:string ;
+                                          ] ;
+                                        sp:predicate sim:similarity ;
+                                        sp:subject [
+                                            sp:varName "op"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        sp:object [
+                                            sp:varName "weight"^^xsd:string ;
+                                          ] ;
+                                        sp:predicate sim:weight ;
+                                        sp:subject [
+                                            sp:varName "similarity"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        sp:object [
+                                            sp:varName "context"^^xsd:string ;
+                                          ] ;
+                                        sp:predicate sim:belongsToCaseView ;
+                                        sp:subject [
+                                            sp:varName "similarity"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        sp:object [
+                                            sp:varName "contextClass"^^xsd:string ;
+                                          ] ;
+                                        sp:predicate rdf:type ;
+                                        sp:subject [
+                                            sp:varName "context"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        rdf:type sp:TriplePath ;
+                                        sp:object sim:RootSimilarity ;
+                                        sp:path [
+                                            rdf:type sp:ModPath ;
+                                            sp:modMax -2 ;
+                                            sp:modMin 1 ;
+                                            sp:subPath rdfs:subClassOf ;
+                                          ] ;
+                                        sp:subject [
+                                            sp:varName "contextClass"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        sp:object "true"^^xsd:boolean ;
+                                        sp:predicate sim:_partOfQuery ;
+                                        sp:subject [
+                                            sp:varName "context"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        rdf:type sp:TriplePath ;
+                                        sp:object sim:similarityFunction ;
+                                        sp:path [
+                                            rdf:type sp:ModPath ;
+                                            sp:modMax -2 ;
+                                            sp:modMin 1 ;
+                                            sp:subPath rdfs:subPropertyOf ;
+                                          ] ;
+                                        sp:subject [
+                                            sp:varName "simFunctionProperty"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        sp:object [
+                                            sp:varName "simFunction"^^xsd:string ;
+                                          ] ;
+                                        sp:predicate [
+                                            sp:varName "simFunctionProperty"^^xsd:string ;
+                                          ] ;
+                                        sp:subject [
+                                            sp:varName "similarity"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        sp:object [
+                                            sp:varName "simValue"^^xsd:string ;
+                                          ] ;
+                                        sp:predicate sim:_value ;
+                                        sp:subject [
+                                            sp:varName "object"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        sp:object [
+                                            sp:varName "class"^^xsd:string ;
+                                          ] ;
+                                        sp:predicate rdfs:domain ;
+                                        sp:subject [
+                                            sp:varName "op"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                      [
+                                        rdf:type sp:Union ;
+                                        sp:elements (
+                                            (
+                                              [
+                                                sp:object [
+                                                    sp:varName "class"^^xsd:string ;
+                                                  ] ;
+                                                sp:predicate rdf:type ;
+                                                sp:subject [
+                                                    sp:varName "classInst"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                            )
+                                            (
+                                              [
+                                                rdf:type sp:TriplePath ;
+                                                sp:object [
+                                                    sp:varName "class"^^xsd:string ;
+                                                  ] ;
+                                                sp:path [
+                                                    rdf:type sp:ModPath ;
+                                                    sp:modMax -2 ;
+                                                    sp:modMin 1 ;
+                                                    sp:subPath rdfs:subClassOf ;
+                                                  ] ;
+                                                sp:subject [
+                                                    sp:varName "subclass"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                              [
+                                                sp:object [
+                                                    sp:varName "subclass"^^xsd:string ;
+                                                  ] ;
+                                                sp:predicate rdf:type ;
+                                                sp:subject [
+                                                    sp:varName "classInst"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                            )
+                                          ) ;
+                                      ]
+                                      [
+                                        sp:object [
+                                            sp:varName "sumWeight"^^xsd:string ;
+                                          ] ;
+                                        sp:predicate sim:_sumWeight ;
+                                        sp:subject [
+                                            sp:varName "class"^^xsd:string ;
+                                          ] ;
+                                      ]
+                                    )
+                                  ) ;
+                              ]
+                              [
+                                rdf:type sp:Filter ;
+                                sp:expression [
+                                    rdf:type sp:notExists ;
+                                    sp:elements (
+                                        [
+                                          sp:object [
+                                              sp:varName "object2"^^xsd:string ;
+                                            ] ;
+                                          sp:predicate [
+                                              sp:varName "op2"^^xsd:string ;
+                                            ] ;
+                                          sp:subject [
+                                              sp:varName "classInst"^^xsd:string ;
+                                            ] ;
+                                        ]
+                                        [
+                                          sp:object owl:ObjectProperty ;
+                                          sp:predicate rdf:type ;
+                                          sp:subject [
+                                              sp:varName "op2"^^xsd:string ;
+                                            ] ;
+                                        ]
+                                        [
+                                          sp:object [
+                                              sp:varName "class2"^^xsd:string ;
+                                            ] ;
+                                          sp:predicate rdfs:range ;
+                                          sp:subject [
+                                              sp:varName "op2"^^xsd:string ;
+                                            ] ;
+                                        ]
+                                        [
+                                          rdf:type sp:Union ;
+                                          sp:elements (
+                                              (
+                                                [
+                                                  sp:object [
+                                                      sp:varName "class2"^^xsd:string ;
+                                                    ] ;
+                                                  sp:predicate rdf:type ;
+                                                  sp:subject [
+                                                      sp:varName "queryClassInst2"^^xsd:string ;
+                                                    ] ;
+                                                ]
+                                              )
+                                              (
+                                                [
+                                                  rdf:type sp:TriplePath ;
+                                                  sp:object [
+                                                      sp:varName "class2"^^xsd:string ;
+                                                    ] ;
+                                                  sp:path [
+                                                      rdf:type sp:ModPath ;
+                                                      sp:modMax -2 ;
+                                                      sp:modMin 1 ;
+                                                      sp:subPath rdfs:subClassOf ;
+                                                    ] ;
+                                                  sp:subject [
+                                                      sp:varName "subclass"^^xsd:string ;
+                                                    ] ;
+                                                ]
+                                                [
+                                                  sp:object [
+                                                      sp:varName "subclass"^^xsd:string ;
+                                                    ] ;
+                                                  sp:predicate rdf:type ;
+                                                  sp:subject [
+                                                      sp:varName "queryClassInst2"^^xsd:string ;
+                                                    ] ;
+                                                ]
+                                              )
+                                            ) ;
+                                        ]
+                                        [
+                                          sp:object "true"^^xsd:boolean ;
+                                          sp:predicate sim:_partOfQuery ;
+                                          sp:subject [
+                                              sp:varName "queryClassInst2"^^xsd:string ;
+                                            ] ;
+                                        ]
+                                        [
+                                          rdf:type sp:Optional ;
+                                          sp:elements (
+                                              [
+                                                sp:object [
+                                                    sp:varName "value2"^^xsd:string ;
+                                                  ] ;
+                                                sp:predicate sim:_value ;
+                                                sp:subject [
+                                                    sp:varName "object2"^^xsd:string ;
+                                                  ] ;
+                                              ]
+                                            ) ;
+                                        ]
+                                        [
+                                          rdf:type sp:Filter ;
+                                          sp:expression [
+                                              rdf:type sp:not ;
+                                              sp:arg1 [
+                                                  rdf:type sp:bound ;
+                                                  sp:arg1 [
+                                                      sp:varName "value2"^^xsd:string ;
+                                                    ] ;
+                                                ] ;
+                                            ] ;
+                                        ]
+                                      ) ;
+                                  ] ;
+                              ]
+                            ) ;
+                        ] ;
+                    ]
+                    [
+                      rdf:type sp:Bind ;
+                      sp:expression [
+                          rdf:type sp:mul ;
+                          sp:arg1 [
+                              sp:varName "simValue"^^xsd:string ;
+                            ] ;
+                          sp:arg2 [
+                              rdf:type sp:divide ;
+                              sp:arg1 [
+                                  sp:varName "weight"^^xsd:string ;
+                                ] ;
+                              sp:arg2 [
+                                  sp:varName "sumWeight"^^xsd:string ;
+                                ] ;
+                            ] ;
+                        ] ;
+                      sp:variable [
+                          sp:varName "weightedSimilarity"^^xsd:string ;
+                        ] ;
+                    ]
+                  ) ;
+              ] ;
+          ]
+        ) ;
+      rdfs:comment "RULE LEVEL 2     Calculate similarity for concepts with datatyp properties only (leaves)."^^xsd:string ;
+    ] ;
+  rdfs:subClassOf owl:Thing ;
+.
+sim:StringFunctions
+  rdf:type spin:Function ;
+  rdfs:subClassOf sim:LocalFunctions ;
+.
+sim:TaxonomyObjectPropertySimilarity
+  rdf:type owl:Class ;
+  rdfs:label "Encapsulates taxonomy similarity properties to apply a similarity funcion for comparing instances on the position in a hierarchical structre (taxonomy)."@en ;
+  rdfs:subClassOf sim:ObjectPropertySimilarity ;
+.
+sim:TaxonomySimilarity
+  rdf:type owl:Class ;
+  rdfs:label "Encapsulates taxonomy similarity properties to apply a similarity funcion for comparing instances on the position in a hierarchical structre (taxonomy)."@en ;
+  rdfs:subClassOf sim:ClassSimilarity ;
+.
+sim:_partOfQuery
+  rdf:type owl:AnnotationProperty ;
+  rdfs:range xsd:boolean ;
+.
+sim:_sumWeight
+  rdf:type owl:AnnotationProperty ;
+  rdfs:range xsd:float ;
+.
+sim:_value
+  rdf:type owl:AnnotationProperty ;
+  rdfs:range xsd:float ;
+.
+sim:annotationDomain
+  rdf:type owl:ObjectProperty ;
+  rdfs:range owl:Class ;
+.
+sim:annotationLanguage
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain sim:AnnotationPropertySimilarity ;
+  rdfs:range [
+      rdf:type rdfs:Datatype ;
+      owl:oneOf (
+          "en"^^xsd:string
+          "de"^^xsd:string
+          "fr"^^xsd:string
+          "it"^^xsd:string
+        ) ;
+    ] ;
+.
+sim:annotationProperty
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain sim:AnnotationPropertySimilarity ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:oneOf (
+          rdfs:label
+          rdfs:comment
+        ) ;
+    ] ;
+.
+sim:annotationSimilarityFunction
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain sim:AnnotationPropertySimilarity ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:oneOf (
+          sim:equals
+          sim:levenshtein
+          sim:jaroWinkler
+          sim:softTFIDFJaroWinkler
+        ) ;
+    ] ;
+  rdfs:subPropertyOf sim:similarityFunction ;
+.
+sim:average
+  rdf:type spin:Function ;
+  rdfs:subClassOf sim:GlobalFunctions ;
+.
+sim:belongsToCaseView
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain sim:PropertySimilarity ;
+  rdfs:range sim:RootSimilarity ;
+.
+sim:cascadeDeleteRule
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "Defines how to handle referenced instances (range objects) in case of removing the object property instance. Either cascade and remove all target instances as well or avoid the removal (in case of referencing predefined sets like countries, languages, etc.). The restricted option cascades the remove only, if no other references to the instance exists."^^xsd:string ;
+  rdfs:domain sim:ObjectPropertySimilarity ;
+  rdfs:label "Cascade Delete Rule"@en ;
+  rdfs:range [
+      rdf:type rdfs:Datatype ;
+      owl:oneOf (
+          "allways"^^xsd:string
+          "never"^^xsd:string
+          "restricted"^^xsd:string
+        ) ;
+    ] ;
+.
+sim:cosine
+  rdf:type spin:Function ;
+  rdfs:subClassOf sim:GlobalFunctions ;
+.
+sim:equals
+  rdf:type spin:Function ;
+  spin:constraint [
+      rdf:type spl:Argument ;
+      spl:predicate sp:arg1 ;
+      spl:valueType xsd:string ;
+    ] ;
+  spin:constraint [
+      rdf:type spl:Argument ;
+      spl:predicate sp:arg2 ;
+      spl:valueType xsd:string ;
+    ] ;
+  spin:returnType xsd:float ;
+  spinx:javaScriptCode """if (arg1.equals(arg2)){
+    return 1 ;
+}
+else{
+    return 0;
+}"""^^xsd:string ;
+  rdfs:subClassOf sim:StringFunctions ;
+.
+sim:globalSimilarityFunction
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          sim:ObjectPropertySimilarity
+          sim:RootCaseClassSimilarity
+        ) ;
+    ] ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:oneOf (
+          sim:average
+          sim:probabilistic
+          sim:cosine
+        ) ;
+    ] ;
+  rdfs:subPropertyOf sim:similarityFunction ;
+.
+sim:jaroWinkler
+  rdf:type spin:Function ;
+  rdfs:label "The Jaro and Jaro-Winkler metrics seem to be intended primarily for short strings (Cohen, 2003)"@en ;
+  rdfs:subClassOf sim:StringFunctions ;
+.
+sim:levenshtein
+  rdf:type spin:Function ;
+  rdfs:label "\"Level 2\" recursive field matching algorithm using Levenstein distance."@en ;
+  rdfs:subClassOf sim:StringFunctions ;
+.
+sim:localSimilarityFunction
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain sim:DatatypePropertySimilarity ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:oneOf (
+          sim:equals
+          sim:levenshtein
+          sim:jaroWinkler
+          sim:softTFIDFJaroWinkler
+        ) ;
+    ] ;
+  rdfs:subPropertyOf sim:similarityFunction ;
+.
+sim:probabilistic
+  rdf:type spin:Function ;
+  rdfs:subClassOf sim:GlobalFunctions ;
+.
+sim:recursiveObjectProperty
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain sim:RecursiveTaxonomyObjectPropertySimilarity ;
+  rdfs:range owl:ObjectProperty ;
+.
+sim:recursiveTaxonomyParentChildDirection
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain sim:RecursiveTaxonomyObjectPropertySimilarity ;
+  rdfs:range [
+      rdf:type rdfs:Datatype ;
+      owl:oneOf (
+          "expressesChildOf"^^xsd:string
+          "expressesParentOf"^^xsd:string
+        ) ;
+    ] ;
+.
+sim:similarity
+  rdf:type owl:AnnotationProperty ;
+  rdfs:range sim:PropertySimilarity ;
+.
+sim:similarityFunction
+  rdf:type owl:ObjectProperty ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:oneOf (
+          sim:average
+          sim:equals
+        ) ;
+    ] ;
+.
+sim:softTFIDFJaroWinkler
+  rdf:type spin:Function ;
+  rdfs:label "TFIDF-based distance metric, extended to use \"soft\" token-matching. Specifically, tokens are considered a partial match if they get a good score using an inner string comparator."@en ;
+  rdfs:subClassOf sim:StringFunctions ;
+.
+sim:taxonomicNearestCommonPredecessor
+  rdf:type spin:Function ;
+  rdfs:comment """This function searchs for the nearest common predecessor of two leaf nodes which are compared. The similarity is expressed by a value previously assigned to the common inner node found.
+This taxonomic similarity measure was first proposed by Bergmann, R., 1998. On the Use of Taxonomies for Representing Case Features and Local Similarity Measures. In: L. Gierl and M. Lenz, eds., Proceedings of the Sixth German Workshop on CBR."""^^xsd:string ;
+  rdfs:label "Similarity expressed by a value assigned to the nearest common predecessor of leaf nodes compared."@en ;
+  rdfs:subClassOf sim:LocalFunctions ;
+.
+sim:taxonomyDistance
+  rdf:type spin:Function ;
+  rdfs:label "Considers the distance of instances in the taxonomy as a measure of similarity."@en ;
+  rdfs:subClassOf sim:LocalFunctions ;
+.
+sim:taxonomySimilarityFunction
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain sim:TaxonomyObjectPropertySimilarity ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:oneOf (
+          sim:taxonomicNearestCommonPredecessor
+        ) ;
+    ] ;
+  rdfs:subPropertyOf sim:similarityFunction ;
+.
+sim:taxonomySimilarityFunction2
+  rdf:type owl:ObjectProperty ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:oneOf (
+          sim:taxonomicNearestCommonPredecessor
+        ) ;
+    ] ;
+.
+sim:taxonomySimilaritySetIdentifier
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          sim:TaxonomySimilarity
+          sim:TaxonomyObjectPropertySimilarity
+        ) ;
+    ] ;
+  rdfs:range xsd:string ;
+.
+sim:taxonomySimilarityValue
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain sim:TaxonomySimilarity ;
+  rdfs:range xsd:float ;
+.
+sim:weight
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain sim:PropertySimilarity ;
+  rdfs:range xsd:float ;
+.
+<http://spinrdf.org/arg#s1>
+  rdf:type rdf:Property ;
+  rdfs:subPropertyOf sp:arg ;
+.
+<http://spinrdf.org/arg#s2>
+  rdf:type rdf:Property ;
+  rdfs:subPropertyOf sp:arg ;
+.
+<http://spinrdf.org/arg#val>
+  rdf:type rdf:Property ;
+  rdfs:subPropertyOf sp:arg ;
+.
