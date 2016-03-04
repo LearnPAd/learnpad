@@ -1,0 +1,175 @@
+# baseURI: http://ikm-group.ch/cbr
+# imports: http://ikm-group.ch/similarity
+
+@prefix cbr: <http://ikm-group.ch/cbr#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ikm-group.ch/cbr>
+  rdf:type owl:Ontology ;
+  owl:imports <http://ikm-group.ch/similarity> ;
+  owl:versionInfo "Created with TopBraid Composer"^^xsd:string ;
+.
+cbr:Adaptation_CaseState
+  rdf:type cbr:CaseState ;
+  rdfs:label "Case in adaptation state"@en ;
+  rdfs:label "Fall in Bearbeitung"@de ;
+.
+cbr:Case
+  rdf:type owl:Class ;
+  rdfs:subClassOf cbr:Element ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty cbr:parentCase ;
+    ] ;
+.
+cbr:CaseItem
+  rdf:type owl:Class ;
+  rdfs:subClassOf cbr:Element ;
+.
+cbr:CaseState
+  rdf:type owl:Class ;
+  rdfs:comment "States of a CBR case follwing the CBR cycle as defined by A. Aamodt, E. Plaza (1994); Case-Based Reasoning: Foundational Issues, Methodological Variations, and System Approaches. AI Communications. IOS Press, Vol. 7: 1, pp. 39-59."^^xsd:string ;
+  rdfs:label "Case state"@en ;
+  rdfs:label "Fall Status"@de ;
+  rdfs:subClassOf cbr:Element ;
+.
+cbr:CaseStateHistory
+  rdf:type owl:Class ;
+  rdfs:comment "Keeps tracking history of a case instance states at a certain time"^^xsd:string ;
+  rdfs:label "Case state history"@en ;
+  rdfs:label "Fall - Status Historie"@de ;
+  rdfs:subClassOf cbr:Element ;
+.
+cbr:CaseView
+  rdf:type owl:Class ;
+  rdfs:subClassOf cbr:Element ;
+  rdfs:subClassOf <http://ikm-group.ch/similarity#RootSimilarity> ;
+.
+cbr:Concern
+  rdf:type owl:Class ;
+  rdfs:label "Concerns"@en ;
+  rdfs:subClassOf cbr:Element ;
+.
+cbr:Element
+  rdf:type owl:Class ;
+  rdfs:label "Baseclass for CBR elements"@en ;
+  rdfs:label "Basisklasse für CBR - Elemente"@de ;
+  rdfs:subClassOf owl:Thing ;
+.
+cbr:Learned_CaseState
+  rdf:type cbr:CaseState ;
+  rdfs:label "Gelernter Fall"@de ;
+  rdfs:label "Learned case"@en ;
+.
+cbr:Revision_CaseState
+  rdf:type cbr:CaseState ;
+  rdfs:label "Case in revision state"@en ;
+  rdfs:label "Fall in Evaluationsprozess / Revision"@de ;
+.
+cbr:Role
+  rdf:type owl:Class ;
+  rdfs:label "A named specific behavior in the context of a CBR system"@en ;
+  rdfs:label "Bezeichnung für eine bestimmte Rolle oder Funktion im Kontext eines CBR Systems"@de ;
+  rdfs:subClassOf cbr:Element ;
+.
+cbr:_automaticAdaptFromCase
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cbr:Case ;
+  rdfs:label "Temporary property to link to case from which case items are automatic adapted"@en ;
+  rdfs:label "Temporäres Property welche den Fall referenziert, von welchem automatisch Case-Items übernommen werden sollen "@de ;
+  rdfs:range cbr:Case ;
+.
+cbr:adaptionRuleBasedComment
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "Describes rule applied for derived case item"@en ;
+  rdfs:domain cbr:CaseItem ;
+  rdfs:label "Adaption comment"^^xsd:string ;
+  rdfs:range xsd:string ;
+.
+cbr:addedCaseItemThroughAdaptionRule
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cbr:CaseItem ;
+  rdfs:label "Zugefügtes Case-Item auf Grund einer Adaption Regel "@de ;
+  rdfs:label "Zugefügtes Case-Item based on an adaption rule "@en ;
+  rdfs:range xsd:boolean ;
+.
+cbr:belongsToCase
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "References the cases instance this state at a certain time belongs to"@en ;
+  rdfs:domain cbr:CaseStateHistory ;
+  rdfs:range cbr:Case ;
+.
+cbr:caseItem
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cbr:Case ;
+  rdfs:range cbr:CaseItem ;
+.
+cbr:caseItemRepresentedBy
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cbr:CaseItem ;
+.
+cbr:caseReleasedAtDate
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cbr:Case ;
+  rdfs:range xsd:date ;
+.
+cbr:caseStateTimestamp
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cbr:CaseStateHistory ;
+  rdfs:range xsd:dateTime ;
+.
+cbr:caseViewAddressesConcerns
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cbr:CaseView ;
+  rdfs:range cbr:Concern ;
+.
+cbr:caseViewDefinesCharacterisationOfCases
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cbr:CaseView ;
+  rdfs:range cbr:Case ;
+.
+cbr:cbrCaseHasSolutionDescription
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain cbr:Case ;
+  rdfs:label "Lösungsbeschreibung "@de ;
+  rdfs:label "Solution Description "@en ;
+  rdfs:range xsd:string ;
+.
+cbr:concernsBelongToRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cbr:Concern ;
+  rdfs:range cbr:Role ;
+.
+cbr:hasCaseState
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cbr:CaseStateHistory ;
+  rdfs:range cbr:CaseState ;
+.
+cbr:parentCase
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cbr:Case ;
+  rdfs:range cbr:Case ;
+  rdfs:subPropertyOf cbr:relatedCases ;
+.
+cbr:relatedCases
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cbr:Case ;
+  rdfs:range cbr:Case ;
+.
+cbr:replacesCaseItemThroughAdaptionRule
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cbr:CaseItem ;
+  rdfs:label "Ersetzt Case-Item auf Grund einer Adaption Regel"@de ;
+  rdfs:label "Replaced Case-Item based on an adaption rule"@en ;
+  rdfs:range cbr:CaseItem ;
+.
+cbr:reusedCases
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain cbr:Case ;
+  rdfs:range cbr:Case ;
+  rdfs:subPropertyOf cbr:relatedCases ;
+.

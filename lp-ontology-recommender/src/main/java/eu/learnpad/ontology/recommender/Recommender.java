@@ -22,11 +22,13 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import eu.learnpad.ontology.config.APP;
 
 import eu.learnpad.ontology.persistence.FileOntAO;
+import eu.learnpad.ontology.recommender.cbr.CBRAdapter;
 import eu.learnpad.or.rest.data.BusinessActor;
 import eu.learnpad.or.rest.data.Experts;
 import eu.learnpad.or.rest.data.LearningMaterial;
 import eu.learnpad.or.rest.data.LearningMaterials;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.SimilarCases;
 
 /**
  *
@@ -46,6 +48,16 @@ public class Recommender {
     
     public static Recommender getInstance(){
         return instance;
+    }
+    
+    public Recommendations getRecommendations(String modelSetId, String artifactId, String userId, String simulationSessionId){
+        Recommendations recommends = getRecommendations(modelSetId, artifactId, userId);
+        if(simulationSessionId != null && !simulationSessionId.isEmpty() && !"--none--".equals(simulationSessionId)){
+            SimilarCases similarCases = CBRAdapter.getInstance().retrieveSimilarCases(modelSetId, artifactId, userId, simulationSessionId);
+            recommends.setSimilarCases(similarCases);
+        }
+        
+        return recommends;
     }
     
     public Recommendations getRecommendations(String modelSetId, String artifactId, String userId){
@@ -152,7 +164,4 @@ public class Recommender {
         }
         return materials;
     }
-    
-    
-
 }
