@@ -184,7 +184,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	        PostMethod postMethod = new PostMethod(uri);
 			postMethod.addRequestHeader("Content-Type", contentType);
     
-	        NameValuePair[] queryString = new NameValuePair[1];
+	        NameValuePair[] queryString = new NameValuePair[2];
 	        queryString[0] = new NameValuePair("action", action);
 	        queryString[1] = new NameValuePair("simulationid", simulationId);
 	        postMethod.setQueryString(queryString);
@@ -229,7 +229,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	        PostMethod postMethod = new PostMethod(uri);
 			postMethod.addRequestHeader("Content-Type", contentType);
     
-	        NameValuePair[] queryString = new NameValuePair[1];
+	        NameValuePair[] queryString = new NameValuePair[2];
 	        queryString[0] = new NameValuePair("artifactid", artifactId);
 	        queryString[1] = new NameValuePair("simulationid", simulationId);
 	        postMethod.setQueryString(queryString);
