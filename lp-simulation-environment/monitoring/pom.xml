@@ -63,6 +63,11 @@
 					</archive>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.activemq.tooling</groupId>
+				<artifactId>activemq-maven-plugin</artifactId>
+				<version>5.13.1</version>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -173,6 +178,11 @@
 	  	<groupId>commons-httpclient</groupId>
 	  	<artifactId>commons-httpclient</artifactId>
 	  	<version>3.1</version>
+	  </dependency>
+	  <dependency>
+	  	<groupId>ant</groupId>
+	  	<artifactId>ant-junit</artifactId>
+	  	<version>1.6.5</version>
 	  </dependency>
 	</dependencies>
 </project>
