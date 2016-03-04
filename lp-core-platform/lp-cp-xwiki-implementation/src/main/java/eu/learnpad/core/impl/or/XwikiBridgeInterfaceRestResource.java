@@ -22,7 +22,6 @@ package eu.learnpad.core.impl.or;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
 import javax.xml.bind.JAXBContext;
@@ -30,7 +29,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -46,8 +44,6 @@ import eu.learnpad.or.BridgeInterface;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.SimulationData;
 import eu.learnpad.or.rest.data.States;
-
-import java.util.Map;
 
 /*
  * The methods inherited form the BridgeInterface in this
@@ -82,7 +78,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 
 	@Override
 	public Recommendations askRecommendation(String modelSetId, String artifactId,
-			String userId) throws LpRestException {
+			String userId, String simulationSessionId) throws LpRestException {
 		//*
 		HttpClient httpClient = RestResource.getClient();
 		String uri = String.format("%s/learnpad/or/bridge/%s/recommendation",
@@ -96,6 +92,9 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 		NameValuePair[] queryString = new NameValuePair[3];
 		queryString[0] = new NameValuePair("artifactid", artifactId);
 		queryString[1] = new NameValuePair("userid", userId);
+		if ((simulationSessionId != null) && (!simulationSessionId.isEmpty())){
+			queryString[2] = new NameValuePair("simulationsessionid", simulationSessionId);			
+		}		
 		getMethod.setQueryString(queryString);
 
 		Recommendations recommendations = null;
@@ -137,14 +136,6 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
         
 		return response;
 		/*/
-	}
-
-	@Override
-	public Recommendations askRecommendation(String modelSetId,
-			String artifactId, String userId, String simulationSessionId)
-			throws LpRestException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	@Override
@@ -258,7 +249,4 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 			}        
 	}
 	
-	private void invokeAskRecommendation(String modelSetId, String artifactId, String userId, String simulationSessionId){
-		
-	}
 }
