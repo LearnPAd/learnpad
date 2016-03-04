@@ -15,14 +15,7 @@ import eu.learnpad.or.rest.data.States;
 import eu.learnpad.ontology.transformation.ModellingEnvironmentType;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.Recommendations;
-import eu.learnpad.or.rest.data.SimilarCase;
-import eu.learnpad.or.rest.data.SimilarCases;
 import eu.learnpad.or.rest.data.SimulationData;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -57,17 +50,9 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     
     @Override
     public void sendResourceNotification(String modelSetId, String resourceId, String artifactIds, String action) throws LpRestException {
-        //later 
+        // TODO later 
     }
 
-    //Depricated, to be removed
-    @Override
-    public Recommendations askRecommendation(String modelSetId, String artifactId, String userId) throws LpRestException {
-        Recommendations recomms = Recommender.getInstance().getRecommendations(modelSetId, artifactId, userId);
-
-        return recomms;
-    }
-    
     @Override
     public Recommendations askRecommendation(String modelSetId,
 			String artifactId, String userId, String simulationSessionId) throws LpRestException {
@@ -94,7 +79,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     
     @Override
     public void addExecutionState(String modelSetId, String executionId, String userId, String threadId, String pageId, String artifactId) throws LpRestException {
-        //Postponed
+        // TODO Postponed
     }
 
     @Override
