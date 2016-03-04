@@ -199,7 +199,7 @@ public class BridgeImpl extends Bridge {
 					return "OK";
 				}
 				else
-					return "InProgess_"+progress+"%";
+					return "InProgress_"+progress+"%";
 			}
 			log.error("Element not found: "+contentID+" map:"+map.keySet().toString());
 			return "ERROR";
@@ -382,7 +382,7 @@ public class BridgeImpl extends Bridge {
 					return "OK";
 				}
 				else
-					return "InProgess_"+progress+"%";
+					return "InProgress_"+progress+"%";
 
 			}
 			log.error("Element not found: "+contentID+" map:"+map.keySet().toString());

@@ -22,6 +22,7 @@ package eu.learnpad.core.impl.mt;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -31,6 +32,7 @@ import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
+import org.apache.http.HttpHeaders;
 
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.exception.LpRestException;
@@ -75,8 +77,8 @@ public class XwikiBridgeInterfaceRestResource implements BridgeInterface
         HttpClient httpClient = RestResource.getAnonymousClient();
         String uri = String.format("%s/learnpad/mt/bridge/transform", RestResource.MT_REST_URI);
         PostMethod postMethod = new PostMethod(uri);
-        postMethod.addRequestHeader("Content-Type", "application/octet-stream");
-        postMethod.addRequestHeader("Accept", "application/octet-stream");
+        postMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM);
+        postMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_OCTET_STREAM);
         NameValuePair[] queryString = new NameValuePair[1];
         queryString[0] = new NameValuePair("type", type);
         postMethod.setQueryString(queryString);

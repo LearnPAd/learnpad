@@ -35,7 +35,7 @@ public abstract class AbstractAnalysisClass extends Thread{
 			return Messages.getString("AbstractAnalysisClass.Ok",language); //$NON-NLS-1$
 
 		default:
-			return Messages.getString("AbstractAnalysisClass.InProgess",language); //$NON-NLS-1$
+			return Messages.getString("AbstractAnalysisClass.InProgress",language); //$NON-NLS-1$
 		}
 
 	}
