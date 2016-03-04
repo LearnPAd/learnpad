@@ -19,8 +19,11 @@
  */
 package eu.learnpad.core.impl.or;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 
@@ -102,12 +105,13 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 		try {
 			httpClient.executeMethod(getMethod);
 
-			InputStream expertsStream = getMethod.getResponseBodyAsStream();
-			if (expertsStream != null) {
+			InputStream recStream = getMethod.getResponseBodyAsStream();
+		    
+			if (recStream != null) {
 				JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
 				Unmarshaller unmarshaller = jc.createUnmarshaller();
 				recommendations = (Recommendations) unmarshaller
-						.unmarshal(expertsStream);
+						.unmarshal(recStream);
 			}
 		} catch (JAXBException | IOException e) {
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
