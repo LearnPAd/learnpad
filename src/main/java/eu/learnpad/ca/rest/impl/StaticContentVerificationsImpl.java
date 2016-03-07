@@ -177,7 +177,7 @@ public class StaticContentVerificationsImpl implements StaticContentVerification
 				if(progress>99)
 					return "OK";
 				else
-					return "InProgess_"+progress+"%";
+					return "InProgress_"+progress+"%";
 
 			}
 			log.error("Element not found: "+contentID+" map:"+map.keySet().toString());
