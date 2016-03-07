@@ -1,0 +1,610 @@
+# baseURI: http://learnpad.eu/
+# imports: http://learnpad.eu
+
+@prefix eo: <http://ikm-group.ch/archiMEO/eo#> .
+@prefix lpd: <http://learnpad.eu#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix top: <http://ikm-group.ch/archiMEO/top#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+lpd:ATECO_Category
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://ikm-group.ch/archiMEO/nco#Category> ;
+.
+lpd:ATECO_SubCategory
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:ATECO_Category ;
+.
+lpd:Accomodation
+  rdf:type lpd:ATECO_Category ;
+.
+lpd:Administration_Police_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Adminstering_Food_and_Beverage_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Aggregated_PA
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:PublicAdministration ;
+.
+lpd:Agricultural_Zone
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:Zone ;
+.
+lpd:Agriculture_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Amandola
+  rdf:type top:City ;
+.
+lpd:Ancona
+  rdf:type top:City ;
+.
+lpd:Applicant
+  rdf:type eo:Customer ;
+.
+lpd:Application
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://ikm-group.ch/archiMEO/archimate#BusinessObject> ;
+.
+lpd:ApplicationHasType
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:Application ;
+  rdfs:label "Application Type"@en ;
+  rdfs:range lpd:ApplicationType ;
+.
+lpd:ApplicationType
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://ikm-group.ch/archiMEO/nco#Category> ;
+.
+lpd:Application_SubType
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:ApplicationType ;
+.
+lpd:Ascoli_Piceno
+  rdf:type top:City ;
+.
+lpd:BarAndSimilarBusinessesWithoutCusine
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:CateringServices ;
+.
+lpd:Beach_Area_At_The_Lake
+  rdf:type lpd:Costal_Zone ;
+.
+lpd:Beach_Area_At_The_Sea
+  rdf:type lpd:Costal_Zone ;
+.
+lpd:BoutiqueHotels_Apartments_BedAndBreakfast_Residence
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:Accomodation ;
+.
+lpd:Building_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:BusinessActivity
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://ikm-group.ch/archiMEO/archimate#BusinessBehaviourElement> ;
+.
+lpd:BusinessSector
+  rdf:type owl:Class ;
+  rdfs:subClassOf <http://ikm-group.ch/archiMEO/archimate#BusinessObject> ;
+.
+lpd:CampingGrounds_RecreationalVehiclesAndTrailers
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:Accomodation ;
+.
+lpd:Cartoceto
+  rdf:type top:City ;
+  top:cityIsLocatedInPartOfCountry eo:Marche ;
+  lpd:isPartOfProvince lpd:Province_of_Pesaro_and_Urbino ;
+.
+lpd:CateringServices
+  rdf:type lpd:ATECO_Category ;
+.
+lpd:Commercial_Activity
+  rdf:type lpd:BusinessActivity ;
+.
+lpd:ConstructionAndInstallationOfActivitiesNotCategorized
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+.
+lpd:ConstructionOfBuildings
+  rdf:type lpd:ATECO_Category ;
+.
+lpd:ConstructionOfResidentialAndNotResidentialBuildings
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:ConstructionOfBuildings ;
+.
+lpd:Costal_Zone
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:Zone ;
+.
+lpd:Crafts_Activity
+  rdf:type lpd:BusinessActivity ;
+.
+lpd:Dining
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:CateringServices ;
+.
+lpd:Driving_School_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Education_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Energy_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Environment_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Expansion
+  rdf:type lpd:Application_SubType ;
+  lpd:isSubApplicationTypeOfType lpd:ModificationOfProductiveSystems ;
+.
+lpd:Farming_Activity
+  rdf:type lpd:BusinessActivity ;
+.
+lpd:Fermo
+  rdf:type top:City ;
+.
+lpd:Filling_Station_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Finance_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Fire_Fighters_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Food_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Forrest_Zone
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:Zone ;
+.
+lpd:Funerary_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:GatheringActivities_TreatmentAndDisposalActivities_RecoveryOfMaterial
+  rdf:type lpd:ATECO_Category ;
+.
+lpd:Health_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Hotels
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:Accomodation ;
+.
+lpd:Industrial_Activitiy
+  rdf:type lpd:BusinessActivity ;
+.
+lpd:Industrial_Area
+  rdf:type lpd:Industrial_Zone ;
+.
+lpd:Industrial_Zone
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:Zone ;
+.
+lpd:InstallationOfAntifireSystems
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+.
+lpd:InstallationOfCovers
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+.
+lpd:InstallationOfElectricalAndElectronicEquipmentForTelecommunication_TV_etc
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:Rapair_Maintenance_Installation_ofMachineryAndEquipment ;
+.
+lpd:InstallationOfElectricalSystems
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+.
+lpd:InstallationOfFixtureFornitureCeilings_etc
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+.
+lpd:InstallationOfIdraulicSystems
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+.
+lpd:Living_Zone
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:Zone ;
+.
+lpd:Localization
+  rdf:type lpd:Application_SubType ;
+  lpd:isSubApplicationTypeOfType lpd:NewProductiveSystems ;
+.
+lpd:Macerata
+  rdf:type top:City ;
+.
+lpd:Machinery_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Marche
+  rdf:type lpd:Region ;
+  lpd:regionIsPartOfCountry eo:Italy ;
+.
+lpd:MarineAndMountaineSummerCamps
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:Accomodation ;
+.
+lpd:ModificationOfProductiveSystems
+  rdf:type lpd:ApplicationType ;
+.
+lpd:National_Park_Zone
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:Zone ;
+.
+lpd:Naval_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:NewProductiveSystems
+  rdf:type lpd:ApplicationType ;
+.
+lpd:Newspaper_and_Megazines_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:NotSpecializedConstruction
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+.
+lpd:OverlayingFloorsAndWalls
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+.
+lpd:Pesaro
+  rdf:type top:City ;
+.
+lpd:Phone_Center_Internet_Point_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:PlasterAndStucco
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+.
+lpd:Province
+  rdf:type owl:Class ;
+  rdfs:subClassOf top:PartOfCountry ;
+.
+lpd:Province_of_Ancona
+  rdf:type lpd:Province ;
+.
+lpd:Province_of_Ascoli_Piceno
+  rdf:type lpd:Province ;
+  lpd:provinceIsPartOfRegion lpd:Marche ;
+.
+lpd:Province_of_Fermo
+  rdf:type lpd:Province ;
+  lpd:provinceIsPartOfRegion lpd:Marche ;
+.
+lpd:Province_of_Macerata
+  rdf:type lpd:Province ;
+  lpd:provinceIsPartOfRegion lpd:Marche ;
+.
+lpd:Province_of_Pesaro_and_Urbino
+  rdf:type lpd:Province ;
+  lpd:provinceIsPartOfRegion lpd:Marche ;
+.
+lpd:ProvisionOfInternetAccess
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:Telecommunication ;
+.
+lpd:PublicAdministration
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:OrganisationalUnit ;
+.
+lpd:Public_Land_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Public_Security_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Quit
+  rdf:type lpd:ApplicationType ;
+.
+lpd:Rapair_Maintenance_Installation_ofMachineryAndEquipment
+  rdf:type lpd:ATECO_Category ;
+.
+lpd:Reactivation
+  rdf:type lpd:Application_SubType ;
+  lpd:isSubApplicationTypeOfType lpd:ModificationOfProductiveSystems ;
+.
+lpd:Realization
+  rdf:type lpd:Application_SubType ;
+  lpd:isSubApplicationTypeOfType lpd:NewProductiveSystems ;
+.
+lpd:Receptive_Toursim_Activity
+  rdf:type lpd:BusinessActivity ;
+.
+lpd:Reconversion
+  rdf:type lpd:Application_SubType ;
+  lpd:isSubApplicationTypeOfType lpd:ModificationOfProductiveSystems ;
+.
+lpd:Region
+  rdf:type owl:Class ;
+  rdfs:subClassOf top:PartOfCountry ;
+.
+lpd:Regional_Nature_Park_Zone
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:Zone ;
+.
+lpd:Regional_Protected_Area_Comunità_Montana_Alto_e_Medio_Metauro
+  rdf:type lpd:Regional_Protected_Area_Zone ;
+.
+lpd:Regional_Protected_Area_Unione_Montana_Monti_Azzurri
+  rdf:type lpd:Regional_Protected_Area_Zone ;
+.
+lpd:Regional_Protected_Area_Valle_del_Metauro
+  rdf:type lpd:Regional_Protected_Area_Zone ;
+.
+lpd:Regional_Protected_Area_Zone
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:Zone ;
+.
+lpd:Restructuring
+  rdf:type lpd:Application_SubType ;
+  lpd:isSubApplicationTypeOfType lpd:ModificationOfProductiveSystems ;
+.
+lpd:Retail_Trade_on_Public_Areas_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:SUAPAscoliPiceno
+  rdf:type lpd:Single_PA ;
+  lpd:publicAdministrationAdministresLocation lpd:Ascoli_Piceno ;
+.
+lpd:SUAPMontiAzzurri
+  rdf:type lpd:Aggregated_PA ;
+  lpd:publicAdministrationAdministresLocation lpd:Macerata ;
+  lpd:publicAdministrationAdministresLocation lpd:San_Ginesio ;
+  lpd:publicAdministrationAdministresLocation lpd:Sarnano ;
+  lpd:publicAdministrationAdministresLocation lpd:Serrapetrona ;
+.
+lpd:SUAPSenigallia
+  rdf:type lpd:Single_PA ;
+  lpd:publicAdministrationAdministresLocation lpd:Senigallia ;
+.
+lpd:SUAPValleDelMetauro
+  rdf:type lpd:Aggregated_PA ;
+  lpd:publicAdministrationAdministresLocation lpd:Cartoceto ;
+  lpd:publicAdministrationAdministresLocation lpd:Pesaro ;
+  lpd:publicAdministrationAdministresLocation lpd:Urbania ;
+  lpd:publicAdministrationAdministresLocation lpd:Urbino ;
+.
+lpd:SUAP_officer
+  rdf:type lpd:Learner ;
+  rdfs:label "SUAP Officer"@en ;
+.
+lpd:San_Ginesio
+  rdf:type top:City ;
+.
+lpd:Sarnano
+  rdf:type top:City ;
+.
+lpd:Senigallia
+  rdf:type top:City ;
+.
+lpd:Serrapetrona
+  rdf:type top:City ;
+.
+lpd:Service_Care_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:SimulatedApplicationCase
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:Application ;
+.
+lpd:Single_PA
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:PublicAdministration ;
+.
+lpd:SitePreparationAndArrangementOfTerrain
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+.
+lpd:Social_Assistance
+  rdf:type lpd:BusinessActivity ;
+.
+lpd:SpecializedConstructionActivities
+  rdf:type lpd:ATECO_Category ;
+.
+lpd:Sport_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Telecommunication
+  rdf:type lpd:ATECO_Category ;
+.
+lpd:Telecommunication_Activity
+  rdf:type lpd:BusinessActivity ;
+.
+lpd:Tourism_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Trade_in_Fixed_Locations_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Transferring
+  rdf:type lpd:Application_SubType ;
+  lpd:isSubApplicationTypeOfType lpd:ModificationOfProductiveSystems ;
+.
+lpd:Transformation
+  rdf:type lpd:Application_SubType ;
+  lpd:isSubApplicationTypeOfType lpd:ModificationOfProductiveSystems ;
+.
+lpd:Transport_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:TreatmentAndDisposalOfOtherNonHazardousWaste
+  rdf:type lpd:ATECO_SubCategory ;
+  lpd:isSubATECOCategoryOfCategory lpd:GatheringActivities_TreatmentAndDisposalActivities_RecoveryOfMaterial ;
+.
+lpd:Union
+  rdf:type owl:Class ;
+  rdfs:subClassOf top:PhysicalLocation ;
+.
+lpd:Urban_Area
+  rdf:type lpd:Living_Zone ;
+.
+lpd:Urbania
+  rdf:type top:City ;
+.
+lpd:Urbino
+  rdf:type top:City ;
+.
+lpd:Waste_Sector
+  rdf:type lpd:BusinessSector ;
+.
+lpd:Zone
+  rdf:type owl:Class ;
+  rdfs:subClassOf top:PhysicalLocation ;
+.
+lpd:affectsTargetATECO
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:Application ;
+  rdfs:label "ATECO Category(ies)"@en ;
+  rdfs:range lpd:ATECO_Category ;
+.
+lpd:applicationAffectsSector
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:Application ;
+  rdfs:label "Sector(s)"@en ;
+  rdfs:range lpd:BusinessSector ;
+.
+lpd:applicationAffectsTargetBusinessActivity
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:Application ;
+  rdfs:label "Business Activity(ies)"@en ;
+  rdfs:range lpd:BusinessActivity ;
+.
+lpd:applicationAffectsZone
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:Application ;
+  rdfs:label "Zone(s)"@en ;
+  rdfs:range lpd:Zone ;
+.
+lpd:applicationIsLocatedInCity
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:Application ;
+  rdfs:label "City"@en ;
+  rdfs:range top:City ;
+.
+lpd:applicationIsManagedByPublicAdministration
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:Application ;
+  rdfs:label "Public Administration (SUAP)"@en ;
+  rdfs:range lpd:PublicAdministration ;
+.
+lpd:applicationIsSubmittedByApplicant
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:Application ;
+  rdfs:label "Applicant Name (firstname lastname)"@en ;
+  rdfs:range eo:Person ;
+.
+lpd:applicationRequiresOrganisationalUnits
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:Application ;
+  rdfs:label "Involved organisational units"@en ;
+  rdfs:range eo:OrganisationalUnit ;
+.
+lpd:applicationType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+.
+lpd:applicationType_HasSubType
+  rdf:type owl:ObjectProperty ;
+  rdfs:range lpd:Application_SubType ;
+.
+lpd:businessSectorIsAssignedToCode
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain lpd:BusinessSector ;
+  rdfs:range xsd:integer ;
+.
+lpd:countryIsPartOfUnion
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain top:Country ;
+  rdfs:range lpd:Union ;
+  rdfs:subPropertyOf top:physicalLocationIsPartOfPhysicalLocation ;
+.
+lpd:decision
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain lpd:Application ;
+  rdfs:range xsd:boolean ;
+.
+lpd:description
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain lpd:Application ;
+  rdfs:range xsd:string ;
+.
+lpd:isPartOfProvince
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain top:City ;
+  rdfs:range lpd:Province ;
+  rdfs:subPropertyOf top:physicalLocationIsPartOfPhysicalLocation ;
+.
+lpd:isSubATECOCategoryOfCategory
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:ATECO_SubCategory ;
+  rdfs:range lpd:ATECO_Category ;
+.
+lpd:isSubApplicationTypeOfType
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:Application_SubType ;
+  rdfs:range lpd:ApplicationType ;
+.
+lpd:physicalLocationEncompassesZone
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain top:PhysicalLocation ;
+  rdfs:range lpd:Zone ;
+.
+lpd:provinceIsPartOfRegion
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:Province ;
+  rdfs:range lpd:Region ;
+  rdfs:subPropertyOf top:physicalLocationIsPartOfPhysicalLocation ;
+.
+lpd:publicAdministrationActsOnLaw
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:PublicAdministration ;
+  rdfs:range <http://ikm-group.ch/archiMEO/nco#LawAndRegulation> ;
+.
+lpd:publicAdministrationAdministresLocation
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:PublicAdministration ;
+  rdfs:range top:PhysicalLocation ;
+.
+lpd:publicAdministrationAdministresZone
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:PublicAdministration ;
+  rdfs:range lpd:Zone ;
+.
+lpd:regionIsPartOfCountry
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:Region ;
+  rdfs:range top:Country ;
+  rdfs:subPropertyOf top:physicalLocationIsPartOfPhysicalLocation ;
+.
+lpd:subApplicationType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+  rdfs:subPropertyOf lpd:applicationType ;
+.
+lpd:zoneIsRegulatedByLaw
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:Zone ;
+  rdfs:range <http://ikm-group.ch/archiMEO/nco#LawAndRegulation> ;
+.
+<http://learnpad.eu/>
+  rdf:type owl:Ontology ;
+  owl:imports <http://learnpad.eu> ;
+  owl:versionInfo "Created with TopBraid Composer"^^xsd:string ;
+.
+<http://learnpad.eu/municipalityBelongsToCommunity>
+  rdf:type owl:ObjectProperty ;
+.

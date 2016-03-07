@@ -21,15 +21,20 @@ package eu.learnpad.core.impl.cw;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
+import java.io.Writer;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.httpclient.methods.RequestEntity;
+import org.apache.commons.httpclient.methods.StringRequestEntity;
 
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.BridgeInterface;
@@ -159,10 +164,37 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements
 	}
 
 	@Override
-	public void notifyRecommendations(String simulationid, String userId, Recommendations rec)
-			throws LpRestException {
-		// TODO Auto-generated method stub
-		
+	public void notifyRecommendations(String modelSetId, String simulationid, String userId, Recommendations rec) throws LpRestException {		
+		String contentType = "application/xml";
+
+		HttpClient httpClient = RestResource.getClient();
+		String uri = String.format("%s/learnpad/cw/bridge/notify/%s",
+				RestResource.REST_URI, modelSetId);
+
+		PutMethod putMethod = new PutMethod(uri);
+		putMethod.addRequestHeader("Accept", contentType);
+
+		NameValuePair[] queryString = new NameValuePair[2];
+		queryString[0] = new NameValuePair("simulationid", simulationid);
+		queryString[1] = new NameValuePair("userid", userId);
+		putMethod.setQueryString(queryString);
+
+		try {
+			JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
+			Writer recWriter = new StringWriter();
+
+			Marshaller marshaller = jc.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			marshaller.marshal(rec, recWriter);
+
+			RequestEntity requestEntity = new StringRequestEntity(
+					recWriter.toString(), contentType, "UTF-8");
+			putMethod.setRequestEntity(requestEntity);
+
+			httpClient.executeMethod(putMethod);
+		} catch (JAXBException | IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+		}
 	}
 
 }

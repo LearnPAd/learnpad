@@ -149,7 +149,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	@Override
 	public Recommendations getRecommendations(String modelSetId,
 			String artifactId, String userId) throws LpRestException {
-		Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userId);
+		Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userId, null);
 //		Recommendations rec = new Recommendations();
 		return rec;
 	}
