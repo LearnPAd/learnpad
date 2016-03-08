@@ -61,6 +61,12 @@
 			<type>jar</type>
 		</dependency>
 		<dependency>
+			<groupId>org.xwiki.platform</groupId>
+			<artifactId>xwiki-platform-rendering-macro-groovy</artifactId>
+			<version>${platform.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
 			<groupId>org.xwiki.rendering</groupId>
 			<artifactId>xwiki-rendering-macro-html</artifactId>
 			<version>${rendering.version}</version>
