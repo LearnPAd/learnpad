@@ -3,7 +3,6 @@ package eu.learnpad.verification.plugin.bpmn.reader;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -45,7 +44,7 @@ public class MyBPMN2ModelReader {
         File temp = File.createTempFile("tempfile", ".tmp"); 
         temp.deleteOnExit();
         //write it
-        BufferedWriter bw = new BufferedWriter(new FileWriter(temp));
+        BufferedWriter bw = new BufferedWriter(new java.io.OutputStreamWriter(new java.io.FileOutputStream(temp), "UTF-8"));//(new FileWriter(temp));
         bw.write(theBPMNString);
         bw.close();
 
