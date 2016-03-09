@@ -54,7 +54,7 @@ public class CBRAdapterTest {
         assertEquals(3, similarCases.getSimilarCases().size());
         
         for (SimilarCase similarCase : similarCases.getSimilarCases()) {
-            System.out.println("Case: " + similarCase.getName() + " " + similarCase.getSimilarityValue() + "\n________________________________\n");
+            System.out.println("\n________________________________\nCase: " + similarCase.getName() + " " + similarCase.getSimilarityValue());
             for(Map.Entry data : similarCase.getData().entrySet()){
                 System.out.println(data.getKey()+": "+data.getValue());
             }
