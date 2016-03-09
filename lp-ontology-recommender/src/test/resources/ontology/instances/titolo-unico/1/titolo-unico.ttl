@@ -1,0 +1,3852 @@
+# baseURI: http://learnpad.eu/transfer
+# imports: http://learnpad.eu
+
+@prefix bmm: <http://ikm-group.ch/archiMEO/BMM#> .
+@prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#> .
+@prefix cmm: <http://ikm-group.ch/archiMEO/CMM#> .
+@prefix cmmn: <http://ikm-group.ch/archiMEO/CMMN#> .
+@prefix dkm: <http://ikm-group.ch/archiMEO/dkm#> .
+@prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
+@prefix eo: <http://ikm-group.ch/archiMEO/eo#> .
+@prefix kpi: <http://ikm-group.ch/archiMEO/kpi#> .
+@prefix lpd: <http://learnpad.eu#> .
+@prefix omm: <http://ikm-group.ch/archiMEO/omm#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix transfer: <http://learnpad.eu/transfer#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://learnpad.eu/transfer>
+  rdf:type owl:Ontology ;
+  owl:imports <http://learnpad.eu> ;
+  owl:versionInfo "1.0"^^xsd:string ;
+.	
+
+transfer:titolo-unico
+  rdf:type owl:Class;
+  rdf:type emo:ModelSetVersion ;
+  rdfs:subClassOf emo:ModelSetVersion ;
+  emo:majorModelSetVersion "titolo-unico"^^xsd:string ;
+.
+
+  transfer:mod.27772
+  rdf:type owl:Class;
+  rdf:type emo:BPMN_MetaModel ;
+  rdfs:subClassOf emo:BPMN_MetaModel ;
+  rdfs:label "01_Titolo Unico "^^xsd:string ;
+  emo:objectTypeHasName "Business process diagram (BPMN 2.0)"^^xsd:string ;
+  rdf:subClassOf bpmn:Process ;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27779
+  rdf:type owl:Class;
+  rdf:type bpmn:StartEvent ;
+  rdfs:subClassOf bpmn:StartEvent ;
+  rdfs:label "Rrceive Instance"^^xsd:string ;
+  emo:objectTypeHasName "Start Event"^^xsd:string ;
+  lpd:bpmnStartEventHasId "obj.27779"^^xsd:string ;
+  lpd:bpmnStartEventHasName "Rrceive Instance"^^xsd:string ;
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27779
+  rdf:type owl:Class;
+  rdf:type bpmn:MessageStartEvent ;
+  rdfs:subClassOf bpmn:MessageStartEvent ;
+  rdfs:label "Rrceive Instance"^^xsd:string ;
+  emo:objectTypeHasName "Start Event"^^xsd:string ;
+  lpd:bpmnStartEventHasId "obj.27779"^^xsd:string ;
+  lpd:bpmnStartEventHasName "Rrceive Instance"^^xsd:string ;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27794
+  rdf:type owl:Class;
+  rdf:type bpmn:MessageInterruptingBoundaryIntermediateEvent ;
+  rdfs:subClassOf bpmn:MessageInterruptingBoundaryIntermediateEvent ;
+  rdfs:label "Intermediate Event (boundary)-83066"^^xsd:string ;
+  emo:objectTypeHasName "Intermediate Event (boundary)"^^xsd:string ;                
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27800
+  rdf:type owl:Class;
+  rdf:type bpmn:EndEvent ;
+  rdfs:subClassOf bpmn:EndEvent ;
+  rdfs:label "End Event-83081"^^xsd:string ;
+  emo:objectTypeHasName "End Event"^^xsd:string ;                  
+  lpd:bpmnEndEventHasId "obj.27800"^^xsd:string ;
+  lpd:bpmnEndEventHasName "End Event-83081"^^xsd:string ;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27788
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Send Authorization Document"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;                  
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27815;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27812
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Send Communication of non-ammissible instance"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;                  
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27815;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27830
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Assess Application"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;                  
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27833
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Check Integration"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;                  
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27839
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Manage Inhibition"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;                  
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.29013
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Request Integration"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;                  
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27815;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27788
+  rdf:type owl:Class;
+  rdf:type bpmn:SendTask ;
+  rdfs:subClassOf bpmn:SendTask ;
+  rdfs:label "Send Authorization Document"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;                
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27815;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27782
+  rdf:type owl:Class;
+  rdf:type bpmn:SubProcess ;
+  rdfs:subClassOf bpmn:SubProcess ;
+  rdfs:label "Check Application"^^xsd:string ;
+  emo:objectTypeHasName "Sub-Process"^^xsd:string ;                
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	
+   lpd:bpmnSubProcessRepresentsBProcess transfer:mod.27908 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27785
+  rdf:type owl:Class;
+  rdf:type bpmn:SubProcess ;
+  rdfs:subClassOf bpmn:SubProcess ;
+  rdfs:label "Manage Service Conference"^^xsd:string ;
+  emo:objectTypeHasName "Sub-Process"^^xsd:string ;                
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	
+   lpd:bpmnSubProcessRepresentsBProcess transfer:mod.27983 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27791
+  rdf:type owl:Class;
+  rdf:type bpmn:ExclusiveGateway ;
+  rdfs:subClassOf bpmn:ExclusiveGateway ;
+  rdfs:label "reject application?"^^xsd:string ;
+  emo:objectTypeHasName "Exclusive Gateway"^^xsd:string ;                                
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27797
+  rdf:type owl:Class;
+  rdf:type bpmn:ExclusiveGateway ;
+  rdfs:subClassOf bpmn:ExclusiveGateway ;
+  rdfs:label "integration necessary?"^^xsd:string ;
+  emo:objectTypeHasName "Exclusive Gateway"^^xsd:string ;                                
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27803
+  rdf:type owl:Class;
+  rdf:type bpmn:ExclusiveGateway ;
+  rdfs:subClassOf bpmn:ExclusiveGateway ;
+  rdfs:label "Exclusive Gateway-83095"^^xsd:string ;
+  emo:objectTypeHasName "Exclusive Gateway"^^xsd:string ;                                
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27806
+  rdf:type owl:Class;
+  rdf:type bpmn:ExclusiveGateway ;
+  rdfs:subClassOf bpmn:ExclusiveGateway ;
+  rdfs:label "inhibition of the application?"^^xsd:string ;
+  emo:objectTypeHasName "Exclusive Gateway"^^xsd:string ;                                
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27818
+  rdf:type owl:Class;
+  rdf:type bpmn:ExclusiveGateway ;
+  rdfs:subClassOf bpmn:ExclusiveGateway ;
+  rdfs:label "Exclusive Gateway-17869"^^xsd:string ;
+  emo:objectTypeHasName "Exclusive Gateway"^^xsd:string ;                                
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27821
+  rdf:type owl:Class;
+  rdf:type bpmn:ExclusiveGateway ;
+  rdfs:subClassOf bpmn:ExclusiveGateway ;
+  rdfs:label "Exclusive Gateway-17875"^^xsd:string ;
+  emo:objectTypeHasName "Exclusive Gateway"^^xsd:string ;                                
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27773;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27824
+  rdf:type owl:Class;
+  rdf:type bpmn:ExclusiveGateway ;
+  rdfs:subClassOf bpmn:ExclusiveGateway ;
+  rdfs:label "Exclusive Gateway-17882"^^xsd:string ;
+  emo:objectTypeHasName "Exclusive Gateway"^^xsd:string ;                                
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27776;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27773
+  rdf:type owl:Class;
+  rdf:type bpmn:Pool ;
+  rdfs:subClassOf bpmn:Pool ;
+  rdfs:label "Sportello comprensoriale or sportello municipale"^^xsd:string ;
+  emo:objectTypeHasName "Pool"^^xsd:string ;                  
+  lpd:bpmnPoolHasId "obj.27773"^^xsd:string ;
+  lpd:bpmnPoolHasName "Sportello comprensoriale or sportello municipale"^^xsd:string ;
+	
+   emo:poolRepresentsOrganisationalUnit transfer:obj.27399 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27815
+  rdf:type owl:Class;
+  rdf:type bpmn:Pool ;
+  rdfs:subClassOf bpmn:Pool ;
+  rdfs:label "Entre-preneur"^^xsd:string ;
+  emo:objectTypeHasName "Pool"^^xsd:string ;                  
+  lpd:bpmnPoolHasId "obj.27815"^^xsd:string ;
+  lpd:bpmnPoolHasName "Entre-preneur"^^xsd:string ;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27776
+  rdf:type owl:Class;
+  rdf:type bpmn:Lane ;
+  rdfs:subClassOf bpmn:Lane ;
+  rdfs:label "Office SUAP"^^xsd:string ;
+  emo:objectTypeHasName "Lane"^^xsd:string ;                                  
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.29006
+  rdf:type owl:Class;
+  rdf:type bpmn:DataInput ;
+  rdfs:subClassOf bpmn:DataInput ;
+  rdfs:label "SCIA Instance"^^xsd:string ;
+  emo:objectTypeHasName "Data Object"^^xsd:string ;                                
+	
+   emo:dataInputReferencesDocument transfer:obj.27015 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27809
+  rdf:type owl:Class;
+  rdf:type bpmn:DataOutput ;
+  rdfs:subClassOf bpmn:DataOutput ;
+  rdfs:label "Titolo Unico"^^xsd:string ;
+  emo:objectTypeHasName "Data Object"^^xsd:string ;                                                
+	
+   emo:dataOutputReferencesDocument transfer:obj.27021 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.29025
+  rdf:type owl:Class;
+  rdf:type bpmn:DataOutput ;
+  rdfs:subClassOf bpmn:DataOutput ;
+  rdfs:label "SCIA Instance Integration"^^xsd:string ;
+  emo:objectTypeHasName "Data Object"^^xsd:string ;                                                
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:mod.27908
+  rdf:type owl:Class;
+  rdf:type emo:BPMN_MetaModel ;
+  rdfs:subClassOf emo:BPMN_MetaModel ;
+  rdfs:label "011_Check Application"^^xsd:string ;
+  emo:objectTypeHasName "Business process diagram (BPMN 2.0)"^^xsd:string ;
+  rdf:subClassOf bpmn:Process ;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27918
+  rdf:type owl:Class;
+  rdf:type bpmn:StartEvent ;
+  rdfs:subClassOf bpmn:StartEvent ;
+  rdfs:label "Start Event-83148"^^xsd:string ;
+  emo:objectTypeHasName "Start Event"^^xsd:string ;
+  lpd:bpmnStartEventHasId "obj.27918"^^xsd:string ;
+  lpd:bpmnStartEventHasName "Start Event-83148"^^xsd:string ;
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27909;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27912;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27933
+  rdf:type owl:Class;
+  rdf:type bpmn:EndEvent ;
+  rdfs:subClassOf bpmn:EndEvent ;
+  rdfs:label "End Event-83205"^^xsd:string ;
+  emo:objectTypeHasName "End Event"^^xsd:string ;                  
+  lpd:bpmnEndEventHasId "obj.27933"^^xsd:string ;
+  lpd:bpmnEndEventHasName "End Event-83205"^^xsd:string ;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27909;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27912;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28829
+  rdf:type owl:Class;
+  rdf:type bpmn:EndEvent ;
+  rdfs:subClassOf bpmn:EndEvent ;
+  rdfs:label "End Event-28829"^^xsd:string ;
+  emo:objectTypeHasName "End Event"^^xsd:string ;                  
+  lpd:bpmnEndEventHasId "obj.28829"^^xsd:string ;
+  lpd:bpmnEndEventHasName "End Event-28829"^^xsd:string ;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27909;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27912;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27921
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Send Instance to Third Party"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;                  
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27909;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27912;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27942;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27924
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Receive check of Third Party"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;                  
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27909;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27912;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27939
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "First Integration Check"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;                  
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27909;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27912;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27921
+  rdf:type owl:Class;
+  rdf:type bpmn:SendTask ;
+  rdfs:subClassOf bpmn:SendTask ;
+  rdfs:label "Send Instance to Third Party"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;                
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27909;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27912;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27942;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27924
+  rdf:type owl:Class;
+  rdf:type bpmn:ReceiveTask ;
+  rdfs:subClassOf bpmn:ReceiveTask ;
+  rdfs:label "Receive check of Third Party"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;                                
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27909;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27912;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28822
+  rdf:type owl:Class;
+  rdf:type bpmn:ExclusiveGateway ;
+  rdfs:subClassOf bpmn:ExclusiveGateway ;
+  rdfs:label "Exclusive Gateway-28822"^^xsd:string ;
+  emo:objectTypeHasName "Exclusive Gateway"^^xsd:string ;                                
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27909;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27912;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27930
+  rdf:type owl:Class;
+  rdf:type bpmn:ParallelGateway ;
+  rdfs:subClassOf bpmn:ParallelGateway ;
+  rdfs:label "Non-exclusive Gateway-83191"^^xsd:string ;
+  emo:objectTypeHasName "Non-exclusive Gateway"^^xsd:string ;                
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27909;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27912;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28812
+  rdf:type owl:Class;
+  rdf:type bpmn:ParallelGateway ;
+  rdfs:subClassOf bpmn:ParallelGateway ;
+  rdfs:label "Non-exclusive Gateway-28812"^^xsd:string ;
+  emo:objectTypeHasName "Non-exclusive Gateway"^^xsd:string ;                
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27909;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.27912;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27909
+  rdf:type owl:Class;
+  rdf:type bpmn:Pool ;
+  rdfs:subClassOf bpmn:Pool ;
+  rdfs:label "Sportello comprensoriale or sportello municipale"^^xsd:string ;
+  emo:objectTypeHasName "Pool"^^xsd:string ;                  
+  lpd:bpmnPoolHasId "obj.27909"^^xsd:string ;
+  lpd:bpmnPoolHasName "Sportello comprensoriale or sportello municipale"^^xsd:string ;
+	
+   emo:poolRepresentsOrganisationalUnit transfer:obj.27399 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27942
+  rdf:type owl:Class;
+  rdf:type bpmn:Pool ;
+  rdfs:subClassOf bpmn:Pool ;
+  rdfs:label "Third Party PA"^^xsd:string ;
+  emo:objectTypeHasName "Pool"^^xsd:string ;                  
+  lpd:bpmnPoolHasId "obj.27942"^^xsd:string ;
+  lpd:bpmnPoolHasName "Third Party PA"^^xsd:string ;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27912
+  rdf:type owl:Class;
+  rdf:type bpmn:Lane ;
+  rdfs:subClassOf bpmn:Lane ;
+  rdfs:label "SUAP Office"^^xsd:string ;
+  emo:objectTypeHasName "Lane"^^xsd:string ;                                  
+	
+   emo:swimlaneRepresentsOrganisationalUnit transfer:obj.27390 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27927
+  rdf:type owl:Class;
+  rdf:type bpmn:DataInput ;
+  rdfs:subClassOf bpmn:DataInput ;
+  rdfs:label "SCIA Instance"^^xsd:string ;
+  emo:objectTypeHasName "Data Object"^^xsd:string ;                                
+	
+   emo:dataInputReferencesDocument transfer:obj.27015 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27936
+  rdf:type owl:Class;
+  rdf:type bpmn:DataInput ;
+  rdfs:subClassOf bpmn:DataInput ;
+  rdfs:label "Third Party Opinion"^^xsd:string ;
+  emo:objectTypeHasName "Data Object"^^xsd:string ;                                
+	
+   emo:dataInputReferencesDocument transfer:obj.27018 ;
+
+   emo:dataInputReferencesDocument transfer:obj.27018 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:mod.27983
+  rdf:type owl:Class;
+  rdf:type emo:BPMN_MetaModel ;
+  rdfs:subClassOf emo:BPMN_MetaModel ;
+  rdfs:label "011_Manage Service Conference"^^xsd:string ;
+  emo:objectTypeHasName "Business process diagram (BPMN 2.0)"^^xsd:string ;
+  rdf:subClassOf bpmn:Process ;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27984
+  rdf:type owl:Class;
+  rdf:type bpmn:StartEvent ;
+  rdfs:subClassOf bpmn:StartEvent ;
+  rdfs:label "Start Event-83232"^^xsd:string ;
+  emo:objectTypeHasName "Start Event"^^xsd:string ;
+  lpd:bpmnStartEventHasId "obj.27984"^^xsd:string ;
+  lpd:bpmnStartEventHasName "Start Event-83232"^^xsd:string ;
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.28005;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.28008;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27993
+  rdf:type owl:Class;
+  rdf:type bpmn:MessageCatchingSequenceIntermediateEvent ;
+  rdfs:subClassOf bpmn:MessageCatchingSequenceIntermediateEvent ;
+  rdfs:label "Receive Confirmation"^^xsd:string ;
+  emo:objectTypeHasName "Intermediate Event (sequence flow)"^^xsd:string ;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.28005;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.28008;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27996
+  rdf:type owl:Class;
+  rdf:type bpmn:EndEvent ;
+  rdfs:subClassOf bpmn:EndEvent ;
+  rdfs:label "End Event-83248"^^xsd:string ;
+  emo:objectTypeHasName "End Event"^^xsd:string ;                  
+  lpd:bpmnEndEventHasId "obj.27996"^^xsd:string ;
+  lpd:bpmnEndEventHasName "End Event-83248"^^xsd:string ;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.28005;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.28008;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27987
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Activate Service Conference"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;                  
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.28002;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.28005;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.28008;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27990
+  rdf:type owl:Class;
+  rdf:type bpmn:Task ;
+  rdfs:subClassOf bpmn:Task ;
+  rdfs:label "Confirm Decision"^^xsd:string ;
+  emo:objectTypeHasName "Task"^^xsd:string ;                  
+  	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.28002;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.28005;
+	
+  bpmn:flowNodeBelongsToParticipant transfer:obj.28008;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28002
+  rdf:type owl:Class;
+  rdf:type bpmn:Pool ;
+  rdfs:subClassOf bpmn:Pool ;
+  rdfs:label "Service Conference"^^xsd:string ;
+  emo:objectTypeHasName "Pool"^^xsd:string ;                  
+  lpd:bpmnPoolHasId "obj.28002"^^xsd:string ;
+  lpd:bpmnPoolHasName "Service Conference"^^xsd:string ;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28005
+  rdf:type owl:Class;
+  rdf:type bpmn:Pool ;
+  rdfs:subClassOf bpmn:Pool ;
+  rdfs:label "Sportello comprensoriale or sportello municipale"^^xsd:string ;
+  emo:objectTypeHasName "Pool"^^xsd:string ;                  
+  lpd:bpmnPoolHasId "obj.28005"^^xsd:string ;
+  lpd:bpmnPoolHasName "Sportello comprensoriale or sportello municipale"^^xsd:string ;
+	
+   emo:poolRepresentsOrganisationalUnit transfer:obj.27399 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28008
+  rdf:type owl:Class;
+  rdf:type bpmn:Lane ;
+  rdfs:subClassOf bpmn:Lane ;
+  rdfs:label "Office SUAP"^^xsd:string ;
+  emo:objectTypeHasName "Lane"^^xsd:string ;                                  
+	
+   emo:swimlaneRepresentsOrganisationalUnit transfer:obj.27390 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27999
+  rdf:type owl:Class;
+  rdf:type bpmn:DataInput ;
+  rdfs:subClassOf bpmn:DataInput ;
+  rdfs:label "SCIA Instance"^^xsd:string ;
+  emo:objectTypeHasName "Data Object"^^xsd:string ;                                
+	
+   emo:dataInputReferencesDocument transfer:obj.27015 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:mod.28040
+  rdf:type owl:Class;
+  rdf:type emo:BusinessMotivationMetaModel ;
+  rdfs:subClassOf emo:BusinessMotivationMetaModel ;
+  rdfs:label "05_Business Motivation Model Titolo Unico"^^xsd:string ;
+  emo:objectTypeHasName "BMM"^^xsd:string ;                  	
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28041
+  rdf:type owl:Class;
+  rdf:type bmm:Goal ;
+  rdfs:subClassOf bmm:Goal ;
+  rdfs:label "High Client Satisfaction"^^xsd:string ;
+  emo:objectTypeHasName "Goal"^^xsd:string ;                  	                	
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28044
+  rdf:type owl:Class;
+  rdf:type bmm:Goal ;
+  rdfs:subClassOf bmm:Goal ;
+  rdfs:label "No-error in Application Handling"^^xsd:string ;
+  emo:objectTypeHasName "Goal"^^xsd:string ;                  	                	
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28047
+  rdf:type owl:Class;
+  rdf:type bmm:Goal ;
+  rdfs:subClassOf bmm:Goal ;
+  rdfs:label "Continuous Improvement"^^xsd:string ;
+  emo:objectTypeHasName "Goal"^^xsd:string ;                  	                	
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:mod.26992
+  rdf:type owl:Class;
+  rdf:type emo:DocumentAndKnowledgeMetaModel ;
+  rdfs:subClassOf emo:DocumentAndKnowledgeMetaModel ;
+  rdfs:label "03_Document and Knowledge model Titolo Unico"^^xsd:string ;
+  emo:objectTypeHasName "Document and Knowledge model"^^xsd:string ;                				
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27006
+  rdf:type owl:Class;
+  rdf:type dkm:D_Container ;
+  rdfs:subClassOf dkm:D_Container ;
+  rdfs:label "Acquired Competency Profiles Monte Azzurri"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27009
+  rdf:type owl:Class;
+  rdf:type dkm:D_Container ;
+  rdfs:subClassOf dkm:D_Container ;
+  rdfs:label "Learning Material"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27012
+  rdf:type owl:Class;
+  rdf:type dkm:D_Container ;
+  rdfs:subClassOf dkm:D_Container ;
+  rdfs:label "Business Relevant Documents Related to Processes (Learning Objecst)"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27081
+  rdf:type owl:Class;
+  rdf:type dkm:D_Container ;
+  rdfs:subClassOf dkm:D_Container ;
+  rdfs:label "Required Competency Profiles SUAP Roles"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27171
+  rdf:type owl:Class;
+  rdf:type dkm:D_Container ;
+  rdfs:subClassOf dkm:D_Container ;
+  rdfs:label "Acquired Competency Profiles Sarnano Municipality"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27217
+  rdf:type owl:Class;
+  rdf:type dkm:D_Container ;
+  rdfs:subClassOf dkm:D_Container ;
+  rdfs:label "Acquired Competency Profiles Senigallia Municipality"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27235
+  rdf:type owl:Class;
+  rdf:type dkm:D_Container ;
+  rdfs:subClassOf dkm:D_Container ;
+  rdfs:label "Required Competency Profile of Monte Azzurri SUAP OU"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27247
+  rdf:type owl:Class;
+  rdf:type dkm:D_Container ;
+  rdfs:subClassOf dkm:D_Container ;
+  rdfs:label "Required Competency Profile of Sarnano SUAP OU"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27257
+  rdf:type owl:Class;
+  rdf:type dkm:D_Container ;
+  rdfs:subClassOf dkm:D_Container ;
+  rdfs:label "Required Competency Profile of Senigallia SUAP OU"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27321
+  rdf:type owl:Class;
+  rdf:type dkm:D_Container ;
+  rdfs:subClassOf dkm:D_Container ;
+  rdfs:label "Referenced Source Documents (Learning Objects)"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27327
+  rdf:type owl:Class;
+  rdf:type dkm:D_Container ;
+  rdfs:subClassOf dkm:D_Container ;
+  rdfs:label "Referenced Documents (Learning Objects)"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27015
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "SCIA Instance"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                			
+	  dkm:d_ConstructIsInsideD_Container transfer:obj.27012 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27018
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "Third Party Opinion"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                			
+	  dkm:d_ConstructIsInsideD_Container transfer:obj.27012 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27021
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "Titolo Unico Authorization Document"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                			
+	  dkm:d_ConstructIsInsideD_Container transfer:obj.27012 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27318
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "Deliberation of the Marche Regional Council n. 845/2012"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                			
+	  dkm:d_ConstructIsInsideD_Container transfer:obj.27321 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27324
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "Marche Regional Law n. 7 of 29 April 2011"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                			
+	  dkm:d_ConstructIsInsideD_Container transfer:obj.27321 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27330
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "European Directive 2006/123/CE"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                			
+	  dkm:d_ConstructIsInsideD_Container transfer:obj.27327 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27333
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "Decree-Law n. 112/2008 article 38"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                			
+	  dkm:d_ConstructIsInsideD_Container transfer:obj.27327 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27336
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "Decree-Law n. 82/2005"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                			
+	  dkm:d_ConstructIsInsideD_Container transfer:obj.27327 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27339
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "Decree of the President of the Republic (DPR) n. 160/2010 article 7"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                			
+	  dkm:d_ConstructIsInsideD_Container transfer:obj.27327 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27342
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "Law n. 241/1990"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                			
+	  dkm:d_ConstructIsInsideD_Container transfer:obj.27327 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27345
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "Decree-Law n. 5/2012"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                			
+	  dkm:d_ConstructIsInsideD_Container transfer:obj.27327 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.29021
+  rdf:type owl:Class;
+  rdf:type dkm:Document ;
+  rdfs:subClassOf dkm:Document ;
+  rdfs:label "SCIA Instance Integration"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                			
+	  dkm:d_ConstructIsInsideD_Container transfer:obj.27012 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26942 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.2
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "6"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26972 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27045
+  rdf:type owl:Class;
+  rdf:type dkm:LearningDocument ;
+  rdfs:subClassOf dkm:LearningDocument ;
+  rdfs:label "Book: Managing Service Conference"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;  
+  dkm:documentHasURL "http://www.learnpad.eu/"^^xsd:string ;
+  dkm:documentHasMIMEType "text/html"^^xsd:string ;
+  dkm:documentHasDescription "This web page contains the required learning material to improve ..."^^xsd:string ;
+  rdfs:comment "This material should be updated ..."^^xsd:string ;
+              
+  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:row.1 ;            
+            
+  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:row.2 ;            
+              dkm:d_ConstructIsInsideD_Container transfer:obj.27009 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26942 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27056
+  rdf:type owl:Class;
+  rdf:type dkm:LearningDocument ;
+  rdfs:subClassOf dkm:LearningDocument ;
+  rdfs:label "Video: Service Conference Management"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;  
+  dkm:documentHasURL "http://www.learnpad.eu/"^^xsd:string ;
+  dkm:documentHasMIMEType "text/html"^^xsd:string ;
+  dkm:documentHasDescription "This web page contains the required learning material to improve ..."^^xsd:string ;
+  rdfs:comment "This material should be updated ..."^^xsd:string ;
+              
+  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:row.1 ;            
+              dkm:d_ConstructIsInsideD_Container transfer:obj.27009 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26936 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27063
+  rdf:type owl:Class;
+  rdf:type dkm:LearningDocument ;
+  rdfs:subClassOf dkm:LearningDocument ;
+  rdfs:label "Course Note: Managing Service Conference"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;  
+  dkm:documentHasURL "http://www.learnpad.eu/"^^xsd:string ;
+  dkm:documentHasMIMEType "text/html"^^xsd:string ;
+  dkm:documentHasDescription "This web page contains the required learning material to improve ..."^^xsd:string ;
+  rdfs:comment "This material should be updated ..."^^xsd:string ;
+              
+  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:row.1 ;            
+              dkm:d_ConstructIsInsideD_Container transfer:obj.27009 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26948 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.2
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26936 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27070
+  rdf:type owl:Class;
+  rdf:type dkm:LearningDocument ;
+  rdfs:subClassOf dkm:LearningDocument ;
+  rdfs:label "Regolamento Sportello Unico"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;  
+  dkm:documentHasURL "http://www.learnpad.eu/"^^xsd:string ;
+  dkm:documentHasMIMEType "text/html"^^xsd:string ;
+  dkm:documentHasDescription "This web page contains the required learning material to improve ..."^^xsd:string ;
+  rdfs:comment "This material should be updated ..."^^xsd:string ;
+              
+  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:row.1 ;            
+            
+  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:row.2 ;            
+              dkm:d_ConstructIsInsideD_Container transfer:obj.27009 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26942 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27267
+  rdf:type owl:Class;
+  rdf:type dkm:LearningDocument ;
+  rdfs:subClassOf dkm:LearningDocument ;
+  rdfs:label "Wiki: Managing Service Conference"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;  
+  dkm:documentHasURL "http://www.learnpad.eu/"^^xsd:string ;
+  dkm:documentHasMIMEType "text/html"^^xsd:string ;
+  dkm:documentHasDescription "This web page contains the required learning material to improve ..."^^xsd:string ;
+  rdfs:comment "This material should be updated ..."^^xsd:string ;
+              
+  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:row.1 ;            
+              dkm:d_ConstructIsInsideD_Container transfer:obj.27009 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26969 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27276
+  rdf:type owl:Class;
+  rdf:type dkm:LearningDocument ;
+  rdfs:subClassOf dkm:LearningDocument ;
+  rdfs:label "Pioneering Sustainable Buildings"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;  
+  dkm:documentHasURL "http://www.learnpad.eu/"^^xsd:string ;
+  dkm:documentHasMIMEType "text/html"^^xsd:string ;
+  dkm:documentHasDescription "This web page contains the required learning material to improve ..."^^xsd:string ;
+  rdfs:comment "This material should be updated ..."^^xsd:string ;
+              
+  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:row.1 ;            
+              dkm:d_ConstructIsInsideD_Container transfer:obj.27009 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26957 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27283
+  rdf:type owl:Class;
+  rdf:type dkm:LearningDocument ;
+  rdfs:subClassOf dkm:LearningDocument ;
+  rdfs:label "Public Administration Review"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;  
+  dkm:documentHasURL "http://www.learnpad.eu/"^^xsd:string ;
+  dkm:documentHasMIMEType "text/html"^^xsd:string ;
+  dkm:documentHasDescription "This web page contains the required learning material to improve ..."^^xsd:string ;
+  rdfs:comment "This material should be updated ..."^^xsd:string ;
+              
+  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:row.1 ;            
+              dkm:d_ConstructIsInsideD_Container transfer:obj.27009 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26963 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27290
+  rdf:type owl:Class;
+  rdf:type dkm:LearningDocument ;
+  rdfs:subClassOf dkm:LearningDocument ;
+  rdfs:label "What makes a good decision"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;  
+  dkm:documentHasURL "http://www.learnpad.eu/"^^xsd:string ;
+  dkm:documentHasMIMEType "text/html"^^xsd:string ;
+  dkm:documentHasDescription "This web page contains the required learning material to improve ..."^^xsd:string ;
+  rdfs:comment "This material should be updated ..."^^xsd:string ;
+              
+  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:row.1 ;            
+              dkm:d_ConstructIsInsideD_Container transfer:obj.27009 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26945 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27297
+  rdf:type owl:Class;
+  rdf:type dkm:LearningDocument ;
+  rdfs:subClassOf dkm:LearningDocument ;
+  rdfs:label "Assessing Building Applications in the USA"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;  
+  dkm:documentHasURL "http://www.learnpad.eu/"^^xsd:string ;
+  dkm:documentHasMIMEType "text/html"^^xsd:string ;
+  dkm:documentHasDescription "This web page contains the required learning material to improve ..."^^xsd:string ;
+  rdfs:comment "This material should be updated ..."^^xsd:string ;
+              
+  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:row.1 ;            
+              dkm:d_ConstructIsInsideD_Container transfer:obj.27009 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "6"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26972 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27304
+  rdf:type owl:Class;
+  rdf:type dkm:LearningDocument ;
+  rdfs:subClassOf dkm:LearningDocument ;
+  rdfs:label "Video: Leading a High Performance Team"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;  
+  dkm:documentHasURL "http://www.learnpad.eu/"^^xsd:string ;
+  dkm:documentHasMIMEType "text/html"^^xsd:string ;
+  dkm:documentHasDescription "This web page contains the required learning material to improve ..."^^xsd:string ;
+  rdfs:comment "This material should be updated ..."^^xsd:string ;
+              
+  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:row.1 ;            
+              dkm:d_ConstructIsInsideD_Container transfer:obj.27009 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26939 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27311
+  rdf:type owl:Class;
+  rdf:type dkm:LearningDocument ;
+  rdfs:subClassOf dkm:LearningDocument ;
+  rdfs:label "MR: Learning Platform"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;  
+  dkm:documentHasURL "http://www.learnpad.eu/"^^xsd:string ;
+  dkm:documentHasMIMEType "text/html"^^xsd:string ;
+  dkm:documentHasDescription "This web page contains the required learning material to improve ..."^^xsd:string ;
+  rdfs:comment "This material should be updated ..."^^xsd:string ;
+              
+  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:row.1 ;            
+              dkm:d_ConstructIsInsideD_Container transfer:obj.27009 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26939 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.2
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "2"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26936 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.3
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26945 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.4
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26942 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.5
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26960 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.26993
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyProfile ;
+  rdfs:subClassOf cmm:CompetencyProfile ;
+  rdfs:label "Acquired Competency Barnaby Barnes"^^xsd:string ;
+  emo:objectTypeHasName "Document"^^xsd:string ;
+  emo:competencyProfileIsDocumentedInDocument transfer:obj.26993 ;
+              
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Auditory_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Mentoring_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Reading_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Simulation_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:VisualBrowsing_learningPreference ;
+            
+  cmm:competenciesAndLevels transfer:row.1 ;            
+            
+  cmm:competenciesAndLevels transfer:row.2 ;            
+            
+  cmm:competenciesAndLevels transfer:row.3 ;            
+            
+  cmm:competenciesAndLevels transfer:row.4 ;            
+            
+  cmm:competenciesAndLevels transfer:row.5 ;            
+            emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "2"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26939 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.2
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26936 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.3
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26945 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.4
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26942 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.5
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26972 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27084
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyProfile ;
+  rdfs:subClassOf cmm:CompetencyProfile ;
+  rdfs:label "Acquired Competency James Jason"^^xsd:string ;
+  emo:objectTypeHasName "Document"^^xsd:string ;
+  emo:competencyProfileIsDocumentedInDocument transfer:obj.27084 ;
+              
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Auditory_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Mentoring_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Reading_learningPreference ;
+            
+  cmm:competenciesAndLevels transfer:row.1 ;            
+            
+  cmm:competenciesAndLevels transfer:row.2 ;            
+            
+  cmm:competenciesAndLevels transfer:row.3 ;            
+            
+  cmm:competenciesAndLevels transfer:row.4 ;            
+            
+  cmm:competenciesAndLevels transfer:row.5 ;            
+            emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26939 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.2
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "2"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26936 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.3
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26945 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.4
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26972 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27097
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyProfile ;
+  rdfs:subClassOf cmm:CompetencyProfile ;
+  rdfs:label "Acquired Competency Sarah Brown"^^xsd:string ;
+  emo:objectTypeHasName "Document"^^xsd:string ;
+  emo:competencyProfileIsDocumentedInDocument transfer:obj.27097 ;
+              
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Auditory_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Reading_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:VisualBrowsing_learningPreference ;
+            
+  cmm:competenciesAndLevels transfer:row.1 ;            
+            
+  cmm:competenciesAndLevels transfer:row.2 ;            
+            
+  cmm:competenciesAndLevels transfer:row.3 ;            
+            
+  cmm:competenciesAndLevels transfer:row.4 ;            
+            emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26939 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.2
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26936 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.3
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26945 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.4
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26960 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.5
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26972 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27143
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyProfile ;
+  rdfs:subClassOf cmm:CompetencyProfile ;
+  rdfs:label "Acquired Competency Sally Shugar"^^xsd:string ;
+  emo:objectTypeHasName "Document"^^xsd:string ;
+  emo:competencyProfileIsDocumentedInDocument transfer:obj.27143 ;
+              
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Auditory_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Reading_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Simulation_learningPreference ;
+            
+  cmm:competenciesAndLevels transfer:row.1 ;            
+            
+  cmm:competenciesAndLevels transfer:row.2 ;            
+            
+  cmm:competenciesAndLevels transfer:row.3 ;            
+            
+  cmm:competenciesAndLevels transfer:row.4 ;            
+            
+  cmm:competenciesAndLevels transfer:row.5 ;            
+            emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "2"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26939 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.2
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26936 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.3
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26945 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.4
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26942 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27160
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyProfile ;
+  rdfs:subClassOf cmm:CompetencyProfile ;
+  rdfs:label "Acquired Competency Laura Cruciani"^^xsd:string ;
+  emo:objectTypeHasName "Document"^^xsd:string ;
+  emo:competencyProfileIsDocumentedInDocument transfer:obj.27160 ;
+              
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Auditory_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Mentoring_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Simulation_learningPreference ;
+            
+  cmm:competenciesAndLevels transfer:row.1 ;            
+            
+  cmm:competenciesAndLevels transfer:row.2 ;            
+            
+  cmm:competenciesAndLevels transfer:row.3 ;            
+            
+  cmm:competenciesAndLevels transfer:row.4 ;            
+            emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "2"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26939 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.2
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26936 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.3
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26945 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.4
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26942 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.5
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26966 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27174
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyProfile ;
+  rdfs:subClassOf cmm:CompetencyProfile ;
+  rdfs:label "Acquired Competency Laura Sortini"^^xsd:string ;
+  emo:objectTypeHasName "Document"^^xsd:string ;
+  emo:competencyProfileIsDocumentedInDocument transfer:obj.27174 ;
+              
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Mentoring_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Reading_learningPreference ;
+            
+  cmm:competenciesAndLevels transfer:row.1 ;            
+            
+  cmm:competenciesAndLevels transfer:row.2 ;            
+            
+  cmm:competenciesAndLevels transfer:row.3 ;            
+            
+  cmm:competenciesAndLevels transfer:row.4 ;            
+            
+  cmm:competenciesAndLevels transfer:row.5 ;            
+            emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26939 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.2
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26936 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.3
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26945 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.4
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26963 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27187
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyProfile ;
+  rdfs:subClassOf cmm:CompetencyProfile ;
+  rdfs:label "Acquired Competency Emanuele Spello"^^xsd:string ;
+  emo:objectTypeHasName "Document"^^xsd:string ;
+  emo:competencyProfileIsDocumentedInDocument transfer:obj.27187 ;
+              
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Auditory_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Reading_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:VisualBrowsing_learningPreference ;
+            
+  cmm:competenciesAndLevels transfer:row.1 ;            
+            
+  cmm:competenciesAndLevels transfer:row.2 ;            
+            
+  cmm:competenciesAndLevels transfer:row.3 ;            
+            
+  cmm:competenciesAndLevels transfer:row.4 ;            
+            emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26939 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.2
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26969 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.3
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26945 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.4
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26960 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.5
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26966 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27202
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyProfile ;
+  rdfs:subClassOf cmm:CompetencyProfile ;
+  rdfs:label "Acquired Competency Tess Hinkelmann"^^xsd:string ;
+  emo:objectTypeHasName "Document"^^xsd:string ;
+  emo:competencyProfileIsDocumentedInDocument transfer:obj.27202 ;
+              
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Auditory_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Mentoring_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Reading_learningPreference ;
+            
+  cmm:competenciesAndLevels transfer:row.1 ;            
+            
+  cmm:competenciesAndLevels transfer:row.2 ;            
+            
+  cmm:competenciesAndLevels transfer:row.3 ;            
+            
+  cmm:competenciesAndLevels transfer:row.4 ;            
+            
+  cmm:competenciesAndLevels transfer:row.5 ;            
+            emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26939 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.2
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26936 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.3
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26957 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.4
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "3"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26960 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.5
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Acquired Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelStatus ""^^xsd:string ;
+  cmm:competencyAndLevelScore ""^^xsd:string ;
+  
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	  cmm:competencyAndLevelRefersToCompetency transfer:obj.26966 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27220
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyProfile ;
+  rdfs:subClassOf cmm:CompetencyProfile ;
+  rdfs:label "Acquired Competency Antonella Zugero"^^xsd:string ;
+  emo:objectTypeHasName "Document"^^xsd:string ;
+  emo:competencyProfileIsDocumentedInDocument transfer:obj.27220 ;
+              
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Auditory_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Mentoring_learningPreference ;
+            
+  cmm:learningPreferencesAssignedToCompetencyProfile cmm:Reading_learningPreference ;
+            
+  cmm:competenciesAndLevels transfer:row.1 ;            
+            
+  cmm:competenciesAndLevels transfer:row.2 ;            
+            
+  cmm:competenciesAndLevels transfer:row.3 ;            
+            
+  cmm:competenciesAndLevels transfer:row.4 ;            
+            
+  cmm:competenciesAndLevels transfer:row.5 ;            
+            emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.2
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.3
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27024
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyProfile ;
+  rdfs:subClassOf cmm:CompetencyProfile ;
+  rdfs:label "Required Compentency SUAP Officer"^^xsd:string ;
+  emo:objectTypeHasName "Document"^^xsd:string ;
+  emo:competencyProfileIsDocumentedInDocument transfer:obj.27024 ;
+            
+  cmm:competenciesAndLevels transfer:row.1 ;            
+            
+  cmm:competenciesAndLevels transfer:row.2 ;            
+            
+  cmm:competenciesAndLevels transfer:row.3 ;            
+            emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.2
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.3
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.4
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.5
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27114
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyProfile ;
+  rdfs:subClassOf cmm:CompetencyProfile ;
+  rdfs:label "Required Compentency Responsible SUAP Officer"^^xsd:string ;
+  emo:objectTypeHasName "Document"^^xsd:string ;
+  emo:competencyProfileIsDocumentedInDocument transfer:obj.27114 ;
+            
+  cmm:competenciesAndLevels transfer:row.1 ;            
+            
+  cmm:competenciesAndLevels transfer:row.2 ;            
+            
+  cmm:competenciesAndLevels transfer:row.3 ;            
+            
+  cmm:competenciesAndLevels transfer:row.4 ;            
+            
+  cmm:competenciesAndLevels transfer:row.5 ;            
+            emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.2
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "6"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27238
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyProfile ;
+  rdfs:subClassOf cmm:CompetencyProfile ;
+  rdfs:label "Required C Monti Azzurri SUAP Office"^^xsd:string ;
+  emo:objectTypeHasName "Document"^^xsd:string ;
+  emo:competencyProfileIsDocumentedInDocument transfer:obj.27238 ;
+            
+  cmm:competenciesAndLevels transfer:row.1 ;            
+            
+  cmm:competenciesAndLevels transfer:row.2 ;            
+            emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.2
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27250
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyProfile ;
+  rdfs:subClassOf cmm:CompetencyProfile ;
+  rdfs:label "Required C Sarnano SUAP OU"^^xsd:string ;
+  emo:objectTypeHasName "Document"^^xsd:string ;
+  emo:competencyProfileIsDocumentedInDocument transfer:obj.27250 ;
+            
+  cmm:competenciesAndLevels transfer:row.1 ;            
+            
+  cmm:competenciesAndLevels transfer:row.2 ;            
+            emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.1
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "5"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:row.2
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyAndLevel ;
+  rdfs:subClassOf cmm:CompetencyAndLevel ;
+  rdfs:label "Competency and Level"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;
+  cmm:competencyAndLevelLevel "4"^^xsd:integer ; 
+  cmm:competencyAndLevelComment ""^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27260
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyProfile ;
+  rdfs:subClassOf cmm:CompetencyProfile ;
+  rdfs:label "Required C Senigallia SUAP OU"^^xsd:string ;
+  emo:objectTypeHasName "Document"^^xsd:string ;
+  emo:competencyProfileIsDocumentedInDocument transfer:obj.27260 ;
+            
+  cmm:competenciesAndLevels transfer:row.1 ;            
+            
+  cmm:competenciesAndLevels transfer:row.2 ;            
+            emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:mod.27386
+  rdf:type owl:Class;
+  rdf:type emo:OrganisationMetaModel ;
+  rdfs:subClassOf emo:OrganisationMetaModel ;
+  rdfs:label "02_Org Model Monti Azzurri"^^xsd:string ;
+  emo:objectTypeHasName "Organizational structure"^^xsd:string ;                    			
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27387
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Agriculture Office"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27408 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27390
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "SUAP Office"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27408 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27399
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Monti Azzurri"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27408
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Area 3"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27399 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27393
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "SUAP Officer"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27390 ;
+ omm:roleRequiresCompetencyProfile transfer:obj.27024 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27402
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Secretary General"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27399 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27405
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "President"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27399 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27411
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsible Agriculture, Forestry, Environment"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27387 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27423
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsible SUAP officer"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27390 ;
+ omm:roleRequiresCompetencyProfile transfer:obj.27114 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27396
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Barnaby Barnes"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		  omm:performerHasFirstName "Barnaby"^^xsd:string ;
+		  omm:performerHasLastName "Barnes"^^xsd:string ;
+		  emo:performerHasEmailAddress "barnaby.barnes@learnpad.com"^^xsd:string ;
+		  omm:performerHasPhoneNumber "+39 0733 656 344"^^xsd:string ;
+		    omm:performerHasRole transfer:obj.27393 ;
+ omm:performerAcquiredCompetencyProfile transfer:obj.26993 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27414
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Rando Laurenzi "^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27402 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27417
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Tim Emmenegger"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27405 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27420
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Ling Zhang"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		  omm:performerHasFirstName "Ling"^^xsd:string ;
+		  omm:performerHasLastName "Zhang"^^xsd:string ;
+		  emo:performerHasEmailAddress "ling.zhang@learnpad.com"^^xsd:string ;
+		  omm:performerHasPhoneNumber "+39 0733 656 441"^^xsd:string ;
+		    omm:performerHasRole transfer:obj.27411 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27426
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Sally Shugar"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		  omm:performerHasFirstName "Sally May"^^xsd:string ;
+		  omm:performerHasLastName "Shugar"^^xsd:string ;
+		  emo:performerHasEmailAddress "sally.shugar@learnpad.com"^^xsd:string ;
+		  omm:performerHasPhoneNumber "+39 0733 656 355"^^xsd:string ;
+		    omm:performerHasRole transfer:obj.27423 ;
+  omm:performerIsManagerOfOrganisationalUnit transfer:obj.27390 ;
+ omm:performerAcquiredCompetencyProfile transfer:obj.27143 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27429
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Sarah Brown"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		  omm:performerHasFirstName "Sarah Antonia"^^xsd:string ;
+		  omm:performerHasLastName "Brown"^^xsd:string ;
+		  emo:performerHasEmailAddress "sarah.brown@learnpad.com"^^xsd:string ;
+		  omm:performerHasPhoneNumber "+39 0733 656 311"^^xsd:string ;
+		    omm:performerHasRole transfer:obj.27393 ;
+ omm:performerAcquiredCompetencyProfile transfer:obj.27097 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27432
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "James Jason"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		  omm:performerHasFirstName "James"^^xsd:string ;
+		  omm:performerHasLastName "Jason"^^xsd:string ;
+		  emo:performerHasEmailAddress "james.jason@learnpad.com"^^xsd:string ;
+		  omm:performerHasPhoneNumber "+39 0733 656 321"^^xsd:string ;
+		    omm:performerHasRole transfer:obj.27393 ;
+ omm:performerAcquiredCompetencyProfile transfer:obj.27084 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:mod.27453
+  rdf:type owl:Class;
+  rdf:type emo:OrganisationMetaModel ;
+  rdfs:subClassOf emo:OrganisationMetaModel ;
+  rdfs:label "02_Org Model Sarnano Municipality"^^xsd:string ;
+  emo:objectTypeHasName "Organizational structure"^^xsd:string ;                    			
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27454
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Comune Sarnano"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27457
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Ufficio Commercio"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27454 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27460
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Ufficio Tributi Economato"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27454 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27463
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Ufficio Servizi Finanziari"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27454 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27466
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Ufficio Urbanistica e Lavori Pubblici"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27454 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27502
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "SUAP Office"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27454 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27484
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Segretario Comunale"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27454 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27487
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Sindaco"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27454 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27490
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsabile Ufficio Commercio"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27457 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27493
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsabile Ufficio Tributi Economato"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27460 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27496
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsabile Ufficio Servizi Finanziari"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27463 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27499
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsabile Ufficio Urbanistica e Lavori Pubblici"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27466 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27505
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "SUAP Officer"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27502 ;
+ omm:roleRequiresCompetencyProfile transfer:obj.27024 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27511
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsible SUAP Officer"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27502 ;
+ omm:roleRequiresCompetencyProfile transfer:obj.27114 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27469
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Venanzio Scuderini"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27484 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27472
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Franco Ceregioli"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27487 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27475
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Anna Marinozzi"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27490 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27478
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Emanuele Crisostomi"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27493 ;
+  omm:performerHasRole transfer:obj.27496 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27481
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Alfonso Tardella"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27499 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27508
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Laura Cruciani"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		  omm:performerHasFirstName "Laura"^^xsd:string ;
+		  omm:performerHasLastName "Cruciani"^^xsd:string ;
+		  emo:performerHasEmailAddress "laura.cruciani@learnpad.com"^^xsd:string ;
+		  omm:performerHasPhoneNumber "(+39) 0733-659912"^^xsd:string ;
+		    omm:performerHasRole transfer:obj.27505 ;
+ omm:performerAcquiredCompetencyProfile transfer:obj.27160 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27514
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Tess Hinkelmann"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		  omm:performerHasFirstName "Tess"^^xsd:string ;
+		  omm:performerHasLastName "Hinkelmann"^^xsd:string ;
+		  emo:performerHasEmailAddress "tess.hinkelmann@learnpad.com"^^xsd:string ;
+		  omm:performerHasPhoneNumber "(+39) 0733-659913"^^xsd:string ;
+		    omm:performerHasRole transfer:obj.27511 ;
+  omm:performerIsManagerOfOrganisationalUnit transfer:obj.27502 ;
+ omm:performerAcquiredCompetencyProfile transfer:obj.27202 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:mod.27541
+  rdf:type owl:Class;
+  rdf:type emo:OrganisationMetaModel ;
+  rdfs:subClassOf emo:OrganisationMetaModel ;
+  rdfs:label "02_Org Model Senigallia Municipality"^^xsd:string ;
+  emo:objectTypeHasName "Organizational structure"^^xsd:string ;                    			
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27542
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Comune"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27551
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Area Tecnica Territorio e Ambiente"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27542 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27554
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Area of Tourism, Economic Development"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27542 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27557
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Area Organizzativa e Risorse Finanziarie"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27542 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27560
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Area Persona"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27542 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27563
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Ufficio Programmazione Urbanistica"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27551 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27566
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Sportello Unico Edilizia"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27551 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27569
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Ufficio Gestione Ambiente"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27551 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27572
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Ufficio Strade Mobilità e Territorio"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27551 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27575
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Ufficio Porto"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27551 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27578
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Sviluppo Urbano Sostenibile"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27551 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27623
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "SUAP Office"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27554 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27656
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Ufficio Attività Economiche"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27554 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27659
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Ufficio Sviluppo Economico"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27554 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27674
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Ufficio Tributi e Canoni"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27557 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27692
+  rdf:type owl:Class;
+  rdf:type omm:OrganisationalUnit ;
+  rdfs:subClassOf omm:OrganisationalUnit ;
+  rdfs:label "Ufficio Politiche Sociali e Integrazioni Socio Sanitarie"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  omm:organisationalUnitIsSubordinatedToOrganisationalUnit transfer:obj.27560 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27545
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Sindaco"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27542 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27581
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsabile Ufficio Programmazione Urbanistica"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27563 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27587
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsabile Sportello Unico Edilizia"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27566 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27590
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsabile Ufficio Gestione Ambiente"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27569 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27593
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsabile Ufficio Strade Mobilità e Territorio"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27572 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27596
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsabile Ufficio Porto"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27575 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27599
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsabile Sviluppo Urbano Sostenibile"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27578 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27617
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Dirigente"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27554 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27626
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Surveyor"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27623 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27629
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsible SUAP office"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27623 ;
+ omm:roleRequiresCompetencyProfile transfer:obj.27114 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27632
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Administration"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27623 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27662
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsabile Ufficio Tributi Economato"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27656 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27668
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsabile Ufficio Sviluppo Economico"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27659 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27677
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsabile Ufficio Tributi e Canoni"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27674 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27683
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsabile Area Organizzativa e Risorse Finanziarie"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27557 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27689
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsabile Area Persona"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27560 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27698
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "Responsabile Ufficio Politiche Sociali e Integrazioni Socio Sanitarie"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27692 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.27707
+  rdf:type owl:Class;
+  rdf:type omm:Role ;
+  rdfs:subClassOf omm:Role ;
+  rdfs:label "SUAP Officer"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                				
+	  lpd:roleIsCastedByOrgUnit transfer:obj.27623 ;
+ omm:roleRequiresCompetencyProfile transfer:obj.27024 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27548
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Maurizio Mangialardi"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27545 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27584
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Serenalli Roberto"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27581 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27602
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Mario Partenico"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27587 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27605
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Sara Giorgetti"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27590 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27608
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Maurizio Piccini"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27593 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27611
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Silvano Simonetti"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27596 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27614
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Stefano Giacai"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27599 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27620
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Paolo Mattei"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27617 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27635
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Antonella Zugero"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		  emo:performerHasEmailAddress "antonella.zugero@learnpad.com"^^xsd:string ;
+		    omm:performerHasRole transfer:obj.27629 ;
+  omm:performerIsManagerOfOrganisationalUnit transfer:obj.27623 ;
+ omm:performerAcquiredCompetencyProfile transfer:obj.27220 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27638
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Surveyor1"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27626 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27641
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Administration2"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27632 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27644
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Surveyor2"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27626 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27647
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Surveyor3"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27626 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27650
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Administration1"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27632 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27653
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Administration3"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27632 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27665
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Perini Rosanna"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27662 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27671
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Laura Sorellini"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27668 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27680
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Gabriele Paoletti"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27677 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27686
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Fiorenzi Laura"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27683 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27695
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Maurizio Mandolini"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27689 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27701
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Giuseppina Campolini"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		    omm:performerHasRole transfer:obj.27698 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27704
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Laura Sortini"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		  emo:performerHasEmailAddress "laura.sortini@learnpad.com"^^xsd:string ;
+		    omm:performerHasRole transfer:obj.27707 ;
+ omm:performerAcquiredCompetencyProfile transfer:obj.27174 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.            
+  transfer:obj.27710
+  rdf:type owl:Class;
+  rdf:type omm:Performer ;
+  rdfs:subClassOf omm:Performer ;
+  rdfs:label "Emanuele Spello"^^xsd:string ;
+  emo:objectTypeHasName ""^^xsd:string ;                
+		  emo:performerHasEmailAddress "emanuele.spello@learnpad.com"^^xsd:string ;
+		    omm:performerHasRole transfer:obj.27707 ;
+ omm:performerAcquiredCompetencyProfile transfer:obj.27187 ;
+emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:mod.28066
+  rdf:type owl:Class;
+  rdf:type emo:KPI_MetaModel ;
+  rdfs:subClassOf emo:KPI_MetaModel ;
+  rdfs:label "06_LearnPAd Score Card - KPI-Overview"^^xsd:string ;
+  emo:objectTypeHasName "KPI-Overview"^^xsd:string ;                				
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28070
+  rdf:type owl:Class;
+  rdf:type kpi:Perspective ;
+  rdfs:subClassOf kpi:Perspective ;
+  rdfs:label "Learning Organisation Perspective"^^xsd:string ;
+  emo:objectTypeHasName "Perspective"^^xsd:string ;                
+  lpd:kpiPerspectiveHasId "obj.28070"^^xsd:string ;
+  lpd:kpiPerspectiveHasName "Learning Organisation Perspective"^^xsd:string ;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28147
+  rdf:type owl:Class;
+  rdf:type kpi:Perspective ;
+  rdfs:subClassOf kpi:Perspective ;
+  rdfs:label "Process Perspective"^^xsd:string ;
+  emo:objectTypeHasName "Perspective"^^xsd:string ;                
+  lpd:kpiPerspectiveHasId "obj.28147"^^xsd:string ;
+  lpd:kpiPerspectiveHasName "Process Perspective"^^xsd:string ;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28176
+  rdf:type owl:Class;
+  rdf:type kpi:Perspective ;
+  rdfs:subClassOf kpi:Perspective ;
+  rdfs:label "Cient Perspective"^^xsd:string ;
+  emo:objectTypeHasName "Perspective"^^xsd:string ;                
+  lpd:kpiPerspectiveHasId "obj.28176"^^xsd:string ;
+  lpd:kpiPerspectiveHasName "Cient Perspective"^^xsd:string ;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28273
+  rdf:type owl:Class;
+  rdf:type kpi:Perspective ;
+  rdfs:subClassOf kpi:Perspective ;
+  rdfs:label "Financial Perspective"^^xsd:string ;
+  emo:objectTypeHasName "Perspective"^^xsd:string ;                
+  lpd:kpiPerspectiveHasId "obj.28273"^^xsd:string ;
+  lpd:kpiPerspectiveHasName "Financial Perspective"^^xsd:string ;
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28067
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "time spend using the Learn PAd platform per user"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28067"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "time spend using the Learn PAd platform per user"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28093
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "total time of use"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28093"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "total time of use"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28096
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "total no of recommendations accepted by the learner"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28096"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "total no of recommendations accepted by the learner"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28099
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of valuable comments per user"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28099"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of valuable comments per user"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28102
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of help requests per user"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28102"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of help requests per user"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28105
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "total no of comments"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28105"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "total no of comments"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28108
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of additional pages per user"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28108"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of additional pages per user"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28111
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "total no of additional pages"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28111"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "total no of additional pages"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28114
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of total wiki pages navigated per user"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28114"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of total wiki pages navigated per user"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28117
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "degree of completeness of simulation per user"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28117"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "degree of completeness of simulation per user"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28120
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "total no of simulations"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28120"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "total no of simulations"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28123
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "total no of comments to additional pages"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28123"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "total no of comments to additional pages"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28126
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "total no of valuable comments"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28126"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "total no of valuable comments"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28129
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of models changed"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28129"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of models changed"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28132
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "total no of comments on learning objects"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28132"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "total no of comments on learning objects"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28135
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of simulations per user"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28135"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of simulations per user"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28138
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of comments per user"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28138"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of comments per user"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28141
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "total no of help requests"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28141"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "total no of help requests"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28144
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of changes based on feedback"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28144"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of changes based on feedback"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28153
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of feedback created from comments"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28153"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of feedback created from comments"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28156
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of feedback created from scratch"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28156"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of feedback created from scratch"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28159
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "total no of Learn PAd platform users"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28159"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "total no of Learn PAd platform users"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28165
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "Percentage of learners improving their EQF level"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28165"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "Percentage of learners improving their EQF level"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28168
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "percentage of staff meeting the competence requirements"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28168"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "percentage of staff meeting the competence requirements"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28196
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "Keeping the timeline"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28196"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "Keeping the timeline"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28199
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "Identification of erros & missing docs in applications within 2 days after submission"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28199"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "Identification of erros & missing docs in applications within 2 days after submission"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28202
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "percentace of laws & regulations and how they are applied"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28202"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "percentace of laws & regulations and how they are applied"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28205
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of errors made in setting time and modalities"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28205"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of errors made in setting time and modalities"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28208
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "percentage of correctly used forms"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28208"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "percentage of correctly used forms"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28211
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "percentage of templates and documents known applied correctly"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28211"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "percentage of templates and documents known applied correctly"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28227
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of errors made dealing with an application"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28227"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of errors made dealing with an application"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28230
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of errors made assessing data & declarations"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28230"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of errors made assessing data & declarations"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28233
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of errors made determine irregularities"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28233"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of errors made determine irregularities"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28236
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of complaints of clients"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28236"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of complaints of clients"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28242
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of errors made inviting PA parties"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28242"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of errors made inviting PA parties"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28250
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "Single Point of Contact"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28250"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "Single Point of Contact"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28253
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "Acting on one's own responsibility"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28253"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "Acting on one's own responsibility"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28259
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "training costs per new employee"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28259"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "training costs per new employee"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28267
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "No of processes known"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28267"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "No of processes known"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28270
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "success rate of simulations"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28270"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "success rate of simulations"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28276
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "short response time"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28276"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "short response time"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28279
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "No lawsuits after case closure"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28279"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "No lawsuits after case closure"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28282
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "no of valuable feedbacks"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28282"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "no of valuable feedbacks"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.28285
+  rdf:type owl:Class;
+  rdf:type kpi:PerformanceIndicator ;
+  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdfs:label "decrease of time spend on similar cases"^^xsd:string ;
+  emo:objectTypeHasName "Performance indicator"^^xsd:string ;                
+  lpd:kpiPerformanceIndicatorHasId "obj.28285"^^xsd:string ;
+  lpd:kpiPerformanceIndicatorHasName "decrease of time spend on similar cases"^^xsd:string ;
+  	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:mod.26935
+  rdf:type owl:Class;
+  rdf:type emo:CompetencyMetaModel ;
+  rdfs:subClassOf emo:CompetencyMetaModel ;
+  rdfs:label "04_Competency model Titolo Unico"^^xsd:string ;
+  emo:objectTypeHasName "Competency model"^^xsd:string ;                        
+        emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.26936
+  rdf:type owl:Class;
+  rdf:type cmm:EQFCompetency ;
+  rdfs:subClassOf cmm:EQFCompetency ;
+  rdfs:label "Managing front-office & external services"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;                	
+  cmm:eqfCompetencyHasLevel "4"^^xsd:integer ;
+  cmm:eqfCompetencyHasCompetence """Front-office and external relations managing"""^^xsd:string ;
+  cmm:eqfCompetencyHasSkill """Analytical skills: Identifying the needs and expectations of users 
+Diagnostic skills:Conveying correct information to external users, through direct interview and/or the website, in order to provide guidance and assistance; Managing the in-coming information and directing it to third parties"""^^xsd:string ;
+  cmm:eqfCompetencyHasKnowledge """Norms and regulations on specific business start-up sectors (i.e. Trade, turism, building, environment). 
+SUAP forms and check-list;
+SUAP Sotfware installed in the web form site
+Drafting texts techniques for Internet communication
+English language"""^^xsd:string ;
+ 	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.26939
+  rdf:type owl:Class;
+  rdf:type cmm:EQFCompetency ;
+  rdfs:subClassOf cmm:EQFCompetency ;
+  rdfs:label "Assessing administrative & procedural regularity"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;                	
+  cmm:eqfCompetencyHasLevel "4"^^xsd:integer ;
+  cmm:eqfCompetencyHasCompetence """Asssess administrative and procedural regularity through checking the completeness and formal correctness of the request"""^^xsd:string ;
+  cmm:eqfCompetencyHasSkill """Diagnostic skills:
+Activate control procedures of data and documentation, identifying any anomalies and irregularities, in according to sectoral laws.
+"""^^xsd:string ;
+  cmm:eqfCompetencyHasKnowledge """Sotfware used by the specific OSS for the formal control. 
+
+Legislation related to the administrative documentation (445/2000). 
+
+Regulation on Certified Notification of Starting Activity (Law 241/1990)"""^^xsd:string ;
+ 	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.26942
+  rdf:type owl:Class;
+  rdf:type cmm:EQFCompetency ;
+  rdfs:subClassOf cmm:EQFCompetency ;
+  rdfs:label "Manage specific admin procedure"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;                	
+  cmm:eqfCompetencyHasLevel "5"^^xsd:integer ;
+  cmm:eqfCompetencyHasCompetence """Manage and coordinate the specific administrative procedure"""^^xsd:string ;
+  cmm:eqfCompetencyHasSkill """Implementation skills:
+Apply prescriptive normes to check the regularity of documentation, related to specific request and through the collaboration of third PAs parties
+Apply editing technique, using standard format to write formal comunications, Service conference minutes and convocations.
+Coordinate the specific business process and the third parties involved, using customized information systems."""^^xsd:string ;
+  cmm:eqfCompetencyHasKnowledge """Set of rules: DPR 160/2010; L. 241/1990; DPR 445/2000.
+Norms related to the specif sector and specific administrative procedure (i.e. trade, turism, building activity, environmental code)
+Norms regulating the "Service Conference" /L.241/1990)
+Dedicated web sites (i.e. www.impresainungiorno.gov.it); interchange software with "Registro delle imprese"; other tchnological facilities to comunicate woth third parties (Certified e-maill; data base etc.)"""^^xsd:string ;
+ 	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.26945
+  rdf:type owl:Class;
+  rdf:type cmm:EQFCompetency ;
+  rdfs:subClassOf cmm:EQFCompetency ;
+  rdfs:label "Competent verification of congruency and pertinency"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;                	
+  cmm:eqfCompetencyHasLevel "4"^^xsd:integer ;
+  cmm:eqfCompetencyHasCompetence """Verify congruency and pertinency of data and documentation"""^^xsd:string ;
+  cmm:eqfCompetencyHasSkill """Analytical skills:
+Properly indentify data to be verified
+Classify data to be verified with respect to norms and laws
+
+Understand clearly the set of norms that are usefull to check the regularity of users declarations
+
+Diagnostic skills:
+Properly identify third parties to ask for formal documentation
+Analyze formal documentation in order to point out any irregularities
+
+Implementation skills:
+Provide guidance to restore regularity suggesting the necessary measures"""^^xsd:string ;
+  cmm:eqfCompetencyHasKnowledge """Legislation related to the administrative documentation 445/2000
+Norms related to the specif sector and specific administrative procedure (i.e. trade, turism, building activity, environmental code)"""^^xsd:string ;
+ 	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.26948
+  rdf:type owl:Class;
+  rdf:type cmm:EQFCompetency ;
+  rdfs:subClassOf cmm:EQFCompetency ;
+  rdfs:label "Ability to draw up formal documents"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;                	
+  cmm:eqfCompetencyHasLevel "4"^^xsd:integer ;
+  cmm:eqfCompetencyHasCompetence """Draw up formal documents at the end of the administrative procedure"""^^xsd:string ;
+  cmm:eqfCompetencyHasSkill """Implementation skills:
+Draw up administrative acts, appropriate and valid in form and time, also using predefined templates"""^^xsd:string ;
+  cmm:eqfCompetencyHasKnowledge """General and specific norms regulating the administrative procedure.
+
+English language"""^^xsd:string ;
+ 	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.26957
+  rdf:type owl:Class;
+  rdf:type cmm:EQFCompetency ;
+  rdfs:subClassOf cmm:EQFCompetency ;
+  rdfs:label "Comprehensive Knowledge of Public Administrations"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;                	
+  cmm:eqfCompetencyHasLevel "5"^^xsd:integer ;
+  cmm:eqfCompetencyHasCompetence """Exercise management and supervision in contexts of Public Administrations where there is unpredictable change; review and develop performance of self and others"""^^xsd:string ;
+  cmm:eqfCompetencyHasSkill """A comprehensive range of cognitive and practical skills required to develop creative solutions to abstract problems of Public Administrations"""^^xsd:string ;
+  cmm:eqfCompetencyHasKnowledge """"""^^xsd:string ;
+ 	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.26960
+  rdf:type owl:Class;
+  rdf:type cmm:EQFCompetency ;
+  rdfs:subClassOf cmm:EQFCompetency ;
+  rdfs:label "Cognitive and practical skills 4 creative solutions"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;                	
+  cmm:eqfCompetencyHasLevel "6"^^xsd:integer ;
+  cmm:eqfCompetencyHasCompetence """Manage complex technical or professional activities or projects, taking responsibility for decision-making in unpredictable work or study contexts; take responsibility for managing professional development of individuals and groups"""^^xsd:string ;
+  cmm:eqfCompetencyHasSkill """Advanced skills, demonstrating mastery and innovation, required to solve complex and unpredictable problems in a specialised field of work or study"""^^xsd:string ;
+  cmm:eqfCompetencyHasKnowledge """"""^^xsd:string ;
+ 	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.26963
+  rdf:type owl:Class;
+  rdf:type cmm:EQFCompetency ;
+  rdfs:subClassOf cmm:EQFCompetency ;
+  rdfs:label "Basic knowledge of the basis of decision making in PA"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;                	
+  cmm:eqfCompetencyHasLevel "3"^^xsd:integer ;
+  cmm:eqfCompetencyHasCompetence """Take responsibility for completion of tasks in work or study; adapt own behaviour to circumstances in solving problems"""^^xsd:string ;
+  cmm:eqfCompetencyHasSkill """A range of cognitive and practical skills required to accomplish tasks and solve problems by selecting and applying basic methods, tools, materials and information"""^^xsd:string ;
+  cmm:eqfCompetencyHasKnowledge """"""^^xsd:string ;
+ 	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.26966
+  rdf:type owl:Class;
+  rdf:type cmm:EQFCompetency ;
+  rdfs:subClassOf cmm:EQFCompetency ;
+  rdfs:label "Specialised knowledge of legal fundamentals"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;                	
+  cmm:eqfCompetencyHasLevel "7"^^xsd:integer ;
+  cmm:eqfCompetencyHasCompetence """Manage and transform work or study contexts that are complex, unpredictable and require new strategic approaches; take responsibility for contributing to professional knowledge and practice and/or for reviewing the strategic performance of teams"""^^xsd:string ;
+  cmm:eqfCompetencyHasSkill """Specialised problem-solving skills required in research and/or innovation in order to develop new knowledge and procedures and to integrate knowledge from different fields"""^^xsd:string ;
+  cmm:eqfCompetencyHasKnowledge """"""^^xsd:string ;
+ 	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.26969
+  rdf:type owl:Class;
+  rdf:type cmm:EQFCompetency ;
+  rdfs:subClassOf cmm:EQFCompetency ;
+  rdfs:label "Broad knowledge on environment protection"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;                	
+  cmm:eqfCompetencyHasLevel "5"^^xsd:integer ;
+  cmm:eqfCompetencyHasCompetence """Exercise management and supervision in contexts of work or study activities where there is unpredictable change; review and develop performance of self and others"""^^xsd:string ;
+  cmm:eqfCompetencyHasSkill """A comprehensive range of cognitive and practical skills required to develop creative solutions to abstract problems"""^^xsd:string ;
+  cmm:eqfCompetencyHasKnowledge """"""^^xsd:string ;
+ 	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.26972
+  rdf:type owl:Class;
+  rdf:type cmm:EQFCompetency ;
+  rdfs:subClassOf cmm:EQFCompetency ;
+  rdfs:label "Ability to work independently and acting as a team"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;                	
+  cmm:eqfCompetencyHasLevel "5"^^xsd:integer ;
+  cmm:eqfCompetencyHasCompetence """Social competence consisting of social, emotional (e.g., affect regulation), cognitive (e.g., fund of information, skills for processing/acquisition, perspective taking), and behavioral (e.g., conversation skills, prosocial behavior) skills, as well as motivational and expectancy sets (e.g., moral development, self-efficacy) needed for successful social adaptation. """^^xsd:string ;
+  cmm:eqfCompetencyHasSkill """Advanced skills, demonstrating mastery and soft skills, required to solve complex and unpredictable problems within teams"""^^xsd:string ;
+  cmm:eqfCompetencyHasKnowledge """"""^^xsd:string ;
+ 	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.26975
+  rdf:type owl:Class;
+  rdf:type cmm:EQFCompetency ;
+  rdfs:subClassOf cmm:EQFCompetency ;
+  rdfs:label "Knowledge of Learn PAd system"^^xsd:string ;
+  emo:objectTypeHasName "Competency"^^xsd:string ;                	
+  cmm:eqfCompetencyHasLevel "2"^^xsd:integer ;
+  cmm:eqfCompetencyHasCompetence """Knowing the functionality of Learn PAd System"""^^xsd:string ;
+  cmm:eqfCompetencyHasSkill """Basic cognitive and practical skills required to use relevant information in order to carry out tasks and to solve routine problems by use of Learn PAd System"""^^xsd:string ;
+  cmm:eqfCompetencyHasKnowledge """Factual and functional knowledge of Learn PAd system"""^^xsd:string ;
+ 	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.26951
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyGroup ;
+  rdfs:subClassOf cmm:CompetencyGroup ;
+  rdfs:label "Marche Region"^^xsd:string ;
+  emo:objectTypeHasName "Group"^^xsd:string ;                
+	emo:belongsToVersion transfer:titolo-unico ;
+.
+  transfer:obj.26954
+  rdf:type owl:Class;
+  rdf:type cmm:CompetencyGroup ;
+  rdfs:subClassOf cmm:CompetencyGroup ;
+  rdfs:label "Additional Competencies"^^xsd:string ;
+  emo:objectTypeHasName "Group"^^xsd:string ;                
+	emo:belongsToVersion transfer:titolo-unico ;
+.

@@ -12,6 +12,7 @@ import ch.fhnw.cbr.service.data.CaseViewVO;
 import ch.fhnw.cbr.service.data.IndividualVO;
 import ch.fhnw.cbr.service.data.LiteralPropertyValueVO;
 import ch.fhnw.cbr.service.data.ObjectPropertyInstanceVO;
+import eu.learnpad.ontology.util.ArgumentCheck;
 import eu.learnpad.or.rest.data.SimilarCase;
 import eu.learnpad.or.rest.data.SimilarCases;
 import eu.learnpad.or.rest.data.SimulationData;
@@ -74,12 +75,15 @@ public class CBRAdapter {
     }
 
     public CaseInstanceVO createOrUpdateSimulationSessionCase(String simulationId, SimulationData data) {
+        ArgumentCheck.notNull(simulationId, "simulationId in (retrieveSimilarCases");
 
         if (!accumulatedSessionData.containsKey(simulationId)) {
-            accumulatedSessionData.put(simulationId, data.getSessionData());
-        }
-
-        if (data.getSubmittedData() != null) {
+            if (data != null && data.getSessionData() != null) {
+                accumulatedSessionData.put(simulationId, data.getSessionData());
+            } else {
+                accumulatedSessionData.put(simulationId, new HashMap());
+            }
+        } else if (data != null && data.getSubmittedData() != null) {
             accumulatedSessionData.get(simulationId).putAll(data.getSubmittedData());
         }
 
@@ -109,6 +113,8 @@ public class CBRAdapter {
     }
 
     public SimilarCases retrieveSimilarCases(String modelSetId, String artifactId, String userId, String simulationSessionId) {
+        ArgumentCheck.notNull(simulationSessionId, "simulationSessionId in (retrieveSimilarCases)");
+        
         CBRServices service = CBRServices.getInstance();
         CaseViewVO caseViewVO = service.findCaseViewByUri(OVERALL_PROCESS_VIEW);
         CaseInstanceVO sessionCaseInstance = service.getCaseInstance(SIMULATION_CASE_CLASS_URI + simulationSessionId, caseViewVO);
@@ -128,10 +134,10 @@ public class CBRAdapter {
             if ((SIMULATION_CASE_CLASS_URI + simulationSessionId).equals(matchingCase.getCaseUri())) {
                 continue;
             }
-            
+
             SimilarCase similarCase = new SimilarCase();
             similarCase.setName(matchingCase.getCaseName());
-            String similarityValuePercentage = String.format("%1.2f", (matchingCase.getSimilarity() * 100))+"%";
+            String similarityValuePercentage = String.format("%1.2f", (matchingCase.getSimilarity() * 100)) + "%";
             similarCase.setSimilarityValue(similarityValuePercentage);
             similarCase.setData(new HashMap<String, Object>());
 
@@ -150,7 +156,7 @@ public class CBRAdapter {
                         }
                     }
                 }
-                if (caseInstanceVO.getLiteralProperties()!= null) {
+                if (caseInstanceVO.getLiteralProperties() != null) {
                     for (LiteralPropertyValueVO litProp : caseInstanceVO.getLiteralProperties()) {
                         String propertyName = getLiteralPropertyName(replaceNamespaceByPrefix(litProp.getUri()));
                         similarCase.getData().put(propertyName, litProp.getValue());
@@ -174,7 +180,7 @@ public class CBRAdapter {
         }
         return propertyUri;
     }
-    
+
     private String getLiteralPropertyName(String propertyUri) {
         LITERAL_PROPERTY_MAP.entrySet();
         for (Map.Entry entry : LITERAL_PROPERTY_MAP.entrySet()) {
@@ -183,7 +189,7 @@ public class CBRAdapter {
             }
         }
         return propertyUri;
-    }    
+    }
 
     private void addProperties(CaseInstanceVO simulationCase, String key, Collection values) {
         if (OBJECT_PROPERTY_MAP.containsKey(key)) {
