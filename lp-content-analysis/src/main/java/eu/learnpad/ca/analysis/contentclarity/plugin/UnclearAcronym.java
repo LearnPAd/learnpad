@@ -24,7 +24,7 @@ import gate.util.InvalidOffsetException;
 public class UnclearAcronym extends Plugin{ 
 
 	protected static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(UnclearAcronym.class);
-
+	Map<String,String> acronym = new HashMap<String, String>();
 
 	public UnclearAcronym(Language lang,  DocumentContent docContent, List<Node> listnode){
 		this.language=lang;
@@ -77,7 +77,7 @@ public class UnclearAcronym extends Plugin{
 
 		listOfStrings.removeAll(stopw.getStopwords());
 		String ContentCleaned = StringUtils.join(listOfStrings, " "); //$NON-NLS-1$
-		Map<String,String> acronym = new HashMap<String, String>();
+		//Map<String,String> acronym = new HashMap<String, String>();
 		/*
 		JLanguageTool langTool = new JLanguageTool(language);
 		List<String> listsentenceofContentCleaned = langTool.sentenceTokenize(ContentCleaned);
