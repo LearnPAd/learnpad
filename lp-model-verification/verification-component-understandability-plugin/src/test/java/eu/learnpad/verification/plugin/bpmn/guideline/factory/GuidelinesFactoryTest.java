@@ -112,6 +112,7 @@ public class GuidelinesFactoryTest {
 		genarateTestforFileOk2("EPBR - Business Process.bpmn","35");
 		genarateTestforFileOk2("EPBR - Business Process.bpmn","36");
 		genarateTestforFileOk2("test7.bpmn","2");
+		genarateTestforFileOk2("TitoloUnico/19311.bpmn","14");
 	}
 /*	private void genarateTestforFileOk(String NameFile,String id){
 		try {
