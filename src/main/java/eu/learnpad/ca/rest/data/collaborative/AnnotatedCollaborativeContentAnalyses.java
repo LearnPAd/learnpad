@@ -18,7 +18,7 @@ import eu.learnpad.ca.rest.data.Annotation;
 @XmlRootElement(name = "AnnotatedCollaborativeContentAnalyses")
 public class AnnotatedCollaborativeContentAnalyses {
 	
-	@XmlElement(required = true)
+	@XmlElement(required = true, name="AnnotatedCollaborativeContentAnalysis")
     protected List<AnnotatedCollaborativeContentAnalysis> AnnotatedCollaborativeContentAnalyses;
 
 	
