@@ -70,11 +70,17 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 				if(num>1){
 					Collection<FlowElement> removeBPMNtemps = new ArrayList<FlowElement>();
 					for( FlowElement e :elementsBPMNtemp){
-						String name = e.getName();
 						boolean flags = false;
+						String name = e.getName();
+						if(name==null)
+							 name = getName(e);
+						if(name!=null)
 						for( FlowElement ee :elementsBPMNtemp){
 							if(!ee.equals(e)){
 								String  namee = ee.getName();
+								if(namee==null)
+									 namee = getName(ee);
+								if(namee!=null)
 								if(name.equals(namee)){
 									flags = true;
 								}

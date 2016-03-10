@@ -35,7 +35,6 @@ public class GuidelinesFactoryTest {
 		genarateTestforFile("SplitAndJoinFlows.bpmn","18");
 		genarateTestforFile("modelloTest.bpmn","18");
 		genarateTestforFile("modelloTestO.bpmn","18");
-		genarateTestforFile("test7.bpmn","14");
 		//genarateTestforFile("test7.bpmn","13");
 		genarateTestforFile("test7.bpmn","13");
 		genarateTestforFile("test8.bpmn","15");
