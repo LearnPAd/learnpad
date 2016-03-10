@@ -143,7 +143,7 @@ public class DifficultJargon extends Plugin {
 				a.setStartNode(init.getId());
 				a.setNodeEnd(end);
 				a.setNodeStart(init);
-				a.setType("Simplicity Difficult Jargon"); //$NON-NLS-1$
+				a.setType("Difficult Jargon"); //$NON-NLS-1$
 
 				String suggestion = listAltTermSet.get(listAltTermSet.indexOf(tmptoken)).getSuggestion();
 				String recomandation = String.format(Messages.getString("DifficultJargon.Recomandation", language),tmptoken.getWord(),suggestion); //$NON-NLS-1$

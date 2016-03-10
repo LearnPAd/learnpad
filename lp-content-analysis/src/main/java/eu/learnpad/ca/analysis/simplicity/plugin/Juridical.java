@@ -40,7 +40,7 @@ public class Juridical extends Plugin {
 
 		String rac = Messages.getString("Juridical.Recomandation", language); //$NON-NLS-1$
 
-		String type = "Simplicity Juridical Jargon"; //$NON-NLS-1$
+		String type = "Juridical Jargon"; //$NON-NLS-1$
 		if(!jj.isEmpty())
 			gatevsleanpadAnnotation(jj, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence,null,null,null);
 	}
