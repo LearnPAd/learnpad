@@ -73,7 +73,7 @@ public class ContentAnalysisBean implements Serializable {
 
 	public Collection<String> getCollectionids(){
 		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/allid");
+		WebTarget target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/bridge/allid");
 		Response allID =  target.request().get();
 		String res = allID.readEntity(String.class);
 		
