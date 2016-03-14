@@ -46,6 +46,7 @@ import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.CoreFacade;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.sim.rest.data.UserData;
 
@@ -89,7 +90,7 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
     }
 
     @Override
-    public InputStream getModel(String modelSetId, String type) throws LpRestException
+    public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException
     {
         // Now send the package's path to the importer for XWiki
         HttpClient httpClient = RestResource.getClient();
@@ -98,7 +99,7 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
         getMethod.addRequestHeader("Accept", "application/xml");
 
         NameValuePair[] queryString = new NameValuePair[1];
-        queryString[0] = new NameValuePair("type", type);
+        queryString[0] = new NameValuePair("type", type.toString());
         getMethod.setQueryString(queryString);
 
         try {
@@ -202,7 +203,7 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
     }
 
     @Override
-    public InputStream transform(String type, InputStream model) throws LpRestException
+    public InputStream transform(ModelSetType type, InputStream model) throws LpRestException
     {
         HttpClient httpClient = RestResource.getClient();
         String uri = String.format("%s/learnpad/cw/corefacade/transform", RestResource.REST_URI);
@@ -211,7 +212,7 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
         postMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_OCTET_STREAM);
 
         NameValuePair[] queryString = new NameValuePair[1];
-        queryString[0] = new NameValuePair("type", type);
+        queryString[0] = new NameValuePair("type", type.toString());
         postMethod.setQueryString(queryString);
 
         RequestEntity requestEntity = new InputStreamRequestEntity(model);

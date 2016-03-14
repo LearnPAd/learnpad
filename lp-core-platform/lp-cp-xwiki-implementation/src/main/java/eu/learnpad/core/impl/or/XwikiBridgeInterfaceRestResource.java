@@ -43,6 +43,7 @@ import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.BridgeInterface;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.SimulationData;
@@ -163,7 +164,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	}
 
 	@Override
-	public void modelSetImported(String modelSetId, String type) throws LpRestExceptionXWikiImpl {
+	public void modelSetImported(String modelSetId, ModelSetType type) throws LpRestExceptionXWikiImpl {
       HttpClient httpClient = RestResource.getClient();
         String uri = String.format(
                 "%s/learnpad/or/bridge/modelsetimported/%s",
@@ -172,7 +173,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
         postMethod.addRequestHeader("Accept", "application/xml");
         
         NameValuePair[] queryString = new NameValuePair[1];
-        queryString[0] = new NameValuePair("type", type);
+        queryString[0] = new NameValuePair("type", type.toString());
         postMethod.setQueryString(queryString);
         try {
             httpClient.executeMethod(postMethod);

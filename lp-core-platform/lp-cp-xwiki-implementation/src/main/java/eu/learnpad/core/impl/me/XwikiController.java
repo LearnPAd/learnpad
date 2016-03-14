@@ -37,6 +37,7 @@ import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.BridgeInterface;
 import eu.learnpad.me.Controller;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.mv.rest.data.VerificationId;
 import eu.learnpad.mv.rest.data.VerificationResults;
 import eu.learnpad.mv.rest.data.VerificationStatus;
@@ -95,7 +96,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public VerificationId putModelSet(String modelSetId, String type, InputStream modelSetFile)
+	public VerificationId putModelSet(String modelSetId, ModelSetType type, InputStream modelSetFile)
 			throws LpRestException {
 		if (XWikiRestUtils.isPage(RestResource.CORE_REPOSITORY_WIKI,
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId) == false) {

@@ -30,6 +30,7 @@ import org.apache.commons.io.IOUtils;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.CoreFacade;
 
 /*
@@ -63,7 +64,7 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 	}
 
 	@Override
-	public InputStream getModel(String modelSetId, String type)
+	public InputStream getModel(String modelSetId, ModelSetType type)
 			throws LpRestException {
 		// Now send the package's path to the importer for XWiki
 		HttpClient httpClient = RestResource.getClient();
@@ -73,7 +74,7 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 		getMethod.addRequestHeader("Accept", "application/xml");
 
 		NameValuePair[] queryString = new NameValuePair[1];
-		queryString[0] = new NameValuePair("type", type);
+		queryString[0] = new NameValuePair("type", type.toString());
 		getMethod.setQueryString(queryString);
 
 		try {

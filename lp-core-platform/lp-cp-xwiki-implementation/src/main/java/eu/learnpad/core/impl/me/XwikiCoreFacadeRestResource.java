@@ -25,6 +25,7 @@ import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.CoreFacade;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.mv.rest.data.VerificationId;
 import eu.learnpad.mv.rest.data.VerificationResults;
 import eu.learnpad.mv.rest.data.VerificationStatus;
@@ -55,7 +56,7 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 	}
 	
 	@Override
-	public VerificationId putModelSet(String modelSetId, String type, InputStream modelSetFile)
+	public VerificationId putModelSet(String modelSetId, ModelSetType type, InputStream modelSetFile)
 			throws LpRestException {
 		// TODO Auto-generated method stub
 	    return null;

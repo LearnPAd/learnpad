@@ -19,23 +19,25 @@
  */
 package eu.learnpad.or.rest;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.me.rest.data.ModelSetType;
 
 public interface ModelSetImported {
 	/**
 	 * @param modelSetId is the ID of the model set that is put
-	 * @param type precise the type of model file format (adoxx, md)
+	 * @param type precise the type of model file format (ADOXX, MD)
 	 * @throws LpRestException
 	 */
-	// <host>/learnpad/or/bridge/modelsetimported/{modelsetid}?type={adoxx|md}
+	// <host>/learnpad/or/bridge/modelsetimported/{modelsetid}?type={ADOXX|MD}
 	@Path("/modelsetimported/{modelsetid}")
 	@POST
 	void modelSetImported(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type") String type) throws LpRestException;
+			@QueryParam("type")@DefaultValue("ADOXX") ModelSetType type) throws LpRestException;
 }
 

@@ -45,6 +45,7 @@ import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.cw.BridgeInterface;
 import eu.learnpad.cw.Controller;
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.sim.rest.data.UserData;
 
@@ -143,7 +144,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
     }
 
     @Override
-    public InputStream getModel(String modelSetId, String type) throws LpRestException
+    public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException
     {
         String attachmentName = String.format("%s.%s", modelSetId, type);
         // TODO: Adapt the name dynamically for Adoxx or MagicDraw
@@ -170,17 +171,9 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
     }
 
     @Override
-    public InputStream transform(String type, InputStream model) throws LpRestException
+    public InputStream transform(ModelSetType type, InputStream model) throws LpRestException
     {
-        switch (type) {
-            case "adoxx":
-            case "lpzip":
-                return this.mt.transform("ADOXX", model);
-            case "md":
-                return this.mt.transform("MD", model);
-            default:
-                return null;
-        }
+        return this.mt.transform(type, model);
     }
 
     @Override

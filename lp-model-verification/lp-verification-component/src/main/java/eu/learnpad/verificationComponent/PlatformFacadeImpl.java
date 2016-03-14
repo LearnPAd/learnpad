@@ -26,6 +26,7 @@ import java.util.HashMap;
 
 import javax.xml.bind.DatatypeConverter;
 
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.verification.utils.Utils;
 import eu.learnpad.verificationComponent.utils.ConfigManager;
 import eu.learnpad.verificationComponent.utils.NETUtils;
@@ -34,7 +35,7 @@ import eu.learnpad.verificationComponent.utils.NETUtils;
 public class PlatformFacadeImpl implements eu.learnpad.mv.CoreFacade {
 
     @Override
-    public InputStream getModel(String modelSetId, String type) {
+    public InputStream getModel(String modelSetId, ModelSetType type) {
         ConfigManager cfg = null;
         try{
             cfg = new ConfigManager();

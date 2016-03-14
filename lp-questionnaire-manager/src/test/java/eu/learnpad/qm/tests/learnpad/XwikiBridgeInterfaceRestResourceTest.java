@@ -27,6 +27,7 @@ import org.junit.Test;
 
 import eu.learnpad.core.impl.qm.XwikiBridgeInterfaceRestResource;
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.qm.tests.AbstractUnitTest;
 
 public class XwikiBridgeInterfaceRestResourceTest extends AbstractUnitTest{
@@ -43,7 +44,7 @@ public class XwikiBridgeInterfaceRestResourceTest extends AbstractUnitTest{
 	@Test
 	public void importModelSetTest(){
 		String modelSetId = "this-is-foo";
-		String type = "adoxx";
+		ModelSetType type = ModelSetType.ADOXX;
 		// The model for the test (i.e. its content) was copied form		
 		// eu.learnpad.verificationComponen.BridgeImpl.getModelTEST
 		// possibly this may create some problem.

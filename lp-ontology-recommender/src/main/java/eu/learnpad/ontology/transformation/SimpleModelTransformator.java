@@ -24,6 +24,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.persistence.FileOntAO;
 import javax.xml.transform.Source;
@@ -48,14 +49,14 @@ public final class SimpleModelTransformator {
     private void loadTestmodel() {
         //For testing purposes a test modelset is loaded !
         InputStream testModelSetFile = new ByteArrayInputStream(FileOntAO.getInstance().getModelSetFile(APP.CONF.getString("testdata.model.file.path")));
-        transform(APP.CONF.getString("testdata.modelset.version"), testModelSetFile, ModellingEnvironmentType.ADOXX);
+        transform(APP.CONF.getString("testdata.modelset.version"), testModelSetFile, ModelSetType.ADOXX);
     }
 
     public static SimpleModelTransformator getInstance() {
         return instance;
     }
 
-    public File transform(String modelSetId, InputStream model, ModellingEnvironmentType type) {
+    public File transform(String modelSetId, InputStream model, ModelSetType type) {
 
         TransformerFactory tFactory = TransformerFactory.newInstance();
         tFactory.setURIResolver(new XsltURIResolver());

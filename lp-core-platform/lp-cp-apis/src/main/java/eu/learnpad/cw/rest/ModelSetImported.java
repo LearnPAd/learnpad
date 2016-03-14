@@ -26,12 +26,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.me.rest.data.ModelSetType;
 
-//<host>/learnpad/cw/modelsetimported/{modelsetid}?type={adoxx|md|lpzip}
+//<host>/learnpad/cw/modelsetimported/{modelsetid}?type={ADOXX|MD}
 public interface ModelSetImported {
 	@Path("/modelsetimported/{modelsetid}")
 	@PUT
 	void modelSetImported(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type") @DefaultValue("lpzip") String type)
+			@QueryParam("type") @DefaultValue("ADOXX") ModelSetType type)
 			throws LpRestException;
 }

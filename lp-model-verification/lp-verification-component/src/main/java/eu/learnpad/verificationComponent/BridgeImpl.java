@@ -34,6 +34,7 @@ import javax.xml.bind.JAXBContext;
 
 import org.w3c.dom.Document;
 
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.mv.CoreFacade;
 import eu.learnpad.mv.rest.data.StatusType;
 import eu.learnpad.mv.rest.data.VerificationId;
@@ -51,13 +52,13 @@ import eu.learnpad.verificationComponent.utils.XMLUtils;
 public class BridgeImpl extends eu.learnpad.mv.Bridge {
     
     public BridgeImpl() {
-        String lpModelTypeToDownload = "lpzip";
+        ModelSetType lpModelTypeToDownload = ModelSetType.ADOXX;
         this.corefacade = new PlatformFacadeImpl();
         VerificationComponent.setCustomNotifyVerificationEndFunction(customNotifyFactory(this.corefacade));
         VerificationComponent.setCustomGetModelFunction(customGetModelFactory(lpModelTypeToDownload, this.corefacade));
     }
     
-    private VerificationComponent.CustomGetModel customGetModelFactory(final String lpModelType, final CoreFacade corefacade){
+    private VerificationComponent.CustomGetModel customGetModelFactory(final ModelSetType lpModelType, final CoreFacade corefacade){
         VerificationComponent.CustomGetModel myCustomGetModel = new VerificationComponent.CustomGetModel() {
                 public String[] getModels(String modelId) throws Exception {
                     byte[] zippedModel = IOUtils.toByteArray(corefacade.getModel(modelId, lpModelType));

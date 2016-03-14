@@ -5,19 +5,6 @@
  */
 package eu.learnpad.or.impl;
 
-import eu.learnpad.core.impl.or.XwikiBridge;
-import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
-import eu.learnpad.exception.LpRestException;
-import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
-import eu.learnpad.ontology.execution.ExecutionStates;
-import eu.learnpad.ontology.recommender.Recommender;
-import eu.learnpad.ontology.recommender.RecommenderException;
-import eu.learnpad.ontology.recommender.cbr.CBRAdapter;
-import eu.learnpad.or.rest.data.States;
-import eu.learnpad.ontology.transformation.ModellingEnvironmentType;
-import eu.learnpad.ontology.transformation.SimpleModelTransformator;
-import eu.learnpad.or.rest.data.Recommendations;
-import eu.learnpad.or.rest.data.SimulationData;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +16,19 @@ import javax.ws.rs.Path;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
+
+import eu.learnpad.core.impl.or.XwikiBridge;
+import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
+import eu.learnpad.exception.LpRestException;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.me.rest.data.ModelSetType;
+import eu.learnpad.ontology.execution.ExecutionStates;
+import eu.learnpad.ontology.recommender.Recommender;
+import eu.learnpad.ontology.recommender.cbr.CBRAdapter;
+import eu.learnpad.ontology.transformation.SimpleModelTransformator;
+import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.SimulationData;
+import eu.learnpad.or.rest.data.States;
 
 /**
  *
@@ -48,16 +48,12 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     }
 
     @Override
-    public void modelSetImported(String modelSetId, String type) throws LpRestException {
+    public void modelSetImported(String modelSetId, ModelSetType type) throws LpRestException {
             InputStream modelSetInputStream = this.corefacade.getModel(modelSetId, type);
             if(modelSetInputStream == null){
                 throw new LpRestExceptionXWikiImpl("Modelset for id '" + modelSetId + "' and type '"+type+"' not found!");
             }
-            ModellingEnvironmentType modellingEnvironmentType = ModellingEnvironmentType.valueOf(type.toUpperCase());
-            if(modelSetInputStream == null){
-                throw new LpRestExceptionXWikiImpl("Modelling environment type '"+type+"' not known!");
-            }
-            SimpleModelTransformator.getInstance().transform(modelSetId, this.corefacade.getModel(modelSetId, type), modellingEnvironmentType);
+            SimpleModelTransformator.getInstance().transform(modelSetId, this.corefacade.getModel(modelSetId, type), type);
     }
     
     @Override

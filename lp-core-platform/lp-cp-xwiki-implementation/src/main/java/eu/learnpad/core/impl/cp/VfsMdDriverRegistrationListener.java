@@ -38,13 +38,13 @@ import net.java.truevfs.access.TConfig;
 import net.java.truevfs.comp.zipdriver.JarDriver;
 
 @Component
-@Named("vfsLpzipDriver")
+@Named("vfsMdDriver")
 @Singleton
-public class VfsLpzipDriverRegistrationListener implements EventListener {
+public class VfsMdDriverRegistrationListener implements EventListener {
 	/**
 	 * The name of the listener.
 	 */
-	private static final String NAME = "lpzip";
+	private static final String NAME = "MD";
 
 	@Inject
 	@Named("context")
@@ -68,6 +68,6 @@ public class VfsLpzipDriverRegistrationListener implements EventListener {
 		// Detector so that all archive formats
 		// supported by TrueVFS are handled properly.
 		config.setArchiveDetector(new TArchiveDetector(config
-				.getArchiveDetector(), VfsLpzipDriverRegistrationListener.NAME, new JarDriver()));
+				.getArchiveDetector(), VfsMdDriverRegistrationListener.NAME, new JarDriver()));
 	}
 }

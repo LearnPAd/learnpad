@@ -36,6 +36,7 @@ import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.Controller;
 import eu.learnpad.or.BridgeInterface;
 
@@ -104,7 +105,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public InputStream getModel(String modelSetId, String type)
+	public InputStream getModel(String modelSetId, ModelSetType type)
 			throws LpRestException {
 		String attachmentName = String.format("%s.%s", modelSetId, type);
 		String fileName = "adoxx_modelset.xml";

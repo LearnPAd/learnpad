@@ -22,6 +22,7 @@ package eu.learnpad.mt.rest;
 import java.io.InputStream;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -29,11 +30,12 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.me.rest.data.ModelSetType;
 
 public interface Transformer {
 	@POST
 	@Path("/transform")
 	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	InputStream transform(@QueryParam("type") String type, InputStream model) throws LpRestException;
+	InputStream transform(@QueryParam("type")@DefaultValue("ADOXX") ModelSetType type, InputStream model) throws LpRestException;
 }

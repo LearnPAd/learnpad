@@ -37,6 +37,7 @@ import org.apache.http.HttpHeaders;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.mt.BridgeInterface;
 
 /*
@@ -72,7 +73,7 @@ public class XwikiBridgeInterfaceRestResource implements BridgeInterface
     }
 
     @Override
-    public InputStream transform(String type, InputStream model) throws LpRestException
+    public InputStream transform(ModelSetType type, InputStream model) throws LpRestException
     {
         HttpClient httpClient = RestResource.getAnonymousClient();
         String uri = String.format("%s/learnpad/mt/bridge/transform", RestResource.MT_REST_URI);
@@ -80,7 +81,7 @@ public class XwikiBridgeInterfaceRestResource implements BridgeInterface
         postMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM);
         postMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_OCTET_STREAM);
         NameValuePair[] queryString = new NameValuePair[1];
-        queryString[0] = new NameValuePair("type", type);
+        queryString[0] = new NameValuePair("type", type.toString());
         postMethod.setQueryString(queryString);
 
         RequestEntity modelEntity = new InputStreamRequestEntity(model);

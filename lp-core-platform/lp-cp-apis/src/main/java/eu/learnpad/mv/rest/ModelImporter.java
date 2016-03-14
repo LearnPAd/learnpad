@@ -30,11 +30,12 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.me.rest.data.ModelSetType;
 
 public interface ModelImporter {
 	@GET
 	@Path("/getmodel/{modelsetid}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	InputStream getModel(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type")@DefaultValue("lpzip") String type) throws LpRestException;
+			@QueryParam("type")@DefaultValue("ADOXX") ModelSetType type) throws LpRestException;
 }

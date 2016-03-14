@@ -32,6 +32,7 @@ import org.apache.commons.httpclient.methods.RequestEntity;
 
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.qm.BridgeInterface;
 
 /*
@@ -62,7 +63,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
     }
 
     @Override
-    public void importModelSet(String modelSetId, String type, InputStream modelContent) throws LpRestExceptionXWikiImpl
+    public void importModelSet(String modelSetId, ModelSetType type, InputStream modelContent) throws LpRestExceptionXWikiImpl
     {
         // Notify QM about a new model set imported
         HttpClient httpClient = RestResource.getClient();
@@ -71,7 +72,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
         putMethod.addRequestHeader("Accept", "application/xml");
 
         NameValuePair[] queryString = new NameValuePair[1];
-        queryString[0] = new NameValuePair("type", type);
+        queryString[0] = new NameValuePair("type", type.toString());
         putMethod.setQueryString(queryString);
 
         RequestEntity requestEntity = new InputStreamRequestEntity(modelContent);

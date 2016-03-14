@@ -41,6 +41,7 @@ import eu.learnpad.cw.BridgeInterface;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.rest.model.jaxb.PFResults;
 
@@ -84,7 +85,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements
 	}
 
 	@Override
-	public void modelSetImported(String modelSetId, String type)
+	public void modelSetImported(String modelSetId, ModelSetType type)
 			throws LpRestExceptionXWikiImpl {
 
 		HttpClient httpClient = RestResource.getClient();
@@ -93,7 +94,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements
 		PutMethod putMethod = new PutMethod(uri);
 		putMethod.addRequestHeader("Accept", "application/xml");
 		NameValuePair[] queryString = new NameValuePair[1];
-		queryString[0] = new NameValuePair("type", type);
+		queryString[0] = new NameValuePair("type", type.toString());
 		putMethod.setQueryString(queryString);
 		try {
 			httpClient.executeMethod(putMethod);

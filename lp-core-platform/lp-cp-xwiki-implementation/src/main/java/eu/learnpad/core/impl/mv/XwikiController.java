@@ -38,6 +38,7 @@ import org.xwiki.rest.XWikiRestComponent;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.mv.BridgeInterface;
 import eu.learnpad.mv.Controller;
 import eu.learnpad.mv.rest.data.FinalResultType;
@@ -69,7 +70,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
     private eu.learnpad.sim.BridgeInterface sim;
 
-    private Map<String, String> typesMap;
+    private Map<String, ModelSetType> typesMap;
 
     /**
      * A means of instantiating the inherited BridgeInterface according to XWIKI (see
@@ -88,7 +89,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
             this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
             this.qm = new eu.learnpad.core.impl.qm.XwikiBridgeInterfaceRestResource();
 
-            this.typesMap = new HashMap<String, String>();
+            this.typesMap = new HashMap<String, ModelSetType>();
 
             this.initialized = true;
 
@@ -101,7 +102,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
     }
 
     @Override
-    public InputStream getModel(String modelSetId, String type) throws LpRestException
+    public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException
     {
         this.typesMap.put(modelSetId, type);
         String attachmentName = String.format("%s.%s", modelSetId, type);
@@ -191,7 +192,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
         printResults(res);
 
         String modelSetId = res.getModelID();
-        String type = this.typesMap.get(modelSetId);
+        ModelSetType type = this.typesMap.get(modelSetId);
 
         boolean resultsOk = res.getFinalResult().equals(FinalResultType.OK);
         boolean importedInTheSimulator = true;
@@ -202,10 +203,10 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
                 this.cw.modelSetImported(modelSetId, type);
                 this.or.modelSetImported(modelSetId, type);
 
-                InputStream modelContent = XWikiRestUtils.getAttachmentFromCoreRepository(modelSetId, type);
+                InputStream modelContent = XWikiRestUtils.getAttachmentFromCoreRepository(modelSetId, type.toString());
                 this.qm.importModelSet(modelSetId, type, modelContent);
 
-                Collection<String> uriCollection = XWikiRestUtils.exposeBPMNFromCoreRepository(modelSetId, type);
+                Collection<String> uriCollection = XWikiRestUtils.exposeBPMNFromCoreRepository(modelSetId, type.toString());
                 Iterator<String> uriIterator = uriCollection.iterator();
                 while (importedInTheSimulator && uriIterator.hasNext()) {
                     String bpmnFileURL = uriIterator.next();
