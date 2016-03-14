@@ -18,7 +18,7 @@ import eu.learnpad.ca.rest.data.Annotation;
 @XmlRootElement(name = "AnnotatedStaticContentAnalyses")
 public class AnnotatedStaticContentAnalyses {
 	
-	@XmlElement(required = true)
+	@XmlElement(required = true, name="AnnotatedStaticContentAnalysis")
     protected List<AnnotatedStaticContentAnalysis> AnnotatedStaticContentAnalyses;
 
 	

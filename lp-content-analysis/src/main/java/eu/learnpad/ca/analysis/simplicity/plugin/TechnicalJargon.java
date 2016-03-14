@@ -40,7 +40,7 @@ public class TechnicalJargon extends Plugin {
 
 		String rac = Messages.getString("TechnicalJargon.Recomandation",language); //$NON-NLS-1$
 
-		String type = "Simplicity Technical Jargon"; //$NON-NLS-1$
+		String type = "Technical Jargon"; //$NON-NLS-1$
 		if(!tj.isEmpty())
 			gatevsleanpadAnnotation(tj, listannotations,listSentenceDefected,listnode,docContent,type ,rac,log ,listSentence,null,null,null);
 	}
