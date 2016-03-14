@@ -83,11 +83,13 @@ WeavingButtonMacro.title=Cross-model
 
 ## Livetables
 # Model sets livetable
+lpcode.livetable.modelset.emptyvalue=-
 lpcode.livetable.modelset.id=ID
 lpcode.livetable.modelset.name=Course name
 lpcode.livetable.modelset.doc.date=Last update
 lpcode.livetable.modelset._actions=Actions
 # Models livetable
+lpcode.livetable.model.emptyvalue=-
 lpcode.livetable.model.id=ID
 lpcode.livetable.model.name=Model name
 lpcode.livetable.model.type=Type
