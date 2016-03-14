@@ -3,14 +3,19 @@ package eu.learnpad.verification.plugin.bpmn.guideline.impl.notationusage;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.EndEvent;
+import org.eclipse.bpmn2.ExtensionAttributeValue;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.SubProcess;
+import org.eclipse.emf.ecore.util.FeatureMap;
+import org.eclipse.emf.ecore.util.FeatureMap.Entry;
+import org.eclipse.emf.ecore.xml.type.AnyType;
 
 import eu.learnpad.verification.plugin.bpmn.guideline.Messages;
 import eu.learnpad.verification.plugin.bpmn.guideline.impl.abstractGuideline;
@@ -47,15 +52,12 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 					if(fe instanceof SubProcess){
 						SubProcess sub = (SubProcess) fe;
 						//System.out.format("Found a SubProcess: %s\n", sub.getName());
-						this.searchSubProcess(sub);
+					//	this.searchSubProcess(sub);
 					}else
 						if (fe instanceof EndEvent) {
 							num++;
 							
-								/*elementsBPMN.add(fe);
-								setElements(fe.getId(),IDProcess);
-								ret.append(i++ +") name=" + fe.getName() + " ID=" + fe.getId()
-										+ "\n");*/
+								
 								
 								elementsBPMNtemp.add(fe);
 								String name = fe.getName()!=null? fe.getName() : Messages.getString("Generic.LabelEmpty",l);  //$NON-NLS-1$
@@ -66,7 +68,33 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 						} 
 				}
 				if(num>1){
+					Collection<FlowElement> removeBPMNtemps = new ArrayList<FlowElement>();
+					for( FlowElement e :elementsBPMNtemp){
+						boolean flags = false;
+						String name = e.getName();
+						if(name==null)
+							 name = getName(e);
+						if(name!=null)
+						for( FlowElement ee :elementsBPMNtemp){
+							if(!ee.equals(e)){
+								String  namee = ee.getName();
+								if(namee==null)
+									 namee = getName(ee);
+								if(namee!=null)
+								if(name.equals(namee)){
+									flags = true;
+								}
+							}
+							
+						}
+						if(!flags){
+							removeBPMNtemps.add(e);
+						}
+					}
+					elementsBPMNtemp.removeAll(removeBPMNtemps);
+					if(!elementsBPMNtemp.isEmpty()){
 					flag=true;
+					}
 				}else{
 					elementsBPMNtemp = new ArrayList<FlowElement>();
 					Elementstemp = new ArrayList<ElementID>();
@@ -118,6 +146,38 @@ public class ConsistentUsageEndEvents extends abstractGuideline{
 			this.status = false;
 		}
 		
+		
+	}
+	
+	
+	public String getName(FlowElement fe){
+		List<ExtensionAttributeValue> Listed = fe.getExtensionValues();
+		for(ExtensionAttributeValue ed :Listed){
+			FeatureMap val = ed.getValue();
+			for(int d=0;d<val.size();d++){
+				Entry elem = val.get(d);
+				AnyType obj = (AnyType) elem.getValue();
+				FeatureMap any = obj.getAny();
+				for(int s=0;s<any.size();s++){
+					Entry entry = any.get(s);
+					entry.getValue();
+					AnyType objt = (AnyType) entry.getValue();
+					FeatureMap anyt = objt.getAnyAttribute();
+					Entry nameex = anyt.get(0);
+					if(nameex.getValue().equals("Representation")){
+						String descrpt = objt.getMixed().get(0).getValue().toString();
+						return descrpt;
+						/*if(descrpt.equals("without name")){
+							flag=true;
+						}*/
+					}
+				//	System.out.println();
+				}
+
+			}
+
+		}
+		return null;
 	}
 
 }
