@@ -21,8 +21,3 @@ target-eclipse/
 /gulyxout/
 /pom.xml
 /.apt_generated/
-
-# Monitoring component log file
-lp-simulation-environment/monitoring/glimpseLog.log
-/lp-ontology-recommender/nbproject/
-lp-model-verification/verification-component-understandability-plugin/nb-configuration.xml
