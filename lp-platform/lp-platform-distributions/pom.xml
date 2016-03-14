@@ -102,6 +102,13 @@
 				<type>jar</type>
 				<version>${platform.version}</version>
 			</dependency>
+			<!-- Force dependencies for CKEditor application -->
+			<dependency>
+				<groupId>org.xwiki.platform</groupId>
+				<artifactId>xwiki-platform-sheet-ui</artifactId>
+				<type>xar</type>
+				<version>${platform.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 </project>
