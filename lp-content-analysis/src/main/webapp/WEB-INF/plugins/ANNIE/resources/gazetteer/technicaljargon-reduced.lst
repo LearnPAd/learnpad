@@ -8,7 +8,6 @@ algorithm
 alias
 analog
 Application Layer
-application
 application program
 application software
 archive
@@ -18,8 +17,6 @@ assembler
 ATM
 ATM Forum
 audit
-authentication
-authorization
 autonomous system
 backbone
 background processing
@@ -85,7 +82,6 @@ cursor
 cursor control
 Cyberspace
 Data Link Layer
-data
 data object
 data communications
 data entry
@@ -100,13 +96,11 @@ delete key
 DHCP
 dial-up
 dictionary file
-digital
 direct access
 directory
 disk
 diskette 
 display
-distributed
 distributed application
 distributed database
 distributed file system
@@ -202,14 +196,10 @@ LAN e-mail system
 laserdisc
 laser printer
 Layer
-line
 line editor
 line printer
-link
 LISTSERV
-load
 logical record
-login
 logon
 login ID
 logoff
@@ -253,7 +243,6 @@ NetScape
 Network Layer
 network
 nickname
-node
 noise
 object
 object-based
@@ -274,7 +263,6 @@ packet
 parameter
 parity
 peripheral 
-PC
 Physical Layer
 ping
 pixel
@@ -318,7 +306,6 @@ resource
 response
 retiming
 return key
-reuse
 reuseability
 reverse engineering
 ROM
@@ -326,7 +313,6 @@ root directory
 router
 routine
 routing
-run
 scanner
 scheduling
 screen editor
