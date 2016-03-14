@@ -82,20 +82,26 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
 	@Override
 	public Recommendations askRecommendation(String modelSetId, String artifactId,
 			String userId, String simulationSessionId) throws LpRestException {
-		//*
 		HttpClient httpClient = RestResource.getClient();
 		String uri = String.format("%s/learnpad/or/bridge/%s/recommendation",
 				RestResource.REST_URI, modelSetId);
-
-		//uri = "http://hole.tuziwo.info/";
         
 		GetMethod getMethod = new GetMethod(uri);
 		getMethod.addRequestHeader("Accept", "application/xml");
 
-		NameValuePair[] queryString = new NameValuePair[3];
+		boolean hasSimulationId = false;
+        if ((simulationSessionId != null) && (!simulationSessionId.isEmpty())){
+            hasSimulationId = true;
+        }
+        
+        int queryStringSize = 2;
+        if (hasSimulationId) {
+            queryStringSize = 3;
+        }
+		NameValuePair[] queryString = new NameValuePair[queryStringSize];
 		queryString[0] = new NameValuePair("artifactid", artifactId);
 		queryString[1] = new NameValuePair("userid", userId);
-		if ((simulationSessionId != null) && (!simulationSessionId.isEmpty())){
+		if (hasSimulationId){
 			queryString[2] = new NameValuePair("simulationsessionid", simulationSessionId);			
 		}		
 		getMethod.setQueryString(queryString);
@@ -162,14 +168,14 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
         String uri = String.format(
                 "%s/learnpad/or/bridge/modelsetimported/%s",
                 RestResource.REST_URI, modelSetId);
-        PutMethod putMethod = new PutMethod(uri);
-        putMethod.addRequestHeader("Accept", "application/xml");
+        PostMethod postMethod = new PostMethod(uri);
+        postMethod.addRequestHeader("Accept", "application/xml");
         
         NameValuePair[] queryString = new NameValuePair[1];
         queryString[0] = new NameValuePair("type", type);
-        putMethod.setQueryString(queryString);
+        postMethod.setQueryString(queryString);
         try {
-            httpClient.executeMethod(putMethod);
+            httpClient.executeMethod(postMethod);
         } catch (IOException e) {
             e.printStackTrace();
             throw new LpRestExceptionXWikiImpl(e.getMessage(),e);
