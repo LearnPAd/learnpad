@@ -41,8 +41,10 @@ public class AlignmentLauncher
 
     public static void main(String[] args) throws Exception
     {
-        String model_in = "resources/model/ado4f16a6bb-9318-4908-84a7-c2d135253dc9.xml";
-        String file_out = "/tmp/testAlignmentOutputStream.xmi";
+        String model_in = "resources/model/epbr.xml";
+        String file_out = "resources/model/epbr.adoxx.xmi";
+//        String model_in = "resources/model/epbr.xml";
+//        String file_out = "resources/model/epbr.adoxx.xmi";
         String type = "ADOXX";
         // String type = "MD";
 

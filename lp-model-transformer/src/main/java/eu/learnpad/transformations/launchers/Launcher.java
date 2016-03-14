@@ -90,8 +90,8 @@ public class Launcher
         transformInputStream.close();
         transformOutputStream.close();
         writeInputStream.close();
-        Files.delete(lpModelPath);
-        Files.delete(xwikiModelPath);
+//        Files.delete(lpModelPath);
+//        Files.delete(xwikiModelPath);
 
         if (isAlign && isTransformed && path != null) {
             return path;

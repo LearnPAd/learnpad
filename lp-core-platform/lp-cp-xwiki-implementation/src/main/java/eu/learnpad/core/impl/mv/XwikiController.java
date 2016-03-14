@@ -195,7 +195,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
         boolean resultsOk = res.getFinalResult().equals(FinalResultType.OK);
         boolean importedInTheSimulator = true;
-        if (resultsOk) {
+//        if (resultsOk) {
+        if(true) {
             if (XWikiRestUtils.isPage(RestResource.CORE_REPOSITORY_WIKI, RestResource.CORE_REPOSITORY_SPACE,
                 modelSetId) == true) {
                 this.cw.modelSetImported(modelSetId, type);
