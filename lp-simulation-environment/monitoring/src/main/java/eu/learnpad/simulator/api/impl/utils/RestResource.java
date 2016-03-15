@@ -36,5 +36,4 @@ public class RestResource {
 		HttpClient httpClient = new HttpClient();
 		return httpClient;
 	}
-
 }
