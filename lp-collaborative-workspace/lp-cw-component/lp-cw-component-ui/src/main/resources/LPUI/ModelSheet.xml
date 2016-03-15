@@ -31,8 +31,8 @@
   <parent>Main.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1457998533000</date>
-  <contentUpdateDate>1457998523000</contentUpdateDate>
+  <date>1458038243000</date>
+  <contentUpdateDate>1458038243000</contentUpdateDate>
   <version>1.1</version>
   <title>${doc.getObject('LPCode.ModelClass').getProperty('name').value}</title>
   <comment/>
@@ -43,7 +43,7 @@
 #set ($modelObject = $doc.getObject('LPCode.ModelClass'))
 #set ($modelsetid = $modelObject.getProperty('modelsetid').value)
 #set ($modelid = $modelObject.getProperty('id').value)
-#set ($query = "from doc.object(LPCode.BaseElementClass) as be where doc.space = '${doc.space}' and be.modelid = '${modelid}' and be.type = 'bpmn-event-start'")
+#set ($query = "from doc.object(LPCode.BaseElementClass) as be where be.modelsetid = '${modelsetid}' and be.modelid = '${modelid}' and be.type = 'bpmn-event-start'")##'
 #set ($results = $services.query.xwql($query).execute())
 ################
 ## Buttons
@@ -78,14 +78,15 @@
 #end
 ################
 ## Image
-#set ($modelsetReference = $services.model.createDocumentReference($xcontext.database, 'CoreRepository', ${modelsetid}))
-#set ($modelsetDocument = $xwiki.getDocument($modelsetReference))
-#set ($modelImage = "${modelid}.jpg")
-#if ($modelsetDocument.getAttachment($modelImage))
+#set ($modelidNumber = $modelid.split("\.").get(1))
+#set ($modelSetReference = $services.model.createDocumentReference($xcontext.database, 'CoreRepository', ${modelsetid}))
+#set ($attachmentName = "${modelsetid}.ADOXX")
+#set ($attachmentReference = $services.model.createAttachmentReference($modelSetReference, $attachmentName))
+#set ($imageName = "${modelidNumber}.png")
+#set ($imagePath = "attach:${services.model.serialize($attachmentReference, 'default')}/${imageName}")
 (% class="col-xs-12" %)(((
-[[image:CoreRepository.${modelsetid}@${modelid}.jpg||width="100%"]]
+[[image:path:$services.vfs.url($imagePath)||width="100%"]]
 )))
-#end
 )))
 ################
 ## Documentation
