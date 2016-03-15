@@ -1,8 +1,0 @@
-mail.smtp.host = smtp.isti.cnr.it
-mail.smtp.auth = true
-mail.debug = false
-mail.smtp.user = calabro
-mail.smtp.password = 
-mail.smtp.port = 25
-mail.smtp.localhost = smtp.isti.cnr.it
-notificationRecipient = antonello.calabro@gmail.com
