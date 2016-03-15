@@ -9,7 +9,7 @@
  * #set($displayShortcuts = false)
  *#
  
-#if("$!{xcontext.user}" != "XWiki.superadmin"))
+#if("$!{xcontext.user}" != "XWiki.superadmin")
   ## Top header menu
   #set($displayMainMenu = false)
   ## Page contextual menus (add, edit, delete, exports, etc.)
