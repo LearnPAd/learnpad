@@ -89,8 +89,7 @@ public abstract class Plugin {
 			Node end = new Node(gatenodeend.getId(), gatenodeend.getOffset()
 					.intValue());
 
-			listnode.add(init);
-			listnode.add(end);
+			
 
 			Annotation a = new Annotation();
 			a.setId(gateA.getId());
@@ -104,7 +103,13 @@ public abstract class Plugin {
 			try{
 				String sentence_gate = docContent.getContent(gatenodestart.getOffset(),gatenodeend.getOffset()).toString();
 				//log.trace(sentence_gate);
-
+				String[] split = sentence_gate.split(" ");
+				if(Character.isUpperCase(sentence_gate.charAt(0)) && split.length<2){
+					log.trace("Element "+sentence_gate+" cutted");
+					continue;
+				}
+				listnode.add(init);
+				listnode.add(end);
 				if(datafeatureA.length()>1)
 					recc = String.format(Racc,datafeatureA,datafeatureB,datafeatureC);
 				else

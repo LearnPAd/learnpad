@@ -49,7 +49,7 @@ public class AlternativeTerm {
 	public boolean equals(Object obj) {
 		if(obj instanceof AlternativeTerm){
 			AlternativeTerm objj = (AlternativeTerm) obj;
-			return	this.getWord().toLowerCase().equals(objj.getWord().toLowerCase());
+			return	this.getWord().equals(objj.getWord());
 		}
 		return super.equals(obj);
 	}
