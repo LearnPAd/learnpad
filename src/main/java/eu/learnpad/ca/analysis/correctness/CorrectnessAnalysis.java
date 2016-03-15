@@ -214,7 +214,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			}
 			
 
-			if(match.getToPos()!=(prev.getNodeStart().getOffSet()-offset)){
+			if(match.getFromPos()!=(prev.getNodeStart().getOffSet()-offset)){
 				c.setContent(listsentences);
 				listsentences = "";
 				id++;
