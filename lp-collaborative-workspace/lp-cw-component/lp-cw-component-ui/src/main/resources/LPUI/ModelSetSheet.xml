@@ -31,8 +31,8 @@
   <parent>Main.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1455802255000</date>
-  <contentUpdateDate>1455802255000</contentUpdateDate>
+  <date>1457998454000</date>
+  <contentUpdateDate>1457998454000</contentUpdateDate>
   <version>1.1</version>
   <title>List of models in ${doc.getObject('LPCode.ModelSetClass').getProperty('name').value}</title>
   <comment/>
@@ -42,9 +42,11 @@
   <content>{{velocity}}
 #set ($discard = $services.localization.use('document', 'LPCode.Translations'))
 #set ($discard = $xwiki.ssfx.use('uicomponents/widgets/userpicker/userPicker.css'))
+#set ($modelSetObject = $doc.getObject('LPCode.ModelSetClass'))
+#set ($modelsetid = $modelSetObject.getProperty('id').value)
 ################
 ## Documentation
-#set ($documentation = $doc.getObject('LPCode.ModelSetClass').getProperty('documentation').value)
+#set ($documentation = $modelSetObject.getProperty('documentation').value)
 (% class="row" %)(((
 {{documentation}}
 ${documentation}
@@ -53,6 +55,8 @@ ${documentation}
 ################
 ## Livetable
 #set ($columnsProperties = {
+  'modelsetid': {'type': 'hidden'},
+  'id': {'type': 'hidden'},
   'name': {'type': 'text', 'size': 8, 'link': 'view'},
   'type': {'type': 'list', 'size': 2},
   'doc.date': {'type': 'text', 'size': 2}
@@ -66,9 +70,9 @@ ${documentation}
   'maxPages': 20,
   'selectedColumn': 'name',
   'defaultOrder': 'asc',
-  'extraParams': "&amp;space=${doc.space}"
+  'extraParams': "&amp;modelsetid=${modelsetid}"
 })
-#set ($columns = ['name', 'type', 'doc.date'])
+#set ($columns = ['modelsetid', 'id', 'name', 'type', 'doc.date'])
 #livetable('lp-modellist' $columns $columnsProperties $options)
 {{/velocity}}</content>
 </xwikidoc>
