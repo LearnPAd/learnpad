@@ -38,6 +38,12 @@ public class BridgeImpl extends Bridge
 {
     private String TMP_PATH = "/tmp/learnpad/mt";
 
+    /*
+     * Please consider the limitations described
+     * as comments and as todo in eu.learnpad.me.rest.data.ModelSetType
+     *  
+     * @see eu.learnpad.me.rest.data.ModelSetType
+     */
     @Override
     public InputStream transform(ModelSetType type, InputStream model) throws LpRestException
     {
