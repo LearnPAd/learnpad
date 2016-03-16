@@ -60,8 +60,8 @@ public class ContentBean implements Serializable{
 	public ContentBean(){
 		Correctness = true;
 		Simplicity= true;
-		ContentClarity= false;
-		NonAmbiguity= false;
+		ContentClarity= true;
+		NonAmbiguity= true;
 		Completeness= false;
 		PresentationClarity= false;
 	}

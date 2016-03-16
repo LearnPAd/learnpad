@@ -15,6 +15,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
+import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
 
 
@@ -79,7 +80,9 @@ public class ContentAnalysisBean implements Serializable {
 
 	public Collection<String> getCollectionids(){
 		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target("http://fmt.isti.cnr.it:8080").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/allid");
+
+		WebTarget target = client.target("http://localhost:8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/allid");
+
 		Response allID =  target.request().get();
 		String res = allID.readEntity(String.class);
 
@@ -90,6 +93,39 @@ public class ContentAnalysisBean implements Serializable {
 		this.status = status;
 	}
 
+	public String color(String OverallQuality){
+		String color ="";
+		if(OverallQuality!=null){
+			switch (OverallQuality) {
+			case "VERY BAD":
+				color ="#FF0000";
+				break;
+
+			case "BAD":
+				color ="#FF9C07";
+				break;
+				
+			case "NOT SO BAD":
+				color ="#FFFF00";
+				break;
+			case "GOOD":
+				color ="#00FF00";
+				break;
+			case "VERY GOOD":
+				color ="#00FF00";
+				break;
+			case "EXCELLENT":
+				color ="#00FF7F";
+				break;
+
+
+			default:
+				color ="";
+				break;
+			}
+		}
+		return color;
+	}
 
 
 	public Collection<AnnotatedCollaborativeContentAnalysis> getCollectionannotatedcontent() {
@@ -181,7 +217,7 @@ public class ContentAnalysisBean implements Serializable {
 			id="1";
 		}
 
-		WebTarget target = client.target("http://fmt.isti.cnr.it:8080").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id+"/status");
+		WebTarget target = client.target("http://localhost:8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id+"/status");
 		String 	status ="";
 		while (!status.equals("OK")) {
 
@@ -195,10 +231,10 @@ public class ContentAnalysisBean implements Serializable {
 		log.trace("Status: "+status);
 
 		if(status.equals("OK")){
-			target = client.target("http://fmt.isti.cnr.it:8080").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id);
+			target = client.target("http://localhost:8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id);
 			Response annotatecontent =  target.request().get();
-
-			this.setCollectionannotatedcontent(annotatecontent.readEntity(new GenericType<Collection<AnnotatedCollaborativeContentAnalysis>>() {}));
+			AnnotatedCollaborativeContentAnalyses res = annotatecontent.readEntity(new GenericType<AnnotatedCollaborativeContentAnalyses>() {});
+			this.setCollectionannotatedcontent(res.getAnnotateCollaborativeContentAnalysis());
 
 		}
 
