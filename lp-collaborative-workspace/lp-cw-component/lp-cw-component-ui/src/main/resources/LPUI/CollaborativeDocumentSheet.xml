@@ -31,8 +31,8 @@
   <parent>LPUI.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1458000715000</date>
-  <contentUpdateDate>1458000715000</contentUpdateDate>
+  <date>1458120873000</date>
+  <contentUpdateDate>1458119778000</contentUpdateDate>
   <version>1.1</version>
   <title>#if($doc.name == 'CollaborativeDocumentSheet')Collaborative Document Sheet#{else}$services.localization.render('CollaborativeDocumentSheet.title',[$xwiki.getDocument($doc.documentReference.lastSpaceReference).title])#{end}</title>
   <comment/>
@@ -149,7 +149,7 @@ $(function(){
     var map = {"page": reference.name, "spaces": [], "wiki": ""};
     var r = reference.parent;
     while(r.parent != null) {
-      map.spaces.push(r.name);
+      map.spaces.unshift(r.name);
       r = r.parent;
     }
     map.wiki = r.name;
@@ -179,7 +179,7 @@ $(function(){
     return Q.Promise(function(resolve, reject, notify) {
       var map = mapReference(reference);
       var url = "/xwiki/bin/get/LPCode/Render?outputSyntax=plain";
-      url += "&amp;reference=" + reference;
+      url += "&amp;reference=" + encodeURIComponent(reference);
       url += "&amp;syntax=" + syntax;
       $.ajax({
         "url": url,
@@ -197,7 +197,7 @@ $(function(){
       var sep = "\n-*-*-\n";
       var data = title + sep + plain + sep + html;
       var url = "/xwiki/rest/learnpad/cw/corefacade/analyze?"
-      url += "id=" + xm.documentReference;
+      url += "id=" + encodeURIComponent(xm.documentReference);
       url += "&amp;language=" + language;
       for(option of options) {
         url += "&amp;option=" + option;
