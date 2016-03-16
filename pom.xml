@@ -86,6 +86,23 @@
 			<version>2.2</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>el-impl</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<dependency>
+	<groupId>com.sun.el</groupId>
+	<artifactId>el-ri</artifactId>
+	<version>1.0</version>
+</dependency>
+<dependency>
+  <groupId>javax.faces</groupId>
+  <artifactId>javax.faces-api</artifactId>
+  <version>2.2</version>
+  <scope>provided</scope>
+</dependency>
+		
 		<!-- <dependency> <groupId>net.sf.jcharts</groupId> <artifactId>krysalis-jCharts</artifactId> 
 			<version>1.0.0-alpha-1</version> </dependency> -->
 	</dependencies>
@@ -125,11 +142,13 @@
 		<defaultGoal>clean verify jetty:run</defaultGoal>
 		<plugins>
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>7.6.14.v20131031</version>
+				<groupId>org.eclipse.jetty</groupId>
+	<artifactId>jetty-maven-plugin</artifactId>
+	<version>9.3.8.v20160314</version>
 				<configuration>
-
+					 <httpConnector>
+                    <port>9090</port>
+                </httpConnector>
 					<connectors>
 						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
 							<port>9090</port>

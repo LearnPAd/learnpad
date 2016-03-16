@@ -49,7 +49,7 @@
 
 				<h:outputLabel for="label_#{status.index}" value="Overall Quality" />
 				<h:outputText id="label_#{status.index}"
-					value="#{data.overallQuality}" />
+					value="#{data.overallQuality}" style="background-color: #{ContentAnalysisBean.color(data.overallQuality)}" />
 
 				<h:outputLabel for="label1_#{status.index}"
 					value="Overall Quality Measure" />

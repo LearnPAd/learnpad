@@ -143,7 +143,7 @@ public class DataContentAnalysis implements Serializable{
 		Content c = acca.getCollaborativeContent().getContent();
 		List<Annotation> lannot =  acca.getAnnotations();
 		String content= exContent(c);
-		log.trace("cont: "+content);
+		//log.trace("cont: "+content);
 		Integer inode=0;
 		//List<Node> temp= new ArrayList<Node>();
 		DataContent prec = null;
