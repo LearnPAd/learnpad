@@ -46,6 +46,6 @@ function component_install() {
     # These is no configuration file to copy
     #cp <path_to>/file.cfg ${__OUT_CONF_PATH__}/
 
-    cp "${__COMPONENT_PATH__}/configFiles/systemSettings" "${__OUT_PATH__}/"
+    cp "${__COMPONENT_PATH__}/systemSettings" "${__OUT_PATH__}/"
     cp -r "${__COMPONENT_PATH__}/configFiles" "${__OUT_PATH__}/"
 }
