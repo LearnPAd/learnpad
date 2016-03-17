@@ -172,7 +172,7 @@ public class MainMonitoring {
 				System.out.println("Running ActiveMQ instance on " + environmentParameters.getProperty("java.naming.provider.url"));
 				
 				ActiveMQRunner anActiveMQInstance = new ActiveMQRunner(environmentParameters.getProperty("java.naming.provider.url"));
-				anActiveMQInstance.start();
+			    new Thread(anActiveMQInstance).start();
 								
 				while (!anActiveMQInstance.isBrokerStarted()) {
 					Thread.sleep(1000);

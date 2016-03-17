@@ -2,26 +2,40 @@ package eu.learnpad.simulator.mon;
 
 import java.net.URI;
 
+import javax.jms.JMSException;
+
 import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.broker.TransportConnector;
 
-public class ActiveMQRunner extends Thread {
+import eu.learnpad.simulator.mon.utils.TesterJMSConnection;
+
+public class ActiveMQRunner implements Runnable {
 
 	private String hostWhereToRunInstance;
 	private BrokerService broker;
 	private TransportConnector connector;
 	
+	private TesterJMSConnection tester;
+	
 	public ActiveMQRunner(String hostWhereToRunInstance) {
-		this.hostWhereToRunInstance = hostWhereToRunInstance;
+		this.hostWhereToRunInstance = hostWhereToRunInstance;		
+		this.tester = new TesterJMSConnection(this.hostWhereToRunInstance);
 	}
 	
-	public boolean isBrokerStarted() {
-		if (this.broker == null) {
+	public synchronized boolean isBrokerStarted() {
+		if ((this.broker == null) || (!this.broker.isStarted())) {
 			return false;
 		}
-		return this.broker.isStarted();
+				
+		try {
+		    this.tester.testConnection();
+		} catch (JMSException e) {
+			return false;
+		}
+		
+		return true;
 	}
-	
+
 	public void run() {
 		broker = new BrokerService();
 		connector = new TransportConnector();
@@ -35,4 +49,5 @@ public class ActiveMQRunner extends Thread {
 			e.printStackTrace();
 		}
 	}
+
 }
