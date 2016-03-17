@@ -60,6 +60,7 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServlet;
 
 import eu.learnpad.simulator.Simulator;
 import eu.learnpad.simulator.api.impl.SimulatorBridgeServletHolder;
+import eu.learnpad.simulator.utils.SimulatorProperties;
 
 /**
  * @author Tom Jorquera - Linagora
@@ -290,76 +291,86 @@ public class WebServer {
 	 */
 	public static String getIPAddress() throws UnknownHostException,
 			SocketException {
-		// TODO: ip should be read in a config, file this would avoid all this
+		// First check if the IP address has been specified in a properties file
+		if (SimulatorProperties.props
+				.containsKey(SimulatorProperties.PROP_ADDRESS)) {
+			System.out.println(SimulatorProperties.props
+					.getProperty(SimulatorProperties.PROP_ADDRESS));
+			return SimulatorProperties.props
+					.getProperty(SimulatorProperties.PROP_ADDRESS);
+		} else {
 
-		Set<InetAddress> localValidAddresses = new HashSet<InetAddress>();
+			// try to guess a good address
+			Set<InetAddress> localValidAddresses = new HashSet<InetAddress>();
 
-		Enumeration<NetworkInterface> e = NetworkInterface
-				.getNetworkInterfaces();
+			Enumeration<NetworkInterface> e = NetworkInterface
+					.getNetworkInterfaces();
 
-		// try to find a non-local address
-		while (e.hasMoreElements()) {
-			NetworkInterface n = e.nextElement();
-			Enumeration<InetAddress> ee = n.getInetAddresses();
-			while (ee.hasMoreElements()) {
-				InetAddress i = ee.nextElement();
+			// try to find a non-local address
+			while (e.hasMoreElements()) {
+				NetworkInterface n = e.nextElement();
+				Enumeration<InetAddress> ee = n.getInetAddresses();
+				while (ee.hasMoreElements()) {
+					InetAddress i = ee.nextElement();
+					String hostAddress = i.getHostAddress();
+					if (!i.isLoopbackAddress() && !i.isLinkLocalAddress()) {
+
+						if (!i.isAnyLocalAddress() && !i.isSiteLocalAddress()) {
+							// got one !
+							if (i instanceof Inet6Address) {
+								return "[" + hostAddress.split("%")[0] + "]";
+							} else {
+								return hostAddress;
+							}
+						} else {
+							// not good enough, store it in case we go to step 2
+							localValidAddresses.add(i);
+						}
+
+					}
+				}
+			}
+
+			// did not found any non-local address, try with a local (but
+			// non-link
+			// local)
+			// address
+			if (!localValidAddresses.isEmpty()) {
+				InetAddress i = localValidAddresses.iterator().next();
 				String hostAddress = i.getHostAddress();
-				if (!i.isLoopbackAddress() && !i.isLinkLocalAddress()) {
 
-					if (!i.isAnyLocalAddress() && !i.isSiteLocalAddress()) {
-						// got one !
-						if (i instanceof Inet6Address) {
-							return "[" + hostAddress.split("%")[0] + "]";
-						} else {
-							return hostAddress;
-						}
-					} else {
-						// not good enough, store it in case we go to step 2
-						localValidAddresses.add(i);
-					}
-
+				if (i instanceof Inet6Address) {
+					return "[" + hostAddress.split("%")[0] + "]";
+				} else {
+					return hostAddress;
 				}
 			}
-		}
 
-		// did not found any non-local address, try with a local (but non-link
-		// local)
-		// address
-		if (!localValidAddresses.isEmpty()) {
-			InetAddress i = localValidAddresses.iterator().next();
-			String hostAddress = i.getHostAddress();
-
-			if (i instanceof Inet6Address) {
-				return "[" + hostAddress.split("%")[0] + "]";
-			} else {
-				return hostAddress;
-			}
-		}
-
-		// still no luck, let's try any answering address...
-		e = NetworkInterface.getNetworkInterfaces();
-		while (e.hasMoreElements()) {
-			NetworkInterface n = e.nextElement();
-			Enumeration<InetAddress> ee = n.getInetAddresses();
-			while (ee.hasMoreElements()) {
-				InetAddress i = ee.nextElement();
-				try {
-					if (i.isReachable(500)) {
-						String hostAddress = i.getHostAddress();
-						if (i instanceof Inet6Address) {
-							return "[" + hostAddress.split("%")[0] + "]";
-						} else {
-							return hostAddress;
+			// still no luck, let's try any answering address...
+			e = NetworkInterface.getNetworkInterfaces();
+			while (e.hasMoreElements()) {
+				NetworkInterface n = e.nextElement();
+				Enumeration<InetAddress> ee = n.getInetAddresses();
+				while (ee.hasMoreElements()) {
+					InetAddress i = ee.nextElement();
+					try {
+						if (i.isReachable(500)) {
+							String hostAddress = i.getHostAddress();
+							if (i instanceof Inet6Address) {
+								return "[" + hostAddress.split("%")[0] + "]";
+							} else {
+								return hostAddress;
+							}
 						}
+					} catch (IOException e1) {
+						// nothing more to do
 					}
-				} catch (IOException e1) {
-					// nothing more to do
 				}
 			}
-		}
 
-		// give up
-		throw new RuntimeException("No valid IP adress");
+			// give up
+			throw new RuntimeException("No valid IP address");
+		}
 	}
 
 	private static class IPTokenHTTPServlet extends HttpServlet {

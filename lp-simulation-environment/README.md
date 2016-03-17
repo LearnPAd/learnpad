@@ -40,7 +40,7 @@ As indicated on the command-line, the demo should then be available at :
 
 # Configuration
 The main configurations are given or impacts on the following (possibly not complete) list of files:
- * lp-simulation-environment/simulator/src/main/resources/glimpse_server.conf
+ * lp-simulation-environment/simulator/out/simulator.properties (optional file, may not exist)
  * lp-simulation-environment/monitoring/configFiles/environmentFile
  * lp-simulation-environment/monitoring/systemSettings
  * lp-simulation-environment/monitoring/out/systemSettings (only once the system is built)
