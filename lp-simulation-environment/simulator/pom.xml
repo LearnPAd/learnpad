@@ -307,6 +307,7 @@
 						<exclude>main/resources/license/**</exclude>
 						<exclude>main/resources/validation_db.json</exclude>
 						<exclude>main/resources/assembly.xml</exclude>
+						<exclude>main/resources/**.properties</exclude>
 					</excludes>
 					<licenseMerges>
 						<licenseMerge>
