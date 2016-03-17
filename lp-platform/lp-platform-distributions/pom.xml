@@ -89,6 +89,12 @@
 				<type>xar</type>
 				<version>${platform.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.xwiki.platform</groupId>
+				<artifactId>xwiki-platform-icon-fontawesome</artifactId>
+				<type>xar</type>
+				<version>${platform.version}</version>
+			</dependency>
 			<!-- Force dependencies for Scripting Documentation application -->
 			<dependency>
 				<groupId>org.xwiki.platform</groupId>

@@ -167,9 +167,15 @@
 			<type>xar</type>
 		</dependency>
 		<dependency>
+			<groupId>org.xwiki.platform</groupId>
+			<artifactId>xwiki-platform-appwithinminutes-ui</artifactId>
+			<type>xar</type>
+			<version>7.4.2</version>
+		</dependency>
+		<dependency>
 			<groupId>org.xwiki.contrib</groupId>
 			<artifactId>application-ckeditor-ui</artifactId>
-			<version>1.2</version>
+			<version>1.3</version>
 			<type>xar</type>
 		</dependency>
 	</dependencies>

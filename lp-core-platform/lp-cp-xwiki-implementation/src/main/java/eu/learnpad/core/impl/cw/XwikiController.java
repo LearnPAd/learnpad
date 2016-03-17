@@ -214,7 +214,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
         String title = bodyScanner.next();
         String plain = bodyScanner.next();
         String html = bodyScanner.next();
-        html = "<![CDATA[ " + html + " ]]>";
+        //html = "<![CDATA[ " + html + " ]]>";
         bodyScanner.close();
         collaborativeContent.setTitle(title);
         collaborativeContent.setContentplain(plain);

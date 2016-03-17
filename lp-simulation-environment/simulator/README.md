@@ -33,7 +33,18 @@ As indicated on the command-line, the demo should then be available at [http://l
         ./out/stop
 
 # Configuration
-There is no possible configuration at the moment.
+The simulator allows to override some configuration using an optional properties file. This properties file allows to override some default properties values:
+
+- the IP used by the simulator
+- the address of the glimpse server
+
+This properties file must named `simulator.properties` and placed in the folder from which the simulator is started (typically the ./out subfolder if launching the simulator with the start script).
+
+To override the address user by the simulator, put the following inside the file:
+`address=<address>`
+
+To override the glimpse server, put the following inside the file:
+`glimpse_server=tcp://<address>`
 
 # Interfaces
 
