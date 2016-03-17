@@ -4,7 +4,6 @@
 package eu.learnpad.simulator.monitoring.activiti;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import javax.jms.JMSException;
 import javax.naming.NamingException;
@@ -29,6 +28,7 @@ import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
+import eu.learnpad.simulator.utils.SimulatorProperties;
 
 /*
  * #%L
@@ -59,17 +59,7 @@ import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
  *
  */
 public class ProbeEventReceiver extends GlimpseAbstractProbe implements
-IProcessEventReceiver {
-
-	private static final String GLIMPSE_CONF_PATH = "glimpse_server.conf";
-
-	private static String getServerAddress() {
-		Scanner scan = new Scanner(ProbeEventReceiver.class.getClassLoader()
-				.getResourceAsStream(GLIMPSE_CONF_PATH));
-		String uiPage = scan.useDelimiter("\\Z").next();
-		scan.close();
-		return uiPage;
-	}
+		IProcessEventReceiver {
 
 	private final IProcessManager manager;
 
@@ -79,8 +69,10 @@ IProcessEventReceiver {
 	public ProbeEventReceiver(IProcessManager manager) {
 		super(Manager.createProbeSettingsPropertiesObject(
 				"org.apache.activemq.jndi.ActiveMQInitialContextFactory",
-				ProbeEventReceiver.getServerAddress(), "system", "manager",
-				"TopicCF", "jms.probeTopic", false, "probeName", "probeTopic"));
+				SimulatorProperties.props
+						.getProperty(SimulatorProperties.PROP_GLIMPSE_SERVER),
+				"system", "manager", "TopicCF", "jms.probeTopic", false,
+				"probeName", "probeTopic"));
 
 		this.manager = manager;
 	}
