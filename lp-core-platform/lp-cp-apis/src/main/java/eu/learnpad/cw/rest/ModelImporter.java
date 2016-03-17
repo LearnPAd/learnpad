@@ -19,6 +19,8 @@
  */
 package eu.learnpad.cw.rest;
 
+import java.io.InputStream;
+
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -26,10 +28,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.me.rest.data.ModelSetType;
 
 public interface ModelImporter {
 	@GET
 	@Path("/getmodel/{modelsetid}")
-	byte[] getModel(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type")@DefaultValue("lpzip") String type) throws LpRestException;
+	InputStream getModel(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("type")@DefaultValue("ADOXX") ModelSetType type) throws LpRestException;
 }

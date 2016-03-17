@@ -24,7 +24,8 @@ package eu.learnpad.simulator;
  * #L%
  */
 
-import java.util.Collection;
+import eu.learnpad.sim.rest.IUserInfosAPI;
+import eu.learnpad.sim.rest.data.UserData;
 
 /**
  * Defines the functions required to handle Users
@@ -32,15 +33,15 @@ import java.util.Collection;
  * @author Tom Jorquera - Linagora
  *
  */
-public interface IUserHandler {
+public interface IUserHandler extends IUserInfosAPI {
 
 	/**
 	 * Add a new user to the user list
 	 *
-	 * @param userId
-	 *            the id of the new user
+	 * @param user
+	 *            the new user
 	 */
-	public void addUser(String userId);
+	public void addUser(UserData user);
 
 	/**
 	 * Remove a user from the user list
@@ -49,9 +50,4 @@ public interface IUserHandler {
 	 */
 	public void removeUser(String userId);
 
-	/**
-	 *
-	 * @return a collection containing all the user IDs
-	 */
-	public Collection<String> getUsers();
 }

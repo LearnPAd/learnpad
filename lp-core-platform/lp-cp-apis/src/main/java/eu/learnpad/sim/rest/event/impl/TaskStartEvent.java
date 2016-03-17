@@ -20,6 +20,7 @@
 package eu.learnpad.sim.rest.event.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import eu.learnpad.sim.rest.event.AbstractEvent;
 import eu.learnpad.sim.rest.event.EventType;
@@ -30,6 +31,11 @@ import eu.learnpad.sim.rest.event.EventType;
  *
  */
 public class TaskStartEvent extends AbstractEvent {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 6565005567809009748L;
 
 	/**
 	 * Unique ID of the process instance
@@ -55,9 +61,12 @@ public class TaskStartEvent extends AbstractEvent {
 		super();
 	}
 
-	public TaskStartEvent(Long timestamp, String processid, String taskid,
-			String taskdefid, List<String> assignedusers) {
-		super(timestamp);
+	public TaskStartEvent(Long timestamp, String simulationsessionid,
+			List<String> involvedusers, String modelsetid,
+			Map<String, Object> simulationSessionData, String processid,
+			String taskid, String taskdefid, List<String> assignedusers) {
+		super(EventType.TASK_START, timestamp, simulationsessionid,
+				involvedusers, modelsetid, simulationSessionData);
 		this.processid = processid;
 		this.taskid = taskid;
 		this.taskdefid = taskdefid;
@@ -65,8 +74,10 @@ public class TaskStartEvent extends AbstractEvent {
 	}
 
 	@Override
-	public EventType getType() {
-		return EventType.TASK_START;
+	public String toString() {
+		return super.toString() + " processid=" + processid + " taskid="
+				+ taskid + " taskdefid=" + taskdefid + " assignedusers="
+				+ assignedusers;
 	}
 
 }

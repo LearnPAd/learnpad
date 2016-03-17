@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CollaborativeContentAnalysis language="english">
+	<CollaborativeContent id="1213">
+		<Title>Title of Documents</Title>
+		<ContentPlain>Section 9 Review of decisions eligible for appeal
+
+Introduction
+
+9.1 Under the Offshore Installations (Safety Case) Regulations 2005 (SCR), Regulation 24(1) any person who is aggrieved by a decision by HSE may appeal to the Secretary of State. The relevant decisions relate to:
+
+- a finding of fact by HSE,
+- non-acceptance of a Safety Case,
+- direction to prepare a Safety Case revision,
+- non-acceptance of a revision to a Safety Case,
+- suspension of a Safety Case,
+- not lifting a suspension,
+- revocation of an exemption certificate, and
+- grant of an exemption certificate with a condition or time limit.
+
+These decisions do not include a direction of a review of a Safety Case.
+
+9.2 The guidance in Booklet L30 indicates that all other means of resolving the matter should be fully explored with HSE, and that the duty holder can request a review of the decision by the Executive. This section describes the arrangements for carrying out such a review. It is written in terms of a decision not to accept a Safety Case, but it applies generally to all the decisions listed above. Where appropriate, it may also be a basis for an internal review of a decision to direct a review of a Safety Case.
+Purpose of a review
+
+9.3 A review is an internal HSE activity. The main purpose is to ensure that:
+
+- the assessment was conducted fairly,
+- the issues in contention were relevant,
+- due account was taken of the facts and opinions presented, and
+- OSD was entitled to reach the decision that it did.
+
+It does not involve detailed peer review, nor an attempt to second-guess specialist opinion. The reviewer may have technical assistance and hear technical arguments; however, this is limited to understanding the issues involved, and to ensuring that OSD has taken full congnisance of the duty holder’s arguments and has reached a logical and consistent decision.
+
+Summary of features
+
+- It is a review by HSE’s Chief Executive, who can delegate all or part of the function to their deputy or to another senior manager. However, the conclusions letter to the duty holder is sent under the Chief Executive’s authority.
+- The reviewer may ask a technical specialist [from outside OSD] to advise on interpretation of technical matters and, if necessary, someone from the Legal Advisor’s Office to advise on the law. A secretary may also be appointed.
+- The reviewer considers written submissions from OSD, the duty holder and safety representatives. The reviewer may meet OSD and the duty holder, separately or together, to discuss their positions and see if there is any scope for common ground or for alternative solutions. Third parties are not involved unless the reviewer considers it beneficial.
+- The review does not try to revisit complex technical issues. Rather, it focuses on whether the processes leading up to the decision were properly carried out, and OSD was entitled to take the view that it did. If procedures were materially misapplied, OSD will be directed to re-open the assessment.
+- The Chief Executive gives a written judgement on the case, with the reasons for the views expressed. If finding in favour of the duty holder, the Chief Executive directs OSD to take appropriate action. The outcome is reported fully, so that all parties are aware of the scope and depth of the review.
+
+Submission of an application for review
+
+9.4 The duty holder applies in writing to the Chief Executive, within 3 weeks of receipt of the written decision or a subsequent meeting with the Head of OSD. The application includes:
+- a summary of the reasons for seeking the review, and
+- any supporting documentation submitted to OSD during the assessment
+process. This can include information or opinion from third parties.
+
+
+Conduct of the review
+
+9.5 The review is carried out by the Chief Executive, who may delegate all or part of the review to a senior manager outside of OSD. The reviewer may ask other staff, such as technical specialists from outside OSD, or a member of the Legal Advisor’s Office, to assist.
+
+9.6 The reviewer informs the relevant safety representatives of the duty holder’s reasons for seeking a review, and invites them to submit comments by a specified date. Any such comments are not attributed to individuals. If there is no resident workforce or no safety representatives [for example if the installation is stacked or operating abroad], the reviewer may make other arrangements to hear views from those whose health and safety may be affected by the matters under review.
+
+9.7 OSD provides the reviewer with a summary of the assessment process, including;
+- the points of contention,
+- the work done to try to resolve them,
+- OSD’s current position, and
+- any proposals for resolution.
+
+The duty holder provides a similar view on the points of contention, their current position and any proposals for resolution. New issues or arguments should not be raised.
+
+9.8 If the duty holder has any concerns over the way OSD has followed its assessment procedures, the reviewer asks OSD to comment. If the concern is justified, the Chief Executive may ask OSD to re-open the assessment and deal with the concerns.
+
+9.9 The reviewer considers the submission, and any from the employee representatives, and seeks any clarification required. The reviewer may meet OSD and the duty holder, separately or together, to see if there is any scope for common ground or for alternative solutions. Third parties may be involved if the reviewer considers it beneficial; however it is not the reviewers function to arbitrate between, or to second- guess, complex technical issues.
+
+9.10 The reviewer considers in particular:
+- if the decision was taken in accordance with OSD’s procedures and associated guidance,
+- if the issues giving rise to the decision related to matters of significance within the scope of SCR, and were clearly described to the duty holder,
+- if the responses from the duty holder were given due consideration,
+- if there are any obvious flaws in OSD’s reasoning in making the decision,
+and
+- if there was any unfairness or bias in OSD’s assessment activity.
+
+9.11 The Chief Executive gives a written view on the case, with reasons, to the parties
+involved. Where appropriate, the Chief Executive may direct OSD to take particular action [accept the case, lift the suspension, etc]. Where practicable, the judgement is provided within 6 weeks of receipt of the review application
+
+9.12 The review may find that the duty holder’s view has merit but there is no strong case for considering that OSD’s position is in error. It may then recommend further technical discussions take place, or simply indicate that there is insufficient reason to change the decision. This may be the case where there are strongly held opposing technical views.
+Amendment
+
+9.13 The Chief Executive may change any part of the procedure for a particular review. For any substantive change the Chief Executive will give the reasons for the change, and where appropriate will consult with the duty holder and OSD.
+Charging
+
+9.14 In the event of a review finding in favour of the duty holder, HSE will not normally charge for work related to the review.
+		</ContentPlain>
+		<ContentHTML>
+<![CDATA[		<p>The template defined below shall be partitioned in two parts: one part will be included in the Static Wiki page, while the other part will be in the Collaborative Wiki page (see description <span class="wikilink"><a href="/LearnPAdWiki/bin/view/WP4/WP4%3A+General+LearnPAd+Workflow">here</a></span>). Which fields fall in one or the other page has to be decided.&nbsp;</p><p>The fields of the NL Content Template are:</p><ul><li><strong>Headline:</strong> a short title describing the content. The title can be the name of the BP Model or entity described.</li><li><strong><del>Source Documents:</del></strong><del>&nbsp;identifiers of norms, regulations or any other document that give prescriptions or define the content from which the BP model, or entity has been derived.</del></li><li><strong><del>Reference Documents:</del></strong><del>&nbsp;identifiers of norms, regulations or any other document that might have an impact on the current description.</del></li><li><strong>Glossary:</strong> list of definitions that are useful to understand the NL Content. (preferably a link to a central glossary)</li><li><strong>Context:</strong> a brief overview of the information that might be useful for a reader to understand the current BP model or entity described.</li><li><strong><del>Summary:</del></strong><del>&nbsp;brief summary of the BP Model or entity described.</del> (should be in the Static Page)</li><li><strong><del>Motivation:</del></strong><del>&nbsp;the higher-level objective or justification of the BP model or entity described.</del> (should be in the Business Motivation Model)</li><li><strong>Intended readership:</strong> type of roles that should read this NL content.</li><li><strong><del>Involved actors:</del></strong><del>&nbsp;actors (e.g., people, offices, authorities, etc.) that are involved in the BP Model or entity described.</del>(should be in the Organisational Model)</li><li><strong><del>Input documents:</del></strong><del>&nbsp;documents used as input for the current BP Model or entity described, if any.</del> (should be in the Document Model and BPMN)</li><li><strong><del>Output documents:</del></strong><del>&nbsp;documents produced by the current BP Model or entity described, if any.</del> (should be in the Document Model and BPMN)</li><li><strong><del>Required tools:</del></strong><del>&nbsp;software or hardware tools to be used to perform the process associate to the current BP Model or entity, if any.</del> (should be covered by the IT system model)</li><li><strong>Description:</strong> actual description of the BP Model or entity, expressed in terms of instructions or rules to be performed by any of the actors involved in the BP Model.</li><li><strong>Examples/Experiences:</strong> list of real-world examples to practically describe the BP Model or entity. (expressed as links)</li><li><strong>What to do in case of failures:</strong> suggestions of possible alternative choices to take if something goes wrong while performing the process associated to the current BP Model or entity. (expressed as links)</li><li><strong><del>Contacts of involved offices:</del></strong><del>&nbsp;name, phone number and e-mail of the offices involved in the process. (should be in the Organisational Model)</del></li><li><strong><del>Contacts of experts:</del></strong><del>&nbsp;name, phone number and e-mail of the BP Model experts to contact to ask for clarifications. (should be in the Organisational Model)</del></li><li><strong>FAQ:</strong> list of frequently asked questions associated to the current BP Model or entity. (expressed as links)</li></ul><div><p><span style="line-height: 19px;">The corresponding XML has to be defined.</span></p></div>
+]]>
+		</ContentHTML>
+	</CollaborativeContent>
+	<QualityCriteria simplicity="false" non_ambiguity="false"
+		content_clarity="false" presentation_clarity="false" completeness="true"
+		correctness="false" />
+</CollaborativeContentAnalysis>

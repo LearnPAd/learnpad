@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<recommendations>
+    <experts>
+        <businessActor>
+            <description>none0</description>
+            <email>foo0@nowhere.org</email>
+            <name>FooName0</name>
+            <phoneNumber>+00 0</phoneNumber>
+            <role>FooRole0</role>
+            <uri>http://foo0.nowhere.org</uri>
+        </businessActor>
+    </experts>
+    <learningMaterials/>
+    <similarCases>
+        <similarCase>
+            <data>
+                <entry>
+                    <key>fooKey2</key>
+                    <value xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">fooValue2</value>
+                </entry>
+                <entry>
+                    <key>fooKey1</key>
+                    <value xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">fooValue1</value>
+                </entry>
+                <entry>
+                    <key>fooKey0</key>
+                    <value xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">fooValue0</value>
+                </entry>
+            </data>
+            <experts>
+                <businessActor>
+                    <description>none0</description>
+                    <email>foo0@nowhere.org</email>
+                    <name>FooName0</name>
+                    <phoneNumber>+00 0</phoneNumber>
+                    <role>FooRole0</role>
+                    <uri>http://foo0.nowhere.org</uri>
+                </businessActor>
+            </experts>
+            <id>FooID0</id>
+            <learningMaterials/>
+            <name>FooName0</name>
+            <similarityValue>fooSimilarityValue0</similarityValue>
+        </similarCase>
+        <similarCase>
+            <data>
+                <entry>
+                    <key>fooKey1</key>
+                    <value xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">fooValue1</value>
+                </entry>
+                <entry>
+                    <key>fooKey0</key>
+                    <value xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">fooValue0</value>
+                </entry>
+            </data>
+            <experts>
+                <businessActor>
+                    <description>none0</description>
+                    <email>foo0@nowhere.org</email>
+                    <name>FooName0</name>
+                    <phoneNumber>+00 0</phoneNumber>
+                    <role>FooRole0</role>
+                    <uri>http://foo0.nowhere.org</uri>
+                </businessActor>
+                <businessActor>
+                    <description>none1</description>
+                    <email>foo1@nowhere.org</email>
+                    <name>FooName1</name>
+                    <phoneNumber>+00 1</phoneNumber>
+                    <role>FooRole1</role>
+                    <uri>http://foo1.nowhere.org</uri>
+                </businessActor>
+            </experts>
+            <id>FooID1</id>
+            <learningMaterials>
+                <learningMaterial>
+                    <comment>FooComment0</comment>
+                    <description>none0</description>
+                    <id>FooID0</id>
+                    <mimeType>fooMimeType0</mimeType>
+                    <name>FooName0</name>
+                    <queryDescription>FooQueryDescription0</queryDescription>
+                    <url>http://foo0.nowhere.org</url>
+                </learningMaterial>
+                <learningMaterial>
+                    <comment>FooComment1</comment>
+                    <description>none1</description>
+                    <id>FooID1</id>
+                    <mimeType>fooMimeType1</mimeType>
+                    <name>FooName1</name>
+                    <queryDescription>FooQueryDescription1</queryDescription>
+                    <url>http://foo1.nowhere.org</url>
+                </learningMaterial>
+            </learningMaterials>
+            <name>FooName1</name>
+            <similarityValue>fooSimilarityValue1</similarityValue>
+        </similarCase>
+    </similarCases>
+</recommendations>

@@ -1,0 +1,9 @@
+language: java
+
+before_install:
+  - pip install --user codecov
+
+install: mvn install -DskipTests=false
+
+after_success:
+  - codecov

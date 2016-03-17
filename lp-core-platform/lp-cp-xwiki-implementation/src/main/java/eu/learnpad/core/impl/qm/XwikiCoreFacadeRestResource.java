@@ -19,7 +19,20 @@
  */
 package eu.learnpad.core.impl.qm;
 
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.ws.rs.core.MediaType;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
+import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.httpclient.methods.RequestEntity;
+
+import eu.learnpad.exception.LpRestException;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.qm.CoreFacade;
 import eu.learnpad.core.rest.RestResource;
 
@@ -48,17 +61,46 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 	
 	@Override
 	public void publish(String questionnairesId, String type,
-			byte[] questionnairesFile) throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
+			byte[] questionnairesFile) throws LpRestException {
+		// Now actually notifying the CP via REST
+		HttpClient httpClient = RestResource.getClient();
+		String uri = String.format("%s/learnpad/qm/corefacade/publish/%s",
+				RestResource.REST_URI, questionnairesId);
 		
+		PutMethod putMethod = new PutMethod(uri);
+		putMethod.addRequestHeader("Content-Type", MediaType.APPLICATION_OCTET_STREAM);
+
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("type", type);
+		putMethod.setQueryString(queryString);
+		
+		InputStream stream = new ByteArrayInputStream(questionnairesFile);
+		RequestEntity requestEntity = new InputStreamRequestEntity(stream);
+		putMethod.setRequestEntity(requestEntity);
+
+		try {
+			httpClient.executeMethod(putMethod);
+		} catch (IOException e) {
+			LpRestExceptionXWikiImpl e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			throw e1;
+		}		
 	}
 
 	@Override
-	public void genrationCompleted(String questionnairesId)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		
+	public void generationCompleted(String questionnairesId)
+			throws LpRestException {
+		// Now actually notifying the CP via REST
+		HttpClient httpClient = RestResource.getClient();
+		String uri = String.format("%s/learnpad/qm/corefacade/generationcompleted/%s",
+				RestResource.REST_URI, questionnairesId);
+		PutMethod putMethod = new PutMethod(uri);
+		putMethod.addRequestHeader("Accept", MediaType.TEXT_PLAIN);
+		try {
+			httpClient.executeMethod(putMethod);
+		} catch (IOException e) {
+			LpRestExceptionXWikiImpl e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			throw e1;
+		}		
 	}
-
-
+	
 }

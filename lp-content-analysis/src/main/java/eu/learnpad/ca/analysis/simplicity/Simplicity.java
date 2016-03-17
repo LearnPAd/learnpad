@@ -10,8 +10,10 @@ import java.util.Set;
 import org.languagetool.Language;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
-import eu.learnpad.ca.analysis.simplicity.plugin.DifficultJargonAlternative;
-import eu.learnpad.ca.analysis.simplicity.plugin.JuridicalJargon;
+import eu.learnpad.ca.analysis.simplicity.plugin.DifficultJargon;
+import eu.learnpad.ca.analysis.simplicity.plugin.ExcessiveLength;
+import eu.learnpad.ca.analysis.simplicity.plugin.Juridical;
+import eu.learnpad.ca.analysis.simplicity.plugin.TechnicalJargon;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
@@ -24,14 +26,13 @@ import eu.learnpad.ca.rest.data.stat.StaticContent;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 import gate.DocumentContent;
 import gate.Factory;
-import gate.util.InvalidOffsetException;
 
 
 public class Simplicity extends AbstractAnalysisClass {
 
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Simplicity.class);
 	private long lStartTime;
-	private GateThread gateu = null;
+	
 
 	public Simplicity(CollaborativeContentAnalysis collaborativeContentInput,Language lang, GateThread gate) {
 
@@ -105,19 +106,44 @@ public class Simplicity extends AbstractAnalysisClass {
 			Set<gate.Annotation> listSentence = gateu.getSentence();
 			Set<gate.Annotation> listSentenceDefected = new HashSet<>();
 			List<Node> listnode = new ArrayList<Node>();
-			DifficultJargonAlternative dja = new DifficultJargonAlternative(language, docContent,listnode);
+			DifficultJargon dja = new DifficultJargon(language, docContent,listnode);
 
 			dja.checkUnclearAcronym(listSentence,listSentenceDefected,listannotations);
 
-			JuridicalJargon jj = new JuridicalJargon(language, docContent,listnode);
-			listannotations.addAll(jj.checkJJ(listSentence,listSentenceDefected));
+			long lEndTime = System.currentTimeMillis();
+			long difference = lEndTime - lStartTime;
 
-			HashSet<String> hs = new HashSet<String>();
+			
+			log.trace("Simplicity DifficultJargon Elapsed milliseconds: " + difference);
+			long lStartTime = System.currentTimeMillis();
+			
+			//JuridicalJargon jj = new JuridicalJargon(language, docContent,listnode);
+			//listannotations.addAll(jj.checkJJ(listSentence,listSentenceDefected));
+			Juridical jj = new Juridical(language, docContent,listnode);
+			jj.checkJuridicalJargon(gateu, listannotations, listSentenceDefected, listSentenceDefected);
+			
+			TechnicalJargon tj = new TechnicalJargon(language, docContent,listnode);
+			tj.checkTechnicalJargon(gateu, listannotations, listSentenceDefected, listSentenceDefected);
+			
+			
+			
+			 lEndTime = System.currentTimeMillis();
+			 difference = lEndTime - lStartTime;
+
+			log.trace("Simplicity JuridicalJargon Elapsed milliseconds: " + difference);
+			/*HashSet<String> hs = new HashSet<String>();
 			hs.add("Sent-Long");
 			Set<gate.Annotation> SetExcessiveLength = gateu.getAnnotationSet(hs);
 			gatevsleanpadExcessiveLength(SetExcessiveLength, listannotations,listSentenceDefected,listnode,docContent);
+*/
+			 lStartTime = System.currentTimeMillis();
+			ExcessiveLength excessiveLength = new ExcessiveLength(language, docContent,listnode);
+			excessiveLength.check(gateu, listannotations, listSentenceDefected,listSentence);
 
+			lEndTime = System.currentTimeMillis();
+			 difference = lEndTime - lStartTime;
 
+			log.trace("Simplicity ExcessiveLength Elapsed milliseconds: " + difference);
 			addNodeInContent(listnode,c,docContent);
 
 			numDefectiveSentences = listSentenceDefected.size();
@@ -164,47 +190,7 @@ public class Simplicity extends AbstractAnalysisClass {
 		}
 		return listnode;
 	}*/
-	private void gatevsleanpadExcessiveLength(
-			Set<gate.Annotation> setGateAnnotations,
-			List<Annotation> annotations, Set<gate.Annotation> listSentenceDefected, List<Node> listnode, DocumentContent docContent) {
-
-		for (gate.Annotation gateA : setGateAnnotations) {
-
-			gate.Node gatenodestart = gateA.getStartNode();
-			gate.Node gatenodeend = gateA.getEndNode();
-			try{
-				String sentence_gate = docContent.getContent(gatenodestart.getOffset(),gatenodeend.getOffset()).toString();
-				if(!listSentenceDefected.contains(sentence_gate))
-					listSentenceDefected.add(gateA);
-			}catch(InvalidOffsetException e){
-				log.error(e);
-			}
-			int initialpos = gatenodestart.getOffset().intValue();
-
-
-			Node init = new Node(gatenodestart.getId(), initialpos);
-
-			Node end = new Node(gatenodeend.getId(), gatenodeend.getOffset()
-					.intValue());
-
-			listnode.add(init);
-			listnode.add(end);
-
-			Annotation a = new Annotation();
-			a.setId(gateA.getId());
-			a.setEndNode(end.getId());
-			a.setStartNode(init.getId());
-			a.setNodeEnd(end);
-			a.setNodeStart(init);
-
-			a.setType("Simplicity Excessive Length");
-
-			a.setRecommendation("Shorten the sentence. A sentence should not exceed 25 words.");
-			annotations.add(a);
-
-		}
-
-	}
+	
 
 
 }

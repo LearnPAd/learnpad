@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public interface IUserMsg {
 	static enum TYPE {
-		ADDTASK, DELTASK, FINISHED
+		ADDTASK, DELTASK, FINISHED, SESSION_FINISHED, SESSION_STARTED
 	}
 
 	@JsonProperty("type")

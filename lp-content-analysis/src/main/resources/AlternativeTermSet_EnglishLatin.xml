@@ -595,9 +595,9 @@
 <Alternative word="prior to" >
 <Suggestion>before</Suggestion>
 </Alternative>
-<Alternative word="request" >
+<!-- <Alternative word="request" >
 <Suggestion>ask, question</Suggestion>
-</Alternative>
+</Alternative> -->
 <Alternative word="in conjunction with" >
 <Suggestion>and, with</Suggestion>
 </Alternative>
@@ -886,9 +886,9 @@
 <Alternative word="aggregate" >
 <Suggestion>total</Suggestion>
 </Alternative>
-<Alternative word="frequently" >
+<!-- <Alternative word="frequently" >
 <Suggestion>often</Suggestion>
-</Alternative>
+</Alternative> -->
 <Alternative word="your attention is drawn" >
 <Suggestion>please see, please note</Suggestion>
 </Alternative>
@@ -1186,9 +1186,9 @@
 <Alternative word="during which time" >
 <Suggestion>while</Suggestion>
 </Alternative>
-<Alternative word="application" >
+<!-- <Alternative word="application" >
 <Suggestion>use</Suggestion>
-</Alternative>
+</Alternative> -->
 <Alternative word="predominant" >
 <Suggestion>main</Suggestion>
 </Alternative>

@@ -33,7 +33,6 @@ import org.xwiki.script.service.ScriptServiceManager;
 import eu.learnpad.cw.UICWBridge;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
-import eu.learnpad.sim.rest.data.UserData;
 
 @Component
 @Named("learnpad")

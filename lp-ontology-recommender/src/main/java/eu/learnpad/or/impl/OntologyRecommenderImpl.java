@@ -5,20 +5,9 @@
  */
 package eu.learnpad.or.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import eu.learnpad.core.impl.or.XwikiBridge;
-import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
-import eu.learnpad.exception.LpRestException;
-import eu.learnpad.ontology.execution.ExecutionStates;
-import eu.learnpad.ontology.recommender.Recommender;
-import eu.learnpad.or.rest.data.BusinessActor;
-import eu.learnpad.or.rest.data.Experts;
-import eu.learnpad.or.rest.data.States;
-import eu.learnpad.ontology.transformation.ModellingEnvironmentType;
-import eu.learnpad.ontology.transformation.SimpleModelTransformator;
-import eu.learnpad.or.rest.data.Recommendations;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -27,6 +16,19 @@ import javax.ws.rs.Path;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
+
+import eu.learnpad.core.impl.or.XwikiBridge;
+import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
+import eu.learnpad.exception.LpRestException;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.me.rest.data.ModelSetType;
+import eu.learnpad.ontology.execution.ExecutionStates;
+import eu.learnpad.ontology.recommender.Recommender;
+import eu.learnpad.ontology.recommender.cbr.CBRAdapter;
+import eu.learnpad.ontology.transformation.SimpleModelTransformator;
+import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.SimulationData;
+import eu.learnpad.or.rest.data.States;
 
 /**
  *
@@ -46,55 +48,59 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     }
 
     @Override
-    public void modelSetImported(String modelSetId, String type) throws LpRestException {
-//            InputStream inputStream = new ByteArrayInputStream(this.corefacade.getModel(modelSetId, type));
-            SimpleModelTransformator.getInstance().transform(modelSetId, this.corefacade.getModel(modelSetId, type), ModellingEnvironmentType.valueOf(type.toUpperCase()));
+    public void modelSetImported(String modelSetId, ModelSetType type) throws LpRestException {
+            InputStream modelSetInputStream = this.corefacade.getModel(modelSetId, type);
+            if(modelSetInputStream == null){
+                throw new LpRestExceptionXWikiImpl("Modelset for id '" + modelSetId + "' and type '"+type+"' not found!");
+            }
+            SimpleModelTransformator.getInstance().transform(modelSetId, this.corefacade.getModel(modelSetId, type), type);
     }
     
     @Override
     public void sendResourceNotification(String modelSetId, String resourceId, String artifactIds, String action) throws LpRestException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // TODO later 
     }
 
     @Override
-    public Recommendations askRecommendation(String modelSetId, String artifactId, String userId, String type) throws LpRestException {
-        Recommendations recomms = Recommender.getInstance().getRecommendations(modelSetId, artifactId, userId);
-//        Recommendations recomms = new Recommendations();
-//        Experts experts = new Experts();
-//        List<BusinessActor> businessActors = new ArrayList<BusinessActor>();
-//        BusinessActor businessActor1 = new BusinessActor();
-//        BusinessActor businessActor2 = new BusinessActor();
-//        businessActor1.setName("Jean");
-//        businessActor1.setEmail("jean@localhost.org");
-//        businessActor1.setPhoneNumber("+33123456789");
-//        businessActors.add(businessActor1);
-//        businessActor2.setName("Sandro");
-//        businessActor2.setEmail("sandro@localhost.org");
-//        businessActors.add(businessActor2);
-//		experts.setBusinessActors(businessActors);
-//        recomms.setExperts(experts);
-        return recomms;
+    public Recommendations askRecommendation(String modelSetId,
+			String artifactId, String userId, String simulationSessionId) throws LpRestException {
+    	
+        try {
+            Recommendations rec = Recommender.getInstance().getRecommendations(modelSetId, artifactId, userId, simulationSessionId);
+            return rec;
+        } catch (Exception ex) {
+            Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.SEVERE, null, ex);
+            throw new LpRestExceptionXWikiImpl("Asking for recommendations failed with parameters: "
+                    + "modelsetId='"+modelSetId
+                    +"' artifactId='"+artifactId
+                    +"' userId='"+userId
+                    +"' simulationSessionId='"+simulationSessionId+"'. ", ex);
+        }
+    }    
+    
+    @Override
+    public void simulationInstanceNotification(String modelSetId, String modelId, String action, String simulationId, SimulationData data) throws LpRestException {
+        CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
     }
 
     @Override
-    public byte[] simulationNotification(String modelSetId, String modelId, String action, String simulationId) throws LpRestException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void simulationTaskStartNotification(String modelSetId, String modelId, String artifactId, String simulationId, SimulationData data) throws LpRestException {
+        CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
     }
 
     @Override
-    public void addExecutionState(String artifactName, String artifactDescription, String artifactType, String modelType, String freeDescription, String existingArtifactId, String existingArtifactStructureDepth) throws LpRestException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void simulationTaskEndNotification(String modelSetId, String modelId, String artifactId, String simulationId, SimulationData data) throws LpRestException {
+        CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
     }
-
+    
     @Override
     public void addExecutionState(String modelSetId, String executionId, String userId, String threadId, String pageId, String artifactId) throws LpRestException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // TODO Postponed
     }
 
     @Override
     public States listExecutionStates(String userId) throws LpRestException {
         States states = ExecutionStates.getInstance().getStatesOfLatestAddedModelSet(userId);
         return states;
-    }
-
+    }    
 }

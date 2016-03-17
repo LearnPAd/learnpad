@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output method="text"/>
 	<xsl:template match="/">
 		<xsl:call-template name="header"/>
@@ -14,15 +14,53 @@
 <!--========================================================================================
  Common templates
 ===========================================================================================-->
-<!--========================================================================================-->
+<!--
+___________________________________________________________________________________________________
+ Lookups the target object id based on an intermodel reference (INTERREF/IREF)
+___________________________________________________________________________________________________-->
+	<xsl:template name="getInterrefTargetObjectId">
+	    <xsl:variable name="targetModelNameWithoutVersion">
+  		      <xsl:choose>
+    		        <xsl:when test="current()/@tmodelver != ''">
+    		            <xsl:value-of select="substring(current()/@tmodelname, 0, string-length(current()/@tmodelname)-string-length(current()/@tmodelver))"/>
+  		        </xsl:when>
+  		        <xsl:otherwise>
+    		            <xsl:value-of select="current()/@tmodelname"/>
+  		        </xsl:otherwise>
+  		      </xsl:choose>
+		  </xsl:variable>
+                  <xsl:value-of select="//MODEL[@modeltype=current()/@tmodeltype][@name=$targetModelNameWithoutVersion][@version=current()/@tmodelver]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/> 
+	</xsl:template>
+<!--...............................................................................................-->	
+<!--
+___________________________________________________________________________________________________
+ Lookups the target model id based on an intermodel reference (INTERREF/IREF)
+___________________________________________________________________________________________________-->
+	<xsl:template name="getInterrefTargetModelId">
+	    <xsl:variable name="targetModelNameWithoutVersion">
+  		      <xsl:choose>
+    		        <xsl:when test="current()/@tmodelver != ''">
+    		            <xsl:value-of select="substring(current()/@tmodelname, 0, string-length(current()/@tmodelname)-string-length(current()/@tmodelver))"/>
+  		        </xsl:when>
+  		        <xsl:otherwise>
+    		            <xsl:value-of select="current()/@tmodelname"/>
+  		        </xsl:otherwise>
+  		      </xsl:choose>
+		  </xsl:variable>
+                  <xsl:value-of select="//MODEL[@modeltype=current()/@tmodeltype][@name=$targetModelNameWithoutVersion][@version=current()/@tmodelver]/@id"/> 
+	</xsl:template>
+<!--...............................................................................................-->
+<!--========================================================================================
+ Main templates
+===========================================================================================-->
 <!--___________________________________________________________________________________________________
  Business process diagram (BPMN 2.0)
 ___________________________________________________________________________________________________-->
 	<xsl:template match="MODEL" mode="BPMN">
 		<xsl:call-template name="BPMN_MODEL">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@modeltype" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@modeltype"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Start Event']" mode="StartEvent"/>
@@ -50,9 +88,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="StartEvent">
 		<xsl:call-template name="StartEvent">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
 		<xsl:call-template name="elementPostProcessing"/>
@@ -64,9 +102,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="MessageStartEvent">
 		<xsl:call-template name="MessageStartEvent">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
 		<xsl:call-template name="elementPostProcessing"/>
@@ -78,9 +116,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="MessageCatchingSequenceIntermediateEvent">
 		<xsl:call-template name="MessageCatchingSequenceIntermediateEvent">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
 		<xsl:call-template name="elementPostProcessing"/>
@@ -92,9 +130,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="MessageInterruptingBoundaryIntermediateEvent">
 		<xsl:call-template name="MessageInterruptingBoundaryIntermediateEvent">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
 <!-- TODO Ref to Activity resp. Sub-Process -->		
@@ -107,9 +145,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="EndEvent">
 		<xsl:call-template name="EndEvent">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>			
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>			
 		</xsl:call-template>
 		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
 		<xsl:call-template name="elementPostProcessing"/>
@@ -121,9 +159,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="Task">
 		<xsl:call-template name="Task">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
     		<xsl:call-template name="elementPostProcessing"/>
@@ -135,9 +173,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="SendTask">
 		<xsl:call-template name="SendTask">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
     		<xsl:call-template name="elementPostProcessing"/>
@@ -149,9 +187,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="ReceiveTask">
 		<xsl:call-template name="ReceiveTask">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
     		<xsl:call-template name="elementPostProcessing"/>
@@ -163,20 +201,19 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="SubProcess">
 		<xsl:call-template name="SubProcess">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
-		<xsl:apply-templates select="./INTERREF/IREF[@type='modelreference'][@tmodeltype='Business process diagram (BPMN 2.0)']" mode="referencedSubProcess"/>
+	     <xsl:for-each select="./INTERREF/IREF[@type='modelreference'][@tmodeltype='Business process diagram (BPMN 2.0)']">
+  		    <xsl:call-template name="addReferencedSubProcessConnection">
+			    <xsl:with-param name="targetId"><xsl:call-template name="getInterrefTargetModelId"/></xsl:with-param>
+			</xsl:call-template>
+		</xsl:for-each>
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
 	 
-	<xsl:template match="IREF" mode="referencedSubProcess">
-		<xsl:call-template name="addReferencedSubProcessConnection">
-			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype][@name=current()/@tmodelname][@name=current()/@tmodelname][@name=current()/@tmodelname]/@id"/>
-		</xsl:call-template>
-	</xsl:template>
 <!--...............................................................................................-->
 <!--
 ___________________________________________________________________________________________________
@@ -184,9 +221,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="ExclusiveGateway">
 		<xsl:call-template name="ExclusiveGateway">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>			
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>			
 		</xsl:call-template>
 		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
 		<xsl:call-template name="elementPostProcessing"/>
@@ -198,9 +235,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="ParallelGateway">
 		<xsl:call-template name="ParallelGateway">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>			
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>			
 		</xsl:call-template>
 		<xsl:apply-templates select="../CONNECTOR[./FROM/@instance=current()/@name and ./FROM/@class=current()/@class][./TO/@class='Pool' or ./TO/@class='Lane']" mode="PoolLaneConnector"/>
 		<xsl:call-template name="elementPostProcessing"/>
@@ -212,18 +249,16 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="DataInput">
 		<xsl:call-template name="DataInput">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>		
-		<xsl:apply-templates select="./INTERREF/IREF[@type='objectreference'][@tmodeltype='Document and Knowledge model']" mode="dataInputReferencesDocument"/>
+	     <xsl:for-each select="./INTERREF/IREF[@type='objectreference'][@tmodeltype='Document and Knowledge model']">
+  		    <xsl:call-template name="addDataInputConnection">
+			    <xsl:with-param name="targetId"><xsl:call-template name="getInterrefTargetObjectId"/></xsl:with-param>
+			</xsl:call-template>
+		</xsl:for-each>
 		<xsl:call-template name="elementPostProcessing"/>
-	</xsl:template>
-	 
-	<xsl:template match="IREF" mode="dataInputReferencesDocument">
-		<xsl:call-template name="addDataInputConnection">
-			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype][@name=current()/@tmodelname][@name=current()/@tmodelname]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
-		</xsl:call-template>
 	</xsl:template>
 <!--...............................................................................................-->
 <!--
@@ -232,19 +267,17 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="DataOutput">
 		<xsl:call-template name="DataOutput">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>		
-		<xsl:apply-templates select="./INTERREF/IREF[@type='objectreference'][@tmodeltype='Document and Knowledge model']" mode="dataOutputReferencesDocument"/>
+	     <xsl:for-each select="./INTERREF/IREF[@type='objectreference'][@tmodeltype='Document and Knowledge model']">
+  		    <xsl:call-template name="addDataOutputConnection">
+			    <xsl:with-param name="targetId"><xsl:call-template name="getInterrefTargetObjectId"/></xsl:with-param>
+			</xsl:call-template>
+		</xsl:for-each>		
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
-
-	<xsl:template match="IREF" mode="dataOutputReferencesDocument">
-		<xsl:call-template name="addDataOutputConnection">
-			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype][@name=current()/@tmodelname]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
-		</xsl:call-template>
-	</xsl:template>		
 <!--...............................................................................................-->
 
 <!--
@@ -253,18 +286,16 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="Pool">
 		<xsl:call-template name="Pool">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>	
-          <xsl:apply-templates select="./INTERREF/IREF[@type='objectreference'][@tmodeltype='Organizational structure'][@tclassname='Organizational unit']" mode="poolRefToOrganisationalUnit"/>
+	     <xsl:for-each select="./INTERREF/IREF[@type='objectreference'][@tmodeltype='Organizational structure'][@tclassname='Organizational unit']">
+  		    <xsl:call-template name="addPoolRefToOrganisationalUnit">
+			    <xsl:with-param name="targetId"><xsl:call-template name="getInterrefTargetObjectId"/></xsl:with-param>
+			</xsl:call-template>
+		</xsl:for-each>	          
 		<xsl:call-template name="elementPostProcessing"/>
-	</xsl:template>
-	 
-	<xsl:template match="IREF" mode="poolRefToOrganisationalUnit">
-		<xsl:call-template name="addPoolRefToOrganisationalUnit">
-			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype][@name=current()/@tmodelname]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
-		</xsl:call-template>
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -274,19 +305,17 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="Lane">
 		<xsl:call-template name="Lane">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
-		<xsl:apply-templates select="./INTERREF/IREF[@type='objectreference'][@tmodeltype='Organizational structure'][@tclassname='Organizational unit']" mode="swimlaneRefToOrganisationalUnit"/>
+          <xsl:for-each select="./INTERREF/IREF[@type='objectreference'][@tmodeltype='Organizational structure'][@tclassname='Organizational unit']">
+  		    <xsl:call-template name="addSwimlaneRefToOrganisationalUnit">
+			    <xsl:with-param name="targetId"><xsl:call-template name="getInterrefTargetObjectId"/></xsl:with-param>
+			</xsl:call-template>
+		</xsl:for-each>		
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
-	
-	<xsl:template match="IREF" mode="swimlaneRefToOrganisationalUnit">
-		<xsl:call-template name="addSwimlaneRefToOrganisationalUnit">
-			<xsl:with-param name="targetId" select="//MODEL[@modeltype=current()/@tmodeltype][@name=current()/@tmodelname]/INSTANCE[@class=current()/@tclassname][@name=current()/@tobjname]/@id"/>
-		</xsl:call-template>
-	</xsl:template>	
 <!--...............................................................................................-->	
 
 <!--
@@ -326,9 +355,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="MODEL" mode="BMM">
 		<xsl:call-template name="BMM_MODEL">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@modeltype" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@modeltype"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>	  
 		<xsl:apply-templates select=".//INSTANCE[@class='Goal']" mode="Goal"/>
@@ -342,9 +371,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="Goal">
 		<xsl:call-template name="Goal">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
@@ -356,9 +385,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="LearningGoal">
 		<xsl:call-template name="LearningGoal">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>	</xsl:template>
 <!--...............................................................................................-->	
@@ -371,15 +400,18 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="MODEL" mode="DKM">
 		<xsl:call-template name="DKM_MODEL">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@modeltype" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@modeltype"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>	 
-		<xsl:apply-templates select=".//INSTANCE[@class='Document']" mode="Document"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Group']" mode="DocumentGroup"/>
+		<xsl:apply-templates select=".//INSTANCE[@class='Document'][./ATTRIBUTE[@name='Object Type']='Generic']" mode="Document"/>
+		<xsl:apply-templates select=".//INSTANCE[@class='Document'][./ATTRIBUTE[@name='Object Type']='Learning Material']" mode="LearningDocument"/>
+		<xsl:apply-templates select=".//INSTANCE[@class='Document'][./ATTRIBUTE[@name='Object Type']='Acquired Competency Profile']" mode="AcquiredCompetencyProfile"/>
+		<xsl:apply-templates select=".//INSTANCE[@class='Document'][./ATTRIBUTE[@name='Object Type']='Required Competency Profile']" mode="RequiredCompetencyProfile"/>
 	</xsl:template>
-<!--...............................................................................................-->	
+<!--...............................................................................................-->
 
 <!--
 ___________________________________________________________________________________________________
@@ -387,8 +419,8 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="Document">
 		<xsl:call-template name="Document">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
 		</xsl:call-template>
 		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
 		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Group']/@id">
@@ -403,17 +435,133 @@ ________________________________________________________________________________
 
 <!--
 ___________________________________________________________________________________________________
+Learning Document
+___________________________________________________________________________________________________-->
+	<xsl:template match="INSTANCE" mode="LearningDocument">
+	    <!-- Create all association instances linking the learning material to competencies with levels -->
+		<xsl:apply-templates select="./RECORD[@name='CompetenciesRelated2LearningMaterial']/ROW[INTERREF/IREF]" mode="targetCompetencyAndLevel">
+			 <xsl:with-param name="competencyRefColumnName">CompetencyOfLM</xsl:with-param>
+       	     <xsl:with-param name="levelColumnName">CompetencyLevelOfLM</xsl:with-param>
+       	     <xsl:with-param name="commentColumnName">Comment</xsl:with-param>
+		</xsl:apply-templates>
+		
+		<xsl:call-template name="LearningDocument">
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="materialURL" select="replace(replace(replace(.//ATTRIBUTE[@name='Model Source' and @type='PROGRAMCALL'],'ITEM &quot;&quot; param:&quot;&quot;',''), 'ITEM &quot;&lt;automatically&gt;&quot; param:&quot;',''),'&quot;','')"/>
+			<xsl:with-param name="competenciesAndLevels" select="./RECORD[@name='CompetenciesRelated2LearningMaterial']/ROW[INTERREF/IREF]"/>
+		</xsl:call-template>
+
+		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
+		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Group']/@id">
+  		     <xsl:call-template name="addInModelConnectionForLearningDocument">
+			  <xsl:with-param name="toId" select="."/>
+		     </xsl:call-template>
+		  </xsl:for-each>
+		</xsl:for-each>		
+          <xsl:call-template name="elementPostProcessing"/>		
+	</xsl:template>
+<!--...............................................................................................-->	
+
+<!--
+___________________________________________________________________________________________________
  Document Group
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="DocumentGroup">
 		<xsl:call-template name="DocumentGroup">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
 <!--...............................................................................................-->	
-
+<!--
+___________________________________________________________________________________________________
+ Acquired Competency Profile (reference by performer).
+___________________________________________________________________________________________________-->
+  <xsl:template match="INSTANCE" mode="AcquiredCompetencyProfile">
+  	     <xsl:apply-templates select="./RECORD[@name='CompetencyAndLevel']/ROW[INTERREF/IREF]" mode="acquiredCompetencyAndLevel"/>
+		<xsl:call-template name="AcquiredCompetencyProfile">
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
+			<xsl:with-param name="learningPreferences" select="./ATTRIBUTE[@name='Learning Preference']"/>
+			<xsl:with-param name="competenciesAndLevels" select="./RECORD[@name='CompetencyAndLevel']/ROW[INTERREF/IREF]"></xsl:with-param>
+		</xsl:call-template>
+	    <xsl:call-template name="elementPostProcessing"/>
+  </xsl:template>
+<!--...............................................................................................--> 
+<!--
+___________________________________________________________________________________________________
+ Aquried competency and level.
+___________________________________________________________________________________________________-->
+  <xsl:template match="ROW" mode="acquiredCompetencyAndLevel">
+    		    <xsl:call-template name="AcquiredCompetencyAndLevel">
+  		    	    <xsl:with-param name="id" select="@id"/>
+  			    <xsl:with-param name="name">Acquired Competency and Level</xsl:with-param>
+  			    <xsl:with-param name="class" select="@class"/>
+  			    <xsl:with-param name="competencyAndLevelLevel" select="./ATTRIBUTE[@name='ACLevel']"/>
+  			    <!--xsl:with-param name="competencyAndLevelLearningGoal" select=""/-->
+  			    <xsl:with-param name="competencyAndLevelStatus" select="./ATTRIBUTE[@name='Status']"/>
+  			    <xsl:with-param name="competencyAndLevelScore" select="./ATTRIBUTE[@name='Score']"/>
+  			    <xsl:with-param name="competencyAndLevelLastUpdate" select="./ATTRIBUTE[@name='Updated']"/>
+  			    <xsl:with-param name="competencyAndLevelComment" select="./ATTRIBUTE[@name='Comment']"/>
+  		    </xsl:call-template>
+		    <xsl:for-each select="./INTERREF[@name='Competency']/IREF[@type='objectreference'][@tmodeltype='Competency model'][@tclassname='Competency']">
+        		    <xsl:call-template name="addCompetencyLevelRefToCompetency">
+			        <xsl:with-param name="targetId">
+  			            <xsl:call-template name="getInterrefTargetObjectId"/>
+			        </xsl:with-param>
+			    </xsl:call-template>
+		   </xsl:for-each>
+	    <xsl:call-template name="elementPostProcessing"/>		   
+  </xsl:template>
+<!--...............................................................................................-->
+<!--
+___________________________________________________________________________________________________
+ Required Competency Profile (referenced by role)
+___________________________________________________________________________________________________-->
+  <xsl:template match="INSTANCE" mode="RequiredCompetencyProfile">
+  	     <xsl:apply-templates select="./RECORD[@name='TableReferencingRequiredCompetency']/ROW[INTERREF/IREF]" mode="targetCompetencyAndLevel">
+       	     <xsl:with-param name="competencyRefColumnName">RCometency</xsl:with-param>
+       	     <xsl:with-param name="levelColumnName">RCLevel</xsl:with-param>
+       	     <xsl:with-param name="commentColumnName">Comment</xsl:with-param>
+  	     </xsl:apply-templates>
+		<xsl:call-template name="RequiredCompetencyProfile">
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
+			<xsl:with-param name="competenciesAndLevels" select="./RECORD[@name='TableReferencingRequiredCompetency']/ROW[INTERREF/IREF]"></xsl:with-param>
+		</xsl:call-template>
+	    <xsl:call-template name="elementPostProcessing"/>
+  </xsl:template>
+<!--...............................................................................................--> 
+<!--
+___________________________________________________________________________________________________
+ Target competency and level (used for required competency entries as well as for competencies referenced by learning material).
+ ___________________________________________________________________________________________________-->
+  <xsl:template match="ROW" mode="targetCompetencyAndLevel">
+       <xsl:param name="competencyRefColumnName"/>
+       <xsl:param name="levelColumnName"/>
+       <xsl:param name="commentColumnName"/>
+    		    <xsl:call-template name="TargetCompetencyAndLevel">
+  		    	    <xsl:with-param name="id" select="@id"/>
+  			    <xsl:with-param name="name">Competency and Level</xsl:with-param>
+  			    <xsl:with-param name="class" select="@class"/>
+  			    <xsl:with-param name="competencyAndLevelLevel" select="./ATTRIBUTE[@name=$levelColumnName]"/>
+  			    <xsl:with-param name="competencyAndLevelComment" select="./ATTRIBUTE[@name=$commentColumnName]"/>
+  		    </xsl:call-template>
+		<xsl:for-each select="./INTERREF[@name=$competencyRefColumnName]/IREF[@type='objectreference'][@tmodeltype='Competency model'][@tclassname='Competency']">
+        		<xsl:call-template name="addCompetencyLevelRefToCompetency">
+			    <xsl:with-param name="targetId">
+  			        <xsl:call-template name="getInterrefTargetObjectId"/>
+			    </xsl:with-param>
+			</xsl:call-template>
+		</xsl:for-each>
+          <xsl:call-template name="elementPostProcessing"/>		
+  </xsl:template>
+	
+<!--...............................................................................................--> 
 <!-- ============================================================================================================================================== -->
 <!-- ============================================================================================================================================== -->
 <!--
@@ -422,9 +570,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="MODEL" mode="OMM">
 		<xsl:call-template name="OMM_MODEL">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@modeltype" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@modeltype"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Organizational unit']" mode="OrganizationalUnit"/>
@@ -438,8 +586,8 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="OrganizationalUnit">
 		<xsl:call-template name="OrganizationalUnit">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
 		</xsl:call-template>
 		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
 		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Organizational unit']/@id">
@@ -457,8 +605,8 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="Role">
 		<xsl:call-template name="Role">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
 		</xsl:call-template>
 		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
 		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Organizational unit']/@id">
@@ -466,7 +614,12 @@ ________________________________________________________________________________
 			  <xsl:with-param name="toId" select="."/>
 		     </xsl:call-template>
 		  </xsl:for-each>
-		</xsl:for-each>		
+		</xsl:for-each>	
+		<xsl:for-each select="./INTERREF[@name='Referenced Competency Profile']/IREF">
+  		    <xsl:call-template name="addRoleRefToCompetencyProfile">
+			    <xsl:with-param name="targetId"><xsl:call-template name="getInterrefTargetObjectId"/></xsl:with-param>
+			</xsl:call-template>
+		</xsl:for-each>
           <xsl:call-template name="elementPostProcessing"/>		
 	</xsl:template>
 <!--...............................................................................................-->	
@@ -476,9 +629,12 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="Performer">
 		<xsl:call-template name="Performer">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="email" select="./ATTRIBUTE[@name='E-Mail']" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="firstName" select="./ATTRIBUTE[@name='First Name']"/>
+			<xsl:with-param name="lastName" select="./ATTRIBUTE[@name='Last Name']"/>
+			<xsl:with-param name="email" select="./ATTRIBUTE[@name='E-Mail']"/>
+			<xsl:with-param name="phoneNo" select="./ATTRIBUTE[@name='Phone No']"/>
 		</xsl:call-template>
 		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
 		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Role']/@id">
@@ -494,6 +650,11 @@ ________________________________________________________________________________
 		     </xsl:call-template>
 		  </xsl:for-each>
 		</xsl:for-each>
+          <xsl:for-each select="./INTERREF[@name='Referenced Competency Profile']/IREF">
+  		    <xsl:call-template name="addPerformerRefToCompetencyProfile">
+			    <xsl:with-param name="targetId"><xsl:call-template name="getInterrefTargetObjectId"/></xsl:with-param>
+			</xsl:call-template>
+		</xsl:for-each>		
           <xsl:call-template name="elementPostProcessing"/>		
 	</xsl:template>
 <!--...............................................................................................-->	
@@ -506,9 +667,9 @@ ________________________________________________________________________________
 
 	<xsl:template match="MODEL" mode="CMMN">
 		<xsl:call-template name="CMMN_MODEL">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@modeltype" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@modeltype"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>	
 		<xsl:apply-templates select=".//INSTANCE[@class='Case Plan Model']" mode="Case"/>
@@ -525,9 +686,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="Case">
 		<xsl:call-template name="Case">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>
 	</xsl:template>
@@ -539,9 +700,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="CaseTask">
 		<xsl:call-template name="CaseTask">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>	
 	</xsl:template>
@@ -553,9 +714,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="DiscretionaryTask">
 		<xsl:call-template name="DiscretionaryTask">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>	
 	</xsl:template>
@@ -567,9 +728,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="CaseFile">
 		<xsl:call-template name="CaseFile">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>	
 	</xsl:template>
@@ -581,9 +742,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="PlanningTable">
 		<xsl:call-template name="PlanningTable">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>		
 	</xsl:template>
@@ -597,9 +758,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 <xsl:template match="MODEL" mode="KPI">
 		<xsl:call-template name="KPI_MODEL">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@modeltype" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@modeltype"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>	
     <xsl:apply-templates select=".//INSTANCE[@class='Perspective']" mode="Perspective"/>
@@ -613,9 +774,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
   <xsl:template match="INSTANCE" mode="Perspective">
 		<xsl:call-template name="Perspective">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>
   </xsl:template>
@@ -626,9 +787,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
   <xsl:template match="INSTANCE" mode="StrategicGoal">
 		<xsl:call-template name="StrategicGoal">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>
   </xsl:template>
@@ -639,9 +800,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
   <xsl:template match="INSTANCE" mode="PerformanceIndicator">
 		<xsl:call-template name="PerformanceIndicator">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/> 
   </xsl:template>
@@ -654,12 +815,12 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
 <xsl:template match="MODEL" mode="CM">
 		<xsl:call-template name="COMPETENCY_MODEL">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@modeltype" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@modeltype"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>	
-    <xsl:apply-templates select=".//INSTANCE[@class='Competency']" mode="Competency"/>
+    <xsl:apply-templates select=".//INSTANCE[@class='Competency']" mode="EQFCompetency"/>
     <xsl:apply-templates select=".//INSTANCE[@class='Group']" mode="CompetencyGroup"/>
 </xsl:template>
 <!--...............................................................................................-->  
@@ -667,11 +828,15 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________
  Competency
 ___________________________________________________________________________________________________-->
-  <xsl:template match="INSTANCE" mode="Competency">
-		<xsl:call-template name="Competency">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+  <xsl:template match="INSTANCE" mode="EQFCompetency">
+		<xsl:call-template name="EQFCompetency">
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
+			<xsl:with-param name="level" select="./ATTRIBUTE[@name='EQF Level']"/>
+			<xsl:with-param name="competence" select="./ATTRIBUTE[@name='EQF Competence']"/>
+			<xsl:with-param name="skill" select="./ATTRIBUTE[@name='EQF Skill']"/>
+			<xsl:with-param name="knowledge" select="./ATTRIBUTE[@name='EQF Knowledge']"/>
 		</xsl:call-template>
 		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
 		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Role']/@id">
@@ -689,9 +854,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________________________-->
   <xsl:template match="INSTANCE" mode="CompetencyGroup">
 		<xsl:call-template name="CompetencyGroup">
-			<xsl:with-param name="id" select="@id" tunnel="yes"/>
-			<xsl:with-param name="name" select="@name" tunnel="yes"/>
-			<xsl:with-param name="class" select="@class" tunnel="yes"/>
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/> 
   </xsl:template>

@@ -1,7 +1,5 @@
 # baseURI: http://ikm-group.ch/archiMEO/dkm
-# imports: http://ikm-group.ch/archiMEO/archimate
 # imports: http://ikm-group.ch/archiMEO/emo
-# imports: http://ikm-group.ch/archiMEO/eo
 
 @prefix cc: <http://creativecommons.org/ns#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
@@ -27,9 +25,7 @@
   dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
   dc:rights "Copyright 2015 FHNW "^^xsd:string ;
   dc:title "The DKM Ontology"@en ;
-  owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
   owl:imports <http://ikm-group.ch/archiMEO/emo> ;
-  owl:imports <http://ikm-group.ch/archiMEO/eo> ;  
   owl:versionInfo "1.0"^^xsd:string ;
 .
 dkm:Aggregation
@@ -76,6 +72,11 @@ dkm:Lane
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:subClassOf dkm:D_Container ;
 .
+dkm:LearningDocument
+  rdf:type owl:Class ;
+  rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:subClassOf dkm:Document ;
+.
 dkm:Note
   rdf:type owl:Class ;
   rdfs:comment "PIMM"^^xsd:string ;
@@ -98,6 +99,16 @@ dkm:d_ConstructIsInsideD_Container
   rdfs:domain dkm:D_Construct ;
   rdfs:range dkm:D_Container ;
 .
+dkm:documentHasDescription
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain dkm:Document ;
+  rdfs:range xsd:string ;
+.
+dkm:documentHasMIMEType
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain dkm:Document ;
+  rdfs:range <http://www.iana.org/assignments/media-types#MIMETYPE> ;
+.
 dkm:documentHasSubDocument
   rdf:type owl:ObjectProperty ;
   rdfs:comment "PIMM"^^xsd:string ;
@@ -108,6 +119,11 @@ dkm:documentHasSubdocument
   rdf:type owl:ObjectProperty ;
   rdfs:domain dkm:Document ;
   rdfs:range dkm:Document ;
+.
+dkm:documentHasURL
+  rdf:type rdf:Property ;
+  rdfs:domain dkm:Document ;
+  rdfs:range xsd:string ;
 .
 dkm:documentIsAggregatedToDocument
   rdf:type owl:ObjectProperty ;
@@ -125,4 +141,13 @@ dkm:knowledgeProductIsRelatedToKnowledgeProduct
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:domain dkm:KnowledgeProduct ;
   rdfs:range dkm:KnowledgeProduct ;
+.
+dkm:learningDocumentIncreasesCompetenciesToLevel
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain dkm:LearningDocument ;
+  rdfs:range <http://ikm-group.ch/archiMEO/CMM#CompetencyAndLevel> ;
+.
+dkm:learningDocumentIncreasesCompetency
+  rdf:type owl:ObjectProperty ;
+  rdfs:range <http://ikm-group.ch/archiMEO/CMM#Competency> ;
 .

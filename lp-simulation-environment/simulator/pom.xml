@@ -22,7 +22,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<slf4j.version>1.7.10</slf4j.version>
-		<activiti.version>5.17.0</activiti.version>
+<!-- 		<activiti.version>5.17.0</activiti.version> -->
+		<activiti.version>6.0.0.Beta1</activiti.version>
 		<jettyVersion>9.2.2.v20140723</jettyVersion>
 		<jackson.version>2.4.4</jackson.version>
 		<junit.version>4.12</junit.version>
@@ -36,6 +37,7 @@
 		<spectrum.version>1.6.0</spectrum.version>
 		<resteasy.version>3.0.11.Final</resteasy.version>
 		<opencsv.version>3.5</opencsv.version>
+		<saxon.version>9.6.0-5</saxon.version>
 		<license-maven-plugin.version>1.8</license-maven-plugin.version>
 		<build-helper-maven-plugin.version>1.9.1</build-helper-maven-plugin.version>
 	</properties>
@@ -132,6 +134,17 @@
 			<version>${opencsv.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>tjws</artifactId>
+			<version>${resteasy.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+			<version>${saxon.version}</version>
+		</dependency>
 
 		<!-- Web dependencies (yes that's a thing) -->
 
@@ -188,26 +201,9 @@
 
 		<!-- Monitoring local jar and dependencies -->
 		<dependency>
-			<groupId>it.cnr.isti.labsedc</groupId>
-			<artifactId>glimpse</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/resources/jar/GlimpseAPI-Learn_PAd.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-jms_1.1_spec</artifactId>
-			<version>1.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-core</artifactId>
-			<version>5.3.2</version>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.saxon</groupId>
-			<artifactId>Saxon-HE</artifactId>
-			<version>9.6.0-5</version>
+			<groupId>eu.learnpad</groupId>
+			<artifactId>monitoring</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

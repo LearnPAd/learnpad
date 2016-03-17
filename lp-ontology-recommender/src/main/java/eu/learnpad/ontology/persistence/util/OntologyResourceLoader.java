@@ -11,8 +11,6 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import org.apache.jena.riot.Lang;
 
@@ -25,7 +23,7 @@ public class OntologyResourceLoader {
 
     public static OntModel loadModel(String[] filePaths, Lang format) throws IOException {
         OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        model.getDocumentManager().setProcessImports(true);
+        model.getDocumentManager().setProcessImports(false);
 
         for (String filePath : filePaths) {
             Reader in = null;
@@ -37,8 +35,6 @@ public class OntologyResourceLoader {
                     in.close();
                 }
             }
-//            }
-
         }
 
         return model;

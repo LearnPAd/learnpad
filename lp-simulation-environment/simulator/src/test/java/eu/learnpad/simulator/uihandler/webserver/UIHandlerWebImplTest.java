@@ -36,7 +36,6 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,9 +49,12 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
-import eu.learnpad.simulator.datastructures.document.LearnPadDocument;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
 import eu.learnpad.simulator.uihandler.IFormHandler;
 
 /**
@@ -66,7 +68,7 @@ public class UIHandlerWebImplTest {
 	// some method call maps
 	Map<String, List<String>> taskAddByUI;
 	Map<String, List<String>> taskRemoveByUI;
-	Map<String, List<String>> processCompletionByUI;
+	Map<String, List<String>> sessionCompletionByUI;
 
 	@Before
 	public void webserverInit() {
@@ -74,7 +76,7 @@ public class UIHandlerWebImplTest {
 
 		taskAddByUI = new HashMap<String, List<String>>();
 		taskRemoveByUI = new HashMap<String, List<String>>();
-		processCompletionByUI = new HashMap<String, List<String>>();
+		sessionCompletionByUI = new HashMap<String, List<String>>();
 
 		// Ok this is a little over the top...
 		//
@@ -130,21 +132,21 @@ public class UIHandlerWebImplTest {
 
 				}).when(mockServlet).removeTask(any(String.class));
 
-				// memorize complete process invocations
+				// memorize complete session invocations
 				doAnswer(new Answer<Void>() {
 
 					public Void answer(InvocationOnMock invocation)
 							throws Throwable {
-						if (!processCompletionByUI.containsKey(userKey)) {
-							processCompletionByUI.put(userKey,
+						if (!sessionCompletionByUI.containsKey(userKey)) {
+							sessionCompletionByUI.put(userKey,
 									new ArrayList<String>());
 						}
-						processCompletionByUI.get(userKey).add(
+						sessionCompletionByUI.get(userKey).add(
 								invocation.getArgumentAt(0, String.class));
 						return null;
 					}
 
-				}).when(mockServlet).completeProcess(any(String.class));
+				}).when(mockServlet).completeSession(any(String.class));
 
 				when(holder.getServletInstance()).thenReturn(mockServlet);
 
@@ -186,7 +188,7 @@ public class UIHandlerWebImplTest {
 
 		// add some users
 		for (int i = 1; i <= nbUsers; i++) {
-			uiHandler.addUser("user" + i);
+			uiHandler.addUser(new UserData("user" + i, "", "", "", "", ""));
 
 			assertTrue(uiHandler.getUsers().size() == i);
 			assertTrue(uiHandler.getUsers().contains("user" + i));
@@ -213,7 +215,7 @@ public class UIHandlerWebImplTest {
 
 	}
 
-	// processes and tasks handling
+	// sessions and tasks handling
 
 	@Test
 	public void signalTasksEventsToUsers() {
@@ -222,27 +224,25 @@ public class UIHandlerWebImplTest {
 				mock(IProcessManager.IProcessManagerProvider.class),
 				mock(IFormHandler.class));
 
+		List<String> tasks = Arrays.asList("task1", "task2", "task3", "task4",
+				"task5");
+
+		Map<String, List<String>> tasksToUsers = new HashMap<String, List<String>>();
+		tasksToUsers.put("task1", Arrays.asList("user1"));
+		tasksToUsers.put("task2", Arrays.asList("user1", "user2"));
+		tasksToUsers.put("task3", Arrays.asList("user1", "user2", "user3"));
+		tasksToUsers.put("task4", Arrays.asList("user2", "user3"));
+		tasksToUsers.put("task5", Arrays.asList("user3"));
+
+		// create some tasks
+
 		// send some tasks
-
-		uiHandler.sendTask(new LearnPadTask("process1", "task1", "", "",
-				new ArrayList<LearnPadDocument>(), new Date().getTime()),
-				Arrays.asList("user1"));
-
-		uiHandler.sendTask(new LearnPadTask("process1", "task2", "", "",
-				new ArrayList<LearnPadDocument>(), new Date().getTime()),
-				Arrays.asList("user1", "user2"));
-
-		uiHandler.sendTask(new LearnPadTask("process1", "task3", "", "",
-				new ArrayList<LearnPadDocument>(), new Date().getTime()),
-				Arrays.asList("user1", "user2", "user3"));
-
-		uiHandler.sendTask(new LearnPadTask("process1", "task4", "", "",
-				new ArrayList<LearnPadDocument>(), new Date().getTime()),
-				Arrays.asList("user2", "user3"));
-
-		uiHandler.sendTask(new LearnPadTask("process1", "task5", "", "",
-				new ArrayList<LearnPadDocument>(), new Date().getTime()),
-				Arrays.asList("user3"));
+		for (String task : tasks) {
+			uiHandler.receiveTaskStartEvent(new TaskStartSimEvent(System
+					.currentTimeMillis(), "", tasksToUsers.get(task),
+					new LearnPadTask("session1", "session1", task, "", null,
+							null, null, null, 0L)));
+		}
 
 		// check all user has been notified of its tasks
 
@@ -259,11 +259,13 @@ public class UIHandlerWebImplTest {
 				Arrays.asList("task3", "task4", "task5")));
 
 		// complete tasks
-		uiHandler.completeTask("process1", "task1", "");
-		uiHandler.completeTask("process1", "task2", "");
-		uiHandler.completeTask("process1", "task3", "");
-		uiHandler.completeTask("process1", "task4", "");
-		uiHandler.completeTask("process1", "task5", "");
+		for (String task : tasks) {
+			uiHandler.receiveTaskEndEvent(new TaskEndSimEvent(System
+					.currentTimeMillis(), "", tasksToUsers.get(task),
+					new LearnPadTask("session1", "session1", task, "", null,
+							null, null, null, 0L), "",
+					new HashMap<String, Object>(), null));
+		}
 
 		// check all user has been notified of its tasks completion
 
@@ -288,33 +290,40 @@ public class UIHandlerWebImplTest {
 				mock(IProcessManager.IProcessManagerProvider.class),
 				mock(IFormHandler.class));
 
-		// signal some process completion
+		// signal some session completion
 
-		uiHandler.signalProcessEnd("process1", Arrays.asList("user1"));
+		uiHandler.receiveSimulationEndEvent(new SimulationEndSimEvent(System
+				.currentTimeMillis(), "session1", Arrays.asList("user1")));
 
-		uiHandler.signalProcessEnd("process2", Arrays.asList("user1", "user2"));
+		uiHandler.receiveSimulationEndEvent(new SimulationEndSimEvent(System
+				.currentTimeMillis(), "session2", Arrays.asList("user1",
+				"user2")));
 
-		uiHandler.signalProcessEnd("process3",
-				Arrays.asList("user1", "user2", "user3"));
+		uiHandler.receiveSimulationEndEvent(new SimulationEndSimEvent(System
+				.currentTimeMillis(), "session3", Arrays.asList("user1",
+				"user2", "user3")));
 
-		uiHandler.signalProcessEnd("process4", Arrays.asList("user2", "user3"));
+		uiHandler.receiveSimulationEndEvent(new SimulationEndSimEvent(System
+				.currentTimeMillis(), "session4", Arrays.asList("user2",
+				"user3")));
 
-		uiHandler.signalProcessEnd("process5", Arrays.asList("user3"));
+		uiHandler.receiveSimulationEndEvent(new SimulationEndSimEvent(System
+				.currentTimeMillis(), "session5", Arrays.asList("user3")));
 
-		// check that concerned users (and only them) received process
+		// check that concerned users (and only them) received session
 		// completion notification
 
-		assertTrue(processCompletionByUI.get("user1").size() == 3);
-		assertTrue(processCompletionByUI.get("user1").containsAll(
-				Arrays.asList("process1", "process2", "process3")));
+		assertTrue(sessionCompletionByUI.get("user1").size() == 3);
+		assertTrue(sessionCompletionByUI.get("user1").containsAll(
+				Arrays.asList("session1", "session2", "session3")));
 
-		assertTrue(processCompletionByUI.get("user2").size() == 3);
-		assertTrue(processCompletionByUI.get("user2").containsAll(
-				Arrays.asList("process2", "process3", "process4")));
+		assertTrue(sessionCompletionByUI.get("user2").size() == 3);
+		assertTrue(sessionCompletionByUI.get("user2").containsAll(
+				Arrays.asList("session2", "session3", "session4")));
 
-		assertTrue(processCompletionByUI.get("user3").size() == 3);
-		assertTrue(processCompletionByUI.get("user3").containsAll(
-				Arrays.asList("process3", "process4", "process5")));
+		assertTrue(sessionCompletionByUI.get("user3").size() == 3);
+		assertTrue(sessionCompletionByUI.get("user3").containsAll(
+				Arrays.asList("session3", "session4", "session5")));
 
 	}
 }

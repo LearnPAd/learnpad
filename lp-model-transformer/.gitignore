@@ -1,0 +1,6 @@
+result/
+tmp/
+target/
+*.asm
+build.properties
+/bin/

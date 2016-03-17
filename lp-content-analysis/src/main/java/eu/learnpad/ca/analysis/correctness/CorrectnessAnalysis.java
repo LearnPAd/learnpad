@@ -10,6 +10,7 @@ import org.languagetool.Language;
 import org.languagetool.rules.RuleMatch;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
+import eu.learnpad.ca.analysis.localizzation.Messages;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
@@ -25,7 +26,7 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(CorrectnessAnalysis.class);
-	
+	private String listsentences = "";
 
 	public CorrectnessAnalysis(Language lang){
 
@@ -50,43 +51,52 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			Content c = new Content();
 			sc.setContent(c);
 
-			
+
 			List<String> listsentence = langTool.sentenceTokenize(content);
 			Integer id=0;
-			for (String sentence : listsentence) {
+			int offset = 0;
+			for (int i = 0; i < listsentence.size(); i++) {
+				
+				String sentence = listsentence.get(i);
 
 				matches = langTool.check(sentence);
 				//List<Annotation> annotations = checkdefect(sentence,c, id);
 				List<Annotation> annotations =new ArrayList<Annotation>();
-				id = calculateAnnotations(sentence, matches, c, id,annotations);
 				
-				
+				id = calculateAnnotations(sentence, matches, c, id,annotations,offset);
+				int l = sentence.length();
+				offset+= l;
+
 				if(annotations.size()>0){
 					numDefectiveSentences++;
+				}
+				boolean last = i==listsentence.size()-1;
+				if(last && listsentences!=""){
+					c.setContent(listsentences);
+					listsentences = "";
 				}
 				annotatedCollaborativeContent.setAnnotations(annotations);
 				id++;
 			}
-			
+
 
 
 
 			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 			annotatedCollaborativeContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
-			annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%");
+			annotatedCollaborativeContent.setOverallQualityMeasure(new DecimalFormat("##.##").format(qualitymmeasure)+"%"); //$NON-NLS-1$ //$NON-NLS-2$
 			annotatedCollaborativeContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-			annotatedCollaborativeContent.setType("Correctness");
+			annotatedCollaborativeContent.setType("Correctness"); //$NON-NLS-1$
 
 
 
-			
+
 
 			return annotatedCollaborativeContent;
 
 
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			log.error(e);
 			return null;
 		}
@@ -107,9 +117,9 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			matches = langTool.check(content);
 
 			List<String> listsentence = langTool.sentenceTokenize(content);
-		
 
-			
+
+
 			annotatedStaticContent = new AnnotatedStaticContentAnalysis();
 			StaticContent sc = new StaticContent();
 			annotatedStaticContent.setStaticContent(sc);
@@ -118,41 +128,47 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 			Content c = new Content();
 			sc.setContent(c);
 			Integer id=0;
-			for (String sentence : listsentence) {
+			int offset = 0;
+			for (int i = 0; i < listsentence.size(); i++) {
+				
+			String sentence = listsentence.get(i);
 
 				matches = langTool.check(sentence);
-		
+
 				List<Annotation> annotations =new ArrayList<Annotation>();
-				id  = calculateAnnotations( sentence, matches, c, id,annotations);
+				id  = calculateAnnotations( sentence, matches, c, id,annotations, offset);
 				annotatedStaticContent.setAnnotations(annotations);
-				
+				offset+=sentence.length();
 				if(annotations.size()>0){
 					numDefectiveSentences++;
 				}
-				
+				boolean last = i==listsentence.size()-1;
+				if(last && listsentences!=""){
+					c.setContent(listsentences);
+					listsentences = "";
+				}
 				id++;
 			}
 
-		
 
 
-			
+
+
 			double qualitymmeasure = calculateOverallQualityMeasure(listsentence.size());
 			annotatedStaticContent.setOverallQuality(this.calculateOverallQuality(qualitymmeasure));
-			annotatedStaticContent.setOverallQualityMeasure(qualitymmeasure+"%");
+			annotatedStaticContent.setOverallQualityMeasure(qualitymmeasure+"%"); //$NON-NLS-1$
 			annotatedStaticContent.setOverallRecommendations(this.calculateOverallRecommendations(qualitymmeasure));
-			annotatedStaticContent.setType("Correctness");
+			annotatedStaticContent.setType("Correctness"); //$NON-NLS-1$
 
 
 
-			
+
 
 			return annotatedStaticContent;
 
 
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			log.error(e);
 			return null;
 		}
@@ -162,54 +178,101 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 
 
 
-	private int calculateAnnotations( String sentence,List<RuleMatch> matches, Content c, Integer id, List<Annotation> annotations){
+	private int calculateAnnotations( String sentence,List<RuleMatch> matches, Content c, Integer id, List<Annotation> annotations, int offset){
 		int precedentposition=0;
 
 		int finalpos = 0;
+		
+		Annotation prev = new Annotation(-1,"",-1,-1,"");
+		
 		for (RuleMatch match : matches) {
 
-			if(precedentposition>match.getFromPos()){
-				precedentposition =  match.getFromPos();
-			}
-			String stringap = sentence.substring(precedentposition, match.getFromPos());
-			c.setContent(stringap);
-			id++;
-			Node init= new Node(id);
-			c.setContent(init);
 			String stringa = sentence.substring(match.getFromPos(),match.getToPos());
-			precedentposition= match.getToPos();
-			c.setContent(stringa);
-			id++;
-			Node end= new Node(id);
-			c.setContent(end);
-			Annotation a = new Annotation();
-			a.setId(id);
-			a.setEndNode(end.getId());
-			a.setStartNode(init.getId());
-			a.setType("Correctness");
-			a.setRecommendation(match.getMessage()+"\n Suggested correction: " +match.getSuggestedReplacements());
-			annotations.add(a);
-			id++;
-			finalpos = match.getToPos();
+			if(!stringa.isEmpty()){
+				if(Character.isUpperCase(stringa.charAt(0))){
+					continue;
+				}else{
+					try{
+						String prestringa =  sentence.substring(match.getFromPos()-1, match.getFromPos());
+						String poststringa =  sentence.substring(match.getToPos(), match.getToPos()+1);
+						boolean flag = (prestringa.contains("“") || poststringa.contains("”")) || (prestringa.contains("\"") || poststringa.contains("\""));
+						if(flag){
+							continue;
+						}
+					}catch(Exception e){
+
+					}
+
+				}
+			}
+			if(precedentposition>=match.getFromPos()){
+				precedentposition =  match.getFromPos();
+			}else{
+				String stringap = sentence.substring(precedentposition, match.getFromPos());
+				listsentences+=stringap;
+				//c.setContent(stringap);
+			}
+			
+
+			if(match.getFromPos()!=(prev.getNodeStart().getOffSet()-offset)){
+				c.setContent(listsentences);
+				listsentences = "";
+				id++;
+				Node init= new Node(id, match.getFromPos()+offset);
+				c.setContent(init);
+				precedentposition= match.getToPos();
+				
+				c.setContent(stringa);
+				id++;
+				Node end= new Node(id,match.getToPos()+offset);
+				c.setContent(end);
+				Annotation a = new Annotation();
+				a.setId(id);
+				a.setEndNode(end.getId());
+				a.setStartNode(init.getId());
+				a.setNodeEnd(end);
+				a.setNodeStart(init);
+				a.setType("Correctness"); //$NON-NLS-1$
+				a.setRecommendation(getSuggestion(match.getMessage())+Messages.getString("CorrectnessAnalysis.Reccomandation", language) +match.getSuggestedReplacements()); //$NON-NLS-1$
+				annotations.add(a);
+				prev=a;
+				id++;
+				finalpos = match.getToPos();
+			}else{
+				id++;
+				Annotation a = new Annotation();
+				a.setId(id);
+				a.setEndNode(prev.getNodeEnd().getId());
+				a.setStartNode(prev.getNodeStart().getId());
+				a.setNodeEnd(prev.getNodeEnd());
+				a.setNodeStart(prev.getNodeStart());
+				a.setType("Correctness"); //$NON-NLS-1$
+				a.setRecommendation(getSuggestion(match.getMessage())+Messages.getString("CorrectnessAnalysis.Reccomandation", language) +match.getSuggestedReplacements()); //$NON-NLS-1$
+				annotations.add(a);
+				prev=a;
+				id++;
+				finalpos = match.getToPos();
+			}
 		}
-		
+
 		if(annotations.size()==0){
-			c.setContent(sentence);
+			listsentences+=sentence;
 		}else{
 			if(finalpos< sentence.length()){
-				c.setContent(sentence.substring(finalpos, sentence.length()));
+				listsentences+=sentence.substring(finalpos, sentence.length());
+				
 			}
 		}
 		return id;
 
 	}
 
-	
+
 	public int getNumSentenceDiffected() {
 		return numDefectiveSentences;
 	}
 
-	
+
 	public CorrectnessAnalysis( Language lang, CollaborativeContentAnalysis collaborativeContentInput){
 
 		this.language=lang;
@@ -222,11 +285,11 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 		this.staticContentInput =staticContentInput;
 	}
 
-	
 
-	
+
+
 	public void run() {
-		
+
 
 		long lStartTime = System.currentTimeMillis();
 		//some tasks
@@ -240,10 +303,12 @@ public class CorrectnessAnalysis extends  AbstractAnalysisClass{
 		long lEndTime = System.currentTimeMillis();
 		long difference = lEndTime - lStartTime;
 
-		log.trace("CorrectnessAnalysis Elapsed milliseconds: " + difference);
+		log.trace("CorrectnessAnalysis Elapsed milliseconds: " + difference); //$NON-NLS-1$
 
 	}
-	
-	
+
+	private String getSuggestion(String a){
+		return a.replace("<suggestion>","").replace("</suggestion>","");
+	}
 
 }

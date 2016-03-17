@@ -21,25 +21,13 @@
 package eu.learnpad.verification.plugin.utils;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
-import java.io.StringWriter;
-import java.net.URL;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
@@ -61,10 +49,10 @@ public class XMLUtils {
                     return new InputSource(new StringReader(""));
                 }
             });
-        return builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        return builder.parse(new ByteArrayInputStream(xml.getBytes("UTF-8")));
     }
     
-    public static Document getXmlDocFromURI(String xmlFile) throws Exception{
+  /*  public static Document getXmlDocFromURI(String xmlFile) throws Exception{
         if(xmlFile.startsWith("http"))
             return getXmlDocFromURI(new URL(xmlFile).openStream());
         else
@@ -130,7 +118,7 @@ public class XMLUtils {
         if (start == 0)
             return "'" + field + "'";
         return buffer.append("'").append(field.substring(start)).append("'").append(")").toString();
-    }
+    }*/
     
     public static Object execXPath(org.w3c.dom.Node node, String pattern, QName xPathConstantsType) throws Exception{
          return XPathFactory.newInstance().newXPath().compile(pattern).evaluate(node, xPathConstantsType);

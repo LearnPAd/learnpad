@@ -3,7 +3,6 @@ package eu.learnpad.ca.rest.impl;
 import static org.junit.Assert.*;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
@@ -24,9 +23,12 @@ import org.glassfish.jersey.test.grizzly.GrizzlyWebTestContainerFactory;
 import org.glassfish.jersey.test.spi.TestContainerFactory;
 import org.junit.Test;
 
-import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysisTest;
 import eu.learnpad.ca.gate.GateServletContextListener;
-import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalysis;
+
+import eu.learnpad.ca.impl.BridgeImpl;
+
+import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalyses;
+
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
 
 public class StaticContentVerificationsImplTest extends JerseyTest{
@@ -37,7 +39,7 @@ public class StaticContentVerificationsImplTest extends JerseyTest{
 	@Override
     protected DeploymentContext configureDeployment() {
 		 forceSet(TestProperties.CONTAINER_PORT, "0");
-		    return ServletDeploymentContext.forServlet(new ServletContainer(new ResourceConfig(StaticContentVerificationsImpl.class)))
+		    return ServletDeploymentContext.forServlet(new ServletContainer(new ResourceConfig(BridgeImpl.class)))
 		                                   .addListener(GateServletContextListener.class)
 		                                   .build();
          
@@ -45,14 +47,14 @@ public class StaticContentVerificationsImplTest extends JerseyTest{
 
 	@Override
 	protected Application configure() {
-		return new ResourceConfig(StaticContentVerificationsImpl.class);
+		return new ResourceConfig(BridgeImpl.class);
 	}
 
 	
 	@Test
 	public void checkStaticContentAnalysis() throws JAXBException {
 		
-		InputStream is = CorrectnessAnalysisTest.class.getClassLoader().getResourceAsStream("StaticContentXML.xml");
+		InputStream is = StaticContentVerificationsImplTest.class.getClassLoader().getResourceAsStream("StaticContentXML.xml");
 		assertNotNull(is);
 		JAXBContext jaxbContexti = JAXBContext.newInstance(StaticContentAnalysis.class);
 
@@ -60,22 +62,22 @@ public class StaticContentVerificationsImplTest extends JerseyTest{
 		StaticContentAnalysis StaticContentInput = (StaticContentAnalysis) jaxbUnmarshaller1.unmarshal(is);
 
 		Entity<StaticContentAnalysis> entity = Entity.entity(StaticContentInput,MediaType.APPLICATION_XML);
-		Response response =  target("/learnpad/ca/validatestaticcontent").request(MediaType.APPLICATION_XML).post(entity);
+		Response response =  target("/learnpad/ca/bridge/validatestaticcontent").request(MediaType.APPLICATION_XML).post(entity);
 
 		String id = response.readEntity(String.class);
 
 		assertNotNull(response);
 		String status = "IN PROGRESS";
 		while(!status.equals("OK")){
-			status =  target("/learnpad/ca/validatestaticcontent/"+id+"/status").request().get(String.class);
+			status =  target("/learnpad/ca/bridge/validatestaticcontent/"+id+"/status").request().get(String.class);
 
 			assertNotNull(status);
 
 		}
 
-		Response annotatecontent =  target("/learnpad/ca/validatestaticcontent/"+id).request().get();
+		Response annotatecontent =  target("/learnpad/ca/bridge/validatestaticcontent/"+id).request().get();
 
-		ArrayList<AnnotatedStaticContentAnalysis> res =	annotatecontent.readEntity(new GenericType<ArrayList<AnnotatedStaticContentAnalysis>>() {});
+		AnnotatedStaticContentAnalyses res =	annotatecontent.readEntity(new GenericType<AnnotatedStaticContentAnalyses>() {});
 		assertNotNull(res);
 		assertNotNull(annotatecontent);
 	}

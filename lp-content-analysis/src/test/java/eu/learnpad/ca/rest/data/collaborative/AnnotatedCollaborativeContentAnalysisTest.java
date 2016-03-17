@@ -1,4 +1,4 @@
-package eu.learnpad.ca.rest.data.collaborative;
+/*package eu.learnpad.ca.rest.data.collaborative;
 
 import static org.junit.Assert.*;
 
@@ -33,3 +33,4 @@ public class AnnotatedCollaborativeContentAnalysisTest {
 	}
 
 }
+*/

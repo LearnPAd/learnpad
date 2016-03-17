@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+mvn clean
+rm -rf "target"
+# skip tests as we will do them in the component_test stage
+mvn  install -Dmaven.test.skip=true

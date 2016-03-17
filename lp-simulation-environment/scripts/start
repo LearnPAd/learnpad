@@ -1,4 +1,22 @@
 #!/usr/bin/env bash
 cd $( dirname "${BASH_SOURCE[0]}")/..
-simulator/out/start
-monitoring/out/start
+monitoring/out/start > monitor.log 2>&1
+
+ERROR_CODE=1
+while [ $ERROR_CODE -ne 0 ]
+do
+	echo "[INFO] Checking if Monitoring is started"
+	sleep 1
+## This script should be fixed accorting to both the configuration
+## files reported in the simulator (i.e. "lp-simulation-environment/simulator/src/main/resources/glimpse_server.conf"),
+## and the monitoring (i.e.the property "java.naming.provider.url" in "lp-simulation-environment/monitoring/configFiles/environmentFile")
+## Note that for this test HTTP protocol should be used.
+	curl http://localhost:61616 > /dev/null 2>&1
+# The shell variable name $? is a special built-in variable which has the exit status of the last command executed.
+	ERROR_CODE=$?
+done
+echo "[INFO] Monitoring is started"
+
+simulator/out/start > simulator.log 2>&1
+
+

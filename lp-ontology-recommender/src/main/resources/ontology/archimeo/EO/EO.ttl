@@ -15,8 +15,8 @@
 @prefix eo: <http://ikm-group.ch/archiMEO/eo#> .
 @prefix media-types: <http://www.iana.org/assignments/media-types#> .
 @prefix nco: <http://ikm-group.ch/archiMEO/nco#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix omm: <http://ikm-group.ch/archiMEO/omm#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix pmmm: <http://ikm-group.ch/archiMEO/pmmm#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -66,9 +66,20 @@ eo:Africa
   rdf:type top:Continent ;
   rdf:type owl:Thing ;
 .
+eo:AnnotationDataSet
+  rdf:type owl:Class ;
+  rdfs:comment "CQ17"^^xsd:string ;
+  rdfs:comment "CQ19"^^xsd:string ;
+  rdfs:subClassOf eo:DataSet ;
+.
 eo:Asia
   rdf:type top:Continent ;
   rdf:type owl:Thing ;
+.
+eo:Assessment
+  rdf:type owl:Class ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:subClassOf eo:MotivationElement ;
 .
 eo:AtomicBusinessProcess
   rdf:type owl:Class ;
@@ -82,18 +93,6 @@ eo:AtomicBusinessProcess
   rdfs:comment "concepts developed within the Ontogov Project; namespace ontogov changed to eo (BThoenssen)"^^xsd:string ;
   rdfs:subClassOf archi:BusinessProcess ;
 .
-eo:AnnotationDataSet
-  rdf:type owl:Class ;
-  rdfs:comment "CQ17"^^xsd:string ;
-  rdfs:comment "CQ19"^^xsd:string ;
-  rdfs:subClassOf eo:DataSet ;
-.
-eo:Assessment
-  rdf:type owl:Class ;
-  rdfs:comment "CMM"^^xsd:string ;
-  rdfs:subClassOf eo:MotivationElement ;
-.
-
 eo:Bankcruptcy
   rdf:type eo:FinancialBusinessEvent ;
   rdf:type owl:Thing ;
@@ -456,15 +455,15 @@ eo:Client
 .
 eo:Competency
   rdf:type owl:Class ;
+  rdfs:comment "CMM"^^xsd:string ;
   rdfs:comment "CQ14"^^xsd:string ;
   rdfs:comment "CQ9"^^xsd:string ;
-  rdfs:comment "CMM"^^xsd:string ;
   rdfs:subClassOf archi:PassiveStructureElement ;
 .
 eo:CompetencyProfile
   rdf:type owl:Class ;
-  rdfs:comment "CQ5"^^xsd:string ;
   rdfs:comment "CMM"^^xsd:string ;
+  rdfs:comment "CQ5"^^xsd:string ;
   rdfs:subClassOf archi:PassiveStructureElement ;
 .
 eo:Competitor
@@ -532,6 +531,11 @@ eo:Contractor
   rdf:type owl:Class ;
   rdfs:subClassOf eo:BusinessPartner ;
 .
+eo:ConvexInterval
+  rdf:type owl:Class ;
+  rdfs:label "ConvexInterval"^^xsd:string ;
+  rdfs:subClassOf top:TimeInterval ;
+.
 eo:CourseOfAction
   rdf:type owl:Class ;
   rdfs:comment "A principle is defined as a normative property of all systems in a given context, or the way in which they are realized, sec 10.2.7"^^xsd:string ;
@@ -542,16 +546,11 @@ eo:CourseOfAction
 .
 eo:Criterion
   rdf:type owl:Class ;
-  rdfs:comment "CQ20"^^xsd:string ;
   rdfs:comment "CMM"^^xsd:string ;
+  rdfs:comment "CQ20"^^xsd:string ;
   rdfs:comment "a person's competency profile, i.e. the set of competencies and its levels a person has acquired are described/reported in a document, e.g. a job description"^^xsd:string ;
   rdfs:comment "concept is introduced to represent LPIMM KPI concepts in CMM"^^xsd:string ;
   rdfs:subClassOf eo:Measurement ;
-.
-eo:ConvexInterval
-  rdf:type owl:Class ;
-  rdfs:label "ConvexInterval"^^xsd:string ;
-  rdfs:subClassOf top:TimeInterval ;
 .
 eo:Customer
   rdf:type owl:Class ;
@@ -754,11 +753,11 @@ eo:LegalBusinessEvent
 .
 eo:LegalEntity
   rdf:type owl:Class ;
-  rdfs:comment "CQ7"^^xsd:string ;
   rdfs:comment "CMM"^^xsd:string ;
+  rdfs:comment "CQ7"^^xsd:string ;
   rdfs:comment "equivalent to LET Institution, Class E7 in the ITLET Conceptual Reference Model for Competency Information and Related Objects (ISO/IEC TR 23476 p.18)"^^xsd:string ;
-  rdfs:label "Organisation"^^xsd:string ;
   rdfs:label "LegalEntity"^^xsd:string ;
+  rdfs:label "Organisation"^^xsd:string ;
   rdfs:subClassOf archi:BusinessActor ;
 .
 eo:Ludwigshafen
@@ -794,16 +793,16 @@ eo:Metrics
   rdf:type owl:Class ;
   rdfs:subClassOf eo:Measurement ;
 .
-eo:MotivationElement
-  rdf:type owl:Class ;
-  rdfs:comment "Extension is based on ArchiMate 2.1 (Motivation Aspect Metamodel, p 16); names are taken from BMM"^^xsd:string ;
-  rdfs:comment "CMM"^^xsd:string ;
-  rdfs:subClassOf eo:EnterpriseObject ;
-.
 eo:Money
   rdf:type owl:Class ;
   rdfs:label "Money"^^xsd:string ;
   rdfs:subClassOf bmm:Asset ;
+.
+eo:MotivationElement
+  rdf:type owl:Class ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:comment "Extension is based on ArchiMate 2.1 (Motivation Aspect Metamodel, p 16); names are taken from BMM"^^xsd:string ;
+  rdfs:subClassOf eo:EnterpriseObject ;
 .
 eo:MovingImage
   rdf:type dcmi-type-vocabulary:DCMITYPE ;
@@ -840,8 +839,8 @@ eo:Order
 eo:OrganisationalUnit
   rdf:type owl:Class ;
   rdfs:comment "CQ7"^^xsd:string ;
-  rdfs:comment "equivalent to LET Institution, Class E7 in the ITLET Conceptual Reference Model for Competency Information and Related Objects (ISO/IEC TR 23476 p.18)"^^xsd:string ;
   rdfs:comment "Concept has been moved from 'BusinessRole' (thb, 03.07.2011)"@en ;
+  rdfs:comment "equivalent to LET Institution, Class E7 in the ITLET Conceptual Reference Model for Competency Information and Related Objects (ISO/IEC TR 23476 p.18)"^^xsd:string ;
   rdfs:label "OrganisationalUnit"^^xsd:string ;
   rdfs:subClassOf archi:BusinessActor ;
 .
@@ -852,6 +851,8 @@ eo:Partner
 .
 eo:Person
   rdf:type owl:Class ;
+  rdfs:comment """\"The Person class represents people. Something is a Person if it is a person. We don't nitpic about whether they're alive, dead, real, or imaginary. The Person class is a sub-class of the Agent class, since all people are considered 'agents' in FOAF\" (FOAF)
+As we do not have the super class agent we decided to use the eo-namespace instead foaf"""@en ;
   rdfs:comment "CQ1"^^xsd:string ;
   rdfs:comment "CQ14"^^xsd:string ;
   rdfs:comment "CQ2"^^xsd:string ;
@@ -860,8 +861,6 @@ eo:Person
   rdfs:comment "CQ7"^^xsd:string ;
   rdfs:comment "CQ9"^^xsd:string ;
   rdfs:comment "equivalent to Actor, Class E2 in the ITLET Conceptual Reference Model for Competency Information and Related Objects (ISO/IEC TR 23476 p.18)"^^xsd:string ;
-  rdfs:comment """\"The Person class represents people. Something is a Person if it is a person. We don't nitpic about whether they're alive, dead, real, or imaginary. The Person class is a sub-class of the Agent class, since all people are considered 'agents' in FOAF\" (FOAF)
-As we do not have the super class agent we decided to use the eo-namespace instead foaf"""@en ;
   rdfs:comment "replaces eo:NaturalActor"^^xsd:string ;
   rdfs:subClassOf archi:BusinessActor ;
 .
@@ -898,8 +897,8 @@ eo:Purchase
 eo:Regulation
   rdf:type owl:Class ;
   rdfs:label "Regulation"^^xsd:string ;
-  rdfs:subClassOf bmm:InfluencerCategory ;
   rdfs:subClassOf bmm:Influencer ;
+  rdfs:subClassOf bmm:InfluencerCategory ;
 .
 eo:RegulationDocument
   rdf:type owl:Class ;
@@ -940,13 +939,13 @@ eo:Specification
   rdfs:label "Specification"^^xsd:string ;
   rdfs:subClassOf <http://xmlns.com/foaf/spec#Document> ;
 .
-eo:Strategy
-  rdf:type owl:Class ;
-  rdfs:subClassOf eo:CourseOfAction ;
-.
 eo:StillImage
   rdf:type dcmi-type-vocabulary:DCMITYPE ;
   rdf:type owl:Thing ;
+.
+eo:Strategy
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:CourseOfAction ;
 .
 eo:Strength
   rdf:type owl:Class ;
@@ -1077,6 +1076,12 @@ eo:Weakness
   rdfs:label "Weakness"^^xsd:string ;
   rdfs:subClassOf bmm:AssessmentCategory ;
 .
+eo:acquiredCompetencyIsStoredInCompetencyProfile
+  rdf:type rdf:Property ;
+  rdfs:comment "CQ2"^^xsd:string ;
+  rdfs:domain eo:Competency ;
+  rdfs:range eo:CompetencyProfile ;
+.
 eo:actionEndorsesMeans
   rdf:type owl:ObjectProperty ;
   rdfs:domain archi:BehaviourElement ;
@@ -1203,6 +1208,19 @@ eo:actorUsesResource
   rdfs:label "actorUsesResource"^^xsd:string ;
   rdfs:subPropertyOf eo:actorUsesFacility ;
 .
+eo:annotationDataSetIsAttachedToBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ17"^^xsd:string ;
+  rdfs:comment "CQ19"^^xsd:string ;
+  rdfs:domain eo:AnnotationDataSet ;
+  rdfs:range archi:BusinessProcess ;
+.
+eo:annotationDataSetIsCreatedByPerson
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ17"^^xsd:string ;
+  rdfs:domain eo:AnnotationDataSet ;
+  rdfs:range eo:Person ;
+.
 eo:applicationServiceExecutesBehaviour
   rdf:type owl:ObjectProperty ;
   rdfs:domain archi:ApplicationService ;
@@ -1245,6 +1263,32 @@ eo:assessmentIsPerformedWithMethod
   rdfs:label "assessmentIsPerformedWithMethod"^^xsd:string ;
   rdfs:range <http://ikm-group.ch/archiMEO/emo#Method> ;
 .
+eo:atomicBusinessProcessHasInputDataObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ18"^^xsd:string ;
+  rdfs:domain eo:AtomicBusinessProcess ;
+  rdfs:range archi:DataObject ;
+.
+eo:atomicBusinessProcessHasOutputDataObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ18"^^xsd:string ;
+  rdfs:domain eo:AtomicBusinessProcess ;
+  rdfs:range archi:DataObject ;
+.
+eo:atomicBusinessProcessProcessesDataObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ4"^^xsd:string ;
+  rdfs:comment "CQ5"^^xsd:string ;
+  rdfs:domain eo:AtomicBusinessProcess ;
+  rdfs:range archi:DataObject ;
+.
+eo:atomicProcessIsPartOfCompositeProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ18"^^xsd:string ;
+  rdfs:comment "CQ9"^^xsd:string ;
+  rdfs:domain eo:AtomicBusinessProcess ;
+  rdfs:range eo:CompositeBusinessProcess ;
+.
 eo:authorityHasRightsOnAction
   rdf:type owl:ObjectProperty ;
   rdfs:domain nco:Authority ;
@@ -1268,12 +1312,35 @@ eo:broaderDesiredResultIncludesMoreSpecificDesiredResult
   rdfs:label "broaderDesiredResultIncludesMoreSpecificDesiredResult"^^xsd:string ;
   rdfs:range bmm:DesiredResult ;
 .
+eo:businessActorHasAcquiredCompetency
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ14"^^xsd:string ;
+  rdfs:comment "CQ2"^^xsd:string ;
+  rdfs:comment "CQ3"^^xsd:string ;
+  rdfs:comment "CQ5"^^xsd:string ;
+  rdfs:comment "CQ9"^^xsd:string ;
+  rdfs:domain archi:BusinessActor ;
+  rdfs:range eo:Competency ;
+.
 eo:businessActorHasAssignedBusinessRole
   rdf:type owl:ObjectProperty ;
   rdfs:comment "CQ17"^^xsd:string ;
-  rdfs:comment "CQ6"^^xsd:string ;  
+  rdfs:comment "CQ6"^^xsd:string ;
   rdfs:domain archi:BusinessActor ;
   rdfs:range archi:BusinessRole ;
+.
+eo:businessActorHasCompetencyProfile
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ2"^^xsd:string ;
+  rdfs:comment "CQ5"^^xsd:string ;
+  rdfs:domain archi:BusinessActor ;
+  rdfs:range eo:CompetencyProfile ;
+.
+eo:businessActorHasGoal
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ20"^^xsd:string ;
+  rdfs:domain archi:BusinessActor ;
+  rdfs:range eo:Goal ;
 .
 eo:businessActorIsAssociatedTo
   rdf:type owl:DatatypeProperty ;
@@ -1283,6 +1350,17 @@ eo:businessActorIsSituatedInLocation
   rdf:type owl:ObjectProperty ;
   rdfs:domain archi:BusinessActor ;
   rdfs:subPropertyOf eo:enterpriseObjectIsSituatedInLocation ;
+.
+eo:businessActorPerformsBusinessCollaboration
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ7"^^xsd:string ;
+  rdfs:domain archi:BusinessActor ;
+  rdfs:range archi:BusinessCollaboration ;
+.
+eo:businessCollaborationHasType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "CQ7"^^xsd:string ;
+  rdfs:domain archi:BusinessCollaboration ;
 .
 eo:businessFunctionBelongsToService
   rdf:type owl:ObjectProperty ;
@@ -1322,6 +1400,21 @@ eo:businessProcessRealizesCourseOfAction
   rdfs:domain archi:BusinessProcess ;
   rdfs:label "businessProcessRealizesCourseOfAction"^^xsd:string ;
   rdfs:range bmm:CourseOfAction ;
+.
+eo:businessProcessRequiresCompetency
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ14"^^xsd:string ;
+  rdfs:comment "CQ2"^^xsd:string ;
+  rdfs:comment "CQ3"^^xsd:string ;
+  rdfs:comment "CQ9"^^xsd:string ;
+  rdfs:domain archi:BusinessProcess ;
+  rdfs:range eo:Competency ;
+.
+eo:businessProcessUsesDataObject
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ18"^^xsd:string ;
+  rdfs:domain archi:BusinessProcess ;
+  rdfs:range archi:DataObject ;
 .
 eo:businessRelationshipAdviceHasAdvisorBusinessActor
   rdf:type owl:ObjectProperty ;
@@ -1374,7 +1467,7 @@ eo:businessRoleIsAssignedToBusinessActor
   rdf:type owl:ObjectProperty ;
   rdfs:comment "CQ14"^^xsd:string ;
   rdfs:comment "CQ7"^^xsd:string ;
-  rdfs:comment "CQ9"^^xsd:string ;  
+  rdfs:comment "CQ9"^^xsd:string ;
   rdfs:domain archi:BusinessRole ;
   rdfs:range archi:BusinessActor ;
   owl:inverseOf eo:businessActorHasAssignedBusinessRole ;
@@ -1413,11 +1506,23 @@ eo:businessServiceIsProvidedByBusinessRole
   rdfs:range archi:BusinessRole ;
   owl:inverseOf eo:businessRoleProvidesBusinessService ;
 .
+eo:catchingEvent
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "the event triggers an activity (yes/no)"^^xsd:string ;
+  rdfs:domain top:Event ;
+.
 eo:collDevelopmentAgreementHasWarranty
   rdf:type owl:DatatypeProperty ;
   rdfs:comment "D1.2 DokLife RequSpec"^^xsd:string ;
   rdfs:label "collDevelopmentAgreementHasWarranty"^^xsd:string ;
   rdfs:range xsd:string ;
+.
+eo:competencyHasLevel
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "CQ14"^^xsd:string ;
+  rdfs:comment "CQ2"^^xsd:string ;
+  rdfs:comment "CQ9"^^xsd:string ;
+  rdfs:domain eo:Competency ;
 .
 eo:componentHasSpecification
   rdf:type owl:ObjectProperty ;
@@ -1769,6 +1874,12 @@ eo:courseOfActionIncludesMoreSpecificCourseOfAction
   rdfs:label "broaderCourseOfActionIncludesMoreSpecificCourseOfAction"^^xsd:string ;
   rdfs:range bmm:CourseOfAction ;
 .
+eo:criterionQuantifiesGoal
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ20"^^xsd:string ;
+  rdfs:domain eo:Criterion ;
+  rdfs:range eo:Goal ;
+.
 eo:customerBelongsToCustomerSegment
   rdf:type owl:DatatypeProperty ;
   rdfs:domain eo:Customer ;
@@ -1791,6 +1902,17 @@ eo:dataIsManagedWithDatabaseManagementSystem
   rdfs:label "dataIsManagedWithDatabaseManagementSystem"@en ;
   rdfs:range eo:DataBaseManagementSystem ;
   rdfs:range eo:EnterpriseResourcePlanningSystem ;
+.
+eo:dataObjectHasStatus
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "CQ10"^^xsd:string ;
+  rdfs:comment "CQ19"^^xsd:string ;
+  rdfs:domain archi:DataObject ;
+.
+eo:dataObjectHasType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "CQ12"^^xsd:string ;
+  rdfs:domain archi:DataObject ;
 .
 eo:directiveActsAsRegulation
   rdf:type owl:ObjectProperty ;
@@ -1858,10 +1980,6 @@ eo:directoryIsPartOfDirectory
   rdfs:domain eo:Directory ;
   rdfs:label "directoryIsPartOfDirectory"@en ;
   rdfs:range eo:Directory ;
-.
-eo:doc
-  rdf:type media-types:MIMETYPE ;
-  rdf:type owl:Thing ;
 .
 eo:documentCollectionHasLanguage
   rdf:type owl:DatatypeProperty ;
@@ -2145,13 +2263,19 @@ eo:indexEntry
   rdfs:label "indexEntry"^^xsd:string ;
   rdfs:range xsd:string ;
 .
+eo:informationIsInputForProcess
+  rdf:type rdf:Property ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:range archi:BusinessProcess ;
+.
+eo:informationIsOutputOfProcess
+  rdf:type rdf:Property ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:range archi:BusinessProcess ;
+.
 eo:itSystemModelConsistsOfITService
   rdf:type owl:ObjectProperty ;
   rdfs:label "itSystemModelConsistsOfITService"@en ;
-.
-eo:jpg
-  rdf:type media-types:MIMETYPE ;
-  rdf:type owl:Thing ;
 .
 eo:laneBelongsToPool
   rdf:type owl:ObjectProperty ;
@@ -2288,14 +2412,6 @@ eo:maintenanceAgreementHasWarranty
   rdfs:label "maintenanceAgreementHasWarranty"^^xsd:string ;
   rdfs:range xsd:string ;
 .
-eo:mp3
-  rdf:type media-types:MIMETYPE ;
-  rdf:type owl:Thing ;
-.
-eo:mp4
-  rdf:type media-types:MIMETYPE ;
-  rdf:type owl:Thing ;
-.
 eo:objectManagedByService
   rdf:type owl:ObjectProperty ;
   rdfs:domain archi:PassiveStructureElement ;
@@ -2397,6 +2513,11 @@ eo:orderConsistsOfOrderDetail
   rdfs:label "orderConsistsOfOrderDetail"@en ;
   rdfs:range eo:DataSet ;
 .
+eo:orgUnitIsSubordinatedOrgUnit
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain omm:OrganisationalUnit ;
+  rdfs:range omm:OrganisationalUnit ;
+.
 eo:organisationalUnitActsAsInfluencingOrganization
   rdf:type owl:ObjectProperty ;
   rdfs:label "organisationalUnitActsAsInfluencingOrganization"^^xsd:string ;
@@ -2419,6 +2540,12 @@ eo:organisationalUnitEstablishesMeans
 eo:organisationalUnitHasMemberEmployee
   rdf:type owl:ObjectProperty ;
   rdfs:label "organisationalUnitHasMemberEmployee"@en ;
+.
+eo:organisationalUnitIsHeadedByPerson
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ6"^^xsd:string ;
+  rdfs:domain eo:OrganisationalUnit ;
+  rdfs:range eo:Person ;
 .
 eo:organisationalUnitIsPartOfLegalEntitiy
   rdf:type owl:ObjectProperty ;
@@ -2498,9 +2625,10 @@ eo:paymentObligationtHasPaymentPeriod
   rdfs:comment "DokLife D1.2 Requirements"^^xsd:string ;
   rdfs:label "paymentObligationtPaymentPeriod"^^xsd:string ;
 .
-eo:pdf
-  rdf:type media-types:MIMETYPE ;
-  rdf:type owl:Thing ;
+eo:performerHasRole
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain omm:Performer ;
+  rdfs:range omm:Role ;
 .
 eo:personHasAddress
   rdf:type owl:DatatypeProperty ;
@@ -2579,7 +2707,7 @@ eo:personPerformsBusinessRole
   rdfs:comment "CQ1"^^xsd:string ;
   rdfs:comment "CQ2"^^xsd:string ;
   rdfs:comment "CQ3"^^xsd:string ;
-  rdfs:comment "CQ7"^^xsd:string ;  
+  rdfs:comment "CQ7"^^xsd:string ;
   rdfs:domain eo:Person ;
   rdfs:range archi:BusinessRole ;
 .
@@ -2608,9 +2736,11 @@ eo:potentialImpactProvidesImpetusForDirective
   rdfs:label "potentialImpactProvidesImpetusForDirective"^^xsd:string ;
   rdfs:range bmm:Directive ;
 .
-eo:ppt
-  rdf:type media-types:MIMETYPE ;
-  rdf:type owl:Thing ;
+eo:processConsistsOfActivities
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain archi:BusinessProcess ;
+  rdfs:range eo:BusinessActivity ;
 .
 eo:processHasFirstElement
   rdf:type owl:ObjectProperty ;
@@ -2621,6 +2751,12 @@ eo:processHasFirstElement
 eo:processProducesProduct
   rdf:type owl:ObjectProperty ;
   rdfs:label "processProducesProduct"@en ;
+.
+eo:processRepresentsCompositeBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM suggestion"^^xsd:string ;
+  rdfs:domain pmmm:process ;
+  rdfs:range eo:CompositeBusinessProcess ;
 .
 eo:processUsesResource
   rdf:type owl:ObjectProperty ;
@@ -2677,6 +2813,12 @@ eo:relationshipMechanismIsEstablishedWithSupplier
 Wendy Currie (ed): Value Creation from E-Business Models, Butterworth-Heinemann, 2003"""^^xsd:string ;
   rdfs:label "relationshipMechanismIsEstablishedWithSupplier"^^xsd:string ;
 .
+eo:representationIsUsedInBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ5"^^xsd:string ;
+  rdfs:domain archi:Representation ;
+  rdfs:range archi:BusinessProcess ;
+.
 eo:roleHasAuthority
   rdf:type owl:ObjectProperty ;
   rdfs:domain archi:BusinessRole ;
@@ -2689,6 +2831,28 @@ eo:roleHasCharacteristics
 Wendy Currie (ed): Value Creation from E-Business Models, Butterworth-Heinemann, 2003"""^^xsd:string ;
   rdfs:domain archi:BusinessRole ;
   rdfs:label "roleHasCharacteristics"^^xsd:string ;
+.
+eo:roleIsAssignedToActivity
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain archi:BusinessRole ;
+  rdfs:range eo:BusinessActivity ;
+.
+eo:roleIsAssignedToAtomicBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CQ1"^^xsd:string ;
+  rdfs:comment "CQ17"^^xsd:string ;
+  rdfs:comment "CQ3"^^xsd:string ;
+  rdfs:comment "CQ6"^^xsd:string ;
+  rdfs:comment "CQ7"^^xsd:string ;
+  rdfs:domain archi:BusinessRole ;
+  rdfs:range eo:AtomicBusinessProcess ;
+.
+eo:roleIsResponsibleForProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain archi:BusinessRole ;
+  rdfs:range archi:BusinessProcess ;
 .
 eo:roleRequiresSkill
   rdf:type owl:ObjectProperty ;
@@ -2760,10 +2924,21 @@ eo:taskIsPerformedWithTool
   rdfs:domain bpmn:Task ;
   rdfs:label "taskIsPerformedWithTool"@en ;
 .
+eo:teamRepresentsBusinessCollaboration
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "CMM"^^xsd:string ;
+  rdfs:domain omm:Team ;
+  rdfs:range archi:BusinessCollaboration ;
+.
 eo:termAndConditionDefineObligation
   rdf:type owl:ObjectProperty ;
   rdfs:label "termAndConditionDefineObligation"^^xsd:string ;
   rdfs:range eo:Obligation ;
+.
+eo:throwingEvent
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "event is a result of an activity (yes/nor)"^^xsd:string ;
+  rdfs:domain top:Event ;
 .
 eo:timePointBelongsToCalendarElement
   rdf:type owl:ObjectProperty ;
@@ -2805,204 +2980,4 @@ eo:valuePropositionOffersProduct
 Wendy Currie (ed): Value Creation from E-Business Models, Butterworth-Heinemann, 2003"""^^xsd:string ;
   rdfs:domain eo:ValueProposition ;
   rdfs:label "valuePropositionOffersProduct"^^xsd:string ;
-.
-eo:acquiredCompetencyIsStoredInCompetencyProfile
-  rdf:type rdf:Property ;
-  rdfs:comment "CQ2"^^xsd:string ;
-  rdfs:domain eo:Competency ;
-  rdfs:range eo:CompetencyProfile ;
-.
-eo:annotationDataSetIsAttachedToBusinessProcess
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CQ17"^^xsd:string ;
-  rdfs:comment "CQ19"^^xsd:string ;
-  rdfs:domain eo:AnnotationDataSet ;
-  rdfs:range archi:BusinessProcess ;
-.
-eo:annotationDataSetIsCreatedByPerson
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CQ17"^^xsd:string ;
-  rdfs:domain eo:AnnotationDataSet ;
-  rdfs:range eo:Person ;
-.
-eo:atomicBusinessProcessHasInputDataObject
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CQ18"^^xsd:string ;
-  rdfs:domain eo:AtomicBusinessProcess ;
-  rdfs:range archi:DataObject ;
-.
-eo:atomicBusinessProcessHasOutputDataObject
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CQ18"^^xsd:string ;
-  rdfs:domain eo:AtomicBusinessProcess ;
-  rdfs:range archi:DataObject ;
-.
-eo:atomicBusinessProcessProcessesDataObject
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CQ4"^^xsd:string ;
-  rdfs:comment "CQ5"^^xsd:string ;
-  rdfs:domain eo:AtomicBusinessProcess ;
-  rdfs:range archi:DataObject ;
-.
-eo:atomicProcessIsPartOfCompositeProcess
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CQ18"^^xsd:string ;
-  rdfs:comment "CQ9"^^xsd:string ;
-  rdfs:domain eo:AtomicBusinessProcess ;
-  rdfs:range eo:CompositeBusinessProcess ;
-.
-eo:businessActorHasAcquiredCompetency
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CQ14"^^xsd:string ;
-  rdfs:comment "CQ2"^^xsd:string ;
-  rdfs:comment "CQ3"^^xsd:string ;
-  rdfs:comment "CQ5"^^xsd:string ;
-  rdfs:comment "CQ9"^^xsd:string ;
-  rdfs:domain archi:BusinessActor ;
-  rdfs:range eo:Competency ;
-.
-eo:businessActorHasCompetencyProfile
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CQ2"^^xsd:string ;
-  rdfs:comment "CQ5"^^xsd:string ;
-  rdfs:domain archi:BusinessActor ;
-  rdfs:range eo:CompetencyProfile ;
-.
-eo:businessActorHasGoal
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CQ20"^^xsd:string ;
-  rdfs:domain archi:BusinessActor ;
-  rdfs:range eo:Goal ;
-.
-eo:businessActorPerformsBusinessCollaboration
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CQ7"^^xsd:string ;
-  rdfs:domain archi:BusinessActor ;
-  rdfs:range archi:BusinessCollaboration ;
-.
-eo:businessCollaborationHasType
-  rdf:type owl:DatatypeProperty ;
-  rdfs:comment "CQ7"^^xsd:string ;
-  rdfs:domain archi:BusinessCollaboration ;
-.
-eo:businessProcessRequiresCompetency
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CQ14"^^xsd:string ;
-  rdfs:comment "CQ2"^^xsd:string ;
-  rdfs:comment "CQ3"^^xsd:string ;
-  rdfs:comment "CQ9"^^xsd:string ;
-  rdfs:domain archi:BusinessProcess ;
-  rdfs:range eo:Competency ;
-.
-eo:businessProcessUsesDataObject
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CQ18"^^xsd:string ;
-  rdfs:domain archi:BusinessProcess ;
-  rdfs:range archi:DataObject ;
-.
-eo:catchingEvent
-  rdf:type owl:DatatypeProperty ;
-  rdfs:comment "the event triggers an activity (yes/no)"^^xsd:string ;
-  rdfs:domain top:Event ;
-.
-eo:competencyHasLevel
-  rdf:type owl:DatatypeProperty ;
-  rdfs:comment "CQ14"^^xsd:string ;
-  rdfs:comment "CQ2"^^xsd:string ;
-  rdfs:comment "CQ9"^^xsd:string ;
-  rdfs:domain eo:Competency ;
-.
-eo:criterionQuantifiesGoal
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CQ20"^^xsd:string ;
-  rdfs:domain eo:Criterion ;
-  rdfs:range eo:Goal ;
-.
-eo:dataObjectHasStatus
-  rdf:type owl:DatatypeProperty ;
-  rdfs:comment "CQ10"^^xsd:string ;
-  rdfs:comment "CQ19"^^xsd:string ;
-  rdfs:domain archi:DataObject ;
-.
-eo:dataObjectHasType
-  rdf:type owl:DatatypeProperty ;
-  rdfs:comment "CQ12"^^xsd:string ;
-  rdfs:domain archi:DataObject ;
-.
-eo:informationIsInputForProcess
-  rdf:type rdf:Property ;
-  rdfs:comment "CMM"^^xsd:string ;
-  rdfs:range archi:BusinessProcess ;
-.
-eo:informationIsOutputOfProcess
-  rdf:type rdf:Property ;
-  rdfs:comment "CMM"^^xsd:string ;
-  rdfs:range archi:BusinessProcess ;
-.
-eo:orgUnitIsSubordinatedOrgUnit
-  rdf:type owl:ObjectProperty ;
-  rdfs:domain omm:OrganisationalUnit ;
-  rdfs:range omm:OrganisationalUnit ;
-.
-eo:organisationalUnitIsHeadedByPerson
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CQ6"^^xsd:string ;
-  rdfs:domain eo:OrganisationalUnit ;
-  rdfs:range eo:Person ;
-.
-eo:performerHasRole
-  rdf:type owl:ObjectProperty ;
-  rdfs:domain omm:Performer ;
-  rdfs:range omm:Role ;
-.
-eo:processConsistsOfActivities
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CMM"^^xsd:string ;
-  rdfs:domain archi:BusinessProcess ;
-  rdfs:range eo:BusinessActivity ;
-.
-eo:processRepresentsCompositeBusinessProcess
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CMM suggestion"^^xsd:string ;
-  rdfs:domain pmmm:process ;
-  rdfs:range eo:CompositeBusinessProcess ;
-.
-eo:representationIsUsedInBusinessProcess
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CQ5"^^xsd:string ;
-  rdfs:domain archi:Representation ;
-  rdfs:range archi:BusinessProcess ;
-.
-eo:roleIsAssignedToActivity
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CMM"^^xsd:string ;
-  rdfs:domain archi:BusinessRole ;
-  rdfs:range eo:BusinessActivity ;
-.
-eo:roleIsAssignedToAtomicBusinessProcess
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CQ1"^^xsd:string ;
-  rdfs:comment "CQ17"^^xsd:string ;
-  rdfs:comment "CQ3"^^xsd:string ;
-  rdfs:comment "CQ6"^^xsd:string ;
-  rdfs:comment "CQ7"^^xsd:string ;
-  rdfs:domain archi:BusinessRole ;
-  rdfs:range eo:AtomicBusinessProcess ;
-.
-eo:roleIsResponsibleForProcess
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CMM"^^xsd:string ;
-  rdfs:domain archi:BusinessRole ;
-  rdfs:range archi:BusinessProcess ;
-.
-eo:teamRepresentsBusinessCollaboration
-  rdf:type owl:ObjectProperty ;
-  rdfs:comment "CMM"^^xsd:string ;
-  rdfs:domain omm:Team ;
-  rdfs:range archi:BusinessCollaboration ;
-.
-eo:throwingEvent
-  rdf:type owl:DatatypeProperty ;
-  rdfs:comment "event is a result of an activity (yes/nor)"^^xsd:string ;
-  rdfs:domain top:Event ;
 .

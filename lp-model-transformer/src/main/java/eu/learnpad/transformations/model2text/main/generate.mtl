@@ -1,0 +1,42 @@
+[comment encoding = UTF-8 /]
+[module generate('http://www.xwiki.org')]
+
+[template public webHome(doc : DocumentRoot)]
+[comment @main/]
+	[for (p : Page | Page.allInstances())]
+		[file ('//wikis//'+p.wiki+'//spaces//'+p.space+'//pages//'+p.name+'//page.xml',  false, 'UTF-8')]
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://www.xwiki.org">
+	<parent>[p.parent/]</parent>
+	<title>[p.title/]</title>
+	<content>[p.content/]</content>
+</page>
+		[/file]
+	[/for]
+
+	[for (o : Object | Object.allInstances())]
+		[file ('//wikis//'+o.wiki+'//spaces//'+o.space+'//pages//'+o.pageName+'//objects//'+o.className+'//'+o.number+'//object.xml',  false, 'UTF-8')]
+[getObjectContent(o)/]
+		[/file]
+	[/for]
+[/template]
+
+[template private getObjectContent(obj:Object)]
+<?xml version="1.0" encoding="UTF-8"?>
+<object xmlns="http://www.xwiki.org">
+	<className>[obj.className/]</className>
+	[for (s : Property | obj.property)]
+		[if (not s.name.equalsIgnoreCase('folder_id'))]
+	<property name="[s.name/]" type="[s.type/]"><value>[s.value/]</value></property>
+		[/if]
+	[/for]
+</object>
+[/template]
+
+[template private getLinkId(obj:Object) post(replaceAll('\n', '').trim())]
+	[for (pid : Property | obj.property)]
+		[if (pid.name.equalsIgnoreCase('id'))]
+[pid.value/]
+		[/if]
+	[/for]
+[/template]

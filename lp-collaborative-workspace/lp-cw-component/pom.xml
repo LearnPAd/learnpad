@@ -35,7 +35,8 @@
 	<name>Learn PAd - Collaborative Workspace - Component</name>
 
 	<modules>
-		<module>lp-cw-component-application</module>
+		<module>lp-cw-component-ui</module>
 		<module>lp-cw-component-service</module>
+		<module>lp-cw-component-skin</module>
 	</modules>
 </project>

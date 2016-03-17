@@ -19,39 +19,30 @@
  */
 package eu.learnpad.core.impl.me;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.PutMethod;
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.core.impl.me.XwikiBridgeInterfaceRestResource;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.XWikiRestUtils;
-import eu.learnpad.cw.rest.data.Feedbacks;
-import eu.learnpad.exception.impl.LpRestExceptionImpl;
-import eu.learnpad.me.Controller;
-import eu.learnpad.mv.rest.data.MVResults;
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.BridgeInterface;
+import eu.learnpad.me.Controller;
+import eu.learnpad.me.rest.data.ModelSetType;
+import eu.learnpad.mv.rest.data.VerificationId;
+import eu.learnpad.mv.rest.data.VerificationResults;
+import eu.learnpad.mv.rest.data.VerificationStatus;
+import eu.learnpad.mv.rest.data.VerificationsAvailable;
+import eu.learnpad.rest.model.jaxb.PFResults;
 
 /*
  * It is not clear yet who is responsible for the instantiation
@@ -84,11 +75,6 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
      */
 	private eu.learnpad.mv.BridgeInterface mv;
 	private eu.learnpad.cw.BridgeInterface cw;
-	private eu.learnpad.sim.BridgeInterface sim;
-	private eu.learnpad.qm.BridgeInterface qm;
-	private eu.learnpad.or.BridgeInterface or;
-
-	private Map<String, MVResults> mvResults;
 
 	@Inject
 	Logger logger;
@@ -104,19 +90,14 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 			
 			this.mv = new eu.learnpad.core.impl.mv.XwikiBridgeInterfaceRestResource();
 			this.cw = new eu.learnpad.core.impl.cw.XwikiBridgeInterfaceRestResource();
-			this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
-			this.qm = new eu.learnpad.core.impl.qm.XwikiBridgeInterfaceRestResource();
-			this.or = new eu.learnpad.core.impl.or.XwikiBridgeInterfaceRestResource();
-
-			this.mvResults = new HashMap<String, MVResults>();
 			
 			this.initialized=true;
 		}
 	}
 
 	@Override
-	public void putModelSet(String modelSetId, String type, byte[] modelSetFile)
-			throws LpRestExceptionImpl {
+	public VerificationId putModelSet(String modelSetId, ModelSetType type, InputStream modelSetFile)
+			throws LpRestException {
 		if (XWikiRestUtils.isPage(RestResource.CORE_REPOSITORY_WIKI,
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId) == false) {
 			XWikiRestUtils.createEmptyPage(RestResource.CORE_REPOSITORY_WIKI,
@@ -126,98 +107,36 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		XWikiRestUtils.putAttachment(RestResource.CORE_REPOSITORY_WIKI,
 				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName,
 				modelSetFile);
+		return this.mv.startVerification(modelSetId, "ALL");
 	}
 
 	@Override
-	public String startModelSetVerification(String modelSetId, String type,
-			String verification) throws LpRestExceptionImpl {
-		String verificationProcessId = UUID.randomUUID().toString();
-		mvResults.put(verificationProcessId, new MVResults(modelSetId, type));
-		return verificationProcessId;
+	public PFResults getFeedbacks(String modelSetId) throws LpRestException {
+		return this.cw.getFeedbacks(modelSetId);
 	}
 
-	@Override
-	public MVResults checkModelSetVerification(String verificationProcessId)
-			throws LpRestExceptionImpl {
-		MVResults result = mvResults.get(verificationProcessId);
-		if (result != null) {
-			MVResults toReturn = new MVResults(result);
-			if (result.getStatus().equals("inprogress")) {
-				mvResults.get(verificationProcessId).terminate();
-			} else {
-				mvResults.remove(verificationProcessId);
-			}
-			if (toReturn.getStatus().equals("finished")) {
-				// Notify CW about a new model set imported
-				HttpClient httpClient = RestResource.getClient();
-				String uri = String.format(
-						"%s/learnpad/cw/bridge/modelsetimported/%s",
-						RestResource.REST_URI, toReturn.getModelSetId());
-				PutMethod putMethod = new PutMethod(uri);
-				putMethod.addRequestHeader("Accept", "application/xml");
-				NameValuePair[] queryString = new NameValuePair[1];
-				queryString[0] = new NameValuePair("type", toReturn.getType());
-				putMethod.setQueryString(queryString);
-				try {
-					httpClient.executeMethod(putMethod);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				// Notify OR about a new model set imported
-				httpClient = RestResource.getClient();
-				uri = String.format(
-						"%s/learnpad/or/bridge/modelsetimported/%s",
-						RestResource.REST_URI, toReturn.getModelSetId());
-				PostMethod postMethod = new PostMethod(uri);
-				postMethod.addRequestHeader("Accept", "application/xml");
-				queryString = new NameValuePair[1];
-				queryString[0] = new NameValuePair("type", toReturn.getType());
-				postMethod.setQueryString(queryString);
-				try {
-					httpClient.executeMethod(postMethod);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			return toReturn;
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	public Feedbacks getFeedbacks(String modelSetId) throws LpRestExceptionImpl {
-		// Now send the package's path to the importer for XWiki
-		HttpClient httpClient = RestResource.getClient();
-		String uri = String.format("%s/learnpad/cw/bridge/%s/feedbacks",
-				RestResource.REST_URI, modelSetId);
-		GetMethod getMethod = new GetMethod(uri);
-		getMethod.addRequestHeader("Accept", "application/xml");
-
-		try {
-			httpClient.executeMethod(getMethod);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		InputStream feedbacksStream = null;
-		try {
-			feedbacksStream = getMethod.getResponseBodyAsStream();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Feedbacks feedbacks = null;
-		try {
-			JAXBContext jc = JAXBContext.newInstance(Feedbacks.class);
-			Unmarshaller unmarshaller = jc.createUnmarshaller();
-			feedbacks = (Feedbacks) unmarshaller.unmarshal(feedbacksStream);
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return feedbacks;
-	}
+    @Override
+    public VerificationId startModelSetVerification(String modelSetId, String type, String verification)
+            throws LpRestException {
+        VerificationId vId = this.mv.startVerification(modelSetId, verification);
+        VerificationStatus vStatus = this.mv.getVerificationStatus(vId.getId());
+        //TODO: show the vStatus.getStatus() of the verification with id vId.getId() somewhere in the wiki?
+        //The verification status (currently IN PROGRESS) should be visualizes somewhere in the cw for the given modelsetid so the modeler can check it.
+        return vId;
+    }
+    
+    @Override
+    public VerificationStatus checkModelSetVerification(String verificationProcessId) throws LpRestException {
+        return this.mv.getVerificationStatus(verificationProcessId);
+    }
+    
+    @Override
+    public VerificationResults getModelSetVerificationResults(String verificationProcessId) throws LpRestException {
+        return this.mv.getVerificationResult(verificationProcessId);
+    }
+    
+    @Override
+    public VerificationsAvailable getAvailableVerifications() throws LpRestException {
+        return this.mv.getAvailableVerifications();
+    }
 }

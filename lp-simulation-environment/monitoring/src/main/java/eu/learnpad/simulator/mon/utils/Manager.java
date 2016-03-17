@@ -27,6 +27,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import org.apache.commons.net.ntp.TimeStamp;
+
+import eu.learnpad.simulator.mon.probe.GlimpseAbstractProbe;
+
 /**
  * This class should be used only for debug purpose<br />
  * because uses deprecated methods.
@@ -119,5 +123,29 @@ public class Manager
 			e.printStackTrace();
 		}
 		return strB.toString();
+	}
+
+	public static Properties createProbeSettingsPropertiesObject(
+			String javaNamingFactoryInitial, String javaNamingProviderUrl,
+			String javaNamingSecurityPrincipal,
+			String javaNamingSecurityCredential, String connectionFactoryNames,
+			String topicProbeTopic, boolean debug,
+			String probeName, String probeChannel) {
+		if (debug)
+			DebugMessages.print(TimeStamp.getCurrentTime(),GlimpseAbstractProbe.class.getSimpleName(),
+			"Creating Properties object ");
+		Properties settings = new Properties();
+		settings.setProperty("java.naming.factory.initial",javaNamingFactoryInitial);
+		settings.setProperty("java.naming.provider.url", javaNamingProviderUrl);
+		settings.setProperty("java.naming.security.principal", javaNamingSecurityPrincipal);
+		settings.setProperty("java.naming.security.credential", javaNamingSecurityCredential);
+		settings.setProperty("connectionFactoryNames", connectionFactoryNames);
+		settings.setProperty("topic.probeTopic", topicProbeTopic);
+		settings.setProperty("probeName", probeName);
+		settings.setProperty("probeChannel", probeChannel);
+		if (debug) {
+			DebugMessages.ok();
+			DebugMessages.line(); }
+		return settings;
 	}
 }

@@ -22,13 +22,15 @@ package eu.learnpad.cw;
 import javax.ws.rs.Path;
 
 import eu.learnpad.cw.rest.CommentNotification;
+import eu.learnpad.cw.rest.ContentAnalysisProxy;
 import eu.learnpad.cw.rest.ModelImporter;
 import eu.learnpad.cw.rest.OntologyRecommenderProxy;
 import eu.learnpad.cw.rest.ResourceNotification;
 import eu.learnpad.cw.rest.Simulation;
+import eu.learnpad.cw.rest.Transformer;
 
 @Path("/learnpad/cw/corefacade")
 public interface CoreFacade extends CommentNotification, ModelImporter,
-		ResourceNotification, Simulation, OntologyRecommenderProxy {
+		ResourceNotification, Simulation, OntologyRecommenderProxy, ContentAnalysisProxy, Transformer {
 
 }

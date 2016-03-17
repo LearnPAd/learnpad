@@ -24,7 +24,9 @@ function component_build() {
     # install local dependencies
     ls $__COMPONENT_PATH__/lib | grep .jar | xargs -I '{}' basename '{}' -0.0.1-SNAPSHOT.jar | xargs -I '{}' mvn install:install-file -Dfile=$__COMPONENT_PATH__/lib/{}-0.0.1-SNAPSHOT.jar -DgroupId=it.cnr.isti.labsedc -DartifactId={} -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar -DgeneratePom=true
     # skip tests as we will do them in the component_test stage
-    mvn ${__MVN_PROFILE__} package -Dmaven.test.skip=true
+    # Note: we install instead of just packaging since this project is a
+    # dependency for other projects
+    mvn ${__MVN_PROFILE__} install -Dmaven.test.skip=true
 }
 
 ### TEST ###
@@ -44,6 +46,6 @@ function component_install() {
     # These is no configuration file to copy
     #cp <path_to>/file.cfg ${__OUT_CONF_PATH__}/
 
-    cp "${__COMPONENT_PATH__}/configFiles/systemSettings" "${__OUT_PATH__}/"
+    cp "${__COMPONENT_PATH__}/systemSettings" "${__OUT_PATH__}/"
     cp -r "${__COMPONENT_PATH__}/configFiles" "${__OUT_PATH__}/"
 }

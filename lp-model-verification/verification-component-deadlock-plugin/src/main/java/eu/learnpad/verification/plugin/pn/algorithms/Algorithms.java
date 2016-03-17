@@ -30,7 +30,7 @@ public class Algorithms {
 
     public static boolean needToBeReduced(PetriNet pn) throws Exception{
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
         
         int numPlaceLimit = 100;
         int numChoicePlaceLimit = 10;
@@ -52,14 +52,14 @@ public class Algorithms {
         /* Applica regole piu complesse che generano una petri net minima (potrebbe renderne piu' difficile la lettura)
          Regole:
          - T1->P->T2 = posso togliere p ed unire le T (copiare tutti i next di T2 in T1 e i previous di T2 in T1 e rimuovere T2 e P) solo se p ha un solo next ed un solo previous e (T2 ha un solo previous o T1 ha un solo next): questa modalita riduce di piu gli stati ma in questo caso bisogna anche controllare che non esista una connessione tra un previous di t2 e t1. Se esiste non si puo applicare perche andrebbe a eliminare deadlock: Es: in questo caso non si puo ridurre: p0->t1->p->t2->p1, p0->t2
-         - P1->T->P2 = posso togliere T ed unire le P (copiare tutti i previous di P1 in P2 e i next di P1 in P2 e rimuovere P1 e T) solo se T ha un solo next ed un solo previous e (P1 ha un solo next o P2 ha almeno un next): questa modalita riduce di piu gli stati ma in questo caso bisogna anche controllare che non esista una connessione tra P1 ed un next di P2. Se gia esiste non si puo applicare perche andrebbe ad eliminare deadlock: Es: in questo caso non si puo ridurre: p1->t->p2->t1, p1->t1
+         - P1->T->P2 = posso togliere T ed unire le P (copiare tutti i previous di P1 in P2 e i next di P1 in P2 e rimuovere P1 e T) solo se T ha un solo next ed un solo previous e (P1 ha un solo next o (P2 ha almeno un next e P2 ha un solo previous)): questa modalita riduce di piu gli stati ma in questo caso bisogna anche controllare che non esista una connessione tra P1 ed un next di P2. Se gia esiste non si puo applicare perche andrebbe ad eliminare deadlock: Es: in questo caso non si puo ridurre: p1->t->p2->t1, p1->t1
          - per ogni T con un prev e un next controllare se ne esiste un altra con stesso num di prev e next e che abbia lo stesso prev e next. Se c'e' toglierla.
          - per ogni P con un prev e un next controllare se ne esiste un altro con stesso num di prev e next e che abbia lo stesso prev e next. Se c'e' toglierlo.
          poi ripetere
          */
         
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
         
         PetriNet pnReduced = pn.clonePN();
         while(true){
@@ -110,7 +110,7 @@ public class Algorithms {
             while(true){
                 boolean noMoreReductionsPTP = true;
                 for(TR transition:pnReduced.getTransitionList_safe()){
-                    if(transition.previousList.size()==1 && transition.nextList.size()==1 && (transition.previousList.get(0).nextList.size()==1 || transition.nextList.get(0).nextList.size()>0)){
+                    if(transition.previousList.size()==1 && transition.nextList.size()==1 && (transition.previousList.get(0).nextList.size()==1 || (transition.nextList.get(0).nextList.size()>0 && transition.nextList.get(0).previousList.size()==1))){
                         PL p1 = transition.previousList.get(0);
                         PL p2 = transition.nextList.get(0);
                         
@@ -215,7 +215,7 @@ public class Algorithms {
          */
         
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
         
         PetriNet pnReduced = pn.clonePN();
         while(true){
@@ -334,7 +334,7 @@ public class Algorithms {
     public static PetriNet generateUnfoldedNet(PetriNet pn) throws Exception{
         //TODO
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
         
         throw new Exception("TO BE IMPLEMENTED");
     }

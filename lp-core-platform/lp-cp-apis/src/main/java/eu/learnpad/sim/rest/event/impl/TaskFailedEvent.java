@@ -1,0 +1,90 @@
+/*
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+package eu.learnpad.sim.rest.event.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import eu.learnpad.sim.rest.event.AbstractEvent;
+import eu.learnpad.sim.rest.event.EventType;
+
+/**
+ *
+ * @author Tom Jorquera - Linagora
+ *
+ */
+public class TaskFailedEvent extends AbstractEvent {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 8801597168699684284L;
+
+	/**
+	 * Unique ID of the process instance
+	 */
+	public String processid;
+
+	/**
+	 * Unique ID of the task instance
+	 */
+	public String taskid;
+
+	/**
+	 * ID used to identify the task in the BP definition
+	 */
+	public String taskdefid;
+
+	/**
+	 * The LearnPAd users that have been assigned to this task
+	 */
+	public List<String> assignedusers;
+
+	public String completingUser;
+
+	public Map<String, Object> submittedData;
+
+	public TaskFailedEvent() {
+		super();
+	}
+
+	public TaskFailedEvent(Long timestamp, String simulationsessionid,
+			List<String> involvedusers, String modelsetid,
+			Map<String, Object> simulationSessionData, String processid,
+			String taskid, String taskdefid, List<String> assignedusers,
+			String completingUser, Map<String, Object> submittedData) {
+		super(EventType.TASK_FAILED, timestamp, simulationsessionid,
+				involvedusers, modelsetid, simulationSessionData);
+		this.processid = processid;
+		this.taskid = taskid;
+		this.taskdefid = taskdefid;
+		this.assignedusers = assignedusers;
+		this.completingUser = completingUser;
+		this.submittedData = submittedData;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + " processid=" + processid + " taskid="
+				+ taskid + " taskdefid=" + taskdefid + " assignedusers="
+				+ assignedusers + " completingUser=" + completingUser
+				+ " submittedData=" + submittedData;
+	}
+}

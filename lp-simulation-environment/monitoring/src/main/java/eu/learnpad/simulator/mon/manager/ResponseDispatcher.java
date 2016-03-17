@@ -53,6 +53,7 @@ public class ResponseDispatcher {
 	
 	@SuppressWarnings("unused")
 	private static TopicSession publicSession;
+	private static LearnerAssessmentManager lam;
 	
 	public ResponseDispatcher(InitialContext initConn,
 			TopicConnectionFactory connectionFact,
@@ -60,6 +61,21 @@ public class ResponseDispatcher {
 
 		ResponseDispatcher.requestMap = requestMap;
 		ResponseDispatcher.initConn = initConn;
+		try {
+			connection = connectionFact.createTopicConnection();
+			publishSession = connection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	public ResponseDispatcher(InitialContext initConn,
+			TopicConnectionFactory connectionFact,
+			HashMap<Object, ConsumerProfile> requestMap, LearnerAssessmentManager learnerAssessmentManager) {
+
+		ResponseDispatcher.requestMap = requestMap;
+		ResponseDispatcher.initConn = initConn;
+		ResponseDispatcher.lam = learnerAssessmentManager;
 		try {
 			connection = connectionFact.createTopicConnection();
 			publishSession = connection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -100,6 +116,12 @@ public class ResponseDispatcher {
 		}
 	}
 	
+	public static void saveAndNotifyLearnersScore(String learnersID, String idBPMN, int idPath, float sessionScore) {
+			
+			ResponseDispatcher.lam.computeAndSaveScores(learnersID, idPath, idBPMN, sessionScore);
+			//TODO: RestNotifier
+	}
+
 	public static void sendResponse(Object object, String enablerName, String answerTopic)
 	{
 		try {

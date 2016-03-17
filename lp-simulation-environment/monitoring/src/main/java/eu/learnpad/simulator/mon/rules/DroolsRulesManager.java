@@ -132,6 +132,8 @@ public class DroolsRulesManager extends RulesManager {
 	
 	public Object[] loadRules(final ComplexEventRuleActionType rules) throws IncorrectRuleFormatException {
 		
+		kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
+
 		final ComplexEventRuleType[] insertRules = rules.getInsertArray();
 		for(int i = 0; i < insertRules.length; i++)
 		{
@@ -191,6 +193,7 @@ public class DroolsRulesManager extends RulesManager {
 				e.printStackTrace();
 			}
 		}
+
 		kbase.addKnowledgePackages(kbuilder.getKnowledgePackages());
 
 		DroolsRulesManager.getLoadedRulesInfo();

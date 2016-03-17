@@ -1,7 +1,5 @@
 # baseURI: http://ikm-group.ch/archiMEO/omm
-# imports: http://ikm-group.ch/archiMEO/archimate
 # imports: http://ikm-group.ch/archiMEO/emo
-# imports: http://ikm-group.ch/archiMEO/eo
 
 @prefix cc: <http://creativecommons.org/ns#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
@@ -27,9 +25,7 @@
   dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
   dc:rights "Copyright 2015 FHNW "^^xsd:string ;
   dc:title "The OMM Ontology"@en ;
-  owl:imports <http://ikm-group.ch/archiMEO/archimate> ;
   owl:imports <http://ikm-group.ch/archiMEO/emo> ;
-  owl:imports <http://ikm-group.ch/archiMEO/eo> ;  
   owl:versionInfo "1.0"^^xsd:string ;
 .
 omm:CostCenter
@@ -45,6 +41,7 @@ omm:OrganisationalUnit
 omm:Performer
   rdf:type owl:Class ;
   rdfs:comment "PIMM"^^xsd:string ;
+  rdfs:label "Performer"@en ;
   rdfs:subClassOf emo:OrganisationMetaModel ;
 .
 omm:Position
@@ -98,6 +95,11 @@ omm:organisationalUnitIsSubordinatedToOrganisationalUnit
   rdfs:domain omm:OrganisationalUnit ;
   rdfs:range omm:OrganisationalUnit ;
 .
+omm:performerAcquiredCompetencyProfile
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain omm:Performer ;
+  rdfs:range <http://ikm-group.ch/archiMEO/CMM#Competency> ;
+.
 omm:performerBelongsToOrgUnit
   rdf:type owl:ObjectProperty ;
   rdfs:domain omm:Performer ;
@@ -108,6 +110,24 @@ omm:performerBelongsToOrganisationalUnit
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:domain omm:Performer ;
   rdfs:range omm:OrganisationalUnit ;
+.
+omm:performerHasFirstName
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain omm:Performer ;
+  rdfs:label "First name"@en ;
+  rdfs:range xsd:string ;
+.
+omm:performerHasLastName
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain omm:Performer ;
+  rdfs:label "Last name"@en ;
+  rdfs:range xsd:string ;
+.
+omm:performerHasPhoneNumber
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain omm:Performer ;
+  rdfs:label "Phone number"@en ;
+  rdfs:range xsd:string ;
 .
 omm:performerHasRole
   rdf:type owl:ObjectProperty ;
@@ -132,6 +152,11 @@ omm:performerIsManagerOfOrganisationalUnit
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:domain omm:Performer ;
   rdfs:range omm:OrganisationalUnit ;
+.
+omm:roleRequiresCompetencyProfile
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain omm:Role ;
+  rdfs:range <http://ikm-group.ch/archiMEO/CMM#CompetencyProfile> ;
 .
 omm:s_ConstructHasNote
   rdf:type owl:ObjectProperty ;

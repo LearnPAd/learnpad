@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<xwikidoc version="1.2" reference="CoreCode.CheckPushModelSet" locale="">
+  <web>CoreCode</web>
+  <name>CheckPushModelSet</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1454079578000</creationDate>
+  <parent>Main.WebHome</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1454079578000</date>
+  <contentUpdateDate>1454079578000</contentUpdateDate>
+  <version>1.1</version>
+  <title>Check Model-set pushed</title>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>false</hidden>
+  <content>{{velocity}}
+#set ($action = "$!request.getParameter('action')")
+#set ($modelsetid = "$!request.getParameter('modelsetid')")
+#set ($type = "$!request.getParameter('type')")
+#if ("$!action" == "check")
+  #if ("$!modelsetid" != "")
+    #set ($documentReference = $services.model.createDocumentReference("xwiki", "CoreRepository", "$modelsetid"))
+    #set ($document = $xwiki.getDocument($documentReference))
+    #set ($attachmentName = "${modelsetid}.${type}")
+    #set ($attachment = $document.getAttachment("$attachmentName"))
+    #if ("$!attachment" != "")
+Model-set {{{${modelsetid}}}} has been pushed.  Here is the content of the file.
+      #set ($dirStream = $niotool.newDirectoryStream("attach:${documentReference}@${attachmentName}/"))
+      #foreach ($entry in $dirStream)
+* {{{$entry.getFileName()}}}
+      #end
+    #else
+{{error}}
+System cannot find any model-set corresponding to the model-set ID you gave.
+{{/error}}
+    #end
+  #else
+{{error}}Please enter a model-set ID and a type of model-set{{/error}}
+  #end
+#end
+
+{{html wiki="true" clean="false"}}
+&lt;form name="check-modelsetid" class="xform" action="#" method="post"&gt;
+  &lt;input type="hidden" id="action" name="action" value="check" /&gt;
+  &lt;dl&gt;
+    &lt;dt&gt;
+      &lt;label for="modelsetid"&gt;Model-set ID&lt;/label&gt;
+      &lt;span class="xHint"&gt;Please fill the ID of the Model-set (for example, &lt;samp&gt;LP_ME_ADOXX_MODELSET_19173&lt;/samp&gt;).&lt;/span&gt;
+    &lt;/dt&gt;
+    &lt;dd&gt;
+      &lt;input type="text" id="modelsetid" name="modelsetid" value="$!{modelsetid}" /&gt;
+    &lt;/dd&gt;
+    &lt;dt&gt;
+      &lt;label for="type"&gt;Model-set ID&lt;/label&gt;
+      &lt;span class="xHint"&gt;Please fill the type of the model (choose between &lt;samp&gt;adoxx&lt;/samp&gt;, &lt;samp&gt;md&lt;/samp&gt; or &lt;samp&gt;lpzip&lt;/samp&gt;).&lt;/span&gt;
+    &lt;/dt&gt;
+    &lt;dd&gt;
+      &lt;select id="type" name="type"&gt;
+        &lt;option value="adoxx" #if("$!type" == "" || "$!type" == "adoxx")selected#end&gt;Adoxx&lt;/option&gt;
+        &lt;option value="md" #if("$!type" == "md")selected#end&gt;MagicDraw&lt;/option&gt;
+        &lt;option value="lpzip" #if("$!type" == "lpzip")selected#end&gt;Learn PAd ZIP&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/dd&gt;
+  &lt;/dl&gt;
+  &lt;p&gt;
+    &lt;span&gt;
+      &lt;input type="submit" class="button" value="Check" /&gt;
+    &lt;/span&gt;
+  &lt;/p&gt;
+&lt;/form&gt;
+{{/html}}
+{{/velocity}}</content>
+</xwikidoc>

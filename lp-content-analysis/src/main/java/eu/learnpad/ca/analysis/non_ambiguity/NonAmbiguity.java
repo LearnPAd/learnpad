@@ -10,10 +10,9 @@ import org.languagetool.Language;
 
 import eu.learnpad.ca.analysis.AbstractAnalysisClass;
 import eu.learnpad.ca.analysis.contentclarity.ContentClarity;
-import eu.learnpad.ca.analysis.non_ambiguity.lexicalambiguity.plugin.LexicalAmbiguity;
-import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.plugin.AnaphoricAmbiguities;
-import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.plugin.CoordinationAmbiguity;
-import eu.learnpad.ca.analysis.non_ambiguity.syntacticambiguity.plugin.PragmaticAmbiguity;
+import eu.learnpad.ca.analysis.non_ambiguity.plugin.AnaphoricAmbiguities;
+import eu.learnpad.ca.analysis.non_ambiguity.plugin.CoordinationAmbiguity;
+import eu.learnpad.ca.analysis.non_ambiguity.plugin.LexicalAmbiguity;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Annotation;
 import eu.learnpad.ca.rest.data.Content;
@@ -30,7 +29,7 @@ import gate.Factory;
 public class NonAmbiguity extends AbstractAnalysisClass{
 private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ContentClarity.class);
 	
-	private GateThread gateu = null;
+	
 	private long lStartTime;
 	public NonAmbiguity(CollaborativeContentAnalysis collaborativeContentInput,Language lang, GateThread gate) {
 
@@ -150,8 +149,8 @@ private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(C
 		lexicalAmbiguity.checkOptional(gateu, listannotation, listSentenceDefected,listSentence);
 		
 		
-		PragmaticAmbiguity pragmaticambiguity = new PragmaticAmbiguity(language, docContent,listnode);
-		pragmaticambiguity.check(gateu, listannotation, listSentenceDefected,listSentence);
+		/*PragmaticAmbiguity pragmaticambiguity = new PragmaticAmbiguity(language, docContent,listnode);
+		pragmaticambiguity.check(gateu, listannotation, listSentenceDefected,listSentence);*/
 		
 		addNodeInContent(listnode,c,docContent);
 		

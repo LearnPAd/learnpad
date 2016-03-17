@@ -98,6 +98,18 @@
          .dropdown-menu {
              width: 160%;
          }
+
+         #tasks {
+             padding-top: 10px;
+         }
+
+         table.detailed-score th:nth-child(2){
+             text-align: right;
+         }
+         table.detailed-score td:nth-child(2){
+             text-align: right;
+         }
+
         </style>
 
     </head>
@@ -259,14 +271,14 @@
          if(userid != null) {
              taskReceiver(#serveripaddress#, userid, integratedMode);
              if(!integratedMode) {
-                 chat('chatcontainer', #serveripaddress#, userid);
+                 dummyChat('chatcontainer', #serveripaddress#, userid);
              }
          } else {
              $('#connectBn').click(function(event) {
-                 userid = $('#uiid').val().toLowerCase();
+                 userid = $('#uiid').val();
                  taskReceiver(#serveripaddress#, userid, integratedMode);
                  if(!integratedMode) {
-                     chat('chatcontainer', #serveripaddress#, userid);
+                     dummyChat('chatcontainer', #serveripaddress#, userid);
                  }
                  return false;
              });

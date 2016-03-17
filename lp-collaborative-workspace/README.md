@@ -24,6 +24,9 @@ browse these data in a user-friendly interface.
 This application is developed with XWiki scripts.  To help in this development,
 a XWiki service has been provided to facilitate access to data.
 
+Collaborative Workspace is accessible on port `8080` (as part of the core
+platform).
+
 # Configuration
 Since this component is based on XWiki, the configuration is mainly specific to
 XWiki.  You should find any information on

@@ -20,10 +20,13 @@
 
 package eu.learnpad.verificationComponent;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 
 import javax.xml.bind.DatatypeConverter;
 
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.verification.utils.Utils;
 import eu.learnpad.verificationComponent.utils.ConfigManager;
 import eu.learnpad.verificationComponent.utils.NETUtils;
@@ -32,22 +35,22 @@ import eu.learnpad.verificationComponent.utils.NETUtils;
 public class PlatformFacadeImpl implements eu.learnpad.mv.CoreFacade {
 
     @Override
-    public byte[] getModel(String modelSetId, String type) {
+    public InputStream getModel(String modelSetId, ModelSetType type) {
         ConfigManager cfg = null;
         try{
             cfg = new ConfigManager();
-        }catch(Exception ex){Utils.log(ex);return new byte[0];}
+        }catch(Exception ex){Utils.log(ex);return null;}
         
         String url = cfg.getElement("LPHOSTNAME");
         String username = cfg.getElement("LPUSERNAME");
         String password = cfg.getElement("LPPASSWORD");
         
         url = url + "/learnpad/mv/corefacade/getmodel/"+modelSetId+"?type="+type;
-        byte[] ret = new byte[0];
+        InputStream ret = null;
         try{
             HashMap<String, String> headerList = new HashMap<String, String>() ;
             headerList.put("Authorization", "Basic " + DatatypeConverter.printBase64Binary((username+":"+password).getBytes("UTF-8")));
-            ret = NETUtils.sendHTTPGET(url, headerList, false, false);
+            ret = new ByteArrayInputStream( NETUtils.sendHTTPGET(url, headerList, false, false));
         }catch(Exception ex){Utils.log(ex);}
         
         return ret;

@@ -12,6 +12,7 @@ import gate.FeatureMap;
 import gate.ProcessingResource;
 import gate.creole.ResourceInstantiationException;
 import gate.creole.SerialAnalyserController;
+import gate.creole.gazetteer.DefaultGazetteer;
 import gate.event.StatusListener;
 import gate.util.GateException;
 
@@ -84,10 +85,10 @@ public class GateThread extends Thread implements StatusListener{
 				processingResources.add("gate.creole.tokeniser.DefaultTokeniser");
 				processingResources.add("gate.creole.splitter.SentenceSplitter");
 				processingResources.add("gate.creole.POSTagger");
-				
+
 				if(qualitycriteria.isNonAmbiguity()){
 					processingResources.add("mark.chunking.GATEWrapper");
-					processingResources.add("gate.creole.gazetteer.DefaultGazetteer");
+
 				}
 				for(String res :processingResources) {
 					log.info("\t* Loading " + res + " ... ");
@@ -96,8 +97,14 @@ public class GateThread extends Thread implements StatusListener{
 							.createResource(res));
 					log.info("done");
 				}
-
-
+				if(qualitycriteria.isNonAmbiguity() | qualitycriteria.isSimplicity()){
+					log.info("\t* Loading gate.creole.gazetteer.DefaultGazetteer ... ");
+					FeatureMap fm = Factory.newFeatureMap();
+					fm.put(DefaultGazetteer.DEF_GAZ_CASE_SENSITIVE_PARAMETER_NAME, true);
+					serialcorpusController.add((gate.LanguageAnalyser)Factory
+							.createResource("gate.creole.gazetteer.DefaultGazetteer",fm));
+					log.info("done");
+				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -159,11 +166,9 @@ public class GateThread extends Thread implements StatusListener{
 
 		private void LoadJAPEActorUnclear(ArrayList<String> JAPEs){
 			String sep = File.separator;
-			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_auxiliary_verbs.jape");
-			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_by.jape");
-			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_irregular_passive.jape");
-			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_regular_passive.jape");
-			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_RULE_1.jape");
+			JAPEs.add("passiveforms"+sep+"annotate_preliminary_passive_forms.jape");
+			JAPEs.add("passiveforms"+sep+"annotate_passive_forms_RULE_ALT.jape");
+			
 
 
 		}
@@ -342,6 +347,23 @@ public class GateThread extends Thread implements StatusListener{
 
 		}
 
+		public void cleanup(){
+			/*for(CorpusController c : pool) 
+				Factory.deleteResource(c);*/
+
+
+			if(!corpus.isEmpty()){
+				for(int i=0;i<corpus.size();i++){
+					Document doc1 = (Document)corpus.remove(i);
+					corpus.unloadDocument(doc1);
+					Factory.deleteResource(doc1);
+				}
+				Factory.deleteResource(corpus);
+				log.info("Removed Resource");
+			}
+			Factory.deleteResource(controller.get());
+			//this.interrupt();
+		}
 		/*public void destroy() {
 		for(CorpusController c : pool) 
 			Factory.deleteResource(c);

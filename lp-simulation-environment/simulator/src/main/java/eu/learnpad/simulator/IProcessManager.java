@@ -175,6 +175,21 @@ public interface IProcessManager {
 			String userId, Map<String, Object> data);
 
 	/**
+	 * Finalize the completion of a task
+	 *
+	 * @param task
+	 *            the completed task
+	 * @param data
+	 *            the data corresponding to the task completion
+	 * @param completingUser
+	 *            the user that completed the task
+	 * @param submissionResult
+	 *            the result of the task submission
+	 */
+	public void completeTask(LearnPadTask task, Map<String, Object> data,
+			String completingUser, LearnPadTaskSubmissionResult submissionResult);
+
+	/**
 	 * Signal the completion of a given process
 	 *
 	 * @param processId
@@ -192,13 +207,22 @@ public interface IProcessManager {
 	public Integer getInstanceScore(String processInstanceId, String userId);
 
 	/**
-	 * @param processDefinitionId
-	 *            the definition ID of the process for which we want the
+	 * @param sessionId
+	 * @param userId
+	 * @return the detailed score for each task associated with the given user
+	 *         in the given session.
+	 */
+	public Map<LearnPadTask, Integer> getDetailedInstanceScore(
+			String sessionId, String userId);
+
+	/**
+	 * @param processDefinitionKey
+	 *            the definition key of the process for which we want the
 	 *            diagram.
 	 * @return the input stream of the image containing the diagram of the given
 	 *         process, or null if no diagram is available
 	 */
-	public InputStream getProcessDiagram(String processDefinitionId);
+	public InputStream getProcessDiagram(String processDefinitionKey);
 
 	/**
 	 *
@@ -222,4 +246,30 @@ public interface IProcessManager {
 	 */
 	public LearnPadTaskGameInfos getGameInfos(LearnPadTask task, String userId);
 
+	// ModelSetId-related methods
+
+	/**
+	 * Associate a modelset id to a process definition id
+	 *
+	 * @param processDefId
+	 * @param modelSetId
+	 */
+	public void setModelSetId(String processDefId, String modelSetId);
+
+	/**
+	 *
+	 * @param processDefId
+	 * @return the model set id associated with a process definition id, or null
+	 *         if no model set is associated to the process def id
+	 */
+	public String getModelSetId(String processDefId);
+
+	/**
+	 *
+	 * @param simulationSessionId
+	 * @return the parameters data that have been used to instanciate the
+	 *         session
+	 */
+	public Map<String, Object> getSimulationSessionParametersData(
+			String simulationSessionId);
 }

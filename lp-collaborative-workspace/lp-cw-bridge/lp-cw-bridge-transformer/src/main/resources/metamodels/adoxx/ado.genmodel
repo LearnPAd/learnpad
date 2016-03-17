@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/lp-cw-bridge/lp-cw-bridge-transformer/src/main/java"
+    modelPluginID="lp-cw-bridge-transformer" modelName="Ado" modelPluginClass="" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>ado.ecore</foreignModel>
+  <genPackages prefix="Ado" basePackage="eu.learnpad.transformations" resource="XML"
+      disposableProviderFactory="true" ecorePackage="ado.ecore#/">
+    <genClasses ecoreClass="ado.ecore#//ADOXMLType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//ADOXMLType/aTTRIBUTEPROFILES"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//ADOXMLType/mODELS"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//ADOXMLType/aPPLICATIONMODELS"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//ADOXMLType/mODELGROUPS"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//ADOXMLType/adoversion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//ADOXMLType/database"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//ADOXMLType/date"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//ADOXMLType/time"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//ADOXMLType/username"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//ADOXMLType/version"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//APPLICATIONMODELSType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//APPLICATIONMODELSType/aPPLICATIONMODEL"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//APPLICATIONMODELType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//APPLICATIONMODELType/mODELREFERENCE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//APPLICATIONMODELType/applib"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//APPLICATIONMODELType/name"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//ATTRIBUTEPROFILESType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//ATTRIBUTEPROFILESType/aTTRPROFDIR"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//ATTRIBUTEPROFILESType/aTTRIBUTEPROFILE"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//ATTRIBUTEPROFILEType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute ado.ecore#//ATTRIBUTEPROFILEType/group"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ado.ecore#//ATTRIBUTEPROFILEType/aTTRIBUTE"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ado.ecore#//ATTRIBUTEPROFILEType/rECORD"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ado.ecore#//ATTRIBUTEPROFILEType/iNTERREF"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//ATTRIBUTEPROFILEType/applib"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//ATTRIBUTEPROFILEType/class"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//ATTRIBUTEPROFILEType/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//ATTRIBUTEPROFILEType/version"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//ATTRIBUTEType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute ado.ecore#//ATTRIBUTEType/mixed"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//ATTRIBUTEType/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//ATTRIBUTEType/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//ATTRIBUTEType/value"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//ATTRPROFDIRType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//ATTRPROFDIRType/aTTRIBUTEPROFILE"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//ATTRPROFDIRType/aTTRPROFDIR"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//ATTRPROFDIRType/name"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//CONNECTORType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//CONNECTORType/fROM"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//CONNECTORType/tO"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute ado.ecore#//CONNECTORType/group"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ado.ecore#//CONNECTORType/aTTRIBUTE"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ado.ecore#//CONNECTORType/rECORD"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ado.ecore#//CONNECTORType/iNTERREF"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//CONNECTORType/class"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//CONNECTORType/id"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//DocumentRoot">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//DocumentRoot/mixed"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/xMLNSPrefixMap"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/xSISchemaLocation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/aDOXML"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/aPPLICATIONMODEL"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/aPPLICATIONMODELS"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/aTTRIBUTE"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/aTTRIBUTEPROFILE"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/aTTRIBUTEPROFILES"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/aTTRPROFDIR"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/cONNECTOR"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/fROM"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/iNSTANCE"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/iNTERREF"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/iREF"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/mODEL"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/mODELATTRIBUTES"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/mODELGROUP"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/mODELGROUPS"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/mODELREFERENCE"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/mODELS"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/rECORD"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/rOW"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//DocumentRoot/tO"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//FROMType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//FROMType/class"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//FROMType/instance"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//INSTANCEType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute ado.ecore#//INSTANCEType/group"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ado.ecore#//INSTANCEType/aTTRIBUTE"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ado.ecore#//INSTANCEType/rECORD"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ado.ecore#//INSTANCEType/iNTERREF"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//INSTANCEType/class"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//INSTANCEType/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//INSTANCEType/name"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//INTERREFType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//INTERREFType/iREF"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//INTERREFType/name"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//IREFType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//IREFType/tclassname"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//IREFType/tmodelname"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//IREFType/tmodeltype"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//IREFType/tmodelver"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//IREFType/tobjname"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//IREFType/type"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//MODELATTRIBUTESType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute ado.ecore#//MODELATTRIBUTESType/group"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ado.ecore#//MODELATTRIBUTESType/aTTRIBUTE"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ado.ecore#//MODELATTRIBUTESType/rECORD"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//MODELGROUPSType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//MODELGROUPSType/mODELGROUP"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//MODELGROUPType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//MODELGROUPType/mODELREFERENCE"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//MODELGROUPType/mODELGROUP"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//MODELGROUPType/name"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//MODELREFERENCEType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//MODELREFERENCEType/libtype"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//MODELREFERENCEType/modeltype"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//MODELREFERENCEType/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//MODELREFERENCEType/version"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//MODELSType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//MODELSType/mODEL"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//MODELType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//MODELType/mODELATTRIBUTES"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//MODELType/iNSTANCE"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//MODELType/cONNECTOR"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//MODELType/applib"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//MODELType/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//MODELType/libtype"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//MODELType/modeltype"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//MODELType/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//MODELType/version"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//RECORDType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ado.ecore#//RECORDType/rOW"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//RECORDType/name"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//ROWType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute ado.ecore#//ROWType/group"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ado.ecore#//ROWType/aTTRIBUTE"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ado.ecore#//ROWType/iNTERREF"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//ROWType/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//ROWType/number"/>
+    </genClasses>
+    <genClasses ecoreClass="ado.ecore#//TOType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//TOType/class"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ado.ecore#//TOType/instance"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

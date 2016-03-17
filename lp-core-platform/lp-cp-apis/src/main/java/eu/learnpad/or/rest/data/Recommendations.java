@@ -16,6 +16,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Recommendations {
     
     private Experts experts;
+    private LearningMaterials learningMaterials;
+    private SimilarCases similarCases;
 
     public Experts getExperts() {
         return experts;
@@ -25,5 +27,24 @@ public class Recommendations {
     public void setExperts(Experts experts) {
         this.experts = experts;
     }
+    
+    public LearningMaterials getLearningMaterials() {
+        return learningMaterials;
+    }
+
+    @XmlElement(name="learningMaterials")    
+    public void setLearningMaterials(LearningMaterials learningMaterials) {
+        this.learningMaterials = learningMaterials;
+    }
+
+    public SimilarCases getSimilarCases() {
+        return similarCases;
+    }
+
+    @XmlElement(name="similarCases")
+    public void setSimilarCases(SimilarCases similarCases) {
+        this.similarCases = similarCases;
+    }
+    
     
 }

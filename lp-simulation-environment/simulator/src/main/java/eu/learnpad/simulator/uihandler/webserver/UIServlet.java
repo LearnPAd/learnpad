@@ -25,7 +25,10 @@ package eu.learnpad.simulator.uihandler.webserver;
  */
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.eclipse.jetty.websocket.api.Session;
@@ -38,9 +41,13 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import eu.learnpad.simulator.IProcessManager;
+import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
 import eu.learnpad.simulator.uihandler.webserver.msg.user.send.AddTask;
 import eu.learnpad.simulator.uihandler.webserver.msg.user.send.DeleteTask;
-import eu.learnpad.simulator.uihandler.webserver.msg.user.send.ProcessFinished;
+import eu.learnpad.simulator.uihandler.webserver.msg.user.send.SessionFinished;
+import eu.learnpad.simulator.uihandler.webserver.msg.user.send.SessionStarted;
 
 /**
  * @author Tom Jorquera - Linagora
@@ -54,6 +61,9 @@ public class UIServlet extends WebSocketServlet {
 
 	public final String uiid;
 
+	private final IProcessManager manager;
+
+	private final Map<String, SimulationStartSimEvent> currentSessions = new HashMap<String, SimulationStartSimEvent>();
 	private final Set<String> currentTasks = new HashSet<String>();
 	private final Set<UISocket> activeSockets = new HashSet<UISocket>();
 
@@ -63,9 +73,10 @@ public class UIServlet extends WebSocketServlet {
 	 * @param dispatcher
 	 * @param task
 	 */
-	public UIServlet(String uiid) {
+	public UIServlet(String uiid, IProcessManager manager) {
 		super();
 		this.uiid = uiid;
+		this.manager = manager;
 	}
 
 	@Override
@@ -76,6 +87,19 @@ public class UIServlet extends WebSocketServlet {
 
 	private void addSocket(UISocket sock) {
 		this.activeSockets.add(sock);
+
+		for (SimulationStartSimEvent session : currentSessions.values()) {
+			try {
+				sock.getRemote().sendString(
+						mapper.writeValueAsString(new SessionStarted(
+								session.simulationsessionid,
+								session.simulationsessionname,
+								session.involvedusers,
+								session.initialProcessDefinitionKey)));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
 		for (String taskid : currentTasks) {
 			try {
@@ -116,13 +140,41 @@ public class UIServlet extends WebSocketServlet {
 		}
 	}
 
-	public void completeProcess(String processId) {
+	public void startSession(SimulationStartSimEvent simStartEvent) {
+		currentSessions.put(simStartEvent.simulationsessionid, simStartEvent);
 		for (UISocket session : activeSockets) {
 			try {
-				session.getRemote()
-				.sendString(
-						mapper.writeValueAsString(new ProcessFinished(
-								processId)));
+				session.getRemote().sendString(
+						mapper.writeValueAsString(new SessionStarted(
+								simStartEvent.simulationsessionid,
+								simStartEvent.simulationsessionname,
+								simStartEvent.involvedusers,
+								simStartEvent.initialProcessDefinitionKey)));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void completeSession(String sessionId) {
+
+		Map<LearnPadTask, Integer> detailedScore = manager
+				.getDetailedInstanceScore(sessionId, uiid);
+
+		Map<String, String> taskNames = new HashMap<String, String>();
+		Map<String, Integer> taskScores = new HashMap<String, Integer>();
+
+		for (Entry<LearnPadTask, Integer> score : detailedScore.entrySet()) {
+			taskNames.put(score.getKey().id, score.getKey().name);
+			taskScores.put(score.getKey().id, score.getValue());
+		}
+
+		currentSessions.remove(sessionId);
+		for (UISocket session : activeSockets) {
+			try {
+				session.getRemote().sendString(
+						mapper.writeValueAsString(new SessionFinished(
+								sessionId, taskNames, taskScores)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -31,13 +31,22 @@ import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource;
+import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.core.rest.XWikiRestUtils;
+import eu.learnpad.exception.LpRestException;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.SimulationData;
 import eu.learnpad.sim.BridgeInterface;
 import eu.learnpad.sim.Controller;
 import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
+import eu.learnpad.sim.rest.event.impl.SimulationEndEvent;
+import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
 import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
+import eu.learnpad.sim.rest.event.impl.TaskFailedEvent;
 import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 
 /*
@@ -53,7 +62,7 @@ import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 @Named("eu.learnpad.core.impl.sim.XwikiController")
 @Path("/learnpad/sim/corefacade")
 public class XwikiController extends Controller implements XWikiRestComponent, Initializable {
-
+	
     /** Set to true once the inherited BridgeInterface has been initialized. */
     private boolean initialized = false;	
     
@@ -111,33 +120,113 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public void receiveProcessStartEvent(ProcessStartEvent event) {
-		// TODO Auto-generated method stub
+	public void receiveProcessStartEvent(ProcessStartEvent event) throws LpRestException{
+		String modelId = event.processid;
+		String action = "started";		
+		String modelSetId = event.modelsetid;		
+		String simulationId = event.simulationsessionid;
+		
+		SimulationData data = new SimulationData();
+		data.setSessionData(event.simulationSessionData);
+		
+		this.or.simulationInstanceNotification(modelSetId, modelId, action, simulationId, data);				
 
+		this.handleRecommendations(modelSetId, modelId, event.involvedusers, simulationId);
 	}
 
 	@Override
-	public void receiveProcessEndEvent(ProcessEndEvent event) {
-		// TODO Auto-generated method stub
+	public void receiveProcessEndEvent(ProcessEndEvent event)  throws LpRestException{
+		String modelId = event.processid;
+		String action = "stopped";		
+		String modelSetId = event.modelsetid;		
+		String simulationId = event.simulationsessionid;
+		
+		SimulationData data = new SimulationData();
+		data.setSessionData(event.simulationSessionData);		
+		
+		this.or.simulationInstanceNotification(modelSetId, modelId, action, simulationId, data);				
 
+// Not sure if it is always the case to notify the CW, as this notification ends the simulation		
+// and probably the Recommendations are not needed anymore!
+		this.handleRecommendations(modelSetId, modelId, event.involvedusers, simulationId);
 	}
 
 	@Override
-	public void receiveTaskStartEvent(TaskStartEvent event) {
-		// TODO Auto-generated method stub
+	public void receiveTaskStartEvent(TaskStartEvent event) throws LpRestException {
+		String modelSetId = event.modelsetid;
+		String artifactId = event.taskdefid; 
+		String simulationId = event.simulationsessionid;
 
+// It seems not useful for the moment, this notification
+//		this.or.simulationTaskStartNotification(modelSetId, modelId, artifactId, simulationId, simSessionData);
+		
+		this.handleRecommendations(modelSetId, artifactId, event.involvedusers, simulationId);
 	}
 
 	@Override
-	public void receiveTaskEndEvent(TaskEndEvent event) {
-		// TODO Auto-generated method stub
+	public void receiveTaskEndEvent(TaskEndEvent event) throws LpRestException {
+		String modelId = event.processid;
+		String artifactId = event.taskdefid;
+		String modelSetId = event.modelsetid;
+		
+		SimulationData data = new SimulationData();
+		data.setSessionData(event.simulationSessionData);
+		data.setSubmittedData(event.submittedData);
+		
+		String simulationId = event.simulationsessionid;
+		this.or.simulationTaskEndNotification(modelSetId, modelId, artifactId, simulationId, data);
 
+// Not sure if it is always the case to notify the CW, as this notification should
+// happen just suddenly because of either "receiveTaskStartEvent" or "receiveProcessEndEvent" 			
+		this.handleRecommendations(modelSetId, artifactId, event.involvedusers, simulationId);
 	}
 
 	@Override
 	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) {
 		// TODO Auto-generated method stub
-
 	}
 
+	@Override
+	public void receiveSimulationStartEvent(SimulationStartEvent event) {
+		// TODO probably we do not want do anything here. The actual interaction
+		// between the OR and the SIM starts when receiveProcessStartEvent will be
+		// received
+	}
+
+	@Override
+	public void receiveSimulationEndEvent(SimulationEndEvent event) {
+		// TODO probably we do not want do anything here. The actual interaction
+		// between the OR and the SIM ends when receiveProcessEndEvent will be
+		// received
+	}
+
+	@Override
+	public void receiveTaskFailedEvent(TaskFailedEvent event) {
+		// TODO Auto-generated method stub
+	}
+
+	private String converUserID (String simUserId) throws LpRestException {
+//		http://<server>/xwiki/rest/wikis/query?q=object:XWiki.XWikiUsers		
+//		http://<server>/rest/wikis/xwiki/spaces/XWiki/pages/<username>/objects/XWiki.XWikiUsers/0/properties/email
+		
+		String wikiName = RestResource.CORE_REPOSITORY_WIKI;
+		String username = simUserId.replaceFirst("XWiki\\.", "");
+		return XWikiRestUtils.getEmailAddress(wikiName, username);
+	}
+	
+	private void handleRecommendations(String modelSetId, String artifactId, List<String> involvedUsers, String simulationId) throws LpRestException {
+		if (involvedUsers == null){
+			String message = "List \"involvedUsers\" is null (ModelSetId:"+modelSetId+", ArtifactId:"+artifactId+",SimulationId:"+simulationId+")";
+			throw new LpRestExceptionXWikiImpl(message);
+		}
+		
+		for (String simUserId : involvedUsers){
+			String userId = this.converUserID(simUserId);
+
+			Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userId, simulationId); 		
+			this.cw.notifyRecommendations(modelSetId, simulationId, simUserId, rec);		
+		}
+		
+	}
+	
 }

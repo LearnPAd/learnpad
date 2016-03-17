@@ -19,6 +19,9 @@
  */
 package eu.learnpad.sim.rest.event.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import eu.learnpad.sim.rest.event.AbstractEvent;
 import eu.learnpad.sim.rest.event.EventType;
 
@@ -30,22 +33,37 @@ import eu.learnpad.sim.rest.event.EventType;
 public class ProcessEndEvent extends AbstractEvent {
 
 	/**
+	 *
+	 */
+	private static final long serialVersionUID = -5642476078427106808L;
+
+	/**
 	 * Unique ID of the process instance
 	 */
 	public String processid;
+
+	/**
+	 * ID used to identify the process in the BP definition
+	 */
+	public String processdefinitionid;
 
 	public ProcessEndEvent() {
 		super();
 	}
 
-	public ProcessEndEvent(Long timestamp, String processid) {
-		super(timestamp);
+	public ProcessEndEvent(Long timestamp, String simulationsessionid,
+			List<String> involvedusers, String modelsetid,
+			Map<String, Object> simulationSessionData, String processid,
+			String processdefinitionid) {
+		super(EventType.PROCESS_END, timestamp, simulationsessionid,
+				involvedusers, modelsetid, simulationSessionData);
 		this.processid = processid;
+		this.processdefinitionid = processdefinitionid;
 	}
 
 	@Override
-	public EventType getType() {
-		return EventType.PROCESS_END;
+	public String toString() {
+		return super.toString() + " processid=" + processid
+				+ " processdefinitionid=" + processdefinitionid;
 	}
-
 }

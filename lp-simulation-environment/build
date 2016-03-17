@@ -22,13 +22,13 @@ declare -r __MVN_PROFILE__="-Pkeep-license-files --batch-mode"
 ### BUILD ###
 function component_build() {
     rm -rf $__OUT_PATH__
-    simulator/scripts_build/build
+    monitoring/scripts_build/build
     STATUS=$?
     if [ $STATUS -ne 0 ]; then
         # if failed return error
         exit $STATUS
     else
-        monitoring/scripts_build/build
+        simulator/scripts_build/build
         STATUS=$?
         if [ $STATUS -ne 0 ]; then
                 exit $?
@@ -38,13 +38,13 @@ function component_build() {
 
 ### TEST ###
 function component_test() {
-    simulator/scripts_build/test
+    monitoring/scripts_build/test
     STATUS=$?
     if [ $STATUS -ne 0 ]; then
         # if failed return error
         exit 1;
     else
-        monitoring/scripts_build/test;
+        simulator/scripts_build/test;
         STATUS=$?
         if [ $STATUS -ne 0 ]; then
                 exit $?
@@ -55,13 +55,13 @@ function component_test() {
 ### INSTALL ###
 # This is where you need to publish material into the `out' directory
 function component_install() {
-    simulator/scripts_build/install
+    monitoring/scripts_build/install
     STATUS=$?
     if [ $STATUS -ne 0 ]; then
         # if failed return error
         exit $STATUS;
     else
-        monitoring/scripts_build/install
+        simulator/scripts_build/install
         STATUS=$?
         if [ $STATUS -ne 0 ]; then
             # if failed return error

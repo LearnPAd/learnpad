@@ -22,10 +22,14 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import eu.learnpad.ontology.config.APP;
 
 import eu.learnpad.ontology.persistence.FileOntAO;
-import eu.learnpad.ontology.persistence.OntAO;
+import eu.learnpad.ontology.recommender.cbr.CBRAdapter;
+import eu.learnpad.ontology.util.ArgumentCheck;
 import eu.learnpad.or.rest.data.BusinessActor;
 import eu.learnpad.or.rest.data.Experts;
+import eu.learnpad.or.rest.data.LearningMaterial;
+import eu.learnpad.or.rest.data.LearningMaterials;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.SimilarCases;
 
 /**
  *
@@ -34,51 +38,68 @@ import eu.learnpad.or.rest.data.Recommendations;
 public class Recommender {
     
     private static final Recommender instance = new Recommender();
-    private OntAO ontAO;
-    
+       
     public static final String QUERY_LINEMANAGER_AS_EXPERT = "linemanagerAsExpert";
     public static final String QUERY_EXPERTS_WITH_SAME_ROLE = "expertsWithSameRole";
     public static final String QUERY_EXPERT_MOST_OFTEN_EXECUTED_TASK = "expertMostOftenExecutedTask";
+    public static final String QUERY_LEARNING_MATERIAL_FOR_NEXT_COMPETENCY_LEVEL = "learningMaterialForNextCompetencyLevel";
     
-    private Recommender() {
-    	this.ontAO = new FileOntAO();
-    }
+    
+    private Recommender() {}
     
     public static Recommender getInstance(){
         return instance;
     }
     
-    public Recommendations getRecommendations(String modelSetId, String artifactId, String userId){
+    public Recommendations getRecommendations(String modelSetId, String artifactId, String userId, String simulationSessionId) throws RecommenderException{
+        ArgumentCheck.notNull(modelSetId, "modelsetId");
+        ArgumentCheck.notNull(userId, "userId");
+        
+        Recommendations recommends = getRecommendations(modelSetId, artifactId, userId);
+        if(simulationSessionId != null && !simulationSessionId.isEmpty() && !"--none--".equals(simulationSessionId)){
+            SimilarCases similarCases = CBRAdapter.getInstance().retrieveSimilarCases(modelSetId, artifactId, userId, simulationSessionId);
+            recommends.setSimilarCases(similarCases);
+        }
+        
+        return recommends;
+    }
+    
+    public Recommendations getRecommendations(String modelSetId, String artifactId, String userId) throws RecommenderException{
+        ArgumentCheck.notNull(modelSetId, "modelsetId");
+        ArgumentCheck.notNull(userId, "userId");
+
         Recommendations recommends = new Recommendations();
         Experts experts = new Experts();
         experts.addAllBusinessActors(suggestLineManagerAsExpert(modelSetId, artifactId, userId));
         experts.addAllBusinessActors(suggestExpertsWithSameRole(modelSetId, artifactId, userId));
         experts.addAllBusinessActors(suggestExpertMostOftenExecutedTask(modelSetId, artifactId, userId));
         recommends.setExperts(experts);
+        
+        LearningMaterials materials = new LearningMaterials();
+        materials.addAllLearningMaterials(getLearningMaterial(modelSetId, userId));
+        recommends.setLearningMaterials(materials);
         return recommends;
     }
-    public List<BusinessActor> suggestLineManagerAsExpert(String modelSetId, String artifactId, String userId){
+    public List<BusinessActor> suggestLineManagerAsExpert(String modelSetId, String artifactId, String userId) throws RecommenderException{
         return getExperts(QUERY_LINEMANAGER_AS_EXPERT, modelSetId, artifactId, userId);
     }    
     
-    public List<BusinessActor> suggestExpertsWithSameRole(String modelSetId, String artifactId, String userId){
+    public List<BusinessActor> suggestExpertsWithSameRole(String modelSetId, String artifactId, String userId) throws RecommenderException{
         return getExperts(QUERY_EXPERTS_WITH_SAME_ROLE, modelSetId, artifactId, userId);
     }
     
-    public List<BusinessActor> suggestExpertMostOftenExecutedTask(String modelSetId, String artifactId, String userId){
+    public List<BusinessActor> suggestExpertMostOftenExecutedTask(String modelSetId, String artifactId, String userId) throws RecommenderException{
         if(artifactId == null){
             return new ArrayList<>();
         }
         return getExperts(QUERY_EXPERT_MOST_OFTEN_EXECUTED_TASK, modelSetId, artifactId, userId);
     }
 
-    private List<BusinessActor> getExperts(String queryName, String modelSetId, String artifactId, String userId) {
+    private List<BusinessActor> getExperts(String queryName, String modelSetId, String artifactId, String userId) throws RecommenderException{
         RecommenderQuery queryObj = QueryMap.getQuery(queryName);
         List<BusinessActor> experts = new ArrayList<>();
         Query query = QueryFactory.create(queryObj.getQueryString());
-        //TODO replace if execution data is available.        
-        OntModel model = ontAO.getExecutionData(modelSetId);
-//        OntModel model = ontAO.getInferencer(modelSetId).getModel();
+        OntModel model = getExecutionDataModel(modelSetId);
 //        model.write(System.out, "Turtle");
         QueryExecution qexec = null;
         QuerySolutionMap initialBinding = new QuerySolutionMap();
@@ -109,6 +130,14 @@ public class Recommender {
         }
         return experts;
     }
+
+    public OntModel getExecutionDataModel(String modelSetId) throws RecommenderException {
+        OntModel model = FileOntAO.getInstance().getExecutionData(modelSetId);
+        if(model == null){
+            throw new RecommenderException("Ontology model for modelset with id '"+modelSetId+"' cannot be found or causes problems during loading.");
+        }
+        return model;
+    }
     
     private String getLiteralString(QuerySolution soln, String varName){
         Literal lit = soln.getLiteral(varName);
@@ -117,7 +146,37 @@ public class Recommender {
         }
         return null;
     }
-    
-    
 
+    private List<LearningMaterial>  getLearningMaterial(String modelSetId, String userId) throws RecommenderException {
+        RecommenderQuery queryObj = QueryMap.getQuery(QUERY_LEARNING_MATERIAL_FOR_NEXT_COMPETENCY_LEVEL);
+        List<LearningMaterial> materials = new ArrayList<>();
+        Query query = QueryFactory.create(queryObj.getQueryString());
+        OntModel model = getExecutionDataModel(modelSetId);
+        QueryExecution qexec = null;
+        QuerySolutionMap initialBinding = new QuerySolutionMap();
+        initialBinding.add("userId", model.createTypedLiteral(userId));
+        
+        try {
+            qexec = QueryExecutionFactory.create(query, model, initialBinding);
+            ResultSet results = qexec.execSelect();
+            for (; results.hasNext();) {
+                QuerySolution soln = results.nextSolution();
+                LearningMaterial material = new LearningMaterial();
+                Resource businessActor = soln.getResource("learningMaterialDocument");
+                material.setId(businessActor.getURI());
+                material.setName(getLiteralString(soln, "documentLabel"));
+                material.setUrl(getLiteralString(soln, "documentURL"));
+                material.setMimeType(getLiteralString(soln, "documentMimeType"));
+                material.setDescription(getLiteralString(soln, "documentDescription"));
+                material.setComment(getLiteralString(soln, "documentComment"));
+                material.setQueryDescription(queryObj.getDescription());
+                materials.add(material);
+            }
+        } finally {
+            if (qexec != null) {
+                qexec.close();
+            }
+        }
+        return materials;
+    }
 }

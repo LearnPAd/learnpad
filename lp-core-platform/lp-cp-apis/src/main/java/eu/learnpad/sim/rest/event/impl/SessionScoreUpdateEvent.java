@@ -19,6 +19,9 @@
  */
 package eu.learnpad.sim.rest.event.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import eu.learnpad.sim.rest.event.AbstractEvent;
 import eu.learnpad.sim.rest.event.EventType;
 
@@ -28,6 +31,11 @@ import eu.learnpad.sim.rest.event.EventType;
  *
  */
 public class SessionScoreUpdateEvent extends AbstractEvent {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -8719161124674249926L;
 
 	/**
 	 * Unique ID of the process instance
@@ -48,16 +56,20 @@ public class SessionScoreUpdateEvent extends AbstractEvent {
 		super();
 	}
 
-	public SessionScoreUpdateEvent(Long timestamp, String processid,
+	public SessionScoreUpdateEvent(Long timestamp, String simulationsessionid,
+			List<String> involvedusers, String modelsetid,
+			Map<String, Object> simulationSessionData, String processid,
 			String user, Long sessionScore) {
-		super(timestamp);
+		super(EventType.SESSION_SCORE_UPDATE, timestamp, simulationsessionid,
+				involvedusers, modelsetid, simulationSessionData);
 		this.processid = processid;
 		this.sessionscore = sessionScore;
+		this.user = user;
 	}
 
 	@Override
-	public EventType getType() {
-		return EventType.SESSION_SCORE_UPDATE;
+	public String toString() {
+		return super.toString() + " processid=" + processid + " user=" + user
+				+ " sessionscore=" + sessionscore;
 	}
-
 }

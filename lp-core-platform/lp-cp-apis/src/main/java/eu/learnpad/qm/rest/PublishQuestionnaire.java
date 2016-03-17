@@ -19,19 +19,23 @@
  */
 package eu.learnpad.qm.rest;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
 
-//"/learnpad/qm/publish/{questionnairesid}?type={mothia-out}"
-@Path("/publish/{questionnairesid}")
 public interface PublishQuestionnaire {
 
+	//"/learnpad/qm/publish/{questionnairesid}?type={mothia-out}"
+
 	@PUT
+	@Path("/publish/{questionnairesid}")
+	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
 	void publish(@PathParam("questionnairesid") String questionnairesId,
 			@QueryParam("type") @DefaultValue("mothia-out") String type, byte [] questionnairesFile)
 					throws LpRestException;

@@ -25,6 +25,7 @@ package eu.learnpad.simulator.processmanager.activiti;
  */
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,6 +36,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.xpath.XPathExpressionException;
 
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
@@ -44,10 +54,14 @@ import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.delegate.event.ActivitiEvent;
+import org.activiti.engine.delegate.event.ActivitiEventListener;
+import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.image.ProcessDiagramGenerator;
 import org.activiti.image.impl.DefaultProcessDiagramGenerator;
+import org.xml.sax.SAXException;
 
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.simulator.IProcessEventReceiver;
@@ -55,12 +69,15 @@ import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
-import eu.learnpad.simulator.monitoring.activiti.ActivitiProbe;
-import eu.learnpad.simulator.processmanager.AbstractProcessDispatcher;
+import eu.learnpad.simulator.monitoring.event.impl.ProcessStartSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.processdispatcher.ActivitiProcessDispatcher;
 import eu.learnpad.simulator.processmanager.activiti.taskrouter.ActivitiTaskRouter;
 import eu.learnpad.simulator.processmanager.activiti.taskvalidator.ActivitiDemoTaskValidator;
+import eu.learnpad.simulator.processmanager.activiti.workarounds.msg.BPMNTransformer;
+import eu.learnpad.simulator.processmanager.activiti.workarounds.msg.MessageInfoData;
 import eu.learnpad.simulator.utils.BPMNExplorerRepository;
 
 /**
@@ -69,12 +86,15 @@ import eu.learnpad.simulator.utils.BPMNExplorerRepository;
  * @author Tom Jorquera - Linagora
  *
  */
-public class ActivitiProcessManager implements IProcessManager {
+public class ActivitiProcessManager implements IProcessManager,
+		ActivitiEventListener {
 
 	private final RepositoryService repositoryService;
 	private final RuntimeService runtimeService;
 	private final TaskService taskService;
 	private final HistoryService historyService;
+
+	private final Executor jobHandler = Executors.newSingleThreadExecutor();
 
 	private final ProcessDiagramGenerator generator;
 
@@ -84,18 +104,32 @@ public class ActivitiProcessManager implements IProcessManager {
 
 	private final ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator;
 
-	private final Map<String, AbstractProcessDispatcher> processDispatchers = Collections
-			.synchronizedMap(new HashMap<String, AbstractProcessDispatcher>());
+	private final Map<String, ActivitiProcessDispatcher> processDispatchers = Collections
+			.synchronizedMap(new HashMap<String, ActivitiProcessDispatcher>());
+
+	private final Map<String, Integer> nbProcessesBySession = new HashMap<>();
+	private final Map<String, Collection<String>> usersBySession = new HashMap<>();
+
+	private final Map<String, Map<String, Object>> sessionParametersData = new HashMap<>();
+
+	private final Map<String, Map<String, Map<LearnPadTask, Integer>>> taskScoresByUsersBySession = new HashMap<>();
 
 	public ActivitiProcessManager(
 			ProcessEngine processEngine,
 			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider,
-			BPMNExplorerRepository explorerRepo, boolean monitoringEnabled)
-					throws FileNotFoundException {
+			BPMNExplorerRepository explorerRepo) throws FileNotFoundException {
 		repositoryService = processEngine.getRepositoryService();
 		runtimeService = processEngine.getRuntimeService();
 		taskService = processEngine.getTaskService();
 		historyService = processEngine.getHistoryService();
+
+		// register itself as a listener
+		this.runtimeService.addEventListener(this,
+				ActivitiEventType.PROCESS_COMPLETED);
+		this.runtimeService.addEventListener(this,
+				ActivitiEventType.ACTIVITY_COMPLETED);
+		this.runtimeService.addEventListener(this,
+				ActivitiEventType.TASK_CREATED);
 
 		this.generator = new DefaultProcessDiagramGenerator();
 		this.explorerRepo = explorerRepo;
@@ -104,18 +138,6 @@ public class ActivitiProcessManager implements IProcessManager {
 				taskService);
 
 		this.processEventReceiverProvider = processEventReceiverProvider;
-
-		if (monitoringEnabled) {
-			// register a probe to monitor events
-			runtimeService.addEventListener(new ActivitiProbe(explorerRepo));
-		}
-	}
-
-	public ActivitiProcessManager(
-			ProcessEngine processEngine,
-			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider,
-			BPMNExplorerRepository explorerRepo) throws FileNotFoundException {
-		this(processEngine, processEventReceiverProvider, explorerRepo, true);
 	}
 
 	@Override
@@ -131,37 +153,39 @@ public class ActivitiProcessManager implements IProcessManager {
 	 * @see activitipoc.IProcessManager#addProjectDefininition(java.lang.String)
 	 */
 	public Collection<String> addProjectDefinitions(String resource) {
-		Set<String> res = new HashSet<String>();
-
-		String deploymentId = repositoryService.createDeployment()
-				.addClasspathResource(resource).deploy().getId();
-
-		for (ProcessDefinition processDef : repositoryService
-				.createProcessDefinitionQuery().deploymentId(deploymentId)
-				.list()) {
-			res.add(processDef.getId());
-		}
-
-		return res;
+		return this.addProjectDefinitions(this.getClass().getClassLoader()
+				.getResourceAsStream(resource));
 	}
 
 	@Override
 	public Collection<String> addProjectDefinitions(InputStream resource) {
 		Set<String> res = new HashSet<String>();
 
-		String deploymentId = repositoryService
-				.createDeployment()
-				.addInputStream(
-						Long.toString(new Random().nextLong()) + ".bpmn20.xml",
-						resource).deploy().getId();
+		try {
+			// Activiti message workaround
+			InputStream transformedResource = BPMNTransformer
+					.transform(resource);
 
-		for (ProcessDefinition processDef : repositoryService
-				.createProcessDefinitionQuery().deploymentId(deploymentId)
-				.list()) {
-			res.add(processDef.getId());
+			String deploymentId = repositoryService
+					.createDeployment()
+					.addInputStream(
+							Long.toString(new Random().nextLong())
+									+ ".bpmn20.xml", transformedResource)
+					.deploy().getId();
+
+			for (ProcessDefinition processDef : repositoryService
+					.createProcessDefinitionQuery().deploymentId(deploymentId)
+					.list()) {
+				res.add(processDef.getId());
+			}
+		} catch (XPathExpressionException | SAXException | IOException
+				| ParserConfigurationException | TransformerException
+				| TransformerFactoryConfigurationError e) {
+			e.printStackTrace();
 		}
 
 		return res;
+
 	}
 
 	/*
@@ -287,6 +311,8 @@ public class ActivitiProcessManager implements IProcessManager {
 		return result;
 	}
 
+	public static final String SIMULATION_ID_KEY = "__LEARNPAD_SIMULATION_ID";
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -296,6 +322,41 @@ public class ActivitiProcessManager implements IProcessManager {
 	public String startProjectInstance(String projectDefinitionKey,
 			Map<String, Object> parameters, Collection<String> users,
 			Map<String, Collection<String>> router) {
+
+		String simSession;
+
+		if (parameters.containsKey(SIMULATION_ID_KEY)) {
+			simSession = (String) parameters.get(SIMULATION_ID_KEY);
+		} else {
+			// this is a new session
+
+			simSession = UUID.randomUUID().toString();
+			nbProcessesBySession.put(simSession, 0);
+			usersBySession.put(simSession, users);
+
+			// add a UUID to be shared by the processes involved in the
+			// simulation
+			parameters.put(SIMULATION_ID_KEY, simSession);
+
+			ProcessDefinition processDefInfos = repositoryService
+					.createProcessDefinitionQuery()
+					.processDefinitionKey(projectDefinitionKey).singleResult();
+
+			// register session parameters data
+			sessionParametersData.put(simSession, parameters);
+
+			// signal simulation session start
+			// signal process start
+			this.processEventReceiverProvider.processEventReceiver()
+					.receiveSimulationStartEvent(
+					new SimulationStartSimEvent(System
+							.currentTimeMillis(), simSession, users,
+							processDefInfos.getName(),
+							projectDefinitionKey));
+		}
+
+		nbProcessesBySession.put(simSession,
+				nbProcessesBySession.get(simSession) + 1);
 
 		ProcessInstance process = runtimeService.startProcessInstanceByKey(
 				projectDefinitionKey, parameters);
@@ -308,13 +369,20 @@ public class ActivitiProcessManager implements IProcessManager {
 				new ActivitiProcessDispatcher(data, this,
 						this.processEventReceiverProvider
 								.processEventReceiver(), taskService,
-						runtimeService, historyService, new ActivitiTaskRouter(
-								taskService, router), taskValidator,
-						explorerRepo.getExplorer(process
+						runtimeService, repositoryService, historyService,
+						new ActivitiTaskRouter(taskService, router),
+						taskValidator, explorerRepo.getExplorer(process
 								.getProcessDefinitionId())));
 
 		// we are ready, so we can start the dispatcher
 		processDispatchers.get(process.getId()).start();
+
+		// signal process start
+		this.processEventReceiverProvider.processEventReceiver()
+				.receiveProcessStartEvent(
+				new ProcessStartSimEvent(System.currentTimeMillis(),
+						(String) parameters.get(SIMULATION_ID_KEY),
+						users, data));
 
 		return process.getId();
 	}
@@ -366,18 +434,82 @@ public class ActivitiProcessManager implements IProcessManager {
 	 */
 	public LearnPadTaskSubmissionResult submitTaskCompletion(LearnPadTask task,
 			String userId, Map<String, Object> data) {
-		return processDispatchers.get(task.processId).submitTaskCompletion(
-				task, userId, data);
+
+		LearnPadTaskSubmissionResult result = processDispatchers.get(
+				task.processId).submitTaskCompletion(task, userId, data);
+
+		if (result.status
+				.equals(LearnPadTaskSubmissionResult.TaskSubmissionStatus.VALIDATED)) {
+
+			if (!taskScoresByUsersBySession.containsKey(task.sessionId)) {
+				taskScoresByUsersBySession.put(task.sessionId,
+						new HashMap<String, Map<LearnPadTask, Integer>>());
+			}
+
+			if (!taskScoresByUsersBySession.get(task.sessionId).containsKey(
+					userId)) {
+				taskScoresByUsersBySession.get(task.sessionId).put(userId,
+						new HashMap<LearnPadTask, Integer>());
+			}
+
+			taskScoresByUsersBySession.get(task.sessionId).get(userId)
+					.put(task, result.taskScore);
+		}
+
+		return result;
 	}
 
 	@Override
-	public void signalProcessCompletion(String processId) {
+	public void completeTask(LearnPadTask task, Map<String, Object> data,
+			String completingUser, LearnPadTaskSubmissionResult submissionResult) {
+		processDispatchers.get(task.processId).completeTask(task, data,
+				completingUser, submissionResult);
+	}
+
+	@Override
+	public synchronized void signalProcessCompletion(String processId) {
+
+		String simSession = (String) processDispatchers.get(processId)
+				.getProcessInstanceInfos().parameters.get(SIMULATION_ID_KEY);
+
 		processDispatchers.remove(processId);
+
+		// check if session is terminated
+		int nbActiveProcesses = nbProcessesBySession.get(simSession);
+		if (nbActiveProcesses > 1) {
+			nbProcessesBySession.put(simSession, nbActiveProcesses - 1);
+		} else {
+			// this was the last process of the simulation
+
+			this.processEventReceiverProvider.processEventReceiver()
+			.receiveSimulationEndEvent(
+					new SimulationEndSimEvent(System
+							.currentTimeMillis(), simSession,
+							usersBySession.get(simSession)));
+
+			nbProcessesBySession.remove(simSession);
+			usersBySession.remove(simSession);
+			sessionParametersData.remove(simSession);
+
+			taskScoresByUsersBySession.remove(simSession);
+		}
+
 	}
 
 	@Override
 	public Integer getInstanceScore(String processId, String userId) {
 		return processDispatchers.get(processId).getInstanceScore(userId);
+	}
+
+	public Map<LearnPadTask, Integer> getDetailedInstanceScore(
+			String sessionId, String userId) {
+
+		if (taskScoresByUsersBySession.get(sessionId) == null) {
+			return new HashMap<LearnPadTask, Integer>();
+		} else {
+			return taskScoresByUsersBySession.get(sessionId).get(userId);
+		}
+
 	}
 
 	/*
@@ -387,11 +519,11 @@ public class ActivitiProcessManager implements IProcessManager {
 	 * eu.learnpad.simulator.processmanager.IDiagramGenerator#getProcessDiagram
 	 * (java.lang.String)
 	 */
-	public InputStream getProcessDiagram(String processDefinitionId) {
+	public InputStream getProcessDiagram(String processDefinitionKey) {
 
 		ProcessDefinition processDefinition = repositoryService
 				.createProcessDefinitionQuery()
-				.processDefinitionId(processDefinitionId).singleResult();
+				.processDefinitionKey(processDefinitionKey).singleResult();
 
 		if (processDefinition == null) {
 			return null;
@@ -471,6 +603,60 @@ public class ActivitiProcessManager implements IProcessManager {
 	public LearnPadTaskGameInfos getGameInfos(LearnPadTask task, String userId) {
 		return processDispatchers.get(task.processId)
 				.getGameInfos(task, userId);
+	}
+
+	// Activiti message workaround
+	public void receiveTaskMessage(final MessageInfoData msgInfo) {
+		jobHandler.execute(new Runnable() {
+			@Override
+			public void run() {
+				processDispatchers.get(msgInfo.originProcessInstanceId)
+						.receiveTaskMessage(msgInfo);
+			}
+		});
+
+	}
+
+	@Override
+	public synchronized void onEvent(final ActivitiEvent event) {
+		// send event to corresponding dispatcher
+		if (event.getProcessInstanceId() != null
+				&& processDispatchers.get(event.getProcessInstanceId()) != null) {
+
+			jobHandler.execute(new Runnable() {
+				@Override
+				public void run() {
+					processDispatchers.get(event.getProcessInstanceId())
+							.onEvent(event);
+				}
+			});
+		}
+
+	}
+
+	@Override
+	public boolean isFailOnException() {
+		return false;
+	}
+
+	// // ModelSetId related methods
+
+	private final Map<String, String> processDefToModelSet = new ConcurrentHashMap<String, String>();
+
+	@Override
+	public void setModelSetId(String processDefId, String modelSetId) {
+		processDefToModelSet.put(processDefId, modelSetId);
+	}
+
+	@Override
+	public String getModelSetId(String processDefId) {
+		return processDefToModelSet.get(processDefId);
+	}
+
+	@Override
+	public Map<String, Object> getSimulationSessionParametersData(
+			String simulationSessionId) {
+		return sessionParametersData.get(simulationSessionId);
 	}
 
 }

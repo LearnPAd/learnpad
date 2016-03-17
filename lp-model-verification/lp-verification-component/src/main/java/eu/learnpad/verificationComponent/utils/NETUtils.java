@@ -109,7 +109,7 @@ public class NETUtils {
 	}
 	
 	public static ArrayList<String> safeSplitParameters(String parameters){
-		if(parameters == null || parameters == "")
+		if(parameters == null || parameters.isEmpty())
 			return new ArrayList<String>();
 		
 		ArrayList<String> ret = new ArrayList<String>();

@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.ontology.OntModelSpec;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 import eu.learnpad.ontology.recommender.Inferencer;
 

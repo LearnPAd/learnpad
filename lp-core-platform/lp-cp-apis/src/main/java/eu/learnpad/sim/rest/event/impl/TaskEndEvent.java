@@ -19,6 +19,9 @@
  */
 package eu.learnpad.sim.rest.event.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import eu.learnpad.sim.rest.event.AbstractEvent;
 import eu.learnpad.sim.rest.event.EventType;
 
@@ -28,6 +31,11 @@ import eu.learnpad.sim.rest.event.EventType;
  *
  */
 public class TaskEndEvent extends AbstractEvent {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -5328814254042585792L;
 
 	/**
 	 * Unique ID of the process instance
@@ -40,25 +48,42 @@ public class TaskEndEvent extends AbstractEvent {
 	public String taskid;
 
 	/**
-	 * The LearnPAd user that completed the task
+	 * ID used to identify the task in the BP definition
 	 */
-	public String user;
+	public String taskdefid;
+
+	/**
+	 * The LearnPAd users that have been assigned to this task
+	 */
+	public List<String> assignedusers;
+
+	public String completingUser;
+	public Map<String, Object> submittedData;
 
 	public TaskEndEvent() {
 		super();
 	}
 
-	public TaskEndEvent(Long timestamp, String processid, String taskid,
-			String user) {
-		super(timestamp);
+	public TaskEndEvent(Long timestamp, String simulationsessionid,
+			List<String> involvedusers, String modelsetid,
+			Map<String, Object> simulationSessionData, String processid,
+			String taskid, String taskdefid, List<String> assignedusers,
+			String completingUser, Map<String, Object> submittedData) {
+		super(EventType.TASK_END, timestamp, simulationsessionid,
+				involvedusers, modelsetid, simulationSessionData);
 		this.processid = processid;
 		this.taskid = taskid;
-		this.user = user;
+		this.taskdefid = taskdefid;
+		this.assignedusers = assignedusers;
+		this.completingUser = completingUser;
+		this.submittedData = submittedData;
 	}
 
 	@Override
-	public EventType getType() {
-		return EventType.TASK_END;
+	public String toString() {
+		return super.toString() + " processid=" + processid + " taskid="
+				+ taskid + " taskdefid=" + taskdefid + " assignedusers="
+				+ assignedusers + " completingUser=" + completingUser
+				+ " submittedData=" + submittedData;
 	}
-
 }

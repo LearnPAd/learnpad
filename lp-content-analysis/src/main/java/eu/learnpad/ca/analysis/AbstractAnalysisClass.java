@@ -1,11 +1,13 @@
 package eu.learnpad.ca.analysis;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import org.languagetool.Language;
 
+import eu.learnpad.ca.analysis.localizzation.Messages;
+import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.Content;
 import eu.learnpad.ca.rest.data.Node;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
@@ -20,20 +22,20 @@ public abstract class AbstractAnalysisClass extends Thread{
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(AbstractAnalysisClass.class);
 	protected AnnotatedCollaborativeContentAnalysis annotatedCollaborativeContent;
 	protected AnnotatedStaticContentAnalysis annotatedStaticContent;
-	
+
 	protected Language language;
 	protected Integer numDefectiveSentences = 0;
 	protected CollaborativeContentAnalysis collaborativeContentInput;
 	protected StaticContentAnalysis staticContentInput;
-
+	protected GateThread gateu = null;
 
 	public String getStatus(){
 		switch (this.getState()) {
 		case TERMINATED:
-			return "OK";
+			return Messages.getString("AbstractAnalysisClass.Ok",language); //$NON-NLS-1$
 
 		default:
-			return "IN PROGRESS";
+			return Messages.getString("AbstractAnalysisClass.InProgress",language); //$NON-NLS-1$
 		}
 
 	}
@@ -45,38 +47,43 @@ public abstract class AbstractAnalysisClass extends Thread{
 	}
 
 	protected String calculateOverallQuality(double qualityMeasure){
-		String quality="";
+		String quality=""; //$NON-NLS-1$
 		if(qualityMeasure<=25){
-			quality="VERY BAD";
+			quality=Messages.getString("AbstractAnalysisClass.VeryBad",language); //$NON-NLS-1$
 		}else if(qualityMeasure<=50){
-			quality="BAD";
-		}else if(qualityMeasure<=75){
-			quality="GOOD";
+			quality=Messages.getString("AbstractAnalysisClass.Bad",language); //$NON-NLS-1$
+			
+		}else if(qualityMeasure<=70){
+			quality=Messages.getString("AbstractAnalysisClass.NotsoBad",language); //$NON-NLS-1$
+		}else if(qualityMeasure<=80){
+			quality=Messages.getString("AbstractAnalysisClass.Good",language); //$NON-NLS-1$
 		}else if(qualityMeasure<100){
-			quality="VERY GOOD";
+			quality=Messages.getString("AbstractAnalysisClass.VeryGood",language); //$NON-NLS-1$
 		}else if(qualityMeasure==100){
-			quality="EXCELLENT";
+			quality=Messages.getString("AbstractAnalysisClass.Excellent",language); //$NON-NLS-1$
 		}
 		return quality;
 	}
 
 	protected String calculateOverallRecommendations(double qualityMeasure){
-		String recommendations="";
+		String recommendations=""; //$NON-NLS-1$
 		if(qualityMeasure<=25){
-			recommendations="Quality is very poor, correct the errors";
+			recommendations=Messages.getString("AbstractAnalysisClass.QualityVeryPoor",language); //$NON-NLS-1$
 		}else if(qualityMeasure<=50){
-			recommendations="Quality is poor, correct the errors";
-		}else if(qualityMeasure<=75){
-			recommendations="Quality is acceptable, but there are still some errors";
+			recommendations=Messages.getString("AbstractAnalysisClass.QualityPoor",language); //$NON-NLS-1$
+		}else if(qualityMeasure<=70){
+			recommendations=Messages.getString("AbstractAnalysisClass.NotsobadErrors",language); //$NON-NLS-1$
+		}else if(qualityMeasure<=80){
+			recommendations=Messages.getString("AbstractAnalysisClass.QualityAcceptable",language); //$NON-NLS-1$
 		}else if(qualityMeasure<100){
-			recommendations="Well done, still few errors remaining";
+			recommendations=Messages.getString("AbstractAnalysisClass.WellDoneFewErrors",language); //$NON-NLS-1$
 		}else if(qualityMeasure==100){
-			recommendations="Well done, no errors found!";
+			recommendations=Messages.getString("AbstractAnalysisClass.WellDone",language); //$NON-NLS-1$
 		}
 		return recommendations;
 	}
-
-
+	
+	
 	public AnnotatedCollaborativeContentAnalysis getAnnotatedCollaborativeContentAnalysis(){
 		return annotatedCollaborativeContent;
 	}
@@ -84,63 +91,54 @@ public abstract class AbstractAnalysisClass extends Thread{
 	public AnnotatedStaticContentAnalysis getAnnotatedStaticContentAnalysis() {
 		return annotatedStaticContent;
 	} 
-	
+
 	protected void addNodeInContent(List<Node> listnode, Content c, DocumentContent docContent){
 		Collections.sort(listnode);
 		Integer precedentposition = 0;
-		for(Node node :listnode){
-			
-			Integer pos = node.getOffSet();
-			
-			try{
-				String token = "";
+		List<Node> nodeadded = new ArrayList<Node>();
+		try{
+			for(Node node :listnode){
+
+				Integer pos = node.getOffSet();
+				
+
+				String token = ""; //$NON-NLS-1$
 				if(precedentposition>pos){
 					//String stringap = //content.substring(precedentposition, initialpos );
-					log.debug("error Annotation Simplicity");
+					log.debug("error Annotation"); //$NON-NLS-1$
 
 				}
 				token = docContent.getContent(precedentposition.longValue(),pos.longValue()).toString();
-				c.setContent(token);
-				c.setContent(node);
+				if(token.length()>0)
+					c.setContent(token);
+				if(!nodeadded.contains(node)){
+					c.setContent(node);
+					nodeadded.add(node);
+				}
 				precedentposition = pos;
 				//c.setContent(token.toString());
 				//c.setContent(nodeend);
 
-			}catch(InvalidOffsetException e){
-				log.debug(e);
-			}
 
+
+			}
+			if(precedentposition.longValue()<docContent.size()){
+				String finalsentece = docContent.getContent(precedentposition.longValue(),docContent.size()).toString();
+				c.setContent(finalsentece);
+			}
+			if(listnode.isEmpty()){
+				String token = docContent.toString();
+				c.setContent(token);
+			}
+		}catch(InvalidOffsetException e){
+			log.debug(e);
 		}
 
 
-
 	}
-
 	
-	protected  int indexofElement(String sentence, String word, Map<String, Integer> elementfinded, String split){
-		String [] spliter = sentence.split(split);
-		int position = 0;
-		int numwordfinded = 0;
-		for (int i = 0; i < spliter.length; i++) {
-			int offset = 0;
-			String token = spliter[i];
-			if(token.equals(word)){
-				numwordfinded++;
-				if(!elementfinded.containsKey(token)){
-					elementfinded.put(token, 1);
-				}
-				if(elementfinded.get(token).intValue()==numwordfinded){
-					Integer I = elementfinded.get(token);
-					int y  = I.intValue()+1;
-					elementfinded.put(token, y);
-					return position;
-				}else{
-					position+=token.length()+1+offset;
-				}
-			}else{
-				position+=token.length()+1+offset;
-			}
-		}
-		return position;
+	public GateThread getGate(){
+		return gateu;
 	}
+
 }

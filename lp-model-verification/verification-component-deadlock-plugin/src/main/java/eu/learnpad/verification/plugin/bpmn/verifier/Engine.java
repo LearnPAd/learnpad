@@ -96,7 +96,7 @@ public class Engine {
         String ret = "";
         for(PetriNet pn: pnList){
             if(pn.isEmpty())
-                throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+                throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
             
             String[] pnIdObjectList = new String[0];
             if(BPUtils.existBPMNObject(pn, bpObjectId)){
@@ -133,7 +133,7 @@ public class Engine {
         String ret = "";
         for(PetriNet pn: pnList){
             if(pn.isEmpty())
-                throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+                throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
             
             String[] pnFromObjectIdList = new String[0];
             if(BPUtils.existBPMNObject(pn, bpFromObjectId)){
@@ -178,17 +178,22 @@ public class Engine {
                         .replace("<?xml version=\"1.1\" encoding=\"UTF-8\"?>\n", "")
                         .replace(" xmlns=\"@boc-eu.com/boc-is/adonis.model.document;1\"", "")
                         .replace(" xsi:schemaLocation=\"@boc-eu.com/boc-is/adonis.model.document;1 adoxmlmodel.xsd\"", "");
-        
-        Document xmlModel = XMLUtils.getXmlDocFromString(model);
-        
-        if(PNImport.isOMGBPMN2(xmlModel))
+        Document xmlModel = null;
+        try{
+            xmlModel = XMLUtils.getXmlDocFromString(model);
+        }catch(Exception ex){
+            throw new IllegalArgumentException("ERROR: The input model format is an incorrect xml: "+ex.getMessage());
+        }
+        if(PNImport.isOMGBPMN2(xmlModel)){
             pnList = new PetriNet[]{PNImport.generateFromBPMN(xmlModel)};
-        else if(PNImport.isADOXX(xmlModel)) {
+        } else if(PNImport.isPNML(xmlModel)){
+            pnList = new PetriNet[]{PNImport.generateFromPNML(xmlModel)};
+        } else if(PNImport.isADOXX(xmlModel)) {
             PetriNet[] pnList1 = PNImport.generateFromAdoxxBPMN(xmlModel);
             PetriNet[] pnList2 = PNImport.generateFromAdoxxPetriNet(xmlModel);
             pnList = Utils.concatenate(pnList1, pnList2);
         } else
-            throw new Exception("ERROR: The model file format can not be recognized.");
+            throw new IllegalArgumentException("ERROR: The model file format can not be recognized.");
         /*
         for(int i=0;i<pnList.length;i++)
             if(Algorithms.needToBeReduced(pnList[i]))
@@ -199,7 +204,7 @@ public class Engine {
     
     private String verifySingleDeadlock(PetriNet pn) throws Exception{
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
         
         String modelToVerify = PNExport.exportTo_LOLA(pn);
         String propertyToVerify = PNExport.exportTo_LOLA_property_DeadlockPresence(pn);
@@ -217,7 +222,7 @@ public class Engine {
     
     private String verifyAllDeadlocks(PetriNet pn) throws Exception{
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
         
         ArrayList<PL> endPLList = pn.getEndList_safe();
         
@@ -246,7 +251,7 @@ public class Engine {
     
     private String verifyUnboundedness(PetriNet pn, boolean onlyEndPlaces) throws Exception{
         if(pn.isEmpty())
-            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.name);
+            throw new Exception("ERROR: The provided petri net is empty\nName:"+pn.getName());
         
         String modelToVerify = PNExport.exportTo_LOLA(pn);
         String[] propertyToVerifyList = PNExport.exportTo_LOLA_property_UnboundednessPresence(pn, onlyEndPlaces);
@@ -293,7 +298,7 @@ public class Engine {
         String verificationType = this.verificationType;
         String status = (propertyVerified)?"OK":"KO";
         String description = "The property \""+verificationDescription+"\" is "+((propertyVerified)?"TRUE!":"FALSE!");
-        String ret = "<FormalVerificationResult><VerificationType>"+verificationType+"</VerificationType><DefinitionID>"+pn.name+"</DefinitionID><Status>"+status+"</Status><Description>"+description+"</Description>";
+        String ret = "<FormalVerificationResult><VerificationType>"+verificationType+"</VerificationType><DefinitionID>"+pn.getName()+"</DefinitionID><Status>"+status+"</Status><Description>"+description+"</Description>";
         for(String[] counterExampleTrace: counterExampleTraceList){
             ret += "<CounterExampleTrace>";
             

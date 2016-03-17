@@ -16,27 +16,8 @@ Priority: 10
 ({Token.category != "."})*
 ({NounChunk})+
 ({Token.category != "."})*
-({Pronoun})
+({Pronoun}):refpron
 ({Token.category != "."})*
 ):anaphoric_ambiguity
 -->
-:anaphoric_ambiguity.AnaphoricAmbiguity1 = {case = "same_sent"}
-
-//This fires only if the first does not fire
-/*
-Rule: AnaphoricAmbiguityTwoSent
-Priority: 5
-(
-({Split})
-//({Token.category != "."})*
-({NounChunk})
-//({Token.category != "."})*
-({NounChunk})+
-//({Token})*
-({Split})
-({Pronoun})
-//({Token.category != "."})*
-):anaphoric_ambiguity
--->
-:anaphoric_ambiguity.AnaphoricAmbiguity2 = {case = "previous_sent"}
-*/
+:anaphoric_ambiguity.AnaphoricAmbiguity1 = {case = "same_sent", pronoun = :refpron.Pronoun.pronoun}

@@ -19,6 +19,7 @@
  */
 package eu.learnpad.or.rest;
 
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -28,50 +29,31 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
 
 public interface AskRecommendation {
-	/**
-	 * 
-	 * The file returned could be XML or JSON (below is shown as XML to explain
-	 * the structure) The different types of recommendations are based on the
-	 * Ölten's workshop discussions
-	 * http://wiki.learnpad.eu/LearnPAdWiki/bin/view
-	 * /WP5/MinutesOltenWorkshop#HContextpanel
-	 * <p>
-	 * A specific format for each kind of recommendation.  For example, the following one is about experts.
-	 * <code>
-	 * <experts>
-	 *   <expert>
-	 *     <id>useridfromthemodel</id>
-	 *     <user>Jean Simard</user>
-	 *     <email>jean.simard@...</email>
-	 *     <phone>2132321</phone>
-	 *   </expert>
-	 * </experts>
-	 * </code>
-	 * <p>
-	 * The different type of recommendations could be:
-	 * <ul>
-	 * <li>role: about the role concerned by the current artifact (what people?,
-	 * what organisation unit?)
-	 * <li>context: mainly in execution mode, what are the contextual
-	 * information from previous steps that could be needed here
-	 * <li>expert: recommend some other people that may help on the current
-	 * artifact
-	 * <li>resource: other document that can complete the information on the
-	 * current artifact
-	 * </ul>
-	 * 
-	 * @param modelSetId
-	 *            is the uniq ID of the model set
-	 * @param artifactId
-	 *            is the ID of the artifact in the model (event, gateway, unit,
-	 *            etc.)
-	 * @return is the list of recommendations (see above for the format)
-	 * @throws LpRestException
-	 */
-	// <host>/learnpad/or/{modelsetid}/recommendation?artifactid=userid=id,type={role|context|expert|resource|...}
-	@Path("/{modelsetid}/recommendation")
-	@GET
-	Recommendations askRecommendation(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("artifactid") String artifactId,
-			@QueryParam("userid") String userId, @QueryParam("type") String type) throws LpRestException;
+
+    /**
+     *
+     *
+     * @param modelSetId is the uniq ID of the model set
+     * @param artifactId is the ID of the artifact in the model (event, gateway, unit, etc.)
+     * @param userId
+     * @param simulationSessionId unique id of a simulation session instance.
+     * 		  This is an optional parameter, and it is meaningful only recommendations are
+     *		  requested in conjunction with a simulation session. If it is specified, the
+     *		  method lookups case description (case characterization) of the case assigned to
+     *        the simulation id and search for similar cases based on the comparison of
+     *        the case characterizations. In case it is not specified, the parameter assumes
+     *        the agreed default value (i.e. "--none--"), and it must be ignored.
+     *        												   
+     * @return is the list of recommendations, similar cases must be expected only
+     *         if the parameter {@code simulationSessionId} has been specified and it is different from
+     *         the default value.
+     * @throws LpRestException
+     */
+    // <host>/learnpad/or/bridge/{modelsetid}/recommendation?artifactid=idArtifact&userid=idUser&simulationsessionid=idSimSess
+    @Path("/{modelsetid}/recommendation")
+    @GET
+    Recommendations askRecommendation(@PathParam("modelsetid") String modelSetId,
+            @QueryParam("artifactid") String artifactId,
+            @QueryParam("userid") String userId, @QueryParam("simulationsessionid")@DefaultValue("--none--") String simulationSessionId) throws LpRestException;
+
 }
