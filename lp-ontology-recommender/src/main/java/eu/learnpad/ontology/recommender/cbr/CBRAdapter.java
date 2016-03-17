@@ -30,7 +30,7 @@ import java.util.Map;
  * @author sandro.emmenegger
  */
 public class CBRAdapter {
-
+    
     public static final String SIMULATION_CASE_CLASS_URI = "http://learnpad.eu#SimulatedApplicationCase_";
     public static final String OVERALL_PROCESS_VIEW = "http://learnpad.eu/cbr#OverallProcessView";
     public static final String NS_LEARNPAD = "http://learnpad.eu#";
@@ -39,13 +39,13 @@ public class CBRAdapter {
 
     // caches session data (case meta data and accumulated user entered data)
     private static final Map<String, Map<String, Object>> accumulatedSessionData = new HashMap<>();
-
+    
     private static final CBRAdapter instance = new CBRAdapter();
-
+    
     private static final Map<String, String> OBJECT_PROPERTY_MAP = new HashMap();
     private static final Map<String, String> LITERAL_PROPERTY_MAP = new HashMap();
     private static final Map<String, String> NAMESPACES = new HashMap();
-
+    
     static {
         OBJECT_PROPERTY_MAP.put("applicationCity", NS_LEARNPAD + "applicationIsLocatedInCity");
         OBJECT_PROPERTY_MAP.put("applicationZone", NS_LEARNPAD + "applicationAffectsZone");
@@ -54,29 +54,30 @@ public class CBRAdapter {
         OBJECT_PROPERTY_MAP.put("applicationSector", NS_LEARNPAD + "applicationAffectsSector");
         OBJECT_PROPERTY_MAP.put("applicationBusinessActivity", NS_LEARNPAD + "applicationAffectsTargetBusinessActivity");
         OBJECT_PROPERTY_MAP.put("applicationATECOCategory", NS_LEARNPAD + "affectsTargetATECO");
-
-        OBJECT_PROPERTY_MAP.put("organisationalUnit", NS_LEARNPAD + "applicationRequiresOrganisationalUnits");
-        OBJECT_PROPERTY_MAP.put("decision", NS_LEARNPAD + "decision");
+        
+        OBJECT_PROPERTY_MAP.put("involvedThirdParties", NS_LEARNPAD + "applicationRequiresOrganisationalUnits");
+        
     }
-
+    
     static {
         LITERAL_PROPERTY_MAP.put("applicationDescription", NS_LEARNPAD + "description");
+        LITERAL_PROPERTY_MAP.put("decision", NS_LEARNPAD + "decision");
     }
-
+    
     static {
         NAMESPACES.put("lpd:", NS_LEARNPAD);
     }
-
+    
     private CBRAdapter() {
     }
-
+    
     public static CBRAdapter getInstance() {
         return instance;
     }
-
+    
     public CaseInstanceVO createOrUpdateSimulationSessionCase(String simulationId, SimulationData data) {
         ArgumentCheck.notNull(simulationId, "simulationId in (retrieveSimilarCases");
-
+        
         if (!accumulatedSessionData.containsKey(simulationId)) {
             if (data != null && data.getSessionData() != null) {
                 accumulatedSessionData.put(simulationId, data.getSessionData());
@@ -86,13 +87,13 @@ public class CBRAdapter {
         } else if (data != null && data.getSubmittedData() != null) {
             accumulatedSessionData.get(simulationId).putAll(data.getSubmittedData());
         }
-
+        
         CBRServices service = CBRServices.getInstance();
         CaseViewVO caseViewVO = service.findCaseViewByUri(OVERALL_PROCESS_VIEW);
-
+        
         CaseInstanceVO simulationCase = new CaseInstanceVO();
         simulationCase.setClassUri(SIMULATION_CASE_CLASS_URI);
-
+        
         simulationCase.setUri(SIMULATION_CASE_CLASS_URI + simulationId);
         simulationCase.setLabel("Simulation Case " + simulationId);
 
@@ -106,12 +107,12 @@ public class CBRAdapter {
                 addProperties(simulationCase, key, Arrays.asList(value));
             }
         }
-
+        
         simulationCase = service.createOrUpdateCase(caseViewVO, simulationCase);
-
+        
         return simulationCase;
     }
-
+    
     public SimilarCases retrieveSimilarCases(String modelSetId, String artifactId, String userId, String simulationSessionId) {
         ArgumentCheck.notNull(simulationSessionId, "simulationSessionId in (retrieveSimilarCases)");
         
@@ -120,27 +121,27 @@ public class CBRAdapter {
         CaseInstanceVO sessionCaseInstance = service.getCaseInstance(SIMULATION_CASE_CLASS_URI + simulationSessionId, caseViewVO);
         List<CaseMatchVO> matchingCases = service.retreiveCases(caseViewVO, sessionCaseInstance);
         List<SimilarCase> similarCasesList = new ArrayList<>();
-
+        
         Collections.sort(matchingCases, new Comparator<CaseMatchVO>() {
             @Override
             public int compare(CaseMatchVO c1, CaseMatchVO c2) {
                 return Double.compare(c2.getSimilarity(), c1.getSimilarity());
             }
         });
-
+        
         for (int i = 0; i < 4 && matchingCases.size() > i; i++) {
-
+            
             CaseMatchVO matchingCase = matchingCases.get(i);
             if ((SIMULATION_CASE_CLASS_URI + simulationSessionId).equals(matchingCase.getCaseUri())) {
                 continue;
             }
-
+            
             SimilarCase similarCase = new SimilarCase();
             similarCase.setName(matchingCase.getCaseName());
             String similarityValuePercentage = String.format("%1.2f", (matchingCase.getSimilarity() * 100)) + "%";
             similarCase.setSimilarityValue(similarityValuePercentage);
             similarCase.setData(new HashMap<String, Object>());
-
+            
             CaseInstanceVO caseInstanceVO = matchingCase.getCaseInstanceVO();
             if (caseInstanceVO != null) {
                 if (caseInstanceVO.getObjectProperties() != null) {
@@ -163,24 +164,27 @@ public class CBRAdapter {
                     }
                 }
             }
-
+            
             similarCasesList.add(similarCase);
         }
         SimilarCases similarCases = new SimilarCases();
         similarCases.setSimilarCases(similarCasesList);
-
+        
         return similarCases;
     }
-
+    
     private String getObjectPropertyName(String propertyUri) {
         for (Map.Entry<String, String> entry : OBJECT_PROPERTY_MAP.entrySet()) {
             if (entry.getValue().equals(propertyUri)) {
                 return entry.getKey();
             }
         }
+        if((NS_LEARNPAD + "applicationIsSubmittedByApplicant").equals(propertyUri)){
+            return "applicantName";
+        }
         return propertyUri;
     }
-
+    
     private String getLiteralPropertyName(String propertyUri) {
         LITERAL_PROPERTY_MAP.entrySet();
         for (Map.Entry entry : LITERAL_PROPERTY_MAP.entrySet()) {
@@ -190,14 +194,14 @@ public class CBRAdapter {
         }
         return propertyUri;
     }
-
+    
     private void addProperties(CaseInstanceVO simulationCase, String key, Collection values) {
         if (OBJECT_PROPERTY_MAP.containsKey(key)) {
             List<ObjectPropertyInstanceVO> objectProperties = simulationCase.getObjectProperties();
             if (objectProperties == null) {
                 objectProperties = new ArrayList<>();
             }
-
+            
             List<IndividualVO> rangeInstances = new ArrayList<>();
             for (Object v : values) {
                 String value = replaceNamespacePrefix(v);
@@ -211,6 +215,21 @@ public class CBRAdapter {
             objectProperties.add(property);
             simulationCase.setObjectProperties(objectProperties);
         }
+        if (LITERAL_PROPERTY_MAP.containsKey(key)) {
+            List<LiteralPropertyValueVO> literalProperties = simulationCase.getLiteralProperties();
+            if (literalProperties == null) {
+                literalProperties = new ArrayList<>();
+            }
+            
+            for (Object v : values) {
+                String value = v == null ? "" : v.toString();
+                LiteralPropertyValueVO literalPropertyValueVO = new LiteralPropertyValueVO();
+                literalPropertyValueVO.setUri(LITERAL_PROPERTY_MAP.get(key));
+                literalPropertyValueVO.setValue(value);
+                literalProperties.add(literalPropertyValueVO);
+            }
+            simulationCase.setLiteralProperties(literalProperties);
+        }
 
         //Create person out of applicant name
         if ("applicantName".equals(key) && !values.isEmpty()) {
@@ -220,14 +239,14 @@ public class CBRAdapter {
             rangeInstance.setLabel(personName);
             personName = personName.replace(" ", "_");
             rangeInstance.setUri(NS_DATA + personName);
-
+            
             ObjectPropertyInstanceVO property = new ObjectPropertyInstanceVO();
             property.setUri(NS_LEARNPAD + "applicationIsSubmittedByApplicant");
             property.setRangeClassInstances(Arrays.asList(rangeInstance));
             simulationCase.setObjectProperties(Arrays.asList(property));
         }
     }
-
+    
     private String replaceNamespacePrefix(Object value) {
         String retValue = value instanceof String ? value.toString() : "";
         for (String ns : NAMESPACES.keySet()) {
@@ -238,7 +257,7 @@ public class CBRAdapter {
         }
         return retValue;
     }
-
+    
     private String replaceNamespaceByPrefix(String uri) {
         for (Map.Entry<String, String> namspaceMapping : NAMESPACES.entrySet()) {
             String fullNamespace = namspaceMapping.getValue();
@@ -249,5 +268,5 @@ public class CBRAdapter {
         }
         return uri;
     }
-
+    
 }

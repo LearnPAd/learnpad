@@ -180,8 +180,8 @@ lpd:Rapair_Maintenance_Installation_ofMachineryAndEquipment
 lpd:Receptive_Toursim_Activity
   rdfs:label "Receptive Toursim"^^xsd:string ;
 .
-lpd:Regional_Protected_Area_Comunità_Montana_Alto_e_Medio_Metauro
-  rdfs:label "Comunità Montana Alto e Medio Metauro"^^xsd:string ;
+lpd:Regional_Protected_Area_Comunita_Montana_Alto_e_Medio_Metauro
+  rdfs:label "Comunita Montana Alto e Medio Metauro"^^xsd:string ;
 .
 lpd:Regional_Protected_Area_Unione_Montana_Monti_Azzurri
   rdfs:label "Unione Montana Monti Azzurri"^^xsd:string ;
@@ -266,6 +266,10 @@ data:Allevi_Restructuring_a_chalet_to_include_a_bar
   lpd:applicationIsLocatedInCity lpd:Senigallia ;
   lpd:applicationIsManagedByPublicAdministration lpd:SUAPSenigallia ;
   lpd:applicationIsSubmittedByApplicant data:Giovanni_Allevi ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Building_office ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Landscape_office ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Regional_health_authority ;
+  lpd:decision "true"^^xsd:boolean ;
   lpd:description "Restructuring a chalet for the realization of an internal bar"^^xsd:string ;
   rdfs:label "Allevi - Restructuring a chalet to include a Bar"@en ;
 .
@@ -281,6 +285,11 @@ data:Berti_Replacing_windows_in_hotel
   lpd:applicationIsLocatedInCity lpd:Senigallia ;
   lpd:applicationIsManagedByPublicAdministration lpd:SUAPSenigallia ;
   lpd:applicationIsSubmittedByApplicant data:Orietta_Berti ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Building_office ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Landscape_office ;
+  lpd:applicationRequiresOrganisationalUnits lpd:National_railway_network ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Superintendence_for_artistic_architectural_environmentand_historical_goods ;
+  lpd:decision "true"^^xsd:boolean ;
   lpd:description "Replacing of windows fixtures in hotel"^^xsd:string ;
   rdfs:label "Berti - Replacing windows fixtures in hotel"@en ;
 .
@@ -297,7 +306,7 @@ data:CaseItem_Law_for_constructions_in_Regional_Protected_Zones
   rdf:type cbr:CaseItem ;
   cbr:caseItemRepresentedBy data:regulationDocument_constructions_in_Regional_Protected_Area_Valle_del_Metauro ;
   cbr:caseItemRepresentedBy data:regulationDocument_constructions_in_Unione_Montana_Monti_Azzurri ;
-  cbr:caseItemRepresentedBy data:regulationDocument_cosntructions_Comunità_Montana_Alto_e_Medio_Metauro ;
+  cbr:caseItemRepresentedBy data:regulationDocument_cosntructions_Comunita_Montana_Alto_e_Medio_Metauro ;
 .
 data:CaseItem_Law_for_constructions_in_the_Costal_Zone
   rdf:type cbr:CaseItem ;
@@ -359,6 +368,14 @@ data:Fiori_Restructuring_for_BandB
   lpd:applicationAffectsZone lpd:Regional_Protected_Area_Unione_Montana_Monti_Azzurri ;
   lpd:applicationIsLocatedInCity lpd:Urbania ;
   lpd:applicationIsManagedByPublicAdministration lpd:SUAPValleDelMetauro ;
+  lpd:applicationRequiresOrganisationalUnits lpd:ARPAM ;
+  lpd:applicationRequiresOrganisationalUnits lpd:ASUR_hygiene_and_health_services ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Environment_office ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Provincial_environment_authority ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Provincial_public_land_authority ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Superintendence_for_artistic_architectural_environmentand_historical_goods ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Technical_office ;
+  lpd:decision "true"^^xsd:boolean ;
   lpd:description "Restructuring a civil building to allocate it as a B&B"^^xsd:string ;
   rdfs:label "Fiori - Restructuring for B&B"@en ;
 .
@@ -375,6 +392,16 @@ data:Gattuso_Realization_of_a_petrol_station
   lpd:applicationIsLocatedInCity lpd:Ascoli_Piceno ;
   lpd:applicationIsManagedByPublicAdministration lpd:SUAPAscoliPiceno ;
   lpd:applicationIsSubmittedByApplicant data:Gennaro_Gattuso ;
+  lpd:applicationRequiresOrganisationalUnits lpd:ARPAM ;
+  lpd:applicationRequiresOrganisationalUnits lpd:ASUR_hygiene_and_health_services ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Environment_office ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Municipal_police ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Piceno_Consind ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Provincial_civil_genius ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Provincial_environment_authority ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Provincial_fire_fighters ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Provincial_urban_office ;
+  lpd:decision "true"^^xsd:boolean ;
   lpd:description "Realization of a petrol station"^^xsd:string ;
   rdfs:label "Gattuso - Realization of a petrol station"@en ;
 .
@@ -407,6 +434,13 @@ data:Leuteri_Installation_antenna_for_WiFi
   lpd:applicationIsLocatedInCity lpd:San_Ginesio ;
   lpd:applicationIsManagedByPublicAdministration lpd:SUAPMontiAzzurri ;
   lpd:applicationIsSubmittedByApplicant data:Fabiana_Leuteri ;
+  lpd:applicationRequiresOrganisationalUnits lpd:ARPAM ;
+  lpd:applicationRequiresOrganisationalUnits lpd:ASUR_hygiene_and_health_services ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Building_office ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Provincial_civil_genius ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Provincial_urban_office ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Superintendence_for_artistic_architectural_environmentand_historical_goods ;
+  lpd:decision "true"^^xsd:boolean ;
   lpd:description "Installation of radioelectric antenna for WiFi data transmission in protected area"^^xsd:string ;
   rdfs:label "Leuteri - Installation of antenna for WiFi"@en ;
 .
@@ -421,6 +455,13 @@ data:Lupi_Sciamanna_Vignola_Realization_of_a_residencial_care_facility
   lpd:applicationIsSubmittedByApplicant data:Alessanrdo_Sciamanna ;
   lpd:applicationIsSubmittedByApplicant data:Elia_Vignola ;
   lpd:applicationIsSubmittedByApplicant data:Giorgio_Lupi ;
+  lpd:applicationRequiresOrganisationalUnits lpd:ASUR_hygiene_and_health_services ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Company_SANITAS_IMPRESA_SOCIALE ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Piceno_Consind ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Regional_health_authority ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Social_coordinator ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Social_services ;
+  lpd:decision "true"^^xsd:boolean ;
   lpd:description "Realization of a residencial and protected facility for elderly people"^^xsd:string ;
   rdfs:label "Lupi, Sciamanna, Vignola - Ralization of a residencial care facility"@en ;
 .
@@ -438,6 +479,12 @@ data:Monaldi_Realization_recovery_waste_disposal_plant
   lpd:applicationIsLocatedInCity lpd:Ascoli_Piceno ;
   lpd:applicationIsManagedByPublicAdministration lpd:SUAPAscoliPiceno ;
   lpd:applicationIsSubmittedByApplicant data:Samanta_Monaldi ;
+  lpd:applicationRequiresOrganisationalUnits <http://learnpad.eu#Company_CIA_CONSUL.> ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Piceno_Consind ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Provincial_civil_genius ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Provincial_urban_office ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Regional_health_authority ;
+  lpd:decision "true"^^xsd:boolean ;
   lpd:description "Realization of recovery and waste disposal plant"^^xsd:string ;
   rdfs:label "Monaldi - Realization of a recovery and waste disposal plant"@en ;
 .
@@ -458,6 +505,11 @@ data:Morbidelli_masonry_walls_in_hotel
   lpd:applicationIsLocatedInCity lpd:Senigallia ;
   lpd:applicationIsManagedByPublicAdministration lpd:SUAPSenigallia ;
   lpd:applicationIsSubmittedByApplicant data:Gianna_Morbidelli ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Building_office ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Estate_office ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Landscape_office ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Superintendence_for_artistic_architectural_environmentand_historical_goods ;
+  lpd:decision "true"^^xsd:boolean ;
   lpd:description "Realiaziotion of masonry walls in hotel"^^xsd:string ;
   rdfs:label "Morbidelli - Masonry walls in hotel"@en ;
 .
@@ -474,7 +526,9 @@ data:Nannini_Installation_of_removable_covers_for_outdoor_dining
   lpd:applicationIsLocatedInCity lpd:Senigallia ;
   lpd:applicationIsManagedByPublicAdministration lpd:SUAPSenigallia ;
   lpd:applicationIsSubmittedByApplicant data:Gianna_Nannini ;
-  lpd:applicationRequiresOrganisationalUnits lpd:SUAPSenigallia ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Building_office ;
+  lpd:applicationRequiresOrganisationalUnits lpd:National_railway_network ;
+  lpd:decision "true"^^xsd:boolean ;
   lpd:description "Installation of removable covers fot outdoor dining in restaurant"^^xsd:string ;
   rdfs:label "Nannini - Installation of removable covers for outdoor dining"@en ;
 .
@@ -494,6 +548,14 @@ data:Rossi_Realization_of_a_petrol_station_and_a_building_crafts
   lpd:applicationIsLocatedInCity lpd:Cartoceto ;
   lpd:applicationIsManagedByPublicAdministration lpd:SUAPValleDelMetauro ;
   lpd:applicationIsSubmittedByApplicant data:Eugenio_Rossi ;
+  lpd:applicationRequiresOrganisationalUnits lpd:ASUR_hygiene_and_health_services ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Building_office ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Custom_office ;
+  lpd:applicationRequiresOrganisationalUnits <http://learnpad.eu#Marche_Multiservizi_s.p.a._client_management> ;
+  lpd:applicationRequiresOrganisationalUnits <http://learnpad.eu#Marche_Multiservizi_s.p.a._public_sewer_management> ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Provincial_fire_fighters ;
+  lpd:applicationRequiresOrganisationalUnits lpd:Provincial_urban_office ;
+  lpd:decision "true"^^xsd:boolean ;
   lpd:description "Realization of a petrol station and a building crafts"^^xsd:string ;
   rdfs:label "Rossi - Realization of a petrol station and a building crafts"@en ;
 .
@@ -520,9 +582,9 @@ data:regulationDocument_constructions_in_Unione_Montana_Monti_Azzurri
   elements:documentHasTitle "Regulations for contructions in the Unione Montana Monti Azzurri"^^xsd:string ;
   elements:documentHasType eo:Text ;
 .
-data:regulationDocument_cosntructions_Comunità_Montana_Alto_e_Medio_Metauro
+data:regulationDocument_cosntructions_Comunita_Montana_Alto_e_Medio_Metauro
   rdf:type foaf:Document ;
-  elements:documentHasTitle "Regulations for contructions in the Comunità Montana Alto e Medio Metauro"^^xsd:string ;
+  elements:documentHasTitle "Regulations for contructions in the Comunita Montana Alto e Medio Metauro"^^xsd:string ;
   elements:documentHasType eo:Text ;
 .
 data:regulationDocument_cosntructions_Industrial_Area_AscoliPiceno
