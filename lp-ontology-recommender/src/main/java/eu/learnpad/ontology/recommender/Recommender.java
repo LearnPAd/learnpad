@@ -70,13 +70,13 @@ public class Recommender {
 
         Recommendations recommends = new Recommendations();
         Experts experts = new Experts();
-        experts.addAllBusinessActors(suggestLineManagerAsExpert(modelSetId, artifactId, userId));
-        experts.addAllBusinessActors(suggestExpertsWithSameRole(modelSetId, artifactId, userId));
-        experts.addAllBusinessActors(suggestExpertMostOftenExecutedTask(modelSetId, artifactId, userId));
+        addBusinessActorsWithoutDuplicatesOrSelf(experts, suggestLineManagerAsExpert(modelSetId, artifactId, userId), userId);
+        addBusinessActorsWithoutDuplicatesOrSelf(experts, suggestExpertsWithSameRole(modelSetId, artifactId, userId), userId);
+        addBusinessActorsWithoutDuplicatesOrSelf(experts, suggestExpertMostOftenExecutedTask(modelSetId, artifactId, userId), userId);
         recommends.setExperts(experts);
         
         LearningMaterials materials = new LearningMaterials();
-        materials.addAllLearningMaterials(getLearningMaterial(modelSetId, userId));
+        addLearningMaterialWithoutDuplicates(materials, getLearningMaterial(modelSetId, userId));
         recommends.setLearningMaterials(materials);
         return recommends;
     }
@@ -179,4 +179,49 @@ public class Recommender {
         }
         return materials;
     }
+    
+    private void addBusinessActorsWithoutDuplicatesOrSelf(Experts experts, List<BusinessActor> toAdd, String userId){
+        
+        List<BusinessActor> businessActors = experts.getBusinessActors();
+        if(businessActors == null){
+            businessActors = new ArrayList();
+            for (BusinessActor baToAdd : toAdd) {
+                if(userId != null && userId.equals(baToAdd.getEmail())){
+                    continue;
+                }
+                boolean exists = false;
+                for (BusinessActor businessActor : businessActors) {
+                    if(businessActor.getUri().equals(baToAdd.getUri())){
+                        exists = true;
+                        break;
+                    }
+                }
+                if(!exists){
+                    businessActors.add(baToAdd);
+                }
+            }
+        }
+        experts.setBusinessActors(businessActors);
+    }
+    
+    private void addLearningMaterialWithoutDuplicates(LearningMaterials materials, List<LearningMaterial> toAdd){
+        
+        List<LearningMaterial> materialsList = materials.getLearningMaterials();
+        if(materialsList == null){
+            materialsList = new ArrayList();
+            for (LearningMaterial materialToAdd : toAdd) {
+                boolean exists = false;
+                for (LearningMaterial learningMaterial : materialsList) {
+                    if(learningMaterial.getUrl().equals(materialToAdd.getUrl())){
+                        exists = true;
+                        break;
+                    }
+                }
+                if(!exists){
+                    materialsList.add(materialToAdd);
+                }
+            }
+        }
+        materials.setLearningMaterials(materialsList);
+    }    
 }

@@ -68,7 +68,7 @@ ________________________________________________________________________________
 		<xsl:apply-templates select=".//INSTANCE[@class='Intermediate Event (sequence flow)'][./ATTRIBUTE[@name='Type']='catching'][./ATTRIBUTE[@name='Message']='Yes']" mode="MessageCatchingSequenceIntermediateEvent"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Intermediate Event (boundary)'][./ATTRIBUTE[@name='Type']='interrupting'][./ATTRIBUTE[@name='Message']='Yes']" mode="MessageInterruptingBoundaryIntermediateEvent"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='End Event']" mode="EndEvent"/>
-		<xsl:apply-templates select=".//INSTANCE[@class='Task']" mode="Task"/>
+		<xsl:apply-templates select=".//INSTANCE[@class='Task'][./ATTRIBUTE[@name='Task type']!='Send'][./ATTRIBUTE[@name='Task type']!='Receive']" mode="Task"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Task'][./ATTRIBUTE[@name='Task type']='Send']" mode="SendTask"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Task'][./ATTRIBUTE[@name='Task type']='Receive']" mode="ReceiveTask"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Sub-Process']" mode="SubProcess"/>
@@ -438,8 +438,10 @@ ________________________________________________________________________________
 Learning Document
 ___________________________________________________________________________________________________-->
 	<xsl:template match="INSTANCE" mode="LearningDocument">
+		<xsl:variable name="instanceId" select="@id"/>
 	    <!-- Create all association instances linking the learning material to competencies with levels -->
 		<xsl:apply-templates select="./RECORD[@name='CompetenciesRelated2LearningMaterial']/ROW[INTERREF/IREF]" mode="targetCompetencyAndLevel">
+			<xsl:with-param name="instanceId" select="@id"/>
 			 <xsl:with-param name="competencyRefColumnName">CompetencyOfLM</xsl:with-param>
        	     <xsl:with-param name="levelColumnName">CompetencyLevelOfLM</xsl:with-param>
        	     <xsl:with-param name="commentColumnName">Comment</xsl:with-param>
@@ -448,9 +450,15 @@ ________________________________________________________________________________
 		<xsl:call-template name="LearningDocument">
 			<xsl:with-param name="id" select="@id"/>
 			<xsl:with-param name="name" select="@name"/>
-			<xsl:with-param name="materialURL" select="replace(replace(replace(.//ATTRIBUTE[@name='Model Source' and @type='PROGRAMCALL'],'ITEM &quot;&quot; param:&quot;&quot;',''), 'ITEM &quot;&lt;automatically&gt;&quot; param:&quot;',''),'&quot;','')"/>
+			<xsl:with-param name="materialURL" select="./ATTRIBUTE[@name='Document URI']"/>
 			<xsl:with-param name="competenciesAndLevels" select="./RECORD[@name='CompetenciesRelated2LearningMaterial']/ROW[INTERREF/IREF]"/>
 		</xsl:call-template>
+
+		<xsl:for-each select="./RECORD[@name='CompetenciesRelated2LearningMaterial']/ROW[INTERREF/IREF]">
+			<xsl:call-template name="addInModelConnectionForLearningDocumentToCompetency">
+			  <xsl:with-param name="toId" select="concat($instanceId, @id)"/>
+		     </xsl:call-template>
+		</xsl:for-each>
 
 		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
 		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Group']/@id">
@@ -480,15 +488,23 @@ ________________________________________________________________________________
  Acquired Competency Profile (reference by performer).
 ___________________________________________________________________________________________________-->
   <xsl:template match="INSTANCE" mode="AcquiredCompetencyProfile">
-  	     <xsl:apply-templates select="./RECORD[@name='CompetencyAndLevel']/ROW[INTERREF/IREF]" mode="acquiredCompetencyAndLevel"/>
+  		<xsl:variable name="instanceId" select="@id"/>
+  	     <xsl:apply-templates select="./RECORD[@name='CompetencyAndLevel']/ROW[INTERREF/IREF]" mode="acquiredCompetencyAndLevel">
+	  	     <xsl:with-param name="instanceId" select="@id"/>
+  	     </xsl:apply-templates>
 		<xsl:call-template name="AcquiredCompetencyProfile">
 			<xsl:with-param name="id" select="@id"/>
 			<xsl:with-param name="name" select="@name"/>
 			<xsl:with-param name="class" select="@class"/>
 			<xsl:with-param name="learningPreferences" select="./ATTRIBUTE[@name='Learning Preference']"/>
-			<xsl:with-param name="competenciesAndLevels" select="./RECORD[@name='CompetencyAndLevel']/ROW[INTERREF/IREF]"></xsl:with-param>
 		</xsl:call-template>
-	    <xsl:call-template name="elementPostProcessing"/>
+	    
+		<xsl:for-each select="./RECORD[@name='CompetencyAndLevel']/ROW[INTERREF/IREF]">
+			<xsl:call-template name="addInModelConnectionForCompetencyProfileToCompetency">
+			  <xsl:with-param name="toId" select="concat($instanceId, @id)"/>
+		     </xsl:call-template>
+		</xsl:for-each>	    
+          <xsl:call-template name="elementPostProcessing"/>
   </xsl:template>
 <!--...............................................................................................--> 
 <!--
@@ -496,8 +512,9 @@ ________________________________________________________________________________
  Aquried competency and level.
 ___________________________________________________________________________________________________-->
   <xsl:template match="ROW" mode="acquiredCompetencyAndLevel">
+  			<xsl:param name="instanceId"/>
     		    <xsl:call-template name="AcquiredCompetencyAndLevel">
-  		    	    <xsl:with-param name="id" select="@id"/>
+  		    	    <xsl:with-param name="id" select="concat($instanceId, @id)"/>
   			    <xsl:with-param name="name">Acquired Competency and Level</xsl:with-param>
   			    <xsl:with-param name="class" select="@class"/>
   			    <xsl:with-param name="competencyAndLevelLevel" select="./ATTRIBUTE[@name='ACLevel']"/>
@@ -522,7 +539,9 @@ ________________________________________________________________________________
  Required Competency Profile (referenced by role)
 ___________________________________________________________________________________________________-->
   <xsl:template match="INSTANCE" mode="RequiredCompetencyProfile">
+  	     <xsl:variable name="instanceId" select="@id"/>
   	     <xsl:apply-templates select="./RECORD[@name='TableReferencingRequiredCompetency']/ROW[INTERREF/IREF]" mode="targetCompetencyAndLevel">
+  	     	<xsl:with-param name="instanceId" select="@id"/>
        	     <xsl:with-param name="competencyRefColumnName">RCometency</xsl:with-param>
        	     <xsl:with-param name="levelColumnName">RCLevel</xsl:with-param>
        	     <xsl:with-param name="commentColumnName">Comment</xsl:with-param>
@@ -531,8 +550,14 @@ ________________________________________________________________________________
 			<xsl:with-param name="id" select="@id"/>
 			<xsl:with-param name="name" select="@name"/>
 			<xsl:with-param name="class" select="@class"/>
-			<xsl:with-param name="competenciesAndLevels" select="./RECORD[@name='TableReferencingRequiredCompetency']/ROW[INTERREF/IREF]"></xsl:with-param>
 		</xsl:call-template>
+		
+		<xsl:for-each select="./RECORD[@name='TableReferencingRequiredCompetency']/ROW[INTERREF/IREF]">
+			<xsl:call-template name="addInModelConnectionForCompetencyProfileToCompetency">
+			  <xsl:with-param name="toId" select="concat($instanceId, @id)"/>
+		     </xsl:call-template>
+		</xsl:for-each>	  
+		
 	    <xsl:call-template name="elementPostProcessing"/>
   </xsl:template>
 <!--...............................................................................................--> 
@@ -541,11 +566,12 @@ ________________________________________________________________________________
  Target competency and level (used for required competency entries as well as for competencies referenced by learning material).
  ___________________________________________________________________________________________________-->
   <xsl:template match="ROW" mode="targetCompetencyAndLevel">
+  	  <xsl:param name="instanceId"/>
        <xsl:param name="competencyRefColumnName"/>
        <xsl:param name="levelColumnName"/>
        <xsl:param name="commentColumnName"/>
     		    <xsl:call-template name="TargetCompetencyAndLevel">
-  		    	    <xsl:with-param name="id" select="@id"/>
+  		    	    <xsl:with-param name="id" select="concat($instanceId, @id)"/>
   			    <xsl:with-param name="name">Competency and Level</xsl:with-param>
   			    <xsl:with-param name="class" select="@class"/>
   			    <xsl:with-param name="competencyAndLevelLevel" select="./ATTRIBUTE[@name=$levelColumnName]"/>
