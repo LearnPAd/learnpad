@@ -17,7 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.simulator.monitoring.event;
+package eu.learnpad.simulator.monitoring.event.impl;
 
 /*
  * #%L
@@ -40,11 +40,37 @@ package eu.learnpad.simulator.monitoring.event;
  * #L%
  */
 
+import java.util.Collection;
+import java.util.Map;
+
+import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
+import eu.learnpad.simulator.monitoring.event.SimEventType;
+
 /**
  *
  * @author Tom Jorquera - Linagora
  *
  */
-public enum SimEventType {
-	SIMULATION_START, SIMULATION_END, PROCESS_START, PROCESS_END, TASK_START, TASK_END, TASK_FAILED, SESSION_SCORE_UPDATE
+public class TaskFailedSimEvent extends TaskStartSimEvent {
+
+	public final String completingUser;
+	public Map<String, Object> submittedData;
+	public final LearnPadTaskSubmissionResult submissionResult;
+
+	public TaskFailedSimEvent(Long timestamp, String simulationsessionid,
+			Collection<String> involvedusers, LearnPadTask task,
+			String completingUser, Map<String, Object> submittedData,
+			LearnPadTaskSubmissionResult submissionResult) {
+		super(timestamp, simulationsessionid, involvedusers, task);
+		this.completingUser = completingUser;
+		this.submittedData = submittedData;
+		this.submissionResult = submissionResult;
+	}
+
+	@Override
+	public SimEventType getType() {
+		return SimEventType.TASK_FAILED;
+	}
+
 }
