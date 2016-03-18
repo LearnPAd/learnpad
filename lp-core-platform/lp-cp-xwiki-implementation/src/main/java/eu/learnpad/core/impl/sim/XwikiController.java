@@ -121,7 +121,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
 	@Override
 	public void receiveProcessStartEvent(ProcessStartEvent event) throws LpRestException{
-		String modelId = event.processid;
+		String modelId = event.processartifactid;
 		String action = "started";		
 		String modelSetId = event.modelsetid;		
 		String simulationId = event.simulationsessionid;
@@ -136,7 +136,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
 	@Override
 	public void receiveProcessEndEvent(ProcessEndEvent event)  throws LpRestException{
-		String modelId = event.processid;
+		String modelId = event.processartifactid;
 		String action = "stopped";		
 		String modelSetId = event.modelsetid;		
 		String simulationId = event.simulationsessionid;
@@ -154,7 +154,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	@Override
 	public void receiveTaskStartEvent(TaskStartEvent event) throws LpRestException {
 		String modelSetId = event.modelsetid;
-		String artifactId = event.taskdefid; 
+		String artifactId = event.taskartifactid;
 		String simulationId = event.simulationsessionid;
 
 // It seems not useful for the moment, this notification
@@ -165,8 +165,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
 	@Override
 	public void receiveTaskEndEvent(TaskEndEvent event) throws LpRestException {
-		String modelId = event.processid;
-		String artifactId = event.taskdefid;
+		String modelId = event.processartifactid;
+		String artifactId = event.taskartifactid;
 		String modelSetId = event.modelsetid;
 		
 		SimulationData data = new SimulationData();
