@@ -80,14 +80,19 @@ public class ContentAnalysisBean implements Serializable {
 	}
 
 	public Collection<String> getCollectionids(){
-		Client client = ClientBuilder.newClient();
+		try{
+			Client client = ClientBuilder.newClient();
 
-		WebTarget target = client.target("http://localhost:8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/allid");
+			WebTarget target = client.target("http://localhost:8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/allid");
 
-		Response allID =  target.request().get();
-		String res = allID.readEntity(String.class);
+			Response allID =  target.request().get();
+			String res = allID.readEntity(String.class);
 
-		return Arrays.asList(res.split(";"));
+			return Arrays.asList(res.split(";"));
+		}catch(Exception e){
+			log.error(e);
+			return null;
+		}
 	}
 
 	public void setStatus(String status) {
@@ -105,7 +110,7 @@ public class ContentAnalysisBean implements Serializable {
 			case "BAD":
 				color ="#FF9C07";
 				break;
-				
+
 			case "NOT SO BAD":
 				color ="#FFFF00";
 				break;
@@ -208,37 +213,39 @@ public class ContentAnalysisBean implements Serializable {
 
 
 	public void actionDownloadAnalysis(){
-		
-		//FacesContext context = FacesContext.getCurrentInstance();
+		try{
+			//FacesContext context = FacesContext.getCurrentInstance();
 
 
-		//id =  (String) context.getApplication().evaluateExpressionGet(context, "#{ContentBean.restid}", String.class);
-		Client client = ClientBuilder.newClient();
-		if(id==null){
-			id="1";
+			//id =  (String) context.getApplication().evaluateExpressionGet(context, "#{ContentBean.restid}", String.class);
+			Client client = ClientBuilder.newClient();
+			if(id==null){
+				id="1";
+			}
+
+			WebTarget target = client.target("http://localhost:8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id+"/status");
+			String 	status ="";
+			while (!status.equals("OK")) {
+
+
+				status = target.request().get(String.class);
+
+				this.setStatus(status);
+				if(status.equals("ERROR"))
+					break;
+			}
+			log.trace("Status: "+status);
+
+			if(status.equals("OK")){
+				target = client.target("http://localhost:8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id);
+				Response annotatecontent =  target.request().get();
+				AnnotatedCollaborativeContentAnalyses res = annotatecontent.readEntity(new GenericType<AnnotatedCollaborativeContentAnalyses>() {});
+				this.setCollectionannotatedcontent(res.getAnnotateCollaborativeContentAnalysis());
+
+			}
+		}catch(Exception e){
+			log.error(e);
 		}
-
-		WebTarget target = client.target("http://localhost:8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id+"/status");
-		String 	status ="";
-		while (!status.equals("OK")) {
-
-
-			status = target.request().get(String.class);
-
-			this.setStatus(status);
-			if(status.equals("ERROR"))
-				break;
-		}
-		log.trace("Status: "+status);
-
-		if(status.equals("OK")){
-			target = client.target("http://localhost:8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id);
-			Response annotatecontent =  target.request().get();
-			AnnotatedCollaborativeContentAnalyses res = annotatecontent.readEntity(new GenericType<AnnotatedCollaborativeContentAnalyses>() {});
-			this.setCollectionannotatedcontent(res.getAnnotateCollaborativeContentAnalysis());
-
-		}
-
 
 	}
 
