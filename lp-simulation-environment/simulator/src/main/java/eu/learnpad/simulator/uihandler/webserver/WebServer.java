@@ -294,8 +294,6 @@ public class WebServer {
 		// First check if the IP address has been specified in a properties file
 		if (SimulatorProperties.props
 				.containsKey(SimulatorProperties.PROP_ADDRESS)) {
-			System.out.println(SimulatorProperties.props
-					.getProperty(SimulatorProperties.PROP_ADDRESS));
 			return SimulatorProperties.props
 					.getProperty(SimulatorProperties.PROP_ADDRESS);
 		} else {
