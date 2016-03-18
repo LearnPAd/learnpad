@@ -140,6 +140,9 @@ function taskReceiver(address, user, integratedMode) {
         case 'SESSION_FINISHED':
             var containerDiv = $('#processmain' + msg.sessionid);
             var processFinished = document.createElement('p');
+
+            var totalScore = 0;
+
             var result = '<h4>Congratulations, you successfully completed the simulation</h4>';
             result += '<p>Score Summary:</p>';
             result += '<table class="detailed-score table table-striped table-condensed">';
@@ -148,7 +151,11 @@ function taskReceiver(address, user, integratedMode) {
             for(var aTask in msg.tasknames) {
                 result += '<tr><td>' + msg.tasknames[aTask] + '</td><td>' +
                     msg.taskscores[aTask] +'</td></tr>';
+
+                totalScore += msg.taskscores[aTask];
             }
+
+            result += '<tr><td><i>Total session score</i></td><td><i>' + totalScore + '</i></td></tr>';
             result += '</table>';
 
             processFinished.innerHTML = result;
