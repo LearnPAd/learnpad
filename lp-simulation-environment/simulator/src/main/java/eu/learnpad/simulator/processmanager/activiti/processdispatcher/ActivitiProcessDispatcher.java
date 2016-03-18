@@ -27,6 +27,7 @@ package eu.learnpad.simulator.processmanager.activiti.processdispatcher;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +59,7 @@ import eu.learnpad.simulator.processmanager.ITaskRouter;
 import eu.learnpad.simulator.processmanager.ITaskValidator;
 import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
 import eu.learnpad.simulator.processmanager.activiti.workarounds.msg.MessageInfoData;
+import eu.learnpad.simulator.uihandler.formhandler.dataobject2jsonform.DataObjectToJsonFormFormHandler;
 import eu.learnpad.simulator.utils.BPMNExplorer;
 
 /**
@@ -123,16 +125,15 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 
 			for (String dataInput : dataInputs) {
 
-				Collection<LearnPadDocumentField> fields = new ArrayList<LearnPadDocumentField>();
-
-				for (String element : explorer.getDataObjectContent(dataInput)) {
-					fields.add(new LearnPadDocumentField(element, element,
-							"string", "", processWithVars.getProcessVariables()
-							.get(element).toString()));
+				Map<LearnPadDocumentField, Object> fieldValues = new HashMap<LearnPadDocumentField, Object>();
+				for (LearnPadDocumentField field : DataObjectToJsonFormFormHandler
+						.dataObjectToFields(dataInput, explorer)) {
+					fieldValues.put(field, processWithVars
+							.getProcessVariables().get(field.id));
 				}
 
 				documents.add(new LearnPadDocument(dataInput, explorer
-						.getDataObjectName(dataInput), "", fields));
+						.getDataObjectName(dataInput), "", fieldValues));
 			}
 		}
 
