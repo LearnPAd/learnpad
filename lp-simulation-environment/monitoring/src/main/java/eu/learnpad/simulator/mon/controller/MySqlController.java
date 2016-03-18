@@ -33,47 +33,51 @@ public class MySqlController implements DBController {
 
 	@Override
 	public boolean connectToDB() {
-		String url = "jdbc:mysql://"
-				+ connectionProp.getProperty("database.host") +
-				":" + connectionProp.getProperty("database.port")+"/";
-		
-		String dbName = connectionProp.getProperty("database.name");
-		String driver = "com.mysql.jdbc.Driver";
-		String userName = connectionProp.getProperty("username"); 
-		String password = connectionProp.getProperty("password");
-		try { 
-			Class.forName(driver).newInstance();
-			conn = DriverManager.getConnection(url+dbName,userName,password);
-			DebugMessages.print(TimeStamp.getCurrentTime(),
-					MySqlController.class.getSimpleName(),
-					"Connection to db " + connectionProp.getProperty("database.host"));
-			DebugMessages.ok();
-		} catch (SQLException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(),
-					MySqlController.class.getSimpleName(),
-					"Could not connect to db " + connectionProp.getProperty("database.host"));
-			e.printStackTrace();
-			return false;
-		} catch (InstantiationException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(),
-					MySqlController.class.getSimpleName(),
-					"Could not connect to db " + connectionProp.getProperty("database.host"));
-			e.printStackTrace();
-			return false;
-		} catch (IllegalAccessException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(),
-					MySqlController.class.getSimpleName(),
-					"Could not connect to db " + connectionProp.getProperty("database.host"));
-			e.printStackTrace();
-			return false;
-		} catch (ClassNotFoundException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(),
-					MySqlController.class.getSimpleName(),
-					"Could not connect to db " + connectionProp.getProperty("database.host"));
-			e.printStackTrace();
-			return false;
-		}
+		DebugMessages.println(TimeStamp.getCurrentTime(),
+				MySqlController.class.getSimpleName(),
+				"DISABLED");
 		return true;
+//		String url = "jdbc:mysql://"
+//				+ connectionProp.getProperty("database.host") +
+//				":" + connectionProp.getProperty("database.port")+"/";
+//		
+//		String dbName = connectionProp.getProperty("database.name");
+//		String driver = "com.mysql.jdbc.Driver";
+//		String userName = connectionProp.getProperty("username"); 
+//		String password = connectionProp.getProperty("password");
+//		try { 
+//			Class.forName(driver).newInstance();
+//			conn = DriverManager.getConnection(url+dbName,userName,password);
+//			DebugMessages.print(TimeStamp.getCurrentTime(),
+//					MySqlController.class.getSimpleName(),
+//					"Connection to db " + connectionProp.getProperty("database.host"));
+//			DebugMessages.ok();
+//		} catch (SQLException e) {
+//			DebugMessages.println(TimeStamp.getCurrentTime(),
+//					MySqlController.class.getSimpleName(),
+//					"Could not connect to db " + connectionProp.getProperty("database.host"));
+//			e.printStackTrace();
+//			return false;
+//		} catch (InstantiationException e) {
+//			DebugMessages.println(TimeStamp.getCurrentTime(),
+//					MySqlController.class.getSimpleName(),
+//					"Could not connect to db " + connectionProp.getProperty("database.host"));
+//			e.printStackTrace();
+//			return false;
+//		} catch (IllegalAccessException e) {
+//			DebugMessages.println(TimeStamp.getCurrentTime(),
+//					MySqlController.class.getSimpleName(),
+//					"Could not connect to db " + connectionProp.getProperty("database.host"));
+//			e.printStackTrace();
+//			return false;
+//		} catch (ClassNotFoundException e) {
+//			DebugMessages.println(TimeStamp.getCurrentTime(),
+//					MySqlController.class.getSimpleName(),
+//					"Could not connect to db " + connectionProp.getProperty("database.host"));
+//			e.printStackTrace();
+//			return false;
+//		}
+//		return true;
 	}
 
 	@Override

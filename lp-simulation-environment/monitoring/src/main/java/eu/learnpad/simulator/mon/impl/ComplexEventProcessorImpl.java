@@ -51,6 +51,7 @@ import org.drools.io.ResourceFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.rule.WorkingMemoryEntryPoint;
 
+import eu.learnpad.sim.rest.event.EventType;
 import eu.learnpad.simulator.mon.buffer.EventsBuffer;
 import eu.learnpad.simulator.mon.cep.ComplexEventProcessor;
 import eu.learnpad.simulator.mon.event.GlimpseBaseEvent;
