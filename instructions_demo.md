@@ -56,13 +56,17 @@ save and close.
 ```
 chmod +x build
 
-run ./build
+./build
 
 chmod +x launch
 
-run ./launch -d start
+./launch -d start
 ```
+now open browser
 
+```
+localhost:8080/xwiki/bin/edit/Sandbox/CD5?template=LPCode.CollaborativeDocumentTemplate&editor=inline&sheet=CKEditor.EditSheet
+```
 
 
 
