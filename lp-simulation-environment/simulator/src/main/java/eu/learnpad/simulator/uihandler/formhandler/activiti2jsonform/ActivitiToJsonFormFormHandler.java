@@ -33,6 +33,7 @@ import org.activiti.engine.form.FormData;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.StartFormData;
 
+import eu.learnpad.simulator.datastructures.document.LearnPadDocumentField;
 import eu.learnpad.simulator.uihandler.formhandler.AbstractFormHandler;
 
 /**
@@ -60,8 +61,8 @@ public class ActivitiToJsonFormFormHandler extends AbstractFormHandler {
 	 * @param props
 	 * @return a list of form fields
 	 */
-	private List<FormField> propertyToField(List<FormProperty> props) {
-		List<FormField> res = new ArrayList<FormField>();
+	private List<LearnPadDocumentField> propertyToField(List<FormProperty> props) {
+		List<LearnPadDocumentField> res = new ArrayList<LearnPadDocumentField>();
 		for (FormProperty prop : props) {
 
 			String type = prop.getType().getName();
@@ -73,21 +74,21 @@ public class ActivitiToJsonFormFormHandler extends AbstractFormHandler {
 			Map<String, String> enumValues = type.equals("enum") ? (Map<String, String>) prop
 					.getType().getInformation("values") : null;
 
-			res.add(new FormField(prop.getId(), title, type, prop.isRequired(),
-							"", enumValues));
+					res.add(new LearnPadDocumentField(prop.getId(), title, type, prop
+					.isRequired(), "", enumValues));
 		}
 
 		return res;
 	}
 
 	@Override
-	public List<FormField> getStartFormData(String processId) {
+	public List<LearnPadDocumentField> getStartFormData(String processId) {
 		StartFormData data = activitiFormService.getStartFormData(processId);
 		return propertyToField(data.getFormProperties());
 	}
 
 	@Override
-	public List<FormField> getTaskFormFields(String taskId) {
+	public List<LearnPadDocumentField> getTaskFormFields(String taskId) {
 		FormData data = activitiFormService.getTaskFormData(taskId);
 		return propertyToField(data.getFormProperties());
 	}

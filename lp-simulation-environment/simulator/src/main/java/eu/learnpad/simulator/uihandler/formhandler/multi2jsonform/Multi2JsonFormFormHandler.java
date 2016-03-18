@@ -28,6 +28,7 @@ import java.util.List;
 import org.activiti.engine.FormService;
 import org.activiti.engine.TaskService;
 
+import eu.learnpad.simulator.datastructures.document.LearnPadDocumentField;
 import eu.learnpad.simulator.uihandler.formhandler.AbstractFormHandler;
 import eu.learnpad.simulator.uihandler.formhandler.activiti2jsonform.ActivitiToJsonFormFormHandler;
 import eu.learnpad.simulator.uihandler.formhandler.dataobject2jsonform.DataObjectToJsonFormFormHandler;
@@ -72,8 +73,8 @@ public class Multi2JsonFormFormHandler extends AbstractFormHandler {
 	}
 
 	@Override
-	public List<FormField> getStartFormData(String processId) {
-		List<FormField> res = new ArrayList<AbstractFormHandler.FormField>();
+	public List<LearnPadDocumentField> getStartFormData(String processId) {
+		List<LearnPadDocumentField> res = new ArrayList<LearnPadDocumentField>();
 		for (AbstractFormHandler handler : handlers) {
 			res.addAll(handler.getStartFormData(processId));
 		}
@@ -81,8 +82,8 @@ public class Multi2JsonFormFormHandler extends AbstractFormHandler {
 	}
 
 	@Override
-	public List<FormField> getTaskFormFields(String taskId) {
-		List<FormField> res = new ArrayList<AbstractFormHandler.FormField>();
+	public List<LearnPadDocumentField> getTaskFormFields(String taskId) {
+		List<LearnPadDocumentField> res = new ArrayList<LearnPadDocumentField>();
 		for (AbstractFormHandler handler : handlers) {
 			res.addAll(handler.getTaskFormFields(taskId));
 		}

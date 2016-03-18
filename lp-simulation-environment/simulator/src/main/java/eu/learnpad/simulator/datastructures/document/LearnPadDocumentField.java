@@ -1,5 +1,7 @@
 package eu.learnpad.simulator.datastructures.document;
 
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /*
@@ -31,24 +33,27 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class LearnPadDocumentField {
 
 	@JsonProperty("id")
-	String id;
+	public String id;
 	@JsonProperty("name")
-	String name;
+	public String name;
 	@JsonProperty("type")
-	String type;
-	@JsonProperty("desc")
-	String desc;
-	@JsonProperty("value")
-	String value;
+	public String type;
+	@JsonProperty("required")
+	public boolean required;
+	@JsonProperty("category")
+	public String category;
+	@JsonProperty("enumValues")
+	public Map<String, String> enumValues;
 
 	public LearnPadDocumentField(String id, String name, String type,
-			String desc, String value) {
+			boolean required, String category, Map<String, String> enumValues) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.type = type;
-		this.desc = desc;
-		this.value = value;
+		this.required = required;
+		this.category = category;
+		this.enumValues = enumValues;
 	}
 
 }
