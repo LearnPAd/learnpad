@@ -40,6 +40,7 @@ import eu.learnpad.simulator.monitoring.event.impl.SessionScoreUpdateSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskFailedSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
 
 /**
@@ -181,6 +182,11 @@ IProcessEventReceiver, IRobotHandler {
 	@Override
 	public void receiveTaskEndEvent(TaskEndSimEvent event) {
 		eventReceiver.receiveTaskEndEvent(event);
+	}
+
+	@Override
+	public void receiveTaskFailedEvent(TaskFailedSimEvent event) {
+		eventReceiver.receiveTaskFailedEvent(event);
 	}
 
 	@Override

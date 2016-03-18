@@ -41,8 +41,10 @@ package eu.learnpad.simulator.monitoring.event.impl;
  */
 
 import java.util.Collection;
+import java.util.Map;
 
-import eu.learnpad.simulator.monitoring.event.AbstractSimEvent;
+import eu.learnpad.simulator.datastructures.LearnPadTask;
+import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
 import eu.learnpad.simulator.monitoring.event.SimEventType;
 
 /**
@@ -50,35 +52,25 @@ import eu.learnpad.simulator.monitoring.event.SimEventType;
  * @author Tom Jorquera - Linagora
  *
  */
-public class SessionScoreUpdateSimEvent extends AbstractSimEvent {
+public class TaskFailedSimEvent extends TaskStartSimEvent {
 
-	/**
-	 * Unique ID of the process instance
-	 */
-	public String processid;
+	public final String completingUser;
+	public Map<String, Object> submittedData;
+	public final LearnPadTaskSubmissionResult submissionResult;
 
-	/**
-	 * The LearnPAd user those score is updated
-	 */
-	public String user;
-
-	/**
-	 * The new session score of the user
-	 */
-	public long sessionscore;
-
-	public SessionScoreUpdateSimEvent(Long timestamp,
-			String simulationsessionid, Collection<String> involvedusers,
-			String processid, String user, long sessionScore) {
-		super(timestamp, simulationsessionid, involvedusers);
-		this.processid = processid;
-		this.sessionscore = sessionScore;
-		this.user = user;
+	public TaskFailedSimEvent(Long timestamp, String simulationsessionid,
+			Collection<String> involvedusers, LearnPadTask task,
+			String completingUser, Map<String, Object> submittedData,
+			LearnPadTaskSubmissionResult submissionResult) {
+		super(timestamp, simulationsessionid, involvedusers, task);
+		this.completingUser = completingUser;
+		this.submittedData = submittedData;
+		this.submissionResult = submissionResult;
 	}
 
 	@Override
 	public SimEventType getType() {
-		return SimEventType.SESSION_SCORE_UPDATE;
+		return SimEventType.TASK_FAILED;
 	}
 
 }

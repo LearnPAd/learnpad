@@ -38,19 +38,14 @@ public class TaskStartEvent extends AbstractEvent {
 	private static final long serialVersionUID = 6565005567809009748L;
 
 	/**
-	 * Unique ID of the process instance
+	 * Unique ID of the process artifact
 	 */
-	public String processid;
-
-	/**
-	 * Unique ID of the task instance
-	 */
-	public String taskid;
+	public String processartifactid;
 
 	/**
 	 * ID used to identify the task in the BP definition
 	 */
-	public String taskdefid;
+	public String taskartifactid;
 
 	/**
 	 * The LearnPAd users that have been assigned to this task
@@ -63,20 +58,20 @@ public class TaskStartEvent extends AbstractEvent {
 
 	public TaskStartEvent(Long timestamp, String simulationsessionid,
 			List<String> involvedusers, String modelsetid,
-			Map<String, Object> simulationSessionData, String processid,
-			String taskid, String taskdefid, List<String> assignedusers) {
+			Map<String, Object> simulationSessionData,
+			String processartifactid, String taskartifactid,
+			List<String> assignedusers) {
 		super(EventType.TASK_START, timestamp, simulationsessionid,
 				involvedusers, modelsetid, simulationSessionData);
-		this.processid = processid;
-		this.taskid = taskid;
-		this.taskdefid = taskdefid;
+		this.processartifactid = processartifactid;
+		this.taskartifactid = taskartifactid;
 		this.assignedusers = assignedusers;
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + " processid=" + processid + " taskid="
-				+ taskid + " taskdefid=" + taskdefid + " assignedusers="
+		return super.toString() + " processartifactid=" + processartifactid
+				+ " taskartifactid=" + taskartifactid + " assignedusers="
 				+ assignedusers;
 	}
 

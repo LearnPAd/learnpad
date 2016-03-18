@@ -43,6 +43,7 @@ import eu.learnpad.simulator.monitoring.event.impl.SessionScoreUpdateSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskFailedSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
 import eu.learnpad.simulator.uihandler.IFormHandler;
 
@@ -181,6 +182,11 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 			((UIServlet) usersMap.get(user).getServletInstance())
 					.addTask(event.task.id);
 		}
+	}
+
+	@Override
+	public void receiveTaskFailedEvent(TaskFailedSimEvent event) {
+		// nothing to do
 	}
 
 	@Override

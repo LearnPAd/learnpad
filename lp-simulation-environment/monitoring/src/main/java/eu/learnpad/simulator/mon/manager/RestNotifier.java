@@ -73,8 +73,8 @@ public class RestNotifier extends Thread {
 		}
 	}
 		
-	public static void notifyProcessStart(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID, Map<String, Object> simulationSessionData, String processID, String processDefinitionID) {
-		ProcessStartEvent event = new ProcessStartEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData, processID, processDefinitionID);
+	public static void notifyProcessStart(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID, Map<String, Object> simulationSessionData, String processArtifactId) {
+		ProcessStartEvent event = new ProcessStartEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData, processArtifactId);
 		try {
 			RestNotifier.getCoreFacade().receiveProcessStartEvent(event);
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "ProcessStartEvent sent");
@@ -92,8 +92,8 @@ public class RestNotifier extends Thread {
 		}
 	}
 	
-	public static void notifyProcessEnd(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID, Map<String, Object> simulationSessionData, String processID, String processDefinitionID) {
-		ProcessEndEvent event = new ProcessEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData, processID, processDefinitionID);
+	public static void notifyProcessEnd(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID, Map<String, Object> simulationSessionData, String processArtifactId) {
+		ProcessEndEvent event = new ProcessEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData, processArtifactId);
 		try {
 			RestNotifier.getCoreFacade().receiveProcessEndEvent(event);
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "ProcessStopEvent sent");
@@ -111,8 +111,8 @@ public class RestNotifier extends Thread {
 		}
 	}
 	
-	public static void notifyTaskStart(Long processTimeStamp, String sessionID, List<String> involvedUsers, String modelSetID, Map<String, Object> simulationSessionData, String processID, String taskID, String taskDefinitionID, List<String> assignedUsers) {
-		TaskStartEvent event = new TaskStartEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData, processID, taskID, taskDefinitionID, assignedUsers);
+	public static void notifyTaskStart(Long processTimeStamp, String sessionID, List<String> involvedUsers, String modelSetID, Map<String, Object> simulationSessionData, String processArtifactId, String taskArtifactId, List<String> assignedUsers) {
+		TaskStartEvent event = new TaskStartEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData, processArtifactId, taskArtifactId, assignedUsers);
 		try {
 			RestNotifier.getCoreFacade().receiveTaskStartEvent(event);
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "TaskStartEvent sent");
@@ -139,8 +139,8 @@ public class RestNotifier extends Thread {
 		}
 	}
 	
-	public static void notifyTaskEnd(Long processTimeStamp, String sessionID, List<String> involvedUsers, String modelSetID, Map<String, Object> simulationSessionData, String processID, String taskID, String taskDefinitionID, List<String> assignedUsers, String completingUserID, Map<String,Object> submittedData) {
-		TaskEndEvent event = new TaskEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData, processID, taskID, taskDefinitionID, assignedUsers, completingUserID, submittedData);
+	public static void notifyTaskEnd(Long processTimeStamp, String sessionID, List<String> involvedUsers, String modelSetID, Map<String, Object> simulationSessionData, String processArtifactId, String taskArtifactId, List<String> assignedUsers, String completingUserID, Map<String,Object> submittedData) {
+		TaskEndEvent event = new TaskEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData, processArtifactId, taskArtifactId, assignedUsers, completingUserID, submittedData);
 		try {
 			RestNotifier.getCoreFacade().receiveTaskEndEvent(event);
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "TaskEndEvent sent");
