@@ -1,0 +1,2 @@
+serviceConfSummary,"Summary of the Conference of Services",textarea,true,""
+applicationStatus,"Status of the application?",enum,true,"",ok,Accept,ko,Inhibit,needAmendments,Amendments required
