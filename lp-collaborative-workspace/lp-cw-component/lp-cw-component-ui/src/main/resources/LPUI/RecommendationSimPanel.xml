@@ -124,7 +124,9 @@
     <property>
       <content>{{velocity}}
 {{html}}
-&lt;p&gt; this is foo &lt;/p&gt;
+&lt;iframe id="rec-sim-iframe" width="100%" src="http://localhost:8080/--this-is-not-defined-yet--"&gt;
+Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
+&lt;/iframe&gt;
 {{/html}}
 {{/velocity}}</content>
     </property>
