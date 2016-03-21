@@ -132,7 +132,7 @@
       <description>View of the recommendation provided by the Ontology Recommendation Component during a Simulation Session</description>
     </property>
     <property>
-      <name>Recommendation form the Simulator</name>
+      <name>Recommendation from the Simulator</name>
     </property>
     <property>
       <type>view</type>
