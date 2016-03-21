@@ -26,6 +26,7 @@ package eu.learnpad.simulator;
 
 import java.io.IOException;
 
+import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.simulator.uihandler.webserver.WebServer;
 
 /**
@@ -56,6 +57,9 @@ public class Main {
 		try {
 
 			simulator = new Simulator(ACTIVITY_CONFIG_PATH, PORT);
+
+			simulator.userHandler().addUser(
+					new UserData("bbarnes", "Barnaby", "Barnes", "", "", ""));
 
 			// load process definitions
 			simulator.processManager().addProjectDefinitions(
