@@ -85,6 +85,39 @@ function processReceiver(address) {
     };
 
     newProcessReceiver.submitProcessData = function(id, values) {
+
+        // SPECIAL MODIFICATIONS FOR DEMO PURPOSE ONLY
+        if(id == 'process_27772') {
+
+            // un-stringify
+            values = JSON.parse(values);
+
+            if(values['case'] === '829-2015') {
+                values['applicantName'] = 'Guiseppe Cappelletti';
+                values['applicationCity'] = 'lpd:Ancona';
+                values['applicationZone'] = 'lpd:Beach_Area_At_The_Sea';
+                values['applicationPublicAdministration'] = 'ldp:SUAPSenigallia';
+                values['applicationSubType'] = 'ldp:Restructuring';
+                values['applicationSector'] = 'lpd:Building_Sector';
+                values['applicationBusinessActivity'] = 'lpd:Receptive_Tourism_Activity';
+                values['applicationDescription'] = 'Realization of a chalet on a beach area of Senigallia';
+                values['applicationATECOCategory'] = '';
+            } else {
+                values['applicantName'] = 'Ottavio Nandi';
+                values['applicationCity'] = 'lpd:Belforte_del_Chienti';
+                values['applicationZone'] = 'lpd:Regional_Protected_Area_Unione_Montana_Monti_Azzurri';
+                values['applicationPublicAdministration'] = 'lpd:SUAPMontiAzzurri';
+                values['applicationSubType'] = 'lpd:Reactivation';
+                values['applicationSector'] = 'lpd:Waste_Sector';
+                values['applicationBusinessActivity'] = 'lpd:Industrial';
+                values['applicationDescription'] = 'request for reneval of authorization of industrial waste water discharge in sewer - coffee machines factory';
+                values['applicationATECOCategory'] = '28.93';
+            }
+
+            // re-stringify
+            values = JSON.stringify(values);
+        }
+
         newProcessReceiver.send(JSON.stringify(
             {
                 type: 'INSTANCIATE',

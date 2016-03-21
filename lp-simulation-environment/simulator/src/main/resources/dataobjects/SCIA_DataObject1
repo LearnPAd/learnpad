@@ -1,0 +1,3 @@
+accepted,"Is this application acceptable?",enum,true,"",true,Yes,false,No
+kpis,"TODO: need some KPIs here",string,false,""
+explaination,"Reason of non-acceptation (if rejected)",textarea,false,""
