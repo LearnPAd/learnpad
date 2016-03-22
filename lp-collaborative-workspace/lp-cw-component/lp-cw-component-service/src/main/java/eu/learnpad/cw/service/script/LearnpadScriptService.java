@@ -20,6 +20,7 @@
 package eu.learnpad.cw.service.script;
 
 import java.util.Collection;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -106,6 +107,15 @@ public class LearnpadScriptService implements ScriptService {
 		try {
 			return this.cwBridge.getRecommendations(modelSetId, artifactId,
 					userId);
+		} catch (Exception e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public Map<String,Recommendations> getNotifiedRecommendations(String userId) {
+		try {
+			return this.cwBridge.getNotifiedRecommendations(userId);
 		} catch (Exception e) {
 			this.setLastError(e);
 			return null;
