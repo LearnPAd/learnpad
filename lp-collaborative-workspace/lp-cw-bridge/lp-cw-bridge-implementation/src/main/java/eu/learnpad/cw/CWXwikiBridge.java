@@ -26,6 +26,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -41,7 +42,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
-import org.xwiki.model.EntityType;
+import org.xwiki.component.phase.InitializationException;
 import org.xwiki.model.reference.DocumentReference;
 import org.xwiki.model.reference.DocumentReferenceResolver;
 import org.xwiki.model.reference.EntityReference;
@@ -58,11 +59,11 @@ import com.xpn.xwiki.objects.BaseObject;
 
 import eu.learnpad.core.impl.cw.XwikiBridge;
 import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.cw.impl.persistence.RecommendationsStore;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.rest.data.Recommendations;
-import eu.learnpad.or.rest.data.SimulationData;
 import eu.learnpad.rest.model.jaxb.PFResults;
 import eu.learnpad.rest.model.jaxb.PFResults.Feedbacks;
 import eu.learnpad.rest.model.jaxb.PFResults.Feedbacks.Feedback;
@@ -94,7 +95,9 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge
     private final String USER_CLASS_PAGE = "XWikiUsers";
 
     private final String USER_CLASS = String.format("%s.%s", XWIKI_SPACE, USER_CLASS_PAGE);
-
+      
+    private static volatile RecommendationsStore recsStore;
+    
     @Inject
     private Logger logger;
 
@@ -116,6 +119,12 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge
     @Inject
     private DocumentReferenceResolver<EntityReference> referenceDocumentReferenceResolver;
 
+	@Override
+	public void initialize() throws InitializationException {
+		recsStore = RecommendationsStore.createRecommendationsStore();	
+	}
+
+    
     @Override
     public byte[] getComments(String modelSetId, String artifactId) throws LpRestException
     {
@@ -333,6 +342,13 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge
         return this.corefacade.getRecommendations(modelSetId, artifactId, userId);
     }
 
+    @Override
+    public Map<String,Recommendations> getNotifiedRecommendations(String userId)
+        throws LpRestException
+    {
+        return CWXwikiBridge.recsStore.get(userId);        
+    }
+
     private Collection<UserData> getUserProfiles(Collection<String> potentialUsers)
     {
         XWikiContext xcontext = xcontextProvider.get();
@@ -393,6 +409,8 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge
     				 "recommendations : " + rec.toString();
     	
         logger.info(msg);
+        
+        CWXwikiBridge.recsStore.put(userId, simulationid, rec);
     }
     
     

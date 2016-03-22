@@ -20,6 +20,7 @@
 package eu.learnpad.cw;
 
 import java.util.Collection;
+import java.util.Map;
 
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
@@ -31,10 +32,12 @@ import eu.learnpad.or.rest.data.Recommendations;
 
 @Role
 public interface UICWBridge {
-	Recommendations getRecommendations(String modelSetId, String artifactId,
+	public Recommendations getRecommendations(String modelSetId, String artifactId,
 			String userId) throws LpRestException;
 
-	String startSimulation(@PathParam("modelid") String modelId,
+	public String startSimulation(@PathParam("modelid") String modelId,
 			@QueryParam("currentuser") String currentUser,
 			Collection<String> potentialUsers) throws LpRestException;
+	
+	public Map<String,Recommendations> getNotifiedRecommendations(String userId) throws LpRestException;
 }
