@@ -42,6 +42,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
+import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 import org.xwiki.model.reference.DocumentReference;
 import org.xwiki.model.reference.DocumentReferenceResolver;
@@ -78,7 +79,7 @@ import eu.learnpad.sim.rest.data.UserData;
 @Singleton
 @Named("eu.learnpad.cw.CWXwikiBridge")
 @Path("/learnpad/cw/bridge")
-public class CWXwikiBridge extends XwikiBridge implements UICWBridge
+public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBridge
 {
     private final String LEARNPAD_SPACE = "LPCode";
 
