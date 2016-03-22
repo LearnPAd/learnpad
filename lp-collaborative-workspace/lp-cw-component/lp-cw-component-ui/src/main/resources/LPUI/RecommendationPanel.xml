@@ -129,7 +129,15 @@
 #set ($currentUser = $xcontext.user)
 #set ($userId = $xwiki.getDocument($currentUser).getObject('XWiki.XWikiUsers').getProperty('email').value)
 #if ($modelSetId &amp;&amp; $artifactId &amp;&amp; $userId)
-  #set ($recommendations = $services.learnpad.getRecommendations(${modelSetId}, ${artifactId}, ${userId}))
+## recInSimMode IS A FLAG THAT NOTIFIES THE PANEL THAT IT IS USED DURING A SIMULATION SESSION
+  #if((!$request.recInSimMode)||(!$request.recInSimMode.equals("true")))
+    #set ($recommendations = $services.learnpad.getRecommendations(${modelSetId}, ${artifactId}, ${userId}))
+  #else
+## NOTE THAT THIS IMPLEMENTATION DOES NOT DISTINGUISH AMONG SEVERAL CONCURRENT SIMULATION SESSIONS  
+    #foreach($recItem in $services.learnpad.getNotifiedRecommendations(${userId}).values())
+        #set ($recommendations = $recItem)
+    #end
+  #end
   #if ($recommendations)
     #set ($experts = $recommendations.getExperts())
     #if ($experts)
