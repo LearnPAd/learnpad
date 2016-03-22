@@ -59,6 +59,7 @@ import com.xpn.xwiki.doc.XWikiDocument;
 import com.xpn.xwiki.objects.BaseObject;
 
 import eu.learnpad.core.impl.cw.XwikiBridge;
+import eu.learnpad.core.impl.cw.XwikiCoreFacadeRestResource;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.impl.persistence.RecommendationsStore;
 import eu.learnpad.exception.LpRestException;
@@ -122,10 +123,11 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 
 	@Override
 	public void initialize() throws InitializationException {
+		this.corefacade = new XwikiCoreFacadeRestResource();
+
 		recsStore = RecommendationsStore.createRecommendationsStore();	
 	}
 
-    
     @Override
     public byte[] getComments(String modelSetId, String artifactId) throws LpRestException
     {
