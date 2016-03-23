@@ -130,7 +130,7 @@
 #set ($userId = $xwiki.getDocument($currentUser).getObject('XWiki.XWikiUsers').getProperty('email').value)
 #if ($userId)
 ## recInSimMode IS A FLAG THAT NOTIFIES THE PANEL THAT IT IS USED DURING A SIMULATION SESSION
-  #if(${modelSetId} &amp;&amp; ${artifactId} &amp;&amp; (!$request.recInSimMode) || (!$request.recInSimMode.equals("true")))
+  #if( ${modelSetId} &amp;&amp; ${artifactId} &amp;&amp; ( (!${request.recInSimMode}) || (!${request.recInSimMode.equals("true")}) ) )
     #set ($recommendations = $services.learnpad.getRecommendations(${modelSetId}, ${artifactId}, ${userId}))
   #else
     #set ($recMapsBySimID = $services.learnpad.getNotifiedRecommendations(${userId}))
