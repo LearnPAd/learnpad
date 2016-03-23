@@ -20,31 +20,31 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc version="1.2" reference="LPCode.DocumentationMacro" locale="">
+<xwikidoc version="1.2" reference="LPCode.DocumentMacro" locale="">
   <web>LPCode</web>
-  <name>DocumentationMacro</name>
+  <name>DocumentMacro</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
-  <creationDate>1445607231000</creationDate>
-  <parent>LPUI.BaseElementSheet</parent>
+  <creationDate>1459247381000</creationDate>
+  <parent>WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1458835161000</date>
-  <contentUpdateDate>1458834255000</contentUpdateDate>
+  <date>1459248128000</date>
+  <contentUpdateDate>1459247381000</contentUpdateDate>
   <version>1.1</version>
-  <title>DocumentationMacro</title>
+  <title/>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
   <content/>
   <object>
-    <name>LPCode.DocumentationMacro</name>
+    <name>LPCode.DocumentMacro</name>
     <number>0</number>
     <className>XWiki.WikiMacroClass</className>
-    <guid>bb4f97ce-3917-435b-85e0-f86dccd27a87</guid>
+    <guid>73df130c-8772-4dcd-93b2-fa5cf13831b7</guid>
     <class>
       <name>XWiki.WikiMacroClass</name>
       <customClass/>
@@ -156,16 +156,28 @@
     </class>
     <property>
       <code>{{velocity}}
-#set ($documentation = $xcontext.macro.content)
-#set ($strip = $numbertool.toNumber($xcontext.macro.params.strip))
-#if($!{documentation.isEmpty()})
-${services.localization.render('LPCode.DocumentationMacro.empty')}
-#else
-  #if ("$!{strip}" != "" &amp;&amp; $strip &gt; 0 &amp;&amp; $strip &lt; $documentation.length())
-${documentation.substring(0, ${strip})}
-  #else
-${documentation}
-  #end
+#set ($type = $xcontext.macro.params.type)
+#set ($select = "select distinct targetdoc.fullName")
+#set ($from = "from Document as doc, Document as targetdoc, doc.object(LPCode.BaseElementClass) as be, doc.object(LPCode.LinkClass) as link, targetdoc.object(LPCode.BaseElementClass) as targetbe")
+#set ($where = "where doc.id = :id and ( targetbe.type like 'bpmn-data%' ) and link.targetmodelsetid = targetbe.modelsetid and link.targetmodelid = targetbe.modelid and link.targetartifactid = targetbe.id ")
+#set ($query = "${select} ${from} ${where}")
+#set ($documentsFullnames = $services.query.xwql($query).bindValue("id", ${doc.id}).execute())
+#if ("$!documentsFullnames" != "" &amp;&amp; $documentsFullnames.size() &gt; 0)
+  (% class="panel panel-document" %)(((
+    (% class="panel-heading" %)(((
+      ${services.icon.render('file-text')} ${services.localization.render('LPCode.DocumentMacro.title')}
+    )))
+    (% class="panel-body" %)(((
+      #foreach ($documentFullname in $documentsFullnames)
+        #set ($documentReference = $services.model.resolveDocument($documentFullname))
+        #set ($documentDocument = $xwiki.getDocument($documentReference))
+        #set ($documentURL = $documentDocument.URL)
+        (% class="row" %)(((
+          [[${services.icon.render('file-white')} ${documentDocument.title}&gt;&gt;path:${documentURL}||class="col-xs-12 panel-item"]]
+        )))
+      #end
+    )))
+  )))
 #end
 {{/velocity}}</code>
     </property>
@@ -179,85 +191,19 @@ ${documentation}
       <defaultCategory/>
     </property>
     <property>
-      <description>Display the documentation of an artifact.</description>
+      <description/>
     </property>
     <property>
-      <id>documentation</id>
+      <id>documents</id>
     </property>
     <property>
-      <name>Documentation</name>
+      <name>Documents</name>
     </property>
     <property>
-      <supportsInlineMode>1</supportsInlineMode>
+      <supportsInlineMode/>
     </property>
     <property>
       <visibility>Current Wiki</visibility>
-    </property>
-  </object>
-  <object>
-    <name>LPCode.DocumentationMacro</name>
-    <number>0</number>
-    <className>XWiki.WikiMacroParameterClass</className>
-    <guid>a4c598aa-c370-4a25-b54c-e6aab1fcc342</guid>
-    <class>
-      <name>XWiki.WikiMacroParameterClass</name>
-      <customClass/>
-      <customMapping/>
-      <defaultViewSheet/>
-      <defaultEditSheet/>
-      <defaultWeb/>
-      <nameField/>
-      <validationScript/>
-      <defaultValue>
-        <disabled>0</disabled>
-        <name>defaultValue</name>
-        <number>4</number>
-        <prettyName>Parameter default value</prettyName>
-        <size>30</size>
-        <unmodifiable>0</unmodifiable>
-        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
-      </defaultValue>
-      <description>
-        <disabled>0</disabled>
-        <name>description</name>
-        <number>2</number>
-        <prettyName>Parameter description</prettyName>
-        <rows>5</rows>
-        <size>40</size>
-        <unmodifiable>0</unmodifiable>
-        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
-      </description>
-      <mandatory>
-        <disabled>0</disabled>
-        <displayFormType>select</displayFormType>
-        <displayType>yesno</displayType>
-        <name>mandatory</name>
-        <number>3</number>
-        <prettyName>Parameter mandatory</prettyName>
-        <unmodifiable>0</unmodifiable>
-        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
-      </mandatory>
-      <name>
-        <disabled>0</disabled>
-        <name>name</name>
-        <number>1</number>
-        <prettyName>Parameter name</prettyName>
-        <size>30</size>
-        <unmodifiable>0</unmodifiable>
-        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
-      </name>
-    </class>
-    <property>
-      <defaultValue/>
-    </property>
-    <property>
-      <description>Number of characters you want to keep, the rest will be stripped.</description>
-    </property>
-    <property>
-      <mandatory>0</mandatory>
-    </property>
-    <property>
-      <name>strip</name>
     </property>
   </object>
 </xwikidoc>

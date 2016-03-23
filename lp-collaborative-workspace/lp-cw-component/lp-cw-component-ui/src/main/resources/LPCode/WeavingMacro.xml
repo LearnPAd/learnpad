@@ -31,8 +31,8 @@
   <parent>WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1458642060000</date>
-  <contentUpdateDate>1458570561000</contentUpdateDate>
+  <date>1459260217000</date>
+  <contentUpdateDate>1458950916000</contentUpdateDate>
   <version>1.1</version>
   <title/>
   <comment/>
@@ -156,69 +156,40 @@
     </class>
     <property>
       <code>{{velocity}}
-#set ($linksin = $doc.getObjects('LPCode.LinkClass', 'type', 'incoming-weaving'))
-#set ($linksout = $doc.getObjects('LPCode.LinkClass', 'type', 'outgoing-weaving'))
-#set ($links = [])
-#set ($discard = $links.addAll($linksin))
-#set ($discard = $links.addAll($linksout))
-#set ($weavingmap = {})
-#foreach($link in $links)
-  #set ($id = $link.getProperty('id').value)
-  #set ($targetModelsetid = $link.getProperty('target-modelsetid').value)
-  #set ($targetModelid = $link.getProperty('target-modelid').value)
-  #set ($targetArtifactid = $link.getProperty('target-artifactid').value)
-  #set ($type = $link.getProperty('type').value)
-  #set ($wikiReference = $services.model.createWikiReference("xwiki"))
-  #set ($modelsetReference = $services.model.createSpaceReference($targetModelsetid, $wikiReference))
-  #set ($modelReference = $services.model.createSpaceReference($targetModelid, $modelsetReference))
-  #set ($artifactReference = $services.model.createSpaceReference($targetArtifactid, $modelReference))
-  #set ($linkReference = $services.model.createDocumentReference('WebHome', $artifactReference))
-  #set ($linkDocument = $xwiki.getDocument($linkReference))
-  #set ($linkObject = $linkDocument.getObject('LPCode.BaseElementClass'))
-  #set ($linkModelsetId = $linkObject.getProperty('modelsetid').value)
-  #set ($linkModelId = $linkObject.getProperty('modelid').value)
-  #set ($linkName = $linkObject.getProperty('name').value)
-  #set ($modelModelsetReference = $services.model.createSpaceReference($linkModelsetId, $wikiReference))
-  #set ($modelModelReference = $services.model.createSpaceReference($linkModelId, $modelModelsetReference))
-  #set ($modelReference = $services.model.createDocumentReference('WebHome', $modelModelReference))
-  #set ($modelDocument = $xwiki.getDocument($modelReference))
-  #set ($modelObject = $modelDocument.getObject('LPCode.ModelClass'))
-  #set ($modelType = $modelObject.getProperty('type').value)
-  #set ($modelName = $modelObject.getProperty('name').value)
-  #set ($modelTypePrettyName = $modelObject.get('type'))
-  #if (!$weavingmap.containsKey($modelType))
-    #set ($discard = $weavingmap.put($modelType, {}))
-    #set ($discard = $weavingmap.get($modelType).put('typename', $modelTypePrettyName))
-    #set ($discard = $weavingmap.get($modelType).put('links', []))
-  #end
-  #set ($linkmap = {})
-  #set ($discard = $linkmap.put('reference', $linkReference))
-  #set ($discard = $linkmap.put('name', $linkName))
-  #set ($discard = $linkmap.put('modelname', $modelName))
-  #set ($discard = $weavingmap.get($modelType).get('links').add($linkmap))
-#end
-#if ($weavingmap.size() &gt; 0)
-(% class="panel panel-default" %)(((
-(% class="panel-heading" %)(((
-(% class="panel-title text-center" %)(((== ${services.localization.render('WeavingButtonMacro.title')} ==)))
-)))
-(% class="panel-body" %)(((
-  #foreach($modelTypeKey in $weavingmap.keySet())
-    #set ($modelType = $weavingmap.get($modelTypeKey))
-    #set ($modelTypeName = $modelType.get('typename'))
-    #set ($modelLinks = $modelType.get('links'))
-
-=== ${modelTypeName} ===
-    #foreach ($modelLink in $modelLinks)
-      #set ($linkReference = $modelLink.get('reference'))
-      #set ($linkName = $modelLink.get('name'))
-      #set ($modelName = $modelLink.get('modelname'))
-(% class="help-block" %)${modelName}
-[[${linkName}&gt;&gt;${linkReference}||class="btn btn-block btn-default" style="text-align:center"]]##
-    #end
-  #end
-)))
-)))
+#set ($select = "select distinct targetdoc.fullName")
+#set ($from = "from Document as doc, Document as targetdoc, doc.object(LPCode.LinkClass) as link, targetdoc.object(LPCode.BaseElementClass) as targetbe")
+#set ($where = "where doc.id = :id and link.targetmodelsetid = targetbe.modelsetid and link.targetmodelid = targetbe.modelid and link.targetartifactid = targetbe.id and link.type like '%-weaving'")
+#set ($query = "${select} ${from} ${where}")
+#set ($weavingFullnames = $services.query.xwql($query).bindValue("id", ${doc.id}).execute())
+#if ("$!weavingFullnames" != "" &amp;&amp; $weavingFullnames.size() &gt; 0)
+  (% class="panel panel-weaving" %)(((
+    (% class="panel-heading" %)(((
+      ${services.icon.render('chart-organisation')} ${services.localization.render('LPCode.WeavingMacro.title')}
+    )))
+    (% class="panel-body" %)(((
+      #foreach($weavingFullname in $weavingFullnames)
+        #set ($weavingReference = $services.model.resolveDocument($weavingFullname))
+        #set ($weavingDocument = $xwiki.getDocument($weavingReference))
+        #set ($weavingObject = $weavingDocument.getObject('LPCode.BaseElementClass'))
+        #set ($weavingType = $weavingObject.getProperty('type').value)
+        #set ($weavingURL = $weavingDocument.URL)
+        #if ($weavingType.startsWith('omm'))
+          #set ($weavingIcon = $services.icon.render('group'))
+        #elseif ($weavingType.startsWith('dkm'))
+          #set ($weavingIcon = $services.icon.render('file-text'))
+        #elseif ($weavingType.startsWith('cm'))
+          #set ($weavingIcon = $services.icon.render('check'))
+        #elseif ($weavingType.startsWith('bmm'))
+          #set ($weavingIcon = $services.icon.render('flag'))
+        #elseif ($weavingType.startsWith('bpmn'))
+          #set ($weavingIcon = $services.icon.render('branch'))
+        #end
+        (% class="row" %)(((
+          [[${weavingIcon} ${weavingDocument.title}&gt;&gt;path:${weavingURL}||class="col-xs-12 panel-item"]]
+        )))
+      #end
+    )))
+  )))
 #end
 {{/velocity}}</code>
     </property>

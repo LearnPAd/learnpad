@@ -545,17 +545,17 @@ rule CONNECTORType2Object {
 			value <- c.id
 		),
 		lco_p1: XWIKI!Property (
-			name <- 'target-modelsetid',
+			name <- 'targetmodelsetid',
 			type <- 'String',
 			value <- thisModule.getModelSetId()
 		),
 		lco_p2: XWIKI!Property (
-			name <- 'target-modelid',
+			name <- 'targetmodelid',
 			type <- 'String',
 			value <- c.refImmediateComposite().id
 		),
 		lco_p3: XWIKI!Property (
-			name <- 'target-artifactid',
+			name <- 'targetartifactid',
 			type <- 'String',
 			value <- thisModule.getConnectorTargetId(c)
 		),
@@ -582,17 +582,17 @@ rule CONNECTORType2Object {
 			value <- c.id
 		),
 		lci_p1: XWIKI!Property (
-			name <- 'target-modelsetid',
+			name <- 'targetmodelsetid',
 			type <- 'String',
 			value <- thisModule.getModelSetId()
 		),
 		lci_p2: XWIKI!Property (
-			name <- 'target-modelid',
+			name <- 'targetmodelid',
 			type <- 'String',
 			value <- c.refImmediateComposite().id
 		),
 		lci_p3: XWIKI!Property (
-			name <- 'target-artifactid',
+			name <- 'targetartifactid',
 			type <- 'String',
 			value <- thisModule.getConnectorSourceId(c)
 		),
@@ -636,17 +636,17 @@ rule IREFTypeObjRef2Object {
 			value <- '' -- There is no ID for IREF links
 		),
 		lco_p1: XWIKI!Property (
-			name <- 'target-modelsetid',
+			name <- 'targetmodelsetid',
 			type <- 'String',
 			value <- thisModule.getModelSetId()
 		),
 		lco_p2: XWIKI!Property (
-			name <- 'target-modelid',
+			name <- 'targetmodelid',
 			type <- 'String',
 			value <- thisModule.getIrefTargetModelId(i)
 		),
 		lco_p3: XWIKI!Property (
-			name <- 'target-artifactid',
+			name <- 'targetartifactid',
 			type <- 'String',
 			value <- thisModule.getIrefTargetInstanceId(i)
 		),
@@ -673,17 +673,17 @@ rule IREFTypeObjRef2Object {
 			value <- ''
 		),
 		lci_p1: XWIKI!Property (
-			name <- 'target-modelsetid',
+			name <- 'targetmodelsetid',
 			type <- 'String',
 			value <- thisModule.getModelSetId()
 		),
 		lci_p2: XWIKI!Property (
-			name <- 'target-modelid',
+			name <- 'targetmodelid',
 			type <- 'String',
 			value <- thisModule.getIrefSourceModelId(i)
 		),
 		lci_p3: XWIKI!Property (
-			name <- 'target-artifactid',
+			name <- 'targetartifactid',
 			type <- 'String',
 			value <- thisModule.getIrefSourceInstanceId(i)
 		),
@@ -728,17 +728,17 @@ rule IREFTypeModRef2Object {
 			value <- '' -- There is no ID for IREF links
 		),
 		lco_p1: XWIKI!Property (
-			name <- 'target-modelsetid',
+			name <- 'targetmodelsetid',
 			type <- 'String',
 			value <- thisModule.getModelSetId()
 		),
 		lco_p2: XWIKI!Property (
-			name <- 'target-modelid',
+			name <- 'targetmodelid',
 			type <- 'String',
 			value <- thisModule.getIrefTargetModelId(i)
 		),
 		lco_p3: XWIKI!Property (
-			name <- 'target-artifactid',
+			name <- 'targetartifactid',
 			type <- 'String',
 			value <- '' -- link to a model so there is no artifact ID
 		),
@@ -765,17 +765,17 @@ rule IREFTypeModRef2Object {
 			value <- ''
 		),
 		lci_p1: XWIKI!Property (
-			name <- 'target-modelsetid',
+			name <- 'targetmodelsetid',
 			type <- 'String',
 			value <- thisModule.getModelSetId()
 		),
 		lci_p2: XWIKI!Property (
-			name <- 'target-modelid',
+			name <- 'targetmodelid',
 			type <- 'String',
 			value <- thisModule.getIrefSourceModelId(i)
 		),
 		lci_p3: XWIKI!Property (
-			name <- 'target-artifactid',
+			name <- 'targetartifactid',
 			type <- 'String',
 			value <- thisModule.getIrefSourceInstanceId(i)
 		),

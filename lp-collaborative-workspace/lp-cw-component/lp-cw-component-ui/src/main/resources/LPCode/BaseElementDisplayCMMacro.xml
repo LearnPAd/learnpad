@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc version="1.1">
+<xwikidoc version="1.2" reference="LPCode.BaseElementDisplayCMMacro" locale="">
   <web>LPCode</web>
   <name>BaseElementDisplayCMMacro</name>
   <language/>
@@ -31,8 +31,8 @@
   <parent>WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1446110590000</date>
-  <contentUpdateDate>1446041508000</contentUpdateDate>
+  <date>1459261971000</date>
+  <contentUpdateDate>1458950916000</contentUpdateDate>
   <version>1.1</version>
   <title/>
   <comment/>
@@ -156,14 +156,46 @@
     </class>
     <property>
       <code>{{velocity}}
-#set ($documentation = $doc.getObject('LPCode.BaseElementClass').getProperty('documentation').value)
-(% class="row" %)(((
-(% class="col-xs-12" %)(((
-{{documentation}}
-${documentation}
-{{/documentation}}
-)))
-)))
+#set ($competencyObject = $doc.getObject('LPCode.CMCompetencyClass'))
+#if ("$!competencyObject" != "")
+  #set ($competencyLevel = $competencyObject.getProperty('level').value)
+  #set ($competencyCompetency = $competencyObject.getProperty('competency').value)
+  #set ($competencySkill = $competencyObject.getProperty('skill').value)
+  #set ($competencyKnowlege = $competencyObject.getProperty('knowledge').value)
+  (% class="panel panel-competency" %)(((
+    (% class="panel-heading" %)(((
+      ${services.icon.render('check')} ${services.localization.render('LPCode.BaseElementDisplayCMMacro.title')}
+    )))
+    (% class="panel-body" %)(((
+      #if ("$!competencyLevel" != "")
+        (% class="panel-item" %)(((
+          ; ${services.localization.render('LPCode.BaseElementDisplayCMMacro.level')}
+          : ${competencyLevel}
+        )))
+      #end
+      #if ("$!competencyCompetency" != "")
+        (% class="panel-item" %)(((
+          ; ${services.localization.render('LPCode.BaseElementDisplayCMMacro.competency')}
+          : ${competencyCompetency}
+        )))
+      #end
+      #if ("$!competencySkill" != "")
+        (% class="panel-item" %)(((
+          ; ${services.localization.render('LPCode.BaseElementDisplayCMMacro.skill')}
+          : ${competencySkill}
+        )))
+      #end
+      #if ("$!competencyKnowlege" != "")
+        (% class="panel-item" %)(((
+          ; ${services.localization.render('LPCode.BaseElementDisplayCMMacro.knowledge')}
+          : ${competencyKnowledge}
+        )))
+      #end
+    )))
+  )))
+#end
+
+{{weavingbutton /}}
 {{/velocity}}</code>
     </property>
     <property>
