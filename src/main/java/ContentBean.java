@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Properties;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -53,10 +54,10 @@ public class ContentBean implements Serializable{
 	private boolean NonAmbiguity;
 	private boolean Completeness;
 	private boolean PresentationClarity;
-	
-	
-	
-	
+	private String ip;
+
+
+
 	public ContentBean(){
 		Correctness = true;
 		Simplicity= true;
@@ -64,15 +65,24 @@ public class ContentBean implements Serializable{
 		NonAmbiguity= true;
 		Completeness= false;
 		PresentationClarity= false;
+		try{
+			Properties prop = new Properties();
+			// load a properties file
+			prop.load(ContentAnalysisBean.class.getClassLoader().getResourceAsStream("config.properties")); //$NON-NLS-1$
+
+			ip = prop.getProperty("ip_server");
+		}catch(Exception e){
+			ip="localhost";
+		}
 	}
 
-	
+
 
 	public boolean isCorrectness() {
 		return Correctness;
 	}
 
-	
+
 
 	public String getContentHTML() {
 		return ContentHTML;
@@ -237,7 +247,7 @@ public class ContentBean implements Serializable{
 					filename = fileInfo.getFileName();
 					log.info(filecontent);
 				} catch (IOException e1) {
-					
+
 					log.error(e1);
 					log.error(e1.getMessage());
 				}
@@ -245,7 +255,7 @@ public class ContentBean implements Serializable{
 		}
 
 	}
-	
+
 	public void ListenerFileHTML(FileEntryEvent e) {
 		FileEntry fe = (FileEntry)e.getComponent();
 		FileEntryResults results = fe.getResults();
@@ -260,7 +270,7 @@ public class ContentBean implements Serializable{
 				Path path = Paths.get(fileInfo.getFile().getAbsolutePath());
 				try {
 					filecontenthtml = 	new String(Files.readAllBytes(path), "UTF8");
-					
+
 					log.info(fileInfo.getFileName());
 				} catch (IOException e1) {
 					log.error(e1);
@@ -275,11 +285,11 @@ public class ContentBean implements Serializable{
 
 
 		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target("http://localhost:8080").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent");
+		WebTarget target = client.target("http://"+ip+":8080").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent");
 
 		CollaborativeContentAnalysis cca = new CollaborativeContentAnalysis();
 		cca.setLanguage(this.getLanguage());
-		
+
 		if(filecontent!=null){
 			cca.setCollaborativeContent(new CollaborativeContent(String.valueOf(this.getId()), this.filename));
 			//cca.getCollaborativeContent().setContent(new eu.learnpad.ca.rest.data.Content());
@@ -294,7 +304,7 @@ public class ContentBean implements Serializable{
 		}else{
 			cca.getCollaborativeContent().setContenthtml(getContentHTML());
 		}
-		
+
 		cca.setQualityCriteria(new QualityCriteria());
 		cca.getQualityCriteria().setCorrectness(this.isCorrectness());
 		cca.getQualityCriteria().setSimplicity(this.isSimplicity());

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -40,12 +41,19 @@ public class ContentAnalysisBean implements Serializable {
 	private String id;
 	private String status;
 	private Collection<AnnotatedCollaborativeContentAnalysis> collectionannotatedcontent;
+	private String ip;
 
 
 	public ContentAnalysisBean(){
+		try{
+		Properties prop = new Properties();
+		// load a properties file
+		prop.load(ContentAnalysisBean.class.getClassLoader().getResourceAsStream("config.properties")); //$NON-NLS-1$
 
-
-
+			ip = prop.getProperty("ip_server");
+		}catch(Exception e){
+			ip="localhost";
+		}
 
 		log.trace(id);
 		Collection<String> listc = getCollectionids();
@@ -83,7 +91,7 @@ public class ContentAnalysisBean implements Serializable {
 		try{
 			Client client = ClientBuilder.newClient();
 
-			WebTarget target = client.target("http://localhost:8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/allid");
+			WebTarget target = client.target("http://"+ip+":8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/allid");
 
 			Response allID =  target.request().get();
 			String res = allID.readEntity(String.class);
@@ -215,15 +223,15 @@ public class ContentAnalysisBean implements Serializable {
 	public void actionDownloadAnalysis(){
 		try{
 			//FacesContext context = FacesContext.getCurrentInstance();
-
-
+			
+		
 			//id =  (String) context.getApplication().evaluateExpressionGet(context, "#{ContentBean.restid}", String.class);
 			Client client = ClientBuilder.newClient();
 			if(id==null){
 				id="1";
 			}
 
-			WebTarget target = client.target("http://localhost:8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id+"/status");
+			WebTarget target = client.target("http://"+ip+":8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id+"/status");
 			String 	status ="";
 			while (!status.equals("OK")) {
 
@@ -237,7 +245,7 @@ public class ContentAnalysisBean implements Serializable {
 			log.trace("Status: "+status);
 
 			if(status.equals("OK")){
-				target = client.target("http://localhost:8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id);
+				target = client.target("http://"+ip+":8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id);
 				Response annotatecontent =  target.request().get();
 				AnnotatedCollaborativeContentAnalyses res = annotatecontent.readEntity(new GenericType<AnnotatedCollaborativeContentAnalyses>() {});
 				this.setCollectionannotatedcontent(res.getAnnotateCollaborativeContentAnalysis());
