@@ -28,21 +28,21 @@ public class Completeness  extends AbstractAnalysisClass {
 	private long lStartTime;
 	private List<String> Elements_Template = Arrays.asList("Headline",
 			"Source Documents",
-			"Reference Documents",
+			/*"Reference Documents",*/
 			"Glossary",
 			"Context",
-			"Summary", 
+			/*"Summary", */
 			"Motivation", 
 			"Intended readership",
 			"Involved actors",
-			"Input documents",
-			"Output documents",
+			/*"Input documents",
+			"Output documents",*/
 			"Required tools",
-			"Description",
+			"Detailed Description",
 			"Examples/Experiences",
 			"What to do in case of failures",
-			"Contacts of involved offices",
-			"Contacts of experts",
+			/*"Contacts of involved offices",
+			"Contacts of experts",*/
 			"FAQ");
 
 
