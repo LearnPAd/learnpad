@@ -17,7 +17,7 @@ import eu.learnpad.ca.rest.impl.StaticContentVerificationsImpl;
 public class Main {
 
 	// Base URI the Grizzly HTTP server will listen on
-	public static final String BASE_URI = "http://localhost:8082/lp-content-analysis/";
+	public static final String BASE_URI = "http://0.0.0.0:8082/lp-content-analysis/";
 
 	/**
 	 * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
