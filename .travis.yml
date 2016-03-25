@@ -19,5 +19,9 @@ cache:
     directories:
         - $HOME/.m2
 
+before_script:
+    - export MAVEN_SKIP_RC=true
+    - export MAVEN_OPTS="-Xms1024m -Xmx2g -XX:MaxPermSize=512m"
+
 after_success:
     - bash <(curl -s https://codecov.io/bash)
