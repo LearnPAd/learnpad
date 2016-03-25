@@ -31,7 +31,7 @@
   <parent>LPUI.SimulationEnvironment</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1458898896000</date>
+  <date>1458901549000</date>
   <contentUpdateDate>1458897895000</contentUpdateDate>
   <version>1.1</version>
   <title>RecommendationPanel</title>
@@ -125,15 +125,29 @@
       <content>{{velocity}}
 #set ($baseElementObject = $doc.getObject('LPCode.BaseElementClass'))
 #set ($modelsetid = $baseElementObject.getProperty('modelsetid').value)
+#set ($modelid = $baseElementObject.getProperty('modelid').value)
 #if ("$!{baseElementObject}" == "")
   #set ($modelObject = $doc.getObject('LPCode.ModelClass'))
   #set ($modelsetid = $modelObject.getProperty('modelsetid').value)
+  #set ($modelid = $modelObject.getProperty('id').value)
   #if ("$!{modelObject}" == "")
     #set ($modelsetObject = $doc.getObject('LPCode.ModelSetClass'))
     #set ($modelsetid = $modelsetObject.getProperty('id').value)
   #end
 #end
+#if ("!{modelid}" != "")
+  #set ($modelidNumber = $modelid.split("\.").get(1))
+  #set ($modelSetReference = $services.model.createDocumentReference($xcontext.database, 'CoreRepository', ${modelsetid}))
+  #set ($attachmentName = "${modelsetid}.ADOXX")
+  #set ($attachmentReference = $services.model.createAttachmentReference($modelSetReference, $attachmentName))
+  #set ($attachmentPath = "attach:${services.model.serialize($attachmentReference, 'default')}")
+  #set ($bpmnName = "${modelidNumber}.bpmn")
+  #set ($bpmnPath = "${attachmentPath}/${bpmnName}")
+#end
 #set ($artifactid = $baseElementObject.getProperty('id').value)
+#set ($simulationReference = $services.model.createDocumentReference($xcontext.database, 'LPUI', 'SimulationEnvironment'))
+#set ($querystring = "modelsetid=${modelsetid}&amp;modelid=${modelid}")
+#set ($simulationURL = $xwiki.getURL($simulationReference, 'view', $querystring))
 #set ($currentUser = $xcontext.user)
 #set ($userId = $xwiki.getDocument($currentUser).getObject('XWiki.XWikiUsers').getProperty('email').value)
 #if ($userId)
@@ -146,13 +160,15 @@
 ## AND IT WILL ALWAYS CONSIDER THE FIRST NOTIFIED RECOMANDATION FOR ANY SIMULATION SESSION.
 ## THIS SHOULD BE FIXED IN FUTURE.
     #if(($recMapsBySimID) &amp;&amp; (!$recMapsBySimID.values().isEmpty()))
-        #set ($recommendations = $recMapsBySimID.values().toArray()[0])    
+      #set ($recommendations = $recMapsBySimID.values().toArray()[0])
     #end
   #end
   #if ($recommendations)
+################
+## Experts
     #set ($experts = $recommendations.getExperts())
     #if ($experts)
-      #panelheader($services.localization.render('RecommendationPanel.experts.title'))
+      #panelheader($services.localization.render('LPUI.RecommendationPanel.experts.title'))
       #set ($businessActors = $experts.getBusinessActors())
       #if ($businessActors.size() &gt; 0)
         #foreach ($businessActor in $businessActors)
@@ -169,9 +185,18 @@ ${businessActor.name}(% class="pull-right" %)##
       #end
       #panelfooter()
     #end
+################
+## Simulation
+    #if ("$!{modelid}" != "" &amp;&amp; $niotool.isRegularFile($bpmnPath, null))
+      #panelheader($services.localization.render('LPUI.RecommendationPanel.simulation.title'))
+      [[${services.localization.render('LPUI.RecommendationPanel.simulation.button')}&gt;&gt;path:${simulationURL}||class="btn btn-block btn-simulation"]]
+      #panelfooter()
+    #end
+################
+## Learning materials
     #set ($learningMaterials = $recommendations.getLearningMaterials())
     #if ($learningMaterials)
-      #panelheader($services.localization.render('RecommendationPanel.learningmaterials.title'))
+      #panelheader($services.localization.render('LPUI.RecommendationPanel.learningmaterials.title'))
       #set ($learningMaterialsList = $learningMaterials.getLearningMaterials())
       #foreach ($learningMaterial in $learningMaterialsList)
 (((
@@ -181,9 +206,11 @@ ${businessActor.name}(% class="pull-right" %)##
       #end
       #panelfooter()
     #end
+################
+## Similar cases
     #set ($similarCases = $recommendations.getSimilarCases())
     #if ($similarCases)
-      #panelheader($services.localization.render('RecommendationPanel.similarcases.title'))
+      #panelheader($services.localization.render('LPUI.RecommendationPanel.similarcases.title'))
       #set ($similarCasesList = $similarCases.getSimilarCases())
       #foreach ($similarCase in $similarCasesList)
 (((
