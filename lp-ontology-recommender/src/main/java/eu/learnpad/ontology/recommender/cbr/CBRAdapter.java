@@ -23,7 +23,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -106,7 +105,7 @@ public class CBRAdapter {
             if (value instanceof Collection) {
                 addProperties(simulationCase, key, (Collection) value);
             } else {
-                List list = new LinkedList(Arrays.asList(value));
+                List list = new ArrayList(Arrays.asList(value));
                 addProperties(simulationCase, key, list);                
             }
         }
@@ -123,7 +122,7 @@ public class CBRAdapter {
         CaseViewVO caseViewVO = service.findCaseViewByUri(OVERALL_PROCESS_VIEW);
         CaseInstanceVO sessionCaseInstance = service.getCaseInstance(SIMULATION_CASE_CLASS_URI + simulationSessionId, caseViewVO);
         List<CaseMatchVO> matchingCases = service.retreiveCases(caseViewVO, sessionCaseInstance);
-        List<SimilarCase> similarCasesList = new ArrayList<>();
+        List<SimilarCase> similarCasesList = new ArrayList<SimilarCase>();
         
         Collections.sort(matchingCases, new Comparator<CaseMatchVO>() {
             @Override
@@ -246,10 +245,10 @@ public class CBRAdapter {
             ObjectPropertyInstanceVO property = new ObjectPropertyInstanceVO();
             property.setUri(NS_LEARNPAD + "applicationIsSubmittedByApplicant");
             
-            List rangeInstanceList = new LinkedList(Arrays.asList(rangeInstance));
+            List rangeInstanceList = new ArrayList(Arrays.asList(rangeInstance));
             property.setRangeClassInstances(rangeInstanceList);
             
-            List propertyList = new LinkedList(Arrays.asList(property));
+            List propertyList = new ArrayList(Arrays.asList(property));
             simulationCase.setObjectProperties(propertyList);
         }
     }
