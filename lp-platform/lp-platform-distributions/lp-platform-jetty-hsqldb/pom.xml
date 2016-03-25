@@ -170,7 +170,13 @@
 			<groupId>org.xwiki.platform</groupId>
 			<artifactId>xwiki-platform-appwithinminutes-ui</artifactId>
 			<type>xar</type>
-			<version>7.4.2</version>
+			<version>${platform.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.xwiki.platform</groupId>
+			<artifactId>xwiki-platform-user-profile-ui</artifactId>
+			<type>xar</type>
+			<version>${platform.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.xwiki.contrib</groupId>
