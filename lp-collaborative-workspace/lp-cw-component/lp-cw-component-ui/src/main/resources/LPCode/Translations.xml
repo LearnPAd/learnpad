@@ -58,14 +58,12 @@ CollaborativeDocumentSheet.title=Collaborative Document on "{0}"
 CollaborativeDocumentSheet.validate=Validate
 
 # Recommendation panel
-RecommendationPanel.role.title=Role
-RecommendationPanel.role.norecommendation=No recommended role
-RecommendationPanel.experts.title=Experts
-RecommendationPanel.experts.norecommendation=No recommended expert
-RecommendationPanel.learningmaterials.title=Learning Materials
-RecommendationPanel.learningmaterials.norecommendation=No recommended learning material
-RecommendationPanel.similarcases.title=Similar Cases
-RecommendationPanel.similarcases.norecommendation=No recommended similar cases
+LPUI.RecommendationPanel.role.title=Role
+LPUI.RecommendationPanel.experts.title=Experts
+LPUI.RecommendationPanel.simulation.title=Simulation
+LPUI.RecommendationPanel.simulation.button=Start
+LPUI.RecommendationPanel.learningmaterials.title=Learning Materials
+LPUI.RecommendationPanel.similarcases.title=Similar Cases
 
 # Simulation Environment
 SimulationEnvironment.goback=Go back to the browsing of the model
