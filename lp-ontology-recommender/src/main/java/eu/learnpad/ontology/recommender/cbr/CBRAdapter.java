@@ -16,12 +16,14 @@ import eu.learnpad.ontology.util.ArgumentCheck;
 import eu.learnpad.or.rest.data.SimilarCase;
 import eu.learnpad.or.rest.data.SimilarCases;
 import eu.learnpad.or.rest.data.SimulationData;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -104,7 +106,8 @@ public class CBRAdapter {
             if (value instanceof Collection) {
                 addProperties(simulationCase, key, (Collection) value);
             } else {
-                addProperties(simulationCase, key, Arrays.asList(value));
+                List list = new LinkedList(Arrays.asList(value));
+                addProperties(simulationCase, key, list);                
             }
         }
         
@@ -242,8 +245,12 @@ public class CBRAdapter {
             
             ObjectPropertyInstanceVO property = new ObjectPropertyInstanceVO();
             property.setUri(NS_LEARNPAD + "applicationIsSubmittedByApplicant");
-            property.setRangeClassInstances(Arrays.asList(rangeInstance));
-            simulationCase.setObjectProperties(Arrays.asList(property));
+            
+            List rangeInstanceList = new LinkedList(Arrays.asList(rangeInstance));
+            property.setRangeClassInstances(rangeInstanceList);
+            
+            List propertyList = new LinkedList(Arrays.asList(property));
+            simulationCase.setObjectProperties(propertyList);
         }
     }
     
