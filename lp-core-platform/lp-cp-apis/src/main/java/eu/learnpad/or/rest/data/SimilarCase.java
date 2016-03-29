@@ -6,6 +6,7 @@
 package eu.learnpad.or.rest.data;
 
 import java.util.Map;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -21,7 +22,8 @@ public class SimilarCase {
     private String similarityValue;
 
     //case characterisation and content properties
-    private Map<String, Object> data;
+//    private Map<String, Object> data;
+    private Map<String, ListOfStringWrapper> data;
     
     //referenced case content items
     private Experts experts;
@@ -54,12 +56,14 @@ public class SimilarCase {
         this.similarityValue = similarityValue;
     }
 
-    public Map<String, Object> getData() {
-        return data;
+//    public Map<String, Object> getData() {
+    public Map<String, ListOfStringWrapper> getData() {
+    	return data;
     }
 
-    @XmlElement
-    public void setData(Map<String, Object> data) {
+    @XmlElement(name="data")
+    public void setData(Map<String, ListOfStringWrapper> data) {
+//    public void setData(Map<String, Object> data) {
         this.data = data;
     }
 
@@ -76,10 +80,8 @@ public class SimilarCase {
         return learningMaterials;
     }
 
-    @XmlElement
     public void setLearningMaterials(LearningMaterials learningMaterials) {
         this.learningMaterials = learningMaterials;
     }
-    
     
 }
