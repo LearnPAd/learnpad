@@ -102,9 +102,7 @@ public class CBRAdapter {
         //Add properties of data map to case value object
         for (Map.Entry<String, Object> entry : accumulatedSessionData.get(simulationId).entrySet()) {
             String key = entry.getKey();
-            if (key.equalsIgnoreCase("applicationsector")){
-            	int foo = 0;
-            }	
+
             Object value = entry.getValue();
             if (value instanceof Collection) {
                 addProperties(simulationCase, key, (Collection) value);
