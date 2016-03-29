@@ -13,6 +13,7 @@ import ch.fhnw.cbr.service.data.IndividualVO;
 import ch.fhnw.cbr.service.data.LiteralPropertyValueVO;
 import ch.fhnw.cbr.service.data.ObjectPropertyInstanceVO;
 import eu.learnpad.ontology.util.ArgumentCheck;
+import eu.learnpad.or.rest.data.ListOfStringWrapper;
 import eu.learnpad.or.rest.data.SimilarCase;
 import eu.learnpad.or.rest.data.SimilarCases;
 import eu.learnpad.or.rest.data.SimulationData;
@@ -43,9 +44,9 @@ public class CBRAdapter {
     
     private static final CBRAdapter instance = new CBRAdapter();
     
-    private static final Map<String, String> OBJECT_PROPERTY_MAP = new HashMap();
-    private static final Map<String, String> LITERAL_PROPERTY_MAP = new HashMap();
-    private static final Map<String, String> NAMESPACES = new HashMap();
+    private static final Map<String, String> OBJECT_PROPERTY_MAP = new HashMap<String,String>();
+    private static final Map<String, String> LITERAL_PROPERTY_MAP = new HashMap<String,String>();
+    private static final Map<String, String> NAMESPACES = new HashMap<String,String>();
     
     static {
         OBJECT_PROPERTY_MAP.put("applicationCity", NS_LEARNPAD + "applicationIsLocatedInCity");
@@ -101,6 +102,9 @@ public class CBRAdapter {
         //Add properties of data map to case value object
         for (Map.Entry<String, Object> entry : accumulatedSessionData.get(simulationId).entrySet()) {
             String key = entry.getKey();
+            if (key.equalsIgnoreCase("applicationsector")){
+            	int foo = 0;
+            }	
             Object value = entry.getValue();
             if (value instanceof Collection) {
                 addProperties(simulationCase, key, (Collection) value);
@@ -142,7 +146,7 @@ public class CBRAdapter {
             similarCase.setName(matchingCase.getCaseName());
             String similarityValuePercentage = String.format("%1.2f", (matchingCase.getSimilarity() * 100)) + "%";
             similarCase.setSimilarityValue(similarityValuePercentage);
-            similarCase.setData(new HashMap<String, Object>());
+            similarCase.setData(new HashMap<String, ListOfStringWrapper>());
             
             CaseInstanceVO caseInstanceVO = matchingCase.getCaseInstanceVO();
             if (caseInstanceVO != null) {
@@ -151,18 +155,20 @@ public class CBRAdapter {
                         String propertyName = getObjectPropertyName(objectPropertyInstanceVO.getTypeUri());
                         List<IndividualVO> refInstances = objectPropertyInstanceVO.getRangeClassInstances();
                         if (refInstances != null && !refInstances.isEmpty()) {
-                            List<String> refInstancesLabels = new ArrayList();
+                            List<String> refInstancesLabels = new ArrayList<String>();
                             for (IndividualVO refInstance : refInstances) {
                                 refInstancesLabels.add(refInstance.getLabel());
                             }
-                            similarCase.getData().put(propertyName, refInstancesLabels);
+                            ListOfStringWrapper wrapper = new ListOfStringWrapper(refInstancesLabels);
+                            similarCase.getData().put(propertyName, wrapper);
                         }
                     }
                 }
                 if (caseInstanceVO.getLiteralProperties() != null) {
                     for (LiteralPropertyValueVO litProp : caseInstanceVO.getLiteralProperties()) {
                         String propertyName = getLiteralPropertyName(replaceNamespaceByPrefix(litProp.getUri()));
-                        similarCase.getData().put(propertyName, litProp.getValue());
+                        ListOfStringWrapper wrapper = new ListOfStringWrapper(litProp.getValue());
+                        similarCase.getData().put(propertyName, wrapper);
                     }
                 }
             }
@@ -201,7 +207,7 @@ public class CBRAdapter {
         if (OBJECT_PROPERTY_MAP.containsKey(key)) {
             List<ObjectPropertyInstanceVO> objectProperties = simulationCase.getObjectProperties();
             if (objectProperties == null) {
-                objectProperties = new ArrayList<>();
+                objectProperties = new ArrayList<ObjectPropertyInstanceVO>();
             }
             
             List<IndividualVO> rangeInstances = new ArrayList<>();
@@ -211,16 +217,22 @@ public class CBRAdapter {
                 rangeInstance.setUri(value);
                 rangeInstances.add(rangeInstance);
             }
+            try{
             ObjectPropertyInstanceVO property = new ObjectPropertyInstanceVO();
             property.setTypeUri(OBJECT_PROPERTY_MAP.get(key));
-            property.setRangeClassInstances(rangeInstances);
+            property.setRangeClassInstances(rangeInstances);            
             objectProperties.add(property);
             simulationCase.setObjectProperties(objectProperties);
+            }catch (Exception e){
+            	e.printStackTrace();
+            }catch (Error er){
+            	er.printStackTrace();
+            }
         }
         if (LITERAL_PROPERTY_MAP.containsKey(key)) {
             List<LiteralPropertyValueVO> literalProperties = simulationCase.getLiteralProperties();
             if (literalProperties == null) {
-                literalProperties = new ArrayList<>();
+                literalProperties = new ArrayList<LiteralPropertyValueVO>();
             }
             
             for (Object v : values) {
