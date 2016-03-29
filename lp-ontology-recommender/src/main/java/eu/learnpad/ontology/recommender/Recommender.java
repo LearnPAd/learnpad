@@ -90,14 +90,14 @@ public class Recommender {
 
     public List<BusinessActor> suggestExpertMostOftenExecutedTask(String modelSetId, String artifactId, String userId) throws RecommenderException {
         if (artifactId == null) {
-            return new ArrayList<>();
+            return new ArrayList<BusinessActor>();
         }
         return getExperts(QUERY_EXPERT_MOST_OFTEN_EXECUTED_TASK, modelSetId, artifactId, userId);
     }
 
     private List<BusinessActor> getExperts(String queryName, String modelSetId, String artifactId, String userId) throws RecommenderException {
         RecommenderQuery queryObj = QueryMap.getQuery(queryName);
-        List<BusinessActor> experts = new ArrayList<>();
+        List<BusinessActor> experts = new ArrayList<BusinessActor>();
         Query query = QueryFactory.create(queryObj.getQueryString());
         OntModel model = getExecutionDataModel(modelSetId);
 //        model.write(System.out, "Turtle");
@@ -149,7 +149,7 @@ public class Recommender {
 
     private List<LearningMaterial> getLearningMaterial(String modelSetId, String userId) throws RecommenderException {
         RecommenderQuery queryObj = QueryMap.getQuery(QUERY_LEARNING_MATERIAL_FOR_NEXT_COMPETENCY_LEVEL);
-        List<LearningMaterial> materials = new ArrayList<>();
+        List<LearningMaterial> materials = new ArrayList<LearningMaterial>();
         Query query = QueryFactory.create(queryObj.getQueryString());
         OntModel model = getExecutionDataModel(modelSetId);
         QueryExecution qexec = null;
@@ -184,7 +184,7 @@ public class Recommender {
 
         List<BusinessActor> businessActors = experts.getBusinessActors();
         if (businessActors == null) {
-            businessActors = new ArrayList();
+            businessActors = new ArrayList<BusinessActor>();
         }
         for (BusinessActor baToAdd : toAdd) {
             if (userId != null && userId.equals(baToAdd.getEmail())) {
@@ -209,7 +209,7 @@ public class Recommender {
 
         List<LearningMaterial> materialsList = materials.getLearningMaterials();
         if (materialsList == null) {
-            materialsList = new ArrayList();
+            materialsList = new ArrayList<LearningMaterial>();
             for (LearningMaterial materialToAdd : toAdd) {
                 boolean exists = false;
                 for (LearningMaterial learningMaterial : materialsList) {
