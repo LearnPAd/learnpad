@@ -21,15 +21,20 @@ package eu.learnpad.cw;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
@@ -37,7 +42,8 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
-import org.xwiki.model.EntityType;
+import org.xwiki.component.phase.Initializable;
+import org.xwiki.component.phase.InitializationException;
 import org.xwiki.model.reference.DocumentReference;
 import org.xwiki.model.reference.DocumentReferenceResolver;
 import org.xwiki.model.reference.EntityReference;
@@ -53,7 +59,9 @@ import com.xpn.xwiki.doc.XWikiDocument;
 import com.xpn.xwiki.objects.BaseObject;
 
 import eu.learnpad.core.impl.cw.XwikiBridge;
+import eu.learnpad.core.impl.cw.XwikiCoreFacadeRestResource;
 import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.cw.impl.persistence.RecommendationsStore;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
@@ -72,7 +80,7 @@ import eu.learnpad.sim.rest.data.UserData;
 @Singleton
 @Named("eu.learnpad.cw.CWXwikiBridge")
 @Path("/learnpad/cw/bridge")
-public class CWXwikiBridge extends XwikiBridge implements UICWBridge
+public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBridge
 {
     private final String LEARNPAD_SPACE = "LPCode";
 
@@ -89,7 +97,9 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge
     private final String USER_CLASS_PAGE = "XWikiUsers";
 
     private final String USER_CLASS = String.format("%s.%s", XWIKI_SPACE, USER_CLASS_PAGE);
-
+      
+    private static volatile RecommendationsStore recsStore;
+    
     @Inject
     private Logger logger;
 
@@ -110,6 +120,13 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge
 
     @Inject
     private DocumentReferenceResolver<EntityReference> referenceDocumentReferenceResolver;
+
+	@Override
+	public void initialize() throws InitializationException {
+		this.corefacade = new XwikiCoreFacadeRestResource();
+
+		recsStore = RecommendationsStore.createRecommendationsStore();	
+	}
 
     @Override
     public byte[] getComments(String modelSetId, String artifactId) throws LpRestException
@@ -328,6 +345,13 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge
         return this.corefacade.getRecommendations(modelSetId, artifactId, userId);
     }
 
+    @Override
+    public Map<String,Recommendations> getNotifiedRecommendations(String userId)
+        throws LpRestException
+    {
+        return CWXwikiBridge.recsStore.get(userId);        
+    }
+
     private Collection<UserData> getUserProfiles(Collection<String> potentialUsers)
     {
         XWikiContext xcontext = xcontextProvider.get();
@@ -372,7 +396,37 @@ public class CWXwikiBridge extends XwikiBridge implements UICWBridge
 
     @Override
     public void notifyRecommendations(String modelSetId, String simulationid, String userId, Recommendations rec) throws LpRestException
-    {
-        // TODO Auto-generated method stub
+    {    	
+        Writer recWriter = new StringWriter();
+        JAXBContext jc;
+		try {
+			jc = JAXBContext.newInstance(Recommendations.class);
+	        jc.createMarshaller().marshal(rec, recWriter);
+		} catch (JAXBException e) {					
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause()); 
+		}
+    	
+    	String msg = "modelSetId : " + modelSetId + "\n" +
+    				 "simulationid : " + simulationid + "\n" +
+    				 "userId : "+ userId + "\n" +
+    				 "recommendations : " + rec.toString();
+    	
+        logger.info(msg);
+        
+        CWXwikiBridge.recsStore.put(userId, simulationid, rec);
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

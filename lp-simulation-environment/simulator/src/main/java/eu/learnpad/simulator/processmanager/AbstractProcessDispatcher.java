@@ -35,6 +35,7 @@ import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
 import eu.learnpad.simulator.monitoring.event.impl.ProcessEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SessionScoreUpdateSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskFailedSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
 import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
 import eu.learnpad.simulator.processmanager.gamification.TaskScorer;
@@ -131,8 +132,18 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 					// add attempt to user failed count
 					taskScorers.get(task.id).addUserAttemptFail(userId);
 
+					LearnPadTaskSubmissionResult res = LearnPadTaskSubmissionResult
+							.rejected();
+
+					// send failure notification
+					processEventReceiver
+					.receiveTaskFailedEvent(new TaskFailedSimEvent(
+							System.currentTimeMillis(),
+							simulationSessionId, involvedUsers, task,
+									userId, data, res));
+
 					// task result is invalid and must be resubmitted
-					return LearnPadTaskSubmissionResult.rejected();
+					return res;
 				} else {
 
 					int taskScore = 0;

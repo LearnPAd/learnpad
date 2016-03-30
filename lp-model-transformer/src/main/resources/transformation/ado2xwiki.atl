@@ -124,7 +124,7 @@ helper def: incLinkNumber(id: String): Map(String, Integer) =
 
 helper context ADOXX!IREFType def: getNumber(par: String): Integer =
 	if par = thisModule._SOURCE then
-		thisModule.linkNumberMap.get(thisModule.getIrefSourceId(self))
+		thisModule.linkNumberMap.get(thisModule.getIrefSourceInstanceId(self))
 	else
 		if (self.type = thisModule._OBJREFERENCE) then
 			thisModule.incLinkNumber.get(thisModule.getIrefTargetInstanceId(self))
@@ -142,7 +142,7 @@ helper context ADOXX!CONNECTORType def: getNumber(par: String): Integer =
 
 -------------
 -- Get the source instance id for the iref
-helper def: getIrefSourceId(iref: OclAny): String =
+helper def: getIrefSourceInstanceId(iref: OclAny): String =
 	if (iref.oclIsTypeOf(ADOXX!INSTANCEType)) then
 		if (iref.isInSourceModels > 0) then
 			iref.id
@@ -150,7 +150,7 @@ helper def: getIrefSourceId(iref: OclAny): String =
 			thisModule._BROKENREF
 		endif
 	else
-		thisModule.getIrefSourceId(iref.refImmediateComposite())
+		thisModule.getIrefSourceInstanceId(iref.refImmediateComposite())
 	endif;
 
 -- Get the target instance id for the iref
@@ -172,6 +172,14 @@ helper def: getIrefTargetInstance(iref: ADOXX!IREFType): ADOXX!INSTANCEType =
 				.flatten() -> select(i | ((i.class = iref.tclassname) and (i.name =
 						iref.tobjname))) --finding the instance
 		.first();
+
+-- Get the source model id for the iref
+helper def: getIrefSourceModelId(iref: ADOXX!IREFType): String =
+	if (iref.oclIsTypeOf(ADOXX!MODELType)) then
+		iref.id
+	else
+		thisModule.getIrefSourceModelId(iref.refImmediateComposite())
+	endif;
 
 -- Get the target model id for the iref
 helper def: getIrefTargetModelId(iref: ADOXX!IREFType): String =
@@ -523,51 +531,75 @@ rule CONNECTORType2Object {
 			className <- thisModule._LPLinkClass,
 			number <- c.getNumber(thisModule._SOURCE),
 			wiki <- 'xwiki',
-			space <- thisModule.getModelSetId(),
-			pageName <- thisModule.getConnectorSourceId(c),
-			property <- Sequence{lco_p1,
+			space <- thisModule.spacesBE(thisModule.getModelSetId(), c.refImmediateComposite().id, thisModule.getConnectorSourceId(c)),
+			pageName <- 'WebHome',
+			property <- Sequence{lco_p0,
+						lco_p1,
 						lco_p2,
-						lco_p3}
+						lco_p3,
+						lco_p4}
 		),
-		lco_p1: XWIKI!Property (
+		lco_p0: XWIKI!Property (
 			name <- 'id',
 			type <- 'String',
 			value <- c.id
 		),
+		lco_p1: XWIKI!Property (
+			name <- 'targetmodelsetid',
+			type <- 'String',
+			value <- thisModule.getModelSetId()
+		),
 		lco_p2: XWIKI!Property (
+			name <- 'targetmodelid',
+			type <- 'String',
+			value <- c.refImmediateComposite().id
+		),
+		lco_p3: XWIKI!Property (
+			name <- 'targetartifactid',
+			type <- 'String',
+			value <- thisModule.getConnectorTargetId(c)
+		),
+		lco_p4: XWIKI!Property (
 			name <- 'type',
 			type <- 'StaticList',
 			value <- 'outgoing'
-		),
-		lco_p3: XWIKI!Property (
-			name <- 'uri',
-			type <- 'String',
-			value <- thisModule.getConnectorTargetId(c)
 		),
 		lci: XWIKI!Object (
 			className <- thisModule._LPLinkClass,
 			number <- c.getNumber(thisModule._TARGET),
 			wiki <- 'xwiki',
-			space <- thisModule.getModelSetId(),
-			pageName <- thisModule.getConnectorTargetId(c),
-			property <- Sequence{lci_p1,
+			space <- thisModule.spacesBE(thisModule.getModelSetId(), c.refImmediateComposite().id, thisModule.getConnectorTargetId(c)),
+			pageName <- 'WebHome',
+			property <- Sequence{lci_p0,
+						lci_p1,
 						lci_p2,
-						lci_p3}
+						lci_p3,
+						lci_p4}
 		),
-		lci_p1: XWIKI!Property (
+		lci_p0: XWIKI!Property (
 			name <- 'id',
 			type <- 'String',
 			value <- c.id
 		),
+		lci_p1: XWIKI!Property (
+			name <- 'targetmodelsetid',
+			type <- 'String',
+			value <- thisModule.getModelSetId()
+		),
 		lci_p2: XWIKI!Property (
+			name <- 'targetmodelid',
+			type <- 'String',
+			value <- c.refImmediateComposite().id
+		),
+		lci_p3: XWIKI!Property (
+			name <- 'targetartifactid',
+			type <- 'String',
+			value <- thisModule.getConnectorSourceId(c)
+		),
+		lci_p4: XWIKI!Property (
 			name <- 'type',
 			type <- 'StaticList',
 			value <- 'incoming'
-		),
-		lci_p3: XWIKI!Property (
-			name <- 'uri',
-			type <- 'String',
-			value <- thisModule.getConnectorSourceId(c)
 		)
 	do {
 		thisModule.documentRoot.object <- lco;
@@ -590,58 +622,81 @@ rule IREFTypeObjRef2Object {
 			className <- thisModule._LPLinkClass,
 			number <- i.getNumber(thisModule._SOURCE),
 			wiki <- 'xwiki',
-			space <- thisModule.getModelSetId(),
-			pageName <- thisModule.getIrefSourceId(i),
-			property <- Sequence{lco_p1,
+			space <- thisModule.spacesBE(thisModule.getModelSetId(), thisModule.getIrefSourceModelId(i), thisModule.getIrefSourceInstanceId(i)),
+			pageName <- 'WebHome',
+			property <- Sequence{lco_p0,
+						lco_p1,
 						lco_p2,
-						lco_p3}
+						lco_p3,
+						lco_p4}
 		),
-		lco_p1: XWIKI!Property (
+		lco_p0: XWIKI!Property (
 			name <- 'id',
 			type <- 'String',
-			value <- ''
+			value <- '' -- There is no ID for IREF links
+		),
+		lco_p1: XWIKI!Property (
+			name <- 'targetmodelsetid',
+			type <- 'String',
+			value <- thisModule.getModelSetId()
 		),
 		lco_p2: XWIKI!Property (
+			name <- 'targetmodelid',
+			type <- 'String',
+			value <- thisModule.getIrefTargetModelId(i)
+		),
+		lco_p3: XWIKI!Property (
+			name <- 'targetartifactid',
+			type <- 'String',
+			value <- thisModule.getIrefTargetInstanceId(i)
+		),
+		lco_p4: XWIKI!Property (
 			name <- 'type',
 			type <- 'StaticList',
 			value <- 'outgoing-weaving'
-		),
-		lco_p3: XWIKI!Property (
-			name <- 'uri',
-			type <- 'String',
-			value <- thisModule.getIrefTargetInstanceId(i)
 		),
 		lci: XWIKI!Object (
 			className <- thisModule._LPLinkClass,
 			number <- i.getNumber(thisModule._TARGET),
 			wiki <- 'xwiki',
-			space <- thisModule.getModelSetId(),
-			pageName <- thisModule.getIrefTargetInstanceId(i),
-			--casino
-			property <- Sequence{lci_p1,
+			space <- thisModule.spacesBE(thisModule.getModelSetId(), thisModule.getIrefTargetModelId(i), thisModule.getIrefTargetInstanceId(i)),
+			pageName <- 'WebHome',
+			property <- Sequence{lci_p0,
+						lci_p1,
 						lci_p2,
-						lci_p3}
+						lci_p3,
+						lci_p4}
 		),
-		lci_p1: XWIKI!Property (
+		lci_p0: XWIKI!Property (
 			name <- 'id',
 			type <- 'String',
 			value <- ''
 		),
+		lci_p1: XWIKI!Property (
+			name <- 'targetmodelsetid',
+			type <- 'String',
+			value <- thisModule.getModelSetId()
+		),
 		lci_p2: XWIKI!Property (
+			name <- 'targetmodelid',
+			type <- 'String',
+			value <- thisModule.getIrefSourceModelId(i)
+		),
+		lci_p3: XWIKI!Property (
+			name <- 'targetartifactid',
+			type <- 'String',
+			value <- thisModule.getIrefSourceInstanceId(i)
+		),
+		lci_p4: XWIKI!Property (
 			name <- 'type',
 			type <- 'StaticList',
 			value <- 'incoming-weaving'
-		),
-		lci_p3: XWIKI!Property (
-			name <- 'uri',
-			type <- 'String',
-			value <- thisModule.getIrefSourceId(i)
 		)
 	do {
 		thisModule.documentRoot.object <- lco;
 		thisModule.documentRoot.object <- lci;
 		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.
-				getIrefSourceId(i));
+				getIrefSourceInstanceId(i));
 		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.
 				getIrefTargetInstanceId(i));
 	}
@@ -659,57 +714,81 @@ rule IREFTypeModRef2Object {
 			className <- thisModule._LPLinkClass,
 			number <- i.getNumber(thisModule._SOURCE),
 			wiki <- 'xwiki',
-			space <- thisModule.getModelSetId(),
-			pageName <- thisModule.getIrefSourceId(i),
-			property <- Sequence{lco_p1,
+			space <- thisModule.spacesBE(thisModule.getModelSetId(), thisModule.getIrefSourceModelId(i), thisModule.getIrefSourceInstanceId(i)),
+			pageName <- 'WebHome',
+			property <- Sequence{lco_p0,
+						lco_p1,
 						lco_p2,
-						lco_p3}
+						lco_p3,
+						lco_p4}
 		),
-		lco_p1: XWIKI!Property (
+		lco_p0: XWIKI!Property (
 			name <- 'id',
 			type <- 'String',
-			value <- ''
+			value <- '' -- There is no ID for IREF links
+		),
+		lco_p1: XWIKI!Property (
+			name <- 'targetmodelsetid',
+			type <- 'String',
+			value <- thisModule.getModelSetId()
 		),
 		lco_p2: XWIKI!Property (
+			name <- 'targetmodelid',
+			type <- 'String',
+			value <- thisModule.getIrefTargetModelId(i)
+		),
+		lco_p3: XWIKI!Property (
+			name <- 'targetartifactid',
+			type <- 'String',
+			value <- '' -- link to a model so there is no artifact ID
+		),
+		lco_p4: XWIKI!Property (
 			name <- 'type',
 			type <- 'StaticList',
 			value <- 'outgoing-weaving'
-		),
-		lco_p3: XWIKI!Property (
-			name <- 'uri',
-			type <- 'String',
-			value <- thisModule.getIrefTargetModelId(i)
 		),
 		lci: XWIKI!Object (
 			className <- thisModule._LPLinkClass,
 			number <- i.getNumber(thisModule._TARGET),
 			wiki <- 'xwiki',
-			space <- thisModule.getModelSetId(),
-			pageName <- thisModule.getIrefTargetModelId(i),
-			property <- Sequence{lci_p1,
+			space <- thisModule.spacesM(thisModule.getModelSetId(), thisModule.getIrefTargetModelId(i)),
+			pageName <- 'WebHome',
+			property <- Sequence{lci_p0,
+						lci_p1,
 						lci_p2,
-						lci_p3}
+						lci_p3,
+						lci_p4}
 		),
-		lci_p1: XWIKI!Property (
+		lci_p0: XWIKI!Property (
 			name <- 'id',
 			type <- 'String',
 			value <- ''
 		),
+		lci_p1: XWIKI!Property (
+			name <- 'targetmodelsetid',
+			type <- 'String',
+			value <- thisModule.getModelSetId()
+		),
 		lci_p2: XWIKI!Property (
+			name <- 'targetmodelid',
+			type <- 'String',
+			value <- thisModule.getIrefSourceModelId(i)
+		),
+		lci_p3: XWIKI!Property (
+			name <- 'targetartifactid',
+			type <- 'String',
+			value <- thisModule.getIrefSourceInstanceId(i)
+		),
+		lci_p4: XWIKI!Property (
 			name <- 'type',
 			type <- 'StaticList',
 			value <- 'incoming-weaving'
-		),
-		lci_p3: XWIKI!Property (
-			name <- 'uri',
-			type <- 'String',
-			value <- thisModule.getIrefSourceId(i)
 		)
 	do {
 		thisModule.documentRoot.object <- lco;
 		thisModule.documentRoot.object <- lci;
 		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.
-				getIrefSourceId(i));
+				getIrefSourceInstanceId(i));
 		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.
 				getIrefTargetModelId(i));
 	}

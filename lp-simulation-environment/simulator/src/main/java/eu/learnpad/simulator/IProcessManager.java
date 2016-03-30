@@ -265,6 +265,13 @@ public interface IProcessManager {
 	public String getModelSetId(String processDefId);
 
 	/**
+	 * @param sessionId
+	 * @return the model set id associated with a session Id, or null if no
+	 *         model set is associated to the session Id
+	 */
+	public String getModelSetIdFromSessionId(String sessionId);
+
+	/**
 	 *
 	 * @param simulationSessionId
 	 * @return the parameters data that have been used to instanciate the

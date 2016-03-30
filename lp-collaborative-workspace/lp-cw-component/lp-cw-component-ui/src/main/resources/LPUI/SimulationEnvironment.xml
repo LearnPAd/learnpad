@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc version="1.1">
+<xwikidoc version="1.2" reference="LPUI.SimulationEnvironment" locale="">
   <web>LPUI</web>
   <name>SimulationEnvironment</name>
   <language/>
@@ -31,8 +31,8 @@
   <parent>WebIDE.LearnPAd</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1446725130000</date>
-  <contentUpdateDate>1446725130000</contentUpdateDate>
+  <date>1458729566000</date>
+  <contentUpdateDate>1458726198000</contentUpdateDate>
   <version>1.1</version>
   <title>Simulation of $!{xwiki.getDocument($services.model.createDocumentReference($xcontext.database, $request.getParameter('modelsetid'), $request.getParameter('modelid'))).getObject('LPCode.ModelClass').getProperty('name').value}</title>
   <comment/>
@@ -164,11 +164,11 @@ Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
   </object>
   <object>
     <name>LPUI.SimulationEnvironment</name>
-    <number>0</number>
-    <className>XWiki.StyleSheetExtension</className>
-    <guid>6ae6626c-e06c-46aa-8f1d-49ba749511cf</guid>
+    <number>1</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>63a476f6-e6fb-4ad1-9d48-e1c8ca5475f3</guid>
     <class>
-      <name>XWiki.StyleSheetExtension</name>
+      <name>XWiki.JavaScriptExtension</name>
       <customClass/>
       <customMapping/>
       <defaultViewSheet/>
@@ -202,22 +202,6 @@ Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
         <unmodifiable>0</unmodifiable>
         <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
       </code>
-      <contentType>
-        <cache>0</cache>
-        <disabled>0</disabled>
-        <displayType>select</displayType>
-        <multiSelect>0</multiSelect>
-        <name>contentType</name>
-        <number>6</number>
-        <prettyName>Content Type</prettyName>
-        <relationalStorage>0</relationalStorage>
-        <separator> </separator>
-        <separators>|, </separators>
-        <size>1</size>
-        <unmodifiable>0</unmodifiable>
-        <values>CSS|LESS</values>
-        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
-      </contentType>
       <name>
         <disabled>0</disabled>
         <name>name</name>
@@ -244,6 +228,134 @@ Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
         <multiSelect>0</multiSelect>
         <name>use</name>
         <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>default</cache>
+    </property>
+    <property>
+      <code>require(["jquery"], function ($) {
+$(function(){
+  var getPanel = function getPanel() {
+    var url = "http://localhost:8080/xwiki/bin/view/LPUI/RecommendationPanel";
+    url += "?outputSyntax=html";
+    url += "&amp;xpage=plain";
+    url += "&amp;sheet=LPUI.RecommendationPanelSheet";
+    url += "&amp;recInSimMode=true";
+    $.ajax({
+      "url": url,
+      "method": "GET"
+    }).done(function(data, status, xhr) {
+      $("#rightPanels").empty().append(data);
+      setTimeout(getPanel, 1000);
+    }).fail(function(xhr, status, err) {
+      throw err;
+    });
+  };
+  getPanel();
+});
+});</code>
+    </property>
+    <property>
+      <name>Panel injection</name>
+    </property>
+    <property>
+      <parse/>
+    </property>
+    <property>
+      <use>currentPage</use>
+    </property>
+  </object>
+  <object>
+    <name>LPUI.SimulationEnvironment</name>
+    <number>0</number>
+    <className>XWiki.StyleSheetExtension</className>
+    <guid>6ae6626c-e06c-46aa-8f1d-49ba749511cf</guid>
+    <class>
+      <name>XWiki.StyleSheetExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>6</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>3</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <contentType>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>contentType</name>
+        <number>1</number>
+        <prettyName>Content Type</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>CSS|LESS</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </contentType>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>2</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>5</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>4</number>
         <prettyName>Use this extension</prettyName>
         <relationalStorage>0</relationalStorage>
         <separator> </separator>

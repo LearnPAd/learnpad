@@ -28,7 +28,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +46,7 @@ import eu.learnpad.or.rest.data.BusinessActor;
 import eu.learnpad.or.rest.data.Experts;
 import eu.learnpad.or.rest.data.LearningMaterial;
 import eu.learnpad.or.rest.data.LearningMaterials;
+import eu.learnpad.or.rest.data.ListOfStringWrapper;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.SimilarCase;
 import eu.learnpad.or.rest.data.SimilarCases;
@@ -108,6 +111,7 @@ public class OrAPITest {
 			JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
 			jc.createUnmarshaller().unmarshal(is);			
 		} catch (JAXBException e) {
+			e.printStackTrace();
 			Assert.fail();
 		}
 		Assert.assertTrue(true);
@@ -207,13 +211,23 @@ public class OrAPITest {
 		return experts;
 	}
 
-	private Map<String, Object> generateDataMap() {
-		Map<String, Object> dataMap = new HashMap<String, Object>();
+//	private Map<String, Object> generateDataMap() {
+//		Map<String, Object> dataMap = new HashMap<String, Object>();
+	private Map<String, ListOfStringWrapper> generateDataMap() {
+		Map<String, ListOfStringWrapper> dataMap = new HashMap<String, ListOfStringWrapper>();
 
 		int maxItems = this.random.nextInt(4);
 
 		for (int i = 0; i < maxItems; i++) {
-			dataMap.put("fooKey" + i, "fooValue" + i);
+//			dataMap.put("fooKey" + i, "fooValue" + i);
+
+			ArrayList<String> l = new ArrayList<String>();			
+			l.add("first fooValue" + i);
+			l.add("second fooValue" + i);
+			ListOfStringWrapper list = new ListOfStringWrapper();
+			list.setTheList(l);
+			dataMap.put("fooKey" + i, list);
+
 		}
 
 		return dataMap;

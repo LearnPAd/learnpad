@@ -9,6 +9,7 @@ import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 import eu.learnpad.sim.rest.event.impl.TaskFailedEvent; 
 import eu.learnpad.sim.rest.event.impl.TaskEndEvent; 
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent; 
+import eu.learnpad.sim.rest.event.EventType;
 import eu.learnpad.simulator.mon.manager.ResponseDispatcher; 
 import eu.learnpad.simulator.mon.manager.RestNotifier; 
         
@@ -27,7 +28,7 @@ when
  	$bEvent:GlimpseBaseEventBPMN(
 		this.isConsumed == false,
 		this.isException == false,
-		this.getEventData == "notifySimulationStart"); 
+		this.getEventName == EventType.SIMULATION_START.toString()); 
 then		
  	$bEvent.setConsumed(true);
  	update($bEvent);
@@ -46,7 +47,7 @@ when
 	 $aEvent:GlimpseBaseEventBPMN(
 	 	this.isConsumed == false,
 	 	this.isException == false,
-	 	this.getEventData == "notifySimulationEnd"); 
+		this.getEventName == EventType.SIMULATION_END.toString()); 
 then	 	
  	 $aEvent.setConsumed(true);
  	update($aEvent);
@@ -65,7 +66,7 @@ when
  	 $aEvent : GlimpseBaseEventBPMN(
  		this.isConsumed == false,
  		this.isException == false,
- 		this.getEventData == "notifyProcessStart"); 
+ 		this.getEventName == EventType.PROCESS_START.toString()); 
 then		 
  	$aEvent.setConsumed(true);
  	update($aEvent);
@@ -84,7 +85,7 @@ when
 	 $aEvent : GlimpseBaseEventBPMN(
 	 	this.isConsumed == false,
 	 	this.isException == false,
-	 	this.getEventData == "notifyProcessEnd"); 
+		this.getEventName == EventType.PROCESS_END.toString()); 
 then	 	
  	$aEvent.setConsumed(true);
  	update($aEvent);
@@ -103,7 +104,7 @@ when
 	 $aEvent : GlimpseBaseEventBPMN(
 	 	this.isConsumed == false,
 	 	this.isException == false,
-	 	this.getEventData == "notifyTaskStart"); 
+		this.getEventName == EventType.TASK_START.toString());  
 then	 	
  	$aEvent.setConsumed(true);
  	update($aEvent);
@@ -122,7 +123,7 @@ when
 	$aEvent : GlimpseBaseEventBPMN(
 		this.isConsumed == false,
 		this.isException == false,
-		this.getEventData == "notifyTaskFailed"); 
+		this.getEventName == EventType.TASK_FAILED.toString());  
 then 		
 	$aEvent.setConsumed(true); 
 	update($aEvent); 
@@ -141,7 +142,7 @@ when
  	$aEvent : GlimpseBaseEventBPMN(
 		this.isConsumed == false,
 		this.isException == false,
-		this.getEventData == "notifyTaskEnd"); 
+		this.getEventName == EventType.TASK_END.toString());  
 then		
 	$aEvent.setConsumed(true); 
 	update($aEvent); 
@@ -160,7 +161,7 @@ when
 	$aEvent : GlimpseBaseEventBPMN(
 		this.isConsumed == false,
 		this.isException == false,
-		this.getEventData == "notifySessionScoreUpdate"); 
+		this.getEventName == EventType.SESSION_SCORE_UPDATE.toString());  
 then		
 	 $aEvent.setConsumed(true);
 	 update($aEvent);

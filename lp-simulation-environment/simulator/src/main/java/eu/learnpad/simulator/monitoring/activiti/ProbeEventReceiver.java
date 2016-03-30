@@ -14,6 +14,7 @@ import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationEndEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
 import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
+import eu.learnpad.sim.rest.event.impl.TaskFailedEvent;
 import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
@@ -27,6 +28,7 @@ import eu.learnpad.simulator.monitoring.event.impl.SessionScoreUpdateSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskFailedSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
 import eu.learnpad.simulator.utils.SimulatorProperties;
 
@@ -130,7 +132,7 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.timestamp,
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						manager.getModelSetId(event.initialProcessDefinitionKey),
+						manager.getModelSetIdFromSessionId(event.initialProcessDefinitionKey),
 						manager.getSimulationSessionParametersData(event.simulationsessionid)));
 
 		send(monitoringEvent);
@@ -150,7 +152,7 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.timestamp,
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						manager.getModelSetId(event.simulationsessionid),
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
 						manager.getSimulationSessionParametersData(event.simulationsessionid)));
 
 		send(monitoringEvent);
@@ -170,9 +172,8 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.timestamp,
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						manager.getModelSetId(event.simulationsessionid),
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
 						manager.getSimulationSessionParametersData(event.simulationsessionid),
-						event.processInstance.processartifactid,
 						event.processInstance.processartifactkey));
 
 		send(monitoringEvent);
@@ -192,9 +193,8 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.timestamp,
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						manager.getModelSetId(event.simulationsessionid),
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
 						manager.getSimulationSessionParametersData(event.simulationsessionid),
-						event.processInstance.processartifactid,
 						event.processInstance.processartifactkey));
 		send(monitoringEvent);
 
@@ -213,10 +213,11 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.timestamp,
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						manager.getModelSetId(event.simulationsessionid),
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
 						manager.getSimulationSessionParametersData(event.simulationsessionid),
-						event.task.processId, event.task.id, event.task.key,
-						new ArrayList<String>(event.involvedusers)));
+						manager.getProcessInstanceInfos(event.task.processId).processartifactkey,
+						event.task.key, new ArrayList<String>(
+								event.involvedusers)));
 
 		send(monitoringEvent);
 
@@ -235,11 +236,36 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.timestamp,
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						manager.getModelSetId(event.simulationsessionid),
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
 						manager.getSimulationSessionParametersData(event.simulationsessionid),
-						event.task.processId, event.task.id, event.task.key,
+						manager.getProcessInstanceInfos(event.task.processId).processartifactkey,
+						event.task.key, new ArrayList<String>(
+								event.involvedusers), event.completingUser,
+						event.submittedData));
+
+		send(monitoringEvent);
+
+	}
+
+	@Override
+	public void receiveTaskFailedEvent(TaskFailedSimEvent event) {
+		GlimpseBaseEventBPMN<String> monitoringEvent = new GlimpseBaseEventBPMN<String>(
+				"Activity_" + event.timestamp,
+				event.simulationsessionid,
+				event.timestamp,
+				event.getType().toString(),
+				false,
+				event.task.subprocessKey,
+				new TaskFailedEvent(
+						event.timestamp,
+						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						event.completingUser, event.submittedData));
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
+						manager.getSimulationSessionParametersData(event.simulationsessionid),
+						manager.getProcessInstanceInfos(event.task.processId).processartifactkey,
+						event.task.key, new ArrayList<String>(
+								event.involvedusers), event.completingUser,
+								event.submittedData));
 
 		send(monitoringEvent);
 
@@ -258,9 +284,10 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.timestamp,
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						manager.getModelSetId(event.simulationsessionid),
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
 						manager.getSimulationSessionParametersData(event.simulationsessionid),
-						event.processid, event.user, event.sessionscore));
+						manager.getProcessInstanceInfos(event.processid).processartifactkey,
+						event.user, event.sessionscore));
 
 		send(monitoringEvent);
 

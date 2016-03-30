@@ -21,7 +21,7 @@ package eu.learnpad.simulator.datastructures.document;
  * #L%
  */
 
-import java.util.Collection;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -42,10 +42,10 @@ public class LearnPadDocument {
 	@JsonProperty("desc")
 	public final String desc;
 	@JsonProperty("fields")
-	public final Collection<LearnPadDocumentField> fields;
+	public final Map<LearnPadDocumentField, Object> fields;
 
 	public LearnPadDocument(String id, String name, String desc,
-			Collection<LearnPadDocumentField> fields) {
+			Map<LearnPadDocumentField, Object> fields) {
 		super();
 		this.id = id;
 		this.name = name;

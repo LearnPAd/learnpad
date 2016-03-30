@@ -114,6 +114,10 @@ public class ActivitiProcessManager implements IProcessManager,
 
 	private final Map<String, Map<String, Map<LearnPadTask, Integer>>> taskScoresByUsersBySession = new HashMap<>();
 
+	private final Map<String, String> processDefToModelSet = new ConcurrentHashMap<String, String>();
+
+	private final Map<String, String> simSessionIdToModelSet = new ConcurrentHashMap<String, String>();
+
 	public ActivitiProcessManager(
 			ProcessEngine processEngine,
 			IProcessEventReceiver.IProcessEventReceiverProvider processEventReceiverProvider,
@@ -345,6 +349,11 @@ public class ActivitiProcessManager implements IProcessManager,
 			// register session parameters data
 			sessionParametersData.put(simSession, parameters);
 
+			if (processDefToModelSet.containsKey(projectDefinitionKey)) {
+				simSessionIdToModelSet.put(simSession,
+						processDefToModelSet.get(projectDefinitionKey));
+			}
+
 			// signal simulation session start
 			// signal process start
 			this.processEventReceiverProvider.processEventReceiver()
@@ -490,6 +499,7 @@ public class ActivitiProcessManager implements IProcessManager,
 			nbProcessesBySession.remove(simSession);
 			usersBySession.remove(simSession);
 			sessionParametersData.remove(simSession);
+			simSessionIdToModelSet.remove(simSession);
 
 			taskScoresByUsersBySession.remove(simSession);
 		}
@@ -641,8 +651,6 @@ public class ActivitiProcessManager implements IProcessManager,
 
 	// // ModelSetId related methods
 
-	private final Map<String, String> processDefToModelSet = new ConcurrentHashMap<String, String>();
-
 	@Override
 	public void setModelSetId(String processDefId, String modelSetId) {
 		processDefToModelSet.put(processDefId, modelSetId);
@@ -651,6 +659,11 @@ public class ActivitiProcessManager implements IProcessManager,
 	@Override
 	public String getModelSetId(String processDefId) {
 		return processDefToModelSet.get(processDefId);
+	}
+
+	@Override
+	public String getModelSetIdFromSessionId(String sessionId) {
+		return simSessionIdToModelSet.get(sessionId);
 	}
 
 	@Override

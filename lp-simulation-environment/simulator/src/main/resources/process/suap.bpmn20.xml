@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  LearnPAd Simulator
+  %%
+  Copyright (C) 2014 - 2015 Linagora
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  #L%
+  -->
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://activiti.org/bpmn20">
+
+  <process id="mod.27772" name="SUAP - Titolo Unico" isExecutable="true">
+
+    <dataObject
+        id="DataObject_0"
+        name="SCIA_DataObject0" />
+    <dataObject
+        id="DataObject_1"
+        name="SCIA_DataObject1" />
+    <dataObject
+        id="DataObject_2"
+        name="SCIA_DataObject2" />
+    <dataObject
+        id="DataObject_3"
+        name="SCIA_DataObject3" />
+    <dataObject
+        id="DataObject_4"
+        name="SCIA_DataObject4" />
+    <dataObject
+        id="DataObject_5"
+        name="SCIA_DataObject5" />
+    <dataObject
+        id="DataObject_6"
+        name="SCIA_DataObject6" />
+    <dataObject
+        id="DataObject_7"
+        name="SCIA_DataObject7" />
+    <dataObject
+        id="DataObject_0-1"
+        name="SCIA_DataObject0_updated" />
+    <dataObject
+        id="DataObject_8"
+        name="SCIA_DataObject8" />
+    <dataObject
+        id="DataObject_9"
+        name="SCIA_DataObject9" />
+    <dataObject
+        id="DataObject_10"
+        name="SCIA_DataObject10" />
+
+    <startEvent id="startevent" name="Start">
+    </startEvent>
+
+    <userTask id="obj.27830" name="Assess Application">
+
+      <documentation> In the case of Titolo Unico, the entrepreneur applies for opening the activity and he/she has to wait for feedback by the administration before starting the business activity. The application has to be electronically delivered, by the entrepreneur, to the SUAP office.
+Such application consists in reporting details activity, location, etc. SUAP office forwards the request to the municipality offices and third parties administrations involved in the verification activity. They check the correctness of the request and provide feedbacks to the SUAP office in order to clarify if the request is acceptable or not. Municipality offices and third parties can also ask the entrepreneur for some amendments if some data are missing or wrong.
+In case the request is particularly complex to manage, at any time SUAP office can organize the Conferenza dei Servizi (CdS) (named in English Service Conference) that is a meeting in which all involved participants (municipality offices, third party administrations, and entrepreneur) discuss about the case and decide if the business activity is acceptable or not. At the end, the acceptance or the rejection for the request to start the activity is provided to the entrepreneur.
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
+
+      <ioSpecification>
+        <dataOutput id="DataOutput1" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput1</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput1</sourceRef>
+        <targetRef>DataObject_1</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+    <userTask id="obj.27812" name="Send Communication of non-admissible instance">
+
+      <documentation>In this activity the SUAP office has to communicate to the entrepreneur the inadmissibility of the request.</documentation>
+
+      <ioSpecification>
+        <dataInput id="DataInput2" name="input" />
+        <dataOutput id="DataOutput2" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput2</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput2</sourceRef>
+        <targetRef>DataObject_2</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+    <userTask id="obj.27782" name="Check Application">
+
+      <documentation>In this activity the office checks the SCIA Instance in order to verify that there are no restrictions.
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
+
+      <ioSpecification>
+        <dataInput id="DataInput3" name="input" />
+        <dataOutput id="DataOutput3" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput3</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput3</sourceRef>
+        <targetRef>DataObject_3</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+
+    <userTask id="obj.27921" name="Send Instance to Third Party">
+
+      <documentation>In this activity the SUAP office has to send to PAs the SCIA Instance for checking.
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
+
+      <ioSpecification>
+        <dataInput id="DataInput4" name="input" />
+        <dataOutput id="DataOutput4" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput4</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput4</sourceRef>
+        <targetRef>DataObject_4</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+
+    <userTask id="obj.27987" name="Activate Service Conference">
+
+      <documentation>In this activity the SUAP office announces the Service Conference calling each participant.
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
+
+      <ioSpecification>
+        <dataInput id="DataInput5" name="input" />
+        <dataOutput id="DataOutput5" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput5</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput5</sourceRef>
+        <targetRef>DataObject_5</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+
+    <userTask id="obj.27990" name="Confirm Decision">
+
+      <documentation>In this activity the SUAP office requests the opinion of the Service Conference.[TODO:description valid?]
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}_transcript.txt' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Meeting transcript&lt;/a&gt;</documentation>
+
+       <ioSpecification>
+         <dataInput id="DataInput6" name="input" />
+         <dataOutput id="DataOutput6" name="output" />
+         <inputSet/>
+         <outputSet>
+           <dataOutputRefs>DataOutput6</dataOutputRefs>
+         </outputSet>
+       </ioSpecification>
+
+       <dataOutputAssociation>
+         <sourceRef>DataOutput6</sourceRef>
+         <targetRef>DataObject_6</targetRef>
+       </dataOutputAssociation>
+
+       <potentialOwner>
+         <resourceAssignmentExpression>
+           <formalExpression>user(SUAP_Officer)</formalExpression>
+         </resourceAssignmentExpression>
+       </potentialOwner>
+
+    </userTask>
+
+
+    <userTask id="obj.29013" name="Request Amendment">
+
+      <documentation>Send a request for amendment to the Enterpreneur. This, if during the Service Conference or during the Check Application some data are missing.
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
+
+      <ioSpecification>
+        <dataInput id="DataInput7" name="input" />
+        <dataOutput id="DataOutput7" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput7</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput7</sourceRef>
+        <targetRef>DataObject_7</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+    <userTask id="obj.27833" name="Check Amendment">
+
+      <documentation>[TODO:is this description correct?] In this activity the SUAP office has to send to the entrepreneur a request for amendments and manage received amendments.
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
+
+      <ioSpecification>
+        <dataInput id="DataInput8" name="input" />
+        <dataOutput id="DataOutput8" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput8</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput8</sourceRef>
+        <targetRef>DataObject_8</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+    <userTask id="obj.27788" name="Send Authorization Document">
+
+      <documentation>In this activity the SUAP office sends to the entrepreneur the permission to start the business activity.
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
+
+      <ioSpecification>
+        <dataInput id="DataInput9" name="input" />
+        <dataOutput id="DataOutput9" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput9</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput9</sourceRef>
+        <targetRef>DataObject_9</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+    <userTask id="obj.27839" name="Manage Inhibition">
+
+      <documentation>In this activity the SUAP office has to send a communication to the entrepreneur in order to inform that he cannot start his business activity.
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
+
+      <ioSpecification>
+        <dataInput id="DataInput10" name="input" />
+        <dataOutput id="DataOutput10" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput10</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput10</sourceRef>
+        <targetRef>DataObject_10</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+    <endEvent id="endevent1" name="End"></endEvent>
+
+    <sequenceFlow id="flow0" sourceRef="startevent" targetRef="obj.27830"></sequenceFlow>
+
+    <sequenceFlow id="flow1" sourceRef="obj.27830" targetRef="exclusivegateway1"></sequenceFlow>
+
+    <exclusiveGateway id="exclusivegateway1" name="reject application?"></exclusiveGateway>
+
+    <sequenceFlow id="flow2" name="[yes]" sourceRef="exclusivegateway1" targetRef="obj.27812">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accepted == false}]]></conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="flow3" name="[no]" sourceRef="exclusivegateway1" targetRef="parallelgateway1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accepted == true}]]></conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="flow4" sourceRef="obj.27812" targetRef="endevent1"></sequenceFlow>
+
+    <parallelGateway id="parallelgateway1" name=""></parallelGateway>
+
+    <sequenceFlow id="flow5" sourceRef="parallelgateway1" targetRef="obj.27782" />
+
+    <sequenceFlow id="flow6" sourceRef="parallelgateway1" targetRef="obj.27921" />
+
+    <parallelGateway id="parallelgateway2" name=""></parallelGateway>
+
+    <sequenceFlow id="flow7" sourceRef="obj.27782" targetRef="parallelgateway2" />
+
+    <sequenceFlow id="flow8" sourceRef="obj.27921" targetRef="parallelgateway2" />
+
+    <sequenceFlow id="flow9" sourceRef="parallelgateway2" targetRef="obj.27987" />
+
+    <sequenceFlow id="flow10" sourceRef="obj.27987" targetRef="obj.27990" />
+
+    <exclusiveGateway id="exclusivegateway2" name="integration necessary?"></exclusiveGateway>
+
+    <sequenceFlow id="flow11" sourceRef="obj.27990" targetRef="exclusivegateway2" />
+
+
+    <sequenceFlow id="flow12" name="[yes]" sourceRef="exclusivegateway2" targetRef="obj.29013">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus == "needAmendments"}]]></conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="flow13" sourceRef="obj.29013" targetRef="obj.27833" />
+
+    <parallelGateway id="parallelgateway3" name=""></parallelGateway>
+
+    <sequenceFlow id="flow14" sourceRef="obj.27833" targetRef="exclusivegateway3" />
+
+    <sequenceFlow id="flow15" name="[no]" sourceRef="exclusivegateway2" targetRef="exclusivegateway3" >
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus != "needAmendments"}]]></conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="flow16" sourceRef="parallelgateway3" targetRef="exclusivegateway3" />
+
+    <exclusiveGateway id="exclusivegateway3" name="inhibition of the application?"></exclusiveGateway>
+
+    <sequenceFlow id="flow17" name="[no]" sourceRef="exclusivegateway3" targetRef="obj.27788" >
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus == "ok"}]]></conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="flow18" name="[yes]" sourceRef="exclusivegateway3" targetRef="obj.27839" >
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus == "ko"}]]></conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="flow18a" name="" sourceRef="exclusivegateway3" targetRef="obj.27987" >
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus == "serviceConf"}]]></conditionExpression>
+    </sequenceFlow>
+
+    <endEvent id="endevent" name="End">
+    </endEvent>
+
+    <sequenceFlow id="flow19" sourceRef="obj.27788" targetRef="endevent" />
+
+    <sequenceFlow id="flow20" sourceRef="obj.27839" targetRef="endevent" />
+
+  </process>
+
+</definitions>
