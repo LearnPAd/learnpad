@@ -59,13 +59,15 @@ public class Main {
 			simulator = new Simulator(ACTIVITY_CONFIG_PATH, PORT);
 
 			simulator.userHandler().addUser(
-					new UserData("bbarnes", "Barnaby", "Barnes", "", "", ""));
+					new UserData("XWiki.bbarnes", "Barnaby", "Barnes", "", "",
+							""));
 
 			// load process definitions
 			simulator.processManager().addProjectDefinitions(
 					DEMO_PROCESS_FOLDER + "/suap.bpmn20.xml");
 
-			simulator.processManager().setModelSetId("process_27772", "obj.28600");
+			simulator.processManager().setModelSetId("mod.27772",
+					"LP_ME_ADOXX_MODELSET_28600");
 
 			System.out.println("---\n");
 			System.out.println("Demo is ready and can be accessed at http://"
