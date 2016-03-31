@@ -22,9 +22,13 @@ public class CBRAdapterTest {
 
     @Test
     public void testCBR() {
-        String simulationId = "testSimId";
-        Map<String, Object> metaData = DATA_SET_1();
+        String simulationId = "d6983703-5c42-4512-bc80-efde3756259d";
         
+        testWithTestSet(DATA_SET_1(), simulationId);
+        testWithTestSet(DATA_SET_2(), simulationId);
+    }
+
+    private void testWithTestSet(Map<String, Object> metaData, String simulationId) {
         Map<String, Object> userData = null;
         CBRAdapter instance = CBRAdapter.getInstance();
         SimulationData simData = new SimulationData();
@@ -66,21 +70,30 @@ public class CBRAdapterTest {
 
     private final Map<String, Object> DATA_SET_1() {
         Map<String, Object> metaData = new HashMap<>();
-        metaData.put("applicationDescription", "Realization of a chalet on a beach area of Senigallia");
-        metaData.put("applicationCity", "lpd:Senigallia");
-        metaData.put("applicationZone", "lpd:Beach_Area_At_The_Sea");
-        metaData.put("applicationSubType", "lpd:Restructuring");
-        metaData.put("applicationPublicAdministration", "lpd:SUAPSenigallia");
-        metaData.put("applicationSector", "lpd:Building_Sector");
-        metaData.put("applicationSector", "lpd:Environment_Sector");
-        metaData.put("applicationSector", "lpd:Public_Land_Sector");
-        metaData.put("applicationSector", "lpd:Tourism_Sector");
-        metaData.put("applicationBusinessActivity", "lpd:Receptive_Toursim_Activity");
-        metaData.put("applicationATECOCategory", "lpd:MarineAndMountaineSummerCamps");
-        metaData.put("applicationATECOCategory", "lpd:CampingGrounds_RecreationalVehiclesAndTrailers");
-        metaData.put("applicationATECOCategory", "lpd:PlasterAndStucco");
-        metaData.put("applicationATECOCategory", "lpd:SpecializedConstructionActivities");
+    
+        metaData.put("applicationDescription", "request for reneval of authorization of industrial waste water discharge in sewer - coffee machines factory");
+        metaData.put("applicationCity", "lpd:San_Ginesio");
+        metaData.put("applicationZone", "lpd:Regional_Protected_Area_Unione_Montana_Monti_Azzurri");
+        metaData.put("applicationSubType", "lpd:Reactivation");
+        metaData.put("applicationPublicAdministration", "lpd:SUAPMontiAzzurri");
+        metaData.put("applicationSector", "lpd:Waste_Sector");
+        metaData.put("applicationBusinessActivity", "lpd:Industrial_Activitiy");
+        metaData.put("applicationATECOCategory", "lpd:InstallationOfElectricalSystems");
         return metaData;
     }
-    
+
+
+    private final Map<String, Object> DATA_SET_2() {
+        Map<String, Object> metaData = new HashMap<>();
+                metaData.put("applicationCity", "lpd:Ancona");
+                metaData.put("applicationZone", "lpd:Beach_Area_At_The_Sea");
+                metaData.put("applicationPublicAdministration", "lpd:SUAPSenigallia");
+                metaData.put("applicationSubType", "lpd:Restructuring");
+                metaData.put("applicationSector", "lpd:Building_Sector");
+                metaData.put("applicationBusinessActivity", "lpd:Receptive_Toursim_Activity");
+                metaData.put("applicationDescription", "Realization of a chalet on a beach area of Senigallia");
+                metaData.put("applicationATECOCategory", "lpd:MarineAndMountaineSummerCamps");        
+
+        return metaData;
+    }    
 }
