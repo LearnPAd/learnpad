@@ -221,10 +221,10 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		}
 		
 		for (String simUserId : involvedUsers){
-			String userId = this.converUserID(simUserId);
+			String userEmail = this.converUserID(simUserId);
 
-			Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userId, simulationId); 		
-			this.cw.notifyRecommendations(modelSetId, simulationId, simUserId, rec);		
+			Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userEmail, simulationId); 		
+			this.cw.notifyRecommendations(modelSetId, simulationId, userEmail, rec);		
 		}
 		
 	}
