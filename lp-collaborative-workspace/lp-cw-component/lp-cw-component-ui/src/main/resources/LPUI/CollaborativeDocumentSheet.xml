@@ -31,10 +31,10 @@
   <parent>LPUI.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1458120873000</date>
-  <contentUpdateDate>1458119778000</contentUpdateDate>
+  <date>1459418814000</date>
+  <contentUpdateDate>1459418814000</contentUpdateDate>
   <version>1.1</version>
-  <title>#if($doc.name == 'CollaborativeDocumentSheet')Collaborative Document Sheet#{else}$services.localization.render('CollaborativeDocumentSheet.title',[$xwiki.getDocument($doc.documentReference.lastSpaceReference).title])#{end}</title>
+  <title>#if($doc.name == 'CollaborativeDocumentSheet')Collaborative Document Sheet#{else}$services.localization.render('LPUI.CollaborativeDocumentSheet.title',[$xwiki.getDocument($doc.documentReference.lastSpaceReference).title])#{end}</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
@@ -52,9 +52,14 @@
 &lt;input type="hidden" id="LPCode.CollaborativeDocumentClass_0_artifactid" name="LPCode.CollaborativeDocumentClass_0_artifactid" value="${artifactid}" /&gt;
 {{/html}}
 #if ("$!xcontext.action" == "view")
-{{html}}
-&lt;button id="ca-validate" class="btn btn-primary"&gt;${services.localization.render('CollaborativeDocumentSheet.validate')}&lt;/button&gt;
-{{/html}}
+(% class="row" %)(((
+  (% class="col-xs-12 col-md-3" %)(((
+    [[${services.localization.render('LPUI.CollaborativeDocumentSheet.button.edit')}&gt;&gt;path:${doc.getURL('edit', 'editor=inline&amp;sheet=CKEditor.EditSheet')}||class="btn btn-block btn-edit"]]
+  )))
+  (% class="col-xs-12 col-md-3" %)(((
+    (% id="ca-validate" class="btn btn-block btn-validate" %)${services.localization.render('LPUI.CollaborativeDocumentSheet.button.validate')}
+  )))
+)))
 #end
 $doc.display('content')
 {{/velocity}}</content>

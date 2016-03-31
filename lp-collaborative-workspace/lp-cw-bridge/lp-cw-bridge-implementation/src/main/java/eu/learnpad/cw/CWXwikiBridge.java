@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -97,9 +99,9 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
     private final String USER_CLASS_PAGE = "XWikiUsers";
 
     private final String USER_CLASS = String.format("%s.%s", XWIKI_SPACE, USER_CLASS_PAGE);
-      
+
     private static volatile RecommendationsStore recsStore;
-    
+
     @Inject
     private Logger logger;
 
@@ -121,12 +123,13 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
     @Inject
     private DocumentReferenceResolver<EntityReference> referenceDocumentReferenceResolver;
 
-	@Override
-	public void initialize() throws InitializationException {
-		this.corefacade = new XwikiCoreFacadeRestResource();
+    @Override
+    public void initialize() throws InitializationException
+    {
+        this.corefacade = new XwikiCoreFacadeRestResource();
 
-		recsStore = RecommendationsStore.createRecommendationsStore();	
-	}
+        recsStore = RecommendationsStore.createRecommendationsStore();
+    }
 
     @Override
     public byte[] getComments(String modelSetId, String artifactId) throws LpRestException
@@ -346,10 +349,9 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
     }
 
     @Override
-    public Map<String,Recommendations> getNotifiedRecommendations(String userId)
-        throws LpRestException
+    public Map<String, Recommendations> getNotifiedRecommendations(String userId) throws LpRestException
     {
-        return CWXwikiBridge.recsStore.get(userId);        
+        return CWXwikiBridge.recsStore.get(userId);
     }
 
     private Collection<UserData> getUserProfiles(Collection<String> potentialUsers)
@@ -371,9 +373,15 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
                     if (userObject != null) {
                         user.firstName = userObject.getStringValue("first_name");
                         user.lastName = userObject.getStringValue("last_name");
-                        user.profileURL = userDocument.getURL("view", xcontext);
+                        user.profileURL = userDocument.getExternalURL("view", xcontext);
+                        Pattern pattern = Pattern.compile("(http://[^/]*/).*");
+                        Matcher matcher = pattern.matcher(user.profileURL);
+                        String prefix = "";
+                        if (matcher.find()) {
+                            prefix = matcher.group(1);
+                        }
                         user.pictureURL =
-                            userDocument.getAttachmentURL(userDocument.getStringValue("avatar"), xcontext);
+                            prefix + userDocument.getAttachmentURL(userDocument.getStringValue("avatar"), xcontext);
                     }
                 }
             } catch (XWikiException e) {
@@ -395,38 +403,24 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
     }
 
     @Override
-    public void notifyRecommendations(String modelSetId, String simulationid, String userId, Recommendations rec) throws LpRestException
-    {    	
+    public void notifyRecommendations(String modelSetId, String simulationid, String userId, Recommendations rec)
+        throws LpRestException
+    {
         Writer recWriter = new StringWriter();
         JAXBContext jc;
-		try {
-			jc = JAXBContext.newInstance(Recommendations.class);
-	        jc.createMarshaller().marshal(rec, recWriter);
-		} catch (JAXBException e) {					
-			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause()); 
-		}
-    	
-    	String msg = "modelSetId : " + modelSetId + "\n" +
-    				 "simulationid : " + simulationid + "\n" +
-    				 "userId : "+ userId + "\n" +
-    				 "recommendations : " + rec.toString();
-    	
+        try {
+            jc = JAXBContext.newInstance(Recommendations.class);
+            jc.createMarshaller().marshal(rec, recWriter);
+        } catch (JAXBException e) {
+            throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+        }
+
+        String msg = "modelSetId : " + modelSetId + "\n" + "simulationid : " + simulationid + "\n" + "userId : "
+            + userId + "\n" + "recommendations : " + rec.toString();
+
         logger.info(msg);
-        
+
         CWXwikiBridge.recsStore.put(userId, simulationid, rec);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 }
