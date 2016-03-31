@@ -31,7 +31,7 @@
   <parent>LPUI.SimulationEnvironment</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1459425831000</date>
+  <date>1459434912000</date>
   <contentUpdateDate>1459416156000</contentUpdateDate>
   <version>1.1</version>
   <title>RecommendationPanel</title>
@@ -167,10 +167,10 @@
 ################
 ## Experts
     #set ($experts = $recommendations.getExperts())
-    #if ("$!experts" != "" &amp;&amp; $experts.size() &gt; 0)
-      #panelheader($services.localization.render('LPUI.RecommendationPanel.experts.title'))
+    #if ("$!experts" != "")
       #set ($businessActors = $experts.getBusinessActors())
-      #if ($businessActors.size() &gt; 0)
+      #if ("$!businessActors" != "" &amp;&amp; $businessActors.size() &gt; 0)
+        #panelheader($services.localization.render('LPUI.RecommendationPanel.experts.title'))
         #foreach ($businessActor in $businessActors)
 (((
 ${businessActor.name}(% class="pull-right" %)##
@@ -182,8 +182,8 @@ ${businessActor.name}(% class="pull-right" %)##
           #end
 )))
         #end
+        #panelfooter()
       #end
-      #panelfooter()
     #end
 ################
 ## Simulation
@@ -195,30 +195,34 @@ ${businessActor.name}(% class="pull-right" %)##
 ################
 ## Learning materials
     #set ($learningMaterials = $recommendations.getLearningMaterials())
-    #if ("$!learningMaterials" != "" &amp;&amp; $learningMaterials.size() &gt; 0)
-      #panelheader($services.localization.render('LPUI.RecommendationPanel.learningmaterials.title'))
+    #if ("$!learningMaterials" != "")
       #set ($learningMaterialsList = $learningMaterials.getLearningMaterials())
-      #foreach ($learningMaterial in $learningMaterialsList)
+      #if ("$!learningMaterialsList" != "" &amp;&amp; $learningMaterialsList.size() &gt; 0)
+        #panelheader($services.localization.render('LPUI.RecommendationPanel.learningmaterials.title'))
+        #foreach ($learningMaterial in $learningMaterialsList)
 (((
 ; [[${learningMaterial.name}&gt;&gt;${learningMaterial.url}]]
 : (% class="help-block" %)${learningMaterial.description}
 )))
+        #end
+        #panelfooter()
       #end
-      #panelfooter()
     #end
 ################
 ## Similar cases
     #set ($similarCases = $recommendations.getSimilarCases())
-    #if ("$!similarCases" != "" &amp;&amp; $similarCases.size() &gt; 0)
-      #panelheader($services.localization.render('LPUI.RecommendationPanel.similarcases.title'))
+    #if ("$!similarCases" != "")
       #set ($similarCasesList = $similarCases.getSimilarCases())
-      #foreach ($similarCase in $similarCasesList)
+      #if ("$!similarCasesList" != "" &amp;&amp; $similarCasesList.size() &gt; 0)
+        #panelheader($services.localization.render('LPUI.RecommendationPanel.similarcases.title'))
+        #foreach ($similarCase in $similarCasesList)
 (((
 ; ${similarCase.name}
 : (% class="help-block" %)${similarCase.similarityValue}
 )))
+        #end
+        #panelfooter()
       #end
-      #panelfooter()
     #end
   #end
 #end
