@@ -41,7 +41,7 @@
   <hidden>true</hidden>
   <content>## UI pages
 # LPUI.WebHome
-LPUI.WebHome.title=Projects
+LPUI.WebHome.title=Courses
 LPUI.WebHome.button.start=Start
 LPUI.WebHome.button.simulate=Simulate
 LPUI.WebHome.lastupdate=Last update {0}
