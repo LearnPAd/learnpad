@@ -337,7 +337,8 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
     {
         PFResults pf = new PFResults();
         pf.setFeedbacks(getFeedbackList(modelSetId));
-        pf.setPatches(getPatchList(modelSetId));
+//        pf.setPatches(getPatchList(modelSetId));
+        pf.setPatches(null);
         return pf;
     }
 
