@@ -20,7 +20,7 @@
 
 .xerr {
     position: relative;
-    background: url(http://www.phpied.com/images/underline.gif) bottom repeat-x;
+    background: url("#{resource['images:underline.gif']}") bottom repeat-x;
 }
 
 .sxml {
