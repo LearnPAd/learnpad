@@ -21,7 +21,7 @@ package eu.learnpad.core.impl.me;
 
 import java.io.InputStream;
 
-import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.CoreFacade;
@@ -37,7 +37,7 @@ import eu.learnpad.rest.model.jaxb.PFResults;
  * class should be implemented as a REST invocation
  * toward the CoreFacade binded at the provided URL
  */
-public class XwikiCoreFacadeRestResource extends RestResource implements CoreFacade {
+public class XwikiCoreFacadeRestResource extends DefaultRestResource implements CoreFacade {
 
 	public XwikiCoreFacadeRestResource() {
 		this("localhost",8080);

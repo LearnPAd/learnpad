@@ -20,23 +20,26 @@
 package eu.learnpad.core.impl.mv;
 
 import java.io.InputStream;
-import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
 
 import org.xwiki.component.annotation.Component;
+import org.xwiki.component.manager.ComponentLookupException;
+import org.xwiki.component.manager.ComponentManager;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
 
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.core.rest.RestResource;
-import eu.learnpad.core.rest.XWikiRestUtils;
+import eu.learnpad.core.rest.Utils;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.mv.BridgeInterface;
@@ -58,10 +61,20 @@ import eu.learnpad.mv.rest.data.VerificationStatus;
 @Path("/learnpad/mv/corefacade")
 public class XwikiController extends Controller implements XWikiRestComponent, Initializable
 {
+    @Inject
+    @Named("xwiki")
+    private Utils utils;
 
-    /** Set to true once the inherited BridgeInterface has been initialized. */
-    private boolean initialized = false;
+    @Inject
+    private ComponentManager componentManager;
 
+    /*
+     * Note that in this solution the Controllers do not interact each-others, but each controller directly invokes the
+     * BridgesInterfaces (from the other controllers) it needs. This is not actually what was originally planned, thus
+     * in the future it may change. Also, not sure if this is the correct way to proceed. I would like to decide in a
+     * configuration file the implementation to bind, and not into the source code. In fact, this second case implies to
+     * rebuild the whole platform at each change.
+     */
     private eu.learnpad.cw.BridgeInterface cw;
 
     private eu.learnpad.or.BridgeInterface or;
@@ -72,33 +85,21 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
     private Map<String, ModelSetType> typesMap;
 
-    /**
-     * A means of instantiating the inherited BridgeInterface according to XWIKI (see
-     * http://extensions.xwiki.org/xwiki/bin/view/Extension/Component+Module #HComponentInitialization). Actually in
-     * this implementation we currently support only the class XwikiBridgeInterfaceRestResource, but other classes (such
-     * as XwikiBridgeInterface) should be supported in the future Not sure if we can consider the default constructor.
-     */
-
     @Override
-    public synchronized void initialize() throws InitializationException
+    public void initialize() throws InitializationException
     {
-        if (!this.initialized) {
-            this.bridge = new XwikiBridgeInterfaceRestResource();
-            this.cw = new eu.learnpad.core.impl.cw.XwikiBridgeInterfaceRestResource();
-            this.or = new eu.learnpad.core.impl.or.XwikiBridgeInterfaceRestResource();
-            this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
-            this.qm = new eu.learnpad.core.impl.qm.XwikiBridgeInterfaceRestResource();
+        try {
+            this.bridge = this.componentManager.getInstance(RestResource.class, "mv");
 
-            this.typesMap = new HashMap<String, ModelSetType>();
-
-            this.initialized = true;
-
+            this.cw = this.componentManager.getInstance(RestResource.class, "cw");
+            this.or = this.componentManager.getInstance(RestResource.class, "or");
+            this.sim = this.componentManager.getInstance(RestResource.class, "sim");
+            this.qm = this.componentManager.getInstance(RestResource.class, "qm");
+        } catch (ComponentLookupException e) {
+            throw new InitializationException(e.getMessage(), e);
         }
-    }
 
-    public synchronized void updateBridgeInterface(BridgeInterface bi)
-    {
-        this.bridge = bi;
+        this.typesMap = new HashMap<String, ModelSetType>();
     }
 
     @Override
@@ -106,7 +107,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
     {
         this.typesMap.put(modelSetId, type);
         String attachmentName = String.format("%s.%s", modelSetId, type);
-        return XWikiRestUtils.getAttachment(RestResource.CORE_REPOSITORY_WIKI, RestResource.CORE_REPOSITORY_SPACE,
+        return utils.getAttachment(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
             modelSetId, attachmentName);
     }
 
@@ -197,15 +198,15 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
         boolean resultsOk = res.getFinalResult().equals(FinalResultType.OK);
         boolean importedInTheSimulator = true;
         if (resultsOk) {
-            if (XWikiRestUtils.isPage(RestResource.CORE_REPOSITORY_WIKI, RestResource.CORE_REPOSITORY_SPACE,
+            if (utils.isPage(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
                 modelSetId) == true) {
                 this.cw.modelSetImported(modelSetId, type);
                 this.or.modelSetImported(modelSetId, type);
 
-                InputStream modelContent = XWikiRestUtils.getAttachmentFromCoreRepository(modelSetId, type.toString());
+                InputStream modelContent = utils.getAttachmentFromCoreRepository(modelSetId, type.toString());
                 this.qm.importModelSet(modelSetId, type, modelContent);
 
-                Collection<String> uriCollection = XWikiRestUtils.exposeBPMNFromCoreRepository(modelSetId, type.toString());
+                Collection<String> uriCollection = utils.exposeBPMNFromCoreRepository(modelSetId, type.toString());
                 Iterator<String> uriIterator = uriCollection.iterator();
                 while (importedInTheSimulator && uriIterator.hasNext()) {
                     String bpmnFileURL = uriIterator.next();

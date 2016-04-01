@@ -46,9 +46,9 @@ import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
+import org.xwiki.configuration.ConfigurationSource;
 import org.xwiki.model.reference.DocumentReference;
 import org.xwiki.model.reference.DocumentReferenceResolver;
-import org.xwiki.model.reference.EntityReference;
 import org.xwiki.query.Query;
 import org.xwiki.query.QueryException;
 import org.xwiki.query.QueryFilter;
@@ -60,8 +60,10 @@ import com.xpn.xwiki.XWikiException;
 import com.xpn.xwiki.doc.XWikiDocument;
 import com.xpn.xwiki.objects.BaseObject;
 
+import eu.learnpad.configuration.LearnpadPropertiesConfigurationSource;
 import eu.learnpad.core.impl.cw.XwikiBridge;
 import eu.learnpad.core.impl.cw.XwikiCoreFacadeRestResource;
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.impl.persistence.RecommendationsStore;
 import eu.learnpad.exception.LpRestException;
@@ -100,6 +102,14 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 
     private final String USER_CLASS = String.format("%s.%s", XWIKI_SPACE, USER_CLASS_PAGE);
 
+    @Inject
+    @Named("default")
+    RestResource restResource;
+
+    @Inject
+    @Named("learnpadproperties")
+    ConfigurationSource configurationSource;
+
     private static volatile RecommendationsStore recsStore;
 
     @Inject
@@ -119,9 +129,6 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
     @Inject
     @Named("current")
     private DocumentReferenceResolver<String> stringDocumentReferenceResolver;
-
-    @Inject
-    private DocumentReferenceResolver<EntityReference> referenceDocumentReferenceResolver;
 
     @Override
     public void initialize() throws InitializationException
@@ -166,9 +173,9 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
     private void loadPackage(InputStream packageStream)
     {
         // Now send the package's path to the importer for XWiki
-        HttpClient httpClient = RestResource.getClient();
+        HttpClient httpClient = restResource.getClient();
 
-        String uri = RestResource.REST_URI + "/wikis/xwiki/xff";
+        String uri = DefaultRestResource.REST_URI + "/wikis/xwiki/xff";
         PostMethod postMethod = new PostMethod(uri);
         postMethod.addRequestHeader("Accept", "application/octet-stream");
 
@@ -200,8 +207,8 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 
     private List<Object> getFeedbacksDocuments(String modelSetId)
     {
-        String queryXWQL =
-            String.format("from doc.object(%s) as feedback where feedback.modelsetid = '%s'", FEEDBACK_CLASS, modelSetId);
+        String queryXWQL = String.format("from doc.object(%s) as feedback where feedback.modelsetid = '%s'",
+            FEEDBACK_CLASS, modelSetId);
         Query query = null;
         try {
             query = queryManager.createQuery(queryXWQL, Query.XWQL);
@@ -319,7 +326,7 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
     {
         PFResults pf = new PFResults();
         pf.setFeedbacks(getFeedbackList(modelSetId));
-//        pf.setPatches(getPatchList(modelSetId));
+        // pf.setPatches(getPatchList(modelSetId));
         pf.setPatches(null);
         return pf;
     }
@@ -383,6 +390,12 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
     {
         Collection<UserData> potentialUsersCollection = getUserProfiles(potentialUsers);
         return this.corefacade.startSimulation(modelId, currentUser, potentialUsersCollection);
+    }
+
+    @Override
+    public String getRestPrefix(String component) throws LpRestException
+    {
+        return ((LearnpadPropertiesConfigurationSource) configurationSource).getRestPrefix(component);
     }
 
     @Override

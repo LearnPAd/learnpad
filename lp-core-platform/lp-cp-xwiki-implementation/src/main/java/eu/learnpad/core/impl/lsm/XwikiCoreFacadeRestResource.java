@@ -21,7 +21,7 @@ package eu.learnpad.core.impl.lsm;
 
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.lsm.CoreFacade;
-import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.core.rest.DefaultRestResource;
 
 /*
  * The methods inherited form the CoreFacade in this
@@ -29,7 +29,7 @@ import eu.learnpad.core.rest.RestResource;
  * toward the CoreFacade binded at the provided URL
  */
 
-public class XwikiCoreFacadeRestResource extends RestResource implements CoreFacade {
+public class XwikiCoreFacadeRestResource extends DefaultRestResource implements CoreFacade {
 
 	public XwikiCoreFacadeRestResource() {
 		this("localhost",8080);

@@ -44,6 +44,14 @@ public class LearnpadPropertiesConfigurationSource extends CommonsConfigurationS
      */
     private static final String LEARNPAD_PROPERTIES_FILE = "/WEB-INF/learnpad.properties";
 
+    private enum Component
+    {
+        CA,
+        MT,
+        MV,
+        SIM
+    };
+
     /**
      * the Environment from where to get the XWiki properties file.
      */
@@ -87,4 +95,22 @@ public class LearnpadPropertiesConfigurationSource extends CommonsConfigurationS
         }
     }
 
+    private String getRestPrefix(Component component)
+    {
+        String protocolKey = String.format("component.%s.protocol", component.toString().toLowerCase());
+        String protocol = this.getProperty(protocolKey);
+        String serverKey = String.format("component.%s.ip", component.toString().toLowerCase());
+        String server = this.getProperty(serverKey);
+        String portKey = String.format("component.%s.port", component.toString().toLowerCase());
+        String port = this.getProperty(portKey);
+        String prefixKey = String.format("component.%s.prefix", component.toString().toLowerCase());
+        String prefix = this.getProperty(prefixKey);
+        String restPrefix = String.format("%s://%s:%s%s", protocol, server, port, prefix);
+        return restPrefix;
+    }
+
+    public String getRestPrefix(String component)
+    {
+        return this.getRestPrefix(Component.valueOf(component));
+    }
 }

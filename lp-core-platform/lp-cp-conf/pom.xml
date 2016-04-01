@@ -29,7 +29,7 @@
 	<name>Learn PAd - Core Platform - Configuration</name>
 	<packaging>jar</packaging>
 	<description>Common Learn PAd resources for configuring Learn PAd platform.</description>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>org.xwiki.platform</groupId>
@@ -56,6 +56,6 @@
 					</execution>
 				</executions>
 			</plugin>
-	</plugins>
-</build>
+		</plugins>
+	</build>
 </project>

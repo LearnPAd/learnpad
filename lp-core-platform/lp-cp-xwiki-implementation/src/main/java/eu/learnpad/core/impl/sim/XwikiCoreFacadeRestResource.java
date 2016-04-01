@@ -23,7 +23,7 @@ import java.util.List;
 
 import eu.learnpad.sim.CoreFacade;
 import eu.learnpad.sim.rest.data.UserData;
-import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
@@ -38,7 +38,7 @@ import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
  * class should be implemented as a REST invocation
  * toward the CoreFacade binded at the provided URL
  */
-public class XwikiCoreFacadeRestResource extends RestResource implements CoreFacade{
+public class XwikiCoreFacadeRestResource extends DefaultRestResource implements CoreFacade{
 
 	public XwikiCoreFacadeRestResource() {
 		this("localhost",8080);

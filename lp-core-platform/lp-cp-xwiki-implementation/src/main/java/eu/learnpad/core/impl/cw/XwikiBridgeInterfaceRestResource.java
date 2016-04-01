@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 
+import javax.inject.Named;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -35,8 +36,12 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.xwiki.component.annotation.Component;
+import org.xwiki.component.phase.Initializable;
+import org.xwiki.component.phase.InitializationException;
 
-import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.configuration.LearnpadPropertiesConfigurationSource;
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.cw.BridgeInterface;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
@@ -50,152 +55,143 @@ import eu.learnpad.rest.model.jaxb.PFResults;
  * class should be implemented as a REST invocation
  * toward the BridgeInterface binded at the provided URL
  */
-public class XwikiBridgeInterfaceRestResource extends RestResource implements
-		BridgeInterface {
+@Component
+@Named("cw")
+public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implements BridgeInterface, Initializable
+{
+    @Override
+    public void initialize() throws InitializationException
+    {
+        this.restPrefix = "";
+    }
 
-	public XwikiBridgeInterfaceRestResource() {
-		this("localhost", 8080);
-	}
+    @Override
+    public byte[] getComments(String modelSetId, String artifactId) throws LpRestExceptionImpl
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public XwikiBridgeInterfaceRestResource(String coreFacadeHostname,
-			int coreFacadeHostPort) {
-		// This constructor could change in the future
-		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
-	}
+    @Override
+    public byte[] getResource(String modelSetId, String resourceId, String artifactIds, String action)
+        throws LpRestExceptionImpl
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public void updateConfiguration(String coreFacadeHostname,
-			int coreFacadeHostPort) {
-		// This constructor has to be fixed, since it requires changes on the
-		// class
-		// eu.learnpad.core.rest.RestResource
-	}
+    @Override
+    public void modelSetImported(String modelSetId, ModelSetType type) throws LpRestExceptionXWikiImpl
+    {
 
-	@Override
-	public byte[] getComments(String modelSetId, String artifactId)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        HttpClient httpClient = this.getClient();
+        String uri =
+            String.format("%s/learnpad/cw/bridge/modelsetimported/%s", DefaultRestResource.REST_URI, modelSetId);
+        PutMethod putMethod = new PutMethod(uri);
+        putMethod.addRequestHeader("Accept", "application/xml");
+        NameValuePair[] queryString = new NameValuePair[1];
+        queryString[0] = new NameValuePair("type", type.toString());
+        putMethod.setQueryString(queryString);
+        try {
+            httpClient.executeMethod(putMethod);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+        }
+    }
 
-	@Override
-	public byte[] getResource(String modelSetId, String resourceId,
-			String artifactIds, String action) throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public void contentVerified(String modelSetId, String artifactId, String resourceId, String result)
+        throws LpRestExceptionImpl
+    {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void modelSetImported(String modelSetId, ModelSetType type)
-			throws LpRestExceptionXWikiImpl {
+    }
 
-		HttpClient httpClient = RestResource.getClient();
-		String uri = String.format("%s/learnpad/cw/bridge/modelsetimported/%s",
-				RestResource.REST_URI, modelSetId);
-		PutMethod putMethod = new PutMethod(uri);
-		putMethod.addRequestHeader("Accept", "application/xml");
-		NameValuePair[] queryString = new NameValuePair[1];
-		queryString[0] = new NameValuePair("type", type.toString());
-		putMethod.setQueryString(queryString);
-		try {
-			httpClient.executeMethod(putMethod);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
-		}
-	}
+    @Override
+    public void modelVerified(String modelSetId, String result) throws LpRestExceptionXWikiImpl
+    {
 
-	@Override
-	public void contentVerified(String modelSetId, String artifactId,
-			String resourceId, String result) throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
+        HttpClient httpClient = this.getClient();
+        String uri = String.format("%s/learnpad/cw/bridge/modelverified/%s", DefaultRestResource.REST_URI, modelSetId);
+        PutMethod putMethod = new PutMethod(uri);
+        putMethod.addRequestHeader("Accept", "application/xml");
+        NameValuePair[] queryString = new NameValuePair[1];
+        queryString[0] = new NameValuePair("result", result);
+        putMethod.setQueryString(queryString);
+        try {
+            httpClient.executeMethod(putMethod);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+        }
+    }
 
-	}
+    @Override
+    public PFResults getFeedbacks(String modelSetId) throws LpRestException
+    {
+        HttpClient httpClient = this.getClient();
+        String uri = String.format("%s/learnpad/cw/bridge/%s/feedbacks", DefaultRestResource.REST_URI, modelSetId);
+        GetMethod getMethod = new GetMethod(uri);
+        getMethod.addRequestHeader("Accept", "application/xml");
 
-	@Override
-	public void modelVerified(String modelSetId, String result)
-			throws LpRestExceptionXWikiImpl {
+        try {
+            httpClient.executeMethod(getMethod);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        InputStream pfStream = null;
+        try {
+            pfStream = getMethod.getResponseBodyAsStream();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        PFResults pf = null;
+        try {
+            JAXBContext jc = JAXBContext.newInstance(PFResults.class);
+            Unmarshaller unmarshaller = jc.createUnmarshaller();
+            pf = (PFResults) unmarshaller.unmarshal(pfStream);
+        } catch (JAXBException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return pf;
+    }
 
-		HttpClient httpClient = RestResource.getClient();
-		String uri = String.format("%s/learnpad/cw/bridge/modelverified/%s",
-				RestResource.REST_URI, modelSetId);
-		PutMethod putMethod = new PutMethod(uri);
-		putMethod.addRequestHeader("Accept", "application/xml");
-		NameValuePair[] queryString = new NameValuePair[1];
-		queryString[0] = new NameValuePair("result", result);
-		putMethod.setQueryString(queryString);
-		try {
-			httpClient.executeMethod(putMethod);
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
-		}
-	}
+    @Override
+    public void notifyRecommendations(String modelSetId, String simulationid, String userId, Recommendations rec)
+        throws LpRestException
+    {
+        String contentType = "application/xml";
 
-	@Override
-	public PFResults getFeedbacks(String modelSetId) throws LpRestException {
-		HttpClient httpClient = RestResource.getClient();
-		String uri = String.format("%s/learnpad/cw/bridge/%s/feedbacks",
-				RestResource.REST_URI, modelSetId);
-		GetMethod getMethod = new GetMethod(uri);
-		getMethod.addRequestHeader("Accept", "application/xml");
+        HttpClient httpClient = this.getClient();
+        String uri = String.format("%s/learnpad/cw/bridge/notify/%s", DefaultRestResource.REST_URI, modelSetId);
 
-		try {
-			httpClient.executeMethod(getMethod);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		InputStream pfStream = null;
-		try {
-			pfStream = getMethod.getResponseBodyAsStream();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		PFResults pf = null;
-		try {
-			JAXBContext jc = JAXBContext.newInstance(PFResults.class);
-			Unmarshaller unmarshaller = jc.createUnmarshaller();
-			pf = (PFResults) unmarshaller.unmarshal(pfStream);
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return pf;
-	}
+        PutMethod putMethod = new PutMethod(uri);
+        putMethod.addRequestHeader("Accept", contentType);
 
-	@Override
-	public void notifyRecommendations(String modelSetId, String simulationid, String userId, Recommendations rec) throws LpRestException {		
-		String contentType = "application/xml";
+        NameValuePair[] queryString = new NameValuePair[2];
+        queryString[0] = new NameValuePair("simulationid", simulationid);
+        queryString[1] = new NameValuePair("userid", userId);
+        putMethod.setQueryString(queryString);
 
-		HttpClient httpClient = RestResource.getClient();
-		String uri = String.format("%s/learnpad/cw/bridge/notify/%s",
-				RestResource.REST_URI, modelSetId);
+        try {
+            JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
+            Writer recWriter = new StringWriter();
 
-		PutMethod putMethod = new PutMethod(uri);
-		putMethod.addRequestHeader("Accept", contentType);
+            Marshaller marshaller = jc.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.marshal(rec, recWriter);
 
-		NameValuePair[] queryString = new NameValuePair[2];
-		queryString[0] = new NameValuePair("simulationid", simulationid);
-		queryString[1] = new NameValuePair("userid", userId);
-		putMethod.setQueryString(queryString);
+            RequestEntity requestEntity = new StringRequestEntity(recWriter.toString(), contentType, "UTF-8");
+            putMethod.setRequestEntity(requestEntity);
 
-		try {
-			JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
-			Writer recWriter = new StringWriter();
-
-			Marshaller marshaller = jc.createMarshaller();
-			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			marshaller.marshal(rec, recWriter);
-
-			RequestEntity requestEntity = new StringRequestEntity(
-					recWriter.toString(), contentType, "UTF-8");
-			putMethod.setRequestEntity(requestEntity);
-
-			httpClient.executeMethod(putMethod);
-		} catch (JAXBException | IOException e) {
-			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
-		}
-	}
+            httpClient.executeMethod(putMethod);
+        } catch (JAXBException | IOException e) {
+            throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+        }
+    }
 
 }

@@ -27,11 +27,14 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
 
 import org.xwiki.component.annotation.Component;
+import org.xwiki.component.manager.ComponentLookupException;
+import org.xwiki.component.manager.ComponentManager;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
@@ -40,8 +43,9 @@ import eu.learnpad.ca.rest.data.QualityCriteria;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContent;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.core.rest.RestResource;
-import eu.learnpad.core.rest.XWikiRestUtils;
+import eu.learnpad.core.rest.Utils;
 import eu.learnpad.cw.BridgeInterface;
 import eu.learnpad.cw.Controller;
 import eu.learnpad.exception.LpRestException;
@@ -63,9 +67,12 @@ import eu.learnpad.sim.rest.data.UserData;
 @Path("/learnpad/cw/corefacade")
 public class XwikiController extends Controller implements XWikiRestComponent, Initializable
 {
+    @Inject
+    @Named("xwiki")
+    private Utils utils;
 
-    /** Set to true once the inherited BridgeInterface has been initialized. */
-    private boolean initialized = false;
+    @Inject
+    private ComponentManager componentManager;
 
     /*
      * Note that in this solution the Controllers do not interact each-others, but each controller directly invokes the
@@ -91,40 +98,22 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
     private eu.learnpad.sim.BridgeInterface sim;
 
-    public synchronized void updateBridgeInterface(BridgeInterface bi)
-    {
-        this.bridge = bi;
-    }
-
-    /**
-     * A means of instantiating the inherited BridgeInterface according to XWIKI (see
-     * http://extensions.xwiki.org/xwiki/bin/view/Extension/Component+Module#HComponentInitialization). Actually in this
-     * implementation we currently support only the class XwikiBridgeInterfaceRestResource, but other classes (such as
-     * XwikiBridgeInterface) should be supported in the future Not sure if we can consider the default constructor.
-     */
     @Override
-    public synchronized void initialize() throws InitializationException
+    public void initialize() throws InitializationException
     {
-        if (!this.initialized) {
-            // Differently from the others, the XwikiBridge of the CW is
-            // a concrete class. In fact, in this implementation the controller and the bridge
-            // of the CW are supposed to be implemented with XWIKI technologies and to run
-            // on the same instance of the LearnPAd Core Platform. Thus it has been
-            // decided to avoid the communication over some REST channel
-            this.bridge = new XwikiBridgeInterfaceRestResource();
-            // this.bridge = new CWXwikiBridge();
+        try {
+            this.bridge = this.componentManager.getInstance(RestResource.class, "cw");
 
-            this.ca = new eu.learnpad.core.impl.ca.XwikiBridgeInterfaceRestResource();
-            // this.db = new eu.learnpad.core.impl.db.XwikiBridgeInterfaceRestResource();
-            this.me = new eu.learnpad.core.impl.me.XwikiBridgeInterfaceRestResource();
-            this.mv = new eu.learnpad.core.impl.mv.XwikiBridgeInterfaceRestResource();
-            this.mt = new eu.learnpad.core.impl.mt.XwikiBridgeInterfaceRestResource();
-            this.lsm = new eu.learnpad.core.impl.lsm.XwikiBridgeInterfaceRestResource();
-            this.or = new eu.learnpad.core.impl.or.XwikiBridgeInterfaceRestResource();
-            this.qm = new eu.learnpad.core.impl.qm.XwikiBridgeInterfaceRestResource();
-            this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
-
-            this.initialized = true;
+            this.ca = this.componentManager.getInstance(RestResource.class, "ca");
+            this.me = this.componentManager.getInstance(RestResource.class, "me");
+            this.mv = this.componentManager.getInstance(RestResource.class, "mv");
+            this.mt = this.componentManager.getInstance(RestResource.class, "mt");
+            this.lsm = this.componentManager.getInstance(RestResource.class, "lsm");
+            this.or = this.componentManager.getInstance(RestResource.class, "or");
+            this.qm = this.componentManager.getInstance(RestResource.class, "qm");
+            this.sim = this.componentManager.getInstance(RestResource.class, "sim");
+        } catch (ComponentLookupException e) {
+            throw new InitializationException(e.getMessage(), e);
         }
     }
 
@@ -150,8 +139,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
         // TODO: Adapt the name dynamically for Adoxx or MagicDraw
         String fileName = "adoxx_modelset.xml";
         java.nio.file.Path filePath = Paths.get(fileName);
-        return XWikiRestUtils.getFileInAttachment(RestResource.CORE_REPOSITORY_WIKI, RestResource.CORE_REPOSITORY_SPACE,
-            modelSetId, attachmentName, filePath);
+        return utils.getFileInAttachment(DefaultRestResource.CORE_REPOSITORY_WIKI,
+            DefaultRestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName, filePath);
     }
 
     @Override
@@ -214,7 +203,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
         String title = bodyScanner.next();
         String plain = bodyScanner.next();
         String html = bodyScanner.next();
-        //html = "<![CDATA[ " + html + " ]]>";
+        // html = "<![CDATA[ " + html + " ]]>";
         bodyScanner.close();
         collaborativeContent.setTitle(title);
         collaborativeContent.setContentplain(plain);
