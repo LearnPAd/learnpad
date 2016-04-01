@@ -96,22 +96,22 @@ function processReceiver(address) {
                 values['applicantName'] = 'Guiseppe Cappelletti';
                 values['applicationCity'] = 'lpd:Ancona';
                 values['applicationZone'] = 'lpd:Beach_Area_At_The_Sea';
-                values['applicationPublicAdministration'] = 'ldp:SUAPSenigallia';
-                values['applicationSubType'] = 'ldp:Restructuring';
+                values['applicationPublicAdministration'] = 'lpd:SUAPSenigallia';
+                values['applicationSubType'] = 'lpd:Restructuring';
                 values['applicationSector'] = 'lpd:Building_Sector';
-                values['applicationBusinessActivity'] = 'lpd:Receptive_Tourism_Activity';
+                values['applicationBusinessActivity'] = 'lpd:Receptive_Toursim_Activity';
                 values['applicationDescription'] = 'Realization of a chalet on a beach area of Senigallia';
-                values['applicationATECOCategory'] = '';
+                values['applicationATECOCategory'] = 'lpd:MarineAndMountaineSummerCamps';
             } else {
                 values['applicantName'] = 'Ottavio Nandi';
-                values['applicationCity'] = 'lpd:Belforte_del_Chienti';
+                values['applicationCity'] = 'lpd:San_Ginesio';
                 values['applicationZone'] = 'lpd:Regional_Protected_Area_Unione_Montana_Monti_Azzurri';
                 values['applicationPublicAdministration'] = 'lpd:SUAPMontiAzzurri';
                 values['applicationSubType'] = 'lpd:Reactivation';
                 values['applicationSector'] = 'lpd:Waste_Sector';
-                values['applicationBusinessActivity'] = 'lpd:Industrial';
+                values['applicationBusinessActivity'] = 'lpd:Industrial_Activitiy';
                 values['applicationDescription'] = 'request for reneval of authorization of industrial waste water discharge in sewer - coffee machines factory';
-                values['applicationATECOCategory'] = '28.93';
+                values['applicationATECOCategory'] = 'lpd:InstallationOfElectricalSystems';
             }
 
             // re-stringify
@@ -157,4 +157,4 @@ function processReceiver(address) {
     newProcessReceiver.ws.onerror = newProcessReceiver._onerror;
 
     return newProcessReceiver;
- }
+}
