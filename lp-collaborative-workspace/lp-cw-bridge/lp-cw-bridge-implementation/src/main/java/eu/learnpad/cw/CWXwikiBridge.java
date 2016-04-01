@@ -244,7 +244,7 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
             BaseObject feedbackObject = document.getXObject(classReference);
             Integer id = Integer.parseInt(feedbackObject.getStringValue("id"));
             Integer modelId = feedbackObject.getIntValue("modelid");
-            Integer artefactId = feedbackObject.getIntValue("artefactid");
+            Integer artefactId = feedbackObject.getIntValue("artifactid");
             String content = feedbackObject.getStringValue("description");
             Feedback feedback = new Feedback();
             feedback.setId(id);
