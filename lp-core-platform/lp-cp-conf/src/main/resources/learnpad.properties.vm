@@ -1,0 +1,117 @@
+# ---------------------------------------------------------------------------
+# See the NOTICE file distributed with this work for additional
+# information regarding copyright ownership.
+#
+# This is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as
+# published by the Free Software Foundation; either version 2.1 of
+# the License, or (at your option) any later version.
+#
+# This software is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this software; if not, write to the Free
+# Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+# 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+# ---------------------------------------------------------------------------
+
+# This is the Learn PAd configuration file.
+
+#-------------------------------------------------------------------------------------
+# Content Analysis
+#-------------------------------------------------------------------------------------
+#if ($learnpadPropertiesComponentCaProtocol)
+component.ca.protocol=$learnpadPropertiesComponentCaProtocol
+#else
+component.ca.protocol=http
+#end
+#if ($learnpadPropertiesComponentCaIp)
+component.ca.ip=$learnpadPropertiesComponentCaIp
+#else
+component.ca.ip=localhost
+#end
+#if ($learnpadPropertiesComponentCaPort)
+component.ca.port=$learnpadPropertiesComponentCaPort
+#else
+component.ca.port=8082
+#end
+#if ($learnpadPropertiesComponentCaPrefix)
+component.ca.prefix=$learnpadPropertiesComponentCaPrefix
+#else
+component.ca.prefix=/lp-content-analysis
+#end
+
+#-------------------------------------------------------------------------------------
+# Model Transformer
+#-------------------------------------------------------------------------------------
+#if ($learnpadPropertiesComponentMtProtocol)
+component.mt.protocol=$learnpadPropertiesComponentMtProtocol
+#else
+component.mt.protocol=http
+#end
+#if ($learnpadPropertiesComponentMtIp)
+component.mt.ip=$learnpadPropertiesComponentMtIp
+#else
+component.mt.ip=localhost
+#end
+#if ($learnpadPropertiesComponentMtPort)
+component.mt.port=$learnpadPropertiesComponentMtPort
+#else
+component.mt.port=8083
+#end
+#if ($learnpadPropertiesComponentMtPrefix)
+component.mt.prefix=$learnpadPropertiesComponentMtPrefix
+#else
+component.mt.prefix=/rest
+#end
+
+#-------------------------------------------------------------------------------------
+# Model Verification
+#-------------------------------------------------------------------------------------
+#if ($learnpadPropertiesComponentMvProtocol)
+component.mv.protocol=$learnpadPropertiesComponentMvProtocol
+#else
+component.mv.protocol=http
+#end
+#if ($learnpadPropertiesComponentMvIp)
+component.mv.ip=$learnpadPropertiesComponentMvIp
+#else
+component.mv.ip=localhost
+#end
+#if ($learnpadPropertiesComponentMvPort)
+component.mv.port=$learnpadPropertiesComponentMvPort
+#else
+component.mv.port=9998
+#end
+#if ($learnpadPropertiesComponentMvPrefix)
+component.mv.prefix=$learnpadPropertiesComponentMvPrefix
+#else
+component.mv.prefix=/rest
+#end
+
+#-------------------------------------------------------------------------------------
+# Simulation Environment
+#-------------------------------------------------------------------------------------
+#if ($learnpadPropertiesComponentSimProtocol)
+component.sim.protocol=$learnpadPropertiesComponentSimProtocol
+#else
+component.sim.protocol=http
+#end
+#if ($learnpadPropertiesComponentSimIp)
+component.sim.ip=$learnpadPropertiesComponentSimIp
+#else
+component.sim.ip=localhost
+#end
+#if ($learnpadPropertiesComponentSimPort)
+component.sim.port=$learnpadPropertiesComponentSimPort
+#else
+component.sim.port=8081
+#end
+#if ($learnpadPropertiesComponentSimPrefix)
+component.sim.prefix=$learnpadPropertiesComponentSimPrefix
+#else
+component.sim.prefix=
+#end
