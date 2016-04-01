@@ -201,7 +201,7 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
     private List<Object> getFeedbacksDocuments(String modelSetId)
     {
         String queryXWQL =
-            String.format("from doc.object(%s) as feedback where doc.space = '%s'", FEEDBACK_CLASS, modelSetId);
+            String.format("from doc.object(%s) as feedback where feedback.modelsetid = '%s'", FEEDBACK_CLASS, modelSetId);
         Query query = null;
         try {
             query = queryManager.createQuery(queryXWQL, Query.XWQL);
@@ -219,24 +219,6 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
             logger.error(message, e);
             return null;
         }
-    }
-
-    private Integer getPropertyFromParent(DocumentReference parentReference, String propertyName)
-    {
-        DocumentReference classReference = stringDocumentReferenceResolver.resolve(BASEELEMENT_CLASS);
-        XWikiContext xcontext = xcontextProvider.get();
-        XWiki xwiki = xcontext.getWiki();
-        XWikiDocument parentDocument = null;
-        try {
-            parentDocument = xwiki.getDocument(parentReference, xcontext);
-        } catch (XWikiException e) {
-            String message = String.format("Error while trying to get a parent document '%s' to gather feedbacks.",
-                parentReference.toString());
-            logger.error(message, e);
-            return null;
-        }
-        BaseObject artifactObject = parentDocument.getXObject(classReference);
-        return Integer.parseInt(artifactObject.getStringValue(propertyName));
     }
 
     private Feedbacks getFeedbackList(String modelSetId)
