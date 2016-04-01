@@ -66,9 +66,7 @@
 
     <userTask id="obj.27830" name="Assess Application">
 
-      <documentation> In the case of Titolo Unico, the entrepreneur applies for opening the activity and he/she has to wait for feedback by the administration before starting the business activity. The application has to be electronically delivered, by the entrepreneur, to the SUAP office.
-Such application consists in reporting details activity, location, etc. SUAP office forwards the request to the municipality offices and third parties administrations involved in the verification activity. They check the correctness of the request and provide feedbacks to the SUAP office in order to clarify if the request is acceptable or not. Municipality offices and third parties can also ask the entrepreneur for some amendments if some data are missing or wrong.
-In case the request is particularly complex to manage, at any time SUAP office can organize the Conferenza dei Servizi (CdS) (named in English Service Conference) that is a meeting in which all involved participants (municipality offices, third party administrations, and entrepreneur) discuss about the case and decide if the business activity is acceptable or not. At the end, the acceptance or the rejection for the request to start the activity is provided to the entrepreneur.
+      <documentation>In this activity the SUAP office has to check the Instance (documentation and certificates, etc. ) sent by the entrepreneur. The check has been done in order to check that all the needed documents are provide.  Considering that the documentation is sended by PEC and signed digitally in this activity it is also checked the validity of the sended information to be sure that the documents are valid.
 &lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
 
       <ioSpecification>
@@ -148,7 +146,7 @@ In case the request is particularly complex to manage, at any time SUAP office c
 
     <userTask id="obj.27921" name="Send Instance to Third Party">
 
-      <documentation>In this activity the SUAP office has to send to PAs the SCIA Instance for checking.
+      <documentation>In this activity the SUAP office has to send to PAs the Instance for checking. One representative for each convened administration takes part in the decision, who has the power to make a binding decision for the relevant administration it represents. These convened administration are contacted.
 &lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
 
       <ioSpecification>
@@ -176,7 +174,7 @@ In case the request is particularly complex to manage, at any time SUAP office c
 
     <userTask id="obj.27987" name="Activate Service Conference">
 
-      <documentation>In this activity the SUAP office announces the Service Conference calling each participant.
+      <documentation>In this activity the SUAP office announces the Service Conference calling each participant. &#10;&#10;The service conference is always convened when it is necessary to acquire understandings, agreements, authorizations or assets however named of other administrations. In this case the conference than be convened: a) When the documents of assent are not issued within thirty days from the request; b) When, within the deadline of thirty days from the request, the dissent of one or more of the administrations consulted has occurred.&#10;&#10;The conference is convened also at the request of the party concerned, when the activity of the private party is subordinate to documents of consent, however named, falling under the competence of several public administrations. &#10;&#10;Finally, the conference can be convened for the simultaneous review of interests involved in several connected administrative procedures, concerning the same activities or results. In this case the convening of the conference by the administration looking after the predominant interest can be requested by any other administration involved.
 &lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
 
       <ioSpecification>
@@ -202,9 +200,9 @@ In case the request is particularly complex to manage, at any time SUAP office c
     </userTask>
 
 
-    <userTask id="obj.27990" name="Confirm Decision">
+    <userTask id="obj.27990" name="Receive Confirmation">
 
-      <documentation>In this activity the SUAP office requests the opinion of the Service Conference.[TODO:description valid?]
+      <documentation>In this activity the SUAP office receive the opinion of the Service Conference. The decision taken by the Service Conference is than managed by the SUAP office that can ask for possible integration if needed.
 &lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;
 &lt;a href='resources/files/suap_titolo_unico/istanza_${case}_transcript.txt' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Meeting transcript&lt;/a&gt;</documentation>
 
@@ -260,7 +258,7 @@ In case the request is particularly complex to manage, at any time SUAP office c
 
     <userTask id="obj.27833" name="Check Amendment">
 
-      <documentation>[TODO:is this description correct?] In this activity the SUAP office has to send to the entrepreneur a request for amendments and manage received amendments.
+      <documentation>In this activity the SUAP office manage the received amendments.
 &lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
 
       <ioSpecification>
@@ -351,69 +349,59 @@ In case the request is particularly complex to manage, at any time SUAP office c
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accepted == false}]]></conditionExpression>
     </sequenceFlow>
 
-    <sequenceFlow id="flow3" name="[no]" sourceRef="exclusivegateway1" targetRef="parallelgateway1">
+    <sequenceFlow id="flow3" name="[no]" sourceRef="exclusivegateway1" targetRef="obj.27782">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accepted == true}]]></conditionExpression>
     </sequenceFlow>
 
     <sequenceFlow id="flow4" sourceRef="obj.27812" targetRef="endevent1"></sequenceFlow>
 
-    <parallelGateway id="parallelgateway1" name=""></parallelGateway>
+    <sequenceFlow id="flow5" sourceRef="obj.27782" targetRef="obj.27987" />
 
-    <sequenceFlow id="flow5" sourceRef="parallelgateway1" targetRef="obj.27782" />
+    <sequenceFlow id="flow6" sourceRef="obj.27921" targetRef="obj.27987" />
 
-    <sequenceFlow id="flow6" sourceRef="parallelgateway1" targetRef="obj.27921" />
-
-    <parallelGateway id="parallelgateway2" name=""></parallelGateway>
-
-    <sequenceFlow id="flow7" sourceRef="obj.27782" targetRef="parallelgateway2" />
-
-    <sequenceFlow id="flow8" sourceRef="obj.27921" targetRef="parallelgateway2" />
-
-    <sequenceFlow id="flow9" sourceRef="parallelgateway2" targetRef="obj.27987" />
-
-    <sequenceFlow id="flow10" sourceRef="obj.27987" targetRef="obj.27990" />
+    <sequenceFlow id="flow8" sourceRef="obj.27987" targetRef="obj.27990" />
 
     <exclusiveGateway id="exclusivegateway2" name="integration necessary?"></exclusiveGateway>
 
-    <sequenceFlow id="flow11" sourceRef="obj.27990" targetRef="exclusivegateway2" />
+    <sequenceFlow id="flow9" sourceRef="obj.27990" targetRef="exclusivegateway2" />
 
 
-    <sequenceFlow id="flow12" name="[yes]" sourceRef="exclusivegateway2" targetRef="obj.29013">
+    <sequenceFlow id="flow10" name="[yes]" sourceRef="exclusivegateway2" targetRef="obj.29013">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus == "needAmendments"}]]></conditionExpression>
     </sequenceFlow>
 
-    <sequenceFlow id="flow13" sourceRef="obj.29013" targetRef="obj.27833" />
+    <sequenceFlow id="flow11" sourceRef="obj.29013" targetRef="obj.27833" />
 
     <parallelGateway id="parallelgateway3" name=""></parallelGateway>
 
-    <sequenceFlow id="flow14" sourceRef="obj.27833" targetRef="exclusivegateway3" />
+    <sequenceFlow id="flow12" sourceRef="obj.27833" targetRef="exclusivegateway3" />
 
-    <sequenceFlow id="flow15" name="[no]" sourceRef="exclusivegateway2" targetRef="exclusivegateway3" >
+    <sequenceFlow id="flow13" name="[no]" sourceRef="exclusivegateway2" targetRef="exclusivegateway3" >
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus != "needAmendments"}]]></conditionExpression>
     </sequenceFlow>
 
-    <sequenceFlow id="flow16" sourceRef="parallelgateway3" targetRef="exclusivegateway3" />
+    <sequenceFlow id="flow14" sourceRef="parallelgateway3" targetRef="exclusivegateway3" />
 
     <exclusiveGateway id="exclusivegateway3" name="inhibition of the application?"></exclusiveGateway>
 
-    <sequenceFlow id="flow17" name="[no]" sourceRef="exclusivegateway3" targetRef="obj.27788" >
+    <sequenceFlow id="flow15" name="[no]" sourceRef="exclusivegateway3" targetRef="obj.27788" >
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus == "ok"}]]></conditionExpression>
     </sequenceFlow>
 
-    <sequenceFlow id="flow18" name="[yes]" sourceRef="exclusivegateway3" targetRef="obj.27839" >
+    <sequenceFlow id="flow16" name="[yes]" sourceRef="exclusivegateway3" targetRef="obj.27839" >
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus == "ko"}]]></conditionExpression>
     </sequenceFlow>
 
-    <sequenceFlow id="flow18a" name="" sourceRef="exclusivegateway3" targetRef="obj.27987" >
+    <sequenceFlow id="flow17a" name="" sourceRef="exclusivegateway3" targetRef="obj.27987" >
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus == "serviceConf"}]]></conditionExpression>
     </sequenceFlow>
 
     <endEvent id="endevent" name="End">
     </endEvent>
 
-    <sequenceFlow id="flow19" sourceRef="obj.27788" targetRef="endevent" />
+    <sequenceFlow id="flow18" sourceRef="obj.27788" targetRef="endevent" />
 
-    <sequenceFlow id="flow20" sourceRef="obj.27839" targetRef="endevent" />
+    <sequenceFlow id="flow19" sourceRef="obj.27839" targetRef="endevent" />
 
   </process>
 
