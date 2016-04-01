@@ -24,11 +24,12 @@ public class CBRAdapterTest {
     public void testCBR() {
         String simulationId = "d6983703-5c42-4512-bc80-efde3756259d";
         
-        testWithTestSet(DATA_SET_1(), simulationId);
-        testWithTestSet(DATA_SET_2(), simulationId);
+        testWithTestSet(DATA_SET_1(), simulationId, "Test query case 1");
+        testWithTestSet(DATA_SET_2(), simulationId, "Test query case 2");
     }
 
-    private void testWithTestSet(Map<String, Object> metaData, String simulationId) {
+    private void testWithTestSet(Map<String, Object> metaData, String simulationId, String testName) {
+        System.out.println("\n\n______ "+testName+" ______________________________________________\n");
         Map<String, Object> userData = null;
         CBRAdapter instance = CBRAdapter.getInstance();
         SimulationData simData = new SimulationData();
@@ -38,28 +39,30 @@ public class CBRAdapterTest {
         assertNotNull(result);
         
         SimilarCases similarCases = instance.retrieveSimilarCases("modelSetId", "", "barneby.barnes@learnpad.eu", simulationId);
-        checkRetrievedCases(similarCases, "Case A without third parties and decision");
+        similarCases = instance.retrieveSimilarCases("modelSetId", "", "barneby.barnes@learnpad.eu", simulationId);
+        checkRetrievedCases(similarCases, "Query case without third parties and decision");
         
         userData = new HashMap();
         userData.put("decision", "false");
         simData.setSubmittedData(userData);
         instance.createOrUpdateSimulationSessionCase(simulationId, simData);
-        checkRetrievedCases(similarCases, "Case A with decision");
-        
+        similarCases = instance.retrieveSimilarCases("modelSetId", "", "barneby.barnes@learnpad.eu", simulationId);
+        checkRetrievedCases(similarCases, "Query case with decision");
         
         //add some third parties to the query
         userData.put("involvedThirdParties", "lpd:Building_office");
         userData.put("involvedThirdParties", "lpd:Environment_office");
         simData.setSubmittedData(userData);
         instance.createOrUpdateSimulationSessionCase(simulationId, simData);        
-        checkRetrievedCases(similarCases, "Case A with decision and third parties");
+        similarCases = instance.retrieveSimilarCases("modelSetId", "", "barneby.barnes@learnpad.eu", simulationId);
+        checkRetrievedCases(similarCases, "Query case with decision and third parties");
     }
 
     private void checkRetrievedCases(SimilarCases similarCases, String testName) {
         assertNotNull(similarCases);
         assertNotNull(similarCases.getSimilarCases());
         assertEquals(3, similarCases.getSimilarCases().size());
-        System.out.println("Test: "+testName);
+        System.out.println("\n Test: "+testName);
         for (SimilarCase similarCase : similarCases.getSimilarCases()) {
             System.out.println("\n________________________________\nCase: " + similarCase.getName() + " " + similarCase.getSimilarityValue());
             for(Map.Entry data : similarCase.getData().entrySet()){

@@ -29,6 +29,8 @@ import eu.learnpad.or.rest.data.LearningMaterial;
 import eu.learnpad.or.rest.data.LearningMaterials;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.SimilarCases;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -56,7 +58,12 @@ public class Recommender {
 
         Recommendations recommends = getRecommendations(modelSetId, artifactId, userId);
         if (simulationSessionId != null && !simulationSessionId.isEmpty() && !"--none--".equals(simulationSessionId)) {
-            SimilarCases similarCases = CBRAdapter.getInstance().retrieveSimilarCases(modelSetId, artifactId, userId, simulationSessionId);
+            SimilarCases similarCases = null;
+            try{
+                similarCases = CBRAdapter.getInstance().retrieveSimilarCases(modelSetId, artifactId, userId, simulationSessionId);
+            }catch(Exception ex){
+                Logger.getLogger(CBRAdapter.class.getName()).log(Level.SEVERE, "Error when retrieving similar cases with simulationId: "+String.valueOf(simulationSessionId), ex);
+            }
             recommends.setSimilarCases(similarCases);
         }
 

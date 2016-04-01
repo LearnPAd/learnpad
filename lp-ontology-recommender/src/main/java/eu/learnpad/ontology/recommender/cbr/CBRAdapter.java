@@ -26,6 +26,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -122,7 +124,15 @@ public class CBRAdapter {
         
         CBRServices service = CBRServices.getInstance();
         CaseViewVO caseViewVO = service.findCaseViewByUri(OVERALL_PROCESS_VIEW);
-        CaseInstanceVO sessionCaseInstance = service.getCaseInstance(SIMULATION_CASE_CLASS_URI + simulationSessionId, caseViewVO);
+        CaseInstanceVO sessionCaseInstance = null;
+        try{
+            sessionCaseInstance = service.getCaseInstance(SIMULATION_CASE_CLASS_URI + simulationSessionId, caseViewVO);
+        }catch (Exception ex){
+            Logger.getLogger(CBRAdapter.class.getName()).log(Level.SEVERE, "Error when fetching simulation session case instance for simulationId: "+String.valueOf(simulationSessionId), ex);
+        }
+        if(sessionCaseInstance == null){
+            sessionCaseInstance = createOrUpdateSimulationSessionCase(simulationSessionId, null);
+        }
         List<CaseMatchVO> matchingCases = service.retreiveCases(caseViewVO, sessionCaseInstance);
         List<SimilarCase> similarCasesList = new ArrayList<SimilarCase>();
         
