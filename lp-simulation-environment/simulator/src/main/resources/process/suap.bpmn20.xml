@@ -351,69 +351,59 @@ In case the request is particularly complex to manage, at any time SUAP office c
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accepted == false}]]></conditionExpression>
     </sequenceFlow>
 
-    <sequenceFlow id="flow3" name="[no]" sourceRef="exclusivegateway1" targetRef="parallelgateway1">
+    <sequenceFlow id="flow3" name="[no]" sourceRef="exclusivegateway1" targetRef="obj.27782">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accepted == true}]]></conditionExpression>
     </sequenceFlow>
 
     <sequenceFlow id="flow4" sourceRef="obj.27812" targetRef="endevent1"></sequenceFlow>
 
-    <parallelGateway id="parallelgateway1" name=""></parallelGateway>
+    <sequenceFlow id="flow5" sourceRef="obj.27782" targetRef="obj.27987" />
 
-    <sequenceFlow id="flow5" sourceRef="parallelgateway1" targetRef="obj.27782" />
+    <sequenceFlow id="flow6" sourceRef="obj.27921" targetRef="obj.27987" />
 
-    <sequenceFlow id="flow6" sourceRef="parallelgateway1" targetRef="obj.27921" />
-
-    <parallelGateway id="parallelgateway2" name=""></parallelGateway>
-
-    <sequenceFlow id="flow7" sourceRef="obj.27782" targetRef="parallelgateway2" />
-
-    <sequenceFlow id="flow8" sourceRef="obj.27921" targetRef="parallelgateway2" />
-
-    <sequenceFlow id="flow9" sourceRef="parallelgateway2" targetRef="obj.27987" />
-
-    <sequenceFlow id="flow10" sourceRef="obj.27987" targetRef="obj.27990" />
+    <sequenceFlow id="flow8" sourceRef="obj.27987" targetRef="obj.27990" />
 
     <exclusiveGateway id="exclusivegateway2" name="integration necessary?"></exclusiveGateway>
 
-    <sequenceFlow id="flow11" sourceRef="obj.27990" targetRef="exclusivegateway2" />
+    <sequenceFlow id="flow9" sourceRef="obj.27990" targetRef="exclusivegateway2" />
 
 
-    <sequenceFlow id="flow12" name="[yes]" sourceRef="exclusivegateway2" targetRef="obj.29013">
+    <sequenceFlow id="flow10" name="[yes]" sourceRef="exclusivegateway2" targetRef="obj.29013">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus == "needAmendments"}]]></conditionExpression>
     </sequenceFlow>
 
-    <sequenceFlow id="flow13" sourceRef="obj.29013" targetRef="obj.27833" />
+    <sequenceFlow id="flow11" sourceRef="obj.29013" targetRef="obj.27833" />
 
     <parallelGateway id="parallelgateway3" name=""></parallelGateway>
 
-    <sequenceFlow id="flow14" sourceRef="obj.27833" targetRef="exclusivegateway3" />
+    <sequenceFlow id="flow12" sourceRef="obj.27833" targetRef="exclusivegateway3" />
 
-    <sequenceFlow id="flow15" name="[no]" sourceRef="exclusivegateway2" targetRef="exclusivegateway3" >
+    <sequenceFlow id="flow13" name="[no]" sourceRef="exclusivegateway2" targetRef="exclusivegateway3" >
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus != "needAmendments"}]]></conditionExpression>
     </sequenceFlow>
 
-    <sequenceFlow id="flow16" sourceRef="parallelgateway3" targetRef="exclusivegateway3" />
+    <sequenceFlow id="flow14" sourceRef="parallelgateway3" targetRef="exclusivegateway3" />
 
     <exclusiveGateway id="exclusivegateway3" name="inhibition of the application?"></exclusiveGateway>
 
-    <sequenceFlow id="flow17" name="[no]" sourceRef="exclusivegateway3" targetRef="obj.27788" >
+    <sequenceFlow id="flow15" name="[no]" sourceRef="exclusivegateway3" targetRef="obj.27788" >
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus == "ok"}]]></conditionExpression>
     </sequenceFlow>
 
-    <sequenceFlow id="flow18" name="[yes]" sourceRef="exclusivegateway3" targetRef="obj.27839" >
+    <sequenceFlow id="flow16" name="[yes]" sourceRef="exclusivegateway3" targetRef="obj.27839" >
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus == "ko"}]]></conditionExpression>
     </sequenceFlow>
 
-    <sequenceFlow id="flow18a" name="" sourceRef="exclusivegateway3" targetRef="obj.27987" >
+    <sequenceFlow id="flow17a" name="" sourceRef="exclusivegateway3" targetRef="obj.27987" >
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus == "serviceConf"}]]></conditionExpression>
     </sequenceFlow>
 
     <endEvent id="endevent" name="End">
     </endEvent>
 
-    <sequenceFlow id="flow19" sourceRef="obj.27788" targetRef="endevent" />
+    <sequenceFlow id="flow18" sourceRef="obj.27788" targetRef="endevent" />
 
-    <sequenceFlow id="flow20" sourceRef="obj.27839" targetRef="endevent" />
+    <sequenceFlow id="flow19" sourceRef="obj.27839" targetRef="endevent" />
 
   </process>
 
