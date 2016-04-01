@@ -132,7 +132,7 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.timestamp,
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						manager.getModelSetIdFromSessionId(event.initialProcessDefinitionKey),
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
 						manager.getSimulationSessionParametersData(event.simulationsessionid)));
 
 		send(monitoringEvent);
