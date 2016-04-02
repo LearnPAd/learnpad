@@ -194,4 +194,27 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
         }
     }
 
+	@Override
+	public void deleteRecommendations(String modelSetId, String simulationid, String userId) throws LpRestException {
+		String contentType = "application/xml";
+
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/bridge/notify/deleterecs/%s",
+				this.REST_URI, modelSetId);
+
+		PutMethod putMethod = new PutMethod(uri);
+		putMethod.addRequestHeader("Accept", contentType);
+
+		NameValuePair[] queryString = new NameValuePair[2];
+		queryString[0] = new NameValuePair("simulationid", simulationid);
+		queryString[1] = new NameValuePair("userid", userId);
+		putMethod.setQueryString(queryString);
+
+		try {
+			httpClient.executeMethod(putMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+		}
+	}
+
 }

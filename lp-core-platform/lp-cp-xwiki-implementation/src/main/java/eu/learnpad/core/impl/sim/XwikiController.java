@@ -144,7 +144,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
         // Not sure if it is always the case to notify the CW, as this notification ends the simulation
         // and probably the Recommendations are not needed anymore!
-        this.handleRecommendations(modelSetId, modelId, event.involvedusers, simulationId);
+//        this.handleRecommendations(modelSetId, modelId, event.involvedusers, simulationId);
+        this.deleteRecommendations(modelSetId, modelId, event.involvedusers, simulationId);
     }
 
     @Override
@@ -232,7 +233,21 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
             Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userEmail, simulationId);
             this.cw.notifyRecommendations(modelSetId, simulationId, userEmail, rec);
         }
-
     }
 
+    private void deleteRecommendations(String modelSetId, String artifactId, List<String> involvedUsers,
+            String simulationId) throws LpRestException
+        {
+            if (involvedUsers == null) {
+                String message = "List \"involvedUsers\" is null (ModelSetId:" + modelSetId + ", ArtifactId:" + artifactId
+                    + ",SimulationId:" + simulationId + ")";
+                throw new LpRestExceptionXWikiImpl(message);
+            }
+
+            for (String simUserId : involvedUsers) {
+                String userEmail = this.converUserID(simUserId);
+
+                this.cw.deleteRecommendations(modelSetId, simulationId, userEmail);
+            }
+        }
 }
