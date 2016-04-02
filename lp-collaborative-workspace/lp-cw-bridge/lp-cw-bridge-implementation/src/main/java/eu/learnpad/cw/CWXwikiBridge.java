@@ -25,6 +25,8 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -70,6 +72,8 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.SimilarCase;
+import eu.learnpad.or.rest.data.SimilarCases;
 import eu.learnpad.rest.model.jaxb.PFResults;
 import eu.learnpad.rest.model.jaxb.PFResults.Feedbacks;
 import eu.learnpad.rest.model.jaxb.PFResults.Feedbacks.Feedback;
@@ -112,6 +116,10 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 
     private static volatile RecommendationsStore recsStore;
 
+	private Map<String, Long> bannedSimIDMap;
+
+	private final long BANNING_PERIOD_IN_MILLI_SEC = 60000; 
+
     @Inject
     private Logger logger;
 
@@ -136,6 +144,7 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
         this.corefacade = new XwikiCoreFacadeRestResource();
 
         recsStore = RecommendationsStore.createRecommendationsStore();
+		this.bannedSimIDMap = Collections.synchronizedMap(new HashMap<String, Long>());
     }
 
     @Override
@@ -411,12 +420,36 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
             throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
         }
 
-        String msg = "modelSetId : " + modelSetId + "\n" + "simulationid : " + simulationid + "\n" + "userId : "
-            + userId + "\n" + "recommendations : " + rec.toString();
+        if (this.isBanningPeriodExpired(simulationid)){        
+        	String msg = "modelSetId : " + modelSetId + "\n" + "simulationid : " + simulationid + "\n" + "userId : "
+        			+ userId + "\n" + "recommendations : " + rec.toString();
 
-        logger.info(msg);
+        	logger.info(msg);
 
-        CWXwikiBridge.recsStore.put(userId, simulationid, rec);
+        	CWXwikiBridge.recsStore.put(userId, simulationid, rec);
+        }
     }
+
+	@Override
+	public void deleteRecommendations(String modelSetId, String simulationid, String userId) throws LpRestException {
+        String msg = "resetting Recs for : modelSetId : " + modelSetId + "\n" + "simulationid : " + simulationid + "\n" + "userId : "
+                + userId ;
+
+            logger.info(msg);
+
+    		this.bannedSimIDMap.put(simulationid, System.currentTimeMillis());				
+            CWXwikiBridge.recsStore.delete(simulationid, userId);		
+	}
+
+	private boolean isBanningPeriodExpired(String simId){
+		boolean status = true;		
+		if (this.bannedSimIDMap.containsKey(simId)){
+			status = (( this.bannedSimIDMap.get(simId) + this.BANNING_PERIOD_IN_MILLI_SEC ) > System.currentTimeMillis());
+			if (status){
+				this.bannedSimIDMap.remove(simId);
+			}
+		}
+		return status;
+	}
 
 }
