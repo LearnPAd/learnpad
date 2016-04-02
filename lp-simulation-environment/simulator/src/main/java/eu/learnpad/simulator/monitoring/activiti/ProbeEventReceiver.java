@@ -136,7 +136,8 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
 						manager.getModelSetIdFromSessionId(event.simulationsessionid),
-						manager.getSimulationSessionParametersData(event.simulationsessionid)));
+//						manager.getSimulationSessionParametersData(event.simulationsessionid)));
+						getCleanSessionParameters(event.simulationsessionid)));
 
 		send(monitoringEvent);
 
@@ -156,7 +157,8 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
 						manager.getModelSetIdFromSessionId(event.simulationsessionid),
-						manager.getSimulationSessionParametersData(event.simulationsessionid)));
+//						manager.getSimulationSessionParametersData(event.simulationsessionid)));
+						getCleanSessionParameters(event.simulationsessionid)));
 
 		send(monitoringEvent);
 
@@ -176,7 +178,8 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
 						manager.getModelSetIdFromSessionId(event.simulationsessionid),
-						manager.getSimulationSessionParametersData(event.simulationsessionid),
+//						manager.getSimulationSessionParametersData(event.simulationsessionid),
+						getCleanSessionParameters(event.simulationsessionid),
 						event.processInstance.processartifactkey));
 
 		send(monitoringEvent);
@@ -307,6 +310,8 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 		Map<String, Object> res = new HashMap<>(
 				manager.getSimulationSessionParametersData(simSessionId));
 		res.remove(ActivitiProcessManager.SIMULATION_ID_KEY);
+		res.remove("case");
+		res.remove("applicantName");
 		return res;
 	}
 
