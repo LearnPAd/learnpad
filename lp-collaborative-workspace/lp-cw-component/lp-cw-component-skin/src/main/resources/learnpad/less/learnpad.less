@@ -16,7 +16,7 @@ body {
 		font-family: sans-serif;
 		color: rgb(93, 93, 93);
 
-		::after {
+		&::after {
 			display: block;
 			content: " ";
 			width: 4em;
@@ -28,7 +28,7 @@ body {
 	.btn, .btn:active, .btn:focus, .btn:hover {
 		border-color: none;
 		outline: none;
-		box-shadow:none;
+		box-shadow: none;
 		-webkit-box-shadow:none;
 	}
 
@@ -60,7 +60,7 @@ body {
 			color: #454F61;
 		}
 
-		:hover {
+		&:hover {
 			background-color: #E5E5E5;
 		}
 	}
@@ -137,7 +137,7 @@ body {
 			}
 
 			.list-divider {
-				border-bottom: 0.3px solid #D5DCEC
+				border-bottom: 0.3px solid #D5DCEC;
 			}
 		}
 
@@ -304,6 +304,27 @@ body {
 
 			& > h1 {
 				background-color: #F7F9FA;
+			}
+
+			.tooltip {
+				&.top > .tooltip-arrow {
+					border-top-color: #454F61;
+				}
+				&.bottom > .tooltip-arrow {
+					border-bottom-color: #454F61;
+				}
+				&.left > .tooltip-arrow {
+					border-left-color: #454F61;
+				}
+				&.right > .tooltip-arrow {
+					border-right-color: #454F61;
+				}
+
+				.tooltip-inner {
+					background-color: #454F61;
+					color: white;
+					max-width: 100%;
+				}
 			}
 		}
 	}
