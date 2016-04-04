@@ -16,6 +16,7 @@ import eu.learnpad.or.rest.data.BusinessActor;
 import eu.learnpad.or.rest.data.Experts;
 import eu.learnpad.or.rest.data.LearningMaterials;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.SimilarCase;
 import eu.learnpad.or.rest.data.SimulationData;
 
 import javax.xml.bind.JAXB;
@@ -99,6 +100,68 @@ public class RecommenderTest extends AbstractUnitTest {
     }
     
 
+    @Test
+    public void printGenratedSimilarCase() throws RecommenderException{
+    	boolean badValueFound = false;
+    	
+    	String modelSetId = MODELSET_ID;
+// At the time we wrote this test the parameter "artifactId" is not actually considered by the OR component    
+    	String artifactId = "process_27772";
+    	String userId = APP.CONF.getString("testdata.user.email");
+//    	String simulationSessionId = "9bc242fa-cb5f-4be3-a473-a8f5ec12049a";
+    	
+    	System.out.println("Similar Case for DATA_SET_2 ");
+    	String simulationSessionId = "a8f5ec12049a";
+    	Map<String, Object> simulationSessionData = DATA_SET_2();
+    	SimulationData simData = new SimulationData();
+    	simData.setSessionData(simulationSessionData);
+    	simData.setSubmittedData(new HashMap<String, Object>());    	    	
+    	
+    	CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationSessionId, simData);    	
+    	Recommender rec = Recommender.getInstance();
+    	
+        Recommendations recData = rec.getRecommendations(modelSetId, artifactId, userId, simulationSessionId);
+        for (SimilarCase sc : recData.getSimilarCases().getSimilarCases()) {
+        	System.out.println("Similar Case : " + sc.getName() + "-->" + sc.getSimilarityValue());
+        	badValueFound = ((badValueFound) || (sc.getName().startsWith("Simulation Case")));
+		}
+        
+    	System.out.println("Similar Case for DATA_SET_3");
+    	simulationSessionId = "9bc242fa";
+        simulationSessionData = DATA_SET_3();    	
+    	simData = new SimulationData();
+    	simData.setSessionData(simulationSessionData);
+    	simData.setSubmittedData(new HashMap<String, Object>());
+    	
+    	CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationSessionId, simData);    	
+    	rec = Recommender.getInstance();
+    	
+    	recData = rec.getRecommendations(modelSetId, artifactId, userId, simulationSessionId);
+        for (SimilarCase sc : recData.getSimilarCases().getSimilarCases()) {
+        	System.out.println("Similar Case : " + sc.getName() + "-->" + sc.getSimilarityValue());
+        	badValueFound = ((badValueFound) || (sc.getName().startsWith("Simulation Case")));
+		}
+    	
+    	System.out.println("Similar Case for DATA_SET_2");
+    	simulationSessionId = "4be3-a473";
+    	simulationSessionData = DATA_SET_2();    	
+    	simData = new SimulationData();
+    	simData.setSessionData(simulationSessionData);
+    	simData.setSubmittedData(new HashMap<String, Object>());
+    	
+    	CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationSessionId, simData);    	
+    	rec = Recommender.getInstance();
+    	
+        recData = rec.getRecommendations(modelSetId, artifactId, userId, simulationSessionId);
+        for (SimilarCase sc : recData.getSimilarCases().getSimilarCases()) {
+        	System.out.println("Similar Case : " + sc.getName() + "-->" + sc.getSimilarityValue());
+        	badValueFound = ((badValueFound) || (sc.getName().startsWith("Simulation Case")));
+		}
+        
+        assertFalse(badValueFound);
+    }
+    
+    
 	private final Map<String, Object> DATA_SET_1(String simulationSessionId) {
 		Map<String, Object> metaData = new HashMap<String, Object>();
 		metaData.put("applicationCity", "lpd:Belforte_del_Chienti");

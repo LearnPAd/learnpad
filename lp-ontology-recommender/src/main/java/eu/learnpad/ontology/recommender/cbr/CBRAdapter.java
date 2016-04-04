@@ -29,6 +29,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.sql.rowset.spi.SyncResolver;
+
 /**
  *
  * @author sandro.emmenegger
@@ -79,7 +81,7 @@ public class CBRAdapter {
         return instance;
     }
     
-    public CaseInstanceVO createOrUpdateSimulationSessionCase(String simulationId, SimulationData data) {
+    public synchronized CaseInstanceVO createOrUpdateSimulationSessionCase(String simulationId, SimulationData data) {
         ArgumentCheck.notNull(simulationId, "simulationId in (retrieveSimilarCases");
         
         if (!accumulatedSessionData.containsKey(simulationId)) {
@@ -130,59 +132,77 @@ public class CBRAdapter {
         }catch (Exception ex){
             Logger.getLogger(CBRAdapter.class.getName()).log(Level.SEVERE, "Error when fetching simulation session case instance for simulationId: "+String.valueOf(simulationSessionId), ex);
         }
-        if(sessionCaseInstance == null){
-            sessionCaseInstance = createOrUpdateSimulationSessionCase(simulationSessionId, null);
-        }
-        List<CaseMatchVO> matchingCases = service.retreiveCases(caseViewVO, sessionCaseInstance);
+//        if(sessionCaseInstance == null){
+//            sessionCaseInstance = createOrUpdateSimulationSessionCase(simulationSessionId, null);
+//        }
         List<SimilarCase> similarCasesList = new ArrayList<SimilarCase>();
-        
-        Collections.sort(matchingCases, new Comparator<CaseMatchVO>() {
-            @Override
-            public int compare(CaseMatchVO c1, CaseMatchVO c2) {
-                return Double.compare(c2.getSimilarity(), c1.getSimilarity());
-            }
-        });
-        
-        for (int i = 0; i < 4 && matchingCases.size() > i; i++) {
-            
-            CaseMatchVO matchingCase = matchingCases.get(i);
-            if ((SIMULATION_CASE_CLASS_URI + simulationSessionId).equals(matchingCase.getCaseUri())) {
-                continue;
-            }
-            
-            SimilarCase similarCase = new SimilarCase();
-            similarCase.setName(matchingCase.getCaseName());
-            String similarityValuePercentage = String.format("%1.2f", (matchingCase.getSimilarity() * 100)) + "%";
-            similarCase.setSimilarityValue(similarityValuePercentage);
-            similarCase.setData(new HashMap<String, ListOfStringWrapper>());
-            
-            CaseInstanceVO caseInstanceVO = matchingCase.getCaseInstanceVO();
-            if (caseInstanceVO != null) {
-                if (caseInstanceVO.getObjectProperties() != null) {
-                    for (ObjectPropertyInstanceVO objectPropertyInstanceVO : caseInstanceVO.getObjectProperties()) {
-                        String propertyName = getObjectPropertyName(objectPropertyInstanceVO.getTypeUri());
-                        List<IndividualVO> refInstances = objectPropertyInstanceVO.getRangeClassInstances();
-                        if (refInstances != null && !refInstances.isEmpty()) {
-                            List<String> refInstancesLabels = new ArrayList<String>();
-                            for (IndividualVO refInstance : refInstances) {
-                                refInstancesLabels.add(refInstance.getLabel());
-                            }
-                            ListOfStringWrapper wrapper = new ListOfStringWrapper(refInstancesLabels);
-                            similarCase.getData().put(propertyName, wrapper);
-                        }
-                    }
-                }
-                if (caseInstanceVO.getLiteralProperties() != null) {
-                    for (LiteralPropertyValueVO litProp : caseInstanceVO.getLiteralProperties()) {
-                        String propertyName = getLiteralPropertyName(replaceNamespaceByPrefix(litProp.getUri()));
-                        ListOfStringWrapper wrapper = new ListOfStringWrapper(litProp.getValue());
-                        similarCase.getData().put(propertyName, wrapper);
-                    }
-                }
-            }
-            
-            similarCasesList.add(similarCase);
-        }
+// The meaning of this if statement is that if some problem occourred with the CBRService
+// we assume that there are no similar cases to return         
+        if (sessionCaseInstance != null) {
+			List<CaseMatchVO> matchingCases = service.retreiveCases(caseViewVO,
+					sessionCaseInstance);
+
+			Collections.sort(matchingCases, new Comparator<CaseMatchVO>() {
+				@Override
+				public int compare(CaseMatchVO c1, CaseMatchVO c2) {
+					return Double.compare(c2.getSimilarity(),
+							c1.getSimilarity());
+				}
+			});
+
+			for (int i = 0; i < 4 && matchingCases.size() > i; i++) {
+
+				CaseMatchVO matchingCase = matchingCases.get(i);
+				if ((SIMULATION_CASE_CLASS_URI + simulationSessionId)
+						.equals(matchingCase.getCaseUri())) {
+					continue;
+				}
+
+				SimilarCase similarCase = new SimilarCase();
+				similarCase.setName(matchingCase.getCaseName());
+				String similarityValuePercentage = String.format("%1.2f",
+						(matchingCase.getSimilarity() * 100)) + "%";
+				similarCase.setSimilarityValue(similarityValuePercentage);
+				similarCase.setData(new HashMap<String, ListOfStringWrapper>());
+
+				CaseInstanceVO caseInstanceVO = matchingCase
+						.getCaseInstanceVO();
+				if (caseInstanceVO != null) {
+					if (caseInstanceVO.getObjectProperties() != null) {
+						for (ObjectPropertyInstanceVO objectPropertyInstanceVO : caseInstanceVO
+								.getObjectProperties()) {
+							String propertyName = getObjectPropertyName(objectPropertyInstanceVO
+									.getTypeUri());
+							List<IndividualVO> refInstances = objectPropertyInstanceVO
+									.getRangeClassInstances();
+							if (refInstances != null && !refInstances.isEmpty()) {
+								List<String> refInstancesLabels = new ArrayList<String>();
+								for (IndividualVO refInstance : refInstances) {
+									refInstancesLabels.add(refInstance
+											.getLabel());
+								}
+								ListOfStringWrapper wrapper = new ListOfStringWrapper(
+										refInstancesLabels);
+								similarCase.getData()
+										.put(propertyName, wrapper);
+							}
+						}
+					}
+					if (caseInstanceVO.getLiteralProperties() != null) {
+						for (LiteralPropertyValueVO litProp : caseInstanceVO
+								.getLiteralProperties()) {
+							String propertyName = getLiteralPropertyName(replaceNamespaceByPrefix(litProp
+									.getUri()));
+							ListOfStringWrapper wrapper = new ListOfStringWrapper(
+									litProp.getValue());
+							similarCase.getData().put(propertyName, wrapper);
+						}
+					}
+				}
+
+				similarCasesList.add(similarCase);
+			}
+		}
         SimilarCases similarCases = new SimilarCases();
         similarCases.setSimilarCases(similarCasesList);
         
