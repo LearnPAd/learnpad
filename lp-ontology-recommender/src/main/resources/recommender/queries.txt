@@ -75,6 +75,7 @@ WHERE {
           FILTER(?currentPerformer != ?experiencedPerformer)
       } GROUP BY ?experiencedPerformer
     }
+    FILTER(?count > 0)
     ?experiencedPerformer rdfs:label ?name .
     ?experiencedPerformer emo:performerHasEmailAddress ?email .
     ?experiencedPerformer emo:performerRepresentsPerson ?businessActor .
