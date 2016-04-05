@@ -262,12 +262,6 @@ $(function(){
       "method": "GET"
     }).done(function(data, status, xhr) {
       var $rightPanels = $("#rightPanels");
-      // Keep the rightPanel on top right of the window, even if scrolling down
-      $rightPanels
-        .css({
-          "position": "fixed",
-          "right": "0"
-        });
       // Inject data
       if (data !== previousData) {
         $rightPanels
