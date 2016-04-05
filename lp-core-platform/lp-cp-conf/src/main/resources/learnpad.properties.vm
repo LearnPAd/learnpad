@@ -45,6 +45,30 @@ component.ca.prefix=/lp-content-analysis
 #end
 
 #-------------------------------------------------------------------------------------
+# Collaborative Workspace
+#-------------------------------------------------------------------------------------
+#if ($learnpadPropertiesComponentCwProtocol)
+component.cw.protocol=$learnpadPropertiesComponentCwProtocol
+#else
+component.cw.protocol=http
+#end
+#if ($learnpadPropertiesComponentCwIp)
+component.cw.ip=$learnpadPropertiesComponentCwIp
+#else
+component.cw.ip=localhost
+#end
+#if ($learnpadPropertiesComponentCwPort)
+component.cw.port=$learnpadPropertiesComponentCwPort
+#else
+component.cw.port=8080
+#end
+#if ($learnpadPropertiesComponentCwPrefix)
+component.cw.prefix=$learnpadPropertiesComponentCwPrefix
+#else
+component.cw.prefix=/xwiki/rest
+#end
+
+#-------------------------------------------------------------------------------------
 # Model Transformer
 #-------------------------------------------------------------------------------------
 #if ($learnpadPropertiesComponentMtProtocol)

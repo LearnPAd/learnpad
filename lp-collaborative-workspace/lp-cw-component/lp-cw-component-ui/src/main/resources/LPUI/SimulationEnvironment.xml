@@ -31,8 +31,8 @@
   <parent>WebIDE.LearnPAd</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1459800397000</date>
-  <contentUpdateDate>1459781772000</contentUpdateDate>
+  <date>1459875790000</date>
+  <contentUpdateDate>1459875460000</contentUpdateDate>
   <version>1.1</version>
   <title>Simulation of $!{xwiki.getDocument($services.model.createDocumentReference($xcontext.database,[ "$request.getParameter('modelsetid')", "$request.getParameter('modelid')"],"WebHome")).getDisplayTitle()}</title>
   <comment/>
@@ -145,7 +145,7 @@ Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
       <cache>default</cache>
     </property>
     <property>
-      <code>require(['jquery'], function ($) {
+      <code>require(['jquery'], function (jQuery) {
   var iframe = document.getElementById('simulation-iframe');
   var handleMessage = function handleMessage(e) {
     if(e.data.height) {
@@ -248,34 +248,36 @@ Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
       <cache>default</cache>
     </property>
     <property>
-      <code>require(["jquery"], function ($) {
-$(function(){
+      <code>require(["jquery"], function (jQuery) {
+jQuery(function(){
   var previousData = "";
   var getPanel = function getPanel() {
-    var url = "http://localhost:8080/xwiki/bin/view/LPUI/RecommendationPanel";
+    var prefix = "${services.learnpad.getRestPrefix('CW')}";
+    var domain = prefix.replace('/xwiki/rest', '');
+    var url = domain + "/xwiki/bin/view/LPUI/RecommendationPanel";
     url += "?outputSyntax=html";
     url += "&amp;xpage=plain";
     url += "&amp;sheet=LPUI.RecommendationPanelSheet";
     url += "&amp;recInSimMode=true";
-    $.ajax({
+    jQuery.ajax({
       "url": url,
       "method": "GET"
     }).done(function(data, status, xhr) {
-      var $rightPanels = $("#rightPanels");
+      var rightPanels = jQuery("#rightPanels");
       // Inject data
       if (data !== previousData) {
-        $rightPanels
+        rightPanels
           .empty()
           .append(data)
           .children(".panel")
           .addClass("RecommendationPanel");
         // Inject tooltips
-        var $items = $rightPanels.find(".similarcase-item");
-        $items.each(function(index) {
-          var $item = $(this);
-          var $tooltip = $item.find(".similarcase-tooltip");
-          $item.tooltip({
-            "title": $tooltip.html(),
+        var items = rightPanels.find(".similarcase-item");
+        items.each(function(index) {
+          var item = jQuery(this);
+          var tooltip = item.find(".similarcase-tooltip");
+          item.tooltip({
+            "title": tooltip.html(),
             "html": true
           });
         });
@@ -294,7 +296,7 @@ $(function(){
       <name>Panel injection</name>
     </property>
     <property>
-      <parse/>
+      <parse>1</parse>
     </property>
     <property>
       <use>currentPage</use>
