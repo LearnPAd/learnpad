@@ -111,12 +111,15 @@
 .
 lpd:ARPAM
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "APRAM"@en ;
 .
 lpd:ASUR_department_of_prevention_and_safety_in_workplaces
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "ASUR departement of prevention and safety in workplaces"@en ;
 .
 lpd:ASUR_hygiene_and_health_services
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "ASUR hygiene and health services"@en ;
 .
 lpd:ATECO_Category
   rdf:type owl:Class ;
@@ -128,12 +131,15 @@ lpd:ATECO_SubCategory
 .
 lpd:Accomodation
   rdf:type lpd:ATECO_Category ;
+  rdfs:label "Accomodation"@en ;
 .
 lpd:Administration_Police_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Administration police sector"@en ;
 .
 lpd:Adminstering_Food_and_Beverage_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Adminstering food and beverage sector"@en ;
 .
 lpd:Aggregated_PA
   rdf:type owl:Class ;
@@ -145,12 +151,17 @@ lpd:Agricultural_Zone
 .
 lpd:Agriculture_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Agriculture sector"@en ;
 .
 lpd:Amandola
   rdf:type top:City ;
+  lpd:isPartOfProvince lpd:Province_of_Fermo ;
+  rdfs:label "Amandola"@en ;
 .
 lpd:Ancona
   rdf:type top:City ;
+  lpd:isPartOfProvince lpd:Province_of_Ancona ;
+  rdfs:label "Ancona"@en ;
 .
 lpd:Applicant
   rdf:type owl:Class ;
@@ -176,26 +187,34 @@ lpd:Application_SubType
 .
 lpd:Ascoli_Piceno
   rdf:type top:City ;
+  lpd:isPartOfProvince lpd:Province_of_Ascoli_Piceno ;
+  rdfs:label "Ascoli Piceno"@en ;
 .
 lpd:BarAndSimilarBusinessesWithoutCusine
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:CateringServices ;
+  rdfs:label "Bar and similar businesses without cusine"@en ;
 .
 lpd:Beach_Area_At_The_Lake
   rdf:type lpd:Costal_Zone ;
+  rdfs:label "Beach area at the lake"@en ;
 .
 lpd:Beach_Area_At_The_Sea
   rdf:type lpd:Costal_Zone ;
+  rdfs:label "Beach area at the sea"@en ;
 .
 lpd:BoutiqueHotels_Apartments_BedAndBreakfast_Residence
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:Accomodation ;
+  rdfs:label "Boutique hotels apartments bed and breakfast residence"@en ;
 .
 lpd:Building_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Building sector"@en ;
 .
 lpd:Building_office
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Building office"@en ;
 .
 lpd:BusinessActivity
   rdf:type owl:Class ;
@@ -208,37 +227,47 @@ lpd:BusinessSector
 lpd:CampingGrounds_RecreationalVehiclesAndTrailers
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:Accomodation ;
+  rdfs:label "Camping grounds recreational vehicles and trailers"@en ;
 .
 lpd:Cartoceto
   rdf:type top:City ;
   top:cityIsLocatedInPartOfCountry eo:Marche ;
   lpd:isPartOfProvince lpd:Province_of_Pesaro_and_Urbino ;
+  rdfs:label "Cartoceto"@en ;
 .
 lpd:CateringServices
   rdf:type lpd:ATECO_Category ;
+  rdfs:label "Catering services"@en ;
 .
 lpd:Commercial_Activity
   rdf:type lpd:BusinessActivity ;
+  rdfs:label "Commercial ativity"@en ;
 .
 lpd:Commercial_office
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Commercial office"@en ;
 .
 <http://learnpad.eu#Company_CIA_CONSUL.>
   rdf:type eo:OrganisationalUnit ;
+  rdfs:label "Company CIA Consul"@en ;
 .
 lpd:Company_SANITAS_IMPRESA_SOCIALE
   rdf:type eo:OrganisationalUnit ;
+  rdfs:label "Company Sanitas Impresa Sociale"@en ;
 .
 lpd:ConstructionAndInstallationOfActivitiesNotCategorized
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+  rdfs:label "Construction and installation of activities not categorized"@en ;
 .
 lpd:ConstructionOfBuildings
   rdf:type lpd:ATECO_Category ;
+  rdfs:label "Construction of buildings"@en ;
 .
 lpd:ConstructionOfResidentialAndNotResidentialBuildings
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:ConstructionOfBuildings ;
+  rdfs:label "Construction of residential and not residential buildings"@en ;
 .
 lpd:Costal_Zone
   rdf:type owl:Class ;
@@ -246,31 +275,40 @@ lpd:Costal_Zone
 .
 lpd:Crafts_Activity
   rdf:type lpd:BusinessActivity ;
+  rdfs:label "Crafts ativity"@en ;
 .
 lpd:Custom_office
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Custom office"@en ;
 .
 lpd:Dining
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:CateringServices ;
+  rdfs:label "Dining"@en ;
 .
 lpd:Driving_School_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Driving school sector"@en ;
 .
 lpd:Education_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Education sector"@en ;
 .
 lpd:Energy_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Energy sector"@en ;
 .
 lpd:Environment_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Environment sector"@en ;
 .
 lpd:Environment_office
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Environment office"@en ;
 .
 lpd:Estate_office
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Estate office"@en ;
 .
 lpd:Expansion
   rdf:type lpd:Application_SubType ;
@@ -278,21 +316,28 @@ lpd:Expansion
 .
 lpd:Farming_Activity
   rdf:type lpd:BusinessActivity ;
+  rdfs:label "Farming ativity"@en ;
 .
 lpd:Fermo
   rdf:type top:City ;
+  lpd:isPartOfProvince lpd:Province_of_Fermo ;
+  rdfs:label "Fermo"@en ;
 .
 lpd:Filling_Station_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Filling station sector"@en ;
 .
 lpd:Finance_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Finance sector"@en ;
 .
 lpd:Fire_Fighters_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Fire fighters sector"@en ;
 .
 lpd:Food_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Food sector"@en ;
 .
 lpd:Forrest_Zone
   rdf:type owl:Class ;
@@ -300,22 +345,28 @@ lpd:Forrest_Zone
 .
 lpd:Funerary_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Funerary sector"@en ;
 .
 lpd:GatheringActivities_TreatmentAndDisposalActivities_RecoveryOfMaterial
   rdf:type lpd:ATECO_Category ;
+  rdfs:label "Gathering activities treatment and disposal activities recovery of material"@en ;
 .
 lpd:Health_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Health sector"@en ;
 .
 lpd:Hotels
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:Accomodation ;
+  rdfs:label "Hotels"@en ;
 .
 lpd:Industrial_Activitiy
   rdf:type lpd:BusinessActivity ;
+  rdfs:label "Industrial ativity"@en ;
 .
 lpd:Industrial_Area
   rdf:type lpd:Industrial_Zone ;
+  rdfs:label "Industrial area"@en ;
 .
 lpd:Industrial_Zone
   rdf:type owl:Class ;
@@ -324,26 +375,32 @@ lpd:Industrial_Zone
 lpd:InstallationOfAntifireSystems
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+  rdfs:label "Installation of antifire systems"@en ;
 .
 lpd:InstallationOfCovers
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+  rdfs:label "Installation of covers"@en ;
 .
 lpd:InstallationOfElectricalAndElectronicEquipmentForTelecommunication_TV_etc
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:Rapair_Maintenance_Installation_ofMachineryAndEquipment ;
+  rdfs:label "Installation of electrical and electronic equipment for telecommunication TV etc"@en ;
 .
 lpd:InstallationOfElectricalSystems
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+  rdfs:label "Installation of electrical systems"@en ;
 .
 lpd:InstallationOfFixtureFornitureCeilings_etc
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+  rdfs:label "Installation of fixture forniture ceilings etc"@en ;
 .
 lpd:InstallationOfIdraulicSystems
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+  rdfs:label "Installation of hydraulic systems"@en ;
 .
 lpd:KPI
   rdf:type owl:Class ;
@@ -351,6 +408,7 @@ lpd:KPI
 .
 lpd:Landscape_office
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Landscape"@en ;
 .
 lpd:Living_Zone
   rdf:type owl:Class ;
@@ -362,9 +420,12 @@ lpd:Localization
 .
 lpd:Macerata
   rdf:type top:City ;
+  lpd:isPartOfProvince lpd:Province_of_Macerata ;
+  rdfs:label "Macerata"@en ;
 .
 lpd:Machinery_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Machinery sector"@en ;
 .
 lpd:Marche
   rdf:type lpd:Region ;
@@ -372,19 +433,23 @@ lpd:Marche
 .
 <http://learnpad.eu#Marche_Multiservizi_s.p.a._client_management>
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Marche multiservizi s.p.a. client management"@en ;
 .
 <http://learnpad.eu#Marche_Multiservizi_s.p.a._public_sewer_management>
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Marche multiservizi s.p.a. public sewer management"@en ;
 .
 lpd:MarineAndMountaineSummerCamps
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:Accomodation ;
+  rdfs:label "Marine and mountain summer camps"@en ;
 .
 lpd:ModificationOfProductiveSystems
   rdf:type lpd:ApplicationType ;
 .
 lpd:Municipal_police
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Municipal police"@en ;
 .
 lpd:National_Park_Zone
   rdf:type owl:Class ;
@@ -392,19 +457,23 @@ lpd:National_Park_Zone
 .
 lpd:National_railway_network
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "National railway network"@en ;
 .
 lpd:Naval_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Naval sector"@en ;
 .
 lpd:NewProductiveSystems
   rdf:type lpd:ApplicationType ;
 .
 lpd:Newspaper_and_Megazines_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Newspaper and magazines sector"@en ;
 .
 lpd:NotSpecializedConstruction
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+  rdfs:label "Not specialized construction"@en ;
 .
 lpd:OperationalGoal
   rdf:type owl:Class ;
@@ -416,30 +485,39 @@ lpd:OrganisationalUnit_1
 lpd:OverlayingFloorsAndWalls
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+  rdfs:label "Overlaying floors and walls"@en ;
 .
 lpd:Pesaro
   rdf:type top:City ;
+  lpd:isPartOfProvince lpd:Province_of_Pesaro_and_Urbino ;
+  rdfs:label "Pesaro"@en ;
 .
 lpd:Phone_Center_Internet_Point_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Phone center and internet point sector"@en ;
 .
 lpd:Piceno_Consind
   rdf:type lpd:PublicAdministration ;
   eo:enterpriseObjectIsSituatedInLocation lpd:Province_of_Ascoli_Piceno ;
   rdfs:comment "http://www.picenoconsind.com/"^^xsd:string ;
+  rdfs:label "Piceno Consind"@en ;
 .
 lpd:PlasterAndStucco
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+  rdfs:label "Plaster and stucco"@en ;
 .
 lpd:Port_authorities
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Port authorities"@en ;
 .
 lpd:Port_office
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Port office"@en ;
 .
 lpd:Production_activities_office
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Production activities office"@en ;
 .
 lpd:Province
   rdf:type owl:Class ;
@@ -447,6 +525,7 @@ lpd:Province
 .
 lpd:Province_of_Ancona
   rdf:type lpd:Province ;
+  lpd:provinceIsPartOfRegion lpd:Marche ;
 .
 lpd:Province_of_Ascoli_Piceno
   rdf:type lpd:Province ;
@@ -466,26 +545,33 @@ lpd:Province_of_Pesaro_and_Urbino
 .
 lpd:Provincial_authority_AIA
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Provincial authority AIA"@en ;
 .
 lpd:Provincial_civil_genius
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Provincial civil genius"@en ;
 .
 lpd:Provincial_environment_authority
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Provincial environment authority"@en ;
 .
 lpd:Provincial_fire_fighters
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Provincial fire fighters"@en ;
 .
 lpd:Provincial_public_land_authority
   rdf:type lpd:PublicAdministration ;
   rdfs:comment "e.g. http://www.provincia.pu.it/usodelsuolo/"^^xsd:string ;
+  rdfs:label "Provincial public land authority"@en ;
 .
 lpd:Provincial_urban_office
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Provincial urban office"@en ;
 .
 lpd:ProvisionOfInternetAccess
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:Telecommunication ;
+  rdfs:label "Provision of internet access"@en ;
 .
 lpd:PublicAdministration
   rdf:type owl:Class ;
@@ -493,15 +579,18 @@ lpd:PublicAdministration
 .
 lpd:Public_Land_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Public land sector"@en ;
 .
 lpd:Public_Security_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Public security sector"@en ;
 .
 lpd:Quit
   rdf:type lpd:ApplicationType ;
 .
 lpd:Rapair_Maintenance_Installation_ofMachineryAndEquipment
   rdf:type lpd:ATECO_Category ;
+  rdfs:label "Rapair maintenance installation of machinery and equipment"@en ;
 .
 lpd:Reactivation
   rdf:type lpd:Application_SubType ;
@@ -513,6 +602,7 @@ lpd:Realization
 .
 lpd:Receptive_Toursim_Activity
   rdf:type lpd:BusinessActivity ;
+  rdfs:label "Receptive tourism ativity"@en ;
 .
 lpd:Reconversion
   rdf:type lpd:Application_SubType ;
@@ -528,12 +618,15 @@ lpd:Regional_Nature_Park_Zone
 .
 lpd:Regional_Protected_Area_Comunita_Montana_Alto_e_Medio_Metauro
   rdf:type lpd:Regional_Protected_Area_Zone ;
+  rdfs:label "Regional protected area of comunita Montana Alto e Medio Metauro"@en ;
 .
 lpd:Regional_Protected_Area_Unione_Montana_Monti_Azzurri
   rdf:type lpd:Regional_Protected_Area_Zone ;
+  rdfs:label "Regional protected area of unione Montana Monti Azzurri"@en ;
 .
 lpd:Regional_Protected_Area_Valle_del_Metauro
   rdf:type lpd:Regional_Protected_Area_Zone ;
+  rdfs:label "Regional protected area of Valle del Metauro"@en ;
 .
 lpd:Regional_Protected_Area_Zone
   rdf:type owl:Class ;
@@ -541,6 +634,7 @@ lpd:Regional_Protected_Area_Zone
 .
 lpd:Regional_health_authority
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Regional health authority"@en ;
 .
 lpd:Restructuring
   rdf:type lpd:Application_SubType ;
@@ -548,10 +642,12 @@ lpd:Restructuring
 .
 lpd:Retail_Trade_on_Public_Areas_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Retail trade on public areas sector"@en ;
 .
 lpd:SUAPAscoliPiceno
   rdf:type lpd:Single_PA ;
   lpd:publicAdministrationAdministresLocation lpd:Ascoli_Piceno ;
+  rdfs:label "SUAP Ascoli Piceno"@en ;
 .
 lpd:SUAPMontiAzzurri
   rdf:type lpd:Aggregated_PA ;
@@ -559,14 +655,17 @@ lpd:SUAPMontiAzzurri
   lpd:publicAdministrationAdministresLocation lpd:San_Ginesio ;
   lpd:publicAdministrationAdministresLocation lpd:Sarnano ;
   lpd:publicAdministrationAdministresLocation lpd:Serrapetrona ;
+  rdfs:label "SUAP Monti Azzuri"@en ;
 .
 lpd:SUAPPicenoConsind
   rdf:type lpd:Aggregated_PA ;
   rdfs:comment "http://suap.picenoconsind.it/ We differentiate bewteen SUAP picen consind and Piceno Consind as the latter is a consortium. "^^xsd:string ;
+  rdfs:label "SUAP Piceno Consind"@en ;
 .
 lpd:SUAPSenigallia
   rdf:type lpd:Single_PA ;
   lpd:publicAdministrationAdministresLocation lpd:Senigallia ;
+  rdfs:label "SUAP Senigallia"@en ;
 .
 lpd:SUAPValleDelMetauro
   rdf:type lpd:Aggregated_PA ;
@@ -574,29 +673,40 @@ lpd:SUAPValleDelMetauro
   lpd:publicAdministrationAdministresLocation lpd:Pesaro ;
   lpd:publicAdministrationAdministresLocation lpd:Urbania ;
   lpd:publicAdministrationAdministresLocation lpd:Urbino ;
+  rdfs:label "SUAP Valle del Metauro"@en ;
 .
 lpd:SUAP_officer
   rdf:type lpd:Learner ;
-  rdfs:label ""@en ;
+  rdfs:label "Learner"@en ;
 .
 lpd:San_Ginesio
   rdf:type top:City ;
+  lpd:isPartOfProvince lpd:Province_of_Macerata ;
+  rdfs:label "San Gensio"@en ;
 .
 lpd:Sarnano
   rdf:type top:City ;
+  lpd:isPartOfProvince lpd:Province_of_Macerata ;
+  rdfs:label "Sarnano"@en ;
 .
 lpd:Senigallia
   rdf:type top:City ;
+  lpd:isPartOfProvince lpd:Province_of_Ancona ;
+  rdfs:label "Senigallia"@en ;
 .
 lpd:Serrapetrona
   rdf:type top:City ;
+  lpd:isPartOfProvince lpd:Province_of_Macerata ;
+  rdfs:label "Serrapetrona"@en ;
 .
 lpd:Service_Care_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Service care sector"@en ;
 .
 lpd:Sewer_authority
   rdf:type eo:OrganisationalUnit ;
   rdfs:comment "The sewer authority generally is an non-public organisational unit."^^xsd:string ;
+  rdfs:label "Sewer authority"@en ;
 .
 lpd:Single_PA
   rdf:type owl:Class ;
@@ -605,21 +715,27 @@ lpd:Single_PA
 lpd:SitePreparationAndArrangementOfTerrain
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
+  rdfs:label "Site preparation and arrangement of terrain"@en ;
 .
 lpd:Social_Assistance
   rdf:type lpd:BusinessActivity ;
+  rdfs:label "Social assistance ativity"@en ;
 .
 lpd:Social_coordinator
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Social coordinator"@en ;
 .
 lpd:Social_services
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Social services"@en ;
 .
 lpd:SpecializedConstructionActivities
   rdf:type lpd:ATECO_Category ;
+  rdfs:label "Specialized construction activities"@en ;
 .
 lpd:Sport_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Sport sector"@en ;
 .
 lpd:StrategicGoal
   rdf:type owl:Class ;
@@ -627,27 +743,35 @@ lpd:StrategicGoal
 .
 lpd:Superintendence_for_artistic_architectural_environmentand_historical_goods
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Superintendence for artistic architectural environmentand historical goods"@en ;
 .
 lpd:Tax_office
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Tax office"@en ;
 .
 lpd:Technical_office
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Technical office"@en ;
 .
 lpd:Telecommunication
   rdf:type lpd:ATECO_Category ;
+  rdfs:label "Telecommunication"@en ;
 .
 lpd:Telecommunication_Activity
   rdf:type lpd:BusinessActivity ;
+  rdfs:label "Telecommunication ativity"@en ;
 .
 lpd:Territory_control_office
   rdf:type lpd:PublicAdministration ;
+  rdfs:label "Territory control office"@en ;
 .
 lpd:Tourism_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Tourism sector"@en ;
 .
 lpd:Trade_in_Fixed_Locations_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Trade in fixed locations sector"@en ;
 .
 lpd:Transferring
   rdf:type lpd:Application_SubType ;
@@ -659,10 +783,12 @@ lpd:Transformation
 .
 lpd:Transport_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Transport sector"@en ;
 .
 lpd:TreatmentAndDisposalOfOtherNonHazardousWaste
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:GatheringActivities_TreatmentAndDisposalActivities_RecoveryOfMaterial ;
+  rdfs:label "Treatment and disposal of other non hazardous waste"@en ;
 .
 lpd:Union
   rdf:type owl:Class ;
@@ -670,15 +796,21 @@ lpd:Union
 .
 lpd:Urban_Area
   rdf:type lpd:Living_Zone ;
+  rdfs:label "Urban area"@en ;
 .
 lpd:Urbania
   rdf:type top:City ;
+  lpd:isPartOfProvince lpd:Province_of_Pesaro_and_Urbino ;
+  rdfs:label "Urbania"@en ;
 .
 lpd:Urbino
   rdf:type top:City ;
+  lpd:isPartOfProvince lpd:Province_of_Pesaro_and_Urbino ;
+  rdfs:label "Urbanio"@en ;
 .
 lpd:Waste_Sector
   rdf:type lpd:BusinessSector ;
+  rdfs:label "Waste sector"@en ;
 .
 lpd:Zone
   rdf:type owl:Class ;
