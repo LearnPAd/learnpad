@@ -28,16 +28,19 @@ declare __MVN_BUILD_PROFILES__=""
 
 for arg in $*
 do
-	if [ "$arg" == "--dev" ]
-	then
-		declare __MVN_BUILD_PROFILES__="${__MVN_BUILD_PROFILES__},dev"
-	fi
-	if [ "$arg" == "--review" ]
-	then
-		declare __MVN_BUILD_PROFILES__="${__MVN_BUILD_PROFILES__},review"
-	fi
+	case ${arg} in
+		"--dev")
+			declare __MVN_BUILD_PROFILES__="${__MVN_BUILD_PROFILES__},dev"
+			;;
+		"--review")
+			declare __MVN_BUILD_PROFILES__="${__MVN_BUILD_PROFILES__},review"
+			;;
+	esac
 done
-declare __MVN_PROFILE__="${__MVN_PROFILE__} -P${__MVN_BUILD_PROFILES__}"
+if [[ "${__MVN_BUILD_PROFILES__}" != "" ]]
+then
+	declare __MVN_PROFILE__="${__MVN_PROFILE__} -P${__MVN_BUILD_PROFILES__}"
+fi
 
 ### BUILD ###
 # This is where you compile and build each part of your component
