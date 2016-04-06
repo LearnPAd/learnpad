@@ -49,6 +49,9 @@ public class LOLA {
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         CommandLine cmdLine = new CommandLine(lolaBinPath);
+        
+        cmdLine.addArgument("--nolog");
+        
         //cmdLine.addArgument("--formula="+filePath+".ctl", false);
         cmdLine.addArgument("--formula="+propertyToVerify, false);
         cmdLine.addArgument("--threads=" + cores);
