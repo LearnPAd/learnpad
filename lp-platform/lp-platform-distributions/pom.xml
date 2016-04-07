@@ -72,11 +72,11 @@
 				<component.cw.port>8080</component.cw.port>
 				<component.cw.prefix>/xwiki/rest</component.cw.prefix>
 				<component.mt.protocol>http</component.mt.protocol>
-				<component.mt.ip>192.168.0.100</component.mt.ip>
+				<component.mt.ip>localhost</component.mt.ip>
 				<component.mt.port>8083</component.mt.port>
 				<component.mt.prefix>/rest</component.mt.prefix>
 				<component.mv.protocol>http</component.mv.protocol>
-				<component.mv.ip>192.168.0.100</component.mv.ip>
+				<component.mv.ip>localhost</component.mv.ip>
 				<component.mv.port>9998</component.mv.port>
 				<component.mv.prefix>/rest</component.mv.prefix>
 				<component.sim.protocol>http</component.sim.protocol>
@@ -188,6 +188,10 @@
 									<learnpadPropertiesComponentCaIp>${component.ca.ip}</learnpadPropertiesComponentCaIp>
 									<learnpadPropertiesComponentCaPort>${component.ca.port}</learnpadPropertiesComponentCaPort>
 									<learnpadPropertiesComponentCaPrefix>${component.ca.prefix}</learnpadPropertiesComponentCaPrefix>
+									<learnpadPropertiesComponentCwProtocol>${component.cw.protocol}</learnpadPropertiesComponentCwProtocol>
+									<learnpadPropertiesComponentCwIp>${component.cw.ip}</learnpadPropertiesComponentCwIp>
+									<learnpadPropertiesComponentCwPort>${component.cw.port}</learnpadPropertiesComponentCwPort>
+									<learnpadPropertiesComponentCwPrefix>${component.cw.prefix}</learnpadPropertiesComponentCwPrefix>
 									<learnpadPropertiesComponentMtProtocol>${component.mt.protocol}</learnpadPropertiesComponentMtProtocol>
 									<learnpadPropertiesComponentMtIp>${component.mt.ip}</learnpadPropertiesComponentMtIp>
 									<learnpadPropertiesComponentMtPort>${component.mt.port}</learnpadPropertiesComponentMtPort>
