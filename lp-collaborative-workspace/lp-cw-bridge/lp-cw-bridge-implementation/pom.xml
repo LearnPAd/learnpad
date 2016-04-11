@@ -27,6 +27,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>eu.learnpad</groupId>
+			<artifactId>lp-cp-conf</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.xwiki.platform</groupId>
 			<artifactId>xwiki-platform-rest-api</artifactId>
 			<version>${platform.version}</version>

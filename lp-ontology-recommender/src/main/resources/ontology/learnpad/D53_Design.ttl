@@ -708,6 +708,11 @@ lpd:applicationAffectsZone
   rdfs:label "Affects zone"@en ;
   rdfs:range lpd:Zone ;
 .
+lpd:applicationIsLocatedInCity
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:Application ;
+  rdfs:range top:City ;
+.
 lpd:applicationIsManagedByPublicAdministration
   rdf:type owl:ObjectProperty ;
   rdfs:domain lpd:Application ;

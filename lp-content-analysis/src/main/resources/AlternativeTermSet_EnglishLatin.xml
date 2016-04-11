@@ -196,9 +196,6 @@
 <Alternative word="remain" >
 <Suggestion>stay</Suggestion>
 </Alternative>
-<Alternative word="following" >
-<Suggestion>after</Suggestion>
-</Alternative>
 <Alternative word="defer" >
 <Suggestion>put off, delay</Suggestion>
 </Alternative>
@@ -846,9 +843,6 @@
 </Alternative>
 <Alternative word="cumulative" >
 <Suggestion>added up, added together</Suggestion>
-</Alternative>
-<Alternative word="same" >
-<Suggestion>the, this, that</Suggestion>
 </Alternative>
 <Alternative word="virtually" >
 <Suggestion>almost (or edit out)</Suggestion>

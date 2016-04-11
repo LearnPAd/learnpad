@@ -35,7 +35,7 @@ public class Server {
     private HttpServer server = null;
     
     public Server(){
-        this("http://127.0.0.1/rest");
+        this("http://0.0.0.0/rest");
     }
     
     public Server(String endpoint){

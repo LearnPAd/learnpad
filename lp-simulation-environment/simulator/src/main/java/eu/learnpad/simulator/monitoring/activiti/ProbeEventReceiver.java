@@ -4,6 +4,8 @@
 package eu.learnpad.simulator.monitoring.activiti;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.jms.JMSException;
 import javax.naming.NamingException;
@@ -30,6 +32,7 @@ import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskFailedSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
+import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
 import eu.learnpad.simulator.utils.SimulatorProperties;
 
 /*
@@ -132,8 +135,9 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.timestamp,
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						manager.getModelSetIdFromSessionId(event.initialProcessDefinitionKey),
-						manager.getSimulationSessionParametersData(event.simulationsessionid)));
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
+//						manager.getSimulationSessionParametersData(event.simulationsessionid)));
+						getCleanSessionParameters(event.simulationsessionid)));
 
 		send(monitoringEvent);
 
@@ -153,7 +157,8 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
 						manager.getModelSetIdFromSessionId(event.simulationsessionid),
-						manager.getSimulationSessionParametersData(event.simulationsessionid)));
+//						manager.getSimulationSessionParametersData(event.simulationsessionid)));
+						getCleanSessionParameters(event.simulationsessionid)));
 
 		send(monitoringEvent);
 
@@ -173,7 +178,8 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
 						manager.getModelSetIdFromSessionId(event.simulationsessionid),
-						manager.getSimulationSessionParametersData(event.simulationsessionid),
+//						manager.getSimulationSessionParametersData(event.simulationsessionid),
+						getCleanSessionParameters(event.simulationsessionid),
 						event.processInstance.processartifactkey));
 
 		send(monitoringEvent);
@@ -194,7 +200,7 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
 						manager.getModelSetIdFromSessionId(event.simulationsessionid),
-						manager.getSimulationSessionParametersData(event.simulationsessionid),
+						getCleanSessionParameters(event.simulationsessionid),
 						event.processInstance.processartifactkey));
 		send(monitoringEvent);
 
@@ -214,7 +220,7 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
 						manager.getModelSetIdFromSessionId(event.simulationsessionid),
-						manager.getSimulationSessionParametersData(event.simulationsessionid),
+						getCleanSessionParameters(event.simulationsessionid),
 						manager.getProcessInstanceInfos(event.task.processId).processartifactkey,
 						event.task.key, new ArrayList<String>(
 								event.involvedusers)));
@@ -237,7 +243,7 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
 						manager.getModelSetIdFromSessionId(event.simulationsessionid),
-						manager.getSimulationSessionParametersData(event.simulationsessionid),
+						getCleanSessionParameters(event.simulationsessionid),
 						manager.getProcessInstanceInfos(event.task.processId).processartifactkey,
 						event.task.key, new ArrayList<String>(
 								event.involvedusers), event.completingUser,
@@ -261,7 +267,7 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
 						manager.getModelSetIdFromSessionId(event.simulationsessionid),
-						manager.getSimulationSessionParametersData(event.simulationsessionid),
+						getCleanSessionParameters(event.simulationsessionid),
 						manager.getProcessInstanceInfos(event.task.processId).processartifactkey,
 						event.task.key, new ArrayList<String>(
 								event.involvedusers), event.completingUser,
@@ -285,12 +291,28 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
 						manager.getModelSetIdFromSessionId(event.simulationsessionid),
-						manager.getSimulationSessionParametersData(event.simulationsessionid),
+						getCleanSessionParameters(event.simulationsessionid),
 						manager.getProcessInstanceInfos(event.processid).processartifactkey,
 						event.user, event.sessionscore));
 
 		send(monitoringEvent);
 
+	}
+
+	/**
+	 * Remove useless internal additional data from the parameters associated
+	 * with a sim. session
+	 *
+	 * @param simSessionId
+	 * @return the cleaned map
+	 */
+	private Map<String, Object> getCleanSessionParameters(String simSessionId) {
+		Map<String, Object> res = new HashMap<>(
+				manager.getSimulationSessionParametersData(simSessionId));
+		res.remove(ActivitiProcessManager.SIMULATION_ID_KEY);
+		res.remove("case");
+		res.remove("applicantName");
+		return res;
 	}
 
 }

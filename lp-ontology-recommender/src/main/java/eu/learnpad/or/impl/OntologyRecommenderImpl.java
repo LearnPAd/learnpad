@@ -6,6 +6,7 @@
 package eu.learnpad.or.impl;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -80,16 +81,28 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     
     @Override
     public void simulationInstanceNotification(String modelSetId, String modelId, String action, String simulationId, SimulationData data) throws LpRestException {
-        CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
+    	// This modification is done because currently the ontology does not deals with
+    	// data submitted by the user during simulation, but only with session data.
+    	// In future when the ontology will support this, the following line should be removed    	
+    	data.setSubmittedData(new HashMap<String, Object>());
+    	CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
     }
 
     @Override
     public void simulationTaskStartNotification(String modelSetId, String modelId, String artifactId, String simulationId, SimulationData data) throws LpRestException {
+    	// This modification is done because currently the ontology does not deals with
+    	// data submitted by the user during simulation, but only with session data.
+    	// In future when the ontology will support this, the following line should be removed    	
+    	data.setSubmittedData(new HashMap<String, Object>());
         CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
     }
 
     @Override
     public void simulationTaskEndNotification(String modelSetId, String modelId, String artifactId, String simulationId, SimulationData data) throws LpRestException {
+    	// This modification is done because currently the ontology does not deals with
+    	// data submitted by the user during simulation, but only with session data.
+    	// In future when the ontology will support this, the following line should be removed    	
+    	data.setSubmittedData(new HashMap<String, Object>());
         CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
     }
     

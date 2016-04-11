@@ -22,6 +22,8 @@ package eu.learnpad.core.impl.qm;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.inject.Named;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
@@ -29,8 +31,12 @@ import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
+import org.xwiki.component.annotation.Component;
+import org.xwiki.component.phase.Initializable;
+import org.xwiki.component.phase.InitializationException;
 
-import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.configuration.LearnpadPropertiesConfigurationSource;
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.qm.BridgeInterface;
@@ -40,34 +46,23 @@ import eu.learnpad.qm.BridgeInterface;
  * class should be implemented as a REST invocation
  * toward the BridgeInterface binded at the provided URL
  */
-
-public class XwikiBridgeInterfaceRestResource extends RestResource implements BridgeInterface
+@Component
+@Named("qm")
+public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implements BridgeInterface, Initializable
 {
-
-    public XwikiBridgeInterfaceRestResource()
+    @Override
+    public void initialize() throws InitializationException
     {
-        this("localhost", 8080);
-    }
-
-    public XwikiBridgeInterfaceRestResource(String coreFacadeHostname, int coreFacadeHostPort)
-    {
-        // This constructor could change in the future
-        this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
-    }
-
-    public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort)
-    {
-        // This constructor has to be fixed, since it requires changes on the class
-        // eu.learnpad.core.rest.RestResource
-
+        this.restPrefix = "";
     }
 
     @Override
-    public void importModelSet(String modelSetId, ModelSetType type, InputStream modelContent) throws LpRestExceptionXWikiImpl
+    public void importModelSet(String modelSetId, ModelSetType type, InputStream modelContent)
+        throws LpRestExceptionXWikiImpl
     {
         // Notify QM about a new model set imported
-        HttpClient httpClient = RestResource.getClient();
-        String uri = String.format("%s/learnpad/qm/bridge/importmodel/%s", RestResource.REST_URI, modelSetId);
+        HttpClient httpClient = this.getClient();
+        String uri = String.format("%s/learnpad/qm/bridge/importmodel/%s", DefaultRestResource.REST_URI, modelSetId);
         PutMethod putMethod = new PutMethod(uri);
         putMethod.addRequestHeader("Accept", "application/xml");
 
@@ -92,8 +87,8 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
     {
         // Ask the QM to generate new questionnaire for a given model set
         // that has been already imported
-        HttpClient httpClient = RestResource.getClient();
-        String uri = String.format("%s/learnpad/qm/bridge/generate/%s", RestResource.REST_URI, modelSetId);
+        HttpClient httpClient = this.getClient();
+        String uri = String.format("%s/learnpad/qm/bridge/generate/%s", DefaultRestResource.REST_URI, modelSetId);
         PostMethod postMethod = new PostMethod(uri);
 
         NameValuePair[] queryString = new NameValuePair[1];

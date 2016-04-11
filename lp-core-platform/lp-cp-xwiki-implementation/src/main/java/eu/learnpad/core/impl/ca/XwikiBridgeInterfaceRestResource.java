@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 
+import javax.inject.Named;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -35,13 +36,17 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.http.HttpHeaders;
+import org.xwiki.component.annotation.Component;
+import org.xwiki.component.phase.Initializable;
+import org.xwiki.component.phase.InitializationException;
 
 import eu.learnpad.ca.BridgeInterface;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
 import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.ca.rest.data.stat.AnnotatedStaticContentAnalyses;
 import eu.learnpad.ca.rest.data.stat.StaticContentAnalysis;
-import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.configuration.LearnpadPropertiesConfigurationSource;
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 
@@ -51,32 +56,21 @@ import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
  * toward the BridgeInterface binded at the provided URL
  */
 
-public class XwikiBridgeInterfaceRestResource extends RestResource implements BridgeInterface
+@Component
+@Named("ca")
+public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implements BridgeInterface, Initializable
 {
-
-    public XwikiBridgeInterfaceRestResource()
+    @Override
+    public void initialize() throws InitializationException
     {
-        this("localhost", 8080);
-    }
-
-    public XwikiBridgeInterfaceRestResource(String coreFacadeHostname, int coreFacadeHostPort)
-    {
-        // This constructor could change in the future
-        this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
-    }
-
-    public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort)
-    {
-        // This constructor has to be fixed, since it requires changes on the class
-        // eu.learnpad.core.rest.RestResource
-
+        this.restPrefix = ((LearnpadPropertiesConfigurationSource) this.configurationSource).getRestPrefix("CA");
     }
 
     @Override
     public String putValidateCollaborativeContent(CollaborativeContentAnalysis contentFile) throws LpRestException
     {
-        HttpClient httpClient = RestResource.getAnonymousClient();
-        String uri = String.format("%s/learnpad/ca/bridge/validatecollaborativecontent", RestResource.CA_REST_URI);
+        HttpClient httpClient = this.getAnonymousClient();
+        String uri = String.format("%s/learnpad/ca/bridge/validatecollaborativecontent", this.restPrefix);
         PostMethod postMethod = new PostMethod(uri);
 
         postMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_XML);
@@ -85,7 +79,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
             JAXBContext context = JAXBContext.newInstance(CollaborativeContentAnalysis.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.marshal(contentFile, contentWriter);
-            
+
             RequestEntity entity = new StringRequestEntity(contentWriter.toString(), MediaType.APPLICATION_XML, null);
             postMethod.setRequestEntity(entity);
         } catch (JAXBException | UnsupportedEncodingException e) {
@@ -107,10 +101,10 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
     public AnnotatedCollaborativeContentAnalyses getCollaborativeContentVerifications(String contentID)
         throws LpRestException
     {
-        HttpClient httpClient = RestResource.getAnonymousClient();
-        String uri = String.format("%s/learnpad/ca/bridge/validatecollaborativecontent/%s", RestResource.CA_REST_URI, contentID);
+        HttpClient httpClient = this.getAnonymousClient();
+        String uri = String.format("%s/learnpad/ca/bridge/validatecollaborativecontent/%s", this.restPrefix, contentID);
         GetMethod getMethod = new GetMethod(uri);
-        
+
         try {
             httpClient.executeMethod(getMethod);
         } catch (IOException e) {
@@ -121,10 +115,10 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(AnnotatedCollaborativeContentAnalyses.class);
             InputStream retIs = getMethod.getResponseBodyAsStream();
-            analysis = (AnnotatedCollaborativeContentAnalyses)jaxbContext.createUnmarshaller().unmarshal(retIs);
+            analysis = (AnnotatedCollaborativeContentAnalyses) jaxbContext.createUnmarshaller().unmarshal(retIs);
             return analysis;
         } catch (Exception e) {
-            throw new LpRestExceptionXWikiImpl(e.getMessage(),e);
+            throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
         }
     }
 
@@ -132,10 +126,11 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
     public String getStatusCollaborativeContentVerifications(String contentID) throws LpRestException
     {
 
-        HttpClient httpClient = RestResource.getAnonymousClient();
-        String uri = String.format("%s/learnpad/ca/bridge/validatecollaborativecontent/%s/status", RestResource.CA_REST_URI, contentID);
+        HttpClient httpClient = this.getAnonymousClient();
+        String uri =
+            String.format("%s/learnpad/ca/bridge/validatecollaborativecontent/%s/status", this.restPrefix, contentID);
         GetMethod getMethod = new GetMethod(uri);
-        
+
         try {
             httpClient.executeMethod(getMethod);
             return getMethod.getResponseBodyAsString();
@@ -154,8 +149,7 @@ public class XwikiBridgeInterfaceRestResource extends RestResource implements Br
     }
 
     @Override
-    public AnnotatedStaticContentAnalyses getStaticContentVerifications(String contentID)
-        throws LpRestException
+    public AnnotatedStaticContentAnalyses getStaticContentVerifications(String contentID) throws LpRestException
     {
         // TODO Auto-generated method stub
         return null;

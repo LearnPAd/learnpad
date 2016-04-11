@@ -22,6 +22,7 @@ package eu.learnpad.core.impl.mt;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.inject.Named;
 import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 
@@ -33,8 +34,12 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.http.HttpHeaders;
+import org.xwiki.component.annotation.Component;
+import org.xwiki.component.phase.Initializable;
+import org.xwiki.component.phase.InitializationException;
 
-import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.configuration.LearnpadPropertiesConfigurationSource;
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
@@ -45,38 +50,21 @@ import eu.learnpad.mt.BridgeInterface;
  * class should be implemented as a REST invocation
  * toward the BridgeInterface binded at the provided URL
  */
-public class XwikiBridgeInterfaceRestResource implements BridgeInterface
+@Component
+@Named("mt")
+public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implements BridgeInterface, Initializable
 {
-
-    private String HOSTNAME = "localhost";
-
-    private int PORT = 8083;
-
-    private String URL;
-
-    public XwikiBridgeInterfaceRestResource()
+    @Override
+    public void initialize() throws InitializationException
     {
-        this("localhost", 8083);
-    }
-
-    public XwikiBridgeInterfaceRestResource(String bridgeInterfaceHostname, int bridgeInterfaceHostPort)
-    {
-        // This constructor could change in the future
-        this.updateConfiguration(bridgeInterfaceHostname, bridgeInterfaceHostPort);
-    }
-
-    public void updateConfiguration(String bridgeInterfaceHostname, int bridgeInterfaceHostPort)
-    {
-        this.HOSTNAME = bridgeInterfaceHostname;
-        this.PORT = bridgeInterfaceHostPort;
-        this.URL = "http://" + this.HOSTNAME + ":" + this.PORT + "/rest";
+        this.restPrefix = ((LearnpadPropertiesConfigurationSource) this.configurationSource).getRestPrefix("MT");
     }
 
     @Override
     public InputStream transform(ModelSetType type, InputStream model) throws LpRestException
     {
-        HttpClient httpClient = RestResource.getAnonymousClient();
-        String uri = String.format("%s/learnpad/mt/bridge/transform", RestResource.MT_REST_URI);
+        HttpClient httpClient = this.getAnonymousClient();
+        String uri = String.format("%s/learnpad/mt/bridge/transform", this.restPrefix);
         PostMethod postMethod = new PostMethod(uri);
         postMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM);
         postMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_OCTET_STREAM);

@@ -22,23 +22,25 @@ package eu.learnpad.core.impl.or;
 import java.io.InputStream;
 import java.nio.file.Paths;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
 
 import org.xwiki.component.annotation.Component;
+import org.xwiki.component.manager.ComponentLookupException;
+import org.xwiki.component.manager.ComponentManager;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.core.impl.or.XwikiBridgeInterfaceRestResource;
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.core.rest.RestResource;
-import eu.learnpad.core.rest.XWikiRestUtils;
+import eu.learnpad.core.rest.Utils;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.Controller;
-import eu.learnpad.or.BridgeInterface;
 
 /*
  * It is not clear yet who is responsible for the instantiation
@@ -52,67 +54,54 @@ import eu.learnpad.or.BridgeInterface;
 @Singleton
 @Named("eu.learnpad.core.impl.or.XwikiController")
 @Path("/learnpad/or/corefacade")
-public class XwikiController extends Controller implements XWikiRestComponent, Initializable{
-	
-    /** Set to true once the inherited BridgeInterface has been initialized. */
-    private boolean initialized = false;	
-    
-/*
- * Note that in this solution the Controllers do not interact
- * each-others, but each controller directly invokes the BridgesInterfaces
- * (from the other controllers) it needs. This is not actually what was
- * originally planned, thus in the future it may change.
- *
- * Also, not sure if this is the correct way to proceed.
- * I would like to decide in a configuration file
- * the implementation to bind, and not into the source
- * code. In fact, this second case implies to rebuild the
- * whole platform at each change.	
- */
-	private eu.learnpad.cw.BridgeInterface cw;
-	private eu.learnpad.sim.BridgeInterface sim;
+public class XwikiController extends Controller implements XWikiRestComponent, Initializable
+{
+    @Inject
+    @Named("xwiki")
+    private Utils utils;
 
-    public synchronized void updateBridgeInterface (BridgeInterface bi){
-		this.bridge = bi;    
+    @Inject
+    private ComponentManager componentManager;
+
+    /*
+     * Note that in this solution the Controllers do not interact each-others, but each controller directly invokes the
+     * BridgesInterfaces (from the other controllers) it needs. This is not actually what was originally planned, thus
+     * in the future it may change. Also, not sure if this is the correct way to proceed. I would like to decide in a
+     * configuration file the implementation to bind, and not into the source code. In fact, this second case implies to
+     * rebuild the whole platform at each change.
+     */
+    private eu.learnpad.cw.BridgeInterface cw;
+
+    private eu.learnpad.sim.BridgeInterface sim;
+
+    @Override
+    public void initialize() throws InitializationException
+    {
+        try {
+            this.bridge = this.componentManager.getInstance(RestResource.class, "or");
+
+            this.cw = this.componentManager.getInstance(RestResource.class, "cw");
+            this.sim = this.componentManager.getInstance(RestResource.class, "sim");
+        } catch (ComponentLookupException e) {
+            throw new InitializationException(e.getMessage(), e);
+        }
     }
 
-	 /** A means of instantiating the inherited BridgeInterface according
-	  * to XWIKI (see  http://extensions.xwiki.org/xwiki/bin/view/Extension/Component+Module#HComponentInitialization).
-	  * Actually in this implementation we currently support only 
-	  * the class XwikiBridgeInterfaceRestResource, but other classes (such as XwikiBridgeInterface)
-	  * should be supported in the future
-	  * 
-	  * Not sure if we can consider the default constructor.*/
-	
-	@Override
-	public synchronized void initialize() throws InitializationException {
-		if (!this.initialized){
-			this.bridge = new XwikiBridgeInterfaceRestResource();
-			
-			this.cw = new eu.learnpad.core.impl.cw.XwikiBridgeInterfaceRestResource();
-			this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
-
-			this.initialized=true;
-		}
-	}
-  
-    
     @Override
-	public byte[] getComments(String modelSetId, String artifactId)
-			throws LpRestExceptionImpl {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public byte[] getComments(String modelSetId, String artifactId) throws LpRestExceptionImpl
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public InputStream getModel(String modelSetId, ModelSetType type)
-			throws LpRestException {
-		String attachmentName = String.format("%s.%s", modelSetId, type);
-		String fileName = "adoxx_modelset.xml";
-		java.nio.file.Path filePath = Paths.get(fileName);
-		return XWikiRestUtils.getFileInAttachment(RestResource.CORE_REPOSITORY_WIKI,
-				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName, filePath);
-	}
-
+    @Override
+    public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException
+    {
+        String attachmentName = String.format("%s.%s", modelSetId, type);
+        String fileName = "adoxx_modelset.xml";
+        java.nio.file.Path filePath = Paths.get(fileName);
+        return utils.getFileInAttachment(DefaultRestResource.CORE_REPOSITORY_WIKI,
+            DefaultRestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName, filePath);
+    }
 
 }
