@@ -38,7 +38,7 @@
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
-  <hidden>false</hidden>
+  <hidden>true</hidden>
   <content>{{velocity}}
 #set ($discard = $xwiki.ssx.use('IconThemes.FontAwesome'))
 #set ($discard = $xwiki.jsx.use('IconThemes.FontAwesome'))

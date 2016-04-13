@@ -122,7 +122,7 @@ public class XWikiRestUtils implements Utils
     public boolean createEmptyPage(String wikiName, String spaceName, String pageName)
     {
         String emptyPageXML =
-            "<?xml version=\"1.0\" encoding=\"UTF-8\"?><page xmlns=\"http://www.xwiki.org\"><content/></page>";
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?><page xmlns=\"http://www.xwiki.org\"><hidden>true</hidden><content/></page>";
         return putPage(wikiName, spaceName, pageName, IOUtils.toInputStream(emptyPageXML));
     }
 

@@ -38,7 +38,7 @@
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
-  <hidden>false</hidden>
+  <hidden>true</hidden>
   <content>{{velocity}}
 #set ($modelsetid = $request.getParameter('modelsetid'))
 ## Hard-coded for the moment since the ID may change with ME's import and SIM is not relying on BPMN files from ME

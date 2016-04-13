@@ -38,7 +38,7 @@
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
-  <hidden>false</hidden>
+  <hidden>true</hidden>
   <content>where doc.space = 'LPCode' or doc.space = 'LPUI' or doc.fullName = 'Main.WebHome' or doc.fullName = 'WebIDE.LearnPAd' or doc.fullName = 'Collections.LearnPAdCode'</content>
   <object>
     <name>Collections.LearnPAdCode</name>
