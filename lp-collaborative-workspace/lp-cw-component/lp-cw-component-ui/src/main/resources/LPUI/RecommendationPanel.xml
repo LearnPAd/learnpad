@@ -31,14 +31,14 @@
   <parent>LPUI.SimulationEnvironment</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1459434912000</date>
-  <contentUpdateDate>1459416156000</contentUpdateDate>
+  <date>1459859105000</date>
+  <contentUpdateDate>1459850699000</contentUpdateDate>
   <version>1.1</version>
   <title>RecommendationPanel</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
-  <hidden>false</hidden>
+  <hidden>true</hidden>
   <content/>
   <object>
     <name>LPUI.RecommendationPanel</name>
@@ -123,6 +123,7 @@
     </property>
     <property>
       <content>{{velocity}}
+#set ($recommandationSimulationMode = $request.getParameter('recInSimMode'))
 #set ($baseElementObject = $doc.getObject('LPCode.BaseElementClass'))
 #set ($modelsetid = $baseElementObject.getProperty('modelsetid').value)
 #set ($modelid = $baseElementObject.getProperty('modelid').value)
@@ -150,17 +151,17 @@
 #set ($simulationURL = $xwiki.getURL($simulationReference, 'view', $querystring))
 #set ($currentUser = $xcontext.user)
 #set ($userId = $xwiki.getDocument($currentUser).getObject('XWiki.XWikiUsers').getProperty('email').value)
-#if ($userId)
-## recInSimMode IS A FLAG THAT NOTIFIES THE PANEL THAT IT IS USED DURING A SIMULATION SESSION
-  #if( ${modelsetid} &amp;&amp; ( (!${request.recInSimMode}) || (!${request.recInSimMode.equals("true")}) ) )
-    #set ($recommendations = $services.learnpad.getRecommendations(${modelsetid}, ${artifactid}, ${userId}))
-  #else
+#if ("$!userId" != "")
+  #if ("$!recommandationSimulationMode" != "" &amp;&amp; $recommandationSimulationMode.equals('true'))
     #set ($recMapsBySimID = $services.learnpad.getNotifiedRecommendations(${userId}))
-## NOTE THAT THIS IMPLEMENTATION DOES NOT DISTINGUISH AMONG SEVERAL CONCURRENT SIMULATION SESSIONS.
-## AND IT WILL ALWAYS CONSIDER THE FIRST NOTIFIED RECOMANDATION FOR ANY SIMULATION SESSION.
-## THIS SHOULD BE FIXED IN FUTURE.
-    #if(($recMapsBySimID) &amp;&amp; (!$recMapsBySimID.values().isEmpty()))
-      #set ($recommendations = $recMapsBySimID.values().toArray()[0])
+    #if(("$!recMapsBySimID" != "") &amp;&amp; (!$recMapsBySimID.values().isEmpty()))
+      #set ($recommendationsArray = $recMapsBySimID.values().toArray())
+      #set ($index = $recommendationsArray.size() - 1)
+      #set ($recommendations = $recommendationsArray.get($index))
+    #end
+  #else
+    #if ("$!modelsetid" != "" &amp;&amp; "$!artifactid" != "")
+      #set ($recommendations = $services.learnpad.getRecommendations(${modelsetid}, ${artifactid}, ${userId}))
     #end
   #end
   #if ($recommendations)
@@ -172,15 +173,15 @@
       #if ("$!businessActors" != "" &amp;&amp; $businessActors.size() &gt; 0)
         #panelheader($services.localization.render('LPUI.RecommendationPanel.experts.title'))
         #foreach ($businessActor in $businessActors)
-(((
-${businessActor.name}(% class="pull-right" %)##
-          #if ($businessActor.email)
-{{html}}&lt;a href="mailto:${businessActor.email}"&gt;$services.icon.renderHTML('email')&lt;/a&gt;{{/html}}##
-          #end
-          #if ($businessActor.phoneNumber)
-{{html}}&lt;a href="tel:${businessActor.phoneNumber}"&gt;$services.icon.renderHTML('telephone')&lt;/a&gt;{{/html}}##
-          #end
-)))
+          (((
+            ${businessActor.name}(% class="pull-right" %)##
+            #if ($businessActor.email)
+              {{html}}&lt;a href="mailto:${businessActor.email}"&gt;$services.icon.renderHTML('email')&lt;/a&gt;{{/html}}##
+            #end
+            #if ($businessActor.phoneNumber)
+              {{html}}&lt;a href="tel:${businessActor.phoneNumber}"&gt;$services.icon.renderHTML('telephone')&lt;/a&gt;{{/html}}##
+            #end
+          )))
         #end
         #panelfooter()
       #end
@@ -200,10 +201,10 @@ ${businessActor.name}(% class="pull-right" %)##
       #if ("$!learningMaterialsList" != "" &amp;&amp; $learningMaterialsList.size() &gt; 0)
         #panelheader($services.localization.render('LPUI.RecommendationPanel.learningmaterials.title'))
         #foreach ($learningMaterial in $learningMaterialsList)
-(((
-; [[${learningMaterial.name}&gt;&gt;${learningMaterial.url}]]
-: (% class="help-block" %)${learningMaterial.description}
-)))
+          (((
+            ; [[${learningMaterial.name}&gt;&gt;${learningMaterial.url}]]
+            : (% class="help-block" %)${learningMaterial.description}
+          )))
         #end
         #panelfooter()
       #end
@@ -216,10 +217,28 @@ ${businessActor.name}(% class="pull-right" %)##
       #if ("$!similarCasesList" != "" &amp;&amp; $similarCasesList.size() &gt; 0)
         #panelheader($services.localization.render('LPUI.RecommendationPanel.similarcases.title'))
         #foreach ($similarCase in $similarCasesList)
-(((
-; ${similarCase.name}
-: (% class="help-block" %)${similarCase.similarityValue}
-)))
+          (% class="similarcase-item" %)(((
+          ; ${similarCase.name}
+          : (% class="help-block" %)${similarCase.similarityValue}
+            (% class="hidden similarcase-tooltip" %)(((
+              #set ($similarCaseData = $similarCase.data)
+              #if ("$!similarCaseData" != "")
+                #foreach($key in $similarCaseData.keySet())
+                  (% class="row" %)(((
+                    #set ($valueList = $similarCaseData.get($key).getTheList())
+                    (% class="col-xs-12 col-md-4 text-right" %)(((
+                      **${services.localization.render("LPUI.RecommendationPanel.similarcases.category.${key}")}**
+                    )))
+                    (% class="col-xs-12 col-md-8 text-left" %)(((
+                      #foreach ($value in $valueList)
+                        ${value}
+                      #end
+                    )))
+                  )))
+                #end
+              #end
+            )))
+          )))
         #end
         #panelfooter()
       #end

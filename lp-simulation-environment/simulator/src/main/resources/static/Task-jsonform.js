@@ -42,9 +42,25 @@ function taskFormGenerate(taskid, data, formContainer, formId, callback) {
 }
 
 function saveFormContent(taskid, values) {
-    sessionStorage.setItem(taskid, JSON.stringify(values));
+    try {
+        if (window.sessionStorage) {
+            sessionStorage.setItem(taskid, JSON.stringify(values));
+        }
+    } catch (exception) {
+        // nothing more we can do
+    }
 }
 
 function retrieveFormContent(taskid) {
-    return JSON.parse(sessionStorage.getItem(taskid));
+    try {
+        if (window.sessionStorage) {
+            if (window.sessionStorage && window.sessionStorage.getItem(taskid)) {
+                return JSON.parse(sessionStorage.getItem(taskid));
+            }
+        }
+    } catch (exception) {
+        // do nothing, we will return default value
+    }
+    // default return value in case of null or failure
+    return null;
 }
