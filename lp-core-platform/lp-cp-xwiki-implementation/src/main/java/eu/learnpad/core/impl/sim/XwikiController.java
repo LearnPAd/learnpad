@@ -218,14 +218,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
         return utils.getEmailAddress(wikiName, username);
     }
 
-    private void handleRecommendations(String modelSetId, String artifactId, List<String> involvedUsers,
-        String simulationId) throws LpRestException
-    {
-        if (involvedUsers == null) {
-            String message = "List \"involvedUsers\" is null (ModelSetId:" + modelSetId + ", ArtifactId:" + artifactId
-                + ",SimulationId:" + simulationId + ")";
-            throw new LpRestExceptionXWikiImpl(message);
-        }
+    private void handleRecommendations(String modelSetId, String artifactId, List<String> involvedUsers, String simulationId) throws LpRestException {
+        checkBeforeProcessingRecommendations(modelSetId, artifactId, involvedUsers, simulationId);
 
         for (String simUserId : involvedUsers) {
             String userEmail = this.converUserID(simUserId);
@@ -235,14 +229,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
         }
     }
 
-    private void deleteRecommendations(String modelSetId, String artifactId, List<String> involvedUsers,
-            String simulationId) throws LpRestException
-        {
-            if (involvedUsers == null) {
-                String message = "List \"involvedUsers\" is null (ModelSetId:" + modelSetId + ", ArtifactId:" + artifactId
-                    + ",SimulationId:" + simulationId + ")";
-                throw new LpRestExceptionXWikiImpl(message);
-            }
+    private void deleteRecommendations(String modelSetId, String artifactId, List<String> involvedUsers,String simulationId) throws LpRestException {
+            checkBeforeProcessingRecommendations(modelSetId, artifactId, involvedUsers, simulationId);
 
             for (String simUserId : involvedUsers) {
                 String userEmail = this.converUserID(simUserId);
@@ -250,4 +238,13 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
                 this.cw.deleteRecommendations(modelSetId, simulationId, userEmail);
             }
         }
+
+    private void checkBeforeProcessingRecommendations(String modelSetId, String artifactId, List<String> involvedUsers, String simulationId) throws LpRestExceptionXWikiImpl {
+		if (involvedUsers == null) {
+            String message = "List \"involvedUsers\" is null (ModelSetId:" + modelSetId + ", ArtifactId:" + artifactId
+                + ",SimulationId:" + simulationId + ")";
+            throw new LpRestExceptionXWikiImpl(message);
+        }
+	}
+
 }
