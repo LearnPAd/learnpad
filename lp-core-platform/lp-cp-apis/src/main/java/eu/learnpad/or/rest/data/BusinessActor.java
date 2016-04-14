@@ -16,7 +16,10 @@ public class BusinessActor {
     private String uri;
     private String name;
     private String email;
+    private String skypeId;
     private String phoneNumber;
+    private String officeAddress;
+    private OrganisationalUnit organisationalUnit;    
     private String role;
     private String description;
 
@@ -48,6 +51,15 @@ public class BusinessActor {
         this.email = email;
     }
 
+    public String getSkypeId() {
+        return skypeId;
+    }
+
+    @XmlElement
+    public void setSkypeId(String skypeId) {
+        this.skypeId = skypeId;
+    }
+    
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -64,6 +76,24 @@ public class BusinessActor {
     @XmlElement
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getOfficeAddress() {
+        return officeAddress;
+    }
+
+    @XmlElement
+    public void setOfficeAddress(String officeAddress) {
+        this.officeAddress = officeAddress;
+    }
+
+    public OrganisationalUnit getOrganisationalUnit() {
+        return organisationalUnit;
+    }
+
+    @XmlElement
+    public void setOrganisationalUnit(OrganisationalUnit organisationalUnit) {
+        this.organisationalUnit = organisationalUnit;
     }
 
     public String getDescription() {

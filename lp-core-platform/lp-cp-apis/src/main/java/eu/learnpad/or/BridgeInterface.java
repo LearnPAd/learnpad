@@ -26,11 +26,12 @@ import eu.learnpad.or.rest.AskRecommendation;
 import eu.learnpad.or.rest.ListExecutionStates;
 import eu.learnpad.or.rest.ModelSetImported;
 import eu.learnpad.or.rest.ResourceNotification;
+import eu.learnpad.or.rest.SemanticWiki;
 import eu.learnpad.or.rest.SimulationNotification;
 
 @Path("/learnpad/or/bridge")
 public interface BridgeInterface extends ModelSetImported,
 		ResourceNotification, AskRecommendation, SimulationNotification, 
-                AddExecutionState, ListExecutionStates {
+                AddExecutionState, ListExecutionStates, SemanticWiki {
 
 }
