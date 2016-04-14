@@ -41,6 +41,10 @@
 		<component.ca.ip>localhost</component.ca.ip>
 		<component.ca.port>8082</component.ca.port>
 		<component.ca.prefix>/lp-content-analysis</component.ca.prefix>
+		<component.cw.protocol>http</component.cw.protocol>
+		<component.cw.ip>localhost</component.cw.ip>
+		<component.cw.port>8080</component.cw.port>
+		<component.cw.prefix>/xwiki/rest</component.cw.prefix>
 		<component.mt.protocol>http</component.mt.protocol>
 		<component.mt.ip>localhost</component.mt.ip>
 		<component.mt.port>8083</component.mt.port>
@@ -54,6 +58,34 @@
 		<component.sim.port>8081</component.sim.port>
 		<component.sim.prefix></component.sim.prefix>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>review</id>
+			<properties>
+				<component.ca.protocol>http</component.ca.protocol>
+				<component.ca.ip>192.168.0.200</component.ca.ip>
+				<component.ca.port>8082</component.ca.port>
+				<component.ca.prefix>/lp-content-analysis</component.ca.prefix>
+				<component.cw.protocol>http</component.cw.protocol>
+				<component.cw.ip>192.168.0.100</component.cw.ip>
+				<component.cw.port>8080</component.cw.port>
+				<component.cw.prefix>/xwiki/rest</component.cw.prefix>
+				<component.mt.protocol>http</component.mt.protocol>
+				<component.mt.ip>localhost</component.mt.ip>
+				<component.mt.port>8083</component.mt.port>
+				<component.mt.prefix>/rest</component.mt.prefix>
+				<component.mv.protocol>http</component.mv.protocol>
+				<component.mv.ip>localhost</component.mv.ip>
+				<component.mv.port>9998</component.mv.port>
+				<component.mv.prefix>/rest</component.mv.prefix>
+				<component.sim.protocol>http</component.sim.protocol>
+				<component.sim.ip>192.168.0.110</component.sim.ip>
+				<component.sim.port>8081</component.sim.port>
+				<component.sim.prefix></component.sim.prefix>
+			</properties>
+		</profile>
+	</profiles>
 
 	<modules>
 		<module>lp-platform-jetty-hsqldb</module>
@@ -156,6 +188,10 @@
 									<learnpadPropertiesComponentCaIp>${component.ca.ip}</learnpadPropertiesComponentCaIp>
 									<learnpadPropertiesComponentCaPort>${component.ca.port}</learnpadPropertiesComponentCaPort>
 									<learnpadPropertiesComponentCaPrefix>${component.ca.prefix}</learnpadPropertiesComponentCaPrefix>
+									<learnpadPropertiesComponentCwProtocol>${component.cw.protocol}</learnpadPropertiesComponentCwProtocol>
+									<learnpadPropertiesComponentCwIp>${component.cw.ip}</learnpadPropertiesComponentCwIp>
+									<learnpadPropertiesComponentCwPort>${component.cw.port}</learnpadPropertiesComponentCwPort>
+									<learnpadPropertiesComponentCwPrefix>${component.cw.prefix}</learnpadPropertiesComponentCwPrefix>
 									<learnpadPropertiesComponentMtProtocol>${component.mt.protocol}</learnpadPropertiesComponentMtProtocol>
 									<learnpadPropertiesComponentMtIp>${component.mt.ip}</learnpadPropertiesComponentMtIp>
 									<learnpadPropertiesComponentMtPort>${component.mt.port}</learnpadPropertiesComponentMtPort>

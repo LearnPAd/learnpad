@@ -46,6 +46,7 @@ public class LearnpadPropertiesConfigurationSource extends CommonsConfigurationS
 
     private enum Component
     {
+        CW,
         CA,
         MT,
         MV,

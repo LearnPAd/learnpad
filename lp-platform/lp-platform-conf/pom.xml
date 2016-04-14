@@ -109,12 +109,6 @@
 						<transformation>
 							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
 							<file>XWiki/XWikiPreferences.xml</file>
-							<xpath>/xwikidoc/object/property/showattachments</xpath>
-							<value>0</value>
-						</transformation>
-						<transformation>
-							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
-							<file>XWiki/XWikiPreferences.xml</file>
 							<xpath>/xwikidoc/object/property/showhistory</xpath>
 							<value>0</value>
 						</transformation>
@@ -196,13 +190,7 @@
 									<xpath>/xwikidoc/object/property/rightPanels</xpath>
 									<value>LPUI.RecommendationPanel</value>
 								</transformation>
-								<!-- Remove tabs at the bottom -->
-								<transformation>
-									<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
-									<file>XWiki/XWikiPreferences.xml</file>
-									<xpath>/xwikidoc/object/property/showattachments</xpath>
-									<value>1</value>
-								</transformation>
+								<!-- Show tabs at the bottom -->
 								<transformation>
 									<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
 									<file>XWiki/XWikiPreferences.xml</file>
