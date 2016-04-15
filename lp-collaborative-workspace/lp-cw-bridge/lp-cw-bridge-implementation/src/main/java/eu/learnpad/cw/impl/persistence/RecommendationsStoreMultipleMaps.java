@@ -36,7 +36,7 @@ public class RecommendationsStoreMultipleMaps extends RecommendationsStore{
 	 * Stores Recommendations by both UserID and SimID 
 	 */
 	private Map<String, Map<String,Recommendations>> recsByUserIDandSimIDMap;
-
+			
 	public RecommendationsStoreMultipleMaps(){
 		this.recsByUserIDandSimIDMap = Collections.synchronizedMap(new HashMap<String, Map<String, Recommendations>>());
 	}
@@ -59,7 +59,7 @@ public class RecommendationsStoreMultipleMaps extends RecommendationsStore{
 		Map<String, Recommendations> map = this.recsByUserIDandSimIDMap.get(userID);
 		if (map != null)
 			rec = map.get(simID);
-		
+
 		return rec;
 	}
 
@@ -88,6 +88,9 @@ public class RecommendationsStoreMultipleMaps extends RecommendationsStore{
  * @returns old Recommendations or null  
  */
 	public Recommendations put(String userID, String simID, Recommendations rec) {
+		
+//		SimilarCase scOne = rec.getSimilarCases().getSimilarCases().get(0);
+		
 		Map<String, Recommendations> map = this.recsByUserIDandSimIDMap.get(userID);
 		if ( map == null){
 			map = Collections.synchronizedMap(new HashMap<String, Recommendations>());
@@ -111,7 +114,7 @@ public class RecommendationsStoreMultipleMaps extends RecommendationsStore{
 		
 		Map<String, Recommendations> map = this.recsByUserIDandSimIDMap.get(userID);
 		if ( map != null){
-			rec = map.remove(simID);		
+			rec = map.remove(simID);
 		}
 		
 		return rec;
@@ -126,7 +129,9 @@ public class RecommendationsStoreMultipleMaps extends RecommendationsStore{
 	 * @returns deleted map of Recommendations by SimID or null  
 	 */
 	public Map<String,Recommendations> delete(String userID) {		
-		Map<String, Recommendations> map = this.recsByUserIDandSimIDMap.get(userID);		
+		Map<String, Recommendations> map = this.recsByUserIDandSimIDMap.remove(userID);
+
 		return map;
 	}
+	
 }

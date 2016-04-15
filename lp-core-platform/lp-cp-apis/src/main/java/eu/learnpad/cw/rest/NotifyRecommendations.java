@@ -15,4 +15,10 @@ public interface NotifyRecommendations
     @PUT
     public void notifyRecommendations(@PathParam("modelsetid") String modelSetId, @QueryParam("simulationid") @DefaultValue("") String simulationid,
         @QueryParam("userid") @DefaultValue("") String userId, Recommendations rec) throws LpRestException;
+
+    @Path("/notify/deleterecs/{modelsetid}")
+    @PUT
+    public void deleteRecommendations(@PathParam("modelsetid") String modelSetId, @QueryParam("simulationid") @DefaultValue("") String simulationid,
+        @QueryParam("userid") @DefaultValue("") String userId) throws LpRestException;
+
 }
