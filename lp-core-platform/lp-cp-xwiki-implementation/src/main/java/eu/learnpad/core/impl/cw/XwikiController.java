@@ -21,6 +21,7 @@ package eu.learnpad.core.impl.cw;
 
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
@@ -147,6 +148,14 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
     public String startSimulation(String modelId, String currentUser, Collection<UserData> potentialUsers)
         throws LpRestException
     {
+    	currentUser = this.removePrefixes(currentUser);
+
+//    	if (potentialUsers != null){
+//    		for (UserData userData : potentialUsers) {
+//    			userData.id = this.removePrefixes(userData.id);
+//    		}
+//    	}	
+    	
         return this.sim.addProcessInstance(modelId, potentialUsers, currentUser);
     }
 
@@ -235,4 +244,10 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
     {
         return this.ca.getCollaborativeContentVerifications(analysisId);
     }
+    
+    private String removePrefixes(String userId){
+        String username = userId.replaceFirst("XWiki\\.", "");
+        return username;
+    }
+    
 }

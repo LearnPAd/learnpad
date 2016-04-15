@@ -353,7 +353,7 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 
         for (String userId : potentialUsers) {
             UserData user = new UserData();
-            user.id = userId;
+            user.id = this.removePrefixes(userId);
 
             DocumentReference userReference = stringDocumentReferenceResolver.resolve(userId);
             try {
@@ -418,5 +418,10 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 
         CWXwikiBridge.recsStore.put(userId, simulationid, rec);
     }
-
+    
+    private String removePrefixes(String userId){
+        String username = userId.replaceFirst("XWiki\\.", "");
+        return username;
+    }
+    
 }
