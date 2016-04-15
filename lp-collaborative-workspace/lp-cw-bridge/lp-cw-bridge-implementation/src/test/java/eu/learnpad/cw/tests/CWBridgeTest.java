@@ -1,6 +1,8 @@
 package eu.learnpad.cw.tests;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 import org.junit.Assert;
@@ -20,6 +22,11 @@ import eu.learnpad.or.rest.data.Recommendations;
 * @author gulyx
 */
 public class CWBridgeTest {
+	 @Rule
+     public final MockitoComponentMockingRule<CWXwikiBridge> mocker = new MockitoComponentMockingRule(CWXwikiBridge.class,eu.learnpad.cw.UICWBridge.class);
+//     public final MockitoComponentMockingRule<CWXwikiBridge> mocker = new MockitoComponentMockingRule(CWXwikiBridge.class,eu.learnpad.cw.UICWBridge.class,new ArrayList(Arrays.asList(javax.servlet.http.HttpServletRequest,org.xwiki.query.QueryManager.class, eu.learnpad.core.rest.RestResource.class,org.xwiki.configuration.ConfigurationSource.class, org.xwiki.query.QueryFilter.class, org.xwiki.model.reference.DocumentReferenceResolver.class)));
+//     public final MockitoComponentMockingRule<CWXwikiBridge> mocker = new MockitoComponentMockingRule(CWXwikiBridge.class,org.xwiki.rest.XWikiRestComponent.class);
+	
 	private CWXwikiBridge bridge;
 	private SecureRandom random;
 	
@@ -27,10 +34,6 @@ public class CWBridgeTest {
 		this.random = new SecureRandom();
 	}
 		
-	 @Rule
-//     public final MockitoComponentMockingRule<CWXwikiBridge> mocker = new MockitoComponentMockingRule(CWXwikiBridge.class,eu.learnpad.cw.UICWBridge.class);
-     public final MockitoComponentMockingRule<CWXwikiBridge> mocker = new MockitoComponentMockingRule(CWXwikiBridge.class,org.xwiki.rest.XWikiRestComponent.class);
-	
 	@Test
 	public void testInsertNotifiedReccomandations() throws ComponentLookupException, InitializationException, LpRestException{	
 		bridge = mocker.getComponentUnderTest();
@@ -42,6 +45,12 @@ public class CWBridgeTest {
 		String modelSetId = "mod."+String.valueOf(this.random.nextInt());
 		String userId = "dummyUser";
 		
+		int numberOfRecsStored = 0;
+		Map<String, Recommendations> notifiedRecsMaps = bridge.getNotifiedRecommendations(userId);
+		if (notifiedRecsMaps != null){
+			numberOfRecsStored = notifiedRecsMaps.size();
+		}
+		
 //		bridge.initialize();
 			
 		for (int i=0; i<maxTentatives; i++){
@@ -50,9 +59,15 @@ public class CWBridgeTest {
 			String simulationid = String.valueOf(baseValue);
 			bridge.notifyRecommendations(modelSetId, simulationid, userId, rec);				
 		}
-		Map<String,Recommendations> notifiedRecsMaps = bridge.getNotifiedRecommendations(userId);
+		
+		notifiedRecsMaps = bridge.getNotifiedRecommendations(userId);
+		int currentNumberOfRecsStored = 0;
+		if (notifiedRecsMaps != null){
+			currentNumberOfRecsStored = notifiedRecsMaps.size();
+		}		
+		
 // All the recs must be preserved			
-		Assert.assertTrue( notifiedRecsMaps.size() == maxTentatives );
+		Assert.assertTrue( currentNumberOfRecsStored == (maxTentatives + numberOfRecsStored) );
 	}
 	
 	@Test
@@ -67,6 +82,12 @@ public class CWBridgeTest {
 		String modelSetId = "mod."+String.valueOf(this.random.nextInt());
 		String userId = "dummyUser";
 		
+		int numberOfRecsStored = 0;
+		Map<String, Recommendations> notifiedRecsMaps = bridge.getNotifiedRecommendations(userId);
+		if (notifiedRecsMaps != null){
+			numberOfRecsStored = notifiedRecsMaps.size();
+		}
+		
 //		bridge.initialize();
 			
 		bridge.notifyRecommendations(modelSetId, simulationid, userId, rec);				
@@ -75,11 +96,17 @@ public class CWBridgeTest {
 			
 		for (int i=0; i<maxTentatives; i++){
 // Since the simulationid is banned, so no more recs for this simulation session are accepted
+// Here there is the assumption that this loop last less than CWXwikiBridge.BANNING_PERIOD_IN_MILLI_SEC
 			bridge.notifyRecommendations(modelSetId, simulationid, userId, rec);				
 		}
 			
-		Map<String,Recommendations> notifiedRecsMaps = bridge.getNotifiedRecommendations(userId);
-		Assert.assertTrue( notifiedRecsMaps.isEmpty() );			
+		notifiedRecsMaps = bridge.getNotifiedRecommendations(userId);
+		int currentNumberOfRecsStored = 0;
+		if (notifiedRecsMaps != null){
+			currentNumberOfRecsStored = notifiedRecsMaps.size();
+		}		
+		
+		Assert.assertTrue( currentNumberOfRecsStored == numberOfRecsStored );
 	}
 	
 }
