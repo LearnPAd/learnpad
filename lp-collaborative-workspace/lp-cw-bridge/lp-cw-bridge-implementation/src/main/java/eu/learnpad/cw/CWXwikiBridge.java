@@ -443,8 +443,8 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 
 	private boolean isBanningPeriodExpired(String simId){
 		boolean status = true;		
-		if (this.bannedSimIDMap.containsKey(simId)){
-			status = (( this.bannedSimIDMap.get(simId) + this.BANNING_PERIOD_IN_MILLI_SEC ) > System.currentTimeMillis());
+		if (this.bannedSimIDMap.containsKey(simId)){			
+			status = (System.currentTimeMillis() > ( this.bannedSimIDMap.get(simId) + this.BANNING_PERIOD_IN_MILLI_SEC ));
 			if (status){
 				this.bannedSimIDMap.remove(simId);
 			}
