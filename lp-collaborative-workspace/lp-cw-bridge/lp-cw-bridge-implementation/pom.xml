@@ -60,5 +60,11 @@
 			<artifactId>Saxon-HE</artifactId>
 			<version>9.6.0-5</version>
 		</dependency>
+		<dependency>
+			<groupId>org.xwiki.commons</groupId>
+			<artifactId>xwiki-commons-tool-test-component</artifactId>
+			<scope>test</scope>
+			<version>${commons.version}</version>
+		</dependency>
 	</dependencies>
 </project>
