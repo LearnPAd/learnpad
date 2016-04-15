@@ -28,13 +28,14 @@ public class CWBridgeTest {
 	}
 		
 	 @Rule
-     public final MockitoComponentMockingRule<CWXwikiBridge> mocker = new MockitoComponentMockingRule(CWXwikiBridge.class);
+//     public final MockitoComponentMockingRule<CWXwikiBridge> mocker = new MockitoComponentMockingRule(CWXwikiBridge.class,eu.learnpad.cw.UICWBridge.class);
+     public final MockitoComponentMockingRule<CWXwikiBridge> mocker = new MockitoComponentMockingRule(CWXwikiBridge.class,org.xwiki.rest.XWikiRestComponent.class);
 	
 	@Test
 	public void testInsertNotifiedReccomandations() throws ComponentLookupException, InitializationException, LpRestException{	
 		bridge = mocker.getComponentUnderTest();
 		
-		int maxTentatives = this.random.nextInt(4);
+		int maxTentatives = this.random.nextInt(4) + 1;
 		long baseValue = this.random.nextLong()/2;
 		
 		Recommendations rec = new Recommendations();
