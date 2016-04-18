@@ -48,6 +48,8 @@ telling every component that a new modelset is available, it will launch a model
 verification.  The verification ID will be returned to the Modelling Environment
 (ME).
 
+The models used during the demo for the Y2 Review are available in ``src/test/resources/``
+
 **cURL**
 ```
 curl \
