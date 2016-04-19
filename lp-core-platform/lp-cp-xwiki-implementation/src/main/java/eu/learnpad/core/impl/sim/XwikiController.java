@@ -139,8 +139,6 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		// Not sure if it is always the case to notify the CW, as this
 		// notification ends the simulation
 		// and probably the Recommendations are not needed anymore!
-		// this.handleRecommendations(modelSetId, modelId, event.involvedusers,
-		// simulationId);
 		this.deleteRecommendations(modelSetId, modelId, event.involvedusers, simulationId);
 	}
 
@@ -202,10 +200,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		// TODO Auto-generated method stub
 	}
 
-	private String converUserID(String simUserId) throws LpRestException {
-		// http://<server>/xwiki/rest/wikis/query?q=object:XWiki.XWikiUsers
-		// http://<server>/rest/wikis/xwiki/spaces/XWiki/pages/<username>/objects/XWiki.XWikiUsers/0/properties/email
-
+	private String convertUserID(String simUserId) throws LpRestException {
 		String wikiName = DefaultRestResource.CORE_REPOSITORY_WIKI;
 		String username = simUserId.replaceFirst("XWiki\\.", "");
 		return utils.getEmailAddress(wikiName, username);
@@ -216,10 +211,9 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		checkBeforeProcessingRecommendations(modelSetId, artifactId, involvedUsers, simulationId);
 
 		for (String simUserId : involvedUsers) {
-			String userEmail = this.converUserID(simUserId);
-
+			String userEmail = this.convertUserID(simUserId);
 			Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userEmail, simulationId);
-			this.cw.notifyRecommendations(modelSetId, simulationId, userEmail, rec);
+			this.cw.notifyRecommendations(modelSetId, simulationId, simUserId, rec);
 		}
 	}
 
@@ -228,9 +222,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		checkBeforeProcessingRecommendations(modelSetId, artifactId, involvedUsers, simulationId);
 
 		for (String simUserId : involvedUsers) {
-			String userEmail = this.converUserID(simUserId);
-
-			this.cw.deleteRecommendations(modelSetId, simulationId, userEmail);
+			this.cw.deleteRecommendations(modelSetId, simulationId, simUserId);
 		}
 	}
 

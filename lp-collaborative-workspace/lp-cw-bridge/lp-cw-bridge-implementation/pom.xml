@@ -72,5 +72,10 @@
 			<version>5.1.12</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.xwiki.contrib</groupId>
+			<artifactId>xwiki-contrib-websocket</artifactId>
+			<version>1.7</version>
+		</dependency>
 	</dependencies>
 </project>

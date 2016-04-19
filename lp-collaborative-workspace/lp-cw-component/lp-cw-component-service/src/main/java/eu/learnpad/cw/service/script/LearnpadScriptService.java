@@ -54,7 +54,7 @@ public class LearnpadScriptService implements ScriptService, UICWBridge
     private ScriptServiceManager scriptServiceManager;
 
     @Inject
-    @Named("eu.learnpad.cw.CWXwikiBridge")
+    @Named("eu.learnpad.cw.internal.CWXwikiBridge")
     private UICWBridge cwBridge;
 
     /**
@@ -107,17 +107,7 @@ public class LearnpadScriptService implements ScriptService, UICWBridge
             return null;
         }
     }
-
-    public Map<String, Recommendations> getNotifiedRecommendations(String userId)
-    {
-        try {
-            return this.cwBridge.getNotifiedRecommendations(userId);
-        } catch (Exception e) {
-            this.setLastError(e);
-            return null;
-        }
-    }
-
+    
     public String startSimulation(String modelId, String currentUser, Collection<String> potentialUsers)
     {
         try {
