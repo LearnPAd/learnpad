@@ -59,7 +59,7 @@ public class Main {
 			simulator = new Simulator(ACTIVITY_CONFIG_PATH, PORT);
 
 			simulator.userHandler().addUser(
-					new UserData("XWiki.bbarnes", "Barnaby", "Barnes", "", "",
+					new UserData("bbarnes", "Barnaby", "Barnes", "", "",
 							""));
 
 			// load process definitions

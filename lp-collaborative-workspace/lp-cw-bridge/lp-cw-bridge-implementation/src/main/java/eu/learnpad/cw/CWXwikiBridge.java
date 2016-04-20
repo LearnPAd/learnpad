@@ -362,7 +362,7 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 
         for (String userId : potentialUsers) {
             UserData user = new UserData();
-            user.id = userId;
+            user.id = this.removePrefixes(userId);
 
             DocumentReference userReference = stringDocumentReferenceResolver.resolve(userId);
             try {
@@ -430,7 +430,7 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
         }
     }
 
-	@Override
+    @Override
 	public void deleteRecommendations(String modelSetId, String simulationid, String userId) throws LpRestException {
         String msg = "resetting Recs for : modelSetId : " + modelSetId + "\n" + "simulationid : " + simulationid + "\n" + "userId : "
                 + userId ;
@@ -452,4 +452,9 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 		return status;
 	}
 
+    private String removePrefixes(String userId){
+        String username = userId.replaceFirst("XWiki\\.", "");
+        return username;
+    }
+    
 }
