@@ -83,6 +83,7 @@ import eu.learnpad.rest.model.jaxb.PFResults.Patches.Patch.Artefact;
 import eu.learnpad.rest.model.jaxb.PFResults.Patches.Patch.Artefact.Attribute;
 import eu.learnpad.rest.model.jaxb.PatchType;
 import eu.learnpad.sim.rest.data.UserData;
+import eu.learnpad.sim.rest.data.UserDataCollection;
 
 @Component
 @Singleton
@@ -398,7 +399,7 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
         throws LpRestException
     {
         Collection<UserData> potentialUsersCollection = getUserProfiles(potentialUsers);
-        return this.corefacade.startSimulation(modelId, currentUser, potentialUsersCollection);
+        return this.corefacade.startSimulation(modelId, currentUser, new UserDataCollection(potentialUsersCollection));
     }
 
     @Override

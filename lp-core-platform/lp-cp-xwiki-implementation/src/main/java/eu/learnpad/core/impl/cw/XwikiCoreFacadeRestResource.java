@@ -49,6 +49,7 @@ import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.sim.rest.data.UserData;
+import eu.learnpad.sim.rest.data.UserDataCollection;
 
 /*
  * The methods inherited form the CoreFacade in this
@@ -119,7 +120,7 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
     }
 
     @Override
-    public String startSimulation(String modelId, String currentUser, Collection<UserData> potentialUsers)
+    public String startSimulation(String modelId, String currentUser, UserDataCollection potentialUsers)
         throws LpRestException
     {
         HttpClient httpClient = this.getClient();

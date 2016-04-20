@@ -53,6 +53,7 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.sim.rest.data.UserData;
+import eu.learnpad.sim.rest.data.UserDataCollection;
 
 /*
  * It is not clear yet who is responsible for the instantiation
@@ -145,7 +146,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
     }
 
     @Override
-    public String startSimulation(String modelId, String currentUser, Collection<UserData> potentialUsers)
+    public String startSimulation(String modelId, String currentUser, UserDataCollection potentialUsers)
         throws LpRestException
     {
     	currentUser = this.removePrefixes(currentUser);
@@ -156,7 +157,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 //    		}
 //    	}	
     	
-        return this.sim.addProcessInstance(modelId, potentialUsers, currentUser);
+        return this.sim.addProcessInstance(modelId, potentialUsers.content, currentUser);
     }
 
     @Override
