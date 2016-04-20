@@ -151,11 +151,11 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
     {
     	currentUser = this.removePrefixes(currentUser);
 
-//    	if (potentialUsers != null){
-//    		for (UserData userData : potentialUsers) {
-//    			userData.id = this.removePrefixes(userData.id);
-//    		}
-//    	}	
+		if (potentialUsers != null) {
+			for (UserData userData : potentialUsers.content) {
+				userData.id = this.removePrefixes(userData.id);
+			}
+		}
     	
         return this.sim.addProcessInstance(modelId, potentialUsers.content, currentUser);
     }
