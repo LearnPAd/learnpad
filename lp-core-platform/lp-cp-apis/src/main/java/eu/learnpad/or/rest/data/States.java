@@ -7,6 +7,7 @@ package eu.learnpad.or.rest.data;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,25 +17,22 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class States {
-    
-    List<State> states = null;
 
-    public List<State> getStates() {
-        return states;
-    }
+	List<State> states = null;
 
-    @XmlElement(name="state")
-    public void setStates(List<State> states) {
-        this.states = states;
-    }
-    
-    public void addState(State state){
-        if(states == null){
-            states = new ArrayList<State>();
-        }
-        states.add(state);
-    }
-    
-    
+	public List<State> getStates() {
+		return states;
+	}
+
+	@XmlElement(name = "state")
+	public void setStates(List<State> states) {
+		this.states = states;
+	}
+
+	public void addState(State state) {
+		if (states == null) {
+			states = new ArrayList<State>();
+		}
+		states.add(state);
+	}
 }
-

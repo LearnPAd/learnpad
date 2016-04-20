@@ -41,6 +41,7 @@ import net.java.truevfs.comp.zipdriver.JarDriver;
 @Named("vfsAdoxxDriver")
 @Singleton
 public class VfsAdoxxDriverRegistrationListener implements EventListener {
+
 	/**
 	 * The name of the listener.
 	 */
@@ -67,7 +68,7 @@ public class VfsAdoxxDriverRegistrationListener implements EventListener {
 		// Note: Make sure we add our own Archive Detector to the existing
 		// Detector so that all archive formats
 		// supported by TrueVFS are handled properly.
-		config.setArchiveDetector(new TArchiveDetector(config
-				.getArchiveDetector(), VfsAdoxxDriverRegistrationListener.NAME, new JarDriver()));
+		config.setArchiveDetector(new TArchiveDetector(config.getArchiveDetector(),
+				VfsAdoxxDriverRegistrationListener.NAME, new JarDriver()));
 	}
 }

@@ -49,135 +49,129 @@ import eu.learnpad.mv.rest.data.VerificationsAvailable;
  */
 @Component
 @Named("mv")
-public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implements BridgeInterface, Initializable
-{
-    @Override
-    public void initialize() throws InitializationException
-    {
-        this.restPrefix = ((LearnpadPropertiesConfigurationSource) this.configurationSource).getRestPrefix("MV");
-    }
+public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implements BridgeInterface, Initializable {
 
-    @Override
-    public VerificationsAvailable getAvailableVerifications() throws LpRestException
-    {
-        HttpClient httpClient = this.getHttpClient();
-        String uri = String.format("%s/learnpad/mv/bridge/getavailableverifications", this.restPrefix);
-        GetMethod getMethod = new GetMethod(uri);
-        getMethod.addRequestHeader("Accept", "application/xml");
+	@Override
+	public void initialize() throws InitializationException {
+		this.restPrefix = ((LearnpadPropertiesConfigurationSource) this.configurationSource).getRestPrefix("MV");
+	}
 
-        try {
-            httpClient.executeMethod(getMethod);
-        } catch (IOException e) {
-            throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
-        }
+	@Override
+	public VerificationsAvailable getAvailableVerifications() throws LpRestException {
+		HttpClient httpClient = this.getHttpClient();
+		String uri = String.format("%s/learnpad/mv/bridge/getavailableverifications", this.restPrefix);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Accept", "application/xml");
 
-        VerificationsAvailable verificationsAvailable = null;
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(VerificationsAvailable.class);
-            InputStream retIs = getMethod.getResponseBodyAsStream();
-            verificationsAvailable = (VerificationsAvailable) jaxbContext.createUnmarshaller().unmarshal(retIs);
-        } catch (Exception e) {
-            throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
-        }
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
 
-        return verificationsAvailable;
-    }
+		VerificationsAvailable verificationsAvailable = null;
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(VerificationsAvailable.class);
+			InputStream retIs = getMethod.getResponseBodyAsStream();
+			verificationsAvailable = (VerificationsAvailable) jaxbContext.createUnmarshaller().unmarshal(retIs);
+		} catch (Exception e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
 
-    @Override
-    public VerificationId startVerification(String modelSetId, String verificationType) throws LpRestException
-    {
-        HttpClient httpClient = this.getHttpClient();
-        String uri = String.format("%s/learnpad/mv/bridge/startverification", this.restPrefix);
-        GetMethod getMethod = new GetMethod(uri);
-        getMethod.addRequestHeader("Accept", "application/xml");
+		return verificationsAvailable;
+	}
 
-        NameValuePair[] queryString = new NameValuePair[2];
-        queryString[0] = new NameValuePair("modelsetid", modelSetId);
-        queryString[1] = new NameValuePair("verificationtype", verificationType);
+	@Override
+	public VerificationId startVerification(String modelSetId, String verificationType) throws LpRestException {
+		HttpClient httpClient = this.getHttpClient();
+		String uri = String.format("%s/learnpad/mv/bridge/startverification", this.restPrefix);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Accept", "application/xml");
 
-        getMethod.setQueryString(queryString);
+		NameValuePair[] queryString = new NameValuePair[2];
+		queryString[0] = new NameValuePair("modelsetid", modelSetId);
+		queryString[1] = new NameValuePair("verificationtype", verificationType);
 
-        try {
-            httpClient.executeMethod(getMethod);
-        } catch (IOException e) {
-            throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
-        }
+		getMethod.setQueryString(queryString);
 
-        VerificationId verificationId = null;
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(VerificationId.class);
-            InputStream retIs = getMethod.getResponseBodyAsStream();
-            verificationId = (VerificationId) jaxbContext.createUnmarshaller().unmarshal(retIs);
-        } catch (Exception e) {
-            throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
-        }
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
 
-        return verificationId;
-    }
+		VerificationId verificationId = null;
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(VerificationId.class);
+			InputStream retIs = getMethod.getResponseBodyAsStream();
+			verificationId = (VerificationId) jaxbContext.createUnmarshaller().unmarshal(retIs);
+		} catch (Exception e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
 
-    @Override
-    public VerificationStatus getVerificationStatus(String verificationProcessId) throws LpRestException
-    {
-        HttpClient httpClient = this.getHttpClient();
-        String uri = String.format("%s/learnpad/mv/bridge/getverificationstatus", this.restPrefix);
-        GetMethod getMethod = new GetMethod(uri);
-        getMethod.addRequestHeader("Accept", "application/xml");
+		return verificationId;
+	}
 
-        NameValuePair[] queryString = new NameValuePair[1];
-        queryString[0] = new NameValuePair("verificationprocessid", verificationProcessId);
-        getMethod.setQueryString(queryString);
+	@Override
+	public VerificationStatus getVerificationStatus(String verificationProcessId) throws LpRestException {
+		HttpClient httpClient = this.getHttpClient();
+		String uri = String.format("%s/learnpad/mv/bridge/getverificationstatus", this.restPrefix);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Accept", "application/xml");
 
-        try {
-            httpClient.executeMethod(getMethod);
-        } catch (IOException e) {
-            throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
-        }
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("verificationprocessid", verificationProcessId);
+		getMethod.setQueryString(queryString);
 
-        VerificationStatus verificationStatus = null;
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(VerificationStatus.class);
-            InputStream retIs = getMethod.getResponseBodyAsStream();
-            verificationStatus = (VerificationStatus) jaxbContext.createUnmarshaller().unmarshal(retIs);
-        } catch (Exception e) {
-            throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
-        }
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
 
-        return verificationStatus;
-    }
+		VerificationStatus verificationStatus = null;
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(VerificationStatus.class);
+			InputStream retIs = getMethod.getResponseBodyAsStream();
+			verificationStatus = (VerificationStatus) jaxbContext.createUnmarshaller().unmarshal(retIs);
+		} catch (Exception e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
 
-    @Override
-    public VerificationResults getVerificationResult(String verificationProcessId) throws LpRestException
-    {
+		return verificationStatus;
+	}
 
-        HttpClient httpClient = this.getHttpClient();
-        String uri = String.format("%s/learnpad/mv/bridge/getverificationresult", this.restPrefix);
-        GetMethod getMethod = new GetMethod(uri);
-        getMethod.addRequestHeader("Accept", "application/xml");
+	@Override
+	public VerificationResults getVerificationResult(String verificationProcessId) throws LpRestException {
 
-        NameValuePair[] queryString = new NameValuePair[1];
-        queryString[0] = new NameValuePair("verificationprocessid", verificationProcessId);
-        getMethod.setQueryString(queryString);
+		HttpClient httpClient = this.getHttpClient();
+		String uri = String.format("%s/learnpad/mv/bridge/getverificationresult", this.restPrefix);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Accept", "application/xml");
 
-        try {
-            httpClient.executeMethod(getMethod);
-        } catch (IOException e) {
-            throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
-        }
-        VerificationResults verificationResults = null;
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("verificationprocessid", verificationProcessId);
+		getMethod.setQueryString(queryString);
 
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(VerificationResults.class);
-            InputStream retIs = getMethod.getResponseBodyAsStream();
-            verificationResults = (VerificationResults) jaxbContext.createUnmarshaller().unmarshal(retIs);
-        } catch (Exception e) {
-            throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
-        }
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+		VerificationResults verificationResults = null;
 
-        return verificationResults;
-    }
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(VerificationResults.class);
+			InputStream retIs = getMethod.getResponseBodyAsStream();
+			verificationResults = (VerificationResults) jaxbContext.createUnmarshaller().unmarshal(retIs);
+		} catch (Exception e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
 
-    private HttpClient getHttpClient()
-    {
-        return new HttpClient();
-    }
+		return verificationResults;
+	}
+
+	private HttpClient getHttpClient() {
+		return new HttpClient();
+	}
 }

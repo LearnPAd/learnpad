@@ -32,10 +32,14 @@ import eu.learnpad.exception.LpRestException;
 
 public interface GenerateQuestionnaires {
 
-	/** modelSet is supposed to the loaded already into the component
+	/**
+	 * modelSet is supposed to the loaded already into the component
+	 * 
 	 * @param modelSetId
 	 * @param type
-	 * @param configurationFile : if null, default configurations will be used (may be a java class in the future)
+	 * @param configurationFile
+	 *            : if null, default configurations will be used (may be a java
+	 *            class in the future)
 	 * @return a generation process id
 	 * @throws LpRestException
 	 */
@@ -43,16 +47,15 @@ public interface GenerateQuestionnaires {
 	@Path("/generate/{modelsetid}")
 	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
 	String generateQuestionnaires(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type")@DefaultValue("mothia-out") String type, byte[] configurationFile) throws LpRestException;
-	
+			@QueryParam("type") @DefaultValue("mothia-out") String type, byte[] configurationFile)
+			throws LpRestException;
+
 	@POST
 	@Path("/generate/{modelsetid}")
 	String generateQuestionnaires(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type")@DefaultValue("mothia-out") String type) throws LpRestException;
+			@QueryParam("type") @DefaultValue("mothia-out") String type) throws LpRestException;
 
 	@GET
 	@Path("/generate/{generationprocessid}/status")
-	String getGenerationStatus(@PathParam("generationprocessid") String generationProcessId)
-			throws LpRestException;
-	
+	String getGenerationStatus(@PathParam("generationprocessid") String generationProcessId) throws LpRestException;
 }

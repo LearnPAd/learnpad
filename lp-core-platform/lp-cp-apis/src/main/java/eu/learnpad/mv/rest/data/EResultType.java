@@ -5,18 +5,20 @@
 // Generated on: 2015.11.26 at 04:26:58 PM CET 
 //
 
-
 package eu.learnpad.mv.rest.data;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for EResultType.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
+ * Java class for EResultType.
+ * 
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
+ * <p>
+ * 
  * <pre>
  * &lt;simpleType name="EResultType">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -30,14 +32,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum EResultType {
 
-    ERROR;
+	ERROR;
 
-    public String value() {
-        return name();
-    }
+	public String value() {
+		return name();
+	}
 
-    public static EResultType fromValue(String v) {
-        return valueOf(v);
-    }
-
+	public static EResultType fromValue(String v) {
+		return valueOf(v);
+	}
 }

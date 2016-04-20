@@ -6,6 +6,7 @@
 package eu.learnpad.or.rest.data;
 
 import java.util.Date;
+
 import javax.xml.bind.annotation.XmlElement;
 
 /**
@@ -13,88 +14,95 @@ import javax.xml.bind.annotation.XmlElement;
  * @author sandro.emmenegger
  */
 public class State {
-    
-    String pageId;
-    String processInstanceId;
-    String processName;
-    String modelSetId;
-    String artefactId;
-    String artefactName;
-    String artefactInstanceId;
-    Date startTime;
-    Date endingTime;
 
-    public String getPageId() {
-        return pageId;
-    }
+	String pageId;
+	String processInstanceId;
+	String processName;
+	String modelSetId;
+	String artefactId;
+	String artefactName;
+	String artefactInstanceId;
+	Date startTime;
+	Date endingTime;
 
-    @XmlElement
-    public void setPageId(String pageId) {
-        this.pageId = pageId;
-    }
+	public String getPageId() {
+		return pageId;
+	}
 
-    public String getProcessInstanceId() {
-        return processInstanceId;
-    }
-    @XmlElement
-    public void setProcessInstanceId(String processInstanceId) {
-        this.processInstanceId = processInstanceId;
-    }
+	@XmlElement
+	public void setPageId(String pageId) {
+		this.pageId = pageId;
+	}
 
-    public String getProcessName() {
-        return processName;
-    }
-    @XmlElement
-    public void setProcessName(String processName) {
-        this.processName = processName;
-    }
+	public String getProcessInstanceId() {
+		return processInstanceId;
+	}
 
-    public String getModelSetId() {
-        return modelSetId;
-    }
-    @XmlElement
-    public void setModelSetId(String modelSetId) {
-        this.modelSetId = modelSetId;
-    }
+	@XmlElement
+	public void setProcessInstanceId(String processInstanceId) {
+		this.processInstanceId = processInstanceId;
+	}
 
-    public String getArtefactId() {
-        return artefactId;
-    }
-    @XmlElement
-    public void setArtefactId(String artefactId) {
-        this.artefactId = artefactId;
-    }
+	public String getProcessName() {
+		return processName;
+	}
 
-    public String getArtefactName() {
-        return artefactName;
-    }
-    @XmlElement
-    public void setArtefactName(String artefactName) {
-        this.artefactName = artefactName;
-    }
+	@XmlElement
+	public void setProcessName(String processName) {
+		this.processName = processName;
+	}
 
-    public String getArtefactInstanceId() {
-        return artefactInstanceId;
-    }
-    @XmlElement
-    public void setArtefactInstanceId(String artefactInstanceId) {
-        this.artefactInstanceId = artefactInstanceId;
-    }
+	public String getModelSetId() {
+		return modelSetId;
+	}
 
-    public Date getStartTime() {
-        return startTime;
-    }
-    @XmlElement
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
+	@XmlElement
+	public void setModelSetId(String modelSetId) {
+		this.modelSetId = modelSetId;
+	}
 
-    public Date getEndingTime() {
-        return endingTime;
-    }
-    @XmlElement
-    public void setEndingTime(Date endingTime) {
-        this.endingTime = endingTime;
-    }
-    
+	public String getArtefactId() {
+		return artefactId;
+	}
+
+	@XmlElement
+	public void setArtefactId(String artefactId) {
+		this.artefactId = artefactId;
+	}
+
+	public String getArtefactName() {
+		return artefactName;
+	}
+
+	@XmlElement
+	public void setArtefactName(String artefactName) {
+		this.artefactName = artefactName;
+	}
+
+	public String getArtefactInstanceId() {
+		return artefactInstanceId;
+	}
+
+	@XmlElement
+	public void setArtefactInstanceId(String artefactInstanceId) {
+		this.artefactInstanceId = artefactInstanceId;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	@XmlElement
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndingTime() {
+		return endingTime;
+	}
+
+	@XmlElement
+	public void setEndingTime(Date endingTime) {
+		this.endingTime = endingTime;
+	}
 }

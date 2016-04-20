@@ -56,10 +56,7 @@ public interface AddExecutionState {
 	// <host>/learnpad/or/execution/{modelsetid}?executionId=id,userid=id,threadid=id,pageid=id,artifactid=id
 	@Path("/execution/{modelsetid}")
 	@GET
-	void addExecutionState(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("executionid") String executionId,
-			@QueryParam("userid") String userId,
-			@QueryParam("threadid") String threadId,
-			@QueryParam("pageid") String pageId,
-			@QueryParam("artifactid") String artifactId) throws LpRestException;
+	void addExecutionState(@PathParam("modelsetid") String modelSetId, @QueryParam("executionid") String executionId,
+			@QueryParam("userid") String userId, @QueryParam("threadid") String threadId,
+			@QueryParam("pageid") String pageId, @QueryParam("artifactid") String artifactId) throws LpRestException;
 }

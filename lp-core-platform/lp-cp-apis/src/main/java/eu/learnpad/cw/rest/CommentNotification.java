@@ -28,6 +28,7 @@ import eu.learnpad.exception.LpRestException;
 
 //<host>/learnpad/cw/comments/{modelsetid}?commentid=123&action={added|deleted|modified}
 public interface CommentNotification {
+
 	/**
 	 * @param modelSetId
 	 *            is the ID of the model set that is concerned
@@ -40,7 +41,6 @@ public interface CommentNotification {
 	 */
 	@Path("/comments/{modelsetid}")
 	@PUT
-	void commentNotification(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("commentid") String commentId,
+	void commentNotification(@PathParam("modelsetid") String modelSetId, @QueryParam("commentid") String commentId,
 			@QueryParam("action") String action) throws LpRestException;
 }

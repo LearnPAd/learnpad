@@ -4,26 +4,23 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-
 @XmlRootElement(name = "Node")
-public class Node implements Comparable<Object>{
-	
+public class Node implements Comparable<Object> {
+
 	@XmlTransient
-	protected Integer OffSet=-1;
+	protected Integer OffSet = -1;
 
-	protected Integer id=-1;
-	
-	public Node(){
-		
-	}
-	
-	public Node(Integer id){
-		this.id=id;
+	protected Integer id = -1;
+
+	public Node() {
+
 	}
 
-	
-	
-	public Node(Integer id,int offSet) {
+	public Node(Integer id) {
+		this.id = id;
+	}
+
+	public Node(Integer id, int offSet) {
 		OffSet = offSet;
 		this.id = id;
 	}
@@ -39,10 +36,8 @@ public class Node implements Comparable<Object>{
 	/**
 	 * Get the value of id.
 	 * 
-	 * @return
-	 *     possible object is
-	 *     {@link Integer }
-	 *     
+	 * @return possible object is {@link Integer }
+	 * 
 	 */
 	@XmlAttribute(name = "id")
 	public Integer getId() {
@@ -53,9 +48,8 @@ public class Node implements Comparable<Object>{
 	 * Set the value of id.
 	 * 
 	 * @param value
-	 *     allowed object is
-	 *     {@link Integer }
-	 *     
+	 *            allowed object is {@link Integer }
+	 * 
 	 */
 	public void setId(Integer value) {
 		this.id = value;
@@ -87,7 +81,4 @@ public class Node implements Comparable<Object>{
 		Node node = (Node) o;
 		return OffSet.compareTo(node.getOffSet());
 	}
-
-
-
 }

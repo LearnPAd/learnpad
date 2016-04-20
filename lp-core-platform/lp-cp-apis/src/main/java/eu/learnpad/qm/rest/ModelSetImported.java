@@ -19,15 +19,14 @@
  */
 package eu.learnpad.qm.rest;
 
+import java.io.InputStream;
+
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
-
-import java.io.InputStream;
-
-import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
@@ -35,11 +34,11 @@ import eu.learnpad.me.rest.data.ModelSetType;
 
 public interface ModelSetImported {
 
-	//<host>/learnpad/qm/importmodelset/{modelsetid}?type={ADOXX|MD}
+	// <host>/learnpad/qm/importmodelset/{modelsetid}?type={ADOXX|MD}
 	@PUT
 	@Path("/importmodel/{modelsetid}")
 	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
 	void importModelSet(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type")@DefaultValue("ADOXX") ModelSetType type, InputStream modelContent) throws LpRestException;
-	
+			@QueryParam("type") @DefaultValue("ADOXX") ModelSetType type, InputStream modelContent)
+			throws LpRestException;
 }

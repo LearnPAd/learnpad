@@ -19,8 +19,7 @@
  */
 package eu.learnpad.lsm;
 
-public abstract class Controller implements CoreFacade{
+public abstract class Controller implements CoreFacade {
 
 	protected BridgeInterface bridge;
-	
 }

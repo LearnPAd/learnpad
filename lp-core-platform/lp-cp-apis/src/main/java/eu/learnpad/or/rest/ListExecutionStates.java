@@ -59,6 +59,5 @@ public interface ListExecutionStates {
 	// <host>/learnpad/or/execution/{userId}
 	@Path("/execution/{userId}")
 	@GET
-	States listExecutionStates(@PathParam("userId") String userId)
-			throws LpRestException;
+	States listExecutionStates(@PathParam("userId") String userId) throws LpRestException;
 }

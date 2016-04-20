@@ -39,7 +39,6 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 
-import eu.learnpad.configuration.LearnpadPropertiesConfigurationSource;
 import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
@@ -57,194 +56,171 @@ import eu.learnpad.or.rest.data.States;
  */
 @Component
 @Named("or")
-public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implements BridgeInterface, Initializable
-{
-    @Override
-    public void initialize() throws InitializationException
-    {
-        this.restPrefix = "";
-    }
+public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implements BridgeInterface, Initializable {
 
-    @Override
-    public void sendResourceNotification(String modelSetId, String resourceId, String artifactIds, String action)
-        throws LpRestException
-    {
-        // TODO Auto-generated method stub
+	@Override
+	public void initialize() throws InitializationException {
+		this.restPrefix = "";
+	}
 
-    }
+	@Override
+	public void sendResourceNotification(String modelSetId, String resourceId, String artifactIds, String action)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+	}
 
-    @Override
-    public Recommendations askRecommendation(String modelSetId, String artifactId, String userId,
-        String simulationSessionId) throws LpRestException
-    {
-        HttpClient httpClient = this.getClient();
-        String uri =
-            String.format("%s/learnpad/or/bridge/%s/recommendation", DefaultRestResource.REST_URI, modelSetId);
+	@Override
+	public Recommendations askRecommendation(String modelSetId, String artifactId, String userId,
+			String simulationSessionId) throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/or/bridge/%s/recommendation", DefaultRestResource.REST_URI, modelSetId);
 
-        GetMethod getMethod = new GetMethod(uri);
-        getMethod.addRequestHeader("Accept", "application/xml");
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Accept", "application/xml");
 
-        boolean hasSimulationId = false;
-        if ((simulationSessionId != null) && (!simulationSessionId.isEmpty())) {
-            hasSimulationId = true;
-        }
+		boolean hasSimulationId = false;
+		if ((simulationSessionId != null) && (!simulationSessionId.isEmpty())) {
+			hasSimulationId = true;
+		}
 
-        int queryStringSize = 2;
-        if (hasSimulationId) {
-            queryStringSize = 3;
-        }
-        NameValuePair[] queryString = new NameValuePair[queryStringSize];
-        queryString[0] = new NameValuePair("artifactid", artifactId);
-        queryString[1] = new NameValuePair("userid", userId);
-        if (hasSimulationId) {
-            queryString[2] = new NameValuePair("simulationsessionid", simulationSessionId);
-        }
-        getMethod.setQueryString(queryString);
+		int queryStringSize = 2;
+		if (hasSimulationId) {
+			queryStringSize = 3;
+		}
+		NameValuePair[] queryString = new NameValuePair[queryStringSize];
+		queryString[0] = new NameValuePair("artifactid", artifactId);
+		queryString[1] = new NameValuePair("userid", userId);
+		if (hasSimulationId) {
+			queryString[2] = new NameValuePair("simulationsessionid", simulationSessionId);
+		}
+		getMethod.setQueryString(queryString);
 
-        Recommendations recommendations = null;
+		Recommendations recommendations = null;
 
-        try {
-            httpClient.executeMethod(getMethod);
+		try {
+			httpClient.executeMethod(getMethod);
 
-            InputStream recStream = getMethod.getResponseBodyAsStream();
+			InputStream recStream = getMethod.getResponseBodyAsStream();
 
-            if (recStream != null) {
-                JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
-                Unmarshaller unmarshaller = jc.createUnmarshaller();
-                recommendations = (Recommendations) unmarshaller.unmarshal(recStream);
-            }
-        } catch (JAXBException | IOException e) {
-            throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
-        }
+			if (recStream != null) {
+				JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
+				Unmarshaller unmarshaller = jc.createUnmarshaller();
+				recommendations = (Recommendations) unmarshaller.unmarshal(recStream);
+			}
+		} catch (JAXBException | IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+		}
 
-        return recommendations;
-        /*
-         * Client client = ClientBuilder.newClient(); client.register(RestResource.getXWikiAuthenticator()); // We
-         * should look a way for accessing the annotations with reflection //
-         * eu.learnpad.or.Bridge.class.getAnnotation(Path.class).value(); String uri =
-         * String.format("%s/learnpad/or/bridge/%s/recommendation", RestResource.REST_URI, modelSetId); uri =
-         * "http://localhost:8080/xwiki/rest/learnpad/or/bridge/modelsetid/recommendation"; Recommendations response =
-         * client .target(uri) .queryParam("artifactid", artifactId) .queryParam("userid", userId) .queryParam("type",
-         * type) .request("application/xml") .get(Recommendations.class); return response; /
-         */
-    }
+		return recommendations;
+	}
 
-    @Override
-    public void addExecutionState(String modelSetId, String executionId, String userId, String threadId, String pageId,
-        String artifactId) throws LpRestExceptionImpl
-    {
-        // TODO Auto-generated method stub
+	@Override
+	public void addExecutionState(String modelSetId, String executionId, String userId, String threadId, String pageId,
+			String artifactId) throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+	}
 
-    }
+	@Override
+	public States listExecutionStates(String userId) throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public States listExecutionStates(String userId) throws LpRestExceptionImpl
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public void modelSetImported(String modelSetId, ModelSetType type) throws LpRestExceptionXWikiImpl {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/or/bridge/modelsetimported/%s", DefaultRestResource.REST_URI,
+				modelSetId);
+		PostMethod postMethod = new PostMethod(uri);
+		postMethod.addRequestHeader("Accept", "application/xml");
 
-    @Override
-    public void modelSetImported(String modelSetId, ModelSetType type) throws LpRestExceptionXWikiImpl
-    {
-        HttpClient httpClient = this.getClient();
-        String uri =
-            String.format("%s/learnpad/or/bridge/modelsetimported/%s", DefaultRestResource.REST_URI, modelSetId);
-        PostMethod postMethod = new PostMethod(uri);
-        postMethod.addRequestHeader("Accept", "application/xml");
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("type", type.toString());
+		postMethod.setQueryString(queryString);
+		try {
+			httpClient.executeMethod(postMethod);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+	}
 
-        NameValuePair[] queryString = new NameValuePair[1];
-        queryString[0] = new NameValuePair("type", type.toString());
-        postMethod.setQueryString(queryString);
-        try {
-            httpClient.executeMethod(postMethod);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
-        }
-    }
+	@Override
+	public void simulationInstanceNotification(String modelSetId, String modelId, String action, String simulationId,
+			SimulationData data) throws LpRestException {
+		// <host>/learnpad/or/bridge/{modelsetid}/{modelid}/simulationinstancenotification?action={started|stopped},simulationid=id
+		String contentType = "application/xml";
 
-    @Override
-    public void simulationInstanceNotification(String modelSetId, String modelId, String action, String simulationId,
-        SimulationData data) throws LpRestException
-    {
-        // <host>/learnpad/or/bridge/{modelsetid}/{modelid}/simulationinstancenotification?action={started|stopped},simulationid=id
-        String contentType = "application/xml";
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/or/bridge/%s/%s/simulationinstancenotification",
+				DefaultRestResource.REST_URI, modelSetId, modelId);
+		PostMethod postMethod = new PostMethod(uri);
+		postMethod.addRequestHeader("Content-Type", contentType);
 
-        HttpClient httpClient = this.getClient();
-        String uri = String.format("%s/learnpad/or/bridge/%s/%s/simulationinstancenotification",
-            DefaultRestResource.REST_URI, modelSetId, modelId);
-        PostMethod postMethod = new PostMethod(uri);
-        postMethod.addRequestHeader("Content-Type", contentType);
+		NameValuePair[] queryString = new NameValuePair[2];
+		queryString[0] = new NameValuePair("action", action);
+		queryString[1] = new NameValuePair("simulationid", simulationId);
+		postMethod.setQueryString(queryString);
 
-        NameValuePair[] queryString = new NameValuePair[2];
-        queryString[0] = new NameValuePair("action", action);
-        queryString[1] = new NameValuePair("simulationid", simulationId);
-        postMethod.setQueryString(queryString);
+		try {
+			Writer simDataWriter = new StringWriter();
+			JAXBContext jc = JAXBContext.newInstance(SimulationData.class);
+			jc.createMarshaller().marshal(data, simDataWriter);
 
-        try {
-            Writer simDataWriter = new StringWriter();
-            JAXBContext jc = JAXBContext.newInstance(SimulationData.class);
-            jc.createMarshaller().marshal(data, simDataWriter);
+			RequestEntity requestEntity = new StringRequestEntity(simDataWriter.toString(), contentType, "UTF-8");
+			postMethod.setRequestEntity(requestEntity);
 
-            RequestEntity requestEntity = new StringRequestEntity(simDataWriter.toString(), contentType, "UTF-8");
-            postMethod.setRequestEntity(requestEntity);
+			httpClient.executeMethod(postMethod);
 
-            httpClient.executeMethod(postMethod);
+		} catch (JAXBException | IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+		}
+	}
 
-        } catch (JAXBException | IOException e) {
-            throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
-        }
-    }
+	@Override
+	public void simulationTaskStartNotification(String modelSetId, String modelId, String artifactId,
+			String simulationId, SimulationData data) throws LpRestException {
+		// <host>/learnpad/or/bridge/{modelsetid}/{modelid}/simulationtaskstart?artifactid=aid,simulationid=id
+		String restOperationName = "simulationtaskstart";
+		this.invokeSimulationTaskNotification(restOperationName, modelSetId, modelId, artifactId, simulationId, data);
+	}
 
-    @Override
-    public void simulationTaskStartNotification(String modelSetId, String modelId, String artifactId,
-        String simulationId, SimulationData data) throws LpRestException
-    {
-        // <host>/learnpad/or/bridge/{modelsetid}/{modelid}/simulationtaskstart?artifactid=aid,simulationid=id
-        String restOperationName = "simulationtaskstart";
-        this.invokeSimulationTaskNotification(restOperationName, modelSetId, modelId, artifactId, simulationId, data);
-    }
+	@Override
+	public void simulationTaskEndNotification(String modelSetId, String modelId, String artifactId, String simulationId,
+			SimulationData data) throws LpRestException {
+		// <host>/learnpad/or/bridge/{modelsetid}/{modelid}/simulationtaskend?artifactid=aid,simulationid=id
+		String restOperationName = "simulationtaskend";
+		this.invokeSimulationTaskNotification(restOperationName, modelSetId, modelId, artifactId, simulationId, data);
+	}
 
-    @Override
-    public void simulationTaskEndNotification(String modelSetId, String modelId, String artifactId, String simulationId,
-        SimulationData data) throws LpRestException
-    {
-        // <host>/learnpad/or/bridge/{modelsetid}/{modelid}/simulationtaskend?artifactid=aid,simulationid=id
-        String restOperationName = "simulationtaskend";
-        this.invokeSimulationTaskNotification(restOperationName, modelSetId, modelId, artifactId, simulationId, data);
-    }
+	private void invokeSimulationTaskNotification(String restOperationName, String modelSetId, String modelId,
+			String artifactId, String simulationId, SimulationData data) throws LpRestException {
+		// <host>/learnpad/or/bridge/{modelsetid}/{modelid}/{restOperationName}?artifactid=aid,simulationid=id
+		String contentType = "application/xml";
 
-    private void invokeSimulationTaskNotification(String restOperationName, String modelSetId, String modelId,
-        String artifactId, String simulationId, SimulationData data) throws LpRestException
-    {
-        // <host>/learnpad/or/bridge/{modelsetid}/{modelid}/{restOperationName}?artifactid=aid,simulationid=id
-        String contentType = "application/xml";
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/or/bridge/%s/%s/%s", DefaultRestResource.REST_URI, modelSetId, modelId,
+				restOperationName);
+		PostMethod postMethod = new PostMethod(uri);
+		postMethod.addRequestHeader("Content-Type", contentType);
 
-        HttpClient httpClient = this.getClient();
-        String uri = String.format("%s/learnpad/or/bridge/%s/%s/%s", DefaultRestResource.REST_URI, modelSetId, modelId,
-            restOperationName);
-        PostMethod postMethod = new PostMethod(uri);
-        postMethod.addRequestHeader("Content-Type", contentType);
+		NameValuePair[] queryString = new NameValuePair[2];
+		queryString[0] = new NameValuePair("artifactid", artifactId);
+		queryString[1] = new NameValuePair("simulationid", simulationId);
+		postMethod.setQueryString(queryString);
 
-        NameValuePair[] queryString = new NameValuePair[2];
-        queryString[0] = new NameValuePair("artifactid", artifactId);
-        queryString[1] = new NameValuePair("simulationid", simulationId);
-        postMethod.setQueryString(queryString);
+		try {
+			Writer simDataWriter = new StringWriter();
+			JAXBContext jc = JAXBContext.newInstance(SimulationData.class);
+			jc.createMarshaller().marshal(data, simDataWriter);
 
-        try {
-            Writer simDataWriter = new StringWriter();
-            JAXBContext jc = JAXBContext.newInstance(SimulationData.class);
-            jc.createMarshaller().marshal(data, simDataWriter);
+			RequestEntity requestEntity = new StringRequestEntity(simDataWriter.toString(), contentType, "UTF-8");
+			postMethod.setRequestEntity(requestEntity);
 
-            RequestEntity requestEntity = new StringRequestEntity(simDataWriter.toString(), contentType, "UTF-8");
-            postMethod.setRequestEntity(requestEntity);
+			httpClient.executeMethod(postMethod);
 
-            httpClient.executeMethod(postMethod);
-
-        } catch (JAXBException | IOException e) {
-            throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
-        }
-    }
-
+		} catch (JAXBException | IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+		}
+	}
 }

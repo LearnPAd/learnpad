@@ -56,13 +56,10 @@ public class TaskStartEvent extends AbstractEvent {
 		super();
 	}
 
-	public TaskStartEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String modelsetid,
-			Map<String, Object> simulationSessionData,
-			String processartifactid, String taskartifactid,
+	public TaskStartEvent(Long timestamp, String simulationsessionid, List<String> involvedusers, String modelsetid,
+			Map<String, Object> simulationSessionData, String processartifactid, String taskartifactid,
 			List<String> assignedusers) {
-		super(EventType.TASK_START, timestamp, simulationsessionid,
-				involvedusers, modelsetid, simulationSessionData);
+		super(EventType.TASK_START, timestamp, simulationsessionid, involvedusers, modelsetid, simulationSessionData);
 		this.processartifactid = processartifactid;
 		this.taskartifactid = taskartifactid;
 		this.assignedusers = assignedusers;
@@ -70,9 +67,7 @@ public class TaskStartEvent extends AbstractEvent {
 
 	@Override
 	public String toString() {
-		return super.toString() + " processartifactid=" + processartifactid
-				+ " taskartifactid=" + taskartifactid + " assignedusers="
-				+ assignedusers;
+		return super.toString() + " processartifactid=" + processartifactid + " taskartifactid=" + taskartifactid
+				+ " assignedusers=" + assignedusers;
 	}
-
 }

@@ -47,7 +47,6 @@ public interface Simulation {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	String startSimulation(@PathParam("modelid") String modelId,
-			@QueryParam("currentuser") String currentUser,
+	String startSimulation(@PathParam("modelid") String modelId, @QueryParam("currentuser") String currentUser,
 			UserDataCollection potentialUsers) throws LpRestException;
 }

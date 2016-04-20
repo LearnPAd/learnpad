@@ -30,7 +30,6 @@ import eu.learnpad.cw.rest.ModelVerified;
 import eu.learnpad.cw.rest.NotifyRecommendations;
 
 @Path("/learnpad/cw/bridge")
-public interface BridgeInterface extends GetComments, GetFeedbacks,
-		GetResource, ModelSetImported, ContentVerified, ModelVerified, NotifyRecommendations {
-
+public interface BridgeInterface extends GetComments, GetFeedbacks, GetResource, ModelSetImported, ContentVerified,
+		ModelVerified, NotifyRecommendations {
 }

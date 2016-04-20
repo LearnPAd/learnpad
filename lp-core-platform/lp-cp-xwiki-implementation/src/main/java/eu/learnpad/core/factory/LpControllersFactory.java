@@ -21,36 +21,34 @@ package eu.learnpad.core.factory;
 
 public abstract class LpControllersFactory {
 
-		private static LpControllersFactory concreteFactory = null;
-		
-		protected LpControllersFactory(){		
-		}
-		
-		public static synchronized LpControllersFactory getLpControllersFactory(){
-			if ( concreteFactory == null ){
-				String factoryLabel = System.getProperty("lp-core.factory");
+	private static LpControllersFactory concreteFactory = null;
 
-				switch (SupportedConcreteFactories.valueOf(factoryLabel)) {
-					case XWIKI :
-						concreteFactory = new LpXwikiControllersFactory();
-					break;
-					default : 
-						concreteFactory = new LpXwikiControllersFactory();
-					break;
-					
-				}			
+	protected LpControllersFactory() {
+	}
+
+	public static synchronized LpControllersFactory getLpControllersFactory() {
+		if (concreteFactory == null) {
+			String factoryLabel = System.getProperty("lp-core.factory");
+
+			switch (SupportedConcreteFactories.valueOf(factoryLabel)) {
+			case XWIKI:
+				concreteFactory = new LpXwikiControllersFactory();
+				break;
+			default:
+				concreteFactory = new LpXwikiControllersFactory();
+				break;
 			}
-			return concreteFactory;
 		}
-		
-		public abstract eu.learnpad.cw.Controller createControllerCW(boolean isBridgeInterfaceLocal);
+		return concreteFactory;
+	}
 
-		public abstract eu.learnpad.me.Controller createControllerME(boolean isBridgeInterfaceLocal);
-		
-		public abstract eu.learnpad.qm.Controller createControllerQM(boolean isBridgeInterfaceLocal);
-		
-		public abstract eu.learnpad.or.Controller createControllerOR(boolean isBridgeInterfaceLocal);
-		
-		public abstract eu.learnpad.sim.Controller createControllerSIM(boolean isBridgeInterfaceLocal);
-	
+	public abstract eu.learnpad.cw.Controller createControllerCW(boolean isBridgeInterfaceLocal);
+
+	public abstract eu.learnpad.me.Controller createControllerME(boolean isBridgeInterfaceLocal);
+
+	public abstract eu.learnpad.qm.Controller createControllerQM(boolean isBridgeInterfaceLocal);
+
+	public abstract eu.learnpad.or.Controller createControllerOR(boolean isBridgeInterfaceLocal);
+
+	public abstract eu.learnpad.sim.Controller createControllerSIM(boolean isBridgeInterfaceLocal);
 }

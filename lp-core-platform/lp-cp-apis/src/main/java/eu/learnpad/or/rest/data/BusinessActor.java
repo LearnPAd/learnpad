@@ -12,67 +12,65 @@ import javax.xml.bind.annotation.XmlElement;
  * @author sandro.emmenegger
  */
 public class BusinessActor {
-    
-    private String uri;
-    private String name;
-    private String email;
-    private String phoneNumber;
-    private String role;
-    private String description;
 
-    
-    public String getName() {
-        return name;
-    }
+	private String uri;
+	private String name;
+	private String email;
+	private String phoneNumber;
+	private String role;
+	private String description;
 
-    public String getUri() {
-        return uri;
-    }
+	public String getName() {
+		return name;
+	}
 
-    @XmlElement
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
+	public String getUri() {
+		return uri;
+	}
 
-    @XmlElement
-    public void setName(String name) {
-        this.name = name;
-    }
+	@XmlElement
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	@XmlElement
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @XmlElement
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+	@XmlElement
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    @XmlElement
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-    public String getRole() {
-        return role;
-    }
+	@XmlElement
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
-    @XmlElement
-    public void setRole(String role) {
-        this.role = role;
-    }
+	public String getRole() {
+		return role;
+	}
 
-    public String getDescription() {
-        return description;
-    }
-    
-    @XmlElement
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    
+	@XmlElement
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	@XmlElement
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

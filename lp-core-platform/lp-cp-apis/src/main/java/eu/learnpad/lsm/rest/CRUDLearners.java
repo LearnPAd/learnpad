@@ -27,7 +27,7 @@ import eu.learnpad.exception.LpRestException;
 
 public interface CRUDLearners {
 
-	/** 
+	/**
 	 * @param learnerEmail
 	 *            the email of a learner
 	 * @throws LpRestException
@@ -36,7 +36,7 @@ public interface CRUDLearners {
 	@Path("/subscribelearner")
 	void subscribeLearner(@QueryParam("learneremail") String learnerEmail) throws LpRestException;
 
-	/** 
+	/**
 	 * @param learnerEmail
 	 *            the email of a learner
 	 * @throws LpRestException

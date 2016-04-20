@@ -25,7 +25,6 @@ import java.io.InputStream;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.io.IOUtils;
 
 import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.exception.LpRestException;
@@ -38,38 +37,33 @@ import eu.learnpad.or.CoreFacade;
  * class should be implemented as a REST invocation
  * toward the CoreFacade binded at the provided URL
  */
-public class XwikiCoreFacadeRestResource extends DefaultRestResource implements CoreFacade{
+public class XwikiCoreFacadeRestResource extends DefaultRestResource implements CoreFacade {
 
 	public XwikiCoreFacadeRestResource() {
-		this("localhost",8080);
+		this("localhost", 8080);
 	}
 
-	public XwikiCoreFacadeRestResource(String coreFacadeHostname,
-			int coreFacadeHostPort) {
+	public XwikiCoreFacadeRestResource(String coreFacadeHostname, int coreFacadeHostPort) {
 		// This constructor could change in the future
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
 	}
-	
-	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort){
-// This constructor has to be fixed, since it requires changes on the class
-//		eu.learnpad.core.rest.RestResource
-		
+
+	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort) {
+		// This constructor has to be fixed, since it requires changes on the
+		// class eu.learnpad.core.rest.RestResource
 	}
 
 	@Override
-	public byte[] getComments(String modelSetId, String artifactId)
-			throws LpRestExceptionImpl {
+	public byte[] getComments(String modelSetId, String artifactId) throws LpRestExceptionImpl {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public InputStream getModel(String modelSetId, ModelSetType type)
-			throws LpRestException {
+	public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException {
 		// Now send the package's path to the importer for XWiki
 		HttpClient httpClient = this.getClient();
-		String uri = String.format("%s/learnpad/or/corefacade/getmodel/%s",
-				DefaultRestResource.REST_URI, modelSetId);
+		String uri = String.format("%s/learnpad/or/corefacade/getmodel/%s", DefaultRestResource.REST_URI, modelSetId);
 		GetMethod getMethod = new GetMethod(uri);
 		getMethod.addRequestHeader("Accept", "application/xml");
 

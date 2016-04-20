@@ -30,30 +30,36 @@ import eu.learnpad.or.rest.data.Recommendations;
 
 public interface AskRecommendation {
 
-    /**
-     *
-     *
-     * @param modelSetId is the uniq ID of the model set
-     * @param artifactId is the ID of the artifact in the model (event, gateway, unit, etc.)
-     * @param userId
-     * @param simulationSessionId unique id of a simulation session instance.
-     * 		  This is an optional parameter, and it is meaningful only recommendations are
-     *		  requested in conjunction with a simulation session. If it is specified, the
-     *		  method lookups case description (case characterization) of the case assigned to
-     *        the simulation id and search for similar cases based on the comparison of
-     *        the case characterizations. In case it is not specified, the parameter assumes
-     *        the agreed default value (i.e. "--none--"), and it must be ignored.
-     *        												   
-     * @return is the list of recommendations, similar cases must be expected only
-     *         if the parameter {@code simulationSessionId} has been specified and it is different from
-     *         the default value.
-     * @throws LpRestException
-     */
-    // <host>/learnpad/or/bridge/{modelsetid}/recommendation?artifactid=idArtifact&userid=idUser&simulationsessionid=idSimSess
-    @Path("/{modelsetid}/recommendation")
-    @GET
-    Recommendations askRecommendation(@PathParam("modelsetid") String modelSetId,
-            @QueryParam("artifactid") String artifactId,
-            @QueryParam("userid") String userId, @QueryParam("simulationsessionid")@DefaultValue("--none--") String simulationSessionId) throws LpRestException;
-
+	/**
+	 *
+	 *
+	 * @param modelSetId
+	 *            is the uniq ID of the model set
+	 * @param artifactId
+	 *            is the ID of the artifact in the model (event, gateway, unit,
+	 *            etc.)
+	 * @param userId
+	 * @param simulationSessionId
+	 *            unique id of a simulation session instance. This is an
+	 *            optional parameter, and it is meaningful only recommendations
+	 *            are requested in conjunction with a simulation session. If it
+	 *            is specified, the method lookups case description (case
+	 *            characterization) of the case assigned to the simulation id
+	 *            and search for similar cases based on the comparison of the
+	 *            case characterizations. In case it is not specified, the
+	 *            parameter assumes the agreed default value (i.e. "--none--"),
+	 *            and it must be ignored.
+	 * 
+	 * @return is the list of recommendations, similar cases must be expected
+	 *         only if the parameter {@code simulationSessionId} has been
+	 *         specified and it is different from the default value.
+	 * @throws LpRestException
+	 */
+	// <host>/learnpad/or/bridge/{modelsetid}/recommendation?artifactid=idArtifact&userid=idUser&simulationsessionid=idSimSess
+	@Path("/{modelsetid}/recommendation")
+	@GET
+	Recommendations askRecommendation(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("artifactid") String artifactId, @QueryParam("userid") String userId,
+			@QueryParam("simulationsessionid") @DefaultValue("--none--") String simulationSessionId)
+			throws LpRestException;
 }

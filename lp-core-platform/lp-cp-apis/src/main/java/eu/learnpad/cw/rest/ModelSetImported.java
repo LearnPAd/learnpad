@@ -30,9 +30,9 @@ import eu.learnpad.me.rest.data.ModelSetType;
 
 //<host>/learnpad/cw/modelsetimported/{modelsetid}?type={ADOXX|MD}
 public interface ModelSetImported {
+
 	@Path("/modelsetimported/{modelsetid}")
 	@PUT
 	void modelSetImported(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type") @DefaultValue("ADOXX") ModelSetType type)
-			throws LpRestException;
+			@QueryParam("type") @DefaultValue("ADOXX") ModelSetType type) throws LpRestException;
 }

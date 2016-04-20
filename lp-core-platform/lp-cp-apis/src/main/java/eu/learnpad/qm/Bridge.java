@@ -19,8 +19,7 @@
  */
 package eu.learnpad.qm;
 
-public abstract class Bridge implements BridgeInterface{
+public abstract class Bridge implements BridgeInterface {
 
 	protected CoreFacade corefacade;
-	
 }

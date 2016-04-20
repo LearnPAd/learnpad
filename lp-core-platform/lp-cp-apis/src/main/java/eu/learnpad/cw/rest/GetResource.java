@@ -28,24 +28,24 @@ import eu.learnpad.exception.LpRestException;
 
 //<host>/learnpad/cw/resources/{modelsetid}?resourceid=123&linkedto=123,456,789&action={added|deleted|modified}
 public interface GetResource {
+
 	/**
 	 * @param modelSetId
 	 *            is the ID of the model set that is concerned
 	 * @param resourceId
 	 *            is the ID that designate the resource
 	 * @param linkedto
-	 *            is a list of unique name to other artifacts from the model, linked to
-	 *            this resource
+	 *            is a list of unique name to other artifacts from the model,
+	 *            linked to this resource
 	 * @param action
 	 *            will precise the kind of notification (added, deleted,
 	 *            modified)
-	 * @return a structured file that contains the content/metadata of the resource (to be defined)
+	 * @return a structured file that contains the content/metadata of the
+	 *         resource (to be defined)
 	 * @throws LpRestException
 	 */
 	@Path("/resources/{modelsetid}")
 	@GET
-	byte[] getResource(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("resourceid") String resourceId,
-			@QueryParam("linkedto") String linkedTo,
-			@QueryParam("action") String action) throws LpRestException;
+	byte[] getResource(@PathParam("modelsetid") String modelSetId, @QueryParam("resourceid") String resourceId,
+			@QueryParam("linkedto") String linkedTo, @QueryParam("action") String action) throws LpRestException;
 }

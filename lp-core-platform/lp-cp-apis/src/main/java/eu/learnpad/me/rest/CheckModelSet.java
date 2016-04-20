@@ -50,15 +50,13 @@ public interface CheckModelSet {
 	 * @throws LpRestException
 	 */
 	// "/learnpad/me/checkmodelset/start/{modelsetid}"
-	
+
 	@PUT
 	@Path("/checkmodelset/start/{modelsetid}")
 	@Produces(MediaType.APPLICATION_XML)
-	VerificationId startModelSetVerification(
-			@PathParam("modelsetid") String modelSetId,
+	VerificationId startModelSetVerification(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type") @DefaultValue("lpzip") String type,
-			@QueryParam("verification") @DefaultValue("ALL") String verification)
-			throws LpRestException;
+			@QueryParam("verification") @DefaultValue("ALL") String verification) throws LpRestException;
 
 	/**
 	 * @param verificationProcessId
@@ -67,36 +65,33 @@ public interface CheckModelSet {
 	 * @throws LpRestException
 	 */
 	// "/learnpad/me/checkmodelset/check/{verificationprocessid}"
-	
+
 	@GET
 	@Path("/checkmodelset/check/{verificationprocessid}")
 	@Produces(MediaType.APPLICATION_XML)
-	VerificationStatus checkModelSetVerification(
-			@PathParam("verificationprocessid") String verificationProcessId)
+	VerificationStatus checkModelSetVerification(@PathParam("verificationprocessid") String verificationProcessId)
 			throws LpRestException;
-	
-	   /**
-     * @param verificationProcessId
-     *            is the ID returned by startModelSetVerification
-     * @return the results if finished
-     * @throws LpRestException
-     */
-    // "/learnpad/me/checkmodelset/check/{verificationprocessid}"
-    
-    @GET
-    @Path("/checkmodelset/results/{verificationprocessid}")
-    @Produces(MediaType.APPLICATION_XML)
-    VerificationResults getModelSetVerificationResults(
-            @PathParam("verificationprocessid") String verificationProcessId)
-            throws LpRestException;
-    
-    /**
-  * @return the list of all available verifications
-  * @throws LpRestException
-  */
-    @GET
-    @Path("/checkmodelset/availableverifications")
-    @Produces(MediaType.APPLICATION_XML)
-    VerificationsAvailable getAvailableVerifications()
-            throws LpRestException;
+
+	/**
+	 * @param verificationProcessId
+	 *            is the ID returned by startModelSetVerification
+	 * @return the results if finished
+	 * @throws LpRestException
+	 */
+	// "/learnpad/me/checkmodelset/check/{verificationprocessid}"
+
+	@GET
+	@Path("/checkmodelset/results/{verificationprocessid}")
+	@Produces(MediaType.APPLICATION_XML)
+	VerificationResults getModelSetVerificationResults(@PathParam("verificationprocessid") String verificationProcessId)
+			throws LpRestException;
+
+	/**
+	 * @return the list of all available verifications
+	 * @throws LpRestException
+	 */
+	@GET
+	@Path("/checkmodelset/availableverifications")
+	@Produces(MediaType.APPLICATION_XML)
+	VerificationsAvailable getAvailableVerifications() throws LpRestException;
 }

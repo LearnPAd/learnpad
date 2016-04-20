@@ -33,9 +33,10 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.rest.data.ModelSetType;
 
 public interface ModelImporter {
+
 	@GET
 	@Path("/getmodel/{modelsetid}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	InputStream getModel(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type")@DefaultValue("ADOXX") ModelSetType type) throws LpRestException;
+			@QueryParam("type") @DefaultValue("ADOXX") ModelSetType type) throws LpRestException;
 }

@@ -42,7 +42,6 @@ import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.Utils;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.rest.data.ModelSetType;
-import eu.learnpad.mv.BridgeInterface;
 import eu.learnpad.mv.Controller;
 import eu.learnpad.mv.rest.data.FinalResultType;
 import eu.learnpad.mv.rest.data.FormalVerificationResult;
@@ -59,186 +58,186 @@ import eu.learnpad.mv.rest.data.VerificationStatus;
 @Singleton
 @Named("eu.learnpad.core.impl.mv.XwikiController")
 @Path("/learnpad/mv/corefacade")
-public class XwikiController extends Controller implements XWikiRestComponent, Initializable
-{
-    @Inject
-    @Named("xwiki")
-    private Utils utils;
+public class XwikiController extends Controller implements XWikiRestComponent, Initializable {
 
-    @Inject
-    private ComponentManager componentManager;
+	@Inject
+	@Named("xwiki")
+	private Utils utils;
 
-    /*
-     * Note that in this solution the Controllers do not interact each-others, but each controller directly invokes the
-     * BridgesInterfaces (from the other controllers) it needs. This is not actually what was originally planned, thus
-     * in the future it may change. Also, not sure if this is the correct way to proceed. I would like to decide in a
-     * configuration file the implementation to bind, and not into the source code. In fact, this second case implies to
-     * rebuild the whole platform at each change.
-     */
-    private eu.learnpad.cw.BridgeInterface cw;
+	@Inject
+	private ComponentManager componentManager;
 
-    private eu.learnpad.or.BridgeInterface or;
+	/*
+	 * Note that in this solution the Controllers do not interact each-others,
+	 * but each controller directly invokes the BridgesInterfaces (from the
+	 * other controllers) it needs. This is not actually what was originally
+	 * planned, thus in the future it may change. Also, not sure if this is the
+	 * correct way to proceed. I would like to decide in a configuration file
+	 * the implementation to bind, and not into the source code. In fact, this
+	 * second case implies to rebuild the whole platform at each change.
+	 */
+	private eu.learnpad.cw.BridgeInterface cw;
 
-    private eu.learnpad.qm.BridgeInterface qm;
+	private eu.learnpad.or.BridgeInterface or;
 
-    private eu.learnpad.sim.BridgeInterface sim;
+	private eu.learnpad.qm.BridgeInterface qm;
 
-    private Map<String, ModelSetType> typesMap;
+	private eu.learnpad.sim.BridgeInterface sim;
 
-    @Override
-    public void initialize() throws InitializationException
-    {
-        try {
-            this.bridge = this.componentManager.getInstance(RestResource.class, "mv");
+	private Map<String, ModelSetType> typesMap;
 
-            this.cw = this.componentManager.getInstance(RestResource.class, "cw");
-            this.or = this.componentManager.getInstance(RestResource.class, "or");
-            this.sim = this.componentManager.getInstance(RestResource.class, "sim");
-            this.qm = this.componentManager.getInstance(RestResource.class, "qm");
-        } catch (ComponentLookupException e) {
-            throw new InitializationException(e.getMessage(), e);
-        }
+	@Override
+	public void initialize() throws InitializationException {
+		try {
+			this.bridge = this.componentManager.getInstance(RestResource.class, "mv");
 
-        this.typesMap = new HashMap<String, ModelSetType>();
-    }
+			this.cw = this.componentManager.getInstance(RestResource.class, "cw");
+			this.or = this.componentManager.getInstance(RestResource.class, "or");
+			this.sim = this.componentManager.getInstance(RestResource.class, "sim");
+			this.qm = this.componentManager.getInstance(RestResource.class, "qm");
+		} catch (ComponentLookupException e) {
+			throw new InitializationException(e.getMessage(), e);
+		}
 
-    @Override
-    public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException
-    {
-        this.typesMap.put(modelSetId, type);
-        String attachmentName = String.format("%s.%s", modelSetId, type);
-        return utils.getAttachment(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
-            modelSetId, attachmentName);
-    }
+		this.typesMap = new HashMap<String, ModelSetType>();
+	}
 
-    private void printResults(VerificationResults res)
-    {
-        System.out.println("################");
-        System.out.println(String.format("Final result: %s", res.getFinalResult()));
-        System.out.println(String.format("Model Set ID: %s", res.getModelID()));
-        System.out.println(String.format("Verification type: %s", res.getVerificationType()));
-        if (res.getResults() != null) {
-            for (Object o : res.getResults().getAny()) {
-                if (o instanceof FormalVerificationResult) {
-                    FormalVerificationResult r = (FormalVerificationResult) o;
-                    System.out.println(String.format("# Formal Verification: %s", r.getStatus()));
-                    System.out.println(String.format("    ID: %s", r.getDefinitionID()));
-                    System.out.println(String.format("    Description: %s", r.getDescription()));
-                    int countCET = 0;
-                    for (CounterExampleTrace cet : r.getCounterExampleTrace()) {
-                        System.out.println(String.format("    CounterExampleTrace #%d", countCET));
-                        int countStep = 0;
-                        for (Step s : cet.getStep()) {
-                            System.out.println(String.format("      Step #%d", countStep));
-                            System.out.println(String.format("        Object ID: %s", s.getObjectID()));
-                            System.out.println(String.format("        Num: %s", s.getNum()));
-                            countStep++;
-                        }
-                        countCET++;
-                    }
-                } else if (o instanceof UnderstandabilityResult) {
-                    UnderstandabilityResult r = (UnderstandabilityResult) o;
-                    System.out.println(String.format("# Understandability: %s", r.getStatus()));
-                    System.out.println(String.format("    ID: %s", r.getDefinitionID()));
-                    System.out.println(String.format("    Description: %s", r.getDescription()));
-                    int countG = 0;
-                    for (Guideline g : r.getGuidelines().getGuideline()) {
-                        System.out.println(String.format("    Guideline #%d", countG));
-                        System.out.println(String.format("      Guideline ID: %s", g.getId()));
-                        System.out.println(String.format("      Name: %s", g.getName()));
-                        System.out.println(String.format("      Description: %s", g.getDescription()));
-                        System.out.println(String.format("      Suggestion: %s", g.getSuggestion()));
-                        int countEID = 0;
-                        if (g.getElements() != null) {
-                            for (ElementID eid : g.getElements().getElementID()) {
-                                System.out.println(String.format("      ElementID #%s", countEID));
-                                System.out.println(String.format("        Reference Name: %s", eid.getRefName()));
-                                System.out
-                                    .println(String.format("        Reference Process ID: %s", eid.getRefProcessID()));
-                                System.out.println(String.format("        Value: %s", eid.getValue()));
-                                countEID++;
-                            }
-                        }
-                        countG++;
-                    }
-                } else {
-                    System.out.println(String.format("Unkown Result type [%s]", o.getClass()));
-                }
-            }
-        }
-        System.out.println("################");
-    }
+	@Override
+	public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException {
+		this.typesMap.put(modelSetId, type);
+		String attachmentName = String.format("%s.%s", modelSetId, type);
+		return utils.getAttachment(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
+				modelSetId, attachmentName);
+	}
 
-    @Override
-    public void notifyVerification(String verificationProcessId) throws LpRestException
-    {
-        VerificationStatus status = this.bridge.getVerificationStatus(verificationProcessId);
-        // TODO: show the status.getStatus() somewhere in the wiki for the
-        // verification with id verificationProcessId?
+	private void printResults(VerificationResults res) {
+		System.out.println("################");
+		System.out.println(String.format("Final result: %s", res.getFinalResult()));
+		System.out.println(String.format("Model Set ID: %s", res.getModelID()));
+		System.out.println(String.format("Verification type: %s", res.getVerificationType()));
+		if (res.getResults() != null) {
+			for (Object o : res.getResults().getAny()) {
+				if (o instanceof FormalVerificationResult) {
+					FormalVerificationResult r = (FormalVerificationResult) o;
+					System.out.println(String.format("# Formal Verification: %s", r.getStatus()));
+					System.out.println(String.format("    ID: %s", r.getDefinitionID()));
+					System.out.println(String.format("    Description: %s", r.getDescription()));
+					int countCET = 0;
+					for (CounterExampleTrace cet : r.getCounterExampleTrace()) {
+						System.out.println(String.format("    CounterExampleTrace #%d", countCET));
+						int countStep = 0;
+						for (Step s : cet.getStep()) {
+							System.out.println(String.format("      Step #%d", countStep));
+							System.out.println(String.format("        Object ID: %s", s.getObjectID()));
+							System.out.println(String.format("        Num: %s", s.getNum()));
+							countStep++;
+						}
+						countCET++;
+					}
+				} else if (o instanceof UnderstandabilityResult) {
+					UnderstandabilityResult r = (UnderstandabilityResult) o;
+					System.out.println(String.format("# Understandability: %s", r.getStatus()));
+					System.out.println(String.format("    ID: %s", r.getDefinitionID()));
+					System.out.println(String.format("    Description: %s", r.getDescription()));
+					int countG = 0;
+					for (Guideline g : r.getGuidelines().getGuideline()) {
+						System.out.println(String.format("    Guideline #%d", countG));
+						System.out.println(String.format("      Guideline ID: %s", g.getId()));
+						System.out.println(String.format("      Name: %s", g.getName()));
+						System.out.println(String.format("      Description: %s", g.getDescription()));
+						System.out.println(String.format("      Suggestion: %s", g.getSuggestion()));
+						int countEID = 0;
+						if (g.getElements() != null) {
+							for (ElementID eid : g.getElements().getElementID()) {
+								System.out.println(String.format("      ElementID #%s", countEID));
+								System.out.println(String.format("        Reference Name: %s", eid.getRefName()));
+								System.out.println(
+										String.format("        Reference Process ID: %s", eid.getRefProcessID()));
+								System.out.println(String.format("        Value: %s", eid.getValue()));
+								countEID++;
+							}
+						}
+						countG++;
+					}
+				} else {
+					System.out.println(String.format("Unkown Result type [%s]", o.getClass()));
+				}
+			}
+		}
+		System.out.println("################");
+	}
 
-        if (!status.getStatus().equals(StatusType.COMPLETED)) {
-            // A severe error occurred in the verification phase that is
-            // terminated unexpectedly
-            // The verification results in this case is null. If
-            // this.bridge.getVerificationResult will be called an exception
-            // will rise up
-            // Notify somewhere the status of the verification id? or obtain the
-            // modelSet Id from the verification id and notify the verification
-            // status of the modelset id?
-            return;
-        }
+	@Override
+	public void notifyVerification(String verificationProcessId) throws LpRestException {
+		VerificationStatus status = this.bridge.getVerificationStatus(verificationProcessId);
+		// TODO: show the status.getStatus() somewhere in the wiki for the
+		// verification with id verificationProcessId?
 
-        VerificationResults res = this.bridge.getVerificationResult(verificationProcessId);
+		if (!status.getStatus().equals(StatusType.COMPLETED)) {
+			// A severe error occurred in the verification phase that is
+			// terminated unexpectedly
+			// The verification results in this case is null. If
+			// this.bridge.getVerificationResult will be called an exception
+			// will rise up
+			// Notify somewhere the status of the verification id? or obtain the
+			// modelSet Id from the verification id and notify the verification
+			// status of the modelset id?
+			return;
+		}
 
-        printResults(res);
+		VerificationResults res = this.bridge.getVerificationResult(verificationProcessId);
 
-        String modelSetId = res.getModelID();
-        ModelSetType type = this.typesMap.get(modelSetId);
+		printResults(res);
 
-        boolean resultsOk = res.getFinalResult().equals(FinalResultType.OK);
-        boolean importedInTheSimulator = true;
-        if (resultsOk) {
-            if (utils.isPage(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
-                modelSetId) == true) {
-                this.cw.modelSetImported(modelSetId, type);
-                this.or.modelSetImported(modelSetId, type);
+		String modelSetId = res.getModelID();
+		ModelSetType type = this.typesMap.get(modelSetId);
 
-                InputStream modelContent = utils.getAttachmentFromCoreRepository(modelSetId, type.toString());
-                this.qm.importModelSet(modelSetId, type, modelContent);
+		boolean resultsOk = res.getFinalResult().equals(FinalResultType.OK);
+		boolean importedInTheSimulator = true;
+		if (resultsOk) {
+			if (utils.isPage(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
+					modelSetId) == true) {
+				this.cw.modelSetImported(modelSetId, type);
+				this.or.modelSetImported(modelSetId, type);
 
-                Collection<String> uriCollection = utils.exposeBPMNFromCoreRepository(modelSetId, type.toString());
-                Iterator<String> uriIterator = uriCollection.iterator();
-                while (importedInTheSimulator && uriIterator.hasNext()) {
-                    String bpmnFileURL = uriIterator.next();
-                    Collection<String> savedProcessesList = this.sim.addProcessDefinition(bpmnFileURL, modelSetId);
-                    importedInTheSimulator = this.verifyImportedProcesses(savedProcessesList, bpmnFileURL);
-                }
-            }
-        }
+				InputStream modelContent = utils.getAttachmentFromCoreRepository(modelSetId, type.toString());
+				this.qm.importModelSet(modelSetId, type, modelContent);
 
-        // the value for message may change accordingly to eu.learnpad.cw.rest.ModelVerified
-        String message = "KO";
-        if (resultsOk) {
-            if (!importedInTheSimulator) {
-                // the value for message may change accordingly to eu.learnpad.cw.rest.ModelVerified
-                message = "OK but Problems with the Simulator";
-            } else {
-                // the value for message may change accordingly to eu.learnpad.cw.rest.ModelVerified
-                message = "OK";
-            }
-        }
+				Collection<String> uriCollection = utils.exposeBPMNFromCoreRepository(modelSetId, type.toString());
+				Iterator<String> uriIterator = uriCollection.iterator();
+				while (importedInTheSimulator && uriIterator.hasNext()) {
+					String bpmnFileURL = uriIterator.next();
+					Collection<String> savedProcessesList = this.sim.addProcessDefinition(bpmnFileURL, modelSetId);
+					importedInTheSimulator = this.verifyImportedProcesses(savedProcessesList, bpmnFileURL);
+				}
+			}
+		}
 
-        this.cw.modelVerified(modelSetId, message);
-    }
+		// the value for message may change accordingly to
+		// eu.learnpad.cw.rest.ModelVerified
+		String message = "KO";
+		if (resultsOk) {
+			if (!importedInTheSimulator) {
+				// the value for message may change accordingly to
+				// eu.learnpad.cw.rest.ModelVerified
+				message = "OK but Problems with the Simulator";
+			} else {
+				// the value for message may change accordingly to
+				// eu.learnpad.cw.rest.ModelVerified
+				message = "OK";
+			}
+		}
 
-    private boolean verifyImportedProcesses(Collection<String> savedProcessesList, String bpmnFileURL)
-    {
-        // TODO This is a stub implementation that may change in the future
-        boolean isValid = false;
-        if (savedProcessesList != null) {
-            isValid = savedProcessesList.size() > 0;
-        }
+		this.cw.modelVerified(modelSetId, message);
+	}
 
-        return isValid;
-    }
+	private boolean verifyImportedProcesses(Collection<String> savedProcessesList, String bpmnFileURL) {
+		// TODO This is a stub implementation that may change in the future
+		boolean isValid = false;
+		if (savedProcessesList != null) {
+			isValid = savedProcessesList.size() > 0;
+		}
+
+		return isValid;
+	}
 }

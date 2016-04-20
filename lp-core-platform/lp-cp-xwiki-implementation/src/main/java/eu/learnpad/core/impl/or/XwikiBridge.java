@@ -26,26 +26,22 @@ import org.xwiki.rest.XWikiRestComponent;
 import eu.learnpad.or.Bridge;
 import eu.learnpad.or.CoreFacade;
 
-//@Component
-//@Named("eu.learnpad.core.impl.or.XwikiBridge")
 @Path("/learnpad/or/bridge")
-public abstract class XwikiBridge extends Bridge implements XWikiRestComponent{
+public abstract class XwikiBridge extends Bridge implements XWikiRestComponent {
 
-	public XwikiBridge (){
+	public XwikiBridge() {
 		this.corefacade = null;
 	}
 
-	public XwikiBridge (CoreFacade cf){
+	public XwikiBridge(CoreFacade cf) {
 		this.updateCoreFacade(cf);
 	}
 
-	public XwikiBridge (String coreFacadeHostname,
-			int coreFacadeHostPort){
+	public XwikiBridge(String coreFacadeHostname, int coreFacadeHostPort) {
 		this.corefacade = new XwikiCoreFacadeRestResource(coreFacadeHostname, coreFacadeHostPort);
 	}
-	
-    public synchronized void updateCoreFacade (CoreFacade cf){
-		this.corefacade = cf;    	
-    }
 
+	public synchronized void updateCoreFacade(CoreFacade cf) {
+		this.corefacade = cf;
+	}
 }

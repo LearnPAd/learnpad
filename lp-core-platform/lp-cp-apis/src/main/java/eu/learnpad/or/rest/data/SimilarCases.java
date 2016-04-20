@@ -7,6 +7,7 @@ package eu.learnpad.or.rest.data;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,27 +17,26 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class SimilarCases {
-    
-    List<SimilarCase> similarCases = null;
 
-    public List<SimilarCase> getSimilarCases() {
-        return similarCases;
-    }
+	List<SimilarCase> similarCases = null;
 
-    @XmlElement(name="similarCase")
-    public void setSimilarCases(List<SimilarCase> similarCases) {
-        this.similarCases = similarCases;
-    }
-    
-    public void addAllSimilarCases(List<SimilarCase> similarCases){
-        similarCases().addAll(similarCases);
-    }
-    
-    private List<SimilarCase> similarCases(){
-        if(similarCases == null){
-            similarCases = new ArrayList<SimilarCase>();
-        }
-        return similarCases;
-    }
-    
+	public List<SimilarCase> getSimilarCases() {
+		return similarCases;
+	}
+
+	@XmlElement(name = "similarCase")
+	public void setSimilarCases(List<SimilarCase> similarCases) {
+		this.similarCases = similarCases;
+	}
+
+	public void addAllSimilarCases(List<SimilarCase> similarCases) {
+		similarCases().addAll(similarCases);
+	}
+
+	private List<SimilarCase> similarCases() {
+		if (similarCases == null) {
+			similarCases = new ArrayList<SimilarCase>();
+		}
+		return similarCases;
+	}
 }

@@ -44,8 +44,6 @@ package eu.learnpad.me.rest.data;
  *                       
  * TODO Modify this definition in order to explicitly support LPZip 
  */
-public enum ModelSetType
-{	
-    ADOXX,
-    MD
+public enum ModelSetType {
+	ADOXX, MD
 }
