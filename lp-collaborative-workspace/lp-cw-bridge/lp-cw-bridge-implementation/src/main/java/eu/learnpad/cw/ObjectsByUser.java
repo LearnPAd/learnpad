@@ -22,9 +22,9 @@ package eu.learnpad.cw;
 import org.xwiki.component.annotation.Role;
 
 @Role
-public interface ObjectsByUser<T>
-{
-    public T get(String user);
+public interface ObjectsByUser<T> {
 
-    public void put(String user, T object);
+	public T get(String user);
+
+	public void put(String user, T object);
 }
