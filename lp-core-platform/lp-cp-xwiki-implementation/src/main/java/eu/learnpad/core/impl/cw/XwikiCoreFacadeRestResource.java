@@ -21,7 +21,6 @@ package eu.learnpad.core.impl.cw;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
@@ -99,7 +98,6 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			httpClient.executeMethod(getMethod);
 			model = getMethod.getResponseBodyAsStream();
 		} catch (IOException e) {
-//			e.printStackTrace();
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 		return model;
@@ -132,7 +130,6 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			httpClient.executeMethod(postMethod);
 		} catch (IOException e) {
 //			UnsupportedEncodingException is also caught here!
-//			e.printStackTrace();
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 
@@ -162,7 +159,6 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			httpClient.executeMethod(getMethod);
 			feedbacksStream = getMethod.getResponseBodyAsStream();
 		} catch (IOException e) {
-//			e.printStackTrace();
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 		
@@ -173,7 +169,6 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
 			recommendations = (Recommendations) unmarshaller.unmarshal(feedbacksStream);
 		} catch (JAXBException e) {
-//			e.printStackTrace();
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 		return recommendations;
@@ -198,7 +193,6 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			httpClient.executeMethod(postMethod);
 			return postMethod.getResponseBodyAsStream();
 		} catch (IOException e) {
-//			e.printStackTrace();
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 	}
@@ -227,7 +221,6 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			httpClient.executeMethod(postMethod);
 			return postMethod.getResponseBodyAsString();
 		} catch (IOException e) {
-//			e.printStackTrace();
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 	}
@@ -243,7 +236,6 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			httpClient.executeMethod(getMethod);
 			return getMethod.getResponseBodyAsString();
 		} catch (IOException e) {
-//			e.printStackTrace();
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 	}

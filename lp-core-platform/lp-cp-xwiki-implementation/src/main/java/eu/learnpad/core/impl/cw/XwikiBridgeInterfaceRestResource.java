@@ -90,7 +90,6 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
 		try {
 			httpClient.executeMethod(putMethod);
 		} catch (IOException e) {
-//			e.printStackTrace();
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 	}
@@ -139,7 +138,6 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
 			pf = (PFResults) unmarshaller.unmarshal(pfStream);
 		} catch (JAXBException | IOException e) {
-//			e.printStackTrace();
             throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
 		return pf;
@@ -183,7 +181,7 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
 		String contentType = "application/xml";
 
 		HttpClient httpClient = this.getClient();
-		String uri = String.format("%s/learnpad/cw/bridge/notify/deleterecs/%s", this.REST_URI, modelSetId);
+		String uri = String.format("%s/learnpad/cw/bridge/notify/deleterecs/%s", DefaultRestResource.REST_URI, modelSetId);
 
 		PutMethod putMethod = new PutMethod(uri);
 		putMethod.addRequestHeader("Accept", contentType);

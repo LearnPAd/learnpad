@@ -80,7 +80,6 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
 			RequestEntity entity = new StringRequestEntity(contentWriter.toString(), MediaType.APPLICATION_XML, null);
 			postMethod.setRequestEntity(entity);
 		} catch (JAXBException | UnsupportedEncodingException e) {
-//			e.printStackTrace();
             throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
 
@@ -88,7 +87,6 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
 			httpClient.executeMethod(postMethod);
 			return postMethod.getResponseBodyAsString();
 		} catch (IOException e) {
-//			e.printStackTrace();
             throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
 	}
@@ -126,7 +124,6 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
 			httpClient.executeMethod(getMethod);
 			return getMethod.getResponseBodyAsString();
 		} catch (IOException e) {
-//			e.printStackTrace();
             throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
 	}

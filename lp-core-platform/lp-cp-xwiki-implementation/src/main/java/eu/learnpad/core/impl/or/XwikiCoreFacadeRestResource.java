@@ -77,7 +77,6 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			httpClient.executeMethod(getMethod);
 			model = getMethod.getResponseBodyAsStream();
 		} catch (IOException e) {
-//			e.printStackTrace();
             throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
 		return model;
