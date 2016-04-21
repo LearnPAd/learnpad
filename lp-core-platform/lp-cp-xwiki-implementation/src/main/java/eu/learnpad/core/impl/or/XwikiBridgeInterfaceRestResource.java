@@ -140,7 +140,7 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
 		try {
 			httpClient.executeMethod(postMethod);
 		} catch (IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 	}

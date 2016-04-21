@@ -80,18 +80,17 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
 			RequestEntity entity = new StringRequestEntity(contentWriter.toString(), MediaType.APPLICATION_XML, null);
 			postMethod.setRequestEntity(entity);
 		} catch (JAXBException | UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+            throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
 
 		try {
 			httpClient.executeMethod(postMethod);
 			return postMethod.getResponseBodyAsString();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+            throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
-		return null;
 	}
 
 	@Override
@@ -103,12 +102,9 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
 
 		try {
 			httpClient.executeMethod(getMethod);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		AnnotatedCollaborativeContentAnalyses analysis = null;
-		try {
+			
+			AnnotatedCollaborativeContentAnalyses analysis = null;
+			
 			JAXBContext jaxbContext = JAXBContext.newInstance(AnnotatedCollaborativeContentAnalyses.class);
 			InputStream retIs = getMethod.getResponseBodyAsStream();
 			analysis = (AnnotatedCollaborativeContentAnalyses) jaxbContext.createUnmarshaller().unmarshal(retIs);
@@ -130,10 +126,9 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
 			httpClient.executeMethod(getMethod);
 			return getMethod.getResponseBodyAsString();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+            throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
-		return null;
 	}
 
 	@Override

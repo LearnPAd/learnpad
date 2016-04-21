@@ -90,7 +90,7 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
 		try {
 			httpClient.executeMethod(putMethod);
 		} catch (IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 	}
@@ -127,27 +127,20 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
 		GetMethod getMethod = new GetMethod(uri);
 		getMethod.addRequestHeader("Accept", "application/xml");
 
+		InputStream pfStream = null;
+		PFResults pf = null;
+
 		try {
 			httpClient.executeMethod(getMethod);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		InputStream pfStream = null;
-		try {
+
 			pfStream = getMethod.getResponseBodyAsStream();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		PFResults pf = null;
-		try {
+
 			JAXBContext jc = JAXBContext.newInstance(PFResults.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
 			pf = (PFResults) unmarshaller.unmarshal(pfStream);
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (JAXBException | IOException e) {
+//			e.printStackTrace();
+            throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
 		return pf;
 	}

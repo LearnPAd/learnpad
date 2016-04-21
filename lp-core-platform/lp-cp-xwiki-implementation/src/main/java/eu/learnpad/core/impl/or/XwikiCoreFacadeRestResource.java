@@ -29,6 +29,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.CoreFacade;
 
@@ -71,18 +72,13 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 		queryString[0] = new NameValuePair("type", type.toString());
 		getMethod.setQueryString(queryString);
 
-		try {
-			httpClient.executeMethod(getMethod);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		InputStream model = null;
 		try {
+			httpClient.executeMethod(getMethod);
 			model = getMethod.getResponseBodyAsStream();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+            throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
 		return model;
 	}

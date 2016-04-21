@@ -93,18 +93,14 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 		queryString[0] = new NameValuePair("type", type.toString());
 		getMethod.setQueryString(queryString);
 
+		InputStream model = null;
+
 		try {
 			httpClient.executeMethod(getMethod);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		InputStream model = null;
-		try {
 			model = getMethod.getResponseBodyAsStream();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 		return model;
 	}
@@ -126,25 +122,18 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 		StringRequestEntity requestEntity = null;
 		ObjectMapper om = new ObjectMapper();
 		String potentialUsersJson = "[]";
-		try {
-			potentialUsersJson = om.writeValueAsString(potentialUsers);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			requestEntity = new StringRequestEntity(potentialUsersJson, "application/json", "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		postMethod.setRequestEntity(requestEntity);
 
 		try {
+			potentialUsersJson = om.writeValueAsString(potentialUsers);
+			requestEntity = new StringRequestEntity(potentialUsersJson, "application/json", "UTF-8");
+
+			postMethod.setRequestEntity(requestEntity);
+
 			httpClient.executeMethod(postMethod);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			UnsupportedEncodingException is also caught here!
+//			e.printStackTrace();
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 
 		try {
@@ -168,27 +157,24 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 		queryString[2] = new NameValuePair("userid", userId);
 		getMethod.setQueryString(queryString);
 
-		try {
-			httpClient.executeMethod(getMethod);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		InputStream feedbacksStream = null;
 		try {
+			httpClient.executeMethod(getMethod);
 			feedbacksStream = getMethod.getResponseBodyAsStream();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
+		
 		Recommendations recommendations = null;
+
 		try {
 			JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
 			recommendations = (Recommendations) unmarshaller.unmarshal(feedbacksStream);
 		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 		return recommendations;
 	}
@@ -212,10 +198,9 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			httpClient.executeMethod(postMethod);
 			return postMethod.getResponseBodyAsStream();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
-		return null;
 	}
 
 	@Override
@@ -242,10 +227,9 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			httpClient.executeMethod(postMethod);
 			return postMethod.getResponseBodyAsString();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
-		return null;
 	}
 
 	@Override
@@ -259,10 +243,9 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			httpClient.executeMethod(getMethod);
 			return getMethod.getResponseBodyAsString();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
-		return null;
 	}
 
 	@Override

@@ -73,8 +73,8 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
 		try {
 			httpClient.executeMethod(putMethod);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 
 	}
@@ -103,8 +103,8 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
 			httpClient.executeMethod(postMethod);
 			genProcessID = postMethod.getResponseBodyAsString();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 		return genProcessID;
 	}
