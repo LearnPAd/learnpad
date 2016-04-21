@@ -41,31 +41,36 @@ import eu.learnpad.qm.CoreFacade;
  * class should be implemented as a REST invocation
  * toward the CoreFacade binded at the provided URL
  */
-public class XwikiCoreFacadeRestResource extends DefaultRestResource implements CoreFacade {
+public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
+		CoreFacade {
 
 	public XwikiCoreFacadeRestResource() {
 		this("localhost", 8080);
 	}
 
-	public XwikiCoreFacadeRestResource(String coreFacadeHostname, int coreFacadeHostPort) {
+	public XwikiCoreFacadeRestResource(String coreFacadeHostname,
+			int coreFacadeHostPort) {
 		// This constructor could change in the future
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
 	}
 
-	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort) {
+	public void updateConfiguration(String coreFacadeHostname,
+			int coreFacadeHostPort) {
 		// This constructor has to be fixed, since it requires changes on the
 		// class eu.learnpad.core.rest.RestResource
 	}
 
 	@Override
-	public void publish(String questionnairesId, String type, byte[] questionnairesFile) throws LpRestException {
+	public void publish(String questionnairesId, String type,
+			byte[] questionnairesFile) throws LpRestException {
 		// Now actually notifying the CP via REST
 		HttpClient httpClient = this.getClient();
-		String uri = String.format("%s/learnpad/qm/corefacade/publish/%s", DefaultRestResource.REST_URI,
-				questionnairesId);
+		String uri = String.format("%s/learnpad/qm/corefacade/publish/%s",
+				DefaultRestResource.REST_URI, questionnairesId);
 
 		PutMethod putMethod = new PutMethod(uri);
-		putMethod.addRequestHeader("Content-Type", MediaType.APPLICATION_OCTET_STREAM);
+		putMethod.addRequestHeader("Content-Type",
+				MediaType.APPLICATION_OCTET_STREAM);
 
 		NameValuePair[] queryString = new NameValuePair[1];
 		queryString[0] = new NameValuePair("type", type);
@@ -78,23 +83,27 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 		try {
 			httpClient.executeMethod(putMethod);
 		} catch (IOException e) {
-			LpRestExceptionXWikiImpl e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			LpRestExceptionXWikiImpl e1 = new LpRestExceptionXWikiImpl(
+					e.getMessage(), e.getCause());
 			throw e1;
 		}
 	}
 
 	@Override
-	public void generationCompleted(String questionnairesId) throws LpRestException {
+	public void generationCompleted(String questionnairesId)
+			throws LpRestException {
 		// Now actually notifying the CP via REST
 		HttpClient httpClient = this.getClient();
-		String uri = String.format("%s/learnpad/qm/corefacade/generationcompleted/%s", DefaultRestResource.REST_URI,
-				questionnairesId);
+		String uri = String.format(
+				"%s/learnpad/qm/corefacade/generationcompleted/%s",
+				DefaultRestResource.REST_URI, questionnairesId);
 		PutMethod putMethod = new PutMethod(uri);
 		putMethod.addRequestHeader("Accept", MediaType.TEXT_PLAIN);
 		try {
 			httpClient.executeMethod(putMethod);
 		} catch (IOException e) {
-			LpRestExceptionXWikiImpl e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			LpRestExceptionXWikiImpl e1 = new LpRestExceptionXWikiImpl(
+					e.getMessage(), e.getCause());
 			throw e1;
 		}
 	}
