@@ -22,6 +22,7 @@ package eu.learnpad.core.impl.cw;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
 import javax.inject.Named;
@@ -33,6 +34,7 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
@@ -42,6 +44,8 @@ import org.xwiki.component.phase.InitializationException;
 
 import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.cw.BridgeInterface;
+import eu.learnpad.cw.rest.data.ScoreRecord;
+import eu.learnpad.cw.rest.data.ScoreRecordCollection;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
@@ -208,4 +212,70 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
 	}
+
+	@Override
+	public void receiveScoreUpdate(ScoreRecord record) throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/bridge/scores",
+				DefaultRestResource.REST_URI);
+		PostMethod postMethod = new PostMethod(uri);
+		postMethod.addRequestHeader("Accept", "application/xml");
+
+		JAXBContext jc;
+		try {
+			jc = JAXBContext.newInstance(ScoreRecord.class);
+			Marshaller marshaller = jc.createMarshaller();
+			StringWriter marshalledRecord = new StringWriter();
+			marshaller.marshal(record, marshalledRecord);
+			postMethod.setRequestEntity(new StringRequestEntity(
+					marshalledRecord.toString(), null, null));
+
+			httpClient.executeMethod(postMethod);
+
+		} catch (JAXBException e1) {
+			e1.printStackTrace();
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public ScoreRecordCollection getScores(String user, String process)
+			throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format(
+				"%s/learnpad/cw/bridge/scores?user=%s&process=%s",
+				DefaultRestResource.REST_URI, user, process);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Accept", "application/xml");
+
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		ScoreRecordCollection res = null;
+
+		InputStream stream = null;
+		try {
+			stream = getMethod.getResponseBodyAsStream();
+			try {
+				JAXBContext jc = JAXBContext
+						.newInstance(ScoreRecordCollection.class);
+				Unmarshaller unmarshaller = jc.createUnmarshaller();
+				res = (ScoreRecordCollection) unmarshaller.unmarshal(stream);
+			} catch (JAXBException e) {
+				e.printStackTrace();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return res;
+
+	}
+
 }

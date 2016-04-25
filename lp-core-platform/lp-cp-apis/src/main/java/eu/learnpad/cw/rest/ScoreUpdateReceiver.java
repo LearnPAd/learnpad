@@ -5,9 +5,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
+import eu.learnpad.cw.rest.data.ScoreRecord;
 import eu.learnpad.cw.rest.data.ScoreRecordCollection;
 import eu.learnpad.exception.LpRestException;
-import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 
 /**
  *
@@ -18,8 +18,7 @@ public interface ScoreUpdateReceiver {
 
 	@Path("/scores")
 	@POST
-	public void receiveScoreUpdate(SessionScoreUpdateEvent event)
-			throws LpRestException;
+	public void receiveScoreUpdate(ScoreRecord record) throws LpRestException;
 
 	@Path("/scores")
 	@GET

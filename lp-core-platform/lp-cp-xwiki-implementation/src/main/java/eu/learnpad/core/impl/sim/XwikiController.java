@@ -36,6 +36,7 @@ import org.xwiki.rest.XWikiRestComponent;
 import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.Utils;
+import eu.learnpad.cw.rest.data.ScoreRecord;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.or.rest.data.Recommendations;
@@ -176,8 +177,9 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) {
-		// TODO Auto-generated method stub
+	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) throws LpRestException {
+		this.cw.receiveScoreUpdate(new ScoreRecord(event.user, event.processartifactid,
+				event.simulationsessionid, event.sessionscore));
 	}
 
 	@Override

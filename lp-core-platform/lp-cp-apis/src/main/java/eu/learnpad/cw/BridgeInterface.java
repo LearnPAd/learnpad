@@ -28,8 +28,9 @@ import eu.learnpad.cw.rest.GetResource;
 import eu.learnpad.cw.rest.ModelSetImported;
 import eu.learnpad.cw.rest.ModelVerified;
 import eu.learnpad.cw.rest.NotifyRecommendations;
+import eu.learnpad.cw.rest.ScoreUpdateReceiver;
 
 @Path("/learnpad/cw/bridge")
 public interface BridgeInterface extends GetComments, GetFeedbacks, GetResource, ModelSetImported, ContentVerified,
-		ModelVerified, NotifyRecommendations {
+		ModelVerified, NotifyRecommendations, ScoreUpdateReceiver {
 }

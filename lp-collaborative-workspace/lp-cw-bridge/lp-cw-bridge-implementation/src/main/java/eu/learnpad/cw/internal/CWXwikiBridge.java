@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,6 +68,8 @@ import eu.learnpad.core.impl.cw.XwikiCoreFacadeRestResource;
 import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.UICWBridge;
+import eu.learnpad.cw.rest.data.ScoreRecord;
+import eu.learnpad.cw.rest.data.ScoreRecordCollection;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
@@ -103,6 +106,8 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	private final String USER_CLASS_PAGE = "XWikiUsers";
 
 	private final String USER_CLASS = String.format("%s.%s", XWIKI_SPACE, USER_CLASS_PAGE);
+
+	private final Map<String, Map<String, ScoreRecord>> scoresBySessionByUser = new ConcurrentHashMap<String, Map<String, ScoreRecord>>();
 
 	@Inject
 	@Named("default")
@@ -422,4 +427,40 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 		String username = userId.replaceFirst("XWiki\\.", "");
 		return username;
 	}
+
+	@Override
+	public void receiveScoreUpdate(ScoreRecord record)
+			throws LpRestException {
+
+		if(!scoresBySessionByUser.containsKey(record.userArtifactId)) {
+			scoresBySessionByUser.put(record.userArtifactId,
+					new ConcurrentHashMap<String, ScoreRecord>());
+		}
+		scoresBySessionByUser.get(record.userArtifactId).put(record.sessionId, record);
+
+	}
+
+	@Override
+	public ScoreRecordCollection getScores(String user, String process)
+			throws LpRestException {
+		Collection<ScoreRecord> res = new ArrayList<>();
+		for (String recordedUser : scoresBySessionByUser.keySet()) {
+
+			if (user == null || recordedUser.equals(user)) {
+				for (String session : scoresBySessionByUser.get(recordedUser)
+						.keySet()) {
+
+					ScoreRecord r = scoresBySessionByUser.get(recordedUser)
+							.get(session);
+					if (process == null || r.processArtifactId.equals(process)) {
+						res.add(r);
+					}
+
+				}
+			}
+		}
+		return new ScoreRecordCollection(res);
+
+	}
+
 }
