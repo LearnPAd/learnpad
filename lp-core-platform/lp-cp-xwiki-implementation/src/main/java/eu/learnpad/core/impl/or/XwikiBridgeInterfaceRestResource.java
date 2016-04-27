@@ -45,6 +45,7 @@ import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.BridgeInterface;
+import eu.learnpad.or.rest.data.Entities;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.SimulationData;
 import eu.learnpad.or.rest.data.States;
@@ -239,4 +240,21 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
 	}
+
+    @Override
+    public Entities analyseText(String modelSetId, String contextArtifactId, String userId, String title, String text) throws LpRestException {
+        // TODO Auto-generated method stub
+		return null;
+    }
+
+    @Override
+    public void createBookmark(String modelSetId, String userId, String artifactId, String contextArtifactId) throws LpRestException {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public Recommendations getAllBookmarks(String modelSetId, String userId, String artifactId) throws LpRestException {
+        // TODO Auto-generated method stub
+		return null;
+    }
 }
