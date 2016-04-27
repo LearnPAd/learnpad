@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE ADOXML SYSTEM "adoxml31.dtd">
 <ADOXML version="3.1" date="26.04.2016" time="15:43" database="LPDMODEL" username="sandro" adoversion="Version 5.1">
 <MODELS>
 <MODEL id="mod.35548" name="06 - LearnPAd Score Card - KPI-Overview" version="" modeltype="KPI-Overview" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.33">
