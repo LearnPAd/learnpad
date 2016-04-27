@@ -28,6 +28,7 @@ import eu.learnpad.exception.LpRestException;
 
 //<host>/learnpad/cw/resourcenotification/{modelsetid}?resourceid=123&linkedto=123,456,789&action={added|deleted|modified}
 public interface ResourceNotification {
+
 	/**
 	 * @param modelSetId
 	 *            is the ID of the model set that is concerned
@@ -43,8 +44,6 @@ public interface ResourceNotification {
 	 */
 	@Path("/resourcenotification/{modelsetid}")
 	@PUT
-	void resourceNotification(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("resourceid") String resourceId,
-			@QueryParam("linkedto") String artifactIds,
-			@QueryParam("action") String action) throws LpRestException;
+	void resourceNotification(@PathParam("modelsetid") String modelSetId, @QueryParam("resourceid") String resourceId,
+			@QueryParam("linkedto") String artifactIds, @QueryParam("action") String action) throws LpRestException;
 }

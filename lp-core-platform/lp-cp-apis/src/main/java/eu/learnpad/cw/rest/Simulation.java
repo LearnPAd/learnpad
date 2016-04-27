@@ -19,15 +19,16 @@
  */
 package eu.learnpad.cw.rest;
 
-import java.util.Collection;
-
+import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
-import eu.learnpad.sim.rest.data.UserData;
+import eu.learnpad.sim.rest.data.UserDataCollection;
 
 public interface Simulation {
 	/**
@@ -44,7 +45,8 @@ public interface Simulation {
 	// <host>/learnpad/cw/corefacade/simulation/start/{modelsetid}?currentUser=<name_of_user>
 	@Path("/simulation/start/{modelid}")
 	@POST
-	String startSimulation(@PathParam("modelid") String modelId,
-			@QueryParam("currentuser") String currentUser,
-			Collection<UserData> potentialUsers) throws LpRestException;
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	String startSimulation(@PathParam("modelid") String modelId, @QueryParam("currentuser") String currentUser,
+			UserDataCollection potentialUsers) throws LpRestException;
 }

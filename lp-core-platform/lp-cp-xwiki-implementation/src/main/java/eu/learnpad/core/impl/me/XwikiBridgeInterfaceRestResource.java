@@ -19,16 +19,14 @@
  */
 package eu.learnpad.core.impl.me;
 
-import eu.learnpad.me.BridgeInterface;
-
 import javax.inject.Named;
 
 import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 
-import eu.learnpad.configuration.LearnpadPropertiesConfigurationSource;
 import eu.learnpad.core.rest.DefaultRestResource;
+import eu.learnpad.me.BridgeInterface;
 
 /*
  * The methods inherited form the BridgeInterface in this
@@ -37,11 +35,10 @@ import eu.learnpad.core.rest.DefaultRestResource;
  */
 @Component
 @Named("me")
-public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implements BridgeInterface, Initializable
-{
-    @Override
-    public void initialize() throws InitializationException
-    {
-        this.restPrefix = "";
-    }
+public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implements BridgeInterface, Initializable {
+
+	@Override
+	public void initialize() throws InitializationException {
+		this.restPrefix = "";
+	}
 }

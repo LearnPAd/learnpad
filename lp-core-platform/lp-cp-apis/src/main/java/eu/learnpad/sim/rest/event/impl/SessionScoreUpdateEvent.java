@@ -56,12 +56,11 @@ public class SessionScoreUpdateEvent extends AbstractEvent {
 		super();
 	}
 
-	public SessionScoreUpdateEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String modelsetid,
-			Map<String, Object> simulationSessionData,
-			String processartifactid, String user, Long sessionScore) {
-		super(EventType.SESSION_SCORE_UPDATE, timestamp, simulationsessionid,
-				involvedusers, modelsetid, simulationSessionData);
+	public SessionScoreUpdateEvent(Long timestamp, String simulationsessionid, List<String> involvedusers,
+			String modelsetid, Map<String, Object> simulationSessionData, String processartifactid, String user,
+			Long sessionScore) {
+		super(EventType.SESSION_SCORE_UPDATE, timestamp, simulationsessionid, involvedusers, modelsetid,
+				simulationSessionData);
 		this.processartifactid = processartifactid;
 		this.sessionscore = sessionScore;
 		this.user = user;
@@ -69,7 +68,7 @@ public class SessionScoreUpdateEvent extends AbstractEvent {
 
 	@Override
 	public String toString() {
-		return super.toString() + " processartifactid=" + processartifactid
-				+ " user=" + user + " sessionscore=" + sessionscore;
+		return super.toString() + " processartifactid=" + processartifactid + " user=" + user + " sessionscore="
+				+ sessionscore;
 	}
 }

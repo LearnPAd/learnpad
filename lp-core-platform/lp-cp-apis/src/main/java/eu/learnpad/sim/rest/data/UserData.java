@@ -39,12 +39,9 @@ public class UserData {
 	}
 
 	@JsonCreator
-	public UserData(@JsonProperty("id") String id,
-			@JsonProperty("firstName") String firstName,
-			@JsonProperty("lastName") String lastName,
-			@JsonProperty("bio") String bio,
-			@JsonProperty("pictureURL") String pictureURL,
-			@JsonProperty("profileURL") String profileURL) {
+	public UserData(@JsonProperty("id") String id, @JsonProperty("firstName") String firstName,
+			@JsonProperty("lastName") String lastName, @JsonProperty("bio") String bio,
+			@JsonProperty("pictureURL") String pictureURL, @JsonProperty("profileURL") String profileURL) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -53,5 +50,4 @@ public class UserData {
 		this.pictureURL = pictureURL;
 		this.profileURL = profileURL;
 	}
-
 }

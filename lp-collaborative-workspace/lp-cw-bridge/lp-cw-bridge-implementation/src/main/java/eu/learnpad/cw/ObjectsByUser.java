@@ -17,34 +17,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.cw.impl.persistence;
+package eu.learnpad.cw;
 
-/**
-*
-* @author gulyx
-*/
-public class PairKeyString {
+import org.xwiki.component.annotation.Role;
 
-		private final String key1;
-	    private final String key2;
+@Role
+public interface ObjectsByUser<T> {
 
-	    public PairKeyString(String key1, String key2) {
-	        this.key1 = key1;
-	        this.key2 = key2;
-	    }
+	public T get(String user);
 
-	    @Override
-	    public boolean equals(Object o) {
-	        if (this == o) return true;
-	        if (!(o instanceof PairKeyString)) return false;
-	        PairKeyString pairKey = (PairKeyString) o;
-	        return (this.key1.equals(pairKey.key1) && this.key2.equals(pairKey.key2));
-	    }
-
-	    @Override
-	    public int hashCode() {
-	    	int hashCode = this.key1.hashCode() + (31 * this.key2.hashCode());
-	        return hashCode;
-	    }
-
+	public void put(String user, T object);
 }

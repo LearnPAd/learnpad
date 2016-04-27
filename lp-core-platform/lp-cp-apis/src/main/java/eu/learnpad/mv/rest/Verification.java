@@ -31,26 +31,28 @@ import eu.learnpad.mv.rest.data.VerificationResults;
 import eu.learnpad.mv.rest.data.VerificationStatus;
 import eu.learnpad.mv.rest.data.VerificationsAvailable;
 
-
 public interface Verification {
-    
-    @GET
-    @Path("/getavailableverifications")
-    @Produces(MediaType.APPLICATION_XML)
-    VerificationsAvailable getAvailableVerifications() throws LpRestException;
 
-    @GET
-    @Path("/startverification")
-    @Produces(MediaType.APPLICATION_XML)
-    VerificationId startVerification(@QueryParam("modelsetid") String modelSetId, @QueryParam("verificationtype") String verificationType) throws LpRestException;
+	@GET
+	@Path("/getavailableverifications")
+	@Produces(MediaType.APPLICATION_XML)
+	VerificationsAvailable getAvailableVerifications() throws LpRestException;
 
-    @GET
-    @Path("/getverificationstatus")
-    @Produces(MediaType.APPLICATION_XML)
-    VerificationStatus getVerificationStatus(@QueryParam("verificationprocessid") String verificationProcessId) throws LpRestException;
+	@GET
+	@Path("/startverification")
+	@Produces(MediaType.APPLICATION_XML)
+	VerificationId startVerification(@QueryParam("modelsetid") String modelSetId,
+			@QueryParam("verificationtype") String verificationType) throws LpRestException;
 
-    @GET
-    @Path("/getverificationresult")
-    @Produces(MediaType.APPLICATION_XML)
-    VerificationResults getVerificationResult(@QueryParam("verificationprocessid") String verificationProcessId) throws LpRestException;
+	@GET
+	@Path("/getverificationstatus")
+	@Produces(MediaType.APPLICATION_XML)
+	VerificationStatus getVerificationStatus(@QueryParam("verificationprocessid") String verificationProcessId)
+			throws LpRestException;
+
+	@GET
+	@Path("/getverificationresult")
+	@Produces(MediaType.APPLICATION_XML)
+	VerificationResults getVerificationResult(@QueryParam("verificationprocessid") String verificationProcessId)
+			throws LpRestException;
 }

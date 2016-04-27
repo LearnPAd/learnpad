@@ -28,7 +28,7 @@ import eu.learnpad.exception.LpRestException;
 
 public interface SendInvitations {
 
-	/** 
+	/**
 	 * @param questionnaireId
 	 *            the id of the questionnaire the invitation refers
 	 * @param emailList
@@ -37,7 +37,6 @@ public interface SendInvitations {
 	 */
 	@PUT
 	@Path("/{questionnaireid}/invite")
-	void importModelSet(@PathParam("questionnaireid") String questionnaireId,
-			@QueryParam("list") String [] emailList) throws LpRestException;
-	
+	void importModelSet(@PathParam("questionnaireid") String questionnaireId, @QueryParam("list") String[] emailList)
+			throws LpRestException;
 }

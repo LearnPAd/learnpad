@@ -27,9 +27,9 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.rest.model.jaxb.PFResults;
 
 public interface RetrieveFeedbacks {
-	//"/learnpad/me/retrievefeedbacks/{modelsetid}"
+
+	// "/learnpad/me/retrievefeedbacks/{modelsetid}"
 	@Path("/retrievefeedbacks/{modelsetid}")
 	@GET
-	PFResults getFeedbacks(@PathParam("modelsetid") String modelSetId)
-			throws LpRestException;
+	PFResults getFeedbacks(@PathParam("modelsetid") String modelSetId) throws LpRestException;
 }

@@ -21,7 +21,6 @@ package eu.learnpad.core.impl.cw;
 
 import java.io.InputStream;
 import java.nio.file.Paths;
-import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -46,12 +45,12 @@ import eu.learnpad.ca.rest.data.collaborative.CollaborativeContentAnalysis;
 import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.Utils;
-import eu.learnpad.cw.BridgeInterface;
 import eu.learnpad.cw.Controller;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.sim.rest.data.UserData;
+import eu.learnpad.sim.rest.data.UserDataCollection;
 
 /*
  * It is not clear yet who is responsible for the instantiation
@@ -65,174 +64,176 @@ import eu.learnpad.sim.rest.data.UserData;
 @Singleton
 @Named("eu.learnpad.core.impl.cw.XwikiController")
 @Path("/learnpad/cw/corefacade")
-public class XwikiController extends Controller implements XWikiRestComponent, Initializable
-{
-    @Inject
-    @Named("xwiki")
-    private Utils utils;
+public class XwikiController extends Controller implements XWikiRestComponent, Initializable {
 
-    @Inject
-    private ComponentManager componentManager;
+	@Inject
+	@Named("xwiki")
+	private Utils utils;
 
-    /*
-     * Note that in this solution the Controllers do not interact each-others, but each controller directly invokes the
-     * BridgesInterfaces (from the other controllers) it needs. This is not actually what was originally planned, thus
-     * in the future it may change. Also, not sure if this is the correct way to proceed. I would like to decide in a
-     * configuration file the implementation to bind, and not into the source code. In fact, this second case implies to
-     * rebuild the whole platform at each change.
-     */
-    private eu.learnpad.ca.BridgeInterface ca;
+	@Inject
+	private ComponentManager componentManager;
 
-    // private eu.learnpad.db.BridgeInterface db;
-    private eu.learnpad.me.BridgeInterface me;
+	/*
+	 * Note that in this solution the Controllers do not interact each-others,
+	 * but each controller directly invokes the BridgesInterfaces (from the
+	 * other controllers) it needs. This is not actually what was originally
+	 * planned, thus in the future it may change. Also, not sure if this is the
+	 * correct way to proceed. I would like to decide in a configuration file
+	 * the implementation to bind, and not into the source code. In fact, this
+	 * second case implies to rebuild the whole platform at each change.
+	 */
+	private eu.learnpad.ca.BridgeInterface ca;
 
-    private eu.learnpad.mv.BridgeInterface mv;
+	// private eu.learnpad.db.BridgeInterface db;
+	private eu.learnpad.me.BridgeInterface me;
 
-    private eu.learnpad.mt.BridgeInterface mt;
+	private eu.learnpad.mv.BridgeInterface mv;
 
-    private eu.learnpad.lsm.BridgeInterface lsm;
+	private eu.learnpad.mt.BridgeInterface mt;
 
-    private eu.learnpad.or.BridgeInterface or;
+	private eu.learnpad.lsm.BridgeInterface lsm;
 
-    private eu.learnpad.qm.BridgeInterface qm;
+	private eu.learnpad.or.BridgeInterface or;
 
-    private eu.learnpad.sim.BridgeInterface sim;
+	private eu.learnpad.qm.BridgeInterface qm;
 
-    @Override
-    public void initialize() throws InitializationException
-    {
-        try {
-            this.bridge = this.componentManager.getInstance(RestResource.class, "cw");
+	private eu.learnpad.sim.BridgeInterface sim;
 
-            this.ca = this.componentManager.getInstance(RestResource.class, "ca");
-            this.me = this.componentManager.getInstance(RestResource.class, "me");
-            this.mv = this.componentManager.getInstance(RestResource.class, "mv");
-            this.mt = this.componentManager.getInstance(RestResource.class, "mt");
-            this.lsm = this.componentManager.getInstance(RestResource.class, "lsm");
-            this.or = this.componentManager.getInstance(RestResource.class, "or");
-            this.qm = this.componentManager.getInstance(RestResource.class, "qm");
-            this.sim = this.componentManager.getInstance(RestResource.class, "sim");
-        } catch (ComponentLookupException e) {
-            throw new InitializationException(e.getMessage(), e);
-        }
-    }
+	@Override
+	public void initialize() throws InitializationException {
+		try {
+			this.bridge = this.componentManager.getInstance(RestResource.class, "cw");
 
-    @Override
-    public void commentNotification(String modelSetId, String commentId, String action) throws LpRestException
-    {
-        // TODO Auto-generated method stub
+			this.ca = this.componentManager.getInstance(RestResource.class, "ca");
+			this.me = this.componentManager.getInstance(RestResource.class, "me");
+			this.mv = this.componentManager.getInstance(RestResource.class, "mv");
+			this.mt = this.componentManager.getInstance(RestResource.class, "mt");
+			this.lsm = this.componentManager.getInstance(RestResource.class, "lsm");
+			this.or = this.componentManager.getInstance(RestResource.class, "or");
+			this.qm = this.componentManager.getInstance(RestResource.class, "qm");
+			this.sim = this.componentManager.getInstance(RestResource.class, "sim");
+		} catch (ComponentLookupException e) {
+			throw new InitializationException(e.getMessage(), e);
+		}
+	}
 
-    }
+	@Override
+	public void commentNotification(String modelSetId, String commentId, String action) throws LpRestException {
+		// TODO Auto-generated method stub
+	}
 
-    @Override
-    public void resourceNotification(String modelSetId, String resourceId, String artifactIds, String action)
-        throws LpRestException
-    {
-        // TODO Auto-generated method stub
+	@Override
+	public void resourceNotification(String modelSetId, String resourceId, String artifactIds, String action)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+	}
 
-    }
+	@Override
+	public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException {
+		String attachmentName = String.format("%s.%s", modelSetId, type);
+		// TODO: Adapt the name dynamically for Adoxx or MagicDraw
+		String fileName = "adoxx_modelset.xml";
+		java.nio.file.Path filePath = Paths.get(fileName);
+		return utils.getFileInAttachment(DefaultRestResource.CORE_REPOSITORY_WIKI,
+				DefaultRestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName, filePath);
+	}
 
-    @Override
-    public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException
-    {
-        String attachmentName = String.format("%s.%s", modelSetId, type);
-        // TODO: Adapt the name dynamically for Adoxx or MagicDraw
-        String fileName = "adoxx_modelset.xml";
-        java.nio.file.Path filePath = Paths.get(fileName);
-        return utils.getFileInAttachment(DefaultRestResource.CORE_REPOSITORY_WIKI,
-            DefaultRestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName, filePath);
-    }
+	@Override
+	public String startSimulation(String modelId, String currentUser, UserDataCollection potentialUsers)
+			throws LpRestException {
+		currentUser = this.removePrefixes(currentUser);
 
-    @Override
-    public String startSimulation(String modelId, String currentUser, Collection<UserData> potentialUsers)
-        throws LpRestException
-    {
-        return this.sim.addProcessInstance(modelId, potentialUsers, currentUser);
-    }
+		if (potentialUsers != null) {
+			for (UserData userData : potentialUsers.content) {
+				userData.id = this.removePrefixes(userData.id);
+			}
+		}
 
-    @Override
-    public Recommendations getRecommendations(String modelSetId, String artifactId, String userId)
-        throws LpRestException
-    {
-        Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userId, null);
-        // Recommendations rec = new Recommendations();
-        return rec;
-    }
+		return this.sim.addProcessInstance(modelId, potentialUsers.content, currentUser);
+	}
 
-    @Override
-    public InputStream transform(ModelSetType type, InputStream model) throws LpRestException
-    {
-        return this.mt.transform(type, model);
-    }
+	@Override
+	public Recommendations getRecommendations(String modelSetId, String artifactId, String userId)
+			throws LpRestException {
+		Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userId, null);
+		return rec;
+	}
 
-    @Override
-    public String startAnalysis(String id, String language, List<String> options, InputStream body)
-        throws LpRestException
-    {
-        CollaborativeContentAnalysis analysis = new CollaborativeContentAnalysis();
-        analysis.setLanguage(language);
-        QualityCriteria qualityCriteria = new QualityCriteria();
-        for (String option : options) {
-            switch (option) {
-                case "simplicity":
-                    qualityCriteria.setSimplicity(true);
-                    break;
-                case "non_ambiguity":
-                    qualityCriteria.setNonAmbiguity(true);
-                    break;
-                case "content_clarity":
-                    qualityCriteria.setContentClarity(true);
-                    break;
-                case "presentation_clarity":
-                    qualityCriteria.setPresentationClarity(true);
-                    break;
-                case "completeness":
-                    qualityCriteria.setCompleteness(true);
-                    break;
-                case "correctness":
-                    qualityCriteria.setCorrectness(true);
-                    break;
-            }
-        }
-        analysis.setQualityCriteria(qualityCriteria);
-        CollaborativeContent collaborativeContent = new CollaborativeContent();
-        collaborativeContent.setId(id);
+	@Override
+	public InputStream transform(ModelSetType type, InputStream model) throws LpRestException {
+		return this.mt.transform(type, model);
+	}
 
-        @SuppressWarnings("resource")
-        Scanner bodyScanner = new Scanner(body).useDelimiter("-\\*-\\*-");
-        String title = bodyScanner.next();
-        String plain = bodyScanner.next();
-        String html = bodyScanner.next();
-        // html = "<![CDATA[ " + html + " ]]>";
-        bodyScanner.close();
-        collaborativeContent.setTitle(title);
-        collaborativeContent.setContentplain(plain);
-        collaborativeContent.setContenthtml(html);
-        analysis.setCollaborativeContent(collaborativeContent);
-        return this.ca.putValidateCollaborativeContent(analysis);
-    }
+	@Override
+	public String startAnalysis(String id, String language, List<String> options, InputStream body)
+			throws LpRestException {
+		CollaborativeContentAnalysis analysis = new CollaborativeContentAnalysis();
+		analysis.setLanguage(language);
+		QualityCriteria qualityCriteria = new QualityCriteria();
+		for (String option : options) {
+			switch (option) {
+			case "simplicity":
+				qualityCriteria.setSimplicity(true);
+				break;
+			case "non_ambiguity":
+				qualityCriteria.setNonAmbiguity(true);
+				break;
+			case "content_clarity":
+				qualityCriteria.setContentClarity(true);
+				break;
+			case "presentation_clarity":
+				qualityCriteria.setPresentationClarity(true);
+				break;
+			case "completeness":
+				qualityCriteria.setCompleteness(true);
+				break;
+			case "correctness":
+				qualityCriteria.setCorrectness(true);
+				break;
+			}
+		}
+		analysis.setQualityCriteria(qualityCriteria);
+		CollaborativeContent collaborativeContent = new CollaborativeContent();
+		collaborativeContent.setId(id);
 
-    @Override
-    public String getStatus(String analysisId) throws LpRestException
-    {
-        String status = this.ca.getStatusCollaborativeContentVerifications(analysisId);
-        if ("OK".equals(status)) {
-            return "1.0";
-        } else {
-            Pattern pattern = Pattern.compile("InProgress_(\\d*)%");
-            Matcher matcher = pattern.matcher(status);
-            boolean matches = matcher.matches();
-            if (matches) {
-                return Double.toString(Double.parseDouble(matcher.group(1)) / 100.0);
-            } else {
-                return "-1.0";
-            }
-        }
-    }
+		@SuppressWarnings("resource")
+		Scanner bodyScanner = new Scanner(body).useDelimiter("-\\*-\\*-");
+		String title = bodyScanner.next();
+		String plain = bodyScanner.next();
+		String html = bodyScanner.next();
+		bodyScanner.close();
+		collaborativeContent.setTitle(title);
+		collaborativeContent.setContentplain(plain);
+		collaborativeContent.setContenthtml(html);
+		analysis.setCollaborativeContent(collaborativeContent);
+		return this.ca.putValidateCollaborativeContent(analysis);
+	}
 
-    @Override
-    public AnnotatedCollaborativeContentAnalyses getResults(String analysisId) throws LpRestException
-    {
-        return this.ca.getCollaborativeContentVerifications(analysisId);
-    }
+	@Override
+	public String getStatus(String analysisId) throws LpRestException {
+		String status = this.ca.getStatusCollaborativeContentVerifications(analysisId);
+		if ("OK".equals(status)) {
+			return "1.0";
+		} else {
+			Pattern pattern = Pattern.compile("InProgress_(\\d*)%");
+			Matcher matcher = pattern.matcher(status);
+			boolean matches = matcher.matches();
+			if (matches) {
+				return Double.toString(Double.parseDouble(matcher.group(1)) / 100.0);
+			} else {
+				return "-1.0";
+			}
+		}
+	}
+
+	@Override
+	public AnnotatedCollaborativeContentAnalyses getResults(String analysisId) throws LpRestException {
+		return this.ca.getCollaborativeContentVerifications(analysisId);
+	}
+
+	private String removePrefixes(String userId) {
+		String username = userId.replaceFirst("XWiki\\.", "");
+		return username;
+	}
+
 }

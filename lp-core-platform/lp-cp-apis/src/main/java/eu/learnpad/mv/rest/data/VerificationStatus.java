@@ -5,7 +5,6 @@
 // Generated on: 2015.11.26 at 10:28:58 AM CET 
 //
 
-
 package eu.learnpad.mv.rest.data;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,11 +13,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -35,37 +36,31 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "status"
-})
+@XmlType(name = "", propOrder = { "status" })
 @XmlRootElement(name = "VerificationStatus")
 public class VerificationStatus {
 
-    @XmlElement(name = "Status", required = true)
-    protected StatusType status;
+	@XmlElement(name = "Status", required = true)
+	protected StatusType status;
 
-    /**
-     * Gets the value of the status property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link StatusType }
-     *     
-     */
-    public StatusType getStatus() {
-        return status;
-    }
+	/**
+	 * Gets the value of the status property.
+	 * 
+	 * @return possible object is {@link StatusType }
+	 * 
+	 */
+	public StatusType getStatus() {
+		return status;
+	}
 
-    /**
-     * Sets the value of the status property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link StatusType }
-     *     
-     */
-    public void setStatus(StatusType value) {
-        this.status = value;
-    }
-
+	/**
+	 * Sets the value of the status property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link StatusType }
+	 * 
+	 */
+	public void setStatus(StatusType value) {
+		this.status = value;
+	}
 }

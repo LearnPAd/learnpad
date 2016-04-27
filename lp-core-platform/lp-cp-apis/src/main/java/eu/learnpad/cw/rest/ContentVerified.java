@@ -28,6 +28,7 @@ import eu.learnpad.exception.LpRestException;
 
 // <host>/learnpad/cw/contentverification/{modelsetid}?artifactid=123&resourceid=123&result={will be a Java class but waiting for a PR first}
 public interface ContentVerified {
+
 	/**
 	 * @param modelSetId
 	 *            is the ID of the model set that is concerned
@@ -42,8 +43,6 @@ public interface ContentVerified {
 	 */
 	@Path("/contentverification/{modelsetid}")
 	@PUT
-	void contentVerified(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("artifactid") String artifactId,
-			@QueryParam("resourceid") String resourceId,
-			@QueryParam("result") String result) throws LpRestException;
+	void contentVerified(@PathParam("modelsetid") String modelSetId, @QueryParam("artifactid") String artifactId,
+			@QueryParam("resourceid") String resourceId, @QueryParam("result") String result) throws LpRestException;
 }

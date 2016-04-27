@@ -25,7 +25,6 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 
-import eu.learnpad.configuration.LearnpadPropertiesConfigurationSource;
 import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.lsm.BridgeInterface;
@@ -37,84 +36,72 @@ import eu.learnpad.lsm.BridgeInterface;
  */
 @Component
 @Named("lsm")
-public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implements BridgeInterface, Initializable
-{
-    @Override
-    public void initialize() throws InitializationException
-    {
-        this.restPrefix = "";
-    }
+public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implements BridgeInterface, Initializable {
 
-    @Override
-    public void subscribeLearner(String learnerEmail) throws LpRestExceptionXWikiImpl
-    {
-        // TODO Auto-generated method stub
+	@Override
+	public void initialize() throws InitializationException {
+		this.restPrefix = "";
+	}
 
-    }
+	@Override
+	public void subscribeLearner(String learnerEmail) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
 
-    @Override
-    public void dropLearner(String learnerEmail) throws LpRestExceptionXWikiImpl
-    {
-        // TODO Auto-generated method stub
+	}
 
-    }
+	@Override
+	public void dropLearner(String learnerEmail) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
 
-    @Override
-    public void publishQuestionnaire(String questionnaireId, byte[] questionnaireFile) throws LpRestExceptionXWikiImpl
-    {
-        // TODO Auto-generated method stub
+	}
 
-    }
+	@Override
+	public void publishQuestionnaire(String questionnaireId, byte[] questionnaireFile) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
 
-    @Override
-    public void dropQuestionnaire(String questionnaireId) throws LpRestExceptionXWikiImpl
-    {
-        // TODO Auto-generated method stub
+	}
 
-    }
+	@Override
+	public void dropQuestionnaire(String questionnaireId) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
 
-    @Override
-    public void subscribeLearnerToQuestionnaire(String learnerEmail, String questionnaireId)
-        throws LpRestExceptionXWikiImpl
-    {
-        // TODO Auto-generated method stub
+	}
 
-    }
+	@Override
+	public void subscribeLearnerToQuestionnaire(String learnerEmail, String questionnaireId)
+			throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
 
-    @Override
-    public void revokeLearnerFromQuestionnaire(String learnerEmail, String questionnaireId)
-        throws LpRestExceptionXWikiImpl
-    {
-        // TODO Auto-generated method stub
+	}
 
-    }
+	@Override
+	public void revokeLearnerFromQuestionnaire(String learnerEmail, String questionnaireId)
+			throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
 
-    @Override
-    public String[] listLearnersFromQuestionnaire(String questionnaireId) throws LpRestExceptionXWikiImpl
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	}
 
-    @Override
-    public String[] listQuestionnaireFromLearner(String learnerEmail) throws LpRestExceptionXWikiImpl
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public String[] listLearnersFromQuestionnaire(String questionnaireId) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public byte[] exportStatisticsByLearner(String learnerEmail) throws LpRestExceptionXWikiImpl
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public String[] listQuestionnaireFromLearner(String learnerEmail) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public byte[] exportStatisticsByQuestionnaire(String questionnaireId) throws LpRestExceptionXWikiImpl
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public byte[] exportStatisticsByLearner(String learnerEmail) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public byte[] exportStatisticsByQuestionnaire(String questionnaireId) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

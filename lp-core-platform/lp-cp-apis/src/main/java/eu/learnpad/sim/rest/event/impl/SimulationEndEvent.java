@@ -41,11 +41,9 @@ public class SimulationEndEvent extends AbstractEvent {
 		super();
 	}
 
-	public SimulationEndEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String modelsetid,
+	public SimulationEndEvent(Long timestamp, String simulationsessionid, List<String> involvedusers, String modelsetid,
 			Map<String, Object> simulationSessionData) {
-		super(EventType.SIMULATION_END, timestamp, simulationsessionid,
-				involvedusers, modelsetid, simulationSessionData);
+		super(EventType.SIMULATION_END, timestamp, simulationsessionid, involvedusers, modelsetid,
+				simulationSessionData);
 	}
-
 }

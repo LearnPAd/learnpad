@@ -27,10 +27,11 @@ import eu.learnpad.core.rest.DefaultRestResource;
  * class should be implemented as a REST invocation
  * toward the CoreFacade binded at the provided URL
  */
-public class XwikiCoreFacadeRestResource extends DefaultRestResource implements CoreFacade {
+public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
+		CoreFacade {
 
 	public XwikiCoreFacadeRestResource() {
-		this("localhost",8080);
+		this("localhost", 8080);
 	}
 
 	public XwikiCoreFacadeRestResource(String coreFacadeHostname,
@@ -38,11 +39,10 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 		// This constructor could change in the future
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
 	}
-	
-	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort){
-// This constructor has to be fixed, since it requires changes on the class
-//		eu.learnpad.core.rest.RestResource
-		
+
+	public void updateConfiguration(String coreFacadeHostname,
+			int coreFacadeHostPort) {
+		// This constructor has to be fixed, since it requires changes on the
+		// class eu.learnpad.core.rest.RestResource
 	}
-	
 }

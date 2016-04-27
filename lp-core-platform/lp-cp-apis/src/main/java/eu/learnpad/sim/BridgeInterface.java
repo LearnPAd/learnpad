@@ -34,7 +34,5 @@ import eu.learnpad.sim.rest.ISimulationMonitoringAPI;
 @Path("/learnpad/sim/bridge/")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public interface BridgeInterface extends IProcessHandlingAPI,
-		ISimulationMonitoringAPI {
-
+public interface BridgeInterface extends IProcessHandlingAPI, ISimulationMonitoringAPI {
 }

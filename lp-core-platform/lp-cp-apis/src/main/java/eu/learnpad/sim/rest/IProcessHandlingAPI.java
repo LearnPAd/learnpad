@@ -63,10 +63,8 @@ public interface IProcessHandlingAPI {
 	 */
 	@POST
 	@Path("/processes")
-	public Collection<String> addProcessDefinition(
-			String processDefinitionFileURL,
-			@QueryParam("modelsetartifactid") String modelSetId)
-			throws LpRestException;
+	public Collection<String> addProcessDefinition(String processDefinitionFileURL,
+			@QueryParam("modelsetartifactid") String modelSetId) throws LpRestException;
 
 	/**
 	 *
@@ -76,9 +74,7 @@ public interface IProcessHandlingAPI {
 	 */
 	@GET
 	@Path("/processes/{artifactid:.*}")
-	public ProcessData getProcessInfos(
-			@PathParam("artifactid") String processArtifactId)
-			throws LpRestException;
+	public ProcessData getProcessInfos(@PathParam("artifactid") String processArtifactId) throws LpRestException;
 
 	/**
 	 *
@@ -96,8 +92,7 @@ public interface IProcessHandlingAPI {
 	 */
 	@POST
 	@Path("/instances")
-	public String addProcessInstance(ProcessInstanceData data)
-			throws LpRestException;
+	public String addProcessInstance(ProcessInstanceData data) throws LpRestException;
 
 	/**
 	 *
@@ -112,10 +107,8 @@ public interface IProcessHandlingAPI {
 	 */
 	@POST
 	@Path("/instances/{artifactid:.*}")
-	public String addProcessInstance(@PathParam("artifactid") String processId,
-			Collection<UserData> potentialUsers,
-			@QueryParam("currentuser") String currentUser)
-			throws LpRestException;
+	public String addProcessInstance(@PathParam("artifactid") String processId, Collection<UserData> potentialUsers,
+			@QueryParam("currentuser") String currentUser) throws LpRestException;
 
 	/**
 	 *
@@ -125,7 +118,6 @@ public interface IProcessHandlingAPI {
 	 */
 	@GET
 	@Path("/instances/{artifactid:.*}")
-	public ProcessInstanceData getProcessInstanceInfos(
-			@PathParam("artifactid") String processInstanceArtifactId)
+	public ProcessInstanceData getProcessInstanceInfos(@PathParam("artifactid") String processInstanceArtifactId)
 			throws LpRestException;
 }

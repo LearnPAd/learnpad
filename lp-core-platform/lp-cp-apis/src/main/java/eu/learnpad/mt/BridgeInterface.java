@@ -25,5 +25,4 @@ import eu.learnpad.mt.rest.Transformer;
 
 @Path("/learnpad/mt/bridge")
 public interface BridgeInterface extends Transformer {
-
 }

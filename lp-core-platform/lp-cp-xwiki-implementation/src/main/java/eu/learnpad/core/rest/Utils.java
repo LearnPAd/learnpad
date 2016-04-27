@@ -28,25 +28,25 @@ import org.xwiki.component.annotation.Role;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 
 @Role
-public interface Utils
-{
-    public boolean putPage(String wikiName, String spaceName, String pageName, InputStream pageXML);
+public interface Utils {
 
-    public boolean isPage(String wikiName, String spaceName, String pageName);
+	public boolean putPage(String wikiName, String spaceName, String pageName, InputStream pageXML);
 
-    public boolean createEmptyPage(String wikiName, String spaceName, String pageName);
+	public boolean isPage(String wikiName, String spaceName, String pageName);
 
-    public InputStream getAttachmentFromCoreRepository(String basename, String extension);
+	public boolean createEmptyPage(String wikiName, String spaceName, String pageName);
 
-    public Collection<String> exposeBPMNFromCoreRepository(String basename, String extension);
+	public InputStream getAttachmentFromCoreRepository(String basename, String extension);
 
-    public InputStream getAttachment(String wikiName, String spaceName, String pageName, String attachmentName);
+	public Collection<String> exposeBPMNFromCoreRepository(String basename, String extension);
 
-    public InputStream getFileInAttachment(String wikiName, String spaceName, String pageName, String attachmentName,
-        Path filePath);
+	public InputStream getAttachment(String wikiName, String spaceName, String pageName, String attachmentName);
 
-    public boolean putAttachment(String wikiName, String spaceName, String pageName, String attachmentName,
-        InputStream attachment);
+	public InputStream getFileInAttachment(String wikiName, String spaceName, String pageName, String attachmentName,
+			Path filePath);
 
-    public String getEmailAddress(String wikiName, String username) throws LpRestExceptionXWikiImpl;
+	public boolean putAttachment(String wikiName, String spaceName, String pageName, String attachmentName,
+			InputStream attachment);
+
+	public String getEmailAddress(String wikiName, String username) throws LpRestExceptionXWikiImpl;
 }

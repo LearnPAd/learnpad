@@ -31,12 +31,11 @@ import eu.learnpad.exception.LpRestException;
 
 public interface PublishQuestionnaire {
 
-	//"/learnpad/qm/publish/{questionnairesid}?type={mothia-out}"
-
+	// "/learnpad/qm/publish/{questionnairesid}?type={mothia-out}"
 	@PUT
 	@Path("/publish/{questionnairesid}")
 	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
 	void publish(@PathParam("questionnairesid") String questionnairesId,
-			@QueryParam("type") @DefaultValue("mothia-out") String type, byte [] questionnairesFile)
-					throws LpRestException;
+			@QueryParam("type") @DefaultValue("mothia-out") String type, byte[] questionnairesFile)
+			throws LpRestException;
 }

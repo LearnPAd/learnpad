@@ -28,7 +28,7 @@ import eu.learnpad.exception.LpRestException;
 
 public interface CRUDQuestionnaires {
 
-	/** 
+	/**
 	 * @param questionnaireId
 	 *            the id of a questionnaire
 	 * @param questionnaireFile
@@ -37,9 +37,10 @@ public interface CRUDQuestionnaires {
 	 */
 	@POST
 	@Path("/{questionnaireid}/publish")
-	void publishQuestionnaire(@PathParam("questionnaireid") String questionnaireId, @QueryParam("questionnairefile") byte [] questionnaireFile) throws LpRestException;
+	void publishQuestionnaire(@PathParam("questionnaireid") String questionnaireId,
+			@QueryParam("questionnairefile") byte[] questionnaireFile) throws LpRestException;
 
-	/** 
+	/**
 	 * @param questionnaireId
 	 *            the id of a questionnaire
 	 * @throws LpRestException

@@ -5,19 +5,21 @@
 // Generated on: 2015.11.26 at 10:28:58 AM CET 
 //
 
-
 package eu.learnpad.mv.rest.data;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for StatusType.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
+ * Java class for StatusType.
+ * 
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
+ * <p>
+ * 
  * <pre>
  * &lt;simpleType name="StatusType">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -33,28 +35,24 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum StatusType {
 
-    @XmlEnumValue("IN PROGRESS")
-    IN_PROGRESS("IN PROGRESS"),
-    @XmlEnumValue("NEVER STARTED")
-    NEVER_STARTED("NEVER STARTED"),
-    COMPLETED("COMPLETED");
-    private final String value;
+	@XmlEnumValue("IN PROGRESS") IN_PROGRESS("IN PROGRESS"), @XmlEnumValue("NEVER STARTED") NEVER_STARTED(
+			"NEVER STARTED"), COMPLETED("COMPLETED");
+	private final String value;
 
-    StatusType(String v) {
-        value = v;
-    }
+	StatusType(String v) {
+		value = v;
+	}
 
-    public String value() {
-        return value;
-    }
+	public String value() {
+		return value;
+	}
 
-    public static StatusType fromValue(String v) {
-        for (StatusType c: StatusType.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
-    }
-
+	public static StatusType fromValue(String v) {
+		for (StatusType c : StatusType.values()) {
+			if (c.value.equals(v)) {
+				return c;
+			}
+		}
+		throw new IllegalArgumentException(v);
+	}
 }

@@ -27,5 +27,4 @@ import eu.learnpad.qm.rest.ModelSetImported;
 
 @Path("/learnpad/qm/bridge")
 public interface BridgeInterface extends ModelSetImported, CompileQuestionnaire, GenerateQuestionnaires {
-
 }

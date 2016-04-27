@@ -19,15 +19,14 @@
  */
 package eu.learnpad.mv.rest;
 
-
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
-
 import eu.learnpad.exception.LpRestException;
 
 public interface NotifyVerification {
+
 	@PUT
 	@Path("/notifyverification/{verificationprocessid}")
 	void notifyVerification(@PathParam("verificationprocessid") String verificationProcessId) throws LpRestException;

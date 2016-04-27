@@ -31,52 +31,48 @@ import org.xwiki.configuration.ConfigurationSource;
 
 @Component
 @Named("default")
-public class DefaultRestResource implements RestResource
-{
-    @Inject
-    @Named("learnpadproperties")
-    public ConfigurationSource configurationSource;
+public class DefaultRestResource implements RestResource {
 
-    public String restPrefix;
+	@Inject
+	@Named("learnpadproperties")
+	public ConfigurationSource configurationSource;
 
-    final private static String PROTOCOL = "http";
+	public String restPrefix;
 
-    final private static String HOSTNAME = "localhost";
+	final private static String PROTOCOL = "http";
 
-    final private static int PORT = 8080;
+	final private static String HOSTNAME = "localhost";
 
-    final private static String HOST = PROTOCOL + "://" + HOSTNAME + ":" + PORT;
+	final private static int PORT = 8080;
 
-    final public static String REST_URI = HOST + "/xwiki/rest";
+	final private static String HOST = PROTOCOL + "://" + HOSTNAME + ":" + PORT;
 
-    final private static String DEFAULT_USER = "superadmin";
+	final public static String REST_URI = HOST + "/xwiki/rest";
 
-    final private static String DEFAULT_PASSWORD = "LearnPAss";
+	final private static String DEFAULT_USER = "superadmin";
 
-    final public static String CORE_REPOSITORY_WIKI = "xwiki";
+	final private static String DEFAULT_PASSWORD = "LearnPAss";
 
-    final public static String CORE_REPOSITORY_SPACE = "CoreRepository";
+	final public static String CORE_REPOSITORY_WIKI = "xwiki";
 
-    public HttpClient getClient()
-    {
-        return getClient(DefaultRestResource.DEFAULT_USER, DefaultRestResource.DEFAULT_PASSWORD);
-    }
+	final public static String CORE_REPOSITORY_SPACE = "CoreRepository";
 
-    public HttpClient getClient(String userName, String password)
-    {
-        HttpClient httpClient = new HttpClient();
-        httpClient.getParams().setAuthenticationPreemptive(true);
-        Credentials credentials = new UsernamePasswordCredentials(userName, password);
-        AuthScope authentication =
-            new AuthScope(DefaultRestResource.HOSTNAME, DefaultRestResource.PORT, AuthScope.ANY_REALM);
-        httpClient.getState().setCredentials(authentication, credentials);
-        return httpClient;
-    }
+	public HttpClient getClient() {
+		return getClient(DefaultRestResource.DEFAULT_USER, DefaultRestResource.DEFAULT_PASSWORD);
+	}
 
-    public HttpClient getAnonymousClient()
-    {
-        HttpClient httpClient = new HttpClient();
-        return httpClient;
-    }
+	public HttpClient getClient(String userName, String password) {
+		HttpClient httpClient = new HttpClient();
+		httpClient.getParams().setAuthenticationPreemptive(true);
+		Credentials credentials = new UsernamePasswordCredentials(userName, password);
+		AuthScope authentication = new AuthScope(DefaultRestResource.HOSTNAME, DefaultRestResource.PORT,
+				AuthScope.ANY_REALM);
+		httpClient.getState().setCredentials(authentication, credentials);
+		return httpClient;
+	}
 
+	public HttpClient getAnonymousClient() {
+		HttpClient httpClient = new HttpClient();
+		return httpClient;
+	}
 }

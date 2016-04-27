@@ -1,2 +1,3 @@
-eu.learnpad.cw.CWXwikiBridge
-eu.learnpad.cw.UICWBridge
+eu.learnpad.cw.internal.CWXwikiBridge
+eu.learnpad.cw.internal.RecommendationWebsocketServer
+eu.learnpad.cw.internal.SocketsByUser

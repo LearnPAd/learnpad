@@ -23,11 +23,11 @@ import org.apache.commons.httpclient.HttpClient;
 import org.xwiki.component.annotation.Role;
 
 @Role
-public interface RestResource
-{
-    public HttpClient getClient();
+public interface RestResource {
 
-    public HttpClient getClient(String userName, String password);
+	public HttpClient getClient();
 
-    public HttpClient getAnonymousClient();
+	public HttpClient getClient(String userName, String password);
+
+	public HttpClient getAnonymousClient();
 }

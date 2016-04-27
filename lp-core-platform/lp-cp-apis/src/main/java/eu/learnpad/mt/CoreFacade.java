@@ -23,5 +23,4 @@ import javax.ws.rs.Path;
 
 @Path("/learnpad/mt/corefacade")
 public interface CoreFacade {
-
 }

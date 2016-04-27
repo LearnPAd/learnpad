@@ -7,6 +7,7 @@ package eu.learnpad.or.rest.data;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,31 +17,30 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class Experts {
-    
-    List<BusinessActor> businessActors = null;
 
-    public List<BusinessActor> getBusinessActors() {
-        return businessActors;
-    }
+	List<BusinessActor> businessActors = null;
 
-    @XmlElement(name="businessActor")
-    public void setBusinessActors(List<BusinessActor> businessActors) {
-        this.businessActors = businessActors;
-    }
-    
-    public void addBusinessActor(BusinessActor state){
-        businessActors().add(state);
-    }
-    
-    public void addAllBusinessActors(List<BusinessActor> experts){
-        businessActors().addAll(experts);
-    }
-    
-    private List<BusinessActor> businessActors(){
-        if(businessActors == null){
-            businessActors = new ArrayList<BusinessActor>();
-        }
-        return businessActors;
-    }
-    
+	public List<BusinessActor> getBusinessActors() {
+		return businessActors;
+	}
+
+	@XmlElement(name = "businessActor")
+	public void setBusinessActors(List<BusinessActor> businessActors) {
+		this.businessActors = businessActors;
+	}
+
+	public void addBusinessActor(BusinessActor state) {
+		businessActors().add(state);
+	}
+
+	public void addAllBusinessActors(List<BusinessActor> experts) {
+		businessActors().addAll(experts);
+	}
+
+	private List<BusinessActor> businessActors() {
+		if (businessActors == null) {
+			businessActors = new ArrayList<BusinessActor>();
+		}
+		return businessActors;
+	}
 }
