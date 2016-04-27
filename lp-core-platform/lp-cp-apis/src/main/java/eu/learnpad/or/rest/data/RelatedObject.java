@@ -16,9 +16,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class RelatedObject {
     
     private String relationType;
-    private String id;
+    private String uri;
     private String name;
-    private String url;
+    private String documentUrl;
     private String mimeType;
     private String description;
     private String comment;
@@ -32,13 +32,13 @@ public class RelatedObject {
         this.relationType = relationType;
     }
 
-    public String getId() {
-        return id;
+    public String getUri() {
+        return uri;
     }
 
     @XmlElement
-    public void setId(String id) {
-        this.id = id;
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     public String getName() {
@@ -50,13 +50,13 @@ public class RelatedObject {
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
+    public String getDocumentUrl() {
+        return documentUrl;
     }
 
     @XmlElement
-    public void setUrl(String url) {
-        this.url = url;
+    public void setDocumentUrl(String documentUrl) {
+        this.documentUrl = documentUrl;
     }
 
     public String getMimeType() {

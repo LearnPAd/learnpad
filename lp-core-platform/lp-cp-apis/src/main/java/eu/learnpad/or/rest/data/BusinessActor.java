@@ -12,65 +12,125 @@ import javax.xml.bind.annotation.XmlElement;
  * @author sandro.emmenegger
  */
 public class BusinessActor {
+    
+    private String uri;
+    private String name;
+    private String firstname;
+    private String lastname;
+    private String email;
+    private String skypeId;
+    private String phoneNumber;
+    private String officeAddress;
+    private OrganisationalUnit organisationalUnit;    
+    private String role;
+    private String description;
+    private Boolean bookmark;
+    
+    public String getName() {
+        return name;
+    }
 
-	private String uri;
-	private String name;
-	private String email;
-	private String phoneNumber;
-	private String role;
-	private String description;
+    public String getUri() {
+        return uri;
+    }
 
-	public String getName() {
-		return name;
-	}
+    @XmlElement
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
 
-	public String getUri() {
-		return uri;
-	}
+    @XmlElement
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@XmlElement
-	public void setUri(String uri) {
-		this.uri = uri;
-	}
+    public String getFirstname() {
+        return firstname;
+    }
 
-	@XmlElement
-	public void setName(String name) {
-		this.name = name;
-	}
+    @XmlElement
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getLastname() {
+        return lastname;
+    }
 
-	@XmlElement
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    @XmlElement
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	@XmlElement
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+    @XmlElement
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    public String getSkypeId() {
+        return skypeId;
+    }
 
-	@XmlElement
-	public void setRole(String role) {
-		this.role = role;
-	}
+    @XmlElement
+    public void setSkypeId(String skypeId) {
+        this.skypeId = skypeId;
+    }
+    
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    @XmlElement
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-	@XmlElement
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getRole() {
+        return role;
+    }
+
+    @XmlElement
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getOfficeAddress() {
+        return officeAddress;
+    }
+
+    @XmlElement
+    public void setOfficeAddress(String officeAddress) {
+        this.officeAddress = officeAddress;
+    }
+
+    public OrganisationalUnit getOrganisationalUnit() {
+        return organisationalUnit;
+    }
+
+    @XmlElement
+    public void setOrganisationalUnit(OrganisationalUnit organisationalUnit) {
+        this.organisationalUnit = organisationalUnit;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    
+    @XmlElement
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Boolean getBookmark() {
+        return bookmark;
+    }
+
+    @XmlElement
+    public void setBookmark(Boolean bookmark) {
+        this.bookmark = bookmark;
+    }    
 }

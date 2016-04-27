@@ -15,10 +15,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Entity {
     
+    private String contextArtifactId; //page id or ontology instance URI of recognized resource
     private String type;
     private TextMarker textMarker;
     private BusinessActor person;
     private RelatedObjects relatedObjects;
+
+    public String getContextArtifactId() {
+        return contextArtifactId;
+    }
+
+    @XmlElement
+    public void setContextArtifactId(String contextArtifactId) {
+        this.contextArtifactId = contextArtifactId;
+    }
 
     public String getType() {
         return type;

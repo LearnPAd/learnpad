@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class TextMarker {
     
     private int startPosition;
-    private int lenght;
+    private int length;
 
     public int getStartPosition() {
         return startPosition;
@@ -27,13 +27,13 @@ public class TextMarker {
         this.startPosition = startPosition;
     }
 
-    public int getLenght() {
-        return lenght;
+    public int getLength() {
+        return length;
     }
 
     @XmlElement
-    public void setLenght(int lenght) {
-        this.lenght = lenght;
+    public void setLength(int length) {
+        this.length = length;
     }
     
 }

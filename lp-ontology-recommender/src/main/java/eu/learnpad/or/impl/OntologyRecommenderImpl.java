@@ -27,13 +27,12 @@ import eu.learnpad.ontology.execution.ExecutionStates;
 import eu.learnpad.ontology.recommender.Recommender;
 import eu.learnpad.ontology.recommender.cbr.CBRAdapter;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
-import eu.learnpad.or.rest.data.Bookmark;
-import eu.learnpad.or.rest.data.Bookmarks;
 import eu.learnpad.or.rest.data.BusinessActor;
 import eu.learnpad.or.rest.data.Entities;
 import eu.learnpad.or.rest.data.Entity;
 import eu.learnpad.or.rest.data.Experts;
 import eu.learnpad.or.rest.data.LearningMaterial;
+import eu.learnpad.or.rest.data.LearningMaterials;
 import eu.learnpad.or.rest.data.OrganisationalUnit;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.RelatedObject;
@@ -131,26 +130,27 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     }    
 
     @Override
-    public Entities analyseText(String modelSetId, String artifactId, String userId, String title, String text) throws LpRestException {
+    public Entities analyseText(String modelSetId, String contextArtifactId, String userId, String title, String text) throws LpRestException {
         
         Entities testData = new Entities();
         Entity entity = new Entity();
+        entity.setContextArtifactId("transfer:obj.35315");
         entity.setType("eo:Person");
         TextMarker textMarker = new TextMarker();
-        textMarker.setStartPosition(8);
-        textMarker.setLenght(12);
+        textMarker.setStartPosition(26);
+        textMarker.setLength(12);
         entity.setTextMarker(textMarker);
         BusinessActor person = new BusinessActor();
+        person.setUri("transfer:obj.34872");
         person.setName("Sally Shugar");
         person.setEmail("sally.shugar@learnpad.eu");
-        person.setPhoneNumber("+234 23223 123");
         person.setSkypeId("learnpad_sally");
+        person.setPhoneNumber("+234 23223 123");
         person.setOfficeAddress("Yellow drive 244b, East Juhee, Malta");
         person.setRole("Responsible SUAP Officer");
-        person.setUri("lpd:Sally_Shugar");
         OrganisationalUnit orgUnit = new OrganisationalUnit();
         orgUnit.setName("SUAP Office");
-        orgUnit.setArtifactId("obj.122121");
+        orgUnit.setUri("transfer:obj.122121");
         person.setOrganisationalUnit(orgUnit);
         entity.setPerson(person);
         
@@ -160,18 +160,18 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         relatedObject1.setRelationType("sameCreator");
         relatedObject1.setName("Management ABC for public administrations");
         relatedObject1.setDescription("This self study book with learning material is the definitve guide to manage a team in public administration.");
-        relatedObject1.setUrl("http://learnpad.eu/material/PublicAdministrationABC.pdf");
+        relatedObject1.setDocumentUrl("http://learnpad.eu/material/PublicAdministrationABC.pdf");
         relatedObject1.setMimeType("application/pdf");
-        relatedObject1.setId("transfer:obj.21321");
+        relatedObject1.setUri("transfer:obj.21321");
         listOfRelatedObjects.add(relatedObject1);
         
         RelatedObject relatedObject2 = new RelatedObject();
-        relatedObject1.setRelationType("sameCreator");
+        relatedObject1.setRelationType("sameAuthor");
         relatedObject2.setName("Best practices for organizing a service conference");
         relatedObject2.setDescription("A set of best practices with many hints for organizing a service conference.");
-        relatedObject2.setUrl("http://learnpad.eu/material/BestPracticesServiceConferenceOrganisatoin.pdf");
+        relatedObject2.setDocumentUrl("http://learnpad.eu/material/BestPracticesServiceConferenceOrganisatoin.pdf");
         relatedObject2.setMimeType("application/pdf");
-        relatedObject2.setId("transfer:obj.21322");
+        relatedObject2.setUri("transfer:obj.21322");
         listOfRelatedObjects.add(relatedObject2);
         RelatedObjects relatedObjects = new RelatedObjects();
         relatedObjects.setRelatedObjects(listOfRelatedObjects);        
@@ -184,18 +184,15 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     }
 
     @Override
-    public void createBookmark(String modelSetId, String userId, String entityId) throws LpRestException {
+    public void createBookmark(String modelSetId, String userId, String artifactId, String contextArtifactId) throws LpRestException {
         //TODO
     }
 
     @Override
-    public Bookmarks getAllBookmarks(String modelSetId, String userId, String artifactId) throws LpRestException {
+    public Recommendations getAllBookmarks(String modelSetId, String userId, String artifactId) throws LpRestException {
         
-        Bookmarks testData = new Bookmarks();
-        List<Bookmark> bookmarskList = new ArrayList();
+        Recommendations testData = new Recommendations();
         
-        Bookmark bookmark1 = new Bookmark();
-        bookmark1.setArtifactId("transfer:obj.21321");
         BusinessActor person = new BusinessActor();
         person.setName("Sally Shugar");
         person.setEmail("sally.shugar@learnpad.eu");
@@ -206,23 +203,26 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         person.setUri("lpd:Sally_Shugar");
         OrganisationalUnit orgUnit = new OrganisationalUnit();
         orgUnit.setName("SUAP Office");
-        orgUnit.setArtifactId("obj.122121");
+        orgUnit.setUri("obj.122121");
         person.setOrganisationalUnit(orgUnit);
-        bookmark1.setExpert(person);
+        List<BusinessActor> expertList = new ArrayList();
+        expertList.add(person);
+        Experts experts = new Experts();
+        experts.setBusinessActors(expertList);
+        testData.setExperts(experts);
         
-        Bookmark bookmark2 = new Bookmark();
-        bookmark2.setArtifactId("transfer:obj.21322");
         LearningMaterial learningMaterial = new LearningMaterial();
         learningMaterial.setName("Management ABC for public administrations");
         learningMaterial.setDescription("This self study book with learning material is the definitve guide to manage a team in public administration.");
         learningMaterial.setUrl("http://learnpad.eu/material/PublicAdministrationABC.pdf");
         learningMaterial.setMimeType("application/pdf");
         learningMaterial.setId("transfer:obj.21321");
-        bookmark2.setLearningMaterial(learningMaterial);
-        bookmark2.setExpert(person);        
         
-        bookmarskList.add(bookmark2);
-        testData.setBookmarks(bookmarskList);
+        List<LearningMaterial> learningMaterialsList = new ArrayList<>();
+        learningMaterialsList.add(learningMaterial);
+        LearningMaterials materials = new LearningMaterials();
+        materials.setLearningMaterials(learningMaterialsList);
+        testData.setLearningMaterials(materials);
         
         return testData;
     }

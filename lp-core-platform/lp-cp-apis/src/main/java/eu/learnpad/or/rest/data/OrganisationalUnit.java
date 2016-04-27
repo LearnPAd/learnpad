@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class OrganisationalUnit {
     
     private String name;
-    private String artifactId;
+    private String uri; // ontology instance URI
 
     public String getName() {
         return name;
@@ -27,13 +27,13 @@ public class OrganisationalUnit {
         this.name = name;
     }
 
-    public String getArtifactId() {
-        return artifactId;
+    public String getUri() {
+        return uri;
     }
 
     @XmlElement
-    public void setArtifactId(String artifactId) {
-        this.artifactId = artifactId;
+    public void setUri(String uri) {
+        this.uri = uri;
     }
     
     
