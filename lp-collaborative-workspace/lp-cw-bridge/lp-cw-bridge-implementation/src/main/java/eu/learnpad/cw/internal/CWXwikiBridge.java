@@ -66,7 +66,6 @@ import eu.learnpad.core.impl.cw.XwikiBridge;
 import eu.learnpad.core.impl.cw.XwikiCoreFacadeRestResource;
 import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.core.rest.RestResource;
-import eu.learnpad.cw.ObjectsByUser;
 import eu.learnpad.cw.UICWBridge;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
@@ -130,10 +129,6 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 
 	@Inject
 	private Provider<XWikiContext> xcontextProvider;
-
-	@Inject
-	@Named("socket")
-	private ObjectsByUser<List<WebSocket>> socketsByUser;
 
 	@Inject
 	@Named("current")
@@ -389,7 +384,7 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 			Recommendations recommendations) throws LpRestException {
 		String xwikiUserId = String.format("XWiki.%s", userid);
 		if (this.isBanningPeriodExpired(simulationid)) {
-			for (WebSocket ws : this.socketsByUser.get(xwikiUserId)) {
+			for (WebSocket ws : RecommendationWebsocketServer.socketBox.byUserid(xwikiUserId)) {
 				ObjectMapper mapper = new ObjectMapper();
 				String msg = "";
 				try {
