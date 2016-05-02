@@ -19,10 +19,10 @@
  */
 package eu.learnpad.cw.internal;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -52,7 +52,7 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 	public static final SocketBox socketBox = new SocketBox();
 
 	public static class SocketBox {
-		private Map<WebSocket, SocketMetadata> sockets = new HashMap<WebSocket, SocketMetadata>();
+		private Map<WebSocket, SocketMetadata> sockets = new ConcurrentHashMap<WebSocket, SocketMetadata>();
 
 		SocketMetadata get(WebSocket socket) {
 			return socketBox.sockets.get(socket);
