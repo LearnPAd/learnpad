@@ -46,7 +46,6 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 import org.xwiki.configuration.ConfigurationSource;
-import org.xwiki.contrib.websocket.WebSocket;
 import org.xwiki.model.reference.DocumentReference;
 import org.xwiki.model.reference.DocumentReferenceResolver;
 import org.xwiki.query.Query;
@@ -68,6 +67,7 @@ import eu.learnpad.core.impl.cw.XwikiCoreFacadeRestResource;
 import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.cw.UICWBridge;
+import eu.learnpad.cw.internal.RecommendationWebsocketServer.WebSocketMetadata;
 import eu.learnpad.cw.rest.data.ScoreRecord;
 import eu.learnpad.cw.rest.data.ScoreRecordCollection;
 import eu.learnpad.exception.LpRestException;
@@ -389,7 +389,7 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 			Recommendations recommendations) throws LpRestException {
 		String xwikiUserId = String.format("XWiki.%s", userid);
 		if (this.isBanningPeriodExpired(simulationid)) {
-			for (WebSocket ws : RecommendationWebsocketServer.socketBox.byUserid(xwikiUserId)) {
+			for (WebSocketMetadata wsmd : RecommendationWebsocketServer.socketBox.byUserid(xwikiUserId)) {
 				ObjectMapper mapper = new ObjectMapper();
 				String msg = "";
 				try {
@@ -397,7 +397,8 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 				} catch (JsonProcessingException e) {
 					msg = "";
 				}
-				ws.send(msg);
+				wsmd.timeOfLastInteraction = System.currentTimeMillis();
+				wsmd.socket.send(msg);
 			}
 		}
 	}
@@ -429,29 +430,24 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	}
 
 	@Override
-	public void receiveScoreUpdate(ScoreRecord record)
-			throws LpRestException {
+	public void receiveScoreUpdate(ScoreRecord record) throws LpRestException {
 
-		if(!scoresBySessionByUser.containsKey(record.userArtifactId)) {
-			scoresBySessionByUser.put(record.userArtifactId,
-					new ConcurrentHashMap<String, ScoreRecord>());
+		if (!scoresBySessionByUser.containsKey(record.userArtifactId)) {
+			scoresBySessionByUser.put(record.userArtifactId, new ConcurrentHashMap<String, ScoreRecord>());
 		}
 		scoresBySessionByUser.get(record.userArtifactId).put(record.sessionId, record);
 
 	}
 
 	@Override
-	public ScoreRecordCollection getScores(String user, String process)
-			throws LpRestException {
+	public ScoreRecordCollection getScores(String user, String process) throws LpRestException {
 		Collection<ScoreRecord> res = new ArrayList<>();
 		for (String recordedUser : scoresBySessionByUser.keySet()) {
 
 			if (user == null || recordedUser.equals(user)) {
-				for (String session : scoresBySessionByUser.get(recordedUser)
-						.keySet()) {
+				for (String session : scoresBySessionByUser.get(recordedUser).keySet()) {
 
-					ScoreRecord r = scoresBySessionByUser.get(recordedUser)
-							.get(session);
+					ScoreRecord r = scoresBySessionByUser.get(recordedUser).get(session);
 					if (process == null || r.processArtifactId.equals(process)) {
 						res.add(r);
 					}

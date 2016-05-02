@@ -19,10 +19,10 @@
  */
 package eu.learnpad.cw.internal;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -52,37 +52,37 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 	public static final SocketBox socketBox = new SocketBox();
 
 	public static class SocketBox {
-		private Map<WebSocket, SocketMetadata> sockets = new HashMap<WebSocket, SocketMetadata>();
+		private Map<WebSocket, WebSocketMetadata> sockets = new ConcurrentHashMap<WebSocket, WebSocketMetadata>();
 
-		SocketMetadata get(WebSocket socket) {
+		WebSocketMetadata get(WebSocket socket) {
 			return socketBox.sockets.get(socket);
 		}
 
-		List<WebSocket> byUserid(String userid) {
+		List<WebSocketMetadata> byUserid(String userid) {
 			List<WebSocket> sockets = new LinkedList<WebSocket>(socketBox.sockets.keySet());
-			List<WebSocket> userSockets = new LinkedList<WebSocket>();
+			List<WebSocketMetadata> userSockets = new LinkedList<WebSocketMetadata>();
 			for (WebSocket socket : sockets) {
-				SocketMetadata socketMetadata = socketBox.sockets.get(socket);
+				WebSocketMetadata socketMetadata = socketBox.sockets.get(socket);
 				if (userid.equals(socketMetadata.userid)) {
-					userSockets.add(socket);
+					userSockets.add(socketMetadata);
 				}
 			}
 			return userSockets;
 		}
 
-		List<WebSocket> bySimulationid(String simulationid) {
+		List<WebSocketMetadata> bySimulationid(String simulationid) {
 			List<WebSocket> sockets = new LinkedList<WebSocket>(socketBox.sockets.keySet());
-			List<WebSocket> simulationSockets = new LinkedList<WebSocket>();
+			List<WebSocketMetadata> simulationSockets = new LinkedList<WebSocketMetadata>();
 			for (WebSocket socket : sockets) {
-				SocketMetadata socketMetadata = socketBox.sockets.get(socket);
+				WebSocketMetadata socketMetadata = socketBox.sockets.get(socket);
 				if (simulationid.equals(socketMetadata.simulationid)) {
-					simulationSockets.add(socket);
+					simulationSockets.add(socketMetadata);
 				}
 			}
 			return simulationSockets;
 		}
 
-		void addMetadata(WebSocket socket, SocketMetadata socketMetadata) {
+		void addMetadata(WebSocket socket, WebSocketMetadata socketMetadata) {
 			socketBox.sockets.put(socket, socketMetadata);
 		}
 
@@ -90,11 +90,11 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 			socketBox.sockets.remove(socket);
 		}
 
-		void removeSocketMetadata(SocketMetadata socketMetadata) {
+		void removeSocketMetadata(WebSocketMetadata socketMetadata) {
 			List<WebSocket> sockets = new LinkedList<WebSocket>(socketBox.sockets.keySet());
 			List<WebSocket> simulationSockets = new LinkedList<WebSocket>();
 			for (WebSocket socket : sockets) {
-				SocketMetadata smd = socketBox.sockets.get(socket);
+				WebSocketMetadata smd = socketBox.sockets.get(socket);
 				if (smd.userid.equals(socketMetadata.userid) && smd.simulationid.equals(socketMetadata.simulationid)) {
 					simulationSockets.add(socket);
 				}
@@ -103,13 +103,13 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 		}
 	}
 
-	private static class SocketMetadata {
+	public static class WebSocketMetadata {
 		final WebSocket socket;
 		final String userid;
 		final String simulationid;
 		long timeOfLastInteraction;
 
-		public SocketMetadata(WebSocket s, String uid) {
+		public WebSocketMetadata(WebSocket s, String uid) {
 			socket = s;
 			userid = uid;
 			simulationid = "";
@@ -119,7 +119,7 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 
 	private void addSocketToUser(WebSocket socket) {
 		String userid = stringEntityReferenceSerializer.serialize(socket.getUser());
-		SocketMetadata smd = new SocketMetadata(socket, userid);
+		WebSocketMetadata smd = new WebSocketMetadata(socket, userid);
 		socketBox.addMetadata(socket, smd);
 	}
 	//
