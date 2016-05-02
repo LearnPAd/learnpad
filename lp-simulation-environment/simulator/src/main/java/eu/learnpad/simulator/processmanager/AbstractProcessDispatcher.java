@@ -158,18 +158,21 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 
 						usersScores.put(userId, usersScores.get(userId)
 								+ taskScore);
+
+						LearnPadTaskSubmissionResult res = LearnPadTaskSubmissionResult
+								.validated(usersScores.get(userId), taskScore);
+
+						processEventReceiver
+								.receiveSessionScoreUpdateEvent(new SessionScoreUpdateSimEvent(
+										System.currentTimeMillis(),
+										simulationSessionId, involvedUsers,
+										processId, userId, res.sessionScore));
+
+						return res;
+					} else {
+						// probably a robot, no score needed
+						return LearnPadTaskSubmissionResult.validated(0, 0);
 					}
-
-					LearnPadTaskSubmissionResult res = LearnPadTaskSubmissionResult
-							.validated(usersScores.get(userId), taskScore);
-
-					processEventReceiver
-					.receiveSessionScoreUpdateEvent(new SessionScoreUpdateSimEvent(
-							System.currentTimeMillis(),
-							simulationSessionId, involvedUsers,
-							processId, userId, res.sessionScore));
-
-					return res;
 				}
 			}
 		}
