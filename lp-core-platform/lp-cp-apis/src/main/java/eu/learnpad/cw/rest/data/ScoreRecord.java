@@ -10,17 +10,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class ScoreRecord {
-	public String userArtifactId;
-	public String processArtifactId;
-	public String sessionId;
-	public long score;
+	private String userArtifactId;
+	private String processArtifactId;
+	private String sessionId;
+	private long score;
 
 	public ScoreRecord() {
 		super();
 	}
 
-	public ScoreRecord(String userArtifactId, String processArtifactId,
-			String sessionId, long score) {
+	public ScoreRecord(String userArtifactId, String processArtifactId, String sessionId, long score) {
 		this();
 		this.userArtifactId = userArtifactId;
 		this.processArtifactId = processArtifactId;
@@ -28,10 +27,41 @@ public class ScoreRecord {
 		this.score = score;
 	}
 
+	public String getUserArtifactId() {
+		return this.userArtifactId;
+	}
+
+	public void setUserArtifactId(String userid) {
+		this.userArtifactId = userid;
+	}
+
+	public String getProcessArtifactId() {
+		return this.processArtifactId;
+	}
+
+	public void setProcessArtifactId(String modelid) {
+		this.processArtifactId = modelid;
+	}
+
+	public String getSessionId() {
+		return this.sessionId;
+	}
+
+	public void setSessionId(String sessionid) {
+		this.sessionId = sessionid;
+	}
+
+	public long getScore() {
+		return this.score;
+	}
+
+	public void setScore(long score) {
+		this.score = score;
+	}
+
 	@Override
 	public String toString() {
-		return "ScoreRecord : { userArtifactId " + userArtifactId
-				+ ", processArtifactId " + processArtifactId + ", sessionId "
-				+ sessionId + ", score " + score + " }";
+		return "ScoreRecord : { userArtifactId " + userArtifactId + ", processArtifactId " + processArtifactId
+				+ ", sessionId " + sessionId + ", score " + score + " }";
 	}
 }

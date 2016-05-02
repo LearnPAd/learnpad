@@ -305,7 +305,7 @@ body {
 	}
 
 	#rightPanels {
-		.RecommendationPanel {
+		.panel.expanded {
 			background-color: @background;
 
 			.symbol-placeholder {
@@ -315,7 +315,9 @@ body {
 			& > h1 {
 				background-color: @background;
 			}
+		}
 
+		.RecommendationPanel {
 			.tooltip {
 				&.top > .tooltip-arrow {
 					border-top-color: #454F61;

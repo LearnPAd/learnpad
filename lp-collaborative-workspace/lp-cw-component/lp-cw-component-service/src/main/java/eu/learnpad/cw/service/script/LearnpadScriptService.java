@@ -31,6 +31,7 @@ import org.xwiki.script.service.ScriptService;
 import org.xwiki.script.service.ScriptServiceManager;
 
 import eu.learnpad.cw.UICWBridge;
+import eu.learnpad.cw.rest.data.ScoreRecordCollection;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
 
@@ -122,6 +123,15 @@ public class LearnpadScriptService implements ScriptService, UICWBridge {
 	public String getRestPrefix(String component) {
 		try {
 			return this.cwBridge.getRestPrefix(component);
+		} catch (LpRestException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public ScoreRecordCollection getScores(String userid, String modelid) throws LpRestException {
+		try {
+			return this.cwBridge.getScores(userid, modelid);
 		} catch (LpRestException e) {
 			this.setLastError(e);
 			return null;
