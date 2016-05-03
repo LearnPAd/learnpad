@@ -32,6 +32,8 @@ public class ContentAnalysisBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private String port;
+
 	private String Title;
 	private String Content;
 
@@ -51,8 +53,10 @@ public class ContentAnalysisBean implements Serializable {
 		prop.load(ContentAnalysisBean.class.getClassLoader().getResourceAsStream("config.properties")); //$NON-NLS-1$
 
 			ip = prop.getProperty("ip_server");
+			port = prop.getProperty("port_server");
 		}catch(Exception e){
 			ip="localhost";
+			port = "8082";
 		}
 
 		log.trace(id);
@@ -91,7 +95,7 @@ public class ContentAnalysisBean implements Serializable {
 		try{
 			Client client = ClientBuilder.newClient();
 
-			WebTarget target = client.target("http://"+ip+":8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/allid");
+			WebTarget target = client.target("http://"+ip+":"+port).path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/allid");
 
 			Response allID =  target.request().get();
 			String res = allID.readEntity(String.class);
@@ -231,7 +235,7 @@ public class ContentAnalysisBean implements Serializable {
 				id="1";
 			}
 
-			WebTarget target = client.target("http://"+ip+":8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id+"/status");
+			WebTarget target = client.target("http://"+ip+":"+port).path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id+"/status");
 			String 	status ="";
 			while (!status.equals("OK")) {
 
@@ -245,7 +249,7 @@ public class ContentAnalysisBean implements Serializable {
 			log.trace("Status: "+status);
 
 			if(status.equals("OK")){
-				target = client.target("http://"+ip+":8082").path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id);
+				target = client.target("http://"+ip+":"+port).path("lp-content-analysis/learnpad/ca/bridge/validatecollaborativecontent/"+id);
 				Response annotatecontent =  target.request().get();
 				AnnotatedCollaborativeContentAnalyses res = annotatecontent.readEntity(new GenericType<AnnotatedCollaborativeContentAnalyses>() {});
 				this.setCollectionannotatedcontent(res.getAnnotateCollaborativeContentAnalysis());

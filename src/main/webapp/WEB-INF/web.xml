@@ -9,10 +9,7 @@
 		<param-name>com.sun.faces.expressionFactory</param-name>
 		<param-value>com.sun.el.ExpressionFactoryImpl</param-value>
 	</context-param>
-	<context-param>
-		<param-name>com.icesoft.faces.debugDOMUpdate</param-name>
-		<param-value>false</param-value>
-	</context-param>
+	
 	<context-param>
 		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
 		<param-value>true</param-value>
@@ -21,16 +18,6 @@
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
 		<param-value>server</param-value>
 
-	</context-param>
-
-	<context-param>
-		<param-name>com.icesoft.faces.concurrentDOMViews</param-name>
-		<param-value>true</param-value>
-	</context-param>
-
-	<context-param>
-		<param-name>com.icesoft.faces.synchronousUpdate</param-name>
-		<param-value>true</param-value>
 	</context-param>
 
 	<!-- Faces Servlet -->
@@ -45,27 +32,21 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.jsf</url-pattern>
 		<url-pattern>*.iface</url-pattern>
-		<url-pattern>/icefaces/*</url-pattern>
+		 <url-pattern>/faces/* </url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	
 	<error-page>
 		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
 		<location>/sessionExpiredPage.jsf</location>
 	</error-page>
 
-	<context-param>
-		<param-name>org.icefaces.sessionExpiredRedirectURI</param-name>
-		<param-value>/sessionExpiredPage.jsf</param-value>
-	</context-param>
-	<servlet>
-		<servlet-name>Resource Servlet</servlet-name>
-		<servlet-class>com.icesoft.faces.webapp.CompatResourceServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Resource Servlet</servlet-name>
-		<url-pattern>/xmlhttp/*</url-pattern>
-		<url-pattern>/resources/*</url-pattern>
-	</servlet-mapping>
+	
+	
 	<session-config>
 		<session-timeout>1000</session-timeout>
 	</session-config>
