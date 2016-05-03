@@ -24,9 +24,7 @@ package eu.learnpad.simulator.robot;
  * #L%
  */
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -44,8 +42,7 @@ import eu.learnpad.simulator.monitoring.event.impl.TaskFailedSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
 
 /**
- * This class is supposed to "wrap" a {@link IProcessEventReceiver} in order to
- * intercept task events that should be handled by robots.
+ * This class is use to listen to task events that should be handled by robots.
  *
  * It implements the {@link IRobotHandler} API to handle robots adding/removal
  *
@@ -55,7 +52,6 @@ import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
 public class RobotUserEventReceiverWrapper<TaskInput> implements
 IProcessEventReceiver, IRobotHandler {
 
-	private final IProcessEventReceiver eventReceiver;
 	private final IRobotFactory<TaskInput, Map<String, Object>> robotFactory;
 	private final IRobotInputExtractor<TaskInput> inputExtractor;
 	private final IProcessManager processManager;
@@ -63,18 +59,15 @@ IProcessEventReceiver, IRobotHandler {
 	// map of userId -> robot
 	private final Map<String, IRobot<TaskInput, Map<String, Object>>> robots = new HashMap<String, IRobot<TaskInput, Map<String, Object>>>();
 
-	public RobotUserEventReceiverWrapper(IProcessEventReceiver eventReceiver,
+	public RobotUserEventReceiverWrapper(
 			IRobotFactory<TaskInput, Map<String, Object>> robotFactory,
 			IRobotInputExtractor<TaskInput> inputExtractor,
 			IProcessManager processManager) {
 		super();
-		this.eventReceiver = eventReceiver;
 		this.robotFactory = robotFactory;
 		this.inputExtractor = inputExtractor;
 		this.processManager = processManager;
 	}
-
-	// robot handling
 
 	/*
 	 * (non-Javadoc)
@@ -107,41 +100,28 @@ IProcessEventReceiver, IRobotHandler {
 		return robots.keySet();
 	}
 
-	// event handling
-	// note: most events are simply forwarded, some events trigger additional
-	// action
-
 	@Override
 	public void receiveSimulationStartEvent(SimulationStartSimEvent event) {
-		eventReceiver.receiveSimulationStartEvent(event);
+		// nothing to do
 	}
 
 	@Override
 	public void receiveSimulationEndEvent(SimulationEndSimEvent event) {
-		eventReceiver.receiveSimulationEndEvent(event);
+		// nothing to do
 	}
 
 	@Override
 	public void receiveProcessStartEvent(ProcessStartSimEvent event) {
-		eventReceiver.receiveProcessStartEvent(event);
+		// nothing to do
 	}
 
 	@Override
 	public void receiveProcessEndEvent(ProcessEndSimEvent event) {
-		// propagate
-		eventReceiver.receiveProcessEndEvent(event);
-
 		robots.remove(event.processInstance.processartifactid);
 	}
 
 	@Override
 	public void receiveTaskStartEvent(TaskStartSimEvent event) {
-
-		// propagate removing robots from users list
-		Collection<String> newUsers = new HashSet<String>(event.involvedusers);
-		newUsers.removeAll(robots.keySet());
-		eventReceiver.receiveTaskStartEvent(event);
-
 		for (String user : robots.keySet()) {
 			if (event.involvedusers.contains(user)) {
 
@@ -152,6 +132,7 @@ IProcessEventReceiver, IRobotHandler {
 				// submit the answer
 				LearnPadTaskSubmissionResult result = processManager
 						.submitTaskCompletion(event.task, user, outData);
+				processManager.completeTask(event.task, outData, user, result);
 
 				// check task validation status
 				switch (result.status) {
@@ -181,17 +162,17 @@ IProcessEventReceiver, IRobotHandler {
 
 	@Override
 	public void receiveTaskEndEvent(TaskEndSimEvent event) {
-		eventReceiver.receiveTaskEndEvent(event);
+		// nothing to do
 	}
 
 	@Override
 	public void receiveTaskFailedEvent(TaskFailedSimEvent event) {
-		eventReceiver.receiveTaskFailedEvent(event);
+		// nothing to do
 	}
 
 	@Override
 	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateSimEvent event) {
-		eventReceiver.receiveSessionScoreUpdateEvent(event);
+		// nothing to do
 	}
 
 }

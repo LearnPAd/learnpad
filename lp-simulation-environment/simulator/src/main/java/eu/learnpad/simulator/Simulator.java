@@ -93,19 +93,23 @@ public class Simulator implements IProcessManagerProvider,
 				processEngine.getTaskService(), processEngine.getFormService());
 
 		robotEventReceiver = new RobotUserEventReceiverWrapper<Map<String, Object>>(
-				uiHandler, robotFactory, new ActivitiRobotInputExtractor(
+				robotFactory, new ActivitiRobotInputExtractor(
 						processEngine.getTaskService()), processManager);
 
 		// manage events subscriptions
 		eventDispatcher = new EventDispatcherImpl();
-		eventDispatcher.subscribe(robotEventReceiver);
+		eventDispatcher.subscribe(uiHandler);
 
 		// add monitoring probe
-
 		if (monitoringEnabled) {
 			// register a probe to monitor events
 			eventDispatcher.subscribe(new ProbeEventReceiver(processManager));
 		}
+
+		// note that the robot receiver is subscribed at the end in order to be
+		// executed last
+		// (this is important as the robots tend to complete tasks *very fast*)
+		eventDispatcher.subscribe(robotEventReceiver);
 
 	}
 
