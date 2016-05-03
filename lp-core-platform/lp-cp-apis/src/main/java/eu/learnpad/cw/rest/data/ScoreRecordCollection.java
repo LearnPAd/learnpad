@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ScoreRecordCollection {
 	@XmlElement(name = "record")
-	public Collection<ScoreRecord> content;
+	private Collection<ScoreRecord> scoreRecords;
 
 	public ScoreRecordCollection() {
 		super();
@@ -23,11 +23,15 @@ public class ScoreRecordCollection {
 
 	public ScoreRecordCollection(Collection<ScoreRecord> content) {
 		this();
-		this.content = content;
+		this.scoreRecords = content;
+	}
+
+	public Collection<ScoreRecord> getScoreRecords() {
+		return scoreRecords;
 	}
 
 	@Override
 	public String toString() {
-		return content.toString();
+		return scoreRecords.toString();
 	}
 }

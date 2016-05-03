@@ -107,7 +107,7 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 
 	private final String USER_CLASS = String.format("%s.%s", XWIKI_SPACE, USER_CLASS_PAGE);
 
-	private final Map<String, Map<String, ScoreRecord>> scoresBySessionByUser = new ConcurrentHashMap<String, Map<String, ScoreRecord>>();
+	private static final Map<String, Map<String, ScoreRecord>> scoresBySessionByUser = new ConcurrentHashMap<String, Map<String, ScoreRecord>>();
 
 	@Inject
 	@Named("default")
@@ -431,32 +431,30 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 
 	@Override
 	public void receiveScoreUpdate(ScoreRecord record) throws LpRestException {
-
-		if (!scoresBySessionByUser.containsKey(record.userArtifactId)) {
-			scoresBySessionByUser.put(record.userArtifactId, new ConcurrentHashMap<String, ScoreRecord>());
+		String userid = record.getUserArtifactId();
+		String sessionid = record.getSessionId();
+		if (!scoresBySessionByUser.containsKey(userid)) {
+			scoresBySessionByUser.put(record.getUserArtifactId(), new ConcurrentHashMap<String, ScoreRecord>());
 		}
-		scoresBySessionByUser.get(record.userArtifactId).put(record.sessionId, record);
+		scoresBySessionByUser.get(userid).put(sessionid, record);
 
 	}
 
 	@Override
-	public ScoreRecordCollection getScores(String user, String process) throws LpRestException {
+	public ScoreRecordCollection getScores(String userid, String modelid) throws LpRestException {
 		Collection<ScoreRecord> res = new ArrayList<>();
 		for (String recordedUser : scoresBySessionByUser.keySet()) {
-
-			if (user == null || recordedUser.equals(user)) {
+			if (userid == null || recordedUser.equals(userid)) {
 				for (String session : scoresBySessionByUser.get(recordedUser).keySet()) {
 
 					ScoreRecord r = scoresBySessionByUser.get(recordedUser).get(session);
-					if (process == null || r.processArtifactId.equals(process)) {
+					String processid = r.getProcessArtifactId();
+					if (modelid == null || processid.equals(modelid)) {
 						res.add(r);
 					}
-
 				}
 			}
 		}
 		return new ScoreRecordCollection(res);
-
 	}
-
 }

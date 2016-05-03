@@ -21,11 +21,9 @@ package eu.learnpad.cw;
 
 import java.util.Collection;
 
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-
 import org.xwiki.component.annotation.Role;
 
+import eu.learnpad.cw.rest.data.ScoreRecordCollection;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
 
@@ -37,6 +35,8 @@ public interface UICWBridge {
 
 	public String getRestPrefix(String component) throws LpRestException;
 
-	public String startSimulation(@PathParam("modelid") String modelId, @QueryParam("currentuser") String currentUser,
-			Collection<String> potentialUsers) throws LpRestException;
+	public String startSimulation(String modelId, String currentUser, Collection<String> potentialUsers)
+			throws LpRestException;
+
+	public ScoreRecordCollection getScores(String userid, String modelid) throws LpRestException;
 }
