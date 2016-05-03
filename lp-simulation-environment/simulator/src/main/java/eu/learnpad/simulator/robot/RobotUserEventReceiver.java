@@ -49,7 +49,7 @@ import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
  * @author Tom Jorquera - Linagora
  *
  */
-public class RobotUserEventReceiverWrapper<TaskInput> implements
+public class RobotUserEventReceiver<TaskInput> implements
 IProcessEventReceiver, IRobotHandler {
 
 	private final IRobotFactory<TaskInput, Map<String, Object>> robotFactory;
@@ -59,7 +59,7 @@ IProcessEventReceiver, IRobotHandler {
 	// map of userId -> robot
 	private final Map<String, IRobot<TaskInput, Map<String, Object>>> robots = new HashMap<String, IRobot<TaskInput, Map<String, Object>>>();
 
-	public RobotUserEventReceiverWrapper(
+	public RobotUserEventReceiver(
 			IRobotFactory<TaskInput, Map<String, Object>> robotFactory,
 			IRobotInputExtractor<TaskInput> inputExtractor,
 			IProcessManager processManager) {
