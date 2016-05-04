@@ -35,7 +35,7 @@
 			<artifactId>cxf-rt-rs-client</artifactId>
 			<version>3.0.0-milestone1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -73,17 +73,17 @@
 			<version>2.2</version>
 		</dependency>
 		<dependency>
-	<groupId>com.sun.el</groupId>
-	<artifactId>el-ri</artifactId>
-	<version>1.0</version>
-</dependency>
-<dependency>
-  <groupId>javax.faces</groupId>
-  <artifactId>javax.faces-api</artifactId>
-  <version>2.2</version>
-  <scope>provided</scope>
-</dependency>
-		
+			<groupId>com.sun.el</groupId>
+			<artifactId>el-ri</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.faces</groupId>
+			<artifactId>javax.faces-api</artifactId>
+			<version>2.2</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<!-- <dependency> <groupId>net.sf.jcharts</groupId> <artifactId>krysalis-jCharts</artifactId> 
 			<version>1.0.0-alpha-1</version> </dependency> -->
 	</dependencies>
@@ -124,12 +124,12 @@
 		<plugins>
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
-	<artifactId>jetty-maven-plugin</artifactId>
-	<version>9.3.8.v20160314</version>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.3.8.v20160314</version>
 				<configuration>
-					 <httpConnector>
-                    <port>9090</port>
-                </httpConnector>
+					<httpConnector>
+						<port>9090</port>
+					</httpConnector>
 					<connectors>
 						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
 							<port>9090</port>
@@ -138,7 +138,30 @@
 					</connectors>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.eclipse.jetty</groupId>
+									<artifactId>jetty-runner</artifactId>
+									<version>9.3.8.v20160314</version>
 
+									<destFileName>jetty-runner.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

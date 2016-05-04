@@ -2,5 +2,5 @@
 target
 logs
 logs*
-
+out
 logs/
