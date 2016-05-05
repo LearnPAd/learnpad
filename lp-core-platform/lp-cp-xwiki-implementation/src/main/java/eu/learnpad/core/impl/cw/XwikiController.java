@@ -238,6 +238,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 	
 	private String convertUserID(String userId) throws LpRestException {
+		
 		String wikiName = DefaultRestResource.CORE_REPOSITORY_WIKI;
 		String username = this.removePrefixes(userId);
 		return utils.getEmailAddress(wikiName, username);
