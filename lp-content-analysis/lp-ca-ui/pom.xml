@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>it.cnr.isti</groupId>
-	<artifactId>uicontentanalysiscomponent</artifactId>
+	<groupId>eu.learnpad</groupId>
+	<artifactId>lp-ca-ui</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 
@@ -12,10 +12,6 @@
 		<jsf.version>2.2.7</jsf.version>
 	</properties>
 	<repositories>
-		<repository>
-			<id>ICEsoft Release Repository</id>
-			<url>http://anonsvn.icefaces.org/repo/maven2/releases</url>
-		</repository>
 		<repository>
 			<id>java.net</id>
 			<url>http://download.java.net/maven/2</url>
@@ -83,7 +79,12 @@
 			<version>2.2</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<dependency>
+            <groupId>eu.learnpad</groupId>
+            <artifactId>lp-cp-apis</artifactId>
+            <version>1.0-SNAPSHOT</version>
+           
+        </dependency>
 		<!-- <dependency> <groupId>net.sf.jcharts</groupId> <artifactId>krysalis-jCharts</artifactId> 
 			<version>1.0.0-alpha-1</version> </dependency> -->
 	</dependencies>
@@ -128,11 +129,11 @@
 				<version>9.3.8.v20160314</version>
 				<configuration>
 					<httpConnector>
-						<port>9090</port>
+						<port>9092</port>
 					</httpConnector>
 					<connectors>
 						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-							<port>9090</port>
+							<port>9092</port>
 							<maxIdleTime>6000000</maxIdleTime>
 						</connector>
 					</connectors>
@@ -168,8 +169,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${compiler.plugins.version}</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 			<plugin>
