@@ -70,4 +70,8 @@ public interface IEventReceiver {
 	@POST
 	@Path("/sessionscoreupdate")
 	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) throws LpRestException;
+	
+	@POST
+	@Path("/scoreupdate")
+	public void receiveScoreUpdateEvent(ScoreUpdateEvent event) throws LpRestException;
 }
