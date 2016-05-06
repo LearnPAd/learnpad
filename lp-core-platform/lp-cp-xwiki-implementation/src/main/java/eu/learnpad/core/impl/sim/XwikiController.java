@@ -45,6 +45,7 @@ import eu.learnpad.sim.Controller;
 import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
+import eu.learnpad.sim.rest.event.impl.ScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationEndEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
@@ -180,6 +181,12 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) throws LpRestException {
 		this.cw.receiveScoreUpdate(new ScoreRecord(event.user, event.processartifactid,
 				event.simulationsessionid, event.sessionscore));
+	}
+	
+	@Override
+	public void receiveScoreUpdateEvent(ScoreUpdateEvent event) throws LpRestException {
+		this.cw.receiveScoreUpdate(new ScoreRecord(event.user, event.processartifactid,
+				event.simulationsessionid, event.updatedScore));
 	}
 
 	@Override

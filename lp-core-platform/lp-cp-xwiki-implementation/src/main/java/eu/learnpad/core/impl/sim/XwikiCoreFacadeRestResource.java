@@ -26,6 +26,7 @@ import eu.learnpad.sim.CoreFacade;
 import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
+import eu.learnpad.sim.rest.event.impl.ScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationEndEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
@@ -92,6 +93,12 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 
 	@Override
 	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	@Override
+	public void receiveScoreUpdateEvent(ScoreUpdateEvent event) {
 		// TODO Auto-generated method stub
 
 	}
