@@ -26,9 +26,9 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
-*
-* @author gulyx
-*/
+ *
+ * @author gulyx
+ */
 @XmlRootElement(name = "simulationdata")
 public class SimulationData {
 	private Map<String, Object> sessionData;
@@ -57,5 +57,4 @@ public class SimulationData {
 	public void setSubmittedData(Map<String, Object> submittedDataMap) {
 		this.userInputData = submittedDataMap;
 	}
-
 }

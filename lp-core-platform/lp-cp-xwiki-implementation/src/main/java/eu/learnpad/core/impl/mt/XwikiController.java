@@ -32,27 +32,23 @@ import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
 
 import eu.learnpad.core.rest.RestResource;
-import eu.learnpad.mt.BridgeInterface;
 import eu.learnpad.mt.Controller;
 
 @Component
 @Singleton
 @Named("eu.learnpad.core.impl.mt.XwikiController")
 @Path("/learnpad/mt/corefacade")
-public class XwikiController extends Controller implements XWikiRestComponent,
-		Initializable {
+public class XwikiController extends Controller implements XWikiRestComponent, Initializable {
 
-    @Inject
-    private ComponentManager componentManager;
+	@Inject
+	private ComponentManager componentManager;
 
 	@Override
 	public void initialize() throws InitializationException {
-
-			try {
-                this.bridge = this.componentManager.getInstance(RestResource.class, "mt");
-            } catch (ComponentLookupException e) {
-                throw new InitializationException(e.getMessage(), e);
-            }
-
+		try {
+			this.bridge = this.componentManager.getInstance(RestResource.class, "mt");
+		} catch (ComponentLookupException e) {
+			throw new InitializationException(e.getMessage(), e);
+		}
 	}
 }

@@ -33,9 +33,11 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.rest.data.ModelSetType;
 
 public interface Transformer {
+
 	@POST
 	@Path("/transform")
 	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	InputStream transform(@QueryParam("type")@DefaultValue("ADOXX") ModelSetType type, InputStream model) throws LpRestException;
+	InputStream transform(@QueryParam("type") @DefaultValue("ADOXX") ModelSetType type, InputStream model)
+			throws LpRestException;
 }

@@ -6,10 +6,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-public  class Annotation implements Comparable<Object>{
+public class Annotation implements Comparable<Object> {
 
 	@XmlAttribute(name = "id", required = true)
 	protected Integer id;
@@ -25,30 +24,24 @@ public  class Annotation implements Comparable<Object>{
 	protected Integer startNode_Offset;
 	@XmlAttribute(name = "EndNode_Offset", required = true)
 	protected Integer endNode_Offset;
-	
-	
-	
+
 	@XmlTransient
 	protected Node NodeStart;
 	@XmlTransient
 	protected Node NodeEnd;
-	
-	
-	public Annotation(){
-		
+
+	public Annotation() {
+
 	}
-	
-	public Annotation(int id, String type, int snode, int enode, String recom){
-		this.id=id;
-		this.type=type;
-		this.startNode=snode;
-		this.endNode=enode;
-		this.recommendation=recom;
+
+	public Annotation(int id, String type, int snode, int enode, String recom) {
+		this.id = id;
+		this.type = type;
+		this.startNode = snode;
+		this.endNode = enode;
+		this.recommendation = recom;
 	}
-	
-	
-	
-	
+
 	public Integer getstartNode_Offset() {
 		return startNode_Offset;
 	}
@@ -66,7 +59,7 @@ public  class Annotation implements Comparable<Object>{
 	}
 
 	public Node getNodeStart() {
-		if(NodeStart==null){
+		if (NodeStart == null) {
 			NodeStart = new Node();
 		}
 		return NodeStart;
@@ -89,10 +82,8 @@ public  class Annotation implements Comparable<Object>{
 	/**
 	 * get the value of id.
 	 * 
-	 * @return
-	 *     possible object is
-	 *     {@link Integer }
-	 *     
+	 * @return possible object is {@link Integer }
+	 * 
 	 */
 	public Integer getId() {
 		return id;
@@ -102,9 +93,8 @@ public  class Annotation implements Comparable<Object>{
 	 * set the value of id.
 	 * 
 	 * @param value
-	 *     allowed object is
-	 *     {@link Integer }
-	 *     
+	 *            allowed object is {@link Integer }
+	 * 
 	 */
 	public void setId(Integer value) {
 		this.id = value;
@@ -113,10 +103,8 @@ public  class Annotation implements Comparable<Object>{
 	/**
 	 * get the value of type.
 	 * 
-	 * @return
-	 *     possible object is
-	 *     {@link String }
-	 *     
+	 * @return possible object is {@link String }
+	 * 
 	 */
 	public String getType() {
 		return type;
@@ -126,9 +114,8 @@ public  class Annotation implements Comparable<Object>{
 	 * set the value of type.
 	 * 
 	 * @param value
-	 *     allowed object is
-	 *     {@link String }
-	 *     
+	 *            allowed object is {@link String }
+	 * 
 	 */
 	public void setType(String value) {
 		this.type = value;
@@ -137,10 +124,8 @@ public  class Annotation implements Comparable<Object>{
 	/**
 	 * get the value of startNode.
 	 * 
-	 * @return
-	 *     possible object is
-	 *     {@link Integer }
-	 *     
+	 * @return possible object is {@link Integer }
+	 * 
 	 */
 	public Integer getStartNode() {
 		return startNode;
@@ -150,9 +135,8 @@ public  class Annotation implements Comparable<Object>{
 	 * set the value of startNode.
 	 * 
 	 * @param value
-	 *     allowed object is
-	 *     {@link Integer }
-	 *     
+	 *            allowed object is {@link Integer }
+	 * 
 	 */
 	public void setStartNode(Integer value) {
 		this.startNode = value;
@@ -161,10 +145,8 @@ public  class Annotation implements Comparable<Object>{
 	/**
 	 * get the value of endNode.
 	 * 
-	 * @return
-	 *     possible object is
-	 *     {@link Integer }
-	 *     
+	 * @return possible object is {@link Integer }
+	 * 
 	 */
 	public Integer getEndNode() {
 		return endNode;
@@ -174,9 +156,8 @@ public  class Annotation implements Comparable<Object>{
 	 * set the value of endNode.
 	 * 
 	 * @param value
-	 *     allowed object is
-	 *     {@link Integer }
-	 *     
+	 *            allowed object is {@link Integer }
+	 * 
 	 */
 	public void setEndNode(Integer value) {
 		this.endNode = value;
@@ -185,10 +166,8 @@ public  class Annotation implements Comparable<Object>{
 	/**
 	 * get the value of recommendation.
 	 * 
-	 * @return
-	 *     possible object is
-	 *     {@link String }
-	 *     
+	 * @return possible object is {@link String }
+	 * 
 	 */
 	public String getRecommendation() {
 		return recommendation;
@@ -198,9 +177,8 @@ public  class Annotation implements Comparable<Object>{
 	 * set the value of recommendation.
 	 * 
 	 * @param value
-	 *     allowed object is
-	 *     {@link String }
-	 *     
+	 *            allowed object is {@link String }
+	 * 
 	 */
 	public void setRecommendation(String value) {
 		this.recommendation = value;
@@ -208,18 +186,13 @@ public  class Annotation implements Comparable<Object>{
 
 	@Override
 	public String toString() {
-		return "Annotation_id=" + id + "[type=" + type + ", startNode="
-				+ startNode + ", endNode=" + endNode + ", recommendation="
-				+ recommendation + "]\n";
+		return "Annotation_id=" + id + "[type=" + type + ", startNode=" + startNode + ", endNode=" + endNode
+				+ ", recommendation=" + recommendation + "]\n";
 	}
 
 	@Override
 	public int compareTo(Object o) {
 		Annotation other = (Annotation) o;
-	    return startNode_Offset.compareTo(other.getstartNode_Offset());
+		return startNode_Offset.compareTo(other.getstartNode_Offset());
 	}
-	
-	
-
 }
-

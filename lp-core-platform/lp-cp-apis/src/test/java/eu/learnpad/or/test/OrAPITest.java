@@ -20,17 +20,13 @@
 package eu.learnpad.or.test;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -88,14 +84,10 @@ public class OrAPITest {
 			Unmarshaller unmashaller = jc.createUnmarshaller();
 			SimulationData zag = (SimulationData) unmashaller.unmarshal(is);
 
-			boolean sesPassed = (zag.getSessionData().get("ses-key1")
-					.equals("ses-entry1"))
-					&& (zag.getSessionData().get("ses-key2")
-							.equals("ses-entry2"));
-			boolean subPassed = (zag.getSubmittedData().get("sub-key1")
-					.equals("sub-entry1"))
-					&& (zag.getSubmittedData().get("sub-key2")
-							.equals("sub-entry2"));
+			boolean sesPassed = (zag.getSessionData().get("ses-key1").equals("ses-entry1"))
+					&& (zag.getSessionData().get("ses-key2").equals("ses-entry2"));
+			boolean subPassed = (zag.getSubmittedData().get("sub-key1").equals("sub-entry1"))
+					&& (zag.getSubmittedData().get("sub-key2").equals("sub-entry2"));
 
 			Assert.assertTrue(sesPassed && subPassed);
 		} catch (JAXBException | IOException e) {
@@ -107,9 +99,9 @@ public class OrAPITest {
 	public void RecommendationsMarshallUnmarshallCycleTest() {
 		try {
 			String recString = this.getXMLRecommendations();
-		    InputStream is = new ByteArrayInputStream(recString.getBytes());
+			InputStream is = new ByteArrayInputStream(recString.getBytes());
 			JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
-			jc.createUnmarshaller().unmarshal(is);			
+			jc.createUnmarshaller().unmarshal(is);
 		} catch (JAXBException e) {
 			e.printStackTrace();
 			Assert.fail();
@@ -211,23 +203,18 @@ public class OrAPITest {
 		return experts;
 	}
 
-//	private Map<String, Object> generateDataMap() {
-//		Map<String, Object> dataMap = new HashMap<String, Object>();
 	private Map<String, ListOfStringWrapper> generateDataMap() {
 		Map<String, ListOfStringWrapper> dataMap = new HashMap<String, ListOfStringWrapper>();
 
 		int maxItems = this.random.nextInt(4);
 
 		for (int i = 0; i < maxItems; i++) {
-//			dataMap.put("fooKey" + i, "fooValue" + i);
-
-			ArrayList<String> l = new ArrayList<String>();			
+			ArrayList<String> l = new ArrayList<String>();
 			l.add("first fooValue" + i);
 			l.add("second fooValue" + i);
 			ListOfStringWrapper list = new ListOfStringWrapper();
 			list.setTheList(l);
 			dataMap.put("fooKey" + i, list);
-
 		}
 
 		return dataMap;

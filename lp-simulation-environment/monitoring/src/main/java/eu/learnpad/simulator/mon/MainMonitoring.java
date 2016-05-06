@@ -74,7 +74,7 @@ public class MainMonitoring {
 	protected static String REGEXPATTERNFILEPATH;
 	protected static String MAILNOTIFICATIONSETTINGSFILEPATH;
 	protected static String DATABASECONNECTIONSTRING;
-	protected static String RESTNOTIFIERURLSTRING; 
+	public static String RESTNOTIFIERURLSTRING; 
 	// end settings
 
 	private static Properties environmentParameters;

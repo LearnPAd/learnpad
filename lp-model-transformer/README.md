@@ -3,7 +3,7 @@ Model Transformer's component
 
 Information   | Value
 ------------- | --------
-Component     | Model Transformer
+Component     | Model Transformer (MT)
 Partner       | UNIVAQ
 WP            | 3
 Responsible   | Francesco Basciani <francesco.basciani@gmail.com>
@@ -23,7 +23,62 @@ webservice on port `8083`.
 No specific configuration
 
 # Interfaces
-No specific documentation at the moment
+## Provides
+You can find the declaration of the API provided by the Model Transformer (MT)
+in
+[`lp-cp-apis`](https://github.com/LearnPAd/learnpad/blob/master/lp-core-platform/lp-cp-apis/src/main/java/eu/learnpad/mt/BridgeInterface.java).
+The corresponding implementation is the class
+[`BridgeImpl`](https://github.com/LearnPAd/learnpad/blob/master/lp-model-transformer/src/main/java/eu/learnpad/mt/rest/BridgeImpl.java).
+
+### Transform a modelset
+**Description**
+The Model Transformer (MT) is able to take as an input a modelset in XML format
+and to transform it into a [XWiki File Format
+(XFF)](http://extensions.xwiki.org/xwiki/bin/view/Extension/XFF+filter) that
+will be later imported into the Collaborative Workspace (CW).
+
+**cURL**
+```
+curl \
+	--verbose \
+	--request POST \
+	--header "Content-Type: application/octet-stream" \
+	--data-binary "@/path/to/model.xml" \
+	--output "/path/to/xwiki-package.xff" \
+	"http://localhost:8080/rest/learnpad/mt/bridge/transform?type={ADOXX,MD}"
+```
+
+**Input**
+The expected input is an XML file describing the modelset.  It could be a Adoxx
+XML file or a MagicDraw XML file.
+
+This is an example of a Adoxx XML file format.
+```xml
+<ADOXML version="" date="31.03.2016" time="01:28:56" database="adoxxdb" username="Admin" adoversion="5.1">
+	<MODELS>
+		<MODEL id="mod.29201" name="Model Set Overview - SUAP - Titolo Unico" version="" modeltype="Model Set Overview" libtype="bp" applib="LearnPAd Prototype Dynamic Library 0.29">
+			...
+		</MODEL>
+		...
+	</MODELS>
+</ADOXML>
+
+```
+
+**Output**
+The output file is a ZIP archive containing a structure of all pages and objects
+to import into the Collaborative Workspace (CW).  The documentation about this
+packaging system can be find on
+[xwiki.org](http://extensions.xwiki.org/xwiki/bin/view/Extension/XFF+filter).
+
+**Details**
+At the moment, only Adoxx file format is supported.  MagicDraw file format will
+be supported through a transformation towards Adoxx EMF meta-model.
+
+This component is using [Eclipse Modelling Framework
+(EMF)](http://www.eclipse.org/modeling/emf/) combined with [ATLAS Transformation
+Language (ATL)](http://www.eclipse.org/atl/) for model transformation and
+[Acceleo](https://www.eclipse.org/acceleo/) for model serialization.
 
 # Further details
 

@@ -28,27 +28,29 @@ import eu.learnpad.exception.LpRestException;
 
 public interface NotificationsFromBridge {
 
-	/** 
+	/**
 	 * @param questionnaireId
 	 *            the id of the questionnaire the notification refers
 	 * @param emailList
-	 *            the list of emails of the learners started to compile a questionnaire
+	 *            the list of emails of the learners started to compile a
+	 *            questionnaire
 	 * @throws LpRestException
 	 */
 	@PUT
 	@Path("/{questionnaireid}/started")
 	void notifyLearningSessionStarted(@PathParam("questionnaireid") String questionnaireId,
-			@QueryParam("list") String [] emailList) throws LpRestException;
+			@QueryParam("list") String[] emailList) throws LpRestException;
 
-	/** 
+	/**
 	 * @param questionnaireId
 	 *            the id of the questionnaire the notification refers
 	 * @param emailList
-	 *            the list of emails of the learners completed the compilation of a questionnaire
+	 *            the list of emails of the learners completed the compilation
+	 *            of a questionnaire
 	 * @throws LpRestException
 	 */
 	@PUT
 	@Path("/{questionnaireid}/completed")
 	void notifyLearningSessionCompleted(@PathParam("questionnaireid") String questionnaireId,
-			@QueryParam("list") String [] emailList) throws LpRestException;
+			@QueryParam("list") String[] emailList) throws LpRestException;
 }

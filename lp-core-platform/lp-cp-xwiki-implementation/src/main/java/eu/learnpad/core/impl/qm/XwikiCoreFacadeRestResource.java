@@ -31,20 +31,21 @@ import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.qm.CoreFacade;
-import eu.learnpad.core.rest.DefaultRestResource;
 
 /*
  * The methods inherited form the CoreFacade in this
  * class should be implemented as a REST invocation
  * toward the CoreFacade binded at the provided URL
  */
-public class XwikiCoreFacadeRestResource extends DefaultRestResource implements CoreFacade {
+public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
+		CoreFacade {
 
 	public XwikiCoreFacadeRestResource() {
-		this("localhost",8080);
+		this("localhost", 8080);
 	}
 
 	public XwikiCoreFacadeRestResource(String coreFacadeHostname,
@@ -52,13 +53,13 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 		// This constructor could change in the future
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
 	}
-	
-	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort){
-// This constructor has to be fixed, since it requires changes on the class
-//		eu.learnpad.core.rest.RestResource
-		
+
+	public void updateConfiguration(String coreFacadeHostname,
+			int coreFacadeHostPort) {
+		// This constructor has to be fixed, since it requires changes on the
+		// class eu.learnpad.core.rest.RestResource
 	}
-	
+
 	@Override
 	public void publish(String questionnairesId, String type,
 			byte[] questionnairesFile) throws LpRestException {
@@ -66,14 +67,15 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 		HttpClient httpClient = this.getClient();
 		String uri = String.format("%s/learnpad/qm/corefacade/publish/%s",
 				DefaultRestResource.REST_URI, questionnairesId);
-		
+
 		PutMethod putMethod = new PutMethod(uri);
-		putMethod.addRequestHeader("Content-Type", MediaType.APPLICATION_OCTET_STREAM);
+		putMethod.addRequestHeader("Content-Type",
+				MediaType.APPLICATION_OCTET_STREAM);
 
 		NameValuePair[] queryString = new NameValuePair[1];
 		queryString[0] = new NameValuePair("type", type);
 		putMethod.setQueryString(queryString);
-		
+
 		InputStream stream = new ByteArrayInputStream(questionnairesFile);
 		RequestEntity requestEntity = new InputStreamRequestEntity(stream);
 		putMethod.setRequestEntity(requestEntity);
@@ -81,9 +83,10 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 		try {
 			httpClient.executeMethod(putMethod);
 		} catch (IOException e) {
-			LpRestExceptionXWikiImpl e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			LpRestExceptionXWikiImpl e1 = new LpRestExceptionXWikiImpl(
+					e.getMessage(), e.getCause());
 			throw e1;
-		}		
+		}
 	}
 
 	@Override
@@ -91,16 +94,17 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			throws LpRestException {
 		// Now actually notifying the CP via REST
 		HttpClient httpClient = this.getClient();
-		String uri = String.format("%s/learnpad/qm/corefacade/generationcompleted/%s",
+		String uri = String.format(
+				"%s/learnpad/qm/corefacade/generationcompleted/%s",
 				DefaultRestResource.REST_URI, questionnairesId);
 		PutMethod putMethod = new PutMethod(uri);
 		putMethod.addRequestHeader("Accept", MediaType.TEXT_PLAIN);
 		try {
 			httpClient.executeMethod(putMethod);
 		} catch (IOException e) {
-			LpRestExceptionXWikiImpl e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			LpRestExceptionXWikiImpl e1 = new LpRestExceptionXWikiImpl(
+					e.getMessage(), e.getCause());
 			throw e1;
-		}		
+		}
 	}
-	
 }

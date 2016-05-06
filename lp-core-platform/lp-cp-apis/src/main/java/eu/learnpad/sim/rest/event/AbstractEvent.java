@@ -45,8 +45,7 @@ public abstract class AbstractEvent implements java.io.Serializable {
 		super();
 	}
 
-	public AbstractEvent(EventType type, Long timeStamp,
-			String simulationsessionid, List<String> involvedusers,
+	public AbstractEvent(EventType type, Long timeStamp, String simulationsessionid, List<String> involvedusers,
 			String modelsetid, Map<String, Object> simulationSessionData) {
 		super();
 		this.type = type;
@@ -59,10 +58,8 @@ public abstract class AbstractEvent implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "Event: " + "type=" + type + " timestamp=" + timestamp
-				+ " simulationsessionid=" + simulationsessionid
-				+ " involvedusers=" + involvedusers + " modelsetid="
-				+ modelsetid + " simulationSessionData="
+		return "Event: " + "type=" + type + " timestamp=" + timestamp + " simulationsessionid=" + simulationsessionid
+				+ " involvedusers=" + involvedusers + " modelsetid=" + modelsetid + " simulationSessionData="
 				+ simulationSessionData;
 	}
 }

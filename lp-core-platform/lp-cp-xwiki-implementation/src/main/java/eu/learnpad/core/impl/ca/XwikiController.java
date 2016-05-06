@@ -46,37 +46,37 @@ import eu.learnpad.core.rest.RestResource;
 @Singleton
 @Named("eu.learnpad.core.impl.ca.XwikiController")
 @Path("/learnpad/ca/corefacade")
-public class XwikiController extends Controller implements XWikiRestComponent, Initializable
-{
+public class XwikiController extends Controller implements XWikiRestComponent, Initializable {
 
-    @Inject
-    private ComponentManager componentManager;
+	@Inject
+	private ComponentManager componentManager;
 
-    /*
-     * Note that in this solution the Controllers do not interact each-others, but each controller directly invokes the
-     * BridgesInterfaces (from the other controllers) it needs. This is not actually what was originally planned, thus
-     * in the future it may change. Also, not sure if this is the correct way to proceed. I would like to decide in a
-     * configuration file the implementation to bind, and not into the source code. In fact, this second case implies to
-     * rebuild the whole platform at each change.
-     */
-    private eu.learnpad.cw.BridgeInterface cw;
+	/*
+	 * Note that in this solution the Controllers do not interact each-others,
+	 * but each controller directly invokes the BridgesInterfaces (from the
+	 * other controllers) it needs. This is not actually what was originally
+	 * planned, thus in the future it may change. Also, not sure if this is the
+	 * correct way to proceed. I would like to decide in a configuration file
+	 * the implementation to bind, and not into the source code. In fact, this
+	 * second case implies to rebuild the whole platform at each change.
+	 */
+	private eu.learnpad.cw.BridgeInterface cw;
 
-    private eu.learnpad.sim.BridgeInterface sim;
+	private eu.learnpad.sim.BridgeInterface sim;
 
-    @Override
-    public void initialize() throws InitializationException
-    {
-        this.bridge = new XwikiBridgeInterfaceRestResource();
+	@Override
+	public void initialize() throws InitializationException {
+		this.bridge = new XwikiBridgeInterfaceRestResource();
 
-        this.cw = new eu.learnpad.core.impl.cw.XwikiBridgeInterfaceRestResource();
-        this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
-        try {
-            this.bridge = this.componentManager.getInstance(RestResource.class, "ca");
+		this.cw = new eu.learnpad.core.impl.cw.XwikiBridgeInterfaceRestResource();
+		this.sim = new eu.learnpad.core.impl.sim.XwikiBridgeInterfaceRestResource();
+		try {
+			this.bridge = this.componentManager.getInstance(RestResource.class, "ca");
 
-            this.cw = this.componentManager.getInstance(RestResource.class, "cw");
-            this.sim = this.componentManager.getInstance(RestResource.class, "sim");
-        } catch (ComponentLookupException e) {
-            throw new InitializationException(e.getMessage(), e);
-        }
-    }
+			this.cw = this.componentManager.getInstance(RestResource.class, "cw");
+			this.sim = this.componentManager.getInstance(RestResource.class, "sim");
+		} catch (ComponentLookupException e) {
+			throw new InitializationException(e.getMessage(), e);
+		}
+	}
 }

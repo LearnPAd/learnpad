@@ -29,26 +29,26 @@ import eu.learnpad.exception.LpRestException;
 
 public interface CompileQuestionnaire {
 
-	/** 
+	/**
 	 * @return a creation process id
 	 * @throws LpRestException
 	 */
 	@GET
 	@Path("/create")
 	String createQuestionnaire() throws LpRestException;
-	
+
 	@Path("/add/{creationprocessid}")
 	@GET
 	void addQuestionToQuestionnaire(@PathParam("creationprocessid") String creationProcessId,
 			@QueryParam("question") String question, @QueryParam("expectedanswer") String expectedAnswer)
 			throws LpRestException;
-	
-/*
- * It should cause the invocation of eu.learnpad.qm.rest.PublishQuestionnaire:publish
- */
+
+	/*
+	 * It should cause the invocation of
+	 * eu.learnpad.qm.rest.PublishQuestionnaire:publish
+	 */
 	@Path("/finalize/{creationprocessid}")
 	@GET
 	void finalizeQuestionnaire(@PathParam("creationprocessid") String creationProcessId,
-			@QueryParam("type") @DefaultValue("mothia-out") String type)
-			throws LpRestException;
+			@QueryParam("type") @DefaultValue("mothia-out") String type) throws LpRestException;
 }

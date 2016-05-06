@@ -5,22 +5,24 @@
 // Generated on: 2015.11.26 at 09:44:02 AM CET 
 //
 
-
 package eu.learnpad.mv.rest.data;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -37,42 +39,39 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "verificationAvailable"
-})
+@XmlType(name = "", propOrder = { "verificationAvailable" })
 @XmlRootElement(name = "VerificationsAvailable")
 public class VerificationsAvailable {
 
-    @XmlElement(name = "VerificationAvailable")
-    protected List<String> verificationAvailable;
+	@XmlElement(name = "VerificationAvailable")
+	protected List<String> verificationAvailable;
 
-    /**
-     * Gets the value of the verificationAvailable property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the verificationAvailable property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getVerificationAvailable().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     * 
-     * 
-     */
-    public List<String> getVerificationAvailable() {
-        if (verificationAvailable == null) {
-            verificationAvailable = new ArrayList<String>();
-        }
-        return this.verificationAvailable;
-    }
-
+	/**
+	 * Gets the value of the verificationAvailable property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a
+	 * snapshot. Therefore any modification you make to the returned list will
+	 * be present inside the JAXB object. This is why there is not a
+	 * <CODE>set</CODE> method for the verificationAvailable property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getVerificationAvailable().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list {@link String }
+	 * 
+	 * 
+	 */
+	public List<String> getVerificationAvailable() {
+		if (verificationAvailable == null) {
+			verificationAvailable = new ArrayList<String>();
+		}
+		return this.verificationAvailable;
+	}
 }

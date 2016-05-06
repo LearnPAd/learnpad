@@ -54,54 +54,52 @@ import eu.learnpad.or.Controller;
 @Singleton
 @Named("eu.learnpad.core.impl.or.XwikiController")
 @Path("/learnpad/or/corefacade")
-public class XwikiController extends Controller implements XWikiRestComponent, Initializable
-{
-    @Inject
-    @Named("xwiki")
-    private Utils utils;
+public class XwikiController extends Controller implements XWikiRestComponent, Initializable {
 
-    @Inject
-    private ComponentManager componentManager;
+	@Inject
+	@Named("xwiki")
+	private Utils utils;
 
-    /*
-     * Note that in this solution the Controllers do not interact each-others, but each controller directly invokes the
-     * BridgesInterfaces (from the other controllers) it needs. This is not actually what was originally planned, thus
-     * in the future it may change. Also, not sure if this is the correct way to proceed. I would like to decide in a
-     * configuration file the implementation to bind, and not into the source code. In fact, this second case implies to
-     * rebuild the whole platform at each change.
-     */
-    private eu.learnpad.cw.BridgeInterface cw;
+	@Inject
+	private ComponentManager componentManager;
 
-    private eu.learnpad.sim.BridgeInterface sim;
+	/*
+	 * Note that in this solution the Controllers do not interact each-others,
+	 * but each controller directly invokes the BridgesInterfaces (from the
+	 * other controllers) it needs. This is not actually what was originally
+	 * planned, thus in the future it may change. Also, not sure if this is the
+	 * correct way to proceed. I would like to decide in a configuration file
+	 * the implementation to bind, and not into the source code. In fact, this
+	 * second case implies to rebuild the whole platform at each change.
+	 */
+	private eu.learnpad.cw.BridgeInterface cw;
 
-    @Override
-    public void initialize() throws InitializationException
-    {
-        try {
-            this.bridge = this.componentManager.getInstance(RestResource.class, "or");
+	private eu.learnpad.sim.BridgeInterface sim;
 
-            this.cw = this.componentManager.getInstance(RestResource.class, "cw");
-            this.sim = this.componentManager.getInstance(RestResource.class, "sim");
-        } catch (ComponentLookupException e) {
-            throw new InitializationException(e.getMessage(), e);
-        }
-    }
+	@Override
+	public void initialize() throws InitializationException {
+		try {
+			this.bridge = this.componentManager.getInstance(RestResource.class, "or");
 
-    @Override
-    public byte[] getComments(String modelSetId, String artifactId) throws LpRestExceptionImpl
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+			this.cw = this.componentManager.getInstance(RestResource.class, "cw");
+			this.sim = this.componentManager.getInstance(RestResource.class, "sim");
+		} catch (ComponentLookupException e) {
+			throw new InitializationException(e.getMessage(), e);
+		}
+	}
 
-    @Override
-    public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException
-    {
-        String attachmentName = String.format("%s.%s", modelSetId, type);
-        String fileName = "adoxx_modelset.xml";
-        java.nio.file.Path filePath = Paths.get(fileName);
-        return utils.getFileInAttachment(DefaultRestResource.CORE_REPOSITORY_WIKI,
-            DefaultRestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName, filePath);
-    }
+	@Override
+	public byte[] getComments(String modelSetId, String artifactId) throws LpRestExceptionImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException {
+		String attachmentName = String.format("%s.%s", modelSetId, type);
+		String fileName = "adoxx_modelset.xml";
+		java.nio.file.Path filePath = Paths.get(fileName);
+		return utils.getFileInAttachment(DefaultRestResource.CORE_REPOSITORY_WIKI,
+				DefaultRestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName, filePath);
+	}
 }

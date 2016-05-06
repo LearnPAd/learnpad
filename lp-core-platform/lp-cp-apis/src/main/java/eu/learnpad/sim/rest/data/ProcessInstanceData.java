@@ -44,11 +44,9 @@ public class ProcessInstanceData {
 	};
 
 	@JsonCreator
-	public ProcessInstanceData(
-			@JsonProperty("processartifactid") String processartifactid,
+	public ProcessInstanceData(@JsonProperty("processartifactid") String processartifactid,
 			@JsonProperty("processartifactkey") String processartifactkey,
-			@JsonProperty("parameters") Map<String, Object> parameters,
-			@JsonProperty("users") Collection<String> users,
+			@JsonProperty("parameters") Map<String, Object> parameters, @JsonProperty("users") Collection<String> users,
 			@JsonProperty("routes") Map<String, Collection<String>> routes) {
 		this.processartifactid = processartifactid;
 		this.processartifactkey = processartifactkey;
@@ -56,5 +54,4 @@ public class ProcessInstanceData {
 		this.users = users;
 		this.routes = routes;
 	}
-
 }

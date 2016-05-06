@@ -41,28 +41,23 @@ public interface IEventReceiver {
 
 	@POST
 	@Path("/simulationstart")
-	public void receiveSimulationStartEvent(SimulationStartEvent event)
-			throws LpRestException;
+	public void receiveSimulationStartEvent(SimulationStartEvent event) throws LpRestException;
 
 	@POST
 	@Path("/simulationend")
-	public void receiveSimulationEndEvent(SimulationEndEvent event)
-			throws LpRestException;
+	public void receiveSimulationEndEvent(SimulationEndEvent event) throws LpRestException;
 
 	@POST
 	@Path("/processstart")
-	public void receiveProcessStartEvent(ProcessStartEvent event)
-			throws LpRestException;
+	public void receiveProcessStartEvent(ProcessStartEvent event) throws LpRestException;
 
 	@POST
 	@Path("/processend")
-	public void receiveProcessEndEvent(ProcessEndEvent event)
-			throws LpRestException;
+	public void receiveProcessEndEvent(ProcessEndEvent event) throws LpRestException;
 
 	@POST
 	@Path("/taskstart")
-	public void receiveTaskStartEvent(TaskStartEvent event)
-			throws LpRestException;
+	public void receiveTaskStartEvent(TaskStartEvent event) throws LpRestException;
 
 	@POST
 	@Path("/taskend")
@@ -70,12 +65,9 @@ public interface IEventReceiver {
 
 	@POST
 	@Path("/taskfailed")
-	public void receiveTaskFailedEvent(TaskFailedEvent event)
-			throws LpRestException;
+	public void receiveTaskFailedEvent(TaskFailedEvent event) throws LpRestException;
 
 	@POST
 	@Path("/sessionscoreupdate")
-	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event)
-			throws LpRestException;
-
+	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) throws LpRestException;
 }

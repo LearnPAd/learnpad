@@ -29,7 +29,7 @@ import eu.learnpad.exception.LpRestException;
 
 public interface ManageLearningSessions {
 
-	/** 
+	/**
 	 * @param learneremail
 	 *            the email of the learner to be subscribed to a questionnaire
 	 * @param questionnaireId
@@ -38,9 +38,10 @@ public interface ManageLearningSessions {
 	 */
 	@POST
 	@Path("/subscribelearner")
-	void subscribeLearnerToQuestionnaire(@QueryParam("learneremail") String learnerEmail, @QueryParam("questionnaireid") String questionnaireId) throws LpRestException;
+	void subscribeLearnerToQuestionnaire(@QueryParam("learneremail") String learnerEmail,
+			@QueryParam("questionnaireid") String questionnaireId) throws LpRestException;
 
-	/** 
+	/**
 	 * @param learneremail
 	 *            the email of the learner to be revoked form a questionnaire
 	 * @param questionnaireId
@@ -49,9 +50,10 @@ public interface ManageLearningSessions {
 	 */
 	@POST
 	@Path("/getquestionnairestat")
-	void revokeLearnerFromQuestionnaire(@QueryParam("learneremail") String learnerEmail, @QueryParam("questionnaireid") String questionnaireId) throws LpRestException;
-	
-	/** 
+	void revokeLearnerFromQuestionnaire(@QueryParam("learneremail") String learnerEmail,
+			@QueryParam("questionnaireid") String questionnaireId) throws LpRestException;
+
+	/**
 	 * @param questionnaireId
 	 *            the id of a questionnaire
 	 * @return the list of learner's email subscribed to a questionnaire
@@ -59,15 +61,15 @@ public interface ManageLearningSessions {
 	 */
 	@GET
 	@Path("/{questionnaireid}/list")
-	String [] listLearnersFromQuestionnaire(@PathParam("questionnaireid") String questionnaireId) throws LpRestException;
-	
-	/** 
+	String[] listLearnersFromQuestionnaire(@PathParam("questionnaireid") String questionnaireId) throws LpRestException;
+
+	/**
 	 * @param learneremail
 	 *            the email of the learner
-	 * @return the list of questionnaires a learner has been subscribed 
+	 * @return the list of questionnaires a learner has been subscribed
 	 * @throws LpRestException
 	 */
 	@GET
 	@Path("/list")
-	String [] listQuestionnaireFromLearner(@QueryParam("learneremail") String learnerEmail) throws LpRestException;
+	String[] listQuestionnaireFromLearner(@QueryParam("learneremail") String learnerEmail) throws LpRestException;
 }

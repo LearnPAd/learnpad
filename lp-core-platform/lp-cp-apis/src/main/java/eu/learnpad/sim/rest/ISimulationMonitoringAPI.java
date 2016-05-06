@@ -49,8 +49,7 @@ public interface ISimulationMonitoringAPI {
 	@Path("/results/instances/{processinstanceartifactid:.*}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
 	public InputStream getProcessInstanceResults(
-			@PathParam("processinstanceartifactid") String processinstanceartifactid)
-			throws LpRestException;
+			@PathParam("processinstanceartifactid") String processinstanceartifactid) throws LpRestException;
 
 	/**
 	 * Get the results file associated with a learner
@@ -61,9 +60,7 @@ public interface ISimulationMonitoringAPI {
 	@GET
 	@Path("/results/users/{userartifactid:.*}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	public InputStream getUserResults(
-			@PathParam("userartifactid") String userartifactid)
-			throws LpRestException;
+	public InputStream getUserResults(@PathParam("userartifactid") String userartifactid) throws LpRestException;
 
 	/**
 	 * Get the results file associated with a process
@@ -74,8 +71,6 @@ public interface ISimulationMonitoringAPI {
 	@GET
 	@Path("/results/processes/{processartifactid:.*}")
 	@Produces(MediaType.APPLICATION_OCTET_STREAM)
-	public InputStream getProcessResults(
-			@PathParam("processartifactid") String processartifactid)
+	public InputStream getProcessResults(@PathParam("processartifactid") String processartifactid)
 			throws LpRestException;
-
 }

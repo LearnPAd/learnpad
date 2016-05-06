@@ -5,11 +5,11 @@
 // Generated on: 2015.11.26 at 04:26:58 PM CET 
 //
 
-
 package eu.learnpad.mv.rest.data;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -17,11 +17,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType>
@@ -63,308 +65,287 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "verificationType",
-    "definitionID",
-    "status",
-    "description",
-    "counterExampleTrace"
-})
+@XmlType(name = "", propOrder = { "verificationType", "definitionID", "status", "description", "counterExampleTrace" })
 @XmlRootElement(name = "FormalVerificationResult")
 public class FormalVerificationResult {
 
-    @XmlElement(name = "VerificationType", required = true)
-    protected String verificationType;
-    @XmlElement(name = "DefinitionID", required = true)
-    protected String definitionID;
-    @XmlElement(name = "Status", required = true)
-    protected FVResultType status;
-    @XmlElement(name = "Description", required = true)
-    protected String description;
-    @XmlElement(name = "CounterExampleTrace")
-    protected List<FormalVerificationResult.CounterExampleTrace> counterExampleTrace;
+	@XmlElement(name = "VerificationType", required = true)
+	protected String verificationType;
+	@XmlElement(name = "DefinitionID", required = true)
+	protected String definitionID;
+	@XmlElement(name = "Status", required = true)
+	protected FVResultType status;
+	@XmlElement(name = "Description", required = true)
+	protected String description;
+	@XmlElement(name = "CounterExampleTrace")
+	protected List<FormalVerificationResult.CounterExampleTrace> counterExampleTrace;
 
-    /**
-     * Gets the value of the verificationType property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getVerificationType() {
-        return verificationType;
-    }
+	/**
+	 * Gets the value of the verificationType property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getVerificationType() {
+		return verificationType;
+	}
 
-    /**
-     * Sets the value of the verificationType property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setVerificationType(String value) {
-        this.verificationType = value;
-    }
+	/**
+	 * Sets the value of the verificationType property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setVerificationType(String value) {
+		this.verificationType = value;
+	}
 
-    /**
-     * Gets the value of the definitionID property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDefinitionID() {
-        return definitionID;
-    }
+	/**
+	 * Gets the value of the definitionID property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDefinitionID() {
+		return definitionID;
+	}
 
-    /**
-     * Sets the value of the definitionID property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDefinitionID(String value) {
-        this.definitionID = value;
-    }
+	/**
+	 * Sets the value of the definitionID property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setDefinitionID(String value) {
+		this.definitionID = value;
+	}
 
-    /**
-     * Gets the value of the status property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link FVResultType }
-     *     
-     */
-    public FVResultType getStatus() {
-        return status;
-    }
+	/**
+	 * Gets the value of the status property.
+	 * 
+	 * @return possible object is {@link FVResultType }
+	 * 
+	 */
+	public FVResultType getStatus() {
+		return status;
+	}
 
-    /**
-     * Sets the value of the status property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link FVResultType }
-     *     
-     */
-    public void setStatus(FVResultType value) {
-        this.status = value;
-    }
+	/**
+	 * Sets the value of the status property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link FVResultType }
+	 * 
+	 */
+	public void setStatus(FVResultType value) {
+		this.status = value;
+	}
 
-    /**
-     * Gets the value of the description property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDescription() {
-        return description;
-    }
+	/**
+	 * Gets the value of the description property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDescription() {
+		return description;
+	}
 
-    /**
-     * Sets the value of the description property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDescription(String value) {
-        this.description = value;
-    }
+	/**
+	 * Sets the value of the description property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setDescription(String value) {
+		this.description = value;
+	}
 
-    /**
-     * Gets the value of the counterExampleTrace property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the counterExampleTrace property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getCounterExampleTrace().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link FormalVerificationResult.CounterExampleTrace }
-     * 
-     * 
-     */
-    public List<FormalVerificationResult.CounterExampleTrace> getCounterExampleTrace() {
-        if (counterExampleTrace == null) {
-            counterExampleTrace = new ArrayList<FormalVerificationResult.CounterExampleTrace>();
-        }
-        return this.counterExampleTrace;
-    }
+	/**
+	 * Gets the value of the counterExampleTrace property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a
+	 * snapshot. Therefore any modification you make to the returned list will
+	 * be present inside the JAXB object. This is why there is not a
+	 * <CODE>set</CODE> method for the counterExampleTrace property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getCounterExampleTrace().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list
+	 * {@link FormalVerificationResult.CounterExampleTrace }
+	 * 
+	 * 
+	 */
+	public List<FormalVerificationResult.CounterExampleTrace> getCounterExampleTrace() {
+		if (counterExampleTrace == null) {
+			counterExampleTrace = new ArrayList<FormalVerificationResult.CounterExampleTrace>();
+		}
+		return this.counterExampleTrace;
+	}
 
+	/**
+	 * <p>
+	 * Java class for anonymous complex type.
+	 * 
+	 * <p>
+	 * The following schema fragment specifies the expected content contained
+	 * within this class.
+	 * 
+	 * <pre>
+	 * &lt;complexType>
+	 *   &lt;complexContent>
+	 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+	 *       &lt;sequence>
+	 *         &lt;element name="Step" maxOccurs="unbounded" minOccurs="0">
+	 *           &lt;complexType>
+	 *             &lt;complexContent>
+	 *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+	 *                 &lt;sequence>
+	 *                   &lt;element name="ObjectID" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+	 *                 &lt;/sequence>
+	 *                 &lt;attribute name="num" type="{http://www.w3.org/2001/XMLSchema}string" />
+	 *               &lt;/restriction>
+	 *             &lt;/complexContent>
+	 *           &lt;/complexType>
+	 *         &lt;/element>
+	 *       &lt;/sequence>
+	 *     &lt;/restriction>
+	 *   &lt;/complexContent>
+	 * &lt;/complexType>
+	 * </pre>
+	 * 
+	 * 
+	 */
+	@XmlAccessorType(XmlAccessType.FIELD)
+	@XmlType(name = "", propOrder = { "step" })
+	public static class CounterExampleTrace {
 
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="Step" maxOccurs="unbounded" minOccurs="0">
-     *           &lt;complexType>
-     *             &lt;complexContent>
-     *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *                 &lt;sequence>
-     *                   &lt;element name="ObjectID" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
-     *                 &lt;/sequence>
-     *                 &lt;attribute name="num" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *               &lt;/restriction>
-     *             &lt;/complexContent>
-     *           &lt;/complexType>
-     *         &lt;/element>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "step"
-    })
-    public static class CounterExampleTrace {
+		@XmlElement(name = "Step")
+		protected List<FormalVerificationResult.CounterExampleTrace.Step> step;
 
-        @XmlElement(name = "Step")
-        protected List<FormalVerificationResult.CounterExampleTrace.Step> step;
+		/**
+		 * Gets the value of the step property.
+		 * 
+		 * <p>
+		 * This accessor method returns a reference to the live list, not a
+		 * snapshot. Therefore any modification you make to the returned list
+		 * will be present inside the JAXB object. This is why there is not a
+		 * <CODE>set</CODE> method for the step property.
+		 * 
+		 * <p>
+		 * For example, to add a new item, do as follows:
+		 * 
+		 * <pre>
+		 * getStep().add(newItem);
+		 * </pre>
+		 * 
+		 * 
+		 * <p>
+		 * Objects of the following type(s) are allowed in the list
+		 * {@link FormalVerificationResult.CounterExampleTrace.Step }
+		 * 
+		 * 
+		 */
+		public List<FormalVerificationResult.CounterExampleTrace.Step> getStep() {
+			if (step == null) {
+				step = new ArrayList<FormalVerificationResult.CounterExampleTrace.Step>();
+			}
+			return this.step;
+		}
 
-        /**
-         * Gets the value of the step property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the step property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getStep().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link FormalVerificationResult.CounterExampleTrace.Step }
-         * 
-         * 
-         */
-        public List<FormalVerificationResult.CounterExampleTrace.Step> getStep() {
-            if (step == null) {
-                step = new ArrayList<FormalVerificationResult.CounterExampleTrace.Step>();
-            }
-            return this.step;
-        }
+		/**
+		 * <p>
+		 * Java class for anonymous complex type.
+		 * 
+		 * <p>
+		 * The following schema fragment specifies the expected content
+		 * contained within this class.
+		 * 
+		 * <pre>
+		 * &lt;complexType>
+		 *   &lt;complexContent>
+		 *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+		 *       &lt;sequence>
+		 *         &lt;element name="ObjectID" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+		 *       &lt;/sequence>
+		 *       &lt;attribute name="num" type="{http://www.w3.org/2001/XMLSchema}string" />
+		 *     &lt;/restriction>
+		 *   &lt;/complexContent>
+		 * &lt;/complexType>
+		 * </pre>
+		 * 
+		 * 
+		 */
+		@XmlAccessorType(XmlAccessType.FIELD)
+		@XmlType(name = "", propOrder = { "objectID" })
+		public static class Step {
 
+			@XmlElement(name = "ObjectID")
+			protected List<String> objectID;
+			@XmlAttribute(name = "num")
+			protected String num;
 
-        /**
-         * <p>Java class for anonymous complex type.
-         * 
-         * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
-         * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="ObjectID" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
-         *       &lt;/sequence>
-         *       &lt;attribute name="num" type="{http://www.w3.org/2001/XMLSchema}string" />
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
-         * </pre>
-         * 
-         * 
-         */
-        @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-            "objectID"
-        })
-        public static class Step {
+			/**
+			 * Gets the value of the objectID property.
+			 * 
+			 * <p>
+			 * This accessor method returns a reference to the live list, not a
+			 * snapshot. Therefore any modification you make to the returned
+			 * list will be present inside the JAXB object. This is why there is
+			 * not a <CODE>set</CODE> method for the objectID property.
+			 * 
+			 * <p>
+			 * For example, to add a new item, do as follows:
+			 * 
+			 * <pre>
+			 * getObjectID().add(newItem);
+			 * </pre>
+			 * 
+			 * 
+			 * <p>
+			 * Objects of the following type(s) are allowed in the list
+			 * {@link String }
+			 * 
+			 * 
+			 */
+			public List<String> getObjectID() {
+				if (objectID == null) {
+					objectID = new ArrayList<String>();
+				}
+				return this.objectID;
+			}
 
-            @XmlElement(name = "ObjectID")
-            protected List<String> objectID;
-            @XmlAttribute(name = "num")
-            protected String num;
+			/**
+			 * Gets the value of the num property.
+			 * 
+			 * @return possible object is {@link String }
+			 * 
+			 */
+			public String getNum() {
+				return num;
+			}
 
-            /**
-             * Gets the value of the objectID property.
-             * 
-             * <p>
-             * This accessor method returns a reference to the live list,
-             * not a snapshot. Therefore any modification you make to the
-             * returned list will be present inside the JAXB object.
-             * This is why there is not a <CODE>set</CODE> method for the objectID property.
-             * 
-             * <p>
-             * For example, to add a new item, do as follows:
-             * <pre>
-             *    getObjectID().add(newItem);
-             * </pre>
-             * 
-             * 
-             * <p>
-             * Objects of the following type(s) are allowed in the list
-             * {@link String }
-             * 
-             * 
-             */
-            public List<String> getObjectID() {
-                if (objectID == null) {
-                    objectID = new ArrayList<String>();
-                }
-                return this.objectID;
-            }
-
-            /**
-             * Gets the value of the num property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
-             */
-            public String getNum() {
-                return num;
-            }
-
-            /**
-             * Sets the value of the num property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
-             */
-            public void setNum(String value) {
-                this.num = value;
-            }
-
-        }
-
-    }
-
+			/**
+			 * Sets the value of the num property.
+			 * 
+			 * @param value
+			 *            allowed object is {@link String }
+			 * 
+			 */
+			public void setNum(String value) {
+				this.num = value;
+			}
+		}
+	}
 }

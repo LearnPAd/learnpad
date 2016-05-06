@@ -34,8 +34,8 @@ import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.mv.rest.data.VerificationId;
 
 public interface ImportModelSet {
-	// "/learnpad/me/importmodelset/{modelsetid}?type={ADOXX|MD}"
 
+	// "/learnpad/me/importmodelset/{modelsetid}?type={ADOXX|MD}"
 	@PUT
 	@Path("/importmodelset/{modelsetid}")
 	@Consumes(MediaType.APPLICATION_OCTET_STREAM)

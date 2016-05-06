@@ -28,19 +28,16 @@ import eu.learnpad.mt.CoreFacade;
 
 @Component
 @Named("mt.corefacade")
-public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
-		CoreFacade {
+public class XwikiCoreFacadeRestResource extends DefaultRestResource implements CoreFacade {
+
 	public XwikiCoreFacadeRestResource() {
 		this("localhost", 8080);
 	}
 
-	public XwikiCoreFacadeRestResource(String coreFacadeHostname,
-			int coreFacadeHostPort) {
+	public XwikiCoreFacadeRestResource(String coreFacadeHostname, int coreFacadeHostPort) {
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
 	}
 
-	public void updateConfiguration(String coreFacadeHostname,
-			int coreFacadeHostPort) {
-
+	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort) {
 	}
 }

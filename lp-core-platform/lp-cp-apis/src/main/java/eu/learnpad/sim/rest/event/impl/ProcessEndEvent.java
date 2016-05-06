@@ -46,11 +46,9 @@ public class ProcessEndEvent extends AbstractEvent {
 		super();
 	}
 
-	public ProcessEndEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String modelsetid,
+	public ProcessEndEvent(Long timestamp, String simulationsessionid, List<String> involvedusers, String modelsetid,
 			Map<String, Object> simulationSessionData, String processartifactid) {
-		super(EventType.PROCESS_END, timestamp, simulationsessionid,
-				involvedusers, modelsetid, simulationSessionData);
+		super(EventType.PROCESS_END, timestamp, simulationsessionid, involvedusers, modelsetid, simulationSessionData);
 		this.processartifactid = processartifactid;
 	}
 

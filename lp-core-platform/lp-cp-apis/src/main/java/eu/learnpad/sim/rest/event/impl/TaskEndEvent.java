@@ -59,14 +59,10 @@ public class TaskEndEvent extends AbstractEvent {
 		super();
 	}
 
-	public TaskEndEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String modelsetid,
-			Map<String, Object> simulationSessionData,
-			String processartifactid, String taskartifactid,
-			List<String> assignedusers, String completingUser,
-			Map<String, Object> submittedData) {
-		super(EventType.TASK_END, timestamp, simulationsessionid,
-				involvedusers, modelsetid, simulationSessionData);
+	public TaskEndEvent(Long timestamp, String simulationsessionid, List<String> involvedusers, String modelsetid,
+			Map<String, Object> simulationSessionData, String processartifactid, String taskartifactid,
+			List<String> assignedusers, String completingUser, Map<String, Object> submittedData) {
+		super(EventType.TASK_END, timestamp, simulationsessionid, involvedusers, modelsetid, simulationSessionData);
 		this.processartifactid = processartifactid;
 		this.taskartifactid = taskartifactid;
 		this.assignedusers = assignedusers;
@@ -76,9 +72,8 @@ public class TaskEndEvent extends AbstractEvent {
 
 	@Override
 	public String toString() {
-		return super.toString() + " processartifactid=" + processartifactid
-				+ " taskartifactid=" + taskartifactid + " assignedusers="
-				+ assignedusers + " completingUser=" + completingUser
-				+ " submittedData=" + submittedData;
+		return super.toString() + " processartifactid=" + processartifactid + " taskartifactid=" + taskartifactid
+				+ " assignedusers=" + assignedusers + " completingUser=" + completingUser + " submittedData="
+				+ submittedData;
 	}
 }

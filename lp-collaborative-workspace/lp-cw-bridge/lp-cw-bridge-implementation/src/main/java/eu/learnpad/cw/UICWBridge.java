@@ -20,26 +20,23 @@
 package eu.learnpad.cw;
 
 import java.util.Collection;
-import java.util.Map;
-
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
 
 import org.xwiki.component.annotation.Role;
 
+import eu.learnpad.cw.rest.data.ScoreRecordCollection;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
 
 @Role
-public interface UICWBridge
-{
-    public Recommendations getRecommendations(String modelSetId, String artifactId, String userId)
-        throws LpRestException;
+public interface UICWBridge {
 
-    public String getRestPrefix(String component) throws LpRestException;
+	public Recommendations getRecommendations(String modelSetId, String artifactId, String userId)
+			throws LpRestException;
 
-    public String startSimulation(@PathParam("modelid") String modelId, @QueryParam("currentuser") String currentUser,
-        Collection<String> potentialUsers) throws LpRestException;
+	public String getRestPrefix(String component) throws LpRestException;
 
-    public Map<String, Recommendations> getNotifiedRecommendations(String userId) throws LpRestException;
+	public String startSimulation(String modelId, String currentUser, Collection<String> potentialUsers)
+			throws LpRestException;
+
+	public ScoreRecordCollection getScores(String userid, String modelid) throws LpRestException;
 }
