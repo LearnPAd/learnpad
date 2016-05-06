@@ -26,7 +26,6 @@ import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 import eu.learnpad.simulator.api.impl.utils.LpMonRestException;
 import eu.learnpad.simulator.api.impl.utils.RestResource;
-import eu.learnpad.exception.LpRestException;
 import eu.learnpad.sim.CoreFacade;
 
 public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
@@ -125,7 +124,7 @@ public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 	}
 
 	@Override
-	public void receiveScoreUpdateEvent(ScoreUpdateEvent event) throws LpRestException {
+	public void receiveScoreUpdateEvent(ScoreUpdateEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
 		String uri = String.format("%s/scoreupdate",RestResource.REST_URI);
 		sendEvent(httpClient, event, uri);			
