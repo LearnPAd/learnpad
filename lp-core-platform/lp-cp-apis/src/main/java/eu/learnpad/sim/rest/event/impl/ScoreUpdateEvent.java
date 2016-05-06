@@ -32,10 +32,8 @@ import eu.learnpad.sim.rest.event.EventType;
  */
 public class ScoreUpdateEvent extends AbstractEvent {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -8719161124674249926L;
+
+	private static final long serialVersionUID = -3060312540766267130L;
 
 	/**
 	 * Unique ID of the process artifact definition
@@ -52,7 +50,7 @@ public class ScoreUpdateEvent extends AbstractEvent {
 	 */
 	public Long updatedScore;
 
-	public SessionScoreUpdateEvent() {
+	public ScoreUpdateEvent() {
 		super();
 	}
 
