@@ -33,10 +33,12 @@ import eu.learnpad.or.rest.data.Entity;
 import eu.learnpad.or.rest.data.Experts;
 import eu.learnpad.or.rest.data.LearningMaterial;
 import eu.learnpad.or.rest.data.LearningMaterials;
+import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.OrganisationalUnit;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.RelatedObject;
 import eu.learnpad.or.rest.data.RelatedObjects;
+import eu.learnpad.or.rest.data.ResourceType;
 import eu.learnpad.or.rest.data.SimulationData;
 import eu.learnpad.or.rest.data.States;
 import eu.learnpad.or.rest.data.TextMarker;
@@ -70,8 +72,8 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     }
     
     @Override
-    public void sendResourceNotification(String modelSetId, String resourceId, String artifactIds, String action) throws LpRestException {
-        // TODO later 
+    public void resourceNotification(String modelSetId, String resourceId, ResourceType resourceType, String referringToResourceId, String[] modelArtifactIds, String userId, Long timestamp, NotificationActionType action) throws LpRestException {
+        
     }
 
     @Override
@@ -226,4 +228,5 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         
         return testData;
     }
+
 }

@@ -25,6 +25,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.or.rest.data.NotificationActionType;
+import eu.learnpad.or.rest.data.ResourceType;
 
 public interface ResourceNotification {
 
@@ -32,19 +34,32 @@ public interface ResourceNotification {
 	 * @param modelSetId
 	 *            is the ID of the model set that is concerned
 	 * @param resourceId
-	 *            is the ID that designate the resource
-	 * @param artifactIds
-	 *            is a list of ID to other artifacts from the model, linked to
-	 *            this resource
-	 * @param action
-	 *            will precise the kind of notification (added, deleted,
-	 *            modified)
+	 *            is the ID that designate the resource, ex. a wiki page, a 
+         *            comment for a page, an attachement or a feedback
+         * @param resourceType
+         *            type of resource (wiki page, comment, etc.)      
+         * @param referringToResourceId
+         *            resource id of referred resource (ex. the page id a comment belongs to)
+         * @param modelArtifactIds
+	 *            is a list of ID to other artifacts from the model, 
+         *            linked to this resource
+         * @param userId
+         *            unique user identifier for the system
+         * @param timestamp
+         *            timestamp of action on platform
+         * @param action
+	 *            will precise the kind of notification (visited, added, modified, deleted)
 	 * @throws LpRestException
 	 */
 	// <host>/learnpad/or/resourcenotification/{modelsetid}?resourceid=id,linkedto=(id1,id2,id3),action={added|modified|deleted}
 	@POST
-	@Path("/resourcenotification/{modelsetid}")
-	void sendResourceNotification(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("resourceid") String resourceId, @QueryParam("linkedto") String artifactIds,
-			@QueryParam("action") String action) throws LpRestException;
+	@Path("/{modelsetid}/resourcenotification")
+	void resourceNotification(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("resourceid") String resourceId,
+                        @QueryParam("resourcetype") ResourceType resourceType,
+                        @QueryParam("referringtoresourceid") String referringToResourceId,
+                        @QueryParam("modelartifactids") String[] modelArtifactIds,
+			@QueryParam("userid") String userId, 
+                        @QueryParam("timestamp") Long timestamp, 
+                        @QueryParam("action") NotificationActionType action) throws LpRestException;
 }

@@ -79,7 +79,7 @@ public class FileOntAO extends OntAO {
     protected OntModel loadExecutionData(String modelSetId) {
         OntModel model = null;
         try {
-            model = OntologyResourceLoader.loadModel(APP.CONF.getStringArray("execution.data.path"), Lang.TTL);
+            model = OntologyResourceLoader.loadModel(APP.CONF.getStringArray("execution.data.path.relative"), Lang.TTL);
         } catch (IOException ex) {
             Logger.getLogger(FileOntAO.class.getName()).log(Level.SEVERE, null, ex);
         }

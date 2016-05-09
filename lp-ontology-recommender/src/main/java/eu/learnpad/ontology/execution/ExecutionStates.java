@@ -84,7 +84,7 @@ public class ExecutionStates {
                 + "}";
 
         Query query = QueryFactory.create(queryString);
-        OntModel model = FileOntAO.getInstance().getExecutionData(modelSetId);
+        OntModel model = FileOntAO.getInstance().getModelWithExecutionData(modelSetId);
 //        model.write(System.out, "Turtle");
         QueryExecution qexec = null;
         States states = new States();
