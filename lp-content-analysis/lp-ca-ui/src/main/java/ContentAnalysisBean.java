@@ -1,7 +1,6 @@
 
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Properties;
@@ -9,8 +8,6 @@ import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -60,6 +57,8 @@ public class ContentAnalysisBean implements Serializable {
 		}
 
 		log.trace(id);
+		
+		/*//String Name=request.getParameter("name");
 		Collection<String> listc = getCollectionids();
 		if(!listc.isEmpty()){
 			for(String l :listc){
@@ -67,7 +66,7 @@ public class ContentAnalysisBean implements Serializable {
 				log.trace(id);
 			}
 			actionDownloadAnalysis();
-		}
+		}*/
 	}
 
 
@@ -226,10 +225,8 @@ public class ContentAnalysisBean implements Serializable {
 
 	public void actionDownloadAnalysis(){
 		try{
-			//FacesContext context = FacesContext.getCurrentInstance();
+			log.trace(id);
 			
-		
-			//id =  (String) context.getApplication().evaluateExpressionGet(context, "#{ContentBean.restid}", String.class);
 			Client client = ClientBuilder.newClient();
 			if(id==null){
 				id="1";
