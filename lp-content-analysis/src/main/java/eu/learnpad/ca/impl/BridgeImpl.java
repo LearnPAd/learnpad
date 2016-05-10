@@ -212,7 +212,7 @@ public class BridgeImpl extends Bridge {
 
 	@Path("/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:\\d+}/view")
 	@Override
-	public URL getCollaborativeContentVerificationsView(String contentID)
+	public URL getCollaborativeContentVerificationsView(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
@@ -406,7 +406,7 @@ public class BridgeImpl extends Bridge {
 
 	@Path("/validatestaticcontent/{idAnnotatedStaticContentAnalysis:\\d+}/view")
 	@Override
-	public URL getStaticContentVerificationsView(String contentID)
+	public URL getStaticContentVerificationsView(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
