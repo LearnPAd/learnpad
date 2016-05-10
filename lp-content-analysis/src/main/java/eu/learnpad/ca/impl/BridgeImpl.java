@@ -1,5 +1,6 @@
 package eu.learnpad.ca.impl;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -209,6 +210,14 @@ public class BridgeImpl extends Bridge {
 		}
 	}
 
+	@Path("/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:\\d+}/view")
+	@Override
+	public URL getCollaborativeContentVerificationsView(String contentID)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	private Integer getProgress(List<AbstractAnalysisClass> listanalysisInterface){
 		int size = listanalysisInterface.size();
 		int i = 0;
@@ -393,6 +402,14 @@ public class BridgeImpl extends Bridge {
 			log.fatal("Fatal "+e.getMessage());
 			return "FATAL ERROR";
 		}
+	}
+
+	@Path("/validatestaticcontent/{idAnnotatedStaticContentAnalysis:\\d+}/view")
+	@Override
+	public URL getStaticContentVerificationsView(String contentID)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

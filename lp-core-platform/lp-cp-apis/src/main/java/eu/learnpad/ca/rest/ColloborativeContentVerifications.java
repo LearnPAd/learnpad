@@ -1,5 +1,7 @@
 package eu.learnpad.ca.rest;
 
+import java.net.URL;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -24,5 +26,18 @@ public interface ColloborativeContentVerifications {
 	@Path("/{idAnnotatedCollaborativeContentAnalysis:.*}/status")
 	@GET
 	String getStatusCollaborativeContentVerifications(
+			@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID) throws LpRestException;
+
+	
+	/**
+	 *
+	 * @param contentID
+	 *            the id of contents that have been processed 
+	 * @return the URL were is possible to access the default view (e.g. html) about of the AnnotatedCollaborativeContentAnalyses
+	 * 		   processed for the given contentID
+	 */
+	@Path("/{idAnnotatedCollaborativeContentAnalysis:.*}/view")
+	@GET
+	URL getCollaborativeContentVerificationsView(
 			@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID) throws LpRestException;
 }

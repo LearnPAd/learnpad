@@ -19,6 +19,8 @@
  */
 package eu.learnpad.ca.rest;
 
+import java.net.URL;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -44,4 +46,17 @@ public interface StaticContentVerifications {
 	@GET
 	String getStatusStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
 			throws LpRestException;
+
+	/**
+	 *
+	 * @param contentID
+	 *            the id of contents that have been processed 
+	 * @return the URL were is possible to access the default view (e.g. html) about of the AnnotatedCollaborativeContentAnalyses
+	 * 		   processed for the given contentID
+	 */
+	@Path("/{idAnnotatedStaticContentAnalysis:.*}/view")
+	@GET
+	URL getStaticContentVerificationsView(
+			@PathParam("idAnnotatedStaticContentAnalysis") String contentID) throws LpRestException;
+
 }
