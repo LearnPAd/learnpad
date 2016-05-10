@@ -40,11 +40,13 @@
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>true</hidden>
   <content>Probably you need to modifu also lp-collaborative-workspace/lp-cw-component/lp-cw-component-ui/src/main/resources/LPUI/CollaborativeDocumentSheet.xml
-at line 290
+at line 290, and line 52 (adding the request variable contentid)
 
 {{velocity}}
-#set ($modelsetid = $request.getParameter('modelsetid'))
-#set ($modelid = $request.getParameter('modelid'))
+#set ($contentid = $request.getParameter('contentid'))
+#set ($caPrefix = "${services.learnpad.getRestPrefix('CA')}")
+#set ($ca-uiPath = "${services.learnpad.getCAPathVerificationsView($contentid, 'collaborative')}")
+#set ($lp-ca-uiURL = "${caPrefix}/${ca-uiPath}")
 ##  #################
 ## The variable lp-ca-uiURL should be properly set to the actual address of the LP-CA-UI is deployed
 #set($lp-ca-uiURL="http://www.learnpad.eu")
