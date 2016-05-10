@@ -155,7 +155,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	@Override
 	public Recommendations getRecommendations(String modelSetId, String artifactId, String userId)
 			throws LpRestException {
-		Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userId, null);
+		String userEmail = this.convertUserID(userId);
+		Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userEmail, null);
 		return rec;
 	}
 
@@ -235,5 +236,13 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String username = userId.replaceFirst("XWiki\\.", "");
 		return username;
 	}
+	
+	private String convertUserID(String userId) throws LpRestException {
+		
+		String wikiName = DefaultRestResource.CORE_REPOSITORY_WIKI;
+		String username = this.removePrefixes(userId);
+		return utils.getEmailAddress(wikiName, username);
+	}
+
 
 }

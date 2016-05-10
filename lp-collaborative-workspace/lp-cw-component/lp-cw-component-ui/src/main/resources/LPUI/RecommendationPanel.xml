@@ -155,10 +155,13 @@
 #set ($querystring = "modelsetid=${modelsetid}&amp;modelid=${modelid}")
 #set ($simulationURL = $xwiki.getURL($simulationReference, 'view', $querystring))
 #set ($currentUser = $xcontext.user)
-#set ($userid = $xwiki.getDocument($currentUser).getObject('XWiki.XWikiUsers').getProperty('email').value)
+##
+#if ("$!{currentUser}" != "XWiki.superadmin" &amp;&amp; "$!{currentUser}" != "XWiki.Admin")
+    #set ($userid = $currentUser)
 {{html clean=false}}
 &lt;div id="panel-metadata" class="hidden" data-websocketurl="${services.websocket.getURL('recommendation')}" data-modelsetid="$!{modelsetid}" data-modelid="$!{modelid}" data-artifactid="$!{artifactid}" data-userid="$!{userid}"&gt;&lt;/div&gt;
 {{/html}}
+#end
 {{/velocity}}</content>
     </property>
     <property>
