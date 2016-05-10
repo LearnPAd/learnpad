@@ -45,15 +45,15 @@ at line 290, and line 52 (adding the request variable contentid)
 {{velocity}}
 #set ($contentid = $request.getParameter('contentid'))
 #set ($caPrefix = "${services.learnpad.getRestPrefix('CA')}")
-#set ($ca-uiPath = "${services.learnpad.getCAPathVerificationsView($contentid, 'collaborative')}")
-#set ($lp-ca-uiURL = "${caPrefix}/${ca-uiPath}")
+#set ($cauiPath = "${services.learnpad.getCAPathVerificationsView($contentid, 'collaborative')}")
+#set ($lpcauiURL = "${caPrefix}/${cauiPath}")
 ##  #################
-## The variable lp-ca-uiURL should be properly set to the actual address of the LP-CA-UI is deployed
+## The variable lpcauiURL should be properly set to the actual address of the LP-CA-UI is deployed
 #set($lp-ca-uiURL="http://www.learnpad.eu")
-The variable lp-ca-uiURL should be properly set to the actual address of the LP-CA-UI is deployed instead of "$lp-ca-uiURL"
+The variable lpcauiURL should be properly set to the actual address of the LP-CA-UI is deployed instead of "$lpcauiURL"
 ## #################
 {{html clean="false"}}
-&lt;iframe id="contentanalysis-iframe" width="100%" src="${lp-ca-uiURL}"&gt;
+&lt;iframe id="contentanalysis-iframe" width="100%" src="${lpcauiURL}"&gt;
 Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
 &lt;/iframe&gt;
 {{/html}}
