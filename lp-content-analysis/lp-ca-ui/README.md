@@ -18,7 +18,7 @@ This is the Content Analysis User Interface.
 
 #How it works?
 
-The service is available at `localhost:9092`.
+The service is available at `localhost:9092/getanalysis.jsf?id=XXX`, substitute `XXX` in url with the id of content analysis that the CA-UI will be show.
 
 
 
