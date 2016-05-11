@@ -20,6 +20,7 @@
 package eu.learnpad.core.impl.cw;
 
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
@@ -228,6 +229,12 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
+	public String getView(String analysisId) throws LpRestException {
+		String url = this.ca.getCollaborativeContentVerificationsView(analysisId);
+		return url;
+	}
+
+	@Override
 	public AnnotatedCollaborativeContentAnalyses getResults(String analysisId) throws LpRestException {
 		return this.ca.getCollaborativeContentVerifications(analysisId);
 	}
@@ -243,6 +250,5 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String username = this.removePrefixes(userId);
 		return utils.getEmailAddress(wikiName, username);
 	}
-
 
 }

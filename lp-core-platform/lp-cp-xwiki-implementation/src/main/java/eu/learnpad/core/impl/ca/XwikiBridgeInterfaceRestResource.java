@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 
 import javax.inject.Named;
 import javax.ws.rs.core.MediaType;
@@ -144,7 +143,7 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 	}
 
 	@Override
-	public URL getCollaborativeContentVerificationsView(String contentID)
+	public String getCollaborativeContentVerificationsView(String contentID)
 			throws LpRestException {
 
 		HttpClient httpClient = this.getAnonymousClient();
@@ -155,8 +154,7 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 
 		try {
 			httpClient.executeMethod(getMethod);
-			URL urlView = new URL(getMethod.getResponseBodyAsString()); 
-			return urlView;
+			return getMethod.getResponseBodyAsString(); 
 		} catch (IOException e) {
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
@@ -184,7 +182,7 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 	}
 
 	@Override
-	public URL getStaticContentVerificationsView(String contentID)
+	public String getStaticContentVerificationsView(String contentID)
 			throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
