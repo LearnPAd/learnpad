@@ -21,6 +21,7 @@ package eu.learnpad.core.impl.cw;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
@@ -260,6 +261,23 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
 	}
 
 	@Override
+	public String getView(String analysisId) throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format(
+				"%s/learnpad/cw/corefacade/analyze/%s/view",
+				DefaultRestResource.REST_URI, analysisId);
+		GetMethod getMethod = new GetMethod(uri);
+
+		try {
+			httpClient.executeMethod(getMethod);
+			String url = getMethod.getResponseBodyAsString(); 
+			return url;
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+	}
+
+	@Override
 	public AnnotatedCollaborativeContentAnalyses getResults(String analysisId)
 			throws LpRestException {
 		HttpClient httpClient = this.getClient();
@@ -285,4 +303,5 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 	}
+
 }

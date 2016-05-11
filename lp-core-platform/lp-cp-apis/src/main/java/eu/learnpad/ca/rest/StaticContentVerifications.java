@@ -19,8 +19,6 @@
  */
 package eu.learnpad.ca.rest;
 
-import java.net.URL;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -56,7 +54,7 @@ public interface StaticContentVerifications {
 	 */
 	@Path("/{idAnnotatedStaticContentAnalysis:.*}/view")
 	@GET
-	URL getStaticContentVerificationsView(
+	String getStaticContentVerificationsView(
 			@PathParam("idAnnotatedStaticContentAnalysis") String contentID) throws LpRestException;
 
 }
