@@ -1,7 +1,5 @@
 package eu.learnpad.ca.rest;
 
-import java.net.URL;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -38,6 +36,6 @@ public interface ColloborativeContentVerifications {
 	 */
 	@Path("/{idAnnotatedCollaborativeContentAnalysis:.*}/view")
 	@GET
-	URL getCollaborativeContentVerificationsView(
+	String getCollaborativeContentVerificationsView(
 			@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID) throws LpRestException;
 }
