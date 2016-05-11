@@ -404,7 +404,7 @@ public class BridgeImpl extends Bridge {
 	}
 
 	@Path("/validatestaticcontent/{idAnnotatedStaticContentAnalysis:\\d+}/view")
-	@Override
+	@GET
 	public String getStaticContentVerificationsView(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException {
 		// TODO Auto-generated method stub
