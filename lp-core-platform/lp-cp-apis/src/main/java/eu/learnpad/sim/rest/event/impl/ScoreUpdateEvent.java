@@ -32,7 +32,6 @@ import eu.learnpad.sim.rest.event.EventType;
  */
 public class ScoreUpdateEvent extends AbstractEvent {
 
-
 	private static final long serialVersionUID = -3060312540766267130L;
 
 	/**
@@ -54,11 +53,9 @@ public class ScoreUpdateEvent extends AbstractEvent {
 		super();
 	}
 
-	public ScoreUpdateEvent(Long timestamp, String simulationsessionid, List<String> involvedusers,
-			String modelsetid, Map<String, Object> simulationSessionData, String processartifactid, String user,
-			String scoreUpdate) {
-		super(EventType.SCORE_UPDATE, timestamp, simulationsessionid, involvedusers, modelsetid,
-				simulationSessionData);
+	public ScoreUpdateEvent(Long timestamp, String simulationsessionid, List<String> involvedusers, String modelsetid,
+			Map<String, Object> simulationSessionData, String processartifactid, String user, String scoreUpdate) {
+		super(EventType.SCORE_UPDATE, timestamp, simulationsessionid, involvedusers, modelsetid, simulationSessionData);
 		this.processartifactid = processartifactid;
 		this.updatedScore = scoreUpdate;
 		this.user = user;
