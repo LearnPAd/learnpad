@@ -231,8 +231,7 @@ public class SimulatorBridgeImpl implements BridgeInterface, IUserInfosAPI {
 
 	@Override
 	public String joinProcessInstance(String simulationId, String userId) throws LpRestException {
-		// TODO Auto-generated method stub
-		return null;
+		return "ui?userid="	+ userId + "&simulationid=" + simulationId;
 	}
 
 	/*
