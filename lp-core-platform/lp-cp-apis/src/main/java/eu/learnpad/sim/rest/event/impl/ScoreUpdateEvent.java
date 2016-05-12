@@ -27,7 +27,7 @@ import eu.learnpad.sim.rest.event.EventType;
 
 /**
  *
- * @author Tom Jorquera - Linagora
+ * @author Antonello Calabr&oGrave; - CNR
  *
  */
 public class ScoreUpdateEvent extends AbstractEvent {
