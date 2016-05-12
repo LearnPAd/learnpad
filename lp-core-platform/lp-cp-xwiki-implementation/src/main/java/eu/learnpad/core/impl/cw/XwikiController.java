@@ -21,6 +21,7 @@ package eu.learnpad.core.impl.cw;
 
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -49,6 +50,7 @@ import eu.learnpad.cw.Controller;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.sim.rest.data.UserDataCollection;
 
@@ -160,6 +162,16 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
+	public Collection<String> listSimulations() throws LpRestException {
+		return this.sim.getProcessInstances();
+	}
+
+	@Override
+	public ProcessInstanceData getSimulationInfo(String simulationId) throws LpRestException {
+		return this.sim.getProcessInstanceInfos(simulationId);
+	}
+
+	@Override
 	public Recommendations getRecommendations(String modelSetId, String artifactId, String userId)
 			throws LpRestException {
 		String userEmail = this.convertUserID(userId);
@@ -256,5 +268,4 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String username = this.removePrefixes(userId);
 		return utils.getEmailAddress(wikiName, username);
 	}
-
 }

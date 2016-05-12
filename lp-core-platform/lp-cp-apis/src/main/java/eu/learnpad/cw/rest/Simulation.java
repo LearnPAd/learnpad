@@ -19,6 +19,8 @@
  */
 package eu.learnpad.cw.rest;
 
+import java.util.Collection;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -29,6 +31,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.sim.rest.data.UserDataCollection;
 
 public interface Simulation {
@@ -68,4 +71,16 @@ public interface Simulation {
 	@Produces(MediaType.APPLICATION_JSON)
 	String joinSimulation(@PathParam("simulationid") String simulationId, @PathParam("userid") String userId)
 			throws LpRestException;
+
+	@Path("/simulation/instances")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	Collection<String> listSimulations() throws LpRestException;
+
+	@Path("/simulation/instances/{simulationid}")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	ProcessInstanceData getSimulationInfo(@PathParam("simulationid") String simulationId) throws LpRestException;
 }
