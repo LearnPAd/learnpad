@@ -48,7 +48,7 @@ public class ScoreUpdateEvent extends AbstractEvent {
 	/**
 	 * The new session score of the user
 	 */
-	public Long updatedScore;
+	public String updatedScore;
 
 	public ScoreUpdateEvent() {
 		super();
@@ -56,7 +56,7 @@ public class ScoreUpdateEvent extends AbstractEvent {
 
 	public ScoreUpdateEvent(Long timestamp, String simulationsessionid, List<String> involvedusers,
 			String modelsetid, Map<String, Object> simulationSessionData, String processartifactid, String user,
-			Long scoreUpdate) {
+			String scoreUpdate) {
 		super(EventType.SCORE_UPDATE, timestamp, simulationsessionid, involvedusers, modelsetid,
 				simulationSessionData);
 		this.processartifactid = processartifactid;
