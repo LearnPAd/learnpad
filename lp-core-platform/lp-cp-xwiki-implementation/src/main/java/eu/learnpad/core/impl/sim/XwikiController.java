@@ -186,9 +186,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	@Override
 	public void receiveScoreUpdateEvent(ScoreUpdateEvent event) throws LpRestException {
 		//TODO: 
-		
-		this.cw.receiveScoreUpdate(new ScoreRecord(event.user, event.processartifactid,
-				event.simulationsessionid, event.updatedScore));
+		//this.cw.receiveScoreUpdate(new ScoreRecord(event.user, event.processartifactid,event.simulationsessionid, event.updatedScore));
 	}
 
 	@Override
