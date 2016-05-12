@@ -38,5 +38,7 @@ public interface UICWBridge {
 	public String startSimulation(String modelId, String currentUser, Collection<String> potentialUsers)
 			throws LpRestException;
 
+	public String joinSimulation(String simulationId, String userId) throws LpRestException;
+
 	public ScoreRecordCollection getScores(String userid, String modelid) throws LpRestException;
 }

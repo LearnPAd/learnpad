@@ -20,6 +20,7 @@
 package eu.learnpad.cw.rest;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -39,14 +40,32 @@ public interface Simulation {
 	 *            simulator)
 	 * @param potentialUsers
 	 *            list of users likely to participate in the simulation
-	 * @return TODO
+	 * @return a relative URL towards the correct UI in SIM
 	 * @throws LpRestException
+	 *             if any error
 	 */
-	// <host>/learnpad/cw/corefacade/simulation/start/{modelsetid}?currentUser=<name_of_user>
+	// <host>/learnpad/cw/corefacade/simulation/start/{modelid}?currentUser=<name_of_user>
 	@Path("/simulation/start/{modelid}")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	String startSimulation(@PathParam("modelid") String modelId, @QueryParam("currentuser") String currentUser,
 			UserDataCollection potentialUsers) throws LpRestException;
+
+	/**
+	 * @param simulationId
+	 *            is the ID of the simulation
+	 * @param userid
+	 *            is the ID of the user joining the simulation
+	 * @return a relative URL towards the correct UI in SIM
+	 * @throws LpRestException
+	 *             if any error
+	 */
+	// <host>/learnpad/cw/corefacade/simulation/join/{simulationid}/{userid}
+	@Path("/simulation/join/{simulationid}/{userid}")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	String joinSimulation(@PathParam("simulationid") String simulationId, @PathParam("userid") String userId)
+			throws LpRestException;
 }

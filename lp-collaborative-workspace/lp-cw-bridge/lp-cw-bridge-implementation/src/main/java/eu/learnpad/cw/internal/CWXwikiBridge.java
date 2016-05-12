@@ -380,6 +380,11 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	}
 
 	@Override
+	public String joinSimulation(String simulationId, String userId) throws LpRestException {
+		return this.corefacade.joinSimulation(simulationId, userId);
+	}
+
+	@Override
 	public String getRestPrefix(String component) throws LpRestException {
 		return ((LearnpadPropertiesConfigurationSource) configurationSource).getRestPrefix(component);
 	}

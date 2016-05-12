@@ -20,7 +20,6 @@
 package eu.learnpad.core.impl.cw;
 
 import java.io.InputStream;
-import java.net.URL;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
@@ -154,6 +153,13 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
+	public String joinSimulation(String simulationId, String userId) throws LpRestException {
+		userId = this.removePrefixes(userId);
+
+		return this.sim.joinProcessInstance(simulationId, userId);
+	}
+
+	@Override
 	public Recommendations getRecommendations(String modelSetId, String artifactId, String userId)
 			throws LpRestException {
 		String userEmail = this.convertUserID(userId);
@@ -243,9 +249,9 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String username = userId.replaceFirst("XWiki\\.", "");
 		return username;
 	}
-	
+
 	private String convertUserID(String userId) throws LpRestException {
-		
+
 		String wikiName = DefaultRestResource.CORE_REPOSITORY_WIKI;
 		String username = this.removePrefixes(userId);
 		return utils.getEmailAddress(wikiName, username);

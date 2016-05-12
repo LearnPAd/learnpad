@@ -120,6 +120,15 @@ public class LearnpadScriptService implements ScriptService, UICWBridge {
 		}
 	}
 
+	public String joinSimulation(String simulationId, String userId) {
+		try {
+			return this.cwBridge.joinSimulation(simulationId, userId);
+		} catch (LpRestException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
 	public String getRestPrefix(String component) {
 		try {
 			return this.cwBridge.getRestPrefix(component);

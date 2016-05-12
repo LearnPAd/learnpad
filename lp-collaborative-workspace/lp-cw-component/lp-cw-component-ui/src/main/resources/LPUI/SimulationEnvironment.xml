@@ -31,8 +31,8 @@
   <parent>WebIDE.LearnPAd</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1461070524000</date>
-  <contentUpdateDate>1461070524000</contentUpdateDate>
+  <date>1463046582000</date>
+  <contentUpdateDate>1463046582000</contentUpdateDate>
   <version>1.1</version>
   <title>Simulation of $!{xwiki.getDocument($services.model.createDocumentReference($xcontext.database,["$request.getParameter('modelsetid')","$request.getParameter('modelid')"],"WebHome")).getDisplayTitle()}</title>
   <comment/>
@@ -40,24 +40,33 @@
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>true</hidden>
   <content>{{velocity}}
+#set ($simulationid = $request.getParameter('simulationid'))
 #set ($modelsetid = $request.getParameter('modelsetid'))
-## Hard-coded for the moment since the ID may change with ME's import and SIM is not relying on BPMN files from ME
-#set ($modelsetid = "LP_ME_ADOXX_MODELSET_28600")
-#set ($modelid = $request.getParameter('modelid'))
-## Hard-coded for the moment since the ID may change with ME's import and SIM is not relying on BPMN files from ME
-#set ($modelid = "mod.27772")
-#set ($query = 'from doc.object(XWiki.XWikiUsers) as user')
-#set ($results = $services.query.xwql($query).execute())
-#set ($potentialUsers = [])
-#set($currentUser = "${xcontext.user}")
-#set($discard = $potentialUsers.add($currentUser))
-#foreach($result in $results)
-  #if ("$!{result}" != "XWiki.superadmin" &amp;&amp; "$!{result}" != "XWiki.Admin")
-    #set($discard = $potentialUsers.add("${result}"))
+#if ("$!simulationid" != "")
+  #set ($userid = "${xcontext.user}")
+  #set ($simulationPath = "${services.learnpad.joinSimulation($simulationid, $userid)}")
+#else
+  ## Hard-coded for the moment since the ID may change with ME's import and SIM is not relying on BPMN files from ME
+  #set ($modelsetid = "LP_ME_ADOXX_MODELSET_28600")
+  #set ($modelid = $request.getParameter('modelid'))
+  ## Hard-coded for the moment since the ID may change with ME's import and SIM is not relying on BPMN files from ME
+  ## For single user simulation
+  #set ($modelid = "mod.27772")
+  ## For multi-user simulation
+  ##set ($modelid = "SUAPdemo")
+  #set ($query = 'from doc.object(XWiki.XWikiUsers) as user')
+  #set ($results = $services.query.xwql($query).execute())
+  #set ($potentialUsers = [])
+  #set($currentUser = "${xcontext.user}")
+  #set($discard = $potentialUsers.add($currentUser))
+  #foreach($result in $results)
+    #if ("$!{result}" != "XWiki.superadmin" &amp;&amp; "$!{result}" != "XWiki.Admin")
+      #set($discard = $potentialUsers.add("${result}"))
+    #end
   #end
+  #set ($simulationPath = "${services.learnpad.startSimulation($modelid, $currentUser, $potentialUsers)}")
 #end
 #set ($simulationPrefix = "${services.learnpad.getRestPrefix('SIM')}")
-#set ($simulationPath = "${services.learnpad.startSimulation($modelid, $currentUser, $potentialUsers)}")
 #set ($simulationURL = "${simulationPrefix}/${simulationPath}")
 {{html clean="false"}}
 &lt;iframe id="simulation-iframe" width="100%" src="${simulationURL}"&gt;

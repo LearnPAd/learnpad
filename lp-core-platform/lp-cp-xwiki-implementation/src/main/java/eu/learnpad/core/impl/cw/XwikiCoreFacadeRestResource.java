@@ -152,6 +152,31 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
 	}
 
 	@Override
+	public String joinSimulation(String simulationId, String userId) throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format(
+				"%s/learnpad/cw/corefacade/simulation/join/%s/%s",
+				DefaultRestResource.REST_URI, simulationId, userId);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE,
+				MediaType.APPLICATION_JSON);
+		getMethod.addRequestHeader(HttpHeaders.ACCEPT,
+				MediaType.APPLICATION_JSON);
+		
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+
+		try {
+			return IOUtils.toString(getMethod.getResponseBodyAsStream());
+		} catch (IOException e) {
+			return null;
+		}
+	}
+
+	@Override
 	public Recommendations getRecommendations(String modelSetId,
 			String artifactId, String userId) throws LpRestException {
 		HttpClient httpClient = this.getClient();
