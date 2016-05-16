@@ -38,9 +38,9 @@ public class SessionScoreUpdateEvent extends AbstractEvent {
 	private static final long serialVersionUID = -8719161124674249926L;
 
 	/**
-	 * Unique ID of the process instance
+	 * Unique ID of the process artifact definition
 	 */
-	public String processid;
+	public String processartifactid;
 
 	/**
 	 * The LearnPAd user those score is updated
@@ -56,20 +56,19 @@ public class SessionScoreUpdateEvent extends AbstractEvent {
 		super();
 	}
 
-	public SessionScoreUpdateEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String modelsetid,
-			Map<String, Object> simulationSessionData, String processid,
-			String user, Long sessionScore) {
-		super(EventType.SESSION_SCORE_UPDATE, timestamp, simulationsessionid,
-				involvedusers, modelsetid, simulationSessionData);
-		this.processid = processid;
+	public SessionScoreUpdateEvent(Long timestamp, String simulationsessionid, List<String> involvedusers,
+			String modelsetid, Map<String, Object> simulationSessionData, String processartifactid, String user,
+			Long sessionScore) {
+		super(EventType.SESSION_SCORE_UPDATE, timestamp, simulationsessionid, involvedusers, modelsetid,
+				simulationSessionData);
+		this.processartifactid = processartifactid;
 		this.sessionscore = sessionScore;
 		this.user = user;
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + " processid=" + processid + " user=" + user
-				+ " sessionscore=" + sessionscore;
+		return super.toString() + " processartifactid=" + processartifactid + " user=" + user + " sessionscore="
+				+ sessionscore;
 	}
 }

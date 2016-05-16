@@ -35,6 +35,7 @@ import java.util.Set;
 import org.activiti.engine.impl.util.json.JSONArray;
 import org.activiti.engine.impl.util.json.JSONObject;
 
+import eu.learnpad.simulator.datastructures.document.LearnPadDocumentField;
 import eu.learnpad.simulator.uihandler.IFormHandler;
 
 /**
@@ -44,41 +45,16 @@ import eu.learnpad.simulator.uihandler.IFormHandler;
  */
 public abstract class AbstractFormHandler implements IFormHandler {
 
-	public static final class FormField {
-
-		final String id;
-		final String title;
-		final String type;
-		final boolean required;
-
-		final String category;
-
-		// for type 'enum'
-		final Map<String, String> enumValues;
-
-		public FormField(String id, String title, String type,
-				boolean required, String category,
-				Map<String, String> enumValues) {
-			super();
-			this.id = id;
-			this.title = title;
-			this.type = type;
-			this.required = required;
-			this.category = category;
-			this.enumValues = enumValues;
-		}
-
-	}
-
 	// these properties are used to prefix special form properties used to map
 	// roles to users. Hopefully no process will use properties with these
 	// keys....
 	protected static final String SINGLE_USER_KEY_PREFIX = "#_learnpad_route_singlerole_#";
 	protected static final String GROUP_USER_KEY_PREFIX = "#_learnpad_route_grouprole_#";
 
-	public abstract List<FormField> getStartFormData(String processId);
+	public abstract List<LearnPadDocumentField> getStartFormData(
+			String processId);
 
-	public abstract List<FormField> getTaskFormFields(String taskId);
+	public abstract List<LearnPadDocumentField> getTaskFormFields(String taskId);
 
 	/*
 	 * (non-Javadoc)
@@ -218,14 +194,14 @@ public abstract class AbstractFormHandler implements IFormHandler {
 		return res.toString();
 	}
 
-	private String generateForm(List<FormField> fields) {
+	private String generateForm(List<LearnPadDocumentField> fields) {
 
 		String schema = "\"schema\": { ";
 		String form = "\"form\": [ ";
 
-		Map<String, List<FormField>> fieldSets = new LinkedHashMap<String, List<FormField>>();
+		Map<String, List<LearnPadDocumentField>> fieldSets = new LinkedHashMap<String, List<LearnPadDocumentField>>();
 
-		for (FormField field : fields) {
+		for (LearnPadDocumentField field : fields) {
 
 			schema += "\"" + field.id + "\": {";
 			schema += getTitle(field) + ", ";
@@ -237,7 +213,8 @@ public abstract class AbstractFormHandler implements IFormHandler {
 				form += ",";
 			} else {
 				if (!fieldSets.containsKey(field.category)) {
-					fieldSets.put(field.category, new ArrayList<FormField>());
+					fieldSets.put(field.category,
+							new ArrayList<LearnPadDocumentField>());
 				}
 				fieldSets.get(field.category).add(field);
 			}
@@ -249,11 +226,12 @@ public abstract class AbstractFormHandler implements IFormHandler {
 		schema += " }";
 
 		// add field sets to form
-		for (Entry<String, List<FormField>> fieldSet : fieldSets.entrySet()) {
+		for (Entry<String, List<LearnPadDocumentField>> fieldSet : fieldSets
+				.entrySet()) {
 			form += "{\"type\": \"fieldset\"," + "\"title\": \""
 					+ fieldSet.getKey() + "\"," + "\"expandable\": true,"
 					+ "\"items\": [";
-			for (FormField field : fieldSet.getValue()) {
+			for (LearnPadDocumentField field : fieldSet.getValue()) {
 				form += getForm(field) + ",";
 			}
 			// remove last comma
@@ -270,7 +248,7 @@ public abstract class AbstractFormHandler implements IFormHandler {
 		return res;
 	}
 
-	private static String getType(FormField field) {
+	private static String getType(LearnPadDocumentField field) {
 		String res = "\"type\": ";
 
 		String type = field.type;
@@ -305,19 +283,19 @@ public abstract class AbstractFormHandler implements IFormHandler {
 		return res;
 	}
 
-	private static String getTitle(FormField field) {
+	private static String getTitle(LearnPadDocumentField field) {
 		if (field.type.equals("boolean")) {
 			return "\"title\": \"\"";
 		} else {
-			return "\"title\": \"" + field.title + "\"";
+			return "\"title\": \"" + field.name + "\"";
 		}
 	}
 
-	private static String getRequired(FormField field) {
+	private static String getRequired(LearnPadDocumentField field) {
 		return "\"required\":" + field.required;
 	}
 
-	private static String getForm(FormField field) {
+	private static String getForm(LearnPadDocumentField field) {
 		String res = "";
 
 		String type = field.type;
@@ -349,7 +327,7 @@ public abstract class AbstractFormHandler implements IFormHandler {
 
 		} else if (type.equals("boolean")) {
 			res += "{ \"key\": \"" + field.id + "\"";
-			res += ",\"inlinetitle\": \"" + field.title + "\"";
+			res += ",\"inlinetitle\": \"" + field.name + "\"";
 			res += "}";
 		} else if (type.equals("textarea")) {
 			res += "{ \"key\": \"" + field.id + "\"";

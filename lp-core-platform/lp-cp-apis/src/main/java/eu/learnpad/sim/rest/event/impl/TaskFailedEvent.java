@@ -38,19 +38,14 @@ public class TaskFailedEvent extends AbstractEvent {
 	private static final long serialVersionUID = 8801597168699684284L;
 
 	/**
-	 * Unique ID of the process instance
+	 * Unique ID of the process artifact
 	 */
-	public String processid;
-
-	/**
-	 * Unique ID of the task instance
-	 */
-	public String taskid;
+	public String processartifactid;
 
 	/**
 	 * ID used to identify the task in the BP definition
 	 */
-	public String taskdefid;
+	public String taskartifactid;
 
 	/**
 	 * The LearnPAd users that have been assigned to this task
@@ -65,16 +60,12 @@ public class TaskFailedEvent extends AbstractEvent {
 		super();
 	}
 
-	public TaskFailedEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String modelsetid,
-			Map<String, Object> simulationSessionData, String processid,
-			String taskid, String taskdefid, List<String> assignedusers,
-			String completingUser, Map<String, Object> submittedData) {
-		super(EventType.TASK_FAILED, timestamp, simulationsessionid,
-				involvedusers, modelsetid, simulationSessionData);
-		this.processid = processid;
-		this.taskid = taskid;
-		this.taskdefid = taskdefid;
+	public TaskFailedEvent(Long timestamp, String simulationsessionid, List<String> involvedusers, String modelsetid,
+			Map<String, Object> simulationSessionData, String processartifactid, String taskartifactid,
+			List<String> assignedusers, String completingUser, Map<String, Object> submittedData) {
+		super(EventType.TASK_FAILED, timestamp, simulationsessionid, involvedusers, modelsetid, simulationSessionData);
+		this.processartifactid = processartifactid;
+		this.taskartifactid = taskartifactid;
 		this.assignedusers = assignedusers;
 		this.completingUser = completingUser;
 		this.submittedData = submittedData;
@@ -82,9 +73,8 @@ public class TaskFailedEvent extends AbstractEvent {
 
 	@Override
 	public String toString() {
-		return super.toString() + " processid=" + processid + " taskid="
-				+ taskid + " taskdefid=" + taskdefid + " assignedusers="
-				+ assignedusers + " completingUser=" + completingUser
-				+ " submittedData=" + submittedData;
+		return super.toString() + " processartifactid=" + processartifactid + " taskartifactid=" + taskartifactid
+				+ " assignedusers=" + assignedusers + " completingUser=" + completingUser + " submittedData="
+				+ submittedData;
 	}
 }

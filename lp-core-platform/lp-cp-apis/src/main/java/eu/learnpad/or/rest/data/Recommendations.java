@@ -14,37 +14,35 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class Recommendations {
-    
-    private Experts experts;
-    private LearningMaterials learningMaterials;
-    private SimilarCases similarCases;
 
-    public Experts getExperts() {
-        return experts;
-    }
+	private Experts experts;
+	private LearningMaterials learningMaterials;
+	private SimilarCases similarCases;
 
-    @XmlElement(name="experts")
-    public void setExperts(Experts experts) {
-        this.experts = experts;
-    }
-    
-    public LearningMaterials getLearningMaterials() {
-        return learningMaterials;
-    }
+	public Experts getExperts() {
+		return experts;
+	}
 
-    @XmlElement(name="learningMaterials")    
-    public void setLearningMaterials(LearningMaterials learningMaterials) {
-        this.learningMaterials = learningMaterials;
-    }
+	@XmlElement(name = "experts")
+	public void setExperts(Experts experts) {
+		this.experts = experts;
+	}
 
-    public SimilarCases getSimilarCases() {
-        return similarCases;
-    }
+	public LearningMaterials getLearningMaterials() {
+		return learningMaterials;
+	}
 
-    @XmlElement(name="similarCases")
-    public void setSimilarCases(SimilarCases similarCases) {
-        this.similarCases = similarCases;
-    }
-    
-    
+	@XmlElement(name = "learningMaterials")
+	public void setLearningMaterials(LearningMaterials learningMaterials) {
+		this.learningMaterials = learningMaterials;
+	}
+
+	public SimilarCases getSimilarCases() {
+		return similarCases;
+	}
+
+	@XmlElement(name = "similarCases")
+	public void setSimilarCases(SimilarCases similarCases) {
+		this.similarCases = similarCases;
+	}
 }

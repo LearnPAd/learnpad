@@ -1,0 +1,1 @@
+applicationStatus,"Status of the application?",enum,true,"",ok,Accept,ko,Inhibit,serviceConf,Conference of Services required

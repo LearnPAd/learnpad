@@ -43,6 +43,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+	  <groupId>com.wcohen</groupId>
+	  <artifactId>com.wcohen.secondstring</artifactId>
+	  <version>RELEASE</version>
+      </dependency>
+
         <!--dependency>
             <groupId>org.apache.jena</groupId>
             <artifactId>apache-jena-libs</artifactId>

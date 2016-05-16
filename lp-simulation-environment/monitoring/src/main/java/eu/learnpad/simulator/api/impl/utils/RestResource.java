@@ -5,9 +5,12 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 
+import eu.learnpad.simulator.mon.MainMonitoring;
+import eu.learnpad.simulator.mon.utils.Manager;
+
 public class RestResource {
 	final private static String PROTOCOL = "http";
-	final private static String HOSTNAME = "localhost";
+	final private static String HOSTNAME = Manager.Read(MainMonitoring.RESTNOTIFIERURLSTRING).getProperty("post.rest.url");
 	final private static int PORT = 8080;
 	final private static int SIM_PORT = 8081;
 	final private static String HOST = PROTOCOL + "://" + HOSTNAME + ":" + PORT;
@@ -36,5 +39,4 @@ public class RestResource {
 		HttpClient httpClient = new HttpClient();
 		return httpClient;
 	}
-
 }

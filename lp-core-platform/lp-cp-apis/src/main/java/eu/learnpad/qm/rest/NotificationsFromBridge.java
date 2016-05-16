@@ -29,6 +29,5 @@ public interface NotificationsFromBridge {
 
 	@Path("/generationcompleted/{questionnairesid}")
 	@PUT
-	void generationCompleted(@PathParam("questionnairesid") String questionnairesId)
-					throws LpRestException;
+	void generationCompleted(@PathParam("questionnairesid") String questionnairesId) throws LpRestException;
 }

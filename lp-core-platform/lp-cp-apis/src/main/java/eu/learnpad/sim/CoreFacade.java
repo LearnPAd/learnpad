@@ -30,5 +30,4 @@ import eu.learnpad.sim.rest.IUserInfosAPI;
  */
 @Path("/learnpad/sim/corefacade/")
 public interface CoreFacade extends IUserInfosAPI, IEventReceiver {
-
 }

@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc version="1.1">
+<xwikidoc version="1.2" reference="LPUI.SimulationEnvironment" locale="">
   <web>LPUI</web>
   <name>SimulationEnvironment</name>
   <language/>
@@ -31,30 +31,45 @@
   <parent>WebIDE.LearnPAd</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1446725130000</date>
-  <contentUpdateDate>1446725130000</contentUpdateDate>
+  <date>1463058783000</date>
+  <contentUpdateDate>1463058783000</contentUpdateDate>
   <version>1.1</version>
-  <title>Simulation of $!{xwiki.getDocument($services.model.createDocumentReference($xcontext.database, $request.getParameter('modelsetid'), $request.getParameter('modelid'))).getObject('LPCode.ModelClass').getProperty('name').value}</title>
+  <title>Simulation</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
-  <hidden>false</hidden>
+  <hidden>true</hidden>
   <content>{{velocity}}
+#set ($simulationid = $request.getParameter('simulationid'))
 #set ($modelsetid = $request.getParameter('modelsetid'))
-#set ($modelid = $request.getParameter('modelid'))
-#set ($query = 'from doc.object(XWiki.XWikiUsers) as user')
-#set ($results = $services.query.xwql($query).execute())
-#set ($potentialUsers = [])
-#set($currentUser = "${xcontext.user}")
-#set($discard = $potentialUsers.add($currentUser))
-#foreach($result in $results)
-  #set($discard = $potentialUsers.add("$result"))
+#if ("$!simulationid" != "")
+  #set ($userid = "${xcontext.user}")
+  #set ($simulationPath = "${services.learnpad.joinSimulation($simulationid, $userid)}")
+#else
+  ## Hard-coded for the moment since the ID may change with ME's import and SIM is not relying on BPMN files from ME
+  #set ($modelsetid = "LP_ME_ADOXX_MODELSET_28600")
+  #set ($modelid = $request.getParameter('modelid'))
+  ## Hard-coded for the moment since the ID may change with ME's import and SIM is not relying on BPMN files from ME
+  ## For single user simulation
+  #set ($modelid = "mod.27772")
+  ## For multi-user simulation
+  ##set ($modelid = "SUAPdemo")
+  #set ($query = 'from doc.object(XWiki.XWikiUsers) as user')
+  #set ($results = $services.query.xwql($query).execute())
+  #set ($potentialUsers = [])
+  #set($currentUser = "${xcontext.user}")
+  #set($discard = $potentialUsers.add($currentUser))
+  #foreach($result in $results)
+    #if ("$!{result}" != "XWiki.superadmin" &amp;&amp; "$!{result}" != "XWiki.Admin")
+      #set($discard = $potentialUsers.add("${result}"))
+    #end
+  #end
+  #set ($simulationPath = "${services.learnpad.startSimulation($modelid, $currentUser, $potentialUsers)}")
 #end
-#set ($simulationURL = "$services.learnpad.startSimulation($modelid, $currentUser, $potentialUsers)")
-#set ($backReference = $services.model.createDocumentReference($xcontext.database, ${modelsetid}, ${modelid}))
-[[$services.icon.render('left') $services.localization.render('SimulationEnvironment.goback')&gt;&gt;path:${xwiki.getURL($backReference)}]]
+#set ($simulationPrefix = "${services.learnpad.getRestPrefix('SIM')}")
+#set ($simulationURL = "${simulationPrefix}/${simulationPath}")
 {{html clean="false"}}
-&lt;iframe id="simulation-iframe" width="100%" src="http://localhost:8081/${simulationURL}"&gt;
+&lt;iframe id="simulation-iframe" width="100%" src="${simulationURL}"&gt;
 Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
 &lt;/iframe&gt;
 {{/html}}
@@ -139,7 +154,7 @@ Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
       <cache>default</cache>
     </property>
     <property>
-      <code>require(['jquery'], function ($) {
+      <code>require(['jquery'], function (jQuery) {
   var iframe = document.getElementById('simulation-iframe');
   var handleMessage = function handleMessage(e) {
     if(e.data.height) {
@@ -148,7 +163,7 @@ Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
   };
   window.addEventListener('message', handleMessage, false);
   window.setTimeout(function() {
-    iframe.contentWindow.postMessage('height', 'http://localhost:8081');
+    iframe.contentWindow.postMessage('height', "${services.learnpad.getRestPrefix('SIM')}");
   }, 500);
 });</code>
     </property>
@@ -156,7 +171,7 @@ Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
       <name>Simulation iframe</name>
     </property>
     <property>
-      <parse>0</parse>
+      <parse>1</parse>
     </property>
     <property>
       <use>currentPage</use>
@@ -182,7 +197,7 @@ Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
         <displayType>select</displayType>
         <multiSelect>0</multiSelect>
         <name>cache</name>
-        <number>5</number>
+        <number>6</number>
         <prettyName>Caching policy</prettyName>
         <relationalStorage>0</relationalStorage>
         <separator> </separator>
@@ -195,7 +210,7 @@ Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
       <code>
         <disabled>0</disabled>
         <name>code</name>
-        <number>2</number>
+        <number>3</number>
         <prettyName>Code</prettyName>
         <rows>20</rows>
         <size>50</size>
@@ -208,7 +223,7 @@ Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
         <displayType>select</displayType>
         <multiSelect>0</multiSelect>
         <name>contentType</name>
-        <number>6</number>
+        <number>1</number>
         <prettyName>Content Type</prettyName>
         <relationalStorage>0</relationalStorage>
         <separator> </separator>
@@ -221,7 +236,7 @@ Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
       <name>
         <disabled>0</disabled>
         <name>name</name>
-        <number>1</number>
+        <number>2</number>
         <prettyName>Name</prettyName>
         <size>30</size>
         <unmodifiable>0</unmodifiable>
@@ -232,7 +247,7 @@ Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
         <displayFormType>select</displayFormType>
         <displayType>yesno</displayType>
         <name>parse</name>
-        <number>4</number>
+        <number>5</number>
         <prettyName>Parse content</prettyName>
         <unmodifiable>0</unmodifiable>
         <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
@@ -243,7 +258,7 @@ Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
         <displayType>select</displayType>
         <multiSelect>0</multiSelect>
         <name>use</name>
-        <number>3</number>
+        <number>4</number>
         <prettyName>Use this extension</prettyName>
         <relationalStorage>0</relationalStorage>
         <separator> </separator>

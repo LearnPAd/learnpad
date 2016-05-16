@@ -21,25 +21,15 @@ import static org.junit.Assert.*;
 public class CBRAdapterTest {
 
     @Test
-    public void testCreateOrUpdateSimulationSessionCase() {
-        String simulationId = "testSimId";
-        Map<String, Object> metaData = new HashMap<>();
-        metaData.put("applicationCity", "lpd:Senigallia");
-        metaData.put("applicationZone", "lpd:Beach_Area_At_The_Sea");
-        metaData.put("applicationSubType", "lpd:Restructuring");
-        metaData.put("applicationPublicAdministration", "lpd:SUAPSenigallia");
-        metaData.put("applicationSector", "lpd:Building_Sector");
-        metaData.put("applicationSector", "lpd:Environment_Sector");
-        metaData.put("applicationSector", "lpd:Public_Land_Sector");
-        metaData.put("applicationSector", "lpd:Tourism_Sector");
-        metaData.put("applicationBusinessActivity", "lpd:Receptive_Toursim_Activity");
-        metaData.put("applicationATECOCategory", "lpd:MarineAndMountaineSummerCamps");
-        metaData.put("applicationATECOCategory", "lpd:MarineAndMountaineSummerCamps");
-        metaData.put("applicationATECOCategory", "lpd:MarineAndMountaineSummerCamps");
-        metaData.put("applicationATECOCategory", "lpd:CampingGrounds_RecreationalVehiclesAndTrailers");
-        metaData.put("applicationATECOCategory", "lpd:PlasterAndStucco");
-        metaData.put("applicationATECOCategory", "lpd:SpecializedConstructionActivities");
+    public void testCBR() {
+        String simulationId = "d6983703-5c42-4512-bc80-efde3756259d";
         
+        testWithTestSet(DATA_SET_1(), simulationId, "Test query case 1");
+        testWithTestSet(DATA_SET_2(), simulationId, "Test query case 2");
+    }
+
+    private void testWithTestSet(Map<String, Object> metaData, String simulationId, String testName) {
+        System.out.println("\n\n______ "+testName+" ______________________________________________\n");
         Map<String, Object> userData = null;
         CBRAdapter instance = CBRAdapter.getInstance();
         SimulationData simData = new SimulationData();
@@ -49,17 +39,64 @@ public class CBRAdapterTest {
         assertNotNull(result);
         
         SimilarCases similarCases = instance.retrieveSimilarCases("modelSetId", "", "barneby.barnes@learnpad.eu", simulationId);
+        similarCases = instance.retrieveSimilarCases("modelSetId", "", "barneby.barnes@learnpad.eu", simulationId);
+        checkRetrievedCases(similarCases, "Query case without third parties and decision");
+        
+        userData = new HashMap();
+        userData.put("decision", "false");
+        simData.setSubmittedData(userData);
+        instance.createOrUpdateSimulationSessionCase(simulationId, simData);
+        similarCases = instance.retrieveSimilarCases("modelSetId", "", "barneby.barnes@learnpad.eu", simulationId);
+        checkRetrievedCases(similarCases, "Query case with decision");
+        
+        //add some third parties to the query
+        userData.put("involvedThirdParties", "lpd:Building_office");
+        userData.put("involvedThirdParties", "lpd:Environment_office");
+        simData.setSubmittedData(userData);
+        instance.createOrUpdateSimulationSessionCase(simulationId, simData);        
+        similarCases = instance.retrieveSimilarCases("modelSetId", "", "barneby.barnes@learnpad.eu", simulationId);
+        checkRetrievedCases(similarCases, "Query case with decision and third parties");
+    }
+
+    private void checkRetrievedCases(SimilarCases similarCases, String testName) {
         assertNotNull(similarCases);
         assertNotNull(similarCases.getSimilarCases());
         assertEquals(3, similarCases.getSimilarCases().size());
-        
+        System.out.println("\n Test: "+testName);
         for (SimilarCase similarCase : similarCases.getSimilarCases()) {
-            System.out.println("Case: " + similarCase.getName() + " " + similarCase.getSimilarityValue() + "\n________________________________\n");
+            System.out.println("\n________________________________\nCase: " + similarCase.getName() + " " + similarCase.getSimilarityValue());
             for(Map.Entry data : similarCase.getData().entrySet()){
                 System.out.println(data.getKey()+": "+data.getValue());
             }
         }
-        
     }
+
+    private final Map<String, Object> DATA_SET_1() {
+        Map<String, Object> metaData = new HashMap<>();
     
+        metaData.put("applicationDescription", "request for reneval of authorization of industrial waste water discharge in sewer - coffee machines factory");
+        metaData.put("applicationCity", "lpd:San_Ginesio");
+        metaData.put("applicationZone", "lpd:Regional_Protected_Area_Unione_Montana_Monti_Azzurri");
+        metaData.put("applicationSubType", "lpd:Reactivation");
+        metaData.put("applicationPublicAdministration", "lpd:SUAPMontiAzzurri");
+        metaData.put("applicationSector", "lpd:Waste_Sector");
+        metaData.put("applicationBusinessActivity", "lpd:Industrial_Activitiy");
+        metaData.put("applicationATECOCategory", "lpd:InstallationOfElectricalSystems");
+        return metaData;
+    }
+
+
+    private final Map<String, Object> DATA_SET_2() {
+        Map<String, Object> metaData = new HashMap<>();
+                metaData.put("applicationCity", "lpd:Ancona");
+                metaData.put("applicationZone", "lpd:Beach_Area_At_The_Sea");
+                metaData.put("applicationPublicAdministration", "lpd:SUAPSenigallia");
+                metaData.put("applicationSubType", "lpd:Restructuring");
+                metaData.put("applicationSector", "lpd:Building_Sector");
+                metaData.put("applicationBusinessActivity", "lpd:Receptive_Toursim_Activity");
+                metaData.put("applicationDescription", "Realization of a chalet on a beach area of Senigallia");
+                metaData.put("applicationATECOCategory", "lpd:MarineAndMountaineSummerCamps");        
+
+        return metaData;
+    }    
 }

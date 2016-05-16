@@ -38,6 +38,7 @@ import eu.learnpad.core.impl.qm.XwikiBridge;
 import eu.learnpad.core.impl.qm.XwikiCoreFacadeRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.qm.component.QuestionnaireManager;
 
 /**
@@ -68,7 +69,7 @@ public class QMXwikiBridgeImpl extends XwikiBridge implements Initializable, QMB
 	}
 
 	@Override
-	public void importModelSet(String modelSetId, String type,
+	public void importModelSet(String modelSetId, ModelSetType type,
 			InputStream modelContent) throws LpRestExceptionXWikiImpl {
 		// TODO This is stub code that have been implemented in order to 
 		// make easy the development of the core-platform

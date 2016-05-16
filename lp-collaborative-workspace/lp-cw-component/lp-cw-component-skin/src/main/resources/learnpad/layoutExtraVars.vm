@@ -9,9 +9,9 @@
  * #set($displayShortcuts = false)
  *#
  
-#if("$!{xcontext.user}" != "XWiki.superadmin"))
+#if("$!{xcontext.user}" != "XWiki.superadmin")
   ## Top header menu
-  #set($displayMainMenu = false)
+  #set($displayMainMenu = true)
   ## Page contextual menus (add, edit, delete, exports, etc.)
   #set($displayContentMenu = false)
   ## Comments, history, attachments tabs at the bottom

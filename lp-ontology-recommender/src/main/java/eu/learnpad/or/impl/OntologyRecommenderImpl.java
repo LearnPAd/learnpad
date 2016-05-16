@@ -5,17 +5,10 @@
  */
 package eu.learnpad.or.impl;
 
-import eu.learnpad.core.impl.or.XwikiBridge;
-import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
-import eu.learnpad.exception.LpRestException;
-import eu.learnpad.ontology.execution.ExecutionStates;
-import eu.learnpad.ontology.recommender.Recommender;
-import eu.learnpad.ontology.recommender.cbr.CBRAdapter;
-import eu.learnpad.or.rest.data.States;
-import eu.learnpad.ontology.transformation.ModellingEnvironmentType;
-import eu.learnpad.ontology.transformation.SimpleModelTransformator;
-import eu.learnpad.or.rest.data.Recommendations;
-import eu.learnpad.or.rest.data.SimulationData;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -24,6 +17,19 @@ import javax.ws.rs.Path;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
+
+import eu.learnpad.core.impl.or.XwikiBridge;
+import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
+import eu.learnpad.exception.LpRestException;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.me.rest.data.ModelSetType;
+import eu.learnpad.ontology.execution.ExecutionStates;
+import eu.learnpad.ontology.recommender.Recommender;
+import eu.learnpad.ontology.recommender.cbr.CBRAdapter;
+import eu.learnpad.ontology.transformation.SimpleModelTransformator;
+import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.SimulationData;
+import eu.learnpad.or.rest.data.States;
 
 /**
  *
@@ -43,9 +49,12 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     }
 
     @Override
-    public void modelSetImported(String modelSetId, String type) throws LpRestException {
-//            InputStream inputStream = new ByteArrayInputStream(this.corefacade.getModel(modelSetId, type));
-            SimpleModelTransformator.getInstance().transform(modelSetId, this.corefacade.getModel(modelSetId, type), ModellingEnvironmentType.valueOf(type.toUpperCase()));
+    public void modelSetImported(String modelSetId, ModelSetType type) throws LpRestException {
+            InputStream modelSetInputStream = this.corefacade.getModel(modelSetId, type);
+            if(modelSetInputStream == null){
+                throw new LpRestExceptionXWikiImpl("Modelset for id '" + modelSetId + "' and type '"+type+"' not found!");
+            }
+            SimpleModelTransformator.getInstance().transform(modelSetId, this.corefacade.getModel(modelSetId, type), type);
     }
     
     @Override
@@ -57,23 +66,43 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     public Recommendations askRecommendation(String modelSetId,
 			String artifactId, String userId, String simulationSessionId) throws LpRestException {
     	
-    	  Recommendations rec = Recommender.getInstance().getRecommendations(modelSetId, artifactId, userId, simulationSessionId);
-          
-          return rec;
+        try {
+            Recommendations rec = Recommender.getInstance().getRecommendations(modelSetId, artifactId, userId, simulationSessionId);
+            return rec;
+        } catch (Exception ex) {
+            Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.SEVERE, null, ex);
+            throw new LpRestExceptionXWikiImpl("Asking for recommendations failed with parameters: "
+                    + "modelsetId='"+modelSetId
+                    +"' artifactId='"+artifactId
+                    +"' userId='"+userId
+                    +"' simulationSessionId='"+simulationSessionId+"'. ", ex);
+        }
     }    
     
     @Override
     public void simulationInstanceNotification(String modelSetId, String modelId, String action, String simulationId, SimulationData data) throws LpRestException {
-        CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
+    	// This modification is done because currently the ontology does not deals with
+    	// data submitted by the user during simulation, but only with session data.
+    	// In future when the ontology will support this, the following line should be removed    	
+    	data.setSubmittedData(new HashMap<String, Object>());
+    	CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
     }
 
     @Override
     public void simulationTaskStartNotification(String modelSetId, String modelId, String artifactId, String simulationId, SimulationData data) throws LpRestException {
+    	// This modification is done because currently the ontology does not deals with
+    	// data submitted by the user during simulation, but only with session data.
+    	// In future when the ontology will support this, the following line should be removed    	
+    	data.setSubmittedData(new HashMap<String, Object>());
         CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
     }
 
     @Override
     public void simulationTaskEndNotification(String modelSetId, String modelId, String artifactId, String simulationId, SimulationData data) throws LpRestException {
+    	// This modification is done because currently the ontology does not deals with
+    	// data submitted by the user during simulation, but only with session data.
+    	// In future when the ontology will support this, the following line should be removed    	
+    	data.setSubmittedData(new HashMap<String, Object>());
         CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
     }
     

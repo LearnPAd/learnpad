@@ -110,25 +110,25 @@ public class SimRestAPICoreFacadeTest {
 
 			receiverClient.receiveProcessEndEvent(new ProcessEndEvent(System
 					.currentTimeMillis(), "1", Arrays.asList("test"), null,
-					null, "1", "1"));
+					null, "1"));
 
 			receiverClient.receiveProcessStartEvent(new ProcessStartEvent(
 					System.currentTimeMillis(), "1", Arrays.asList("test"),
-					null, null, "1", "1"));
+					null, null, "1"));
 
 			receiverClient.receiveTaskEndEvent(new TaskEndEvent(System
 					.currentTimeMillis(), "1", Arrays.asList("test"), null,
-					null, "1", "1", "1", Arrays.asList("test"), "test",
+					null, "1", "1", Arrays.asList("test"), "test",
 					new HashMap<String, Object>()));
 
 			receiverClient.receiveTaskFailedEvent(new TaskFailedEvent(System
 					.currentTimeMillis(), "1", Arrays.asList("test"), null,
-					null, "1", "1", "1", Arrays.asList("test"), "test",
+					null, "1", "1", Arrays.asList("test"), "test",
 					new HashMap<String, Object>()));
 
 			receiverClient.receiveTaskStartEvent(new TaskStartEvent(System
 					.currentTimeMillis(), "1", Arrays.asList("test"), null,
-					null, "1", "1", "1", Arrays.asList("test")));
+					null, "1", "1", Arrays.asList("test")));
 			receiverClient
 			.receiveSessionScoreUpdateEvent(new SessionScoreUpdateEvent(
 					System.currentTimeMillis(), "1", Arrays

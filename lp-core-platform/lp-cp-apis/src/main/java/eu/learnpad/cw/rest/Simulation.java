@@ -21,13 +21,18 @@ package eu.learnpad.cw.rest;
 
 import java.util.Collection;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
-import eu.learnpad.sim.rest.data.UserData;
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
+import eu.learnpad.sim.rest.data.UserDataCollection;
 
 public interface Simulation {
 	/**
@@ -38,13 +43,44 @@ public interface Simulation {
 	 *            simulator)
 	 * @param potentialUsers
 	 *            list of users likely to participate in the simulation
-	 * @return TODO
+	 * @return a relative URL towards the correct UI in SIM
 	 * @throws LpRestException
+	 *             if any error
 	 */
-	// <host>/learnpad/cw/corefacade/simulation/start/{modelsetid}?currentUser=<name_of_user>
+	// <host>/learnpad/cw/corefacade/simulation/start/{modelid}?currentUser=<name_of_user>
 	@Path("/simulation/start/{modelid}")
 	@POST
-	String startSimulation(@PathParam("modelid") String modelId,
-			@QueryParam("currentuser") String currentUser,
-			Collection<UserData> potentialUsers) throws LpRestException;
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	String startSimulation(@PathParam("modelid") String modelId, @QueryParam("currentuser") String currentUser,
+			UserDataCollection potentialUsers) throws LpRestException;
+
+	/**
+	 * @param simulationId
+	 *            is the ID of the simulation
+	 * @param userid
+	 *            is the ID of the user joining the simulation
+	 * @return a relative URL towards the correct UI in SIM
+	 * @throws LpRestException
+	 *             if any error
+	 */
+	// <host>/learnpad/cw/corefacade/simulation/join/{simulationid}/{userid}
+	@Path("/simulation/join/{simulationid}/{userid}")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	String joinSimulation(@PathParam("simulationid") String simulationId, @PathParam("userid") String userId)
+			throws LpRestException;
+
+	@Path("/simulation/instances")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	Collection<String> listSimulations() throws LpRestException;
+
+	@Path("/simulation/instances/{simulationid}")
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	ProcessInstanceData getSimulationInfo(@PathParam("simulationid") String simulationId) throws LpRestException;
 }

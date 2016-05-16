@@ -498,21 +498,21 @@ ________________________________________________________________________________
             <xsl:param name="name" />
             <xsl:param name="class" />
             <xsl:param name="materialURL"/>
-            <xsl:param name="competenciesAndLevels"/>
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type dkm:LearningDocument ;
   rdfs:subClassOf dkm:LearningDocument ;
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;  
-  dkm:documentHasURL "http://www.learnpad.eu/"^^xsd:string ;
+  dkm:documentHasURL "<xsl:value-of select="$materialURL"/>"^^xsd:string ;  
   dkm:documentHasMIMEType "text/html"^^xsd:string ;
   dkm:documentHasDescription "This web page contains the required learning material to improve ..."^^xsd:string ;
   rdfs:comment "This material should be updated ..."^^xsd:string ;
-              <xsl:for-each select="$competenciesAndLevels">
-  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:<xsl:value-of select="@id"/> ;            
-            </xsl:for-each>
 	</xsl:template>
+	
+	<xsl:template name="addInModelConnectionForLearningDocumentToCompetency">
+            <xsl:param name="toId"/>  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text>
+    	</xsl:template>	
 	
 	<xsl:template name="addInModelConnectionForLearningDocument">
             <xsl:param name="toId"/>  dkm:d_ConstructIsInsideD_Container transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text>
@@ -884,7 +884,6 @@ ________________________________________________________________________________
             <xsl:param name="name"/>
             <xsl:param name="class"/>
             <xsl:param name="learningPreferences"/>
-            <xsl:param name="competenciesAndLevels"/>
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type cmm:CompetencyProfile ;
@@ -894,9 +893,6 @@ ________________________________________________________________________________
   emo:competencyProfileIsDocumentedInDocument transfer:<xsl:value-of select="$id"/> ;
               <xsl:for-each select="tokenize($learningPreferences, ';')">
   cmm:learningPreferencesAssignedToCompetencyProfile cmm:<xsl:value-of select="replace(replace(replace(current(),' ',''), '\(', ''), '\)', '')"/>_learningPreference ;
-            </xsl:for-each>
-            <xsl:for-each select="$competenciesAndLevels">
-  cmm:competenciesAndLevels transfer:<xsl:value-of select="@id"/> ;            
             </xsl:for-each>
 	</xsl:template>  
 <!--...............................................................................................--> 
@@ -908,7 +904,6 @@ ________________________________________________________________________________
             <xsl:param name="id"/>
             <xsl:param name="name"/>
             <xsl:param name="class"/>
-            <xsl:param name="competenciesAndLevels"/>
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type cmm:CompetencyProfile ;
@@ -916,11 +911,11 @@ ________________________________________________________________________________
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;
   emo:competencyProfileIsDocumentedInDocument transfer:<xsl:value-of select="$id"/> ;
-            <xsl:for-each select="$competenciesAndLevels">
-  cmm:competenciesAndLevels transfer:<xsl:value-of select="@id"/> ;            
-            </xsl:for-each>
 	</xsl:template>  
 <!--...............................................................................................--> 
+	<xsl:template name="addInModelConnectionForCompetencyProfileToCompetency">
+            <xsl:param name="toId"/>  cmm:competenciesAndLevels transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text>
+    	</xsl:template>	
 <!--
 ___________________________________________________________________________________________________
  Competency and Level ( which was acquired)

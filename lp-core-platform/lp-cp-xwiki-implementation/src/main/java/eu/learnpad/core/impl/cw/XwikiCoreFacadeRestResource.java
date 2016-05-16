@@ -21,7 +21,6 @@ package eu.learnpad.core.impl.cw;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.List;
 
@@ -42,260 +41,313 @@ import org.apache.http.HttpHeaders;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
-import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.cw.CoreFacade;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.rest.data.Recommendations;
-import eu.learnpad.sim.rest.data.UserData;
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
+import eu.learnpad.sim.rest.data.UserDataCollection;
 
 /*
  * The methods inherited form the CoreFacade in this
  * class should be implemented as a REST invocation
  * toward the CoreFacade binded at the provided URL
  */
-public class XwikiCoreFacadeRestResource extends RestResource implements CoreFacade
-{
+public class XwikiCoreFacadeRestResource extends DefaultRestResource implements CoreFacade {
 
-    public XwikiCoreFacadeRestResource()
-    {
-        this("localhost", 8080);
-    }
+	public XwikiCoreFacadeRestResource() {
+		this("localhost", 8080);
+	}
 
-    public XwikiCoreFacadeRestResource(String coreFacadeHostname, int coreFacadeHostPort)
-    {
-        // This constructor could change in the future
-        this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
-    }
+	public XwikiCoreFacadeRestResource(String coreFacadeHostname, int coreFacadeHostPort) {
+		// This constructor could change in the future
+		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
+	}
 
-    public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort)
-    {
-        // This constructor has to be fixed, since it requires changes on the
-        // class
-        // eu.learnpad.core.rest.RestResource
-    }
+	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort) {
+		// This constructor has to be fixed, since it requires changes on the
+		// class eu.learnpad.core.rest.RestResource
+	}
 
-    @Override
-    public void commentNotification(String modelSetId, String commentId, String action) throws LpRestException
-    {
-        // TODO Auto-generated method stub
-    }
+	@Override
+	public void commentNotification(String modelSetId, String commentId, String action) throws LpRestException {
+		// TODO Auto-generated method stub
+	}
 
-    @Override
-    public void resourceNotification(String modelSetId, String resourceId, String artifactIds, String action)
-        throws LpRestException
-    {
-        // TODO Auto-generated method stub
-    }
+	@Override
+	public void resourceNotification(String modelSetId, String resourceId, String artifactIds, String action)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+	}
 
-    @Override
-    public InputStream getModel(String modelSetId, String type) throws LpRestException
-    {
-        // Now send the package's path to the importer for XWiki
-        HttpClient httpClient = RestResource.getClient();
-        String uri = String.format("%s/learnpad/cw/corefacade/getmodel/%s", RestResource.REST_URI, modelSetId);
-        GetMethod getMethod = new GetMethod(uri);
-        getMethod.addRequestHeader("Accept", "application/xml");
+	@Override
+	public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException {
+		// Now send the package's path to the importer for XWiki
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/getmodel/%s", DefaultRestResource.REST_URI, modelSetId);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Accept", "application/xml");
 
-        NameValuePair[] queryString = new NameValuePair[1];
-        queryString[0] = new NameValuePair("type", type);
-        getMethod.setQueryString(queryString);
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("type", type.toString());
+		getMethod.setQueryString(queryString);
 
-        try {
-            httpClient.executeMethod(getMethod);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        InputStream model = null;
-        try {
-            model = getMethod.getResponseBodyAsStream();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return model;
-    }
+		InputStream model = null;
 
-    @Override
-    public String startSimulation(String modelId, String currentUser, Collection<UserData> potentialUsers)
-        throws LpRestException
-    {
-        HttpClient httpClient = RestResource.getClient();
-        String uri = String.format("%s/learnpad/cw/corefacade/simulation/start/%s", RestResource.REST_URI, modelId);
-        PostMethod postMethod = new PostMethod(uri);
-        postMethod.addRequestHeader("Accept", "application/json");
+		try {
+			httpClient.executeMethod(getMethod);
+			model = getMethod.getResponseBodyAsStream();
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+		return model;
+	}
 
-        NameValuePair[] queryString = new NameValuePair[1];
-        queryString[0] = new NameValuePair("currentuser", currentUser);
-        postMethod.setQueryString(queryString);
+	@Override
+	public String startSimulation(String modelId, String currentUser, UserDataCollection potentialUsers)
+			throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/simulation/start/%s", DefaultRestResource.REST_URI,
+				modelId);
+		PostMethod postMethod = new PostMethod(uri);
+		postMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
+		postMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON);
 
-        StringRequestEntity requestEntity = null;
-        ObjectMapper om = new ObjectMapper();
-        String potentialUsersJson = "[]";
-        try {
-            potentialUsersJson = om.writeValueAsString(potentialUsers);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        try {
-            requestEntity = new StringRequestEntity(potentialUsersJson, "application/json", "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        postMethod.setRequestEntity(requestEntity);
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("currentuser", currentUser);
+		postMethod.setQueryString(queryString);
 
-        try {
-            httpClient.executeMethod(postMethod);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+		StringRequestEntity requestEntity = null;
+		ObjectMapper om = new ObjectMapper();
+		String potentialUsersJson = "[]";
 
-        try {
-            return IOUtils.toString(postMethod.getResponseBodyAsStream());
-        } catch (IOException e) {
-            return null;
-        }
-    }
+		try {
+			potentialUsersJson = om.writeValueAsString(potentialUsers);
+			requestEntity = new StringRequestEntity(potentialUsersJson, "application/json", "UTF-8");
 
-    @Override
-    public Recommendations getRecommendations(String modelSetId, String artifactId, String userId)
-        throws LpRestException
-    {
-        HttpClient httpClient = RestResource.getClient();
-        String uri = String.format("%s/learnpad/cw/corefacade/recommendation", RestResource.REST_URI);
-        GetMethod getMethod = new GetMethod(uri);
-        getMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_XML);
+			postMethod.setRequestEntity(requestEntity);
 
-        NameValuePair[] queryString = new NameValuePair[3];
-        queryString[0] = new NameValuePair("modelsetid", modelSetId);
-        queryString[1] = new NameValuePair("artifactid", artifactId);
-        queryString[2] = new NameValuePair("userid", userId);
-        getMethod.setQueryString(queryString);
+			httpClient.executeMethod(postMethod);
+		} catch (IOException e) {
+			// UnsupportedEncodingException is also caught here!
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
 
-        try {
-            httpClient.executeMethod(getMethod);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        InputStream feedbacksStream = null;
-        try {
-            feedbacksStream = getMethod.getResponseBodyAsStream();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        Recommendations recommendations = null;
-        try {
-            JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
-            Unmarshaller unmarshaller = jc.createUnmarshaller();
-            recommendations = (Recommendations) unmarshaller.unmarshal(feedbacksStream);
-        } catch (JAXBException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return recommendations;
-    }
+		try {
+			return IOUtils.toString(postMethod.getResponseBodyAsStream());
+		} catch (IOException e) {
+			return null;
+		}
+	}
 
-    @Override
-    public InputStream transform(String type, InputStream model) throws LpRestException
-    {
-        HttpClient httpClient = RestResource.getClient();
-        String uri = String.format("%s/learnpad/cw/corefacade/transform", RestResource.REST_URI);
-        PostMethod postMethod = new PostMethod(uri);
-        postMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM);
-        postMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_OCTET_STREAM);
+	@Override
+	public String joinSimulation(String simulationId, String userId) throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/simulation/join/%s/%s", DefaultRestResource.REST_URI,
+				simulationId, userId);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
+		getMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON);
 
-        NameValuePair[] queryString = new NameValuePair[1];
-        queryString[0] = new NameValuePair("type", type);
-        postMethod.setQueryString(queryString);
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
 
-        RequestEntity requestEntity = new InputStreamRequestEntity(model);
-        postMethod.setRequestEntity(requestEntity);
+		try {
+			return IOUtils.toString(getMethod.getResponseBodyAsStream());
+		} catch (IOException e) {
+			return null;
+		}
+	}
 
-        try {
-            httpClient.executeMethod(postMethod);
-            return postMethod.getResponseBodyAsStream();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
-    }
+	@Override
+	public Collection<String> listSimulations() throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/simulation/instances", DefaultRestResource.REST_URI);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
+		getMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON);
 
-    @Override
-    public String startAnalysis(String id, String language, List<String> options, InputStream body)
-        throws LpRestException
-    {
-        HttpClient httpClient = RestResource.getClient();
-        String uri = String.format("%s/learnpad/cw/corefacade/analyze", RestResource.REST_URI);
-        PostMethod postMethod = new PostMethod(uri);
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
 
-        NameValuePair[] queryString = new NameValuePair[2 + options.size()];
-        queryString[0] = new NameValuePair("id", id);
-        queryString[1] = new NameValuePair("language", language);
-        int count = 2;
-        for (String option : options) {
-            queryString[count] = new NameValuePair("option", option);
-            count++;
-        }
-        postMethod.setQueryString(queryString);
-        
-        RequestEntity requestEntity = new InputStreamRequestEntity(body);
-        postMethod.setRequestEntity(requestEntity);
-        
-        try {
-            httpClient.executeMethod(postMethod);
-            return postMethod.getResponseBodyAsString();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
-    }
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			// Unchecked cast
+			return (Collection<String>) mapper.readValue(getMethod.getResponseBodyAsStream(), Collection.class);
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
-    @Override
-    public String getStatus(String analysisId) throws LpRestException
-    {
-        HttpClient httpClient = RestResource.getClient();
-        String uri = String.format("%s/learnpad/cw/corefacade/analyze/%s/status", RestResource.REST_URI, analysisId);
-        GetMethod getMethod = new GetMethod(uri);
-        
-        try {
-            httpClient.executeMethod(getMethod);
-            return getMethod.getResponseBodyAsString();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
-    }
+	@Override
+	public ProcessInstanceData getSimulationInfo(String simulationId) throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/simulation/instances/%s", DefaultRestResource.REST_URI,
+				simulationId);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
+		getMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON);
 
-    @Override
-    public AnnotatedCollaborativeContentAnalyses getResults(String analysisId) throws LpRestException
-    {
-        HttpClient httpClient = RestResource.getClient();
-        String uri = String.format("%s/learnpad/cw/corefacade/analyze/%s", RestResource.REST_URI, analysisId);
-        GetMethod getMethod = new GetMethod(uri);
-        
-        try {
-            httpClient.executeMethod(getMethod);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        AnnotatedCollaborativeContentAnalyses analysis = null;
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(AnnotatedCollaborativeContentAnalyses.class);
-            InputStream retIs = getMethod.getResponseBodyAsStream();
-            analysis = (AnnotatedCollaborativeContentAnalyses)jaxbContext.createUnmarshaller().unmarshal(retIs);
-            return analysis;
-        } catch (Exception e) {
-            throw new LpRestExceptionXWikiImpl(e.getMessage(),e);
-        }
-    }
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			// Unchecked cast
+			return (ProcessInstanceData) mapper.readValue(getMethod.getResponseBodyAsStream(),
+					ProcessInstanceData.class);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public Recommendations getRecommendations(String modelSetId, String artifactId, String userId)
+			throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/recommendation", DefaultRestResource.REST_URI);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_XML);
+
+		NameValuePair[] queryString = new NameValuePair[3];
+		queryString[0] = new NameValuePair("modelsetid", modelSetId);
+		queryString[1] = new NameValuePair("artifactid", artifactId);
+		queryString[2] = new NameValuePair("userid", userId);
+		getMethod.setQueryString(queryString);
+
+		InputStream feedbacksStream = null;
+		try {
+			httpClient.executeMethod(getMethod);
+			feedbacksStream = getMethod.getResponseBodyAsStream();
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+
+		Recommendations recommendations = null;
+
+		try {
+			JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
+			Unmarshaller unmarshaller = jc.createUnmarshaller();
+			recommendations = (Recommendations) unmarshaller.unmarshal(feedbacksStream);
+		} catch (JAXBException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+		return recommendations;
+	}
+
+	@Override
+	public InputStream transform(ModelSetType type, InputStream model) throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/transform", DefaultRestResource.REST_URI);
+		PostMethod postMethod = new PostMethod(uri);
+		postMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM);
+		postMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_OCTET_STREAM);
+
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("type", type.toString());
+		postMethod.setQueryString(queryString);
+
+		RequestEntity requestEntity = new InputStreamRequestEntity(model);
+		postMethod.setRequestEntity(requestEntity);
+
+		try {
+			httpClient.executeMethod(postMethod);
+			return postMethod.getResponseBodyAsStream();
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+	}
+
+	@Override
+	public String startAnalysis(String id, String language, List<String> options, InputStream body)
+			throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/analyze", DefaultRestResource.REST_URI);
+		PostMethod postMethod = new PostMethod(uri);
+
+		NameValuePair[] queryString = new NameValuePair[2 + options.size()];
+		queryString[0] = new NameValuePair("id", id);
+		queryString[1] = new NameValuePair("language", language);
+		int count = 2;
+		for (String option : options) {
+			queryString[count] = new NameValuePair("option", option);
+			count++;
+		}
+		postMethod.setQueryString(queryString);
+
+		RequestEntity requestEntity = new InputStreamRequestEntity(body);
+		postMethod.setRequestEntity(requestEntity);
+
+		try {
+			httpClient.executeMethod(postMethod);
+			return postMethod.getResponseBodyAsString();
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+	}
+
+	@Override
+	public String getStatus(String analysisId) throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/analyze/%s/status", DefaultRestResource.REST_URI,
+				analysisId);
+		GetMethod getMethod = new GetMethod(uri);
+
+		try {
+			httpClient.executeMethod(getMethod);
+			return getMethod.getResponseBodyAsString();
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+	}
+
+	@Override
+	public String getView(String analysisId) throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/analyze/%s/view", DefaultRestResource.REST_URI,
+				analysisId);
+		GetMethod getMethod = new GetMethod(uri);
+
+		try {
+			httpClient.executeMethod(getMethod);
+			String url = getMethod.getResponseBodyAsString();
+			return url;
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+	}
+
+	@Override
+	public AnnotatedCollaborativeContentAnalyses getResults(String analysisId) throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/analyze/%s", DefaultRestResource.REST_URI, analysisId);
+		GetMethod getMethod = new GetMethod(uri);
+
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		AnnotatedCollaborativeContentAnalyses analysis = null;
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(AnnotatedCollaborativeContentAnalyses.class);
+			InputStream retIs = getMethod.getResponseBodyAsStream();
+			analysis = (AnnotatedCollaborativeContentAnalyses) jaxbContext.createUnmarshaller().unmarshal(retIs);
+			return analysis;
+		} catch (Exception e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+	}
 }

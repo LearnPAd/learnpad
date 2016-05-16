@@ -22,6 +22,8 @@ package eu.learnpad.core.impl.qm;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.inject.Named;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
@@ -29,9 +31,13 @@ import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
+import org.xwiki.component.annotation.Component;
+import org.xwiki.component.phase.Initializable;
+import org.xwiki.component.phase.InitializationException;
 
-import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.qm.BridgeInterface;
 
 /*
@@ -39,126 +45,111 @@ import eu.learnpad.qm.BridgeInterface;
  * class should be implemented as a REST invocation
  * toward the BridgeInterface binded at the provided URL
  */
+@Component
+@Named("qm")
+public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
+		implements BridgeInterface, Initializable {
 
-public class XwikiBridgeInterfaceRestResource extends RestResource implements BridgeInterface
-{
+	@Override
+	public void initialize() throws InitializationException {
+		this.restPrefix = "";
+	}
 
-    public XwikiBridgeInterfaceRestResource()
-    {
-        this("localhost", 8080);
-    }
+	@Override
+	public void importModelSet(String modelSetId, ModelSetType type,
+			InputStream modelContent) throws LpRestExceptionXWikiImpl {
+		// Notify QM about a new model set imported
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/qm/bridge/importmodel/%s",
+				DefaultRestResource.REST_URI, modelSetId);
+		PutMethod putMethod = new PutMethod(uri);
+		putMethod.addRequestHeader("Accept", "application/xml");
 
-    public XwikiBridgeInterfaceRestResource(String coreFacadeHostname, int coreFacadeHostPort)
-    {
-        // This constructor could change in the future
-        this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
-    }
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("type", type.toString());
+		putMethod.setQueryString(queryString);
 
-    public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort)
-    {
-        // This constructor has to be fixed, since it requires changes on the class
-        // eu.learnpad.core.rest.RestResource
+		RequestEntity requestEntity = new InputStreamRequestEntity(modelContent);
+		putMethod.setRequestEntity(requestEntity);
 
-    }
+		try {
+			httpClient.executeMethod(putMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
 
-    @Override
-    public void importModelSet(String modelSetId, String type, InputStream modelContent) throws LpRestExceptionXWikiImpl
-    {
-        // Notify QM about a new model set imported
-        HttpClient httpClient = RestResource.getClient();
-        String uri = String.format("%s/learnpad/qm/bridge/importmodel/%s", RestResource.REST_URI, modelSetId);
-        PutMethod putMethod = new PutMethod(uri);
-        putMethod.addRequestHeader("Accept", "application/xml");
+	}
 
-        NameValuePair[] queryString = new NameValuePair[1];
-        queryString[0] = new NameValuePair("type", type);
-        putMethod.setQueryString(queryString);
+	private String localGenerateQuestionnaires(String modelSetId, String type,
+			byte[] configurationFile) throws LpRestExceptionXWikiImpl {
+		// Ask the QM to generate new questionnaire for a given model set
+		// that has been already imported
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/qm/bridge/generate/%s",
+				DefaultRestResource.REST_URI, modelSetId);
+		PostMethod postMethod = new PostMethod(uri);
 
-        RequestEntity requestEntity = new InputStreamRequestEntity(modelContent);
-        putMethod.setRequestEntity(requestEntity);
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("type", type);
+		postMethod.setQueryString(queryString);
 
-        try {
-            httpClient.executeMethod(putMethod);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+		RequestEntity requestEntity = null;
+		if (configurationFile != null) {
+			postMethod.addRequestHeader("Content-Type",
+					"application/octet-stream");
+			requestEntity = new ByteArrayRequestEntity(configurationFile);
+		}
+		postMethod.setRequestEntity(requestEntity);
 
-    }
+		String genProcessID = null;
+		try {
+			httpClient.executeMethod(postMethod);
+			genProcessID = postMethod.getResponseBodyAsString();
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+		return genProcessID;
+	}
 
-    private String localGenerateQuestionnaires(String modelSetId, String type, byte[] configurationFile)
-        throws LpRestExceptionXWikiImpl
-    {
-        // Ask the QM to generate new questionnaire for a given model set
-        // that has been already imported
-        HttpClient httpClient = RestResource.getClient();
-        String uri = String.format("%s/learnpad/qm/bridge/generate/%s", RestResource.REST_URI, modelSetId);
-        PostMethod postMethod = new PostMethod(uri);
+	@Override
+	public String generateQuestionnaires(String modelSetId, String type,
+			byte[] configurationFile) throws LpRestExceptionXWikiImpl {
+		String genProcessID = this.localGenerateQuestionnaires(modelSetId,
+				type, configurationFile);
+		return genProcessID;
+	}
 
-        NameValuePair[] queryString = new NameValuePair[1];
-        queryString[0] = new NameValuePair("type", type);
-        postMethod.setQueryString(queryString);
+	@Override
+	public String generateQuestionnaires(String modelSetId, String type)
+			throws LpRestExceptionXWikiImpl {
+		String genProcessID = this.localGenerateQuestionnaires(modelSetId,
+				type, null);
+		return genProcessID;
+	}
 
-        RequestEntity requestEntity = null;
-        if (configurationFile != null) {
-            postMethod.addRequestHeader("Content-Type", "application/octet-stream");
-            requestEntity = new ByteArrayRequestEntity(configurationFile);
-        }
-        postMethod.setRequestEntity(requestEntity);
+	@Override
+	public String getGenerationStatus(String generationProcessId)
+			throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-        String genProcessID = null;
-        try {
-            httpClient.executeMethod(postMethod);
-            genProcessID = postMethod.getResponseBodyAsString();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return genProcessID;
-    }
+	@Override
+	public String createQuestionnaire() throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public String generateQuestionnaires(String modelSetId, String type, byte[] configurationFile)
-        throws LpRestExceptionXWikiImpl
-    {
-        String genProcessID = this.localGenerateQuestionnaires(modelSetId, type, configurationFile);
-        return genProcessID;
-    }
+	@Override
+	public void addQuestionToQuestionnaire(String creationProcessId,
+			String question, String expectedAnswer)
+			throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+	}
 
-    @Override
-    public String generateQuestionnaires(String modelSetId, String type) throws LpRestExceptionXWikiImpl
-    {
-        String genProcessID = this.localGenerateQuestionnaires(modelSetId, type, null);
-        return genProcessID;
-    }
-
-    @Override
-    public String getGenerationStatus(String generationProcessId) throws LpRestExceptionXWikiImpl
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public String createQuestionnaire() throws LpRestExceptionXWikiImpl
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void addQuestionToQuestionnaire(String creationProcessId, String question, String expectedAnswer)
-        throws LpRestExceptionXWikiImpl
-    {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void finalizeQuestionnaire(String creationProcessId, String type) throws LpRestExceptionXWikiImpl
-    {
-        // TODO Auto-generated method stub
-
-    }
-
+	@Override
+	public void finalizeQuestionnaire(String creationProcessId, String type)
+			throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+	}
 }

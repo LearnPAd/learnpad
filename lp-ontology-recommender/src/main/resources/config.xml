@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Set specific properties for the CBR services component --> 
 <configuration>
-    <properties fileName="component.properties"/>
-    <override>
-        <properties fileName="cbr.properties"/>
-    </override>
+    <properties fileName="cbr.properties"/>
 </configuration>

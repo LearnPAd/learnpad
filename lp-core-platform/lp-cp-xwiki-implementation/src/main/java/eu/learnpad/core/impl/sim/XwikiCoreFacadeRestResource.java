@@ -21,9 +21,9 @@ package eu.learnpad.core.impl.sim;
 
 import java.util.List;
 
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.sim.CoreFacade;
 import eu.learnpad.sim.rest.data.UserData;
-import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
@@ -38,24 +38,22 @@ import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
  * class should be implemented as a REST invocation
  * toward the CoreFacade binded at the provided URL
  */
-public class XwikiCoreFacadeRestResource extends RestResource implements CoreFacade{
+public class XwikiCoreFacadeRestResource extends DefaultRestResource implements CoreFacade {
 
 	public XwikiCoreFacadeRestResource() {
-		this("localhost",8080);
+		this("localhost", 8080);
 	}
 
-	public XwikiCoreFacadeRestResource(String coreFacadeHostname,
-			int coreFacadeHostPort) {
+	public XwikiCoreFacadeRestResource(String coreFacadeHostname, int coreFacadeHostPort) {
 		// This constructor could change in the future
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
 	}
-	
-	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort){
-// This constructor has to be fixed, since it requires changes on the class
-//		eu.learnpad.core.rest.RestResource
-		
+
+	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort) {
+		// This constructor has to be fixed, since it requires changes on the
+		// class eu.learnpad.core.rest.RestResource
 	}
-	
+
 	@Override
 	public List<String> getUsers() {
 		// TODO Auto-generated method stub
@@ -115,5 +113,4 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 		// TODO Auto-generated method stub
 
 	}
-
 }

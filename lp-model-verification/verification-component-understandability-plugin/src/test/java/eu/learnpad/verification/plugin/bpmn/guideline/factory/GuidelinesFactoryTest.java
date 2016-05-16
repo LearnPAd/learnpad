@@ -1,13 +1,15 @@
 package eu.learnpad.verification.plugin.bpmn.guideline.factory;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,6 @@ public class GuidelinesFactoryTest {
 		genarateTestforFile("SplitAndJoinFlows.bpmn","18");
 		genarateTestforFile("modelloTest.bpmn","18");
 		genarateTestforFile("modelloTestO.bpmn","18");
-		genarateTestforFile("test7.bpmn","14");
 		//genarateTestforFile("test7.bpmn","13");
 		genarateTestforFile("test7.bpmn","13");
 		genarateTestforFile("test8.bpmn","15");
@@ -48,6 +49,8 @@ public class GuidelinesFactoryTest {
 		genarateTestforFile("ConvergingGateways.bpmn","36");
 		genarateTestforFile("ConvergingGateways.bpmn","37");
 		genarateTestforFile("LoopMarkerAnnotation.bpmn","39");
+		String sep = File.separator;
+		genarateTestforFile("journal"+sep+"EsempioFig1_1.bpmn","17");
 
 	}
 
@@ -108,17 +111,18 @@ public class GuidelinesFactoryTest {
 		genarateTestforFileOk2("EPBR - Business Process.bpmn","35");
 		genarateTestforFileOk2("EPBR - Business Process.bpmn","36");
 		genarateTestforFileOk2("test7.bpmn","2");
+		genarateTestforFileOk2("TitoloUnico/19311.bpmn","14");
 	}
-	private void genarateTestforFileOk(String NameFile,String id){
+/*	private void genarateTestforFileOk(String NameFile,String id){
 		try {
 
 			URL is = GuidelinesFactoryTest.class.getClassLoader().getResource(NameFile);
 			assertNotNull(is);
-			/* File temp = File.createTempFile("tempfiletest", ".tmp"); 
+			 File temp = File.createTempFile("tempfiletest", ".tmp"); 
             temp.deleteOnExit();
 
             Files.copy(is,temp.toPath(),java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-			 */
+			 
 
 			MyBPMN2ModelReader readerBPMN = new MyBPMN2ModelReader();
 
@@ -157,7 +161,7 @@ public class GuidelinesFactoryTest {
 		} 
 
 
-	}
+	}*/
 
 	
 	private void genarateTestforFileOk2(String NameFile,String id){
@@ -216,14 +220,14 @@ public class GuidelinesFactoryTest {
 		List<String> ldirectory = new ArrayList<String>();
 		String sep = File.separator;
 		ldirectory.add("EPBR-Coordinator"+sep+"20903.bpmn");
-		ldirectory.add("EPBR-Coordinator"+sep+"21099.bpmn");
-		ldirectory.add("EPBR-Coordinator"+sep+"21203.bpmn");
-		ldirectory.add("EPBR-Coordinator"+sep+"21385.bpmn");
+		//ldirectory.add("EPBR-Coordinator"+sep+"21099.bpmn");
+		//ldirectory.add("EPBR-Coordinator"+sep+"21203.bpmn");
+		//ldirectory.add("EPBR-Coordinator"+sep+"21385.bpmn");
 		ldirectory.add("EPBR-Coordinator"+sep+"21417.bpmn");
 		ldirectory.add("EPBR-Coordinator"+sep+"21823.bpmn");
 		//ldirectory.add("TitoloUnico"+sep+"diagram.bpmn");
-		ldirectory.add("TitoloUnico"+sep+"20250.bpmn");
-		ldirectory.add("TitoloUnico"+sep+"20386.bpmn");
+		//ldirectory.add("TitoloUnico"+sep+"20250.bpmn");
+		//ldirectory.add("TitoloUnico"+sep+"20386.bpmn");
 		ldirectory.add("TitoloUnico"+sep+"20461.bpmn");
 		for(String filename: ldirectory){
 		genarateTestforFileOk2(filename);
@@ -259,8 +263,8 @@ public class GuidelinesFactoryTest {
 
 			// output pretty printed
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			String nFile = NameFile.replace(File.separator, "");
-		/*	OutputStream os = new FileOutputStream( "nosferatuvv"+ nFile.substring(0, nFile.length()-4)+"xml" );
+		/*		String nFile = NameFile.replace(File.separator, "");
+		OutputStream os = new FileOutputStream( "nosferatuvv"+ nFile.substring(0, nFile.length()-4)+"xml" );
 			jaxbMarshaller.marshal( eg, os );
 			*/
 				if(!eg.getStatus().equals("OK")){

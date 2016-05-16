@@ -29,8 +29,6 @@ import eu.learnpad.or.rest.ResourceNotification;
 import eu.learnpad.or.rest.SimulationNotification;
 
 @Path("/learnpad/or/bridge")
-public interface BridgeInterface extends ModelSetImported,
-		ResourceNotification, AskRecommendation, SimulationNotification, 
-                AddExecutionState, ListExecutionStates {
-
+public interface BridgeInterface extends ModelSetImported, ResourceNotification, AskRecommendation,
+		SimulationNotification, AddExecutionState, ListExecutionStates {
 }

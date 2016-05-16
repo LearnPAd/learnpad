@@ -31,76 +31,97 @@
   <parent>Main.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1455802217000</date>
-  <contentUpdateDate>1455802214000</contentUpdateDate>
+  <date>1459863335000</date>
+  <contentUpdateDate>1459863335000</contentUpdateDate>
   <version>1.1</version>
-  <title>${doc.getObject('LPCode.ModelClass').getProperty('name').value}</title>
+  <title>$!{doc.getObject('LPCode.ModelClass').getProperty('name').value}</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
-  <hidden>false</hidden>
+  <hidden>true</hidden>
   <content>{{velocity}}
+#set ($discard = $xwiki.ssx.use('LPUI.ModelSheet'))
 #set ($modelObject = $doc.getObject('LPCode.ModelClass'))
-#set ($modelsetid = $doc.space)
+#set ($modelsetid = $modelObject.getProperty('modelsetid').value)
 #set ($modelid = $modelObject.getProperty('id').value)
-#set ($query = "from doc.object(LPCode.BaseElementClass) as be where doc.space = '${doc.space}' and be.modelid = '${modelid}' and be.type = 'bpmn-event-start'")
-#set ($results = $services.query.xwql($query).execute())
+#set ($modelidNumber = $modelid.split("\.").get(1))
+#set ($documentation = $modelObject.getProperty('documentation').value)
+#set ($modelSetReference = $services.model.createDocumentReference($xcontext.database, 'CoreRepository', ${modelsetid}))
+#set ($attachmentName = "${modelsetid}.ADOXX")
+#set ($attachmentReference = $services.model.createAttachmentReference($modelSetReference, $attachmentName))
+#set ($attachmentPath = "attach:${services.model.serialize($attachmentReference, 'default')}")
+#set ($query = "from doc.object(LPCode.BaseElementClass) as be where be.modelsetid = :modelsetid and be.modelid = :modelid and be.type = 'bpmn-event-start'")
+#set ($startEventFullnames = $services.query.xwql($query).bindValue("modelsetid", "${modelsetid}").bindValue("modelid", "${modelid}").execute())
+#set ($collaborateReference = $services.model.createDocumentReference("CD", ${doc.documentReference.lastSpaceReference}))
+#set ($queryString = "")
+#set ($collaborateMode = "view")
+#set ($collaborateIsNew = $xwiki.getDocument($collaborateReference).isNew())
+#if ($collaborateIsNew)
+  #set ($queryString = "editor=inline&amp;sheet=CKEditor.EditSheet&amp;template=LPCode.CollaborativeDocumentTemplate&amp;${queryString}")
+  #set ($collaborateMode = "edit")
+#end
+#set ($collaborateURL = $xwiki.getURL($collaborateReference, "${collaborateMode}", ${queryString}))
+#set ($bpmnName = "${modelidNumber}.bpmn")
+#set ($bpmnPath = "${attachmentPath}/${bpmnName}")
+#set ($imageName = "${modelidNumber}.png")
+#set ($mapName = "${modelidNumber}.map")
+#set ($imagePath = "${attachmentPath}/${imageName}")
+#set ($mapPath = "${attachmentPath}/${mapName}")
 ################
 ## Buttons
 (% class="row" %)(((
-{{html clean="false"}}
-&lt;div class="col-xs-3"&gt;
-  &lt;div class="dropdown"&gt;
-    &lt;button class="btn btn-block btn-success dropdown-toggle" data-toggle="dropdown" type="button" aria-expanded="false"&gt;
-      &lt;span class="caret"&gt;&lt;/span&gt; Start to browse
-    &lt;/button&gt;
-    &lt;ul class="dropdown-menu" role="menu"&gt;
-#foreach($eventReference in $results)
-  #set ($eventDocument = $xwiki.getDocument($eventReference))
-  #set ($eventObject = $eventDocument.getObject('LPCode.BaseElementClass'))
-  #set ($eventName = $eventObject.getProperty('name').value)
-  #set ($eventURL = $xwiki.getURL($eventReference))
-      &lt;li&gt;&lt;a href="${eventURL}"&gt;${services.icon.renderHTML('play')} ${eventName}&lt;/a&gt;&lt;/li&gt;
+  (% class="col-xs-12 col-md-3" %)(((
+    (% class="dropdown" %)(((
+      (% data-toggle="dropdown" role="button" %)(((
+        (% class="btn btn-block btn-browse" %)${services.localization.render('LPUI.ModelSheet.button.browse')}
+      )))
+      (% class="dropdown-menu" role="menu" %)
+#foreach($startEventFullname in $startEventFullnames)
+  #set ($startEventReference = $services.model.resolveDocument($startEventFullname))
+  #set ($startEventDocument = $xwiki.getDocument($startEventReference))
+  #set ($startEventObject = $startEventDocument.getObject('LPCode.BaseElementClass'))
+  #set ($startEventName = $startEventObject.getProperty('name').value)
+  #set ($startEventURL = $xwiki.getURL($startEventReference, 'view'))
+* [[${services.icon.render('play')} ${startEventName}&gt;&gt;path:${startEventURL}||class="btn"]]
 #end
-    &lt;/ul&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-{{/html}}
-#set ($modelsetReference = $services.model.createDocumentReference($xcontext.database, 'CoreRepository', $modelsetid))
-#set ($modelsetDocument = $xwiki.getDocument($modelsetReference))
-#set ($modelBPMNAttachment = $modelsetDocument.getAttachment("${modelid}.bpmn"))
-#if ($modelBPMNAttachment)
+    )))
+  )))
+#if ($niotool.isRegularFile($bpmnPath, null))
   #set ($simulationReference = $services.model.createDocumentReference($xcontext.database, 'LPUI', 'SimulationEnvironment'))
-  #set ($simulationURL = $xwiki.getURL($simulationReference, 'view', "modelsetid=${doc.space}&amp;modelid=${modelid}"))
-(% class="col-xs-3" %)(((
-[[${services.icon.render('gamepad')} Simulate it!&gt;&gt;path:${simulationURL}||class="btn btn-block btn-danger"]]
-)))
+  #set ($simulationURL = $xwiki.getURL($simulationReference, 'view', "modelsetid=${modelsetid}&amp;modelid=${modelid}"))
+  (% class="col-xs-12 col-md-3" %)(((
+    [[${services.localization.render('LPUI.ModelSheet.button.simulate')}&gt;&gt;path:${simulationURL}||class="btn btn-block btn-simulation"]]
+  )))
 #end
-################
-## Image
-#set ($modelsetReference = $services.model.createDocumentReference($xcontext.database, 'CoreRepository', ${modelsetid}))
-#set ($modelsetDocument = $xwiki.getDocument($modelsetReference))
-#set ($modelImage = "${modelid}.jpg")
-#if ($modelsetDocument.getAttachment($modelImage))
-(% class="col-xs-12" %)(((
-[[image:CoreRepository.${modelsetid}@${modelid}.jpg||width="100%"]]
-)))
-#end
+  (% class="col-xs-12 col-md-3" %)(((
+    [[${services.localization.render('LPUI.ModelSheet.button.contribute')}&gt;&gt;path:${collaborateURL}||class="btn btn-block btn-contribute"]]
+  )))
 )))
 ################
 ## Documentation
-#set ($documentation = $doc.getObject('LPCode.ModelClass').getProperty('documentation').value)
-(% class="row" %)(((
+(% class="row text-center description" %)(((
 {{documentation}}
 ${documentation}
 {{/documentation}}
 )))
 ################
+## Image
+(% class="row" %)(((
+#if ($niotool.isRegularFile($imagePath, null))
+  (% class="col-xs-12" %)(((
+    [[image:path:$services.vfs.url($imagePath)||width="100%" usemap="#modelmap" alt="Image of the model"]]
+    {{html clean="false"}}
+      &lt;map name="modelmap"&gt;
+        &lt;area shape="rect" coords="100,100,1000,1000" 
+      &lt;/map&gt;
+    {{/html}}
+  )))
+#end
+)))
+################
 ## Livetable
-#set ($discard = $services.localization.use('document', 'LPCode.Translations'))
-#set ($discard = $xwiki.ssfx.use('uicomponents/widgets/userpicker/userPicker.css'))
-#set ($modelid = $doc.getObject('LPCode.ModelClass').getProperty('id').value)
 #set ($columnsProperties = {
+  'modelsetid': {'type': 'hidden'},
   'modelid': {'type': 'hidden'},
   'name': {'type': 'text', 'size': 8, 'link': 'view'},
   'type': {'type': 'list', 'size': 2},
@@ -115,9 +136,123 @@ ${documentation}
   'maxPages': 20,
   'selectedColumn': 'name',
   'defaultOrder': 'asc',
-  'extraParams': "&amp;modelid=${modelid}&amp;space=${doc.space}"
+  'extraParams': "&amp;modelsetid=${modelsetid}&amp;modelid=${modelid}"
 })
-#set ($columns = ['modelid', 'name', 'type', 'doc.date'])
+#set ($columns = ['modelsetid', 'modelid', 'name', 'type', 'doc.date'])
 #livetable('lp-modellist' $columns $columnsProperties $options)
+
 {{/velocity}}</content>
+  <object>
+    <name>LPUI.ModelSheet</name>
+    <number>0</number>
+    <className>XWiki.StyleSheetExtension</className>
+    <guid>0b203abe-8686-4464-825d-527ecb698f3d</guid>
+    <class>
+      <name>XWiki.StyleSheetExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>6</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>3</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <contentType>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>contentType</name>
+        <number>1</number>
+        <prettyName>Content Type</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>CSS|LESS</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </contentType>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>2</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>5</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>4</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>.xdocLastModification {
+  display: none;
+}</code>
+    </property>
+    <property>
+      <contentType>CSS</contentType>
+    </property>
+    <property>
+      <name/>
+    </property>
+    <property>
+      <parse/>
+    </property>
+    <property>
+      <use>currentPage</use>
+    </property>
+  </object>
 </xwikidoc>

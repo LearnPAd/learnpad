@@ -33,6 +33,7 @@ import org.activiti.engine.task.Task;
 
 import com.opencsv.CSVParser;
 
+import eu.learnpad.simulator.datastructures.document.LearnPadDocumentField;
 import eu.learnpad.simulator.uihandler.formhandler.AbstractFormHandler;
 import eu.learnpad.simulator.utils.BPMNExplorer;
 import eu.learnpad.simulator.utils.BPMNExplorerRepository;
@@ -55,7 +56,7 @@ public class DataObjectToJsonFormFormHandler extends AbstractFormHandler {
 	private final BPMNExplorerRepository repo;
 	private final TaskService taskService;
 
-	private final CSVParser csvParser = new CSVParser(',');
+	private static final CSVParser csvParser = new CSVParser(',');
 
 	public DataObjectToJsonFormFormHandler(BPMNExplorerRepository repo,
 			TaskService taskService) {
@@ -64,56 +65,62 @@ public class DataObjectToJsonFormFormHandler extends AbstractFormHandler {
 		this.taskService = taskService;
 	}
 
-	private List<FormField> dataObjectsToFields(Collection<String> dataObjects,
-			BPMNExplorer explorer) {
-		List<FormField> res = new ArrayList<FormField>();
-		if (dataObjects != null) {
-			for (String dataObject : dataObjects) {
-				for (String line : explorer.getDataObjectContent(dataObject)) {
-					String[] elements;
-					try {
-						elements = csvParser.parseLine(line);
-					} catch (IOException e) {
-						throw new RuntimeException(e);
-					}
+	public static List<LearnPadDocumentField> dataObjectToFields(
+			String dataObject, BPMNExplorer explorer) {
+		List<LearnPadDocumentField> res = new ArrayList<LearnPadDocumentField>();
+		for (String line : explorer.getDataObjectContent(dataObject)) {
+			String[] elements;
+			try {
+				elements = csvParser.parseLine(line);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
 
-					if (elements.length == 1) {
-						res.add(new FormField(line, line, "string", true, "",
-								null));
-					} else {
+			if (elements.length == 1) {
+				res.add(new LearnPadDocumentField(line, line, "string", true,
+						"", null));
+			} else {
 
-						boolean required = elements[FIELD_REQUIRED]
-								.equals("true");
+				boolean required = elements[FIELD_REQUIRED].equals("true");
 
-						Map<String, String> enumValues = null;
+				Map<String, String> enumValues = null;
 
-						if (elements[FIELD_TYPE].equals("enum")) {
-							enumValues = new LinkedHashMap<String, String>();
-							for (int i = NB_FIELDS; i < elements.length; i += 2) {
-								enumValues.put(elements[i], elements[i + 1]);
-							}
-						}
-
-						res.add(new FormField(elements[FIELD_ID],
-								elements[FIELD_NAME], elements[FIELD_TYPE],
-								required, elements[FIELD_CATEGORY], enumValues));
-
+				if (elements[FIELD_TYPE].equals("enum")) {
+					enumValues = new LinkedHashMap<String, String>();
+					for (int i = NB_FIELDS; i < elements.length; i += 2) {
+						enumValues.put(elements[i], elements[i + 1]);
 					}
 				}
+
+				res.add(new LearnPadDocumentField(elements[FIELD_ID],
+						elements[FIELD_NAME], elements[FIELD_TYPE], required,
+						elements[FIELD_CATEGORY], enumValues));
+
+			}
+		}
+		return res;
+	}
+
+	public static List<LearnPadDocumentField> dataObjectsToFields(
+			Collection<String> dataObjects, BPMNExplorer explorer) {
+		List<LearnPadDocumentField> res = new ArrayList<LearnPadDocumentField>();
+		if (dataObjects != null) {
+			for (String dataObject : dataObjects) {
+				res.addAll(dataObjectToFields(dataObject, explorer));
 			}
 		}
 		return res;
 	}
 
 	@Override
-	public List<FormField> getStartFormData(String processId) {
+	public List<LearnPadDocumentField> getStartFormData(String processId) {
 		BPMNExplorer explorer = repo.getExplorer(processId);
 		return dataObjectsToFields(explorer.getStandaloneDataObjects(),
 				explorer);
 	}
 
 	@Override
-	public List<FormField> getTaskFormFields(String taskId) {
+	public List<LearnPadDocumentField> getTaskFormFields(String taskId) {
 		Task task = taskService.createTaskQuery().includeProcessVariables()
 				.taskId(taskId).singleResult();
 		BPMNExplorer explorer = repo.getExplorer(task.getProcessDefinitionId());

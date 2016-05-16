@@ -20,5 +20,4 @@
 package eu.learnpad.me;
 
 public interface BridgeInterface {
-
 }

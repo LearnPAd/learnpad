@@ -42,8 +42,7 @@ public class ProcessData {
 	};
 
 	@JsonCreator
-	public ProcessData(@JsonProperty("name") String name,
-			@JsonProperty("description") String description,
+	public ProcessData(@JsonProperty("name") String name, @JsonProperty("description") String description,
 			@JsonProperty("singleRoles") Collection<String> singleRoles,
 			@JsonProperty("groupRoles") Collection<String> groupRoles) {
 		this.name = name;
@@ -51,5 +50,4 @@ public class ProcessData {
 		this.singleRoles = singleRoles;
 		this.groupRoles = groupRoles;
 	}
-
 }

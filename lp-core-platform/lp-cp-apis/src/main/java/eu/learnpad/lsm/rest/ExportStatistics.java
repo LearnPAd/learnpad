@@ -27,23 +27,26 @@ import eu.learnpad.exception.LpRestException;
 
 public interface ExportStatistics {
 
-	/** 
+	/**
 	 * @param learnerEmail
 	 *            the email of the learner
-	 * @return a doc reporting the statistics on the questionnaires completed by the given learner
+	 * @return a doc reporting the statistics on the questionnaires completed by
+	 *         the given learner
 	 * @throws LpRestException
 	 */
 	@GET
 	@Path("/getlearnerstat")
-	byte [] exportStatisticsByLearner(@QueryParam("learneremail") String learnerEmail) throws LpRestException;
+	byte[] exportStatisticsByLearner(@QueryParam("learneremail") String learnerEmail) throws LpRestException;
 
-	/** 
+	/**
 	 * @param questionnaireId
 	 *            the id of a questionnaire
-	 * @return a doc reporting the statistics on the learners completed the given questionnaire
+	 * @return a doc reporting the statistics on the learners completed the
+	 *         given questionnaire
 	 * @throws LpRestException
 	 */
 	@GET
 	@Path("/getquestionnairestat")
-	byte [] exportStatisticsByQuestionnaire(@QueryParam("questionnaireid") String questionnaireId) throws LpRestException;
+	byte[] exportStatisticsByQuestionnaire(@QueryParam("questionnaireid") String questionnaireId)
+			throws LpRestException;
 }

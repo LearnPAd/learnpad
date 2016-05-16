@@ -35,33 +35,42 @@ import javax.ws.rs.core.MediaType;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
 import eu.learnpad.exception.LpRestException;
 
-public interface ContentAnalysisProxy
-{
-    /**
-     * @param id of the content
-     * @param language of the analysis
-     * @param options are the available options for the analysis
-     *            {simplicity,non_ambiguity,content_clarity,presentation_clarity,completeness,correctness}
-     * @param body consists of 3 parts (respectively title, plain content and html content) separated by '-*-*-' in an
-     *            empty line
-     * @return the analysis ID returned by the component CA
-     * @throws LpRestException
-     */
-    @POST
-    @Path("/analyze")
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    String startAnalysis(@QueryParam("id") String id, @QueryParam("language") @DefaultValue("english") String language,
-        @QueryParam("option") List<String> options, InputStream body) throws LpRestException;
+public interface ContentAnalysisProxy {
 
-    @GET
-    @Produces({MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON})
-    @Path("/analyze/{analysisid}/status")
-    String getStatus(@PathParam("analysisid") String analysisId) throws LpRestException;
+	/**
+	 * @param id
+	 *            of the content
+	 * @param language
+	 *            of the analysis
+	 * @param options
+	 *            are the available options for the analysis
+	 *            {simplicity,non_ambiguity,content_clarity,presentation_clarity
+	 *            ,completeness,correctness}
+	 * @param body
+	 *            consists of 3 parts (respectively title, plain content and
+	 *            html content) separated by '-*-*-' in an empty line
+	 * @return the analysis ID returned by the component CA
+	 * @throws LpRestException
+	 */
+	@POST
+	@Path("/analyze")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.TEXT_PLAIN)
+	String startAnalysis(@QueryParam("id") String id, @QueryParam("language") @DefaultValue("english") String language,
+			@QueryParam("option") List<String> options, InputStream body) throws LpRestException;
 
-    @GET
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Path("/analyze/{analysisid}")
-    AnnotatedCollaborativeContentAnalyses getResults(@PathParam("analysisid") String analysisId)
-        throws LpRestException;
+	@GET
+	@Produces({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON })
+	@Path("/analyze/{analysisid}/status")
+	String getStatus(@PathParam("analysisid") String analysisId) throws LpRestException;
+
+	@GET
+	@Produces({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON })
+	@Path("/analyze/{analysisid}/view")
+	String getView(@PathParam("analysisid") String analysisId) throws LpRestException;
+
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Path("/analyze/{analysisid}")
+	AnnotatedCollaborativeContentAnalyses getResults(@PathParam("analysisid") String analysisId) throws LpRestException;
 }

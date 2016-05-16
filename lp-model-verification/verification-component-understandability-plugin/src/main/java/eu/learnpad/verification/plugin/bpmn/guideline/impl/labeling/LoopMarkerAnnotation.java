@@ -9,7 +9,6 @@ import org.eclipse.bpmn2.Association;
 import org.eclipse.bpmn2.Definitions;
 import org.eclipse.bpmn2.FlowElement;
 import org.eclipse.bpmn2.LoopCharacteristics;
-import org.eclipse.bpmn2.MultiInstanceLoopCharacteristics;
 import org.eclipse.bpmn2.Process;
 import org.eclipse.bpmn2.RootElement;
 import org.eclipse.bpmn2.StandardLoopCharacteristics;
@@ -65,8 +64,9 @@ public class LoopMarkerAnnotation extends abstractGuideline{
 											int startf = target.length();
 											String ids = source.substring(source.indexOf("#")+1,starts-1 ); //$NON-NLS-1$
 											String idt = target.substring(target.indexOf("#")+1,startf-1 ); //$NON-NLS-1$
-											
-											boolean flag = !(a.getId().equals(ids) || a.getId().equals(idt));
+
+											boolean flag = (a.getId().equals(ids) || a.getId().equals(idt));
+
 											boolean flag2 = asso.getSourceRef().equals(a) || asso.getTargetRef().equals(a) ;
 											if(!(flag || flag2)){
 												num++;

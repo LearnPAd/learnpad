@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc version="1.1">
+<xwikidoc version="1.2" reference="LPUI.RecommendationPanel" locale="">
   <web>LPUI</web>
   <name>RecommendationPanel</name>
   <language/>
@@ -31,14 +31,14 @@
   <parent>LPUI.SimulationEnvironment</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1449584645000</date>
-  <contentUpdateDate>1449506442000</contentUpdateDate>
+  <date>1462201686000</date>
+  <contentUpdateDate>1462182608000</contentUpdateDate>
   <version>1.1</version>
   <title>RecommendationPanel</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
-  <hidden>false</hidden>
+  <hidden>true</hidden>
   <content/>
   <object>
     <name>LPUI.RecommendationPanel</name>
@@ -123,45 +123,44 @@
     </property>
     <property>
       <content>{{velocity}}
-#set ($modelSetId = "${doc.space}")
-#set ($artifactId = $doc.getObject('LPCode.BaseElementClass').getProperty('id').value)
-#set ($currentUser = $xcontext.user)
-#set ($userId = $xwiki.getDocument($currentUser).getObject('XWiki.XWikiUsers').getProperty('email').value)
-#if ($modelSetId &amp;&amp; $artifactId &amp;&amp; $userId)
-  #set ($recommendations = $services.learnpad.getRecommendations(${modelSetId}, ${artifactId}, ${userId}))
-  #if ($recommendations)
-    #set ($experts = $recommendations.getExperts())
-    #if ($experts)
-      #panelheader($services.localization.render('RecommendationPanel.experts.title'))
-      #set ($businessActors = $experts.getBusinessActors())
-      #if ($businessActors.size() &gt; 0)
-        #foreach ($businessActor in $businessActors)
-(((
-${businessActor.name}(% class="pull-right" %)##
-          #if ($businessActor.email)
-{{html}}&lt;a href="mailto:${businessActor.email}"&gt;$services.icon.renderHTML('email')&lt;/a&gt;{{/html}}##
-          #end
-          #if ($businessActor.phoneNumber)
-{{html}}&lt;a href="tel:${businessActor.phoneNumber}"&gt;$services.icon.renderHTML('telephone')&lt;/a&gt;{{/html}}##
-          #end
-)))
-        #end
-      #end
-      #panelfooter()
-    #end
-    #set ($learningMaterials = $recommendations.getLearningMaterials())
-    #if ($learningMaterials)
-      #panelheader($services.localization.render('RecommendationPanel.learningmaterials.title'))
-      #set ($learningMaterialsList = $learningMaterials.getLearningMaterials())
-      #foreach ($learningMaterial in $learningMaterialsList)
-(((
-; [[${learningMaterial.name}&gt;&gt;${learningMaterial.url}]]
-: (% class="help-block" %)${learningMaterial.description}
-)))
-      #end
-      #panelfooter()
-    #end
+#set ($recommandationSimulationMode = $request.getParameter('recInSimMode'))
+#set ($baseElementObject = $doc.getObject('LPCode.BaseElementClass'))
+#set ($modelsetid = $baseElementObject.getProperty('modelsetid').value)
+#set ($modelid = $baseElementObject.getProperty('modelid').value)
+#if ("$!{baseElementObject}" == "")
+  #set ($modelObject = $doc.getObject('LPCode.ModelClass'))
+  #set ($modelsetid = $modelObject.getProperty('modelsetid').value)
+  #set ($modelid = $modelObject.getProperty('id').value)
+  #if ("$!{modelObject}" == "")
+    #set ($modelsetObject = $doc.getObject('LPCode.ModelSetClass'))
+    #set ($modelsetid = $modelsetObject.getProperty('id').value)
   #end
+#end
+#if ("$!{modelsetid}" == "")
+  #set ($modelsetid = $request.getParameter('modelsetid'))
+#end
+#if ("$!{modelid}" == "")
+  #set ($modelid = $request.getParameterValue('modelid'))
+#else
+  #set ($modelidNumber = $modelid.split("\.").get(1))
+  #set ($modelSetReference = $services.model.createDocumentReference($xcontext.database, 'CoreRepository', ${modelsetid}))
+  #set ($attachmentName = "${modelsetid}.ADOXX")
+  #set ($attachmentReference = $services.model.createAttachmentReference($modelSetReference, $attachmentName))
+  #set ($attachmentPath = "attach:${services.model.serialize($attachmentReference, 'default')}")
+  #set ($bpmnName = "${modelidNumber}.bpmn")
+  #set ($bpmnPath = "${attachmentPath}/${bpmnName}")
+#end
+#set ($artifactid = $baseElementObject.getProperty('id').value)
+#set ($simulationReference = $services.model.createDocumentReference($xcontext.database, 'LPUI', 'SimulationEnvironment'))
+#set ($querystring = "modelsetid=${modelsetid}&amp;modelid=${modelid}")
+#set ($simulationURL = $xwiki.getURL($simulationReference, 'view', $querystring))
+#set ($currentUser = $xcontext.user)
+##
+#if ("$!{currentUser}" != "XWiki.superadmin" &amp;&amp; "$!{currentUser}" != "XWiki.Admin")
+    #set ($userid = $currentUser)
+{{html clean=false}}
+&lt;div id="panel-metadata" class="hidden" data-websocketurl="${services.websocket.getURL('recommendation')}" data-modelsetid="$!{modelsetid}" data-modelid="$!{modelid}" data-artifactid="$!{artifactid}" data-userid="$!{userid}"&gt;&lt;/div&gt;
+{{/html}}
 #end
 {{/velocity}}</content>
     </property>
@@ -173,6 +172,188 @@ ${businessActor.name}(% class="pull-right" %)##
     </property>
     <property>
       <type>view</type>
+    </property>
+  </object>
+  <object>
+    <name>LPUI.RecommendationPanel</name>
+    <number>0</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>f08cf1bd-d92e-49cf-b209-a6f33a0dccca</guid>
+    <class>
+      <name>XWiki.JavaScriptExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>default</cache>
+    </property>
+    <property>
+      <code>require.config({
+    paths: {
+      "Q": "/xwiki/bin/jsx/LPCode/Q",
+      "mustache": "/xwiki/bin/jsx/LPCode/mustache"
+    }
+});
+require(["jquery", "Q", "mustache"], function ($, Q, Mustache) {
+$(function(){
+  var $rightPanels = $("#rightPanels");
+  var $panelMetadata = $('#panel-metadata');
+  var websocketurl = $panelMetadata.data('websocketurl');
+  var modelsetid = $panelMetadata.data('modelsetid');
+  var modelid = $panelMetadata.data('modelid');
+  var artifactid = $panelMetadata.data('artifactid');
+  var userid = $panelMetadata.data('userid');
+  var keyList = ["applicationCity", "applicationATECOCategory", "applicationSubType", "applicationZone", "involvedThirdParties", "applicationPublicAdministration", "applicationBusinessActivity", "applicantName", "applicationSector"];
+  var getContent = function getContent(url) {
+    return Q.Promise(function(resolve, reject, notify) {
+      $.ajax({
+        "url": url + "?media=json",
+        "method": "GET",
+        "accept": "application/json"
+      }).done(function(data, status, xhr) {
+        resolve(data.content);
+      }).fail(function(xhr, status, err) {
+        reject(err);
+      });
+    });
+  };
+  var templatePromise = getContent("/xwiki/rest/wikis/xwiki/spaces/LPUI/pages/RecommendationTemplate");
+  var translationPromise = Q.Promise(function(resolve, reject, notify) {
+    getContent("/xwiki/rest/wikis/xwiki/spaces/LPCode/pages/Translations")
+      .then(function(content) {
+      var translation = {};
+      for(line of content.split('\n')) {//, function(index, item) {
+        line.replace(/^([a-zA-Z.]+)=(.*)$/, function(all, first, second) {
+          translation[first] = second;
+        });
+      }
+      resolve(translation);
+    });
+  });
+  var ws = new WebSocket(websocketurl);
+  var data = [modelsetid, artifactid, userid].join(',');
+  ws.onopen = function() {
+    ws.send(data);
+  };
+  ws.onmessage = function (msg) {
+    var data = msg.data;
+    if (data) {
+      // Inject data
+      Q.all([templatePromise, translationPromise]).then(function(promises) {
+        var template = promises[0];
+        var translation = promises[1];
+        var recommendations = $.parseJSON(data);
+        if (recommendations.similarCases) {
+          var similarCases = [];
+          for(sc of recommendations.similarCases.similarCases) {
+            var metadata = [];
+            for(key of keyList) {
+              if (sc.data.hasOwnProperty(key)) {
+                var values = sc.data[key].theList;
+                metadata.push({"key": key, "values": values});
+              }
+            }
+            sc.data = metadata;
+          }
+        }
+        var html = Mustache.to_html(template, recommendations);
+        $rightPanels
+          .find('.RecommendationPanel')
+          .remove()
+          .end()
+          .append(html)
+          .children(".panel")
+          .addClass("RecommendationPanel");
+        // Inject tooltips
+        var $items = $rightPanels.find(".similarcase-item");
+        $items.each(function(index) {
+          var $item = $(this);
+          var $tooltip = $item.find(".similarcase-tooltip");
+          $item.tooltip({
+            "title": $tooltip.html(),
+            "html": true
+          });
+        });
+      });
+    }
+  };
+});
+});</code>
+    </property>
+    <property>
+      <name>Recommendation panel</name>
+    </property>
+    <property>
+      <parse/>
+    </property>
+    <property>
+      <use>always</use>
     </property>
   </object>
 </xwikidoc>

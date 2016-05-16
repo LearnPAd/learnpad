@@ -25,7 +25,5 @@ import eu.learnpad.ca.rest.ColloborativeContentVerifications;
 import eu.learnpad.ca.rest.StaticContentVerifications;
 
 @Path("/learnpad/ca/bridge")
-public interface BridgeInterface extends ColloborativeContentVerifications,
-		StaticContentVerifications {
-
+public interface BridgeInterface extends ColloborativeContentVerifications, StaticContentVerifications {
 }

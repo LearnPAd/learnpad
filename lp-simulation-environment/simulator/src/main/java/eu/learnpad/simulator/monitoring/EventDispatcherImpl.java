@@ -21,8 +21,8 @@ package eu.learnpad.simulator.monitoring;
  * #L%
  */
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.monitoring.event.impl.ProcessEndSimEvent;
@@ -31,16 +31,21 @@ import eu.learnpad.simulator.monitoring.event.impl.SessionScoreUpdateSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskFailedSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
 
 /**
+ * This class allows to multicast events to several subscribed events
+ * dispatcher.
+ *
+ * The listeners are executed in the order that they have subscribed
  *
  * @author Tom Jorquera - Linagora
  *
  */
 public class EventDispatcherImpl implements IEventDispatcher {
 
-	private final Set<IProcessEventReceiver> receivers = new HashSet<IProcessEventReceiver>();
+	private final List<IProcessEventReceiver> receivers = new ArrayList<IProcessEventReceiver>();
 
 	@Override
 	public void subscribe(IProcessEventReceiver eventReceiver) {
@@ -77,6 +82,13 @@ public class EventDispatcherImpl implements IEventDispatcher {
 	public void receiveTaskEndEvent(TaskEndSimEvent event) {
 		for (IProcessEventReceiver receiver : receivers) {
 			receiver.receiveTaskEndEvent(event);
+		}
+	}
+
+	@Override
+	public void receiveTaskFailedEvent(TaskFailedSimEvent event) {
+		for (IProcessEventReceiver receiver : receivers) {
+			receiver.receiveTaskFailedEvent(event);
 		}
 	}
 

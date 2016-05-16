@@ -1,0 +1,343 @@
+@background: #F7F9FA;
+@cyan: #00CFD1;
+@purple: #9B59B6;
+@yellow: #F1C40F;
+
+body {
+	background-color: @background;
+
+	.navbar-default {
+		background-color: @background;
+		border-bottom-width: 1px ! important;
+		border-bottom-style: solid ! important;
+		border-bottom-color: #D5DCEC ! important;
+	}
+
+	.main {
+		background-color: @background;
+	}
+
+	#document-title {
+		font-family: sans-serif;
+		color: rgb(93, 93, 93);
+
+		&::after {
+			display: block;
+			content: " ";
+			width: 4em;
+			padding-bottom: 0.5em;
+			border-bottom: 2px solid @cyan;
+		}
+	}
+
+	.btn, .btn:active, .btn:focus, .btn:hover {
+		border-color: none;
+		outline: none;
+		box-shadow: none;
+		-webkit-box-shadow:none;
+	}
+
+	.btn-browse, .btn-start {
+		color: white;
+		background-color: @cyan;
+		text-transform: uppercase;
+	}
+
+	.btn-contribute, .btn-edit {
+		color: white;
+		background-color: #72B7F8;
+		text-transform: uppercase;
+	}
+	.btn-simulation, .btn-validate {
+		color: white;
+		background-color: @yellow;
+		text-transform: uppercase;
+	}
+
+	.btn-feedback {
+		color: white;
+		background-color: #f34b4c;
+		text-transform: uppercase;
+	}
+
+	.dropdown li {
+		.btn {
+			color: #454F61;
+		}
+
+		&:hover {
+			background-color: #E5E5E5;
+		}
+	}
+
+	.breadcrumb {
+		background-color: @background;
+	}
+
+	.jumbotron {
+		/* change bootstrap jumbotron text color */
+		color: white;
+		background-color: #454F61;
+		background-size: cover;
+		background-repeat: no-repeat;
+		border-radius: 0;
+		margin-bottom: 0;
+
+		img {
+			margin: 0 auto;
+			padding-top: 1ex;
+		}
+
+		.text-img {
+			padding-top: 4ex;
+			font-family: Arial;
+			font-size: 120%;
+			color: white;
+			margin-left: 3em;
+			margin-right: 3em;
+		}
+	}
+
+	.xcontent {
+		.projects-list {
+			margin-top: 2ex;
+			margin-bottom: 5ex;
+			background: #FFFFFF;
+			border-style: Solid;
+			border-color: #D5DCEC;
+			border-width: 1px;
+			border-radius: 4px;
+			-moz-border-radius: 4px;
+			-webkit-border-radius: 4px;
+
+			.project-item {
+				padding-top: 2ex;
+
+				.project-icon {
+					font-size: 300%;
+				}
+
+				.project-title {
+					font-family: Arial;
+					font-weight: bold;
+					font-size: 150%;
+					color: #72B7F8;
+				}
+
+				.project-description {
+					font-family: Arial;
+					font-size: 100%;
+					color: #5D5D5D;
+				}
+
+				.last-update {
+					padding-top: 0.2ex;
+					font-family: Arial;
+					font-size: 80%;
+					color: #777777;
+				}
+			}
+
+			.margin-row {
+				margin-left: 2em;
+			}
+
+			.list-divider {
+				border-bottom: 0.3px solid #D5DCEC;
+			}
+		}
+
+		.description {
+			font-family: Arial;
+			font-size: 18px;
+			color: #5D5D5D;
+			text-align: justify;
+			margin-top: 30px;
+			margin-bottom: 5ex;
+			padding-left: 150px;
+			padding-right: 150px;
+		}
+
+		.panel {
+			.panel-default;
+
+			.panel-heading {
+				background-color: white;
+				font-family : Arial;
+				color : #5D5D5D;
+				font-size: 150%;
+
+				.fa {
+					border-radius: 100px;
+					background-color : #5D5D5D;
+					color: white;
+					display: inline-block;
+					font-size: 175%;
+					padding: 0.5ex;
+					margin-right: 0.5em;
+				}
+			}
+
+			.panel-body {
+				.panel-item {
+					font-family : Arial;
+					color : #5D5D5D;
+					font-size: 120%;
+					padding-top: 1ex;
+					padding-bottom: 1ex;
+
+					&:hover {
+						background-color: @background;
+						text-decoration: none;
+					}
+
+					.fa {
+						.text-center;
+
+						display: inline-block;
+						width: 2em;
+						font-size: 200%;
+					}
+				}
+			}
+
+			&.panel-workflow {
+				.panel-heading .fa {
+					background-color: @cyan;
+				}
+
+				.panel-body .panel-item .fa {
+					color: @cyan;
+				}
+			}
+
+			&.panel-document {
+				.panel-heading .fa {
+					background-color: #64A4E4;
+				}
+
+				.panel-body .panel-item .fa {
+					color: #64A4E4;
+				}
+			}
+
+			&.panel-organization {
+				.panel-heading .fa {
+					background-color: @purple;
+				}
+
+				.panel-body .panel-item .fa {
+					color: @purple;
+				}
+			}
+
+			&.panel-weaving {
+				.panel-heading .fa {
+					background-color: @yellow;
+				}
+
+				.panel-body .panel-item .fa {
+					color: @yellow;
+				}
+			}
+
+			&.panel-competency {
+				.panel-heading .fa {
+					background-color: #72B7F8;
+				}
+
+				.panel-body .panel-item {
+					padding-left: 1em;
+					padding-right: 1em;
+					text-align: justify;
+
+					dt, .fa {
+						color: #72B7F8;
+					}
+				}
+			}
+
+		}
+
+		.xwiki-livetable-container {
+			.xwiki-livetable-display-container {
+				border-top-width: 0px ! important;
+				border-top-style: none ! important;
+				border-bottom-width: 0px ! important;
+				border-bottom-style: none ! important;
+
+				.pagesizeselect {
+					.form-control;
+					display: inline-block;
+					width: auto;
+				}
+
+				.xwiki-livetable-display {
+					.xwiki-livetable-display-header {
+						border-bottom-width: 0px ! important;
+						border-bottom-style: none ! important;
+
+						.xwiki-livetable-display-filters {
+							background-color: @background;
+						}
+
+						.xwiki-livetable-display-header-text {
+							border-bottom-width: 0px ! important;
+							border-bottom-style: none ! important;
+							background-color: @background;
+							font-family: Arial;
+							text-transform: uppercase;
+						}
+					}
+
+					& > tbody {
+						& > tr {
+							background-color: white;
+
+							&:hover {
+								background-color: @background;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	#rightPanels {
+		.panel.expanded {
+			background-color: @background;
+
+			.symbol-placeholder {
+				color: @background;
+			}
+
+			& > h1 {
+				background-color: @background;
+			}
+		}
+
+		.RecommendationPanel {
+			.tooltip {
+				&.top > .tooltip-arrow {
+					border-top-color: #454F61;
+				}
+				&.bottom > .tooltip-arrow {
+					border-bottom-color: #454F61;
+				}
+				&.left > .tooltip-arrow {
+					border-left-color: #454F61;
+				}
+				&.right > .tooltip-arrow {
+					border-right-color: #454F61;
+				}
+
+				.tooltip-inner {
+					background-color: #454F61;
+					color: white;
+					max-width: 100%;
+				}
+			}
+		}
+	}
+}

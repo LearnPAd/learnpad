@@ -1,0 +1,2 @@
+accepted,"Is this application acceptable?",enum,true,"",true,Yes,false,No
+explaination,"Reason of non-acceptation (if rejected)",textarea,false,""

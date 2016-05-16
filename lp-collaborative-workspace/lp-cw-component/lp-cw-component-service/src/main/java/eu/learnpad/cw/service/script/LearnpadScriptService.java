@@ -31,13 +31,16 @@ import org.xwiki.script.service.ScriptService;
 import org.xwiki.script.service.ScriptServiceManager;
 
 import eu.learnpad.cw.UICWBridge;
+import eu.learnpad.cw.rest.data.ScoreRecordCollection;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 
 @Component
 @Named("learnpad")
 @Singleton
-public class LearnpadScriptService implements ScriptService {
+public class LearnpadScriptService implements ScriptService, UICWBridge {
+
 	/**
 	 * Hint of the component.
 	 */
@@ -53,7 +56,7 @@ public class LearnpadScriptService implements ScriptService {
 	private ScriptServiceManager scriptServiceManager;
 
 	@Inject
-	@Named("eu.learnpad.cw.CWXwikiBridge")
+	@Named("eu.learnpad.cw.internal.CWXwikiBridge")
 	private UICWBridge cwBridge;
 
 	/**
@@ -84,8 +87,7 @@ public class LearnpadScriptService implements ScriptService {
 	 * @return an eventual exception or {@code null} if no exception was thrown
 	 */
 	public Exception getLastError() {
-		return (Exception) this.execution.getContext().getProperty(
-				LEARNPADERROR_KEY);
+		return (Exception) this.execution.getContext().getProperty(LEARNPADERROR_KEY);
 	}
 
 	/**
@@ -101,22 +103,65 @@ public class LearnpadScriptService implements ScriptService {
 		this.execution.getContext().setProperty(LEARNPADERROR_KEY, e);
 	}
 
-	public Recommendations getRecommendations(String modelSetId,
-			String artifactId, String userId) {
+	public Recommendations getRecommendations(String modelSetId, String artifactId, String userId) {
 		try {
-			return this.cwBridge.getRecommendations(modelSetId, artifactId,
-					userId);
+			return this.cwBridge.getRecommendations(modelSetId, artifactId, userId);
 		} catch (Exception e) {
 			this.setLastError(e);
 			return null;
 		}
 	}
 
-	public String startSimulation(String modelId, String currentUser,
-			Collection<String> potentialUsers) {
+	public String startSimulation(String modelId, String currentUser, Collection<String> potentialUsers) {
 		try {
-			return this.cwBridge.startSimulation(modelId, currentUser,
-					potentialUsers);
+			return this.cwBridge.startSimulation(modelId, currentUser, potentialUsers);
+		} catch (LpRestException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String joinSimulation(String simulationId, String userId) {
+		try {
+			return this.cwBridge.joinSimulation(simulationId, userId);
+		} catch (LpRestException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	@Override
+	public Collection<String> listSimulations() throws LpRestException {
+		try {
+			return this.cwBridge.listSimulations();
+		} catch (LpRestException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	@Override
+	public ProcessInstanceData getSimulationInfo(String simulationId) throws LpRestException {
+		try {
+			return this.cwBridge.getSimulationInfo(simulationId);
+		} catch (LpRestException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String getRestPrefix(String component) {
+		try {
+			return this.cwBridge.getRestPrefix(component);
+		} catch (LpRestException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public ScoreRecordCollection getScores(String userid, String modelid) throws LpRestException {
+		try {
+			return this.cwBridge.getScores(userid, modelid);
 		} catch (LpRestException e) {
 			this.setLastError(e);
 			return null;

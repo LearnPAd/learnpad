@@ -19,22 +19,25 @@
  */
 package eu.learnpad.core.impl.mt;
 
-import eu.learnpad.core.rest.RestResource;
+import javax.inject.Named;
+
+import org.xwiki.component.annotation.Component;
+
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.mt.CoreFacade;
 
-public class XwikiCoreFacadeRestResource extends RestResource implements
-		CoreFacade {
+@Component
+@Named("mt.corefacade")
+public class XwikiCoreFacadeRestResource extends DefaultRestResource implements CoreFacade {
+
 	public XwikiCoreFacadeRestResource() {
 		this("localhost", 8080);
 	}
 
-	public XwikiCoreFacadeRestResource(String coreFacadeHostname,
-			int coreFacadeHostPort) {
+	public XwikiCoreFacadeRestResource(String coreFacadeHostname, int coreFacadeHostPort) {
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
 	}
 
-	public void updateConfiguration(String coreFacadeHostname,
-			int coreFacadeHostPort) {
-
+	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort) {
 	}
 }

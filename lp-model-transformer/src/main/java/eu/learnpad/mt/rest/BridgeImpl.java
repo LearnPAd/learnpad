@@ -29,6 +29,7 @@ import javax.ws.rs.Path;
 import org.xwiki.xff.core.XFFZipper;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.mt.Bridge;
 import eu.learnpad.transformations.launchers.Launcher;
 
@@ -37,8 +38,14 @@ public class BridgeImpl extends Bridge
 {
     private String TMP_PATH = "/tmp/learnpad/mt";
 
+    /*
+     * Please consider the limitations described
+     * as comments and as todo in eu.learnpad.me.rest.data.ModelSetType
+     *  
+     * @see eu.learnpad.me.rest.data.ModelSetType
+     */
     @Override
-    public InputStream transform(String type, InputStream model) throws LpRestException
+    public InputStream transform(ModelSetType type, InputStream model) throws LpRestException
     {
         try {
             Files.createDirectories(Paths.get(TMP_PATH));
@@ -50,7 +57,7 @@ public class BridgeImpl extends Bridge
         Launcher launcher = new Launcher();
         java.nio.file.Path path = null;
         try {
-            path = launcher.chain(model, type);
+            path = launcher.chain(model, type.toString());
         } catch (Exception e) {
             String message = String.format("Error in the transformation of type '%s'", type);
             System.err.println(message);

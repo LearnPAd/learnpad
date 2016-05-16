@@ -209,6 +209,14 @@ public class BridgeImpl extends Bridge {
 		}
 	}
 
+	@Path("/validatecollaborativecontent/{idAnnotatedCollaborativeContentAnalysis:\\d+}/view")
+	@GET
+	public String getCollaborativeContentVerificationsView(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
+			throws LpRestException {
+		// TODO
+		return "http://www.learnpad.eu";
+	}
+
 	private Integer getProgress(List<AbstractAnalysisClass> listanalysisInterface){
 		int size = listanalysisInterface.size();
 		int i = 0;
@@ -393,6 +401,14 @@ public class BridgeImpl extends Bridge {
 			log.fatal("Fatal "+e.getMessage());
 			return "FATAL ERROR";
 		}
+	}
+
+	@Path("/validatestaticcontent/{idAnnotatedStaticContentAnalysis:\\d+}/view")
+	@GET
+	public String getStaticContentVerificationsView(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

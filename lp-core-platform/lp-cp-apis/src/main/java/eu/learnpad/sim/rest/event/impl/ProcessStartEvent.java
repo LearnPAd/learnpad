@@ -38,32 +38,23 @@ public class ProcessStartEvent extends AbstractEvent {
 	private static final long serialVersionUID = -4855894406498460958L;
 
 	/**
-	 * Unique ID of the process instance
-	 */
-	public String processid;
-
-	/**
 	 * ID used to identify the process in the BP definition
 	 */
-	public String processdefinitionid;
+	public String processartifactid;
 
 	public ProcessStartEvent() {
 		super();
 	}
 
-	public ProcessStartEvent(Long timestamp, String simulationsessionid,
-			List<String> involvedusers, String modelsetid,
-			Map<String, Object> simulationSessionData, String processid,
-			String processdefinitionid) {
-		super(EventType.PROCESS_START, timestamp, simulationsessionid,
-				involvedusers, modelsetid, simulationSessionData);
-		this.processid = processid;
-		this.processdefinitionid = processdefinitionid;
+	public ProcessStartEvent(Long timestamp, String simulationsessionid, List<String> involvedusers, String modelsetid,
+			Map<String, Object> simulationSessionData, String processartifactid) {
+		super(EventType.PROCESS_START, timestamp, simulationsessionid, involvedusers, modelsetid,
+				simulationSessionData);
+		this.processartifactid = processartifactid;
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + " processid=" + processid
-				+ " processdefinitionid=" + processdefinitionid;
+		return super.toString() + " processdefinitionid=" + processartifactid;
 	}
 }

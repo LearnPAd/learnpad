@@ -24,14 +24,23 @@ declare -r __OUT_RUNDEPS_FILE__="${__OUT_PATH__}/rundeps.txt"
 declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
 
 declare __MVN_PROFILE__="--batch-mode"
+declare __MVN_BUILD_PROFILES__=""
 
 for arg in $*
 do
-	if [ "$arg" == "--dev" ]
-	then
-		declare __MVN_PROFILE__="${__MVN_PROFILE__} -Pdev"
-	fi
+	case ${arg} in
+		"--dev")
+			declare __MVN_BUILD_PROFILES__="${__MVN_BUILD_PROFILES__},dev"
+			;;
+		"--review")
+			declare __MVN_BUILD_PROFILES__="${__MVN_BUILD_PROFILES__},review"
+			;;
+	esac
 done
+if [[ "${__MVN_BUILD_PROFILES__}" != "" ]]
+then
+	declare __MVN_PROFILE__="${__MVN_PROFILE__} -P${__MVN_BUILD_PROFILES__}"
+fi
 
 ### BUILD ###
 # This is where you compile and build each part of your component

@@ -1,4 +1,3 @@
-
 /*
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -20,8 +19,6 @@
  */
 package eu.learnpad.ca.rest;
 
-
-
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -34,21 +31,30 @@ import eu.learnpad.exception.LpRestException;
 @Path("/validatestaticcontent")
 public interface StaticContentVerifications {
 
-	
 	@Path("/")
 	@POST
-	String putValidateStaticContent(StaticContentAnalysis contentFile)
-				throws LpRestException;
-	
-	
+	String putValidateStaticContent(StaticContentAnalysis contentFile) throws LpRestException;
+
 	@Path("/{idAnnotatedStaticContentAnalysis:.*}")
 	@GET
-	AnnotatedStaticContentAnalyses getStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
-			throws LpRestException;
-	
+	AnnotatedStaticContentAnalyses getStaticContentVerifications(
+			@PathParam("idAnnotatedStaticContentAnalysis") String contentID) throws LpRestException;
+
 	@Path("/{idAnnotatedStaticContentAnalysis:.*}/status")
 	@GET
 	String getStatusStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
 			throws LpRestException;
-}
 
+	/**
+	 *
+	 * @param contentID
+	 *            the id of contents that have been processed 
+	 * @return the URL were is possible to access the default view (e.g. html) about of the AnnotatedCollaborativeContentAnalyses
+	 * 		   processed for the given contentID
+	 */
+	@Path("/{idAnnotatedStaticContentAnalysis:.*}/view")
+	@GET
+	String getStaticContentVerificationsView(
+			@PathParam("idAnnotatedStaticContentAnalysis") String contentID) throws LpRestException;
+
+}

@@ -19,8 +19,7 @@
  */
 package eu.learnpad.or;
 
-public abstract class Bridge implements BridgeInterface{
+public abstract class Bridge implements BridgeInterface {
 
 	protected CoreFacade corefacade;
-	
 }

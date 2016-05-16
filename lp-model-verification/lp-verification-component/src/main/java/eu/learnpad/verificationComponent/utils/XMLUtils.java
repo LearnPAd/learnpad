@@ -61,7 +61,7 @@ public class XMLUtils {
                     return new InputSource(new StringReader(""));
                 }
             });
-        return builder.parse(new ByteArrayInputStream(xml.getBytes()));
+        return builder.parse(new ByteArrayInputStream(xml.getBytes("UTF-8")));
     }
     
     public static Document getXmlDocFromURI(String xmlFile) throws Exception{

@@ -19,36 +19,36 @@
  */
 package eu.learnpad.core.impl.mt;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
 
 import org.xwiki.component.annotation.Component;
+import org.xwiki.component.manager.ComponentLookupException;
+import org.xwiki.component.manager.ComponentManager;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
 
-import eu.learnpad.mt.BridgeInterface;
+import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.mt.Controller;
 
 @Component
 @Singleton
 @Named("eu.learnpad.core.impl.mt.XwikiController")
 @Path("/learnpad/mt/corefacade")
-public class XwikiController extends Controller implements XWikiRestComponent,
-		Initializable {
-	private boolean initialized = false;
+public class XwikiController extends Controller implements XWikiRestComponent, Initializable {
+
+	@Inject
+	private ComponentManager componentManager;
 
 	@Override
-	public synchronized void initialize() throws InitializationException {
-		if (!this.initialized) {
-			this.bridge = new XwikiBridgeInterfaceRestResource();
-			this.initialized = true;
-
+	public void initialize() throws InitializationException {
+		try {
+			this.bridge = this.componentManager.getInstance(RestResource.class, "mt");
+		} catch (ComponentLookupException e) {
+			throw new InitializationException(e.getMessage(), e);
 		}
-	}
-
-	public synchronized void updateBridgeInterface(BridgeInterface bi) {
-		this.bridge = bi;
 	}
 }

@@ -28,15 +28,18 @@ import javax.ws.rs.Path;
 
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
+import org.xwiki.component.manager.ComponentLookupException;
+import org.xwiki.component.manager.ComponentManager;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 import org.xwiki.rest.XWikiRestComponent;
 
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.core.rest.RestResource;
-import eu.learnpad.core.rest.XWikiRestUtils;
+import eu.learnpad.core.rest.Utils;
 import eu.learnpad.exception.LpRestException;
-import eu.learnpad.me.BridgeInterface;
 import eu.learnpad.me.Controller;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.mv.rest.data.VerificationId;
 import eu.learnpad.mv.rest.data.VerificationResults;
 import eu.learnpad.mv.rest.data.VerificationStatus;
@@ -55,57 +58,54 @@ import eu.learnpad.rest.model.jaxb.PFResults;
 @Singleton
 @Named("eu.learnpad.core.impl.me.XwikiController")
 @Path("/learnpad/me/corefacade")
-public class XwikiController extends Controller implements XWikiRestComponent, Initializable{
+public class XwikiController extends Controller implements XWikiRestComponent, Initializable {
 
-    /** Set to true once the inherited BridgeInterface has been initialized. */
-    private boolean initialized = false;	
+	@Inject
+	@Named("xwiki")
+	private Utils utils;
 
-    /*
-     * Note that in this solution the Controllers do not interact
-     * each-others, but each controller directly invokes the BridgesInterfaces
-     * (from the other controllers) it needs. This is not actually what was
-     * originally planned, thus in the future it may change.
-     *
-     * Also, not sure if this is the correct way to proceed.
-     * I would like to decide in a configuration file
-     * the implementation to bind, and not into the source
-     * code. In fact, this second case implies to rebuild the
-     * whole platform at each change.	
-     */
+	@Inject
+	private ComponentManager componentManager;
+
+	/*
+	 * Note that in this solution the Controllers do not interact each-others,
+	 * but each controller directly invokes the BridgesInterfaces (from the
+	 * other controllers) it needs. This is not actually what was originally
+	 * planned, thus in the future it may change. Also, not sure if this is the
+	 * correct way to proceed. I would like to decide in a configuration file
+	 * the implementation to bind, and not into the source code. In fact, this
+	 * second case implies to rebuild the whole platform at each change.
+	 */
 	private eu.learnpad.mv.BridgeInterface mv;
+
 	private eu.learnpad.cw.BridgeInterface cw;
 
 	@Inject
 	Logger logger;
 
-    public synchronized void updateBridgeInterface (BridgeInterface bi){
-		this.bridge = bi;    
-    }
-
 	@Override
-	public synchronized void initialize() throws InitializationException {
-		if (!this.initialized){
-			this.bridge = new XwikiBridgeInterfaceRestResource();
-			
-			this.mv = new eu.learnpad.core.impl.mv.XwikiBridgeInterfaceRestResource();
-			this.cw = new eu.learnpad.core.impl.cw.XwikiBridgeInterfaceRestResource();
-			
-			this.initialized=true;
+	public void initialize() throws InitializationException {
+		try {
+			this.bridge = this.componentManager.getInstance(RestResource.class, "me");
+
+			this.mv = this.componentManager.getInstance(RestResource.class, "mv");
+			this.cw = this.componentManager.getInstance(RestResource.class, "cw");
+		} catch (ComponentLookupException e) {
+			throw new InitializationException(e.getMessage(), e);
 		}
 	}
 
 	@Override
-	public VerificationId putModelSet(String modelSetId, String type, InputStream modelSetFile)
+	public VerificationId putModelSet(String modelSetId, ModelSetType type, InputStream modelSetFile)
 			throws LpRestException {
-		if (XWikiRestUtils.isPage(RestResource.CORE_REPOSITORY_WIKI,
-				RestResource.CORE_REPOSITORY_SPACE, modelSetId) == false) {
-			XWikiRestUtils.createEmptyPage(RestResource.CORE_REPOSITORY_WIKI,
-					RestResource.CORE_REPOSITORY_SPACE, modelSetId);
+		if (utils.isPage(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
+				modelSetId) == false) {
+			utils.createEmptyPage(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
+					modelSetId);
 		}
 		String attachmentName = String.format("%s.%s", modelSetId, type);
-		XWikiRestUtils.putAttachment(RestResource.CORE_REPOSITORY_WIKI,
-				RestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName,
-				modelSetFile);
+		utils.putAttachment(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
+				modelSetId, attachmentName, modelSetFile);
 		return this.mv.startVerification(modelSetId, "ALL");
 	}
 
@@ -114,28 +114,31 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		return this.cw.getFeedbacks(modelSetId);
 	}
 
-    @Override
-    public VerificationId startModelSetVerification(String modelSetId, String type, String verification)
-            throws LpRestException {
-        VerificationId vId = this.mv.startVerification(modelSetId, verification);
-        VerificationStatus vStatus = this.mv.getVerificationStatus(vId.getId());
-        //TODO: show the vStatus.getStatus() of the verification with id vId.getId() somewhere in the wiki?
-        //The verification status (currently IN PROGRESS) should be visualizes somewhere in the cw for the given modelsetid so the modeler can check it.
-        return vId;
-    }
-    
-    @Override
-    public VerificationStatus checkModelSetVerification(String verificationProcessId) throws LpRestException {
-        return this.mv.getVerificationStatus(verificationProcessId);
-    }
-    
-    @Override
-    public VerificationResults getModelSetVerificationResults(String verificationProcessId) throws LpRestException {
-        return this.mv.getVerificationResult(verificationProcessId);
-    }
-    
-    @Override
-    public VerificationsAvailable getAvailableVerifications() throws LpRestException {
-        return this.mv.getAvailableVerifications();
-    }
+	@Override
+	public VerificationId startModelSetVerification(String modelSetId, String type, String verification)
+			throws LpRestException {
+		VerificationId vId = this.mv.startVerification(modelSetId, verification);
+		VerificationStatus vStatus = this.mv.getVerificationStatus(vId.getId());
+		// TODO: show the vStatus.getStatus() of the verification with id
+		// vId.getId() somewhere in the wiki?
+		// The verification status (currently IN PROGRESS) should be visualizes
+		// somewhere in the cw for the given
+		// modelsetid so the modeler can check it.
+		return vId;
+	}
+
+	@Override
+	public VerificationStatus checkModelSetVerification(String verificationProcessId) throws LpRestException {
+		return this.mv.getVerificationStatus(verificationProcessId);
+	}
+
+	@Override
+	public VerificationResults getModelSetVerificationResults(String verificationProcessId) throws LpRestException {
+		return this.mv.getVerificationResult(verificationProcessId);
+	}
+
+	@Override
+	public VerificationsAvailable getAvailableVerifications() throws LpRestException {
+		return this.mv.getAvailableVerifications();
+	}
 }

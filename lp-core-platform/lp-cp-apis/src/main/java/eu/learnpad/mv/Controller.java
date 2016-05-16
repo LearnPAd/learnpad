@@ -19,8 +19,7 @@
  */
 package eu.learnpad.mv;
 
-public abstract class Controller implements CoreFacade{
+public abstract class Controller implements CoreFacade {
 
 	protected BridgeInterface bridge;
-	
 }

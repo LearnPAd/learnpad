@@ -30,6 +30,7 @@ import eu.learnpad.simulator.monitoring.event.impl.SessionScoreUpdateSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskFailedSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
 
 /**
@@ -56,6 +57,8 @@ public interface IProcessEventReceiver {
 	public void receiveTaskStartEvent(TaskStartSimEvent event);
 
 	public void receiveTaskEndEvent(TaskEndSimEvent event);
+
+	public void receiveTaskFailedEvent(TaskFailedSimEvent event);
 
 	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateSimEvent event);
 

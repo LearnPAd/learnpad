@@ -73,6 +73,7 @@ public class SessionScoreUpdateSimEvent extends AbstractSimEvent {
 		super(timestamp, simulationsessionid, involvedusers);
 		this.processid = processid;
 		this.sessionscore = sessionScore;
+		this.user = user;
 	}
 
 	@Override

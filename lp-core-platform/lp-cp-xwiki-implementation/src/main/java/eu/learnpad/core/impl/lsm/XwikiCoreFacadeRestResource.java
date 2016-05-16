@@ -19,9 +19,9 @@
  */
 package eu.learnpad.core.impl.lsm;
 
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.lsm.CoreFacade;
-import eu.learnpad.core.rest.RestResource;
 
 /*
  * The methods inherited form the CoreFacade in this
@@ -29,44 +29,36 @@ import eu.learnpad.core.rest.RestResource;
  * toward the CoreFacade binded at the provided URL
  */
 
-public class XwikiCoreFacadeRestResource extends RestResource implements CoreFacade {
+public class XwikiCoreFacadeRestResource extends DefaultRestResource implements CoreFacade {
 
 	public XwikiCoreFacadeRestResource() {
-		this("localhost",8080);
+		this("localhost", 8080);
 	}
 
-	public XwikiCoreFacadeRestResource(String coreFacadeHostname,
-			int coreFacadeHostPort) {
+	public XwikiCoreFacadeRestResource(String coreFacadeHostname, int coreFacadeHostPort) {
 		// This constructor could change in the future
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
 	}
-	
-	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort){
-// This constructor has to be fixed, since it requires changes on the class
-//		eu.learnpad.core.rest.RestResource
-		
+
+	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort) {
+		// This constructor has to be fixed, since it requires changes on the
+		// class eu.learnpad.core.rest.RestResource
 	}
 
 	@Override
-	public void notifyLearningSessionStarted(String questionnaireId,
-			String[] emailList) throws LpRestExceptionXWikiImpl {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyLearningSessionCompleted(String questionnaireId,
-			String[] emailList) throws LpRestExceptionXWikiImpl {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void importModelSet(String questionnaireId, String[] emailList)
+	public void notifyLearningSessionStarted(String questionnaireId, String[] emailList)
 			throws LpRestExceptionXWikiImpl {
 		// TODO Auto-generated method stub
-		
 	}
 
+	@Override
+	public void notifyLearningSessionCompleted(String questionnaireId, String[] emailList)
+			throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+	}
 
+	@Override
+	public void importModelSet(String questionnaireId, String[] emailList) throws LpRestExceptionXWikiImpl {
+		// TODO Auto-generated method stub
+	}
 }

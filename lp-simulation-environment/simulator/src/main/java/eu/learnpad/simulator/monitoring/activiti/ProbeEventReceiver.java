@@ -4,6 +4,8 @@
 package eu.learnpad.simulator.monitoring.activiti;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.jms.JMSException;
 import javax.naming.NamingException;
@@ -14,6 +16,7 @@ import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationEndEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
 import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
+import eu.learnpad.sim.rest.event.impl.TaskFailedEvent;
 import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
@@ -27,7 +30,10 @@ import eu.learnpad.simulator.monitoring.event.impl.SessionScoreUpdateSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.TaskFailedSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
+import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
+import eu.learnpad.simulator.utils.SimulatorProperties;
 
 /*
  * #%L
@@ -58,7 +64,7 @@ import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
  *
  */
 public class ProbeEventReceiver extends GlimpseAbstractProbe implements
-IProcessEventReceiver {
+		IProcessEventReceiver {
 
 	private final IProcessManager manager;
 
@@ -68,8 +74,10 @@ IProcessEventReceiver {
 	public ProbeEventReceiver(IProcessManager manager) {
 		super(Manager.createProbeSettingsPropertiesObject(
 				"org.apache.activemq.jndi.ActiveMQInitialContextFactory",
-				"tcp://atlantis.isti.cnr.it:61616", "system", "manager",
-				"TopicCF", "jms.probeTopic", false, "probeName", "probeTopic"));
+				SimulatorProperties.props
+						.getProperty(SimulatorProperties.PROP_GLIMPSE_SERVER),
+				"system", "manager", "TopicCF", "jms.probeTopic", false,
+				"probeName", "probeTopic"));
 
 		this.manager = manager;
 	}
@@ -127,8 +135,9 @@ IProcessEventReceiver {
 						event.timestamp,
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						manager.getModelSetId(event.initialProcessDefinitionKey),
-						manager.getSimulationSessionParametersData(event.simulationsessionid)));
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
+//						manager.getSimulationSessionParametersData(event.simulationsessionid)));
+						getCleanSessionParameters(event.simulationsessionid)));
 
 		send(monitoringEvent);
 
@@ -147,8 +156,9 @@ IProcessEventReceiver {
 						event.timestamp,
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						manager.getModelSetId(event.simulationsessionid),
-						manager.getSimulationSessionParametersData(event.simulationsessionid)));
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
+//						manager.getSimulationSessionParametersData(event.simulationsessionid)));
+						getCleanSessionParameters(event.simulationsessionid)));
 
 		send(monitoringEvent);
 
@@ -167,9 +177,9 @@ IProcessEventReceiver {
 						event.timestamp,
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						manager.getModelSetId(event.simulationsessionid),
-						manager.getSimulationSessionParametersData(event.simulationsessionid),
-						event.processInstance.processartifactid,
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
+//						manager.getSimulationSessionParametersData(event.simulationsessionid),
+						getCleanSessionParameters(event.simulationsessionid),
 						event.processInstance.processartifactkey));
 
 		send(monitoringEvent);
@@ -189,9 +199,8 @@ IProcessEventReceiver {
 						event.timestamp,
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						manager.getModelSetId(event.simulationsessionid),
-						manager.getSimulationSessionParametersData(event.simulationsessionid),
-						event.processInstance.processartifactid,
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
+						getCleanSessionParameters(event.simulationsessionid),
 						event.processInstance.processartifactkey));
 		send(monitoringEvent);
 
@@ -210,10 +219,11 @@ IProcessEventReceiver {
 						event.timestamp,
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						manager.getModelSetId(event.simulationsessionid),
-						manager.getSimulationSessionParametersData(event.simulationsessionid),
-						event.task.processId, event.task.id, event.task.key,
-						new ArrayList<String>(event.involvedusers)));
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
+						getCleanSessionParameters(event.simulationsessionid),
+						manager.getProcessInstanceInfos(event.task.processId).processartifactkey,
+						event.task.key, new ArrayList<String>(
+								event.involvedusers)));
 
 		send(monitoringEvent);
 
@@ -232,11 +242,36 @@ IProcessEventReceiver {
 						event.timestamp,
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						manager.getModelSetId(event.simulationsessionid),
-						manager.getSimulationSessionParametersData(event.simulationsessionid),
-						event.task.processId, event.task.id, event.task.key,
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
+						getCleanSessionParameters(event.simulationsessionid),
+						manager.getProcessInstanceInfos(event.task.processId).processartifactkey,
+						event.task.key, new ArrayList<String>(
+								event.involvedusers), event.completingUser,
+						event.submittedData));
+
+		send(monitoringEvent);
+
+	}
+
+	@Override
+	public void receiveTaskFailedEvent(TaskFailedSimEvent event) {
+		GlimpseBaseEventBPMN<String> monitoringEvent = new GlimpseBaseEventBPMN<String>(
+				"Activity_" + event.timestamp,
+				event.simulationsessionid,
+				event.timestamp,
+				event.getType().toString(),
+				false,
+				event.task.subprocessKey,
+				new TaskFailedEvent(
+						event.timestamp,
+						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						event.completingUser, event.submittedData));
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
+						getCleanSessionParameters(event.simulationsessionid),
+						manager.getProcessInstanceInfos(event.task.processId).processartifactkey,
+						event.task.key, new ArrayList<String>(
+								event.involvedusers), event.completingUser,
+								event.submittedData));
 
 		send(monitoringEvent);
 
@@ -255,12 +290,29 @@ IProcessEventReceiver {
 						event.timestamp,
 						event.simulationsessionid,
 						new ArrayList<String>(event.involvedusers),
-						manager.getModelSetId(event.simulationsessionid),
-						manager.getSimulationSessionParametersData(event.simulationsessionid),
-						event.processid, event.user, event.sessionscore));
+						manager.getModelSetIdFromSessionId(event.simulationsessionid),
+						getCleanSessionParameters(event.simulationsessionid),
+						manager.getProcessInstanceInfos(event.processid).processartifactkey,
+						event.user, event.sessionscore));
 
 		send(monitoringEvent);
 
+	}
+
+	/**
+	 * Remove useless internal additional data from the parameters associated
+	 * with a sim. session
+	 *
+	 * @param simSessionId
+	 * @return the cleaned map
+	 */
+	private Map<String, Object> getCleanSessionParameters(String simSessionId) {
+		Map<String, Object> res = new HashMap<>(
+				manager.getSimulationSessionParametersData(simSessionId));
+		res.remove(ActivitiProcessManager.SIMULATION_ID_KEY);
+		res.remove("case");
+		res.remove("applicantName");
+		return res;
 	}
 
 }

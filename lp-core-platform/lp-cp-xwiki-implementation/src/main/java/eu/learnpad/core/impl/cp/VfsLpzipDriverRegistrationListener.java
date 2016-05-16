@@ -41,6 +41,7 @@ import net.java.truevfs.comp.zipdriver.JarDriver;
 @Named("vfsLpzipDriver")
 @Singleton
 public class VfsLpzipDriverRegistrationListener implements EventListener {
+
 	/**
 	 * The name of the listener.
 	 */
@@ -67,7 +68,7 @@ public class VfsLpzipDriverRegistrationListener implements EventListener {
 		// Note: Make sure we add our own Archive Detector to the existing
 		// Detector so that all archive formats
 		// supported by TrueVFS are handled properly.
-		config.setArchiveDetector(new TArchiveDetector(config
-				.getArchiveDetector(), "lpzip", new JarDriver()));
+		config.setArchiveDetector(new TArchiveDetector(config.getArchiveDetector(),
+				VfsLpzipDriverRegistrationListener.NAME, new JarDriver()));
 	}
 }

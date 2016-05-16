@@ -25,11 +25,12 @@ import java.io.InputStream;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.io.IOUtils;
 
-import eu.learnpad.core.rest.RestResource;
+import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.CoreFacade;
 
 /*
@@ -37,10 +38,11 @@ import eu.learnpad.or.CoreFacade;
  * class should be implemented as a REST invocation
  * toward the CoreFacade binded at the provided URL
  */
-public class XwikiCoreFacadeRestResource extends RestResource implements CoreFacade{
+public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
+		CoreFacade {
 
 	public XwikiCoreFacadeRestResource() {
-		this("localhost",8080);
+		this("localhost", 8080);
 	}
 
 	public XwikiCoreFacadeRestResource(String coreFacadeHostname,
@@ -48,11 +50,11 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 		// This constructor could change in the future
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
 	}
-	
-	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort){
-// This constructor has to be fixed, since it requires changes on the class
-//		eu.learnpad.core.rest.RestResource
-		
+
+	public void updateConfiguration(String coreFacadeHostname,
+			int coreFacadeHostPort) {
+		// This constructor has to be fixed, since it requires changes on the
+		// class eu.learnpad.core.rest.RestResource
 	}
 
 	@Override
@@ -63,31 +65,25 @@ public class XwikiCoreFacadeRestResource extends RestResource implements CoreFac
 	}
 
 	@Override
-	public InputStream getModel(String modelSetId, String type)
+	public InputStream getModel(String modelSetId, ModelSetType type)
 			throws LpRestException {
 		// Now send the package's path to the importer for XWiki
-		HttpClient httpClient = RestResource.getClient();
+		HttpClient httpClient = this.getClient();
 		String uri = String.format("%s/learnpad/or/corefacade/getmodel/%s",
-				RestResource.REST_URI, modelSetId);
+				DefaultRestResource.REST_URI, modelSetId);
 		GetMethod getMethod = new GetMethod(uri);
 		getMethod.addRequestHeader("Accept", "application/xml");
 
 		NameValuePair[] queryString = new NameValuePair[1];
-		queryString[0] = new NameValuePair("type", type);
+		queryString[0] = new NameValuePair("type", type.toString());
 		getMethod.setQueryString(queryString);
 
-		try {
-			httpClient.executeMethod(getMethod);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		InputStream model = null;
 		try {
+			httpClient.executeMethod(getMethod);
 			model = getMethod.getResponseBodyAsStream();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
 		return model;
 	}
