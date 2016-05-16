@@ -56,7 +56,7 @@ save and close.
 ```
 chmod +x build
 
-./build --dev
+./build
 
 chmod +x launch
 

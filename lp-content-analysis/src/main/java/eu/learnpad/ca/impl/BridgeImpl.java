@@ -214,7 +214,7 @@ public class BridgeImpl extends Bridge {
 	public String getCollaborativeContentVerificationsView(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException {
 		// TODO
-		return "http://localhost:9092/getanalysis.jsf?id="+contentID;
+		return "http://www.learnpad.eu";
 	}
 
 	private Integer getProgress(List<AbstractAnalysisClass> listanalysisInterface){
@@ -408,7 +408,7 @@ public class BridgeImpl extends Bridge {
 	public String getStaticContentVerificationsView(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException {
 		// TODO Auto-generated method stub
-		return "http://localhost:9092/getanalysis.jsf?id="+contentID;
+		return null;
 	}
 
 }
