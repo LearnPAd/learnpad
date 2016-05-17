@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -213,8 +214,20 @@ public class BridgeImpl extends Bridge {
 	@GET
 	public String getCollaborativeContentVerificationsView(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException {
-		// TODO
-		return "http://localhost:9092/getanalysis.jsf?id="+contentID;
+		String ip,port="";
+		try{
+			Properties prop = new Properties();
+			// load a properties file
+			prop.load(BridgeImpl.class.getClassLoader().getResourceAsStream("config.properties")); //$NON-NLS-1$
+
+			ip = prop.getProperty("ip_ui_server");
+			port = prop.getProperty("port_ui_server");
+			}catch(Exception e){
+				ip="localhost";
+				port = "9092";
+			}
+		
+		return "http://"+ip+":"+port+"/getanalysis.jsf?id="+contentID;
 	}
 
 	private Integer getProgress(List<AbstractAnalysisClass> listanalysisInterface){
@@ -407,8 +420,20 @@ public class BridgeImpl extends Bridge {
 	@GET
 	public String getStaticContentVerificationsView(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException {
-		// TODO Auto-generated method stub
-		return "http://localhost:9092/getanalysis.jsf?id="+contentID;
+		String ip,port="";
+		try{
+			Properties prop = new Properties();
+			// load a properties file
+			prop.load(BridgeImpl.class.getClassLoader().getResourceAsStream("config.properties")); //$NON-NLS-1$
+
+				ip = prop.getProperty("ip_ui_server");
+				port = prop.getProperty("port_ui_server");
+			}catch(Exception e){
+				ip="localhost";
+				port = "9092";
+			}
+		
+		return "http://"+ip+":"+port+"/getanalysis.jsf?id="+contentID;
 	}
 
 }
