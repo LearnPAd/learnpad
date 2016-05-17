@@ -1,5 +1,7 @@
 package eu.learnpad.ca.impl;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -218,7 +220,8 @@ public class BridgeImpl extends Bridge {
 		try{
 			Properties prop = new Properties();
 			// load a properties file
-			prop.load(BridgeImpl.class.getClassLoader().getResourceAsStream("config.properties")); //$NON-NLS-1$
+			InputStream is = new FileInputStream("config.properties");
+			prop.load(is); //$NON-NLS-1$
 
 			ip = prop.getProperty("ip_ui_server");
 			port = prop.getProperty("port_ui_server");
@@ -424,7 +427,8 @@ public class BridgeImpl extends Bridge {
 		try{
 			Properties prop = new Properties();
 			// load a properties file
-			prop.load(BridgeImpl.class.getClassLoader().getResourceAsStream("config.properties")); //$NON-NLS-1$
+			InputStream is = new FileInputStream("config.properties");
+			prop.load(is); //$NON-NLS-1$
 
 				ip = prop.getProperty("ip_ui_server");
 				port = prop.getProperty("port_ui_server");
