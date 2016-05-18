@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 cd $( dirname "${BASH_SOURCE[0]}")
 {
-	./lp-ca-ui/out/start > lp-ca-ui.log
+	../lp-ca-ui/out/start > lp-ca-ui.log
 	java -jar lp-content-analysis.jar > analysis.log 2>&1
 	
 }&
