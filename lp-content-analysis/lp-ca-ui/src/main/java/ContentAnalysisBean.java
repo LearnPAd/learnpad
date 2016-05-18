@@ -8,6 +8,7 @@ import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -19,7 +20,7 @@ import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnaly
 
 
 @ManagedBean(name="ContentAnalysisBean")
-@RequestScoped
+@SessionScoped
 public class ContentAnalysisBean implements Serializable {
 
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(ContentAnalysisBean.class);

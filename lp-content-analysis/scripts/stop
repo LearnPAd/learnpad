@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
+./lp-ca-ui/stop
 pkill -f "java -jar lp-content-analysis.jar" || exit 0

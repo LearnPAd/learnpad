@@ -1,9 +1,12 @@
 package eu.learnpad.ca.impl;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -213,8 +216,21 @@ public class BridgeImpl extends Bridge {
 	@GET
 	public String getCollaborativeContentVerificationsView(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException {
-		// TODO
-		return "http://www.learnpad.eu";
+		String ip,port="";
+		try{
+			Properties prop = new Properties();
+			// load a properties file
+			InputStream is = new FileInputStream("config.properties");
+			prop.load(is); //$NON-NLS-1$
+
+			ip = prop.getProperty("ip_ui_server");
+			port = prop.getProperty("port_ui_server");
+			}catch(Exception e){
+				ip="localhost";
+				port = "9092";
+			}
+		
+		return "http://"+ip+":"+port+"/getanalysis.jsf?id="+contentID;
 	}
 
 	private Integer getProgress(List<AbstractAnalysisClass> listanalysisInterface){
@@ -407,8 +423,21 @@ public class BridgeImpl extends Bridge {
 	@GET
 	public String getStaticContentVerificationsView(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException {
-		// TODO Auto-generated method stub
-		return null;
+		String ip,port="";
+		try{
+			Properties prop = new Properties();
+			// load a properties file
+			InputStream is = new FileInputStream("config.properties");
+			prop.load(is); //$NON-NLS-1$
+
+				ip = prop.getProperty("ip_ui_server");
+				port = prop.getProperty("port_ui_server");
+			}catch(Exception e){
+				ip="localhost";
+				port = "9092";
+			}
+		
+		return "http://"+ip+":"+port+"/getanalysis.jsf?id="+contentID;
 	}
 
 }
