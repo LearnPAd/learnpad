@@ -1,25 +1,28 @@
 # baseURI: http://learnpad.eu/cbr
 # imports: http://ikm-group.ch/cbr
-# imports: http://learnpad.eu/
+# imports: http://learnpad.eu
 
+@prefix archi: <http://ikm-group.ch/archiMEO/archimate#> .
 @prefix cbr: <http://learnpad.eu/cbr#> .
+@prefix eo: <http://ikm-group.ch/archiMEO/eo#> .
 @prefix lpd: <http://learnpad.eu#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sim: <http://ikm-group.ch/similarity#> .
+@prefix top: <http://ikm-group.ch/archiMEO/top#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://ikm-group.ch/archiMEO/archimate#BusinessRole>
-  rdfs:subClassOf <http://ikm-group.ch/cbr#Role> ;
+archi:BusinessRole
+  rdfs:subClassOf cbr:Role ;
 .
-<http://ikm-group.ch/archiMEO/eo#organisationalUnitIsSuperordinatedToOrganisationalUnit>
+eo:organisationalUnitIsSuperordinatedToOrganisationalUnit
   sim:similarity cbr:RTOPS_organisationalUnitIsSuperordinatedToOrganisationalUnit ;
 .
-<http://ikm-group.ch/archiMEO/eo#personHasName>
+eo:personHasName
   sim:similarity cbr:DPS_personHasName ;
 .
-<http://ikm-group.ch/archiMEO/top#City>
+top:City
   sim:similarity cbr:TS_City ;
 .
 lpd:ATECO_Category
@@ -36,7 +39,7 @@ lpd:Applicant
 .
 lpd:Application
   sim:similarity cbr:RCCS_Application ;
-  rdfs:subClassOf <http://ikm-group.ch/cbr#Case> ;
+  rdfs:subClassOf cbr:Case ;
 .
 lpd:ApplicationHasType
   sim:similarity cbr:TOPS_appliationHasType ;
@@ -116,7 +119,7 @@ lpd:isSubApplicationTypeOfType
 <http://learnpad.eu/cbr>
   rdf:type owl:Ontology ;
   owl:imports <http://ikm-group.ch/cbr> ;
-  owl:imports <http://learnpad.eu/> ;
+  owl:imports <http://learnpad.eu> ;
   owl:versionInfo "Created with TopBraid Composer"^^xsd:string ;
 .
 cbr:APS_Applicant_label

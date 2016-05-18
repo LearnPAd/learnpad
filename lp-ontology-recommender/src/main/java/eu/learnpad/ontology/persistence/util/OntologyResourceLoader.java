@@ -33,7 +33,7 @@ public class OntologyResourceLoader {
                 in = new InputStreamReader(OntologyResourceLoader.class.getResourceAsStream(filePath));
                 model.read(in, null, format.getName());
             } catch (Exception ex){
-                Logger.getLogger(OntologyResourceLoader.class.getName()).log(Level.SEVERE, "Failed to load ontology file.", ex);
+                Logger.getLogger(OntologyResourceLoader.class.getName()).log(Level.SEVERE, "Failed to load ontology file: "+filePath, ex);
             } 
             finally {
                 if (in != null) {

@@ -5,6 +5,7 @@
 # imports: http://ikm-group.ch/archiMEO/nco
 # imports: http://ikm-group.ch/archiMEO/top
 # imports: http://ikm-group.ch/archiMEO/util
+# prefix: eo
 
 @prefix archi: <http://ikm-group.ch/archiMEO/archimate#> .
 @prefix bmm: <http://ikm-group.ch/archiMEO/BMM#> .
@@ -736,6 +737,10 @@ eo:Japan
   top:countryConsistsOfPartOfCountry eo:Fukushima ;
   top:countryIsLocatedInContinent eo:Asia ;
 .
+eo:KPI
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:Influencer ;
+.
 eo:KnowledgeResource
   rdf:type owl:Class ;
   rdfs:comment "CMM"^^xsd:string ;
@@ -743,8 +748,6 @@ eo:KnowledgeResource
 .
 eo:LearningGoal
   rdf:type owl:Class ;
-  rdfs:comment "CQ14"^^xsd:string ;
-  rdfs:comment "CQ20"^^xsd:string ;
   rdfs:subClassOf eo:Goal ;
 .
 eo:LegalBusinessEvent
@@ -825,6 +828,10 @@ eo:Obligation
   rdf:type owl:Class ;
   rdfs:label "Obligation"^^xsd:string ;
   rdfs:subClassOf archi:BusinessObject ;
+.
+eo:OperationalGoal
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:Goal ;
 .
 eo:Opportunity
   rdf:type owl:Class ;
@@ -942,6 +949,10 @@ eo:Specification
 eo:StillImage
   rdf:type dcmi-type-vocabulary:DCMITYPE ;
   rdf:type owl:Thing ;
+.
+eo:StrategicGoal
+  rdf:type owl:Class ;
+  rdfs:subClassOf eo:Goal ;
 .
 eo:Strategy
   rdf:type owl:Class ;

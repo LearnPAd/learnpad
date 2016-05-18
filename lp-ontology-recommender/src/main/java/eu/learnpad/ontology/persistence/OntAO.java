@@ -113,6 +113,7 @@ public abstract class OntAO {
             if (executionDataFile != null) {
                 this.executionData = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
                 this.executionData.setNsPrefix("xwiki", APP.NS.XWIKI.toString());
+                this.executionData.setNsPrefix("exec", APP.NS.EXEC.toString());
                 if (executionDataFile.length() > 0) {
                     this.executionData.read(executionDataFile.toURI().toString(), Lang.TTL.getName());
                 }
@@ -154,7 +155,5 @@ public abstract class OntAO {
     protected abstract OntModel loadMetaModel();
 
     protected abstract OntModel loadModelSet(String modelSetId);
-
-    protected abstract OntModel loadExecutionData(String modelSetId);
 
 }

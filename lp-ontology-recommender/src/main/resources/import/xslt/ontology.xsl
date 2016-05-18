@@ -758,8 +758,8 @@ ________________________________________________________________________________
   rdfs:subClassOf kpi:Perspective ;
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
-  lpd:kpiPerspectiveHasId "<xsl:value-of select="$id"/>"^^xsd:string ;
-  lpd:kpiPerspectiveHasName "<xsl:value-of select="$name"/>"^^xsd:string ;
+  kpi:kpiPerspectiveHasId "<xsl:value-of select="$id"/>"^^xsd:string ;
+  kpi:kpiPerspectiveHasName "<xsl:value-of select="$name"/>"^^xsd:string ;
 	</xsl:template>
   <!--...............................................................................................-->  
 <!--
@@ -777,11 +777,12 @@ ________________________________________________________________________________
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
   
-  <!-- TODO
-  kpi:operationalGoalHasPerspective
-  kpi:operationalGoalSupportsOperationalGoal
+  	</xsl:template>
+	<xsl:template name="addLink_OperationalGoaToPerspective"><xsl:param name="toId"/>kpi:operationalGoalHasPerspective transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text></xsl:template>
+	<!-- TODO
+      kpi:operationalGoalSupportsOperationalGoal
   -->
-	</xsl:template>
+
 <!--...............................................................................................-->
 <!--
 ___________________________________________________________________________________________________
@@ -830,21 +831,23 @@ ________________________________________________________________________________
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
   
-  lpd:kpiHasDescription """<xsl:value-of select="$description"/>"""^^xsd:string ;
-  lpd:kpiEvaluatedWithPeriodicity kpi:<xsl:value-of select="$periodicity"/>_periodicity ;
-  lpd:kpiValueUnit "<xsl:value-of select="$unit"/>"^^xsd:string ;
+  kpi:kpiHasDescription """<xsl:value-of select="$description"/>"""^^xsd:string ;
+  kpi:kpiEvaluatedWithPeriodicity kpi:<xsl:value-of select="$periodicity"/>_periodicity ;
+  kpi:kpiValueUnit "<xsl:value-of select="$unit"/>"^^xsd:string ;
   <xsl:choose>
     <xsl:when test="$moreIsBetter = 'more is better'">
-      lpd:kpiHasThresholdTypeGreaterIsBetter "true"^^xsd:boolean ;
+      kpi:kpiHasThresholdTypeGreaterIsBetter "true"^^xsd:boolean ;
     </xsl:when>
     <xsl:otherwise>
-      lpd:kpiHasThresholdTypeGreaterIsBetter "false"^^xsd:boolean ;
+      kpi:kpiHasThresholdTypeGreaterIsBetter "false"^^xsd:boolean ;
     </xsl:otherwise>
   </xsl:choose>
-  lpd:kpiHasGreenYellowThreshold "<xsl:value-of select="$thresholdGreenYellow"/>"^^xsd:float ;
-  lpd:kpiHasYellowRedThreshold "<xsl:value-of select="$thresholdYellowRed"/>"^^xsd:float ;
-  lpd:kpiHasAssignedDataSource "<xsl:value-of select="$dataSource"/>"^^xsd:string ;
-  lpd:kpiProvidesRecommendation "<xsl:value-of select="$recommendation"/>"^^xsd:string ;
+  <xsl:if test="$thresholdGreenYellow != ''">kpi:kpiHasGreenYellowThreshold "<xsl:value-of select="$thresholdGreenYellow"/>"^^xsd:float ;
+  </xsl:if>
+  <xsl:if test="$thresholdYellowRed != ''">kpi:kpiHasYellowRedThreshold "<xsl:value-of select="$thresholdYellowRed"/>"^^xsd:float ;
+  </xsl:if>
+  kpi:kpiHasAssignedDataSource "<xsl:value-of select="$dataSource"/>"^^xsd:string ;
+  kpi:kpiProvidesRecommendation """<xsl:value-of select="$recommendation"/>"""^^xsd:string ;
     	</xsl:template>
 
   	<xsl:template name="addLink_KpiToPerspective"><xsl:param name="toId"/>kpi:kpiHasPerspective transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text></xsl:template>

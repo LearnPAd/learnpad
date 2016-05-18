@@ -24,6 +24,7 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.ontology.execution.ExecutionStates;
+import eu.learnpad.ontology.notification.NotificationLog;
 import eu.learnpad.ontology.recommender.Recommender;
 import eu.learnpad.ontology.recommender.cbr.CBRAdapter;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
@@ -73,7 +74,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     
     @Override
     public void resourceNotification(String modelSetId, String resourceId, ResourceType resourceType, String referringToResourceId, String[] modelArtifactIds, String userId, Long timestamp, NotificationActionType action) throws LpRestException {
-        
+        NotificationLog.getInstance().logResourceNotification(modelSetId, resourceId, resourceType, referringToResourceId, modelArtifactIds, userId, timestamp, action);
     }
 
     @Override
