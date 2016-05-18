@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+pkill -f "java -jar jetty-runner.jar --port 9092 lp-ca-ui.war"

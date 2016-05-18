@@ -65,6 +65,11 @@ public interface ContentAnalysisProxy {
 	String getStatus(@PathParam("analysisid") String analysisId) throws LpRestException;
 
 	@GET
+	@Produces({ MediaType.TEXT_PLAIN, MediaType.APPLICATION_JSON })
+	@Path("/analyze/{analysisid}/view")
+	String getView(@PathParam("analysisid") String analysisId) throws LpRestException;
+
+	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Path("/analyze/{analysisid}")
 	AnnotatedCollaborativeContentAnalyses getResults(@PathParam("analysisid") String analysisId) throws LpRestException;

@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,7 +46,6 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
 import org.xwiki.configuration.ConfigurationSource;
-import org.xwiki.contrib.websocket.WebSocket;
 import org.xwiki.model.reference.DocumentReference;
 import org.xwiki.model.reference.DocumentReferenceResolver;
 import org.xwiki.query.Query;
@@ -66,8 +66,10 @@ import eu.learnpad.core.impl.cw.XwikiBridge;
 import eu.learnpad.core.impl.cw.XwikiCoreFacadeRestResource;
 import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.core.rest.RestResource;
-import eu.learnpad.cw.ObjectsByUser;
 import eu.learnpad.cw.UICWBridge;
+import eu.learnpad.cw.internal.RecommendationWebsocketServer.WebSocketMetadata;
+import eu.learnpad.cw.rest.data.ScoreRecord;
+import eu.learnpad.cw.rest.data.ScoreRecordCollection;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
@@ -80,6 +82,7 @@ import eu.learnpad.rest.model.jaxb.PFResults.Patches.Patch;
 import eu.learnpad.rest.model.jaxb.PFResults.Patches.Patch.Artefact;
 import eu.learnpad.rest.model.jaxb.PFResults.Patches.Patch.Artefact.Attribute;
 import eu.learnpad.rest.model.jaxb.PatchType;
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.sim.rest.data.UserDataCollection;
 
@@ -104,6 +107,8 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	private final String USER_CLASS_PAGE = "XWikiUsers";
 
 	private final String USER_CLASS = String.format("%s.%s", XWIKI_SPACE, USER_CLASS_PAGE);
+
+	private static final Map<String, Map<String, ScoreRecord>> scoresBySessionByUser = new ConcurrentHashMap<String, Map<String, ScoreRecord>>();
 
 	@Inject
 	@Named("default")
@@ -130,10 +135,6 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 
 	@Inject
 	private Provider<XWikiContext> xcontextProvider;
-
-	@Inject
-	@Named("socket")
-	private ObjectsByUser<List<WebSocket>> socketsByUser;
 
 	@Inject
 	@Named("current")
@@ -380,6 +381,21 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	}
 
 	@Override
+	public String joinSimulation(String simulationId, String userId) throws LpRestException {
+		return this.corefacade.joinSimulation(simulationId, userId);
+	}
+
+	@Override
+	public Collection<String> listSimulations() throws LpRestException {
+		return this.corefacade.listSimulations();
+	}
+
+	@Override
+	public ProcessInstanceData getSimulationInfo(String simulationId) throws LpRestException {
+		return this.corefacade.getSimulationInfo(simulationId);
+	}
+
+	@Override
 	public String getRestPrefix(String component) throws LpRestException {
 		return ((LearnpadPropertiesConfigurationSource) configurationSource).getRestPrefix(component);
 	}
@@ -389,7 +405,7 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 			Recommendations recommendations) throws LpRestException {
 		String xwikiUserId = String.format("XWiki.%s", userid);
 		if (this.isBanningPeriodExpired(simulationid)) {
-			for (WebSocket ws : this.socketsByUser.get(xwikiUserId)) {
+			for (WebSocketMetadata wsmd : RecommendationWebsocketServer.socketBox.byUserid(xwikiUserId)) {
 				ObjectMapper mapper = new ObjectMapper();
 				String msg = "";
 				try {
@@ -397,7 +413,8 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 				} catch (JsonProcessingException e) {
 					msg = "";
 				}
-				ws.send(msg);
+				wsmd.timeOfLastInteraction = System.currentTimeMillis();
+				wsmd.socket.send(msg);
 			}
 		}
 	}
@@ -426,5 +443,34 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	private String removePrefixes(String userId) {
 		String username = userId.replaceFirst("XWiki\\.", "");
 		return username;
+	}
+
+	@Override
+	public void receiveScoreUpdate(ScoreRecord record) throws LpRestException {
+		String userid = record.getUserArtifactId();
+		String sessionid = record.getSessionId();
+		if (!scoresBySessionByUser.containsKey(userid)) {
+			scoresBySessionByUser.put(record.getUserArtifactId(), new ConcurrentHashMap<String, ScoreRecord>());
+		}
+		scoresBySessionByUser.get(userid).put(sessionid, record);
+
+	}
+
+	@Override
+	public ScoreRecordCollection getScores(String userid, String modelid) throws LpRestException {
+		Collection<ScoreRecord> res = new ArrayList<>();
+		for (String recordedUser : scoresBySessionByUser.keySet()) {
+			if (userid == null || recordedUser.equals(userid)) {
+				for (String session : scoresBySessionByUser.get(recordedUser).keySet()) {
+
+					ScoreRecord r = scoresBySessionByUser.get(recordedUser).get(session);
+					String processid = r.getProcessArtifactId();
+					if (modelid == null || processid.equals(modelid)) {
+						res.add(r);
+					}
+				}
+			}
+		}
+		return new ScoreRecordCollection(res);
 	}
 }

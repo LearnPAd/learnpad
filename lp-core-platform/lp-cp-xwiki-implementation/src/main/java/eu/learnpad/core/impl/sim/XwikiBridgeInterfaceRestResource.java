@@ -241,6 +241,21 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
 	}
 
 	@Override
+	public String joinProcessInstance(String simulationId, String userId) throws LpRestException {
+		HttpClient httpClient = this.getAnonymousClient();
+		String uri = String.format("%s/learnpad/sim/bridge/instances/%s/%s", this.restPrefix, simulationId, userId);
+
+		GetMethod getMethod = new GetMethod(uri);
+
+		try {
+			httpClient.executeMethod(getMethod);
+			return IOUtils.toString(getMethod.getResponseBodyAsStream());
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+		}
+	}
+
+	@Override
 	public InputStream getProcessInstanceResults(String processinstanceartifactid) throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;

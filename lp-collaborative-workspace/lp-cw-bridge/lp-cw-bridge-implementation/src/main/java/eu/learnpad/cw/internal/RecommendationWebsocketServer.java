@@ -19,7 +19,10 @@
  */
 package eu.learnpad.cw.internal;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -28,13 +31,11 @@ import org.xwiki.component.annotation.Component;
 import org.xwiki.contrib.websocket.WebSocket;
 import org.xwiki.contrib.websocket.WebSocketHandler;
 import org.xwiki.model.reference.EntityReferenceSerializer;
-import org.xwiki.rest.XWikiRestComponent;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eu.learnpad.core.impl.cw.XwikiCoreFacadeRestResource;
-import eu.learnpad.cw.ObjectsByUser;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
 
@@ -42,20 +43,84 @@ import eu.learnpad.or.rest.data.Recommendations;
 @Named("recommendation")
 public class RecommendationWebsocketServer implements WebSocketHandler {
 
-	@Inject
-	@Named("eu.learnpad.cw.internal.CWXwikiBridge")
-	private XWikiRestComponent cwBridge;
+	private static final long TIMEOUT_MILLISECONDS = 30000;
 
 	@Inject
 	@Named("compactwiki")
 	private EntityReferenceSerializer<String> stringEntityReferenceSerializer;
 
-	@Inject
-	@Named("socket")
-	private ObjectsByUser<List<WebSocket>> socketsByUser;
+	public static final SocketBox socketBox = new SocketBox();
 
-	private void addSocketToUser(String user, WebSocket sock) {
-		this.socketsByUser.get(user).add(sock);
+	public static class SocketBox {
+		private Map<WebSocket, WebSocketMetadata> sockets = new ConcurrentHashMap<WebSocket, WebSocketMetadata>();
+
+		WebSocketMetadata get(WebSocket socket) {
+			return socketBox.sockets.get(socket);
+		}
+
+		List<WebSocketMetadata> byUserid(String userid) {
+			List<WebSocket> sockets = new LinkedList<WebSocket>(socketBox.sockets.keySet());
+			List<WebSocketMetadata> userSockets = new LinkedList<WebSocketMetadata>();
+			for (WebSocket socket : sockets) {
+				WebSocketMetadata socketMetadata = socketBox.sockets.get(socket);
+				if (userid.equals(socketMetadata.userid)) {
+					userSockets.add(socketMetadata);
+				}
+			}
+			return userSockets;
+		}
+
+		List<WebSocketMetadata> bySimulationid(String simulationid) {
+			List<WebSocket> sockets = new LinkedList<WebSocket>(socketBox.sockets.keySet());
+			List<WebSocketMetadata> simulationSockets = new LinkedList<WebSocketMetadata>();
+			for (WebSocket socket : sockets) {
+				WebSocketMetadata socketMetadata = socketBox.sockets.get(socket);
+				if (simulationid.equals(socketMetadata.simulationid)) {
+					simulationSockets.add(socketMetadata);
+				}
+			}
+			return simulationSockets;
+		}
+
+		void addMetadata(WebSocket socket, WebSocketMetadata socketMetadata) {
+			socketBox.sockets.put(socket, socketMetadata);
+		}
+
+		void removeSocket(WebSocket socket) {
+			socketBox.sockets.remove(socket);
+		}
+
+		void removeSocketMetadata(WebSocketMetadata socketMetadata) {
+			List<WebSocket> sockets = new LinkedList<WebSocket>(socketBox.sockets.keySet());
+			List<WebSocket> simulationSockets = new LinkedList<WebSocket>();
+			for (WebSocket socket : sockets) {
+				WebSocketMetadata smd = socketBox.sockets.get(socket);
+				if (smd.userid.equals(socketMetadata.userid) && smd.simulationid.equals(socketMetadata.simulationid)) {
+					simulationSockets.add(socket);
+				}
+			}
+			socketBox.sockets.remove(socketMetadata);
+		}
+	}
+
+	public static class WebSocketMetadata {
+		final WebSocket socket;
+		final String userid;
+		final String simulationid;
+		long timeOfLastInteraction;
+
+		public WebSocketMetadata(WebSocket s, String uid) {
+			socket = s;
+			userid = uid;
+			simulationid = "";
+			timeOfLastInteraction = System.currentTimeMillis();
+		}
+	}
+
+	private void addSocketToUser(WebSocket socket) {
+		String userid = stringEntityReferenceSerializer.serialize(socket.getUser());
+		WebSocketMetadata smd = new WebSocketMetadata(socket, userid);
+		socketBox.addMetadata(socket, smd);
 	}
 	//
 	// private class RecommendationWebSocket extends NettyWebSocket {
@@ -69,19 +134,55 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 	//
 	// }
 
-	public void onWebSocketConnect(WebSocket sock) {
-		String user = stringEntityReferenceSerializer.serialize(sock.getUser());
+	private void closeWebSocket(WebSocket socket) {
+		socketBox.removeSocket(socket);
+	}
 
-		this.addSocketToUser(user, sock);
+	private void cleanWebSockets() {
+		long now = System.currentTimeMillis();
+		List<WebSocket> sockets = new LinkedList<WebSocket>(socketBox.sockets.keySet());
+		for (WebSocket socket : sockets) {
+			if (now - socketBox.get(socket).timeOfLastInteraction > TIMEOUT_MILLISECONDS) {
+				closeWebSocket(socket);
+			}
+		}
+	}
 
-		sock.onMessage(new WebSocket.Callback() {
-			public void call(WebSocket sock) {
+	public void onWebSocketConnect(WebSocket socket) {
+
+		this.addSocketToUser(socket);
+
+		socket.onDisconnect(new WebSocket.Callback() {
+			@Override
+			public void call(WebSocket socket) {
+				closeWebSocket(socket);
+			}
+		});
+
+		socket.onMessage(new WebSocket.Callback() {
+			@Override
+			public void call(WebSocket socket) {
+				socketBox.get(socket).timeOfLastInteraction = System.currentTimeMillis();
+				cleanWebSockets();
+
 				XwikiCoreFacadeRestResource corefacade = new XwikiCoreFacadeRestResource();
-				String message = sock.recv();
+				String message = socket.recv();
 				String[] data = message.split(",");
-				String modelSetId = data[0];
-				String artifactId = data[1];
-				String userId = data[2];
+				if (data.length < 3) {
+					closeWebSocket(socket);
+					return;
+				}
+				String modelSetId;
+				String artifactId;
+				String userId;
+				try {
+					modelSetId = data[0];
+					artifactId = data[1];
+					userId = data[2];
+				} catch (ArrayIndexOutOfBoundsException e) {
+					closeWebSocket(socket);
+					return;
+				}
 				Recommendations recommendations;
 				try {
 					recommendations = corefacade.getRecommendations(modelSetId, artifactId, userId);
@@ -96,7 +197,7 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 				} catch (JsonProcessingException e) {
 					msg = "";
 				}
-				sock.send(msg);
+				socket.send(msg);
 			}
 		});
 	}

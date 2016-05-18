@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+ xmlns:f="http://xmlns.jcp.org/jsf/core"
+ xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	
+<f:metadata>
+   
+    <f:viewParam name="id" value="#{ContentAnalysisBean.id}"  />
+     <f:event listener="#{ContentAnalysisBean.actionDownloadAnalysis}"
+        type="preRenderView"/>
+</f:metadata>
+	
+<h:head>
+	<title>Result - Analysis</title>
+</h:head>
+<h:body>
+	
+	<h:form id="Form">
+	
+
+		
+
+
+	</h:form>
+	<br />
+
+	<br />
+
+
+
+
+
+
+	<br />
+
+
+
+	<h:form id="forea">
+	
+		<c:forEach items="#{ContentAnalysisBean.collectionannotatedcontent}"
+			var="data" varStatus="status">
+			<h:panelGrid columns="2" border="1">
+				<f:facet name="header">
+			Content Analysis Information of #{data.type}<br/>
+			Title: #{data.collaborativeContent.title}
+		</f:facet>
+
+				<h:outputLabel for="label_#{status.index}" value="Overall Quality" />
+				<h:outputText id="label_#{status.index}"
+					value="#{data.overallQuality}" style="background-color: #{ContentAnalysisBean.color(data.overallQuality)}" />
+
+				<h:outputLabel for="label1_#{status.index}"
+					value="Overall Quality Measure" />
+				<h:outputText id="label1_#{status.index}"
+					value="#{data.overallQualityMeasure}" />
+
+				<h:outputLabel for="label2_#{status.index}"
+					value="Overall Recommendations" />
+				<h:outputText id="label2_#{status.index}"
+					value="#{data.overallRecommendations}" />
+
+				<f:facet name="footer">
+				
+				<c:choose> 
+				<c:when test="#{data.type eq 'Completeness' or data.type eq 'Presentation Clarity'}">
+					<c:forEach items="#{data.annotations}"
+			var="annot" varStatus="status">
+						<h:outputText 
+					value="#{annot.recommendation}"  /> <br/>
+						</c:forEach>
+					</c:when>
+					
+					<c:otherwise>
+					<h:panelGroup style="display:block; text-align:center">
+						<h:commandButton  value="#{data.type}"
+							action="#{pageController.navigatepageAnalysis}"
+							actionListener="#{DataContentAnalysisbean.listener}" >
+							 <f:attribute name="valdata" value="#{data}" />  
+							</h:commandButton>
+					</h:panelGroup>
+					</c:otherwise>
+					</c:choose>
+				</f:facet>
+			</h:panelGrid>
+			<br />
+			<br />
+		</c:forEach>
+
+
+	
+
+
+
+
+	</h:form>
+	
+	<br/><br/><br/><br/><br/><br/><br/>
+
+<!-- <h:panelGroup>
+<div style="width: 600px;">
+<p align="center">
+ <a href="http://www.fmt.isti.cnr.it" target="_blank">Formal Methods &amp; Tools Group</a><br/>
+<a href="http://www.isti.cnr.it" target="_blank">Institute of information science and technologies "Alessandro Faedo"</a><br/>  
+<a href="http://www.cnr.it" target="_blank"><img  src="images/Logo_CNR-2010-ENG-high.png" style="height: 80px;" /></a>
+</p>
+</div>
+</h:panelGroup>
+		<br/>
+
+<p>*For any bugs, please write to Giorgio O. Spagnolo (spagnolo at isti.cnr.it)</p> -->
+	
+</h:body>
+</html>
