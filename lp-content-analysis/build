@@ -25,6 +25,9 @@ function component_build() {
     mvn ${__MVN_PROFILE__} clean
     # skip tests as we will do them in the component_test stage
     mvn ${__MVN_PROFILE__} package -Dmaven.test.skip=true
+    cd lp-ca-ui
+    ./build
+    cd ..
 }
 
 ### TEST ###
@@ -45,10 +48,9 @@ function component_install() {
     #cp <path_to>/rundeps.txt ${__OUT_RUNDEPS_FILE__}
     # These is no configuration file to copy
     #cp <path_to>/file.cfg ${__OUT_CONF_PATH__}/
-    cd lp-ca-ui
-    ./build
+    
     mkdir -p ${__OUT_PATH__}/lp-ca-ui/
-    cp -r out/* "${__OUT_PATH__}/lp-ca-ui/"
+    cp -r lp-ca-ui/out/* "${__OUT_PATH__}/lp-ca-ui/"
 
 }
 
