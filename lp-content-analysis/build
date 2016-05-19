@@ -25,7 +25,9 @@ function component_build() {
     mvn ${__MVN_PROFILE__} clean
     # skip tests as we will do them in the component_test stage
     mvn ${__MVN_PROFILE__} package -Dmaven.test.skip=true
-    ./lp-ca-ui/build
+    cd lp-ca-ui
+    ./build
+    cd ..
 }
 
 ### TEST ###
