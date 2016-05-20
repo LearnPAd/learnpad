@@ -26,9 +26,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
+import eu.learnpad.sim.rest.event.impl.ScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationEndEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
@@ -55,6 +57,7 @@ SimRestAPITestCoreFacadeInterface {
 	public int nbTaskEndEvents = 0;
 	public int nbTaskFailedEvents = 0;
 	public int nbSessionScoreUpdateEvents = 0;
+	public int nbScoreUpdateEvents = 0;
 
 	public SimRestAPITestCoreFacadeServer(List<UserData> users) {
 		super();
@@ -122,6 +125,11 @@ SimRestAPITestCoreFacadeInterface {
 	@Override
 	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) {
 		nbSessionScoreUpdateEvents++;
+	}
+
+	@Override
+	public void receiveScoreUpdateEvent(ScoreUpdateEvent event) throws LpRestException {
+		nbScoreUpdateEvents++;		
 	}
 
 }
