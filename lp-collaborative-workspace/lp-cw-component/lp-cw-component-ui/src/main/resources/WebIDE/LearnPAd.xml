@@ -33,7 +33,7 @@
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <date>1446032214000</date>
   <contentUpdateDate>1445874786000</contentUpdateDate>
-  <version>1.1</version>
+  <version>2.2</version>
   <title/>
   <comment/>
   <minorEdit>false</minorEdit>
@@ -157,6 +157,7 @@
     <property>
       <spaces>
         <value>LPCode</value>
+        <value>LPDocs</value>
         <value>LPUI</value>
       </spaces>
     </property>
