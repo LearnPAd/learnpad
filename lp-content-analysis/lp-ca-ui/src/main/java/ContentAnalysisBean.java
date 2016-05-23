@@ -74,7 +74,7 @@ public class ContentAnalysisBean implements Serializable {
 
 	@PostConstruct
 	public void init(){
-		log.trace(id);
+		log.trace("post"+id);
 	}
 
 
