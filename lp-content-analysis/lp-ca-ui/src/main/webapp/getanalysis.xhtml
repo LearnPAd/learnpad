@@ -40,7 +40,7 @@
 
 
 	<h:form id="forea">
-		<c:forEach value="#{ContentAnalysisBean.collectionannotatedcontent}"
+		<ui:repeat value="#{ContentAnalysisBean.collectionannotatedcontent}"
 			var="data" varStatus="status">
 			<h:panelGrid columns="2" border="1">
 				<f:facet name="header">
@@ -64,30 +64,29 @@
 
 				<f:facet name="footer">
 				
-				<c:choose> 
-				<c:when test="#{data.type eq 'Completeness' or data.type eq 'Presentation Clarity'}">
-					<c:forEach items="#{data.annotations}"
+				
+				<ui:fragment  rendered="#{data.type eq 'Completeness' or data.type eq 'Presentation Clarity'}">
+					<ui:repeat value="#{data.annotations}"
 			var="annot" varStatus="status">
 						<h:outputText 
-					value="#{annot.recommendation}"  /> <br/>
-						</c:forEach>
-					</c:when>
-					
-					<c:otherwise>
+					value="#{annot.recommendation}" rendered="#{data.type eq 'Completeness' or data.type eq 'Presentation Clarity'}" /> <br/>
+						</ui:repeat>
+					</ui:fragment>
 					<h:panelGroup style="display:block; text-align:center">
-						<h:commandButton  value="#{data.type}"
+						<ui:fragment  rendered="#{data.type ne 'Presentation Clarity'}">
+						<h:commandButton  value="#{data.type}" rendered="#{data.type ne 'Completeness'}"
 							action="#{pageController.navigatepageAnalysis}"
 							actionListener="#{DataContentAnalysisbean.listener}" >
 							 <f:attribute name="valdata" value="#{data}" />  
 							</h:commandButton>
+							</ui:fragment>
 					</h:panelGroup>
-					</c:otherwise>
-					</c:choose>
+					
 				</f:facet>
 			</h:panelGrid>
 			<br />
 			<br />
-		</c:forEach>
+		</ui:repeat>
 
 
 	
