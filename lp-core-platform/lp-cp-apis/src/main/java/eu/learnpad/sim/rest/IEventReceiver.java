@@ -25,6 +25,7 @@ import javax.ws.rs.Path;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
+import eu.learnpad.sim.rest.event.impl.ScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationEndEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
@@ -70,4 +71,8 @@ public interface IEventReceiver {
 	@POST
 	@Path("/sessionscoreupdate")
 	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) throws LpRestException;
+	
+	@POST
+	@Path("/scoreupdate")
+	public void receiveScoreUpdateEvent(ScoreUpdateEvent event) throws LpRestException;
 }
