@@ -33,12 +33,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 public class ProcessInstanceData {
-	private String instanceid;
-	private String processartifactid;
-	private String processartifactkey;
-	private Map<String, Object> parameters;
-	private Collection<String> users;
-	private Map<String, Collection<String>> routes;
+	public String instanceid;
+	public String processartifactid;
+	public String processartifactkey;
+	public Map<String, Object> parameters;
+	public Collection<String> users;
+	public Map<String, Collection<String>> routes;
 
 	public ProcessInstanceData() {
 	};
