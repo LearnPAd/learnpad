@@ -7,7 +7,6 @@ package eu.learnpad.or.impl;
 
 import eu.learnpad.ontology.AbstractUnitTest;
 import eu.learnpad.or.rest.data.Entities;
-import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import org.junit.Test;
@@ -67,7 +66,7 @@ public class OntologyRecommenderImplTest extends AbstractUnitTest {
         String artifactId = "obj.22332";
         String userId = "barnaby.barnes@learnpad.eu";
         String title = "Organize Service Conference Task";
-        String text = "Before organizing a serivice conference, Sally Shugar suggests to read the following document first: ";
+        String text = "The activity <i>Organize Conference</i> specified by Sally Shugar should be <b>splitted</b> into 2 activities.";
         OntologyRecommenderImpl instance = new OntologyRecommenderImpl();
         Entities result = instance.analyseText(modelSetId, artifactId, userId, title, text);
         assertNotNull(result);

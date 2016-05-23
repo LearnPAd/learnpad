@@ -15,14 +15,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Entity {
     
+    private String id; //unique id to be referenced within analysed text
     private String contextArtifactId; //page id or ontology instance URI of recognized resource
     private String type;
-    private TextMarker textMarker;
     private BusinessActor person;
     private RelatedObjects relatedObjects;
 
     public String getContextArtifactId() {
         return contextArtifactId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    @XmlElement
+    public void setId(String id) {
+        this.id = id;
     }
 
     @XmlElement
@@ -37,15 +46,6 @@ public class Entity {
     @XmlElement
     public void setType(String type) {
         this.type = type;
-    }
-
-    public TextMarker getTextMarker() {
-        return textMarker;
-    }
-
-    @XmlElement
-    public void setTextMarker(TextMarker textMarker) {
-        this.textMarker = textMarker;
     }
 
     public BusinessActor getPerson() {

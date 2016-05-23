@@ -42,9 +42,9 @@ import eu.learnpad.or.rest.data.RelatedObjects;
 import eu.learnpad.or.rest.data.ResourceType;
 import eu.learnpad.or.rest.data.SimulationData;
 import eu.learnpad.or.rest.data.States;
-import eu.learnpad.or.rest.data.TextMarker;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  *
@@ -136,13 +136,14 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     public Entities analyseText(String modelSetId, String contextArtifactId, String userId, String title, String text) throws LpRestException {
         
         Entities testData = new Entities();
+        String id = UUID.randomUUID().toString();
+        String analysedText = "The activity <i>Organize Conference</i> specified by <span data-recommendation=\""+id+"\">Sally Shugar</span> should be <b>splitted</b> into 2 activities.";
+        testData.setAnalyzedContent(analysedText);
+        
         Entity entity = new Entity();
+        entity.setId(id);
         entity.setContextArtifactId("transfer:obj.35315");
         entity.setType("eo:Person");
-        TextMarker textMarker = new TextMarker();
-        textMarker.setStartPosition(26);
-        textMarker.setLength(12);
-        entity.setTextMarker(textMarker);
         BusinessActor person = new BusinessActor();
         person.setUri("transfer:obj.34872");
         person.setName("Sally Shugar");

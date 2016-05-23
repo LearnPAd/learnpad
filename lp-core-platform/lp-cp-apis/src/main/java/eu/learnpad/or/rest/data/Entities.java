@@ -17,6 +17,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Entities {
     
     private List<Entity> entities = null;
+    
+    private String analyzedContent;
 
     public List<Entity> getEntities() {
         return entities;
@@ -27,6 +29,12 @@ public class Entities {
         this.entities = entities;
     }
 
-    
-    
+    public String getAnalyzedContent() {
+        return analyzedContent;
+    }
+
+    public void setAnalyzedContent(String analyzedContent) {
+        this.analyzedContent = analyzedContent;
+    }
+
 }
