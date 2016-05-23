@@ -24,26 +24,35 @@
   <web>LPDocs</web>
   <name>Simulation</name>
   <language/>
-  <defaultLanguage/>
+  <defaultLanguage>en</defaultLanguage>
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
   <creationDate>1463742705000</creationDate>
-  <parent>LPDocs.Patch</parent>
+  <parent>LPDocs.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1463745335000</date>
-  <contentUpdateDate>1463745335000</contentUpdateDate>
+  <date>1464002742000</date>
+  <contentUpdateDate>1464002742000</contentUpdateDate>
   <version>1.1</version>
-  <title>${services.localization.render('LPDocs.Simulation.title')}</title>
+  <title>Simulation Mode</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
   <content>{{velocity}}
-== ${services.localization.render('LPDocs.Simulation.SingleUser.title')} ==
-${services.localization.render('LPDocs.Simulation.SingleUser.content')}
+{{warning}}
+This is foo
+{{/warning}}
 
-== ${services.localization.render('LPDocs.Simulation.MultiUser.title')} ==
-${services.localization.render('LPDocs.Simulation.MultiUser.content')}
+== Single User Simulation ==
+{{warning}}
+This is foo
+{{/warning}}
+
+== Multi User Simulation ==
+{{warning}}
+This is foo
+{{/warning}}
+
 {{/velocity}}</content>
 </xwikidoc>
