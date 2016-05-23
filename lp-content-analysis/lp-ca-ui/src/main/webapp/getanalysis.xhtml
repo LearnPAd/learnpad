@@ -40,8 +40,7 @@
 
 
 	<h:form id="forea">
-	
-		<ui:repeat value="#{ContentAnalysisBean.collectionannotatedcontent}"
+		<c:forEach value="#{ContentAnalysisBean.collectionannotatedcontent}"
 			var="data" varStatus="status">
 			<h:panelGrid columns="2" border="1">
 				<f:facet name="header">
@@ -88,7 +87,7 @@
 			</h:panelGrid>
 			<br />
 			<br />
-		</ui:repeat>
+		</c:forEach>
 
 
 	
