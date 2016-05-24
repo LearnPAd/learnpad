@@ -129,7 +129,7 @@
 #set ($panelAbstract = ${services.localization.render('LPDocs.Abstract.content')}) 
 
 image:icon:help $panelAbstract [[$docsLabel&gt;&gt;$docsReference]]
-
+#panelfooter()
 {{/velocity}}
 </content>
     </property>
