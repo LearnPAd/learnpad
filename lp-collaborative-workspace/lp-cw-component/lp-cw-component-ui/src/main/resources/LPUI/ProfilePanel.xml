@@ -123,24 +123,26 @@
     </property>
     <property>
       <content>{{velocity}}
-#panelheader($services.localization.render('LPUI.ProfilePanel.title'))
-#set ($dashboardReference = $services.model.createDocumentReference($xcontext.database, 'LPUI', 'Dashboard'))
-#set ($simulationReference = $services.model.createDocumentReference($xcontext.database, 'LPUI', 'SimulationEnvironment'))
-[[${services.localization.render('LPUI.ProfilePanel.profile')}&gt;&gt;${xcontext.userReference}]]
-[[${services.localization.render('LPUI.ProfilePanel.dashboard')}&gt;&gt;${dashboardReference}]]
-#set ($listSimulationID = $services.learnpad.listSimulations())
-#set ($userid = $xcontext.user.replace('XWiki.', ''))
-#foreach ($simulationid in $listSimulationID)
-  #set ($simulationInfo = $services.learnpad.getSimulationInfo($simulationid))
-  #set ($users = $simulationInfo.users)
-  #foreach ($user in $users)
-    #if ($user == $userid)
-      (% class="help-block text-center" %)${services.localization.render('LPUI.ProfilePanel.join.help')}
-      [[${services.localization.render('LPUI.ProfilePanel.join')}&gt;&gt;${simulationReference}||queryString="simulationid=${simulationInfo.instanceid}" class="btn btn-block btn-simulation"]]
+#if(!$isGuest)
+  #panelheader($services.localization.render('LPUI.ProfilePanel.title'))
+  #set ($dashboardReference = $services.model.createDocumentReference($xcontext.database, 'LPUI', 'Dashboard'))
+  #set ($simulationReference = $services.model.createDocumentReference($xcontext.database, 'LPUI', 'SimulationEnvironment'))
+  [[${services.localization.render('LPUI.ProfilePanel.profile')}&gt;&gt;${xcontext.userReference}]]
+  [[${services.localization.render('LPUI.ProfilePanel.dashboard')}&gt;&gt;${dashboardReference}]]
+  #set ($listSimulationID = $services.learnpad.listSimulations())
+  #set ($userid = $xcontext.user.replace('XWiki.', ''))
+  #foreach ($simulationid in $listSimulationID)
+    #set ($simulationInfo = $services.learnpad.getSimulationInfo($simulationid))
+    #set ($users = $simulationInfo.users)
+    #foreach ($user in $users)
+      #if ($user == $userid)
+        (% class="help-block text-center" %)${services.localization.render('LPUI.ProfilePanel.join.help')}
+        [[${services.localization.render('LPUI.ProfilePanel.join')}&gt;&gt;${simulationReference}||queryString="simulationid=${simulationInfo.instanceid}" class="btn btn-block btn-simulation"]]
+      #end
     #end
   #end
+  #panelfooter()
 #end
-#panelfooter()
 {{/velocity}}</content>
     </property>
     <property>
