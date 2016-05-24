@@ -108,33 +108,9 @@ SimulationEnvironment.goback=Go back to the browsing of the model
 LPUI.Dashboard.section.title=Score on the process "{0}"
 
 # LPDocs
-LPDocs.WebHome.title=Documentation WebHome
+LPDocs.WebHome.title=How To!
 LPDocs.WebHome.welcome=Browse the following table and learn more about a topic
 LPDocs.Abstract.content=Learn more about a topic. Click here :
-LPDocs.Browsing.title=Browsing Mode
-LPDocs.Browsing.content=This is foo
-LPDocs.Comments.title=Comments
-LPDocs.Comments.content=This is foo
-LPDocs.ContentAnalysis.title=Validate
-LPDocs.ContentAnalysis.content=This is foo
-LPDocs.Contributions.title=Collaborative Contents
-LPDocs.Contributions.content=This is foo
-LPDocs.Feedback.title=Feedback
-LPDocs.Feedback.content=This is foo
-LPDocs.Patch.title=Structured Feedback (Patch)
-LPDocs.Patch.content=This is foo
-LPDocs.Recommandations.title=Recommandations
-LPDocs.Recommandations.Experts.title=Experts
-LPDocs.Recommandations.Experts.content=This is foo
-LPDocs.Recommandations.LearningMaterials.title=Learning Materials
-LPDocs.Recommandations.LearningMaterials.content=This is foo
-LPDocs.Recommandations.Cases.title=Suggested Cases
-LPDocs.Recommandations.Cases.content=This is foo
-LPDocs.Simulation.title=Simulation Mode
-LPDocs.Simulation.SingleUser.title=Single User Simulation
-LPDocs.Simulation.SingleUser.content=This is foo
-LPDocs.Simulation.MultiUser.title=Multi User Simulation
-LPDocs.Simulation.MultiUser.content=This is foo
 
 ## Macros
 # Workflow buttons macro
