@@ -10,6 +10,7 @@ import org.xwiki.component.phase.InitializationException;
 import org.xwiki.test.mockito.MockitoComponentMockingRule;
 
 import eu.learnpad.cw.internal.CWXwikiBridge;
+import eu.learnpad.cw.internal.RecommendationWebsocketServer;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
 
@@ -30,6 +31,10 @@ public class CWBridgeTest {
 	// public final MockitoComponentMockingRule<CWXwikiBridge> mocker = new
 	// MockitoComponentMockingRule(CWXwikiBridge.class,org.xwiki.rest.XWikiRestComponent.class);
 
+	@Rule
+	public final MockitoComponentMockingRule<RecommendationWebsocketServer> mockerRecWebSocketServer = new MockitoComponentMockingRule(
+			RecommendationWebsocketServer.class);
+
 	private CWXwikiBridge bridge;
 	private SecureRandom random;
 
@@ -37,6 +42,13 @@ public class CWBridgeTest {
 		this.random = new SecureRandom();
 	}
 
+	@Test
+	public void testRecommendationWebsocketServer() throws ComponentLookupException{
+		bridge = mocker.getComponentUnderTest();
+
+		RecommendationWebsocketServer recServer = mockerRecWebSocketServer.getComponentUnderTest();			
+	}
+	
 	@Test
 	@Ignore
 	public void testInsertNotifiedRecommandations()

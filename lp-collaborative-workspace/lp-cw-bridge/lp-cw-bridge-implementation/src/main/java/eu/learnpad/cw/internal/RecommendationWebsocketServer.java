@@ -35,7 +35,6 @@ import org.xwiki.model.reference.EntityReferenceSerializer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import eu.learnpad.core.impl.cw.XwikiCoreFacadeRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
 
@@ -48,6 +47,10 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 	@Inject
 	@Named("compactwiki")
 	private EntityReferenceSerializer<String> stringEntityReferenceSerializer;
+
+	@Inject
+	@Named("eu.learnpad.cw.internal.CWXwikiBridge")
+	private CWXwikiBridge cwBridge;
 
 	public static final SocketBox socketBox = new SocketBox();
 
@@ -116,7 +119,7 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 			timeOfLastInteraction = System.currentTimeMillis();
 		}
 	}
-
+	
 	private void addSocketToUser(WebSocket socket) {
 		String userid = stringEntityReferenceSerializer.serialize(socket.getUser());
 		WebSocketMetadata smd = new WebSocketMetadata(socket, userid);
@@ -165,7 +168,8 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 				socketBox.get(socket).timeOfLastInteraction = System.currentTimeMillis();
 				cleanWebSockets();
 
-				XwikiCoreFacadeRestResource corefacade = new XwikiCoreFacadeRestResource();
+//				XwikiCoreFacadeRestResource corefacade = new XwikiCoreFacadeRestResource();
+
 				String message = socket.recv();
 				String[] data = message.split(",");
 				if (data.length < 3) {
@@ -185,7 +189,8 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 				}
 				Recommendations recommendations;
 				try {
-					recommendations = corefacade.getRecommendations(modelSetId, artifactId, userId);
+//					recommendations = corefacade.getRecommendations(modelSetId, artifactId, userId);
+					recommendations = cwBridge.getRecommendations(modelSetId, artifactId, userId);					
 				} catch (LpRestException e) {
 					recommendations = new Recommendations();
 				}
