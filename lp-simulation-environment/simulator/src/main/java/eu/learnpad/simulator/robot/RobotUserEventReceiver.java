@@ -117,7 +117,7 @@ IProcessEventReceiver, IRobotHandler {
 
 	@Override
 	public void receiveProcessEndEvent(ProcessEndSimEvent event) {
-		robots.remove(event.processInstance.processartifactid);
+		robots.remove(event.processInstance.getProcessartifactid());
 	}
 
 	@Override
