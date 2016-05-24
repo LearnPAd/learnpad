@@ -103,7 +103,7 @@
 							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
 							<file>XWiki/XWikiPreferences.xml</file>
 							<xpath>/xwikidoc/object/property/rightPanels</xpath>
-							<value>LPUI.ProfilePanel,LPUI.RecommendationPanel</value>
+							<value>LPUI.ProfilePanel,LPUI.RecommendationPanel,LPUI.DocsPanel</value>
 						</transformation>
 						<!-- Remove tabs at the bottom -->
 						<transformation>
@@ -188,7 +188,7 @@
 									<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
 									<file>XWiki/XWikiPreferences.xml</file>
 									<xpath>/xwikidoc/object/property/rightPanels</xpath>
-									<value>LPUI.ProfilePanel,LPUI.RecommendationPanel</value>
+									<value>LPUI.ProfilePanel,LPUI.RecommendationPanel,LPUI.DocsPanel</value>
 								</transformation>
 								<!-- Show tabs at the bottom -->
 								<transformation>
