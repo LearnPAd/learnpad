@@ -67,8 +67,16 @@ public class ProcessInstanceData {
 		this.processartifactid = processArtifactId;
 	}
 
+	public String getProcessartifactkey() {
+		return processartifactkey;
+	}
+
 	public String setProcessartifactid() {
 		return this.processartifactid;
+	}
+
+	public String getProcessartifactid() {
+		return processartifactid;
 	}
 
 	public void setProcessartifactkey(String processArtifactKey) {

@@ -201,8 +201,8 @@ public class SimulatorBridgeImpl implements BridgeInterface, IUserInfosAPI {
 	 */
 	public String addProcessInstance(ProcessInstanceData data) {
 		String id = simulator.processManager().startProjectInstance(
-				data.processartifactkey, data.parameters, data.users,
-				data.routes);
+				data.getProcessartifactkey(), data.getParameters(), data.getUsers(),
+				data.getRoutes());
 		setResponseToCreated(id);
 		return id;
 	}

@@ -228,8 +228,8 @@ public class ActivitiProcessDispatcher extends AbstractProcessDispatcher {
 				if (processDef != null) {
 					// note that we pass all the process variables just in case
 					manager.startProjectInstance(processDef.getKey(),
-							processVariables, originData.users,
-							originData.routes);
+							processVariables, originData.getUsers(),
+							originData.getRoutes());
 				}
 
 				// check if there is some message subscription event pending
