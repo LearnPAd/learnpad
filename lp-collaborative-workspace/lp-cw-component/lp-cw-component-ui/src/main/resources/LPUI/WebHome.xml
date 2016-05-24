@@ -83,10 +83,6 @@
   #end
 #end
 )))
-
-== ${services.localization.render('LPDocs.WebHome.title')} ==
-${services.localization.render('LPDocs.Abstract.content')} [[${services.localization.render('LPDocs.WebHome.title')}&gt;&gt;LPDocs.WebHome]] 
-
 {{/velocity}}</content>
   <object>
     <name>LPUI.WebHome</name>
