@@ -110,7 +110,8 @@ LPUI.Dashboard.section.title=Score on the process "{0}"
 # LPDocs
 LPDocs.WebHome.title=How To!
 LPDocs.WebHome.welcome=Browse the following table and learn more about a topic
-LPDocs.Abstract.content=Learn more about a topic. Click here :
+LPDocs.Abstract.content=Learn more about a topic.
+LPDocs.Abstract.linkLabel=Click here
 
 ## Macros
 # Workflow buttons macro
