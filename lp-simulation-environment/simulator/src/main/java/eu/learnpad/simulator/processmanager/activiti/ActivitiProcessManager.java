@@ -479,7 +479,7 @@ public class ActivitiProcessManager implements IProcessManager,
 	public synchronized void signalProcessCompletion(String processId) {
 
 		String simSession = (String) processDispatchers.get(processId)
-				.getProcessInstanceInfos().parameters.get(SIMULATION_ID_KEY);
+				.getProcessInstanceInfos().getParameters().get(SIMULATION_ID_KEY);
 
 		processDispatchers.remove(processId);
 

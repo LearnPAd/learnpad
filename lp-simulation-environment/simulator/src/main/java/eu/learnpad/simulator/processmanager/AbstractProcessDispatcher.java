@@ -68,14 +68,14 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 			ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator) {
 		super();
 		this.processInstanceData = processInstanceData;
-		this.processId = processInstanceData.processartifactid;
-		this.involvedUsers = processInstanceData.users;
+		this.processId = processInstanceData.getProcessartifactid();
+		this.involvedUsers = processInstanceData.getUsers();
 		this.manager = manager;
 		this.processEventReceiver = processEventReceiver;
 		this.router = router;
 		this.taskValidator = taskValidator;
 
-		this.simulationSessionId = (String) processInstanceData.parameters
+		this.simulationSessionId = (String) processInstanceData.getParameters()
 				.get(ActivitiProcessManager.SIMULATION_ID_KEY);
 
 		for (String user : involvedUsers) {
