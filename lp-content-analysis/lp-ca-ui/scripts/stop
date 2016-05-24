@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-pkill -f "java -cp jetty-runner.jar org.mortbay.jetty.runner.Runner --port 9092 lp-ca-ui.war"
+pkill -f "java -cp jetty-runner.jar org.mortbay.jetty.runner.Runner --out lpcaiu.log --port 9092 lp-ca-ui.war"
