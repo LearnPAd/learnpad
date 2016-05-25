@@ -28,6 +28,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.xwiki.component.annotation.Component;
+import org.xwiki.component.manager.ComponentLookupException;
+import org.xwiki.component.manager.ComponentManager;
 import org.xwiki.contrib.websocket.WebSocket;
 import org.xwiki.contrib.websocket.WebSocketHandler;
 import org.xwiki.model.reference.EntityReferenceSerializer;
@@ -35,6 +37,7 @@ import org.xwiki.model.reference.EntityReferenceSerializer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import eu.learnpad.core.impl.cw.XwikiCoreFacadeRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
 
@@ -48,10 +51,28 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 	@Named("compactwiki")
 	private EntityReferenceSerializer<String> stringEntityReferenceSerializer;
 
-	@Inject
-	@Named("eu.learnpad.cw.internal.CWXwikiBridge")
-	private CWXwikiBridge cwBridge;
+//	@Inject
+//	@Named("eu.learnpad.cw.internal.CWXwikiBridge")
+//	private CWXwikiBridge cwBridge;
 
+	@Inject
+	@Named("root")
+	private ComponentManager componentManager;
+
+	public void foo(){
+		try {
+			CWXwikiBridge bridge = componentManager.getInstance(CWXwikiBridge.class, "eu.learnpad.cw.internal.CWXwikiBridge");
+			bridge.getRecommendations("fooModelSetId", "fooArtifactId", "fooUserId");
+//			cwBridge.getRecommendations("modelSetId", "artifactId", "userId");
+		} catch (ComponentLookupException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LpRestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static final SocketBox socketBox = new SocketBox();
 
 	public static class SocketBox {
@@ -168,7 +189,8 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 				socketBox.get(socket).timeOfLastInteraction = System.currentTimeMillis();
 				cleanWebSockets();
 
-//				XwikiCoreFacadeRestResource corefacade = new XwikiCoreFacadeRestResource();
+				XwikiCoreFacadeRestResource corefacade = new XwikiCoreFacadeRestResource();
+				foo();
 
 				String message = socket.recv();
 				String[] data = message.split(",");
@@ -189,8 +211,7 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 				}
 				Recommendations recommendations;
 				try {
-//					recommendations = corefacade.getRecommendations(modelSetId, artifactId, userId);
-					recommendations = cwBridge.getRecommendations(modelSetId, artifactId, userId);					
+					recommendations = corefacade.getRecommendations(modelSetId, artifactId, userId);
 				} catch (LpRestException e) {
 					recommendations = new Recommendations();
 				}
