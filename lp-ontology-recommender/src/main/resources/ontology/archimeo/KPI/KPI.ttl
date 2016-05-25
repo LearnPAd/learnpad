@@ -1,6 +1,10 @@
 # baseURI: http://ikm-group.ch/archiMEO/kpi
+# imports: http://ikm-group.ch/archiMEO/BMM
 # imports: http://ikm-group.ch/archiMEO/emo
+# prefix: kpi
 
+@prefix archi: <http://ikm-group.ch/archiMEO/archimate#> .
+@prefix bmm: <http://ikm-group.ch/archiMEO/BMM#> .
 @prefix cc: <http://creativecommons.org/ns#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix emo: <http://ikm-group.ch/archiMEO/emo#> .
@@ -25,20 +29,30 @@
   dc:publisher "University of Applied Sciences Northwestern Switzerland FHNW"@en ;
   dc:rights "Copyright 2015 FHNW "^^xsd:string ;
   dc:title "The KPI Ontology"@en ;
+  owl:imports <http://ikm-group.ch/archiMEO/BMM> ;
   owl:imports <http://ikm-group.ch/archiMEO/emo> ;
   owl:versionInfo "1.0"^^xsd:string ;
 .
-kpi:Criterion
+kpi:Half-year_periodicity
+  rdf:type kpi:Periodicity ;
+.
+kpi:KPI
   rdf:type owl:Class ;
-  rdfs:comment "A KPI is a measurement which evaluates how a company executes its strategic vision. Source: http://www.atinternet.com/wp-content/uploads/2012/02/AT_WP_KPI_EN.pdf"^^xsd:string ;
-  rdfs:comment "PIMM"^^xsd:string ;
-  rdfs:label "KPI"^^xsd:string ;
   rdfs:subClassOf emo:KPI_MetaModel ;
 .
-kpi:Metrics
+kpi:LearningGoal
   rdf:type owl:Class ;
-  rdfs:comment "PIMM"^^xsd:string ;
-  rdfs:comment "metrics provides the measurement for a criterion"^^xsd:string ;
+  rdfs:subClassOf emo:KPI_MetaModel ;
+.
+kpi:Month_periodicity
+  rdf:type kpi:Periodicity ;
+.
+kpi:OperationalGoal
+  rdf:type owl:Class ;
+  rdfs:subClassOf emo:KPI_MetaModel ;
+.
+kpi:Periodicity
+  rdf:type owl:Class ;
   rdfs:subClassOf emo:KPI_MetaModel ;
 .
 kpi:Perspective
@@ -47,17 +61,125 @@ kpi:Perspective
   rdfs:comment "perspective relates to the balanced scorecard which suggests that we view the organization from four perspectives, and to develop metrics, collect data and analyze it relative to each of these perspectives. Source: Balance Scorecard Institute URL: http://balancedscorecard.org/"^^xsd:string ;
   rdfs:subClassOf emo:KPI_MetaModel ;
 .
+kpi:Quarter_periodicity
+  rdf:type kpi:Periodicity ;
+.
+kpi:Year_periodicity
+  rdf:type kpi:Periodicity ;
+.
 kpi:criterionIsConsideredFromPerspective
   rdf:type owl:ObjectProperty ;
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:comment "a criterion is considered from one or more perspective"^^xsd:string ;
-  rdfs:domain kpi:Criterion ;
   rdfs:range kpi:Perspective ;
+.
+kpi:kpiEvaluatedWithPeriodicity
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain kpi:KPI ;
+  rdfs:range kpi:Periodicity ;
+.
+kpi:kpiHasAssignedDataSource
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain kpi:KPI ;
+  rdfs:range xsd:string ;
+.
+kpi:kpiHasDescription
+  rdf:type rdf:Property ;
+  rdfs:domain kpi:KPI ;
+  rdfs:range xsd:string ;
+.
+kpi:kpiHasGreenYellowThreshold
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain kpi:KPI ;
+  rdfs:range xsd:float ;
+.
+kpi:kpiHasPerspective
+  rdf:type rdf:Property ;
+  rdfs:domain kpi:KPI ;
+  rdfs:range kpi:Perspective ;
+.
+kpi:kpiHasThresholdTypeGreaterIsBetter
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain kpi:KPI ;
+  rdfs:range xsd:boolean ;
+.
+kpi:kpiHasYellowRedThreshold
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain kpi:KPI ;
+  rdfs:range xsd:float ;
+.
+kpi:kpiIsAssociatedWithBusinessActor
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain kpi:KPI ;
+  rdfs:range archi:BusinessActor ;
+.
+kpi:kpiMeasuresLearningGoal
+  rdf:type rdf:Property ;
+  rdfs:domain kpi:KPI ;
+  rdfs:range kpi:LearningGoal ;
+.
+kpi:kpiMeasuresOperationalGoal
+  rdf:type rdf:Property ;
+  rdfs:domain kpi:KPI ;
+  rdfs:range kpi:OperationalGoal ;
+.
+kpi:kpiProvidesRecommendation
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain kpi:KPI ;
+  rdfs:range xsd:string ;
+.
+kpi:kpiValueUnit
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain kpi:KPI ;
+  rdfs:range xsd:string ;
+.
+kpi:learningGoalContributesToLearningGoal
+  rdf:type rdf:Property ;
+  rdfs:domain kpi:LearningGoal ;
+  rdfs:range kpi:LearningGoal ;
+.
+kpi:learningGoalEnablesOperationalGoal
+  rdf:type rdf:Property ;
+  rdfs:domain kpi:LearningGoal ;
+  rdfs:range kpi:OperationalGoal ;
+.
+kpi:learningGoalHasPerspective
+  rdf:type rdf:Property ;
+  rdfs:domain kpi:LearningGoal ;
+  rdfs:range kpi:Perspective ;
+.
+kpi:learningGoalIsAssociatedWithBusinessActor
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain kpi:LearningGoal ;
+  rdfs:range archi:BusinessActor ;
 .
 kpi:metricIsAppliedToCriterion
   rdf:type owl:ObjectProperty ;
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:comment "metric indicates how a criterion is measured"^^xsd:string ;
-  rdfs:domain kpi:Metrics ;
-  rdfs:range kpi:Criterion ;
+.
+kpi:operationalGoalHasPerspective
+  rdf:type rdf:Property ;
+  rdfs:domain kpi:OperationalGoal ;
+  rdfs:range kpi:Perspective ;
+.
+kpi:operationalGoalIsAssociatedWithBusinessActor
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain kpi:OperationalGoal ;
+  rdfs:range archi:BusinessActor ;
+.
+kpi:operationalGoalSupportsOperationalGoal
+  rdf:type rdf:Property ;
+  rdfs:domain kpi:OperationalGoal ;
+  rdfs:range kpi:OperationalGoal ;
+.
+kpi:operationalGoalSupportsStrategicGoal
+  rdf:type rdf:Property ;
+  rdfs:domain kpi:OperationalGoal ;
+  rdfs:range bmm:StrategicGoal ;
+.
+kpi:strategicGoalIsAssociatedWithBusinessActor
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain bmm:StrategicGoal ;
+  rdfs:range archi:BusinessActor ;
 .

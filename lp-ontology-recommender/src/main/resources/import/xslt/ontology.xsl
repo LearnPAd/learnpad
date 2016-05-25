@@ -432,23 +432,6 @@ ________________________________________________________________________________
 	</xsl:template>
 <!--...............................................................................................-->	
 
-<!--
-___________________________________________________________________________________________________
- Learning Goal
-___________________________________________________________________________________________________-->
-	<xsl:template name="LearningGoal">
-            <xsl:param name="id" />
-            <xsl:param name="name" />
-            <xsl:param name="class" />
-  transfer:<xsl:value-of select="$id"/>
-  rdf:type owl:Class;
-  rdf:type emo:LearningGoal ;
-  rdfs:subClassOf emo:LearningGoal ;
-  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
-  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                  	                	                			
-	</xsl:template>
-<!--...............................................................................................-->	
-
 <!-- ============================================================================================================================================== -->
 <!-- ============================================================================================================================================== -->
 <!--
@@ -498,6 +481,8 @@ ________________________________________________________________________________
             <xsl:param name="name" />
             <xsl:param name="class" />
             <xsl:param name="materialURL"/>
+            <xsl:param name="description" />
+            <xsl:param name="comment" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type dkm:LearningDocument ;
@@ -506,8 +491,8 @@ ________________________________________________________________________________
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;  
   dkm:documentHasURL "<xsl:value-of select="$materialURL"/>"^^xsd:string ;  
   dkm:documentHasMIMEType "text/html"^^xsd:string ;
-  dkm:documentHasDescription "This web page contains the required learning material to improve ..."^^xsd:string ;
-  rdfs:comment "This material should be updated ..."^^xsd:string ;
+  dkm:documentHasDescription """<xsl:value-of select="$description"/>"""^^xsd:string ;
+  rdfs:comment """<xsl:value-of select="$comment"/>"""^^xsd:string ;
 	</xsl:template>
 	
 	<xsl:template name="addInModelConnectionForLearningDocumentToCompetency">
@@ -773,28 +758,55 @@ ________________________________________________________________________________
   rdfs:subClassOf kpi:Perspective ;
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
-  lpd:kpiPerspectiveHasId "<xsl:value-of select="$id"/>"^^xsd:string ;
-  lpd:kpiPerspectiveHasName "<xsl:value-of select="$name"/>"^^xsd:string ;
+  kpi:kpiPerspectiveHasId "<xsl:value-of select="$id"/>"^^xsd:string ;
+  kpi:kpiPerspectiveHasName "<xsl:value-of select="$name"/>"^^xsd:string ;
 	</xsl:template>
   <!--...............................................................................................-->  
 <!--
 ___________________________________________________________________________________________________
- Strategic Goal
+ Operational (Business) Goal
 ___________________________________________________________________________________________________-->
-  	<xsl:template name="StrategicGoal">
+  	<xsl:template name="OperationalGoal">
             <xsl:param name="id" />
             <xsl:param name="name" />
             <xsl:param name="class" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
-  rdf:type kpi:StrategicGoal ;
-  rdfs:subClassOf kpi:StrategicGoal ;
+  rdf:type kpi:OperationalGoal ;
+  rdfs:subClassOf kpi:OperationalGoal ;
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
-  lpd:kpiStrategicGoalHasId "<xsl:value-of select="$id"/>"^^xsd:string ;
-  lpd:kpiStrategicGoalHasName "<xsl:value-of select="$name"/>"^^xsd:string ;
+  
+  	</xsl:template>
+	<xsl:template name="addLink_OperationalGoaToPerspective"><xsl:param name="toId"/>kpi:operationalGoalHasPerspective transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text></xsl:template>
+	<!-- TODO
+      kpi:operationalGoalSupportsOperationalGoal
+  -->
+
+<!--...............................................................................................-->
+<!--
+___________________________________________________________________________________________________
+ Learning Goal
+___________________________________________________________________________________________________-->
+  	<xsl:template name="LearningGoal">
+            <xsl:param name="id" />
+            <xsl:param name="name" />
+            <xsl:param name="class" />
+  transfer:<xsl:value-of select="$id"/>
+  rdf:type owl:Class;
+  rdf:type kpi:LearningGoal ;
+  rdfs:subClassOf kpi:LearningGoal ;
+  rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
+  emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
+  
+  <!-- TODO
+  kpi:learningGoalContributesToLearningGoal
+  kpi:learningGoalEnablesOperationalGoal
+  kpi:learningGoalHasPerspective
+  -->
 	</xsl:template>
 <!--...............................................................................................--> 
+
 <!--
 ___________________________________________________________________________________________________
  Performance Indicator
@@ -803,15 +815,47 @@ ________________________________________________________________________________
             <xsl:param name="id" />
             <xsl:param name="name" />
             <xsl:param name="class" />
+            <xsl:param name="description" />
+            <xsl:param name="periodicity" />
+            <xsl:param name="unit" />
+            <xsl:param name="moreIsBetter" />
+            <xsl:param name="thresholdGreenYellow" />
+            <xsl:param name="thresholdYellowRed" />
+            <xsl:param name="dataSource" />
+            <xsl:param name="recommendation" />
+            
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
-  rdf:type kpi:PerformanceIndicator ;
-  rdfs:subClassOf kpi:PerformanceIndicator ;
+  rdf:type kpi:KPI ;
+  rdfs:subClassOf kpi:KPI ;
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
-  lpd:kpiPerformanceIndicatorHasId "<xsl:value-of select="$id"/>"^^xsd:string ;
-  lpd:kpiPerformanceIndicatorHasName "<xsl:value-of select="$name"/>"^^xsd:string ;
-  	</xsl:template>
+  
+  kpi:kpiHasDescription """<xsl:value-of select="$description"/>"""^^xsd:string ;
+  kpi:kpiEvaluatedWithPeriodicity kpi:<xsl:value-of select="$periodicity"/>_periodicity ;
+  kpi:kpiValueUnit "<xsl:value-of select="$unit"/>"^^xsd:string ;
+  <xsl:choose>
+    <xsl:when test="$moreIsBetter = 'more is better'">
+      kpi:kpiHasThresholdTypeGreaterIsBetter "true"^^xsd:boolean ;
+    </xsl:when>
+    <xsl:otherwise>
+      kpi:kpiHasThresholdTypeGreaterIsBetter "false"^^xsd:boolean ;
+    </xsl:otherwise>
+  </xsl:choose>
+  <xsl:if test="$thresholdGreenYellow != ''">kpi:kpiHasGreenYellowThreshold "<xsl:value-of select="$thresholdGreenYellow"/>"^^xsd:float ;
+  </xsl:if>
+  <xsl:if test="$thresholdYellowRed != ''">kpi:kpiHasYellowRedThreshold "<xsl:value-of select="$thresholdYellowRed"/>"^^xsd:float ;
+  </xsl:if>
+  kpi:kpiHasAssignedDataSource "<xsl:value-of select="$dataSource"/>"^^xsd:string ;
+  kpi:kpiProvidesRecommendation """<xsl:value-of select="$recommendation"/>"""^^xsd:string ;
+    	</xsl:template>
+
+  	<xsl:template name="addLink_KpiToPerspective"><xsl:param name="toId"/>kpi:kpiHasPerspective transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text></xsl:template>
+
+  	<xsl:template name="addLink_KpiToOperationalGoal"><xsl:param name="toId"/>kpi:kpiMeasuresOperationalGoal transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text>	</xsl:template>
+
+  	<xsl:template name="addLink_KpiToLearningGoal"><xsl:param name="toId"/>kpi:kpiMeasuresLearningGoal transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text></xsl:template>
+    	
 <!--...............................................................................................--> 
 <!-- ============================================================================================================================================== -->
 <!-- ============================================================================================================================================== -->
@@ -940,7 +984,7 @@ ________________________________________________________________________________
   cmm:competencyAndLevelStatus "<xsl:value-of select="$competencyAndLevelStatus"/>"^^xsd:string ;
   cmm:competencyAndLevelScore "<xsl:value-of select="$competencyAndLevelScore"/>"^^xsd:string ;
   <!-- cmm:competencyAndLevelLastUpdate "<xsl:value-of select="$competencyAndLevelLastUpdate"/>"^^xsd:date ; -->
-  cmm:competencyAndLevelComment "<xsl:value-of select="$competencyAndLevelComment"/>"^^xsd:string ;
+  cmm:competencyAndLevelComment """<xsl:value-of select="$competencyAndLevelComment"/>"""^^xsd:string ;
   	</xsl:template> 
 	
      <xsl:template name="addCompetencyLevelRefToCompetency">
@@ -964,7 +1008,7 @@ ________________________________________________________________________________
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;
   cmm:competencyAndLevelLevel "<xsl:value-of select="$competencyAndLevelLevel"/>"^^xsd:integer ; 
-  cmm:competencyAndLevelComment "<xsl:value-of select="$competencyAndLevelComment"/>"^^xsd:string ;
+  cmm:competencyAndLevelComment """<xsl:value-of select="$competencyAndLevelComment"/>"""^^xsd:string ;
   	</xsl:template> 
 <!--...............................................................................................--> 
 <!-- ============================================================================================================================================== -->

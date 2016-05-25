@@ -6,33 +6,43 @@
 package eu.learnpad.or.rest.data;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author sandro.emmenegger
  */
-public class LearningMaterial {
+@XmlRootElement
+public class RelatedObject {
     
-    private String id;
+    private String relationType;
+    private String uri;
     private String name;
-    private String url;
+    private String documentUrl;
     private String mimeType;
     private String description;
     private String comment;
-    private String queryDescription;
-    private Boolean bookmark;
-    
-    public String getName() {
-        return name;
-    }
 
-    public String getId() {
-        return id;
+    public String getRelationType() {
+        return relationType;
     }
 
     @XmlElement
-    public void setId(String id) {
-        this.id = id;
+    public void setRelationType(String relationType) {
+        this.relationType = relationType;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    @XmlElement
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @XmlElement
@@ -40,13 +50,13 @@ public class LearningMaterial {
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
+    public String getDocumentUrl() {
+        return documentUrl;
     }
 
     @XmlElement
-    public void setUrl(String url) {
-        this.url = url;
+    public void setDocumentUrl(String documentUrl) {
+        this.documentUrl = documentUrl;
     }
 
     public String getMimeType() {
@@ -70,27 +80,9 @@ public class LearningMaterial {
     public String getComment() {
         return comment;
     }
-    
+
     @XmlElement
     public void setComment(String comment) {
         this.comment = comment;
-    }
-    
-    public String getQueryDescription() {
-        return queryDescription;
-    }
-
-    @XmlElement
-    public void setQueryDescription(String queryDescription) {
-        this.queryDescription = queryDescription;
-    }    
-
-    public Boolean getBookmark() {
-        return bookmark;
-    }
-
-    @XmlElement
-    public void setBookmark(Boolean bookmark) {
-        this.bookmark = bookmark;
     }
 }

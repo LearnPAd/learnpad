@@ -53,7 +53,7 @@ bpmn:Artifact
 .
 bpmn:Association
   rdf:type owl:Class ;
-  rdfs:comment "„An Association is used to link information and Artifacts with BPMN graphical elements. [â€¦] An arrowhead on the Association indicates a direction of flow (e.g., data), when appropriate.“ (Axway et al., 2009: p.21)\" (Brun 2010)"^^xsd:string ;
+  rdfs:comment "„An Association is used to link information and Artifacts with BPMN graphical elements.  An arrowhead on the Association indicates a direction of flow (e.g., data), when appropriate.“ (Axway et al., 2009: p.21)\" (Brun 2010)"^^xsd:string ;
   rdfs:label "Association"^^xsd:string ;
   rdfs:subClassOf bpmn:Connector ;
 .
@@ -101,7 +101,7 @@ bpmn:Data
 .
 bpmn:DataAssociation
   rdf:type owl:Class ;
-  rdfs:comment "„Data Associations are used to move data between Data Objects, Properties, and inputs and outputs of Activities, Processes, and Global Tasks. [â€¦] The purpose of retrieving data from Data Objects or Process Data Inputs is to fill the Activities inputs and later push the output values from the execution of the Activity back into Data Objects or Process Data Outputs.“ (Axway et al., 2009: p.199). It associates e.g. a task to a document\" (Brun 2010)"^^xsd:string ;
+  rdfs:comment "„Data Associations are used to move data between Data Objects, Properties, and inputs and outputs of Activities, Processes, and Global Tasks.  The purpose of retrieving data from Data Objects or Process Data Inputs is to fill the Activities inputs and later push the output values from the execution of the Activity back into Data Objects or Process Data Outputs.“ (Axway et al., 2009: p.199). It associates e.g. a task to a document\" (Brun 2010)"^^xsd:string ;
   rdfs:label "DataAssociation"^^xsd:string ;
   rdfs:subClassOf bpmn:Connector ;
 .
@@ -227,7 +227,7 @@ bpmn:MessageEndEvent
 .
 bpmn:MessageFlow
   rdf:type owl:Class ;
-  rdfs:comment "The BPMN modeling objects and shows how these objects can connect to one another through Message Flow. (Axway et al., 2009: p.35 ) (Brun 2010)"^^xsd:string ;
+  rdfs:comment "The BPMN modeling objects and shows how these objects can connect to one another through Message Flow. (Axway et al., 2009: p.35 ) (Brun 2010)"^^xsd:string ;
   rdfs:label "MessageFlow"^^xsd:string ;
   rdfs:subClassOf bpmn:Connector ;
   rdfs:subClassOf archi:Flow ;

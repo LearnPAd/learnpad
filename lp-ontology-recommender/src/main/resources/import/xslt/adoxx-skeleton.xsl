@@ -78,7 +78,7 @@ ________________________________________________________________________________
 		<xsl:apply-templates select=".//INSTANCE[@class='Lane']" mode="Lane"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Data Object'][./ATTRIBUTE[@name='Data type']='Data Input']" mode="DataInput"/>
 		<xsl:apply-templates select=".//INSTANCE[@class='Data Object'][./ATTRIBUTE[@name='Data type']='Data Output']" mode="DataOutput"/>
-		<xsl:apply-templates select=".//CONNECOR[./FROM/@class='Start Event' or ./FROM/@class='End Event' or ./FROM/@class='Task' or ./FROM/@class='Sub-Process' or ./FROM/@class='Exclusive Gateway' or ./FROM/@class='Non-exclusive Gateway'][./TO/@class='Start Event' or ./TO/@class='End Event' or ./TO/@class='Task' or ./FROM/@class='Sub-Process' or ./TO/@class='Exclusive Gateway' or ./TO/@class='Non-exclusive Gateway']" mode="FlowElementConnector"/>
+		<xsl:apply-templates select=".//CONNECTOR[./FROM/@class='Start Event' or ./FROM/@class='End Event' or ./FROM/@class='Task' or ./FROM/@class='Sub-Process' or ./FROM/@class='Exclusive Gateway' or ./FROM/@class='Non-exclusive Gateway'][./TO/@class='Start Event' or ./TO/@class='End Event' or ./TO/@class='Task' or ./FROM/@class='Sub-Process' or ./TO/@class='Exclusive Gateway' or ./TO/@class='Non-exclusive Gateway']" mode="FlowElementConnector"/>
 	</xsl:template>
 <!--...............................................................................................-->	
 
@@ -451,6 +451,8 @@ ________________________________________________________________________________
 			<xsl:with-param name="id" select="@id"/>
 			<xsl:with-param name="name" select="@name"/>
 			<xsl:with-param name="materialURL" select="./ATTRIBUTE[@name='Document URI']"/>
+			<xsl:with-param name="description" select="./ATTRIBUTE[@name='Description']"/>
+			<xsl:with-param name="comment" select="./ATTRIBUTE[@name='Comment']"/>
 			<xsl:with-param name="competenciesAndLevels" select="./RECORD[@name='CompetenciesRelated2LearningMaterial']/ROW[INTERREF/IREF]"/>
 		</xsl:call-template>
 
@@ -790,7 +792,8 @@ ________________________________________________________________________________
 		</xsl:call-template>
 		<xsl:call-template name="elementPostProcessing"/>	
     <xsl:apply-templates select=".//INSTANCE[@class='Perspective']" mode="Perspective"/>
-    <xsl:apply-templates select=".//INSTANCE[@class='Strategic goal']" mode="StrategicGoal"/>
+    <xsl:apply-templates select=".//INSTANCE[@class='Operational goal']" mode="OperationalGoal"/>
+    <xsl:apply-templates select=".//INSTANCE[@class='Learning goal']" mode="LearningGoal"/>
     <xsl:apply-templates select=".//INSTANCE[@class='Performance indicator']" mode="PerformanceIndicator"/>
 </xsl:template>
 <!--...............................................................................................-->  
@@ -809,10 +812,32 @@ ________________________________________________________________________________
 <!--...............................................................................................-->  
 <!--
 ___________________________________________________________________________________________________
- Strategic Goal
+ Operational (Business) Goal
 ___________________________________________________________________________________________________-->
-  <xsl:template match="INSTANCE" mode="StrategicGoal">
-		<xsl:call-template name="StrategicGoal">
+  <xsl:template match="INSTANCE" mode="OperationalGoal">
+		<xsl:call-template name="OperationalGoal">
+			<xsl:with-param name="id" select="@id"/>
+			<xsl:with-param name="name" select="@name"/>
+			<xsl:with-param name="class" select="@class"/>
+		</xsl:call-template>
+		
+		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
+		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Perspective']/@id">
+  		     <xsl:call-template name="addLink_OperationalGoaToPerspective">
+			  <xsl:with-param name="toId" select="."/>
+		     </xsl:call-template>
+		  </xsl:for-each>
+		</xsl:for-each>
+				
+		<xsl:call-template name="elementPostProcessing"/>
+  </xsl:template>
+<!--...............................................................................................--> 
+<!--
+___________________________________________________________________________________________________
+ Learning Goal
+___________________________________________________________________________________________________-->
+  <xsl:template match="INSTANCE" mode="LearningGoal">
+		<xsl:call-template name="LearningGoal">
 			<xsl:with-param name="id" select="@id"/>
 			<xsl:with-param name="name" select="@name"/>
 			<xsl:with-param name="class" select="@class"/>
@@ -829,7 +854,39 @@ ________________________________________________________________________________
 			<xsl:with-param name="id" select="@id"/>
 			<xsl:with-param name="name" select="@name"/>
 			<xsl:with-param name="class" select="@class"/>
+			<xsl:with-param name="description" select="./ATTRIBUTE[@name='Description']"/>
+			<xsl:with-param name="periodicity" select="./ATTRIBUTE[@name='Periodicity']"/>
+			<xsl:with-param name="moreIsBetter" select="./ATTRIBUTE[@name='What performance is better?']"/>
+			<xsl:with-param name="thresholdGreenYellow" select="./ATTRIBUTE[@name='Treshold green/yellow']"/>
+			<xsl:with-param name="thresholdYellowRed" select="./ATTRIBUTE[@name='Treshold yellow/red']"/>
+			<xsl:with-param name="dataSource" select="./ATTRIBUTE[@name='Source']"/>
+			<xsl:with-param name="recommendation" select="./ATTRIBUTE[@name='Recommendation']"/>
 		</xsl:call-template>
+		
+		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
+		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Perspective']/@id">
+  		     <xsl:call-template name="addLink_KpiToPerspective">
+			  <xsl:with-param name="toId" select="."/>
+		     </xsl:call-template>
+		  </xsl:for-each>
+		</xsl:for-each>
+		
+		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
+		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Operational goal']/@id">
+  		     <xsl:call-template name="addLink_KpiToOperationalGoal">
+			  <xsl:with-param name="toId" select="."/>
+		     </xsl:call-template>
+		  </xsl:for-each>
+		</xsl:for-each>
+		
+		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
+		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Learning goal']/@id">
+  		     <xsl:call-template name="addLink_KpiToLearningGoal">
+			  <xsl:with-param name="toId" select="."/>
+		     </xsl:call-template>
+		  </xsl:for-each>
+		</xsl:for-each>					
+		
 		<xsl:call-template name="elementPostProcessing"/> 
   </xsl:template>
 <!--...............................................................................................--> 

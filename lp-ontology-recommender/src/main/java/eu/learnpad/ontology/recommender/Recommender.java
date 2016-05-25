@@ -139,7 +139,7 @@ public class Recommender {
     }
 
     public OntModel getExecutionDataModel(String modelSetId) throws RecommenderException {
-        OntModel model = FileOntAO.getInstance().getExecutionData(modelSetId);
+        OntModel model = FileOntAO.getInstance().getModelWithExecutionData(modelSetId);
         if (model == null) {
             throw new RecommenderException("Ontology model for modelset with id '" + modelSetId + "' cannot be found or causes problems during loading.");
         }

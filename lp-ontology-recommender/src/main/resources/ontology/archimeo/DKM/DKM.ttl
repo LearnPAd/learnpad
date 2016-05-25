@@ -1,5 +1,6 @@
 # baseURI: http://ikm-group.ch/archiMEO/dkm
 # imports: http://ikm-group.ch/archiMEO/emo
+# prefix: dkm
 
 @prefix cc: <http://creativecommons.org/ns#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
