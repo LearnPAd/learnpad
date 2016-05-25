@@ -27,6 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.component.manager.ComponentLookupException;
 import org.xwiki.component.manager.ComponentManager;
@@ -38,6 +39,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eu.learnpad.core.impl.cw.XwikiCoreFacadeRestResource;
+import eu.learnpad.cw.UICWBridge;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
 
@@ -48,30 +50,15 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 	private static final long TIMEOUT_MILLISECONDS = 30000;
 
 	@Inject
+	private Logger logger;
+	
+	@Inject
 	@Named("compactwiki")
 	private EntityReferenceSerializer<String> stringEntityReferenceSerializer;
 
-//	@Inject
-//	@Named("eu.learnpad.cw.internal.CWXwikiBridge")
-//	private CWXwikiBridge cwBridge;
-
 	@Inject
-	@Named("root")
-	private ComponentManager componentManager;
-
-	public void foo(){
-		try {
-			CWXwikiBridge bridge = componentManager.getInstance(CWXwikiBridge.class, "eu.learnpad.cw.internal.CWXwikiBridge");
-			bridge.getRecommendations("fooModelSetId", "fooArtifactId", "fooUserId");
-//			cwBridge.getRecommendations("modelSetId", "artifactId", "userId");
-		} catch (ComponentLookupException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (LpRestException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	@Named("eu.learnpad.cw.internal.CWXwikiBridge")
+	private UICWBridge bridge;
 	
 	public static final SocketBox socketBox = new SocketBox();
 
@@ -189,9 +176,6 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 				socketBox.get(socket).timeOfLastInteraction = System.currentTimeMillis();
 				cleanWebSockets();
 
-				XwikiCoreFacadeRestResource corefacade = new XwikiCoreFacadeRestResource();
-				foo();
-
 				String message = socket.recv();
 				String[] data = message.split(",");
 				if (data.length < 3) {
@@ -211,7 +195,7 @@ public class RecommendationWebsocketServer implements WebSocketHandler {
 				}
 				Recommendations recommendations;
 				try {
-					recommendations = corefacade.getRecommendations(modelSetId, artifactId, userId);
+					recommendations = bridge.getRecommendations(modelSetId, artifactId, userId);
 				} catch (LpRestException e) {
 					recommendations = new Recommendations();
 				}
