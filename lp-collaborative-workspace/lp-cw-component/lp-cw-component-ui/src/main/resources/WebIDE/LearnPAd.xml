@@ -157,6 +157,7 @@
     <property>
       <spaces>
         <value>LPCode</value>
+        <value>LPDocs</value>
         <value>LPUI</value>
       </spaces>
     </property>
