@@ -1,5 +1,6 @@
 # baseURI: http://learnpad.eu/data
 # imports: http://learnpad.eu/cbr
+# prefix: data
 
 @prefix cbr: <http://ikm-group.ch/cbr#> .
 @prefix data: <http://learnpad.eu/data#> .
@@ -346,12 +347,15 @@ data:Ermenegildo_Fiori
 .
 data:Ettore_Messina
   rdf:type eo:Person ;
+  rdfs:label "Ettore Messina" ;
 .
 data:Eugenio_Rossi
   rdf:type eo:Person ;
+  rdfs:label "Eugenio Rossi" ;
 .
 data:Fabiana_Leuteri
   rdf:type eo:Person ;
+  rdfs:label "Fabiana Leuteri" ;
 .
 data:Fiori_Restructuring_for_BandB
   rdf:type lpd:Application ;
@@ -407,21 +411,27 @@ data:Gattuso_Realization_of_a_petrol_station
 .
 data:Gennaro_Gattuso
   rdf:type eo:Person ;
+  rdfs:label "Gennaro Gattuso" ;
 .
 data:Gianna_Morbidelli
   rdf:type eo:Person ;
+  rdfs:label "Gianna Morbidelli" ;
 .
 data:Gianna_Nannini
   rdf:type eo:Person ;
+  rdfs:label "Gianna Nannini" ;
 .
 data:Giorgio_Lupi
   rdf:type eo:Person ;
+  rdfs:label "Giorgio Lupi" ;
 .
 data:Giovanni_Allevi
   rdf:type eo:Person ;
+  rdfs:label "Giovanni Allevi" ;
 .
 data:Giuseppe_Cappelletti
   rdf:type eo:Person ;
+  rdfs:label "Giuseppe Cappelletti" ;
 .
 data:Leuteri_Installation_antenna_for_WiFi
   rdf:type lpd:Application ;
@@ -534,6 +544,7 @@ data:Nannini_Installation_of_removable_covers_for_outdoor_dining
 .
 data:Orietta_Berti
   rdf:type eo:Person ;
+  rdfs:label "Orietta Berti" ;
 .
 data:Rossi_Realization_of_a_petrol_station_and_a_building_crafts
   rdf:type lpd:Application ;
@@ -561,6 +572,7 @@ data:Rossi_Realization_of_a_petrol_station_and_a_building_crafts
 .
 data:Samanta_Monaldi
   rdf:type eo:Person ;
+  rdfs:label "Samanta Monaldi" ;
 .
 data:regulationDocument_constructions_in_Beach_Area_At_The_Lake
   rdf:type foaf:Document ;

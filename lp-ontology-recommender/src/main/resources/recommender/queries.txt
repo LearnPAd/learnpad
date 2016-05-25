@@ -75,6 +75,7 @@ WHERE {
           FILTER(?currentPerformer != ?experiencedPerformer)
       } GROUP BY ?experiencedPerformer
     }
+    FILTER(?count > 0)
     ?experiencedPerformer rdfs:label ?name .
     ?experiencedPerformer emo:performerHasEmailAddress ?email .
     ?experiencedPerformer emo:performerRepresentsPerson ?businessActor .
@@ -150,5 +151,101 @@ WHERE {
     ?learningMaterialDocument rdfs:label ?documentLabel .
     OPTIONAL {?learningMaterialDocument rdfs:comment ?documentComment . }
     OPTIONAL {?learningMaterialDocument dkm:documentHasDescription ?documentDescription . }
+}
+##END##
+##START## QUERY:documentsOrWikiPagesOfSameAuthor
+##COMMENT:Retrieves documents or wiki pages created by the given author
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix dcterms: <http://purl.org/dcterms#>
+prefix dkm: <http://ikm-group.ch/archiMEO/dkm#>
+prefix elements: <http://purl.org/dc/elements/1.1#>
+prefix emo: <http://ikm-group.ch/archiMEO/emo#>
+prefix omm: <http://ikm-group.ch/archiMEO/omm#>
+prefix foaf: <http://xmlns.com/foaf/spec#>
+prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
+prefix xwiki: <http://www.xwiki.org/xwiki/bin/view/Main/WebHome#>
+SELECT DISTINCT ?documentURI ?documentLocationURL ?documentMimeType ?documentLabel ?documentComment ?documentDescription ?documentLocationURL ?lastUpdated
+WHERE {
+  OPTIONAL{
+    ?author emo:performerHasEmailAddress ?userId .
+    ?document elements:documentHasContributor ?author.
+    ?document dkm:documentHasURL ?documentLocationURL .
+    ?document dkm:documentHasMIMEType ?documentMimeType .
+    ?document rdfs:label ?documentLabel .
+    OPTIONAL {?document dcterms:documentHasModifiedDate ?lastUpdated .} 
+    OPTIONAL {?document rdfs:comment ?documentComment . }
+    OPTIONAL {?document dkm:documentHasDescription ?documentDescription . }
+    BIND(str(?document) AS ?documentURI) .
+  }
+  OPTIONAL{
+    ?author emo:performerHasEmailAddress ?userId .
+    ?document  xwiki:pageHasCreator ?author .
+    ?document xwiki:pageHasCreationTimestamp ?creationTime .
+    ?document rdfs:label ?documentLabel .
+    BIND(str(?document) AS ?documentLocationURL) .
+    BIND("text/html"^^xsd:string AS ?documentMimeType) .
+    BIND(str(?document) AS ?documentURI) .
+  }
+}
+##END##
+##START## QUERY:documentsOrWikiPagesOfSameAuthorOfOtherDocument
+##COMMENT:Retrieves documents or wiki pages created by the same author as of an given document
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix dcterms: <http://purl.org/dcterms#>
+prefix dkm: <http://ikm-group.ch/archiMEO/dkm#>
+prefix elements: <http://purl.org/dc/elements/1.1#>
+prefix emo: <http://ikm-group.ch/archiMEO/emo#>
+prefix omm: <http://ikm-group.ch/archiMEO/omm#>
+prefix foaf: <http://xmlns.com/foaf/spec#>
+prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
+prefix xwiki: <http://www.xwiki.org/xwiki/bin/view/Main/WebHome#>
+SELECT DISTINCT ?documentURI ?documentLocationURL ?documentMimeType ?documentLabel ?documentComment ?documentDescription ?documentLocationURL ?lastUpdated
+WHERE {
+  OPTIONAL{
+    ?orgDocument dkm:documentHasURL ?orgDocumentLocationURL .
+    ?orgDocument elements:documentHasContributor ?author.
+    ?document elements:documentHasContributor ?author.
+    ?document dkm:documentHasURL ?documentLocationURL .
+    ?document dkm:documentHasMIMEType ?documentMimeType .
+    ?document rdfs:label ?documentLabel .
+    FILTER(?orgDocument != ?document)
+    OPTIONAL {?document dcterms:documentHasModifiedDate ?lastUpdated .} 
+    OPTIONAL {?document rdfs:comment ?documentComment . }
+    OPTIONAL {?document dkm:documentHasDescription ?documentDescription . }
+    BIND(str(?document) AS ?documentURI) .
+  }
+  OPTIONAL{
+    ?orgDocument dkm:documentHasURL ?orgDocumentLocationURL .
+    ?orgDocument elements:documentHasContributor ?author.
+    ?document  xwiki:pageHasCreator ?author .
+    ?document xwiki:pageHasCreationTimestamp ?creationTime .
+    ?document rdfs:label ?documentLabel .
+    FILTER(?orgDocument != ?document)
+    BIND(str(?document) AS ?documentLocationURL) .
+    BIND("text/html"^^xsd:string AS ?documentMimeType) .
+    BIND(str(?document) AS ?documentURI) .
+  }
+}
+##END##
+##START## QUERY:documentsOrWikiPagesOfTaskContext
+##COMMENT:Retrieves documents or wiki pages assigned to a given task (context).
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix dcterms: <http://purl.org/dcterms#>
+prefix dkm: <http://ikm-group.ch/archiMEO/dkm#>
+SELECT DISTINCT ?documentURI ?documentLocationURL ?documentMimeType ?documentLabel ?documentComment ?documentDescription ?documentLocationURL ?lastUpdated
+WHERE {
+  OPTIONAL{
+    ?orgDocument dkm:documentHasURL ?orgDocumentLocationURL .
+    ?orgDocument dkm:documentSupportsTask ?artifactId .
+    ?document dkm:documentSupportsTask ?artifactId .
+    ?document dkm:documentHasURL ?documentLocationURL .
+    ?document dkm:documentHasMIMEType ?documentMimeType .
+    ?document rdfs:label ?documentLabel .
+    FILTER(?orgDocument != ?document)
+    OPTIONAL {?document dcterms:documentHasModifiedDate ?lastUpdated .} 
+    OPTIONAL {?document rdfs:comment ?documentComment . }
+    OPTIONAL {?document dkm:documentHasDescription ?documentDescription . }
+    BIND(str(?document) AS ?documentURI) .
+  }
 }
 ##END##

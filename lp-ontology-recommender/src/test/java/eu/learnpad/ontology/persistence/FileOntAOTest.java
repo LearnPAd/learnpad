@@ -5,9 +5,12 @@
  */
 package eu.learnpad.ontology.persistence;
 
+import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import eu.learnpad.ontology.AbstractUnitTest;
+import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
+import java.util.UUID;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -50,9 +53,15 @@ public class FileOntAOTest extends AbstractUnitTest{
      */
 //    @Ignore
     @Test
-    public void testGetExecutionData() {
-        OntModel result = FileOntAO.getInstance().getExecutionData(MODELSET_ID);
-        assertNotNull(result);
-    }    
+    public void testgetExecutionData() {
+        OntModel model = FileOntAO.getInstance().getModelWithExecutionData(MODELSET_ID);
+        assertNotNull(model);
+        
+        OntClass pageClass = model.createClass(APP.NS.XWIKI+"Page");
+        pageClass.createIndividual(APP.NS.EXEC+"LOG_Page_"+UUID.randomUUID());
+        
+        FileOntAO.getInstance().persistNotificationLogModel();
+        
+    }
     
 }
