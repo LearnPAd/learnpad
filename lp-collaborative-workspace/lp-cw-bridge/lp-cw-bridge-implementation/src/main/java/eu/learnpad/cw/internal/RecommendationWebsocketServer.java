@@ -29,8 +29,6 @@ import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
-import org.xwiki.component.manager.ComponentLookupException;
-import org.xwiki.component.manager.ComponentManager;
 import org.xwiki.contrib.websocket.WebSocket;
 import org.xwiki.contrib.websocket.WebSocketHandler;
 import org.xwiki.model.reference.EntityReferenceSerializer;
@@ -38,7 +36,6 @@ import org.xwiki.model.reference.EntityReferenceSerializer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import eu.learnpad.core.impl.cw.XwikiCoreFacadeRestResource;
 import eu.learnpad.cw.UICWBridge;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
@@ -48,9 +45,6 @@ import eu.learnpad.or.rest.data.Recommendations;
 public class RecommendationWebsocketServer implements WebSocketHandler {
 
 	private static final long TIMEOUT_MILLISECONDS = 30000;
-
-	@Inject
-	private Logger logger;
 	
 	@Inject
 	@Named("compactwiki")
