@@ -51,6 +51,23 @@ public class ScoreUpdateEvent extends AbstractEvent {
 	 */
 	
 	public ObjectNode updatedScore;
+	
+	/**
+	 * @param  updatedScore is composed by String scoreUpdateName, Float scoreUpdateValue
+	 * 
+	 * Possible values for scoreUpdateName are:
+	 * 
+	 * SS   -> Session Score
+	 * ASC  -> Absolute Session Score
+	 * BPS  -> BP Score
+	 * RBPS -> Relative BP Score
+	 * BPC  -> BP Coverage (percentage)
+	 * ABPS -> Absolute BP Score
+	 * GS   -> Global Score
+	 * RGS  -> Relative Global Score
+	 * AGS  -> Absolute Global Score
+	 * 
+	 */
 
 	public ScoreUpdateEvent() {
 		super();
