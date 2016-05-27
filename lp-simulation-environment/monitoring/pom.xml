@@ -184,5 +184,10 @@
 	  	<artifactId>ant-junit</artifactId>
 	  	<version>1.6.5</version>
 	  </dependency>
+	  <dependency>
+	  	<groupId>org.json</groupId>
+	  	<artifactId>json</artifactId>
+	  	<version>20151123</version>
+	  </dependency>
 	</dependencies>
 </project>
