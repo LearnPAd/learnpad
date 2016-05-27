@@ -180,6 +180,8 @@ public class RestNotifier extends Thread {
 	
 	public static void notifyScoreUpdate(Long processTimeStamp, ScoreUpdateEvent event)  {
 				
+		//compute the event
+		
 		//try {
 			//TODO: RestNotifier.getCoreFacade().receiveScoreUpdateEvent(event);
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "ScoreUpdateEvent sent");

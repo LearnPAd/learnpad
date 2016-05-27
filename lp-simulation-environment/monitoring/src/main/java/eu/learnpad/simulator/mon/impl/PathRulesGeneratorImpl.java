@@ -11,10 +11,10 @@ import eu.learnpad.simulator.mon.coverage.Activity;
 import eu.learnpad.simulator.mon.coverage.ComputeScore;
 import eu.learnpad.simulator.mon.coverage.Learner;
 import eu.learnpad.simulator.mon.coverage.Path;
-import eu.learnpad.simulator.mon.rulesGenerator.PathGenerator;
+import eu.learnpad.simulator.mon.rulesGenerator.PathRulesGenerator;
 import eu.learnpad.simulator.mon.rulesGenerator.RuleElements;
 
-public class PathGeneratorImpl implements PathGenerator {
+public class PathRulesGeneratorImpl implements PathRulesGenerator {
 
 	ComplexEventRuleActionListDocument rulesToLoad;
 	
