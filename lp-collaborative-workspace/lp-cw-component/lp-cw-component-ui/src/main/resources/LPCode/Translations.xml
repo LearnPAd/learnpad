@@ -115,14 +115,24 @@ LPDocs.Abstract.linkLabel=Click here
 
 # Tours
 LPTours.BrowsingMode.description=this is foo
-LPTours.BrowsingMode.StartButton.title=this is foo
-LPTours.BrowsingMode.StartButton.description=this is foo
-LPTours.BrowsingMode.BrowseButton.title=this is foo
-LPTours.BrowsingMode.BrowseButton.description=this is foo
-LPTours.BrowsingMode.Navigation.title=this is foo
-LPTours.BrowsingMode.Navigation.description=this is foo
-LPTours.BrowsingMode.Crosslink.title=this is foo
-LPTours.BrowsingMode.Crosslink.description=this is foo
+LPTours.BrowsingMode.Body.title=Body, this is foo
+LPTours.BrowsingMode.Body.description=Body, this is foo
+LPTours.BrowsingMode.StartButton.title=StartButton, this is foo
+LPTours.BrowsingMode.StartButton.description=StartButton, this is foo
+LPTours.BrowsingMode.BrowseButton.title=BrowseButton, this is foo
+LPTours.BrowsingMode.BrowseButton.description=BrowseButton, this is foo
+LPTours.BrowsingMode.ContributionButton.title=ContributionButton, this is foo
+LPTours.BrowsingMode.ContributionButton.description=ContributionButton, this is foo
+LPTours.BrowsingMode.FeedbackButton.title=FeedbackButton, this is foo
+LPTours.BrowsingMode.FeedbackButton.description=FeedbackButton, this is foo
+LPTours.BrowsingMode.Navigation.title=Navigation, this is foo
+LPTours.BrowsingMode.Navigation.description=Navigation, this is foo
+LPTours.BrowsingMode.Crosslink.title=Crosslink, this is foo
+LPTours.BrowsingMode.Crosslink.description=Crosslink, this is foo
+LPTours.BrowsingMode.Documents.title=Documents, this is foo
+LPTours.BrowsingMode.Documents.description=Documents, this is foo
+LPTours.BrowsingMode.Organization.title=Organization, this is foo
+LPTours.BrowsingMode.Organization.description=Organization, this is foo
 
 ## Macros
 # Workflow buttons macro
