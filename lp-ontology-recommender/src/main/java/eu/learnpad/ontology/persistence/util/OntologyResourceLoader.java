@@ -11,6 +11,8 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.jena.riot.Lang;
 
@@ -30,7 +32,10 @@ public class OntologyResourceLoader {
             try {
                 in = new InputStreamReader(OntologyResourceLoader.class.getResourceAsStream(filePath));
                 model.read(in, null, format.getName());
-            } finally {
+            } catch (Exception ex){
+                Logger.getLogger(OntologyResourceLoader.class.getName()).log(Level.SEVERE, "Failed to load ontology file: "+filePath, ex);
+            } 
+            finally {
                 if (in != null) {
                     in.close();
                 }

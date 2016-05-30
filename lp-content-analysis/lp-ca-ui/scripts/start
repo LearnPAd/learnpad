@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 cd $( dirname "${BASH_SOURCE[0]}")
 {
-	java -cp jetty-runner.jar org.mortbay.jetty.runner.Runner --port 9092 lp-ca-ui.war
+	java -cp jetty-runner.jar org.mortbay.jetty.runner.Runner --out lpcaiu.log  --port 9092 lp-ca-ui.war
 }&

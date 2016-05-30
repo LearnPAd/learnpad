@@ -9,6 +9,8 @@
 # imports: http://ikm-group.ch/archiMEO/kpi
 # imports: http://ikm-group.ch/archiMEO/omm
 # imports: http://ikm-group.ch/archiMEO/util
+# imports: http://spinrdf.org/spin
+# prefix: emo
 
 @prefix archi: <http://ikm-group.ch/archiMEO/archimate#> .
 @prefix bmm: <http://ikm-group.ch/archiMEO/BMM#> .
@@ -133,6 +135,24 @@ bmm:Objective
           [
             sp:object spin:_this ;
             sp:predicate emo:objectiveRepresentsObjective ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+bmm:StrategicGoal
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:StrategicGoal ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:strategicGoalRepresentsStrategicGoal ;
             sp:subject spin:_this ;
           ]
         ) ;
@@ -508,6 +528,7 @@ dkm:KnowledgeSource
   owl:imports <http://ikm-group.ch/archiMEO/kpi> ;
   owl:imports <http://ikm-group.ch/archiMEO/omm> ;
   owl:imports <http://ikm-group.ch/archiMEO/util> ;
+  owl:imports <http://spinrdf.org/spin> ;
   owl:versionInfo 1.0 ;
 .
 emo:ArchimateBusinessProcessViewConsistsOfBusinessProcess
@@ -975,10 +996,6 @@ emo:LearnPAdPlatformIndependentMetaModel
   rdfs:label "Learn PAd Platform Independent Meta Model"^^xsd:string ;
   rdfs:subClassOf owl:Thing ;
 .
-emo:LearningGoal
-  rdf:type owl:Class ;
-  rdfs:subClassOf bmm:Goal ;
-.
 emo:ModelSetVersion
   rdf:type owl:Class ;
   rdfs:comment "Version for a set of models"^^xsd:string ;
@@ -1011,7 +1028,6 @@ emo:activityIsMeasuredByCriterion
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:comment "an activity can be measured by a criterion"^^xsd:string ;
   rdfs:domain bpmn:Activity ;
-  rdfs:range kpi:Criterion ;
 .
 emo:activityIsPerformedByOrganisationalUnit
   rdf:type owl:ObjectProperty ;
@@ -1296,7 +1312,6 @@ emo:courseOfActionRealizes
 <http://ikm-group.ch/archiMEO/emo#criterionEmbodiesStrategicObjective.>
   rdf:type owl:ObjectProperty ;
   rdfs:comment "source: KPIs embody a strategic objective (Eckerson, Wayne)"^^xsd:string ;
-  rdfs:domain kpi:Criterion ;
   rdfs:range bmm:Objective ;
   owl:versionInfo "2015-02-06"^^xsd:string ;
 .
@@ -1304,7 +1319,6 @@ emo:criterionHasTarget
   rdf:type owl:ObjectProperty ;
   rdfs:comment "CMM"^^xsd:string ;
   rdfs:comment "KPIs embody a strategic objective. KPIs measure performance against specific targets. Targets are defined in strategic, planning, or budget sessions and can take different forms (e.g., achievement, reduction, absolute, zero). Source: Eckerson, Wayne"^^xsd:string ;
-  rdfs:domain kpi:Criterion ;
   rdfs:range bmm:Goal ;
   owl:versionInfo "2015-02-06"^^xsd:string ;
 .
@@ -1312,13 +1326,11 @@ emo:criterionQuantifiesGoal
   rdf:type owl:ObjectProperty ;
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:comment "relation between kpi:criterion and bmm:goal; criterion quantifies goal"^^xsd:string ;
-  rdfs:domain kpi:Criterion ;
   rdfs:range bmm:Goal ;
 .
 emo:criterionRepresentsCriterion
   rdf:type rdf:Property ;
   rdfs:comment "CMM"^^xsd:string ;
-  rdfs:domain kpi:Criterion ;
   rdfs:range eo:Criterion ;
 .
 emo:dataInputReferencesDocument
@@ -1566,6 +1578,11 @@ emo:knowledgeSourceRepresentsApplicationComponent
   rdfs:domain dkm:KnowledgeSource ;
   rdfs:range archi:ApplicationComponent ;
 .
+emo:kpiRepresentsKPI
+  rdf:type rdf:Property ;
+  rdfs:domain kpi:KPI ;
+  rdfs:range eo:KPI ;
+.
 emo:laneRepresentsBusinessRole
   rdf:type owl:ObjectProperty ;
   rdfs:comment "CMM"^^xsd:string ;
@@ -1577,6 +1594,11 @@ emo:laneRepresentsNode
   rdfs:comment "CMM"^^xsd:string ;
   rdfs:domain bpmn:Swimlane ;
   rdfs:range eo:InfrastructureElement ;
+.
+emo:learningGoalRepresentsLearningGoal
+  rdf:type rdf:Property ;
+  rdfs:domain kpi:LearningGoal ;
+  rdfs:range eo:LearningGoal ;
 .
 emo:logicalDataModelBelongsToAspectLeo
   rdf:type owl:ObjectProperty ;
@@ -1629,7 +1651,6 @@ emo:messageRepresentsRepresentation
 emo:metricsRepresentsMetrics
   rdf:type rdf:Property ;
   rdfs:comment "CMM"^^xsd:string ;
-  rdfs:domain kpi:Metrics ;
   rdfs:range eo:Metrics ;
 .
 emo:minorModelSetVersion
@@ -1676,6 +1697,11 @@ emo:objectiveRepresentsObjective
   rdfs:comment "CMM"^^xsd:string ;
   rdfs:domain bmm:Objective ;
   rdfs:range eo:Objective ;
+.
+emo:operationalGoalRepresentsOperationalGoal
+  rdf:type rdf:Property ;
+  rdfs:domain kpi:OperationalGoal ;
+  rdfs:range eo:OperationalGoal ;
 .
 emo:organigramBelongsToAspectLeo
   rdf:type owl:ObjectProperty ;
@@ -2000,6 +2026,11 @@ emo:spatialThingIsConnectedToSpatialThing
   rdf:type owl:ObjectProperty ;
   rdfs:label "spatialThingIsConnectedToSpatialThing"^^xsd:string ;
 .
+emo:strategicGoalRepresentsStrategicGoal
+  rdf:type rdf:Property ;
+  rdfs:domain bmm:StrategicGoal ;
+  rdfs:range eo:StrategicGoal ;
+.
 emo:strategyRepresentsStrategy
   rdf:type owl:ObjectProperty ;
   rdfs:comment "CMM"^^xsd:string ;
@@ -2115,60 +2146,6 @@ emo:workflowModelBelongsToPerspectiveN
   rdf:type owl:ObjectProperty ;
   rdfs:label "workflowModelBelongsToPerspectiveN"^^xsd:string ;
   rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
-.
-kpi:Criterion
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object eo:Criterion ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object spin:_this ;
-            sp:predicate emo:criterionRepresentsCriterion ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where () ;
-    ] ;
-.
-kpi:Metrics
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object eo:Metrics ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object spin:_this ;
-            sp:predicate emo:metricsRepresentsMetrics ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where () ;
-    ] ;
-.
-kpi:Perspective
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object eo:Perspective ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object spin:_this ;
-            sp:predicate emo:perspectiveRepresentsPerspective ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where () ;
-    ] ;
 .
 omm:OrganisationalUnit
   spin:rule [
@@ -2372,6 +2349,101 @@ omm:Team
           [
             sp:object spin:_this ;
             sp:predicate emo:teamRepresentsBusinessCollaboration ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+emo:KPI_MetaModellRepresentsKPI
+  rdf:type rdf:Property ;
+  rdfs:domain emo:KPI_MetaModel ;
+  rdfs:range kpi:KPI ;
+.
+emo:KPI_MetaModel
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object kpi:KPI ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:KPI_MetaModellRepresentsKPI ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+kpi:KPI
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:KPI ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:kpiRepresentsKPI ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+kpi:LearningGoal
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:LearningGoal ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:learningGoalRepresentsLearningGoal ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+kpi:OperationalGoal
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:OperationalGoal ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:operationalGoalRepresentsOperationalGoal ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+kpi:Perspective
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:Perspective ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:perspectiveRepresentsPerspective ;
             sp:subject spin:_this ;
           ]
         ) ;

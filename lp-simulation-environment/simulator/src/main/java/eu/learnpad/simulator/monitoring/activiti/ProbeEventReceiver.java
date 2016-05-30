@@ -180,7 +180,7 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						manager.getModelSetIdFromSessionId(event.simulationsessionid),
 //						manager.getSimulationSessionParametersData(event.simulationsessionid),
 						getCleanSessionParameters(event.simulationsessionid),
-						event.processInstance.processartifactkey));
+						event.processInstance.getProcessartifactkey()));
 
 		send(monitoringEvent);
 
@@ -201,7 +201,7 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						new ArrayList<String>(event.involvedusers),
 						manager.getModelSetIdFromSessionId(event.simulationsessionid),
 						getCleanSessionParameters(event.simulationsessionid),
-						event.processInstance.processartifactkey));
+						event.processInstance.getProcessartifactkey()));
 		send(monitoringEvent);
 
 	}
@@ -221,7 +221,7 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						new ArrayList<String>(event.involvedusers),
 						manager.getModelSetIdFromSessionId(event.simulationsessionid),
 						getCleanSessionParameters(event.simulationsessionid),
-						manager.getProcessInstanceInfos(event.task.processId).processartifactkey,
+						manager.getProcessInstanceInfos(event.task.processId).getProcessartifactkey(),
 						event.task.key, new ArrayList<String>(
 								event.involvedusers)));
 
@@ -244,7 +244,7 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						new ArrayList<String>(event.involvedusers),
 						manager.getModelSetIdFromSessionId(event.simulationsessionid),
 						getCleanSessionParameters(event.simulationsessionid),
-						manager.getProcessInstanceInfos(event.task.processId).processartifactkey,
+						manager.getProcessInstanceInfos(event.task.processId).getProcessartifactkey(),
 						event.task.key, new ArrayList<String>(
 								event.involvedusers), event.completingUser,
 						event.submittedData));
@@ -268,7 +268,7 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						new ArrayList<String>(event.involvedusers),
 						manager.getModelSetIdFromSessionId(event.simulationsessionid),
 						getCleanSessionParameters(event.simulationsessionid),
-						manager.getProcessInstanceInfos(event.task.processId).processartifactkey,
+						manager.getProcessInstanceInfos(event.task.processId).getProcessartifactkey(),
 						event.task.key, new ArrayList<String>(
 								event.involvedusers), event.completingUser,
 								event.submittedData));
@@ -292,7 +292,7 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						new ArrayList<String>(event.involvedusers),
 						manager.getModelSetIdFromSessionId(event.simulationsessionid),
 						getCleanSessionParameters(event.simulationsessionid),
-						manager.getProcessInstanceInfos(event.processid).processartifactkey,
+						manager.getProcessInstanceInfos(event.processid).getProcessartifactkey(),
 						event.user, event.sessionscore));
 
 		send(monitoringEvent);

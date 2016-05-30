@@ -1,5 +1,6 @@
 # baseURI: http://ikm-group.ch/archiMEO/BMM
 # imports: http://ikm-group.ch/archiMEO/emo
+# prefix: bmm
 
 @prefix bmm: <http://ikm-group.ch/archiMEO/BMM#> .
 @prefix cc: <http://creativecommons.org/ns#> .
@@ -191,6 +192,10 @@ bmm:Risk
   rdfs:label "Risk"^^xsd:string ;
   rdfs:subClassOf bmm:PotentialImpact ;
 .
+bmm:StrategicGoal
+  rdf:type owl:Class ;
+  rdfs:subClassOf bmm:Goal ;
+.
 bmm:Strategy
   rdf:type owl:Class ;
   rdfs:comment """\"A Strategy is one component of the plan for the Mission. A Strategy represents the essential Course of Action to achieve
@@ -318,6 +323,11 @@ bmm:objectiveQuantifiesGoal
   rdfs:domain bmm:Objective ;
   rdfs:label "objectiveQuantifiesGoal"^^xsd:string ;
   rdfs:range bmm:Goal ;
+.
+bmm:strategicGoalContributesToStrategicGoal
+  rdf:type rdf:Property ;
+  rdfs:domain bmm:StrategicGoal ;
+  rdfs:range bmm:StrategicGoal ;
 .
 bmm:strategyIsAComponentOfThePlanForMission
   rdf:type owl:ObjectProperty ;
