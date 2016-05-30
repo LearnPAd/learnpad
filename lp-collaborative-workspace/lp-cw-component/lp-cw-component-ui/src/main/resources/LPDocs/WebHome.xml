@@ -43,14 +43,12 @@
 == ${services.localization.render('LPDocs.WebHome.welcome')} ==
 
 #set($collist = ['doc.title', 'doc.date', 'doc.author'])
+#set($docTitleDisplay=${services.localization.render('lpcode.livetable.docs.documenttitle')})
 #set($colprops = {
- 'doc.title' : { 'type' : 'text' , 'size' : 30, 'link' : 'view' },
+ 'doc.title' : { 'type' : 'text' , 'size' : 30, 'link' : 'view', 'displayName' : "${docTitleDisplay}" },
  'doc.date' : { 'type' : 'date' },
  'doc.author' : { 'type' : 'text', 'link' : 'author' }
 })
-## XWIKI does not support defaut translation for the keyword "title"
-#set($xe.index.doc.title=${services.localization.render('lpcode.livetable.docs.documenttitle')})
-#set($xe.index.doc.title="Zago")
 #set($options = {
  'translationPrefix' : 'xe.index.',
  'rowCount' : 15,
