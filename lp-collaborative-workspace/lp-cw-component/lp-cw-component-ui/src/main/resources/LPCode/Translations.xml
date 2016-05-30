@@ -157,7 +157,9 @@ lpcode.livetable.model.id=ID
 lpcode.livetable.model.name=Model name
 lpcode.livetable.model.type=Type
 lpcode.livetable.model.doc.date=Last update
-lpcode.livetable.model._actions=Actions</content>
+lpcode.livetable.model._actions=Actions
+# Docs livetable
+lpcode.livetable.docs.documenttitle=Title</content>
   <object>
     <name>LPCode.Translations</name>
     <number>0</number>
