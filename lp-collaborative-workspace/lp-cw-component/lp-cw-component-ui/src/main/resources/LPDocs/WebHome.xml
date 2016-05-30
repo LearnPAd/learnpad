@@ -43,8 +43,9 @@
 == ${services.localization.render('LPDocs.WebHome.welcome')} ==
 
 #set($collist = ['doc.title', 'doc.date', 'doc.author'])
+#set($docTitleDisplay=${services.localization.render('lpcode.livetable.docs.documenttitle')})
 #set($colprops = {
- 'doc.title' : { 'type' : 'text' , 'size' : 30, 'link' : 'view' },
+ 'doc.title' : { 'type' : 'text' , 'size' : 30, 'link' : 'view', 'displayName' : "${docTitleDisplay}" },
  'doc.date' : { 'type' : 'date' },
  'doc.author' : { 'type' : 'text', 'link' : 'author' }
 })
