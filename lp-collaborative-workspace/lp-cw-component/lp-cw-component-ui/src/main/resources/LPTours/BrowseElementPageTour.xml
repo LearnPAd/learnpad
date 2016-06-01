@@ -588,7 +588,7 @@ ${services.localization.render('LPTours.BrowsingMode.Organization.description')}
     </property>
     <property>
       <content>{{velocity}}
-${services.localization.render('LPTours.BrowsingMode.Document.description')}
+${services.localization.render('LPTours.BrowsingMode.Documents.description')}
 {{/velocity}}</content>
     </property>
     <property>
@@ -604,7 +604,7 @@ ${services.localization.render('LPTours.BrowsingMode.Document.description')}
       <targetPage>LPTours.LoremIpsum</targetPage>
     </property>
     <property>
-      <title>${services.localization.render('LPTours.BrowsingMode.Document.title')}</title>
+      <title>${services.localization.render('LPTours.BrowsingMode.Documents.title')}</title>
     </property>
   </object>
   <object>
@@ -870,7 +870,7 @@ ${services.localization.render('LPTours.BrowsingMode.Crosslink.description')}
     </property>
     <property>
       <content>{{velocity}}
-${services.localization.render('LPTours.BrowsingMode.Feedback.description')}
+${services.localization.render('LPTours.BrowsingMode.FeedbackButton.description')}
 {{/velocity}}</content>
     </property>
     <property>
@@ -886,7 +886,7 @@ ${services.localization.render('LPTours.BrowsingMode.Feedback.description')}
       <targetPage>LPTours.LoremIpsum</targetPage>
     </property>
     <property>
-      <title>${services.localization.render('LPTours.BrowsingMode.Feedback.title')}</title>
+      <title>${services.localization.render('LPTours.BrowsingMode.FeedbackButton.title')}</title>
     </property>
   </object>
   <object>
@@ -1011,7 +1011,7 @@ ${services.localization.render('LPTours.BrowsingMode.Feedback.description')}
     </property>
     <property>
       <content>{{velocity}}
-${services.localization.render('LPTours.BrowsingMode.Contribute.description')}
+${services.localization.render('LPTours.BrowsingMode.ContributeButton.description')}
 {{/velocity}}
 </content>
     </property>
@@ -1028,7 +1028,7 @@ ${services.localization.render('LPTours.BrowsingMode.Contribute.description')}
       <targetPage>LPTours.LoremIpsum</targetPage>
     </property>
     <property>
-      <title>${services.localization.render('LPTours.BrowsingMode.Contribute.title')}</title>
+      <title>${services.localization.render('LPTours.BrowsingMode.ContributeButton.title')}</title>
     </property>
   </object>
   <object>
