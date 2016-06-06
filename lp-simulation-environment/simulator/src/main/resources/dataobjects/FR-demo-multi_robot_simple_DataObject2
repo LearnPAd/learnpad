@@ -1,0 +1,3 @@
+offMessage,"Message to the PAs",textarea,true,""
+off1,"Other office 1",enum,true,"",true,Yes,false,No
+off2,"Other office 2",enum,true,"",true,Yes,false,No
