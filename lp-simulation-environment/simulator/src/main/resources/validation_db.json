@@ -528,7 +528,6 @@
                     "offAmb" : true,
                     "offAtt" : true,
                     "offPolizia" : true,
-
                     "offTrib" : true,
                     "offPat" : false,
                     "offSind" : false,
@@ -559,6 +558,596 @@
                 },
                 "output" : {
                     "applicationStatus" : "ok"
+                }
+            }
+        ]
+    },
+    "y3-demo" : {
+        "usertask1" : [
+            {
+                "input" : {
+                    "case" : "637.2015"
+                },
+                "output" : {
+                    "doConfOfService" : false
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015"
+                },
+                "output" : {
+                    "doConfOfService" : true,
+                    "offEdiuzia" : true,
+                    "offPorto" : true,
+                    "offAmb" : true,
+                    "offAtt" : true,
+                    "offPolizia" : true,
+                    "offTrib" : true,
+                    "offPat" : false,
+                    "offSind" : false,
+                    "offARPAM" : false,
+                    "offServIgiene" : false,
+                    "offDepIgiene" : false,
+                    "offPrev" : false,
+                    "offVVFF" : false,
+                    "offAreaAmb" : false,
+                    "offAreaEco" : false,
+                    "offVal" : false,
+                    "offGest" : false,
+                    "offSoprint" : true,
+                    "offFerrov" : false,
+                    "offANAS" : false,
+                    "offQUEST" : false,
+                    "offPREF" : false,
+                    "offISP" : false,
+                    "offDog" : true,
+                    "offCap" : true
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015"
+                },
+                "output" : {
+                    "doConfOfService" : true,
+                    "offEdiuzia" : true,
+                    "offPorto" : false,
+                    "offAmb" : true,
+                    "offAtt" : true,
+                    "offPolizia" : false,
+                    "offTrib" : false,
+                    "offPat" : true,
+                    "offSind" : false,
+                    "offARPAM" : false,
+                    "offServIgiene" : false,
+                    "offDepIgiene" : false,
+                    "offPrev" : false,
+                    "offVVFF" : false,
+                    "offAreaAmb" : false,
+                    "offAreaEco" : false,
+                    "offVal" : false,
+                    "offGest" : false,
+                    "offSoprint" : true,
+                    "offFerrov" : false,
+                    "offANAS" : false,
+                    "offQUEST" : false,
+                    "offPREF" : false,
+                    "offISP" : false,
+                    "offDog" : false,
+                    "offCap" : false
+                }
+            }
+        ],
+        "usertask5" : [
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offPorto"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offAmb"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offAtt"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offPolizia"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offTrib"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offSoprint"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offDog"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offCap"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off1Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off1Role" : "offAmb"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off1Role" : "offAtt"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off1Role" : "offPat"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off1Role" : "offSoprint"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            }
+        ],
+        "usertask4" : [
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offPorto"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offAmb"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offAtt"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offPolizia"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offTrib"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offSoprint"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offDog"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offCap"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off2Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off2Role" : "offAmb"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off2Role" : "offAtt"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off2Role" : "offPat"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off2Role" : "offSoprint"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            }
+        ],
+        "usertask11" : [
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s2"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offPorto"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offAmb"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offAtt"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offPolizia"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offTrib"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s2"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offSoprint"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offDog"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offCap"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off1Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off1Role" : "offAmb"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off1Role" : "offAtt"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off1Role" : "offPat"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off1Role" : "offSoprint"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s5"
+                }
+            }
+        ],
+        "usertask8" : [
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s2"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offPorto"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offAmb"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offAtt"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offPolizia"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offTrib"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s2"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offSoprint"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offDog"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offCap"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off2Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off2Role" : "offAmb"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off2Role" : "offAtt"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off2Role" : "offPat"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off2Role" : "offSoprint"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s5"
                 }
             }
         ]
