@@ -31,8 +31,8 @@
   <parent>LPUI.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1464013616000</date>
-  <contentUpdateDate>1464012320000</contentUpdateDate>
+  <date>1465231649000</date>
+  <contentUpdateDate>1465226091000</contentUpdateDate>
   <version>1.1</version>
   <title>DocsPanel</title>
   <comment/>
@@ -129,6 +129,21 @@
 #set ($panelAbstract = ${services.localization.render('LPDocs.Abstract.content')}) 
 
 image:icon:help $panelAbstract [[$docsLabel&gt;&gt;$docsReference]]
+
+#set($query = "from doc.object(TourCode.TourClass) as tour where doc.fullName &lt;&gt; 'TourCode.TourTemplate' and tour.isActive = 1  order by doc.name asc")##
+##
+#set($tourList = $services.query.xwql($query).execute())##
+##
+#if(!$tourList.isEmpty())
+#foreach($tour in $tourList)
+#set($tourItem = $xwiki.getDocument($tour))##
+#set($tourObj=$tourItem.getObject('TourCode.TourClass'))##
+#set ($tourLabel = "${tourItem.name}")##
+#set ($tourLink = "${tourObj.targetPage}")
+* image:icon:help ${services.localization.render('LPDocs.Tours.linkLabel')} : [[$tourLabel&gt;&gt;$tourLink||queryString="startTour=true" title="$tourObj.description"]]
+#end
+#end
+
 #panelfooter()
 {{/velocity}}
 </content>
