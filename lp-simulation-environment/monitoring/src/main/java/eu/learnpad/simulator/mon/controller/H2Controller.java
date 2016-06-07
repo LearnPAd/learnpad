@@ -2,7 +2,10 @@ package eu.learnpad.simulator.mon.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -19,38 +22,32 @@ import eu.learnpad.simulator.mon.utils.DebugMessages;
 
 public class H2Controller implements DBController {
 	 
-	 private static Connection connection;
+	 private static Connection conn;
 	 private Properties connectionProp;
+	 private PreparedStatement preparedStmt;
+	 private ResultSet resultsSet;
 	 
 	public H2Controller(Properties databaseConnectionProperties) {
 			connectionProp = databaseConnectionProperties;
-		}
-		
-	    
-	public Connection createDatabaseAndStructure() throws ClassNotFoundException, SQLException {
-		DebugMessages.print(TimeStamp.getCurrentTime(),H2Controller.class.getSimpleName(),
-		"Connection to db " + connectionProp.getProperty("DB_CONNECTION"));
-		
-		Connection dbConnection = null;
-         Class.forName(connectionProp.getProperty("DB_DRIVER"));
-         dbConnection = DriverManager.getConnection(
-        		 connectionProp.getProperty("DB_CONNECTION"),
-        		 connectionProp.getProperty("DB_USER"),
-        		 connectionProp.getProperty("DB_PASSWORD"));
-		 DebugMessages.ok(); 				
-	     return dbConnection;
-	    }
-	
+			
+	}
+		    	
 	@Override
 	public boolean connectToDB() {
-		
 		try {
-			connection = createDatabaseAndStructure();
+			DebugMessages.print(TimeStamp.getCurrentTime(),H2Controller.class.getSimpleName(),
+					"Connection to db " + connectionProp.getProperty("DB_CONNECTION"));
+			         Class.forName(connectionProp.getProperty("DB_DRIVER"));
+			         conn = DriverManager.getConnection(
+			        		 connectionProp.getProperty("DB_CONNECTION"),
+			        		 connectionProp.getProperty("DB_USER"),
+			        		 connectionProp.getProperty("DB_PASSWORD"));
+					 DebugMessages.ok(); 
+					 
 		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
 			DebugMessages.println(TimeStamp.getCurrentTime(),
 					H2Controller.class.getSimpleName(),
-					"Could not connect to db " + connectionProp.getProperty("DB_CONNECTION"));
+					"Could not connect to db " + connectionProp.getProperty("DB_CONNECTION") + "\n check if db is not already in used or locked by previous instance.");
 			return false;
 		}
 		return true;
@@ -58,50 +55,89 @@ public class H2Controller implements DBController {
 
 	@Override
 	public boolean disconnectFromDB() {
-		// TODO Auto-generated method stub
 		return false;
 	}
-
-	@Override
-	public boolean checkIfBPHasBeenAlreadyExtracted(String idBPMN) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
 	@Override
 	public Vector<Path> getBPMNPaths(String idBPMN) {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "select * from glimpse.path where id_bpmn = \'"+idBPMN+"';";
+		Vector<Path> retrievedPath = new Vector<Path>();
+		
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			resultsSet = preparedStmt.executeQuery(); 
+		            
+			while ( resultsSet.next() ) {
+				retrievedPath.add(new Path(Integer.parseInt(resultsSet.getString("id")),
+									resultsSet.getString("id_bpmn"),
+									resultsSet.getFloat("absolute_session_score"),
+									resultsSet.getString("path_rule")));
+            }
+            DebugMessages.println(
+					TimeStamp.getCurrentTime(), 
+					this.getClass().getSimpleName(),
+					"BPMN paths loaded from DB");
+		} catch (SQLException e) {
+			System.err.println("Exception during getBPMNPaths ");
+			System.err.println(e.getMessage());
+		}
+        return retrievedPath;
 	}
 
 	@Override
-	public Activity[] getAllDistinctActivityOFaBPMN(Bpmn theBpmn) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Vector<Float> getLearnerBPMNScores(int learnerID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Vector<Float> getLearnerRelativeBPScores(int learnerID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int saveBPMN(Bpmn theBPMN) {
-		// TODO Auto-generated method stub
+	public float getLearnerSessionScore(int idLearner, int idPath, String idBPMN) {
 		return 0;
 	}
-
+	
 	@Override
-	public Bpmn getBPMN(int theBPMNid, String learnpad_bpmn_id) {
-		// TODO Auto-generated method stub
-		return null;
+	public int setLearnerSessionScore(int idLearner, int idPath, String idBPMN, float sessionScore) {
+	      String query = " insert into glimpse.path_learner (id_learner, id_path, id_bpmn, session_score, execution_date)"
+	    	        + " values (?, ?, ?, ?, ?) ";
+	    	 Date now = new Date();
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setInt(1, idLearner);
+			preparedStmt.setInt(2, idPath);
+		    preparedStmt.setString(3,idBPMN);
+		    preparedStmt.setFloat(4, sessionScore);
+		    preparedStmt.setDate(5,new java.sql.Date(now.getTime()));
+
+		    // execute the prepared statement
+		    preparedStmt.execute();
+		} catch (SQLException e) {
+			return 1;
+		}  
+		DebugMessages.println(
+				TimeStamp.getCurrentTime(), 
+				this.getClass().getSimpleName(),
+				"PathLearner SessionScore Saved");
+		return 0;
+	}
+	
+	@Override
+	public int saveBPMN(Bpmn theBPMN) {
+
+	      String query = " insert into glimpse.bpmn (id_bpmn, extraction_date, id_category, absolute_bp_score, paths_cardinality)"
+	    	        + " values (?, ?, ?, ?, ?) ";
+	    	 
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setString(1, theBPMN.getId());
+		    preparedStmt.setDate(2, new java.sql.Date(theBPMN.getExtractionDate().getTime()));
+		    preparedStmt.setInt(3,theBPMN.getIdCategory());
+		    preparedStmt.setFloat(4, theBPMN.getAbsoluteBpScore());
+		    preparedStmt.setInt(5, theBPMN.getPathsCardinality());
+
+		    // execute the prepared statement
+		    preparedStmt.execute();
+		} catch (SQLException e) {
+			return 1;
+		}  
+		DebugMessages.println(
+				TimeStamp.getCurrentTime(), 
+				this.getClass().getSimpleName(),
+				"BPMN Saved");
+		return 0;
 	}
 
 	@Override
@@ -130,8 +166,28 @@ public class H2Controller implements DBController {
 
 	@Override
 	public int saveLearnerProfile(Learner theLearner) {
-		// TODO Auto-generated method stub
-		return 0;
+		String query = "insert into glimpse.learner"
+				+ "(id_learner, id_role, global_score, relative_global_score, absolute_global_score)"
+    	        + " values (?, ?, ?, ?, ?)";
+    	 
+	try {
+		preparedStmt = conn.prepareStatement(query);
+	    preparedStmt.setInt(1, theLearner.getId());
+	    preparedStmt.setInt(2, theLearner.getIdRole());
+	    preparedStmt.setFloat(3,theLearner.getGlobalScore());
+	    preparedStmt.setFloat(4,theLearner.getRelativeGlobalScore());
+	    preparedStmt.setFloat(5,theLearner.getAbsolute_global_score());
+
+	    // execute the prepared statement
+	    preparedStmt.execute();
+	} catch (SQLException e) {
+		return 1;
+	}  
+	DebugMessages.println(
+			TimeStamp.getCurrentTime(), 
+			this.getClass().getSimpleName(),
+			"Learner Saved");
+	return 0;
 	}
 
 	@Override
@@ -148,7 +204,24 @@ public class H2Controller implements DBController {
 
 	@Override
 	public int savePath(Path thePath) {
-		// TODO Auto-generated method stub
+		 String query = " insert into glimpse.path (id_bpmn, absolute_session_score, path_rule)"
+	    	        + " values (?, ?, ?)";
+	    	 
+		try {
+			preparedStmt = conn.prepareStatement(query);
+		    preparedStmt.setString(1, thePath.getIdBpmn());
+		    preparedStmt.setFloat(2,thePath.getAbsoluteSessionScore());
+		    preparedStmt.setString(3, thePath.getPathRule());
+
+		    // execute the prepared statement
+		    preparedStmt.execute();
+		} catch (SQLException e) {
+			return 1;
+		}  
+		DebugMessages.println(
+				TimeStamp.getCurrentTime(), 
+				this.getClass().getSimpleName(),
+				"Path Saved");
 		return 0;
 	}
 
@@ -201,69 +274,36 @@ public class H2Controller implements DBController {
 	}
 
 	@Override
-	public Vector<Learner> getLearners(String[] learnersIDs) {
+	public boolean checkIfBPHasBeenAlreadyExtracted(String idBPMN) {
+		String query = "select * from glimpse.path where id_bpmn = \'"+idBPMN+"';";
+			
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			resultsSet = preparedStmt.executeQuery();
+			if (resultsSet.first()) { 
+				DebugMessages.println(
+						TimeStamp.getCurrentTime(), 
+						this.getClass().getSimpleName(),
+						"The BPMN has been already extracted, loading values");
+				return true; 
+				} 				
+			}	catch(SQLException asd) {
+				System.err.println("Exception during checkIfBPHasBeenAlreadyExtracted ");
+				return false;
+			}
+		return false;
+	}
+
+	@Override
+	public Activity[] getAllDistinctActivityOFaBPMN(Bpmn theBpmn) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Vector<Path> getPathsExecutedByLearner(int learnerID, String idBPMN) {
+	public Bpmn getBPMN(int theBPMNid, String learnpad_bpmn_id) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public Vector<Path> savePathsForBPMN(Vector<Path> vector) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public float getLearnerSessionScore(int idLearner, int idPath, String idBpmn) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int setLearnerSessionScore(int idLearner, int idPath, String idBpmn, float sessionScore) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setLearnerGlobalScore(int learnerID, float learnerGlobalScore) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public float getLearnerGlobalScore(int learnerID) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setLearnerRelativeGlobalScore(int learnerID, float learnerRelativeGlobalScore) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public float getLearnerRelativeGlobalScore(int learnerID) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setLearnerAbsoluteGlobalScore(int learnerID, float absoluteGlobalScore) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public float setLearnerAbsoluteGlobalScore(int learnerID) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
@@ -273,20 +313,33 @@ public class H2Controller implements DBController {
 	}
 
 	@Override
-	public int setLearnerBPScore(int idLearner, String idBPMN, float BPScore) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public float getLearnerRelativeBPScore(int idLearner, String idBPMN) {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
 	@Override
-	public int setLearnerRelativeBPScore(int idLearner, String idBPMN, float relativeBPScore) {
-		// TODO Auto-generated method stub
+	public int setLearnerBPScore(int idLearner, String idBPMN, float BPScore) {
+		 String query = " insert into glimpse.bpmn_learner (id_learner, id_bpmn, bp_score, relative_bp_score, bp_coverage)"
+	    	        + " values (?, ?, ?, ?. ?)";
+	    	 
+		try {
+			preparedStmt = conn.prepareStatement(query);
+		    preparedStmt.setInt(1, idLearner);
+		    preparedStmt.setString(2,idBPMN);
+		    preparedStmt.setFloat(3, BPScore);
+		    preparedStmt.setFloat(4, 0f);
+		    preparedStmt.setFloat(5, 0f);
+
+		    // execute the prepared statement
+		    preparedStmt.execute();
+		} catch (SQLException e) {
+			return 1;
+		}  
+		DebugMessages.println(
+				TimeStamp.getCurrentTime(), 
+				this.getClass().getSimpleName(),
+				"learnerBPScore Updated");
 		return 0;
 	}
 
@@ -303,41 +356,396 @@ public class H2Controller implements DBController {
 	}
 
 	@Override
-	public Vector<Float> getBPMNScoresExecutedByLearner(int learnerID) {
-		// TODO Auto-generated method stub
-		return null;
+	public Vector<Learner> getLearners(String[] learnersIDs) {
+		Vector<Learner> learners = new Vector<Learner>();
+		String query;
+		Learner aLearner;
+		try {
+			for (int i = 0; i<learnersIDs.length; i++) {
+				query = "select * from glimpse.learner where id_learner = \'"+learnersIDs[i]+"';";
+					
+						preparedStmt = conn.prepareStatement(query);
+						resultsSet = preparedStmt.executeQuery(); 
+						
+						if (resultsSet.first()) {
+							learners.add(new Learner(
+								Integer.parseInt(resultsSet.getString("id_learner")),
+								Integer.parseInt(resultsSet.getString("id_role")),
+								Float.parseFloat(resultsSet.getString("global_score")),
+								Float.parseFloat(resultsSet.getString("relative_global_score")),
+								Float.parseFloat(resultsSet.getString("absolute_global_score"))));
+							DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getSimpleName(),"Learner found");
+							}
+						else {
+							aLearner = new Learner(Integer.parseInt(learnersIDs[i]),0,0.0f,0.0f,0.0f);
+							learners.add(aLearner);
+							saveLearnerProfile(aLearner);
+							}	 
+						}
+		} catch (SQLException e) {
+			System.err.println("Exception during getLearners");
+			System.err.println(e.getMessage());
+		}
+		return learners;	
 	}
 
 	@Override
-	public Vector<Float> getMaxSessionScores(int parseInt, String idBPMN) {
+	public Vector<Path> savePathsForBPMN(Vector<Path> vector) {
+
+		for (int i = 0; i<vector.size(); i++) {
+			savePath(vector.get(i));
+		}
+		return vector;
+	}
+
+	@Override
+	public Vector<Path> getPathsExecutedByLearner(int learnerID, String idBPMN) {
+		String query = "SELECT * FROM glimpse.path where id IN( "
+				+ "SELECT distinct id_path FROM glimpse.path_learner where id_learner = " +
+				learnerID +	")";
+		Vector<Path> retrievedPath = new Vector<Path>();
+		
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			resultsSet = preparedStmt.executeQuery(); 
+			while ( resultsSet.next() ) {
+				retrievedPath.add(new Path(Integer.parseInt(resultsSet.getString("id")),
+									resultsSet.getString("id_bpmn"),
+									resultsSet.getFloat("absolute_session_score"),
+									resultsSet.getString("path_rule")));
+            }
+            DebugMessages.println(
+					TimeStamp.getCurrentTime(), 
+					this.getClass().getSimpleName(),
+					"Executed paths loaded from DB");
+		} catch (SQLException e) {
+			System.err.println("Exception during getBPMNPaths ");
+			System.err.println(e.getMessage());
+		}
+        return retrievedPath;
+	}
+
+	@Override
+	public void setLearnerGlobalScore(int learnerID, float learnerGlobalScore) {
+		 String query = " update glimpse.learner set global_score = "+
+				 			learnerGlobalScore + ";";
+	    	 
+		try {
+			preparedStmt = conn.prepareStatement(query);
+		    
+		    // execute the prepared statement
+		    preparedStmt.execute();
+		} catch (SQLException e) {
+			System.err.println("Exception during setLearnerGlobalScore ");
+			System.err.println(e.getMessage());
+		}  
+		DebugMessages.println(
+				TimeStamp.getCurrentTime(), 
+				this.getClass().getSimpleName(),
+				"GlobalScore Updated");
+		
+	}
+
+	@Override
+	public void setLearnerRelativeGlobalScore(int learnerID, float learnerRelativeGlobalScore) {
+		 String query = " update glimpse.learner set relative_global_score = "+
+				 learnerRelativeGlobalScore + ";";
+	 
+		try {
+			preparedStmt = conn.prepareStatement(query);
+
+			// execute the prepared statement
+			preparedStmt.execute();
+		} catch (SQLException e) {
+		}
+		DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(),
+				"learnerRelativeGlobalScore Updated");
+	}
+
+	@Override
+	public void setLearnerAbsoluteGlobalScore(int learnerID, float absoluteGlobalScore) {
+		 String query = " update glimpse.learner set absolute_global_score = "+
+				 absoluteGlobalScore + ";";
+	 
+		try {
+			preparedStmt = conn.prepareStatement(query);
+
+			// execute the prepared statement
+			preparedStmt.execute();
+		} catch (SQLException e) {
+		}
+		DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(),
+				"absoluteGlobalScore Updated");
+	}
+
+	@Override
+	public Vector<Float> getLearnerBPMNScores(int learnerID) {
+		String query = "SELECT bp_score " + " FROM glimpse.bpmn_learner"
+				+ " where id_learner = " + learnerID + "";
+		Vector<Float> retrievedScores = new Vector<Float>();
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			resultsSet = preparedStmt.executeQuery();
+			while (resultsSet.next()) {
+				retrievedScores.add(resultsSet.getFloat("bp_score"));
+				}
+			DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "BPMN scores retrieved");
+		} catch (SQLException e) {
+			System.err.println("Exception during getLearnerBPMNScores");
+			System.err.println(e.getMessage());
+		}
+		return retrievedScores;
+	}
+
+	@Override
+	public int setLearnerRelativeBPScore(int idLearner, String idBPMN, float relativeBPScore) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
+	}
+
+	@Override
+	public float getLearnerGlobalScore(int learnerID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float getLearnerRelativeGlobalScore(int learnerID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public float setLearnerAbsoluteGlobalScore(int learnerID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Vector<Float> getLearnerRelativeBPScores(int learnerID) {
+		String query = "SELECT relative_bp_score "
+				+ " FROM glimpse.bpmn_learner" 
+				+ " where id_learner = '" + learnerID +
+				"'";
+		Vector<Float> retrievedScores = new Vector<Float>();
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			resultsSet = preparedStmt.executeQuery(); 
+			while ( resultsSet.next() ) {
+					retrievedScores.add(resultsSet.getFloat("relative_bp_score"));
+			}
+			DebugMessages.println(TimeStamp.getCurrentTime(), 
+					this.getClass().getSimpleName(),"BPMN scores retrieved");
+		} catch (SQLException e) {
+			System.err.println("Exception during getLearnerBPMNScores");
+			System.err.println(e.getMessage());
+		}
+		return retrievedScores;
+	}
+
+	@Override
+	public Vector<Float> getBPMNScoresExecutedByLearner(int learnerID) {
+		String query = "SELECT bpmn_learner.bp_score"
+				+ " FROM glimpse.bpmn, glimpse.bpmn_learner" + " where bpmn_learner.id_learner = '" + learnerID + "'";
+
+		Vector<Float> retrievedScores = new Vector<Float>();
+
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			resultsSet = preparedStmt.executeQuery();
+
+			while (resultsSet.next()) {
+				retrievedScores.add(resultsSet.getFloat("bp_score"));
+			}
+			DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(),
+					"Extracted bpmn loaded from DB");
+		} catch (SQLException e) {
+			System.err.println("Exception during getBPMNExecutedByLearner");
+			System.err.println(e.getMessage());
+		}
+		return retrievedScores;
+	}
+
+	@Override
+	public Vector<Float> getMaxSessionScores(int learnerID, String idBPMN) {
+		
+		String query = "SELECT max(session_score)"
+				+ " FROM glimpse.path_learner"
+				+ " where id_learner = "+ learnerID
+				+ " and EXISTS (select distinct id_path from path_learner where id_bpmn = '" + idBPMN + "') group by id_path";
+
+		Vector<Float> retrievedScores = new Vector<Float>();
+
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			resultsSet = preparedStmt.executeQuery();
+
+			while (resultsSet.next()) {
+				retrievedScores.add(resultsSet.getFloat("MAX(session_score)"));
+			}
+			DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(),
+					"Selected session_score");
+		} catch (SQLException e) {
+			System.err.println("Exception during getMaxSessionScores");
+			System.err.println(e.getMessage());
+		}
+		return retrievedScores;
 	}
 
 	@Override
 	public Vector<Float> getBPMNAbsoluteScoresExecutedByLearner(int learnerID) {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "SELECT bpmn.absolute_bp_score"
+				+ " FROM glimpse.bpmn, glimpse.bpmn_learner"
+				+ " where bpmn_learner.id_learner = '" + learnerID + "'";
+
+		Vector<Float> retrievedScores = new Vector<Float>();
+
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			resultsSet = preparedStmt.executeQuery();
+			if (resultsSet.getFetchSize() != 0) {  
+				while (resultsSet.next()) {
+					retrievedScores.add(resultsSet.getFloat("absolute_bp_score"));
+				}
+			} else {
+				retrievedScores.add(0f);
+			}
+			DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(),
+					"Selected absolute_bp_scores");
+		} catch (SQLException e) {
+			System.err.println("Exception during getBPMNAbsoluteScoresExecutedByLearner");
+			System.err.println(e.getMessage());
+		}
+		return retrievedScores;
 	}
 
 	@Override
-	public void updateLearnerScores(int learnerID, float learnerGlobalScore, float learnerRelativeGlobalScore,
-			float learnerAbsoluteGLobalScore) {
-		// TODO Auto-generated method stub
+	public void updateLearnerScores(int learnerID, float learnerGlobalScore, 
+			float learnerRelativeGlobalScore, float learnerAbsoluteGLobalScore) {
+		String query;
+		Learner aLearner;
+		try {
+			query = "select * from glimpse.learner where id_learner = \'"+learnerID+"';";
+					preparedStmt = conn.prepareStatement(query);
+					resultsSet = preparedStmt.executeQuery(); 
+						
+						if (resultsSet.first()) {
+							
+							query = "update glimpse.learner set global_score = "+
+							learnerGlobalScore + ",  relative_global_score = "+
+									learnerRelativeGlobalScore + ", absolute_global_score = "+
+									 learnerAbsoluteGLobalScore + " where id_learner = "+
+									learnerID + ";";
+						 
+							preparedStmt = conn.prepareStatement(query);
 
+								// execute the prepared statement
+							preparedStmt.execute();
+						}
+						else {
+							aLearner = new Learner(learnerID,0,learnerGlobalScore,learnerRelativeGlobalScore,learnerAbsoluteGLobalScore);
+							saveLearnerProfile(aLearner);
+							}	 
+		} catch (SQLException e) {
+			System.err.println("Exception during updateLearnerScores");
+			System.err.println(e.getMessage());
+		}
+		
 	}
 
 	@Override
 	public void updateBpmnLearnerScores(int learnerID, String idBPMN, float learnerBPScore,
 			float learnerRelativeBPScore, float learnerCoverage) {
-		// TODO Auto-generated method stub
+		String query;
+		try {
+			query = "select * from glimpse.bpmn_learner where id_learner = \'"+learnerID+"';";
+					preparedStmt = conn.prepareStatement(query);
+					resultsSet = preparedStmt.executeQuery(); 
+						
+						if (resultsSet.first()) {
+							
+							query = "update glimpse.bpmn_learner set bp_score = "+
+							learnerBPScore + ",  relative_bp_score = "+
+									learnerRelativeBPScore + ", bp_coverage = "+
+									 learnerCoverage + " where id_learner = "+
+									learnerID + ";";
+						 
+							preparedStmt = conn.prepareStatement(query);
 
+								// execute the prepared statement
+							preparedStmt.execute();
+						}
+						else {
+							 query = " insert into glimpse.bpmn_learner (id_learner, id_bpmn, bp_score, relative_bp_score, bp_coverage)"
+						    	        + " values (?, ?, ?, ?, ?)";
+								preparedStmt = conn.prepareStatement(query);
+
+							    preparedStmt.setInt(1, learnerID);
+							    preparedStmt.setString(2,idBPMN);
+							    preparedStmt.setFloat(3, learnerBPScore);
+							    preparedStmt.setFloat(4, learnerRelativeBPScore);
+							    preparedStmt.setFloat(5, learnerCoverage);
+
+							    // execute the prepared statement
+							    preparedStmt.execute();
+							}	 
+		} catch (SQLException e) {
+			System.err.println("Exception during updateBpmnLearnerScores");
+			System.err.println(e.getMessage());
+		}
+		
 	}
 
 	@Override
 	public int getBPMNPathsCardinality(String idBPMN) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		String query = "SELECT COUNT(*) FROM glimpse.path where id_bpmn = \'"+idBPMN+"';";
+		int result = 0;
 
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			resultsSet = preparedStmt.executeQuery(); 
+			
+			while ( resultsSet.next() ) {
+				result = resultsSet.getInt("COUNT(*)");
+            }
+            DebugMessages.println(
+					TimeStamp.getCurrentTime(), 
+					this.getClass().getSimpleName(),
+					"Paths counted ");
+		} catch (SQLException e) {
+			System.err.println("Exception during getBPMNPathsCardinality ");
+			System.err.println(e.getMessage());
+		}
+		return result;
+	}
 }
+	
+//	@Override
+//	public ComplexEventRuleActionListDocument getRulesListForASpecificBPMN(String bpmnIDFromXML) {
+//		
+//		String query = "select path_rule from path where learnpad_bpmn_id = \'"+bpmnIDFromXML+"';";
+//		ComplexEventRuleActionListDocument theResult = ComplexEventRuleActionListDocument.Factory.newInstance();
+//		
+//		try {
+//			preparedStmt = conn.prepareStatement(query);
+//			resultsSet = preparedStmt.executeQuery(); 
+//			ComplexEventRuleActionType anActionType = theResult.addNewComplexEventRuleActionList();
+//			ComplexEventRuleType anInsert;
+//			XmlObject theRuleToLoad;
+//			
+//            while ( resultsSet.next() ) {
+//            	anInsert = anActionType.addNewInsert();
+//            	theRuleToLoad = XmlObject.Factory.parse(resultsSet.getString("path_rule"));
+//    			anInsert.set(theRuleToLoad);
+//            }
+//            DebugMessages.println(
+//					TimeStamp.getCurrentTime(), 
+//					this.getClass().getSimpleName(),
+//					"Extracted paths loaded from DB");
+//        	conn.close();
+//		} catch (SQLException | XmlException e) {
+//			System.err.println("Exception during getRulesListForASpecificBPMN ");
+//			System.err.println(e.getMessage());
+//		}
+//        return theResult;
+//	}

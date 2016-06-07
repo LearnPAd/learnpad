@@ -106,8 +106,8 @@ public class MainMonitoring {
 			BSMWSDLURIFILEPATH = 				systemProps.getProperty("BSMWSDLURIFILEPATH");		
 			REGEXPATTERNFILEPATH = 				systemProps.getProperty("REGEXPATTERNFILEPATH");
 			MAILNOTIFICATIONSETTINGSFILEPATH = 	systemProps.getProperty("MAILNOTIFICATIONPATH");
-			DATABASECONNECTIONSTRINGH2 = 			systemProps.getProperty("DATABASECONNECTIONSTRINGH2");
-			DATABASECONNECTIONSTRINGMYSQL = 			systemProps.getProperty("DATABASECONNECTIONSTRINGMYSQL");
+			DATABASECONNECTIONSTRINGH2 = 		systemProps.getProperty("DATABASECONNECTIONSTRINGH2");
+			DATABASECONNECTIONSTRINGMYSQL = 	systemProps.getProperty("DATABASECONNECTIONSTRINGMYSQL");
 			RESTNOTIFIERURLSTRING = 			systemProps.getProperty("RESTNOTIFIERURLSTRING");
 			return true;
 		} catch (Exception asd) {
@@ -199,9 +199,12 @@ public class MainMonitoring {
 				RestNotifier notifierEngine = new RestNotifier();
 				notifierEngine.start();
 				
-				//starting the LAM and connecting to DB
-				//DBController databaseController = new MySqlController(Manager.Read(DATABASECONNECTIONSTRINGMYSQL));
+				//using H2 database
 				DBController databaseController = new H2Controller(Manager.Read(DATABASECONNECTIONSTRINGH2));
+				
+				//using MYSQL database
+				//DBController databaseController = new MySqlController(Manager.Read(DATABASECONNECTIONSTRINGMYSQL));
+				
 				LearnerAssessmentManager lam = new LearnerAssessmentManagerImpl(databaseController);
 				lam.start(); 
 				
