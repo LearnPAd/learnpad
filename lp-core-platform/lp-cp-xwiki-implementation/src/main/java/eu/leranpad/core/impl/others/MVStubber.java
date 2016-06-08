@@ -1,7 +1,5 @@
 package eu.leranpad.core.impl.others;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.io.StringReader;
 
 import javax.xml.bind.JAXBContext;
