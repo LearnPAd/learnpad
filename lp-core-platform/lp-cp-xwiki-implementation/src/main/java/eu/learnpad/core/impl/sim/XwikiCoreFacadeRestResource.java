@@ -98,7 +98,7 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 	}
 	
 	@Override
-	public void receiveScoreUpdateEvent(ScoreUpdateEvent event) {
+	public void notifyScoreUpdateEvent(ScoreUpdateEvent event) {
 		// TODO Auto-generated method stub
 
 	}

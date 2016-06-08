@@ -184,7 +184,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 	
 	@Override
-	public void receiveScoreUpdateEvent(ScoreUpdateEvent event) throws LpRestException {
+	public void notifyScoreUpdateEvent(ScoreUpdateEvent event) throws LpRestException {
 		//TODO: this method should be adapted according to the structure of the ScoreUpdateEvent
 		//TODO: the event contains a JsonNode reachable through event.get/setUpdatedScore
 		//TODO: don't know if simulator is "interested" to store those values. 

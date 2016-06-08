@@ -124,7 +124,7 @@ public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 	}
 
 	@Override
-	public void receiveScoreUpdateEvent(ScoreUpdateEvent event) throws LpMonRestException {
+	public void notifyScoreUpdateEvent(ScoreUpdateEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
 		String uri = String.format("%s/scoreupdate",RestResource.REST_URI);
 		sendEvent(httpClient, event, uri);			

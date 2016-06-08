@@ -128,7 +128,7 @@ SimRestAPITestCoreFacadeInterface {
 	}
 
 	@Override
-	public void receiveScoreUpdateEvent(ScoreUpdateEvent event) throws LpRestException {
+	public void notifyScoreUpdateEvent(ScoreUpdateEvent event) throws LpRestException {
 		nbScoreUpdateEvents++;		
 	}
 
