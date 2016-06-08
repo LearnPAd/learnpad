@@ -45,6 +45,7 @@ import eu.learnpad.mv.rest.data.VerificationResults;
 import eu.learnpad.mv.rest.data.VerificationStatus;
 import eu.learnpad.mv.rest.data.VerificationsAvailable;
 import eu.learnpad.rest.model.jaxb.PFResults;
+import eu.leranpad.core.impl.others.MVStubber;
 
 /*
  * It is not clear yet who is responsible for the instantiation
@@ -106,7 +107,23 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String attachmentName = String.format("%s.%s", modelSetId, type);
 		utils.putAttachment(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
 				modelSetId, attachmentName, modelSetFile);
-		return this.mv.startVerification(modelSetId, "ALL");
+		
+		VerificationId verificationID;
+		// TODO Fix this differences when implemented the rest of the features for
+		// both MD and LPZIP files. Probably the notion LPZIP would be dropped since
+		// in practice we always process ZIP and the type actually distinguish if
+		// inside the model there was a file from MD or ADOXX
+		if (type.equals("ADOXX")){
+			verificationID = this.mv.startVerification(modelSetId, "ALL"); 
+		}else{
+			// Note that in this case the model will not be imported in the
+			// platform. The following operations will not work as expected for the given modelSetId :
+			//  + "getFeedbacks"
+			//  + "getAvailableVerifications"
+			verificationID = MVStubber.getVerificationId();
+		}
+			
+		return verificationID;
 	}
 
 	@Override
@@ -117,24 +134,55 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	@Override
 	public VerificationId startModelSetVerification(String modelSetId, String type, String verification)
 			throws LpRestException {
-		VerificationId vId = this.mv.startVerification(modelSetId, verification);
-		VerificationStatus vStatus = this.mv.getVerificationStatus(vId.getId());
+		VerificationId verificationID;
+		
+		// TODO Fix this differences when implemented the rest of the features for
+		// both MD and LPZIP files. Probably the notion LPZIP would be dropped since
+		// in practice we always process ZIP and the type actually distinguish if
+		// inside the model there was a file from MD or ADOXX
+		if (type.equals("ADOXX")){		
+			verificationID = this.mv.startVerification(modelSetId, verification);
+			VerificationStatus vStatus = this.mv.getVerificationStatus(verificationID.getId());
+		}else{
+			// Note that in this case the model will not be imported in the
+			// platform. The following operations will not work as expected for the given modelSetId :
+			//  + "getFeedbacks"			
+			//  + "getAvailableVerifications"
+			verificationID = MVStubber.getVerificationId();			
+		}	
+			
 		// TODO: show the vStatus.getStatus() of the verification with id
 		// vId.getId() somewhere in the wiki?
 		// The verification status (currently IN PROGRESS) should be visualizes
 		// somewhere in the cw for the given
 		// modelsetid so the modeler can check it.
-		return vId;
+		return verificationID;
 	}
 
 	@Override
 	public VerificationStatus checkModelSetVerification(String verificationProcessId) throws LpRestException {
-		return this.mv.getVerificationStatus(verificationProcessId);
+		VerificationStatus status;
+		// TODO Fix this differences when implemented the rest of the features for
+		// both MD and LPZIP files. Probably the notion LPZIP would be dropped since
+		// in practice we always process ZIP and the type actually distinguish if
+		// inside the model there was a file from MD or ADOXX
+		if (! MVStubber.isFakeVerificationID(verificationProcessId)){		
+			status = this.mv.getVerificationStatus(verificationProcessId);
+		}else{
+			status = MVStubber.getVerificationStatus();
+		}	
+		return status;
 	}
 
 	@Override
 	public VerificationResults getModelSetVerificationResults(String verificationProcessId) throws LpRestException {
-		return this.mv.getVerificationResult(verificationProcessId);
+		VerificationResults results;
+		if (! MVStubber.isFakeVerificationID(verificationProcessId)){		
+			results = this.mv.getVerificationResult(verificationProcessId);
+		}else{
+			results = MVStubber.getVerificationResults();
+		}	
+		return results;
 	}
 
 	@Override
