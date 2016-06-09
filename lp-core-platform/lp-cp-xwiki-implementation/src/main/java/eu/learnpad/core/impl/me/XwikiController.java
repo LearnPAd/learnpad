@@ -113,7 +113,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		// both MD and LPZIP files. Probably the notion LPZIP would be dropped since
 		// in practice we always process ZIP and the type actually distinguish if
 		// inside the model there was a file from MD or ADOXX
-		if (type.equals("ADOXX")){
+		if (type.equals(ModelSetType.ADOXX)){
 			verificationID = this.mv.startVerification(modelSetId, "ALL"); 
 		}else{
 			// Note that in this case the model will not be imported in the
@@ -140,7 +140,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		// both MD and LPZIP files. Probably the notion LPZIP would be dropped since
 		// in practice we always process ZIP and the type actually distinguish if
 		// inside the model there was a file from MD or ADOXX
-		if (type.equals("ADOXX")){		
+		if (type.equals(ModelSetType.ADOXX)){
 			verificationID = this.mv.startVerification(modelSetId, verification);
 			VerificationStatus vStatus = this.mv.getVerificationStatus(verificationID.getId());
 		}else{
