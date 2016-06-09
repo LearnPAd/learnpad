@@ -49,6 +49,19 @@
     <defaultWeb/>
     <nameField/>
     <validationScript/>
+    <denomination>
+      <customDisplay/>
+      <disabled>0</disabled>
+      <name>denomination</name>
+      <number>5</number>
+      <picker>0</picker>
+      <prettyName>Denomination</prettyName>
+      <size>30</size>
+      <unmodifiable>0</unmodifiable>
+      <validationMessage/>
+      <validationRegExp/>
+      <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+    </denomination>
     <id>
       <customDisplay/>
       <disabled>0</disabled>
@@ -108,7 +121,7 @@
       <displayType>select</displayType>
       <multiSelect>0</multiSelect>
       <name>type</name>
-      <number>5</number>
+      <number>6</number>
       <picker>0</picker>
       <prettyName>Type</prettyName>
       <relationalStorage>0</relationalStorage>
@@ -119,7 +132,7 @@
       <unmodifiable>0</unmodifiable>
       <validationMessage/>
       <validationRegExp/>
-      <values>incoming=Incoming|outgoing=Outgoing|incoming-weaving=Weaving Incoming|outgoing-weaving=Weaving Outgoing</values>
+      <values>incoming=Incoming|outgoing=Outgoing|incoming-weaving=Weaving Incoming|outgoing-weaving=Weaving Outgoing|denomination=Denomination</values>
       <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
     </type>
   </class>
