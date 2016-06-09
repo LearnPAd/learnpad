@@ -611,6 +611,31 @@ rule CONNECTORType2Object {
 	}
 }
 
+helper context ADOXX!CONNECTORType def : getDenomination : String =
+	self.aTTRIBUTE->select(i | i.name = 'Denomination' and i.type = 'STRING' )->first().value;
+
+rule CONNECTORTypeSubsequent2Object extends CONNECTORType2Object {
+	from c:ADOXX!CONNECTORType ((c.isInSourceModels > 0) and (c.class='Subsequent'))
+	to lco:XWIKI!Object (
+		property <- Sequence{lco_p0, lco_p1, lco_p2, lco_p3, lco_p4, lco_p5}
+	), 
+	lco_p5:XWIKI!Property (
+		name <- 'denomination',
+		type <- 'String',
+		value <- c.getDenomination
+	)
+	do {
+		
+		thisModule.documentRoot.object <- lco;
+		thisModule.documentRoot.object <- lci;
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.
+				getConnectorSourceId(c));
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.
+				getConnectorTargetId(c));
+		
+	}
+}
+
 rule IREFTypeObjRef2Object {
 	from
 		i: ADOXX!IREFType (
