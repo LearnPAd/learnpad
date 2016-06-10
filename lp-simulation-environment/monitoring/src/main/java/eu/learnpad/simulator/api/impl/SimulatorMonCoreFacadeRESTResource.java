@@ -16,6 +16,7 @@ import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.sim.rest.event.AbstractEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
+import eu.learnpad.sim.rest.event.impl.ScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationEndEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
@@ -120,5 +121,12 @@ public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 					"Exception in receiveXXEvent\nResponse: " + response);
 			throw new LpMonRestException(e.getMessage(), e.getCause());
 		}		
+	}
+
+	@Override
+	public void notifyScoreUpdateEvent(ScoreUpdateEvent event) throws LpMonRestException {
+		HttpClient httpClient = RestResource.getClient();
+		String uri = String.format("%s/scoreupdate",RestResource.REST_URI);
+		sendEvent(httpClient, event, uri);			
 	}
 }

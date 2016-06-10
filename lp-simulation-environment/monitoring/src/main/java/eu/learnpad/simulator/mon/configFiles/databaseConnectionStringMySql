@@ -2,5 +2,5 @@ database.host = localhost
 database.name = glimpse
 username = glimpse
 password = meleeisland
-database.type = MYSQL 
+database.type = MSSQL 
 database.port = 3306

@@ -8,7 +8,7 @@ import eu.learnpad.simulator.mon.coverage.Path;
 import it.cnr.isti.labse.glimpse.xml.complexEventRule.ComplexEventRuleActionListDocument;
 import it.cnr.isti.labse.glimpse.xml.complexEventRule.ComplexEventRuleType;
 
-public interface PathGenerator {
+public interface PathRulesGenerator {
 	//ComplexEventRuleActionListDocument generateAllPathsRules(Vector<Activity[]> theUnfoldedBusinessProcess, String idBpmn);
 	Vector<Path> generateAllPaths(Vector<Activity[]> theUnfoldedBusinessProcess, String idBpmn);
 	ComplexEventRuleType generateRuleForSinglePath(Activity[] anActivitiesSet, String rulesName, String idBPMN, int idPath); 

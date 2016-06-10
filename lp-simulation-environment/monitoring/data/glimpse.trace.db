@@ -1,0 +1,3 @@
+2016-06-07 17:39:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "PATH" not found; SQL statement:
+select * from path where id_bpmn = 'asd'; [42102-191]

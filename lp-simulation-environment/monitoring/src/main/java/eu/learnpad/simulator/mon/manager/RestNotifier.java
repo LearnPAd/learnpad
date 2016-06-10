@@ -12,6 +12,7 @@ import eu.learnpad.simulator.api.impl.SimulatorMonCoreFacadeRESTResource;
 import eu.learnpad.sim.rest.event.impl.SimulationStartEvent;
 import eu.learnpad.sim.rest.event.impl.SimulationEndEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
+import eu.learnpad.sim.rest.event.impl.ScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
 import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
@@ -176,4 +177,15 @@ public class RestNotifier extends Thread {
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifySessionScoreUpdate method");
 		}
 	}
+	
+	public static void notifyScoreUpdate(Long processTimeStamp, ScoreUpdateEvent event)  {
+				
+		try {
+			RestNotifier.getCoreFacade().notifyScoreUpdateEvent(event);
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "ScoreUpdateEvent sent");
+		} catch (LpRestException e) {
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifyScoreUpdate method");
+		}
+	}
+	
 }
