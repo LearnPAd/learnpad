@@ -130,6 +130,7 @@
 
 image:icon:help $panelAbstract [[$docsLabel&gt;&gt;$docsReference]]
 
+==== ${services.localization.render('LPDocs.Tours.title')} ====
 #set($query = "from doc.object(TourCode.TourClass) as tour where doc.fullName &lt;&gt; 'TourCode.TourTemplate' and tour.isActive = 1  order by doc.name asc")##
 ##
 #set($tourList = $services.query.xwql($query).execute())##
