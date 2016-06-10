@@ -169,6 +169,16 @@
 #set ($previousIcon = $services.icon.render('left'))
 #set ($nextIcon = $services.icon.render('right'))
 #if ( ("$!previousFullnames" != "" &amp;&amp; $previousFullnames.size() &gt; 0) || ("$!nextFullnames" != "" &amp;&amp; $nextFullnames.size() &gt; 0) )
+#### Retreiving LPCode.LinkClass objects with the property denomination setted and store
+#### them in a sepatate vector (with clone)
+  #set ($docLinkObjectVector = $doc.getObjects('LPCode.LinkClass'))
+  #set ($denominationLinkObjectVector = $docLinkObjectVector.clone())
+  #foreach ($linkObject in $docLinkObjectVector)
+   #if ( !${linkObject.getProperty('denomination').value} )
+     #set ($foo = $denominationLinkObjectVector.remove($linkObject))
+   #end
+  #end
+##########
   (% class="panel panel-workflow" %)(((
     (% class="panel-heading" %)(((
       ${services.icon.render('random')} ${services.localization.render('LPCode.WorkflowButtonsMacro.title')}
@@ -180,7 +190,7 @@
           #set ($previousReference = $services.model.resolveDocument($previous))
           #set ($previousDocument = $xwiki.getDocument($previousReference))
           #set ($previousURL = $previousDocument.URL)
-          (% class="row" %)(((
+	  (% class="row" %)(((
             [[${previousIcon} ${previousDocument.title}&gt;&gt;path:${previousURL}||class="col-xs-12 panel-item"]]
           )))
         #end
@@ -190,8 +200,24 @@
           #set ($nextReference = $services.model.resolveDocument($next))
           #set ($nextDocument = $xwiki.getDocument($nextReference))
           #set ($nextURL = $nextDocument.URL)
+#################################
+### Retreiving the right denomination for each "nextReference"
+	  #set ($denominationRender = '')
+          #set ( $foundIt = false )
+          #foreach ($linkObject in $denominationLinkObjectVector)
+            #set ($targetDocument = "$linkObject.getProperty('targetmodelsetid').value.replaceAll('\.', '\\.')" + ".$linkObject.getProperty('targetmodelid').value.replaceAll('\.', '\\.')" + ".$linkObject.getProperty('targetartifactid').value.replaceAll('\.', '\\.')" + ".WebHome")
+            #if ((!$foundIt) &amp;&amp; ("$targetDocument" == "$nextDocument"))
+                 #set ( $denomination = ${linkObject.getProperty('denomination').value} )
+                 #if ( !$denomination.isEmpty() )
+ 	           #set ( $denominationLabelRender = "${services.localization.render('LPCode.WorkflowButtonsMacro.labelDenominationProperty')}")
+	           #set ($denominationRender = " ($denominationLabelRender **$denomination**) ")
+                 #end 
+                 #set ( $foundIt = true )
+            #end
+          #end
+#################################
           (% class="row" %)(((
-            [[${nextDocument.title} ${nextIcon}&gt;&gt;path:${nextURL}||class="col-xs-12 panel-item text-right"]]
+            [[${nextDocument.title}${denominationRender} ${nextIcon}&gt;&gt;path:${nextURL}||class="col-xs-12 panel-item text-right"]]
           )))
         #end
         )))
