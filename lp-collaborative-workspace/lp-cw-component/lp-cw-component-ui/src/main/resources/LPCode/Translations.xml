@@ -141,6 +141,7 @@ LPCode.WorkflowButtonsMacro.title=Navigate
 LPCode.WorkflowButtonsMacro.previous=Previous steps
 LPCode.WorkflowButtonsMacro.next=Next steps
 LPCode.WorkflowButtonsMacro.poollane=List of elements
+LPCode.WorkflowButtonsMacro.labelDenominationProperty=Branch :
 
 # Organization macro
 LPCode.OrganizationMacro.title=Organization units

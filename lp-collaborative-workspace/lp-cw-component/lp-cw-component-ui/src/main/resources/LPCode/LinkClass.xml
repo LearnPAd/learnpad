@@ -132,7 +132,7 @@
       <unmodifiable>0</unmodifiable>
       <validationMessage/>
       <validationRegExp/>
-      <values>incoming=Incoming|outgoing=Outgoing|incoming-weaving=Weaving Incoming|outgoing-weaving=Weaving Outgoing|denomination=Denomination</values>
+      <values>incoming=Incoming|outgoing=Outgoing|incoming-weaving=Weaving Incoming|outgoing-weaving=Weaving Outgoing</values>
       <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
     </type>
   </class>
