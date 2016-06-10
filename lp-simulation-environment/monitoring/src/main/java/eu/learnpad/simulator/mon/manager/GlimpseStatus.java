@@ -25,7 +25,4 @@
 package eu.learnpad.simulator.mon.manager;
 
 public class GlimpseStatus {
-	
-	
-
 }

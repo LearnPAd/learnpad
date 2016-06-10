@@ -198,54 +198,53 @@ public class ComplexEventProcessorImpl extends ComplexEventProcessor implements 
 	}
 	
 	private KnowledgeBase createKnowledgeBase() {
-		try
-			{				
-				KnowledgeBaseConfiguration config = KnowledgeBaseFactory.newKnowledgeBaseConfiguration();
-				config.setOption(EventProcessingOption.STREAM);
-				
-				/* Using knowledge builder to create a knowledgePackage using provided resources (drl file)
-				 * after the creation the knowledgePackage contained into the knowledge builder will be putted
-				 * into the knowledgeBase using the method addKnowledgePackages(knowledgeBuilder.getKnowledgePackages())
-				 */				
+		try {				
+			KnowledgeBaseConfiguration config = KnowledgeBaseFactory.newKnowledgeBaseConfiguration();
+			config.setOption(EventProcessingOption.STREAM);
+			
+			/* Using knowledge builder to create a knowledgePackage using provided resources (drl file)
+			 * after the creation the knowledgePackage contained into the knowledge builder will be putted
+			 * into the knowledgeBase using the method addKnowledgePackages(knowledgeBuilder.getKnowledgePackages())
+			 */				
 
-				//if needed, uncomment to set up manually the knowledge builder properties
-				
+			//if needed, uncomment to set up manually the knowledge builder properties
+			
 //				Properties confProp = new Properties();
 //				confProp.setProperty("drools.dialect.default", "MVEL");
 //				confProp.setProperty("drools.dialect.mvel.strict", "FALSE");
 //				PackageBuilderConfiguration conf = new PackageBuilderConfiguration(confProp);
 //				knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder(conf);
-				
-				knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
-				
+			
+			knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
+			
 //				String firstRuleToLoad = 
 //						"import eu.learnpad.simulator.mon.event.GlimpseBaseEventAbstract; " +
 //						"declare GlimpseBaseEventAbstract " +
 //						"@role( event ) " +
 //						"@timestamp( timeStamp ) " +
 //						"end";
-				
+			
 
-				byte[] firstRuleToLoadByteArray = Manager.ReadTextFromFile(System.getProperty("user.dir")	+ "/configFiles/startupRule.drl").getBytes();
-				Resource drlToLoad = ResourceFactory.newByteArrayResource(firstRuleToLoadByteArray);
-				
-				try {
-					knowledgeBuilder.add(drlToLoad,ResourceType.DRL);
-				} catch(Exception asd) { 
-					System.out.println(asd.getMessage());
-				}
-				
-				KnowledgeBuilderErrors errors = knowledgeBuilder.getErrors();
-				if (errors.size() > 0) {
-					for (KnowledgeBuilderError error : errors) {
-						System.err.println(error);
-					}
-					throw new IllegalArgumentException("Could not parse knowledge.");
-				}
-				knowledgeBase = KnowledgeBaseFactory.newKnowledgeBase(config);
-				knowledgeBase.addKnowledgePackages(knowledgeBuilder.getKnowledgePackages());
-				return knowledgeBase;
+			byte[] firstRuleToLoadByteArray = Manager.ReadTextFromFile(System.getProperty("user.dir")	+ "/configFiles/startupRule.drl").getBytes();
+			Resource drlToLoad = ResourceFactory.newByteArrayResource(firstRuleToLoadByteArray);
+			
+			try {
+				knowledgeBuilder.add(drlToLoad,ResourceType.DRL);
+			} catch(Exception asd) { 
+				System.out.println(asd.getMessage());
 			}
+			
+			KnowledgeBuilderErrors errors = knowledgeBuilder.getErrors();
+			if (errors.size() > 0) {
+				for (KnowledgeBuilderError error : errors) {
+					System.err.println(error);
+				}
+				throw new IllegalArgumentException("Could not parse knowledge.");
+			}
+			knowledgeBase = KnowledgeBaseFactory.newKnowledgeBase(config);
+			knowledgeBase.addKnowledgePackages(knowledgeBuilder.getKnowledgePackages());
+			return knowledgeBase;
+		}
 		catch (NullPointerException e) {
 			System.out.println(e.getMessage());
 			System.out.println(e.getCause());

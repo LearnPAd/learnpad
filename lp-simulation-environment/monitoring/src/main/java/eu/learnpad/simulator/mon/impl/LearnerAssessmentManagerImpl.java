@@ -22,9 +22,9 @@ import eu.learnpad.simulator.mon.coverage.ComputeScore;
 import eu.learnpad.simulator.mon.coverage.Learner;
 import eu.learnpad.simulator.mon.coverage.Path;
 import eu.learnpad.simulator.mon.impl.PathExplorerImpl;
-import eu.learnpad.simulator.mon.impl.PathGeneratorImpl;
+import eu.learnpad.simulator.mon.impl.PathRulesGeneratorImpl;
 import eu.learnpad.simulator.mon.manager.LearnerAssessmentManager;
-import eu.learnpad.simulator.mon.rulesGenerator.PathGenerator;
+import eu.learnpad.simulator.mon.rulesGenerator.PathRulesGenerator;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 import it.cnr.isti.labse.glimpse.xml.complexEventRule.ComplexEventRuleActionListDocument;
 
@@ -32,7 +32,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 
 	private Document theBPMN;
 	private PathExplorer bpmnExplorer;
-	private PathGenerator crossRulesGenerator;
+	private PathRulesGenerator crossRulesGenerator;
 	private DBController databaseController;
 	private ComplexEventRuleActionListDocument rulesLists;
 
@@ -45,7 +45,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 		this.databaseController = databaseController;
 		
 		//Creation of the PathCrossingRulesGenerator object
-		crossRulesGenerator = new PathGeneratorImpl();
+		crossRulesGenerator = new PathRulesGeneratorImpl();
 	}
 		
 	public void run() {
