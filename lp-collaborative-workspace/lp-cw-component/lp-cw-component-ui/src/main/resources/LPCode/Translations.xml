@@ -112,6 +112,7 @@ LPDocs.WebHome.title=How To!
 LPDocs.WebHome.welcome=Browse the following table and learn more about a topic
 LPDocs.Abstract.content=Learn more about a topic.
 LPDocs.Abstract.linkLabel=Click here
+LPDocs.Tours.title=Tours
 LPDocs.Tours.linkLabel=Learn with the Tour
 
 # Tours
@@ -134,6 +135,19 @@ LPTours.BrowsingMode.Documents.title=Documents, this is foo
 LPTours.BrowsingMode.Documents.description=Documents, this is foo
 LPTours.BrowsingMode.Organization.title=Organization, this is foo
 LPTours.BrowsingMode.Organization.description=Organization, this is foo
+
+LPTours.BrowsingModeProcess.Body.title=Process Body, this is foo
+LPTours.BrowsingModeProcess.Body.description=Process Body, this is foo
+LPTours.BrowsingModeProcess.Table.title=Process Table, this is foo
+LPTours.BrowsingModeProcess.Table.description=Process Table, this is foo
+LPTours.BrowsingModeProcess.BrowseButton.title=Process BrowseButton, this is foo
+LPTours.BrowsingModeProcess.BrowseButton.description=Process BrowseButton, this is foo
+LPTours.BrowsingModeProcess.SimulationButton.title=Process SimulationButton, this is foo
+LPTours.BrowsingModeProcess.SimulationButton.description=Process SimulationButton, this is foo
+LPTours.BrowsingModeProcess.ContributeButton.title=Process ContributeButton, this is foo
+LPTours.BrowsingModeProcess.ContributeButton.description=Process ContributeButton, this is foo
+LPTours.BrowsingModeProcess.DummyImage.title=Process DummyImage, this is foo
+LPTours.BrowsingModeProcess.DummyImage.description=Process DummyImage, this is foo
 
 ## Macros
 # Workflow buttons macro
