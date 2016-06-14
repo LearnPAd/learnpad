@@ -68,7 +68,7 @@ public class H2Controller implements DBController {
 			resultsSet = preparedStmt.executeQuery(); 
 		            
 			while ( resultsSet.next() ) {
-				retrievedPath.add(new Path(resultsSet.getString("id"),
+				retrievedPath.add(new Path(resultsSet.getString("id_path"),
 									resultsSet.getString("id_bpmn"),
 									resultsSet.getFloat("absolute_session_score"),
 									resultsSet.getString("path_rule")));
@@ -204,7 +204,7 @@ public class H2Controller implements DBController {
 
 	@Override
 	public int savePath(Path thePath) {
-		 String query = " insert into glimpse.path (id, id_bpmn, absolute_session_score, path_rule)"
+		 String query = " insert into glimpse.path (id_path, id_bpmn, absolute_session_score, path_rule)"
 	    	        + " values (?, ?, ?, ?)";
 	    	 
 		try {
@@ -410,7 +410,7 @@ public class H2Controller implements DBController {
 			preparedStmt = conn.prepareStatement(query);
 			resultsSet = preparedStmt.executeQuery(); 
 			while ( resultsSet.next() ) {
-				retrievedPath.add(new Path(resultsSet.getString("id"),
+				retrievedPath.add(new Path(resultsSet.getString("id_path"),
 									resultsSet.getString("id_bpmn"),
 									resultsSet.getFloat("absolute_session_score"),
 									resultsSet.getString("path_rule")));

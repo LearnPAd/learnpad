@@ -120,7 +120,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	}
 
 	@Override
-	public void computeAndSaveScores(String learnersID, String idBPMN, int idPath) {
+	public void computeAndSaveScores(String learnersID, String idBPMN, String idPath) {
 		
 		String[] learnersIDs = learnersID.split("-");
 		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);

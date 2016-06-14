@@ -206,3 +206,184 @@ org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
 org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
 06-14 21:53:00 jdbc[4]: exception
 org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:58:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:58:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:59:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:59:50 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:59:50 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:59:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:59:50 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:59:50 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-06-14 22:00:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "ID" not found; SQL statement:
+ insert into glimpse.path (id, id_bpmn, absolute_session_score, path_rule) values (?, ?, ?, ?) [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.table.Table.getColumn(Table.java:680)
+	at org.h2.command.Parser.parseColumn(Parser.java:866)
+	at org.h2.command.Parser.parseColumnList(Parser.java:850)
+	at org.h2.command.Parser.parseInsert(Parser.java:1050)
+	at org.h2.command.Parser.parsePrepared(Parser.java:411)
+	at org.h2.command.Parser.parse(Parser.java:315)
+	at org.h2.command.Parser.parse(Parser.java:287)
+	at org.h2.command.Parser.prepareCommand(Parser.java:252)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at eu.learnpad.simulator.mon.controller.H2Controller.savePath(H2Controller.java:211)
+	at eu.learnpad.simulator.mon.controller.H2Controller.savePathsForBPMN(H2Controller.java:397)
+	at eu.learnpad.simulator.mon.impl.LearnerAssessmentManagerImpl.elaborateModel(LearnerAssessmentManagerImpl.java:91)
+	at eu.learnpad.simulator.mon.manager.GlimpseManager.onMessage(GlimpseManager.java:153)
+	at org.apache.activemq.ActiveMQMessageConsumer.dispatch(ActiveMQMessageConsumer.java:1321)
+	at org.apache.activemq.ActiveMQSessionExecutor.dispatch(ActiveMQSessionExecutor.java:131)
+	at org.apache.activemq.ActiveMQSessionExecutor.iterate(ActiveMQSessionExecutor.java:202)
+	at org.apache.activemq.thread.PooledTaskRunner.runTask(PooledTaskRunner.java:129)
+	at org.apache.activemq.thread.PooledTaskRunner$1.run(PooledTaskRunner.java:47)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2016-06-14 22:00:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Duplicate column name "ID_BPMN"; SQL statement:
+ insert into glimpse.path (id_bpmn, id_bpmn, absolute_session_score, path_rule) values (?, ?, ?, ?) [42121-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.command.Parser.parseColumnList(Parser.java:852)
+	at org.h2.command.Parser.parseInsert(Parser.java:1050)
+	at org.h2.command.Parser.parsePrepared(Parser.java:411)
+	at org.h2.command.Parser.parse(Parser.java:315)
+	at org.h2.command.Parser.parse(Parser.java:287)
+	at org.h2.command.Parser.prepareCommand(Parser.java:252)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at eu.learnpad.simulator.mon.controller.H2Controller.savePath(H2Controller.java:211)
+	at eu.learnpad.simulator.mon.controller.H2Controller.savePathsForBPMN(H2Controller.java:397)
+	at eu.learnpad.simulator.mon.impl.LearnerAssessmentManagerImpl.elaborateModel(LearnerAssessmentManagerImpl.java:91)
+	at eu.learnpad.simulator.mon.manager.GlimpseManager.onMessage(GlimpseManager.java:153)
+	at org.apache.activemq.ActiveMQMessageConsumer.dispatch(ActiveMQMessageConsumer.java:1321)
+	at org.apache.activemq.ActiveMQSessionExecutor.dispatch(ActiveMQSessionExecutor.java:131)
+	at org.apache.activemq.ActiveMQSessionExecutor.iterate(ActiveMQSessionExecutor.java:202)
+	at org.apache.activemq.thread.PooledTaskRunner.runTask(PooledTaskRunner.java:129)
+	at org.apache.activemq.thread.PooledTaskRunner$1.run(PooledTaskRunner.java:47)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+2016-06-14 22:02:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "id" not found [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3129)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:3217)
+	at org.h2.jdbc.JdbcResultSet.getString(JdbcResultSet.java:303)
+	at eu.learnpad.simulator.mon.controller.H2Controller.getBPMNPaths(H2Controller.java:71)
+	at eu.learnpad.simulator.mon.impl.LearnerAssessmentManagerImpl.elaborateModel(LearnerAssessmentManagerImpl.java:98)
+	at eu.learnpad.simulator.mon.manager.GlimpseManager.onMessage(GlimpseManager.java:153)
+	at org.apache.activemq.ActiveMQMessageConsumer.dispatch(ActiveMQMessageConsumer.java:1321)
+	at org.apache.activemq.ActiveMQSessionExecutor.dispatch(ActiveMQSessionExecutor.java:131)
+	at org.apache.activemq.ActiveMQSessionExecutor.iterate(ActiveMQSessionExecutor.java:202)
+	at org.apache.activemq.thread.PooledTaskRunner.runTask(PooledTaskRunner.java:129)
+	at org.apache.activemq.thread.PooledTaskRunner$1.run(PooledTaskRunner.java:47)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+06-14 22:09:07 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "DELETE
+FROM
+    ""GLIMPSE"".""BPMN""
+    ""GLIMPSE"".[*]""PATH""
+    ""GLIMPSE"".""LEARNER"""; SQL statement:
+DELETE
+FROM
+    "GLIMPSE"."BPMN"
+    "GLIMPSE"."PATH"
+    "GLIMPSE"."LEARNER" [42000-176]
+06-14 22:09:17 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "DELETE
+FROM
+    ""GLIMPSE"".""BPMN""
+DELETE
+FROM[*]
+    ""GLIMPSE"".""PATH""
+DELETE
+FROM
+    ""GLIMPSE"".""LEARNER"""; SQL statement:
+DELETE
+FROM
+    "GLIMPSE"."BPMN"
+DELETE
+FROM
+    "GLIMPSE"."PATH"
+DELETE
+FROM
+    "GLIMPSE"."LEARNER" [42000-176]
+06-14 22:09:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:09:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:09:41 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:09:41 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:14:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:14:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:14:33 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:14:33 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:16:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:16:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:16:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:16:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:18:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:18:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:18:04 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:18:04 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:22:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:22:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:22:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:22:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:29:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:29:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:29:25 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:29:25 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:32:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:32:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:32:04 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 22:32:04 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
