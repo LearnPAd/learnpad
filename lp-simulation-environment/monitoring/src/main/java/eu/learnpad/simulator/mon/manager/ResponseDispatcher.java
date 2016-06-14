@@ -122,7 +122,7 @@ public class ResponseDispatcher {
 			
 	}
 	
-	public static void saveSessionScore (String learnersID, String idBPMN, int idPath, float sessionScore) {
+	public static void saveSessionScore (String learnersID, String idBPMN, String idPath, float sessionScore) {
 		
 		ResponseDispatcher.lam.saveSessionScore(learnersID, idPath, idBPMN, sessionScore);
 		
