@@ -116,11 +116,18 @@ public class ResponseDispatcher {
 		}
 	}
 	
-	public static void saveAndNotifyLearnersScore(String learnersID, String idBPMN, int idPath, float sessionScore) {
+	public static void saveAndNotifyLearnersScore(String learnersID, String idBPMN, int idPath) {
 			
-			ResponseDispatcher.lam.computeAndSaveScores(learnersID, idPath, idBPMN, sessionScore);
-			//TODO: RestNotifier
+			ResponseDispatcher.lam.computeAndSaveScores(learnersID, idPath, idBPMN);
+			
 	}
+	
+	public static void saveSessionScore (String learnersID, String idBPMN, int idPath, float sessionScore) {
+		
+		ResponseDispatcher.lam.saveSessionScore(learnersID, idPath, idBPMN, sessionScore);
+		
+	}	
+	
 
 	public static void sendResponse(Object object, String enablerName, String answerTopic)
 	{

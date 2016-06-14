@@ -141,7 +141,7 @@ public class GlimpseManager extends Thread implements MessageListener {
 			// check if the paylod of the message is a bpmn to be used for path
 			// extraction and rules generation
 			// or if the xml is already a rule to inject into the engine
-			if (xmlMessagePayload.contains("www.omg.org/spec/BPMN/20100524/MODEL")) {
+			if (xmlMessagePayload.contains("http://www.omg.org/spec/BPMN/20100524/MODEL")) {
 				DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(),
 						"The message sent seems to contain a BPMN - Forwarding it to the LearnPAd Assessment Manager");
 				

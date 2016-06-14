@@ -129,7 +129,6 @@ public class PathRulesGeneratorImpl implements PathRulesGenerator {
 
 			updatedPath = updatedPath.replaceAll("##USERSINVOLVEDIDS##", usersInvolvedText);
 			updatedPath = updatedPath.replaceAll("##LEARNERSINVOLVEDID##", usersInvolvedList);
-			updatedPath = updatedPath.replaceAll("##TASKSCORE##", "0.0f");
 
 			try {
 				

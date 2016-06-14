@@ -1,7 +1,7 @@
 package eu.learnpad.simulator.mon.impl;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.Date;
 import java.util.Vector;
 
@@ -61,10 +61,9 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	@Override
 	public Document setBPModel(String xmlMessagePayload) throws ParserConfigurationException, SAXException, IOException {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		Document dom = null;
 
 		DocumentBuilder docBuilder = dbf.newDocumentBuilder();
-		dom = docBuilder.parse(new InputSource(new ByteArrayInputStream(xmlMessagePayload.getBytes("utf-8"))));
+		Document dom = docBuilder.parse(new InputSource(new StringReader(xmlMessagePayload)));
 		this.theBPMN = dom;
 		return dom;
 	}
@@ -85,6 +84,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 				
 				Vector<Path> theGeneratedPath = crossRulesGenerator.generatePathsRules(
 																	crossRulesGenerator.generateAllPaths(theUnfoldedBPMN, newBpmn.getId()));
+				System.out.println();
 				theGeneratedPath = setAllAbsoluteSessionScores(theGeneratedPath);
 				
 				this.rulesLists = crossRulesGenerator.instantiateRulesSetForUsersInvolved(
@@ -105,6 +105,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			DebugMessages.println(TimeStamp.getCurrentTime(), 
 					this.getClass().getSimpleName(),"The message contains an INVALID BPMN");
 		}
+		System.out.println(rulesLists.toString());
 		return rulesLists;
 	}
 
@@ -119,14 +120,12 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	}
 
 	@Override
-	public void computeAndSaveScores(String learnersID, int idPath, String idBPMN, float sessionScore) {
+	public void computeAndSaveScores(String learnersID, int idPath, String idBPMN) {
 		
 		String[] learnersIDs = learnersID.split("-");
 		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
 		
 		for(int i = 0; i<learnersIDs.length; i++) {
-
-			databaseController.setLearnerSessionScore(Integer.parseInt(learnersIDs[i]), idPath, idBPMN, sessionScore);
 			
 			float learnerBPScore = ComputeScore.learnerBP(
 					databaseController.getMaxSessionScores(Integer.parseInt(learnersIDs[i]), idBPMN)); 
@@ -154,5 +153,14 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 					
 		}
 	}
+	
+	public void saveSessionScore(String learnersID, int idPath, String idBPMN, float sessionScore) {
+		String[] learnersIDs = learnersID.split("-");
+		for(int i = 0; i<learnersIDs.length; i++) {
+			databaseController.setLearnerSessionScore(Integer.parseInt(learnersIDs[i]), idPath, idBPMN, sessionScore);
+		}	
+	}
+	
+
 		
 }

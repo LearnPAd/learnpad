@@ -1,3 +1,161 @@
 2016-06-07 17:39:31 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: Table "PATH" not found; SQL statement:
 select * from path where id_bpmn = 'asd'; [42102-191]
+2016-06-10 18:46:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-10 18:46:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-10 18:46:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-10 18:46:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (BPMN: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.bpmn (id_bpmn, extraction_date, id_category, absolute_bp_score, paths_cardinality) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+06-14 19:38:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 19:38:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 19:38:49 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "LEARNER" not found; SQL statement:
+select * from learner [42102-176]
+2016-06-14 20:05:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-14 20:05:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-14 20:05:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-14 20:05:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (BPMN: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.bpmn (id_bpmn, extraction_date, id_category, absolute_bp_score, paths_cardinality) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+06-14 20:06:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:06:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:06:32 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:06:32 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:06:32 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:06:32 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:07:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:07:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:07:50 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:07:50 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:08:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:08:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:08:33 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:08:33 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-06-14 20:09:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-14 20:09:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-14 20:09:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-14 20:09:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (BPMN: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.bpmn (id_bpmn, extraction_date, id_category, absolute_bp_score, paths_cardinality) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-06-14 20:12:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-14 20:12:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-14 20:12:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-14 20:12:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (BPMN: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.bpmn (id_bpmn, extraction_date, id_category, absolute_bp_score, paths_cardinality) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-06-14 20:13:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-14 20:13:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-14 20:13:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-14 20:13:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (BPMN: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.bpmn (id_bpmn, extraction_date, id_category, absolute_bp_score, paths_cardinality) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-06-14 20:14:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-14 20:14:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-14 20:14:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id_bpmn, absolute_session_score, path_rule) values (?, ?, ?) -- (?1, ?2, ?3) [22018-191]
+2016-06-14 20:14:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (BPMN: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.bpmn (id_bpmn, extraction_date, id_category, absolute_bp_score, paths_cardinality) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-06-14 20:23:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id, id_bpmn, absolute_session_score, path_rule) values (?, ?, ?, ?) -- (?1, ?2, ?3, ?4) [22018-191]
+2016-06-14 20:23:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id, id_bpmn, absolute_session_score, path_rule) values (?, ?, ?, ?) -- (?1, ?2, ?3, ?4) [22018-191]
+2016-06-14 20:23:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id, id_bpmn, absolute_session_score, path_rule) values (?, ?, ?, ?) -- (?1, ?2, ?3, ?4) [22018-191]
+2016-06-14 20:23:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (BPMN: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.bpmn (id_bpmn, extraction_date, id_category, absolute_bp_score, paths_cardinality) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-06-14 20:29:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649' (PATH: ID_BPMN INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id, id_bpmn, absolute_session_score, path_rule) values (?, ?, ?, ?) -- (?1, ?2, ?3, ?4) [22018-191]
+06-14 20:29:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:29:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:29:49 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:29:49 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:31:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:31:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:31:12 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:31:12 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:32:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:32:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:32:02 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:32:02 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:43:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:43:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:43:08 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:43:08 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:43:08 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 20:43:08 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]

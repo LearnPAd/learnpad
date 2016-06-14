@@ -49,7 +49,7 @@ public class RuleElements {
 					+ "\n\t\t\tretract($"+ i +"Event);";					
 		}
 		 concat = concat + "\n\t\t\t"
-			+ "ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \""+ idBPMN +"\", " +  theActivitySetToSetConsumed[0].getPath_id() + ", " + "##TASKSCORE##);";
+			+ "ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \""+ idBPMN +"\", " +  theActivitySetToSetConsumed[0].getPath_id() + ");";
 		 //TODO: fix idPath
 		return concat;
 	}

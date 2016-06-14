@@ -186,7 +186,7 @@ public class H2Controller implements DBController {
 	DebugMessages.println(
 			TimeStamp.getCurrentTime(), 
 			this.getClass().getSimpleName(),
-			"Learner Saved");
+			"Learner profile created and saved on database.");
 	return 0;
 	}
 
@@ -204,14 +204,15 @@ public class H2Controller implements DBController {
 
 	@Override
 	public int savePath(Path thePath) {
-		 String query = " insert into glimpse.path (id_bpmn, absolute_session_score, path_rule)"
-	    	        + " values (?, ?, ?)";
+		 String query = " insert into glimpse.path (id, id_bpmn, absolute_session_score, path_rule)"
+	    	        + " values (?, ?, ?, ?)";
 	    	 
 		try {
 			preparedStmt = conn.prepareStatement(query);
-		    preparedStmt.setString(1, thePath.getIdBpmn());
-		    preparedStmt.setFloat(2,thePath.getAbsoluteSessionScore());
-		    preparedStmt.setString(3, thePath.getPathRule());
+			preparedStmt.setInt(1,thePath.getId());
+		    preparedStmt.setString(2, thePath.getIdBpmn());
+		    preparedStmt.setFloat(3,thePath.getAbsoluteSessionScore());
+		    preparedStmt.setString(4, thePath.getPathRule());
 
 		    // execute the prepared statement
 		    preparedStmt.execute();
