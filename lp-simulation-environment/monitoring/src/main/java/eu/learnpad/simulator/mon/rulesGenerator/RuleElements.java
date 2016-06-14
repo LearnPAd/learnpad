@@ -41,7 +41,7 @@ public class RuleElements {
 		return concat;
 	}
 	
-	public static String getThenClauseWithLearnersScoreUpdateAndProcessStartNotification(Activity[] theActivitySetToSetConsumed, String idBPMN, int idPath) {
+	public static String getThenClauseWithLearnersScoreUpdateAndProcessStartNotification(Activity[] theActivitySetToSetConsumed, String idBPMN, String idPath) {
 		String concat = "\n\t\tthen ";
 		for (int i = 0; i<theActivitySetToSetConsumed.length; i++) {
 			concat = concat + "\n\t\t\t$"+ i
@@ -49,7 +49,7 @@ public class RuleElements {
 					+ "\n\t\t\tretract($"+ i +"Event);";					
 		}
 		 concat = concat + "\n\t\t\t"
-			+ "ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \""+ idBPMN +"\", " +  theActivitySetToSetConsumed[0].getPath_id() + ");";
+			+ "ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \""+ idBPMN +"\", " + idPath + ");";
 		 //TODO: fix idPath
 		return concat;
 	}

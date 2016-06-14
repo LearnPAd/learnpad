@@ -20,7 +20,7 @@ public abstract class LearnerAssessmentManager extends Thread {
 	public abstract ComplexEventRuleActionListDocument elaborateModel(String xmlMessagePayload, Vector<Learner> vector, String sessionID, String bpmnID);
 
 	public abstract DBController getDBController();
-	public abstract void computeAndSaveScores(String learnersID, int idPath, String idBPMN);
-	public abstract void saveSessionScore(String learnersID, int idPath, String idBPMN, float sessionScore);
+	public abstract void computeAndSaveScores(String learnersID, String idBPMN, int idPath);
+	public abstract void saveSessionScore(String learnersID, String idPath, String idBPMN, float sessionScore);
 	public abstract Vector<Path> setAllAbsoluteSessionScores(Vector<Path> theGeneratedPath);
 }

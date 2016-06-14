@@ -41,8 +41,8 @@ public interface DBController {
 		
 	//Path methods
 	public int savePath(Path thePath);
-	public Path getPath(int thePathID);
-	public boolean updatePath(int thePathId, Path thePathToUpdate);
+	public Path getPath(String thePathID);
+	public boolean updatePath(String thePathId, Path thePathToUpdate);
 		
 	//Role methods
 	public int saveRole(Role theRole);
@@ -62,8 +62,8 @@ public interface DBController {
 	//SCORES METHODS//
 	
 	//path_learner table
-	public float getLearnerSessionScore(int idLearner, int idPath, String idBpmn);
-	public int setLearnerSessionScore(int idLearner, int idPath, String idBpmn, float sessionScore);
+	public float getLearnerSessionScore(int idLearner, String idPath, String idBpmn);
+	public int setLearnerSessionScore(int idLearner, String idPath, String idBpmn, float sessionScore);
 	
 	//learner table
 	public void setLearnerGlobalScore(int learnerID, float learnerGlobalScore);

@@ -159,3 +159,50 @@ org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
 org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
 06-14 20:43:08 jdbc[5]: exception
 org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:14:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:14:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:14:30 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:14:30 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:14:30 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:14:30 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:25:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:25:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:25:38 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:25:38 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:25:38 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:25:38 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:49:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:49:44 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:49:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:49:44 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:49:44 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:49:44 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-06-14 21:50:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'a23748293649-0' (PATH: ID INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path (id, id_bpmn, absolute_session_score, path_rule) values (?, ?, ?, ?) -- (?1, ?2, ?3, ?4) [22018-191]
+06-14 21:52:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:52:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:53:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+06-14 21:53:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]

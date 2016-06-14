@@ -27,7 +27,7 @@ public class PathRulesGeneratorImpl implements PathRulesGenerator {
 		
 		for (int i =0; i<theUnfoldedBusinessProcess.size();i++) {
 					
-			Path theCompletePathObject = new Path(i, idBpmn, ComputeScore.absoluteSession(theUnfoldedBusinessProcess.get(i)),
+			Path theCompletePathObject = new Path(idBpmn + "-" + i, idBpmn, ComputeScore.absoluteSession(theUnfoldedBusinessProcess.get(i)),
 													"", theUnfoldedBusinessProcess.get(i));
 			thePathOfTheBPMN.add(theCompletePathObject);
 		}	
@@ -53,7 +53,7 @@ public class PathRulesGeneratorImpl implements PathRulesGenerator {
 	
 	@Override
 	public ComplexEventRuleType generateRuleForSinglePath(
-			Activity[] anActivitiesSet, String rulesName, String idBPMN, int idPath) {
+			Activity[] anActivitiesSet, String rulesName, String idBPMN, String idPath) {
 
 		ComplexEventRuleType aInsert = ComplexEventRuleType.Factory.newInstance();
 		aInsert.setRuleName("Path-Crossing-Check-" + rulesName);
@@ -85,19 +85,19 @@ public class PathRulesGeneratorImpl implements PathRulesGenerator {
 		return aInsert;
 	}
 
-	@Override
+/*	@Override
 	public Vector<Path> generatePaths(ComplexEventRuleActionListDocument generatedRules, Vector<Activity[]> theUnfoldedBPMN, String theBPMNidentifier) {
 		
 		Vector<Path> thePathOfTheBPMN = new Vector<Path>();
 		
 		for (int i =0; i<theUnfoldedBPMN.size();i++) {
 					
-			Path theCompletePathObject = new Path(i, theBPMNidentifier, ComputeScore.absoluteSession(theUnfoldedBPMN.get(i)),
+			Path theCompletePathObject = new Path(theUnfoldedBPMN.get(i) + "-" + i, theBPMNidentifier, ComputeScore.absoluteSession(theUnfoldedBPMN.get(i)),
 													generatedRules.getComplexEventRuleActionList().getInsertArray()[i].toString(), theUnfoldedBPMN.get(i));
 			thePathOfTheBPMN.add(theCompletePathObject);
 		}	
 		return thePathOfTheBPMN;
-	}
+	}*/
 	
 	@Override
 	public ComplexEventRuleActionListDocument instantiateRulesSetForUsersInvolved(Vector<Path> thePathsToInstantiate, Vector<Learner> usersInvolved, String sessionID) {

@@ -68,7 +68,7 @@ public class H2Controller implements DBController {
 			resultsSet = preparedStmt.executeQuery(); 
 		            
 			while ( resultsSet.next() ) {
-				retrievedPath.add(new Path(Integer.parseInt(resultsSet.getString("id")),
+				retrievedPath.add(new Path(resultsSet.getString("id"),
 									resultsSet.getString("id_bpmn"),
 									resultsSet.getFloat("absolute_session_score"),
 									resultsSet.getString("path_rule")));
@@ -85,19 +85,19 @@ public class H2Controller implements DBController {
 	}
 
 	@Override
-	public float getLearnerSessionScore(int idLearner, int idPath, String idBPMN) {
+	public float getLearnerSessionScore(int idLearner, String idPath, String idBPMN) {
 		return 0;
 	}
 	
 	@Override
-	public int setLearnerSessionScore(int idLearner, int idPath, String idBPMN, float sessionScore) {
+	public int setLearnerSessionScore(int idLearner, String idPath, String idBPMN, float sessionScore) {
 	      String query = " insert into glimpse.path_learner (id_learner, id_path, id_bpmn, session_score, execution_date)"
 	    	        + " values (?, ?, ?, ?, ?) ";
 	    	 Date now = new Date();
 		try {
 			preparedStmt = conn.prepareStatement(query);
 			preparedStmt.setInt(1, idLearner);
-			preparedStmt.setInt(2, idPath);
+			preparedStmt.setString(2, idPath);
 		    preparedStmt.setString(3,idBPMN);
 		    preparedStmt.setFloat(4, sessionScore);
 		    preparedStmt.setDate(5,new java.sql.Date(now.getTime()));
@@ -209,7 +209,7 @@ public class H2Controller implements DBController {
 	    	 
 		try {
 			preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setInt(1,thePath.getId());
+			preparedStmt.setString(1,thePath.getId());
 		    preparedStmt.setString(2, thePath.getIdBpmn());
 		    preparedStmt.setFloat(3,thePath.getAbsoluteSessionScore());
 		    preparedStmt.setString(4, thePath.getPathRule());
@@ -227,13 +227,13 @@ public class H2Controller implements DBController {
 	}
 
 	@Override
-	public Path getPath(int thePathID) {
+	public Path getPath(String thePathID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean updatePath(int thePathId, Path thePathToUpdate) {
+	public boolean updatePath(String thePathId, Path thePathToUpdate) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -410,7 +410,7 @@ public class H2Controller implements DBController {
 			preparedStmt = conn.prepareStatement(query);
 			resultsSet = preparedStmt.executeQuery(); 
 			while ( resultsSet.next() ) {
-				retrievedPath.add(new Path(Integer.parseInt(resultsSet.getString("id")),
+				retrievedPath.add(new Path(resultsSet.getString("id"),
 									resultsSet.getString("id_bpmn"),
 									resultsSet.getFloat("absolute_session_score"),
 									resultsSet.getString("path_rule")));

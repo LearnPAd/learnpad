@@ -120,7 +120,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	}
 
 	@Override
-	public void computeAndSaveScores(String learnersID, int idPath, String idBPMN) {
+	public void computeAndSaveScores(String learnersID, String idBPMN, int idPath) {
 		
 		String[] learnersIDs = learnersID.split("-");
 		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
@@ -154,7 +154,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 		}
 	}
 	
-	public void saveSessionScore(String learnersID, int idPath, String idBPMN, float sessionScore) {
+	public void saveSessionScore(String learnersID, String idPath, String idBPMN, float sessionScore) {
 		String[] learnersIDs = learnersID.split("-");
 		for(int i = 0; i<learnersIDs.length; i++) {
 			databaseController.setLearnerSessionScore(Integer.parseInt(learnersIDs[i]), idPath, idBPMN, sessionScore);
