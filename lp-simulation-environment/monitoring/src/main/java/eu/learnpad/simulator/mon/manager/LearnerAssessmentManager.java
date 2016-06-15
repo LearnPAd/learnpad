@@ -1,6 +1,7 @@
 package eu.learnpad.simulator.mon.manager;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,7 +21,7 @@ public abstract class LearnerAssessmentManager extends Thread {
 	public abstract ComplexEventRuleActionListDocument elaborateModel(String xmlMessagePayload, Vector<Learner> vector, String sessionID, String bpmnID);
 
 	public abstract DBController getDBController();
-	public abstract void computeAndSaveScores(String learnersID, String idBPMN, String idPath);
-	public abstract void saveSessionScore(String learnersID, String idPath, String idBPMN, float sessionScore);
+	public abstract void computeAndSaveScores(List<String> learnersID, String idBPMN, String idPath);
+	public abstract void saveSessionScore(List<String> learnersID, String idPath, String idBPMN, float sessionScore);
 	public abstract Vector<Path> setAllAbsoluteSessionScores(Vector<Path> theGeneratedPath);
 }

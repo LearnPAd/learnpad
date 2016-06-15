@@ -26,6 +26,8 @@ import it.cnr.isti.labse.glimpse.xml.complexEventResponse.ComplexEventResponseLi
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
+
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
@@ -116,13 +118,13 @@ public class ResponseDispatcher {
 		}
 	}
 	
-	public static void saveAndNotifyLearnersScore(String learnersID, String idBPMN, String idPath) {
+	public static void saveAndNotifyLearnersScore(List<String> learnersID, String idBPMN, String idPath) {
 			
 			ResponseDispatcher.lam.computeAndSaveScores(learnersID, idBPMN, idPath);
 			
 	}
 	
-	public static void saveSessionScore (String learnersID, String idBPMN, String idPath, float sessionScore) {
+	public static void saveSessionScore (List<String> learnersID, String idBPMN, String idPath, float sessionScore) {
 		
 		ResponseDispatcher.lam.saveSessionScore(learnersID, idPath, idBPMN, sessionScore);
 		

@@ -24,6 +24,7 @@ import it.cnr.isti.labse.glimpse.xml.complexEventRule.ComplexEventRuleActionList
 import it.cnr.isti.labse.glimpse.xml.complexEventRule.ComplexEventRuleActionType;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -145,7 +146,8 @@ public class GlimpseManager extends Thread implements MessageListener {
 				DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(),
 						"The message sent seems to contain a BPMN - Forwarding it to the LearnPAd Assessment Manager");
 				
-				String[] learnersIDs = msg.getObjectProperty("USERSINVOLVEDID").toString().split("-");	
+				@SuppressWarnings("unchecked")
+				List<String> learnersIDs = (List<String>) msg.getObjectProperty("USERSINVOLVEDID");	
 				String bpmnID = msg.getObjectProperty("BPMNID").toString();
 				String sessionID = msg.getObjectProperty("SESSIONID").toString();	
 				

@@ -3,6 +3,7 @@ package eu.learnpad.simulator.mon.impl;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -120,44 +121,43 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	}
 
 	@Override
-	public void computeAndSaveScores(String learnersID, String idBPMN, String idPath) {
+	public void computeAndSaveScores(List<String> learnersID, String idBPMN, String idPath) {
 		
-		String[] learnersIDs = learnersID.split("-");
 		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
 		
-		for(int i = 0; i<learnersIDs.length; i++) {
+		for(int i = 0; i<learnersID.size(); i++) {
 			
 			float learnerBPScore = ComputeScore.learnerBP(
-					databaseController.getMaxSessionScores(Integer.parseInt(learnersIDs[i]), idBPMN)); 
+					databaseController.getMaxSessionScores(learnersID.get(i), idBPMN)); 
 			
-			Vector<Path> pathsExecutedByLearner = databaseController.getPathsExecutedByLearner(Integer.parseInt(learnersIDs[i]), idBPMN); 
+			Vector<Path> pathsExecutedByLearner = databaseController.getPathsExecutedByLearner(learnersID.get(i), idBPMN); 
 			
 			float learnerRelativeBPScore = ComputeScore.learnerRelativeBP(pathsExecutedByLearner);
 
 			float learnerCoverage = ComputeScore.BPCoverage(
 					pathsExecutedByLearner,pathsCardinality);
 
-			databaseController.updateBpmnLearnerScores(Integer.parseInt(learnersIDs[i]), idBPMN, learnerBPScore, learnerRelativeBPScore, learnerCoverage);
+			databaseController.updateBpmnLearnerScores(learnersID.get(i), idBPMN, learnerBPScore, learnerRelativeBPScore, learnerCoverage);
 			
 			float learnerGlobalScore = ComputeScore.learnerGlobal(
-					databaseController.getLearnerBPMNScores(Integer.parseInt(learnersIDs[i])));
+					databaseController.getLearnerBPMNScores(learnersID.get(i)));
 		
 			float learnerRelativeGlobalScore = ComputeScore.learnerRelativeGlobal(
-					databaseController.getLearnerRelativeBPScores(Integer.parseInt(learnersIDs[i])));
+					databaseController.getLearnerRelativeBPScores(learnersID.get(i)));
 			
 			//float learnerAbsoluteGlobalScore = ComputeScore.learnerAbsoluteGlobal(
 //					databaseController.getBPMNAbsoluteScoresExecutedByLearner(Integer.parseInt(learnersIDs[i]))));
 			float learnerAbsoluteGLobalScore = 0;
 			
-			databaseController.updateLearnerScores(Integer.parseInt(learnersIDs[i]), learnerGlobalScore, learnerRelativeGlobalScore, learnerAbsoluteGLobalScore);
+			databaseController.updateLearnerScores(learnersID.get(i), learnerGlobalScore, learnerRelativeGlobalScore, learnerAbsoluteGLobalScore);
 					
 		}
 	}
 	
-	public void saveSessionScore(String learnersID, String idPath, String idBPMN, float sessionScore) {
-		String[] learnersIDs = learnersID.split("-");
-		for(int i = 0; i<learnersIDs.length; i++) {
-			databaseController.setLearnerSessionScore(Integer.parseInt(learnersIDs[i]), idPath, idBPMN, sessionScore);
+	public void saveSessionScore(List<String> learnersID, String idPath, String idBPMN, float sessionScore) {
+		
+		for(int i = 0; i<learnersID.size(); i++) {
+			databaseController.setLearnerSessionScore(learnersID.get(i), idPath, idBPMN, sessionScore);
 		}	
 	}
 	
