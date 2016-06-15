@@ -34,11 +34,11 @@ import eu.learnpad.dash.rest.data.KPIValuesFormat;
 
 public interface NotifyKPIValues {
 
-	// <host>/learnpad/dash/kpivalues/{modelsetid}?format={ADOXXCockpit}
+	// <host>/learnpad/dash/loadkpivalues/{modelsetid}?format={ADOXXCockpit}
 	@PUT
-	@Path("/kpivalues/{modelsetid}")
+	@Path("/loadkpivalues/{modelsetid}")
 	@Consumes(MediaType.APPLICATION_XML)
-	void importModelSet(@PathParam("modelsetid") String modelSetId,
+	void loadKPIValues(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("format") @DefaultValue("ADOXXCockpit") KPIValuesFormat format, InputStream cockpitContent)
 			throws LpRestException;
 
