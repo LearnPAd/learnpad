@@ -823,7 +823,7 @@ ________________________________________________________________________________
 		
 		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
 		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Perspective']/@id">
-  		     <xsl:call-template name="addLink_OperationalGoaToPerspective">
+  		     <xsl:call-template name="addLink_OperationalGoalToPerspective">
 			  <xsl:with-param name="toId" select="."/>
 		     </xsl:call-template>
 		  </xsl:for-each>
@@ -842,6 +842,23 @@ ________________________________________________________________________________
 			<xsl:with-param name="name" select="@name"/>
 			<xsl:with-param name="class" select="@class"/>
 		</xsl:call-template>
+		
+		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
+		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Perspective']/@id">
+  		     <xsl:call-template name="addLink_LearningGoalToPerspective">
+			  <xsl:with-param name="toId" select="."/>
+		     </xsl:call-template>
+		  </xsl:for-each>
+		</xsl:for-each>
+		
+		<xsl:for-each select="../CONNECTOR/FROM[@instance=current()/@name and @class=current()/@class]">
+		  <xsl:for-each select="../../INSTANCE[@name=current()/../TO/@instance and @class='Operational goal']/@id">
+  		     <xsl:call-template name="addLink_LearningGoalToOperationalGoal">
+			  <xsl:with-param name="toId" select="."/>
+		     </xsl:call-template>
+		  </xsl:for-each>
+		</xsl:for-each>		
+		
 		<xsl:call-template name="elementPostProcessing"/>
   </xsl:template>
 <!--...............................................................................................--> 

@@ -7,6 +7,7 @@ package eu.learnpad.ontology.execution;
 
 import eu.learnpad.ontology.AbstractUnitTest;
 import eu.learnpad.ontology.config.APP;
+import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.or.rest.data.States;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class ExecutionStatesTest extends AbstractUnitTest {
      * Test of getStates method, of class ExecutionStates.
      */
     @Test
-    public void testGetStates() {
+    public void testGetStates() throws RecommenderException {
         States states = ExecutionStates.getInstance().getStates(APP.CONF.getString("testdata.user.email"), MODELSET_ID);
         assertNotNull(states);
 //        assertNotNull(states.getStates());

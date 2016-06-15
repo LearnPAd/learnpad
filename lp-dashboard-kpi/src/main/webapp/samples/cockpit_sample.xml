@@ -1,0 +1,3338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ADO> 
+  <BASEYEAR>2011</BASEYEAR>  
+  <ENDYEAR>2013</ENDYEAR>  
+  <MODEL ID="ID55938" NAME="Risk Model Durchblick" TYPE="LD CAST Monitoring Cockpit"> 
+    <SCOREVISUALIZATION>Ja</SCOREVISUALIZATION>  
+    <SEQNUMBER>2</SEQNUMBER>  
+    <PERSPECTIVE NAME="Enterprise"> 
+      <STRATEGICGOAL ID="SID617821021" NAME="International Publications"> 
+        <PARENT ID="NULL"> 
+          <VALUE/> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>FHNW Management Board</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>red</STATUS>  
+            <SHOULDVALUE/>  
+            <ISVALUE/>  
+            <TOLERANCE_RY/>  
+            <TOLERANCE_YG/>  
+            <TOLERANCE_RY_D/>  
+            <TOLERANCE_YG_D/>  
+            <THRESHOLD_TYPE/>  
+            <THRESHOLD_DIMENSION/>  
+            <SCORE>-6.0</SCORE>  
+            <BEZUGSZEITRAUM>6. Months</BEZUGSZEITRAUM>  
+            <MEASURETYPE/>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE/> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual overall status of the Goal" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Goals and Criterions)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Measures and Milestones)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual State" TYPE="targethistory"> 
+            <ENTRY_PERIOD>0</ENTRY_PERIOD>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>0.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-6.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>International Publications</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Holger Wache</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>holger.wache@fhnw.ch</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (yellow/red)" TYPE="DOUBLE"> 
+            <VALUE>3</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (green/yellow)" TYPE="DOUBLE"> 
+            <VALUE>5</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </STRATEGICGOAL>  
+      <STRATEGICGOAL ID="SID490878683" NAME="International Cooperations"> 
+        <PARENT ID="NULL"> 
+          <VALUE/> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>FHNW Management Board</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>yellow</STATUS>  
+            <SHOULDVALUE/>  
+            <ISVALUE/>  
+            <TOLERANCE_RY/>  
+            <TOLERANCE_YG/>  
+            <TOLERANCE_RY_D/>  
+            <TOLERANCE_YG_D/>  
+            <THRESHOLD_TYPE/>  
+            <THRESHOLD_DIMENSION/>  
+            <SCORE>1.0</SCORE>  
+            <BEZUGSZEITRAUM>6. Months</BEZUGSZEITRAUM>  
+            <MEASURETYPE/>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE/> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual overall status of the Goal" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Goals and Criterions)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Measures and Milestones)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual State" TYPE="targethistory"> 
+            <ENTRY_PERIOD>0</ENTRY_PERIOD>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-1.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>1.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Knut Hinkelmann</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>knut.hinkelmann@fhnw.ch</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (yellow/red)" TYPE="DOUBLE"> 
+            <VALUE>0</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (green/yellow)" TYPE="DOUBLE"> 
+            <VALUE>2</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </STRATEGICGOAL>  
+      <STRATEGICGOAL ID="SID501711353" NAME="Bringing Technologies into Practice"> 
+        <PARENT ID="NULL"> 
+          <VALUE/> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>FHNW Management Board</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS/>  
+            <SHOULDVALUE/>  
+            <ISVALUE/>  
+            <TOLERANCE_RY/>  
+            <TOLERANCE_YG/>  
+            <TOLERANCE_RY_D/>  
+            <TOLERANCE_YG_D/>  
+            <THRESHOLD_TYPE/>  
+            <THRESHOLD_DIMENSION/>  
+            <SCORE>0</SCORE>  
+            <BEZUGSZEITRAUM>6. Months</BEZUGSZEITRAUM>  
+            <MEASURETYPE/>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE/> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual overall status of the Goal" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Goals and Criterions)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Measures and Milestones)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual State" TYPE="targethistory"> 
+            <ENTRY_PERIOD>0</ENTRY_PERIOD> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Barbara Thönssen</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>barbara.thoenssen@fhnw.ch</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (yellow/red)" TYPE="DOUBLE"> 
+            <VALUE>0</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (green/yellow)" TYPE="DOUBLE"> 
+            <VALUE>1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </STRATEGICGOAL>  
+      <STRATEGICGOAL ID="SID266242322" NAME="Projects"> 
+        <PARENT ID="NULL"> 
+          <VALUE/> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>FHNW Management Board</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>red</STATUS>  
+            <SHOULDVALUE/>  
+            <ISVALUE/>  
+            <TOLERANCE_RY/>  
+            <TOLERANCE_YG/>  
+            <TOLERANCE_RY_D/>  
+            <TOLERANCE_YG_D/>  
+            <THRESHOLD_TYPE/>  
+            <THRESHOLD_DIMENSION/>  
+            <SCORE>-200000.0</SCORE>  
+            <BEZUGSZEITRAUM>6. Months</BEZUGSZEITRAUM>  
+            <MEASURETYPE/>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE/> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual overall status of the Goal" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Goals and Criterions)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Measures and Milestones)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual State" TYPE="targethistory"> 
+            <ENTRY_PERIOD>0</ENTRY_PERIOD>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-350000.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>3.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="3" NAME="01.07.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-400000.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="4" NAME="01.08.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-200000.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Holger Wache</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>holger.wache@fhnw.ch</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (yellow/red)" TYPE="DOUBLE"> 
+            <VALUE>3</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (green/yellow)" TYPE="DOUBLE"> 
+            <VALUE>5</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </STRATEGICGOAL>  
+      <STRATEGICGOAL ID="SID97166442" NAME="Continuing Education"> 
+        <PARENT ID="NULL"> 
+          <VALUE/> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>FHNW Management Board</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE/>  
+            <ISVALUE/>  
+            <TOLERANCE_RY/>  
+            <TOLERANCE_YG/>  
+            <TOLERANCE_RY_D/>  
+            <TOLERANCE_YG_D/>  
+            <THRESHOLD_TYPE/>  
+            <THRESHOLD_DIMENSION/>  
+            <SCORE>-2.0</SCORE>  
+            <BEZUGSZEITRAUM>6. Months</BEZUGSZEITRAUM>  
+            <MEASURETYPE/>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE/> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual overall status of the Goal" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Goals and Criterions)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Measures and Milestones)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual State" TYPE="targethistory"> 
+            <ENTRY_PERIOD>0</ENTRY_PERIOD>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>4.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-2.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Rolf Dornberger</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>rolf.dornberger@fhnw.ch</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (yellow/red)" TYPE="DOUBLE"> 
+            <VALUE>1</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (green/yellow)" TYPE="DOUBLE"> 
+            <VALUE>3</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </STRATEGICGOAL>  
+      <STRATEGICGOAL ID="SID86493400" NAME="Degree Studies"> 
+        <PARENT ID="NULL"> 
+          <VALUE/> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>FHNW Management Board</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>red</STATUS>  
+            <SHOULDVALUE/>  
+            <ISVALUE/>  
+            <TOLERANCE_RY/>  
+            <TOLERANCE_YG/>  
+            <TOLERANCE_RY_D/>  
+            <TOLERANCE_YG_D/>  
+            <THRESHOLD_TYPE/>  
+            <THRESHOLD_DIMENSION/>  
+            <SCORE>-5.0</SCORE>  
+            <BEZUGSZEITRAUM>6. Months</BEZUGSZEITRAUM>  
+            <MEASURETYPE/>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE/> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual overall status of the Goal" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Goals and Criterions)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Measures and Milestones)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual State" TYPE="targethistory"> 
+            <ENTRY_PERIOD>0</ENTRY_PERIOD>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-77.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-6.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="3" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-9.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="4" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-5.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Knut Hinkelmann</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>knut.hinkelmann@fhnw.ch</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (yellow/red)" TYPE="DOUBLE"> 
+            <VALUE>0</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (green/yellow)" TYPE="DOUBLE"> 
+            <VALUE>1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </STRATEGICGOAL>  
+      <CRITERION ID="CID345418374" NAME="Number of Publications"> 
+        <PARENT ID="SID617821021"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Holger Wache</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>yellow</STATUS>  
+            <SHOULDVALUE>8</SHOULDVALUE>  
+            <ISVALUE>2</ISVALUE>  
+            <TOLERANCE_RY>2</TOLERANCE_RY>  
+            <TOLERANCE_YG>5</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>5</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>8</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>bottom up</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>-3.0</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>PCS</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>5</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>2</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>01.06.2011</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>8</SHOULDVALUE>  
+                <ISVALUE>8</ISVALUE>  
+                <TOLERANCE_RY>2</TOLERANCE_RY>  
+                <TOLERANCE_YG>5</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>0.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>yellow</STATUS>  
+                <SHOULDVALUE>8</SHOULDVALUE>  
+                <ISVALUE>2</ISVALUE>  
+                <TOLERANCE_RY>2</TOLERANCE_RY>  
+                <TOLERANCE_YG>5</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-6.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Holger Wache</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>holger.wache@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION>  
+      <CRITERION ID="CID527997264" NAME="Number of Partnerships"> 
+        <PARENT ID="SID490878683"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Knut Hinkelmann</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>2</SHOULDVALUE>  
+            <ISVALUE>3</ISVALUE>  
+            <TOLERANCE_RY>4</TOLERANCE_RY>  
+            <TOLERANCE_YG>6</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>1</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>2</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>bottom up</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>0.0</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>PCS</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>6</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>4</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>01.06.2011</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>2</SHOULDVALUE>  
+                <ISVALUE>1</ISVALUE>  
+                <TOLERANCE_RY>4</TOLERANCE_RY>  
+                <TOLERANCE_YG>6</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-1.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>2</SHOULDVALUE>  
+                <ISVALUE>3</ISVALUE>  
+                <TOLERANCE_RY>4</TOLERANCE_RY>  
+                <TOLERANCE_YG>6</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>1.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Knut Hinkelmann</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>knut.hinkelmann@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION>  
+      <CRITERION ID="CID514798592" NAME="Average Rating in Course Evaluation"> 
+        <PARENT ID="SID86493400"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Knut Hinkelmann</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>80</SHOULDVALUE>  
+            <ISVALUE>75</ISVALUE>  
+            <TOLERANCE_RY>50</TOLERANCE_RY>  
+            <TOLERANCE_YG>75</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>50</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>75</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>bottom up</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>-41.0</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>%</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>75</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>50</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>01.06.2011</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>80</SHOULDVALUE>  
+                <ISVALUE>50</ISVALUE>  
+                <TOLERANCE_RY>50</TOLERANCE_RY>  
+                <TOLERANCE_YG>75</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-77.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>80</SHOULDVALUE>  
+                <ISVALUE>75</ISVALUE>  
+                <TOLERANCE_RY>50</TOLERANCE_RY>  
+                <TOLERANCE_YG>75</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-5.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>The average rating of the courses taught by the IKM. Source: Quarterly Student Survey</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Knut Hinkelmann</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>knut.hinkelmann@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION>  
+      <CRITERION ID="CID172239890" NAME="ECTS Credits by IKM"> 
+        <PARENT ID="SID86493400"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Knut Hinkelmann</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>24</SHOULDVALUE>  
+            <ISVALUE>15</ISVALUE>  
+            <TOLERANCE_RY>18</TOLERANCE_RY>  
+            <TOLERANCE_YG>24</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>18</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>24</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>bottom up</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>-7.5</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>PCS</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>24</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>18</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>01.06.2011</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>24</SHOULDVALUE>  
+                <ISVALUE>18</ISVALUE>  
+                <TOLERANCE_RY>18</TOLERANCE_RY>  
+                <TOLERANCE_YG>24</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-6.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>24</SHOULDVALUE>  
+                <ISVALUE>15</ISVALUE>  
+                <TOLERANCE_RY>18</TOLERANCE_RY>  
+                <TOLERANCE_YG>24</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-9.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>Sum of ECTS credits of all courses taught by people from the IKM in either the Bachelor or the Master programme at the School of Business. Source: Study plans</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Knut Hinkelmann</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>knut.hinkelmann@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION>  
+      <CRITERION ID="CID505314145" NAME="Participant Days"> 
+        <PARENT ID="SID97166442"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Holger Wache</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>5</SHOULDVALUE>  
+            <ISVALUE>3</ISVALUE>  
+            <TOLERANCE_RY>2</TOLERANCE_RY>  
+            <TOLERANCE_YG>5</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>2</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>5</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>bottom up</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>1.0</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>PCS</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>5</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>2</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>01.06.2011</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>5</SHOULDVALUE>  
+                <ISVALUE>9</ISVALUE>  
+                <TOLERANCE_RY>2</TOLERANCE_RY>  
+                <TOLERANCE_YG>5</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>4.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>5</SHOULDVALUE>  
+                <ISVALUE>3</ISVALUE>  
+                <TOLERANCE_RY>2</TOLERANCE_RY>  
+                <TOLERANCE_YG>5</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-2.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Rolf Dornberger</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>rolf.dornberger@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION>  
+      <CRITERION ID="CID763745159" NAME="Project Budget"> 
+        <PARENT ID="SID266242322"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Rainer Telesko</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>700000</SHOULDVALUE>  
+            <ISVALUE>500000</ISVALUE>  
+            <TOLERANCE_RY>500000</TOLERANCE_RY>  
+            <TOLERANCE_YG>700000</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>500000</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>700000</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>bottom up</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>-316666.66</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>Euro</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>700000</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>500000</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>01.08.2011</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>700000</SHOULDVALUE>  
+                <ISVALUE>350000</ISVALUE>  
+                <TOLERANCE_RY>500000</TOLERANCE_RY>  
+                <TOLERANCE_YG>700000</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-350000.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.07.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>700000</SHOULDVALUE>  
+                <ISVALUE>300000</ISVALUE>  
+                <TOLERANCE_RY>500000</TOLERANCE_RY>  
+                <TOLERANCE_YG>700000</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-400000.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="3" NAME="01.08.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>700000</SHOULDVALUE>  
+                <ISVALUE>500000</ISVALUE>  
+                <TOLERANCE_RY>500000</TOLERANCE_RY>  
+                <TOLERANCE_YG>700000</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-200000.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>each project leader</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>projects@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION>  
+      <CRITERION ID="CID68501021" NAME="Number of Projects"> 
+        <PARENT ID="SID266242322"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Rainer Telesko</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>6</SHOULDVALUE>  
+            <ISVALUE>9</ISVALUE>  
+            <TOLERANCE_RY>5</TOLERANCE_RY>  
+            <TOLERANCE_YG>7</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>5</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>7</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>bottom up</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>3.0</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>PCS</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>7</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>5</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>31.12.2010</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>6</SHOULDVALUE>  
+                <ISVALUE>9</ISVALUE>  
+                <TOLERANCE_RY>5</TOLERANCE_RY>  
+                <TOLERANCE_YG>7</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>3.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>each project leader</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>projects@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION> 
+    </PERSPECTIVE>  
+    <PERSPECTIVE NAME="Topics"> 
+      <STRATEGICGOAL ID="SID893027056" NAME="Early Identification of Emerging Topics"> 
+        <PARENT ID="NULL"> 
+          <VALUE/> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Rainer Telesko</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS/>  
+            <SHOULDVALUE/>  
+            <ISVALUE/>  
+            <TOLERANCE_RY/>  
+            <TOLERANCE_YG/>  
+            <TOLERANCE_RY_D/>  
+            <TOLERANCE_YG_D/>  
+            <THRESHOLD_TYPE/>  
+            <THRESHOLD_DIMENSION/>  
+            <SCORE>0</SCORE>  
+            <BEZUGSZEITRAUM>6. Months</BEZUGSZEITRAUM>  
+            <MEASURETYPE/>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE/> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual overall status of the Goal" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Goals and Criterions)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Measures and Milestones)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual State" TYPE="targethistory"> 
+            <ENTRY_PERIOD>0</ENTRY_PERIOD> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Holger Wache</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>holger.wache@fhnw.ch</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (yellow/red)" TYPE="DOUBLE"> 
+            <VALUE>0</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (green/yellow)" TYPE="DOUBLE"> 
+            <VALUE>1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </STRATEGICGOAL>  
+      <STRATEGICGOAL ID="SID791262550" NAME="Relevance of Topics"> 
+        <PARENT ID="NULL"> 
+          <VALUE/> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Andreas Martin</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>red</STATUS>  
+            <SHOULDVALUE/>  
+            <ISVALUE/>  
+            <TOLERANCE_RY/>  
+            <TOLERANCE_YG/>  
+            <TOLERANCE_RY_D/>  
+            <TOLERANCE_YG_D/>  
+            <THRESHOLD_TYPE/>  
+            <THRESHOLD_DIMENSION/>  
+            <SCORE>-40.0</SCORE>  
+            <BEZUGSZEITRAUM>6. Months</BEZUGSZEITRAUM>  
+            <MEASURETYPE/>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE/> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual overall status of the Goal" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Goals and Criterions)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Measures and Milestones)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual State" TYPE="targethistory"> 
+            <ENTRY_PERIOD>0</ENTRY_PERIOD>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-1.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-25.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="3" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-2.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="4" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-40.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Holger Wache</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>holger.wache@fhnw.ch</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (yellow/red)" TYPE="DOUBLE"> 
+            <VALUE>0</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (green/yellow)" TYPE="DOUBLE"> 
+            <VALUE>1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </STRATEGICGOAL>  
+      <STRATEGICGOAL ID="SID277063430" NAME="Teaching State of the Art"> 
+        <PARENT ID="NULL"> 
+          <VALUE/> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Barbara Thönssen</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>red</STATUS>  
+            <SHOULDVALUE/>  
+            <ISVALUE/>  
+            <TOLERANCE_RY/>  
+            <TOLERANCE_YG/>  
+            <TOLERANCE_RY_D/>  
+            <TOLERANCE_YG_D/>  
+            <THRESHOLD_TYPE/>  
+            <THRESHOLD_DIMENSION/>  
+            <SCORE>-10.0</SCORE>  
+            <BEZUGSZEITRAUM>6. Months</BEZUGSZEITRAUM>  
+            <MEASURETYPE/>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE/> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual overall status of the Goal" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Goals and Criterions)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Measures and Milestones)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual State" TYPE="targethistory"> 
+            <ENTRY_PERIOD>0</ENTRY_PERIOD>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-15.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-10.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Knut Hinkelmann</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>knut.hinkelmann@fhnw.ch</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (yellow/red)" TYPE="DOUBLE"> 
+            <VALUE>0</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (green/yellow)" TYPE="DOUBLE"> 
+            <VALUE>1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </STRATEGICGOAL>  
+      <CRITERION ID="CID932666241" NAME="Number of Communities"> 
+        <PARENT ID="SID791262550"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Andreas Martin</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>2</SHOULDVALUE>  
+            <ISVALUE>0</ISVALUE>  
+            <TOLERANCE_RY>0</TOLERANCE_RY>  
+            <TOLERANCE_YG>2</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>0</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>2</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>top down</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>-1.5</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>PCS</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>2</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>0</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>01.06.2011</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>2</SHOULDVALUE>  
+                <ISVALUE>1</ISVALUE>  
+                <TOLERANCE_RY>0</TOLERANCE_RY>  
+                <TOLERANCE_YG>2</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-1.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>2</SHOULDVALUE>  
+                <ISVALUE>0</ISVALUE>  
+                <TOLERANCE_RY>0</TOLERANCE_RY>  
+                <TOLERANCE_YG>2</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-2.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Holger Wache</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>holger.wache@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION>  
+      <CRITERION ID="CID712678823" NAME="Number of Projects where Topics are Relevant"> 
+        <PARENT ID="SID791262550"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Simon Brander</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>100</SHOULDVALUE>  
+            <ISVALUE>60</ISVALUE>  
+            <TOLERANCE_RY>50</TOLERANCE_RY>  
+            <TOLERANCE_YG>80</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>50</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>80</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>top down</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>-32.5</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>%</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>80</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>50</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>01.06.2011</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>100</SHOULDVALUE>  
+                <ISVALUE>75</ISVALUE>  
+                <TOLERANCE_RY>50</TOLERANCE_RY>  
+                <TOLERANCE_YG>80</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-25.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>100</SHOULDVALUE>  
+                <ISVALUE>60</ISVALUE>  
+                <TOLERANCE_RY>50</TOLERANCE_RY>  
+                <TOLERANCE_YG>80</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-40.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Rainer Telesko</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>rainer.telesko@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION>  
+      <CRITERION ID="CID367440153" NAME="Participant Days in this Area"> 
+        <PARENT ID="SID277063430"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Holger Wache</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>30</SHOULDVALUE>  
+            <ISVALUE>20</ISVALUE>  
+            <TOLERANCE_RY>10</TOLERANCE_RY>  
+            <TOLERANCE_YG>30</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>10</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>30</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>bottom up</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>-12.5</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>PCS</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>30</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>10</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>01.06.2011</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>30</SHOULDVALUE>  
+                <ISVALUE>15</ISVALUE>  
+                <TOLERANCE_RY>10</TOLERANCE_RY>  
+                <TOLERANCE_YG>30</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-15.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>30</SHOULDVALUE>  
+                <ISVALUE>20</ISVALUE>  
+                <TOLERANCE_RY>10</TOLERANCE_RY>  
+                <TOLERANCE_YG>30</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-10.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Knut Hinkelmann</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>knut.hinkelmann@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION> 
+    </PERSPECTIVE>  
+    <PERSPECTIVE NAME="People"> 
+      <STRATEGICGOAL ID="SID899494398" NAME="High Reputation"> 
+        <PARENT ID="NULL"> 
+          <VALUE/> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Holger Wache</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE/>  
+            <ISVALUE/>  
+            <TOLERANCE_RY/>  
+            <TOLERANCE_YG/>  
+            <TOLERANCE_RY_D/>  
+            <TOLERANCE_YG_D/>  
+            <THRESHOLD_TYPE/>  
+            <THRESHOLD_DIMENSION/>  
+            <SCORE>1.0</SCORE>  
+            <BEZUGSZEITRAUM>6. Months</BEZUGSZEITRAUM>  
+            <MEASURETYPE/>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE/> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual overall status of the Goal" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Goals and Criterions)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Measures and Milestones)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual State" TYPE="targethistory"> 
+            <ENTRY_PERIOD>0</ENTRY_PERIOD>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>2.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>1.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Rolf Dornberger</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>rolf.dornberger@fhnw.ch</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (yellow/red)" TYPE="DOUBLE"> 
+            <VALUE>0</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (green/yellow)" TYPE="DOUBLE"> 
+            <VALUE>1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </STRATEGICGOAL>  
+      <STRATEGICGOAL ID="SID397252666" NAME="Competence Development"> 
+        <PARENT ID="NULL"> 
+          <VALUE/> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Holger Wache</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS/>  
+            <SHOULDVALUE/>  
+            <ISVALUE/>  
+            <TOLERANCE_RY/>  
+            <TOLERANCE_YG/>  
+            <TOLERANCE_RY_D/>  
+            <TOLERANCE_YG_D/>  
+            <THRESHOLD_TYPE/>  
+            <THRESHOLD_DIMENSION/>  
+            <SCORE>0</SCORE>  
+            <BEZUGSZEITRAUM>6. Months</BEZUGSZEITRAUM>  
+            <MEASURETYPE/>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE/> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual overall status of the Goal" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Goals and Criterions)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Measures and Milestones)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual State" TYPE="targethistory"> 
+            <ENTRY_PERIOD>0</ENTRY_PERIOD> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Holger Wache</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>holger.wache@fhnw.ch</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (yellow/red)" TYPE="DOUBLE"> 
+            <VALUE>0</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (green/yellow)" TYPE="DOUBLE"> 
+            <VALUE>1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </STRATEGICGOAL>  
+      <CRITERION ID="CID389222687" NAME="Number of Citations"> 
+        <PARENT ID="SID899494398"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Barbara Thönssen</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>5</SHOULDVALUE>  
+            <ISVALUE>7</ISVALUE>  
+            <TOLERANCE_RY>0</TOLERANCE_RY>  
+            <TOLERANCE_YG>5</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>0</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>5</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>bottom up</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>2.0</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>PCS</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>5</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>0</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>31.12.2010</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>5</SHOULDVALUE>  
+                <ISVALUE>7</ISVALUE>  
+                <TOLERANCE_RY>0</TOLERANCE_RY>  
+                <TOLERANCE_YG>5</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>2.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Holger Wache</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>holger.wache@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION>  
+      <CRITERION ID="CID895292985" NAME="Number of Invited Talks"> 
+        <PARENT ID="SID899494398"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Rainer Telesko</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>3</SHOULDVALUE>  
+            <ISVALUE>4</ISVALUE>  
+            <TOLERANCE_RY>0</TOLERANCE_RY>  
+            <TOLERANCE_YG>3</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>0</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>3</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>bottom up</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>1.0</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>PCS</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>3</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>0</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>31.12.2010</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>3</SHOULDVALUE>  
+                <ISVALUE>4</ISVALUE>  
+                <TOLERANCE_RY>0</TOLERANCE_RY>  
+                <TOLERANCE_YG>3</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>1.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Holger Wache</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>holger.wache@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION> 
+    </PERSPECTIVE>  
+    <PERSPECTIVE NAME="Maturing Services"> 
+      <STRATEGICGOAL ID="SID60621348" NAME="Cooperative Environment"> 
+        <PARENT ID="NULL"> 
+          <VALUE/> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Barbara Thönssen</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>red</STATUS>  
+            <SHOULDVALUE/>  
+            <ISVALUE/>  
+            <TOLERANCE_RY/>  
+            <TOLERANCE_YG/>  
+            <TOLERANCE_RY_D/>  
+            <TOLERANCE_YG_D/>  
+            <THRESHOLD_TYPE/>  
+            <THRESHOLD_DIMENSION/>  
+            <SCORE>0.0</SCORE>  
+            <BEZUGSZEITRAUM>6. Months</BEZUGSZEITRAUM>  
+            <MEASURETYPE/>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE/> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual overall status of the Goal" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Goals and Criterions)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Measures and Milestones)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual State" TYPE="targethistory"> 
+            <ENTRY_PERIOD>0</ENTRY_PERIOD>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>5.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>0.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Barbara Thönssen</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>barbara.thoenssen@fhnw.ch</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (yellow/red)" TYPE="DOUBLE"> 
+            <VALUE>2</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (green/yellow)" TYPE="DOUBLE"> 
+            <VALUE>3</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </STRATEGICGOAL>  
+      <STRATEGICGOAL ID="SID937703877" NAME="Skill Transparency"> 
+        <PARENT ID="NULL"> 
+          <VALUE/> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Andreas Martin</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>red</STATUS>  
+            <SHOULDVALUE/>  
+            <ISVALUE/>  
+            <TOLERANCE_RY/>  
+            <TOLERANCE_YG/>  
+            <TOLERANCE_RY_D/>  
+            <TOLERANCE_YG_D/>  
+            <THRESHOLD_TYPE/>  
+            <THRESHOLD_DIMENSION/>  
+            <SCORE>1.0</SCORE>  
+            <BEZUGSZEITRAUM>6. Months</BEZUGSZEITRAUM>  
+            <MEASURETYPE/>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE/> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual overall status of the Goal" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Goals and Criterions)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Measures and Milestones)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual State" TYPE="targethistory"> 
+            <ENTRY_PERIOD>0</ENTRY_PERIOD>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-2.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>1.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Holger Wache</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>holger.wache@fhnw.ch</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (yellow/red)" TYPE="DOUBLE"> 
+            <VALUE>2</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (green/yellow)" TYPE="DOUBLE"> 
+            <VALUE>3</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </STRATEGICGOAL>  
+      <STRATEGICGOAL ID="SID165119058" NAME="Constructive Feedback Culture"> 
+        <PARENT ID="NULL"> 
+          <VALUE/> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Simon Brander</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>red</STATUS>  
+            <SHOULDVALUE/>  
+            <ISVALUE/>  
+            <TOLERANCE_RY/>  
+            <TOLERANCE_YG/>  
+            <TOLERANCE_RY_D/>  
+            <TOLERANCE_YG_D/>  
+            <THRESHOLD_TYPE/>  
+            <THRESHOLD_DIMENSION/>  
+            <SCORE>0.0</SCORE>  
+            <BEZUGSZEITRAUM>6. Months</BEZUGSZEITRAUM>  
+            <MEASURETYPE/>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE/> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual overall status of the Goal" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Goals and Criterions)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Measures and Milestones)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual State" TYPE="targethistory"> 
+            <ENTRY_PERIOD>0</ENTRY_PERIOD>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-15.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-10.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="3" NAME="01.07.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>0.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Barbara Thönssen</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>barbara.thoenssen@fhnw.ch</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (yellow/red)" TYPE="DOUBLE"> 
+            <VALUE>2</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (green/yellow)" TYPE="DOUBLE"> 
+            <VALUE>3</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </STRATEGICGOAL>  
+      <STRATEGICGOAL ID="SID971399649" NAME="Personal Training"> 
+        <PARENT ID="NULL"> 
+          <VALUE/> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Simon Brander</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE/>  
+            <ISVALUE/>  
+            <TOLERANCE_RY/>  
+            <TOLERANCE_YG/>  
+            <TOLERANCE_RY_D/>  
+            <TOLERANCE_YG_D/>  
+            <THRESHOLD_TYPE/>  
+            <THRESHOLD_DIMENSION/>  
+            <SCORE>5.0</SCORE>  
+            <BEZUGSZEITRAUM>6. Months</BEZUGSZEITRAUM>  
+            <MEASURETYPE/>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE/> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual overall status of the Goal" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Goals and Criterions)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Measures and Milestones)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual State" TYPE="targethistory"> 
+            <ENTRY_PERIOD>0</ENTRY_PERIOD>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>5.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Rolf Dornberger</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>rolf.dornberger@fhnw.ch</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (yellow/red)" TYPE="DOUBLE"> 
+            <VALUE>2</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (green/yellow)" TYPE="DOUBLE"> 
+            <VALUE>3</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </STRATEGICGOAL>  
+      <CRITERION ID="CID719747466" NAME="Avg Number of Topic-Related Tags per Person"> 
+        <PARENT ID="SID937703877"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Knut Hinkelmann</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>2</SHOULDVALUE>  
+            <ISVALUE>3</ISVALUE>  
+            <TOLERANCE_RY>1</TOLERANCE_RY>  
+            <TOLERANCE_YG>2</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>1</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>2</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>bottom up</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>-0.5</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>PCS</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>2</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>1</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>01.06.2011</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>2</SHOULDVALUE>  
+                <ISVALUE>0</ISVALUE>  
+                <TOLERANCE_RY>1</TOLERANCE_RY>  
+                <TOLERANCE_YG>2</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-2.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>2</SHOULDVALUE>  
+                <ISVALUE>3</ISVALUE>  
+                <TOLERANCE_RY>1</TOLERANCE_RY>  
+                <TOLERANCE_YG>2</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>1.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Holger Wache</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>holger.wache@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION>  
+      <CRITERION ID="CID991398759" NAME="Employee Survey"> 
+        <PARENT ID="SID165119058"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Andreas Martin</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>75</SHOULDVALUE>  
+            <ISVALUE>75</ISVALUE>  
+            <TOLERANCE_RY>60</TOLERANCE_RY>  
+            <TOLERANCE_YG>75</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>60</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>75</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>bottom up</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>-8.333333</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>%</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>75</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>60</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>01.07.2011</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>75</SHOULDVALUE>  
+                <ISVALUE>60</ISVALUE>  
+                <TOLERANCE_RY>60</TOLERANCE_RY>  
+                <TOLERANCE_YG>75</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-15.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>75</SHOULDVALUE>  
+                <ISVALUE>65</ISVALUE>  
+                <TOLERANCE_RY>60</TOLERANCE_RY>  
+                <TOLERANCE_YG>75</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-10.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="3" NAME="01.07.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>75</SHOULDVALUE>  
+                <ISVALUE>75</ISVALUE>  
+                <TOLERANCE_RY>60</TOLERANCE_RY>  
+                <TOLERANCE_YG>75</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>0.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Andreas Reber</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>andreas.reber@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION>  
+      <CRITERION ID="CID449214326" NAME="Employee Survey"> 
+        <PARENT ID="SID60621348"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Simon Brander</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>75</SHOULDVALUE>  
+            <ISVALUE>75</ISVALUE>  
+            <TOLERANCE_RY>60</TOLERANCE_RY>  
+            <TOLERANCE_YG>75</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>60</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>75</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>bottom up</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>2.5</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>%</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>75</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>60</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>01.06.2011</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>75</SHOULDVALUE>  
+                <ISVALUE>80</ISVALUE>  
+                <TOLERANCE_RY>60</TOLERANCE_RY>  
+                <TOLERANCE_YG>75</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>5.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="01.06.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>75</SHOULDVALUE>  
+                <ISVALUE>75</ISVALUE>  
+                <TOLERANCE_RY>60</TOLERANCE_RY>  
+                <TOLERANCE_YG>75</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>0.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Andreas Reber</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>andreas.reber@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION>  
+      <CRITERION ID="CID354519858" NAME="Management by Objective"> 
+        <PARENT ID="SID971399649"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Knut Hinkelmann</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>70</SHOULDVALUE>  
+            <ISVALUE>75</ISVALUE>  
+            <TOLERANCE_RY>50</TOLERANCE_RY>  
+            <TOLERANCE_YG>70</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>50</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>70</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>bottom up</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>5.0</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>%</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>70</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>50</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>31.12.2010</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>70</SHOULDVALUE>  
+                <ISVALUE>75</ISVALUE>  
+                <TOLERANCE_RY>50</TOLERANCE_RY>  
+                <TOLERANCE_YG>70</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>5.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>Average Rating of all IKM employees in Job Evaluation</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Barbara Thönssen</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>barbara.thoenssen@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION> 
+    </PERSPECTIVE>  
+    <PERSPECTIVE NAME="Learning Innovation"> 
+      <STRATEGICGOAL ID="SID415271419" NAME="Staff Exchange"> 
+        <PARENT ID="NULL"> 
+          <VALUE/> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Barbara Thönssen</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>red</STATUS>  
+            <SHOULDVALUE/>  
+            <ISVALUE/>  
+            <TOLERANCE_RY/>  
+            <TOLERANCE_YG/>  
+            <TOLERANCE_RY_D/>  
+            <TOLERANCE_YG_D/>  
+            <THRESHOLD_TYPE/>  
+            <THRESHOLD_DIMENSION/>  
+            <SCORE>-10.0</SCORE>  
+            <BEZUGSZEITRAUM>6. Months</BEZUGSZEITRAUM>  
+            <MEASURETYPE/>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE/> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual overall status of the Goal" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Goals and Criterions)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual Status (Measures and Milestones)" TYPE="STRING"> 
+            <VALUE>green</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Actual State" TYPE="targethistory"> 
+            <ENTRY_PERIOD>0</ENTRY_PERIOD>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>20.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="31.01.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-50.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="3" NAME="31.05.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-15.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="4" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-15.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="5" NAME="31.05.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE/>  
+                <ISVALUE/>  
+                <TOLERANCE_RY/>  
+                <TOLERANCE_YG/>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-10.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Rolf Dornberger</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>rolf.dornberger@fhnw.ch</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (yellow/red)" TYPE="DOUBLE"> 
+            <VALUE>0</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Score-Tresholdvalue (green/yellow)" TYPE="DOUBLE"> 
+            <VALUE>2</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </STRATEGICGOAL>  
+      <CRITERION ID="CID56522863" NAME="Number of Visiting Days of Incoming Persons"> 
+        <PARENT ID="SID415271419"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Knut Hinkelmann</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>60</SHOULDVALUE>  
+            <ISVALUE>45</ISVALUE>  
+            <TOLERANCE_RY>40</TOLERANCE_RY>  
+            <TOLERANCE_YG>60</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>40</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>60</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>bottom up</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>-15.0</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>PCS</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>60</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>40</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>31.05.2011</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>60</SHOULDVALUE>  
+                <ISVALUE>80</ISVALUE>  
+                <TOLERANCE_RY>40</TOLERANCE_RY>  
+                <TOLERANCE_YG>60</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>20.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="31.01.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>60</SHOULDVALUE>  
+                <ISVALUE>10</ISVALUE>  
+                <TOLERANCE_RY>40</TOLERANCE_RY>  
+                <TOLERANCE_YG>60</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-50.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="3" NAME="31.05.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>60</SHOULDVALUE>  
+                <ISVALUE>45</ISVALUE>  
+                <TOLERANCE_RY>40</TOLERANCE_RY>  
+                <TOLERANCE_YG>60</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-15.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Knut Hinkelmann</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>knut.hinkelmann@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION>  
+      <CRITERION ID="CID231665014" NAME="Number of Visiting Days of Outgoing Persons"> 
+        <PARENT ID="SID415271419"> 
+          <VALUE>50</VALUE> 
+        </PARENT>  
+        <REFERENCEDBY> 
+          <VALUE>Barbara Thönssen</VALUE> 
+        </REFERENCEDBY>  
+        <CHAPTER NAME="Status"> 
+          <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+            <STATUS>green</STATUS>  
+            <SHOULDVALUE>20</SHOULDVALUE>  
+            <ISVALUE>10</ISVALUE>  
+            <TOLERANCE_RY>15</TOLERANCE_RY>  
+            <TOLERANCE_YG>20</TOLERANCE_YG>  
+            <TOLERANCE_RY_D>15</TOLERANCE_RY_D>  
+            <TOLERANCE_YG_D>20</TOLERANCE_YG_D>  
+            <THRESHOLD_TYPE>bottom up</THRESHOLD_TYPE>  
+            <THRESHOLD_DIMENSION>relativ</THRESHOLD_DIMENSION>  
+            <SCORE>-12.5</SCORE>  
+            <BEZUGSZEITRAUM>Year</BEZUGSZEITRAUM>  
+            <MEASURETYPE>PCS</MEASURETYPE>  
+            <COMMENT/>  
+            <TOLERANCE_TYPE>relativ</TOLERANCE_TYPE>  
+            <ENTRY_TREND>-1</ENTRY_TREND> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance green/yellow" TYPE="DOUBLE"> 
+            <VALUE>20</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance yellow/red" TYPE="DOUBLE"> 
+            <VALUE>15</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Tolerance Type" TYPE="ENUMERATION"> 
+            <VALUE>relativ</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Target Value(s)" TYPE="targethistory"> 
+            <ENTRY_PERIOD>31.05.2011</ENTRY_PERIOD>  
+            <ENTRY_TYPE>0</ENTRY_TYPE>  
+            <PERIOD ID="1" NAME="31.12.2010"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>20</SHOULDVALUE>  
+                <ISVALUE>5</ISVALUE>  
+                <TOLERANCE_RY>15</TOLERANCE_RY>  
+                <TOLERANCE_YG>20</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-15.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD>  
+            <PERIOD ID="2" NAME="31.05.2011"> 
+              <ATTRIBUTES NAME="Status" TYPE="valueattribute"> 
+                <STATUS>green</STATUS>  
+                <SHOULDVALUE>20</SHOULDVALUE>  
+                <ISVALUE>10</ISVALUE>  
+                <TOLERANCE_RY>15</TOLERANCE_RY>  
+                <TOLERANCE_YG>20</TOLERANCE_YG>  
+                <THRESHOLD_TYPE/>  
+                <SCORE>-10.0</SCORE>  
+                <PERIODGROUP>1</PERIODGROUP>  
+                <COMMENT/>  
+                <DOKU/> 
+              </ATTRIBUTES> 
+            </PERIOD> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Trend Comparsion with Period" TYPE="INTEGER"> 
+            <VALUE>-1</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Description"> 
+          <ATTRIBUTES NAME="Description" TYPE="LONGSTRING"> 
+            <VALUE>...</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Responsibility" TYPE="STRING"> 
+            <VALUE>Knut Hinkelmann</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="E-Mail" TYPE="HYPERLINK" ACTION="MAIL"> 
+            <VALUE>knut.hinkelmann@fhnw.ch</VALUE> 
+          </ATTRIBUTES> 
+        </CHAPTER>  
+        <CHAPTER NAME="Computation"> 
+          <ATTRIBUTES NAME="Formula" TYPE="STRING"> 
+            <VALUE>(((Period Value) / (Score Item 2)) * (Score Item 1))</VALUE> 
+          </ATTRIBUTES>  
+          <ATTRIBUTES NAME="Elements" TYPE="RECORD"> 
+            <HEADER> 
+              <HEAD NAME="Items" COLHEIGHT="15" COLWIDTH="250"/>  
+              <HEAD NAME="Last Update" COLHEIGHT="15" COLWIDTH="250"/> 
+            </HEADER>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 1</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW>  
+            <ROW> 
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>Score Item 2</VALUE> 
+              </ATTRIBUTE>  
+              <ATTRIBUTE TYPE="STRING" ACTION="NO"> 
+                <VALUE>1</VALUE> 
+              </ATTRIBUTE> 
+            </ROW> 
+          </ATTRIBUTES> 
+        </CHAPTER> 
+      </CRITERION> 
+    </PERSPECTIVE> 
+  </MODEL> 
+</ADO>
