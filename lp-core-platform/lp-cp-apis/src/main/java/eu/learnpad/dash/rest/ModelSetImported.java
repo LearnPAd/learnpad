@@ -40,6 +40,6 @@ public interface ModelSetImported {
 	// <host>/learnpad/dash/bridge/modelsetimported/{modelsetid}?type={ADOXX|MD}
 	@Path("/modelsetimported/{modelsetid}")
 	@PUT
-	void modelSetImported(@PathParam("modelsetid") String modelSetId,
+	public void modelSetImported(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("type") @DefaultValue("ADOXX") ModelSetType type) throws LpRestException;
 }
