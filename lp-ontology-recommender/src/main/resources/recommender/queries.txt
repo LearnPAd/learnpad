@@ -164,10 +164,9 @@ prefix omm: <http://ikm-group.ch/archiMEO/omm#>
 prefix foaf: <http://xmlns.com/foaf/spec#>
 prefix xsd:  <http://www.w3.org/2001/XMLSchema#>
 prefix xwiki: <http://www.xwiki.org/xwiki/bin/view/Main/WebHome#>
-SELECT DISTINCT ?documentURI ?documentLocationURL ?documentMimeType ?documentLabel ?documentComment ?documentDescription ?documentLocationURL ?lastUpdated
+SELECT DISTINCT ?document ?documentLocationURL ?documentMimeType ?documentLabel ?documentComment ?documentDescription ?lastUpdated
 WHERE {
   OPTIONAL{
-    ?author emo:performerHasEmailAddress ?userId .
     ?document elements:documentHasContributor ?author.
     ?document dkm:documentHasURL ?documentLocationURL .
     ?document dkm:documentHasMIMEType ?documentMimeType .
@@ -175,16 +174,13 @@ WHERE {
     OPTIONAL {?document dcterms:documentHasModifiedDate ?lastUpdated .} 
     OPTIONAL {?document rdfs:comment ?documentComment . }
     OPTIONAL {?document dkm:documentHasDescription ?documentDescription . }
-    BIND(str(?document) AS ?documentURI) .
   }
   OPTIONAL{
-    ?author emo:performerHasEmailAddress ?userId .
     ?document  xwiki:pageHasCreator ?author .
     ?document xwiki:pageHasCreationTimestamp ?creationTime .
     ?document rdfs:label ?documentLabel .
     BIND(str(?document) AS ?documentLocationURL) .
     BIND("text/html"^^xsd:string AS ?documentMimeType) .
-    BIND(str(?document) AS ?documentURI) .
   }
 }
 ##END##

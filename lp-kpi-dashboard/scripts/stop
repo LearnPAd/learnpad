@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-pkill -f "java -cp jetty-runner.jar org.mortbay.jetty.runner.Runner --out lp-kpi-dashboard.log --port 9098 lp-kpi-dashboard.war"
