@@ -52,6 +52,7 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 
 	@Override
 	public void initialize() throws InitializationException {
+		// TODO this initialization has to be fixed similarly to the implementation for the other components. see there.
 		this.restPrefix = "";
 	}
 
