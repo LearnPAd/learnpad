@@ -19,10 +19,16 @@
  */
 package eu.learnpad.core.impl.dash;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.inject.Named;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
+import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.httpclient.methods.RequestEntity;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
@@ -51,16 +57,62 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 	}
 
 	@Override
-	public void importModelSet(String modelSetId, ModelSetType type,
-			InputStream modelContent) throws LpRestException {
-		// TODO Auto-generated method stub
+	public void modelSetImported(String modelSetId, ModelSetType type)
+			throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/dash/bridge/modelsetimported/%s",
+				DefaultRestResource.REST_URI, modelSetId);
+		PutMethod putMethod = new PutMethod(uri);
+		putMethod.addRequestHeader("Accept", "application/xml");
+
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("type", type.toString());
+		putMethod.setQueryString(queryString);
+		try {
+			httpClient.executeMethod(putMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}		
 	}
 
 	@Override
-	public void importModelSet(String modelSetId, KPIValuesFormat format,
+	public void loadKPIValues(String modelSetId, KPIValuesFormat format,
 			InputStream cockpitContent) throws LpRestException {
-		// TODO Auto-generated method stub
+		String contentType = "application/xml";		
 		
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/dash/bridge/loadkpivalues/%s",
+				DefaultRestResource.REST_URI, modelSetId);
+		PutMethod putMethod = new PutMethod(uri);
+		putMethod.addRequestHeader("Content-Type", contentType);
+
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("format", format.toString());
+		putMethod.setQueryString(queryString);
+		
+		RequestEntity requestEntity = new InputStreamRequestEntity(cockpitContent);
+		putMethod.setRequestEntity(requestEntity);
+
+		try {
+			httpClient.executeMethod(putMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}		
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
