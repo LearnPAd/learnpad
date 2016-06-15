@@ -9,7 +9,7 @@ public class RuleElements {
 	
 	public static String getHeader(String ruleName, String dialect) {
 	
-		header ="\t\t"+
+		header ="\t\t\n\n"+
 				"import eu.learnpad.simulator.mon.event.GlimpseBaseEventBPMN;\n\t\t" +
 				"import eu.learnpad.simulator.mon.manager.ResponseDispatcher;\n\t\t" +
 				"import eu.learnpad.simulator.mon.manager.RestNotifier;\n\t\t" +
@@ -48,8 +48,8 @@ public class RuleElements {
 					+ "Event.setConsumed(true); \n\t\t\tupdate($"+ i +"Event);"
 					+ "\n\t\t\tretract($"+ i +"Event);";					
 		}
-		 concat = concat + "\n\t\t\t"
-			+ "ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \""+ idBPMN +"\", \"" + idPath + "\");";
+		 concat = concat + "\n\t\t\t" +
+			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \""+ idBPMN +"\", \"" + idPath + "\");";
 		return concat;
 	}
 		

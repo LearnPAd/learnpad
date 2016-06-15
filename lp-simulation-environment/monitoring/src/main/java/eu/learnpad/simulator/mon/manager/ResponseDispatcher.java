@@ -118,9 +118,10 @@ public class ResponseDispatcher {
 		}
 	}
 	
-	public static void saveAndNotifyLearnersScore(List<String> learnersID, String idBPMN, String idPath) {
-			
-			ResponseDispatcher.lam.computeAndSaveScores(learnersID, idBPMN, idPath);
+	public static void saveAndNotifyLearnersScore(String learnersID, String idBPMN, String idPath) {
+	
+//		ResponseDispatcher.lam.computeAndSaveScores(learnersID,idBPMN, idPath);
+		System.out.println("4");
 			
 	}
 	

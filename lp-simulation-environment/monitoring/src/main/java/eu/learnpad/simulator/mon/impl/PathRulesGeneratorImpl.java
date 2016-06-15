@@ -115,15 +115,15 @@ public class PathRulesGeneratorImpl implements PathRulesGenerator {
 			
 			if (usersInvolved.size() > 1) {
 				for (int j=0; j< usersInvolved.size()-1;j++) {
-					usersInvolvedText += String.valueOf(usersInvolved.get(j).getId()) + "\" || this.assigneeID == \"";
-					usersInvolvedList += String.valueOf(usersInvolved.get(j).getId()) + "-"; 
+					usersInvolvedText += usersInvolved.get(j).getId() + "\" || this.assigneeID == \"";
+					usersInvolvedList += usersInvolved.get(j).getId() + "-"; 
 				}
-				usersInvolvedText += String.valueOf(usersInvolved.get(usersInvolved.size()-1).getId());
-				usersInvolvedList += String.valueOf(usersInvolved.get(usersInvolved.size()-1).getId());
+				usersInvolvedText += usersInvolved.get(usersInvolved.size()-1).getId();
+				usersInvolvedList +=usersInvolved.get(usersInvolved.size()-1).getId();
 			}
 			else {
-				usersInvolvedText = String.valueOf(usersInvolved.get(0).getId());
-				usersInvolvedList = String.valueOf(usersInvolved.get(0).getId());
+				usersInvolvedText = usersInvolved.get(0).getId();
+				usersInvolvedList = usersInvolved.get(0).getId();
 			}
 				
 
