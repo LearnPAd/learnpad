@@ -24,7 +24,11 @@ import java.io.StringReader;
 import java.util.Scanner;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
@@ -45,7 +49,6 @@ import eu.learnpad.me.rest.data.ModelSetType;
 public class DASHBridgeImpl extends Bridge {
 
 	private static Logger log = Logger.getLogger(DASHBridgeImpl.class);
-
 	
 	public DASHBridgeImpl(){
 // TODO the following line is just a placeholder. It should be fixed.
@@ -55,14 +58,19 @@ public class DASHBridgeImpl extends Bridge {
 	}
 	
 	@Override
-	public void modelSetImported(String modelSetId, ModelSetType type)
-			throws LpRestException {
+	@Path("/modelsetimported/{modelsetid}")
+	@PUT
+	public void modelSetImported(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("type") @DefaultValue("ADOXX") ModelSetType type) throws LpRestException{
 		log.info("ModelSet " + modelSetId+" ("+type+") has been imported");
 	}
 	
 	@Override
-	public void loadKPIValues(String modelSetId, KPIValuesFormat format,
-			InputStream cockpitContent) throws LpRestException {
+	@PUT
+	@Path("/loadkpivalues/{modelsetid}")
+	@Consumes(MediaType.APPLICATION_XML)
+	public void loadKPIValues(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("format") @DefaultValue("ADOXXCockpit") KPIValuesFormat format, InputStream cockpitContent) throws LpRestException {
 		
 		// taken from : http://web.archive.org/web/20140531042945/https://weblogs.java.net/blog/pat/archive/2004/10/stupid_scanner_1.html
 		Scanner scanner = new Scanner(cockpitContent).useDelimiter("\\A");
