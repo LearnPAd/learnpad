@@ -14,7 +14,9 @@ public class RuleElements {
 				"import eu.learnpad.simulator.mon.manager.ResponseDispatcher;\n\t\t" +
 				"import eu.learnpad.simulator.mon.manager.RestNotifier;\n\t\t" +
 				"import eu.learnpad.simulator.mon.utils.NotifierUtils;\n\t\t" +
-				"import eu.learnpad.simulator.mon.rules.DroolsRulesManager;\n\n" +
+				"import eu.learnpad.simulator.mon.rules.DroolsRulesManager;\n\t\t" +
+				"import eu.learnpad.sim.rest.event.AbstractEvent;\n\t\t" +
+				"import eu.learnpad.sim.rest.event.EventType;\n\t\t" +
 				"\t\tdeclare GlimpseBaseEventBPMN\n" +
 				"\t\t\t@role( event )\n" +
 				"\t\t\t@timestamp( timeStamp )\n" +
@@ -32,6 +34,7 @@ public class RuleElements {
 	}
 	
 	public static String getThenClause(Activity[] theActivitySetToSetConsumed) {
+	
 		String concat = "\n\t\tthen ";
 		for (int i = 0; i<theActivitySetToSetConsumed.length; i++) {
 			concat = concat + "\n\t\t\t$"+ i

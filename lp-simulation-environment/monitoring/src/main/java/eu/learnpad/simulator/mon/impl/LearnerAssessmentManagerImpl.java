@@ -106,7 +106,6 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			DebugMessages.println(TimeStamp.getCurrentTime(), 
 					this.getClass().getSimpleName(),"The message contains an INVALID BPMN");
 		}
-		System.out.println(rulesLists.toString());
 		return rulesLists;
 	}
 

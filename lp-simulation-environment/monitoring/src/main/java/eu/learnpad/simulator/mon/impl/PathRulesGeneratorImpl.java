@@ -58,20 +58,19 @@ public class PathRulesGeneratorImpl implements PathRulesGenerator {
 		ComplexEventRuleType aInsert = ComplexEventRuleType.Factory.newInstance();
 		aInsert.setRuleName("Path-Crossing-Check-" + rulesName);
 		aInsert.setRuleType("drools");
-		
-		
+				
 		String concat = "";
 		for(int j = 0; j<anActivitiesSet.length; j++) {
 			if (j == 0) {
 				concat = "\t\t\t$"+j+"Event : GlimpseBaseEventBPMN("+
-						"this.isConsumed == false, this.sessionID == \"##SESSIONIDPLACEHOLDER##\""
-						+", this.assigneeID == \"##USERSINVOLVEDIDS##\""
+						"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
+						+", this.getEvent().involvedusers.get(##I##).toString() == \"##USERSINVOLVEDIDS##\""
 						+", this.isException == false, this.getEventName == \"" +
 						anActivitiesSet[j].getName() + "\");\n";
 			} else {
 				concat +="\t\t\t$"+j+"Event : GlimpseBaseEventBPMN(" +
-						"this.isConsumed == false, this.sessionID == \"##SESSIONIDPLACEHOLDER##\""
-						+", this.assigneeID == \"##USERSINVOLVEDIDS##\""
+						"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
+						+", this.getEvent().involvedusers.get(##I##).toString() == \"##USERSINVOLVEDIDS##\""
 						+", this.isException == false, this.getEventName == \"" +
 						anActivitiesSet[j].getName() +
 						"\", this after $" + (j-1) + "Event);\n";
@@ -115,21 +114,22 @@ public class PathRulesGeneratorImpl implements PathRulesGenerator {
 			
 			if (usersInvolved.size() > 1) {
 				for (int j=0; j< usersInvolved.size()-1;j++) {
-					usersInvolvedText += usersInvolved.get(j).getId() + "\" || this.assigneeID == \"";
-					usersInvolvedList += usersInvolved.get(j).getId() + "-"; 
+					usersInvolvedText += usersInvolved.get(j).getId() + "\" || this.getEvent().involvedusers.get(##I##).toString() == \"";
+					usersInvolvedList += usersInvolved.get(j).getId() + ","; 
+					usersInvolvedText = usersInvolvedText.replaceAll("##I##", String.valueOf(j));
 				}
 				usersInvolvedText += usersInvolved.get(usersInvolved.size()-1).getId();
 				usersInvolvedList +=usersInvolved.get(usersInvolved.size()-1).getId();
 			}
 			else {
-				usersInvolvedText = usersInvolved.get(0).getId();
-				usersInvolvedList = usersInvolved.get(0).getId();
+				usersInvolvedText = usersInvolved.get(0).getId();				
+				usersInvolvedList = usersInvolved.get(0).getId() + "\");}}";
 			}
-				
-
+			
 			updatedPath = updatedPath.replaceAll("##USERSINVOLVEDIDS##", usersInvolvedText);
 			updatedPath = updatedPath.replaceAll("##LEARNERSINVOLVEDID##", usersInvolvedList);
-
+			updatedPath = updatedPath.replaceAll("##I##", "0");
+			
 			try {
 				
 				ComplexEventRuleType rule = ComplexEventRuleType.Factory.parse(updatedPath);
