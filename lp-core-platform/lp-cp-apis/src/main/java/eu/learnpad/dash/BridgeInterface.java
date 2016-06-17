@@ -21,9 +21,10 @@ package eu.learnpad.dash;
 
 import javax.ws.rs.Path;
 
+import eu.learnpad.dash.rest.AccessKPIValues;
 import eu.learnpad.dash.rest.ModelSetImported;
 import eu.learnpad.dash.rest.NotifyKPIValues;
 
 @Path("/learnpad/dash/bridge")
-public interface BridgeInterface extends ModelSetImported, NotifyKPIValues {
+public interface BridgeInterface extends ModelSetImported, NotifyKPIValues, AccessKPIValues {
 }

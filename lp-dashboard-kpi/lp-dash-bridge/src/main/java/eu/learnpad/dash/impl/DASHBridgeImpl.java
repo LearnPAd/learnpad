@@ -38,44 +38,59 @@ import eu.learnpad.dash.rest.data.KPIValuesFormat;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.rest.data.ModelSetType;
 
-
 /**
-*
-* @author gulyx
-*/
+ * 
+ * @author gulyx
+ */
 
 @Path("/learnpad/ca/bridge/")
 @Consumes(MediaType.APPLICATION_XML)
 public class DASHBridgeImpl extends Bridge {
 
 	private static Logger log = Logger.getLogger(DASHBridgeImpl.class);
-	
-	public DASHBridgeImpl(){
-// TODO the following line is just a placeholder. It should be fixed.
+
+	public DASHBridgeImpl() {
+		// TODO the following line is just a placeholder. It should be fixed.
 		this.corefacade = new DASHCoreFacadeRestResource();
-		
+
 		log.info(this.getClass().getName() + " instantiated!");
 	}
-	
+
 	@Override
 	@Path("/modelsetimported/{modelsetid}")
 	@PUT
 	public void modelSetImported(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("type") @DefaultValue("ADOXX") ModelSetType type) throws LpRestException{
-		log.info("ModelSet " + modelSetId+" ("+type+") has been imported");
+			@QueryParam("type") @DefaultValue("ADOXX") ModelSetType type)
+			throws LpRestException {
+		log.info("ModelSet " + modelSetId + " (" + type + ") has been imported");
 	}
-	
+
 	@Override
 	@PUT
 	@Path("/loadkpivalues/{modelsetid}")
 	@Consumes(MediaType.APPLICATION_XML)
-	public void loadKPIValues(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("format") @DefaultValue("ADOXXCockpit") KPIValuesFormat format, InputStream cockpitContent) throws LpRestException {
-		
-		// taken from : http://web.archive.org/web/20140531042945/https://weblogs.java.net/blog/pat/archive/2004/10/stupid_scanner_1.html
+	public void loadKPIValues(
+			@PathParam("modelsetid") String modelSetId,
+			@QueryParam("format") @DefaultValue("ADOXXCockpit") KPIValuesFormat format,
+			@QueryParam("businessactor") String businessActorId,
+			InputStream cockpitContent) throws LpRestException {
+
+		// taken from :
+		// http://web.archive.org/web/20140531042945/https://weblogs.java.net/blog/pat/archive/2004/10/stupid_scanner_1.html
 		Scanner scanner = new Scanner(cockpitContent).useDelimiter("\\A");
-		String cockpitContentAsAString = scanner.hasNext() ? scanner.next() : "-- no contents for the cockpit --";
-		log.info("Loaded KPI Values as " + format + " for ModelSet " + modelSetId + "\n" + cockpitContentAsAString);
+		String cockpitContentAsAString = scanner.hasNext() ? scanner.next()
+				: "-- no contents for the cockpit --";
+		log.info("Loaded KPI Values as " + format + " for ModelSet "
+				+ modelSetId + "\n" + cockpitContentAsAString);
+	}
+
+	@Override
+	public String getKPIValuesView(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("businessactor") String businessActorId) throws LpRestException {
+		log.info("Requeste URL for : ModelSet " + modelSetId + "; businessActorId " + businessActorId );
+		String url = "http://localhost/this-is-fake";
+		
+		return url;
 	}
 
 }

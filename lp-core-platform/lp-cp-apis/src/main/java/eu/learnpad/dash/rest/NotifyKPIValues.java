@@ -38,9 +38,10 @@ public interface NotifyKPIValues {
 	@PUT
 	@Path("/loadkpivalues/{modelsetid}")
 	@Consumes(MediaType.APPLICATION_XML)
-	public void loadKPIValues(@PathParam("modelsetid") String modelSetId,
-			@QueryParam("format") @DefaultValue("ADOXXCockpit") KPIValuesFormat format, InputStream cockpitContent)
-			throws LpRestException;
+	public void loadKPIValues(
+			@PathParam("modelsetid") String modelSetId,
+			@QueryParam("format") @DefaultValue("ADOXXCockpit") KPIValuesFormat format,
+			@QueryParam("businessactor") String businessActorId,
+			InputStream cockpitContent) throws LpRestException;
 
-	
 }
