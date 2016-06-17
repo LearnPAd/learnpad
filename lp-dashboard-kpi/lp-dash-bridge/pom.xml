@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+		<groupId>eu.learnpad</groupId>
+		<artifactId>lp-dashboard-kpi</artifactId>
+		<version>1.0-SNAPSHOT</version>
+    </parent>
+    
+    <artifactId>lp-dash-bridge</artifactId>
+    <name>LearnPAd KPI Dashboard - Bridge</name>
+    <packaging>jar</packaging>
+    
+    <properties>
+        <learnpad.version>1.0-SNAPSHOT</learnpad.version>        
+        <compiler.plugins.version>3.1</compiler.plugins.version>        
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+      	<jetty.version>9.2.3.v20140905</jetty.version>
+		<jersey.version>2.7</jersey.version>
+    </properties>
+
+    <developers>
+		<developer>
+			<id>gulyx</id>
+			<name>Gulyx</name>
+		</developer>
+		<developer>
+			<id>semmeneg</id>
+			<name>S. Emmeneg</name>
+		</developer>
+	</developers>
+
+    <dependencies>
+        <dependency>
+            <groupId>eu.learnpad</groupId>
+            <artifactId>lp-cp-apis</artifactId>
+            <version>${learnpad.version}</version>
+        </dependency>
+
+	    <dependency>
+    	  	<groupId>org.eclipse.jetty</groupId>
+      		<artifactId>jetty-server</artifactId>
+      		<version>${jetty.version}</version>
+    	</dependency>
+	    <dependency>
+    	    <groupId>org.eclipse.jetty</groupId>
+        	<artifactId>jetty-servlet</artifactId>
+        	<version>${jetty.version}</version>
+    	</dependency>
+    	<dependency>
+        	<groupId>org.glassfish.jersey.core</groupId>
+        	<artifactId>jersey-server</artifactId>
+        	<version>${jersey.version}</version>
+    	</dependency>
+    	<dependency>
+        	<groupId>org.glassfish.jersey.containers</groupId>
+        	<artifactId>jersey-container-servlet-core</artifactId>
+    	    <version>${jersey.version}</version>
+    	</dependency>
+    	<dependency>
+        	<groupId>org.glassfish.jersey.containers</groupId>
+        	<artifactId>jersey-container-jetty-http</artifactId>
+        	<version>${jersey.version}</version>
+    	</dependency>
+    
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.14</version>
+        </dependency>
+    </dependencies>
+	
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler.plugins.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>eu.learnpad.dash.server.Main</mainClass>
+				</configuration>
+			</plugin>            
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>eu.learnpad.dash.server.Main</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+        </plugins>
+    </build>		
+
+</project>
