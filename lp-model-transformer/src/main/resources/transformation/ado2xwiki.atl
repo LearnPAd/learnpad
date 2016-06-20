@@ -657,29 +657,24 @@ rule CONNECTORTypeSubsequent2Object extends CONNECTORType2Object {
 --this rule changes the id from the event involved in connection with the bounded element and viceversa
 rule CONNECTORTypeEvent2Object extends CONNECTORTypeSubsequent2Object {
 	from c:ADOXX!CONNECTORType (not thisModule.boundedIEvents.get(c.fROM.class+' - '+c.fROM.instance).oclIsUndefined())
-	to lco:XWIKI!Object (
+	to lci_p3:XWIKI!Property (
+		value <- thisModule.boundedIEvents.get(c.fROM.class+' - '+c.fROM.instance).id
+	),
+	lco:XWIKI!Object (
 		number <- thisModule.linkNumberMap.get(thisModule.boundedIEvents.get(c.fROM.class+' - '+c.fROM.instance).id),
-		pageName <- 'WebHome'
+		space <- thisModule.spacesBE(thisModule.getModelSetId(), c.refImmediateComposite().id, thisModule.boundedIEvents.get(c.fROM.class+' - '+c.fROM.instance).id)
 	),
 	lco_p5:XWIKI!Property (
-		value <- c.fROM.instance +' ('+c.getDenomination+')'
-	),
-	lci_p3:XWIKI!Property (
-		value <- thisModule.boundedIEvents.get(c.fROM.class+' - '+c.fROM.instance).id
-	)	
+		name <- 'trigger',
+		value <- c.fROM.instance
+	)
 	do {
-		
 		thisModule.documentRoot.object <- lco;
 		thisModule.documentRoot.object <- lci;
-		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.
-				getConnectorSourceId(c));
+		--increment the source number of the bounded element
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.boundedIEvents.get(c.fROM.class+' - '+c.fROM.instance).id);
 		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.
 				getConnectorTargetId(c));
-		
-		
-		
-		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.boundedIEvents.get(c.fROM.class+' - '+c.fROM.instance).id);
-		
 	}
 }
 
