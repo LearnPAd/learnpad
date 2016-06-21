@@ -25,6 +25,7 @@ import java.util.Scanner;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -48,6 +49,7 @@ import eu.learnpad.me.rest.data.ModelSetType;
 public class DASHBridgeImpl extends Bridge {
 
 	private static Logger log = Logger.getLogger(DASHBridgeImpl.class);
+	private static String url = "http://localhost/it-has-not-been-set";
 
 	public DASHBridgeImpl() {
 		// TODO the following line is just a placeholder. It should be fixed.
@@ -85,12 +87,17 @@ public class DASHBridgeImpl extends Bridge {
 	}
 
 	@Override
+	@Path("/view/{modelsetid}")
+	@GET
 	public String getKPIValuesView(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("businessactor") String businessActorId) throws LpRestException {
 		log.info("Requeste URL for : ModelSet " + modelSetId + "; businessActorId " + businessActorId );
-		String url = "http://localhost/this-is-fake";
-		
+
 		return url;
+	}
+
+	public static void setCockpitURL(String url) {
+		DASHBridgeImpl.url = url; 
 	}
 
 }
