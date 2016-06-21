@@ -32,4 +32,4 @@ See on the [http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Components/](wiki) for
 more information.
 
 All the interfaces exposed/used as XWIKI components **MUST** be added in the file (components.txt)[https://github.com/LearnPAd/learnpad/blob/master/lp-core-platform/lp-cp-xwiki-implementation/src/main/resources/META-INF/components.txt]
-Futher configurations about the components should be set inside (learnpad.properties.vm file)[https://github.com/LearnPAd/learnpad/blob/master/lp-core-platform/lp-cp-conf/src/main/resources/learnpad.properties.vm]
+Futher configurations about the components should be set inside (learnpad.properties.vm file)[https://github.com/LearnPAd/learnpad/blob/master/lp-core-platform/lp-cp-conf/src/main/resources/learnpad.properties.vm], or better inside (lp-platform/lp-platform-distributions/pom.xml)[https://github.com/LearnPAd/learnpad/blob/master/lp-platform/lp-platform-distributions/pom.xml]
