@@ -2,5 +2,5 @@
 cd $( dirname "${BASH_SOURCE[0]}")
 {
     lp-dash-adoxx-cockpit/out/stop
-    pkill -f "java -jar lp-dash-bridge-1.0-SNAPSHOT.jar > lp-dash-bridge-1.0-SNAPSHOT.log 2>&1"
+    pkill -f "java -jar lp-dash-bridge-"
 }

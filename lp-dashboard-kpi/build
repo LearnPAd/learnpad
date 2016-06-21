@@ -56,6 +56,7 @@ function component_install() {
     cp -r "${__COMPONENT_PATH__}/${__COCKPIT_SUBCOMPONENT_NAME__}/out" "${__OUT_PATH__}/${__COCKPIT_SUBCOMPONENT_NAME__}/out" &&
     cp -r ${__COMPONENT_PATH__}/${__BRIDGE_SUBCOMPONENT_NAME__}/target/*.jar "${__OUT_PATH__}"
     cp -r "${__COMPONENT_PATH__}/${__BRIDGE_SUBCOMPONENT_NAME__}/target/lib" "${__OUT_PATH__}"
+    cp -r "${__COMPONENT_PATH__}/${__BRIDGE_SUBCOMPONENT_NAME__}/target/classes/config" "${__OUT_PATH__}"
 ##    mkdir -p "${__OUT_PATH__}/${__COCKPIT_SUBCOMPONENT_NAME__}" &&
 ##    cp -r "${__COMPONENT_PATH__}/${__COCKPIT_SUBCOMPONENT_NAME__}/out" "${__OUT_PATH__}/${__COCKPIT_SUBCOMPONENT_NAME__}/out"
 
