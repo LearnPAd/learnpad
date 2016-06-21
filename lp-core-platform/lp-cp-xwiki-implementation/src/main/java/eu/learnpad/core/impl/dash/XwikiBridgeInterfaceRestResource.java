@@ -23,9 +23,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.inject.Named;
+import javax.ws.rs.QueryParam;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
@@ -77,7 +79,7 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 
 	@Override
 	public void loadKPIValues(String modelSetId, KPIValuesFormat format,
-			InputStream cockpitContent) throws LpRestException {
+			String businessActorId,InputStream cockpitContent) throws LpRestException {
 		String contentType = "application/xml";		
 		
 		HttpClient httpClient = this.getClient();
@@ -98,6 +100,28 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 		} catch (IOException e) {
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}		
+	}
+
+	@Override
+	public String getKPIValuesView(String modelSetId, String businessActorId)
+			throws LpRestException {
+
+		HttpClient httpClient = this.getAnonymousClient();
+		String uri = String.format(
+				"%s/learnpad/dash/bridge/view/%s",
+				this.restPrefix, modelSetId);
+		GetMethod getMethod = new GetMethod(uri);
+
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("businessactor", businessActorId);
+		getMethod.setQueryString(queryString);
+
+		try {
+			httpClient.executeMethod(getMethod);
+			return getMethod.getResponseBodyAsString(); 
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+		}
 	}
 
 	
