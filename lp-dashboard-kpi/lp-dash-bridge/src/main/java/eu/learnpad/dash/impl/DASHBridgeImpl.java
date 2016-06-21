@@ -20,7 +20,6 @@
 package eu.learnpad.dash.impl;
 
 import java.io.InputStream;
-import java.io.StringReader;
 import java.util.Scanner;
 
 import javax.ws.rs.Consumes;
@@ -44,7 +43,7 @@ import eu.learnpad.me.rest.data.ModelSetType;
  * @author gulyx
  */
 
-@Path("/learnpad/ca/bridge/")
+@Path("/learnpad/dash/bridge/")
 @Consumes(MediaType.APPLICATION_XML)
 public class DASHBridgeImpl extends Bridge {
 
@@ -54,7 +53,8 @@ public class DASHBridgeImpl extends Bridge {
 	public DASHBridgeImpl() {
 		// TODO the following line is just a placeholder. It should be fixed.
 		this.corefacade = new DASHCoreFacadeRestResource();
-
+		
+		org.apache.log4j.BasicConfigurator.configure();
 		log.info(this.getClass().getName() + " instantiated!");
 	}
 
@@ -76,7 +76,6 @@ public class DASHBridgeImpl extends Bridge {
 			@QueryParam("format") @DefaultValue("ADOXXCockpit") KPIValuesFormat format,
 			@QueryParam("businessactor") String businessActorId,
 			InputStream cockpitContent) throws LpRestException {
-
 		// taken from :
 		// http://web.archive.org/web/20140531042945/https://weblogs.java.net/blog/pat/archive/2004/10/stupid_scanner_1.html
 		Scanner scanner = new Scanner(cockpitContent).useDelimiter("\\A");
