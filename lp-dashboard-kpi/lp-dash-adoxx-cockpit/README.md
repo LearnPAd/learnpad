@@ -13,3 +13,5 @@ Roadmap       | http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Dashboar
 # Summary
 This component provides just the KPI dasbhoard UI based on JavaScript resp. the Sencha Ext JS libary. 
 This is an adapted verision provided by BOC (https://www.adoxx.org/live/web/learnpad-developer-space/cockpit_v01).
+
+By default this component is deployed on the port : ``9098``
