@@ -60,9 +60,9 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 	@Override
 	public void modelSetImported(String modelSetId, ModelSetType type)
 			throws LpRestException {
-		HttpClient httpClient = this.getClient();
+		HttpClient httpClient = this.getAnonymousClient();
 		String uri = String.format("%s/learnpad/dash/bridge/modelsetimported/%s",
-				DefaultRestResource.REST_URI, modelSetId);
+				this.restPrefix, modelSetId);
 		PutMethod putMethod = new PutMethod(uri);
 		putMethod.addRequestHeader("Accept", "application/xml");
 
@@ -81,14 +81,15 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 			String businessActorId,InputStream cockpitContent) throws LpRestException {
 		String contentType = "application/xml";		
 		
-		HttpClient httpClient = this.getClient();
+		HttpClient httpClient = this.getAnonymousClient();
 		String uri = String.format("%s/learnpad/dash/bridge/loadkpivalues/%s",
-				DefaultRestResource.REST_URI, modelSetId);
+				this.restPrefix, modelSetId);
 		PutMethod putMethod = new PutMethod(uri);
 		putMethod.addRequestHeader("Content-Type", contentType);
 
-		NameValuePair[] queryString = new NameValuePair[1];
+		NameValuePair[] queryString = new NameValuePair[2];
 		queryString[0] = new NameValuePair("format", format.toString());
+		queryString[1] = new NameValuePair("businessactor", businessActorId);
 		putMethod.setQueryString(queryString);
 		
 		RequestEntity requestEntity = new InputStreamRequestEntity(cockpitContent);
@@ -122,20 +123,4 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
