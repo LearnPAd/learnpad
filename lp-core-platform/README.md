@@ -30,3 +30,5 @@ means that you may also use the Java interface instead of the web service.
 
 See on the [http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Components/](wiki) for
 more information.
+
+All the interfaces exposed/used as XWIKI components **MUST** be added in the file ()[https://github.com/LearnPAd/learnpad/blob/master/lp-core-platform/lp-cp-xwiki-implementation/src/main/resources/META-INF/components.txt]
