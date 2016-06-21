@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.inject.Named;
-import javax.ws.rs.QueryParam;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
