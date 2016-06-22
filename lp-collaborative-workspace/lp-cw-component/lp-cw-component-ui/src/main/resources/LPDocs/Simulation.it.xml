@@ -31,18 +31,18 @@
   <parent>LPDocs.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1464002927000</date>
-  <contentUpdateDate>1464002927000</contentUpdateDate>
+  <date>1466579112000</date>
+  <contentUpdateDate>1466579112000</contentUpdateDate>
   <version>1.1</version>
-  <title>Modalità in Simulazione</title>
+  <title>Simulation Mode</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
   <content>{{velocity}}
-{{warning}}
-Questo è un segnaposto
-{{/warning}}
+La piattaforma Learn PAd prevede un’innovativa modalità di apprendimento che permette di metterti alla prova sulle conoscenze acquisite. La modalità prevede la simulazione di casi reali di gestione di una pratica relativa ad un procedimento. Il sistema proporrà dunque una problematica reale e monitorerà le tue scelte al fine di gestire la richiesta.
+
+E’ possibile anche effettuare simulazioni in collaborazione con colleghi ognuno dei quali svolgerà i diversi ruoli previsti dal processo. La simulazione include inoltre meccanismi che fanno percepire la simulazione come una sfida, assegnando dunque punteggi alle varie attività svolte.
 
 == Simulazione a Singolo Utente ==
 {{warning}}
