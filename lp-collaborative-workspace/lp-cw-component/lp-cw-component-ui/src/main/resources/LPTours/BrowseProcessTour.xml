@@ -304,7 +304,7 @@ ${services.localization.render('LPTours.BrowsingModeProcess.Body.description')}
     </property>
     <property>
       <content>{{velocity}}
-${services.localization.render('LPTours.BrowsingModeProcess.Table.title')}
+${services.localization.render('LPTours.BrowsingModeProcess.Table.description')}
 {{/velocity}}
 </content>
     </property>
@@ -588,7 +588,7 @@ ${services.localization.render('LPTours.BrowsingModeProcess.BrowseButton.descrip
     </property>
     <property>
       <content>{{velocity}}
-${services.localization.render('LPTours.BrowsingModeProcess.SimulationButton.title')}
+${services.localization.render('LPTours.BrowsingModeProcess.SimulationButton.description')}
 {{/velocity}}
 </content>
     </property>
@@ -730,7 +730,7 @@ ${services.localization.render('LPTours.BrowsingModeProcess.SimulationButton.tit
     </property>
     <property>
       <content>{{velocity}}
-${services.localization.render('LPTours.BrowsingModeProcess.ContributeButton.title')}
+${services.localization.render('LPTours.BrowsingModeProcess.ContributeButton.description')}
 {{/velocity}}
 </content>
     </property>
@@ -871,7 +871,10 @@ ${services.localization.render('LPTours.BrowsingModeProcess.ContributeButton.tit
       <backdrop>1</backdrop>
     </property>
     <property>
-      <content>${services.localization.render('LPTours.BrowsingModeProcess.DummyImage.description')}</content>
+      <content>{{velocity}}
+${services.localization.render('LPTours.BrowsingModeProcess.DummyImage.description')}
+{{/velocity}}
+</content>
     </property>
     <property>
       <element>.dummy-process-image</element>
