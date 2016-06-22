@@ -21,6 +21,7 @@ package eu.learnpad.core.impl.cw;
 
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -49,6 +50,7 @@ import eu.learnpad.cw.Controller;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.sim.rest.data.UserDataCollection;
 
@@ -153,9 +155,27 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
+	public String joinSimulation(String simulationId, String userId) throws LpRestException {
+		userId = this.removePrefixes(userId);
+
+		return this.sim.joinProcessInstance(simulationId, userId);
+	}
+
+	@Override
+	public Collection<String> listSimulations() throws LpRestException {
+		return this.sim.getProcessInstances();
+	}
+
+	@Override
+	public ProcessInstanceData getSimulationInfo(String simulationId) throws LpRestException {
+		return this.sim.getProcessInstanceInfos(simulationId);
+	}
+
+	@Override
 	public Recommendations getRecommendations(String modelSetId, String artifactId, String userId)
 			throws LpRestException {
-		Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userId, null);
+		String userEmail = this.convertUserID(userId);
+		Recommendations rec = this.or.askRecommendation(modelSetId, artifactId, userEmail, null);
 		return rec;
 	}
 
@@ -227,6 +247,12 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
+	public String getView(String analysisId) throws LpRestException {
+		String url = this.ca.getCollaborativeContentVerificationsView(analysisId);
+		return url;
+	}
+
+	@Override
 	public AnnotatedCollaborativeContentAnalyses getResults(String analysisId) throws LpRestException {
 		return this.ca.getCollaborativeContentVerifications(analysisId);
 	}
@@ -236,4 +262,10 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		return username;
 	}
 
+	private String convertUserID(String userId) throws LpRestException {
+
+		String wikiName = DefaultRestResource.CORE_REPOSITORY_WIKI;
+		String username = this.removePrefixes(userId);
+		return utils.getEmailAddress(wikiName, username);
+	}
 }

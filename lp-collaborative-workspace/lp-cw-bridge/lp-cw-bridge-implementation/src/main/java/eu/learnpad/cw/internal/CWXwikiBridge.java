@@ -82,6 +82,7 @@ import eu.learnpad.rest.model.jaxb.PFResults.Patches.Patch;
 import eu.learnpad.rest.model.jaxb.PFResults.Patches.Patch.Artefact;
 import eu.learnpad.rest.model.jaxb.PFResults.Patches.Patch.Artefact.Attribute;
 import eu.learnpad.rest.model.jaxb.PatchType;
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.sim.rest.data.UserDataCollection;
 
@@ -264,6 +265,7 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	}
 
 	private Patches getPatchList(String modelSetId) {
+		// TODO
 		Attribute attribute1 = new Attribute();
 		attribute1.setId("123");
 		attribute1.setName("name");
@@ -377,6 +379,21 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 			throws LpRestException {
 		UserDataCollection potentialUsersCollection = getUserProfiles(potentialUsers);
 		return this.corefacade.startSimulation(modelId, currentUser, potentialUsersCollection);
+	}
+
+	@Override
+	public String joinSimulation(String simulationId, String userId) throws LpRestException {
+		return this.corefacade.joinSimulation(simulationId, userId);
+	}
+
+	@Override
+	public Collection<String> listSimulations() throws LpRestException {
+		return this.corefacade.listSimulations();
+	}
+
+	@Override
+	public ProcessInstanceData getSimulationInfo(String simulationId) throws LpRestException {
+		return this.corefacade.getSimulationInfo(simulationId);
 	}
 
 	@Override

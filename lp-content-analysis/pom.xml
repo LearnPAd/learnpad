@@ -17,7 +17,7 @@
 	<developers>
 		<developer>
 			<id>imatesiu</id>
-			<name>Giorgio Spagnolo</name>
+			<name>Giorgio O. Spagnolo</name>
 		</developer>
 	</developers>
 
@@ -179,7 +179,28 @@
 									<directory>src/main/webapp/WEB-INF/</directory>
 									<filtering>true</filtering>
 									<includes>
-										<include> gate.xml</include>
+										<include>gate.xml</include>
+									</includes>
+								</resource>
+							</resources>
+							<encoding>UTF-8</encoding>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-resources-config</id>
+						<!-- here the phase you need -->
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/resources/</directory>
+									<filtering>true</filtering>
+									<includes>
+										<include>config.properties</include>
 									</includes>
 								</resource>
 							</resources>

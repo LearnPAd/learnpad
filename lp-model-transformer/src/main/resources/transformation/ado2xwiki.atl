@@ -1,7 +1,6 @@
 -- @nsURI ADOXX=http://www.ado.org
 -- @nsURI XWIKI=http://www.xwiki.org
 
-
 module ado2xwiki;
 create OUT: XWIKI from IN: ADOXX;
 
@@ -43,6 +42,22 @@ helper def: sourceModels: Set(ADOXX!MODELType) =
 helper def: loadSourceModels(): Set(ADOXX!MODELType) =
 	thisModule.modelSet.iNTERREF.first().iREF -> iterate(e; acc: Set(ADOXX!MODELType) =
 			Set{} | acc.including(e.getModelType));
+
+helper def : boundedIEvents : Map(String, ADOXX!INSTANCEType) = Map{};
+helper def : loadboundedIEvents() : Map(String, ADOXX!INSTANCEType) =
+	ADOXX!INSTANCEType.allInstances()
+			->select(e | e.class='Intermediate Event (boundary)')
+			->iterate(e; acc : Map(OclAny, ADOXX!INSTANCEType) = Map{} |
+     				acc.including(
+     					 e.class+' - '+e.name
+						,thisModule.getIrefTargetInstance(
+     						e.iNTERREF
+     						->select(i | i.name='Attached to')
+							.first()
+							.iREF.first()
+						)
+				 	)
+   			);
 
 helper context ADOXX!IREFType def: getModelType: ADOXX!MODELType =
 	ADOXX!MODELType.allInstances() -> select(m | (m.name = thisModule.
@@ -337,6 +352,9 @@ entrypoint rule ModelOverview() {
 		
 		 --set the models to take into account
 		thisModule.sourceModels <- thisModule.loadSourceModels();
+		 
+		 --set the bound between business element and event
+		thisModule.boundedIEvents <- thisModule.loadboundedIEvents();
 		
 		 --create the WebHome
 		thisModule.initWebHome();
@@ -455,9 +473,10 @@ rule MODELType2WebHome {
 -----------------------  INSTANCEType  -----------------------
 rule INSTANCEType2Page {
 	from
-		s: ADOXX!INSTANCEType (
-			s.isInSourceModels > 0
-		) -----------------------  obj.XXXXX  -----------------------
+		s: ADOXX!INSTANCEType ( (s.isInSourceModels > 0)  
+								and (thisModule.boundedIEvents.get(s.class+' - '+s.name).oclIsUndefined())
+							) 
+	-----------------------  obj.XXXXX  -----------------------
 	
 	to
 		t_p: XWIKI!Page (
@@ -574,7 +593,9 @@ rule CONNECTORType2Object {
 						lci_p1,
 						lci_p2,
 						lci_p3,
-						lci_p4}
+						lci_p4,
+						lco_p5,
+						lco_p6}
 		),
 		lci_p0: XWIKI!Property (
 			name <- 'id',
@@ -600,12 +621,64 @@ rule CONNECTORType2Object {
 			name <- 'type',
 			type <- 'StaticList',
 			value <- 'incoming'
+		),
+		lco_p5:XWIKI!Property (
+			name <- 'denomination',
+			type <- 'String',
+			value <- ''
+		),
+		lco_p6:XWIKI!Property (
+			name <- 'trigger',
+			type <- 'String',
+			value <- ''
 		)
 	do {
 		thisModule.documentRoot.object <- lco;
 		thisModule.documentRoot.object <- lci;
 		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.
 				getConnectorSourceId(c));
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.
+				getConnectorTargetId(c));
+	}
+}
+
+helper context ADOXX!CONNECTORType def : getDenomination : String =
+	self.aTTRIBUTE->select(i | i.name = 'Denomination' and i.type = 'STRING' )->first().value;
+
+--this rule extends the CONNECTORType2Object and adds the properties Denomination for manage the label in the gateway links 
+rule CONNECTORTypeSubsequent2Object extends CONNECTORType2Object {
+	from c:ADOXX!CONNECTORType ((c.isInSourceModels > 0) and (c.class='Subsequent'))
+	to lco_p5:XWIKI!Property (
+		value <- c.getDenomination
+	)
+	do {
+		thisModule.documentRoot.object <- lco;
+		thisModule.documentRoot.object <- lci;
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.
+				getConnectorSourceId(c));
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.
+				getConnectorTargetId(c));		
+	}
+}
+
+--this rule changes the id from the event involved in connection with the bounded element and viceversa
+rule CONNECTORTypeEvent2Object extends CONNECTORTypeSubsequent2Object {
+	from c:ADOXX!CONNECTORType (not thisModule.boundedIEvents.get(c.fROM.class+' - '+c.fROM.instance).oclIsUndefined())
+	to lci_p3:XWIKI!Property (
+		value <- thisModule.boundedIEvents.get(c.fROM.class+' - '+c.fROM.instance).id
+	),
+	lco:XWIKI!Object (
+		number <- thisModule.linkNumberMap.get(thisModule.boundedIEvents.get(c.fROM.class+' - '+c.fROM.instance).id),
+		space <- thisModule.spacesBE(thisModule.getModelSetId(), c.refImmediateComposite().id, thisModule.boundedIEvents.get(c.fROM.class+' - '+c.fROM.instance).id)
+	),
+	lco_p6:XWIKI!Property (
+		value <- c.fROM.instance
+	)
+	do {
+		thisModule.documentRoot.object <- lco;
+		thisModule.documentRoot.object <- lci;
+		--increment the source number of the bounded element
+		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.boundedIEvents.get(c.fROM.class+' - '+c.fROM.instance).id);
 		thisModule.linkNumberMap <- thisModule.incLinkNumber(thisModule.
 				getConnectorTargetId(c));
 	}

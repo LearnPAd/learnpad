@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<xwikidoc version="1.2" reference="LPCode.Translations" locale="it">
+  <web>LPCode</web>
+  <name>Translations</name>
+  <language>it</language>
+  <defaultLanguage>en</defaultLanguage>
+  <translation>1</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1466580210000</creationDate>
+  <parent>LPUI.WebHome</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1466583103000</date>
+  <contentUpdateDate>1466582876000</contentUpdateDate>
+  <version>1.1</version>
+  <title>Translations</title>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>false</hidden>
+  <content>## UI pages
+# LPUI.WebHome
+LPUI.WebHome.title=Courses
+LPUI.WebHome.button.start=Start
+LPUI.WebHome.button.simulate=Simulate
+LPUI.WebHome.lastupdate=Last update {0}
+LPUI.WebHome.knowmore=[Know more]
+LPUI.WebHome.presentation.introduction=Welcome! The European project Learn PAd (Model Based Social Learning for Public Administrations) is funded by the European Community under the Seventh Programme Framework for Research and Development (FP7).
+LPUI.WebHome.presentation.content=You are using the collaborative platform released for online “training on the job“ sessions of the PA staff. The platform provides a set of innovative and social features for interaction and simulation, and it is based on use cases and practical methods derived from the formal modeling of business processes, which can be browsed within a Wiki Knowledge Repository. Executing any given task or functionality, the system will assign you an (improvable) score, according to the required and achieved skills and expertize level (related to the EQF competencies framework).
+LPUI.WebHome.presentation.conclusion=Select your course and start playing with us!
+
+# LPUI.ModelSetSheet
+LPUI.ModelSetSheet.button.contribute=Contributions
+LPUI.ModelSetSheet.button.start=Start
+LPUI.ModelSetSheet.button.simulate=Simulate
+LPUI.ModelSetSheet.lastupdate=Last update {0}
+LPUI.ModelSetSheet.knowmore=[Know more]
+
+# LPUI.ModelSheet
+LPUI.ModelSheet.button.browse=Browse
+LPUI.ModelSheet.button.contribute=Contributions
+LPUI.ModelSheet.button.simulate=Simulate
+
+# BaseElementSheet
+LPUI.BaseElementSheet.button.contribute=Contributions
+BaseElementSheet.documentation.title=Description of the activity
+BaseElementSheet.organization.title=Organization
+BaseElementSheet.feedback.helper=If you think the content of this page has errors, please fill a note that will be sent to the responsible of this process.
+
+# FeedbackSheet
+FeedbackSheet.title=Feedback on "{0}"
+FeedbackSheet.goback=Go back to the artifact
+
+# CollaborativeDocumentSheet
+LPUI.CollaborativeDocumentSheet.title=Collaborative Document on "{0}"
+LPUI.CollaborativeDocumentSheet.button.edit=Edit
+LPUI.CollaborativeDocumentSheet.button.validate=Validate
+
+# Profile panel
+LPUI.ProfilePanel.title=My Account
+LPUI.ProfilePanel.profile=My profile
+LPUI.ProfilePanel.dashboard=My dashboard
+LPUI.ProfilePanel.join=Join simulation
+LPUI.ProfilePanel.join.help=You have been invited into a simulation!
+
+# Recommendation panel
+LPUI.RecommendationPanel.role.title=Role
+LPUI.RecommendationPanel.experts.title=Experts
+LPUI.RecommendationPanel.simulation.title=Simulation
+LPUI.RecommendationPanel.simulation.button=Start
+LPUI.RecommendationPanel.learningmaterials.title=Learning Materials
+LPUI.RecommendationPanel.similarcases.title=Similar Cases
+LPUI.RecommendationPanel.similarcases.category.applicationCity=City
+LPUI.RecommendationPanel.similarcases.category.applicationATECOCategory=Category ATECO
+LPUI.RecommendationPanel.similarcases.category.applicationSubType=Subtype
+LPUI.RecommendationPanel.similarcases.category.applicationZone=Zone
+LPUI.RecommendationPanel.similarcases.category.involvedThirdParties=Involved 3rd parties
+LPUI.RecommendationPanel.similarcases.category.applicationPublicAdministration=Public Administration
+LPUI.RecommendationPanel.similarcases.category.applicationBusinessActivity=Business Activity
+LPUI.RecommendationPanel.similarcases.category.applicantName=Applicant Name
+LPUI.RecommendationPanel.similarcases.category.applicationSector=Sector
+
+# Simulation Environment
+SimulationEnvironment.goback=Go back to the browsing of the model
+
+# Dashboard
+LPUI.Dashboard.section.title=Score on the process "{0}"
+
+# LPDocs
+LPDocs.WebHome.title=How To!
+LPDocs.WebHome.welcome=Consulta gli elementi nella tabella che segue, e approfondisci la tua conoscenza di un argomento
+LPDocs.Abstract.content=Cosa è Learn PAd?
+LPDocs.Abstract.linkLabel=Clicca qui
+LPDocs.Tours.title=Visite Guidate
+LPDocs.Tours.linkLabel=Avvia il Tour 
+
+# Tours
+LPTours.BrowsingMode.description=Questo è un segnaposto
+##
+LPTours.BrowsingMode.Body.title=Body, Questo è un segnaposto
+LPTours.BrowsingMode.Body.description=Ogni attività prevista da un procedimento include una pagina in cui in forma testuale troverai le informazioni principali relative all’attività stessa ed alle sue modalità di esecuzione
+##
+LPTours.BrowsingMode.ContributeButton.title=ContributeButton, Questo è un segnaposto
+LPTours.BrowsingMode.ContributeButton.description=Il pulsante **Contribution** ti permette di utilizzare la piattaforma per fornire ulteriori descrizioni/informazioni sull'attività da svolgere. In tal modo potrai aiutare i tuoi colleghi nello svolgimento delle loro attività, nonché contribuire migliorare l’organizzazione delle attività stesse.
+##
+LPTours.BrowsingMode.FeedbackButton.title=FeedbackButton, Questo è un segnaposto
+LPTours.BrowsingMode.FeedbackButton.description=Il pulsante feedback permette di indirizzare suggerimenti/richeste agli esperti che gestiscono i modelli utili all'organizzazione dei contenuti. In tal modo sarà possibile migliorare continuamente l'organizzazione delle attività sulla base dell’esperienza degli utenti che operano realmente all’interno dei procedimenti
+##
+LPTours.BrowsingMode.Navigation.title=Navigation, Questo è un segnaposto
+LPTours.BrowsingMode.Navigation.description=Nell'area navigazione sono presenti collegamenti alle pagine che descrivono le attività che dovranno essere eseguite successivamente (link sul lato destro) e le attività che è stato eseguite in precedenza (link sul lato sinistro)
+##
+LPTours.BrowsingMode.Crosslink.title=Crosslink, Questo è un segnaposto
+LPTours.BrowsingMode.Crosslink.description=Crosslink, this is foo
+##
+LPTours.BrowsingMode.Documents.title=Documents, Questo è un segnaposto
+LPTours.BrowsingMode.Documents.description=Questa area contiene riferimenti a documenti ritenuti utili al fine di chiarire possibili aspetti relativi all’esecuzione dell'attività. Ad esempio qui potrai trovare normative e regolamenti che si riferiscono all'attività stessa.
+##
+LPTours.BrowsingMode.Organization.title=Organization, Questo è un segnaposto
+LPTours.BrowsingMode.Organization.description=In questa area troverai riferimenti ad uffici e persone/colleghi che sono in qualche modo coinvolti nell'esecuzione dell'attività stessa o che comunque possono essere interessati agli effetti della sua esecuzione.
+##
+## LPTours.BrowsingMode.StartButton.title=StartButton, Questo è un segnaposto
+## LPTours.BrowsingMode.StartButton.description=StartButton, Questo è un segnaposto
+##
+## LPTours.BrowsingMode.BrowseButton.title=BrowseButton, Questo è un segnaposto
+## LPTours.BrowsingMode.BrowseButton.description=BrowseButton, Questo è un segnaposto
+
+LPTours.BrowsingModeProcess.Body.title=Process Body, Questo è un segnaposto
+LPTours.BrowsingModeProcess.Body.description=Il processo rappresenta le attività, nonché la loro organizzazione temporale, che permettono a più amministrazioni di collaborare al fine di soddisfare le richieste dei cittadini. La piattaforma Learn PAd intende fornire uno strumento per l'apprendimento delle attività da svolgere all'interno dei procedimenti che un'amministrazione mette in atto al fine di soddisfare le richieste dei cittadini.
+##
+LPTours.BrowsingModeProcess.Table.title=Process Table, Questo è un segnaposto
+LPTours.BrowsingModeProcess.Table.description=La tabella elenca le attività che fanno parte di un processo. Selezionando un'attività si sarà rediretti alla pagina relativa all'attività stessa. Si possono filtrare ed ordinare gli elementi contenuti nella tabella secondo vari criteri. 
+##
+LPTours.BrowsingModeProcess.BrowseButton.title=Process BrowseButton, Questo è un segnaposto
+LPTours.BrowsingModeProcess.BrowseButton.description=Questo pulsante permette di avviare l'esplorazione di un procedimento in accordo a quanto previsto dallo stesso. La navigazione si svolge in accordo alle relazioni temporali tra le attività nel processo stesso (vedi **Browsing Mode**)
+##
+LPTours.BrowsingModeProcess.SimulationButton.title=Process SimulationButton, Questo è un segnaposto
+LPTours.BrowsingModeProcess.SimulationButton.description=Questo pulsante permette di avviare una simulazione del processo per un utente. (vedi **Simulation Mode**)
+##
+LPTours.BrowsingModeProcess.ContributeButton.title=Process ContributeButton, Questo è un segnaposto
+LPTours.BrowsingModeProcess.ContributeButton.description=Questo pulsante permette agli utenti di contribuire alla definizione di informazioni aggiuntive utili a rendere maggiormente chiaro le attività da svolgere per soddisfare le richieste di un utente in relazione ad un processo
+##
+LPTours.BrowsingModeProcess.DummyImage.title=Process DummyImage, Questo è un segnaposto
+LPTours.BrowsingModeProcess.DummyImage.description=L'immagine che troverai associata ad ogni processo, fornisce una rappresentazione schematica dello stesso. I rettangoli stondati rappresentano attività da svolgere che sono collegati da linee di flusso che rappresentano come le attività, da sinistra verso destra, progrediscono. I rombi rappresentano scelte che permettono di indirizzare il flusso verso un parte o l'altra.
+
+## Macros
+# Workflow buttons macro
+LPCode.WorkflowButtonsMacro.title=Navigate
+LPCode.WorkflowButtonsMacro.previous=Previous steps
+LPCode.WorkflowButtonsMacro.next=Next steps
+LPCode.WorkflowButtonsMacro.poollane=List of elements
+LPCode.WorkflowButtonsMacro.labelDenominationProperty=Branch :
+LPCode.WorkflowButtonsMacro.labelTriggerProperty=Event :
+
+# Organization macro
+LPCode.OrganizationMacro.title=Organization units
+OrganizationMacro.title.top=Part of
+OrganizationMacro.title.bottom=Element of
+
+# Weaving Button macro
+LPCode.WeavingMacro.title=Cross-model
+
+# FeedbackButtonMacro
+LPCode.FeedbackButtonMacro.button=Feedback
+
+# DocumentMacro
+LPCode.DocumentMacro.title=Documents
+
+# DocumentationMacro
+LPCode.DocumentationMacro.empty=There is no documentation for this artifact.
+
+# BaseElementDisplayCMMacro
+LPCode.BaseElementDisplayCMMacro.title=Competency
+LPCode.BaseElementDisplayCMMacro.level=Level
+LPCode.BaseElementDisplayCMMacro.competency=Competency
+LPCode.BaseElementDisplayCMMacro.skill=Skill
+LPCode.BaseElementDisplayCMMacro.knowledge=Knowledge
+
+## Livetables
+# Model sets livetable
+lpcode.livetable.modelset.emptyvalue=-
+lpcode.livetable.modelset.id=ID
+lpcode.livetable.modelset.name=Course name
+lpcode.livetable.modelset.doc.date=Last update
+lpcode.livetable.modelset._actions=Actions
+# Models livetable
+lpcode.livetable.model.emptyvalue=-
+lpcode.livetable.model.id=ID
+lpcode.livetable.model.name=Model name
+lpcode.livetable.model.type=Type
+lpcode.livetable.model.doc.date=Last update
+lpcode.livetable.model._actions=Actions
+# Docs livetable
+lpcode.livetable.docs.documenttitle=Title</content>
+</xwikidoc>

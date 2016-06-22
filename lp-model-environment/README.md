@@ -173,7 +173,7 @@ curl \
 	--user username:password \
 	--request GET \
 	--header "Accept: application/xml" \
-	  "http://testbed.learnpad.eu/xwiki/rest/learnpad/me/bridge/checkmodelset/results/<verificationprocessid>"
+	  "http://localhost:8080/xwiki/rest/learnpad/me/bridge/checkmodelset/results/<verificationprocessid>"
 ```
 
 **Output**

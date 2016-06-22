@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://xmlns.jcp.org/jsf/html"
+ xmlns:f="http://xmlns.jcp.org/jsf/core"
+ xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+
+
+
+<h:head>
+	<title>Result - Analysis</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+
+
+
+
+	<h:panelGrid columns="2" border="1">
+		<f:facet name="header">
+			Content Analysis Information of #{DataContentAnalysisbean.acca.type} <br/>
+		Title:	#{DataContentAnalysisbean.acca.collaborativeContent.title}
+		</f:facet>
+
+		<h:outputLabel for="label_oq" value="Overall Quality" />
+		<h:outputText id="label_oq"
+			value="#{DataContentAnalysisbean.acca.overallQuality}" style="background-color: #{DataContentAnalysisbean.color}" />
+
+		<h:outputLabel for="label1_oqm" value="Overall Quality Measure" />
+		<h:outputText id="label1_oqm"
+			value="#{DataContentAnalysisbean.acca.overallQualityMeasure}" />
+
+		<h:outputLabel for="label2_or" value="Overall Recommendations" />
+		<h:outputText id="label2_or"
+			value="#{DataContentAnalysisbean.acca.overallRecommendations}" />
+	</h:panelGrid>
+
+	<br />
+
+	<c:forEach items="#{DataContentAnalysisbean.listdata}" var="data"
+		varStatus="status">
+		<c:if test="#{status.first}">
+			<br />
+			<br />
+			<h:outputText style="font-weight: bold;font-size:200%;"
+				value="#{data.type}:" />
+			<br />
+			<br />
+		</c:if>
+		<h:outputText id="ciao1_#{status.index}" value="#{data.element}"
+			style="white-space: pre-wrap;" styleClass="#{data.css}" title="#{data.recommendation}" />
+
+		
+	</c:forEach>
+	<br />
+<br />
+<br />
+
+
+<h:outputText style="font-weight: bold;font-size:200%;"
+				value="XML Version:" /><br /><br />
+<h:outputText value="#{DataContentAnalysisbean.xml}" style="white-space: pre-wrap;" styleClass="sxml"/>
+
+
+</h:body>
+</html>

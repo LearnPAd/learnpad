@@ -28,6 +28,7 @@ import java.util.Map;
 
 import org.activiti.engine.TaskService;
 
+import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
 import eu.learnpad.simulator.robot.IRobotInputExtractor;
 
 /**
@@ -53,8 +54,13 @@ IRobotInputExtractor<Map<String, Object>> {
 	 */
 	@Override
 	public Map<String, Object> getInput(String taskId) {
-		return taskService.createTaskQuery().includeProcessVariables()
-				.taskId(taskId).singleResult().getProcessVariables();
-	}
+		Map<String, Object> cleanedInput = taskService.createTaskQuery()
+				.includeProcessVariables().taskId(taskId).singleResult()
+				.getProcessVariables();
 
+		// ignore values used only for technical purposes
+		cleanedInput.remove(ActivitiProcessManager.SIMULATION_ID_KEY);
+
+		return cleanedInput;
+	}
 }

@@ -31,8 +31,8 @@
   <parent>LPUI.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1459418814000</date>
-  <contentUpdateDate>1459418814000</contentUpdateDate>
+  <date>1462984818000</date>
+  <contentUpdateDate>1462984312000</contentUpdateDate>
   <version>1.1</version>
   <title>#if($doc.name == 'CollaborativeDocumentSheet')Collaborative Document Sheet#{else}$services.localization.render('LPUI.CollaborativeDocumentSheet.title',[$xwiki.getDocument($doc.documentReference.lastSpaceReference).title])#{end}</title>
   <comment/>
@@ -245,16 +245,15 @@ $(function(){
       askStatus();
     });
   };
-  var results = function results(id) {
+  var getURL = function getURL(id) {
     return Q.Promise(function(resolve, reject, notify) {
       status(id).progress(function(progress) {
         $("#ca-progressbar").css("width", (100.0*progress)+"%");
       }).done(function() {
-        var url = "/xwiki/rest/learnpad/cw/corefacade/analyze/" + id;
+        var url = "/xwiki/rest/learnpad/cw/corefacade/analyze/" + id + "/view";
         $.ajax({
           "url": url,
-          "method": "GET",
-          "accept": "application/xml"
+          "method": "GET"
         }).done(function(data, status, xhr) {
           resolve(data);
         }).fail(function(xhr, status, err) {
@@ -284,10 +283,12 @@ $(function(){
       options.push("correctness");
       return analyze(xm.documentReference, "english", options, title, plain, html);
     }).then(function(id) {
-      return results(id);
-    }).then(function(results) {
+      return getURL(id);
+    }).then(function(url) {
       $("#ca-progressbar").css("width", "100%");
-      alert("Redirect to the interface of the analyzer.");
+      var link = $('&lt;a&gt;&lt;/a&gt;').attr('href', url).attr('target', '_blank').text('See results');
+      var linktext = $('&lt;div&gt;&lt;/div&gt;').append(link);
+      validatebtn.after(linktext);
       $("#ca-progressbar").remove();
     });
   });

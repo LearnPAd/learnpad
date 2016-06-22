@@ -84,6 +84,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
 	private eu.learnpad.sim.BridgeInterface sim;
 
+	private eu.learnpad.dash.BridgeInterface dash;
+
 	private Map<String, ModelSetType> typesMap;
 
 	@Override
@@ -95,6 +97,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 			this.or = this.componentManager.getInstance(RestResource.class, "or");
 			this.sim = this.componentManager.getInstance(RestResource.class, "sim");
 			this.qm = this.componentManager.getInstance(RestResource.class, "qm");
+			this.dash = this.componentManager.getInstance(RestResource.class, "dash");
 		} catch (ComponentLookupException e) {
 			throw new InitializationException(e.getMessage(), e);
 		}
@@ -199,6 +202,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 					modelSetId) == true) {
 				this.cw.modelSetImported(modelSetId, type);
 				this.or.modelSetImported(modelSetId, type);
+				this.dash.modelSetImported(modelSetId, type);
 
 				InputStream modelContent = utils.getAttachmentFromCoreRepository(modelSetId, type.toString());
 				this.qm.importModelSet(modelSetId, type, modelContent);

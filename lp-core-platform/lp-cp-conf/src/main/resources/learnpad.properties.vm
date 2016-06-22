@@ -69,6 +69,30 @@ component.cw.prefix=/xwiki/rest
 #end
 
 #-------------------------------------------------------------------------------------
+# Dashboard KPI
+#-------------------------------------------------------------------------------------
+#if ($learnpadPropertiesComponentDashProtocol)
+component.dash.protocol=$learnpadPropertiesComponentDashProtocol
+#else
+component.dash.protocol=http
+#end
+#if ($learnpadPropertiesComponentDashIp)
+component.dash.ip=$learnpadPropertiesComponentDashIp
+#else
+component.dash.ip=localhost
+#end
+#if ($learnpadPropertiesComponentDashPort)
+component.dash.port=$learnpadPropertiesComponentDashPort
+#else
+component.dash.port=7078
+#end
+#if ($learnpadPropertiesComponentDashPrefix)
+component.dash.prefix=$learnpadPropertiesComponentDashPrefix
+#else
+component.dash.prefix=
+#end
+
+#-------------------------------------------------------------------------------------
 # Model Transformer
 #-------------------------------------------------------------------------------------
 #if ($learnpadPropertiesComponentMtProtocol)

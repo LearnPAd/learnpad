@@ -27,7 +27,7 @@ public class PathRulesGeneratorImpl implements PathRulesGenerator {
 		
 		for (int i =0; i<theUnfoldedBusinessProcess.size();i++) {
 					
-			Path theCompletePathObject = new Path(i, idBpmn, ComputeScore.absoluteSession(theUnfoldedBusinessProcess.get(i)),
+			Path theCompletePathObject = new Path(idBpmn + "-" + i, idBpmn, ComputeScore.absoluteSession(theUnfoldedBusinessProcess.get(i)),
 													"", theUnfoldedBusinessProcess.get(i));
 			thePathOfTheBPMN.add(theCompletePathObject);
 		}	
@@ -53,25 +53,24 @@ public class PathRulesGeneratorImpl implements PathRulesGenerator {
 	
 	@Override
 	public ComplexEventRuleType generateRuleForSinglePath(
-			Activity[] anActivitiesSet, String rulesName, String idBPMN, int idPath) {
+			Activity[] anActivitiesSet, String rulesName, String idBPMN, String idPath) {
 
 		ComplexEventRuleType aInsert = ComplexEventRuleType.Factory.newInstance();
 		aInsert.setRuleName("Path-Crossing-Check-" + rulesName);
 		aInsert.setRuleType("drools");
-		
-		
+				
 		String concat = "";
 		for(int j = 0; j<anActivitiesSet.length; j++) {
 			if (j == 0) {
 				concat = "\t\t\t$"+j+"Event : GlimpseBaseEventBPMN("+
-						"this.isConsumed == false, this.sessionID == \"##SESSIONIDPLACEHOLDER##\""
-						+", this.assigneeID == \"##USERSINVOLVEDIDS##\""
+						"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
+						+", this.getEvent().involvedusers.get(##I##).toString() == \"##USERSINVOLVEDIDS##\""
 						+", this.isException == false, this.getEventName == \"" +
 						anActivitiesSet[j].getName() + "\");\n";
 			} else {
 				concat +="\t\t\t$"+j+"Event : GlimpseBaseEventBPMN(" +
-						"this.isConsumed == false, this.sessionID == \"##SESSIONIDPLACEHOLDER##\""
-						+", this.assigneeID == \"##USERSINVOLVEDIDS##\""
+						"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
+						+", this.getEvent().involvedusers.get(##I##).toString() == \"##USERSINVOLVEDIDS##\""
 						+", this.isException == false, this.getEventName == \"" +
 						anActivitiesSet[j].getName() +
 						"\", this after $" + (j-1) + "Event);\n";
@@ -85,19 +84,19 @@ public class PathRulesGeneratorImpl implements PathRulesGenerator {
 		return aInsert;
 	}
 
-	@Override
+/*	@Override
 	public Vector<Path> generatePaths(ComplexEventRuleActionListDocument generatedRules, Vector<Activity[]> theUnfoldedBPMN, String theBPMNidentifier) {
 		
 		Vector<Path> thePathOfTheBPMN = new Vector<Path>();
 		
 		for (int i =0; i<theUnfoldedBPMN.size();i++) {
 					
-			Path theCompletePathObject = new Path(i, theBPMNidentifier, ComputeScore.absoluteSession(theUnfoldedBPMN.get(i)),
+			Path theCompletePathObject = new Path(theUnfoldedBPMN.get(i) + "-" + i, theBPMNidentifier, ComputeScore.absoluteSession(theUnfoldedBPMN.get(i)),
 													generatedRules.getComplexEventRuleActionList().getInsertArray()[i].toString(), theUnfoldedBPMN.get(i));
 			thePathOfTheBPMN.add(theCompletePathObject);
 		}	
 		return thePathOfTheBPMN;
-	}
+	}*/
 	
 	@Override
 	public ComplexEventRuleActionListDocument instantiateRulesSetForUsersInvolved(Vector<Path> thePathsToInstantiate, Vector<Learner> usersInvolved, String sessionID) {
@@ -115,22 +114,22 @@ public class PathRulesGeneratorImpl implements PathRulesGenerator {
 			
 			if (usersInvolved.size() > 1) {
 				for (int j=0; j< usersInvolved.size()-1;j++) {
-					usersInvolvedText += String.valueOf(usersInvolved.get(j).getId()) + "\" || this.assigneeID == \"";
-					usersInvolvedList += String.valueOf(usersInvolved.get(j).getId()) + "-"; 
+					usersInvolvedText += usersInvolved.get(j).getId() + "\" || this.getEvent().involvedusers.get(##I##).toString() == \"";
+					usersInvolvedList += usersInvolved.get(j).getId() + ","; 
+					usersInvolvedText = usersInvolvedText.replaceAll("##I##", String.valueOf(j));
 				}
-				usersInvolvedText += String.valueOf(usersInvolved.get(usersInvolved.size()-1).getId());
-				usersInvolvedList += String.valueOf(usersInvolved.get(usersInvolved.size()-1).getId());
+				usersInvolvedText += usersInvolved.get(usersInvolved.size()-1).getId();
+				usersInvolvedList +=usersInvolved.get(usersInvolved.size()-1).getId();
 			}
 			else {
-				usersInvolvedText = String.valueOf(usersInvolved.get(0).getId());
-				usersInvolvedList = String.valueOf(usersInvolved.get(0).getId());
+				usersInvolvedText = usersInvolved.get(0).getId();				
+				usersInvolvedList = usersInvolved.get(0).getId() + "\");}}";
 			}
-				
-
+			
 			updatedPath = updatedPath.replaceAll("##USERSINVOLVEDIDS##", usersInvolvedText);
 			updatedPath = updatedPath.replaceAll("##LEARNERSINVOLVEDID##", usersInvolvedList);
-			updatedPath = updatedPath.replaceAll("##TASKSCORE##", "0.0f");
-
+			updatedPath = updatedPath.replaceAll("##I##", "0");
+			
 			try {
 				
 				ComplexEventRuleType rule = ComplexEventRuleType.Factory.parse(updatedPath);
