@@ -9,12 +9,14 @@ public class RuleElements {
 	
 	public static String getHeader(String ruleName, String dialect) {
 	
-		header ="\t\t"+
+		header ="\t\t\n\n"+
 				"import eu.learnpad.simulator.mon.event.GlimpseBaseEventBPMN;\n\t\t" +
 				"import eu.learnpad.simulator.mon.manager.ResponseDispatcher;\n\t\t" +
 				"import eu.learnpad.simulator.mon.manager.RestNotifier;\n\t\t" +
 				"import eu.learnpad.simulator.mon.utils.NotifierUtils;\n\t\t" +
-				"import eu.learnpad.simulator.mon.rules.DroolsRulesManager;\n\n" +
+				"import eu.learnpad.simulator.mon.rules.DroolsRulesManager;\n\t\t" +
+				"import eu.learnpad.sim.rest.event.AbstractEvent;\n\t\t" +
+				"import eu.learnpad.sim.rest.event.EventType;\n\t\t" +
 				"\t\tdeclare GlimpseBaseEventBPMN\n" +
 				"\t\t\t@role( event )\n" +
 				"\t\t\t@timestamp( timeStamp )\n" +
@@ -32,6 +34,7 @@ public class RuleElements {
 	}
 	
 	public static String getThenClause(Activity[] theActivitySetToSetConsumed) {
+	
 		String concat = "\n\t\tthen ";
 		for (int i = 0; i<theActivitySetToSetConsumed.length; i++) {
 			concat = concat + "\n\t\t\t$"+ i
@@ -41,16 +44,15 @@ public class RuleElements {
 		return concat;
 	}
 	
-	public static String getThenClauseWithLearnersScoreUpdateAndProcessStartNotification(Activity[] theActivitySetToSetConsumed, String idBPMN, int idPath) {
+	public static String getThenClauseWithLearnersScoreUpdateAndProcessStartNotification(Activity[] theActivitySetToSetConsumed, String idBPMN, String idPath) {
 		String concat = "\n\t\tthen ";
 		for (int i = 0; i<theActivitySetToSetConsumed.length; i++) {
 			concat = concat + "\n\t\t\t$"+ i
 					+ "Event.setConsumed(true); \n\t\t\tupdate($"+ i +"Event);"
 					+ "\n\t\t\tretract($"+ i +"Event);";					
 		}
-		 concat = concat + "\n\t\t\t"
-			+ "ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \""+ idBPMN +"\", " +  theActivitySetToSetConsumed[0].getPath_id() + ", " + "##TASKSCORE##);";
-		 //TODO: fix idPath
+		 concat = concat + "\n\t\t\t" +
+			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \""+ idBPMN +"\", \"" + idPath + "\");";
 		return concat;
 	}
 		

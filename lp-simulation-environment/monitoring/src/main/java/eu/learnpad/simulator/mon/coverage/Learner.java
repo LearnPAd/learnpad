@@ -3,13 +3,13 @@ package eu.learnpad.simulator.mon.coverage;
 public class Learner {
 
 	
-	private int id;
+	private String id;
 	private int id_role;
 	private float globalScore;
 	private float relativeGlobalScore;
 	private float absoluteGlobalScore;
 	
-	public Learner(int id, int id_role, float globalScore, float relativeGlobalScore, float absoluteGlobalScore) {
+	public Learner(String id, int id_role, float globalScore, float relativeGlobalScore, float absoluteGlobalScore) {
 		this.id = id;
 		this.id_role = id_role;
 		this.globalScore = globalScore;
@@ -17,7 +17,7 @@ public class Learner {
 		this.absoluteGlobalScore = absoluteGlobalScore;
 	}
 	
-	public Learner(int id, int id_role, float globalScore) {
+	public Learner(String id, int id_role, float globalScore) {
 		this.id = id;
 		this.id_role = id_role;
 		this.globalScore = globalScore;
@@ -25,7 +25,7 @@ public class Learner {
 		this.absoluteGlobalScore = 0;
 	}
 	
-	public Learner(int id, int id_role, float globalScore, float relativeGlobalScore) {
+	public Learner(String id, int id_role, float globalScore, float relativeGlobalScore) {
 		this.id = id;
 		this.id_role = id_role;
 		this.globalScore = globalScore;
@@ -33,7 +33,7 @@ public class Learner {
 		this.absoluteGlobalScore = 0;
 	}
 	
-	public Learner(int id, int id_role, String name, String surname) {
+	public Learner(String id, int id_role, String name, String surname) {
 		this.id = id;
 		this.id_role = id_role;
 		this.globalScore = 0;
@@ -41,7 +41,7 @@ public class Learner {
 		this.absoluteGlobalScore = 0;
 	}
 	
-	public Learner(int id, String name, String surname) {
+	public Learner(String id, String name, String surname) {
 		this.id = id;
 		this.id_role = 0;
 		this.globalScore = 0;
@@ -49,10 +49,10 @@ public class Learner {
 		this.absoluteGlobalScore = 0;
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public int getIdRole() {

@@ -69,7 +69,7 @@ public class DebugMessages {
 	 */
 	public static void ok()
 	{
-		int tab = 12 - (lastMessageLength / 8);
+		int tab = 15 - (lastMessageLength / 8);
 		String add="";
 		for(int i = 0; i< tab;i++) {
 			add +="\t"; 
@@ -81,13 +81,13 @@ public class DebugMessages {
 	 * Print a line <br />
 	 */
 	public static void line() {
-		System.err.println("------------------------------------------------------------------------------------------------------");
+		System.err.println("------------------------------------------------------------------------------------------------------------------------------");
 	}
 	
 	/**
 	 * Print asterisks
 	 */
 	public static void asterisks() {
-		System.err.println("******************************************************************************************************");
+		System.err.println("******************************************************************************************************************************");
 	}
 }

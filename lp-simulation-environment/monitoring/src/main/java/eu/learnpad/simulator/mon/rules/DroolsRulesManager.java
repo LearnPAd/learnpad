@@ -25,6 +25,7 @@ import java.util.Collection;
 import org.apache.commons.net.ntp.TimeStamp;
 import org.drools.KnowledgeBase;
 import org.drools.builder.KnowledgeBuilder;
+import org.drools.builder.KnowledgeBuilderConfiguration;
 import org.drools.builder.KnowledgeBuilderFactory;
 import org.drools.builder.ResourceType;
 import org.drools.definition.KnowledgePackage;
@@ -50,7 +51,9 @@ public class DroolsRulesManager extends RulesManager {
 		kbuilder = (KnowledgeBuilder) knowledgeBuilder;
 		kbase = (KnowledgeBase) knowledgeBase;
 
-		kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
+		KnowledgeBuilderConfiguration config = KnowledgeBuilderFactory.newKnowledgeBuilderConfiguration();     
+		config.setProperty("drools.dialect.mvel.strict", "false");
+		kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder(config);
 	}
 
 	@Override
