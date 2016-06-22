@@ -1,4 +1,4 @@
-package eu.learnpad.simulator.mon.controller;
+package eu.learnpad.simulator.mon.storage;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,57 +21,34 @@ import eu.learnpad.simulator.mon.coverage.Role;
 import eu.learnpad.simulator.mon.coverage.Topic;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 
-public class MySqlController implements DBController {
-
-	private Properties connectionProp;
-	private Connection conn;	  
-    private PreparedStatement preparedStmt;
-    private ResultSet resultsSet;
-	
-	public MySqlController(Properties databaseConnectionProperties) {
-		connectionProp = databaseConnectionProperties;
+public class H2Controller implements DBController {
+	 
+	 private static Connection conn;
+	 private Properties connectionProp;
+	 private PreparedStatement preparedStmt;
+	 private ResultSet resultsSet;
+	 
+	public H2Controller(Properties databaseConnectionProperties) {
+			connectionProp = databaseConnectionProperties;
+			
 	}
-
+		    	
 	@Override
 	public boolean connectToDB() {
-		String url = "jdbc:mysql://"
-				+ connectionProp.getProperty("database.host") +
-				":" + connectionProp.getProperty("database.port")+"/";
-		
-		String dbName = connectionProp.getProperty("database.name");
-		String driver = "com.mysql.jdbc.Driver";
-		String userName = connectionProp.getProperty("username"); 
-		String password = connectionProp.getProperty("password");
-		try { 
-			Class.forName(driver).newInstance();
-			conn = DriverManager.getConnection(url+dbName,userName,password);
-			DebugMessages.print(TimeStamp.getCurrentTime(),
-					MySqlController.class.getSimpleName(),
-					"Connection to db " + connectionProp.getProperty("database.host"));
-			DebugMessages.ok();
-		} catch (SQLException e) {
+		try {
+			DebugMessages.print(TimeStamp.getCurrentTime(),H2Controller.class.getSimpleName(),
+					"Connection to db " + connectionProp.getProperty("DB_CONNECTION"));
+			         Class.forName(connectionProp.getProperty("DB_DRIVER"));
+			         conn = DriverManager.getConnection(
+			        		 connectionProp.getProperty("DB_CONNECTION"),
+			        		 connectionProp.getProperty("DB_USER"),
+			        		 connectionProp.getProperty("DB_PASSWORD"));
+					 DebugMessages.ok(); 
+					 
+		} catch (ClassNotFoundException | SQLException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(),
-					MySqlController.class.getSimpleName(),
-					"Could not connect to db " + connectionProp.getProperty("database.host"));
-			e.printStackTrace();
-			return false;
-		} catch (InstantiationException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(),
-					MySqlController.class.getSimpleName(),
-					"Could not connect to db " + connectionProp.getProperty("database.host"));
-			e.printStackTrace();
-			return false;
-		} catch (IllegalAccessException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(),
-					MySqlController.class.getSimpleName(),
-					"Could not connect to db " + connectionProp.getProperty("database.host"));
-			e.printStackTrace();
-			return false;
-		} catch (ClassNotFoundException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(),
-					MySqlController.class.getSimpleName(),
-					"Could not connect to db " + connectionProp.getProperty("database.host"));
-			e.printStackTrace();
+					H2Controller.class.getSimpleName(),
+					"Could not connect to db " + connectionProp.getProperty("DB_CONNECTION") + "\n check if db is not already in used or locked by previous instance.");
 			return false;
 		}
 		return true;
@@ -84,7 +61,7 @@ public class MySqlController implements DBController {
 	
 	@Override
 	public Vector<Path> getBPMNPaths(String idBPMN) {
-		String query = "select * from path where id_bpmn = \'"+idBPMN+"';";
+		String query = "select * from glimpse.path where id_bpmn = \'"+idBPMN+"';";
 		Vector<Path> retrievedPath = new Vector<Path>();
 		
 		try {
@@ -100,7 +77,7 @@ public class MySqlController implements DBController {
             DebugMessages.println(
 					TimeStamp.getCurrentTime(), 
 					this.getClass().getSimpleName(),
-					"Extracted paths loaded from DB");
+					"BPMN paths loaded from DB");
 		} catch (SQLException e) {
 			System.err.println("Exception during getBPMNPaths ");
 			System.err.println(e.getMessage());
@@ -115,7 +92,7 @@ public class MySqlController implements DBController {
 	
 	@Override
 	public int setLearnerSessionScore(String idLearner, String idPath, String idBPMN, float sessionScore) {
-	      String query = " insert into path_learner (id_learner, id_path, id_bpmn, session_score, execution_date)"
+	      String query = " insert into glimpse.path_learner (id_learner, id_path, id_bpmn, session_score, execution_date)"
 	    	        + " values (?, ?, ?, ?, ?) ";
 	    	 Date now = new Date();
 		try {
@@ -141,7 +118,7 @@ public class MySqlController implements DBController {
 	@Override
 	public int saveBPMN(Bpmn theBPMN) {
 
-	      String query = " insert into bpmn (id_bpmn, extraction_date, id_category, absolute_bp_score, paths_cardinality)"
+	      String query = " insert into glimpse.bpmn (id_bpmn, extraction_date, id_category, absolute_bp_score, paths_cardinality)"
 	    	        + " values (?, ?, ?, ?, ?) ";
 	    	 
 		try {
@@ -190,7 +167,7 @@ public class MySqlController implements DBController {
 
 	@Override
 	public int saveLearnerProfile(Learner theLearner) {
-		String query = "insert into learner"
+		String query = "insert into glimpse.learner"
 				+ "(id_learner, id_role, global_score, relative_global_score, absolute_global_score)"
     	        + " values (?, ?, ?, ?, ?)";
     	 
@@ -210,7 +187,7 @@ public class MySqlController implements DBController {
 	DebugMessages.println(
 			TimeStamp.getCurrentTime(), 
 			this.getClass().getSimpleName(),
-			"Learner Saved");
+			"Learner profile created and saved on database.");
 	return 0;
 	}
 
@@ -228,14 +205,15 @@ public class MySqlController implements DBController {
 
 	@Override
 	public int savePath(Path thePath) {
-		 String query = " insert into path (id_bpmn, absolute_session_score, path_rule)"
-	    	        + " values (?, ?, ?)";
+		 String query = " insert into glimpse.path (id_path, id_bpmn, absolute_session_score, path_rule)"
+	    	        + " values (?, ?, ?, ?)";
 	    	 
 		try {
 			preparedStmt = conn.prepareStatement(query);
-		    preparedStmt.setString(1, thePath.getIdBpmn());
-		    preparedStmt.setFloat(2,thePath.getAbsoluteSessionScore());
-		    preparedStmt.setString(3, thePath.getPathRule());
+			preparedStmt.setString(1,thePath.getId());
+		    preparedStmt.setString(2, thePath.getIdBpmn());
+		    preparedStmt.setFloat(3,thePath.getAbsoluteSessionScore());
+		    preparedStmt.setString(4, thePath.getPathRule());
 
 		    // execute the prepared statement
 		    preparedStmt.execute();
@@ -299,7 +277,7 @@ public class MySqlController implements DBController {
 
 	@Override
 	public boolean checkIfBPHasBeenAlreadyExtracted(String idBPMN) {
-		String query = "select * from path where id_bpmn = \'"+idBPMN+"';";
+		String query = "select * from glimpse.path where id_bpmn = \'"+idBPMN+"';";
 			
 		try {
 			preparedStmt = conn.prepareStatement(query);
@@ -344,7 +322,7 @@ public class MySqlController implements DBController {
 
 	@Override
 	public int setLearnerBPScore(String idLearner, String idBPMN, float BPScore) {
-		 String query = " insert into bpmn_learner (id_learner, id_bpmn, bp_score, relative_bp_score, bp_coverage)"
+		 String query = " insert into glimpse.bpmn_learner (id_learner, id_bpmn, bp_score, relative_bp_score, bp_coverage)"
 	    	        + " values (?, ?, ?, ?. ?)";
 	    	 
 		try {
@@ -386,7 +364,7 @@ public class MySqlController implements DBController {
 		Learner aLearner;
 		try {
 			for (int i = 0; i<learnersIDs.size(); i++) {
-				query = "select * from learner where id_learner = \'"+learnersIDs.get(i)+"';";
+				query = "select * from glimpse.learner where id_learner = \'"+learnersIDs.get(i)+"';";
 					
 						preparedStmt = conn.prepareStatement(query);
 						resultsSet = preparedStmt.executeQuery(); 
@@ -441,7 +419,7 @@ public class MySqlController implements DBController {
             DebugMessages.println(
 					TimeStamp.getCurrentTime(), 
 					this.getClass().getSimpleName(),
-					"Extracted paths loaded from DB");
+					"Executed paths loaded from DB");
 		} catch (SQLException e) {
 			System.err.println("Exception during getBPMNPaths ");
 			System.err.println(e.getMessage());
@@ -504,7 +482,7 @@ public class MySqlController implements DBController {
 
 	@Override
 	public Vector<Float> getLearnerBPMNScores(String learnerID) {
-		String query = "SELECT bp_score " + " FROM bpmn_learner"
+		String query = "SELECT bp_score " + " FROM glimpse.bpmn_learner"
 				+ " where id_learner = " + learnerID + "";
 		Vector<Float> retrievedScores = new Vector<Float>();
 		try {
@@ -548,7 +526,7 @@ public class MySqlController implements DBController {
 	@Override
 	public Vector<Float> getLearnerRelativeBPScores(String learnerID) {
 		String query = "SELECT relative_bp_score "
-				+ " FROM bpmn_learner" 
+				+ " FROM glimpse.bpmn_learner" 
 				+ " where id_learner = '" + learnerID +
 				"'";
 		Vector<Float> retrievedScores = new Vector<Float>();
@@ -594,7 +572,7 @@ public class MySqlController implements DBController {
 	public Vector<Float> getMaxSessionScores(String learnerID, String idBPMN) {
 		
 		String query = "SELECT max(session_score)"
-				+ " FROM path_learner"
+				+ " FROM glimpse.path_learner"
 				+ " where id_learner = "+ learnerID
 				+ " and EXISTS (select distinct id_path from path_learner where id_bpmn = '" + idBPMN + "') group by id_path";
 
@@ -649,13 +627,13 @@ public class MySqlController implements DBController {
 		String query;
 		Learner aLearner;
 		try {
-			query = "select * from learner where id_learner = \'"+learnerID+"';";
+			query = "select * from glimpse.learner where id_learner = \'"+learnerID+"';";
 					preparedStmt = conn.prepareStatement(query);
 					resultsSet = preparedStmt.executeQuery(); 
 						
 						if (resultsSet.first()) {
 							
-							query = "update learner set global_score = "+
+							query = "update glimpse.learner set global_score = "+
 							learnerGlobalScore + ",  relative_global_score = "+
 									learnerRelativeGlobalScore + ", absolute_global_score = "+
 									 learnerAbsoluteGLobalScore + " where id_learner = "+
@@ -682,13 +660,13 @@ public class MySqlController implements DBController {
 			float learnerRelativeBPScore, float learnerCoverage) {
 		String query;
 		try {
-			query = "select * from bpmn_learner where id_learner = \'"+learnerID+"';";
+			query = "select * from glimpse.bpmn_learner where id_learner = \'"+learnerID+"';";
 					preparedStmt = conn.prepareStatement(query);
 					resultsSet = preparedStmt.executeQuery(); 
 						
 						if (resultsSet.first()) {
 							
-							query = "update bpmn_learner set bp_score = "+
+							query = "update glimpse.bpmn_learner set bp_score = "+
 							learnerBPScore + ",  relative_bp_score = "+
 									learnerRelativeBPScore + ", bp_coverage = "+
 									 learnerCoverage + " where id_learner = "+
@@ -700,7 +678,7 @@ public class MySqlController implements DBController {
 							preparedStmt.execute();
 						}
 						else {
-							 query = " insert into bpmn_learner (id_learner, id_bpmn, bp_score, relative_bp_score, bp_coverage)"
+							 query = " insert into glimpse.bpmn_learner (id_learner, id_bpmn, bp_score, relative_bp_score, bp_coverage)"
 						    	        + " values (?, ?, ?, ?, ?)";
 								preparedStmt = conn.prepareStatement(query);
 
@@ -722,7 +700,7 @@ public class MySqlController implements DBController {
 
 	@Override
 	public int getBPMNPathsCardinality(String idBPMN) {
-		String query = "SELECT COUNT(*) FROM path where id_bpmn = \'"+idBPMN+"';";
+		String query = "SELECT COUNT(*) FROM glimpse.path where id_bpmn = \'"+idBPMN+"';";
 		int result = 0;
 
 		try {
@@ -742,6 +720,7 @@ public class MySqlController implements DBController {
 		}
 		return result;
 	}
+}
 	
 //	@Override
 //	public ComplexEventRuleActionListDocument getRulesListForASpecificBPMN(String bpmnIDFromXML) {
@@ -772,4 +751,3 @@ public class MySqlController implements DBController {
 //		}
 //        return theResult;
 //	}
-}

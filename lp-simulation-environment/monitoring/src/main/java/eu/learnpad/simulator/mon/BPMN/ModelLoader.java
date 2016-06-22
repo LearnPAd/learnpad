@@ -1,4 +1,4 @@
-package eu.learnpad.simulator.mon.coverage;
+package eu.learnpad.simulator.mon.BPMN;
 
 import java.io.IOException;
 

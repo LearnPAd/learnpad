@@ -39,13 +39,6 @@ public class DebugMessages {
 	 * @param messageToPrint the message to print
 	 */
 	
-//	public static Logger getLogFileSingleton() {	
-//		if (DebugAndLogMessages.logFile == null)
-//			return DebugAndLogMessages.logFile = new File(
-//					System.getProperty("user.dir") + "/glimpseLog.log");
-//		return DebugAndLogMessages.logFile;		
-//  }
-	
 	public static void print(TimeStamp now, String callerClass, String messageToPrint)
 	{
 		String message = now.getDate().toString() + " - " +  callerClass + ": " + messageToPrint;

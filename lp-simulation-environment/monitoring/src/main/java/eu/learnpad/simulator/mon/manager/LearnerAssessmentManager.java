@@ -9,9 +9,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import eu.learnpad.simulator.mon.controller.DBController;
 import eu.learnpad.simulator.mon.coverage.Learner;
 import eu.learnpad.simulator.mon.coverage.Path;
+import eu.learnpad.simulator.mon.storage.DBController;
 import it.cnr.isti.labse.glimpse.xml.complexEventRule.ComplexEventRuleActionListDocument;
 
 public abstract class LearnerAssessmentManager extends Thread {

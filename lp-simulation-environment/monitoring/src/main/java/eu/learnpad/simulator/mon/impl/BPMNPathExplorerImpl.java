@@ -6,7 +6,7 @@ import java.util.Vector;
 
 import org.w3c.dom.Document;
 
-import eu.learnpad.simulator.mon.BPMNExplorer.BPMNPathExplorer;
+import eu.learnpad.simulator.mon.BPMN.BPMNPathExplorer;
 
 public class BPMNPathExplorerImpl implements BPMNPathExplorer {
 
