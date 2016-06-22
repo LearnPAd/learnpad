@@ -18,21 +18,21 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   * 
 */
-package probe;
+package eu.learnpad.simulator.mon.probe;
 
 import eu.learnpad.simulator.mon.event.GlimpseBaseEvent;
 
 /**
  * 
- * The interface {@link GlimpseProbe} contains the event that a generic probe<br />
+ * The interface {@link GlimpseProbeInterface} contains the event that a generic probe<br />
  * must implement to generate events.
  * 
- *  The behaviour of a Probe is defined in {@link GlimpseAbstractProbe}
+ *  The behaviour of a Probe is defined in {@link GlimpseProbe}
  * 
  * @author acalabro
  *
  */
-public interface GlimpseProbe {
+public interface GlimpseProbeInterface {
 
-	void sendMessage(GlimpseBaseEvent<?> event, boolean debug);
+	public void sendMessage(GlimpseBaseEvent<?> event, boolean debug);
 }

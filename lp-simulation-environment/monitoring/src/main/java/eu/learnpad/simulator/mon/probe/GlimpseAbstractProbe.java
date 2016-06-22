@@ -19,7 +19,7 @@
   * 
 */
 
-package probe;
+package eu.learnpad.simulator.mon.probe;
 
 import java.util.Properties;
 

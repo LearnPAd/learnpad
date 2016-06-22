@@ -52,7 +52,7 @@ public class RuleElements {
 					+ "\n\t\t\tretract($"+ i +"Event);";					
 		}
 		 concat = concat + "\n\t\t\t" +
-			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \""+ idBPMN +"\", \"" + idPath + "\");";
+			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \"" + idBPMN + "\", drools.getRule().getName() );";
 		return concat;
 	}
 		

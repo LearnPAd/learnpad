@@ -21,7 +21,7 @@ import eu.learnpad.simulator.mon.coverage.Bpmn;
 import eu.learnpad.simulator.mon.coverage.Learner;
 import eu.learnpad.simulator.mon.coverage.Path;
 import eu.learnpad.simulator.mon.impl.PathExplorerImpl;
-import eu.learnpad.simulator.mon.impl.PathRulesGeneratorImpl;
+import eu.learnpad.simulator.mon.impl.RulesPerPathGeneratorImpl;
 import eu.learnpad.simulator.mon.manager.LearnerAssessmentManager;
 import eu.learnpad.simulator.mon.rules.generator.RulesPerPath;
 import eu.learnpad.simulator.mon.storage.DBController;
@@ -46,7 +46,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 		this.databaseController = databaseController;
 		
 		//Creation of the PathCrossingRulesGenerator object
-		crossRulesGenerator = new PathRulesGeneratorImpl();
+		crossRulesGenerator = new RulesPerPathGeneratorImpl();
 	}
 		
 	public void run() {
@@ -125,6 +125,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 
 	@Override
 	public void computeAndSaveScores(List<String> learnersID, String idBPMN, String idPath) {
+		
 		
 		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
 		

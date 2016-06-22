@@ -39,6 +39,8 @@ import eu.learnpad.sim.rest.event.impl.TaskFailedEvent;
 import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 import eu.learnpad.simulator.mon.event.GlimpseBaseEvent;
 import eu.learnpad.simulator.mon.event.GlimpseBaseEventBPMN;
+import eu.learnpad.simulator.mon.probe.GlimpseAbstractProbe;
+import eu.learnpad.simulator.mon.probe.GlimpseProbe;
 import eu.learnpad.simulator.mon.utils.Manager;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 

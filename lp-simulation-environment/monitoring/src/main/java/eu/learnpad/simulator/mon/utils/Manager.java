@@ -29,7 +29,7 @@ import java.util.Properties;
 
 import org.apache.commons.net.ntp.TimeStamp;
 
-import probe.GlimpseAbstractProbe;
+import eu.learnpad.simulator.mon.probe.GlimpseAbstractProbe;
 
 /**
  * This class should be used only for debug purpose<br />
