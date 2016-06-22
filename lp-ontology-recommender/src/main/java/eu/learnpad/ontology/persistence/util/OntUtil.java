@@ -4,9 +4,11 @@
  */
 package eu.learnpad.ontology.persistence.util;
 
+import ch.fhnw.cbr.core.config.CBR;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntResource;
 import com.hp.hpl.jena.query.ParameterizedSparqlString;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -25,7 +27,7 @@ import java.util.List;
  *
  * @author sandro.emmenegger
  */
-public class OntUtil{
+public class OntUtil {
 
     /**
      * Returns all instances of the given OntClass including instances of
@@ -69,6 +71,52 @@ public class OntUtil{
     }
 
     /**
+     * Returns all instances of the given OntClass including instances of
+     * subclasses with the property value set as defined.
+     *
+     * @param model
+     * @param rootClass
+     * @param property
+     * @param value
+     * @return
+     */
+    public static List<Individual> getInstancesWithProperty(OntModel model, OntClass rootClass, Property property, RDFNode value) {
+        List<Individual> retInstances = new ArrayList<>();
+        if (rootClass.getURI() == null) {
+            return retInstances;
+        }
+
+        String queryString
+                = "PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX rdfs:  <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "SELECT ?instance WHERE {\n"
+                + "   ?class rdfs:subClassOf* ?rootClass. \n"
+                + "   ?instance rdf:type ?class .\n"
+                + "   ?instance ?property ?propertyValue .\n"
+                + "}\n";
+
+        ParameterizedSparqlString queryStr = new ParameterizedSparqlString(queryString);
+        queryStr.setParam("rootClass", rootClass);
+        queryStr.setParam("property", property);
+        queryStr.setParam("propertyValue", value);
+        Query query = QueryFactory.create(queryStr.toString());
+        QueryExecution qexec = QueryExecutionFactory.create(query, model);
+        ResultSet resSet = qexec.execSelect();
+
+        while (resSet.hasNext()) {
+            QuerySolution querySolution = resSet.next();
+            Resource res = querySolution.getResource("instance");
+
+            if (res.getURI() != null) {
+                Individual instance = model.getIndividual(res.getURI());
+                retInstances.add(instance);
+            }
+        }
+
+        return retInstances;
+    }
+
+    /**
      * Convenient method returns a literal property's content if set, otherwise
      * the default value will be returned.
      *
@@ -83,6 +131,11 @@ public class OntUtil{
             return defaultValue;
         }
         Individual individual = model.getIndividual(individualURI);
+        String valueStr = getLiteralPropertyString(model, individual, propertyURI, defaultValue);
+        return valueStr;
+    }
+
+    public static String getLiteralPropertyString(OntModel model, Individual individual, String propertyURI, String defaultValue) {
         if (individual == null) {
             return defaultValue;
         }
@@ -94,6 +147,21 @@ public class OntUtil{
         if (value == null) {
             return defaultValue;
         }
-        return value.asLiteral().getString();
+        String valueStr = value.asLiteral().getString();
+        return valueStr;
+    }
+
+    public static String getLabel(OntResource instance) {
+        String label = firstNonNull(instance.getLabel(CBR.LANGUAGE), instance.getLabel(CBR.ALTERNATIVE_LANGUAGE), instance.getLabel(null), instance.getLocalName(), "no label");
+        return label;
+    }
+
+    protected static String firstNonNull(String... paramters) {
+        for (String parameter : paramters) {
+            if (parameter != null) {
+                return parameter;
+            }
+        }
+        return null;
     }
 }

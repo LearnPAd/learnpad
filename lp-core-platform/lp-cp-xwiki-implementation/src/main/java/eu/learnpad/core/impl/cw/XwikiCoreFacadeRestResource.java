@@ -21,6 +21,7 @@ package eu.learnpad.core.impl.cw;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
@@ -46,6 +47,7 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.sim.rest.data.UserDataCollection;
 
 /*
@@ -53,44 +55,38 @@ import eu.learnpad.sim.rest.data.UserDataCollection;
  * class should be implemented as a REST invocation
  * toward the CoreFacade binded at the provided URL
  */
-public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
-		CoreFacade {
+public class XwikiCoreFacadeRestResource extends DefaultRestResource implements CoreFacade {
 
 	public XwikiCoreFacadeRestResource() {
 		this("localhost", 8080);
 	}
 
-	public XwikiCoreFacadeRestResource(String coreFacadeHostname,
-			int coreFacadeHostPort) {
+	public XwikiCoreFacadeRestResource(String coreFacadeHostname, int coreFacadeHostPort) {
 		// This constructor could change in the future
 		this.updateConfiguration(coreFacadeHostname, coreFacadeHostPort);
 	}
 
-	public void updateConfiguration(String coreFacadeHostname,
-			int coreFacadeHostPort) {
+	public void updateConfiguration(String coreFacadeHostname, int coreFacadeHostPort) {
 		// This constructor has to be fixed, since it requires changes on the
 		// class eu.learnpad.core.rest.RestResource
 	}
 
 	@Override
-	public void commentNotification(String modelSetId, String commentId,
-			String action) throws LpRestException {
+	public void commentNotification(String modelSetId, String commentId, String action) throws LpRestException {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void resourceNotification(String modelSetId, String resourceId,
-			String artifactIds, String action) throws LpRestException {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public InputStream getModel(String modelSetId, ModelSetType type)
+	public void resourceNotification(String modelSetId, String resourceId, String artifactIds, String action)
 			throws LpRestException {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException {
 		// Now send the package's path to the importer for XWiki
 		HttpClient httpClient = this.getClient();
-		String uri = String.format("%s/learnpad/cw/corefacade/getmodel/%s",
-				DefaultRestResource.REST_URI, modelSetId);
+		String uri = String.format("%s/learnpad/cw/corefacade/getmodel/%s", DefaultRestResource.REST_URI, modelSetId);
 		GetMethod getMethod = new GetMethod(uri);
 		getMethod.addRequestHeader("Accept", "application/xml");
 
@@ -110,17 +106,14 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
 	}
 
 	@Override
-	public String startSimulation(String modelId, String currentUser,
-			UserDataCollection potentialUsers) throws LpRestException {
+	public String startSimulation(String modelId, String currentUser, UserDataCollection potentialUsers)
+			throws LpRestException {
 		HttpClient httpClient = this.getClient();
-		String uri = String.format(
-				"%s/learnpad/cw/corefacade/simulation/start/%s",
-				DefaultRestResource.REST_URI, modelId);
+		String uri = String.format("%s/learnpad/cw/corefacade/simulation/start/%s", DefaultRestResource.REST_URI,
+				modelId);
 		PostMethod postMethod = new PostMethod(uri);
-		postMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE,
-				MediaType.APPLICATION_JSON);
-		postMethod.addRequestHeader(HttpHeaders.ACCEPT,
-				MediaType.APPLICATION_JSON);
+		postMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
+		postMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON);
 
 		NameValuePair[] queryString = new NameValuePair[1];
 		queryString[0] = new NameValuePair("currentuser", currentUser);
@@ -132,8 +125,7 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
 
 		try {
 			potentialUsersJson = om.writeValueAsString(potentialUsers);
-			requestEntity = new StringRequestEntity(potentialUsersJson,
-					"application/json", "UTF-8");
+			requestEntity = new StringRequestEntity(potentialUsersJson, "application/json", "UTF-8");
 
 			postMethod.setRequestEntity(requestEntity);
 
@@ -151,14 +143,82 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
 	}
 
 	@Override
-	public Recommendations getRecommendations(String modelSetId,
-			String artifactId, String userId) throws LpRestException {
+	public String joinSimulation(String simulationId, String userId) throws LpRestException {
 		HttpClient httpClient = this.getClient();
-		String uri = String.format("%s/learnpad/cw/corefacade/recommendation",
-				DefaultRestResource.REST_URI);
+		String uri = String.format("%s/learnpad/cw/corefacade/simulation/join/%s/%s", DefaultRestResource.REST_URI,
+				simulationId, userId);
 		GetMethod getMethod = new GetMethod(uri);
-		getMethod.addRequestHeader(HttpHeaders.ACCEPT,
-				MediaType.APPLICATION_XML);
+		getMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
+		getMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON);
+
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+
+		try {
+			return IOUtils.toString(getMethod.getResponseBodyAsStream());
+		} catch (IOException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public Collection<String> listSimulations() throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/simulation/instances", DefaultRestResource.REST_URI);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
+		getMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON);
+
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			// Unchecked cast
+			return (Collection<String>) mapper.readValue(getMethod.getResponseBodyAsStream(), Collection.class);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public ProcessInstanceData getSimulationInfo(String simulationId) throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/simulation/instances/%s", DefaultRestResource.REST_URI,
+				simulationId);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);
+		getMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON);
+
+		try {
+			httpClient.executeMethod(getMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			// Unchecked cast
+			return (ProcessInstanceData) mapper.readValue(getMethod.getResponseBodyAsStream(),
+					ProcessInstanceData.class);
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public Recommendations getRecommendations(String modelSetId, String artifactId, String userId)
+			throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/recommendation", DefaultRestResource.REST_URI);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_XML);
 
 		NameValuePair[] queryString = new NameValuePair[3];
 		queryString[0] = new NameValuePair("modelsetid", modelSetId);
@@ -179,8 +239,7 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
 		try {
 			JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
-			recommendations = (Recommendations) unmarshaller
-					.unmarshal(feedbacksStream);
+			recommendations = (Recommendations) unmarshaller.unmarshal(feedbacksStream);
 		} catch (JAXBException e) {
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
@@ -188,16 +247,12 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
 	}
 
 	@Override
-	public InputStream transform(ModelSetType type, InputStream model)
-			throws LpRestException {
+	public InputStream transform(ModelSetType type, InputStream model) throws LpRestException {
 		HttpClient httpClient = this.getClient();
-		String uri = String.format("%s/learnpad/cw/corefacade/transform",
-				DefaultRestResource.REST_URI);
+		String uri = String.format("%s/learnpad/cw/corefacade/transform", DefaultRestResource.REST_URI);
 		PostMethod postMethod = new PostMethod(uri);
-		postMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE,
-				MediaType.APPLICATION_OCTET_STREAM);
-		postMethod.addRequestHeader(HttpHeaders.ACCEPT,
-				MediaType.APPLICATION_OCTET_STREAM);
+		postMethod.addRequestHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM);
+		postMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_OCTET_STREAM);
 
 		NameValuePair[] queryString = new NameValuePair[1];
 		queryString[0] = new NameValuePair("type", type.toString());
@@ -215,11 +270,10 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
 	}
 
 	@Override
-	public String startAnalysis(String id, String language,
-			List<String> options, InputStream body) throws LpRestException {
+	public String startAnalysis(String id, String language, List<String> options, InputStream body)
+			throws LpRestException {
 		HttpClient httpClient = this.getClient();
-		String uri = String.format("%s/learnpad/cw/corefacade/analyze",
-				DefaultRestResource.REST_URI);
+		String uri = String.format("%s/learnpad/cw/corefacade/analyze", DefaultRestResource.REST_URI);
 		PostMethod postMethod = new PostMethod(uri);
 
 		NameValuePair[] queryString = new NameValuePair[2 + options.size()];
@@ -246,9 +300,8 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
 	@Override
 	public String getStatus(String analysisId) throws LpRestException {
 		HttpClient httpClient = this.getClient();
-		String uri = String.format(
-				"%s/learnpad/cw/corefacade/analyze/%s/status",
-				DefaultRestResource.REST_URI, analysisId);
+		String uri = String.format("%s/learnpad/cw/corefacade/analyze/%s/status", DefaultRestResource.REST_URI,
+				analysisId);
 		GetMethod getMethod = new GetMethod(uri);
 
 		try {
@@ -260,11 +313,25 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
 	}
 
 	@Override
-	public AnnotatedCollaborativeContentAnalyses getResults(String analysisId)
-			throws LpRestException {
+	public String getView(String analysisId) throws LpRestException {
 		HttpClient httpClient = this.getClient();
-		String uri = String.format("%s/learnpad/cw/corefacade/analyze/%s",
-				DefaultRestResource.REST_URI, analysisId);
+		String uri = String.format("%s/learnpad/cw/corefacade/analyze/%s/view", DefaultRestResource.REST_URI,
+				analysisId);
+		GetMethod getMethod = new GetMethod(uri);
+
+		try {
+			httpClient.executeMethod(getMethod);
+			String url = getMethod.getResponseBodyAsString();
+			return url;
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+	}
+
+	@Override
+	public AnnotatedCollaborativeContentAnalyses getResults(String analysisId) throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/analyze/%s", DefaultRestResource.REST_URI, analysisId);
 		GetMethod getMethod = new GetMethod(uri);
 
 		try {
@@ -275,11 +342,9 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
 		}
 		AnnotatedCollaborativeContentAnalyses analysis = null;
 		try {
-			JAXBContext jaxbContext = JAXBContext
-					.newInstance(AnnotatedCollaborativeContentAnalyses.class);
+			JAXBContext jaxbContext = JAXBContext.newInstance(AnnotatedCollaborativeContentAnalyses.class);
 			InputStream retIs = getMethod.getResponseBodyAsStream();
-			analysis = (AnnotatedCollaborativeContentAnalyses) jaxbContext
-					.createUnmarshaller().unmarshal(retIs);
+			analysis = (AnnotatedCollaborativeContentAnalyses) jaxbContext.createUnmarshaller().unmarshal(retIs);
 			return analysis;
 		} catch (Exception e) {
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);

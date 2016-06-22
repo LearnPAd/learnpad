@@ -22,8 +22,6 @@ package eu.learnpad.simulator.mon.event;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import eu.learnpad.sim.rest.event.AbstractEvent;
 import eu.learnpad.sim.rest.event.EventType;
 import eu.learnpad.sim.rest.event.ScoreType;
@@ -51,7 +49,9 @@ public class ScoreUpdateEvent extends AbstractEvent {
 	 * The new session score of the user
 	 */
 	
-	public ObjectNode updatedScore;
+	private ScoreType scoreUpdateType;
+
+	private Float scoreUpdateValue;
 
 
 	public ScoreUpdateEvent() {
@@ -59,24 +59,34 @@ public class ScoreUpdateEvent extends AbstractEvent {
 	}
 
 	public ScoreUpdateEvent(Long timestamp, String simulationsessionid, List<String> involvedusers, String modelsetid,
-			Map<String, Object> simulationSessionData, String processartifactid, String user, ScoreType scoreUpdateName, Float scoreUpdateValue) {
+			Map<String, Object> simulationSessionData, String processartifactid, String user, ScoreType scoreUpdateType, Float scoreUpdateValue) {
 		super(EventType.SCORE_UPDATE, timestamp, simulationsessionid, involvedusers, modelsetid, simulationSessionData);
 		this.processartifactid = processartifactid;
-		this.updatedScore.put(scoreUpdateName.toString(), scoreUpdateValue);
+		this.scoreUpdateType = scoreUpdateType;
+		this.scoreUpdateValue = scoreUpdateValue;
 		this.user = user;
 	}
 
-	public ObjectNode getUpdatedScore() {
-		return updatedScore;
+	public ScoreType getUpdatedScoreType() {
+		return scoreUpdateType;
 	}
 
-	public void setUpdatedScore(ObjectNode updatedScore) {
-		this.updatedScore = updatedScore;
+	public void setUpdatedScoreType(ScoreType scoreUpdateType) {
+		this.scoreUpdateType = scoreUpdateType;
 	}
+	
+	public Float getUpdatedScoreValue() {
+		return scoreUpdateValue;
+	}
+
+	public void setUpdatedScoreType(Float scoreUpdateValue) {
+		this.scoreUpdateValue = scoreUpdateValue;
+	}
+	
 	
 	@Override
 	public String toString() {
-		return super.toString() + " processartifactid=" + processartifactid + " user=" + user + " updatedScore="
-				+ updatedScore.toString();
+		return super.toString() + " processartifactid=" + processartifactid + " user=" + user + " updatedScore ="
+				+ scoreUpdateType.toString() + " " + scoreUpdateValue.toString();
 	}
 }

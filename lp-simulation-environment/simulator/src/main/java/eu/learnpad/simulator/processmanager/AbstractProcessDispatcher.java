@@ -68,14 +68,14 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 			ITaskValidator<Map<String, Object>, Map<String, Object>> taskValidator) {
 		super();
 		this.processInstanceData = processInstanceData;
-		this.processId = processInstanceData.processartifactid;
-		this.involvedUsers = processInstanceData.users;
+		this.processId = processInstanceData.getProcessartifactid();
+		this.involvedUsers = processInstanceData.getUsers();
 		this.manager = manager;
 		this.processEventReceiver = processEventReceiver;
 		this.router = router;
 		this.taskValidator = taskValidator;
 
-		this.simulationSessionId = (String) processInstanceData.parameters
+		this.simulationSessionId = (String) processInstanceData.getParameters()
 				.get(ActivitiProcessManager.SIMULATION_ID_KEY);
 
 		for (String user : involvedUsers) {
@@ -158,18 +158,21 @@ public abstract class AbstractProcessDispatcher implements IProcessDispatcher {
 
 						usersScores.put(userId, usersScores.get(userId)
 								+ taskScore);
+
+						LearnPadTaskSubmissionResult res = LearnPadTaskSubmissionResult
+								.validated(usersScores.get(userId), taskScore);
+
+						processEventReceiver
+								.receiveSessionScoreUpdateEvent(new SessionScoreUpdateSimEvent(
+										System.currentTimeMillis(),
+										simulationSessionId, involvedUsers,
+										processId, userId, res.sessionScore));
+
+						return res;
+					} else {
+						// probably a robot, no score needed
+						return LearnPadTaskSubmissionResult.validated(0, 0);
 					}
-
-					LearnPadTaskSubmissionResult res = LearnPadTaskSubmissionResult
-							.validated(usersScores.get(userId), taskScore);
-
-					processEventReceiver
-					.receiveSessionScoreUpdateEvent(new SessionScoreUpdateSimEvent(
-							System.currentTimeMillis(),
-							simulationSessionId, involvedUsers,
-							processId, userId, res.sessionScore));
-
-					return res;
 				}
 			}
 		}

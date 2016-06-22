@@ -520,7 +520,7 @@ public class ActivitiProcessDispatcherTest {
 		verify(processEventReceiver, timeout(5000)).receiveProcessEndEvent(
 				endEvent.capture());
 
-		assertEquals(endEvent.getValue().processInstance.processartifactid,
+		assertEquals(endEvent.getValue().processInstance.getProcessartifactid(),
 				processInstance.getId());
 
 		return endEvent;

@@ -44,4 +44,17 @@ public interface StaticContentVerifications {
 	@GET
 	String getStatusStaticContentVerifications(@PathParam("idAnnotatedStaticContentAnalysis") String contentID)
 			throws LpRestException;
+
+	/**
+	 *
+	 * @param contentID
+	 *            the id of contents that have been processed 
+	 * @return the URL were is possible to access the default view (e.g. html) about of the AnnotatedCollaborativeContentAnalyses
+	 * 		   processed for the given contentID
+	 */
+	@Path("/{idAnnotatedStaticContentAnalysis:.*}/view")
+	@GET
+	String getStaticContentVerificationsView(
+			@PathParam("idAnnotatedStaticContentAnalysis") String contentID) throws LpRestException;
+
 }

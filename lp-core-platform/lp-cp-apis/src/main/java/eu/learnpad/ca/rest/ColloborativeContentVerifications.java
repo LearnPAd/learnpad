@@ -25,4 +25,17 @@ public interface ColloborativeContentVerifications {
 	@GET
 	String getStatusCollaborativeContentVerifications(
 			@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID) throws LpRestException;
+
+	
+	/**
+	 *
+	 * @param contentID
+	 *            the id of contents that have been processed 
+	 * @return the URL were is possible to access the default view (e.g. html) about of the AnnotatedCollaborativeContentAnalyses
+	 * 		   processed for the given contentID
+	 */
+	@Path("/{idAnnotatedCollaborativeContentAnalysis:.*}/view")
+	@GET
+	String getCollaborativeContentVerificationsView(
+			@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID) throws LpRestException;
 }

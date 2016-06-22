@@ -10,17 +10,17 @@ import javax.xml.bind.annotation.XmlType;
 public class QualityCriteria {
 
 	@XmlAttribute(name = "simplicity")
-	protected Boolean simplicity;
+	protected Boolean simplicity = false;
 	@XmlAttribute(name = "non_ambiguity")
-	protected Boolean nonAmbiguity;
+	protected Boolean nonAmbiguity = false;
 	@XmlAttribute(name = "content_clarity")
-	protected Boolean contentClarity;
+	protected Boolean contentClarity = false;
 	@XmlAttribute(name = "presentation_clarity")
-	protected Boolean presentationClarity;
+	protected Boolean presentationClarity = false;
 	@XmlAttribute(name = "completeness")
-	protected Boolean completeness;
+	protected Boolean completeness = false;
 	@XmlAttribute(name = "correctness")
-	protected Boolean correctness;
+	protected Boolean correctness = false;
 
 	/**
 	 * Get the value of simplicity.

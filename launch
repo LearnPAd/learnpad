@@ -52,6 +52,7 @@ fi
 
 cat ${COMPONENTS_LIST_FILE} | while read COMPONENT_NAME
 do
+	echo ${COMPONENT_NAME} | grep -q '^#' && continue;
 	if iscomponent ${COMPONENT_NAME}
 	then
 		launch "${COMPONENT_NAME}" ${__ACTION__}

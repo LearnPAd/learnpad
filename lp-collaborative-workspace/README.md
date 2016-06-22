@@ -50,7 +50,7 @@ curl \
 	--verbose \
 	--user username:password \
 	--request PUT \
-	"http://localhost:8080/xwiki/rest/cw/bridge/modelsetimported/<modelsetid>?type={ADOXX,MD}"
+	"http://localhost:8080/xwiki/rest/learnpad/cw/bridge/modelsetimported/<modelsetid>?type={ADOXX,MD}"
 ```
 
 **Details**
@@ -74,7 +74,7 @@ curl \
 	--verbose \
 	--user username:password \
 	--request PUT \
-	"http://localhost:8080/xwiki/rest/cw/bridge/modelverified/<modelsetid>?result={OK,KO}"
+	"http://localhost:8080/xwiki/rest/learnpad/cw/bridge/modelverified/<modelsetid>?result={OK,KO}"
 ```
 
 **Details**
@@ -101,7 +101,7 @@ curl \
 	--user username:password \
 	--request GET \
 	--header "Accept: application/xml" \
-	"http://localhost:8080/xwiki/rest/cw/bridge/<modelsetid>/feedbacks"
+	"http://localhost:8080/xwiki/rest/learnpad/cw/bridge/<modelsetid>/feedbacks"
 ```
 
 **Output**
@@ -164,7 +164,7 @@ curl \
 	--request PUT \
 	--header "Content-Type: application/xml" \
 	--data-binary "@recommendations.xml" \
-	"http://localhost:8080/xwiki/rest/cw/bridge/notify/<modelsetid>?simulationid=<simid>&userid=<userid>"
+	"http://localhost:8080/xwiki/rest/learnpad/cw/bridge/notify/<modelsetid>?simulationid=<simid>&userid=<userid>"
 ```
 
 `userid` is the email of the user.
@@ -231,7 +231,7 @@ curl \
 	--user username:password \
 	--request GET \
 	--header "Accept: application/xml" \
-	"http://localhost:8080/xwiki/rest/cw/corefacade/getmodel/<modelsetid>?type={ADOXX,MD}"
+	"http://localhost:8080/xwiki/rest/learnpad/cw/corefacade/getmodel/<modelsetid>?type={ADOXX,MD}"
 ```
 
 **Details**
@@ -252,7 +252,7 @@ curl \
 	--header "Accept: application/octet-stream" \
 	--header "Content-Type: application/octet-stream" \
 	--data-binary "@modelset.xml" \
-	"http://localhost:8080/xwiki/rest/cw/corefacade/transform?type={ADOXX,MD}"
+	"http://localhost:8080/xwiki/rest/learnpad/cw/corefacade/transform?type={ADOXX,MD}"
 ```
 
 **Details**
@@ -271,7 +271,7 @@ curl \
 	--user username:password \
 	--request GET \
 	--header "Accept: application/xml" \
-	"http://localhost:8080/xwiki/rest/cw/corefacade/recommendation?modelsetid=<modelsetid>&artifactid=<artifactid>&userid=<email>"
+	"http://localhost:8080/xwiki/rest/learnpad/cw/corefacade/recommendation?modelsetid=<modelsetid>&artifactid=<artifactid>&userid=<email>"
 ```
 It is possible to send an empty `artifactid`.
 
@@ -331,7 +331,7 @@ curl \
 	--request POST \
 	--header "Content-Type: text/plain" \
 	--data-binary "@document.txt" \
-	"http://localhost:8080/xwiki/rest/cw/corefacade/analyze?id=<documentid>&language={english|italian}&option={simplicity|non_ambiguity|content_clarity|presentation_clarity|completeness|correctness}"
+	"http://localhost:8080/xwiki/rest/learnpad/cw/corefacade/analyze?id=<documentid>&language={english|italian}&option={simplicity|non_ambiguity|content_clarity|presentation_clarity|completeness|correctness}"
 ```
 
 * `documentid` is a unique ID to identify the document that is sent; from XWiki,
@@ -380,7 +380,7 @@ curl \
 	--user username:password \
 	--request GET \
 	--header "Accept: text/plain" \
-	"http://localhost:8080/xwiki/rest/cw/corefacade/analyze/<analysisid>/status"
+	"http://localhost:8080/xwiki/rest/learnpad/cw/corefacade/analyze/<analysisid>/status"
 ```
 
 **Output**
@@ -404,7 +404,7 @@ curl \
 	--user username:password \
 	--request GET \
 	--header "Accept: text/plain" \
-	"http://localhost:8080/xwiki/rest/cw/corefacade/analyze/<analysisid>"
+	"http://localhost:8080/xwiki/rest/learnpad/cw/corefacade/analyze/<analysisid>"
 ```
 
 **Output**
@@ -464,7 +464,7 @@ curl \
 	--request POST \
 	--header "Content-Type: application/json" \
 	--data-binary "@users.json" \
-	"http://localhost:8080/xwiki/rest/cw/corefacade/simulation/start/<modelid>?currentuser=<userid>"
+	"http://localhost:8080/xwiki/rest/learnpad/cw/corefacade/simulation/start/<modelid>?currentuser=<userid>"
 ```
 
 **Input**

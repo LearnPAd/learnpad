@@ -34,7 +34,7 @@ import eu.learnpad.simulator.monitoring.EventDispatcherImpl;
 import eu.learnpad.simulator.monitoring.activiti.ProbeEventReceiver;
 import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
 import eu.learnpad.simulator.robot.IRobotFactory;
-import eu.learnpad.simulator.robot.RobotUserEventReceiverWrapper;
+import eu.learnpad.simulator.robot.RobotUserEventReceiver;
 import eu.learnpad.simulator.robot.activiti.ActivitiRobotInputExtractor;
 import eu.learnpad.simulator.robot.activiti.simplerobot.SimpleRobotFactory;
 import eu.learnpad.simulator.uihandler.formhandler.multi2jsonform.Multi2JsonFormFormHandler;
@@ -59,7 +59,7 @@ public class Simulator implements IProcessManagerProvider,
 
 	private final EventDispatcherImpl eventDispatcher;
 
-	private final RobotUserEventReceiverWrapper<Map<String, Object>> robotEventReceiver;
+	private final RobotUserEventReceiver<Map<String, Object>> robotEventReceiver;
 	private final IRobotFactory<Map<String, Object>, Map<String, Object>> robotFactory;
 
 	public Simulator(String activitiConfigPath, int webserverPort,
@@ -92,20 +92,24 @@ public class Simulator implements IProcessManagerProvider,
 				processEngine.getRepositoryService(),
 				processEngine.getTaskService(), processEngine.getFormService());
 
-		robotEventReceiver = new RobotUserEventReceiverWrapper<Map<String, Object>>(
-				uiHandler, robotFactory, new ActivitiRobotInputExtractor(
+		robotEventReceiver = new RobotUserEventReceiver<Map<String, Object>>(
+				robotFactory, new ActivitiRobotInputExtractor(
 						processEngine.getTaskService()), processManager);
 
 		// manage events subscriptions
 		eventDispatcher = new EventDispatcherImpl();
-		eventDispatcher.subscribe(robotEventReceiver);
+		eventDispatcher.subscribe(uiHandler);
 
 		// add monitoring probe
-
 		if (monitoringEnabled) {
 			// register a probe to monitor events
 			eventDispatcher.subscribe(new ProbeEventReceiver(processManager));
 		}
+
+		// note that the robot receiver is subscribed at the end in order to be
+		// executed last
+		// (this is important as the robots tend to complete tasks *very fast*)
+		eventDispatcher.subscribe(robotEventReceiver);
 
 	}
 

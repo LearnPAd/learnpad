@@ -33,12 +33,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 public class ProcessInstanceData {
-
-	public String processartifactid;
-	public String processartifactkey;
-	public Map<String, Object> parameters;
-	public Collection<String> users;
-	public Map<String, Collection<String>> routes;
+	private String instanceid;
+	private String processartifactid;
+	private String processartifactkey;
+	private Map<String, Object> parameters;
+	private Collection<String> users;
+	private Map<String, Collection<String>> routes;
 
 	public ProcessInstanceData() {
 	};
@@ -53,5 +53,61 @@ public class ProcessInstanceData {
 		this.parameters = parameters;
 		this.users = users;
 		this.routes = routes;
+	}
+
+	public void setInstanceid(String instanceId) {
+		this.instanceid = instanceId;
+	}
+
+	public String getInstanceid() {
+		return this.instanceid;
+	}
+
+	public void setProcessartifactid(String processArtifactId) {
+		this.processartifactid = processArtifactId;
+	}
+
+	public String getProcessartifactkey() {
+		return processartifactkey;
+	}
+
+	public String setProcessartifactid() {
+		return this.processartifactid;
+	}
+
+	public String getProcessartifactid() {
+		return processartifactid;
+	}
+
+	public void setProcessartifactkey(String processArtifactKey) {
+		this.processartifactkey = processArtifactKey;
+	}
+
+	public String setProcessartifactkey() {
+		return this.processartifactkey;
+	}
+
+	public void setParameters(Map<String, Object> parameters) {
+		this.parameters = parameters;
+	}
+
+	public Map<String, Object> getParameters() {
+		return this.parameters;
+	}
+
+	public void setUsers(Collection<String> users) {
+		this.users = users;
+	}
+
+	public Collection<String> getUsers() {
+		return this.users;
+	}
+
+	public void setRoutes(Map<String, Collection<String>> routes) {
+		this.routes = routes;
+	}
+
+	public Map<String, Collection<String>> getRoutes() {
+		return this.routes;
 	}
 }

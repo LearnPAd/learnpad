@@ -34,6 +34,12 @@
 	<name>Learn PAd - Collaborative Workspace - Component - Application</name>
 
 	<dependencies>
+        <dependency>
+            <groupId>org.xwiki.enterprise</groupId>
+            <artifactId>xwiki-enterprise-ui-admin-user</artifactId>
+            <version>${enterprise.version}</version>
+            <type>xar</type>
+        </dependency>
 		<dependency>
 			<groupId>org.xwiki.platform</groupId>
 			<artifactId>xwiki-platform-display-macro</artifactId>

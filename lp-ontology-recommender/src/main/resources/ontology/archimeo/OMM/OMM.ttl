@@ -1,5 +1,6 @@
 # baseURI: http://ikm-group.ch/archiMEO/omm
 # imports: http://ikm-group.ch/archiMEO/emo
+# prefix: omm
 
 @prefix cc: <http://creativecommons.org/ns#> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
@@ -99,11 +100,6 @@ omm:performerAcquiredCompetencyProfile
   rdf:type owl:ObjectProperty ;
   rdfs:domain omm:Performer ;
   rdfs:range <http://ikm-group.ch/archiMEO/CMM#Competency> ;
-.
-omm:performerBelongsToOrgUnit
-  rdf:type owl:ObjectProperty ;
-  rdfs:domain omm:Performer ;
-  rdfs:range omm:OrganisationalUnit ;
 .
 omm:performerBelongsToOrganisationalUnit
   rdf:type owl:ObjectProperty ;

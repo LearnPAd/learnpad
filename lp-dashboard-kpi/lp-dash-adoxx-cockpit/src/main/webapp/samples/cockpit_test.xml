@@ -1,0 +1,3109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cockpit>
+   <MODEL ID="352402" NAME="LearnPAd Scorecard!" TYPE="Cause and Effect Model">
+      <PERSPECTIVE NAME="CLIENT" ID="352601" TYPE="Perspective">
+         <STRATEGICGOAL NAME="Strategic goal - Client" ID="352800" TYPE="Strategic goal">
+            <PARENT/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>green</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </STRATEGICGOAL>
+         <OPERATIONALGOAL NAME="High Quality of Services (OG)" ID="352804" TYPE="Operational goal">
+            <PARENT ID="352800"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>green</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  %
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <OPERATIONALGOAL NAME="Acting Responsibly (LG)" ID="352805" TYPE="Learning goal">
+            <PARENT ID="352804"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>green</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <OPERATIONALGOAL NAME="Knowledge of times and modality (LG)" ID="352806" TYPE="Learning goal">
+            <PARENT ID="352807"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>green</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <OPERATIONALGOAL NAME="Timely delivery of Service (OG)" ID="352807" TYPE="Operational goal">
+            <PARENT ID="352800"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>green</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+            <LEARNINGGOAL></LEARNINGGOAL></OPERATIONALGOAL>
+         <CRITERION NAME="No of complaints of clients" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="352804"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE></VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>10</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>green</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  %
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of errors made dealing with an application" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="352804"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>25</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>green</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Number</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Short response time" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="352804"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>37</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>green</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Minutes</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Acting ones own responsibility" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="352805"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>tbd</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>green</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>tbd</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Single point of contact" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="352804"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>tbd</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>green</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>tbd</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Keeping the timeline" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="352807"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>77</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>%</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Identification of errors and missing docs in applications within two days after submission" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="352807"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE>27</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>77</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>yellow</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE></VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  %
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>1</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of errors made in setting time and modalities" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="352806"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>77</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>green</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  %
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Acting on ones own responsibility" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="352805"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>77</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>%</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <OPERATIONALGOAL NAME="Knowledge of laws and regulations (LG) - *Process Perspective" ID="353018" TYPE="Learning goal">
+            <PARENT ID="352806"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+      </PERSPECTIVE>
+      <PERSPECTIVE NAME="PROCESS" ID="353003" TYPE="Perspective">
+         <STRATEGICGOAL NAME="Strategic goal - Process" ID="353006" TYPE="Strategic goal">
+            <PARENT/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </STRATEGICGOAL>
+         <OPERATIONALGOAL NAME="Improvement of PA service (OG)" ID="353011" TYPE="Operational goal">
+            <PARENT ID="353006"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <OPERATIONALGOAL NAME="Improvement of business models (OG)" ID="353012" TYPE="Operational goal">
+            <PARENT ID="353011"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <OPERATIONALGOAL NAME="Knowledge of relevant 3rd PA parties (LG)" ID="353013" TYPE="Learning goal">
+            <PARENT ID="353011"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <OPERATIONALGOAL NAME="Knowledge of application forms used for requests (LG)" ID="353014" TYPE="Learning goal">
+            <PARENT ID="353011"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <OPERATIONALGOAL NAME="Knowledge of template and documents (LG)" ID="353015" TYPE="Learning goal">
+            <PARENT ID="353011"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <OPERATIONALGOAL NAME="Knowledge of the correct data and declarations (LG)" ID="353016" TYPE="Learning goal">
+            <PARENT ID="353011"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <OPERATIONALGOAL NAME="Knowledge of sector specific regularity and irregularity of requests (LG)" ID="353017" TYPE="Learning goal">
+            <PARENT ID="353011"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <OPERATIONALGOAL NAME="Knowledge of laws and regulations (LG)" ID="353018" TYPE="Learning goal">
+            <PARENT ID="353017"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <CRITERION NAME="No of lawsuits after case closure" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353011"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>77</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>%</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of changes based on feedback" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353012"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>77</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>%</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of models changed" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353012"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>77</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>%</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of errors made inviting PA parties" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353013"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>77</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  %
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Percentage of correctly used forms" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353014"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>77</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>%</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Percentage of templates and documents known applied correctly" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353015"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>77</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  %
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of errors made assessing data and declarations" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353016"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>77</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>%</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of errors made determine irregularities" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353017"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>77</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  %
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Percentage of laws and regulations on how they are applied" ID="352808" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353018"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE>77</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  %
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+      </PERSPECTIVE>
+      <PERSPECTIVE NAME="FINANCIAL" ID="353003" TYPE="Perspective">
+         <STRATEGICGOAL NAME="Strategic goal - Financial" ID="353007" TYPE="Strategic goal">
+            <PARENT></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </STRATEGICGOAL>
+         <OPERATIONALGOAL NAME="Short and effective setting-in period (OG)" ID="353020" TYPE="Operational goal">
+            <PARENT ID="353007"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <OPERATIONALGOAL NAME="Knowledge about all processes a user involved in (LG)" ID="353021" TYPE="Learning goal">
+            <PARENT ID="353020"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <CRITERION NAME="Decrease of time spent in similar cases" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353020"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Hours</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Training costs per new employee" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353020"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>CHF</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Success rate of simulations" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353021"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  %
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of processes known" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353021"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  %
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+      </PERSPECTIVE>
+      <PERSPECTIVE NAME="LEARNING ORGANISATION" ID="353003" TYPE="Perspective">
+         <STRATEGICGOAL NAME="Strategic goal - Learning Organisation" ID="353008" TYPE="Strategic goal">
+            <PARENT/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </STRATEGICGOAL>
+         <OPERATIONALGOAL NAME="Competence development (OG)" ID="353030" TYPE="Operational goal">
+            <PARENT ID="353008"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <OPERATIONALGOAL NAME="Intensive use of LearnPAd platform (OG)" ID="353031" TYPE="Learning goal">
+            <PARENT ID="353030"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <OPERATIONALGOAL NAME="Knowledge of valuable comments (LG)" ID="353032" TYPE="Learning goal">
+            <PARENT ID="353034"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <OPERATIONALGOAL NAME="Knowledge of additional pages (LG)" ID="353033" TYPE="Learning goal">
+            <PARENT ID="353034"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <OPERATIONALGOAL NAME="Familiarity with LearnPAd functionality (LG)" ID="353034" TYPE="Learning goal">
+            <PARENT ID="353031"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </OPERATIONALGOAL>
+         <LEARNINGGOAL NAME="Learning goal-353010" ID="353010" TYPE="Learning goal">
+            <PARENT ID="353006"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Status and score details" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold green/yellow" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score threshold yellow/red" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Score weighting SBU" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </LEARNINGGOAL>
+         <CRITERION NAME="Percentage of learners improving their EQF level" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353030"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>%</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Percentage of staff meeting the competence requirements" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353030"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>%</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Total no of LearnPAd platform users" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353031"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  %
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Total no of additional pages" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353031"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Number</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of valuable feedback" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353031"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Number</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Total no of comments" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353031"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Number</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Total no of comments to additional pages" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353031"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Number</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Total no of comments in learning objects" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353031"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Number</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Total no of valuable comments" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353031"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  %
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Total no of simulations" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353031"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  %
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Total no of recommendations accepted by learner" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353031"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Number</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of feedback created from comments" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353031"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  %
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Total no of help requests" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353031"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Number</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of total wiki pages navigated per user" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353031"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Number</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of feedback created from scratch" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353031"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Number</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Total time of use" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353031"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Hours</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of comments per user" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353032"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Number</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of valuable comments per user" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353032"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Count</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of additional pager per user" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353033"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Number</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of simulations per user" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353034"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Number</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Score per user and session" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353034"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Score</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Score per process and user" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353034"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Score</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Global score per user" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353034"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Count and weight</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="Degree of completeness of simulations per user" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353034"/>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Degree</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="No of help requests per user" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353034"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Number</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+         <CRITERION NAME="TIme spent using the LearnPAd platform per user" ID="353014" TYPE="Performance indicator"
+                    INDICATORID="">
+            <PARENT ID="353034"></PARENT>
+            <CHAPTER NAME="Description">
+               <ATTRIBUTES NAME="Description" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="MYNEWATTRIBUTE" TYPE="STRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="STATUS" TYPE="ENUMERATION">
+                  <VALUE>red</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Comment" TYPE="LONGSTRING">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Responsibility" TYPE="INTERREF">
+                  <VALUE> / </VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Periodicity" TYPE="ENUMERATION">
+                  <VALUE>Year</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (year)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Change of referenced date (month)" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Indicator type" TYPE="ENUMERATION">
+                  <VALUE>Not specified</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Unit" TYPE="STRING">
+                  <VALUE>Minutes</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Limit type" TYPE="ENUMERATION">
+                  <VALUE>More is better</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold green/yellow" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Threshold yellow/red" TYPE="DOUBLE">
+                  <VALUE>0</VALUE>
+               </ATTRIBUTES>
+               <ATTRIBUTES NAME="Data source" TYPE="">
+                  <VALUE/>
+               </ATTRIBUTES>
+            </CHAPTER>
+         </CRITERION>
+        
+      </PERSPECTIVE>
+   </MODEL>
+</cockpit>
