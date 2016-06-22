@@ -31,8 +31,6 @@ import org.apache.commons.net.ntp.TimeStamp;
 
 import eu.learnpad.simulator.mon.buffer.EventsBuffer;
 import eu.learnpad.simulator.mon.cep.ComplexEventProcessor;
-import eu.learnpad.simulator.mon.controller.DBController;
-import eu.learnpad.simulator.mon.controller.H2Controller;
 import eu.learnpad.simulator.mon.event.GlimpseBaseEvent;
 import eu.learnpad.simulator.mon.impl.ComplexEventProcessorImpl;
 import eu.learnpad.simulator.mon.impl.EventsBufferImpl;
@@ -42,6 +40,8 @@ import eu.learnpad.simulator.mon.manager.GlimpseManager;
 import eu.learnpad.simulator.mon.manager.LearnerAssessmentManager;
 import eu.learnpad.simulator.mon.manager.RestNotifier;
 import eu.learnpad.simulator.mon.services.ServiceLocatorFactory;
+import eu.learnpad.simulator.mon.storage.DBController;
+import eu.learnpad.simulator.mon.storage.H2Controller;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 import eu.learnpad.simulator.mon.utils.MailNotification;
 import eu.learnpad.simulator.mon.utils.Manager;

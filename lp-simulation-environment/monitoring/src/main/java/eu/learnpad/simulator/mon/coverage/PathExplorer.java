@@ -1,10 +1,8 @@
-package eu.learnpad.simulator.mon.BPMN;
+package eu.learnpad.simulator.mon.coverage;
 
 import java.util.Vector;
 
 import org.w3c.dom.Document;
-
-import eu.learnpad.simulator.mon.coverage.Activity;
 
 public interface PathExplorer {
 	

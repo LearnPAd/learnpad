@@ -71,6 +71,7 @@ public class PathRulesGeneratorImpl implements PathRulesGenerator {
 				concat +="\t\t\t$"+j+"Event : GlimpseBaseEventBPMN(" +
 						"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
 						+", this.getEvent().involvedusers.get(##I##).toString() == \"##USERSINVOLVEDIDS##\""
+						+", this.getEvent EventType.TASK_END.toString()"
 						+", this.isException == false, this.getEventName == \"" +
 						anActivitiesSet[j].getName() +
 						"\", this after $" + (j-1) + "Event);\n";

@@ -18,7 +18,7 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   * 
 */
-package eu.learnpad.simulator.mon;
+package probe;
 
 import java.net.UnknownHostException;
 import java.util.Properties;
@@ -39,8 +39,6 @@ import eu.learnpad.sim.rest.event.impl.TaskFailedEvent;
 import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 import eu.learnpad.simulator.mon.event.GlimpseBaseEvent;
 import eu.learnpad.simulator.mon.event.GlimpseBaseEventBPMN;
-import eu.learnpad.simulator.mon.probe.GlimpseAbstractProbe;
-import eu.learnpad.simulator.mon.probe.GlimpseProbe;
 import eu.learnpad.simulator.mon.utils.Manager;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 

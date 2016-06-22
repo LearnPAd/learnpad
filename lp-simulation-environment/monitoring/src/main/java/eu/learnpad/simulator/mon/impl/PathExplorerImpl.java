@@ -5,8 +5,8 @@ import java.util.Vector;
 
 import org.w3c.dom.Document;
 
-import eu.learnpad.simulator.mon.BPMN.PathExplorer;
 import eu.learnpad.simulator.mon.coverage.Activity;
+import eu.learnpad.simulator.mon.coverage.PathExplorer;
 
 public class PathExplorerImpl implements PathExplorer {
 

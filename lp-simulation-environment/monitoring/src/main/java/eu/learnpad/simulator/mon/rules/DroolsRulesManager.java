@@ -93,32 +93,6 @@ public class DroolsRulesManager extends RulesManager {
 				}
 			}
 		}
-		
-		/*
-		 * 		DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), "Listing rules loaded into the knowledgeBases");
-		Collection<KnowledgePackage> ass = kbase.getKnowledgePackages();
-		Object esd[] = ass.toArray();
-		for (int i = 0; i<esd.length; i++) {
-			
-			KnowledgePackage kp = (KnowledgePackage)esd[i];
-			Collection<Rule> rls = kp.getRules();
-			Object r[] = rls.toArray();
-			DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), "KnowledgeBase name: " + kp.getName());
-			if (r.length == 0) {
-				DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), "--! No rules loaded into: " + kp.getName() + " knowledgeBase");
-			}
-			else
-			{
-				for (int j = 0; j<r.length;j++) {
-					Rule gg = (Rule) r[j];
-					DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), "RuleName: " + gg.getName());	
-					}
-			}
-			DebugMessages.line();
-		 */
-		
-		
-		
 	}
 
 	void startRule(final String ruleName) throws UnknownRuleException {
