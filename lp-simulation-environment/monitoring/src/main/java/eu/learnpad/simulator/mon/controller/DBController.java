@@ -1,5 +1,6 @@
 package eu.learnpad.simulator.mon.controller;
 
+import java.util.List;
 import java.util.Vector;
 
 import eu.learnpad.simulator.mon.coverage.Activity;
@@ -21,8 +22,8 @@ public interface DBController {
 	//public ComplexEventRuleActionListDocument getRulesListForASpecificBPMN(String bpmnIDFromXML);
 		
 	public Activity[] getAllDistinctActivityOFaBPMN(Bpmn theBpmn);
-	public Vector<Float> getLearnerBPMNScores(int learnerID);
-	public Vector<Float> getLearnerRelativeBPScores(int learnerID);
+	public Vector<Float> getLearnerBPMNScores(String learnerID);
+	public Vector<Float> getLearnerRelativeBPScores(String learnerID);
 	
 	//BPMN methods
 	public int saveBPMN(Bpmn theBPMN);
@@ -36,13 +37,13 @@ public interface DBController {
 	
 	//Learner methods
 	public int saveLearnerProfile(Learner theLearner);
-	public Learner getLearner(int idLearner);
-	public boolean updateLearner(int idLearner, Learner theLearnerToUpdate);
+	public Learner getLearner(String idLearner);
+	public boolean updateLearner(String idLearner, Learner theLearnerToUpdate);
 		
 	//Path methods
 	public int savePath(Path thePath);
-	public Path getPath(int thePathID);
-	public boolean updatePath(int thePathId, Path thePathToUpdate);
+	public Path getPath(String thePathID);
+	public boolean updatePath(String thePathId, Path thePathToUpdate);
 		
 	//Role methods
 	public int saveRole(Role theRole);
@@ -54,42 +55,42 @@ public interface DBController {
 	public Topic getTopic(int theTopicID);
 	public boolean updateTopic(int theTopicId, Topic theTopicToUpdate);
 	
-	public Vector<Learner> getLearners(String[] learnersIDs);
+	public Vector<Learner> getLearners(List<String> learnersIDs);
 	
-	public Vector<Path> getPathsExecutedByLearner(int learnerID, String idBPMN);
+	public Vector<Path> getPathsExecutedByLearner(String learnerID, String idBPMN);
 	public Vector<Path> savePathsForBPMN(Vector<Path> vector);
 	
 	//SCORES METHODS//
 	
 	//path_learner table
-	public float getLearnerSessionScore(int idLearner, int idPath, String idBpmn);
-	public int setLearnerSessionScore(int idLearner, int idPath, String idBpmn, float sessionScore);
+	public float getLearnerSessionScore(String idLearner, String idPath, String idBpmn);
+	public int setLearnerSessionScore(String idLearner, String idPath, String idBpmn, float sessionScore);
 	
 	//learner table
-	public void setLearnerGlobalScore(int learnerID, float learnerGlobalScore);
-	public float getLearnerGlobalScore(int learnerID);
+	public void setLearnerGlobalScore(String learnerID, float learnerGlobalScore);
+	public float getLearnerGlobalScore(String learnerID);
 	
-	public void setLearnerRelativeGlobalScore(int learnerID, float learnerRelativeGlobalScore);
-	public float getLearnerRelativeGlobalScore(int learnerID);
+	public void setLearnerRelativeGlobalScore(String learnerID, float learnerRelativeGlobalScore);
+	public float getLearnerRelativeGlobalScore(String learnerID);
 	
-	public void setLearnerAbsoluteGlobalScore(int learnerID, float absoluteGlobalScore);
-	public float setLearnerAbsoluteGlobalScore(int learnerID);
+	public void setLearnerAbsoluteGlobalScore(String learnerID, float absoluteGlobalScore);
+	public float setLearnerAbsoluteGlobalScore(String learnerID);
 	
 	//bpmn_learner table
-	public float getLearnerBPScore(int idLearner, String idBPMN);
-	public int setLearnerBPScore(int idLearner, String idBPMN, float BPScore);
+	public float getLearnerBPScore(String idLearner, String idBPMN);
+	public int setLearnerBPScore(String idLearner, String idBPMN, float BPScore);
 	
-	public float getLearnerRelativeBPScore(int idLearner, String idBPMN);
-	public int setLearnerRelativeBPScore(int idLearner, String idBPMN, float relativeBPScore);
+	public float getLearnerRelativeBPScore(String idLearner, String idBPMN);
+	public int setLearnerRelativeBPScore(String idLearner, String idBPMN, float relativeBPScore);
 	
-	public float getLearnerBPCoverage(int idLearner, String idBPMN);
-	public int setLearnerBPCoverage(int idLearner, String idBPMN, float BPCoverage);
-	public Vector<Float> getBPMNScoresExecutedByLearner(int learnerID);
-	public Vector<Float> getMaxSessionScores(int parseInt, String idBPMN);
-	public Vector<Float> getBPMNAbsoluteScoresExecutedByLearner(int learnerID);
-	public void updateLearnerScores(int learnerID, float learnerGlobalScore,
+	public float getLearnerBPCoverage(String idLearner, String idBPMN);
+	public int setLearnerBPCoverage(String idLearner, String idBPMN, float BPCoverage);
+	public Vector<Float> getBPMNScoresExecutedByLearner(String learnerID);
+	public Vector<Float> getMaxSessionScores(String learnerID, String idBPMN);
+	public Vector<Float> getBPMNAbsoluteScoresExecutedByLearner(String learnerID);
+	public void updateLearnerScores(String learnerID, float learnerGlobalScore,
 			float learnerRelativeGlobalScore, float learnerAbsoluteGLobalScore);
-	public void updateBpmnLearnerScores(int learnerID, String idBPMN,
+	public void updateBpmnLearnerScores(String learnerID, String idBPMN,
 			float learnerBPScore, float learnerRelativeBPScore, float learnerCoverage);
 	public int getBPMNPathsCardinality(String idBPMN);
 	
