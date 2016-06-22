@@ -157,10 +157,21 @@
     <property>
       <code>{{velocity}}
 #set ($select = "select distinct targetdoc.fullName")
-#set ($from = "from Document as doc, Document as targetdoc, doc.object(LPCode.LinkClass) as link, targetdoc.object(LPCode.BaseElementClass) as targetbe")
-#set ($where = "where doc.id = :id and link.targetmodelsetid = targetbe.modelsetid and link.targetmodelid = targetbe.modelid and link.targetartifactid = targetbe.id and link.type like '%-weaving'")
-#set ($query = "${select} ${from} ${where}")
-#set ($weavingFullnames = $services.query.xwql($query).bindValue("id", ${doc.id}).execute())
+##
+#set ($incomingFrom = "from Document as doc, Document as targetdoc, doc.object(LPCode.LinkClass) as link, targetdoc.object(LPCode.BaseElementClass) as targetbe")
+#set ($outgoingFrom = "from Document as doc, Document as targetdoc, doc.object(LPCode.LinkClass) as link, targetdoc.object(LPCode.ModelClass) as targetbe")
+##
+#set ($incomingWhere = "where doc.id = :id and link.targetmodelsetid = targetbe.modelsetid and link.targetmodelid = targetbe.modelid and link.targetartifactid = targetbe.id and link.type like 'incoming-weaving'")
+#set ($outgoingWhere = "where doc.id = :id and link.targetmodelsetid = targetbe.modelsetid and link.targetmodelid = targetbe.id and  link.targetartifactid = '' and link.type like 'outgoing-weaving'")
+##
+#set ($incomingQuery = "${select} ${incomingFrom} ${incomingWhere}")
+#set ($outgoingQuery = "${select} ${outgoingFrom} ${outgoingWhere}")
+##
+#set ($incomingWeavingFullnames = $services.query.xwql($incomingQuery).bindValue("id", ${doc.id}).execute())
+#set ($outgoingWeavingFullnames = $services.query.xwql($outgoingQuery).bindValue("id", ${doc.id}).execute())
+#set ($weavingFullnames = $incomingWeavingFullnames)
+#set ($foo = $weavingFullnames.addAll($outgoingWeavingFullnames))
+##
 #if ("$!weavingFullnames" != "" &amp;&amp; $weavingFullnames.size() &gt; 0)
   (% class="panel panel-weaving" %)(((
     (% class="panel-heading" %)(((
@@ -170,7 +181,11 @@
       #foreach($weavingFullname in $weavingFullnames)
         #set ($weavingReference = $services.model.resolveDocument($weavingFullname))
         #set ($weavingDocument = $xwiki.getDocument($weavingReference))
-        #set ($weavingObject = $weavingDocument.getObject('LPCode.BaseElementClass'))
+        #if ($weavingDocument.getObject('LPCode.BaseElementClass'))
+          #set ($weavingObject = $weavingDocument.getObject('LPCode.BaseElementClass'))
+        #else
+          #set ($weavingObject = $weavingDocument.getObject('LPCode.ModelClass'))
+        #end
         #set ($weavingType = $weavingObject.getProperty('type').value)
         #set ($weavingURL = $weavingDocument.URL)
         #if ($weavingType.startsWith('omm'))
