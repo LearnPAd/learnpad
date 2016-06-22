@@ -1,4 +1,4 @@
-package eu.learnpad.simulator.mon.rulesGenerator;
+package eu.learnpad.simulator.mon.rules;
 
 import eu.learnpad.simulator.mon.coverage.Activity;
 

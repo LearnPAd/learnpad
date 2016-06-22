@@ -8,13 +8,13 @@ import java.util.Vector;
 import org.apache.xmlbeans.XmlException;
 
 import eu.learnpad.simulator.mon.coverage.Activity;
-import eu.learnpad.simulator.mon.coverage.ComputeScore;
 import eu.learnpad.simulator.mon.coverage.Learner;
 import eu.learnpad.simulator.mon.coverage.Path;
-import eu.learnpad.simulator.mon.rulesGenerator.PathRulesGenerator;
-import eu.learnpad.simulator.mon.rulesGenerator.RuleElements;
+import eu.learnpad.simulator.mon.rules.RuleElements;
+import eu.learnpad.simulator.mon.rules.generator.RulesPerPath;
+import eu.learnpad.simulator.mon.utils.ComputeLearnerScore;
 
-public class PathRulesGeneratorImpl implements PathRulesGenerator {
+public class PathRulesGeneratorImpl implements RulesPerPath {
 
 	ComplexEventRuleActionListDocument rulesToLoad;
 	
@@ -27,7 +27,7 @@ public class PathRulesGeneratorImpl implements PathRulesGenerator {
 		
 		for (int i =0; i<theUnfoldedBusinessProcess.size();i++) {
 					
-			Path theCompletePathObject = new Path(idBpmn + "-" + i, idBpmn, ComputeScore.absoluteSession(theUnfoldedBusinessProcess.get(i)),
+			Path theCompletePathObject = new Path(idBpmn + "-" + i, idBpmn, ComputeLearnerScore.absoluteSession(theUnfoldedBusinessProcess.get(i)),
 													"", theUnfoldedBusinessProcess.get(i));
 			thePathOfTheBPMN.add(theCompletePathObject);
 		}	
