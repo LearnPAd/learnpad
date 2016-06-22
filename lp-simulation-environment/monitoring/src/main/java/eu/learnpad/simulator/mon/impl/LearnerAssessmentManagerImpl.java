@@ -16,16 +16,16 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import eu.learnpad.simulator.mon.BPMN.PathExplorer;
-import eu.learnpad.simulator.mon.controller.DBController;
 import eu.learnpad.simulator.mon.coverage.Activity;
 import eu.learnpad.simulator.mon.coverage.Bpmn;
-import eu.learnpad.simulator.mon.coverage.ComputeScore;
 import eu.learnpad.simulator.mon.coverage.Learner;
 import eu.learnpad.simulator.mon.coverage.Path;
 import eu.learnpad.simulator.mon.impl.PathExplorerImpl;
-import eu.learnpad.simulator.mon.impl.PathRulesGeneratorImpl;
+import eu.learnpad.simulator.mon.impl.RulesPerPathGeneratorImpl;
 import eu.learnpad.simulator.mon.manager.LearnerAssessmentManager;
-import eu.learnpad.simulator.mon.rulesGenerator.PathRulesGenerator;
+import eu.learnpad.simulator.mon.rules.generator.RulesPerPath;
+import eu.learnpad.simulator.mon.storage.DBController;
+import eu.learnpad.simulator.mon.utils.ComputeLearnerScore;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 import it.cnr.isti.labse.glimpse.xml.complexEventRule.ComplexEventRuleActionListDocument;
 
@@ -33,7 +33,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 
 	private Document theBPMN;
 	private PathExplorer bpmnExplorer;
-	private PathRulesGenerator crossRulesGenerator;
+	private RulesPerPath crossRulesGenerator;
 	private DBController databaseController;
 	private ComplexEventRuleActionListDocument rulesLists;
 
@@ -46,7 +46,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 		this.databaseController = databaseController;
 		
 		//Creation of the PathCrossingRulesGenerator object
-		crossRulesGenerator = new PathRulesGeneratorImpl();
+		crossRulesGenerator = new RulesPerPathGeneratorImpl();
 	}
 		
 	public void run() {
@@ -85,13 +85,17 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 				
 				Vector<Path> theGeneratedPath = crossRulesGenerator.generatePathsRules(
 																	crossRulesGenerator.generateAllPaths(theUnfoldedBPMN, newBpmn.getId()));
+				
+				ComplexEventRuleActionListDocument rulesForKPI = KpiRulesGenerator.generateAll(usersInvolved, sessionID, bpmnID, theUnfoldedBPMN);
+				
+				
 				System.out.println();
 				theGeneratedPath = setAllAbsoluteSessionScores(theGeneratedPath);
 				
 				this.rulesLists = crossRulesGenerator.instantiateRulesSetForUsersInvolved(
 						databaseController.savePathsForBPMN(theGeneratedPath),usersInvolved, sessionID);
 				
-				newBpmn.setAbsoluteBpScore(ComputeScore.absoluteBP(theGeneratedPath));
+				newBpmn.setAbsoluteBpScore(ComputeLearnerScore.absoluteBP(theGeneratedPath));
 				
 				databaseController.saveBPMN(newBpmn);
 			} else {
@@ -113,7 +117,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	public Vector<Path> setAllAbsoluteSessionScores(Vector<Path> theGeneratedPath) {
 
 		for (int i =0; i< theGeneratedPath.size(); i++) {
-			theGeneratedPath.get(i).setAbsoluteSessionScore(ComputeScore.absoluteSession(theGeneratedPath.get(i).getActivities()));
+			theGeneratedPath.get(i).setAbsoluteSessionScore(ComputeLearnerScore.absoluteSession(theGeneratedPath.get(i).getActivities()));
 		}
 		return theGeneratedPath;
 		
@@ -122,26 +126,27 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	@Override
 	public void computeAndSaveScores(List<String> learnersID, String idBPMN, String idPath) {
 		
+		
 		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
 		
 		for(int i = 0; i<learnersID.size(); i++) {
 			
-			float learnerBPScore = ComputeScore.learnerBP(
+			float learnerBPScore = ComputeLearnerScore.learnerBP(
 					databaseController.getMaxSessionScores(learnersID.get(i), idBPMN)); 
 			
 			Vector<Path> pathsExecutedByLearner = databaseController.getPathsExecutedByLearner(learnersID.get(i), idBPMN); 
 			
-			float learnerRelativeBPScore = ComputeScore.learnerRelativeBP(pathsExecutedByLearner);
+			float learnerRelativeBPScore = ComputeLearnerScore.learnerRelativeBP(pathsExecutedByLearner);
 
-			float learnerCoverage = ComputeScore.BPCoverage(
+			float learnerCoverage = ComputeLearnerScore.BPCoverage(
 					pathsExecutedByLearner,pathsCardinality);
 
 			databaseController.updateBpmnLearnerScores(learnersID.get(i), idBPMN, learnerBPScore, learnerRelativeBPScore, learnerCoverage);
 			
-			float learnerGlobalScore = ComputeScore.learnerGlobal(
+			float learnerGlobalScore = ComputeLearnerScore.learnerGlobal(
 					databaseController.getLearnerBPMNScores(learnersID.get(i)));
 		
-			float learnerRelativeGlobalScore = ComputeScore.learnerRelativeGlobal(
+			float learnerRelativeGlobalScore = ComputeLearnerScore.learnerRelativeGlobal(
 					databaseController.getLearnerRelativeBPScores(learnersID.get(i)));
 			
 			//float learnerAbsoluteGlobalScore = ComputeScore.learnerAbsoluteGlobal(

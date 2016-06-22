@@ -1,4 +1,4 @@
-package eu.learnpad.simulator.mon.BPMNExplorer;
+package eu.learnpad.simulator.mon.BPMN;
 
 import java.util.List;
 import java.util.Vector;

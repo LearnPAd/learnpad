@@ -1,4 +1,4 @@
-package eu.learnpad.simulator.mon.controller;
+package eu.learnpad.simulator.mon.storage;
 
 import java.util.List;
 import java.util.Vector;
