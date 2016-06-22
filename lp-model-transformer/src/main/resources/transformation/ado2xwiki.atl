@@ -593,7 +593,9 @@ rule CONNECTORType2Object {
 						lci_p1,
 						lci_p2,
 						lci_p3,
-						lci_p4}
+						lci_p4,
+						lco_p5,
+						lco_p6}
 		),
 		lci_p0: XWIKI!Property (
 			name <- 'id',
@@ -619,6 +621,16 @@ rule CONNECTORType2Object {
 			name <- 'type',
 			type <- 'StaticList',
 			value <- 'incoming'
+		),
+		lco_p5:XWIKI!Property (
+			name <- 'denomination',
+			type <- 'String',
+			value <- ''
+		),
+		lco_p6:XWIKI!Property (
+			name <- 'trigger',
+			type <- 'String',
+			value <- ''
 		)
 	do {
 		thisModule.documentRoot.object <- lco;
@@ -636,12 +648,7 @@ helper context ADOXX!CONNECTORType def : getDenomination : String =
 --this rule extends the CONNECTORType2Object and adds the properties Denomination for manage the label in the gateway links 
 rule CONNECTORTypeSubsequent2Object extends CONNECTORType2Object {
 	from c:ADOXX!CONNECTORType ((c.isInSourceModels > 0) and (c.class='Subsequent'))
-	to lco:XWIKI!Object (
-		property <- Sequence{lco_p0, lco_p1, lco_p2, lco_p3, lco_p4, lco_p5}
-	), 
-	lco_p5:XWIKI!Property (
-		name <- 'denomination',
-		type <- 'String',
+	to lco_p5:XWIKI!Property (
 		value <- c.getDenomination
 	)
 	do {
@@ -664,8 +671,7 @@ rule CONNECTORTypeEvent2Object extends CONNECTORTypeSubsequent2Object {
 		number <- thisModule.linkNumberMap.get(thisModule.boundedIEvents.get(c.fROM.class+' - '+c.fROM.instance).id),
 		space <- thisModule.spacesBE(thisModule.getModelSetId(), c.refImmediateComposite().id, thisModule.boundedIEvents.get(c.fROM.class+' - '+c.fROM.instance).id)
 	),
-	lco_p5:XWIKI!Property (
-		name <- 'trigger',
+	lco_p6:XWIKI!Property (
 		value <- c.fROM.instance
 	)
 	do {
