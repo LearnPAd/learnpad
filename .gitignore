@@ -21,3 +21,4 @@ target-eclipse/
 /gulyxout/
 /pom.xml
 /.apt_generated/
+lp-dashboard-kpi/nb-configuration.xml

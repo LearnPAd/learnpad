@@ -26,6 +26,7 @@ import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.ontology.execution.ExecutionStates;
 import eu.learnpad.ontology.notification.NotificationLog;
 import eu.learnpad.ontology.recommender.Recommender;
+import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.ontology.recommender.cbr.CBRAdapter;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.BusinessActor;
@@ -74,7 +75,13 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     
     @Override
     public void resourceNotification(String modelSetId, String resourceId, ResourceType resourceType, String referringToResourceId, String[] modelArtifactIds, String userId, Long timestamp, NotificationActionType action) throws LpRestException {
-        NotificationLog.getInstance().logResourceNotification(modelSetId, resourceId, resourceType, referringToResourceId, modelArtifactIds, userId, timestamp, action);
+        
+        try {
+            NotificationLog.getInstance().logResourceNotification(modelSetId, resourceId, resourceType, referringToResourceId, modelArtifactIds, userId, timestamp, action);
+        } catch (RecommenderException ex) {
+            Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.SEVERE, null, ex);
+            throw new LpRestExceptionXWikiImpl("Loging resource notification failed. ", ex);
+        }
     }
 
     @Override
@@ -128,8 +135,9 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 
     @Override
     public States listExecutionStates(String userId) throws LpRestException {
-        States states = ExecutionStates.getInstance().getStatesOfLatestAddedModelSet(userId);
-        return states;
+//        States states = ExecutionStates.getInstance().getStatesOfLatestAddedModelSet(userId);
+//        return states;
+        return null; //not used up to now
     }    
 
     @Override

@@ -1,0 +1,209 @@
+/*!
+ * Ext JS Library 3.3.0
+ * Copyright(c) 2006-2010 Ext JS, Inc.
+ * licensing@extjs.com
+ * http://www.extjs.com/license
+ */
+html,body {
+	font: normal 12px verdana;
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+	overflow: hidden;
+	height: 100%;
+}
+
+.x-panel-body p {
+	margin: 5px;
+}
+
+.settings {
+	background-image: url( ../ext-3.3.0/style/icons/fam/folder_wrench.png )
+		!important;
+}
+
+.nav {
+	background-image: url( ../ext-3.3.0/style/icons/fam/folder_go.png )
+		!important;
+}
+
+.icon-expand-all {
+	background-image: url(../icons/expand-all.gif) !important;
+}
+
+.icon-collapse-all {
+	background-image: url(../icons/collapse-all.gif) !important;
+}
+
+.icon-reload {
+	background-image: url(../icons/reload.gif) !important;
+}
+
+.icon-toggle{
+	background-image: url(../icons/toggle.gif) !important;
+}
+
+.icon-adl {
+	background-image: url(../icons/ADL-Import.gif) !important;
+}
+
+.icon-expand-selected {
+	background-image: url(../icons/expand-select.gif) !important;
+}
+
+.icon-collapse-selected {
+	background-image: url(../icons/collapse-selected.gif) !important;
+}
+
+.icon-zoom-fit {
+	background-image: url(../icons/zoom-fit.png) !important;
+}
+
+.icon-print {
+	background-image: url(../icons/print.gif) !important;
+}
+
+.icon-xml {
+	background-image: url(../icons/xml.png) !important;
+}
+.icon-view {
+	background-image: url(../icons/components/modelling_main_comp_icon.png) !important;
+}
+.icon-import {
+	background-image: url(../icons/components/impexp_main_comp_icon.png) !important;
+}
+.icon-modeller {
+	background-image: url(../icons/components/impexp_main_comp_icon.png) !important;
+}
+.icon-run {
+	background-image: url(../icons/components/analysis_main_comp_icon.png) !important;
+}
+.icon-depend {
+	background-image: url(../icons/components/docugen_main_comp_icon.png) !important;
+}
+
+
+.icon-view-small {
+	background-image: url(../icons/components/modelling_main_comp_icon-small.png) !important;
+}
+.icon-import-small {
+	background-image: url(../icons/components/impexp_main_comp_icon-small.png) !important;
+}
+.icon-modeller-small {
+	background-image: url(../icons/components/impexp_main_comp_icon-small.png) !important;
+}
+.icon-run-small {
+	background-image: url(../icons/components/analysis_main_comp_icon-small.png) !important;
+}
+.icon-depend-small {
+	background-image: url(../icons/components/docugen_main_comp_icon-small.png) !important;
+}
+
+
+.icon-grid {
+	background-image: url(../ext-3.3.0/style/icons/fam/grid.png) !important;
+}
+
+.add {
+	background-image: url(../ext-3.3.0/style/icons/fam/add.gif) !important;
+}
+
+.option {
+	background-image: url(../ext-3.3.0/style/icons/fam/plugin.gif) !important;
+}
+
+.remove {
+	background-image: url(../ext-3.3.0/style/icons/fam/delete.gif) !important;
+}
+
+.save {
+	background-image: url(../ext-3.3.0/style/icons/save.gif) !important;
+}
+
+.refresh {
+	background-image: url(../ext-3.3.0/style/icons/fam/table_refresh.png)
+		!important;
+}
+
+.unchanged {
+	background: url(../icons/unchanged.png) 20px no-repeat !important;
+}
+
+.newModel {
+	background: url(../icons/newModel.png) 20px no-repeat !important;
+}
+
+.saveModel {
+	background: url(../icons/saveModel.png) 20px no-repeat !important;
+}
+
+
+
+
+
+
+/*!
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
+ */
+#phones {
+    background-color: #fff;
+    text-shadow: #fff 0 1px 0;
+}
+
+#phones ul {
+    position: relative;
+    display: block;
+    height: auto;
+    font-size: 85%;
+}
+
+#phones ul li img {
+    margin-bottom: 1px;
+}
+
+#phones ul li {
+    float: left;
+    padding: 8px 17px;
+    margin: 5px;
+/*    margin: 10px 0 0 25px;*/
+    text-align: left;
+    line-height: 1.25em;
+    color: #333;
+    font-family: "Helvetica Neue",sans-serif;
+    height: 150px;
+    width: 95%;
+    overflow: hidden;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+}
+
+#phones ul li.phone-hover {
+    background-color: #eee;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+
+#phones ul li.x-view-selected {
+    background-color: rgba(100, 100, 100, .15);
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    /*border-top: 1px solid rgba(0, 0, 0, .15);*/
+}
+
+#phones ul li img {
+/*    display: block;*/
+}
+
+#phones li strong {
+    color: #000;
+    display: block;
+    font-size: 10pt;
+}
+
+#phones li table tr td {
+    color: #999;
+    font-size: 8pt;
+}

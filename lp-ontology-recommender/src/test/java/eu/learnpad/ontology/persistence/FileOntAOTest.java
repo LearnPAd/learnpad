@@ -9,6 +9,7 @@ import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import eu.learnpad.ontology.AbstractUnitTest;
 import eu.learnpad.ontology.config.APP;
+import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import java.util.UUID;
 import org.junit.Test;
@@ -53,7 +54,7 @@ public class FileOntAOTest extends AbstractUnitTest{
      */
 //    @Ignore
     @Test
-    public void testgetExecutionData() {
+    public void testgetExecutionData() throws RecommenderException {
         OntModel model = FileOntAO.getInstance().getModelWithExecutionData(MODELSET_ID);
         assertNotNull(model);
         

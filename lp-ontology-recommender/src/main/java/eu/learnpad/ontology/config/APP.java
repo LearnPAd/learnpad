@@ -32,7 +32,8 @@ public class APP {
         ARCHI("http://ikm-group.ch/archiMEO/archimate"), 
         TRANSFER("http://learnpad.eu/transfer#"),
         XWIKI("http://www.xwiki.org/xwiki/bin/view/Main/WebHome#"),
-        EXEC("http://learnpad.eu/exec#");
+        EXEC("http://learnpad.eu/exec#"),
+        OMM("http://ikm-group.ch/archiMEO/omm#");
         
         private String namespace;
         

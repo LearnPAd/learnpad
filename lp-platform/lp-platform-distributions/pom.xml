@@ -45,6 +45,10 @@
 		<component.cw.ip>localhost</component.cw.ip>
 		<component.cw.port>8080</component.cw.port>
 		<component.cw.prefix>/xwiki/rest</component.cw.prefix>
+		<component.dash.protocol>http</component.dash.protocol>
+		<component.dash.ip>localhost</component.dash.ip>
+		<component.dash.port>7078</component.dash.port>
+		<component.dash.prefix></component.dash.prefix>
 		<component.mt.protocol>http</component.mt.protocol>
 		<component.mt.ip>localhost</component.mt.ip>
 		<component.mt.port>8083</component.mt.port>
@@ -71,6 +75,10 @@
 				<component.cw.ip>192.168.0.100</component.cw.ip>
 				<component.cw.port>8080</component.cw.port>
 				<component.cw.prefix>/xwiki/rest</component.cw.prefix>
+				<component.dash.protocol>http</component.dash.protocol>
+				<component.dash.ip>localhost</component.dash.ip>
+				<component.dash.port>7078</component.dash.port>
+				<component.dash.prefix></component.dash.prefix>
 				<component.mt.protocol>http</component.mt.protocol>
 				<component.mt.ip>localhost</component.mt.ip>
 				<component.mt.port>8083</component.mt.port>

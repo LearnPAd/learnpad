@@ -778,7 +778,7 @@ ________________________________________________________________________________
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;                
   
   	</xsl:template>
-	<xsl:template name="addLink_OperationalGoaToPerspective"><xsl:param name="toId"/>kpi:operationalGoalHasPerspective transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text></xsl:template>
+	<xsl:template name="addLink_OperationalGoalToPerspective"><xsl:param name="toId"/>kpi:operationalGoalHasPerspective transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text></xsl:template>
 	<!-- TODO
       kpi:operationalGoalSupportsOperationalGoal
   -->
@@ -805,6 +805,8 @@ ________________________________________________________________________________
   kpi:learningGoalHasPerspective
   -->
 	</xsl:template>
+	<xsl:template name="addLink_LearningGoalToPerspective"><xsl:param name="toId"/>kpi:learningGoalHasPerspective transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text></xsl:template>
+	<xsl:template name="addLink_LearningGoalToOperationalGoal"><xsl:param name="toId"/>kpi:learningGoalEnablesOperationalGoal transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text></xsl:template>
 <!--...............................................................................................--> 
 
 <!--
