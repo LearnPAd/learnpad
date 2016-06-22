@@ -1,4 +1,4 @@
-package eu.learnpad.simulator.mon.rulesGenerator;
+package eu.learnpad.simulator.mon.rules;
 
 import eu.learnpad.simulator.mon.coverage.Activity;
 
@@ -52,7 +52,7 @@ public class RuleElements {
 					+ "\n\t\t\tretract($"+ i +"Event);";					
 		}
 		 concat = concat + "\n\t\t\t" +
-			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \""+ idBPMN +"\", \"" + idPath + "\");";
+			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \"" + idBPMN + "\", drools.getRule().getName() );";
 		return concat;
 	}
 		

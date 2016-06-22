@@ -38,7 +38,6 @@ import org.apache.commons.net.ntp.TimeStamp;
 
 import eu.learnpad.simulator.mon.event.GlimpseBaseEvent;
 import eu.learnpad.simulator.mon.event.GlimpseBaseEventAbstract;
-import eu.learnpad.simulator.mon.probe.GlimpseProbe;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 import eu.learnpad.simulator.mon.utils.Manager;
 

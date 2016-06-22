@@ -215,10 +215,5 @@ public class ResponseDispatcher {
 		DebugMessages.line();
 		DebugMessages.line();
 		DebugMessages.line();
-//		try {
-//			rulesManager.deleteRule(whoGenerateIt);
-//		} catch (UnknownRuleException e) {
-//			e.printStackTrace();
-//		}
 	}
 }

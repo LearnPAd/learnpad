@@ -18,7 +18,7 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   * 
 */
-package eu.learnpad.simulator.mon;
+package probe;
 
 import java.net.UnknownHostException;
 import java.util.Properties;

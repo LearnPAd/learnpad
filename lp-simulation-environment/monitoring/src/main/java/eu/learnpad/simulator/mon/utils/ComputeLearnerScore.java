@@ -1,8 +1,11 @@
-package eu.learnpad.simulator.mon.coverage;
+package eu.learnpad.simulator.mon.utils;
 
 import java.util.Vector;
 
-public class ComputeScore {
+import eu.learnpad.simulator.mon.coverage.Activity;
+import eu.learnpad.simulator.mon.coverage.Path;
+
+public class ComputeLearnerScore {
 
 
 	public static float absoluteSession(Activity[] activities) {
