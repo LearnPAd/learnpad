@@ -452,13 +452,13 @@
                             "miur_funding_entity" : "European Union"
 			}
 		}
-	],
+	]
   },
     "mod.27772" : {
         "obj.27830" : [
             {
                 "input" : {
-                    "case" : '637-2015'
+                    "case" : "637-2015"
                 },
                 "output" : {
                     "accepted" : false
@@ -466,7 +466,7 @@
             },
             {
                 "input" : {
-                    "case" : '829-2015'
+                    "case" : "829-2015"
                 },
                 "output" : {
                     "accepted" : true
@@ -515,7 +515,7 @@
                     "offDog" : true,
                     "offCap" : true
                 }
-            },
+            }
         ],
         "obj.27987" : [
             {
@@ -550,7 +550,7 @@
                     "offDog" : true,
                     "offCap" : true
                 }
-            },
+            }
         ],
         "obj.27990" : [
             {
