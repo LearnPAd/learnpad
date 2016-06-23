@@ -1,8 +1,5 @@
 package eu.learnpad.core.impl.or.tests;
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
-
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -32,7 +29,7 @@ public class XwikiBridgeInterfaceRestResourceTest extends AbstractUnitTest {
 	}
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void getHandlingProcessStatusTest(){
 		boolean exceptionRaised = false;
 		
