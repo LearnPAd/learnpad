@@ -51,6 +51,8 @@ import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.ResourceType;
 import eu.learnpad.or.rest.data.SimulationData;
 import eu.learnpad.or.rest.data.States;
+import eu.learnpad.or.rest.data.kbprocessing.KBProcessId;
+import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatus;
 
 /*
  * The methods inherited form the BridgeInterface in this
@@ -262,4 +264,67 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
         // TODO Auto-generated method stub
 		return null;
     }
+
+	@Override
+	public KBProcessId calculateKPI(String modelSetId) throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/or/bridge/kb/%s/calculatekpi",
+				DefaultRestResource.REST_URI, modelSetId);
+
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Accept", "application/xml");
+
+		KBProcessId processID = null;
+
+		try {
+			httpClient.executeMethod(getMethod);
+
+			InputStream responseStream = getMethod.getResponseBodyAsStream();
+
+			if (responseStream != null) {
+				JAXBContext jc = JAXBContext.newInstance(KBProcessId.class);
+				Unmarshaller unmarshaller = jc.createUnmarshaller();
+				processID = (KBProcessId) unmarshaller
+						.unmarshal(responseStream);
+			}
+		} catch (JAXBException | IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+		}
+
+		return processID;
+	}
+
+	@Override
+	public KBProcessingStatus getHandlingProcessStatus(String kbProcessProcessId)
+			throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/or/bridge/kb/getstatus",
+				DefaultRestResource.REST_URI);
+
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Accept", "application/xml");
+
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("kbprocessprocessid", kbProcessProcessId);
+		getMethod.setQueryString(queryString);
+
+		KBProcessingStatus processingStatus = null;
+
+		try {
+			httpClient.executeMethod(getMethod);
+
+			InputStream responseStream = getMethod.getResponseBodyAsStream();
+
+			if (responseStream != null) {
+				JAXBContext jc = JAXBContext.newInstance(KBProcessId.class);
+				Unmarshaller unmarshaller = jc.createUnmarshaller();
+				processingStatus = (KBProcessingStatus) unmarshaller
+						.unmarshal(responseStream);
+			}
+		} catch (JAXBException | IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+		}
+
+		return processingStatus;
+	}
 }
