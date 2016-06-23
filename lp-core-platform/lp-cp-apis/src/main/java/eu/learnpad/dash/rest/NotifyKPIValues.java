@@ -34,7 +34,7 @@ import eu.learnpad.dash.rest.data.KPIValuesFormat;
 
 public interface NotifyKPIValues {
 
-	// <host>/learnpad/dash/loadkpivalues/{modelsetid}?format={ADOXXCockpit}
+	// <host>/learnpad/dash/bridge/loadkpivalues/{modelsetid}?format={ADOXXCockpit}&businessactor=businessActorId
 	@PUT
 	@Path("/loadkpivalues/{modelsetid}")
 	@Consumes(MediaType.APPLICATION_XML)
