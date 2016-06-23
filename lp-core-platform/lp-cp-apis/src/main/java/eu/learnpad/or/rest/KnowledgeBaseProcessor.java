@@ -17,31 +17,38 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.dash.rest;
+package eu.learnpad.or.rest;
 
-import java.io.InputStream;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.PUT;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
-import eu.learnpad.dash.rest.data.KPIValuesFormat;
+import eu.learnpad.or.rest.data.kbprocessing.KBProcessId; 
+import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatus; 
 
-public interface NotifyKPIValues {
+public interface KnowledgeBaseProcessor {
 
-	// <host>/learnpad/dash/bridge/loadkpivalues/{modelsetid}?format={ADOXXCockpit}&businessactor=businessActorId
-	@PUT
-	@Path("/loadkpivalues/{modelsetid}")
-	@Consumes(MediaType.APPLICATION_XML)
-	public void loadKPIValues(
-			@PathParam("modelsetid") String modelSetId,
-			@QueryParam("format") @DefaultValue("ADOXXCockpit") KPIValuesFormat format,
-			@QueryParam("businessactor") String businessActorId,
-			InputStream cockpitContent) throws LpRestException;
+    /**
+     * Runs the inferencing with KPI rules to calculate individuals and 
+     * organisational units KPI values.
+     * 
+     * @param modelSetId
+     * @return
+     * @throws LpRestException 
+     */
+	@GET
+    @Path("/kb/{modelsetid}/calculatekpi")
+	@Produces(MediaType.APPLICATION_XML)
+	KBProcessId calculateKPI(@PathParam("modelsetid") String modelSetId) throws LpRestException;
 
+	@GET
+	@Path("/kb/getstatus")
+	@Produces(MediaType.APPLICATION_XML)
+	KBProcessingStatus getHandlingProcessStatus(@QueryParam("kbprocessprocessid") String kbProcessProcessId)
+			throws LpRestException;
+	
 }

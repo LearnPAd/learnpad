@@ -17,7 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.dash.rest;
+package eu.learnpad.or.rest;
 
 import java.io.InputStream;
 
@@ -29,19 +29,20 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import eu.learnpad.exception.LpRestException;
 import eu.learnpad.dash.rest.data.KPIValuesFormat;
+import eu.learnpad.exception.LpRestException;
 
-public interface NotifyKPIValues {
+public interface KPIsHandler {
 
-	// <host>/learnpad/dash/bridge/loadkpivalues/{modelsetid}?format={ADOXXCockpit}&businessactor=businessActorId
+	// <host>/learnpad/or/corefacade/pushkpivalues/{modelsetid}?format={ADOXXCockpit}&businessactor=businessActorId
 	@PUT
-	@Path("/loadkpivalues/{modelsetid}")
+	@Path("/pushkpivalues/{modelsetid}")
 	@Consumes(MediaType.APPLICATION_XML)
-	public void loadKPIValues(
+	public void pushKPIValues(
 			@PathParam("modelsetid") String modelSetId,
 			@QueryParam("format") @DefaultValue("ADOXXCockpit") KPIValuesFormat format,
 			@QueryParam("businessactor") String businessActorId,
 			InputStream cockpitContent) throws LpRestException;
 
+	
 }
