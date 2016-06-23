@@ -316,7 +316,7 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 			InputStream responseStream = getMethod.getResponseBodyAsStream();
 
 			if (responseStream != null) {
-				JAXBContext jc = JAXBContext.newInstance(KBProcessId.class);
+				JAXBContext jc = JAXBContext.newInstance(KBProcessingStatus.class);
 				Unmarshaller unmarshaller = jc.createUnmarshaller();
 				processingStatus = (KBProcessingStatus) unmarshaller
 						.unmarshal(responseStream);
