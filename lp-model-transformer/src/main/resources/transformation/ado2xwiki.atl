@@ -742,7 +742,6 @@ rule IREFTypeObjRef2Object {
 			type <- 'StaticList',
 			value <- 'outgoing-weaving'
 		),
-		),
 		lco_p5:XWIKI!Property (
 			name <- 'denomination',
 			type <- 'String',
@@ -907,7 +906,6 @@ rule IREFTypeModRef2Object {
 			name <- 'type',
 			type <- 'StaticList',
 			value <- 'incoming-weaving'
-		)
 		),
 		lci_p5:XWIKI!Property (
 			name <- 'denomination',
