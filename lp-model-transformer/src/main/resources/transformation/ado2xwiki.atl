@@ -556,7 +556,9 @@ rule CONNECTORType2Object {
 						lco_p1,
 						lco_p2,
 						lco_p3,
-						lco_p4}
+						lco_p4,
+						lco_p5,
+						lco_p6}
 		),
 		lco_p0: XWIKI!Property (
 			name <- 'id',
@@ -583,6 +585,16 @@ rule CONNECTORType2Object {
 			type <- 'StaticList',
 			value <- 'outgoing'
 		),
+		lco_p5:XWIKI!Property (
+			name <- 'denomination',
+			type <- 'String',
+			value <- ''
+		),
+		lco_p6:XWIKI!Property (
+			name <- 'trigger',
+			type <- 'String',
+			value <- ''
+		),
 		lci: XWIKI!Object (
 			className <- thisModule._LPLinkClass,
 			number <- c.getNumber(thisModule._TARGET),
@@ -594,8 +606,8 @@ rule CONNECTORType2Object {
 						lci_p2,
 						lci_p3,
 						lci_p4,
-						lco_p5,
-						lco_p6}
+						lci_p5,
+						lci_p6}
 		),
 		lci_p0: XWIKI!Property (
 			name <- 'id',
@@ -622,12 +634,12 @@ rule CONNECTORType2Object {
 			type <- 'StaticList',
 			value <- 'incoming'
 		),
-		lco_p5:XWIKI!Property (
+		lci_p5:XWIKI!Property (
 			name <- 'denomination',
 			type <- 'String',
 			value <- ''
 		),
-		lco_p6:XWIKI!Property (
+		lci_p6:XWIKI!Property (
 			name <- 'trigger',
 			type <- 'String',
 			value <- ''
@@ -701,7 +713,9 @@ rule IREFTypeObjRef2Object {
 						lco_p1,
 						lco_p2,
 						lco_p3,
-						lco_p4}
+						lco_p4,
+						lco_p5,
+						lco_p6}
 		),
 		lco_p0: XWIKI!Property (
 			name <- 'id',
@@ -728,6 +742,17 @@ rule IREFTypeObjRef2Object {
 			type <- 'StaticList',
 			value <- 'outgoing-weaving'
 		),
+		),
+		lco_p5:XWIKI!Property (
+			name <- 'denomination',
+			type <- 'String',
+			value <- ''
+		),
+		lco_p6:XWIKI!Property (
+			name <- 'trigger',
+			type <- 'String',
+			value <- ''
+		),
 		lci: XWIKI!Object (
 			className <- thisModule._LPLinkClass,
 			number <- i.getNumber(thisModule._TARGET),
@@ -738,7 +763,9 @@ rule IREFTypeObjRef2Object {
 						lci_p1,
 						lci_p2,
 						lci_p3,
-						lci_p4}
+						lci_p4,
+						lci_p5,
+						lci_p6}
 		),
 		lci_p0: XWIKI!Property (
 			name <- 'id',
@@ -764,6 +791,16 @@ rule IREFTypeObjRef2Object {
 			name <- 'type',
 			type <- 'StaticList',
 			value <- 'incoming-weaving'
+		),
+		lci_p5:XWIKI!Property (
+			name <- 'denomination',
+			type <- 'String',
+			value <- ''
+		),
+		lci_p6:XWIKI!Property (
+			name <- 'trigger',
+			type <- 'String',
+			value <- ''
 		)
 	do {
 		thisModule.documentRoot.object <- lco;
@@ -793,7 +830,9 @@ rule IREFTypeModRef2Object {
 						lco_p1,
 						lco_p2,
 						lco_p3,
-						lco_p4}
+						lco_p4,
+						lco_p5,
+						lco_p6}
 		),
 		lco_p0: XWIKI!Property (
 			name <- 'id',
@@ -820,6 +859,16 @@ rule IREFTypeModRef2Object {
 			type <- 'StaticList',
 			value <- 'outgoing-weaving'
 		),
+		lco_p5:XWIKI!Property (
+			name <- 'denomination',
+			type <- 'String',
+			value <- ''
+		),
+		lco_p6:XWIKI!Property (
+			name <- 'trigger',
+			type <- 'String',
+			value <- ''
+		),
 		lci: XWIKI!Object (
 			className <- thisModule._LPLinkClass,
 			number <- i.getNumber(thisModule._TARGET),
@@ -830,7 +879,9 @@ rule IREFTypeModRef2Object {
 						lci_p1,
 						lci_p2,
 						lci_p3,
-						lci_p4}
+						lci_p4,
+						lci_p5,
+						lci_p6}
 		),
 		lci_p0: XWIKI!Property (
 			name <- 'id',
@@ -857,6 +908,17 @@ rule IREFTypeModRef2Object {
 			type <- 'StaticList',
 			value <- 'incoming-weaving'
 		)
+		),
+		lci_p5:XWIKI!Property (
+			name <- 'denomination',
+			type <- 'String',
+			value <- ''
+		),
+		lci_p6:XWIKI!Property (
+			name <- 'trigger',
+			type <- 'String',
+			value <- ''
+		)		
 	do {
 		thisModule.documentRoot.object <- lco;
 		thisModule.documentRoot.object <- lci;
