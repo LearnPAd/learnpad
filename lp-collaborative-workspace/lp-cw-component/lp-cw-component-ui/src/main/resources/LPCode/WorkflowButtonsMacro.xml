@@ -211,14 +211,14 @@
                        #set ( $denomination = ${linkObject.getProperty('denomination').value} )
                        #if ( !${denomination.isEmpty()} )
  	                     #set ( $denominationLabelRender = "${services.localization.render('LPCode.WorkflowButtonsMacro.labelDenominationProperty')}")
-	                     #set ($asideRender = " ($denominationLabelRender **$denomination**) ")
+	                     #set ($asideRender = "\\ ($denominationLabelRender **$denomination**) ")
                        #end 
                  #end 
                  #if (${linkObject.getProperty('trigger')})
                        #set ( $trigger = ${linkObject.getProperty('trigger').value} )
                        #if ( !${trigger.isEmpty()} )
  	                     #set ( $triggerLabelRender = "${services.localization.render('LPCode.WorkflowButtonsMacro.labelTriggerProperty')}")
-	                     #set ($asideRender = " ${asideRender}($triggerLabelRender **$trigger**) ")
+	                     #set ($asideRender = "${asideRender}\\ ($triggerLabelRender **$trigger**) ")
                        #end 
                  #end
                  #set ( $foundIt = true )
