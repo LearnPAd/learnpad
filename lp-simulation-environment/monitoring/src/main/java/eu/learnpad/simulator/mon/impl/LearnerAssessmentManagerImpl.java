@@ -124,7 +124,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	}
 
 	@Override
-	public void computeAndSaveScores(List<String> learnersID, String idBPMN, String idPath) {
+	public void computeAndSaveScores(List<String> learnersID, String idBPMN, String idPath, float sessionScore) {
 		
 		
 		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);

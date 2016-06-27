@@ -44,15 +44,15 @@ public class RuleElements {
 		return concat;
 	}
 	
-	public static String getThenClauseWithLearnersScoreUpdateAndProcessStartNotification(Activity[] theActivitySetToSetConsumed, String idBPMN, String idPath) {
+	public static String getThenClauseForCoverageWithLearnersScoreUpdateAndProcessStartNotification(Activity[] theActivitySetToSetConsumed, String idBPMN, String idPath) {
 		String concat = "\n\t\tthen ";
-		for (int i = 0; i<theActivitySetToSetConsumed.length; i++) {
+		for (int i = 0; i<theActivitySetToSetConsumed.length+1; i++) {
 			concat = concat + "\n\t\t\t$"+ i
 					+ "Event.setConsumed(true); \n\t\t\tupdate($"+ i +"Event);"
 					+ "\n\t\t\tretract($"+ i +"Event);";					
 		}
 		 concat = concat + "\n\t\t\t" +
-			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \"" + idBPMN + "\", drools.getRule().getName() );";
+			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \"" + idBPMN + "\", drools.getRule().getName(), $"+ (theActivitySetToSetConsumed.length-1)+"Event.getEvent().timestamp);";
 		return concat;
 	}
 		

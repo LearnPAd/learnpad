@@ -120,9 +120,9 @@ public class ResponseDispatcher {
 		}
 	}
 	
-	public static void saveAndNotifyLearnersScore(String learnersID, String idBPMN, String idPath) {
+	public static void saveAndNotifyLearnersScore(String learnersID, String idBPMN, String idPath, float sessionScore) {
 	
-		ResponseDispatcher.lam.computeAndSaveScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))),idBPMN, idPath);
+		ResponseDispatcher.lam.computeAndSaveScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))),idBPMN, idPath, sessionScore);
 		
 	}
 	
