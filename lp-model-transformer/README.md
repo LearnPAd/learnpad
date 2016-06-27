@@ -45,7 +45,7 @@ curl \
 	--header "Content-Type: application/octet-stream" \
 	--data-binary "@/path/to/model.xml" \
 	--output "/path/to/xwiki-package.xff" \
-	"http://localhost:8080/rest/learnpad/mt/bridge/transform?type={ADOXX,MD}"
+	"http://localhost:8083/rest/learnpad/mt/bridge/transform?type={ADOXX,MD}"
 ```
 
 **Input**

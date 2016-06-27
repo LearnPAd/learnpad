@@ -75,15 +75,6 @@ public class FileOntAO extends OntAO {
         return modelSet;
     }
 
-    @Override
-    protected OntModel loadExecutionData(String modelSetId) {
-        OntModel model = null;
-        try {
-            model = OntologyResourceLoader.loadModel(APP.CONF.getStringArray("execution.data.path"), Lang.TTL);
-        } catch (IOException ex) {
-            Logger.getLogger(FileOntAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return model;
-    }
+
 
 }

@@ -120,4 +120,19 @@ public interface IProcessHandlingAPI {
 	@Path("/instances/{artifactid:.*}")
 	public ProcessInstanceData getProcessInstanceInfos(@PathParam("artifactid") String processInstanceArtifactId)
 			throws LpRestException;
+
+	/**
+	 * @param simulationId
+	 *            the id of the already running simulation
+	 * @param userId
+	 *            the ID of the user who is joining
+	 * @return the path to the process instance running the simulation (url
+	 *         relative to the base URL to access to the simulation)
+	 * @throws LpRestException
+	 *             if any error
+	 */
+	@GET
+	@Path("/instances/{simulationid:.*}/{userid:.*}")
+	public String joinProcessInstance(@PathParam("simulationid") String simulationId,
+			@PathParam("userid") String userId) throws LpRestException;
 }

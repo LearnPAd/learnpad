@@ -34,6 +34,7 @@ import eu.learnpad.cw.UICWBridge;
 import eu.learnpad.cw.rest.data.ScoreRecordCollection;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 
 @Component
 @Named("learnpad")
@@ -114,6 +115,35 @@ public class LearnpadScriptService implements ScriptService, UICWBridge {
 	public String startSimulation(String modelId, String currentUser, Collection<String> potentialUsers) {
 		try {
 			return this.cwBridge.startSimulation(modelId, currentUser, potentialUsers);
+		} catch (LpRestException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	public String joinSimulation(String simulationId, String userId) {
+		try {
+			return this.cwBridge.joinSimulation(simulationId, userId);
+		} catch (LpRestException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	@Override
+	public Collection<String> listSimulations() throws LpRestException {
+		try {
+			return this.cwBridge.listSimulations();
+		} catch (LpRestException e) {
+			this.setLastError(e);
+			return null;
+		}
+	}
+
+	@Override
+	public ProcessInstanceData getSimulationInfo(String simulationId) throws LpRestException {
+		try {
+			return this.cwBridge.getSimulationInfo(simulationId);
 		} catch (LpRestException e) {
 			this.setLastError(e);
 			return null;

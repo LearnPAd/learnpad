@@ -143,6 +143,24 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 	}
 
 	@Override
+	public String getCollaborativeContentVerificationsView(String contentID)
+			throws LpRestException {
+
+		HttpClient httpClient = this.getAnonymousClient();
+		String uri = String.format(
+				"%s/learnpad/ca/bridge/validatecollaborativecontent/%s/view",
+				this.restPrefix, contentID);
+		GetMethod getMethod = new GetMethod(uri);
+
+		try {
+			httpClient.executeMethod(getMethod);
+			return getMethod.getResponseBodyAsString(); 
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+		}
+	}
+
+	@Override
 	public String putValidateStaticContent(StaticContentAnalysis contentFile)
 			throws LpRestException {
 		// TODO Auto-generated method stub
@@ -162,4 +180,12 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public String getStaticContentVerificationsView(String contentID)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

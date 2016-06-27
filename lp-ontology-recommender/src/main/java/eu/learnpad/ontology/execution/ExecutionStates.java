@@ -19,6 +19,7 @@ import com.hp.hpl.jena.rdf.model.Resource;
 
 import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.persistence.OntAO;
+import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.State;
 import eu.learnpad.or.rest.data.States;
@@ -37,7 +38,7 @@ public class ExecutionStates {
 	
     public ExecutionStates() {}
     
-    public States getStatesOfLatestAddedModelSet(String userId){
+    public States getStatesOfLatestAddedModelSet(String userId) throws RecommenderException{
         String latestAddeModelSetId = SimpleModelTransformator.getInstance().getLatestModelSetId();
         if(latestAddeModelSetId == null || latestAddeModelSetId.isEmpty()){
             return new States();
@@ -45,7 +46,7 @@ public class ExecutionStates {
         return getStates(userId, latestAddeModelSetId);
     }
 
-    public States getStates(String userId, String modelSetId) {
+    public States getStates(String userId, String modelSetId) throws RecommenderException {
 
         String queryString = "prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
                 + "prefix bpmn: <http://ikm-group.ch/archiMEO/BPMN#>\n"
@@ -84,7 +85,7 @@ public class ExecutionStates {
                 + "}";
 
         Query query = QueryFactory.create(queryString);
-        OntModel model = FileOntAO.getInstance().getExecutionData(modelSetId);
+        OntModel model = FileOntAO.getInstance().getModelWithExecutionData(modelSetId);
 //        model.write(System.out, "Turtle");
         QueryExecution qexec = null;
         States states = new States();

@@ -39,7 +39,7 @@ import net.sf.saxon.s9api.XdmAtomicValue;
 public final class SimpleModelTransformator {
 
     private static final SimpleModelTransformator instance = new SimpleModelTransformator();
-    private static String latestModelSetId;
+    private String latestModelSetId;
 
     private SimpleModelTransformator() {
         System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
@@ -89,11 +89,11 @@ public final class SimpleModelTransformator {
         return latestOutFile;
     }
 
-    public static String getLatestModelSetId() {
+    public String getLatestModelSetId() {
         return latestModelSetId;
     }
 
-    public static void setLatestModelSetId(String id) {
+    public void setLatestModelSetId(String id) {
         latestModelSetId = id;
     }
 

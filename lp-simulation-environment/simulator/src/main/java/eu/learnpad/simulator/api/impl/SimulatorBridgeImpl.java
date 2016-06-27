@@ -21,6 +21,7 @@ import javax.ws.rs.core.UriInfo;
 
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.sim.BridgeInterface;
 import eu.learnpad.sim.rest.IUserInfosAPI;
 import eu.learnpad.sim.rest.data.ProcessData;
@@ -200,8 +201,8 @@ public class SimulatorBridgeImpl implements BridgeInterface, IUserInfosAPI {
 	 */
 	public String addProcessInstance(ProcessInstanceData data) {
 		String id = simulator.processManager().startProjectInstance(
-				data.processartifactkey, data.parameters, data.users,
-				data.routes);
+				data.getProcessartifactkey(), data.getParameters(), data.getUsers(),
+				data.getRoutes());
 		setResponseToCreated(id);
 		return id;
 	}
@@ -226,6 +227,11 @@ public class SimulatorBridgeImpl implements BridgeInterface, IUserInfosAPI {
 
 		return "uisingleprocess?processid=" + processKey + "&" + "userid="
 		+ currentUser;
+	}
+
+	@Override
+	public String joinProcessInstance(String simulationId, String userId) throws LpRestException {
+		return "ui?userid="	+ userId + "&simulationid=" + simulationId;
 	}
 
 	/*
@@ -273,5 +279,4 @@ public class SimulatorBridgeImpl implements BridgeInterface, IUserInfosAPI {
 	public UserData getUserData(String userartifactid) {
 		return simulator.userHandler().getUserData(userartifactid);
 	}
-
 }

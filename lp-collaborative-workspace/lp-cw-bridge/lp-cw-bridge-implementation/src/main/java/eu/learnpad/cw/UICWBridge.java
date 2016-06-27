@@ -21,11 +21,14 @@ package eu.learnpad.cw;
 
 import java.util.Collection;
 
+import javax.ws.rs.PathParam;
+
 import org.xwiki.component.annotation.Role;
 
 import eu.learnpad.cw.rest.data.ScoreRecordCollection;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.sim.rest.data.ProcessInstanceData;
 
 @Role
 public interface UICWBridge {
@@ -37,6 +40,12 @@ public interface UICWBridge {
 
 	public String startSimulation(String modelId, String currentUser, Collection<String> potentialUsers)
 			throws LpRestException;
+
+	public String joinSimulation(String simulationId, String userId) throws LpRestException;
+
+	Collection<String> listSimulations() throws LpRestException;
+
+	ProcessInstanceData getSimulationInfo(@PathParam("simulationid") String simulationId) throws LpRestException;
 
 	public ScoreRecordCollection getScores(String userid, String modelid) throws LpRestException;
 }

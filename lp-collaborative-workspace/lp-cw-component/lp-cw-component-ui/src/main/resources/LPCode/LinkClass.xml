@@ -49,6 +49,19 @@
     <defaultWeb/>
     <nameField/>
     <validationScript/>
+    <denomination>
+      <customDisplay/>
+      <disabled>0</disabled>
+      <name>denomination</name>
+      <number>5</number>
+      <picker>0</picker>
+      <prettyName>Denomination</prettyName>
+      <size>30</size>
+      <unmodifiable>0</unmodifiable>
+      <validationMessage/>
+      <validationRegExp/>
+      <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+    </denomination>
     <id>
       <customDisplay/>
       <disabled>0</disabled>
@@ -101,6 +114,19 @@
       <validationRegExp/>
       <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
     </targetmodelsetid>
+    <trigger>
+      <customDisplay/>
+      <disabled>0</disabled>
+      <name>trigger</name>
+      <number>6</number>
+      <picker>0</picker>
+      <prettyName>Event Trigger</prettyName>
+      <size>30</size>
+      <unmodifiable>0</unmodifiable>
+      <validationMessage/>
+      <validationRegExp/>
+      <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+    </trigger>
     <type>
       <cache>0</cache>
       <customDisplay/>
@@ -108,7 +134,7 @@
       <displayType>select</displayType>
       <multiSelect>0</multiSelect>
       <name>type</name>
-      <number>5</number>
+      <number>7</number>
       <picker>0</picker>
       <prettyName>Type</prettyName>
       <relationalStorage>0</relationalStorage>

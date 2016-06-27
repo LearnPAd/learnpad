@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xs:element name="cockpit">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="MODEL"/>
+            </xs:sequence>
+            <xs:attribute ref="xml:space" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="MODEL">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="PERSPECTIVE"/>
+            </xs:sequence>
+            <xs:attribute name="ID" use="required" type="xs:integer"/>
+            <xs:attribute name="NAME" use="required"/>
+            <xs:attribute name="TYPE" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="PERSPECTIVE">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element ref="OPERATIONALGOAL"/>
+                <xs:element ref="LEARNINGGOAL"/>
+                <xs:element ref="CRITERION"/>
+            </xs:choice>
+            <xs:attribute name="ID" use="required" type="xs:anyURI"/>
+            <xs:attribute name="NAME" use="required"/>
+            <xs:attribute name="TYPE" use="required" type="xs:NCName"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="OPERATIONALGOAL">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="PARENT">
+                    <xs:attribute name="ID" use="required" type="xs:anyURI"/>
+                    <xs:attribute name="NAME" use="required"/>
+                    <xs:attribute name="TYPE" use="required"/>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="LEARNINGGOAL">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="PARENT">
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" ref="CHAPTER"/>
+                    </xs:sequence>
+                    <xs:attribute name="ID" use="required" type="xs:anyURI"/>
+                    <xs:attribute name="NAME" use="required"/>
+                    <xs:attribute name="TYPE" use="required"/>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CRITERION">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="PARENT">
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" ref="CHAPTER"/>
+                    </xs:sequence>
+                    <xs:attribute name="ID" use="required" type="xs:anyURI"/>
+                    <xs:attribute name="NAME" use="required"/>
+                    <xs:attribute name="TYPE" use="required"/>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="PARENT">
+        <xs:sequence>
+            <xs:element ref="PARENT"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="PARENT">
+        <xs:complexType>
+            <xs:attribute name="ID" use="required" type="xs:anyURI"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CHAPTER">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="ATTRIBUTES"/>
+            </xs:sequence>
+            <xs:attribute name="NAME" use="required" type="xs:NCName"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ATTRIBUTES">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="VALUE"/>
+            </xs:sequence>
+            <xs:attribute name="NAME" use="required"/>
+            <xs:attribute name="TYPE" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="VALUE" type="xs:string"/>
+</xs:schema>

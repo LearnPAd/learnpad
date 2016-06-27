@@ -31,8 +31,8 @@
   <parent>LPUI.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1462204389000</date>
-  <contentUpdateDate>1462204389000</contentUpdateDate>
+  <date>1465231011000</date>
+  <contentUpdateDate>1465231011000</contentUpdateDate>
   <version>1.1</version>
   <title>Translations</title>
   <comment/>
@@ -81,6 +81,8 @@ LPUI.CollaborativeDocumentSheet.button.validate=Validate
 LPUI.ProfilePanel.title=My Account
 LPUI.ProfilePanel.profile=My profile
 LPUI.ProfilePanel.dashboard=My dashboard
+LPUI.ProfilePanel.join=Join simulation
+LPUI.ProfilePanel.join.help=You have been invited into a simulation!
 
 # Recommendation panel
 LPUI.RecommendationPanel.role.title=Role
@@ -105,12 +107,56 @@ SimulationEnvironment.goback=Go back to the browsing of the model
 # Dashboard
 LPUI.Dashboard.section.title=Score on the process "{0}"
 
+# LPDocs
+LPDocs.WebHome.title=How To!
+LPDocs.WebHome.welcome=Browse the following table and learn more about a topic
+LPDocs.Abstract.content=Learn more about a topic.
+LPDocs.Abstract.linkLabel=Click here
+LPDocs.Tours.title=Tours
+LPDocs.Tours.linkLabel=Learn with the Tour
+
+# Tours
+LPTours.BrowsingMode.description=this is foo
+LPTours.BrowsingMode.Body.title=Body, this is foo
+LPTours.BrowsingMode.Body.description=Body, this is foo
+LPTours.BrowsingMode.StartButton.title=StartButton, this is foo
+LPTours.BrowsingMode.StartButton.description=StartButton, this is foo
+LPTours.BrowsingMode.BrowseButton.title=BrowseButton, this is foo
+LPTours.BrowsingMode.BrowseButton.description=BrowseButton, this is foo
+LPTours.BrowsingMode.ContributeButton.title=ContributeButton, this is foo
+LPTours.BrowsingMode.ContributeButton.description=ContributeButton, this is foo
+LPTours.BrowsingMode.FeedbackButton.title=FeedbackButton, this is foo
+LPTours.BrowsingMode.FeedbackButton.description=FeedbackButton, this is foo
+LPTours.BrowsingMode.Navigation.title=Navigation, this is foo
+LPTours.BrowsingMode.Navigation.description=Navigation, this is foo
+LPTours.BrowsingMode.Crosslink.title=Crosslink, this is foo
+LPTours.BrowsingMode.Crosslink.description=Crosslink, this is foo
+LPTours.BrowsingMode.Documents.title=Documents, this is foo
+LPTours.BrowsingMode.Documents.description=Documents, this is foo
+LPTours.BrowsingMode.Organization.title=Organization, this is foo
+LPTours.BrowsingMode.Organization.description=Organization, this is foo
+
+LPTours.BrowsingModeProcess.Body.title=Process Body, this is foo
+LPTours.BrowsingModeProcess.Body.description=Process Body, this is foo
+LPTours.BrowsingModeProcess.Table.title=Process Table, this is foo
+LPTours.BrowsingModeProcess.Table.description=Process Table, this is foo
+LPTours.BrowsingModeProcess.BrowseButton.title=Process BrowseButton, this is foo
+LPTours.BrowsingModeProcess.BrowseButton.description=Process BrowseButton, this is foo
+LPTours.BrowsingModeProcess.SimulationButton.title=Process SimulationButton, this is foo
+LPTours.BrowsingModeProcess.SimulationButton.description=Process SimulationButton, this is foo
+LPTours.BrowsingModeProcess.ContributeButton.title=Process ContributeButton, this is foo
+LPTours.BrowsingModeProcess.ContributeButton.description=Process ContributeButton, this is foo
+LPTours.BrowsingModeProcess.DummyImage.title=Process DummyImage, this is foo
+LPTours.BrowsingModeProcess.DummyImage.description=Process DummyImage, this is foo
+
 ## Macros
 # Workflow buttons macro
 LPCode.WorkflowButtonsMacro.title=Navigate
 LPCode.WorkflowButtonsMacro.previous=Previous steps
 LPCode.WorkflowButtonsMacro.next=Next steps
 LPCode.WorkflowButtonsMacro.poollane=List of elements
+LPCode.WorkflowButtonsMacro.labelDenominationProperty=Branch :
+LPCode.WorkflowButtonsMacro.labelTriggerProperty=Event :
 
 # Organization macro
 LPCode.OrganizationMacro.title=Organization units
@@ -149,7 +195,9 @@ lpcode.livetable.model.id=ID
 lpcode.livetable.model.name=Model name
 lpcode.livetable.model.type=Type
 lpcode.livetable.model.doc.date=Last update
-lpcode.livetable.model._actions=Actions</content>
+lpcode.livetable.model._actions=Actions
+# Docs livetable
+lpcode.livetable.docs.documenttitle=Title</content>
   <object>
     <name>LPCode.Translations</name>
     <number>0</number>

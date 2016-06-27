@@ -117,9 +117,11 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 	 * @see activitipoc.IUIHandler#removeUser(java.lang.String)
 	 */
 	public void removeUser(String userId) {
-		webserver.removeServletHolder(usersMap.get(userId));
-		usersMap.remove(userId);
-		usersInfos.remove(userId);
+		if (usersMap.containsKey(userId)) {
+			webserver.removeServletHolder(usersMap.get(userId));
+			usersMap.remove(userId);
+			usersInfos.remove(userId);
+		}
 	}
 
 	/*
@@ -146,16 +148,20 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 	@Override
 	public void receiveSimulationStartEvent(SimulationStartSimEvent event) {
 		for (String userId : event.involvedusers) {
-			((UIServlet) usersMap.get(userId).getServletInstance())
-			.startSession(event);
+			if (usersMap.containsKey(userId)) {
+				((UIServlet) usersMap.get(userId).getServletInstance())
+						.startSession(event);
+			}
 		}
 	}
 
 	@Override
 	public void receiveSimulationEndEvent(SimulationEndSimEvent event) {
 		for (String userId : event.involvedusers) {
-			((UIServlet) usersMap.get(userId).getServletInstance())
-			.completeSession(event.simulationsessionid);
+			if (usersMap.containsKey(userId)) {
+				((UIServlet) usersMap.get(userId).getServletInstance())
+						.completeSession(event.simulationsessionid);
+			}
 		}
 	}
 
@@ -178,9 +184,11 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 		// note: it is important to signal new tasks to users *after* having
 		// created the corresponding servlet otherwise the user may try to
 		// connect to the task before it is available
-		for (String user : event.involvedusers) {
-			((UIServlet) usersMap.get(user).getServletInstance())
-					.addTask(event.task.id);
+		for (String userId : event.involvedusers) {
+			if (usersMap.containsKey(userId)) {
+				((UIServlet) usersMap.get(userId).getServletInstance())
+						.addTask(event.task.id);
+			}
 		}
 	}
 
@@ -192,8 +200,10 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 	@Override
 	public void receiveTaskEndEvent(TaskEndSimEvent event) {
 		for (String userId : event.involvedusers) {
-			((UIServlet) usersMap.get(userId).getServletInstance())
-			.removeTask(event.task.id);
+			if (usersMap.containsKey(userId)) {
+				((UIServlet) usersMap.get(userId).getServletInstance())
+						.removeTask(event.task.id);
+			}
 		}
 
 		// remove task ui from webserver
