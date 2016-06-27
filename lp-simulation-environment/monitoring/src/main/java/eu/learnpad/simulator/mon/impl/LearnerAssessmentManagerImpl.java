@@ -130,6 +130,9 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	public void computeAndSaveScores(List<String> learnersID, String idBPMN, String idPath, float sessionScore) {
 		
 		
+		//TODO:
+		//calculate all the scores defined within package eu.learnpad.simulator.mon.coverage.ScoreType;
+		
 		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
 		
 		for(int i = 0; i<learnersID.size(); i++) {
