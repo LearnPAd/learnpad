@@ -42,6 +42,7 @@ import javax.naming.InitialContext;
 
 import org.apache.commons.net.ntp.TimeStamp;
 
+import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.simulator.mon.consumer.ConsumerProfile;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 
@@ -120,7 +121,7 @@ public class ResponseDispatcher {
 		}
 	}
 	
-	public static void saveAndNotifyLearnersScore(String learnersID, String idBPMN, String idPath, float sessionScore) {
+	public static void saveAndNotifyLearnersScore(String learnersID, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore) {
 	
 		ResponseDispatcher.lam.computeAndSaveScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))),idBPMN, idPath, sessionScore);
 		

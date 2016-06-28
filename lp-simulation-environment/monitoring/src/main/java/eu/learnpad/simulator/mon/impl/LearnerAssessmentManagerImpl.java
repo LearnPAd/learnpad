@@ -15,6 +15,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.simulator.mon.BPMN.PathExplorer;
 import eu.learnpad.simulator.mon.coverage.Activity;
 import eu.learnpad.simulator.mon.coverage.Bpmn;
@@ -127,7 +128,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	}
 
 	@Override
-	public void computeAndSaveScores(List<String> learnersID, String idBPMN, String idPath, float sessionScore) {
+	public void computeAndSaveScores(List<String> learnersID, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore) {
 		
 		
 		//TODO:

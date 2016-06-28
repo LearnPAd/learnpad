@@ -17,6 +17,7 @@ public class RuleElements {
 				"import eu.learnpad.simulator.mon.rules.DroolsRulesManager;\n\t\t" +
 				"import eu.learnpad.sim.rest.event.AbstractEvent;\n\t\t" +
 				"import eu.learnpad.sim.rest.event.EventType;\n\t\t" +
+				"import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;\n\t\t" +
 				"\t\tdeclare GlimpseBaseEventBPMN\n" +
 				"\t\t\t@role( event )\n" +
 				"\t\t\t@timestamp( timeStamp )\n" +
@@ -52,7 +53,7 @@ public class RuleElements {
 					+ "\n\t\t\tretract($"+ i +"Event);";					
 		}
 		 concat = concat + "\n\t\t\t" +
-			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \"" + idBPMN + "\", drools.getRule().getName(), $"+ (theActivitySetToSetConsumed.length-1)+"Event.getEvent().timestamp);";
+			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \"" + idBPMN + "\", drools.getRule().getName(), (SessionScoreUpdateEvent)$"+ (theActivitySetToSetConsumed.length-1)+"Event.getEvent());";
 		return concat;
 	}
 		
