@@ -173,7 +173,9 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			float learnerAbsoluteGLobalScore = 0;
 			
 			databaseController.updateLearnerScores(learnersID.get(i), learnerGlobalScore, learnerRelativeGlobalScore, learnerAbsoluteGLobalScore);
-					
+				
+			//TODO: propagate all the scores?
+			
 		}
 	}		
 }
