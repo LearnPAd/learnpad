@@ -130,7 +130,6 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	@Override
 	public void computeAndSaveScores(List<String> learnersID, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore) {
 		
-		
 		//TODO:
 		//calculate all the scores defined within package eu.learnpad.simulator.mon.coverage.ScoreType;
 		
@@ -138,40 +137,43 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 		
 		for(int i = 0; i<learnersID.size(); i++) {
 			
+			Date now = new Date();
+			
+			//save sessionScore
+			databaseController.setLearnerSessionScore(learnersID.get(i).toString(), idPath, idBPMN, sessionScore.sessionscore, new java.sql.Date(now.getTime()));
+			
+			//compute learnerBP SCORE
 			float learnerBPScore = ComputeLearnerScore.learnerBP(
 					databaseController.getMaxSessionScores(learnersID.get(i), idBPMN)); 
 			
+			
 			Vector<Path> pathsExecutedByLearner = databaseController.getPathsExecutedByLearner(learnersID.get(i), idBPMN); 
 			
+			//compute relativeBPScore
 			float learnerRelativeBPScore = ComputeLearnerScore.learnerRelativeBP(pathsExecutedByLearner);
 
+			//compute coverage percentage
 			float learnerCoverage = ComputeLearnerScore.BPCoverage(
 					pathsExecutedByLearner,pathsCardinality);
 
+			
 			databaseController.updateBpmnLearnerScores(learnersID.get(i), idBPMN, learnerBPScore, learnerRelativeBPScore, learnerCoverage);
 			
+			//compute globalScore
 			float learnerGlobalScore = ComputeLearnerScore.learnerGlobal(
 					databaseController.getLearnerBPMNScores(learnersID.get(i)));
 		
+			//compute relativeGlobalScore
 			float learnerRelativeGlobalScore = ComputeLearnerScore.learnerRelativeGlobal(
 					databaseController.getLearnerRelativeBPScores(learnersID.get(i)));
 			
-			//float learnerAbsoluteGlobalScore = ComputeScore.learnerAbsoluteGlobal(
+			
+//			float learnerAbsoluteGlobalScore = ComputeScore.learnerAbsoluteGlobal(
 //					databaseController.getBPMNAbsoluteScoresExecutedByLearner(Integer.parseInt(learnersIDs[i]))));
 			float learnerAbsoluteGLobalScore = 0;
 			
 			databaseController.updateLearnerScores(learnersID.get(i), learnerGlobalScore, learnerRelativeGlobalScore, learnerAbsoluteGLobalScore);
 					
 		}
-	}
-	
-	public void saveSessionScore(List<String> learnersID, String idPath, String idBPMN, float sessionScore) {
-		
-		for(int i = 0; i<learnersID.size(); i++) {
-			databaseController.setLearnerSessionScore(learnersID.get(i), idPath, idBPMN, sessionScore);
-		}	
-	}
-	
-
-		
+	}		
 }

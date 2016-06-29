@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
@@ -114,17 +113,16 @@ public class MySqlController implements DBController {
 	}
 	
 	@Override
-	public int setLearnerSessionScore(String idLearner, String idPath, String idBPMN, float sessionScore) {
+	public int setLearnerSessionScore(String idLearner, String idPath, String idBPMN, float sessionScore, java.sql.Date scoreUpdatingDate) {
 	      String query = " insert into path_learner (id_learner, id_path, id_bpmn, session_score, execution_date)"
 	    	        + " values (?, ?, ?, ?, ?) ";
-	    	 Date now = new Date();
 		try {
 			preparedStmt = conn.prepareStatement(query);
 			preparedStmt.setString(1, idLearner);
 			preparedStmt.setString(2, idPath);
 		    preparedStmt.setString(3,idBPMN);
 		    preparedStmt.setFloat(4, sessionScore);
-		    preparedStmt.setDate(5,new java.sql.Date(now.getTime()));
+		    preparedStmt.setDate(5,scoreUpdatingDate);
 
 		    // execute the prepared statement
 		    preparedStmt.execute();

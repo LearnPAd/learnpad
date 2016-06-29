@@ -28,7 +28,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
@@ -125,14 +124,7 @@ public class ResponseDispatcher {
 	
 		ResponseDispatcher.lam.computeAndSaveScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))),idBPMN, idPath, sessionScore);
 		
-	}
-	
-	public static void saveSessionScore (List<String> learnersID, String idBPMN, String idPath, float sessionScore) {
-		
-		ResponseDispatcher.lam.saveSessionScore(learnersID, idPath, idBPMN, sessionScore);
-		
 	}	
-	
 
 	public static void sendResponse(Object object, String enablerName, String answerTopic)
 	{

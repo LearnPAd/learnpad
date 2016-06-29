@@ -23,6 +23,5 @@ public abstract class LearnerAssessmentManager extends Thread {
 
 	public abstract DBController getDBController();
 	public abstract void computeAndSaveScores(List<String> learnersID, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore);
-	public abstract void saveSessionScore(List<String> learnersID, String idPath, String idBPMN, float sessionScore);
 	public abstract Vector<Path> setAllAbsoluteSessionScores(Vector<Path> theGeneratedPath);
 }

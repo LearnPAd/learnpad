@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
@@ -91,17 +90,16 @@ public class H2Controller implements DBController {
 	}
 	
 	@Override
-	public int setLearnerSessionScore(String idLearner, String idPath, String idBPMN, float sessionScore) {
+	public int setLearnerSessionScore(String idLearner, String idPath, String idBPMN, float sessionScore, java.sql.Date scoreUpdatingDate) {
 	      String query = " insert into glimpse.path_learner (id_learner, id_path, id_bpmn, session_score, execution_date)"
 	    	        + " values (?, ?, ?, ?, ?) ";
-	    	 Date now = new Date();
 		try {
 			preparedStmt = conn.prepareStatement(query);
 			preparedStmt.setString(1, idLearner);
 			preparedStmt.setString(2, idPath);
 		    preparedStmt.setString(3,idBPMN);
 		    preparedStmt.setFloat(4, sessionScore);
-		    preparedStmt.setDate(5,new java.sql.Date(now.getTime()));
+		    preparedStmt.setDate(5,scoreUpdatingDate);
 
 		    // execute the prepared statement
 		    preparedStmt.execute();
@@ -573,8 +571,8 @@ public class H2Controller implements DBController {
 		
 		String query = "SELECT max(session_score)"
 				+ " FROM glimpse.path_learner"
-				+ " where id_learner = "+ learnerID
-				+ " and EXISTS (select distinct id_path from path_learner where id_bpmn = '" + idBPMN + "') group by id_path";
+				+ " where id_learner = '"+ learnerID
+				+ "' and EXISTS (select distinct id_path from glimpse.path_learner where id_bpmn = '" + idBPMN + "') group by id_path";
 
 		Vector<Float> retrievedScores = new Vector<Float>();
 
