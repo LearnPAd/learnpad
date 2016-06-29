@@ -2,8 +2,12 @@ package eu.learnpad.simulator.mon.impl;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -26,8 +30,10 @@ import eu.learnpad.simulator.mon.impl.RulesPerPathGeneratorImpl;
 import eu.learnpad.simulator.mon.manager.LearnerAssessmentManager;
 import eu.learnpad.simulator.mon.rules.generator.RulesPerPath;
 import eu.learnpad.simulator.mon.storage.DBController;
+import eu.learnpad.simulator.mon.storage.H2Controller;
 import eu.learnpad.simulator.mon.utils.ComputeLearnerScore;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
+import eu.learnpad.simulator.mon.utils.Manager;
 import it.cnr.isti.labse.glimpse.xml.complexEventRule.ComplexEventRuleActionListDocument;
 
 public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
@@ -156,7 +162,6 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			float learnerCoverage = ComputeLearnerScore.BPCoverage(
 					pathsExecutedByLearner,pathsCardinality);
 
-			
 			databaseController.updateBpmnLearnerScores(learnersID.get(i), idBPMN, learnerBPScore, learnerRelativeBPScore, learnerCoverage);
 			
 			//compute globalScore
@@ -168,14 +173,47 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 					databaseController.getLearnerRelativeBPScores(learnersID.get(i)));
 			
 			
-//			float learnerAbsoluteGlobalScore = ComputeScore.learnerAbsoluteGlobal(
-//					databaseController.getBPMNAbsoluteScoresExecutedByLearner(Integer.parseInt(learnersIDs[i]))));
-			float learnerAbsoluteGLobalScore = 0;
+			//compute absoluteGlobalScore
+			float learnerAbsoluteGlobalScore = ComputeLearnerScore.learnerAbsoluteGlobal(
+					databaseController.getBPMNAbsoluteScoresExecutedByLearner(learnersID.get(i)));
 			
-			databaseController.updateLearnerScores(learnersID.get(i), learnerGlobalScore, learnerRelativeGlobalScore, learnerAbsoluteGLobalScore);
+			databaseController.updateLearnerScores(learnersID.get(i), learnerGlobalScore, learnerRelativeGlobalScore, learnerAbsoluteGlobalScore);
 				
 			//TODO: propagate all the scores?
 			
 		}
-	}		
+	}
+	
+	public static void main(String[] args)
+	{
+		Properties asd = new Properties();
+		asd.setProperty("DB_DRIVER", "org.h2.Driver");
+		asd.setProperty("DB_CONNECTION", "jdbc:h2:./data/glimpse");
+		asd.setProperty("DB_USER", "");
+		asd.setProperty("DB_PASSWORD", "");
+
+		H2Controller c2 = new H2Controller(asd);
+		c2.connectToDB();
+		
+		LearnerAssessmentManager test = new LearnerAssessmentManagerImpl(c2);
+
+		
+		List<String> ciccio = new ArrayList<>();
+		ciccio.add("1");
+		
+		Map<String, Object> asdasd = new HashMap();
+		
+		SessionScoreUpdateEvent up = new SessionScoreUpdateEvent(
+				System.currentTimeMillis(),
+				"simulationsessionid",
+				ciccio,
+				"modelsetid",
+				asdasd,
+				"processartifactid",
+				"user",
+				new Long(30));
+		
+		test.computeAndSaveScores(ciccio, "a23748293649", "a23748293649-1",up);
+		
+	}
 }

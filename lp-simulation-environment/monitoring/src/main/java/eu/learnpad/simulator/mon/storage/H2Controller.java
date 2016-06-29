@@ -415,7 +415,7 @@ public class H2Controller implements DBController {
 
 	@Override
 	public Vector<Path> getPathsExecutedByLearner(String learnerID, String idBPMN) {
-		String query = "SELECT * FROM glimpse.path where id IN( "
+		String query = "SELECT * FROM glimpse.path where id_path IN( "
 				+ "SELECT distinct id_path FROM glimpse.path_learner where id_learner = " +
 				learnerID +	")";
 		Vector<Path> retrievedPath = new Vector<Path>();
@@ -434,7 +434,7 @@ public class H2Controller implements DBController {
 					this.getClass().getSimpleName(),
 					"Executed paths loaded from DB");
 		} catch (SQLException e) {
-			System.err.println("Exception during getBPMNPaths ");
+			System.err.println("Exception during getPathsExecutedByLearner ");
 			System.err.println(e.getMessage());
 		}
         return retrievedPath;
@@ -618,7 +618,7 @@ public class H2Controller implements DBController {
 		try {
 			preparedStmt = conn.prepareStatement(query);
 			resultsSet = preparedStmt.executeQuery();
-			if (resultsSet.getFetchSize() != 0) {  
+			if (resultsSet.wasNull() == false) {  
 				while (resultsSet.next()) {
 					retrievedScores.add(resultsSet.getFloat("absolute_bp_score"));
 				}
@@ -656,6 +656,11 @@ public class H2Controller implements DBController {
 
 								// execute the prepared statement
 							preparedStmt.execute();
+							
+							DebugMessages.println(
+									TimeStamp.getCurrentTime(), 
+									this.getClass().getSimpleName(),
+									"Learner Scores updated");
 						}
 						else {
 							aLearner = new Learner(learnerID,0,learnerGlobalScore,learnerRelativeGlobalScore,learnerAbsoluteGLobalScore);
@@ -689,6 +694,10 @@ public class H2Controller implements DBController {
 
 								// execute the prepared statement
 							preparedStmt.execute();
+							DebugMessages.println(
+									TimeStamp.getCurrentTime(), 
+									this.getClass().getSimpleName(),
+									"BPMN scores updated");
 						}
 						else {
 							 query = " insert into glimpse.bpmn_learner (id_learner, id_bpmn, bp_score, relative_bp_score, bp_coverage)"
