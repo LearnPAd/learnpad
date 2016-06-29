@@ -476,7 +476,7 @@ public class H2Controller implements DBController {
 		DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(),
 				"learnerRelativeGlobalScore Updated");
 	}
-
+	
 	@Override
 	public void setLearnerAbsoluteGlobalScore(String learnerID, float absoluteGlobalScore) {
 		 String query = " update glimpse.learner set absolute_global_score = "+
