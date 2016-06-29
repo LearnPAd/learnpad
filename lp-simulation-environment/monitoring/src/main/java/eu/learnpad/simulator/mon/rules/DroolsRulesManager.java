@@ -68,7 +68,7 @@ public class DroolsRulesManager extends RulesManager {
 		}
 
 		if (kbuilder.getErrors().size() > 0)
-			 throw new IncorrectRuleFormatException(); 
+			 throw new IncorrectRuleFormatException(kbuilder.getErrors()); 
 	}
 
 	@Override

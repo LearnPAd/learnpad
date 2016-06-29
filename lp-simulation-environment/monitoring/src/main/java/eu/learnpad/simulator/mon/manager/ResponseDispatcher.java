@@ -28,7 +28,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
@@ -42,6 +41,7 @@ import javax.naming.InitialContext;
 
 import org.apache.commons.net.ntp.TimeStamp;
 
+import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.simulator.mon.consumer.ConsumerProfile;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 
@@ -120,18 +120,11 @@ public class ResponseDispatcher {
 		}
 	}
 	
-	public static void saveAndNotifyLearnersScore(String learnersID, String idBPMN, String idPath) {
+	public static void saveAndNotifyLearnersScore(String learnersID, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore) {
 	
-		ResponseDispatcher.lam.computeAndSaveScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))),idBPMN, idPath);
-		
-	}
-	
-	public static void saveSessionScore (List<String> learnersID, String idBPMN, String idPath, float sessionScore) {
-		
-		ResponseDispatcher.lam.saveSessionScore(learnersID, idPath, idBPMN, sessionScore);
+		ResponseDispatcher.lam.computeAndSaveScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))),idBPMN, idPath, sessionScore);
 		
 	}	
-	
 
 	public static void sendResponse(Object object, String enablerName, String answerTopic)
 	{
