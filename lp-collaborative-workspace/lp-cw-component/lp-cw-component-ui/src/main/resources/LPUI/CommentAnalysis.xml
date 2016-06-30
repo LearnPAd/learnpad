@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<xwikidoc version="1.2" reference="LPUI.CommentAnalysis" locale="">
+  <web>LPUI</web>
+  <name>CommentAnalysis</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1467276345000</creationDate>
+  <parent>Tour.BrowseElementPageTour</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1467302101000</date>
+  <contentUpdateDate>1467276345000</contentUpdateDate>
+  <version>1.1</version>
+  <title>CommentAnalysis</title>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>true</hidden>
+  <content/>
+  <object>
+    <name>LPUI.CommentAnalysis</name>
+    <number>0</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>7bd77f92-3a55-4077-807d-d7f5409672bb</guid>
+    <class>
+      <name>XWiki.JavaScriptExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>require(['jquery', 'xwiki-meta'], function ($, xm) {
+
+    // Velocity here
+    #set ($userId = $xwiki.getUserName($xcontext.user, '$email', false))
+    #if ("$!userId" == "$email") #set ($userId = "") #end
+    var userId = encodeURIComponent("$userId");
+    // End velocity
+
+    // Hover an recommended element
+    var hoverIn = function (xmlEntity) {
+        return function (evt) {
+            var elmt = $(evt.target);
+            elmt.css('background-color', '#ffc');
+        };
+    };
+    var hoverOut = function (evt) {
+        var elmt = $(evt.target);
+        elmt.css('background-color', '');
+    };
+    var addTooltip = function (xmlEntity, elmt) {
+        var email = '&lt;u&gt;Email&lt;/u&gt;: ' + $(xmlEntity).children('email').text() +'&lt;br&gt;' || "";
+        var phone = '&lt;u&gt;Phone&lt;/u&gt;: ' + $(xmlEntity).children('phoneNumber').text() + '&lt;br&gt;' || "";
+        var skypeId = '&lt;u&gt;Skype&lt;/u&gt;: ' + $(xmlEntity).children('skypeId').text()  + '&lt;br&gt;' || "";
+        var role = '&lt;em&gt;' + $(xmlEntity).children('role').text() + '&lt;/em&gt;&lt;br&gt;' || "";
+        var name = '&lt;strong&gt;' + $(xmlEntity).children('name').text() + '&lt;/strong&gt;&lt;br&gt;' || "";
+        var tooltipData = name + role + email + phone + skypeId;
+
+        $(elmt).attr('data-toggle', 'tooltip');
+        $(elmt).attr('data-placement', 'top');
+        $(elmt).attr('data-html', 'true');
+        $(elmt).attr('title', tooltipData);
+
+        $(elmt).tooltip();
+    };
+
+    //Parse the XML result
+    var processXML = function (model, modelsetId, comment, xml) {
+        var content = $(xml).find('analyzedContent').html();
+
+        var decodedText = $("&lt;p/&gt;").html(content).text(); 
+        comment.find('.commentcontent').html(decodedText);
+
+        $(xml).find('entity').each(function (idx, elmt) {
+            var id = $(elmt).find('id');
+            var entity = id.next();
+            if (!entity.length) { return; }
+
+            var dataElmt = comment.find('[data-recommendation="' + id.text() + '"]');
+            addTooltip(entity, dataElmt);
+
+            // If the recommended element is a person, redirect to its page:
+            // /xwiki/bin/view/{ModelsetID}/{ModelID}/{PersonID}
+            // NOTE: We have to use the email to determine the model ID since it is not provided yet by the REST query
+            if (entity.find('email').length) {
+                var email = $(entity).find('email').text();
+
+                // FIXME : remove the following line when "analyseText" is completed
+                email = email.replace(/\.eu$/, ".com");
+
+                // Get the Model ID from the XML "model"
+                var res = $(model).find('ATTRIBUTE[name="E-Mail"]').filter(function(idx, elmt) {
+                    return $(elmt).text() === email;
+                });
+                if (res.length !== 1) { return; }
+
+                var modelId = (res.parents('model').length === 1) ? res.parents('model').attr('id') : "";
+                var instanceId = (res.parents('instance').length === 1) ? res.parents('instance').attr('id') : "";
+
+                if (!modelId || !instanceId) { return; }
+
+                dataElmt.on('click', function() {
+                    window.location.href = '/xwiki/bin/view/' + encodeURI(modelsetId) + '/' + encodeURI(modelId) + '/' + encodeURI(instanceId);
+                });
+            }
+        });
+
+        comment.find('[data-recommendation]').each(function (idx, elmt) {
+            $(elmt).hover(hoverIn, hoverOut);
+            $(elmt).click
+        });
+    };
+
+    // Rest call
+    var analyseComment = function (model, comment) {
+        // Get the content
+        var contentElmt = comment.find('.commentcontent');
+        var content = contentElmt.length ? contentElmt.html() : null;
+        if (!content) { return; }
+
+        // Get the document metadata
+        var docReferences = xm.documentReference.getReversedReferenceChain();
+        var modelsetId = encodeURI(docReferences[1].name);
+        var artifactId = (docReferences.length === 5) ? encodeURIComponent(docReferences[3].name) : "";
+
+        // Analyse the text
+        var queryString = '?userid=' + userId + '&amp;title=&amp;contextArtifactId=' + artifactId;
+        $.ajax({
+            url: '/xwiki/rest/learnpad/or/bridge/' + modelsetId + '/analysetext' + queryString,
+            method: 'POST',
+            data: content,
+            contentType: 'text/plain',
+            dataType: "xml"
+        }).done(function(xml) {
+            processXML(model, modelsetId, comment, xml);
+        }).fail(function(msg) {
+            console.error(msg);
+        });
+    };
+
+    var comments = $('.xwikicomment');
+
+    var startAnalyse = function(model) {
+        $('.xwikicomment').each(function (idx, elmt) {
+            analyseComment(model, $(elmt));
+        });
+    };
+
+    var initialize = function() {
+        // Get modelset ID
+        var docReferences = xm.documentReference.getReversedReferenceChain();
+        if (docReferences.length !== 4 &amp;&amp; docReferences.length !== 5) { return; }
+        var modelsetId = encodeURI(docReferences[1].name);
+
+        // Get model XML and start analyse
+        $.ajax({
+            url: '/xwiki/rest/learnpad/cw/corefacade/getmodel/' + modelsetId,
+            method: 'GET',
+            dataType: 'xml'
+        }).done(function(xml) {
+            startAnalyse(xml);
+        }).fail(function(msg) {
+            console.error(msg);
+        });
+    };
+
+    // If comments are loaded, we have to initialize now. If they aren't loaded yet, we wait for the event.
+    if (comments.length) {
+        initialize();
+    }
+    document.observe("xwiki:docextra:loaded", function(event){
+        var tabID = event.memo.id;
+        if (tabID == "Comments") {
+            initialize();
+        }
+    });
+});</code>
+    </property>
+    <property>
+      <name>CommentAnalysis</name>
+    </property>
+    <property>
+      <parse>1</parse>
+    </property>
+    <property>
+      <use>always</use>
+    </property>
+  </object>
+  <object>
+    <name>LPUI.CommentAnalysis</name>
+    <number>0</number>
+    <className>XWiki.StyleSheetExtension</className>
+    <guid>232923ae-1558-4297-8378-35386705806d</guid>
+    <class>
+      <name>XWiki.StyleSheetExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>6</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>3</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <contentType>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>contentType</name>
+        <number>1</number>
+        <prettyName>Content Type</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>CSS|LESS</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </contentType>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>2</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>5</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>4</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>.xwikicomment [data-recommendation] {
+  background-color: #ffe;
+  cursor: pointer;
+}
+
+.xwikicomment [data-recommendation]:hover {
+  background-color: #ffd;
+}
+
+.commentcontent .tooltip .tooltip-inner {
+  text-align: left;
+}</code>
+    </property>
+    <property>
+      <contentType>CSS</contentType>
+    </property>
+    <property>
+      <name>CommentAnalysis</name>
+    </property>
+    <property>
+      <parse>0</parse>
+    </property>
+    <property>
+      <use>always</use>
+    </property>
+  </object>
+</xwikidoc>
