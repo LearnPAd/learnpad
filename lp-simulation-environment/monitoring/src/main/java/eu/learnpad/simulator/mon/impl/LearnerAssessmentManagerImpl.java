@@ -19,6 +19,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import eu.learnpad.sim.rest.event.impl.ScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.simulator.mon.BPMN.PathExplorer;
 import eu.learnpad.simulator.mon.coverage.Activity;
@@ -28,6 +29,7 @@ import eu.learnpad.simulator.mon.coverage.Path;
 import eu.learnpad.simulator.mon.impl.PathExplorerImpl;
 import eu.learnpad.simulator.mon.impl.RulesPerPathGeneratorImpl;
 import eu.learnpad.simulator.mon.manager.LearnerAssessmentManager;
+import eu.learnpad.simulator.mon.manager.RestNotifier;
 import eu.learnpad.simulator.mon.rules.generator.RulesPerPath;
 import eu.learnpad.simulator.mon.storage.DBController;
 import eu.learnpad.simulator.mon.storage.H2Controller;
@@ -147,6 +149,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			
 			//save sessionScore
 			databaseController.setLearnerSessionScore(learnersID.get(i).toString(), idPath, idBPMN, sessionScore.sessionscore, new java.sql.Date(now.getTime()));
+			//RestNotifier.getCoreFacade().notifyScoreUpdateEvent(new ScoreUpdateEvent(timestamp, simulationsessionid, involvedusers, modelsetid, simulationSessionData, processartifactid, user, scoreUpdateName, scoreUpdateValue));
 			
 			//compute learnerBP SCORE
 			float learnerBPScore = ComputeLearnerScore.learnerBP(
