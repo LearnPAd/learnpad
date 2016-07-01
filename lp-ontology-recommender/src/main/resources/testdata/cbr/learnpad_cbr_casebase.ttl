@@ -333,7 +333,6 @@ data:CaseStateHistory_for_all
   cbr:belongsToCase data:Leuteri_Installation_antenna_for_WiFi ;
   cbr:belongsToCase data:Lupi_Sciamanna_Vignola_Realization_of_a_residencial_care_facility ;
   cbr:belongsToCase data:Monaldi_Realization_recovery_waste_disposal_plant ;
-  cbr:belongsToCase data:Morbidelli_masonry_walls_in_hotel ;
   cbr:belongsToCase data:Nannini_Installation_of_removable_covers_for_outdoor_dining ;
   cbr:belongsToCase data:Rossi_Realization_of_a_petrol_station_and_a_building_crafts ;
   cbr:caseStateTimestamp "2016-02-03T18:09:41.708"^^xsd:dateTime ;
@@ -497,31 +496,6 @@ data:Monaldi_Realization_recovery_waste_disposal_plant
   lpd:decision "true"^^xsd:boolean ;
   lpd:description "Realization of recovery and waste disposal plant"^^xsd:string ;
   rdfs:label "Monaldi - Realization of a recovery and waste disposal plant"@en ;
-.
-data:Morbidelli_masonry_walls_in_hotel
-  rdf:type lpd:Application ;
-  cbr:caseReleasedAtDate "2015-06-10+00:00"^^xsd:date ;
-  lpd:ApplicationHasType lpd:Realization ;
-  lpd:affectsTargetATECO lpd:Hotels ;
-  lpd:affectsTargetATECO lpd:NotSpecializedConstruction ;
-  lpd:affectsTargetATECO lpd:OverlayingFloorsAndWalls ;
-  lpd:applicationAffectsSector lpd:Building_Sector ;
-  lpd:applicationAffectsSector lpd:Environment_Sector ;
-  lpd:applicationAffectsSector lpd:Public_Security_Sector ;
-  lpd:applicationAffectsSector lpd:Tourism_Sector ;
-  lpd:applicationAffectsTargetBusinessActivity lpd:Commercial_Activity ;
-  lpd:applicationAffectsTargetBusinessActivity lpd:Receptive_Toursim_Activity ;
-  lpd:applicationAffectsZone lpd:Urban_Area ;
-  lpd:applicationIsLocatedInCity lpd:Senigallia ;
-  lpd:applicationIsManagedByPublicAdministration lpd:SUAPSenigallia ;
-  lpd:applicationIsSubmittedByApplicant data:Gianna_Morbidelli ;
-  lpd:applicationRequiresOrganisationalUnits lpd:Building_office ;
-  lpd:applicationRequiresOrganisationalUnits lpd:Estate_office ;
-  lpd:applicationRequiresOrganisationalUnits lpd:Landscape_office ;
-  lpd:applicationRequiresOrganisationalUnits lpd:Superintendence_for_artistic_architectural_environmentand_historical_goods ;
-  lpd:decision "true"^^xsd:boolean ;
-  lpd:description "Realiaziotion of masonry walls in hotel"^^xsd:string ;
-  rdfs:label "Morbidelli - Masonry walls in hotel"@en ;
 .
 data:Nannini_Installation_of_removable_covers_for_outdoor_dining
   rdf:type lpd:Application ;

@@ -122,18 +122,10 @@ lpd:BarAndSimilarBusinessesWithoutCusine
   lpd:isSubATECOCategoryOfCategory lpd:CateringServices ;
   rdfs:label "Bar and similar businesses without cusine"@en ;
 .
-lpd:Barbara_Thoenssen
-  rdf:type eo:Person ;
-  eo:personHasName "Barbara Thönssen"^^xsd:string ;
-  foaf:mbox "barbara.t@fhnw.ch"^^xsd:string ;
-  foaf:personHasFamiliyName "Thönssen"^^xsd:string ;
-  foaf:personHasFirstName "Barbara"^^xsd:string ;
-  foaf:phone "+442 236 7232"^^xsd:string ;
-.
 lpd:Barnaby_Barnes
   rdf:type eo:Person ;
   eo:personHasName "Barnaby Barnes"^^xsd:string ;
-  foaf:mbox "barnaby.barnes@learnpad.eu"^^xsd:string ;
+  foaf:mbox "barnaby.barnes@learnpad.com"^^xsd:string ;
   foaf:personHasFamiliyName "Barnes"^^xsd:string ;
   foaf:personHasFirstName "Barnaby"^^xsd:string ;
   foaf:phone "+442 236 7232"^^xsd:string ;
@@ -204,14 +196,6 @@ lpd:Company_SANITAS_IMPRESA_SOCIALE
   rdf:type eo:OrganisationalUnit ;
   rdfs:label "Company Sanitas Impresa Sociale"@en ;
 .
-lpd:Congyu_Zhang
-  rdf:type eo:Person ;
-  eo:personHasName "Congyu Zhang"^^xsd:string ;
-  foaf:mbox "congyu.z@fhnw.ch"^^xsd:string ;
-  foaf:personHasFamiliyName "Zhang"^^xsd:string ;
-  foaf:personHasFirstName "Congyu"^^xsd:string ;
-  foaf:phone "+442 236 7232"^^xsd:string ;
-.
 lpd:ConstructionAndInstallationOfActivitiesNotCategorized
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:SpecializedConstructionActivities ;
@@ -250,14 +234,6 @@ lpd:Driving_School_Sector
 lpd:Education_Sector
   rdf:type lpd:BusinessSector ;
   rdfs:label "Education sector"@en ;
-.
-lpd:Emanuele_Laurenzi
-  rdf:type eo:Person ;
-  eo:personHasName "Emanuele Laurenzi "^^xsd:string ;
-  foaf:mbox "emanuele.l@fhnw.ch"^^xsd:string ;
-  foaf:personHasFamiliyName "Laurenzi "^^xsd:string ;
-  foaf:personHasFirstName "Emanuele"^^xsd:string ;
-  foaf:phone "+442 236 7232"^^xsd:string ;
 .
 lpd:Energy_Sector
   rdf:type lpd:BusinessSector ;
@@ -378,14 +354,6 @@ lpd:JobDescription
 lpd:JobSpecification
   rdf:type owl:Class ;
   rdfs:subClassOf archi:BusinessObject ;
-.
-lpd:Knut_Hinkelmann
-  rdf:type eo:Person ;
-  eo:personHasName "Knut Hinkelmann"^^xsd:string ;
-  foaf:mbox "knut.h@fhnw.ch"^^xsd:string ;
-  foaf:personHasFamiliyName "Hinkelmann"^^xsd:string ;
-  foaf:personHasFirstName "Knut"^^xsd:string ;
-  foaf:phone "+442 236 7232"^^xsd:string ;
 .
 lpd:Landscape_office
   rdf:type lpd:PublicAdministration ;
@@ -682,26 +650,18 @@ lpd:SUAP_officer
   rdf:type lpd:Learner ;
   rdfs:label "Learner"@en ;
 .
-lpd:Sabrina_Kurjakovic
+lpd:Sally_Shugar
   rdf:type eo:Person ;
-  eo:personHasName "Sabrina Kurjakovic "^^xsd:string ;
-  foaf:mbox "sabrina.k@fhnw.ch"^^xsd:string ;
-  foaf:personHasFamiliyName "Kurjakovic "^^xsd:string ;
-  foaf:personHasFirstName "Sabrina"^^xsd:string ;
-  foaf:phone "+442 236 7232"^^xsd:string ;
+  eo:personHasName "Sally Shugar"^^xsd:string ;
+  foaf:mbox "sally.shugar@learnpad.com"^^xsd:string ;
+  foaf:personHasFamiliyName "Shugar"^^xsd:string ;
+  foaf:personHasFirstName "Sally"^^xsd:string ;
+  foaf:phone "+442 236 7236"^^xsd:string ;
 .
 lpd:San_Ginesio
   rdf:type top:City ;
   lpd:isPartOfProvince lpd:Province_of_Macerata ;
   rdfs:label "San Gensio"@en ;
-.
-lpd:Sandro_Emmenegger
-  rdf:type eo:Person ;
-  eo:personHasName "Sandro Emmenegger"^^xsd:string ;
-  foaf:mbox "sandro.e@fhnw.ch"^^xsd:string ;
-  foaf:personHasFamiliyName "Emmenegger"^^xsd:string ;
-  foaf:personHasFirstName "Sandro"^^xsd:string ;
-  foaf:phone "+442 236 7232"^^xsd:string ;
 .
 lpd:Sarnano
   rdf:type top:City ;

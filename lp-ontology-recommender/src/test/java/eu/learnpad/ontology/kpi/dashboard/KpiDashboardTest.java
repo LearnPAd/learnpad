@@ -69,9 +69,12 @@ public class KpiDashboardTest extends AbstractUnitTest{
         }
         assertTrue(valueFound);
         
-        write(kpiInferencer.getModel(), "C:/Data/Projects/LearnPad/D5.4/testdata/kpi_testdata_export.xml", "RDF/XML");
+//        write(kpiInferencer.getModel(), "C:/Data/Projects/LearnPad/D5.4/testdata/kpi_testdata_export.xml", "RDF/XML");
         
-        KpiDashboard.getInstance().runAssessment();
+        Map<String, byte[]> dashboards = KpiDashboard.getInstance().runAssessment();
+        assertTrue(dashboards.size() > 0);
+        
+        
     }
     
     private OntModel getLatestModel() throws RecommenderException {

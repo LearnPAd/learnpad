@@ -873,6 +873,7 @@ ________________________________________________________________________________
 			<xsl:with-param name="class" select="@class"/>
 			<xsl:with-param name="description" select="./ATTRIBUTE[@name='Description']"/>
 			<xsl:with-param name="periodicity" select="./ATTRIBUTE[@name='Periodicity']"/>
+			<xsl:with-param name="unit" select="./ATTRIBUTE[@name='Unit']"/>
 			<xsl:with-param name="moreIsBetter" select="./ATTRIBUTE[@name='What performance is better?']"/>
 			<xsl:with-param name="thresholdGreenYellow" select="./ATTRIBUTE[@name='Treshold green/yellow']"/>
 			<xsl:with-param name="thresholdYellowRed" select="./ATTRIBUTE[@name='Treshold yellow/red']"/>

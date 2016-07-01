@@ -63,11 +63,11 @@
                         <contextPath>/dashboard</contextPath>
                     </webApp>
                     <httpConnector>
-                        <port>9098</port>
+                        <port>7078</port>
                     </httpConnector>
                     <connectors>
                         <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                            <port>9098</port>
+                            <port>7078</port>
                             <maxIdleTime>6000000</maxIdleTime>
                         </connector>
                     </connectors>

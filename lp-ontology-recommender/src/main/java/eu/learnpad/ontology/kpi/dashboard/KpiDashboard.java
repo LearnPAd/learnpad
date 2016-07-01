@@ -16,12 +16,9 @@ import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.transform.Transformer;
@@ -56,54 +53,68 @@ public class KpiDashboard {
      * Performs a KPI assessment and creates the result as data file for the
      * dashboard.
      *
+     * @return
+     * @throws eu.learnpad.ontology.recommender.RecommenderException
      */
-    public void runAssessment() throws RecommenderException {
+    public Map<String, byte[]> runAssessment() throws RecommenderException {
 
         //1. run inferencer and apply KPI rules
         OntModel model = FileOntAO.getInstance().getModelWithExecutionData(SimpleModelTransformator.getInstance().getLatestModelSetId());
         Inferencer kpiInferencer = new Inferencer(model);
-        
+
+        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        kpiInferencer.getModel().writeAll(bout, "RDF/XML");
+        byte[] modelAsByteArray = bout.toByteArray();
+
+        //2. lookup persons/performers
+        List<Individual> persons = getAllPersons(kpiInferencer.getModel());
+
         TransformerFactory tFactory = TransformerFactory.newInstance();
         Transformer transformer = null;
         try {
             transformer = tFactory.newTransformer(new StreamSource(KpiDashboard.class.getResourceAsStream(APP.CONF.getString("kpi.dashboard.xslt.file"))));
         } catch (TransformerConfigurationException ex) {
-            LOGGER.log(Level.SEVERE, "Cannot initialize xslt transformer for KPI to dashboard transformations. ", ex);
-            return;
+            throw new RecommenderException("Cannot initialize xslt transformer for KPI to dashboard transformations. ", ex);
         }
-        
-        ByteArrayOutputStream bout = new ByteArrayOutputStream();
-        kpiInferencer.getModel().writeAll(bout, "RDF/XML");
-        byte[] modelAsByteArray = bout.toByteArray();
-        
-        //2. lookup persons/performers
-        List<Individual> persons = getAllPersons(kpiInferencer.getModel());
-        
+
+        Map<String, byte[]> dasboardKpisOfBusinessActors = new HashMap<>();
+
         for (Individual person : persons) {
             String businessActorId = OntUtil.getLiteralPropertyString(kpiInferencer.getModel(), person.getURI(), APP.NS.EMO + "performerHasEmailAddress", null);
             if (businessActorId != null) {
-                createBusinessActorDashboard(businessActorId, person.getURI(), modelAsByteArray, transformer);
+                byte[] dashboard = createBusinessActorDashboard(businessActorId, person.getURI(), modelAsByteArray, transformer);
+                if (dashboard != null && dashboard.length > 0) {
+                    dasboardKpisOfBusinessActors.put(businessActorId, dashboard);
+                }
             }
         }
 
         //3. lookup organisational units
-        //4. do transformation for organisational units
+        List<Individual> organisationalUnits = getAllOrganisationalUnits(kpiInferencer.getModel());
+
+        for (Individual organisationalUnit : organisationalUnits) {
+            byte[] dashboard = createBusinessActorDashboard(organisationalUnit.getLocalName(), organisationalUnit.getURI(), modelAsByteArray, transformer);
+            if (dashboard != null && dashboard.length > 0) {
+                dasboardKpisOfBusinessActors.put(organisationalUnit.getLocalName(), dashboard);
+            }
+        }
+
+        return dasboardKpisOfBusinessActors;
     }
 
-    private void createBusinessActorDashboard(String businessActorId, String businessActorUri, byte[] modelAsByteArray, Transformer transformer) {
-        File cockpitXmlFile = getKpiDashboardFile(businessActorId);
-        if (cockpitXmlFile != null) {
-            ByteArrayInputStream bin = null;
-            StreamSource modelSource = null;
+    private byte[] createBusinessActorDashboard(String businessActorId, String businessActorUri, byte[] modelAsByteArray, Transformer transformer) {
+
+            ByteArrayInputStream bin = new ByteArrayInputStream(modelAsByteArray);
+            StreamSource modelSource = new StreamSource(bin);
+            transformer.setParameter("businessActorUri", new XdmAtomicValue(businessActorUri));
+            ByteArrayOutputStream bout = new ByteArrayOutputStream();
+            StreamResult result = new StreamResult(bout);
             try {
-                bin = new ByteArrayInputStream(modelAsByteArray);
-                modelSource = new StreamSource(bin);
-                transformer.setParameter("businessActorUri", new XdmAtomicValue(businessActorUri));
-                transformer.transform(modelSource, new StreamResult(cockpitXmlFile));
+                transformer.transform(modelSource, result);
             } catch (TransformerException ex) {
                 LOGGER.log(Level.WARNING, "Failed to transform model KPI's to dashboard xml for business actor: " + businessActorId, ex);
             }
-        }
+            return bout.toByteArray();
     }
 
     private List<Individual> getAllPersons(OntModel model) {
@@ -111,24 +122,9 @@ public class KpiDashboard {
         return OntUtil.getInstances(model, rootClass);
     }
 
-    private File getKpiDashboardFile(String businessActorId) {
-        File kpiDashboardWorkingFolder = null;
-        File cockpitXmlFile = null;
-        try {
-            Path kpiDashboardWorkingFolderPath = Paths.get(APP.CONF.getString("working.directory"), APP.CONF.getString("kpi.dashboard.data.folder.relative"));
-            kpiDashboardWorkingFolder = kpiDashboardWorkingFolderPath.toFile();
-            if (!kpiDashboardWorkingFolder.getParentFile().exists()) {
-                kpiDashboardWorkingFolder.getParentFile().mkdirs();
-            }
-            cockpitXmlFile = new File(kpiDashboardWorkingFolder, businessActorId + "_cockpit.xml");
-            if (!cockpitXmlFile.exists()) {
-                cockpitXmlFile.createNewFile();
-            }
-
-        } catch (Exception ex) {
-            LOGGER.log(Level.WARNING, "Cannot create KPI dashboard file for business actor: " + businessActorId, ex);
-        }
-        return cockpitXmlFile;
+    private List<Individual> getAllOrganisationalUnits(OntModel model) {
+        OntClass rootClass = model.getOntClass(APP.NS.OMM + "OrganisationalUnit");
+        return OntUtil.getInstances(model, rootClass);
     }
 
 }
