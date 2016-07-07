@@ -83,7 +83,8 @@ public class DASHBridgeImpl extends Bridge {
             @QueryParam("format") @DefaultValue("ADOXXCockpit") KPIValuesFormat format,
             @QueryParam("businessactor") String businessActorId,
             InputStream cockpitContent) throws LpRestException {
-
+        log.info("Started to load dashboard KPI values for business actor with id: " + businessActorId );
+        
         File cockpitXmlFile = getKpiDashboardFile(businessActorId);
         if (cockpitXmlFile != null) {
             try {

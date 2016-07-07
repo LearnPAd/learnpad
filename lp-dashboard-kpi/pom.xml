@@ -28,7 +28,7 @@
 
 	<modules>
 		<module>lp-dash-bridge</module>
-                <module>lp-dash-adoxx-cockpit</module>
+<!-- 		<module>lp-dash-adoxx-cockpit</module> -->
 	</modules>
 	
     <build>
