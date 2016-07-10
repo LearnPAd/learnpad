@@ -119,8 +119,8 @@ public class DASHBridgeImpl extends Bridge {
             }
             java.nio.file.Path kpiDashboardWorkingFolderPath = Paths.get(baseWorkingDirectory.toString(), APP.CONF.getString("lp-dash.kpi.dashboard.data.folder.relative"));
             kpiDashboardWorkingFolder = kpiDashboardWorkingFolderPath.toFile();
-            if (!kpiDashboardWorkingFolder.getParentFile().exists()) {
-                kpiDashboardWorkingFolder.getParentFile().mkdirs();
+            if (!kpiDashboardWorkingFolder.exists()) {
+                kpiDashboardWorkingFolder.mkdirs();
             }
             cockpitXmlFile = new File(kpiDashboardWorkingFolder, businessActorId + "_cockpit.xml");
             if (!cockpitXmlFile.exists()) {

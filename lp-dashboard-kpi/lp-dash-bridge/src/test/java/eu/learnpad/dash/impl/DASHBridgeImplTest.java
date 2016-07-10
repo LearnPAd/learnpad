@@ -28,8 +28,9 @@ public class DASHBridgeImplTest {
         File baseWorkingDirectory = APP.getWorkingDirectory();
         assertNotNull(baseWorkingDirectory);
         File dashobardFilesDir = new File(baseWorkingDirectory + "/" + APP.CONF.getString("lp-dash.kpi.dashboard.data.folder.relative"));
-        assertTrue(dashobardFilesDir.exists());
-        deleteFiles(dashobardFilesDir);
+        if(dashobardFilesDir.exists()){
+            deleteFiles(dashobardFilesDir);
+        }
         
         InputStream cockpitContent = DASHBridgeImplTest.class.getResourceAsStream(APP.CONF.getString("testdata.kpi.input.file"));
         assertNotNull(cockpitContent);
