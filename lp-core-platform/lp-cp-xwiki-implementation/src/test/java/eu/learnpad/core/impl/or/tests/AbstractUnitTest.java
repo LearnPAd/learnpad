@@ -17,31 +17,33 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.dash.rest;
+package eu.learnpad.core.impl.or.tests;
 
-import java.io.InputStream;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
+/**
+ *
+ * @author gulyx
+ */
+public abstract class AbstractUnitTest {
+    
+	private SecureRandom random;
+	
+	protected AbstractUnitTest() {
+	  this.random = new SecureRandom();
+	}
+	
+	protected String randomId() {
+		    return new BigInteger(130, random).toString(32);
+	}
+	
+	protected int randomInt() {
+	    return new BigInteger(10, random).intValue();
+	}
 
-import eu.learnpad.exception.LpRestException;
-import eu.learnpad.dash.rest.data.KPIValuesFormat;
-
-public interface NotifyKPIValues {
-
-	// <host>/learnpad/dash/bridge/loadkpivalues/{modelsetid}?format={ADOXXCockpit}&businessactor=businessActorId
-	@PUT
-	@Path("/loadkpivalues/{modelsetid}")
-	@Consumes(MediaType.APPLICATION_XML)
-	public void loadKPIValues(
-			@PathParam("modelsetid") String modelSetId,
-			@QueryParam("format") @DefaultValue("ADOXXCockpit") KPIValuesFormat format,
-			@QueryParam("businessactor") String businessActorId,
-			InputStream cockpitContent) throws LpRestException;
+	protected SecureRandom getRandomGenerator() {
+	    return this.random;
+	}
 
 }

@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
@@ -91,17 +90,16 @@ public class H2Controller implements DBController {
 	}
 	
 	@Override
-	public int setLearnerSessionScore(String idLearner, String idPath, String idBPMN, float sessionScore) {
+	public int setLearnerSessionScore(String idLearner, String idPath, String idBPMN, float sessionScore, java.sql.Date scoreUpdatingDate) {
 	      String query = " insert into glimpse.path_learner (id_learner, id_path, id_bpmn, session_score, execution_date)"
 	    	        + " values (?, ?, ?, ?, ?) ";
-	    	 Date now = new Date();
 		try {
 			preparedStmt = conn.prepareStatement(query);
 			preparedStmt.setString(1, idLearner);
 			preparedStmt.setString(2, idPath);
 		    preparedStmt.setString(3,idBPMN);
 		    preparedStmt.setFloat(4, sessionScore);
-		    preparedStmt.setDate(5,new java.sql.Date(now.getTime()));
+		    preparedStmt.setDate(5,scoreUpdatingDate);
 
 		    // execute the prepared statement
 		    preparedStmt.execute();
@@ -149,19 +147,16 @@ public class H2Controller implements DBController {
 
 	@Override
 	public int saveCategory(Category theCategory) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public Category getCategory(int theCategoryID) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean updateCategory(int theCategoryid, Category theCategoryToUpdate) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -193,8 +188,26 @@ public class H2Controller implements DBController {
 
 	@Override
 	public Learner getLearner(String idLearner) {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "select * from glimpse.learner where id_learner = \'"+idLearner+"';";
+		Learner theLearnerGathered = null;
+		
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			resultsSet = preparedStmt.executeQuery(); 
+				theLearnerGathered =  new Learner(resultsSet.getString("id_learner"),
+									resultsSet.getInt("id_role"),
+									resultsSet.getFloat("global_score"),
+									resultsSet.getFloat("relative_global_score"),
+									resultsSet.getFloat("absolute_global_score"));
+            DebugMessages.println(
+					TimeStamp.getCurrentTime(), 
+					this.getClass().getSimpleName(),
+					"Learner gathered from DB");
+		} catch (SQLException e) {
+			System.err.println("Exception during getLearner ");
+			System.err.println(e.getMessage());
+		}
+        return theLearnerGathered;
 	}
 
 	@Override
@@ -463,7 +476,7 @@ public class H2Controller implements DBController {
 		DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(),
 				"learnerRelativeGlobalScore Updated");
 	}
-
+	
 	@Override
 	public void setLearnerAbsoluteGlobalScore(String learnerID, float absoluteGlobalScore) {
 		 String query = " update glimpse.learner set absolute_global_score = "+
@@ -573,8 +586,8 @@ public class H2Controller implements DBController {
 		
 		String query = "SELECT max(session_score)"
 				+ " FROM glimpse.path_learner"
-				+ " where id_learner = "+ learnerID
-				+ " and EXISTS (select distinct id_path from path_learner where id_bpmn = '" + idBPMN + "') group by id_path";
+				+ " where id_learner = '"+ learnerID
+				+ "' and EXISTS (select distinct id_path from glimpse.path_learner where id_bpmn = '" + idBPMN + "') group by id_path";
 
 		Vector<Float> retrievedScores = new Vector<Float>();
 
@@ -721,33 +734,3 @@ public class H2Controller implements DBController {
 		return result;
 	}
 }
-	
-//	@Override
-//	public ComplexEventRuleActionListDocument getRulesListForASpecificBPMN(String bpmnIDFromXML) {
-//		
-//		String query = "select path_rule from path where learnpad_bpmn_id = \'"+bpmnIDFromXML+"';";
-//		ComplexEventRuleActionListDocument theResult = ComplexEventRuleActionListDocument.Factory.newInstance();
-//		
-//		try {
-//			preparedStmt = conn.prepareStatement(query);
-//			resultsSet = preparedStmt.executeQuery(); 
-//			ComplexEventRuleActionType anActionType = theResult.addNewComplexEventRuleActionList();
-//			ComplexEventRuleType anInsert;
-//			XmlObject theRuleToLoad;
-//			
-//            while ( resultsSet.next() ) {
-//            	anInsert = anActionType.addNewInsert();
-//            	theRuleToLoad = XmlObject.Factory.parse(resultsSet.getString("path_rule"));
-//    			anInsert.set(theRuleToLoad);
-//            }
-//            DebugMessages.println(
-//					TimeStamp.getCurrentTime(), 
-//					this.getClass().getSimpleName(),
-//					"Extracted paths loaded from DB");
-//        	conn.close();
-//		} catch (SQLException | XmlException e) {
-//			System.err.println("Exception during getRulesListForASpecificBPMN ");
-//			System.err.println(e.getMessage());
-//		}
-//        return theResult;
-//	}

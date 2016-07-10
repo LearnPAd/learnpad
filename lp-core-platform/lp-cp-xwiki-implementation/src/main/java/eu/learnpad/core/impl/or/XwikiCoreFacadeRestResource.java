@@ -25,8 +25,12 @@ import java.io.InputStream;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
+import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.httpclient.methods.RequestEntity;
 
 import eu.learnpad.core.rest.DefaultRestResource;
+import eu.learnpad.dash.rest.data.KPIValuesFormat;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
@@ -86,5 +90,33 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
 		return model;
+	}
+
+	@Override
+	public void pushKPIValues(String modelSetId, KPIValuesFormat format,
+			String businessActorId, InputStream cockpitContent)
+			throws LpRestException {
+		String contentType = "application/xml";
+
+		HttpClient httpClient = this.getAnonymousClient();
+		String uri = String.format("%s/learnpad/or/corefacade/pushkpivalues/%s",
+				DefaultRestResource.REST_URI, modelSetId);
+		PutMethod putMethod = new PutMethod(uri);
+		putMethod.addRequestHeader("Content-Type", contentType);
+
+		NameValuePair[] queryString = new NameValuePair[2];
+		queryString[0] = new NameValuePair("format", format.toString());
+		queryString[1] = new NameValuePair("businessactor", businessActorId);
+		putMethod.setQueryString(queryString);
+
+		RequestEntity requestEntity = new InputStreamRequestEntity(
+				cockpitContent);
+		putMethod.setRequestEntity(requestEntity);
+
+		try {
+			httpClient.executeMethod(putMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
 	}
 }

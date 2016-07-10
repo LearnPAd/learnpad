@@ -15,6 +15,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.simulator.mon.BPMN.PathExplorer;
 import eu.learnpad.simulator.mon.coverage.Activity;
 import eu.learnpad.simulator.mon.coverage.Bpmn;
@@ -83,10 +84,13 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 				
 				Bpmn newBpmn = new Bpmn(bpmnID,now,0, 0, theUnfoldedBPMN.size());
 				
+				//rules for coverage
 				Vector<Path> theGeneratedPath = crossRulesGenerator.generatePathsRules(
 																	crossRulesGenerator.generateAllPaths(theUnfoldedBPMN, newBpmn.getId()));
 				
-				ComplexEventRuleActionListDocument rulesForKPI = KpiRulesGenerator.generateAll(usersInvolved, sessionID, bpmnID, theUnfoldedBPMN);
+				//rules for other kpi calculation
+				ComplexEventRuleActionListDocument rulesForKPI = 
+						KpiRulesGenerator.generateAll(usersInvolved, sessionID, bpmnID, theUnfoldedBPMN);
 				
 				
 				System.out.println();
@@ -124,47 +128,54 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	}
 
 	@Override
-	public void computeAndSaveScores(List<String> learnersID, String idBPMN, String idPath) {
+	public void computeAndSaveScores(List<String> learnersID, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore) {
 		
+		//TODO:
+		//calculate all the scores defined within package eu.learnpad.simulator.mon.coverage.ScoreType;
 		
 		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
 		
 		for(int i = 0; i<learnersID.size(); i++) {
 			
+			Date now = new Date();
+			
+			//save sessionScore
+			databaseController.setLearnerSessionScore(learnersID.get(i).toString(), idPath, idBPMN, sessionScore.sessionscore, new java.sql.Date(now.getTime()));
+			
+			//compute learnerBP SCORE
 			float learnerBPScore = ComputeLearnerScore.learnerBP(
 					databaseController.getMaxSessionScores(learnersID.get(i), idBPMN)); 
 			
+			
 			Vector<Path> pathsExecutedByLearner = databaseController.getPathsExecutedByLearner(learnersID.get(i), idBPMN); 
 			
+			//compute relativeBPScore
 			float learnerRelativeBPScore = ComputeLearnerScore.learnerRelativeBP(pathsExecutedByLearner);
 
+			//compute coverage percentage
 			float learnerCoverage = ComputeLearnerScore.BPCoverage(
 					pathsExecutedByLearner,pathsCardinality);
 
+			
 			databaseController.updateBpmnLearnerScores(learnersID.get(i), idBPMN, learnerBPScore, learnerRelativeBPScore, learnerCoverage);
 			
+			//compute globalScore
 			float learnerGlobalScore = ComputeLearnerScore.learnerGlobal(
 					databaseController.getLearnerBPMNScores(learnersID.get(i)));
 		
+			//compute relativeGlobalScore
 			float learnerRelativeGlobalScore = ComputeLearnerScore.learnerRelativeGlobal(
 					databaseController.getLearnerRelativeBPScores(learnersID.get(i)));
 			
-			//float learnerAbsoluteGlobalScore = ComputeScore.learnerAbsoluteGlobal(
+			
+//			float learnerAbsoluteGlobalScore = ComputeScore.learnerAbsoluteGlobal(
 //					databaseController.getBPMNAbsoluteScoresExecutedByLearner(Integer.parseInt(learnersIDs[i]))));
 			float learnerAbsoluteGLobalScore = 0;
 			
 			databaseController.updateLearnerScores(learnersID.get(i), learnerGlobalScore, learnerRelativeGlobalScore, learnerAbsoluteGLobalScore);
-					
+				
+			//TODO: propagate all the scores?
+			
 		}
-	}
-	
-	public void saveSessionScore(List<String> learnersID, String idPath, String idBPMN, float sessionScore) {
-		
-		for(int i = 0; i<learnersID.size(); i++) {
-			databaseController.setLearnerSessionScore(learnersID.get(i), idPath, idBPMN, sessionScore);
-		}	
-	}
-	
-
-		
+	}		
 }
