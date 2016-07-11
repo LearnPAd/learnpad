@@ -22,6 +22,9 @@ public class Entity {
     private String type;
     private BusinessActor person;
     private RelatedObjects relatedObjects;
+    private String modelSetId;
+    private String modelId;
+    private String ojbectId;
 
     public String getContextArtifactId() {
         return contextArtifactId;
@@ -67,5 +70,34 @@ public class Entity {
     public void setRelatedObjects(RelatedObjects relatedObjects) {
         this.relatedObjects = relatedObjects;
     }
+
+    public String getModelSetId() {
+        return modelSetId;
+    }
+
+    @XmlElement
+    public void setModelSetId(String modelSetId) {
+        this.modelSetId = modelSetId;
+    }
+
+    public String getModelId() {
+        return modelId;
+    }
+
+    @XmlElement
+    public void setModelId(String modelId) {
+        this.modelId = modelId;
+    }
+
+    public String getOjbectId() {
+        return ojbectId;
+    }
+
+    @XmlElement
+    public void setOjbectId(String ojbectId) {
+        this.ojbectId = ojbectId;
+    }
+    
+    
     
 }

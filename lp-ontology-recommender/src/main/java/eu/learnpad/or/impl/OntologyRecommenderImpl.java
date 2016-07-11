@@ -151,11 +151,20 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 
         Entities testData = new Entities();
         String id = UUID.randomUUID().toString();
-        String analysedText = "The activity <i>Organize Conference</i> specified by <span data-recommendation=\"" + id + "\">Sally Shugar</span> should be <b>splitted</b> into 2 activities.";
+
+        //For testing purposes only !
+        String analysedText = text;
+        if(text.contains("Sally Shugar")){
+            analysedText = analysedText.replace("Sally Shugar", "<span data-recommendation=\"" + id + "\">Sally Shugar</span>");
+        }
+        
         testData.setAnalyzedContent(analysedText);
 
         Entity entity = new Entity();
         entity.setId(id);
+        entity.setModelId(modelSetId);
+        entity.setModelId("mod.39886");
+        entity.setOjbectId("obj.39926");
         entity.setContextArtifactId("transfer:obj.35315");
         entity.setType("eo:Person");
         BusinessActor person = new BusinessActor();
