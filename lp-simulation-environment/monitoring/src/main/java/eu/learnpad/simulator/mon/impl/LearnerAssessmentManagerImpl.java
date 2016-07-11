@@ -186,37 +186,38 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			
 		}
 	}
-	
-	public static void main(String[] args)
-	{
-		Properties asd = new Properties();
-		asd.setProperty("DB_DRIVER", "org.h2.Driver");
-		asd.setProperty("DB_CONNECTION", "jdbc:h2:./data/glimpse");
-		asd.setProperty("DB_USER", "");
-		asd.setProperty("DB_PASSWORD", "");
-
-		H2Controller c2 = new H2Controller(asd);
-		c2.connectToDB();
-		
-		LearnerAssessmentManager test = new LearnerAssessmentManagerImpl(c2);
-
-		
-		List<String> ciccio = new ArrayList<>();
-		ciccio.add("1");
-		
-		Map<String, Object> asdasd = new HashMap();
-		
-		SessionScoreUpdateEvent up = new SessionScoreUpdateEvent(
-				System.currentTimeMillis(),
-				"simulationsessionid",
-				ciccio,
-				"modelsetid",
-				asdasd,
-				"processartifactid",
-				"user",
-				new Long(30));
-		
-		test.computeAndSaveScores(ciccio, "a23748293649", "a23748293649-1",up);
-		
-	}
+//       FOR TESTING PURPOSE:
+	//
+//	public static void main(String[] args)
+//	{
+//		Properties asd = new Properties();
+//		asd.setProperty("DB_DRIVER", "org.h2.Driver");
+//		asd.setProperty("DB_CONNECTION", "jdbc:h2:./data/glimpse");
+//		asd.setProperty("DB_USER", "");
+//		asd.setProperty("DB_PASSWORD", "");
+//
+//		H2Controller c2 = new H2Controller(asd);
+//		c2.connectToDB();
+//		
+//		LearnerAssessmentManager test = new LearnerAssessmentManagerImpl(c2);
+//
+//		
+//		List<String> ciccio = new ArrayList<>();
+//		ciccio.add("1");
+//		
+//		Map<String, Object> asdasd = new HashMap();
+//		
+//		SessionScoreUpdateEvent up = new SessionScoreUpdateEvent(
+//				System.currentTimeMillis(),
+//				"simulationsessionid",
+//				ciccio,
+//				"modelsetid",
+//				asdasd,
+//				"processartifactid",
+//				"user",
+//				new Long(30));
+//		
+//		test.computeAndSaveScores(ciccio, "a23748293649", "a23748293649-1",up);
+//		
+//	}
 }

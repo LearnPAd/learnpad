@@ -1,5 +1,6 @@
 import eu.learnpad.simulator.mon.event.GlimpseBaseEventAbstract; 
 import eu.learnpad.simulator.mon.event.GlimpseBaseEventBPMN; 
+import eu.learnpad.simulator.mon.event.GlimpseBaseEventBPMN; 
 import eu.learnpad.sim.rest.event.impl.SimulationStartEvent; 
 import eu.learnpad.sim.rest.event.impl.SimulationEndEvent; 
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent; 
