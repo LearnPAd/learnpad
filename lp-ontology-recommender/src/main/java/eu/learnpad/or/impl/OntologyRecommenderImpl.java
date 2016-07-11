@@ -22,11 +22,10 @@ import org.xwiki.component.phase.InitializationException;
 
 import eu.learnpad.core.impl.or.XwikiBridge;
 import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
-import eu.learnpad.dash.rest.data.KPIValuesFormat;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
-import eu.learnpad.ontology.kpi.dashboard.KpiDashboard;
+import eu.learnpad.ontology.kpi.dashboard.KPILoader;
 import eu.learnpad.ontology.notification.NotificationLog;
 import eu.learnpad.ontology.recommender.Recommender;
 import eu.learnpad.ontology.recommender.RecommenderException;
@@ -50,11 +49,9 @@ import eu.learnpad.or.rest.data.kbprocessing.KBProcessId;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatus;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatusType;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatus.Info;
-import java.io.ByteArrayInputStream;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -253,21 +250,11 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 
         Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.INFO, "Inside " + this.getClass().getCanonicalName() + ".calculateKPI");
             
-        KBProcessId out = new KBProcessId();
-        out.setId("167-this-is-fake-167");
-
-        try {
-            
-            Map<String, byte[]> dasboardKpisOfBusinessActors = KpiDashboard.getInstance().runAssessment();
-            for (Map.Entry<String, byte[]> entry : dasboardKpisOfBusinessActors.entrySet()) {
-                String businessActorId = entry.getKey();
-                byte[] dashboard = entry.getValue();
-                InputStream dashboardStream = new ByteArrayInputStream(dashboard);
-                this.corefacade.pushKPIValues(modelSetId, KPIValuesFormat.ADOXXCockpit, businessActorId, dashboardStream);
-            }
-        } catch (RecommenderException ex) {
-            throw new LpRestExceptionXWikiImpl("Asking for recommendations failed with parameters: modelsetId='" + modelSetId + "'. ", ex);
-        }
+        KPILoader kpiLoader = new KPILoader(this.corefacade, modelSetId);
+        kpiLoader.start();
+        
+        KBProcessId out = new KBProcessId();        
+        out.setId("KPI_"+kpiLoader.getId());
         
         return out;
     }
