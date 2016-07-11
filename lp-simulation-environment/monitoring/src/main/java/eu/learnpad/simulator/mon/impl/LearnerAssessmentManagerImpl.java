@@ -2,12 +2,8 @@ package eu.learnpad.simulator.mon.impl;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -19,7 +15,6 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import eu.learnpad.sim.rest.event.impl.ScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.simulator.mon.BPMN.PathExplorer;
 import eu.learnpad.simulator.mon.coverage.Activity;
@@ -29,13 +24,10 @@ import eu.learnpad.simulator.mon.coverage.Path;
 import eu.learnpad.simulator.mon.impl.PathExplorerImpl;
 import eu.learnpad.simulator.mon.impl.RulesPerPathGeneratorImpl;
 import eu.learnpad.simulator.mon.manager.LearnerAssessmentManager;
-import eu.learnpad.simulator.mon.manager.RestNotifier;
 import eu.learnpad.simulator.mon.rules.generator.RulesPerPath;
 import eu.learnpad.simulator.mon.storage.DBController;
-import eu.learnpad.simulator.mon.storage.H2Controller;
 import eu.learnpad.simulator.mon.utils.ComputeLearnerScore;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
-import eu.learnpad.simulator.mon.utils.Manager;
 import it.cnr.isti.labse.glimpse.xml.complexEventRule.ComplexEventRuleActionListDocument;
 
 public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
@@ -100,8 +92,6 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 				ComplexEventRuleActionListDocument rulesForKPI = 
 						KpiRulesGenerator.generateAll(usersInvolved, sessionID, bpmnID, theUnfoldedBPMN);
 				
-				
-				System.out.println();
 				theGeneratedPath = setAllAbsoluteSessionScores(theGeneratedPath);
 				
 				this.rulesLists = crossRulesGenerator.instantiateRulesSetForUsersInvolved(
