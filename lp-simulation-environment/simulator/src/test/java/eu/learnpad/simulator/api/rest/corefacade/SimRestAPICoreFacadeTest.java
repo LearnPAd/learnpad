@@ -99,38 +99,38 @@ public class SimRestAPICoreFacadeTest {
 
 		// send events
 		try {
-			receiverClient.receiveSimulationEndEvent(new SimulationEndEvent(
+			receiverClient.notifySimulationEndEvent(new SimulationEndEvent(
 					System.currentTimeMillis(), "1", Arrays.asList("test"),
 					null, null));
 
 			receiverClient
-			.receiveSimulationStartEvent(new SimulationStartEvent(
+			.notifySimulationStartEvent(new SimulationStartEvent(
 					System.currentTimeMillis(), "1", Arrays
 					.asList("test"), null, null));
 
-			receiverClient.receiveProcessEndEvent(new ProcessEndEvent(System
+			receiverClient.notifyProcessEndEvent(new ProcessEndEvent(System
 					.currentTimeMillis(), "1", Arrays.asList("test"), null,
 					null, "1"));
 
-			receiverClient.receiveProcessStartEvent(new ProcessStartEvent(
+			receiverClient.notifyProcessStartEvent(new ProcessStartEvent(
 					System.currentTimeMillis(), "1", Arrays.asList("test"),
 					null, null, "1"));
 
-			receiverClient.receiveTaskEndEvent(new TaskEndEvent(System
+			receiverClient.notifyTaskEndEvent(new TaskEndEvent(System
 					.currentTimeMillis(), "1", Arrays.asList("test"), null,
 					null, "1", "1", Arrays.asList("test"), "test",
 					new HashMap<String, Object>()));
 
-			receiverClient.receiveTaskFailedEvent(new TaskFailedEvent(System
+			receiverClient.notifyTaskFailedEvent(new TaskFailedEvent(System
 					.currentTimeMillis(), "1", Arrays.asList("test"), null,
 					null, "1", "1", Arrays.asList("test"), "test",
 					new HashMap<String, Object>()));
 
-			receiverClient.receiveTaskStartEvent(new TaskStartEvent(System
+			receiverClient.notifyTaskStartEvent(new TaskStartEvent(System
 					.currentTimeMillis(), "1", Arrays.asList("test"), null,
 					null, "1", "1", Arrays.asList("test")));
 			receiverClient
-			.receiveSessionScoreUpdateEvent(new SessionScoreUpdateEvent(
+			.notifySessionScoreUpdateEvent(new SessionScoreUpdateEvent(
 					System.currentTimeMillis(), "1", Arrays
 					.asList("test"), null, null, "1", "1", 1L));
 
