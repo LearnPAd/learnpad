@@ -80,10 +80,8 @@ public class MyGlimpseProbe_SimMonLearnPAd extends GlimpseAbstractProbe {
 		try {
 			this.sendEventMessage(message, false);
 		} catch (JMSException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NamingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}	
@@ -164,7 +162,6 @@ public class MyGlimpseProbe_SimMonLearnPAd extends GlimpseAbstractProbe {
 			aGenericProbe.generateAndSendExample_GlimpseBaseEvents_StringPayload("SIMULATION_END", event);
 			
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

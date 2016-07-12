@@ -61,27 +61,47 @@ public class RulesPerPathGeneratorImpl implements RulesPerPath {
 				
 		String concat = "";
 		for(int j = 0; j<anActivitiesSet.length; j++) {
+			
 			if (j == 0) {
 				concat = "\t\t\t$"+j+"Event : GlimpseBaseEventBPMN("+
 						"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
-						+", this.getEvent().involvedusers.get(##I##).toString() == \"##USERSINVOLVEDIDS##\""
+						+", this.getEvent().involvedusers.get(0).toString() == \"##USERSINVOLVEDIDS##\""
 						+", this.getEvent.type == EventType.TASK_END.toString()"
 						+", this.isException == false"
 						+", this.getEventName == \"" + anActivitiesSet[j].getName() +"\");\n";
 			} else {
-				concat +="\t\t\t$"+j+"Event : GlimpseBaseEventBPMN(" +
-						"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
-						+", this.getEvent().involvedusers.get(##I##).toString() == \"##USERSINVOLVEDIDS##\""
-						+", this.getEvent.type == EventType.TASK_END.toString()"
-						+", this.isException == false"
-						+", this.getEventName == \"" + anActivitiesSet[j].getName() +"\""
-						+", this after $" + (j-1) + "Event);\n";
-			}
+			
+				if (j == anActivitiesSet.length-1) {
+					
+					concat +="\t\t\t$"+j+"Event : GlimpseBaseEventBPMN(" +
+							"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
+							+", this.getEvent().involvedusers.get(0).toString() == \"##USERSINVOLVEDIDS##\""
+							+", this.getEvent.type == EventType.SESSION_SCORE_UPDATE.toString()"
+							+", this.isException == false"
+							+", this after $" + (j-1) + "Event);\n";
+						
+					concat +="\t\t\t$"+(j+1)+"Event : GlimpseBaseEventBPMN(" +
+							"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
+							+", this.getEvent().involvedusers.get(0).toString() == \"##USERSINVOLVEDIDS##\""
+							+", this.getEvent.type == EventType.TASK_END.toString()"
+							+", this.isException == false"
+							+", this.getEventName == \"" + anActivitiesSet[j].getName() +"\""
+							+", this after $" + (j) + "Event);\n";
+					} else {
+						concat +="\t\t\t$"+(j)+"Event : GlimpseBaseEventBPMN(" +
+							"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
+							+", this.getEvent().involvedusers.get(0).toString() == \"##USERSINVOLVEDIDS##\""
+							+", this.getEvent.type == EventType.TASK_END.toString()"
+							+", this.isException == false"
+							+", this.getEventName == \"" + anActivitiesSet[j].getName() +"\""
+							+", this after $" + (j-1) + "Event);\n";
+					}			
+			}			
 		}
 		aInsert.setRuleBody(RuleElements.getHeader(aInsert.getRuleName(),  "java") +
 				RuleElements.getWhenClause() + 
 				concat + 
-				RuleElements.getThenClauseWithLearnersScoreUpdateAndProcessStartNotification(anActivitiesSet, idBPMN, idPath) +
+				RuleElements.getThenClauseForCoverageWithLearnersScoreUpdateAndProcessStartNotification(anActivitiesSet, idBPMN, idPath) +
 				RuleElements.getEnd());
 		return aInsert;
 	}
@@ -101,7 +121,10 @@ public class RulesPerPathGeneratorImpl implements RulesPerPath {
 	}*/
 	
 	@Override
-	public ComplexEventRuleActionListDocument instantiateRulesSetForUsersInvolved(Vector<Path> thePathsToInstantiate, Vector<Learner> usersInvolved, String sessionID) {
+	public ComplexEventRuleActionListDocument instantiateRulesSetForUsersInvolved(
+								Vector<Path> thePathsToInstantiate,
+								Vector<Learner> usersInvolved, String sessionID) {
+		
 		rulesToLoad = ComplexEventRuleActionListDocument.Factory.newInstance();
 		
 		String updatedPath;
@@ -118,7 +141,7 @@ public class RulesPerPathGeneratorImpl implements RulesPerPath {
 				for (int j=0; j< usersInvolved.size()-1;j++) {
 					usersInvolvedText += usersInvolved.get(j).getId() + "\" || this.getEvent().involvedusers.get(##I##).toString() == \"";
 					usersInvolvedList += usersInvolved.get(j).getId() + ","; 
-					usersInvolvedText = usersInvolvedText.replaceAll("##I##", String.valueOf(j));
+					usersInvolvedText = usersInvolvedText.replaceAll("##I##", String.valueOf(j+1));
 				}
 				usersInvolvedText += usersInvolved.get(usersInvolved.size()-1).getId();
 				usersInvolvedList +=usersInvolved.get(usersInvolved.size()-1).getId();
@@ -130,7 +153,6 @@ public class RulesPerPathGeneratorImpl implements RulesPerPath {
 			
 			updatedPath = updatedPath.replaceAll("##USERSINVOLVEDIDS##", usersInvolvedText);
 			updatedPath = updatedPath.replaceAll("##LEARNERSINVOLVEDID##", usersInvolvedList);
-			updatedPath = updatedPath.replaceAll("##I##", "0");
 			
 			try {
 				

@@ -64,7 +64,7 @@ public interface DBController {
 	
 	//path_learner table
 	public float getLearnerSessionScore(String idLearner, String idPath, String idBpmn);
-	public int setLearnerSessionScore(String idLearner, String idPath, String idBpmn, float sessionScore);
+	public int setLearnerSessionScore(String idLearner, String idPath, String idBpmn, float sessionScore, java.sql.Date scoreUpdatingDate);
 	
 	//learner table
 	public void setLearnerGlobalScore(String learnerID, float learnerGlobalScore);
