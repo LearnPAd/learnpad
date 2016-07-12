@@ -1,6 +1,5 @@
 import eu.learnpad.simulator.mon.event.GlimpseBaseEventAbstract; 
 import eu.learnpad.simulator.mon.event.GlimpseBaseEventBPMN; 
-import eu.learnpad.simulator.mon.event.GlimpseBaseEventBPMN; 
 import eu.learnpad.sim.rest.event.impl.SimulationStartEvent; 
 import eu.learnpad.sim.rest.event.impl.SimulationEndEvent; 
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent; 
@@ -147,5 +146,24 @@ then
 	$aEvent.setConsumed(true); 
 	update($aEvent); 
 	RestNotifier.notifyTaskEndDemo($aEvent.getTimeStamp(), (TaskEndEvent)$aEvent.getEvent()); 
+	retract($aEvent);		 	
+end   
+
+rule "Forward to the CP - SessionScoreUpdate" 
+no-loop true 
+
+salience 20 
+
+dialect "java" 
+
+when 
+ 	$aEvent : GlimpseBaseEventBPMN(
+		this.isConsumed == false,
+		this.isException == false,
+		this.getEventName == EventType.SCORE_UPDATE.toString());  
+then		
+	$aEvent.setConsumed(true); 
+	update($aEvent); 
+	RestNotifier.notifySessionScoreUpdateDemo($aEvent.getTimeStamp(), (SessionScoreUpdateEvent)$aEvent.getEvent()); 
 	retract($aEvent);		 	
 end   
