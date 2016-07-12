@@ -57,7 +57,7 @@ IProcessEventReceiver, IRobotHandler {
 	private final IProcessManager processManager;
 
 	// map of userId -> robot
-	private final Map<String, IRobot<TaskInput, Map<String, Object>>> robots = new HashMap<String, IRobot<TaskInput, Map<String, Object>>>();
+	private final Map<String, IRobot<TaskInput, Map<String, Object>>> robots = new HashMap<>();
 
 	public RobotUserEventReceiver(
 			IRobotFactory<TaskInput, Map<String, Object>> robotFactory,
@@ -128,6 +128,8 @@ IProcessEventReceiver, IRobotHandler {
 				// solve the task
 				Map<String, Object> outData = robots.get(user).handleTask(
 						event.task.id, inputExtractor.getInput(event.task.id));
+
+				System.out.println("Robot submitted task " + event.task.id + " with data " + outData);
 
 				// submit the answer
 				LearnPadTaskSubmissionResult result = processManager

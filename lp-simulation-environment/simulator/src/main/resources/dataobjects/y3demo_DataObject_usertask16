@@ -1,0 +1,1 @@
+suapChoice,"Status of the request",enum,true,"",suapAsk,"Ask amendment",suapOk,"Provide authorization",suapUC,"Provide authorization under condition",suapKo,"Reject application",suapDec,"Take decision"

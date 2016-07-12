@@ -1,0 +1,887 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <collaboration id="Collaboration">
+    <participant id="pool1" processRef="y3-demo"></participant>
+  </collaboration>
+  <process id="y3-demo" name="SUAP Process - Service Conference" isExecutable="true">
+    <laneSet id="laneSet_process_pool1">
+      <lane id="lane1" name="Other Office 1">
+        <flowNodeRef>usertask3</flowNodeRef>
+        <flowNodeRef>usertask5</flowNodeRef>
+        <flowNodeRef>exclusivegateway3</flowNodeRef>
+        <flowNodeRef>exclusivegateway4</flowNodeRef>
+        <flowNodeRef>usertask7</flowNodeRef>
+        <flowNodeRef>usertask11</flowNodeRef>
+        <flowNodeRef>exclusivegateway5</flowNodeRef>
+        <flowNodeRef>usertask14</flowNodeRef>
+        <flowNodeRef>exclusivegateway8</flowNodeRef>
+      </lane>
+      <lane id="lane2" name="Other Office 2">
+        <flowNodeRef>usertask2</flowNodeRef>
+        <flowNodeRef>usertask4</flowNodeRef>
+        <flowNodeRef>exclusivegateway1</flowNodeRef>
+        <flowNodeRef>exclusivegateway2</flowNodeRef>
+        <flowNodeRef>usertask6</flowNodeRef>
+        <flowNodeRef>usertask8</flowNodeRef>
+        <flowNodeRef>exclusivegateway7</flowNodeRef>
+        <flowNodeRef>usertask15</flowNodeRef>
+        <flowNodeRef>exclusivegateway9</flowNodeRef>
+      </lane>
+      <lane id="lane3" name="SUAP Officer">
+        <flowNodeRef>startevent1</flowNodeRef>
+        <flowNodeRef>usertask1</flowNodeRef>
+        <flowNodeRef>usertask16</flowNodeRef>
+        <flowNodeRef>usertask17</flowNodeRef>
+        <flowNodeRef>exclusivegateway10</flowNodeRef>
+        <flowNodeRef>usertask17</flowNodeRef>
+        <flowNodeRef>usertask18</flowNodeRef>
+        <flowNodeRef>usertask19</flowNodeRef>
+        <flowNodeRef>usertask20</flowNodeRef>
+        <flowNodeRef>usertask21</flowNodeRef>
+        <flowNodeRef>usertask22</flowNodeRef>
+        <flowNodeRef>exclusivegateway11</flowNodeRef>
+        <flowNodeRef>endevent1</flowNodeRef>
+        <flowNodeRef>endevent2</flowNodeRef>
+        <flowNodeRef>parallelgateway1</flowNodeRef>
+        <flowNodeRef>parallelgateway2</flowNodeRef>
+      </lane>
+    </laneSet>
+
+    <dataObject
+        id="DataObject_0"
+        name="y3demo_DataObject_0" />
+    <dataObject
+        id="DataObject_1"
+        name="y3demo_DataObject_usertask01" />
+    <dataObject
+        id="DataObject_2"
+        name="y3demo_DataObject_usertask02" />
+    <dataObject
+        id="DataObject_3"
+        name="y3demo_DataObject_usertask03" />
+    <dataObject
+        id="DataObject_4"
+        name="y3demo_DataObject_usertask04" />
+    <dataObject
+        id="DataObject_5"
+        name="y3demo_DataObject_usertask05" />
+    <dataObject
+        id="DataObject_6"
+        name="y3demo_DataObject_usertask06" />
+    <dataObject
+        id="DataObject_7"
+        name="y3demo_DataObject_usertask07" />
+    <dataObject
+        id="DataObject_8"
+        name="y3demo_DataObject_usertask08" />
+    <dataObject
+        id="DataObject_11"
+        name="y3demo_DataObject_usertask11" />
+    <dataObject
+        id="DataObject_14"
+        name="y3demo_DataObject_usertask14" />
+    <dataObject
+        id="DataObject_15"
+        name="y3demo_DataObject_usertask15" />
+    <dataObject
+        id="DataObject_16"
+        name="y3demo_DataObject_usertask16" />
+    <dataObject
+        id="DataObject_17"
+        name="y3demo_DataObject_usertask17" />
+    <dataObject
+        id="DataObject_18"
+        name="y3demo_DataObject_usertask18" />
+    <dataObject
+        id="DataObject_19"
+        name="y3demo_DataObject_usertask19" />
+    <dataObject
+        id="DataObject_20"
+        name="y3demo_DataObject_usertask20" />
+    <dataObject
+        id="DataObject_21"
+        name="y3demo_DataObject_usertask21" />
+    <dataObject
+        id="DataObject_22"
+        name="y3demo_DataObject_usertask22" />
+    
+    <startEvent id="startevent1" name="Start"></startEvent>
+    
+    <userTask id="usertask1" name="Service Conference Invitation">
+      <documentation>In this activity the SUAP office has to send to PAs the Instance for checking. One representative for each convened administration takes part in the decision, who has the power to make a binding decision for the relevant administration it represents. These convened administration are contacted.
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput1" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput1</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput1</sourceRef>
+        <targetRef>DataObject_1</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
+    
+    <userTask id="usertask2" name="Put Stamps on Received Documentation">
+      <documentation>TODO
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput2" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput2</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput2</sourceRef>
+        <targetRef>DataObject_2</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Other_Office2)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <userTask id="usertask3" name="Put Stamps on Received Documentation">
+      <documentation>TODO
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput3" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput3</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput3</sourceRef>
+        <targetRef>DataObject_3</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Other_Office1)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <userTask id="usertask4" name="Check Provided Documentation">
+      <documentation>TODO
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput4" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput4</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput4</sourceRef>
+        <targetRef>DataObject_4</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Other_Office2)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <sequenceFlow id="flow4" sourceRef="usertask2" targetRef="usertask4"></sequenceFlow>
+    
+    <userTask id="usertask5" name="Check Provided Documentation">
+      <documentation>TODO
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput5" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput5</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput5</sourceRef>
+        <targetRef>DataObject_5</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Other_Office1)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <sequenceFlow id="flow5" sourceRef="usertask3" targetRef="usertask5"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow6" sourceRef="usertask4" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="exclusivegateway1" targetRef="exclusivegateway2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${off2Choice != "off2Miss"}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow8" sourceRef="usertask5" targetRef="exclusivegateway3"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow9" sourceRef="exclusivegateway3" targetRef="exclusivegateway4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${off1Choice != "off1Miss"}]]></conditionExpression>
+    </sequenceFlow>
+    
+    <userTask id="usertask6" name="Ask for Integration">
+      <documentation>TODO
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput6" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput6</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput6</sourceRef>
+        <targetRef>DataObject_6</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Other_Office2)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <sequenceFlow id="flow10" sourceRef="exclusivegateway1" targetRef="usertask6">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${off2Choice == "off2Miss"}]]></conditionExpression>
+    </sequenceFlow>
+    
+    <userTask id="usertask7" name="Ask for Integration">
+      <documentation>TODO
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput7" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput7</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput7</sourceRef>
+        <targetRef>DataObject_7</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Other_Office1)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <sequenceFlow id="flow11" sourceRef="exclusivegateway3" targetRef="usertask7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${off1Choice == "off1Miss"}]]></conditionExpression>
+    </sequenceFlow>
+    
+    <userTask id="usertask8" name="Take a Decision">
+      <documentation>TODO
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput8" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput8</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput8</sourceRef>
+        <targetRef>DataObject_8</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Other_Office2)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <userTask id="usertask11" name="Take a Decision">
+      <documentation>TODO
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput11" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput11</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput11</sourceRef>
+        <targetRef>DataObject_11</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Other_Office1)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <sequenceFlow id="flow15" sourceRef="exclusivegateway4" targetRef="usertask11">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${off1Choice == "off1Ok"}]]></conditionExpression>
+    </sequenceFlow>
+    
+    <exclusiveGateway id="exclusivegateway5" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow18" sourceRef="usertask11" targetRef="exclusivegateway5"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow12" sourceRef="exclusivegateway2" targetRef="usertask8">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${off2Choice == "off2Ok"}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway7" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow24" sourceRef="usertask8" targetRef="exclusivegateway7"></sequenceFlow>
+    
+    <userTask id="usertask14" name="Provide Opinion">
+      <documentation>TODO
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput14" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput14</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput14</sourceRef>
+        <targetRef>DataObject_14</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Other_Office1)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <sequenceFlow id="flow27" sourceRef="exclusivegateway5" targetRef="usertask14"></sequenceFlow>
+    
+    <userTask id="usertask15" name="Provide Opinion">
+      <documentation>TODO
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput15" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput15</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput15</sourceRef>
+        <targetRef>DataObject_15</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(Other_Office2)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <sequenceFlow id="flow28" sourceRef="exclusivegateway7" targetRef="usertask15"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway8" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow29" sourceRef="usertask14" targetRef="exclusivegateway8"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway9" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow30" sourceRef="usertask15" targetRef="exclusivegateway9"></sequenceFlow>
+    <sequenceFlow id="flow31" sourceRef="exclusivegateway4" targetRef="exclusivegateway8">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${off1Choice == "off1Ko"}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow32" sourceRef="exclusivegateway2" targetRef="exclusivegateway9">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${off2Choice == "off2Ko"}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow33" sourceRef="usertask7" targetRef="exclusivegateway5"></sequenceFlow>
+    <sequenceFlow id="flow34" sourceRef="usertask6" targetRef="exclusivegateway7"></sequenceFlow>
+    
+    <userTask id="usertask16" name="Evaluate check of Third Party">
+      <documentation>In this activity the SUAP office receives the opinion of other PAs relate to the specific Titolo Unico.
+&lt;div class="_answers"&gt;&lt;/div&gt;
+&lt;script&gt; var names = {"offEdiuzia":"UFFICIO EDILIZIA", "offPorto":"UFFICIO PORTO", "offAmb":"Ufficio AMBIANTE", "offAtt":"UFFICIO ATTIVITA' PRODDUTTIVE", "offPolizia":"POLIZIA MUNICIPALE", "offTrib":"UFFICIO TRIBUTI", "offPat":"UFFICIO PATRIMONIO", "offSind":"SINDACO - autorità di pubblica sicurezza", "offARPAM":"ARPAM", "offServIgiene":"SERVIZIO IGIENE E SANITA' PUBBLICA", "offDepIgiene":"DEPARTIMENTO IGIENE ALIMENTI E NUTRIZIONE", "offPrev":"DIPARTIMENTO DI PREVENZIONE E SICUREZZA NEI LUOGHI DI LAVORO", "offVVFF":"VVFF - DIPARTIMENTO DI PREVENZIONE INCENDI", "offAreaAmb":"AREA AMBIENTE", "offAreaEco":"AREA ECOLOGIA -&gt; emissioni in atmosfera", "offVal":"REGIONE - PF VALUTAZIONI ED AUTORIZZAZIONI AMBIENTALI", "offGest":"ENTE GESTORE RETE FOGNARIA (ES. MULTISERVIZI SPA)", "offSoprint":"SOPRINTENDENZA per i beni artisici", "offFerrov":"RETE FERROVIARIA ITALIANA SPA (ex FF.SS)", "offANAS":"ANAS", "offQUEST":"QUESTURA", "offPREF":"PREFETTURA", "offISP":"ISPESL", "offDog":"UFFICIO DELLE DOGANE", "offCap":"CAPITANERIA DI PORTO", "offEdil":"UFFICIO EDILIZIA"}; var answers = {"offEdiuzia" :"${answerOffEdiuzia}", "offPorto" :"${answerOffPorto}", "offAmb" :"${answerOffAmb}", "offAtt" :"${answerOffAtt}", "offPolizia" :"${answerOffPolizia}", "offTrib" :"${answerOffTrib}", "offPat" :"${answerOffPat}", "offSoprint" :"${answerOffSoprint}", "offDog" :"${answerOffDog}", "offCap" :"${answerOffCap}"}; var off1FeedbackCond = ["${off1FeedbackCond1}", "${off1FeedbackCond2}", "${off1FeedbackCond3}",]; var off2FeedbackCond = ["${off2FeedbackCond1}", "${off2FeedbackCond2}", "${off2FeedbackCond3}",]; var off1FeedbackIntegration = ["${off1FeedbackIntegration1}", "${off1FeedbackIntegration2}", "${off1FeedbackIntegration3}",]; var off2FeedbackIntegration = ["${off2FeedbackIntegration1}", "${off2FeedbackIntegration2}", "${off2FeedbackIntegration3}",]; answers["${off1Role}"] = "${off1FeedbackMotivation}"; answers["${off2Role}"] = "${off2FeedbackMotivation}"; for(var i = 0; i &lt; 3; i++) {if(off1FeedbackCond[i] != "") {answers["${off1Role}"] = answers["${off1Role}"] + "&lt;br/&gt;Condition " + i + " : " + off1FeedbackCond[i];} if(off2FeedbackCond[i] != "") {answers["${off2Role}"] = answers["${off2Role}"] + "&lt;br/&gt;Condition " + i + " : " + off2FeedbackCond[i];}} for(i = 0; i &lt; 3; i++) {if(off1FeedbackIntegration[i] != "") {answers["${off1Role}"] = answers["${off1Role}"] + "&lt;br/&gt;Required integration " + i + " : " + off1FeedbackIntegration[i];} if(off2FeedbackIntegration[i] != "") {answers["${off2Role}"] = answers["${off2Role}"] + "&lt;br/&gt;Required integration " + i + " : " + off2FeedbackIntegration[i];}} for (var prop in answers) {if (answers.hasOwnProperty(prop)) {if(answers[prop] &amp;&amp; answers[prop].length){$("._answers").append("&lt;p&gt;&lt;b&gt;" + names[prop] + "&lt;/b&gt;:&lt;br/&gt;" + answers[prop] + "&lt;/p&gt;");}}} &lt;/script&gt;
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput16" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput16</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput16</sourceRef>
+        <targetRef>DataObject_16</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <sequenceFlow id="flow35" sourceRef="exclusivegateway8" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow36" sourceRef="exclusivegateway9" targetRef="parallelgateway2"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway10" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow37" sourceRef="usertask16" targetRef="exclusivegateway10"></sequenceFlow>
+    
+    <userTask id="usertask17" name="Ask amendement">
+      <documentation>TODO
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput17" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput17</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput17</sourceRef>
+        <targetRef>DataObject_17</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <sequenceFlow id="flow38" sourceRef="exclusivegateway10" targetRef="usertask17">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${suapChoice == "suapAsk"}]]></conditionExpression>
+    </sequenceFlow>
+    
+    <userTask id="usertask18" name="Provide Authorization">
+      <documentation>TODO
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput18" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput18</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput18</sourceRef>
+        <targetRef>DataObject_18</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <sequenceFlow id="flow39" sourceRef="exclusivegateway10" targetRef="usertask18">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${suapChoice == "suapOk"}]]></conditionExpression>
+    </sequenceFlow>
+    
+    <userTask id="usertask19" name="Provide Authorization Under Condition">
+      <documentation>TODO
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput19" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput19</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput19</sourceRef>
+        <targetRef>DataObject_19</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <sequenceFlow id="flow40" sourceRef="exclusivegateway10" targetRef="usertask19">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${suapChoice == "suapUC"}]]></conditionExpression>
+    </sequenceFlow>
+    
+    <userTask id="usertask20" name="Provide Rejection">
+      <documentation>TODO
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput20" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput20</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput20</sourceRef>
+        <targetRef>DataObject_20</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <sequenceFlow id="flow41" sourceRef="exclusivegateway10" targetRef="usertask20">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${suapChoice == "suapKo"}]]></conditionExpression>
+    </sequenceFlow>
+    
+    <userTask id="usertask21" name="Take Decision">
+      <documentation>TODO
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput21" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput21</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput21</sourceRef>
+        <targetRef>DataObject_21</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    
+    <sequenceFlow id="flow42" sourceRef="exclusivegateway10" targetRef="usertask21">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${suapChoice == "suapDec"}]]></conditionExpression>
+    </sequenceFlow>
+
+    <exclusiveGateway id="exclusivegateway11" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow43" sourceRef="usertask17" targetRef="exclusivegateway11"></sequenceFlow>
+    <sequenceFlow id="flow44" sourceRef="usertask18" targetRef="exclusivegateway11"></sequenceFlow>
+    <sequenceFlow id="flow45" sourceRef="usertask19" targetRef="exclusivegateway11"></sequenceFlow>
+    <sequenceFlow id="flow46" sourceRef="usertask20" targetRef="exclusivegateway11"></sequenceFlow>
+    <sequenceFlow id="flow47" sourceRef="usertask21" targetRef="exclusivegateway11"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <endEvent id="endevent2" name="End"></endEvent>
+
+    <userTask id="usertask22" name="Provide Final Report">
+      <documentation>TODO
+&lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
+      <ioSpecification>
+        <dataOutput id="DataOutput22" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput22</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataOutputAssociation>
+        <sourceRef>DataOutput22</sourceRef>
+        <targetRef>DataObject_22</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+
+    <sequenceFlow id="flow49" sourceRef="exclusivegateway11" targetRef="usertask22"></sequenceFlow>
+    <sequenceFlow id="flow50" sourceRef="usertask22" targetRef="endevent1"></sequenceFlow>
+
+    <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
+    <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
+
+    <sequenceFlow id="flow51" sourceRef="usertask1" targetRef="parallelgateway1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${doConfOfService == "true"}]]></conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="flow51_1" sourceRef="usertask1" targetRef="endevent2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${doConfOfService == "false"}]]></conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="flow52" sourceRef="parallelgateway1" targetRef="usertask2"></sequenceFlow>
+    <sequenceFlow id="flow53" sourceRef="parallelgateway1" targetRef="usertask3"></sequenceFlow>
+    <sequenceFlow id="flow54" sourceRef="parallelgateway2" targetRef="usertask16"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_Collaboration">
+    <bpmndi:BPMNPlane bpmnElement="Collaboration" id="BPMNPlane_Collaboration">
+      <bpmndi:BPMNShape bpmnElement="pool1" id="BPMNShape_pool1">
+        <omgdc:Bounds height="1211.0" width="1291.0" x="60.0" y="40.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="lane1" id="BPMNShape_lane1">
+        <omgdc:Bounds height="441.0" width="1271.0" x="80.0" y="40.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="lane2" id="BPMNShape_lane2">
+        <omgdc:Bounds height="441.0" width="1271.0" x="80.0" y="481.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="lane3" id="BPMNShape_lane3">
+        <omgdc:Bounds height="329.0" width="1271.0" x="80.0" y="922.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="120.0" y="1070.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="71.0" width="111.0" x="190.0" y="1052.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="140.0" y="677.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="130.0" y="254.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
+        <omgdc:Bounds height="55.0" width="105.0" x="310.0" y="677.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="300.0" y="254.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="470.0" y="684.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="460.0" y="261.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway4" id="BPMNShape_exclusivegateway4">
+        <omgdc:Bounds height="40.0" width="40.0" x="540.0" y="207.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask6" id="BPMNShape_usertask6">
+        <omgdc:Bounds height="55.0" width="105.0" x="546.0" y="820.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask7" id="BPMNShape_usertask7">
+        <omgdc:Bounds height="55.0" width="105.0" x="540.0" y="380.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask8" id="BPMNShape_usertask8">
+        <omgdc:Bounds height="55.0" width="105.0" x="600.0" y="560.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask11" id="BPMNShape_usertask11">
+        <omgdc:Bounds height="55.0" width="105.0" x="610.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway5" id="BPMNShape_exclusivegateway5">
+        <omgdc:Bounds height="40.0" width="40.0" x="770.0" y="207.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="530.0" y="637.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway7" id="BPMNShape_exclusivegateway7">
+        <omgdc:Bounds height="40.0" width="40.0" x="760.0" y="637.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask14" id="BPMNShape_usertask14">
+        <omgdc:Bounds height="55.0" width="105.0" x="855.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask15" id="BPMNShape_usertask15">
+        <omgdc:Bounds height="55.0" width="105.0" x="845.0" y="630.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway8" id="BPMNShape_exclusivegateway8">
+        <omgdc:Bounds height="40.0" width="40.0" x="1000.0" y="207.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway9" id="BPMNShape_exclusivegateway9">
+        <omgdc:Bounds height="40.0" width="40.0" x="1000.0" y="637.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask16" id="BPMNShape_usertask16">
+        <omgdc:Bounds height="55.0" width="105.0" x="600.0" y="1060.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway10" id="BPMNShape_exclusivegateway10">
+        <omgdc:Bounds height="40.0" width="40.0" x="740.0" y="1067.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask17" id="BPMNShape_usertask17">
+        <omgdc:Bounds height="55.0" width="105.0" x="880.0" y="930.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask18" id="BPMNShape_usertask18">
+        <omgdc:Bounds height="55.0" width="105.0" x="880.0" y="990.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask19" id="BPMNShape_usertask19">
+        <omgdc:Bounds height="55.0" width="105.0" x="880.0" y="1052.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask20" id="BPMNShape_usertask20">
+        <omgdc:Bounds height="55.0" width="105.0" x="880.0" y="1114.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask21" id="BPMNShape_usertask21">
+        <omgdc:Bounds height="55.0" width="105.0" x="880.0" y="1180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask22" id="BPMNShape_usertask22">
+        <omgdc:Bounds height="55.0" width="105.0" x="1135.0" y="1060.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway11" id="BPMNShape_exclusivegateway11">
+        <omgdc:Bounds height="40.0" width="40.0" x="1050.0" y="1067.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="1300.0" y="1070.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="250.0" y="980.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="340.0" y="1067.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway2" id="BPMNShape_parallelgateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="500.0" y="1067.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="155.0" y="1087.0"></omgdi:waypoint>
+        <omgdi:waypoint x="190.0" y="1087.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="245.0" y="704.0"></omgdi:waypoint>
+        <omgdi:waypoint x="310.0" y="704.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="235.0" y="281.0"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="281.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="415.0" y="704.0"></omgdi:waypoint>
+        <omgdi:waypoint x="470.0" y="704.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="510.0" y="704.0"></omgdi:waypoint>
+        <omgdi:waypoint x="550.0" y="677.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="405.0" y="281.0"></omgdi:waypoint>
+        <omgdi:waypoint x="460.0" y="281.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="480.0" y="261.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="247.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="490.0" y="724.0"></omgdi:waypoint>
+        <omgdi:waypoint x="598.0" y="820.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="480.0" y="301.0"></omgdi:waypoint>
+        <omgdi:waypoint x="592.0" y="380.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="560.0" y="207.0"></omgdi:waypoint>
+        <omgdi:waypoint x="662.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="662.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="790.0" y="207.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="550.0" y="637.0"></omgdi:waypoint>
+        <omgdi:waypoint x="652.0" y="615.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="652.0" y="615.0"></omgdi:waypoint>
+        <omgdi:waypoint x="780.0" y="637.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
+        <omgdi:waypoint x="810.0" y="227.0"></omgdi:waypoint>
+        <omgdi:waypoint x="855.0" y="227.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
+        <omgdi:waypoint x="800.0" y="657.0"></omgdi:waypoint>
+        <omgdi:waypoint x="845.0" y="657.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
+        <omgdi:waypoint x="960.0" y="227.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1000.0" y="227.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
+        <omgdi:waypoint x="950.0" y="657.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1000.0" y="657.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
+        <omgdi:waypoint x="560.0" y="207.0"></omgdi:waypoint>
+        <omgdi:waypoint x="560.0" y="56.0"></omgdi:waypoint>
+        <omgdi:waypoint x="776.0" y="56.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1020.0" y="56.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1020.0" y="207.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
+        <omgdi:waypoint x="550.0" y="637.0"></omgdi:waypoint>
+        <omgdi:waypoint x="548.0" y="497.0"></omgdi:waypoint>
+        <omgdi:waypoint x="782.0" y="498.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1019.0" y="498.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1020.0" y="637.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
+        <omgdi:waypoint x="645.0" y="407.0"></omgdi:waypoint>
+        <omgdi:waypoint x="790.0" y="407.0"></omgdi:waypoint>
+        <omgdi:waypoint x="790.0" y="247.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow34" id="BPMNEdge_flow34">
+        <omgdi:waypoint x="651.0" y="847.0"></omgdi:waypoint>
+        <omgdi:waypoint x="780.0" y="847.0"></omgdi:waypoint>
+        <omgdi:waypoint x="780.0" y="677.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+        <omgdi:waypoint x="1040.0" y="227.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1237.0" y="225.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1236.0" y="657.0"></omgdi:waypoint>
+        <omgdi:waypoint x="520.0" y="1067.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
+        <omgdi:waypoint x="1040.0" y="657.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1237.0" y="656.0"></omgdi:waypoint>
+        <omgdi:waypoint x="520.0" y="1067.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
+        <omgdi:waypoint x="705.0" y="1087.0"></omgdi:waypoint>
+        <omgdi:waypoint x="740.0" y="1087.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="760.0" y="1067.0"></omgdi:waypoint>
+        <omgdi:waypoint x="932.0" y="985.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
+        <omgdi:waypoint x="760.0" y="1067.0"></omgdi:waypoint>
+        <omgdi:waypoint x="932.0" y="1045.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="780.0" y="1087.0"></omgdi:waypoint>
+        <omgdi:waypoint x="880.0" y="1079.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
+        <omgdi:waypoint x="780.0" y="1087.0"></omgdi:waypoint>
+        <omgdi:waypoint x="932.0" y="1114.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow42" id="BPMNEdge_flow42">
+        <omgdi:waypoint x="760.0" y="1107.0"></omgdi:waypoint>
+        <omgdi:waypoint x="932.0" y="1180.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow43" id="BPMNEdge_flow43">
+        <omgdi:waypoint x="932.0" y="985.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1070.0" y="1067.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow44" id="BPMNEdge_flow44">
+        <omgdi:waypoint x="932.0" y="1045.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1070.0" y="1067.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow45" id="BPMNEdge_flow45">
+        <omgdi:waypoint x="985.0" y="1079.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1050.0" y="1087.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow46" id="BPMNEdge_flow46">
+        <omgdi:waypoint x="985.0" y="1141.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1011.0" y="1113.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1070.0" y="1107.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow47" id="BPMNEdge_flow47">
+        <omgdi:waypoint x="932.0" y="1180.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1070.0" y="1107.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow49" id="BPMNEdge_flow49">
+        <omgdi:waypoint x="1090.0" y="1087.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1135.0" y="1087.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow50" id="bpmnedge_flow50">
+        <omgdi:waypoint x="1090.0" y="1087.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1135.0" y="1087.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow51" id="bpmnedge_flow51">
+        <omgdi:waypoint x="301.0" y="1087.0"></omgdi:waypoint>
+        <omgdi:waypoint x="340.0" y="1087.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow51_1" id="bpmnedge_flow51_1">
+        <omgdi:waypoint x="301.0" y="1087.0"></omgdi:waypoint>
+        <omgdi:waypoint x="340.0" y="1087.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow52" id="BPMNEdge_flow52">
+        <omgdi:waypoint x="360.0" y="1067.0"></omgdi:waypoint>
+        <omgdi:waypoint x="192.0" y="732.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow53" id="BPMNEdge_flow53">
+        <omgdi:waypoint x="360.0" y="1067.0"></omgdi:waypoint>
+        <omgdi:waypoint x="182.0" y="309.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow54" id="BPMNEdge_flow54">
+        <omgdi:waypoint x="540.0" y="1087.0"></omgdi:waypoint>
+        <omgdi:waypoint x="600.0" y="1087.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

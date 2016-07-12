@@ -37,6 +37,7 @@ import eu.learnpad.simulator.robot.IRobotFactory;
 import eu.learnpad.simulator.robot.RobotUserEventReceiver;
 import eu.learnpad.simulator.robot.activiti.ActivitiRobotInputExtractor;
 import eu.learnpad.simulator.robot.activiti.simplerobot.SimpleRobotFactory;
+import eu.learnpad.simulator.uihandler.formhandler.AbstractFormHandler;
 import eu.learnpad.simulator.uihandler.formhandler.multi2jsonform.Multi2JsonFormFormHandler;
 import eu.learnpad.simulator.uihandler.webserver.UIHandlerWebImpl;
 import eu.learnpad.simulator.uihandler.webserver.WebServer;
@@ -81,18 +82,19 @@ public class Simulator implements IProcessManagerProvider,
 		processManager = new ActivitiProcessManager(processEngine, this,
 				explorerRepo);
 
+		AbstractFormHandler formHandler = new Multi2JsonFormFormHandler(explorerRepo, processEngine
+				.getTaskService(), processEngine.getFormService());
+
 		// create users ui handler
 		uiHandler = new UIHandlerWebImpl(new WebServer(webserverPort, "ui",
-				"tasks", this), new ArrayList<String>(), this,
-				new Multi2JsonFormFormHandler(explorerRepo, processEngine
-						.getTaskService(), processEngine.getFormService()));
+				"tasks", this), new ArrayList<String>(), this, formHandler);
 
 		// handle robots
 		robotFactory = new SimpleRobotFactory(
 				processEngine.getRepositoryService(),
-				processEngine.getTaskService(), processEngine.getFormService());
+				processEngine.getTaskService(), formHandler);
 
-		robotEventReceiver = new RobotUserEventReceiver<Map<String, Object>>(
+		robotEventReceiver = new RobotUserEventReceiver<>(
 				robotFactory, new ActivitiRobotInputExtractor(
 						processEngine.getTaskService()), processManager);
 
