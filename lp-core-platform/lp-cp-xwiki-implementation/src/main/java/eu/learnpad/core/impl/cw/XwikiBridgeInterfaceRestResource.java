@@ -204,7 +204,7 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource implem
 	}
 
 	@Override
-	public void receiveScoreUpdate(ScoreRecord record) throws LpRestException {
+	public void notifyScoreUpdate(ScoreRecord record) throws LpRestException {
 		String contentType = "application/xml";
 		HttpClient httpClient = this.getClient();
 		String uri = String.format("%s/learnpad/cw/bridge/scores", DefaultRestResource.REST_URI);
