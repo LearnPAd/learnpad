@@ -179,7 +179,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
 	@Override
 	public void notifySessionScoreUpdateEvent(SessionScoreUpdateEvent event) throws LpRestException {
-		this.cw.notifyScoreUpdate(new ScoreRecord(event.user, event.processartifactid,
+		this.cw.receiveScoreUpdate(new ScoreRecord(event.user, event.processartifactid,
 				event.simulationsessionid, event.sessionscore));
 	}
 	
@@ -189,7 +189,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		//TODO: the event contains a JsonNode reachable through event.get/setUpdatedScore
 		//TODO: don't know if simulator is "interested" to store those values. 
 		
-		//this.cw.receiveScoreUpdate(new ScoreRecord(event.user, event.processartifactid,event.simulationsessionid, event.updatedScore));
+		//this.cw.notifyScoreUpdate(new ScoreRecord(event.user, event.processartifactid,event.simulationsessionid, event.updatedScore));
 	}
 
 	@Override
