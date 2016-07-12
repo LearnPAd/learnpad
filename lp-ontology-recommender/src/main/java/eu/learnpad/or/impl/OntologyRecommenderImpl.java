@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
 
 import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
@@ -23,9 +25,9 @@ import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
-import eu.learnpad.ontology.execution.ExecutionStates;
 import eu.learnpad.ontology.notification.NotificationLog;
 import eu.learnpad.ontology.recommender.Recommender;
+import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.ontology.recommender.cbr.CBRAdapter;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.BusinessActor;
@@ -42,6 +44,11 @@ import eu.learnpad.or.rest.data.RelatedObjects;
 import eu.learnpad.or.rest.data.ResourceType;
 import eu.learnpad.or.rest.data.SimulationData;
 import eu.learnpad.or.rest.data.States;
+import eu.learnpad.or.rest.data.kbprocessing.KBProcessId;
+import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatus;
+import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatusType;
+import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatus.Info;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -74,7 +81,13 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     
     @Override
     public void resourceNotification(String modelSetId, String resourceId, ResourceType resourceType, String referringToResourceId, String[] modelArtifactIds, String userId, Long timestamp, NotificationActionType action) throws LpRestException {
-        NotificationLog.getInstance().logResourceNotification(modelSetId, resourceId, resourceType, referringToResourceId, modelArtifactIds, userId, timestamp, action);
+        
+        try {
+            NotificationLog.getInstance().logResourceNotification(modelSetId, resourceId, resourceType, referringToResourceId, modelArtifactIds, userId, timestamp, action);
+        } catch (RecommenderException ex) {
+            Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.SEVERE, null, ex);
+            throw new LpRestExceptionXWikiImpl("Loging resource notification failed. ", ex);
+        }
     }
 
     @Override
@@ -128,8 +141,9 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 
     @Override
     public States listExecutionStates(String userId) throws LpRestException {
-        States states = ExecutionStates.getInstance().getStatesOfLatestAddedModelSet(userId);
-        return states;
+//        States states = ExecutionStates.getInstance().getStatesOfLatestAddedModelSet(userId);
+//        return states;
+        return null; //not used up to now
     }    
 
     @Override
@@ -230,5 +244,38 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         
         return testData;
     }
+
+	@Override
+	public KBProcessId calculateKPI(String modelSetId) throws LpRestException {
+		// TODO Auto-generated method stub
+		Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.INFO, "Inside " + this.getClass().getCanonicalName()+".calculateKPI");
+		
+		KBProcessId out = new KBProcessId();
+		out.setId("167-this-is-fake-167");
+
+		return out;
+	}
+
+	@Override
+	public KBProcessingStatus getHandlingProcessStatus(String kbProcessProcessId)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.INFO, "Inside " + this.getClass().getCanonicalName()+".getHandlingProcessStatus");		
+		KBProcessingStatus out = this.fakeKBProcessingStatus();
+
+		return out;
+	}
+
+	private KBProcessingStatus fakeKBProcessingStatus() {
+		KBProcessingStatus fake = new KBProcessingStatus();
+		fake.setStatus(KBProcessingStatusType.IN_PROGRESS);
+
+		Info info = new Info();
+		JAXBElement<String> jaxbElement =
+				  new JAXBElement(new QName("InfoContentTag"), 
+				    String.class, "this-status-is-fake");		
+		info.getAny().add(jaxbElement);
+		return fake;
+	}
 
 }

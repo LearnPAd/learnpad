@@ -5,7 +5,6 @@
  */
 package eu.learnpad.ontology.kpi.dashboard;
 
-import com.google.common.io.ByteStreams;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -13,17 +12,13 @@ import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.persistence.util.OntUtil;
 import eu.learnpad.ontology.recommender.Inferencer;
+import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -35,7 +30,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import org.apache.jena.riot.Lang;
+import net.sf.saxon.s9api.XdmAtomicValue;
 
 /**
  * Runs inferencer with KPI rules evaluate KPI's. Write dasboard data files with
@@ -62,7 +57,7 @@ public class KpiDashboard {
      * dashboard.
      *
      */
-    public void runAssessment() {
+    public void runAssessment() throws RecommenderException {
 
         //1. run inferencer and apply KPI rules
         OntModel model = FileOntAO.getInstance().getModelWithExecutionData(SimpleModelTransformator.getInstance().getLatestModelSetId());
@@ -78,7 +73,7 @@ public class KpiDashboard {
         }
         
         ByteArrayOutputStream bout = new ByteArrayOutputStream();
-        kpiInferencer.getModel().write(bout);
+        kpiInferencer.getModel().writeAll(bout, "RDF/XML");
         byte[] modelAsByteArray = bout.toByteArray();
         
         //2. lookup persons/performers
@@ -87,7 +82,7 @@ public class KpiDashboard {
         for (Individual person : persons) {
             String businessActorId = OntUtil.getLiteralPropertyString(kpiInferencer.getModel(), person.getURI(), APP.NS.EMO + "performerHasEmailAddress", null);
             if (businessActorId != null) {
-                createBusinessActorDashboard(businessActorId, modelAsByteArray, transformer);
+                createBusinessActorDashboard(businessActorId, person.getURI(), modelAsByteArray, transformer);
             }
         }
 
@@ -95,7 +90,7 @@ public class KpiDashboard {
         //4. do transformation for organisational units
     }
 
-    private void createBusinessActorDashboard(String businessActorId, byte[] modelAsByteArray, Transformer transformer) {
+    private void createBusinessActorDashboard(String businessActorId, String businessActorUri, byte[] modelAsByteArray, Transformer transformer) {
         File cockpitXmlFile = getKpiDashboardFile(businessActorId);
         if (cockpitXmlFile != null) {
             ByteArrayInputStream bin = null;
@@ -103,6 +98,7 @@ public class KpiDashboard {
             try {
                 bin = new ByteArrayInputStream(modelAsByteArray);
                 modelSource = new StreamSource(bin);
+                transformer.setParameter("businessActorUri", new XdmAtomicValue(businessActorUri));
                 transformer.transform(modelSource, new StreamResult(cockpitXmlFile));
             } catch (TransformerException ex) {
                 LOGGER.log(Level.WARNING, "Failed to transform model KPI's to dashboard xml for business actor: " + businessActorId, ex);

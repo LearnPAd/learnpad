@@ -13,6 +13,7 @@ import com.hp.hpl.jena.rdf.model.Literal;
 import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.persistence.util.OntUtil;
+import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.ontology.util.ArgumentCheck;
 import eu.learnpad.or.rest.data.NotificationActionType;
@@ -62,7 +63,7 @@ public class NotificationLog {
             String[] modelArtifactIds,
             String userId,
             Long timestamp,
-            NotificationActionType action) {
+            NotificationActionType action) throws RecommenderException {
         
         ArgumentCheck.notNull(modelSetId, "modelSetId in (logResourceNotification");
         ArgumentCheck.notNull(resourceId, "resourceId in (logResourceNotification");

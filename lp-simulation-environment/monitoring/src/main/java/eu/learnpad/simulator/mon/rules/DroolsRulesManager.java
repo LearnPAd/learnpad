@@ -25,6 +25,7 @@ import java.util.Collection;
 import org.apache.commons.net.ntp.TimeStamp;
 import org.drools.KnowledgeBase;
 import org.drools.builder.KnowledgeBuilder;
+import org.drools.builder.KnowledgeBuilderConfiguration;
 import org.drools.builder.KnowledgeBuilderFactory;
 import org.drools.builder.ResourceType;
 import org.drools.definition.KnowledgePackage;
@@ -50,7 +51,9 @@ public class DroolsRulesManager extends RulesManager {
 		kbuilder = (KnowledgeBuilder) knowledgeBuilder;
 		kbase = (KnowledgeBase) knowledgeBase;
 
-		kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
+		KnowledgeBuilderConfiguration config = KnowledgeBuilderFactory.newKnowledgeBuilderConfiguration();     
+		config.setProperty("drools.dialect.mvel.strict", "false");
+		kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder(config);
 	}
 
 	@Override
@@ -65,7 +68,7 @@ public class DroolsRulesManager extends RulesManager {
 		}
 
 		if (kbuilder.getErrors().size() > 0)
-			 throw new IncorrectRuleFormatException(); 
+			 throw new IncorrectRuleFormatException(kbuilder.getErrors()); 
 	}
 
 	@Override
@@ -90,32 +93,6 @@ public class DroolsRulesManager extends RulesManager {
 				}
 			}
 		}
-		
-		/*
-		 * 		DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), "Listing rules loaded into the knowledgeBases");
-		Collection<KnowledgePackage> ass = kbase.getKnowledgePackages();
-		Object esd[] = ass.toArray();
-		for (int i = 0; i<esd.length; i++) {
-			
-			KnowledgePackage kp = (KnowledgePackage)esd[i];
-			Collection<Rule> rls = kp.getRules();
-			Object r[] = rls.toArray();
-			DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), "KnowledgeBase name: " + kp.getName());
-			if (r.length == 0) {
-				DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), "--! No rules loaded into: " + kp.getName() + " knowledgeBase");
-			}
-			else
-			{
-				for (int j = 0; j<r.length;j++) {
-					Rule gg = (Rule) r[j];
-					DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), "RuleName: " + gg.getName());	
-					}
-			}
-			DebugMessages.line();
-		 */
-		
-		
-		
 	}
 
 	void startRule(final String ruleName) throws UnknownRuleException {

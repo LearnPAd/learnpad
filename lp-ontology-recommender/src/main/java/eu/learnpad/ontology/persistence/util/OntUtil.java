@@ -4,9 +4,11 @@
  */
 package eu.learnpad.ontology.persistence.util;
 
+import ch.fhnw.cbr.core.config.CBR;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntResource;
 import com.hp.hpl.jena.query.ParameterizedSparqlString;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -17,19 +19,15 @@ import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * File based implementation of a ontology persistence access object.
  *
  * @author sandro.emmenegger
  */
-public class OntUtil{
+public class OntUtil {
 
     /**
      * Returns all instances of the given OntClass including instances of
@@ -71,8 +69,8 @@ public class OntUtil{
 
         return retInstances;
     }
-    
-/**
+
+    /**
      * Returns all instances of the given OntClass including instances of
      * subclasses with the property value set as defined.
      *
@@ -116,7 +114,7 @@ public class OntUtil{
         }
 
         return retInstances;
-    }    
+    }
 
     /**
      * Convenient method returns a literal property's content if set, otherwise
@@ -133,6 +131,11 @@ public class OntUtil{
             return defaultValue;
         }
         Individual individual = model.getIndividual(individualURI);
+        String valueStr = getLiteralPropertyString(model, individual, propertyURI, defaultValue);
+        return valueStr;
+    }
+
+    public static String getLiteralPropertyString(OntModel model, Individual individual, String propertyURI, String defaultValue) {
         if (individual == null) {
             return defaultValue;
         }
@@ -144,6 +147,21 @@ public class OntUtil{
         if (value == null) {
             return defaultValue;
         }
-        return value.asLiteral().getString();
+        String valueStr = value.asLiteral().getString();
+        return valueStr;
+    }
+
+    public static String getLabel(OntResource instance) {
+        String label = firstNonNull(instance.getLabel(CBR.LANGUAGE), instance.getLabel(CBR.ALTERNATIVE_LANGUAGE), instance.getLabel(null), instance.getLocalName(), "no label");
+        return label;
+    }
+
+    protected static String firstNonNull(String... paramters) {
+        for (String parameter : paramters) {
+            if (parameter != null) {
+                return parameter;
+            }
+        }
+        return null;
     }
 }

@@ -1102,10 +1102,10 @@ lpd:isSubApplicationTypeOfType
   rdfs:domain lpd:Application_SubType ;
   rdfs:range lpd:ApplicationType ;
 .
-lpd:performanceValueBelongsToPerson
+lpd:performanceValueBelongsToBusinessActor
   rdf:type owl:ObjectProperty ;
   rdfs:domain lpd:PerformanceValue ;
-  rdfs:range eo:Person ;
+  rdfs:range archi:BusinessActor ;
 .
 lpd:performanceValueHasActualValue
   rdf:type owl:DatatypeProperty ;

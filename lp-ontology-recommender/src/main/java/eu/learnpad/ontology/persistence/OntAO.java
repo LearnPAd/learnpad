@@ -14,6 +14,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import eu.learnpad.ontology.config.APP;
 
 import eu.learnpad.ontology.recommender.Inferencer;
+import eu.learnpad.ontology.recommender.RecommenderException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -99,9 +100,12 @@ public abstract class OntAO {
      * @param modelSetId
      * @return
      */
-    public OntModel getModelWithExecutionData(String modelSetId) {
+    public OntModel getModelWithExecutionData(String modelSetId) throws RecommenderException {
         if (!modelsSetsExecutionData.containsKey(modelSetId)) {
-            OntModel modelSetWithExecutionData = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, ModelFactory.createUnion(getExecutionData(), getInferencer(modelSetId).getModel()));  
+            OntModel modelSetWithExecutionData = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, ModelFactory.createUnion(getExecutionData(), getInferencer(modelSetId).getModel()));
+            if (modelSetWithExecutionData == null) {
+                throw new RecommenderException("Ontology model for modelset with id '" + modelSetId + "' cannot be found or causes problems during loading.");
+            }
             modelsSetsExecutionData.put(modelSetId, modelSetWithExecutionData);
         }
         return modelsSetsExecutionData.get(modelSetId);
@@ -137,21 +141,21 @@ public abstract class OntAO {
 
     private File getExecutionDataFile() {
         File executionDataFile = null;
-        try{
+        try {
             Path executionDataFilePath = Paths.get(APP.CONF.getString("working.directory"), APP.CONF.getString("execution.data.path.relative"));
             executionDataFile = executionDataFilePath.toFile();
-            if(!executionDataFile.getParentFile().exists()){
+            if (!executionDataFile.getParentFile().exists()) {
                 executionDataFile.getParentFile().mkdirs();
             }
-            if(!executionDataFile.exists()){
+            if (!executionDataFile.exists()) {
                 executionDataFile.createNewFile();
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, "Cannot load or create execution data file.", ex);
         }
         return executionDataFile;
     }
-    
+
     protected abstract OntModel loadMetaModel();
 
     protected abstract OntModel loadModelSet(String modelSetId);

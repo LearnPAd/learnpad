@@ -44,7 +44,7 @@ public class LearnpadPropertiesConfigurationSource extends CommonsConfigurationS
 	private static final String LEARNPAD_PROPERTIES_FILE = "/WEB-INF/learnpad.properties";
 
 	private enum Component {
-		CW, CA, MT, MV, SIM
+		CW, CA, MT, MV, SIM, DASH
 	};
 
 	/**

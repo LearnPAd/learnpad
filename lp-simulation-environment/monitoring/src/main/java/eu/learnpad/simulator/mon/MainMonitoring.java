@@ -31,8 +31,6 @@ import org.apache.commons.net.ntp.TimeStamp;
 
 import eu.learnpad.simulator.mon.buffer.EventsBuffer;
 import eu.learnpad.simulator.mon.cep.ComplexEventProcessor;
-import eu.learnpad.simulator.mon.controller.DBController;
-import eu.learnpad.simulator.mon.controller.MySqlController;
 import eu.learnpad.simulator.mon.event.GlimpseBaseEvent;
 import eu.learnpad.simulator.mon.impl.ComplexEventProcessorImpl;
 import eu.learnpad.simulator.mon.impl.EventsBufferImpl;
@@ -42,6 +40,8 @@ import eu.learnpad.simulator.mon.manager.GlimpseManager;
 import eu.learnpad.simulator.mon.manager.LearnerAssessmentManager;
 import eu.learnpad.simulator.mon.manager.RestNotifier;
 import eu.learnpad.simulator.mon.services.ServiceLocatorFactory;
+import eu.learnpad.simulator.mon.storage.DBController;
+import eu.learnpad.simulator.mon.storage.H2Controller;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 import eu.learnpad.simulator.mon.utils.MailNotification;
 import eu.learnpad.simulator.mon.utils.Manager;
@@ -73,7 +73,8 @@ public class MainMonitoring {
 	protected static String BSMWSDLURIFILEPATH;
 	protected static String REGEXPATTERNFILEPATH;
 	protected static String MAILNOTIFICATIONSETTINGSFILEPATH;
-	protected static String DATABASECONNECTIONSTRING;
+	protected static String DATABASECONNECTIONSTRINGH2;
+	protected static String DATABASECONNECTIONSTRINGMYSQL;
 	public static String RESTNOTIFIERURLSTRING; 
 	// end settings
 
@@ -105,7 +106,8 @@ public class MainMonitoring {
 			BSMWSDLURIFILEPATH = 				systemProps.getProperty("BSMWSDLURIFILEPATH");		
 			REGEXPATTERNFILEPATH = 				systemProps.getProperty("REGEXPATTERNFILEPATH");
 			MAILNOTIFICATIONSETTINGSFILEPATH = 	systemProps.getProperty("MAILNOTIFICATIONPATH");
-			DATABASECONNECTIONSTRING = 			systemProps.getProperty("DATABASECONNECTIONSTRING");
+			DATABASECONNECTIONSTRINGH2 = 		systemProps.getProperty("DATABASECONNECTIONSTRINGH2");
+			DATABASECONNECTIONSTRINGMYSQL = 	systemProps.getProperty("DATABASECONNECTIONSTRINGMYSQL");
 			RESTNOTIFIERURLSTRING = 			systemProps.getProperty("RESTNOTIFIERURLSTRING");
 			return true;
 		} catch (Exception asd) {
@@ -197,8 +199,12 @@ public class MainMonitoring {
 				RestNotifier notifierEngine = new RestNotifier();
 				notifierEngine.start();
 				
-				//starting the LAM and connecting to DB
-				DBController databaseController = new MySqlController(Manager.Read(DATABASECONNECTIONSTRING));
+				//using H2 database
+				DBController databaseController = new H2Controller(Manager.Read(DATABASECONNECTIONSTRINGH2));
+				
+				//using MYSQL database
+				//DBController databaseController = new MySqlController(Manager.Read(DATABASECONNECTIONSTRINGMYSQL));
+				
 				LearnerAssessmentManager lam = new LearnerAssessmentManagerImpl(databaseController);
 				lam.start(); 
 				

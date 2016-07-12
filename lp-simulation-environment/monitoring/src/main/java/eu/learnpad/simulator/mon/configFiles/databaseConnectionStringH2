@@ -1,0 +1,4 @@
+DB_DRIVER = org.h2.Driver
+DB_CONNECTION = jdbc:h2:./data/glimpse
+DB_USER = 
+DB_PASSWORD = 

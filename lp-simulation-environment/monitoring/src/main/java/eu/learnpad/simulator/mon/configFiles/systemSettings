@@ -9,4 +9,6 @@ DROOLSRULEREQUESTTEMPLATE3_2 = 	./configFiles/droolsRuleRequestTemplateThree_2
 BSMWSDLURIFILEPATH = 		./configFiles/bsmWsdl
 REGEXPATTERNFILEPATH = 		./configFiles/regexParameters
 MAILNOTIFICATIONPATH = 		./configFiles/mailSettings
-DATABASECONNECTIONSTRING = 	./configFiles/databaseConnectionString 
+DATABASECONNECTIONSTRINGMYSQL = 	./configFiles/databaseConnectionStringMySql
+DATABASECONNECTIONSTRINGH2 = 	./configFiles/databaseConnectionStringH2 
+RESTNOTIFIERURLSTRING = ./configFiles/restUrlString

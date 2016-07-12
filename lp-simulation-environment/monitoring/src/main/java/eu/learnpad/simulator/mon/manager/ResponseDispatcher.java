@@ -25,7 +25,10 @@ import it.cnr.isti.labse.glimpse.xml.complexEventResponse.ComplexEventResponse;
 import it.cnr.isti.labse.glimpse.xml.complexEventResponse.ComplexEventResponseListDocument;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
@@ -38,6 +41,7 @@ import javax.naming.InitialContext;
 
 import org.apache.commons.net.ntp.TimeStamp;
 
+import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.simulator.mon.consumer.ConsumerProfile;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 
@@ -116,11 +120,11 @@ public class ResponseDispatcher {
 		}
 	}
 	
-	public static void saveAndNotifyLearnersScore(String learnersID, String idBPMN, int idPath, float sessionScore) {
-			
-			ResponseDispatcher.lam.computeAndSaveScores(learnersID, idPath, idBPMN, sessionScore);
-			//TODO: RestNotifier
-	}
+	public static void saveAndNotifyLearnersScore(String learnersID, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore) {
+	
+		ResponseDispatcher.lam.computeAndSaveScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))),idBPMN, idPath, sessionScore);
+		
+	}	
 
 	public static void sendResponse(Object object, String enablerName, String answerTopic)
 	{
@@ -204,10 +208,5 @@ public class ResponseDispatcher {
 		DebugMessages.line();
 		DebugMessages.line();
 		DebugMessages.line();
-//		try {
-//			rulesManager.deleteRule(whoGenerateIt);
-//		} catch (UnknownRuleException e) {
-//			e.printStackTrace();
-//		}
 	}
 }

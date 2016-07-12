@@ -37,6 +37,7 @@ import org.xwiki.rest.XWikiRestComponent;
 import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.Utils;
+import eu.learnpad.dash.rest.data.KPIValuesFormat;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
@@ -101,5 +102,13 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		java.nio.file.Path filePath = Paths.get(fileName);
 		return utils.getFileInAttachment(DefaultRestResource.CORE_REPOSITORY_WIKI,
 				DefaultRestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName, filePath);
+	}
+
+	@Override
+	public void pushKPIValues(String modelSetId, KPIValuesFormat format,
+			String businessActorId, InputStream cockpitContent)
+			throws LpRestException {
+		// TODO Auto-generated method stub
+		
 	}
 }

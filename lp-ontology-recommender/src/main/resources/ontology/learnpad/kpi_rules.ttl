@@ -52,7 +52,7 @@
             sp:object [
                 sp:varName "person"^^xsd:string ;
               ] ;
-            sp:predicate <http://learnpad.eu#performanceValueBelongsToPerson> ;
+            sp:predicate <http://learnpad.eu#performanceValueBelongsToBusinessActor> ;
             sp:subject [
                 sp:varName "valueInstance"^^xsd:string ;
               ] ;

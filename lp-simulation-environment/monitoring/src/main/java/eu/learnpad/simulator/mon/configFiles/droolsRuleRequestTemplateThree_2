@@ -23,3 +23,4 @@
 			"auto_generated_rule",
 			"\nSLA violation\noccurred on: SERVICE_NAME \nCEP does not receive any information about infrastructure failures, probably service is misbehaving");			
 	end
+	

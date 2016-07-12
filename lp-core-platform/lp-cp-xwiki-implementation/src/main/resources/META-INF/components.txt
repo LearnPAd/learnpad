@@ -5,6 +5,8 @@ eu.learnpad.core.impl.ca.XwikiController
 eu.learnpad.core.impl.ca.XwikiBridgeInterfaceRestResource
 eu.learnpad.core.impl.cw.XwikiController
 eu.learnpad.core.impl.cw.XwikiBridgeInterfaceRestResource
+eu.learnpad.core.impl.dash.XwikiController
+eu.learnpad.core.impl.dash.XwikiBridgeInterfaceRestResource
 eu.learnpad.core.impl.lsm.XwikiController
 eu.learnpad.core.impl.lsm.XwikiBridgeInterfaceRestResource
 eu.learnpad.core.impl.me.XwikiController

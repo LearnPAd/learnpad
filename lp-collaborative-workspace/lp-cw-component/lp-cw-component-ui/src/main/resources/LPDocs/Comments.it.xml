@@ -31,16 +31,13 @@
   <parent>LPDocs.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1464002852000</date>
-  <contentUpdateDate>1464002852000</contentUpdateDate>
+  <date>1466578890000</date>
+  <contentUpdateDate>1466578890000</contentUpdateDate>
   <version>1.1</version>
-  <title>Commenti</title>
+  <title>Comments</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
-  <content>{{warning}}
-Questo è un segnaposto
-{{/warning}}
-</content>
+  <content>La piattaforma Learn PAd ritiene che ognuno debba potersi sentire parte attiva nel miglioramento delle attività svolte da un’amministrazione. Per questo motivo permette ad ogni utente di inserire commenti in ognuna delle pagine disponibili. In tal modo l'utente potrà segnalare possibile errori, o suggerire miglioramenti rispetto a quanto contenuto nelle pagine. I commenti saranno poi valutati da un responsabile dei contenuti (//content manager//) che potrà decidere quali siano le azioni che meglio possano rispondere alla segnalazione ricevuta da un generico utente, eventualmente anche suggerendo di modificare l’organizzazione del procedimento.</content>
 </xwikidoc>

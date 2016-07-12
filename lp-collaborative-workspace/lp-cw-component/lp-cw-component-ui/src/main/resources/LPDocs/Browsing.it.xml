@@ -31,16 +31,16 @@
   <parent>LPDocs.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1464002916000</date>
-  <contentUpdateDate>1464002916000</contentUpdateDate>
+  <date>1466578664000</date>
+  <contentUpdateDate>1466578664000</contentUpdateDate>
   <version>1.1</version>
-  <title>Modalità Navigazione</title>
+  <title>Browsing Mode</title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
-  <content>{{warning}}
-Questo è un segnaposto
-{{/warning}}
+  <content>Accedendo alla piattaforma troverai elencati una serie di processi che possono vedere coinvolta la tua amministrazione e che dunque potrebbero richiedere la tua partecipazione. Al fine di acquisire le competenze necessarie potrai accedere ai contenuti e navigare tra questi. In particolare i contenuti sono organizzati in accordo alle attività del procedimento che la tua amministrazione prevede in ed in accordo alla sequenza logica del procedimento stesso. Troverai dunque un’immagine che rappresenta tutte le attività che il processo, nonché una sua descrizione di alto livello. 
+
+Potrai allora cominciare a navigare spostandoti tra le attività previste usando bottoni che riflettono il flusso del procedimento stesso. Per ogni attività troverai una descrizione dell’attività stessa, riferimenti a documenti ritenuti utili che potrai dunque consultare, riferimenti a colleghi esperti a cui poterti rivolgere se hai bisogno di chiarimenti. Tali informazioni saranno filtrate tenendo conto poi della tua precedente esperienza al fine di rendere l’apprendimento il più proficuo possibile. In una barra di navigazione troverai poi collegamenti alle attività che precedono o seguono in accordo alla struttura del procedimento.
 </content>
 </xwikidoc>
