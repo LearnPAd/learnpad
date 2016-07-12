@@ -50,56 +50,56 @@ public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 	}
 
 	@Override
-	public void receiveSimulationStartEvent(SimulationStartEvent event) throws LpMonRestException {
+	public void notifySimulationStartEvent(SimulationStartEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
 		String uri = String.format("%s/simulationstart",RestResource.REST_URI);
 		sendEvent(httpClient, event, uri);
 	}
 
 	@Override
-	public void receiveSimulationEndEvent(SimulationEndEvent event) throws LpMonRestException {
+	public void notifySimulationEndEvent(SimulationEndEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
 		String uri = String.format("%s/simulationend",RestResource.REST_URI);
 		sendEvent(httpClient, event, uri);		
 	}
 
 	@Override
-	public void receiveProcessStartEvent(ProcessStartEvent event) throws LpMonRestException {
+	public void notifyProcessStartEvent(ProcessStartEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
 		String uri = String.format("%s/processstart",RestResource.REST_URI);
 		sendEvent(httpClient, event, uri);			
 	}
 
 	@Override
-	public void receiveProcessEndEvent(ProcessEndEvent event) throws LpMonRestException {
+	public void notifyProcessEndEvent(ProcessEndEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
 		String uri = String.format("%s/processend",RestResource.REST_URI);
 		sendEvent(httpClient, event, uri);	
 	}
 
 	@Override
-	public void receiveTaskStartEvent(TaskStartEvent event) throws LpMonRestException {
+	public void notifyTaskStartEvent(TaskStartEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
 		String uri = String.format("%s/taskstart",RestResource.REST_URI);
 		sendEvent(httpClient, event, uri);			
 	}
 
 	@Override
-	public void receiveTaskEndEvent(TaskEndEvent event) throws LpMonRestException {
+	public void notifyTaskEndEvent(TaskEndEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
 		String uri = String.format("%s/taskend",RestResource.REST_URI);
 		sendEvent(httpClient, event, uri);			
 	}
 
 	@Override
-	public void receiveTaskFailedEvent(TaskFailedEvent event) throws LpMonRestException {
+	public void notifyTaskFailedEvent(TaskFailedEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
 		String uri = String.format("%s/taskfailed",RestResource.REST_URI);
 		sendEvent(httpClient, event, uri);			
 	}
 
 	@Override
-	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) throws LpMonRestException {
+	public void notifySessionScoreUpdateEvent(SessionScoreUpdateEvent event) throws LpMonRestException {
 		HttpClient httpClient = RestResource.getClient();
 		String uri = String.format("%s/sessionscoreupdate",RestResource.REST_URI);
 		sendEvent(httpClient, event, uri);	

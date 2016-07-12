@@ -15,6 +15,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import eu.learnpad.sim.rest.event.impl.ScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.simulator.mon.BPMN.PathExplorer;
 import eu.learnpad.simulator.mon.coverage.Activity;
@@ -128,9 +129,6 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	@Override
 	public void computeAndSaveScores(List<String> learnersID, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore) {
 		
-		//TODO:
-		//calculate all the scores defined within package eu.learnpad.simulator.mon.coverage.ScoreType;
-		
 		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
 		
 		for(int i = 0; i<learnersID.size(); i++) {
@@ -171,9 +169,10 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 					databaseController.getBPMNAbsoluteScoresExecutedByLearner(learnersID.get(i)));
 			
 			databaseController.updateLearnerScores(learnersID.get(i), learnerGlobalScore, learnerRelativeGlobalScore, learnerAbsoluteGlobalScore);
-				
-			//TODO: propagate all the scores?
 			
+//			ScoreUpdateEvent theScoreToPropagate = new ScoreUpdateEvent(System.currentTimeMillis(), sessionScore.simulationsessionid,
+//					sessionScore.involvedusers,sessionScore.modelsetid,sessionScore.simulationSessionData,sessionScore.processartifactid,
+//					user, scoreUpdateName, scoreUpdateValue);
 		}
 	}
 //       FOR TESTING PURPOSE:
