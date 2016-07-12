@@ -19,6 +19,10 @@ information, see the
 # Fixes
 The clickable image based navigation feature is dependent on ADOXX model type pending release of a
 standardized image map file. See [`LPUI.BaseElementSheet`](https://github.com/LearnPAd/learnpad/blob/master/lp-collaborative-workspace/lp-cw-component/lp-cw-component-ui/src/main/resources/LPUI/BaseElementSheet.xml) for the code.
+ADOXX is exporting a map-like file which might be the basis for a LearnPAd standard but:
+* Needs to be standardized (currently it is only an ADOXX specific file)
+* Should (to ensure the current level of stability) contain the size of the entire image in units which are equivalent to the units specified for the coordinents.
+* To provide tooltips with the name of the model element, should contain the element names in the `<AREA>` tags.
 
 # How it works?
 Based on XWiki, the processes are transformed into a XWiki structure of data.
