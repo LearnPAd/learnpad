@@ -16,6 +16,10 @@ place where learners will browse the documented processes.  For more
 information, see the
 [http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Collaborative+workspace](wiki).
 
+# Fixes
+The clickable image based navigation feature is dependent on ADOXX model type pending release of a
+standardized image map file. See [`LPUI.BaseElementSheet`](https://github.com/LearnPAd/learnpad/blob/master/lp-collaborative-workspace/lp-cw-component/lp-cw-component-ui/src/main/resources/LPUI/BaseElementSheet.xml) for the code.
+
 # How it works?
 Based on XWiki, the processes are transformed into a XWiki structure of data.
 On top of these data, there is a application that will allow to display and
