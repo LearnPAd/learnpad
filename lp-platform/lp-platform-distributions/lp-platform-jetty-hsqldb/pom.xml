@@ -97,13 +97,13 @@
 					<artifactId>slf4j-log4j12</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>		
+		</dependency>
  		<dependency>
     		<groupId>eu.learnpad</groupId>
     		<artifactId>lp-questonnaire-manager</artifactId>
     		<version>1.0-SNAPSHOT</version>
     		<type>jar</type>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>org.xwiki.contrib</groupId>
 			<artifactId>xff-filter-stream</artifactId>
@@ -189,7 +189,7 @@
   			<artifactId>application-tour-ui</artifactId>
   			<version>1.0.1</version>
   			<type>xar</type>
-		</dependency>		
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -288,6 +288,20 @@
 							<file>XWiki/XWikiPreferences.xml</file>
 							<xpath>/xwikidoc/object/property/showinformation</xpath>
 							<value>0</value>
+						</transformation>
+
+						<!-- Enable Italian and English as languages -->
+						<transformation>
+							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+							<file>XWiki/XWikiPreferences.xml</file>
+							<xpath>/xwikidoc/object/property/multilingual</xpath>
+							<value>1</value>
+						</transformation>
+						<transformation>
+							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+							<file>XWiki/XWikiPreferences.xml</file>
+							<xpath>/xwikidoc/object/property/languages</xpath>
+							<value>en,it</value>
 						</transformation>
 					</transformations>
 				</configuration>
@@ -409,7 +423,7 @@
   					<artifactId>application-tour-ui</artifactId>
   					<version>1.0.1</version>
   					<type>xar</type>
-				</dependency>						
+				</dependency>
 			</dependencies>
 		</profile>
 	</profiles>

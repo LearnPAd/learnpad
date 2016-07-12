@@ -118,6 +118,20 @@
 							<xpath>/xwikidoc/object/property/showinformation</xpath>
 							<value>0</value>
 						</transformation>
+
+						<!-- Enable Italian and English as languages -->
+						<transformation>
+							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+							<file>XWiki/XWikiPreferences.xml</file>
+							<xpath>/xwikidoc/object/property/multilingual</xpath>
+							<value>1</value>
+						</transformation>
+						<transformation>
+							<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+							<file>XWiki/XWikiPreferences.xml</file>
+							<xpath>/xwikidoc/object/property/languages</xpath>
+							<value>en,it</value>
+						</transformation>
 					</transformations>
 				</configuration>
 			</plugin>
@@ -202,6 +216,20 @@
 									<file>XWiki/XWikiPreferences.xml</file>
 									<xpath>/xwikidoc/object/property/showinformation</xpath>
 									<value>1</value>
+								</transformation>
+
+								<!-- Enable Italian and English as languages -->
+								<transformation>
+									<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+									<file>XWiki/XWikiPreferences.xml</file>
+									<xpath>/xwikidoc/object/property/multilingual</xpath>
+									<value>1</value>
+								</transformation>
+								<transformation>
+									<artifact>org.xwiki.enterprise:xwiki-enterprise-ui-mainwikipreferences</artifact>
+									<file>XWiki/XWikiPreferences.xml</file>
+									<xpath>/xwikidoc/object/property/languages</xpath>
+									<value>en,it</value>
 								</transformation>
 							</transformations>
 						</configuration>
