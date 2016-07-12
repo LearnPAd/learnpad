@@ -160,7 +160,7 @@ when
  	$aEvent : GlimpseBaseEventBPMN(
 		this.isConsumed == false,
 		this.isException == false,
-		this.getEventName == EventType.SCORE_UPDATE.toString());  
+		this.getEventName == EventType.SESSION_SCORE_UPDATE.toString());  
 then		
 	$aEvent.setConsumed(true); 
 	update($aEvent); 
