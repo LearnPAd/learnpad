@@ -18,6 +18,8 @@ public class KpiRulesGenerator {
 	}
 	
 	public static ComplexEventRuleActionListDocument CaptureAndUpdateSessionScoreForUsers(Vector<Learner> usersInvolved, String sessionID, String bpmnID) {
+		//TODO: other rules
+		
 		return null;
 	}
 }

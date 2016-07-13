@@ -31,7 +31,7 @@ function component_build() {
         simulator/scripts_build/build
         STATUS=$?
         if [ $STATUS -ne 0 ]; then
-                exit $?
+            exit $STATUS
         fi
     fi
 }
@@ -42,12 +42,12 @@ function component_test() {
     STATUS=$?
     if [ $STATUS -ne 0 ]; then
         # if failed return error
-        exit 1;
+        exit $STATUS;
     else
         simulator/scripts_build/test;
         STATUS=$?
         if [ $STATUS -ne 0 ]; then
-                exit $?
+            exit $STATUS
         fi
     fi
 }

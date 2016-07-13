@@ -1,0 +1,1 @@
+off2Choice,"Status of the application",enum,true,"",off2Ok,"Can take decision",off2Ko,"Cannot take decision",off2Miss,"Some information missing"

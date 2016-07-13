@@ -1,0 +1,38 @@
+usertask1
+document;example_document_valid
+
+usertask2
+document;example_document_valid
+accepted;true
+
+usertask3
+document;example_document_valid
+accepted;true
+offMessage;please check this
+off1;true
+off2;true
+
+usertask4
+document;example_document_valid
+accepted;true
+offMessage;please check this
+off1;true
+off2;true
+
+usertask5
+document;example_document_valid
+accepted;true
+offMessage;please check this
+off1;true
+off2;true
+off1Feedback;ok
+off2Feedback;ok for me
+
+# markov endtoken
+document;example_document_valid
+accepted;true
+offMessage;please check this
+off1;true
+off2;true
+off1Feedback;ok
+off2Feedback;ok

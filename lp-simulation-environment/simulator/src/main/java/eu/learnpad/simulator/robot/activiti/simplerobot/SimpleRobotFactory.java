@@ -26,12 +26,12 @@ package eu.learnpad.simulator.robot.activiti.simplerobot;
 
 import java.util.Map;
 
-import org.activiti.engine.FormService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.TaskService;
 
 import eu.learnpad.simulator.robot.IRobot;
 import eu.learnpad.simulator.robot.IRobotFactory;
+import eu.learnpad.simulator.uihandler.formhandler.AbstractFormHandler;
 
 /**
  * @author Tom Jorquera - Linagora
@@ -42,14 +42,14 @@ public class SimpleRobotFactory implements
 
 	private final RepositoryService repositoryService;
 	private final TaskService taskService;
-	private final FormService formService;
+	private final AbstractFormHandler formHandler;
 
 	public SimpleRobotFactory(RepositoryService repositoryService,
-			TaskService taskService, FormService formService) {
+			TaskService taskService, AbstractFormHandler formHandler) {
 		super();
 		this.repositoryService = repositoryService;
 		this.taskService = taskService;
-		this.formService = formService;
+		this.formHandler = formHandler;
 	}
 
 	/*
@@ -59,7 +59,7 @@ public class SimpleRobotFactory implements
 	 */
 	@Override
 	public IRobot<Map<String, Object>, Map<String, Object>> createRobot() {
-		return new SimpleRobot(repositoryService, taskService, formService);
+		return new SimpleRobot(repositoryService, taskService, formHandler);
 	}
 
 }

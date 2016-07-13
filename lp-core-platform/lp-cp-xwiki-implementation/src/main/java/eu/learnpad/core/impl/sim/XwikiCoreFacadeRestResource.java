@@ -68,31 +68,31 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 	}
 
 	@Override
-	public void receiveProcessStartEvent(ProcessStartEvent event) {
+	public void notifyProcessStartEvent(ProcessStartEvent event) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void receiveProcessEndEvent(ProcessEndEvent event) {
+	public void notifyProcessEndEvent(ProcessEndEvent event) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void receiveTaskStartEvent(TaskStartEvent event) {
+	public void notifyTaskStartEvent(TaskStartEvent event) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void receiveTaskEndEvent(TaskEndEvent event) {
+	public void notifyTaskEndEvent(TaskEndEvent event) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) {
+	public void notifySessionScoreUpdateEvent(SessionScoreUpdateEvent event) {
 		// TODO Auto-generated method stub
 
 	}
@@ -104,19 +104,19 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 	}
 
 	@Override
-	public void receiveSimulationStartEvent(SimulationStartEvent event) {
+	public void notifySimulationStartEvent(SimulationStartEvent event) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void receiveSimulationEndEvent(SimulationEndEvent event) {
+	public void notifySimulationEndEvent(SimulationEndEvent event) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void receiveTaskFailedEvent(TaskFailedEvent event) {
+	public void notifyTaskFailedEvent(TaskFailedEvent event) {
 		// TODO Auto-generated method stub
 
 	}

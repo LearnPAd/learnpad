@@ -24,7 +24,10 @@ package eu.learnpad.simulator.robot.activiti;
  * #L%
  */
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.activiti.engine.TaskService;
 
@@ -60,6 +63,19 @@ IRobotInputExtractor<Map<String, Object>> {
 
 		// ignore values used only for technical purposes
 		cleanedInput.remove(ActivitiProcessManager.SIMULATION_ID_KEY);
+
+		// remove entries with null values
+		Set<String> nullKeys = new HashSet<>();
+
+		for (Entry<String, Object> e : cleanedInput.entrySet()) {
+			if (e.getValue() == null) {
+				nullKeys.add(e.getKey());
+			}
+		}
+
+		for (String k : nullKeys) {
+			cleanedInput.remove(k);
+		}
 
 		return cleanedInput;
 	}

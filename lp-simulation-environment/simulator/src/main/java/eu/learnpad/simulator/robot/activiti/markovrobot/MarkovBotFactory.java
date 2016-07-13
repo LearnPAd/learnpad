@@ -24,10 +24,13 @@ package eu.learnpad.simulator.robot.activiti.markovrobot;
  * #L%
  */
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Scanner;
 
 import org.activiti.engine.TaskService;
 
@@ -66,6 +69,40 @@ public class MarkovBotFactory implements
 	@Override
 	public IRobot<Map<String, Object>, Map<String, Object>> createRobot() {
 		return new MarkovBot(taskService, rand.nextLong(), trainingData);
+	}
+
+	public static Collection<List<MarkovData>> readTrainingData(
+			Collection<String> files) {
+		Collection<List<MarkovData>> res = new ArrayList<List<MarkovData>>();
+
+		for (String file : files) {
+
+			List<MarkovData> data = new ArrayList<MarkovData>();
+
+			Scanner in = new Scanner(MarkovBotFactory.class.getClassLoader()
+					.getResourceAsStream(file));
+			String text = "";
+			String currentTask = in.nextLine();
+			Map<String, Object> currentProps = new HashMap<String, Object>();
+			while (in.hasNextLine()) {
+				text = in.nextLine();
+				if (text.equals("")) {
+
+					data.add(new MarkovData(currentTask, currentProps));
+
+					currentTask = in.nextLine();
+					currentProps = new HashMap<String, Object>();
+				} else {
+					String[] split = text.split(";");
+					currentProps.put(split[0], split[1]);
+				}
+			}
+			data.add(new MarkovData(currentTask, currentProps));
+			in.close();
+			res.add(data);
+		}
+
+		return res;
 	}
 
 }

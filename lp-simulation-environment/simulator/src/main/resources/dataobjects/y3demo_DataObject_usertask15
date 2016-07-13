@@ -1,0 +1,7 @@
+off2FeedbackMotivation,"Motivation",textarea,true,""
+off2FeedbackCond1,"justification 1",string,false,"Conditions (if needed)"
+off2FeedbackCond2,"justification 2",string,false,"Conditions (if needed)"
+off2FeedbackCond3,"justification 3",string,false,"Conditions (if needed)"
+off2FeedbackIntegration1,"Integration 1",string,false,"Integrations (if needed)"
+off2FeedbackIntegration2,"Integration 1",string,false,"Integrations (if needed)"
+off2FeedbackIntegration3,"Integration 1",string,false,"Integrations (if needed)"
