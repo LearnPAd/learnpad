@@ -88,42 +88,42 @@ SimRestAPITestCoreFacadeInterface {
 	}
 
 	@Override
-	public void receiveSimulationStartEvent(SimulationStartEvent event) {
+	public void notifySimulationStartEvent(SimulationStartEvent event) {
 		nbSimulationStartEvents++;
 	}
 
 	@Override
-	public void receiveSimulationEndEvent(SimulationEndEvent event) {
+	public void notifySimulationEndEvent(SimulationEndEvent event) {
 		nbSimulationEndEvents++;
 	}
 
 	@Override
-	public void receiveProcessStartEvent(ProcessStartEvent event) {
+	public void notifyProcessStartEvent(ProcessStartEvent event) {
 		nbProcessStartEvents++;
 	}
 
 	@Override
-	public void receiveProcessEndEvent(ProcessEndEvent event) {
+	public void notifyProcessEndEvent(ProcessEndEvent event) {
 		nbProcessEndEvents++;
 	}
 
 	@Override
-	public void receiveTaskStartEvent(TaskStartEvent event) {
+	public void notifyTaskStartEvent(TaskStartEvent event) {
 		nbTaskStartEvents++;
 	}
 
 	@Override
-	public void receiveTaskEndEvent(TaskEndEvent event) {
+	public void notifyTaskEndEvent(TaskEndEvent event) {
 		nbTaskEndEvents++;
 	}
 
 	@Override
-	public void receiveTaskFailedEvent(TaskFailedEvent event) {
+	public void notifyTaskFailedEvent(TaskFailedEvent event) {
 		nbTaskFailedEvents++;
 	}
 
 	@Override
-	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) {
+	public void notifySessionScoreUpdateEvent(SessionScoreUpdateEvent event) {
 		nbSessionScoreUpdateEvents++;
 	}
 

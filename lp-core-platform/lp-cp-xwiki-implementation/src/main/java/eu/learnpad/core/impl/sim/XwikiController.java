@@ -112,7 +112,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public void receiveProcessStartEvent(ProcessStartEvent event) throws LpRestException {
+	public void notifyProcessStartEvent(ProcessStartEvent event) throws LpRestException {
 		String modelId = event.processartifactid;
 		String action = "started";
 		String modelSetId = event.modelsetid;
@@ -127,7 +127,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public void receiveProcessEndEvent(ProcessEndEvent event) throws LpRestException {
+	public void notifyProcessEndEvent(ProcessEndEvent event) throws LpRestException {
 		String modelId = event.processartifactid;
 		String action = "stopped";
 		String modelSetId = event.modelsetid;
@@ -145,7 +145,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public void receiveTaskStartEvent(TaskStartEvent event) throws LpRestException {
+	public void notifyTaskStartEvent(TaskStartEvent event) throws LpRestException {
 		String modelSetId = event.modelsetid;
 		String artifactId = event.taskartifactid;
 		String simulationId = event.simulationsessionid;
@@ -158,7 +158,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public void receiveTaskEndEvent(TaskEndEvent event) throws LpRestException {
+	public void notifyTaskEndEvent(TaskEndEvent event) throws LpRestException {
 		String modelId = event.processartifactid;
 		String artifactId = event.taskartifactid;
 		String modelSetId = event.modelsetid;
@@ -178,8 +178,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public void receiveSessionScoreUpdateEvent(SessionScoreUpdateEvent event) throws LpRestException {
-		this.cw.receiveScoreUpdate(new ScoreRecord(event.user, event.processartifactid,
+	public void notifySessionScoreUpdateEvent(SessionScoreUpdateEvent event) throws LpRestException {
+		this.cw.notifyScoreUpdate(new ScoreRecord(event.user, event.processartifactid,
 				event.simulationsessionid, event.sessionscore));
 	}
 	
@@ -189,11 +189,11 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		//TODO: the event contains a JsonNode reachable through event.get/setUpdatedScore
 		//TODO: don't know if simulator is "interested" to store those values. 
 		
-		//this.cw.receiveScoreUpdate(new ScoreRecord(event.user, event.processartifactid,event.simulationsessionid, event.updatedScore));
+		//this.cw.notifyScoreUpdate(new ScoreRecord(event.user, event.processartifactid,event.simulationsessionid, event.updatedScore));
 	}
 
 	@Override
-	public void receiveSimulationStartEvent(SimulationStartEvent event) {
+	public void notifySimulationStartEvent(SimulationStartEvent event) {
 		// TODO probably we do not want do anything here. The actual interaction
 		// between the OR and the SIM starts when receiveProcessStartEvent will
 		// be
@@ -201,14 +201,14 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public void receiveSimulationEndEvent(SimulationEndEvent event) {
+	public void notifySimulationEndEvent(SimulationEndEvent event) {
 		// TODO probably we do not want do anything here. The actual interaction
 		// between the OR and the SIM ends when receiveProcessEndEvent will be
 		// received
 	}
 
 	@Override
-	public void receiveTaskFailedEvent(TaskFailedEvent event) {
+	public void notifyTaskFailedEvent(TaskFailedEvent event) {
 		// TODO Auto-generated method stub
 	}
 

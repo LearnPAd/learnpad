@@ -447,7 +447,7 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	}
 
 	@Override
-	public void receiveScoreUpdate(ScoreRecord record) throws LpRestException {
+	public void notifyScoreUpdate(ScoreRecord record) throws LpRestException {
 		String userid = record.getUserArtifactId();
 		String sessionid = record.getSessionId();
 		if (!scoresBySessionByUser.containsKey(userid)) {
