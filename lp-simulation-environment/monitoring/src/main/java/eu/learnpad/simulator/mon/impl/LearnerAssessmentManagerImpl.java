@@ -15,6 +15,8 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import eu.learnpad.exception.LpRestException;
+import eu.learnpad.sim.rest.event.ScoreType;
 import eu.learnpad.sim.rest.event.impl.ScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.simulator.mon.BPMN.PathExplorer;
@@ -25,6 +27,7 @@ import eu.learnpad.simulator.mon.coverage.Path;
 import eu.learnpad.simulator.mon.impl.PathExplorerImpl;
 import eu.learnpad.simulator.mon.impl.RulesPerPathGeneratorImpl;
 import eu.learnpad.simulator.mon.manager.LearnerAssessmentManager;
+import eu.learnpad.simulator.mon.manager.RestNotifier;
 import eu.learnpad.simulator.mon.rules.generator.RulesPerPath;
 import eu.learnpad.simulator.mon.storage.DBController;
 import eu.learnpad.simulator.mon.utils.ComputeLearnerScore;
@@ -38,6 +41,8 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	private RulesPerPath crossRulesGenerator;
 	private DBController databaseController;
 	private ComplexEventRuleActionListDocument rulesLists;
+	private float absoluteBPScore;
+	private float absoluteSessionScore; 
 
 	public LearnerAssessmentManagerImpl(DBController databaseController) {
 		
@@ -90,8 +95,8 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 																	crossRulesGenerator.generateAllPaths(theUnfoldedBPMN, newBpmn.getId()));
 				
 				//rules for other kpi calculation
-				ComplexEventRuleActionListDocument rulesForKPI = 
-						KpiRulesGenerator.generateAll(usersInvolved, sessionID, bpmnID, theUnfoldedBPMN);
+//				ComplexEventRuleActionListDocument rulesForKPI = 
+//						KpiRulesGenerator.generateAll(usersInvolved, sessionID, bpmnID, theUnfoldedBPMN);
 				
 				theGeneratedPath = setAllAbsoluteSessionScores(theGeneratedPath);
 				
@@ -99,6 +104,8 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 						databaseController.savePathsForBPMN(theGeneratedPath),usersInvolved, sessionID);
 				
 				newBpmn.setAbsoluteBpScore(ComputeLearnerScore.absoluteBP(theGeneratedPath));
+				
+				absoluteBPScore = newBpmn.getAbsoluteBpScore();
 				
 				databaseController.saveBPMN(newBpmn);
 			} else {
@@ -120,7 +127,8 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	public Vector<Path> setAllAbsoluteSessionScores(Vector<Path> theGeneratedPath) {
 
 		for (int i =0; i< theGeneratedPath.size(); i++) {
-			theGeneratedPath.get(i).setAbsoluteSessionScore(ComputeLearnerScore.absoluteSession(theGeneratedPath.get(i).getActivities()));
+			absoluteSessionScore = ComputeLearnerScore.absoluteSession(theGeneratedPath.get(i).getActivities());
+			theGeneratedPath.get(i).setAbsoluteSessionScore(absoluteSessionScore);
 		}
 		return theGeneratedPath;
 		
@@ -136,13 +144,12 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			Date now = new Date();
 			
 			//save sessionScore
-			databaseController.setLearnerSessionScore(learnersID.get(i).toString(), idPath, idBPMN, sessionScore.sessionscore, new java.sql.Date(now.getTime()));
-			//RestNotifier.getCoreFacade().notifyScoreUpdateEvent(new ScoreUpdateEvent(timestamp, simulationsessionid, involvedusers, modelsetid, simulationSessionData, processartifactid, user, scoreUpdateName, scoreUpdateValue));
+			databaseController.setLearnerSessionScore(
+					learnersID.get(i).toString(), idPath, idBPMN, sessionScore.sessionscore, new java.sql.Date(now.getTime()));
 			
 			//compute learnerBP SCORE
 			float learnerBPScore = ComputeLearnerScore.learnerBP(
 					databaseController.getMaxSessionScores(learnersID.get(i), idBPMN)); 
-			
 			
 			Vector<Path> pathsExecutedByLearner = databaseController.getPathsExecutedByLearner(learnersID.get(i), idBPMN); 
 			
@@ -170,11 +177,50 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			
 			databaseController.updateLearnerScores(learnersID.get(i), learnerGlobalScore, learnerRelativeGlobalScore, learnerAbsoluteGlobalScore);
 			
-//			ScoreUpdateEvent theScoreToPropagate = new ScoreUpdateEvent(System.currentTimeMillis(), sessionScore.simulationsessionid,
-//					sessionScore.involvedusers,sessionScore.modelsetid,sessionScore.simulationSessionData,sessionScore.processartifactid,
-//					user, scoreUpdateName, scoreUpdateValue);
+			sendScoreUpdateEvents(
+					generateScoreEvent(
+							ScoreType.ABSOLUTE_BP_SCORE, absoluteBPScore, sessionScore, learnersID.get(i)));
+			sendScoreUpdateEvents(
+					generateScoreEvent(
+							ScoreType.ABSOLUTE_GLOBAL_SCORE, learnerAbsoluteGlobalScore, sessionScore, learnersID.get(i)));
+			sendScoreUpdateEvents(
+					generateScoreEvent(
+							ScoreType.ABSOLUTE_SESSION_SCORE, absoluteSessionScore, sessionScore, learnersID.get(i)));
+			sendScoreUpdateEvents(
+					generateScoreEvent(
+							ScoreType.BP_COVERAGE, learnerCoverage, sessionScore, learnersID.get(i)));
+			sendScoreUpdateEvents(
+					generateScoreEvent(
+							ScoreType.BP_SCORE, learnerBPScore, sessionScore, learnersID.get(i)));
+			sendScoreUpdateEvents(
+					generateScoreEvent(
+							ScoreType.GLOBAL_SCORE, learnerGlobalScore, sessionScore, learnersID.get(i)));
+			sendScoreUpdateEvents(
+					generateScoreEvent(
+							ScoreType.RELATIVE_BP_SCORE, learnerRelativeBPScore, sessionScore, learnersID.get(i)));
+			sendScoreUpdateEvents(
+					generateScoreEvent(
+							ScoreType.RELATIVE_GLOBAL_SCORE, learnerRelativeGlobalScore, sessionScore, learnersID.get(i)));
+			sendScoreUpdateEvents(
+					generateScoreEvent(
+							ScoreType.SESSION_SCORE, sessionScore.sessionscore.floatValue(), sessionScore, learnersID.get(i)));
+		}		
+	}
+	
+	protected ScoreUpdateEvent generateScoreEvent(ScoreType type, Float value, SessionScoreUpdateEvent sessionScore, String learnersID) {
+		return new ScoreUpdateEvent(System.currentTimeMillis(), sessionScore.simulationsessionid, sessionScore.involvedusers,
+				sessionScore.modelsetid, sessionScore.simulationSessionData, sessionScore.processartifactid,
+				learnersID, type, value);
+	}
+	
+	protected void sendScoreUpdateEvents(ScoreUpdateEvent event) {
+		try {
+			RestNotifier.getCoreFacade().notifyScoreUpdateEvent(event);
+		} catch (LpRestException e) {
+			e.printStackTrace();
 		}
 	}
+}
 //       FOR TESTING PURPOSE:
 	//
 //	public static void main(String[] args)
@@ -209,4 +255,4 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 //		test.computeAndSaveScores(ciccio, "a23748293649", "a23748293649-1",up);
 //		
 //	}
-}
+

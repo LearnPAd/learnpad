@@ -105,6 +105,13 @@ public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 		sendEvent(httpClient, event, uri);	
 	}
 	
+	@Override
+	public void notifyScoreUpdateEvent(ScoreUpdateEvent event) throws LpMonRestException {
+		HttpClient httpClient = RestResource.getClient();
+		String uri = String.format("%s/scoreupdate",RestResource.REST_URI);
+		sendEvent(httpClient, event, uri);			
+	}
+	
 	public void sendEvent(HttpClient httpClient, AbstractEvent event, String uri) throws LpMonRestException {
 		int response = 0;
 		try {
@@ -121,12 +128,5 @@ public class SimulatorMonCoreFacadeRESTResource implements CoreFacade {
 					"Exception in receiveXXEvent\nResponse: " + response);
 			throw new LpMonRestException(e.getMessage(), e.getCause());
 		}		
-	}
-
-	@Override
-	public void notifyScoreUpdateEvent(ScoreUpdateEvent event) throws LpMonRestException {
-		HttpClient httpClient = RestResource.getClient();
-		String uri = String.format("%s/scoreupdate",RestResource.REST_URI);
-		sendEvent(httpClient, event, uri);			
 	}
 }
