@@ -20,15 +20,15 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<xwikidoc version="1.2" reference="LPUI.CommentAnalysis" locale="">
-  <web>LPUI</web>
+<xwikidoc version="1.2" reference="LPCode.CommentAnalysis" locale="">
+  <web>LPCode</web>
   <name>CommentAnalysis</name>
   <language/>
   <defaultLanguage/>
   <translation>0</translation>
   <creator>xwiki:XWiki.Admin</creator>
   <creationDate>1467276345000</creationDate>
-  <parent>Tour.BrowseElementPageTour</parent>
+  <parent>LPCode.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
   <date>1467302101000</date>
@@ -41,7 +41,7 @@
   <hidden>true</hidden>
   <content/>
   <object>
-    <name>LPUI.CommentAnalysis</name>
+    <name>LPCode.CommentAnalysis</name>
     <number>0</number>
     <className>XWiki.JavaScriptExtension</className>
     <guid>7bd77f92-3a55-4077-807d-d7f5409672bb</guid>
@@ -156,7 +156,7 @@
     };
 
     //Parse the XML result
-    var processXML = function (model, modelsetId, comment, xml) {
+    var processXML = function (modelsetId, comment, xml) {
         var content = $(xml).find('analyzedContent').html();
 
         var decodedText = $("&lt;p/&gt;").html(content).text(); 
@@ -179,19 +179,16 @@
                 // FIXME : remove the following line when "analyseText" is completed
                 email = email.replace(/\.eu$/, ".com");
 
-                // Get the Model ID from the XML "model"
-                var res = $(model).find('ATTRIBUTE[name="E-Mail"]').filter(function(idx, elmt) {
-                    return $(elmt).text() === email;
-                });
-                if (res.length !== 1) { return; }
-
-                var modelId = (res.parents('model').length === 1) ? res.parents('model').attr('id') : "";
-                var instanceId = (res.parents('instance').length === 1) ? res.parents('instance').attr('id') : "";
-
-                if (!modelId || !instanceId) { return; }
-
-                dataElmt.on('click', function() {
-                    window.location.href = '/xwiki/bin/view/' + encodeURI(modelsetId) + '/' + encodeURI(modelId) + '/' + encodeURI(instanceId);
+                $.ajax({
+                    url: '/xwiki/bin/get/LPCode/GetUser?outputSyntax=plain',
+                    dataType: 'json',
+                    type: "POST",
+                    data: {email: email}
+                }).done(function (data) {
+                    if (!data || !data.url) { return; }
+                    dataElmt.on('click', function() {
+                        window.location.href = data.url;
+                    });
                 });
             }
         });
@@ -203,7 +200,7 @@
     };
 
     // Rest call
-    var analyseComment = function (model, comment) {
+    var analyseComment = function (comment) {
         // Get the content
         var contentElmt = comment.find('.commentcontent');
         var content = contentElmt.length ? contentElmt.html() : null;
@@ -223,7 +220,7 @@
             contentType: 'text/plain',
             dataType: "xml"
         }).done(function(xml) {
-            processXML(model, modelsetId, comment, xml);
+            processXML(modelsetId, comment, xml);
         }).fail(function(msg) {
             console.error(msg);
         });
@@ -231,38 +228,20 @@
 
     var comments = $('.xwikicomment');
 
-    var startAnalyse = function(model) {
+    var startAnalyse = function() {
         $('.xwikicomment').each(function (idx, elmt) {
-            analyseComment(model, $(elmt));
+            analyseComment($(elmt));
         });
     };
 
-    var initialize = function() {
-        // Get modelset ID
-        var docReferences = xm.documentReference.getReversedReferenceChain();
-        if (docReferences.length !== 4 &amp;&amp; docReferences.length !== 5) { return; }
-        var modelsetId = encodeURI(docReferences[1].name);
-
-        // Get model XML and start analyse
-        $.ajax({
-            url: '/xwiki/rest/learnpad/cw/corefacade/getmodel/' + modelsetId,
-            method: 'GET',
-            dataType: 'xml'
-        }).done(function(xml) {
-            startAnalyse(xml);
-        }).fail(function(msg) {
-            console.error(msg);
-        });
-    };
-
-    // If comments are loaded, we have to initialize now. If they aren't loaded yet, we wait for the event.
+    // If comments are loaded, we have to start now. If they aren't loaded yet, we wait for the event.
     if (comments.length) {
-        initialize();
+        startAnalyse();
     }
     document.observe("xwiki:docextra:loaded", function(event){
         var tabID = event.memo.id;
         if (tabID == "Comments") {
-            initialize();
+            startAnalyse();
         }
     });
 });</code>
@@ -278,7 +257,7 @@
     </property>
   </object>
   <object>
-    <name>LPUI.CommentAnalysis</name>
+    <name>LPCode.CommentAnalysis</name>
     <number>0</number>
     <className>XWiki.StyleSheetExtension</className>
     <guid>232923ae-1558-4297-8378-35386705806d</guid>
