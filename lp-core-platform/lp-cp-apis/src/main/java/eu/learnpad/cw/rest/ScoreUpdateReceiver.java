@@ -15,5 +15,5 @@ public interface ScoreUpdateReceiver {
 
 	@Path("/scores")
 	@POST
-	public void receiveScoreUpdate(ScoreRecord record) throws LpRestException;
+	public void notifyScoreUpdate(ScoreRecord record) throws LpRestException;
 }

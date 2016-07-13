@@ -26,20 +26,19 @@ package eu.learnpad.simulator.robot.activiti.simplerobot;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-import org.activiti.engine.FormService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.form.FormData;
-import org.activiti.engine.form.FormProperty;
-import org.activiti.engine.form.FormType;
 import org.activiti.engine.impl.util.json.JSONArray;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.task.Task;
 
+import eu.learnpad.simulator.datastructures.document.LearnPadDocumentField;
 import eu.learnpad.simulator.robot.IRobot;
+import eu.learnpad.simulator.uihandler.formhandler.AbstractFormHandler;
 
 /**
  * This robot uses the validation database to construct task responses which are
@@ -54,15 +53,15 @@ public class SimpleRobot implements
 
 	private final RepositoryService repositoryService;
 	private final TaskService taskService;
-	private final FormService formService;
+	private final AbstractFormHandler formHandler;
 	private final JSONObject jsonDB;
 
 	public SimpleRobot(RepositoryService repositoryService,
-			TaskService taskService, FormService formService) {
+			TaskService taskService, AbstractFormHandler formHandler) {
 		super();
 		this.repositoryService = repositoryService;
 		this.taskService = taskService;
-		this.formService = formService;
+		this.formHandler = formHandler;
 
 		Scanner in = new Scanner(getClass().getClassLoader()
 				.getResourceAsStream("validation_db.json"));
@@ -84,7 +83,7 @@ public class SimpleRobot implements
 	public Map<String, Object> handleTask(String taskId,
 			Map<String, Object> inputData) {
 
-		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, Object> result = new HashMap<>();
 
 		Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
 
@@ -130,10 +129,10 @@ public class SimpleRobot implements
 
 		// Now we need to fill the properties for which we do not have known
 		// expected result
-		FormData data = formService.getTaskFormData(taskId);
-		for (FormProperty prop : data.getFormProperties()) {
-			if (!result.containsKey(prop.getId())) {
-				result.put(prop.getId(), getDefaultValue(prop.getType()));
+		List<LearnPadDocumentField> data = formHandler.getTaskFormFields(taskId);
+		for (LearnPadDocumentField prop : data) {
+			if (!result.containsKey(prop.id) && prop.required) {
+				result.put(prop.id, getDefaultValue(prop));
 			}
 		}
 
@@ -147,17 +146,16 @@ public class SimpleRobot implements
 	 *            the data type
 	 * @return a default value
 	 */
-	private static Object getDefaultValue(FormType formType) {
-		String type = formType.getName();
+	private static Object getDefaultValue(LearnPadDocumentField formType) {
+		String type = formType.type;
 
-		if (type.equals("string")) {
+		if (type.equals("string") || type.equals("textarea")) {
 			return "# i am a robot";
 		} else if (type.equals("long")) {
 			return 1L;
 		} else if (type.equals("enum")) {
 			@SuppressWarnings("unchecked")
-			Map<String, String> values = (Map<String, String>) formType
-					.getInformation("values");
+			Map<String, String> values = formType.enumValues;
 			// get first value of the enum
 			return values.keySet().iterator().next();
 		} else if (type.equals("date")) {
@@ -165,7 +163,7 @@ public class SimpleRobot implements
 		} else if (type.equals("boolean")) {
 			return true;
 		} else {
-			throw new RuntimeException("unhandled type " + formType.getName());
+			throw new RuntimeException("unhandled type " + formType);
 		}
 	}
 }

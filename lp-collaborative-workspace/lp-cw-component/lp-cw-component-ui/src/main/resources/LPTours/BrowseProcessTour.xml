@@ -179,7 +179,7 @@ ${services.localization.render('LPTours.BrowsingModeProcess.Body.description')}
       <targetPage>LPTours.LoremIpsumProcess</targetPage>
     </property>
     <property>
-      <title>${services.localization.render('LPTours.BrowsingModeProcess.Body.title')}</title>
+      <title>LPTours.BrowsingModeProcess.Body.title</title>
     </property>
   </object>
   <object>
@@ -321,7 +321,7 @@ ${services.localization.render('LPTours.BrowsingModeProcess.Table.description')}
       <targetPage>LPTours.LoremIpsumProcess</targetPage>
     </property>
     <property>
-      <title>${services.localization.render('LPTours.BrowsingModeProcess.Table.title')}</title>
+      <title>LPTours.BrowsingModeProcess.Table.title</title>
     </property>
   </object>
   <object>
@@ -463,7 +463,7 @@ ${services.localization.render('LPTours.BrowsingModeProcess.BrowseButton.descrip
       <targetPage>LPTours.LoremIpsumProcess</targetPage>
     </property>
     <property>
-      <title>${services.localization.render('LPTours.BrowsingModeProcess.BrowseButton.title')}</title>
+      <title>LPTours.BrowsingModeProcess.BrowseButton.title</title>
     </property>
   </object>
   <object>
@@ -605,7 +605,7 @@ ${services.localization.render('LPTours.BrowsingModeProcess.SimulationButton.des
       <targetPage>LPTours.LoremIpsumProcess</targetPage>
     </property>
     <property>
-      <title>${services.localization.render('LPTours.BrowsingModeProcess.SimulationButton.title')}</title>
+      <title>LPTours.BrowsingModeProcess.SimulationButton.title</title>
     </property>
   </object>
   <object>
@@ -747,7 +747,7 @@ ${services.localization.render('LPTours.BrowsingModeProcess.ContributeButton.des
       <targetPage>LPTours.LoremIpsumProcess</targetPage>
     </property>
     <property>
-      <title>${services.localization.render('LPTours.BrowsingModeProcess.ContributeButton.title')}</title>
+      <title>LPTours.BrowsingModeProcess.ContributeButton.title</title>
     </property>
   </object>
   <object>
@@ -889,7 +889,7 @@ ${services.localization.render('LPTours.BrowsingModeProcess.DummyImage.descripti
       <targetPage>LPTours.LoremIpsumProcess</targetPage>
     </property>
     <property>
-      <title>${services.localization.render('LPTours.BrowsingModeProcess.DummyImage.title')}</title>
+      <title>LPTours.BrowsingModeProcess.DummyImage.title</title>
     </property>
   </object>
   <object>

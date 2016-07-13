@@ -51,6 +51,11 @@ public abstract class AbstractFormHandler implements IFormHandler {
 	protected static final String SINGLE_USER_KEY_PREFIX = "#_learnpad_route_singlerole_#";
 	protected static final String GROUP_USER_KEY_PREFIX = "#_learnpad_route_grouprole_#";
 
+	protected static final String SINGLE_USER_IS_HUMAN_KEY_PREFIX = "#_learnpad_route_singlerole_is_human#";
+	protected static final String GROUP_USER_IS_HUMAN_KEY_PREFIX = "#_learnpad_route_grouprole_is_human#";
+
+	protected static final String DEFAULT_ROBOT_ROLE = "robby";
+
 	public abstract List<LearnPadDocumentField> getStartFormData(
 			String processId);
 
@@ -87,6 +92,8 @@ public abstract class AbstractFormHandler implements IFormHandler {
 		final Map<String, Object> parameters = new LinkedHashMap<String, Object>();
 		final Map<String, Collection<String>> routes = new LinkedHashMap<String, Collection<String>>();
 
+		final Set<String> robots = new HashSet<>();
+
 		JSONObject jObject = new JSONObject(data);
 		Iterator<?> keys = jObject.keys();
 
@@ -106,9 +113,22 @@ public abstract class AbstractFormHandler implements IFormHandler {
 					users.add(usersJ.getString(i));
 				}
 				routes.put(key.replaceFirst(GROUP_USER_KEY_PREFIX, ""), users);
+			} else if (key.startsWith(SINGLE_USER_IS_HUMAN_KEY_PREFIX)) {
+				if (!jObject.getBoolean(key)) {
+					robots.add(key.replaceFirst(SINGLE_USER_IS_HUMAN_KEY_PREFIX, ""));
+				}
+			} else if (key.startsWith(GROUP_USER_IS_HUMAN_KEY_PREFIX)) {
+				if (!jObject.getBoolean(key)) {
+					robots.add(key.replaceFirst(GROUP_USER_IS_HUMAN_KEY_PREFIX, ""));
+				}
 			} else {
 				Object value = jObject.get(key);
 				parameters.put(key, value);
+			}
+
+			// final pass on routes to set robots
+			for (String role : robots) {
+				routes.put(role, Arrays.asList(DEFAULT_ROBOT_ROLE));
 			}
 
 		}
@@ -144,15 +164,27 @@ public abstract class AbstractFormHandler implements IFormHandler {
 		JSONArray userArray = new JSONArray(users);
 
 		for (String role : singleRoles) {
+
+			JSONObject isHuman = new JSONObject();
+			isHuman.put("type", "boolean");
+			isHuman.put("required", true);
+			res.getJSONObject("schema").put(SINGLE_USER_IS_HUMAN_KEY_PREFIX + role,
+					isHuman);
+
 			JSONObject o = new JSONObject();
-			o.put("title", "Role: " + role);
 			o.put("type", "string");
 			o.put("enum", userArray);
-			o.put("required", true);
 			res.getJSONObject("schema").put(SINGLE_USER_KEY_PREFIX + role, o);
 		}
 
 		for (String role : groupRoles) {
+
+			JSONObject isHuman = new JSONObject();
+			isHuman.put("type", "boolean");
+			isHuman.put("required", true);
+			res.getJSONObject("schema").put(GROUP_USER_IS_HUMAN_KEY_PREFIX + role,
+					isHuman);
+
 			JSONObject items = new JSONObject();
 			items.put("type", "string");
 			items.put("enum", userArray);
@@ -172,11 +204,43 @@ public abstract class AbstractFormHandler implements IFormHandler {
 
 		JSONArray items = new JSONArray();
 		for (String role : singleRoles) {
+			JSONObject isHuman = new JSONObject();
+			isHuman.put("title", "Role: " + role);
+			isHuman.put("key", SINGLE_USER_IS_HUMAN_KEY_PREFIX + role);
+			isHuman.put("type", "radios");
+			isHuman.put("inline", true);
+
+			JSONObject isHumanOptions = new JSONObject();
+			isHumanOptions.put("true", "human");
+			isHumanOptions.put("false", "robot");
+			isHuman.put("options", isHumanOptions);
+
+			JSONObject toggleNextMap = new JSONObject();
+			toggleNextMap.put("true", true);
+			isHuman.put("toggleNextMap", toggleNextMap);
+			items.put(isHuman);
+
 			JSONObject o = new JSONObject();
 			o.put("key", SINGLE_USER_KEY_PREFIX + role);
 			items.put(o);
 		}
 		for (String role : groupRoles) {
+			JSONObject isHuman = new JSONObject();
+			isHuman.put("title", "Role: " + role);
+			isHuman.put("key", GROUP_USER_IS_HUMAN_KEY_PREFIX + role);
+			isHuman.put("type", "radios");
+			isHuman.put("inline", true);
+
+			JSONObject isHumanOptions = new JSONObject();
+			isHumanOptions.put("true", "human");
+			isHumanOptions.put("false", "robot");
+			isHuman.put("options", isHumanOptions);
+
+			JSONObject toggleNextMap = new JSONObject();
+			toggleNextMap.put("true", true);
+			isHuman.put("toggleNextMap", toggleNextMap);
+			items.put(isHuman);
+
 			JSONObject o = new JSONObject();
 			o.put("key", GROUP_USER_KEY_PREFIX + role);
 			o.put("type", "checkboxes");
