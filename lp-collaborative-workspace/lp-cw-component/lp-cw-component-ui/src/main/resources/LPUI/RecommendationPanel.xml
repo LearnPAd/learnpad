@@ -265,6 +265,7 @@ $(function(){
   var $rightPanels = $("#rightPanels");
   var $panelMetadata = $('#panel-metadata');
   var websocketurl = $panelMetadata.data('websocketurl');
+  if (!websocketurl) { return; }
   var modelsetid = $panelMetadata.data('modelsetid');
   var modelid = $panelMetadata.data('modelid');
   var artifactid = $panelMetadata.data('artifactid');
