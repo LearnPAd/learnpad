@@ -162,7 +162,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 
         Entity entity = new Entity();
         entity.setId(id);
-        entity.setModelId(modelSetId);
+        entity.setModelSetId(modelSetId);
         entity.setModelId("mod.39886");
         entity.setOjbectId("obj.39926");
         entity.setContextArtifactId("transfer:obj.35315");
