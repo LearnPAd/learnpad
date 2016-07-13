@@ -911,6 +911,15 @@
                     "off1Role" : "offPorto"
                 },
                 "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offPorto"
+                },
+                "output" : {
                     "off1FeedbackOpinionStatus" : "s5"
                 }
             },
@@ -926,7 +935,34 @@
             {
                 "input" : {
                     "case" : "829.2015",
+                    "off1Role" : "offAmb"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
                     "off1Role" : "offAtt"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offAtt"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offPolizia"
                 },
                 "output" : {
                     "off1FeedbackOpinionStatus" : "s1"
@@ -938,7 +974,7 @@
                     "off1Role" : "offPolizia"
                 },
                 "output" : {
-                    "off1FeedbackOpinionStatus" : "s1"
+                    "off1FeedbackOpinionStatus" : "s5"
                 }
             },
             {
@@ -956,7 +992,25 @@
                     "off1Role" : "offSoprint"
                 },
                 "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offSoprint"
+                },
+                "output" : {
                     "off1FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offDog"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
                 }
             },
             {
@@ -969,6 +1023,15 @@
                 }
             },
             {
+                "input" : {
+                    "case" : "829.2015",
+                    "off1Role" : "offCap"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+						{
                 "input" : {
                     "case" : "829.2015",
                     "off1Role" : "offCap"
@@ -989,10 +1052,28 @@
             {
                 "input" : {
                     "case" : "1118.2015",
+                    "off1Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
                     "off1Role" : "offAmb"
                 },
                 "output" : {
                     "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off1Role" : "offAmb"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s5"
                 }
             },
             {
@@ -1007,7 +1088,34 @@
             {
                 "input" : {
                     "case" : "1118.2015",
+                    "off1Role" : "offAtt"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
                     "off1Role" : "offPat"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off1Role" : "offPat"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off1Role" : "offSoprint"
                 },
                 "output" : {
                     "off1FeedbackOpinionStatus" : "s1"
@@ -1039,6 +1147,15 @@
                     "off2Role" : "offPorto"
                 },
                 "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+						{
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offPorto"
+                },
+                "output" : {
                     "off2FeedbackOpinionStatus" : "s5"
                 }
             },
@@ -1054,7 +1171,34 @@
             {
                 "input" : {
                     "case" : "829.2015",
+                    "off2Role" : "offAmb"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
                     "off2Role" : "offAtt"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offAtt"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offPolizia"
                 },
                 "output" : {
                     "off2FeedbackOpinionStatus" : "s1"
@@ -1066,7 +1210,7 @@
                     "off2Role" : "offPolizia"
                 },
                 "output" : {
-                    "off2FeedbackOpinionStatus" : "s1"
+                    "off2FeedbackOpinionStatus" : "s5"
                 }
             },
             {
@@ -1084,6 +1228,15 @@
                     "off2Role" : "offSoprint"
                 },
                 "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offSoprint"
+                },
+                "output" : {
                     "off2FeedbackOpinionStatus" : "s5"
                 }
             },
@@ -1093,7 +1246,25 @@
                     "off2Role" : "offDog"
                 },
                 "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offDog"
+                },
+                "output" : {
                     "off2FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829.2015",
+                    "off2Role" : "offCap"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
                 }
             },
             {
@@ -1117,10 +1288,28 @@
             {
                 "input" : {
                     "case" : "1118.2015",
+                    "off2Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
                     "off2Role" : "offAmb"
                 },
                 "output" : {
                     "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
+                    "off2Role" : "offAmb"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s5"
                 }
             },
             {
@@ -1135,21 +1324,66 @@
             {
                 "input" : {
                     "case" : "1118.2015",
+                    "off2Role" : "offAtt"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118.2015",
                     "off2Role" : "offPat"
                 },
                 "output" : {
                     "off2FeedbackOpinionStatus" : "s1"
                 }
             },
-            {
-                "input" : {
-                    "case" : "1118.2015",
-                    "off2Role" : "offSoprint"
-                },
-                "output" : {
-                    "off2FeedbackOpinionStatus" : "s5"
-                }
-            }
-        ]
-    }
+						{
+								"input" : {
+										"case" : "1118.2015",
+										"off2Role" : "offPat"
+								},
+								"output" : {
+										"off2FeedbackOpinionStatus" : "s5"
+								}
+						},
+						{
+								"input" : {
+										"case" : "1118.2015",
+										"off2Role" : "offSoprint"
+								},
+								"output" : {
+										"off2FeedbackOpinionStatus" : "s1"
+								}
+						},
+						{
+								"input" : {
+										"case" : "1118.2015",
+										"off2Role" : "offSoprint"
+								},
+								"output" : {
+										"off2FeedbackOpinionStatus" : "s5"
+								}
+						}
+				],
+				"usertask16" : [
+						{
+								"input" : {
+										"case" : "829.2015"
+								},
+								"output" : {
+										"suapChoice" : "suapUC"
+								}
+						},
+						{
+								"input" : {
+										"case" : "1118.2015"
+								},
+								"output" : {
+										"suapChoice" : "suapOk"
+								}
+						}
+				]
+		}
 }
