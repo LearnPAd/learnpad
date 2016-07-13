@@ -118,7 +118,7 @@ public class KpiDashboard {
     }
 
     private List<Individual> getAllPersons(OntModel model) {
-        OntClass rootClass = model.getOntClass(APP.NS.EO + "Person");
+        OntClass rootClass = model.getOntClass(APP.NS.OMM + "Performer");
         return OntUtil.getInstances(model, rootClass);
     }
 
