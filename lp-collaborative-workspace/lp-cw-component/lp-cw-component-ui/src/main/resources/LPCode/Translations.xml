@@ -46,7 +46,7 @@ LPUI.WebHome.button.start=Start
 LPUI.WebHome.button.simulate=Simulate
 LPUI.WebHome.lastupdate=Last update {0}
 LPUI.WebHome.knowmore=[Know more]
-LPUI.WebHome.presentation.introduction=Welcome! The European project Learn PAd (Model Based Social Learning for Public Administrations) is funded by the European Community under the Seventh Programme Framework for Research and Development (FP7).
+LPUI.WebHome.presentation.introduction=Welcome! The European project Learn PAd (Model Based Social Learning for Public Administrations) is funded by the European Commission under the Seventh Programme Framework for Research and Development (FP7).
 LPUI.WebHome.presentation.content=You are using the collaborative platform released for online “training on the job“ sessions of the PA staff. The platform provides a set of innovative and social features for interaction and simulation, and it is based on use cases and practical methods derived from the formal modeling of business processes, which can be browsed within a Wiki Knowledge Repository. Executing any given task or functionality, the system will assign you an (improvable) score, according to the required and achieved skills and expertize level (related to the EQF competencies framework).
 LPUI.WebHome.presentation.conclusion=Select your course and start playing with us!
 
