@@ -236,6 +236,7 @@
 			<xsl:when test="count(//LEARNINGGOAL[./PARENT/@ID=$id]) + count(//CRITERION[./PARENT/@ID=$id]) != 0">
 				<xsl:text>, children:[</xsl:text>
                                 <xsl:apply-templates select="//LEARNINGGOAL[./PARENT/@ID=$id]" />
+                                <xsl:if test="count(//LEARNINGGOAL[./PARENT/@ID=$id]) != 0">, </xsl:if> 
 				<xsl:apply-templates select="//CRITERION[./PARENT/@ID=$id]" />
 				<xsl:text>]}</xsl:text>
 			</xsl:when>
@@ -335,6 +336,7 @@
 			<xsl:when test="count(//LEARNINGGOAL[./PARENT/@ID=$id]) + count(//CRITERION[./PARENT/@ID=$id]) != 0">
 				<xsl:text>, children:[</xsl:text>
                                 <xsl:apply-templates select="//LEARNINGGOAL[./PARENT/@ID=$id]" />
+                                <!-- xsl:if test="count(//LEARNINGGOAL[./PARENT/@ID=$id]) != 0">, </xsl:if --> 
 				<xsl:apply-templates select="//CRITERION[./PARENT/@ID=$id]" />
 				<xsl:text>]}</xsl:text>
 			</xsl:when>
