@@ -1,0 +1,89 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package eu.learnpad.ontology.kpi.dashboard;
+
+import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.rdf.model.Model;
+import eu.learnpad.dash.rest.data.KPIValuesFormat;
+import eu.learnpad.exception.LpRestException;
+import eu.learnpad.ontology.config.APP;
+import eu.learnpad.ontology.kpi.data.SOMEService;
+import eu.learnpad.ontology.persistence.FileOntAO;
+import eu.learnpad.ontology.recommender.RecommenderException;
+import eu.learnpad.or.CoreFacade;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+
+/**
+ * Worker thread to calculate all KPI values for each business actor in the
+ * models asynchronously and push the results to the dashboard component.
+ *
+ * @author sandro.emmenegger
+ */
+public class KPILoader extends Thread {
+
+    private final CoreFacade corefacade;
+    private final String modelSetId;
+
+    public KPILoader(CoreFacade corefacade, String modelSetId) {
+        this.corefacade = corefacade;
+        this.modelSetId = modelSetId;
+    }
+
+    @Override
+    public void run() {
+        try {
+            //1. load external data files (excel files) from working directory if available
+            File kpiDataFolder = new File(APP.CONF.getString("working.directory") + "/" + APP.CONF.getString("kpi.dashboard.data.folder.relative"));
+            if (kpiDataFolder.exists()) {
+                File[] dataFiles = kpiDataFolder.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File pathToFile) {
+                        if (pathToFile.isFile() && pathToFile.getName().endsWith(".xlsx")) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                });
+
+                OntModel model = FileOntAO.getInstance().getModelWithExecutionData(this.modelSetId);
+
+                for (File dataFile : dataFiles) {
+                    SOMEService service = new SOMEService(dataFile);
+                    Model insertedKPIValuesModel = service.getModel(model);
+                    FileOntAO.getInstance().getExecutionData().add(insertedKPIValuesModel);
+                }
+
+            }
+
+            Map<String, byte[]> dasboardKpisOfBusinessActors = KpiDashboard.getInstance().runAssessment();
+            for (Map.Entry<String, byte[]> entry : dasboardKpisOfBusinessActors.entrySet()) {
+                String businessActorId = entry.getKey();
+                byte[] dashboard = entry.getValue();
+                InputStream dashboardStream = new ByteArrayInputStream(dashboard);
+                this.corefacade.pushKPIValues(modelSetId, KPIValuesFormat.ADOXXCockpit, businessActorId, dashboardStream);
+
+            }
+        } catch (RecommenderException ex) {
+            Logger.getLogger(KPILoader.class.getName()).log(Level.SEVERE, "KPI assessment failed. ", ex);
+        } catch (LpRestException ex) {
+            Logger.getLogger(KPILoader.class.getName()).log(Level.SEVERE, "Calling corefacade pushKPIValues failed. ", ex);
+        } catch (IOException ex) {
+            Logger.getLogger(KPILoader.class.getName()).log(Level.SEVERE, "Error when loading KPI data file. ", ex);
+        } catch (InvalidFormatException ex) {
+            Logger.getLogger(KPILoader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+}

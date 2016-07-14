@@ -5,8 +5,10 @@
  */
 package eu.learnpad.or.impl;
 
+import eu.learnpad.exception.LpRestException;
 import eu.learnpad.ontology.AbstractUnitTest;
 import eu.learnpad.or.rest.data.Entities;
+import eu.learnpad.or.rest.data.kbprocessing.KBProcessId;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import org.junit.Test;
@@ -26,38 +28,18 @@ public class OntologyRecommenderImplTest extends AbstractUnitTest {
         OntologyRecommenderImpl instance = new OntologyRecommenderImpl();
         instance.initialize();
     }
-
     @Test
-    public void testModelSetImported() throws Exception {
-
+    public void testAskRecommendation() throws LpRestException{
+        OntologyRecommenderImpl instance = new OntologyRecommenderImpl();
+        instance.askRecommendation(MODELSET_ID, null, TEST_USER, "test");
     }
 
     @Test
-    public void testSendResourceNotification() throws Exception {
-    }
-
-    @Test
-    public void testAskRecommendation() throws Exception {
-    }
-
-    @Test
-    public void testSimulationInstanceNotification() throws Exception {
-    }
-
-    @Test
-    public void testSimulationTaskStartNotification() throws Exception {
-    }
-
-    @Test
-    public void testSimulationTaskEndNotification() throws Exception {
-    }
-
-    @Test
-    public void testAddExecutionState() throws Exception {
-    }
-
-    @Test
-    public void testListExecutionStates() throws Exception {
+    public void testCalculateKPI() throws Exception {
+        OntologyRecommenderImpl instance = new OntologyRecommenderImpl();
+        KBProcessId processId = instance.calculateKPI(MODELSET_ID);
+        assertNotNull(processId);
+        assertTrue(processId.getId().startsWith("KPI_"));
     }
 
     @Test
@@ -79,13 +61,4 @@ public class OntologyRecommenderImplTest extends AbstractUnitTest {
         m.marshal(result, System.out);
         
     }
-
-    @Test
-    public void testCreateBookmark() throws Exception {
-    }
-
-    @Test
-    public void testGetAllBookmarks() throws Exception {
-    }
-    
 }

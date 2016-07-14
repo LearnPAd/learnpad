@@ -985,8 +985,29 @@ emo:DocumentAndKnowledgeMetaModel
 .
 emo:KPI_MetaModel
   rdf:type owl:Class ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object kpi:KPI ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:KPI_MetaModellRepresentsKPI ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:subClassOf emo:LearnPAdPlatformIndependentMetaModel ;
+.
+emo:KPI_MetaModellRepresentsKPI
+  rdf:type rdf:Property ;
+  rdfs:domain emo:KPI_MetaModel ;
+  rdfs:range kpi:KPI ;
 .
 emo:LearnPAdPlatformIndependentMetaModel
   rdf:type owl:Class ;
@@ -2147,6 +2168,79 @@ emo:workflowModelBelongsToPerspectiveN
   rdfs:label "workflowModelBelongsToPerspectiveN"^^xsd:string ;
   rdfs:subPropertyOf emo:modelTypeBelongsToPerspective ;
 .
+kpi:KPI
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:KPI ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:kpiRepresentsKPI ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+      rdfs:comment "1"^^xsd:string ;
+    ] ;
+.
+kpi:LearningGoal
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:LearningGoal ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:learningGoalRepresentsLearningGoal ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+kpi:OperationalGoal
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:OperationalGoal ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:operationalGoalRepresentsOperationalGoal ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
+kpi:Perspective
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object eo:Perspective ;
+            sp:predicate rdf:type ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object spin:_this ;
+            sp:predicate emo:perspectiveRepresentsPerspective ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where () ;
+    ] ;
+.
 omm:OrganisationalUnit
   spin:rule [
       rdf:type sp:Construct ;
@@ -2177,6 +2271,13 @@ omm:Performer
           [
             sp:object spin:_this ;
             sp:predicate emo:performerRepresentsPerson ;
+            sp:subject spin:_this ;
+          ]
+          [
+            sp:object [
+                sp:varName "email"^^xsd:string ;
+              ] ;
+            sp:predicate <http://xmlns.com/foaf/spec#mbox> ;
             sp:subject spin:_this ;
           ]
         ) ;
@@ -2349,101 +2450,6 @@ omm:Team
           [
             sp:object spin:_this ;
             sp:predicate emo:teamRepresentsBusinessCollaboration ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where () ;
-    ] ;
-.
-emo:KPI_MetaModellRepresentsKPI
-  rdf:type rdf:Property ;
-  rdfs:domain emo:KPI_MetaModel ;
-  rdfs:range kpi:KPI ;
-.
-emo:KPI_MetaModel
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object kpi:KPI ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object spin:_this ;
-            sp:predicate emo:KPI_MetaModellRepresentsKPI ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where () ;
-    ] ;
-.
-kpi:KPI
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object eo:KPI ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object spin:_this ;
-            sp:predicate emo:kpiRepresentsKPI ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where () ;
-    ] ;
-.
-kpi:LearningGoal
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object eo:LearningGoal ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object spin:_this ;
-            sp:predicate emo:learningGoalRepresentsLearningGoal ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where () ;
-    ] ;
-.
-kpi:OperationalGoal
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object eo:OperationalGoal ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object spin:_this ;
-            sp:predicate emo:operationalGoalRepresentsOperationalGoal ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where () ;
-    ] ;
-.
-kpi:Perspective
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object eo:Perspective ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object spin:_this ;
-            sp:predicate emo:perspectiveRepresentsPerspective ;
             sp:subject spin:_this ;
           ]
         ) ;

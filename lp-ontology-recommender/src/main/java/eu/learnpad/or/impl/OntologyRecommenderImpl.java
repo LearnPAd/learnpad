@@ -25,6 +25,7 @@ import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
+import eu.learnpad.ontology.kpi.dashboard.KPILoader;
 import eu.learnpad.ontology.notification.NotificationLog;
 import eu.learnpad.ontology.recommender.Recommender;
 import eu.learnpad.ontology.recommender.RecommenderException;
@@ -57,31 +58,30 @@ import java.util.UUID;
  *
  * @author sandro.emmenegger
  */
-
 @Component
 @Singleton
 @Named("eu.learnpad.or.impl.OntologyRecommenderImpl")
 @Path("/learnpad/or/bridge")
 public class OntologyRecommenderImpl extends XwikiBridge implements Initializable {
-    
+
     @Override
     public void initialize() throws InitializationException {
-            this.corefacade = new XwikiCoreFacadeRestResource();
-            SimpleModelTransformator.getInstance();
+        this.corefacade = new XwikiCoreFacadeRestResource();
+        SimpleModelTransformator.getInstance();
     }
 
     @Override
     public void modelSetImported(String modelSetId, ModelSetType type) throws LpRestException {
-            InputStream modelSetInputStream = this.corefacade.getModel(modelSetId, type);
-            if(modelSetInputStream == null){
-                throw new LpRestExceptionXWikiImpl("Modelset for id '" + modelSetId + "' and type '"+type+"' not found!");
-            }
-            SimpleModelTransformator.getInstance().transform(modelSetId, this.corefacade.getModel(modelSetId, type), type);
+        InputStream modelSetInputStream = this.corefacade.getModel(modelSetId, type);
+        if (modelSetInputStream == null) {
+            throw new LpRestExceptionXWikiImpl("Modelset for id '" + modelSetId + "' and type '" + type + "' not found!");
+        }
+        SimpleModelTransformator.getInstance().transform(modelSetId, this.corefacade.getModel(modelSetId, type), type);
     }
-    
+
     @Override
     public void resourceNotification(String modelSetId, String resourceId, ResourceType resourceType, String referringToResourceId, String[] modelArtifactIds, String userId, Long timestamp, NotificationActionType action) throws LpRestException {
-        
+
         try {
             NotificationLog.getInstance().logResourceNotification(modelSetId, resourceId, resourceType, referringToResourceId, modelArtifactIds, userId, timestamp, action);
         } catch (RecommenderException ex) {
@@ -92,48 +92,48 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 
     @Override
     public Recommendations askRecommendation(String modelSetId,
-			String artifactId, String userId, String simulationSessionId) throws LpRestException {
-    	
+            String artifactId, String userId, String simulationSessionId) throws LpRestException {
+
         try {
             Recommendations rec = Recommender.getInstance().getRecommendations(modelSetId, artifactId, userId, simulationSessionId);
             return rec;
         } catch (Exception ex) {
             Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.SEVERE, null, ex);
             throw new LpRestExceptionXWikiImpl("Asking for recommendations failed with parameters: "
-                    + "modelsetId='"+modelSetId
-                    +"' artifactId='"+artifactId
-                    +"' userId='"+userId
-                    +"' simulationSessionId='"+simulationSessionId+"'. ", ex);
+                    + "modelsetId='" + modelSetId
+                    + "' artifactId='" + artifactId
+                    + "' userId='" + userId
+                    + "' simulationSessionId='" + simulationSessionId + "'. ", ex);
         }
-    }    
-    
+    }
+
     @Override
     public void simulationInstanceNotification(String modelSetId, String modelId, String action, String simulationId, SimulationData data) throws LpRestException {
-    	// This modification is done because currently the ontology does not deals with
-    	// data submitted by the user during simulation, but only with session data.
-    	// In future when the ontology will support this, the following line should be removed    	
-    	data.setSubmittedData(new HashMap<String, Object>());
-    	CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
+        // This modification is done because currently the ontology does not deals with
+        // data submitted by the user during simulation, but only with session data.
+        // In future when the ontology will support this, the following line should be removed    	
+        data.setSubmittedData(new HashMap<String, Object>());
+        CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
     }
 
     @Override
     public void simulationTaskStartNotification(String modelSetId, String modelId, String artifactId, String simulationId, SimulationData data) throws LpRestException {
-    	// This modification is done because currently the ontology does not deals with
-    	// data submitted by the user during simulation, but only with session data.
-    	// In future when the ontology will support this, the following line should be removed    	
-    	data.setSubmittedData(new HashMap<String, Object>());
+        // This modification is done because currently the ontology does not deals with
+        // data submitted by the user during simulation, but only with session data.
+        // In future when the ontology will support this, the following line should be removed    	
+        data.setSubmittedData(new HashMap<String, Object>());
         CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
     }
 
     @Override
     public void simulationTaskEndNotification(String modelSetId, String modelId, String artifactId, String simulationId, SimulationData data) throws LpRestException {
-    	// This modification is done because currently the ontology does not deals with
-    	// data submitted by the user during simulation, but only with session data.
-    	// In future when the ontology will support this, the following line should be removed    	
-    	data.setSubmittedData(new HashMap<String, Object>());
+        // This modification is done because currently the ontology does not deals with
+        // data submitted by the user during simulation, but only with session data.
+        // In future when the ontology will support this, the following line should be removed    	
+        data.setSubmittedData(new HashMap<String, Object>());
         CBRAdapter.getInstance().createOrUpdateSimulationSessionCase(simulationId, data);
     }
-    
+
     @Override
     public void addExecutionState(String modelSetId, String executionId, String userId, String threadId, String pageId, String artifactId) throws LpRestException {
         // TODO Postponed
@@ -144,18 +144,27 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 //        States states = ExecutionStates.getInstance().getStatesOfLatestAddedModelSet(userId);
 //        return states;
         return null; //not used up to now
-    }    
+    }
 
     @Override
     public Entities analyseText(String modelSetId, String contextArtifactId, String userId, String title, String text) throws LpRestException {
-        
+
         Entities testData = new Entities();
         String id = UUID.randomUUID().toString();
-        String analysedText = "The activity <i>Organize Conference</i> specified by <span data-recommendation=\""+id+"\">Sally Shugar</span> should be <b>splitted</b> into 2 activities.";
-        testData.setAnalyzedContent(analysedText);
+
+        //For testing purposes only !
+        String analysedText = text;
+        if(text.contains("Sally Shugar")){
+            analysedText = analysedText.replace("Sally Shugar", "<span data-recommendation=\"" + id + "\">Sally Shugar</span>");
+        }
         
+        testData.setAnalyzedContent(analysedText);
+
         Entity entity = new Entity();
         entity.setId(id);
+        entity.setModelSetId(modelSetId);
+        entity.setModelId("mod.39886");
+        entity.setOjbectId("obj.39926");
         entity.setContextArtifactId("transfer:obj.35315");
         entity.setType("eo:Person");
         BusinessActor person = new BusinessActor();
@@ -171,7 +180,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         orgUnit.setUri("transfer:obj.122121");
         person.setOrganisationalUnit(orgUnit);
         entity.setPerson(person);
-        
+
         //related objects
         List<RelatedObject> listOfRelatedObjects = new ArrayList<>();
         RelatedObject relatedObject1 = new RelatedObject();
@@ -182,7 +191,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         relatedObject1.setMimeType("application/pdf");
         relatedObject1.setUri("transfer:obj.21321");
         listOfRelatedObjects.add(relatedObject1);
-        
+
         RelatedObject relatedObject2 = new RelatedObject();
         relatedObject1.setRelationType("sameAuthor");
         relatedObject2.setName("Best practices for organizing a service conference");
@@ -192,8 +201,8 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         relatedObject2.setUri("transfer:obj.21322");
         listOfRelatedObjects.add(relatedObject2);
         RelatedObjects relatedObjects = new RelatedObjects();
-        relatedObjects.setRelatedObjects(listOfRelatedObjects);        
-        
+        relatedObjects.setRelatedObjects(listOfRelatedObjects);
+
         entity.setRelatedObjects(relatedObjects);
         List<Entity> entities = new ArrayList<>();
         entities.add(entity);
@@ -208,9 +217,9 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 
     @Override
     public Recommendations getAllBookmarks(String modelSetId, String userId, String artifactId) throws LpRestException {
-        
+
         Recommendations testData = new Recommendations();
-        
+
         BusinessActor person = new BusinessActor();
         person.setName("Sally Shugar");
         person.setEmail("sally.shugar@learnpad.eu");
@@ -228,54 +237,57 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         Experts experts = new Experts();
         experts.setBusinessActors(expertList);
         testData.setExperts(experts);
-        
+
         LearningMaterial learningMaterial = new LearningMaterial();
         learningMaterial.setName("Management ABC for public administrations");
         learningMaterial.setDescription("This self study book with learning material is the definitve guide to manage a team in public administration.");
         learningMaterial.setUrl("http://learnpad.eu/material/PublicAdministrationABC.pdf");
         learningMaterial.setMimeType("application/pdf");
         learningMaterial.setId("transfer:obj.21321");
-        
+
         List<LearningMaterial> learningMaterialsList = new ArrayList<>();
         learningMaterialsList.add(learningMaterial);
         LearningMaterials materials = new LearningMaterials();
         materials.setLearningMaterials(learningMaterialsList);
         testData.setLearningMaterials(materials);
-        
+
         return testData;
     }
 
-	@Override
-	public KBProcessId calculateKPI(String modelSetId) throws LpRestException {
-		// TODO Auto-generated method stub
-		Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.INFO, "Inside " + this.getClass().getCanonicalName()+".calculateKPI");
-		
-		KBProcessId out = new KBProcessId();
-		out.setId("167-this-is-fake-167");
+    @Override
+    public KBProcessId calculateKPI(String modelSetId) throws LpRestException {
 
-		return out;
-	}
+        Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.INFO, "Inside " + this.getClass().getCanonicalName() + ".calculateKPI");
+            
+        KPILoader kpiLoader = new KPILoader(this.corefacade, modelSetId);
+        kpiLoader.start();
+        
+        KBProcessId out = new KBProcessId();        
+        out.setId("KPI_"+kpiLoader.getId());
+        
+        return out;
+    }
 
-	@Override
-	public KBProcessingStatus getHandlingProcessStatus(String kbProcessProcessId)
-			throws LpRestException {
-		// TODO Auto-generated method stub
-		Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.INFO, "Inside " + this.getClass().getCanonicalName()+".getHandlingProcessStatus");		
-		KBProcessingStatus out = this.fakeKBProcessingStatus();
+    @Override
+    public KBProcessingStatus getHandlingProcessStatus(String kbProcessProcessId)
+            throws LpRestException {
+        // TODO Auto-generated method stub
+        Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.INFO, "Inside " + this.getClass().getCanonicalName() + ".getHandlingProcessStatus");
+        KBProcessingStatus out = this.fakeKBProcessingStatus();
 
-		return out;
-	}
+        return out;
+    }
 
-	private KBProcessingStatus fakeKBProcessingStatus() {
-		KBProcessingStatus fake = new KBProcessingStatus();
-		fake.setStatus(KBProcessingStatusType.IN_PROGRESS);
+    private KBProcessingStatus fakeKBProcessingStatus() {
+        KBProcessingStatus fake = new KBProcessingStatus();
+        fake.setStatus(KBProcessingStatusType.IN_PROGRESS);
 
-		Info info = new Info();
-		JAXBElement<String> jaxbElement =
-				  new JAXBElement(new QName("InfoContentTag"), 
-				    String.class, "this-status-is-fake");		
-		info.getAny().add(jaxbElement);
-		return fake;
-	}
+        Info info = new Info();
+        JAXBElement<String> jaxbElement
+                = new JAXBElement(new QName("InfoContentTag"),
+                        String.class, "this-status-is-fake");
+        info.getAny().add(jaxbElement);
+        return fake;
+    }
 
 }

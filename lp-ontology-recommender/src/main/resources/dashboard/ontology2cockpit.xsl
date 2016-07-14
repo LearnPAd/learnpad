@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:kpi="http://ikm-group.ch/archiMEO/kpi#" xmlns:lpd="http://learnpad.eu#" xmlns:emo="http://ikm-group.ch/archiMEO/emo#">
-	<xsl:param name="businessActorUri">http://learnpad.eu/transfer#obj.34872</xsl:param>
+	<xsl:param name="businessActorUri">http://learnpad.eu/transfer#obj.39896</xsl:param>
 	<xsl:output method="xml" indent="yes"/>
 		
 	<xsl:template match="/">
@@ -55,6 +55,7 @@
 		<xsl:variable name="apos">'</xsl:variable>
 		<xsl:variable name="performanceValue" select="//rdf:Description[./rdf:type/@rdf:resource='http://learnpad.eu#PerformanceValue' and ./lpd:performanceValueBelongsToBusinessActor/@rdf:resource=$businessActorUri and ./rdf:type/@rdf:resource=current()/@rdf:about]"/>
 		<xsl:variable name="isValue" select="$performanceValue/lpd:performanceValueHasActualValue/text()"/>
+		<xsl:variable name="score" select="$performanceValue/lpd:performanceValueHasScore/text()"/>
 		<xsl:element name="CRITERION">
 			<xsl:attribute name="NAME"><xsl:value-of select='translate(rdfs:label/text(), $apos, "")'/></xsl:attribute>
 			<xsl:attribute name="ID"><xsl:value-of select="@rdf:about"/></xsl:attribute>
@@ -63,7 +64,7 @@
 				<xsl:attribute name="ID"><xsl:value-of select="./kpi:kpiMeasuresLearningGoal/@rdf:resource"/></xsl:attribute>
 			</xsl:element>			
 			<xsl:call-template name="createChapterDetails">
-				<xsl:with-param name="status" select="replace(replace(replace($isValue, '3', 'green'), '2', 'yellow'), '1', 'red')"/>
+				<xsl:with-param name="status" select="replace(replace(replace($score, '3', 'green'), '2', 'yellow'), '1', 'red')"/>
 				<xsl:with-param name="isValue" select="$isValue"/>
 				<xsl:with-param name="description" select='translate(kpi:kpiHasDescription/text(), $apos, "")'/>
 				<xsl:with-param name="recommendation" select='translate(kpi:kpiProvidesRecommendation/text(), $apos, "")'/>
@@ -83,7 +84,7 @@
 		<xsl:param name="unit"></xsl:param>
 		<xsl:param name="target"></xsl:param>
 		<xsl:param name="isValue"></xsl:param>
-		
+
 		<xsl:element name="CHAPTER">
 				<xsl:attribute name="NAME">Description</xsl:attribute>
 				<xsl:element name="ATTRIBUTES">
