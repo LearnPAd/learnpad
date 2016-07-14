@@ -46,9 +46,9 @@ LPUI.WebHome.button.start=Inizia
 LPUI.WebHome.button.simulate=Esegui
 LPUI.WebHome.lastupdate=Last update {0}
 LPUI.WebHome.knowmore=[... altro]
-LPUI.WebHome.presentation.introduction=Welcome! The European project Learn PAd (Model Based Social Learning for Public Administrations) is funded by the European Community under the Seventh Programme Framework for Research and Development (FP7).
-LPUI.WebHome.presentation.content=You are using the collaborative platform released for online “training on the job“ sessions of the PA staff. The platform provides a set of innovative and social features for interaction and simulation, and it is based on use cases and practical methods derived from the formal modeling of business processes, which can be browsed within a Wiki Knowledge Repository. Executing any given task or functionality, the system will assign you an (improvable) score, according to the required and achieved skills and expertize level (related to the EQF competencies framework).
-LPUI.WebHome.presentation.conclusion=Select your course and start playing with us!
+LPUI.WebHome.presentation.introduction=Benvenuto! Il progetto europeo Learn PAd (Model Based Social Learning for Public Administrations) è finanziato dalla Commissione Europea nell'ambito del Settimo programma quadro di ricerca e sviluppo (FP7).
+LPUI.WebHome.presentation.content=Questa è una piattaforma collaborativa dedicata alla formazione online di personale delle PA attraverso sessioni di "training on the job". La piattaforma offre una serie di caratteristiche innovative per l'apprendimento, la simulazione e la co-creazione di contenuti per processi di business. La rappresentazione della conoscenza si basa su casi d'uso e metodi pratici derivanti dalla modellazione formale dei processi aziendali, che possono essere consultati ed elaborati attraverso un Wiki. Attraverso l'esecuzione di un determinato compito o l'uso delle sue funzionalità, il sistema ti assegnerà un punteggio (migliorabile), in base al livello di preparazione richiesto (secondo il quadro delle competenze EQF).
+LPUI.WebHome.presentation.conclusion=Seleziona il tuo corso e iniziare a giocare con noi!
 
 # LPUI.ModelSetSheet
 LPUI.ModelSetSheet.button.contribute=Contribuisci
