@@ -9,12 +9,16 @@ import eu.learnpad.dash.rest.data.KPIValuesFormat;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.ontology.config.APP;
+import eu.learnpad.ontology.kpi.KBProcessorNotifier;
 import eu.learnpad.or.CoreFacade;
+import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatusType;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -30,25 +34,23 @@ public class KPILoaderTest extends AbstractKpiTest {
     @Test
     public void testRun() {
         System.out.println("run");
-        KPILoader instance = new KPILoader(new DummyCoreFacade() , MODELSET_ID);
+        
+        KBProcessorNotifier dummyNotifier = new DummyKBProcessingStatusNotifier();
+        
+        KPILoader instance = new KPILoader(dummyNotifier, MODELSET_ID);
         instance.run();
         
     }
     
-    class DummyCoreFacade implements CoreFacade{
+    class DummyKBProcessingStatusNotifier implements KBProcessorNotifier{
+		@Override
+		public void notifyProcessingStatus(String kbProcessId,
+				KBProcessingStatusType status) {
+			// TODO Auto-generated method stub				
+		}    	
 
-        @Override
-        public byte[] getComments(String modelSetId, String artifactId) throws LpRestException {
-            return null;
-        }
-
-        @Override
-        public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException {
-            return null;
-        }
-
-        @Override
-        public void pushKPIValues(String modelSetId, KPIValuesFormat format, String businessActorId, InputStream cockpitContent) throws LpRestException {
+		@Override
+        public void notifyKPIValues(String modelSetId, KPIValuesFormat format, String businessActorId, InputStream cockpitContent) throws LpRestException {
             File kpiDashboardFilesFolder = new File(APP.CONF.getString("working.directory")+"/" + APP.CONF.getString("kpi.dashboard.data.folder.relative") + "/testing");
             if(!kpiDashboardFilesFolder.exists()){
                 kpiDashboardFilesFolder.mkdirs();
@@ -60,7 +62,6 @@ public class KPILoaderTest extends AbstractKpiTest {
                 Assert.fail("Writing cockpit file faild." + ex.getLocalizedMessage());
             }
         }
-        
     }
     
 }
