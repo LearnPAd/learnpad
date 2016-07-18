@@ -4,7 +4,6 @@
  */
 package eu.learnpad.ontology.persistence.util;
 
-import ch.fhnw.cbr.core.config.CBR;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -19,6 +18,7 @@ import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
+import eu.learnpad.ontology.config.APP;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,7 +152,7 @@ public class OntUtil {
     }
 
     public static String getLabel(OntResource instance) {
-        String label = firstNonNull(instance.getLabel(CBR.LANGUAGE), instance.getLabel(CBR.ALTERNATIVE_LANGUAGE), instance.getLabel(null), instance.getLocalName(), "no label");
+        String label = firstNonNull(instance.getLabel(APP.LANGUAGE), instance.getLabel(null), instance.getLocalName(), "no label");
         return label;
     }
 
