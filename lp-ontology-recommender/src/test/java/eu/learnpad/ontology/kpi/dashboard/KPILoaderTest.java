@@ -5,17 +5,21 @@
  */
 package eu.learnpad.ontology.kpi.dashboard;
 
+import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
 import eu.learnpad.dash.rest.data.KPIValuesFormat;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.ontology.config.APP;
 import eu.learnpad.or.CoreFacade;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -31,6 +35,15 @@ public class KPILoaderTest extends AbstractKpiTest {
     public void testRun() {
         System.out.println("run");
         KPILoader instance = new KPILoader(new DummyCoreFacade() , MODELSET_ID);
+        instance.run();
+        
+    }
+    
+    @Test
+    @Ignore
+    public void testAgainstARemoteDashboard() {
+        System.out.println("run");
+        KPILoader instance = new KPILoader(new XwikiCoreFacadeRestResource(), MODELSET_ID);
         instance.run();
         
     }
