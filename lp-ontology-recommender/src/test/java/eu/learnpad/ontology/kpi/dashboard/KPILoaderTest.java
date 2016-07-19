@@ -5,10 +5,12 @@
  */
 package eu.learnpad.ontology.kpi.dashboard;
 
+import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
 import eu.learnpad.dash.rest.data.KPIValuesFormat;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.kpi.KBProcessorNotifier;
+import eu.learnpad.or.CoreFacade;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatusType;
 
 import java.io.File;
@@ -18,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -40,6 +43,18 @@ public class KPILoaderTest extends AbstractKpiTest {
         
     }
     
+    @Test
+    @Ignore
+    public void testRemoteRun() {
+        System.out.println("run");
+        
+        KBProcessorNotifier dummyNotifier = new DummyRemoteKBProcessingStatusNotifier();
+        
+        KPILoader instance = new KPILoader(dummyNotifier, MODELSET_ID);
+        instance.run();
+        
+    }
+
     class DummyKBProcessingStatusNotifier implements KBProcessorNotifier{
 		@Override
 		public void notifyProcessingStatus(String kbProcessId,
@@ -62,4 +77,17 @@ public class KPILoaderTest extends AbstractKpiTest {
         }
     }
     
+    class DummyRemoteKBProcessingStatusNotifier implements KBProcessorNotifier{
+		@Override
+		public void notifyProcessingStatus(String kbProcessId,
+				KBProcessingStatusType status) {
+			// TODO Auto-generated method stub				
+		}    	
+
+		@Override
+        public void notifyKPIValues(String modelSetId, KPIValuesFormat format, String businessActorId, InputStream cockpitContent) throws LpRestException {
+			CoreFacade corefacade = new XwikiCoreFacadeRestResource();
+			corefacade.pushKPIValues(modelSetId, format, businessActorId, cockpitContent);
+		}
+    }
 }
