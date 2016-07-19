@@ -64,12 +64,12 @@
         <dependency>
             <groupId>ch.fhnw.iceberg</groupId>
             <artifactId>cbr-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>ch.fhnw.iceberg</groupId>
             <artifactId>cbr-core-service</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
         
         <dependency>
@@ -147,30 +147,30 @@
             <url>http://topquadrant.com/repository/spin</url>
         </repository>  
         <repository>
-            <id>iceberg-repository-snapshots</id>
-            <name>ICBERG CBR services snapshot repository</name>
+            <id>iceberg-repository</id>
+            <name>ICBERG CBR services repository</name>
             <url>https://bitbucket.org/ikmgroup/iceberg-toolkit-library/raw/master/repository/</url>
             <releases>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
+                <updatePolicy>intervall:60</updatePolicy>
             </releases>
             <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
+                <enabled>false</enabled>
             </snapshots>
         </repository>
     </repositories>    
     
     <pluginRepositories>
         <pluginRepository>
-            <id>iceberg-plugins-repository-snapshots</id>
-            <name>ICBERG CBR services plugins snapshot repository</name>
+            <id>iceberg-plugins-repository</id>
+            <name>ICBERG CBR services plugins repository</name>
             <url>https://bitbucket.org/ikmgroup/iceberg-toolkit-library/raw/master/repository/</url>
             <releases>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
+                <updatePolicy>intervall:60</updatePolicy>
             </releases>
             <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
+                <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
