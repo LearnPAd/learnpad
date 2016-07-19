@@ -151,7 +151,7 @@ public abstract class OntAO {
                 executionDataFile.createNewFile();
             }
         } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, "Cannot load or create execution data file.", ex);
+            LOGGER.log(Level.SEVERE, "Cannot load or create execution data file: {0} ", new Object[]{executionDataFile});
         }
         return executionDataFile;
     }

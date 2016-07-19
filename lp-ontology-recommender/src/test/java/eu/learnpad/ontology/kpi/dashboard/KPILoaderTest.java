@@ -49,7 +49,7 @@ public class KPILoaderTest extends AbstractKpiTest {
 
         @Override
         public void pushKPIValues(String modelSetId, KPIValuesFormat format, String businessActorId, InputStream cockpitContent) throws LpRestException {
-            File kpiDashboardFilesFolder = new File(APP.CONF.getString("working.directory")+"/" + APP.CONF.getString("kpi.dashboard.data.folder.relative") + "/testing");
+            File kpiDashboardFilesFolder = new File(APP.CONF.getString("working.directory")+"/" + APP.CONF.getString("kpi.dashboard.data.folder.relative"));
             if(!kpiDashboardFilesFolder.exists()){
                 kpiDashboardFilesFolder.mkdirs();
             }
