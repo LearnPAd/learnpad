@@ -74,6 +74,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	 * second case implies to rebuild the whole platform at each change.
 	 */
 	private eu.learnpad.cw.BridgeInterface cw;
+	
+	private eu.learnpad.dash.BridgeInterface dash;
 
 	private eu.learnpad.sim.BridgeInterface sim;
 
@@ -83,6 +85,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 			this.bridge = this.componentManager.getInstance(RestResource.class, "or");
 
 			this.cw = this.componentManager.getInstance(RestResource.class, "cw");
+			this.dash = this.componentManager.getInstance(RestResource.class, "dash");
 			this.sim = this.componentManager.getInstance(RestResource.class, "sim");
 		} catch (ComponentLookupException e) {
 			throw new InitializationException(e.getMessage(), e);
@@ -108,7 +111,6 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	public void pushKPIValues(String modelSetId, KPIValuesFormat format,
 			String businessActorId, InputStream cockpitContent)
 			throws LpRestException {
-		// TODO Auto-generated method stub
-		
+		this.dash.loadKPIValues(modelSetId, format, businessActorId, cockpitContent);
 	}
 }

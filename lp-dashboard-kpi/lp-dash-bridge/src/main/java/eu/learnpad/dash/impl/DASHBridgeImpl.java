@@ -36,7 +36,9 @@ import eu.learnpad.dash.Bridge;
 import eu.learnpad.dash.config.APP;
 import eu.learnpad.dash.rest.data.KPIValuesFormat;
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -90,7 +92,9 @@ public class DASHBridgeImpl extends Bridge {
             try {
                 Files.copy(cockpitContent, cockpitXmlFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException ex) {
-                log.error("Cannot create dashboard kpi file from inputstream during loadKPIValues method call.", ex);
+            	String message = "Cannot create dashboard kpi file from inputstream during loadKPIValues method call."; 
+                log.error(message, ex);
+    			throw new LpRestExceptionXWikiImpl(message + ex.getMessage(), ex);
             }
         }
     }
