@@ -61,7 +61,7 @@ public class CBRAdapterTest {
     private void checkRetrievedCases(SimilarCases similarCases, String testName) {
         assertNotNull(similarCases);
         assertNotNull(similarCases.getSimilarCases());
-        assertEquals(3, similarCases.getSimilarCases().size());
+        assertEquals(4, similarCases.getSimilarCases().size());
         System.out.println("\n Test: "+testName);
         for (SimilarCase similarCase : similarCases.getSimilarCases()) {
             System.out.println("\n________________________________\nCase: " + similarCase.getName() + " " + similarCase.getSimilarityValue());

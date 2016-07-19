@@ -61,7 +61,7 @@
 			<xsl:attribute name="ID"><xsl:value-of select="@rdf:about"/></xsl:attribute>
 			<xsl:attribute name="TYPE">Performance indicator</xsl:attribute>
 			<xsl:element name="PARENT">
-				<xsl:attribute name="ID"><xsl:value-of select="./kpi:kpiMeasuresLearningGoal/@rdf:resource"/></xsl:attribute>
+				<xsl:attribute name="ID"><xsl:value-of select="./kpi:kpiMeasuresLearningGoal/@rdf:resource"/><xsl:value-of select="./kpi:kpiMeasuresOperationalGoal/@rdf:resource"/></xsl:attribute>
 			</xsl:element>			
 			<xsl:call-template name="createChapterDetails">
 				<xsl:with-param name="status" select="replace(replace(replace($score, '3', 'green'), '2', 'yellow'), '1', 'red')"/>
