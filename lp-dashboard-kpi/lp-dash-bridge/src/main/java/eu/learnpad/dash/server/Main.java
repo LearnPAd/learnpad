@@ -74,12 +74,12 @@ public class Main {
 		}catch(Exception e){
 			System.err.println("Default Configuration Loaded");
 		}
-		
+			
 		ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-	        context.setContextPath("/");
+	    context.setContextPath("/");
 	 
-	        Server jettyServer = new Server(Integer.valueOf(Main.PORT));
-	        jettyServer.setHandler(context);
+	    Server jettyServer = new Server(Integer.valueOf(Main.PORT));
+	    jettyServer.setHandler(context);
 	 
 		ResourceConfig config = new ResourceConfig();
 		config.packages(Main.class.getPackage().getName());

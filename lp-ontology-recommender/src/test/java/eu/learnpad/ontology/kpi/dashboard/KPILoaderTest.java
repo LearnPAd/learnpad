@@ -7,10 +7,8 @@ package eu.learnpad.ontology.kpi.dashboard;
 
 import eu.learnpad.dash.rest.data.KPIValuesFormat;
 import eu.learnpad.exception.LpRestException;
-import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.kpi.KBProcessorNotifier;
-import eu.learnpad.or.CoreFacade;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatusType;
 
 import java.io.File;

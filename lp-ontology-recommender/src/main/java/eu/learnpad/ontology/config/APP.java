@@ -18,6 +18,8 @@ public class APP {
 
     public static PropertiesConfiguration CONF;
     
+    public static String LANGUAGE = "EN";
+    
     static{
         try {
             CONF = new PropertiesConfiguration("application.properties");
