@@ -37,6 +37,7 @@ public class OntologyRecommenderImplTest extends AbstractUnitTest {
     @Test
     public void testCalculateKPI() throws Exception {
         OntologyRecommenderImpl instance = new OntologyRecommenderImpl();
+        instance.initialize();
         KBProcessId processId = instance.calculateKPI(MODELSET_ID);
         assertNotNull(processId);
         assertTrue(processId.getId().startsWith("KPI_"));
