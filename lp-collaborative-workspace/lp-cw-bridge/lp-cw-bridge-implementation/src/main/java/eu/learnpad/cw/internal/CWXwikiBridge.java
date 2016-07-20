@@ -335,6 +335,12 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 		return this.corefacade.getRecommendations(modelSetId, artifactId, userId);
 	}
 
+	@Override
+	public String getDashboardKpiDefaultViewer(String modelSetId, String userId)
+			throws LpRestException {
+		return this.corefacade.getDashboardKpiDefaultViewer(modelSetId, userId);
+	}
+	
 	private UserDataCollection getUserProfiles(Collection<String> potentialUsers) {
 		XWikiContext xcontext = xcontextProvider.get();
 		XWiki xwiki = xcontext.getWiki();
@@ -474,4 +480,5 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 		}
 		return new ScoreRecordCollection(res);
 	}
+
 }
