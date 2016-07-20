@@ -21,6 +21,7 @@ package eu.learnpad.core.impl.cw;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 
@@ -247,6 +248,29 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 	}
 
 	@Override
+	public String getDashboardKpiDefaultViewer(String modelSetId, String userId)
+			throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/dashboardkpi/viewer", DefaultRestResource.REST_URI);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_XML);
+
+		NameValuePair[] queryString = new NameValuePair[2];
+		queryString[0] = new NameValuePair("modelsetid", modelSetId);
+		queryString[1] = new NameValuePair("userid", userId);
+		getMethod.setQueryString(queryString);
+
+		try {
+			httpClient.executeMethod(getMethod);
+			String url = getMethod.getResponseBodyAsString();
+			return url;
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+	}
+	
+	
+	@Override
 	public InputStream transform(ModelSetType type, InputStream model) throws LpRestException {
 		HttpClient httpClient = this.getClient();
 		String uri = String.format("%s/learnpad/cw/corefacade/transform", DefaultRestResource.REST_URI);
@@ -350,4 +374,5 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 	}
+
 }
