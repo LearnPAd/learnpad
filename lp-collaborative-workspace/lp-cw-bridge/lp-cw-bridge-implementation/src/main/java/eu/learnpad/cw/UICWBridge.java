@@ -36,6 +36,8 @@ public interface UICWBridge {
 	public Recommendations getRecommendations(String modelSetId, String artifactId, String userId)
 			throws LpRestException;
 
+	public String getDashboardKpiDefaultViewer(String modelSetId, String userId) throws LpRestException;
+
 	public String getRestPrefix(String component) throws LpRestException;
 
 	public String startSimulation(String modelId, String currentUser, Collection<String> potentialUsers)
@@ -43,9 +45,9 @@ public interface UICWBridge {
 
 	public String joinSimulation(String simulationId, String userId) throws LpRestException;
 
-	Collection<String> listSimulations() throws LpRestException;
+	public Collection<String> listSimulations() throws LpRestException;
 
-	ProcessInstanceData getSimulationInfo(@PathParam("simulationid") String simulationId) throws LpRestException;
+	public ProcessInstanceData getSimulationInfo(@PathParam("simulationid") String simulationId) throws LpRestException;
 
 	public ScoreRecordCollection getScores(String userid, String modelid) throws LpRestException;
 }
