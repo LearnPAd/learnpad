@@ -19,6 +19,9 @@
  */
 package eu.learnpad.cw.service.script;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Collection;
 
 import javax.inject.Inject;
@@ -112,6 +115,22 @@ public class LearnpadScriptService implements ScriptService, UICWBridge {
 		}
 	}
 
+	@Override
+	public String getDashboardKpiDefaultViewer(String modelSetId, String userId){
+		String url = null;
+		try {
+			url = this.cwBridge.getDashboardKpiDefaultViewer(modelSetId, userId);
+			URL u = new URL(url); // this would check for the protocol
+			u.toURI(); // does the extra checking required for validation of URI 
+		} catch (LpRestException e) {
+			this.setLastError(e);
+		} catch (MalformedURLException | URISyntaxException e) {
+			url = "";
+			this.setLastError(e);
+		} 
+		return url;
+	}
+
 	public String startSimulation(String modelId, String currentUser, Collection<String> potentialUsers) {
 		try {
 			return this.cwBridge.startSimulation(modelId, currentUser, potentialUsers);
@@ -167,4 +186,5 @@ public class LearnpadScriptService implements ScriptService, UICWBridge {
 			return null;
 		}
 	}
+
 }

@@ -101,6 +101,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 
 	private eu.learnpad.sim.BridgeInterface sim;
 
+	private eu.learnpad.dash.BridgeInterface dash;
+
 	@Override
 	public void initialize() throws InitializationException {
 		try {
@@ -114,6 +116,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 			this.or = this.componentManager.getInstance(RestResource.class, "or");
 			this.qm = this.componentManager.getInstance(RestResource.class, "qm");
 			this.sim = this.componentManager.getInstance(RestResource.class, "sim");
+			this.dash = this.componentManager.getInstance(RestResource.class, "dash");
 		} catch (ComponentLookupException e) {
 			throw new InitializationException(e.getMessage(), e);
 		}
@@ -179,6 +182,14 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		return rec;
 	}
 
+	@Override
+	public String getDashboardKpiDefaultViewer(String modelSetId, String userId)
+			throws LpRestException {
+		String businessActorEmail = this.convertUserID(userId);
+		String url = this.dash.getKPIValuesView(modelSetId, businessActorEmail);
+		return url;
+	}	
+	
 	@Override
 	public InputStream transform(ModelSetType type, InputStream model) throws LpRestException {
 		return this.mt.transform(type, model);
@@ -268,4 +279,5 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String username = this.removePrefixes(userId);
 		return utils.getEmailAddress(wikiName, username);
 	}
+
 }
