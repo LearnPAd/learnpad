@@ -21,7 +21,6 @@ package eu.learnpad.core.impl.cw;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 
@@ -33,6 +32,7 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
@@ -47,7 +47,9 @@ import eu.learnpad.cw.CoreFacade;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
+import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.ResourceType;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.sim.rest.data.UserDataCollection;
 
@@ -78,9 +80,28 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 	}
 
 	@Override
-	public void resourceNotification(String modelSetId, String resourceId, String artifactIds, String action)
+	public void resourceNotification(String modelSetId, String resourceId,
+			ResourceType type, String artifactIds,
+			NotificationActionType action, String userId)
 			throws LpRestException {
-		// TODO Auto-generated method stub
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/resourcenotification/%s", DefaultRestResource.REST_URI, modelSetId);
+		PutMethod putMethod = new PutMethod(uri);
+		putMethod.addRequestHeader("Accept", "application/xml");
+
+		NameValuePair[] queryString = new NameValuePair[5];
+		queryString[0] = new NameValuePair("resourceid", resourceId);
+		queryString[1] = new NameValuePair("resourcetype", type.toString());
+		queryString[2] = new NameValuePair("linkedto", artifactIds);
+		queryString[3] = new NameValuePair("action", action.toString());
+		queryString[4] = new NameValuePair("userid", userId);
+		putMethod.setQueryString(queryString);
+		
+		try {
+			httpClient.executeMethod(putMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
 	}
 
 	@Override
