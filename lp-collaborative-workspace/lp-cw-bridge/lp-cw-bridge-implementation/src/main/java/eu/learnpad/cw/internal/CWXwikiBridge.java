@@ -73,7 +73,9 @@ import eu.learnpad.cw.rest.data.ScoreRecordCollection;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
+import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.ResourceType;
 import eu.learnpad.rest.model.jaxb.PFResults;
 import eu.learnpad.rest.model.jaxb.PFResults.Feedbacks;
 import eu.learnpad.rest.model.jaxb.PFResults.Feedbacks.Feedback;
@@ -481,4 +483,50 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 		return new ScoreRecordCollection(res);
 	}
 
+	@Override
+	public void pageNotification(String modelSetId, String resourceId,
+			String relatedArtifactId, String userId, String action)
+			throws LpRestException {		
+		ResourceType resourceType = ResourceType.PAGE;
+		this.resourceNotification(modelSetId, resourceId, relatedArtifactId, userId, resourceType, action);
+	}
+
+	@Override
+	public void commentNotification(String modelSetId, String resourceId,
+			String relatedArtifactId, String userId, String action)
+			throws LpRestException {
+		ResourceType resourceType = ResourceType.COMMENT;
+		this.resourceNotification(modelSetId, resourceId, relatedArtifactId, userId, resourceType, action);
+	}
+
+	@Override
+	public void attachmentNotification(String modelSetId, String resourceId,
+			String relatedArtifactId, String userId, String action)
+			throws LpRestException {
+		ResourceType resourceType = ResourceType.ATTACHMENT;
+		this.resourceNotification(modelSetId, resourceId, relatedArtifactId, userId, resourceType, action);
+	}
+
+	@Override
+	public void feedbackNotification(String modelSetId, String resourceId,
+			String relatedArtifactId, String userId, String action)
+			throws LpRestException {
+		ResourceType resourceType = ResourceType.FEEDBACK;
+		this.resourceNotification(modelSetId, resourceId, relatedArtifactId, userId, resourceType, action);
+	}
+
+	
+	private void resourceNotification(String modelSetId, String resourceId,
+			String relatedArtifactId, String userId, ResourceType resourceType,
+			String action) throws LpRestException {
+		NotificationActionType actionType = null;
+		try {
+			actionType = NotificationActionType.valueOf(action.toUpperCase());			
+		} catch (IllegalArgumentException | NullPointerException e) {
+			LpRestExceptionXWikiImpl e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			throw e1;
+		}
+		this.corefacade.resourceNotification(modelSetId, resourceId, resourceType, relatedArtifactId, actionType, userId);
+	}	
+	
 }
