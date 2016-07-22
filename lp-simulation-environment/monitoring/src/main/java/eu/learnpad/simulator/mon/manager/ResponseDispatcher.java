@@ -126,7 +126,6 @@ public class ResponseDispatcher {
 	public static void saveAndNotifyLearnersScore(String learnersID, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore) {
 	
 		ResponseDispatcher.lam.computeAndSaveScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))),idBPMN, idPath, sessionScore);
-		
 	}	
 
 	public static void sendResponse(Object object, String enablerName, String answerTopic)
