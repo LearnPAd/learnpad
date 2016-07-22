@@ -50,4 +50,12 @@ public interface UICWBridge {
 	public ProcessInstanceData getSimulationInfo(@PathParam("simulationid") String simulationId) throws LpRestException;
 
 	public ScoreRecordCollection getScores(String userid, String modelid) throws LpRestException;
+
+	public void pageNotification(String modelSetId, String resourceId, String relatedArtifactId, String userId, String action) throws LpRestException; 
+
+	public void commentNotification(String modelSetId, String resourceId, String relatedArtifactId, String userId, String action) throws LpRestException; 
+
+	public void attachmentNotification(String modelSetId, String resourceId, String relatedArtifactId, String userId, String action) throws LpRestException; 
+
+	public void feedbackNotification(String modelSetId, String resourceId, String relatedArtifactId, String userId, String action) throws LpRestException; 
 }
