@@ -53,9 +53,9 @@
 ##
 #if ("$!dashboardkpiURL" != "")
 {{html clean="false"}}
-<iframe id="dashboardkpi-iframe" height="500" width="100%" src="${dashboardkpiURL}">
-Your browser doesn't support <pre>iframe</pre>.
-</iframe>
+&lt;iframe id="dashboardkpi-iframe" height="500" width="100%" src="${dashboardkpiURL}"&gt;
+Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
+&lt;/iframe&gt;
 {{/html}}
 #end
 ############### Results From SIM Part ################################
