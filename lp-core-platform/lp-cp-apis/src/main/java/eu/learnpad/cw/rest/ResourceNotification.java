@@ -25,8 +25,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.or.rest.data.NotificationActionType;
+import eu.learnpad.or.rest.data.ResourceType;
 
-//<host>/learnpad/cw/resourcenotification/{modelsetid}?resourceid=123&linkedto=123,456,789&action={added|deleted|modified}
+//<host>/learnpad/cw/resourcenotification/{modelsetid}?resourceid=123&linkedto=123,456,789&action={view|added|deleted|modified}&type={page|comment|attachment|feedback}
 public interface ResourceNotification {
 
 	/**
@@ -34,16 +36,26 @@ public interface ResourceNotification {
 	 *            is the ID of the model set that is concerned
 	 * @param resourceId
 	 *            is the ID that designate the resource
+	 * @param type
+	 *            is the type of the resource (See {@link eu.learnpad.or.rest.data.ResourceType})
 	 * @param artifactIds
 	 *            is a list of ID to other artifacts from the model, linked to
 	 *            this resource
 	 * @param action
-	 *            will precise the kind of notification (added, deleted,
-	 *            modified)
+	 *            will precise the kind of notification (view, added, deleted,
+	 *            modified. {@link See eu.learnpad.or.rest.data.NotificationActionType})
+	 * @param userId
+	 * 			is the ID of the user
 	 * @throws LpRestException
+	 * 
 	 */
 	@Path("/resourcenotification/{modelsetid}")
 	@PUT
-	void resourceNotification(@PathParam("modelsetid") String modelSetId, @QueryParam("resourceid") String resourceId,
-			@QueryParam("linkedto") String artifactIds, @QueryParam("action") String action) throws LpRestException;
+	void resourceNotification(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("resourceid") String resourceId,
+			@QueryParam("resourcetype") ResourceType type,
+			@QueryParam("linkedto") String artifactIds,
+			@QueryParam("action") NotificationActionType action,
+			@QueryParam("userid") String userId)
+			throws LpRestException;
 }
