@@ -28,7 +28,7 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.ResourceType;
 
-//<host>/learnpad/cw/resourcenotification/{modelsetid}?resourceid=123&linkedto=123,456,789&action={view|added|deleted|modified}&type={page|comment|attachment|feedback}
+//<host>/learnpad/cw/resourcenotification/{modelsetid}?resourceid=123&linkedto=123,456,789&action={visited|added|deleted|modified}&type={page|comment|attachment|feedback}
 public interface ResourceNotification {
 
 	/**
