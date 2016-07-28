@@ -25,25 +25,43 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.or.rest.data.NotificationActionType;
+import eu.learnpad.or.rest.data.ResourceType;
 
-//<host>/learnpad/cw/resourcenotification/{modelsetid}?resourceid=123&linkedto=123,456,789&action={added|deleted|modified}
+//<host>/learnpad/cw/resourcenotification/{modelsetid}?modelid=123&artifactid=123&resourceid=123&action={visited|added|deleted|modified}&type={page|comment|attachment|feedback}&useid=bkjsbdsa
 public interface ResourceNotification {
 
 	/**
 	 * @param modelSetId
 	 *            is the ID of the model set that is concerned
+	 * @param modelId
+	 *            is the ID of the model that is concerned. In case the resource
+	 *            targets the whole modelset, this param will be null/unset
+	 * @param artifactId
+	 *            is the ID of the artifact from the model, linked to this
+	 *            resource. In case the resource targets the whole model, this
+	 *            param will be null/unset
 	 * @param resourceId
 	 *            is the ID that designate the resource
-	 * @param artifactIds
-	 *            is a list of ID to other artifacts from the model, linked to
-	 *            this resource
+	 * @param type
+	 *            is the type of the resource (See
+	 *            {@link eu.learnpad.or.rest.data.ResourceType})
 	 * @param action
-	 *            will precise the kind of notification (added, deleted,
-	 *            modified)
+	 *            will precise the kind of notification (view, added, deleted,
+	 *            modified. {@link See
+	 *            eu.learnpad.or.rest.data.NotificationActionType})
+	 * @param userId
+	 *            is the ID of the user
 	 * @throws LpRestException
+	 * 
 	 */
 	@Path("/resourcenotification/{modelsetid}")
 	@PUT
-	void resourceNotification(@PathParam("modelsetid") String modelSetId, @QueryParam("resourceid") String resourceId,
-			@QueryParam("linkedto") String artifactIds, @QueryParam("action") String action) throws LpRestException;
+	void resourceNotification(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("modelid") String modelId,
+			@QueryParam("artifactid") String artifactId,
+			@QueryParam("resourceid") String resourceId,
+			@QueryParam("resourcetype") ResourceType type,
+			@QueryParam("action") NotificationActionType action,
+			@QueryParam("userid") String userId) throws LpRestException;
 }

@@ -2,6 +2,7 @@ package eu.learnpad.cw.tests;
 
 import java.security.SecureRandom;
 
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import eu.learnpad.cw.internal.CWXwikiBridge;
 import eu.learnpad.cw.internal.RecommendationWebsocketServer;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.ResourceType;
 
 /**
  *
@@ -137,4 +139,117 @@ public class CWBridgeTest {
 		// Assert.assertTrue( currentNumberOfRecsStored == numberOfRecsStored );
 	}
 
+	@Test
+	@Ignore
+	public void testPageNotification() throws ComponentLookupException{
+		bridge =  mocker.getComponentUnderTest();
+		try {
+			bridge.pageNotification("modelSetId", "modelId", "artifactId", "resourceId", "userId", "visited");
+		} catch (LpRestException e) {
+			Assert.fail(e.getMessage());
+		}
+		Assert.assertTrue(true);
+	}
+	
+	@Test
+	@Ignore
+	public void testPageNotificationUnvalidAction() throws ComponentLookupException{
+		bridge =  mocker.getComponentUnderTest();
+		try {
+			bridge.pageNotification("modelSetId", "modelId", "artifactId", "resourceId", "userId", "this-is-foo");
+		} catch (LpRestException e) {
+			if (e.getCause() != null)
+				Assert.assertTrue(e.getCause() instanceof IllegalArgumentException);
+			else{
+				Assert.assertTrue(e.getMessage().startsWith("No enum constant"));
+			}	
+		}
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	@Ignore
+	public void testAttachmentNotification() throws ComponentLookupException{
+		bridge =  mocker.getComponentUnderTest();
+		try {
+			 bridge.attachmentNotification("modelSetId", "modelId", "artifactId", "resourceId", "userId", "visited");
+		} catch (LpRestException e) {
+			Assert.fail(e.getMessage());
+		}
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	@Ignore
+	public void testAttachmentNotificationUnvalidAction() throws ComponentLookupException{
+		bridge =  mocker.getComponentUnderTest();
+		try {
+			bridge.attachmentNotification("modelSetId", "modelId", "artifactId", "resourceId", "userId", "this-is-foo");
+		} catch (LpRestException e) {
+			if (e.getCause() != null)
+				Assert.assertTrue(e.getCause() instanceof IllegalArgumentException);
+			else{
+				Assert.assertTrue(e.getMessage().startsWith("No enum constant"));
+			}	
+		}
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	@Ignore
+	public void testCommentNotification() throws ComponentLookupException{
+		bridge =  mocker.getComponentUnderTest();
+		try {
+			bridge.commentNotification("modelSetId", "modelId", "artifactId", "resourceId", "userId", "visited");
+		} catch (LpRestException e) {
+			Assert.fail(e.getMessage());
+		}
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	@Ignore
+	public void testCommentNotificationUnvalidAction() throws ComponentLookupException{
+		bridge =  mocker.getComponentUnderTest();
+		try {
+			bridge.commentNotification("modelSetId", "modelId", "artifactId", "resourceId", "userId", "this-is-foo");
+		} catch (LpRestException e) {
+			if (e.getCause() != null)
+				Assert.assertTrue(e.getCause() instanceof IllegalArgumentException);
+			else{
+				Assert.assertTrue(e.getMessage().startsWith("No enum constant"));
+			}	
+		}
+		Assert.assertTrue(true);
+	}
+
+	@Test
+	@Ignore
+	public void testFeedbackNotification() throws ComponentLookupException{
+		bridge =  mocker.getComponentUnderTest();
+		try {
+			bridge.feedbackNotification("modelSetId", "modelId", "artifactId", "resourceId", "userId", "visited");
+		} catch (LpRestException e) {
+			Assert.fail(e.getMessage());
+		}
+		Assert.assertTrue(true);
+		
+	}
+
+	@Test
+	@Ignore
+	public void testFeedbackNotificationUnvalidAction() throws ComponentLookupException{
+		bridge =  mocker.getComponentUnderTest();
+		try {
+			bridge.feedbackNotification("modelSetId", "modelId", "artifactId", "resourceId", "userId", "this-is-foo");
+		} catch (LpRestException e) {
+			if (e.getCause() != null)
+				Assert.assertTrue(e.getCause() instanceof IllegalArgumentException);
+			else{
+				Assert.assertTrue(e.getMessage().startsWith("No enum constant"));
+			}	
+		}
+		Assert.assertTrue(true);
+	}
+	
 }

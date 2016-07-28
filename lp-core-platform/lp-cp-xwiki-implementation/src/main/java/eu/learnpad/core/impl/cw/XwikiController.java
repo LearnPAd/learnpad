@@ -49,7 +49,9 @@ import eu.learnpad.core.rest.Utils;
 import eu.learnpad.cw.Controller;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.rest.data.ModelSetType;
+import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.ResourceType;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.sim.rest.data.UserDataCollection;
@@ -128,11 +130,15 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public void resourceNotification(String modelSetId, String resourceId, String artifactIds, String action)
+	public void resourceNotification(String modelSetId, String modelId,
+			String artifactId, String resourceId, ResourceType type,
+			NotificationActionType action, String userId)
 			throws LpRestException {
-		// TODO Auto-generated method stub
-	}
-
+		String userEmail = this.convertUserID(userId);
+		Long timestamp = new Long(System.currentTimeMillis());
+		this.or.resourceNotification(modelSetId, modelId, artifactId, resourceId, type, null, userEmail, timestamp, action);		
+	}	
+	
 	@Override
 	public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException {
 		String attachmentName = String.format("%s.%s", modelSetId, type);

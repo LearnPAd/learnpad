@@ -11,6 +11,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
+import eu.learnpad.core.impl.tests.AbstractUnitTest;
 import eu.learnpad.dash.rest.data.KPIValuesFormat;
 import eu.learnpad.exception.LpRestException;
 

@@ -16,5 +16,5 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType
 @XmlEnum
 public enum ResourceType {
-    PAGE, COMMENT, ATTACHEMENT, FEEDBACK
+    PAGE, COMMENT, ATTACHMENT, FEEDBACK
 }
