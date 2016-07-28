@@ -89,14 +89,15 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     }
 
     @Override
-    public void resourceNotification(String modelSetId, String resourceId, ResourceType resourceType, String referringToResourceId, String[] modelArtifactIds, String userId, Long timestamp, NotificationActionType action) throws LpRestException {
+	public void resourceNotification(String modelSetId, String modelId, String artifactId, String resourceId, ResourceType resourceType, String referringToResourceId, String userId, Long timestamp, NotificationActionType action) throws LpRestException {
+		// TODO This method has to be fixed!!!!
 
-        try {
-            NotificationLog.getInstance().logResourceNotification(modelSetId, resourceId, resourceType, referringToResourceId, modelArtifactIds, userId, timestamp, action);
-        } catch (RecommenderException ex) {
-            Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.SEVERE, null, ex);
-            throw new LpRestExceptionXWikiImpl("Loging resource notification failed. ", ex);
-        }
+//        try {
+//            NotificationLog.getInstance().logResourceNotification(modelSetId, resourceId, resourceType, referringToResourceId, modelArtifactIds, userId, timestamp, action);
+//        } catch (RecommenderException ex) {
+//            Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.SEVERE, null, ex);
+//            throw new LpRestExceptionXWikiImpl("Loging resource notification failed. ", ex);
+//        }
     }
 
     @Override

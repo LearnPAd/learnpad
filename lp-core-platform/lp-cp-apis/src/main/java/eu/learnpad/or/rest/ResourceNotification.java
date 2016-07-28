@@ -33,33 +33,42 @@ public interface ResourceNotification {
 	/**
 	 * @param modelSetId
 	 *            is the ID of the model set that is concerned
+	 * @param modelId
+	 *            is the ID of the model that is concerned. In case the resource
+	 *            targets the whole modelset, this param will be null/unset
+	 * @param artifactId
+	 *            is the ID of the artifact from the model, linked to this
+	 *            resource. In case the resource targets the whole model, this
+	 *            param will be null/unset
 	 * @param resourceId
-	 *            is the ID that designate the resource, ex. a wiki page, a 
-         *            comment for a page, an attachement or a feedback
-         * @param resourceType
-         *            type of resource (wiki page, comment, etc.)      
-         * @param referringToResourceId
-         *            resource id of referred resource (ex. the page id a comment belongs to)
-         * @param modelArtifactIds
-	 *            is a list of ID to other artifacts from the model, 
-         *            linked to this resource
-         * @param userId
-         *            unique user identifier for the system
-         * @param timestamp
-         *            timestamp of action on platform
-         * @param action
-	 *            will precise the kind of notification (visited, added, modified, deleted)
+	 *            is the ID that designate the resource, ex. a wiki page, a
+	 *            comment for a page, an attachment or a feedback
+	 * @param resourceType
+	 *            type of resource (See
+	 *            {@link eu.learnpad.or.rest.data.ResourceType})
+	 * @param referringToResourceId
+	 *            resource id of other referrenced resource (ex. the page id a
+	 *            comment belongs to)
+	 * @param userId
+	 *            unique user identifier for the system
+	 * @param timestamp
+	 *            timestamp of action on platform
+	 * @param action
+	 *            will precise the kind of notification (See
+	 *            {@link eu.learnpad.or.rest.data.NotificationActionType})
 	 * @throws LpRestException
 	 */
-	// <host>/learnpad/or/resourcenotification/{modelsetid}?resourceid=id,linkedto=(id1,id2,id3),action={added|modified|deleted}
+	// <host>/learnpad/or/resourcenotification/{modelsetid}?modelid=123&artifactid=123&resourceid=123&action={visited|added|deleted|modified}&type={page|comment|attachment|feedback}&userid=bbarnes@learnpad.eu&timestamp=1469703201489
 	@POST
 	@Path("/{modelsetid}/resourcenotification")
 	void resourceNotification(@PathParam("modelsetid") String modelSetId,
+			@QueryParam("modelid") String modelId,
+			@QueryParam("artifactid") String artifactId,
 			@QueryParam("resourceid") String resourceId,
-                        @QueryParam("resourcetype") ResourceType resourceType,
-                        @QueryParam("referringtoresourceid") String referringToResourceId,
-                        @QueryParam("modelartifactids") String[] modelArtifactIds,
-			@QueryParam("userid") String userId, 
-                        @QueryParam("timestamp") Long timestamp, 
-                        @QueryParam("action") NotificationActionType action) throws LpRestException;
+			@QueryParam("resourcetype") ResourceType resourceType,
+			@QueryParam("referringtoresourceid") String referringToResourceId,
+			@QueryParam("userid") String userId,
+			@QueryParam("timestamp") Long timestamp,
+			@QueryParam("action") NotificationActionType action)
+			throws LpRestException;
 }

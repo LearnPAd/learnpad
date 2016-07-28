@@ -92,23 +92,27 @@ import eu.learnpad.sim.rest.data.UserDataCollection;
 @Singleton
 @Named("eu.learnpad.cw.internal.CWXwikiBridge")
 @Path("/learnpad/cw/bridge")
-public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBridge {
+public class CWXwikiBridge extends XwikiBridge implements Initializable,
+		UICWBridge {
 
 	private final String LEARNPAD_SPACE = "LPCode";
 
 	private final String FEEDBACK_CLASS_PAGE = "FeedbackClass";
 
-	private final String FEEDBACK_CLASS = String.format("%s.%s", LEARNPAD_SPACE, FEEDBACK_CLASS_PAGE);
+	private final String FEEDBACK_CLASS = String.format("%s.%s",
+			LEARNPAD_SPACE, FEEDBACK_CLASS_PAGE);
 
 	private final String BASEELEMENT_CLASS_PAGE = "BaseElementClass";
 
-	private final String BASEELEMENT_CLASS = String.format("%s.%s", LEARNPAD_SPACE, BASEELEMENT_CLASS_PAGE);
+	private final String BASEELEMENT_CLASS = String.format("%s.%s",
+			LEARNPAD_SPACE, BASEELEMENT_CLASS_PAGE);
 
 	private final String XWIKI_SPACE = "XWiki";
 
 	private final String USER_CLASS_PAGE = "XWikiUsers";
 
-	private final String USER_CLASS = String.format("%s.%s", XWIKI_SPACE, USER_CLASS_PAGE);
+	private final String USER_CLASS = String.format("%s.%s", XWIKI_SPACE,
+			USER_CLASS_PAGE);
 
 	private static final Map<String, Map<String, ScoreRecord>> scoresBySessionByUser = new ConcurrentHashMap<String, Map<String, ScoreRecord>>();
 
@@ -145,33 +149,38 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	@Override
 	public void initialize() throws InitializationException {
 		this.corefacade = new XwikiCoreFacadeRestResource();
-		this.bannedSimIDMap = Collections.synchronizedMap(new HashMap<String, Long>());
+		this.bannedSimIDMap = Collections
+				.synchronizedMap(new HashMap<String, Long>());
 	}
 
 	@Override
-	public byte[] getComments(String modelSetId, String artifactId) throws LpRestException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public byte[] getResource(String modelSetId, String resourceId, String linkedTo, String action)
+	public byte[] getComments(String modelSetId, String artifactId)
 			throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void modelSetImported(String modelSetId, ModelSetType type) throws LpRestException {
+	public byte[] getResource(String modelSetId, String resourceId,
+			String linkedTo, String action) throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void modelSetImported(String modelSetId, ModelSetType type)
+			throws LpRestException {
 		// Get the model file from Core Platform
 		InputStream modelStream = this.corefacade.getModel(modelSetId, type);
 		if (modelStream == null) {
 			throw new LpRestExceptionXWikiImpl("Fail to get the new modelset");
 		}
 
-		InputStream packageStream = this.corefacade.transform(type, modelStream);
+		InputStream packageStream = this.corefacade
+				.transform(type, modelStream);
 		if (packageStream == null) {
-			throw new LpRestExceptionXWikiImpl("Fail to transform the new modelset");
+			throw new LpRestExceptionXWikiImpl(
+					"Fail to transform the new modelset");
 		}
 		this.loadPackage(packageStream);
 	}
@@ -184,7 +193,8 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 		PostMethod postMethod = new PostMethod(uri);
 		postMethod.addRequestHeader("Accept", "application/octet-stream");
 
-		RequestEntity packageEntity = new InputStreamRequestEntity(packageStream);
+		RequestEntity packageEntity = new InputStreamRequestEntity(
+				packageStream);
 		postMethod.setRequestEntity(packageEntity);
 
 		try {
@@ -196,35 +206,39 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	}
 
 	@Override
-	public void contentVerified(String modelSetId, String artifactId, String resourceId, String result)
-			throws LpRestException {
+	public void contentVerified(String modelSetId, String artifactId,
+			String resourceId, String result) throws LpRestException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void modelVerified(String modelSetId, String result) throws LpRestException {
+	public void modelVerified(String modelSetId, String result)
+			throws LpRestException {
 		// TODO Auto-generated method stub
 
 	}
 
 	private List<Object> getFeedbacksDocuments(String modelSetId) {
-		String queryXWQL = String.format("from doc.object(%s) as feedback where feedback.modelsetid = '%s'",
-				FEEDBACK_CLASS, modelSetId);
+		String queryXWQL = String
+				.format("from doc.object(%s) as feedback where feedback.modelsetid = '%s'",
+						FEEDBACK_CLASS, modelSetId);
 		Query query = null;
 		try {
 			query = queryManager.createQuery(queryXWQL, Query.XWQL);
 		} catch (QueryException e) {
-			String message = String.format("Error in building the query to gather Feedbacks in '%s' model set.",
-					modelSetId);
+			String message = String
+					.format("Error in building the query to gather Feedbacks in '%s' model set.",
+							modelSetId);
 			logger.error(message, e);
 			return null;
 		}
 		try {
 			return query.addFilter(uniqueDocumentFilter).execute();
 		} catch (QueryException e) {
-			String message = String.format("Error in executing the query to gather Feedbacks in '%s' model set.",
-					modelSetId);
+			String message = String
+					.format("Error in executing the query to gather Feedbacks in '%s' model set.",
+							modelSetId);
 			logger.error(message, e);
 			return null;
 		}
@@ -233,19 +247,21 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	private Feedbacks getFeedbackList(String modelSetId) {
 		XWikiContext xcontext = xcontextProvider.get();
 		XWiki xwiki = xcontext.getWiki();
-		DocumentReference classReference = stringDocumentReferenceResolver.resolve(FEEDBACK_CLASS);
+		DocumentReference classReference = stringDocumentReferenceResolver
+				.resolve(FEEDBACK_CLASS);
 		List<Object> documentNames = getFeedbacksDocuments(modelSetId);
 		List<Feedback> feedbacksList = new ArrayList<Feedback>();
 		for (Object documentName : documentNames) {
-			DocumentReference documentReference = stringDocumentReferenceResolver.resolve((String) documentName);
+			DocumentReference documentReference = stringDocumentReferenceResolver
+					.resolve((String) documentName);
 
 			XWikiDocument document;
 			try {
 				document = xwiki.getDocument(documentReference, xcontext);
 			} catch (Exception e) {
-				String message = String.format(
-						"Error while trying to get document '%s' to gather feedbacks on '%' model.",
-						documentReference.toString(), modelSetId);
+				String message = String
+						.format("Error while trying to get document '%s' to gather feedbacks on '%' model.",
+								documentReference.toString(), modelSetId);
 				logger.error(message, e);
 				return null;
 			}
@@ -332,9 +348,10 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	}
 
 	@Override
-	public Recommendations getRecommendations(String modelSetId, String artifactId, String userId)
-			throws LpRestException {
-		return this.corefacade.getRecommendations(modelSetId, artifactId, userId);
+	public Recommendations getRecommendations(String modelSetId,
+			String artifactId, String userId) throws LpRestException {
+		return this.corefacade.getRecommendations(modelSetId, artifactId,
+				userId);
 	}
 
 	@Override
@@ -342,26 +359,32 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 			throws LpRestException {
 		return this.corefacade.getDashboardKpiDefaultViewer(modelSetId, userId);
 	}
-	
+
 	private UserDataCollection getUserProfiles(Collection<String> potentialUsers) {
 		XWikiContext xcontext = xcontextProvider.get();
 		XWiki xwiki = xcontext.getWiki();
-		DocumentReference userClassReference = stringDocumentReferenceResolver.resolve(USER_CLASS);
+		DocumentReference userClassReference = stringDocumentReferenceResolver
+				.resolve(USER_CLASS);
 		Collection<UserData> potentialUsersCollection = new ArrayList<UserData>();
 
 		for (String userId : potentialUsers) {
 			UserData user = new UserData();
 			user.id = this.removePrefixes(userId);
 
-			DocumentReference userReference = stringDocumentReferenceResolver.resolve(userId);
+			DocumentReference userReference = stringDocumentReferenceResolver
+					.resolve(userId);
 			try {
-				XWikiDocument userDocument = xwiki.getDocument(userReference, xcontext);
+				XWikiDocument userDocument = xwiki.getDocument(userReference,
+						xcontext);
 				if (userDocument != null) {
-					BaseObject userObject = userDocument.getXObject(userClassReference);
+					BaseObject userObject = userDocument
+							.getXObject(userClassReference);
 					if (userObject != null) {
-						user.firstName = userObject.getStringValue("first_name");
+						user.firstName = userObject
+								.getStringValue("first_name");
 						user.lastName = userObject.getStringValue("last_name");
-						user.profileURL = userDocument.getExternalURL("view", xcontext);
+						user.profileURL = userDocument.getExternalURL("view",
+								xcontext);
 						Pattern pattern = Pattern.compile("(http://[^/]*/).*");
 						Matcher matcher = pattern.matcher(user.profileURL);
 						String prefix = "";
@@ -369,12 +392,15 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 							prefix = matcher.group(1);
 						}
 						user.pictureURL = prefix
-								+ userDocument.getAttachmentURL(userDocument.getStringValue("avatar"), xcontext);
+								+ userDocument.getAttachmentURL(
+										userDocument.getStringValue("avatar"),
+										xcontext);
 					}
 				}
 			} catch (XWikiException e) {
-				String message = String.format("Error while trying to get profile information for the user '%s'.",
-						userReference.toString());
+				String message = String
+						.format("Error while trying to get profile information for the user '%s'.",
+								userReference.toString());
 				logger.error(message, e);
 			}
 			potentialUsersCollection.add(user);
@@ -383,14 +409,16 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	}
 
 	@Override
-	public String startSimulation(String modelId, String currentUser, Collection<String> potentialUsers)
-			throws LpRestException {
+	public String startSimulation(String modelId, String currentUser,
+			Collection<String> potentialUsers) throws LpRestException {
 		UserDataCollection potentialUsersCollection = getUserProfiles(potentialUsers);
-		return this.corefacade.startSimulation(modelId, currentUser, potentialUsersCollection);
+		return this.corefacade.startSimulation(modelId, currentUser,
+				potentialUsersCollection);
 	}
 
 	@Override
-	public String joinSimulation(String simulationId, String userId) throws LpRestException {
+	public String joinSimulation(String simulationId, String userId)
+			throws LpRestException {
 		return this.corefacade.joinSimulation(simulationId, userId);
 	}
 
@@ -400,21 +428,25 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	}
 
 	@Override
-	public ProcessInstanceData getSimulationInfo(String simulationId) throws LpRestException {
+	public ProcessInstanceData getSimulationInfo(String simulationId)
+			throws LpRestException {
 		return this.corefacade.getSimulationInfo(simulationId);
 	}
 
 	@Override
 	public String getRestPrefix(String component) throws LpRestException {
-		return ((LearnpadPropertiesConfigurationSource) configurationSource).getRestPrefix(component);
+		return ((LearnpadPropertiesConfigurationSource) configurationSource)
+				.getRestPrefix(component);
 	}
 
 	@Override
-	public void notifyRecommendations(String modelsetid, String simulationid, String userid,
-			Recommendations recommendations) throws LpRestException {
+	public void notifyRecommendations(String modelsetid, String simulationid,
+			String userid, Recommendations recommendations)
+			throws LpRestException {
 		String xwikiUserId = String.format("XWiki.%s", userid);
 		if (this.isBanningPeriodExpired(simulationid)) {
-			for (WebSocketMetadata wsmd : RecommendationWebsocketServer.socketBox.byUserid(xwikiUserId)) {
+			for (WebSocketMetadata wsmd : RecommendationWebsocketServer.socketBox
+					.byUserid(xwikiUserId)) {
 				ObjectMapper mapper = new ObjectMapper();
 				String msg = "";
 				try {
@@ -429,9 +461,11 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	}
 
 	@Override
-	public void deleteRecommendations(String modelSetId, String simulationid, String userId) throws LpRestException {
-		String msg = "resetting Recs for : modelSetId : " + modelSetId + "\n" + "simulationid : " + simulationid + "\n"
-				+ "userId : " + userId;
+	public void deleteRecommendations(String modelSetId, String simulationid,
+			String userId) throws LpRestException {
+		String msg = "resetting Recs for : modelSetId : " + modelSetId + "\n"
+				+ "simulationid : " + simulationid + "\n" + "userId : "
+				+ userId;
 
 		logger.info(msg);
 
@@ -441,7 +475,8 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	private boolean isBanningPeriodExpired(String simId) {
 		boolean status = true;
 		if (this.bannedSimIDMap.containsKey(simId)) {
-			status = (System.currentTimeMillis() > (this.bannedSimIDMap.get(simId) + this.BANNING_PERIOD_IN_MILLI_SEC));
+			status = (System.currentTimeMillis() > (this.bannedSimIDMap
+					.get(simId) + this.BANNING_PERIOD_IN_MILLI_SEC));
 			if (status) {
 				this.bannedSimIDMap.remove(simId);
 			}
@@ -459,20 +494,24 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 		String userid = record.getUserArtifactId();
 		String sessionid = record.getSessionId();
 		if (!scoresBySessionByUser.containsKey(userid)) {
-			scoresBySessionByUser.put(record.getUserArtifactId(), new ConcurrentHashMap<String, ScoreRecord>());
+			scoresBySessionByUser.put(record.getUserArtifactId(),
+					new ConcurrentHashMap<String, ScoreRecord>());
 		}
 		scoresBySessionByUser.get(userid).put(sessionid, record);
 
 	}
 
 	@Override
-	public ScoreRecordCollection getScores(String userid, String modelid) throws LpRestException {
+	public ScoreRecordCollection getScores(String userid, String modelid)
+			throws LpRestException {
 		Collection<ScoreRecord> res = new ArrayList<>();
 		for (String recordedUser : scoresBySessionByUser.keySet()) {
 			if (userid == null || recordedUser.equals(userid)) {
-				for (String session : scoresBySessionByUser.get(recordedUser).keySet()) {
+				for (String session : scoresBySessionByUser.get(recordedUser)
+						.keySet()) {
 
-					ScoreRecord r = scoresBySessionByUser.get(recordedUser).get(session);
+					ScoreRecord r = scoresBySessionByUser.get(recordedUser)
+							.get(session);
 					String processid = r.getProcessArtifactId();
 					if (modelid == null || processid.equals(modelid)) {
 						res.add(r);
@@ -484,49 +523,56 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable, UICWBri
 	}
 
 	@Override
-	public void pageNotification(String modelSetId, String resourceId,
-			String relatedArtifactId, String userId, String action)
-			throws LpRestException {		
+	public void pageNotification(String modelSetId, String modelId,
+			String artifactId, String resourceId, String action, String userId)
+			throws LpRestException {
 		ResourceType resourceType = ResourceType.PAGE;
-		this.resourceNotification(modelSetId, resourceId, relatedArtifactId, userId, resourceType, action);
+		this.resourceNotification(modelSetId, modelId, artifactId, resourceId,
+				resourceType, action, userId);
 	}
 
 	@Override
-	public void commentNotification(String modelSetId, String resourceId,
-			String relatedArtifactId, String userId, String action)
-			throws LpRestException {
+	public void commentNotification(String modelSetId, String modelId,
+			String artifactId, String resourceId, String action, String userId)
+			throws LpRestException
+	{
 		ResourceType resourceType = ResourceType.COMMENT;
-		this.resourceNotification(modelSetId, resourceId, relatedArtifactId, userId, resourceType, action);
+		this.resourceNotification(modelSetId, modelId, artifactId, resourceId,
+				resourceType, action, userId);
 	}
 
 	@Override
-	public void attachmentNotification(String modelSetId, String resourceId,
-			String relatedArtifactId, String userId, String action)
-			throws LpRestException {
+	public void attachmentNotification(String modelSetId, String modelId,
+			String artifactId, String resourceId, String action, String userId)
+			throws LpRestException
+	{
 		ResourceType resourceType = ResourceType.ATTACHMENT;
-		this.resourceNotification(modelSetId, resourceId, relatedArtifactId, userId, resourceType, action);
+		this.resourceNotification(modelSetId, modelId, artifactId, resourceId,
+				resourceType, action, userId);
 	}
 
 	@Override
-	public void feedbackNotification(String modelSetId, String resourceId,
-			String relatedArtifactId, String userId, String action)
+	public void feedbackNotification(String modelSetId, String modelId,
+			String artifactId, String resourceId, String action, String userId)
 			throws LpRestException {
 		ResourceType resourceType = ResourceType.FEEDBACK;
-		this.resourceNotification(modelSetId, resourceId, relatedArtifactId, userId, resourceType, action);
+		this.resourceNotification(modelSetId, modelId, artifactId, resourceId,
+				resourceType, action, userId);
 	}
 
-	
-	private void resourceNotification(String modelSetId, String resourceId,
-			String relatedArtifactId, String userId, ResourceType resourceType,
-			String action) throws LpRestException {
+	private void resourceNotification(String modelSetId, String modelId,
+			String artifactId, String resourceId, ResourceType resourceType,
+			String action, String userId) throws LpRestException {
 		NotificationActionType actionType = null;
 		try {
-			actionType = NotificationActionType.valueOf(action.toUpperCase());			
+			actionType = NotificationActionType.valueOf(action.toUpperCase());
 		} catch (IllegalArgumentException | NullPointerException e) {
-			LpRestExceptionXWikiImpl e1 = new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+			LpRestExceptionXWikiImpl e1 = new LpRestExceptionXWikiImpl(
+					e.getMessage(), e.getCause());
 			throw e1;
 		}
-		this.corefacade.resourceNotification(modelSetId, resourceId, resourceType, relatedArtifactId, actionType, userId);
-	}	
-	
+		this.corefacade.resourceNotification(modelSetId, modelId, artifactId,
+				resourceId, resourceType, actionType, userId);
+	}
+
 }

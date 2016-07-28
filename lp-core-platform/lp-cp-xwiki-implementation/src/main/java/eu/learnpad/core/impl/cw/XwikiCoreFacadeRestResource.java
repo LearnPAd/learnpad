@@ -80,8 +80,8 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 	}
 
 	@Override
-	public void resourceNotification(String modelSetId, String resourceId,
-			ResourceType type, String artifactIds,
+	public void resourceNotification(String modelSetId, String modelId,
+			String artifactId, String resourceId, ResourceType type,
 			NotificationActionType action, String userId)
 			throws LpRestException {
 		HttpClient httpClient = this.getClient();
@@ -89,12 +89,13 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 		PutMethod putMethod = new PutMethod(uri);
 		putMethod.addRequestHeader("Accept", "application/xml");
 
-		NameValuePair[] queryString = new NameValuePair[5];
-		queryString[0] = new NameValuePair("resourceid", resourceId);
-		queryString[1] = new NameValuePair("resourcetype", type.toString());
-		queryString[2] = new NameValuePair("linkedto", artifactIds);
-		queryString[3] = new NameValuePair("action", action.toString());
-		queryString[4] = new NameValuePair("userid", userId);
+		NameValuePair[] queryString = new NameValuePair[6];
+		queryString[0] = new NameValuePair("modelid", modelId);
+		queryString[1] = new NameValuePair("artifactid", artifactId);
+		queryString[2] = new NameValuePair("resourceid", resourceId);
+		queryString[3] = new NameValuePair("resourcetype", type.toString());
+		queryString[4] = new NameValuePair("action", action.toString());
+		queryString[5] = new NameValuePair("userid", userId);
 		putMethod.setQueryString(queryString);
 		
 		try {
