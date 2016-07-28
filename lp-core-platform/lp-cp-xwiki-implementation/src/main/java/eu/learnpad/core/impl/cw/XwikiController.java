@@ -130,17 +130,15 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public void resourceNotification(String modelSetId, String resourceId,
-			ResourceType type, String artifactIds,
+	public void resourceNotification(String modelSetId, String modelId,
+			String artifactId, String resourceId, ResourceType type,
 			NotificationActionType action, String userId)
 			throws LpRestException {
-		// TODO Auto-generated method stub
 		String userEmail = this.convertUserID(userId);
 		Long timestamp = new Long(System.currentTimeMillis());
-		String[] artifactIdsArray = artifactIds.trim().split(",");
-		this.or.resourceNotification(modelSetId, resourceId, type, null, artifactIdsArray, userEmail, timestamp, action);
-	}
-
+		this.or.resourceNotification(modelSetId, modelId, artifactId, resourceId, type, null, userEmail, timestamp, action);		
+	}	
+	
 	@Override
 	public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException {
 		String attachmentName = String.format("%s.%s", modelSetId, type);
