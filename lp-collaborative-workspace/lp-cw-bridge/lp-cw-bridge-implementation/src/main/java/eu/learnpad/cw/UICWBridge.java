@@ -51,11 +51,11 @@ public interface UICWBridge {
 
 	public ScoreRecordCollection getScores(String userid, String modelid) throws LpRestException;
 
-	public void pageNotification(String modelSetId, String resourceId, String relatedArtifactId, String userId, String action) throws LpRestException; 
+	public void pageNotification(String modelSetId, String modelId, String artifactId, String resourceId, String action, String userId) throws LpRestException; 
 
-	public void commentNotification(String modelSetId, String resourceId, String relatedArtifactId, String userId, String action) throws LpRestException; 
+	public void commentNotification(String modelSetId, String modelId, String artifactId, String resourceId, String action, String userId) throws LpRestException; 
 
-	public void attachmentNotification(String modelSetId, String resourceId, String relatedArtifactId, String userId, String action) throws LpRestException; 
+	public void attachmentNotification(String modelSetId, String modelId, String artifactId, String resourceId, String action, String userId) throws LpRestException; 
 
-	public void feedbackNotification(String modelSetId, String resourceId, String relatedArtifactId, String userId, String action) throws LpRestException; 
+	public void feedbackNotification(String modelSetId, String modelId, String artifactId, String resourceId, String action, String userId) throws LpRestException; 
 }
