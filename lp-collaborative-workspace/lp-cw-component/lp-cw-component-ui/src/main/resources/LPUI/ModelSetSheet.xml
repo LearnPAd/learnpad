@@ -47,7 +47,7 @@
 #set ($query = "from doc.object(LPCode.ModelClass) as m where m.modelsetid = :modelsetid and m.type = 'bpmn'")
 #set ($modelFullnames = $services.query.xwql($query).bindValue("modelsetid", "${modelsetid}").execute())
 #set ($collaborateReference = $services.model.createDocumentReference("CD", ${doc.documentReference.lastSpaceReference}))
-#set ($queryString = "")
+#set ($queryString = "modelsetid=$modelsetid")
 #set ($collaborateMode = "view")
 #set ($collaborateIsNew = $xwiki.getDocument($collaborateReference).isNew())
 #if ($collaborateIsNew)

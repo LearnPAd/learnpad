@@ -53,7 +53,7 @@
 #set ($query = "from doc.object(LPCode.BaseElementClass) as be where be.modelsetid = :modelsetid and be.modelid = :modelid and be.type = 'bpmn-event-start'")
 #set ($startEventFullnames = $services.query.xwql($query).bindValue("modelsetid", "${modelsetid}").bindValue("modelid", "${modelid}").execute())
 #set ($collaborateReference = $services.model.createDocumentReference("CD", ${doc.documentReference.lastSpaceReference}))
-#set ($queryString = "")
+#set ($queryString = "modelsetid=$modelsetid&amp;modelid=$modelid")
 #set ($collaborateMode = "view")
 #set ($collaborateIsNew = $xwiki.getDocument($collaborateReference).isNew())
 #if ($collaborateIsNew)
