@@ -146,6 +146,17 @@
 			<version>${platform.version}</version>
 			<type>war</type>
 		</dependency>
+<!-- 		<dependency> -->
+<!--     		<groupId>org.xwiki.commons</groupId> -->
+<!--     		<artifactId>xwiki-commons-observation-local</artifactId> -->
+<!-- 			<version>${commons.version}</version> -->
+<!-- 		</dependency>	 -->
+		<dependency>
+			<groupId>org.xwiki.commons</groupId>
+			<artifactId>xwiki-commons-observation</artifactId>
+			<version>${commons.version}</version>
+			<type>pom</type>
+		</dependency>   							
 		<!-- SKIN -->
 		<dependency>
 			<groupId>eu.learnpad</groupId>
