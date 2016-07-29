@@ -22,9 +22,11 @@ import org.xwiki.component.phase.InitializationException;
 
 import eu.learnpad.core.impl.or.XwikiBridge;
 import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
+import eu.learnpad.dash.rest.data.KPIValuesFormat;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
+import eu.learnpad.ontology.kpi.KBProcessorNotifier;
 import eu.learnpad.ontology.kpi.dashboard.KPILoader;
 import eu.learnpad.ontology.notification.NotificationLog;
 import eu.learnpad.ontology.recommender.Recommender;
@@ -51,7 +53,9 @@ import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatusType;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatus.Info;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -62,12 +66,17 @@ import java.util.UUID;
 @Singleton
 @Named("eu.learnpad.or.impl.OntologyRecommenderImpl")
 @Path("/learnpad/or/bridge")
-public class OntologyRecommenderImpl extends XwikiBridge implements Initializable {
+public class OntologyRecommenderImpl extends XwikiBridge implements Initializable, KBProcessorNotifier {
 
+	private Map<String, KBProcessingStatusType> kbProcessingStatusMap;
+
+	
     @Override
     public void initialize() throws InitializationException {
         this.corefacade = new XwikiCoreFacadeRestResource();
-        SimpleModelTransformator.getInstance();
+		this.kbProcessingStatusMap = Collections.synchronizedMap(new HashMap<String, KBProcessingStatusType>());
+
+        SimpleModelTransformator.getInstance();        
     }
 
     @Override
@@ -80,14 +89,15 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     }
 
     @Override
-    public void resourceNotification(String modelSetId, String resourceId, ResourceType resourceType, String referringToResourceId, String[] modelArtifactIds, String userId, Long timestamp, NotificationActionType action) throws LpRestException {
+	public void resourceNotification(String modelSetId, String modelId, String artifactId, String resourceId, ResourceType resourceType, String referringToResourceId, String userId, Long timestamp, NotificationActionType action) throws LpRestException {
+		// TODO This method has to be fixed!!!!
 
-        try {
-            NotificationLog.getInstance().logResourceNotification(modelSetId, resourceId, resourceType, referringToResourceId, modelArtifactIds, userId, timestamp, action);
-        } catch (RecommenderException ex) {
-            Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.SEVERE, null, ex);
-            throw new LpRestExceptionXWikiImpl("Loging resource notification failed. ", ex);
-        }
+//        try {
+//            NotificationLog.getInstance().logResourceNotification(modelSetId, resourceId, resourceType, referringToResourceId, modelArtifactIds, userId, timestamp, action);
+//        } catch (RecommenderException ex) {
+//            Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.SEVERE, null, ex);
+//            throw new LpRestExceptionXWikiImpl("Loging resource notification failed. ", ex);
+//        }
     }
 
     @Override
@@ -259,21 +269,35 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 
         Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.INFO, "Inside " + this.getClass().getCanonicalName() + ".calculateKPI");
             
-        KPILoader kpiLoader = new KPILoader(this.corefacade, modelSetId);
+        KPILoader kpiLoader = new KPILoader(this, modelSetId);
+        
+        String kbProcessId = kpiLoader.getKPILoaderID();         
+        if (this.kbProcessingStatusMap.containsKey(kbProcessId)){
+        	LpRestException e = new LpRestExceptionXWikiImpl("Duplicated KBProcessId, current implementation does not deal properly with multithread accessing kbProcessingStatusMap in "+ this.getClass().getCanonicalName());
+        	throw e;
+        }	        
+        
+        KBProcessId out = new KBProcessId();
+        out.setId(kbProcessId);
+        this.kbProcessingStatusMap.put(kbProcessId, KBProcessingStatusType.NEVER_STARTED);
+        
         kpiLoader.start();
-        
-        KBProcessId out = new KBProcessId();        
-        out.setId("KPI_"+kpiLoader.getId());
-        
+
         return out;
     }
 
     @Override
-    public KBProcessingStatus getHandlingProcessStatus(String kbProcessProcessId)
+    public KBProcessingStatus getHandlingProcessStatus(String kbProcessId)
             throws LpRestException {
-        // TODO Auto-generated method stub
         Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.INFO, "Inside " + this.getClass().getCanonicalName() + ".getHandlingProcessStatus");
-        KBProcessingStatus out = this.fakeKBProcessingStatus();
+        KBProcessingStatus out = new KBProcessingStatus();
+        
+        KBProcessingStatusType status = KBProcessingStatusType.NEVER_STARTED; 
+        if (this.kbProcessingStatusMap.containsKey(kbProcessId)){
+        	status = this.kbProcessingStatusMap.get(kbProcessId);
+        }	
+        
+        out.setStatus(status);
 
         return out;
     }
@@ -289,5 +313,21 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         info.getAny().add(jaxbElement);
         return fake;
     }
+
+	@Override
+	public void notifyProcessingStatus(String kbProcessId, KBProcessingStatusType status) {
+        	this.kbProcessingStatusMap.put(kbProcessId, status);
+	}
+
+	@Override
+	public void notifyKPIValues(String modelSetId, KPIValuesFormat format,
+			String businessActorId, InputStream cockpitContent) throws LpRestException {
+		try {
+			this.corefacade.pushKPIValues(modelSetId, format, businessActorId, cockpitContent);
+		} catch (LpRestException e) {
+			Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.WARNING,"Exception:" + e.getMessage());
+			throw e;
+		}
+	}
 
 }

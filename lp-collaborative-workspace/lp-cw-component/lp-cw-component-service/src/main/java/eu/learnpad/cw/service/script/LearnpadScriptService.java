@@ -19,6 +19,9 @@
  */
 package eu.learnpad.cw.service.script;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Collection;
 
 import javax.inject.Inject;
@@ -72,7 +75,7 @@ public class LearnpadScriptService implements ScriptService, UICWBridge {
 	 * <code>$services.wiki.name</code> is equivalent to writing
 	 * <code>$services.wiki.get("name")</code>). It also makes it a short and
 	 * easy API name for other scripting languages.
-	 *
+	 * 
 	 * @param serviceName
 	 *            id of the script service
 	 * @return the service asked or null if none could be found
@@ -83,17 +86,18 @@ public class LearnpadScriptService implements ScriptService, UICWBridge {
 
 	/**
 	 * Get the error generated while performing the previously called action.
-	 *
+	 * 
 	 * @return an eventual exception or {@code null} if no exception was thrown
 	 */
 	public Exception getLastError() {
-		return (Exception) this.execution.getContext().getProperty(LEARNPADERROR_KEY);
+		return (Exception) this.execution.getContext().getProperty(
+				LEARNPADERROR_KEY);
 	}
 
 	/**
 	 * Store a caught exception in the context, so that it can be later
 	 * retrieved using {@link #getLastError()}.
-	 *
+	 * 
 	 * @param e
 	 *            the exception to store, can be {@code null} to clear the
 	 *            previously stored exception
@@ -103,18 +107,39 @@ public class LearnpadScriptService implements ScriptService, UICWBridge {
 		this.execution.getContext().setProperty(LEARNPADERROR_KEY, e);
 	}
 
-	public Recommendations getRecommendations(String modelSetId, String artifactId, String userId) {
+	public Recommendations getRecommendations(String modelSetId,
+			String artifactId, String userId) {
 		try {
-			return this.cwBridge.getRecommendations(modelSetId, artifactId, userId);
+			return this.cwBridge.getRecommendations(modelSetId, artifactId,
+					userId);
 		} catch (Exception e) {
 			this.setLastError(e);
 			return null;
 		}
 	}
 
-	public String startSimulation(String modelId, String currentUser, Collection<String> potentialUsers) {
+	@Override
+	public String getDashboardKpiDefaultViewer(String modelSetId, String userId) {
+		String url = null;
 		try {
-			return this.cwBridge.startSimulation(modelId, currentUser, potentialUsers);
+			url = this.cwBridge
+					.getDashboardKpiDefaultViewer(modelSetId, userId);
+			URL u = new URL(url); // this would check for the protocol
+			u.toURI(); // does the extra checking required for validation of URI
+		} catch (LpRestException e) {
+			this.setLastError(e);
+		} catch (MalformedURLException | URISyntaxException e) {
+			url = "";
+			this.setLastError(e);
+		}
+		return url;
+	}
+
+	public String startSimulation(String modelId, String currentUser,
+			Collection<String> potentialUsers) {
+		try {
+			return this.cwBridge.startSimulation(modelId, currentUser,
+					potentialUsers);
 		} catch (LpRestException e) {
 			this.setLastError(e);
 			return null;
@@ -141,7 +166,8 @@ public class LearnpadScriptService implements ScriptService, UICWBridge {
 	}
 
 	@Override
-	public ProcessInstanceData getSimulationInfo(String simulationId) throws LpRestException {
+	public ProcessInstanceData getSimulationInfo(String simulationId)
+			throws LpRestException {
 		try {
 			return this.cwBridge.getSimulationInfo(simulationId);
 		} catch (LpRestException e) {
@@ -159,7 +185,8 @@ public class LearnpadScriptService implements ScriptService, UICWBridge {
 		}
 	}
 
-	public ScoreRecordCollection getScores(String userid, String modelid) throws LpRestException {
+	public ScoreRecordCollection getScores(String userid, String modelid)
+			throws LpRestException {
 		try {
 			return this.cwBridge.getScores(userid, modelid);
 		} catch (LpRestException e) {
@@ -167,4 +194,53 @@ public class LearnpadScriptService implements ScriptService, UICWBridge {
 			return null;
 		}
 	}
+
+	@Override
+	public void pageNotification(String modelSetId, String modelId,
+			String artifactId, String resourceId, String action, String userId)
+			throws LpRestException {
+		try {
+			this.cwBridge.pageNotification(modelSetId, modelId, artifactId, resourceId,
+					action, userId);
+		} catch (LpRestException e) {
+			this.setLastError(e);
+		}
+	}
+
+	@Override
+	public void commentNotification(String modelSetId, String modelId,
+			String artifactId, String resourceId, String action, String userId)
+			throws LpRestException {
+		try {
+			this.cwBridge.commentNotification(modelSetId, modelId, artifactId, resourceId,
+					action, userId);
+		} catch (LpRestException e) {
+			this.setLastError(e);
+		}
+	}
+
+	@Override
+	public void attachmentNotification(String modelSetId, String modelId,
+			String artifactId, String resourceId, String action, String userId)
+			throws LpRestException {
+		try {
+			this.cwBridge.attachmentNotification(modelSetId, modelId, artifactId, resourceId,
+					action, userId);
+		} catch (LpRestException e) {
+			this.setLastError(e);
+		}
+	}
+
+	@Override
+	public void feedbackNotification(String modelSetId, String modelId,
+			String artifactId, String resourceId, String action, String userId)
+			throws LpRestException {
+		try {
+			this.cwBridge.feedbackNotification(modelSetId, modelId, artifactId, resourceId,
+					action, userId);
+		} catch (LpRestException e) {
+			this.setLastError(e);
+		}
+	}
+
 }

@@ -114,6 +114,10 @@ LPDocs.Abstract.content=Cosa è Learn PAd?
 LPDocs.Abstract.linkLabel=Clicca qui
 LPDocs.Tours.title=Visite Guidate
 LPDocs.Tours.linkLabel=Avvia il Tour 
+LPDocs.HelpDesk.title=Help Desk
+LPDocs.HelpDesk.content=Per ogni altro tipo di assistenza, contatta 
+LPDocs.HelpDesk.label=il nostro Help Desk
+LPDocs.HelpDesk.mailSubject=\[support\]\ 
 
 # Tours
 LPTours.BrowsingMode.description=Questo è un segnaposto

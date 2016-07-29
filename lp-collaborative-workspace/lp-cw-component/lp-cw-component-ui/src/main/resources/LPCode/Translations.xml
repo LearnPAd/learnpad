@@ -114,6 +114,10 @@ LPDocs.Abstract.content=Learn more about a topic.
 LPDocs.Abstract.linkLabel=Click here
 LPDocs.Tours.title=Tours
 LPDocs.Tours.linkLabel=Learn with the Tour
+LPDocs.HelpDesk.title=Help Desk
+LPDocs.HelpDesk.content=For any further issue, please contact 
+LPDocs.HelpDesk.label=our Help Desk
+LPDocs.HelpDesk.mailSubject=\[support\]\ 
 
 # Tours
 LPTours.BrowsingMode.description=this is foo

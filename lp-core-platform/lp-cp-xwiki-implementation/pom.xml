@@ -86,5 +86,11 @@
 			<artifactId>jcl-over-slf4j</artifactId>
 			<scope>test</scope>
 		</dependency>
+	  	<dependency>
+        	<groupId>org.xwiki.commons</groupId>
+            <artifactId>xwiki-commons-tool-test-component</artifactId>
+            <scope>test</scope>
+            <version>${commons.version}</version>
+        </dependency>		
 	</dependencies>
 </project>

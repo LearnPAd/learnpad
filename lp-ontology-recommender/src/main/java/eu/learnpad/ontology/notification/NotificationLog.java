@@ -82,7 +82,7 @@ public class NotificationLog {
                     logTargetInstance = getOrCreateAnnotation(model, referringToResourceId, resourceId, annotationClass);
                     break;
                 }
-                case ATTACHEMENT: {
+                case ATTACHMENT: {
                     OntClass annotationClass = model.createClass(APP.NS.XWIKI + "Attachement");
                     logTargetInstance = getOrCreateAnnotation(model, referringToResourceId, resourceId, annotationClass);
                     break;

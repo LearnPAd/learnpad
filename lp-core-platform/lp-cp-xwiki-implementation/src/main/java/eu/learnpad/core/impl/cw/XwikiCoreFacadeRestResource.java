@@ -32,6 +32,7 @@ import javax.xml.bind.Unmarshaller;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
@@ -46,7 +47,9 @@ import eu.learnpad.cw.CoreFacade;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
+import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.Recommendations;
+import eu.learnpad.or.rest.data.ResourceType;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.sim.rest.data.UserDataCollection;
 
@@ -77,9 +80,29 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 	}
 
 	@Override
-	public void resourceNotification(String modelSetId, String resourceId, String artifactIds, String action)
+	public void resourceNotification(String modelSetId, String modelId,
+			String artifactId, String resourceId, ResourceType type,
+			NotificationActionType action, String userId)
 			throws LpRestException {
-		// TODO Auto-generated method stub
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/resourcenotification/%s", DefaultRestResource.REST_URI, modelSetId);
+		PutMethod putMethod = new PutMethod(uri);
+		putMethod.addRequestHeader("Accept", "application/xml");
+
+		NameValuePair[] queryString = new NameValuePair[6];
+		queryString[0] = new NameValuePair("modelid", modelId);
+		queryString[1] = new NameValuePair("artifactid", artifactId);
+		queryString[2] = new NameValuePair("resourceid", resourceId);
+		queryString[3] = new NameValuePair("resourcetype", type.toString());
+		queryString[4] = new NameValuePair("action", action.toString());
+		queryString[5] = new NameValuePair("userid", userId);
+		putMethod.setQueryString(queryString);
+		
+		try {
+			httpClient.executeMethod(putMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
 	}
 
 	@Override
@@ -247,6 +270,29 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 	}
 
 	@Override
+	public String getDashboardKpiDefaultViewer(String modelSetId, String userId)
+			throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/dashboardkpi/viewer", DefaultRestResource.REST_URI);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_XML);
+
+		NameValuePair[] queryString = new NameValuePair[2];
+		queryString[0] = new NameValuePair("modelsetid", modelSetId);
+		queryString[1] = new NameValuePair("userid", userId);
+		getMethod.setQueryString(queryString);
+
+		try {
+			httpClient.executeMethod(getMethod);
+			String url = getMethod.getResponseBodyAsString();
+			return url;
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+	}
+	
+	
+	@Override
 	public InputStream transform(ModelSetType type, InputStream model) throws LpRestException {
 		HttpClient httpClient = this.getClient();
 		String uri = String.format("%s/learnpad/cw/corefacade/transform", DefaultRestResource.REST_URI);
@@ -350,4 +396,5 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 	}
+
 }

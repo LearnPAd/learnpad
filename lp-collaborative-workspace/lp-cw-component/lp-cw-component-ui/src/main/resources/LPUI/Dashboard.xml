@@ -41,11 +41,24 @@
   <hidden>true</hidden>
   <content>{{velocity}}
 #set ($userid = $services.model.serialize($xcontext.userReference).replace("XWiki.", ""))
+## IDs differnces betwwen IDs systems (e.g. email, xwikis) are solved in the LP-CP
+## #set ($userEmail = $xwiki.getUser($xcontext.userReference).getEmail())
 #set ($modelid = $request.getParameter("modelid"))
 ## Hard-coded for the moment since the ID may change with ME's import and SIM is not relying on BPMN files from ME
 #set ($modelsetid = "LP_ME_ADOXX_MODELSET_28600")
 ## Hard-coded for the moment since the ID may change with ME's import and SIM is not relying on BPMN files from ME
 #set ($modelid = "mod.27772")
+############# DASHBOARD KPI Part ##################################
+  #set ($dashboardkpiURL = "${services.learnpad.getDashboardKpiDefaultViewer($modelsetid,$userid)}")
+##
+#if ("$!dashboardkpiURL" != "")
+{{html clean="false"}}
+&lt;iframe id="dashboardkpi-iframe" height="500" width="100%" src="${dashboardkpiURL}"&gt;
+Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
+&lt;/iframe&gt;
+{{/html}}
+#end
+############### Results From SIM Part ################################
 #set ($listmodelid = [])
 #if ("$!modelid" != "")
   #set ($discard = $listmodelid.add($modelid))

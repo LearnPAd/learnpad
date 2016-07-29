@@ -5,6 +5,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import eu.learnpad.core.impl.or.XwikiBridgeInterfaceRestResource;
+import eu.learnpad.core.impl.tests.AbstractUnitTest;
 import eu.learnpad.exception.LpRestException;
 
 public class XwikiBridgeInterfaceRestResourceTest extends AbstractUnitTest {

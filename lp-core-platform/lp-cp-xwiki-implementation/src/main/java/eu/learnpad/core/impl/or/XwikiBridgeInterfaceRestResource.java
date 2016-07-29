@@ -70,12 +70,12 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 	}
 
 	@Override
-        public void resourceNotification(String modelSetId, String resourceId, 
-                ResourceType resourceType, String referringToResourceId, 
-                String[] modelArtifactIds, String userId, Long timestamp, 
-                NotificationActionType action) throws LpRestException {		
-                
-                // TODO Auto-generated method stub
+	public void resourceNotification(String modelSetId, String modelId,
+			String artifactId, String resourceId, ResourceType resourceType,
+			String referringToResourceId, String userId, Long timestamp,
+			NotificationActionType action) throws LpRestException {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -327,4 +327,5 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 
 		return processingStatus;
 	}
+
 }
