@@ -5,7 +5,6 @@
  */
 package eu.learnpad.ontology.recommender.cbr;
 
-import ch.fhnw.cbr.persistence.exception.OntologyResourceException;
 import ch.fhnw.cbr.service.CBRServices;
 import ch.fhnw.cbr.service.data.CaseInstanceVO;
 import ch.fhnw.cbr.service.data.CaseMatchVO;
@@ -18,6 +17,7 @@ import eu.learnpad.or.rest.data.ListOfStringWrapper;
 import eu.learnpad.or.rest.data.SimilarCase;
 import eu.learnpad.or.rest.data.SimilarCases;
 import eu.learnpad.or.rest.data.SimulationData;
+import eu.learnpad.sim.rest.event.ScoreType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,9 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
 
 /**
  *
@@ -41,7 +38,7 @@ public class CBRAdapter {
 
     public static final String CBR_CONFIG_FILE = "cbrComponent.properties";
 
-    public static final String SIMULATION_CASE_CLASS_URI = "http://learnpad.eu#SimulatedApplicationCase_";
+    public static final String SIMULATION_CASE_CLASS_URI = "http://learnpad.eu#SessionSimulationCase";
     public static final String OVERALL_PROCESS_VIEW = "http://learnpad.eu/cbr#OverallProcessView";
     public static final String NS_LEARNPAD = "http://learnpad.eu#";
     public static final String NS_EO = "http://ikm-group.ch/archiMEO/eo#";
@@ -79,15 +76,7 @@ public class CBRAdapter {
     }
 
     private CBRAdapter() {
-        Configuration cbrConfig = null;
-        try {
-            cbrConfig = new PropertiesConfiguration(CBR_CONFIG_FILE);
-            ch.fhnw.cbr.persistence.OntAO.getInstance().refreshSingleton(cbrConfig);
-        } catch (ConfigurationException ex) {
-            Logger.getLogger(CBRAdapter.class.getName()).log(Level.SEVERE, "Failed to load CBR properties in LearnPAd OR component.", ex);
-        } catch (OntologyResourceException ex) {
-            Logger.getLogger(CBRAdapter.class.getName()).log(Level.SEVERE, "Failed to initialize CBR adapter and CBR ontology files.", ex);
-        }
+        ch.fhnw.cbr.persistence.OntAO.getInstance().setOntDataSource(new CBROntDataSource());
     }
 
     public static CBRAdapter getInstance() {
@@ -211,6 +200,23 @@ public class CBRAdapter {
         similarCases.setSimilarCases(similarCasesList);
 
         return similarCases;
+    }
+    
+    /**
+     * Stores latest simulation score of given type in the ontology.
+     * This scores might be used for KPI calculations.
+     * 
+     * @param timestamp
+     * @param simulationSessionId
+     * @param modelSetId
+     * @param processArtifactId
+     * @param userId
+     * @param scoreType
+     * @param scoreUpdateValue 
+     */
+    public void logSimulationScore(Long timestamp, String simulationSessionId, String modelSetId, 
+                                    String processArtifactId, String userId, ScoreType scoreType, Float scoreUpdateValue){
+        
     }
 
     private String getObjectPropertyName(String propertyUri) {

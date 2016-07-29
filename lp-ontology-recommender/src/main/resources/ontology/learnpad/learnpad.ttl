@@ -117,18 +117,14 @@ lpd:Ascoli_Piceno
   lpd:isPartOfProvince lpd:Province_of_Ascoli_Piceno ;
   rdfs:label "Ascoli Piceno"@en ;
 .
+lpd:BPSimulationScore
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:SimulationScore ;
+.
 lpd:BarAndSimilarBusinessesWithoutCusine
   rdf:type lpd:ATECO_SubCategory ;
   lpd:isSubATECOCategoryOfCategory lpd:CateringServices ;
   rdfs:label "Bar and similar businesses without cusine"@en ;
-.
-lpd:Barnaby_Barnes
-  rdf:type eo:Person ;
-  eo:personHasName "Barnaby Barnes"^^xsd:string ;
-  foaf:mbox "barnaby.barnes@learnpad.com"^^xsd:string ;
-  foaf:personHasFamiliyName "Barnes"^^xsd:string ;
-  foaf:personHasFirstName "Barnaby"^^xsd:string ;
-  foaf:phone "+442 236 7232"^^xsd:string ;
 .
 lpd:Beach_Area_At_The_Lake
   rdf:type lpd:Costal_Zone ;
@@ -295,6 +291,10 @@ lpd:Funerary_Sector
 lpd:GatheringActivities_TreatmentAndDisposalActivities_RecoveryOfMaterial
   rdf:type lpd:ATECO_Category ;
   rdfs:label "Gathering activities treatment and disposal activities recovery of material"@en ;
+.
+lpd:GlobalSimulationScore
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:SimulationScore ;
 .
 lpd:Health_Sector
   rdf:type lpd:BusinessSector ;
@@ -650,14 +650,6 @@ lpd:SUAP_officer
   rdf:type lpd:Learner ;
   rdfs:label "Learner"@en ;
 .
-lpd:Sally_Shugar
-  rdf:type eo:Person ;
-  eo:personHasName "Sally Shugar"^^xsd:string ;
-  foaf:mbox "sally.shugar@learnpad.com"^^xsd:string ;
-  foaf:personHasFamiliyName "Shugar"^^xsd:string ;
-  foaf:personHasFirstName "Sally"^^xsd:string ;
-  foaf:phone "+442 236 7236"^^xsd:string ;
-.
 lpd:San_Ginesio
   rdf:type top:City ;
   lpd:isPartOfProvince lpd:Province_of_Macerata ;
@@ -682,14 +674,27 @@ lpd:Service_Care_Sector
   rdf:type lpd:BusinessSector ;
   rdfs:label "Service care sector"@en ;
 .
+lpd:SessionSimulationCase
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:Application ;
+  rdfs:subClassOf lpd:SimulationElement ;
+.
+lpd:SessionSimulationScore
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:SimulationScore ;
+.
 lpd:Sewer_authority
   rdf:type eo:OrganisationalUnit ;
   rdfs:comment "The sewer authority generally is an non-public organisational unit."^^xsd:string ;
   rdfs:label "Sewer authority"@en ;
 .
-lpd:Simulation
+lpd:SimulationElement
   rdf:type owl:Class ;
-  rdfs:subClassOf bpmn:Process ;
+  rdfs:subClassOf owl:Thing ;
+.
+lpd:SimulationScore
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:SimulationElement ;
 .
 lpd:Single_PA
   rdf:type owl:Class ;
@@ -1032,6 +1037,11 @@ lpd:executedFlowElementStartTime
   rdfs:domain bpmn:FlowElement ;
   rdfs:range xsd:dateTime ;
 .
+lpd:hasSimulationScore
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain lpd:SimulationScore ;
+  rdfs:range xsd:decimal ;
+.
 lpd:informationIsInputForActivity
   rdf:type owl:ObjectProperty ;
   rdfs:range eo:BusinessActivity ;
@@ -1144,12 +1154,30 @@ lpd:roleReferencesToDocument
 .
 lpd:simulationScore
   rdf:type owl:DatatypeProperty ;
-  rdfs:domain lpd:Simulation ;
   rdfs:range xsd:decimal ;
+.
+lpd:simulationScoreBelongsToBusinessProcess
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:BPSimulationScore ;
+  rdfs:range bpmn:Process ;
+.
+lpd:simulationScoreCreatedAt
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain lpd:SimulationScore ;
+  rdfs:range xsd:dateTime ;
+.
+lpd:simulationScoreOfPerformer
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:SimulationScore ;
+  rdfs:range omm:Performer ;
+.
+lpd:simulationScoreOfSession
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain lpd:SessionSimulationScore ;
+  rdfs:range lpd:SessionSimulationCase ;
 .
 lpd:simulationWasPerformedByUser
   rdf:type owl:ObjectProperty ;
-  rdfs:domain lpd:Simulation ;
   rdfs:range eo:Person ;
 .
 lpd:subApplicationType

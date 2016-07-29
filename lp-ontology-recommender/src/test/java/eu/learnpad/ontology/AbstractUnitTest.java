@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import org.junit.AfterClass;
 
 /**
  *
@@ -22,14 +23,14 @@ import java.nio.file.attribute.BasicFileAttributes;
 public class AbstractUnitTest {
     
     protected static final String MODELSET_ID = APP.CONF.getString("testdata.modelset.version");
-    protected static final String TEST_USER = "barnaby.barnes@learnpad.com";
+    protected static final String TEST_USER = "barnaby.barnes@learnpad.eu";
     
     /**
      * Remove all transformed files after testrun;
      * 
      * @throws IOException 
      */
-    //@AfterClass
+//    @AfterClass
     public static void after() throws IOException {
         Path path = SimpleModelTransformator.getInstance().getModelSetFolderPath(MODELSET_ID);
         cleanUp(path.getParent());

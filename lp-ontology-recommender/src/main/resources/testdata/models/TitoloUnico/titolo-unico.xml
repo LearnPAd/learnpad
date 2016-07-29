@@ -17623,7 +17623,7 @@ cond
 <ATTRIBUTE name="Kommentar" type="STRING"></ATTRIBUTE>
 <RECORD name="Further education"></RECORD>
 <ATTRIBUTE name="Presence" type="ATTRPROFREF"></ATTRIBUTE>
-<ATTRIBUTE name="E-Mail" type="STRING">barnaby.barnes@learnpad.com</ATTRIBUTE>
+<ATTRIBUTE name="E-Mail" type="STRING">barnaby.barnes@learnpad.eu</ATTRIBUTE>
 <INTERREF name="Referenced Competency"></INTERREF>
 <INTERREF name="Referenced Competency Profile">
 <IREF type="objectreference" tmodeltype="Document and Knowledge model" tmodelname="03 - Document and Knowledge model Titolo Unico" tmodelver="" tclassname="Document" tobjname="Acquired Competency Barnaby Barnes"></IREF>

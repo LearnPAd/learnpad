@@ -18,7 +18,6 @@ import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Resource;
 
 import eu.learnpad.ontology.persistence.FileOntAO;
-import eu.learnpad.ontology.persistence.OntAO;
 import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.State;
