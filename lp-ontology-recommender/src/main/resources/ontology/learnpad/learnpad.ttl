@@ -674,15 +674,6 @@ lpd:Service_Care_Sector
   rdf:type lpd:BusinessSector ;
   rdfs:label "Service care sector"@en ;
 .
-lpd:SessionSimulationCase
-  rdf:type owl:Class ;
-  rdfs:subClassOf lpd:Application ;
-  rdfs:subClassOf lpd:SimulationElement ;
-.
-lpd:SessionSimulationScore
-  rdf:type owl:Class ;
-  rdfs:subClassOf lpd:SimulationScore ;
-.
 lpd:Sewer_authority
   rdf:type eo:OrganisationalUnit ;
   rdfs:comment "The sewer authority generally is an non-public organisational unit."^^xsd:string ;
@@ -695,6 +686,15 @@ lpd:SimulationElement
 lpd:SimulationScore
   rdf:type owl:Class ;
   rdfs:subClassOf lpd:SimulationElement ;
+.
+lpd:SimulationSessionCase
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:Application ;
+  rdfs:subClassOf lpd:SimulationElement ;
+.
+lpd:SimulationSessionScore
+  rdf:type owl:Class ;
+  rdfs:subClassOf lpd:SimulationScore ;
 .
 lpd:Single_PA
   rdf:type owl:Class ;
@@ -1173,8 +1173,8 @@ lpd:simulationScoreOfPerformer
 .
 lpd:simulationScoreOfSession
   rdf:type owl:ObjectProperty ;
-  rdfs:domain lpd:SessionSimulationScore ;
-  rdfs:range lpd:SessionSimulationCase ;
+  rdfs:domain lpd:SimulationSessionScore ;
+  rdfs:range lpd:SimulationSessionCase ;
 .
 lpd:simulationWasPerformedByUser
   rdf:type owl:ObjectProperty ;

@@ -46,21 +46,23 @@ public class NotificationLog {
      * (commment, attachement, feedback)
      *
      * @param modelSetId
+     * @param modelId
+     * @param artifactId model object id linked to the resource
      * @param resourceId either the page id (URL) or the comment id
      * @param resourceType one of page, comment, attachement or feedback
      * @param referringToResourceId the resource id this resource is reffering
      * to (ex. the page id a comment is referring to)
-     * @param modelArtifactIds list of model object id’s linked to the resource
-     * (ex. tasks, gateways linked to the wiki page)
      * @param userId
      * @param timestamp
      * @param action
+     * @throws eu.learnpad.ontology.recommender.RecommenderException
      */
     public void logResourceNotification(String modelSetId,
+            String modelId,
+            String artifactId,
             String resourceId,
             ResourceType resourceType,
             String referringToResourceId,
-            String[] modelArtifactIds,
             String userId,
             Long timestamp,
             NotificationActionType action) throws RecommenderException {

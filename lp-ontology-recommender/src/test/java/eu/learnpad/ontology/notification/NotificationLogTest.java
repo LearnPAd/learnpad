@@ -20,13 +20,9 @@ import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.ResourceType;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 import static junit.framework.Assert.*;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -55,7 +51,7 @@ public class NotificationLogTest extends AbstractUnitTest {
         assertEquals(0, pageInstancs.size());
         
         Long timestamp = System.currentTimeMillis();
-        NotificationLog.getInstance().logResourceNotification(MODELSET_ID, pageUrl, ResourceType.PAGE, null, null, TEST_USER, timestamp, NotificationActionType.ADDED);
+        NotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, pageUrl, ResourceType.PAGE, null, TEST_USER, timestamp, NotificationActionType.ADDED);
 
         pageInstancs = OntUtil.getInstancesWithProperty(model, pageClass, pageUrlProperty, value);
         assertNotNull(pageInstancs);
@@ -66,7 +62,7 @@ public class NotificationLogTest extends AbstractUnitTest {
         testLogCreated(model, pageInstance, "added", TEST_USER, 1);
         
         //test comment log created
-        NotificationLog.getInstance().logResourceNotification(MODELSET_ID, "1", ResourceType.COMMENT, pageUrl, null, TEST_USER, timestamp, NotificationActionType.ADDED);
+        NotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, "1", ResourceType.COMMENT, pageUrl, TEST_USER, timestamp, NotificationActionType.ADDED);
         
         OntClass commentClass = model.getOntClass(APP.NS.XWIKI + "Comment");
         OntProperty referedPageUrlProperty = model.getOntProperty(APP.NS.XWIKI + "annotationIsMadeToPage");

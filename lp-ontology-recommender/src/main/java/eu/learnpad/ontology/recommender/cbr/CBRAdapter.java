@@ -38,7 +38,7 @@ public class CBRAdapter {
 
     public static final String CBR_CONFIG_FILE = "cbrComponent.properties";
 
-    public static final String SIMULATION_CASE_CLASS_URI = "http://learnpad.eu#SessionSimulationCase";
+    public static final String SIMULATION_CASE_CLASS_URI = "http://learnpad.eu#SimulationSessionCase";
     public static final String OVERALL_PROCESS_VIEW = "http://learnpad.eu/cbr#OverallProcessView";
     public static final String NS_LEARNPAD = "http://learnpad.eu#";
     public static final String NS_EO = "http://ikm-group.ch/archiMEO/eo#";

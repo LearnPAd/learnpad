@@ -5,7 +5,6 @@
  */
 package eu.learnpad.ontology;
 
-import com.hp.hpl.jena.rdf.model.Model;
 import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import java.io.IOException;
@@ -14,7 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import org.junit.AfterClass;
 
 /**
  *
