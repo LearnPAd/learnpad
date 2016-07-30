@@ -21,6 +21,7 @@ package eu.learnpad.core.impl.cw;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.List;
 
@@ -30,6 +31,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
@@ -47,6 +49,7 @@ import eu.learnpad.cw.CoreFacade;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
+import eu.learnpad.or.rest.data.Entities;
 import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.ResourceType;
@@ -270,6 +273,45 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 	}
 
 	@Override
+	public Entities analyseText(String modelSetId, String contextArtifactId,
+			String userId, String title, String text) throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/semantic/%s/analysetext", DefaultRestResource.REST_URI, modelSetId);
+		PostMethod postMethod = new PostMethod(uri);
+		postMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_XML);
+
+		NameValuePair[] queryString = new NameValuePair[4];
+		queryString[0] = new NameValuePair("modelsetid", modelSetId);
+		queryString[1] = new NameValuePair("contextArtifactId", contextArtifactId);
+		queryString[2] = new NameValuePair("userid", userId);
+		queryString[2] = new NameValuePair("title", title);
+		postMethod.setQueryString(queryString);
+		
+		RequestEntity requestEntity;
+		InputStream entitiesAsStream = null;
+		try {
+			requestEntity = new StringRequestEntity(text, MediaType.APPLICATION_XML, "UTF-8");
+			postMethod.setRequestEntity(requestEntity);
+
+			httpClient.executeMethod(postMethod);
+			entitiesAsStream = postMethod.getResponseBodyAsStream(); 
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+		}
+
+		Entities entities = null;
+
+		try {
+			JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
+			Unmarshaller unmarshaller = jc.createUnmarshaller();
+			entities = (Entities) unmarshaller.unmarshal(entitiesAsStream);
+		} catch (JAXBException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+		}
+		return entities;
+	}
+	
+	@Override
 	public String getDashboardKpiDefaultViewer(String modelSetId, String userId)
 			throws LpRestException {
 		HttpClient httpClient = this.getClient();
@@ -396,5 +438,4 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 	}
-
 }

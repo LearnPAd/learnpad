@@ -49,6 +49,7 @@ import eu.learnpad.core.rest.Utils;
 import eu.learnpad.cw.Controller;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.rest.data.ModelSetType;
+import eu.learnpad.or.rest.data.Entities;
 import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.ResourceType;
@@ -139,6 +140,14 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		this.or.resourceNotification(modelSetId, modelId, artifactId, resourceId, type, null, userEmail, timestamp, action);		
 	}	
 	
+	@Override
+	public Entities analyseText(String modelSetId, String contextArtifactId,
+			String userId, String title, String text) throws LpRestException {
+		String userEmail = this.convertUserID(userId);
+		Entities e = this.or.analyseText(modelSetId, contextArtifactId, userEmail, title, text);
+		return e;
+	}
+
 	@Override
 	public InputStream getModel(String modelSetId, ModelSetType type) throws LpRestException {
 		String attachmentName = String.format("%s.%s", modelSetId, type);
