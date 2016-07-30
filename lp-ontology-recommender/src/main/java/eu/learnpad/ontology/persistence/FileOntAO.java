@@ -26,6 +26,7 @@ import org.apache.jena.riot.Lang;
 public class FileOntAO extends OntAO {
     
     private static final FileOntAO INSTANCE = new FileOntAO();
+    private static final Logger LOG = Logger.getLogger(FileOntAO.class.getName());
     
     private FileOntAO(){}
     
@@ -38,6 +39,10 @@ public class FileOntAO extends OntAO {
         byte[] testModelFile = null;
         try {
             InputStream in = getClass().getResourceAsStream(pathToModelSetFile);
+            if(in == null){
+                LOG.log(Level.SEVERE, "Modelset file not found: {0}", pathToModelSetFile);
+                return testModelFile;
+            }
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             int next = in.read();
             while (next > -1) {
@@ -47,7 +52,7 @@ public class FileOntAO extends OntAO {
             bos.flush();
             testModelFile = bos.toByteArray();
         } catch (IOException ex) {
-            Logger.getLogger(SimpleModelTransformator.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.log(Level.SEVERE, null, ex);
         }
         return testModelFile;
     }
@@ -58,7 +63,7 @@ public class FileOntAO extends OntAO {
         try {
             model = OntologyResourceLoader.loadModel(APP.CONF.getStringArray("ontology.metamodel.path"), Lang.TTL);
         } catch (IOException ex) {
-            Logger.getLogger(FileOntAO.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.log(Level.SEVERE, null, ex);
         }
         return model;
     }

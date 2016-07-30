@@ -5,7 +5,6 @@
  */
 package eu.learnpad.ontology;
 
-import com.hp.hpl.jena.rdf.model.Model;
 import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import java.io.IOException;
@@ -22,14 +21,14 @@ import java.nio.file.attribute.BasicFileAttributes;
 public class AbstractUnitTest {
     
     protected static final String MODELSET_ID = APP.CONF.getString("testdata.modelset.version");
-    protected static final String TEST_USER = "barnaby.barnes@learnpad.com";
+    protected static final String TEST_USER = "barnaby.barnes@learnpad.eu";
     
     /**
      * Remove all transformed files after testrun;
      * 
      * @throws IOException 
      */
-    //@AfterClass
+//    @AfterClass
     public static void after() throws IOException {
         Path path = SimpleModelTransformator.getInstance().getModelSetFolderPath(MODELSET_ID);
         cleanUp(path.getParent());

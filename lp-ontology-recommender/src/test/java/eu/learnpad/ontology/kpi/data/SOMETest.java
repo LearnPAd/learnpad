@@ -5,11 +5,9 @@
  */
 package eu.learnpad.ontology.kpi.data;
 
-import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import eu.learnpad.ontology.AbstractUnitTest;
-import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.recommender.RecommenderException;
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +17,8 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.junit.Test;
 
 /**
- *
+ * Basic excel data loading tests with test ontology.
+ * 
  * @author andreas.martin
  */
 public class SOMETest extends AbstractUnitTest{

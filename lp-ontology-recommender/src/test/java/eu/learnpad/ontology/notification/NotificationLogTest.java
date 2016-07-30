@@ -11,10 +11,8 @@ import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 import eu.learnpad.ontology.AbstractUnitTest;
 import eu.learnpad.ontology.config.APP;
-import eu.learnpad.ontology.kpi.dashboard.KpiDashboard;
 import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.persistence.util.OntUtil;
 import eu.learnpad.ontology.recommender.Inferencer;
@@ -22,13 +20,8 @@ import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.ResourceType;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.UUID;
 import static junit.framework.Assert.*;
 import org.junit.Test;
 
@@ -49,24 +42,27 @@ public class NotificationLogTest extends AbstractUnitTest {
         new Inferencer(model);
         
         //test page created
-        String pageUrl = "http://learnpad.eu/unittest/TestPage";
-        Long timestamp = System.currentTimeMillis();
-        NotificationLog.getInstance().logResourceNotification(MODELSET_ID, pageUrl, ResourceType.PAGE, null, null, TEST_USER, timestamp, NotificationActionType.ADDED);
-
+        String pageUrl = "http://learnpad.eu/unittest/NotificationLogTest_Page"+UUID.randomUUID();
         OntClass pageClass = model.getOntClass(APP.NS.XWIKI + "Page");
         OntProperty pageUrlProperty = model.getOntProperty(APP.NS.XWIKI + "pageHasURL");
         Literal value = model.createTypedLiteral(pageUrl);
         List<Individual> pageInstancs = OntUtil.getInstancesWithProperty(model, pageClass, pageUrlProperty, value);
+        assertNotNull(pageInstancs);
+        assertEquals(0, pageInstancs.size());
+        
+        Long timestamp = System.currentTimeMillis();
+        NotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, pageUrl, ResourceType.PAGE, null, TEST_USER, timestamp, NotificationActionType.ADDED);
 
+        pageInstancs = OntUtil.getInstancesWithProperty(model, pageClass, pageUrlProperty, value);
         assertNotNull(pageInstancs);
         assertEquals(1, pageInstancs.size());
         Individual pageInstance = pageInstancs.get(0);
-
+        
         //test page log created
-        testLogCreated(model, pageInstance, "added", TEST_USER);
+        testLogCreated(model, pageInstance, "added", TEST_USER, 1);
         
         //test comment log created
-        NotificationLog.getInstance().logResourceNotification(MODELSET_ID, "1", ResourceType.COMMENT, pageUrl, null, TEST_USER, timestamp, NotificationActionType.ADDED);
+        NotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, "1", ResourceType.COMMENT, pageUrl, TEST_USER, timestamp, NotificationActionType.ADDED);
         
         OntClass commentClass = model.getOntClass(APP.NS.XWIKI + "Comment");
         OntProperty referedPageUrlProperty = model.getOntProperty(APP.NS.XWIKI + "annotationIsMadeToPage");
@@ -76,17 +72,17 @@ public class NotificationLogTest extends AbstractUnitTest {
         assertEquals(1, commentInstancs.size());
 
         //test comment log created
-        testLogCreated(model, commentInstancs.get(0), "added", TEST_USER);
+        testLogCreated(model, commentInstancs.get(0), "added", TEST_USER, 1);
     }
 
-    private void testLogCreated(OntModel model, Individual instance, String actionType, String userId) {
+    private void testLogCreated(OntModel model, Individual instance, String actionType, String userId, int expected) {
         
         OntClass actionHistoryClass = model.getOntClass(APP.NS.XWIKI + "ActionHistory");
         OntProperty actionAppliedToResourceProp = model.getOntProperty(APP.NS.XWIKI + "actionAppliedToResource");
         List<Individual> resourceHistInstancs = OntUtil.getInstancesWithProperty(model, actionHistoryClass, actionAppliedToResourceProp, instance);
 
         assertNotNull(resourceHistInstancs);
-        assertEquals(1, resourceHistInstancs.size());
+        assertEquals(expected, resourceHistInstancs.size());
         Individual resourceHistInstance = resourceHistInstancs.get(0);
         OntProperty actionTypeProp = model.getOntProperty(APP.NS.XWIKI + "actionType");
         assertTrue(resourceHistInstance.hasProperty(actionTypeProp));
