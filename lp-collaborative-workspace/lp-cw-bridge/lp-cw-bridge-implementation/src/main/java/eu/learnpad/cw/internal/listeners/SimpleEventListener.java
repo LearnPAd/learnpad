@@ -17,35 +17,27 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.cw.internal;
+package eu.learnpad.cw.internal.listeners;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.inject.Singleton;
 
 import org.slf4j.Logger;
-import org.xwiki.bridge.event.DocumentCreatedEvent;
-import org.xwiki.bridge.event.DocumentUpdatedEvent;
 import org.xwiki.component.annotation.Component;
-import org.xwiki.component.manager.ComponentLookupException;
 import org.xwiki.component.phase.Initializable;
-import org.xwiki.component.phase.InitializationException;
-import org.xwiki.model.reference.DocumentReference;
 import org.xwiki.model.reference.EntityReference;
 import org.xwiki.observation.EventListener;
 import org.xwiki.observation.event.Event;
 
 import com.xpn.xwiki.XWikiContext;
-import com.xpn.xwiki.XWikiException;
 import com.xpn.xwiki.doc.XWikiDocument;
 import com.xpn.xwiki.objects.BaseObject;
 
 import eu.learnpad.cw.UICWBridge;
-import eu.learnpad.exception.LpRestException;
+import eu.learnpad.cw.internal.utils.LPCodeLabels;
 
 /**
  * @author gulyx
@@ -55,9 +47,7 @@ import eu.learnpad.exception.LpRestException;
 
 @Component
 @Named("cw-simple-event-listener")
-@Singleton
-public class SimpleEventListener implements EventListener, Initializable{
-//public class SimpleEventListener extends AbstractEventListener{
+public abstract class SimpleEventListener implements EventListener, Initializable{
 
 	/**
 	 * Hint of the component.
@@ -68,104 +58,58 @@ public class SimpleEventListener implements EventListener, Initializable{
 	 * The key under which the last encountered error is stored in the current
 	 * execution context.
 	 */
-	private static final String LEARNPADERROR_KEY = "simplelistener.learnpad.error";
-
-	
-	private String name;
-	
-	private final String CLASSES_SPACE = "LPCode";
-	private final String COLLABORATIVE_DOCUMENT_CLASS = "CollaborativeDocumentClass";
-	private final String FEEDBACK_CLASS = "FeedbackClass";
-	private final String MODEL_CLASS = "ModelClass";
-	private final String BASE_ELEMENT_CLASS = "BaseElementClass";
-	
-	private final String MODELSETID_LABEL = "modelsetid";
-	private final String MODELID_LABEL = "modelid";
-	private final String ARTIFACTID_LABEL = "artifactid";
-		
-	private List<Event> event;
+	protected static final String LEARNPADERROR_KEY = "simplelistener.learnpad.error";
+			
+	protected String name;	
+	protected List<Event> event;
 	
 	@Inject
 	@Named("eu.learnpad.cw.internal.CWXwikiBridge")
-	private UICWBridge cwBridge;
+	protected UICWBridge cwBridge;
 
 	@Inject
-	private Logger logger;
+	protected  Logger logger;
 	
-//	/**
-//	 * The observation manager that will be use to fire user creation events.
-//	 * Note: We can't have the OM as a requirement, since it would create an
-//	 * infinite initialization loop, causing a stack overflow error (this event
-//	 * listener would require an initialized OM and the OM requires a list of
-//	 * initialized event listeners)
-//	 */
-//	private ObservationManager observationManager;
-
-	public SimpleEventListener() throws ComponentLookupException {
-//		super("this-is-foo", new DocumentCreatedEvent());		
-		this.name = ROLEHINT;
+	public SimpleEventListener() {
+		this.name = SimpleEventListener.ROLEHINT;
 		this.event = new ArrayList<Event>();
 	}
-
-	@Override
-	public void initialize() throws InitializationException {
-		this.event.add(new DocumentCreatedEvent());		
-		this.event.add(new DocumentUpdatedEvent());
-		logger.info("Created listener : " + this.name);
-	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	public void onEvent(Event event, Object source, Object data) {
 		XWikiDocument editedDocument = (XWikiDocument) source;
 		XWikiContext xcontext = (XWikiContext) data;
-		
-		String message;
-		if (editedDocument != null){
-			message = "Notified : " + editedDocument.getId() + ", titled : " + editedDocument.getTitle() + ", created on : " + editedDocument.getCreationDate().toString();
-		}else{
-			message = "******** Document was null *************";			
-		}
-		logger.info(message);
 
-		
-		DocumentReference classReference = new DocumentReference(xcontext.getMainXWiki(),this.CLASSES_SPACE,this.COLLABORATIVE_DOCUMENT_CLASS);
-		List<BaseObject> xObjects = editedDocument.getXObjects(classReference);
-		for (BaseObject xObject : xObjects) {
-			String modelSetId = xObject.getStringValue(this.MODELSETID_LABEL);
-			String resourceId = xObject.getStringValue(this.MODELID_LABEL);
-			String relatedArtifactId = xObject.getStringValue(this.ARTIFACTID_LABEL);
-			
+		EntityReference classReference = this.targetEntityReference(event,
+				editedDocument, xcontext);
+		BaseObject xObject = editedDocument.getXObject(classReference);
+		if (xObject != null) {
 			String userId = xcontext.getUserReference().getName();
-			logger.info(modelSetId + resourceId + relatedArtifactId + userId);
-//			try {
-//			this.cwBridge.pageNotification(modelSetId, resourceId, relatedArtifactId, userId, "action");
-//		} catch (LpRestException e) {
-//			logger.error(e.getMessage(), e.getCause());
-//		}
+			String resourceId = this.forgeResourceID(event, editedDocument,
+					xcontext);
+
+			String modelSetId = xObject.getStringValue(LPCodeLabels
+					.getMODELSETID_LABEL());
+			String modelId = xObject.getStringValue(LPCodeLabels
+					.getMODELID_LABEL());
+			String artifactId = xObject.getStringValue(LPCodeLabels
+					.getARTIFACTID_LABEL());
+
+			logger.info("found : " + modelSetId +","+ modelId +","+ artifactId +","+ userId);
+			this.notifyCWBridge(modelSetId, modelId, artifactId, resourceId,
+					userId, event);
 		}
-		
-//		String wikiName = document.getDocumentReference().getWikiReference()
-//				.getName();
-//		DocumentReference userClass = new DocumentReference(wikiName, "XWiki",
-//				"XWikiUsers");
-//
-//		if (document.getXObject(userClass) != null) {
-//			// Create a map to hold our new event data
-//			Map<String, String> userData = new HashMap<String, String>();
-//			userData.put("firstName", document.getXObject(userClass)
-//					.getStringValue("firstName"));
-//			userData.put("lastName", document.getXObject(userClass)
-//					.getStringValue("lastName"));
-//			userData.put("email", document.getXObject(userClass)
-//					.getStringValue("email"));
-//			// Fire the user created event
-//			UserCreatedEvent newEvent = new UserCreationEvent();
-//			getObservationManager().notify(newEvent, source, userData);
-//		}
 	}
 
+	protected abstract EntityReference targetEntityReference(Event event, XWikiDocument doc, XWikiContext xcontext);
+
+	protected abstract String forgeResourceID(Event event, XWikiDocument doc, XWikiContext xcontext);
+
+	protected abstract void notifyCWBridge(String modelSetId, String modelId, String artifactId, String resourceId, String userId, Event event);
+
+	
 	@Override
 	public String getName() {
 		return this.name;
@@ -175,18 +119,5 @@ public class SimpleEventListener implements EventListener, Initializable{
 	public List<Event> getEvents() {
 		return this.event;
 	}
-
-//	private ObservationManager getObservationManager() {
-//		if (this.observationManager == null) {
-//			try {
-//				this.observationManager = componentManager
-//						.getInstance(ObservationManager.class);
-//			} catch (ComponentLookupException e) {
-//				throw new RuntimeException(
-//						"Cound not retrieve an Observation Manager against the component manager");
-//			}
-//		}
-//		return this.observationManager;
-//	}
 
 }

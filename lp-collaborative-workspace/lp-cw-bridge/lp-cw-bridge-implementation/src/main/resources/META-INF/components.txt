@@ -1,3 +1,6 @@
 eu.learnpad.cw.internal.CWXwikiBridge
 eu.learnpad.cw.internal.RecommendationWebsocketServer
-eu.learnpad.cw.internal.SimpleEventListener
+eu.learnpad.cw.internal.listeners.CollaborativeDocumentListener
+eu.learnpad.cw.internal.listeners.FeedbackListener
+eu.learnpad.cw.internal.listeners.ModelElementCommentListener
+eu.learnpad.cw.internal.listeners.ModelElementAttachmentListener
