@@ -19,7 +19,7 @@
  */
 package eu.learnpad.or.rest;
 
-import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
@@ -58,8 +58,8 @@ public interface ResourceNotification {
 	 *            {@link eu.learnpad.or.rest.data.NotificationActionType})
 	 * @throws LpRestException
 	 */
-	// <host>/learnpad/or/resourcenotification/{modelsetid}?modelid=123&artifactid=123&resourceid=123&action={visited|added|deleted|modified}&type={page|comment|attachment|feedback}&userid=bbarnes@learnpad.eu&timestamp=1469703201489
-	@POST
+	// <host>/learnpad/or/{modelsetid}/resourcenotification?modelid=123&artifactid=123&resourceid=123&action={visited|added|deleted|modified}&type={page|comment|attachment|feedback}&userid=bbarnes@learnpad.eu&timestamp=1469703201489
+	@PUT
 	@Path("/{modelsetid}/resourcenotification")
 	void resourceNotification(@PathParam("modelsetid") String modelSetId,
 			@QueryParam("modelid") String modelId,
@@ -71,4 +71,5 @@ public interface ResourceNotification {
 			@QueryParam("timestamp") Long timestamp,
 			@QueryParam("action") NotificationActionType action)
 			throws LpRestException;
+
 }

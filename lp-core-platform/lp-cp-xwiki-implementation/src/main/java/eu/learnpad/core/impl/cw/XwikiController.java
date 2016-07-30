@@ -134,8 +134,8 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 			String artifactId, String resourceId, ResourceType type,
 			NotificationActionType action, String userId)
 			throws LpRestException {
-		String userEmail = this.convertUserID(userId);
 		Long timestamp = new Long(System.currentTimeMillis());
+		String userEmail = this.convertUserID(userId);
 		this.or.resourceNotification(modelSetId, modelId, artifactId, resourceId, type, null, userEmail, timestamp, action);		
 	}	
 	

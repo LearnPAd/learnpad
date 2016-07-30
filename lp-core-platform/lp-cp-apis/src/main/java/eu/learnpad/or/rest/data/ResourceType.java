@@ -13,8 +13,16 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * @author sandro.emmenegger
  */
-@XmlType
+@XmlType(name="ResourceType")
 @XmlEnum
 public enum ResourceType {
-    PAGE, COMMENT, ATTACHMENT, FEEDBACK
+    PAGE, COMMENT, ATTACHMENT, FEEDBACK;
+    
+	public String value() {
+		return name();
+	}
+
+	public static ResourceType fromValue(String v) {
+		return valueOf(v);
+	}    
 }
