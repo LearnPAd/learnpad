@@ -54,7 +54,7 @@
 #set ($artifactType = $artifactObject.getProperty('type').value)
 #set ($artifactDocumentation = $artifactObject.getProperty('documentation').value)
 #set ($collaborateReference = $services.model.createDocumentReference("CD", ${doc.documentReference.lastSpaceReference}))
-#set ($queryString = "")
+#set ($queryString = "modelsetid=$modelsetid&amp;modelid=$modelid&amp;artifactid=$artifactid")
 #set ($collaborateMode = "view")
 #set ($collaborateIsNew = $xwiki.getDocument($collaborateReference).isNew())
 #if ($collaborateIsNew)

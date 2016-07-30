@@ -150,7 +150,7 @@ image:icon:help $panelAbstract [[$docsLabel&gt;&gt;$docsReference]]
 #set ($mailLabel = ${services.localization.render('LPDocs.HelpDesk.label')})
 #set ($mailSubject = ${services.localization.render('LPDocs.HelpDesk.mailSubject')})
 
-image:icon:help $helpdeskAbstract [[$mailLabel>>mailto:info@learnpad.eu?subject=$mailSubject]]
+image:icon:help $helpdeskAbstract [[$mailLabel&gt;&gt;mailto:info@learnpad.eu?subject=$mailSubject]]
 
 #panelfooter()
 {{/velocity}}
