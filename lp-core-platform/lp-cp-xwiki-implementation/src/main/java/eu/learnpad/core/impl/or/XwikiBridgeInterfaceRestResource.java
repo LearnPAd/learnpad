@@ -33,6 +33,7 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.xwiki.component.annotation.Component;
@@ -68,14 +69,33 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 	public void initialize() throws InitializationException {
 		this.restPrefix = "";
 	}
-
+	
 	@Override
 	public void resourceNotification(String modelSetId, String modelId,
 			String artifactId, String resourceId, ResourceType resourceType,
 			String referringToResourceId, String userId, Long timestamp,
 			NotificationActionType action) throws LpRestException {
-		// TODO Auto-generated method stub
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/or/bridge/%s/resourcenotification", DefaultRestResource.REST_URI, modelSetId);
+		PutMethod putMethod = new PutMethod(uri);
+		putMethod.addRequestHeader("Accept", "application/xml");
+
+		NameValuePair[] queryString = new NameValuePair[8];
+		queryString[0] = new NameValuePair("modelid", modelId);
+		queryString[1] = new NameValuePair("artifactid", artifactId);
+		queryString[2] = new NameValuePair("resourceid", resourceId);
+		queryString[3] = new NameValuePair("resourcetype", resourceType.toString());
+		queryString[4] = new NameValuePair("referringtoresourceid", referringToResourceId);
+		queryString[5] = new NameValuePair("userid", userId);
+		queryString[6] = new NameValuePair("timestamp", timestamp.toString());
+		queryString[7] = new NameValuePair("action", action.toString());
+		putMethod.setQueryString(queryString);
 		
+		try {
+			httpClient.executeMethod(putMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
 	}
 
 	@Override
