@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -31,8 +30,8 @@
   <parent>LearnPAdCode.BaseElementClass</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1459863312000</date>
-  <contentUpdateDate>1459863312000</contentUpdateDate>
+  <date>1465219082000</date>
+  <contentUpdateDate>1465218926000</contentUpdateDate>
   <version>1.1</version>
   <title>$!{doc.getObject('LPCode.BaseElementClass').getProperty('name').value}</title>
   <comment/>
@@ -41,9 +40,15 @@
   <hidden>true</hidden>
   <content>{{velocity}}
 #set ($discard = $xwiki.ssx.use('LPUI.BaseElementSheet'))
+#set ($discard = $xwiki.jsx.use('LPUI.BaseElementSheet'))
 #set ($artifactObject = $doc.getObject('LPCode.BaseElementClass'))
 #set ($modelsetid = $artifactObject.getProperty('modelsetid').value)
 #set ($modelid = $artifactObject.getProperty('modelid').value)
+#set ($modelidNumber = $modelid.split("\.").get(1))
+#set ($modelSetReference = $services.model.createDocumentReference($xcontext.database, 'CoreRepository', ${modelsetid}))
+#set ($attachmentName = "${modelsetid}.ADOXX")
+#set ($attachmentReference = $services.model.createAttachmentReference($modelSetReference, $attachmentName))
+#set ($attachmentPath = "attach:${services.model.serialize($attachmentReference, 'default')}")
 #set ($artifactid = $artifactObject.getProperty('id').value)
 #set ($artifactTitle = $artifactObject.getProperty('name').value)
 #set ($artifactType = $artifactObject.getProperty('type').value)
@@ -57,6 +62,19 @@
   #set ($collaborateMode = "edit")
 #end
 #set ($collaborateURL = $xwiki.getURL($collaborateReference, "${collaborateMode}", ${queryString}))
+#set ($imageName = "${modelidNumber}.png")
+#set ($imagePath = "${attachmentPath}/${imageName}")
+################
+## Image
+(% class="row" %)(((
+#if ($niotool.isRegularFile($imagePath, null))
+  (% class="col-xs-12" %)(((
+    (% id="boxesContainer" data-modelsetid="$modelsetid" data-modelidnumber="$modelidNumber" data-artifactid="$artifactid" %) (((
+    [[image:path:$services.vfs.url($imagePath)|| class="learnpad-modelImg" usemap="#modelmap" alt="Image of the model"]]
+    )))
+  )))
+#end
+)))
 ################
 ## Buttons
 (% class="row" %)(((
@@ -94,6 +112,218 @@
   )))
 )))
 {{/velocity}}</content>
+  <object>
+    <name>LPUI.BaseElementSheet</name>
+    <number>0</number>
+    <className>XWiki.JavaScriptExtension</className>
+    <guid>d5fe8085-4e06-421f-abe1-9e2618f3ed30</guid>
+    <class>
+      <name>XWiki.JavaScriptExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>5</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>2</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>1</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>4</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>3</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>require(['jquery'], function ($) {
+
+    var debug = () =&gt; {};
+    //debug = function (msg) { console.log(msg); }
+
+    var parsePosition = function (pos) {
+        var xywh = {};
+        pos.split(' ').forEach(function (x) {
+            x.replace(/^([xywh]):([0-9\.]+)cm$/, function (all, _xywh, num) {
+                xywh[_xywh] = Number(num);
+            });
+        });
+        if (!xywh.h &amp;&amp; !xywh.w) {
+            xywh.h = 2;
+            xywh.w = 2;
+        }
+        if (!xywh.x || !xywh.y || !xywh.w || !xywh.h) {
+            throw new Error("failed to parse " + pos);
+        }
+        return xywh;
+    };
+
+    var getWidthHeightMultiplier = function (xml, modelNum, imageDiv) {
+        var area = $(xml).find('MODEL[id="mod.' + modelNum + '"] ATTRIBUTE[name="World area"]').text();
+        if (!area) { throw new Error("Failed to get 'World area'"); }
+        var wh = {};
+        area.split(' ').forEach(function (x) {
+            x.replace(/^([wh]):([0-9\.]+)cm$/, function (all, _wh, num) { wh[_wh] = Number(num); });
+        });
+        if (!wh.w || !wh.h) { throw new Error("failed to parse " + area); }
+
+        debug("w:" + imageDiv.children().width());
+        debug("h:" + imageDiv.children().height());
+
+        debug("nw:" + imageDiv.children()[0].naturalWidth);
+        debug("nh:" + imageDiv.children()[0].naturalHeight);
+
+        return {
+            widthPixPerCm: imageDiv.children().width() / wh.w,
+            heightPixPerCm: imageDiv.children().height() / wh.h
+        };
+    };
+
+    var handleXML = function (xml, modelNum, imageDiv) {
+        var whm = getWidthHeightMultiplier(xml, modelNum, imageDiv);
+        debug(whm);
+
+        var pattern = /(\/mod\.\d+\/)(.+)/;
+        var currentElmt = $(imageDiv).attr('data-artifactid');
+
+        var parentUrl = window.docviewurl.replace(pattern, '$1');
+
+        var image = $(imageDiv).find('img');
+        $(image).parent().on('click', function () {
+            window.location.href = parentUrl;
+        });
+        $(image).css({"cursor" : "pointer"});
+
+        $(xml).find('MODEL[id="mod.' + modelNum + '"] INSTANCE').each(function (i, el) {
+        if (['Pool','Lane'].indexOf($(el).attr('class')) &gt; -1) { return; }
+            var pos = parsePosition($(el).find('ATTRIBUTE[name="Position"]').text());
+
+            var posX = pos.x - (pos.w / 2);
+            var posY = pos.y - (pos.h / 2);
+            var redirectElmt = window.docviewurl.replace(pattern, '$1')+$(el).attr('id');
+            var box = $(
+                '&lt;a href="' + redirectElmt + '" ' +
+                    'title="' + $(el).attr('name') + '"' +
+                    'class="learnpad-clickable-map" ' +
+                    'style="' +
+                        'left:' + ( posX * whm.widthPixPerCm) + 'px;' +
+                        'top:' + ( posY * whm.heightPixPerCm) + 'px;' +
+                        'width:' + (pos.w * whm.widthPixPerCm) + 'px;' +
+                        'height:' + (pos.h * whm.heightPixPerCm) + 'px;"&gt;' +
+                '&lt;/a&gt;'
+            ).appendTo(imageDiv);
+
+            if($(el).attr('id') === currentElmt) {
+                $(box).removeClass('learnpad-clickable-map');
+                $(box).addClass('learnpad-clicked-map');
+                $(box).attr('href', '#');
+            }
+        });
+    };
+
+    var start = function() {
+
+        var imageDiv = $('#boxesContainer');
+
+        // Set the image maximum height to 500px and maximum width to 100%
+        var image = $(imageDiv).find('img');
+        var imageWidth = $(image).width();
+        var maxWidth = $('#xwikicontent').width();
+        if (imageWidth &gt; maxWidth) {
+            var imageHeight = $('#boxesContainer').find('img').height();
+            imageHeight *= maxWidth/imageWidth;
+            imageWidth = maxWidth;
+            $(image).width(imageWidth);
+            $(image).height(imageHeight);
+        }
+        $(imageDiv).find('p').width(imageWidth);
+        $(imageDiv).width(imageWidth);
+
+        var obj = $(imageDiv).attr('data-modelidnumber');
+        var modelsetId = $(imageDiv).attr('data-modelsetid');
+        var url = 'learnpad-modelset-'+modelsetId;
+        if (localStorage[url]) {
+            handleXML(localStorage[url], obj, imageDiv);
+        } else {
+            $.ajax("/xwiki/rest/learnpad/cw/corefacade/getmodel/"+modelsetId+"?type=ADOXX", { dataType: "text" }).success(function (xml) {
+                localStorage[url] = xml;
+                handleXML(xml, obj, imageDiv);
+            }).error(function (x, y, z) {
+                throw new Error(z);
+            });
+        }
+    };
+
+    start();
+
+});</code>
+    </property>
+    <property>
+      <name>Boxes</name>
+    </property>
+    <property>
+      <parse>0</parse>
+    </property>
+    <property>
+      <use>onDemand</use>
+    </property>
+  </object>
   <object>
     <name>LPUI.BaseElementSheet</name>
     <number>0</number>
@@ -192,6 +422,32 @@
     <property>
       <code>.xdocLastModification {
   display: none;
+}
+
+.learnpad-modelImg {
+    max-width: 100%;
+    max-height: 500px
+}
+
+.learnpad-clickable-map:hover {
+    background: red;
+}
+.learnpad-clickable-map {
+    position: absolute;
+    opacity: 0.3;
+    z-index: 9000;
+}
+.learnpad-clicked-map {
+    background: green;
+    opacity: 0.3;
+    position: absolute;
+    z-index: 9000;
+}
+
+#boxesContainer {
+    position: relative;
+    border: 0px;
+    margin: 0px auto;
 }</code>
     </property>
     <property>
