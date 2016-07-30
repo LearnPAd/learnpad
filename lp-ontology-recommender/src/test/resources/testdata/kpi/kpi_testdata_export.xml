@@ -4638,7 +4638,7 @@ In case of many/few changes models should be checked thoroughly.</kpi:kpiHasDesc
     <emo:performerRepresentsPerson rdf:resource="http://learnpad.eu/transfer#obj.40138"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://learnpad.eu/transfer#obj.39896">
-    <emo:performerHasEmailAddress rdf:datatype="http://www.w3.org/2001/XMLSchema#string">barnaby.barnes@learnpad.com</emo:performerHasEmailAddress>
+    <emo:performerHasEmailAddress rdf:datatype="http://www.w3.org/2001/XMLSchema#string">barnaby.barnes@learnpad.eu</emo:performerHasEmailAddress>
     <emo:belongsToVersion rdf:resource="http://learnpad.eu/transfer#LP_ME_ADOXX_MODELSET_28600"/>
     <omm:performerHasFirstName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Barnaby</omm:performerHasFirstName>
     <emo:objectTypeHasName rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></emo:objectTypeHasName>

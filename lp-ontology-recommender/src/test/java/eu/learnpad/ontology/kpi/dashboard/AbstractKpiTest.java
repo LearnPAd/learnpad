@@ -30,8 +30,8 @@ public class AbstractKpiTest extends AbstractUnitTest {
         new Inferencer(getLatestModel());
         String pageUrl = "http://learnpad.eu/unittest/TestPage";
         Long timestamp = System.currentTimeMillis();
-        NotificationLog.getInstance().logResourceNotification(MODELSET_ID, pageUrl, ResourceType.PAGE, null, null, TEST_USER, timestamp, NotificationActionType.ADDED);
-        NotificationLog.getInstance().logResourceNotification(MODELSET_ID, "1", ResourceType.COMMENT, pageUrl, null, TEST_USER, timestamp, NotificationActionType.ADDED);
+        NotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, pageUrl, ResourceType.PAGE, null, TEST_USER, timestamp, NotificationActionType.ADDED);
+        NotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, "1", ResourceType.COMMENT, pageUrl, TEST_USER, timestamp, NotificationActionType.ADDED);
     }
 
     protected OntModel getLatestModel() throws RecommenderException {

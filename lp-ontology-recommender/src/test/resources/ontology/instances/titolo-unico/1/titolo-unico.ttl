@@ -2210,7 +2210,7 @@ emo:belongsToVersion transfer:titolo-unico ;
   emo:objectTypeHasName ""^^xsd:string ;                
 		  omm:performerHasFirstName "Barnaby"^^xsd:string ;
 		  omm:performerHasLastName "Barnes"^^xsd:string ;
-		  emo:performerHasEmailAddress "barnaby.barnes@learnpad.com"^^xsd:string ;
+		  emo:performerHasEmailAddress "barnaby.barnes@learnpad.eu"^^xsd:string ;
 		  omm:performerHasPhoneNumber "+39 0733 656 344"^^xsd:string ;
 		    omm:performerHasRole transfer:obj.27393 ;
  omm:performerAcquiredCompetencyProfile transfer:obj.26993 ;

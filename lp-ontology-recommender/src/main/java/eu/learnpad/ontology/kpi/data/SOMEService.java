@@ -16,7 +16,8 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.topbraid.spin.system.SPINModuleRegistry;
 
 /**
- *
+ * KPI excel data loading based on the projects ontology and corresponding excel testfile.
+ * 
  * @author andreas.martin
  */
 public class SOMEService {

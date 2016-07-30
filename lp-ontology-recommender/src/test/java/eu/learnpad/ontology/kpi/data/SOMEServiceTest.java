@@ -8,20 +8,15 @@ package eu.learnpad.ontology.kpi.data;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.Model;
 import eu.learnpad.ontology.AbstractUnitTest;
-import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.persistence.FileOntAO;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.Before;
 
 /**
- *
+ * Test data loading from excel and applying rule to calculate KPI's on the projects ontology.
+ * 
  * @author sandro.emmenegger
  */
 public class SOMEServiceTest extends AbstractUnitTest {
@@ -31,35 +26,21 @@ public class SOMEServiceTest extends AbstractUnitTest {
     public SOMEServiceTest() {
     }
 
-    @Before
-    public void writeTestFileToWorkingFolder() throws IOException {
-        File baseWorkingFolder = new File(APP.CONF.getString("working.directory"));
-        assertTrue(baseWorkingFolder.exists());
-
-        File kpiDataFolder = new File(baseWorkingFolder, APP.CONF.getString("kpi.dashboard.data.folder.relative"));
-        if (!kpiDataFolder.exists()) {
-            kpiDataFolder.mkdirs();
-        }
-        
-        String filename = "IndividualsPerformanceKPIs_20160630.xlsx";
-        testFilePath = Paths.get(kpiDataFolder.toString(), filename);
-
-        Files.copy(Paths.get("src/main/resources/testdata/kpi/"+filename), testFilePath, StandardCopyOption.REPLACE_EXISTING);
-
-    }
-
     @Test
     public void testGetModel() throws Exception {
 
         OntModel model = FileOntAO.getInstance().getModelWithExecutionData(MODELSET_ID);
-        SOMEService service = new SOMEService(testFilePath.toFile());
+        File testExcel = new File("src/main/resources/testdata/kpi/IndividualsPerformanceKPIs_20160630.xlsx");
+        assertTrue(testExcel.exists());
+        SOMEService service = new SOMEService(testExcel);
         Model insertedKPIValuesModel = service.getModel(model);
+        
+        model.write(System.out, "TTL");     
+        
         assertNotNull(insertedKPIValuesModel);
         
         assertFalse(insertedKPIValuesModel.isEmpty());
         assertTrue(insertedKPIValuesModel.listStatements().hasNext());
-        
-//        insertedKPIValuesModel.write(System.out, "TTL");
 
     }
 
