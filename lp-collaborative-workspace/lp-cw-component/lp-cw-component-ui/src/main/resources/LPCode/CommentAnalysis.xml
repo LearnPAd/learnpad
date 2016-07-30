@@ -123,8 +123,8 @@
       <code>require(['jquery', 'xwiki-meta', 'bootstrap'], function ($, xm) {
 
     // Velocity here
-    #set ($userId = $xwiki.getUserName($xcontext.user, '$email', false))
-    #if ("$!userId" == "$email") #set ($userId = "") #end
+    #set ($userId = $xcontext.user)
+    #if ("$!userId" == "XWiki.XWikiGuest") #set ($userId = "") #end
     var userId = encodeURIComponent("$userId");
     // End velocity
 
@@ -212,7 +212,7 @@
         // Analyse the text
         var queryString = '?userid=' + userId + '&amp;title=&amp;contextArtifactId=' + artifactId;
         $.ajax({
-            url: '/xwiki/rest/learnpad/or/bridge/' + modelsetId + '/analysetext' + queryString,
+            url: '/xwiki/rest/learnpad/cw/corefacade/semantic/' + modelsetId + '/analysetext' + queryString,
             method: 'POST',
             data: content,
             contentType: 'text/plain',
