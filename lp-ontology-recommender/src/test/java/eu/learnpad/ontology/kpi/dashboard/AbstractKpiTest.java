@@ -7,7 +7,7 @@ package eu.learnpad.ontology.kpi.dashboard;
 
 import com.hp.hpl.jena.ontology.OntModel;
 import eu.learnpad.ontology.AbstractUnitTest;
-import eu.learnpad.ontology.notification.NotificationLog;
+import eu.learnpad.ontology.wiki.UserActionNotificationLog;
 import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.recommender.Inferencer;
 import eu.learnpad.ontology.recommender.RecommenderException;
@@ -30,8 +30,8 @@ public class AbstractKpiTest extends AbstractUnitTest {
         new Inferencer(getLatestModel());
         String pageUrl = "http://learnpad.eu/unittest/TestPage";
         Long timestamp = System.currentTimeMillis();
-        NotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, pageUrl, ResourceType.PAGE, null, TEST_USER, timestamp, NotificationActionType.ADDED);
-        NotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, "1", ResourceType.COMMENT, pageUrl, TEST_USER, timestamp, NotificationActionType.ADDED);
+        UserActionNotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, pageUrl, ResourceType.PAGE, null, TEST_USER, timestamp, NotificationActionType.ADDED);
+        UserActionNotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, "1", ResourceType.COMMENT, pageUrl, TEST_USER, timestamp, NotificationActionType.ADDED);
     }
 
     protected OntModel getLatestModel() throws RecommenderException {

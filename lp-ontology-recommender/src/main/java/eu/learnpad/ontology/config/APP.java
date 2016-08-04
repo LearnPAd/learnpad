@@ -35,7 +35,9 @@ public class APP {
         TRANSFER("http://learnpad.eu/transfer#"),
         XWIKI("http://www.xwiki.org/xwiki/bin/view/Main/WebHome#"),
         EXEC("http://learnpad.eu/exec#"),
-        OMM("http://ikm-group.ch/archiMEO/omm#");
+        OMM("http://ikm-group.ch/archiMEO/omm#"),
+        BPMN("http://ikm-group.ch/archiMEO/BPMN#"),
+        LPD("http://learnpad.eu#");
         
         private String namespace;
         

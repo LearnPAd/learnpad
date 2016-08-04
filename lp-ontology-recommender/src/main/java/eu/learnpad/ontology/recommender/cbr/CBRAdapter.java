@@ -12,12 +12,12 @@ import ch.fhnw.cbr.service.data.CaseViewVO;
 import ch.fhnw.cbr.service.data.IndividualVO;
 import ch.fhnw.cbr.service.data.LiteralPropertyValueVO;
 import ch.fhnw.cbr.service.data.ObjectPropertyInstanceVO;
+import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.util.ArgumentCheck;
 import eu.learnpad.or.rest.data.ListOfStringWrapper;
 import eu.learnpad.or.rest.data.SimilarCase;
 import eu.learnpad.or.rest.data.SimilarCases;
 import eu.learnpad.or.rest.data.SimulationData;
-import eu.learnpad.sim.rest.event.ScoreType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,9 +36,6 @@ import java.util.logging.Logger;
  */
 public class CBRAdapter {
 
-    public static final String CBR_CONFIG_FILE = "cbrComponent.properties";
-
-    public static final String SIMULATION_CASE_CLASS_URI = "http://learnpad.eu#SimulationSessionCase";
     public static final String OVERALL_PROCESS_VIEW = "http://learnpad.eu/cbr#OverallProcessView";
     public static final String NS_LEARNPAD = "http://learnpad.eu#";
     public static final String NS_EO = "http://ikm-group.ch/archiMEO/eo#";
@@ -100,9 +97,9 @@ public class CBRAdapter {
         CaseViewVO caseViewVO = service.findCaseViewByUri(OVERALL_PROCESS_VIEW);
 
         CaseInstanceVO simulationCase = new CaseInstanceVO();
-        simulationCase.setClassUri(SIMULATION_CASE_CLASS_URI);
+        simulationCase.setClassUri(simulationCaseUri());
 
-        simulationCase.setUri(SIMULATION_CASE_CLASS_URI + simulationId);
+        simulationCase.setUri(simulationCaseInstanceUri(simulationId));
         simulationCase.setLabel("Simulation Case " + simulationId);
 
         //Add properties of data map to case value object
@@ -130,7 +127,7 @@ public class CBRAdapter {
         CaseViewVO caseViewVO = service.findCaseViewByUri(OVERALL_PROCESS_VIEW);
         CaseInstanceVO sessionCaseInstance = null;
         try {
-            sessionCaseInstance = service.getCaseInstance(SIMULATION_CASE_CLASS_URI + simulationSessionId, caseViewVO);
+            sessionCaseInstance = service.getCaseInstance(simulationCaseInstanceUri(simulationSessionId), caseViewVO);
         } catch (Exception ex) {
             Logger.getLogger(CBRAdapter.class.getName()).log(Level.SEVERE, "Error when fetching simulation session case instance for simulationId: " + String.valueOf(simulationSessionId), ex);
         }
@@ -155,7 +152,7 @@ public class CBRAdapter {
             for (int i = 0; i < 4 && matchingCases.size() > i; i++) {
 
                 CaseMatchVO matchingCase = matchingCases.get(i);
-                if ((SIMULATION_CASE_CLASS_URI + simulationSessionId)
+                if ((simulationCaseInstanceUri(simulationSessionId))
                         .equals(matchingCase.getCaseUri())) {
                     continue;
                 }
@@ -202,23 +199,6 @@ public class CBRAdapter {
         return similarCases;
     }
     
-    /**
-     * Stores latest simulation score of given type in the ontology.
-     * This scores might be used for KPI calculations.
-     * 
-     * @param timestamp
-     * @param simulationSessionId
-     * @param modelSetId
-     * @param processArtifactId
-     * @param userId
-     * @param scoreType
-     * @param scoreUpdateValue 
-     */
-    public void logSimulationScore(Long timestamp, String simulationSessionId, String modelSetId, 
-                                    String processArtifactId, String userId, ScoreType scoreType, Float scoreUpdateValue){
-        
-    }
-
     private String getObjectPropertyName(String propertyUri) {
         for (Map.Entry<String, String> entry : OBJECT_PROPERTY_MAP.entrySet()) {
             if (entry.getValue().equals(propertyUri)) {
@@ -323,6 +303,14 @@ public class CBRAdapter {
             }
         }
         return uri;
+    }
+    
+    private String simulationCaseUri(){
+        return APP.CONF.getString("ontology.simulation.case.class.uri");
+    }
+    
+    private String simulationCaseInstanceUri(String simulationSessionId){
+        return simulationCaseUri()+simulationSessionId;
     }
 
 }

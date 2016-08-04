@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eu.learnpad.ontology.notification;
+package eu.learnpad.ontology.wiki;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
@@ -18,7 +18,7 @@ import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.ontology.util.ArgumentCheck;
 import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.ResourceType;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,14 +30,14 @@ import java.util.UUID;
  *
  * @author sandro.emmenegger
  */
-public class NotificationLog {
+public class UserActionNotificationLog {
 
-    private static final NotificationLog SINGLETON = new NotificationLog();
+    private static final UserActionNotificationLog SINGLETON = new UserActionNotificationLog();
 
-    private NotificationLog() {
+    private UserActionNotificationLog() {
     }
 
-    public static NotificationLog getInstance() {
+    public static UserActionNotificationLog getInstance() {
         return SINGLETON;
     }
 
@@ -147,8 +147,10 @@ public class NotificationLog {
 
         //actionTimestamp
         OntProperty timestampProp = model.getOntProperty(APP.NS.XWIKI + "actionTimestamp");
-        Literal timestamValue = model.createTypedLiteral(new Date(timestamp));
-        actionHistoryInstance.addProperty(timestampProp, timestamValue);
+        Calendar timestampCalendar = Calendar.getInstance();
+        timestampCalendar.setTimeInMillis(timestamp);
+        Literal timestampValue = model.createTypedLiteral(timestampCalendar);
+        actionHistoryInstance.addProperty(timestampProp, timestampValue);
 
         //actionType
         OntProperty actionProp = model.getOntProperty(APP.NS.XWIKI + "actionType");

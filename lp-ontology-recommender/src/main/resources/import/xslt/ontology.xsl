@@ -90,6 +90,7 @@ ________________________________________________________________________________
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type emo:BPMN_MetaModel ;
+  rdf:type bpmn:Process ;
   rdfs:subClassOf emo:BPMN_MetaModel ;
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;

@@ -8,7 +8,7 @@ package eu.learnpad.ontology.kpi.dashboard;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
-import eu.learnpad.ontology.notification.NotificationLogTest;
+import eu.learnpad.ontology.wiki.UserActionNotificationLogTest;
 import eu.learnpad.ontology.recommender.Inferencer;
 import eu.learnpad.ontology.recommender.RecommenderException;
 import java.io.FileOutputStream;
@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import static junit.framework.Assert.assertTrue;
 import org.junit.Test;
+import static junit.framework.Assert.assertTrue;
 
 /**
  *
@@ -63,7 +64,7 @@ public class KpiDashboardTest extends AbstractKpiTest{
         try {
             model.writeAll(new FileOutputStream(path), type);
         } catch (IOException ex) {
-            Logger.getLogger(NotificationLogTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserActionNotificationLogTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

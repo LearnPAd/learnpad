@@ -8,6 +8,7 @@ package eu.learnpad.or.impl;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.ontology.AbstractUnitTest;
 import eu.learnpad.or.rest.data.Entities;
+import eu.learnpad.or.rest.data.SimulationScoreType;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessId;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -19,7 +20,7 @@ import static org.junit.Assert.*;
  * @author sandro.emmenegger
  */
 public class OntologyRecommenderImplTest extends AbstractUnitTest {
-    
+
     public OntologyRecommenderImplTest() {
     }
 
@@ -28,8 +29,9 @@ public class OntologyRecommenderImplTest extends AbstractUnitTest {
         OntologyRecommenderImpl instance = new OntologyRecommenderImpl();
         instance.initialize();
     }
+
     @Test
-    public void testAskRecommendation() throws LpRestException{
+    public void testAskRecommendation() throws LpRestException {
         OntologyRecommenderImpl instance = new OntologyRecommenderImpl();
         instance.askRecommendation(MODELSET_ID, null, TEST_USER, "test");
     }
@@ -54,12 +56,28 @@ public class OntologyRecommenderImplTest extends AbstractUnitTest {
         Entities result = instance.analyseText(modelSetId, artifactId, userId, title, text);
         assertNotNull(result);
         assertNotNull(result.getEntities());
-        assertTrue(result.getEntities().size()>0);
-        
+        assertTrue(result.getEntities().size() > 0);
+
         JAXBContext context = JAXBContext.newInstance(Entities.class);
         Marshaller m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         m.marshal(result, System.out);
-        
+
+    }
+
+    @Test
+    public void testSimulationScoreLog() {
+        Long timestamp = System.currentTimeMillis();
+        Float score = 4.8f;
+        OntologyRecommenderImpl instance = new OntologyRecommenderImpl(); 
+        try {
+            instance.updateSimulationScore(MODELSET_ID, "fakeSessionId", null, timestamp, TEST_USER, SimulationScoreType.BP_SCORE, score);
+            fail("Expected LpRestException due to null value for processId.");
+        } catch (LpRestException ex) {}
+
+        try {
+            instance.updateSimulationScore(MODELSET_ID, null, "fakeProcessId", timestamp, TEST_USER, SimulationScoreType.BP_SCORE, score);
+            fail("Expected LpRestException due to null value for sessionId.");
+        } catch (LpRestException ex) {}   
     }
 }

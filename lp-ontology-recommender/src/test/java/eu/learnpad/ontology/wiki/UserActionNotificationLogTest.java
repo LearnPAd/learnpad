@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eu.learnpad.ontology.notification;
+package eu.learnpad.ontology.wiki;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
@@ -29,9 +29,9 @@ import org.junit.Test;
  *
  * @author sandro.emmenegger
  */
-public class NotificationLogTest extends AbstractUnitTest {
+public class UserActionNotificationLogTest extends AbstractUnitTest {
 
-    public NotificationLogTest() {
+    public UserActionNotificationLogTest() {
     }
 
     @Test
@@ -51,7 +51,7 @@ public class NotificationLogTest extends AbstractUnitTest {
         assertEquals(0, pageInstancs.size());
         
         Long timestamp = System.currentTimeMillis();
-        NotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, pageUrl, ResourceType.PAGE, null, TEST_USER, timestamp, NotificationActionType.ADDED);
+        UserActionNotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, pageUrl, ResourceType.PAGE, null, TEST_USER, timestamp, NotificationActionType.ADDED);
 
         pageInstancs = OntUtil.getInstancesWithProperty(model, pageClass, pageUrlProperty, value);
         assertNotNull(pageInstancs);
@@ -62,7 +62,7 @@ public class NotificationLogTest extends AbstractUnitTest {
         testLogCreated(model, pageInstance, "added", TEST_USER, 1);
         
         //test comment log created
-        NotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, "1", ResourceType.COMMENT, pageUrl, TEST_USER, timestamp, NotificationActionType.ADDED);
+        UserActionNotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, "1", ResourceType.COMMENT, pageUrl, TEST_USER, timestamp, NotificationActionType.ADDED);
         
         OntClass commentClass = model.getOntClass(APP.NS.XWIKI + "Comment");
         OntProperty referedPageUrlProperty = model.getOntProperty(APP.NS.XWIKI + "annotationIsMadeToPage");
