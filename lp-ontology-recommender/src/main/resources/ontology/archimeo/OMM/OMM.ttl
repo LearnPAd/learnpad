@@ -119,6 +119,11 @@ omm:performerHasLastName
   rdfs:label "Last name"@en ;
   rdfs:range xsd:string ;
 .
+omm:performerHasOfficeAddress
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain omm:Performer ;
+  rdfs:range xsd:string ;
+.
 omm:performerHasPhoneNumber
   rdf:type owl:DatatypeProperty ;
   rdfs:domain omm:Performer ;
@@ -130,6 +135,11 @@ omm:performerHasRole
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:domain omm:Performer ;
   rdfs:range omm:Role ;
+.
+omm:performerHasSkypeId
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain omm:Performer ;
+  rdfs:range xsd:string ;
 .
 omm:performerIsChargedToCostCenter
   rdf:type owl:ObjectProperty ;
