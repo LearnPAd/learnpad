@@ -5,39 +5,118 @@
  */
 package eu.learnpad.ontology.kpi.dashboard;
 
+import com.hp.hpl.jena.ontology.Individual;
+import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntProperty;
+import com.hp.hpl.jena.rdf.model.Literal;
 import eu.learnpad.ontology.AbstractUnitTest;
-import eu.learnpad.ontology.wiki.UserActionNotificationLog;
-import eu.learnpad.ontology.persistence.FileOntAO;
-import eu.learnpad.ontology.recommender.Inferencer;
+import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.recommender.RecommenderException;
-import eu.learnpad.ontology.transformation.SimpleModelTransformator;
+import eu.learnpad.ontology.simulation.SimulationScoreLog;
+import eu.learnpad.ontology.wiki.UserActionNotificationLog;
 import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.ResourceType;
-import org.junit.Before;
+import eu.learnpad.or.rest.data.SimulationScoreType;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
+ * Base class for KPI related tests. Supports creation and handling of testdata.
  *
  * @author sandro.emmenegger
  */
-public class AbstractKpiTest extends AbstractUnitTest {
-    
-    public AbstractKpiTest() {
+public abstract class AbstractKpiTest extends AbstractUnitTest {
+
+    private final static String TEST_WIKI_PAGE_URI = "http://learnpad.eu/unittest/NotificationLogTest_Page";
+    private static Individual testWikiPage;
+
+    private Map<String, List<Individual>> logEntries = new HashMap();
+    private List<Individual> testWikiPages = new ArrayList();
+
+    protected List<Individual> logs(SimulationScoreType kpiLogType) {
+        return logs(kpiLogType.toString());
     }
 
-    @Before
-    public void setupTestData() throws RecommenderException {
-        new Inferencer(getLatestModel());
-        String pageUrl = "http://learnpad.eu/unittest/TestPage";
-        Long timestamp = System.currentTimeMillis();
-        UserActionNotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, pageUrl, ResourceType.PAGE, null, TEST_USER, timestamp, NotificationActionType.ADDED);
-        UserActionNotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, "1", ResourceType.COMMENT, pageUrl, TEST_USER, timestamp, NotificationActionType.ADDED);
+    protected List<Individual> logs(ResourceType kpiLogType) {
+        return logs(kpiLogType.toString());
     }
 
-    protected OntModel getLatestModel() throws RecommenderException {
-        String latestModelSetVersion = SimpleModelTransformator.getInstance().getLatestModelSetId();
-        OntModel model = FileOntAO.getInstance().getModelWithExecutionData(latestModelSetVersion);
-        return model;
+    protected List<Individual> logs(String kpiLogType) {
+        if (!logEntries.containsKey(kpiLogType)) {
+            logEntries.put(kpiLogType, new ArrayList<Individual>());
+        }
+        return logEntries.get(kpiLogType);
     }
-    
+
+    protected void addLog(SimulationScoreType kpiLogType, Individual logEntry) {
+        logs(kpiLogType).add(logEntry);
+    }
+
+    protected void addLog(ResourceType kpiLogType, Individual logEntry) {
+        if (logEntry != null) {
+            logs(kpiLogType).add(logEntry);
+        }
+    }
+
+    protected void addTestPage(Individual testPage) {
+        testWikiPages.add(testPage);
+    }
+
+    protected Individual createSimScoreLog(Long timestamp, String simulationSessionId,
+            String modelSetId, String processArtifactId, String userId,
+            SimulationScoreType scoreType, Float score) throws RecommenderException {
+
+        Individual logEntry = SimulationScoreLog.getInstance().logSimulationScore(timestamp, simulationSessionId, modelSetId, processArtifactId, userId, scoreType, score);
+        addLog(scoreType, logEntry);
+        return logEntry;
+    }
+
+    protected Individual createUserActionLog(String modelSetId, String modelId,
+            String artifactId, String resourceId, ResourceType resourceType,
+            String referringToResourceId, String userId, Long timestamp,
+            NotificationActionType action) throws RecommenderException {
+
+        Individual logEntry = UserActionNotificationLog.getInstance().logResourceNotification(modelSetId, modelId, artifactId, resourceId, resourceType, referringToResourceId, userId, timestamp, action);
+        addLog(resourceType, logEntry);
+        return logEntry;
+    }
+
+    protected Individual getTestWikiPage(OntModel model) {
+        if (testWikiPage == null) {
+            OntClass pageClass = model.getOntClass(APP.NS.XWIKI + "Page");
+            testWikiPage = pageClass.createIndividual(TEST_WIKI_PAGE_URI);
+            OntProperty pageUrlProperty = model.getOntProperty(APP.NS.XWIKI + "pageHasURL");
+            Literal value = model.createTypedLiteral(TEST_WIKI_PAGE_URI);
+            testWikiPage.addProperty(pageUrlProperty, value);
+        }
+        return testWikiPage;
+    }
+
+    protected void cleanUpSimScoreLogs() {
+        for (SimulationScoreType type : SimulationScoreType.values()) {
+            for (Individual logEntryToDelete : logs(type)) {
+                logEntryToDelete.remove();
+            }
+        }
+        if (testWikiPage != null) {
+            testWikiPage.remove();
+            testWikiPage = null;
+        }
+    }
+
+    protected void cleanUpUserActionLogs() {
+        for (ResourceType type : ResourceType.values()) {
+            for (Individual logEntryToDelete : logs(type)) {
+                logEntryToDelete.remove();
+            }
+        }
+    }
+
+    protected void cleanUp() {
+        cleanUpSimScoreLogs();
+        cleanUpUserActionLogs();
+    }
 }

@@ -24,7 +24,7 @@ import java.util.UUID;
 
 /**
  * Stores all kind of user actions on wiki platform in the ontology. Ex. Page
- * visits and mutations (add, modify, delete). Same for commments, attachements
+ * visits and mutations (add, modify, delete). Same for commments, attachments
  * and feedbacks.
  *
  *
@@ -43,21 +43,22 @@ public class UserActionNotificationLog {
 
     /**
      * Create action history log for a wiki page or one of it's annotations
-     * (commment, attachement, feedback)
+     * (commment, attachment, feedback)
      *
      * @param modelSetId
      * @param modelId
      * @param artifactId model object id linked to the resource
      * @param resourceId either the page id (URL) or the comment id
-     * @param resourceType one of page, comment, attachement or feedback
+     * @param resourceType one of page, comment, attachment or feedback
      * @param referringToResourceId the resource id this resource is reffering
      * to (ex. the page id a comment is referring to)
      * @param userId
      * @param timestamp
      * @param action
+     * @return the log entry created in the ontology
      * @throws eu.learnpad.ontology.recommender.RecommenderException
      */
-    public void logResourceNotification(String modelSetId,
+    public Individual logResourceNotification(String modelSetId,
             String modelId,
             String artifactId,
             String resourceId,
@@ -71,9 +72,10 @@ public class UserActionNotificationLog {
         ArgumentCheck.notNull(resourceId, "resourceId in (logResourceNotification");
 
         OntModel model = FileOntAO.getInstance().getModelWithExecutionData(SimpleModelTransformator.getInstance().getLatestModelSetId());
-
+        Individual logTargetInstance = null;    
+        
         if (resourceType != null) {
-            Individual logTargetInstance = null;
+            
             switch (resourceType) {
                 case PAGE: {
                     logTargetInstance = getOrCreatePageInstance(model, resourceId);
@@ -85,7 +87,7 @@ public class UserActionNotificationLog {
                     break;
                 }
                 case ATTACHMENT: {
-                    OntClass annotationClass = model.createClass(APP.NS.XWIKI + "Attachement");
+                    OntClass annotationClass = model.createClass(APP.NS.XWIKI + "Attachment");
                     logTargetInstance = getOrCreateAnnotation(model, referringToResourceId, resourceId, annotationClass);
                     break;
                 }
@@ -104,8 +106,8 @@ public class UserActionNotificationLog {
                     FileOntAO.getInstance().persistNotificationLogModel();
                 }
             }
-
         }
+        return logTargetInstance;
     }
 
     private Individual getOrCreatePageInstance(OntModel model, String pageURL) {
@@ -119,7 +121,7 @@ public class UserActionNotificationLog {
         }
 
         //create new instance
-        Individual newPageInstance = pageClass.createIndividual(APP.NS.EXEC + "Page_" + UUID.randomUUID());
+        Individual newPageInstance = pageClass.createIndividual(pageURL);
         newPageInstance.addProperty(pageUrlProperty, value);
 
         return newPageInstance;

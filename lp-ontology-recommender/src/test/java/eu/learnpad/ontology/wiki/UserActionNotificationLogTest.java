@@ -11,58 +11,56 @@ import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Resource;
-import eu.learnpad.ontology.AbstractUnitTest;
 import eu.learnpad.ontology.config.APP;
-import eu.learnpad.ontology.persistence.FileOntAO;
+import eu.learnpad.ontology.kpi.dashboard.AbstractKpiTest;
 import eu.learnpad.ontology.persistence.util.OntUtil;
 import eu.learnpad.ontology.recommender.Inferencer;
 import eu.learnpad.ontology.recommender.RecommenderException;
-import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.ResourceType;
 import java.util.List;
-import java.util.UUID;
 import static junit.framework.Assert.*;
+import org.junit.After;
 import org.junit.Test;
 
 /**
  *
  * @author sandro.emmenegger
  */
-public class UserActionNotificationLogTest extends AbstractUnitTest {
+public class UserActionNotificationLogTest extends AbstractKpiTest {
 
     public UserActionNotificationLogTest() {
     }
 
     @Test
     public void testLogResourceNotification() throws RecommenderException {
-        String latestModelSetVersion = SimpleModelTransformator.getInstance().getLatestModelSetId();
-        assertNotNull(latestModelSetVersion);
-        OntModel model = FileOntAO.getInstance().getModelWithExecutionData(latestModelSetVersion);
+        OntModel model = latestModel();
         new Inferencer(model);
         
         //test page created
-        String pageUrl = "http://learnpad.eu/unittest/NotificationLogTest_Page"+UUID.randomUUID();
         OntClass pageClass = model.getOntClass(APP.NS.XWIKI + "Page");
-        OntProperty pageUrlProperty = model.getOntProperty(APP.NS.XWIKI + "pageHasURL");
-        Literal value = model.createTypedLiteral(pageUrl);
-        List<Individual> pageInstancs = OntUtil.getInstancesWithProperty(model, pageClass, pageUrlProperty, value);
+        OntProperty testWikiPageUriProperty = model.getOntProperty(APP.NS.XWIKI + "pageHasURL");
+        String testWikiPageUri = getTestWikiPage(model).getURI();
+        Literal value = model.createTypedLiteral(testWikiPageUri);
+        List<Individual> pageInstancs = OntUtil.getInstancesWithProperty(model, pageClass, testWikiPageUriProperty, value);
         assertNotNull(pageInstancs);
-        assertEquals(0, pageInstancs.size());
+        assertEquals(1, pageInstancs.size());
         
         Long timestamp = System.currentTimeMillis();
-        UserActionNotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, pageUrl, ResourceType.PAGE, null, TEST_USER, timestamp, NotificationActionType.ADDED);
+        Individual logEntry = createUserActionLog(MODELSET_ID, null, null, testWikiPageUri, ResourceType.PAGE, null, TEST_USER, timestamp, NotificationActionType.ADDED);
+        assertNotNull(logEntry);
 
-        pageInstancs = OntUtil.getInstancesWithProperty(model, pageClass, pageUrlProperty, value);
+        pageInstancs = OntUtil.getInstancesWithProperty(model, pageClass, testWikiPageUriProperty, value);
         assertNotNull(pageInstancs);
         assertEquals(1, pageInstancs.size());
         Individual pageInstance = pageInstancs.get(0);
+        assertEquals(logEntry.getURI(), pageInstance.getURI());
         
         //test page log created
         testLogCreated(model, pageInstance, "added", TEST_USER, 1);
         
         //test comment log created
-        UserActionNotificationLog.getInstance().logResourceNotification(MODELSET_ID, null, null, "1", ResourceType.COMMENT, pageUrl, TEST_USER, timestamp, NotificationActionType.ADDED);
+        logEntry = createUserActionLog(MODELSET_ID, null, null, "1", ResourceType.COMMENT, testWikiPageUri, TEST_USER, timestamp, NotificationActionType.ADDED);
         
         OntClass commentClass = model.getOntClass(APP.NS.XWIKI + "Comment");
         OntProperty referedPageUrlProperty = model.getOntProperty(APP.NS.XWIKI + "annotationIsMadeToPage");
@@ -73,6 +71,11 @@ public class UserActionNotificationLogTest extends AbstractUnitTest {
 
         //test comment log created
         testLogCreated(model, commentInstancs.get(0), "added", TEST_USER, 1);
+    }
+
+    @After
+    public void cleanUpTestEntries(){
+        super.cleanUpUserActionLogs();
     }
 
     private void testLogCreated(OntModel model, Individual instance, String actionType, String userId, int expected) {

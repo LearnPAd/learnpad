@@ -11,6 +11,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xwiki: <http://www.xwiki.org/xwiki/bin/view/Main/WebHome#> .
 
 <http://learnpad.eu/kpidemo>
   rdf:type owl:Ontology ;
@@ -32,6 +33,39 @@ kpidemo:BPSimulationScore_2
   lpd:simulationScoreBelongsToBusinessProcess <http://learnpad.eu/transfer#mod.49427> ;
   lpd:simulationScoreCreatedAt "2016-08-03T12:11:41.658"^^xsd:dateTime ;
   lpd:simulationScoreOfPerformer <http://learnpad.eu/transfer#obj.48873> ;
+.
+kpidemo:Comment_ActionHistory
+  rdf:type xwiki:ActionHistory ;
+  xwiki:actionAppliedToResource kpidemo:DemoComment ;
+  xwiki:actionTimestamp "2016-08-10T17:49:05.798"^^xsd:dateTime ;
+  xwiki:actionType "added"^^xsd:string ;
+  xwiki:user <http://learnpad.eu/transfer#obj.48873> ;
+.
+kpidemo:DemoComment
+  rdf:type xwiki:Comment ;
+  xwiki:annotationIsMadeToPage kpidemo:DemoWikiPage ;
+  xwiki:commentHasText "There is a more detailed description of this action you might find here xyz"^^xsd:string ;
+.
+kpidemo:DemoFeedback
+  rdf:type xwiki:Feedback ;
+  xwiki:annotationIsMadeToPage kpidemo:DemoWikiPage ;
+.
+kpidemo:DemoPage_Created_ActionHistory
+  rdf:type xwiki:ActionHistory ;
+  xwiki:actionAppliedToResource kpidemo:DemoWikiPage ;
+  xwiki:actionTimestamp "2016-08-10T17:42:41.579"^^xsd:dateTime ;
+  xwiki:actionType "added"^^xsd:string ;
+  xwiki:user <http://learnpad.eu/transfer#obj.48873> ;
+.
+kpidemo:DemoWikiPage
+  rdf:type xwiki:Page ;
+.
+kpidemo:Feedback_ActionHistory
+  rdf:type xwiki:ActionHistory ;
+  xwiki:actionAppliedToResource kpidemo:DemoFeedback ;
+  xwiki:actionTimestamp "2016-08-10T17:48:34.287"^^xsd:dateTime ;
+  xwiki:actionType "added"^^xsd:string ;
+  xwiki:user <http://learnpad.eu/transfer#obj.48873> ;
 .
 kpidemo:GlobalSimulationScore_1
   rdf:type lpd:GlobalSimulationScore ;

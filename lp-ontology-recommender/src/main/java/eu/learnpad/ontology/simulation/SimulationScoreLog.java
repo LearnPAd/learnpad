@@ -55,8 +55,9 @@ public class SimulationScoreLog {
      * @param userId
      * @param scoreType
      * @param scoreUpdateValue
+     * @return the log entry created in the ontology
      */
-    public void logSimulationScore(Long timestamp, String simulationSessionId, String modelSetId,
+    public Individual logSimulationScore(Long timestamp, String simulationSessionId, String modelSetId,
             String processArtifactId, String userId, SimulationScoreType scoreType, Float scoreUpdateValue) throws RecommenderException {
 
         ArgumentCheck.notNullThrowException(timestamp, "Timestamp for simulation score update missing.");
@@ -82,7 +83,7 @@ public class SimulationScoreLog {
                 break;
             }
             case SESSION_SCORE: {
-                scoreInstance = createInstance(model, APP.NS.LPD + "SimulationSessionScore", "BPScore_value_");
+                scoreInstance = createInstance(model, APP.NS.LPD + "SimulationSessionScore", "SimulationSessionScore_value_");
                 Individual simulationSessionCase = model.getIndividual(simulationCaseInstanceUri(simulationSessionId));
                 if (simulationSessionCase == null) {
                     OntClass simSessionCaseClass = model.getOntClass(simulationCaseUri());
@@ -92,7 +93,7 @@ public class SimulationScoreLog {
                 break;
             }
             case GLOBAL_SCORE: {
-                scoreInstance = createInstance(model, APP.NS.LPD + "GlobalSimulationScore", "BPScore_value_");
+                scoreInstance = createInstance(model, APP.NS.LPD + "GlobalSimulationScore", "GlobalSimulationScore_value_");
                 break;
             }
         }
@@ -110,6 +111,7 @@ public class SimulationScoreLog {
             addProperty(model, scoreInstance, APP.NS.LPD + "simulationScoreCreatedAt", timestampValue);            
         }
 
+        return scoreInstance;
     }
 
     private Individual createInstance(OntModel model, String className, String prefix) {

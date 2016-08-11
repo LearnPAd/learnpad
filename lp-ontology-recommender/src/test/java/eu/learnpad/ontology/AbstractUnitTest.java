@@ -17,6 +17,7 @@ import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.persistence.util.OntUtil;
 import eu.learnpad.ontology.recommender.RecommenderException;
+import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -90,7 +91,10 @@ public class AbstractUnitTest {
         }
         return null;
     }
-    
 
-
+    protected OntModel latestModel() throws RecommenderException {
+        String latestModelSetVersion = SimpleModelTransformator.getInstance().getLatestModelSetId();
+        OntModel model = FileOntAO.getInstance().getModelWithExecutionData(latestModelSetVersion);
+        return model;
+    }
 }

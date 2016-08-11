@@ -37,7 +37,9 @@ public class APP {
         EXEC("http://learnpad.eu/exec#"),
         OMM("http://ikm-group.ch/archiMEO/omm#"),
         BPMN("http://ikm-group.ch/archiMEO/BPMN#"),
-        LPD("http://learnpad.eu#");
+        LPD("http://learnpad.eu#"),
+        RDFS("http://www.w3.org/2000/01/rdf-schema#"),
+        KPI("http://ikm-group.ch/archiMEO/kpi#");
         
         private String namespace;
         
