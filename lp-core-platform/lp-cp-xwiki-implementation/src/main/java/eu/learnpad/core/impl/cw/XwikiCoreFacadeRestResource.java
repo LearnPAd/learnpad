@@ -284,7 +284,7 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 		queryString[0] = new NameValuePair("modelsetid", modelSetId);
 		queryString[1] = new NameValuePair("contextArtifactId", contextArtifactId);
 		queryString[2] = new NameValuePair("userid", userId);
-		queryString[2] = new NameValuePair("title", title);
+		queryString[3] = new NameValuePair("title", title);
 		postMethod.setQueryString(queryString);
 		
 		RequestEntity requestEntity;
@@ -302,7 +302,7 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 		Entities entities = null;
 
 		try {
-			JAXBContext jc = JAXBContext.newInstance(Recommendations.class);
+			JAXBContext jc = JAXBContext.newInstance(Entities.class);
 			Unmarshaller unmarshaller = jc.createUnmarshaller();
 			entities = (Entities) unmarshaller.unmarshal(entitiesAsStream);
 		} catch (JAXBException e) {
