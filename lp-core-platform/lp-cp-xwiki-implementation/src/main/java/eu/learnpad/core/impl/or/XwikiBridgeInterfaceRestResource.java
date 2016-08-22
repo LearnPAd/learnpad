@@ -25,6 +25,8 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 import javax.inject.Named;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -270,8 +272,40 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 
     @Override
     public Entities analyseText(String modelSetId, String contextArtifactId, String userId, String title, String text) throws LpRestException {
-        // TODO Auto-generated method stub
-		return null;
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/or/bridge/%s/analysetext", DefaultRestResource.REST_URI, modelSetId);
+		PostMethod postMethod = new PostMethod(uri);
+		postMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_XML);
+
+		NameValuePair[] queryString = new NameValuePair[4];
+		queryString[0] = new NameValuePair("modelsetid", modelSetId);
+		queryString[1] = new NameValuePair("contextArtifactId", contextArtifactId);
+		queryString[2] = new NameValuePair("userid", userId);
+		queryString[3] = new NameValuePair("title", title);
+		postMethod.setQueryString(queryString);
+		
+		RequestEntity requestEntity;
+		InputStream entitiesAsStream = null;
+		try {
+			requestEntity = new StringRequestEntity(text, MediaType.APPLICATION_XML, "UTF-8");
+			postMethod.setRequestEntity(requestEntity);
+
+			httpClient.executeMethod(postMethod);
+			entitiesAsStream = postMethod.getResponseBodyAsStream(); 
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+		}
+
+		Entities entities = null;
+
+		try {
+			JAXBContext jc = JAXBContext.newInstance(Entities.class);
+			Unmarshaller unmarshaller = jc.createUnmarshaller();
+			entities = (Entities) unmarshaller.unmarshal(entitiesAsStream);
+		} catch (JAXBException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+		}
+		return entities;
     }
 
     @Override
