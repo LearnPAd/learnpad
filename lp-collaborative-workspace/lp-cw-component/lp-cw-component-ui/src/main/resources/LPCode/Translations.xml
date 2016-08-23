@@ -139,6 +139,8 @@ LPTours.BrowsingMode.Documents.title=Documents, this is foo
 LPTours.BrowsingMode.Documents.description=Documents, this is foo
 LPTours.BrowsingMode.Organization.title=Organization, this is foo
 LPTours.BrowsingMode.Organization.description=Organization, this is foo
+LPTours.BrowsingMode.DummyImage.title=Process DummyImage, this is foo
+LPTours.BrowsingMode.DummyImage.description=Process DummyImage, this is foo
 
 LPTours.BrowsingModeProcess.Body.title=Process Body, this is foo
 LPTours.BrowsingModeProcess.Body.description=Process Body, this is foo
