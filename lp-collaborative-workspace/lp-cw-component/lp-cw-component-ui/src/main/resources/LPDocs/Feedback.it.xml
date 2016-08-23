@@ -39,8 +39,11 @@
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
-  <content>Il pulsante **${services.localization.render('LPCode.FeedbackButtonMacro.button')}** permette di inoltrare agli esperti di modellazione del procedimento un notifica in cui si richiede di riorganizzare le attività ed il flusso previsto dal procedimento. Tali richieste vengono generalmente formulate da un responsabile dei contenuti anche a seguito dell’analisi dei commenti ricevuti dagli utenti.
+  <content>
+{{velocity}}
+Il pulsante **${services.localization.render('LPCode.FeedbackButtonMacro.button')}** permette di inoltrare agli esperti di modellazione del procedimento un notifica in cui si richiede di riorganizzare le attività ed il flusso previsto dal procedimento. Tali richieste vengono generalmente formulate da un responsabile dei contenuti anche a seguito dell’analisi dei commenti ricevuti dagli utenti.
 
 La pressione del pulsante **${services.localization.render('LPCode.FeedbackButtonMacro.button')}** permetterà dunque di //raggiungere// gli esperti dei modelli i quali potranno rivedere i modelli e procedimenti e dunque aggiornare l’organizzazione dei contenuti in accordo ai modelli rivisti.
+{{/velocity}}
 </content>
 </xwikidoc>
