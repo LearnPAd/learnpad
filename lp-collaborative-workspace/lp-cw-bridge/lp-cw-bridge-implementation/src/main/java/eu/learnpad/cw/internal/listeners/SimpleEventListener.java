@@ -74,42 +74,7 @@ public abstract class SimpleEventListener implements EventListener, Initializabl
 		this.name = SimpleEventListener.ROLEHINT;
 		this.event = new ArrayList<Event>();
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public void onEvent(Event event, Object source, Object data) {
-		XWikiDocument editedDocument = (XWikiDocument) source;
-		XWikiContext xcontext = (XWikiContext) data;
-
-		EntityReference classReference = this.targetEntityReference(event,
-				editedDocument, xcontext);
-		BaseObject xObject = editedDocument.getXObject(classReference);
-		if (xObject != null) {
-			String userId = xcontext.getUserReference().getName();
-			String resourceId = this.forgeResourceID(event, editedDocument,
-					xcontext);
-
-			String modelSetId = xObject.getStringValue(LPCodeLabels
-					.getMODELSETID_LABEL());
-			String modelId = xObject.getStringValue(LPCodeLabels
-					.getMODELID_LABEL());
-			String artifactId = xObject.getStringValue(LPCodeLabels
-					.getARTIFACTID_LABEL());
-
-			logger.info("found : " + modelSetId +","+ modelId +","+ artifactId +","+ userId);
-			this.notifyCWBridge(modelSetId, modelId, artifactId, resourceId,
-					userId, event);
-		}
-	}
-
-	protected abstract EntityReference targetEntityReference(Event event, XWikiDocument doc, XWikiContext xcontext);
-
-	protected abstract String forgeResourceID(Event event, XWikiDocument doc, XWikiContext xcontext);
-
-	protected abstract void notifyCWBridge(String modelSetId, String modelId, String artifactId, String resourceId, String userId, Event event);
-
-	
+		
 	@Override
 	public String getName() {
 		return this.name;
