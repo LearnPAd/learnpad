@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<xwikidoc version="1.2" reference="LPUsers.AddUsersScript" locale="">
+  <web>LPUsers</web>
+  <name>AddUsersScript</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1472127163000</creationDate>
+  <parent>LPUsers.UsersListY3Demo</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1472131118000</date>
+  <contentUpdateDate>1472131118000</contentUpdateDate>
+  <version>1.1</version>
+  <title>AddUsersScript</title>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>false</hidden>
+  <content>{{velocity}}
+## The content of the target wiki page is CSVs organized as follow:
+## Group,Organization ,Role,Persona - Name,Persona - Surname,UserId,email  [first letter of the name dot surname @learnpad.eu]
+#set($cvsDocumentName = "LPUsers.UsersListY3Demo")##
+#set($lines = $xwiki.getDocument("$cvsDocumentName").getContent())##
+#if ("$request.getParameter('run')" != "Go")
+**Reading the CSVs from the Document:** $cvsDocumentName
+**Users to add:**
+$lines
+{{html clean=false}}
+&lt;form method="POST" action="$doc.getURL()"&gt;
+&lt;input type="submit" name="run" value="Go"&gt;
+&lt;/form&gt;
+#else
+#set($DRY_RUN = false)##
+## #set($DRY_RUN = true)##
+#macro(saveDoc, $toSave, $msg)
+  #if (!$DRY_RUN)
+    $toSave.save($msg)##
+  #end
+#end
+#set($groups = [])
+#macro(mkGroup, $title)
+  #set($name = $title.replaceAll("[^a-zA-Z0-9]", "_"))
+  #if ($groups.indexOf($name) == "-1")
+    #set($gp = $xwiki.getDocument('XWiki', $name))
+    $gp.setTitle($title)##
+    #saveDoc($gp, "Created group")
+  #end
+#end
+#macro(addToGroup, $_user, $_group)
+  #set($user = "XWiki.$_user.replaceAll('[^a-zA-Z0-9]', '_')")
+  #set($group = $_group.replaceAll("[^a-zA-Z0-9]", "_"))
+  #set($gdoc = $xwiki.getDocument("XWiki", $group))
+  #set($obj = $gdoc.newObject("XWiki.XWikiGroups"))
+  $obj.set('member', $user)##
+  #saveDoc($gdoc, "Added user $_user to group")
+#end
+#macro(mkUser, $groups, $lastName, $firstName, $id, $email, $pass)
+  #set($udoc = $xwiki.getDocument("XWiki.$id"))
+  #set($uobj = $udoc.newObject("XWiki.XWikiUsers"))
+  $uobj.set('first_name', $firstName)##
+  $uobj.set('last_name', $lastName)##
+  $uobj.set('email', $email)##
+  $uobj.set('password', $pass)##
+  #saveDoc($udoc, "Created user")
+  #if (!$DRY_RUN)
+    $xwiki.addToAllGroup($udoc.getFullName())##
+  #end
+  #foreach($gp in $groups)
+    #addToGroup($id, $gp)
+  #end
+#end
+#foreach($line in $lines.replaceAll("\r", "").split("\n"))
+  #set($elems = $line.split(","))
+  #if ($elems.size() == "8" &amp;&amp; $elems[0].indexOf("#") == "-1")
+    #set($group = $elems[0])
+    #set($organization = $elems[1])
+    #set($role = $elems[2])
+    #set($lastName = $elems[3])
+    #set($firstName = $elems[4])
+    #set($id = $elems[5])
+    #set($pass = $elems[6])
+    #set($email = $elems[7])
+    ##
+    #mkGroup($organization)##
+    #mkGroup($role)##
+    #mkGroup($group)##
+    #set($groups = [ $group, $organization, $role ])
+    #mkUser($groups, $lastName, $firstName, $id, $email, $pass)##
+  #end
+#end
+Done, please check the new user's profiles and groups.
+
+If they were not properly created, please check :
+ * the variable DRY_RUN in the sources of this script
+ * the CSV file to import is correctely specified
+ * the CSV file starts with a line like:
+{{code}}
+#Group,Organization ,Role,Persona - Name,Persona - Surname,UserId,Password,email  [first letter of the name dot surname @learnpad.eu]
+{{/code}}
+#end
+{{/velocity}}</content>
+</xwikidoc>
