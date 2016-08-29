@@ -172,7 +172,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         entity.setId(id);
         entity.setModelSetId(modelSetId);
         entity.setModelId("mod.39886");
-        entity.setOjbectId("obj.39926");
+        entity.setObjectId("obj.39926");
         entity.setContextArtifactId("transfer:obj.35315");
         entity.setType("eo:Person");
         BusinessActor person = new BusinessActor();
