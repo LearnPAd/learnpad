@@ -127,7 +127,7 @@ IProcessEventReceiver, IRobotHandler {
 
 				// solve the task
 				Map<String, Object> outData = robots.get(user).handleTask(
-						event.task.id, inputExtractor.getInput(event.task.id));
+						event.task.id, inputExtractor.getState(event.task.id));
 
 				System.out.println("Robot submitted task " + event.task.id + " with data " + outData);
 

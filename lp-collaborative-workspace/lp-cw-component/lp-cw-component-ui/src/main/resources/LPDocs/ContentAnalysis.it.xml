@@ -39,8 +39,11 @@
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
-  <content>La piattaforma Learn PAd include funazionalità per la valutazione dei contenuti immessi nella piattaforma al fine di renderli il più chiari e comprensibili possibili. Le //buone// regole di scrittura controllate da tali funzionalità sono state validate e considerate applicabili da esperti del settore. 
+  <content>
+{{velocity}}
+La piattaforma Learn PAd include funazionalità per la valutazione dei contenuti immessi nella piattaforma al fine di renderli il più chiari e comprensibili possibili. Le //buone// regole di scrittura controllate da tali funzionalità sono state validate e considerate applicabili da esperti del settore. 
 
-Il controllo viene attivato, in relazione ad un contributo fornito, clikkando sul pulsante **Validate** disponibile nelle pagine che permettono di fonrire contributi.
+Il controllo viene attivato, in relazione ad un contributo fornito, cliccando sul pulsante **${services.localization.render('LPUI.CollaborativeDocumentSheet.button.validate')}** disponibile nelle pagine che permettono di fonrire contributi.
+{{/velocity}}
 </content>
 </xwikidoc>

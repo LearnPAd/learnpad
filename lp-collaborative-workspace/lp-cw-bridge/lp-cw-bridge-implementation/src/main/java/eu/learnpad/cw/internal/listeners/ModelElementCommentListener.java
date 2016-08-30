@@ -30,20 +30,15 @@ import org.slf4j.Logger;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
-import org.xwiki.model.reference.DocumentReference;
-import org.xwiki.model.reference.EntityReference;
 import org.xwiki.observation.event.Event;
 
-import com.xpn.xwiki.XWikiContext;
-import com.xpn.xwiki.doc.XWikiDocument;
 import com.xpn.xwiki.internal.event.CommentAddedEvent;
 import com.xpn.xwiki.internal.event.CommentEventGeneratorListener;
-import com.xpn.xwiki.objects.BaseObject;
 
 import eu.learnpad.cw.UICWBridge;
+import eu.learnpad.cw.internal.actuators.ModelElementAbstractActuator;
+import eu.learnpad.cw.internal.actuators.ModelElementCommentActuator;
 import eu.learnpad.cw.internal.utils.LPCodeLabels;
-import eu.learnpad.exception.LpRestException;
-import eu.learnpad.or.rest.data.NotificationActionType;
 
 /**
  * @author gulyx
@@ -53,15 +48,12 @@ import eu.learnpad.or.rest.data.NotificationActionType;
 @Component
 @Named("cw-model-element-comment-event-listener")
 @Singleton
-public class ModelElementCommentListener extends CommentEventGeneratorListener
-		implements Initializable {
+public class ModelElementCommentListener extends CommentEventGeneratorListener implements Initializable {
 
 	/**
 	 * Hint of the component.
 	 */
 	public static final String ROLEHINT = "cw-model-element-comment-event-listener";
-
-	private final String COMMENT_LABEL = "#xwikicomment_";
 
 	@Inject
 	@Named("eu.learnpad.cw.internal.CWXwikiBridge")
@@ -72,11 +64,9 @@ public class ModelElementCommentListener extends CommentEventGeneratorListener
 
 	private String name;
 	private List<Event> events;
-	List<String> referenceLabelList;
-
+	
 	public ModelElementCommentListener() {
 		this.name = ModelElementCommentListener.ROLEHINT;
-		this.referenceLabelList = new ArrayList<String>();
 		/*
 		 * In the current version the CW only monitors the new comments posted
 		 * in the platform. No reaction is foreseen for others kind of events
@@ -90,51 +80,13 @@ public class ModelElementCommentListener extends CommentEventGeneratorListener
 
 	@Override
 	public void initialize() throws InitializationException {
-		this.referenceLabelList.add(LPCodeLabels.getBASE_ELEMENT_CLASS());
-		this.referenceLabelList.add(LPCodeLabels.getMODEL_CLASS());
-		this.referenceLabelList.add(LPCodeLabels.getMODELSET_CLASS());
-	}
-
-	protected String forgeResourceID(Event event, XWikiDocument doc,
-			XWikiContext xcontext) {
-		CommentAddedEvent castedEvent = (CommentAddedEvent) event;
-		String resourceId = doc.getDocumentReference().toString()
-				+ this.COMMENT_LABEL + castedEvent.getIdentifier();
-
-		return resourceId;
 	}
 
 	@Override
 	public void onEvent(Event event, Object source, Object data) {
-		XWikiDocument doc = (XWikiDocument) source;
-		XWikiContext xcontext = (XWikiContext) data;
-
-		for (String referenceLabel : this.referenceLabelList) {
-			EntityReference reference = new DocumentReference(xcontext.getMainXWiki(),LPCodeLabels.getCLASSES_SPACE(),referenceLabel);
-			BaseObject xObject = doc.getXObject(reference);
-			if (xObject != null) {
-				String userId = xcontext.getUserReference().getName();
-				String resourceId = this.forgeResourceID(event, doc, xcontext);
-
-				String modelSetId = xObject.getStringValue(LPCodeLabels
-						.getMODELSETID_LABEL(referenceLabel));
-				String modelId = xObject.getStringValue(LPCodeLabels
-						.getMODELID_LABEL(referenceLabel));
-				String artifactId = xObject.getStringValue(LPCodeLabels
-						.getARTIFACTID_LABEL(referenceLabel));
-
-				logger.info(modelSetId + modelId + artifactId + userId);
-				try {
-					this.cwBridge.commentNotification(modelSetId, modelId,
-							artifactId, resourceId,
-							NotificationActionType.ADDED.toString(), userId);
-					logger.info("found : " + modelSetId + "," + modelId + ","
-							+ artifactId + "," + userId);
-				} catch (LpRestException e) {
-					logger.error(e.getMessage(), e.getCause());
-				}
-			}
-		}
+		 ModelElementAbstractActuator actuator = new ModelElementCommentActuator(this.cwBridge, this.logger);
+		 actuator.configureEvent(event, source, data);
+		 new Thread(actuator).start();
 	}
 
 	@Override

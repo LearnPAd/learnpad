@@ -34,12 +34,15 @@
   <date>1466578844000</date>
   <contentUpdateDate>1466578844000</contentUpdateDate>
   <version>1.1</version>
-  <title>Contenuti Collaborativi - Pulsante "${services.localization.render('LPUI.BaseElementSheet.button.contribute')" </title>
+  <title>Contenuti Collaborativi - Pulsante "${services.localization.render('LPUI.BaseElementSheet.button.contribute')}" </title>
   <comment/>
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
-  <content>La piattaforma Learn PAd intende favorire la collaborazione e la condivisione della conoscenza. A tal fine rende disponibili funzionalità per l’arricchimento collaborativo dei contenuti. 
-In particolare l’utente può, cliccando sul bottone **Contributions**, quando disponibile, accedere a pagine redatte da colleghi esperti, che forniscono informazioni utili a definire le attività da svolgere all’interno di un procedimento. Tali pagine possono avere una struttura predefinita che può essere utile al fine di meglio organizzare le informazioni. 
+  <content>
+{{velocity}}
+    La piattaforma Learn PAd intende favorire la collaborazione e la condivisione della conoscenza. A tal fine rende disponibili funzionalità per l’arricchimento collaborativo dei contenuti. 
+In particolare l’utente può, cliccando sul pulsante **${services.localization.render('LPUI.BaseElementSheet.button.contribute')}**, quando disponibile, accedere a pagine redatte da colleghi esperti, che forniscono informazioni utili a definire le attività da svolgere all’interno di un procedimento. Tali pagine possono avere una struttura predefinita che può essere utile al fine di meglio organizzare le informazioni. 
+{{/velocity}}
 </content>
 </xwikidoc>

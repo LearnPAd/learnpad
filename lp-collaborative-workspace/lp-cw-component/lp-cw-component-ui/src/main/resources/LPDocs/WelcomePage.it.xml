@@ -39,11 +39,15 @@
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>true</hidden>
-  <content>La piattaforma Learn PAd ti permette di acquisire in maniera semplice le competenze necessarie al fine di poter supportare i procedimenti all’interno dei quali svolgi la tua attività. L’idea di fondo su cui si basa la piattaforma è quella di organizzare i contenuti in maniera contestuale rispetto ai diversi passi che sono previsti da un procedimento amministrativo. Tale organizzazione potrà contribuire a meglio comprendere i passi stessi ed a meglio organizzare le conoscenze necessarie allo svolgimento delle attività previste. 
+  <content>
+{{velocity}}
+La piattaforma Learn PAd ti permette di acquisire in maniera semplice le competenze necessarie al fine di poter supportare i procedimenti all’interno dei quali svolgi la tua attività. L’idea di fondo su cui si basa la piattaforma è quella di organizzare i contenuti in maniera contestuale rispetto ai diversi passi che sono previsti da un procedimento amministrativo. Tale organizzazione potrà contribuire a meglio comprendere i passi stessi ed a meglio organizzare le conoscenze necessarie allo svolgimento delle attività previste. 
 
 L’acquisizione delle competenze potrà avvenire seguendo diverse modalità in accordo anche alle tue preferenze. In particolare potrai:
- * accedere ai contenuti seguendo i passi previsti da un procedimento, acquisendo via via le competenze necessarie per svolgere le attività correlate agli stessi (**Browsing Mode**)
- * effettuare simulazioni in cui metterai alla prova le tue competenze su casi concreti, eventualmente anche in collaborazione con i tuoi colleghi (**Simulation Mode**)
- * accedere ai contenuti in modo contestuale quando ti troverai a gestire un procedimento reale. In tal caso potrai più facilmente identificare le informazioni di cui hai bisogno per risolvere i tuoi dubbi eventualmente anche potendo contattare un collega esperto nella specifica materia
- * infine una volta che riterrai di aver acquisito una competenza elevata su specifiche attività potrai contribuire alla piattaforma suggerendo migliorie e riportando situazioni particolari derivanti dalla tua esperienza (**Comments**)</content>
+ * accedere ai contenuti seguendo i passi previsti da un procedimento, acquisendo via via le competenze necessarie per svolgere le attività correlate agli stessi ([[Modalità Navigazione&gt;&gt;LPDocs.Browsing]])
+ * effettuare simulazioni in cui metterai alla prova le tue competenze su casi concreti, eventualmente anche in collaborazione con i tuoi colleghi ([[Modalità Simulazione&gt;&gt;LPDocs.Simulation]])
+ * accedere ai contenuti in modo contestuale quando ti troverai a gestire un procedimento reale. In tal caso potrai più facilmente identificare le informazioni di cui hai bisogno per risolvere i tuoi dubbi eventualmente anche potendo contattare un collega esperto nella specifica materia ([[Raccomandazione dei Contenuti&gt;&gt;LPDocs.Recommandations]])
+ * infine una volta che riterrai di aver acquisito una competenza elevata su specifiche attività potrai contribuire alla piattaforma suggerendo migliorie e riportando situazioni particolari derivanti dalla tua esperienza ([[Commenti&gt;&gt;LPDocs.Comments]], [[Contenuti Collaborativi&gt;&gt;LPDocs.Contributions]])
+{{/velocity}}
+  </content>
 </xwikidoc>

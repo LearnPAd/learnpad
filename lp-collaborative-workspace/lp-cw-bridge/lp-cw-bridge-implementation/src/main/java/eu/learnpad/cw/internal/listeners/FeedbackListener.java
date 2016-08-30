@@ -26,16 +26,9 @@ import org.xwiki.bridge.event.DocumentCreatedEvent;
 import org.xwiki.bridge.event.DocumentUpdatedEvent;
 import org.xwiki.component.annotation.Component;
 import org.xwiki.component.phase.InitializationException;
-import org.xwiki.model.reference.DocumentReference;
-import org.xwiki.model.reference.EntityReference;
 import org.xwiki.observation.event.Event;
 
-import com.xpn.xwiki.XWikiContext;
-import com.xpn.xwiki.doc.XWikiDocument;
-
-import eu.learnpad.cw.internal.utils.LPCodeLabels;
-import eu.learnpad.exception.LpRestException;
-import eu.learnpad.or.rest.data.NotificationActionType;
+import eu.learnpad.cw.internal.actuators.FeedbackActuator;
 
 /**
  * @author gulyx
@@ -62,34 +55,14 @@ public class FeedbackListener extends SimpleEventListener{
 		logger.info("Created listener : " + this.name);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	protected String forgeResourceID(Event event, XWikiDocument doc, XWikiContext xcontext) {
-		String resourceId = doc.getDocumentReference().toString();
-		return resourceId;
-	}
-
-	@Override
-	protected EntityReference targetEntityReference(Event event, XWikiDocument doc, XWikiContext xcontext) {
-		EntityReference reference = new DocumentReference(xcontext.getMainXWiki(),LPCodeLabels.getCLASSES_SPACE(),LPCodeLabels.getFEEDBACK_CLASS());
-		return reference;
-	}
-
-	@Override
-	protected void notifyCWBridge(String modelSetId, String modelId,
-			String artifactId, String resourceId, String userId, Event event) {
-		try {
-			if (event instanceof DocumentUpdatedEvent) {
-				this.cwBridge.feedbackNotification(modelSetId, modelId, artifactId,
-						resourceId, NotificationActionType.MODIFIED.toString(),
-						userId);
-			} else if (event instanceof DocumentCreatedEvent) {
-				this.cwBridge.feedbackNotification(modelSetId, modelId, artifactId,
-						resourceId, NotificationActionType.ADDED.toString(),
-						userId);
-			}
-		} catch (LpRestException e) {
-			logger.error(e.getMessage(), e.getCause());
-		}
+	public void onEvent(Event event, Object source, Object data) {
+		 FeedbackActuator actuator = new FeedbackActuator(this.cwBridge, this.logger);
+		 actuator.configureEvent(event, source, data);		 
+		 new Thread(actuator).start();
 	}
 
 }

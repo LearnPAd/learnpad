@@ -160,10 +160,10 @@ LPTours.BrowsingModeProcess.Table.title=**Tabella degli Elementi**
 LPTours.BrowsingModeProcess.Table.description=La tabella elenca le attività che fanno parte di un processo. Selezionando un'attività si sarà rediretti alla pagina relativa all'attività stessa. Si possono filtrare ed ordinare gli elementi contenuti nella tabella secondo i seguenti criteri : Nome, Tipologia e Data dell'ultima modifica. 
 ##
 LPTours.BrowsingModeProcess.BrowseButton.title=Pulsante **Naviga**
-LPTours.BrowsingModeProcess.BrowseButton.description=Questo pulsante permette di avviare l'esplorazione di un processo navigando le diverse attività nelle quali esso si articola (link **Browsing Mode**)
+LPTours.BrowsingModeProcess.BrowseButton.description=Questo pulsante permette di avviare l'esplorazione di un processo navigando le diverse attività nelle quali esso si articola (vedi [[Modalità Navigazione&gt;&gt;LPDocs.Browsing]])
 ##
 LPTours.BrowsingModeProcess.SimulationButton.title=Pulsante **Esegui**
-LPTours.BrowsingModeProcess.SimulationButton.description=Questo pulsante permette di avviare una simulazione del processo scelto. La simulazione può essere avviata secondo due modalità : 1) modalità utente singolo, 2) modalità multi-utente (link: **Simulation Mode**)
+LPTours.BrowsingModeProcess.SimulationButton.description=Questo pulsante permette di avviare una simulazione del processo scelto. La simulazione può essere avviata secondo due modalità : 1) modalità utente singolo, 2) modalità multi-utente (vedi [[Modalità Simulazione&gt;&gt;LPDocs.Simulation]])
 ##
 LPTours.BrowsingModeProcess.ContributeButton.title=Pulsante **Contribuisci**
 LPTours.BrowsingModeProcess.ContributeButton.description=Questo pulsante permette agli utenti di aggiungere informazioni o suggerimenti
