@@ -56,7 +56,7 @@ IRobotInputExtractor<Map<String, Object>> {
 	 * )
 	 */
 	@Override
-	public Map<String, Object> getInput(String taskId) {
+	public Map<String, Object> getState(String taskId) {
 		Map<String, Object> cleanedInput = taskService.createTaskQuery()
 				.includeProcessVariables().taskId(taskId).singleResult()
 				.getProcessVariables();

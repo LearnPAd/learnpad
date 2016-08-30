@@ -40,6 +40,6 @@ public interface IRobotInputExtractor<TaskInput> {
 	 *            the id of the involved task
 	 * @return the task input
 	 */
-	public TaskInput getInput(String taskId);
+	public TaskInput getState(String taskId);
 
 }

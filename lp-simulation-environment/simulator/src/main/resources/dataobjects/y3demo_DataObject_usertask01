@@ -1,4 +1,4 @@
-doConfOfService,"Do this application requires a conference of services?",enum,true,"",true,Yes,false,No
+doConfOfService,"Do this application requires a conference of services?",enum,true,"",yes,Yes,no,No
 offEdiuzia,"UFFICIO EDILIZIA",boolean,true,"Comune"
 offPorto,"UFFICIO PORTO",boolean,true,"Comune"
 offAmb,"Ufficio AMBIANTE, UFFICIO PAESAGGISTICA",boolean,true,"Comune"

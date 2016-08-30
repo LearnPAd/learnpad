@@ -29,6 +29,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 
+import org.slf4j.LoggerFactory;
+
 /**
  * Response to send when throwing a {@link NotFoundException}
  *
@@ -38,12 +40,11 @@ import javax.ws.rs.ext.ExceptionMapper;
 public class ResourceNotFoundExceptionMapper implements
 		ExceptionMapper<NotFoundException> {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.ws.rs.ext.ExceptionMapper#toResponse(java.lang.Throwable)
-	 */
+	@Override
 	public Response toResponse(NotFoundException exception) {
+		LoggerFactory.getLogger(ResourceNotFoundExceptionMapper.class).trace(
+				"Receive REST request for non-existant resource ({})",
+				exception.getMessage());
 		return Response.status(Status.NOT_FOUND).build();
 	}
 
