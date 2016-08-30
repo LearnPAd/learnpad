@@ -7,6 +7,7 @@ package eu.learnpad.or.rest.data;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * Encapsulates details about a named entity (like a person) recognizd in semanticly analyzed text.
@@ -15,6 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author sandro.emmenegger
  */
 @XmlRootElement
+@XmlType(propOrder = { "contextArtifactId", "id", "person", "relatedObjects", "type", "modelSetId", "modelId",  "objectId"})
 public class Entity {
     
     private String id; //unique id to be referenced within analysed text
@@ -24,7 +26,7 @@ public class Entity {
     private RelatedObjects relatedObjects;
     private String modelSetId;
     private String modelId;
-    private String ojbectId;
+    private String objectId;
 
     public String getContextArtifactId() {
         return contextArtifactId;
@@ -89,13 +91,13 @@ public class Entity {
         this.modelId = modelId;
     }
 
-    public String getOjbectId() {
-        return ojbectId;
+    public String getObjectId() {
+        return objectId;
     }
 
     @XmlElement
-    public void setOjbectId(String ojbectId) {
-        this.ojbectId = ojbectId;
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
     
     
