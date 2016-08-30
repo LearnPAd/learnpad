@@ -42,15 +42,15 @@ public class CBRAdapterTest extends AbstractUnitTest {
         CaseInstanceVO result = instance.createOrUpdateSimulationSessionCase(simulationId, simData);
         assertNotNull(result);
         
-        SimilarCases similarCases = instance.retrieveSimilarCases("modelSetId", "", "barneby.barnes@learnpad.eu", simulationId);
-        similarCases = instance.retrieveSimilarCases("modelSetId", "", "barneby.barnes@learnpad.eu", simulationId);
+        SimilarCases similarCases = instance.retrieveSimilarCases("modelSetId", "", "b.barnes@learnpad.eu", simulationId);
+        similarCases = instance.retrieveSimilarCases("modelSetId", "", "b.barnes@learnpad.eu", simulationId);
         checkRetrievedCases(similarCases, "Query case without third parties and decision");
         
         userData = new HashMap();
         userData.put("decision", "false");
         simData.setSubmittedData(userData);
         instance.createOrUpdateSimulationSessionCase(simulationId, simData);
-        similarCases = instance.retrieveSimilarCases("modelSetId", "", "barneby.barnes@learnpad.eu", simulationId);
+        similarCases = instance.retrieveSimilarCases("modelSetId", "", "b.barnes@learnpad.eu", simulationId);
         checkRetrievedCases(similarCases, "Query case with decision");
         
         //add some third parties to the query
@@ -58,7 +58,7 @@ public class CBRAdapterTest extends AbstractUnitTest {
         userData.put("involvedThirdParties", "lpd:Environment_office");
         simData.setSubmittedData(userData);
         instance.createOrUpdateSimulationSessionCase(simulationId, simData);        
-        similarCases = instance.retrieveSimilarCases("modelSetId", "", "barneby.barnes@learnpad.eu", simulationId);
+        similarCases = instance.retrieveSimilarCases("modelSetId", "", "b.barnes@learnpad.eu", simulationId);
         checkRetrievedCases(similarCases, "Query case with decision and third parties");
     }
 

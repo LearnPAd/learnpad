@@ -49,7 +49,7 @@ public class OntologyRecommenderImplTest extends AbstractUnitTest {
     public void testAnalyseText() throws Exception {
         String modelSetId = MODELSET_ID;
         String artifactId = "obj.22332";
-        String userId = "barnaby.barnes@learnpad.eu";
+        String userId = "b.barnes@learnpad.eu";
         String title = "Organize Service Conference Task";
         String text = "The activity <i>Organize Conference</i> specified by Sally Shugar should be <b>splitted</b> into 2 activities.";
         OntologyRecommenderImpl instance = new OntologyRecommenderImpl();

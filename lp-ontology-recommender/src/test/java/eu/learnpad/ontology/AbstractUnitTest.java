@@ -36,7 +36,7 @@ import org.junit.BeforeClass;
 public class AbstractUnitTest {
     
     protected static final String MODELSET_ID = APP.CONF.getString("testdata.modelset.version");
-    protected static final String TEST_USER = "barnaby.barnes@learnpad.eu";
+    protected static final String TEST_USER = "b.barnes@learnpad.eu";
     
     /**
      * Remove all transformed files after testrun;

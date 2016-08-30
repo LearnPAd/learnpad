@@ -180,7 +180,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         BusinessActor person = new BusinessActor();
         person.setUri("transfer:obj.34872");
         person.setName("Sally Shugar");
-        person.setEmail("sally.shugar@learnpad.eu");
+        person.setEmail("s.shugar@learnpad.eu");
         person.setSkypeId("learnpad_sally");
         person.setPhoneNumber("+234 23223 123");
         person.setOfficeAddress("Yellow drive 244b, East Juhee, Malta");
@@ -232,7 +232,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 
         BusinessActor person = new BusinessActor();
         person.setName("Sally Shugar");
-        person.setEmail("sally.shugar@learnpad.eu");
+        person.setEmail("s.shugar@learnpad.eu");
         person.setPhoneNumber("+234 23223 123");
         person.setSkypeId("learnpad_sally");
         person.setOfficeAddress("Yellow drive 244b, East Juhee, Malta");
