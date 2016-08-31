@@ -2,6 +2,8 @@
 cd $( dirname "${BASH_SOURCE[0]}")
 {
 	./lp-ca-ui/start > lp-ca-ui.log
-	java -jar lp-content-analysis.jar > analysis.log 2>&1
+	java -Xdebug \
+	-Xrunjdwp:transport=dt_socket,address=5432,server=y,suspend=n \
+	-jar lp-content-analysis.jar > analysis.log 2>&1
 	
 }&

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 cd $( dirname "${BASH_SOURCE[0]}")
 ./lp-ca-ui/stop
-pkill -f "java -jar lp-content-analysis.jar" || exit 0
+pkill -f "java .* -jar lp-content-analysis.jar" || exit 0
