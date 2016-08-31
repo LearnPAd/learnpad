@@ -81,6 +81,7 @@ sudo /etc/init.d/xwiki.sh stop
 ~/learnpad/lp-content-analysis/stop
 ~/learnpad/lp-model-transformer/stop
 ~/learnpad/lp-model-verification/stop
+~/learnpad/lp-dashboard-kpi/stop
 ~/learnpad/lp-questionnaire-manager/stop
 ~/learnpad/lp-simulation-environment/stop
 ```
@@ -99,6 +100,7 @@ sudo /etc/init.d/xwiki.sh start
 ~/learnpad/lp-content-analysis/start
 ~/learnpad/lp-model-transformer/start
 ~/learnpad/lp-model-verification/start
+~/learnpad/lp-dashboard-kpi/start
 ~/learnpad/lp-questionnaire-manager/start
 ~/learnpad/lp-simulation-environment/start
 ```
