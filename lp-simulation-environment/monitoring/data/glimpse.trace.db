@@ -744,6 +744,7 @@ org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
 org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
 06-16 13:31:31 jdbc[4]: exception
 org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+<<<<<<< HEAD
 06-16 13:36:12 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
 06-16 13:36:12 jdbc[3]: exception
@@ -1170,4 +1171,34 @@ org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
 06-30 16:07:37 jdbc[4]: exception
 org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
 06-30 16:07:37 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+=======
+>>>>>>> parent of 1c58017... empty db
+07-20 14:12:03 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "DELETE *[*] FROM BPMN "; expected "identifier"; SQL statement:
+delete * from BPMN [42001-176]
+07-20 14:12:54 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "DELETE FROM BPMN
+DELETE FROM[*] BPMN_LEARNER
+DELETE FROM CATEGORY
+DELETE FROM LEARNER
+DELETE FROM PATH
+DELETE FROM PATH_LEARNER "; SQL statement:
+delete from BPMN
+delete from BPMN_LEARNER
+delete from CATEGORY
+delete from LEARNER
+delete from PATH
+delete from PATH_LEARNER [42000-176]
+07-20 14:15:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+07-20 14:15:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+07-20 14:15:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+07-20 14:15:59 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+07-20 14:15:59 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+07-20 14:15:59 jdbc[4]: exception
 org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
