@@ -140,7 +140,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	}
 
 	@Override
-	public void computeAndSaveScores(List<String> learnersID, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore) {
+	public void computeAndSaveScores(List<String> learnersID, String user, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore) {
 		
 		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
 		
@@ -196,42 +196,42 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			scoresToShow.put(ScoreType.SESSION_SCORE, sessionScore.sessionscore.floatValue());
 			
 			DebugMessages.print(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "Sending scores to the simulator");
-			ResponseDispatcher.sendScoresEvaluation(scoresToShow, "simulator", "scoresUpdateResponses");
+			ResponseDispatcher.sendScoresEvaluation(scoresToShow, "simulator", "scoresUpdateResponses", learnersID.get(i));
 			DebugMessages.ok();
 			
-			sendScoreUpdateEvents(
+			sendScoreUpdateEvent(
 					generateScoreEvent(
 							ScoreType.ABSOLUTE_BP_SCORE, absoluteBPScore, sessionScore, learnersID.get(i)));
 			
-			sendScoreUpdateEvents(
+			sendScoreUpdateEvent(
 					generateScoreEvent(
 							ScoreType.ABSOLUTE_GLOBAL_SCORE, learnerAbsoluteGlobalScore, sessionScore, learnersID.get(i)));
 			
-			sendScoreUpdateEvents(
+			sendScoreUpdateEvent(
 					generateScoreEvent(
 							ScoreType.ABSOLUTE_SESSION_SCORE, absoluteSessionScore, sessionScore, learnersID.get(i)));
 			
-			sendScoreUpdateEvents(
+			sendScoreUpdateEvent(
 					generateScoreEvent(
 							ScoreType.BP_COVERAGE, learnerCoverage, sessionScore, learnersID.get(i)));
 			
-			sendScoreUpdateEvents(
+			sendScoreUpdateEvent(
 					generateScoreEvent(
 							ScoreType.BP_SCORE, learnerBPScore, sessionScore, learnersID.get(i)));
 			
-			sendScoreUpdateEvents(
+			sendScoreUpdateEvent(
 					generateScoreEvent(
 							ScoreType.GLOBAL_SCORE, learnerGlobalScore, sessionScore, learnersID.get(i)));
 			
-			sendScoreUpdateEvents(
+			sendScoreUpdateEvent(
 					generateScoreEvent(
 							ScoreType.RELATIVE_BP_SCORE, learnerRelativeBPScore, sessionScore, learnersID.get(i)));
 			
-			sendScoreUpdateEvents(
+			sendScoreUpdateEvent(
 					generateScoreEvent(
 							ScoreType.RELATIVE_GLOBAL_SCORE, learnerRelativeGlobalScore, sessionScore, learnersID.get(i)));
 			
-			sendScoreUpdateEvents(
+			sendScoreUpdateEvent(
 					generateScoreEvent(
 							ScoreType.SESSION_SCORE, sessionScore.sessionscore.floatValue(), sessionScore, learnersID.get(i)));
 		}		
@@ -243,7 +243,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 				learnersID, type, value);
 	}
 	
-	protected void sendScoreUpdateEvents(ScoreUpdateEvent event) {
+	protected void sendScoreUpdateEvent(ScoreUpdateEvent event) {
 		try {
 			RestNotifier.getCoreFacade().notifyScoreUpdateEvent(event);
 		} catch (LpRestException e) {
@@ -280,7 +280,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	 				"user",
 	 				new Long(30));
 	 		
-	 		test.computeAndSaveScores(ciccio, "a23748293649", "a23748293649-1",up);
+	 		test.computeAndSaveScores(ciccio, "ciccio", "a23748293649", "a23748293649-1",up);
 	 		
 	 }
 }

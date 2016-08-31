@@ -148,4 +148,26 @@ public class Manager
 			DebugMessages.line(); }
 		return settings;
 	}
+	
+	public static Properties createConsumerSettingsPropertiesObject(
+			String javaNamingFactoryInitial, String javaNamingProviderUrl,
+			String javaNamingSecurityPrincipal,
+			String javaNamingSecurityCredential, String connectionFactoryNames,
+			String topicServiceTopic, boolean debug, String consumerName) {
+		if (debug)
+			DebugMessages.print(TimeStamp.getCurrentTime(), "Consumer",
+			"Creating Properties object ");
+		Properties settings = new Properties();
+		settings.setProperty("java.naming.factory.initial",javaNamingFactoryInitial);
+		settings.setProperty("java.naming.provider.url", javaNamingProviderUrl);
+		settings.setProperty("java.naming.security.principal", javaNamingSecurityPrincipal);
+		settings.setProperty("java.naming.security.credential", javaNamingSecurityCredential);
+		settings.setProperty("connectionFactoryNames", connectionFactoryNames);
+		settings.setProperty("topic.serviceTopic", topicServiceTopic);
+		settings.setProperty("consumerName", consumerName);
+		if (debug) {
+			DebugMessages.ok(); 
+			DebugMessages.line(); }
+		return settings;
+	}
 }

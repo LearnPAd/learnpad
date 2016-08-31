@@ -168,30 +168,3 @@ then
 	RestNotifier.notifySessionScoreUpdateDemo($aEvent.getTimeStamp(), (SessionScoreUpdateEvent)$aEvent.getEvent()); 
 	retract($aEvent);		 	
 end   
-
-rule "FirstScenario"
-no-loop true
-salience 20
-dialect "java"
-
-when
-	$0Event : GlimpseBaseEventBPMN(this.isConsumed == false, this.getEvent.type == EventType.PROCESS_START.toString(), 			this.isException == false);
-	$1Event : GlimpseBaseEventBPMN(this.isConsumed == false, this.getEvent.type == EventType.SESSION_SCORE_UPDATE.toString(), 	this.isException == false, this after $0Event);
-	$2Event : GlimpseBaseEventBPMN(this.isConsumed == false, this.getEvent.type == EventType.TASK_END.toString(), 				this.isException == false, this.getEventName == "Service Conference Invitation", this after $1Event);
-	$3Event : GlimpseBaseEventBPMN(this.isConsumed == false, this.getEvent.type == EventType.PROCESS_END.toString(), 			this.isException == false, this after $2Event);
-
-then 
-	$0Event.setConsumed(true); 
-	update($0Event);
-	retract($0Event);
-	$1Event.setConsumed(true); 
-	update($1Event);
-	retract($1Event);
-	$2Event.setConsumed(true); 
-	update($2Event);
-	retract($2Event);
-	$3Event.setConsumed(true); 
-	update($3Event);
-	retract($3Event);
-	ResponseDispatcher.saveAndNotifyLearnersScore("##LEARNERSINVOLVEDID##", "FirstScenario", drools.getRule().getName(), (SessionScoreUpdateEvent)$1Event.getEvent());
-end

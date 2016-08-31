@@ -123,9 +123,9 @@ public class ResponseDispatcher {
 	
 	
 	
-	public static void saveAndNotifyLearnersScore(String learnersID, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore) {
+	public static void saveAndNotifyLearnersScore(String learnersID, String user, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore) {
 	
-		ResponseDispatcher.lam.computeAndSaveScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))),idBPMN, idPath, sessionScore);
+		ResponseDispatcher.lam.computeAndSaveScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))), user, idBPMN, idPath, sessionScore);
 	}	
 
 	public static void sendResponse(Object object, String enablerName, String answerTopic)
@@ -144,7 +144,7 @@ public class ResponseDispatcher {
 		}
 	}
 	
-	public static void sendScoresEvaluation(HashMap<ScoreType, Float> scores, String destination, String channel)
+	public static void sendScoresEvaluation(HashMap<ScoreType, Float> scores, String destination, String channel, String userid)
 	{
 		try {
 			publicSession = connection.createTopicSession(false,Session.AUTO_ACKNOWLEDGE);
@@ -154,6 +154,7 @@ public class ResponseDispatcher {
 			ObjectMessage sendMessage = publishSession.createObjectMessage();
 			sendMessage.setObject((Serializable) scores);
 			sendMessage.setStringProperty("DESTINATION", destination);
+			sendMessage.setStringProperty("USERID", userid);
 			tPub.publish(sendMessage);
 		} catch (JMSException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), ResponseDispatcher.class.getSimpleName(),  "Exception during sendScoresEvaluation method execution");
