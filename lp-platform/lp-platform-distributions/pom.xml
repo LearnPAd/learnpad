@@ -200,6 +200,10 @@
 									<learnpadPropertiesComponentCwIp>${component.cw.ip}</learnpadPropertiesComponentCwIp>
 									<learnpadPropertiesComponentCwPort>${component.cw.port}</learnpadPropertiesComponentCwPort>
 									<learnpadPropertiesComponentCwPrefix>${component.cw.prefix}</learnpadPropertiesComponentCwPrefix>
+									<learnpadPropertiesComponentDashProtocol>${component.dash.protocol}</learnpadPropertiesComponentDashProtocol>
+									<learnpadPropertiesComponentDashIp>${component.dash.ip}</learnpadPropertiesComponentDashIp>
+									<learnpadPropertiesComponentDashPort>${component.dash.port}</learnpadPropertiesComponentDashPort>
+									<learnpadPropertiesComponentDashPrefix>${component.dash.prefix}</learnpadPropertiesComponentDashPrefix>
 									<learnpadPropertiesComponentMtProtocol>${component.mt.protocol}</learnpadPropertiesComponentMtProtocol>
 									<learnpadPropertiesComponentMtIp>${component.mt.ip}</learnpadPropertiesComponentMtIp>
 									<learnpadPropertiesComponentMtPort>${component.mt.port}</learnpadPropertiesComponentMtPort>
