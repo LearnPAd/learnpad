@@ -603,11 +603,11 @@
     <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
 
     <sequenceFlow id="flow51" sourceRef="usertask1" targetRef="parallelgateway1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${doConfOfService == "true"}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${doConfOfService == "yes"}]]></conditionExpression>
     </sequenceFlow>
 
     <sequenceFlow id="flow51_1" sourceRef="usertask1" targetRef="endevent2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${doConfOfService == "false"}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${doConfOfService == "no"}]]></conditionExpression>
     </sequenceFlow>
 
     <sequenceFlow id="flow52" sourceRef="parallelgateway1" targetRef="usertask2"></sequenceFlow>

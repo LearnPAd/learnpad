@@ -73,17 +73,17 @@ public class MarkovBotFactory implements
 
 	public static Collection<List<MarkovData>> readTrainingData(
 			Collection<String> files) {
-		Collection<List<MarkovData>> res = new ArrayList<List<MarkovData>>();
+		Collection<List<MarkovData>> res = new ArrayList<>();
 
 		for (String file : files) {
 
-			List<MarkovData> data = new ArrayList<MarkovData>();
+			List<MarkovData> data = new ArrayList<>();
 
 			Scanner in = new Scanner(MarkovBotFactory.class.getClassLoader()
 					.getResourceAsStream(file));
 			String text = "";
 			String currentTask = in.nextLine();
-			Map<String, Object> currentProps = new HashMap<String, Object>();
+			Map<String, Object> currentProps = new HashMap<>();
 			while (in.hasNextLine()) {
 				text = in.nextLine();
 				if (text.equals("")) {
@@ -91,10 +91,22 @@ public class MarkovBotFactory implements
 					data.add(new MarkovData(currentTask, currentProps));
 
 					currentTask = in.nextLine();
-					currentProps = new HashMap<String, Object>();
+					currentProps = new HashMap<>();
 				} else {
 					String[] split = text.split(";");
-					currentProps.put(split[0], split[1]);
+					if (split.length == 1) {
+						currentProps.put(split[0], "");
+					} else {
+						// TODO: Implement proper attribute type handling
+						if (split[1].equals("true")) {
+							currentProps.put(split[0], true);
+						} else if (split[1].equals("false")) {
+							currentProps.put(split[0], false);
+						} else {
+							currentProps.put(split[0], split[1]);
+						}
+					}
+
 				}
 			}
 			data.add(new MarkovData(currentTask, currentProps));

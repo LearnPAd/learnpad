@@ -144,7 +144,7 @@ function taskReceiver(address, user, integratedMode) {
             var totalScore = 0;
 
             var result = '<h4>Congratulations, you successfully completed the simulation</h4>';
-            result += '<p>Score Summary:</p>';
+            result += '<p>Session Score Summary:</p>';
             result += '<table class="detailed-score table table-striped table-condensed">';
             result += '<tr><th>Task</th><th>Score</th></tr>';
             // add task scores
