@@ -92,6 +92,12 @@
 			<version>2.19</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+		<groupId>commons-configuration</groupId>
+		<artifactId>commons-configuration</artifactId>
+		<version>1.10</version>
+		</dependency>		
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>
@@ -201,6 +207,7 @@
 									<filtering>true</filtering>
 									<includes>
 										<include>config.properties</include>
+										<include>configMarche.properties</include>
 									</includes>
 								</resource>
 							</resources>
