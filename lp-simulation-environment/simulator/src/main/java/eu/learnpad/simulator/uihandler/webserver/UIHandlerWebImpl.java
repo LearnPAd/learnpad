@@ -160,7 +160,7 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 		for (String userId : event.involvedusers) {
 			if (usersMap.containsKey(userId)) {
 				((UIServlet) usersMap.get(userId).getServletInstance())
-						.completeSession(event.simulationsessionid);
+						.completeSession(event.simulationsessionid, event.probeScores);
 			}
 		}
 	}
