@@ -40,7 +40,7 @@ public class RestNotifier extends Thread {
 		SimulationStartEvent event = new SimulationStartEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData);
 		try {
 			RestNotifier.getCoreFacade().notifySimulationStartEvent(event);
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SimulatioStartEvent sent");
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SimulationStartEvent sent");
 		} catch (LpRestException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifySimulationStart method");
 		}
@@ -49,7 +49,7 @@ public class RestNotifier extends Thread {
 	public static void notifySimulationStartDemo(Long processTimeStamp, SimulationStartEvent event) {
 		try {
 			RestNotifier.getCoreFacade().notifySimulationStartEvent(event);
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SimulatioStartEvent sent");
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SimulationStartEvent sent");
 		} catch (LpRestException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifySimulationStart method");
 		}
@@ -59,7 +59,7 @@ public class RestNotifier extends Thread {
 		SimulationEndEvent event = new SimulationEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData);
 		try {
 			RestNotifier.getCoreFacade().notifySimulationEndEvent(event);
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SimulatioStopEvent sent");
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SimulationStopEvent sent");
 		} catch (LpRestException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifySimulationStop method");
 		}
@@ -68,7 +68,7 @@ public class RestNotifier extends Thread {
 	public static void notifySimulationEndDemo(Long processTimeStamp, SimulationEndEvent event) {
 		try {
 			RestNotifier.getCoreFacade().notifySimulationEndEvent(event);
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SimulatioStopEvent sent");
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SimulationStopEvent sent");
 		} catch (LpRestException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifySimulationStop method");
 		}
@@ -180,6 +180,16 @@ public class RestNotifier extends Thread {
 	
 	public static void notifyScoreUpdate(Long processTimeStamp, ScoreUpdateEvent event)  {
 				
+		try {
+			RestNotifier.getCoreFacade().notifyScoreUpdateEvent(event);
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "ScoreUpdateEvent sent");
+		} catch (LpRestException e) {
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifyScoreUpdate method");
+		}
+	}
+	
+	public static void notifyScoreUpdateDemo(Long processTimeStamp, ScoreUpdateEvent event)  {
+		
 		try {
 			RestNotifier.getCoreFacade().notifyScoreUpdateEvent(event);
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "ScoreUpdateEvent sent");
