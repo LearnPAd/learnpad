@@ -69,7 +69,7 @@ be dispatched in all of these projects:
 [`lp-platform-conf`](https://github.com/LearnPAd/learnpad/tree/master/lp-platform/lp-platform-conf),
 [`lp-platform-distributions`](https://github.com/LearnPAd/learnpad/tree/master/lp-platform/lp-platform-distributions)
 and
-[`lp-platform-jetty-hsqldb`](https://github.com/LearnPAd/learnpad/tree/master/lp-platform/lp-platform-distributions/lp-platform-jetty-hsqldb). Enabling this profiles may require to configure also the others components runnig externally from the `lp-platform` (e.g. [`lp-dashboard-kpi`](https://github.com/LearnPAd/learnpad/tree/master/lp-platform/lp-dashboard-kpi), [`lp-content-analysis`](https://github.com/LearnPAd/learnpad/tree/master/lp-platform/lp-content-analysis), [`lp-simulation-environment`](https://github.com/LearnPAd/learnpad/tree/master/lp-platform/lp-simulation-environment)) 
+[`lp-platform-jetty-hsqldb`](https://github.com/LearnPAd/learnpad/tree/master/lp-platform/lp-platform-distributions/lp-platform-jetty-hsqldb). By enabling these profiles it may require to configure also others components runnig externally from the `lp-platform` (e.g. [`lp-dashboard-kpi`](https://github.com/LearnPAd/learnpad/tree/master/lp-dashboard-kpi), [`lp-content-analysis`](https://github.com/LearnPAd/learnpad/tree/master/lp-content-analysis), [`lp-simulation-environment`](https://github.com/LearnPAd/learnpad/tree/master/lp-simulation-environment)) 
 The two following sections will give details about these modes.
 
 ## `dev` mode
