@@ -497,7 +497,7 @@ public class ActivitiProcessManager implements IProcessManager,
 			.receiveSimulationEndEvent(
 					new SimulationEndSimEvent(System
 							.currentTimeMillis(), simSession,
-							usersBySession.get(simSession)));
+									usersBySession.get(simSession), probeScoreByTypeByUsersBySession.get(simSession)));
 
 			nbProcessesBySession.remove(simSession);
 			usersBySession.remove(simSession);
