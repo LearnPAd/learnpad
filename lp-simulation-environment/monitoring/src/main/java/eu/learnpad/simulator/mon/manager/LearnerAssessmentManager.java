@@ -22,6 +22,6 @@ public abstract class LearnerAssessmentManager extends Thread {
 	public abstract ComplexEventRuleActionListDocument elaborateModel(String xmlMessagePayload, Vector<Learner> vector, String sessionID, String bpmnID);
 
 	public abstract DBController getDBController();
-	public abstract void computeAndSaveScores(List<String> learnersID, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore);
+	public abstract void computeAndSaveScores(List<String> learnersID, String user, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore);
 	public abstract Vector<Path> setAllAbsoluteSessionScores(Vector<Path> theGeneratedPath);
 }

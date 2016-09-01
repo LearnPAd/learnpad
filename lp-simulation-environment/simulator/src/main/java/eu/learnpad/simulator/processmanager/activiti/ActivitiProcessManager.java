@@ -69,6 +69,8 @@ import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
+import eu.learnpad.simulator.mon.coverage.ScoreType;
+import eu.learnpad.simulator.monitoring.activiti.scoreprobe.IProbeScoresReceiver;
 import eu.learnpad.simulator.monitoring.event.impl.ProcessStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
@@ -87,7 +89,7 @@ import eu.learnpad.simulator.utils.BPMNExplorerRepository;
  *
  */
 public class ActivitiProcessManager implements IProcessManager,
-		ActivitiEventListener {
+		ActivitiEventListener, IProbeScoresReceiver {
 
 	private final RepositoryService repositoryService;
 	private final RuntimeService runtimeService;
@@ -115,6 +117,7 @@ public class ActivitiProcessManager implements IProcessManager,
 	private final Map<String, Map<String, Map<LearnPadTask, Integer>>> taskScoresByUsersBySession = new HashMap<>();
 
 	private final Map<String, String> processDefToModelSet = new ConcurrentHashMap<String, String>();
+	private final Map<String, Map<String, Map<ScoreType, Float>>> probeScoreByTypeByUsersBySession = new HashMap<>();
 
 	private final Map<String, String> simSessionIdToModelSet = new ConcurrentHashMap<String, String>();
 
@@ -494,7 +497,7 @@ public class ActivitiProcessManager implements IProcessManager,
 			.receiveSimulationEndEvent(
 					new SimulationEndSimEvent(System
 							.currentTimeMillis(), simSession,
-							usersBySession.get(simSession)));
+									usersBySession.get(simSession), probeScoreByTypeByUsersBySession.get(simSession)));
 
 			nbProcessesBySession.remove(simSession);
 			usersBySession.remove(simSession);
@@ -502,6 +505,9 @@ public class ActivitiProcessManager implements IProcessManager,
 			simSessionIdToModelSet.remove(simSession);
 
 			taskScoresByUsersBySession.remove(simSession);
+
+			probeScoreByTypeByUsersBySession.remove(simSession);
+
 		}
 
 	}
@@ -613,6 +619,21 @@ public class ActivitiProcessManager implements IProcessManager,
 	public LearnPadTaskGameInfos getGameInfos(LearnPadTask task, String userId) {
 		return processDispatchers.get(task.processId)
 				.getGameInfos(task, userId);
+	}
+
+	@Override
+	public void receiveScore(String sessionId, String userId, ScoreType type, Float value) {
+
+		if (!probeScoreByTypeByUsersBySession.containsKey(sessionId)) {
+			probeScoreByTypeByUsersBySession.put(sessionId, new HashMap<String, Map<ScoreType, Float>>());
+		}
+
+		if (!probeScoreByTypeByUsersBySession.get(sessionId).containsKey(userId)) {
+			probeScoreByTypeByUsersBySession.get(sessionId).put(userId, new HashMap<ScoreType, Float>());
+		}
+
+		probeScoreByTypeByUsersBySession.get(sessionId).get(userId).put(type, value);
+
 	}
 
 	// Activiti message workaround
