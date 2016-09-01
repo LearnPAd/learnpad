@@ -560,13 +560,11 @@
                     "applicationStatus" : "ok"
                 }
             }
-        ]
-    },
-    "y3-demo" : {
+        ],
         "usertask1" : [
             {
                 "input" : {
-                    "case" : "637.2015"
+                    "case" : "637-2015"
                 },
                 "output" : {
                     "doConfOfService" : "no"
@@ -574,7 +572,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015"
+                    "case" : "829-2015"
                 },
                 "output" : {
                     "doConfOfService" : "yes",
@@ -607,7 +605,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015"
+                    "case" : "1118-2015"
                 },
                 "output" : {
                     "doConfOfService" : "yes",
@@ -642,7 +640,7 @@
         "usertask5" : [
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offEdiuzia"
                 },
                 "output" : {
@@ -651,7 +649,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offPorto"
                 },
                 "output" : {
@@ -660,7 +658,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offAmb"
                 },
                 "output" : {
@@ -669,7 +667,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offAtt"
                 },
                 "output" : {
@@ -678,7 +676,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offPolizia"
                 },
                 "output" : {
@@ -687,7 +685,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offTrib"
                 },
                 "output" : {
@@ -696,7 +694,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offSoprint"
                 },
                 "output" : {
@@ -705,7 +703,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offDog"
                 },
                 "output" : {
@@ -714,7 +712,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offCap"
                 },
                 "output" : {
@@ -723,7 +721,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off1Role" : "offEdiuzia"
                 },
                 "output" : {
@@ -732,7 +730,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off1Role" : "offAmb"
                 },
                 "output" : {
@@ -741,7 +739,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off1Role" : "offAtt"
                 },
                 "output" : {
@@ -750,7 +748,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off1Role" : "offPat"
                 },
                 "output" : {
@@ -759,7 +757,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off1Role" : "offSoprint"
                 },
                 "output" : {
@@ -770,7 +768,7 @@
         "usertask4" : [
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offEdiuzia"
                 },
                 "output" : {
@@ -779,7 +777,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offPorto"
                 },
                 "output" : {
@@ -788,7 +786,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offAmb"
                 },
                 "output" : {
@@ -797,7 +795,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offAtt"
                 },
                 "output" : {
@@ -806,7 +804,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offPolizia"
                 },
                 "output" : {
@@ -815,7 +813,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offTrib"
                 },
                 "output" : {
@@ -824,7 +822,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offSoprint"
                 },
                 "output" : {
@@ -833,7 +831,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offDog"
                 },
                 "output" : {
@@ -842,7 +840,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offCap"
                 },
                 "output" : {
@@ -851,7 +849,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off2Role" : "offEdiuzia"
                 },
                 "output" : {
@@ -860,7 +858,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off2Role" : "offAmb"
                 },
                 "output" : {
@@ -869,7 +867,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off2Role" : "offAtt"
                 },
                 "output" : {
@@ -878,7 +876,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off2Role" : "offPat"
                 },
                 "output" : {
@@ -887,7 +885,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off2Role" : "offSoprint"
                 },
                 "output" : {
@@ -898,7 +896,7 @@
         "usertask11" : [
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offEdiuzia"
                 },
                 "output" : {
@@ -907,7 +905,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offPorto"
                 },
                 "output" : {
@@ -916,7 +914,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offAmb"
                 },
                 "output" : {
@@ -925,7 +923,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offAtt"
                 },
                 "output" : {
@@ -934,7 +932,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offPolizia"
                 },
                 "output" : {
@@ -943,7 +941,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offTrib"
                 },
                 "output" : {
@@ -952,7 +950,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offSoprint"
                 },
                 "output" : {
@@ -961,7 +959,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offDog"
                 },
                 "output" : {
@@ -970,7 +968,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off1Role" : "offCap"
                 },
                 "output" : {
@@ -979,7 +977,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off1Role" : "offEdiuzia"
                 },
                 "output" : {
@@ -988,7 +986,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off1Role" : "offAmb"
                 },
                 "output" : {
@@ -997,7 +995,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off1Role" : "offAtt"
                 },
                 "output" : {
@@ -1006,7 +1004,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off1Role" : "offPat"
                 },
                 "output" : {
@@ -1015,7 +1013,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off1Role" : "offSoprint"
                 },
                 "output" : {
@@ -1026,7 +1024,7 @@
         "usertask8" : [
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offEdiuzia"
                 },
                 "output" : {
@@ -1035,7 +1033,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offPorto"
                 },
                 "output" : {
@@ -1044,7 +1042,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offAmb"
                 },
                 "output" : {
@@ -1053,7 +1051,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offAtt"
                 },
                 "output" : {
@@ -1062,7 +1060,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offPolizia"
                 },
                 "output" : {
@@ -1071,7 +1069,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offTrib"
                 },
                 "output" : {
@@ -1080,7 +1078,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offSoprint"
                 },
                 "output" : {
@@ -1089,7 +1087,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offDog"
                 },
                 "output" : {
@@ -1098,7 +1096,7 @@
             },
             {
                 "input" : {
-                    "case" : "829.2015",
+                    "case" : "829-2015",
                     "off2Role" : "offCap"
                 },
                 "output" : {
@@ -1107,7 +1105,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off2Role" : "offEdiuzia"
                 },
                 "output" : {
@@ -1116,7 +1114,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off2Role" : "offAmb"
                 },
                 "output" : {
@@ -1125,7 +1123,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off2Role" : "offAtt"
                 },
                 "output" : {
@@ -1134,7 +1132,7 @@
             },
             {
                 "input" : {
-                    "case" : "1118.2015",
+                    "case" : "1118-2015",
                     "off2Role" : "offPat"
                 },
                 "output" : {
@@ -1143,7 +1141,7 @@
 	          },
 	          {
 		            "input" : {
-			              "case" : "1118.2015",
+			              "case" : "1118-2015",
 			              "off2Role" : "offPat"
 		            },
 		            "output" : {
@@ -1152,7 +1150,7 @@
 	          },
 	          {
 		            "input" : {
-			              "case" : "1118.2015",
+			              "case" : "1118-2015",
 			              "off2Role" : "offSoprint"
 		            },
 		            "output" : {
@@ -1161,7 +1159,7 @@
 	          },
 	          {
 		            "input" : {
-			              "case" : "1118.2015",
+			              "case" : "1118-2015",
 			              "off2Role" : "offSoprint"
 		            },
 		            "output" : {
@@ -1172,7 +1170,7 @@
 	      "usertask16" : [
 		        {
 			          "input" : {
-				            "case" : "829.2015"
+				            "case" : "829-2015"
 			          },
 			          "output" : {
 				            "suapChoice" : "suapUC"
@@ -1180,7 +1178,7 @@
 		        },
 		        {
 			          "input" : {
-				            "case" : "1118.2015"
+				            "case" : "1118-2015"
 			          },
 			          "output" : {
 				            "suapChoice" : "suapOk"
