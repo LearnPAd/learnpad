@@ -128,6 +128,7 @@ public class ResponseDispatcher {
 		ResponseDispatcher.lam.computeAndSaveScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))), user, idBPMN, idPath, sessionScore);
 	}	
 
+	
 	public static void sendResponse(Object object, String enablerName, String answerTopic)
 	{
 		try {
