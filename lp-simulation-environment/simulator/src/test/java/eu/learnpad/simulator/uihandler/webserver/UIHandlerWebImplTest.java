@@ -146,7 +146,7 @@ public class UIHandlerWebImplTest {
 						return null;
 					}
 
-				}).when(mockServlet).completeSession(any(String.class));
+				}).when(mockServlet).completeSession(any(String.class), any(Map.class));
 
 				when(holder.getServletInstance()).thenReturn(mockServlet);
 
