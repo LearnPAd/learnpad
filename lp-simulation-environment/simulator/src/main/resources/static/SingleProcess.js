@@ -115,6 +115,51 @@ function processInstanciator(address) {
                 values['applicationDescription'] = 'request for reneval of authorization of industrial waste water discharge in sewer - coffee machines factory';
                 values['applicationATECOCategory'] = 'lpd:InstallationOfElectricalSystems';
             }
+ 
+            // some default values
+            values['off1FeedbackCond1'] = '';
+            values['off1FeedbackCond2'] = '';
+            values['off1FeedbackCond3'] = '';
+            values['off2FeedbackCond1'] = '';
+            values['off2FeedbackCond2'] = '';
+            values['off2FeedbackCond3'] = '';
+            values['off1FeedbackIntegration1'] = '';
+            values['off1FeedbackIntegration2'] = '';
+            values['off1FeedbackIntegration3'] = '';
+            values['off2FeedbackIntegration1'] = '';
+            values['off2FeedbackIntegration2'] = '';
+            values['off2FeedbackIntegration3'] = '';
+
+            values['answerOffEdiuzia'] = '';
+            values['answerOffPorto'] = '';
+            values['answerOffAmb'] = '';
+            values['answerOffAtt'] = '';
+            values['answerOffPolizia'] = '';
+            values['answerOffTrib'] = '';
+            values['answerOffPat'] = '';
+            values['answerOffSoprint'] = '';
+            values['answerOffDog'] = '';
+            values['answerOffCap'] = '';
+
+            if(values['case'] === '829-2015') {
+                values['answerOffEdiuzia'] = 'parere favorevole condizionato dello Sportello Unico per l\'Edilizia - ammissibilità dell\'intervento su richiesta di permesso di costruire';
+                values['answerOffPorto'] = 'parere positivo scritto e precedentemente depositato in ordine alla modifica del muretto';
+                values['answerOffAmb'] = 'parere di compatibilità paesaggistica ai sensi dell\'art. 146 DLgs 42/2004 e smi';
+                values['answerOffAtt'] = 'autorizzazione ai sensi dell\'art. 24 Reg. C.N. - parere favorevole in quanto la concessione demaniale rimane inalterata';
+                values['answerOffPolizia'] = 'parere di conformità al codice della strada - nulla osta per quanto di competenza';
+                values['answerOffTrib'] = 'precedentemente presentato conteggio oneri imposta pubblicitaria con cui si esenta l\'esercizio - avendo superficie < 5 mq - con la prescrizione che al termine dei lavori dovrà essere presentata nuova dichiarazione superfici ai fini della tassa rifiuti ';
+                values['answerOffSoprint'] = 'parere ai sensi dell\'art. 146 DLgs 42/2004 e smi e art. 14-ter comma 3bis L. 241/1990 - silenzio assenso';
+                values['answerOffDog'] = 'autorizzazione doganale ai sensi dell\'art. 19 DLgs 374/1990 precedentemente rilasciata - parere favorevole già espresso: non c\'è bisogno di ulteriori risposte né di intervenire nella conferenza di servizi';
+                values['answerOffCap'] = 'informato solo per conoscenza - silenzio assenso';
+            }
+
+            if(values['case'] === '1118-2015') {
+                values['answerOffEdiuzia'] = 'rilascio parere favorevole su presentazione SCIA';
+                values['answerOffAmb'] = 'l\'intervento proposto è compatibile a livello paesaggistico ai sensi dell\'art. 146 DLgs 42/2004';
+                values['answerOffAtt'] = 'espletata attività istruttoria - ok sui controlli formali e di merito';
+                values['answerOffPat'] = 'NULLA OSTA quale Ente proprietario dell\'area - parere favorevole ai sensi dell\'art. 6 par. 2 contratto rep 28 27/12/2001 (scadenza 31/12/2019)';
+                values['answerOffSoprint'] = 'parere ai sensi dell\'art. 146 DLgs 42/2004 e smi e art. 14-ter comma 3bis L. 241/1990 - silenzio assenso';
+            }
 
             // re-stringify
             values = JSON.stringify(values);
