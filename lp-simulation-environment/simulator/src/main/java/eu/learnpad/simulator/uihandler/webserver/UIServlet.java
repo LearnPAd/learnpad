@@ -175,7 +175,7 @@ public class UIServlet extends WebSocketServlet {
 			try {
 				session.getRemote().sendString(
 						mapper.writeValueAsString(new SessionFinished(
-								sessionId, taskNames, taskScores)));
+								sessionId, taskNames, taskScores, probeScores)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
