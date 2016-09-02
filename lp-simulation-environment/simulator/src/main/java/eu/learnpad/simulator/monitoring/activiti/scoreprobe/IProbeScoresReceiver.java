@@ -1,5 +1,7 @@
 package eu.learnpad.simulator.monitoring.activiti.scoreprobe;
 
+import eu.learnpad.sim.rest.event.ScoreType;
+
 /*
  * #%L
  * LearnPAd Simulator
@@ -20,8 +22,6 @@ package eu.learnpad.simulator.monitoring.activiti.scoreprobe;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * #L%
  */
-
-import eu.learnpad.simulator.mon.coverage.ScoreType;
 
 /**
  * This interface define the mean to receive a monitoring score event from the

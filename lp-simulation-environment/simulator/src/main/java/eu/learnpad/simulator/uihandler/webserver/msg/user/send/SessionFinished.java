@@ -26,7 +26,7 @@ package eu.learnpad.simulator.uihandler.webserver.msg.user.send;
 
 import java.util.Map;
 
-import eu.learnpad.simulator.mon.coverage.ScoreType;
+import eu.learnpad.sim.rest.event.ScoreType;
 import eu.learnpad.simulator.uihandler.webserver.msg.user.IUserMsg;
 
 /**

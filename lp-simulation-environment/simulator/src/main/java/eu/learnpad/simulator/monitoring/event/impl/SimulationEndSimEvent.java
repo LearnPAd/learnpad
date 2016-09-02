@@ -43,7 +43,7 @@ package eu.learnpad.simulator.monitoring.event.impl;
 import java.util.Collection;
 import java.util.Map;
 
-import eu.learnpad.simulator.mon.coverage.ScoreType;
+import eu.learnpad.sim.rest.event.ScoreType;
 import eu.learnpad.simulator.monitoring.event.AbstractSimEvent;
 import eu.learnpad.simulator.monitoring.event.SimEventType;
 

@@ -64,12 +64,12 @@ import org.activiti.image.impl.DefaultProcessDiagramGenerator;
 import org.xml.sax.SAXException;
 
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
+import eu.learnpad.sim.rest.event.ScoreType;
 import eu.learnpad.simulator.IProcessEventReceiver;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
-import eu.learnpad.simulator.mon.coverage.ScoreType;
 import eu.learnpad.simulator.monitoring.activiti.scoreprobe.IProbeScoresReceiver;
 import eu.learnpad.simulator.monitoring.event.impl.ProcessStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
