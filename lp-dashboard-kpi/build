@@ -24,6 +24,24 @@ declare -r __COCKPIT_SUBCOMPONENT_NAME__="lp-dash-adoxx-cockpit"
 # This is the name of the Bridge sub-component 
 declare -r __BRIDGE_SUBCOMPONENT_NAME__="lp-dash-bridge"
 
+declare __ARG_FLAG__="";
+for arg in $*
+do
+	case ${arg} in
+		"--dev")
+			__ARG_FLAG__="dev";
+			declare __MVN_PROFILES__="${__MVN_PROFILES__},dev"
+			;;
+		"--review")
+			__ARG_FLAG__="review";
+			declare __MVN_PROFILES__="${__MVN_PROFILES__},review"
+			;;
+		"--marche")
+			__ARG_FLAG__="marche";
+			declare __MVN_PROFILES__="${__MVN_PROFILES__},marche"
+			;;
+	esac
+done
 
 ### BUILD ###
 function component_build() {
@@ -48,7 +66,12 @@ function component_test() {
 # This is where you need to publish material into the `out' directory
 function component_install() {
     mkdir -p ${__OUT_PATH__}
-    cp "scripts/start" "${__OUT_START_FILE__}"
+    if [ "${__ARG_FLAG__}" == "marche" ]
+    then
+    	cp "scripts/start-marche" "${__OUT_START_FILE__}"
+    else
+    	cp "scripts/start" "${__OUT_START_FILE__}"
+    fi
     cp "scripts/stop" "${__OUT_STOP_FILE__}"
     
     mkdir -p "${__OUT_PATH__}/${__COCKPIT_SUBCOMPONENT_NAME__}" &&

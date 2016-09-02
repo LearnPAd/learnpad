@@ -34,6 +34,7 @@ import org.apache.log4j.Logger;
 
 import eu.learnpad.dash.Bridge;
 import eu.learnpad.dash.config.APP;
+import eu.learnpad.dash.config.PropertyUtil;
 import eu.learnpad.dash.rest.data.KPIValuesFormat;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
@@ -56,15 +57,28 @@ public class DASHBridgeImpl extends Bridge {
 
     private static Logger log = Logger.getLogger(DASHBridgeImpl.class);
     private static String url = "http://localhost/it-has-not-been-set/";
-
+    
+    private String configFileLocationLabel = "config.file.location";
+    private PropertyUtil conf;
+    
+    
     public DASHBridgeImpl() {
+    	
+    	String confFileName = System.getProperty(configFileLocationLabel);
+    	if (confFileName == null){
+    		this.conf=new PropertyUtil();
+    	}else{
+    		this.conf=new PropertyUtil(confFileName);
+    	}
+    	
         // TODO the following line is just a placeholder. It should be fixed.
         this.corefacade = new DASHCoreFacadeRestResource();
 
         org.apache.log4j.BasicConfigurator.configure();
         log.info(this.getClass().getName() + " instantiated!");
         
-        this.url = APP.CONF.getString("lp-dash.cockpit.url", this.url);
+//        this.url = APP.CONF.getString("lp-dash.cockpit.url", this.url);
+        this.url = this.conf.getProperty("lp-dash.cockpit.url", this.url);
     }
 
     @Override
@@ -117,11 +131,12 @@ public class DASHBridgeImpl extends Bridge {
         File kpiDashboardWorkingFolder;
         File cockpitXmlFile = null;
         try {
-            File baseWorkingDirectory = APP.getWorkingDirectory();
+            File baseWorkingDirectory = this.conf.getWorkingDirectory();
             if(baseWorkingDirectory == null){
                 return null;
             }
-            java.nio.file.Path kpiDashboardWorkingFolderPath = Paths.get(baseWorkingDirectory.toString(), APP.CONF.getString("lp-dash.kpi.dashboard.data.folder.relative"));
+            String folder = this.conf.getProperty("lp-dash.kpi.dashboard.data.folder.relative"); 
+            java.nio.file.Path kpiDashboardWorkingFolderPath = Paths.get(baseWorkingDirectory.toString(), folder);
             kpiDashboardWorkingFolder = kpiDashboardWorkingFolderPath.toFile();
             if (!kpiDashboardWorkingFolder.exists()) {
                 kpiDashboardWorkingFolder.mkdirs();

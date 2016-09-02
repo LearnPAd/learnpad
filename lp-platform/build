@@ -35,6 +35,9 @@ do
 		"--review")
 			declare __MVN_BUILD_PROFILES__="${__MVN_BUILD_PROFILES__},review"
 			;;
+		"--marche")
+			declare __MVN_BUILD_PROFILES__="${__MVN_BUILD_PROFILES__},marche"
+			;;
 	esac
 done
 if [[ "${__MVN_BUILD_PROFILES__}" != "" ]]

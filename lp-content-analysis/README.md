@@ -64,6 +64,21 @@ The service is available at `localhost:8082/lp-content-analysis/`.
 * To get Static Content referred by ID:  
 `curl -X GET http://localhost:8082/lp-content-analysis/learnpad/ca/bridge/validatestaticcontent/{id}`
 
+# Build
+In the `lp-content-analysis` folder, you can give one of the following options to
+the build script:
+* `--marche`
+
+These options impacts on the [`build` script](https://github.com/LearnPAd/learnpad/blob/master/lp-content-analysis/build), and
+their main configurations are defined in dedicated [configuration file](https://github.com/LearnPAd/learnpad/blob/master/lp-content-analysis/src/main/resources/).
+
+## `marche` mode
+The marche mode is only about a preconfiguration of the addresses for
+both the component and its sub-components according to the deploy foreseen at MAR.
+This configuration impacts:
+* the [`build` script](https://github.com/LearnPAd/learnpad/blob/master/lp-content-analysis/build).
+* the [`start` script](https://github.com/LearnPAd/learnpad/blob/master/lp-content-analysis/scripts/start-marche).
+* the [configuration file](https://github.com/LearnPAd/learnpad/blob/master/lp-content-analysis/src/main/resources/componentMarche.properties) for the deloy at MAR
 
 # Note
 You can also refer to 
