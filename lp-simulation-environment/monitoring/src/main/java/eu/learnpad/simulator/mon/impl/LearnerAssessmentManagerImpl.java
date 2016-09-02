@@ -197,46 +197,50 @@ public void computeAndSaveScores(List<String> learnersID, String user, String id
 		scoresToShow.put(ScoreType.RELATIVE_GLOBAL_SCORE, learnerRelativeGlobalScore);
 		scoresToShow.put(ScoreType.SESSION_SCORE, sessionScore.sessionscore.floatValue());
 		
-		DebugMessages.print(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "Sending scores to the simulator");
-		ResponseDispatcher.sendScoresEvaluation(scoresToShow, "simulator", "scoresUpdateResponses", user);
-		DebugMessages.ok();
+		sendScoresToSim(scoresToShow,user);
 		
-		sendScoreUpdateEvent(
+		sendScoreUpdateEventToCP(
 				generateScoreEvent(
 						ScoreType.ABSOLUTE_BP_SCORE, absoluteBPScore, sessionScore, user));
 		
-		sendScoreUpdateEvent(
+		sendScoreUpdateEventToCP(
 				generateScoreEvent(
 						ScoreType.ABSOLUTE_GLOBAL_SCORE, learnerAbsoluteGlobalScore, sessionScore, user));
 		
-		sendScoreUpdateEvent(
+		sendScoreUpdateEventToCP(
 				generateScoreEvent(
 						ScoreType.ABSOLUTE_SESSION_SCORE, absoluteSessionScore, sessionScore, user));
 		
-		sendScoreUpdateEvent(
+		sendScoreUpdateEventToCP(
 				generateScoreEvent(
 						ScoreType.BP_COVERAGE, learnerCoverage, sessionScore, user));
 		
-		sendScoreUpdateEvent(
+		sendScoreUpdateEventToCP(
 				generateScoreEvent(
 						ScoreType.BP_SCORE, learnerBPScore, sessionScore, user));
 		
-		sendScoreUpdateEvent(
+		sendScoreUpdateEventToCP(
 				generateScoreEvent(
 						ScoreType.GLOBAL_SCORE, learnerGlobalScore, sessionScore, user));
 		
-		sendScoreUpdateEvent(
+		sendScoreUpdateEventToCP(
 				generateScoreEvent(
 						ScoreType.RELATIVE_BP_SCORE, learnerRelativeBPScore, sessionScore, user));
 		
-		sendScoreUpdateEvent(
+		sendScoreUpdateEventToCP(
 				generateScoreEvent(
 						ScoreType.RELATIVE_GLOBAL_SCORE, learnerRelativeGlobalScore, sessionScore, user));
 		
-		sendScoreUpdateEvent(
+		sendScoreUpdateEventToCP(
 				generateScoreEvent(
 						ScoreType.SESSION_SCORE, sessionScore.sessionscore.floatValue(), sessionScore, user));
 	}
+
+	private void sendScoresToSim(HashMap<ScoreType, Float> scoresToShow, String user) {
+		DebugMessages.print(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "Sending scores to the simulator");
+		ResponseDispatcher.sendScoresEvaluation(scoresToShow, "simulator", "scoresUpdateResponses", user);
+		DebugMessages.ok();	
+}
 
 	protected ScoreUpdateEvent generateScoreEvent(ScoreType type, Float value, SessionScoreUpdateEvent sessionScore, String learnersID) {
 		return new ScoreUpdateEvent(System.currentTimeMillis(), sessionScore.simulationsessionid, sessionScore.involvedusers,
@@ -244,7 +248,7 @@ public void computeAndSaveScores(List<String> learnersID, String user, String id
 				learnersID, type, value);
 	}
 	
-	protected void sendScoreUpdateEvent(ScoreUpdateEvent event) {
+	protected void sendScoreUpdateEventToCP(ScoreUpdateEvent event) {
 		try {
 			RestNotifier.getCoreFacade().notifyScoreUpdateEvent(event);
 		} catch (LpRestException e) {
