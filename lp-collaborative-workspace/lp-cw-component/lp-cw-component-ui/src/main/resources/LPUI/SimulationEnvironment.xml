@@ -61,7 +61,6 @@
 ## #####################################################
 ## Hard-coded for the moment since the ID may change with ME's import and SIM is not relying on BPMN files from ME
   #set ($modelsetid = "LP_ME_ADOXX_MODELSET_28600")
-  #set ($hcQuery = "from doc.object(LPCode.ModelClass) as m where m.modelsetid='$modelsetid' and m.type='bpmn' and m.name like '%Titolo%Unico%'")
   #set ($hcQuery = "from doc.object(LPCode.ModelClass) as m where m.modelsetid='$modelsetid' and m.id='$modelid'")
   #set ($hcResults = $services.query.xwql($hcQuery).execute())
   #if ($hcResults.size() &gt;= 1 )
