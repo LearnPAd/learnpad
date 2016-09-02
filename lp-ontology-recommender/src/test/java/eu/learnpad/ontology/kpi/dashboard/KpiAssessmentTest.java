@@ -15,7 +15,7 @@ import eu.learnpad.ontology.recommender.Inferencer;
 import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.ResourceType;
-import eu.learnpad.or.rest.data.SimulationScoreType;
+import eu.learnpad.sim.rest.event.ScoreType;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,19 +67,19 @@ public class KpiAssessmentTest extends AbstractKpiTest{
         }
         Individual oneProcessForTesting = processes.get(0);
         
-        Individual logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER, SimulationScoreType.BP_SCORE, 0.2f);
+        Individual logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER, ScoreType.BP_SCORE, 0.2f);
         assertNotNull(logEntry);
         testPerformanceValue(model, KPI_LABEL__BP_SCORE, 1);
         
-        logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER, SimulationScoreType.BP_SCORE, 0.4f);
+        logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER, ScoreType.BP_SCORE, 0.4f);
         assertNotNull(logEntry);
         testPerformanceValue(model, KPI_LABEL__BP_SCORE, 2);        
         
-        logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER, SimulationScoreType.SESSION_SCORE, 0.6f);
+        logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER, ScoreType.SESSION_SCORE, 0.6f);
         assertNotNull(logEntry);
         testPerformanceValue(model, KPI_LABEL__SESSION_SCORE, 1);
 
-        logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER, SimulationScoreType.GLOBAL_SCORE, 0.9f);
+        logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER, ScoreType.GLOBAL_SCORE, 0.9f);
         assertNotNull(logEntry);
         testPerformanceValue(model, KPI_LABEL__GLOBAL_SCORE, 1);        
         

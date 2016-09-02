@@ -16,7 +16,7 @@ import eu.learnpad.ontology.kpi.dashboard.AbstractKpiTest;
 import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.persistence.util.OntUtil;
 import eu.learnpad.ontology.recommender.RecommenderException;
-import eu.learnpad.or.rest.data.SimulationScoreType;
+import eu.learnpad.sim.rest.event.ScoreType;
 import java.util.List;
 import static junit.framework.Assert.*;
 import org.jgroups.util.UUID;
@@ -52,7 +52,7 @@ public class SimulationScoreLogTest extends AbstractKpiTest {
         String simulationSessionId = UUID.randomUUID().toString();
         String processArtifactId = oneProcessForTesting.getLocalName();
         Float score = 4.8f;
-        Individual logEntry = createSimScoreLog(timestamp, simulationSessionId, MODELSET_ID, processArtifactId, TEST_USER, SimulationScoreType.BP_SCORE, score);
+        Individual logEntry = createSimScoreLog(timestamp, simulationSessionId, MODELSET_ID, processArtifactId, TEST_USER, ScoreType.BP_SCORE, score);
         assertNotNull(logEntry);
         
         scores = getInstancesWithProperty(APP.NS.LPD + "BPSimulationScore", APP.NS.LPD + "simulationScoreOfPerformer", testUser);
@@ -64,7 +64,7 @@ public class SimulationScoreLogTest extends AbstractKpiTest {
         //Create session score
         timestamp = System.currentTimeMillis();
         score = 6.2f;
-        logEntry = createSimScoreLog(timestamp, simulationSessionId, MODELSET_ID, processArtifactId, TEST_USER, SimulationScoreType.SESSION_SCORE, score);
+        logEntry = createSimScoreLog(timestamp, simulationSessionId, MODELSET_ID, processArtifactId, TEST_USER, ScoreType.SESSION_SCORE, score);
         assertNotNull(logEntry);
         
         scores = getInstancesWithProperty(APP.NS.LPD + "SimulationSessionScore", APP.NS.LPD + "simulationScoreOfPerformer", testUser);
@@ -79,7 +79,7 @@ public class SimulationScoreLogTest extends AbstractKpiTest {
         //Create global score
         timestamp = System.currentTimeMillis();
         score = 8.4f;
-        logEntry = createSimScoreLog(timestamp, simulationSessionId, MODELSET_ID, processArtifactId, TEST_USER, SimulationScoreType.GLOBAL_SCORE, score);
+        logEntry = createSimScoreLog(timestamp, simulationSessionId, MODELSET_ID, processArtifactId, TEST_USER, ScoreType.GLOBAL_SCORE, score);
         assertNotNull(logEntry);
         
         scores = getInstancesWithProperty(APP.NS.LPD + "GlobalSimulationScore", APP.NS.LPD + "simulationScoreOfPerformer", testUser);

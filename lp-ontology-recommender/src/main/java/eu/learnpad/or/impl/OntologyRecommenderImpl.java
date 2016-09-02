@@ -47,12 +47,12 @@ import eu.learnpad.or.rest.data.RelatedObject;
 import eu.learnpad.or.rest.data.RelatedObjects;
 import eu.learnpad.or.rest.data.ResourceType;
 import eu.learnpad.or.rest.data.SimulationData;
-import eu.learnpad.or.rest.data.SimulationScoreType;
 import eu.learnpad.or.rest.data.States;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessId;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatus;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatusType;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatus.Info;
+import eu.learnpad.sim.rest.event.ScoreType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -331,7 +331,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     }
 
     @Override
-    public void updateSimulationScore(String modelSetId, String simulationSessionId, String processArtifactId, Long timestamp, String userId, SimulationScoreType scoreType, Float score) throws LpRestException {
+    public void updateSimulationScore(String modelSetId, String simulationSessionId, String processArtifactId, Long timestamp, String userId, ScoreType scoreType, Float score) throws LpRestException {
         try {
             SimulationScoreLog.getInstance().logSimulationScore(timestamp, simulationSessionId, modelSetId, processArtifactId, userId, scoreType, score);
         } catch (RecommenderException ex) {

@@ -26,7 +26,7 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.SimulationData;
-import eu.learnpad.or.rest.data.SimulationScoreType;
+import eu.learnpad.sim.rest.event.ScoreType;
 
 public interface SimulationNotification {
 
@@ -93,7 +93,7 @@ public interface SimulationNotification {
 	// <host>/learnpad/or/bridge/{modelsetid}/{modelid}/simulationtaskend?artifactid=aid,simulationid=id
 
 	@POST
-	@Path("/{modelsetid}/simulationtaskend")
+	@Path("/{modelsetid}/{modelid}/simulationtaskend")
 	void simulationTaskEndNotification(@PathParam("modelsetid") String modelSetId, @PathParam("modelid") String modelId,
 			@QueryParam("artifactid") String artifactId, @QueryParam("simulationid") String simulationId,
 			SimulationData data) throws LpRestException;
@@ -121,6 +121,6 @@ public interface SimulationNotification {
 	void updateSimulationScore(@PathParam("modelsetid") String modelSetId, @QueryParam("simulationsessionid") String simulationSessionId,
 			@QueryParam("processartifactid") String processArtifactId,
 			@QueryParam("timestamp") Long timestamp, @QueryParam("userid") String userId,
-                        @QueryParam("scoretype") SimulationScoreType scoreType, @QueryParam("score") Float score) throws LpRestException;        
+                        @QueryParam("scoretype") ScoreType scoreType, @QueryParam("score") Float score) throws LpRestException;        
         
 }

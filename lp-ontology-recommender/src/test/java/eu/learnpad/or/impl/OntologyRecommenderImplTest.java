@@ -8,8 +8,8 @@ package eu.learnpad.or.impl;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.ontology.AbstractUnitTest;
 import eu.learnpad.or.rest.data.Entities;
-import eu.learnpad.or.rest.data.SimulationScoreType;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessId;
+import eu.learnpad.sim.rest.event.ScoreType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import org.junit.Test;
@@ -71,12 +71,12 @@ public class OntologyRecommenderImplTest extends AbstractUnitTest {
         Float score = 4.8f;
         OntologyRecommenderImpl instance = new OntologyRecommenderImpl(); 
         try {
-            instance.updateSimulationScore(MODELSET_ID, "fakeSessionId", null, timestamp, TEST_USER, SimulationScoreType.BP_SCORE, score);
+            instance.updateSimulationScore(MODELSET_ID, "fakeSessionId", null, timestamp, TEST_USER, ScoreType.BP_SCORE, score);
             fail("Expected LpRestException due to null value for processId.");
         } catch (LpRestException ex) {}
 
         try {
-            instance.updateSimulationScore(MODELSET_ID, null, "fakeProcessId", timestamp, TEST_USER, SimulationScoreType.BP_SCORE, score);
+            instance.updateSimulationScore(MODELSET_ID, null, "fakeProcessId", timestamp, TEST_USER, ScoreType.BP_SCORE, score);
             fail("Expected LpRestException due to null value for sessionId.");
         } catch (LpRestException ex) {}   
     }

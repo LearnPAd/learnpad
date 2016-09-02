@@ -5,7 +5,6 @@
  */
 package eu.learnpad.ontology.simulation;
 
-import ch.fhnw.cbr.persistence.OntAO;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -17,7 +16,7 @@ import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.persistence.util.OntUtil;
 import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.ontology.util.ArgumentCheck;
-import eu.learnpad.or.rest.data.SimulationScoreType;
+import eu.learnpad.sim.rest.event.ScoreType;
 import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
@@ -58,17 +57,17 @@ public class SimulationScoreLog {
      * @return the log entry created in the ontology
      */
     public Individual logSimulationScore(Long timestamp, String simulationSessionId, String modelSetId,
-            String processArtifactId, String userId, SimulationScoreType scoreType, Float scoreUpdateValue) throws RecommenderException {
+            String processArtifactId, String userId, ScoreType scoreType, Float scoreUpdateValue) throws RecommenderException {
 
         ArgumentCheck.notNullThrowException(timestamp, "Timestamp for simulation score update missing.");
         ArgumentCheck.notNullThrowException(userId, "UerId for simulation score update missing.");
         ArgumentCheck.notNullThrowException(simulationSessionId, "ScoreType for simulation score update missing.");
         ArgumentCheck.notNullThrowException(scoreUpdateValue, "Score value for simulation score update missing.");
 
-        if (scoreType.equals(SimulationScoreType.BP_SCORE)) {
+        if (scoreType.equals(ScoreType.BP_SCORE)) {
             ArgumentCheck.notNullThrowException(processArtifactId, "Process artifact id cannot be null in case of a business process score.");
         }
-        if (scoreType.equals(SimulationScoreType.SESSION_SCORE)) {
+        if (scoreType.equals(ScoreType.SESSION_SCORE)) {
             ArgumentCheck.notNullThrowException(simulationSessionId, "Simulation session id cannot be null in case of a simulation session score.");
         }
 

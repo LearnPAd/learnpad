@@ -17,7 +17,7 @@ import eu.learnpad.ontology.simulation.SimulationScoreLog;
 import eu.learnpad.ontology.wiki.UserActionNotificationLog;
 import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.ResourceType;
-import eu.learnpad.or.rest.data.SimulationScoreType;
+import eu.learnpad.sim.rest.event.ScoreType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +36,7 @@ public abstract class AbstractKpiTest extends AbstractUnitTest {
     private Map<String, List<Individual>> logEntries = new HashMap();
     private List<Individual> testWikiPages = new ArrayList();
 
-    protected List<Individual> logs(SimulationScoreType kpiLogType) {
+    protected List<Individual> logs(ScoreType kpiLogType) {
         return logs(kpiLogType.toString());
     }
 
@@ -51,7 +51,7 @@ public abstract class AbstractKpiTest extends AbstractUnitTest {
         return logEntries.get(kpiLogType);
     }
 
-    protected void addLog(SimulationScoreType kpiLogType, Individual logEntry) {
+    protected void addLog(ScoreType kpiLogType, Individual logEntry) {
         logs(kpiLogType).add(logEntry);
     }
 
@@ -67,7 +67,7 @@ public abstract class AbstractKpiTest extends AbstractUnitTest {
 
     protected Individual createSimScoreLog(Long timestamp, String simulationSessionId,
             String modelSetId, String processArtifactId, String userId,
-            SimulationScoreType scoreType, Float score) throws RecommenderException {
+            ScoreType scoreType, Float score) throws RecommenderException {
 
         Individual logEntry = SimulationScoreLog.getInstance().logSimulationScore(timestamp, simulationSessionId, modelSetId, processArtifactId, userId, scoreType, score);
         addLog(scoreType, logEntry);
@@ -96,7 +96,7 @@ public abstract class AbstractKpiTest extends AbstractUnitTest {
     }
 
     protected void cleanUpSimScoreLogs() {
-        for (SimulationScoreType type : SimulationScoreType.values()) {
+        for (ScoreType type : ScoreType.values()) {
             for (Individual logEntryToDelete : logs(type)) {
                 logEntryToDelete.remove();
             }
