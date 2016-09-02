@@ -8,6 +8,7 @@ import eu.learnpad.sim.rest.event.impl.TaskStartEvent;
 import eu.learnpad.sim.rest.event.impl.TaskFailedEvent; 
 import eu.learnpad.sim.rest.event.impl.TaskEndEvent; 
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent; 
+import eu.learnpad.sim.rest.event.impl.ScoreUpdateEvent; 
 import eu.learnpad.sim.rest.event.EventType;
 import eu.learnpad.simulator.mon.manager.ResponseDispatcher; 
 import eu.learnpad.simulator.mon.manager.RestNotifier; 

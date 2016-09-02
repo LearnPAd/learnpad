@@ -93,6 +93,35 @@
 				<component.sim.prefix></component.sim.prefix>
 			</properties>
 		</profile>
+		<profile>
+			<id>marche</id>
+			<properties>
+				<component.ca.protocol>http</component.ca.protocol>
+				<component.ca.ip>10.101.10.165</component.ca.ip>
+				<component.ca.port>8082</component.ca.port>
+				<component.ca.prefix>/lp-content-analysis</component.ca.prefix>
+				<component.cw.protocol>http</component.cw.protocol>
+				<component.cw.ip>10.101.10.165</component.cw.ip>
+				<component.cw.port>8080</component.cw.port>
+				<component.cw.prefix>/xwiki/rest</component.cw.prefix>
+				<component.dash.protocol>http</component.dash.protocol>
+				<component.dash.ip>10.101.10.165</component.dash.ip>
+				<component.dash.port>7078</component.dash.port>
+				<component.dash.prefix></component.dash.prefix>
+				<component.mt.protocol>http</component.mt.protocol>
+				<component.mt.ip>10.101.10.165</component.mt.ip>
+				<component.mt.port>8083</component.mt.port>
+				<component.mt.prefix>/rest</component.mt.prefix>
+				<component.mv.protocol>http</component.mv.protocol>
+				<component.mv.ip>10.101.10.165</component.mv.ip>
+				<component.mv.port>9998</component.mv.port>
+				<component.mv.prefix>/rest</component.mv.prefix>
+				<component.sim.protocol>http</component.sim.protocol>
+				<component.sim.ip>10.101.10.165</component.sim.ip>
+				<component.sim.port>8081</component.sim.port>
+				<component.sim.prefix></component.sim.prefix>
+			</properties>
+		</profile>
 	</profiles>
 
 	<modules>
@@ -200,6 +229,10 @@
 									<learnpadPropertiesComponentCwIp>${component.cw.ip}</learnpadPropertiesComponentCwIp>
 									<learnpadPropertiesComponentCwPort>${component.cw.port}</learnpadPropertiesComponentCwPort>
 									<learnpadPropertiesComponentCwPrefix>${component.cw.prefix}</learnpadPropertiesComponentCwPrefix>
+									<learnpadPropertiesComponentDashProtocol>${component.dash.protocol}</learnpadPropertiesComponentDashProtocol>
+									<learnpadPropertiesComponentDashIp>${component.dash.ip}</learnpadPropertiesComponentDashIp>
+									<learnpadPropertiesComponentDashPort>${component.dash.port}</learnpadPropertiesComponentDashPort>
+									<learnpadPropertiesComponentDashPrefix>${component.dash.prefix}</learnpadPropertiesComponentDashPrefix>
 									<learnpadPropertiesComponentMtProtocol>${component.mt.protocol}</learnpadPropertiesComponentMtProtocol>
 									<learnpadPropertiesComponentMtIp>${component.mt.ip}</learnpadPropertiesComponentMtIp>
 									<learnpadPropertiesComponentMtPort>${component.mt.port}</learnpadPropertiesComponentMtPort>

@@ -26,6 +26,7 @@ package eu.learnpad.simulator.uihandler.webserver.msg.user.send;
 
 import java.util.Map;
 
+import eu.learnpad.sim.rest.event.ScoreType;
 import eu.learnpad.simulator.uihandler.webserver.msg.user.IUserMsg;
 
 /**
@@ -37,13 +38,15 @@ public class SessionFinished implements IUserMsg {
 	public String sessionid;
 	public Map<String, String> tasknames;
 	public Map<String, Integer> taskscores;
+	public Map<String, Map<ScoreType, Float>> probescores;
 
 	public SessionFinished(String sessionid, Map<String, String> tasknames,
-			Map<String, Integer> taskscores) {
+			Map<String, Integer> taskscores, Map<String, Map<ScoreType, Float>> probescores) {
 		super();
 		this.sessionid = sessionid;
 		this.tasknames = tasknames;
 		this.taskscores = taskscores;
+		this.probescores = probescores;
 	}
 
 	/*

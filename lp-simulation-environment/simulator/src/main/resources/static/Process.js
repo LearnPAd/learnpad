@@ -114,14 +114,6 @@ function processReceiver(address) {
                 values['applicationATECOCategory'] = 'lpd:InstallationOfElectricalSystems';
             }
 
-            // re-stringify
-            values = JSON.stringify(values);
-        }
-
-        if(id == 'y3-demo') {
-            // un-stringify
-            values = JSON.parse(values);
-
             // some default values
             values['off1FeedbackCond1'] = '';
             values['off1FeedbackCond2'] = '';
@@ -147,7 +139,7 @@ function processReceiver(address) {
             values['answerOffDog'] = '';
             values['answerOffCap'] = '';
 
-            if(values['case'] === '829.2015') {
+            if(values['case'] === '829-2015') {
                 values['answerOffEdiuzia'] = 'parere favorevole condizionato dello Sportello Unico per l\'Edilizia - ammissibilità dell\'intervento su richiesta di permesso di costruire';
                 values['answerOffPorto'] = 'parere positivo scritto e precedentemente depositato in ordine alla modifica del muretto';
                 values['answerOffAmb'] = 'parere di compatibilità paesaggistica ai sensi dell\'art. 146 DLgs 42/2004 e smi';
@@ -159,7 +151,7 @@ function processReceiver(address) {
                 values['answerOffCap'] = 'informato solo per conoscenza - silenzio assenso';
             }
 
-            if(values['case'] === '1118.2015') {
+            if(values['case'] === '1118-2015') {
                 values['answerOffEdiuzia'] = 'rilascio parere favorevole su presentazione SCIA';
                 values['answerOffAmb'] = 'l\'intervento proposto è compatibile a livello paesaggistico ai sensi dell\'art. 146 DLgs 42/2004';
                 values['answerOffAtt'] = 'espletata attività istruttoria - ok sui controlli formali e di merito';

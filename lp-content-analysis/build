@@ -19,6 +19,25 @@ declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
 # avoid deleting/re-downloading license files
 declare -r __MVN_PROFILE__="-Pkeep-license-files --batch-mode"
 
+declare __ARG_FLAG__="";
+for arg in $*
+do
+	case ${arg} in
+		"--dev")
+			__ARG_FLAG__="dev";
+			declare __MVN_PROFILES__="${__MVN_PROFILES__},dev"
+			;;
+		"--review")
+			__ARG_FLAG__="review";
+			declare __MVN_PROFILES__="${__MVN_PROFILES__},review"
+			;;
+		"--marche")
+			__ARG_FLAG__="marche";
+			declare __MVN_PROFILES__="${__MVN_PROFILES__},marche"
+			;;
+	esac
+done
+
 ### BUILD ###
 function component_build() {
     rm -rf ${__OUT_PATH__}
@@ -39,11 +58,17 @@ function component_test() {
 # This is where you need to publish material into the `out' directory
 function component_install() {
     mkdir -p ${__OUT_PATH__}
-    cp "scripts/start" "${__OUT_START_FILE__}"
+    if [ "${__ARG_FLAG__}" == "marche" ]
+    then
+    	cp "scripts/start-marche" "${__OUT_START_FILE__}"
+    else
+    	cp "scripts/start" "${__OUT_START_FILE__}"
+    fi
     cp "scripts/stop" "${__OUT_STOP_FILE__}"
     cp -r "target/lib/" "${__OUT_PATH__}/lib/"
     cp "target/lp-content-analysis.jar" "${__OUT_PATH__}/lp-content-analysis.jar"
     cp "target/config.properties" "${__OUT_PATH__}/config.properties"
+    cp "target/configMarche.properties" "${__OUT_PATH__}/configMarche.properties"
     # There is no run dependencies for this component
     #cp <path_to>/rundeps.txt ${__OUT_RUNDEPS_FILE__}
     # These is no configuration file to copy

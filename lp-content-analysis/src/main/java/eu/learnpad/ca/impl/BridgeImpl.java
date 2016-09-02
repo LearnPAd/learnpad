@@ -29,6 +29,7 @@ import eu.learnpad.ca.analysis.correctness.CorrectnessAnalysis;
 import eu.learnpad.ca.analysis.non_ambiguity.NonAmbiguity;
 import eu.learnpad.ca.analysis.presentation.PresentationClarity;
 import eu.learnpad.ca.analysis.simplicity.Simplicity;
+import eu.learnpad.ca.config.PropertyUtil;
 import eu.learnpad.ca.gate.GateThread;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalyses;
 import eu.learnpad.ca.rest.data.collaborative.AnnotatedCollaborativeContentAnalysis;
@@ -46,7 +47,23 @@ public class BridgeImpl extends Bridge {
 	private static Integer id =0;
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(BridgeImpl.class);
 
+    private final String configFileLocationLabel = "config.file.location";
+    private PropertyUtil conf;
 
+    private final String IP_CAUI_Label = "ip_ui_server";
+    private final String PORT_CAUI_Label = "port_ui_server";
+    private final String IP_CAUI_DEFAULT = "localhost";
+    private final String PORT_CAUI_DEFAULT = "9092";
+    
+	public BridgeImpl() {
+		String confFileName = System.getProperty(configFileLocationLabel);
+		if (confFileName == null) {
+			this.conf = new PropertyUtil();
+		} else {
+			this.conf = new PropertyUtil(confFileName);
+		}
+	}
+	
 	@Path("/validatecollaborativecontent")
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
@@ -216,19 +233,21 @@ public class BridgeImpl extends Bridge {
 	@GET
 	public String getCollaborativeContentVerificationsView(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException {
-		String ip,port="";
-		try{
-			Properties prop = new Properties();
-			// load a properties file
-			InputStream is = new FileInputStream("config.properties");
-			prop.load(is); //$NON-NLS-1$
-
-			ip = prop.getProperty("ip_ui_server");
-			port = prop.getProperty("port_ui_server");
-			}catch(Exception e){
-				ip="localhost";
-				port = "9092";
-			}
+//		String ip,port="";
+//		try{
+//			Properties prop = new Properties();
+//			// load a properties file
+//			InputStream is = new FileInputStream("config.properties");
+//			prop.load(is); //$NON-NLS-1$
+//
+//			ip = prop.getProperty("ip_ui_server");
+//			port = prop.getProperty("port_ui_server");
+//			}catch(Exception e){
+//				ip="localhost";
+//				port = "9092";
+//			}
+		String ip = this.conf.getProperty(IP_CAUI_Label, IP_CAUI_DEFAULT);
+		String port = this.conf.getProperty(PORT_CAUI_Label, PORT_CAUI_DEFAULT);
 		
 		return "http://"+ip+":"+port+"/getanalysis.jsf?id="+contentID;
 	}
@@ -423,20 +442,22 @@ public class BridgeImpl extends Bridge {
 	@GET
 	public String getStaticContentVerificationsView(@PathParam("idAnnotatedCollaborativeContentAnalysis") String contentID)
 			throws LpRestException {
-		String ip,port="";
-		try{
-			Properties prop = new Properties();
-			// load a properties file
-			InputStream is = new FileInputStream("config.properties");
-			prop.load(is); //$NON-NLS-1$
-
-				ip = prop.getProperty("ip_ui_server");
-				port = prop.getProperty("port_ui_server");
-			}catch(Exception e){
-				ip="localhost";
-				port = "9092";
-			}
-		
+//		String ip,port="";
+//		try{
+//			Properties prop = new Properties();
+//			// load a properties file
+//			InputStream is = new FileInputStream("config.properties");
+//			prop.load(is); //$NON-NLS-1$
+//
+//				ip = prop.getProperty("ip_ui_server");
+//				port = prop.getProperty("port_ui_server");
+//			}catch(Exception e){
+//				ip="localhost";
+//				port = "9092";
+//			}
+		String ip = this.conf.getProperty(IP_CAUI_Label, IP_CAUI_DEFAULT);
+		String port = this.conf.getProperty(PORT_CAUI_Label, PORT_CAUI_DEFAULT);
+				
 		return "http://"+ip+":"+port+"/getanalysis.jsf?id="+contentID;
 	}
 

@@ -1,5 +1,7 @@
 package eu.learnpad.simulator.mon.coverage;
 
+import eu.learnpad.sim.rest.event.ScoreType;
+
 public class Score {
 
 	private ScoreType type;

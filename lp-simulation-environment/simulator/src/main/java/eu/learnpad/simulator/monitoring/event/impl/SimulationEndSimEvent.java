@@ -41,7 +41,9 @@ package eu.learnpad.simulator.monitoring.event.impl;
  */
 
 import java.util.Collection;
+import java.util.Map;
 
+import eu.learnpad.sim.rest.event.ScoreType;
 import eu.learnpad.simulator.monitoring.event.AbstractSimEvent;
 import eu.learnpad.simulator.monitoring.event.SimEventType;
 
@@ -52,9 +54,12 @@ import eu.learnpad.simulator.monitoring.event.SimEventType;
  */
 public class SimulationEndSimEvent extends AbstractSimEvent {
 
+	public final Map<String, Map<ScoreType, Float>> probeScores;
+
 	public SimulationEndSimEvent(Long timestamp, String simulationsessionid,
-			Collection<String> involvedusers) {
+			Collection<String> involvedusers, Map<String, Map<ScoreType, Float>> probeScores) {
 		super(timestamp, simulationsessionid, involvedusers);
+		this.probeScores = probeScores;
 	}
 
 	@Override

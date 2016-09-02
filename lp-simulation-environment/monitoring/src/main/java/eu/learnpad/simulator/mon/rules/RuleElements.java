@@ -18,11 +18,12 @@ public class RuleElements {
 				"import eu.learnpad.sim.rest.event.AbstractEvent;\n\t\t" +
 				"import eu.learnpad.sim.rest.event.EventType;\n\t\t" +
 				"import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;\n\t\t" +
+				"import eu.learnpad.sim.rest.event.impl.TaskEndEvent;\n\t\t" +
 				"\t\tdeclare GlimpseBaseEventBPMN\n" +
 				"\t\t\t@role( event )\n" +
 				"\t\t\t@timestamp( timeStamp )\n" +
 				"\t\tend\n\n" + 
-				"\t\trule \"" + ruleName + "\"\n" +
+				"\t\trule \"" + ruleName + "##INSTANCE##\"\n" +
 				"\t\tno-loop true\n" +
 				"\t\tsalience 20\n" +
 				"\t\tdialect \"" + dialect + "\"\n\n";
@@ -47,15 +48,29 @@ public class RuleElements {
 	
 	public static String getThenClauseForCoverageWithLearnersScoreUpdateAndProcessStartNotification(Activity[] theActivitySetToSetConsumed, String idBPMN, String idPath) {
 		String concat = "\n\t\tthen ";
-		for (int i = 0; i<theActivitySetToSetConsumed.length+1; i++) {
+		for (int i = 0; i<(theActivitySetToSetConsumed.length*2)+2; i++) {
 			concat = concat + "\n\t\t\t$"+ i
 					+ "Event.setConsumed(true); \n\t\t\tupdate($"+ i +"Event);"
 					+ "\n\t\t\tretract($"+ i +"Event);";					
 		}
 		 concat = concat + "\n\t\t\t" +
-			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \"" + idBPMN + "\", drools.getRule().getName(), (SessionScoreUpdateEvent)$"+ (theActivitySetToSetConsumed.length-1)+"Event.getEvent());";
+			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", $"+ ((theActivitySetToSetConsumed.length*2)-1)+ "Event.getUserID() ,\"" + idBPMN + "\", drools.getRule().getName(), (SessionScoreUpdateEvent)$"+ ((theActivitySetToSetConsumed.length*2)-1)+"Event.getEvent());";
 		return concat;
 	}
+	
+	
+	
+//	public static String getThenClauseForScoreUpdateAndProcessStartNotification(Activity[] theActivitySetToSetConsumed, String idBPMN, String idPath) {
+//		String concat = "\n\t\tthen ";
+//		for (int i = 0; i<(theActivitySetToSetConsumed.length*2)+2; i++) {
+//			concat = concat + "\n\t\t\t$"+ i
+//					+ "Event.setConsumed(true); \n\t\t\tupdate($"+ i +"Event);"
+//					+ "\n\t\t\tretract($"+ i +"Event);";					
+//		}
+//		 concat = concat + "\n\t\t\t" +
+//			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \"" + idBPMN + "\", drools.getRule().getName(), (SessionScoreUpdateEvent)$"+ (theActivitySetToSetConsumed.length-1)+"Event.getEvent());";
+//		return concat;
+//	}
 		
 	
 	public static String getEnd() {

@@ -41,6 +41,7 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import eu.learnpad.sim.rest.event.ScoreType;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
@@ -156,7 +157,7 @@ public class UIServlet extends WebSocketServlet {
 		}
 	}
 
-	public void completeSession(String sessionId) {
+	public void completeSession(String sessionId, Map<String, Map<ScoreType, Float>> probeScores) {
 
 		Map<LearnPadTask, Integer> detailedScore = manager
 				.getDetailedInstanceScore(sessionId, uiid);
@@ -174,7 +175,7 @@ public class UIServlet extends WebSocketServlet {
 			try {
 				session.getRemote().sendString(
 						mapper.writeValueAsString(new SessionFinished(
-								sessionId, taskNames, taskScores)));
+								sessionId, taskNames, taskScores, probeScores)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

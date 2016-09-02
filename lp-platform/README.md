@@ -58,17 +58,18 @@ To build the platform, you need of course to build all the other component of
 the platform first.  Once done, you can build 3 different variants of the
 platform with the help of profiles in Maven.
 
-In the `lp-platform` folder, you can give one of the two following options to
+In the `lp-platform` folder, you can give one of the 3 following options to
 the build script:
 * `--dev`
 * `--review`
+* `--marche`
 
 These profiles have influence in different part of the build and therefore may
 be dispatched in all of these projects:
 [`lp-platform-conf`](https://github.com/LearnPAd/learnpad/tree/master/lp-platform/lp-platform-conf),
 [`lp-platform-distributions`](https://github.com/LearnPAd/learnpad/tree/master/lp-platform/lp-platform-distributions)
 and
-[`lp-platform-jetty-hsqldb`](https://github.com/LearnPAd/learnpad/tree/master/lp-platform/lp-platform-distributions/lp-platform-jetty-hsqldb).
+[`lp-platform-jetty-hsqldb`](https://github.com/LearnPAd/learnpad/tree/master/lp-platform/lp-platform-distributions/lp-platform-jetty-hsqldb). By enabling these profiles it may require to configure also others components runnig externally from the `lp-platform` (e.g. [`lp-dashboard-kpi`](https://github.com/LearnPAd/learnpad/tree/master/lp-dashboard-kpi), [`lp-content-analysis`](https://github.com/LearnPAd/learnpad/tree/master/lp-content-analysis), [`lp-simulation-environment`](https://github.com/LearnPAd/learnpad/tree/master/lp-simulation-environment)) 
 The two following sections will give details about these modes.
 
 ## `dev` mode
@@ -91,6 +92,11 @@ wiki, some applications has been installed specifically for development purpose:
 ## `review` mode
 The review mode is only about a preconfiguration of every REST addresses for
 components.  You'll find this configuration in
+[`lp-platform-distributions`](https://github.com/LearnPAd/learnpad/blob/master/lp-platform/lp-platform-distributions/pom.xml).
+
+## `marche` mode
+The marche mode is only about a preconfiguration of every REST addresses for
+components according to the deploy foreseen at MAR.  You'll find this configuration in
 [`lp-platform-distributions`](https://github.com/LearnPAd/learnpad/blob/master/lp-platform/lp-platform-distributions/pom.xml).
 
 # Details

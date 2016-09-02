@@ -27,22 +27,24 @@ public class PathExplorerImpl implements PathExplorer {
 		kpiExample.put("kpiThree", 0.3f);
 		kpiExample.put("kpiFour", 0.4f);
 		
-		Activity checkApp = new Activity("act1","Check Application",kpiExample, 2.0f);
-		Activity validateEleg = new Activity("act2", "Validate elegibility",kpiExample, 2.0f);
-		Activity inviteInterview = new Activity("act3","Invite for interview",kpiExample, 2.0f);
-		Activity sendReject = new Activity("act4","Send rejection letter",kpiExample, 2.0f);
-		Activity makeInterview = new Activity("act5","Make Interview",kpiExample, 2.0f);
-		Activity decideApplication = new Activity("act6","Decide application",kpiExample, 2.0f);
-		Activity decidefee = new Activity("act7","Decide fee",kpiExample, 2.0f);
-		Activity sendAcceptance = new Activity("act8","Send Acceptance letter",kpiExample, 2.0f);
+		Activity serviceConfInv = new Activity("Service Conference Invitation","Service Conference Invitation",kpiExample, 2.0f);
+		
+		Activity putStamps = new Activity("Putting Stamps on the received documentation", "Putting Stamps on the received documentation",kpiExample, 2.0f);
+		Activity checkProvided = new Activity("Check Provided Documentation","Check Provided Documentation",kpiExample, 2.0f);
+		Activity takeADecision = new Activity("Take a decision","Take a decision",kpiExample, 2.0f);
+		Activity provideOp = new Activity("Provide Opinion","Provide Opinion",kpiExample, 2.0f);
+		Activity receivedOpinion = new Activity("Received Opinion Evaluation","Received Opinion Evaluation",kpiExample, 2.0f);
+		Activity provideAuthUnder = new Activity("Provide Authorization Under Condition","Provide Authorization Under Condition",kpiExample, 2.0f);
+		Activity provideAuth = new Activity("Provide Authorization","Provide Authorization",kpiExample, 2.0f);
+		Activity provideFinal = new Activity("Provide Final Report","Provide Final Report",kpiExample, 2.0f);
 		
 		lastExploredBPMN.add(new Activity[]
-						{checkApp, validateEleg, sendReject});
+						{serviceConfInv});
 		lastExploredBPMN.add(new Activity[]
-						{checkApp, validateEleg, inviteInterview, makeInterview, decideApplication, sendReject});
-		lastExploredBPMN.add(new Activity[]{checkApp, validateEleg, inviteInterview,
-						makeInterview, decideApplication, decidefee, sendAcceptance});
-		
+						{serviceConfInv, putStamps, checkProvided, takeADecision, provideOp, receivedOpinion, provideAuthUnder, provideFinal});
+
+		lastExploredBPMN.add(new Activity[]
+						{serviceConfInv, putStamps, checkProvided, takeADecision, provideOp, receivedOpinion, provideAuth, provideFinal});
 		//END FAKE EXPLORATION
 		
 		return lastExploredBPMN;
