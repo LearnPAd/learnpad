@@ -41,9 +41,9 @@ import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import eu.learnpad.sim.rest.event.ScoreType;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
-import eu.learnpad.simulator.mon.coverage.ScoreType;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
 import eu.learnpad.simulator.uihandler.webserver.msg.user.send.AddTask;
 import eu.learnpad.simulator.uihandler.webserver.msg.user.send.DeleteTask;
