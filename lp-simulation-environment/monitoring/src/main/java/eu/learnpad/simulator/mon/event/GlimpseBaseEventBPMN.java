@@ -1,6 +1,8 @@
 package eu.learnpad.simulator.mon.event;
 
 import eu.learnpad.sim.rest.event.AbstractEvent;
+import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
+import eu.learnpad.sim.rest.event.impl.TaskEndEvent;
 
 public class GlimpseBaseEventBPMN<T> extends GlimpseBaseEventGeneric<String> {
 
@@ -19,7 +21,19 @@ public class GlimpseBaseEventBPMN<T> extends GlimpseBaseEventGeneric<String> {
 	public AbstractEvent getEvent() {
 		return this.event;
 	}
+	
+	public String getUserID() {
+		return ((SessionScoreUpdateEvent) this.event).user;
+	}
+	
+	public TaskEndEvent getTaskEndEvent() {
+		return (TaskEndEvent) this.event;
+	}
 
+	public SessionScoreUpdateEvent getSessionScoreUpdateEvent() {
+		return (SessionScoreUpdateEvent) this.event;
+	}
+	
 	public void setEvent(AbstractEvent event) {
 		this.event = event;
 	}
