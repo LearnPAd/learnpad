@@ -67,12 +67,12 @@
     #set ($titleReferredDoc = $xwiki.getDocument($hcResults[0]).title)
     #set ($found = $titleReferredDoc.matches('.*Titolo.*Unico.*'))
     #if ($found)
-##        #set ($modelid = "$modelid-titoloUnico")
+##        #set ($modelid = $modelid + "-titoloUnico")
         #set ($modelid = "mod.27772")
     #else
       #set ($found = $titleReferredDoc.matches('.*Conferenza.*Servizi.*'))
       #if ($found)
-##        #set ($modelid = "$modelid-gestioneConferenzaDiServizi")
+##        #set ($modelid = $modelid + "-gestioneConferenzaDiServizi")
         #set ($modelid = "mod.27772")
       #else
 {{warning}}
