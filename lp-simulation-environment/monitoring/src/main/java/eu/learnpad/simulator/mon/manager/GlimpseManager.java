@@ -51,6 +51,7 @@ import eu.learnpad.simulator.mon.consumer.ConsumerProfile;
 import eu.learnpad.simulator.mon.coverage.Learner;
 import eu.learnpad.simulator.mon.exceptions.IncorrectRuleFormatException;
 import eu.learnpad.simulator.mon.rules.RulesManager;
+import eu.learnpad.simulator.mon.rules.ScoreTemporaryStorage;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 
 public class GlimpseManager extends Thread implements MessageListener {
@@ -151,8 +152,11 @@ public class GlimpseManager extends Thread implements MessageListener {
 				String bpmnID = msg.getObjectProperty("BPMNID").toString();
 				String sessionID = msg.getObjectProperty("SESSIONID").toString();	
 				
-				Vector<Learner> objectProperty = learnerAssessmentManager.getDBController().getLearners(learnersIDs); 
-				ruleDoc = learnerAssessmentManager.elaborateModel(xmlMessagePayload, objectProperty, sessionID, bpmnID);
+				Vector<Learner> learnersInvolved = learnerAssessmentManager.getDBController().getOrSetLearners(learnersIDs); 
+				
+				ScoreTemporaryStorage sessionScoreBuffer = new ScoreTemporaryStorage(learnersInvolved, sessionID);
+				
+				ruleDoc = learnerAssessmentManager.elaborateModel(xmlMessagePayload, learnersInvolved, sessionID, bpmnID);
 
 			} else {
 				ruleDoc = ComplexEventRuleActionListDocument.Factory.parse(xmlMessagePayload);

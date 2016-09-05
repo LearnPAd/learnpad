@@ -95,10 +95,12 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 				Vector<Activity[]> theUnfoldedBPMN = bpmnExplorer.getUnfoldedBPMN(theBPMN);
 				
 				Bpmn newBpmn = new Bpmn(bpmnID,now,0, 0, theUnfoldedBPMN.size());
-				
+
 				//rules for coverage
 				Vector<Path> theGeneratedPath = crossRulesGenerator.generatePathsRules(
 																	crossRulesGenerator.generateAllPaths(theUnfoldedBPMN, newBpmn.getId()));
+				
+				
 				
 				//rules for other kpi calculation
 //				ComplexEventRuleActionListDocument rulesForKPI = 
