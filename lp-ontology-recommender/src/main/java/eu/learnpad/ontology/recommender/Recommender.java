@@ -43,6 +43,9 @@ public class Recommender {
     public static final String QUERY_LINEMANAGER_AS_EXPERT = "linemanagerAsExpert";
     public static final String QUERY_EXPERTS_WITH_SAME_ROLE = "expertsWithSameRole";
     public static final String QUERY_EXPERT_MOST_OFTEN_EXECUTED_TASK = "expertMostOftenExecutedTask";
+    public static final String QUERY_EXPERTS_WITH_EXPERT_ROLE = "expertsWithExpertRoleInLine";
+    public static final String QUERY_EXPERTS_FOR_EXPERTS = "expertsForExpertsInOtherUnit";
+    
     public static final String QUERY_LEARNING_MATERIAL_FOR_NEXT_COMPETENCY_LEVEL = "learningMaterialForNextCompetencyLevel";
 
     private Recommender() {
@@ -77,8 +80,12 @@ public class Recommender {
         Recommendations recommends = new Recommendations();
         Experts experts = new Experts();
         addBusinessActorsWithoutDuplicatesOrSelf(experts, suggestLineManagerAsExpert(modelSetId, artifactId, userId), userId);
-        addBusinessActorsWithoutDuplicatesOrSelf(experts, suggestExpertsWithSameRole(modelSetId, artifactId, userId), userId);
+        
+        //Disabled for evaluation. The quality of this recommendations has to be checked
+//        addBusinessActorsWithoutDuplicatesOrSelf(experts, suggestExpertsWithSameRole(modelSetId, artifactId, userId), userId);
         addBusinessActorsWithoutDuplicatesOrSelf(experts, suggestExpertMostOftenExecutedTask(modelSetId, artifactId, userId), userId);
+        addBusinessActorsWithoutDuplicatesOrSelf(experts, suggestExpertsWithExpertRole(modelSetId, artifactId, userId), userId);
+        addBusinessActorsWithoutDuplicatesOrSelf(experts, suggestExpertsForExperts(modelSetId, artifactId, userId), userId);
         recommends.setExperts(experts);
 
         LearningMaterials materials = new LearningMaterials();
@@ -101,6 +108,14 @@ public class Recommender {
         }
         return getExperts(QUERY_EXPERT_MOST_OFTEN_EXECUTED_TASK, modelSetId, artifactId, userId);
     }
+    
+    public List<BusinessActor> suggestExpertsWithExpertRole(String modelSetId, String artifactId, String userId) throws RecommenderException {
+        return getExperts(QUERY_EXPERTS_WITH_EXPERT_ROLE, modelSetId, artifactId, userId);
+    }
+
+    public List<BusinessActor> suggestExpertsForExperts(String modelSetId, String artifactId, String userId) throws RecommenderException {
+        return getExperts(QUERY_EXPERTS_FOR_EXPERTS, modelSetId, artifactId, userId);
+    }    
 
     private List<BusinessActor> getExperts(String queryName, String modelSetId, String artifactId, String userId) throws RecommenderException {
         RecommenderQuery queryObj = QueryMap.getQuery(queryName);

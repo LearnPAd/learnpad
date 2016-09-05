@@ -88,6 +88,82 @@ WHERE {
     } .
 } ORDER BY DESC (?count ) LIMIT 1
 ##END##
+##START## QUERY:expertsWithExpertRoleInLine
+##COMMENT:Persons with expert role assigned in users organisational hierarchy.
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix emo: <http://ikm-group.ch/archiMEO/emo#>
+prefix lpd: <http://learnpad.eu#>
+prefix omm: <http://ikm-group.ch/archiMEO/omm#>
+SELECT DISTINCT ?name ?firstName ?lastName ?businessActor ?email ?phone ?roleName ?skypeId ?officeAddress
+WHERE {
+    ?performer emo:performerHasEmailAddress ?userId .
+    ?performer omm:performerHasRole ?performerRole .
+    ?performerRole rdfs:label ?performerRoleName .
+    ?performerRole lpd:roleIsCastedByOrgUnit ?performerOrgUnit .
+    ?performerOrgUnit omm:organisationalUnitIsSubordinatedToOrganisationalUnit* ?expertOrgUnit .
+    ?expertRole lpd:roleIsCastedByOrgUnit ?expertOrgUnit .
+    ?expertRole rdfs:label ?roleName .
+    FILTER(?roleName ="Expert" &&  ?performerRoleName != "Expert")
+    ?expert omm:performerHasRole ?expertRole .
+    ?expert rdfs:label ?name .
+    FILTER(?expert != ?performer)
+    ?expert emo:performerRepresentsPerson ?businessActor .
+    OPTIONAL {
+        ?expert omm:performerHasFirstName ?firstName .
+        ?expert omm:performerHasLastName ?lastName .
+    }
+    OPTIONAL {
+        ?expert emo:performerHasEmailAddress ?email .
+    } .
+    OPTIONAL {
+        ?expert omm:performerHasPhoneNumber ?phone .
+    } .
+    OPTIONAL {
+        ?expert omm:performerHasSkypeId ?skypeId .
+    } .
+    OPTIONAL {
+        ?expert omm:performerHasOfficeAddress ?officeAddress .
+    } .
+}
+##END##
+##START## QUERY:expertsForExpertsInOtherUnit
+##COMMENT:Experts from other organisational unit/process recommended to experts.
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix emo: <http://ikm-group.ch/archiMEO/emo#>
+prefix lpd: <http://learnpad.eu#>
+prefix omm: <http://ikm-group.ch/archiMEO/omm#>
+SELECT DISTINCT ?name ?firstName ?lastName ?businessActor ?email ?phone ?roleName ?skypeId ?officeAddress
+WHERE {
+    ?performer emo:performerHasEmailAddress ?userId .
+    ?performer omm:performerHasRole ?performerRole .
+    ?performerRole rdfs:label ?performerRoleName .
+    ?expertRole rdf:type* omm:Role .
+    ?expertRole rdfs:label ?roleName .
+    FILTER(?performerRoleName = "Expert" && ?performerRole != ?expertRole && ?roleName ="Expert")
+    ?expert omm:performerHasRole ?expertRole .
+    ?expert rdfs:label ?name .
+    FILTER(?expert != ?performer)
+    ?expert emo:performerRepresentsPerson ?businessActor .
+    OPTIONAL {
+        ?expert omm:performerHasFirstName ?firstName .
+        ?expert omm:performerHasLastName ?lastName .
+    }
+    OPTIONAL {
+        ?expert emo:performerHasEmailAddress ?email .
+    } .
+    OPTIONAL {
+        ?expert omm:performerHasPhoneNumber ?phone .
+    } .
+    OPTIONAL {
+        ?expert omm:performerHasSkypeId ?skypeId .
+    } .
+    OPTIONAL {
+        ?expert omm:performerHasOfficeAddress ?officeAddress .
+    } .
+}
+##END##
 ##START## QUERY:learningObjectsForRestructuringInProtectedLandscapeArea
 ##COMMENT:Recommend documents relevant for restructuring applications in a protected landscape area
 prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>

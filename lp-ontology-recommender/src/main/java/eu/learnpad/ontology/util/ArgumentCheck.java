@@ -5,6 +5,8 @@
  */
 package eu.learnpad.ontology.util;
 
+import eu.learnpad.ontology.recommender.RecommenderException;
+
 /**
  *
  * @author sandro.emmenegger
@@ -17,4 +19,9 @@ public class ArgumentCheck {
         }
     }
     
+    static public void notNullThrowException(Object argument, String failMessage) throws RecommenderException{
+        if(argument == null){
+            throw new RecommenderException("Expect non null argument: "+failMessage);
+        }
+    }
 }

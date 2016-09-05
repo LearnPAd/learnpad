@@ -15,7 +15,6 @@ import eu.learnpad.ontology.kpi.KBProcessorNotifier;
 import eu.learnpad.ontology.kpi.data.SOMEService;
 import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.recommender.RecommenderException;
-import eu.learnpad.or.CoreFacade;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatusType;
 
 import java.io.ByteArrayInputStream;

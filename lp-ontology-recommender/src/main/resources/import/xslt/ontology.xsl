@@ -90,6 +90,7 @@ ________________________________________________________________________________
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type emo:BPMN_MetaModel ;
+  rdf:type bpmn:Process ;
   rdfs:subClassOf emo:BPMN_MetaModel ;
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;
@@ -594,7 +595,9 @@ ________________________________________________________________________________
             <xsl:param name="firstName" />
             <xsl:param name="lastName" />
             <xsl:param name="email" />
-            <xsl:param name="phoneNo" />            
+            <xsl:param name="phoneNo" />
+            <xsl:param name="skypeId" />
+            <xsl:param name="officeAddress" />
   transfer:<xsl:value-of select="$id"/>
   rdf:type owl:Class;
   rdf:type omm:Performer ;
@@ -608,6 +611,10 @@ ________________________________________________________________________________
 		  <xsl:if test="$email != ''">emo:performerHasEmailAddress "<xsl:value-of select="$email"/>"^^xsd:string ;
 		  </xsl:if>
 		  <xsl:if test="$phoneNo != ''">omm:performerHasPhoneNumber "<xsl:value-of select="$phoneNo"/>"^^xsd:string ;
+		  </xsl:if>
+		  <xsl:if test="$skypeId != ''">omm:performerHasSkypeId "<xsl:value-of select="$skypeId"/>"^^xsd:string ;
+		  </xsl:if>
+		  <xsl:if test="$officeAddress != ''">omm:performerHasOfficeAddress "<xsl:value-of select="$officeAddress"/>"^^xsd:string ;
 		  </xsl:if>
 	</xsl:template>
 	
