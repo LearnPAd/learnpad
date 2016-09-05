@@ -64,9 +64,9 @@ public class UIServlet extends WebSocketServlet {
 
 	private final IProcessManager manager;
 
-	private final Map<String, SimulationStartSimEvent> currentSessions = new HashMap<String, SimulationStartSimEvent>();
-	private final Set<String> currentTasks = new HashSet<String>();
-	private final Set<UISocket> activeSockets = new HashSet<UISocket>();
+	private final Map<String, SimulationStartSimEvent> currentSessions = new HashMap<>();
+	private final Set<String> currentTasks = new HashSet<>();
+	private final Set<UISocket> activeSockets = new HashSet<>();
 
 	private final ObjectMapper mapper = new ObjectMapper();
 
@@ -162,8 +162,8 @@ public class UIServlet extends WebSocketServlet {
 		Map<LearnPadTask, Integer> detailedScore = manager
 				.getDetailedInstanceScore(sessionId, uiid);
 
-		Map<String, String> taskNames = new HashMap<String, String>();
-		Map<String, Integer> taskScores = new HashMap<String, Integer>();
+		Map<String, String> taskNames = new HashMap<>();
+		Map<String, Integer> taskScores = new HashMap<>();
 
 		for (Entry<LearnPadTask, Integer> score : detailedScore.entrySet()) {
 			taskNames.put(score.getKey().id, score.getKey().name);
