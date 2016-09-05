@@ -643,7 +643,7 @@ public class ActivitiProcessManager implements IProcessManager,
 	}
 
 	@Override
-	public void receiveScore(String sessionId, String userId, ScoreType type, Float value) {
+	public synchronized void receiveScore(String sessionId, String userId, ScoreType type, Float value) {
 
 		if (!probeScoreByTypeByUsersBySession.containsKey(sessionId)) {
 			probeScoreByTypeByUsersBySession.put(sessionId, new HashMap<String, Map<ScoreType, Float>>());
