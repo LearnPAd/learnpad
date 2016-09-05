@@ -1077,6 +1077,11 @@ lpd:performanceValueBelongsToBusinessActor
   rdfs:domain lpd:PerformanceValue ;
   rdfs:range archi:BusinessActor ;
 .
+lpd:performanceValueCreationTimestamp
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain lpd:PerformanceValue ;
+  rdfs:range xsd:dateTime ;
+.
 lpd:performanceValueHasActualValue
   rdf:type owl:DatatypeProperty ;
   rdfs:domain lpd:PerformanceValue ;
@@ -1239,7 +1244,7 @@ xwiki:Annotation
   rdfs:comment "PIMM"^^xsd:string ;
   rdfs:subClassOf emo:XWIKIMetaModel ;
 .
-xwiki:Attachement
+xwiki:Attachment
   rdf:type owl:Class ;
   rdfs:subClassOf xwiki:Annotation ;
 .

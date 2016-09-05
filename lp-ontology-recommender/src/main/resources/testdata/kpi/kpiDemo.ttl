@@ -1,0 +1,81 @@
+# baseURI: http://learnpad.eu/kpidemo
+# imports: http://learnpad.eu
+# imports: http://learnpad.eu/kpir
+# imports: http://learnpad.eu/transfer
+# prefix: kpidemo
+
+@prefix kpidemo: <http://learnpad.eu/kpidemo#> .
+@prefix kpir: <http://learnpad.eu/kpir#> .
+@prefix lpd: <http://learnpad.eu#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix xwiki: <http://www.xwiki.org/xwiki/bin/view/Main/WebHome#> .
+
+<http://learnpad.eu/kpidemo>
+  rdf:type owl:Ontology ;
+  owl:imports <http://learnpad.eu> ;
+  owl:imports <http://learnpad.eu/kpir> ;
+  owl:imports <http://learnpad.eu/transfer> ;
+  owl:versionInfo "Created with TopBraid Composer"^^xsd:string ;
+.
+kpidemo:BPSimulationScore_1
+  rdf:type lpd:BPSimulationScore ;
+  lpd:hasSimulationScore 4.2 ;
+  lpd:simulationScoreBelongsToBusinessProcess <http://learnpad.eu/transfer#mod.49321> ;
+  lpd:simulationScoreCreatedAt "2016-06-03T10:00:00.000"^^xsd:dateTime ;
+  lpd:simulationScoreOfPerformer <http://learnpad.eu/transfer#obj.48873> ;
+.
+kpidemo:BPSimulationScore_2
+  rdf:type lpd:BPSimulationScore ;
+  lpd:hasSimulationScore 6.4 ;
+  lpd:simulationScoreBelongsToBusinessProcess <http://learnpad.eu/transfer#mod.49427> ;
+  lpd:simulationScoreCreatedAt "2016-08-03T12:11:41.658"^^xsd:dateTime ;
+  lpd:simulationScoreOfPerformer <http://learnpad.eu/transfer#obj.48873> ;
+.
+kpidemo:Comment_ActionHistory
+  rdf:type xwiki:ActionHistory ;
+  xwiki:actionAppliedToResource kpidemo:DemoComment ;
+  xwiki:actionTimestamp "2016-08-10T17:49:05.798"^^xsd:dateTime ;
+  xwiki:actionType "added"^^xsd:string ;
+  xwiki:user <http://learnpad.eu/transfer#obj.48873> ;
+.
+kpidemo:DemoComment
+  rdf:type xwiki:Comment ;
+  xwiki:annotationIsMadeToPage kpidemo:DemoWikiPage ;
+  xwiki:commentHasText "There is a more detailed description of this action you might find here xyz"^^xsd:string ;
+.
+kpidemo:DemoFeedback
+  rdf:type xwiki:Feedback ;
+  xwiki:annotationIsMadeToPage kpidemo:DemoWikiPage ;
+.
+kpidemo:DemoPage_Created_ActionHistory
+  rdf:type xwiki:ActionHistory ;
+  xwiki:actionAppliedToResource kpidemo:DemoWikiPage ;
+  xwiki:actionTimestamp "2016-08-10T17:42:41.579"^^xsd:dateTime ;
+  xwiki:actionType "added"^^xsd:string ;
+  xwiki:user <http://learnpad.eu/transfer#obj.48873> ;
+.
+kpidemo:DemoWikiPage
+  rdf:type xwiki:Page ;
+.
+kpidemo:Feedback_ActionHistory
+  rdf:type xwiki:ActionHistory ;
+  xwiki:actionAppliedToResource kpidemo:DemoFeedback ;
+  xwiki:actionTimestamp "2016-08-10T17:48:34.287"^^xsd:dateTime ;
+  xwiki:actionType "added"^^xsd:string ;
+  xwiki:user <http://learnpad.eu/transfer#obj.48873> ;
+.
+kpidemo:GlobalSimulationScore_1
+  rdf:type lpd:GlobalSimulationScore ;
+  lpd:hasSimulationScore 4.4 ;
+  lpd:simulationScoreCreatedAt "2016-08-03T12:16:50.702"^^xsd:dateTime ;
+  lpd:simulationScoreOfPerformer <http://learnpad.eu/transfer#obj.48873> ;
+.
+kpidemo:GlobalSimulationScore_2
+  rdf:type lpd:GlobalSimulationScore ;
+  lpd:hasSimulationScore 10.2 ;
+  lpd:simulationScoreCreatedAt "2016-08-03T12:18:31.612"^^xsd:dateTime ;
+  lpd:simulationScoreOfPerformer <http://learnpad.eu/transfer#obj.48903> ;
+.

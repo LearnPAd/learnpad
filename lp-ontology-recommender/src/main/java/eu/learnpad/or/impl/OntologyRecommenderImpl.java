@@ -28,10 +28,11 @@ import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.ontology.kpi.KBProcessorNotifier;
 import eu.learnpad.ontology.kpi.dashboard.KPILoader;
-import eu.learnpad.ontology.notification.NotificationLog;
+import eu.learnpad.ontology.wiki.UserActionNotificationLog;
 import eu.learnpad.ontology.recommender.Recommender;
 import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.ontology.recommender.cbr.CBRAdapter;
+import eu.learnpad.ontology.simulation.SimulationScoreLog;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.BusinessActor;
 import eu.learnpad.or.rest.data.Entities;
@@ -51,6 +52,7 @@ import eu.learnpad.or.rest.data.kbprocessing.KBProcessId;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatus;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatusType;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatus.Info;
+import eu.learnpad.sim.rest.event.ScoreType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,7 +93,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     @Override
 	public void resourceNotification(String modelSetId, String modelId, String artifactId, String resourceId, ResourceType resourceType, String referringToResourceId, String userId, Long timestamp, NotificationActionType action) throws LpRestException {
         try {
-            NotificationLog.getInstance().logResourceNotification(modelSetId, modelId, artifactId, resourceId, resourceType, referringToResourceId, userId, timestamp, action);
+            UserActionNotificationLog.getInstance().logResourceNotification(modelSetId, modelId, artifactId, resourceId, resourceType, referringToResourceId, userId, timestamp, action);
         } catch (RecommenderException ex) {
             Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.SEVERE, null, ex);
             throw new LpRestExceptionXWikiImpl("Loging resource notification failed. ", ex);
@@ -178,7 +180,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         BusinessActor person = new BusinessActor();
         person.setUri("transfer:obj.34872");
         person.setName("Sally Shugar");
-        person.setEmail("sally.shugar@learnpad.eu");
+        person.setEmail("s.shugar@learnpad.eu");
         person.setSkypeId("learnpad_sally");
         person.setPhoneNumber("+234 23223 123");
         person.setOfficeAddress("Yellow drive 244b, East Juhee, Malta");
@@ -230,7 +232,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
 
         BusinessActor person = new BusinessActor();
         person.setName("Sally Shugar");
-        person.setEmail("sally.shugar@learnpad.eu");
+        person.setEmail("s.shugar@learnpad.eu");
         person.setPhoneNumber("+234 23223 123");
         person.setSkypeId("learnpad_sally");
         person.setOfficeAddress("Yellow drive 244b, East Juhee, Malta");
@@ -312,20 +314,37 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         return fake;
     }
 
-	@Override
-	public void notifyProcessingStatus(String kbProcessId, KBProcessingStatusType status) {
-        	this.kbProcessingStatusMap.put(kbProcessId, status);
-	}
+    @Override
+    public void notifyProcessingStatus(String kbProcessId, KBProcessingStatusType status) {
+            this.kbProcessingStatusMap.put(kbProcessId, status);
+    }
 
-	@Override
-	public void notifyKPIValues(String modelSetId, KPIValuesFormat format,
-			String businessActorId, InputStream cockpitContent) throws LpRestException {
-		try {
-			this.corefacade.pushKPIValues(modelSetId, format, businessActorId, cockpitContent);
-		} catch (LpRestException e) {
-			Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.WARNING,"Exception:" + e.getMessage());
-			throw e;
-		}
-	}
+    @Override
+    public void notifyKPIValues(String modelSetId, KPIValuesFormat format,
+                    String businessActorId, InputStream cockpitContent) throws LpRestException {
+            try {
+                    this.corefacade.pushKPIValues(modelSetId, format, businessActorId, cockpitContent);
+            } catch (LpRestException e) {
+                    Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.WARNING,"Exception:" + e.getMessage());
+                    throw e;
+            }
+    }
+
+    @Override
+    public void updateSimulationScore(String modelSetId, String simulationSessionId, String processArtifactId, Long timestamp, String userId, ScoreType scoreType, Float score) throws LpRestException {
+        try {
+            SimulationScoreLog.getInstance().logSimulationScore(timestamp, simulationSessionId, modelSetId, processArtifactId, userId, scoreType, score);
+        } catch (RecommenderException ex) {
+            Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.WARNING, "Cannot update simulation score.", ex);
+            throw new LpRestExceptionXWikiImpl("Simulation score update failed: "
+                + "modelsetId='" + modelSetId
+                + "' simulationSessionId='" + String.valueOf(simulationSessionId)
+                + "' processArtifactId='" + String.valueOf(processArtifactId)
+                + "' timestamp='" + String.valueOf(timestamp)                        
+                + "' userId='" + userId
+                + "' scoreType='" + String.valueOf(scoreType)    
+                + "' score='" + String.valueOf(score)     + "'. ", ex);
+        }
+    }
 
 }

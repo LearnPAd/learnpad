@@ -6,19 +6,23 @@
 package eu.learnpad.ontology.recommender.cbr;
 
 import ch.fhnw.cbr.service.data.CaseInstanceVO;
+import eu.learnpad.ontology.AbstractUnitTest;
 import eu.learnpad.or.rest.data.SimilarCase;
 import eu.learnpad.or.rest.data.SimilarCases;
 import eu.learnpad.or.rest.data.SimulationData;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
+import java.util.logging.Logger;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  *
  * @author sandro.emmenegger
  */
-public class CBRAdapterTest {
+public class CBRAdapterTest extends AbstractUnitTest {
+    
+    private static final Logger LOG = Logger.getLogger(CBRAdapterTest.class.getName());
 
     @Test
     public void testCBR() {
@@ -29,7 +33,7 @@ public class CBRAdapterTest {
     }
 
     private void testWithTestSet(Map<String, Object> metaData, String simulationId, String testName) {
-        System.out.println("\n\n______ "+testName+" ______________________________________________\n");
+        LOG.fine("\n\n______ "+testName+" ______________________________________________\n");
         Map<String, Object> userData = null;
         CBRAdapter instance = CBRAdapter.getInstance();
         SimulationData simData = new SimulationData();
@@ -38,15 +42,15 @@ public class CBRAdapterTest {
         CaseInstanceVO result = instance.createOrUpdateSimulationSessionCase(simulationId, simData);
         assertNotNull(result);
         
-        SimilarCases similarCases = instance.retrieveSimilarCases("modelSetId", "", "barneby.barnes@learnpad.eu", simulationId);
-        similarCases = instance.retrieveSimilarCases("modelSetId", "", "barneby.barnes@learnpad.eu", simulationId);
+        SimilarCases similarCases = instance.retrieveSimilarCases("modelSetId", "", "b.barnes@learnpad.eu", simulationId);
+        similarCases = instance.retrieveSimilarCases("modelSetId", "", "b.barnes@learnpad.eu", simulationId);
         checkRetrievedCases(similarCases, "Query case without third parties and decision");
         
         userData = new HashMap();
         userData.put("decision", "false");
         simData.setSubmittedData(userData);
         instance.createOrUpdateSimulationSessionCase(simulationId, simData);
-        similarCases = instance.retrieveSimilarCases("modelSetId", "", "barneby.barnes@learnpad.eu", simulationId);
+        similarCases = instance.retrieveSimilarCases("modelSetId", "", "b.barnes@learnpad.eu", simulationId);
         checkRetrievedCases(similarCases, "Query case with decision");
         
         //add some third parties to the query
@@ -54,7 +58,7 @@ public class CBRAdapterTest {
         userData.put("involvedThirdParties", "lpd:Environment_office");
         simData.setSubmittedData(userData);
         instance.createOrUpdateSimulationSessionCase(simulationId, simData);        
-        similarCases = instance.retrieveSimilarCases("modelSetId", "", "barneby.barnes@learnpad.eu", simulationId);
+        similarCases = instance.retrieveSimilarCases("modelSetId", "", "b.barnes@learnpad.eu", simulationId);
         checkRetrievedCases(similarCases, "Query case with decision and third parties");
     }
 
@@ -62,11 +66,12 @@ public class CBRAdapterTest {
         assertNotNull(similarCases);
         assertNotNull(similarCases.getSimilarCases());
         assertEquals(4, similarCases.getSimilarCases().size());
-        System.out.println("\n Test: "+testName);
+        LOG.fine("\n Test: "+testName);
         for (SimilarCase similarCase : similarCases.getSimilarCases()) {
-            System.out.println("\n________________________________\nCase: " + similarCase.getName() + " " + similarCase.getSimilarityValue());
+            assertTrue(similarCase.getSimilarityValue().matches("[0-9]+[.|,][0-9]+%"));
+            LOG.fine("\n________________________________\nCase: " + similarCase.getName() + " " + similarCase.getSimilarityValue());
             for(Map.Entry data : similarCase.getData().entrySet()){
-                System.out.println(data.getKey()+": "+data.getValue());
+                LOG.fine(data.getKey()+": "+data.getValue());
             }
         }
     }

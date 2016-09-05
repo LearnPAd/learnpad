@@ -12,9 +12,6 @@ import eu.learnpad.ontology.AbstractUnitTest;
 import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.recommender.cbr.CBRAdapter;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
-import eu.learnpad.or.rest.data.BusinessActor;
-import eu.learnpad.or.rest.data.Experts;
-import eu.learnpad.or.rest.data.LearningMaterials;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.SimilarCase;
 import eu.learnpad.or.rest.data.SimulationData;
@@ -35,44 +32,6 @@ public class RecommenderTest extends AbstractUnitTest {
     @Before
     public void init() {
         SimpleModelTransformator.getInstance();
-    }
-
-    @Test
-    public void testRecommendations() throws RecommenderException {
-        Recommendations recomms = Recommender.getInstance().getRecommendations(MODELSET_ID, APP.CONF.getString("testdata.artifactId"), APP.CONF.getString("testdata.user.email"));
-        assertNotNull(recomms);
-        JAXB.marshal(recomms, System.out);        
-        Experts experts = recomms.getExperts();
-        assertNotNull(experts);
-        assertTrue(experts.getBusinessActors().size() > 0);
-        
-        LearningMaterials materials = recomms.getLearningMaterials();
-        assertNotNull(materials);
-        assertTrue(materials.getLearningMaterials().size() > 0);
-        
-        boolean lineManagerExpert = false;
-        boolean otherUnitExpert = false;
-        boolean mostOftenExecutedTaskExpert = false;
-        for (BusinessActor businessActor : experts.getBusinessActors()) {
-            if(businessActor.getDescription().equals(QueryMap.getQuery(Recommender.QUERY_LINEMANAGER_AS_EXPERT).getDescription())){
-                lineManagerExpert = true;
-            }
-            if(businessActor.getDescription().equals(QueryMap.getQuery(Recommender.QUERY_EXPERTS_WITH_SAME_ROLE).getDescription())){
-                otherUnitExpert = true;
-            }
-            if(businessActor.getDescription().equals(QueryMap.getQuery(Recommender.QUERY_EXPERT_MOST_OFTEN_EXECUTED_TASK).getDescription())){
-                mostOftenExecutedTaskExpert = true;
-            }            
-        }
-        
-        assertTrue(lineManagerExpert);
-        
-        //COMMENT: Disabled, because rule is based on equal unit names, whereas in the new italian translated models this rule fails. 
-        //assertTrue(otherUnitExpert);
-        
-        //COMMENT: Depends on execution testdata which is assigned to the latest loaded modelset and their object.id's  -> difficult to keep that up to date
-        //assertTrue(mostOftenExecutedTaskExpert);
-        
     }
     
     @Test
