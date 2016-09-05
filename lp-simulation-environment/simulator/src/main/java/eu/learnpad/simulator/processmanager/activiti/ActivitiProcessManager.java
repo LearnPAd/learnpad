@@ -118,10 +118,10 @@ public class ActivitiProcessManager implements IProcessManager,
 
 	private final Map<String, Map<String, Map<LearnPadTask, Integer>>> taskScoresByUsersBySession = new HashMap<>();
 
-	private final Map<String, String> processDefToModelSet = new ConcurrentHashMap<String, String>();
+	private final Map<String, String> processDefToModelSet = new ConcurrentHashMap<>();
 	private final Map<String, Map<String, Map<ScoreType, Float>>> probeScoreByTypeByUsersBySession = new HashMap<>();
 
-	private final Map<String, String> simSessionIdToModelSet = new ConcurrentHashMap<String, String>();
+	private final Map<String, String> simSessionIdToModelSet = new ConcurrentHashMap<>();
 	private final Map<String, ScoreProbeConsumer> scoreProbeConsumerBySession = new HashMap<>();
 
 	public ActivitiProcessManager(
@@ -169,7 +169,7 @@ public class ActivitiProcessManager implements IProcessManager,
 
 	@Override
 	public Collection<String> addProjectDefinitions(InputStream resource) {
-		Set<String> res = new HashSet<String>();
+		Set<String> res = new HashSet<>();
 
 		try {
 			// Activiti message workaround
@@ -204,7 +204,7 @@ public class ActivitiProcessManager implements IProcessManager,
 	 * @see activitipoc.IProcessManager#getAvailableProcessDefintion()
 	 */
 	public Collection<String> getAvailableProcessDefintion() {
-		Set<String> res = new HashSet<String>();
+		Set<String> res = new HashSet<>();
 
 		List<ProcessDefinition> processes = repositoryService
 				.createProcessDefinitionQuery().list();
@@ -302,7 +302,7 @@ public class ActivitiProcessManager implements IProcessManager,
 	 */
 	public Collection<String> getProcessDefinitionGroupRoles(
 			String processDefinitionId) {
-		Set<String> result = new HashSet<String>();
+		Set<String> result = new HashSet<>();
 
 		// open the BPMN model of the process
 		BpmnModel model = repositoryService.getBpmnModel(processDefinitionId);
@@ -425,7 +425,7 @@ public class ActivitiProcessManager implements IProcessManager,
 	 * @see activitipoc.IProcessManager#getCurrentProcessInstances()
 	 */
 	public Collection<String> getCurrentProcessInstances() {
-		Set<String> res = new HashSet<String>();
+		Set<String> res = new HashSet<>();
 
 		List<ProcessInstance> processes = runtimeService
 				.createProcessInstanceQuery().list();
@@ -542,7 +542,7 @@ public class ActivitiProcessManager implements IProcessManager,
 			String sessionId, String userId) {
 
 		if (taskScoresByUsersBySession.get(sessionId) == null) {
-			return new HashMap<LearnPadTask, Integer>();
+			return new HashMap<>();
 		} else {
 			return taskScoresByUsersBySession.get(sessionId).get(userId);
 		}
@@ -614,7 +614,7 @@ public class ActivitiProcessManager implements IProcessManager,
 				// TODO:this is not very efficient :( Possible to do it directly
 				// with a
 				// query?
-				List<String> res = new ArrayList<String>();
+				List<String> res = new ArrayList<>();
 				for (String activityId : runtimeService
 						.getActiveActivityIds(processInstanceId)) {
 					if (this.historyService
