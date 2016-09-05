@@ -1,15 +1,17 @@
-package eu.learnpad.simulator.mon.rules;
+package eu.learnpad.simulator.mon.storage;
 
 import java.util.HashMap;
 import java.util.Vector;
 
+import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.simulator.mon.coverage.Learner;
 
 public class ScoreTemporaryStorage {
 
 	private static HashMap<String, Long> sessionScoreValues;
 	private static String sessionID;
-	
+	private static SessionScoreUpdateEvent lastScoreUpdateEventSeen;
+
 	public ScoreTemporaryStorage(Vector<Learner> theLearnersInvolvedInSession, String sessionID) {
 		
 		ScoreTemporaryStorage.sessionID = sessionID;
@@ -27,6 +29,14 @@ public class ScoreTemporaryStorage {
 		return sessionID;
 	}
 
+	public static SessionScoreUpdateEvent getLastScoreUpdateEventSeen() {
+		return lastScoreUpdateEventSeen;
+	}
+
+	public static void setLastScoreUpdateEventSeen(SessionScoreUpdateEvent lastScoreUpdateEventSeen) {
+		ScoreTemporaryStorage.lastScoreUpdateEventSeen = lastScoreUpdateEventSeen;
+	}
+	
 	public static void setSessionID(String sessionID) {
 		ScoreTemporaryStorage.sessionID = sessionID;
 	}

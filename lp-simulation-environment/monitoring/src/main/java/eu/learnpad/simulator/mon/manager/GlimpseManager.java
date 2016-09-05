@@ -51,7 +51,7 @@ import eu.learnpad.simulator.mon.consumer.ConsumerProfile;
 import eu.learnpad.simulator.mon.coverage.Learner;
 import eu.learnpad.simulator.mon.exceptions.IncorrectRuleFormatException;
 import eu.learnpad.simulator.mon.rules.RulesManager;
-import eu.learnpad.simulator.mon.rules.ScoreTemporaryStorage;
+import eu.learnpad.simulator.mon.storage.ScoreTemporaryStorage;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 
 public class GlimpseManager extends Thread implements MessageListener {

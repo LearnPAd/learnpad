@@ -12,7 +12,7 @@ import eu.learnpad.sim.rest.event.impl.ScoreUpdateEvent;
 import eu.learnpad.sim.rest.event.EventType;
 import eu.learnpad.simulator.mon.manager.ResponseDispatcher; 
 import eu.learnpad.simulator.mon.manager.RestNotifier; 
-import eu.learnpad.simulator.mon.rules.ScoreTemporaryStorage;
+import eu.learnpad.simulator.mon.storage.ScoreTemporaryStorage;
         
 declare GlimpseBaseEventBPMN
     @role( event )
@@ -188,5 +188,6 @@ then
 	ScoreTemporaryStorage.setTemporaryLearnerSessionScore(
 									(String)((SessionScoreUpdateEvent)$aEvent.getEvent()).user.toString(), 
 									(Long)((SessionScoreUpdateEvent)$aEvent.getEvent()).sessionscore);
+	ScoreTemporaryStorage.setLastScoreUpdateEventSeen((SessionScoreUpdateEvent)$aEvent.getEvent());
 	retract($aEvent);		 	
-end  
+end    
