@@ -564,18 +564,9 @@
         "usertask1" : [
             {
                 "input" : {
-                    "case" : "637-2015"
-                },
-                "output" : {
-                    "doConfOfService" : "no"
-                }
-            },
-            {
-                "input" : {
                     "case" : "829-2015"
                 },
                 "output" : {
-                    "doConfOfService" : "yes",
                     "offEdiuzia" : true,
                     "offPorto" : true,
                     "offAmb" : true,
@@ -608,7 +599,6 @@
                     "case" : "1118-2015"
                 },
                 "output" : {
-                    "doConfOfService" : "yes",
                     "offEdiuzia" : true,
                     "offPorto" : false,
                     "offAmb" : true,
