@@ -61,6 +61,7 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.image.ProcessDiagramGenerator;
 import org.activiti.image.impl.DefaultProcessDiagramGenerator;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
@@ -71,6 +72,7 @@ import eu.learnpad.simulator.datastructures.LearnPadTask;
 import eu.learnpad.simulator.datastructures.LearnPadTaskGameInfos;
 import eu.learnpad.simulator.datastructures.LearnPadTaskSubmissionResult;
 import eu.learnpad.simulator.monitoring.activiti.scoreprobe.IProbeScoresReceiver;
+import eu.learnpad.simulator.monitoring.activiti.scoreprobe.ScoreProbeConsumer;
 import eu.learnpad.simulator.monitoring.event.impl.ProcessStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
@@ -120,6 +122,7 @@ public class ActivitiProcessManager implements IProcessManager,
 	private final Map<String, Map<String, Map<ScoreType, Float>>> probeScoreByTypeByUsersBySession = new HashMap<>();
 
 	private final Map<String, String> simSessionIdToModelSet = new ConcurrentHashMap<String, String>();
+	private final Map<String, ScoreProbeConsumer> scoreProbeConsumerBySession = new HashMap<>();
 
 	public ActivitiProcessManager(
 			ProcessEngine processEngine,
@@ -396,6 +399,23 @@ public class ActivitiProcessManager implements IProcessManager,
 						(String) parameters.get(SIMULATION_ID_KEY),
 						users, data));
 
+		try (java.util.Scanner s = new java.util.Scanner(repositoryService.getProcessModel(repositoryService
+				.createProcessDefinitionQuery().processDefinitionKey(projectDefinitionKey).singleResult().getId()))) {
+			String bpmnFile =  s.useDelimiter("\\A").hasNext() ? s.next() : "";
+
+			// create score probe
+			try {
+				scoreProbeConsumerBySession.put(simSession,
+						ScoreProbeConsumer.create(this, simSession, projectDefinitionKey, bpmnFile, new ArrayList<>(users)));
+			} catch (NullPointerException e) {
+				// probably cannot connect to mon
+				LoggerFactory.getLogger(ActivitiProcessManager.class)
+						.error("Failed to create score probe for process {}. Is monitoring component accessible?", process.getId());
+				e.printStackTrace();
+			}
+
+		}
+
 		return process.getId();
 	}
 
@@ -507,6 +527,7 @@ public class ActivitiProcessManager implements IProcessManager,
 			taskScoresByUsersBySession.remove(simSession);
 
 			probeScoreByTypeByUsersBySession.remove(simSession);
+			scoreProbeConsumerBySession.remove(simSession);
 
 		}
 
@@ -622,7 +643,7 @@ public class ActivitiProcessManager implements IProcessManager,
 	}
 
 	@Override
-	public void receiveScore(String sessionId, String userId, ScoreType type, Float value) {
+	public synchronized void receiveScore(String sessionId, String userId, ScoreType type, Float value) {
 
 		if (!probeScoreByTypeByUsersBySession.containsKey(sessionId)) {
 			probeScoreByTypeByUsersBySession.put(sessionId, new HashMap<String, Map<ScoreType, Float>>());
