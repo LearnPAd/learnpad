@@ -49,8 +49,8 @@ public class ScoreUpdateEvent extends AbstractEvent {
 	 * The new session score of the user
 	 */
 	
-	private ScoreType scoreUpdateType;
-	private Float scoreUpdateValue;
+	public ScoreType scoreUpdateType;
+	public Float scoreUpdateValue;
 
 	public ScoreUpdateEvent() {
 		super();
