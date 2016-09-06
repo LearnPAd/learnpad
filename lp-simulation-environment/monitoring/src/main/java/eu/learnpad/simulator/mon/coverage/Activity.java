@@ -9,14 +9,25 @@ public class Activity implements Serializable {
 	
 	private String name;
 	private String path_id;
+	private String taskArtifactID;
 	private HashMap<String, Float> expectedKpi; 
 	private float weight;
+
 	
-	public Activity(String name, String path_id ,HashMap<String, Float> expectedKpi, float weight) {
+	public Activity(String name, String path_id , String taskArtifactID, HashMap<String, Float> expectedKpi, float weight) {
 		this.name = name;
 		this.path_id = path_id;
+		this.taskArtifactID = taskArtifactID;
 		this.expectedKpi = expectedKpi;
 		this.weight = weight;
+	}
+
+	public String getTaskArtifactID() {
+		return taskArtifactID;
+	}
+
+	public void setTaskArtifactID(String taskArtifactID) {
+		this.taskArtifactID = taskArtifactID;
 	}
 
 	public String getName() {

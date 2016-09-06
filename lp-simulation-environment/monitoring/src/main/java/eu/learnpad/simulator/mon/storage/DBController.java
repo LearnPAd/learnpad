@@ -55,7 +55,7 @@ public interface DBController {
 	public Topic getTopic(int theTopicID);
 	public boolean updateTopic(int theTopicId, Topic theTopicToUpdate);
 	
-	public Vector<Learner> getLearners(List<String> learnersIDs);
+	public Vector<Learner> getOrSetLearners(List<String> learnersIDs);
 	
 	public Vector<Path> getPathsExecutedByLearner(String learnerID, String idBPMN);
 	public Vector<Path> savePathsForBPMN(Vector<Path> vector);

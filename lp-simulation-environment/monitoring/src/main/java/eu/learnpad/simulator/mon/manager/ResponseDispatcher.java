@@ -129,6 +129,13 @@ public class ResponseDispatcher {
 	}	
 
 	
+	public static void setPathCompletedAndPropagateScores(String learnersID, String idPath, String idBPMN)
+	{
+		ResponseDispatcher.lam.computeAndPropagateScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))), idPath, idBPMN);
+	}
+
+	
+	
 	public static void sendResponse(Object object, String enablerName, String answerTopic)
 	{
 		try {
