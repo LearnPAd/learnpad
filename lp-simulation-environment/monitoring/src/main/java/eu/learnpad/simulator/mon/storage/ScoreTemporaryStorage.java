@@ -43,8 +43,8 @@ public class ScoreTemporaryStorage {
 
 	
 	public static void setTemporaryLearnerSessionScore(String learnerID, Long scoreValue) {
-						ScoreTemporaryStorage.sessionScoreValues.replace(
-									learnerID, scoreValue);
+		
+		ScoreTemporaryStorage.sessionScoreValues.put(learnerID, scoreValue);
 	}
 	
 	public static Long getTemporaryLearnerSessionScore(String learnerID) {
