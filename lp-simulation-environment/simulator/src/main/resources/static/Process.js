@@ -87,7 +87,7 @@ function processReceiver(address) {
     newProcessReceiver.submitProcessData = function(id, values) {
 
         // SPECIAL MODIFICATIONS FOR DEMO PURPOSE ONLY
-        if(id == 'mod.27772') {
+        if(id == 'mod.27772' || id == 'mod.21093' || id == 'mod.21262') {
 
             // un-stringify
             values = JSON.parse(values);
