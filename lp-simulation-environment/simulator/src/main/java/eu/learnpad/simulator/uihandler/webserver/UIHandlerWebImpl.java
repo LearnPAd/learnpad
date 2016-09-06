@@ -130,7 +130,7 @@ public class UIHandlerWebImpl implements IUserHandler, IProcessEventReceiver {
 	 * @see activitipoc.IUIHandler#getUsers()
 	 */
 	public List<String> getUsers() {
-		return new ArrayList<String>(usersMap.keySet());
+		return new ArrayList<>(usersMap.keySet());
 	}
 
 	@Override
