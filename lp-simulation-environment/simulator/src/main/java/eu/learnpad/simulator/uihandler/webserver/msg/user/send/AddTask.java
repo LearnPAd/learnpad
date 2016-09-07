@@ -35,8 +35,9 @@ public class AddTask implements IUserMsg {
 	/**
 	 * @param taskid
 	 */
-	public AddTask(String taskid) {
+	public AddTask(String sessionid, String taskid) {
 		super();
+		this.sessionid = sessionid;
 		this.taskid = taskid;
 	}
 
@@ -49,6 +50,7 @@ public class AddTask implements IUserMsg {
 		return TYPE.ADDTASK;
 	}
 
+	public final String sessionid;
 	public final String taskid;
 
 }
