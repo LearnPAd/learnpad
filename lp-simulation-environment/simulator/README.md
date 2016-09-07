@@ -37,6 +37,7 @@ The simulator allows to override some configuration using an optional properties
 
 - the IP used by the simulator
 - the address of the glimpse server
+- the address of the LearnPAd platform
 
 This properties file must named `simulator.properties` and placed in the folder from which the simulator is started (typically the ./out subfolder if launching the simulator with the start script).
 
@@ -45,6 +46,9 @@ To override the address user by the simulator, put the following inside the file
 
 To override the glimpse server, put the following inside the file:
 `glimpse_server=tcp://<address>`
+
+To override the LearnPAd platform address, put the following inside the file:
+`platform_address=<address>`
 
 # Interfaces
 
