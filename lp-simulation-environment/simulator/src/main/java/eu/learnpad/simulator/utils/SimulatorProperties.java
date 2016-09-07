@@ -42,6 +42,7 @@ public class SimulatorProperties {
 
 	public final static String PROP_ADDRESS = "address";
 	public final static String PROP_GLIMPSE_SERVER = "glimpse_server";
+	public final static String PLATFORM_ADDRESS = "platform_address";
 
 	static {
 
