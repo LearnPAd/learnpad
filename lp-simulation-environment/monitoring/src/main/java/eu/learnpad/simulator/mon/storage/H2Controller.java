@@ -371,7 +371,7 @@ public class H2Controller implements DBController {
 	}
 
 	@Override
-	public Vector<Learner> getLearners(List<String> learnersIDs) {
+	public Vector<Learner> getOrSetLearners(List<String> learnersIDs) {
 		Vector<Learner> learners = new Vector<Learner>();
 		String query;
 		Learner aLearner;

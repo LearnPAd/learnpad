@@ -48,13 +48,13 @@ public class RuleElements {
 	
 	public static String getThenClauseForCoverageWithLearnersScoreUpdateAndProcessStartNotification(Activity[] theActivitySetToSetConsumed, String idBPMN, String idPath) {
 		String concat = "\n\t\tthen ";
-		for (int i = 0; i<(theActivitySetToSetConsumed.length*2)+2; i++) {
+		for (int i = 0; i<((theActivitySetToSetConsumed.length)+2); i++) {
 			concat = concat + "\n\t\t\t$"+ i
 					+ "Event.setConsumed(true); \n\t\t\tupdate($"+ i +"Event);"
 					+ "\n\t\t\tretract($"+ i +"Event);";					
 		}
 		 concat = concat + "\n\t\t\t" +
-			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", $"+ ((theActivitySetToSetConsumed.length*2)-1)+ "Event.getUserID() ,\"" + idBPMN + "\", drools.getRule().getName(), (SessionScoreUpdateEvent)$"+ ((theActivitySetToSetConsumed.length*2)-1)+"Event.getEvent());";
+			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", $"+ ((theActivitySetToSetConsumed.length)-1)+ "Event.getUserID() ,\"" + idBPMN + "\", drools.getRule().getName(), (SessionScoreUpdateEvent)$"+ ((theActivitySetToSetConsumed.length)-1)+"Event.getEvent());";
 		return concat;
 	}
 	
@@ -75,6 +75,20 @@ public class RuleElements {
 	
 	public static String getEnd() {
 		return "\n\t\tend\n\n\t";
+	}
+
+	public static String getThenClausesForSetPathsAsCompletedAndPropagateScoresToPlatformAndOR(
+			Activity[] anActivitiesSet, String idBPMN, String idPath) {
+		
+		String concat = "\n\t\tthen ";
+		for (int i = 0; i<((anActivitiesSet.length)+2); i++) {
+			concat = concat + "\n\t\t\t$"+ i
+					+ "Event.setConsumed(true); \n\t\t\tupdate($"+ i +"Event);"
+					+ "\n\t\t\tretract($"+ i +"Event);";					
+		}
+		 concat = concat + "\n\t\t\t" +
+			"ResponseDispatcher.setPathCompletedAndPropagateScores(\"##LEARNERSINVOLVEDID##\",\"" + idPath + "\", \"" + idBPMN + "\");";
+		return concat;
 	}
 	
 }
