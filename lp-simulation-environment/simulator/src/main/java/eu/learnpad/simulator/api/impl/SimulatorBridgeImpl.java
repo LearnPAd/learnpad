@@ -111,7 +111,7 @@ public class SimulatorBridgeImpl implements BridgeInterface, IUserInfosAPI {
 				.getAvailableProcessDefintion();
 
 		// translate from process IDs to process keys
-		Set<String> processDefKeys = new HashSet<String>();
+		Set<String> processDefKeys = new HashSet<>();
 		for (String id : processDefIds) {
 			processDefKeys.add(simulator.processManager()
 					.getProcessDefinitionKey(id));
@@ -139,7 +139,7 @@ public class SimulatorBridgeImpl implements BridgeInterface, IUserInfosAPI {
 							new URL(processDefinitionFilePath).openStream());
 
 			// translate from process IDs to process keys
-			Set<String> processDefKeys = new HashSet<String>();
+			Set<String> processDefKeys = new HashSet<>();
 			for (String id : processDefIds) {
 				processDefKeys.add(simulator.processManager()
 						.getProcessDefinitionKey(id));
@@ -152,7 +152,7 @@ public class SimulatorBridgeImpl implements BridgeInterface, IUserInfosAPI {
 			return processDefKeys;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return new HashSet<String>();
+			return new HashSet<>();
 		}
 	}
 
@@ -215,7 +215,7 @@ public class SimulatorBridgeImpl implements BridgeInterface, IUserInfosAPI {
 		// This ensures that we will have no duplicate.
 		// Otherwise we could add the same user twice, since we only check
 		// against the old user list
-		Set<UserData> uniqueUsers = new HashSet<UserData>(potentialUsers);
+		Set<UserData> uniqueUsers = new HashSet<>(potentialUsers);
 
 		// add users that were not yet present in the platform
 		Collection<String> users = simulator.userHandler().getUsers();
@@ -272,7 +272,7 @@ public class SimulatorBridgeImpl implements BridgeInterface, IUserInfosAPI {
 
 	@Override
 	public List<String> getUsers() {
-		return new ArrayList<String>(simulator.userHandler().getUsers());
+		return new ArrayList<>(simulator.userHandler().getUsers());
 	}
 
 	@Override
