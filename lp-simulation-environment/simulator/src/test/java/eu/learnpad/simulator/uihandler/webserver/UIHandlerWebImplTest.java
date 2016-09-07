@@ -110,11 +110,11 @@ public class UIHandlerWebImplTest {
 							taskAddByUI.put(userKey, new ArrayList<String>());
 						}
 						taskAddByUI.get(userKey).add(
-								invocation.getArgumentAt(0, String.class));
+								invocation.getArgumentAt(1, String.class));
 						return null;
 					}
 
-				}).when(mockServlet).addTask(any(String.class));
+				}).when(mockServlet).addTask(any(String.class), any(String.class));
 
 				// memorize remove task invocations
 				doAnswer(new Answer<Void>() {
