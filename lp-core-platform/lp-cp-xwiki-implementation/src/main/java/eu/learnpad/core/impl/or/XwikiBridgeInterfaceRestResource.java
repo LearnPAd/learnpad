@@ -385,7 +385,25 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 
     @Override
     public void updateSimulationScore(String modelSetId, String simulationSessionId, String processArtifactId, Long timestamp, String userId, ScoreType scoreType, Float score) throws LpRestException {
-        // TODO Auto-generated method stub
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/or/bridge/%s/simulationscore", DefaultRestResource.REST_URI, modelSetId);
+		PostMethod postMethod = new PostMethod(uri);
+		postMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_XML);
+
+		NameValuePair[] queryString = new NameValuePair[6];		
+		queryString[0] = new NameValuePair("simulationsessionid", simulationSessionId);
+		queryString[1] = new NameValuePair("processartifactid", processArtifactId);
+		queryString[2] = new NameValuePair("timestamp", timestamp.toString()); 
+		queryString[3] = new NameValuePair("userid", userId);
+		queryString[4] = new NameValuePair("scoretype", scoreType.name()); 
+		queryString[5] = new NameValuePair("score", String.valueOf(score));
+		postMethod.setQueryString(queryString);
+                     
+		try {
+			httpClient.executeMethod(postMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+		}
     }
 
 }
