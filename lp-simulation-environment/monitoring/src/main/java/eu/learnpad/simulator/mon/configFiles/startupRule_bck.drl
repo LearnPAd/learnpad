@@ -170,7 +170,7 @@ then
 	retract($aEvent);		 	
 end   
 
-rule "Save in tempStructure the SessioScoreUpdate value" 
+rule "Save in tempStructure the SessionScoreUpdate value" 
 no-loop true 
 
 salience 20 
