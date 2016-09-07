@@ -687,8 +687,8 @@ public class H2Controller implements DBController {
 							query = "update glimpse.bpmn_learner set bp_score = "+
 							learnerBPScore + ",  relative_bp_score = "+
 									learnerRelativeBPScore + ", bp_coverage = "+
-									 learnerCoverage + " where id_learner = "+
-									learnerID + ";";
+									 learnerCoverage + " where id_learner = \'"+
+									learnerID + "';";
 						 
 							preparedStmt = conn.prepareStatement(query);
 
