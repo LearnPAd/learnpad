@@ -76,6 +76,14 @@ function taskReceiver(address, user, integratedMode, sessionid, platformAddress)
                     users(address, user, msg.involvedusers, processUserInfos.id);
                 }
 
+                // add infobox with links for other users to join
+                var infoLinks = '<div class="alert alert-info" role="alert">' +
+                        'Other participants can join the session using the following link (when logged in):<p>';
+                var url = 'http://' + platformAddress + '/xwiki/bin/view/LPUI/SimulationEnvironment?sessionid=' + msg.sessionid;
+                infoLinks += '<a href="' + url + '">' + url + '</a><p>';
+                infoLinks += '</div>';
+                $('#processmain' + msg.sessionid).append(infoLinks);
+
                 // add session chat container
                 $('#processside' + msg.sessionid).append(
                     '<div id="sessionchat' + msg.sessionid + '"></div>'
