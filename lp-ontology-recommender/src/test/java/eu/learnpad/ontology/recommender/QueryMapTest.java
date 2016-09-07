@@ -5,6 +5,7 @@
  */
 package eu.learnpad.ontology.recommender;
 
+import eu.learnpad.ontology.AbstractUnitTest;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -12,7 +13,7 @@ import static org.junit.Assert.*;
  *
  * @author sandro.emmenegger
  */
-public class QueryMapTest {
+public class QueryMapTest extends AbstractUnitTest {
     
     public QueryMapTest() {
     }

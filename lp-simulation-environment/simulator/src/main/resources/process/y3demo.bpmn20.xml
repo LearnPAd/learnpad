@@ -62,7 +62,6 @@
         <flowNodeRef>usertask22</flowNodeRef>
         <flowNodeRef>exclusivegateway11</flowNodeRef>
         <flowNodeRef>endevent1</flowNodeRef>
-        <flowNodeRef>endevent2</flowNodeRef>
         <flowNodeRef>parallelgateway1</flowNodeRef>
         <flowNodeRef>parallelgateway2</flowNodeRef>
       </lane>
@@ -573,7 +572,6 @@
     <sequenceFlow id="flow46" sourceRef="usertask20" targetRef="exclusivegateway11"></sequenceFlow>
     <sequenceFlow id="flow47" sourceRef="usertask21" targetRef="exclusivegateway11"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
-    <endEvent id="endevent2" name="End"></endEvent>
 
     <userTask id="usertask22" name="Provide Final Report">
       <documentation>TODO
@@ -602,13 +600,7 @@
     <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
     <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
 
-    <sequenceFlow id="flow51" sourceRef="usertask1" targetRef="parallelgateway1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${doConfOfService == "yes"}]]></conditionExpression>
-    </sequenceFlow>
-
-    <sequenceFlow id="flow51_1" sourceRef="usertask1" targetRef="endevent2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${doConfOfService == "no"}]]></conditionExpression>
-    </sequenceFlow>
+    <sequenceFlow id="flow51" sourceRef="usertask1" targetRef="parallelgateway1"></sequenceFlow>
 
     <sequenceFlow id="flow52" sourceRef="parallelgateway1" targetRef="usertask2"></sequenceFlow>
     <sequenceFlow id="flow53" sourceRef="parallelgateway1" targetRef="usertask3"></sequenceFlow>
@@ -717,9 +709,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="1300.0" y="1070.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35.0" width="35.0" x="250.0" y="980.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
         <omgdc:Bounds height="40.0" width="40.0" x="340.0" y="1067.0"></omgdc:Bounds>

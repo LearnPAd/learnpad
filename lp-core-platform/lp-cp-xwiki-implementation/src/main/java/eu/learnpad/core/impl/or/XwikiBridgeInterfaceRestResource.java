@@ -56,6 +56,7 @@ import eu.learnpad.or.rest.data.SimulationData;
 import eu.learnpad.or.rest.data.States;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessId;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatus;
+import eu.learnpad.sim.rest.event.ScoreType;
 
 /*
  * The methods inherited form the BridgeInterface in this
@@ -381,5 +382,10 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 
 		return processingStatus;
 	}
+
+    @Override
+    public void updateSimulationScore(String modelSetId, String simulationSessionId, String processArtifactId, Long timestamp, String userId, ScoreType scoreType, Float score) throws LpRestException {
+        // TODO Auto-generated method stub
+    }
 
 }
