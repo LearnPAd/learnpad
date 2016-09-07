@@ -20,7 +20,7 @@
  */
 'use strict';
 
-function taskReceiver(address, user, integratedMode, sessionid) {
+function taskReceiver(address, user, integratedMode, sessionid, platformAddress) {
     if (typeof integratedMode == 'undefined') {
         integratedMode = false;
     }
