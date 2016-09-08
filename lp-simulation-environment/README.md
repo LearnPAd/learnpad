@@ -47,6 +47,15 @@ The main configurations are given or impacts on the following (possibly not comp
  * lp-simulation-environment/scripts/start 
  * lp-simulation-environment/out/start (only once the system is built)
 
+## Specific deployment
+
+When building the component, it is possible to pass a "--name" argument to the ./build script, where "name" correspond to subfolder in the `deployment` folder, containing a set of files to be used for a specific deployment.
+    
+For example, if `deployment` contains a `test` folder, the command ./build --test will setup the files in this folder accordingly.
+
+Currently, the following files can be installed via this process:
+ * simulator.properties
+
 ## Note that for this test HTTP protocol should be used.
 
 # Interfaces
