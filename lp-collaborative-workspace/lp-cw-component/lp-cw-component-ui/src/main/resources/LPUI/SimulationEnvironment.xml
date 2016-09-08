@@ -68,12 +68,14 @@
     #set ($found = $titleReferredDoc.matches('.*Titolo.*Unico.*'))
     #if ($found)
 ##        #set ($modelid = $modelid + "-titoloUnico")
-        #set ($modelid = "mod.27772")
+##        #set ($modelid = "mod.27772")
+        #set ($modelid = "mod.21093")
     #else
       #set ($found = $titleReferredDoc.matches('.*Conferenza.*Servizi.*'))
       #if ($found)
 ##        #set ($modelid = $modelid + "-gestioneConferenzaDiServizi")
-        #set ($modelid = "mod.27772")
+##        #set ($modelid = "mod.27772")
+        #set ($modelid = "mod.21262")
       #else
 {{warning}}
 Probably the simulator UI will be shown!!
