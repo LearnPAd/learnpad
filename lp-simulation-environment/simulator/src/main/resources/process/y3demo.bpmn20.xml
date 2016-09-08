@@ -22,9 +22,9 @@
 
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <collaboration id="Collaboration">
-    <participant id="pool1" processRef="mod.27772"></participant>
+    <participant id="pool1" processRef="mod.21262"></participant>
   </collaboration>
-  <process id="mod.27772" name="SUAP Process - Service Conference" isExecutable="true">
+  <process id="mod.21262" name="SUAP Process - Service Conference" isExecutable="true">
     <laneSet id="laneSet_process_pool1">
       <lane id="lane1" name="Other Office 1">
         <flowNodeRef>usertask3</flowNodeRef>
