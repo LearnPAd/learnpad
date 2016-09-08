@@ -1,0 +1,2 @@
+glimpse_server=tcp://10.101.10.165:61616
+platform_address=10.101.10.165:8080
