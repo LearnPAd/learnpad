@@ -37,9 +37,9 @@ public class ScoreTemporaryStorage {
 	}
 
 	public static void setLastScoreUpdateEventSeen(SessionScoreUpdateEvent lastScoreUpdateEventSeen) {
-		DebugMessages.println(TimeStamp.getCurrentTime(), ScoreTemporaryStorage.class.getName(), "Storing LastScoreUpdateEventSeen");
+		DebugMessages.print(TimeStamp.getCurrentTime(), ScoreTemporaryStorage.class.getSimpleName(), "Storing LastScoreUpdateEventSeen");
 		ScoreTemporaryStorage.lastScoreUpdateEventSeen = lastScoreUpdateEventSeen;
-		DebugMessages.println(TimeStamp.getCurrentTime(), ScoreTemporaryStorage.class.getName(), "Value Stored");
+		DebugMessages.ok();
 	}
 	
 	public static void setSessionID(String sessionID) {
@@ -48,9 +48,9 @@ public class ScoreTemporaryStorage {
 
 	
 	public static void setTemporaryLearnerSessionScore(String learnerID, Long scoreValue) {
-		DebugMessages.println(TimeStamp.getCurrentTime(), ScoreTemporaryStorage.class.getName(), "Storing LearnerSessionScore");
+		DebugMessages.print(TimeStamp.getCurrentTime(), ScoreTemporaryStorage.class.getSimpleName(), "Storing LearnerSessionScore");
 		ScoreTemporaryStorage.sessionScoreValues.put(learnerID, scoreValue);
-		DebugMessages.println(TimeStamp.getCurrentTime(), ScoreTemporaryStorage.class.getName(), "Value Stored");
+		DebugMessages.ok();
 
 	}
 	

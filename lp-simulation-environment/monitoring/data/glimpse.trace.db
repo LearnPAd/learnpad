@@ -891,3 +891,91 @@ org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
 org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
 09-07 18:33:46 jdbc[4]: exception
 org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:26:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:26:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:26:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:26:03 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:26:03 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:26:03 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 20:27:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "USER1" not found; SQL statement:
+update glimpse.bpmn_learner set bp_score = 6.0,  relative_bp_score = 7.0, bp_coverage = 40.0 where id_learner = user1; [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:180)
+	at org.h2.command.dml.Update.prepare(Update.java:185)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at eu.learnpad.simulator.mon.storage.H2Controller.updateBpmnLearnerScores(H2Controller.java:693)
+	at eu.learnpad.simulator.mon.impl.LearnerAssessmentManagerImpl.computeAndPropagateScores(LearnerAssessmentManagerImpl.java:165)
+	at eu.learnpad.simulator.mon.manager.ResponseDispatcher.setPathCompletedAndPropagateScores(ResponseDispatcher.java:134)
+	at defaultpkg.Rule_a23748293649_1_1_b21d23d054854c09840b6a3d2b51fce9.defaultConsequence(Rule_a23748293649_1_1_b21d23d054854c09840b6a3d2b51fce9.java:28)
+	at defaultpkg.Rule_a23748293649_1_1_b21d23d054854c09840b6a3d2b51fce9DefaultConsequenceInvokerGenerated.evaluate(Unknown Source)
+	at defaultpkg.Rule_a23748293649_1_1_b21d23d054854c09840b6a3d2b51fce9DefaultConsequenceInvoker.evaluate(Unknown Source)
+	at org.drools.common.DefaultAgenda.fireActivation(DefaultAgenda.java:1287)
+	at org.drools.common.DefaultAgenda.fireNextItem(DefaultAgenda.java:1221)
+	at org.drools.common.DefaultAgenda.fireAllRules(DefaultAgenda.java:1456)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:710)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:674)
+	at org.drools.impl.StatefulKnowledgeSessionImpl.fireAllRules(StatefulKnowledgeSessionImpl.java:230)
+	at eu.learnpad.simulator.mon.impl.ComplexEventProcessorImpl.run(ComplexEventProcessorImpl.java:143)
+09-07 20:29:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:29:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:29:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:29:48 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:29:48 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:29:48 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:31:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:31:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:31:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:31:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:31:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:31:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:39:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:39:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:39:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:39:32 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:39:32 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:39:32 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-08 06:16:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-08 06:16:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-08 06:16:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-08 06:16:10 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-08 06:16:10 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-08 06:16:10 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
