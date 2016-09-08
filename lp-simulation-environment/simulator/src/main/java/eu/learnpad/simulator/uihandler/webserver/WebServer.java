@@ -402,6 +402,8 @@ public class WebServer {
 			// set server ip
 			uiPage = uiPage.replace("#serveripaddress#", "\"" + getIPAddress()
 					+ ":" + port + "\"");
+			uiPage = uiPage.replace("#platformaddress#", "\"" + SimulatorProperties.props
+					.getProperty(SimulatorProperties.PLATFORM_ADDRESS) + "\"");
 
 			response.setContentType("text/html; charset=utf-8");
 			response.setStatus(HttpServletResponse.SC_OK);

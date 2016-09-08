@@ -51,6 +51,7 @@ import org.junit.Test;
 
 import eu.learnpad.simulator.MainTest;
 import eu.learnpad.simulator.Simulator;
+import eu.learnpad.simulator.utils.SimulatorProperties;
 
 /**
  *
@@ -122,6 +123,8 @@ public class WebServerTest {
 				localPageContent = localPageContent.replace(
 						"#serveripaddress#", "\"" + WebServer.getIPAddress()
 						+ ":" + MainTest.PORT + "\"");
+				localPageContent = localPageContent.replace("#platformaddress#",
+						"\"" + SimulatorProperties.props.getProperty(SimulatorProperties.PLATFORM_ADDRESS) + "\"");
 
 				byte[] fetchedFileDigest = checksum(new ByteArrayInputStream(
 						fetchedPageContent.getBytes()),

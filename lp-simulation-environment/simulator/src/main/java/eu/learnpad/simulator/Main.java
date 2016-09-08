@@ -59,10 +59,13 @@ public class Main {
 
 			// load process definitions
 			simulator.processManager().addProjectDefinitions(
+					DEMO_PROCESS_FOLDER + "/suap.bpmn20.xml");
+			simulator.processManager().addProjectDefinitions(
 					DEMO_PROCESS_FOLDER + "/y3demo.bpmn20.xml");
 
-			simulator.processManager().setModelSetId("mod.27772",
-					"LP_ME_ADOXX_MODELSET_28600");
+			simulator.processManager().setModelSetId("mod.27772", "LP_ME_ADOXX_MODELSET_28600");
+			simulator.processManager().setModelSetId("mod.21093", "LP_ME_ADOXX_MODELSET_28600");
+			simulator.processManager().setModelSetId("mod.21262", "LP_ME_ADOXX_MODELSET_28600");
 
 			System.out.println("---\n");
 			System.out.println("Demo is ready and can be accessed at http://"

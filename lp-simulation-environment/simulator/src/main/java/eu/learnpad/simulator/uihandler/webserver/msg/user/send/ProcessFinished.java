@@ -35,8 +35,9 @@ public class ProcessFinished implements IUserMsg {
 	/**
 	 * @param processid
 	 */
-	public ProcessFinished(String processid) {
+	public ProcessFinished(String sessionid, String processid) {
 		super();
+		this.sessionid = sessionid;
 		this.processid = processid;
 	}
 
@@ -49,6 +50,7 @@ public class ProcessFinished implements IUserMsg {
 		return TYPE.FINISHED;
 	}
 
+	public final String sessionid;
 	public final String processid;
 
 }

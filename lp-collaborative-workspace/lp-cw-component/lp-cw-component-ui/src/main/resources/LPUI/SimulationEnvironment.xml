@@ -46,14 +46,7 @@
   #set ($userid = "${xcontext.user}")
   #set ($simulationPath = "${services.learnpad.joinSimulation($simulationid, $userid)}")
 #else
-  ## Hard-coded for the moment since the ID may change with ME's import and SIM is not relying on BPMN files from ME
-  #set ($modelsetid = "LP_ME_ADOXX_MODELSET_28600")
   #set ($modelid = $request.getParameter('modelid'))
-  ## Hard-coded for the moment since the ID may change with ME's import and SIM is not relying on BPMN files from ME
-  ## For single user simulation
-  #set ($modelid = "mod.27772")
-  ## For multi-user simulation
-  ##set ($modelid = "SUAPdemo")
   #set ($query = 'from doc.object(XWiki.XWikiUsers) as user')
   #set ($results = $services.query.xwql($query).execute())
   #set ($potentialUsers = [])
@@ -64,6 +57,38 @@
       #set($discard = $potentialUsers.add("${result}"))
     #end
   #end
+## #####################################################
+## #####################################################
+## Hard-coded for the moment since the ID may change with ME's import and SIM is not relying on BPMN files from ME
+  #set ($modelsetid = "LP_ME_ADOXX_MODELSET_28600")
+  #set ($hcQuery = "from doc.object(LPCode.ModelClass) as m where m.modelsetid='$modelsetid' and m.id='$modelid'")
+  #set ($hcResults = $services.query.xwql($hcQuery).execute())
+  #if ($hcResults.size() &gt;= 1 )
+    #set ($titleReferredDoc = $xwiki.getDocument($hcResults[0]).title)
+    #set ($found = $titleReferredDoc.matches('.*Titolo.*Unico.*'))
+    #if ($found)
+##        #set ($modelid = $modelid + "-titoloUnico")
+##        #set ($modelid = "mod.27772")
+        #set ($modelid = "mod.21093")
+    #else
+      #set ($found = $titleReferredDoc.matches('.*Conferenza.*Servizi.*'))
+      #if ($found)
+##        #set ($modelid = $modelid + "-gestioneConferenzaDiServizi")
+##        #set ($modelid = "mod.27772")
+        #set ($modelid = "mod.21262")
+      #else
+{{warning}}
+Probably the simulator UI will be shown!!
+{{/warning}}
+      #end
+    #end
+  #else
+{{warning}}
+Probably the simulator UI will be shown!!
+{{/warning}}
+  #end
+## #####################################################
+## #####################################################
   #set ($simulationPath = "${services.learnpad.startSimulation($modelid, $currentUser, $potentialUsers)}")
 #end
 #set ($simulationPrefix = "${services.learnpad.getRestPrefix('SIM')}")

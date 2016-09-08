@@ -35,8 +35,9 @@ public class DeleteTask implements IUserMsg {
 	/**
 	 * @param taskid
 	 */
-	public DeleteTask(String taskid) {
+	public DeleteTask(String sessionid, String taskid) {
 		super();
+		this.sessionid = sessionid;
 		this.taskid = taskid;
 	}
 
@@ -49,6 +50,7 @@ public class DeleteTask implements IUserMsg {
 		return TYPE.DELTASK;
 	}
 
+	public final String sessionid;
 	public final String taskid;
 
 }
