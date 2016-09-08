@@ -69,15 +69,15 @@ public class RulesPerPathGeneratorImpl implements RulesPerPath {
 		
 		if (anActivitiesSet.length > 0) {
 			concat = "\t\t\t$0Event : GlimpseBaseEventBPMN("+
-					"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
-					+", this.getEvent.type == EventType.SIMULATION_START.toString()"
+					"this.isConsumed == true, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
+					+", this.getEvent.type.toString() == EventType.SIMULATION_START.toString()"
 					+", this.isException == false);\n";
 		}
 		
 		for(int j = 0; j<anActivitiesSet.length; j++) {				
 			concat +="\t\t\t$"+((j)+1)+"Event : GlimpseBaseEventBPMN(" +
-					"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
-					+", this.getEvent.type == EventType.TASK_END.toString()"
+					"this.isConsumed == true, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
+					+", this.getEvent.type.toString() == EventType.TASK_END.toString()"
 					+", this.getTaskEndEvent().completingUser.toString() == \"##USERSINVOLVEDTASKENDIDS##\""
 					+", this.isException == false"
 					+", this.getTaskEndEvent().taskartifactid.toString() == \"" + anActivitiesSet[j].getTaskArtifactID() +"\""
@@ -85,8 +85,8 @@ public class RulesPerPathGeneratorImpl implements RulesPerPath {
 	}
 
 	concat +="\t\t\t$"+((anActivitiesSet.length)+1)+"Event : GlimpseBaseEventBPMN(" +
-		"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
-		+", this.getEvent.type == EventType.SIMULATION_END.toString()"
+		"this.isConsumed == true, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
+		+", this.getEvent.type.toString() == EventType.SIMULATION_END.toString()"
 		+", this.isException == false"
 		+", this after $" + (anActivitiesSet.length) + "Event);\n";
 			

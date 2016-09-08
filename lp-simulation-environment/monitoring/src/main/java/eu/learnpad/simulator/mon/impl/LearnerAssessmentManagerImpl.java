@@ -194,6 +194,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			
 			sendScoresToSim(scoresToShow,learnersID.get(i));
 			
+			DebugMessages.print(TimeStamp.getCurrentTime(),  this.getClass().getName(),  "Sending score to the platform ");
 			sendScoreUpdateEventToCP(
 					generateScoreEvent(
 							ScoreType.ABSOLUTE_BP_SCORE, absoluteBPScore, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
@@ -231,7 +232,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 							ScoreType.SESSION_SCORE, 
 							ScoreTemporaryStorage.getTemporaryLearnerSessionScore(learnersID.get(i)).floatValue(), 
 							ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
-			
+			DebugMessages.ok();
 		}
 		
 		
