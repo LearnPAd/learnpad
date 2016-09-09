@@ -35,6 +35,8 @@ public class PathExplorerImpl implements PathExplorer {
 		Activity sendAuthorization = new Activity("Send Authorization Document", "Send Authorization Document", "obj.27788", kpiExample, 1.0f);
 		Activity manageInhibition = new Activity("Manage Inhibition", "Manage Inhibition", "obj.27839", kpiExample, 1.0f);
 		Activity activateServiceConference = new Activity("Activate Service Conference", "Activate Service Conference", "obj.27987", kpiExample, 1.0f);
+		Activity sendInstanceToThirdParties = new Activity("Send Instance to Third Party", "Send Instance to Third Party", "obj.27921", kpiExample, 1.0f);
+		Activity receiveConfirmation = new Activity("Receive Confirmation", "Receive Confirmation", "obj.27990", kpiExample, 1.0f);
 		
 		
 //		Activity serviceConfInv = new Activity("Service Conference Invitation","Service Conference Invitation", "usertask1", kpiExample, 1.0f);
@@ -48,7 +50,7 @@ public class PathExplorerImpl implements PathExplorer {
 //		Activity provideFinal = new Activity("Provide Final Report","Provide Final Report","usertask22", kpiExample, 1.0f);
 		
 		lastExploredBPMN.add(new Activity[]
-						{assessApplication, sendNotAmmissible});
+				{assessApplication, sendNotAmmissible});
 		
 		lastExploredBPMN.add(new Activity[]
 				{assessApplication, checkApplication, requestAmendment, checkAmendment, sendAuthorization});
@@ -62,11 +64,46 @@ public class PathExplorerImpl implements PathExplorer {
 		lastExploredBPMN.add(new Activity[]
 				{assessApplication, checkApplication, activateServiceConference, requestAmendment, checkAmendment, sendAuthorization});
 		
-//		lastExploredBPMN.add(new Activity[]
-//						{serviceConfInv, putStamps, checkProvided, takeADecision, provideOp, receivedOpinion, provideAuthUnder, provideFinal});
+		lastExploredBPMN.add(new Activity[]
+				{assessApplication, checkApplication, activateServiceConference, requestAmendment, checkAmendment, manageInhibition});
+		
+		lastExploredBPMN.add(new Activity[]
+				{assessApplication, checkApplication, activateServiceConference, requestAmendment, checkAmendment, sendAuthorization});
+		
+		lastExploredBPMN.add(new Activity[]
+				{assessApplication, checkApplication, activateServiceConference, receiveConfirmation, requestAmendment, checkAmendment, sendAuthorization});
+		
+		lastExploredBPMN.add(new Activity[]
+				{assessApplication, checkApplication, activateServiceConference, receiveConfirmation, requestAmendment, checkAmendment, manageInhibition});
+		
+		lastExploredBPMN.add(new Activity[]
+				{assessApplication, checkApplication, activateServiceConference, receiveConfirmation, requestAmendment, checkAmendment, manageInhibition});
+		
+		lastExploredBPMN.add(new Activity[]
+				{assessApplication, checkApplication, sendInstanceToThirdParties, receiveConfirmation, sendAuthorization});
+		
+		lastExploredBPMN.add(new Activity[]
+				{assessApplication, checkApplication, sendInstanceToThirdParties, receiveConfirmation, manageInhibition});
+		
+		lastExploredBPMN.add(new Activity[]
+				{assessApplication, checkApplication, sendInstanceToThirdParties, activateServiceConference, receiveConfirmation, sendAuthorization});
+		
+		lastExploredBPMN.add(new Activity[]
+				{assessApplication, checkApplication, sendInstanceToThirdParties, activateServiceConference, receiveConfirmation, manageInhibition});
+		
+		lastExploredBPMN.add(new Activity[]
+				{assessApplication, checkApplication, sendInstanceToThirdParties, receiveConfirmation, activateServiceConference, sendAuthorization});
+		
+		lastExploredBPMN.add(new Activity[]
+				{assessApplication, checkApplication, sendInstanceToThirdParties, receiveConfirmation, activateServiceConference, manageInhibition});
+		
+		lastExploredBPMN.add(new Activity[]
+				{assessApplication, checkApplication, sendInstanceToThirdParties, receiveConfirmation, activateServiceConference, requestAmendment, checkAmendment, sendAuthorization});
+		
+		lastExploredBPMN.add(new Activity[]
+				{assessApplication, checkApplication, sendInstanceToThirdParties, receiveConfirmation, activateServiceConference, requestAmendment, checkAmendment, manageInhibition});
+		
 
-//		lastExploredBPMN.add(new Activity[]
-//						{serviceConfInv, putStamps, checkProvided, takeADecision, provideOp, provideAuth, provideFinal});
 		//END FAKE EXPLORATION
 		
 		return lastExploredBPMN;
