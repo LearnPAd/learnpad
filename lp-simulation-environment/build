@@ -79,7 +79,7 @@ function component_install() {
             if [ -n "$1" -a -d "${__COMPONENT_PATH__}/deployment/$1" ]
             then
                 cp "${__COMPONENT_PATH__}/deployment/$1/simulator.properties" \
-                   "${__COMPONENT_PATH__}/simulator/out/"
+                   "${__OUT_PATH__}/simulator/out/."
             fi
         fi;
     fi
