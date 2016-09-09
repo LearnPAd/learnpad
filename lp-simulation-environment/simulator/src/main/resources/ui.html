@@ -274,7 +274,7 @@
          }
 
          if(userid != null) {
-             taskReceiver(#serveripaddress#, userid, integratedMode, sessionid);
+             taskReceiver(#serveripaddress#, userid, integratedMode, sessionid, #platformaddress#);
              if(!integratedMode) {
                  dummyChat('chatcontainer', #serveripaddress#, userid);
              }
