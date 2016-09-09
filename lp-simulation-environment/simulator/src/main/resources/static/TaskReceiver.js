@@ -79,7 +79,7 @@ function taskReceiver(address, user, integratedMode, sessionid, platformAddress)
                 // add infobox with links for other users to join
                 var infoLinks = '<div class="alert alert-info" role="alert">' +
                         'Other participants can join the session using the following link (when logged in):<p>';
-                var url = 'http://' + platformAddress + '/xwiki/bin/view/LPUI/SimulationEnvironment?sessionid=' + msg.sessionid;
+                var url = 'http://' + platformAddress + '/xwiki/bin/view/LPUI/SimulationEnvironment?simulationid=' + msg.sessionid;
                 infoLinks += '<a href="' + url + '">' + url + '</a><p>';
                 infoLinks += '</div>';
                 $('#processmain' + msg.sessionid).append(infoLinks);
