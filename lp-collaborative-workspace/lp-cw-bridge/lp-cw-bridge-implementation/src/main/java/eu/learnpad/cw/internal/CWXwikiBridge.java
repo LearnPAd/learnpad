@@ -360,6 +360,12 @@ public class CWXwikiBridge extends XwikiBridge implements Initializable,
 		return this.corefacade.getDashboardKpiDefaultViewer(modelSetId, userId);
 	}
 
+	public String startDashboardKpiCalculation(String modelSetId)
+			throws LpRestException {
+		return this.corefacade.calculateKPI(modelSetId);
+	}
+
+	
 	private UserDataCollection getUserProfiles(Collection<String> potentialUsers) {
 		XWikiContext xcontext = xcontextProvider.get();
 		XWiki xwiki = xcontext.getWiki();
