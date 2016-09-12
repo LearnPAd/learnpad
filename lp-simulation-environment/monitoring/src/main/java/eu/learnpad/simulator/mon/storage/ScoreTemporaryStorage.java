@@ -3,8 +3,11 @@ package eu.learnpad.simulator.mon.storage;
 import java.util.HashMap;
 import java.util.Vector;
 
+import org.apache.commons.net.ntp.TimeStamp;
+
 import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.simulator.mon.coverage.Learner;
+import eu.learnpad.simulator.mon.utils.DebugMessages;
 
 public class ScoreTemporaryStorage {
 
@@ -34,7 +37,9 @@ public class ScoreTemporaryStorage {
 	}
 
 	public static void setLastScoreUpdateEventSeen(SessionScoreUpdateEvent lastScoreUpdateEventSeen) {
+		DebugMessages.print(TimeStamp.getCurrentTime(), ScoreTemporaryStorage.class.getSimpleName(), "Storing LastScoreUpdateEventSeen");
 		ScoreTemporaryStorage.lastScoreUpdateEventSeen = lastScoreUpdateEventSeen;
+		DebugMessages.ok();
 	}
 	
 	public static void setSessionID(String sessionID) {
@@ -43,8 +48,10 @@ public class ScoreTemporaryStorage {
 
 	
 	public static void setTemporaryLearnerSessionScore(String learnerID, Long scoreValue) {
-		
+		DebugMessages.print(TimeStamp.getCurrentTime(), ScoreTemporaryStorage.class.getSimpleName(), "Storing LearnerSessionScore");
 		ScoreTemporaryStorage.sessionScoreValues.put(learnerID, scoreValue);
+		DebugMessages.ok();
+
 	}
 	
 	public static Long getTemporaryLearnerSessionScore(String learnerID) {

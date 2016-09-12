@@ -1,0 +1,981 @@
+09-05 18:22:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 18:22:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 18:22:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 18:22:54 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 18:22:54 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 18:22:54 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 18:23:44 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 18:23:44 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 18:23:44 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 18:23:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 18:23:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 18:23:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:13:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:13:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:13:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:13:33 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:13:33 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:13:33 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:16:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:16:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:16:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:16:20 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:16:20 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:16:20 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:18:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:18:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:18:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:18:13 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:18:13 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:18:13 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:19:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:19:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:19:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:19:55 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:19:55 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:19:55 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:21:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:21:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:21:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:21:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:21:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 19:21:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 20:04:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 20:04:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 20:04:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 20:04:52 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 20:04:52 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 20:04:52 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 20:06:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 20:06:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 20:06:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 20:06:14 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 20:06:14 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-05 20:06:14 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 09:19:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 09:19:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 09:19:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 09:19:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 09:19:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 09:19:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 09:26:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 09:26:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 09:26:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 09:26:54 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 09:26:54 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 09:26:54 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 12:38:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 12:38:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 12:38:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 12:38:54 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 12:38:54 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 12:38:54 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 16:29:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 16:29:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 16:29:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 16:29:32 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 16:29:32 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 16:29:32 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 16:31:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 16:31:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 16:31:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 16:31:41 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 16:31:41 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-06 16:31:41 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:32:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:32:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:32:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:32:39 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:32:39 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:32:39 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 11:33:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 11:33:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user2' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 11:33:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user3' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+09-07 11:42:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:42:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:42:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:42:17 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:42:17 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:42:17 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 11:42:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 11:42:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user2' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 11:42:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user3' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+09-07 11:47:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:47:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:47:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:47:46 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:47:46 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:47:46 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 11:48:05 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 11:48:05 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user2' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 11:48:05 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user3' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+09-07 11:48:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:48:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:48:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:48:24 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:48:24 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:48:24 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 11:49:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 11:49:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user2' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 11:49:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user3' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+09-07 11:53:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:53:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:53:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:53:24 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:53:24 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 11:53:24 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 11:54:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 11:54:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user2' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 11:54:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user3' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+09-07 12:02:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:02:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:02:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:02:13 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:02:13 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:02:13 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 12:02:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:02:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user2' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:02:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user3' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+09-07 12:10:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:10:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:10:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:10:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:10:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:10:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 12:10:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:10:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user2' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:10:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user3' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+09-07 12:13:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:13:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:13:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:13:03 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:13:03 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:13:03 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 12:13:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:13:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user2' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:13:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user3' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+09-07 12:21:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:21:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:21:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:21:56 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:21:56 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:21:56 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 12:25:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:25:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user2' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:25:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user3' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+09-07 12:25:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:25:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:25:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:25:46 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:25:46 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:25:46 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 12:26:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:26:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user2' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:26:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user3' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+09-07 12:27:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:27:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:27:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:27:19 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:27:19 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:27:19 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 12:27:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:27:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user2' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:27:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user3' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+09-07 12:29:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:29:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:29:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:29:36 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:29:36 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:29:36 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 12:29:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:29:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user2' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:29:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user3' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:30:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (PATH_LEARNER: ID_LEARNER INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path_learner (id_learner, id_path, id_bpmn, session_score, execution_date) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:30:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "USER1" not found; SQL statement:
+SELECT * FROM glimpse.path where id_path IN( SELECT distinct id_path FROM glimpse.path_learner where id_learner = user1) [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:180)
+	at org.h2.command.dml.Select.prepare(Select.java:855)
+	at org.h2.engine.Session.optimizeQueryExpression(Session.java:232)
+	at org.h2.expression.ConditionInSelect.optimize(ConditionInSelect.java:120)
+	at org.h2.command.dml.Select.prepare(Select.java:855)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at eu.learnpad.simulator.mon.storage.H2Controller.getPathsExecutedByLearner(H2Controller.java:424)
+	at eu.learnpad.simulator.mon.impl.LearnerAssessmentManagerImpl.computeAndPropagateScores(LearnerAssessmentManagerImpl.java:156)
+	at eu.learnpad.simulator.mon.manager.ResponseDispatcher.setPathCompletedAndPropagateScores(ResponseDispatcher.java:134)
+	at defaultpkg.Rule_a23748293649_0_0_ad7db0984d2b4015958182ebcec24f18.defaultConsequence(Rule_a23748293649_0_0_ad7db0984d2b4015958182ebcec24f18.java:16)
+	at defaultpkg.Rule_a23748293649_0_0_ad7db0984d2b4015958182ebcec24f18DefaultConsequenceInvokerGenerated.evaluate(Unknown Source)
+	at defaultpkg.Rule_a23748293649_0_0_ad7db0984d2b4015958182ebcec24f18DefaultConsequenceInvoker.evaluate(Unknown Source)
+	at org.drools.common.DefaultAgenda.fireActivation(DefaultAgenda.java:1287)
+	at org.drools.common.DefaultAgenda.fireNextItem(DefaultAgenda.java:1221)
+	at org.drools.common.DefaultAgenda.fireAllRules(DefaultAgenda.java:1456)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:710)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:674)
+	at org.drools.impl.StatefulKnowledgeSessionImpl.fireAllRules(StatefulKnowledgeSessionImpl.java:230)
+	at eu.learnpad.simulator.mon.impl.ComplexEventProcessorImpl.run(ComplexEventProcessorImpl.java:143)
+2016-09-07 12:30:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (BPMN_LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.bpmn_learner (id_learner, id_bpmn, bp_score, relative_bp_score, bp_coverage) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:30:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "USER1" not found; SQL statement:
+SELECT bp_score  FROM glimpse.bpmn_learner where id_learner = user1 [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:180)
+	at org.h2.command.dml.Select.prepare(Select.java:855)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at eu.learnpad.simulator.mon.storage.H2Controller.getLearnerBPMNScores(H2Controller.java:502)
+	at eu.learnpad.simulator.mon.impl.LearnerAssessmentManagerImpl.computeAndPropagateScores(LearnerAssessmentManagerImpl.java:169)
+	at eu.learnpad.simulator.mon.manager.ResponseDispatcher.setPathCompletedAndPropagateScores(ResponseDispatcher.java:134)
+	at defaultpkg.Rule_a23748293649_0_0_ad7db0984d2b4015958182ebcec24f18.defaultConsequence(Rule_a23748293649_0_0_ad7db0984d2b4015958182ebcec24f18.java:16)
+	at defaultpkg.Rule_a23748293649_0_0_ad7db0984d2b4015958182ebcec24f18DefaultConsequenceInvokerGenerated.evaluate(Unknown Source)
+	at defaultpkg.Rule_a23748293649_0_0_ad7db0984d2b4015958182ebcec24f18DefaultConsequenceInvoker.evaluate(Unknown Source)
+	at org.drools.common.DefaultAgenda.fireActivation(DefaultAgenda.java:1287)
+	at org.drools.common.DefaultAgenda.fireNextItem(DefaultAgenda.java:1221)
+	at org.drools.common.DefaultAgenda.fireAllRules(DefaultAgenda.java:1456)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:710)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:674)
+	at org.drools.impl.StatefulKnowledgeSessionImpl.fireAllRules(StatefulKnowledgeSessionImpl.java:230)
+	at eu.learnpad.simulator.mon.impl.ComplexEventProcessorImpl.run(ComplexEventProcessorImpl.java:143)
+2016-09-07 12:30:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+09-07 12:34:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:34:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:34:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:34:42 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:34:42 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:34:42 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 12:35:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:35:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user2' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:35:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user3' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:35:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (PATH_LEARNER: ID_LEARNER INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path_learner (id_learner, id_path, id_bpmn, session_score, execution_date) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:35:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "USER1" not found; SQL statement:
+SELECT * FROM glimpse.path where id_path IN( SELECT distinct id_path FROM glimpse.path_learner where id_learner = user1) [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:180)
+	at org.h2.command.dml.Select.prepare(Select.java:855)
+	at org.h2.engine.Session.optimizeQueryExpression(Session.java:232)
+	at org.h2.expression.ConditionInSelect.optimize(ConditionInSelect.java:120)
+	at org.h2.command.dml.Select.prepare(Select.java:855)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at eu.learnpad.simulator.mon.storage.H2Controller.getPathsExecutedByLearner(H2Controller.java:424)
+	at eu.learnpad.simulator.mon.impl.LearnerAssessmentManagerImpl.computeAndPropagateScores(LearnerAssessmentManagerImpl.java:156)
+	at eu.learnpad.simulator.mon.manager.ResponseDispatcher.setPathCompletedAndPropagateScores(ResponseDispatcher.java:134)
+	at defaultpkg.Rule_a23748293649_0_0_03206feecad94ece8fff94388c39011c.defaultConsequence(Rule_a23748293649_0_0_03206feecad94ece8fff94388c39011c.java:16)
+	at defaultpkg.Rule_a23748293649_0_0_03206feecad94ece8fff94388c39011cDefaultConsequenceInvokerGenerated.evaluate(Unknown Source)
+	at defaultpkg.Rule_a23748293649_0_0_03206feecad94ece8fff94388c39011cDefaultConsequenceInvoker.evaluate(Unknown Source)
+	at org.drools.common.DefaultAgenda.fireActivation(DefaultAgenda.java:1287)
+	at org.drools.common.DefaultAgenda.fireNextItem(DefaultAgenda.java:1221)
+	at org.drools.common.DefaultAgenda.fireAllRules(DefaultAgenda.java:1456)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:710)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:674)
+	at org.drools.impl.StatefulKnowledgeSessionImpl.fireAllRules(StatefulKnowledgeSessionImpl.java:230)
+	at eu.learnpad.simulator.mon.impl.ComplexEventProcessorImpl.run(ComplexEventProcessorImpl.java:143)
+2016-09-07 12:35:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (BPMN_LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.bpmn_learner (id_learner, id_bpmn, bp_score, relative_bp_score, bp_coverage) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:35:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "USER1" not found; SQL statement:
+SELECT bp_score  FROM glimpse.bpmn_learner where id_learner = user1 [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:180)
+	at org.h2.command.dml.Select.prepare(Select.java:855)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at eu.learnpad.simulator.mon.storage.H2Controller.getLearnerBPMNScores(H2Controller.java:502)
+	at eu.learnpad.simulator.mon.impl.LearnerAssessmentManagerImpl.computeAndPropagateScores(LearnerAssessmentManagerImpl.java:169)
+	at eu.learnpad.simulator.mon.manager.ResponseDispatcher.setPathCompletedAndPropagateScores(ResponseDispatcher.java:134)
+	at defaultpkg.Rule_a23748293649_0_0_03206feecad94ece8fff94388c39011c.defaultConsequence(Rule_a23748293649_0_0_03206feecad94ece8fff94388c39011c.java:16)
+	at defaultpkg.Rule_a23748293649_0_0_03206feecad94ece8fff94388c39011cDefaultConsequenceInvokerGenerated.evaluate(Unknown Source)
+	at defaultpkg.Rule_a23748293649_0_0_03206feecad94ece8fff94388c39011cDefaultConsequenceInvoker.evaluate(Unknown Source)
+	at org.drools.common.DefaultAgenda.fireActivation(DefaultAgenda.java:1287)
+	at org.drools.common.DefaultAgenda.fireNextItem(DefaultAgenda.java:1221)
+	at org.drools.common.DefaultAgenda.fireAllRules(DefaultAgenda.java:1456)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:710)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:674)
+	at org.drools.impl.StatefulKnowledgeSessionImpl.fireAllRules(StatefulKnowledgeSessionImpl.java:230)
+	at eu.learnpad.simulator.mon.impl.ComplexEventProcessorImpl.run(ComplexEventProcessorImpl.java:143)
+2016-09-07 12:35:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+09-07 12:38:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:38:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:38:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:38:31 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:38:31 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:38:31 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 12:38:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:38:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user2' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:38:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user3' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:39:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (PATH_LEARNER: ID_LEARNER INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path_learner (id_learner, id_path, id_bpmn, session_score, execution_date) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:39:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (BPMN_LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.bpmn_learner (id_learner, id_bpmn, bp_score, relative_bp_score, bp_coverage) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:39:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "USER1" not found; SQL statement:
+SELECT bp_score  FROM glimpse.bpmn_learner where id_learner = user1 [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:180)
+	at org.h2.command.dml.Select.prepare(Select.java:855)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at eu.learnpad.simulator.mon.storage.H2Controller.getLearnerBPMNScores(H2Controller.java:502)
+	at eu.learnpad.simulator.mon.impl.LearnerAssessmentManagerImpl.computeAndPropagateScores(LearnerAssessmentManagerImpl.java:169)
+	at eu.learnpad.simulator.mon.manager.ResponseDispatcher.setPathCompletedAndPropagateScores(ResponseDispatcher.java:134)
+	at defaultpkg.Rule_a23748293649_0_0_aca8806bf45c4add8213a695216db53c.defaultConsequence(Rule_a23748293649_0_0_aca8806bf45c4add8213a695216db53c.java:16)
+	at defaultpkg.Rule_a23748293649_0_0_aca8806bf45c4add8213a695216db53cDefaultConsequenceInvokerGenerated.evaluate(Unknown Source)
+	at defaultpkg.Rule_a23748293649_0_0_aca8806bf45c4add8213a695216db53cDefaultConsequenceInvoker.evaluate(Unknown Source)
+	at org.drools.common.DefaultAgenda.fireActivation(DefaultAgenda.java:1287)
+	at org.drools.common.DefaultAgenda.fireNextItem(DefaultAgenda.java:1221)
+	at org.drools.common.DefaultAgenda.fireAllRules(DefaultAgenda.java:1456)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:710)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:674)
+	at org.drools.impl.StatefulKnowledgeSessionImpl.fireAllRules(StatefulKnowledgeSessionImpl.java:230)
+	at eu.learnpad.simulator.mon.impl.ComplexEventProcessorImpl.run(ComplexEventProcessorImpl.java:143)
+2016-09-07 12:39:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+09-07 12:43:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:43:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:43:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:43:47 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:43:47 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:43:47 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 12:44:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:44:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user2' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:44:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user3' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:44:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (PATH_LEARNER: ID_LEARNER INTEGER NOT NULL)"; SQL statement:
+insert into glimpse.path_learner (id_learner, id_path, id_bpmn, session_score, execution_date) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:44:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (BPMN_LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.bpmn_learner (id_learner, id_bpmn, bp_score, relative_bp_score, bp_coverage) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+2016-09-07 12:44:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'user1' (LEARNER: ID_LEARNER INTEGER)"; SQL statement:
+insert into glimpse.learner(id_learner, id_role, global_score, relative_global_score, absolute_global_score) values (?, ?, ?, ?, ?) -- (?1, ?2, ?3, ?4, ?5) [22018-191]
+09-07 12:54:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:54:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:54:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:54:28 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:54:28 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:54:28 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:56:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:56:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:56:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:56:42 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:56:42 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 12:56:42 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 12:58:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "USER1" not found; SQL statement:
+update glimpse.learner set global_score = 30.0,  relative_global_score = 2.0, absolute_global_score = 34.0 where id_learner = user1; [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:180)
+	at org.h2.command.dml.Update.prepare(Update.java:185)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at eu.learnpad.simulator.mon.storage.H2Controller.updateLearnerScores(H2Controller.java:655)
+	at eu.learnpad.simulator.mon.impl.LearnerAssessmentManagerImpl.computeAndPropagateScores(LearnerAssessmentManagerImpl.java:180)
+	at eu.learnpad.simulator.mon.manager.ResponseDispatcher.setPathCompletedAndPropagateScores(ResponseDispatcher.java:134)
+	at defaultpkg.Rule_a23748293649_0_0_2b5a6a2dc9ab455d882dd4492747a58b.defaultConsequence(Rule_a23748293649_0_0_2b5a6a2dc9ab455d882dd4492747a58b.java:16)
+	at defaultpkg.Rule_a23748293649_0_0_2b5a6a2dc9ab455d882dd4492747a58bDefaultConsequenceInvokerGenerated.evaluate(Unknown Source)
+	at defaultpkg.Rule_a23748293649_0_0_2b5a6a2dc9ab455d882dd4492747a58bDefaultConsequenceInvoker.evaluate(Unknown Source)
+	at org.drools.common.DefaultAgenda.fireActivation(DefaultAgenda.java:1287)
+	at org.drools.common.DefaultAgenda.fireNextItem(DefaultAgenda.java:1221)
+	at org.drools.common.DefaultAgenda.fireAllRules(DefaultAgenda.java:1456)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:710)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:674)
+	at org.drools.impl.StatefulKnowledgeSessionImpl.fireAllRules(StatefulKnowledgeSessionImpl.java:230)
+	at eu.learnpad.simulator.mon.impl.ComplexEventProcessorImpl.run(ComplexEventProcessorImpl.java:143)
+09-07 13:03:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:03:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:03:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:03:20 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:03:20 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:03:20 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 13:17:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "USER1" not found; SQL statement:
+update glimpse.bpmn_learner set bp_score = 30.0,  relative_bp_score = 2.0, bp_coverage = 33.0 where id_learner = user1; [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:180)
+	at org.h2.command.dml.Update.prepare(Update.java:185)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at eu.learnpad.simulator.mon.storage.H2Controller.updateBpmnLearnerScores(H2Controller.java:693)
+	at eu.learnpad.simulator.mon.impl.LearnerAssessmentManagerImpl.computeAndPropagateScores(LearnerAssessmentManagerImpl.java:165)
+	at eu.learnpad.simulator.mon.manager.ResponseDispatcher.setPathCompletedAndPropagateScores(ResponseDispatcher.java:134)
+	at defaultpkg.Rule_a23748293649_0_0_d4a4c9a33f72481980d73a31a5f68912.defaultConsequence(Rule_a23748293649_0_0_d4a4c9a33f72481980d73a31a5f68912.java:16)
+	at defaultpkg.Rule_a23748293649_0_0_d4a4c9a33f72481980d73a31a5f68912DefaultConsequenceInvokerGenerated.evaluate(Unknown Source)
+	at defaultpkg.Rule_a23748293649_0_0_d4a4c9a33f72481980d73a31a5f68912DefaultConsequenceInvoker.evaluate(Unknown Source)
+	at org.drools.common.DefaultAgenda.fireActivation(DefaultAgenda.java:1287)
+	at org.drools.common.DefaultAgenda.fireNextItem(DefaultAgenda.java:1221)
+	at org.drools.common.DefaultAgenda.fireAllRules(DefaultAgenda.java:1456)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:710)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:674)
+	at org.drools.impl.StatefulKnowledgeSessionImpl.fireAllRules(StatefulKnowledgeSessionImpl.java:230)
+	at eu.learnpad.simulator.mon.impl.ComplexEventProcessorImpl.run(ComplexEventProcessorImpl.java:143)
+2016-09-07 13:19:37 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "USER1" not found; SQL statement:
+update glimpse.bpmn_learner set bp_score = 30.0,  relative_bp_score = 2.0, bp_coverage = 33.0 where id_learner = user1; [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:180)
+	at org.h2.command.dml.Update.prepare(Update.java:185)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at eu.learnpad.simulator.mon.storage.H2Controller.updateBpmnLearnerScores(H2Controller.java:693)
+	at eu.learnpad.simulator.mon.impl.LearnerAssessmentManagerImpl.computeAndPropagateScores(LearnerAssessmentManagerImpl.java:165)
+	at eu.learnpad.simulator.mon.manager.ResponseDispatcher.setPathCompletedAndPropagateScores(ResponseDispatcher.java:134)
+	at defaultpkg.Rule_a23748293649_0_0_d4a4c9a33f72481980d73a31a5f68912.defaultConsequence(Rule_a23748293649_0_0_d4a4c9a33f72481980d73a31a5f68912.java:16)
+	at defaultpkg.Rule_a23748293649_0_0_d4a4c9a33f72481980d73a31a5f68912DefaultConsequenceInvokerGenerated.evaluate(Unknown Source)
+	at defaultpkg.Rule_a23748293649_0_0_d4a4c9a33f72481980d73a31a5f68912DefaultConsequenceInvoker.evaluate(Unknown Source)
+	at org.drools.common.DefaultAgenda.fireActivation(DefaultAgenda.java:1287)
+	at org.drools.common.DefaultAgenda.fireNextItem(DefaultAgenda.java:1221)
+	at org.drools.common.DefaultAgenda.fireAllRules(DefaultAgenda.java:1456)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:710)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:674)
+	at org.drools.impl.StatefulKnowledgeSessionImpl.fireAllRules(StatefulKnowledgeSessionImpl.java:230)
+	at eu.learnpad.simulator.mon.impl.ComplexEventProcessorImpl.run(ComplexEventProcessorImpl.java:143)
+09-07 13:20:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:20:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:20:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:20:45 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:20:45 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:20:45 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:20:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:20:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:20:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:20:49 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:20:49 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:20:49 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:47:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:47:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:47:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:47:41 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:47:41 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:47:41 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:58:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:58:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:58:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:58:08 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:58:08 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 13:58:08 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 14:00:05 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 14:00:05 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 14:00:05 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 14:00:05 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 14:00:05 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 14:00:05 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 14:02:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 14:02:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 14:02:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 14:02:04 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 14:02:04 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 14:02:04 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 15:36:34 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 15:36:34 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 15:36:34 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 15:36:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 15:36:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 15:36:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 16:00:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 16:00:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 16:00:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 16:00:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 16:00:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 16:00:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 18:33:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 18:33:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 18:33:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 18:33:46 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 18:33:46 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 18:33:46 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:26:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:26:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:26:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:26:03 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:26:03 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:26:03 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+2016-09-07 20:27:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "USER1" not found; SQL statement:
+update glimpse.bpmn_learner set bp_score = 6.0,  relative_bp_score = 7.0, bp_coverage = 40.0 where id_learner = user1; [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:147)
+	at org.h2.expression.Comparison.optimize(Comparison.java:180)
+	at org.h2.command.dml.Update.prepare(Update.java:185)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at eu.learnpad.simulator.mon.storage.H2Controller.updateBpmnLearnerScores(H2Controller.java:693)
+	at eu.learnpad.simulator.mon.impl.LearnerAssessmentManagerImpl.computeAndPropagateScores(LearnerAssessmentManagerImpl.java:165)
+	at eu.learnpad.simulator.mon.manager.ResponseDispatcher.setPathCompletedAndPropagateScores(ResponseDispatcher.java:134)
+	at defaultpkg.Rule_a23748293649_1_1_b21d23d054854c09840b6a3d2b51fce9.defaultConsequence(Rule_a23748293649_1_1_b21d23d054854c09840b6a3d2b51fce9.java:28)
+	at defaultpkg.Rule_a23748293649_1_1_b21d23d054854c09840b6a3d2b51fce9DefaultConsequenceInvokerGenerated.evaluate(Unknown Source)
+	at defaultpkg.Rule_a23748293649_1_1_b21d23d054854c09840b6a3d2b51fce9DefaultConsequenceInvoker.evaluate(Unknown Source)
+	at org.drools.common.DefaultAgenda.fireActivation(DefaultAgenda.java:1287)
+	at org.drools.common.DefaultAgenda.fireNextItem(DefaultAgenda.java:1221)
+	at org.drools.common.DefaultAgenda.fireAllRules(DefaultAgenda.java:1456)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:710)
+	at org.drools.common.AbstractWorkingMemory.fireAllRules(AbstractWorkingMemory.java:674)
+	at org.drools.impl.StatefulKnowledgeSessionImpl.fireAllRules(StatefulKnowledgeSessionImpl.java:230)
+	at eu.learnpad.simulator.mon.impl.ComplexEventProcessorImpl.run(ComplexEventProcessorImpl.java:143)
+09-07 20:29:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:29:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:29:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:29:48 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:29:48 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:29:48 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:31:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:31:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:31:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:31:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:31:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:31:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:39:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:39:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:39:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:39:32 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:39:32 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-07 20:39:32 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-08 06:16:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-08 06:16:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-08 06:16:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-08 06:16:10 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-08 06:16:10 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]
+09-08 06:16:10 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: The object is already closed [90007-176]

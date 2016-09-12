@@ -1,6 +1,0 @@
-import eu.learnpad.simulator.mon.event.GlimpseBaseEventAbstract;
-
-declare GlimpseBaseEventAbstract
-   @role( event )
-   @timestamp( timeStamp )
-end
