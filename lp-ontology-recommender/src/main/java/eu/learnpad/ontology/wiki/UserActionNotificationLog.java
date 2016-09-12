@@ -121,7 +121,7 @@ public class UserActionNotificationLog {
         }
 
         //create new instance
-        Individual newPageInstance = pageClass.createIndividual(pageURL);
+        Individual newPageInstance = pageClass.createIndividual(pageClass.getURI()+"_"+UUID.randomUUID());
         newPageInstance.addProperty(pageUrlProperty, value);
 
         return newPageInstance;

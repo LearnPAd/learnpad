@@ -30,7 +30,8 @@ import java.util.Map;
  */
 public abstract class AbstractKpiTest extends AbstractUnitTest {
 
-    private final static String TEST_WIKI_PAGE_URI = "http://learnpad.eu/unittest/NotificationLogTest_Page";
+//    protected final static String TEST_WIKI_PAGE_URI = "http://learnpad.eu/unittest/NotificationLogTest_Page";
+    protected final static String TEST_WIKI_PAGE_URI = "xwiki:LP_ME_ADOXX_MODELSET_28600.mod\\.21093.WebHome#xwikicomment_2";
     private static Individual testWikiPage;
 
     private Map<String, List<Individual>> logEntries = new HashMap();
@@ -82,17 +83,6 @@ public abstract class AbstractKpiTest extends AbstractUnitTest {
         Individual logEntry = UserActionNotificationLog.getInstance().logResourceNotification(modelSetId, modelId, artifactId, resourceId, resourceType, referringToResourceId, userId, timestamp, action);
         addLog(resourceType, logEntry);
         return logEntry;
-    }
-
-    protected Individual getTestWikiPage(OntModel model) {
-        if (testWikiPage == null) {
-            OntClass pageClass = model.getOntClass(APP.NS.XWIKI + "Page");
-            testWikiPage = pageClass.createIndividual(TEST_WIKI_PAGE_URI);
-            OntProperty pageUrlProperty = model.getOntProperty(APP.NS.XWIKI + "pageHasURL");
-            Literal value = model.createTypedLiteral(TEST_WIKI_PAGE_URI);
-            testWikiPage.addProperty(pageUrlProperty, value);
-        }
-        return testWikiPage;
     }
 
     protected void cleanUpSimScoreLogs() {

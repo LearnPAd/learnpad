@@ -83,8 +83,7 @@ public class KpiAssessmentTest extends AbstractKpiTest{
         assertNotNull(logEntry);
         testPerformanceValue(model, KPI_LABEL__GLOBAL_SCORE, 1);        
         
-        String testWikiPageUri = getTestWikiPage(model).getURI();
-        logEntry = createUserActionLog(MODELSET_ID, null, null, testWikiPageUri, ResourceType.PAGE, null, TEST_USER, System.currentTimeMillis(), NotificationActionType.ADDED);
+        logEntry = createUserActionLog(MODELSET_ID, null, null, TEST_WIKI_PAGE_URI, ResourceType.PAGE, null, TEST_USER, System.currentTimeMillis(), NotificationActionType.ADDED);
         assertNotNull(logEntry);
         
         testPerformanceValue(model, KPI_LABEL__GLOBAL_ACTIONS, 1);    

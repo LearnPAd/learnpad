@@ -65,4 +65,8 @@ public class FileOntAOTest extends AbstractUnitTest{
         
     }
     
+    @Test
+    public void testReloadModelset() throws RecommenderException{
+        FileOntAO.getInstance().reload(MODELSET_ID);
+    }
 }

@@ -40,17 +40,13 @@ public class UserActionNotificationLogTest extends AbstractKpiTest {
         //test page created
         OntClass pageClass = model.getOntClass(APP.NS.XWIKI + "Page");
         OntProperty testWikiPageUriProperty = model.getOntProperty(APP.NS.XWIKI + "pageHasURL");
-        String testWikiPageUri = getTestWikiPage(model).getURI();
-        Literal value = model.createTypedLiteral(testWikiPageUri);
-        List<Individual> pageInstancs = OntUtil.getInstancesWithProperty(model, pageClass, testWikiPageUriProperty, value);
-        assertNotNull(pageInstancs);
-        assertEquals(1, pageInstancs.size());
         
         Long timestamp = System.currentTimeMillis();
-        Individual logEntry = createUserActionLog(MODELSET_ID, null, null, testWikiPageUri, ResourceType.PAGE, null, TEST_USER, timestamp, NotificationActionType.ADDED);
+        Individual logEntry = createUserActionLog(MODELSET_ID, null, null, TEST_WIKI_PAGE_URI, ResourceType.PAGE, null, TEST_USER, timestamp, NotificationActionType.ADDED);
         assertNotNull(logEntry);
 
-        pageInstancs = OntUtil.getInstancesWithProperty(model, pageClass, testWikiPageUriProperty, value);
+        Literal value = model.createTypedLiteral(TEST_WIKI_PAGE_URI);
+        List<Individual> pageInstancs = OntUtil.getInstancesWithProperty(model, pageClass, testWikiPageUriProperty, value);
         assertNotNull(pageInstancs);
         assertEquals(1, pageInstancs.size());
         Individual pageInstance = pageInstancs.get(0);
@@ -60,7 +56,7 @@ public class UserActionNotificationLogTest extends AbstractKpiTest {
         testLogCreated(model, pageInstance, "added", TEST_USER, 1);
         
         //test comment log created
-        logEntry = createUserActionLog(MODELSET_ID, null, null, "1", ResourceType.COMMENT, testWikiPageUri, TEST_USER, timestamp, NotificationActionType.ADDED);
+        logEntry = createUserActionLog(MODELSET_ID, null, null, "1", ResourceType.COMMENT, TEST_WIKI_PAGE_URI, TEST_USER, timestamp, NotificationActionType.ADDED);
         
         OntClass commentClass = model.getOntClass(APP.NS.XWIKI + "Comment");
         OntProperty referedPageUrlProperty = model.getOntProperty(APP.NS.XWIKI + "annotationIsMadeToPage");
