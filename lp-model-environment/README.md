@@ -53,7 +53,7 @@ The models used during :
  * the validation run at MAR 
 are all available in ``src/test/resources/``. However, note that currenly the ME
 include in the ZIP file (i.e. the ones used in the experiments) a BPMN version
-of the processes that is executable. So actually the SIM is not relying on the
+of the processes that is not really executable (by Activity). So actually the SIM is not relying on the
 BPMN files the ME includes in the ZIP but on some `test file` embedded in the 
 SIM component. Thus it was necessary to hard-code some IDs in the CW
 (see [here](https://github.com/LearnPAd/learnpad/tree/master/lp-collaborative-workspace/lp-cw-component/lp-cw-component-ui/src/main/resources/LPUI/SimulationEnvironment.xml#L60-L91) ).
