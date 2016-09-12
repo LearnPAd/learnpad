@@ -333,6 +333,25 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 		}
 	}
 	
+	@Override
+	public String calculateKPI(String modelSetId) throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/dashboardkpi/%s/calculatekpi", DefaultRestResource.REST_URI, modelSetId);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.TEXT_PLAIN);
+
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("modelsetid", modelSetId);
+		getMethod.setQueryString(queryString);
+
+		try {
+			httpClient.executeMethod(getMethod);
+			String url = getMethod.getResponseBodyAsString();
+			return url;
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+	}
 	
 	@Override
 	public InputStream transform(ModelSetType type, InputStream model) throws LpRestException {
@@ -438,4 +457,5 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 	}
+
 }

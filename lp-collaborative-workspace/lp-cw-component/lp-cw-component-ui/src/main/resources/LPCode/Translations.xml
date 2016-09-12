@@ -106,6 +106,8 @@ SimulationEnvironment.goback=Go back to the browsing of the model
 
 # Dashboard
 LPUI.Dashboard.section.title=Score on the process "{0}"
+LPUI.Dashboard.calculate.button=Calculate KPIs
+LPUI.Dashboard.calculate.warning=This operation may take time, and the page must be reloded
 
 # LPDocs
 LPDocs.WebHome.title=How To!

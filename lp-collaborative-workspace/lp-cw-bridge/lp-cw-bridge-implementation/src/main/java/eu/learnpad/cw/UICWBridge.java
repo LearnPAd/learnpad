@@ -38,6 +38,8 @@ public interface UICWBridge {
 
 	public String getDashboardKpiDefaultViewer(String modelSetId, String userId) throws LpRestException;
 
+	public String startDashboardKpiCalculation(String modelSetId) throws LpRestException;
+
 	public String getRestPrefix(String component) throws LpRestException;
 
 	public String startSimulation(String modelId, String currentUser, Collection<String> potentialUsers)

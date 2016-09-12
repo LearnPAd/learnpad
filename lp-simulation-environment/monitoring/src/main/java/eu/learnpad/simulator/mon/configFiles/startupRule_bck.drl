@@ -30,10 +30,11 @@ when
 		this.isConsumed == false,
 		this.isException == false,
 		this.getEventName == EventType.SIMULATION_START.toString()); 
-then			
-	$bEvent.setConsumed(true); 
-	update($bEvent); 
+then		
+ 	$bEvent.setConsumed(true);
+ 	update($bEvent);
  	RestNotifier.notifySimulationStartDemo($bEvent.getTimeStamp(), (SimulationStartEvent)$bEvent.getEvent());
+ 	retract($bEvent);			
 end 
 
 rule "Forward to the CP - SimulationEnd" 
@@ -48,10 +49,11 @@ when
 	 	this.isConsumed == false,
 	 	this.isException == false,
 		this.getEventName == EventType.SIMULATION_END.toString()); 
-then	 		 	
-	$aEvent.setConsumed(true); 
-	update($aEvent); 
+then	 	
+ 	 $aEvent.setConsumed(true);
+ 	update($aEvent);
  	RestNotifier.notifySimulationEndDemo($aEvent.getTimeStamp(), (SimulationEndEvent)$aEvent.getEvent());
+ 	retract($aEvent);			
 end 
 
 rule "Forward to the CP - ProcessStart"  
@@ -66,10 +68,11 @@ when
  		this.isConsumed == false,
  		this.isException == false,
  		this.getEventName == EventType.PROCESS_START.toString()); 
-then
-	$aEvent.setConsumed(true); 
-	update($aEvent); 		 
+then		 
+ 	$aEvent.setConsumed(true);
+ 	update($aEvent);
  	RestNotifier.notifyProcessStartDemo($aEvent.getTimeStamp(), (ProcessStartEvent)$aEvent.getEvent());
+ 	retract($aEvent);			
 end 
  
 rule "Forward to the CP - ProcessEnd"  
@@ -85,9 +88,10 @@ when
 	 	this.isException == false,
 		this.getEventName == EventType.PROCESS_END.toString()); 
 then	 	
-	$aEvent.setConsumed(true); 
-	update($aEvent); 
- 	RestNotifier.notifyProcessEndDemo($aEvent.getTimeStamp(), (ProcessEndEvent)$aEvent.getEvent());			
+ 	$aEvent.setConsumed(true);
+ 	update($aEvent);
+ 	RestNotifier.notifyProcessEndDemo($aEvent.getTimeStamp(), (ProcessEndEvent)$aEvent.getEvent());
+ 	retract($aEvent);			
 end  
 
 rule "Forward to the CP - TaskStart"  
@@ -102,10 +106,11 @@ when
 	 	this.isConsumed == false,
 	 	this.isException == false,
 		this.getEventName == EventType.TASK_START.toString());  
-then
-	$aEvent.setConsumed(true); 
-	update($aEvent); 	 	
- 	RestNotifier.notifyTaskStartDemo($aEvent.getTimeStamp(), (TaskStartEvent)$aEvent.getEvent());			
+then	 	
+ 	$aEvent.setConsumed(true);
+ 	update($aEvent);
+ 	RestNotifier.notifyTaskStartDemo($aEvent.getTimeStamp(), (TaskStartEvent)$aEvent.getEvent());
+ 	retract($aEvent);			
 end 
 
 rule "Forward to the CP - TaskFailed" 
@@ -120,10 +125,11 @@ when
 		this.isConsumed == false,
 		this.isException == false,
 		this.getEventName == EventType.TASK_FAILED.toString());  
-then 		 
+then 		
 	$aEvent.setConsumed(true); 
 	update($aEvent); 
-	RestNotifier.notifyTaskFailedDemo($aEvent.getTimeStamp(), (TaskFailedEvent)$aEvent.getEvent()); 		
+	RestNotifier.notifyTaskFailedDemo($aEvent.getTimeStamp(), (TaskFailedEvent)$aEvent.getEvent()); 
+	retract($aEvent); 			
 end 
 
 rule "Forward to the CP - TaskEnd" 
@@ -138,10 +144,30 @@ when
 		this.isConsumed == false,
 		this.isException == false,
 		this.getEventName == EventType.TASK_END.toString());  
-then
+then		
 	$aEvent.setConsumed(true); 
-	update($aEvent); 		
-	RestNotifier.notifyTaskEndDemo($aEvent.getTimeStamp(), (TaskEndEvent)$aEvent.getEvent()); 		 	
+	update($aEvent); 
+	RestNotifier.notifyTaskEndDemo($aEvent.getTimeStamp(), (TaskEndEvent)$aEvent.getEvent()); 
+	retract($aEvent);		 	
+end   
+
+rule "Forward to the CP - SessionScoreUpdate" 
+no-loop true 
+
+salience 20 
+
+dialect "java" 
+
+when 
+ 	$aEvent : GlimpseBaseEventBPMN(
+		this.isConsumed == false,
+		this.isException == false,
+		this.getEventName == EventType.SESSION_SCORE_UPDATE.toString());  
+then		
+	$aEvent.setConsumed(true); 
+	update($aEvent); 
+	RestNotifier.notifySessionScoreUpdateDemo($aEvent.getTimeStamp(), (SessionScoreUpdateEvent)$aEvent.getEvent()); 
+	retract($aEvent);		 	
 end   
 
 rule "Save in tempStructure the SessionScoreUpdate value" 
@@ -160,8 +186,8 @@ then
 	$aEvent.setConsumed(true); 
 	update($aEvent); 
 	ScoreTemporaryStorage.setTemporaryLearnerSessionScore(
-									$aEvent.getSessionScoreUpdateEvent().user.toString(), 
-									$aEvent.getSessionScoreUpdateEvent().sessionscore);
-	ScoreTemporaryStorage.setLastScoreUpdateEventSeen($aEvent.getSessionScoreUpdateEvent());
+									(String)((SessionScoreUpdateEvent)$aEvent.getEvent()).user.toString(), 
+									(Long)((SessionScoreUpdateEvent)$aEvent.getEvent()).sessionscore);
+	ScoreTemporaryStorage.setLastScoreUpdateEventSeen((SessionScoreUpdateEvent)$aEvent.getEvent());
 	retract($aEvent);		 	
-end  
+end    

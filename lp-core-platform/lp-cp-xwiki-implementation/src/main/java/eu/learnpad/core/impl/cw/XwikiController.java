@@ -53,6 +53,7 @@ import eu.learnpad.or.rest.data.Entities;
 import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.ResourceType;
+import eu.learnpad.or.rest.data.kbprocessing.KBProcessId;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.sim.rest.data.UserDataCollection;
@@ -281,6 +282,14 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	@Override
 	public AnnotatedCollaborativeContentAnalyses getResults(String analysisId) throws LpRestException {
 		return this.ca.getCollaborativeContentVerifications(analysisId);
+	}
+
+	@Override
+	public String calculateKPI(String modelSetId) throws LpRestException {
+		KBProcessId kbPID = this.or.calculateKPI(modelSetId);
+		if (kbPID != null)
+			return kbPID.getId();
+		return "";
 	}
 
 	private String removePrefixes(String userId) {
