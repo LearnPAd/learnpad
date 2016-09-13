@@ -53,14 +53,13 @@ public class XwikiBridgeInterfaceRestResourceTest extends AbstractUnitTest {
 		try {
 			Long timestamp = new Long(System.currentTimeMillis());
 			String resourceId = "fooResourceId";
-			String referringToResourceId = "foo";
 			String modelId = "fooModelId";
 			String artifactId = "fooArtifactId";
 			String userId = "bbarnes@learnpad.eu";
 			NotificationActionType action = NotificationActionType.ADDED;
 			ResourceType resourceType = ResourceType.PAGE;
 			String modelSetId = "fooModelSetId";
-			this.bridge.resourceNotification(modelSetId, modelId, artifactId, resourceId, resourceType, referringToResourceId, userId, timestamp, action);
+			this.bridge.resourceNotification(modelSetId, modelId, artifactId, resourceId, resourceType, userId, timestamp, action);
 		} catch (LpRestException e) {
 			exceptionRaised = true;
 		}

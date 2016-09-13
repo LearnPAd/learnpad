@@ -46,9 +46,6 @@ public interface ResourceNotification {
 	 * @param resourceType
 	 *            type of resource (See
 	 *            {@link eu.learnpad.or.rest.data.ResourceType})
-	 * @param referringToResourceId
-	 *            resource id of other referrenced resource (ex. the page id a
-	 *            comment belongs to)
 	 * @param userId
 	 *            unique user identifier for the system
 	 * @param timestamp
@@ -66,7 +63,6 @@ public interface ResourceNotification {
 			@QueryParam("artifactid") String artifactId,
 			@QueryParam("resourceid") String resourceId,
 			@QueryParam("resourcetype") ResourceType resourceType,
-			@QueryParam("referringtoresourceid") String referringToResourceId,
 			@QueryParam("userid") String userId,
 			@QueryParam("timestamp") Long timestamp,
 			@QueryParam("action") NotificationActionType action)

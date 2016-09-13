@@ -40,6 +40,20 @@ public class UserActionNotificationLog {
     public static UserActionNotificationLog getInstance() {
         return SINGLETON;
     }
+    
+    public static String createResourceId(String modelSetId, String modelId, String artifactId){
+        StringBuilder resourceId = new StringBuilder(getStringValue(modelSetId, ""));
+        resourceId.append(getStringValue(modelId, ""));
+        resourceId.append(getStringValue(artifactId, ""));
+        return resourceId.toString();
+    }
+    
+    private static String getStringValue(String s, String defaultValue){
+        if(s == null){
+            return defaultValue;
+        }
+        return s;
+    }
 
     /**
      * Create action history log for a wiki page or one of it's annotations
@@ -50,7 +64,6 @@ public class UserActionNotificationLog {
      * @param artifactId model object id linked to the resource
      * @param resourceId either the page id (URL) or the comment id
      * @param resourceType one of page, comment, attachment or feedback
-     * @param referringToResourceId the resource id this resource is reffering
      * to (ex. the page id a comment is referring to)
      * @param userId
      * @param timestamp
@@ -63,7 +76,6 @@ public class UserActionNotificationLog {
             String artifactId,
             String resourceId,
             ResourceType resourceType,
-            String referringToResourceId,
             String userId,
             Long timestamp,
             NotificationActionType action) throws RecommenderException {
@@ -78,22 +90,22 @@ public class UserActionNotificationLog {
             
             switch (resourceType) {
                 case PAGE: {
-                    logTargetInstance = getOrCreatePageInstance(model, resourceId);
+                    logTargetInstance = getOrCreatePageInstance(model, createResourceId(modelSetId, modelId, artifactId));
                     break;
                 }
                 case COMMENT: {
                     OntClass annotationClass = model.createClass(APP.NS.XWIKI + "Comment");
-                    logTargetInstance = getOrCreateAnnotation(model, referringToResourceId, resourceId, annotationClass);
+                    logTargetInstance = getOrCreateAnnotation(model, createResourceId(modelSetId, modelId, artifactId), resourceId, annotationClass);
                     break;
                 }
                 case ATTACHMENT: {
                     OntClass annotationClass = model.createClass(APP.NS.XWIKI + "Attachment");
-                    logTargetInstance = getOrCreateAnnotation(model, referringToResourceId, resourceId, annotationClass);
+                    logTargetInstance = getOrCreateAnnotation(model, createResourceId(modelSetId, modelId, artifactId), resourceId, annotationClass);
                     break;
                 }
                 case FEEDBACK: {
                     OntClass annotationClass = model.createClass(APP.NS.XWIKI + "Feedback");
-                    logTargetInstance = getOrCreateAnnotation(model, referringToResourceId, resourceId, annotationClass);
+                    logTargetInstance = getOrCreateAnnotation(model, createResourceId(modelSetId, modelId, artifactId), resourceId, annotationClass);
                     break;
                 }
             }
@@ -109,7 +121,7 @@ public class UserActionNotificationLog {
         }
         return logTargetInstance;
     }
-
+    
     private Individual getOrCreatePageInstance(OntModel model, String pageURL) {
 
         OntClass pageClass = model.getOntClass(APP.NS.XWIKI + "Page");

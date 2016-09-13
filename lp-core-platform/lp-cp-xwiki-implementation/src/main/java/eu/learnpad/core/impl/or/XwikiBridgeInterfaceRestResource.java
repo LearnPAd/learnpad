@@ -76,7 +76,7 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 	@Override
 	public void resourceNotification(String modelSetId, String modelId,
 			String artifactId, String resourceId, ResourceType resourceType,
-			String referringToResourceId, String userId, Long timestamp,
+			String userId, Long timestamp,
 			NotificationActionType action) throws LpRestException {
 		HttpClient httpClient = this.getClient();
 		String uri = String.format("%s/learnpad/or/bridge/%s/resourcenotification", DefaultRestResource.REST_URI, modelSetId);
@@ -88,10 +88,9 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 		queryString[1] = new NameValuePair("artifactid", artifactId);
 		queryString[2] = new NameValuePair("resourceid", resourceId);
 		queryString[3] = new NameValuePair("resourcetype", resourceType.toString());
-		queryString[4] = new NameValuePair("referringtoresourceid", referringToResourceId);
-		queryString[5] = new NameValuePair("userid", userId);
-		queryString[6] = new NameValuePair("timestamp", timestamp.toString());
-		queryString[7] = new NameValuePair("action", action.toString());
+		queryString[4] = new NameValuePair("userid", userId);
+		queryString[5] = new NameValuePair("timestamp", timestamp.toString());
+		queryString[6] = new NameValuePair("action", action.toString());
 		putMethod.setQueryString(queryString);
 		
 		try {
