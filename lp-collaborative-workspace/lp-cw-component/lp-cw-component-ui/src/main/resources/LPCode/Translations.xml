@@ -81,7 +81,7 @@ LPUI.CollaborativeDocumentSheet.button.validate=Validate
 LPUI.ProfilePanel.title=My Account
 LPUI.ProfilePanel.profile=My profile
 LPUI.ProfilePanel.dashboard=My dashboard
-LPUI.ProfilePanel.join=Join simulation
+LPUI.ProfilePanel.join=Join
 LPUI.ProfilePanel.join.help=You have been invited into a simulation!
 
 # Recommendation panel
