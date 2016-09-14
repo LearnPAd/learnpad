@@ -182,7 +182,8 @@ public class LearnpadScriptService implements ScriptService, UICWBridge {
 	public ProcessInstanceData getSimulationInfo(String simulationId)
 			throws LpRestException {
 		try {
-			return this.cwBridge.getSimulationInfo(simulationId);
+			ProcessInstanceData foo = this.cwBridge.getSimulationInfo(simulationId);
+			return foo;
 		} catch (LpRestException e) {
 			this.setLastError(e);
 			return null;
