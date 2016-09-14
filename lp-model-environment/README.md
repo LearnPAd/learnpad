@@ -62,6 +62,10 @@ necessary,  since the ID may change with any ME export proceduere.
 In conclusion, the simulaton should only work for the models
 imported in `src/test/resources/LearnPAd-ValidationMAR-Models/SUAP-TitoloUnico/CorrectModels/LP_ME_ADOXX_MODELSET_28600.zip`
 
+A default set of users which can be used testing the platform with [the models used during the Validation at MAR](https://github.com/LearnPAd/learnpad/tree/master/lp-model-environment/src/test/resources/LearnPAd-ValidationMAR-Models/SUAP-TitoloUnico/CorrectModels/LP_ME_ADOXX_MODELSET_28600.zip) can be found 
+[`here`](https://github.com/LearnPAd/learnpad/tree/master/lp-collaborative-workspace/lp-cw-component/lp-cw-component-ui/src/main/resources/LPUsers/ 	UsersListY3Demo.xml). Such users list can be enabled by logging in as `Admin` and launching the [`AddUsersScript`](https://github.com/LearnPAd/learnpad/tree/master/lp-collaborative-workspace/lp-cw-component/lp-cw-component-ui/src/main/resources/LPUsers/AddUsersScript.xml) which is accessible at `<platform_uri>/xwiki/bin/view/LPUsers/AddUsersScript`.
+
+
 **cURL**
 ```
 curl \
