@@ -36,6 +36,8 @@ import org.junit.BeforeClass;
 public class AbstractUnitTest {
     
     protected static final String MODELSET_ID = APP.CONF.getString("testdata.modelset.version");
+    protected static final String MODEL_ID = APP.CONF.getString("testdata.model.id", "mod.1234");
+    protected static final String ARTIFACT_ID = APP.CONF.getString("testdata.artifact.id", "obj.1234");
     protected static final String TEST_USER = "b.barnes@learnpad.eu";
     
     /**

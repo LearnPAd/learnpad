@@ -73,12 +73,12 @@ public final class SimpleModelTransformator {
             transformer.transform(new StreamSource(model), result);
 
             //Compare previous file version with new generated version and remove the new version if no changes are recognized.
-            if (filesEqual(previousVersionOfOutFile, latestOutFile)) {
-                File parent = latestOutFile.getParentFile();
-                latestOutFile.delete();
-                parent.delete();
-                latestOutFile = previousVersionOfOutFile;
-            }
+//            if (filesEqual(previousVersionOfOutFile, latestOutFile)) {
+//                File parent = latestOutFile.getParentFile();
+//                latestOutFile.delete();
+//                parent.delete();
+//                latestOutFile = previousVersionOfOutFile;
+//            }
             latestModelSetId = modelSetId;
 
         } catch (TransformerConfigurationException ex) {
