@@ -83,7 +83,7 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 		PutMethod putMethod = new PutMethod(uri);
 		putMethod.addRequestHeader("Accept", "application/xml");
 
-		NameValuePair[] queryString = new NameValuePair[8];
+		NameValuePair[] queryString = new NameValuePair[7];
 		queryString[0] = new NameValuePair("modelid", modelId);
 		queryString[1] = new NameValuePair("artifactid", artifactId);
 		queryString[2] = new NameValuePair("resourceid", resourceId);
