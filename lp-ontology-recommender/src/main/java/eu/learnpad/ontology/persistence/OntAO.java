@@ -57,6 +57,17 @@ public abstract class OntAO {
         return metaModel;
     }
 
+    public void reload(String modelSetId) throws RecommenderException {
+        synchronized (this) {
+            if (modelSets.containsKey(modelSetId) || modelSetsInferencer.containsKey(modelSetId) || modelsSetsExecutionData.containsKey(modelSetId)) {
+                modelSets.remove(modelSetId);
+                modelSetsInferencer.remove(modelSetId);
+                modelsSetsExecutionData.remove(modelSetId);
+                getModelWithExecutionData(modelSetId);
+            }
+        }
+    }
+
     /**
      * Returns the lates instances of a set of models belonging to the given
      * model set id merged with the meta models.
@@ -109,6 +120,10 @@ public abstract class OntAO {
             modelsSetsExecutionData.put(modelSetId, modelSetWithExecutionData);
         }
         return modelsSetsExecutionData.get(modelSetId);
+    }
+    
+    public OntModel getModelWithLatestExecutionData(String modelSetId){
+        return ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, ModelFactory.createUnion(getExecutionData(), getInferencer(modelSetId).getModel()));
     }
 
     public OntModel getExecutionData() {

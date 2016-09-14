@@ -69,12 +69,12 @@ public class KPILoader extends Thread {
                     }
                 });
 
-                OntModel model = FileOntAO.getInstance().getModelWithExecutionData(this.modelSetId);
+                OntModel model = FileOntAO.getInstance().getModelSet(this.modelSetId);
 
                 for (File dataFile : dataFiles) {
                     SOMEService service = new SOMEService(dataFile);
                     Model insertedKPIValuesModel = service.getModel(model);
-                    FileOntAO.getInstance().getExecutionData().add(insertedKPIValuesModel);
+                    model.add(insertedKPIValuesModel);
                 }
 
             }
