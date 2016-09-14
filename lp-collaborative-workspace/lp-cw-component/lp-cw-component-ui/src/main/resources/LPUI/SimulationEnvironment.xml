@@ -40,6 +40,12 @@
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>true</hidden>
   <content>{{velocity}}
+{{info}}
+[[${services.localization.render('LPUI.SimulationEnvironment.howto.label')}&gt;&gt;LPDocs.SimulationAnswers||target="_blank"]] ${services.localization.render('LPUI.SimulationEnvironment.howto.info')} (${services.localization.render('LPUI.SimulationEnvironment.howto.warning.en')})\\\\ ${services.localization.render('LPUI.SimulationEnvironment.howto.models')}:\\ * Titolo Unico : Case 637-2015, Case 829-2015\\ * Gestione Conferenza di Servizi : Case 829.2015, Case 1118.2015
+{{/info}}
+
+----
+
 #set ($simulationid = $request.getParameter('simulationid'))
 #set ($modelsetid = $request.getParameter('modelsetid'))
 #if ("$!simulationid" != "")
