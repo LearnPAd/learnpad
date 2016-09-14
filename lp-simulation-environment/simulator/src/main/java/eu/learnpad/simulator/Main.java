@@ -61,9 +61,9 @@ public class Main {
 
 			// load process definitions
 			simulator.processManager().addProjectDefinitions(
-					DEMO_PROCESS_FOLDER + "/suap.bpmn20.xml");
+					DEMO_PROCESS_FOLDER + "/suap-it.bpmn20.xml");
 			simulator.processManager().addProjectDefinitions(
-					DEMO_PROCESS_FOLDER + "/y3demo.bpmn20.xml");
+					DEMO_PROCESS_FOLDER + "/serviceconference-it.bpmn20.xml");
 
 			simulator.processManager().setModelSetId("mod.27772", "LP_ME_ADOXX_MODELSET_28600");
 			simulator.processManager().setModelSetId("mod.21093", "LP_ME_ADOXX_MODELSET_28600");
