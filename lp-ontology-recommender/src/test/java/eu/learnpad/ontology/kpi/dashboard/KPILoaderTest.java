@@ -69,7 +69,13 @@ public class KPILoaderTest extends AbstractKpiTest {
 
         //create comment on page
         createUserActionLog(MODELSET_ID, MODEL_ID, ARTIFACT_ID, TEST_WIKI_PAGE_URI + "_1", ResourceType.COMMENT, TEST_USER, System.currentTimeMillis(), NotificationActionType.ADDED);
-
+        runLoader();
+        lastModified = testUserDashboardFile.lastModified();
+        assertTrue(lastModified > previousLastModified);
+        kpiValue = extractKpiValue(testUserDashboardFile, kpiValueXPath);
+        assertEquals("2", kpiValue);
+        previousLastModified = lastModified;
+        
         //update comment on page
         createUserActionLog(MODELSET_ID, MODEL_ID, ARTIFACT_ID, TEST_WIKI_PAGE_URI + "_1", ResourceType.COMMENT, TEST_USER, System.currentTimeMillis(), NotificationActionType.MODIFIED);
         runLoader();

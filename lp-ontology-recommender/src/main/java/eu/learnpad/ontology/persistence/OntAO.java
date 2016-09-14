@@ -121,6 +121,10 @@ public abstract class OntAO {
         }
         return modelsSetsExecutionData.get(modelSetId);
     }
+    
+    public OntModel getModelWithLatestExecutionData(String modelSetId){
+        return ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, ModelFactory.createUnion(getExecutionData(), getInferencer(modelSetId).getModel()));
+    }
 
     public OntModel getExecutionData() {
         if (this.executionData == null) {
