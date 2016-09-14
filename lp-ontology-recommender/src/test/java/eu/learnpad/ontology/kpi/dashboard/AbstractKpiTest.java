@@ -6,12 +6,7 @@
 package eu.learnpad.ontology.kpi.dashboard;
 
 import com.hp.hpl.jena.ontology.Individual;
-import com.hp.hpl.jena.ontology.OntClass;
-import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.ontology.OntProperty;
-import com.hp.hpl.jena.rdf.model.Literal;
 import eu.learnpad.ontology.AbstractUnitTest;
-import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.ontology.simulation.SimulationScoreLog;
 import eu.learnpad.ontology.wiki.UserActionNotificationLog;
@@ -30,7 +25,8 @@ import java.util.Map;
  */
 public abstract class AbstractKpiTest extends AbstractUnitTest {
 
-    private final static String TEST_WIKI_PAGE_URI = "http://learnpad.eu/unittest/NotificationLogTest_Page";
+//    protected final static String TEST_WIKI_PAGE_URI = "http://learnpad.eu/unittest/NotificationLogTest_Page";
+    protected final static String TEST_WIKI_PAGE_URI = UserActionNotificationLog.createResourceId(MODELSET_ID, MODEL_ID, ARTIFACT_ID);
     private static Individual testWikiPage;
 
     private Map<String, List<Individual>> logEntries = new HashMap();
@@ -76,23 +72,12 @@ public abstract class AbstractKpiTest extends AbstractUnitTest {
 
     protected Individual createUserActionLog(String modelSetId, String modelId,
             String artifactId, String resourceId, ResourceType resourceType,
-            String referringToResourceId, String userId, Long timestamp,
+            String userId, Long timestamp,
             NotificationActionType action) throws RecommenderException {
 
-        Individual logEntry = UserActionNotificationLog.getInstance().logResourceNotification(modelSetId, modelId, artifactId, resourceId, resourceType, referringToResourceId, userId, timestamp, action);
+        Individual logEntry = UserActionNotificationLog.getInstance().logResourceNotification(modelSetId, modelId, artifactId, resourceId, resourceType, userId, timestamp, action);
         addLog(resourceType, logEntry);
         return logEntry;
-    }
-
-    protected Individual getTestWikiPage(OntModel model) {
-        if (testWikiPage == null) {
-            OntClass pageClass = model.getOntClass(APP.NS.XWIKI + "Page");
-            testWikiPage = pageClass.createIndividual(TEST_WIKI_PAGE_URI);
-            OntProperty pageUrlProperty = model.getOntProperty(APP.NS.XWIKI + "pageHasURL");
-            Literal value = model.createTypedLiteral(TEST_WIKI_PAGE_URI);
-            testWikiPage.addProperty(pageUrlProperty, value);
-        }
-        return testWikiPage;
     }
 
     protected void cleanUpSimScoreLogs() {

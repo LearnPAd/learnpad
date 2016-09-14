@@ -28,6 +28,7 @@ import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.ontology.kpi.KBProcessorNotifier;
 import eu.learnpad.ontology.kpi.dashboard.KPILoader;
+import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.wiki.UserActionNotificationLog;
 import eu.learnpad.ontology.recommender.Recommender;
 import eu.learnpad.ontology.recommender.RecommenderException;
@@ -88,12 +89,20 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
             throw new LpRestExceptionXWikiImpl("Modelset for id '" + modelSetId + "' and type '" + type + "' not found!");
         }
         SimpleModelTransformator.getInstance().transform(modelSetId, this.corefacade.getModel(modelSetId, type), type);
+        
+        //reload models of new/changed modelset
+        try {
+            FileOntAO.getInstance().reload(modelSetId);
+        } catch (RecommenderException ex) {
+           Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.SEVERE, null, ex);
+           throw new LpRestExceptionXWikiImpl("Modelset import and ontology reload failed. ", ex);
+        }
     }
 
     @Override
-	public void resourceNotification(String modelSetId, String modelId, String artifactId, String resourceId, ResourceType resourceType, String referringToResourceId, String userId, Long timestamp, NotificationActionType action) throws LpRestException {
+	public void resourceNotification(String modelSetId, String modelId, String artifactId, String resourceId, ResourceType resourceType, String userId, Long timestamp, NotificationActionType action) throws LpRestException {
         try {
-            UserActionNotificationLog.getInstance().logResourceNotification(modelSetId, modelId, artifactId, resourceId, resourceType, referringToResourceId, userId, timestamp, action);
+            UserActionNotificationLog.getInstance().logResourceNotification(modelSetId, modelId, artifactId, resourceId, resourceType, userId, timestamp, action);
         } catch (RecommenderException ex) {
             Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.SEVERE, null, ex);
             throw new LpRestExceptionXWikiImpl("Loging resource notification failed. ", ex);

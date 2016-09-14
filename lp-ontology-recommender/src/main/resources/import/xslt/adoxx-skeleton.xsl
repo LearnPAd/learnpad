@@ -451,6 +451,7 @@ ________________________________________________________________________________
 			<xsl:with-param name="id" select="@id"/>
 			<xsl:with-param name="name" select="@name"/>
 			<xsl:with-param name="materialURL" select="./ATTRIBUTE[@name='Document URI']"/>
+			<xsl:with-param name="contributorEmails" select="./RECORD[@name='List of Contributors']/ROW/ATTRIBUTE[@name='Contributor eMail']"/>
 			<xsl:with-param name="description" select="./ATTRIBUTE[@name='Description']"/>
 			<xsl:with-param name="comment" select="./ATTRIBUTE[@name='Comment']"/>
 			<xsl:with-param name="competenciesAndLevels" select="./RECORD[@name='CompetenciesRelated2LearningMaterial']/ROW[INTERREF/IREF]"/>
