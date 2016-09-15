@@ -103,6 +103,10 @@ LPUI.RecommendationPanel.similarcases.category.applicationSector=Sector
 
 # Simulation Environment
 SimulationEnvironment.goback=Go back to the browsing of the model
+LPUI.SimulationEnvironment.howto.label=Click here
+LPUI.SimulationEnvironment.howto.info=in order to see the correct answers expected by the Simulation Enviroment in each task
+LPUI.SimulationEnvironment.howto.warning.en=Only in English
+LPUI.SimulationEnvironment.howto.models=Documented Models and Cases
 
 # Dashboard
 LPUI.Dashboard.section.title=Score on the process "{0}"

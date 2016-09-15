@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * See the NOTICE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<xwikidoc version="1.2" reference="LPDocs.SimulationAnswers" locale="">
+  <web>LPDocs</web>
+  <name>SimulationAnswers</name>
+  <language/>
+  <defaultLanguage/>
+  <translation>0</translation>
+  <creator>xwiki:XWiki.Admin</creator>
+  <creationDate>1473874425000</creationDate>
+  <parent>LPUI.SimulationEnvironment</parent>
+  <author>xwiki:XWiki.Admin</author>
+  <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
+  <date>1473874484000</date>
+  <contentUpdateDate>1473874484000</contentUpdateDate>
+  <version>1.1</version>
+  <title>Expected Answers for the Simulation Environment</title>
+  <comment/>
+  <minorEdit>false</minorEdit>
+  <syntaxId>xwiki/2.1</syntaxId>
+  <hidden>false</hidden>
+  <content>{{box cssClass="floatinginfobox" title="**Contents**"}}{{toc/}}{{/box}}
+
+This page aims to provide a cheatsheet to test the simulation scenarios currently available in the platform.
+
+The simulator currently offers two simulate two process, each of which can be configured with two different scenarios (cases):
+
+* SUAP - Titolo unico, which can be simulated either with case 637 or 829
+* SUAP - Service Conference, which can be simulated either with case 829 or 1118
+
+Below you well see the steps to execute each process with both cases, from beginning to end. **Please note that it does not represent a realistic simulation session**, as it purposefully indicate you to put anything (if the field is required) or leave blank (for optional fields) for fields which are not automatically validated by the platform. In a realistic session, such fields should be filled with realistic values instead.
+
+
+= SUAP - Titolo unico =
+
+== Case 637 ==
+
+* Configuration
+** Select the Entrepreneur Case 637-2015
+** role "SUAP_Officer" : press "human" and assign yourself
+** Submit 
+
+* Task "Assess Application"
+** is this application acceptable : No 
+** reason of non-acceptation : can leave blank 
+** Submit 
+
+* Task "Send Communication of non-admissible instance"
+** Communication of Rejection : put anything 
+** Submit 
+
+* Success 
+
+== Case 829 ==
+
+* Configuration
+** Select the Entrepreneur Case 829-2015 
+** role "SUAP_Officer" : press "human" and assign yourself 
+** Submit 
+
+* Task "Assess Application"
+** "is this application acceptable" : Yes 
+** "reason of non-acceptation" : leave blank 
+** Submit 
+
+* Task "Check Application"
+** "Do this application requires a conference of services?" : Yes 
+** Submit 
+* Task "Activate Service Conference"
+** expand "Comune" and select:
+*** UFFICIO EDILIZIA
+*** UFFICIO PORTO
+*** Ufficio AMBIANTE, UFFICIO PAESAGGISTICA
+*** UFFICIO ATTIVITA' PRODDUTTIVE, COMMERCIO, SUAP
+*** POLIZIA MUNICIPALE, CONTROLLO TERRITORIO
+*** UFFICIO TRIBUTI
+** expand "Others" and select:
+*** SOPRINTENDENZA per i beni artisici, architettonici, ambientali e storici
+*** UFFICIO DELLE DOGANE
+*** CAPITANERIA DI PORTO
+** Submit 
+
+* Task "Receive Confirmation"
+** "Summary of the Conference of Services" : put anything 
+** "Status of the application?" : Accept 
+** Submit 
+
+* Task "Send Authorization Document"
+** "Message to the applicant" : put anything 
+** Submit 
+
+* Success 
+
+= SUAP - Service Conference =
+
+== Case 829 ==
+
+* Configuration
+** "Entrepreneur Case" : 829.2015 
+** "First Third-Party officer role" : UFFICIO EDILIZIA 
+** "Second Third-Party officer role" : UFFICIO PORTO 
+** role "SUAP_Officer" : press "human" and assign yourself 
+** role "Other_Office1" : press "human" and assign the participant of your choice (can be yourself) 
+** role "Other_Office2" : press "human" and assign the participant of your choice (can be yourself) 
+** Submit 
+
+* Task "Service Conference Invitation"
+** expand "Comune" and select:
+*** UFFICIO EDILIZIA
+*** UFFICIO PORTO
+*** Ufficio AMBIANTE, UFFICIO PAESAGGISTICA
+*** UFFICIO ATTIVITA' PRODDUTTIVE, COMMERCIO, SUAP
+*** POLIZIA MUNICIPALE, CONTROLLO TERRITORIO
+*** UFFICIO TRIBUTI
+** expand "Others" and select:
+*** SOPRINTENDENZA per i beni artisici, architettonici, ambientali e storici
+*** UFFICIO DELLE DOGANE
+*** CAPITANERIA DI PORTO
+** Submit 
+
+* Task "Put Stamps on Received Documentation" (any role)
+** Submit 
+
+* Task "Check Provided Documentation" (any role)
+** "Status of the application" : Can take decision 
+** Submit 
+
+* Task "Take a Decision" (officer 1 - UFFICIO EDILIZIA)
+** "Opinion on the Application" : Positive under conditions 
+** Submit 
+
+* Task "Take a Decision" (officer 2 - UFFICIO PORTO)
+** "Opinion on the Application" : Positive 
+** Submit 
+
+* Task "Provide Opinion" (any role)
+** "Motivation" : put anything 
+** Submit 
+
+* Task "Evaluate check of Third Party"
+** "Status of the request" : Provide authorization under condition 
+** Submit 
+
+* Task "Provide Authorization Under Condition"
+** "Decision Report" : put anything 
+** Submit 
+
+* Task "Provide Final Report"
+** "Final Report" : put anything 
+** Submit 
+
+* Success 
+
+== Case 1118 ==
+
+* Configuration
+** "Entrepreneur Case" : 1118.2015 
+** "First Third-Party officer role" : UFFICIO EDILIZIA 
+** "Second Third-Party officer role" : UFFICIO PORTO 
+** role "SUAP_Officer" : press "human" and assign yourself 
+** role "Other_Office1" : press "human" and assign the participant of your choice (can be yourself) 
+** role "Other_Office2" : press "human" and assign the participant of your choice (can be yourself) 
+** Submit 
+
+* The blue box on the top of the interface indicate a link allowing the other involved users to join the session. Send this link to the other participants. 
+
+* Task "Service Conference Invitation" 
+** expand "Comune" and select:
+*** UFFICIO EDILIZIA
+*** Ufficio AMBIANTE, UFFICIO PAESAGGISTICA
+*** UFFICIO ATTIVITA' PRODDUTTIVE, COMMERCIO, SUAP
+*** UFFICIO PATRIMONIO
+** expand "Others" and select:
+*** SOPRINTENDENZA per i beni artisici, architettonici, ambientali e storici
+** Submit 
+
+* Task "Put Stamps on Received Documentation" (any role)
+** Submit 
+
+* Task "Check Provided Documentation" (any role)
+** "Status of the application" : Can take decision 
+** Submit 
+
+* Task "Take a Decision" (any role)
+** "Opinion on the Application" : Positive 
+** Submit 
+
+* Task "Provide Opinion" (any role)
+** "Motivation" : put anything 
+** Submit 
+
+* Task "Evaluate check of Third Party"
+** "Status of the request" : Provide authorization 
+** Submit 
+
+* Task "Provide Authorization"
+** "Decision Report" : put anything 
+** Submit 
+
+* Task "Provide Final Report"
+** "Final Report" : put anything 
+** Submit 
+
+* Success 
+</content>
+</xwikidoc>
