@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -196,153 +197,23 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			
 			DebugMessages.print(TimeStamp.getCurrentTime(),  this.getClass().getName(),  "Sending score to the platform ");
 			sendScoreUpdateEventToCP(
-					generateScoreEvent(
-							ScoreType.ABSOLUTE_BP_SCORE, absoluteBPScore, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
-			
-			sendScoreUpdateEventToCP(
-					generateScoreEvent(
-							ScoreType.ABSOLUTE_GLOBAL_SCORE, learnerAbsoluteGlobalScore, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
-			
-			sendScoreUpdateEventToCP(
-					generateScoreEvent(
-							ScoreType.ABSOLUTE_SESSION_SCORE, absoluteSessionScore, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
-			
-			sendScoreUpdateEventToCP(
-					generateScoreEvent(
-							ScoreType.BP_COVERAGE, learnerCoverage, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
-			
-			sendScoreUpdateEventToCP(
-					generateScoreEvent(
-							ScoreType.BP_SCORE, learnerBPScore, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
-			
-			sendScoreUpdateEventToCP(
-					generateScoreEvent(
-							ScoreType.GLOBAL_SCORE, learnerGlobalScore, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
-			
-			sendScoreUpdateEventToCP(
-					generateScoreEvent(
-							ScoreType.RELATIVE_BP_SCORE, learnerRelativeBPScore, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
-			
-			sendScoreUpdateEventToCP(
-					generateScoreEvent(
-							ScoreType.RELATIVE_GLOBAL_SCORE, learnerRelativeGlobalScore, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
-			
-			sendScoreUpdateEventToCP(
-					generateScoreEvent(
-							ScoreType.SESSION_SCORE, 
-							ScoreTemporaryStorage.getTemporaryLearnerSessionScore(learnersID.get(i)).floatValue(), 
-							ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
+					generateScoreEvent(scoresToShow, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
 			DebugMessages.ok();
 		}
 		
 		
 	}
 	
-	public void computeAndSaveScores(List<String> learnersID, String user, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore) {
-		
-		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
-		
-		
-//		for(int i = 0; i<learnersID.size(); i++) {
-//			
-		Date now = new Date();
-		
-		//save sessionScore
-		databaseController.setLearnerSessionScore(
-				user, idPath, idBPMN, sessionScore.sessionscore, new java.sql.Date(now.getTime()));
-		
-		//compute learnerBP SCORE
-		float learnerBPScore = ComputeLearnerScore.learnerBP(
-				databaseController.getMaxSessionScores(user, idBPMN)); 
-		
-		Vector<Path> pathsExecutedByLearner = databaseController.getPathsExecutedByLearner(user, idBPMN); 
-		
-		//compute relativeBPScore
-		float learnerRelativeBPScore = ComputeLearnerScore.learnerRelativeBP(pathsExecutedByLearner);
-
-		//compute coverage percentage
-		float learnerCoverage = ComputeLearnerScore.BPCoverage(
-				pathsExecutedByLearner,pathsCardinality);
-
-		databaseController.updateBpmnLearnerScores(user, idBPMN, learnerBPScore, learnerRelativeBPScore, learnerCoverage);
-		
-		//compute globalScore
-		float learnerGlobalScore = ComputeLearnerScore.learnerGlobal(
-				databaseController.getLearnerBPMNScores(user));
-	
-		//compute relativeGlobalScore
-		float learnerRelativeGlobalScore = ComputeLearnerScore.learnerRelativeGlobal(
-				databaseController.getLearnerRelativeBPScores(user));
-		
-		
-		//compute absoluteGlobalScore
-		float learnerAbsoluteGlobalScore = ComputeLearnerScore.learnerAbsoluteGlobal(
-				databaseController.getBPMNAbsoluteScoresExecutedByLearner(user));
-		
-		databaseController.updateLearnerScores(
-				user, learnerGlobalScore, learnerRelativeGlobalScore, learnerAbsoluteGlobalScore);
-
-		HashMap<ScoreType, Float> scoresToShow = new HashMap<ScoreType, Float>();
-		
-		scoresToShow.put(ScoreType.ABSOLUTE_BP_SCORE, absoluteBPScore);
-		scoresToShow.put(ScoreType.ABSOLUTE_GLOBAL_SCORE, learnerAbsoluteGlobalScore);
-		scoresToShow.put(ScoreType.ABSOLUTE_SESSION_SCORE, absoluteSessionScore);
-		scoresToShow.put(ScoreType.BP_COVERAGE, learnerCoverage);
-		scoresToShow.put(ScoreType.BP_SCORE, learnerBPScore);
-		scoresToShow.put(ScoreType.GLOBAL_SCORE, learnerGlobalScore);
-		scoresToShow.put(ScoreType.RELATIVE_BP_SCORE, learnerRelativeBPScore);
-		scoresToShow.put(ScoreType.RELATIVE_GLOBAL_SCORE, learnerRelativeGlobalScore);
-		scoresToShow.put(ScoreType.SESSION_SCORE, sessionScore.sessionscore.floatValue());
-		
-		sendScoresToSim(scoresToShow,user);
-		
-		sendScoreUpdateEventToCP(
-				generateScoreEvent(
-						ScoreType.ABSOLUTE_BP_SCORE, absoluteBPScore, sessionScore, user));
-		
-		sendScoreUpdateEventToCP(
-				generateScoreEvent(
-						ScoreType.ABSOLUTE_GLOBAL_SCORE, learnerAbsoluteGlobalScore, sessionScore, user));
-		
-		sendScoreUpdateEventToCP(
-				generateScoreEvent(
-						ScoreType.ABSOLUTE_SESSION_SCORE, absoluteSessionScore, sessionScore, user));
-		
-		sendScoreUpdateEventToCP(
-				generateScoreEvent(
-						ScoreType.BP_COVERAGE, learnerCoverage, sessionScore, user));
-		
-		sendScoreUpdateEventToCP(
-				generateScoreEvent(
-						ScoreType.BP_SCORE, learnerBPScore, sessionScore, user));
-		
-		sendScoreUpdateEventToCP(
-				generateScoreEvent(
-						ScoreType.GLOBAL_SCORE, learnerGlobalScore, sessionScore, user));
-		
-		sendScoreUpdateEventToCP(
-				generateScoreEvent(
-						ScoreType.RELATIVE_BP_SCORE, learnerRelativeBPScore, sessionScore, user));
-		
-		sendScoreUpdateEventToCP(
-				generateScoreEvent(
-						ScoreType.RELATIVE_GLOBAL_SCORE, learnerRelativeGlobalScore, sessionScore, user));
-		
-		sendScoreUpdateEventToCP(
-				generateScoreEvent(
-						ScoreType.SESSION_SCORE, sessionScore.sessionscore.floatValue(), sessionScore, user));
-	}
-
 	private void sendScoresToSim(HashMap<ScoreType, Float> scoresToShow, String user) {
 		DebugMessages.print(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "Sending scores to the simulator");
 		ResponseDispatcher.sendScoresEvaluation(scoresToShow, "simulator", "scoresUpdateResponses", user);
 		DebugMessages.ok();	
 }
 
-	protected ScoreUpdateEvent generateScoreEvent(ScoreType type, Float value, SessionScoreUpdateEvent sessionScore, String learnersID) {
+	protected ScoreUpdateEvent generateScoreEvent(Map<ScoreType, Float> scores, SessionScoreUpdateEvent sessionScore, String learnersID) {
 		return new ScoreUpdateEvent(System.currentTimeMillis(), sessionScore.simulationsessionid, sessionScore.involvedusers,
 				sessionScore.modelsetid, sessionScore.simulationSessionData, sessionScore.processartifactid,
-				learnersID, type, value);
+				learnersID, scores);
 	}
 	
 	protected void sendScoreUpdateEventToCP(ScoreUpdateEvent event) {
@@ -373,19 +244,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	 		List<String> ciccio = new ArrayList<>();
 	 		ciccio.add("1");
 	 		
-	 		HashMap<String, Object> asdasd = new HashMap<String, Object>();
-	 		
-	 		SessionScoreUpdateEvent up = new SessionScoreUpdateEvent(
-	 				System.currentTimeMillis(),
-	 				"simulationsessionid",
-	 				ciccio,
-	 				"modelsetid",
-	 				asdasd,
-	 				"processartifactid",
-	 				"user",
-	 				new Long(30));
-	 		
-	 		test.computeAndSaveScores(ciccio, "ciccio", "a23748293649", "a23748293649-1",up);
+	 		test.computeAndPropagateScores(ciccio, "a23748293649", "a23748293649-1");
 	 		
 	 }
 

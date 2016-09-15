@@ -9,7 +9,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;
 import eu.learnpad.simulator.mon.coverage.Learner;
 import eu.learnpad.simulator.mon.coverage.Path;
 import eu.learnpad.simulator.mon.storage.DBController;
@@ -22,7 +21,6 @@ public abstract class LearnerAssessmentManager extends Thread {
 	public abstract ComplexEventRuleActionListDocument elaborateModel(String xmlMessagePayload, Vector<Learner> vector, String sessionID, String bpmnID);
 
 	public abstract DBController getDBController();
-	public abstract void computeAndSaveScores(List<String> learnersID, String user, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore);
 	public abstract Vector<Path> setAllAbsoluteSessionScores(Vector<Path> theGeneratedPath);
 	public abstract void computeAndPropagateScores(List<String> learnersID, String idPath, String idBPMN);
 }
