@@ -440,6 +440,11 @@
   					<version>1.0.1</version>
   					<type>xar</type>
 				</dependency>
+				<dependency>
+					<groupId>org.xwiki.rendering</groupId>
+					<artifactId>xwiki-rendering-macro-toc</artifactId>
+					<version>${rendering.version}</version>
+				</dependency>
 			</dependencies>
 		</profile>
 	</profiles>
