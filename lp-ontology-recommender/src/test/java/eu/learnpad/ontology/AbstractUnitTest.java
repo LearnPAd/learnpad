@@ -36,8 +36,10 @@ import org.junit.BeforeClass;
 public class AbstractUnitTest {
     
     protected static final String MODELSET_ID = APP.CONF.getString("testdata.modelset.version");
-    protected static final String TEST_USER = "b.barnes@learnpad.eu";
-    
+    protected static final String TEST_USER_EMAIL = APP.CONF.getString("testdata.user.email");
+    protected static final String TEST_USER_NAME = APP.CONF.getString("testdata.user.name");
+    protected static final String TEST_USER_NAME2 = APP.CONF.getString("testdata.user.name2");
+        
     /**
      * Remove all transformed files after testrun;
      * 
@@ -84,7 +86,7 @@ public class AbstractUnitTest {
     }
     
     protected Individual getTestUser() throws RecommenderException{
-        Literal userIdValue = FileOntAO.getInstance().getModelWithExecutionData(MODELSET_ID).createTypedLiteral(TEST_USER);
+        Literal userIdValue = FileOntAO.getInstance().getModelWithExecutionData(MODELSET_ID).createTypedLiteral(TEST_USER_EMAIL);
         List<Individual> persons = getInstancesWithProperty(APP.NS.OMM + "Performer", APP.NS.EMO + "performerHasEmailAddress", userIdValue);
         if(!persons.isEmpty()){
             return persons.get(0);

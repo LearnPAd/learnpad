@@ -1,0 +1,24 @@
+# getInstancesAll
+#
+
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?x { 
+  ?x a ?y . 
+  { { ?y a owl:Class }
+    UNION
+    { ?y a rdfs:Class
+      FILTER ( 
+      !regex(str(?y), "^http://www.w3.org/2002/07/owl") &&
+      !regex(str(?y), "^http://www.w3.org/2000/01/rdf-schema") &&
+      !regex(str(?y), "^http://www.w3.org/2001/XMLSchema") &&
+      !regex(str(?y), "^http://www.w3.org/1999/02/22-rdf-syntax-ns") 
+    )
+
+    }
+  }
+  FILTER  isURI(?x) 
+}

@@ -47,7 +47,7 @@ public class UserActionNotificationLogTest extends AbstractKpiTest {
         assertEquals(1, pageInstancs.size());
         
         Long timestamp = System.currentTimeMillis();
-        Individual logEntry = createUserActionLog(MODELSET_ID, null, null, testWikiPageUri, ResourceType.PAGE, null, TEST_USER, timestamp, NotificationActionType.ADDED);
+        Individual logEntry = createUserActionLog(MODELSET_ID, null, null, testWikiPageUri, ResourceType.PAGE, null, TEST_USER_EMAIL, timestamp, NotificationActionType.ADDED);
         assertNotNull(logEntry);
 
         pageInstancs = OntUtil.getInstancesWithProperty(model, pageClass, testWikiPageUriProperty, value);
@@ -57,10 +57,10 @@ public class UserActionNotificationLogTest extends AbstractKpiTest {
         assertEquals(logEntry.getURI(), pageInstance.getURI());
         
         //test page log created
-        testLogCreated(model, pageInstance, "added", TEST_USER, 1);
+        testLogCreated(model, pageInstance, "added", TEST_USER_EMAIL, 1);
         
         //test comment log created
-        logEntry = createUserActionLog(MODELSET_ID, null, null, "1", ResourceType.COMMENT, testWikiPageUri, TEST_USER, timestamp, NotificationActionType.ADDED);
+        logEntry = createUserActionLog(MODELSET_ID, null, null, "1", ResourceType.COMMENT, testWikiPageUri, TEST_USER_EMAIL, timestamp, NotificationActionType.ADDED);
         
         OntClass commentClass = model.getOntClass(APP.NS.XWIKI + "Comment");
         OntProperty referedPageUrlProperty = model.getOntProperty(APP.NS.XWIKI + "annotationIsMadeToPage");
@@ -70,7 +70,7 @@ public class UserActionNotificationLogTest extends AbstractKpiTest {
         assertEquals(1, commentInstancs.size());
 
         //test comment log created
-        testLogCreated(model, commentInstancs.get(0), "added", TEST_USER, 1);
+        testLogCreated(model, commentInstancs.get(0), "added", TEST_USER_EMAIL, 1);
     }
 
     @After

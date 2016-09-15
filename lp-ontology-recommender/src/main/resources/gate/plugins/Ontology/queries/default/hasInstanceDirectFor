@@ -1,0 +1,15 @@
+# hasInstanceDirectFor
+#
+# get something that is a direct instance of the class and has the URI
+
+SELECT DISTINCT X FROM {X} sesame:directType {yyy2} rdf:type {owl:Class}
+  WHERE  ISURI(X) AND X = yyy1
+UNION
+SELECT DISTINCT X FROM {X} sesame:directType {yyy2} rdf:type {rdfs:Class}
+  WHERE  ISURI(X) AND X = yyy1
+
+USING NAMESPACE
+xsd = <http://www.w3.org/2001/XMLSchema#>,
+rdfs = <http://www.w3.org/2000/01/rdf-schema#>,
+rdf = <http://www.w3.org/1999/02/22-rdf-syntax-ns#>,
+owl = <http://www.w3.org/2002/07/owl#>

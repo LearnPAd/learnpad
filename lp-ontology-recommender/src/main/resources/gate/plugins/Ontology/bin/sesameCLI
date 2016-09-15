@@ -1,0 +1,20 @@
+#!/bin/bash
+
+PRG="$0"
+# need this for relative symlinks
+while [ -h "$PRG" ] ; do
+  ls=`ls -ld "$PRG"`
+  link=`expr "$ls" : '.*-> \(.*\)$'`
+  if expr "$link" : '/.*' > /dev/null; then
+    PRG="$link"
+  else
+    PRG=`dirname "$PRG"`"/$link"
+  fi
+done
+s=`dirname "$PRG"` 
+h=$s/..
+
+export cp="$h/Ontology.jar:$h/lib/*:$h/../../lib/*:$h/../../bin/gate.jar" 
+
+#echo $cp
+java -Xmx2248M -cp "$cp" gate.creole.ontology.impl.sesame.SesameCLI "$@"

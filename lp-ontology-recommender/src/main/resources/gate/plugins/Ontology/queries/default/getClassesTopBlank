@@ -1,0 +1,34 @@
+# getClassesTopBlank
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX protons:<http://proton.semanticweb.org/2005/04/protons#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX protont:<http://proton.semanticweb.org/2005/04/protont#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+SELECT distinct ?cl ?r WHERE { 
+  { { {?cl a owl:Class} UNION {?cl a rdfs:Class }}
+    OPTIONAL {
+      ?cl rdfs:subClassOf ?sc .
+      ?sc a owl:Class .
+      OPTIONAL {
+        ?sc rdfs:subClassOf ?dc .
+        ?dc rdfs:subClassOf ?cl .
+        FILTER (?sc != ?dc)
+      }
+      FILTER (?cl != ?sc && ?sc != owl:Thing && !bound(?dc))
+    }
+    FILTER (!bound(?sc) && !isURI(?cl) && ?cl != owl:Thing && ?cl != owl:Nothing )
+  }
+  ?cl ?r ?x .
+  FILTER (?cl != ?x)
+  FILTER
+      (?r = owl:allValuesFrom ||
+       ?r = owl:oneOf ||
+       ?r = owl:hasValue ||
+       ?r = owl:maxCardinality ||
+       ?r = owl:minCardinality ||
+       ?r = owl:cardinality ||
+       ?r = owl:someValuesFrom )
+}
+
+

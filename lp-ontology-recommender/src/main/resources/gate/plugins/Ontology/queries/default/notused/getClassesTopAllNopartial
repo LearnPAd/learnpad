@@ -1,0 +1,19 @@
+# This only works with partialRDFS off
+# Also does not filter w3 stuff and only returns named classes
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+SELECT ?cl WHERE {
+  ?cl rdfs:subClassOf owl:Thing .
+  OPTIONAL {
+    ?cl rdfs:subClassOf ?sc .
+    ?sc rdfs:subClassOf owl:Thing .
+    OPTIONAL {
+      ?sc rdfs:subClassOf ?dc .
+      ?dc rdfs:subClassOf ?cl .
+      filter (?sc != ?dc)
+    }
+    filter(?cl != ?sc && ?sc != owl:Thing && !bound(?dc))
+  }
+  filter (!bound(?sc) && isURI(?cl) && ?cl != owl:Thing && ?cl != owl:Nothing)
+}
+

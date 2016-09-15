@@ -1,0 +1,10 @@
+# mappings file for testing 
+#
+
+# the next mapping should load the protons.owl file from the
+# same directory as this mapping file is in for the given
+# ontology import URI
+http://proton.semanticweb.org/2005/04/protons	protons.owl
+
+# the next mapping should ignore the given import URI
+http://proton.semanticweb.org/2005/04/protont

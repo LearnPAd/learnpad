@@ -52,7 +52,7 @@ public class SimulationScoreLogTest extends AbstractKpiTest {
         String simulationSessionId = UUID.randomUUID().toString();
         String processArtifactId = oneProcessForTesting.getLocalName();
         Float score = 4.8f;
-        Individual logEntry = createSimScoreLog(timestamp, simulationSessionId, MODELSET_ID, processArtifactId, TEST_USER, ScoreType.BP_SCORE, score);
+        Individual logEntry = createSimScoreLog(timestamp, simulationSessionId, MODELSET_ID, processArtifactId, TEST_USER_EMAIL, ScoreType.BP_SCORE, score);
         assertNotNull(logEntry);
         
         scores = getInstancesWithProperty(APP.NS.LPD + "BPSimulationScore", APP.NS.LPD + "simulationScoreOfPerformer", testUser);
@@ -64,7 +64,7 @@ public class SimulationScoreLogTest extends AbstractKpiTest {
         //Create session score
         timestamp = System.currentTimeMillis();
         score = 6.2f;
-        logEntry = createSimScoreLog(timestamp, simulationSessionId, MODELSET_ID, processArtifactId, TEST_USER, ScoreType.SESSION_SCORE, score);
+        logEntry = createSimScoreLog(timestamp, simulationSessionId, MODELSET_ID, processArtifactId, TEST_USER_EMAIL, ScoreType.SESSION_SCORE, score);
         assertNotNull(logEntry);
         
         scores = getInstancesWithProperty(APP.NS.LPD + "SimulationSessionScore", APP.NS.LPD + "simulationScoreOfPerformer", testUser);
@@ -79,7 +79,7 @@ public class SimulationScoreLogTest extends AbstractKpiTest {
         //Create global score
         timestamp = System.currentTimeMillis();
         score = 8.4f;
-        logEntry = createSimScoreLog(timestamp, simulationSessionId, MODELSET_ID, processArtifactId, TEST_USER, ScoreType.GLOBAL_SCORE, score);
+        logEntry = createSimScoreLog(timestamp, simulationSessionId, MODELSET_ID, processArtifactId, TEST_USER_EMAIL, ScoreType.GLOBAL_SCORE, score);
         assertNotNull(logEntry);
         
         scores = getInstancesWithProperty(APP.NS.LPD + "GlobalSimulationScore", APP.NS.LPD + "simulationScoreOfPerformer", testUser);

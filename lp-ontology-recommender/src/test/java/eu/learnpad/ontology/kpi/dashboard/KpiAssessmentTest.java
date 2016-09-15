@@ -67,24 +67,24 @@ public class KpiAssessmentTest extends AbstractKpiTest{
         }
         Individual oneProcessForTesting = processes.get(0);
         
-        Individual logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER, ScoreType.BP_SCORE, 0.2f);
+        Individual logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER_EMAIL, ScoreType.BP_SCORE, 0.2f);
         assertNotNull(logEntry);
         testPerformanceValue(model, KPI_LABEL__BP_SCORE, 1);
         
-        logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER, ScoreType.BP_SCORE, 0.4f);
+        logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER_EMAIL, ScoreType.BP_SCORE, 0.4f);
         assertNotNull(logEntry);
         testPerformanceValue(model, KPI_LABEL__BP_SCORE, 2);        
         
-        logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER, ScoreType.SESSION_SCORE, 0.6f);
+        logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER_EMAIL, ScoreType.SESSION_SCORE, 0.6f);
         assertNotNull(logEntry);
         testPerformanceValue(model, KPI_LABEL__SESSION_SCORE, 1);
 
-        logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER, ScoreType.GLOBAL_SCORE, 0.9f);
+        logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER_EMAIL, ScoreType.GLOBAL_SCORE, 0.9f);
         assertNotNull(logEntry);
         testPerformanceValue(model, KPI_LABEL__GLOBAL_SCORE, 1);        
         
         String testWikiPageUri = getTestWikiPage(model).getURI();
-        logEntry = createUserActionLog(MODELSET_ID, null, null, testWikiPageUri, ResourceType.PAGE, null, TEST_USER, System.currentTimeMillis(), NotificationActionType.ADDED);
+        logEntry = createUserActionLog(MODELSET_ID, null, null, testWikiPageUri, ResourceType.PAGE, null, TEST_USER_EMAIL, System.currentTimeMillis(), NotificationActionType.ADDED);
         assertNotNull(logEntry);
         
         testPerformanceValue(model, KPI_LABEL__GLOBAL_ACTIONS, 1);    
