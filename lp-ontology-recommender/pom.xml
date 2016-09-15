@@ -341,7 +341,34 @@
                     </execution>                                         
                                           
                 </executions>
-            </plugin>            
+            </plugin>          
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>/tmp/gate/plugins</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources/gate/plugins</directory>
+                                    <filtering>false</filtering>
+
+                                    <includes>
+                                        <include>**/*</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>  
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>

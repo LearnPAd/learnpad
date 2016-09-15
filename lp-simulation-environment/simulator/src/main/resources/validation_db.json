@@ -560,14 +560,16 @@
                     "applicationStatus" : "ok"
                 }
             }
-        ],
-        "usertask1" : [
+        ]
+    },
+    "mod.21093" : {
+        "obj.27830" : [
             {
                 "input" : {
                     "case" : "637-2015"
                 },
                 "output" : {
-                    "doConfOfService" : "no"
+                    "accepted" : false
                 }
             },
             {
@@ -575,7 +577,106 @@
                     "case" : "829-2015"
                 },
                 "output" : {
-                    "doConfOfService" : "yes",
+                    "accepted" : true
+                }
+            }
+        ],
+        "obj.27782" : [
+            {
+                "input" : {
+
+                },
+                "output" : {
+                    "doConfOfService" : true
+                }
+            }
+        ],
+        "obj.27921" : [
+            {
+                "input" : {
+                    "case" : "829-2015"
+                },
+                "output" : {
+                    "offEdiuzia" : true,
+                    "offPorto" : true,
+                    "offAmb" : true,
+                    "offAtt" : true,
+                    "offPolizia" : true,
+                    "offTrib" : true,
+                    "offPat" : false,
+                    "offSind" : false,
+                    "offARPAM" : false,
+                    "offServIgiene" : false,
+                    "offDepIgiene" : false,
+                    "offPrev" : false,
+                    "offVVFF" : false,
+                    "offAreaAmb" : false,
+                    "offAreaEco" : false,
+                    "offVal" : false,
+                    "offGest" : false,
+                    "offSoprint" : true,
+                    "offFerrov" : false,
+                    "offANAS" : false,
+                    "offQUEST" : false,
+                    "offPREF" : false,
+                    "offISP" : false,
+                    "offDog" : true,
+                    "offCap" : true
+                }
+            }
+        ],
+        "obj.27987" : [
+            {
+                "input" : {
+                    "case" : "829-2015"
+                },
+                "output" : {
+                    "offEdiuzia" : true,
+                    "offPorto" : true,
+                    "offAmb" : true,
+                    "offAtt" : true,
+                    "offPolizia" : true,
+                    "offTrib" : true,
+                    "offPat" : false,
+                    "offSind" : false,
+                    "offARPAM" : false,
+                    "offServIgiene" : false,
+                    "offDepIgiene" : false,
+                    "offPrev" : false,
+                    "offVVFF" : false,
+                    "offAreaAmb" : false,
+                    "offAreaEco" : false,
+                    "offVal" : false,
+                    "offGest" : false,
+                    "offSoprint" : true,
+                    "offFerrov" : false,
+                    "offANAS" : false,
+                    "offQUEST" : false,
+                    "offPREF" : false,
+                    "offISP" : false,
+                    "offDog" : true,
+                    "offCap" : true
+                }
+            }
+        ],
+        "obj.27990" : [
+            {
+                "input" : {
+                    "case" : "829-2015"
+                },
+                "output" : {
+                    "applicationStatus" : "ok"
+                }
+            }
+        ]
+    },
+    "mod.21262" : {
+        "usertask1" : [
+            {
+                "input" : {
+                    "case" : "829-2015"
+                },
+                "output" : {
                     "offEdiuzia" : true,
                     "offPorto" : true,
                     "offAmb" : true,
@@ -608,7 +709,6 @@
                     "case" : "1118-2015"
                 },
                 "output" : {
-                    "doConfOfService" : "yes",
                     "offEdiuzia" : true,
                     "offPorto" : false,
                     "offAmb" : true,

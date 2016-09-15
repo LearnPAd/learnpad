@@ -8,10 +8,9 @@ package eu.learnpad.ontology.kpi.dashboard;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.ontology.OntProperty;
-import com.hp.hpl.jena.rdf.model.Literal;
 import eu.learnpad.ontology.AbstractUnitTest;
 import eu.learnpad.ontology.config.APP;
+import eu.learnpad.ontology.persistence.util.OntUtil;
 import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.ontology.simulation.SimulationScoreLog;
 import eu.learnpad.ontology.wiki.UserActionNotificationLog;
@@ -22,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import static junit.framework.Assert.*;
 
 /**
  * Base class for KPI related tests. Supports creation and handling of testdata.
@@ -30,8 +30,28 @@ import java.util.Map;
  */
 public abstract class AbstractKpiTest extends AbstractUnitTest {
 
-    private final static String TEST_WIKI_PAGE_URI = "http://learnpad.eu/unittest/NotificationLogTest_Page";
+//    protected final static String TEST_WIKI_PAGE_URI = "http://learnpad.eu/unittest/NotificationLogTest_Page";
+    protected final static String TEST_WIKI_PAGE_URI = UserActionNotificationLog.createResourceId(MODELSET_ID, MODEL_ID, ARTIFACT_ID);
     private static Individual testWikiPage;
+    
+    protected static final String KPI_LABEL__BP_SCORE = "business process score per simulation and user";
+    protected static final String KPI_LABEL__SESSION_SCORE = "session score per simulation and user";
+    protected static final String KPI_LABEL__GLOBAL_SCORE = "global score per simulation and user";
+    protected static final String KPI_LABEL__GLOBAL_ACTIONS = "global actions per user";
+
+    protected final static Map<ScoreType, Float> SIM_TEST_SCORES = new HashMap();
+
+    static {
+        SIM_TEST_SCORES.put(ScoreType.ABSOLUTE_BP_SCORE, 107.0f);
+        SIM_TEST_SCORES.put(ScoreType.ABSOLUTE_GLOBAL_SCORE, 107.0f);
+        SIM_TEST_SCORES.put(ScoreType.ABSOLUTE_SESSION_SCORE, 8.0f);
+        SIM_TEST_SCORES.put(ScoreType.BP_COVERAGE, 11.0f);
+        SIM_TEST_SCORES.put(ScoreType.BP_SCORE, 6.0f);
+        SIM_TEST_SCORES.put(ScoreType.GLOBAL_SCORE, 6.0f);
+        SIM_TEST_SCORES.put(ScoreType.RELATIVE_BP_SCORE, 7.0f);
+        SIM_TEST_SCORES.put(ScoreType.RELATIVE_GLOBAL_SCORE, 7.0f);
+        SIM_TEST_SCORES.put(ScoreType.SESSION_SCORE, 3.0f);
+    }
 
     private Map<String, List<Individual>> logEntries = new HashMap();
     private List<Individual> testWikiPages = new ArrayList();
@@ -65,34 +85,14 @@ public abstract class AbstractKpiTest extends AbstractUnitTest {
         testWikiPages.add(testPage);
     }
 
-    protected Individual createSimScoreLog(Long timestamp, String simulationSessionId,
-            String modelSetId, String processArtifactId, String userId,
-            ScoreType scoreType, Float score) throws RecommenderException {
-
-        Individual logEntry = SimulationScoreLog.getInstance().logSimulationScore(timestamp, simulationSessionId, modelSetId, processArtifactId, userId, scoreType, score);
-        addLog(scoreType, logEntry);
-        return logEntry;
-    }
-
     protected Individual createUserActionLog(String modelSetId, String modelId,
             String artifactId, String resourceId, ResourceType resourceType,
-            String referringToResourceId, String userId, Long timestamp,
+            String userId, Long timestamp,
             NotificationActionType action) throws RecommenderException {
 
-        Individual logEntry = UserActionNotificationLog.getInstance().logResourceNotification(modelSetId, modelId, artifactId, resourceId, resourceType, referringToResourceId, userId, timestamp, action);
+        Individual logEntry = UserActionNotificationLog.getInstance().logResourceNotification(modelSetId, modelId, artifactId, resourceId, resourceType, userId, timestamp, action);
         addLog(resourceType, logEntry);
         return logEntry;
-    }
-
-    protected Individual getTestWikiPage(OntModel model) {
-        if (testWikiPage == null) {
-            OntClass pageClass = model.getOntClass(APP.NS.XWIKI + "Page");
-            testWikiPage = pageClass.createIndividual(TEST_WIKI_PAGE_URI);
-            OntProperty pageUrlProperty = model.getOntProperty(APP.NS.XWIKI + "pageHasURL");
-            Literal value = model.createTypedLiteral(TEST_WIKI_PAGE_URI);
-            testWikiPage.addProperty(pageUrlProperty, value);
-        }
-        return testWikiPage;
     }
 
     protected void cleanUpSimScoreLogs() {
@@ -118,5 +118,15 @@ public abstract class AbstractKpiTest extends AbstractUnitTest {
     protected void cleanUp() {
         cleanUpSimScoreLogs();
         cleanUpUserActionLogs();
+    }
+
+    protected Individual getOneProcess(OntModel model) {
+        OntClass processClass = model.getOntClass(APP.NS.BPMN + "Process");
+        List<Individual> processes = OntUtil.getInstances(model, processClass);
+        if (processes.isEmpty()) {
+            fail("Expect at least one process model ontology for unit testing.");
+        }
+        Individual oneProcessForTesting = processes.get(0);
+        return oneProcessForTesting;
     }
 }

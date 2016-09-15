@@ -85,17 +85,17 @@ public class BPMNExplorer {
 					+ processDefinitionKey + " in BPMN model");
 		}
 
-		final Map<String, String> mutTaskIDToSubProcess = new HashMap<String, String>();
+		final Map<String, String> mutTaskIDToSubProcess = new HashMap<>();
 
-		final Map<String, Set<String>> mutTaskIDToDataInputs = new HashMap<String, Set<String>>();
-		final Map<String, Set<String>> mutTaskIDToDataOutputs = new HashMap<String, Set<String>>();
+		final Map<String, Set<String>> mutTaskIDToDataInputs = new HashMap<>();
+		final Map<String, Set<String>> mutTaskIDToDataOutputs = new HashMap<>();
 
-		final Set<String> mutDataObjects = new HashSet<String>();
-		final Set<String> mutNotStandaloneDataObjects = new HashSet<String>();
+		final Set<String> mutDataObjects = new HashSet<>();
+		final Set<String> mutNotStandaloneDataObjects = new HashSet<>();
 
-		final Map<String, String> mutDataObjectsIdtoName = new HashMap<String, String>();
+		final Map<String, String> mutDataObjectsIdtoName = new HashMap<>();
 
-		final Map<String, List<String>> mutDataObjectContent = new HashMap<String, List<String>>();
+		final Map<String, List<String>> mutDataObjectContent = new HashMap<>();
 
 		// parse the BPMN file and extract useful infos
 		initializeWithElements(null, process.getFlowElements(),
@@ -108,7 +108,7 @@ public class BPMNExplorer {
 
 			try {
 
-				List<String> elements = new ArrayList<String>();
+				List<String> elements = new ArrayList<>();
 
 				try (BufferedReader br = new BufferedReader(
 						new InputStreamReader(this

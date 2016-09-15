@@ -136,8 +136,9 @@
     #set ($users = $simulationInfo.users)
     #foreach ($user in $users)
       #if ($user == $userid)
+        #set ($actualSimulationID = ${simulationInfo.parameters.get("__LEARNPAD_SIMULATION_ID")})
         (% class="help-block text-center" %)${services.localization.render('LPUI.ProfilePanel.join.help')}
-        [[${services.localization.render('LPUI.ProfilePanel.join')}&gt;&gt;${simulationReference}||queryString="simulationid=${simulationInfo.instanceid}" class="btn btn-block btn-simulation"]]
+        [[${services.localization.render('LPUI.ProfilePanel.join')}&gt;&gt;${simulationReference}||queryString="simulationid=${actualSimulationID}" class="btn btn-block btn-simulation"]]
       #end
     #end
   #end

@@ -5,8 +5,11 @@ import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.recommender.RecommenderException;
+import eu.learnpad.ontology.transformation.SimpleModelTransformator;
+import eu.learnpad.or.rest.data.Entities;
 import eu.learnpad.or.rest.data.Entity;
 import java.io.IOException;
 import java.util.HashMap;
@@ -39,11 +42,11 @@ import gate.util.Out;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.jena.riot.Lang;
@@ -57,9 +60,12 @@ public class BasicAnnotator {
     //private CorpusController annieController;
     private SerialAnalyserController ontoController;
     
+    private File modelSetFolder;
     private OntModel model;
     
     public BasicAnnotator(String modelSetId) throws RecommenderException, GateException, IOException {
+        Path modelSetFolderPath = Paths.get(SimpleModelTransformator.getInstance().getModelSetFolderPath(modelSetId).toString(), "1");
+        modelSetFolder = modelSetFolderPath.toFile();
         this.model = FileOntAO.getInstance().getModelWithExecutionData(modelSetId);
             prepareModelExtract();
 
@@ -94,7 +100,9 @@ public class BasicAnnotator {
         ex.execConstruct(ontologyPerformerExtract);
         FileOutputStream out = null;
         try {
-            File smallOntologyFile = new File("C:/Data/Projects/LearnPAd/Testing/EmbeddedGateWithOntoGazetteer/src/main/resources/testing/LP_ME_ADOXX_MODELSET_28600_small_extract.ttl");
+            
+            
+            File smallOntologyFile = new File(modelSetFolder, "small_extract.ttl");
             if (smallOntologyFile.exists()) {
                 smallOntologyFile.delete();
             }
@@ -125,11 +133,8 @@ public class BasicAnnotator {
 
         //copy plugins to working folder
 
-//        if (Gate.getGateHome() == null) {
-//            Gate.setGateHome(new File("C:\\Data\\Projects\\LearnPAd\\Testing\\EmbeddedGateWithOntoGazetteer\\src\\main\\resources\\gate"));
-//        }
         if (Gate.getPluginsHome() == null) {
-            Gate.setPluginsHome(new File("C:\\Data\\Projects\\LearnPAd\\Testing\\EmbeddedGateWithOntoGazetteer\\src\\main\\resources\\gate\\plugins"));
+            Gate.setPluginsHome(new File(APP.CONF.getString("gate.plugins.home")));
         }
 
         if (!Gate.isInitialised()) {
@@ -174,14 +179,6 @@ public class BasicAnnotator {
         annieController.add(postagger);
         annieController.add(morpher);
 
-        /*
-		// load the ANNIE application from the saved state in plugins/ANNIE
-		File pluginsHome = Gate.getPluginsHome();
-		File anniePlugin = new File(pluginsHome, "ANNIE");
-		File annieGapp = new File(anniePlugin, "ANNIE_with_morpher.gapp");
-		annieController =
-				(CorpusController) PersistenceManager.loadObjectFromFile(annieGapp);
-         */
         Out.prln("...ANNIE loaded");
     } // initAnnie()
 
@@ -193,30 +190,10 @@ public class BasicAnnotator {
      */
     public void initOnto() throws GateException, IOException {
 
-        // set up a new pipeline, based on ANNIE, but containing a flexible gazetteer with an OntoRootGazetter in it:
-//                URL pluginsUrl = BasicAnnotator.class.getResource("/gate/plugins/Ontology");
-//                Gate.getCreoleRegister().registerDirectories(pluginsUrl);
-//                pluginsUrl = BasicAnnotator.class.getResource("/gate/plugins/Ontology_Tools");
-//                Gate.getCreoleRegister().registerDirectories(pluginsUrl);
-//                pluginsUrl = BasicAnnotator.class.getResource("/gate/plugins/Gazetteer_Ontology_Based");
-//                Gate.getCreoleRegister().registerDirectories(pluginsUrl);
-//                
-//                Gate.getCreoleRegister().registerComponent(gate.creole.ontology.impl.sesame.OWLIMOntology.class);
-//                Gate.getCreoleRegister().registerComponent(gate.clone.ql.OntoRootGaz.class);
-//                Gate.getCreoleRegister().registerComponent(gate.creole.gazetteer.FlexibleGazetteer.class);
-//                Gate.getCreoleRegister().registerComponent(gate.creole.SerialAnalyserController.class);
-//                
-        // first, we set up the ontology:
+         // first, we set up the ontology:
         FeatureMap ontParams = Factory.newFeatureMap();
-//		File pluginsHome = Gate.getPluginsHome();
-//		File anniePlugin = new File(pluginsHome, "ANNIE");
-//		File ontologyFile = new File(anniePlugin, "LP_ME_ADOXX_MODELSET_28600_small.ttl");
-//		URL ontoURL = ontologyFile.toURI().toURL();
-//                URL ontoTestUrl = BasicAnnotator.class.getResource("/testing/LP_ME_ADOXX_MODELSET_28600_small.ttl");
-//                File ontologyFile = new File("C:\\Data\\Projects\\LearnPAd\\Testing\\EmbeddedGateWithOntoGazetteer\\src\\main\\resources\\testing\\LP_ME_ADOXX_MODELSET_28600_small.ttl");
-        File ontologyFile = new File("C:\\Data\\Projects\\LearnPAd\\Testing\\EmbeddedGateWithOntoGazetteer\\src\\main\\resources\\testing\\LP_ME_ADOXX_MODELSET_28600_small_extract.ttl");
-//                File ontologyFile = new File("C:\\Temp\\learnpad\\ontology\\instances\\LP_ME_ADOXX_MODELSET_28600\\1\\LP_ME_ADOXX_MODELSET_28600.ttl");
-        URL ontoTestUrl = ontologyFile.toURI().toURL();
+        File smallOntologyFile = new File(modelSetFolder, "small_extract.ttl");
+        URL ontoTestUrl = smallOntologyFile.toURI().toURL();
         ontParams.put("loadImports", false);
         ontParams.put("turtleURL", ontoTestUrl);
         OWLIMOntology ontology = (OWLIMOntology) Factory.createResource("gate.creole.ontology.impl.sesame.OWLIMOntology", ontParams);
@@ -374,9 +351,10 @@ public class BasicAnnotator {
      * @param content
      * @return
      */
-    public List<Entity> entityLookup(String content) {
+    public Entities entityLookup(String content) {
 
-        List<Entity> entities = new ArrayList<Entity>();
+        Entities entities = new Entities();
+        List<Entity> entitiesList = new ArrayList<Entity>();
         Corpus corpus = analyseContentOnto(content);
 
         // filter out the lookup annotations
@@ -388,39 +366,42 @@ public class BasicAnnotator {
         annotTypesRequired.add("Lookup");
         Set<Annotation> instances = new HashSet<Annotation>(defaultAnnotSet.get(annotTypesRequired));
 
+        int offset = 0;
+        StringBuilder annotatedContent = new StringBuilder(content);
         // find those lookup annotations that have a "URI" feature
         for (Annotation annotation : instances) {
             FeatureMap curFeatures = annotation.getFeatures();
             if (curFeatures.containsKey("URI") && curFeatures.containsKey("classURI")) {
-                for (Object key : curFeatures.keySet()) {
-                    System.out.println(key + ": " + curFeatures.get(key));
-                }
 
                 // for such an annotation: create an Entity instance with id, type and TextMarker, add it to entities
                 Entity entity = new Entity();
                 entity.setContextArtifactId((String) curFeatures.get("URI"));
                 entity.setType((String) curFeatures.get("classURI"));
-//                TextMarker textMarker = new TextMarker();
-//                int startPos = (int) annotation.getStartNode().getOffset().longValue();
-//                int startPosAbsolute = (int) info.getOriginalPos(startPos);
-//                int endPos = (int) annotation.getEndNode().getOffset().longValue();
-//                int length = endPos - startPos;
-//                textMarker.setStartPosition(startPosAbsolute);
-//                textMarker.setLength(length);
-//                entity.setTextMarker(textMarker);
+                String startTag = "<span data-recommendation=\"";
+                String startTagEnd = "\">";
+                String endTag = "</span>";
+                String id = UUID.randomUUID().toString();
+                        
+                int startPos = (int) annotation.getStartNode().getOffset().longValue();    
+                int endPos = (int) annotation.getEndNode().getOffset().longValue();
+                int length = endPos - startPos;
+                
+                annotatedContent.insert(startPos+offset, startTag);
+                offset += startTag.length();
+                annotatedContent.insert(startPos+offset, id);
+                offset += id.length();    
+                annotatedContent.insert(startPos+offset, startTagEnd);
+                offset += startTagEnd.length(); 
+                offset += length;
+                annotatedContent.insert(startPos+offset, endTag);
+                offset += endTag.length();
 
-                entities.add(entity);
+                entitiesList.add(entity);
             }
         }
-
+        entities.setAnalyzedContent(annotatedContent.toString());
+        entities.setEntities(entitiesList);
         return entities;
-
-    }
-
-    private void copyFromClasspathToWorkingDirectory(String path) {
-        InputStream is = BasicAnnotator.class.getResourceAsStream(path);
-        Path output = Paths.get("C:/Temp/test");
-        
 
     }
 

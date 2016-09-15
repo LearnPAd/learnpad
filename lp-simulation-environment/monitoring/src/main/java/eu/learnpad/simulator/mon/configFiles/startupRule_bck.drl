@@ -1,0 +1,193 @@
+import eu.learnpad.simulator.mon.event.GlimpseBaseEventAbstract; 
+import eu.learnpad.simulator.mon.event.GlimpseBaseEventBPMN; 
+import eu.learnpad.sim.rest.event.impl.SimulationStartEvent; 
+import eu.learnpad.sim.rest.event.impl.SimulationEndEvent; 
+import eu.learnpad.sim.rest.event.impl.ProcessStartEvent; 
+import eu.learnpad.sim.rest.event.impl.ProcessEndEvent; 
+import eu.learnpad.sim.rest.event.impl.TaskStartEvent; 
+import eu.learnpad.sim.rest.event.impl.TaskFailedEvent; 
+import eu.learnpad.sim.rest.event.impl.TaskEndEvent; 
+import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent; 
+import eu.learnpad.sim.rest.event.impl.ScoreUpdateEvent; 
+import eu.learnpad.sim.rest.event.EventType;
+import eu.learnpad.simulator.mon.manager.ResponseDispatcher; 
+import eu.learnpad.simulator.mon.manager.RestNotifier; 
+import eu.learnpad.simulator.mon.storage.ScoreTemporaryStorage;
+        
+declare GlimpseBaseEventBPMN
+    @role( event )
+    @timestamp( timeStamp )
+end 
+        
+rule "Forward to the CP - SimulationStart" 
+
+no-loop true 
+salience 20 
+dialect "java" 
+
+when 
+ 	$bEvent:GlimpseBaseEventBPMN(
+		this.isConsumed == false,
+		this.isException == false,
+		this.getEventName == EventType.SIMULATION_START.toString()); 
+then		
+ 	$bEvent.setConsumed(true);
+ 	update($bEvent);
+ 	RestNotifier.notifySimulationStartDemo($bEvent.getTimeStamp(), (SimulationStartEvent)$bEvent.getEvent());
+ 	retract($bEvent);			
+end 
+
+rule "Forward to the CP - SimulationEnd" 
+no-loop true  
+
+salience 20 
+
+dialect "java" 
+
+when  
+	 $aEvent:GlimpseBaseEventBPMN(
+	 	this.isConsumed == false,
+	 	this.isException == false,
+		this.getEventName == EventType.SIMULATION_END.toString()); 
+then	 	
+ 	 $aEvent.setConsumed(true);
+ 	update($aEvent);
+ 	RestNotifier.notifySimulationEndDemo($aEvent.getTimeStamp(), (SimulationEndEvent)$aEvent.getEvent());
+ 	retract($aEvent);			
+end 
+
+rule "Forward to the CP - ProcessStart"  
+no-loop true  
+
+salience 20  
+
+dialect "java" 
+
+when 
+ 	 $aEvent : GlimpseBaseEventBPMN(
+ 		this.isConsumed == false,
+ 		this.isException == false,
+ 		this.getEventName == EventType.PROCESS_START.toString()); 
+then		 
+ 	$aEvent.setConsumed(true);
+ 	update($aEvent);
+ 	RestNotifier.notifyProcessStartDemo($aEvent.getTimeStamp(), (ProcessStartEvent)$aEvent.getEvent());
+ 	retract($aEvent);			
+end 
+ 
+rule "Forward to the CP - ProcessEnd"  
+no-loop true  
+
+salience 20  
+
+dialect "java"  
+
+when  
+	 $aEvent : GlimpseBaseEventBPMN(
+	 	this.isConsumed == false,
+	 	this.isException == false,
+		this.getEventName == EventType.PROCESS_END.toString()); 
+then	 	
+ 	$aEvent.setConsumed(true);
+ 	update($aEvent);
+ 	RestNotifier.notifyProcessEndDemo($aEvent.getTimeStamp(), (ProcessEndEvent)$aEvent.getEvent());
+ 	retract($aEvent);			
+end  
+
+rule "Forward to the CP - TaskStart"  
+no-loop true  
+ 
+salience 20  
+
+dialect "java"  
+
+when  
+	 $aEvent : GlimpseBaseEventBPMN(
+	 	this.isConsumed == false,
+	 	this.isException == false,
+		this.getEventName == EventType.TASK_START.toString());  
+then	 	
+ 	$aEvent.setConsumed(true);
+ 	update($aEvent);
+ 	RestNotifier.notifyTaskStartDemo($aEvent.getTimeStamp(), (TaskStartEvent)$aEvent.getEvent());
+ 	retract($aEvent);			
+end 
+
+rule "Forward to the CP - TaskFailed" 
+no-loop true 
+
+salience 20 
+
+dialect "java" 
+
+when 
+	$aEvent : GlimpseBaseEventBPMN(
+		this.isConsumed == false,
+		this.isException == false,
+		this.getEventName == EventType.TASK_FAILED.toString());  
+then 		
+	$aEvent.setConsumed(true); 
+	update($aEvent); 
+	RestNotifier.notifyTaskFailedDemo($aEvent.getTimeStamp(), (TaskFailedEvent)$aEvent.getEvent()); 
+	retract($aEvent); 			
+end 
+
+rule "Forward to the CP - TaskEnd" 
+no-loop true 
+
+salience 20 
+
+dialect "java" 
+
+when 
+ 	$aEvent : GlimpseBaseEventBPMN(
+		this.isConsumed == false,
+		this.isException == false,
+		this.getEventName == EventType.TASK_END.toString());  
+then		
+	$aEvent.setConsumed(true); 
+	update($aEvent); 
+	RestNotifier.notifyTaskEndDemo($aEvent.getTimeStamp(), (TaskEndEvent)$aEvent.getEvent()); 
+	retract($aEvent);		 	
+end   
+
+rule "Forward to the CP - SessionScoreUpdate" 
+no-loop true 
+
+salience 20 
+
+dialect "java" 
+
+when 
+ 	$aEvent : GlimpseBaseEventBPMN(
+		this.isConsumed == false,
+		this.isException == false,
+		this.getEventName == EventType.SESSION_SCORE_UPDATE.toString());  
+then		
+	$aEvent.setConsumed(true); 
+	update($aEvent); 
+	RestNotifier.notifySessionScoreUpdateDemo($aEvent.getTimeStamp(), (SessionScoreUpdateEvent)$aEvent.getEvent()); 
+	retract($aEvent);		 	
+end   
+
+rule "Save in tempStructure the SessionScoreUpdate value" 
+no-loop true 
+
+salience 20 
+
+dialect "java" 
+
+when 
+ 	$aEvent : GlimpseBaseEventBPMN(
+		this.isConsumed == false,
+		this.isException == false,
+		this.getEventName == EventType.SESSION_SCORE_UPDATE.toString());  
+then		
+	$aEvent.setConsumed(true); 
+	update($aEvent); 
+	ScoreTemporaryStorage.setTemporaryLearnerSessionScore(
+									(String)((SessionScoreUpdateEvent)$aEvent.getEvent()).user.toString(), 
+									(Long)((SessionScoreUpdateEvent)$aEvent.getEvent()).sessionscore);
+	ScoreTemporaryStorage.setLastScoreUpdateEventSeen((SessionScoreUpdateEvent)$aEvent.getEvent());
+	retract($aEvent);		 	
+end    

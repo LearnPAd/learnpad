@@ -74,9 +74,9 @@ public class UIHandlerWebImplTest {
 	public void webserverInit() {
 		webserver = mock(WebServer.class);
 
-		taskAddByUI = new HashMap<String, List<String>>();
-		taskRemoveByUI = new HashMap<String, List<String>>();
-		sessionCompletionByUI = new HashMap<String, List<String>>();
+		taskAddByUI = new HashMap<>();
+		taskRemoveByUI = new HashMap<>();
+		sessionCompletionByUI = new HashMap<>();
 
 		// Ok this is a little over the top...
 		//
@@ -110,11 +110,11 @@ public class UIHandlerWebImplTest {
 							taskAddByUI.put(userKey, new ArrayList<String>());
 						}
 						taskAddByUI.get(userKey).add(
-								invocation.getArgumentAt(0, String.class));
+								invocation.getArgumentAt(1, String.class));
 						return null;
 					}
 
-				}).when(mockServlet).addTask(any(String.class));
+				}).when(mockServlet).addTask(any(String.class), any(String.class));
 
 				// memorize remove task invocations
 				doAnswer(new Answer<Void>() {
@@ -227,7 +227,7 @@ public class UIHandlerWebImplTest {
 		List<String> tasks = Arrays.asList("task1", "task2", "task3", "task4",
 				"task5");
 
-		Map<String, List<String>> tasksToUsers = new HashMap<String, List<String>>();
+		Map<String, List<String>> tasksToUsers = new HashMap<>();
 		tasksToUsers.put("task1", Arrays.asList("user1"));
 		tasksToUsers.put("task2", Arrays.asList("user1", "user2"));
 		tasksToUsers.put("task3", Arrays.asList("user1", "user2", "user3"));

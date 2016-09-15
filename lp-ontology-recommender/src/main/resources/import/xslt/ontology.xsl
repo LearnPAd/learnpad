@@ -482,6 +482,7 @@ ________________________________________________________________________________
             <xsl:param name="name" />
             <xsl:param name="class" />
             <xsl:param name="materialURL"/>
+            <xsl:param name="contributorEmails"/>
             <xsl:param name="description" />
             <xsl:param name="comment" />
   transfer:<xsl:value-of select="$id"/>
@@ -491,12 +492,19 @@ ________________________________________________________________________________
   rdfs:label "<xsl:value-of select="$name"/>"^^xsd:string ;
   emo:objectTypeHasName "<xsl:value-of select="$class"/>"^^xsd:string ;  
   dkm:documentHasURL "<xsl:value-of select="$materialURL"/>"^^xsd:string ;  
-  dkm:documentHasMIMEType "text/html"^^xsd:string ;
+  <xsl:choose>
+    <xsl:when test="contains($materialURL, '.doc')">dkm:documentHasMIMEType "application/msword"^^xsd:string ;</xsl:when>
+    <xsl:when test="contains($materialURL, '.pdf')">dkm:documentHasMIMEType "application/pdf"^^xsd:string ;</xsl:when>
+    <xsl:otherwise>dkm:documentHasMIMEType "text/html"^^xsd:string ;</xsl:otherwise>
+  </xsl:choose>
+  <xsl:for-each select="$contributorEmails">
+    dkm:documentHasContributorEmail "<xsl:value-of select="."/>"^^xsd:string ;  
+  </xsl:for-each>
   dkm:documentHasDescription """<xsl:value-of select="$description"/>"""^^xsd:string ;
   rdfs:comment """<xsl:value-of select="$comment"/>"""^^xsd:string ;
 	</xsl:template>
 	
-	<xsl:template name="addInModelConnectionForLearningDocumentToCompetency">
+    <xsl:template name="addInModelConnectionForLearningDocumentToCompetency">
             <xsl:param name="toId"/>  dkm:learningDocumentIncreasesCompetenciesToLevel transfer:<xsl:value-of select="$toId"/> ;<xsl:text>&#10;</xsl:text>
     	</xsl:template>	
 	

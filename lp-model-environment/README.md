@@ -48,7 +48,23 @@ telling every component that a new modelset is available, it will launch a model
 verification.  The verification ID will be returned to the Modelling Environment
 (ME).
 
-The models used during the demo for the Y2 Review are available in ``src/test/resources/``
+The models used during :
+ * the demo for both the Y2 Review, 
+ * the validation run at MAR 
+are all available in ``src/test/resources/``. However, note that currenly the ME
+include in the ZIP file (i.e. the ones used in the experiments) a BPMN version
+of the processes that is not really executable (by Activity). So actually the SIM is not relying on the
+BPMN files the ME includes in the ZIP but on some `test file` embedded in the 
+SIM component. Thus it was necessary to hard-code some IDs in the CW
+(see [here](https://github.com/LearnPAd/learnpad/tree/master/lp-collaborative-workspace/lp-cw-component/lp-cw-component-ui/src/main/resources/LPUI/SimulationEnvironment.xml#L60-L91) ).
+Specifically this hard-coded IDs are for the moment
+necessary,  since the ID may change with any ME export proceduere.
+In conclusion, the simulaton should only work for the models
+imported in `src/test/resources/LearnPAd-ValidationMAR-Models/SUAP-TitoloUnico/CorrectModels/LP_ME_ADOXX_MODELSET_28600.zip`
+
+A default set of users which can be used testing the platform with [the models used during the Validation at MAR](https://github.com/LearnPAd/learnpad/tree/master/lp-model-environment/src/test/resources/LearnPAd-ValidationMAR-Models/SUAP-TitoloUnico/CorrectModels/LP_ME_ADOXX_MODELSET_28600.zip) can be found 
+[`here`](https://github.com/LearnPAd/learnpad/tree/master/lp-collaborative-workspace/lp-cw-component/lp-cw-component-ui/src/main/resources/LPUsers/ 	UsersListY3Demo.xml). Such users list can be enabled by logging in as `Admin` and launching the [`AddUsersScript`](https://github.com/LearnPAd/learnpad/tree/master/lp-collaborative-workspace/lp-cw-component/lp-cw-component-ui/src/main/resources/LPUsers/AddUsersScript.xml) which is accessible at `<platform_uri>/xwiki/bin/view/LPUsers/AddUsersScript`.
+
 
 **cURL**
 ```

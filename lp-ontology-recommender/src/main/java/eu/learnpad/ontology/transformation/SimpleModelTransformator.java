@@ -73,12 +73,12 @@ public final class SimpleModelTransformator {
             transformer.transform(new StreamSource(model), result);
 
             //Compare previous file version with new generated version and remove the new version if no changes are recognized.
-            if (filesEqual(previousVersionOfOutFile, latestOutFile)) {
-                File parent = latestOutFile.getParentFile();
-                latestOutFile.delete();
-                parent.delete();
-                latestOutFile = previousVersionOfOutFile;
-            }
+//            if (filesEqual(previousVersionOfOutFile, latestOutFile)) {
+//                File parent = latestOutFile.getParentFile();
+//                latestOutFile.delete();
+//                parent.delete();
+//                latestOutFile = previousVersionOfOutFile;
+//            }
             latestModelSetId = modelSetId;
 
         } catch (TransformerConfigurationException ex) {
@@ -139,7 +139,7 @@ public final class SimpleModelTransformator {
     }
 
     public Path getModelSetFolderPath(String modelSetId) {
-        Path relativeModelSetPath = Paths.get(APP.CONF.getString("ontology.learnpad.model.instances"), modelSetId);
+        Path relativeModelSetPath = Paths.get(APP.CONF.getString("ontology.learnpad.model.instances"), "1/"+modelSetId);
         Path modelSetFolderPath;
         Path workingDirectory = getWorkingDirectory(APP.CONF.getString("working.directory"), System.getProperty("user.dir"));
         if (workingDirectory != null) {

@@ -59,7 +59,7 @@ public class KpiDashboard {
     public Map<String, byte[]> runAssessment() throws RecommenderException {
 
         //1. run inferencer and apply KPI rules
-        OntModel model = FileOntAO.getInstance().getModelWithExecutionData(SimpleModelTransformator.getInstance().getLatestModelSetId());
+        OntModel model = FileOntAO.getInstance().getModelWithLatestExecutionData(SimpleModelTransformator.getInstance().getLatestModelSetId());
         Inferencer kpiInferencer = new Inferencer(model);
 
         ByteArrayOutputStream bout = new ByteArrayOutputStream();

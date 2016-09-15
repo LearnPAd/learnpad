@@ -371,7 +371,7 @@ public class H2Controller implements DBController {
 	}
 
 	@Override
-	public Vector<Learner> getLearners(List<String> learnersIDs) {
+	public Vector<Learner> getOrSetLearners(List<String> learnersIDs) {
 		Vector<Learner> learners = new Vector<Learner>();
 		String query;
 		Learner aLearner;
@@ -416,8 +416,8 @@ public class H2Controller implements DBController {
 	@Override
 	public Vector<Path> getPathsExecutedByLearner(String learnerID, String idBPMN) {
 		String query = "SELECT * FROM glimpse.path where id_path IN( "
-				+ "SELECT distinct id_path FROM glimpse.path_learner where id_learner = " +
-				learnerID +	")";
+				+ "SELECT distinct id_path FROM glimpse.path_learner where id_learner = \'" +
+				learnerID +	"')";
 		Vector<Path> retrievedPath = new Vector<Path>();
 		
 		try {
@@ -496,7 +496,7 @@ public class H2Controller implements DBController {
 	@Override
 	public Vector<Float> getLearnerBPMNScores(String learnerID) {
 		String query = "SELECT bp_score " + " FROM glimpse.bpmn_learner"
-				+ " where id_learner = " + learnerID + "";
+				+ " where id_learner = \'" + learnerID + "';";
 		Vector<Float> retrievedScores = new Vector<Float>();
 		try {
 			preparedStmt = conn.prepareStatement(query);
@@ -649,8 +649,8 @@ public class H2Controller implements DBController {
 							query = "update glimpse.learner set global_score = "+
 							learnerGlobalScore + ",  relative_global_score = "+
 									learnerRelativeGlobalScore + ", absolute_global_score = "+
-									 learnerAbsoluteGLobalScore + " where id_learner = "+
-									learnerID + ";";
+									 learnerAbsoluteGLobalScore + " where id_learner = \'"+
+									learnerID + "';";
 						 
 							preparedStmt = conn.prepareStatement(query);
 
@@ -687,8 +687,8 @@ public class H2Controller implements DBController {
 							query = "update glimpse.bpmn_learner set bp_score = "+
 							learnerBPScore + ",  relative_bp_score = "+
 									learnerRelativeBPScore + ", bp_coverage = "+
-									 learnerCoverage + " where id_learner = "+
-									learnerID + ";";
+									 learnerCoverage + " where id_learner = \'"+
+									learnerID + "';";
 						 
 							preparedStmt = conn.prepareStatement(query);
 

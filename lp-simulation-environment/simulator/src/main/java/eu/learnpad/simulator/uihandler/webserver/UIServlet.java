@@ -64,9 +64,9 @@ public class UIServlet extends WebSocketServlet {
 
 	private final IProcessManager manager;
 
-	private final Map<String, SimulationStartSimEvent> currentSessions = new HashMap<String, SimulationStartSimEvent>();
-	private final Set<String> currentTasks = new HashSet<String>();
-	private final Set<UISocket> activeSockets = new HashSet<UISocket>();
+	private final Map<String, SimulationStartSimEvent> currentSessions = new HashMap<>();
+	private final Map<String, String> currentTasksWithSession = new HashMap<>();
+	private final Set<UISocket> activeSockets = new HashSet<>();
 
 	private final ObjectMapper mapper = new ObjectMapper();
 
@@ -102,11 +102,11 @@ public class UIServlet extends WebSocketServlet {
 			}
 		}
 
-		for (String taskid : currentTasks) {
+		for (Entry<String, String> task : currentTasksWithSession.entrySet()) {
 			try {
-				System.out.println("sending task " + taskid + " to " + sock);
+				System.out.println("sending task " + task.getKey() + " to " + sock);
 				sock.getRemote().sendString(
-						mapper.writeValueAsString(new AddTask(taskid)));
+						mapper.writeValueAsString(new AddTask(task.getValue(), task.getKey())));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -117,28 +117,28 @@ public class UIServlet extends WebSocketServlet {
 		this.activeSockets.remove(sock);
 	}
 
-	public void addTask(String id) {
-		currentTasks.add(id);
+	public void addTask(String sessionId, String taskId) {
+		currentTasksWithSession.put(taskId, sessionId);
 		for (UISocket socket : activeSockets) {
 			try {
 				socket.getRemote().sendString(
-						mapper.writeValueAsString(new AddTask(id)));
+						mapper.writeValueAsString(new AddTask(sessionId, taskId)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public void removeTask(String id) {
-		currentTasks.remove(id);
+	public void removeTask(String taskId) {
 		for (UISocket socket : activeSockets) {
 			try {
 				socket.getRemote().sendString(
-						mapper.writeValueAsString(new DeleteTask(id)));
+						mapper.writeValueAsString(new DeleteTask(currentTasksWithSession.get(taskId), taskId)));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+		currentTasksWithSession.remove(taskId);
 	}
 
 	public void startSession(SimulationStartSimEvent simStartEvent) {
@@ -162,8 +162,8 @@ public class UIServlet extends WebSocketServlet {
 		Map<LearnPadTask, Integer> detailedScore = manager
 				.getDetailedInstanceScore(sessionId, uiid);
 
-		Map<String, String> taskNames = new HashMap<String, String>();
-		Map<String, Integer> taskScores = new HashMap<String, Integer>();
+		Map<String, String> taskNames = new HashMap<>();
+		Map<String, Integer> taskScores = new HashMap<>();
 
 		for (Entry<LearnPadTask, Integer> score : detailedScore.entrySet()) {
 			taskNames.put(score.getKey().id, score.getKey().name);

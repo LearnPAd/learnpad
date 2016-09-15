@@ -35,6 +35,7 @@ import eu.learnpad.simulator.mon.manager.RestNotifier;
 import eu.learnpad.simulator.mon.rules.generator.RulesPerPath;
 import eu.learnpad.simulator.mon.storage.DBController;
 import eu.learnpad.simulator.mon.storage.H2Controller;
+import eu.learnpad.simulator.mon.storage.ScoreTemporaryStorage;
 import eu.learnpad.simulator.mon.utils.ComputeLearnerScore;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
 import it.cnr.isti.labse.glimpse.xml.complexEventRule.ComplexEventRuleActionListDocument;
@@ -95,14 +96,10 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 				Vector<Activity[]> theUnfoldedBPMN = bpmnExplorer.getUnfoldedBPMN(theBPMN);
 				
 				Bpmn newBpmn = new Bpmn(bpmnID,now,0, 0, theUnfoldedBPMN.size());
-				
+
 				//rules for coverage
 				Vector<Path> theGeneratedPath = crossRulesGenerator.generatePathsRules(
 																	crossRulesGenerator.generateAllPaths(theUnfoldedBPMN, newBpmn.getId()));
-				
-				//rules for other kpi calculation
-//				ComplexEventRuleActionListDocument rulesForKPI = 
-//						KpiRulesGenerator.generateAll(usersInvolved, sessionID, bpmnID, theUnfoldedBPMN);
 				
 				theGeneratedPath = setAllAbsoluteSessionScores(theGeneratedPath);
 				
@@ -141,10 +138,110 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 		
 	}
 
-	
-public void computeAndSaveScores(List<String> learnersID, String user, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore) {
+	@Override
+	public void computeAndPropagateScores(List<String> learnersID, String idPath, String idBPMN) {
 		
 		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
+		Date now = new Date();
+		
+		for(int i = 0; i<learnersID.size(); i++) {
+			databaseController.setLearnerSessionScore(
+					learnersID.get(i), idPath, idBPMN, 
+					ScoreTemporaryStorage.getTemporaryLearnerSessionScore(learnersID.get(i)),
+					new java.sql.Date(now.getTime()));
+			
+			float learnerBPScore = ComputeLearnerScore.learnerBP(
+					databaseController.getMaxSessionScores(learnersID.get(i), idBPMN));
+			
+			Vector<Path> pathsExecutedByLearner = databaseController.getPathsExecutedByLearner(learnersID.get(i), idBPMN); 
+			
+			//compute relativeBPScore
+			float learnerRelativeBPScore = ComputeLearnerScore.learnerRelativeBP(pathsExecutedByLearner);
+
+			//compute coverage percentage
+			float learnerCoverage = ComputeLearnerScore.BPCoverage(
+					pathsExecutedByLearner,pathsCardinality);
+
+			databaseController.updateBpmnLearnerScores(learnersID.get(i), idBPMN, learnerBPScore, learnerRelativeBPScore, learnerCoverage);
+			
+			//compute globalScore
+			float learnerGlobalScore = ComputeLearnerScore.learnerGlobal(
+					databaseController.getLearnerBPMNScores(learnersID.get(i)));
+		
+			//compute relativeGlobalScore
+			float learnerRelativeGlobalScore = ComputeLearnerScore.learnerRelativeGlobal(
+					databaseController.getLearnerRelativeBPScores(learnersID.get(i)));
+			
+			
+			//compute absoluteGlobalScore
+			float learnerAbsoluteGlobalScore = ComputeLearnerScore.learnerAbsoluteGlobal(
+					databaseController.getBPMNAbsoluteScoresExecutedByLearner(learnersID.get(i)));
+			
+			databaseController.updateLearnerScores(
+					learnersID.get(i), learnerGlobalScore, learnerRelativeGlobalScore, learnerAbsoluteGlobalScore);
+
+			HashMap<ScoreType, Float> scoresToShow = new HashMap<ScoreType, Float>();
+			
+			scoresToShow.put(ScoreType.ABSOLUTE_BP_SCORE, absoluteBPScore);
+			scoresToShow.put(ScoreType.ABSOLUTE_GLOBAL_SCORE, learnerAbsoluteGlobalScore);
+			scoresToShow.put(ScoreType.ABSOLUTE_SESSION_SCORE, absoluteSessionScore);
+			scoresToShow.put(ScoreType.BP_COVERAGE, learnerCoverage);
+			scoresToShow.put(ScoreType.BP_SCORE, learnerBPScore);
+			scoresToShow.put(ScoreType.GLOBAL_SCORE, learnerGlobalScore);
+			scoresToShow.put(ScoreType.RELATIVE_BP_SCORE, learnerRelativeBPScore);
+			scoresToShow.put(ScoreType.RELATIVE_GLOBAL_SCORE, learnerRelativeGlobalScore);
+			scoresToShow.put(ScoreType.SESSION_SCORE, ScoreTemporaryStorage.getTemporaryLearnerSessionScore(learnersID.get(i)).floatValue());
+			
+			sendScoresToSim(scoresToShow,learnersID.get(i));
+			
+			DebugMessages.print(TimeStamp.getCurrentTime(),  this.getClass().getName(),  "Sending score to the platform ");
+			sendScoreUpdateEventToCP(
+					generateScoreEvent(
+							ScoreType.ABSOLUTE_BP_SCORE, absoluteBPScore, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
+			
+			sendScoreUpdateEventToCP(
+					generateScoreEvent(
+							ScoreType.ABSOLUTE_GLOBAL_SCORE, learnerAbsoluteGlobalScore, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
+			
+			sendScoreUpdateEventToCP(
+					generateScoreEvent(
+							ScoreType.ABSOLUTE_SESSION_SCORE, absoluteSessionScore, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
+			
+			sendScoreUpdateEventToCP(
+					generateScoreEvent(
+							ScoreType.BP_COVERAGE, learnerCoverage, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
+			
+			sendScoreUpdateEventToCP(
+					generateScoreEvent(
+							ScoreType.BP_SCORE, learnerBPScore, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
+			
+			sendScoreUpdateEventToCP(
+					generateScoreEvent(
+							ScoreType.GLOBAL_SCORE, learnerGlobalScore, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
+			
+			sendScoreUpdateEventToCP(
+					generateScoreEvent(
+							ScoreType.RELATIVE_BP_SCORE, learnerRelativeBPScore, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
+			
+			sendScoreUpdateEventToCP(
+					generateScoreEvent(
+							ScoreType.RELATIVE_GLOBAL_SCORE, learnerRelativeGlobalScore, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
+			
+			sendScoreUpdateEventToCP(
+					generateScoreEvent(
+							ScoreType.SESSION_SCORE, 
+							ScoreTemporaryStorage.getTemporaryLearnerSessionScore(learnersID.get(i)).floatValue(), 
+							ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
+			DebugMessages.ok();
+		}
+		
+		
+	}
+	
+	public void computeAndSaveScores(List<String> learnersID, String user, String idBPMN, String idPath, SessionScoreUpdateEvent sessionScore) {
+		
+		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
+		
 		
 //		for(int i = 0; i<learnersID.size(); i++) {
 //			
@@ -255,6 +352,9 @@ public void computeAndSaveScores(List<String> learnersID, String user, String id
 			e.printStackTrace();
 		}
 	}
+
+
+	
 	
 	public static void main(String[] args)
 	{
@@ -288,4 +388,5 @@ public void computeAndSaveScores(List<String> learnersID, String user, String id
 	 		test.computeAndSaveScores(ciccio, "ciccio", "a23748293649", "a23748293649-1",up);
 	 		
 	 }
+
 }

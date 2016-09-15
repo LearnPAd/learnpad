@@ -48,10 +48,10 @@ public class Analyzer {
     public Entities analyze(String modelSetId, String htmlPageContent) throws RecommenderException {
 
         BasicAnnotator basicAnnotator = getCachedAnnotator(modelSetId);
-        List<Entity> entitiesList = basicAnnotator.entityLookup(htmlPageContent);
+        Entities entities = basicAnnotator.entityLookup(htmlPageContent);
 
         OntModel model = FileOntAO.getInstance().getModelWithExecutionData(modelSetId);
-        for (Entity entity : entitiesList) {
+        for (Entity entity : entities.getEntities()) {
             entity.setModelSetId(modelSetId);
             entity.setModelId("");
             String authorUri = entity.getContextArtifactId();
@@ -68,8 +68,6 @@ public class Analyzer {
             }
         }
         
-        Entities entities = new Entities();
-        entities.setEntities(entitiesList);
         return entities;
 
     }

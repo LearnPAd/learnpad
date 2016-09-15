@@ -34,6 +34,9 @@ public class SimulationScoreLogTest extends AbstractKpiTest {
 
     @Test
     public void testLogSimulationScore() throws RecommenderException {
+        
+        cleanUpDataFile();
+        
         OntModel model = FileOntAO.getInstance().getModelWithExecutionData(MODELSET_ID);
         
         Individual testUser = getTestUser();
@@ -47,45 +50,32 @@ public class SimulationScoreLogTest extends AbstractKpiTest {
         }
         Individual oneProcessForTesting = processes.get(0);
         
-        //Create PB score
+        //Log simulation scores
         Long timestamp = System.currentTimeMillis();
         String simulationSessionId = UUID.randomUUID().toString();
         String processArtifactId = oneProcessForTesting.getLocalName();
-        Float score = 4.8f;
-        Individual logEntry = createSimScoreLog(timestamp, simulationSessionId, MODELSET_ID, processArtifactId, TEST_USER_EMAIL, ScoreType.BP_SCORE, score);
-        assertNotNull(logEntry);
+        SimulationScoreLog.getInstance().logSimulationScore(timestamp, simulationSessionId, MODELSET_ID, processArtifactId, TEST_USER, SIM_TEST_SCORES);
         
+        //check BP score
         scores = getInstancesWithProperty(APP.NS.LPD + "BPSimulationScore", APP.NS.LPD + "simulationScoreOfPerformer", testUser);
         assertEquals("Expect a business process simulation score value created for testuser. ", 1, scores.size());
         
-        checkCommonScoreProperties(model, scores.get(0), score, timestamp);
+        Float expectedScore = (SIM_TEST_SCORES.get(ScoreType.BP_SCORE)/SIM_TEST_SCORES.get(ScoreType.ABSOLUTE_BP_SCORE))*100;
+        checkCommonScoreProperties(model, scores.get(0), expectedScore, timestamp);
         
-        
-        //Create session score
-        timestamp = System.currentTimeMillis();
-        score = 6.2f;
-        logEntry = createSimScoreLog(timestamp, simulationSessionId, MODELSET_ID, processArtifactId, TEST_USER_EMAIL, ScoreType.SESSION_SCORE, score);
-        assertNotNull(logEntry);
-        
+        //check session score
         scores = getInstancesWithProperty(APP.NS.LPD + "SimulationSessionScore", APP.NS.LPD + "simulationScoreOfPerformer", testUser);
         assertEquals("Expect one simulation session score value created for testuser. ",  1, scores.size());
         
-        checkCommonScoreProperties(model, scores.get(0), score, timestamp);
+        expectedScore = (SIM_TEST_SCORES.get(ScoreType.SESSION_SCORE)/SIM_TEST_SCORES.get(ScoreType.ABSOLUTE_SESSION_SCORE))*100;
+        checkCommonScoreProperties(model, scores.get(0), expectedScore, timestamp);
         
-        //test if still one pb score
-        scores = getInstancesWithProperty(APP.NS.LPD + "BPSimulationScore", APP.NS.LPD + "simulationScoreOfPerformer", testUser);
-        assertEquals("Expect a business process simulation score value created for testuser. ", 1, scores.size());
-        
-        //Create global score
-        timestamp = System.currentTimeMillis();
-        score = 8.4f;
-        logEntry = createSimScoreLog(timestamp, simulationSessionId, MODELSET_ID, processArtifactId, TEST_USER_EMAIL, ScoreType.GLOBAL_SCORE, score);
-        assertNotNull(logEntry);
-        
+        //check global score
         scores = getInstancesWithProperty(APP.NS.LPD + "GlobalSimulationScore", APP.NS.LPD + "simulationScoreOfPerformer", testUser);
         assertEquals("Expect one global score value created for testuser. ", 1, scores.size());
         
-        checkCommonScoreProperties(model, scores.get(0), score, timestamp);
+        expectedScore = (SIM_TEST_SCORES.get(ScoreType.GLOBAL_SCORE)/SIM_TEST_SCORES.get(ScoreType.ABSOLUTE_GLOBAL_SCORE))*100;
+        checkCommonScoreProperties(model, scores.get(0), expectedScore, timestamp);
     }
     
     @After

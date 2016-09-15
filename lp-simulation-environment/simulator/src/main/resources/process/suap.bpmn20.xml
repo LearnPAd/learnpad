@@ -22,7 +22,7 @@
 
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://activiti.org/bpmn20">
 
-  <process id="mod.27772" name="SUAP - Titolo Unico" isExecutable="true">
+  <process id="mod.21093" name="SUAP - Titolo Unico" isExecutable="true">
 
     <dataObject
         id="DataObject_0"
@@ -409,8 +409,8 @@
 
   </process>
 
-  <bpmndi:BPMNDiagram id="BPMNDiagram_mod.27772">
-    <bpmndi:BPMNPlane bpmnElement="mod.27772" id="BPMNPlane_mod.27772">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_mod.21093">
+    <bpmndi:BPMNPlane bpmnElement="mod.21093" id="BPMNPlane_mod.21093">
       <bpmndi:BPMNShape bpmnElement="startevent" id="BPMNShape_startevent">
         <omgdc:Bounds height="35.0" width="35.0" x="-20.0" y="158.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>

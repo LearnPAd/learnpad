@@ -259,6 +259,7 @@
                  return decodeURIComponent(name[1]);
          }
          var userid = get("userid");
+         var sessionid = get("simulationid");
 
          var integratedMode = false;
          if(window != parent.window) {
@@ -273,14 +274,14 @@
          }
 
          if(userid != null) {
-             taskReceiver(#serveripaddress#, userid, integratedMode);
+             taskReceiver(#serveripaddress#, userid, integratedMode, sessionid, #platformaddress#);
              if(!integratedMode) {
                  dummyChat('chatcontainer', #serveripaddress#, userid);
              }
          } else {
              $('#connectBn').click(function(event) {
                  userid = $('#uiid').val();
-                 taskReceiver(#serveripaddress#, userid, integratedMode);
+                 taskReceiver(#serveripaddress#, userid, integratedMode, sessionid, #platformaddress#);
                  if(!integratedMode) {
                      dummyChat('chatcontainer', #serveripaddress#, userid);
                  }
