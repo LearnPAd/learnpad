@@ -17,9 +17,7 @@ import it.cnr.isti.labse.glimpse.xml.complexEventRule.ComplexEventRuleActionList
 public abstract class LearnerAssessmentManager extends Thread {
 
 	public abstract Document setBPModel(String xmlMessagePayload) throws ParserConfigurationException, SAXException, IOException;
-	//public abstract ComplexEventRuleActionListDocument ExploreBPSavePathsGenerateAndSaveRules(Document dom);
 	public abstract ComplexEventRuleActionListDocument elaborateModel(String xmlMessagePayload, Vector<Learner> vector, String sessionID, String bpmnID);
-
 	public abstract DBController getDBController();
 	public abstract Vector<Path> setAllAbsoluteSessionScores(Vector<Path> theGeneratedPath);
 	public abstract void computeAndPropagateScores(List<String> learnersID, String idPath, String idBPMN);
