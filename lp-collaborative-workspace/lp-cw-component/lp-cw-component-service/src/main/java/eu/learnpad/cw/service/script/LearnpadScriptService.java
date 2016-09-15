@@ -135,6 +135,19 @@ public class LearnpadScriptService implements ScriptService, UICWBridge {
 		return url;
 	}
 
+	@Override
+	public String startDashboardKpiCalculation(String modelSetId) {
+		String kpiCalulationPID  = null;
+		try {
+			kpiCalulationPID = this.cwBridge
+					.startDashboardKpiCalculation(modelSetId);
+		} catch (LpRestException e) {
+			kpiCalulationPID  = "";
+			this.setLastError(e);
+		}
+		return kpiCalulationPID ;
+	}
+
 	public String startSimulation(String modelId, String currentUser,
 			Collection<String> potentialUsers) {
 		try {
@@ -169,7 +182,8 @@ public class LearnpadScriptService implements ScriptService, UICWBridge {
 	public ProcessInstanceData getSimulationInfo(String simulationId)
 			throws LpRestException {
 		try {
-			return this.cwBridge.getSimulationInfo(simulationId);
+			ProcessInstanceData foo = this.cwBridge.getSimulationInfo(simulationId);
+			return foo;
 		} catch (LpRestException e) {
 			this.setLastError(e);
 			return null;

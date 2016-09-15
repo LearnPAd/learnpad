@@ -49,6 +49,17 @@
 ## Hard-coded for the moment since the ID may change with ME's import and SIM is not relying on BPMN files from ME
 #set ($modelid = "mod.27772")
 ############# DASHBOARD KPI Part ##################################
+#set ($dashboardReference = $services.model.createDocumentReference($xcontext.database, 'LPUI', 'Dashboard'))
+(% class="help-block text-center" %)
+{{warning}}
+${services.localization.render('LPUI.Dashboard.calculate.warning')}
+{{/warning}}
+[[${services.localization.render('LPUI.Dashboard.calculate.button')}&gt;&gt;${dashboardReference}||queryString="calculateKPI=true" class="btn btn-block btn-simulation"]]
+##
+#if($request.calculateKPI)
+  #set ($kpiCalulationProcessId = "${services.learnpad.startDashboardKpiCalculation($modelsetid)}")
+#end
+##
   #set ($dashboardkpiURL = "${services.learnpad.getDashboardKpiDefaultViewer($modelsetid,$userid)}")
 ##
 #if ("$!dashboardkpiURL" != "")

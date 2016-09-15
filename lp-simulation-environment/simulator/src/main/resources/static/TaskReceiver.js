@@ -31,6 +31,8 @@ function taskReceiver(address, user, integratedMode, sessionid, platformAddress)
     newTaskReceiver.activeTasks = {};
     newTaskReceiver.user = user;
 
+    newTaskReceiver.nbTaskBySession = {};
+
 
     newTaskReceiver._onopen = function() {
         $('#connect').remove();
@@ -79,10 +81,17 @@ function taskReceiver(address, user, integratedMode, sessionid, platformAddress)
                 // add infobox with links for other users to join
                 var infoLinks = '<div class="alert alert-info" role="alert">' +
                         'Other participants can join the session using the following link (when logged in):<p>';
-                var url = 'http://' + platformAddress + '/xwiki/bin/view/LPUI/SimulationEnvironment?sessionid=' + msg.sessionid;
+                var url = 'http://' + platformAddress + '/xwiki/bin/view/LPUI/SimulationEnvironment?simulationid=' + msg.sessionid;
                 infoLinks += '<a href="' + url + '">' + url + '</a><p>';
                 infoLinks += '</div>';
                 $('#processmain' + msg.sessionid).append(infoLinks);
+
+                // add initial "no task" message
+                $('#processmain' + msg.sessionid).append(
+                    '<div id="notasknotif' +
+                        msg.sessionid +
+                        '" class="alert alert-info" role="alert">Waiting for other users to complete their tasks.</div>'
+                );
 
                 // add session chat container
                 $('#processside' + msg.sessionid).append(
@@ -176,18 +185,42 @@ function taskReceiver(address, user, integratedMode, sessionid, platformAddress)
                 // remove process diagram
                 $('#accordion' + msg.sessionid).remove();
 
+                // remove "no active task" msg (if present)
+                $('#notasknotif' + msg.sessionid).remove();
+
                 break;
 
             case 'ADDTASK':
+
+                if (!newTaskReceiver.nbTaskBySession.hasOwnProperty(msg.sessionid)) {
+                    newTaskReceiver.nbTaskBySession[msg.sessionid] = 0;
+                }
+                newTaskReceiver.nbTaskBySession[msg.sessionid] += 1;
+
                 var newTask = task(address, msg.taskid, user, integratedMode);
                 newTaskReceiver.activeTasks[msg.taskid] = newTask;
                 newTask.join();
+
+                // remove "no active task" msg (if present)
+                $('#notasknotif' + msg.sessionid).remove();
+
                 break;
 
             case 'DELTASK':
                 // may be undefined if task was closed from another ui
                 newTaskReceiver.activeTasks[msg.taskid].end();
                 delete newTaskReceiver.activeTasks[msg.taskid];
+
+                // if there is no active task, display msg
+                newTaskReceiver.nbTaskBySession[msg.sessionid] -= 1;
+                if (newTaskReceiver.nbTaskBySession[msg.sessionid] == 0) {
+                    $('#processcontainer' + msg.sessionid + ' .diagram').before(
+                        '<div id="notasknotif' +
+                            msg.sessionid +
+                            '" class="alert alert-info" role="alert">Waiting for other users to complete their tasks.</div>'
+                    );
+                }
+
                 break;
             }
 

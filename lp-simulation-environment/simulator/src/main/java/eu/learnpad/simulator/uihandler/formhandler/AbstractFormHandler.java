@@ -54,7 +54,7 @@ public abstract class AbstractFormHandler implements IFormHandler {
 	protected static final String SINGLE_USER_IS_HUMAN_KEY_PREFIX = "#_learnpad_route_singlerole_is_human#";
 	protected static final String GROUP_USER_IS_HUMAN_KEY_PREFIX = "#_learnpad_route_grouprole_is_human#";
 
-	protected static final String DEFAULT_ROBOT_ROLE = "robby";
+	public static final String DEFAULT_ROBOT_ROLE = "#_robot_robby";
 
 	public abstract List<LearnPadDocumentField> getStartFormData(
 			String processId);

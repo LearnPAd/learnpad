@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  LearnPAd Simulator
+  %%
+  Copyright (C) 2014 - 2015 Linagora
+  %%
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  #L%
+  -->
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://activiti.org/bpmn20">
+
+  <process id="mod.21093" name="SUAP - Titolo Unico" isExecutable="true">
+
+    <dataObject
+        id="DataObject_0"
+        name="SCIA_DataObject0" />
+    <dataObject
+        id="DataObject_1"
+        name="SCIA_DataObject1" />
+    <dataObject
+        id="DataObject_2"
+        name="SCIA_DataObject2" />
+    <dataObject
+        id="DataObject_3"
+        name="SCIA_DataObject3" />
+    <dataObject
+        id="DataObject_4"
+        name="SCIA_DataObject4" />
+    <dataObject
+        id="DataObject_5"
+        name="SCIA_DataObject5" />
+    <dataObject
+        id="DataObject_6"
+        name="SCIA_DataObject6" />
+    <dataObject
+        id="DataObject_7"
+        name="SCIA_DataObject7" />
+    <dataObject
+        id="DataObject_0-1"
+        name="SCIA_DataObject0_updated" />
+    <dataObject
+        id="DataObject_8"
+        name="SCIA_DataObject8" />
+    <dataObject
+        id="DataObject_9"
+        name="SCIA_DataObject9" />
+    <dataObject
+        id="DataObject_10"
+        name="SCIA_DataObject10" />
+
+    <startEvent id="startevent" name="Start">
+    </startEvent>
+
+    <userTask id="obj.27830" name="Accedi Pratica">
+
+      <documentation>In questa attivita&apos; l&apos;ufficio SUAP deve controllare la documentazione inviata dall&apos;imprenditore. Il controllo e&apos; fatto al fine di verificare che tutti i documenti necessari siano stati correttamente presentati. La verifica consiste nell&apos;accertare l&apos;avvenuto corretto invio dell&apos;istanza e dei suoi allegati in formato valido e leggibile, tramite PEC o web form su portale e la corretta apposizione della firmata digitale da parte del titolare richiedente o di un intermediario delegato.
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
+
+      <ioSpecification>
+        <dataOutput id="DataOutput1" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput1</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput1</sourceRef>
+        <targetRef>DataObject_1</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+    <userTask id="obj.27812" name="Invio della Comunicazione di Non-Ammissibilità">
+
+      <documentation>In questa attivita&apos; l&apos;ufficio SUAP deve comunicare all&apos;imprenditore l&apos;inammissibilita&apos; della richiesta. Ciò si verifica quando durante un primo controllo formale emergono alcuni problemi sulla documentazione fornita, puo&apos; verificarsi che i documenti rilevanti non sono presenti o che il file digitale firmato risulta danneggiato o la firma non è valida.</documentation>
+
+      <ioSpecification>
+        <dataInput id="DataInput2" name="input" />
+        <dataOutput id="DataOutput2" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput2</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput2</sourceRef>
+        <targetRef>DataObject_2</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+    <userTask id="obj.27782" name="Primo Controllo dei Documenti Forniti">
+
+      <documentation>Il SUAP effettua un primo controllo formale sull&apos;istanza ricevuta per verificarne l&apos;ammissibilita&apos; (ovvero che la documentazione fornita non presenti problemi bloccanti, quali la carenza di documenti rilevanti e obbligatori, l&apos;illeggibilità della stessa, l&apos;irricevibilita&apos; in quanto non di competenza dell&apos;ufficio SUAP, il fatto che il file digitale risulti danneggiato, che la firma digitale apposta non sia valida, etc).
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
+
+      <ioSpecification>
+        <dataInput id="DataInput3" name="input" />
+        <dataOutput id="DataOutput3" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput3</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput3</sourceRef>
+        <targetRef>DataObject_3</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+
+    <userTask id="obj.27921" name="Invio Istanza alle Amministrazioni Esterne">
+
+      <documentation>In questa attivita&apos; l&apos;ufficio SUAP deve inviare alle amministrazioni terzi l&apos;istanza per la verifica di competenza (ovvero un controllo di merito con preghiera di formulare un parere sull&apos;istanza, limitatamente ad aspetti generali o di competenza - secondo legge - dell&apos;ente coinvolto).
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
+
+      <ioSpecification>
+        <dataInput id="DataInput4" name="input" />
+        <dataOutput id="DataOutput4" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput4</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput4</sourceRef>
+        <targetRef>DataObject_4</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+
+    <userTask id="obj.27987" name="Invia Convocazioni per la Conferenza dei Servizi">
+
+      <documentation>Indice la conferenza di servizi tramite lettera, con allegato progetto del richiedente, inviata agli enti terzi e contestuale richiesta di esprimere il parere di competenza entro 30 giorni.
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
+
+      <ioSpecification>
+        <dataInput id="DataInput5" name="input" />
+        <dataOutput id="DataOutput5" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput5</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput5</sourceRef>
+        <targetRef>DataObject_5</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+
+    <userTask id="obj.27990" name="Elabora Opinioni Ricevute">
+
+      <documentation>Il SUAP, acquisiti tutti i pareri, emette un verbale raccogliendo una sintesi dei contributi pervenuti o espressi dagli enti coinvolti. Se sono tutti positivi il SUAP deve rilasciare l&apos;autorizzazione (titolo unico a procedere) al richiedente e per conoscenza agli enti terzi coinvolti; se ci sono alcune prescrizioni il SUAP inviterà il richiedente ad adempiere ed assolvere tali ulteriori prescrizioni/condizioni o ad integrare quanto richiesto prima del rilascio del provvedimento finale; se c’e&apos; anche un solo parere negativo il SUAP emette contestuale diniego a procedere verso il richiedente e per conoscenza verso gli enti terzi; se c’è anche una sola amministrazione che necessita di chiarimenti o ha emesso parere sospensivo, il SUAP sospende i termini e invita l&apos;utente ad integrare la documentazione secondo le richieste emerse, prima di convocare nuovamente - nel caso di parere sospensivo - la Conferenza di Servizi.&#10;Alla luce della nuova normativa (artt. 14 e seguenti della L. 241/90) la Conferenza di Servizi può essere semplificata o simultanea sincrona. Salvo alcune modifiche il secondo caso rispecchia quanto fin qui descritto. Invece la Conferenza semplificata non prevede la presenza simultanea di tutti i rappresentanti degli enti coinvolti, ma di fatto si caratterizza come una richiesta di emissione dei pareri di competenza, da fornire entro una data scadenza (45 giorni nei casi normali).&#10;
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}_transcript.txt' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Meeting transcript&lt;/a&gt;</documentation>
+
+       <ioSpecification>
+         <dataInput id="DataInput6" name="input" />
+         <dataOutput id="DataOutput6" name="output" />
+         <inputSet/>
+         <outputSet>
+           <dataOutputRefs>DataOutput6</dataOutputRefs>
+         </outputSet>
+       </ioSpecification>
+
+       <dataOutputAssociation>
+         <sourceRef>DataOutput6</sourceRef>
+         <targetRef>DataObject_6</targetRef>
+       </dataOutputAssociation>
+
+       <potentialOwner>
+         <resourceAssignmentExpression>
+           <formalExpression>user(SUAP_Officer)</formalExpression>
+         </resourceAssignmentExpression>
+       </potentialOwner>
+
+    </userTask>
+
+
+    <userTask id="obj.29013" name="Richiede Integrazioni">
+
+      <documentation>A seguito della valutazione dei pareri degli enti terzi coinvolti, risulta che almeno un&apos;amministrazione abbia richiesto integrazioni formulando parere sospensivo.
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
+
+      <ioSpecification>
+        <dataInput id="DataInput7" name="input" />
+        <dataOutput id="DataOutput7" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput7</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput7</sourceRef>
+        <targetRef>DataObject_7</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+    <userTask id="obj.27833" name="Controlla Integrazioni">
+
+      <documentation>In questa attivita&apos; l&apos;ufficio SUAP deve controllare la documentazione integrativa inviata dall&apos;imprenditore. Il controllo è fatto al fine di verificare che tutti i documenti integrati (precedentemente mancanti ma necessari ai fini della conclusione del procedimento) siano stati correttamente presentati. La verifica consiste nell&apos;accertare l&apos;avvenuto corretto invio delle integrazioni in formato valido e leggibile, tramite PEC o web form su portale e l&apos;eventuale corretta apposizione della firmata digitale da parte del titolare richiedente o di un intermediario delegato.
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
+
+      <ioSpecification>
+        <dataInput id="DataInput8" name="input" />
+        <dataOutput id="DataOutput8" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput8</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput8</sourceRef>
+        <targetRef>DataObject_8</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+    <userTask id="obj.27788" name="Fornisce Autorizzazioni">
+
+      <documentation>A seguito della valutazione dei pareri degli enti terzi coinvolti, risulta che tutte le amministrazioni siano favorevoli all&apos;avvio dell&apos;attivita&apos; o alla realizzazione dell&apos;intervento.
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
+
+      <ioSpecification>
+        <dataInput id="DataInput9" name="input" />
+        <dataOutput id="DataOutput9" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput9</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput9</sourceRef>
+        <targetRef>DataObject_9</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+    <userTask id="obj.27839" name="Fornisce Diniego (inibizione  a procedere)">
+
+      <documentation>A seguito della valutazione dei pareri degli enti terzi coinvolti, risulta che almeno un&apos;amministrazione abbia espresso parere negativo, con la conseguenza che il SUAP dovrà rilasciare un provvedimento di diniego per l&apos;avvio dell&apos;attivita&apos; o la realizzazione dell&apos;intervento.
+&lt;a href='resources/files/suap_titolo_unico/istanza_${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Application&lt;/a&gt;</documentation>
+
+      <ioSpecification>
+        <dataInput id="DataInput10" name="input" />
+        <dataOutput id="DataOutput10" name="output" />
+        <inputSet/>
+        <outputSet>
+          <dataOutputRefs>DataOutput10</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+
+      <dataOutputAssociation>
+        <sourceRef>DataOutput10</sourceRef>
+        <targetRef>DataObject_10</targetRef>
+      </dataOutputAssociation>
+
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>user(SUAP_Officer)</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+
+    </userTask>
+
+    <endEvent id="endevent1" name="End"></endEvent>
+
+    <sequenceFlow id="flow0" sourceRef="startevent" targetRef="obj.27830"></sequenceFlow>
+
+    <sequenceFlow id="flow1" sourceRef="obj.27830" targetRef="exclusivegateway1"></sequenceFlow>
+
+    <exclusiveGateway id="exclusivegateway1" name="reject application?"></exclusiveGateway>
+
+    <sequenceFlow id="flow2" name="[yes]" sourceRef="exclusivegateway1" targetRef="obj.27812">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accepted == false}]]></conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="flow3" name="[no]" sourceRef="exclusivegateway1" targetRef="obj.27782">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${accepted == true}]]></conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="flow4" sourceRef="obj.27812" targetRef="endevent1"></sequenceFlow>
+
+    <sequenceFlow id="flow5" sourceRef="obj.27782" targetRef="obj.27987" />
+
+    <sequenceFlow id="flow6" sourceRef="obj.27921" targetRef="obj.27987" />
+
+    <sequenceFlow id="flow8" sourceRef="obj.27987" targetRef="obj.27990" />
+
+    <exclusiveGateway id="exclusivegateway2" name="integration necessary?"></exclusiveGateway>
+
+    <sequenceFlow id="flow9" sourceRef="obj.27990" targetRef="exclusivegateway2" />
+
+
+    <sequenceFlow id="flow10" name="[yes]" sourceRef="exclusivegateway2" targetRef="obj.29013">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus == "needAmendments"}]]></conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="flow11" sourceRef="obj.29013" targetRef="obj.27833" />
+
+    <sequenceFlow id="flow12" sourceRef="obj.27833" targetRef="exclusivegateway3" />
+
+    <sequenceFlow id="flow13" name="[no]" sourceRef="exclusivegateway2" targetRef="exclusivegateway3" >
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus != "needAmendments"}]]></conditionExpression>
+    </sequenceFlow>
+
+    <exclusiveGateway id="exclusivegateway3" name="inhibition of the application?"></exclusiveGateway>
+
+    <sequenceFlow id="flow15" name="[no]" sourceRef="exclusivegateway3" targetRef="obj.27788" >
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus == "ok"}]]></conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="flow16" name="[yes]" sourceRef="exclusivegateway3" targetRef="obj.27839" >
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus == "ko"}]]></conditionExpression>
+    </sequenceFlow>
+
+    <sequenceFlow id="flow17a" name="" sourceRef="exclusivegateway3" targetRef="obj.27987" >
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${applicationStatus == "serviceConf"}]]></conditionExpression>
+    </sequenceFlow>
+
+    <endEvent id="endevent" name="End">
+    </endEvent>
+
+    <sequenceFlow id="flow18" sourceRef="obj.27788" targetRef="endevent" />
+
+    <sequenceFlow id="flow19" sourceRef="obj.27839" targetRef="endevent" />
+
+    <!-- dummy elements (for nice diagram display only-->
+    <endEvent id="usertask1"></endEvent>
+    <endEvent id="usertask2"></endEvent>
+    <sequenceFlow id="flow20" sourceRef="usertask1" targetRef="usertask2"></sequenceFlow>
+    <endEvent id="usertask3"></endEvent>
+    <endEvent id="usertask4"></endEvent>
+    <sequenceFlow id="flow21" sourceRef="usertask3" targetRef="usertask4"></sequenceFlow>
+
+  </process>
+
+  <bpmndi:BPMNDiagram id="BPMNDiagram_mod.21093">
+    <bpmndi:BPMNPlane bpmnElement="mod.21093" id="BPMNPlane_mod.21093">
+      <bpmndi:BPMNShape bpmnElement="startevent" id="BPMNShape_startevent">
+        <omgdc:Bounds height="35.0" width="35.0" x="-20.0" y="158.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="obj.27830" id="BPMNShape_obj.27830">
+        <omgdc:Bounds height="81.0" width="141.0" x="50.0" y="135.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="obj.27812" id="BPMNShape_obj.27812">
+        <omgdc:Bounds height="91.0" width="121.0" x="314.0" y="15.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="obj.27782" id="BPMNShape_obj.27782">
+        <omgdc:Bounds height="81.0" width="130.0" x="310.0" y="229.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="obj.27921" id="BPMNShape_obj.27921">
+        <omgdc:Bounds height="81.0" width="131.0" x="500.0" y="229.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="obj.27987" id="BPMNShape_obj.27987">
+        <omgdc:Bounds height="81.0" width="131.0" x="500.0" y="370.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="obj.27990" id="BPMNShape_obj.27990">
+        <omgdc:Bounds height="81.0" width="133.0" x="680.0" y="370.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="obj.29013" id="BPMNShape_obj.29013">
+        <omgdc:Bounds height="81.0" width="127.0" x="825.0" y="470.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="obj.27833" id="BPMNShape_obj.27833">
+        <omgdc:Bounds height="81.0" width="119.0" x="989.0" y="470.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="obj.27788" id="BPMNShape_obj.27788">
+        <omgdc:Bounds height="81.0" width="124.0" x="1177.0" y="271.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="obj.27839" id="BPMNShape_obj.27839">
+        <omgdc:Bounds height="81.0" width="124.0" x="1177.0" y="470.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="480.0" y="43.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="230.0" y="155.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="870.0" y="390.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="1028.0" y="391.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent" id="BPMNShape_endevent">
+        <omgdc:Bounds height="35.0" width="35.0" x="1340.0" y="387.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="1.0" width="1.0" x="439.0" y="251.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="1.0" width="1.0" x="500.0" y="251.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+        <omgdc:Bounds height="1.0" width="1.0" x="630.0" y="252.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
+        <omgdc:Bounds height="1.0" width="1.0" x="1040.0" y="400.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow0" id="BPMNEdge_flow0">
+        <omgdi:waypoint x="15.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="50.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="191.0" y="175.0"></omgdi:waypoint>
+        <omgdi:waypoint x="230.0" y="175.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="250.0" y="155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="61.0"></omgdi:waypoint>
+        <omgdi:waypoint x="314.0" y="60.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="12.0" width="24.0" x="260.0" y="96.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="250.0" y="195.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="268.0"></omgdi:waypoint>
+        <omgdi:waypoint x="310.0" y="269.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="12.0" width="18.0" x="260.0" y="214.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="435.0" y="60.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="60.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="375.0" y="310.0"></omgdi:waypoint>
+        <omgdi:waypoint x="375.0" y="410.0"></omgdi:waypoint>
+        <omgdi:waypoint x="500.0" y="410.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="565.0" y="310.0"></omgdi:waypoint>
+        <omgdi:waypoint x="565.0" y="370.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="631.0" y="410.0"></omgdi:waypoint>
+        <omgdi:waypoint x="680.0" y="410.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="813.0" y="410.0"></omgdi:waypoint>
+        <omgdi:waypoint x="870.0" y="410.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="890.0" y="430.0"></omgdi:waypoint>
+        <omgdi:waypoint x="888.0" y="470.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="12.0" width="24.0" x="900.0" y="430.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="952.0" y="510.0"></omgdi:waypoint>
+        <omgdi:waypoint x="989.0" y="510.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="1048.0" y="470.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="431.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="910.0" y="410.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1028.0" y="411.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="12.0" width="18.0" x="909.0" y="410.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="1048.0" y="391.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1048.0" y="310.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1177.0" y="311.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="12.0" width="18.0" x="1058.0" y="391.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="1068.0" y="411.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1238.0" y="410.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1239.0" y="470.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="12.0" width="24.0" x="1078.0" y="411.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17a" id="BPMNEdge_flow17a">
+        <omgdi:waypoint x="1048.0" y="391.0"></omgdi:waypoint>
+        <omgdi:waypoint x="969.0" y="330.0"></omgdi:waypoint>
+        <omgdi:waypoint x="631.0" y="330.0"></omgdi:waypoint>
+        <omgdi:waypoint x="565.0" y="370.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="1301.0" y="311.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1357.0" y="310.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1357.0" y="387.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="1301.0" y="510.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1357.0" y="509.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1357.0" y="422.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="474.0" y="268.0"></omgdi:waypoint>
+        <omgdi:waypoint x="500.0" y="268.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="630.0" y="252.0"></omgdi:waypoint>
+        <omgdi:waypoint x="940.0" y="252.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1040.0" y="400.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

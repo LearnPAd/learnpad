@@ -81,7 +81,7 @@ LPUI.CollaborativeDocumentSheet.button.validate=Valida
 LPUI.ProfilePanel.title=Il mio Account
 LPUI.ProfilePanel.profile=Il mio Profilo
 LPUI.ProfilePanel.dashboard=Pannello di Controllo
-LPUI.ProfilePanel.join=Unisciti ad una simulazione
+LPUI.ProfilePanel.join=Unisciti
 LPUI.ProfilePanel.join.help=Sei stato invitato in un simulazione!
 
 # Recommendation panel
@@ -103,9 +103,15 @@ LPUI.RecommendationPanel.similarcases.category.applicationSector=Settore
 
 # Simulation Environment
 SimulationEnvironment.goback=Torna alla modalità di Navigazione
+LPUI.SimulationEnvironment.howto.label=Clicca qui
+LPUI.SimulationEnvironment.howto.info=per consultare una documentazione sulle risposte corrette da dare durante la simulazione
+LPUI.SimulationEnvironment.howto.warning.en=Documentazione in Inglese
+LPUI.SimulationEnvironment.howto.models=Modelli e Casi Disponibili
 
 # Dashboard
 LPUI.Dashboard.section.title=Score on the process "{0}"
+LPUI.Dashboard.calculate.button=Avvia Calcolo KPI
+LPUI.Dashboard.calculate.warning=L'operazione può richiedere tempo, e la pagina va ricaricata.
 
 # LPDocs
 LPDocs.WebHome.title=How To!

@@ -243,7 +243,7 @@ prefix xwiki: <http://www.xwiki.org/xwiki/bin/view/Main/WebHome#>
 SELECT DISTINCT ?document ?documentLocationURL ?documentMimeType ?documentLabel ?documentComment ?documentDescription ?lastUpdated
 WHERE {
   OPTIONAL{
-    ?document elements:documentHasContributor ?author.
+    ?document dkm:documentHasContributorEmail ?author.
     ?document dkm:documentHasURL ?documentLocationURL .
     ?document dkm:documentHasMIMEType ?documentMimeType .
     ?document rdfs:label ?documentLabel .

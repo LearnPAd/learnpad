@@ -24,7 +24,7 @@
   <collaboration id="Collaboration">
     <participant id="pool1" processRef="mod.21262"></participant>
   </collaboration>
-  <process id="mod.21262" name="SUAP Process - Service Conference" isExecutable="true">
+  <process id="mod.21262" name="SUAP - Gestione Conferenza di Servizi" isExecutable="true">
     <laneSet id="laneSet_process_pool1">
       <lane id="lane1" name="Other Office 1">
         <flowNodeRef>usertask3</flowNodeRef>
@@ -127,8 +127,8 @@
     
     <startEvent id="startevent1" name="Start"></startEvent>
     
-    <userTask id="usertask1" name="Service Conference Invitation">
-      <documentation>In this activity the SUAP office has to send to PAs the Instance for checking. One representative for each convened administration takes part in the decision, who has the power to make a binding decision for the relevant administration it represents. These convened administration are contacted.
+    <userTask id="usertask1" name="Invia Convocazioni per la Conferenza dei Servizi">
+      <documentation>Indice la conferenza di servizi tramite lettera, con allegato progetto del richiedente, inviata agli enti terzi e contestuale richiesta di esprimere il parere di competenza entro 30 giorni.
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput1" name="output" />
@@ -150,8 +150,8 @@
     
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
     
-    <userTask id="usertask2" name="Put Stamps on Received Documentation">
-      <documentation>TODO
+    <userTask id="usertask2" name="Protocolla la documentazione ricevuta">
+      <documentation>Riceve, protocolla e fascicola la convocazione e l’allegata documentazione al fine di certificare agli atti l&apos;avvenuta corretta ricezione delle informazioni.&#10;
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput2" name="output" />
@@ -171,8 +171,8 @@
       </potentialOwner>
     </userTask>
     
-    <userTask id="usertask3" name="Put Stamps on Received Documentation">
-      <documentation>TODO
+    <userTask id="usertask3" name="Protocolla la documentazione ricevuta">
+      <documentation>Riceve, protocolla e fascicola la convocazione e l’allegata documentazione al fine di certificare agli atti l&apos;avvenuta corretta ricezione delle informazioni.&#10;
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput3" name="output" />
@@ -192,8 +192,8 @@
       </potentialOwner>
     </userTask>
     
-    <userTask id="usertask4" name="Check Provided Documentation">
-      <documentation>TODO
+    <userTask id="usertask4" name="Controlla la Documentazione Fornita">
+      <documentation>Gli Enti Terzi chiamati ad esprimere il parere di loro competenza esaminano la documentazione inoltrata dal SUAP. Si effettua l’istruttoria sostanziale (quella formale l’ha già fatta il SUAP) e dunque si entra nel merito della pratica leggendo la relazione tecnica che spiega l’intervento, guardando i disegni allegati (ad es. tavole ante e post opera) ed altri elaborati, verificando la titolarità del richiedente ad effettuare la richiesta, verificando gli allegati firmati dal progettista tecnico (conformita&apos; urbanistica, strutturale, etc), e verificando eventuale difformita&apos; o congruenza della pratica rispetto agli atti gia&apos; in possesso nell’archivio comunale.
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput4" name="output" />
@@ -215,8 +215,8 @@
     
     <sequenceFlow id="flow4" sourceRef="usertask2" targetRef="usertask4"></sequenceFlow>
     
-    <userTask id="usertask5" name="Check Provided Documentation">
-      <documentation>TODO
+    <userTask id="usertask5" name="Controlla la Documentazione Fornita">
+      <documentation>Gli Enti Terzi chiamati ad esprimere il parere di loro competenza esaminano la documentazione inoltrata dal SUAP. Si effettua l’istruttoria sostanziale (quella formale l’ha già fatta il SUAP) e dunque si entra nel merito della pratica leggendo la relazione tecnica che spiega l’intervento, guardando i disegni allegati (ad es. tavole ante e post opera) ed altri elaborati, verificando la titolarità del richiedente ad effettuare la richiesta, verificando gli allegati firmati dal progettista tecnico (conformita&apos; urbanistica, strutturale, etc), e verificando eventuale difformita&apos; o congruenza della pratica rispetto agli atti gia&apos; in possesso nell’archivio comunale.
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput5" name="output" />
@@ -249,8 +249,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${off1Choice != "off1Miss"}]]></conditionExpression>
     </sequenceFlow>
     
-    <userTask id="usertask6" name="Ask for Integration">
-      <documentation>TODO
+    <userTask id="usertask6" name="Elabora Richiesta Integrazioni">
+      <documentation>Nel caso che l&apos;amministrazione coinvolta non abbia tutti gli elementi necessari per esprimere il proprio parere (es. la relazione non è sufficientemente esaustiva per evincere di che intervento si tratta, oppure gli elaborati prodotti non risultano abbastanza chiari, oppure alcuni allegati richiesti sono mancanti, oppure infine si rende necessario disporre di ulteriori livelli di dettaglio, come una planimetria su scala più grande, …), invia al SUAP una richiesta di chiarimenti (che il SUAP dovra&apos; inoltrare al richiedente).
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput6" name="output" />
@@ -274,8 +274,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${off2Choice == "off2Miss"}]]></conditionExpression>
     </sequenceFlow>
     
-    <userTask id="usertask7" name="Ask for Integration">
-      <documentation>TODO
+    <userTask id="usertask7" name="Elabora Richiesta Integrazioni">
+      <documentation>Nel caso che l&apos;amministrazione coinvolta non abbia tutti gli elementi necessari per esprimere il proprio parere (es. la relazione non è sufficientemente esaustiva per evincere di che intervento si tratta, oppure gli elaborati prodotti non risultano abbastanza chiari, oppure alcuni allegati richiesti sono mancanti, oppure infine si rende necessario disporre di ulteriori livelli di dettaglio, come una planimetria su scala più grande, …), invia al SUAP una richiesta di chiarimenti (che il SUAP dovra&apos; inoltrare al richiedente).
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput7" name="output" />
@@ -299,8 +299,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${off1Choice == "off1Miss"}]]></conditionExpression>
     </sequenceFlow>
     
-    <userTask id="usertask8" name="Take a Decision">
-      <documentation>TODO
+    <userTask id="usertask8" name="Prende una Decisione">
+      <documentation>A questo punto avendo tutti i dati necessari si elabora il parere quale parere favorevole, condizionato o negativo. 
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput8" name="output" />
@@ -320,8 +320,8 @@
       </potentialOwner>
     </userTask>
     
-    <userTask id="usertask11" name="Take a Decision">
-      <documentation>TODO
+    <userTask id="usertask11" name="Prende una Decisione">
+      <documentation>A questo punto avendo tutti i dati necessari si elabora il parere quale parere favorevole, condizionato o negativo. 
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput11" name="output" />
@@ -354,8 +354,8 @@
     <exclusiveGateway id="exclusivegateway7" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow24" sourceRef="usertask8" targetRef="exclusivegateway7"></sequenceFlow>
     
-    <userTask id="usertask14" name="Provide Opinion">
-      <documentation>TODO
+    <userTask id="usertask14" name="Fornisci Opinione">
+      <documentation>L&apos;ente terzo formula il proprio parere o nulla osta e lo invia in forma scritta al SUAP (o nel caso del silenzio assenso si da per acquisito l&apos;assenso dell&apos;ente terzo coinvolto).
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput14" name="output" />
@@ -377,8 +377,8 @@
     
     <sequenceFlow id="flow27" sourceRef="exclusivegateway5" targetRef="usertask14"></sequenceFlow>
     
-    <userTask id="usertask15" name="Provide Opinion">
-      <documentation>TODO
+    <userTask id="usertask15" name="Fornisci Opinione">
+      <documentation>L&apos;ente terzo formula il proprio parere o nulla osta e lo invia in forma scritta al SUAP (o nel caso del silenzio assenso si da per acquisito l&apos;assenso dell&apos;ente terzo coinvolto).
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput15" name="output" />
@@ -412,10 +412,10 @@
     <sequenceFlow id="flow33" sourceRef="usertask7" targetRef="exclusivegateway5"></sequenceFlow>
     <sequenceFlow id="flow34" sourceRef="usertask6" targetRef="exclusivegateway7"></sequenceFlow>
     
-    <userTask id="usertask16" name="Evaluate check of Third Party">
-      <documentation>In this activity the SUAP office receives the opinion of other PAs relate to the specific Titolo Unico.
+    <userTask id="usertask16" name="Elabora Opinioni Ricevute">
+      <documentation>Il SUAP, acquisiti tutti i pareri, emette un verbale raccogliendo una sintesi dei contributi pervenuti o espressi dagli enti coinvolti. Se sono tutti positivi il SUAP deve rilasciare l&apos;autorizzazione (titolo unico a procedere) al richiedente e per conoscenza agli enti terzi coinvolti; se ci sono alcune prescrizioni il SUAP inviterà il richiedente ad adempiere ed assolvere tali ulteriori prescrizioni/condizioni o ad integrare quanto richiesto prima del rilascio del provvedimento finale; se c’e&apos; anche un solo parere negativo il SUAP emette contestuale diniego a procedere verso il richiedente e per conoscenza verso gli enti terzi; se c’è anche una sola amministrazione che necessita di chiarimenti o ha emesso parere sospensivo, il SUAP sospende i termini e invita l&apos;utente ad integrare la documentazione secondo le richieste emerse, prima di convocare nuovamente - nel caso di parere sospensivo - la Conferenza di Servizi.&#10;Alla luce della nuova normativa (artt. 14 e seguenti della L. 241/90) la Conferenza di Servizi può essere semplificata o simultanea sincrona. Salvo alcune modifiche il secondo caso rispecchia quanto fin qui descritto. Invece la Conferenza semplificata non prevede la presenza simultanea di tutti i rappresentanti degli enti coinvolti, ma di fatto si caratterizza come una richiesta di emissione dei pareri di competenza, da fornire entro una data scadenza (45 giorni nei casi normali).
 &lt;div class="_answers"&gt;&lt;/div&gt;
-&lt;script&gt;var off1Role = "${off1Role}";var off2Role = "${off2Role}";var answers = {"offEdiuzia" :"${answerOffEdiuzia}", "offPorto" :"${answerOffPorto}", "offAmb" :"${answerOffAmb}", "offAtt" :"${answerOffAtt}", "offPolizia" :"${answerOffPolizia}", "offTrib" :"${answerOffTrib}", "offPat" :"${answerOffPat}", "offSoprint" :"${answerOffSoprint}", "offDog" :"${answerOffDog}", "offCap" :"${answerOffCap}"}; var off1FeedbackCond = ["${off1FeedbackCond1}", "${off1FeedbackCond2}", "${off1FeedbackCond3}",]; var off2FeedbackCond = ["${off2FeedbackCond1}", "${off2FeedbackCond2}", "${off2FeedbackCond3}",]; var off1FeedbackIntegration = ["${off1FeedbackIntegration1}", "${off1FeedbackIntegration2}", "${off1FeedbackIntegration3}",]; var off2FeedbackIntegration = ["${off2FeedbackIntegration1}", "${off2FeedbackIntegration2}", "${off2FeedbackIntegration3}",];answers[off1Role] = "${off1FeedbackMotivation}";answers[off2Role] = "${off2FeedbackMotivation}";&lt;/script&gt;
+&lt;script&gt;var off1Role = "${off1Role}";var off2Role = "${off2Role}"; var answers = {"offEdiuzia" :"${answerOffEdiuzia}", "offPorto" :"${answerOffPorto}", "offAmb" :"${answerOffAmb}", "offAtt" :"${answerOffAtt}", "offPolizia" :"${answerOffPolizia}", "offTrib" :"${answerOffTrib}", "offPat" :"${answerOffPat}", "offSoprint" :"${answerOffSoprint}", "offDog" :"${answerOffDog}", "offCap" :"${answerOffCap}"}; var off1FeedbackCond = ["${off1FeedbackCond1}", "${off1FeedbackCond2}", "${off1FeedbackCond3}",]; var off2FeedbackCond = ["${off2FeedbackCond1}", "${off2FeedbackCond2}", "${off2FeedbackCond3}",]; var off1FeedbackIntegration = ["${off1FeedbackIntegration1}", "${off1FeedbackIntegration2}", "${off1FeedbackIntegration3}",]; var off2FeedbackIntegration = ["${off2FeedbackIntegration1}", "${off2FeedbackIntegration2}", "${off2FeedbackIntegration3}",];answers[off1Role] = "${off1FeedbackMotivation}";answers[off2Role] = "${off2FeedbackMotivation}";&lt;/script&gt;
 &lt;script src="resources/files/serviceconference.js"&gt;&lt;/script&gt;
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
@@ -441,8 +441,8 @@
     <exclusiveGateway id="exclusivegateway10" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow37" sourceRef="usertask16" targetRef="exclusivegateway10"></sequenceFlow>
     
-    <userTask id="usertask17" name="Ask amendement">
-      <documentation>TODO
+    <userTask id="usertask17" name="Richiedi Integrazione">
+      <documentation>Il SUAP provvede alla richiesta di integrazione verso l&apos;imprenditore.&#10;Tale richiesta fa riferimento alle esigenze di integrazioni che sono emerse durante la conferenza dei servizi o durante il controllo formale della documentazione inviata.
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput17" name="output" />
@@ -466,8 +466,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${suapChoice == "suapAsk"}]]></conditionExpression>
     </sequenceFlow>
     
-    <userTask id="usertask18" name="Provide Authorization">
-      <documentation>TODO
+    <userTask id="usertask18" name="Fornisce Autorizzazioni">
+      <documentation>A seguito della valutazione dei pareri degli enti terzi coinvolti, risulta che tutte le amministrazioni siano favorevoli all&apos;avvio dell&apos;attivita&apos; o alla realizzazione dell&apos;intervento.
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput18" name="output" />
@@ -491,8 +491,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${suapChoice == "suapOk"}]]></conditionExpression>
     </sequenceFlow>
     
-    <userTask id="usertask19" name="Provide Authorization Under Condition">
-      <documentation>TODO
+    <userTask id="usertask19" name="Fornisce Autorizzazioni Sotto Condizione">
+      <documentation>A seguito della valutazione dei pareri degli enti terzi coinvolti, risulta che tutte le amministrazioni siano d&apos;accordo ma almeno una richiede contestualmente delle prescrizioni di carattere accessorio tali da non implicare la sospensione del procedimento e tuttavia da realizzarsi prima dell&apos;emissione del titolo unico.
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput19" name="output" />
@@ -516,8 +516,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${suapChoice == "suapUC"}]]></conditionExpression>
     </sequenceFlow>
     
-    <userTask id="usertask20" name="Provide Rejection">
-      <documentation>TODO
+    <userTask id="usertask20" name="Fornisce Diniego (inibizione  a procedere)">
+      <documentation>A seguito della valutazione dei pareri degli enti terzi coinvolti, risulta che almeno un&apos;amministrazione abbia espresso parere negativo, con la conseguenza che il SUAP dovrà rilasciare un provvedimento di diniego per l&apos;avvio dell&apos;attivita&apos; o la realizzazione dell&apos;intervento.
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput20" name="output" />
@@ -541,8 +541,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${suapChoice == "suapKo"}]]></conditionExpression>
     </sequenceFlow>
     
-    <userTask id="usertask21" name="Take Decision">
-      <documentation>TODO
+    <userTask id="usertask21" name="Prende la Decisione Finale ">
+      <documentation>Sulla base dei contributi pervenuti dagli enti terzi potrebbero verificarsi delle condizioni alternative rispetto agli altri percorsi (richiesta integrazioni, parere positivo con o senza ulteriori prescrizioni, parere negativo). In tal caso il SUAP decide come procedere in base ad un&apos;analisi combinata della specifica casistica.
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput21" name="output" />
@@ -574,8 +574,8 @@
     <sequenceFlow id="flow47" sourceRef="usertask21" targetRef="exclusivegateway11"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
 
-    <userTask id="usertask22" name="Provide Final Report">
-      <documentation>TODO
+    <userTask id="usertask22" name="Fornisce Report Finale">
+      <documentation>Viene emesso il verbale della Conferenza dei Servizi che riassume i pareri o nulla osta pervenuti dagli enti terzi coinvolti, fornendo al responsabile del SUAP indicazioni sull&apos;eventuale Provvedimento finale da emettere (o meno).
 &lt;a href='resources/files/titolo_unico/${case}.pdf' target='_blank'&gt;&lt;span class="glyphicon glyphicon-file"&gt;&lt;span&gt;Entrepreneur Documents&lt;/a&gt;</documentation>
       <ioSpecification>
         <dataOutput id="DataOutput22" name="output" />
