@@ -65,19 +65,19 @@ public class OntologyRecommenderImplTest extends AbstractUnitTest {
 
     }
 
-    @Test
-    public void testSimulationScoreLog() {
-        Long timestamp = System.currentTimeMillis();
-        Float score = 4.8f;
-        OntologyRecommenderImpl instance = new OntologyRecommenderImpl(); 
-        try {
-            instance.updateSimulationScore(MODELSET_ID, "fakeSessionId", null, timestamp, TEST_USER, ScoreType.BP_SCORE, score);
-            fail("Expected LpRestException due to null value for processId.");
-        } catch (LpRestException ex) {}
-
-        try {
-            instance.updateSimulationScore(MODELSET_ID, null, "fakeProcessId", timestamp, TEST_USER, ScoreType.BP_SCORE, score);
-            fail("Expected LpRestException due to null value for sessionId.");
-        } catch (LpRestException ex) {}   
-    }
+//    @Test
+//    public void testSimulationScoreLog() {
+//        Long timestamp = System.currentTimeMillis();
+//        Float score = 4.8f;
+//        OntologyRecommenderImpl instance = new OntologyRecommenderImpl(); 
+//        try {
+//            instance.updateSimulationScore(MODELSET_ID, "fakeSessionId", null, timestamp, TEST_USER, ScoreType.BP_SCORE, score);
+//            fail("Expected LpRestException due to null value for processId.");
+//        } catch (LpRestException ex) {}
+//
+//        try {
+//            instance.updateSimulationScore(MODELSET_ID, null, "fakeProcessId", timestamp, TEST_USER, ScoreType.BP_SCORE, score);
+//            fail("Expected LpRestException due to null value for sessionId.");
+//        } catch (LpRestException ex) {}   
+//    }
 }
