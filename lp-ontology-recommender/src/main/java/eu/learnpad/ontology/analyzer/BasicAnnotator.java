@@ -46,6 +46,8 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.TreeSet;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -362,14 +364,24 @@ public class BasicAnnotator {
         FeatureMap features = doc.getFeatures();
         RepositioningInfo info = (RepositioningInfo) features.get(GateConstants.DOCUMENT_REPOSITIONING_INFO_FEATURE_NAME);
         AnnotationSet defaultAnnotSet = doc.getAnnotations();
-        Set annotTypesRequired = new HashSet();
-        annotTypesRequired.add("Lookup");
-        Set<Annotation> instances = new HashSet<Annotation>(defaultAnnotSet.get(annotTypesRequired));
+        Set<String> featureNames = new HashSet();
+        featureNames.add("URI");
+        featureNames.add("classURI");
+        Set<Annotation> instances = new HashSet<Annotation>(defaultAnnotSet.get("Lookup", featureNames));
+        
+        Set<Annotation> sortedAnnotations = new TreeSet<>(new Comparator<Annotation>() {
+            @Override
+            public int compare(Annotation a1, Annotation a2) {
+                return a1.getStartNode().getOffset().compareTo(a2.getStartNode().getOffset());
+                
+            }
+        });
+        sortedAnnotations.addAll(instances);
 
         int offset = 0;
         StringBuilder annotatedContent = new StringBuilder(content);
         // find those lookup annotations that have a "URI" feature
-        for (Annotation annotation : instances) {
+        for (Annotation annotation : sortedAnnotations) {
             FeatureMap curFeatures = annotation.getFeatures();
             if (curFeatures.containsKey("URI") && curFeatures.containsKey("classURI")) {
 
@@ -381,10 +393,12 @@ public class BasicAnnotator {
                 String startTagEnd = "\">";
                 String endTag = "</span>";
                 String id = UUID.randomUUID().toString();
+                entity.setId(id);
                         
                 int startPos = (int) annotation.getStartNode().getOffset().longValue();    
                 int endPos = (int) annotation.getEndNode().getOffset().longValue();
                 int length = endPos - startPos;
+                
                 
                 annotatedContent.insert(startPos+offset, startTag);
                 offset += startTag.length();
