@@ -48,3 +48,9 @@ Up to now there is no userinterface for the file upload. Therefore the the Excel
 *kpi.dashboard.data.folder.relative=dashboard*
 
 This results in a working folder for KPI dashboard data like  */usr/local/xwiki-workdir/dashboard* for the Excel data files.
+
+# Deployemt
+
+Please consider that the current version of this component has to be deployed on the same host
+running the [lp-dashboard-kpi](https://github.com/LearnPAd/learnpad/blob/master//lp-dashboard-kpi).
+Specifically in this version both the components share the same directory on the file-system. This will change in future.

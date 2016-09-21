@@ -38,3 +38,9 @@ This configuration impacts:
 * the [`build` script](https://github.com/LearnPAd/learnpad/blob/master/lp-dashboard-kpi/build).
 * the [`start` script](https://github.com/LearnPAd/learnpad/blob/master/lp-dashboard-kpi/scripts/start-marche).
 * the [configuration file](https://github.com/LearnPAd/learnpad/blob/master/lp-dashboard-kpi/lp-dash-bridge/src/main/resources/config/componentMarche.properties) for the deloy at MAR
+
+# Deployemt
+
+Please consider that the current version of this component has to be deployed on the same host
+running the [lp-ontology-recommender](https://github.com/LearnPAd/learnpad/blob/master/lp-ontology-recommender).
+Specifically in this version both the components share the same directory on the file-system. This will change in future.
