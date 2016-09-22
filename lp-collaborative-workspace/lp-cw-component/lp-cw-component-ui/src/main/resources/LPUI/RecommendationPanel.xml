@@ -156,7 +156,7 @@
 #set ($simulationURL = $xwiki.getURL($simulationReference, 'view', $querystring))
 #set ($currentUser = $xcontext.user)
 ##
-#if ("$!{currentUser}" != "XWiki.superadmin" &amp;&amp; "$!{currentUser}" != "XWiki.Admin")
+#if ("$!{currentUser}" != "XWiki.superadmin" &amp;&amp; "$!{currentUser}" != "XWiki.Admin" &amp;&amp; "$!{currentUser}" != "XWiki.XWikiGuest")
     #set ($userid = $currentUser)
 {{html clean=false}}
 &lt;div id="panel-metadata" class="hidden" data-websocketurl="${services.websocket.getURL('recommendation')}" data-modelsetid="$!{modelsetid}" data-modelid="$!{modelid}" data-artifactid="$!{artifactid}" data-userid="$!{userid}"&gt;&lt;/div&gt;
