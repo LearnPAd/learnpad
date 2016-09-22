@@ -60,7 +60,9 @@ ${services.localization.render('LPUI.Dashboard.calculate.warning')}
   #set ($kpiCalulationProcessId = "${services.learnpad.startDashboardKpiCalculation($modelsetid)}")
 #end
 ##
-  #set ($dashboardkpiURL = "${services.learnpad.getDashboardKpiDefaultViewer($modelsetid,$userid)}")
+  #if ("$!{userid}" != "superadmin" &amp;&amp; "$!{userid}" != "Admin" &amp;&amp; "$!{userid}" != "XWikiGuest")
+    #set ($dashboardkpiURL = "${services.learnpad.getDashboardKpiDefaultViewer($modelsetid,$userid)}")
+  #end
 ##
 #if ("$!dashboardkpiURL" != "")
 {{html clean="false"}}
