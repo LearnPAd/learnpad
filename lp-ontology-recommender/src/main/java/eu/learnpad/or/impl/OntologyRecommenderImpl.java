@@ -342,7 +342,10 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     @Override
     public void updateSimulationScore(String modelSetId, String simulationSessionId, String processArtifactId, Long timestamp, String userId, ScoreType scoreType, Float score) throws LpRestException {
         try {
-            SimulationScoreLog.getInstance().logSimulationScore(timestamp, simulationSessionId, modelSetId, processArtifactId, userId, scoreType, score);
+            //TODO adapt REST API change and pass scores map
+            Map<ScoreType, Float> scores = new HashMap();
+            
+            SimulationScoreLog.getInstance().logSimulationScore(timestamp, simulationSessionId, modelSetId, processArtifactId, userId, scores);
         } catch (RecommenderException ex) {
             Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.WARNING, "Cannot update simulation score.", ex);
             throw new LpRestExceptionXWikiImpl("Simulation score update failed: "
