@@ -39,20 +39,37 @@
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
-  <content>{{velocity}}
+  <content>{{box cssClass="floatinginfobox" title="**Contents**"}}{{toc/}}{{/box}}
+
+{{velocity}}
 La piattaforma Learn PAd prevede un'innovativa modalità di apprendimento che permette di metterti alla prova sulle conoscenze acquisite. La modalità prevede la simulazione di casi reali di gestione di una pratica relativa ad un procedimento. Il sistema proporrà dunque una problematica reale e monitorerà le tue scelte al fine di gestire la richiesta.
 
 E' possibile anche effettuare simulazioni in collaborazione con colleghi ognuno dei quali svolgerà i diversi ruoli previsti dal processo. La simulazione include inoltre meccanismi che fanno percepire la simulazione come una sfida, assegnando dunque punteggi alle varie attività svolte.
 
-== Simulazione a Singolo Utente ==
+= Simulazione a Singolo Utente =
 {{warning}}
 Questo è un segnaposto
 {{/warning}}
 
-== Simulazione Multi Utente ==
+= Simulazione Multi Utente =
 {{warning}}
 Questo è un segnaposto
 {{/warning}}
+
+= Linee Guida =
+
+1. Accedi alla piattaforma e fai Log-in
+1. Clicca sul pulsante **${services.localization.render('LPUI.WebHome.button.start')}** relativo ad un corso disponibile (e.g. "ModelSet - SUAP Titolo Unico")
+1. Cliccato il pulsante **${services.localization.render('LPUI.ModelSetSheet.button.simulate')}** relativo ad un processo simulabile (e.g. "Gestione Conferenza di Servizi", "Titolo Unico")
+1. Configura la simulazione
+  11. Seleziona un caso applicativo (e.g. "829.2015")
+  11. Seleziona i ruoli per eventuali Terze Parti
+  11. Decidi se fare una simulazione multi-utente o utente-singolo. L'impostazione "robot" per un dato ruolo, significa che parteciperanno alla simulazione "dei programmi" che emuleranno quel comportamento. L'impostazione "human" per un dato ruolo, significherà che si deve specificare gli utenti (umani) da invitare alla sessione di simulazione.
+{{info}}Nota, **SE** in questa fase non selezioni mai il tuo username **ALLORA** non parteciperai a nessuna sessione di simulazione perchè non ti sei "auto-invitata"; inoltre impostando tutti i campi a "robot" significa che parteciperanno alla simulazione solo "dei programmi" e nessun umano. \\ **IN PRATICA**, per avere una sessione utile per te è necessario selezionare **ALMENO** un campo come "human" e selezionare dal menu **IL TUO USERNAME**\\ Ricorda che nella simulazione multi-utente potresti ottenere una schermata "bianca" **FINO A CHE** la sessione di simulazione non richiederà esplicitamente della azioni da parte del ruolo che ti sei assegnata.
+{{/info}}
+  11. Clicca il pulsante **Submit**
+1. Prosegui la simulazione inserendo i valori nei campi richiesti secondo la tua esperienza, o magari consultando la documentazione riferita nella sezione blu ad inizio pagina. Nello specifico di questo esempio ecco il [[link diretto alla documentazione&gt;&gt;LPDocs.SimulationAnswers]]
+
 
 {{/velocity}}</content>
 </xwikidoc>
