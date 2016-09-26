@@ -1,0 +1,7 @@
+java.naming.factory.initial = org.apache.activemq.jndi.ActiveMQInitialContextFactory
+java.naming.provider.url = tcp://atlantis.isti.cnr.it:61616
+java.naming.security.principal = system
+java.naming.security.credentials = manager
+connectionFactoryNames = TopicCF
+topic.serviceTopic = jms.serviceTopic
+topic.probeTopic = jms.probeTopic
