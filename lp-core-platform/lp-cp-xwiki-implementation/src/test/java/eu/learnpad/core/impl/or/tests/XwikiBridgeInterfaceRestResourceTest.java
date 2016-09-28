@@ -73,7 +73,7 @@ public class XwikiBridgeInterfaceRestResourceTest extends AbstractUnitTest {
 	}
 	
 	@Test
-//	@Ignore	
+	@Ignore	
 	public void updateSimulationScoreTest(){
 		String modelSetId = "modelsetid";
 		String simulationSessionId = "simulationsessionid";
