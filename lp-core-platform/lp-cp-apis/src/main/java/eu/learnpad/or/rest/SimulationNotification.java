@@ -26,7 +26,7 @@ import javax.ws.rs.QueryParam;
 
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.or.rest.data.SimulationData;
-import eu.learnpad.sim.rest.event.ScoreType;
+import eu.learnpad.or.rest.data.SimulationScoresMap;
 
 public interface SimulationNotification {
 
@@ -110,17 +110,16 @@ public interface SimulationNotification {
          *            score value creation timestamp
          * @param userId
          *            id of the user the score belongs to
-         * @param scoreType
-         *            score value
-     * @param score
+         * @param scoreMap
+         *            a map of pairs : (<score type>; <score value>) encapsulated in the data structure {@link eu.learnpad.or.rest.data.SimulationScoresMap}
          */
-	// <host>/learnpad/or/bridge/{modelsetid}/simulationscore?modelsetid=LP_ME1&simulationsessionid=1&processartifactid=mod.1&timestamp=44334&userid=uid&score=4.2
+	// <host>/learnpad/or/bridge/{modelsetid}/simulationscore?modelsetid=LP_ME1&simulationsessionid=1&processartifactid=mod.1&timestamp=44334&userid=uid
 
 	@POST
 	@Path("/{modelsetid}/simulationscore")
 	void updateSimulationScore(@PathParam("modelsetid") String modelSetId, @QueryParam("simulationsessionid") String simulationSessionId,
 			@QueryParam("processartifactid") String processArtifactId,
 			@QueryParam("timestamp") Long timestamp, @QueryParam("userid") String userId,
-                        @QueryParam("scoretype") ScoreType scoreType, @QueryParam("score") Float score) throws LpRestException;        
+                        SimulationScoresMap scoreMap) throws LpRestException;        
         
 }
