@@ -48,6 +48,7 @@ import eu.learnpad.or.rest.data.RelatedObject;
 import eu.learnpad.or.rest.data.RelatedObjects;
 import eu.learnpad.or.rest.data.ResourceType;
 import eu.learnpad.or.rest.data.SimulationData;
+import eu.learnpad.or.rest.data.SimulationScoresMap;
 import eu.learnpad.or.rest.data.States;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessId;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatus;
@@ -340,22 +341,31 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     }
 
     @Override
-    public void updateSimulationScore(String modelSetId, String simulationSessionId, String processArtifactId, Long timestamp, String userId, ScoreType scoreType, Float score) throws LpRestException {
+//    public void updateSimulationScore(String modelSetId, String simulationSessionId, String processArtifactId, Long timestamp, String userId, ScoreType scoreType, Float score) throws LpRestException {
+    public void updateSimulationScore(String modelSetId, String simulationSessionId, String processArtifactId, Long timestamp, String userId, SimulationScoresMap scoreMap) throws LpRestException {
+//      //TODO adapt REST API change and pass scores map
+//      Map<ScoreType, Float> scores = new HashMap();
+    	Map<ScoreType, Float> scores = scoreMap.getScoreMap();
+      
         try {
-            //TODO adapt REST API change and pass scores map
-            Map<ScoreType, Float> scores = new HashMap();
-            
             SimulationScoreLog.getInstance().logSimulationScore(timestamp, simulationSessionId, modelSetId, processArtifactId, userId, scores);
         } catch (RecommenderException ex) {
             Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.WARNING, "Cannot update simulation score.", ex);
+            String mapAsAString = "";
+            if (scores.isEmpty()){
+            		mapAsAString = "--no_elements_in_the_map--";
+            }else{
+            	for (ScoreType type : scores.keySet()) {
+            		mapAsAString += type.name() + "--->" + scores.get(type) + ";";
+            	}
+            }
             throw new LpRestExceptionXWikiImpl("Simulation score update failed: "
                 + "modelsetId='" + modelSetId
                 + "' simulationSessionId='" + String.valueOf(simulationSessionId)
                 + "' processArtifactId='" + String.valueOf(processArtifactId)
                 + "' timestamp='" + String.valueOf(timestamp)                        
                 + "' userId='" + userId
-                + "' scoreType='" + String.valueOf(scoreType)    
-                + "' score='" + String.valueOf(score)     + "'. ", ex);
+                + "' scoreMap=[" + mapAsAString + "]. ", ex);
         }
     }
 
