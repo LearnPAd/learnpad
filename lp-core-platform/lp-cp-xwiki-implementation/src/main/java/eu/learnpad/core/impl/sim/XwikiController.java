@@ -20,6 +20,7 @@
 package eu.learnpad.core.impl.sim;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -44,6 +45,7 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.SimulationData;
+import eu.learnpad.or.rest.data.SimulationScoresMap;
 import eu.learnpad.sim.Controller;
 import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.sim.rest.event.ScoreType;
@@ -202,10 +204,10 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		String simUserId = event.user;
 		String userEmail = this.convertUserID(simUserId);
 		
-		ScoreType scoreType = event.scoreUpdateType;
-		Float score = event.scoreUpdateValue;
-		
-		this.or.updateSimulationScore(modelSetId, simulationSessionId, processArtifactId, timestamp, userEmail, scoreType, score);
+		SimulationScoresMap simScoreMap = new SimulationScoresMap();
+		simScoreMap.setScoreMap(event.scores);
+	
+		this.or.updateSimulationScore(modelSetId, simulationSessionId, processArtifactId, timestamp, userEmail, simScoreMap);
 	}
 
 	@Override
