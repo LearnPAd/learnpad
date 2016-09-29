@@ -115,6 +115,15 @@ function processReceiver(address) {
             }
 
             // some default values
+            values['off1Choice'] = 'off1Ok';
+            values['off2Choice'] = 'off2Ok';
+
+            values['off1FeedbackOpinionStatus'] = 's5';
+            values['off2FeedbackOpinionStatus'] = 's5';
+
+            values['off1FeedbackMotivation'] = '';
+            values['off2FeedbackMotivation'] = '';
+
             values['off1FeedbackCond1'] = '';
             values['off1FeedbackCond2'] = '';
             values['off1FeedbackCond3'] = '';
