@@ -57,7 +57,10 @@ public class Main {
 		try {
 
 			simulator = new Simulator(ACTIVITY_CONFIG_PATH, PORT);
-			simulator.robotHandler().addRobot(AbstractFormHandler.DEFAULT_ROBOT_ROLE);
+
+			if (simulator.robotHandler() != null) {
+				simulator.robotHandler().addRobot(AbstractFormHandler.DEFAULT_ROBOT_ROLE);
+			}
 
 			// load process definitions
 			simulator.processManager().addProjectDefinitions(

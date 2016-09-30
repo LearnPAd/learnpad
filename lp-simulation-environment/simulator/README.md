@@ -50,6 +50,9 @@ To override the glimpse server, put the following inside the file:
 To override the LearnPAd platform address, put the following inside the file:
 `platform_address=<address>`
 
+To change the type of robot available in the platform, use the following property:
+`robot_type=<none|simple|markov`
+
 # Interfaces
 
 ## Java API
