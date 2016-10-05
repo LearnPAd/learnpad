@@ -83,13 +83,7 @@ public class XwikiBridgeInterfaceRestResourceTest extends AbstractUnitTest {
 
 		String userId = "b.barnes@learnpad.eu";
 
-		Map<ScoreType, Float> scores = new HashMap<ScoreType, Float>();
-		int rnd = this.getRandomGenerator().nextInt(ScoreType.values().length);
-		for (int i = 0; i < rnd ; i++) {
-			ScoreType scoretype = ScoreType.values()[this.getRandomGenerator().nextInt(ScoreType.values().length)];
-			Float value = this.getRandomGenerator().nextFloat();
-			scores.put(scoretype, value);
-		}
+		Map<ScoreType, Float> scores = this.generateSimScoreValues();
 
 		SimulationScoresMap simScoreMap = new SimulationScoresMap();
 		simScoreMap.setScoreMap(scores);
@@ -103,6 +97,27 @@ public class XwikiBridgeInterfaceRestResourceTest extends AbstractUnitTest {
 		}
 
 		Assert.assertFalse(false);
+	}
+
+	private Map<ScoreType, Float> generateSimScoreValues() {
+		Map<ScoreType, Float> scores = new HashMap<ScoreType, Float>();
+
+		// int rnd = this.getRandomGenerator().nextInt(ScoreType.values().length);
+		// for (int i = 0; i < rnd ; i++) {
+		// ScoreType scoretype = ScoreType.values()[this.getRandomGenerator().nextInt(ScoreType.values().length)];
+		// Float value = this.getRandomGenerator().nextFloat();
+		// scores.put(scoretype, value);
+		// }
+
+		scores.put(ScoreType.ABSOLUTE_GLOBAL_SCORE, 100f);
+		scores.put(ScoreType.ABSOLUTE_SESSION_SCORE, 100f);
+		scores.put(ScoreType.ABSOLUTE_BP_SCORE, 100f);
+		scores.put(ScoreType.GLOBAL_SCORE, 50f);
+		scores.put(ScoreType.SESSION_SCORE, 25f);
+		scores.put(ScoreType.BP_SCORE, 20f);
+		scores.put(ScoreType.BP_COVERAGE, 10f);
+
+		return scores;
 	}
 
 
