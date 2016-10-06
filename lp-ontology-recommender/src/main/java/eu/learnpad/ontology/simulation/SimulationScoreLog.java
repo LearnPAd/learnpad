@@ -19,6 +19,7 @@ import eu.learnpad.ontology.util.ArgumentCheck;
 import eu.learnpad.sim.rest.event.ScoreType;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -52,65 +53,73 @@ public class SimulationScoreLog {
      * @param modelSetId
      * @param processArtifactId
      * @param userId
-     * @param scoreType
-     * @param scoreUpdateValue
-     * @return the log entry created in the ontology
+     * @param scores
      */
-    public Individual logSimulationScore(Long timestamp, String simulationSessionId, String modelSetId,
-            String processArtifactId, String userId, ScoreType scoreType, Float scoreUpdateValue) throws RecommenderException {
+    public void logSimulationScore(Long timestamp, String simulationSessionId, String modelSetId,
+            String processArtifactId, String userId, Map<ScoreType, Float> scores) throws RecommenderException {
 
         ArgumentCheck.notNullThrowException(timestamp, "Timestamp for simulation score update missing.");
         ArgumentCheck.notNullThrowException(userId, "UerId for simulation score update missing.");
         ArgumentCheck.notNullThrowException(simulationSessionId, "ScoreType for simulation score update missing.");
-        ArgumentCheck.notNullThrowException(scoreUpdateValue, "Score value for simulation score update missing.");
-
-        if (scoreType.equals(ScoreType.BP_SCORE)) {
-            ArgumentCheck.notNullThrowException(processArtifactId, "Process artifact id cannot be null in case of a business process score.");
-        }
-        if (scoreType.equals(ScoreType.SESSION_SCORE)) {
-            ArgumentCheck.notNullThrowException(simulationSessionId, "Simulation session id cannot be null in case of a simulation session score.");
-        }
+        ArgumentCheck.notNullThrowException(scores, "All the simulation scores (global, session, bp).");
 
         OntModel model = FileOntAO.getInstance().getModelWithExecutionData(modelSetId);
 
-        Individual scoreInstance = null;
-        switch (scoreType) {
-            case BP_SCORE: {
-                scoreInstance = createInstance(model, APP.NS.LPD + "BPSimulationScore", "BPScore_value_");
-                Individual process = model.getIndividual(APP.NS.TRANSFER + processArtifactId);
-                addProperty(model, scoreInstance, APP.NS.LPD + "simulationScoreBelongsToBusinessProcess", process);
-                break;
-            }
-            case SESSION_SCORE: {
-                scoreInstance = createInstance(model, APP.NS.LPD + "SimulationSessionScore", "SimulationSessionScore_value_");
-                Individual simulationSessionCase = model.getIndividual(simulationCaseInstanceUri(simulationSessionId));
-                if (simulationSessionCase == null) {
-                    OntClass simSessionCaseClass = model.getOntClass(simulationCaseUri());
-                    simulationSessionCase = simSessionCaseClass.createIndividual(simulationCaseInstanceUri(simulationSessionId));
-                }
-                addProperty(model, scoreInstance, APP.NS.LPD + "simulationScoreOfSession", simulationSessionCase);
-                break;
-            }
-            case GLOBAL_SCORE: {
-                scoreInstance = createInstance(model, APP.NS.LPD + "GlobalSimulationScore", "GlobalSimulationScore_value_");
-                break;
-            }
-        }
+        //Global score
+        Individual globalScoreInstance = createInstance(model, APP.NS.LPD + "GlobalSimulationScore", "GlobalSimulationScore_value_");
+        Float globalScore = calculateRelativeScore(scores, ScoreType.ABSOLUTE_GLOBAL_SCORE, ScoreType.GLOBAL_SCORE);
+        addScoreProperties(globalScoreInstance, model, userId, timestamp, globalScore);
 
+        //Session score
+        Individual sessionScoreInstance = createInstance(model, APP.NS.LPD + "SimulationSessionScore", "SimulationSessionScore_value_");
+        Individual simulationSessionCase = model.getIndividual(simulationCaseInstanceUri(simulationSessionId));
+        if (simulationSessionCase == null) {
+            OntClass simSessionCaseClass = model.getOntClass(simulationCaseUri());
+            simulationSessionCase = simSessionCaseClass.createIndividual(simulationCaseInstanceUri(simulationSessionId));
+        }
+        addProperty(model, sessionScoreInstance, APP.NS.LPD + "simulationScoreOfSession", simulationSessionCase);
+        Float sessionScore = calculateRelativeScore(scores, ScoreType.ABSOLUTE_SESSION_SCORE, ScoreType.SESSION_SCORE);
+        addScoreProperties(sessionScoreInstance, model, userId, timestamp, sessionScore);
+
+        //BP score
+        Individual bpScoreInstance = createInstance(model, APP.NS.LPD + "BPSimulationScore", "BPScore_value_");
+        Individual process = model.getIndividual(APP.NS.TRANSFER + processArtifactId);
+        addProperty(model, bpScoreInstance, APP.NS.LPD + "simulationScoreBelongsToBusinessProcess", process);
+        Float bpScore = calculateRelativeScore(scores, ScoreType.ABSOLUTE_BP_SCORE, ScoreType.BP_SCORE);
+        addScoreProperties(bpScoreInstance, model, userId, timestamp, bpScore);
+
+    }
+
+    protected Float calculateRelativeScore(Map<ScoreType, Float> scores, ScoreType absoluteScoreType, ScoreType scoreType) {
+        Float relativeScore = 0.0f;
+        Float absoluteScore = scores.get(absoluteScoreType);
+        Float score = scores.get(scoreType);
+        if (absoluteScore == null || score == null) {
+            return relativeScore;
+        }
+        relativeScore = (score / absoluteScore) * 100;
+        return relativeScore;
+    }
+
+    protected void addScoreProperties(Individual scoreInstance, OntModel model, String userId, Long timestamp, Float score) {
         if (scoreInstance != null) {
-            Literal scoreValue = model.createTypedLiteral(scoreUpdateValue);
+
+            Literal scoreValue = model.createTypedLiteral(score);
             addProperty(model, scoreInstance, APP.NS.LPD + "hasSimulationScore", scoreValue);
-            
+
             Individual user = getUser(model, userId);
             addProperty(model, scoreInstance, APP.NS.LPD + "simulationScoreOfPerformer", user);
-            
+
             Calendar timestampCalendar = Calendar.getInstance();
             timestampCalendar.setTimeInMillis(timestamp);
             Literal timestampValue = model.createTypedLiteral(timestampCalendar);
-            addProperty(model, scoreInstance, APP.NS.LPD + "simulationScoreCreatedAt", timestampValue);            
-        }
+            addProperty(model, scoreInstance, APP.NS.LPD + "simulationScoreCreatedAt", timestampValue);
 
-        return scoreInstance;
+            Boolean notificationLogPersistenceEnabled = APP.CONF.getBoolean("execution.data.log.persistence.enabled", false);
+            if (notificationLogPersistenceEnabled) {
+                FileOntAO.getInstance().persistNotificationLogModel();
+            }
+        }
     }
 
     private Individual createInstance(OntModel model, String className, String prefix) {
@@ -131,17 +140,17 @@ public class SimulationScoreLog {
     private String simulationCaseInstanceUri(String simulationSessionId) {
         return simulationCaseUri() + simulationSessionId;
     }
-    
-    private Individual getUser(OntModel model, String userId){
+
+    private Individual getUser(OntModel model, String userId) {
         OntClass ontClass = model.getOntClass(APP.NS.OMM + "Performer");
         OntProperty ontProperty = model.getOntProperty(APP.NS.EMO + "performerHasEmailAddress");
         Literal userIdValue = model.createTypedLiteral(userId);
         List<Individual> persons = OntUtil.getInstancesWithProperty(model, ontClass, ontProperty, userIdValue);
-        
-        if(!persons.isEmpty()){
+
+        if (!persons.isEmpty()) {
             return persons.get(0);
         }
         return null;
-        
+
     }
 }

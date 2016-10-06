@@ -40,11 +40,24 @@ The model driven KPI's for individuals (employees) as well as for organisational
  - Process simulation scores
  - External data (Excel)
 
-The Excel files based on a template filled with employees data from regular self and supervised assessments. 
+The **Excel** files based on a template filled with employees data from regular self and supervised assessments. 
 Up to now there is no userinterface for the file upload. Therefore the the Excel files have to be placed into a working folder resp. subfolder defined in the components properties file (application.properties): 
 
-*working.directory=/usr/local/xwiki-workdir*
+*working.directory=/tmp*
 ...
 *kpi.dashboard.data.folder.relative=dashboard*
 
-This results in a working folder for KPI dashboard data like  */usr/local/xwiki-workdir/dashboard* for the Excel data files.
+This results in a working folder for KPI dashboard data like  */tmp/dashboard* for the Excel data files.
+
+A working example for the users b.barnes@learnpad.eu and s.shugar@learnpad.eu can be found in the resource folder of the ontology recommender component ([learnpad root]/lp-ontology-recommender/src/main/resources/testdata/kpi/IndividualsPerformanceKPIs_20160630.xlsx)
+
+Just copy that file to /tmp/dashboard and run the KPI calcualtion and verify in the dashboard if the corresponding KPI values appear. 
+
+**Attention**: Please be aware that all modelled KPI's are linked with the corresponding rules in the ontology (or in the Excel) via the name resp. the label. This means the rules won't work anymore, if the name in the KPI model gets changed. Further work my go for an extension of the models in the modelling environment where rules could be modelled as well. 
+
+<del># Deployemt
+
+Please consider that the current version of this component has to be deployed on the same host
+running the [lp-dashboard-kpi](https://github.com/LearnPAd/learnpad/blob/master//lp-dashboard-kpi).
+Specifically in this version both the components share the same directory on the file-system. This will change in future.
+</del>

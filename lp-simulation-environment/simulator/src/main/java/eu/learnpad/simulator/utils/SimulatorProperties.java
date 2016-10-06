@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Properties;
 
 /**
@@ -43,6 +44,12 @@ public class SimulatorProperties {
 	public final static String PROP_ADDRESS = "address";
 	public final static String PROP_GLIMPSE_SERVER = "glimpse_server";
 	public final static String PLATFORM_ADDRESS = "platform_address";
+
+	public final static String ROBOT_TYPE = "robot_type";
+
+	public static enum ROBOT_TYPE_VALUE {
+		none, simple, markov
+	}
 
 	static {
 
@@ -71,5 +78,17 @@ public class SimulatorProperties {
 			}
 		}
 
+		// ROBOT_TYPE_VALUE are the only valid values for the ROBOT_TYPE property
+		try {
+			ROBOT_TYPE_VALUE.valueOf(props.getProperty(ROBOT_TYPE));
+		} catch (NullPointerException e) {
+			throw new RuntimeException(
+					"Missing mandatory value for property " + ROBOT_TYPE + " (valid values: "
+							+ Arrays.asList(ROBOT_TYPE_VALUE.values())
+							+ " )");
+		} catch (IllegalArgumentException e) {
+			throw new RuntimeException("Invalid value for property " + ROBOT_TYPE + ": " + props.getProperty(ROBOT_TYPE)
+					+ " (valid values: " + Arrays.asList(ROBOT_TYPE_VALUE.values()) + " )");
+		}
 	}
 }

@@ -22,6 +22,7 @@ package eu.learnpad.simulator;
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 import org.activiti.engine.ProcessEngine;
@@ -36,12 +37,15 @@ import eu.learnpad.simulator.processmanager.activiti.ActivitiProcessManager;
 import eu.learnpad.simulator.robot.IRobotFactory;
 import eu.learnpad.simulator.robot.RobotUserEventReceiver;
 import eu.learnpad.simulator.robot.activiti.ActivitiRobotInputExtractor;
+import eu.learnpad.simulator.robot.activiti.markovrobot.onelevel.OneLevelMarkovBotFactory;
 import eu.learnpad.simulator.robot.activiti.simplerobot.SimpleRobotFactory;
 import eu.learnpad.simulator.uihandler.formhandler.AbstractFormHandler;
 import eu.learnpad.simulator.uihandler.formhandler.multi2jsonform.Multi2JsonFormFormHandler;
 import eu.learnpad.simulator.uihandler.webserver.UIHandlerWebImpl;
 import eu.learnpad.simulator.uihandler.webserver.WebServer;
 import eu.learnpad.simulator.utils.BPMNExplorerRepository;
+import eu.learnpad.simulator.utils.SimulatorProperties;
+import eu.learnpad.simulator.utils.SimulatorProperties.ROBOT_TYPE_VALUE;
 
 /**
  *
@@ -89,15 +93,6 @@ public class Simulator implements IProcessManagerProvider,
 		uiHandler = new UIHandlerWebImpl(new WebServer(webserverPort, "ui",
 				"tasks", this), new ArrayList<String>(), this, formHandler);
 
-		// handle robots
-		robotFactory = new SimpleRobotFactory(
-				processEngine.getRepositoryService(),
-				processEngine.getTaskService(), formHandler);
-
-		robotEventReceiver = new RobotUserEventReceiver<>(
-				robotFactory, new ActivitiRobotInputExtractor(
-						processEngine.getTaskService()), processManager);
-
 		// manage events subscriptions
 		eventDispatcher = new EventDispatcherImpl();
 		eventDispatcher.subscribe(uiHandler);
@@ -108,10 +103,36 @@ public class Simulator implements IProcessManagerProvider,
 			eventDispatcher.subscribe(new ProbeEventReceiver(processManager));
 		}
 
-		// note that the robot receiver is subscribed at the end in order to be
-		// executed last
-		// (this is important as the robots tend to complete tasks *very fast*)
-		eventDispatcher.subscribe(robotEventReceiver);
+		// handle robots
+
+		switch (ROBOT_TYPE_VALUE.valueOf(SimulatorProperties.props.getProperty(SimulatorProperties.ROBOT_TYPE))) {
+		case markov:
+			robotFactory = new OneLevelMarkovBotFactory(processEngine.getTaskService(), processEngine.getRepositoryService(),
+					OneLevelMarkovBotFactory.readTrainingData(Arrays.asList("markov/train.json")), 12345L);
+			System.out.println("create markov bot factory");
+			break;
+		case simple:
+			robotFactory = new SimpleRobotFactory(processEngine.getRepositoryService(), processEngine.getTaskService(),
+					formHandler);
+			System.out.println("create simple bot factory");
+			break;
+		default:
+			robotFactory = null;
+			System.out.println("create no bot factory");
+			break;
+
+		}
+
+		if (robotFactory != null) {
+			// note that the robot receiver is subscribed at the end in order to be
+			// executed last
+			// (this is important as the robots tend to complete tasks *very fast*)
+			robotEventReceiver = new RobotUserEventReceiver<>(robotFactory,
+					new ActivitiRobotInputExtractor(processEngine.getTaskService()), processManager);
+			eventDispatcher.subscribe(robotEventReceiver);
+		} else {
+			robotEventReceiver = null;
+		}
 
 	}
 

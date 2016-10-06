@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -84,7 +85,11 @@ public class ExcelParser {
                         dataTable.add(new ArrayList<String>());
                     }
                     for (Cell cell : row) {
-                        LOGGER.log(Level.INFO, "Processing: Sheet={0} celladress={1}", new Object[]{sheet.getSheetName(), cell.getAddress()});
+                        String sheetName = sheet.getSheetName();
+                        String cellRow = "Row:" + cell.getRowIndex();
+                        String cellColumn = "Column:" + cell.getColumnIndex();
+                        Object[] o = new Object[]{sheetName, cellRow, cellColumn};
+                        LOGGER.log(Level.INFO, "Processing: Sheet={0} celladress={1}", o);
                         if (rowNumber <= -1 && cell.getCellType() == Cell.CELL_TYPE_BLANK) {
                             continue;
                         }

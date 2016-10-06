@@ -39,17 +39,19 @@
   <minorEdit>false</minorEdit>
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>false</hidden>
-  <content>{{velocity}}
+  <content>{{box cssClass="floatinginfobox" title="**Contents**"}}{{toc/}}{{/box}}
+
+{{velocity}}
 {{warning}}
 This is foo
 {{/warning}}
 
-== Single User Simulation ==
+= Single User Simulation =
 {{warning}}
 This is foo
 {{/warning}}
 
-== Multi User Simulation ==
+= Multi User Simulation =
 {{warning}}
 This is foo
 {{/warning}}

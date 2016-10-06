@@ -1,0 +1,874 @@
+{
+    "mod.21262" : {
+        "usertask1" : [
+            {
+                "input" : {
+                    "case" : "829-2015"
+                },
+                "output" : {
+                    "offEdiuzia" : true,
+                    "offPorto" : true,
+                    "offAmb" : true,
+                    "offAtt" : true,
+                    "offPolizia" : true,
+                    "offTrib" : true,
+                    "offPat" : false,
+                    "offSind" : false,
+                    "offARPAM" : false,
+                    "offServIgiene" : false,
+                    "offDepIgiene" : false,
+                    "offPrev" : false,
+                    "offVVFF" : false,
+                    "offAreaAmb" : false,
+                    "offAreaEco" : false,
+                    "offVal" : false,
+                    "offGest" : false,
+                    "offSoprint" : true,
+                    "offFerrov" : false,
+                    "offANAS" : false,
+                    "offQUEST" : false,
+                    "offPREF" : false,
+                    "offISP" : false,
+                    "offDog" : true,
+                    "offCap" : true
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015"
+                },
+                "output" : {
+                    "offEdiuzia" : true,
+                    "offPorto" : false,
+                    "offAmb" : true,
+                    "offAtt" : true,
+                    "offPolizia" : false,
+                    "offTrib" : false,
+                    "offPat" : true,
+                    "offSind" : false,
+                    "offARPAM" : false,
+                    "offServIgiene" : false,
+                    "offDepIgiene" : false,
+                    "offPrev" : false,
+                    "offVVFF" : false,
+                    "offAreaAmb" : false,
+                    "offAreaEco" : false,
+                    "offVal" : false,
+                    "offGest" : false,
+                    "offSoprint" : true,
+                    "offFerrov" : false,
+                    "offANAS" : false,
+                    "offQUEST" : false,
+                    "offPREF" : false,
+                    "offISP" : false,
+                    "offDog" : false,
+                    "offCap" : false
+                }
+            }
+        ],
+        "usertask5" : [
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offPorto"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offAmb"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offAtt"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offPolizia"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offTrib"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offSoprint"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offDog"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offCap"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off1Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off1Role" : "offAmb"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off1Role" : "offAtt"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off1Role" : "offPat"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off1Role" : "offSoprint"
+                },
+                "output" : {
+                    "off1Choice" : "off1Ok"
+                }
+            }
+        ],
+        "usertask4" : [
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offPorto"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offAmb"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offAtt"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offPolizia"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offTrib"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offSoprint"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offDog"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offCap"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offAmb"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offAtt"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offPat"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offSoprint"
+                },
+                "output" : {
+                    "off2Choice" : "off2Ok"
+                }
+            }
+        ],
+        "usertask11" : [
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s2"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offPorto"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offAmb"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offAtt"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offPolizia"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offTrib"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s2"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offSoprint"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offDog"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offCap"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off1Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off1Role" : "offAmb"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off1Role" : "offAtt"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off1Role" : "offPat"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off1Role" : "offSoprint"
+                },
+                "output" : {
+                    "off1FeedbackOpinionStatus" : "s1"
+                }
+            }
+        ],
+        "usertask8" : [
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s2"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offPorto"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offAmb"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offAtt"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offPolizia"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offTrib"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s2"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offSoprint"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offDog"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offCap"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offAmb"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offAtt"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offPat"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offPat"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s5"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offSoprint"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s1"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offSoprint"
+                },
+                "output" : {
+                    "off2FeedbackOpinionStatus" : "s5"
+                }
+            }
+        ],
+        "usertask14" :[
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off1FeedbackMotivation" : "parere favorevole condizionato dello Sportello Unico per l\'Edilizia - ammissibilità dell\'intervento su richiesta di permesso di costruire"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offPorto"
+                },
+                "output" : {
+                    "off1FeedbackMotivation" : "parere positivo scritto e precedentemente depositato in ordine alla modifica del muretto"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offAmb"
+                },
+                "output" : {
+                    "off1FeedbackMotivation" : "parere di compatibilità paesaggistica ai sensi dell\'art. 146 DLgs 42/2004 e smi"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offAtt"
+                },
+                "output" : {
+                    "off1FeedbackMotivation" : "autorizzazione ai sensi dell\'art. 24 Reg. C.N. - parere favorevole in quanto la concessione demaniale rimane inalterata"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offPolizia"
+                },
+                "output" : {
+                    "off1FeedbackMotivation" : "parere di conformità al codice della strada - nulla osta per quanto di competenza"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offTrib"
+                },
+                "output" : {
+                    "off1FeedbackMotivation" : "precedentemente presentato conteggio oneri imposta pubblicitaria con cui si esenta l\'esercizio - avendo superficie < 5 mq - con la prescrizione che al termine dei lavori dovrà essere presentata nuova dichiarazione superfici ai fini della tassa rifiuti "
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offSoprint"
+                },
+                "output" : {
+                    "off1FeedbackMotivation" : "parere ai sensi dell\'art. 146 DLgs 42/2004 e smi e art. 14-ter comma 3bis L. 241/1990 - silenzio assenso"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offDog"
+                },
+                "output" : {
+                    "off1FeedbackMotivation" : "autorizzazione doganale ai sensi dell\'art. 19 DLgs 374/1990 precedentemente rilasciata - parere favorevole già espresso: non c\'è bisogno di ulteriori risposte né di intervenire nella conferenza di servizi"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off1Role" : "offCap"
+                },
+                "output" : {
+                    "off1FeedbackMotivation" : "informato solo per conoscenza - silenzio assenso"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off1Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off1FeedbackMotivation" : "rilascio parere favorevole su presentazione SCIA"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off1Role" : "offAmb"
+                },
+                "output" : {
+                    "off1FeedbackMotivation" : "l\'intervento proposto è compatibile a livello paesaggistico ai sensi dell\'art. 146 DLgs 42/2004"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off1Role" : "offAtt"
+                },
+                "output" : {
+                    "off1FeedbackMotivation" : "espletata attività istruttoria - ok sui controlli formali e di merito"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off1Role" : "offPat"
+                },
+                "output" : {
+                    "off1FeedbackMotivation" : "NULLA OSTA quale Ente proprietario dell\'area - parere favorevole ai sensi dell\'art. 6 par. 2 contratto rep 28 27/12/2001 (scadenza 31/12/2019)"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off1Role" : "offSoprint"
+                },
+                "output" : {
+                    "off1FeedbackMotivation" : "parere ai sensi dell\'art. 146 DLgs 42/2004 e smi e art. 14-ter comma 3bis L. 241/1990 - silenzio assenso"
+                }
+            }
+        ],
+        "usertask15" :[
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off2FeedbackMotivation" : "parere favorevole condizionato dello Sportello Unico per l\'Edilizia - ammissibilità dell\'intervento su richiesta di permesso di costruire"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offPorto"
+                },
+                "output" : {
+                    "off2FeedbackMotivation" : "parere positivo scritto e precedentemente depositato in ordine alla modifica del muretto"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offAmb"
+                },
+                "output" : {
+                    "off2FeedbackMotivation" : "parere di compatibilità paesaggistica ai sensi dell\'art. 146 DLgs 42/2004 e smi"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offAtt"
+                },
+                "output" : {
+                    "off2FeedbackMotivation" : "autorizzazione ai sensi dell\'art. 24 Reg. C.N. - parere favorevole in quanto la concessione demaniale rimane inalterata"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offPolizia"
+                },
+                "output" : {
+                    "off2FeedbackMotivation" : "parere di conformità al codice della strada - nulla osta per quanto di competenza"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offTrib"
+                },
+                "output" : {
+                    "off2FeedbackMotivation" : "precedentemente presentato conteggio oneri imposta pubblicitaria con cui si esenta l\'esercizio - avendo superficie < 5 mq - con la prescrizione che al termine dei lavori dovrà essere presentata nuova dichiarazione superfici ai fini della tassa rifiuti "
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offSoprint"
+                },
+                "output" : {
+                    "off2FeedbackMotivation" : "parere ai sensi dell\'art. 146 DLgs 42/2004 e smi e art. 14-ter comma 3bis L. 241/1990 - silenzio assenso"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offDog"
+                },
+                "output" : {
+                    "off2FeedbackMotivation" : "autorizzazione doganale ai sensi dell\'art. 19 DLgs 374/1990 precedentemente rilasciata - parere favorevole già espresso: non c\'è bisogno di ulteriori risposte né di intervenire nella conferenza di servizi"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "829-2015",
+                    "off2Role" : "offCap"
+                },
+                "output" : {
+                    "off2FeedbackMotivation" : "informato solo per conoscenza - silenzio assenso"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offEdiuzia"
+                },
+                "output" : {
+                    "off2FeedbackMotivation" : "rilascio parere favorevole su presentazione SCIA"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offAmb"
+                },
+                "output" : {
+                    "off2FeedbackMotivation" : "l\'intervento proposto è compatibile a livello paesaggistico ai sensi dell\'art. 146 DLgs 42/2004"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offAtt"
+                },
+                "output" : {
+                    "off2FeedbackMotivation" : "espletata attività istruttoria - ok sui controlli formali e di merito"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offPat"
+                },
+                "output" : {
+                    "off2FeedbackMotivation" : "NULLA OSTA quale Ente proprietario dell\'area - parere favorevole ai sensi dell\'art. 6 par. 2 contratto rep 28 27/12/2001 (scadenza 31/12/2019)"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015",
+                    "off2Role" : "offSoprint"
+                },
+                "output" : {
+                    "off2FeedbackMotivation" : "parere ai sensi dell\'art. 146 DLgs 42/2004 e smi e art. 14-ter comma 3bis L. 241/1990 - silenzio assenso"
+                }
+            }
+        ],
+        "usertask16" : [
+            {
+                "input" : {
+                    "case" : "829-2015"
+                },
+                "output" : {
+                    "suapChoice" : "suapUC"
+                }
+            },
+            {
+                "input" : {
+                    "case" : "1118-2015"
+                },
+                "output" : {
+                    "suapChoice" : "suapOk"
+                }
+            }
+        ]
+    }
+}
