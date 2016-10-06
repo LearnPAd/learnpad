@@ -66,7 +66,6 @@ public class GlimpseManager extends Thread implements MessageListener {
 	private String answerTopic;
 	private RulesManager rulesManagerOne;
 	private LearnerAssessmentManager learnerAssessmentManager;
-	@SuppressWarnings("unused")
 	private ResponseDispatcher responder;
 
 	public static HashMap<Object, ConsumerProfile> requestMap = new HashMap<Object, ConsumerProfile>();

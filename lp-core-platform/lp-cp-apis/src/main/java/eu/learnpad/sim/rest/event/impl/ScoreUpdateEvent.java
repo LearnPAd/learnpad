@@ -49,42 +49,32 @@ public class ScoreUpdateEvent extends AbstractEvent {
 	 * The new session score of the user
 	 */
 	
-	public ScoreType scoreUpdateType;
-	public Float scoreUpdateValue;
+	public Map<ScoreType, Float> scores;
 
 	public ScoreUpdateEvent() {
 		super();
 	}
 
 	public ScoreUpdateEvent(Long timestamp, String simulationsessionid, List<String> involvedusers, String modelsetid,
-			Map<String, Object> simulationSessionData, String processartifactid, String user, ScoreType scoreUpdateType, Float scoreUpdateValue) {
+			Map<String, Object> simulationSessionData, String processartifactid, String user, Map<ScoreType, Float> scores) {
 		super(EventType.SCORE_UPDATE, timestamp, simulationsessionid, involvedusers, modelsetid, simulationSessionData);
-		this.scoreUpdateType = scoreUpdateType;
-		this.scoreUpdateValue = scoreUpdateValue;
-		
+
+		this.scores = scores;
 		this.processartifactid = processartifactid;
 		this.user = user;
 	}
 	
-	public ScoreType getScoreUpdateType() {
-		return scoreUpdateType;
+	public Map<ScoreType, Float> getScoreUpdate() {
+		return scores;
 	}
 
-	public void setScoreUpdateType(ScoreType scoreUpdateType) {
-		this.scoreUpdateType = scoreUpdateType;
-	}
-
-	public Float getScoreUpdateValue() {
-		return scoreUpdateValue;
-	}
-
-	public void setScoreUpdateValue(Float scoreUpdateValue) {
-		this.scoreUpdateValue = scoreUpdateValue;
+	public void setScoreUpdate(Map<ScoreType, Float> scores) {
+		this.scores = scores;
 	}
 	
 	@Override
 	public String toString() {
 		return super.toString() + " processartifactid=" + processartifactid + " user=" + user + " updatedScore="
-				+ scoreUpdateValue.toString();
+				+ scores.values().toString();
 	}
 }

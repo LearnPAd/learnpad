@@ -5,23 +5,29 @@
  */
 package eu.learnpad.ontology.kpi.dashboard;
 
+import com.hp.hpl.jena.ontology.OntModel;
 import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
 import eu.learnpad.dash.rest.data.KPIValuesFormat;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.kpi.KBProcessorNotifier;
 import static eu.learnpad.ontology.kpi.dashboard.AbstractKpiTest.TEST_WIKI_PAGE_URI;
+import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.recommender.RecommenderException;
+import eu.learnpad.ontology.simulation.SimulationScoreLog;
+import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.CoreFacade;
 import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.ResourceType;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatusType;
+import eu.learnpad.sim.rest.event.ScoreType;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -42,8 +48,6 @@ import org.xml.sax.SAXException;
  */
 public class KPILoaderTest extends AbstractKpiTest {
 
-    protected static final String GLOBAL_ACTIONS_KPI_LABEL = "global actions per user";
-
     public KPILoaderTest() {
     }
 
@@ -52,7 +56,7 @@ public class KPILoaderTest extends AbstractKpiTest {
 
         cleanUpDataFile();
         
-        String kpiValueXPath = "//CRITERION[@NAME=\"" + GLOBAL_ACTIONS_KPI_LABEL + "\"]//ATTRIBUTES[@NAME=\"IsValue\"]/VALUE";
+        String kpiValueXPath = "//CRITERION[@NAME=\"" + KPI_LABEL__GLOBAL_ACTIONS + "\"]//ATTRIBUTES[@NAME=\"IsValue\"]/VALUE";
         
         Long previousLastModified = System.currentTimeMillis();
         runLoader();
@@ -84,6 +88,29 @@ public class KPILoaderTest extends AbstractKpiTest {
         
         kpiValue = extractKpiValue(testUserDashboardFile, kpiValueXPath);
         assertEquals("3", kpiValue);
+        
+        //with sim log
+        OntModel model = FileOntAO.getInstance().getModelWithExecutionData(SimpleModelTransformator.getInstance().getLatestModelSetId());
+        SimulationScoreLog.getInstance().logSimulationScore(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, getOneProcess(model).getLocalName(), TEST_USER, SIM_TEST_SCORES);
+        runLoader();
+
+        //Global score
+        kpiValueXPath = "//CRITERION[@NAME=\"" + KPI_LABEL__GLOBAL_SCORE + "\"]//ATTRIBUTES[@NAME=\"IsValue\"]/VALUE";
+        kpiValue = extractKpiValue(testUserDashboardFile, kpiValueXPath);
+        Float expectedScore = (SIM_TEST_SCORES.get(ScoreType.GLOBAL_SCORE)/SIM_TEST_SCORES.get(ScoreType.ABSOLUTE_GLOBAL_SCORE))*100;
+        assertEquals(expectedScore, Float.valueOf(kpiValue), 0.1f);   
+        
+        //Session score
+        kpiValueXPath = "//CRITERION[@NAME=\"" + KPI_LABEL__SESSION_SCORE + "\"]//ATTRIBUTES[@NAME=\"IsValue\"]/VALUE";
+        kpiValue = extractKpiValue(testUserDashboardFile, kpiValueXPath);
+        expectedScore = (SIM_TEST_SCORES.get(ScoreType.SESSION_SCORE)/SIM_TEST_SCORES.get(ScoreType.ABSOLUTE_SESSION_SCORE))*100;
+        assertEquals(expectedScore, Float.valueOf(kpiValue), 0.1f);   
+
+        //BP score
+        kpiValueXPath = "//CRITERION[@NAME=\"" + KPI_LABEL__BP_SCORE + "\"]//ATTRIBUTES[@NAME=\"IsValue\"]/VALUE";
+        kpiValue = extractKpiValue(testUserDashboardFile, kpiValueXPath);
+        expectedScore = (SIM_TEST_SCORES.get(ScoreType.BP_SCORE)/SIM_TEST_SCORES.get(ScoreType.ABSOLUTE_BP_SCORE))*100;
+        assertEquals(expectedScore, Float.valueOf(kpiValue), 0.1f);               
     }
 
     protected String extractKpiValue(File testUserDashboardFile, String kpiValueXPath) throws SAXException, XPathExpressionException, IOException, ParserConfigurationException {

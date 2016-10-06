@@ -15,7 +15,6 @@ import eu.learnpad.ontology.recommender.Inferencer;
 import eu.learnpad.ontology.recommender.RecommenderException;
 import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.ResourceType;
-import eu.learnpad.sim.rest.event.ScoreType;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +25,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.Test;
 import static junit.framework.Assert.*;
-import org.jgroups.util.UUID;
 import org.junit.After;
 
 /**
@@ -38,11 +36,6 @@ import org.junit.After;
  * @author sandro.emmenegger
  */
 public class KpiAssessmentTest extends AbstractKpiTest{
-    
-    private static final String KPI_LABEL__BP_SCORE = "business process score per simulation and user";
-    private static final String KPI_LABEL__SESSION_SCORE = "session score per simulation and user";
-    private static final String KPI_LABEL__GLOBAL_SCORE = "global score per simulation and user";
-    private static final String KPI_LABEL__GLOBAL_ACTIONS = "global actions per user";
     
     private static final Map<String, String> prefixes = new HashMap<>();
      
@@ -60,37 +53,15 @@ public class KpiAssessmentTest extends AbstractKpiTest{
         
         testPerformanceValue(model, KPI_LABEL__BP_SCORE, 0);
         
-        OntClass processClass = model.getOntClass(APP.NS.BPMN + "Process");
-        List<Individual> processes = OntUtil.getInstances(model, processClass);
-        if(processes.isEmpty()){
-            fail("Expect at least one process model ontology for unit testing.");
-        }
-        Individual oneProcessForTesting = processes.get(0);
+        Individual oneProcessForTesting = getOneProcess(model);
         
-        Individual logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER, ScoreType.BP_SCORE, 0.2f);
-        assertNotNull(logEntry);
-        testPerformanceValue(model, KPI_LABEL__BP_SCORE, 1);
-        
-        logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER, ScoreType.BP_SCORE, 0.4f);
-        assertNotNull(logEntry);
-        testPerformanceValue(model, KPI_LABEL__BP_SCORE, 2);        
-        
-        logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER, ScoreType.SESSION_SCORE, 0.6f);
-        assertNotNull(logEntry);
-        testPerformanceValue(model, KPI_LABEL__SESSION_SCORE, 1);
-
-        logEntry = createSimScoreLog(System.currentTimeMillis(), UUID.randomUUID().toString(), MODELSET_ID, oneProcessForTesting.getLocalName(), TEST_USER, ScoreType.GLOBAL_SCORE, 0.9f);
-        assertNotNull(logEntry);
-        testPerformanceValue(model, KPI_LABEL__GLOBAL_SCORE, 1);        
-        
-        logEntry = createUserActionLog(MODELSET_ID, null, null, TEST_WIKI_PAGE_URI, ResourceType.PAGE, TEST_USER, System.currentTimeMillis(), NotificationActionType.ADDED);
+        Individual logEntry = createUserActionLog(MODELSET_ID, null, null, TEST_WIKI_PAGE_URI, ResourceType.PAGE, TEST_USER, System.currentTimeMillis(), NotificationActionType.ADDED);
         assertNotNull(logEntry);
         
         testPerformanceValue(model, KPI_LABEL__GLOBAL_ACTIONS, 1);    
         
         Map<String, byte[]> dashboards = KpiDashboard.getInstance().runAssessment();
         assertTrue(dashboards.size() > 0);
-        
         
     }
 

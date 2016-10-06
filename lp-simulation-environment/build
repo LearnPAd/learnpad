@@ -80,6 +80,8 @@ function component_install() {
             then
                 cp "${__COMPONENT_PATH__}/deployment/$1/simulator.properties" \
                    "${__OUT_PATH__}/simulator/out/."
+                cp "${__COMPONENT_PATH__}/monitoring/deployment/$1/environmentFile" \
+                   "${__OUT_PATH__}/monitoring/out/configFiles/."
             fi
         fi;
     fi

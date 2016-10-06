@@ -20,6 +20,7 @@
 package eu.learnpad.core.impl.sim;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,7 +32,10 @@ import org.xwiki.component.manager.ComponentLookupException;
 import org.xwiki.component.manager.ComponentManager;
 import org.xwiki.component.phase.Initializable;
 import org.xwiki.component.phase.InitializationException;
+import org.xwiki.rendering.listener.chaining.BlockStateChainingListener.Event;
 import org.xwiki.rest.XWikiRestComponent;
+
+import com.sun.star.xml.dom.events.EventType;
 
 import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.core.rest.RestResource;
@@ -41,8 +45,10 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.SimulationData;
+import eu.learnpad.or.rest.data.SimulationScoresMap;
 import eu.learnpad.sim.Controller;
 import eu.learnpad.sim.rest.data.UserData;
+import eu.learnpad.sim.rest.event.ScoreType;
 import eu.learnpad.sim.rest.event.impl.ProcessEndEvent;
 import eu.learnpad.sim.rest.event.impl.ProcessStartEvent;
 import eu.learnpad.sim.rest.event.impl.ScoreUpdateEvent;
@@ -188,8 +194,20 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		//TODO: this method should be adapted according to the structure of the ScoreUpdateEvent
 		//TODO: the event contains a JsonNode reachable through event.get/setUpdatedScore
 		//TODO: don't know if simulator is "interested" to store those values. 
+	
+		String modelSetId = event.modelsetid;
+		String simulationSessionId = event.simulationsessionid;
+		String processArtifactId = event.processartifactid;
 		
-		//this.cw.notifyScoreUpdate(new ScoreRecord(event.user, event.processartifactid,event.simulationsessionid, event.updatedScore));
+		Long timestamp = event.timestamp; 
+		
+		String simUserId = event.user;
+		String userEmail = this.convertUserID(simUserId);
+		
+		SimulationScoresMap simScoreMap = new SimulationScoresMap();
+		simScoreMap.setScoreMap(event.scores);
+	
+		this.or.updateSimulationScore(modelSetId, simulationSessionId, processArtifactId, timestamp, userEmail, simScoreMap);
 	}
 
 	@Override
