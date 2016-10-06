@@ -37,6 +37,7 @@ import org.activiti.engine.impl.util.json.JSONObject;
 
 import eu.learnpad.simulator.datastructures.document.LearnPadDocumentField;
 import eu.learnpad.simulator.uihandler.IFormHandler;
+import eu.learnpad.simulator.utils.SimulatorProperties;
 
 /**
  *
@@ -158,6 +159,10 @@ public abstract class AbstractFormHandler implements IFormHandler {
 			Collection<String> singleRoles, Collection<String> groupRoles,
 			Collection<String> users) {
 
+		// do we add robots or not?
+		boolean withRobot = !SimulatorProperties.props.getProperty(SimulatorProperties.ROBOT_TYPE)
+				.equals(SimulatorProperties.ROBOT_TYPE_VALUE.none.toString());
+
 		// insert roles to users mapping
 		JSONObject res = new JSONObject(base);
 
@@ -168,8 +173,12 @@ public abstract class AbstractFormHandler implements IFormHandler {
 			JSONObject isHuman = new JSONObject();
 			isHuman.put("type", "boolean");
 			isHuman.put("required", true);
-			res.getJSONObject("schema").put(SINGLE_USER_IS_HUMAN_KEY_PREFIX + role,
-					isHuman);
+
+			if (!withRobot) {
+				isHuman.put("default", true);
+			}
+
+			res.getJSONObject("schema").put(SINGLE_USER_IS_HUMAN_KEY_PREFIX + role, isHuman);
 
 			JSONObject o = new JSONObject();
 			o.put("type", "string");
@@ -182,6 +191,11 @@ public abstract class AbstractFormHandler implements IFormHandler {
 			JSONObject isHuman = new JSONObject();
 			isHuman.put("type", "boolean");
 			isHuman.put("required", true);
+
+			if (!withRobot) {
+				isHuman.put("default", true);
+			}
+
 			res.getJSONObject("schema").put(GROUP_USER_IS_HUMAN_KEY_PREFIX + role,
 					isHuman);
 
@@ -204,44 +218,66 @@ public abstract class AbstractFormHandler implements IFormHandler {
 
 		JSONArray items = new JSONArray();
 		for (String role : singleRoles) {
-			JSONObject isHuman = new JSONObject();
-			isHuman.put("title", "Role: " + role);
-			isHuman.put("key", SINGLE_USER_IS_HUMAN_KEY_PREFIX + role);
-			isHuman.put("type", "radios");
-			isHuman.put("inline", true);
-
-			JSONObject isHumanOptions = new JSONObject();
-			isHumanOptions.put("true", "human");
-			isHumanOptions.put("false", "robot");
-			isHuman.put("options", isHumanOptions);
-
-			JSONObject toggleNextMap = new JSONObject();
-			toggleNextMap.put("true", true);
-			isHuman.put("toggleNextMap", toggleNextMap);
-			items.put(isHuman);
 
 			JSONObject o = new JSONObject();
+
+			if (withRobot) {
+				JSONObject isHuman = new JSONObject();
+				isHuman.put("title", "Role: " + role);
+				isHuman.put("key", SINGLE_USER_IS_HUMAN_KEY_PREFIX + role);
+				isHuman.put("type", "radios");
+				isHuman.put("inline", true);
+
+				JSONObject isHumanOptions = new JSONObject();
+				isHumanOptions.put("true", "human");
+				isHumanOptions.put("false", "robot");
+				isHuman.put("options", isHumanOptions);
+
+				JSONObject toggleNextMap = new JSONObject();
+				toggleNextMap.put("true", true);
+				isHuman.put("toggleNextMap", toggleNextMap);
+				items.put(isHuman);
+			} else {
+				JSONObject isHuman = new JSONObject();
+				isHuman.put("key", SINGLE_USER_IS_HUMAN_KEY_PREFIX + role);
+				isHuman.put("type", "hidden");
+				items.put(isHuman);
+
+				o.put("title", "Role: " + role);
+			}
+
 			o.put("key", SINGLE_USER_KEY_PREFIX + role);
 			items.put(o);
 		}
 		for (String role : groupRoles) {
-			JSONObject isHuman = new JSONObject();
-			isHuman.put("title", "Role: " + role);
-			isHuman.put("key", GROUP_USER_IS_HUMAN_KEY_PREFIX + role);
-			isHuman.put("type", "radios");
-			isHuman.put("inline", true);
-
-			JSONObject isHumanOptions = new JSONObject();
-			isHumanOptions.put("true", "human");
-			isHumanOptions.put("false", "robot");
-			isHuman.put("options", isHumanOptions);
-
-			JSONObject toggleNextMap = new JSONObject();
-			toggleNextMap.put("true", true);
-			isHuman.put("toggleNextMap", toggleNextMap);
-			items.put(isHuman);
 
 			JSONObject o = new JSONObject();
+
+			if (withRobot) {
+				JSONObject isHuman = new JSONObject();
+				isHuman.put("title", "Role: " + role);
+				isHuman.put("key", GROUP_USER_IS_HUMAN_KEY_PREFIX + role);
+				isHuman.put("type", "radios");
+				isHuman.put("inline", true);
+
+				JSONObject isHumanOptions = new JSONObject();
+				isHumanOptions.put("true", "human");
+				isHumanOptions.put("false", "robot");
+				isHuman.put("options", isHumanOptions);
+
+				JSONObject toggleNextMap = new JSONObject();
+				toggleNextMap.put("true", true);
+				isHuman.put("toggleNextMap", toggleNextMap);
+				items.put(isHuman);
+			} else {
+				JSONObject isHuman = new JSONObject();
+				isHuman.put("key", GROUP_USER_IS_HUMAN_KEY_PREFIX + role);
+				isHuman.put("type", "hidden");
+				items.put(isHuman);
+
+				o.put("title", "Role: " + role);
+			}
+
 			o.put("key", GROUP_USER_KEY_PREFIX + role);
 			o.put("type", "checkboxes");
 			items.put(o);
