@@ -126,23 +126,27 @@
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-core</artifactId>
-			<version>5.5.0.Final</version>
+			<version>5.6.0.Final</version>
+			<classifier>test-sources</classifier>
 		</dependency>
 
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-decisiontables</artifactId>
-			<version>5.5.0.Final</version>
+			<version>5.6.0.Final</version>
+			<classifier>test-sources</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-verifier</artifactId>
-			<version>5.5.0.Final</version>
+			<version>5.6.0.Final</version>
+			<classifier>test-sources</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-persistence-jpa</artifactId>
-			<version>5.5.0.Final</version>
+			<version>5.6.0.Final</version>
+			<classifier>test-sources</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>

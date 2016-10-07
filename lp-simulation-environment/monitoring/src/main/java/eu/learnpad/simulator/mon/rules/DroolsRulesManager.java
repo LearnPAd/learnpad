@@ -109,8 +109,9 @@ public class DroolsRulesManager extends RulesManager {
 	
 	public Object[] loadRules(final ComplexEventRuleActionType rules) throws IncorrectRuleFormatException {
 		
-		kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
-
+		if (kbuilder == null) {
+			kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
+		}
 		final ComplexEventRuleType[] insertRules = rules.getInsertArray();
 		for(int i = 0; i < insertRules.length; i++)
 		{

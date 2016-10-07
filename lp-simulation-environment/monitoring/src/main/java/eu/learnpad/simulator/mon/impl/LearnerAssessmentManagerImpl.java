@@ -2,12 +2,10 @@ package eu.learnpad.simulator.mon.impl;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -35,7 +33,6 @@ import eu.learnpad.simulator.mon.manager.ResponseDispatcher;
 import eu.learnpad.simulator.mon.manager.RestNotifier;
 import eu.learnpad.simulator.mon.rules.generator.RulesPerPath;
 import eu.learnpad.simulator.mon.storage.DBController;
-import eu.learnpad.simulator.mon.storage.H2Controller;
 import eu.learnpad.simulator.mon.storage.ScoreTemporaryStorage;
 import eu.learnpad.simulator.mon.utils.ComputeLearnerScore;
 import eu.learnpad.simulator.mon.utils.DebugMessages;
@@ -223,29 +220,4 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			e.printStackTrace();
 		}
 	}
-
-
-	
-	
-	public static void main(String[] args)
-	{
-	 		Properties asd = new Properties();
-	 		asd.setProperty("DB_DRIVER", "org.h2.Driver");
-	 		asd.setProperty("DB_CONNECTION", "jdbc:h2:./data/glimpse");
-	 		asd.setProperty("DB_USER", "");
-	 		asd.setProperty("DB_PASSWORD", "");
-	 
-	 		H2Controller c2 = new H2Controller(asd);
-	 		c2.connectToDB();
-	 		
-	 		LearnerAssessmentManager test = new LearnerAssessmentManagerImpl(c2);
-	 
-	 		
-	 		List<String> ciccio = new ArrayList<>();
-	 		ciccio.add("1");
-	 		
-	 		test.computeAndPropagateScores(ciccio, "a23748293649", "a23748293649-1");
-	 		
-	 }
-
 }
