@@ -45,27 +45,9 @@ public class RestNotifier extends Thread {
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifySimulationStart method");
 		}
 	}
-	
-	public static void notifySimulationStartDemo(Long processTimeStamp, SimulationStartEvent event) {
-		try {
-			RestNotifier.getCoreFacade().notifySimulationStartEvent(event);
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SimulationStartEvent sent");
-		} catch (LpRestException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifySimulationStart method");
-		}
-	}
 		
 	public static void notifySimulationEnd(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID, Map<String, Object> simulationSessionData) {
 		SimulationEndEvent event = new SimulationEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData);
-		try {
-			RestNotifier.getCoreFacade().notifySimulationEndEvent(event);
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SimulationStopEvent sent");
-		} catch (LpRestException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifySimulationStop method");
-		}
-	}
-	
-	public static void notifySimulationEndDemo(Long processTimeStamp, SimulationEndEvent event) {
 		try {
 			RestNotifier.getCoreFacade().notifySimulationEndEvent(event);
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SimulationStopEvent sent");
@@ -84,26 +66,8 @@ public class RestNotifier extends Thread {
 		}
 	}
 	
-	public static void notifyProcessStartDemo(Long processTimeStamp, ProcessStartEvent event) {
-		try {
-			RestNotifier.getCoreFacade().notifyProcessStartEvent(event);
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "ProcessStartEvent sent");
-		} catch (LpRestException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifyProcessStart method");
-		}
-	}
-	
 	public static void notifyProcessEnd(Long processTimeStamp, List<String> involvedUsers, String sessionID, String modelSetID, Map<String, Object> simulationSessionData, String processArtifactId) {
 		ProcessEndEvent event = new ProcessEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData, processArtifactId);
-		try {
-			RestNotifier.getCoreFacade().notifyProcessEndEvent(event);
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "ProcessStopEvent sent");
-		} catch (LpRestException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifyProcessStop method");
-		}
-	}
-	
-	public static void notifyProcessEndDemo(Long processTimeStamp, ProcessEndEvent event) {
 		try {
 			RestNotifier.getCoreFacade().notifyProcessEndEvent(event);
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "ProcessStopEvent sent");
@@ -122,35 +86,17 @@ public class RestNotifier extends Thread {
 		}
 	}
 	
-	public static void notifyTaskStartDemo(Long processTimeStamp, TaskStartEvent event) {
-		try {
-			RestNotifier.getCoreFacade().notifyTaskStartEvent(event);
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "TaskStartEvent sent");
-		} catch (LpRestException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifyTaskStart method");
-		}
-	}
-	
-	public static void notifyTaskFailedDemo(Long processTimeStamp, TaskFailedEvent event) {
+	public static void notifyTaskFailed(Long processTimeStamp, TaskFailedEvent event) {
 		try {
 			RestNotifier.getCoreFacade().notifyTaskFailedEvent(event);
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SessionScoreUpdateEvent sent");
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "TaskFailedEvent sent");
 		} catch (LpRestException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifySessionScoreUpdate method");
+			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifyTaskFailed method");
 		}
 	}
 	
 	public static void notifyTaskEnd(Long processTimeStamp, String sessionID, List<String> involvedUsers, String modelSetID, Map<String, Object> simulationSessionData, String processArtifactId, String taskArtifactId, List<String> assignedUsers, String completingUserID, Map<String,Object> submittedData) {
 		TaskEndEvent event = new TaskEndEvent(processTimeStamp, sessionID, involvedUsers, modelSetID, simulationSessionData, processArtifactId, taskArtifactId, assignedUsers, completingUserID, submittedData);
-		try {
-			RestNotifier.getCoreFacade().notifyTaskEndEvent(event);
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "TaskEndEvent sent");
-		} catch (LpRestException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifyTaskEnd method");
-		}
-	}
-	
-	public static void notifyTaskEndDemo(Long processTimeStamp, TaskEndEvent event) {
 		try {
 			RestNotifier.getCoreFacade().notifyTaskEndEvent(event);
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "TaskEndEvent sent");
@@ -169,15 +115,6 @@ public class RestNotifier extends Thread {
 		}
 	}
 	
-	public static void notifySessionScoreUpdateDemo(Long processTimeStamp, SessionScoreUpdateEvent event) {
-		try {
-			RestNotifier.getCoreFacade().notifySessionScoreUpdateEvent(event);
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "SessionScoreUpdateEvent sent");
-		} catch (LpRestException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifySessionScoreUpdate method");
-		}
-	}
-	
 	public static void notifyScoreUpdate(Long processTimeStamp, ScoreUpdateEvent event)  {
 				
 		try {
@@ -186,16 +123,5 @@ public class RestNotifier extends Thread {
 		} catch (LpRestException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifyScoreUpdate method");
 		}
-	}
-	
-	public static void notifyScoreUpdateDemo(Long processTimeStamp, ScoreUpdateEvent event)  {
-		
-		try {
-			RestNotifier.getCoreFacade().notifyScoreUpdateEvent(event);
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "ScoreUpdateEvent sent");
-		} catch (LpRestException e) {
-			DebugMessages.println(TimeStamp.getCurrentTime(), RestNotifier.class.getSimpleName(), "Error in RestNotifier:notifyScoreUpdate method");
-		}
-	}
-	
+	}	
 }
