@@ -54,6 +54,7 @@ import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.ResourceType;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessId;
+import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatus;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.sim.rest.data.UserDataCollection;
@@ -206,6 +207,13 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		return url;
 	}	
 	
+	@Override
+	public KBProcessingStatus getKPICalculationStatus(String kpiCalculationProcessId)
+			throws LpRestException {		
+		KBProcessingStatus status = this.or.getHandlingProcessStatus(kpiCalculationProcessId);
+		return status;
+	}
+
 	@Override
 	public InputStream transform(ModelSetType type, InputStream model) throws LpRestException {
 		return this.mt.transform(type, model);
