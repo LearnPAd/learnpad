@@ -137,16 +137,31 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	}
 
 	@Override
-	public void computeAndPropagateScores(List<String> learnersID, String idPath, String idBPMN) {
-		
-		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
+	public void setPathCompleted(List<String> learnersID, String idPath, String idBPMN) {
 		Date now = new Date();
-		
+
+		DebugMessages.print(TimeStamp.getCurrentTime(),  this.getClass().getName(),  
+				"Set path " + idPath + " for bpmn " + idBPMN + " completed ");
 		for(int i = 0; i<learnersID.size(); i++) {
 			databaseController.setLearnerSessionScore(
 					learnersID.get(i), idPath, idBPMN, 
 					ScoreTemporaryStorage.getTemporaryLearnerSessionScore(learnersID.get(i)),
 					new java.sql.Date(now.getTime()));
+		}
+		DebugMessages.ok();
+	}
+	
+	@Override
+	public void computeAndPropagateScores(List<String> learnersID, String idPath, String idBPMN) {
+		
+		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
+//		Date now = new Date();
+		
+		for(int i = 0; i<learnersID.size(); i++) {
+//			databaseController.setLearnerSessionScore(
+//					learnersID.get(i), idPath, idBPMN, 
+//					ScoreTemporaryStorage.getTemporaryLearnerSessionScore(learnersID.get(i)),
+//					new java.sql.Date(now.getTime()));
 			
 			float learnerBPScore = ComputeLearnerScore.learnerBP(
 					databaseController.getMaxSessionScores(learnersID.get(i), idBPMN));

@@ -28,6 +28,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
@@ -121,8 +122,12 @@ public class ResponseDispatcher {
 	}
 	
 	
+	public void SetPathCompleted(String learnersID, String idPath, String idBPMN) {
+		
+		ResponseDispatcher.lam.setPathCompleted(new ArrayList<String>(Arrays.asList(learnersID.split(","))),idPath, idBPMN);
+	}
 	
-	public static void setPathCompletedAndPropagateScores(String learnersID, String idPath, String idBPMN)
+	public static void PropagateScores(String learnersID, String idPath, String idBPMN)
 	{
 		ResponseDispatcher.lam.computeAndPropagateScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))), idPath, idBPMN);
 	}
