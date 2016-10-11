@@ -33,7 +33,7 @@ when
 then			
 	$bEvent.setConsumed(true); 
 	update($bEvent); 
- 	RestNotifier.notifySimulationStartDemo($bEvent.getTimeStamp(), (SimulationStartEvent)$bEvent.getEvent());
+ 	RestNotifier.notifySimulationStart($bEvent.getTimeStamp(), (SimulationStartEvent)$bEvent.getEvent());
 end 
 
 rule "Forward to the CP - SimulationEnd" 
@@ -51,7 +51,7 @@ when
 then	 		 	
 	$aEvent.setConsumed(true); 
 	update($aEvent); 
- 	RestNotifier.notifySimulationEndDemo($aEvent.getTimeStamp(), (SimulationEndEvent)$aEvent.getEvent());
+ 	RestNotifier.notifySimulationEnd($aEvent.getTimeStamp(), (SimulationEndEvent)$aEvent.getEvent());
 end 
 
 rule "Forward to the CP - ProcessStart"  
@@ -69,7 +69,7 @@ when
 then
 	$aEvent.setConsumed(true); 
 	update($aEvent); 		 
- 	RestNotifier.notifyProcessStartDemo($aEvent.getTimeStamp(), (ProcessStartEvent)$aEvent.getEvent());
+ 	RestNotifier.notifyProcessStart($aEvent.getTimeStamp(), (ProcessStartEvent)$aEvent.getEvent());
 end 
  
 rule "Forward to the CP - ProcessEnd"  
@@ -87,7 +87,7 @@ when
 then	 	
 	$aEvent.setConsumed(true); 
 	update($aEvent); 
- 	RestNotifier.notifyProcessEndDemo($aEvent.getTimeStamp(), (ProcessEndEvent)$aEvent.getEvent());			
+ 	RestNotifier.notifyProcessEnd($aEvent.getTimeStamp(), (ProcessEndEvent)$aEvent.getEvent());			
 end  
 
 rule "Forward to the CP - TaskStart"  
@@ -105,7 +105,7 @@ when
 then
 	$aEvent.setConsumed(true); 
 	update($aEvent); 	 	
- 	RestNotifier.notifyTaskStartDemo($aEvent.getTimeStamp(), (TaskStartEvent)$aEvent.getEvent());			
+ 	RestNotifier.notifyTaskStart($aEvent.getTimeStamp(), (TaskStartEvent)$aEvent.getEvent());			
 end 
 
 rule "Forward to the CP - TaskFailed" 
@@ -123,7 +123,7 @@ when
 then 		 
 	$aEvent.setConsumed(true); 
 	update($aEvent); 
-	RestNotifier.notifyTaskFailedDemo($aEvent.getTimeStamp(), (TaskFailedEvent)$aEvent.getEvent()); 		
+	RestNotifier.notifyTaskFailed($aEvent.getTimeStamp(), (TaskFailedEvent)$aEvent.getEvent()); 		
 end 
 
 rule "Forward to the CP - TaskEnd" 
@@ -141,7 +141,7 @@ when
 then
 	$aEvent.setConsumed(true); 
 	update($aEvent); 		
-	RestNotifier.notifyTaskEndDemo($aEvent.getTimeStamp(), (TaskEndEvent)$aEvent.getEvent()); 		 	
+	RestNotifier.notifyTaskEnd($aEvent.getTimeStamp(), (TaskEndEvent)$aEvent.getEvent()); 		 	
 end   
 
 rule "Save in tempStructure the SessionScoreUpdate value" 
@@ -165,3 +165,4 @@ then
 	ScoreTemporaryStorage.setLastScoreUpdateEventSeen($aEvent.getSessionScoreUpdateEvent());
 	retract($aEvent);		 	
 end  
+

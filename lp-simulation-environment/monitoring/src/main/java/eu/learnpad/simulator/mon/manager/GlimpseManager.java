@@ -197,10 +197,7 @@ public class GlimpseManager extends Thread implements MessageListener {
 			} catch (IncorrectRuleFormatException e) {
 				sendMessage(createMessage("PROVIDED RULE CONTAINS ERRORS", sender));
 			}
-			
-//TODO:////////TESTTTTTTTTTTTTTTTTT///////////////////////////
-//			ResponseDispatcher.saveAndNotifyLearnersScore("1-2-6", "a23748293649", 5, 300.0f);
-			
+					
 		} catch (NullPointerException asd) {
 			try {
 				sendMessage(createMessage("PROVIDED RULE IS NULL, PLEASE PROVIDE A VALID RULE",
@@ -248,9 +245,6 @@ public class GlimpseManager extends Thread implements MessageListener {
 	private void sendMessage(TextMessage msg) {
 		try {
 			if (msg != null) {
-				// System.out.println(this.getClass().getSimpleName() + ": send
-				// " + msg.getText());
-				// DebugMessages.line();
 				tPub.publish(msg);
 			}
 		} catch (JMSException e) {

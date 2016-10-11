@@ -9,7 +9,7 @@ public class RuleElements {
 	
 	public static String getHeader(String ruleName, String dialect) {
 	
-		header ="\t\t\n\n"+
+		header ="\n\n\t\t"+
 				"import eu.learnpad.simulator.mon.event.GlimpseBaseEventBPMN;\n\t\t" +
 				"import eu.learnpad.simulator.mon.manager.ResponseDispatcher;\n\t\t" +
 				"import eu.learnpad.simulator.mon.manager.RestNotifier;\n\t\t" +
@@ -58,21 +58,6 @@ public class RuleElements {
 		return concat;
 	}
 	
-	
-	
-//	public static String getThenClauseForScoreUpdateAndProcessStartNotification(Activity[] theActivitySetToSetConsumed, String idBPMN, String idPath) {
-//		String concat = "\n\t\tthen ";
-//		for (int i = 0; i<(theActivitySetToSetConsumed.length*2)+2; i++) {
-//			concat = concat + "\n\t\t\t$"+ i
-//					+ "Event.setConsumed(true); \n\t\t\tupdate($"+ i +"Event);"
-//					+ "\n\t\t\tretract($"+ i +"Event);";					
-//		}
-//		 concat = concat + "\n\t\t\t" +
-//			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", \"" + idBPMN + "\", drools.getRule().getName(), (SessionScoreUpdateEvent)$"+ (theActivitySetToSetConsumed.length-1)+"Event.getEvent());";
-//		return concat;
-//	}
-		
-	
 	public static String getEnd() {
 		return "\n\t\tend\n\n\t";
 	}
@@ -87,7 +72,9 @@ public class RuleElements {
 					+ "\n\t\t\tretract($"+ i +"Event);";					
 		}
 		 concat = concat + "\n\t\t\t" +
-			"ResponseDispatcher.setPathCompletedAndPropagateScores(\"##LEARNERSINVOLVEDID##\",\"" + idPath + "\", \"" + idBPMN + "\");";
+			"ResponseDispatcher.SetPathCompleted(\"##LEARNERSINVOLVEDID##\",\"" + idPath + "\", \"" + idBPMN + "\");";
+		 concat = concat + "\n\t\t\t" +
+			"ResponseDispatcher.PropagateScores(\"##LEARNERSINVOLVEDID##\",\"" + idPath + "\", \"" + idBPMN + "\");";
 		return concat;
 	}
 	
