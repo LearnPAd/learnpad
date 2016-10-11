@@ -122,7 +122,7 @@ public class ResponseDispatcher {
 	}
 	
 	
-	public void SetPathCompleted(String learnersID, String idPath, String idBPMN) {
+	public static void SetPathCompleted(String learnersID, String idPath, String idBPMN) {
 		
 		ResponseDispatcher.lam.setPathCompleted(new ArrayList<String>(Arrays.asList(learnersID.split(","))),idPath, idBPMN);
 	}
