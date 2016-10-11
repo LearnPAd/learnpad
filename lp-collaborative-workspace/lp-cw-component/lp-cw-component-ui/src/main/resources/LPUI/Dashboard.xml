@@ -55,6 +55,7 @@
 ${services.localization.render('LPUI.Dashboard.calculate.warning')}
 {{/warning}}
 [[${services.localization.render('LPUI.Dashboard.calculate.button')}&gt;&gt;${dashboardReference}||queryString="calculateKPI=true" class="btn btn-block btn-simulation"]]
+(% id="dash-calculatekpi" class="btn btn-block btn-simulation" %)${services.localization.render('LPUI.Dashboard.calculate.button')}
 ##
 #if($request.calculateKPI)
   #set ($kpiCalulationProcessId = "${services.learnpad.startDashboardKpiCalculation($modelsetid)}")
@@ -197,6 +198,141 @@ $(function(){
 });
 });</code>
     </property>
+    <property>
+      <code>require.config({
+    paths: {
+      "Q": "/xwiki/bin/jsx/LPCode/Q"
+    }
+});
+require(["jquery", "xwiki-meta", "Q"], function ($, xm, Q) {
+$(function(){
+  var mapReference = function mapReference(reference) {
+    var map = {"page": reference.name, "spaces": [], "wiki": ""};
+    var r = reference.parent;
+    while(r.parent != null) {
+      map.spaces.unshift(r.name);
+      r = r.parent;
+    }
+    map.wiki = r.name;
+    return map;
+  };
+  var getTitle = function getTitle(reference) {
+    return Q.Promise(function(resolve, reject, notify) {
+      var map = mapReference(reference);
+      var url = "/xwiki/rest/wikis/" + map.wiki;
+      for (space of map.spaces) {
+        url += "/spaces/" + space;
+      }
+      url += "/pages/" + map.page;
+      url += "?media=json";
+      $.ajax({
+        "url": url,
+        "method": "GET",
+        "accept": "application/json"
+      }).done(function(data, status, xhr) {
+        resolve(data.title);
+      }).fail(function(xhr, status, err) {
+        reject(err);
+      });
+    });
+  };
+  var getContent = function getContent(reference, syntax) {
+    return Q.Promise(function(resolve, reject, notify) {
+      var map = mapReference(reference);
+      var url = "/xwiki/bin/get/LPCode/Render?outputSyntax=plain";
+      url += "&amp;reference=" + encodeURIComponent(reference);
+      url += "&amp;syntax=" + syntax;
+      $.ajax({
+        "url": url,
+        "method": "GET",
+        "accept": "text/" + syntax
+      }).done(function(data, status, xhr) {
+        resolve(data);
+      }).fail(function(xhr, status, err) {
+        reject(err);
+      });
+    })
+  };
+  var computekpi = function computekpi(modelsetid) {
+    return Q.Promise(function(resolve, reject, notify) {
+      var url = "/xwiki/rest/learnpad/cw/corefacade/dashboardkpi/"
+      url += modelsetid + "/calculatekpi"
+      $.ajax({
+        "url": url,
+        "method": "GET",
+        "accept": "text/plain",
+      }).done(function(data, status, xhr) {
+        resolve(data);
+      }).fail(function(xhr, status, err) {
+        reject(err);
+      });
+    });
+  };
+  var status = function status(id) {
+    return Q.Promise(function(resolve, reject, notify) {
+      var url = "/xwiki/rest/learnpad/cw/corefacade/dashboardkpi/" + id + "/status";
+      var askStatus = function askStatus() {
+        $.ajax({
+          "url": url,
+          "method": "GET",
+          "accept": "application/xml"
+        }).done(function(data, status, xhr) {
+          if(data == 1.0) {
+            resolve();
+          } else if(data &gt;= 0.0) {
+            setTimeout(askStatus, 200);
+            notify(data);
+          } else {
+            reject(new Error("The content analysis failed due to an unexpected error."));
+          }
+        }).fail(function(xhr, status, err) {
+          reject(err);
+        });
+      };
+      askStatus();
+    });
+  };
+  var getURL = function getURL(id) {
+    return Q.Promise(function(resolve, reject, notify) {
+      status(id).progress(function(progress) {
+        $("#dash-progressbar").css("width", (100.0*progress)+"%");
+      }).done(function() {
+        var url = "/xwiki";
+        $.ajax({
+          "url": url,
+          "method": "GET"
+        }).done(function(data, status, xhr) {
+          resolve(data);
+        }).fail(function(xhr, status, err) {
+          reject(err);
+        });
+      });
+    });
+  };
+  validatebtn = $("#dash-calculatekpi");
+  validatebtn.on("click", function(e) {
+    e.preventDefault();
+    $("#dash-calculatekpi").after('&lt;div id="dash-progressbar"&gt;&lt;/div&gt;');
+    Q.all([
+      getTitle(xm.documentReference),
+      getContent(xm.documentReference, "plain"),
+      getContent(xm.documentReference, "html")
+    ]).then(function(data) {
+      var modelsetid = data[0];
+      return computekpi(modelsetid);
+    }).then(function(id) {
+      return getURL(id);
+    }).then(function(url) {
+      $("#dash-progressbar").css("width", "100%");
+      var link = $('&lt;a&gt;&lt;/a&gt;').attr('href', url).attr('target', '_blank').text('See results');
+      var linktext = $('&lt;div&gt;&lt;/div&gt;').append(link);
+      validatebtn.after(linktext);
+      $("#dash-progressbar").remove();
+    });
+  });
+});
+});</code>
+    </property>    
     <property>
       <name>Sort tables</name>
     </property>
