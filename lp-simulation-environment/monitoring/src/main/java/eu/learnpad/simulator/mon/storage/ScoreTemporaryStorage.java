@@ -55,6 +55,10 @@ public class ScoreTemporaryStorage {
 	}
 	
 	public static Long getTemporaryLearnerSessionScore(String learnerID) {
+		if (ScoreTemporaryStorage.sessionScoreValues.get(learnerID) != null) {
 		return ScoreTemporaryStorage.sessionScoreValues.get(learnerID);
+		}
+		else
+			return 0l;
 	}
 }

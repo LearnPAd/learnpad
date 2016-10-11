@@ -1,5 +1,5 @@
  /*
-  * GLIMPSE: A generic and flexible monitoring infrastructure.
+     * GLIMPSE: A generic and flexible monitoring infrastructure.
   * For further information: http://labsewiki.isti.cnr.it/labse/tools/glimpse/public/main
   * 
   * Copyright (C) 2011  Software Engineering Laboratory - ISTI CNR - Pisa - Italy
@@ -55,7 +55,6 @@ import eu.learnpad.simulator.mon.buffer.EventsBuffer;
 import eu.learnpad.simulator.mon.cep.ComplexEventProcessor;
 import eu.learnpad.simulator.mon.event.GlimpseBaseEvent;
 import eu.learnpad.simulator.mon.event.GlimpseBaseEventBPMN;
-import eu.learnpad.simulator.mon.event.GlimpseBaseEventChoreos;
 import eu.learnpad.simulator.mon.exceptions.UnknownMethodCallRuleException;
 import eu.learnpad.simulator.mon.rules.DroolsRulesManager;
 import eu.learnpad.simulator.mon.rules.RulesManager;
@@ -111,7 +110,6 @@ public class ComplexEventProcessorImpl extends ComplexEventProcessor implements 
 
 			DebugMessages.print(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "Reading knowledge base ");
 
-			
 			knowledgeBase = createKnowledgeBase();
 			ksession = knowledgeBase.newStatefulKnowledgeSession();
 			ksession.setGlobal("EVENTS EntryPoint", eventStream);
@@ -158,15 +156,7 @@ public class ComplexEventProcessorImpl extends ComplexEventProcessor implements 
 			if (eventStream != null && receivedEvent != null) {
 				try {
 					eventStream.insert(receivedEvent);
-					if (receivedEvent instanceof GlimpseBaseEventChoreos<?>) {
-						DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(),
-								"receives:\n" +
-								"eventData: " + receivedEvent.getEventData() + "\n" +
-								"eventName: " + receivedEvent.getEventName() + "\n" +
-								"timestamp: " + receivedEvent.getTimeStamp() + "\n" +
-								"machineIP: " + ((GlimpseBaseEventChoreos<?>) receivedEvent).getMachineIP() + "\n" +
-								"choreographySource: " + ((GlimpseBaseEventChoreos<?>) receivedEvent).getChoreographySource());	
-					} else
+					
 						if (receivedEvent instanceof GlimpseBaseEventBPMN<?>) {
 							DebugMessages.println(
 								TimeStamp.getCurrentTime(), this.getClass().getSimpleName(),
