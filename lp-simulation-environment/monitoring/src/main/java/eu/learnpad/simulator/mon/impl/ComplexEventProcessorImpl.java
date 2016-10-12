@@ -137,7 +137,7 @@ public class ComplexEventProcessorImpl extends ComplexEventProcessor implements 
 			tSub.setMessageListener(this);
 			DebugMessages.line();
 			while (this.getState() == State.RUNNABLE) {
-		        Thread.sleep(20);
+		        Thread.sleep(10);
 		        ksession.fireAllRules();
 		        } 
 		} catch (JMSException e) {
