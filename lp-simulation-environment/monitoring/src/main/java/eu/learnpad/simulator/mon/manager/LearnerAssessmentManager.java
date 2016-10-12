@@ -22,5 +22,4 @@ public abstract class LearnerAssessmentManager extends Thread {
 	public abstract Vector<Path> setAllAbsoluteSessionScores(Vector<Path> theGeneratedPath);
 	public abstract void setPathCompleted(List<String> learnersID, String idPath, String idBPMN);
 	public abstract void computeAndPropagateScores(List<String> learnersID, String idPath, String idBPMN);
-	public abstract void setPathCompleted(List<String> learnersID, String idPath, String idBPMN);
 }
