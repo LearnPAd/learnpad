@@ -392,13 +392,6 @@ public class ActivitiProcessManager implements IProcessManager,
 		// we are ready, so we can start the dispatcher
 		processDispatchers.get(process.getId()).start();
 
-		// signal process start
-		this.processEventReceiverProvider.processEventReceiver()
-				.receiveProcessStartEvent(
-				new ProcessStartSimEvent(System.currentTimeMillis(),
-						(String) parameters.get(SIMULATION_ID_KEY),
-						users, data));
-
 		try (java.util.Scanner s = new java.util.Scanner(repositoryService.getProcessModel(repositoryService
 				.createProcessDefinitionQuery().processDefinitionKey(projectDefinitionKey).singleResult().getId()))) {
 			String bpmnFile =  s.useDelimiter("\\A").hasNext() ? s.next() : "";
@@ -413,6 +406,10 @@ public class ActivitiProcessManager implements IProcessManager,
 						.error("Failed to create score probe for process {}. Is monitoring component accessible?", process.getId());
 				e.printStackTrace();
 			}
+
+			// signal process start
+			this.processEventReceiverProvider.processEventReceiver().receiveProcessStartEvent(new ProcessStartSimEvent(
+					System.currentTimeMillis(), (String) parameters.get(SIMULATION_ID_KEY), users, data));
 
 		}
 
