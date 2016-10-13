@@ -91,7 +91,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 				
 				Date now = new Date();
 				
-				Vector<Activity[]> theUnfoldedBPMN = bpmnExplorer.getUnfoldedBPMN(theBPMN);
+				Vector<Activity[]> theUnfoldedBPMN = bpmnExplorer.getUnfoldedBPMN(theBPMN, bpmnID);
 				
 				Bpmn newBpmn = new Bpmn(bpmnID,now,0, 0, theUnfoldedBPMN.size());
 

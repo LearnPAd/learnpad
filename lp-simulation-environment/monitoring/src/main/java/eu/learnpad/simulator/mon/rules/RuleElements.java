@@ -25,7 +25,7 @@ public class RuleElements {
 				"\t\tend\n\n" + 
 				"\t\trule \"" + ruleName + "##INSTANCE##\"\n" +
 				"\t\tno-loop true\n" +
-				"\t\tsalience 20\n" +
+				"\t\tsalience 0\n" +
 				"\t\tdialect \"" + dialect + "\"\n\n";
 		
 		return header;
