@@ -53,6 +53,7 @@ import eu.learnpad.or.rest.data.Entities;
 import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.Recommendations;
 import eu.learnpad.or.rest.data.ResourceType;
+import eu.learnpad.or.rest.data.kbprocessing.KBProcessingStatus;
 import eu.learnpad.sim.rest.data.ProcessInstanceData;
 import eu.learnpad.sim.rest.data.UserDataCollection;
 
@@ -352,7 +353,36 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
 		}
 	}
-	
+
+	@Override
+	public KBProcessingStatus getKPICalculationStatus(String kpiCalculationProcessId) throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/cw/corefacade/dashboardkpi/%s/status", DefaultRestResource.REST_URI, kpiCalculationProcessId);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_XML);
+
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("kpiCalculationProcessId", kpiCalculationProcessId);
+		getMethod.setQueryString(queryString);
+		
+		KBProcessingStatus status = null;
+		
+		try {
+			httpClient.executeMethod(getMethod);
+			InputStream statusAsStream = getMethod.getResponseBodyAsStream();
+
+			JAXBContext jc = JAXBContext.newInstance(KBProcessingStatus.class);
+			Unmarshaller unmarshaller = jc.createUnmarshaller();
+			
+			status = (KBProcessingStatus) unmarshaller.unmarshal(statusAsStream);
+		} catch (IOException | JAXBException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}
+		
+		return status;
+	}
+
+
 	@Override
 	public InputStream transform(ModelSetType type, InputStream model) throws LpRestException {
 		HttpClient httpClient = this.getClient();
