@@ -22,7 +22,7 @@ end
 rule "Forward to the CP - SimulationStart" 
 
 no-loop true 
-salience 1000 
+salience 100 
 dialect "java" 
 
 when 
@@ -36,12 +36,28 @@ then
  	RestNotifier.notifySimulationStart($bEvent.getTimeStamp(), (SimulationStartEvent)$bEvent.getEvent());
 end 
 
+rule "Forward to the CP - SimulationEnd" 
+no-loop true  
 
+salience 100 
+
+dialect "java" 
+
+when  
+	 $aEvent:GlimpseBaseEventBPMN(
+	 	this.isConsumed == false,
+	 	this.isException == false,
+		this.getEventName == EventType.SIMULATION_END.toString()); 
+then	 		 	
+	$aEvent.setConsumed(true); 
+	update($aEvent); 
+ 	RestNotifier.notifySimulationEnd($aEvent.getTimeStamp(), (SimulationEndEvent)$aEvent.getEvent());
+end 
 
 rule "Forward to the CP - ProcessStart"  
 no-loop true  
 
-salience 900  
+salience 100  
 
 dialect "java" 
 
@@ -56,12 +72,28 @@ then
  	RestNotifier.notifyProcessStart($aEvent.getTimeStamp(), (ProcessStartEvent)$aEvent.getEvent());
 end 
  
+rule "Forward to the CP - ProcessEnd"  
+no-loop true  
 
+salience 100  
+
+dialect "java"  
+
+when  
+	 $aEvent : GlimpseBaseEventBPMN(
+	 	this.isConsumed == false,
+	 	this.isException == false,
+		this.getEventName == EventType.PROCESS_END.toString()); 
+then	 	
+	$aEvent.setConsumed(true); 
+	update($aEvent); 
+ 	RestNotifier.notifyProcessEnd($aEvent.getTimeStamp(), (ProcessEndEvent)$aEvent.getEvent());			
+end  
 
 rule "Forward to the CP - TaskStart"  
 no-loop true  
  
-salience 800  
+salience 100  
 
 dialect "java"  
 
@@ -76,10 +108,46 @@ then
  	RestNotifier.notifyTaskStart($aEvent.getTimeStamp(), (TaskStartEvent)$aEvent.getEvent());			
 end 
 
+rule "Forward to the CP - TaskFailed" 
+no-loop true 
+
+salience 100 
+
+dialect "java" 
+
+when 
+	$aEvent : GlimpseBaseEventBPMN(
+		this.isConsumed == false,
+		this.isException == false,
+		this.getEventName == EventType.TASK_FAILED.toString());  
+then 		 
+	$aEvent.setConsumed(true); 
+	update($aEvent); 
+	RestNotifier.notifyTaskFailed($aEvent.getTimeStamp(), (TaskFailedEvent)$aEvent.getEvent()); 		
+end 
+
+rule "Forward to the CP - TaskEnd" 
+no-loop true 
+
+salience 100 
+
+dialect "java" 
+
+when 
+ 	$aEvent : GlimpseBaseEventBPMN(
+		this.isConsumed == false,
+		this.isException == false,
+		this.getEventName == EventType.TASK_END.toString());  
+then
+	$aEvent.setConsumed(true); 
+	update($aEvent); 		
+	RestNotifier.notifyTaskEnd($aEvent.getTimeStamp(), (TaskEndEvent)$aEvent.getEvent()); 		 	
+end   
+
 rule "Save in tempStructure the SessionScoreUpdate value" 
 no-loop true 
 
-salience 700 
+salience 100 
 
 dialect "java" 
 
@@ -98,75 +166,3 @@ then
 	retract($aEvent);		 	
 end  
 
-rule "Forward to the CP - TaskFailed" 
-no-loop true 
-
-salience 600 
-
-dialect "java" 
-
-when 
-	$aEvent : GlimpseBaseEventBPMN(
-		this.isConsumed == false,
-		this.isException == false,
-		this.getEventName == EventType.TASK_FAILED.toString());  
-then 		 
-	$aEvent.setConsumed(true); 
-	update($aEvent); 
-	RestNotifier.notifyTaskFailed($aEvent.getTimeStamp(), (TaskFailedEvent)$aEvent.getEvent()); 		
-end 
-
-rule "Forward to the CP - TaskEnd" 
-no-loop true 
-
-salience 500 
-
-dialect "java" 
-
-when 
- 	$aEvent : GlimpseBaseEventBPMN(
-		this.isConsumed == false,
-		this.isException == false,
-		this.getEventName == EventType.TASK_END.toString());  
-then
-	$aEvent.setConsumed(true); 
-	update($aEvent); 		
-	RestNotifier.notifyTaskEnd($aEvent.getTimeStamp(), (TaskEndEvent)$aEvent.getEvent()); 		 	
-end   
-
-rule "Forward to the CP - ProcessEnd"  
-no-loop true  
-
-salience 400  
-
-dialect "java"  
-
-when  
-	 $aEvent : GlimpseBaseEventBPMN(
-	 	this.isConsumed == false,
-	 	this.isException == false,
-		this.getEventName == EventType.PROCESS_END.toString()); 
-then	 	
-	$aEvent.setConsumed(true); 
-	update($aEvent); 
- 	RestNotifier.notifyProcessEnd($aEvent.getTimeStamp(), (ProcessEndEvent)$aEvent.getEvent());			
-end  
-
-
-rule "Forward to the CP - SimulationEnd" 
-no-loop true  
-
-salience 300 
-
-dialect "java" 
-
-when  
-	 $aEvent:GlimpseBaseEventBPMN(
-	 	this.isConsumed == false,
-	 	this.isException == false,
-		this.getEventName == EventType.SIMULATION_END.toString()); 
-then	 		 	
-	$aEvent.setConsumed(true); 
-	update($aEvent); 
- 	RestNotifier.notifySimulationEnd($aEvent.getTimeStamp(), (SimulationEndEvent)$aEvent.getEvent());
-end 

@@ -174,6 +174,9 @@ public class GlimpseManager extends Thread implements MessageListener {
 					"Setting up ComplexEventProcessor with new rule.");
 			try {
 				Object[] loadedKnowledgePackage = rulesManagerOne.loadRules(rules);
+				
+				//Object[] loadedKnowledgePackage = rulesManagerOne.vandaLoadRules(rules);
+				
 				// inserisco la coppia chiave valore dove la chiave è il KnowledgePackage
 				// caricato, generato da DroolsRulesManager con la loadRules
 				// e il valore è l'enabler che l'ha inviata

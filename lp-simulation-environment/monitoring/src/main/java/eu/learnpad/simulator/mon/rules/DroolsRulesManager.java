@@ -55,57 +55,46 @@ public class DroolsRulesManager extends RulesManager {
 		config.setProperty("drools.dialect.mvel.strict", "false");
 		kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder(config);
 	}
-
-	@Override
-	public void insertRule(final String rule, final String ruleName) throws IncorrectRuleFormatException, UnknownMethodCallRuleException {
-		try {
-		kbuilder.add(ResourceFactory.newByteArrayResource(rule.trim().getBytes()), ResourceType.DRL);
-		//} catch (RuntimeDroolsException droolsExceptionOnLoading) {
-		} catch (Exception droolsExceptionOnLoading) {
-			DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), droolsExceptionOnLoading.getCause() + "\n" +
-					droolsExceptionOnLoading.getMessage());			
-			throw new UnknownMethodCallRuleException();
-		}
-
-		if (kbuilder.getErrors().size() > 0)
-			 throw new IncorrectRuleFormatException(kbuilder.getErrors()); 
-	}
-
-	@Override
-	public void deleteRule(final String ruleName) throws UnknownRuleException {
+	
+	public Object[] vandaLoadRules(final ComplexEventRuleActionType rules) throws IncorrectRuleFormatException {
 		
-		DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), "Listing rules loaded into the knowledgeBases");
-		Collection<KnowledgePackage> ass = kbase.getKnowledgePackages();
-		Object esd[] = ass.toArray();
-		for (int i = 0; i<esd.length; i++) {
-			
-			KnowledgePackage kp = (KnowledgePackage)esd[i];
-			Collection<Rule> rls = kp.getRules();
-			Object r[] = rls.toArray();
-			DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), "KnowledgeBase name: " + kp.getName());
-			if (r.length > 0) {
-				for (int j = 0; j<r.length;j++) {
-					Rule gg = (Rule) r[j];
-					if (gg.getName().compareTo(ruleName) == 0)
-					{
-						kp.getRules().remove(gg);
-					}
-				}
+		String hugeRule = "import eu.learnpad.simulator.mon.event.GlimpseBaseEventBPMN;\n\t\t" +
+				"import eu.learnpad.simulator.mon.manager.ResponseDispatcher;\n\t\t" +
+				"import eu.learnpad.simulator.mon.manager.RestNotifier;\n\t\t" +
+				"import eu.learnpad.simulator.mon.utils.NotifierUtils;\n\t\t" +
+				"import eu.learnpad.simulator.mon.rules.DroolsRulesManager;\n\t\t" +
+				"import eu.learnpad.sim.rest.event.AbstractEvent;\n\t\t" +
+				"import eu.learnpad.sim.rest.event.EventType;\n\t\t" +
+				"import eu.learnpad.sim.rest.event.impl.SessionScoreUpdateEvent;\n\t\t" +
+				"import eu.learnpad.sim.rest.event.impl.TaskEndEvent;\n\t\t" +
+				"\t\tdeclare GlimpseBaseEventBPMN\n" +
+				"\t\t\t@role( event )\n" +
+				"\t\t\t@timestamp( timeStamp )\n" +
+				"\t\tend\n\n";
+		
+		
+		if (kbuilder == null) {
+			kbuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
+		}
+		
+		final ComplexEventRuleType[] insertRules = rules.getInsertArray();
+		for(int i = 0; i < insertRules.length; i++)
+		{
+			try {
+				hugeRule+=(insertRules[i].getRuleBody());
+				insertRule(hugeRule,"onlyOne");
+			} catch (final DOMException e) {
+				e.printStackTrace();
+			} catch (UnknownMethodCallRuleException e) {
+				e.printStackTrace();
 			}
 		}
-	}
+		kbase.addKnowledgePackages(kbuilder.getKnowledgePackages());
 
-	void startRule(final String ruleName) throws UnknownRuleException {
+		DroolsRulesManager.getLoadedRulesInfo();
 		
-	}
-
-	void stopRule(final String ruleName) throws UnknownRuleException {
-		
-	}
-
-	void restartRule(final String ruleName) throws UnknownRuleException {
-		
-	}
+		return kbase.getKnowledgePackages().toArray();
+}
 	
 	public Object[] loadRules(final ComplexEventRuleActionType rules) throws IncorrectRuleFormatException {
 		
@@ -177,6 +166,59 @@ public class DroolsRulesManager extends RulesManager {
 		DroolsRulesManager.getLoadedRulesInfo();
 		
 		return kbase.getKnowledgePackages().toArray();
+	}
+
+	@Override
+	public void insertRule(final String rule, final String ruleName) throws IncorrectRuleFormatException, UnknownMethodCallRuleException {
+		try {
+			Long now = System.currentTimeMillis();
+		kbuilder.add(ResourceFactory.newByteArrayResource(rule.trim().getBytes()), ResourceType.DRL);
+		DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "Time Elapsed for loading one rule: " + (System.currentTimeMillis() - now));
+		//} catch (RuntimeDroolsException droolsExceptionOnLoading) {
+		} catch (Exception droolsExceptionOnLoading) {
+			DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), droolsExceptionOnLoading.getCause() + "\n" +
+					droolsExceptionOnLoading.getMessage());			
+			throw new UnknownMethodCallRuleException();
+		}
+
+		if (kbuilder.getErrors().size() > 0)
+			 throw new IncorrectRuleFormatException(kbuilder.getErrors()); 
+	}
+
+	@Override
+	public void deleteRule(final String ruleName) throws UnknownRuleException {
+		
+		DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), "Listing rules loaded into the knowledgeBases");
+		Collection<KnowledgePackage> ass = kbase.getKnowledgePackages();
+		Object esd[] = ass.toArray();
+		for (int i = 0; i<esd.length; i++) {
+			
+			KnowledgePackage kp = (KnowledgePackage)esd[i];
+			Collection<Rule> rls = kp.getRules();
+			Object r[] = rls.toArray();
+			DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), "KnowledgeBase name: " + kp.getName());
+			if (r.length > 0) {
+				for (int j = 0; j<r.length;j++) {
+					Rule gg = (Rule) r[j];
+					if (gg.getName().compareTo(ruleName) == 0)
+					{
+						kp.getRules().remove(gg);
+					}
+				}
+			}
+		}
+	}
+
+	void startRule(final String ruleName) throws UnknownRuleException {
+		
+	}
+
+	void stopRule(final String ruleName) throws UnknownRuleException {
+		
+	}
+
+	void restartRule(final String ruleName) throws UnknownRuleException {
+		
 	}
 	
 	public int getLoadedKnowledgePackageCardinality() {

@@ -119,7 +119,7 @@ end
 rule "Forward to the CP - TaskEnd" 
 no-loop true 
 
-salience 500 
+salience 5 
 
 dialect "java" 
 
@@ -137,7 +137,7 @@ end
 rule "Forward to the CP - ProcessEnd"  
 no-loop true  
 
-salience 400  
+salience 20000  
 
 dialect "java"  
 
@@ -156,7 +156,7 @@ end
 rule "Forward to the CP - SimulationEnd" 
 no-loop true  
 
-salience 300 
+salience 20000 
 
 dialect "java" 
 
