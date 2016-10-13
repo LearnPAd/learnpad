@@ -90,31 +90,6 @@ public class RulesPerPathGeneratorImpl implements RulesPerPath {
 		+", this.isException == false"
 		+", this after $" + (anActivitiesSet.length) + "Event);\n";
 			
-		
-		
-//			for(int j = 0; j<anActivitiesSet.length; j++) {				
-//					concat +="\t\t\t$"+((2*j)+1)+"Event : GlimpseBaseEventBPMN(" +
-//							"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
-//							+", this.getEvent.type == EventType.SESSION_SCORE_UPDATE.toString()"
-//							+", this.getUserID == \"##USERSINVOLVEDSESSIONSCOREIDS##\""
-//							+", this.isException == false"
-//							+", this after $" + (2*j) + "Event);\n";
-//						
-//					concat +="\t\t\t$"+((2*j)+2)+"Event : GlimpseBaseEventBPMN(" +
-//							"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
-//							+", this.getEvent.type == EventType.TASK_END.toString()"
-//							+", this.getTaskEndEvent().completingUser.toString() == \"##USERSINVOLVEDTASKENDIDS##\""
-//							+", this.isException == false"
-//							+", this.getEventName == \"" + anActivitiesSet[j].getName() +"\""
-//							+", this after $" + ((2*j)+1) + "Event);\n";
-//			}
-//
-//			concat +="\t\t\t$"+((anActivitiesSet.length*2)+1)+"Event : GlimpseBaseEventBPMN(" +
-//				"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
-//				+", this.getEvent.type == EventType.SIMULATION_END.toString()"
-//				+", this.isException == false"
-//				+", this after $" + (anActivitiesSet.length*2) + "Event);\n";
-
 		aInsert.setRuleBody(RuleElements.getHeader(aInsert.getRuleName(),  "java") +
 				RuleElements.getWhenClause() + 
 				concat + 

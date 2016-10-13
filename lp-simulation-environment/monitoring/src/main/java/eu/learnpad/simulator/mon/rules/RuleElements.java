@@ -25,7 +25,7 @@ public class RuleElements {
 				"\t\tend\n\n" + 
 				"\t\trule \"" + ruleName + "##INSTANCE##\"\n" +
 				"\t\tno-loop true\n" +
-				"\t\tsalience 0\n" +
+				"\t\tsalience 200000\n" +
 				"\t\tdialect \"" + dialect + "\"\n\n";
 		
 		return header;
@@ -46,18 +46,6 @@ public class RuleElements {
 		return concat;
 	}
 	
-	public static String getThenClauseForCoverageWithLearnersScoreUpdateAndProcessStartNotification(Activity[] theActivitySetToSetConsumed, String idBPMN, String idPath) {
-		String concat = "\n\t\tthen ";
-		for (int i = 0; i<((theActivitySetToSetConsumed.length)+2); i++) {
-			concat = concat + "\n\t\t\t$"+ i
-					+ "Event.setConsumed(true); \n\t\t\tupdate($"+ i +"Event);"
-					+ "\n\t\t\tretract($"+ i +"Event);";					
-		}
-		 concat = concat + "\n\t\t\t" +
-			"ResponseDispatcher.saveAndNotifyLearnersScore(\"##LEARNERSINVOLVEDID##\", $"+ ((theActivitySetToSetConsumed.length)-1)+ "Event.getUserID() ,\"" + idBPMN + "\", drools.getRule().getName(), (SessionScoreUpdateEvent)$"+ ((theActivitySetToSetConsumed.length)-1)+"Event.getEvent());";
-		return concat;
-	}
-	
 	public static String getEnd() {
 		return "\n\t\tend\n\n\t";
 	}
@@ -66,7 +54,7 @@ public class RuleElements {
 			Activity[] anActivitiesSet, String idBPMN, String idPath) {
 		
 		String concat = "\n\t\tthen ";
-		for (int i = 0; i<((anActivitiesSet.length)+2); i++) {
+		for (int i = 0; i<((anActivitiesSet.length)+1); i++) {
 			concat = concat + "\n\t\t\t$"+ i
 					+ "Event.setConsumed(true); \n\t\t\tupdate($"+ i +"Event);"
 					+ "\n\t\t\tretract($"+ i +"Event);";					

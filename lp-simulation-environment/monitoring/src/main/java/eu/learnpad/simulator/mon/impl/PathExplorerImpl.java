@@ -43,25 +43,31 @@ public class PathExplorerImpl implements PathExplorer {
 		Activity usertask19 = new Activity("Fornisce Autorizzazioni Sotto Condizione", "Fornisce Autorizzazioni Sotto Condizione", "usertask19", kpiExample, 30001.0f);
 		Activity usertask20 = new Activity("Fornisce Diniego (inibizione  a procedere)", "Fornisce Diniego (inibizione  a procedere)", "usertask20", kpiExample, 30001.0f);
 		Activity usertask21 = new Activity("Prende la Decisione Finale", "Prende la Decisione Finale", "usertask21", kpiExample, 30001.0f);
-		Activity usertask22 = new Activity("Fornisce decisione finale", "Final decision", "usertask22", kpiExample, 30001.0f);	
+		Activity usertask22 = new Activity("Fornisce Report Finale", "Final decision", "usertask22", kpiExample, 30001.0f);	
 
+		Activity usertask2 = new Activity("Protocolla la documentazione ricevuta", "Protocolla la documentazione ricevuta", "usertask2", kpiExample, 30001.0f);
+		Activity usertask3 = new Activity("Protocolla la documentazione ricevuta", "Protocolla la documentazione ricevuta", "usertask3", kpiExample, 30001.0f);	
+		Activity usertask4 = new Activity("Controlla la Documentazione Fornita", "Controlla la Documentazione Fornita", "usertask4", kpiExample, 30001.0f);
+		Activity usertask5 = new Activity("Controlla la Documentazione Fornita", "Controlla la Documentazione Fornita", "usertask5", kpiExample, 30001.0f);
+		Activity usertask6 = new Activity("Elabora Richiesta Integrazioni", "Elabora Richiesta Integrazioni", "usertask6", kpiExample, 30001.0f);
+		Activity usertask7 = new Activity("Elabora Richiesta Integrazioni", "Elabora Richiesta Integrazioni", "usertask7", kpiExample, 30001.0f);
+		Activity usertask8 = new Activity("Prende una Decisione", "Prende una Decisione", "usertask8", kpiExample, 30001.0f);
+		Activity usertask11 = new Activity("Prende una Decisione", "Prende una Decisione", "usertask11", kpiExample, 30001.0f);	
+		Activity usertask14 = new Activity("Fornisci Opinione", "Fornisci Opinione", "usertask14", kpiExample, 30001.0f);	
+		Activity usertask15 = new Activity("Fornisci Opinione", "Fornisci Opinione", "usertask15", kpiExample, 30001.0f);	
+		
 		
 		//titolo unico
 		if (idBPMN.compareTo("mod.21093") == 0) {
 		lastExploredBPMN.add(new Activity[]	{obj27830, obj27812});
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj29013, obj27833, obj27788});
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj29013, obj27833, obj27839});
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27987, obj29013, obj27833, obj27839});
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27987, obj29013, obj27833, obj27788});
 		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27987, obj27990, obj27788});
+		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27987, obj27990, obj27839});
 		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27987, obj27990, obj29013, obj27833, obj27788});
 		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27987, obj27990, obj29013, obj27833, obj27839});
+		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27788});
+		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27839});
 		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27987, obj27990, obj27788});
 		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27987, obj27990, obj27839});
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27990, obj27987, obj27788});
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27990, obj27987, obj27839});
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27990, obj27987, obj29013, obj27833, obj27788});
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27990, obj27987, obj29013, obj27833, obj27839});
 		}
 		
 		//conferenza servizi
@@ -71,6 +77,15 @@ public class PathExplorerImpl implements PathExplorer {
 			lastExploredBPMN.add(new Activity[]	{usertask1, usertask16, usertask19, usertask22});
 			lastExploredBPMN.add(new Activity[]	{usertask1, usertask16, usertask20, usertask22});
 			lastExploredBPMN.add(new Activity[]	{usertask1, usertask16, usertask21, usertask22});
+
+			lastExploredBPMN.add(new Activity[]	{usertask2, usertask4});
+			lastExploredBPMN.add(new Activity[]	{usertask2, usertask4, usertask6, usertask15});
+			lastExploredBPMN.add(new Activity[]	{usertask2, usertask4, usertask8, usertask15});
+
+			lastExploredBPMN.add(new Activity[]	{usertask3, usertask5});
+			lastExploredBPMN.add(new Activity[]	{usertask3, usertask5, usertask7, usertask14});
+			lastExploredBPMN.add(new Activity[]	{usertask3, usertask5, usertask11, usertask14});
+
 		}
 		
 		//controlla pratica
