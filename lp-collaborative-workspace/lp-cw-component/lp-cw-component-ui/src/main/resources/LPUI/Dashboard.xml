@@ -49,17 +49,18 @@
 ## Hard-coded for the moment since the ID may change with ME's import and SIM is not relying on BPMN files from ME
 #set ($modelid = "mod.27772")
 ############# DASHBOARD KPI Part ##################################
-#set ($dashboardReference = $services.model.createDocumentReference($xcontext.database, 'LPUI', 'Dashboard'))
+## #set ($dashboardReference = $services.model.createDocumentReference($xcontext.database, 'LPUI', 'Dashboard'))
 (% class="help-block text-center" %)
 {{warning}}
 ${services.localization.render('LPUI.Dashboard.calculate.warning')}
 {{/warning}}
-[[${services.localization.render('LPUI.Dashboard.calculate.button')}&gt;&gt;${dashboardReference}||queryString="calculateKPI=true" class="btn btn-block btn-simulation"]]
+## [[${services.localization.render('LPUI.Dashboard.calculate.button')}&gt;&gt;${dashboardReference}||queryString="calculateKPI=true" class="btn btn-block btn-simulation"]]
 (% id="dash-calculatekpi" class="btn btn-block btn-simulation" %)${services.localization.render('LPUI.Dashboard.calculate.button')}
 ##
-#if($request.calculateKPI)
-  #set ($kpiCalulationProcessId = "${services.learnpad.startDashboardKpiCalculation($modelsetid)}")
-#end
+
+## #if($request.calculateKPI)
+##  #set ($kpiCalulationProcessId = "${services.learnpad.startDashboardKpiCalculation($modelsetid)}")
+## #end
 ##
   #if ("$!{userid}" != "superadmin" &amp;&amp; "$!{userid}" != "Admin" &amp;&amp; "$!{userid}" != "XWikiGuest")
     #set ($dashboardkpiURL = "${services.learnpad.getDashboardKpiDefaultViewer($modelsetid,$userid)}")
@@ -67,6 +68,7 @@ ${services.localization.render('LPUI.Dashboard.calculate.warning')}
 ##
 #if ("$!dashboardkpiURL" != "")
 {{html clean="false"}}
+&lt;input type="hidden" id="LPDash.modelsetid" name="LPDash.modelsetid" value="${modelsetid}" /&gt;
 &lt;iframe id="dashboardkpi-iframe" height="500" width="100%" src="${dashboardkpiURL}"&gt;
 Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
 &lt;/iframe&gt;
@@ -181,24 +183,6 @@ Your browser doesn't support &lt;pre&gt;iframe&lt;/pre&gt;.
       <cache>default</cache>
     </property>
     <property>
-      <code>require(["jquery"], function ($) {
-$(function(){
-  var $tables = $('.score-table').find('table');
-  var rows = $tables.children('tbody').children('tr').get()
-  rows.sort(function(a, b) {
-    var keyA = parseInt($(a).children('td').eq(1).text());
-    var keyB = parseInt($(b).children('td').eq(1).text());
-    if (keyA &lt; keyB) return 1;
-    if (keyA &gt; keyB) return -1;
-    return 0;
-  });
-  $.each(rows, function(index, row) {
-    $tables.children('tbody').append(row);
-  });
-});
-});</code>
-    </property>
-    <property>
       <code>require.config({
     paths: {
       "Q": "/xwiki/bin/jsx/LPCode/Q"
@@ -268,22 +252,24 @@ $(function(){
       });
     });
   };
-  var status = function status(id) {
+  var status = function status(kpiprocessid) {
     return Q.Promise(function(resolve, reject, notify) {
-      var url = "/xwiki/rest/learnpad/cw/corefacade/dashboardkpi/" + id + "/status";
+      var url = "/xwiki/rest/learnpad/cw/corefacade/dashboardkpi/" + kpiprocessid + "/status";
       var askStatus = function askStatus() {
         $.ajax({
           "url": url,
           "method": "GET",
           "accept": "application/xml"
         }).done(function(data, status, xhr) {
-          if(data == 1.0) {
+          var xmlres = xhr.responseXML;
+          var statusValue = $(xmlres).find("Status")[0].textContent;          
+          if(statusValue == "COMPLETED") {
             resolve();
-          } else if(data &gt;= 0.0) {
+          } else if(xhr.statusText == "OK") {
             setTimeout(askStatus, 200);
-            notify(data);
+            notify(0.5);
           } else {
-            reject(new Error("The content analysis failed due to an unexpected error."));
+            reject(new Error("The computation of the KPI failed due to an unexpected error."));
           }
         }).fail(function(xhr, status, err) {
           reject(err);
@@ -292,20 +278,13 @@ $(function(){
       askStatus();
     });
   };
-  var getURL = function getURL(id) {
+  var getURL = function getURL(kpiprocessid) {
     return Q.Promise(function(resolve, reject, notify) {
-      status(id).progress(function(progress) {
+      status(kpiprocessid).progress(function(progress) {
         $("#dash-progressbar").css("width", (100.0*progress)+"%");
       }).done(function() {
-        var url = "/xwiki";
-        $.ajax({
-          "url": url,
-          "method": "GET"
-        }).done(function(data, status, xhr) {
-          resolve(data);
-        }).fail(function(xhr, status, err) {
-          reject(err);
-        });
+        var url = window.location.href;
+        resolve(url);
       });
     });
   };
@@ -314,27 +293,149 @@ $(function(){
     e.preventDefault();
     $("#dash-calculatekpi").after('&lt;div id="dash-progressbar"&gt;&lt;/div&gt;');
     Q.all([
-      getTitle(xm.documentReference),
-      getContent(xm.documentReference, "plain"),
-      getContent(xm.documentReference, "html")
     ]).then(function(data) {
-      var modelsetid = data[0];
+      var modelsetid = $("#LPDash\\.modelsetid").val();
       return computekpi(modelsetid);
-    }).then(function(id) {
-      return getURL(id);
+    }).then(function(kpiprocessid) {
+      return getURL(kpiprocessid);
     }).then(function(url) {
       $("#dash-progressbar").css("width", "100%");
-      var link = $('&lt;a&gt;&lt;/a&gt;').attr('href', url).attr('target', '_blank').text('See results');
+      var link = $('&lt;a&gt;&lt;/a&gt;').attr('href', url).attr('target', '_blank').text('Check new KPIs');
       var linktext = $('&lt;div&gt;&lt;/div&gt;').append(link);
       validatebtn.after(linktext);
       $("#dash-progressbar").remove();
+      window.location.reload(false); 
     });
   });
 });
 });</code>
-    </property>    
+    </property>
     <property>
       <name>Sort tables</name>
+    </property>
+    <property>
+      <parse/>
+    </property>
+    <property>
+      <use>currentPage</use>
+    </property>
+  </object>
+  <object>
+    <name>LPUI.Dashboard</name>
+    <number>0</number>
+    <className>XWiki.StyleSheetExtension</className>
+    <guid>94764af3-5b43-4c16-bac3-c26456240960</guid>
+    <class>
+      <name>XWiki.StyleSheetExtension</name>
+      <customClass/>
+      <customMapping/>
+      <defaultViewSheet/>
+      <defaultEditSheet/>
+      <defaultWeb/>
+      <nameField/>
+      <validationScript/>
+      <cache>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>cache</name>
+        <number>6</number>
+        <prettyName>Caching policy</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>long|short|default|forbid</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </cache>
+      <code>
+        <disabled>0</disabled>
+        <name>code</name>
+        <number>3</number>
+        <prettyName>Code</prettyName>
+        <rows>20</rows>
+        <size>50</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.TextAreaClass</classType>
+      </code>
+      <contentType>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>contentType</name>
+        <number>1</number>
+        <prettyName>Content Type</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>CSS|LESS</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </contentType>
+      <name>
+        <disabled>0</disabled>
+        <name>name</name>
+        <number>2</number>
+        <prettyName>Name</prettyName>
+        <size>30</size>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.StringClass</classType>
+      </name>
+      <parse>
+        <disabled>0</disabled>
+        <displayFormType>select</displayFormType>
+        <displayType>yesno</displayType>
+        <name>parse</name>
+        <number>5</number>
+        <prettyName>Parse content</prettyName>
+        <unmodifiable>0</unmodifiable>
+        <classType>com.xpn.xwiki.objects.classes.BooleanClass</classType>
+      </parse>
+      <use>
+        <cache>0</cache>
+        <disabled>0</disabled>
+        <displayType>select</displayType>
+        <multiSelect>0</multiSelect>
+        <name>use</name>
+        <number>4</number>
+        <prettyName>Use this extension</prettyName>
+        <relationalStorage>0</relationalStorage>
+        <separator> </separator>
+        <separators>|, </separators>
+        <size>1</size>
+        <unmodifiable>0</unmodifiable>
+        <values>currentPage|onDemand|always</values>
+        <classType>com.xpn.xwiki.objects.classes.StaticListClass</classType>
+      </use>
+    </class>
+    <property>
+      <cache>long</cache>
+    </property>
+    <property>
+      <code>#dash-progressbar {
+  display: block;
+  width: 0%;
+  height: 0px;
+  border-style: solid;
+  border-color: #337ab7;
+  border-width: 1px;
+}
+      .css("display", "block")
+      .css("width", "0%")
+      .css("height", "0px")
+      .css("border-style", "solid")
+      .css("border-color", "#337ab7")
+      .css("border-width", "1px");</code>
+    </property>
+    <property>
+      <contentType>CSS</contentType>
+    </property>
+    <property>
+      <name/>
     </property>
     <property>
       <parse/>
