@@ -28,6 +28,7 @@ import eu.learnpad.simulator.monitoring.event.impl.ProcessEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.ProcessStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SessionScoreUpdateSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationFinalizeSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskFailedSimEvent;
@@ -296,6 +297,13 @@ public class ProbeEventReceiver extends GlimpseAbstractProbe implements
 						event.user, event.sessionscore));
 
 		send(monitoringEvent);
+
+	}
+
+
+	@Override
+	public void receiveSimulationFinalizeEvent(SimulationFinalizeSimEvent event) {
+		// Nothing to do
 
 	}
 
