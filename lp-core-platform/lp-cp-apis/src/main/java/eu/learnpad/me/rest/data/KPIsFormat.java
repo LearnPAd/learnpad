@@ -24,6 +24,7 @@ package eu.learnpad.me.rest.data;
  * <ul>
  *  <li> XLSX : an MS Excel File according to the template defined in the LP-OR</li>
  *  <li> XML : a NOT WELL defined XML fomrat</li>
+ * </ul>
  *    
  * Currently this definition only supports XLSX 
  *
