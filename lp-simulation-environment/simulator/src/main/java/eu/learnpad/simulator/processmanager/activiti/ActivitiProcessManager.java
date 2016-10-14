@@ -332,7 +332,7 @@ public class ActivitiProcessManager implements IProcessManager,
 	 * @see activitipoc.IProcessManager#startProjectInstance(java.lang.String,
 	 * java.util.Map, activitipoc.ITaskRouter)
 	 */
-	public String startProjectInstance(String projectDefinitionKey,
+	public synchronized String startProjectInstance(String projectDefinitionKey,
 			Map<String, Object> parameters, Collection<String> users,
 			Map<String, Collection<String>> router) {
 
@@ -465,7 +465,7 @@ public class ActivitiProcessManager implements IProcessManager,
 	 * (eu.learnpad.simulator.datastructures.LearnPadTask, java.lang.String,
 	 * java.util.Map)
 	 */
-	public LearnPadTaskSubmissionResult submitTaskCompletion(LearnPadTask task,
+	public synchronized LearnPadTaskSubmissionResult submitTaskCompletion(LearnPadTask task,
 			String userId, Map<String, Object> data) {
 
 		LearnPadTaskSubmissionResult result = processDispatchers.get(
