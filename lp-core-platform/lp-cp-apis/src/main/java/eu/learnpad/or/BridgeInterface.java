@@ -23,6 +23,7 @@ import javax.ws.rs.Path;
 
 import eu.learnpad.or.rest.AddExecutionState;
 import eu.learnpad.or.rest.AskRecommendation;
+import eu.learnpad.or.rest.KPIsImported;
 import eu.learnpad.or.rest.KnowledgeBaseProcessor;
 import eu.learnpad.or.rest.ListExecutionStates;
 import eu.learnpad.or.rest.ModelSetImported;
@@ -34,6 +35,6 @@ import eu.learnpad.or.rest.ResourceNotification;
 public interface BridgeInterface extends ModelSetImported,
 		ResourceNotification, AskRecommendation, SimulationNotification, 
                 AddExecutionState, ListExecutionStates, SemanticWiki, 
-                KnowledgeBaseProcessor {
+                KnowledgeBaseProcessor, KPIsImported {
 
 }

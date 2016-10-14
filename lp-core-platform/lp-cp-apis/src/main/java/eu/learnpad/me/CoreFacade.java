@@ -22,9 +22,10 @@ package eu.learnpad.me;
 import javax.ws.rs.Path;
 
 import eu.learnpad.me.rest.CheckModelSet;
+import eu.learnpad.me.rest.ImportKPIs;
 import eu.learnpad.me.rest.ImportModelSet;
 import eu.learnpad.me.rest.RetrieveFeedbacks;
 
 @Path("/learnpad/me/corefacade")
-public interface CoreFacade extends RetrieveFeedbacks, ImportModelSet, CheckModelSet {
+public interface CoreFacade extends RetrieveFeedbacks, ImportModelSet, CheckModelSet, ImportKPIs {
 }
