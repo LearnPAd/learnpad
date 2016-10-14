@@ -52,7 +52,7 @@ import org.mockito.stubbing.Answer;
 import eu.learnpad.sim.rest.data.UserData;
 import eu.learnpad.simulator.IProcessManager;
 import eu.learnpad.simulator.datastructures.LearnPadTask;
-import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationFinalizeSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskStartSimEvent;
 import eu.learnpad.simulator.uihandler.IFormHandler;
@@ -292,25 +292,25 @@ public class UIHandlerWebImplTest {
 
 		// signal some session completion
 
-		uiHandler.receiveSimulationEndEvent(new SimulationEndSimEvent(System
+		uiHandler.receiveSimulationFinalizeEvent(new SimulationFinalizeSimEvent(System
 				.currentTimeMillis(), "session1", Arrays.asList("user1"), null));
 
-		uiHandler.receiveSimulationEndEvent(new SimulationEndSimEvent(System
+		uiHandler.receiveSimulationFinalizeEvent(new SimulationFinalizeSimEvent(System
 				.currentTimeMillis(), "session2", Arrays.asList("user1",
 						"user2"),
 				null));
 
-		uiHandler.receiveSimulationEndEvent(new SimulationEndSimEvent(System
+		uiHandler.receiveSimulationFinalizeEvent(new SimulationFinalizeSimEvent(System
 				.currentTimeMillis(), "session3", Arrays.asList("user1",
 						"user2", "user3"),
 				null));
 
-		uiHandler.receiveSimulationEndEvent(new SimulationEndSimEvent(System
+		uiHandler.receiveSimulationFinalizeEvent(new SimulationFinalizeSimEvent(System
 				.currentTimeMillis(), "session4", Arrays.asList("user2",
 						"user3"),
 				null));
 
-		uiHandler.receiveSimulationEndEvent(new SimulationEndSimEvent(System
+		uiHandler.receiveSimulationFinalizeEvent(new SimulationFinalizeSimEvent(System
 				.currentTimeMillis(), "session5", Arrays.asList("user3"), null));
 
 		// check that concerned users (and only them) received session
