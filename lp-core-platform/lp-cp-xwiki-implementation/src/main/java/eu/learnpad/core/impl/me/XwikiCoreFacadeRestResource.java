@@ -25,6 +25,7 @@ import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.me.CoreFacade;
+import eu.learnpad.me.rest.data.KPIsFormat;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.mv.rest.data.VerificationId;
 import eu.learnpad.mv.rest.data.VerificationResults;
@@ -88,6 +89,13 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements 
 
 	@Override
 	public VerificationsAvailable getAvailableVerifications() throws LpRestException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String putKPIs(String modelSetId, String kpisId, KPIsFormat type,
+			InputStream kpisFile) throws LpRestException {
 		// TODO Auto-generated method stub
 		return null;
 	}
