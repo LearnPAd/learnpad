@@ -37,6 +37,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -660,17 +661,21 @@ public class ActivitiProcessManager implements IProcessManager,
 	}
 
 	@Override
-	public synchronized void receiveScore(String sessionId, String userId, ScoreType type, Float value) {
+	public synchronized void receiveScores(String sessionId, String userId, Map<ScoreType, Float> scores) {
 
-		if (!probeScoreByTypeByUsersBySession.containsKey(sessionId)) {
-			probeScoreByTypeByUsersBySession.put(sessionId, new HashMap<String, Map<ScoreType, Float>>());
+		for (Entry<ScoreType, Float> score : scores.entrySet()) {
+
+			if (!probeScoreByTypeByUsersBySession.containsKey(sessionId)) {
+				probeScoreByTypeByUsersBySession.put(sessionId, new HashMap<String, Map<ScoreType, Float>>());
+			}
+
+			if (!probeScoreByTypeByUsersBySession.get(sessionId).containsKey(userId)) {
+				probeScoreByTypeByUsersBySession.get(sessionId).put(userId, new HashMap<ScoreType, Float>());
+			}
+
+			probeScoreByTypeByUsersBySession.get(sessionId).get(userId).put(score.getKey(), score.getValue());
 		}
 
-		if (!probeScoreByTypeByUsersBySession.get(sessionId).containsKey(userId)) {
-			probeScoreByTypeByUsersBySession.get(sessionId).put(userId, new HashMap<ScoreType, Float>());
-		}
-
-		probeScoreByTypeByUsersBySession.get(sessionId).get(userId).put(type, value);
 		scoreProbeCompletedBySession.put(sessionId, true);
 
 		// probe have notified of score, check for completion
