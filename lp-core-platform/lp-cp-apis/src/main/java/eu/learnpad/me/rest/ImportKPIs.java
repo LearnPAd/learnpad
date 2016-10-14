@@ -31,6 +31,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import eu.learnpad.exception.LpRestException;
+import eu.learnpad.me.rest.data.ImportStatus;
 import eu.learnpad.me.rest.data.KPIsFormat;
 
 public interface ImportKPIs {
@@ -39,8 +40,8 @@ public interface ImportKPIs {
 	@PUT
 	@Path("/importkpis/{modelsetid}/{kpisid}")
 	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
-	@Produces(MediaType.TEXT_PLAIN)
-	String putKPIs(@PathParam("modelsetid") String modelSetId,
+	@Produces(MediaType.APPLICATION_XML)
+	ImportStatus putKPIs(@PathParam("modelsetid") String modelSetId,
 			@PathParam("kpisid") String kpisId,
 			@QueryParam("type") @DefaultValue("XLSX") KPIsFormat type, InputStream kpisFile)
 			throws LpRestException;
