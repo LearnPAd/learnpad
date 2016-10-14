@@ -39,6 +39,8 @@ import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.Utils;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.Controller;
+import eu.learnpad.me.rest.data.ImportStatus;
+import eu.learnpad.me.rest.data.ImportStatusType;
 import eu.learnpad.me.rest.data.KPIsFormat;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.mv.rest.data.VerificationId;
@@ -125,14 +127,19 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
-	public String putKPIs(String modelSetId, String kpisId, KPIsFormat type,
+	public ImportStatus putKPIs(String modelSetId, String kpisId, KPIsFormat type,
 			InputStream kpisFile) throws LpRestException {
 		this.createDedicatedEntryInCoreRepository(modelSetId);
 		String kpisAttachmentName = String.format("%s.%s", kpisId, type.toString().toLowerCase());
 		utils.putAttachment(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
 				modelSetId, kpisAttachmentName , kpisFile);
 		this.or.kpisImported(modelSetId, kpisId, type);
-		return "OK";
+		ImportStatus status = new ImportStatus();
+		status.setStatus(ImportStatusType.COMPLETED);
+		ImportStatus.Info msg = new ImportStatus.Info();
+//		msg.getAny().add("OK");
+		status.setInfo(msg);
+		return status;
 	}
 
 	@Override
