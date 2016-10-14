@@ -194,24 +194,8 @@ public class ComplexEventProcessorImpl extends ComplexEventProcessor implements 
 			 * into the knowledgeBase using the method addKnowledgePackages(knowledgeBuilder.getKnowledgePackages())
 			 */				
 
-			//if needed, uncomment to set up manually the knowledge builder properties
-			
-//				Properties confProp = new Properties();
-//				confProp.setProperty("drools.dialect.default", "MVEL");
-//				confProp.setProperty("drools.dialect.mvel.strict", "FALSE");
-//				PackageBuilderConfiguration conf = new PackageBuilderConfiguration(confProp);
-//				knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder(conf);
-			
 			knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
 			
-//				String firstRuleToLoad = 
-//						"import eu.learnpad.simulator.mon.event.GlimpseBaseEventAbstract; " +
-//						"declare GlimpseBaseEventAbstract " +
-//						"@role( event ) " +
-//						"@timestamp( timeStamp ) " +
-//						"end";
-			
-
 			byte[] firstRuleToLoadByteArray = Manager.ReadTextFromFile(System.getProperty("user.dir")	+ "/configFiles/startupRule.drl").getBytes();
 			Resource drlToLoad = ResourceFactory.newByteArrayResource(firstRuleToLoadByteArray);
 			
