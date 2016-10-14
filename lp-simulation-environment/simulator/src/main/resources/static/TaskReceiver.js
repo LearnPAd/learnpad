@@ -164,9 +164,11 @@ function taskReceiver(address, user, integratedMode, sessionid, platformAddress)
                 var totalScore = 0;
 
                 var result = '<h4>Congratulations, you successfully completed the simulation</h4>';
+
                 result += '<p>Session Score Summary:</p>';
                 result += '<table class="detailed-score table table-striped table-condensed">';
                 result += '<tr><th>Task</th><th>Score</th></tr>';
+
                 // add task scores
                 for(var aTask in msg.tasknames) {
                     result += '<tr><td>' + msg.tasknames[aTask] + '</td><td>' +
@@ -175,9 +177,41 @@ function taskReceiver(address, user, integratedMode, sessionid, platformAddress)
                     totalScore += msg.taskscores[aTask];
                 }
 
-                result += '<tr><td><i>Total session score</i></td><td><i>' + totalScore + '</i></td></tr>';
-                result += '</table>';
+                if (msg.probescores !== null) {
+                    var userscore = msg.probescores[user];
+                    if(userscore.hasOwnProperty('SESSION_SCORE')) {
+                        result += '<tr><td><i>Session Score</i></td><td><i>' + userscore.SESSION_SCORE + '</i></td></tr>';
+                    }
+                    if(userscore.hasOwnProperty('SESSION_SCORE')) {
+                        result += '<tr><td><i>Absolute Session Score</i></td><td><i>' + userscore.ABSOLUTE_SESSION_SCORE + '</i></td></tr>';
+                    }
+                    if(userscore.hasOwnProperty('BP_SCORE')) {
+                        result += '<tr><td><i>BP Score</i></td><td><i>' + userscore.BP_SCORE + '</i></td></tr>';
+                    }
+                    if(userscore.hasOwnProperty('RELATIVE_BP_SCORE')) {
+                        result += '<tr><td><i>Relative BP Score</i></td><td><i>' + userscore.RELATIVE_BP_SCORE + '</i></td></tr>';
+                    }
+                    if(userscore.hasOwnProperty('BP_COVERAGE')) {
+                        result += '<tr><td><i>BP Coverage</i></td><td><i>' + userscore.BP_COVERAGE + '</i></td></tr>';
+                    }
+                    if(userscore.hasOwnProperty('ABSOLUTE_BP_COVERAGE')) {
+                        result += '<tr><td><i>Absolute BP Score</i></td><td><i>' + userscore.ABSOLUTE_BP_SCORE + '</i></td></tr>';
+                    }
+                    if(userscore.hasOwnProperty('GLOBAL_SCORE')) {
+                        result += '<tr><td><i>Global Score</i></td><td><i>' + userscore.GLOBAL_SCORE + '</i></td></tr>';
+                    }
+                    if(userscore.hasOwnProperty('RELATIVE_GLOBAL_SCORE')) {
+                        result += '<tr><td><i>Relative Global Score</i></td><td><i>' + userscore.RELATIVE_GLOBAL_SCORE + '</i></td></tr>';
+                    }
+                    if(userscore.hasOwnProperty('ABSOLUTE_GLOBAL_SCORE')) {
+                        result += '<tr><td><i>Absolute Global Score</i></td><td><i>' + userscore.ABSOLUTE_GLOBAL_SCORE + '</i></td></tr>';
+                    }
+                } else {
+                    // use computed total session score
+                    result += '<tr><td><i>Total session score</i></td><td><i>' + totalScore + '</i></td></tr>';
+                }
 
+                result += '</table>';
                 processFinished.innerHTML = result;
 
                 containerDiv.append(processFinished);
