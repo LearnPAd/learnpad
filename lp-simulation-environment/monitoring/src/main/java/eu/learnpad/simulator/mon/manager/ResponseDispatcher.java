@@ -160,6 +160,7 @@ public class ResponseDispatcher {
 			sendMessage.setObject((Serializable) scores);
 			sendMessage.setStringProperty("DESTINATION", destination);
 			sendMessage.setStringProperty("USERID", userid);
+			sendMessage.setBooleanProperty("ISASCORE", true);
 			tPub.publish(sendMessage);
 		} catch (JMSException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), ResponseDispatcher.class.getSimpleName(),  "Exception during sendScoresEvaluation method execution");

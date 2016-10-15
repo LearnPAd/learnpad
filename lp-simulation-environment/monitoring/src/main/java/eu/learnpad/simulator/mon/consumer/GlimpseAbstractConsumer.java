@@ -191,7 +191,6 @@ public abstract class GlimpseAbstractConsumer implements GlimpseConsumer {
 	@Override
 	public void onMessage(Message arg0) {
 		try {
-			if (firstMessage) {
 				TextMessage msg = (TextMessage) arg0;
 				TopicSubscriber newTopic;
 				try {
@@ -201,8 +200,6 @@ public abstract class GlimpseAbstractConsumer implements GlimpseConsumer {
 				} catch (IncorrectRuleFormatException e) {
 					System.out.println("IncorrectRuleFromatException raised: INVALID RULE");
 				}
-				firstMessage = false;
-			}
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}

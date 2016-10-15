@@ -243,6 +243,7 @@ public class GlimpseManager extends Thread implements MessageListener {
 			TextMessage sendMessage = publishSession.createTextMessage();
 			sendMessage.setText(msg);
 			sendMessage.setStringProperty("DESTINATION", sender);
+			sendMessage.setBooleanProperty("ISASCORE", false);
 			return sendMessage;
 		} catch (JMSException e) {
 			e.printStackTrace();
