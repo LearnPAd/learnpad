@@ -29,6 +29,7 @@ import eu.learnpad.simulator.monitoring.event.impl.ProcessEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.ProcessStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SessionScoreUpdateSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationEndSimEvent;
+import eu.learnpad.simulator.monitoring.event.impl.SimulationFinalizeSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.SimulationStartSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskEndSimEvent;
 import eu.learnpad.simulator.monitoring.event.impl.TaskFailedSimEvent;
@@ -115,4 +116,11 @@ public class EventDispatcherImpl implements IEventDispatcher {
 
 	}
 
+	@Override
+	public void receiveSimulationFinalizeEvent(SimulationFinalizeSimEvent event) {
+		for (IProcessEventReceiver receiver : receivers) {
+			receiver.receiveSimulationFinalizeEvent(event);
+		}
+
+	}
 }

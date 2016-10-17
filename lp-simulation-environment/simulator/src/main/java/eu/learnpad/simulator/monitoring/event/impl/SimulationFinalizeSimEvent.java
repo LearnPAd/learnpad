@@ -17,7 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.simulator.monitoring.event;
+package eu.learnpad.simulator.monitoring.event.impl;
 
 /*
  * #%L
@@ -40,11 +40,31 @@ package eu.learnpad.simulator.monitoring.event;
  * #L%
  */
 
+import java.util.Collection;
+import java.util.Map;
+
+import eu.learnpad.sim.rest.event.ScoreType;
+import eu.learnpad.simulator.monitoring.event.AbstractSimEvent;
+import eu.learnpad.simulator.monitoring.event.SimEventType;
+
 /**
  *
  * @author Tom Jorquera - Linagora
  *
  */
-public enum SimEventType {
-	SIMULATION_START, SIMULATION_END, SIMULATION_FINALIZED, PROCESS_START, PROCESS_END, TASK_START, TASK_END, TASK_FAILED, SESSION_SCORE_UPDATE
+public class SimulationFinalizeSimEvent extends AbstractSimEvent {
+
+	public final Map<String, Map<ScoreType, Float>> probeScores;
+
+	public SimulationFinalizeSimEvent(Long timestamp, String simulationsessionid,
+			Collection<String> involvedusers, Map<String, Map<ScoreType, Float>> probeScores) {
+		super(timestamp, simulationsessionid, involvedusers);
+		this.probeScores = probeScores;
+	}
+
+	@Override
+	public SimEventType getType() {
+		return SimEventType.SIMULATION_FINALIZED;
+	}
+
 }
