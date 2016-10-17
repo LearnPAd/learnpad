@@ -1,5 +1,7 @@
 package eu.learnpad.simulator.monitoring.activiti.scoreprobe;
 
+import java.util.Map;
+
 import eu.learnpad.sim.rest.event.ScoreType;
 
 /*
@@ -33,17 +35,15 @@ import eu.learnpad.sim.rest.event.ScoreType;
 public interface IProbeScoresReceiver {
 
 	/**
-	 * Receive a monitoring score event from the monitoring component
+	 * Receive a monitoring scores event from the monitoring component
 	 *
 	 * @param sessionId
 	 *         the ID of the involved session
 	 * @param userId
 	 *         the ID of the involved user
-	 * @param type
-	 *         the type of score update
-	 * @param value
-	 *         the new score value
+	 * @param scores
+	 *         a map associating a type of score to a value
 	 */
-	public void receiveScore(String sessionId, String userId, ScoreType type, Float value);
+	public void receiveScores(String sessionId, String userId, Map<ScoreType, Float> scores);
 
 }

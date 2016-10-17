@@ -179,9 +179,18 @@ function taskReceiver(address, user, integratedMode, sessionid, platformAddress)
 
                 if (msg.probescores !== null) {
                     var userscore = msg.probescores[user];
+
+                    result += '<b/>';
+
                     if(userscore.hasOwnProperty('SESSION_SCORE')) {
                         result += '<tr><td><i>Session Score</i></td><td><i>' + userscore.SESSION_SCORE + '</i></td></tr>';
+                        result += '</table>';
+                    } else {
+                        result += '</table>';
                     }
+
+                    result += '<table class="detailed-score table table-striped table-condensed">';
+                    result += '<tr><th>Derived Score</th><th>Value</th></tr>';
                     if(userscore.hasOwnProperty('SESSION_SCORE')) {
                         result += '<tr><td><i>Absolute Session Score</i></td><td><i>' + userscore.ABSOLUTE_SESSION_SCORE + '</i></td></tr>';
                     }
