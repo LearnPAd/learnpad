@@ -85,9 +85,7 @@ public class ScoreProbeConsumer extends GlimpseAbstractConsumer {
 					String userId = responseFromMonitoring.getStringProperty(USER_ID_PROPERTY);
 
 					// propagate
-					for (Entry<ScoreType, Float> score : theScores.entrySet()) {
-						scoreReceiver.receiveScore(sessionId, userId, score.getKey(), score.getValue());
-					}
+					scoreReceiver.receiveScores(sessionId, userId, theScores);
 
 				} else {
 					logger.debug("Received unexpected message from probe: {}", responseFromMonitoring);
