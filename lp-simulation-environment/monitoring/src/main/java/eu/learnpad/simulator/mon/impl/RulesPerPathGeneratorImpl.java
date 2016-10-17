@@ -105,16 +105,20 @@ public class RulesPerPathGeneratorImpl implements RulesPerPath {
 								Vector<Learner> usersInvolved, String sessionID) {
 		
 		rulesToLoad = ComplexEventRuleActionListDocument.Factory.newInstance();
-		String updatedPath;
+		String updatedPath = "";
 		List<ComplexEventRuleType> preparedRules = new ArrayList<ComplexEventRuleType>();
-		
+		String learnersList = "";
 		for (int j = 1; j<usersInvolved.size()+1; j++) {
-			
+			learnersList += usersInvolved.get(j-1).getId() + ",";
+		}
+		for (int j = 1; j<usersInvolved.size()+1; j++) {
 			for (int i = 0; i<thePathsToInstantiate.size(); i++) {
 				updatedPath = thePathsToInstantiate.get(i).getPathRule().replaceAll("##SESSIONIDPLACEHOLDER##", sessionID);
 				updatedPath = updatedPath.replaceAll("##USERSINVOLVEDSESSIONSCOREIDS##", usersInvolved.get(j-1).getId());
 				updatedPath = updatedPath.replaceAll("##USERSINVOLVEDTASKENDIDS##", usersInvolved.get(j-1).getId());
 				updatedPath = updatedPath.replaceAll("##LEARNERSINVOLVEDID##", usersInvolved.get(j-1).getId());
+				updatedPath = updatedPath.replaceAll("##ALLLEARNERSINVOLVEDIDS##", learnersList.substring(0, learnersList.length()-1));
+
 				try {
 					ComplexEventRuleType rule = ComplexEventRuleType.Factory.parse(updatedPath);
 					preparedRules.add(rule);
@@ -124,10 +128,12 @@ public class RulesPerPathGeneratorImpl implements RulesPerPath {
 				}
 			}
 		}
+		
 		for (int i = 0; i<preparedRules.size(); i++) {
 			preparedRules.get(i).setRuleName(preparedRules.get(i).getRuleName()+"-"+i);
 			preparedRules.get(i).setRuleBody(preparedRules.get(i).getRuleBody().replaceAll("##INSTANCE##", "-"+i));
 		}
+		
 		ComplexEventRuleType[] rules = preparedRules.toArray(new ComplexEventRuleType[preparedRules.size()]);
 		rulesToLoad.addNewComplexEventRuleActionList().setInsertArray(rules);
 		DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(),rulesToLoad.xmlText());
