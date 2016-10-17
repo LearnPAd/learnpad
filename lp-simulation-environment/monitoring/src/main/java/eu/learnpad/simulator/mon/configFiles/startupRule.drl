@@ -165,4 +165,3 @@ then
 	ScoreTemporaryStorage.setLastScoreUpdateEventSeen($aEvent.getSessionScoreUpdateEvent());
 	retract($aEvent);		 	
 end  
-

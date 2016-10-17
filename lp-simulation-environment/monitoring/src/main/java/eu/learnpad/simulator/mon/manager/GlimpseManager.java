@@ -67,6 +67,7 @@ public class GlimpseManager extends Thread implements MessageListener {
 	private RulesManager rulesManagerOne;
 	private LearnerAssessmentManager learnerAssessmentManager;
 	private ResponseDispatcher responder;
+	private ScoreTemporaryStorage sessionScoreBuffer;
 
 	public static HashMap<Object, ConsumerProfile> requestMap = new HashMap<Object, ConsumerProfile>();
 
@@ -117,7 +118,8 @@ public class GlimpseManager extends Thread implements MessageListener {
 			DebugMessages.print(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(),
 					"Creating response dispatcher ");
 			responder = new ResponseDispatcher(initConn, connectionFact, requestMap, learnerAssessmentManager);
-			DebugMessages.ok();
+			if (responder != null)
+				DebugMessages.ok();
 
 		} catch (JMSException e) {
 			e.printStackTrace();
@@ -153,8 +155,11 @@ public class GlimpseManager extends Thread implements MessageListener {
 				
 				Vector<Learner> learnersInvolved = learnerAssessmentManager.getDBController().getOrSetLearners(learnersIDs); 
 				
-				ScoreTemporaryStorage sessionScoreBuffer = new ScoreTemporaryStorage(learnersInvolved, sessionID);
-				
+				DebugMessages.print(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "Creating Session Score Buffer");
+				sessionScoreBuffer = new ScoreTemporaryStorage(learnersInvolved, sessionID);
+				if (sessionScoreBuffer != null)
+					DebugMessages.ok();
+
 				ruleDoc = learnerAssessmentManager.elaborateModel(xmlMessagePayload, learnersInvolved, sessionID, bpmnID);
 
 			} else {
@@ -238,6 +243,7 @@ public class GlimpseManager extends Thread implements MessageListener {
 			TextMessage sendMessage = publishSession.createTextMessage();
 			sendMessage.setText(msg);
 			sendMessage.setStringProperty("DESTINATION", sender);
+			sendMessage.setBooleanProperty("ISASCORE", false);
 			return sendMessage;
 		} catch (JMSException e) {
 			e.printStackTrace();
