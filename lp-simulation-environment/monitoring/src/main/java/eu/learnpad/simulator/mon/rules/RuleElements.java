@@ -26,7 +26,7 @@ public class RuleElements {
 				"\t\tend\n\n" + 
 				"\t\trule \"" + ruleName + "##INSTANCE##\"\n" +
 				"\t\tno-loop true\n" +
-				"\t\tsalience 9999\n" +
+				"\t\tsalience 99999\n" +
 				"\t\tdialect \"" + dialect + "\"\n\n";
 		
 		return header;
@@ -73,7 +73,7 @@ public class RuleElements {
 		
 		String theRule = RuleElements.getHeader("ENDSimulation", "java");
 		
-		theRule = theRule.replaceAll("salience 9999", "salience 100");
+		theRule = theRule.replaceAll("salience 99999", "salience 1");
 		theRule = theRule.replaceAll("##INSTANCE##", "-"+simulationSessionID);
 
 		theRule += RuleElements.getWhenClause();
