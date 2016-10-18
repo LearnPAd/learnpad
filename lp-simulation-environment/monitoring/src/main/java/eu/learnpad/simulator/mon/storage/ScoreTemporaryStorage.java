@@ -11,20 +11,21 @@ import eu.learnpad.simulator.mon.utils.DebugMessages;
 
 public class ScoreTemporaryStorage {
 
-	private static HashMap<String, Long> sessionScoreValues;
+	private static HashMap<String, SessionScoreUpdateEvent> sessionScores;
 	private static String sessionID;
-	private static SessionScoreUpdateEvent lastScoreUpdateEventSeen;
+	private static SessionScoreUpdateEvent lastScoreUpdateEventSeen = null;
+	private static SessionScoreUpdateEvent emptySessionScoreUpdateEvent;
 
 	public ScoreTemporaryStorage(Vector<Learner> theLearnersInvolvedInSession, String sessionID) {
 		
 		ScoreTemporaryStorage.sessionID = sessionID;
 				
-		sessionScoreValues = new HashMap<String, Long>(theLearnersInvolvedInSession.size());
-		
+		sessionScores = new HashMap<String, SessionScoreUpdateEvent>(theLearnersInvolvedInSession.size());
+		emptySessionScoreUpdateEvent = new SessionScoreUpdateEvent(0l, "", null,"",null,"","",0l);
 		for (int i = 0; i<theLearnersInvolvedInSession.size(); i++) {
-						sessionScoreValues.put(
+						sessionScores.put(
 									theLearnersInvolvedInSession.get(i).getId(), 
-									0l);
+									emptySessionScoreUpdateEvent);
 		}	
 	}
 	
@@ -33,13 +34,18 @@ public class ScoreTemporaryStorage {
 	}
 
 	public static SessionScoreUpdateEvent getLastScoreUpdateEventSeen() {
-		return lastScoreUpdateEventSeen;
+		if (lastScoreUpdateEventSeen != null)
+			return lastScoreUpdateEventSeen;
+		else 
+			return emptySessionScoreUpdateEvent;
 	}
 
 	public static void setLastScoreUpdateEventSeen(SessionScoreUpdateEvent lastScoreUpdateEventSeen) {
 		DebugMessages.print(TimeStamp.getCurrentTime(), ScoreTemporaryStorage.class.getSimpleName(), "Storing LastScoreUpdateEventSeen");
-		ScoreTemporaryStorage.lastScoreUpdateEventSeen = lastScoreUpdateEventSeen;
-		DebugMessages.ok();
+		if (ScoreTemporaryStorage.lastScoreUpdateEventSeen != null && (ScoreTemporaryStorage.lastScoreUpdateEventSeen.timestamp < lastScoreUpdateEventSeen.timestamp)) {
+			ScoreTemporaryStorage.lastScoreUpdateEventSeen = lastScoreUpdateEventSeen;
+		}
+		DebugMessages.ok(); 
 	}
 	
 	public static void setSessionID(String sessionID) {
@@ -47,16 +53,18 @@ public class ScoreTemporaryStorage {
 	}
 
 	
-	public static void setTemporaryLearnerSessionScore(String learnerID, Long scoreValue) {
+	public static void setTemporaryLearnerSessionScore(String learnerID, SessionScoreUpdateEvent scoreUpdateEvent) {
 		DebugMessages.print(TimeStamp.getCurrentTime(), ScoreTemporaryStorage.class.getSimpleName(), "Storing LearnerSessionScore");
-		ScoreTemporaryStorage.sessionScoreValues.put(learnerID, scoreValue);
+		if (scoreUpdateEvent.timestamp > ScoreTemporaryStorage.sessionScores.get(learnerID).timestamp) {
+			ScoreTemporaryStorage.sessionScores.put(learnerID, scoreUpdateEvent);
+		}
 		DebugMessages.ok();
 
 	}
 	
 	public static Long getTemporaryLearnerSessionScore(String learnerID) {
-		if (ScoreTemporaryStorage.sessionScoreValues.get(learnerID) != null) {
-		return ScoreTemporaryStorage.sessionScoreValues.get(learnerID);
+		if (ScoreTemporaryStorage.sessionScores.get(learnerID) != null) {
+		return ScoreTemporaryStorage.sessionScores.get(learnerID).sessionscore;
 		}
 		else
 			return 0l;

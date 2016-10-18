@@ -93,7 +93,7 @@ end
 rule "Forward to the CP - TaskStart"  
 no-loop true  
  
-salience 1  
+salience 99  
 
 dialect "java"  
 
@@ -129,7 +129,7 @@ end
 rule "Forward to the CP - TaskEnd" 
 no-loop true 
 
-salience 999990 
+salience 99 
 
 dialect "java" 
 
@@ -161,7 +161,7 @@ then
 	update($aEvent); 
 	ScoreTemporaryStorage.setTemporaryLearnerSessionScore(
 									$aEvent.getSessionScoreUpdateEvent().user.toString(), 
-									$aEvent.getSessionScoreUpdateEvent().sessionscore);
+									$aEvent.getSessionScoreUpdateEvent());
 	ScoreTemporaryStorage.setLastScoreUpdateEventSeen($aEvent.getSessionScoreUpdateEvent());
 	retract($aEvent);		 	
 end  

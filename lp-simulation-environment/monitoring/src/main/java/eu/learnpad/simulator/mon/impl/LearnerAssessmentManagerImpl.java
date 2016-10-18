@@ -205,8 +205,10 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			scoresToShow.put(ScoreType.RELATIVE_GLOBAL_SCORE, learnerRelativeGlobalScore);
 			scoresToShow.put(ScoreType.SESSION_SCORE, ScoreTemporaryStorage.getTemporaryLearnerSessionScore(learnersID.get(i)).floatValue());
 			
+			DebugMessages.line();
+			DebugMessages.print(TimeStamp.getCurrentTime(),  this.getClass().getSimpleName(),  "Sending score to the simulator related to user: " + learnersID.get(i));
 			sendScoresToSim(scoresToShow,learnersID.get(i));
-			
+			DebugMessages.ok();
 			DebugMessages.line();
 			DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "ABSOLUTE_BP_SCORE " + scoresToShow.get(ScoreType.ABSOLUTE_BP_SCORE));
 			DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "ABSOLUTE_GLOBAL_SCORE " + scoresToShow.get(ScoreType.ABSOLUTE_GLOBAL_SCORE));
