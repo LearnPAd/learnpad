@@ -84,11 +84,11 @@ public class RulesPerPathGeneratorImpl implements RulesPerPath {
 					+", this after $" + (j) + "Event);\n";
 	}
 
-	concat +="\t\t\t$"+((anActivitiesSet.length)+1)+"Event : GlimpseBaseEventBPMN(" +
-		"this.isConsumed == true, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
-		+", this.getEvent.type.toString() == EventType.SIMULATION_END.toString()"
-		+", this.isException == false"
-		+", this after $" + (anActivitiesSet.length) + "Event);\n";
+//	concat +="\t\t\t$"+((anActivitiesSet.length)+1)+"Event : GlimpseBaseEventBPMN(" +
+//		"this.isConsumed == true, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
+//		+", this.getEvent.type.toString() == EventType.SIMULATION_END.toString()"
+//		+", this.isException == false"
+//		+", this after $" + (anActivitiesSet.length) + "Event);\n";
 			
 		aInsert.setRuleBody(RuleElements.getHeader(aInsert.getRuleName(),  "java") +
 				RuleElements.getWhenClause() + 
