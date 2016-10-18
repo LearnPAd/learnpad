@@ -241,6 +241,46 @@ Note that if the whole verification is completed without any error, then the
 Core Platform (CP) will notify components (OR, CW, SIM) that a new modelset is
 available.
 
+### Push KPIs from external sources
+
+**Description**
+
+
+**cURL**
+```
+curl \
+	--verbose \
+	--user "superadmin:LearnPAss" \
+	--request PUT \
+	--header "Content-Type: application/octet-stream" \
+	--data-binary "@kpifile" \
+	"http://localhost:8080/xwiki/rest/learnpad/me/corefacade/importkpis/<modelsetid>/<kpisid>?type={XLSX|XML}"
+```
+
+**Input**
+
+ * the modelSetId is the ID of the referred modelset 
+ * the kpisId is the ID of the kpi file that is put
+ * the type precise the type of model file format: XLSX, and XML. In detail:
+   * XLSX is the MS Excel format whre the file complies to a given template defined in the LP-OR;
+   * XML : a NOT WELL defined XML format, yet!!
+ * the kpifile is the file that stores the KPIs
+ 
+**Output**
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ImportStatus>
+	<status>COMPLETED</status>
+	<info>
+		... ...
+	</info>
+</ImportStatus>
+```
+
+**Details**
+
+
 ### Get the feedbacks
 **Description**
 In the Collaborative Workspace (CW), end-user can generate feedbacks in order to

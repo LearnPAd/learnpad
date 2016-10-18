@@ -39,6 +39,9 @@ import eu.learnpad.core.rest.RestResource;
 import eu.learnpad.core.rest.Utils;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.me.Controller;
+import eu.learnpad.me.rest.data.ImportStatus;
+import eu.learnpad.me.rest.data.ImportStatusType;
+import eu.learnpad.me.rest.data.KPIsFormat;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.mv.rest.data.VerificationId;
 import eu.learnpad.mv.rest.data.VerificationResults;
@@ -78,7 +81,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	 * second case implies to rebuild the whole platform at each change.
 	 */
 	private eu.learnpad.mv.BridgeInterface mv;
-
+	private eu.learnpad.or.BridgeInterface or;
 	private eu.learnpad.cw.BridgeInterface cw;
 
 	@Inject
@@ -90,6 +93,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 			this.bridge = this.componentManager.getInstance(RestResource.class, "me");
 
 			this.mv = this.componentManager.getInstance(RestResource.class, "mv");
+			this.or = this.componentManager.getInstance(RestResource.class, "or");
 			this.cw = this.componentManager.getInstance(RestResource.class, "cw");
 		} catch (ComponentLookupException e) {
 			throw new InitializationException(e.getMessage(), e);
@@ -99,11 +103,7 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	@Override
 	public VerificationId putModelSet(String modelSetId, ModelSetType type, InputStream modelSetFile)
 			throws LpRestException {
-		if (utils.isPage(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
-				modelSetId) == false) {
-			utils.createEmptyPage(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
-					modelSetId);
-		}
+		this.createDedicatedEntryInCoreRepository(modelSetId);
 		String attachmentName = String.format("%s.%s", modelSetId, type);
 		utils.putAttachment(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
 				modelSetId, attachmentName, modelSetFile);
@@ -124,6 +124,22 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 		}
 			
 		return verificationID;
+	}
+
+	@Override
+	public ImportStatus putKPIs(String modelSetId, String kpisId, KPIsFormat type,
+			InputStream kpisFile) throws LpRestException {
+		this.createDedicatedEntryInCoreRepository(modelSetId);
+		String kpisAttachmentName = String.format("%s.%s", kpisId, type.toString().toLowerCase());
+		utils.putAttachment(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
+				modelSetId, kpisAttachmentName , kpisFile);
+		this.or.kpisImported(modelSetId, kpisId, type);
+		ImportStatus status = new ImportStatus();
+		status.setStatus(ImportStatusType.COMPLETED);
+		ImportStatus.Info msg = new ImportStatus.Info();
+//		msg.getAny().add("OK");
+		status.setInfo(msg);
+		return status;
 	}
 
 	@Override
@@ -188,5 +204,13 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	@Override
 	public VerificationsAvailable getAvailableVerifications() throws LpRestException {
 		return this.mv.getAvailableVerifications();
+	}
+
+	private synchronized void createDedicatedEntryInCoreRepository(String modelSetId) {
+		if (utils.isPage(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
+				modelSetId) == false) {
+			utils.createEmptyPage(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE,
+					modelSetId);
+		}
 	}
 }

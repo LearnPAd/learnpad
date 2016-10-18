@@ -5,7 +5,11 @@
  */
 package eu.learnpad.or.impl;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +29,9 @@ import eu.learnpad.core.impl.or.XwikiCoreFacadeRestResource;
 import eu.learnpad.dash.rest.data.KPIValuesFormat;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.me.rest.data.KPIsFormat;
 import eu.learnpad.me.rest.data.ModelSetType;
+import eu.learnpad.ontology.config.APP;
 import eu.learnpad.ontology.kpi.KBProcessorNotifier;
 import eu.learnpad.ontology.kpi.dashboard.KPILoader;
 import eu.learnpad.ontology.persistence.FileOntAO;
@@ -100,6 +106,23 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         }
     }
 
+	@Override
+	public void kpisImported(String modelSetId, String kpisId, KPIsFormat type)
+			throws LpRestException {
+        InputStream kpisInputStream = this.corefacade.getExternalKPIs(modelSetId, kpisId, type);
+        if (kpisInputStream == null) {
+            throw new LpRestExceptionXWikiImpl("KPIs for id '"+ kpisId +"' and type '" + type + "' in ModelSet '"+ modelSetId +"' not found!");
+        }
+        try {        
+        	String kpiFileName = APP.CONF.getString("working.directory") + "/" + APP.CONF.getString("kpi.dashboard.data.folder.relative") + "/" + kpisId + "." + type.toString().toLowerCase();
+        	java.nio.file.Path destination = Paths.get(kpiFileName);
+        	Files.copy(kpisInputStream, destination,StandardCopyOption.REPLACE_EXISTING);
+        } catch ( IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(),e.getCause());
+		}
+
+	}
+        
     @Override
 	public void resourceNotification(String modelSetId, String modelId, String artifactId, String resourceId, ResourceType resourceType, String userId, Long timestamp, NotificationActionType action) throws LpRestException {
         try {
@@ -341,10 +364,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     }
 
     @Override
-//    public void updateSimulationScore(String modelSetId, String simulationSessionId, String processArtifactId, Long timestamp, String userId, ScoreType scoreType, Float score) throws LpRestException {
     public void updateSimulationScore(String modelSetId, String simulationSessionId, String processArtifactId, Long timestamp, String userId, SimulationScoresMap scoreMap) throws LpRestException {
-//      //TODO adapt REST API change and pass scores map
-//      Map<ScoreType, Float> scores = new HashMap();
     	Map<ScoreType, Float> scores = scoreMap.getScoreMap();
       
         try {
