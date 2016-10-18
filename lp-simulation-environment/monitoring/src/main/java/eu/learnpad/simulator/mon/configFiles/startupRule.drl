@@ -129,7 +129,7 @@ end
 rule "Forward to the CP - TaskEnd" 
 no-loop true 
 
-salience 1 
+salience 999990 
 
 dialect "java" 
 

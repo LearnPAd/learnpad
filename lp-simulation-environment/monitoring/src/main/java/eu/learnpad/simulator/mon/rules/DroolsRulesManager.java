@@ -174,7 +174,6 @@ public class DroolsRulesManager extends RulesManager {
 			Long now = System.currentTimeMillis();
 		kbuilder.add(ResourceFactory.newByteArrayResource(rule.trim().getBytes()), ResourceType.DRL);
 		DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "Time Elapsed for loading one rule: " + (System.currentTimeMillis() - now));
-		//} catch (RuntimeDroolsException droolsExceptionOnLoading) {
 		} catch (Exception droolsExceptionOnLoading) {
 			DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), droolsExceptionOnLoading.getCause() + "\n" +
 					droolsExceptionOnLoading.getMessage());			
