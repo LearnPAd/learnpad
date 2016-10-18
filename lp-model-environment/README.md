@@ -268,8 +268,14 @@ curl \
  
 **Output**
 
-```text
-OK
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ImportStatus>
+	<status>COMPLETED</status>
+	<info>
+		... ...
+	</info>
+</ImportStatus>
 ```
 
 **Details**
