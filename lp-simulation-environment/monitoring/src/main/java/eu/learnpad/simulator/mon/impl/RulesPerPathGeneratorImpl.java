@@ -106,6 +106,7 @@ public class RulesPerPathGeneratorImpl implements RulesPerPath {
 		
 		rulesToLoad = ComplexEventRuleActionListDocument.Factory.newInstance();
 		String updatedPath = "";
+		ComplexEventRuleType rule;
 		List<ComplexEventRuleType> preparedRules = new ArrayList<ComplexEventRuleType>();
 		String learnersList = "";
 		try {
@@ -119,11 +120,12 @@ public class RulesPerPathGeneratorImpl implements RulesPerPath {
 					updatedPath = updatedPath.replaceAll("##USERSINVOLVEDTASKENDIDS##", usersInvolved.get(j-1).getId());
 					updatedPath = updatedPath.replaceAll("##LEARNERSINVOLVEDID##", usersInvolved.get(j-1).getId());
 //					updatedPath = updatedPath.replaceAll("##ALLLEARNERSINVOLVEDIDS##", learnersList.substring(0, learnersList.length()-1));
-					ComplexEventRuleType rule = ComplexEventRuleType.Factory.parse(updatedPath);
+					rule = ComplexEventRuleType.Factory.parse(updatedPath);
 					preparedRules.add(rule);	
+					
 				}
 			}
-			preparedRules.add(ComplexEventRuleType.Factory.parse(RuleElements.ruleForSimulationEnd(learnersList, sessionID, thePathsToInstantiate.get(0).getIdBpmn())));
+			preparedRules.add(RuleElements.ruleForSimulationEnd(learnersList, sessionID, thePathsToInstantiate.get(0).getIdBpmn()));			
 		} catch (XmlException e) {
 			e.printStackTrace();
 		}

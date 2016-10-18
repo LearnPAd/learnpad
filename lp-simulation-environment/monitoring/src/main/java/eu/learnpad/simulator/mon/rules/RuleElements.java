@@ -1,6 +1,7 @@
 package eu.learnpad.simulator.mon.rules;
 
 import eu.learnpad.simulator.mon.coverage.Activity;
+import it.cnr.isti.labse.glimpse.xml.complexEventRule.ComplexEventRuleType;
 
 public class RuleElements {
 
@@ -9,7 +10,7 @@ public class RuleElements {
 	
 	public static String getHeader(String ruleName, String dialect) {
 	
-		header ="\n\n\t\t"+
+		header ="\n\t\t"+
 				"import eu.learnpad.simulator.mon.event.GlimpseBaseEventBPMN;\n\t\t" +
 				"import eu.learnpad.simulator.mon.manager.ResponseDispatcher;\n\t\t" +
 				"import eu.learnpad.simulator.mon.manager.RestNotifier;\n\t\t" +
@@ -64,24 +65,31 @@ public class RuleElements {
 		return concat;
 	}
 	
-	public static String ruleForSimulationEnd(String learnersID, String simulationSessionID, String idBPMN) {
+	public static ComplexEventRuleType ruleForSimulationEnd(String learnersID, String simulationSessionID, String idBPMN) {
+		
+		ComplexEventRuleType aInsert = ComplexEventRuleType.Factory.newInstance();
+		aInsert.setRuleName("ENDSimulation-" + simulationSessionID);
+		aInsert.setRuleType("drools");
 		
 		String theRule = RuleElements.getHeader("ENDSimulation", "java");
 		
 		theRule = theRule.replaceAll("salience 9999", "salience 100");
-		
+		theRule = theRule.replaceAll("##INSTANCE##", "-"+simulationSessionID);
+
 		theRule += RuleElements.getWhenClause();
 		
 		theRule +="\t\t\t$0Event : GlimpseBaseEventBPMN(" +
 				"this.isConsumed == true, this.getEvent().simulationsessionid == \"" + simulationSessionID + "\""
 				+", this.getEvent.type.toString() == EventType.SIMULATION_END.toString()"
-				+", this.isException == false);\n";		
-		theRule += "\n\t\t\t$0Event.setConsumed(true); \n\t\t\tupdate($0Event);"
+				+", this.isException == false);\n"
+				+"\t\tthen\n"
+				+ "\t\t\t$0Event.setConsumed(true); \n\t\t\tupdate($0Event);"
 				+ "\n\t\t\tretract($0Event); \n\t\t\t" +
-				"ResponseDispatcher.PropagateScores(\""+ learnersID.substring(learnersID.length(),learnersID.length()-1) +"\",\"0\", \"" + idBPMN + "\");";
+				"ResponseDispatcher.PropagateScores(\""+ learnersID.substring(0,learnersID.length()-1) + "\", \"" + idBPMN + "\");";
 		theRule += RuleElements.getEnd();
 		
-		return theRule;
+		aInsert.setRuleBody(theRule);
+		return aInsert;
 	}
 	
 }

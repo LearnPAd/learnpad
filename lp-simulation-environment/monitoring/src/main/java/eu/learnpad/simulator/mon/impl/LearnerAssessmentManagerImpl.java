@@ -152,7 +152,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	}
 	
 	@Override
-	public void computeAndPropagateScores(List<String> learnersID, String idPath, String idBPMN) {
+	public void computeAndPropagateScores(List<String> learnersID, String idBPMN) {
 		
 		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
 //		Date now = new Date();

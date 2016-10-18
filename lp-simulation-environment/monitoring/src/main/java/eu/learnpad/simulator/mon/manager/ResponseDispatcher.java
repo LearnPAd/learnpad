@@ -126,9 +126,9 @@ public class ResponseDispatcher {
 		ResponseDispatcher.lam.setPathCompleted(new ArrayList<String>(Arrays.asList(learnersID.split(","))),idPath, idBPMN);
 	}
 	
-	public static void PropagateScores(String learnersID, String idPath, String idBPMN)
+	public static void PropagateScores(String learnersID, String idBPMN)
 	{
-		ResponseDispatcher.lam.computeAndPropagateScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))), idPath, idBPMN);
+		ResponseDispatcher.lam.computeAndPropagateScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))), idBPMN);
 	}
 
 	
