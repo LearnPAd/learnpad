@@ -36,9 +36,7 @@ end
 
 rule "Forward to the CP - SimulationEnd" 
 no-loop true  
-
 salience 99
-
 dialect "java" 
 
 when  
@@ -52,9 +50,7 @@ end
 
 rule "Forward to the CP - ProcessStart"  
 no-loop true  
-
 salience 1  
-
 dialect "java" 
 
 when 
@@ -69,9 +65,7 @@ end
  
 rule "Forward to the CP - ProcessEnd"  
 no-loop true  
-
 salience 1  
-
 dialect "java"  
 
 when  
@@ -86,9 +80,7 @@ end
 
 rule "Forward to the CP - TaskStart"  
 no-loop true  
- 
 salience 99  
-
 dialect "java"  
 
 when  
@@ -103,9 +95,7 @@ end
 
 rule "Forward to the CP - TaskFailed" 
 no-loop true 
-
 salience 1 
-
 dialect "java" 
 
 when 
@@ -122,9 +112,7 @@ end
 
 rule "Forward to the CP - TaskEnd" 
 no-loop true 
-
 salience 99 
-
 dialect "java" 
 
 when 
@@ -140,9 +128,7 @@ end
 
 rule "Save in tempStructure the SessionScoreUpdate value" 
 no-loop true 
-
 salience 999999 
-
 dialect "java" 
 
 when 
