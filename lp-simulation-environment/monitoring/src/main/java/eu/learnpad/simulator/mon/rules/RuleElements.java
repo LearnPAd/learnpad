@@ -54,7 +54,7 @@ public class RuleElements {
 			Activity[] anActivitiesSet, String idBPMN, String idPath) {
 		
 		String concat = "\n\t\tthen ";
-		for (int i = 0; i<((anActivitiesSet.length)+1); i++) {
+		for (int i = 0; i<((anActivitiesSet.length)+2); i++) {
 			concat = concat + "\n\t\t\t$"+ i
 					+ "Event.setConsumed(true); \n\t\t\tupdate($"+ i +"Event);"
 					+ "\n\t\t\tretract($"+ i +"Event);";					
@@ -62,7 +62,7 @@ public class RuleElements {
 		 concat = concat + "\n\t\t\t" +
 			"ResponseDispatcher.SetPathCompleted(\"##LEARNERSINVOLVEDID##\",\"" + idPath + "\", \"" + idBPMN + "\");";
 		 concat = concat + "\n\t\t\t" +
-			"ResponseDispatcher.PropagateScores(\"##LEARNERSINVOLVEDID##\",\"" + idPath + "\", \"" + idBPMN + "\");";
+			"ResponseDispatcher.PropagateScores(\"##ALLLEARNERSINVOLVEDIDS##\",\"" + idPath + "\", \"" + idBPMN + "\");";
 		return concat;
 	}
 	
