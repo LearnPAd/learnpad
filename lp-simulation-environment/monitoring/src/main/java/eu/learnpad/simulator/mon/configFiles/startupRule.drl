@@ -31,12 +31,14 @@ when
 		this.isException == false,
 		this.getEventName == EventType.SIMULATION_START.toString()); 
 then			
- 	RestNotifier.notifySimulationStart($bEvent.getTimeStamp(), (SimulationStartEvent)$bEvent.getEvent());
+	RestNotifier.notifySimulationStart($bEvent.getTimeStamp(), (SimulationStartEvent)$bEvent.getEvent());
 end 
 
 rule "Forward to the CP - SimulationEnd" 
 no-loop true  
-salience 99
+
+salience 98 
+
 dialect "java" 
 
 when  
@@ -45,12 +47,14 @@ when
 	 	this.isException == false,
 		this.getEventName == EventType.SIMULATION_END.toString()); 
 then	 		 	
- 	RestNotifier.notifySimulationEnd($aEvent.getTimeStamp(), (SimulationEndEvent)$aEvent.getEvent());
+	RestNotifier.notifySimulationEnd($aEvent.getTimeStamp(), (SimulationEndEvent)$aEvent.getEvent());
 end 
 
 rule "Forward to the CP - ProcessStart"  
 no-loop true  
+
 salience 1  
+
 dialect "java" 
 
 when 
@@ -58,14 +62,17 @@ when
  		this.isConsumed == false,
  		this.isException == false,
  		this.getEventName == EventType.PROCESS_START.toString()); 
-then	 
+then
+	$aEvent.setConsumed(true); 
+	update($aEvent); 		 
  	RestNotifier.notifyProcessStart($aEvent.getTimeStamp(), (ProcessStartEvent)$aEvent.getEvent());
-	retract($aEvent);	
 end 
  
 rule "Forward to the CP - ProcessEnd"  
 no-loop true  
+
 salience 1  
+
 dialect "java"  
 
 when  
@@ -74,13 +81,16 @@ when
 	 	this.isException == false,
 		this.getEventName == EventType.PROCESS_END.toString()); 
 then	 	
+	$aEvent.setConsumed(true); 
+	update($aEvent); 
  	RestNotifier.notifyProcessEnd($aEvent.getTimeStamp(), (ProcessEndEvent)$aEvent.getEvent());			
-	retract($aEvent);	
 end  
 
 rule "Forward to the CP - TaskStart"  
 no-loop true  
+ 
 salience 99  
+
 dialect "java"  
 
 when  
@@ -88,14 +98,17 @@ when
 	 	this.isConsumed == false,
 	 	this.isException == false,
 		this.getEventName == EventType.TASK_START.toString());  
-then	 	
+then
+	$aEvent.setConsumed(true); 
+	update($aEvent); 	 	
  	RestNotifier.notifyTaskStart($aEvent.getTimeStamp(), (TaskStartEvent)$aEvent.getEvent());			
-	retract($aEvent);	
 end 
 
 rule "Forward to the CP - TaskFailed" 
 no-loop true 
+
 salience 1 
+
 dialect "java" 
 
 when 
@@ -106,13 +119,14 @@ when
 then 		 
 	$aEvent.setConsumed(true); 
 	update($aEvent); 
-	RestNotifier.notifyTaskFailed($aEvent.getTimeStamp(), (TaskFailedEvent)$aEvent.getEvent()); 	
-	retract($aEvent);	
+	RestNotifier.notifyTaskFailed($aEvent.getTimeStamp(), (TaskFailedEvent)$aEvent.getEvent()); 		
 end 
 
 rule "Forward to the CP - TaskEnd" 
 no-loop true 
+
 salience 99 
+
 dialect "java" 
 
 when 
@@ -121,14 +135,14 @@ when
 		this.isException == false,
 		this.getEventName == EventType.TASK_END.toString());  
 then
-	$aEvent.setConsumed(true); 
-	update($aEvent); 		
 	RestNotifier.notifyTaskEnd($aEvent.getTimeStamp(), (TaskEndEvent)$aEvent.getEvent()); 		 	
 end   
 
 rule "Save in tempStructure the SessionScoreUpdate value" 
 no-loop true 
+
 salience 999999 
+
 dialect "java" 
 
 when 

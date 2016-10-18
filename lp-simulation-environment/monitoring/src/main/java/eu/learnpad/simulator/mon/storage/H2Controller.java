@@ -742,4 +742,65 @@ public class H2Controller implements DBController {
 		}
 		return result;
 	}
+
+	@Override
+	public Float getAbsoluteBPScore(String idBPMN) {
+		String query = "select ABSOLUTE_BP_SCORE from glimpse.bpmn where id_bpmn = \'"+idBPMN+"';";
+		float theAbsBPScore = 0f;
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			resultsSet = preparedStmt.executeQuery();
+			if (resultsSet.first()) { 
+				DebugMessages.println(
+						TimeStamp.getCurrentTime(), 
+						this.getClass().getSimpleName(),
+						"GetAbsoluteBPScore");
+				theAbsBPScore = resultsSet.getFloat("ABSOLUTE_BP_SCORE"); 
+				} 				
+			}	catch(SQLException asd) {
+				System.err.println("Exception during getAbsoluteBPScore ");
+				return 0f;
+			}
+		return theAbsBPScore;
+	}
+	
+	@Override
+	public Float getLastPathAbsoluteSessionScoreExecutedByLearner(String idLearner, String idBPMN) {
+		
+		String query = "SELECT distinct ID_PATH, EXECUTION_DATE FROM glimpse.path_learner where ID_LEARNER = \'"+idLearner+"' and ID_BPMN = \'"+idBPMN+"' order by execution_date;";
+//		String query = "select * from glimpse.path_learner;";
+		String idPath = "";
+		float theAbsBPScoreExec = 00f;
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			resultsSet = preparedStmt.executeQuery(); 
+				DebugMessages.println(
+						TimeStamp.getCurrentTime(), 
+						this.getClass().getSimpleName(),
+						"getting LastPathAbsoluteSessionScoreExecutedByLearner");
+				System.out.println(resultsSet.next());
+				idPath = resultsSet.getString("ID_PATH"); 
+				query = "SELECT ABSOLUTE_SESSION_SCORE from glimpse.path where id_path = \'"+idPath+"';";
+
+				preparedStmt = conn.prepareStatement(query);
+				resultsSet = preparedStmt.executeQuery();
+				resultsSet.next();
+				theAbsBPScoreExec = resultsSet.getFloat("ABSOLUTE_SESSION_SCORE");	
+			}	catch(SQLException asd) {
+				System.err.println("Exception during getLastPathAbsoluteSessionScoreExecutedByLearner ");
+				return 0f;
+			}
+		return theAbsBPScoreExec;
+	}
+	
+	
+//	public static void main (String[] args) {
+//		DBController asd = new H2Controller(Manager.Read("./configFiles/databaseConnectionStringH2"));
+//		asd.connectToDB();
+//		System.out.println(asd.getLastPathAbsoluteSessionScoreExecutedByLearner("nterzo", "mod.21262"));
+//
+//		System.out.println(asd.getAbsoluteBPScore("mod.21262"));
+//		
+//	}
+//	
 }
