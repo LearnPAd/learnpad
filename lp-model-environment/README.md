@@ -262,8 +262,8 @@ curl \
  * the modelSetId is the ID of the referred modelset 
  * the kpisId is the ID of the kpi file that is put
  * the type precise the type of model file format: XLSX, and XML. In detail:
- ** XLSX is the MS Excel format whre the file complies to a given template defined in the LP-OR;
- ** XML : a NOT WELL defined XML format, yet!!
+   * XLSX is the MS Excel format whre the file complies to a given template defined in the LP-OR;
+   * XML : a NOT WELL defined XML format, yet!!
  * the kpifile is the file that stores the KPIs
  
 **Output**
