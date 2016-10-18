@@ -39,7 +39,7 @@ end
 rule "Forward to the CP - SimulationEnd" 
 no-loop true  
 
-salience 1 
+salience 99 
 
 dialect "java" 
 

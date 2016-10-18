@@ -206,10 +206,9 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			scoresToShow.put(ScoreType.SESSION_SCORE, ScoreTemporaryStorage.getTemporaryLearnerSessionScore(learnersID.get(i)).floatValue());
 			
 			DebugMessages.line();
-			DebugMessages.print(TimeStamp.getCurrentTime(),  this.getClass().getSimpleName(),  "Sending score to the simulator related to user: " + learnersID.get(i));
 			sendScoresToSim(scoresToShow,learnersID.get(i));
-			DebugMessages.ok();
 			DebugMessages.line();
+			
 			DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "ABSOLUTE_BP_SCORE " + scoresToShow.get(ScoreType.ABSOLUTE_BP_SCORE));
 			DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "ABSOLUTE_GLOBAL_SCORE " + scoresToShow.get(ScoreType.ABSOLUTE_GLOBAL_SCORE));
 			DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "ABSOLUTE_SESSION_SCORE " + scoresToShow.get(ScoreType.ABSOLUTE_SESSION_SCORE));
@@ -231,7 +230,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	}
 	
 	private void sendScoresToSim(HashMap<ScoreType, Float> scoresToShow, String user) {
-		DebugMessages.print(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "Sending scores to the simulator");
+		DebugMessages.print(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "Sending scores to the simulator related to user: " + user);
 		ResponseDispatcher.sendScoresEvaluation(scoresToShow, "simulator", "scoresUpdateResponses", user);
 		DebugMessages.ok();	
 }
