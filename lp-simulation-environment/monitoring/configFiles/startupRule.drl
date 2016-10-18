@@ -31,15 +31,13 @@ when
 		this.isException == false,
 		this.getEventName == EventType.SIMULATION_START.toString()); 
 then			
-	$bEvent.setConsumed(true); 
-	update($bEvent); 
  	RestNotifier.notifySimulationStart($bEvent.getTimeStamp(), (SimulationStartEvent)$bEvent.getEvent());
 end 
 
 rule "Forward to the CP - SimulationEnd" 
 no-loop true  
 
-salience 99 
+salience 99
 
 dialect "java" 
 
@@ -49,8 +47,6 @@ when
 	 	this.isException == false,
 		this.getEventName == EventType.SIMULATION_END.toString()); 
 then	 		 	
-	$aEvent.setConsumed(true); 
-	update($aEvent); 
  	RestNotifier.notifySimulationEnd($aEvent.getTimeStamp(), (SimulationEndEvent)$aEvent.getEvent());
 end 
 
@@ -66,10 +62,9 @@ when
  		this.isConsumed == false,
  		this.isException == false,
  		this.getEventName == EventType.PROCESS_START.toString()); 
-then
-	$aEvent.setConsumed(true); 
-	update($aEvent); 		 
+then	 
  	RestNotifier.notifyProcessStart($aEvent.getTimeStamp(), (ProcessStartEvent)$aEvent.getEvent());
+	retract($aEvent);	
 end 
  
 rule "Forward to the CP - ProcessEnd"  
@@ -85,9 +80,8 @@ when
 	 	this.isException == false,
 		this.getEventName == EventType.PROCESS_END.toString()); 
 then	 	
-	$aEvent.setConsumed(true); 
-	update($aEvent); 
  	RestNotifier.notifyProcessEnd($aEvent.getTimeStamp(), (ProcessEndEvent)$aEvent.getEvent());			
+	retract($aEvent);	
 end  
 
 rule "Forward to the CP - TaskStart"  
@@ -102,10 +96,9 @@ when
 	 	this.isConsumed == false,
 	 	this.isException == false,
 		this.getEventName == EventType.TASK_START.toString());  
-then
-	$aEvent.setConsumed(true); 
-	update($aEvent); 	 	
+then	 	
  	RestNotifier.notifyTaskStart($aEvent.getTimeStamp(), (TaskStartEvent)$aEvent.getEvent());			
+	retract($aEvent);	
 end 
 
 rule "Forward to the CP - TaskFailed" 
@@ -123,7 +116,8 @@ when
 then 		 
 	$aEvent.setConsumed(true); 
 	update($aEvent); 
-	RestNotifier.notifyTaskFailed($aEvent.getTimeStamp(), (TaskFailedEvent)$aEvent.getEvent()); 		
+	RestNotifier.notifyTaskFailed($aEvent.getTimeStamp(), (TaskFailedEvent)$aEvent.getEvent()); 	
+	retract($aEvent);	
 end 
 
 rule "Forward to the CP - TaskEnd" 

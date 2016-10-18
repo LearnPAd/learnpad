@@ -69,14 +69,14 @@ public class RulesPerPathGeneratorImpl implements RulesPerPath {
 		
 		if (anActivitiesSet.length > 0) {
 			concat = "\t\t\t$0Event : GlimpseBaseEventBPMN("+
-					"this.isConsumed == true, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
+					"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
 					+", this.getEvent.type.toString() == EventType.SIMULATION_START.toString()"
 					+", this.isException == false);\n";
 		}
 		
 		for(int j = 0; j<anActivitiesSet.length; j++) {				
 			concat +="\t\t\t$"+((j)+1)+"Event : GlimpseBaseEventBPMN(" +
-					"this.isConsumed == true, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
+					"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
 					+", this.getEvent.type.toString() == EventType.TASK_END.toString()"
 					+", this.getTaskEndEvent().completingUser.toString() == \"##USERSINVOLVEDTASKENDIDS##\""
 					+", this.isException == false"
