@@ -39,7 +39,7 @@ public class RuleElements {
 	public static String getThenClause(Activity[] theActivitySetToSetConsumed) {
 	
 		String concat = "\n\t\tthen ";
-		for (int i = 0; i<theActivitySetToSetConsumed.length; i++) {
+		for (int i = 1; i<theActivitySetToSetConsumed.length; i++) {
 			concat = concat + "\n\t\t\t$"+ i
 					+ "Event.setConsumed(true); \n\t\t\tupdate($"+ i +"Event);";
 					//+ "\n\t\t\tretract($"+ i +"Event);"; 
@@ -55,7 +55,7 @@ public class RuleElements {
 			Activity[] anActivitiesSet, String idBPMN, String idPath) {
 		
 		String concat = "\n\t\tthen ";
-		for (int i = 0; i<((anActivitiesSet.length)+1); i++) {
+		for (int i = 1; i<((anActivitiesSet.length)+1); i++) {
 			concat = concat + "\n\t\t\t$"+ i
 					+ "Event.setConsumed(true); \n\t\t\tupdate($"+ i +"Event);";
 					//+ "\n\t\t\tretract($"+ i +"Event);";					
