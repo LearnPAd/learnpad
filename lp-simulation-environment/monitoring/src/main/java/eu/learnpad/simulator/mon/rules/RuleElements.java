@@ -54,16 +54,34 @@ public class RuleElements {
 			Activity[] anActivitiesSet, String idBPMN, String idPath) {
 		
 		String concat = "\n\t\tthen ";
-		for (int i = 0; i<((anActivitiesSet.length)+2); i++) {
+		for (int i = 0; i<((anActivitiesSet.length)+1); i++) {
 			concat = concat + "\n\t\t\t$"+ i
 					+ "Event.setConsumed(true); \n\t\t\tupdate($"+ i +"Event);"
 					+ "\n\t\t\tretract($"+ i +"Event);";					
 		}
 		 concat = concat + "\n\t\t\t" +
 			"ResponseDispatcher.SetPathCompleted(\"##LEARNERSINVOLVEDID##\",\"" + idPath + "\", \"" + idBPMN + "\");";
-		 concat = concat + "\n\t\t\t" +
-			"ResponseDispatcher.PropagateScores(\"##ALLLEARNERSINVOLVEDIDS##\",\"" + idPath + "\", \"" + idBPMN + "\");";
 		return concat;
+	}
+	
+	public static String ruleForSimulationEnd(String learnersID, String simulationSessionID, String idBPMN) {
+		
+		String theRule = RuleElements.getHeader("ENDSimulation", "java");
+		
+		theRule = theRule.replaceAll("salience 9999", "salience 100");
+		
+		theRule += RuleElements.getWhenClause();
+		
+		theRule +="\t\t\t$0Event : GlimpseBaseEventBPMN(" +
+				"this.isConsumed == true, this.getEvent().simulationsessionid == \"" + simulationSessionID + "\""
+				+", this.getEvent.type.toString() == EventType.SIMULATION_END.toString()"
+				+", this.isException == false);\n";		
+		theRule += "\n\t\t\t$0Event.setConsumed(true); \n\t\t\tupdate($0Event);"
+				+ "\n\t\t\tretract($0Event); \n\t\t\t" +
+				"ResponseDispatcher.PropagateScores(\""+ learnersID.substring(learnersID.length(),learnersID.length()-1) +"\",\"0\", \"" + idBPMN + "\");";
+		theRule += RuleElements.getEnd();
+		
+		return theRule;
 	}
 	
 }
