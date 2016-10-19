@@ -125,7 +125,6 @@ public class ActivitiProcessManager implements IProcessManager,
 
 	private final Map<String, String> simSessionIdToModelSet = new ConcurrentHashMap<>();
 	private final Map<String, ScoreProbeConsumer> scoreProbeConsumerBySession = new HashMap<>();
-	private final Map<String, Boolean> scoreProbeCompletedBySession = new HashMap<>();
 
 	public ActivitiProcessManager(
 			ProcessEngine processEngine,
@@ -403,7 +402,6 @@ public class ActivitiProcessManager implements IProcessManager,
 			try {
 				scoreProbeConsumerBySession.put(simSession,
 						ScoreProbeConsumer.create(this, simSession, projectDefinitionKey, bpmnFile, new ArrayList<>(users)));
-				scoreProbeCompletedBySession.put(simSession, false);
 			} catch (NullPointerException e) {
 				// probably cannot connect to mon
 				LoggerFactory.getLogger(ActivitiProcessManager.class)
@@ -527,14 +525,16 @@ public class ActivitiProcessManager implements IProcessManager,
 		// check if session is terminated
 		boolean noMoreActiveProcess = nbProcessesBySession.get(simSession) == 0;
 
-		// check that probe message has been received, if probe exists
-		boolean scoreProbeCompleted = !scoreProbeCompletedBySession.containsKey(simSession)
-				|| scoreProbeCompletedBySession.get(simSession);
+		// check that probe message has been received for each user, if probe
+		// exists
+		boolean allScoreReceived = scoreProbeConsumerBySession.containsKey(simSession)
+				&& probeScoreByTypeByUsersBySession.containsKey(simSession) && probeScoreByTypeByUsersBySession
+						.get(simSession).keySet().containsAll(usersBySession.get(simSession));
 
-		if (noMoreActiveProcess && scoreProbeCompleted) {
+		if (noMoreActiveProcess && allScoreReceived) {
 			// session ends, send event and clean everything
-			this.processEventReceiverProvider.processEventReceiver()
-					.receiveSimulationFinalizeEvent(new SimulationFinalizeSimEvent(System.currentTimeMillis(), simSession,
+			this.processEventReceiverProvider.processEventReceiver().receiveSimulationFinalizeEvent(
+					new SimulationFinalizeSimEvent(System.currentTimeMillis(), simSession,
 							usersBySession.get(simSession), probeScoreByTypeByUsersBySession.get(simSession)));
 
 			nbProcessesBySession.remove(simSession);
@@ -546,7 +546,6 @@ public class ActivitiProcessManager implements IProcessManager,
 
 			probeScoreByTypeByUsersBySession.remove(simSession);
 			scoreProbeConsumerBySession.remove(simSession);
-			scoreProbeCompletedBySession.remove(simSession);
 		}
 
 	}
@@ -675,8 +674,6 @@ public class ActivitiProcessManager implements IProcessManager,
 
 			probeScoreByTypeByUsersBySession.get(sessionId).get(userId).put(score.getKey(), score.getValue());
 		}
-
-		scoreProbeCompletedBySession.put(sessionId, true);
 
 		// probe have notified of score, check for completion
 		checkCompletion(sessionId);
