@@ -154,7 +154,6 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	public void computeAndPropagateScores(List<String> learnersID, String idBPMN, String simulationSessionID) {
 		
 		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
-//		Date now = new Date();
 		
 		for(int i = 0; i<learnersID.size(); i++) {
 //			databaseController.setLearnerSessionScore(
@@ -223,6 +222,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			sendScoreUpdateEventToCP(
 					generateScoreEvent(scoresToShow, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
 			DebugMessages.ok();
+			
 		}
 	}
 	

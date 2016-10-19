@@ -86,8 +86,8 @@ public class RuleElements {
 				+ "\t\t\t$0Event.setConsumed(true); \n\t\t\tupdate($0Event);"
 				+ "\n\t\t\tretract($0Event); \n\t\t\t" +
 				"ResponseDispatcher.PropagateScores(\""+ learnersID.substring(0,learnersID.length()-1) + "\", \"" + idBPMN + "\", $0Event.getEvent().simulationsessionid );";
-		theRule += RuleElements.getEnd();
 		
+		theRule += RuleElements.getEnd();
 		aInsert.setRuleBody(theRule);
 		return aInsert;
 	}

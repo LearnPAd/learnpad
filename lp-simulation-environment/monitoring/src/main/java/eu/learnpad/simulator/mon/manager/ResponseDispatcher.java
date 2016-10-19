@@ -162,6 +162,7 @@ public class ResponseDispatcher {
 			sendMessage.setStringProperty("USERID", userid);
 			sendMessage.setBooleanProperty("ISASCORE", true);
 			sendMessage.setStringProperty("SIMSESSIONID", simulationSessionID);
+		
 			tPub.publish(sendMessage);
 		} catch (JMSException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), ResponseDispatcher.class.getSimpleName(),  "Exception during sendScoresEvaluation method execution");
