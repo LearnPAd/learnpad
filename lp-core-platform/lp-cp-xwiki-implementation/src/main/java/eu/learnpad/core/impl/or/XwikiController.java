@@ -40,6 +40,7 @@ import eu.learnpad.core.rest.Utils;
 import eu.learnpad.dash.rest.data.KPIValuesFormat;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
+import eu.learnpad.me.rest.data.KPIsFormat;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.Controller;
 
@@ -108,9 +109,17 @@ public class XwikiController extends Controller implements XWikiRestComponent, I
 	}
 
 	@Override
+	public InputStream getExternalKPIs(String modelSetId, String kpisid, KPIsFormat type)
+			throws LpRestException {
+		String attachmentName = String.format("%s.%s", kpisid, type.toString().toLowerCase());
+		return utils.getAttachment(DefaultRestResource.CORE_REPOSITORY_WIKI, DefaultRestResource.CORE_REPOSITORY_SPACE, modelSetId, attachmentName);
+	}
+
+	@Override
 	public void pushKPIValues(String modelSetId, KPIValuesFormat format,
 			String businessActorId, InputStream cockpitContent)
 			throws LpRestException {
 		this.dash.loadKPIValues(modelSetId, format, businessActorId, cockpitContent);
 	}
+
 }

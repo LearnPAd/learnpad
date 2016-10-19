@@ -48,6 +48,7 @@ import eu.learnpad.core.rest.DefaultRestResource;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.me.rest.data.KPIsFormat;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.BridgeInterface;
 import eu.learnpad.or.rest.data.Entities;
@@ -386,27 +387,6 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 	}
 
     @Override
-//    public void updateSimulationScore(String modelSetId, String simulationSessionId, String processArtifactId, Long timestamp, String userId, ScoreType scoreType, Float score) throws LpRestException {
-//		HttpClient httpClient = this.getClient();
-//		String uri = String.format("%s/learnpad/or/bridge/%s/simulationscore", DefaultRestResource.REST_URI, modelSetId);
-//		PostMethod postMethod = new PostMethod(uri);
-//		postMethod.addRequestHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_XML);
-//
-//		NameValuePair[] queryString = new NameValuePair[6];		
-//		queryString[0] = new NameValuePair("simulationsessionid", simulationSessionId);
-//		queryString[1] = new NameValuePair("processartifactid", processArtifactId);
-//		queryString[2] = new NameValuePair("timestamp", timestamp.toString()); 
-//		queryString[3] = new NameValuePair("userid", userId);
-//		queryString[4] = new NameValuePair("scoretype", scoreType.name()); 
-//		queryString[5] = new NameValuePair("score", String.valueOf(score));
-//		postMethod.setQueryString(queryString);
-//                     
-//		try {
-//			httpClient.executeMethod(postMethod);
-//		} catch (IOException e) {
-//			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
-//		}
-//    }
     public void updateSimulationScore(String modelSetId, String simulationSessionId, String processArtifactId, Long timestamp, String userId, SimulationScoresMap scoreMap) throws LpRestException {		    	
     	HttpClient httpClient = this.getClient();
 		String uri = String.format("%s/learnpad/or/bridge/%s/simulationscore", DefaultRestResource.REST_URI, modelSetId);
@@ -435,5 +415,23 @@ public class XwikiBridgeInterfaceRestResource extends DefaultRestResource
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
     }
+
+	@Override
+	public void kpisImported(String modelSetId, String kpisId, KPIsFormat type)
+			throws LpRestException {
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/or/bridge/kpisimported/%s/%s", DefaultRestResource.REST_URI,
+				modelSetId, kpisId);
+		PutMethod putMethod = new PutMethod(uri);
+		putMethod.addRequestHeader("Accept", "application/xml");
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("type", type.toString());
+		putMethod.setQueryString(queryString);
+		try {
+			httpClient.executeMethod(putMethod);
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e);
+		}		
+	}
 
 }

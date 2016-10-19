@@ -23,8 +23,9 @@ import javax.ws.rs.Path;
 
 import eu.learnpad.or.rest.GetComments;
 import eu.learnpad.or.rest.KPIsHandler;
+import eu.learnpad.or.rest.KPIsImporter;
 import eu.learnpad.or.rest.ModelImporter;
 
 @Path("/learnpad/or/corefacade")
-public interface CoreFacade extends GetComments, ModelImporter, KPIsHandler {
+public interface CoreFacade extends GetComments, ModelImporter, KPIsImporter, KPIsHandler {
 }
