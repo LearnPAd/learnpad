@@ -95,5 +95,6 @@ public interface DBController {
 	public int getBPMNPathsCardinality(String idBPMN);
 	public Float getAbsoluteBPScore(String idBPMN);
 	Float getLastPathAbsoluteSessionScoreExecutedByLearner(String idLearner, String idBPMN);
+	void cleanDB();
 	
 }

@@ -59,6 +59,24 @@ public class H2Controller implements DBController {
 	}
 	
 	@Override
+	public void cleanDB() {
+		boolean done = false;
+		String query = "delete glimpse.BPMN; delete glimpse.BPMN_LEARNER; "
+						+ "delete glimpse.CATEGORY; delete glimpse.LEARNER; "
+						+ "delete glimpse.PATH; delete glimpse.PATH_LEARNER;";
+		try {
+			DebugMessages.print(TimeStamp.getCurrentTime(), 
+								this.getClass().getSimpleName(), "Cleaning DB");
+			preparedStmt = conn.prepareStatement(query);
+			done = preparedStmt.execute(); 
+			DebugMessages.ok();
+		} catch (SQLException e) {
+			System.err.println("Exception during cleanDB " + done);
+			System.err.println(e.getMessage());
+		}
+	}
+	
+	@Override
 	public Vector<Path> getBPMNPaths(String idBPMN) {
 		String query = "select * from glimpse.path where id_bpmn = \'"+idBPMN+"';";
 		Vector<Path> retrievedPath = new Vector<Path>();

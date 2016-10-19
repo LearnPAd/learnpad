@@ -108,6 +108,21 @@ public class MySqlController implements DBController {
 	}
 
 	@Override
+	public void cleanDB() {
+		String query = "delete glimpse.BPMN; delete glimpse.BPMN_LEARNER; "
+						+ "delete glimpse.CATEGORY; delete glimpse.LEARNER; "
+						+ "delete glimpse.PATH; delete glimpse.PATH_LEARNER;";
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			resultsSet = preparedStmt.executeQuery(); 
+
+		} catch (SQLException e) {
+			System.err.println("Exception during cleanDB");
+			System.err.println(e.getMessage());
+		}
+	}
+	
+	@Override
 	public float getLearnerSessionScore(String idLearner, String idPath, String idBPMN) {
 		return 0;
 	}

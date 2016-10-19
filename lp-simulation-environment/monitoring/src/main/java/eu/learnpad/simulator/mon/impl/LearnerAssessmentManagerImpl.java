@@ -63,6 +63,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	public void run() {
 		
 		databaseController.connectToDB();
+		databaseController.cleanDB();
 	}
 	
 	@Override
