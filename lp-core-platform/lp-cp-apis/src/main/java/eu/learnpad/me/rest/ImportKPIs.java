@@ -17,24 +17,32 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.or;
+package eu.learnpad.me.rest;
 
+import java.io.InputStream;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
-import eu.learnpad.or.rest.AddExecutionState;
-import eu.learnpad.or.rest.AskRecommendation;
-import eu.learnpad.or.rest.KPIsImported;
-import eu.learnpad.or.rest.KnowledgeBaseProcessor;
-import eu.learnpad.or.rest.ListExecutionStates;
-import eu.learnpad.or.rest.ModelSetImported;
-import eu.learnpad.or.rest.SemanticWiki;
-import eu.learnpad.or.rest.SimulationNotification;
-import eu.learnpad.or.rest.ResourceNotification;
+import eu.learnpad.exception.LpRestException;
+import eu.learnpad.me.rest.data.ImportStatus;
+import eu.learnpad.me.rest.data.KPIsFormat;
 
-@Path("/learnpad/or/bridge")
-public interface BridgeInterface extends ModelSetImported,
-		ResourceNotification, AskRecommendation, SimulationNotification, 
-                AddExecutionState, ListExecutionStates, SemanticWiki, 
-                KnowledgeBaseProcessor, KPIsImported {
+public interface ImportKPIs {
 
+	// "/learnpad/me/importkpis/{modelsetid}/{kpisid}?type={XLSX|XML}"
+	@PUT
+	@Path("/importkpis/{modelsetid}/{kpisid}")
+	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
+	@Produces(MediaType.APPLICATION_XML)
+	ImportStatus putKPIs(@PathParam("modelsetid") String modelSetId,
+			@PathParam("kpisid") String kpisId,
+			@QueryParam("type") @DefaultValue("XLSX") KPIsFormat type, InputStream kpisFile)
+			throws LpRestException;
 }

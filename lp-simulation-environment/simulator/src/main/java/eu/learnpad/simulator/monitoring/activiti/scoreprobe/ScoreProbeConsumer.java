@@ -74,13 +74,14 @@ public class ScoreProbeConsumer extends GlimpseAbstractConsumer {
 				try {
 					ObjectMessage responseFromMonitoring = (ObjectMessage) arg0;
 					if (responseFromMonitoring.getObject() instanceof ComplexEventException) {
-						ComplexEventException exceptionReceived = (ComplexEventException) responseFromMonitoring.getObject();
+						ComplexEventException exceptionReceived = (ComplexEventException) responseFromMonitoring
+								.getObject();
 						logger.error("Receive exception from probe: {}", exceptionReceived.getMessage());
 						logger.error("Stack trace:\n{}", exceptionReceived.getStackTrace());
 					} else if (responseFromMonitoring.getObject() instanceof Map) {
 
 						@SuppressWarnings("unchecked")
-						Map<ScoreType, Float> theScores = (Map<ScoreType, Float>)responseFromMonitoring.getObject();
+						Map<ScoreType, Float> theScores = (Map<ScoreType, Float>) responseFromMonitoring.getObject();
 
 						String userId = responseFromMonitoring.getStringProperty(USER_ID_PROPERTY);
 
@@ -96,15 +97,15 @@ public class ScoreProbeConsumer extends GlimpseAbstractConsumer {
 				}
 			}
 		} catch (JMSException e) {
-			// TODO Auto-generated catch block
+			logger.error("Exception from probe: {}", e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
-		@Override
-		public void messageReceived(Message arg0) throws JMSException {
-			// nothing to do here
-		}
+	@Override
+	public void messageReceived(Message arg0) throws JMSException {
+		// nothing to do here
+	}
 
 	/**
 	 *

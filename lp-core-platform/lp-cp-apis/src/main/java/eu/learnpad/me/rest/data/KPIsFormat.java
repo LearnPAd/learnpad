@@ -17,24 +17,20 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package eu.learnpad.or;
+package eu.learnpad.me.rest.data;
 
-import javax.ws.rs.Path;
-
-import eu.learnpad.or.rest.AddExecutionState;
-import eu.learnpad.or.rest.AskRecommendation;
-import eu.learnpad.or.rest.KPIsImported;
-import eu.learnpad.or.rest.KnowledgeBaseProcessor;
-import eu.learnpad.or.rest.ListExecutionStates;
-import eu.learnpad.or.rest.ModelSetImported;
-import eu.learnpad.or.rest.SemanticWiki;
-import eu.learnpad.or.rest.SimulationNotification;
-import eu.learnpad.or.rest.ResourceNotification;
-
-@Path("/learnpad/or/bridge")
-public interface BridgeInterface extends ModelSetImported,
-		ResourceNotification, AskRecommendation, SimulationNotification, 
-                AddExecutionState, ListExecutionStates, SemanticWiki, 
-                KnowledgeBaseProcessor, KPIsImported {
-
+/*
+ * Originally this definition was planned to support :
+ * <ul>
+ *  <li> XLSX : an MS Excel File according to the template defined in the LP-OR</li>
+ *  <li> XML : a NOT WELL defined XML fomrat</li>
+ * </ul>
+ *    
+ * Currently this definition only supports XLSX 
+ *
+ *                       
+ * TODO Modify this definition in order to explicitly define XML 
+ */
+public enum KPIsFormat {
+	XLSX, XML
 }

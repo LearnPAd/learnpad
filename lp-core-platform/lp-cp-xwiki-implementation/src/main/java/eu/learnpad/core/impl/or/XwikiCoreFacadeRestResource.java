@@ -34,6 +34,7 @@ import eu.learnpad.dash.rest.data.KPIValuesFormat;
 import eu.learnpad.exception.LpRestException;
 import eu.learnpad.exception.impl.LpRestExceptionImpl;
 import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
+import eu.learnpad.me.rest.data.KPIsFormat;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.or.CoreFacade;
 
@@ -90,6 +91,30 @@ public class XwikiCoreFacadeRestResource extends DefaultRestResource implements
 			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
 		}
 		return model;
+	}
+
+	@Override
+	public InputStream getExternalKPIs(String modelSetId, String kpisid, KPIsFormat type)
+			throws LpRestException {
+		// Now send the package's path to the importer for XWiki
+		HttpClient httpClient = this.getClient();
+		String uri = String.format("%s/learnpad/or/corefacade/getkpis/%s/%s",
+				DefaultRestResource.REST_URI, modelSetId, kpisid);
+		GetMethod getMethod = new GetMethod(uri);
+		getMethod.addRequestHeader("Accept", "application/xml");
+
+		NameValuePair[] queryString = new NameValuePair[1];
+		queryString[0] = new NameValuePair("type", type.toString());
+		getMethod.setQueryString(queryString);
+
+		InputStream kpisStream = null;
+		try {
+			httpClient.executeMethod(getMethod);
+			kpisStream = getMethod.getResponseBodyAsStream();
+		} catch (IOException e) {
+			throw new LpRestExceptionXWikiImpl(e.getMessage(), e.getCause());
+		}
+		return kpisStream;
 	}
 
 	@Override
