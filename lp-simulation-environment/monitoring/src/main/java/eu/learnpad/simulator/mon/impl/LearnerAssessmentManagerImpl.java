@@ -151,7 +151,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	}
 	
 	@Override
-	public void computeAndPropagateScores(List<String> learnersID, String idBPMN) {
+	public void computeAndPropagateScores(List<String> learnersID, String idBPMN, String simulationSessionID) {
 		
 		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
 //		Date now = new Date();
@@ -205,7 +205,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			scoresToShow.put(ScoreType.SESSION_SCORE, ScoreTemporaryStorage.getTemporaryLearnerSessionScore(learnersID.get(i)).floatValue());
 			
 			DebugMessages.line();
-			sendScoresToSim(scoresToShow,learnersID.get(i));
+			sendScoresToSim(scoresToShow,learnersID.get(i), simulationSessionID);
 			DebugMessages.line();
 			
 			DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "ABSOLUTE_BP_SCORE " + scoresToShow.get(ScoreType.ABSOLUTE_BP_SCORE));
@@ -224,13 +224,11 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 					generateScoreEvent(scoresToShow, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
 			DebugMessages.ok();
 		}
-		
-		
 	}
 	
-	private void sendScoresToSim(HashMap<ScoreType, Float> scoresToShow, String user) {
+	private void sendScoresToSim(HashMap<ScoreType, Float> scoresToShow, String user, String simulationSessionID) {
 		DebugMessages.print(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "Sending scores to the simulator related to user: " + user);
-		ResponseDispatcher.sendScoresEvaluation(scoresToShow, "simulator", "scoresUpdateResponses", user);
+		ResponseDispatcher.sendScoresEvaluation(scoresToShow, "simulator", "scoresUpdateResponses", user, simulationSessionID);
 		DebugMessages.ok();	
 }
 

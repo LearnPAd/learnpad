@@ -126,9 +126,9 @@ public class ResponseDispatcher {
 		ResponseDispatcher.lam.setPathCompleted(new ArrayList<String>(Arrays.asList(learnersID.split(","))),idPath, idBPMN);
 	}
 	
-	public static void PropagateScores(String learnersID, String idBPMN)
+	public static void PropagateScores(String learnersID, String idBPMN, String simulationSessionID)
 	{
-		ResponseDispatcher.lam.computeAndPropagateScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))), idBPMN);
+		ResponseDispatcher.lam.computeAndPropagateScores(new ArrayList<String>(Arrays.asList(learnersID.split(","))), idBPMN, simulationSessionID);
 	}
 
 	
@@ -149,7 +149,7 @@ public class ResponseDispatcher {
 		}
 	}
 	
-	public static void sendScoresEvaluation(HashMap<ScoreType, Float> scores, String destination, String channel, String userid)
+	public static void sendScoresEvaluation(HashMap<ScoreType, Float> scores, String destination, String channel, String userid, String simulationSessionID)
 	{
 		try {
 			publicSession = connection.createTopicSession(false,Session.AUTO_ACKNOWLEDGE);
@@ -161,6 +161,7 @@ public class ResponseDispatcher {
 			sendMessage.setStringProperty("DESTINATION", destination);
 			sendMessage.setStringProperty("USERID", userid);
 			sendMessage.setBooleanProperty("ISASCORE", true);
+			sendMessage.setStringProperty("SIMSESSIONID", simulationSessionID);
 			tPub.publish(sendMessage);
 		} catch (JMSException e) {
 			DebugMessages.println(TimeStamp.getCurrentTime(), ResponseDispatcher.class.getSimpleName(),  "Exception during sendScoresEvaluation method execution");
