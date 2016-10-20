@@ -187,7 +187,7 @@ public class DroolsRulesManager extends RulesManager {
 	@Override
 	public void deleteRule(final String ruleName) throws UnknownRuleException {
 		
-		DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), "Listing rules loaded into the knowledgeBases");
+		DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getSimpleName(), "Listing rules loaded into the knowledgeBases");
 		Collection<KnowledgePackage> ass = kbase.getKnowledgePackages();
 		Object esd[] = ass.toArray();
 		for (int i = 0; i<esd.length; i++) {
@@ -195,7 +195,7 @@ public class DroolsRulesManager extends RulesManager {
 			KnowledgePackage kp = (KnowledgePackage)esd[i];
 			Collection<Rule> rls = kp.getRules();
 			Object r[] = rls.toArray();
-			DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getCanonicalName(), "KnowledgeBase name: " + kp.getName());
+			DebugMessages.println(TimeStamp.getCurrentTime(),this.getClass().getSimpleName(), "KnowledgeBase name: " + kp.getName());
 			if (r.length > 0) {
 				for (int j = 0; j<r.length;j++) {
 					Rule gg = (Rule) r[j];
@@ -226,7 +226,7 @@ public class DroolsRulesManager extends RulesManager {
 	
 	public static void getLoadedRulesInfo()
 	{
-		DebugMessages.println(TimeStamp.getCurrentTime(),DroolsRulesManager.class.getCanonicalName(), "Listing rules loaded into the knowledgeBases");
+		DebugMessages.println(TimeStamp.getCurrentTime(),DroolsRulesManager.class.getSimpleName(), "Listing rules loaded into the knowledgeBases");
 		Collection<KnowledgePackage> ass = kbase.getKnowledgePackages();
 		Object esd[] = ass.toArray();
 		for (int i = 0; i<esd.length; i++) {
@@ -234,15 +234,15 @@ public class DroolsRulesManager extends RulesManager {
 			KnowledgePackage kp = (KnowledgePackage)esd[i];
 			Collection<Rule> rls = kp.getRules();
 			Object r[] = rls.toArray();
-			DebugMessages.println(TimeStamp.getCurrentTime(),DroolsRulesManager.class.getCanonicalName(), "KnowledgeBase name: " + kp.getName());
+			DebugMessages.println(TimeStamp.getCurrentTime(),DroolsRulesManager.class.getSimpleName(), "KnowledgeBase name: " + kp.getName());
 			if (r.length == 0) {
-				DebugMessages.println(TimeStamp.getCurrentTime(),DroolsRulesManager.class.getCanonicalName(), "--! No rules loaded into: " + kp.getName() + " knowledgeBase");
+				DebugMessages.println(TimeStamp.getCurrentTime(),DroolsRulesManager.class.getSimpleName(), "--! No rules loaded into: " + kp.getName() + " knowledgeBase");
 			}
 			else
 			{
 				for (int j = 0; j<r.length;j++) {
 					Rule gg = (Rule) r[j];
-					DebugMessages.println(TimeStamp.getCurrentTime(),DroolsRulesManager.class.getCanonicalName(), "RuleName: " + gg.getName());	
+					DebugMessages.println(TimeStamp.getCurrentTime(),DroolsRulesManager.class.getSimpleName(), "RuleName: " + gg.getName());	
 					}
 			}
 		}
@@ -257,7 +257,7 @@ public class DroolsRulesManager extends RulesManager {
 			KnowledgePackage kp = (KnowledgePackage)esd[i];
 			Collection<Rule> rls = kp.getRules();
 			Object r[] = rls.toArray();
-			DebugMessages.println(TimeStamp.getCurrentTime(), DroolsRulesManager.class.getCanonicalName(), "KnowledgeBase name: " + kp.getName());
+			DebugMessages.println(TimeStamp.getCurrentTime(), DroolsRulesManager.class.getSimpleName(), "KnowledgeBase name: " + kp.getName());
 			if (r.length > 0) {
 				for (int j = 0; j<r.length;j++) {
 					Rule gg = (Rule) r[j];

@@ -45,7 +45,6 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	private RulesPerPath crossRulesGenerator;
 	private DBController databaseController;
 	private ComplexEventRuleActionListDocument rulesLists;
-	private float absoluteBPScore;
 	private float absoluteSessionScore; 
 
 	public LearnerAssessmentManagerImpl(DBController databaseController) {
@@ -64,6 +63,7 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	public void run() {
 		
 		databaseController.connectToDB();
+		databaseController.cleanDB();
 	}
 	
 	@Override
@@ -106,8 +106,6 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 				
 				newBpmn.setAbsoluteBpScore(ComputeLearnerScore.absoluteBP(theGeneratedPath));
 				
-				absoluteBPScore = newBpmn.getAbsoluteBpScore();
-				
 				databaseController.saveBPMN(newBpmn);
 			} else {
 				this.rulesLists = crossRulesGenerator.instantiateRulesSetForUsersInvolved(
@@ -140,22 +138,22 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 	public void setPathCompleted(List<String> learnersID, String idPath, String idBPMN) {
 		Date now = new Date();
 
-		DebugMessages.print(TimeStamp.getCurrentTime(),  this.getClass().getName(),  
+		DebugMessages.print(TimeStamp.getCurrentTime(),  this.getClass().getSimpleName(),  
 				"Set path " + idPath + " for bpmn " + idBPMN + " completed ");
+		DebugMessages.ok();
+		
 		for(int i = 0; i<learnersID.size(); i++) {
 			databaseController.setLearnerSessionScore(
 					learnersID.get(i), idPath, idBPMN, 
 					ScoreTemporaryStorage.getTemporaryLearnerSessionScore(learnersID.get(i)),
 					new java.sql.Date(now.getTime()));
 		}
-		DebugMessages.ok();
 	}
 	
 	@Override
-	public void computeAndPropagateScores(List<String> learnersID, String idPath, String idBPMN) {
+	public void computeAndPropagateScores(List<String> learnersID, String idBPMN, String simulationSessionID) {
 		
 		int pathsCardinality = databaseController.getBPMNPathsCardinality(idBPMN);
-//		Date now = new Date();
 		
 		for(int i = 0; i<learnersID.size(); i++) {
 //			databaseController.setLearnerSessionScore(
@@ -195,9 +193,9 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 
 			HashMap<ScoreType, Float> scoresToShow = new HashMap<ScoreType, Float>();
 			
-			scoresToShow.put(ScoreType.ABSOLUTE_BP_SCORE, absoluteBPScore);
+			scoresToShow.put(ScoreType.ABSOLUTE_BP_SCORE, databaseController.getAbsoluteBPScore(idBPMN));
 			scoresToShow.put(ScoreType.ABSOLUTE_GLOBAL_SCORE, learnerAbsoluteGlobalScore);
-			scoresToShow.put(ScoreType.ABSOLUTE_SESSION_SCORE, absoluteSessionScore);
+			scoresToShow.put(ScoreType.ABSOLUTE_SESSION_SCORE, databaseController.getLastPathAbsoluteSessionScoreExecutedByLearner(learnersID.get(i), idBPMN));
 			scoresToShow.put(ScoreType.BP_COVERAGE, learnerCoverage);
 			scoresToShow.put(ScoreType.BP_SCORE, learnerBPScore);
 			scoresToShow.put(ScoreType.GLOBAL_SCORE, learnerGlobalScore);
@@ -205,9 +203,10 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			scoresToShow.put(ScoreType.RELATIVE_GLOBAL_SCORE, learnerRelativeGlobalScore);
 			scoresToShow.put(ScoreType.SESSION_SCORE, ScoreTemporaryStorage.getTemporaryLearnerSessionScore(learnersID.get(i)).floatValue());
 			
-			sendScoresToSim(scoresToShow,learnersID.get(i));
-			
 			DebugMessages.line();
+			sendScoresToSim(scoresToShow,learnersID.get(i), simulationSessionID);
+			DebugMessages.line();
+			
 			DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "ABSOLUTE_BP_SCORE " + scoresToShow.get(ScoreType.ABSOLUTE_BP_SCORE));
 			DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "ABSOLUTE_GLOBAL_SCORE " + scoresToShow.get(ScoreType.ABSOLUTE_GLOBAL_SCORE));
 			DebugMessages.println(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "ABSOLUTE_SESSION_SCORE " + scoresToShow.get(ScoreType.ABSOLUTE_SESSION_SCORE));
@@ -223,14 +222,13 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			sendScoreUpdateEventToCP(
 					generateScoreEvent(scoresToShow, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
 			DebugMessages.ok();
+			
 		}
-		
-		
 	}
 	
-	private void sendScoresToSim(HashMap<ScoreType, Float> scoresToShow, String user) {
-		DebugMessages.print(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "Sending scores to the simulator");
-		ResponseDispatcher.sendScoresEvaluation(scoresToShow, "simulator", "scoresUpdateResponses", user);
+	private void sendScoresToSim(HashMap<ScoreType, Float> scoresToShow, String user, String simulationSessionID) {
+		DebugMessages.print(TimeStamp.getCurrentTime(), this.getClass().getSimpleName(), "Sending scores to the simulator related to user: " + user);
+		ResponseDispatcher.sendScoresEvaluation(scoresToShow, "simulator", "scoresUpdateResponses", user, simulationSessionID);
 		DebugMessages.ok();	
 }
 

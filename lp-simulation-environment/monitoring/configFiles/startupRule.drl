@@ -31,15 +31,13 @@ when
 		this.isException == false,
 		this.getEventName == EventType.SIMULATION_START.toString()); 
 then			
-	$bEvent.setConsumed(true); 
-	update($bEvent); 
- 	RestNotifier.notifySimulationStart($bEvent.getTimeStamp(), (SimulationStartEvent)$bEvent.getEvent());
+	RestNotifier.notifySimulationStart($bEvent.getTimeStamp(), (SimulationStartEvent)$bEvent.getEvent());
 end 
 
 rule "Forward to the CP - SimulationEnd" 
 no-loop true  
 
-salience 1 
+salience 98 
 
 dialect "java" 
 
@@ -49,9 +47,7 @@ when
 	 	this.isException == false,
 		this.getEventName == EventType.SIMULATION_END.toString()); 
 then	 		 	
-	$aEvent.setConsumed(true); 
-	update($aEvent); 
- 	RestNotifier.notifySimulationEnd($aEvent.getTimeStamp(), (SimulationEndEvent)$aEvent.getEvent());
+	RestNotifier.notifySimulationEnd($aEvent.getTimeStamp(), (SimulationEndEvent)$aEvent.getEvent());
 end 
 
 rule "Forward to the CP - ProcessStart"  
@@ -93,7 +89,7 @@ end
 rule "Forward to the CP - TaskStart"  
 no-loop true  
  
-salience 1  
+salience 99  
 
 dialect "java"  
 
@@ -129,7 +125,7 @@ end
 rule "Forward to the CP - TaskEnd" 
 no-loop true 
 
-salience 999990 
+salience 99 
 
 dialect "java" 
 
@@ -139,8 +135,6 @@ when
 		this.isException == false,
 		this.getEventName == EventType.TASK_END.toString());  
 then
-	$aEvent.setConsumed(true); 
-	update($aEvent); 		
 	RestNotifier.notifyTaskEnd($aEvent.getTimeStamp(), (TaskEndEvent)$aEvent.getEvent()); 		 	
 end   
 
@@ -161,7 +155,7 @@ then
 	update($aEvent); 
 	ScoreTemporaryStorage.setTemporaryLearnerSessionScore(
 									$aEvent.getSessionScoreUpdateEvent().user.toString(), 
-									$aEvent.getSessionScoreUpdateEvent().sessionscore);
+									$aEvent.getSessionScoreUpdateEvent());
 	ScoreTemporaryStorage.setLastScoreUpdateEventSeen($aEvent.getSessionScoreUpdateEvent());
 	retract($aEvent);		 	
 end  

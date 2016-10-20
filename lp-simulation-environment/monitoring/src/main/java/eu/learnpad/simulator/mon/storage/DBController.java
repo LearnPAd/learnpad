@@ -93,5 +93,8 @@ public interface DBController {
 	public void updateBpmnLearnerScores(String learnerID, String idBPMN,
 			float learnerBPScore, float learnerRelativeBPScore, float learnerCoverage);
 	public int getBPMNPathsCardinality(String idBPMN);
+	public Float getAbsoluteBPScore(String idBPMN);
+	Float getLastPathAbsoluteSessionScoreExecutedByLearner(String idLearner, String idBPMN);
+	void cleanDB();
 	
 }

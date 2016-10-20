@@ -69,14 +69,14 @@ public class RulesPerPathGeneratorImpl implements RulesPerPath {
 		
 		if (anActivitiesSet.length > 0) {
 			concat = "\t\t\t$0Event : GlimpseBaseEventBPMN("+
-					"this.isConsumed == true, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
+					"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
 					+", this.getEvent.type.toString() == EventType.SIMULATION_START.toString()"
 					+", this.isException == false);\n";
 		}
 		
 		for(int j = 0; j<anActivitiesSet.length; j++) {				
 			concat +="\t\t\t$"+((j)+1)+"Event : GlimpseBaseEventBPMN(" +
-					"this.isConsumed == true, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
+					"this.isConsumed == false, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
 					+", this.getEvent.type.toString() == EventType.TASK_END.toString()"
 					+", this.getTaskEndEvent().completingUser.toString() == \"##USERSINVOLVEDTASKENDIDS##\""
 					+", this.isException == false"
@@ -84,11 +84,11 @@ public class RulesPerPathGeneratorImpl implements RulesPerPath {
 					+", this after $" + (j) + "Event);\n";
 	}
 
-	concat +="\t\t\t$"+((anActivitiesSet.length)+1)+"Event : GlimpseBaseEventBPMN(" +
-		"this.isConsumed == true, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
-		+", this.getEvent.type.toString() == EventType.SIMULATION_END.toString()"
-		+", this.isException == false"
-		+", this after $" + (anActivitiesSet.length) + "Event);\n";
+//	concat +="\t\t\t$"+((anActivitiesSet.length)+1)+"Event : GlimpseBaseEventBPMN(" +
+//		"this.isConsumed == true, this.getEvent().simulationsessionid == \"##SESSIONIDPLACEHOLDER##\""
+//		+", this.getEvent.type.toString() == EventType.SIMULATION_END.toString()"
+//		+", this.isException == false"
+//		+", this after $" + (anActivitiesSet.length) + "Event);\n";
 			
 		aInsert.setRuleBody(RuleElements.getHeader(aInsert.getRuleName(),  "java") +
 				RuleElements.getWhenClause() + 
@@ -106,27 +106,28 @@ public class RulesPerPathGeneratorImpl implements RulesPerPath {
 		
 		rulesToLoad = ComplexEventRuleActionListDocument.Factory.newInstance();
 		String updatedPath = "";
+		ComplexEventRuleType rule;
 		List<ComplexEventRuleType> preparedRules = new ArrayList<ComplexEventRuleType>();
 		String learnersList = "";
-		for (int j = 1; j<usersInvolved.size()+1; j++) {
-			learnersList += usersInvolved.get(j-1).getId() + ",";
-		}
-		for (int j = 1; j<usersInvolved.size()+1; j++) {
-			for (int i = 0; i<thePathsToInstantiate.size(); i++) {
-				updatedPath = thePathsToInstantiate.get(i).getPathRule().replaceAll("##SESSIONIDPLACEHOLDER##", sessionID);
-				updatedPath = updatedPath.replaceAll("##USERSINVOLVEDSESSIONSCOREIDS##", usersInvolved.get(j-1).getId());
-				updatedPath = updatedPath.replaceAll("##USERSINVOLVEDTASKENDIDS##", usersInvolved.get(j-1).getId());
-				updatedPath = updatedPath.replaceAll("##LEARNERSINVOLVEDID##", usersInvolved.get(j-1).getId());
-				updatedPath = updatedPath.replaceAll("##ALLLEARNERSINVOLVEDIDS##", learnersList.substring(0, learnersList.length()-1));
-
-				try {
-					ComplexEventRuleType rule = ComplexEventRuleType.Factory.parse(updatedPath);
-					preparedRules.add(rule);
+		try {
+			for (int j = 1; j<usersInvolved.size()+1; j++) {
+				learnersList += usersInvolved.get(j-1).getId() + ",";
+			}
+			for (int j = 1; j<usersInvolved.size()+1; j++) {
+				for (int i = 0; i<thePathsToInstantiate.size(); i++) {
+					updatedPath = thePathsToInstantiate.get(i).getPathRule().replaceAll("##SESSIONIDPLACEHOLDER##", sessionID);
+					updatedPath = updatedPath.replaceAll("##USERSINVOLVEDSESSIONSCOREIDS##", usersInvolved.get(j-1).getId());
+					updatedPath = updatedPath.replaceAll("##USERSINVOLVEDTASKENDIDS##", usersInvolved.get(j-1).getId());
+					updatedPath = updatedPath.replaceAll("##LEARNERSINVOLVEDID##", usersInvolved.get(j-1).getId());
+//					updatedPath = updatedPath.replaceAll("##ALLLEARNERSINVOLVEDIDS##", learnersList.substring(0, learnersList.length()-1));
+					rule = ComplexEventRuleType.Factory.parse(updatedPath);
+					preparedRules.add(rule);	
 					
-				} catch (XmlException e) {
-					e.printStackTrace();
 				}
 			}
+			preparedRules.add(RuleElements.ruleForSimulationEnd(learnersList, sessionID, thePathsToInstantiate.get(0).getIdBpmn()));			
+		} catch (XmlException e) {
+			e.printStackTrace();
 		}
 		
 		for (int i = 0; i<preparedRules.size(); i++) {

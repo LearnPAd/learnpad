@@ -108,6 +108,21 @@ public class MySqlController implements DBController {
 	}
 
 	@Override
+	public void cleanDB() {
+		String query = "delete glimpse.BPMN; delete glimpse.BPMN_LEARNER; "
+						+ "delete glimpse.CATEGORY; delete glimpse.LEARNER; "
+						+ "delete glimpse.PATH; delete glimpse.PATH_LEARNER;";
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			resultsSet = preparedStmt.executeQuery(); 
+
+		} catch (SQLException e) {
+			System.err.println("Exception during cleanDB");
+			System.err.println(e.getMessage());
+		}
+	}
+	
+	@Override
 	public float getLearnerSessionScore(String idLearner, String idPath, String idBPMN) {
 		return 0;
 	}
@@ -757,5 +772,56 @@ public class MySqlController implements DBController {
 			System.err.println(e.getMessage());
 		}
 		return result;
+	}
+	
+	@Override
+	public Float getAbsoluteBPScore(String idBPMN) {
+		String query = "select ABSOLUTE_BP_SCORE from glimpse.bpmn where id_bpmn = \'"+idBPMN+"';";
+		float theAbsBPScore = 0f;
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			resultsSet = preparedStmt.executeQuery();
+			if (resultsSet.first()) { 
+				DebugMessages.println(
+						TimeStamp.getCurrentTime(), 
+						this.getClass().getSimpleName(),
+						"The BPMN has been already extracted, loading values");
+				theAbsBPScore = resultsSet.getFloat(0); 
+				} 				
+			}	catch(SQLException asd) {
+				System.err.println("Exception during checkIfBPHasBeenAlreadyExtracted ");
+				return 0f;
+			}
+		return theAbsBPScore;
+	}
+
+	@Override
+	public Float getLastPathAbsoluteSessionScoreExecutedByLearner(String idLearner, String idBPMN) {
+		
+		String query = "SELECT distinct id_path, execution_date FROM glimpse.path_learner where id_learner = \'"+idLearner+"' and IDBPMN = \'"+idBPMN+"' order by execution_date;";
+		String idPath;
+		float theAbsBPScoreExec = 0f;
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			resultsSet = preparedStmt.executeQuery();
+			if (resultsSet.first()) { 
+				DebugMessages.println(
+						TimeStamp.getCurrentTime(), 
+						this.getClass().getSimpleName(),
+						"getting LastPathAbsoluteSessionScoreExecutedByLearner");
+				idPath = resultsSet.getString(0); 
+				
+				query = "SELECT ABSOLUTE_SESSION_SCORE from glimpse.path where id_path = \'"+idPath+"';";
+
+				preparedStmt = conn.prepareStatement(query);
+				resultsSet = preparedStmt.executeQuery();
+				theAbsBPScoreExec = resultsSet.getFloat(0);
+				
+				} 				
+			}	catch(SQLException asd) {
+				System.err.println("Exception during getLastPathAbsoluteSessionScoreExecutedByLearner ");
+				return 0f;
+			}
+		return theAbsBPScoreExec;
 	}
 }
