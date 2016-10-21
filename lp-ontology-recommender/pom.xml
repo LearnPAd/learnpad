@@ -47,12 +47,6 @@
             <groupId>com.wcohen</groupId>
             <artifactId>com.wcohen.secondstring</artifactId>
             <version>RELEASE</version>
-			<exclusions>
-				<exclusion>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-				</exclusion>
-			</exclusions>            
         </dependency>
 
         <!--dependency>
@@ -96,16 +90,6 @@
             <groupId>uk.ac.gate</groupId>
             <artifactId>gate-core</artifactId>
             <version>8.1</version>
-			<exclusions>
-				<exclusion>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>				
-			</exclusions>            
         </dependency>        
         <dependency>
             <groupId>commons-httpclient</groupId>
