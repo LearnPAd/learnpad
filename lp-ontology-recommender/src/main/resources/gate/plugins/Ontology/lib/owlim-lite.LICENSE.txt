@@ -1,0 +1,11 @@
+OWLIM-Lite License Agreement:
+(c) Copyright 2005-2011, Ontotext AD.
+ 
+135 Tsarigradsko Shosse, Sofia 1784, Bulgaria, http://www.ontotext.com.
+ 
+OWLIM-Lite is not open-source software. It is owned by Ontotext Lab. OWLIM-Lite is licensed for use
+free of charge. Any form of modification or reverse-engineering of OWLIM-Lite is forbidden. OWLIM-Lite is
+distributed without any warranty.
+ 
+Third Party Libraries:
+· Sesame - (c) Copyright Aduna b.v. Sesame is an open-source library, available under LGPL.
