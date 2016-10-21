@@ -1,0 +1,8 @@
+# Mappings file for loading the imported food ontology for the wine
+# ontology from a local file instead of the web.
+# Since the food ontology in turn imports the wine ontology, we provide
+# a mapping for the wine ontology URI too in order to prevent importing 
+# it from the web.
+
+http://www.w3.org/TR/2003/CR-owl-guide-20030818/food food.rdf
+http://www.w3.org/TR/2003/CR-owl-guide-20030818/wine wine.rdfxml.owl

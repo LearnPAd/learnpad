@@ -86,11 +86,11 @@
         </dependency>        
         
         <!-- GATE dependencies --> 
-        <!--dependency>
+        <dependency>
             <groupId>uk.ac.gate</groupId>
             <artifactId>gate-core</artifactId>
             <version>8.1</version>
-        </dependency>          
+        </dependency>        
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
@@ -101,43 +101,107 @@
             <artifactId>jewelcli</artifactId>
             <version>0.8.9</version>
         </dependency>
+        
         <dependency>
             <groupId>org.openrdf.sesame</groupId>
             <artifactId>sesame-model</artifactId>
             <version>2.7.9</version>
         </dependency>
         <dependency>
+            <groupId>org.openrdf.sesame</groupId>
+            <artifactId>sesame-repository-sail</artifactId>
+            <version>2.7.9</version>
+        </dependency>        
+        <dependency>
+            <groupId>org.openrdf.sesame</groupId>
+            <artifactId>sesame-repository-manager</artifactId>
+            <version>2.7.9</version>
+        </dependency>    
+        <dependency>
+            <groupId>org.openrdf.sesame</groupId>
+            <artifactId>sesame-rio-api</artifactId>
+            <version>2.7.9</version>
+        </dependency>   
+        <dependency>
+            <groupId>org.openrdf.sesame</groupId>
+            <artifactId>sesame-rio-n3</artifactId>
+            <version>2.7.9</version>
+        </dependency>        
+        <dependency>
+            <groupId>org.openrdf.sesame</groupId>
+            <artifactId>sesame-rio-ntriples</artifactId>
+            <version>2.7.9</version>
+        </dependency>                     
+        <dependency>
+            <groupId>org.openrdf.sesame</groupId>
+            <artifactId>sesame-rio-rdfxml</artifactId>
+            <version>2.7.9</version>
+        </dependency>   
+        <dependency>
+            <groupId>org.openrdf.sesame</groupId>
+            <artifactId>sesame-rio-turtle</artifactId>
+            <version>2.7.9</version>
+        </dependency>    
+        
+        <dependency>
+            <groupId>org.openrdf.sesame</groupId>
+            <artifactId>sesame-sail-memory</artifactId>
+            <version>2.7.9</version>
+        </dependency>    
+        
+        <!--dependency>
+            <groupId>org.openrdf.sesame</groupId>
+            <artifactId>onejar</artifactId>
+            <version>2.7.9</version>
+        </dependency-->
+
+        <dependency>
+            <groupId>owlim-lite</groupId>
+            <artifactId>owlim-lite</artifactId>
+            <version>5.4</version>
+        </dependency>        
+                
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.6.6</version>
+        </dependency>   
+
+        <dependency>
             <groupId>oro</groupId>
             <artifactId>oro</artifactId>
             <version>2.0.8</version>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.21</version>
-        </dependency>        
         
         <dependency>
             <groupId>obg</groupId>
             <artifactId>obg</artifactId>
             <version>1.0.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/lib/obg.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>Ontology</groupId>
             <artifactId>Ontology</artifactId>
             <version>1.0.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/lib/Ontology.jar</systemPath>
         </dependency>
+        
         <dependency>
-            <groupId>owlim-lite</groupId>
-            <artifactId>owlim-lite</artifactId>
-            <version>5.4</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/lib/owlim-lite-5.4.jar</systemPath>
-        </dependency-->        
+            <groupId>tools</groupId>
+            <artifactId>tools</artifactId>
+            <version>1.0</version>
+        </dependency>        
+        
+        <dependency>
+            <groupId>ontology_tools</groupId>
+            <artifactId>ontology_tools</artifactId>
+            <version>1.0</version>
+        </dependency>         
+        
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>        
         
     </dependencies>
     
@@ -175,4 +239,136 @@
         </pluginRepository>
     </pluginRepositories>
     
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+                <executions>
+                    <execution>
+                        <id>install-sesame</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <file>${basedir}/src/main/resources/gate/plugins/Ontology/lib/openrdf-sesame-2.7.9-onejar.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>org.openrdf.sesame</groupId>
+                            <artifactId>onejar</artifactId>
+                            <version>2.7.9</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>install-owlim</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <file>${basedir}/src/main/resources/gate/plugins/Ontology/lib/owlim-lite-5.4.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>owlim-lite</groupId>
+                            <artifactId>owlim-lite</artifactId>
+                            <version>5.4</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>    
+                    <execution>
+                        <id>install-gate-plugin-gazetteer-ontology</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <file>${basedir}/src/main/resources/gate/plugins/Gazetteer_Ontology_Based/obg.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>obg</groupId>
+                            <artifactId>obg</artifactId>
+                            <version>1.0.0</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>                        
+                    <execution>
+                        <id>install-gate-plugin-ontology</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <file>${basedir}/src/main/resources/gate/plugins/Ontology/Ontology.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>Ontology</groupId>
+                            <artifactId>Ontology</artifactId>
+                            <version>1.0.0</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>                   
+                                                      
+                    <execution>
+                        <id>install-gate-plugin-tools</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <file>${basedir}/src/main/resources/gate/plugins/Tools/tools.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>tools</groupId>
+                            <artifactId>tools</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution> 
+
+                    <execution>
+                        <id>install-gate-plugin-ontology-tools</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <file>${basedir}/src/main/resources/gate/plugins/Ontology_Tools/ontology_tools.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>ontology_tools</groupId>
+                            <artifactId>ontology_tools</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>                                         
+                                          
+                </executions>
+            </plugin>          
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>/tmp/gate/plugins</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources/gate/plugins</directory>
+                                    <filtering>false</filtering>
+
+                                    <includes>
+                                        <include>**/*</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>  
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -32,6 +32,7 @@ import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.KPIsFormat;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.ontology.config.APP;
+import eu.learnpad.ontology.analyzer.Analyzer;
 import eu.learnpad.ontology.kpi.KBProcessorNotifier;
 import eu.learnpad.ontology.kpi.dashboard.KPILoader;
 import eu.learnpad.ontology.persistence.FileOntAO;
@@ -192,65 +193,74 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     @Override
     public Entities analyseText(String modelSetId, String contextArtifactId, String userId, String title, String text) throws LpRestException {
 
-        Entities testData = new Entities();
-        String id = UUID.randomUUID().toString();
-
-        //For testing purposes only !
-        String analysedText = text;
-        if(text.contains("Sally Shugar")){
-            analysedText = analysedText.replace("Sally Shugar", "<span data-recommendation=\"" + id + "\">Sally Shugar</span>");
-        }
+        Entities entities = new Entities();
         
-        testData.setAnalyzedContent(analysedText);
-
-        Entity entity = new Entity();
-        entity.setId(id);
-        entity.setModelSetId(modelSetId);
-        entity.setModelId("mod.39886");
-        entity.setObjectId("obj.39926");
-        entity.setContextArtifactId("transfer:obj.35315");
-        entity.setType("eo:Person");
-        BusinessActor person = new BusinessActor();
-        person.setUri("transfer:obj.34872");
-        person.setName("Sally Shugar");
-        person.setEmail("s.shugar@learnpad.eu");
-        person.setSkypeId("learnpad_sally");
-        person.setPhoneNumber("+234 23223 123");
-        person.setOfficeAddress("Yellow drive 244b, East Juhee, Malta");
-        person.setRole("Responsible SUAP Officer");
-        OrganisationalUnit orgUnit = new OrganisationalUnit();
-        orgUnit.setName("SUAP Office");
-        orgUnit.setUri("transfer:obj.122121");
-        person.setOrganisationalUnit(orgUnit);
-        entity.setPerson(person);
-
-        //related objects
-        List<RelatedObject> listOfRelatedObjects = new ArrayList<>();
-        RelatedObject relatedObject1 = new RelatedObject();
-        relatedObject1.setRelationType("sameCreator");
-        relatedObject1.setName("Management ABC for public administrations");
-        relatedObject1.setDescription("This self study book with learning material is the definitve guide to manage a team in public administration.");
-        relatedObject1.setDocumentUrl("http://learnpad.eu/material/PublicAdministrationABC.pdf");
-        relatedObject1.setMimeType("application/pdf");
-        relatedObject1.setUri("transfer:obj.21321");
-        listOfRelatedObjects.add(relatedObject1);
-
-        RelatedObject relatedObject2 = new RelatedObject();
-        relatedObject1.setRelationType("sameAuthor");
-        relatedObject2.setName("Best practices for organizing a service conference");
-        relatedObject2.setDescription("A set of best practices with many hints for organizing a service conference.");
-        relatedObject2.setDocumentUrl("http://learnpad.eu/material/BestPracticesServiceConferenceOrganisatoin.pdf");
-        relatedObject2.setMimeType("application/pdf");
-        relatedObject2.setUri("transfer:obj.21322");
-        listOfRelatedObjects.add(relatedObject2);
-        RelatedObjects relatedObjects = new RelatedObjects();
-        relatedObjects.setRelatedObjects(listOfRelatedObjects);
-
-        entity.setRelatedObjects(relatedObjects);
-        List<Entity> entities = new ArrayList<>();
-        entities.add(entity);
-        testData.setEntities(entities);
-        return testData;
+        Analyzer textAnalyzer = Analyzer.getInstance();
+            try {
+                entities = textAnalyzer.analyze(modelSetId, text);
+            } catch (RecommenderException ex) {
+                Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.SEVERE, "Text analysis failed. ", ex);
+            }
+        return entities;
+        
+//        String id = UUID.randomUUID().toString();
+//
+//        //For testing purposes only !
+//        String analysedText = text;
+//        if(text.contains("Sally Shugar")){
+//            analysedText = analysedText.replace("Sally Shugar", "<span data-recommendation=\"" + id + "\">Sally Shugar</span>");
+//        }
+//        
+//        entities.setAnalyzedContent(analysedText);
+//
+//        Entity entity = new Entity();
+//        entity.setId(id);
+//        entity.setModelSetId(modelSetId);
+//        entity.setModelId("mod.39886");
+//        entity.setObjectId("obj.39926");
+//        entity.setContextArtifactId("transfer:obj.35315");
+//        entity.setType("eo:Person");
+//        BusinessActor person = new BusinessActor();
+//        person.setUri("transfer:obj.34872");
+//        person.setName("Sally Shugar");
+//        person.setEmail("s.shugar@learnpad.eu");
+//        person.setSkypeId("learnpad_sally");
+//        person.setPhoneNumber("+234 23223 123");
+//        person.setOfficeAddress("Yellow drive 244b, East Juhee, Malta");
+//        person.setRole("Responsible SUAP Officer");
+//        OrganisationalUnit orgUnit = new OrganisationalUnit();
+//        orgUnit.setName("SUAP Office");
+//        orgUnit.setUri("transfer:obj.122121");
+//        person.setOrganisationalUnit(orgUnit);
+//        entity.setPerson(person);
+//
+//        //related objects
+//        List<RelatedObject> listOfRelatedObjects = new ArrayList<>();
+//        RelatedObject relatedObject1 = new RelatedObject();
+//        relatedObject1.setRelationType("sameCreator");
+//        relatedObject1.setName("Management ABC for public administrations");
+//        relatedObject1.setDescription("This self study book with learning material is the definitve guide to manage a team in public administration.");
+//        relatedObject1.setDocumentUrl("http://learnpad.eu/material/PublicAdministrationABC.pdf");
+//        relatedObject1.setMimeType("application/pdf");
+//        relatedObject1.setUri("transfer:obj.21321");
+//        listOfRelatedObjects.add(relatedObject1);
+//
+//        RelatedObject relatedObject2 = new RelatedObject();
+//        relatedObject1.setRelationType("sameAuthor");
+//        relatedObject2.setName("Best practices for organizing a service conference");
+//        relatedObject2.setDescription("A set of best practices with many hints for organizing a service conference.");
+//        relatedObject2.setDocumentUrl("http://learnpad.eu/material/BestPracticesServiceConferenceOrganisatoin.pdf");
+//        relatedObject2.setMimeType("application/pdf");
+//        relatedObject2.setUri("transfer:obj.21322");
+//        listOfRelatedObjects.add(relatedObject2);
+//        RelatedObjects relatedObjects = new RelatedObjects();
+//        relatedObjects.setRelatedObjects(listOfRelatedObjects);
+//
+//        entity.setRelatedObjects(relatedObjects);
+//        List<Entity> entities = new ArrayList<>();
+//        entities.add(entity);
+//        entities.setEntities(entities);
+//        return entities;
     }
 
     @Override

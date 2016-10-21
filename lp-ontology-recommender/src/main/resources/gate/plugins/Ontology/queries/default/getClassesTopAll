@@ -1,0 +1,64 @@
+# getClassesTopAll
+#
+# getting all top classes using SERQL and directSubClassOf
+
+( SELECT DISTINCT X FROM 
+  {X} rdf:type {owl:Class},
+  {X} sesame:directSubClassOf {owl:Thing} 
+  WHERE 
+    ISURI(X) AND
+    NOT X LIKE "http://www.w3.org/2002/07/owl*" AND
+    NOT X LIKE "http://www.w3.org/2000/01/rdf-schema*" AND
+    NOT X LIKE "http://www.w3.org/2001/XMLSchema*" AND
+    NOT X LIKE "http://www.w3.org/1999/02/22-rdf-syntax-ns*" )
+UNION 
+( SELECT DISTINCT X FROM
+  {X} rdf:type {rdfs:Class},
+  {X} sesame:directSubClassOf {rdfs:Resource}
+  WHERE 
+    ISURI(X) AND
+    NOT X LIKE "http://www.w3.org/2002/07/owl*" AND
+    NOT X LIKE "http://www.w3.org/2000/01/rdf-schema*" AND
+    NOT X LIKE "http://www.w3.org/2001/XMLSchema*" AND
+    NOT X LIKE "http://www.w3.org/1999/02/22-rdf-syntax-ns*")
+UNION
+( SELECT DISTINCT X FROM 
+  {X} rdf:type {owl:Class},
+  {X} sesame:directSubClassOf {owl:Thing},
+  [{X} R  {Y}]
+  WHERE 
+    NOT ISURI(X) AND
+    ( R  = owl:allValuesFrom OR
+     # R = owl:oneOf  OR
+      R = owl:hasValue OR
+      R = owl:maxCardinality OR
+      R = owl:minCardinality OR
+      R = owl:cardinality OR
+      #R = owl:unionOf  OR
+      #R = owl:intersectionOf OR
+      #R = owl:complementOf OR
+      R = owl:someValuesFrom ) )
+UNION
+( SELECT DISTINCT X FROM 
+  {X} rdf:type {rdfs:Class},
+  {X} sesame:directSubClassOf {rdfs:Resource},
+  [{X} R {Y}]
+  WHERE 
+    NOT ISURI(X) AND
+    ( R  = owl:allValuesFrom OR
+      #R = owl:oneOf  OR
+      R = owl:hasValue OR
+      R = owl:maxCardinality OR
+      R = owl:minCardinality OR
+      R = owl:cardinality OR
+      #R = owl:unionOf  OR
+      #R = owl:intersectionOf OR
+      #R = owl:complementOf OR
+      R = owl:someValuesFrom ) )
+USING NAMESPACE
+rdfs = <http://www.w3.org/2000/01/rdf-schema#>,
+xsd = <http://www.w3.org/2001/XMLSchema#>,
+owl = <http://www.w3.org/2002/07/owl#>,
+rdf = <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+

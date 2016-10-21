@@ -1,0 +1,14 @@
+# getClassesAllNamedNoW3
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT DISTINCT ?cl WHERE {
+  {{ ?cl a owl:Class } UNION { ?cl a rdfs:Class }} 
+  FILTER (?cl != owl:Thing && ?cl != owl:Nothing && ?cl != rdfs:Resource && isURI(?cl) &&
+  regex(str(?cl), yyy1) &&
+( !regex(str(?cl), "^http://www.w3.org/2002/07/owl") &&
+  !regex(str(?cl), "^http://www.w3.org/2000/01/rdf-schema") &&
+  !regex(str(?cl), "^http://www.w3.org/2001/XMLSchema") &&
+  !regex(str(?cl), "^http://www.w3.org/1999/02/22-rdf-syntax-ns") )
+  )
+}
+

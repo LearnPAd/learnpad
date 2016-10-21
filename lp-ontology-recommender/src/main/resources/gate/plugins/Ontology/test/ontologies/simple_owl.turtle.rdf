@@ -1,0 +1,42 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <http://example.org/stuff/1.0/> .
+
+
+:Person a owl:Class .
+:Location a owl:Class .
+:City   a owl:Class .
+:City owl:subClassOf :Location .
+:Woman  a owl:Class .
+:Man    a owl:Class .
+:Woman  owl:subClassOf :Person .
+:Man    owl:subClassOf :Person .
+:hasName a owl:DatatypeProperty . 
+:hasFirstName a owl:DatatypeProperty .
+:hasFirstName rdfs:domain :Person .
+:hasLastName a owl:DatatypeProperty .
+:hasLastName rdfs:domain :Person .
+:hasLastName rdfs:subPropertyOf :hasName .
+:bornIn a rdf:Property .
+:locatedIn a owl:ObjectProperty .
+:locatedIn rdfs:domain :Location .
+:locatedIn rdfs:range  :Location .
+
+:W001 a :Person .
+:W001 :bornIn :Vienna .
+:W001 :hasFirstName "Maria" .
+
+:M001 a :Person .
+:M001 :bornIn :London .
+:M001 :hasFirstName "John" .
+:M001 :hasLastName  "Doe" .
+:M001 rdfs:label "John Doe" .
+
+:London a :City .
+:London :hasName "London" .
+:London :locatedIn :UK .
+
+:UK a :Location .
+:UK :hasName "London" .
+:UK rdfs:label "London" .

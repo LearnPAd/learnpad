@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE owl [    
+    <!ENTITY rdf  'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+    <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+    <!ENTITY owl  'http://www.w3.org/2002/07/owl#' >
+    <!ENTITY xsd  'http://www.w3.org/2001/XMLSchema#' >
+    <!ENTITY protons  'http://proton.semanticweb.org/2005/04/protons#'>
+    <!ENTITY kimlo  'http://www.ontotext.com/kim/2005/04/kimlo#'>
+]>
+<rdf:RDF 
+    xmlns:owl="&owl;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:protons="&protons;"
+    xmlns="&kimlo;"
+    xml:base="&kimlo;" 
+>
+<owl:Ontology rdf:about="">
+  <rdfs:comment>KIM Lexical Ontology</rdfs:comment>
+  <owl:versionInfo>"0.1"</owl:versionInfo>
+  <owl:imports rdf:resource="http://proton.semanticweb.org/2005/04/protons"/>
+</owl:Ontology>
+
+<owl:Class rdf:about="#Abbreviation"
+	 rdfs:label="Abbreviation">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#AddressLexica"
+	 rdfs:label="AddressLexica">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+
+<owl:Class rdf:about="#CDG"
+	 rdfs:comment="A company suffix"
+	 rdfs:label="CDG">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#CountryAdj"
+	 rdfs:comment="The adjective used for the citizens of a specific country"
+	 rdfs:label="CountryAdj">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+
+<owl:Class rdf:about="#CurrencyPrefix"
+	 rdfs:comment="(pre-amount)"
+	 rdfs:label="CurrencyPrefix">
+	<rdfs:subClassOf rdf:resource="&kimlo;CurrencyUnit"/>
+</owl:Class>
+<owl:Class rdf:about="#CurrencySuffix"
+	 rdfs:comment="(post-amount)"
+	 rdfs:label="CurrencySuffix">
+	<rdfs:subClassOf rdf:resource="&kimlo;CurrencyUnit"/>
+</owl:Class>
+<owl:Class rdf:about="#CurrencyUnit"
+	 rdfs:label="CurrencyUnit">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DateUnit"
+	 rdfs:comment="(date-unit)"
+	 rdfs:label="DateUnit">
+	<rdfs:subClassOf rdf:resource="&kimlo;TimeLexica"/>
+</owl:Class>
+
+<owl:Class rdf:about="#DayRelative"
+	 rdfs:label="DayRelative">
+	<rdfs:comment>(date_key) The notion of Today, Tomorrow, Yesterday, The day after tomorrow, etc.</rdfs:comment>
+	<rdfs:subClassOf rdf:resource="&kimlo;TimeLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#FacilityKey"
+	 rdfs:label="FacilityKey">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#FacilityKeyExt"
+	 rdfs:label="FacilityKeyExt">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+
+<owl:Class rdf:about="#GovernmentKey"
+	 rdfs:label="GovernmentKey">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#Greeting"
+	 rdfs:comment='Any greeting word or phrase such as Hi or "Good Morning"'
+	 rdfs:label="Greeting">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#Hour"
+	 rdfs:comment="a referrer to an hour of the day"
+	 rdfs:label="Hour">
+	<rdfs:subClassOf rdf:resource="&kimlo;TimeLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#IdentKey"
+	 rdfs:label="IdentKey">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#IdentPreKey"
+	 rdfs:label="IdentPreKey">
+	<rdfs:subClassOf rdf:resource="&kimlo;IdentKey"/>
+</owl:Class>
+<owl:Class rdf:about="#Jobtitle"
+	 rdfs:label="Jobtitle">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#LocationGeneralKey"
+	 rdfs:label="LocationGeneralKey">
+	<rdfs:subClassOf rdf:resource="&kimlo;LocationLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#LocationKey"
+	 rdfs:label="LocationKey">
+	<rdfs:subClassOf rdf:resource="&kimlo;LocationLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#LocationLexica"
+	 rdfs:label="LocationLexica">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#LocationPostKey"
+	 rdfs:label="LocationPostKey">
+	<rdfs:subClassOf rdf:resource="&kimlo;LocationKey"/>
+</owl:Class>
+<owl:Class rdf:about="#LocationPreKey"
+	 rdfs:label="LocationPreKey">
+	<rdfs:subClassOf rdf:resource="&kimlo;LocationKey"/>
+</owl:Class>
+<owl:Class rdf:about="#MilitaryTitle"
+	 rdfs:comment="(Military)"
+	 rdfs:label="MilitaryTitle">
+	<rdfs:subClassOf rdf:resource="&kimlo;Title"/>
+</owl:Class>
+<owl:Class rdf:about="#NERLexica"
+	 rdfs:label="NERLexica">
+	<rdfs:subClassOf rdf:resource="&protons;LexicalResource"/>
+</owl:Class>
+<owl:Class rdf:about="#Ordinal"
+	 rdfs:label="Ordinal">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#OrgBank"
+	 rdfs:label="OrgBank">
+	<rdfs:subClassOf rdf:resource="&kimlo;OrgBase"/>
+</owl:Class>
+<owl:Class rdf:about="#OrgBase"
+	 rdfs:label="OrgBase">
+	<rdfs:comment>(org_base) a word which usually fits in the name of organizations</rdfs:comment>
+	<rdfs:subClassOf rdf:resource="&kimlo;OrgLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#OrgInsurance"
+	 rdfs:label="OrgInsurance">
+	<rdfs:subClassOf rdf:resource="&kimlo;OrgKey"/>
+</owl:Class>
+<owl:Class rdf:about="#OrgKey"
+	 rdfs:label="OrgKey">
+	<rdfs:subClassOf rdf:resource="&kimlo;OrgLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#OrgLexica"
+	 rdfs:label="OrgLexica">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#OrgPre"
+	 rdfs:label="OrgPre">
+	<rdfs:subClassOf rdf:resource="&kimlo;OrgLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#OrgSpur"
+	 rdfs:label="OrgSpur">
+	<rdfs:subClassOf rdf:resource="&kimlo;OrgLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#PersonEnding"
+	 rdfs:label="PersonEnding">
+	<rdfs:subClassOf rdf:resource="&kimlo;PersonLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#PersonFirst"
+	 rdfs:label="PersonFirst">
+	<rdfs:subClassOf rdf:resource="&kimlo;PersonLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#PersonFirstAmbig"
+	 rdfs:label="PersonFirstAmbig">
+	<rdfs:subClassOf rdf:resource="&kimlo;PersonFirst"/>
+</owl:Class>
+<owl:Class rdf:about="#PersonFirstFemale"
+	 rdfs:label="PersonFirstFemale">
+	<rdfs:subClassOf rdf:resource="&kimlo;PersonFirst"/>
+</owl:Class>
+<owl:Class rdf:about="#PersonFirstMale"
+	 rdfs:label="PersonFirstMale">
+	<rdfs:subClassOf rdf:resource="&kimlo;PersonFirst"/>
+</owl:Class>
+<owl:Class rdf:about="#PersonLexica"
+	 rdfs:label="PersonLexica">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#PersonSpur"
+	 rdfs:label="PersonSpur">
+	<rdfs:subClassOf rdf:resource="&kimlo;PersonLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#PhonePrefix"
+	 rdfs:label="PhonePrefix">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#PoliceTitle"
+	 rdfs:comment="(Police)"
+	 rdfs:label="PoliceTitle">
+	<rdfs:subClassOf rdf:resource="&kimlo;Title"/>
+</owl:Class>
+<owl:Class rdf:about="#PositionKey"
+	 rdfs:label="PositionKey">
+	<rdfs:subClassOf rdf:resource="&kimlo;Jobtitle"/>
+</owl:Class>
+<owl:Class rdf:about="#ProfessionKey"
+	 rdfs:label="ProfessionKey">
+	<rdfs:subClassOf rdf:resource="&kimlo;Jobtitle"/>
+</owl:Class>
+<owl:Class rdf:about="#SpurIdent"
+	 rdfs:label="SpurIdent">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#Stop"
+	 rdfs:comment="A stop word (a very frequently used words)"
+	 rdfs:label="Stop">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#StopAbbreviations"
+	 rdfs:label="StopAbbreviations">
+	<rdfs:subClassOf rdf:resource="&kimlo;Abbreviation"/>
+</owl:Class>
+<owl:Class rdf:about="#StreetKey"
+	 rdfs:label="StreetKey">
+	<rdfs:subClassOf rdf:resource="&kimlo;AddressLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#Surname"
+	 rdfs:label="Surname">
+	<rdfs:subClassOf rdf:resource="&kimlo;PersonLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#SurnamePrefix"
+	 rdfs:label="SurnamePrefix">
+	<rdfs:subClassOf rdf:resource="&kimlo;Surname"/>
+</owl:Class>
+<owl:Class rdf:about="#Term"
+	 rdfs:label="Term">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#TimeAmPm"
+	 rdfs:label="TimeAmPm">
+	<rdfs:subClassOf rdf:resource="&kimlo;TimeLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#TimeKey"
+	 rdfs:label="TimeKey">
+	<rdfs:subClassOf rdf:resource="&kimlo;TimeLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#TimeLexica"
+	 rdfs:label="TimeLexica">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#TimeModifier"
+	 rdfs:comment="Such as: coming, last, next, past"
+	 rdfs:label="TimeModifier">
+	<rdfs:subClassOf rdf:resource="&kimlo;TimeLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#TimeUnit"
+	 rdfs:comment="(time_unit) Such as: hour, minute, etc."
+	 rdfs:label="TimeUnit">
+	<rdfs:subClassOf rdf:resource="&kimlo;TimeLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#Title"
+	 rdfs:label="Title">
+	<rdfs:subClassOf rdf:resource="&kimlo;NERLexica"/>
+</owl:Class>
+<owl:Class rdf:about="#CivilianTitle"
+	 rdfs:comment="(civilian)"
+	 rdfs:label="CivilianTitle">
+	<rdfs:subClassOf rdf:resource="&kimlo;Title"/>
+</owl:Class>
+<owl:Class rdf:about="#TitleFemale"
+	 rdfs:label="TitleFemale">
+	<rdfs:subClassOf rdf:resource="&kimlo;CivilianTitle"/>
+</owl:Class>
+<owl:Class rdf:about="#TitleMale"
+	 rdfs:label="TitleMale">
+	<rdfs:subClassOf rdf:resource="&kimlo;CivilianTitle"/>
+</owl:Class>
+</rdf:RDF>

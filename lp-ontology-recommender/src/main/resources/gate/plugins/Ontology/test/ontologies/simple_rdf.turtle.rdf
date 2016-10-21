@@ -1,0 +1,52 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix : <http://example.org/stuff/1.0/> .
+
+
+:Person a rdfs:Class .
+:Location a rdfs:Class .
+:City   a rdfs:Class .
+:City rdfs:subClassOf :Location .
+:Woman  a rdfs:Class .
+:Man    a rdfs:Class .
+:Woman  rdfs:subClassOf :Person .
+:Man    rdfs:subClassOf :Person .
+:hasName a rdfs:Property . 
+:hasFirstName a rdf:Property .
+:hasFirstName rdfs:domain :Person .
+:hasLastName a rdf:Property .
+:hasLastName rdfs:domain :Person .
+:hasLastName rdfs:subPropertyOf :hasName .
+:bornIn a rdf:Property .
+:locatedIn a rdf:Property .
+
+:W001 a :Person .
+:W001 :bornIn :Vienna .
+:W001 :hasFirstName "Maria" .
+
+:M001 a :Person .
+:M001 :bornIn :London .
+:M001 :hasFirstName "John" .
+:M001 :hasLastName  "Doe" .
+:M001 rdfs:label "John Doe" .
+
+:London a :City .
+:London :hasName "London" .
+:London :locatedIn :UK .
+
+:Vienna a :City .
+:Vienna :hasName "Wien" .
+:Vienna :hasName "Vienna" .
+
+:UK a :Location .
+:UK :hasName "London" .
+:UK rdfs:label "London" .
+
+:C01 a rdfs:Class .
+:C02 a rdfs:Class .
+:C01 a :C02 . 
+:C01 :hasName "Weird class and instance" .
+:p01 a rdf:Property .
+:p02 a rdf:Property .
+:C01 :p01 :p02 .
+:C01 :p02 :C02 .

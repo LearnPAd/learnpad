@@ -1,0 +1,266 @@
+<project name="OWLIM 3 Ontology Implementation" default="jar" basedir=".">
+  <description>
+        A plugin for the OWLIM 3 ontology implementation 
+  </description>
+
+  <!-- Prevent Ant from warning about includeantruntime not being set -->
+  <property name="build.sysclasspath" value="ignore" />
+
+  <!-- set global properties for this build -->
+  <property environment="env"/>
+  <property file="build.properties" />
+  <condition property="gate.home" value="${env.GATE_HOME}">
+    <isset property="env.GATE_HOME" />
+  </condition>
+  <property name="src" location="src"/>
+  <property name="doc" location="doc"/>
+  <property name="javadoc.dir" location="${doc}/javadoc"/>
+  <property name="jar.location" location="Ontology.jar" />
+  <property name="build" location="build" />
+  <property name="gate.home" location="../.." />
+  <property name="gate.jar" location="${gate.home}/bin/gate.jar" />
+  <property name="gate.lib" location="${gate.home}/lib" />
+  <property name="run.memory" value="1200M" />
+  <property file="log4j.properties" />
+  <propertyset id="log4j.properties">
+    <propertyref prefix="log4j." />
+  </propertyset>
+  
+
+  <path id="classpath">
+    <pathelement location="${gate.jar}" />
+    <fileset dir="${gate.lib}">
+      <include name="**/*.jar" />
+      <include name="**/*.zip" />
+    </fileset>
+    <fileset dir="lib">
+      <include name="*.jar"/>
+    </fileset>
+    <!-- the following is necessary as long as the interfaces in 
+         gate.creole.ontology are still defined in this plugin and not 
+         in GATE core -->
+    <pathelement location="${jar.location}" />
+  </path>
+
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="compile" depends="init"
+        description="compile the source " >
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac srcdir="${src}" destdir="${build}" debug="true" source="1.5" target="1.5">
+      <classpath refid="classpath"/>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile"
+        description="generate the distribution" >
+    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+    <jar jarfile="${jar.location}" basedir="${build}"/>
+  </target>
+
+  <target name="clean.classes"
+        description="clean up" >
+    <delete dir="${build}"/>
+  </target>
+
+  <target name="clean" depends="clean.classes" >
+    <!-- full clean also removes the generated JAR file -->
+    <delete file="${jar.location}" />
+    <delete dir="${build}" />
+    <delete>
+      <fileset dir="." includes="TEST*.xml" />
+      <fileset dir="." includes="TEST*.txt" />
+    </delete>
+  </target>
+ 
+  <target name="doc.prepare">
+    <mkdir dir="${javadoc.dir}" />
+  </target>
+
+  <target name="javadoc" depends="doc.prepare">
+    <javadoc access="protected"
+              destdir="${javadoc.dir}"
+              classpathref="classpath"
+              Encoding="UTF-8"
+              Use="yes"
+              Windowtitle="GATE Ontology plugin JavaDoc"
+              docencoding="UTF-8"
+              charset="UTF-8"
+              source="1.6"
+              breakiterator="true">
+      <fileset dir="${src}"/>
+      <link href="http://docs.oracle.com/javase/6/docs/api/" />
+      <link href="http://gate.ac.uk/gate/doc/javadoc/" />
+    </javadoc>
+  </target>
+
+  <target name="testontotest1" depends="jar">
+    <junit fork="true" showoutput="yes" printsummary="yes"  maxmemory="${run.memory}">
+      <classpath>
+        <pathelement location="Ontology.jar" />
+        <path refid="classpath" />
+      </classpath>
+                        <!-- run headless -->
+      <sysproperty key="java.awt.headless" value="true" />
+      <formatter type="xml" />
+
+      <test name="gate.creole.ontology.impl.test.Test_OntoTest1" />
+    </junit>
+    <junitreport>
+      <fileset dir=".">
+        <include name="TEST-*.xml" />
+      </fileset>
+      <report todir="." format="noframes" />
+    </junitreport>
+  </target>
+
+  <target name="testtuplequery" depends="jar">
+    <junit fork="true" showoutput="yes" printsummary="yes"  maxmemory="${run.memory}">
+      <classpath>
+        <pathelement location="Ontology.jar" />
+        <path refid="classpath" />
+      </classpath>
+                        <!-- run headless -->
+      <sysproperty key="java.awt.headless" value="true" />
+      <formatter type="xml" />
+
+      <test name="gate.creole.ontology.impl.test.Test_TupleQuery" />
+    </junit>
+    <junitreport>
+      <fileset dir=".">
+        <include name="TEST-*.xml" />
+      </fileset>
+      <report todir="." format="noframes" />
+    </junitreport>
+  </target>
+
+
+  <target name="testtriplestore" depends="jar">
+    <junit fork="true" showoutput="yes" printsummary="yes"  maxmemory="${run.memory}">
+      <classpath>
+        <pathelement location="Ontology.jar" />
+        <path refid="classpath" />
+      </classpath>
+                        <!-- run headless -->
+      <sysproperty key="java.awt.headless" value="true" />
+      <formatter type="xml" />
+
+      <test name="gate.creole.ontology.impl.test.Test_TripleStore" />
+    </junit>
+    <junitreport>
+      <fileset dir=".">
+        <include name="TEST-*.xml" />
+      </fileset>
+      <report todir="." format="noframes" />
+    </junitreport>
+  </target>
+
+
+
+  <target name="testontowine" depends="jar">
+    <junit fork="true" showoutput="yes" printsummary="yes"  maxmemory="${run.memory}">
+      <classpath>
+        <pathelement location="Ontology.jar" />
+        <path refid="classpath" />
+      </classpath>
+                        <!-- run headless -->
+      <sysproperty key="java.awt.headless" value="true" />
+      <formatter type="xml" />
+
+      <test name="gate.creole.ontology.impl.test.Test_OntoWine" />
+    </junit>
+    <junitreport>
+      <fileset dir=".">
+        <include name="TEST-*.xml" />
+      </fileset>
+      <report todir="." format="noframes" />
+    </junitreport>
+  </target>
+
+
+  <target name="testowlim" depends="jar">
+    <junit fork="true" showoutput="yes" printsummary="yes"  maxmemory="${run.memory}">
+      <classpath>
+        <pathelement location="Ontology.jar" />
+        <path refid="classpath" />
+      </classpath>
+                        <!-- run headless -->
+      <sysproperty key="java.awt.headless" value="true" />
+      <formatter type="xml" />
+
+      <test name="gate.creole.ontology.impl.test.Test_OWLIMOntology" />
+    </junit>
+    <junitreport>
+      <fileset dir=".">
+        <include name="TEST-*.xml" />
+      </fileset>
+      <report todir="." format="noframes" />
+    </junitreport>
+  </target>
+
+
+  <target name="testw3tests" depends="jar">
+    <junit fork="true" showoutput="yes" printsummary="yes"  maxmemory="${run.memory}">
+      <classpath>
+        <pathelement location="Ontology.jar" />
+        <path refid="classpath" />
+      </classpath>
+                        <!-- run headless -->
+      <sysproperty key="java.awt.headless" value="true" />
+      <formatter type="xml" />
+
+      <test name="gate.creole.ontology.impl.test.Test_W3Tests" />
+    </junit>
+    <junitreport>
+      <fileset dir=".">
+        <include name="TEST-*.xml" />
+      </fileset>
+      <report todir="." format="noframes" />
+    </junitreport>
+  </target>
+
+  <target name="test4develop" depends="jar">
+    <junit fork="true" showoutput="yes" printsummary="yes"  maxmemory="${run.memory}">
+      <classpath>
+        <pathelement location="Ontology.jar" />
+        <path refid="classpath" />
+      </classpath>
+                        <!-- run headless -->
+      <sysproperty key="java.awt.headless" value="true" />
+      <syspropertyset refid="log4j.properties" />
+      <formatter type="xml" />
+
+      <test name="gate.creole.ontology.impl.test.Test4Develop" />
+    </junit>
+    <junitreport>
+      <fileset dir=".">
+        <include name="TEST-*.xml" />
+      </fileset>
+      <report todir="." format="noframes" />
+    </junitreport>
+  </target>
+
+  <target name="test" depends="test.prepare,testowlim,testw3tests,testontotest1,testtuplequery,testtriplestore,testontowine" />
+
+  <target name="test.prepare">
+    <delete>
+      <fileset dir="." includes="TEST*.xml" />
+      <fileset dir="." includes="TEST*.txt" />
+    </delete>
+  </target>
+
+  <!-- Targets used by the main GATE build file -->
+  <target name="build" depends="jar" />
+  <target name="distro.prepare" depends="clean.classes,test.prepare">
+    <!-- do not delete jar -->
+    <delete dir="${build}" />
+  </target>
+  
+</project>
+

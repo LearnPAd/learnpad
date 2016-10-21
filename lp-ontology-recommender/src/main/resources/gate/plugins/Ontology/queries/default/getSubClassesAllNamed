@@ -1,0 +1,26 @@
+# getSubClassesAllNamed
+#
+select distinct cl from
+  [{cl} rdfs:subClassOf {yyy1}
+   WHERE cl != yyy1 AND NOT ISBNODE(cl)
+  ],
+  [{cl} rdfs:subClassOf {ic},
+   {ic} rdfs:subClassOf {yyy1} 
+   WHERE cl != yyy1 AND NOT ISBNODE(cl)
+  ]
+WHERE 
+  NOT cl LIKE "http://www.w3.org/2002/07/owl*" AND
+  NOT cl LIKE "http://www.w3.org/2000/01/rdf-schema*" AND
+  NOT cl LIKE "http://www.w3.org/2001/XMLSchema*" AND
+  NOT cl LIKE "http://www.w3.org/1999/02/22-rdf-syntax-ns*"
+AND cl != ALL (select c  from {c} owl:equivalentClass {y}
+  where c != y AND y = yyy1)
+
+
+
+USING NAMESPACE
+xsd = <http://www.w3.org/2001/XMLSchema#>,
+rdfs = <http://www.w3.org/2000/01/rdf-schema#>,
+rdf = <http://www.w3.org/1999/02/22-rdf-syntax-ns#>,
+owl = <http://www.w3.org/2002/07/owl#>
+

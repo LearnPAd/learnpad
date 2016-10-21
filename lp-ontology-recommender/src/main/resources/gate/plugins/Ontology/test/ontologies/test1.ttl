@@ -1,0 +1,157 @@
+## :mode=n3
+
+## This ontology is intended to provide examples for testing
+## most of the features of the API and hence also most of what
+## OWLIM using the default rule-set owl-max supports.
+## The different test topics usually conform to classes from one 
+## specific top class for each test. In that way, if adding a new topic
+## and hence a new top class makes the ontology inconsistent or not conform
+## to OWL-Lite any more, it should be easier to debug the cause.
+##
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix :        <http://www.gate.ac.uk/dummyurl/OntologyPlugin/test1.turtle.owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+<http://www.gate.ac.uk/dummyurl/OntologyPlugin/test1.turtle.owl>
+  a owl:Ontology .
+
+## 
+## Test class inheritance 
+## 
+  
+:Class01 a owl:Class .
+:Class01s01 a owl:Class ;
+  rdfs:subClassOf :Class01 .
+:Class01s02 a owl:Class ;
+  rdfs:subClassOf :Class01 .
+
+:iClass01s01 a :Class01s01 .
+
+# -> iClass01s01 also instance of Class01
+# -> iClass01s01 not instance of Class01s02
+
+##
+## Test class equivalence
+##
+
+:Class02 a owl:Class .
+:Class02s01 a owl:Class ;
+  rdfs:subClassOf :Class02 .
+:Class02s02 a owl:Class ;
+  rdfs:subClassOf :Class02 .
+:Class02s01 owl:equivalentClass :Class02s02 .
+
+:iClass02s01 a :Class02s01 .
+:iClass02s02 a :Class02s02 .
+
+# -> iClass02s01 instance of Class02s02
+# -> iClass02s02 instance of Class02s01
+# WHY is this not inferred in protege4????
+
+##
+## Test individual sameness
+##
+
+:Class03 a owl:Class .
+:Class03s01 a owl:Class ; rdfs:subClassOf :Class03 .
+
+:iClass03s01i01 a :Class03s01 .
+:iClass03i01i01same a :Class03 ; 
+  owl:sameAs :iClass03s01i01 .
+# -> since the same individual is identical it must not only be of type
+# class03 but also of type class03s01
+# WHY is this not getting inferred by Protege4?
+
+##
+## Test domein inference and stuff related to domain for datatype properties
+##
+:Class04 a owl:Class .
+:Class04s01 a owl:Class ; rdfs:subClassOf :Class04 .
+:Class04s02 a owl:Class ; rdfs:subClassOf :Class04 .
+:Class04s03 a owl:Class ; rdfs:subClassOf :Class04 .
+:Class04s03s01 a owl:Class ; rdfs:subClassOf :Class04s03 .
+:dpc04p1 a owl:DatatypeProperty .
+:dpc04p1 rdfs:domain :Class04s01 .
+:dpc04p1 rdfs:range  xsd:string .
+:iClass04i01 a :Class04 .
+:iClass04i01 :dpc04p1 "somestring" .
+# since the subclass is defined to be the domain, we should be able 
+# to infer that the instance is of type subclass.
+# -> iclass04i01 instance of class04s01
+
+# define another property where the domain is the intersection of subclass 02 and 03
+# Ony an instance that belongs to both classes may be used with that property
+:dpc04p2 a owl:DatatypeProperty .
+:dpc04p2 rdfs:domain :Class04s02 .
+:dpc04p2 rdfs:domain :Class04s03 .
+:dpc04p2 rdfs:range  xsd:string .
+
+:iClass04i02 a :Class04s02 ; a :Class04s03 .
+:iClass04i03 a :Class04s02 .
+:iClass04i04 a :Class04s02 ; a :Class04s03s01 . 
+# -> 02 should be compatible
+# -> 03 should be NOT compatible
+# -> iClass04i01 should NOT be compatible
+# -> iClass04i04 should be compatbile
+
+## this is how intersectionOf should get defined. We are not sure if
+## this should be supported: OWL-Lite supports intersectionOf
+## for named classes or restrictions, but the API cannot express it.
+## For now we leave this in ...
+## NOTE: none of the inferences below seem to be correct when testing this
+## with Protege4rc4. Maybe we misunderstand the required inference?
+
+## Q: if an individual is asserted to be in the intersection, why is it not
+## inferred to be in the classes that are members of the intersection? 
+:Class97 a owl:Class .
+:Class97s1 a owl:Class .
+:Class97s2 a owl:Class .
+:Class97Intersection a owl:Class ;
+      owl:intersectionOf (:Class97s1 :Class97s2) .
+:iClass97s1and2 a :Class97s1 ; a :Class97s2 .
+:iClass97s1 a :Class97s1 .
+:iClass97Intersection a :iClass97Intersection .
+# -> ?
+# This should imply the class97intersection is a subclass of both 
+# class97s1 and class97s2. therefore the member that is in both superclasses
+# must be in the intersection. The member that is in just one superclass
+# must not be in the intersection:
+# -> iclass97s1and2 in class97intersection
+# -> iclass97s1 not in class97intersection
+# -> WHY is iclass97intersection not in iclass97s1 and iclass97s2???
+
+
+## The following is similar but uses equivalent class. It should be 
+## semantically identicall to the previous one.
+:Class99 a owl:Class .
+:Class99s1 a owl:Class .
+:Class99s2 a owl:Class .
+:Class99Intersection a owl:Class ;
+  owl:equivalentClass
+    [ rdf:type owl:Class ;
+      owl:intersectionOf (:Class99s1 :Class99s2)
+    ] .
+:iClass99s1and2 a :Class99s1 ; a :Class99s2 .
+:iClass99Intersection a :iClass99Intersection .
+# -> iClass99s1and2 must be member of class99intersection
+
+
+## Test the correct representation of literals 
+:Class100 a owl:Class .
+:dp100a a owl:DatatypeProperty .
+:iClass100I01 a :Class100 .
+:iClass100I01 :dp100a "plain literal, no language tag" .
+
+:iClass100I02 a :Class100 .
+:dp100b a owl:DatatypeProperty .
+:iClass100I02 :dp100b "plain literal, lang tag es"@es .
+
+:iClass100I03 a :Class100 .
+:dp100c a owl:DatatypeProperty .
+:iClass100I03 :dp100c "typed literal, string"^^xsd:string .
+
+:iClass100I04 a :Class100 .
+:dp100d a owl:DatatypeProperty .
+:iClass100I04 :dp100d "12"^^xsd:int .
