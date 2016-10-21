@@ -44,15 +44,12 @@ import eu.learnpad.ontology.simulation.SimulationScoreLog;
 import eu.learnpad.ontology.transformation.SimpleModelTransformator;
 import eu.learnpad.or.rest.data.BusinessActor;
 import eu.learnpad.or.rest.data.Entities;
-import eu.learnpad.or.rest.data.Entity;
 import eu.learnpad.or.rest.data.Experts;
 import eu.learnpad.or.rest.data.LearningMaterial;
 import eu.learnpad.or.rest.data.LearningMaterials;
 import eu.learnpad.or.rest.data.NotificationActionType;
 import eu.learnpad.or.rest.data.OrganisationalUnit;
 import eu.learnpad.or.rest.data.Recommendations;
-import eu.learnpad.or.rest.data.RelatedObject;
-import eu.learnpad.or.rest.data.RelatedObjects;
 import eu.learnpad.or.rest.data.ResourceType;
 import eu.learnpad.or.rest.data.SimulationData;
 import eu.learnpad.or.rest.data.SimulationScoresMap;
@@ -67,7 +64,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  *
