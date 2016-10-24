@@ -6,8 +6,8 @@ Information   | Value
 Component     | Model Transformer (MT)
 Partner       | UNIVAQ
 WP            | 3
-Responsible   | Francesco Basciani <francesco.basciani@gmail.com>
-Collaborators | Gianni Rosa <gianni.rosa@gmail.com>
+Responsible   | Alfonso Pierantonio <alfonso.pierantonio@univaq.it>
+Collaborators | Gianni Rosa <gianni.rosa@gmail.com>, Francesco Basciani <francesco.basciani@gmail.com>
 Roadmap       | http://wiki.learnpad.eu/LearnPAdWiki/bin/view/Component/Model+Transformer
 
 # Summary
