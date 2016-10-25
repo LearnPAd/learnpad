@@ -63,10 +63,10 @@ function component_test() {
 function component_install() {
     mkdir -p ${__OUT_PATH__}
     case "${__ARG_FLAG__}" in
-	"--finalreview")
+	"finalreview")
     	    cp "scripts/start-finalreview" "${__OUT_START_FILE__}"
 	    ;;
-	"--marche")
+	"marche")
     	    cp "scripts/start-marche" "${__OUT_START_FILE__}"
 	    ;;
 	*)
