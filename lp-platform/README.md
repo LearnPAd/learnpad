@@ -62,6 +62,7 @@ In the `lp-platform` folder, you can give one of the 3 following options to
 the build script:
 * `--dev`
 * `--review`
+* `--finalreview`
 * `--marche`
 
 These profiles have influence in different part of the build and therefore may
