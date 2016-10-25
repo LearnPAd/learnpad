@@ -35,6 +35,7 @@ do
 		"--review")
 			__ARG_FLAG__="review";
 			declare __MVN_PROFILES__="${__MVN_PROFILES__},review"
+			;;
 		"--finalreview")
 			__ARG_FLAG__="finalreview";
 			declare __MVN_PROFILES__="${__MVN_PROFILES__},finalreview"
@@ -70,10 +71,10 @@ function component_test() {
 function component_install() {
     mkdir -p ${__OUT_PATH__}
     case "${__ARG_FLAG__}" in
-	"--finalreview")
+	"finalreview")
     	    cp "scripts/start-finalreview" "${__OUT_START_FILE__}"
 	    ;;
-	"--marche")
+	"marche")
     	    cp "scripts/start-marche" "${__OUT_START_FILE__}"
 	    ;;
 	*)
