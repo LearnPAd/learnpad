@@ -67,10 +67,28 @@ The service is available at `localhost:8082/lp-content-analysis/`.
 # Build
 In the `lp-content-analysis` folder, you can give one of the following options to
 the build script:
+* `--dev`
+* `--review`
+* `--finalreview`
 * `--marche`
 
 These options impacts on the [`build` script](https://github.com/LearnPAd/learnpad/blob/master/lp-content-analysis/build), and
 their main configurations are defined in dedicated [configuration file](https://github.com/LearnPAd/learnpad/blob/master/lp-content-analysis/src/main/resources/).
+
+## `dev` mode
+Currently the dev mode is not active and it matches with the default mode
+
+## `review` mode
+Currently the review mode is not active and it matches with the default mode
+
+## `finalreview` mode
+The finalreview mode is only about a preconfiguration of the addresses for
+both the component and its sub-components according to the deploy foreseen for the Final Review Meeting. 
+This configuration impacts:
+* the [`build` script](https://github.com/LearnPAd/learnpad/blob/master/lp-content-analysis/build).
+* the [`start` script](https://github.com/LearnPAd/learnpad/blob/master/lp-content-analysis/scripts/start-finalreview).
+* the [configuration file](https://github.com/LearnPAd/learnpad/blob/master/lp-content-analysis/src/main/resources/configFinalReview.properties) for the deloy used during the Final Review Meeting
+
 
 ## `marche` mode
 The marche mode is only about a preconfiguration of the addresses for

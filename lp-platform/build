@@ -35,6 +35,9 @@ do
 		"--review")
 			declare __MVN_BUILD_PROFILES__="${__MVN_BUILD_PROFILES__},review"
 			;;
+		"--finalreview")
+			declare __MVN_BUILD_PROFILES__="${__MVN_BUILD_PROFILES__},finalreview"
+			;;
 		"--marche")
 			declare __MVN_BUILD_PROFILES__="${__MVN_BUILD_PROFILES__},marche"
 			;;
