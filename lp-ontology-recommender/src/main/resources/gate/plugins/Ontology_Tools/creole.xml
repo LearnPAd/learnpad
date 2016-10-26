@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!-- $Id: creole.xml 15153 2012-01-20 17:47:20Z markagreenwood $ -->
+<!-- creole.xml directory file for GATE builtins -->
+<CREOLE-DIRECTORY> 
+  
+  <!-- Processing Resources -->
+  <CREOLE>
+    <!-- creole.xml for OntoGazetteer -->
+    <RESOURCE>
+      <NAME>OntoGazetteer</NAME>
+      <CLASS>gate.creole.gazetteer.OntoGazetteerImpl</CLASS>
+      <COMMENT>A list lookup component based on mapping between ontology classes and gazetteer lists.</COMMENT>
+      <HELPURL>http://gate.ac.uk/userguide/sec:gazetteers:ontogaz</HELPURL>
+      <PARAMETER NAME="document" RUNTIME="true" COMMENT="The document to be processed">gate.Document</PARAMETER>
+      <PARAMETER NAME="annotationSetName" RUNTIME="true" COMMENT="The annotation set to be used for the generated annotations" OPTIONAL="true">java.lang.String</PARAMETER>
+      <PARAMETER NAME="listsURL" DEFAULT="../ANNIE/resources/gazetteer/lists.def" COMMENT="The URL to the file with list of lists" SUFFIXES="def">java.net.URL</PARAMETER>
+      <PARAMETER DEFAULT="UTF-8" NAME="encoding" COMMENT="The encoding used for reading the definitions">java.lang.String</PARAMETER>
+      <PARAMETER DEFAULT="true" NAME="caseSensitive" COMMENT="Should this gazetteer diferentiate on case. Currently the Gazetteer works only in case sensitive mode.">java.lang.Boolean</PARAMETER>
+      <PARAMETER NAME="mappingURL" DEFAULT="../ANNIE/resources/gazetteer/mapping.def" COMMENT="The URL to the file with mappings of lists vs classes" SUFFIXES="def">java.net.URL</PARAMETER>
+      <PARAMETER NAME="gazetteerName" DEFAULT="com.ontotext.gate.gazetteer.HashGazetteer" COMMENT="The gazetteer tobe used with this ontogazetteer. should implement Gazetteer interface">java.lang.String</PARAMETER>
+      <ICON>gazetteer</ICON>
+    </RESOURCE>
+  </CREOLE>
+
+  <!-- creole.xml for Visual Resources -->
+  <CREOLE>
+    
+    <!-- VR NEW Ontology Editor -->
+    <RESOURCE>
+      <NAME>GATE Ontology Editor</NAME>
+      <COMMENT>Ontology editing tool.</COMMENT>
+      <HELPURL>http://gate.ac.uk/userguide/sec:ontologies:vr</HELPURL>
+      <CLASS>gate.gui.ontology.OntologyEditor</CLASS>
+      <GUI TYPE="large">
+        <MAIN_VIEWER/>
+        <RESOURCE_DISPLAYED>gate.creole.ontology.Ontology</RESOURCE_DISPLAYED>
+      </GUI>
+    </RESOURCE>
+
+    <!-- Ontology Annotation Tool -->    
+    <RESOURCE>
+      <NAME>OAT</NAME>
+      <COMMENT>Ontology Annotation Tool.</COMMENT>
+      <HELPURL>http://gate.ac.uk/userguide/sec:ontologies:ocat</HELPURL>
+      <JAR>ontology_tools.jar</JAR>
+      <CLASS>gate.creole.ontology.ocat.OntologyViewer</CLASS>
+    </RESOURCE>
+    
+    <RESOURCE>
+      <NAME>RAT-C</NAME>
+      <COMMENT>Relation Annotation Tool Class view.</COMMENT>
+      <HELPURL>http://gate.ac.uk/userguide/sec:ontologies:rat</HELPURL>
+      <CLASS>gate.gui.docview.OntologyClassView</CLASS>
+    </RESOURCE>
+
+    <RESOURCE>
+      <NAME>RAT-I</NAME>
+      <COMMENT>Relation Annotation Tool Instance view.</COMMENT>
+      <HELPURL>http://gate.ac.uk/userguide/sec:ontologies:rat</HELPURL>
+      <CLASS>gate.gui.docview.OntologyInstanceView</CLASS>
+    </RESOURCE>
+
+    <RESOURCE>
+      <NAME>GAZE</NAME>
+      <CLASS>com.ontotext.gate.vr.Gaze</CLASS>
+      <COMMENT>Gazetteer viewer and editor</COMMENT>
+      <HELPURL>http://gate.ac.uk/userguide/sec:gazetteers:onto_gaze</HELPURL>
+      <GUI TYPE="large">
+        <MAIN_VIEWER />
+        <RESOURCE_DISPLAYED>gate.creole.gazetteer.OntoGazetteerImpl</RESOURCE_DISPLAYED>
+      </GUI>
+    </RESOURCE>
+
+  </CREOLE>
+</CREOLE-DIRECTORY>

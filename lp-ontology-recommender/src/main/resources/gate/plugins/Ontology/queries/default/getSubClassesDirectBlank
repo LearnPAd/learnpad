@@ -1,0 +1,36 @@
+# getSubClassesDirectBlank
+# 
+# NOTE: improved version but not fully tested!
+
+SELECT cl, r FROM
+ {cl} rdfs:subClassOf {yyy1},
+ {cl} r {x},
+ [ {cl} rdfs:subClassOf {sc},
+   {sc} rdfs:subClassOf {yyy1},
+   [ {sc} rdfs:subClassOf {ec},
+     {ec} rdfs:subClassOf {yyy1},
+     {yyy1}  rdfs:subClassOf {ec}
+     WHERE ec != yyy1],
+   [ {sc} rdfs:subClassOf {dc},
+     {dc} rdfs:subClassOf {cl}
+     WHERE sc != dc ]
+   WHERE cl != sc AND sc != yyy1 and not bound(dc) and NOT BOUND(ec) ]
+WHERE not bound(sc) AND  isBNODE(cl) AND cl != yyy1 AND cl != owl:Nothing AND
+  cl != ALL
+(select c  from {c} owl:equivalentClass {yyy1}
+  where c != yyy1 ) AND
+(r = owl:allValuesFrom OR
+       r = owl:oneOf OR
+       r = owl:hasValue OR
+       r = owl:maxCardinality OR
+       r = owl:minCardinality OR
+       r = owl:cardinality OR
+       r = owl:someValuesFrom )
+USING NAMESPACE
+xsd = <http://www.w3.org/2001/XMLSchema#>,
+protons = <http://proton.semanticweb.org/2005/04/protons#>,
+rdfs = <http://www.w3.org/2000/01/rdf-schema#>,
+rdf = <http://www.w3.org/1999/02/22-rdf-syntax-ns#>,
+protont = <http://proton.semanticweb.org/2005/04/protont#>,
+owl = <http://www.w3.org/2002/07/owl#>
+

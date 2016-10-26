@@ -1,0 +1,28 @@
+# getSubClassesAllBlank
+#
+
+select distinct cl, r from
+  [{cl} rdfs:subClassOf {yyy1},
+   {cl} r {x}
+   WHERE cl != yyy1 AND cl != x AND ISBNODE(cl) 
+  ],
+  [{cl} rdfs:subClassOf {ic},
+   {ic} rdfs:subClassOf {yyy1} ,
+   {cl} r {x}
+   WHERE cl != yyy1 AND cl != x AND ISBNODE(cl)
+  ]
+WHERE (r = owl:allValuesFrom OR
+       r = owl:oneOf OR
+       r = owl:hasValue OR
+       r = owl:maxCardinality OR
+       r = owl:minCardinality OR
+       r = owl:cardinality OR
+       r = owl:someValuesFrom )
+AND cl != ALL (select c  from {c} owl:equivalentClass {y}
+  where c != y AND y = yyy1)
+
+USING NAMESPACE
+xsd = <http://www.w3.org/2001/XMLSchema#>,
+rdfs = <http://www.w3.org/2000/01/rdf-schema#>,
+rdf = <http://www.w3.org/1999/02/22-rdf-syntax-ns#>,
+owl = <http://www.w3.org/2002/07/owl#>

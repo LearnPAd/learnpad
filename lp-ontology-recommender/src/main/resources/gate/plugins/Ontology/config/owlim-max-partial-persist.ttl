@@ -1,0 +1,34 @@
+## 
+## Configuration file for OWLIM with 
+## ruleset owl-max
+## and partialRDFS on
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rep: <http://www.openrdf.org/config/repository#>.
+@prefix sr: <http://www.openrdf.org/config/repository/sail#>.
+@prefix sail: <http://www.openrdf.org/config/sail#>.
+@prefix owlim: <http://www.ontotext.com/trree/owlim#>.
+
+[] a rep:Repository ;
+   rep:repositoryID "{%id|owlim3maxpartial%}" ;
+   rdfs:label "OWLIM3 rdfs/partialRDFS repository: {%id|owlim3maxpartial%}" ;
+   rep:repositoryImpl [
+      rep:repositoryType "openrdf:SailRepository" ;
+      sr:sailImpl [
+         sail:sailType "swiftowlim:Sail" ;
+         owlim:ruleset "owl-max" ;
+         owlim:partialRDFS  "true" ;
+         owlim:newTriplesFile "new-triples-file.nt" ;
+         owlim:noPersist "false" ;
+         owlim:storage-folder "{%sf|storage-folder%}" ;
+         owlim:base-URL "{%baseurl|http://dummy.base.url.org/#%}" ; 
+         owlim:entity-index-size "2000000" ;
+         owlim:jobsize "1000" ;
+         owlim:repository-type "in-memory-repository" ;
+         ## these files will get imported explicitly after the repository
+         ## is created.
+         ## owlim:imports "{%owldeffile|owl.rdfs%};{%rdfsdeffile|rdf-schema.xml%}" ;
+         ## owlim:defaultNS "http://www.w3.org/2002/07/owl#" 
+      ]
+   ].
+

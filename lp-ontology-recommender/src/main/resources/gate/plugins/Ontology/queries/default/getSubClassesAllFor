@@ -1,0 +1,29 @@
+# getSubClassesAllFor
+#
+# get all subclasses for a given class
+# (but not the class itself or equivalent classes)
+
+( SELECT DISTINCT X FROM 
+  {X} rdfs:subClassOf {yyy1} 
+  WHERE X != yyy1 AND X != ALL (SELECT X FROM {X} owl:equivalentClass {yyy1}) AND
+  ISURI(X) )
+UNION
+( SELECT DISTINCT X FROM
+  {X} rdfs:subClassOf {yyy1}, [{X} R  {Y}]
+  WHERE X != yyy1 AND X != ALL (SELECT X FROM {X} owl:equivalentClass {yyy1}) AND
+      ( R  = owl:allValuesFrom OR
+      # R = owl:oneOf  OR
+      R = owl:hasValue OR
+      R = owl:maxCardinality OR
+      R = owl:minCardinality OR
+      R = owl:cardinality OR
+      #R = owl:unionOf  OR
+      #R = owl:intersectionOf OR
+      #R = owl:complementOf OR
+      R = owl:someValuesFrom ) )
+
+USING NAMESPACE
+xsd = <http://www.w3.org/2001/XMLSchema#>,
+rdfs = <http://www.w3.org/2000/01/rdf-schema#>,
+rdf = <http://www.w3.org/1999/02/22-rdf-syntax-ns#>,
+owl = <http://www.w3.org/2002/07/owl#>

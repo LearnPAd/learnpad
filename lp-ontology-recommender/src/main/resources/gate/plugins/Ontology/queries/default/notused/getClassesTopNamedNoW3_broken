@@ -1,0 +1,17 @@
+# This does not include any top class that is an owl:equivalentClass of another class
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd:<http://www.w3.org/2001/XMLSchema#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT DISTINCT ?cl WHERE {
+  {{ ?cl a owl:Class } UNION { ?cl a rdfs:Class }} .
+  OPTIONAL {
+    ?cl rdfs:subClassOf ?sc.
+    FILTER (?cl != ?sc && ?sc != owl:Thing && ?sc != rdfs:Resource) }
+  FILTER (
+    !bound(?sc) && isURI(?cl) &&
+( !regex(str(?cl), "^http://www.w3.org/2002/07/owl") &&
+  !regex(str(?cl), "^http://www.w3.org/2000/01/rdf-schema") &&
+  !regex(str(?cl), "^http://www.w3.org/2001/XMLSchema") &&
+  !regex(str(?cl), "^http://www.w3.org/1999/02/22-rdf-syntax-ns*") )
+  ) }

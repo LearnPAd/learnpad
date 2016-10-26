@@ -1,0 +1,151 @@
+=======================================================================
+DESCRIPTION
+=======================================================================
+Ontology_Based_Gazetteer (OBG) plugin contains Onto Root Gazetteer. This
+Processing Resource is a type of a gazetteer that is creating ontology-aware 
+annotations over the given content with regards to given ontology. 
+
+During initialisation time, this gazetteer 
+process the ontology resources and extract any human understandable content
+and add its lemmas (as created by Morphological Analyser) to the gazetteer list. 
+
+In order to initialize it, it requires creating following GATE processing 
+resources: POS Tagger, Tokeniser, GATE Morphological Analyser, and also 
+creating a Language Resource: OWLIM Ontology LR.
+
+In order to run it, it is best to combine it with previously mentioned generic
+GATE processing resources with addition of Flexible Gazetteer.
+
+A step by step description of how to initialise it and run it is given below.
+
+=======================================================================
+USING THE PLUGIN
+=======================================================================
+
+First build the plugin, using the supplied Ant build file (command: ant jar).
+
+The only requirement is an installed copy of JDK 1.5 or above.
+
+=======================================================================
+USING THE GAZETTEER WITHIN GATE GUI
+=======================================================================
+
+To get an idea of how it works start GATE and load a sample application from
+resources folder. Click Run and have a look at created Lookup annotations and
+its features.
+
+If it all makes sense, now you can create an application manually. Step by 
+step instructions are given below.
+
+1. Start GATE.
+2. Load necessary plugins.
+
+Click on 'Manage CREOLE plugins' and check the following:
+   - Tools
+   - Ontology
+   - Ontology_Based_Gazetteer
+   - Ontology_Tools (optional)
+ANNIE plugin is checked by default.
+
+Make sure that these plugins are loaded from GATE/plugins/[plugin_name] folder.
+
+3. Load an ontology.
+
+Right click on Lanugage Resource, and select the last option to create an 
+OWLIM Ontology LR. The window is opened where you need to specify the format 
+of the ontology, for example rdfXmlURL, and give the correct path to the 
+ontology: either the absolute path on your local machine such as 
+c:/myOntology.owl or the URL such as http://gate.ac.uk/ns/gate-ontology.
+For name enter something like myOntology (although this is optional as
+well as other parameters).
+
+4. Create Processing Resources.
+
+Right click on the Processing Resource and select the relevant PR.
+You will need to create the following PRs (with default parameters):
+- Document Reset PR
+- ANNIE English Tokeniser
+- ANNIE POS Tagger
+- GATE Morphological Analyser
+- RegEx Sentence Splitter (or ANNIE Sentence Splitter, but that one is likely
+  to run slower)
+
+When all these PRs are loaded, you need to create Onto Root Gazetteer
+and set the init parameters. Mandatory ones are:
+ - Ontology: select previously created myOntology;
+ - Tokeniser: select previously created Tokeniser;
+ - POSTagger: select previously created POS Tagger;
+ - Morpher: select previously created Morpher.
+
+Optional init parameters:
+- useResourceUri, default is set to true - should this gazetteer analyse 
+  resource URIs or not
+- considerProperties, default is set to true - should this gazetteer consider 
+  properties or not
+- propertiesToInclude - checked only if considerProperties is set to true - this
+  parameter contains the list of property names (URIs) to be included, 
+  comma separated
+- propertiesToExclude - checked only if considerProperties is set to true - 
+  this parameter contains the list of property names to be excluded, comma 
+  separated
+- caseSensitive, default set to be false -should this gazetteer diferentiate 
+  on case
+- separateCamelCasedWords, default set to true - should this gazetteer separate 
+  camelCased words, e.g. ProjectName into Project Name
+- considerHeuristicRules, default set to false - should this gazetteer consider 
+  several heuristic rules or not. Rules include splitting the words containing 
+  spaces, and using prepositions as stop words; for example, if 'pos tagger 
+  for spanish' would be analysed, 'for' would be considered as a stop word; 
+  heuristically derived would be 'pos tagger' and this would be further used 
+  to add 'pos tagger' to the gazeetteer list, with a feature heuristical level
+  set to be 0, and 'tagger' with hl 1; at runtime lower heuristical level
+  should be prefered. NOTE: setting considerHeuristicRules to true can cause a
+  lot of noise for some ontologies and is likely to require implementing an
+  additional filterring resource that will prefer the annotations with the 
+  lower heuristic level;
+
+When all parameters are set click OK. It can take some time to
+initialise OntoRoot Gazetteer. For example, loading gate knowledge base from
+ http://gate.ac.uk/ns/gate-kb takes around 6-15 seconds.
+ 
+ Next, create another PR which is a Flexible Gazetteer. As init parameters it is
+ mandatory to select previously created OntoRootGazetteer for gazetteerInst.
+ For another parameter, inputFeatureNames, click on the button on the right
+ and when propt with a window, add 'Token.root' in the provided textbox, then
+ click Add button. Click OK, give name to the new PR (optional) and then click 
+ OK.
+ 
+ 5. Create an application.
+ 
+Right click on Application, New --> Pipeline (or Corpus Pipeline).
+Add the following prs to the application in this order:
+- Document Reset PR
+- RegEx Sentence Splitter
+- ANNIE English Tokeniser
+- ANNIE POS Tagger
+- GATE Morphological Analyser
+- Flexible Gazetteer
+
+Create a document you want to process with the new
+application, for example, if created ontology was gate-kb, you can try processing
+gate home page: http://gate.ac.uk, and investigate the results further.
+All annotations are of type Lookup, with additional features that give details
+about the resources they are referring to in the given ontology.
+
+=======================================================================
+USING THE GAZETTEER OUTSIDE THE GATE GUI
+=======================================================================
+Follow the steps described in the previous section. After creating an 
+application using GATE GUI (USING THE GAZETTEER WITHIN GATE GUI, step 5), save 
+application as .xgapp file (Right click on it, and choose 'Save application 
+state'). Load this file from any external application using the GATE API:
+- init GATE
+- set GATE home (optional)
+- load plugins (optional)
+- load the application from file (by setting the URL to the previously created
+.xgapp file)
+ -create corpus, create document, add the document to the corpus
+ -set appliation to use the corpus
+ -run application
+ -use results i.e. annotations
+ -delete unneccesarry resources

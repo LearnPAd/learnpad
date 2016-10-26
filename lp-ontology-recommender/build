@@ -28,6 +28,15 @@ declare -r __MVN_PROFILE__="--batch-mode"
 ### BUILD ###
 # This is where you compile and build each part of your component
 function component_build() {
+    # forced clean, it results that the executions:
+    # * install-sesame 
+    # * install-owlim
+    # * install-gate-plugin-gazetteer-ontology 
+    # * install-gate-plugin-ontology
+    # * install-gate-plugin-tools
+    # * install-gate-plugin-ontology-tools
+    # in the pom.xml, are only executed when the explicit phase clean is run
+    mvn clean
     # mvn clean install -Dmaven.test.skip=true
     # skip tests as we will do them in the component_test stage
     mvn ${__MVN_PROFILE__} clean install -Dmaven.test.skip=true

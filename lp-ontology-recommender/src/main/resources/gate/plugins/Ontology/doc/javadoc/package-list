@@ -1,0 +1,4 @@
+gate.creole.ontology.impl
+gate.creole.ontology.impl.sesame
+gate.creole.ontology.impl.test
+gate.creole.ontology.owlim

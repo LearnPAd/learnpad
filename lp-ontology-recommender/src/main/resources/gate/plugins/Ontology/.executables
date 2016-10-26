@@ -1,0 +1,5 @@
+bin/sesameCLI
+test/createLocalRepository.sh
+test/createRemoteRepository.sh
+test/importIntoLocal.sh
+test/queryLocal.sh

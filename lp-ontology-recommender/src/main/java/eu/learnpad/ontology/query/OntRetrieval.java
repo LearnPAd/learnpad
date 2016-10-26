@@ -15,7 +15,6 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.QuerySolutionMap;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Literal;
-import com.hp.hpl.jena.rdf.model.Resource;
 import eu.learnpad.ontology.persistence.FileOntAO;
 import eu.learnpad.ontology.recommender.QueryMap;
 import eu.learnpad.ontology.recommender.RecommenderException;
@@ -49,8 +48,8 @@ public class OntRetrieval {
                     QuerySolution soln = results.nextSolution();
                     RelatedObject relatedObject = new RelatedObject();
                     //Selection: ?documentURI ?documentLocationURL ?documentMimeType ?documentLabel ?documentComment ?documentDescription ?lastUpdated
-                    Resource document = soln.getResource("document");
-                    relatedObject.setUri(document.getURI());
+                    relatedObject.setRelationType("sameCreator");
+                    relatedObject.setUri(getLiteralString(soln, "documentURI"));
                     relatedObject.setDocumentUrl(getLiteralString(soln, "documentLocationURL"));
                     relatedObject.setMimeType(getLiteralString(soln, "documentMimeType"));
                     relatedObject.setName(getLiteralString(soln, "documentLabel"));

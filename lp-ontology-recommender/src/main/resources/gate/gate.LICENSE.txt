@@ -1,0 +1,4 @@
+GATE licencing
+
+GATE is licenced under the GNU Library General Public Licence. 
+For more details see : https://gate.ac.uk/gate/

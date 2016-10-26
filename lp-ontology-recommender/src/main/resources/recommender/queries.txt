@@ -243,7 +243,8 @@ prefix xwiki: <http://www.xwiki.org/xwiki/bin/view/Main/WebHome#>
 SELECT DISTINCT ?document ?documentLocationURL ?documentMimeType ?documentLabel ?documentComment ?documentDescription ?lastUpdated
 WHERE {
   OPTIONAL{
-    ?document dkm:documentHasContributorEmail ?author.
+    ?author emo:performerHasEmailAddress ?authorEmail .
+    ?document dkm:documentHasContributorEmail ?authorEmail.
     ?document dkm:documentHasURL ?documentLocationURL .
     ?document dkm:documentHasMIMEType ?documentMimeType .
     ?document rdfs:label ?documentLabel .
@@ -252,7 +253,8 @@ WHERE {
     OPTIONAL {?document dkm:documentHasDescription ?documentDescription . }
   }
   OPTIONAL{
-    ?document  xwiki:pageHasCreator ?author .
+    ?author emo:performerHasEmailAddress ?authorEmail .
+    ?document  xwiki:pageHasCreator ?authorEmail .
     ?document xwiki:pageHasCreationTimestamp ?creationTime .
     ?document rdfs:label ?documentLabel .
     BIND(str(?document) AS ?documentLocationURL) .
