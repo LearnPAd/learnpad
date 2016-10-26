@@ -56,6 +56,8 @@ For example, if `deployment` contains a `test` folder, the command ./build --tes
 Currently, the following files can be installed via this process:
  * simulator.properties
 
+Similar considerations are valid for the sub-component MON (see `monitoring/deployment/`)
+
 ## Note that for this test HTTP protocol should be used.
 
 # Interfaces

@@ -209,6 +209,7 @@
 									<includes>
 										<include>config.properties</include>
 										<include>configMarche.properties</include>
+										<include>configFinalReview.properties</include>
 									</includes>
 								</resource>
 							</resources>
