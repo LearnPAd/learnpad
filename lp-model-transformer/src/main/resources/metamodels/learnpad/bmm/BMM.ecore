@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="BMM" nsURI="http://www.omg.org/spec/BMM/20130801" nsPrefix="BMM">
+  <eClassifiers xsi:type="ecore:EClass" name="Assessment" eSuperTypes="#//MotivationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="usingAssessment" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Assessment" changeable="false" eOpposite="#//Assessment/usedAssessment"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assessingOrganizationUnit"
+        ordered="false" lowerBound="1" eType="#//OrganizationUnit" changeable="false"
+        eOpposite="#//OrganizationUnit/madeAssessment"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="categorizingAssessmentCategory"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//AssessmentCategory"
+        changeable="false" eOpposite="#//AssessmentCategory/categorizedAssessment"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="identifiedPotentialImpact"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//PotentialImpact"
+        changeable="false" eOpposite="#//PotentialImpact/identifyingAssessment"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="usedAssessment" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Assessment" changeable="false" eOpposite="#//Assessment/usingAssessment"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="affectedEnd" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//End" changeable="false" eOpposite="#//End/judgingAssessment"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="affectedMeans" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Means" changeable="false" eOpposite="#//Means/judgingAssessment"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="motivatedDirective" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Directive" changeable="false" eOpposite="#//Directive/motivatingAssessment"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="judgedInfluencer" ordered="false"
+        lowerBound="1" eType="#//Influencer" changeable="false" eOpposite="#//Influencer/judgingAssessment"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AssessmentCategory" eSuperTypes="#//MotivationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="broaderAssessmentCategory"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//AssessmentCategory"
+        changeable="false" eOpposite="#//AssessmentCategory/narrowerAssessmentCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="narrowerAssessmentCategory"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//AssessmentCategory"
+        changeable="false" eOpposite="#//AssessmentCategory/broaderAssessmentCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="categorizedAssessment"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//Assessment" changeable="false"
+        eOpposite="#//Assessment/categorizingAssessmentCategory"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Asset" eSuperTypes="#//MotivationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deliveredOffering" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//BusinessProcess" changeable="false"
+        eOpposite="#//BusinessProcess/managedAsset"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="responsibleOrganizationUnit"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//OrganizationUnit"
+        changeable="false" eOpposite="#//OrganizationUnit/managedAsset"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deployingCourseOfAction"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//CourseOfAction" changeable="false"
+        eOpposite="#//CourseOfAction/deployedAsset"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="governingDirective" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Directive" changeable="false" eOpposite="#//Directive/governedAsset"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BusinessPolicy" eSuperTypes="#//Directive">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="broaderBusinessPolicy"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//BusinessPolicy" changeable="false"
+        eOpposite="#//BusinessPolicy/moreSpecificBusinessPolicy"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="moreSpecificBusinessPolicy"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//BusinessPolicy" changeable="false"
+        eOpposite="#//BusinessPolicy/broaderBusinessPolicy"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="derivedBusinessRule" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//BusinessRule" changeable="false"
+        eOpposite="#//BusinessRule/baseBusinessPolicy"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="governedBusinessProcess"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//BusinessProcess"
+        changeable="false" eOpposite="#//BusinessProcess/governingBusinessPolicy"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BusinessProcess" eSuperTypes="#//MotivationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="responsibleOrganizationUnit"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//OrganizationUnit"
+        changeable="false" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="guidingBusinessRule" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//BusinessRule" changeable="false"
+        eOpposite="#//BusinessRule/guidedBusinessProcess"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="governingBusinessPolicy"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//BusinessPolicy" changeable="false"
+        eOpposite="#//BusinessPolicy/governedBusinessProcess"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="managedAsset" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Asset" changeable="false" eOpposite="#//Asset/deliveredOffering"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="realizedCourseOfAction"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//CourseOfAction" changeable="false"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deliveredOffering" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Offering" changeable="false" eOpposite="#//Offering/deliveringBusinessProcess"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BusinessRule" eSuperTypes="#//Directive">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="baseBusinessPolicy" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//BusinessPolicy" changeable="false"
+        eOpposite="#//BusinessPolicy/derivedBusinessRule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="effectingTactic" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Tactic" changeable="false" eOpposite="#//Tactic/enforcedBusinessRule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="guidedBusinessProcess"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//BusinessProcess"
+        changeable="false" eOpposite="#//BusinessProcess/guidingBusinessRule"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CourseOfAction" eSuperTypes="#//Means">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="governingDirective" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Directive" changeable="false" eOpposite="#//Directive/governedCourseOfAction"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="broaderCourseOfAction"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//CourseOfAction" changeable="false"
+        eOpposite="#//CourseOfAction/moreSpecificCourseOfAction"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enablingCourseOfAction"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//CourseOfAction" changeable="false"
+        eOpposite="#//CourseOfAction/enabledCourseOfAction"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="baseDirective" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Directive" changeable="false" eOpposite="#//Directive/derivedCourseOfAction"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definedOffering" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Offering" changeable="false" eOpposite="#//Offering/definingCourseOfAction"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deployedAsset" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Asset" changeable="false" eOpposite="#//Asset/deployingCourseOfAction"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dischargedLiability" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Liability" changeable="false" eOpposite="#//Liability/dischargingCourseOfAction"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="supportedDesiredResult"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//DesiredResult" changeable="false"
+        eOpposite="#//DesiredResult/supportingCourseOfAction"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="moreSpecificCourseOfAction"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//CourseOfAction" changeable="false"
+        eOpposite="#//CourseOfAction/broaderCourseOfAction"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enabledCourseOfAction"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//CourseOfAction" changeable="false"
+        eOpposite="#//CourseOfAction/enablingCourseOfAction"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="realizesActivity" upperBound="-1"
+        eType="ecore:EClass ../bpmn2.0/BPMN20.ecore#//Activity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="realizesProcess" upperBound="-1"
+        eType="ecore:EClass ../bpmn2.0/BPMN20.ecore#//Process"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DesiredResult" eSuperTypes="#//End">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="broaderDesiredResult" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//DesiredResult" changeable="false"
+        eOpposite="#//DesiredResult/moreSpecficDesiredResult"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="categorizingDesiredResultCategory"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//DesiredResultCategory"
+        changeable="false" eOpposite="#//DesiredResultCategory/categorizedDesiredResult"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="supportingDirective" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Directive" changeable="false" eOpposite="#//Directive/supportedDesiredResult"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="supportingCourseOfAction"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//CourseOfAction" changeable="false"
+        eOpposite="#//CourseOfAction/supportedDesiredResult"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="moreSpecficDesiredResult"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//DesiredResult" changeable="false"
+        eOpposite="#//DesiredResult/broaderDesiredResult"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DesiredResultCategory" eSuperTypes="#//MotivationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="broaderDesiredResultCategory"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//DesiredResultCategory"
+        changeable="false" eOpposite="#//DesiredResultCategory/moreSpecificDesiredResultCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="categorizedDesiredResult"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//DesiredResult" changeable="false"
+        eOpposite="#//DesiredResult/categorizingDesiredResultCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="moreSpecificDesiredResultCategory"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//DesiredResultCategory"
+        changeable="false" eOpposite="#//DesiredResultCategory/broaderDesiredResultCategory"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Directive" eSuperTypes="#//Means">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="derivedCourseOfAction"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//CourseOfAction" changeable="false"
+        eOpposite="#//CourseOfAction/baseDirective"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="motivatingPotentialImpact"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//PotentialImpact"
+        changeable="false" eOpposite="#//PotentialImpact/motivatedDirective"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="motivatingAssessment" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Assessment" changeable="false" eOpposite="#//Assessment/motivatedDirective"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="governedCourseOfAction"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//CourseOfAction" changeable="false"
+        eOpposite="#//CourseOfAction/governingDirective"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="directiveRegulation" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Regulation" changeable="false" eOpposite="#//Regulation/regulatingDirective"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="supportedDesiredResult"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//DesiredResult" changeable="false"
+        eOpposite="#//DesiredResult/supportingDirective"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="governedAsset" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Asset" changeable="false" eOpposite="#//Asset/governingDirective"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="End" eSuperTypes="#//MotivationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="judgingAssessment" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Assessment" changeable="false" eOpposite="#//Assessment/affectedEnd"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definingOrganizationUnit"
+        ordered="false" lowerBound="1" eType="#//OrganizationUnit" changeable="false"
+        eOpposite="#//OrganizationUnit/definedEnd"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definedByOrganisationalUnit"
+        eType="ecore:EClass ../organizational/Organisational.ecore#//OrganisationalUnit"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExternalInfluencer" eSuperTypes="#//Influencer"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FixedAsset" eSuperTypes="#//Asset">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="usingOffering" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Offering" changeable="false" eOpposite="#//Offering/usedFixedAsset"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="providedResource" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Resource" changeable="false" eOpposite="#//Resource/providingFixedAsset"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Goal" eSuperTypes="#//DesiredResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="quantifyingObjective" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Objective" changeable="false" eOpposite="#//Objective/quantifiedGoal"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="amplifiedVision" ordered="false"
+        eType="#//Vision" changeable="false" eOpposite="#//Vision/amplifyingGoal"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Influencer" eSuperTypes="#//MotivationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="recognizingOrganizationUnit"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//OrganizationUnit"
+        changeable="false" eOpposite="#//OrganizationUnit/recognizedInfluencer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="judgingAssessment" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Assessment" changeable="false" eOpposite="#//Assessment/judgedInfluencer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceInfluencingOrganization"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//InfluencingOrganization"
+        changeable="false" eOpposite="#//InfluencingOrganization/providedInfluencer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="categorizingInfluencerCategory"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//InfluencerCategory"
+        changeable="false" eOpposite="#//InfluencerCategory/categorizedInfluencer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InfluencerCategory" eSuperTypes="#//MotivationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="broaderInfluencerCategory"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//InfluencerCategory"
+        changeable="false" eOpposite="#//InfluencerCategory/narrowerInfluencerCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="narrowerInfluencerCategory"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//InfluencerCategory"
+        changeable="false" eOpposite="#//InfluencerCategory/broaderInfluencerCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="categorizedInfluencer"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//Influencer" changeable="false"
+        eOpposite="#//Influencer/categorizingInfluencerCategory"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InfluencingOrganization" eSuperTypes="#//MotivationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="categorizingOrganizationCategory"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//OrganizationCategory"
+        changeable="false" eOpposite="#//OrganizationCategory/categorizedInfluencingOrganization"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="influencingOrganizationUnit"
+        ordered="false" eType="#//OrganizationUnit" changeable="false" eOpposite="#//OrganizationUnit/internalInfluencingOrganization"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="providedInfluencer" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Influencer" changeable="false" eOpposite="#//Influencer/sourceInfluencingOrganization"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InternalInfluencer" eSuperTypes="#//Influencer"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Liability" eSuperTypes="#//MotivationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dischargingCourseOfAction"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//CourseOfAction" changeable="false"
+        eOpposite="#//CourseOfAction/dischargedLiability"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="responsibleOrganizationUnit"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//OrganizationUnit"
+        changeable="false" eOpposite="#//OrganizationUnit/managedLiability"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="claimedResource" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Resource" changeable="false" eOpposite="#//Resource/claimingLiability"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Means" eSuperTypes="#//MotivationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="judgingAssessment" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Assessment" changeable="false" eOpposite="#//Assessment/affectedMeans"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="establishingOrganizationUnit"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//OrganizationUnit"
+        changeable="false" eOpposite="#//OrganizationUnit/establishedMeans"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="establishedByOrganisationalUnit"
+        eType="ecore:EClass ../organizational/Organisational.ecore#//OrganisationalUnit"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Mission" eSuperTypes="#//Means">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="missionComponent" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Strategy" changeable="false" eOpposite="#//Strategy/plannedMission"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operativeVision" ordered="false"
+        eType="#//Vision" changeable="false" eOpposite="#//Vision/deliveringMission"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MotivationElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" ordered="false"
+        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" ordered="false" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Objective" eSuperTypes="#//DesiredResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="quantifiedGoal" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Goal" changeable="false" eOpposite="#//Goal/quantifyingObjective"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Offering" eSuperTypes="#//FixedAsset">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definingCourseOfAction"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//CourseOfAction" changeable="false"
+        eOpposite="#//CourseOfAction/definedOffering"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deliveringBusinessProcess"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//BusinessProcess"
+        changeable="false" eOpposite="#//BusinessProcess/deliveredOffering"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="usedFixedAsset" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//FixedAsset" changeable="false" eOpposite="#//FixedAsset/usingOffering"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requiredResource" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Resource" changeable="false" eOpposite="#//Resource/requiringOffering"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OrganizationCategory" eSuperTypes="#//MotivationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="broaderOrganizationCategory"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//OrganizationCategory"
+        changeable="false" eOpposite="#//OrganizationCategory/narrowerOrganizationCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="narrowerOrganizationCategory"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//OrganizationCategory"
+        changeable="false" eOpposite="#//OrganizationCategory/broaderOrganizationCategory"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="categorizedInfluencingOrganization"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//InfluencingOrganization"
+        changeable="false" eOpposite="#//InfluencingOrganization/categorizingOrganizationCategory"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OrganizationUnit" eSuperTypes="#//MotivationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="determiningStrategy" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Strategy" changeable="false" eOpposite="#//Strategy/determinedOrganizationUnit"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="managedAsset" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Asset" changeable="false" eOpposite="#//Asset/responsibleOrganizationUnit"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="madeAssessment" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Assessment" changeable="false" eOpposite="#//Assessment/assessingOrganizationUnit"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="recognizedInfluencer" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Influencer" changeable="false" eOpposite="#//Influencer/recognizingOrganizationUnit"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="managedLiability" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Liability" changeable="false" eOpposite="#//Liability/responsibleOrganizationUnit"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="internalInfluencingOrganization"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//InfluencingOrganization"
+        changeable="false" eOpposite="#//InfluencingOrganization/influencingOrganizationUnit"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="establishedMeans" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Means" changeable="false" eOpposite="#//Means/establishingOrganizationUnit"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definedEnd" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//End" changeable="false" eOpposite="#//End/definingOrganizationUnit"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PotentialImpact" eSuperTypes="#//MotivationElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="identifyingAssessment"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//Assessment" changeable="false"
+        eOpposite="#//Assessment/identifiedPotentialImpact"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="motivatedDirective" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Directive" changeable="false" eOpposite="#//Directive/motivatingPotentialImpact"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PotentialReward" eSuperTypes="#//PotentialImpact"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Regulation" eSuperTypes="#//ExternalInfluencer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="regulatingDirective" ordered="false"
+        eType="#//Directive" changeable="false" eOpposite="#//Directive/directiveRegulation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Resource" eSuperTypes="#//Asset">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="providingFixedAsset" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//FixedAsset" changeable="false" eOpposite="#//FixedAsset/providedResource"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requiringOffering" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Offering" changeable="false" eOpposite="#//Offering/requiredResource"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="claimingLiability" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Liability" changeable="false" eOpposite="#//Liability/claimedResource"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Risk" eSuperTypes="#//PotentialImpact"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Strategy" eSuperTypes="#//CourseOfAction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="implementingTactic" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Tactic" changeable="false" eOpposite="#//Tactic/implementedStrategy"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="plannedMission" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Mission" changeable="false" eOpposite="#//Mission/missionComponent"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="determinedOrganizationUnit"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//OrganizationUnit"
+        changeable="false" eOpposite="#//OrganizationUnit/determiningStrategy"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Tactic" eSuperTypes="#//CourseOfAction">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="enforcedBusinessRule" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//BusinessRule" changeable="false"
+        eOpposite="#//BusinessRule/effectingTactic"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="implementedStrategy" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Strategy" changeable="false" eOpposite="#//Strategy/implementingTactic"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Vision" eSuperTypes="#//End">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="deliveringMission" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Mission" changeable="false" eOpposite="#//Mission/operativeVision"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="amplifyingGoal" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//Goal" changeable="false" containment="true"
+        eOpposite="#//Goal/amplifiedVision"/>
+  </eClassifiers>
+</ecore:EPackage>

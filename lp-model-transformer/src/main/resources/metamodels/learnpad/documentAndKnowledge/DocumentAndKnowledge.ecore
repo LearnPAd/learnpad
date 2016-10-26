@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="dk" nsURI="http://learnpad.eu/dk" nsPrefix="dk">
+  <eClassifiers xsi:type="ecore:EClass" name="DMResource" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="link" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KnowledgeResource" eSuperTypes="#//DMResource">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedCompetency" upperBound="-1"
+        eType="ecore:EClass ../competency/Competency.ecore#//Competency"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KnowledgeSource" eSuperTypes="#//DMResource">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedCompetency" upperBound="-1"
+        eType="ecore:EClass ../competency/Competency.ecore#//Competency"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Document" eSuperTypes="#//DMResource">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasSubDocument" upperBound="-1"
+        eType="#//Document" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="knowledgeProductResource"
+        upperBound="-1" eType="#//DMResource"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataInput" upperBound="-1"
+        eType="ecore:EClass ../bpmn2.0/BPMN20.ecore#//DataInput" eOpposite="../bpmn2.0/BPMN20.ecore#//DataInput/referencesDocument"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataOutput" upperBound="-1"
+        eType="ecore:EClass ../bpmn2.0/BPMN20.ecore#//DataOutput" eOpposite="../bpmn2.0/BPMN20.ecore#//DataOutput/referencesDocument"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="competency" upperBound="-1"
+        eType="ecore:EClass ../competency/Competency.ecore#//Competency" eOpposite="../competency/Competency.ecore#//Competency/isDocumentedIn"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="responsibleRole" upperBound="-1"
+        eType="ecore:EClass ../organizational/Organisational.ecore#//Role"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KnowledgeProduct">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="productId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="externalDocumentation"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="documentLink" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedKnowledgeSource"
+        upperBound="-1" eType="#//KnowledgeSource" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasRelationWith" upperBound="-1"
+        eType="#//KnowledgeProduct"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resources" upperBound="-1"
+        eType="#//DMResource" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="productResponsibility"
+        upperBound="-1" eType="ecore:EClass ../organizational/Organisational.ecore#//OrganisationalUnit"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DocumentRoot">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="groups" upperBound="-1"
+        eType="#//Groups" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Groups" eSuperTypes="#//DMResource">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="documents" upperBound="-1"
+        eType="#//Document" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="knowledgeProducts" upperBound="-1"
+        eType="#//KnowledgeProduct" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="knowledgeResources" upperBound="-1"
+        eType="#//KnowledgeResource" containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

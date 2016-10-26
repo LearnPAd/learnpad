@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="kpi" nsURI="http://learnpad.eu/kpi" nsPrefix="kpi">
+  <eClassifiers xsi:type="ecore:EClass" name="LearningGoal">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="perspective" upperBound="-1"
+        eType="#//Perspective" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="criterion" upperBound="-1"
+        eType="#//Criterion" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Perspective">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasLearningGoal" eType="#//LearningGoal"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Criterion">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasLearningGoal" eType="#//LearningGoal"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="referencePeriod" eType="#//Period"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="unitOfMeasurement" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="toleranceType" eType="#//Tolerance"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="toleranceGreenYellow" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="toleranceYellowRed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetValues" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="currentValues" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="quantifiesGoal" upperBound="-1"
+        eType="ecore:EClass ../bmm/BMM.ecore#//Goal"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Period"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="Tolerance"/>
+</ecore:EPackage>

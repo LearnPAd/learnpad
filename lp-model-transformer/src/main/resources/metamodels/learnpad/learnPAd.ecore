@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="lpad" nsURI="http://learnpad.eu" nsPrefix="lpad">
+  <eClassifiers xsi:type="ecore:EClass" name="LPAdRoot">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bpmnModels" upperBound="-1"
+        eType="#//BPMNModel" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bmmModels" upperBound="-1"
+        eType="#//BMMModel" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="competencyModels" upperBound="-1"
+        eType="#//CompetencyModel" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="documentAndKnowledgeModels"
+        upperBound="-1" eType="#//DKModel" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="organisationalModels" upperBound="-1"
+        eType="#//OrganisationalModel" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="kpiModels" upperBound="-1"
+        eType="#//KPIModel" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LPAdBaseModel" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BPMNModel" eSuperTypes="#//LPAdBaseModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="processes" upperBound="-1"
+        eType="ecore:EClass bpmn2.0/BPMN20.ecore#//Process" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BMMModel" eSuperTypes="#//LPAdBaseModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="motivationProcess" eType="ecore:EClass bmm/BMM.ecore#//BusinessProcess"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompetencyModel" eSuperTypes="#//LPAdBaseModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="competencyRootContainer"
+        eType="ecore:EClass competency/Competency.ecore#//CompetencyRootContainer"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DKModel" eSuperTypes="#//LPAdBaseModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="document" eType="ecore:EClass documentAndKnowledge/DocumentAndKnowledge.ecore#//DocumentRoot"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OrganisationalModel" eSuperTypes="#//LPAdBaseModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="organisationalUnits" upperBound="-1"
+        eType="ecore:EClass organizational/Organisational.ecore#//OrganisationalUnit"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="KPIModel" eSuperTypes="#//LPAdBaseModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="learningGoal" eType="ecore:EClass kpi/kpi.ecore#//LearningGoal"
+        containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>
