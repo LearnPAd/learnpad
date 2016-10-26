@@ -78,6 +78,7 @@ function component_install() {
     cp "target/lp-content-analysis.jar" "${__OUT_PATH__}/lp-content-analysis.jar"
     cp "target/config.properties" "${__OUT_PATH__}/config.properties"
     cp "target/configMarche.properties" "${__OUT_PATH__}/configMarche.properties"
+    cp "target/configFinalReview.properties" "${__OUT_PATH__}/configFinalReview.properties"
     # There is no run dependencies for this component
     #cp <path_to>/rundeps.txt ${__OUT_RUNDEPS_FILE__}
     # These is no configuration file to copy
