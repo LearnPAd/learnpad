@@ -1,0 +1,2210 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<xmi:XMI xmlns:uml="http://www.omg.org/spec/UML/20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701">
+  <uml:Package xmi:id="BMM" xmi:uuid="725A27D7-D5EA-4CF8-9E5F-1A6F1340256D" xmi:type="uml:Package">
+    <packagedElement xmi:id="BMM-Assessment" xmi:uuid="725A27D7-D5EA-4FD5-9DF4-1A6F7AF2A630" xmi:type="uml:Class">
+      <ownedAttribute xmi:id="BMM-Assessment-usingAssessment" xmi:uuid="725A27D7-D5EA-4224-9B2E-1A6F4064AC5D" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Assessment"/>
+        <upperValue xmi:id="BMM-Assessment-usingAssessment-upperValue" xmi:uuid="725A27D7-D5EA-499E-9A41-1A6F5E24ACC3" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>usingAssessment</name>
+        <association xmi:idref="BMM-UsingAssessmentUsesUsedAssessment"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Assessment-assessingOrganizationUnit" xmi:uuid="725A27D7-D5EA-4BC6-997E-1A6FC4B59B16" xmi:type="uml:Property">
+        <type xmi:idref="BMM-OrganizationUnit"/>
+        <name>assessingOrganizationUnit</name>
+        <association xmi:idref="BMM-OrganizationUnitMakesAssessment"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <generalization xmi:id="BMM-Assessment-generalization" xmi:uuid="725A27D7-D5EA-47F1-93EB-1A6FFA97021D" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-MotivationElement"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-Assessment-categorizingAssessmentCategory" xmi:uuid="725A27D7-D5EA-4031-9336-1A6F1CC29CD8" xmi:type="uml:Property">
+        <type xmi:idref="BMM-AssessmentCategory"/>
+        <upperValue xmi:id="BMM-Assessment-categorizingAssessmentCategory-upperValue" xmi:uuid="725A27D7-D5EA-4463-9F26-1A6F152D8329" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>categorizingAssessmentCategory</name>
+        <association xmi:idref="BMM-AssessmentCategoryCategorizesAssessment"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Assessment-identifiedPotentialImpact" xmi:uuid="725A27D7-D5EA-40B6-90AF-1A6F86EF4CDA" xmi:type="uml:Property">
+        <type xmi:idref="BMM-PotentialImpact"/>
+        <upperValue xmi:id="BMM-Assessment-identifiedPotentialImpact-upperValue" xmi:uuid="725A27D7-D5EA-4D81-9A40-1A6FA4DB55DB" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>identifiedPotentialImpact</name>
+        <association xmi:idref="BMM-AssessmentIdentifiesPotentialImpact"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Assessment-usedAssessment" xmi:uuid="725A27D7-D5EA-4B06-95F2-1A6FD7BC508F" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Assessment"/>
+        <upperValue xmi:id="BMM-Assessment-usedAssessment-upperValue" xmi:uuid="725A27D7-D5EA-42E7-9DA7-1A6F75DFF95A" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>usedAssessment</name>
+        <association xmi:idref="BMM-UsingAssessmentUsesUsedAssessment"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Assessment-affectedEnd" xmi:uuid="725A27D7-D5EA-4E0C-9FED-1A6F94136D6D" xmi:type="uml:Property">
+        <type xmi:idref="BMM-End"/>
+        <upperValue xmi:id="BMM-Assessment-affectedEnd-upperValue" xmi:uuid="725A27D7-D5EA-416E-9374-1A6F8A9BAF15" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>affectedEnd</name>
+        <association xmi:idref="BMM-AssessmentAffectsAchievementOfEnd"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Assessment-affectedMeans" xmi:uuid="725A27D7-D5EA-49F6-95CD-1A6FC3763B75" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Means"/>
+        <upperValue xmi:id="BMM-Assessment-affectedMeans-upperValue" xmi:uuid="725A27D7-D5EA-491F-959B-1A6FFC02A636" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>affectedMeans</name>
+        <association xmi:idref="BMM-AssessmentAffectsEmploymentOfMeans"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Assessment-motivatedDirective" xmi:uuid="725A27D7-D5EA-4544-9E51-1A6FBC2CCD28" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Directive"/>
+        <upperValue xmi:id="BMM-Assessment-motivatedDirective-upperValue" xmi:uuid="725A27D7-D5EA-463F-96E1-1A6F81B4378C" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>motivatedDirective</name>
+        <association xmi:idref="BMM-AssessmentProvidesImpetusForDirective"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Assessment-judgedInfluencer" xmi:uuid="725A27D7-D5EA-4D5E-9FBB-1A6F7869355B" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Influencer"/>
+        <name>judgedInfluencer</name>
+        <association xmi:idref="BMM-AssessmentIsJudgmentOfInfluencer"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>Assessment</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-UsingAssessmentUsesUsedAssessment" xmi:uuid="725A27D7-D5EA-4AB2-9240-1A6F2026FD2E" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Assessment-usingAssessment"/>
+      <memberEnd xmi:idref="BMM-Assessment-usedAssessment"/>
+      <name>UsingAssessmentUsesUsedAssessment</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-OrganizationUnitMakesAssessment" xmi:uuid="725A27D7-D5EA-4DD5-998B-1A6F679AE845" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Assessment-assessingOrganizationUnit"/>
+      <memberEnd xmi:idref="BMM-OrganizationUnit-madeAssessment"/>
+      <name>OrganizationUnitMakesAssessment</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-AssessmentCategoryCategorizesAssessment" xmi:uuid="725A27D7-D5EA-4961-9B28-1A6FB4FD65F3" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Assessment-categorizingAssessmentCategory"/>
+      <memberEnd xmi:idref="BMM-AssessmentCategory-categorizedAssessment"/>
+      <name>AssessmentCategoryCategorizesAssessment</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-AssessmentIdentifiesPotentialImpact" xmi:uuid="725A27D7-D5EA-4EB1-970B-1A6FA7259081" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-PotentialImpact-identifyingAssessment"/>
+      <memberEnd xmi:idref="BMM-Assessment-identifiedPotentialImpact"/>
+      <name>AssessmentIdentifiesPotentialImpact</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-AssessmentAffectsAchievementOfEnd" xmi:uuid="725A27D7-D5EA-464C-9AFB-1A6F4894F352" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-End-judgingAssessment"/>
+      <memberEnd xmi:idref="BMM-Assessment-affectedEnd"/>
+      <name>AssessmentAffectsAchievementOfEnd</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-AssessmentAffectsEmploymentOfMeans" xmi:uuid="725A27D7-D5EA-41B1-95EF-1A700F5F085B" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Means-judgingAssessment"/>
+      <memberEnd xmi:idref="BMM-Assessment-affectedMeans"/>
+      <name>AssessmentAffectsEmploymentOfMeans</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-AssessmentProvidesImpetusForDirective" xmi:uuid="725A27D7-D5EA-4C5E-98A2-1A70E9BBBDC4" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Directive-motivatingAssessment"/>
+      <memberEnd xmi:idref="BMM-Assessment-motivatedDirective"/>
+      <name>AssessmentProvidesImpetusForDirective</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-AssessmentIsJudgmentOfInfluencer" xmi:uuid="725A27D7-D5EA-4E30-9D45-1A70D2D2BCD5" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Influencer-judgingAssessment"/>
+      <memberEnd xmi:idref="BMM-Assessment-judgedInfluencer"/>
+      <name>AssessmentIsJudgmentOfInfluencer</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-AssessmentCategory" xmi:uuid="725A27D7-D5EA-4B4B-9603-1A70A1D3A480" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-AssessmentCategory-generalization" xmi:uuid="725A27D7-D5EA-43BE-9620-1A70887CFBE9" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-MotivationElement"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-AssessmentCategory-broaderAssessmentCategory" xmi:uuid="725A27D7-D5EA-42FC-98C8-1A705F188002" xmi:type="uml:Property">
+        <type xmi:idref="BMM-AssessmentCategory"/>
+        <upperValue xmi:id="BMM-AssessmentCategory-broaderAssessmentCategory-upperValue" xmi:uuid="725A27D7-D5EA-4020-956A-1A7071348341" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>broaderAssessmentCategory</name>
+        <association xmi:idref="BMM-BroaderAssessmentCategoryCategorizesNarrowerAssessmentCategory"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-AssessmentCategory-narrowerAssessmentCategory" xmi:uuid="725A27D7-D5EA-4DC4-92C6-1A70909A1DED" xmi:type="uml:Property">
+        <type xmi:idref="BMM-AssessmentCategory"/>
+        <upperValue xmi:id="BMM-AssessmentCategory-narrowerAssessmentCategory-upperValue" xmi:uuid="725A27D7-D5EA-42A5-9F10-1A7026E7CD8D" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>narrowerAssessmentCategory</name>
+        <association xmi:idref="BMM-BroaderAssessmentCategoryCategorizesNarrowerAssessmentCategory"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-AssessmentCategory-categorizedAssessment" xmi:uuid="725A27D7-D5EA-454B-9D17-1A705E7C2D49" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Assessment"/>
+        <upperValue xmi:id="BMM-AssessmentCategory-categorizedAssessment-upperValue" xmi:uuid="725A27D7-D5EA-45FA-91E9-1A702EA09E24" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>categorizedAssessment</name>
+        <association xmi:idref="BMM-AssessmentCategoryCategorizesAssessment"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>AssessmentCategory</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-BroaderAssessmentCategoryCategorizesNarrowerAssessmentCategory" xmi:uuid="725A27D7-D5EA-4FB6-9E89-1A70D77BA72D" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-AssessmentCategory-broaderAssessmentCategory"/>
+      <memberEnd xmi:idref="BMM-AssessmentCategory-narrowerAssessmentCategory"/>
+      <name>BroaderAssessmentCategoryCategorizesNarrowerAssessmentCategory</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-Asset" xmi:uuid="725A27D7-D5EA-4013-9F1D-1A70305EE8C1" xmi:type="uml:Class">
+      <ownedAttribute xmi:id="BMM-Asset-deliveredOffering" xmi:uuid="725A27D7-D5EA-455A-9E76-1A707E7D8896" xmi:type="uml:Property">
+        <type xmi:idref="BMM-BusinessProcess"/>
+        <upperValue xmi:id="BMM-Asset-deliveredOffering-upperValue" xmi:uuid="725A27D7-D5EA-4752-9FE6-1A70AA9E7DEF" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>deliveredOffering</name>
+        <association xmi:idref="BMM-BusinessProcessManagesAsset"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Asset-responsibleOrganizationUnit" xmi:uuid="725A27D7-D5EA-4853-901B-1A70E4048341" xmi:type="uml:Property">
+        <type xmi:idref="BMM-OrganizationUnit"/>
+        <upperValue xmi:id="BMM-Asset-responsibleOrganizationUnit-upperValue" xmi:uuid="725A27D7-D5EA-4B9E-9221-1A70C64CF5BB" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>responsibleOrganizationUnit</name>
+        <association xmi:idref="BMM-OrganizationUnitIsResponsibleForAsset"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Asset-deployingCourseOfAction" xmi:uuid="725A27D7-D5EA-4E74-9337-1A70AE3E8633" xmi:type="uml:Property">
+        <type xmi:idref="BMM-CourseOfAction"/>
+        <upperValue xmi:id="BMM-Asset-deployingCourseOfAction-upperValue" xmi:uuid="725A27D7-D5EA-48C1-9576-1A70F06FAE24" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>deployingCourseOfAction</name>
+        <association xmi:idref="BMM-CourseOfActionDeploysAsset"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Asset-governingDirective" xmi:uuid="725A27D7-D5EA-470C-9FA2-1A70E75A7CBC" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Directive"/>
+        <upperValue xmi:id="BMM-Asset-governingDirective-upperValue" xmi:uuid="725A27D7-D5EA-4E84-9D2C-1A70D73C8B1B" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>governingDirective</name>
+        <association xmi:idref="BMM-DirectiveGovernsUseOfAsset"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <generalization xmi:id="BMM-Asset-generalization" xmi:uuid="725A27D7-D5EA-4B3F-9966-1A709E33CAB0" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-MotivationElement"/>
+      </generalization>
+      <name>Asset</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-BusinessProcessManagesAsset" xmi:uuid="725A27D7-D5EA-49AA-9700-1A702430AB8D" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Asset-deliveredOffering"/>
+      <memberEnd xmi:idref="BMM-BusinessProcess-managedAsset"/>
+      <name>BusinessProcessManagesAsset</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-OrganizationUnitIsResponsibleForAsset" xmi:uuid="725A27D7-D5EA-458E-9834-1A70B0155AAA" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Asset-responsibleOrganizationUnit"/>
+      <memberEnd xmi:idref="BMM-OrganizationUnit-managedAsset"/>
+      <name>OrganizationUnitIsResponsibleForAsset</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-CourseOfActionDeploysAsset" xmi:uuid="725A27D7-D5EA-4AC0-99E3-1A7072417597" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Asset-deployingCourseOfAction"/>
+      <memberEnd xmi:idref="BMM-CourseOfAction-deployedAsset"/>
+      <name>CourseOfActionDeploysAsset</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-DirectiveGovernsUseOfAsset" xmi:uuid="725A27D7-D5EA-4E57-9FE5-1A704633DDA3" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Asset-governingDirective"/>
+      <memberEnd xmi:idref="BMM-Directive-governedAsset"/>
+      <name>DirectiveGovernsUseOfAsset</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-BusinessPolicy" xmi:uuid="725A27D7-D5EA-46BB-9478-1A70D9CF59B5" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-BusinessPolicy-generalization" xmi:uuid="725A27D7-D5EA-4906-9E7E-1A7014B38992" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-Directive"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-BusinessPolicy-broaderBusinessPolicy" xmi:uuid="725A27D7-D5EA-40EB-98F7-1A708AFC85AB" xmi:type="uml:Property">
+        <type xmi:idref="BMM-BusinessPolicy"/>
+        <upperValue xmi:id="BMM-BusinessPolicy-broaderBusinessPolicy-upperValue" xmi:uuid="725A27D7-D5EA-43AF-9F6E-1A7028703CE3" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>broaderBusinessPolicy</name>
+        <association xmi:idref="BMM-BroaderBusinessPolicyIncludesMoreSpecificBusinessPolicy"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-BusinessPolicy-moreSpecificBusinessPolicy" xmi:uuid="725A27D7-D5EA-4356-9397-1A702D634190" xmi:type="uml:Property">
+        <type xmi:idref="BMM-BusinessPolicy"/>
+        <upperValue xmi:id="BMM-BusinessPolicy-moreSpecificBusinessPolicy-upperValue" xmi:uuid="725A27D7-D5EA-4AD2-9304-1A7091C12C33" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>moreSpecificBusinessPolicy</name>
+        <association xmi:idref="BMM-BroaderBusinessPolicyIncludesMoreSpecificBusinessPolicy"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-BusinessPolicy-derivedBusinessRule" xmi:uuid="725A27D7-D5EA-4035-9E9B-1A700EB0F8A8" xmi:type="uml:Property">
+        <type xmi:idref="BMM-BusinessRule"/>
+        <upperValue xmi:id="BMM-BusinessPolicy-derivedBusinessRule-upperValue" xmi:uuid="725A27D7-D5EA-4738-9EC2-1A705E842E19" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>derivedBusinessRule</name>
+        <association xmi:idref="BMM-BusinessPolicyIsBasisOfBusinessRule"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-BusinessPolicy-governedBusinessProcess" xmi:uuid="725A27D7-D5EA-44AE-9EFD-1A70B5EAFD17" xmi:type="uml:Property">
+        <type xmi:idref="BMM-BusinessProcess"/>
+        <upperValue xmi:id="BMM-BusinessPolicy-governedBusinessProcess-upperValue" xmi:uuid="725A27D7-D5EA-4556-90FC-1A703619FA56" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>governedBusinessProcess</name>
+        <association xmi:idref="BMM-BusinessPolicyGovernsBusinessProcess"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>BusinessPolicy</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-BroaderBusinessPolicyIncludesMoreSpecificBusinessPolicy" xmi:uuid="725A27D7-D5EA-4E9F-9F9A-1A707CA1E308" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-BusinessPolicy-broaderBusinessPolicy"/>
+      <memberEnd xmi:idref="BMM-BusinessPolicy-moreSpecificBusinessPolicy"/>
+      <name>BroaderBusinessPolicyIncludesMoreSpecificBusinessPolicy</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-BusinessPolicyIsBasisOfBusinessRule" xmi:uuid="725A27D7-D5EA-4F31-9110-1A70D42DDA1A" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-BusinessRule-baseBusinessPolicy"/>
+      <memberEnd xmi:idref="BMM-BusinessPolicy-derivedBusinessRule"/>
+      <name>BusinessPolicyIsBasisOfBusinessRule</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-BusinessPolicyGovernsBusinessProcess" xmi:uuid="725A27D7-D5EA-4C77-965A-1A700602A71F" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-BusinessProcess-governingBusinessPolicy"/>
+      <memberEnd xmi:idref="BMM-BusinessPolicy-governedBusinessProcess"/>
+      <name>BusinessPolicyGovernsBusinessProcess</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-BusinessProcess" xmi:uuid="725A27D7-D5EA-4B93-95BB-1A705CA96926" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-BusinessProcess-generalization" xmi:uuid="725A27D7-D5EA-4F74-9AA1-1A70738F53D4" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-MotivationElement"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-BusinessProcess-responsibleOrganizationUnit" xmi:uuid="725A27D7-D5EA-4300-9021-1A7009008798" xmi:type="uml:Property">
+        <type xmi:idref="BMM-OrganizationUnit"/>
+        <upperValue xmi:id="BMM-BusinessProcess-responsibleOrganizationUnit-upperValue" xmi:uuid="725A27D7-D5EA-437C-9CCB-1A70E44A2EA1" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>responsibleOrganizationUnit</name>
+        <association xmi:idref="BMM-OrganizationUnitIsResponsibleForBusinessProcess"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-BusinessProcess-guidingBusinessRule" xmi:uuid="725A27D7-D5EA-475A-93D8-1A70C2F98010" xmi:type="uml:Property">
+        <type xmi:idref="BMM-BusinessRule"/>
+        <upperValue xmi:id="BMM-BusinessProcess-guidingBusinessRule-upperValue" xmi:uuid="725A27D7-D5EA-4A67-9891-1A70C4A48E99" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>guidingBusinessRule</name>
+        <association xmi:idref="BMM-BusinessRuleGuidesBusinessProcess"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-BusinessProcess-governingBusinessPolicy" xmi:uuid="725A27D7-D5EA-4C1F-9109-1A7075FF8E11" xmi:type="uml:Property">
+        <type xmi:idref="BMM-BusinessPolicy"/>
+        <upperValue xmi:id="BMM-BusinessProcess-governingBusinessPolicy-upperValue" xmi:uuid="725A27D7-D5EA-4B64-9EC7-1A703B6CB1C4" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>governingBusinessPolicy</name>
+        <association xmi:idref="BMM-BusinessPolicyGovernsBusinessProcess"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-BusinessProcess-managedAsset" xmi:uuid="725A27D7-D5EA-4839-995C-1A7027C90279" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Asset"/>
+        <upperValue xmi:id="BMM-BusinessProcess-managedAsset-upperValue" xmi:uuid="725A27D7-D5EA-4DB7-93D2-1A70DA87A856" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>managedAsset</name>
+        <association xmi:idref="BMM-BusinessProcessManagesAsset"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-BusinessProcess-realizedCourseOfAction" xmi:uuid="725A27D7-D5EA-4A67-97C6-1A70C30F8A01" xmi:type="uml:Property">
+        <type xmi:idref="BMM-CourseOfAction"/>
+        <upperValue xmi:id="BMM-BusinessProcess-realizedCourseOfAction-upperValue" xmi:uuid="725A27D7-D5EA-4FB1-94FB-1A702E12CD2F" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>realizedCourseOfAction</name>
+        <association xmi:idref="BMM-BusinessProcessRealizesCourseOfAction"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-BusinessProcess-deliveredOffering" xmi:uuid="725A27D7-D5EA-47FE-9377-1A7029BF71C0" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Offering"/>
+        <upperValue xmi:id="BMM-BusinessProcess-deliveredOffering-upperValue" xmi:uuid="725A27D7-D5EA-45C8-922D-1A7060808DF4" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>deliveredOffering</name>
+        <association xmi:idref="BMM-BusinessProcessDeliversOffering"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>BusinessProcess</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-OrganizationUnitIsResponsibleForBusinessProcess" xmi:uuid="725A27D7-D5EA-4E34-956E-1A70BC5F185A" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-BusinessProcess-responsibleOrganizationUnit"/>
+      <memberEnd xmi:idref="BMM-OrganizationUnit-managedBusinessProcess"/>
+      <name>OrganizationUnitIsResponsibleForBusinessProcess</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-BusinessRuleGuidesBusinessProcess" xmi:uuid="725A27D7-D5EA-49F1-97CD-1A70658A2A88" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-BusinessProcess-guidingBusinessRule"/>
+      <memberEnd xmi:idref="BMM-BusinessRule-guidedBusinessProcess"/>
+      <name>BusinessRuleGuidesBusinessProcess</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-BusinessProcessRealizesCourseOfAction" xmi:uuid="725A27D7-D5EA-4309-9649-1A70F87B4C7C" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-CourseOfAction-realizingBusinessProcess"/>
+      <memberEnd xmi:idref="BMM-BusinessProcess-realizedCourseOfAction"/>
+      <name>BusinessProcessRealizesCourseOfAction</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-BusinessProcessDeliversOffering" xmi:uuid="725A27D7-D5EA-4BB4-9C6B-1A702B969BD6" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Offering-deliveringBusinessProcess"/>
+      <memberEnd xmi:idref="BMM-BusinessProcess-deliveredOffering"/>
+      <name>BusinessProcessDeliversOffering</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-BusinessRule" xmi:uuid="725A27D7-D5EA-40E7-9A9A-1A7099A1BE59" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-BusinessRule-generalization" xmi:uuid="725A27D7-D5EA-4420-9BF2-1A7053300F3D" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-Directive"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-BusinessRule-baseBusinessPolicy" xmi:uuid="725A27D7-D5EA-4ECB-9000-1A70FA9748B8" xmi:type="uml:Property">
+        <type xmi:idref="BMM-BusinessPolicy"/>
+        <upperValue xmi:id="BMM-BusinessRule-baseBusinessPolicy-upperValue" xmi:uuid="725A27D7-D5EA-42DB-9D1E-1A7008699C67" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>baseBusinessPolicy</name>
+        <association xmi:idref="BMM-BusinessPolicyIsBasisOfBusinessRule"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-BusinessRule-effectingTactic" xmi:uuid="725A27D7-D5EA-4291-9FFA-1A70CBC60F86" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Tactic"/>
+        <upperValue xmi:id="BMM-BusinessRule-effectingTactic-upperValue" xmi:uuid="725A27D7-D5EA-4064-9CE3-1A70FAACF8AD" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>effectingTactic</name>
+        <association xmi:idref="BMM-TacticEffectsEnforcementLevelOfBusinessRule"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-BusinessRule-guidedBusinessProcess" xmi:uuid="725A27D7-D5EA-494B-962A-1A702E61891B" xmi:type="uml:Property">
+        <type xmi:idref="BMM-BusinessProcess"/>
+        <upperValue xmi:id="BMM-BusinessRule-guidedBusinessProcess-upperValue" xmi:uuid="725A27D7-D5EA-49BC-9746-1A70F5614244" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>guidedBusinessProcess</name>
+        <association xmi:idref="BMM-BusinessRuleGuidesBusinessProcess"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>BusinessRule</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-TacticEffectsEnforcementLevelOfBusinessRule" xmi:uuid="725A27D7-D5EA-4A8A-9580-1A7007112508" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-BusinessRule-effectingTactic"/>
+      <memberEnd xmi:idref="BMM-Tactic-enforcedBusinessRule"/>
+      <name>TacticEffectsEnforcementLevelOfBusinessRule</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-CourseOfAction" xmi:uuid="725A27D7-D5EA-4A77-90B7-1A706FEF8801" xmi:type="uml:Class">
+      <ownedAttribute xmi:id="BMM-CourseOfAction-governingDirective" xmi:uuid="725A27D7-D5EA-41E9-928D-1A70E66E6831" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Directive"/>
+        <upperValue xmi:id="BMM-CourseOfAction-governingDirective-upperValue" xmi:uuid="725A27D7-D5EA-483B-90C7-1A70E1481F96" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>governingDirective</name>
+        <association xmi:idref="BMM-DirectiveGovernsCourseOfAction"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-CourseOfAction-realizingBusinessProcess" xmi:uuid="725A27D7-D5EA-43A9-9A88-1A70428EC629" xmi:type="uml:Property">
+        <type xmi:idref="BMM-BusinessProcess"/>
+        <upperValue xmi:id="BMM-CourseOfAction-realizingBusinessProcess-upperValue" xmi:uuid="725A27D7-D5EA-4BD1-9315-1A70AF6D4526" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>realizingBusinessProcess</name>
+        <association xmi:idref="BMM-BusinessProcessRealizesCourseOfAction"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <generalization xmi:id="BMM-CourseOfAction-generalization" xmi:uuid="725A27D7-D5EA-41A7-9CDB-1A70AB450669" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-Means"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-CourseOfAction-broaderCourseOfAction" xmi:uuid="725A27D7-D5EA-4ACC-99DA-1A703DC301EB" xmi:type="uml:Property">
+        <type xmi:idref="BMM-CourseOfAction"/>
+        <upperValue xmi:id="BMM-CourseOfAction-broaderCourseOfAction-upperValue" xmi:uuid="725A27D7-D5EA-464D-9231-1A7037B05559" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>broaderCourseOfAction</name>
+        <association xmi:idref="BMM-BroaderCourseOfActionIncludesMoreSpecificCourseOfAction"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-CourseOfAction-enablingCourseOfAction" xmi:uuid="725A27D7-D5EA-438A-981F-1A709E5313A5" xmi:type="uml:Property">
+        <type xmi:idref="BMM-CourseOfAction"/>
+        <upperValue xmi:id="BMM-CourseOfAction-enablingCourseOfAction-upperValue" xmi:uuid="725A27D7-D5EA-44BD-9459-1A7037A748B4" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>enablingCourseOfAction</name>
+        <association xmi:idref="BMM-EnablingCourseOfActionEnablesEnabledCourseOfAction"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-CourseOfAction-baseDirective" xmi:uuid="725A27D7-D5EA-4954-9BDA-1A70C54B47D3" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Directive"/>
+        <upperValue xmi:id="BMM-CourseOfAction-baseDirective-upperValue" xmi:uuid="725A27D7-D5EA-4AE7-9247-1A709B9CA212" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>baseDirective</name>
+        <association xmi:idref="BMM-CourseOfActionIsFormulatedBasedOnDirective"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-CourseOfAction-definedOffering" xmi:uuid="725A27D7-D5EA-4119-9912-1A70DB351BCD" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Offering"/>
+        <upperValue xmi:id="BMM-CourseOfAction-definedOffering-upperValue" xmi:uuid="725A27D7-D5EA-40B3-9016-1A704C8C8443" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>definedOffering</name>
+        <association xmi:idref="BMM-CourseOfActionDefinesOffering"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-CourseOfAction-deployedAsset" xmi:uuid="725A27D7-D5EA-42BC-9A2A-1A70427DC74C" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Asset"/>
+        <upperValue xmi:id="BMM-CourseOfAction-deployedAsset-upperValue" xmi:uuid="725A27D7-D5EA-4DD2-9EC0-1A70C7EB4A1D" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>deployedAsset</name>
+        <association xmi:idref="BMM-CourseOfActionDeploysAsset"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-CourseOfAction-dischargedLiability" xmi:uuid="725A27D7-D5EA-4792-9E09-1A70FF18556F" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Liability"/>
+        <upperValue xmi:id="BMM-CourseOfAction-dischargedLiability-upperValue" xmi:uuid="725A27D7-D5EA-4718-9652-1A7093E6D42E" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>dischargedLiability</name>
+        <association xmi:idref="BMM-CourseOfActionDischargesLiability"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-CourseOfAction-supportedDesiredResult" xmi:uuid="725A27D7-D5EA-4C3F-919F-1A70DC036D8E" xmi:type="uml:Property">
+        <type xmi:idref="BMM-DesiredResult"/>
+        <upperValue xmi:id="BMM-CourseOfAction-supportedDesiredResult-upperValue" xmi:uuid="725A27D7-D5EA-4940-963B-1A7040F25C98" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>supportedDesiredResult</name>
+        <association xmi:idref="BMM-CourseOfActionChannelsEffortsTowardsDesiredResult"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-CourseOfAction-moreSpecificCourseOfAction" xmi:uuid="725A27D7-D5EA-40F8-977B-1A706BF76003" xmi:type="uml:Property">
+        <type xmi:idref="BMM-CourseOfAction"/>
+        <upperValue xmi:id="BMM-CourseOfAction-moreSpecificCourseOfAction-upperValue" xmi:uuid="725A27D7-D5EA-49CC-964C-1A70A2642FB3" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>moreSpecificCourseOfAction</name>
+        <association xmi:idref="BMM-BroaderCourseOfActionIncludesMoreSpecificCourseOfAction"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-CourseOfAction-enabledCourseOfAction" xmi:uuid="725A27D7-D5EA-4032-9F23-1A70BA386B73" xmi:type="uml:Property">
+        <type xmi:idref="BMM-CourseOfAction"/>
+        <upperValue xmi:id="BMM-CourseOfAction-enabledCourseOfAction-upperValue" xmi:uuid="725A27D7-D5EA-4CE1-9699-1A7014B48819" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>enabledCourseOfAction</name>
+        <association xmi:idref="BMM-EnablingCourseOfActionEnablesEnabledCourseOfAction"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>CourseOfAction</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-DirectiveGovernsCourseOfAction" xmi:uuid="725A27D7-D5EA-4012-9549-1A70D2D42B87" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-CourseOfAction-governingDirective"/>
+      <memberEnd xmi:idref="BMM-Directive-governedCourseOfAction"/>
+      <name>DirectiveGovernsCourseOfAction</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-BroaderCourseOfActionIncludesMoreSpecificCourseOfAction" xmi:uuid="725A27D7-D5EA-4662-9125-1A70CF9AEA0C" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-CourseOfAction-broaderCourseOfAction"/>
+      <memberEnd xmi:idref="BMM-CourseOfAction-moreSpecificCourseOfAction"/>
+      <name>BroaderCourseOfActionIncludesMoreSpecificCourseOfAction</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-EnablingCourseOfActionEnablesEnabledCourseOfAction" xmi:uuid="725A27D7-D5EA-43F4-996A-1A70E46809E4" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-CourseOfAction-enablingCourseOfAction"/>
+      <memberEnd xmi:idref="BMM-CourseOfAction-enabledCourseOfAction"/>
+      <name>EnablingCourseOfActionEnablesEnabledCourseOfAction</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-CourseOfActionIsFormulatedBasedOnDirective" xmi:uuid="725A27D7-D5EA-461E-91EC-1A70C7C36A5C" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Directive-derivedCourseOfAction"/>
+      <memberEnd xmi:idref="BMM-CourseOfAction-baseDirective"/>
+      <name>CourseOfActionIsFormulatedBasedOnDirective</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-CourseOfActionDefinesOffering" xmi:uuid="725A27D7-D5EA-44B3-917A-1A7016CD9BA1" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Offering-definingCourseOfAction"/>
+      <memberEnd xmi:idref="BMM-CourseOfAction-definedOffering"/>
+      <name>CourseOfActionDefinesOffering</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-CourseOfActionDischargesLiability" xmi:uuid="725A27D7-D5EA-478C-97A3-1A70B507CE1B" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Liability-dischargingCourseOfAction"/>
+      <memberEnd xmi:idref="BMM-CourseOfAction-dischargedLiability"/>
+      <name>CourseOfActionDischargesLiability</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-CourseOfActionChannelsEffortsTowardsDesiredResult" xmi:uuid="725A27D7-D5EA-40C7-9DE6-1A708597CCB6" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-DesiredResult-supportingCourseOfAction"/>
+      <memberEnd xmi:idref="BMM-CourseOfAction-supportedDesiredResult"/>
+      <name>CourseOfActionChannelsEffortsTowardsDesiredResult</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-DesiredResult" xmi:uuid="725A27D7-D5EA-4F0A-91E3-1A7029402593" xmi:type="uml:Class">
+      <ownedAttribute xmi:id="BMM-DesiredResult-broaderDesiredResult" xmi:uuid="725A27D7-D5EA-46E0-9E46-1A70984E1C5B" xmi:type="uml:Property">
+        <type xmi:idref="BMM-DesiredResult"/>
+        <upperValue xmi:id="BMM-DesiredResult-broaderDesiredResult-upperValue" xmi:uuid="725A27D7-D5EA-40FF-9F0B-1A705C1E0C30" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>broaderDesiredResult</name>
+        <association xmi:idref="BMM-BroaderDesiredResultIncludesMoreSpecificDesiredResult"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-DesiredResult-categorizingDesiredResultCategory" xmi:uuid="725A27D7-D5EA-4F15-994A-1A70BE2DBDD8" xmi:type="uml:Property">
+        <type xmi:idref="BMM-DesiredResultCategory"/>
+        <upperValue xmi:id="BMM-DesiredResult-categorizingDesiredResultCategory-upperValue" xmi:uuid="725A27D7-D5EA-454C-9F62-1A70353F5FEC" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>categorizingDesiredResultCategory</name>
+        <association xmi:idref="BMM-DesiredResultCategoryCategorizesDesiredResult"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-DesiredResult-supportingDirective" xmi:uuid="725A27D7-D5EA-4816-9E14-1A705FC5F5A5" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Directive"/>
+        <upperValue xmi:id="BMM-DesiredResult-supportingDirective-upperValue" xmi:uuid="725A27D7-D5EA-4F67-9E66-1A7096D93C2B" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>supportingDirective</name>
+        <association xmi:idref="BMM-DirectiveSupportsAchievementOfDesiredResult"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <generalization xmi:id="BMM-DesiredResult-generalization" xmi:uuid="725A27D7-D5EA-46BD-9EAF-1A70FB43D224" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-End"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-DesiredResult-supportingCourseOfAction" xmi:uuid="725A27D7-D5EA-4CBE-9562-1A709DBA387F" xmi:type="uml:Property">
+        <type xmi:idref="BMM-CourseOfAction"/>
+        <upperValue xmi:id="BMM-DesiredResult-supportingCourseOfAction-upperValue" xmi:uuid="725A27D7-D5EA-4A02-9F53-1A70DC2C773A" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>supportingCourseOfAction</name>
+        <association xmi:idref="BMM-CourseOfActionChannelsEffortsTowardsDesiredResult"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-DesiredResult-moreSpecficDesiredResult" xmi:uuid="725A27D7-D5EA-41D3-98A9-1A7079013990" xmi:type="uml:Property">
+        <type xmi:idref="BMM-DesiredResult"/>
+        <upperValue xmi:id="BMM-DesiredResult-moreSpecficDesiredResult-upperValue" xmi:uuid="725A27D7-D5EA-475B-9538-1A70C2DA170A" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>moreSpecficDesiredResult</name>
+        <association xmi:idref="BMM-BroaderDesiredResultIncludesMoreSpecificDesiredResult"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>DesiredResult</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-BroaderDesiredResultIncludesMoreSpecificDesiredResult" xmi:uuid="725A27D7-D5EA-4E13-93C0-1A70D1BA74A5" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-DesiredResult-broaderDesiredResult"/>
+      <memberEnd xmi:idref="BMM-DesiredResult-moreSpecficDesiredResult"/>
+      <name>BroaderDesiredResultIncludesMoreSpecificDesiredResult</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-DesiredResultCategoryCategorizesDesiredResult" xmi:uuid="725A27D7-D5EA-4150-9F75-1A70C264AEA1" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-DesiredResult-categorizingDesiredResultCategory"/>
+      <memberEnd xmi:idref="BMM-DesiredResultCategory-categorizedDesiredResult"/>
+      <name>DesiredResultCategoryCategorizesDesiredResult</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-DirectiveSupportsAchievementOfDesiredResult" xmi:uuid="725A27D7-D5EA-4BAF-95B9-1A70807B084A" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-DesiredResult-supportingDirective"/>
+      <memberEnd xmi:idref="BMM-Directive-supportedDesiredResult"/>
+      <name>DirectiveSupportsAchievementOfDesiredResult</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-DesiredResultCategory" xmi:uuid="725A27D7-D5EA-427B-9051-1A70E4F9F0E0" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-DesiredResultCategory-generalization" xmi:uuid="725A27D7-D5EA-43FF-90D1-1A70990D50A7" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-MotivationElement"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-DesiredResultCategory-broaderDesiredResultCategory" xmi:uuid="725A27D7-D5EA-4AA7-9B09-1A7066CBCD75" xmi:type="uml:Property">
+        <type xmi:idref="BMM-DesiredResultCategory"/>
+        <upperValue xmi:id="BMM-DesiredResultCategory-broaderDesiredResultCategory-upperValue" xmi:uuid="725A27D7-D5EA-420D-9CE0-1A70E8637F66" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>broaderDesiredResultCategory</name>
+        <association xmi:idref="BMM-BroaderDesiredCategoryCategorizesMoreSpecificDesiredResultCategory"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-DesiredResultCategory-categorizedDesiredResult" xmi:uuid="725A27D7-D5EA-490C-96D7-1A7024EB2A15" xmi:type="uml:Property">
+        <type xmi:idref="BMM-DesiredResult"/>
+        <upperValue xmi:id="BMM-DesiredResultCategory-categorizedDesiredResult-upperValue" xmi:uuid="725A27D7-D5EA-4B60-9B8C-1A7027B4912A" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>categorizedDesiredResult</name>
+        <association xmi:idref="BMM-DesiredResultCategoryCategorizesDesiredResult"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-DesiredResultCategory-moreSpecificDesiredResultCategory" xmi:uuid="725A27D7-D5EA-4310-9A5F-1A707DEA0963" xmi:type="uml:Property">
+        <type xmi:idref="BMM-DesiredResultCategory"/>
+        <upperValue xmi:id="BMM-DesiredResultCategory-moreSpecificDesiredResultCategory-upperValue" xmi:uuid="725A27D7-D5EA-40F7-9128-1A70AA8D29FC" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>moreSpecificDesiredResultCategory</name>
+        <association xmi:idref="BMM-BroaderDesiredCategoryCategorizesMoreSpecificDesiredResultCategory"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>DesiredResultCategory</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-BroaderDesiredCategoryCategorizesMoreSpecificDesiredResultCategory" xmi:uuid="725A27D7-D5EA-4F01-9392-1A702CF6AAB8" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-DesiredResultCategory-broaderDesiredResultCategory"/>
+      <memberEnd xmi:idref="BMM-DesiredResultCategory-moreSpecificDesiredResultCategory"/>
+      <name>BroaderDesiredCategoryCategorizesMoreSpecificDesiredResultCategory</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-Directive" xmi:uuid="725A27D7-D5EA-4181-964B-1A700DDA1E46" xmi:type="uml:Class">
+      <ownedAttribute xmi:id="BMM-Directive-derivedCourseOfAction" xmi:uuid="725A27D7-D5EA-4408-9514-1A70A9E61F22" xmi:type="uml:Property">
+        <type xmi:idref="BMM-CourseOfAction"/>
+        <upperValue xmi:id="BMM-Directive-derivedCourseOfAction-upperValue" xmi:uuid="725A27D7-D5EA-4880-93AE-1A70F0070287" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>derivedCourseOfAction</name>
+        <association xmi:idref="BMM-CourseOfActionIsFormulatedBasedOnDirective"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Directive-motivatingPotentialImpact" xmi:uuid="725A27D7-D5EA-4B91-9C3F-1A7050CA96B2" xmi:type="uml:Property">
+        <type xmi:idref="BMM-PotentialImpact"/>
+        <upperValue xmi:id="BMM-Directive-motivatingPotentialImpact-upperValue" xmi:uuid="725A27D7-D5EA-4089-92F7-1A70E5D41F54" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>motivatingPotentialImpact</name>
+        <association xmi:idref="BMM-PotentialImpactProvidesImpetursForDirective"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Directive-motivatingAssessment" xmi:uuid="725A27D7-D5EA-4BCD-902A-1A70E64FD252" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Assessment"/>
+        <upperValue xmi:id="BMM-Directive-motivatingAssessment-upperValue" xmi:uuid="725A27D7-D5EA-4EF4-976A-1A70BF06CF13" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>motivatingAssessment</name>
+        <association xmi:idref="BMM-AssessmentProvidesImpetusForDirective"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <generalization xmi:id="BMM-Directive-generalization" xmi:uuid="725A27D7-D5EA-416E-95A1-1A70C54AD562" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-Means"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-Directive-governedCourseOfAction" xmi:uuid="725A27D7-D5EA-4069-91E2-1A7049206268" xmi:type="uml:Property">
+        <type xmi:idref="BMM-CourseOfAction"/>
+        <upperValue xmi:id="BMM-Directive-governedCourseOfAction-upperValue" xmi:uuid="725A27D7-D5EA-4A49-9F29-1A7048514C17" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>governedCourseOfAction</name>
+        <association xmi:idref="BMM-DirectiveGovernsCourseOfAction"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Directive-directiveRegulation" xmi:uuid="725A27D7-D5EA-4200-9DA3-1A709E76F62E" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Regulation"/>
+        <upperValue xmi:id="BMM-Directive-directiveRegulation-upperValue" xmi:uuid="725A27D7-D5EA-4DCA-981E-1A7025FEB01C" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>directiveRegulation</name>
+        <association xmi:idref="BMM-DirectiveActsAsRegulation"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Directive-supportedDesiredResult" xmi:uuid="725A27D7-D5EA-4217-92ED-1A7051997502" xmi:type="uml:Property">
+        <type xmi:idref="BMM-DesiredResult"/>
+        <upperValue xmi:id="BMM-Directive-supportedDesiredResult-upperValue" xmi:uuid="725A27D7-D5EA-44EB-9BE9-1A708EE986B6" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>supportedDesiredResult</name>
+        <association xmi:idref="BMM-DirectiveSupportsAchievementOfDesiredResult"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Directive-governedAsset" xmi:uuid="725A27D7-D5EA-48A7-99D9-1A70CC558F5F" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Asset"/>
+        <upperValue xmi:id="BMM-Directive-governedAsset-upperValue" xmi:uuid="725A27D7-D5EA-4755-9134-1A705F5605AE" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>governedAsset</name>
+        <association xmi:idref="BMM-DirectiveGovernsUseOfAsset"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>Directive</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-PotentialImpactProvidesImpetursForDirective" xmi:uuid="725A27D7-D5EA-401F-94ED-1A7003961A09" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Directive-motivatingPotentialImpact"/>
+      <memberEnd xmi:idref="BMM-PotentialImpact-motivatedDirective"/>
+      <name>PotentialImpactProvidesImpetursForDirective</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-DirectiveActsAsRegulation" xmi:uuid="725A27D7-D5EA-4D32-99FB-1A70918B650E" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Regulation-regulatingDirective"/>
+      <memberEnd xmi:idref="BMM-Directive-directiveRegulation"/>
+      <name>DirectiveActsAsRegulation</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-End" xmi:uuid="725A27D7-D5EA-4F66-9D6A-1A70411BE517" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-End-generalization" xmi:uuid="725A27D7-D5EA-4AA4-9935-1A70AF65D011" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-MotivationElement"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-End-judgingAssessment" xmi:uuid="725A27D7-D5EA-42C8-9585-1A7034CA1CF6" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Assessment"/>
+        <upperValue xmi:id="BMM-End-judgingAssessment-upperValue" xmi:uuid="725A27D7-D5EA-4265-99FB-1A705FEE0203" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>judgingAssessment</name>
+        <association xmi:idref="BMM-AssessmentAffectsAchievementOfEnd"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-End-definingOrganizationUnit" xmi:uuid="725A27D7-D5EA-4080-9429-1A7051C09C5D" xmi:type="uml:Property">
+        <type xmi:idref="BMM-OrganizationUnit"/>
+        <name>definingOrganizationUnit</name>
+        <association xmi:idref="BMM-OrganizationUnitDefinesEnd"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>End</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-OrganizationUnitDefinesEnd" xmi:uuid="725A27D7-D5EA-4C0F-9CBC-1A703CA3BD09" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-End-definingOrganizationUnit"/>
+      <memberEnd xmi:idref="BMM-OrganizationUnit-definedEnd"/>
+      <name>OrganizationUnitDefinesEnd</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-ExternalInfluencer" xmi:uuid="725A27D7-D5EA-4FD0-96FF-1A7081F9F2C2" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-ExternalInfluencer-generalization" xmi:uuid="725A27D7-D5EA-4C80-95C6-1A70A821C5B7" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-Influencer"/>
+      </generalization>
+      <name>ExternalInfluencer</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-FixedAsset" xmi:uuid="725A27D7-D5EA-439B-95D1-1A70828CFE50" xmi:type="uml:Class">
+      <ownedAttribute xmi:id="BMM-FixedAsset-usingOffering" xmi:uuid="725A27D7-D5EA-40DE-9CCF-1A70AAD6CA5B" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Offering"/>
+        <upperValue xmi:id="BMM-FixedAsset-usingOffering-upperValue" xmi:uuid="725A27D7-D5EA-4A9D-93B5-1A70C83E9D45" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>usingOffering</name>
+        <association xmi:idref="BMM-OfferingUsesFixedAsset"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <generalization xmi:id="BMM-FixedAsset-generalization" xmi:uuid="725A27D7-D5EA-4155-9CBE-1A70A8CD84BD" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-Asset"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-FixedAsset-providedResource" xmi:uuid="725A27D7-D5EA-48C2-9CEC-1A70DEDF267B" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Resource"/>
+        <upperValue xmi:id="BMM-FixedAsset-providedResource-upperValue" xmi:uuid="725A27D7-D5EA-466D-973A-1A707095C105" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>providedResource</name>
+        <association xmi:idref="BMM-FixedAssetProvidesResource"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>FixedAsset</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-OfferingUsesFixedAsset" xmi:uuid="725A27D7-D5EA-46A2-96FA-1A70DDFE3A13" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-FixedAsset-usingOffering"/>
+      <memberEnd xmi:idref="BMM-Offering-usedFixedAsset"/>
+      <name>OfferingUsesFixedAsset</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-FixedAssetProvidesResource" xmi:uuid="725A27D7-D5EA-4279-9ABD-1A7092D86022" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Resource-providingFixedAsset"/>
+      <memberEnd xmi:idref="BMM-FixedAsset-providedResource"/>
+      <name>FixedAssetProvidesResource</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-Goal" xmi:uuid="725A27D7-D5EA-4482-90A8-1A70B49A2B50" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-Goal-generalization" xmi:uuid="725A27D7-D5EA-42D7-9F2D-1A70F5F01CED" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-DesiredResult"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-Goal-quantifyingObjective" xmi:uuid="725A27D7-D5EA-4142-9C53-1A7030ADA32B" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Objective"/>
+        <upperValue xmi:id="BMM-Goal-quantifyingObjective-upperValue" xmi:uuid="725A27D7-D5EA-4E4A-9226-1A7054657DA3" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>quantifyingObjective</name>
+        <association xmi:idref="BMM-ObjectiveQuantitiesGoal"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Goal-amplifiedVision" xmi:uuid="725A27D7-D5EA-49DD-9BB8-1A70493F4841" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Vision"/>
+        <lowerValue xmi:id="BMM-Goal-amplifiedVision-lowerValue" xmi:uuid="725A27D7-D5EA-4CE7-92DC-1A70FBF2CA53" xmi:type="uml:LiteralInteger">
+          <value>0</value>
+        </lowerValue>
+        <upperValue xmi:id="BMM-Goal-amplifiedVision-upperValue" xmi:uuid="725A27D7-D5EA-428B-9DFC-1A70BBB54FA6" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>1</value>
+        </upperValue>
+        <name>amplifiedVision</name>
+        <association xmi:idref="BMM-GoalAmplifiesVision"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>Goal</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-ObjectiveQuantitiesGoal" xmi:uuid="725A27D7-D5EA-49D9-9F9A-1A702D4554F7" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Goal-quantifyingObjective"/>
+      <memberEnd xmi:idref="BMM-Objective-quantifiedGoal"/>
+      <name>ObjectiveQuantitiesGoal</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-GoalAmplifiesVision" xmi:uuid="725A27D7-D5EA-4005-9FD1-1A700284FB08" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Vision-amplifyingGoal"/>
+      <memberEnd xmi:idref="BMM-Goal-amplifiedVision"/>
+      <name>GoalAmplifiesVision</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-Influencer" xmi:uuid="725A27D7-D5EA-4F50-9592-1A70960136CB" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-Influencer-generalization" xmi:uuid="725A27D7-D5EA-4BB0-9D10-1A70C0210423" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-MotivationElement"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-Influencer-recognizingOrganizationUnit" xmi:uuid="725A27D7-D5EA-47F9-94C4-1A70DA26E985" xmi:type="uml:Property">
+        <type xmi:idref="BMM-OrganizationUnit"/>
+        <upperValue xmi:id="BMM-Influencer-recognizingOrganizationUnit-upperValue" xmi:uuid="725A27D7-D5EA-46F4-9643-1A70821A1496" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>recognizingOrganizationUnit</name>
+        <association xmi:idref="BMM-OrganizationUnitRecognizesInfluencer"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Influencer-judgingAssessment" xmi:uuid="725A27D7-D5EA-4CBF-97AE-1A70EBC4D0AD" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Assessment"/>
+        <upperValue xmi:id="BMM-Influencer-judgingAssessment-upperValue" xmi:uuid="725A27D7-D5EA-4F7D-9FD2-1A707A293E7F" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>judgingAssessment</name>
+        <association xmi:idref="BMM-AssessmentIsJudgmentOfInfluencer"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Influencer-sourceInfluencingOrganization" xmi:uuid="725A27D7-D5EA-4AD1-9352-1A70310AD803" xmi:type="uml:Property">
+        <type xmi:idref="BMM-InfluencingOrganization"/>
+        <upperValue xmi:id="BMM-Influencer-sourceInfluencingOrganization-upperValue" xmi:uuid="725A27D7-D5EA-4F9C-91DB-1A70B4F0CA21" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>sourceInfluencingOrganization</name>
+        <association xmi:idref="BMM-InfluencingOrganizationIsSourceofInfluencer"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Influencer-categorizingInfluencerCategory" xmi:uuid="725A27D7-D5EA-459B-9E9A-1A70907C72AE" xmi:type="uml:Property">
+        <type xmi:idref="BMM-InfluencerCategory"/>
+        <upperValue xmi:id="BMM-Influencer-categorizingInfluencerCategory-upperValue" xmi:uuid="725A27D7-D5EA-4CD8-9A62-1A70F9DF0F9B" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>categorizingInfluencerCategory</name>
+        <association xmi:idref="BMM-InfluencerCategoryCategorizesInfluencer"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>Influencer</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-OrganizationUnitRecognizesInfluencer" xmi:uuid="725A27D7-D5EA-4B6D-93D0-1A70EFFCED79" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Influencer-recognizingOrganizationUnit"/>
+      <memberEnd xmi:idref="BMM-OrganizationUnit-recognizedInfluencer"/>
+      <name>OrganizationUnitRecognizesInfluencer</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-InfluencingOrganizationIsSourceofInfluencer" xmi:uuid="725A27D7-D5EA-4C02-9D85-1A706B9F4A6B" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Influencer-sourceInfluencingOrganization"/>
+      <memberEnd xmi:idref="BMM-InfluencingOrganization-providedInfluencer"/>
+      <name>InfluencingOrganizationIsSourceofInfluencer</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-InfluencerCategoryCategorizesInfluencer" xmi:uuid="725A27D7-D5EA-4ADE-9D06-1A702811EF6F" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Influencer-categorizingInfluencerCategory"/>
+      <memberEnd xmi:idref="BMM-InfluencerCategory-categorizedInfluencer"/>
+      <name>InfluencerCategoryCategorizesInfluencer</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-InfluencerCategory" xmi:uuid="725A27D7-D5EA-465B-9D75-1A70CEC36B2F" xmi:type="uml:Class">
+      <ownedAttribute xmi:id="BMM-InfluencerCategory-broaderInfluencerCategory" xmi:uuid="725A27D7-D5EA-44FF-9A2F-1A707986C9EA" xmi:type="uml:Property">
+        <type xmi:idref="BMM-InfluencerCategory"/>
+        <upperValue xmi:id="BMM-InfluencerCategory-broaderInfluencerCategory-upperValue" xmi:uuid="725A27D7-D5EA-4914-95A2-1A705CA90033" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>broaderInfluencerCategory</name>
+        <association xmi:idref="BMM-BroaderInfluencerCategorizesNarrowerInfluencerCategory"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <generalization xmi:id="BMM-InfluencerCategory-generalization" xmi:uuid="725A27D7-D5EA-44C7-9CBF-1A70B8C2F245" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-MotivationElement"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-InfluencerCategory-narrowerInfluencerCategory" xmi:uuid="725A27D7-D5EA-4FA8-9CF0-1A70AACFE28C" xmi:type="uml:Property">
+        <type xmi:idref="BMM-InfluencerCategory"/>
+        <upperValue xmi:id="BMM-InfluencerCategory-narrowerInfluencerCategory-upperValue" xmi:uuid="725A27D7-D5EA-4683-98B9-1A70B7DF562D" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>narrowerInfluencerCategory</name>
+        <association xmi:idref="BMM-BroaderInfluencerCategorizesNarrowerInfluencerCategory"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-InfluencerCategory-categorizedInfluencer" xmi:uuid="725A27D7-D5EA-4B54-97F2-1A7000489853" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Influencer"/>
+        <upperValue xmi:id="BMM-InfluencerCategory-categorizedInfluencer-upperValue" xmi:uuid="725A27D7-D5EA-423E-9661-1A7021BC6AEF" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>categorizedInfluencer</name>
+        <association xmi:idref="BMM-InfluencerCategoryCategorizesInfluencer"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>InfluencerCategory</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-BroaderInfluencerCategorizesNarrowerInfluencerCategory" xmi:uuid="725A27D7-D5EA-480F-91B7-1A7047648361" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-InfluencerCategory-broaderInfluencerCategory"/>
+      <memberEnd xmi:idref="BMM-InfluencerCategory-narrowerInfluencerCategory"/>
+      <name>BroaderInfluencerCategorizesNarrowerInfluencerCategory</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-InfluencingOrganization" xmi:uuid="725A27D7-D5EA-4025-971D-1A707DDA1A0C" xmi:type="uml:Class">
+      <ownedAttribute xmi:id="BMM-InfluencingOrganization-categorizingOrganizationCategory" xmi:uuid="725A27D7-D5EA-4E71-96C7-1A70E962AA53" xmi:type="uml:Property">
+        <type xmi:idref="BMM-OrganizationCategory"/>
+        <upperValue xmi:id="BMM-InfluencingOrganization-categorizingOrganizationCategory-upperValue" xmi:uuid="725A27D7-D5EA-4BF3-9C67-1A70C2B608DB" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>categorizingOrganizationCategory</name>
+        <association xmi:idref="BMM-OrganizationCategoryCategorizesInfluencingOrganization"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <generalization xmi:id="BMM-InfluencingOrganization-generalization" xmi:uuid="725A27D7-D5EA-404C-906D-1A70C060DF44" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-MotivationElement"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-InfluencingOrganization-influencingOrganizationUnit" xmi:uuid="725A27D7-D5EA-4E6D-98F7-1A7030521586" xmi:type="uml:Property">
+        <type xmi:idref="BMM-OrganizationUnit"/>
+        <lowerValue xmi:id="BMM-InfluencingOrganization-influencingOrganizationUnit-lowerValue" xmi:uuid="725A27D7-D5EA-4B2A-90FF-1A708CCCCA54" xmi:type="uml:LiteralInteger">
+          <value>0</value>
+        </lowerValue>
+        <upperValue xmi:id="BMM-InfluencingOrganization-influencingOrganizationUnit-upperValue" xmi:uuid="725A27D7-D5EA-457B-9909-1A7081483415" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>1</value>
+        </upperValue>
+        <name>influencingOrganizationUnit</name>
+        <association xmi:idref="BMM-OrganizationUnitActsAsInfluencingOrganization"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-InfluencingOrganization-providedInfluencer" xmi:uuid="725A27D7-D5EA-4E5D-9E2E-1A70735008B4" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Influencer"/>
+        <upperValue xmi:id="BMM-InfluencingOrganization-providedInfluencer-upperValue" xmi:uuid="725A27D7-D5EA-40D6-9476-1A7012641D3E" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>providedInfluencer</name>
+        <association xmi:idref="BMM-InfluencingOrganizationIsSourceofInfluencer"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>InfluencingOrganization</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-OrganizationCategoryCategorizesInfluencingOrganization" xmi:uuid="725A27D7-D5EA-4799-95BD-1A701F675726" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-InfluencingOrganization-categorizingOrganizationCategory"/>
+      <memberEnd xmi:idref="BMM-OrganizationCategory-categorizedInfluencingOrganization"/>
+      <name>OrganizationCategoryCategorizesInfluencingOrganization</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-OrganizationUnitActsAsInfluencingOrganization" xmi:uuid="725A27D7-D5EA-47E3-9779-1A706A06B31E" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-InfluencingOrganization-influencingOrganizationUnit"/>
+      <memberEnd xmi:idref="BMM-OrganizationUnit-internalInfluencingOrganization"/>
+      <name>OrganizationUnitActsAsInfluencingOrganization</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-InternalInfluencer" xmi:uuid="725A27D7-D5EA-4701-90B5-1A704A43CBDE" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-InternalInfluencer-generalization" xmi:uuid="725A27D7-D5EA-4291-9E0F-1A7090596016" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-Influencer"/>
+      </generalization>
+      <name>InternalInfluencer</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-Liability" xmi:uuid="725A27D7-D5EA-43FE-927F-1A70670497F3" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-Liability-generalization" xmi:uuid="725A27D7-D5EA-4395-9291-1A70C0DCEE60" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-MotivationElement"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-Liability-dischargingCourseOfAction" xmi:uuid="725A27D7-D5EA-43B8-901C-1A70673B644A" xmi:type="uml:Property">
+        <type xmi:idref="BMM-CourseOfAction"/>
+        <upperValue xmi:id="BMM-Liability-dischargingCourseOfAction-upperValue" xmi:uuid="725A27D7-D5EA-49AA-99B7-1A70B41E776E" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>dischargingCourseOfAction</name>
+        <association xmi:idref="BMM-CourseOfActionDischargesLiability"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Liability-responsibleOrganizationUnit" xmi:uuid="725A27D7-D5EA-43E6-9BD8-1A702EC35B88" xmi:type="uml:Property">
+        <type xmi:idref="BMM-OrganizationUnit"/>
+        <upperValue xmi:id="BMM-Liability-responsibleOrganizationUnit-upperValue" xmi:uuid="725A27D7-D5EA-4F5B-91AA-1A70022D34FF" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>responsibleOrganizationUnit</name>
+        <association xmi:idref="BMM-OrganizationUnitIsResponsibleForLiability"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Liability-claimedResource" xmi:uuid="725A27D7-D5EA-4AE1-932F-1A70BF198C9E" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Resource"/>
+        <upperValue xmi:id="BMM-Liability-claimedResource-upperValue" xmi:uuid="725A27D7-D5EA-45B1-9FC6-1A70FC4461E8" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>claimedResource</name>
+        <association xmi:idref="BMM-LiabilityClaimsResource"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>Liability</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-OrganizationUnitIsResponsibleForLiability" xmi:uuid="725A27D7-D5EA-4F38-9BCF-1A7084C16E22" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Liability-responsibleOrganizationUnit"/>
+      <memberEnd xmi:idref="BMM-OrganizationUnit-managedLiability"/>
+      <name>OrganizationUnitIsResponsibleForLiability</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-LiabilityClaimsResource" xmi:uuid="725A27D7-D5EA-423C-90AC-1A701B4E49A3" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Resource-claimingLiability"/>
+      <memberEnd xmi:idref="BMM-Liability-claimedResource"/>
+      <name>LiabilityClaimsResource</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-Means" xmi:uuid="725A27D7-D5EA-419F-9171-1A70AFF046D6" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-Means-generalization" xmi:uuid="725A27D7-D5EA-4286-9E5E-1A700195CB98" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-MotivationElement"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-Means-judgingAssessment" xmi:uuid="725A27D7-D5EA-4FC1-994E-1A70C4E9A3C2" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Assessment"/>
+        <upperValue xmi:id="BMM-Means-judgingAssessment-upperValue" xmi:uuid="725A27D7-D5EA-4BEC-9CD5-1A70984F11B9" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>judgingAssessment</name>
+        <association xmi:idref="BMM-AssessmentAffectsEmploymentOfMeans"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Means-establishingOrganizationUnit" xmi:uuid="725A27D7-D5EA-44A8-9D15-1A70E59F24CF" xmi:type="uml:Property">
+        <type xmi:idref="BMM-OrganizationUnit"/>
+        <upperValue xmi:id="BMM-Means-establishingOrganizationUnit-upperValue" xmi:uuid="725A27D7-D5EA-4C5D-9D69-1A707522D1BD" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>establishingOrganizationUnit</name>
+        <association xmi:idref="BMM-OrganizationUnitEstablishesMeans"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>Means</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-OrganizationUnitEstablishesMeans" xmi:uuid="725A27D7-D5EA-448C-97B5-1A700C474C3F" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Means-establishingOrganizationUnit"/>
+      <memberEnd xmi:idref="BMM-OrganizationUnit-establishedMeans"/>
+      <name>OrganizationUnitEstablishesMeans</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-Mission" xmi:uuid="725A27D7-D5EA-41CA-9370-1A70F9FF9B9B" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-Mission-generalization" xmi:uuid="725A27D7-D5EA-4399-9AB9-1A7075A41D98" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-Means"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-Mission-missionComponent" xmi:uuid="725A27D7-D5EA-4815-9AE7-1A70683FD7D9" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Strategy"/>
+        <upperValue xmi:id="BMM-Mission-missionComponent-upperValue" xmi:uuid="725A27D7-D5EA-4A83-9E59-1A7006068C23" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>missionComponent</name>
+        <association xmi:idref="BMM-StrategyIsAComponentfOfThe_PlanForMIssion"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Mission-operativeVision" xmi:uuid="725A27D7-D5EA-4A28-9F45-1A70D45A505D" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Vision"/>
+        <lowerValue xmi:id="BMM-Mission-operativeVision-lowerValue" xmi:uuid="725A27D7-D5EA-4CD7-9EA6-1A70F3225276" xmi:type="uml:LiteralInteger">
+          <value>0</value>
+        </lowerValue>
+        <upperValue xmi:id="BMM-Mission-operativeVision-upperValue" xmi:uuid="725A27D7-D5EA-4277-9923-1A70F31DA50C" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>1</value>
+        </upperValue>
+        <name>operativeVision</name>
+        <visibility>public</visibility>
+        <association xmi:idref="BMM-MissionMakesOperativeVision"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>Mission</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-StrategyIsAComponentfOfThe_PlanForMIssion" xmi:uuid="725A27D7-D5EA-4E26-99F5-1A7084269675" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Mission-missionComponent"/>
+      <memberEnd xmi:idref="BMM-Strategy-plannedMission"/>
+      <name>StrategyIsAComponentfOfThe PlanForMIssion</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-MissionMakesOperativeVision" xmi:uuid="725A27D7-D5EA-46E7-9832-1A706ECA83D1" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Vision-deliveringMission"/>
+      <memberEnd xmi:idref="BMM-Mission-operativeVision"/>
+      <name>MissionMakesOperativeVision</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-MotivationElement" xmi:uuid="725A27D7-D5EA-4D8A-9E42-1A70435426FD" xmi:type="uml:Class">
+      <ownedAttribute xmi:id="BMM-MotivationElement-description" xmi:uuid="725A27D7-D5EA-452D-92AE-1A70113DA9EC" xmi:type="uml:Property">
+        <type href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#String"/>
+        <name>description</name>
+        <isStatic>false</isStatic>
+        <isReadOnly>false</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>false</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-MotivationElement-name" xmi:uuid="725A27D7-D5EA-405F-934C-1A705281DFE0" xmi:type="uml:Property">
+        <type href="http://www.omg.org/spec/UML/20110701/PrimitiveTypes.xmi#String"/>
+        <name>name</name>
+        <isStatic>false</isStatic>
+        <isReadOnly>false</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>false</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+      </ownedAttribute>
+      <name>MotivationElement</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-Objective" xmi:uuid="725A27D7-D5EA-4680-9EF9-1A7068A0D5DD" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-Objective-generalization" xmi:uuid="725A27D7-D5EA-4A77-9C5F-1A700196DA57" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-DesiredResult"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-Objective-quantifiedGoal" xmi:uuid="725A27D7-D5EA-47B2-9337-1A70B69C6843" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Goal"/>
+        <upperValue xmi:id="BMM-Objective-quantifiedGoal-upperValue" xmi:uuid="725A27D7-D5EA-4161-95A9-1A7051F6D014" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>quantifiedGoal</name>
+        <association xmi:idref="BMM-ObjectiveQuantitiesGoal"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>Objective</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-Offering" xmi:uuid="725A27D7-D5EA-4F4A-9CDE-1A70C7A24EB8" xmi:type="uml:Class">
+      <ownedAttribute xmi:id="BMM-Offering-definingCourseOfAction" xmi:uuid="725A27D7-D5EA-4DCE-9AF8-1A702AAEB5C7" xmi:type="uml:Property">
+        <type xmi:idref="BMM-CourseOfAction"/>
+        <upperValue xmi:id="BMM-Offering-definingCourseOfAction-upperValue" xmi:uuid="725A27D7-D5EA-4FF0-99F7-1A70D56AA91D" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>definingCourseOfAction</name>
+        <association xmi:idref="BMM-CourseOfActionDefinesOffering"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <generalization xmi:id="BMM-Offering-generalization" xmi:uuid="725A27D7-D5EA-4ADC-9AB9-1A704272F0D7" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-FixedAsset"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-Offering-deliveringBusinessProcess" xmi:uuid="725A27D7-D5EA-4073-9C78-1A70A146EB56" xmi:type="uml:Property">
+        <type xmi:idref="BMM-BusinessProcess"/>
+        <upperValue xmi:id="BMM-Offering-deliveringBusinessProcess-upperValue" xmi:uuid="725A27D7-D5EA-45C9-958B-1A70E942177E" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>deliveringBusinessProcess</name>
+        <association xmi:idref="BMM-BusinessProcessDeliversOffering"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Offering-usedFixedAsset" xmi:uuid="725A27D7-D5EA-447A-9844-1A700ADABC12" xmi:type="uml:Property">
+        <type xmi:idref="BMM-FixedAsset"/>
+        <upperValue xmi:id="BMM-Offering-usedFixedAsset-upperValue" xmi:uuid="725A27D7-D5EA-430B-9109-1A70D7C4829E" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>usedFixedAsset</name>
+        <association xmi:idref="BMM-OfferingUsesFixedAsset"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Offering-requiredResource" xmi:uuid="725A27D7-D5EA-4EFE-9CA2-1A70FC257E2A" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Resource"/>
+        <upperValue xmi:id="BMM-Offering-requiredResource-upperValue" xmi:uuid="725A27D7-D5EA-498E-9CB2-1A7061213F6C" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>requiredResource</name>
+        <association xmi:idref="BMM-OfferingRequiresResource"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>Offering</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-OfferingRequiresResource" xmi:uuid="725A27D7-D5EA-4612-9C48-1A703A6F9228" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Resource-requiringOffering"/>
+      <memberEnd xmi:idref="BMM-Offering-requiredResource"/>
+      <name>OfferingRequiresResource</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-OrganizationCategory" xmi:uuid="725A27D7-D5EA-4DCC-9154-1A70C8F807B3" xmi:type="uml:Class">
+      <ownedAttribute xmi:id="BMM-OrganizationCategory-broaderOrganizationCategory" xmi:uuid="725A27D7-D5EA-4FB0-9487-1A70CE32A8B4" xmi:type="uml:Property">
+        <type xmi:idref="BMM-OrganizationCategory"/>
+        <upperValue xmi:id="BMM-OrganizationCategory-broaderOrganizationCategory-upperValue" xmi:uuid="725A27D7-D5EA-401D-9B08-1A70A839CBDE" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>broaderOrganizationCategory</name>
+        <association xmi:idref="BMM-BroaderOrganizationCategoryCategorizesNarrowerOrganizationCategory"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <generalization xmi:id="BMM-OrganizationCategory-generalization" xmi:uuid="725A27D7-D5EA-4113-9836-1A70E374C488" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-MotivationElement"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-OrganizationCategory-narrowerOrganizationCategory" xmi:uuid="725A27D7-D5EA-46BC-9D20-1A7070A5B00B" xmi:type="uml:Property">
+        <type xmi:idref="BMM-OrganizationCategory"/>
+        <upperValue xmi:id="BMM-OrganizationCategory-narrowerOrganizationCategory-upperValue" xmi:uuid="725A27D7-D5EA-4EFC-9EEC-1A701FCF0885" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>narrowerOrganizationCategory</name>
+        <association xmi:idref="BMM-BroaderOrganizationCategoryCategorizesNarrowerOrganizationCategory"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-OrganizationCategory-categorizedInfluencingOrganization" xmi:uuid="725A27D7-D5EA-4E24-9009-1A709B3BAC2A" xmi:type="uml:Property">
+        <type xmi:idref="BMM-InfluencingOrganization"/>
+        <upperValue xmi:id="BMM-OrganizationCategory-categorizedInfluencingOrganization-upperValue" xmi:uuid="725A27D7-D5EA-4AF2-98CB-1A70F618F5AA" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>categorizedInfluencingOrganization</name>
+        <association xmi:idref="BMM-OrganizationCategoryCategorizesInfluencingOrganization"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>OrganizationCategory</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-BroaderOrganizationCategoryCategorizesNarrowerOrganizationCategory" xmi:uuid="725A27D7-D5EA-4205-996A-1A7060E8B959" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-OrganizationCategory-broaderOrganizationCategory"/>
+      <memberEnd xmi:idref="BMM-OrganizationCategory-narrowerOrganizationCategory"/>
+      <name>BroaderOrganizationCategoryCategorizesNarrowerOrganizationCategory</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-OrganizationUnit" xmi:uuid="725A27D7-D5EA-447A-980C-1A7049ED47C5" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-OrganizationUnit-generalization" xmi:uuid="725A27D7-D5EA-4816-91FC-1A7024967BA0" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-MotivationElement"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-OrganizationUnit-determiningStrategy" xmi:uuid="725A27D7-D5EA-486A-9B32-1A7054790AD8" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Strategy"/>
+        <upperValue xmi:id="BMM-OrganizationUnit-determiningStrategy-upperValue" xmi:uuid="725A27D7-D5EA-4762-9794-1A70FC1A373A" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>determiningStrategy</name>
+        <association xmi:idref="BMM-StrategyDeterminesOrganizationUnit"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-OrganizationUnit-managedAsset" xmi:uuid="725A27D7-D5EA-4E9A-90A7-1A70D999335B" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Asset"/>
+        <upperValue xmi:id="BMM-OrganizationUnit-managedAsset-upperValue" xmi:uuid="725A27D7-D5EA-489C-980D-1A7022695901" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>managedAsset</name>
+        <association xmi:idref="BMM-OrganizationUnitIsResponsibleForAsset"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-OrganizationUnit-managedBusinessProcess" xmi:uuid="725A27D7-D5EA-4581-9047-1A7096EE331E" xmi:type="uml:Property">
+        <type xmi:idref="BMM-BusinessProcess"/>
+        <upperValue xmi:id="BMM-OrganizationUnit-managedBusinessProcess-upperValue" xmi:uuid="725A27D7-D5EA-43E8-9AE7-1A70CF1CA0A2" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>managedBusinessProcess</name>
+        <association xmi:idref="BMM-OrganizationUnitIsResponsibleForBusinessProcess"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-OrganizationUnit-madeAssessment" xmi:uuid="725A27D7-D5EA-472C-969D-1A705426E484" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Assessment"/>
+        <upperValue xmi:id="BMM-OrganizationUnit-madeAssessment-upperValue" xmi:uuid="725A27D7-D5EA-46F0-9249-1A70E60A4D88" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>madeAssessment</name>
+        <association xmi:idref="BMM-OrganizationUnitMakesAssessment"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-OrganizationUnit-recognizedInfluencer" xmi:uuid="725A27D7-D5EA-4DAF-9BFD-1A70066478A7" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Influencer"/>
+        <upperValue xmi:id="BMM-OrganizationUnit-recognizedInfluencer-upperValue" xmi:uuid="725A27D7-D5EA-4033-9535-1A70D22DFE4C" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>recognizedInfluencer</name>
+        <association xmi:idref="BMM-OrganizationUnitRecognizesInfluencer"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-OrganizationUnit-managedLiability" xmi:uuid="725A27D7-D5EA-4EC6-9D90-1A709121AD52" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Liability"/>
+        <upperValue xmi:id="BMM-OrganizationUnit-managedLiability-upperValue" xmi:uuid="725A27D7-D5EA-4B41-960E-1A7073D15F38" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>managedLiability</name>
+        <association xmi:idref="BMM-OrganizationUnitIsResponsibleForLiability"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-OrganizationUnit-internalInfluencingOrganization" xmi:uuid="725A27D7-D5EA-4E32-995B-1A706CB6F8EE" xmi:type="uml:Property">
+        <type xmi:idref="BMM-InfluencingOrganization"/>
+        <upperValue xmi:id="BMM-OrganizationUnit-internalInfluencingOrganization-upperValue" xmi:uuid="725A27D7-D5EA-4152-91D8-1A70D29CC8E1" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>internalInfluencingOrganization</name>
+        <association xmi:idref="BMM-OrganizationUnitActsAsInfluencingOrganization"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-OrganizationUnit-establishedMeans" xmi:uuid="725A27D7-D5EA-4E14-9C59-1A70293997C7" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Means"/>
+        <upperValue xmi:id="BMM-OrganizationUnit-establishedMeans-upperValue" xmi:uuid="725A27D7-D5EA-4773-9B2F-1A70A4D73F6D" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>establishedMeans</name>
+        <association xmi:idref="BMM-OrganizationUnitEstablishesMeans"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-OrganizationUnit-definedEnd" xmi:uuid="725A27D7-D5EA-4106-9880-1A70C17D534E" xmi:type="uml:Property">
+        <type xmi:idref="BMM-End"/>
+        <upperValue xmi:id="BMM-OrganizationUnit-definedEnd-upperValue" xmi:uuid="725A27D7-D5EA-4F17-9E1F-1A70E4634E7B" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>definedEnd</name>
+        <association xmi:idref="BMM-OrganizationUnitDefinesEnd"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>OrganizationUnit</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-StrategyDeterminesOrganizationUnit" xmi:uuid="725A27D7-D5EA-4141-9FBA-1A705E062C39" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-OrganizationUnit-determiningStrategy"/>
+      <memberEnd xmi:idref="BMM-Strategy-determinedOrganizationUnit"/>
+      <name>StrategyDeterminesOrganizationUnit</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-PotentialImpact" xmi:uuid="725A27D7-D5EA-4E8D-9698-1A70363814B3" xmi:type="uml:Class">
+      <ownedAttribute xmi:id="BMM-PotentialImpact-identifyingAssessment" xmi:uuid="725A27D7-D5EA-4DED-948F-1A70E2C879BC" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Assessment"/>
+        <upperValue xmi:id="BMM-PotentialImpact-identifyingAssessment-upperValue" xmi:uuid="725A27D7-D5EA-4169-9A72-1A7076CCDD05" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>identifyingAssessment</name>
+        <association xmi:idref="BMM-AssessmentIdentifiesPotentialImpact"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <generalization xmi:id="BMM-PotentialImpact-generalization" xmi:uuid="725A27D7-D5EA-4A01-9E97-1A700393144C" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-MotivationElement"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-PotentialImpact-motivatedDirective" xmi:uuid="725A27D7-D5EA-4214-9307-1A7004397ED1" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Directive"/>
+        <upperValue xmi:id="BMM-PotentialImpact-motivatedDirective-upperValue" xmi:uuid="725A27D7-D5EA-44DF-9A2A-1A70E97B149B" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>motivatedDirective</name>
+        <association xmi:idref="BMM-PotentialImpactProvidesImpetursForDirective"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>PotentialImpact</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-PotentialReward" xmi:uuid="725A27D7-D5EA-4BB4-9F45-1A709403C74A" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-PotentialReward-generalization" xmi:uuid="725A27D7-D5EA-412B-97A9-1A7042C18341" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-PotentialImpact"/>
+      </generalization>
+      <name>PotentialReward</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-Regulation" xmi:uuid="725A27D7-D5EA-4068-95FF-1A706BC3365A" xmi:type="uml:Class">
+      <ownedAttribute xmi:id="BMM-Regulation-regulatingDirective" xmi:uuid="725A27D7-D5EA-4EA2-9B4A-1A7000559D45" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Directive"/>
+        <lowerValue xmi:id="BMM-Regulation-regulatingDirective-lowerValue" xmi:uuid="725A27D7-D5EA-4FF1-9CAE-1A70597B3D61" xmi:type="uml:LiteralInteger">
+          <value>0</value>
+        </lowerValue>
+        <upperValue xmi:id="BMM-Regulation-regulatingDirective-upperValue" xmi:uuid="725A27D7-D5EA-401A-9ACA-1A70C8B319D5" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>1</value>
+        </upperValue>
+        <name>regulatingDirective</name>
+        <association xmi:idref="BMM-DirectiveActsAsRegulation"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <generalization xmi:id="BMM-Regulation-generalization" xmi:uuid="725A27D7-D5EA-4400-9160-1A702AE5A0E5" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-ExternalInfluencer"/>
+      </generalization>
+      <name>Regulation</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-Resource" xmi:uuid="725A27D7-D5EA-4481-974B-1A7038EE2700" xmi:type="uml:Class">
+      <ownedAttribute xmi:id="BMM-Resource-providingFixedAsset" xmi:uuid="725A27D7-D5EA-460C-9FCE-1A702052A333" xmi:type="uml:Property">
+        <type xmi:idref="BMM-FixedAsset"/>
+        <upperValue xmi:id="BMM-Resource-providingFixedAsset-upperValue" xmi:uuid="725A27D7-D5EA-4A03-957F-1A70BB334A63" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>providingFixedAsset</name>
+        <association xmi:idref="BMM-FixedAssetProvidesResource"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Resource-requiringOffering" xmi:uuid="725A27D7-D5EA-49CC-9CDE-1A709393AEB3" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Offering"/>
+        <upperValue xmi:id="BMM-Resource-requiringOffering-upperValue" xmi:uuid="725A27D7-D5EA-4E4B-9800-1A70A4F75709" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>requiringOffering</name>
+        <association xmi:idref="BMM-OfferingRequiresResource"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <generalization xmi:id="BMM-Resource-generalization" xmi:uuid="725A27D7-D5EA-4EA1-975C-1A701D16BEAB" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-Asset"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-Resource-claimingLiability" xmi:uuid="725A27D7-D5EA-4EC7-9669-1A70D4126553" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Liability"/>
+        <upperValue xmi:id="BMM-Resource-claimingLiability-upperValue" xmi:uuid="725A27D7-D5EA-42B5-9B93-1A70780D21AE" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>claimingLiability</name>
+        <association xmi:idref="BMM-LiabilityClaimsResource"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>Resource</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-Risk" xmi:uuid="725A27D7-D5EA-408F-91EF-1A7028D45FCB" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-Risk-generalization" xmi:uuid="725A27D7-D5EA-47FB-9DC0-1A705D4D6997" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-PotentialImpact"/>
+      </generalization>
+      <name>Risk</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-Strategy" xmi:uuid="725A27D7-D5EA-43C3-9930-1A70EF043B51" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-Strategy-generalization" xmi:uuid="725A27D7-D5EA-4735-9329-1A701CE3C991" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-CourseOfAction"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-Strategy-implementingTactic" xmi:uuid="725A27D7-D5EA-4A1D-9C89-1A7052412415" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Tactic"/>
+        <upperValue xmi:id="BMM-Strategy-implementingTactic-upperValue" xmi:uuid="725A27D7-D5EA-441E-9545-1A70BA8787DA" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>implementingTactic</name>
+        <association xmi:idref="BMM-TacticImplementsStrategy"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Strategy-plannedMission" xmi:uuid="725A27D7-D5EA-43BF-91CB-1A70606857C9" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Mission"/>
+        <upperValue xmi:id="BMM-Strategy-plannedMission-upperValue" xmi:uuid="725A27D7-D5EA-420B-908A-1A7074B2A942" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>plannedMission</name>
+        <association xmi:idref="BMM-StrategyIsAComponentfOfThe_PlanForMIssion"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Strategy-determinedOrganizationUnit" xmi:uuid="725A27D7-D5EA-47DE-915D-1A707AB47413" xmi:type="uml:Property">
+        <type xmi:idref="BMM-OrganizationUnit"/>
+        <upperValue xmi:id="BMM-Strategy-determinedOrganizationUnit-upperValue" xmi:uuid="725A27D7-D5EA-4A8F-9D7A-1A707498521F" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>determinedOrganizationUnit</name>
+        <association xmi:idref="BMM-StrategyDeterminesOrganizationUnit"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>Strategy</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-TacticImplementsStrategy" xmi:uuid="725A27D7-D5EA-4874-905E-1A70E62C5B7A" xmi:type="uml:Association">
+      <memberEnd xmi:idref="BMM-Strategy-implementingTactic"/>
+      <memberEnd xmi:idref="BMM-Tactic-implementedStrategy"/>
+      <name>TacticImplementsStrategy</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-Tactic" xmi:uuid="725A27D7-D5EA-4B0D-94DA-1A7085691A2A" xmi:type="uml:Class">
+      <generalization xmi:id="BMM-Tactic-generalization" xmi:uuid="725A27D7-D5EA-4481-9B2C-1A70FEA25D9E" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-CourseOfAction"/>
+      </generalization>
+      <ownedAttribute xmi:id="BMM-Tactic-enforcedBusinessRule" xmi:uuid="725A27D7-D5EA-44EA-954A-1A704AF619CF" xmi:type="uml:Property">
+        <type xmi:idref="BMM-BusinessRule"/>
+        <upperValue xmi:id="BMM-Tactic-enforcedBusinessRule-upperValue" xmi:uuid="725A27D7-D5EA-4C2A-94EC-1A703BDFF84F" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>enforcedBusinessRule</name>
+        <association xmi:idref="BMM-TacticEffectsEnforcementLevelOfBusinessRule"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Tactic-implementedStrategy" xmi:uuid="725A27D7-D5EA-4AD3-9175-1A70884B91A6" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Strategy"/>
+        <upperValue xmi:id="BMM-Tactic-implementedStrategy-upperValue" xmi:uuid="725A27D7-D5EA-4758-9E0B-1A70BD466E38" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>implementedStrategy</name>
+        <association xmi:idref="BMM-TacticImplementsStrategy"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <name>Tactic</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <packagedElement xmi:id="BMM-Vision" xmi:uuid="725A27D7-D5EA-43A3-9032-1A701DE8C10C" xmi:type="uml:Class">
+      <ownedAttribute xmi:id="BMM-Vision-deliveringMission" xmi:uuid="725A27D7-D5EA-4481-9E95-1A70FBBB4A31" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Mission"/>
+        <upperValue xmi:id="BMM-Vision-deliveringMission-upperValue" xmi:uuid="725A27D7-D5EA-4B79-91AF-1A7044842DF5" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>deliveringMission</name>
+        <association xmi:idref="BMM-MissionMakesOperativeVision"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="BMM-Vision-amplifyingGoal" xmi:uuid="725A27D7-D5EA-4AC5-93D9-1A706FE3DB5D" xmi:type="uml:Property">
+        <type xmi:idref="BMM-Goal"/>
+        <upperValue xmi:id="BMM-Vision-amplifyingGoal-upperValue" xmi:uuid="725A27D7-D5EA-4511-9F26-1A70104C08B7" xmi:type="uml:LiteralUnlimitedNatural">
+          <value>*</value>
+        </upperValue>
+        <name>amplifyingGoal</name>
+        <association xmi:idref="BMM-GoalAmplifiesVision"/>
+        <isStatic>false</isStatic>
+        <isReadOnly>true</isReadOnly>
+        <isDerived>false</isDerived>
+        <isOrdered>false</isOrdered>
+        <isUnique>true</isUnique>
+        <isDerivedUnion>false</isDerivedUnion>
+        <aggregation>none</aggregation>
+      </ownedAttribute>
+      <generalization xmi:id="BMM-Vision-generalization" xmi:uuid="725A27D7-D5EA-432C-96C4-1A701D2B011F" xmi:type="uml:Generalization">
+        <general xmi:idref="BMM-End"/>
+      </generalization>
+      <name>Vision</name>
+      <visibility>public</visibility>
+    </packagedElement>
+    <name>BMM</name>
+    <URI>http://www.omg.org/spec/BMM/20130801</URI>
+  </uml:Package>
+</xmi:XMI>
