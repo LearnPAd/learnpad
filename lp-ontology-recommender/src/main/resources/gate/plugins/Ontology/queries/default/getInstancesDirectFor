@@ -1,0 +1,15 @@
+# getInstancesDirectFor
+#
+# get all instances that belong directly to a given class
+
+SELECT DISTINCT X FROM {X} sesame:directType {yyy1} rdf:type {owl:Class}
+  WHERE  ISURI(X) 
+UNION
+SELECT DISTINCT X FROM {X} sesame:directType {yyy1} rdf:type {rdfs:Class}
+  WHERE  ISURI(X) 
+
+USING NAMESPACE
+xsd = <http://www.w3.org/2001/XMLSchema#>,
+rdfs = <http://www.w3.org/2000/01/rdf-schema#>,
+rdf = <http://www.w3.org/1999/02/22-rdf-syntax-ns#>,
+owl = <http://www.w3.org/2002/07/owl#>

@@ -32,6 +32,7 @@ import eu.learnpad.exception.impl.LpRestExceptionXWikiImpl;
 import eu.learnpad.me.rest.data.KPIsFormat;
 import eu.learnpad.me.rest.data.ModelSetType;
 import eu.learnpad.ontology.config.APP;
+import eu.learnpad.ontology.analyzer.Analyzer;
 import eu.learnpad.ontology.kpi.KBProcessorNotifier;
 import eu.learnpad.ontology.kpi.dashboard.KPILoader;
 import eu.learnpad.ontology.persistence.FileOntAO;
@@ -192,8 +193,23 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
     @Override
     public Entities analyseText(String modelSetId, String contextArtifactId, String userId, String title, String text) throws LpRestException {
 
-        Entities testData = new Entities();
-        String id = UUID.randomUUID().toString();
+        Entities entities = new Entities();
+        
+        Analyzer textAnalyzer = Analyzer.getInstance();
+            try {
+                entities = textAnalyzer.analyze(modelSetId, text);
+            } catch (RecommenderException ex) {
+                Logger.getLogger(OntologyRecommenderImpl.class.getName()).log(Level.SEVERE, "Text analysis failed. ", ex);
+            }
+        return entities;
+        
+//        return this.generateFakeAnswerForAnalyseText(modelSetId, text);
+    }
+
+	private Entities generateFakeAnswerForAnalyseText(String modelSetId, String text) {
+        Entities fakeData = new Entities();
+
+		String id = UUID.randomUUID().toString();
 
         //For testing purposes only !
         String analysedText = text;
@@ -201,7 +217,7 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
             analysedText = analysedText.replace("Sally Shugar", "<span data-recommendation=\"" + id + "\">Sally Shugar</span>");
         }
         
-        testData.setAnalyzedContent(analysedText);
+        fakeData.setAnalyzedContent(analysedText);
 
         Entity entity = new Entity();
         entity.setId(id);
@@ -249,9 +265,9 @@ public class OntologyRecommenderImpl extends XwikiBridge implements Initializabl
         entity.setRelatedObjects(relatedObjects);
         List<Entity> entities = new ArrayList<>();
         entities.add(entity);
-        testData.setEntities(entities);
-        return testData;
-    }
+        fakeData.setEntities(entities);
+        return fakeData;
+	}
 
     @Override
     public void createBookmark(String modelSetId, String userId, String artifactId, String contextArtifactId) throws LpRestException {

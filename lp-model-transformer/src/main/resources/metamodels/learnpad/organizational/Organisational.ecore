@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="organisational" nsURI="http://learnpad.eu/organisational" nsPrefix="organisational">
+  <eClassifiers xsi:type="ecore:EClass" name="OrganisationalElement" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="order" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="notes" upperBound="-1"
+        eType="#//Note" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//CompositeOrganisationalElement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeOrganisationalElement" abstract="true"
+      eSuperTypes="#//OrganisationalElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="manager" upperBound="-1"
+        eType="#//Performer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedElements" upperBound="-1"
+        eType="#//OrganisationalElement"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OrgResource" eSuperTypes="#//OrganisationalElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeOfResource" eType="#//ResourceType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hourlyWages" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="availability" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeDependentCosts" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="personellCosts" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="capacity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="workload" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="infoOnResults" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="externalDocumentation"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ResourceType">
+    <eLiterals name="EPDSystem" literal="EPDSystem"/>
+    <eLiterals name="CommunicationSystem" value="1" literal="CommunicationSystem"/>
+    <eLiterals name="Other" value="2" literal="Other"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Position" eSuperTypes="#//OrganisationalElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="positionCapacity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="vacant" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="costCenter" eType="#//CostCenter"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referenceToDocument" upperBound="-1"
+        eType="ecore:EClass ../documentAndKnowledge/DocumentAndKnowledge.ecore#//Document"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Note">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="test" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="textFormat" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Performer" eSuperTypes="#//OrgResource">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="information" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasRoles" upperBound="-1"
+        eType="#//Role"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Team" eSuperTypes="#//CompositeOrganisationalElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Role" eSuperTypes="#//OrganisationalElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeOfResource" eType="#//ResourceType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="requirements" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="orgUnit" eType="#//OrganisationalUnit"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CostCenter" eSuperTypes="#//CompositeOrganisationalElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="budget" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="onTime" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="onProcesses" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="onFixedCosts" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="performers" upperBound="-1"
+        eType="#//Performer" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OrganisationalUnit" eSuperTypes="#//CompositeOrganisationalElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ShowContainedRoles" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//OrganisationalUnitType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="functionalUnit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="roles" upperBound="-1"
+        eType="#//Role" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="performers" upperBound="-1"
+        eType="#//Performer" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="positions" eType="#//Position"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resources" upperBound="-1"
+        eType="#//OrgResource" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subOrdinatedOrgUnits" upperBound="-1"
+        eType="#//OrganisationalUnit" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="supervisingOrgUnits" upperBound="-1"
+        eType="#//OrganisationalUnit" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasGoal" upperBound="-1"
+        eType="ecore:EClass ../bmm/BMM.ecore#//Goal"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hasResource" upperBound="-1"
+        eType="ecore:EClass ../documentAndKnowledge/DocumentAndKnowledge.ecore#//DMResource"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="OrganisationalUnitType">
+    <eLiterals name="Standard" value="1" literal="Standard"/>
+    <eLiterals name="Company" value="2" literal="Company"/>
+    <eLiterals name="Division" value="3" literal="Division"/>
+    <eLiterals name="Department" value="4" literal="Department"/>
+  </eClassifiers>
+</ecore:EPackage>

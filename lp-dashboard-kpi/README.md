@@ -26,10 +26,27 @@ In order to change this configurations, please refer to the specific documentati
 # Build
 In the `lp-dashboard-kpi` folder, you can give one of the following options to
 the build script:
+* `--dev`
+* `--review`
+* `--finalreview`
 * `--marche`
 
 These options impacts on the [`build` script](https://github.com/LearnPAd/learnpad/blob/master/lp-dashboard-kpi/build), and
 their main configurations are defined in dedicated [configuration file](https://github.com/LearnPAd/learnpad/blob/master/lp-dashboard-kpi/lp-dash-bridge/src/main/resources/config/).
+
+## `dev` mode
+Currently the dev mode is not active and it matches with the default mode
+
+## `review` mode
+Currently the review mode is not active and it matches with the default mode
+
+## `finalreview` mode
+The finalreview mode is only about a preconfiguration of the addresses for
+both the component and its sub-components according to the deploy foreseen for the Final Review Meeting. 
+This configuration impacts:
+* the [`build` script](https://github.com/LearnPAd/learnpad/blob/master/lp-dashboard-kpi/build).
+* the [`start` script](https://github.com/LearnPAd/learnpad/blob/master/lp-dashboard-kpi/scripts/start-finalreview).
+* the [configuration file](https://github.com/LearnPAd/learnpad/blob/master/lp-dashboard-kpi/lp-dash-bridge/src/main/resources/config/componentFinalReview.properties) for the deloy used during the Final Review Meeting
 
 ## `marche` mode
 The marche mode is only about a preconfiguration of the addresses for

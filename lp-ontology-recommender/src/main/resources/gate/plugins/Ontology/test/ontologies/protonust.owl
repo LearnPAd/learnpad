@@ -1,0 +1,3346 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY owl2xml "http://www.w3.org/2006/12/owl2-xml#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY protont "http://proton.semanticweb.org/2005/04/protont#" >
+    <!ENTITY protonu "http://proton.semanticweb.org/2005/04/protonu#" >
+    <!ENTITY protons "http://proton.semanticweb.org/2005/04/protons#" >
+]>
+
+
+<rdf:RDF xmlns="http://proton.semanticweb.org/2005/04/protonu#"
+     xml:base="http://proton.semanticweb.org/2005/04/protonu"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:protons="http://proton.semanticweb.org/2005/04/protons#"
+     xmlns:protonu="http://proton.semanticweb.org/2005/04/protonu#"
+     xmlns:protont="http://proton.semanticweb.org/2005/04/protont#">
+    <owl:Ontology rdf:about="">
+        <rdfs:comment
+            >PROTON (Proto Ontology), Upper module</rdfs:comment>
+        <owl:versionInfo>&quot;0.1&quot;</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:AnnotationProperty rdf:about="&protons;transitiveOver"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#hasChild -->
+
+    <owl:ObjectProperty rdf:about="&protont;hasChild"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#hasContactInfo -->
+
+    <owl:ObjectProperty rdf:about="&protont;hasContactInfo"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#hasEmployee -->
+
+    <owl:ObjectProperty rdf:about="&protont;hasEmployee"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#hasMember -->
+
+    <owl:ObjectProperty rdf:about="&protont;hasMember"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#hasParent -->
+
+    <owl:ObjectProperty rdf:about="&protont;hasParent"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#hasSibling -->
+
+    <owl:ObjectProperty rdf:about="&protont;hasSibling"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#hasSpouse -->
+
+    <owl:ObjectProperty rdf:about="&protont;hasSpouse"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#locatedIn -->
+
+    <owl:ObjectProperty rdf:about="&protont;locatedIn"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#partOf -->
+
+    <owl:ObjectProperty rdf:about="&protont;partOf"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#accountProvider -->
+
+    <owl:ObjectProperty rdf:about="#accountProvider">
+        <rdfs:label>accountProvider</rdfs:label>
+        <rdfs:comment
+            >a relation between an account and the Agent (usually organization) providing and managing it</rdfs:comment>
+        <rdfs:range rdf:resource="&protont;Agent"/>
+        <rdfs:domain rdf:resource="#Account"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#activeInSector -->
+
+    <owl:ObjectProperty rdf:about="#activeInSector">
+        <rdfs:label>activeInSector</rdfs:label>
+        <protons:transitiveOver rdf:datatype="&xsd;anyURI"
+            >http://proton.semanticweb.org/2005/04/protonu#subSectorOf</protons:transitiveOver>
+        <rdfs:comment
+            >Denotes that the organization is active within the industry sector</rdfs:comment>
+        <rdfs:domain rdf:resource="#CommercialOrganization"/>
+        <rdfs:range rdf:resource="#IndustrySector"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#compliantWithSchema -->
+
+    <owl:ObjectProperty rdf:about="#compliantWithSchema">
+        <rdfs:label
+            >compliantWithSchema</rdfs:label>
+        <rdfs:comment
+            >links a dataset with a schema it complies to</rdfs:comment>
+        <rdfs:domain rdf:resource="&protont;InformationResource"/>
+        <rdfs:range rdf:resource="#DataSchema"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasAddress -->
+
+    <owl:ObjectProperty rdf:about="#hasAddress">
+        <rdfs:label>hasAddress</rdfs:label>
+        <rdfs:comment
+            >Relate address to an Agent. Will be used for URL, email and other addresses.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&protont;hasContactInfo"/>
+        <rdfs:range rdf:resource="#Address"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasAirport -->
+
+    <owl:ObjectProperty rdf:about="#hasAirport">
+        <rdfs:label>hasAirport</rdfs:label>
+        <rdfs:range rdf:resource="#Airport"/>
+        <rdfs:domain rdf:resource="#City"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasBrother -->
+
+    <owl:ObjectProperty rdf:about="#hasBrother">
+        <rdfs:label>hasBrother</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&protont;hasSibling"/>
+        <rdfs:range rdf:resource="#Man"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasCapital -->
+
+    <owl:ObjectProperty rdf:about="#hasCapital">
+        <rdfs:label>hasCapital</rdfs:label>
+        <rdfs:range rdf:resource="#Capital"/>
+        <rdfs:domain rdf:resource="#PoliticalRegion"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasCurrency -->
+
+    <owl:ObjectProperty rdf:about="#hasCurrency">
+        <rdfs:label>hasCurrency</rdfs:label>
+        <rdfs:domain rdf:resource="#Country"/>
+        <rdfs:range rdf:resource="#Currency"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasDaughter -->
+
+    <owl:ObjectProperty rdf:about="#hasDaughter">
+        <rdfs:label>hasDaughter</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&protont;hasChild"/>
+        <rdfs:range rdf:resource="#Woman"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasEMail -->
+
+    <owl:ObjectProperty rdf:about="#hasEMail">
+        <rdfs:label>hasEMail</rdfs:label>
+        <rdfs:range rdf:resource="#EMail"/>
+        <rdfs:subPropertyOf rdf:resource="#hasInternetAddress"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasFather -->
+
+    <owl:ObjectProperty rdf:about="#hasFather">
+        <rdfs:label>hasFather</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&protont;hasParent"/>
+        <rdfs:range rdf:resource="#Man"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasFax -->
+
+    <owl:ObjectProperty rdf:about="#hasFax">
+        <rdfs:label>hasFax</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&protont;hasContactInfo"/>
+        <rdfs:range rdf:resource="#PhoneNumber"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasGovernment -->
+
+    <owl:ObjectProperty rdf:about="#hasGovernment">
+        <rdfs:label>hasGovernment</rdfs:label>
+        <rdfs:domain rdf:resource="#Country"/>
+        <rdfs:range rdf:resource="#GovernmentOrganization"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasHusband -->
+
+    <owl:ObjectProperty rdf:about="#hasHusband">
+        <rdfs:label>hasHusband</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&protont;hasSpouse"/>
+        <rdfs:range rdf:resource="#Man"/>
+        <rdfs:domain rdf:resource="#Woman"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasInternetAddress -->
+
+    <owl:ObjectProperty rdf:about="#hasInternetAddress">
+        <rdfs:label
+            >hasInternetAddress</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&protont;hasContactInfo"/>
+        <rdfs:range rdf:resource="#InternetAddress"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasMinister -->
+
+    <owl:ObjectProperty rdf:about="#hasMinister">
+        <rdfs:label>hasMinister</rdfs:label>
+        <rdfs:comment
+            >Relates a particular organization to the agents which are members of that organization. This predicate indicates `generic&#39; membership, although there may be specialized kinds of membership in the same organization. Typically, membership eligibility is determined by the organization and accepted with the agent&#39;s voluntary affiliation. In many cases Persons that take Positions within Organization are considered members of the organization, although this is no way formally encoded here.</rdfs:comment>
+        <rdfs:range rdf:resource="&protont;Person"/>
+        <rdfs:subPropertyOf rdf:resource="&protont;hasEmployee"/>
+        <rdfs:domain rdf:resource="#Ministry"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasMobilePhone -->
+
+    <owl:ObjectProperty rdf:about="#hasMobilePhone">
+        <rdfs:label>hasMobilePhone</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="#hasPhone"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasMother -->
+
+    <owl:ObjectProperty rdf:about="#hasMother">
+        <rdfs:label>hasMother</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&protont;hasParent"/>
+        <rdfs:range rdf:resource="#Woman"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasPhone -->
+
+    <owl:ObjectProperty rdf:about="#hasPhone">
+        <rdfs:label>hasPhone</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&protont;hasContactInfo"/>
+        <rdfs:range rdf:resource="#PhoneNumber"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasPrimeMinister -->
+
+    <owl:ObjectProperty rdf:about="#hasPrimeMinister">
+        <rdfs:label
+            >hasPrimeMinister</rdfs:label>
+        <rdfs:comment
+            >Relates a particular organization to the agents which are members of that organization. This predicate indicates `generic&#39; membership, although there may be specialized kinds of membership in the same organization. Typically, membership eligibility is determined by the organization and accepted with the agent&#39;s voluntary affiliation. In many cases Persons that take Positions within Organization are considered members of the organization, although this is no way formally encoded here. 
+Relates a particular organization to the agents which are members of that organization. This predicate indicates `generic&#39; membership, although there may be specialized kinds of membership in the same organization. Typically, membership eligibility is determined by the organization and accepted with the agent&#39;s voluntary affiliation. In many cases Persons that take Positions within Organization are considered members of the organization, although this is no way formally encoded here.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#hasMinister"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasProfession -->
+
+    <owl:ObjectProperty rdf:about="#hasProfession">
+        <rdfs:label>hasProfession</rdfs:label>
+        <rdfs:domain rdf:resource="&protont;Person"/>
+        <rdfs:range rdf:resource="#Profession"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasPublisher -->
+
+    <owl:ObjectProperty rdf:about="#hasPublisher">
+        <rdfs:label>hasPublisher</rdfs:label>
+        <rdfs:comment
+            >An entity responsible for making the resource available.
+Examples of Publisher include a person, an organization, or a service.  (DC2003ISO)</rdfs:comment>
+        <rdfs:range rdf:resource="&protont;Agent"/>
+        <rdfs:domain rdf:resource="#PublishedMaterial"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasShareholder -->
+
+    <owl:ObjectProperty rdf:about="#hasShareholder">
+        <rdfs:label>hasShareholder</rdfs:label>
+        <rdfs:comment></rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&protont;hasMember"/>
+        <rdfs:domain rdf:resource="#CommercialOrganization"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasSister -->
+
+    <owl:ObjectProperty rdf:about="#hasSister">
+        <rdfs:label>hasSister</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&protont;hasSibling"/>
+        <rdfs:range rdf:resource="#Woman"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasSon -->
+
+    <owl:ObjectProperty rdf:about="#hasSon">
+        <rdfs:label>hasSon</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&protont;hasChild"/>
+        <rdfs:range rdf:resource="#Man"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasStationaryPhone -->
+
+    <owl:ObjectProperty rdf:about="#hasStationaryPhone">
+        <rdfs:label
+            >hasStationaryPhone</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="#hasPhone"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasUniversity -->
+
+    <owl:ObjectProperty rdf:about="#hasUniversity">
+        <rdfs:label>hasUniversity</rdfs:label>
+        <rdfs:domain rdf:resource="&protont;Location"/>
+        <rdfs:range rdf:resource="#University"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasWebPage -->
+
+    <owl:ObjectProperty rdf:about="#hasWebPage">
+        <rdfs:label>hasWebPage</rdfs:label>
+        <rdfs:range rdf:resource="#WebPage"/>
+        <rdfs:subPropertyOf rdf:resource="#hasInternetAddress"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasWife -->
+
+    <owl:ObjectProperty rdf:about="#hasWife">
+        <rdfs:label>hasWife</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&protont;hasSpouse"/>
+        <rdfs:domain rdf:resource="#Man"/>
+        <rdfs:range rdf:resource="#Woman"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#issueOf -->
+
+    <owl:ObjectProperty rdf:about="#issueOf">
+        <rdfs:label>issueOf</rdfs:label>
+        <rdfs:domain rdf:resource="#IssueOfPeriodical"/>
+        <rdfs:range rdf:resource="#PeriodicalPublication"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#ofCountry -->
+
+    <owl:ObjectProperty rdf:about="#ofCountry">
+        <rdfs:label>ofCountry</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&protont;locatedIn"/>
+        <rdfs:range rdf:resource="#Country"/>
+        <rdfs:domain rdf:resource="#GovernmentOrganization"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#officialPositionIn -->
+
+    <owl:ObjectProperty rdf:about="#officialPositionIn">
+        <rdfs:label
+            >officialPositionIn</rdfs:label>
+        <rdfs:comment
+            >This property models the Person-&gt;hasPosition-&gt;Location.</rdfs:comment>
+        <rdfs:range rdf:resource="&protont;Location"/>
+        <rdfs:domain rdf:resource="#OfficialPosition"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#publishedWithin -->
+
+    <owl:ObjectProperty rdf:about="#publishedWithin">
+        <rdfs:label>publishedWithin</rdfs:label>
+        <rdfs:domain rdf:resource="#Article"/>
+        <rdfs:range rdf:resource="#ResourceCollection"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#subSectorOf -->
+
+    <owl:ObjectProperty rdf:about="#subSectorOf">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:label>subSectorOf</rdfs:label>
+        <rdfs:comment
+            >The general part-of relation which in place between a whole and each of its parts. It has number of specializations.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&protont;partOf"/>
+        <rdfs:domain rdf:resource="#IndustrySector"/>
+        <rdfs:range rdf:resource="#IndustrySector"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#hasDate -->
+
+    <owl:DatatypeProperty rdf:about="&protont;hasDate"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#informationResourceIdentifier -->
+
+    <owl:DatatypeProperty rdf:about="&protont;informationResourceIdentifier"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#FISCAL_NET_INCOME -->
+
+    <owl:DatatypeProperty rdf:about="#FISCAL_NET_INCOME">
+        <rdfs:label
+            >FISCAL_NET_INCOME</rdfs:label>
+        <rdfs:comment
+            >Net Income last year.</rdfs:comment>
+        <rdfs:domain rdf:resource="#CommercialOrganization"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#FISCAL_SALES -->
+
+    <owl:DatatypeProperty rdf:about="#FISCAL_SALES">
+        <rdfs:label>FISCAL_SALES</rdfs:label>
+        <rdfs:comment
+            >Sales last year.</rdfs:comment>
+        <rdfs:domain rdf:resource="#CommercialOrganization"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#ISBN -->
+
+    <owl:DatatypeProperty rdf:about="#ISBN">
+        <rdfs:label>ISBN</rdfs:label>
+        <rdfs:comment
+            >The ISBN (International Standard Book Number) is a unique machine-readable identification number, which marks any book unmistakably.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&protont;informationResourceIdentifier"/>
+        <rdfs:domain rdf:resource="#Book"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#ISSN -->
+
+    <owl:DatatypeProperty rdf:about="#ISSN">
+        <rdfs:label>ISSN</rdfs:label>
+        <rdfs:comment
+            >The ISSN (International Standard Serial Number) is an eight-digit number which identifies periodical publications as such, including electronic serials. More than one million ISSN numbers have so far been assigned.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&protont;informationResourceIdentifier"/>
+        <rdfs:domain rdf:resource="#PeriodicalPublication"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#datePublished -->
+
+    <owl:DatatypeProperty rdf:about="#datePublished">
+        <rdfs:label>datePublished</rdfs:label>
+        <rdfs:comment
+            >Typically, associated with the creation or availability of the resource. Recommended
+best practice for encoding the date value is defined in a profile of ISO 8601 [W3CDTF] and includes (among
+others) dates of the form YYYY-MM-DD.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="&protont;hasDate"/>
+        <rdfs:domain rdf:resource="#PublishedMaterial"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasCode -->
+
+    <owl:DatatypeProperty rdf:about="#hasCode">
+        <rdfs:label>hasCode</rdfs:label>
+        <rdfs:comment
+            >Denotes that the Sector has the specified SIC code</rdfs:comment>
+        <rdfs:domain rdf:resource="#IndustrySector"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#hasUnit -->
+
+    <owl:DatatypeProperty rdf:about="#hasUnit">
+        <rdfs:label>hasUnit</rdfs:label>
+        <rdfs:domain rdf:resource="#Currency"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#stockExchangeIndex -->
+
+    <owl:DatatypeProperty rdf:about="#stockExchangeIndex">
+        <rdfs:label
+            >stockExchangeIndex</rdfs:label>
+        <rdfs:comment
+            >Name of the company on the Stock Exchange, where it is traded. At present, if a comapny is traded on two SEs with different indices, there is no way to encode which of them is applicable where.</rdfs:comment>
+        <rdfs:domain rdf:resource="#PublicCompany"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#tradedOn -->
+
+    <owl:DatatypeProperty rdf:about="#tradedOn">
+        <rdfs:label>tradedOn</rdfs:label>
+        <rdfs:comment
+            >Relates the Public Company to the Stock Exchange where it is traded</rdfs:comment>
+        <rdfs:domain rdf:resource="#PublicCompany"/>
+        <rdfs:range rdf:resource="#StockExchange"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#Abstract -->
+
+    <owl:Class rdf:about="&protont;Abstract"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#Agent -->
+
+    <owl:Class rdf:about="&protont;Agent"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#ContactInformation -->
+
+    <owl:Class rdf:about="&protont;ContactInformation"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#Document -->
+
+    <owl:Class rdf:about="&protont;Document"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#Event -->
+
+    <owl:Class rdf:about="&protont;Event"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#InformationResource -->
+
+    <owl:Class rdf:about="&protont;InformationResource"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#JobPosition -->
+
+    <owl:Class rdf:about="&protont;JobPosition"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#Location -->
+
+    <owl:Class rdf:about="&protont;Location"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#Number -->
+
+    <owl:Class rdf:about="&protont;Number"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#Object -->
+
+    <owl:Class rdf:about="&protont;Object"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#Organization -->
+
+    <owl:Class rdf:about="&protont;Organization"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#Person -->
+
+    <owl:Class rdf:about="&protont;Person"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#Product -->
+
+    <owl:Class rdf:about="&protont;Product"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#Statement -->
+
+    <owl:Class rdf:about="&protont;Statement"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protont#TimeInterval -->
+
+    <owl:Class rdf:about="&protont;TimeInterval"/>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Accident -->
+
+    <owl:Class rdf:about="#Accident">
+        <rdfs:label>Accident</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Event"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Account -->
+
+    <owl:Class rdf:about="#Account">
+        <rdfs:label>Account</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Object"/>
+        <rdfs:comment
+            >An explicit agreement between agents. Typically, service providers (e.g. banks or ISPs) provide accounts to their customers or users, which are considered account owners. The existence of the account depends on the provider, even though the user owns it in some metaphoric sense.
+Examples could be bank, ISP, e-Commerce, ICQ, email accounts.
+The accounts are usually aligned with a sort of contract.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Address -->
+
+    <owl:Class rdf:about="#Address">
+        <rdfs:label>Address</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;ContactInformation"/>
+        <rdfs:comment
+            >Any sort of address, specifying how to locate something somewhere</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Airline -->
+
+    <owl:Class rdf:about="#Airline">
+        <rdfs:label>Airline</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Company"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#AirplaneModel -->
+
+    <owl:Class rdf:about="#AirplaneModel">
+        <rdfs:label>AirplaneModel</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Product"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Airport -->
+
+    <owl:Class rdf:about="#Airport">
+        <rdfs:label>Airport</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#TransportFacility"/>
+        <rdfs:comment
+            >An airport, including heliports.
+NIMA GNS designators AIPR, AIRH.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Album -->
+
+    <owl:Class rdf:about="#Album">
+        <rdfs:label>Album</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#AudioRecording"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#AlcoholicBeverage -->
+
+    <owl:Class rdf:about="#AlcoholicBeverage">
+        <rdfs:label
+            >AlcoholicBeverage</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Beverage"/>
+        <rdfs:comment
+            >A type (specific receipe) for a beverage. For instance: Guiness Beer, Absolut Currant, etc.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#AmusementPark -->
+
+    <owl:Class rdf:about="#AmusementPark">
+        <rdfs:label>AmusementPark</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#RecreationalFacility"/>
+        <rdfs:comment
+            >(ADL FT) Commercially operated enterprises that offer rides, games, and other forms of entertainment.
+NIMA GNS designator - no equivalents.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Announcement -->
+
+    <owl:Class rdf:about="#Announcement">
+        <rdfs:label>Announcement</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#PublishedMaterial"/>
+        <rdfs:comment
+            >A formal public statement; &quot;the government made an announcement about changes in the drug war&quot;; &quot;a declaration of independence&quot;.) WordNet 1.7.1</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Archipelago -->
+
+    <owl:Class rdf:about="#Archipelago">
+        <rdfs:label>Archipelago</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Island"/>
+        <rdfs:subClassOf rdf:resource="#WaterRegion"/>
+        <rdfs:comment
+            >(ADL FT) Seas or areas in a sea that contain numerous islands; also, the island groups themselves.
+NIMA GNS designator - no equivalent.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Art -->
+
+    <owl:Class rdf:about="#Art">
+        <rdfs:label>Art</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#SocialAbstraction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#ArtPerformance -->
+
+    <owl:Class rdf:about="#ArtPerformance">
+        <rdfs:label>ArtPerformance</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Event"/>
+        <rdfs:comment
+            >A specific performance taking place at some moment, somewhere. Quite often staring 19:00 in the theatre, stadium, etc.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Article -->
+
+    <owl:Class rdf:about="#Article">
+        <rdfs:label>Article</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#PublishedMaterial"/>
+        <rdfs:comment
+            >A relatively short document publishes as a part of ReosurceCollection.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#ArtificialSatellite -->
+
+    <owl:Class rdf:about="#ArtificialSatellite">
+        <rdfs:label
+            >ArtificialSatellite</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Satellite"/>
+        <rdfs:comment
+            >A satellite created by humans</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#AstronomicalObject -->
+
+    <owl:Class rdf:about="#AstronomicalObject">
+        <rdfs:label
+            >AstronomicalObject</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Location"/>
+        <rdfs:comment
+            >Any object studied by astronomers, (usually quite large natural and inanimate) object that is located in the physical universe and is not on the surface of the Earth. Definition partly derived from OpenCyc 0.7</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#AudioRecording -->
+
+    <owl:Class rdf:about="#AudioRecording">
+        <rdfs:label>AudioRecording</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#MusicalComposition"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Bank -->
+
+    <owl:Class rdf:about="#Bank">
+        <rdfs:label>Bank</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Company"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Bay -->
+
+    <owl:Class rdf:about="#Bay">
+        <rdfs:label>Bay</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#WaterRegion"/>
+        <rdfs:comment
+            >(ADL FT) Indentations of a coastline or shoreline enclosing a part of a body of water; bodies of water partly surrounded by land. We use this category for bahias; for coves; and for embayments.
+NIMA GNS designators BAY, BAYS.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Beach -->
+
+    <owl:Class rdf:about="#Beach">
+        <rdfs:label>Beach</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT)  Sloping shores along a body of water that is washed by waves or tides and is usually covered by sand or gravel. ... We use this category for sandy areas; and for strands.
+NIMA GNS designator BCH, BCHS.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Beverage -->
+
+    <owl:Class rdf:about="#Beverage">
+        <rdfs:label>Beverage</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#ChemicalCompound"/>
+        <rdfs:comment
+            >Any liquid suitable for drinking (WordNet, 1.7). The instances of this class are types of drinks, specific receipts. For instance: Diet Coke, Bacardi Spice.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#BiogeographicRegion -->
+
+    <owl:Class rdf:about="#BiogeographicRegion">
+        <rdfs:label
+            >BiogeographicRegion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT)  Geographic regions characterized chiefly by the dominant forms of plant life and the prevailing climate. [Adapted from American Heritage Dic. of the English Language, 4th ed.] We use this category for biomes; for ecoregions; and for vegetation.
+Omitted ADL sub-classes: Barren lands, Grasslands, Habitats, Snow Regions, Wetlands.
+NIMA GNS designator - no equivalent. Some correspondence to class Hypsographic Features.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#BoardMeeting -->
+
+    <owl:Class rdf:about="#BoardMeeting">
+        <rdfs:label>BoardMeeting</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Meeting"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#BoardMember -->
+
+    <owl:Class rdf:about="#BoardMember">
+        <rdfs:label>BoardMember</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;JobPosition"/>
+        <rdfs:comment
+            >Position for a Person who belongs to Board of Directors, which is responsible for oversight of the Organization. A member of the Board of Directors of an organization may or may not be an executive of the organization.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Book -->
+
+    <owl:Class rdf:about="#Book">
+        <rdfs:label>Book</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#PublishedMaterial"/>
+        <rdfs:comment
+            >A relatively big published document. It may or may not have chapters. There could be a serie of books considered as volumes of a bigger one.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Brand -->
+
+    <owl:Class rdf:about="#Brand">
+        <rdfs:label>Brand</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Object"/>
+        <rdfs:comment
+            >Like Dodge and Milka</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Bridge -->
+
+    <owl:Class rdf:about="#Bridge">
+        <rdfs:label>Bridge</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#TransportFacility"/>
+        <rdfs:comment
+            >(ADL FT) Structures erected over a depression or obstacle to carry traffic. [USGS Circ 1048] We use this category for covered bridges; for drawbridges; for overpasses; for trestles; and for viaducts.
+NIMA GNS designator BDG, BDGQ.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Building -->
+
+    <owl:Class rdf:about="#Building">
+        <rdfs:label>Building</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Facility"/>
+        <rdfs:comment
+            >(ADL FT) Permanent constructions that are roofed and usually walled. [USGS Circ 1048] We use this category for administrative facilities; for administrative facilities; for animal pounds; for animal shelters; for aquariums; for barns; for border posts; for cabins; for castles; for city halls; for civic centers; for civil buildings; for club houses; for coast guard stations; for commissaries; for community centers; for community houses; for conference facilities; for consulates; for convention centers; for customs houses; for customs posts; for depots; for embassy buildings; for exhibition buildings; for facilities; for facility centers; for fire stations; for firehouses; for forest stations; for government buildings; for guard stations; for halls; for headquarters; for hostels; for hotels; for houses; for inns; for inspection stations; for legation buildings; for lodges; for missions; for motels; for neighborhood centers; for offices; for park headquarters; for patrol posts; for pavilions; for planetariums; for plazas; for police posts; for public buildings; for ranger stations; for restaurants; for shelters; for shops; for stations; for structures; for student unions; for studios; for substations; for taverns; for town halls; for trading posts; for treatment plants; for United States Government establishments; for visitor centers; for walls; and for warehouses
+NIMA GNS designator BLDG.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#BusinessAbstraction -->
+
+    <owl:Class rdf:about="#BusinessAbstraction">
+        <rdfs:label
+            >BusinessAbstraction</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Abstract"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#CEO -->
+
+    <owl:Class rdf:about="#CEO">
+        <rdfs:label>CEO</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Executive"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#CalendarMonth -->
+
+    <owl:Class rdf:about="#CalendarMonth">
+        <rdfs:label>CalendarMonth</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#TemporalAbstraction"/>
+        <rdfs:comment
+            >A specific month of the year, such as, Jan, Feb, etc.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#CalendarYear -->
+
+    <owl:Class rdf:about="#CalendarYear">
+        <rdfs:label>CalendarYear</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;TimeInterval"/>
+        <rdfs:comment
+            >A specific year, such as 2000, taken as a time interval</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Camp -->
+
+    <owl:Class rdf:about="#Camp">
+        <rdfs:label>Camp</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#RecreationalFacility"/>
+        <rdfs:comment
+            >(ADL FT)  Designated areas on which primitive structure(s) are erected for temporary shelter or where recreational vehicles are temporarily parked. [USGS Circ 1048] We use this category for campgrounds; for camping sites; for logging camps; for oil camps; for refugee camps; for RV parks; and for trailer parks (recreational).
+NIMA GNS designators CMP, CMPL, CMPLA, CMPO, CMPQ, CMPRF.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Canal -->
+
+    <owl:Class rdf:about="#Canal">
+        <rdfs:label>Canal</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Channel"/>
+        <rdfs:subClassOf rdf:resource="#HydrographicStructure"/>
+        <rdfs:comment
+            >(ADL FT) Artificial waterways with no flow or a controlled flow used for navigation (canal), or for draining or irrigating land (ditch). We use this category for canal bends; for canalized streams; for ditch mouths; for ditches; for drainage canals; for drainage ditches; for drains (channels); for flumes (manmade); for irrigation canals; for irrigation ditches; for irrigation systems; for laterals; for navigation canals; and for underground irrigation canals.
+NIMA GNS designators CNL,CNLA, CNLB, CNLD, CNLI, CNLN, CNLQ, CNLSB, CNLX.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Canyon -->
+
+    <owl:Class rdf:about="#Canyon">
+        <rdfs:label>Canyon</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Valley"/>
+        <rdfs:comment
+            >(ADL FT)  Relatively narrow, deep depressions with steep sides, the bottom of which generally has a continuous slope ... We use this category for barrancas; for chasms; for flumes (natural); for gorges; for gulches; for quebradas; and for ravines.
+NIMA GNS designator CNSU, CNYN, CNYU, GRGE, RAVU, RVN.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Cape -->
+
+    <owl:Class rdf:about="#Cape">
+        <rdfs:label>Cape</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT)  Projection of land extending into a body of water that prominently marks a change in or interrupts the coastal trend of that water body. We use this category for headlands; for peninsulas; for points (physiographic); and for promontories.
+NIMA GNS designator CAPE, HDLD, PROM.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Capital -->
+
+    <owl:Class rdf:about="#Capital">
+        <rdfs:label>Capital</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#City"/>
+        <rdfs:comment
+            >(ADL FT) Towns or cities that are the official seats of government in a political entity, such as a state or nation. [American Heritage Dic. of the English Language, 4th ed.] We use this category for county seats; for national capitals; and for state capitals.
+NIMA GNS designators PPLC, PPLA</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#CarModel -->
+
+    <owl:Class rdf:about="#CarModel">
+        <rdfs:label>CarModel</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Product"/>
+        <rdfs:comment
+            >Such as Ford-T or BMW Z3.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Cave -->
+
+    <owl:Class rdf:about="#Cave">
+        <rdfs:label>Cave</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT) Natural underground passageways or chambers, or hollowed out cavities in the side of a cliff. ... We use this category for cave entrances; for caverns; for grottoes; for natural tunnels; and for underground lakes.
+NIMA GNS designator CAVE.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Chairman -->
+
+    <owl:Class rdf:about="#Chairman">
+        <rdfs:label>Chairman</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Leader"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Channel -->
+
+    <owl:Class rdf:about="#Channel">
+        <rdfs:label>Channel</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#WaterRegion"/>
+        <rdfs:comment
+            >(ADL FT) (a) Relatively narrow seas or stretches of water between two close landmasses and connecting two larger bodies of water; (b) Deeper parts of a moving body of water (as bays, estuaries, or straits) through which the main current flows or which affords the best passage through an area otherwise too shallow to navigate. ... We use this category for chutes (hydrographic); for cutoffs (hydrographic); for inlets; for lake channels; for marine channels; for narrows (hydrographic); for navigation channels; for reaches (hydrographic); for sounds (bodies of water); and for straits.
+NIMA GNS designators   CHN, CHNL, CHNM, CHNN, STRT.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Charity -->
+
+    <owl:Class rdf:about="#Charity">
+        <rdfs:label>Charity</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Organization"/>
+        <rdfs:comment
+            >A legal charity organization</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#ChemicalCompound -->
+
+    <owl:Class rdf:about="#ChemicalCompound">
+        <rdfs:label
+            >ChemicalCompound</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Product"/>
+        <rdfs:comment
+            >A specific chemical compound, such as H2O or Zarin.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#City -->
+
+    <owl:Class rdf:about="#City">
+        <rdfs:label>City</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#PopulatedPlace"/>
+        <rdfs:comment
+            >(ADL FT) For smaller, less formally established communities, use &#39;populated places&#39;. For independent cities, use &#39;countries, 2nd order divisions. Incorporated populated places. [Adapted from USGS Circ 1048] We use this category for municipalities; for towns; and for urban areas.
+NIMA GNS designator PPL.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Coast -->
+
+    <owl:Class rdf:about="#Coast">
+        <rdfs:label>Coast</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT: Coastal Zones)  Strips of land (of indefinite width) that extend from the low-tide line inland to the first major change in landform features. [Adapted from Glossary of Geology, 4th ed.] We use this category for coastal plains; for coasts; for intertidal zones; for offshore areas; for shorelines; and for shores.
+NIMA GNS designators CST, SHOR.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#CommercialOrganization -->
+
+    <owl:Class rdf:about="#CommercialOrganization">
+        <rdfs:label
+            >CommercialOrganization</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Organization"/>
+        <rdfs:comment
+            >Organization which buys or sells goods or services for a profit. It may also be a Business or it may merely be a sub-organization of a Business entity.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Company -->
+
+    <owl:Class rdf:about="#Company">
+        <rdfs:label>Company</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#CommercialOrganization"/>
+        <rdfs:comment
+            >A private, legal, corporate entity with the legal rights to own property, manage itself, and sue or be sued. It is established by a charter or registration granted by a government.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Concert -->
+
+    <owl:Class rdf:about="#Concert">
+        <rdfs:label>Concert</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#ArtPerformance"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Continent -->
+
+    <owl:Class rdf:about="#Continent">
+        <rdfs:label>Continent</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT) Earth&#39;s major land masses, including both dry land and continental shelves.
+NIMA GNS designator - no equivalent.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Contract -->
+
+    <owl:Class rdf:about="#Contract">
+        <rdfs:label>Contract</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Document"/>
+        <rdfs:comment
+            >Any sort of contract or treaty, as well, as other documents signed or otherwise accepted by more than one agent.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Country -->
+
+    <owl:Class rdf:about="#Country">
+        <rdfs:label>Country</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#PoliticalRegion"/>
+        <rdfs:comment
+            >(ADL FTT) Territory occupied by a large group of people organized under a single, usually independent government, and recognized as a country internationally. [Adapted from American Heritage Dic. of the English Language, 4th ed.] We use this category for nations; and for republics.
+NIMA GNS designators PCLD, PCLF, PCLI, PCLS.
+FIPS 10-4 is applicable, difining: Basic geopolitical entities assigned country codes include the following categories: (a) independent states; (b) dependent areas; (c) areas of quasi-independence, non-contiguous territories, possessions with out populations, areas with special sovereignty associations, areas without sovereignty; (d) political regimes not recognized by the United States; and (e) outlying areas of the United States. The list of basic entities provides complete coverage of the land areas of the world without overlap or duplication.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#CountryCapital -->
+
+    <owl:Class rdf:about="#CountryCapital">
+        <rdfs:label>CountryCapital</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Capital"/>
+        <rdfs:comment
+            >A capital of a Country.
+NIMA GNS designator PPLC.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#County -->
+
+    <owl:Class rdf:about="#County">
+        <rdfs:label>County</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#PoliticalRegion"/>
+        <rdfs:comment
+            >(ADL FT: Countries, 2nd order divisions) Second-order divisions of a nation such as parishes, boroughs, counties, municipios, or judicial divisions, and independent cities such as those in Maryland, Missouri, Nevada, and Virginia. [Adapted from USGS Circ 1048] We use this category for boroughs; for counties; for judicial divisions; for municipios; for parishes; and for second-order administrative divisions.
+NIMA GNS designator ADM2.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Crater -->
+
+    <owl:Class rdf:about="#Crater">
+        <rdfs:label>Crater</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT)  Circular-shaped depressions at the summit of a volcanic core or on the surface of the land caused by the impact of a meteorite; man-made depressions caused by an explosion. ... We use this category for calderas.
+NIMA GNS designator CRTR, CLDA.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Creek -->
+
+    <owl:Class rdf:about="#Creek">
+        <rdfs:label>Creek</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#WaterRegion"/>
+        <rdfs:comment
+            >(ADL FT: Guts) Relatively small coastal waterways connecting larger bodies of water or other waterways.
+NIMA GNS designator CRKT, INLT.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Currency -->
+
+    <owl:Class rdf:about="#Currency">
+        <rdfs:label>Currency</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Object"/>
+        <rdfs:comment
+            >Specific currency, usually national</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#DataSchema -->
+
+    <owl:Class rdf:about="#DataSchema">
+        <rdfs:label>DataSchema</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;InformationResource"/>
+        <rdfs:comment
+            >A particular notation for representation, standardization, and/or structuring of infomation. It can range from db schema, through ontology, to any sort of taxonomies, nomenclatures and subject hierarchies. Examples are Dublin Core, KIMO, SIC, XML, RDFS</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Dataset -->
+
+    <owl:Class rdf:about="#Dataset">
+        <rdfs:label>Dataset</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;InformationResource"/>
+        <rdfs:comment
+            >A dataset is information encoded in a defined structure (for example, lists, tables, and databases), intended to be useful for direct machine processing (DCMI Type.)
+Somehow structured and interrelated body of information, data, or knowledge. This includes databases, knowledge bases, catalogues, registries, specific lists, etc. All tangible aspects (like media or host) are irrelevant for this class - it only considers the abstract information. What can be considered as a single document is outside the scope of this class, although it can be comprehensive in terms of size and structure.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Date -->
+
+    <owl:Class rdf:about="#Date">
+        <rdfs:label>Date</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;TimeInterval"/>
+        <rdfs:comment
+            >A specific date, as 12th of April, 1956, as the time period (the 24 hours of the day)</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#DayOfMonth -->
+
+    <owl:Class rdf:about="#DayOfMonth">
+        <rdfs:label>DayOfMonth</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#TemporalAbstraction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#DayOfWeek -->
+
+    <owl:Class rdf:about="#DayOfWeek">
+        <rdfs:label>DayOfWeek</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#TemporalAbstraction"/>
+        <rdfs:comment>(day)</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#DayTime -->
+
+    <owl:Class rdf:about="#DayTime">
+        <rdfs:label>DayTime</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#TemporalAbstraction"/>
+        <rdfs:comment
+            >Specific time (point) during the day, when the day is not specified. Like in &quot;the supermarket is closing 20:30 p.m.&quot;</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Delta -->
+
+    <owl:Class rdf:about="#Delta">
+        <rdfs:label>Delta</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT) Flat plains formed by alluvial deposits at the mouth of a stream.
+NIMA GNS designator DLTA.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Desert -->
+
+    <owl:Class rdf:about="#Desert">
+        <rdfs:label>Desert</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#BiogeographicRegion"/>
+        <rdfs:comment
+            >(ADL FT) Regions rendered barren or partially barren by environmental extremes, especially by low rainfall. [USGS Circ 1048] We use this category for arid regions; for bajadas; for rock deserts; for sandy areas; for sandy deserts; and for stony deserts.
+NIMA GNS designators DSRT, ERG, HMDA, REG.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Disease -->
+
+    <owl:Class rdf:about="#Disease">
+        <rdfs:label>Disease</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#NaturalPhenomenon"/>
+        <rdfs:comment
+            >A specific sort of desease, such as AIDS, SARS, Parcinson, etc. The instances of those class can often by considered as terms instead of entities, but in all cases, those are the general phenomena, not the particular situations when somebody is suffering the disease.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Division -->
+
+    <owl:Class rdf:about="#Division">
+        <rdfs:label>Division</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Organization"/>
+        <rdfs:comment
+            >Branch, division, department, laboratory, etc. within an organisation. Usually, not a legal agent and not independent.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Drug -->
+
+    <owl:Class rdf:about="#Drug">
+        <rdfs:label>Drug</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#ChemicalCompound"/>
+        <rdfs:comment>Such as Viagra.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#EMail -->
+
+    <owl:Class rdf:about="#EMail">
+        <rdfs:label>EMail</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#InternetAddress"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#EducationalOrganization -->
+
+    <owl:Class rdf:about="#EducationalOrganization">
+        <rdfs:label
+            >EducationalOrganization</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Organization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Employee -->
+
+    <owl:Class rdf:about="#Employee">
+        <rdfs:label>Employee</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;JobPosition"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Executive -->
+
+    <owl:Class rdf:about="#Executive">
+        <rdfs:label>Executive</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Leader"/>
+        <rdfs:subClassOf rdf:resource="#Manager"/>
+        <rdfs:comment
+            >An executive managerial position in a certain Organization. Executives are top managers of organizations, including corporate officers (CompanyPresident, etc.), Chiefs of Staff, Generals, Admirals, and others like Chief Corporate Counsel, Managing Partner, Producer, Chief Scientist, Chief Engineer, as well as other top and middle-top managers.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Facility -->
+
+    <owl:Class rdf:about="#Facility">
+        <rdfs:label>Facility</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Location"/>
+        <rdfs:comment
+            >(ADL FT: Manmade Features, no def) Any regions and locations determined artificially, as a result of human activity. Many of the ADL sub-classes are omitted.
+NIMA GNS - no direct equivalent, although many sub-types are defined as classes (S, R) and designators.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Festival -->
+
+    <owl:Class rdf:about="#Festival">
+        <rdfs:label>Festival</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#TemporalAbstraction"/>
+        <rdfs:comment
+            >Any widely recognized festival or holiday, such as, Christmas or St. Valentine Day</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Fjord -->
+
+    <owl:Class rdf:about="#Fjord">
+        <rdfs:label>Fjord</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Bay"/>
+        <rdfs:comment
+            >(ADL FT) Long narrow glacially-eroded inlets of the sea, U-shaped and steep-walled, generally several hundred meters deep, between high rocky cliffs or slopes along a mountainous coast. ... We use this category for fiords; and for lochs.
+NIMA GNS designator FJD, FJDS.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Forest -->
+
+    <owl:Class rdf:about="#Forest">
+        <rdfs:label>Forest</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#BiogeographicRegion"/>
+        <rdfs:comment
+            >(ADL FT) Dense growths of trees, plants, and underbrush covering a large area. [American Heritage Dic. of the English Language, 4th ed.] We use this category for forest reserves; and for national forests.
+Omitted ADL sub-classes: Petrified forests, Rain forests, Woods (the sub-classes collapsed here).
+NIMA GNS designator FRST, FRSTF, GDVC, GRVO, GRVP, GRVPN, TREE.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Galaxy -->
+
+    <owl:Class rdf:about="#Galaxy">
+        <rdfs:label>Galaxy</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#AstronomicalObject"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Gap -->
+
+    <owl:Class rdf:about="#Gap">
+        <rdfs:label>Gap</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT) Ravines or gorges cut deeply through mountain ridges, or between hills or mountains. We use this category for cols; for defiles; for passes; for saddles (physiographic); and for sills (physiographic).
+NIMA GNS designator GAP, GAPU, GAPF, PASS, SILL, SILU.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#GlobalRegion -->
+
+    <owl:Class rdf:about="#GlobalRegion">
+        <rdfs:label>GlobalRegion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Location"/>
+        <rdfs:comment
+            >Things like Southeastern Europe, Middle East, Oceania are global regions</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Government -->
+
+    <owl:Class rdf:about="#Government">
+        <rdfs:label>Government</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#GovernmentOrganization"/>
+        <rdfs:comment
+            >The governmental cabinet</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#GovernmentOrganization -->
+
+    <owl:Class rdf:about="#GovernmentOrganization">
+        <rdfs:label
+            >GovernmentOrganization</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Organization"/>
+        <rdfs:comment
+            >The government of a country, i.e. the authorized  country administration, without account for a specific government elected and being in power for some period. This notion of government groups all the administration, including any sort of ministries, agencies, commissions, etc.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Gulf -->
+
+    <owl:Class rdf:about="#Gulf">
+        <rdfs:label>Gulf</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#WaterRegion"/>
+        <rdfs:comment
+            >(ADL FT) Largest of various forms of inlets of the sea; usually larger, more enclosed, and more deeply indented than bays.
+NIMA GNS designator GULF.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Harbor -->
+
+    <owl:Class rdf:about="#Harbor">
+        <rdfs:label>Harbor</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#HydrographicStructure"/>
+        <rdfs:subClassOf rdf:resource="#WaterRegion"/>
+        <rdfs:comment
+            >(ADL FT) Sheltered areas of water where ships or other watercraft can anchor or dock. We use this category for anchorages; for anclajes; for boat yards; for boatyards; for dock yards; for docking basins; for dockyards; for dry docks; for harbors; for marine terminals; for moorings; for ports; for roadsteads (anchorages); and for turning basins.
+The following sub-classes included (i.e. not-distinguishable): Marinas, Piers.
+NIMA GNS designators HBR, HBRX, MAR, BTYD, PIER, DCK, DCKB, DCKY, PRT, AIRS.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#HomePage -->
+
+    <owl:Class rdf:about="#HomePage">
+        <rdfs:label>HomePage</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#WebPage"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Hotel -->
+
+    <owl:Class rdf:about="#Hotel">
+        <rdfs:label>Hotel</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Building"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#HydrographicStructure -->
+
+    <owl:Class rdf:about="#HydrographicStructure">
+        <rdfs:label
+            >HydrographicStructure</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Facility"/>
+        <rdfs:comment
+            >(ADL FT) For constructed bodies of water. For natural water bodies, use &#39;hydrographic features&#39;. We use this category for boat landings; for boat launches; for boat ramps; for sluices; and for water mills.
+Many sub-classes omitted; those considered are also made sub-classes of WaterRegion.
+NIMA GNS ... no direct equivalent.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#IPAddress -->
+
+    <owl:Class rdf:about="#IPAddress">
+        <rdfs:label>IPAddress</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#InternetAddress"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#IndustrySector -->
+
+    <owl:Class rdf:about="#IndustrySector">
+        <rdfs:label>IndustrySector</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#BusinessAbstraction"/>
+        <rdfs:comment> </rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Institute -->
+
+    <owl:Class rdf:about="#Institute">
+        <rdfs:label>Institute</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#ResearchOrganization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#InsuranceCompany -->
+
+    <owl:Class rdf:about="#InsuranceCompany">
+        <rdfs:label
+            >InsuranceCompany</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Company"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#InternationalOrganization -->
+
+    <owl:Class rdf:about="#InternationalOrganization">
+        <rdfs:label
+            >InternationalOrganization</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Organization"/>
+        <rdfs:comment
+            >Legal international organization. Legal in this case means officially recognized by more than one government.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#InternetAddress -->
+
+    <owl:Class rdf:about="#InternetAddress">
+        <rdfs:label>InternetAddress</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;ContactInformation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#InternetDomain -->
+
+    <owl:Class rdf:about="#InternetDomain">
+        <rdfs:label>InternetDomain</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#InternetAddress"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Island -->
+
+    <owl:Class rdf:about="#Island">
+        <rdfs:label>Island</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT) Tracts of land smaller than a continent, surrounded by the water of an ocean, sea, lake or stream. [Glossary of Geology, 4th ed.] We use this category for atolls; for cays; for island arcs; for isles; for islets; for keys (islands); for land-tied islands; and for mangrove islands.
+NIMA GNS designator ISL, ISLF, ISLM, ISLS, ISLT, ISLX</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#IssueOfPeriodical -->
+
+    <owl:Class rdf:about="#IssueOfPeriodical">
+        <rdfs:label
+            >IssueOfPeriodical</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#PublishedMaterial"/>
+        <rdfs:comment
+            >A specific issue, number, and/or volume of periodicle publication such as magazine.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Isthmus -->
+
+    <owl:Class rdf:about="#Isthmus">
+        <rdfs:label>Isthmus</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT) Narrow sections of land in a body of water connecting two larger land areas.
+NIMA GNS designator ISTH.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Jungle -->
+
+    <owl:Class rdf:about="#Jungle">
+        <rdfs:label>Jungle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#BiogeographicRegion"/>
+        <rdfs:comment
+            >(ADL FT) Tropical regions of wild, tangled, dense vegetation.
+NIMA GNS designator - no equivalent.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Lake -->
+
+    <owl:Class rdf:about="#Lake">
+        <rdfs:label>Lake</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#WaterRegion"/>
+        <rdfs:comment
+            >(ADL FT) Use &#39;reservoirs&#39; for human engineered lakes. Natural inland bodies of standing water, generally of appreciable size, occupying a depression in the Earth&#39;s surface. [Adapted from Glossary of Geology, 4th ed.] We use this category for beaver ponds; for crater lakes; for dry lakes; for fish ponds; for fishponds; for inland seas; for intermittent lakes; for intermittent oxbow lakes; for intermittent ponds; for intermittent pools; for intermittent salt lakes; for intermittent salt ponds; for lagoons; for laguna; for lake beds; for lochs; for millponds; for oxbow lakes; for ponds; for pools (water bodies); for salt evaporation ponds; for salt lakes; for salt ponds; and for tarns.
+NIMA GNS designators LBED, LK, LKC, LKI, LKN, LKNI, LKO, LKOI, LKS, LKSB, LKSC, LKSI, LKSN, LKSNI, LKX</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#LandRegion -->
+
+    <owl:Class rdf:about="#LandRegion">
+        <rdfs:label>LandRegion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Location"/>
+        <rdfs:comment
+            >Any sort of land regions which are sort of natural, i.e. excluding urban areas, political and administrative regions. It combines number of ADL feature types under Physiographic features and Regions.
+Omitted ADL sub-classes: Badlands, Bars, Basins, Bight, Cirques, Cliffs, Dunes, Flats, Karst areas. Ledges, Massifs, Mineral deposit areas, Moraines, Natural rock formations, Arches, Playas, Seafloor Features, Tectonic features, Volcanic features (Volcano put under Mountain), Subcontinents.
+NIMA GNS designators FSR, FURU, HMCK, PLDR, RKFL, SINK, SLID, SLP, SLPU, TERU, TRR.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#LaunchFacility -->
+
+    <owl:Class rdf:about="#LaunchFacility">
+        <rdfs:label>LaunchFacility</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#TransportFacility"/>
+        <rdfs:comment
+            >(ADL FT) Areas from which rockets/missiles may be housed and projected, usually equipped with associated buildings and facilities. [USGS Circ 1048] We use this category for missile sites.
+NIMA GNS designator - no equivalent.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Leader -->
+
+    <owl:Class rdf:about="#Leader">
+        <rdfs:label>Leader</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;JobPosition"/>
+        <rdfs:comment
+            >A position for a person who heads an Organization. Typically, a leader of an organization makes major decisions on behalf of the whole organization, has the authority to direct the organization&#39;s personnel to carry out those decisions, and is empowered to engage or negotiate with external agents to achieve the organization&#39;s goals. This collection includes leaders of Divisions, such as department heads within larger organizations. Also, a single person may be a leader in more than one organization.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Legislation -->
+
+    <owl:Class rdf:about="#Legislation">
+        <rdfs:label>Legislation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;InformationResource"/>
+        <rdfs:comment
+            >Various sort of legislative documents, including consitutions, laws, etc.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#LocalCapital -->
+
+    <owl:Class rdf:about="#LocalCapital">
+        <rdfs:label>LocalCapital</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Capital"/>
+        <rdfs:comment
+            >A capital of a Province or smaller administrative region.
+NIMA GNS designator PPLA.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Lock -->
+
+    <owl:Class rdf:about="#Lock">
+        <rdfs:label>Lock</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#HydrographicStructure"/>
+        <rdfs:subClassOf rdf:resource="#TransportFacility"/>
+        <rdfs:comment
+            >(ADL FT) Stretches of water in canals, streams, or docks, enclosed by gates at each end, and used in raising and lowering boats as they pass from one water level to another.
+NIMA GNS designator LOCK.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Magazine -->
+
+    <owl:Class rdf:about="#Magazine">
+        <rdfs:label>Magazine</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#PeriodicalPublication"/>
+        <rdfs:comment
+            >A periodic paperback publication; &quot;it takes several years before a magazine starts to break even or make money&quot;), WordNet 1.7.1. This includes also journals and digests. The specific issues typically contain number of different articles.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#MagazineIssue -->
+
+    <owl:Class rdf:about="#MagazineIssue">
+        <rdfs:label>MagazineIssue</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#IssueOfPeriodical"/>
+        <rdfs:subClassOf rdf:resource="#ResourceCollection"/>
+        <rdfs:comment
+            >A specific issue of a magazine, journal or digest.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Man -->
+
+    <owl:Class rdf:about="#Man">
+        <rdfs:label>Man</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Manager -->
+
+    <owl:Class rdf:about="#Manager">
+        <rdfs:label>Manager</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Employee"/>
+        <rdfs:comment
+            >Person whose primary job is to manage other people, directing their work activity in an Organization or for a project. A Manager tells his or her subordinate workers what to do</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Market -->
+
+    <owl:Class rdf:about="#Market">
+        <rdfs:label>Market</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#BusinessAbstraction"/>
+        <rdfs:comment
+            >In contrast to IndustrySector, the
+market is determined by the customers instead of the business or the manifacturers. The market can be defined in terms of types of goods/services, geographic region,
+price levels and typical customer behaviours. Corresponding to the third sense in WordNet 1.7.1 &quot;the customers for a particular product or service&quot;.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#MediaBrand -->
+
+    <owl:Class rdf:about="#MediaBrand">
+        <rdfs:label>MediaBrand</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Brand"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#MediaCompany -->
+
+    <owl:Class rdf:about="#MediaCompany">
+        <rdfs:label>MediaCompany</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Company"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#MediaProduct -->
+
+    <owl:Class rdf:about="#MediaProduct">
+        <rdfs:label>MediaProduct</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Product"/>
+        <rdfs:comment
+            >A mass media product (for instance a newspaper) abstracted from its organizational and ownership aspects (i.e. from its publisher) and considered more as a social phenomenon, partly a brand.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Meeting -->
+
+    <owl:Class rdf:about="#Meeting">
+        <rdfs:label>Meeting</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Event"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#MeetingProceedings -->
+
+    <owl:Class rdf:about="#MeetingProceedings">
+        <rdfs:label
+            >MeetingProceedings</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Book"/>
+        <rdfs:subClassOf rdf:resource="#ResourceCollection"/>
+        <rdfs:comment
+            >A collection of articles or presentations published as a book.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#MemberOfParliament -->
+
+    <owl:Class rdf:about="#MemberOfParliament">
+        <rdfs:label
+            >MemberOfParliament</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;JobPosition"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Message -->
+
+    <owl:Class rdf:about="#Message">
+        <rdfs:label>Message</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Document"/>
+        <rdfs:comment
+            >A written message, including various postings in newspapers or public sources, job position adverts, etc.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#MilitaryAreas -->
+
+    <owl:Class rdf:about="#MilitaryAreas">
+        <rdfs:label>MilitaryAreas</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#PoliticalRegion"/>
+        <rdfs:comment
+            >(ADL FTT) We use this category for air force bases; for army facilities; for arsenals; for artillery ranges; for barracks; for bases (military); for camps (military); for forts; for infantry camps; for maneuver areas; for military bases; for military installations; for national guard facilities; and for naval bases. The following NIMA designators fit here: MILB, INSM, SCHM. The following ADL types are skipped as irrelevant: Cadastral areas,</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#MilitaryConflict -->
+
+    <owl:Class rdf:about="#MilitaryConflict">
+        <rdfs:label
+            >MilitaryConflict</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Event"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#MineSite -->
+
+    <owl:Class rdf:about="#MineSite">
+        <rdfs:label>MineSite</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Facility"/>
+        <rdfs:comment
+            >(ADL FT) Places or areas from which commercial minerals are or were removed by excavation from the Earth. [Adapted from USGS Feature Class Definitions &lt;http://mapping.usgs.gov/www/ti/GNIS/gnis_users_guide_appendixc.html&gt;] We use this category for adits (mine sites); for chrome mines; for coal mines; for collieries; for copper mines; for diatomite mines; for gold mines; for gravel pits; for iron mines; for lead mines; for mine entrances; for mine shafts; for mines; for mining areas; for mining camps; for nickel mines; for open pit mines; for placer mines; for quarries; for salt mines; for strip mines; and for tin mines.
+NIMA GNS designators MN, MNA, MNAU, MNC, MNCR, MNDT, MNFE, MNN, MNNI, MNPB, MNPL. MNQ, MNSN.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Minister -->
+
+    <owl:Class rdf:about="#Minister">
+        <rdfs:label>Minister</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Executive"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Ministry -->
+
+    <owl:Class rdf:about="#Ministry">
+        <rdfs:label>Ministry</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#GovernmentOrganization"/>
+        <rdfs:comment
+            >(Department) A specific ministry or department, structural unit of the government of specific country with focus and authority on specific problems of the country.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Money -->
+
+    <owl:Class rdf:about="#Money">
+        <rdfs:label>Money</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#SocialAbstraction"/>
+        <rdfs:comment
+            >A specific amount of money in specific currency</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Month -->
+
+    <owl:Class rdf:about="#Month">
+        <rdfs:label>Month</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;TimeInterval"/>
+        <rdfs:comment
+            >A specific month, like Dec 2000, as a time period.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Monument -->
+
+    <owl:Class rdf:about="#Monument">
+        <rdfs:label>Monument</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Facility"/>
+        <rdfs:comment
+            >(ADL FT) Structures erected as memorials. [Adapted from American Heritage Dic. of the English Language, 4th ed.] We use this category for cairns; for landmarks (monuments); for memorials; for national monuments; for pyramids; for shrines; for statues; and for tombs.
+NIMA GNS designators MNMT, PYR, PYRS, CARN.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Mountain -->
+
+    <owl:Class rdf:about="#Mountain">
+        <rdfs:label>Mountain</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT) Landmasses that project conspicuously above their surroundings. [USGS Circ 1048] We use this category for cerros; for cordilleras; for foothills; for hills; for knolls; for mounds; and for mounts.
+Omitted ADL sub-classes: Continental divides.
+NIMA GNS designator MT, MTS, MTSU, MTU, MND, KNLU, KNSU, CDAU, HLL, HLLS, HLLU, HLSU.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#MountainRange -->
+
+    <owl:Class rdf:about="#MountainRange">
+        <rdfs:label>MountainRange</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Mountain"/>
+        <rdfs:comment
+            >(ADL FT) (a) Chains of hills or mountains; (b) somewhat linear, complex mountainous or hilly areas. ... We use this category for ranges (physiographic); and for sierra.
+NIMA GNS designator RNGU.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#MountainSummit -->
+
+    <owl:Class rdf:about="#MountainSummit">
+        <rdfs:label>MountainSummit</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Mountain"/>
+        <rdfs:comment
+            >(ADL FT) Peaks of mountains. [USGS Circ 1048] We use this category for ahus; for mountain crests; for nunataks; for peaks; and for summits.
+NIMA GNS designators PK, PKS, PKSU, PKU.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Movie -->
+
+    <owl:Class rdf:about="#Movie">
+        <rdfs:label>Movie</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#MediaProduct"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#MusicalComposition -->
+
+    <owl:Class rdf:about="#MusicalComposition">
+        <rdfs:label
+            >MusicalComposition</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#MediaProduct"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#NaturalPhenomenon -->
+
+    <owl:Class rdf:about="#NaturalPhenomenon">
+        <rdfs:label
+            >NaturalPhenomenon</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Abstract"/>
+        <rdfs:comment
+            >Such as particular disease, the Gulfstream and other similar natural abstractions. The particular events or objects which could instantiate an abstract natural phenomena (i.e. specific sickness event caused by a disease) are not instances of this class.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#NaturalSatellite -->
+
+    <owl:Class rdf:about="#NaturalSatellite">
+        <rdfs:label
+            >NaturalSatellite</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Satellite"/>
+        <rdfs:comment
+            >A satellite which is not a direct result of human activity</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#NewsAgency -->
+
+    <owl:Class rdf:about="#NewsAgency">
+        <rdfs:label>NewsAgency</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#MediaCompany"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Newspaper -->
+
+    <owl:Class rdf:about="#Newspaper">
+        <rdfs:label>Newspaper</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#PeriodicalPublication"/>
+        <rdfs:comment
+            >A newspaper abstracted from its organizational and ownership aspects as well as from specific issue or paper body.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#NewspaperIssue -->
+
+    <owl:Class rdf:about="#NewspaperIssue">
+        <rdfs:label>NewspaperIssue</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#IssueOfPeriodical"/>
+        <rdfs:subClassOf rdf:resource="#ResourceCollection"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#NonGeographicLocation -->
+
+    <owl:Class rdf:about="#NonGeographicLocation">
+        <rdfs:label
+            >NonGeographicLocation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Location"/>
+        <rdfs:comment
+            >A non-geographic region in some 3D space. The Longitude and Latitude properties for such objects could be void.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Oasis -->
+
+    <owl:Class rdf:about="#Oasis">
+        <rdfs:label>Oasis</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#BiogeographicRegion"/>
+        <rdfs:comment
+            >(ADL FT)  Fertile, vegetated areas in the midst of a desert, where the water table has come close enough to the surface for wells and springs or seepages to exist, thus making them suitable for human habitation.
+NIMA GNS designator  OAS.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Ocean -->
+
+    <owl:Class rdf:about="#Ocean">
+        <rdfs:label>Ocean</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Sea"/>
+        <rdfs:comment
+            >(ADL FT) Continuous salt-water bodies that surround the continents and fill the Earth&#39;s great depressions.
+NIMA GNS designator OCN</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Offer -->
+
+    <owl:Class rdf:about="#Offer">
+        <rdfs:label>Offer</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Statement"/>
+        <rdfs:comment
+            >Something offered (as a proposal or bid), WordNet 1.7.1. An offer is a statement made by the offerer to a specific agent or without recepient.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#OfficialPoliticalMeeting -->
+
+    <owl:Class rdf:about="#OfficialPoliticalMeeting">
+        <rdfs:label
+            >OfficialPoliticalMeeting</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Meeting"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#OfficialPosition -->
+
+    <owl:Class rdf:about="#OfficialPosition">
+        <rdfs:label
+            >OfficialPosition</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;JobPosition"/>
+        <rdfs:comment
+            >Specific position, which models the Person-&gt;hasPosition-&gt;Location, e.g. &quot;president of US&quot;, &quot;mayor of NY&quot;. It is usually a shortcut to holding a position within the local government or other local administration, including military positions.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#OilField -->
+
+    <owl:Class rdf:about="#OilField">
+        <rdfs:label>OilField</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Facility"/>
+        <rdfs:comment
+            >(ADL FT) Areas with reserves of recoverable petroleum or where petroleum has been removed from the Earth. ... We use this category for gas fields; for gasfields; for oilfields; for petroleum fields; and for storage fields (petroleum).
+NIMA GNS designator CMPO, OILF, OILQ, OILW, PMPO, GASF.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#OlympicGames -->
+
+    <owl:Class rdf:about="#OlympicGames">
+        <rdfs:label>OlympicGames</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#SportEvent"/>
+        <rdfs:comment
+            >a specific issue of the games, like Athens 2004</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#OperaPerformance -->
+
+    <owl:Class rdf:about="#OperaPerformance">
+        <rdfs:label
+            >OperaPerformance</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#ArtPerformance"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Order -->
+
+    <owl:Class rdf:about="#Order">
+        <rdfs:label>Order</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Statement"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Park -->
+
+    <owl:Class rdf:about="#Park">
+        <rdfs:label>Park</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Facility"/>
+        <rdfs:comment
+            >(ADL FT) Places or areas developed for public use or recreation. [USGS Circ 1048] We use this category for arboretums; for botanical gardens; for commemorative areas; for commons; for gardens; for marine parks; for national forests; for national parks; for national seashores; for park gates; for picnic areas; for playgrounds; for provincial parks; for public use areas; for recreation areas; for rest areas; for scenic areas; for state forests; for state parks; for urban parks; for village squares; for wilderness areas; for zoological gardens; and for zoos.
+Omitted sub-classes: Viewing locations.
+NIMA GNS designators PRK, PRKHQ, PRKGT</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Parliament -->
+
+    <owl:Class rdf:about="#Parliament">
+        <rdfs:label>Parliament</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#PoliticalEntity"/>
+        <rdfs:comment
+            >A legislative assembly representative at national or regional level. It can also be called Senate, etc.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Patent -->
+
+    <owl:Class rdf:about="#Patent">
+        <rdfs:label>Patent</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;InformationResource"/>
+        <rdfs:comment
+            >A registered (or awaiting registration) patent for specific invention or design.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Peninsula -->
+
+    <owl:Class rdf:about="#Peninsula">
+        <rdfs:label>Peninsula</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >NIMA GNS designator PEN, PENX.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Percent -->
+
+    <owl:Class rdf:about="#Percent">
+        <rdfs:label>Percent</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Number"/>
+        <rdfs:comment
+            >A specific percent value</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#PerformanceSite -->
+
+    <owl:Class rdf:about="#PerformanceSite">
+        <rdfs:label>PerformanceSite</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Building"/>
+        <rdfs:subClassOf rdf:resource="#RecreationalFacility"/>
+        <rdfs:comment
+            >Buildings where cultural events are presented before an audience. We use this category for amphitheaters; for amphitheatres; for auditoriums; for bowls (performance); for coliseums; for concert halls; for opera houses; for playhouses; for recital halls; for stages (performance); for symphony halls; for theaters; and for theatres.
+NIMA GNS designator AMTH.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#PeriodicalPublication -->
+
+    <owl:Class rdf:about="#PeriodicalPublication">
+        <rdfs:label
+            >PeriodicalPublication</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#MediaBrand"/>
+        <rdfs:comment
+            >A periodical publication, disregarding its specific issues, numbers, volumes, etc.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#PhoneNumber -->
+
+    <owl:Class rdf:about="#PhoneNumber">
+        <rdfs:label>PhoneNumber</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;ContactInformation"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#PieceOfArt -->
+
+    <owl:Class rdf:about="#PieceOfArt">
+        <rdfs:label>PieceOfArt</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Object"/>
+        <rdfs:comment
+            >An artifact, namely a piece of art, usually, matterial object. Typical instances are paintings and sculptures. Corresponds to the Wordnet 1.7.1 synset &quot;art, fine art -  the products of human creativity; works of art collectively; &quot;an art exhibition&quot;; &quot;a fine collection of art&quot;)&quot;</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Pipeline -->
+
+    <owl:Class rdf:about="#Pipeline">
+        <rdfs:label>Pipeline</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#TransportFacility"/>
+        <rdfs:comment
+            >(ADL FT)  Tubular conduits of substantial length, with pumps, valves, and control devices, for conveying fluids, gases, or finely divided solids. [USGS Circ 1048] We use this category for compressor stations; for gas pipelines; for oil pipeline junctions; for oil pipeline terminals; for oil pipelines; for oil pumping stations; for pump houses; for pumphouses; for pumping stations; and for water pumping stations.
+NIMA GNS designators OILP, OILJ, TRMO, PMPO, PMPW.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Plain -->
+
+    <owl:Class rdf:about="#Plain">
+        <rdfs:label>Plain</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT) Regions of general uniform slope, comparatively level and of considerable extent. [USGS Circ 1048] We use this category for interfluves; and for llanos.
+NIMA GNS designators PLN, PLNU, PLNX, INTF.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Planet -->
+
+    <owl:Class rdf:about="#Planet">
+        <rdfs:label>Planet</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#AstronomicalObject"/>
+        <rdfs:comment
+            >Any of the celestial bodies (other than comets or satellites) that revolve around the sun in the solar system. Definition partly derived from WordNet 1.7</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Plateau -->
+
+    <owl:Class rdf:about="#Plateau">
+        <rdfs:label>Plateau</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT)  Comparatively flat areas of great extent and elevation; specif. extensive land regions considerably above the adjacent country or above sea level; commonly limited on at least one side by an abrupt descent, have flat or nearly smooth surfaces but are often dissected by deep valleys and surmounted by high hills or mountains, and have a large part of their total surface at or near the summit level. We use this category for table mountains; and for tablelands.
+The ADL type Mesas, collapsed here.
+NIMA GNS designators  PLAT, PLTX, PLTU, MESA, MESU, TMSU, TMST.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#PoliticalEntity -->
+
+    <owl:Class rdf:about="#PoliticalEntity">
+        <rdfs:label>PoliticalEntity</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Organization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#PoliticalParty -->
+
+    <owl:Class rdf:about="#PoliticalParty">
+        <rdfs:label>PoliticalParty</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#PoliticalEntity"/>
+        <rdfs:comment
+            >An organization to gain political power. Definition taken from
+WordNet 1.7</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#PoliticalRegion -->
+
+    <owl:Class rdf:about="#PoliticalRegion">
+        <rdfs:label>PoliticalRegion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Location"/>
+        <rdfs:comment
+            >(ADL, Political Entity) We use this category for commonwealths; for dependent political entities; for freely associated states; for independent political entities; for oblasts; for political entities; and for semi-independent political entities.
+Sub-classes omitted: Countries, 4th order divisions.
+NIMA GNS class: A, Administrative Boundary Features.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#PopulatedPlace -->
+
+    <owl:Class rdf:about="#PopulatedPlace">
+        <rdfs:label>PopulatedPlace</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Location"/>
+        <rdfs:comment
+            >(ADL FT) Places or areas with clustered or scattered buildings and a permanent human population. ... We use this category for agricultural colonies; for communes; for communities; for hamlets; for homesteads; for locales; for localities; for metropolitan areas; for populated localities; for ppl; for pueblos; for settlements; for suburbs; for villages; and with religious facilities for religious populated places.
+NIMA GNS designator PPL, PPL(x)</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#PostalAddress -->
+
+    <owl:Class rdf:about="#PostalAddress">
+        <rdfs:label>PostalAddress</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Address"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Premier -->
+
+    <owl:Class rdf:about="#Premier">
+        <rdfs:label>Premier</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Executive"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#President -->
+
+    <owl:Class rdf:about="#President">
+        <rdfs:label>President</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Leader"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Profession -->
+
+    <owl:Class rdf:about="#Profession">
+        <rdfs:label>Profession</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#SocialAbstraction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Project -->
+
+    <owl:Class rdf:about="#Project">
+        <rdfs:label>Project</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Event"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Province -->
+
+    <owl:Class rdf:about="#Province">
+        <rdfs:label>Province</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#PoliticalRegion"/>
+        <rdfs:comment
+            >(ADL FT: Countries, 1st Order Divisions) First-order divisions of a nation. [USGS Circ 1048] We use this category for cantons; for first-order administrative divisions; for provinces; for states; and for territories.
+NIMA GNS designator ADM1. Also corresponds to the FIPS 10-4 principal administrative division defined as &quot;an administrative area directly subordinate to the pertinent governing authority &quot;
+NIMA GNS designator ADM1.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#PublicCompany -->
+
+    <owl:Class rdf:about="#PublicCompany">
+        <rdfs:label>PublicCompany</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Company"/>
+        <rdfs:comment
+            >Company which is publicly traded on Stock Exchange.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#PublishedMaterial -->
+
+    <owl:Class rdf:about="#PublishedMaterial">
+        <rdfs:label
+            >PublishedMaterial</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Document"/>
+        <rdfs:subClassOf rdf:resource="#MediaProduct"/>
+        <rdfs:comment
+            >A document which is published or intended for publishing</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#PublishingCompany -->
+
+    <owl:Class rdf:about="#PublishingCompany">
+        <rdfs:label
+            >PublishingCompany</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#MediaCompany"/>
+        <rdfs:comment
+            >An organization which main activity is mass publishing of information. Often, the publishers issue periodic and/or non-periodic documents on paper media. While on-line publishing is considered a typical activity for publishers, the streaming electronic media such as TV and Radio Stations are not.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Quarter -->
+
+    <owl:Class rdf:about="#Quarter">
+        <rdfs:label>Quarter</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;TimeInterval"/>
+        <rdfs:comment
+            >A specific quarter of a specific year, such as Q4 1999</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#RaceCourse -->
+
+    <owl:Class rdf:about="#RaceCourse">
+        <rdfs:label>RaceCourse</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#SportFacility"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#RadioStation -->
+
+    <owl:Class rdf:about="#RadioStation">
+        <rdfs:label>RadioStation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#MediaBrand"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#RailroadFacility -->
+
+    <owl:Class rdf:about="#RailroadFacility">
+        <rdfs:label
+            >RailroadFacility</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#TransportFacility"/>
+        <rdfs:comment
+            >(ADL FT: Railroad Features)  We use this category for metro rail stations; for railroad junctions; for railroad sidings; for railroad spurs; for railroad stations; for railroad stops; for railroad switches; for railroad yards; for railways; for subway stations; for switches (railroad); and for tramways.
+NIMA GNS designator RJCT, RR, RRQ, RSD, RSGNL, RSTN, RSTNQ, RSTP, RSTPQ, RYD.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#RailroadTunnel -->
+
+    <owl:Class rdf:about="#RailroadTunnel">
+        <rdfs:label>RailroadTunnel</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#RailroadFacility"/>
+        <rdfs:subClassOf rdf:resource="#Tunnel"/>
+        <rdfs:comment
+            >NIMA GNS designator RTNL.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#RecreationalFacility -->
+
+    <owl:Class rdf:about="#RecreationalFacility">
+        <rdfs:label
+            >RecreationalFacility</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Facility"/>
+        <rdfs:comment
+            >(ADL FT)  We use this category for access areas; for access sites; for boardwalks; for casinos; for clubs (recreational); for country clubs; for fairgrounds; for fishing areas; for fishing lodges; for fitness centers; for gun clubs; for hunt posts; for hunting lodges; for ice skating rinks; for playgrounds; for recreation sites; for resorts; for riding stables; for spas; for sportsman lodges; for stables; for yacht clubs; for youth centers; and for youth facilities.
+NIMA GNS designators - no direct equivalents.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Reef -->
+
+    <owl:Class rdf:about="#Reef">
+        <rdfs:label>Reef</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT) Chains of rocks or coral at or near the surface of water. [USGS Circ 1048] We use this category for barrier reefs; and for fringing reefs.
+Collapsed ADL sub-class: Coral Reefs.
+NIMA GNS designator RF, RFSU, RFU, RFC.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#ReferenceLocation -->
+
+    <owl:Class rdf:about="#ReferenceLocation">
+        <rdfs:label
+            >ReferenceLocation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Facility"/>
+        <rdfs:comment
+            >(ADL FT)  We use this category for astronomical stations; for beacons; for bench marks; for boundaries; for boundary markers; for buoys; for control points; for geodectic stations; for geographic centers; for landmarks (reference locations); for light houses; for light stations; for lighthouses; for markers; for milestones; for plaques; for poles (sphere); for triangulation stations; and for walls.
+NIMNA GNS designators LTHSE, BP, TRIG.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#ReligiousLocation -->
+
+    <owl:Class rdf:about="#ReligiousLocation">
+        <rdfs:label
+            >ReligiousLocation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Facility"/>
+        <rdfs:comment
+            >Things like Monastery, Church</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#ReligiousOrganization -->
+
+    <owl:Class rdf:about="#ReligiousOrganization">
+        <rdfs:label
+            >ReligiousOrganization</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Organization"/>
+        <rdfs:comment
+            >Organization which sells ideas and opinions about life. Just joking.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Report -->
+
+    <owl:Class rdf:about="#Report">
+        <rdfs:label>Report</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Document"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#ResearchArea -->
+
+    <owl:Class rdf:about="#ResearchArea">
+        <rdfs:label>ResearchArea</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#SocialAbstraction"/>
+        <rdfs:comment
+            >Specific research area, topic or field.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#ResearchOrganization -->
+
+    <owl:Class rdf:about="#ResearchOrganization">
+        <rdfs:label
+            >ResearchOrganization</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Organization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Reserve -->
+
+    <owl:Class rdf:about="#Reserve">
+        <rdfs:label>Reserve</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Facility"/>
+        <rdfs:comment
+            >(ADL FT) Areas set aside for the preservation of fauna, flora, and their natural habitats. [Macmillan Encyc., 2001] We use this category for agricultural reserves; for conservation areas; for demonstration areas; for environmental areas; for forest reserves; for game management areas; for hunting reserves; for management areas (reserves); for natural areas; for nature reserves; for palm tree reserves; for preserves; for primitive areas; for protected areas; for reservations (nature sites); for road less areas; for sanctuaries (wildlife); for wildlife areas; for wildlife refuges; and for wildlife reserves.
+NIMA GNS designators RES, RESA, RESF, RESH, RESN, RESP, RESV, RESW.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Reservoir -->
+
+    <owl:Class rdf:about="#Reservoir">
+        <rdfs:label>Reservoir</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#HydrographicStructure"/>
+        <rdfs:subClassOf rdf:resource="#Lake"/>
+        <rdfs:comment
+            >(ADL FT) Artificially impounded bodies of water. We use this category for covered reservoirs; and for intermittent reservoirs. (incl. dams)
+NIMA GNS designator RSV, RSVI.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#ResourceCollection -->
+
+    <owl:Class rdf:about="#ResourceCollection">
+        <rdfs:label
+            >ResourceCollection</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;InformationResource"/>
+        <rdfs:comment
+            >A collection is an aggregation of information resources. The term collection means that the resource is described as a group; its parts may be separately described and navigated. (DCMI type Collection)</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Ridge -->
+
+    <owl:Class rdf:about="#Ridge">
+        <rdfs:label>Ridge</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Mountain"/>
+        <rdfs:comment
+            >(ADL FT) Elevations with a narrow, elongated crest which can be part of a hill or mountain. ... We use this category for aretes; for beach ridges; for cuestas; for eskers; for hogbacks; for icecap ridges; for rises (seafloor); and for spurs (physiographic).
+Omitted ADL sub-classes: Drumlin.
+NIMA GNS designators RDGB, RDGE, RDGG, RDGU, RISU, SPRU, SPUR.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#River -->
+
+    <owl:Class rdf:about="#River">
+        <rdfs:label>River</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Stream"/>
+        <rdfs:comment
+            >(ADL FT) Natural freshwater surface streams of considerable volume and a permanent or seasonal flow, moving in a definite channel toward a sea, lake, or another river; any large streams, or ones larger than brooks or creeks, such as the trunk stream and larger branches of a drainage system. We use this category for rios.
+NIM GNS designators ... no direct equivalents!</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Roadway -->
+
+    <owl:Class rdf:about="#Roadway">
+        <rdfs:label>Roadway</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#TransportFacility"/>
+        <rdfs:comment
+            >(ADL FT) Open ways for passage of vehicles. [USGS Circ 1048] We use this category for caravan routes; for causeways; for drives; for highways; for intersections; for parkways; for road bends; for road cuts; for road junctions; for roads; for streets; and for traffic circles.
+NIMA GNS designators CSWY, CSWYQ, RD, RDA, RDB, RDCUT, RDJCT, RDST, RTE, STKR.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Satellite -->
+
+    <owl:Class rdf:about="#Satellite">
+        <rdfs:label>Satellite</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#AstronomicalObject"/>
+        <rdfs:comment
+            >An astronomic object orbiting around a planet or star. Definition partly derived from WordNet 1.7</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#School -->
+
+    <owl:Class rdf:about="#School">
+        <rdfs:label>School</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#EducationalOrganization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Science -->
+
+    <owl:Class rdf:about="#Science">
+        <rdfs:label>Science</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#ResearchArea"/>
+        <rdfs:comment
+            >A well established, big research area</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Sea -->
+
+    <owl:Class rdf:about="#Sea">
+        <rdfs:label>Sea</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#WaterRegion"/>
+        <rdfs:comment
+            >(ADL FT) Large bodies of salt water.
+NIMA GNS designator SEA</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Season -->
+
+    <owl:Class rdf:about="#Season">
+        <rdfs:label>Season</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#TemporalAbstraction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Ship -->
+
+    <owl:Class rdf:about="#Ship">
+        <rdfs:label>Ship</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Vehicle"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#SoccerClub -->
+
+    <owl:Class rdf:about="#SoccerClub">
+        <rdfs:label>SoccerClub</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#SportClub"/>
+        <rdfs:comment
+            >A soccer (football) team</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#SocialAbstraction -->
+
+    <owl:Class rdf:about="#SocialAbstraction">
+        <rdfs:label
+            >SocialAbstraction</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Abstract"/>
+        <rdfs:comment
+            >Any sort of general social phenomenon, such as particular sort of art or science</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Song -->
+
+    <owl:Class rdf:about="#Song">
+        <rdfs:label>Song</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#AudioRecording"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Spacecraft -->
+
+    <owl:Class rdf:about="#Spacecraft">
+        <rdfs:label>Spacecraft</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Vehicle"/>
+        <rdfs:comment
+            >[WN1.7] Space vehicle - a craft capable of traveling in outer space; technically a satellite around the sun.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Sport -->
+
+    <owl:Class rdf:about="#Sport">
+        <rdfs:label>Sport</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#SocialAbstraction"/>
+        <rdfs:comment
+            >A specific type of sport game</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#SportBuilding -->
+
+    <owl:Class rdf:about="#SportBuilding">
+        <rdfs:label>SportBuilding</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Building"/>
+        <rdfs:subClassOf rdf:resource="#SportFacility"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#SportClub -->
+
+    <owl:Class rdf:about="#SportClub">
+        <rdfs:label>SportClub</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Company"/>
+        <rdfs:subClassOf rdf:resource="#SportOrganization"/>
+        <rdfs:comment
+            >A sports club, football club or F1 team. Those should be considered commercial although in many cases they are not being run for profit.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#SportEvent -->
+
+    <owl:Class rdf:about="#SportEvent">
+        <rdfs:label>SportEvent</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Event"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#SportFacility -->
+
+    <owl:Class rdf:about="#SportFacility">
+        <rdfs:label>SportFacility</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#RecreationalFacility"/>
+        <rdfs:comment
+            >(ADL FT) Fields, centers, or open areas maintained for the purpose of holding sporting events and activities. [USGS Circ 1048] We use this category for aquatic centers; for arenas; for athletic complexes; for athletic fields; for ball parks; for baseball fields; for dragways; for equestrian centers; for fields; for football fields; for golf clubs; for golf courses; for gymnasiums; for natatoriums; for physical education facilities; for pistol ranges (sport); for polo fields; for pools, swimming; for race tracks; for racecourses; for racetracks; for raceways; for rifle ranges; for rodeo grounds; for shooting ranges (sport); for skeet shooting ranges; for ski areas; for ski facilities; for ski trails; for speedways; for stadiums; for swim clubs; for swimming pools; for tennis clubs; and for tennis courts.
+NIMA GNS designators RECG, RECR, STDM, ATHF.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#SportGame -->
+
+    <owl:Class rdf:about="#SportGame">
+        <rdfs:label>SportGame</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#SportEvent"/>
+        <rdfs:comment
+            >as a soccer match</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#SportOrganization -->
+
+    <owl:Class rdf:about="#SportOrganization">
+        <rdfs:label
+            >SportOrganization</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Organization"/>
+        <rdfs:comment
+            >An organization (local, national or international) which main activity is related to one or more sports. Those could be clubs, as well, as all the sorts of federations.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#SportsFederation -->
+
+    <owl:Class rdf:about="#SportsFederation">
+        <rdfs:label
+            >SportsFederation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#SportOrganization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Spring -->
+
+    <owl:Class rdf:about="#Spring">
+        <rdfs:label>Spring</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Stream"/>
+        <rdfs:comment
+            >(ADL FT) Places where underground water flows naturally to the surface of the Earth. ... We use this category for mineral springs; and for sulfur springs.
+NIMA GNS designators SPNG, SPNS, SPNT.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Stadium -->
+
+    <owl:Class rdf:about="#Stadium">
+        <rdfs:label>Stadium</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#SportBuilding"/>
+        <rdfs:comment
+            >A special sort of sport building, usually for open-air sports such as soccer.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Star -->
+
+    <owl:Class rdf:about="#Star">
+        <rdfs:label>Star</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#AstronomicalObject"/>
+        <rdfs:comment
+            >An astronomic object of hot gases that radiates energy derived from thermonuclear reactions in the interior. Definition partly derived from WordNet 1.7</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#StockExchange -->
+
+    <owl:Class rdf:about="#StockExchange">
+        <rdfs:label>StockExchange</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Organization"/>
+        <rdfs:comment
+            >Stock Exchange where public companies are traded, e. g. Nasdaq, NYSE, etc.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Stream -->
+
+    <owl:Class rdf:about="#Stream">
+        <rdfs:label>Stream</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#WaterRegion"/>
+        <rdfs:comment
+            >(ADL FT) Linear bodies of water flowing on the Earth&#39;s surface. We use this category for anabranches; for brooks; for burns (hydrographic); for confluences; for creeks; for distributaries; for dry stream beds; for forks (physiographic features); for intermittent streams; for lost rivers; for meanders; for stream bends; for stream mouths; for tidal creeks; for tributaries; and for watercourses.
+NIMA GNS designators STM, STMA, STMB, STMC, STMD, STMH, STMI, STMIX, STMM, STMQ, STMS, STMSB, STMX</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Street -->
+
+    <owl:Class rdf:about="#Street">
+        <rdfs:label>Street</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Roadway"/>
+        <rdfs:comment
+            >The general notion for a roadway within a city or village, often, surrounded by buildings. We put here boulevards, streets, avenues, etc.
+NIMA GNS designator - missing.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#TVChannel -->
+
+    <owl:Class rdf:about="#TVChannel">
+        <rdfs:label>TVChannel</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#MediaBrand"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#TVCompany -->
+
+    <owl:Class rdf:about="#TVCompany">
+        <rdfs:label>TVCompany</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#MediaCompany"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Team -->
+
+    <owl:Class rdf:about="#Team">
+        <rdfs:label>Team</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Organization"/>
+        <rdfs:comment
+            >A group of people gathered for some task, say a project. Teams are usually not formally established and not meant to perform as a single agent for purposes outside the scope of their task. Teams may &quot;live&quot; within or organizations, spread between multiple organizations, or be independent form any organization.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Telecom -->
+
+    <owl:Class rdf:about="#Telecom">
+        <rdfs:label>Telecom</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Company"/>
+        <rdfs:comment
+            >A telecommunications company</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#TelecomFacility -->
+
+    <owl:Class rdf:about="#TelecomFacility">
+        <rdfs:label>TelecomFacility</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Facility"/>
+        <rdfs:comment
+            >(ADL FT: Telecommunication Features)  We use this category for antenna field sites; for communication centers; for radio stations; for television stations; and for transmission lines.
+NIMA GNS designators COMC, STNR, STNS.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#TemporalAbstraction -->
+
+    <owl:Class rdf:about="#TemporalAbstraction">
+        <rdfs:label
+            >TemporalAbstraction</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Abstract"/>
+        <rdfs:comment
+            >Any sort of abstraction used to refer to specify periods of time. Thus, the month of September is an instance of this class, while Sept 1989 is not (it is a specific TimeInterval, and thus not abstract)</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#TheatrePerformance -->
+
+    <owl:Class rdf:about="#TheatrePerformance">
+        <rdfs:label
+            >TheatrePerformance</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#ArtPerformance"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#TimeZone -->
+
+    <owl:Class rdf:about="#TimeZone">
+        <rdfs:label>TimeZone</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#TemporalAbstraction"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Tournament -->
+
+    <owl:Class rdf:about="#Tournament">
+        <rdfs:label>Tournament</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#SportEvent"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Tower -->
+
+    <owl:Class rdf:about="#Tower">
+        <rdfs:label>Tower</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Building"/>
+        <rdfs:comment
+            >(ADL FT)  Manmade structures, higher than their diameter, generally used for observation, storage, or electronic transmission. We use this category for carillons; for fire lookouts; and for pagodas.
+NIMA GNS designator TOWR.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#TransportFacility -->
+
+    <owl:Class rdf:about="#TransportFacility">
+        <rdfs:label
+            >TransportFacility</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Facility"/>
+        <rdfs:comment
+            >(ADL FT: Transportation Features)  We use this category for air routes; for caravan routes; for corridors; for crossings; for depots; for ferries; for fords (crossings); for fuel depots; for gates (manmade); for halting places (transportation); for highway maintenance sites; for portages; for rest houses; for routes; for ship tracks; for stock routes; for terminals (transportation); and for transit facilities.
+Omitted sub-classes: Aqueducts, Cableways, Parking Sites.
+NIMA GNS designator - no direct equivalents.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Tundra -->
+
+    <owl:Class rdf:about="#Tundra">
+        <rdfs:label>Tundra</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#BiogeographicRegion"/>
+        <rdfs:comment
+            >(ADL FT)  Treeless, level, or gently rolling plains characteristic of arctic or subarctic regions, having a permanently frozen subsoil, and usually supporting low growing vegetation such as lichens, mosses, and stunted shrubs. [USGS Circ 1048] We use this category for Arctic land.
+NIMA GNS designator TUND, LAND.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Tunnel -->
+
+    <owl:Class rdf:about="#Tunnel">
+        <rdfs:label>Tunnel</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#TransportFacility"/>
+        <rdfs:comment
+            >(ADL FT) Underground or underwater passages. [USGS Circ 1048] We use this category for canal tunnels; for railroad tunnels; and for road tunnels.
+NIMA GNS designator TNL, TNLC, TNLN, TNLRD, TNLS</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#University -->
+
+    <owl:Class rdf:about="#University">
+        <rdfs:label>University</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#EducationalOrganization"/>
+        <rdfs:subClassOf rdf:resource="#ResearchOrganization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#UrbanDistrict -->
+
+    <owl:Class rdf:about="#UrbanDistrict">
+        <rdfs:label>UrbanDistrict</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#PoliticalRegion"/>
+        <rdfs:comment
+            >(ADL FT: Countries, 3rd order divisions) Minor civil units. [USGS Circ 1048] We use this category for barrios; for precincts; for third-order administrative divisions; and for townships.
+NIMA GNS designator ADM3.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Valley -->
+
+    <owl:Class rdf:about="#Valley">
+        <rdfs:label>Valley</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT)  Low-lying land bordered by higher ground; especially elongate, relatively large gently sloping depressions of the Earth&#39;s surface, commonly situated between two mountains or between ranges of hills or mountains, and often containing a stream with an outlet. [Glossary of Geology, 4th ed.] We use this category for forks (physiographic features); for glens; for hanging valleys; for hollows; for median valleys; and for shelf valleys (seafloor).
+NIMA GNS designators VAL, VALG, VALU, VALS, VALX, VLSU, FRKU, FRSU, MDVU, SHVU.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Vehicle -->
+
+    <owl:Class rdf:about="#Vehicle">
+        <rdfs:label>Vehicle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Object"/>
+        <rdfs:comment
+            >Any sort of specific vehicle</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Volcano -->
+
+    <owl:Class rdf:about="#Volcano">
+        <rdfs:label>Volcano</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#Mountain"/>
+        <rdfs:comment
+            >(ADL FT)  Vents in the surface of the Earth through which magma and associated gases erupt; also, the forms or structures, usually conical, that are produced by the erupted material.
+NIMA GNS designator VLC.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#WaterBank -->
+
+    <owl:Class rdf:about="#WaterBank">
+        <rdfs:label>WaterBank</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT: Banks)  Sloping margins of, or the ground bordering, a stream, and serving to confine the water to the natural channel during the normal course of flow. [Glossary of Geology, 4th ed.] We use this category for stream banks.
+NIMA GNS designator BKSU, BNK, BNKR, BNKU, BNKX.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#WaterRegion -->
+
+    <owl:Class rdf:about="#WaterRegion">
+        <rdfs:label>WaterRegion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Location"/>
+        <rdfs:comment
+            >(ADL FT: Hydrographic Features) For natural bodies of water. For constructed waterways, reservoirs, and such, use &#39;hydrographic structures&#39;. We use this category for bodies of water; for eddies; for fluvial features; for marine features; for overfalls; for upwellings; for water bodies; for waterholes; and for whirlpools.
+Many of the ADL hydrographic features ignored.
+NIMA GNS class H.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Waterfalls -->
+
+    <owl:Class rdf:about="#Waterfalls">
+        <rdfs:label>Waterfalls</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#LandRegion"/>
+        <rdfs:comment
+            >(ADL FT) Perpendicular or very steep falls of water in the course of a stream. ... We use this category for cascades; for cataracts; and for falls.
+NIMA GNS designator FLLS, FLLSX</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#WeaponModelOrSystem -->
+
+    <owl:Class rdf:about="#WeaponModelOrSystem">
+        <rdfs:label
+            >WeaponModelOrSystem</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Product"/>
+        <rdfs:comment
+            >Such as Patriot, SU-28, and Kalashnikov.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#WebPage -->
+
+    <owl:Class rdf:about="#WebPage">
+        <rdfs:label>WebPage</rdfs:label>
+        <rdfs:subClassOf rdf:resource="#InternetAddress"/>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Week -->
+
+    <owl:Class rdf:about="#Week">
+        <rdfs:label>Week</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;TimeInterval"/>
+        <rdfs:comment
+            >A specific week of a specific year (say the 41st of 2001)</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://proton.semanticweb.org/2005/04/protonu#Woman -->
+
+    <owl:Class rdf:about="#Woman">
+        <rdfs:label>Woman</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&protont;Person"/>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 2.2.1.1042) http://owlapi.sourceforge.net -->
+

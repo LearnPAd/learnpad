@@ -9,7 +9,6 @@ import eu.learnpad.exception.LpRestException;
 import eu.learnpad.ontology.AbstractUnitTest;
 import eu.learnpad.or.rest.data.Entities;
 import eu.learnpad.or.rest.data.kbprocessing.KBProcessId;
-import eu.learnpad.sim.rest.event.ScoreType;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import org.junit.Test;

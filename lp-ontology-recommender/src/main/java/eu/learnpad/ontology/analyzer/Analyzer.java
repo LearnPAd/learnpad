@@ -20,9 +20,13 @@ import eu.learnpad.or.rest.data.Entities;
 import eu.learnpad.or.rest.data.Entity;
 import eu.learnpad.or.rest.data.OrganisationalUnit;
 import eu.learnpad.or.rest.data.RelatedObjects;
-import java.util.ArrayList;
+import gate.util.GateException;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -32,37 +36,38 @@ public class Analyzer {
 
     private static final Analyzer instance = new Analyzer();
 
+    private static final Map<String, BasicAnnotator> annotatorCache = new HashMap();
+
     public static Analyzer getInstance() {
         return instance;
     }
-    
-    private Analyzer(){
-        initGATE();
+
+    private Analyzer() {
     }
 
     public Entities analyze(String modelSetId, String htmlPageContent) throws RecommenderException {
-        Entities entities = new Entities();
-        List<Entity> entitiesList = new ArrayList<>();
+
+        BasicAnnotator basicAnnotator = getCachedAnnotator(modelSetId);
+        Entities entities = basicAnnotator.entityLookup(htmlPageContent);
+
+        OntModel model = FileOntAO.getInstance().getModelWithExecutionData(modelSetId);
+        for (Entity entity : entities.getEntities()) {
+            entity.setModelSetId(modelSetId);
+            entity.setModelId("");
+            String authorUri = entity.getContextArtifactId();
+            String objectId = authorUri.startsWith(APP.NS.TRANSFER.toString()) ? authorUri.replace(APP.NS.TRANSFER.toString(), "") : "";
+            entity.setObjectId(objectId);
+            Individual author = model.getIndividual(authorUri);
+            if (author != null) {
+                entity.setType(APP.NS.EO + "Person");
+                BusinessActor person = mapToBusinessActor(model, author);
+                entity.setPerson(person);
+                OntRetrieval ontRet = new OntRetrieval();
+                RelatedObjects relatedObjects = ontRet.getDocumentsOfAuthor(modelSetId, author);
+                entity.setRelatedObjects(relatedObjects);
+            }
+        }
         
-        //TODO analyis with GATE here and iterate over all recognized persons
-        
-              OntModel model = FileOntAO.getInstance().getModelWithExecutionData(modelSetId);
-              String authorUri = "";
-              Individual author = model.getIndividual(authorUri);
-              if(author != null){
-                  String uniqueId = UUID.randomUUID().toString();
-                  Entity entity = new Entity();
-                  entity.setId(uniqueId);
-                  entity.setType(APP.NS.EO+"Person");
-                  BusinessActor person = mapToBusinessActor(model, author);
-                  entity.setPerson(person);
-                  OntRetrieval ontRet = new OntRetrieval();
-                  RelatedObjects relatedObjects = ontRet.getDocumentsOfAuthor(modelSetId, author);
-                  entity.setRelatedObjects(relatedObjects);
-                  entitiesList.add(entity);
-              }
-        
-        entities.setEntities(entitiesList);
         return entities;
 
     }
@@ -70,54 +75,61 @@ public class Analyzer {
     private BusinessActor mapToBusinessActor(OntModel model, Individual author) {
         BusinessActor person = new BusinessActor();
         person.setUri(author.getURI());
-        person.setFirstname(OntUtil.getLiteralPropertyString(model, author, APP.NS.OMM+"performerHasFirstName", ""));
-        person.setLastname(OntUtil.getLiteralPropertyString(model, author, APP.NS.OMM+"performerHasLastName", ""));
-        person.setEmail(OntUtil.getLiteralPropertyString(model, author, APP.NS.EMO+"performerHasEmailAddress", ""));
-        
-        person.setOfficeAddress("");  //TODO: Currently not available, could be added to meta model in modelling environment
-        
-        OntProperty orgUnitProperty = model.getOntProperty(APP.NS.OMM+"performerBelongsToOrganisationalUnit");
-        if(orgUnitProperty != null){
+        person.setName(OntUtil.getLabel(author));
+        person.setFirstname(OntUtil.getLiteralPropertyString(model, author, APP.NS.OMM + "performerHasFirstName", ""));
+        person.setLastname(OntUtil.getLiteralPropertyString(model, author, APP.NS.OMM + "performerHasLastName", ""));
+        person.setEmail(OntUtil.getLiteralPropertyString(model, author, APP.NS.EMO + "performerHasEmailAddress", ""));
+        person.setSkypeId(OntUtil.getLiteralPropertyString(model, author, APP.NS.OMM + "performerHasSkypeId", ""));
+        person.setPhoneNumber(OntUtil.getLiteralPropertyString(model, author, APP.NS.OMM + "performerHasPhoneNumber", ""));
+        person.setOfficeAddress(OntUtil.getLiteralPropertyString(model, author, APP.NS.OMM + "performerHasOfficeAddress", ""));
+        person.setRole("");
+
+        OntProperty orgUnitProperty = model.getOntProperty(APP.NS.OMM + "performerBelongsToOrganisationalUnit");
+        if (orgUnitProperty != null) {
             Resource orgUnitRes = author.getPropertyResourceValue(orgUnitProperty);
-            if(orgUnitRes != null){
+            if (orgUnitRes != null) {
                 OrganisationalUnit orgUnit = new OrganisationalUnit();
                 orgUnit.setUri(orgUnitRes.getURI());
                 String name = orgUnit.getName();
-                if(orgUnitRes instanceof OntResource){
-                    name = OntUtil.getLabel((OntResource)orgUnit);
+                if (orgUnitRes instanceof OntResource) {
+                    name = OntUtil.getLabel((OntResource) orgUnit);
                 }
                 orgUnit.setName(name);
                 person.setOrganisationalUnit(orgUnit);
             }
         }
-        person.setPhoneNumber(OntUtil.getLiteralPropertyString(model, author, APP.NS.OMM+"performerHasPhoneNumber", ""));
-        
-        person.setSkypeId(""); //TODO: Currently not available, could be added to meta model in modelling environment
-        
-        OntProperty roleProperty = model.getOntProperty(APP.NS.EO+"performerHasRole");
-        if(roleProperty != null){
+
+        OntProperty roleProperty = model.getOntProperty(APP.NS.EO + "performerHasRole");
+        if (roleProperty != null) {
             Resource roleRes = author.getPropertyResourceValue(roleProperty);
-            if(roleRes != null){
+            if (roleRes != null) {
                 String name = roleRes.getLocalName();
-                if(roleRes instanceof OntResource){
-                    name = OntUtil.getLabel((OntResource)roleRes);
+                if (roleRes instanceof OntResource) {
+                    name = OntUtil.getLabel((OntResource) roleRes);
                 }
                 person.setRole(name);
             }
         }
-        
-        person.setDescription(""); //TODO: Currently not available, could be added to meta model in modelling environment
-        
+
+        person.setDescription(""); //Currently not available, could be added to meta model in modelling environment
+
         return person;
     }
-    
-    private void initGATE(){
-//        try { 
-//            Gate.init();
-//        } catch (GateException ex) {
-//            Logger.getLogger(Analyzer.class.getName()).log(Level.SEVERE, "Cannot initialze GATE for text analaysis.", ex);
-//        }
-        
+
+    private BasicAnnotator getCachedAnnotator(String modelSetId) throws RecommenderException {
+        if (!annotatorCache.containsKey(modelSetId)) {
+            try {
+                BasicAnnotator basicAnnotator = new BasicAnnotator(modelSetId);
+                annotatorCache.put(modelSetId, basicAnnotator);
+            } catch (GateException ex) {
+                Logger.getLogger(Analyzer.class.getName()).log(Level.SEVERE, null, ex);
+                throw new RecommenderException("GATE text analyis failed.", ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Analyzer.class.getName()).log(Level.SEVERE, null, ex);
+                throw new RecommenderException("GATE text analyis failed due to IO problems.", ex);
+            }
+        }
+        return annotatorCache.get(modelSetId);
     }
 
 }

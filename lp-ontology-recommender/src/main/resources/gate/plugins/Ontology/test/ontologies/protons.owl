@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE owl [ 
+    <!ENTITY rdf  'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+    <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+    <!ENTITY owl  'http://www.w3.org/2002/07/owl#' >
+    <!ENTITY xsd  'http://www.w3.org/2001/XMLSchema#' >
+    <!ENTITY psys  'http://proton.semanticweb.org/2005/04/protons#'>
+]>
+<rdf:RDF 
+    xmlns:owl="&owl;"
+    xmlns:rdf="&rdf;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:psys="&psys;"
+    xmlns="&psys;"
+    xml:base="&psys;" 
+>
+<owl:Ontology rdf:about="">
+  <rdfs:comment>PROTON (Proto Ontology), System module</rdfs:comment>
+  <owl:versionInfo>"0.1"</owl:versionInfo>
+</owl:Ontology>
+
+<owl:Class rdf:about="#Entity"
+	 rdfs:label="Entity">
+	<rdfs:comment>Any sort of an entity of interest, usually something existing, happening, or purely abstract. Entities may have several - more than one - names or aliases.</rdfs:comment>
+</owl:Class>
+<owl:Class rdf:about="#Alias"
+	 rdfs:label="Alias">
+	<rdfs:comment>An alias of a named entity, usually not a general term but rather a name of something. Specific names, such as John and Smith, are not aliased on themselves. However, "John Smith" and "Mr. Smith" could be.</rdfs:comment>
+	<rdfs:subClassOf rdf:resource="#LexicalResource"/>
+	<psys:systemPrimitive>T</psys:systemPrimitive>
+</owl:Class>
+<owl:DatatypeProperty rdf:about="#description"
+	 rdfs:label="description">
+	<rdfs:comment>A textual description of an entity. Usually a free text in some natural language. As defined in DC2003ISO for InformationResources. In a sense, it is a specializatoin of rdf:comment</rdfs:comment>
+	<rdfs:domain rdf:resource="#Entity"/>
+</owl:DatatypeProperty>
+<owl:ObjectProperty rdf:about="#hasAlias"
+	 rdfs:label="hasAlias">
+	<rdfs:range rdf:resource="#Alias"/>
+	<rdfs:domain rdf:resource="#Entity"/>
+</owl:ObjectProperty>
+<owl:ObjectProperty rdf:about="#hasMainAlias"
+	 rdfs:label="hasMainAlias">
+	<rdfs:comment>The official (or otherwise most important) alias of the entity</rdfs:comment>
+	<rdfs:subPropertyOf rdf:resource="#hasAlias"/>
+</owl:ObjectProperty>
+<owl:DatatypeProperty rdf:about="#laconicDescription"
+	 rdfs:label="laconicDescription">
+	<rdfs:comment>An extremely short (typiaclly, single sentence) description of an entity  </rdfs:comment>
+	<rdfs:subPropertyOf rdf:resource="#description"/>
+</owl:DatatypeProperty>
+<owl:AnnotationProperty rdf:about="#transitiveOver"
+	 rdfs:label="transitiveOver">
+	<rdfs:comment>Makes possible the modelling of a specific, but rather useful modelling pattern. The semantics is defined with the following axiom: (p,transitiveOver,q) (x,p,y) (y,q,z) => (x,p,z). Sample usage is: (locatedIn, transitiveOver, subRegionOf) (Ontotext,locatedIn,Bulgaria) (Bulgaria,subRegionOf,Europe) => (Ontotext,locatedIn,Europe). The intended domain and range of this property are owl:ObjectProperty; those are not formally specified, in order not to get the ontology outside the OWL DL segment.</rdfs:comment>
+</owl:AnnotationProperty>
+<owl:Class rdf:about="#LexicalResource"
+	 rdfs:label="LexicalResource">
+	<rdfs:comment>A lexical resource of any sort, usually part of a natural language or a specialized vocabulary. The rdf:label property defines the character string constituting the resource.</rdfs:comment>
+	<psys:systemPrimitive>T</psys:systemPrimitive>
+</owl:Class>
+<owl:AnnotationProperty rdf:about="#systemPrimitive"
+	 rdfs:label="System Primitive">
+	<rdfs:comment>The system classes and properties are used to encode system specific information. Those, as well as their instances and related information, should usually not be presented to the end-user. In practice, user-interface and visualization modules, can filter such primitives. All the system primitives should be marked with this property with string value "T".</rdfs:comment>
+</owl:AnnotationProperty>
+<owl:Class rdf:about="#EntitySource"
+	 rdfs:label="EntitySource">
+	<rdfs:comment>A particular source where the entity (description) is derived/imported/extracted from. Can be used for maintenance of knowledge bases where information from multiple sources is being imported.</rdfs:comment>
+	<psys:systemPrimitive>T</psys:systemPrimitive>
+</owl:Class>
+<owl:Class rdf:about="#Recognized"
+	 rdfs:label="Recognized">
+	<rdfs:comment>To identify a source (like a program or a module), which is capable of recognizing and generating new entities. Typically, those are not checked, and thus not trustable. An example for this is the NE-recognition process in KIM/GATE.</rdfs:comment>
+	<rdfs:subClassOf rdf:resource="#EntitySource"/>
+	<psys:systemPrimitive>T</psys:systemPrimitive>
+</owl:Class>
+<owl:Class rdf:about="#Trusted"
+	 rdfs:label="Trusted">
+	<rdfs:comment>Used to indicate entities, imported from reliable (trusted) sources, like GNS, World Fact Book, GATE/MUSE/KIM gazetteers, but also any other trusted source.</rdfs:comment>
+	<rdfs:subClassOf rdf:resource="#EntitySource"/>
+	<psys:systemPrimitive>T</psys:systemPrimitive>
+</owl:Class>
+<owl:ObjectProperty rdf:about="#generatedBy"
+	 rdfs:comment="Identifies the party that introduced the entity into the KB."
+	 rdfs:label="generatedBy">
+	<rdfs:domain rdf:resource="#Entity"/>
+	<rdfs:range rdf:resource="#EntitySource"/>
+	<psys:systemPrimitive>T</psys:systemPrimitive>
+</owl:ObjectProperty>
+</rdf:RDF>

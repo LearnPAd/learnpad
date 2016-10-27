@@ -1,0 +1,17 @@
+# hasInstance
+#
+# return something that is an instance and has the given URI
+
+SELECT DISTINCT Y FROM {yyy1} rdf:type {Y} rdf:type {owl:Class} WHERE Y != owl:Thing
+UNION
+SELECT DISTINCT Y FROM {yyy1} rdf:type {Y} rdf:type {rdfs:Class} 
+WHERE NOT Y LIKE "http://www.w3.org/2002/07/owl*"  AND
+      NOT Y LIKE "http://www.w3.org/2000/01/rdf-schema*" AND
+      NOT Y LIKE "http://www.w3.org/2001/XMLSchema*" AND
+      NOT Y LIKE "http://www.w3.org/1999/02/22-rdf-syntax-ns*"
+
+USING NAMESPACE
+xsd = <http://www.w3.org/2001/XMLSchema#>,
+rdfs = <http://www.w3.org/2000/01/rdf-schema#>,
+rdf = <http://www.w3.org/1999/02/22-rdf-syntax-ns#>,
+owl = <http://www.w3.org/2002/07/owl#>

@@ -139,7 +139,7 @@ public final class SimpleModelTransformator {
     }
 
     public Path getModelSetFolderPath(String modelSetId) {
-        Path relativeModelSetPath = Paths.get(APP.CONF.getString("ontology.learnpad.model.instances"), modelSetId);
+        Path relativeModelSetPath = Paths.get(APP.CONF.getString("ontology.learnpad.model.instances"), "1/"+modelSetId);
         Path modelSetFolderPath;
         Path workingDirectory = getWorkingDirectory(APP.CONF.getString("working.directory"), System.getProperty("user.dir"));
         if (workingDirectory != null) {

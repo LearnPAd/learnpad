@@ -1,0 +1,38 @@
+## 
+## Configuration file for OWLIM with 
+## ruleset empty
+## and partialRDFS off
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rep: <http://www.openrdf.org/config/repository#>.
+@prefix sr: <http://www.openrdf.org/config/repository/sail#>.
+@prefix sail: <http://www.openrdf.org/config/sail#>.
+@prefix owlim: <http://www.ontotext.com/trree/owlim#>.
+
+[] a rep:Repository ;
+   rep:repositoryID "{%id|owlim3empty%}" ;
+   rdfs:label "OWLIM3 rdfs/partialRDFS repository: {%id|owlim3empty%}" ;
+   rep:repositoryImpl [
+      rep:repositoryType "openrdf:SailRepository" ;
+      sr:sailImpl [
+         sail:sailType "swiftowlim:Sail" ;
+         owlim:ruleset "empty" ;
+         ## paritalRDFS is ignored for ruleset empty
+         owlim:partialRDFS  "false" ;
+         owlim:noPersist "true" ;
+         owlim:storage-folder "{%sf|storage-folder%}" ;
+         ## only needed for persist which we do not use
+         owlim:base-URL "http://dummy.base.url.org/#" ; 
+         ## We do not persist and not use new-triples because we do not
+         ## have a way to recover from a crash anyway
+         ## owlim:new-triples-file "new-triples-file.nt" ;
+         owlim:entity-index-size "2000000" ;
+         owlim:jobsize "1000" ;
+         owlim:repository-type "in-memory-repository" ;
+         ## these files will get imported explicitly after the repository
+         ## is created.
+         ## owlim:imports "{%owldeffile|owl.rdfs%};{%rdfsdeffile|rdf-schema.xml%}" ;
+         ## owlim:defaultNS "http://www.w3.org/2002/07/owl#" 
+      ]
+   ].
+

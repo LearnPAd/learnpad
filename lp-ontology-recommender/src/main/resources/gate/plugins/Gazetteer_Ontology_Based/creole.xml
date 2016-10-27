@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<!-- creole.xml for Ontology_Based_Gazetteer plugin -->
+<CREOLE-DIRECTORY>
+  <JAR SCAN="true">obg.jar</JAR>
+</CREOLE-DIRECTORY>

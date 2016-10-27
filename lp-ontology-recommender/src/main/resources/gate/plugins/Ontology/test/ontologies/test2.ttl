@@ -1,0 +1,30 @@
+## :mode=n3
+
+## This ontology is intended to provide examples for testing
+## tuple queries.
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix :        <http://www.gate.ac.uk/dummyurl/OntologyPlugin/test1.turtle.owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+<http://www.gate.ac.uk/dummyurl/OntologyPlugin/test1.turtle.owl>
+  a owl:Ontology .
+
+## 
+## for test case one: SPARQL query with optional values 
+## 
+  
+:C1 a owl:Class .
+:C2 a owl:Class .
+
+:p1 a owl:ObjectProperty .
+:p2 a owl:ObjectProperty .
+
+
+:s1 a :C1 .
+:o1 a :C2 .
+:o3 a :C2 .
+
+:s1 :p1 :o1 .
+:s1 :p3 :o3 .

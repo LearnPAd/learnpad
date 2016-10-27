@@ -78,7 +78,8 @@ public class ScoreProbeConsumer extends GlimpseAbstractConsumer {
 								.getObject();
 						logger.error("Receive exception from probe: {}", exceptionReceived.getMessage());
 						logger.error("Stack trace:\n{}", exceptionReceived.getStackTrace());
-					} else if (responseFromMonitoring.getObject() instanceof Map) {
+					} else if (responseFromMonitoring.getObject() instanceof Map
+							&& responseFromMonitoring.getStringProperty("SIMSESSIONID").equals(this.sessionId)) {
 
 						@SuppressWarnings("unchecked")
 						Map<ScoreType, Float> theScores = (Map<ScoreType, Float>) responseFromMonitoring.getObject();
