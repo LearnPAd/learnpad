@@ -56,6 +56,14 @@ related modeling standards.
 |  9  | XWIKI SAS                          | XWIKI SAS     | France      | 1                   | 30                 |
 
 # The platform
+## Main Dependencies
+Be sure the following tools have been installed on your system before to start :
+ * git
+ * maven
+ * curl
+ * Java 7
+ * Bash Shell
+
 ## Build
 First of all, clone the repository.
 
@@ -86,7 +94,7 @@ or restart it (it will stop every component then start it again)
 bash launch restart
 ```
 
-Once the platform is started, access it on `localhost:8080` in your webbrowser.
+Once the platform is started, access it on `http://localhost:8080/xwiki` in your web-browser.
 
 ## Components
 Learn PAd platform is a set of components, each one is in an independent
