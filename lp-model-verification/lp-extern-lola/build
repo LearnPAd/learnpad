@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+die () { echo "ERROR: $1" ; exit 1; }
+
+rm -rf ./lola-2.0/
+tar -xf ./lola-2.0.tar.gz || die "failed to untar lola"
+cd lola-2.0 || die "failed to cd lola"
+./configure || die "failed to configure lola"
+make || die "failed to make lola"
+cd .. || die "cd .."
+mkdir out || die "make out dir"
+cp ./lola-2.0/src/lola ./out/lola

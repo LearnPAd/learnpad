@@ -22,6 +22,8 @@ declare -r __MVN_PROFILE__="-Pkeep-license-files --batch-mode"
 ### BUILD ###
 function component_build() {
     rm -rf ${__OUT_PATH__}
+    bash -c 'cd ./lp-extern-lola/ && ./build' || exit 1;
+    cp ./lp-extern-lola/out/lola ./verification-component-deadlock-plugin/src/main/resources/eu/learnpad/verification/plugin/bpmn/verifier/exeLola/lola
     mvn ${__MVN_PROFILE__} clean
     # skip tests as we will do them in the component_test stage
     mvn ${__MVN_PROFILE__} package -Dmaven.test.skip=true
