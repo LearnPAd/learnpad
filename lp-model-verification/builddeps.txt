@@ -1,4 +1,4 @@
 default-jre
 maven
 build-essential
-texinfo
+sed
