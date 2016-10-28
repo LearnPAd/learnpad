@@ -192,28 +192,28 @@ function taskReceiver(address, user, integratedMode, sessionid, platformAddress)
                     result += '<table class="detailed-score table table-striped table-condensed">';
                     result += '<tr><th>Derived Score</th><th>Value</th></tr>';
                     if(userscore.hasOwnProperty('ABSOLUTE_SESSION_SCORE')) {
-                        result += '<tr><td><i>Absolute Session Score</i></td><td><i>' + userscore.ABSOLUTE_SESSION_SCORE + '</i></td></tr>';
+                        result += '<tr><td><i>Top score of the session</i></td><td><i>' + userscore.ABSOLUTE_SESSION_SCORE + '</i></td></tr>';
                     }
                     if(userscore.hasOwnProperty('BP_SCORE')) {
-                        result += '<tr><td><i>BP Score</i></td><td><i>' + userscore.BP_SCORE + '</i></td></tr>';
+                        result += '<tr><td><i>Your best score for the modelset</i></td><td><i>' + userscore.BP_SCORE + '</i></td></tr>';
                     }
                     if(userscore.hasOwnProperty('RELATIVE_BP_SCORE')) {
-                        result += '<tr><td><i>Relative BP Score</i></td><td><i>' + userscore.RELATIVE_BP_SCORE + '</i></td></tr>';
+                        result += '<tr><td><i>Your top reachable best score for the modelset</i></td><td><i>' + userscore.RELATIVE_BP_SCORE + '</i></td></tr>';
                     }
                     if(userscore.hasOwnProperty('BP_COVERAGE')) {
-                        result += '<tr><td><i>BP Coverage</i></td><td><i>' + userscore.BP_COVERAGE + '</i></td></tr>';
+                        result += '<tr><td><i>Your percentage of modelset exploration</i></td><td><i>' + userscore.BP_COVERAGE + '%</i></td></tr>';
                     }
                     if(userscore.hasOwnProperty('ABSOLUTE_BP_COVERAGE')) {
-                        result += '<tr><td><i>Absolute BP Score</i></td><td><i>' + userscore.ABSOLUTE_BP_SCORE + '</i></td></tr>';
+                        result += '<tr><td><i>Your top reachable percentage of business process exploration</i></td><td><i>' + userscore.ABSOLUTE_BP_SCORE + '%</i></td></tr>';
                     }
                     if(userscore.hasOwnProperty('GLOBAL_SCORE')) {
-                        result += '<tr><td><i>Global Score</i></td><td><i>' + userscore.GLOBAL_SCORE + '</i></td></tr>';
+                        result += '<tr><td><i>Max scores obtained on all modelsets</i></td><td><i>' + userscore.GLOBAL_SCORE + '</i></td></tr>';
                     }
                     if(userscore.hasOwnProperty('RELATIVE_GLOBAL_SCORE')) {
                         result += '<tr><td><i>Relative Global Score</i></td><td><i>' + userscore.RELATIVE_GLOBAL_SCORE + '</i></td></tr>';
                     }
                     if(userscore.hasOwnProperty('ABSOLUTE_GLOBAL_SCORE')) {
-                        result += '<tr><td><i>Absolute Global Score</i></td><td><i>' + userscore.ABSOLUTE_GLOBAL_SCORE + '</i></td></tr>';
+                        result += '<tr><td><i>Best score reachable for all modelsets</i></td><td><i>' + userscore.ABSOLUTE_GLOBAL_SCORE + '</i></td></tr>';
                     }
                 } else {
                     // use computed total session score
