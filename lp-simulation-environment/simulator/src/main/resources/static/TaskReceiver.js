@@ -203,14 +203,8 @@ function taskReceiver(address, user, integratedMode, sessionid, platformAddress)
                     if(userscore.hasOwnProperty('BP_COVERAGE')) {
                         result += '<tr><td><i>Your percentage of modelset exploration</i></td><td><i>' + userscore.BP_COVERAGE + '%</i></td></tr>';
                     }
-                    if(userscore.hasOwnProperty('ABSOLUTE_BP_COVERAGE')) {
-                        result += '<tr><td><i>Your top reachable percentage of business process exploration</i></td><td><i>' + userscore.ABSOLUTE_BP_SCORE + '%</i></td></tr>';
-                    }
                     if(userscore.hasOwnProperty('GLOBAL_SCORE')) {
                         result += '<tr><td><i>Max scores obtained on all modelsets</i></td><td><i>' + userscore.GLOBAL_SCORE + '</i></td></tr>';
-                    }
-                    if(userscore.hasOwnProperty('RELATIVE_GLOBAL_SCORE')) {
-                        result += '<tr><td><i>Relative Global Score</i></td><td><i>' + userscore.RELATIVE_GLOBAL_SCORE + '</i></td></tr>';
                     }
                     if(userscore.hasOwnProperty('ABSOLUTE_GLOBAL_SCORE')) {
                         result += '<tr><td><i>Best score reachable for all modelsets</i></td><td><i>' + userscore.ABSOLUTE_GLOBAL_SCORE + '</i></td></tr>';
