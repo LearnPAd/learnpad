@@ -66,6 +66,7 @@ then
 	$aEvent.setConsumed(true); 
 	update($aEvent); 		 
  	RestNotifier.notifyProcessStart($aEvent.getTimeStamp(), (ProcessStartEvent)$aEvent.getEvent());
+ 	retract($aEvent);
 end 
  
 rule "Forward to the CP - ProcessEnd"  
@@ -83,7 +84,8 @@ when
 then	 	
 	$aEvent.setConsumed(true); 
 	update($aEvent); 
- 	RestNotifier.notifyProcessEnd($aEvent.getTimeStamp(), (ProcessEndEvent)$aEvent.getEvent());			
+ 	RestNotifier.notifyProcessEnd($aEvent.getTimeStamp(), (ProcessEndEvent)$aEvent.getEvent());		
+ 	retract($aEvent);	
 end  
 
 rule "Forward to the CP - TaskStart"  
@@ -101,7 +103,8 @@ when
 then
 	$aEvent.setConsumed(true); 
 	update($aEvent); 	 	
- 	RestNotifier.notifyTaskStart($aEvent.getTimeStamp(), (TaskStartEvent)$aEvent.getEvent());			
+ 	RestNotifier.notifyTaskStart($aEvent.getTimeStamp(), (TaskStartEvent)$aEvent.getEvent());
+ 	retract($aEvent);			
 end 
 
 rule "Forward to the CP - TaskFailed" 
@@ -119,7 +122,8 @@ when
 then 		 
 	$aEvent.setConsumed(true); 
 	update($aEvent); 
-	RestNotifier.notifyTaskFailed($aEvent.getTimeStamp(), (TaskFailedEvent)$aEvent.getEvent()); 		
+	RestNotifier.notifyTaskFailed($aEvent.getTimeStamp(), (TaskFailedEvent)$aEvent.getEvent()); 	
+	retract($aEvent);	
 end 
 
 rule "Forward to the CP - TaskEnd" 
