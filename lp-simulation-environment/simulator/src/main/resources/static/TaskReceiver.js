@@ -191,7 +191,7 @@ function taskReceiver(address, user, integratedMode, sessionid, platformAddress)
 
                     result += '<table class="detailed-score table table-striped table-condensed">';
                     result += '<tr><th>Derived Score</th><th>Value</th></tr>';
-                    if(userscore.hasOwnProperty('SESSION_SCORE')) {
+                    if(userscore.hasOwnProperty('ABSOLUTE_SESSION_SCORE')) {
                         result += '<tr><td><i>Absolute Session Score</i></td><td><i>' + userscore.ABSOLUTE_SESSION_SCORE + '</i></td></tr>';
                     }
                     if(userscore.hasOwnProperty('BP_SCORE')) {
