@@ -34,10 +34,10 @@ public class ScoreTemporaryStorage {
 	}
 
 	public static SessionScoreUpdateEvent getLastScoreUpdateEventSeen() {
-		if (lastScoreUpdateEventSeen != null)
-			return lastScoreUpdateEventSeen;
+		if (ScoreTemporaryStorage.lastScoreUpdateEventSeen != null)
+			return ScoreTemporaryStorage.lastScoreUpdateEventSeen;
 		else 
-			return emptySessionScoreUpdateEvent;
+			return ScoreTemporaryStorage.emptySessionScoreUpdateEvent;
 	}
 
 	public static void setLastScoreUpdateEventSeen(SessionScoreUpdateEvent lastScoreUpdateEventSeen) {
