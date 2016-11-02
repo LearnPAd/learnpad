@@ -31,7 +31,7 @@
   <parent>LPCode.WebHome</parent>
   <author>xwiki:XWiki.Admin</author>
   <contentAuthor>xwiki:XWiki.Admin</contentAuthor>
-  <date>1478093710000</date>
+  <date>1478095738000</date>
   <contentUpdateDate>1477650719000</contentUpdateDate>
   <version>1.1</version>
   <title>CommentAnalysis</title>
@@ -289,6 +289,9 @@
         }).done(function(xml) {
             processXML(modelsetId, comment, xml);
         }).fail(function(msg) {
+            setTimeout(function () {
+                analyseComment(comment);
+            }, 5000);
             console.error(msg);
         });
     };
