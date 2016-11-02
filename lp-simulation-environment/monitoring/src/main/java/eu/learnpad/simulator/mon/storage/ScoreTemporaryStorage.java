@@ -40,10 +40,10 @@ public class ScoreTemporaryStorage {
 			return ScoreTemporaryStorage.emptySessionScoreUpdateEvent;
 	}
 
-	public static void setLastScoreUpdateEventSeen(SessionScoreUpdateEvent lastScoreUpdateEventSeen) {
+	public static void setLastScoreUpdateEventSeen(SessionScoreUpdateEvent lastScoreUpdateEventReached) {
 		DebugMessages.print(TimeStamp.getCurrentTime(), ScoreTemporaryStorage.class.getSimpleName(), "Storing LastScoreUpdateEventSeen");
-		if (ScoreTemporaryStorage.lastScoreUpdateEventSeen != null && (ScoreTemporaryStorage.lastScoreUpdateEventSeen.timestamp < lastScoreUpdateEventSeen.timestamp)) {
-			ScoreTemporaryStorage.lastScoreUpdateEventSeen = lastScoreUpdateEventSeen;
+		if (ScoreTemporaryStorage.lastScoreUpdateEventSeen != null && (lastScoreUpdateEventReached.timestamp > ScoreTemporaryStorage.lastScoreUpdateEventSeen.timestamp)) {
+			ScoreTemporaryStorage.lastScoreUpdateEventSeen = lastScoreUpdateEventReached;
 		}
 		DebugMessages.ok(); 
 	}
