@@ -40,10 +40,13 @@ public class ScoreTemporaryStorage {
 			return ScoreTemporaryStorage.emptySessionScoreUpdateEvent;
 	}
 
-	public static void setLastScoreUpdateEventSeen(SessionScoreUpdateEvent lastScoreUpdateEventReached) {
+	public static void setLastScoreUpdateEventSeen(SessionScoreUpdateEvent lastScoreUpdateEventReceived) {
 		DebugMessages.print(TimeStamp.getCurrentTime(), ScoreTemporaryStorage.class.getSimpleName(), "Storing LastScoreUpdateEventSeen");
-		if (ScoreTemporaryStorage.lastScoreUpdateEventSeen != null && (lastScoreUpdateEventReached.timestamp > ScoreTemporaryStorage.lastScoreUpdateEventSeen.timestamp)) {
-			ScoreTemporaryStorage.lastScoreUpdateEventSeen = lastScoreUpdateEventReached;
+		
+		DebugMessages.println(TimeStamp.getCurrentTime(),  ScoreTemporaryStorage.class.getSimpleName(), "ON setLastScoreUpdateEventSeen: " + lastScoreUpdateEventReceived.modelsetid + " - " + lastScoreUpdateEventReceived.simulationsessionid + " - " + lastScoreUpdateEventReceived.simulationSessionData );
+
+		if (ScoreTemporaryStorage.lastScoreUpdateEventSeen != null && (lastScoreUpdateEventReceived.timestamp > ScoreTemporaryStorage.lastScoreUpdateEventSeen.timestamp)) {
+			ScoreTemporaryStorage.lastScoreUpdateEventSeen = lastScoreUpdateEventReceived;
 		}
 		DebugMessages.ok(); 
 	}
@@ -62,11 +65,17 @@ public class ScoreTemporaryStorage {
 
 	}
 	
+	
+	
 	public static Long getTemporaryLearnerSessionScore(String learnerID) {
 		if (ScoreTemporaryStorage.sessionScores.get(learnerID) != null) {
 		return ScoreTemporaryStorage.sessionScores.get(learnerID).sessionscore;
 		}
 		else
 			return 0l;
+	}
+
+	public static SessionScoreUpdateEvent getLastScoreUpdateEventSeenForUser(String learnerID) {
+		return ScoreTemporaryStorage.sessionScores.get(learnerID);
 	}
 }

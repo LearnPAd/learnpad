@@ -220,9 +220,17 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			
 			
 			DebugMessages.print(TimeStamp.getCurrentTime(),  this.getClass().getSimpleName(),  "Sending score to the platform ");
-			sendScoreUpdateEventToCP(
-					generateScoreEvent(scoresToShow, ScoreTemporaryStorage.getLastScoreUpdateEventSeen(), learnersID.get(i)));
+			ScoreUpdateEvent theEventForTheCP = generateScoreEvent(scoresToShow, ScoreTemporaryStorage.getLastScoreUpdateEventSeenForUser(learnersID.get(i)), learnersID.get(i));
+			sendScoreUpdateEventToCP(theEventForTheCP);
 			DebugMessages.ok();
+			
+			DebugMessages.line();
+			DebugMessages.println(TimeStamp.getCurrentTime(),  this.getClass().getSimpleName(), " ------values set on CREATION OF THE EVENT TO SENT TO THE CP -------");
+			DebugMessages.println(TimeStamp.getCurrentTime(),  this.getClass().getSimpleName(), "simulationSessionID: " + theEventForTheCP.simulationsessionid );
+			DebugMessages.println(TimeStamp.getCurrentTime(),  this.getClass().getSimpleName(), "involvedusers: " + theEventForTheCP.involvedusers );
+			DebugMessages.println(TimeStamp.getCurrentTime(),  this.getClass().getSimpleName(), "simulationSessionData: " + theEventForTheCP.simulationSessionData );
+			DebugMessages.line();
+			
 			
 		}
 	}

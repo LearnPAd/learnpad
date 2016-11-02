@@ -161,5 +161,6 @@ then
 									$aEvent.getSessionScoreUpdateEvent().user.toString(), 
 									$aEvent.getSessionScoreUpdateEvent());
 	ScoreTemporaryStorage.setLastScoreUpdateEventSeen($aEvent.getSessionScoreUpdateEvent());
+	RestNotifier.notifySessionScoreUpdate($aEvent.getTimeStamp(), (SessionScoreUpdateEvent)$aEvent.getEvent());
 	retract($aEvent);		 	
 end  
