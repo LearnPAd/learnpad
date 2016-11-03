@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+die () { echo "ERROR: $1" ; exit 1; }
+
+rm -rf ./lola-2.0/ ./out
+tar -xf ./lola-2.0.tar.gz || die "failed to untar lola"
+cd lola-2.0 || die "failed to cd lola"
+# We need to patch the makefile because otherwise it will try to build docs which requires makeinfo and travis-ci doesn't support it.
+sed -i -e 's/SUBDIRS = src utils tests doc/SUBDIRS = src utils tests/' ./Makefile.in || die "failed to patch makefile"
+./configure || die "failed to configure lola"
+make || die "failed to make lola"
+cd .. || die "cd .."
+mkdir out || die "make out dir"
+cp ./lola-2.0/src/lola ./out/lola

@@ -24,3 +24,6 @@ target-eclipse/
 lp-dashboard-kpi/nb-configuration.xml
 /lp-dashboard-kpi/lp-dash-bridge/nbproject/
 lp-dashboard-kpi/lp-dash-adoxx-cockpit/logs/
+
+# lola
+lola-2.0/

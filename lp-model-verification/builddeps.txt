@@ -1,2 +1,4 @@
 default-jre
 maven
+build-essential
+sed
