@@ -34,16 +34,19 @@ public class ScoreTemporaryStorage {
 	}
 
 	public static SessionScoreUpdateEvent getLastScoreUpdateEventSeen() {
-		if (lastScoreUpdateEventSeen != null)
-			return lastScoreUpdateEventSeen;
+		if (ScoreTemporaryStorage.lastScoreUpdateEventSeen != null)
+			return ScoreTemporaryStorage.lastScoreUpdateEventSeen;
 		else 
-			return emptySessionScoreUpdateEvent;
+			return ScoreTemporaryStorage.emptySessionScoreUpdateEvent;
 	}
 
-	public static void setLastScoreUpdateEventSeen(SessionScoreUpdateEvent lastScoreUpdateEventSeen) {
+	public static void setLastScoreUpdateEventSeen(SessionScoreUpdateEvent lastScoreUpdateEventReceived) {
 		DebugMessages.print(TimeStamp.getCurrentTime(), ScoreTemporaryStorage.class.getSimpleName(), "Storing LastScoreUpdateEventSeen");
-		if (ScoreTemporaryStorage.lastScoreUpdateEventSeen != null && (ScoreTemporaryStorage.lastScoreUpdateEventSeen.timestamp < lastScoreUpdateEventSeen.timestamp)) {
-			ScoreTemporaryStorage.lastScoreUpdateEventSeen = lastScoreUpdateEventSeen;
+		
+		DebugMessages.println(TimeStamp.getCurrentTime(),  ScoreTemporaryStorage.class.getSimpleName(), "ON setLastScoreUpdateEventSeen: " + lastScoreUpdateEventReceived.modelsetid + " - " + lastScoreUpdateEventReceived.simulationsessionid + " - " + lastScoreUpdateEventReceived.simulationSessionData );
+
+		if (ScoreTemporaryStorage.lastScoreUpdateEventSeen != null && (lastScoreUpdateEventReceived.timestamp > ScoreTemporaryStorage.lastScoreUpdateEventSeen.timestamp)) {
+			ScoreTemporaryStorage.lastScoreUpdateEventSeen = lastScoreUpdateEventReceived;
 		}
 		DebugMessages.ok(); 
 	}
@@ -62,11 +65,17 @@ public class ScoreTemporaryStorage {
 
 	}
 	
+	
+	
 	public static Long getTemporaryLearnerSessionScore(String learnerID) {
 		if (ScoreTemporaryStorage.sessionScores.get(learnerID) != null) {
 		return ScoreTemporaryStorage.sessionScores.get(learnerID).sessionscore;
 		}
 		else
 			return 0l;
+	}
+
+	public static SessionScoreUpdateEvent getLastScoreUpdateEventSeenForUser(String learnerID) {
+		return ScoreTemporaryStorage.sessionScores.get(learnerID);
 	}
 }

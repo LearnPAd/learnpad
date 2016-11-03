@@ -31,7 +31,7 @@ public class GlimpseBaseEventBPMN<T> extends GlimpseBaseEventGeneric<String> {
 	}
 
 	public SessionScoreUpdateEvent getSessionScoreUpdateEvent() {
-		return (SessionScoreUpdateEvent) this.event;
+		return (SessionScoreUpdateEvent) event;
 	}
 	
 	public void setEvent(AbstractEvent event) {

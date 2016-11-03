@@ -59,15 +59,17 @@ public class PathExplorerImpl implements PathExplorer {
 		
 		//titolo unico
 		if (idBPMN.compareTo("mod.21093") == 0) {
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27812});
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27987, obj27990, obj27788});
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27987, obj27990, obj27839});
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27987, obj27990, obj29013, obj27833, obj27788});
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27987, obj27990, obj29013, obj27833, obj27839});
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27788});
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27839});
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27987, obj27990, obj27788});
-		lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27987, obj27990, obj27839});
+			lastExploredBPMN.add(new Activity[]	{obj27830, obj27812});
+			lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27987, obj27990, obj27788});
+			lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27987, obj27990, obj27839});
+			lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27987, obj27990, obj29013, obj27833, obj27788});
+			lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27987, obj27990, obj29013, obj27833, obj27839});
+			lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27788});
+			lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27839});
+			lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27987, obj27990, obj27788});
+			lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27987, obj27990, obj27839});
+			lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27987, obj27990, obj29013, obj27833, obj27788});
+			lastExploredBPMN.add(new Activity[]	{obj27830, obj27782, obj27921, obj27987, obj27990, obj29013, obj27833, obj27839});
 		}
 		
 		//conferenza servizi
@@ -85,9 +87,6 @@ public class PathExplorerImpl implements PathExplorer {
 			lastExploredBPMN.add(new Activity[]	{usertask3, usertask5});
 			lastExploredBPMN.add(new Activity[]	{usertask3, usertask5, usertask7, usertask14});
 			lastExploredBPMN.add(new Activity[]	{usertask3, usertask5, usertask11, usertask14});
-			lastExploredBPMN.add(new Activity[]	{usertask3, usertask5, usertask11, usertask14, usertask16, usertask19, usertask22});
-
-			lastExploredBPMN.add(new Activity[]	{usertask4, usertask8, usertask15});
 		}
 		
 		//controlla pratica
