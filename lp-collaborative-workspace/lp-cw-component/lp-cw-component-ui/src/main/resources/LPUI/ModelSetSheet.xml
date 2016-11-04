@@ -44,7 +44,7 @@
 #set ($modelsetObject = $doc.getObject('LPCode.ModelSetClass'))
 #set ($modelsetid = $modelsetObject.getProperty('id').value)
 #set ($modelsetDocumentation = $modelsetObject.getProperty('documentation').value)
-#set ($query = "from doc.object(LPCode.ModelClass) as m where m.modelsetid = :modelsetid and m.type = 'bpmn'")
+#set ($query = "from doc.object(LPCode.ModelClass) as m where m.modelsetid = :modelsetid and m.type = 'bpmn' order by doc.title asc")
 #set ($modelFullnames = $services.query.xwql($query).bindValue("modelsetid", "${modelsetid}").execute())
 #set ($collaborateReference = $services.model.createDocumentReference("CD", ${doc.documentReference.lastSpaceReference}))
 #set ($queryString = "modelsetid=$modelsetid")
