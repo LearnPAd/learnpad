@@ -65,9 +65,34 @@ public class SimulationScoreLog {
 
         OntModel model = FileOntAO.getInstance().getModelWithExecutionData(modelSetId);
 
+//        //Global score
+//        Individual globalScoreInstance = createInstance(model, APP.NS.LPD + "GlobalSimulationScore", "GlobalSimulationScore_value_");
+//        Float globalScore = calculateRelativeScore(scores, ScoreType.ABSOLUTE_GLOBAL_SCORE, ScoreType.GLOBAL_SCORE);
+//        addScoreProperties(globalScoreInstance, model, userId, timestamp, globalScore);
+//
+//        //Session score
+//        Individual sessionScoreInstance = createInstance(model, APP.NS.LPD + "SimulationSessionScore", "SimulationSessionScore_value_");
+//        Individual simulationSessionCase = model.getIndividual(simulationCaseInstanceUri(simulationSessionId));
+//        if (simulationSessionCase == null) {
+//            OntClass simSessionCaseClass = model.getOntClass(simulationCaseUri());
+//            simulationSessionCase = simSessionCaseClass.createIndividual(simulationCaseInstanceUri(simulationSessionId));
+//        }
+//        addProperty(model, sessionScoreInstance, APP.NS.LPD + "simulationScoreOfSession", simulationSessionCase);
+//        Float sessionScore = calculateRelativeScore(scores, ScoreType.ABSOLUTE_SESSION_SCORE, ScoreType.SESSION_SCORE);
+//        addScoreProperties(sessionScoreInstance, model, userId, timestamp, sessionScore);
+//
+//        //BP score
+//        Individual bpScoreInstance = createInstance(model, APP.NS.LPD + "BPSimulationScore", "BPScore_value_");
+//        Individual process = model.getIndividual(APP.NS.TRANSFER + processArtifactId);
+//        addProperty(model, bpScoreInstance, APP.NS.LPD + "simulationScoreBelongsToBusinessProcess", process);
+//        Float bpScore = calculateRelativeScore(scores, ScoreType.ABSOLUTE_BP_SCORE, ScoreType.BP_SCORE);
+//        addScoreProperties(bpScoreInstance, model, userId, timestamp, bpScore);
+
+        
         //Global score
         Individual globalScoreInstance = createInstance(model, APP.NS.LPD + "GlobalSimulationScore", "GlobalSimulationScore_value_");
-        Float globalScore = calculateRelativeScore(scores, ScoreType.ABSOLUTE_GLOBAL_SCORE, ScoreType.GLOBAL_SCORE);
+        Float globalScore = 100f; 
+        		//calculateRelativeScore(scores, ScoreType.ABSOLUTE_GLOBAL_SCORE, ScoreType.GLOBAL_SCORE);
         addScoreProperties(globalScoreInstance, model, userId, timestamp, globalScore);
 
         //Session score
@@ -78,16 +103,21 @@ public class SimulationScoreLog {
             simulationSessionCase = simSessionCaseClass.createIndividual(simulationCaseInstanceUri(simulationSessionId));
         }
         addProperty(model, sessionScoreInstance, APP.NS.LPD + "simulationScoreOfSession", simulationSessionCase);
-        Float sessionScore = calculateRelativeScore(scores, ScoreType.ABSOLUTE_SESSION_SCORE, ScoreType.SESSION_SCORE);
+        Float sessionScore =  200f;
+        		//calculateRelativeScore(scores, ScoreType.ABSOLUTE_SESSION_SCORE, ScoreType.SESSION_SCORE);
         addScoreProperties(sessionScoreInstance, model, userId, timestamp, sessionScore);
 
         //BP score
         Individual bpScoreInstance = createInstance(model, APP.NS.LPD + "BPSimulationScore", "BPScore_value_");
         Individual process = model.getIndividual(APP.NS.TRANSFER + processArtifactId);
         addProperty(model, bpScoreInstance, APP.NS.LPD + "simulationScoreBelongsToBusinessProcess", process);
-        Float bpScore = calculateRelativeScore(scores, ScoreType.ABSOLUTE_BP_SCORE, ScoreType.BP_SCORE);
+        Float bpScore = 300f;
+        		//calculateRelativeScore(scores, ScoreType.ABSOLUTE_BP_SCORE, ScoreType.BP_SCORE);
         addScoreProperties(bpScoreInstance, model, userId, timestamp, bpScore);
-
+        
+        //Degree of completenss of simulation per user
+        
+        
     }
 
     protected Float calculateRelativeScore(Map<ScoreType, Float> scores, ScoreType absoluteScoreType, ScoreType scoreType) {
