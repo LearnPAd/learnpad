@@ -435,7 +435,7 @@ public class H2Controller implements DBController {
 	public Vector<Path> getPathsExecutedByLearner(String learnerID, String idBPMN) {
 		String query = "SELECT * FROM glimpse.path where id_path IN( "
 				+ "SELECT distinct id_path FROM glimpse.path_learner where id_learner = \'" +
-				learnerID +	"')";
+				learnerID +	"' and id_bpmn = \'" + idBPMN + "')";
 		Vector<Path> retrievedPath = new Vector<Path>();
 		
 		try {
@@ -605,7 +605,7 @@ public class H2Controller implements DBController {
 		String query = "SELECT max(session_score)"
 				+ " FROM glimpse.path_learner"
 				+ " where id_learner = '"+ learnerID
-				+ "' and EXISTS (select distinct id_path from glimpse.path_learner where id_bpmn = '" + idBPMN + "') group by id_path";
+				+ "' and id_bpmn = '" + idBPMN +"' and EXISTS (select distinct id_path from glimpse.path_learner where id_bpmn = '" + idBPMN + "') group by id_path";
 
 		Vector<Float> retrievedScores = new Vector<Float>();
 
@@ -628,9 +628,9 @@ public class H2Controller implements DBController {
 	@Override
 	public Vector<Float> getBPMNAbsoluteScoresExecutedByLearner(String learnerID) {
 		String query = "SELECT bpmn.absolute_bp_score"
-				+ " FROM glimpse.bpmn, glimpse.bpmn_learner"
-				+ " where bpmn_learner.id_learner = '" + learnerID + "'";
-
+				+ " FROM glimpse.bpmn"
+				+ " where id_bpmn IN (SELECT id_bpmn from glimpse.bpmn_learner where id_learner = '" + learnerID + "');";
+		
 		Vector<Float> retrievedScores = new Vector<Float>();
 
 		try {
@@ -696,7 +696,7 @@ public class H2Controller implements DBController {
 			float learnerRelativeBPScore, float learnerCoverage) {
 		String query;
 		try {
-			query = "select * from glimpse.bpmn_learner where id_learner = \'"+learnerID+"';";
+			query = "select * from glimpse.bpmn_learner where id_learner = \'"+learnerID+"' and id_bpmn = \'"+idBPMN + "';";
 					preparedStmt = conn.prepareStatement(query);
 					resultsSet = preparedStmt.executeQuery(); 
 						

@@ -225,12 +225,11 @@ public class LearnerAssessmentManagerImpl extends LearnerAssessmentManager {
 			DebugMessages.ok();
 			
 			DebugMessages.line();
-			DebugMessages.println(TimeStamp.getCurrentTime(),  this.getClass().getSimpleName(), " ------values set on CREATION OF THE EVENT TO SENT TO THE CP -------");
+			DebugMessages.println(TimeStamp.getCurrentTime(),  this.getClass().getSimpleName(), " ------ VALUES SENT TO THE CP ------");
 			DebugMessages.println(TimeStamp.getCurrentTime(),  this.getClass().getSimpleName(), "simulationSessionID: " + theEventForTheCP.simulationsessionid );
 			DebugMessages.println(TimeStamp.getCurrentTime(),  this.getClass().getSimpleName(), "involvedusers: " + theEventForTheCP.involvedusers );
 			DebugMessages.println(TimeStamp.getCurrentTime(),  this.getClass().getSimpleName(), "simulationSessionData: " + theEventForTheCP.simulationSessionData );
 			DebugMessages.line();
-			
 			
 		}
 	}
