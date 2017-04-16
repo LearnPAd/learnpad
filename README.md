@@ -7,7 +7,7 @@ Climate](https://codeclimate.com/github/LearnPAd/learnpad/badges/gpa.svg)](https
 Badge](https://www.codacy.com/project/badge/614d864cf4d44c5ba52b5df40f9812c6)](https://www.codacy.com/app/woshilapin/learnpad)
 
 Learn PAd project - Model-Based Social Learning for Public Administrations
-==========================================================================
+===================================================================
 
 Learn PAd is a European financed project ([FP7](http://cordis.europa.eu/fp7/)).
 
