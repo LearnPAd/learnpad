@@ -23,7 +23,7 @@ declare -r __OUT_RUNDEPS_FILE__="${__OUT_PATH__}/rundeps.txt"
 # This is the path to the directory where you can optionally put some configuration files
 declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
 
-declare __MVN_PROFILE__="--batch-mode"
+declare __MVN_PROFILE__="--batch-mode -Dhttps.protocols=TLSv1.2"
 
 for arg in $*
 do
