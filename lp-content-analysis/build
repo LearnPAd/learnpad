@@ -17,7 +17,8 @@ declare -r __OUT_RUNDEPS_FILE__="${__OUT_PATH__}/rundeps.txt"
 declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
 
 # avoid deleting/re-downloading license files
-declare -r __MVN_PROFILE__="-Pkeep-license-files --batch-mode -Dhttps.protocols=TLSv1.2"
+## declare -r __MVN_PROFILE__="-Pkeep-license-files --batch-mode -Dhttps.protocols=TLSv1.2"
+declare -r __MVN_PROFILE__="-Pkeep-license-files --batch-mode -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2"
 
 declare __ARG_FLAG__="";
 for arg in $*
