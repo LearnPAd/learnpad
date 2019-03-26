@@ -27,14 +27,15 @@ a XWiki service has been provided to facilitate access to data.
 # Build Issue
 As the rest of the Learn PAd project, this component uses JAVA 7.
 But, this component suffers of the issue:
->> javax.net.ssl.SSLHandshakeException: Received fatal alert: handshake_failure 
+`javax.net.ssl.SSLHandshakeException: Received fatal alert: handshake_failure`
 
 In cate this issue is manifested, and in order to build the component (and the whole project) please download the Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files and add them to:
- * {JAVA_HOME}/jre/lib/security
- * {JAVA_HOME}/lib/security
+ * `{JAVA_HOME}/jre/lib/security`
+ * `{JAVA_HOME}/lib/security`
+ 
 Further details can be found here:
- * [https://stackoverflow.com/questions/38203971/javax-net-ssl-sslhandshakeexception-received-fatal-alert-handshake-failure/38264878#38264878]
- * [https://confluence.atlassian.com/jirakb/sslhandshakeexception-received-fatal-alert-handshake_failure-due-to-no-overlap-in-cipher-suite-943544397.html]
+ * [on Stackoverflow](https://stackoverflow.com/questions/38203971/javax-net-ssl-sslhandshakeexception-received-fatal-alert-handshake-failure/38264878#38264878)
+ * [on Atlassian](https://confluence.atlassian.com/jirakb/sslhandshakeexception-received-fatal-alert-handshake_failure-due-to-no-overlap-in-cipher-suite-943544397.html) (actually it is about Jira but it is the same issue)
 
 # Configuration
 Since this component is based on XWiki, the configuration is mainly specific to
