@@ -23,7 +23,8 @@ declare -r __OUT_RUNDEPS_FILE__="${__OUT_PATH__}/rundeps.txt"
 # This is the path to the directory where you can optionally put some configuration files
 declare -r __OUT_CONF_PATH__="${__OUT_PATH__}/etc"
 
-declare -r __MVN_PROFILE__="--batch-mode -Dhttps.protocols=TLSv1.2"
+## declare -r __MVN_PROFILE__="--batch-mode -Dhttps.protocols=TLSv1.2"
+declare -r __MVN_PROFILE__="--batch-mode -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2"
 
 ### BUILD ###
 # This is where you compile and build each part of your component
@@ -36,7 +37,7 @@ function component_build() {
     # * install-gate-plugin-tools
     # * install-gate-plugin-ontology-tools
     # in the pom.xml, are only executed when the explicit phase clean is run
-    mvn clean
+    mvn ${__MVN_PROFILE__} clean
     # mvn clean install -Dmaven.test.skip=true
     # skip tests as we will do them in the component_test stage
     mvn ${__MVN_PROFILE__} clean install -Dmaven.test.skip=true
