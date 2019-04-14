@@ -1,0 +1,2561 @@
+-- @nsURI LPAD=http://learnpad.eu
+-- @nsURI ADOXX=http://www.ado.org
+
+module lpad2ado;
+create OUT: ADOXX from IN: LPAD;
+
+-- Standardization of names
+helper def: UNDEFINED: String = 'undef';
+helper def: mapModelType: Map(String, String) =
+	Map{('bpmn', 'Business process diagram (BPMN 2.0)'),
+		    ('cm', 'Competency model'),
+		    ('bmm', 'BMM'),
+		    ('dkm', 'Document and Knowledge model'),
+		    ('os', 'Organizational structure'),
+		    ('mso', 'Model Set Overview')};
+helper def: processedBPMNElementType: Sequence(String) =
+	Sequence{'Process', 'SubProcess', 'LaneSet', 'Lane', 'StartEvent', 'EndEvent',
+			'Task', 'SendTask', 
+			'Gateway', 'ExclusiveGateway', 'InclusiveGateway', 'ParallelGateway',
+			'BoundaryEvent', 'IntermediateCatchEvent', 'CallActivity', 'DataObject',
+			'InputOutputSpecification', 'DataInput', 'DataOutput', 'InputSet', 'OutputSet',
+			'CancelEventDefinition', 'CompensateEventDefinition'};
+helper def: processedBPMNFlowType: Sequence(String) =
+	Sequence{'SequenceFlow', 'MessageFlow', 'DataAssociation'};
+helper def: processedCompetencyElementType: Sequence(String) =
+	Sequence{'CompetencyGroup', 'Competency'};
+helper def: processedDocumentElementType: Sequence(String) =
+	Sequence{'Groups', 'Document'};
+helper def: processedOrganizationalElementType: Sequence(String) =
+	Sequence{'OrganizationalUnit', 'Role', 'Performer'};
+helper def: processedBusinessMotivationalElementType: Sequence(String) =
+	Sequence{'Assessment', 'Asset', 'BusinessProcess', 'CourseOfAction', 
+			'DesiredResult', 'Directive', 'End', 'Goal', 'Means'};
+			
+
+-- Context Utils Functions
+helper context OclAny def: getType: String =
+	if (self.oclIsUndefined()) then
+		''
+	else
+		self.oclType().toString().substring(6,self.oclType().toString().size())
+	endif;
+	
+helper def: connectorID: Integer = 0;
+
+
+helper def: modelsType: ADOXX!MODELSType = 
+	OclUndefined;
+
+helper def: overviewModels: ADOXX!INTERREFType = 
+	OclUndefined;
+
+-- get the parent model id of a BPMN element
+helper def: getParentModelID(current: OclAny ): String =
+	if (current.refImmediateComposite().oclIsUndefined()) then
+		thisModule.UNDEFINED
+	else
+		if ((current.refImmediateComposite().oclIsTypeOf(LPAD!BPMNModel)) or
+			(current.refImmediateComposite().oclIsTypeOf(LPAD!CompetencyModel)) or
+			(current.refImmediateComposite().oclIsTypeOf(LPAD!DKModel)) or
+			(current.refImmediateComposite().oclIsTypeOf(LPAD!OrganizationalModel)) or
+			(current.refImmediateComposite().oclIsTypeOf(LPAD!KPIModel)) or
+			(current.refImmediateComposite().oclIsTypeOf(LPAD!BMMModel)))
+		then
+			current.refImmediateComposite().id
+		else
+			thisModule.getParentModelID(current.refImmediateComposite())
+		endif
+	endif;
+
+-- get the parent MODELType of a BPMN element  
+helper context OclAny def: getParentMODELType: ADOXX!MODELType = 
+	thisModule.modelsType.mODEL->select(i | i.id=thisModule.getParentModelID(self)).first();
+
+-- documentation helper
+helper context OclAny def: BPMNDocumentation: String =
+	if (self.oclIsKindOf(LPAD!BaseElement)) then
+		if (not self.documentation.oclIsUndefined()) then
+			if (self.documentation->collect(i | i.description).first()<>'') then
+				self.documentation->collect(i | i.description).first()
+			else
+				self.documentation->collect(i | i.text).first()
+			endif
+		else
+			''
+		endif
+	else
+		''
+	endif;
+
+-- version helper
+helper context OclAny def: getVersion: String = 
+	if (self.version.oclIsUndefined()) then
+		''
+	else
+		self.version
+	endif;
+
+-- name Model Set Overview helper
+helper context LPAD!LPAdRoot def: getModelSetOverViewName: String = 
+	if (self.name.oclIsUndefined()) then
+		'Model Set Overview'
+	else
+		'Model Set Overview - '+self.name
+	endif;
+
+-- name ModelSet helper
+helper context LPAD!LPAdRoot def: getModelSetName: String = 
+	if (self.name.oclIsUndefined()) then
+		'ModelSet'
+	else
+		'ModelSet - '+self.name
+	endif;
+
+--inter model references helper
+-- get the model of an Organizational Structure Element  
+helper def: getOrganizationalModel(current: OclAny ): LPAD!OrganizationalModel =
+	if (current.refImmediateComposite().oclIsTypeOf(LPAD!OrganizationalModel)) then
+			current.refImmediateComposite()
+		else
+			thisModule.getOrganizationalModel(current.refImmediateComposite())
+		endif;
+
+helper def: getCompetencyModel(current: OclAny ): LPAD!CompetencyModel =
+	if (current.refImmediateComposite().oclIsTypeOf(LPAD!CompetencyModel)) then
+			current.refImmediateComposite()
+		else
+			thisModule.getCompetencyModel(current.refImmediateComposite())
+		endif;
+
+entrypoint rule ModelOverview() {
+	to
+		t: ADOXX!ADOXMLType (
+			mODELS <- t1
+		),
+		t1: ADOXX!MODELSType (
+		)
+	do {
+		 --set the modelsType
+		thisModule.modelsType <- t1;
+	}
+}
+
+-------------------  LPAdRoot2ModelSetOverview  ----------------------
+rule LPAdRoot2ModelSetOverview {
+	from
+		s: LPAD!LPAdRoot
+	to
+		t: ADOXX!MODELType (
+			applib <- 'LearnPAd',
+			libtype <- 'bp',
+			version <- s.getVersion,
+			id <- s.id,
+			modeltype <- thisModule.mapModelType.get('mso'),
+			name <- s.getModelSetOverViewName,
+			iNSTANCE <- Sequence{i}
+		),
+		i: ADOXX!INSTANCEType (
+			class <- 'ModelSet',
+			name <- s.getModelSetName,
+			id <- 'ModelSetID',
+			aTTRIBUTE <- Sequence{a1, a2},
+			iNTERREF <- Sequence{ir}
+		),
+		a1: ADOXX!ATTRIBUTEType (
+			name <- 'Model Set ID',
+			type <- 'STRING',
+			value <- 'MODELSET_ID'
+		),
+		a2: ADOXX!ATTRIBUTEType (
+			name <- 'Model Set Description',
+			type <- 'LONGSTRING',
+			value <- s.getModelSetName
+		),
+		ir: ADOXX!INTERREFType (
+			name <- 'Model Set'	
+		)
+	do {
+		thisModule.modelsType.mODEL <- thisModule.modelsType.mODEL.append(t);
+		thisModule.overviewModels <- ir;
+	}
+}
+
+rule createInsideConnector(source: OclAny, target: OclAny) {
+	to
+		c1: ADOXX!CONNECTORType (
+			class <- 'Is inside',
+			id <- 'conn.'+(thisModule.connectorID+1).toString(),
+			fROM <- f1,
+			tO <- t1
+		),
+		f1: ADOXX!FROMType (
+			class <- source.getType,
+			instance <- source.name
+		),
+		t1: ADOXX!TOType (
+			class <- target.getType,
+			instance <- target.name
+		)
+	do {
+		source.getParentMODELType.cONNECTOR <- c1;
+		
+		thisModule.connectorID <- thisModule.connectorID +1;
+	}
+}
+
+------------------------  BPMN2MODELType  ---------------------------
+rule BPMN2MODELType {
+	from
+		s: LPAD!BPMNModel
+	to
+		t: ADOXX!MODELType(
+			id <- s.id,
+			name <- s.name,
+			version <- s.getVersion,
+			applib <- 'LearnPAd',
+			libtype <- 'bp',
+			modeltype <- thisModule.mapModelType.get('bpmn'),
+			mODELATTRIBUTES <- Sequence{m}
+		),
+		m: ADOXX!MODELATTRIBUTESType(
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- ''
+		),
+		iref: ADOXX!IREFType(
+			tmodelname <- s.name,
+			tmodeltype <- thisModule.mapModelType.get('bpmn'),
+			type <- 'modelreference',
+			tmodelver <- s.getVersion
+		)
+	do {
+		thisModule.modelsType.mODEL <- thisModule.modelsType.mODEL.append(t);
+		
+		--append the iref definition to the model set overview reference
+		thisModule.overviewModels.iREF <- thisModule.overviewModels.iREF.append(iref);
+	}
+}
+
+-------------------------  BPMN Base Elements ------------------------------
+abstract rule BPMNBaseElement {
+	from
+		s: LPAD!BaseElement ((thisModule.processedBPMNElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.BPMNDocumentation
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+			
+			--relations from Base superclass
+			thisModule.BPMNBaseConnector(s);
+		}
+}	
+
+-----------------------------  BPMN Process -------------------------------
+rule BPMNProcess2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!Process
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from FlowElementsContainer superclass
+		thisModule.BPMNFlowElementsContainerConnector(s);
+		
+		--relations from CallableElement superclass
+		thisModule.BPMNCallableElementConnector(s);
+	}
+}
+
+---------------------------  BPMN Sub-Process -----------------------------
+rule BPMNSubProcess2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!SubProcess
+	to
+		i: ADOXX!INSTANCEType(
+			iNTERREF <- Sequence{iou, ic}
+		),
+		iou: ADOXX!INTERREFType(
+			name <- 'Referenced Organizational Unit'
+		),
+		ic: ADOXX!INTERREFType(
+			name <- 'Referenced Competency'
+		)
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from FlowElementsContainer superclass
+		thisModule.BPMNFlowElementsContainerConnector(s);
+		
+		--relations from Activity superclass
+		thisModule.BPMNActivityConnector(s);
+		
+		--intermodel references from Activity superclass
+		if (not s.requiresCompetency.oclIsUndefined()) {
+			for (t in s.requiresCompetency) {
+				thisModule.irefModelReference(ic, 
+													t.getType, 
+													thisModule.getCompetencyModel(t).name,
+													thisModule.mapModelType.get('cm'),
+													'',
+													t.name);
+			}
+		}
+		
+		if (not s.competency.oclIsUndefined()) {
+			for (t in s.competency) {
+				thisModule.irefModelReference(ic, 
+													t.getType, 
+													thisModule.getCompetencyModel(t).name,
+													thisModule.mapModelType.get('cm'),
+													'',
+													t.name);
+			}
+		}
+		
+			
+		if (not s.isPerformedByOrganisationalUnit.oclIsUndefined()) {
+			for (t in s.isPerformedByOrganisationalUnit) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+		
+		if (not s.isResponsibleByOrganisationalUnit.oclIsUndefined()) {
+			for (t in s.isResponsibleByOrganisationalUnit) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+		
+		if (not s.isPerformedBy.oclIsUndefined()) {
+			for (t in s.isPerformedBy) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+		
+		if (not s.isPerformedByPosition.oclIsUndefined()) {
+			for (t in s.isPerformedByPosition) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+		
+		if (not s.isPerformedByRole.oclIsUndefined()) {
+			for (t in s.isPerformedByRole) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+	}
+}
+
+-----------------------------  BPMN LaneSet -------------------------------
+rule BPMNLaneSet2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!LaneSet
+	to 
+		i: ADOXX!INSTANCEType(
+			iNTERREF <- Sequence{iou}	
+		),
+		iou: ADOXX!INTERREFType(
+			name <- 'Referenced Organizational Unit'
+		)
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from LaneSet
+		thisModule.BPMNLaneSetConnector(s);
+		
+		--intermodel references
+		if (not s.representsOrganisationalUnit.oclIsUndefined()) {
+			for (t in s.representsOrganisationalUnit) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+	}
+}
+
+
+------------------------------  BPMN Lane --------------------------------
+rule BPMNLane2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!Lane
+	to
+		i: ADOXX!INSTANCEType(
+			iNTERREF <- Sequence{iou}
+		),
+		iou: ADOXX!INTERREFType(
+			name <- 'Referenced Organizational Unit'
+		)
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from Lane
+		thisModule.BPMNLaneConnector(s);
+		
+		--intermodel references
+		if (not s.representsOrganisationalUnit.oclIsUndefined()) {
+			
+			for (t in s.representsOrganisationalUnit) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+		
+		
+		if (not s.representsPerformer.oclIsUndefined()) {
+			for (t in s.representsPerformer) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+		
+		if (not s.representsRole.oclIsUndefined()) {
+			for (t in s.representsRole) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+	}
+}
+
+---------------------------  BPMN Start Event ----------------------------
+rule BPMNStartEvent2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!StartEvent
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from CatchEvent superclass
+		thisModule.BPMNCatchEventConnector(s);
+	}
+}
+
+-----------------------------  BPMN End Event -----------------------------
+rule BPMNEndEvent2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!EndEvent
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from ThrowEvent
+		thisModule.BPMNThrowEventConnector(s);
+	}
+}
+
+------------------------------  BPMN Task --------------------------------
+rule BPMNTask2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!Task
+	to
+		i: ADOXX!INSTANCEType(
+			iNTERREF <- Sequence{iou, ic}
+		),
+		iou: ADOXX!INTERREFType(
+			name <- 'Referenced Organizational Unit'
+		),
+		ic: ADOXX!INTERREFType(
+			name <- 'Referenced Competency'
+		)
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from Task
+		thisModule.BPMNTaskConnector(s);
+		
+		--relations from Activity superclass
+		thisModule.BPMNActivityConnector(s);
+		
+		--intermodel references from Activity superclass
+		if (not s.requiresCompetency.oclIsUndefined()) {
+			for (t in s.requiresCompetency) {
+				thisModule.irefModelReference(ic, 
+													t.getType, 
+													thisModule.getCompetencyModel(t).name,
+													thisModule.mapModelType.get('cm'),
+													'',
+													t.name);
+			}
+		}
+		
+		if (not s.competency.oclIsUndefined()) {
+			for (t in s.competency) {
+				thisModule.irefModelReference(ic, 
+													t.getType, 
+													thisModule.getCompetencyModel(t).name,
+													thisModule.mapModelType.get('cm'),
+													'',
+													t.name);
+			}
+		}
+		
+			
+		if (not s.isPerformedByOrganisationalUnit.oclIsUndefined()) {
+			for (t in s.isPerformedByOrganisationalUnit) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+		
+		if (not s.isResponsibleByOrganisationalUnit.oclIsUndefined()) {
+			for (t in s.isResponsibleByOrganisationalUnit) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+		
+		if (not s.isPerformedBy.oclIsUndefined()) {
+			for (t in s.isPerformedBy) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+		
+		if (not s.isPerformedByPosition.oclIsUndefined()) {
+			for (t in s.isPerformedByPosition) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+		
+		if (not s.isPerformedByRole.oclIsUndefined()) {
+			for (t in s.isPerformedByRole) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+	}
+}
+
+-----------------------------  BPMN SendTask -----------------------------
+rule BPMNSendTask2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!SendTask
+	to
+		i: ADOXX!INSTANCEType(
+			iNTERREF <- Sequence{iou, ic}
+		),
+		iou: ADOXX!INTERREFType(
+			name <- 'Referenced Organizational Unit'
+		),
+		ic: ADOXX!INTERREFType(
+			name <- 'Referenced Competency'
+		)
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from Task
+		thisModule.BPMNTaskConnector(s);
+		
+		--relations from Activity superclass
+		thisModule.BPMNActivityConnector(s);
+		
+		--intermodel references from Activity superclass
+		if (not s.requiresCompetency.oclIsUndefined()) {
+			for (t in s.requiresCompetency) {
+				thisModule.irefModelReference(ic, 
+													t.getType, 
+													thisModule.getCompetencyModel(t).name,
+													thisModule.mapModelType.get('cm'),
+													'',
+													t.name);
+			}
+		}
+		
+		if (not s.competency.oclIsUndefined()) {
+			for (t in s.competency) {
+				thisModule.irefModelReference(ic, 
+													t.getType, 
+													thisModule.getCompetencyModel(t).name,
+													thisModule.mapModelType.get('cm'),
+													'',
+													t.name);
+			}
+		}
+		
+			
+		if (not s.isPerformedByOrganisationalUnit.oclIsUndefined()) {
+			for (t in s.isPerformedByOrganisationalUnit) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+		
+		if (not s.isResponsibleByOrganisationalUnit.oclIsUndefined()) {
+			for (t in s.isResponsibleByOrganisationalUnit) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+		
+		if (not s.isPerformedBy.oclIsUndefined()) {
+			for (t in s.isPerformedBy) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+		
+		if (not s.isPerformedByPosition.oclIsUndefined()) {
+			for (t in s.isPerformedByPosition) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+		
+		if (not s.isPerformedByRole.oclIsUndefined()) {
+			for (t in s.isPerformedByRole) {
+				thisModule.irefModelReference(iou, 
+													t.getType, 
+													thisModule.getOrganizationalModel(t).name,
+													thisModule.mapModelType.get('os'),
+													'',
+													t.name);
+			}
+		}
+	}
+}
+
+-----------------------------  BPMN Gateway ------------------------------
+rule BPMNGateway2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!Gateway
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from FlowNode
+		thisModule.BPMNFlowNodeConnector(s);
+			
+	}
+}
+
+------------------------  BPMN ExclusiveGateway --------------------------
+rule BPMNExclusiveGateway2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!ExclusiveGateway
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from FlowNode
+		thisModule.BPMNFlowNodeConnector(s);
+			
+	}
+}
+
+--------------------------  BPMN InclusiveGateway -------------------------
+rule BPMNInclusiveGateway2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!InclusiveGateway
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from FlowNode
+		thisModule.BPMNFlowNodeConnector(s);
+			
+	}
+}
+
+-------------------------  BPMN ParallelGateway --------------------------
+rule BPMNParallelGateway2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!ParallelGateway
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from FlowNode
+		thisModule.BPMNFlowNodeConnector(s);
+			
+	}
+}
+
+---------------------------  BPMN BoundaryEvent ---------------------------
+rule BPMNBoundaryEvent2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!BoundaryEvent
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from CatchEvent
+		thisModule.BPMNCatchEventConnector(s);
+			
+	}
+}
+
+----------------------  BPMN IntermediateCatchEvent ----------------------
+rule BPMNIntermediateCatchEvent2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!IntermediateCatchEvent
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from CatchEvent
+		thisModule.BPMNCatchEventConnector(s);
+			
+	}
+}
+
+---------------------------  BPMN CallActivity ---------------------------
+rule BPMNCallActivity2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!CallActivity
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from CatchEvent
+		thisModule.BPMNActivityConnector(s);
+			
+	}
+}
+
+---------------------------  BPMN DataObject -----------------------------
+rule BPMNDataObject2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!DataObject
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from CatchEvent
+		thisModule.BPMNFlowElementsContainerConnector(s);
+			
+	}
+}
+
+----------------------  BPMN InputOutputSpecification --------------------
+rule BPMNInputOutputSpecification2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!InputOutputSpecification
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from InputOutputSpecification
+		thisModule.BPMNInputOutputSpecificationConnector(s);
+			
+	}
+}
+
+------------------------------  BPMN DataInput ---------------------------
+rule BPMNDataInput2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!DataInput
+	to
+		i: ADOXX!INSTANCEType(
+			iNTERREF <- Sequence{idm}
+		),
+		idm: ADOXX!INTERREFType(
+			name <- 'Referenced Document and Knowledge Product'
+		)
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--intermodel references from Data Input
+		if (not s.referencesDocument.oclIsUndefined()) {
+			for (t in s.referencesDocument) {
+				thisModule.irefModelReference(idm, 
+													t.getType, 
+													thisModule.getCompetencyModel(t).name,
+													thisModule.mapModelType.get('dkm'),
+													'',
+													t.name);
+			}
+		}
+	}
+}
+
+------------------------------  BPMN DataOutput ---------------------------
+rule BPMNDataOutput2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!DataOutput
+	to
+		i: ADOXX!INSTANCEType(
+			iNTERREF <- Sequence{idm}
+		),
+		idm: ADOXX!INTERREFType(
+			name <- 'Referenced Document and Knowledge Product'
+		)
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--intermodel references from Data Output
+		if (not s.referencesDocument.oclIsUndefined()) {
+			for (t in s.referencesDocument) {
+				thisModule.irefModelReference(idm, 
+													t.getType, 
+													thisModule.getCompetencyModel(t).name,
+													thisModule.mapModelType.get('dkm'),
+													'',
+													t.name);
+			}
+		}
+	}
+}
+
+------------------------------  BPMN InputSet ----------------------------
+rule BPMNInputSet2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!InputSet
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+	}
+}
+
+-----------------------------  BPMN OutputSet ----------------------------
+rule BPMNDOutputSet2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!OutputSet
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+	}
+}
+
+-----------------------  BPMN CancelEventDefinition ----------------------
+rule BPMNCancelEventDefinition2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!CancelEventDefinition
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+	}
+}
+
+--------------------  BPMN CompensateEventDefinition ---------------------
+rule BPMNCompensateEventDefinition2InstanceType extends BPMNBaseElement {
+	from
+		s: LPAD!CompensateEventDefinition
+	do {
+		--set the instances to parent model
+		s.getParentMODELType.iNSTANCE <- i;
+		
+		--relations from Base superclass
+		thisModule.BPMNBaseConnector(s);
+		
+		--relations from CompensateEventDefinition
+		thisModule.BPMNCompensateEventDefinitionConnector(s);
+	}
+}
+
+---------------------------  BPMN SequenceFlow ---------------------------
+rule BPMNSequenceFlow2ConnectorType {
+	from
+		s: LPAD!SequenceFlow((thisModule.processedBPMNFlowType.includes(s.getType)) and 
+							(thisModule.processedBPMNElementType.includes(s.sourceRef.getType)) and
+							(not s.sourceRef.name.oclIsUndefined()) and 
+			 				(s.sourceRef.name.toString()<>'') and	
+							(thisModule.processedBPMNElementType.includes(s.targetRef.getType)) and
+							(not s.targetRef.name.oclIsUndefined()) and 
+			 				(s.targetRef.name.toString()<>''))
+	to
+		c: ADOXX!CONNECTORType (
+			class <- 'Subsequent', 
+			id <- s.id,
+			fROM <- f,
+			tO <- t,
+			aTTRIBUTE <- Sequence{a, a1}
+		),
+		f: ADOXX!FROMType (
+			class <- s.sourceRef.getType,
+			instance <- s.sourceRef.name
+		),
+		t: ADOXX!TOType (
+			class <- s.targetRef.getType,
+			instance <- s.targetRef.name
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'LONGSTRING',
+			value <- ''
+		),
+		a1: ADOXX!ATTRIBUTEType (
+			name <- 'Denomination',
+			type <- 'STRING',
+			value <- ''
+		)
+	do {
+		--set the connector to parent model
+		s.getParentMODELType.cONNECTOR<- c;
+	}
+}
+
+----------------------------  BPMN MessageFlow ----------------------------
+rule BPMNMessageFlow2ConnectorType {
+	from
+		s: LPAD!MessageFlow((thisModule.processedBPMNFlowType.includes(s.getType)) and 
+							(thisModule.processedBPMNElementType.includes(s.sourceRef.getType)) and
+							(not s.sourceRef.name.oclIsUndefined()) and 
+			 				(s.sourceRef.name.toString()<>'') and	
+							(thisModule.processedBPMNElementType.includes(s.targetRef.getType)) and
+							(not s.targetRef.name.oclIsUndefined()) and 
+			 				(s.targetRef.name.toString()<>''))
+	to
+		c: ADOXX!CONNECTORType (
+			class <- 'Message Flow', 
+			id <- s.id,
+			fROM <- f,
+			tO <- t
+		),
+		f: ADOXX!FROMType (
+			class <- s.sourceRef.getType,
+			instance <- s.sourceRef.name
+		),
+		t: ADOXX!TOType (
+			class <- s.targetRef.getType,
+			instance <- s.targetRef.name
+		)
+	do {
+		--set the connector to parent model
+		s.getParentMODELType.cONNECTOR<- c;
+	}
+}
+
+---------------------  relations among BPMNElements ----------------------
+helper def: connectBPMNElements(source: OclAny, target: OclAny): Boolean =
+	if ((not source.name.oclIsUndefined()) and (source.name.toString()<>'')) and
+	((not target.name.oclIsUndefined()) and (target.name.toString()<>'')) and
+	(thisModule.processedBPMNElementType.includes(source.getType)) and
+	(thisModule.processedBPMNElementType.includes(target.getType)) then
+		thisModule.createInsideConnector(source, target)
+	else
+		false
+	endif;
+
+---------------------  BPMN Is inside relation rules ----------------------
+rule BPMNBaseConnector(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!BaseElement)) {
+			if (not elem.documentation.oclIsUndefined()) {
+				for (t in elem.documentation) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+		} 
+	}
+}
+
+rule BPMNFlowElementsContainerConnector(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!FlowElementsContainer)) {
+			if (not elem.laneSets.oclIsUndefined()) {
+				for (t in elem.laneSets) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+		
+			if (not elem.flowElements.oclIsUndefined()) {
+				for (t in elem.flowElements) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+		} 
+	}
+}
+
+rule BPMNCallableElementConnector(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!CallableElement)) {
+			if (not elem.ioSpecification.oclIsUndefined()) { 
+				thisModule.connectBPMNElements(elem, elem.ioSpecification);
+				thisModule.connectBPMNElements(elem.ioSpecification, elem);
+			}
+		} 
+	}
+}
+
+rule BPMNThrowEventConnector(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!ThrowEvent)) {
+			if (not elem.dataInputs.oclIsUndefined()) {
+				for (t in elem.dataInputs) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+		
+			if (not elem.dataInputAssociation.oclIsUndefined()) {
+				for (t in elem.dataInputAssociation) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+			
+			if (not elem.eventDefinitions.oclIsUndefined()) {
+				for (t in elem.eventDefinitions) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+			
+			if (not elem.eventDefinitionRefs.oclIsUndefined()) {
+				for (t in elem.eventDefinitionRefs) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+			
+			if (not elem.inputSet.oclIsUndefined()) { 
+				thisModule.connectBPMNElements(elem, elem.childLaneSet);
+				thisModule.connectBPMNElements(elem.childLaneSet, elem);
+			}
+		}
+	}
+}
+
+rule BPMNInputOutputSpecificationConnector(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!InputOutputSpecification)) {
+			if (not elem.dataInputs.oclIsUndefined()) {
+				for (t in elem.dataInputs) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+		
+			if (not elem.inputSets.oclIsUndefined()) {
+				for (t in elem.inputSets) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+			
+			if (not elem.dataOutputs.oclIsUndefined()) {
+				for (t in elem.dataOutputs) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+			
+			if (not elem.outputSets.oclIsUndefined()) {
+				for (t in elem.outputSets) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+rule BPMNActivityConnector(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!Activity)) {
+			if (not elem.ioSpecification.oclIsUndefined()) { 
+				thisModule.connectBPMNElements(elem, elem.ioSpecification);
+				thisModule.connectBPMNElements(elem.ioSpecification, elem);
+			}
+			
+			if (not elem.boundaryEventRefs.oclIsUndefined()) {
+				for (t in elem.boundaryEventRefs) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+			
+			if (not elem.properties.oclIsUndefined()) {
+				for (t in elem.properties) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+			
+			if (not elem.dataInputAssociations.oclIsUndefined()) {
+				for (t in elem.dataInputAssociations) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+			
+			if (not elem.dataOutputAssociations.oclIsUndefined()) {
+				for (t in elem.dataOutputAssociations) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+		} 
+	}
+}
+
+rule BPMNLaneSetConnector(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!LaneSet)) {
+			if (not elem.lanes.oclIsUndefined()) {
+				for (t in elem.lanes) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+		} 
+	}
+}
+
+rule BPMNLaneConnector(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!Lane)) {
+			if (not elem.partitionElement.oclIsUndefined()) {
+				for (t in elem.partitionElement) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+		
+			if (not elem.flowNodeRefs.oclIsUndefined()) {
+				for (t in elem.flowNodeRefs) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+			
+			if (not elem.partitionElementRef.oclIsUndefined()) {
+				thisModule.connectBPMNElements(elem, elem.partitionElementRef);
+				thisModule.connectBPMNElements(elem.partitionElementRef, elem);
+			}
+			
+			if (not elem.childLaneSet.oclIsUndefined()) { 
+				thisModule.connectBPMNElements(elem, elem.childLaneSet);
+				thisModule.connectBPMNElements(elem.childLaneSet, elem);
+			}
+			
+		} 
+	}
+}
+
+rule BPMNCatchEventConnector(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!CatchEvent)) {
+			if (not elem.dataOutputs.oclIsUndefined()) {
+				for (t in elem.dataOutputs) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+			
+			if (not elem.dataOutputAssociation.oclIsUndefined()) {
+				for (t in elem.dataOutputAssociation) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+			
+			if (not elem.eventDefinitions.oclIsUndefined()) {
+				for (t in elem.eventDefinitions) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+			
+			if (not elem.eventDefinitionRefs.oclIsUndefined()) {
+				for (t in elem.eventDefinitionRefs) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+			
+			if (not elem.outputSet.oclIsUndefined()) { 
+				thisModule.connectBPMNElements(elem, elem.childLaneSet);
+				thisModule.connectBPMNElements(elem.childLaneSet, elem);
+			}
+		} 
+	}
+}
+
+rule BPMNCompensateEventDefinitionConnector(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!CompensateEventDefinition)) {
+			if (not elem.activityRef.oclIsUndefined()) { 
+				thisModule.connectBPMNElements(elem, elem.activityRef);
+				thisModule.connectBPMNElements(elem.activityRef, elem);
+			}
+		}
+	}
+}
+
+rule BPMNTaskConnector(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!Task)) {
+			if (not elem.documentsAndResources.oclIsUndefined()) {
+				for (t in elem.documentsAndResources) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+rule BPMNFlowNodeConnector(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!FlowNode)) {
+			if (not elem.lanes.oclIsUndefined()) {
+				for (t in elem.lanes) {
+					thisModule.connectBPMNElements(elem, t);
+					thisModule.connectBPMNElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+------------------------  Competency2MODELType  ---------------------------
+rule Competency2MODELType {
+	from
+		s: LPAD!CompetencyModel
+	to
+		t: ADOXX!MODELType(
+			id <- s.id,
+			name <- s.name,
+			version <- s.getVersion,
+			applib <- 'LearnPAd', 
+			libtype <- 'bp',
+			modeltype <- thisModule.mapModelType.get('cm'),
+			mODELATTRIBUTES <- Sequence{m}
+		),
+		m: ADOXX!MODELATTRIBUTESType(
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- ''
+		),
+		iref: ADOXX!IREFType(
+			tmodelname <- s.name,
+			tmodeltype <- thisModule.mapModelType.get('cm'),
+			type <- 'modelreference',
+			tmodelver <- s.getVersion
+		)
+	do {
+		thisModule.modelsType.mODEL <- thisModule.modelsType.mODEL.append(t);
+		
+		--append the iref definition to the model set overview reference
+		thisModule.overviewModels.iREF <- thisModule.overviewModels.iREF.append(iref);
+	}
+}
+
+-------------------------  Competency Group ------------------------------
+rule CompetencyGroup2InstanceType {
+	from
+		s: LPAD!CompetencyGroup ((thisModule.processedCompetencyElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.description
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+			
+			--relations from Competency Group
+			thisModule.CompetencyGroup(s);
+		}
+}	
+
+-----------------------  Competency Competency ----------------------------
+rule Competency2InstanceType {
+	from
+		s: LPAD!Competency ((thisModule.processedCompetencyElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a1, a2, a3, a4, a5}
+		),
+		a1: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.description
+		),
+		a2: ADOXX!ATTRIBUTEType (
+			name <- 'EQF Level',
+			type <- 'STRING',
+			value <- s.EQFLevel.toString()
+		),
+		a3: ADOXX!ATTRIBUTEType (
+			name <- 'EQF Competence',
+			type <- 'STRING',
+			value <- s.EQFCompetence
+		),
+		a4: ADOXX!ATTRIBUTEType (
+			name <- 'EQF Skill',
+			type <- 'STRING',
+			value <- s.EQFSkill
+		),
+		a5: ADOXX!ATTRIBUTEType (
+			name <- 'EQF Knowledge',
+			type <- 'STRING',
+			value <- s.EQFKnowledge
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+		}
+}	
+
+------------------  relations among CompetencyElements ---------------------
+helper def: connectCompetencyElements(source: OclAny, target: OclAny): Boolean =
+	if ((not source.name.oclIsUndefined()) and (source.name.toString()<>'')) and
+	((not target.name.oclIsUndefined()) and (target.name.toString()<>'')) and
+	(thisModule.processedCompetencyElementType.includes(source.getType)) and
+	(thisModule.processedCompetencyElementType.includes(target.getType)) then
+		thisModule.createInsideConnector(source, target)
+	else
+		false
+	endif;
+
+-----------------  Competency Is inside relation rules  --------------------
+
+rule CompetencyGroup(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!CompetencyGroup)) {
+			if (not elem.belongs.oclIsUndefined()) {
+				for (t in elem.belongs) {
+					thisModule.connectCompetencyElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+------------------------  DocumentAndKnowledge2MODELType  ---------------------------
+rule DocumentAndKnowledge2MODELType {
+	from
+		s: LPAD!DKModel
+	to
+		t: ADOXX!MODELType(
+			id <- s.id,
+			name <- s.name,
+			version <- s.getVersion,
+			applib <- 'LearnPAd', 
+			libtype <- 'bp',
+			modeltype <- thisModule.mapModelType.get('dkm'),
+			mODELATTRIBUTES <- Sequence{m}
+		),
+		m: ADOXX!MODELATTRIBUTESType(
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- ''
+		),
+		iref: ADOXX!IREFType(
+			tmodelname <- s.name,
+			tmodeltype <- thisModule.mapModelType.get('dkm'),
+			type <- 'modelreference',
+			tmodelver <- s.getVersion
+		)
+	do {
+		thisModule.modelsType.mODEL <- thisModule.modelsType.mODEL.append(t);
+		
+		--append the iref definition to the model set overview reference
+		thisModule.overviewModels.iREF <- thisModule.overviewModels.iREF.append(iref);
+	}
+}
+
+-------------------------  Document Group ------------------------------
+rule Groups2InstanceType {
+	from
+		s: LPAD!Groups ((thisModule.processedDocumentElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.description
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+			
+			--relations from Document Group
+			thisModule.DocumentGroup(s);
+		}
+}	
+
+-------------------------  Document ------------------------------
+rule Document2InstanceType {
+	from
+		s: LPAD!Document ((thisModule.processedDocumentElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a1}
+		),
+		a1: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.description
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+		}
+}	
+
+------------------  relations among DocumentsElements ---------------------
+helper def: connectDocumentsElements(source: OclAny, target: OclAny): Boolean =
+	if ((not source.name.oclIsUndefined()) and (source.name.toString()<>'')) and
+	((not target.name.oclIsUndefined()) and (target.name.toString()<>'')) and
+	(thisModule.processedDocumentElementType.includes(source.getType)) and
+	(thisModule.processedDocumentElementType.includes(target.getType)) then
+		thisModule.createInsideConnector(source, target)
+	else
+		false
+	endif;
+
+-----------------  Document Is inside relation rules  --------------------
+
+rule DocumentGroup(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!Groups)) {
+			if (not elem.documents.oclIsUndefined()) {
+				for (t in elem.documents) {
+					thisModule.connectDocumentsElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+------------------------  OrganizationalStruct2MODELType  ---------------------------
+rule OrganizationalStruct2MODELType {
+	from
+		s: LPAD!OrganizationalModel
+	to
+		t: ADOXX!MODELType(
+			id <- s.id,
+			name <- s.name,
+			version <- s.getVersion,
+			applib <- 'LearnPAd', 
+			libtype <- 'bp',
+			modeltype <- thisModule.mapModelType.get('os'),
+			mODELATTRIBUTES <- Sequence{m}
+		),
+		m: ADOXX!MODELATTRIBUTESType(
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- ''
+		),
+		iref: ADOXX!IREFType(
+			tmodelname <- s.name,
+			tmodeltype <- thisModule.mapModelType.get('os'),
+			type <- 'modelreference',
+			tmodelver <- s.getVersion
+		)
+	do {
+		thisModule.modelsType.mODEL <- thisModule.modelsType.mODEL.append(t);
+		
+		--append the iref definition to the model set overview reference
+		thisModule.overviewModels.iREF <- thisModule.overviewModels.iREF.append(iref);
+	}
+}
+
+-------------------------  OrganizationalUnit ------------------------------
+rule OrganizationalUnit2InstanceType {
+	from
+		s: LPAD!OrganizationalUnit ((thisModule.processedOrganizationalElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a},
+			iNTERREF <- Sequence{idm, ibmm}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.description
+		),
+		idm: ADOXX!INTERREFType(
+			name <- 'Referenced Document Knowledge Product'
+		),
+		ibmm: ADOXX!INTERREFType(
+			name <- 'Referenced Business and Motivation'
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+			
+			--relations from Organizational Unit
+			thisModule.OrganizationalUnit(s);
+			
+			--intermodel references from Organizational Unit
+			if (not s.hasGoal.oclIsUndefined()) {
+				for (t in s.hasGoal) {
+					thisModule.irefModelReference(ibmm, 
+													t.getType, 
+													thisModule.getCompetencyModel(t).name,
+													thisModule.mapModelType.get('bmm'),
+													'',
+													t.name);
+				}
+			}
+			
+			if (not s.hasResource.oclIsUndefined()) {
+				for (t in s.hasResource) {
+					thisModule.irefModelReference(idm, 
+													t.getType, 
+													thisModule.getCompetencyModel(t).name,
+													thisModule.mapModelType.get('dkm'),
+													'',
+													t.name);
+				}
+			}
+		}
+}	
+
+--------------------------------  Role -------------------------------------
+rule Role2InstanceType {
+	from
+		s: LPAD!Role ((thisModule.processedOrganizationalElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.description
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+			
+			--relations from Role
+			thisModule.Role(s);
+		}
+}	
+
+---------------------------------  Performer ---------------------------------------
+rule Performer2InstanceType {
+	from
+		s: LPAD!Performer ((thisModule.processedOrganizationalElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.description
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+			
+			--relations from Performer
+			thisModule.Performer(s);
+		}
+}	
+
+------------------  relations among OrganizationalElements ---------------------
+helper def: connectOrganizationalElements(source: OclAny, target: OclAny): Boolean =
+	if ((not source.name.oclIsUndefined()) and (source.name.toString()<>'')) and
+	((not target.name.oclIsUndefined()) and (target.name.toString()<>'')) and
+	(thisModule.processedOrganizationalElementType.includes(source.getType)) and
+	(thisModule.processedOrganizationalElementType.includes(target.getType)) then
+		thisModule.createInsideConnector(source, target)
+	else
+		false
+	endif;
+
+-----------------  OrganizationalUnit Is inside relation rules  --------------------
+rule OrganizationalUnit(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!OrganizationalUnit)) {
+			if (not elem.roles.oclIsUndefined()) {
+				for (t in elem.roles) {
+					thisModule.connectOrganizationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.performers.oclIsUndefined()) {
+				for (t in elem.performers) {
+					thisModule.connectOrganizationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.positions.oclIsUndefined()) {
+				for (t in elem.positions) {
+					thisModule.connectOrganizationalElements(t, elem);
+				}	
+			}
+			
+			if (not elem.resources.oclIsUndefined()) {
+				for (t in elem.resources) {
+					thisModule.connectOrganizationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.subOrdinatedOrgUnits.oclIsUndefined()) {
+				for (t in elem.subOrdinatedOrgUnits) {
+					thisModule.connectOrganizationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.supervisingOrgUnits.oclIsUndefined()) {
+				for (t in elem.supervisingOrgUnits) {
+					thisModule.connectOrganizationalElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+
+------------------------  Role Is inside relation rules  ---------------------------
+rule Role(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!Role)) {
+			
+			if (not elem.orgUnit.oclIsUndefined()) {
+				for (t in elem.orgUnit) {
+					thisModule.connectOrganizationalElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+------------------------  Performer Is inside relation rules  ---------------------------
+rule Performer(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!Performer)) {
+			
+			if (not elem.hasRoles.oclIsUndefined()) {
+				for (t in elem.hasRoles) {
+					thisModule.connectOrganizationalElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+-----------------------  BusinessAndMotivation2MODELType  ---------------------------
+rule BusinessAndMotivation2MODELType {
+	from
+		s: LPAD!BMMModel
+	to
+		t: ADOXX!MODELType(
+			id <- s.id,
+			name <- s.name,
+			version <- s.getVersion,
+			applib <- 'LearnPAd', 
+			libtype <- 'bp',
+			modeltype <- thisModule.mapModelType.get('bmm'),
+			mODELATTRIBUTES <- Sequence{m}
+		),
+		m: ADOXX!MODELATTRIBUTESType(
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- ''
+		),
+		iref: ADOXX!IREFType(
+			tmodelname <- s.name,
+			tmodeltype <- thisModule.mapModelType.get('bmm'),
+			type <- 'modelreference',
+			tmodelver <- s.getVersion
+		)
+	do {
+		thisModule.modelsType.mODEL <- thisModule.modelsType.mODEL.append(t);
+		
+		--append the iref definition to the model set overview reference
+		thisModule.overviewModels.iREF <- thisModule.overviewModels.iREF.append(iref);
+	}
+}
+
+--------------------------------  Assessment ---------------------------------------
+rule Assessment2InstanceType {
+	from
+		s: LPAD!Assessment ((thisModule.processedBusinessMotivationalElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.description
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+			
+			--relations from Assesment
+			thisModule.Assesment(s);
+		}
+}	
+
+-----------------------------------  Asset -----------------------------------------
+rule Asset2InstanceType {
+	from
+		s: LPAD!Asset((thisModule.processedBusinessMotivationalElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.description
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+			
+			--relations from Assesment
+			thisModule.Asset(s);
+		}
+}
+
+------------------------------  BusinessProcess ------------------------------------
+rule BusinessProcess2InstanceType {
+	from
+		s: LPAD!BusinessProcess ((thisModule.processedBusinessMotivationalElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.description
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+			
+			--relations from Business Process
+			thisModule.BusinessProcess(s);
+		}
+}	
+
+-------------------------------  CourseOfAction ------------------------------------
+rule CourseOfAction2InstanceType {
+	from
+		s: LPAD!CourseOfAction ((thisModule.processedBusinessMotivationalElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a},
+			iNTERREF <- Sequence{ibm}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.description
+		),
+		ibm: ADOXX!INTERREFType(
+			name <- 'Referenced Business Process'
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+			
+			--relations from Course Of Action
+			thisModule.CourseOfAction(s);
+			
+			--intermodel references from Course of Action
+			if (not s.realizesActivity.oclIsUndefined()) {
+				for (t in s.realizesActivity) {
+					thisModule.irefModelReference(ibm, 
+														t.getType, 
+														thisModule.getCompetencyModel(t).name,
+														thisModule.mapModelType.get('bpmn'),
+														'',
+														t.name);
+				}
+			}
+			
+			if (not s.realizesProcess.oclIsUndefined()) {
+				for (t in s.realizesProcess) {
+					thisModule.irefModelReference(ibm, 
+														t.getType, 
+														thisModule.getCompetencyModel(t).name,
+														thisModule.mapModelType.get('bpmn'),
+														'',
+														t.name);
+				}
+			}
+		}
+}	
+
+--------------------------------  DesiredResult ------------------------------------
+rule DesiredResult2InstanceType {
+	from
+		s: LPAD!DesiredResult ((thisModule.processedBusinessMotivationalElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.description
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+			
+			--relations from Desired Result
+			thisModule.DesiredResult(s);
+		}
+}
+
+----------------------------------  Directive --------------------------------------
+rule Directive2InstanceType {
+	from
+		s: LPAD!Directive ((thisModule.processedBusinessMotivationalElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.description
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+			
+			--relations from Directive
+			thisModule.Directive(s);
+		}
+}
+
+-------------------------------------  End -----------------------------------------
+rule End2InstanceType {
+	from
+		s: LPAD!End ((thisModule.processedBusinessMotivationalElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.description
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+			
+			--relations from End
+			thisModule.End(s);
+		}
+}
+
+------------------------------------  Goal -----------------------------------------
+rule Goal2InstanceType {
+	from
+		s: LPAD!Goal ((thisModule.processedBusinessMotivationalElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.description
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+			
+			--relations from Goal
+			thisModule.Goal(s);
+		}
+}
+
+-----------------------------------  Means -----------------------------------------
+rule Means2InstanceType {
+	from
+		s: LPAD!Means ((thisModule.processedBusinessMotivationalElementType.includes(s.getType)) and 
+			(not s.name.oclIsUndefined()) 
+			and (s.name.toString()<>''))			
+	to
+		i: ADOXX!INSTANCEType (
+			class <- s.getType,
+			id <- s.id,
+			name <- s.name,
+			aTTRIBUTE <- Sequence{a}
+		),
+		a: ADOXX!ATTRIBUTEType (
+			name <- 'Description',
+			type <- 'STRING',
+			value <- s.description
+		)
+	do {
+			--set the instances to parent model
+			s.getParentMODELType.iNSTANCE <- i;	
+			
+			--relations from Means
+			thisModule.Means(s);
+		}
+}
+
+---------------  relations among BusinessAndMotivational Elements ------------------
+helper def: connectBusinessAndMotivationalElements(source: OclAny, target: OclAny): Boolean =
+	if ((not source.name.oclIsUndefined()) and (source.name.toString()<>'')) and
+	((not target.name.oclIsUndefined()) and (target.name.toString()<>'')) and
+	(thisModule.processedBusinessMotivationalElementType.includes(source.getType)) and
+	(thisModule.processedBusinessMotivationalElementType.includes(target.getType)) then
+		thisModule.createInsideConnector(source, target)
+	else
+		false
+	endif;
+
+---------------------  Assesment Is inside relation rules  -------------------------
+rule Assesment(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!Assesment)) {
+			
+			if (not elem.usingAssessment.oclIsUndefined()) {
+				for (t in elem.usingAssessment) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.assessingOrganizationUnit.oclIsUndefined()) {
+				for (t in elem.assessingOrganizationUnit) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.categorizingAssessmentCategory.oclIsUndefined()) {
+				for (t in elem.categorizingAssessmentCategory) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.identifiedPotentialImpact.oclIsUndefined()) {
+				for (t in elem.identifiedPotentialImpact) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}			
+			
+			if (not elem.usedAssessment.oclIsUndefined()) {
+				for (t in elem.usedAssessment) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.affectedEnd.oclIsUndefined()) {
+				for (t in elem.affectedEnd) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.affectedMeans.oclIsUndefined()) {
+				for (t in elem.affectedMeans) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.motivatedDirective.oclIsUndefined()) {
+				for (t in elem.motivatedDirective) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.judgedInfluencer.oclIsUndefined()) {
+				for (t in elem.judgedInfluencer) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+------------------------  Asset Is inside relation rules  --------------------------
+rule Asset(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!Asset)) {
+			
+			if (not elem.deliveredOffering.oclIsUndefined()) {
+				for (t in elem.deliveredOffering) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.responsibleOrganizationUnit.oclIsUndefined()) {
+				for (t in elem.responsibleOrganizationUnit) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.deployingCourseOfAction.oclIsUndefined()) {
+				for (t in elem.deployingCourseOfAction) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.governingDirective.oclIsUndefined()) {
+				for (t in elem.governingDirective) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+-------------------  BusinessProcess Is inside relation rules  ---------------------
+rule BusinessProcess(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!BusinessProcess)) {
+			
+			if (not elem.responsibleOrganizationUnit.oclIsUndefined()) {
+				for (t in elem.responsibleOrganizationUnit) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.guidingBusinessRule.oclIsUndefined()) {
+				for (t in elem.guidingBusinessRule) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.governingBusinessPolicy.oclIsUndefined()) {
+				for (t in elem.governingBusinessPolicy) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.managedAsset.oclIsUndefined()) {
+				for (t in elem.managedAsset) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.realizedCourseOfAction.oclIsUndefined()) {
+				for (t in elem.realizedCourseOfAction) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.deliveredOffering.oclIsUndefined()) {
+				for (t in elem.deliveredOffering) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+--------------------  CourseOfAction Is inside relation rules  ---------------------
+rule CourseOfAction(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!CourseOfAction)) {
+			
+			if (not elem.governingDirective.oclIsUndefined()) {
+				for (t in elem.governingDirective) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.broaderCourseOfAction.oclIsUndefined()) {
+				for (t in elem.broaderCourseOfAction) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.enablingCourseOfAction.oclIsUndefined()) {
+				for (t in elem.enablingCourseOfAction) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.baseDirective.oclIsUndefined()) {
+				for (t in elem.baseDirective) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.definedOffering.oclIsUndefined()) {
+				for (t in elem.definedOffering) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.deployedAsset.oclIsUndefined()) {
+				for (t in elem.deployedAsset) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.dischargedLiability.oclIsUndefined()) {
+				for (t in elem.dischargedLiability) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.supportedDesiredResult.oclIsUndefined()) {
+				for (t in elem.supportedDesiredResult) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.moreSpecificCourseOfAction.oclIsUndefined()) {
+				for (t in elem.moreSpecificCourseOfAction) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.enabledCourseOfAction.oclIsUndefined()) {
+				for (t in elem.enabledCourseOfAction) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.realizesActivity.oclIsUndefined()) {
+				for (t in elem.realizesActivity) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.realizesProcess.oclIsUndefined()) {
+				for (t in elem.realizesProcess) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+---------------------  DesiredResult Is inside relation rules  ---------------------
+rule DesiredResult(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!DesiredResult)) {
+			
+			if (not elem.broaderDesiredResult.oclIsUndefined()) {
+				for (t in elem.broaderDesiredResult) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.categorizingDesiredResultCategory.oclIsUndefined()) {
+				for (t in elem.categorizingDesiredResultCategory) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.supportingDirective.oclIsUndefined()) {
+				for (t in elem.supportingDirective) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.supportingCourseOfAction.oclIsUndefined()) {
+				for (t in elem.supportingCourseOfAction) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.moreSpecficDesiredResult.oclIsUndefined()) {
+				for (t in elem.moreSpecficDesiredResult) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+-----------------------  Directive Is inside relation rules  -----------------------
+rule Directive(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!Directive)) {
+			
+			if (not elem.derivedCourseOfAction.oclIsUndefined()) {
+				for (t in elem.derivedCourseOfAction) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.motivatingPotentialImpact.oclIsUndefined()) {
+				for (t in elem.motivatingPotentialImpact) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.motivatingAssessment.oclIsUndefined()) {
+				for (t in elem.motivatingAssessment) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.governedCourseOfAction.oclIsUndefined()) {
+				for (t in elem.governedCourseOfAction) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.directiveRegulation.oclIsUndefined()) {
+				for (t in elem.directiveRegulation) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.supportedDesiredResult.oclIsUndefined()) {
+				for (t in elem.supportedDesiredResult) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.governedAsset.oclIsUndefined()) {
+				for (t in elem.governedAsset) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+--------------------------  End Is inside relation rules  --------------------------
+rule End(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!End)) {
+			
+			if (not elem.judgingAssessment.oclIsUndefined()) {
+				for (t in elem.judgingAssessment) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.definingOrganizationUnit.oclIsUndefined()) {
+				for (t in elem.definingOrganizationUnit) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.definedByOrganisationalUnit.oclIsUndefined()) {
+				for (t in elem.definedByOrganisationalUnit) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+-------------------------  Goal Is inside relation rules  --------------------------
+rule Goal(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!Goal)) {
+			
+			if (not elem.quantifyingObjective.oclIsUndefined()) {
+				for (t in elem.quantifyingObjective) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.amplifiedVision.oclIsUndefined()) {
+				for (t in elem.amplifiedVision) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+-------------------------  Means Is inside relation rules  -------------------------
+rule Means(elem: OclAny) {
+	do {
+		if (elem.oclIsKindOf(LPAD!Means)) {
+			
+			if (not elem.judgingAssessment.oclIsUndefined()) {
+				for (t in elem.judgingAssessment) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.establishingOrganizationUnit.oclIsUndefined()) {
+				for (t in elem.establishingOrganizationUnit) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+			
+			if (not elem.establishedByOrganisationalUnit.oclIsUndefined()) {
+				for (t in elem.establishedByOrganisationalUnit) {
+					thisModule.connectBusinessAndMotivationalElements(t, elem);
+				}
+			}
+		}
+	}
+}
+
+--------------------------  Inter model Reference Rules  --------------------------
+rule irefModelReference(intref: ADOXX!INTERREFType, 
+							 			classname: String,
+										modelname: String,
+										modeltype: String,
+										modelver: String, 
+										objname: String) {
+	to 
+		iref: ADOXX!IREFType (
+			tclassname <- classname,
+			tmodelname <- modelname,
+			tmodeltype <- modeltype,
+			tmodelver <- modelver,
+			tobjname <- objname,
+			type <- 'objectreference'
+		)
+	do {
+		intref.iREF <- intref.iREF.append(iref);	
+	}
+}
