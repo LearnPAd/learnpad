@@ -81,6 +81,8 @@ Then, once cloned, you can trigger a build with the `build` script in the root d
 ## Run it!
 After the build, a complete wiki instance will exists in the directory `lp-platform` and it will
 be the core of the platform.
+
+homebranch
 You should be able to run the platform with the following command
 
 ```
