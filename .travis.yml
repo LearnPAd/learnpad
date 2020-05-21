@@ -1,3 +1,4 @@
+dist: trusty
 language: java
 script: bash build --debug
 # We need to avoid sudo for caching on Travis
