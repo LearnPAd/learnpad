@@ -9,7 +9,7 @@ Badge](https://www.codacy.com/project/badge/614d864cf4d44c5ba52b5df40f9812c6)](h
 Learn PAd project - Model-Based Social Learning for Public Administrations
 ==========================================================================
 
-Learn PAd is a European financed project ([FP7](http://cordis.europa.eu/fp7/)).
+[Learn PAd](http://www.learnpad.eu) is a European financed project ([FP7](http://cordis.europa.eu/fp7/)).
 
 # Presentation
 In modern society public administrations (PAs) are undergoing a transformation
