@@ -72,6 +72,36 @@
 		</plugins>
 	</build>
 	<dependencies>
+<!-- *****************  -->
+<!-- THESE DEPENCENCIES HAVE BEEN ADDED IN ORDER TO BE COMPILABLE WITH JDK 11  -->        
+<dependency>
+  <groupId>javax.xml.bind</groupId>
+  <artifactId>jaxb-api</artifactId>
+  <version>2.3.0</version>
+</dependency>
+<dependency>
+  <groupId>com.sun.xml.bind</groupId>
+  <artifactId>jaxb-core</artifactId>
+  <version>2.3.0</version>
+</dependency>
+<dependency>
+  <groupId>com.sun.xml.bind</groupId>
+  <artifactId>jaxb-impl</artifactId>
+  <version>2.3.0</version>
+</dependency>
+<dependency>
+  <groupId>com.sun.xml.ws</groupId>
+  <artifactId>jaxws-ri</artifactId>
+  <version>2.3.2</version>
+  <type>pom</type>
+</dependency>
+<dependency>
+    <groupId>javax.activation</groupId>
+    <artifactId>activation</artifactId>
+    <version>1.1.1</version>
+</dependency>
+<!-- *****************  -->
+        
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
