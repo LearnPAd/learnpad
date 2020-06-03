@@ -1,4 +1,5 @@
-dist: trusty
+# dist: trusty
+dist: bionic
 language: java
 script: bash build --debug
 # We need to avoid sudo for caching on Travis
@@ -13,8 +14,8 @@ addons:
             - make
             - maven
             - nodejs
-            - openjdk-7-jdk
-            - openjdk-7-jre
+            - openjdk-11-jdk
+            - openjdk-11-jre
             - build-essential
             - sed
 
