@@ -236,7 +236,8 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.5.201505241946</version>
+<!-- THE UPGRADE TO THIS VERSION OF JACOCO HAVE BEEN DONE IN ORDER TO BE COMPILABLE WITH JDK 11  -->
+				<version>0.8.2</version>
 				<executions>
 					<execution>
 						<goals>
