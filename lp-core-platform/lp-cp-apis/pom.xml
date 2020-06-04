@@ -30,6 +30,29 @@
 	<name>Learn PAd - Core Platform - APIs</name>
 
 	<dependencies>
+<!-- *****************  -->
+<!-- THESE DEPENCENCIES HAVE BEEN ADDED IN ORDER TO BE COMPILABLE WITH JDK 11  -->                
+<dependency>
+  <groupId>javax.xml.bind</groupId>
+  <artifactId>jaxb-api</artifactId>
+  <version>2.3.0</version>
+</dependency>
+<dependency>
+  <groupId>com.sun.xml.bind</groupId>
+  <artifactId>jaxb-core</artifactId>
+  <version>2.3.0</version>
+</dependency>
+<dependency>
+  <groupId>com.sun.xml.bind</groupId>
+  <artifactId>jaxb-impl</artifactId>
+  <version>2.3.0</version>
+</dependency>
+<dependency>
+    <groupId>javax.activation</groupId>
+    <artifactId>activation</artifactId>
+    <version>1.1.1</version>
+</dependency>
+<!-- *****************  -->
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>jsr311-api</artifactId>

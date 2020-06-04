@@ -13,6 +13,31 @@
 
 	</repositories>
 	<dependencies>
+<!-- *****************  -->
+<!-- THESE DEPENCENCIES HAVE BEEN ADDED IN ORDER TO BE COMPILABLE WITH JDK 11  -->
+<dependency>
+  <groupId>javax.xml.bind</groupId>
+  <artifactId>jaxb-api</artifactId>
+  <version>2.3.0</version>
+</dependency>
+<dependency>
+  <groupId>com.sun.xml.bind</groupId>
+  <artifactId>jaxb-core</artifactId>
+  <version>2.3.0</version>
+</dependency>
+<dependency>
+  <groupId>com.sun.xml.bind</groupId>
+  <artifactId>jaxb-impl</artifactId>
+  <version>2.3.0</version>
+</dependency>
+<dependency>
+  <groupId>com.sun.xml.ws</groupId>
+  <artifactId>jaxws-ri</artifactId>
+  <version>2.3.2</version>
+  <type>pom</type>
+</dependency>
+<!-- *****************  -->
+        
 		<dependency>
 			<groupId>org.eclipse</groupId>
 			<artifactId>org.eclipse.bpmn2</artifactId>
@@ -139,7 +164,8 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.5.201505241946</version>
+<!-- THE UPGRADE TO THIS VERSION OF JACOCO HAVE BEEN DONE IN ORDER TO BE COMPILABLE WITH JDK 11  -->
+                <version>0.8.2</version>
 				<executions>
 					<execution>
 						<goals>
