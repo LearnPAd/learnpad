@@ -63,11 +63,12 @@ Be sure the following tools have been installed on your system before to start :
  * curl
  * unzip
  * build-essential (in Ubuntu, or similar)
- * Java 11
+ * Java 11 (but better to use Java 8 - see issue #612)
  * Bash Shell
 
 Note that the project has been originally designed for Java 7. With the advent of Java 11 the project has been adapted in order to pass the compilation with this new JDK version. Mainly this modification consisted in modifying some Maven dependencies, thus from a conceptual point of view the system is
-still engineered wrt Java 7. 
+still engineered wrt Java 7. Furthermore, as reported in the issue #612 it is reccomended to launch Learn PAd on JDK 8.
+
 Similarly, the original target OS was Ubuntu 14.04 nevertheless latest updates also switched the configuration of the CI system to Ubuntu 18.04 (see [.travis.yaml](https://github.com/LearnPAd/learnpad/blob/master/.travis.yml)). The build process under Ubuntu 18.04 results a bit slower that with Ubuntu 14.04 due to a higher number of downloads required.
 
 ## Build
