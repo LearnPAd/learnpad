@@ -13,7 +13,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<learnpad.version>1.0-SNAPSHOT</learnpad.version>
-		<resteasy.version>3.0.11.Final</resteasy.version>
+		<resteasy.version>3.14.0.Final</resteasy.version>
 	</properties>
 
 	<repositories>
