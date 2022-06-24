@@ -35,7 +35,7 @@
 		<jquery-ui.version>1.11.3</jquery-ui.version>
 		<underscorejs.version>1.7.0-1</underscorejs.version>
 		<spectrum.version>1.6.0</spectrum.version>
-		<resteasy.version>3.0.11.Final</resteasy.version>
+		<resteasy.version>3.14.0.Final</resteasy.version>
 		<opencsv.version>3.5</opencsv.version>
 		<saxon.version>9.6.0-5</saxon.version>
 		<license-maven-plugin.version>1.8</license-maven-plugin.version>
