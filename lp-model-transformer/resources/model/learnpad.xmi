@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="ASCII"?>
+<lpad:LPAdRoot
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:lpad="http://learnpad.eu"
+    xsi:schemaLocation="http://learnpad.eu learnPAd.ecore"
+    id="eee_1045467100313_135436_1"
+    name="Monti Azzuri"
+    version="">
+  <bpmnModels
+      id="eee_1045467100313_135436_1_1"
+      name="Titolo Unico Process"
+      version="">
+    <processes
+        id="_18_0_4_8f30289_1447830895537_881465_21482"
+        name="Monti Azzurri">
+      <documentation
+          text="In the case of &#x201c;Titolo Unico&#x201d;, the entrepreneur applies for opening the activity and he/she has to wait for feedback by the administration before starting the business activity. The application has to be electronically delivered, by the entrepreneur, to the SUAP office. Such application consists in reporting details activity, location, etc. SUAP office forwards the request to the municipality offices and third parties administrations involved in the verification activity. They check the correctness of the request and provide feedbacks to the SUAP office in order to clarify if the request is acceptable or not. Municipality offices and third parties can also ask the entrepreneur for some integration if some data are missing or wrong. In case the request is particularly complex to manage, at any time SUAP office can organize the &#x201c;Conferenza dei Servizi&#x201d; (CdS) (named in English Service Conference) that is a meeting in which all involved participants (municipality offices, third party administrations, and entrepreneur) discuss about the case and decide if the business activity is acceptable or not. At the end, the acceptance or the rejection for the request to start the activity is provided to the entrepreneur. &#xA;"/>
+      <ioSpecification>
+        <dataInputs
+            id="_18_0_5_8f30289_1466053565766_876644_22866"
+            name="Instance"/>
+        <dataInputs
+            id="_18_0_4_8f30289_1447832371345_238050_22494"
+            name="3rd Party Opinion(CA)"/>
+        <dataOutputs
+            id="_18_0_4_8f30289_1447831958203_282976_22149"
+            name="Titolo Unico"/>
+        <dataOutputs
+            id="_18_0_5_8f30289_1466053789948_813109_22909"
+            name="Instance Integration"/>
+        <inputSets
+            name="InstanceSet"
+            dataInputRefs="_18_0_5_8f30289_1466053565766_876644_22866"/>
+        <inputSets
+            name="3rdPartyOpinionSet"
+            dataInputRefs="_18_0_4_8f30289_1447832371345_238050_22494"/>
+        <outputSets
+            name="Instance Integration"
+            dataOutputRefs="_18_0_5_8f30289_1466053789948_813109_22909"/>
+        <outputSets
+            name="TitoloUnicoSet"
+            dataOutputRefs="_18_0_4_8f30289_1447831958203_282976_22149"/>
+      </ioSpecification>
+      <laneSets
+          id="_18_0_4_8f30289_1447830921364_504677_21498_Ref-1_laneSet"
+          name="LaneSet1">
+        <lanes
+            id="_18_0_4_8f30289_1447830921364_504677_21498"
+            name="Enterpreneur"
+            partitionElementRef="_18_0_4_8f30289_1448015200939_520794_21883"/>
+      </laneSets>
+      <laneSets
+          id="_18_0_4_8f30289_1447831007612_34391_21513_Ref-1_laneSet"
+          name="LaneSet2">
+        <lanes
+            id="_18_0_4_8f30289_1447831007612_34391_21513"
+            name="Sportello compensoria le or sportello minicipale"
+            partitionElementRef="_18_0_5_8f30289_1455657685689_622107_24566">
+          <childLaneSet
+              id="_18_0_4_8f30289_1448208149977_460614_20984_Ref-1_laneSet"
+              name="LaneSet3">
+            <lanes
+                id="_18_0_4_8f30289_1448208149977_460614_20984"
+                name="SUAP Office"/>
+          </childLaneSet>
+        </lanes>
+      </laneSets>
+      <laneSets
+          id="_18_0_4_8f30289_1447832169602_99725_22197_Ref-1_laneSet"
+          name="LaneSet4">
+        <lanes
+            id="_18_0_4_8f30289_1447832169602_99725_22197"
+            name="Third Party PA"
+            partitionElementRef="_18_0_4_8f30289_1448015495321_604836_22008"/>
+      </laneSets>
+      <laneSets
+          id="_18_0_4_8f30289_1447832243202_155141_22265_Ref-1_laneSet"
+          name="LaneSet5">
+        <lanes
+            id="_18_0_4_8f30289_1447832243202_155141_22265"
+            name="Monti Azzurri Consortium"
+            partitionElementRef="_18_0_5_8f30289_1455657685689_622107_24566"/>
+      </laneSets>
+      <laneSets
+          id="_18_0_4_8f30289_1448015152028_393633_21725_Ref-1_laneSet"
+          name="LaneSet6">
+        <lanes
+            id="_18_0_4_8f30289_1448015152028_393633_21725"
+            name="Service Conference"
+            partitionElementRef="_18_0_4_8f30289_1448015195588_819910_21880"/>
+      </laneSets>
+      <laneSets
+          id="_18_0_4_8f30289_1448015152029_209652_21726_Ref-1_laneSet"
+          name="LaneSet7">
+        <lanes
+            id="_18_0_4_8f30289_1448015152029_209652_21726"
+            name="Sportello compensoria le or spoetello minicipale"
+            partitionElementRef="_18_0_5_8f30289_1455657685689_622107_24566">
+          <childLaneSet
+              id="_18_0_5_8f30289_1455657847262_545085_24608_Ref-1_laneSet"
+              name="LaneSet8">
+            <lanes
+                id="_18_0_5_8f30289_1455657847262_545085_24608"
+                name="SUAP Office"/>
+          </childLaneSet>
+        </lanes>
+      </laneSets>
+      <resources
+          id="_18_0_4_8f30289_1448015200939_520794_21883"
+          name="Enterpreteur"/>
+      <resources
+          id="_18_0_5_8f30289_1455657685689_622107_24566"
+          name="Sportello compensoria le or sportello minicipale"/>
+      <resources
+          id="_18_0_4_8f30289_1448015495321_604836_22008"
+          name="Third Party PA"/>
+      <resources
+          id="_18_0_4_8f30289_1448015195588_819910_21880"
+          name="Service Conference"/>
+    </processes>
+  </bpmnModels>
+</lpad:LPAdRoot>
