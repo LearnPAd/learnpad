@@ -64,6 +64,23 @@ helper context ADOXX!IREFType def: getModelType: ADOXX!MODELType =
 			getOriginalModelName(self.tmodelname, self.tmodelver)) and (m.modeltype =
 			self.tmodeltype) and (m.version = self.tmodelver)) -> first();
 
+-- get the parent id of the current model
+helper context ADOXX!MODELType def: getParentId: Integer =
+	if (thisModule.getParentModel(self).oclIsUndefined()) then
+		''
+		else
+			thisModule.getParentModel(self).id
+		endif;
+	
+helper def: getParentModel(src: ADOXX!MODELType) :ADOXX!MODELType  =
+	thisModule.findModel(
+		ADOXX!IREFType.allInstances() ->
+					select(i | ( (i.type = thisModule._MDLREF) and 
+								 (thisModule.findInstance(i).isInSourceModels > 0) and
+								 (thisModule.getOriginalModelName(i.tmodelname, i.tmodelver) = src.name ) and
+								 (i.tmodeltype = src.modeltype)))
+					.first());
+
 helper def: getOriginalModelName(modelName: String, modelVer: String): String =
 	if (modelVer = '') then
 		modelName
@@ -87,12 +104,24 @@ helper context ADOXX!CONNECTORType def: isInSourceModels: Boolean =
 helper context ADOXX!IREFType def: isInSourceModels: Boolean =
 	thisModule.sourceModels -> collect(c | c.cONNECTOR).flatten().count(self);
 
+helper def: findModel(o: OclAny): ADOXX!MODELType =
+	if (o.oclIsTypeOf(ADOXX!MODELType)) then 
+		o 
+	else 
+		if (o.oclIsUndefined()) then
+			OclUndefined
+		else
+			thisModule.findModel(o.refImmediateComposite())
+		endif
+	endif;
+
 helper def: findInstance(o: OclAny): ADOXX!INSTANCEType =
 	if (o.oclIsTypeOf(ADOXX!INSTANCEType)) then 
 		o 
 	else 
 		thisModule.findInstance(o.refImmediateComposite()) 
 	endif;
+
 
 ----------------------
 -- Escaping methods
@@ -435,7 +464,8 @@ rule MODELType2WebHome {
 						mc_p1,
 						mc_p2,
 						mc_p3,
-						mc_p4}
+						mc_p4,
+						mc_p5}
 		),
 		mc_p0: XWIKI!Property (
 			name <- 'modelsetid',
@@ -462,8 +492,12 @@ rule MODELType2WebHome {
 			name <- 'documentation',
 			type <- 'TextArea',
 			value <- thisModule.getDocumentationFromModel(s).escapeXML
-		) ---- end documentation
-	
+		), ---- end documentation
+		mc_p5: XWIKI!Property (
+			name <- 'parentid',
+			type <- 'String',
+			value <- s.getParentId
+		)
 	do {
 		thisModule.documentRoot.page <- p;
 		thisModule.documentRoot.object <- mc;
